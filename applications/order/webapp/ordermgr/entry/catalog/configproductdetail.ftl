@@ -136,7 +136,7 @@ ${virtualJavaScript?if_exists}
 <!--
 
 Event.observe(window, 'load', function() {
-  Event.observe($('configFormId'),'click',getConfigDetails);
+  Event.observe($('configFormId'),'change',getConfigDetails);
 });
 
 function getConfigDetails(event) {
@@ -503,20 +503,39 @@ function getConfigDetails(event) {
                 <#if !question.isMandatory()>
                   <div><input type="radio" name='${counter}' value='<#if !question.isSelected()>checked</#if>'> No option</div>
                 </#if>
-                <#assign optionCounter = 0>
+                <#assign optionCounter = 0>              
                 <#list options as option>
+                  <#assign componentCounter = 0>                  
                   <#if showOffsetPrice?exists && "Y" == showOffsetPrice>
                     <#assign shownPrice = option.price - selectedPrice>
                   <#else>
                     <#assign shownPrice = option.price>
                   </#if>
-                  <div>
-                    <input type="radio" name='${counter}' value='${optionCounter}' <#if option.isSelected() || (!question.isSelected() && optionCounter == 0 && question.isMandatory())>checked</#if>>
-                    ${option.description}&nbsp;
-                    <#if (shownPrice > 0)>+<@ofbizCurrency amount=shownPrice isoCode=price.currencyUsed/>&nbsp;</#if>
-                    <#if (shownPrice < 0)>-<@ofbizCurrency amount=(-1*shownPrice) isoCode=price.currencyUsed/>&nbsp;</#if>
-                    <#if !option.isAvailable()>(*)</#if>
-                  </div>
+                    <#-- Render virtual compoennts -->
+                    <#if option.hasVirtualComponent()>
+                      <div >
+                        <input type='radio' name='${counter}' id="${counter}_${optionCounter}" value='${optionCounter}' onclick="javascript:checkOptionVariants('${counter}_${optionCounter}');">
+                        ${option.description} <#if !option.isAvailable()> (*)</#if>
+                        <#assign components = option.getComponents()>
+                        <#list components as component>
+                          <#if (option.isVirtualComponent(component))>
+                            ${setRequestAttribute("inlineProductId", component.productId)}
+                            ${setRequestAttribute("inlineCounter", counter+ "_" +optionCounter + "_"+componentCounter)}
+                            ${setRequestAttribute("addJavaScript", componentCounter)}
+                            ${screens.render(inlineProductDetailScreen)}
+                            <#assign componentCounter = componentCounter + 1>
+                          </#if>
+                        </#list>
+                      </div>
+                    <#else>
+                      <div>
+                        <input type="radio" name='${counter}' value='${optionCounter}' <#if option.isSelected() || (!question.isSelected() && optionCounter == 0 && question.isMandatory())>checked</#if>>
+                        ${option.description}&nbsp;
+                        <#if (shownPrice > 0)>+<@ofbizCurrency amount=shownPrice isoCode=price.currencyUsed/>&nbsp;</#if>
+                        <#if (shownPrice < 0)>-<@ofbizCurrency amount=(-1*shownPrice) isoCode=price.currencyUsed/>&nbsp;</#if>
+                        <#if !option.isAvailable()>(*)</#if>
+                      </div>
+                    </#if>
                   <#assign optionCounter = optionCounter + 1>
                 </#list>
                 <#else>
@@ -551,10 +570,29 @@ function getConfigDetails(event) {
                 <#assign options = question.options>
                 <#assign optionCounter = 0>
                 <#list options as option>
-                  <div>
-                    <input type='CHECKBOX' name='${counter}' value='${optionCounter}' <#if option.isSelected()>checked</#if>>
-                    ${option.description} +<@ofbizCurrency amount=option.price isoCode=price.currencyUsed/><#if !option.isAvailable()> (*)</#if>
-                  </div>
+                    <#assign componentCounter = 0>                
+                    <#-- Render virtual compoennts -->
+                    <#if option.hasVirtualComponent()>
+                      <div >
+                        <input type='CHECKBOX' name='${counter}' id="${counter}_${optionCounter}" value='${optionCounter}' onclick="javascript:checkOptionVariants('${counter}_${optionCounter}');">
+                        ${option.description} <#if !option.isAvailable()> (*)</#if>
+                        <#assign components = option.getComponents()>
+                        <#list components as component>
+                          <#if (option.isVirtualComponent(component))>
+                            ${setRequestAttribute("inlineProductId", component.productId)}
+                            ${setRequestAttribute("inlineCounter", counter+ "_" +optionCounter + "_"+componentCounter)}
+                            ${setRequestAttribute("addJavaScript", componentCounter)}
+                            ${screens.render(inlineProductDetailScreen)}
+                            <#assign componentCounter = componentCounter + 1>
+                          </#if>
+                        </#list>
+                      </div>
+                    <#else>
+                    <div>
+                      <input type='CHECKBOX' name='${counter}' value='${optionCounter}' <#if option.isSelected()>checked</#if>>
+                      ${option.description} +<@ofbizCurrency amount=option.price isoCode=price.currencyUsed/><#if !option.isAvailable()> (*)</#if>
+                    </div>
+                    </#if>
                   <#assign optionCounter = optionCounter + 1>
                 </#list>
               </#if>

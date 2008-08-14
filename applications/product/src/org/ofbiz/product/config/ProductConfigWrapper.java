@@ -27,10 +27,13 @@ import java.util.List;
 import java.util.Map;
 import java.util.HashMap;
 import java.util.Locale;
+import javolution.util.FastMap;
 
+import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.LocalDispatcher;
@@ -45,7 +48,13 @@ public class ProductConfigWrapper implements Serializable {
     public static final String module = ProductConfigWrapper.class.getName();
 
     protected LocalDispatcher dispatcher;
+    protected String productStoreId;
+    protected String catalogId;
+    protected String webSiteId;
+    protected String currencyUomId;
+    protected GenericDelegator delegator;
     protected GenericValue product = null; // the aggregated product
+    protected GenericValue autoUserLogin = null;
     protected double basePrice = 0.0;
     protected double defaultPrice = 0.0;
     protected String configId = null; // Id of persisted ProductConfigWrapper
@@ -64,6 +73,13 @@ public class ProductConfigWrapper implements Serializable {
         basePrice = pcw.basePrice;
         defaultPrice = pcw.defaultPrice;
         questions = new ArrayList();
+        dispatcher = pcw.dispatcher;
+        productStoreId = pcw.productStoreId;
+        catalogId = pcw.catalogId;
+        webSiteId = pcw.webSiteId;
+        currencyUomId = pcw.currencyUomId;
+        delegator = pcw.delegator;
+        autoUserLogin = pcw.autoUserLogin;
         for (int i = 0; i < pcw.questions.size(); i++) {
             questions.add(new ConfigItem((ConfigItem)pcw.questions.get(i)));
         }
@@ -75,6 +91,12 @@ public class ProductConfigWrapper implements Serializable {
             throw new ProductConfigWrapperException("Product " + productId + " is not an AGGREGATED product.");
         }
         this.dispatcher = dispatcher;
+        this.productStoreId = productStoreId;
+        this.catalogId = catalogId;
+        this.webSiteId = webSiteId;
+        this.currencyUomId = currencyUomId;
+        this.delegator = delegator;
+        this.autoUserLogin = autoUserLogin;
         
         // get the base price
         Map priceContext = UtilMisc.toMap("product", product, "prodCatalogId", catalogId, "webSiteId", webSiteId, "productStoreId", productStoreId,
@@ -229,6 +251,24 @@ public class ProductConfigWrapper implements Serializable {
         }
     }
     
+    public void setSelected(int question, int option, int component, String componentOption) throws Exception {
+        setSelected(question, option);
+        //  set variant products
+        ConfigOption theOption = getItemOtion(question, option);
+        List components = theOption.getComponents();
+        GenericValue oneComponent = (GenericValue)components.get(component);
+        if (theOption.isVirtualComponent(oneComponent)) {
+            if (theOption.componentOptions == null) {
+                theOption.componentOptions = FastMap.newInstance();
+            } 
+            theOption.componentOptions.put(oneComponent.getString("productId"), componentOption);
+            
+            //  recalculate option price
+            theOption.recalculateOptionPrice(this);
+            
+        }
+    }    
+    
     public List getSelectedOptions() {
         List selectedOptions = new ArrayList();
         for (int i = 0; i < questions.size(); i++) {
@@ -305,6 +345,19 @@ public class ProductConfigWrapper implements Serializable {
             }
         }
         return completed;
+    }
+    
+    public ConfigOption getItemOtion(int itemIndex, int optionIndex) {
+        if (questions.size() > itemIndex) {
+            ConfigItem ci = (ConfigItem)questions.get(itemIndex);
+            List options = ci.getOptions();
+            if (options.size() > optionIndex) {
+                ConfigOption co = (ConfigOption)options.get(optionIndex);
+                return co;
+            }            
+        }
+        
+        return null;
     }
     
     public class ConfigItem implements java.io.Serializable {
@@ -469,6 +522,7 @@ public class ProductConfigWrapper implements Serializable {
         double optionPrice = 0;
         Date availabilityDate = null;
         List componentList = null; // lists of ProductConfigProduct
+        Map componentOptions = null;
         GenericValue configOption = null;
         boolean selected = false;
         boolean available = true;
@@ -519,6 +573,45 @@ public class ProductConfigWrapper implements Serializable {
             available = co.available;
             selected = co.selected;
         }
+        
+        public void recalculateOptionPrice(ProductConfigWrapper pcw) throws Exception {
+            optionPrice = 0;
+            Iterator componentsIt = componentList.iterator();
+            while (componentsIt.hasNext()) {
+                double price = 0;
+                GenericValue oneComponent = (GenericValue)componentsIt.next();
+                GenericValue oneComponentProduct = oneComponent.getRelatedOne("ProductProduct");        
+                String variantProductId = (String)componentOptions.get(oneComponent.getString("productId"));        
+                
+                if (UtilValidate.isNotEmpty(variantProductId)) {
+                    oneComponentProduct = pcw.delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", variantProductId));                
+                }
+ 
+                // Get the component's price
+                Map fieldMap = UtilMisc.toMap("product", oneComponentProduct, "prodCatalogId", pcw.catalogId, "webSiteId", pcw.webSiteId,
+                        "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", pcw.autoUserLogin);
+                Map priceMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                Double componentPrice = (Double) priceMap.get("price");
+                double mult = 1;
+                if (oneComponent.getDouble("quantity") != null) {
+                    mult = oneComponent.getDouble("quantity").doubleValue();
+                }
+                if (mult == 0) {
+                    mult = 1;
+                }
+                if (componentPrice != null) {
+                    price = componentPrice.doubleValue();
+                } else {
+                    fieldMap.put("productPricePurposeId", "PURCHASE");
+                    Map purchasePriceResultMap = dispatcher.runSync("calculateProductPrice", fieldMap);
+                    Double purchasePrice = (Double) purchasePriceResultMap.get("price");
+                    if (purchasePrice != null) {
+                        price = purchasePrice.doubleValue();
+                    }
+                }
+                optionPrice += (price * mult);
+            }
+        }                
 
         public String getDescription() {
             return (configOption.getString("description") != null? configOption.getString("description"): "no description");
@@ -548,6 +641,32 @@ public class ProductConfigWrapper implements Serializable {
             }
             return false;
         }
+                
+        public boolean hasVirtualComponent () {
+           List <GenericValue> components = getComponents();
+           if (UtilValidate.isNotEmpty(components)) {
+               for (GenericValue component : components) {
+                   if (isVirtualComponent(component)) {
+                       return true;       
+                   }
+               }            
+           }
+
+           return false;
+       }
+        
+        public boolean isVirtualComponent (GenericValue component) {
+            int index = getComponents().indexOf(component);
+            if (index != -1) {
+                try {
+                    GenericValue product = component.getRelatedOne("ProductProduct");
+                    return "Y".equals(product.getString("isVirtual"));   
+                } catch (GenericEntityException e) {
+                    Debug.logWarning(e.getMessage(), module);
+                }             
+            }
+            return false;
+        }
         
         public boolean isSelected() {
             return selected;
@@ -567,6 +686,10 @@ public class ProductConfigWrapper implements Serializable {
 
         public List getComponents() {
             return componentList;
+        }        
+
+        public Map getComponentOptions() {
+            return componentOptions;
         }
         
         public boolean equals(Object obj) {
