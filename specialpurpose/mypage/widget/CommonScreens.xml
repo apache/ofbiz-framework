@@ -326,7 +326,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonPreferences}: pages visible on the main screen">
+                        <screenlet title="${uiLabelMap.CommonPreferences}: ${uiLabelMap.MyPagePagesVisible}">
                             <include-form name="preferences" location="component://mypage/widget/MyPageForms.xml"/>
                         </screenlet>
                     </decorator-section>
