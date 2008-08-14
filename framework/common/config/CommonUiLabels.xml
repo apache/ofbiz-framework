@@ -3646,6 +3646,7 @@
     </property>
     <property key="CommonNoAccess">
         <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
+        <value xml:lang="fr">L'accès à cette fonction ne vous est pas autorisé, contactez votre administrateur système si vous pensez que c'est une erreur.</value>
     </property>
     <property key="CommonNoContactInformationOnFile">
         <value xml:lang="ar">لا معاومات حول الصلة في الملف</value>
