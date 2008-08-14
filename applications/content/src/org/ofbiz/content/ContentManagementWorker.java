@@ -741,16 +741,9 @@ public class ContentManagementWorker {
         if (thisContent == null)
             throw new RuntimeException("No entity found for id=" + contentId);
         
-       List condList = FastList.newInstance();
-       Iterator iterType = typeList.iterator();
-       while (iterType.hasNext()) {
-           String type = (String)iterType.next();
-           condList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, type));
-       }
-       
        EntityCondition conditionMain = null;
-       if (condList.size() > 0 ) {
-           EntityCondition conditionType = EntityCondition.makeCondition(condList, EntityOperator.OR);
+       if (typeList.size() > 0 ) {
+           EntityCondition conditionType = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList);
            conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentId), conditionType), EntityOperator.AND);
        } else {
            conditionMain = EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentId);
@@ -779,14 +772,7 @@ public class ContentManagementWorker {
         if (thisContent == null)
             throw new RuntimeException("No entity found for id=" + contentId);
         
-       List condList = FastList.newInstance();
-       Iterator iterType = typeList.iterator();
-       while (iterType.hasNext()) {
-           String type = (String)iterType.next();
-           condList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, type));
-       }
-       
-       EntityCondition conditionType = EntityCondition.makeCondition(condList, EntityOperator.OR);
+       EntityCondition conditionType = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList);
        EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId), conditionType), EntityOperator.AND);
             List listAll = delegator.findList("ContentAssoc", conditionMain, null, null, null, true);
             List listFiltered = EntityUtil.filterByDate(listAll);

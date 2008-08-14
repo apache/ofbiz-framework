@@ -100,28 +100,10 @@ public class ContentServicesComplex {
         }
         exprList.add(joinExpr);
         if (assocTypes != null && assocTypes.size() > 0) {
-            List exprListOr = FastList.newInstance();
-            Iterator it = assocTypes.iterator();
-            while (it.hasNext()) {
-                String assocType = (String)it.next();
-                expr = EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.EQUALS, assocType);
-                exprListOr.add(expr);
-            }
-            EntityConditionList assocExprList = EntityCondition.makeCondition(exprListOr, EntityOperator.OR);
-
-            exprList.add(assocExprList);
+            exprList.add(EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.IN, assocTypes));
         }
         if (contentTypes != null && contentTypes.size() > 0) {
-            List exprListOr = FastList.newInstance();
-            Iterator it = contentTypes.iterator();
-            while (it.hasNext()) {
-                String contentType = (String)it.next();
-                expr = EntityCondition.makeCondition("contentTypeId", 
-                                  EntityOperator.EQUALS, contentType);
-                exprListOr.add(expr);
-            }
-            EntityConditionList contentExprList = EntityCondition.makeCondition(exprListOr, EntityOperator.OR);
-            exprList.add(contentExprList);
+            exprList.add(EntityCondition.makeCondition("contentTypeId", EntityOperator.IN, contentTypes));
         }
 
         if (fromDate == null && fromDateStr != null) {
