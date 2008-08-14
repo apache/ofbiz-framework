@@ -20,14 +20,14 @@
 package org.ofbiz.workeffort.workeffort;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -53,17 +53,17 @@ public class WorkEffortKeywordIndex {
         String stopWordBagOr = KeywordSearchUtil.getStopWordBagOr();
         String stopWordBagAnd = KeywordSearchUtil.getStopWordBagAnd();
         boolean removeStems = KeywordSearchUtil.getRemoveStems();
-        Set stemSet = KeywordSearchUtil.getStemSet();
+        Set<String> stemSet = KeywordSearchUtil.getStemSet();
         
-        Map keywords = new TreeMap();
-        List strings = new ArrayList(50);
+        Map<String, Long> keywords = new TreeMap<String, Long>();
+        List<String> strings = FastList.newInstance();
         int widWeight = 1;
         try {
             widWeight = Integer.parseInt(UtilProperties.getPropertyValue("workeffortsearch", "index.weight.WorkEffort.workEffortId", "1"));
         } catch (Exception e) {
             Debug.logWarning("Could not parse weight number: " + e.toString(), module);
         }
-        keywords.put(workEffort.getString("workEffortId").toLowerCase(), new Long(widWeight));
+        keywords.put(workEffort.getString("workEffortId").toLowerCase(), Long.valueOf(widWeight));
         
         addWeightedKeywordSourceString(workEffort, "workEffortName", strings);
         addWeightedKeywordSourceString(workEffort, "workEffortTypeId", strings);
@@ -88,10 +88,7 @@ public class WorkEffortKeywordIndex {
         }
         
         String workEffortContentTypes = UtilProperties.getPropertyValue("workeffortsearch", "index.include.WorkEffortContentTypes");
-        List workEffortContentTypeList = Arrays.asList(workEffortContentTypes.split(","));
-        Iterator workEffortContentTypeIter = workEffortContentTypeList.iterator();
-        while (workEffortContentTypeIter.hasNext()) {
-            String workEffortContentTypeId = (String) workEffortContentTypeIter.next();            
+        for (String workEffortContentTypeId: workEffortContentTypes.split(",")) {
             int weight = 1;
             try {
                 weight = Integer.parseInt(UtilProperties.getPropertyValue("workeffortsearch", "index.weight.WorkEffortContent." + workEffortContentTypeId, "1"));
@@ -99,31 +96,23 @@ public class WorkEffortKeywordIndex {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }
             
-            List workEffortContentAndInfos = delegator.findByAnd("WorkEffortContentAndInfo", UtilMisc.toMap("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId), null);
-            Iterator workEffortContentAndInfoIter = workEffortContentAndInfos.iterator();
-            while (workEffortContentAndInfoIter.hasNext()) {
-                GenericValue workEffortContentAndInfo = (GenericValue) workEffortContentAndInfoIter.next();
+            List<GenericValue> workEffortContentAndInfos = delegator.findByAnd("WorkEffortContentAndInfo", UtilMisc.toMap("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId), null);
+            for (GenericValue workEffortContentAndInfo: workEffortContentAndInfos) {
                 addWeightedDataResourceString(workEffortContentAndInfo, weight, strings, delegator, workEffort);                
-                List alternateViews = workEffortContentAndInfo.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
+                List<GenericValue> alternateViews = workEffortContentAndInfo.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
                 alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
-                Iterator alternateViewIter = alternateViews.iterator();
-                while (alternateViewIter.hasNext()) {
-                    GenericValue thisView = (GenericValue) alternateViewIter.next();
+                for (GenericValue thisView: alternateViews) {
                     addWeightedDataResourceString(thisView, weight, strings, delegator, workEffort);
                 }
             }
         }    
-        Iterator strIter = strings.iterator();
-        while (strIter.hasNext()) {
-            String str = (String) strIter.next();
+        for (String str: strings) {
             // call process keywords method here
             KeywordSearchUtil.processKeywordsForIndex(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet);
         }
 
-        List toBeStored = new LinkedList();
-        Iterator kiter = keywords.entrySet().iterator();
-        while (kiter.hasNext()) {
-            Map.Entry entry = (Map.Entry) kiter.next();
+        List<GenericValue> toBeStored = FastList.newInstance();
+        for (Map.Entry<String, Long> entry: keywords.entrySet()) {
             GenericValue workEffortKeyword = delegator.makeValue("WorkEffortKeyword", UtilMisc.toMap("workEffortId", workEffort.getString("workEffortId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
             toBeStored.add(workEffortKeyword);
         }
@@ -134,8 +123,8 @@ public class WorkEffortKeywordIndex {
             
     }
 
-    public static void addWeightedDataResourceString(GenericValue dataResource, int weight, List strings, GenericDelegator delegator, GenericValue workEffort) {
-        Map workEffortCtx = UtilMisc.toMap("workEffort", workEffort);
+    public static void addWeightedDataResourceString(GenericValue dataResource, int weight, List<String> strings, GenericDelegator delegator, GenericValue workEffort) {
+        Map<String, Object> workEffortCtx = UtilMisc.<String, Object>toMap("workEffort", workEffort);
         try {
             String contentText = DataResourceWorker.renderDataResourceAsText(delegator, dataResource.getString("dataResourceId"), workEffortCtx, null, null, false);
             for (int i = 0; i < weight; i++) {
@@ -147,7 +136,7 @@ public class WorkEffortKeywordIndex {
             Debug.logError(e1, "Error getting content text to index", module);
         }
     }
-    public static void addWeightedKeywordSourceString(GenericValue value, String fieldName, List strings) {
+    public static void addWeightedKeywordSourceString(GenericValue value, String fieldName, List<String> strings) {
         if (value.getString(fieldName) != null) {
             int weight = 1;
 

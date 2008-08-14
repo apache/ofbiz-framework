@@ -63,7 +63,7 @@ public class WorkEffortWorker {
         }
 
         Boolean canView = null;
-        Collection workEffortPartyAssignments = null;
+        Collection<GenericValue> workEffortPartyAssignments = null;
         Boolean tryEntity = null;
         GenericValue currentStatus = null;
 
@@ -134,8 +134,8 @@ public class WorkEffortWorker {
     public static void getActivityContext(PageContext pageContext, String workEffortId, String attribute) {
         LocalDispatcher dispatcher = (LocalDispatcher) pageContext.getRequest().getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
-        Map svcCtx = UtilMisc.toMap("workEffortId", workEffortId, "userLogin", userLogin);
-        Map result = null;
+        Map<String, Object> svcCtx = UtilMisc.toMap("workEffortId", workEffortId, "userLogin", userLogin);
+        Map<String, Object> result = null;
 
         try {
             result = dispatcher.runSync("wfGetActivityContext", svcCtx);
