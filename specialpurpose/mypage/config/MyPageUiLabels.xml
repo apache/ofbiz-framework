@@ -26,6 +26,9 @@
         <value xml:lang="en">All Communications</value>
         <value xml:lang="fr">Toutes les communications</value>
     </property>
+    <property key="IncomingCustRequests">
+        <value xml:lang="en">Incoming customer requests</value>
+    </property>
     <property key="MyCommunications">
         <value xml:lang="en">My Communications</value>
         <value xml:lang="fr">Mes communications</value>
@@ -42,9 +45,24 @@
         <value xml:lang="en">New Message</value>
         <value xml:lang="fr">Nouveau message</value>
     </property>
+    <property key="MyPageNoAccess1">
+        <value xml:lang="en">No Access priviledges has been setup.</value>
+    </property>
+    <property key="MyPageNoAccess2">
+        <value xml:lang="en">You do not have access to any function in the MyPage subsystem, please contact your system admin</value>
+    </property>
+    <property key="MyPageNoAccess3">
+        <value xml:lang="en">At least MYPAGE_CUSTOMER or MYPAGE_EMPLOYEE permission is required</value>
+    </property>
+    <property key="MyPageNoAccess4">
+        <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer1' and 'DemoEmployee1' for a demo.</value>
+    </property>
     <property key="OpenEvents">
         <value xml:lang="en">Open Communications</value>
         <value xml:lang="fr">Communications ouvertes</value>
+    </property>
+    <property key="MyCustRequests">
+        <value xml:lang="en">My customer requests</value>
     </property>
     <property key="OtherCommunications">
         <value xml:lang="en">Other Communications</value>
