@@ -908,14 +908,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
         String contentAssocTypeId = (String)context.get("contentAssocTypeId");
         if (UtilValidate.isNotEmpty(contentAssocTypeId)) typeList.add(contentAssocTypeId);
         if (UtilValidate.isEmpty(typeList)) typeList = UtilMisc.toList("PUBLISH_LINK", "SUB_CONTENT");
-        List condList = FastList.newInstance();
-        Iterator iterType = typeList.iterator();
-        while (iterType.hasNext()) {
-            String type = (String)iterType.next();
-            condList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, type));
-        }
-        
-        EntityCondition conditionType = EntityCondition.makeCondition(condList, EntityOperator.OR);
+        EntityCondition conditionType = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList);
         EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentIdTo", EntityOperator.EQUALS, contentIdTo), conditionType), EntityOperator.AND);
          try {
              List listAll = delegator.findList("ContentAssoc", conditionMain, null, UtilMisc.toList("sequenceNum", "fromDate", "createdDate"), null, false);
@@ -1086,14 +1079,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                 //subLeafCount = subLeafCount;
             }
             
-           List condList = FastList.newInstance();
-           Iterator iterType = typeList.iterator();
-           while (iterType.hasNext()) {
-               String type = (String)iterType.next();
-               condList.add(EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.EQUALS, type));
-           }
-           
-           EntityCondition conditionType = EntityCondition.makeCondition(condList, EntityOperator.OR);
+           EntityCondition conditionType = EntityCondition.makeCondition("contentAssocTypeId", EntityOperator.IN, typeList);
            EntityCondition conditionMain = EntityCondition.makeCondition(UtilMisc.toList( EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, thisContentId), conditionType), EntityOperator.AND);
             List listAll = delegator.findByConditionCache("ContentAssoc", conditionMain, null, null);
             List listFiltered = EntityUtil.filterByDate(listAll);
