@@ -121,8 +121,8 @@ public class VisitHandler {
                             String webappName = (String) session.getAttribute("_WEBAPP_NAME_");
                             Locale initialLocaleObj = (Locale) session.getAttribute("_CLIENT_LOCALE_");
                             String initialRequest = (String) session.getAttribute("_CLIENT_REQUEST_");
-                            String initialReferrer = (String) session.getAttribute("_CLIENT_USER_AGENT_");
-                            String initialUserAgent = (String) session.getAttribute("_CLIENT_REFERER_");
+                            String initialReferer = (String) session.getAttribute("_CLIENT_REFERER_");
+                            String initialUserAgent = (String) session.getAttribute("_CLIENT_USER_AGENT_");
 
                             String initialLocale = initialLocaleObj != null ? initialLocaleObj.toString() : "";
                             
