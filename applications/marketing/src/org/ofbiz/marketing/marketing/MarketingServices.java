@@ -43,7 +43,7 @@ public class MarketingServices {
     public static final String resourceMarketing = "MarketingUiLabels";
     public static final String resourceOrder = "OrderUiLabels";
 
-    public static Map signUpForContactList(DispatchContext dctx, Map context) {
+    public static Map<String, Object> signUpForContactList(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
@@ -59,7 +59,7 @@ public class MarketingServices {
 
         try {
             // locate the contact list
-            Map input = UtilMisc.toMap("contactListId", contactListId);
+            Map<String, Object> input = UtilMisc.<String, Object>toMap("contactListId", contactListId);
             GenericValue contactList = delegator.findByPrimaryKey("ContactList", input);
             if (contactList == null) {
                 String error = UtilProperties.getMessage(resourceMarketing, "ContactListNotFound", input, locale);
@@ -71,7 +71,7 @@ public class MarketingServices {
 
             // associate the email with anonymous user TODO: do we need a custom contact mech purpose type, say MARKETING_EMAIL?
             input = UtilMisc.toMap("userLogin", userLogin, "emailAddress", email, "partyId", "_NA_", "fromDate", fromDate, "contactMechPurposeTypeId", "OTHER_EMAIL");
-            Map serviceResults = dispatcher.runSync("createPartyEmailAddress", input);
+            Map<String, Object> serviceResults = dispatcher.runSync("createPartyEmailAddress", input);
             if (ServiceUtil.isError(serviceResults)) {
                 throw new GenericServiceException(ServiceUtil.getErrorMessage(serviceResults));
             }

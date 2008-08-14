@@ -22,6 +22,8 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import java.util.*;
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 /**
  * Marketing Report Helper
@@ -39,41 +41,40 @@ public class ReportHelper {
  * @return a List of Maps with keys (${keyFieldName}, visits - # visits, orders - # orders, orderAmount - total amount of orders,
  * conversionRate - # orders/# visits
  */
-    public static List calcConversionRates(List visits, List orders, String keyFieldName) {
-        List conversionRates = new ArrayList();
+    public static List<Map<String, Object>> calcConversionRates(List<GenericValue> visits, List<GenericValue> orders, String keyFieldName) {
+        List<Map<String, Object>> conversionRates = FastList.newInstance();
         
         // loop through all the visits
-        for (Iterator vit = visits.iterator(); vit.hasNext(); ) {
-            GenericValue visit = (GenericValue) vit.next();
-            Map reportValue = new HashMap();
+        for (GenericValue visit: visits) {
+            Map<String, Object> reportValue = FastMap.newInstance();
             reportValue.put(keyFieldName, visit.getString(keyFieldName));
             reportValue.put("visits", visit.getLong("visitId")); // actually # of visits
             
             // find the matching entry in orders for the given key field
-            List ordersForThisKey = EntityUtil.filterByAnd(orders, UtilMisc.toMap(keyFieldName, visit.getString(keyFieldName)));
+            List<GenericValue> ordersForThisKey = EntityUtil.filterByAnd(orders, UtilMisc.toMap(keyFieldName, visit.getString(keyFieldName)));
             
             // if there are matching orders, then calculate orders, order amount, and conversion rate
             if ((ordersForThisKey != null) && (ordersForThisKey.size() > 0)) {
                 // note: there should be only one line of order stats per key, so .get(0) should work
-                GenericValue orderValue = (GenericValue) ordersForThisKey.get(0);
+                GenericValue orderValue = ordersForThisKey.get(0);
 
                 reportValue.put("orders", orderValue.getLong("orderId")); // # of orders
                 if (orderValue.getDouble("grandTotal") == null) {
-                    reportValue.put("orderAmount", new Double(0));                    
+                    reportValue.put("orderAmount", Double.valueOf(0));                    
                 } else {
                     reportValue.put("orderAmount", orderValue.getDouble("grandTotal")); 
                 }
                 if ((orderValue.getLong("orderId") == null) || (visit.getLong("visitId") == null) || 
                     (visit.getLong("visitId").intValue() == 0)) {
-                    reportValue.put("conversionRate", new Double(0));
+                    reportValue.put("conversionRate", Double.valueOf(0));
                 } else {
-                    reportValue.put("conversionRate", new Double(orderValue.getLong("orderId").doubleValue() / visit.getLong("visitId").doubleValue()));    
+                    reportValue.put("conversionRate", Double.valueOf(orderValue.getLong("orderId").doubleValue() / visit.getLong("visitId").doubleValue()));    
                 }
             } else {
                 // no matching orders - all those values are zeroes
-                reportValue.put("orders", new Long(0));
-                reportValue.put("orderAmount", new Double(0));
-                reportValue.put("conversionRate", new Double(0));
+                reportValue.put("orders", Long.valueOf(0));
+                reportValue.put("orderAmount", Double.valueOf(0));
+                reportValue.put("conversionRate", Double.valueOf(0));
             }
             
             conversionRates.add(reportValue);

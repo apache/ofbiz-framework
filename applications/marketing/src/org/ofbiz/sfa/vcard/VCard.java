@@ -68,10 +68,10 @@ import net.wimpi.pim.contact.basicimpl.PhoneNumberImpl;
 public class VCard {
     public static final String module = VCard.class.getName();
     
-    public static Map importVCard(DispatchContext dctx, Map context) {
+    public static Map<String, Object> importVCard(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = (LocalDispatcher) dctx.getDispatcher();
         GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         Address workAddress = null;
         String email = null;
         String phone = null;
@@ -81,15 +81,15 @@ public class VCard {
         try {
             ContactIOFactory ciof = Pim.getContactIOFactory();
             ContactUnmarshaller unmarshaller = ciof.createContactUnmarshaller();
-            Contact[] contact = unmarshaller.unmarshallContacts(in);
+            Contact[] contacts = unmarshaller.unmarshallContacts(in);
             
-            for (int i = 0; i < contact.length; i++) {
-                PersonalIdentity pid = contact[i].getPersonalIdentity();
-                Map serviceCtx = UtilMisc.toMap("firstName", pid.getFirstname(), "lastName", pid.getLastname());
+            for (Contact contact: contacts) {
+                PersonalIdentity pid = contact.getPersonalIdentity();
+                Map<String, Object> serviceCtx = UtilMisc.<String, Object>toMap("firstName", pid.getFirstname(), "lastName", pid.getLastname());
                 
-                for (Iterator iter = contact[i].getAddresses(); iter.hasNext();) {
+                for (Iterator iter = contact.getAddresses(); iter.hasNext();) {
                     Address address = (AddressImpl) iter.next();
-                    if (contact[i].isPreferredAddress(address)) {
+                    if (contact.isPreferredAddress(address)) {
                         workAddress = address;
                         break;
                     } else if (address.isWork()) {
@@ -114,7 +114,7 @@ public class VCard {
                 GenericValue stateGeo = EntityUtil.getFirst(delegator.findList("Geo", condition, null, null, null, true));
                 serviceCtx.put("stateProvinceGeoId", stateGeo.get("geoId"));
                 
-                Communications communications = contact[i].getCommunications();
+                Communications communications = contact.getCommunications();
                 for (Iterator iter = communications.getEmailAddresses(); iter.hasNext();) {
                     EmailAddress emailAddress = (EmailAddressImpl) iter.next();
                     if (communications.isPreferredEmailAddress(emailAddress)) {
@@ -139,11 +139,11 @@ public class VCard {
                         continue;
                     }
                 } 
-                String[] number = phone.split("\\D");
+                String[] numberParts = phone.split("\\D");
                 String telNumber = "";
-                for (int j = 0; j < number.length; j++) {
-                    if (number[j] != "") {
-                        telNumber =  telNumber + number[j];
+                for (String number: numberParts) {
+                    if (number != "") {
+                        telNumber =  telNumber + number;
                     }
                 }
                 serviceCtx.put("areaCode", telNumber.substring(0, 3));
@@ -152,7 +152,7 @@ public class VCard {
                 GenericValue userLogin = (GenericValue) context.get("userLogin");
                 serviceCtx.put("userLogin", userLogin);
                 String serviceName = (String) context.get("serviceName");
-                Map resp = dispatcher.runSync(serviceName, serviceCtx);
+                Map<String, Object> resp = dispatcher.runSync(serviceName, serviceCtx);
                 result.put("partyId", resp.get("partyId"));
             }
         } catch (GenericEntityException e) {
@@ -165,7 +165,7 @@ public class VCard {
         return result;
     }
     
-    public static Map exportVCard(DispatchContext dctx, Map context) {
+    public static Map<String, Object> exportVCard(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = (GenericDelegator) dctx.getDelegator();
         String partyId = (String) context.get("partyId");
         File file = null;
