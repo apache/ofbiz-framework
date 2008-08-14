@@ -52,8 +52,16 @@ under the License.
         <mkdir dir="${build.dir}/javadocs"/>
     </target>
 
-    <target name="jar" depends="classes">
-        <jar jarfile="${build.dir}/lib/${name}.jar" basedir="${build.dir}/classes"/>
+     <target name="jar" depends="classes">
+        <jar jarfile="${build.dir}/lib/${name}.jar">
+            <fileset dir="${build.dir}/classes"/>
+            <fileset dir="${src.dir}">
+                <include name="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
+                <include name="META-INF/**"/>
+            </fileset>
+            <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
+            <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
+        </jar>
     </target>
 
     <target name="all" depends="jar,docs"/>
