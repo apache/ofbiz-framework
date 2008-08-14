@@ -27,9 +27,10 @@ under the License.
     <!-- Customer Request Services -->
     <service name="createCustRequest" engine="simple" default-entity-name="CustRequest"
             location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequest" auth="true">
-        <description>Create a custRequest record</description>
+        <description>Create a custRequest record and optionally create a custRequest item.</description>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
+        <auto-attributes include="all" mode="IN" entity-name="CustRequestItem" optional="true"/>
     </service>
     <service name="updateCustRequest" engine="simple" default-entity-name="CustRequest"
             location="org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequest" auth="true">

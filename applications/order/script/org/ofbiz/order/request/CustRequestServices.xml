@@ -83,6 +83,21 @@ under the License.
         <string-to-field string="REQ_REQUESTER" map-name="requesterMap" field-name="roleTypeId"/>
         <call-service service-name="createCustRequestRole" in-map-name="requesterMap"/>
         -->
+        
+        <!-- create also the item if key fields are provided -->
+        <if><condition><and>
+            <if-empty field="parameters.productId"/>
+            <if-empty field="parameters.reservStart"/>
+            <if-empty field="parameters.story"/>
+            <if-empty field="parameters.description"/>
+        </and></condition>
+        <then/>
+            <else>
+              <set-service-fields service-name="createCustRequestItem" map-name="parameters" to-map-name="createItem"/>
+              <set field="createItem.custRequestId" from-field="newEntity.custRequestId"/>
+              <call-service service-name="createCustRequestItem" in-map-name="createItem"/>
+            </else>
+        </if>
     </simple-method>
     <simple-method method-name="updateCustRequest" short-description="Update Customer Request">
         <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
