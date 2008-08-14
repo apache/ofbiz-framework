@@ -26,42 +26,22 @@ under the License.
             <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="EditTaskFromRequest?custRequestId=${custRequestId}"/>
         </field>
     </form>
-    <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest"
-        header-row-style="header-row" default-table-style="basic-table">
+    <form name="EditCustRequest" type="single" target="updaterequest" title="Request" default-map-name="custRequest">
         <alt-target use-when="custRequest==null" target="createrequest"/>
-        <auto-fields-service service-name="updateCustRequest" default-field-type="edit"/>
         <field name="custRequestId"><hidden/></field>
-        <field name="custRequestName"/>
+        <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}">
+            <lookup target-form-name="LookupPartyName"/>
+        </field>
+        <field name="custRequestName" title="${uiLabelMap.CommonTitle}"><text/></field>
+        <field name="description" parameter-name="story"><textarea cols="60" rows="12"/></field>
         <field name="custRequestTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="CustRequestType" description="${description}"/>
             </drop-down>
         </field>
-        <field name="salesChannelEnumId" title="${uiLabelMap.OrderSalesChannel}"><ignored/></field>
-        <field name="custRequestCategoryId" title="${uiLabelMap.ProjectMgrCustRequestCategoryId}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="CustRequestCategory" description="${description}"/>
-            </drop-down>
-        </field>
-        
-        <field use-when="custRequest==null" name="statusId">
-            <drop-down allow-empty="false" current="first-in-list">
-                <entity-options entity-name="StatusItem" description="${description}">
-                    <entity-constraint name="statusTypeId" value="CUSTREQ_STTS"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field use-when="custRequest!=null" name="statusId">
-            <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
-                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
-                    <entity-constraint name="statusId" value="${custRequest.statusId}"/>
-                    <entity-order-by field-name="sequenceId"/>
-                </entity-options>
-            </drop-down>
-        </field>
+        <field name="statusId"><hidden value="CRQ_ACCEPTED"/></field>
         <field name="priority">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="true">
                 <option key="9"/>
                 <option key="8"/>
                 <option key="7"/>
@@ -73,18 +53,8 @@ under the License.
                 <option key="1"/>
             </drop-down>
         </field>
-        <field name="maximumAmountUomId" title="${uiLabelMap.CommonCurrency}"><ignored/></field>
-        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}"><ignored/></field>
         <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><date-time type="timestamp"/></field>
         <field name="responseRequiredDate"><date-time type="timestamp"/></field>
-        <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}">
-            <lookup target-form-name="LookupPartyName"/>
-        </field>
-        <field name="fulfillContactMechId"><ignored/></field>
-        <field name="createdDate"><ignored/></field>
-        <field name="createdByUserLogin"><hidden/></field>
-        <field name="lastModifiedDate"><hidden/></field>
-        <field name="lastModifiedByUserLogin"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="RequestInfo" type="single" default-entity-name="CustRequest" default-map-name="custRequest"
