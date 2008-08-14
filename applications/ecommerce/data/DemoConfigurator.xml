@@ -110,4 +110,104 @@ under the License.
     <ProductCategoryMember productCategoryId="FOOD-001" productId="ENCHILADAS" fromDate="2007-12-27 12:00:00.0"/>
     <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="ENCHILADAS" fromDate="2007-12-27 12:00:00.0"/>
     
+    <!-- Configurable product with virtual product options example -->
+    <Product productId="PIZZA" productTypeId="AGGREGATED" productName="Gold Pizza" internalName="Pizza" description="Create your own pizza" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:49:13.418" createdByUserLogin="admin"/>
+    <Product productId="DOUGH" productTypeId="FINISHED_GOOD" productName="Dough" internalName="Dough" description="Dough" isVirtual="N" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>
+    <Product productId="SAUCE" productTypeId="FINISHED_GOOD" productName="Sauce" internalName="Sauce" description="Sauce" isVirtual="Y" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>    
+    <Product productId="SAUCE-TM" productTypeId="FINISHED_GOOD" internalName="Tomato Sauce with Mozzarella" productName="Tomato Sauce with Mozzarella" description="Tomato Sauce with Mozzarella" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="SAUCE-CM" productTypeId="FINISHED_GOOD" internalName="Chili Sauce with Mozzarella" productName="Chili Sauce with Mozzarella" description="Chili Sauce with Mozzarella" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="SAUCE-TP" productTypeId="FINISHED_GOOD" internalName="Tomato Sauce with Parmesan" productName="Tomato Sauce with Parmesan" description="Tomato Sauce" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="SAUCE-CP" productTypeId="FINISHED_GOOD" internalName="Chili Sauce" productName="Chili Sauce with Parmesan" description="Chili Sauce with Parmesan" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="PEPPERS" productTypeId="FINISHED_GOOD" productName="Peppers" internalName="Pepper" description="Pepper" isVirtual="Y" isVariant="N" billOfMaterialLevel="0" createdDate="2004-08-20 12:50:54.794" createdByUserLogin="admin"/>    
+    <Product productId="PEPPERS-G" productTypeId="FINISHED_GOOD" internalName="Green Peppers" productName="Green Peppers" description="Green Peppers" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="PEPPERS-H" productTypeId="FINISHED_GOOD" internalName="Hot Peppers" productName="Hot Peppers" description="Hot Peppers" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+    <Product productId="PEPPERS-R" productTypeId="FINISHED_GOOD" internalName="Roasted Peppers" productName="Roasted Peppers" description="Roasted Peppers" returnable="N" includeInPromotions="N" taxable="N" chargeShipping="N" isVirtual="N" isVariant="Y" createdDate="2003-11-20 13:48:19.105" createdByUserLogin="admin" lastModifiedDate="2003-11-20 13:48:19.105" lastModifiedByUserLogin="admin"/>
+
+    <ProductAssoc productId="PEPPERS" productIdTo="PEPPERS-G" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductAssoc productId="PEPPERS" productIdTo="PEPPERS-H" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductAssoc productId="PEPPERS" productIdTo="PEPPERS-R" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ProductAssoc productId="SAUCE" productIdTo="SAUCE-TM" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductAssoc productId="SAUCE" productIdTo="SAUCE-CM" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductAssoc productId="SAUCE" productIdTo="SAUCE-TP" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+    <ProductAssoc productId="SAUCE" productIdTo="SAUCE-CP" productAssocTypeId="PRODUCT_VARIANT" fromDate="2001-05-13 12:00:00.0"/>
+
+    <ProductFeatureCategory productFeatureCategoryId="3000" description="Taste"/>
+    <ProductFeature productFeatureId="3001" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Tomato" defaultSequenceNum="1"/>
+    <ProductFeature productFeatureId="3002" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Chili" defaultSequenceNum="2"/>
+    <ProductFeature productFeatureId="3003" productFeatureTypeId="OTHER_FEATURE" productFeatureCategoryId="3000" description="Mozzarella" defaultSequenceNum="3"/>
+    <ProductFeature productFeatureId="3004" productFeatureTypeId="OTHER_FEATURE" productFeatureCategoryId="3000" description="Parmesan" defaultSequenceNum="4"/>   
+    
+    <ProductFeature productFeatureId="3010" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Green" defaultSequenceNum="1"/>
+    <ProductFeature productFeatureId="3011" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Hot" defaultSequenceNum="2"/>
+    <ProductFeature productFeatureId="3012" productFeatureTypeId="TYPE" productFeatureCategoryId="3000" description="Roasted" defaultSequenceNum="3"/>     
+
+    <ProductFeatureAppl productId="SAUCE" productFeatureId="3001" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:07.796" sequenceNum="1"/>
+    <ProductFeatureAppl productId="SAUCE" productFeatureId="3002" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:26.411" sequenceNum="2"/>
+    <ProductFeatureAppl productId="SAUCE" productFeatureId="3003" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:07.796" sequenceNum="3"/>
+    <ProductFeatureAppl productId="SAUCE" productFeatureId="3004" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:26.411" sequenceNum="4"/>
+
+    <ProductFeatureAppl productId="PEPPERS" productFeatureId="3010" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:07.796" sequenceNum="1"/>
+    <ProductFeatureAppl productId="PEPPERS" productFeatureId="3011" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:26.411" sequenceNum="2"/>
+    <ProductFeatureAppl productId="PEPPERS" productFeatureId="3012" productFeatureApplTypeId="SELECTABLE_FEATURE" fromDate="2003-11-20 13:50:07.796" sequenceNum="3"/>
+
+    <ProductFeatureAppl productId="SAUCE-TM" productFeatureId="3001" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
+    <ProductFeatureAppl productId="SAUCE-TM" productFeatureId="3003" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>    
+    <ProductFeatureAppl productId="SAUCE-CM" productFeatureId="3002" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
+    <ProductFeatureAppl productId="SAUCE-CM" productFeatureId="3003" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>    
+    <ProductFeatureAppl productId="SAUCE-TP" productFeatureId="3001" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
+    <ProductFeatureAppl productId="SAUCE-TP" productFeatureId="3004" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>    
+    <ProductFeatureAppl productId="SAUCE-CP" productFeatureId="3002" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
+    <ProductFeatureAppl productId="SAUCE-CP" productFeatureId="3004" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>    
+
+    <ProductFeatureAppl productId="PEPPERS-G" productFeatureId="3010" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="1"/>
+    <ProductFeatureAppl productId="PEPPERS-H" productFeatureId="3011" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="2"/>    
+    <ProductFeatureAppl productId="PEPPERS-R" productFeatureId="3012" productFeatureApplTypeId="STANDARD_FEATURE" fromDate="2003-11-20 13:51:53.35" sequenceNum="3"/>
+
+    <ProductPrice productId="PIZZA" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:53.223" price="5" createdDate="2004-08-20 12:55:53.223" createdByUserLogin="admin"/>
+    <ProductPrice productId="DOUGH" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:53.223" price="3" createdDate="2004-08-20 12:55:53.223" createdByUserLogin="admin"/>
+    <ProductPrice productId="SAUCE" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:36.479" price="1.5" createdDate="2004-08-20 12:55:36.479" createdByUserLogin="admin"/>
+    <ProductPrice productId="SAUCE" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2004-08-20 12:55:36.479" price="1.5" createdDate="2004-08-20 12:55:36.479" createdByUserLogin="admin"/>
+    <ProductPrice productId="SAUCE-TM" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="SAUCE-TM" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="SAUCE-CM" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="SAUCE-CM" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="SAUCE-TP" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="SAUCE-TP" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="SAUCE-CP" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="SAUCE-CP" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="PEPPERS-G" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="PEPPERS-G" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="PEPPERS-H" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="PEPPERS-H" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="2.0" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>    
+    <ProductPrice productId="PEPPERS-R" productPricePurposeId="COMPONENT_PRICE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="PEPPERS-R" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2001-05-13 12:00:00.0" price="1.5" createdDate="2001-05-13 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2001-05-13 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    
+    <ProductConfigItem configItemId="PZ0000" configItemTypeId="SINGLE" configItemName="Dough" description="Select type:"/>
+    <ProductConfigItem configItemId="PZ0001" configItemTypeId="MULTIPLE" configItemName="Toppings" description="Select the Toppings:"/>
+
+    <ProductConfigOption configItemId="PZ0000" configOptionId="PZOP000" configOptionName="PZOPT001" description="Small Pizza" sequenceNum="10"/>
+    <ProductConfigOption configItemId="PZ0000" configOptionId="PZOP001" configOptionName="PZOPT002" description="Large Pizza" sequenceNum="20"/>
+    <ProductConfigOption configItemId="PZ0001" configOptionId="PZOP003" configOptionName="PZOPT002" description="Peppers" sequenceNum="10"/>    
+    <ProductConfigOption configItemId="PZ0001" configOptionId="PZOP002" configOptionName="PZOPT001" description="Sauce" sequenceNum="20"/>
+    
+    <ProductConfigProduct configItemId="PZ0000" configOptionId="PZOP000" productId="DOUGH" quantity="1"/>
+    <ProductConfigProduct configItemId="PZ0000" configOptionId="PZOP001" productId="DOUGH" quantity="2"/>
+    <ProductConfigProduct configItemId="PZ0001" configOptionId="PZOP003" productId="PEPPERS" quantity="1"/>
+    <ProductConfigProduct configItemId="PZ0001" configOptionId="PZOP002" productId="SAUCE" quantity="1"/>
+    
+    <ProductConfig productId="PIZZA" configItemId="PZ0000" sequenceNum="10" fromDate="2004-08-20 12:59:26.209" configTypeId="QUESTION" isMandatory="Y"/>
+    <ProductConfig productId="PIZZA" configItemId="PZ0001" sequenceNum="30" fromDate="2004-08-20 12:59:26.209" configTypeId="QUESTION" isMandatory="N"/>
+    
+    <WorkEffort workEffortId="PZTASK01" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Stock out" description="Components" revisionNumber="1" fixedAssetId="DEMO_FOOD_GROUP" estimatedMilliSeconds="600000" estimatedSetupMillis="0"/>
+    <WorkEffort workEffortId="PZTASK02" workEffortTypeId="ROU_TASK" workEffortPurposeTypeId="ROU_ASSEMBLING" currentStatusId="ROU_ACTIVE" workEffortName="Preparation" description="Preparation" revisionNumber="1" fixedAssetId="DEMO_FOOD_GROUP" estimatedMilliSeconds="900000" estimatedSetupMillis="0"/>
+    <WorkEffort workEffortId="PZROUT01" workEffortTypeId="ROUTING" currentStatusId="ROU_ACTIVE" workEffortName="Pizza preparation" description="Pizza preparation" revisionNumber="1" quantityToProduce="0"/>
+    <WorkEffortGoodStandard workEffortId="PZROUT01" productId="PIZZA" workEffortGoodStdTypeId="ROU_PROD_TEMPLATE" statusId="WEGS_CREATED" fromDate="2004-09-24 15:10:14.227"/>
+    <WorkEffortAssoc workEffortIdFrom="PZROUT01" workEffortIdTo="PZTASK01" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="10" fromDate="2004-09-24 15:09:38.736"/>
+    <WorkEffortAssoc workEffortIdFrom="PZROUT01" workEffortIdTo="PZTASK02" workEffortAssocTypeId="ROUTING_COMPONENT" sequenceNum="20" fromDate="2004-09-24 15:09:47.338"/>
+    
+    <ProductCategoryMember productCategoryId="FOOD-001" productId="PIZZA" fromDate="2004-09-24 15:09:47.338"/>
+    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="PIZZA" fromDate="2004-09-24 15:09:47.338"/>
+    <ProductCategoryMember productCategoryId="PROMOTIONS" productId="PIZZA" fromDate="2004-09-24 15:09:47.338"/>
+    
 </entity-engine-xml>

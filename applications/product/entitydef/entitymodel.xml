@@ -731,6 +731,33 @@ under the License.
             <key-map field-name="productId"/>
         </relation>
     </entity>
+    <entity entity-name="ConfigOptionProductOption"
+            package-name="org.ofbiz.product.config"
+            title="Config Option Product Options Entity">
+        <field name="configId" type="id-ne"></field>
+        <field name="configItemId" type="id-ne"></field>
+        <field name="sequenceNum" type="numeric"></field>
+        <field name="configOptionId" type="id-ne"></field>
+        <field name="productId" type="id-ne"></field>         
+        <field name="productOptionId" type="id-ne"></field>        
+        <field name="description" type="description"></field>
+        <prim-key field="configId"/>
+        <prim-key field="configItemId"/>
+        <prim-key field="configOptionId"/>
+        <prim-key field="sequenceNum"/>
+        <prim-key field="productId"/>        
+        <relation type="one" fk-name="PROD_OPTN_CONF" title="Config" rel-entity-name="ProductConfigConfig">
+            <key-map field-name="configId"/>
+            <key-map field-name="configItemId"/>
+            <key-map field-name="configOptionId"/>
+            <key-map field-name="sequenceNum"/>
+        </relation>
+        <relation type="one" fk-name="PROD_OPTN_PROD" title="Product" rel-entity-name="ProductConfigProduct">
+            <key-map field-name="configItemId"/>
+            <key-map field-name="configOptionId"/>        
+            <key-map field-name="productId"/>
+        </relation>        
+    </entity>
     
   <!-- ========================================================= -->
   <!-- org.ofbiz.product.cost -->

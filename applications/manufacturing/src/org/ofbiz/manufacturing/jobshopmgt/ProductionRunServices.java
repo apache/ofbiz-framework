@@ -2183,12 +2183,19 @@ public class ProductionRunServices {
                 if (componentQuantity == null) {
                     componentQuantity = new Double(1);
                 }
+                String componentProductId = selComponent.getString("productId");
+                if (co.isVirtualComponent(selComponent)) {       
+                    Map componentOptions = co.getComponentOptions();
+                    if (UtilValidate.isNotEmpty(componentOptions) && UtilValidate.isNotEmpty(componentOptions.get(componentProductId))) {
+                        componentProductId = (String)componentOptions.get(componentProductId);
+                    }
+                }
                 componentQuantity = new Double(quantity.doubleValue() * componentQuantity.doubleValue());
-                if (components.containsKey(selComponent.getString("productId"))) {
-                    Double totalQuantity = (Double)components.get(selComponent.getString("productId"));
+                if (components.containsKey(componentProductId)) {
+                    Double totalQuantity = (Double)components.get(componentProductId);
                     componentQuantity = new Double(totalQuantity.doubleValue() + componentQuantity.doubleValue());
                 }
-                components.put(selComponent.getString("productId"), componentQuantity);
+                components.put(componentProductId, componentQuantity);
             }
         }
         

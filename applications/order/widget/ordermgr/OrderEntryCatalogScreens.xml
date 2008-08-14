@@ -177,6 +177,7 @@ under the License.
         <section>
             <actions>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
+                <set field="inlineProductDetailScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#inlineProductDetail"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductDetail.groovy"/>
                 <!--<script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/prepareconfigform.bsh"/>-->
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/PrepareConfigForm.groovy"/>
@@ -189,6 +190,16 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="inlineProductDetail">
+        <section>
+            <actions>
+                <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/InlineProductDetail.groovy"/>                
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/catalog/inlineProductDetail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>    
     <screen name="keywordsearch">
         <section>
             <actions>
