@@ -4,6 +4,17 @@
     <!-- Resources -->
     <!-- user 'admin' has full access and can create projects, add resources etc.  -->
     
+    <!-- Demo Employee is an employee with no access to any projects-->
+    <Party partyId="DemoEmployee" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
+    <Person partyId="DemoEmployee" firstName="Peter" lastName="Manager" />
+    <UserLogin userLoginId="DemoEmployee" partyId="DemoEmployee"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/>
+    <PartyContactMech partyId="DemoEmployee" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
+    <PartyContactMech partyId="DemoEmployee" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
+    <PartyContactMech partyId="DemoEmployee" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
+    <PartyRole partyId="DemoEmployee" roleTypeId="PROJECT_TEAM"/>
+    <UserLoginSecurityGroup groupId="PROJECTADMIN" userLoginId="DemoEmployee" fromDate="2000-01-01 00:00:00.0"/>
+    
     <!-- Demo Employee1 manager is a projectmanager of both projects and can can maintain data within the project-->
     <Party partyId="DemoEmployee1" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoEmployee1" firstName="Peter" lastName="Manager" />
@@ -13,7 +24,7 @@
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyRole partyId="DemoEmployee1" roleTypeId="PROJECT_TEAM"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTADMIN" userLoginId="DemoEmployee1" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PROJECTADMIN" userLoginId="DemoEmployee1" fromDate="2000-01-01 00:00:00.0"/>
     
     <!-- Demo Employee2 analist of project 1 can register time, accept and assign tasks withn his project 1 only-->
     <Party partyId="DemoEmployee2" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
@@ -24,7 +35,7 @@
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyRole partyId="DemoEmployee2" roleTypeId="PROJECT_TEAM"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee2" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee2" fromDate="2000-01-01 00:00:00.0"/>
     
     <!-- Demo Employee3 analist of project 2 can register time, accept and assign tasks withn his project 2 only-->
     <Party partyId="DemoEmployee3" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
@@ -35,7 +46,7 @@
     <PartyContactMech partyId="DemoEmployee3" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee3" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyRole partyId="DemoEmployee3" roleTypeId="PROJECT_TEAM"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee3" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PROJECTUSER" userLoginId="DemoEmployee3" fromDate="2000-01-01 00:00:00.0"/>
     
     <!-- Demo Customer1 client for demo project 1 has access to project 1 only-->
     <Party partyId="DemoCustomer1" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
@@ -46,7 +57,7 @@
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyRole partyId="DemoCustomer1" roleTypeId="PROJECT_TEAM"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer1" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer1" fromDate="2000-01-01 00:00:00.0"/>
     
     <!-- Demo Customer2 client for demo project 2 has access to project 2 only-->
     <Party partyId="DemoCustomer2" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
@@ -57,7 +68,7 @@
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyRole partyId="DemoCustomer2" roleTypeId="PROJECT_TEAM"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer2" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer2" fromDate="2000-01-01 00:00:00.0"/>
     
     <!-- Demo Customer3 billing for demo project 1 and project 2 -->
     <Party partyId="DemoCustomer3" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
@@ -68,7 +79,7 @@
     <PartyContactMech partyId="DemoCustomer3" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer3" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyRole partyId="DemoCustomer3" roleTypeId="PROJECT_TEAM"/>
-    <UserLoginAndSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer3" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="PROJECTUSER" userLoginId="DemoCustomer3" fromDate="2000-01-01 00:00:00.0"/>
     
     <!-- make sure admin show up as a resource, he acts as a full access admin -->
     <PartyRole partyId="admin" roleTypeId="PROJECT_TEAM"/>
