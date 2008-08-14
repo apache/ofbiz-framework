@@ -90,16 +90,4 @@
         <value xml:lang="en">Communications of party</value>
         <value xml:lang="fr">Communications de l'acteur</value>
     </property>
-    <property key="SelectedVisualTheme">
-        <value xml:lang="en">Selected Visual Theme</value>
-        <value xml:lang="it">Tema grafico selezionato</value>
-    </property>
-    <property key="VisualTheme">
-        <value xml:lang="en">Visual Theme</value>
-        <value xml:lang="it">Tema grafico</value>
-    </property>
-    <property key="NoScreenshotsAvailable">
-        <value xml:lang="en">No Screenshots Available</value>
-        <value xml:lang="it">Anteprima non disponibile</value>
-    </property>
 </resource>
