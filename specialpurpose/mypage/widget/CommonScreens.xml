@@ -143,33 +143,44 @@ under the License.
 	<screen name="main">
 		<section>
 			<widgets>
-				<section>
-					<condition>
-						<if-has-permission permission="MYPAGE_EMPLOYEE" />
-					</condition>
-					<widgets>
-						<include-screen name="mainEmployee" />
-					</widgets>
-				</section>
-                <section>
-                    <condition>
-                        <if-has-permission permission="MYPAGE_CUSTOMER" />
-                    </condition>
-                    <widgets>
-                        <include-screen name="mainCustomer" />
-                    </widgets>
-                </section>
-                <section>
-                    <condition>
-                        <and>
-                            <not><if-has-permission permission="MYPAGE_CUSTOMER"/></not>
-                            <not><if-has-permission permission="MYPAGE_EMPLOYEE"/></not>
-                        </and>
-                    </condition>
-                    <widgets>
-                        <include-screen name="mainNoAccess" />
-                    </widgets>
-                </section>
+			    <decorator-screen name="main-decorator"
+                    location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+						<section>
+							<condition>
+								<if-has-permission permission="MYPAGE_EMPLOYEE" />
+							</condition>
+							<actions>
+							   <set field="decorator" value="Y"/>
+							</actions>
+							<widgets>
+								<include-screen name="mainEmployee" />
+							</widgets>
+						</section>
+		                <section>
+		                    <condition>
+		                        <if-has-permission permission="MYPAGE_CUSTOMER" />
+		                    </condition>
+		                    <actions>
+		                       <set field="decorator" value="Y"/>
+		                    </actions>
+		                    <widgets>
+		                        <include-screen name="mainCustomer" />
+		                    </widgets>
+		                </section>
+		                <section>
+		                    <condition>
+		                        <and>
+		                            <not><if-has-permission permission="MYPAGE_CUSTOMER"/></not>
+		                            <not><if-has-permission permission="MYPAGE_EMPLOYEE"/></not>
+		                        </and>
+		                    </condition>
+		                    <widgets>
+		                        <include-screen name="mainNoAccess" />
+		                    </widgets>
+		                </section>
+                   </decorator-section>
+                </decorator-screen>
 			</widgets>
 		</section>
 	</screen>
@@ -201,74 +212,70 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator"
-                    location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <not><if-empty field-name="custRequests"/></not>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.IncomingCustRequests}" navigation-form-name="ListRequestList" >
-                                    <include-form name="ListRequestList" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <if-compare field-name="preferences.userPrefMap.myCommunications"
-                                    operator="equals" value="Y" />
-                            </condition>
-                            <widgets>
-                                <include-screen name="MyCommunications"
-                                    location="component://mypage/widget/MyPageScreens.xml"/>
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <if-compare field-name="preferences.userPrefMap.otherCommunications"
-                                    operator="equals" value="Y" />
-                            </condition>
-                            <widgets>
-                                <include-screen name="OtherCommunications"
-                                    location="component://mypage/widget/MyPageScreens.xml" />
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <if-compare field-name="preferences.userPrefMap.myCompanyComms"
-                                    operator="equals" value="Y" />
-                            </condition>
-                            <widgets>
-                                <include-screen name="MyCompanyComms"
-                                    location="component://mypage/widget/MyPageScreens.xml" />
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <if-compare field-name="preferences.userPrefMap.myTasks"
-                                    operator="equals" value="Y" />
-                            </condition>
-                            <widgets>
-                                <include-screen name="MyTasks"
-                                    location="component://mypage/widget/MyPageScreens.xml" />
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <if-compare field-name="preferences.userPrefMap.myTimesheet"
-                                    operator="equals" value="Y" />
-                            </condition>
-                            <widgets>
-                                <include-screen name="MyTimesheet"
-                                    location="component://mypage/widget/MyPageScreens.xml" />
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="custRequests"/></not>
+                    </condition>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.IncomingCustRequests}" navigation-form-name="ListRequestList" >
+                            <include-form name="ListRequestList" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field-name="preferences.userPrefMap.myCommunications"
+                            operator="equals" value="Y" />
+                    </condition>
+                    <widgets>
+                        <include-screen name="MyCommunications"
+                            location="component://mypage/widget/MyPageScreens.xml"/>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field-name="preferences.userPrefMap.otherCommunications"
+                            operator="equals" value="Y" />
+                    </condition>
+                    <widgets>
+                        <include-screen name="OtherCommunications"
+                            location="component://mypage/widget/MyPageScreens.xml" />
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field-name="preferences.userPrefMap.myCompanyComms"
+                            operator="equals" value="Y" />
+                    </condition>
+                    <widgets>
+                        <include-screen name="MyCompanyComms"
+                            location="component://mypage/widget/MyPageScreens.xml" />
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field-name="preferences.userPrefMap.myTasks"
+                            operator="equals" value="Y" />
+                    </condition>
+                    <widgets>
+                        <include-screen name="MyTasks"
+                            location="component://mypage/widget/MyPageScreens.xml" />
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <if-compare field-name="preferences.userPrefMap.myTimesheet"
+                            operator="equals" value="Y" />
+                    </condition>
+                    <widgets>
+                        <include-screen name="MyTimesheet"
+                            location="component://mypage/widget/MyPageScreens.xml" />
+                    </widgets>
+                </section>
             </widgets>
         </section>
     </screen>
+    
     <screen name="mainCustomer">
         <section>
             <actions>
@@ -278,39 +285,30 @@ under the License.
                 </entity-and>
             </actions>
             <widgets>
-                <decorator-screen name="main-decorator"
-                    location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.MyCustRequests}" navigation-form-name="ListRequestList" >
-                            <include-form name="ListCustRequests" location="component://mypage/widget/MyPageForms.xml"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
+                <screenlet title="${uiLabelMap.MyCustRequests}" navigation-form-name="ListRequestList" >
+                    <include-form name="ListCustRequests" location="component://mypage/widget/MyPageForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
+    
     <screen name="mainNoAccess">
         <section>
             <widgets>
-                <decorator-screen name="main-decorator"
-                    location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.CommonNoAccess}" navigation-form-name="ListRequestList" >
-                            <container>
-                                <label style="h1" text="${uiLabelMap.MyPageNoAccess1}"></label>
-                            </container>
-                            <container>
-                                <label style="h2" text="${uiLabelMap.MyPageNoAccess2}"></label>
-                            </container>
-                            <container>
-                                <label style="h3" text="${uiLabelMap.MyPageNoAccess3}"></label>
-                            </container>
-                            <container>
-                                <label style="h3" text="${uiLabelMap.MyPageNoAccess4}"></label>
-                            </container>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
+                <screenlet title="${uiLabelMap.CommonNoAccess}" navigation-form-name="ListRequestList" >
+                    <container>
+                        <label style="h1" text="${uiLabelMap.MyPageNoAccess1}"></label>
+                    </container>
+                    <container>
+                        <label style="h2" text="${uiLabelMap.MyPageNoAccess2}"></label>
+                    </container>
+                    <container>
+                        <label style="h3" text="${uiLabelMap.MyPageNoAccess3}"></label>
+                    </container>
+                    <container>
+                        <label style="h3" text="${uiLabelMap.MyPageNoAccess4}"></label>
+                    </container>
+                </screenlet>
             </widgets>
         </section>
     </screen>
