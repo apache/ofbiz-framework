@@ -127,7 +127,7 @@ under the License.
                 <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>
                 <!-- The default (global) logo -->
                 <set field="layoutSettings.commonHeaderImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>
-                <set field="layoutSettings.commonHeaderImageLinkUrl" value="/webtools/control/main" global="true"/>
+                <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
             </actions>
             <widgets>
                 <!-- render header -->
