@@ -42,8 +42,6 @@ under the License.
 
     <target name="prepare" depends="clean-lib">
         <mkdir dir="${build.dir}/classes"/>
-        <mkdir dir="${build.dir}/classes/base/META-INF"/>
-        <mkdir dir="${build.dir}/classes/start/META-INF"/>        
         <mkdir dir="${build.dir}/lib"/>
     </target>
     
