@@ -43,18 +43,18 @@ under the License.
     <target name="classes" depends="prepare">
         <!-- compile start -->
 	<javac15 destdir="${build.dir}/classes" srcdir="${src.dir}"/>
-        <copy todir="${build.dir}/classes">
-          <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
-        </copy>
-        
-        <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
-        <copy todir="${build.dir}/classes/start/META-INF">
-            <fileset dir="${ofbiz.home.dir}" includes="NOTICE,LICENSE"/>
-        </copy>        
     </target>
     
     <target name="jar" depends="classes">
-        <jar jarfile="${build.dir}/lib/ofbiz.jar" basedir="${build.dir}/classes" manifest="${src.dir}/org/ofbiz/base/start/Start.mf"/>
+        <jar jarfile="${build.dir}/lib/ofbiz.jar" manifest="${src.dir}/org/ofbiz/base/start/Start.mf">
+            <fileset dir="${build.dir}/classes"/>
+            <fileset dir="${src.dir}">
+                <include name="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
+                <include name="META-INF/**"/>
+            </fileset>
+            <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
+            <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
+        </jar>
         <!-- copy the ofbiz.jar file -->
         <copy todir="${basedir}/../..">
             <fileset dir="${build.dir}/lib" includes="ofbiz.jar"/>
