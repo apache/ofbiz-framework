@@ -20,7 +20,6 @@
 package org.ofbiz.party.party;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -30,6 +29,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -52,9 +52,9 @@ public class PartyWorker {
     
     public static String module = PartyWorker.class.getName();
     
-    public static Map getPartyOtherValues(ServletRequest request, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
+    public static Map<String, GenericValue> getPartyOtherValues(ServletRequest request, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        Map result = new HashMap();
+        Map<String, GenericValue> result = FastMap.newInstance();
         try {
             GenericValue party = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", partyId));
 
@@ -85,11 +85,9 @@ public class PartyWorker {
     }              
     
     public static void getPartyOtherValues(PageContext pageContext, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
-        Map partyMap = getPartyOtherValues(pageContext.getRequest(), partyId, partyAttr, personAttr, partyGroupAttr);
-        Iterator i = partyMap.entrySet().iterator();
-        while (i.hasNext()) {
-            Map.Entry e = (Map.Entry) i.next();
-            pageContext.setAttribute((String) e.getKey(), e.getValue());
+        Map<String, GenericValue> partyMap = getPartyOtherValues(pageContext.getRequest(), partyId, partyAttr, personAttr, partyGroupAttr);
+        for (Map.Entry<String, GenericValue> e: partyMap.entrySet()) {
+            pageContext.setAttribute(e.getKey(), e.getValue());
             
         }      
     }
@@ -118,7 +116,7 @@ public class PartyWorker {
 
     public static GenericValue findPartyLatestContactMech(String partyId, String contactMechTypeId, GenericDelegator delegator) {
         try {
-            List cmList = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("partyId", partyId, "contactMechTypeId", contactMechTypeId), UtilMisc.toList("-fromDate"));
+            List<GenericValue> cmList = delegator.findByAnd("PartyAndContactMech", UtilMisc.toMap("partyId", partyId, "contactMechTypeId", contactMechTypeId), UtilMisc.toList("-fromDate"));
             cmList = EntityUtil.filterByDate(cmList);
             return EntityUtil.getFirst(cmList);
         } catch (GenericEntityException e) {
@@ -153,7 +151,7 @@ public class PartyWorker {
 
     public static GenericValue findPartyLatestUserLogin(String partyId, GenericDelegator delegator) {
         try {
-            List userLoginList = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-" + ModelEntity.STAMP_FIELD));
+            List<GenericValue> userLoginList = delegator.findByAnd("UserLogin", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-" + ModelEntity.STAMP_FIELD));
             return EntityUtil.getFirst(userLoginList);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Error while finding latest UserLogin for party with ID [" + partyId + "]: " + e.toString(), module);
@@ -163,7 +161,7 @@ public class PartyWorker {
 
     public static Timestamp findPartyLastLoginTime(String partyId, GenericDelegator delegator) {
         try {
-            List loginHistory = delegator.findByAnd("UserLoginHistory", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
+            List<GenericValue> loginHistory = delegator.findByAnd("UserLoginHistory", UtilMisc.toMap("partyId", partyId), UtilMisc.toList("-fromDate"));
             GenericValue v = EntityUtil.getFirst(loginHistory);
             if (v != null) {
                 return v.getTimestamp("fromDate");
@@ -207,7 +205,7 @@ public class PartyWorker {
             String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId,
             String firstName, String middleName, String lastName) throws GeneralException {
 
-        List matching = findMatchingPartyAndPostalAddress(delegator, address1, address2, city, stateProvinceGeoId, postalCode,
+        List<GenericValue> matching = findMatchingPartyAndPostalAddress(delegator, address1, address2, city, stateProvinceGeoId, postalCode,
             postalCodeExt, countryGeoId, firstName, middleName, lastName);
         GenericValue v = EntityUtil.getFirst(matching);
         if (v != null) {
@@ -216,19 +214,19 @@ public class PartyWorker {
         return null;
     }
 
-    public static List findMatchingPartyAndPostalAddress(GenericDelegator delegator, String address1, String address2, String city,
+    public static List<GenericValue> findMatchingPartyAndPostalAddress(GenericDelegator delegator, String address1, String address2, String city,
                             String stateProvinceGeoId, String postalCode, String postalCodeExt, String countryGeoId,
                             String firstName, String middleName, String lastName) throws GeneralException {
 
         // return list
-        List returnList = FastList.newInstance();
+        List<GenericValue> returnList = FastList.newInstance();
 
         // address information
         if (firstName == null || lastName == null || address1 == null || city == null || postalCode == null) {
             throw new IllegalArgumentException();
         }
 
-        List addrExprs = FastList.newInstance();
+        List<EntityCondition> addrExprs = FastList.newInstance();
         if (stateProvinceGeoId != null) {
             if ("**".equals(stateProvinceGeoId)) {
                 Debug.logWarning("Illegal state code passed!", module);
@@ -263,18 +261,15 @@ public class PartyWorker {
         addrExprs.add(EntityCondition.makeCondition(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, null),
                 EntityOperator.OR, EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PARTY_DISABLED")));
 
-        List sort = UtilMisc.toList("-fromDate");
+        List<String> sort = UtilMisc.toList("-fromDate");
         EntityCondition addrCond = EntityCondition.makeCondition(addrExprs, EntityOperator.AND);
-        List addresses = EntityUtil.filterByDate(delegator.findList("PartyAndPostalAddress", addrCond, null, sort, null, false));
+        List<GenericValue> addresses = EntityUtil.filterByDate(delegator.findList("PartyAndPostalAddress", addrCond, null, sort, null, false));
         //Debug.log("Checking for matching address: " + addrCond.toString() + "[" + addresses.size() + "]", module);
 
-        List validFound = FastList.newInstance();
+        List<GenericValue> validFound = FastList.newInstance();
         if (UtilValidate.isNotEmpty(addresses)) {
             // check the address line
-            Iterator v = addresses.iterator();
-            while (v.hasNext()) {
-                GenericValue address = (GenericValue) v.next();
-
+            for (GenericValue address: addresses) {
                 // address 1 field
                 String addr1Source = PartyWorker.makeMatchingString(delegator, address1);
                 String addr1Target = PartyWorker.makeMatchingString(delegator, address.getString("address1"));
@@ -308,9 +303,7 @@ public class PartyWorker {
             }
 
             if (validFound != null && validFound.size() > 0) {
-                Iterator a = validFound.iterator();
-                while (a.hasNext()) {
-                    GenericValue partyAndAddr = (GenericValue) a.next();
+                for (GenericValue partyAndAddr: validFound) {
                     String partyId = partyAndAddr.getString("partyId");
                     String cmId = partyAndAddr.getString("contactMechId");
                     if (UtilValidate.isNotEmpty(partyId)) {
@@ -350,7 +343,7 @@ public class PartyWorker {
         String str = address.trim().toUpperCase();
 
         // replace mapped words
-        List addressMap = null;
+        List<GenericValue> addressMap = null;
         try {
             addressMap = delegator.findList("AddressMatchMap", null, null, UtilMisc.toList("sequenceNum"), null, false);
         } catch (GenericEntityException e) {
@@ -358,9 +351,7 @@ public class PartyWorker {
         }
 
         if (addressMap != null) {
-            Iterator i = addressMap.iterator();
-            while (i.hasNext()) {
-                GenericValue v = (GenericValue) i.next();
+            for (GenericValue v: addressMap) {
                 str = str.replaceAll(v.getString("mapKey").toUpperCase(), v.getString("mapValue").toUpperCase());
             }
         }

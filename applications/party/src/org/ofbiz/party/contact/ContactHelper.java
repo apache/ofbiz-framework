@@ -36,27 +36,27 @@ public class ContactHelper {
     
     public static final String module = ContactHelper.class.getName();
     
-    public static Collection getContactMech(GenericValue party, boolean includeOld) {
+    public static Collection<GenericValue> getContactMech(GenericValue party, boolean includeOld) {
         return getContactMech(party, null, null, includeOld);
     }
 
-    public static Collection getContactMechByType(GenericValue party, String contactMechTypeId, boolean includeOld) {
+    public static Collection<GenericValue> getContactMechByType(GenericValue party, String contactMechTypeId, boolean includeOld) {
         return getContactMech(party, null, contactMechTypeId, includeOld);
     }
 
-    public static Collection getContactMechByPurpose(GenericValue party, String contactMechPurposeTypeId, boolean includeOld) {
+    public static Collection<GenericValue> getContactMechByPurpose(GenericValue party, String contactMechPurposeTypeId, boolean includeOld) {
         return getContactMech(party, contactMechPurposeTypeId, null, includeOld);
     }
 
-    public static Collection getContactMech(GenericValue party, String contactMechPurposeTypeId, String contactMechTypeId, boolean includeOld) {
+    public static Collection<GenericValue> getContactMech(GenericValue party, String contactMechPurposeTypeId, String contactMechTypeId, boolean includeOld) {
         if (party == null) return null;
         try {
-            List partyContactMechList;
+            List<GenericValue> partyContactMechList;
 
             if (contactMechPurposeTypeId == null) {
                 partyContactMechList = party.getRelated("PartyContactMech");
             } else {
-                List list;
+                List<GenericValue> list;
 
                 list = party.getRelatedByAnd("PartyContactMechPurpose", UtilMisc.toMap("contactMechPurposeTypeId", contactMechPurposeTypeId));
                 if (!includeOld) {
@@ -75,12 +75,12 @@ public class ContactHelper {
             }
         } catch (GenericEntityException gee) {
             Debug.logWarning(gee, module);
-            return Collections.EMPTY_LIST;
+            return Collections.emptyList();
         }
     }
 
     public static String formatCreditCard(GenericValue creditCardInfo) {
-        StringBuffer result = new StringBuffer(16);
+        StringBuilder result = new StringBuilder(16);
 
         result.append(creditCardInfo.getString("cardType"));
         String cardNumber = creditCardInfo.getString("cardNumber");
