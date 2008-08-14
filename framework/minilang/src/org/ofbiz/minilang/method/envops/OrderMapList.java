@@ -33,6 +33,15 @@ import org.ofbiz.minilang.method.*;
  * Copies an environment field to a list
  */
 public class OrderMapList extends MethodOperation {
+    public static final class OrderMapListFactory implements Factory<OrderMapList> {
+        public OrderMapList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new OrderMapList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "order-map-list";
+        }
+    }
     
     public static final String module = FieldToList.class.getName();
     

@@ -44,6 +44,15 @@ import org.w3c.dom.Element;
  * Sets all Service parameters/attributes in the to-map using the map as a source
  */
 public class SetServiceFields extends MethodOperation {
+    public static final class SetServiceFieldsFactory implements Factory<SetServiceFields> {
+        public SetServiceFields createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SetServiceFields(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "set-service-fields";
+        }
+    }
     
     public static final String module = CallService.class.getName();
     

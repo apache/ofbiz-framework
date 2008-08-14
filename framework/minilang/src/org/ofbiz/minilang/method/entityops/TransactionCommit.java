@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * Commits a transaction if beganTransaction is true, otherwise does nothing.
  */
 public class TransactionCommit extends MethodOperation {
+    public static final class TransactionCommitFactory implements Factory<TransactionCommit> {
+        public TransactionCommit createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new TransactionCommit(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "transaction-commit";
+        }
+    }
     
     public static final String module = TransactionCommit.class.getName();
     

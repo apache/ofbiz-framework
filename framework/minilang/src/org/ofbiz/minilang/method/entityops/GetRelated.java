@@ -34,6 +34,15 @@ import org.w3c.dom.Element;
  * Gets a list of related entity instance according to the specified relation-name
  */
 public class GetRelated extends MethodOperation {
+    public static final class GetRelatedFactory implements Factory<GetRelated> {
+        public GetRelated createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new GetRelated(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "get-related";
+        }
+    }
     
     public static final String module = GetRelated.class.getName();
     

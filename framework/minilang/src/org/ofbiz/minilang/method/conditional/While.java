@@ -33,6 +33,15 @@ import org.ofbiz.minilang.method.conditional.ConditionalFactory;
  * Continually processes sub-ops while the condition remains true
  */
 public class While extends MethodOperation {
+    public static final class WhileFactory implements Factory<While> {
+        public While createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new While(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "while";
+        }
+    }
 
     Conditional condition;
 

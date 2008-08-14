@@ -35,6 +35,15 @@ import org.w3c.dom.Element;
  * Process sub-operations for each entry in the map
  */
 public class IterateMap extends MethodOperation {
+    public static final class IterateMapFactory implements Factory<IterateMap> {
+        public IterateMap createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IterateMap(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "iterate-map";
+        }
+    }
     
     public static final String module = IterateMap.class.getName();
 

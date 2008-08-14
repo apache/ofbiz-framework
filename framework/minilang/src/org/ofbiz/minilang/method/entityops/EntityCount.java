@@ -40,6 +40,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by a condition
  */
 public class EntityCount extends MethodOperation {
+    public static final class EntityCountFactory implements Factory<EntityCount> {
+        public EntityCount createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EntityCount(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "entity-count";
+        }
+    }
     
     public static final String module = EntityCount.class.getName();
     

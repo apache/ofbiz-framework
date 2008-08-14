@@ -34,6 +34,15 @@ import org.ofbiz.minilang.method.*;
  * Creates a Java object using the given fields as parameters
  */
 public class CreateObject extends MethodOperation {
+    public static final class CreateObjectFactory implements Factory<CreateObject> {
+        public CreateObject createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CreateObject(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "create-object";
+        }
+    }
     
     public static final String module = CreateObject.class.getName();
 

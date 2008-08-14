@@ -30,6 +30,15 @@ import org.ofbiz.minilang.method.*;
  * Copies a Servlet request parameter values to a list
  */
 public class RequestParametersToList extends MethodOperation {
+    public static final class RequestParametersToListFactory implements Factory<RequestParametersToList> {
+        public RequestParametersToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new RequestParametersToList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "request-parameters-to-list";
+        }
+    }
 
     public static final String module = RequestParametersToList.class.getName();
 

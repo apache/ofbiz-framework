@@ -37,6 +37,15 @@ import org.w3c.dom.Element;
  * Adjust a Timestamp by a specified time.
  */
 public class SetCalendar extends MethodOperation {
+    public static final class SetCalendarFactory implements Factory<SetCalendar> {
+        public SetCalendar createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SetCalendar(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "set-calendar";
+        }
+    }
     public static final String module = SetCalendar.class.getName();
     
     protected ContextAccessor<Timestamp> field;

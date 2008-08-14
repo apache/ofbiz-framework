@@ -31,6 +31,15 @@ import org.ofbiz.minilang.method.*;
  * Copies an environment field to a list
  */
 public class ListToList extends MethodOperation {
+    public static final class ListToListFactory implements Factory<ListToList> {
+        public ListToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new ListToList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "list-to-list";
+        }
+    }
     
     public static final String module = ListToList.class.getName();
     

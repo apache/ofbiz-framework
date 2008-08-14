@@ -29,6 +29,15 @@ import org.ofbiz.minilang.method.*;
  * Uses the delegator to find entity values by anding the map fields
  */
 public class MakeValue extends MethodOperation {
+    public static final class MakeValueFactory implements Factory<MakeValue> {
+        public MakeValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new MakeValue(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "make-value";
+        }
+    }
     
     ContextAccessor<GenericValue> valueAcsr;
     String entityName;

@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to remove entities related to the specified value object from the datasource
  */
 public class RemoveRelated extends MethodOperation {
+    public static final class RemoveRelatedFactory implements Factory<RemoveRelated> {
+        public RemoveRelated createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new RemoveRelated(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "remove-related";
+        }
+    }
     
     public static final String module = RemoveRelated.class.getName();
     

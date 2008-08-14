@@ -40,6 +40,15 @@ import org.w3c.dom.Element;
  * or fail-property sub-elements are used to add a message to the error-list.
  */
 public class CheckPermission extends MethodOperation {
+    public static final class CheckPermissionFactory implements Factory<CheckPermission> {
+        public CheckPermission createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CheckPermission(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "check-permission";
+        }
+    }
     
     String message = null;
     String propertyResource = null;

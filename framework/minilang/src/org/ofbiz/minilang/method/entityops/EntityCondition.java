@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by a condition
  */
 public class EntityCondition extends MethodOperation {
+    public static final class EntityConditionFactory implements Factory<EntityCondition> {
+        public EntityCondition createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EntityCondition(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "entity-condition";
+        }
+    }
     
     public static final String module = EntityCondition.class.getName();
     

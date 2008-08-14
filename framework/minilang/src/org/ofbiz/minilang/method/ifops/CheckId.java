@@ -31,6 +31,15 @@ import org.ofbiz.minilang.method.*;
  * or fail-property sub-elements are used to add a message to the error-list.
  */
 public class CheckId extends MethodOperation {
+    public static final class CheckIdFactory implements Factory<CheckId> {
+        public CheckId createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CheckId(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "check-id";
+        }
+    }
     
     public static final String module = CheckId.class.getName();
     

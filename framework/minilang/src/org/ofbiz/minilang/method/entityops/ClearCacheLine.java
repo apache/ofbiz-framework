@@ -30,6 +30,15 @@ import org.ofbiz.minilang.method.*;
  *  the map passed to see if it is a byPrimaryKey, and byAnd, or an all.
  */
 public class ClearCacheLine extends MethodOperation {
+    public static final class ClearCacheLineFactory implements Factory<ClearCacheLine> {
+        public ClearCacheLine createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new ClearCacheLine(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "clear-cache-line";
+        }
+    }
     
     public static final String module = ClearCacheLine.class.getName();
     

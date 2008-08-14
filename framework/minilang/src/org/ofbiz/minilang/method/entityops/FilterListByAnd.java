@@ -33,6 +33,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by anding the map fields
  */
 public class FilterListByAnd extends MethodOperation {
+    public static final class FilterListByAndFactory implements Factory<FilterListByAnd> {
+        public FilterListByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FilterListByAnd(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "filter-list-by-and";
+        }
+    }
     
     ContextAccessor<List<GenericEntity>> listAcsr;
     ContextAccessor<List<GenericEntity>> toListAcsr;

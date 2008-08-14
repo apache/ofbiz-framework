@@ -41,6 +41,16 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by a primary key
  */
 public class EntityData extends MethodOperation {
+    public static final class EntityDataFactory implements Factory<EntityData> {
+        public EntityData createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EntityData(element, simpleMethod);
+        }
+
+        public String getName() {
+            // FIXME: not in SimpleMethod
+            return "entity-data";
+        }
+    }
     
     public static final String module = EntityData.class.getName();
     

@@ -27,6 +27,15 @@ import org.ofbiz.minilang.method.*;
  * Creates a java.sql.Date with the current date and puts it in the env
  */
 public class NowDateToEnv extends MethodOperation {
+    public static final class NowDateToEnvFactory implements Factory<NowDateToEnv> {
+        public NowDateToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new NowDateToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "now-date-to-env";
+        }
+    }
     
     ContextAccessor<java.sql.Date> envAcsr;
 

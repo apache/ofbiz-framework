@@ -32,6 +32,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to remove entity values constrained by anding the map fields
  */
 public class RemoveByAnd extends MethodOperation {
+    public static final class RemoveByAndFactory implements Factory<RemoveByAnd> {
+        public RemoveByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new RemoveByAnd(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "remove-by-and";
+        }
+    }
     
     public static final String module = RemoveByAnd.class.getName();
     

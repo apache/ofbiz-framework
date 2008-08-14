@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * Rolls back a transaction if beganTransaction is true, otherwise tries to do a setRollbackOnly.
  */
 public class TransactionRollback extends MethodOperation {
+    public static final class TransactionRollbackFactory implements Factory<TransactionRollback> {
+        public TransactionRollback createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new TransactionRollback(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "transaction-rollback";
+        }
+    }
     
     public static final String module = TransactionRollback.class.getName();
     

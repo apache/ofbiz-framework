@@ -39,6 +39,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to find an entity value by its primary key
  */
 public class FindByPrimaryKey extends MethodOperation {
+    public static final class FindByPrimaryKeyFactory implements Factory<FindByPrimaryKey> {
+        public FindByPrimaryKey createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FindByPrimaryKey(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "find-by-primary-key";
+        }
+    }
     
     public static final String module = FindByPrimaryKey.class.getName();
     

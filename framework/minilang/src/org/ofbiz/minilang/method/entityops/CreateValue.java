@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to create the specified value object entity in the datasource
  */
 public class CreateValue extends MethodOperation {
+    public static final class CreateValueFactory implements Factory<CreateValue> {
+        public CreateValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CreateValue(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "create-value";
+        }
+    }
     
     public static final String module = CreateValue.class.getName();
     

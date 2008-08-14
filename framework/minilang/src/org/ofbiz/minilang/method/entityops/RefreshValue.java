@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to refresh the specified value object entity from the datasource
  */
 public class RefreshValue extends MethodOperation {
+    public static final class RefreshValueFactory implements Factory<RefreshValue> {
+        public RefreshValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new RefreshValue(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "refresh-value";
+        }
+    }
     
     public static final String module = RemoveValue.class.getName();
     

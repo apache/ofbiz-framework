@@ -32,6 +32,15 @@ import org.ofbiz.minilang.method.*;
  * Clears the specified field
  */
 public class ClearField extends MethodOperation {
+    public static final class ClearFieldFactory implements Factory<ClearField> {
+        public ClearField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new ClearField(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "clear-field";
+        }
+    }
     
     public static final String module = ClearField.class.getName();
     

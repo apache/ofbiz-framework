@@ -29,6 +29,15 @@ import org.w3c.dom.Element;
  * Gets a sequenced ID from the delegator and puts it in the env
  */
 public class SequencedIdToEnv extends MethodOperation {
+    public static final class SequencedIdToEnvFactory implements Factory<SequencedIdToEnv> {
+        public SequencedIdToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SequencedIdToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "sequenced-id-to-env";
+        }
+    }
     
     String seqName;
     ContextAccessor<Object> envAcsr;

@@ -30,6 +30,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by anding the map fields
  */
 public class CloneValue extends MethodOperation {
+    public static final class CloneValueFactory implements Factory<CloneValue> {
+        public CloneValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CloneValue(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "clone-value";
+        }
+    }
     
     public static final String module = CloneValue.class.getName();        
     

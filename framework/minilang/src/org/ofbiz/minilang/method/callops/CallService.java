@@ -47,6 +47,15 @@ import org.w3c.dom.Element;
  * Calls a service using the given parameters
  */
 public class CallService extends MethodOperation {
+    public static final class CallServiceFactory implements Factory<CallService> {
+        public CallService createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CallService(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "call-service";
+        }
+    }
     
     public static final String module = CallService.class.getName();
     

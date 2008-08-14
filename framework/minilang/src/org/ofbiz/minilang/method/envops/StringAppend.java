@@ -33,6 +33,15 @@ import org.ofbiz.minilang.method.*;
  * Appends the specified String to a field
  */
 public class StringAppend extends MethodOperation {
+    public static final class StringAppendFactory implements Factory<StringAppend> {
+        public StringAppend createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new StringAppend(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "string-append";
+        }
+    }
     
     public static final String module = StringAppend.class.getName();
     

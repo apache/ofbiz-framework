@@ -33,6 +33,15 @@ import org.ofbiz.minilang.method.*;
 @Deprecated
 @MethodOperation.DeprecatedOperation("set")
 public class FieldToField extends MethodOperation {
+    public static final class FieldToFieldFactory implements Factory<FieldToField> {
+        public FieldToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FieldToField(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "field-to-field";
+        }
+    }
     
     public static final String module = FieldToField.class.getName();
     

@@ -27,6 +27,15 @@ import org.ofbiz.minilang.method.*;
  * Creates a java.sql.Timestamp with the current date/time in it and puts it in the env
  */
 public class NowTimestampToEnv extends MethodOperation {
+    public static final class NowTimestampToEnvFactory implements Factory<NowTimestampToEnv> {
+        public NowTimestampToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new NowTimestampToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "now-timestamp-to-env";
+        }
+    }
     
     ContextAccessor<java.sql.Timestamp> envAcsr;
 

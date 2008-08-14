@@ -35,6 +35,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by anding the map fields
  */
 public class FilterListByDate extends MethodOperation {
+    public static final class FilterListByDateFactory implements Factory<FilterListByDate> {
+        public FilterListByDate createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FilterListByDate(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "filter-list-by-date";
+        }
+    }
     
     ContextAccessor<List<GenericEntity>> listAcsr;
     ContextAccessor<List<GenericEntity>> toListAcsr;

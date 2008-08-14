@@ -38,6 +38,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by anding the map fields
  */
 public class FindByAnd extends MethodOperation {
+    public static final class FindByAndFactory implements Factory<FindByAnd> {
+        public FindByAnd createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FindByAnd(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "find-by-and";
+        }
+    }
     
     public static final String module = FindByAnd.class.getName();         
     

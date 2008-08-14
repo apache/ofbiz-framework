@@ -34,6 +34,15 @@ import org.ofbiz.minilang.method.*;
  * Iff the specified field complies with the pattern specified by the regular expression, process sub-operations
  */
 public class IfRegexp extends MethodOperation {
+    public static final class IfRegexpFactory implements Factory<IfRegexp> {
+        public IfRegexp createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfRegexp(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-regexp";
+        }
+    }
     
     public static final String module = IfRegexp.class.getName();
 

@@ -33,6 +33,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to remove the specified value object (or psuedo-pk) list from the datasource
  */
 public class RemoveList extends MethodOperation {
+    public static final class RemoveListFactory implements Factory<RemoveList> {
+        public RemoveList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new RemoveList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "remove-list";
+        }
+    }
     
     public static final String module = RemoveList.class.getName();
 

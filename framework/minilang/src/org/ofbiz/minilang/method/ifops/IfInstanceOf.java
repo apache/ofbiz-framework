@@ -34,6 +34,15 @@ import org.ofbiz.base.util.UtilXml;
 import org.w3c.dom.Element;
 
 public class IfInstanceOf extends MethodOperation {
+    public static final class IfInstanceOfFactory implements Factory<IfInstanceOf> {
+        public IfInstanceOf createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfInstanceOf(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-instance-of";
+        }
+    }
 
     public static final String module = IfInstanceOf.class.getName();
 

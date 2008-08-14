@@ -33,6 +33,15 @@ import org.ofbiz.minilang.operation.*;
  * Iff the comparison between the constant and the specified field is true process sub-operations
  */
 public class IfCompare extends MethodOperation {
+    public static final class IfCompareFactory implements Factory<IfCompare> {
+        public IfCompare createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfCompare(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-compare";
+        }
+    }
     
     public static final String module = IfCompare.class.getName();
 
