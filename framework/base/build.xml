@@ -62,16 +62,20 @@ under the License.
             <exclude name="${exclude.crypto}"/>
             <exclude name="org/ofbiz/base/util/OfbizJsBsfEngine.java"/>
         </javac15>
-        <!-- also put the DTDs in the jar file... -->
-        <copy todir="${build.dir}/classes">
+    </target>
+
+    <target name="jar" depends="classes">
+        <jar jarfile="${build.dir}/lib/${name}.jar">
+            <fileset dir="${build.dir}/classes"/>
+            <fileset dir="${src.dir}">
+                <include name="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
+                <include name="META-INF/**"/>
+            </fileset>
+            <!-- also put the DTDs in the jar file... -->
             <fileset dir="${dtd.dir}" includes="*.dtd"/>
-            <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
-        </copy>
-        
-        <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
-        <copy todir="${build.dir}/classes/META-INF">
-            <fileset dir="${ofbiz.home.dir}" includes="NOTICE,LICENSE"/>
-        </copy>        
+            <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
+            <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
+        </jar>
     </target>
     
     <!-- ================================================================== -->

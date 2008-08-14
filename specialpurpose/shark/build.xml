@@ -53,16 +53,6 @@ under the License.
             <src path="${src.dir}"/>
             <exclude name="org/ofbiz/shark/SharkGuiContainer.java"/>
         </javac15>
-        <!-- also put the DTDs in the jar file... -->
-        <copy todir="${build.dir}/classes">
-            <!--<fileset dir="${dtd.dir}" includes="*.dtd"/>-->
-            <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
-        </copy>
-        
-        <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
-        <copy todir="${build.dir}/classes/META-INF">
-            <fileset dir="${ofbiz.home.dir}" includes="NOTICE,LICENSE"/>
-        </copy>        
     </target>
 
     <!-- ================================================================== -->

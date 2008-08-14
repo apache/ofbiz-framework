@@ -47,15 +47,6 @@ under the License.
 
     <target name="classes" depends="prepare">
         <javac15/>
-        <copy todir="${build.dir}/classes">
-            <!-- don't put the DTDs in the jar file... -->
-            <fileset dir="${src.dir}" includes="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
-        </copy>
-        
-        <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
-        <copy todir="${build.dir}/classes/META-INF">
-            <fileset dir="${ofbiz.home.dir}" includes="NOTICE,LICENSE"/>
-        </copy>        
     </target>
 
     <target name="stubs" depends="classes">
@@ -67,7 +58,15 @@ under the License.
     </target>
 
     <target name="main-jar" depends="stubs">
-        <jar jarfile="${build.dir}/lib/${name}.jar" basedir="${build.dir}/classes"/>
+        <jar jarfile="${build.dir}/lib/${name}.jar">
+            <fileset dir="${build.dir}/classes"/>
+            <fileset dir="${src.dir}">
+                <include name="**/*.properties,**/*.xml,**/*.bsh,**/*.logic,**/*.js,**/*.jacl,**/*.py"/>
+                <include name="META-INF/**"/>
+            </fileset>
+            <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
+            <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
+        </jar>
     </target>
 
     <target name="rmi-jar" depends="stubs">
