@@ -51,7 +51,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
     public static final String module = WorkEffortContentWrapper.class.getName();
     public static final String CACHE_KEY_SEPARATOR = "::";
     
-    public static UtilCache workEffortContentCache = new UtilCache("workeffort.content.rendered", true);
+    public static UtilCache<String, String> workEffortContentCache = new UtilCache<String, String>("workeffort.content.rendered", true);
 
     protected LocalDispatcher dispatcher;
     protected GenericValue workEffort;
@@ -164,7 +164,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         return null;
     }
     
-    public List getList(String contentTypeId) {
+    public List<String> getList(String contentTypeId) {
         try {
             return getWorkEffortContentTextList(workEffort, contentTypeId, locale, mimeTypeId, workEffort.getDelegator(), dispatcher);
         } catch (Exception e) {
@@ -236,7 +236,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
 
         try {
             if (useCache && workEffortContentCache.get(cacheKey) != null) {
-                return (String) workEffortContentCache.get(cacheKey);
+                return workEffortContentCache.get(cacheKey);
             }
 
             Writer outWriter = new StringWriter();
@@ -304,24 +304,22 @@ public class WorkEffortContentWrapper implements ContentWrapper {
         }
         if (workEffortContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map inContext = FastMap.newInstance();
+            Map<String, Object> inContext = FastMap.newInstance();
             inContext.put("workEffort", workEffort);
             inContext.put("workEffortContent", workEffortContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
         }
     }
 
-    public static List getWorkEffortContentTextList(GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
-        List partyContentList = delegator.findByAndCache("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffort.getString("partyId"), "workEffortContentTypeId", workEffortContentTypeId), UtilMisc.toList("-fromDate"));
+    public static List<String> getWorkEffortContentTextList(GenericValue workEffort, String workEffortContentTypeId, Locale locale, String mimeTypeId, GenericDelegator delegator, LocalDispatcher dispatcher) throws GeneralException, IOException {
+        List<GenericValue> partyContentList = delegator.findByAndCache("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffort.getString("partyId"), "workEffortContentTypeId", workEffortContentTypeId), UtilMisc.toList("-fromDate"));
         partyContentList = EntityUtil.filterByDate(partyContentList);
 
-        List contentList = FastList.newInstance();
+        List<String> contentList = FastList.newInstance();
         if (partyContentList != null) {
-            Iterator i = partyContentList.iterator();
-            while (i.hasNext()) {
-                GenericValue workEffortContent = (GenericValue) i.next();
+            for (GenericValue workEffortContent: partyContentList) {
                 StringWriter outWriter = new StringWriter();
-                Map inContext = FastMap.newInstance();
+                Map<String, Object> inContext = FastMap.newInstance();
                 inContext.put("workEffort", workEffort);
                 inContext.put("workEffortContent", workEffortContent);
                 ContentWorker.renderContentAsText(dispatcher, delegator, workEffortContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
@@ -345,7 +343,7 @@ public class WorkEffortContentWrapper implements ContentWrapper {
             throw new IllegalArgumentException("GenericDelegator missing");
         }
         
-        List workEffortContentList = null;
+        List<GenericValue> workEffortContentList = null;
         try {
                 workEffortContentList = delegator.findByAndCache("WorkEffortContent", UtilMisc.toMap("workEffortId", workEffortId, "workEffortContentTypeId", workEffortContentTypeId), UtilMisc.toList("-fromDate"));
         } catch (GeneralException e) {

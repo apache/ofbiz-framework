@@ -19,16 +19,18 @@
 package org.ofbiz.workeffort.workeffort;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.ResultSortOrder;
+import org.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchConstraint;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.WorkEffortSearchContext;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearchSession.WorkEffortSearchOptions;
 
@@ -58,13 +60,13 @@ public class WorkEffortSearchEvents {
         highIndex = (viewIndex + 1) * viewSize;
 
         // setup resultOffset and maxResults, noting that resultOffset is 1 based, not zero based as these numbers
-        Integer resultOffset = new Integer(lowIndex + 1);
-        Integer maxResults = new Integer(viewSize);
+        Integer resultOffset = Integer.valueOf(lowIndex + 1);
+        Integer maxResults = Integer.valueOf(viewSize);
 
         // ========== Do the actual search
         ArrayList workEffortIds = null;
         String visitId = VisitHandler.getVisitId(session);
-        List workEffortSearchConstraintList = WorkEffortSearchOptions.getConstraintList(session);
+        List<WorkEffortSearchConstraint> workEffortSearchConstraintList = WorkEffortSearchOptions.getConstraintList(session);
         // if no constraints, don't do a search...
         if (workEffortSearchConstraintList != null && workEffortSearchConstraintList.size() > 0) {
             // if the search options have changed since the last search, put at the beginning of the options history list
@@ -92,18 +94,18 @@ public class WorkEffortSearchEvents {
         }
 
         // ========== Setup other display info
-        List searchConstraintStrings = WorkEffortSearchSession.searchGetConstraintStrings(false, session, delegator);
+        List<String> searchConstraintStrings = WorkEffortSearchSession.searchGetConstraintStrings(false, session, delegator);
         String searchSortOrderString = WorkEffortSearchSession.searchGetSortOrderString(false, request);
 
         // ========== populate the result Map
-        Map result = new HashMap();
+        Map<String, Object> result = FastMap.newInstance();
 
         result.put("workEffortIds", workEffortIds);
-        result.put("viewIndex", new Integer(viewIndex));
-        result.put("viewSize", new Integer(viewSize));
-        result.put("listSize", new Integer(listSize));
-        result.put("lowIndex", new Integer(lowIndex));
-        result.put("highIndex", new Integer(highIndex));
+        result.put("viewIndex", Integer.valueOf(viewIndex));
+        result.put("viewSize", Integer.valueOf(viewSize));
+        result.put("listSize", Integer.valueOf(listSize));
+        result.put("lowIndex", Integer.valueOf(lowIndex));
+        result.put("highIndex", Integer.valueOf(highIndex));
         result.put("searchConstraintStrings", searchConstraintStrings);
         result.put("searchSortOrderString", searchSortOrderString);
 

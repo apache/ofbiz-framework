@@ -21,9 +21,7 @@ package org.ofbiz.workeffort.workeffort;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -84,17 +82,17 @@ public class WorkEffortSearch {
     public static final String module = WorkEffortSearch.class.getName();
     public static final String resource = "WorkEffortUiLabels";
 
-    public static ArrayList searchWorkEfforts(List workEffortSearchConstraintList, ResultSortOrder resultSortOrder, GenericDelegator delegator, String visitId) {
+    public static ArrayList<String> searchWorkEfforts(List<? extends WorkEffortSearchConstraint> workEffortSearchConstraintList, ResultSortOrder resultSortOrder, GenericDelegator delegator, String visitId) {
         WorkEffortSearchContext workEffortSearchContext = new WorkEffortSearchContext(delegator, visitId);
 
         workEffortSearchContext.addWorkEffortSearchConstraints(workEffortSearchConstraintList);
         workEffortSearchContext.setResultSortOrder(resultSortOrder);
 
-        ArrayList workEffortIds = workEffortSearchContext.doSearch();
+        ArrayList<String> workEffortIds = workEffortSearchContext.doSearch();
         return workEffortIds;
     }
 
-    public static void getAllSubWorkEffortIds(String workEffortId, Set workEffortIdSet, GenericDelegator delegator, Timestamp nowTimestamp) {
+    public static void getAllSubWorkEffortIds(String workEffortId, Set<String> workEffortIdSet, GenericDelegator delegator, Timestamp nowTimestamp) {
         if (nowTimestamp == null) {
             nowTimestamp = UtilDateTime.nowTimestamp();
         }
@@ -105,11 +103,8 @@ public class WorkEffortSearch {
         // now find all sub-categories, filtered by effective dates, and call this routine for them
         try {
             // Find WorkEffortAssoc, workEffortAssocTypeId=WORK_EFF_BREAKDOWN
-            List workEffortAssocList = delegator.findByAndCache("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", workEffortId, "workEffortAssocTypeId", "WORK_EFF_BREAKDOWN"));
-            Iterator workEffortAssocIter = workEffortAssocList.iterator();
-            while (workEffortAssocIter.hasNext()) {
-                GenericValue workEffortAssoc = (GenericValue) workEffortAssocIter.next();
-
+            List<GenericValue> workEffortAssocList = delegator.findByAndCache("WorkEffortAssoc", UtilMisc.toMap("workEffortIdFrom", workEffortId, "workEffortAssocTypeId", "WORK_EFF_BREAKDOWN"));
+            for (GenericValue workEffortAssoc: workEffortAssocList) {
                 String subWorkEffortId = workEffortAssoc.getString("workEffortIdTo");
                 if (workEffortIdSet.contains(subWorkEffortId)) {
                     // if this category has already been traversed, no use doing it again; this will also avoid infinite loops
@@ -123,12 +118,9 @@ public class WorkEffortSearch {
             }
             
             // Find WorkEffort where current workEffortId = workEffortParentId; only select minimal fields to keep the size low
-            List childWorkEffortList = delegator.findList("WorkEffort", EntityCondition.makeCondition("workEffortParentId", EntityComparisonOperator.EQUALS, workEffortId),
+            List<GenericValue> childWorkEffortList = delegator.findList("WorkEffort", EntityCondition.makeCondition("workEffortParentId", EntityComparisonOperator.EQUALS, workEffortId),
                     UtilMisc.toSet("workEffortId", "workEffortParentId"), null, null, true);
-            Iterator childWorkEffortIter = childWorkEffortList.iterator();
-            while (childWorkEffortIter.hasNext()) {
-                GenericValue childWorkEffort = (GenericValue) childWorkEffortIter.next();
-
+            for (GenericValue childWorkEffort: childWorkEffortList) {
                 String subWorkEffortId = childWorkEffort.getString("workEffortId");
                 if (workEffortIdSet.contains(subWorkEffortId)) {
                     // if this category has already been traversed, no use doing it again; this will also avoid infinite loops
@@ -145,17 +137,17 @@ public class WorkEffortSearch {
 
     public static class WorkEffortSearchContext {
         public int index = 1;
-        public List entityConditionList = new LinkedList();
-        public List orderByList = new LinkedList();
-        public List fieldsToSelect = UtilMisc.toList("workEffortId");
+        public List<EntityCondition> entityConditionList = FastList.newInstance();
+        public List<String> orderByList = FastList.newInstance();
+        public List<String> fieldsToSelect = UtilMisc.toList("workEffortId");
         public DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
         public boolean workEffortIdGroupBy = false;
         public boolean includedKeywordSearch = false;
         public Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
-        public List keywordFixedOrSetAndList = new LinkedList();
-        public Set orKeywordFixedSet = new HashSet();
-        public Set andKeywordFixedSet = new HashSet();
-        public List workEffortSearchConstraintList = new LinkedList();
+        public List<Set<String>> keywordFixedOrSetAndList = FastList.newInstance();
+        public Set<String> orKeywordFixedSet = FastSet.newInstance();
+        public Set<String> andKeywordFixedSet = FastSet.newInstance();
+        public List<GenericValue> workEffortSearchConstraintList = FastList.newInstance();
         public ResultSortOrder resultSortOrder = null;
         public Integer resultOffset = null;
         public Integer maxResults = null;
@@ -173,11 +165,9 @@ public class WorkEffortSearch {
             return this.delegator;
         }
 
-        public void addWorkEffortSearchConstraints(List workEffortSearchConstraintList) {
+        public void addWorkEffortSearchConstraints(List<? extends WorkEffortSearchConstraint> workEffortSearchConstraintList) {
             // Go through the constraints and add them in
-            Iterator workEffortSearchConstraintIter = workEffortSearchConstraintList.iterator();
-            while (workEffortSearchConstraintIter.hasNext()) {
-                WorkEffortSearchConstraint constraint = (WorkEffortSearchConstraint) workEffortSearchConstraintIter.next();
+            for (WorkEffortSearchConstraint constraint: workEffortSearchConstraintList) {
                 constraint.addConstraint(this);
             }
         }
@@ -198,12 +188,12 @@ public class WorkEffortSearch {
             return this.totalResults;
         }
 
-        public ArrayList doSearch() {
+        public ArrayList<String> doSearch() {
             long startMillis = System.currentTimeMillis();
 
             // do the query
             EntityListIterator eli = this.doQuery(delegator);            
-            ArrayList workEffortIds = this.makeWorkEffortIdList(eli);
+            ArrayList<String> workEffortIds = this.makeWorkEffortIdList(eli);
             if (eli != null) {
                 try {
                     eli.close();
@@ -216,7 +206,7 @@ public class WorkEffortSearch {
             double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
 
             // store info about results in the database, attached to the user's visitId, if specified
-            this.saveSearchResultInfo(new Long(workEffortIds.size()), new Double(totalSeconds));
+            this.saveSearchResultInfo(Long.valueOf(workEffortIds.size()), Double.valueOf(totalSeconds));
 
             return workEffortIds;
         }
@@ -236,9 +226,9 @@ public class WorkEffortSearch {
             }
 
             // remove all or sets from the or set and list where the or set is size 1 and put them in the and list
-            Iterator keywordFixedOrSetAndTestIter = keywordFixedOrSetAndList.iterator();
+            Iterator<Set<String>> keywordFixedOrSetAndTestIter = keywordFixedOrSetAndList.iterator();
             while (keywordFixedOrSetAndTestIter.hasNext()) {
-                Set keywordFixedOrSet = (Set) keywordFixedOrSetAndTestIter.next();
+                Set<String> keywordFixedOrSet = keywordFixedOrSetAndTestIter.next();
                 if (keywordFixedOrSet.size() == 0) {
                     keywordFixedOrSetAndTestIter.remove();
                 } else if (keywordFixedOrSet.size() == 1) {
@@ -256,10 +246,7 @@ public class WorkEffortSearch {
             if (andKeywordFixedSet.size() > 0) {
                 // add up the relevancyWeight fields from all keyword member entities for a total to sort by
 
-                Iterator keywordIter = andKeywordFixedSet.iterator();
-                while (keywordIter.hasNext()) {
-                    String keyword = (String) keywordIter.next();
-
+                for (String keyword: andKeywordFixedSet) {
                     // make index based values and increment
                     String entityAlias = "PK" + index;
                     String prefix = "pk" + index;
@@ -281,9 +268,7 @@ public class WorkEffortSearch {
                 }
             }
             if (keywordFixedOrSetAndList.size() > 0) {
-                Iterator keywordFixedOrSetAndIter = keywordFixedOrSetAndList.iterator();
-                while (keywordFixedOrSetAndIter.hasNext()) {
-                    Set keywordFixedOrSet = (Set) keywordFixedOrSetAndIter.next();
+                for (Set<String> keywordFixedOrSet: keywordFixedOrSetAndList) {
                     // make index based values and increment
                     String entityAlias = "PK" + index;
                     String prefix = "pk" + index;
@@ -292,10 +277,8 @@ public class WorkEffortSearch {
                     dynamicViewEntity.addMemberEntity(entityAlias, "WorkEffortKeyword");
                     dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
                     dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
-                    List keywordOrList = new LinkedList();
-                    Iterator keywordIter = keywordFixedOrSet.iterator();
-                    while (keywordIter.hasNext()) {
-                        String keyword = (String) keywordIter.next();
+                    List<EntityExpr> keywordOrList = FastList.newInstance();
+                    for (String keyword: keywordFixedOrSet) {
                         keywordOrList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
                     }
                     entityConditionList.add(EntityCondition.makeCondition(keywordOrList, EntityOperator.OR));
@@ -322,7 +305,7 @@ public class WorkEffortSearch {
             if (resultSortOrder != null) {
                 resultSortOrder.setSortOrder(this);
             }
-            dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, new Boolean(workEffortIdGroupBy), null);
+            dynamicViewEntity.addAlias("WEFF", "workEffortId", null, null, null, Boolean.valueOf(workEffortIdGroupBy), null);
             EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
             
             // Debug.logInfo("WorkEffortSearch, whereCondition = " + whereCondition.toString(), module);
@@ -342,8 +325,8 @@ public class WorkEffortSearch {
             return eli;
         }
 
-        public ArrayList makeWorkEffortIdList(EntityListIterator eli) {
-            ArrayList workEffortIds = new ArrayList(maxResults == null ? 100 : maxResults.intValue());
+        public ArrayList<String> makeWorkEffortIdList(EntityListIterator eli) {
+            ArrayList<String> workEffortIds = new ArrayList<String>(maxResults == null ? 100 : maxResults.intValue());
             if (eli == null) {
                 Debug.logWarning("The eli is null, returning zero results", module);
                 return workEffortIds;
@@ -391,7 +374,7 @@ public class WorkEffortSearch {
                     if (this.resultOffset != null) {
                         failTotal = this.resultOffset.intValue() - 1;
                     }
-                    this.totalResults = new Integer(failTotal);
+                    this.totalResults = Integer.valueOf(failTotal);
                     return workEffortIds;
                 }
 
@@ -400,7 +383,7 @@ public class WorkEffortSearch {
                 int numRetreived = 1;
                 int duplicatesFound = 0;
 
-                Set workEffortIdSet = new HashSet();
+                Set<String> workEffortIdSet = FastSet.newInstance();
                 
                 workEffortIds.add(searchResult.getString("workEffortId"));
                 workEffortIdSet.add(searchResult.getString("workEffortId"));
@@ -416,10 +399,10 @@ public class WorkEffortSearch {
                     }
                     
                     /*
-                    StringBuffer lineMsg = new StringBuffer("Got search result line: ");
-                    Iterator fieldsToSelectIter = fieldsToSelect.iterator();
+                    StringBuilder lineMsg = new StringBuilder("Got search result line: ");
+                    Iterator<String> fieldsToSelectIter = fieldsToSelect.iterator();
                     while (fieldsToSelectIter.hasNext()) {
-                        String fieldName = (String) fieldsToSelectIter.next();
+                        String fieldName = fieldsToSelectIter.next();
                         lineMsg.append(fieldName);
                         lineMsg.append("=");
                         lineMsg.append(searchResult.get(fieldName));
@@ -435,7 +418,7 @@ public class WorkEffortSearch {
                     // we weren't at the end, so go to the end and get the index
                     //Debug.logInfo("Getting totalResults from ending index - before last() currentIndex=" + eli.currentIndex(), module);
                     if (eli.last()) {
-                        this.totalResults = new Integer(eli.currentIndex());
+                        this.totalResults = Integer.valueOf(eli.currentIndex());
                         //Debug.logInfo("Getting totalResults from ending index - after last() currentIndex=" + eli.currentIndex(), module);
                     }
                 }
@@ -444,7 +427,7 @@ public class WorkEffortSearch {
                     if (this.resultOffset != null) {
                         total += (this.resultOffset.intValue() - 1);
                     }
-                    this.totalResults = new Integer(total);
+                    this.totalResults = Integer.valueOf(total);
                 }
 
                 Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, module);
@@ -478,10 +461,8 @@ public class WorkEffortSearch {
                     workEffortSearchResult.set("searchDate", nowTimestamp);
                     workEffortSearchResult.create();
 
-                    Iterator workEffortSearchConstraintIter = workEffortSearchConstraintList.iterator();
                     int seqId = 1;
-                    while (workEffortSearchConstraintIter.hasNext()) {
-                        GenericValue workEffortSearchConstraint = (GenericValue) workEffortSearchConstraintIter.next();
+                    for (GenericValue workEffortSearchConstraint: workEffortSearchConstraintList) {
                         workEffortSearchConstraint.set("workEffortSearchResultId", workEffortSearchResultId);
                         workEffortSearchConstraint.set("constraintSeqId", Integer.toString(seqId));
                         workEffortSearchConstraint.create();
@@ -526,7 +507,7 @@ public class WorkEffortSearch {
         }
 
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
-            Set workEffortIdSet = FastSet.newInstance();
+            Set<String> workEffortIdSet = FastSet.newInstance();
             if (includeSubWorkEfforts) {
                 // find all sub-categories recursively, make a Set of workEffortId
                 WorkEffortSearch.getAllSubWorkEffortIds(workEffortId, workEffortIdSet, workEffortSearchContext.getDelegator(), workEffortSearchContext.nowTimestamp);
@@ -553,7 +534,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdFrom"));
             
-            List assocConditionFromTo = FastList.newInstance();
+            List<EntityExpr> assocConditionFromTo = FastList.newInstance();
             assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "WorkEffortIdTo", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
                 assocConditionFromTo.add(EntityCondition.makeCondition(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
@@ -574,7 +555,7 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ThruDate", "thruDate", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.TRUE, ModelKeyMap.makeKeyMapList("workEffortId","workEffortIdTo"));
             
-            List assocConditionToFrom = FastList.newInstance();
+            List<EntityExpr> assocConditionToFrom = FastList.newInstance();
             assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "WorkEffortIdFrom", EntityOperator.IN, workEffortIdSet));
             if (UtilValidate.isNotEmpty(workEffortAssocTypeId)) {
                 assocConditionToFrom.add(EntityCondition.makeCondition(prefix + "WorkEffortAssocTypeId", EntityOperator.EQUALS, workEffortAssocTypeId));
@@ -602,7 +583,7 @@ public class WorkEffortSearch {
                 Debug.logError(e, "Error looking up WorkEffortAssocConstraint pretty print info: " + e.toString(), module);
             }
 
-            StringBuffer ppBuf = new StringBuffer();            
+            StringBuilder ppBuf = new StringBuilder();            
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortAssoc", locale) + ": ");
             if (workEffort != null) {
                 ppBuf.append(workEffort.getString("workEffortName"));
@@ -623,7 +604,7 @@ public class WorkEffortSearch {
                 }
             }
             if (this.includeSubWorkEfforts) {
-                ppBuf.append(" (" + UtilProperties.getMessage(resource, "WorkEffortIncludeAllSubWorkEfforts", locale) + ")");
+                ppBuf.append(" (").append(UtilProperties.getMessage(resource, "WorkEffortIncludeAllSubWorkEfforts", locale)).append(")");
             }
             return ppBuf.toString();
         }
@@ -676,16 +657,16 @@ public class WorkEffortSearch {
             workEffortSearchContext.dynamicViewEntity.addAlias(entityAlias, prefix + "ReviewText", "reviewText", null, null, null, null);
             workEffortSearchContext.dynamicViewEntity.addViewLink("WEFF", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("workEffortId"));
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(prefix + "ReviewText"), EntityOperator.LIKE, EntityFunction.UPPER("%" + reviewTextString + "%")));
-            Map valueMap = UtilMisc.toMap("constraintName", constraintName, "infoString", this.reviewTextString);
+            Map<String, String> valueMap = UtilMisc.toMap("constraintName", constraintName, "infoString", this.reviewTextString);
             workEffortSearchContext.workEffortSearchConstraintList.add(workEffortSearchContext.getDelegator().makeValue("WorkEffortSearchConstraint", valueMap));
         }
 
         
         /** pretty print for log messages and even UI stuff */
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
-            StringBuffer ppBuf = new StringBuffer();
+            StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortReviews", locale) + ": \"");
-            ppBuf.append(this.reviewTextString + "\", " + UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale) + " ");                        
+            ppBuf.append(this.reviewTextString).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale)).append(" ");                        
             return ppBuf.toString();
         }
 
@@ -752,7 +733,7 @@ public class WorkEffortSearch {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding PartyAssignmentConstraint information for constraint pretty print", module);
             }
-            StringBuffer ppBuf = new StringBuffer();
+            StringBuilder ppBuf = new StringBuilder();
             ppBuf.append("WorkEffort Assignment: ");
             if (partyNameView != null) {
                 if (UtilValidate.isNotEmpty(partyNameView.getString("firstName"))) {
@@ -818,10 +799,10 @@ public class WorkEffortSearch {
 
     public static class ProductSetConstraint extends WorkEffortSearchConstraint {
         public static final String constraintName = "ProductSet";
-        protected Set productIdSet;
+        protected Set<String> productIdSet;
 
-        public ProductSetConstraint(Collection productIdSet) {
-            this.productIdSet = new HashSet(productIdSet);
+        public ProductSetConstraint(Collection<String> productIdSet) {
+            this.productIdSet = UtilMisc.makeSetWritable(productIdSet);
         }
 
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
@@ -841,10 +822,10 @@ public class WorkEffortSearch {
             workEffortSearchContext.entityConditionList.add(EntityCondition.makeCondition(prefix + "FromDate", EntityOperator.LESS_THAN, workEffortSearchContext.nowTimestamp));
 
             // add in workEffortSearchConstraint, don't worry about the workEffortSearchResultId or constraintSeqId, those will be fill in later
-            StringBuffer productIdInfo = new StringBuffer();
-            Iterator productIdIter = this.productIdSet.iterator();
+            StringBuilder productIdInfo = new StringBuilder();
+            Iterator<String> productIdIter = this.productIdSet.iterator();
             while (productIdIter.hasNext()) {
-                String productId = (String) productIdIter.next();
+                String productId = productIdIter.next();
                 productIdInfo.append(productId);
                 if (productIdIter.hasNext()) {
                     productIdInfo.append(",");
@@ -855,11 +836,11 @@ public class WorkEffortSearch {
         }
 
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
-            StringBuffer infoOut = new StringBuffer();
+            StringBuilder infoOut = new StringBuilder();
             try {
-                Iterator productIdIter = this.productIdSet.iterator();
+                Iterator<String> productIdIter = this.productIdSet.iterator();
                 while (productIdIter.hasNext()) {
-                    String productId = (String) productIdIter.next();
+                    String productId = productIdIter.next();
                     GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
                     if (product == null) {
                         infoOut.append("[");
@@ -920,15 +901,13 @@ public class WorkEffortSearch {
             }
         }
 
-        public Set makeFullKeywordSet(GenericDelegator delegator) {
-            Set keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
-            Set fullKeywordSet = new TreeSet();
+        public Set<String> makeFullKeywordSet(GenericDelegator delegator) {
+            Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
+            Set<String> fullKeywordSet = new TreeSet<String>();
 
             // expand the keyword list according to the thesaurus and create a new set of keywords
-            Iterator keywordIter = keywordSet.iterator();
-            while (keywordIter.hasNext()) {
-                String keyword = (String) keywordIter.next();
-                Set expandedSet = new TreeSet();
+            for (String keyword: keywordSet) {
+                Set<String> expandedSet = new TreeSet<String>();
                 boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, delegator);
                 fullKeywordSet.addAll(expandedSet);
                 if (!replaceEntered) {
@@ -948,31 +927,29 @@ public class WorkEffortSearch {
                 //but then the sets should be and'ed to produce the overall expression; create the SQL for this
                 //needs some work as the current method only support a list of and'ed words and a list of or'ed words, not
                 //a list of or'ed sets to be and'ed together
-                Set keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
+                Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
 
                 // expand the keyword list according to the thesaurus and create a new set of keywords
-                Iterator keywordIter = keywordSet.iterator();
-                while (keywordIter.hasNext()) {
-                    String keyword = (String) keywordIter.next();
-                    Set expandedSet = new TreeSet();
+                for (String keyword: keywordSet) {
+                    Set<String> expandedSet = new TreeSet<String>();
                     boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, workEffortSearchContext.getDelegator());
                     if (!replaceEntered) {
                         expandedSet.add(keyword);
                     }
-                    Set fixedSet = KeywordSearchUtil.fixKeywordsForSearch(expandedSet, anyPrefix, anySuffix, removeStems, isAnd);
-                    Set fixedKeywordSet = new HashSet();
+                    Set<String> fixedSet = KeywordSearchUtil.fixKeywordsForSearch(expandedSet, anyPrefix, anySuffix, removeStems, isAnd);
+                    Set<String> fixedKeywordSet = FastSet.newInstance();
                     fixedKeywordSet.addAll(fixedSet);
                     workEffortSearchContext.keywordFixedOrSetAndList.add(fixedKeywordSet);
                 }
             } else {
                 // when isAnd is false, just add all of the new entries to the big list
-                Set keywordFirstPass = makeFullKeywordSet(workEffortSearchContext.getDelegator()); // includes keyword expansion, etc
-                Set keywordSet = KeywordSearchUtil.fixKeywordsForSearch(keywordFirstPass, anyPrefix, anySuffix, removeStems, isAnd);
+                Set<String> keywordFirstPass = makeFullKeywordSet(workEffortSearchContext.getDelegator()); // includes keyword expansion, etc
+                Set<String> keywordSet = KeywordSearchUtil.fixKeywordsForSearch(keywordFirstPass, anyPrefix, anySuffix, removeStems, isAnd);
                 workEffortSearchContext.orKeywordFixedSet.addAll(keywordSet);
             }
 
             // add in workEffortSearchConstraint, don't worry about the workEffortSearchResultId or constraintSeqId, those will be fill in later
-            Map valueMap = UtilMisc.toMap("constraintName", constraintName, "infoString", this.keywordsString);
+            Map<String, String> valueMap = UtilMisc.toMap("constraintName", constraintName, "infoString", this.keywordsString);
             valueMap.put("anyPrefix", this.anyPrefix ? "Y" : "N");
             valueMap.put("anySuffix", this.anySuffix ? "Y" : "N");
             valueMap.put("isAnd", this.isAnd ? "Y" : "N");
@@ -982,9 +959,9 @@ public class WorkEffortSearch {
 
         /** pretty print for log messages and even UI stuff */
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
-            StringBuffer ppBuf = new StringBuffer();
-            ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortKeywords", locale) + ": \"");
-            ppBuf.append(this.keywordsString + "\", " + UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale) + " ");
+            StringBuilder ppBuf = new StringBuilder();
+            ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortKeywords", locale)).append(": \"");
+            ppBuf.append(this.keywordsString).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortKeywordWhere", locale)).append(" ");
             ppBuf.append(isAnd ? UtilProperties.getMessage(resource, "WorkEffortKeywordAllWordsMatch", locale) : UtilProperties.getMessage(resource, "WorkEffortKeywordAnyWordMatches", locale));            
             return ppBuf.toString();
         }
@@ -1034,7 +1011,7 @@ public class WorkEffortSearch {
         public void addConstraint(WorkEffortSearchContext workEffortSearchContext) {
             workEffortSearchContext.dynamicViewEntity.addAlias("WEFF", "lastModifiedDate", "lastModifiedDate", null, null, null, null);
             
-            EntityConditionList dateConditions = null;
+            EntityConditionList<EntityExpr> dateConditions = null;
             EntityExpr dateCondition=null;
             if(fromDate !=null && thruDate!=null) {
             dateConditions= EntityCondition.makeCondition(UtilMisc.toList(
@@ -1045,7 +1022,7 @@ public class WorkEffortSearch {
             } else if (thruDate != null) {
                 dateCondition = EntityCondition.makeCondition("lastModifiedDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate);
             }
-            EntityConditionList conditions = null;
+            EntityConditionList<? extends EntityCondition> conditions = null;
             if(fromDate !=null && thruDate!=null) {
                 conditions=EntityCondition.makeCondition(UtilMisc.toList(
                     dateConditions,
@@ -1066,9 +1043,9 @@ public class WorkEffortSearch {
 
         /** pretty print for log messages and even UI stuff */
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
-            StringBuffer ppBuf = new StringBuffer();
-            ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale) + ": \"");
-            ppBuf.append(fromDate +"-" +thruDate + "\", " + UtilProperties.getMessage(resource, "WorkEffortLastModified", locale) + " ");                        
+            StringBuilder ppBuf = new StringBuilder();
+            ppBuf.append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale)).append(": \"");
+            ppBuf.append(fromDate).append("-").append(thruDate).append("\", ").append(UtilProperties.getMessage(resource, "WorkEffortLastModified", locale)).append(" ");                        
             return ppBuf.toString();
         }
         

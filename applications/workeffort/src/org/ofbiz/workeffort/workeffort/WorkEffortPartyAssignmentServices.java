@@ -51,14 +51,14 @@ public class WorkEffortPartyAssignmentServices {
             // TODO: restrict status transitions
 
             String statusId = (String) wepa.get("statusId");
-            Map context = UtilMisc.toMap("workEffortId", wepa.get("workEffortId"), "partyId", wepa.get("partyId"),
+            Map<String, Object> context = UtilMisc.toMap("workEffortId", wepa.get("workEffortId"), "partyId", wepa.get("partyId"),
                     "roleTypeId", wepa.get("roleTypeId"), "fromDate", wepa.get("fromDate"),
                     "userLogin", userLogin);
 
             if ("CAL_ACCEPTED".equals(statusId)) {
                 // accept the activity assignment
                 try {
-                    Map results = dispatcher.runSync("wfAcceptAssignment", context);
+                    Map<String, Object> results = dispatcher.runSync("wfAcceptAssignment", context);
 
                     if (results != null && results.get(ModelService.ERROR_MESSAGE) != null)
                         Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
@@ -68,7 +68,7 @@ public class WorkEffortPartyAssignmentServices {
             } else if ("CAL_COMPLETED".equals(statusId)) {
                 // complete the activity assignment
                 try {
-                    Map results = dispatcher.runSync("wfCompleteAssignment", context);
+                    Map<String, Object> results = dispatcher.runSync("wfCompleteAssignment", context);
 
                     if (results != null && results.get(ModelService.ERROR_MESSAGE) != null)
                         Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);
@@ -78,7 +78,7 @@ public class WorkEffortPartyAssignmentServices {
             } else if ("CAL_DECLINED".equals(statusId)) {
                 // decline the activity assignment
                 try {
-                    Map results = dispatcher.runSync("wfDeclineAssignment", context);
+                    Map<String, Object> results = dispatcher.runSync("wfDeclineAssignment", context);
 
                     if (results != null && results.get(ModelService.ERROR_MESSAGE) != null)
                         Debug.logWarning((String) results.get(ModelService.ERROR_MESSAGE), module);

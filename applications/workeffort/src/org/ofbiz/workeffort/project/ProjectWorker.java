@@ -19,11 +19,12 @@
 
 package org.ofbiz.workeffort.project;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 
 import javax.servlet.jsp.PageContext;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -46,7 +47,7 @@ public class ProjectWorker {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");
 
-        Collection validWorkEfforts = null;
+        Collection<GenericValue> validWorkEfforts = null;
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
@@ -103,7 +104,7 @@ public class ProjectWorker {
         if (projectWorkEffortId == null)
             projectWorkEffortId = (String) pageContext.getRequest().getAttribute("projectWorkEffortId");
 
-        Collection relatedWorkEfforts = null;
+        Collection<GenericValue> relatedWorkEfforts = null;
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
@@ -117,14 +118,11 @@ public class ProjectWorker {
             }
         }
 
-        Collection validWorkEfforts = new ArrayList();
+        Collection<GenericValue> validWorkEfforts = FastList.newInstance();
 
         if (relatedWorkEfforts != null) {
-            Iterator relatedWorkEffortsIter = relatedWorkEfforts.iterator();
-
             try {
-                while (relatedWorkEffortsIter.hasNext()) {
-                    GenericValue workEffortAssoc = (GenericValue) relatedWorkEffortsIter.next();
+                for (GenericValue workEffortAssoc: relatedWorkEfforts) {
                     GenericValue workEffort = workEffortAssoc.getRelatedOne("ToWorkEffort");
 
                     // only get phases
@@ -153,7 +151,7 @@ public class ProjectWorker {
         if (phaseWorkEffortId == null)
             phaseWorkEffortId = (String) pageContext.getRequest().getAttribute("phaseWorkEffortId");
 
-        Collection relatedWorkEfforts = null;
+        Collection<GenericValue> relatedWorkEfforts = null;
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {
@@ -167,14 +165,11 @@ public class ProjectWorker {
             }
         }
 
-        Collection validWorkEfforts = new ArrayList();
+        Collection<GenericValue> validWorkEfforts = FastList.newInstance();
 
         if (relatedWorkEfforts != null) {
-            Iterator relatedWorkEffortsIter = relatedWorkEfforts.iterator();
-
             try {
-                while (relatedWorkEffortsIter.hasNext()) {
-                    GenericValue workEffortAssoc = (GenericValue) relatedWorkEffortsIter.next();
+                for (GenericValue workEffortAssoc: relatedWorkEfforts) {
                     GenericValue workEffort = workEffortAssoc.getRelatedOne("ToWorkEffort");
 
                     // only get phases
@@ -202,7 +197,7 @@ public class ProjectWorker {
         if (workEffortId == null)
             workEffortId = (String) pageContext.getRequest().getAttribute("workEffortId");
 
-        Collection notes = null;
+        Collection<GenericValue> notes = null;
 
         if (userLogin != null && userLogin.get("partyId") != null) {
             try {

@@ -19,9 +19,7 @@
 package org.ofbiz.workeffort.workeffort;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -29,8 +27,12 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastList;
+
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.ResultSortOrder;
@@ -41,7 +43,7 @@ public class WorkEffortSearchSession {
 
     public static final String module = WorkEffortSearchSession.class.getName();
     public static class WorkEffortSearchOptions implements java.io.Serializable {
-        protected List constraintList = null;
+        protected List<WorkEffortSearchConstraint> constraintList = null;
         protected ResultSortOrder resultSortOrder = null;
         protected Integer viewIndex = null;
         protected Integer viewSize = null;
@@ -50,23 +52,23 @@ public class WorkEffortSearchSession {
 
         /** Basic copy constructor */
         public WorkEffortSearchOptions(WorkEffortSearchOptions workEffortSearchOptions) {
-            this.constraintList = new LinkedList(workEffortSearchOptions.constraintList);
+            this.constraintList = UtilMisc.makeListWritable(workEffortSearchOptions.constraintList);
             this.resultSortOrder = workEffortSearchOptions.resultSortOrder;
             this.viewIndex = workEffortSearchOptions.viewIndex;
             this.viewSize = workEffortSearchOptions.viewSize;
             this.changed = workEffortSearchOptions.changed;
         }
 
-        public List getConstraintList() {
+        public List<WorkEffortSearchConstraint> getConstraintList() {
             return this.constraintList;
         }
-        public static List getConstraintList(HttpSession session) {
+        public static List<WorkEffortSearchConstraint> getConstraintList(HttpSession session) {
             return getWorkEffortSearchOptions(session).constraintList;
         }
         public static void addConstraint(WorkEffortSearchConstraint workEffortSearchConstraint, HttpSession session) {
             WorkEffortSearchOptions workEffortSearchOptions = getWorkEffortSearchOptions(session);
             if (workEffortSearchOptions.constraintList == null) {
-                workEffortSearchOptions.constraintList = new LinkedList();
+                workEffortSearchOptions.constraintList = FastList.newInstance();
             }
             if (!workEffortSearchOptions.constraintList.contains(workEffortSearchConstraint)) {
                 workEffortSearchOptions.constraintList.add(workEffortSearchConstraint);
@@ -127,15 +129,13 @@ public class WorkEffortSearchSession {
             this.viewSize = viewSize;
         }
         
-        public List searchGetConstraintStrings(boolean detailed, GenericDelegator delegator, Locale locale) {
-            List workEffortSearchConstraintList = this.getConstraintList();
-            List constraintStrings = new ArrayList();
+        public List<String> searchGetConstraintStrings(boolean detailed, GenericDelegator delegator, Locale locale) {
+            List<WorkEffortSearchConstraint> workEffortSearchConstraintList = this.getConstraintList();
+            List<String> constraintStrings = FastList.newInstance();
             if (workEffortSearchConstraintList == null) {
                 return constraintStrings;
             }
-            Iterator workEffortSearchConstraintIter = workEffortSearchConstraintList.iterator();
-            while (workEffortSearchConstraintIter.hasNext()) {
-                WorkEffortSearchConstraint workEffortSearchConstraint = (WorkEffortSearchConstraint) workEffortSearchConstraintIter.next();
+            for (WorkEffortSearchConstraint workEffortSearchConstraint: workEffortSearchConstraintList) {
                 if (workEffortSearchConstraint == null) continue;
                 String constraintString = workEffortSearchConstraint.prettyPrintConstraint(delegator, detailed, locale);
                 if (UtilValidate.isNotEmpty(constraintString)) {
@@ -157,7 +157,7 @@ public class WorkEffortSearchSession {
         return workEffortSearchOptions;
     }
     
-    public static void processSearchParameters(Map parameters, HttpServletRequest request) {
+    public static void processSearchParameters(Map<String, Object> parameters, HttpServletRequest request) {
         Boolean alreadyRun = (Boolean) request.getAttribute("processSearchParametersAlreadyRun"); 
         if (Boolean.TRUE.equals(alreadyRun)) {
             return;
@@ -208,10 +208,10 @@ public class WorkEffortSearchSession {
         
 //      add a Product Set to the search
         if (UtilValidate.isNotEmpty((String) parameters.get("productId_1"))) {
-            List productSet = new ArrayList();
-            productSet.add(parameters.get("productId_1"));
+            List<String> productSet = FastList.newInstance();
+            productSet.add((String) parameters.get("productId_1"));
             if (UtilValidate.isNotEmpty((String) parameters.get("productId_2"))) {
-                productSet.add(parameters.get("productId_2"));    
+                productSet.add((String) parameters.get("productId_2"));    
             }            
             searchAddConstraint(new WorkEffortSearch.ProductSetConstraint(productSet), session);
             constraintsChanged = true;
@@ -267,7 +267,7 @@ public class WorkEffortSearchSession {
             } catch (Exception e) {
                 Debug.logError(e, "Error formatting VIEW_INDEX, setting to 0", module);
                 // we could just do nothing here, but we know something was specified so we don't want to use the previous value from the session
-                workEffortSearchOptions.setViewIndex(new Integer(0));
+                workEffortSearchOptions.setViewIndex(Integer.valueOf(0));
             }
         }
 
@@ -277,7 +277,7 @@ public class WorkEffortSearchSession {
                 workEffortSearchOptions.setViewSize(Integer.valueOf(viewSizeStr));
             } catch (Exception e) {
                 Debug.logError(e, "Error formatting VIEW_SIZE, setting to 20", module);
-                workEffortSearchOptions.setViewSize(new Integer(20));
+                workEffortSearchOptions.setViewSize(Integer.valueOf(20));
             }
         }
     }
@@ -288,16 +288,16 @@ public class WorkEffortSearchSession {
     public static void searchSetSortOrder(ResultSortOrder resultSortOrder, HttpSession session) {
         WorkEffortSearchOptions.setResultSortOrder(resultSortOrder, session);
     }
-    public static List getSearchOptionsHistoryList(HttpSession session) {
-        List optionsHistoryList = (List) session.getAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_"); 
+    public static List<WorkEffortSearchOptions> getSearchOptionsHistoryList(HttpSession session) {
+        List<WorkEffortSearchOptions> optionsHistoryList = UtilGenerics.checkList(session.getAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_")); 
         if (optionsHistoryList == null) {
-            optionsHistoryList = new LinkedList();
+            optionsHistoryList = FastList.newInstance();
             session.setAttribute("_WORK_EFFORT_SEARCH_OPTIONS_HISTORY_", optionsHistoryList);
         }
         return optionsHistoryList;
     }
     
-    public static List searchGetConstraintStrings(boolean detailed, HttpSession session, GenericDelegator delegator) {
+    public static List<String> searchGetConstraintStrings(boolean detailed, HttpSession session, GenericDelegator delegator) {
         Locale locale = UtilHttp.getLocale(session);
         WorkEffortSearchOptions workEffortSearchOptions = getWorkEffortSearchOptions(session);
         return workEffortSearchOptions.searchGetConstraintStrings(detailed, delegator, locale);
@@ -312,13 +312,13 @@ public class WorkEffortSearchSession {
         WorkEffortSearchOptions workEffortSearchOptions = WorkEffortSearchSession.getWorkEffortSearchOptions(session); 
         // if the options have changed since the last search, add it to the beginning of the search options history
         if (workEffortSearchOptions.changed) {
-            List optionsHistoryList = WorkEffortSearchSession.getSearchOptionsHistoryList(session); 
+            List<WorkEffortSearchOptions> optionsHistoryList = WorkEffortSearchSession.getSearchOptionsHistoryList(session); 
             optionsHistoryList.add(0, new WorkEffortSearchOptions(workEffortSearchOptions));
             workEffortSearchOptions.changed = false;
         }
     }
     public static void searchRemoveConstraint(int index, HttpSession session) {
-        List workEffortSearchConstraintList = WorkEffortSearchOptions.getConstraintList(session);
+        List<WorkEffortSearchConstraint> workEffortSearchConstraintList = WorkEffortSearchOptions.getConstraintList(session);
         if (workEffortSearchConstraintList == null) {
             return;
         } else if (index >= workEffortSearchConstraintList.size()) {
