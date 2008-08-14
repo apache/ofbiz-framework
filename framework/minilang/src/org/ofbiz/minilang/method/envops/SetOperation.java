@@ -36,6 +36,15 @@ import org.w3c.dom.Element;
  * A general set operation to set a field from another field or from a value. Also supports a default-value, and type conversion.
  */
 public class SetOperation extends MethodOperation {
+    public static final class SetOperationFactory implements Factory<SetOperation> {
+        public SetOperation createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SetOperation(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "set";
+        }
+    }
     public static final String module = SetOperation.class.getName();
     
     protected ContextAccessor<Object> field;

@@ -36,6 +36,15 @@ import org.w3c.dom.Element;
  * process else operations if specified.
  */
 public class IfHasPermission extends MethodOperation {
+    public static final class IfHasPermissionFactory implements Factory<IfHasPermission> {
+        public IfHasPermission createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfHasPermission(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-has-permission";
+        }
+    }
 
     protected List<MethodOperation> subOps = FastList.newInstance();
     protected List<MethodOperation> elseSubOps = null;

@@ -36,6 +36,15 @@ import org.w3c.dom.Element;
  * Calls a service using the given parameters
  */
 public class CallServiceAsynch extends MethodOperation {
+    public static final class CallServiceAsynchFactory implements Factory<CallServiceAsynch> {
+        public CallServiceAsynch createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CallServiceAsynch(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "call-service-asynch";
+        }
+    }
     
     public static final String module = CallServiceAsynch.class.getName();
     

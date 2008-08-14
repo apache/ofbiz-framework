@@ -33,6 +33,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to store the specified value object list in the datasource
  */
 public class StoreList extends MethodOperation {
+    public static final class StoreListFactory implements Factory<StoreList> {
+        public StoreList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new StoreList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "store-list";
+        }
+    }
     
     public static final String module = StoreList.class.getName();
     

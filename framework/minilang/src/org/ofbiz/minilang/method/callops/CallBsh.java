@@ -34,6 +34,15 @@ import bsh.*;
  * Simple class to wrap messages that come either from a straight string or a properties file
  */
 public class CallBsh extends MethodOperation {
+    public static final class CallBshFactory implements Factory<CallBsh> {
+        public CallBsh createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CallBsh(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "call-bsh";
+        }
+    }
     
     public static final String module = CallBsh.class.getName();
     

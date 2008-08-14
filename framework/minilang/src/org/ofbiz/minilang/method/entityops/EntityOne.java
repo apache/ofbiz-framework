@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to find entity values by a primary key
  */
 public class EntityOne extends MethodOperation {
+    public static final class EntityOneFactory implements Factory<EntityOne> {
+        public EntityOne createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EntityOne(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "entity-one";
+        }
+    }
     
     public static final String module = EntityOne.class.getName();
     

@@ -30,6 +30,15 @@ import org.w3c.dom.Element;
 @Deprecated
 @MethodOperation.DeprecatedOperation("set")
 public class EnvToEnv extends MethodOperation {
+    public static final class EnvToEnvFactory implements Factory<EnvToEnv> {
+        public EnvToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EnvToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "env-to-env";
+        }
+    }
     
     public static final String module = EnvToEnv.class.getName();
 

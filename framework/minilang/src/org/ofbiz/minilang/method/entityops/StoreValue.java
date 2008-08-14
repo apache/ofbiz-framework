@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to store the specified value object entity in the datasource
  */
 public class StoreValue extends MethodOperation {
+    public static final class StoreValueFactory implements Factory<StoreValue> {
+        public StoreValue createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new StoreValue(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "store-value";
+        }
+    }
     
     public static final String module = StoreValue.class.getName();
     

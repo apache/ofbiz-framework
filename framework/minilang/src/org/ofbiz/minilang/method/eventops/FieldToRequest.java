@@ -32,6 +32,15 @@ import org.w3c.dom.Element;
  * Copies a map field to a Servlet request attribute
  */
 public class FieldToRequest extends MethodOperation {
+    public static final class FieldToRequestFactory implements Factory<FieldToRequest> {
+        public FieldToRequest createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FieldToRequest(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "field-to-request";
+        }
+    }
     
     public static final String module = FieldToRequest.class.getName();
     

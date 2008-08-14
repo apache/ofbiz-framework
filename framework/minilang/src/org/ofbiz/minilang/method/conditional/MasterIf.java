@@ -31,6 +31,15 @@ import org.ofbiz.minilang.method.*;
  * Represents the top-level element and only mounted operation for the more flexible if structure.
  */
 public class MasterIf extends MethodOperation {
+    public static final class MasterIfFactory implements Factory<MasterIf> {
+        public MasterIf createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new MasterIf(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if";
+        }
+    }
 
     Conditional condition;
 

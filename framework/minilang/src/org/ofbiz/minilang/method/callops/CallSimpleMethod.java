@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * An operation that calls a simple method in the same, or from another, file
  */
 public class CallSimpleMethod extends MethodOperation {
+    public static final class CallSimpleMethodFactory implements Factory<CallSimpleMethod> {
+        public CallSimpleMethod createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CallSimpleMethod(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "call-simple-method";
+        }
+    }
     
     public static final String module = CallSimpleMethod.class.getName();
     

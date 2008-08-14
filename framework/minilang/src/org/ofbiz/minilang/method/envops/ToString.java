@@ -32,6 +32,15 @@ import org.ofbiz.minilang.method.*;
  * Converts the specified field to a String, using toString()
  */
 public class ToString extends MethodOperation {
+    public static final class ToStringFactory implements Factory<ToString> {
+        public ToString createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new ToString(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "to-string";
+        }
+    }
     
     public static final String module = ToString.class.getName();
     

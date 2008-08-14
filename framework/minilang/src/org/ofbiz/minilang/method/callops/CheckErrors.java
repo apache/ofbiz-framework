@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * An event operation that checks a message list and may introduce a return code and stop the event
  */
 public class CheckErrors extends MethodOperation {
+    public static final class CheckErrorsFactory implements Factory<CheckErrors> {
+        public CheckErrors createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CheckErrors(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "check-errors";
+        }
+    }
     
     ContextAccessor<List<Object>> errorListAcsr;
     String errorCode;

@@ -34,6 +34,15 @@ import org.ofbiz.base.util.Debug;
  * Loop
  */
 public class Loop extends MethodOperation {
+    public static final class LoopFactory implements Factory<Loop> {
+        public Loop createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Loop(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "loop";
+        }
+    }
 
     public static final String module = Loop.class.getName();
     protected List<MethodOperation> subOps = FastList.newInstance();

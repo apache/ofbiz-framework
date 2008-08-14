@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * Begins a transaction if one is not already in place; if does begin one puts true in the began-transaction-name env variable, otherwise it returns false.
  */
 public class TransactionBegin extends MethodOperation {
+    public static final class TransactionBeginFactory implements Factory<TransactionBegin> {
+        public TransactionBegin createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new TransactionBegin(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "transaction-begin";
+        }
+    }
     
     public static final String module = TransactionBegin.class.getName();
     

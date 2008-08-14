@@ -33,6 +33,15 @@ import org.ofbiz.minilang.method.*;
  * Calls a Java class method using the given fields as parameters
  */
 public class CallClassMethod extends MethodOperation {
+    public static final class CallClassMethodFactory implements Factory<CallClassMethod> {
+        public CallClassMethod createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CallClassMethod(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "call-class-method";
+        }
+    }
     
     public static final String module = CallClassMethod.class.getName();
 

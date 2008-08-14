@@ -32,6 +32,15 @@ import org.ofbiz.minilang.method.*;
  * Copies a property value from a properties file in a ServletContext resource to a field
  */
 public class WebappPropertyToField extends MethodOperation {
+    public static final class WebappPropertyToFieldFactory implements Factory<WebappPropertyToField> {
+        public WebappPropertyToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new WebappPropertyToField(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "webapp-property-to-field";
+        }
+    }
     
     public static final String module = WebappPropertyToField.class.getName();
     

@@ -33,6 +33,15 @@ import org.ofbiz.minilang.method.*;
 @Deprecated
 @MethodOperation.DeprecatedOperation("set")
 public class EnvToField extends MethodOperation {
+    public static final class EnvToFieldFactory implements Factory<EnvToField> {
+        public EnvToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new EnvToField(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "env-to-field";
+        }
+    }
     
     public static final String module = EnvToField.class.getName();
     

@@ -32,6 +32,15 @@ import org.w3c.dom.Element;
  * Looks for each non-PK field in the named map and if it exists there it will copy it into the named value object.
  */
 public class SetNonpkFields extends MethodOperation {
+    public static final class SetNonpkFieldsFactory implements Factory<SetNonpkFields> {
+        public SetNonpkFields createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SetNonpkFields(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "set-nonpk-fields";
+        }
+    }
     
     public static final String module = SetNonpkFields.class.getName();
     

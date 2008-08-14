@@ -32,6 +32,15 @@ import org.w3c.dom.Element;
  * Order the given list of GenericValue objects
  */
 public class OrderValueList extends MethodOperation {
+    public static final class OrderValueListFactory implements Factory<OrderValueList> {
+        public OrderValueList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new OrderValueList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "order-value-list";
+        }
+    }
     
     ContextAccessor<List<? extends GenericEntity>> listAcsr;
     ContextAccessor<List<? extends GenericEntity>> toListAcsr;

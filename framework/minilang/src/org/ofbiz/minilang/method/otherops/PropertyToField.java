@@ -31,6 +31,15 @@ import org.ofbiz.minilang.method.*;
  * Copies an properties file property value to a field
  */
 public class PropertyToField extends MethodOperation {
+    public static final class PropertyToFieldFactory implements Factory<PropertyToField> {
+        public PropertyToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new PropertyToField(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "property-to-field";
+        }
+    }
     
     public static final String module = PropertyToField.class.getName();
     

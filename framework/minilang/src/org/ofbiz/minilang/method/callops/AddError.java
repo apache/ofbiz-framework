@@ -31,6 +31,15 @@ import org.ofbiz.minilang.method.*;
  * Adds the fail-message or fail-property value to the error-list.
  */
 public class AddError extends MethodOperation {
+    public static final class AddErrorFactory implements Factory<AddError> {
+        public AddError createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new AddError(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "add-error";
+        }
+    }
     String message = null;
     String propertyResource = null;
     boolean isProperty = false;

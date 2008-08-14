@@ -29,6 +29,15 @@ import org.ofbiz.minilang.method.*;
  * Copies a map field to a Service result entry
  */
 public class FieldToResult extends MethodOperation {
+    public static final class FieldToResultFactory implements Factory<FieldToResult> {
+        public FieldToResult createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FieldToResult(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "field-to-result";
+        }
+    }
     
     public static final String module = FieldToResult.class.getName();
     

@@ -36,6 +36,15 @@ import org.w3c.dom.Element;
  * Operation used to check each sub-condition independently and for each one that fails (does not evaluate to true), adds an error to the error message list.
  */
 public class Assert extends MethodOperation {
+    public static final class AssertFactory implements Factory<Assert> {
+        public Assert createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Assert(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "assert";
+        }
+    }
 
     public static final String module = Assert.class.getName();
 

@@ -30,6 +30,15 @@ import org.w3c.dom.Element;
  * Uses the delegator to create the specified value object entity in the datasource
  */
 public class SetCurrentUserLogin extends MethodOperation {
+    public static final class SetCurrentUserLoginFactory implements Factory<SetCurrentUserLogin> {
+        public SetCurrentUserLogin createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SetCurrentUserLogin(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "set-current-user-login";
+        }
+    }
     
     public static final String module = SetCurrentUserLogin.class.getName();
     

@@ -40,6 +40,15 @@ import org.w3c.dom.Element;
  * Calculates a result based on nested calcops.
  */
 public class Calculate extends MethodOperation {
+    public static final class CalculateFactory implements Factory<Calculate> {
+        public Calculate createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Calculate(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "calculate";
+        }
+    }
     
     public static final String module = Calculate.class.getName();
     

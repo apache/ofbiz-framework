@@ -32,6 +32,15 @@ import org.w3c.dom.Element;
  * Looks for each PK field in the named map and if it exists there it will copy it into the named value object.
  */
 public class SetPkFields extends MethodOperation {
+    public static final class SetPkFieldsFactory implements Factory<SetPkFields> {
+        public SetPkFields createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SetPkFields(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "set-pk-fields";
+        }
+    }
     
     public static final String module = SetPkFields.class.getName();
     

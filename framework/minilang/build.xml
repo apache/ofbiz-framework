@@ -55,6 +55,7 @@ under the License.
         <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
         <copy todir="${build.dir}/classes/META-INF">
             <fileset dir="${ofbiz.home.dir}" includes="NOTICE,LICENSE"/>
+            <fileset dir="src/META-INF" includes="**"/>
         </copy>        
     </target>
 

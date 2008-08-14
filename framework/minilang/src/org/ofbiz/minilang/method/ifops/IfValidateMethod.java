@@ -33,6 +33,15 @@ import org.ofbiz.minilang.method.conditional.ElseIf;
  * Iff the validate method returns true with the specified field process sub-operations
  */
 public class IfValidateMethod extends MethodOperation {
+    public static final class IfValidateMethodFactory implements Factory<IfValidateMethod> {
+        public IfValidateMethod createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfValidateMethod(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-validate-method";
+        }
+    }
     
     public static final String module = IfValidateMethod.class.getName();
 

@@ -31,6 +31,15 @@ import org.w3c.dom.Element;
  * Look at existing values for a sub-entity with a sequenced secondary ID, and get the highest plus 1
  */
 public class MakeNextSeqId extends MethodOperation {
+    public static final class MakeNextSeqIdFactory implements Factory<MakeNextSeqId> {
+        public MakeNextSeqId createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new MakeNextSeqId(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "make-next-seq-id";
+        }
+    }
 
     public static final String module = MakeNextSeqId.class.getName();
 

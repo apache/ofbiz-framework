@@ -34,6 +34,15 @@ import org.w3c.dom.Element;
  * Copies a Servlet session attribute to a map field
  */
 public class SessionToField extends MethodOperation {
+    public static final class SessionToFieldFactory implements Factory<SessionToField> {
+        public SessionToField createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SessionToField(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "session-to-field";
+        }
+    }
     
     public static final String module = SessionToField.class.getName();
     

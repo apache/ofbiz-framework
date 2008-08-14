@@ -31,6 +31,15 @@ import org.ofbiz.minilang.method.*;
  * Iff the specified field is not empty process sub-operations
  */
 public class IfNotEmpty extends MethodOperation {
+    public static final class IfNotEmptyFactory implements Factory<IfNotEmpty> {
+        public IfNotEmpty createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new IfNotEmpty(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-not-empty";
+        }
+    }
     
     public static final String module = IfNotEmpty.class.getName();
 

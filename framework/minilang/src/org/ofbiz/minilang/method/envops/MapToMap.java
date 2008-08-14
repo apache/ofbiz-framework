@@ -31,6 +31,15 @@ import org.ofbiz.minilang.method.*;
  * Copies a map field to a map field
  */
 public class MapToMap extends MethodOperation {
+    public static final class MapToMapFactory implements Factory<MapToMap> {
+        public MapToMap createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new MapToMap(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "map-to-map";
+        }
+    }
     
     public static final String module = MapToMap.class.getName();
     

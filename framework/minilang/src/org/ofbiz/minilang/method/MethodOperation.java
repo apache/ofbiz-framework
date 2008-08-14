@@ -31,6 +31,11 @@ import org.ofbiz.minilang.*;
  * A single operation, does the specified operation on the given field
  */
 public abstract class MethodOperation {
+    public interface Factory<M extends MethodOperation> {
+        M createMethodOperation(Element element, SimpleMethod simpleMethod);
+        String getName();
+    }
+
     @Retention(RetentionPolicy.RUNTIME)
     @Target(ElementType.TYPE)
     public @interface DeprecatedOperation {

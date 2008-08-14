@@ -33,6 +33,15 @@ import org.ofbiz.minilang.operation.*;
  * An event operation that calls a simple map processor inlined or from a separate file
  */
 public class CallSimpleMapProcessor extends MethodOperation {
+    public static final class CallSimpleMapProcessorFactory implements Factory<CallSimpleMapProcessor> {
+        public CallSimpleMapProcessor createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new CallSimpleMapProcessor(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "call-map-processor";
+        }
+    }
     
     String xmlResource;
     String processorName;

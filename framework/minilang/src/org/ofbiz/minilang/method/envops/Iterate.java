@@ -39,6 +39,15 @@ import org.w3c.dom.Element;
  * Process sub-operations for each entry in the list
  */
 public class Iterate extends MethodOperation {
+    public static final class IterateFactory implements Factory<Iterate> {
+        public Iterate createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Iterate(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "iterate";
+        }
+    }
     
     public static final String module = Iterate.class.getName();
 

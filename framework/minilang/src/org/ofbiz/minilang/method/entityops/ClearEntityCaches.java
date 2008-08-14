@@ -27,6 +27,15 @@ import org.ofbiz.minilang.method.*;
  * Clears all Entity Engine Caches
  */
 public class ClearEntityCaches extends MethodOperation {
+    public static final class ClearEntityCachesFactory implements Factory<ClearEntityCaches> {
+        public ClearEntityCaches createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new ClearEntityCaches(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "clear-entity-caches";
+        }
+    }
 
     public ClearEntityCaches(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);

@@ -29,6 +29,15 @@ import org.ofbiz.minilang.method.*;
  * Get the first entry from the list
  */
 public class FirstFromList extends MethodOperation {
+    public static final class FirstFromListFactory implements Factory<FirstFromList> {
+        public FirstFromList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new FirstFromList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "first-from-list";
+        }
+    }
     
     public static final String module = FirstFromList.class.getName();
 

@@ -27,6 +27,15 @@ import org.ofbiz.minilang.method.*;
  * An event operation that returns the given response code
  */
 public class Return extends MethodOperation {
+    public static final class ReturnFactory implements Factory<Return> {
+        public Return createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Return(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "return";
+        }
+    }
     
     String responseCode;
 

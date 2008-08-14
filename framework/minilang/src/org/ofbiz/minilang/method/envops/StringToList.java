@@ -33,6 +33,15 @@ import org.ofbiz.minilang.method.*;
  * Appends the specified String to a List
  */
 public class StringToList extends MethodOperation {
+    public static final class StringToListFactory implements Factory<StringToList> {
+        public StringToList createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new StringToList(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "string-to-list";
+        }
+    }
     
     public static final String module = StringToList.class.getName();
     

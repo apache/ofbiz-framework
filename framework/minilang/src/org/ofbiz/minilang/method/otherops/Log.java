@@ -30,6 +30,15 @@ import org.ofbiz.minilang.method.*;
  * Calculates a result based on nested calcops.
  */
 public class Log extends MethodOperation {
+    public static final class LogFactory implements Factory<Log> {
+        public Log createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new Log(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "log";
+        }
+    }
     
     public static final String module = Log.class.getName();
 
