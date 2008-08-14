@@ -58,6 +58,7 @@ under the License.
                 </#list>
                 <#if "POSTAL_ADDRESS" = contactMech.contactMechTypeId>
                   <#assign postalAddress = contactMechMap.postalAddress>
+                  <#if postalAddress?has_content>
                   <div>
                     <#if postalAddress.toName?has_content><b>${uiLabelMap.PartyAddrToName}:</b> ${postalAddress.toName}<br /></#if>
                     <#if postalAddress.attnName?has_content><b>${uiLabelMap.PartyAddrAttnName}:</b> ${postalAddress.attnName}<br /></#if>
@@ -74,6 +75,7 @@ under the License.
                       ${country.geoName?default(country.geoId)}
                     </#if>
                   </div>
+                  </#if>
                   <#if (postalAddress?has_content && !postalAddress.countryGeoId?has_content) || postalAddress.countryGeoId = "USA">
                     <#assign addr1 = postalAddress.address1?if_exists>
                     <#if addr1?has_content && (addr1.indexOf(" ") > 0)>
