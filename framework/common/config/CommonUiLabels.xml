@@ -3644,6 +3644,9 @@
         <value xml:lang="zh_CN">没有地址</value>
         <value xml:lang="zh">无地址</value>
     </property>
+    <property key="CommonNoAccess">
+        <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
+    </property>
     <property key="CommonNoContactInformationOnFile">
         <value xml:lang="ar">لا معاومات حول الصلة في الملف</value>
         <value xml:lang="de">Keine Kontaktinformation hinterlegt</value>

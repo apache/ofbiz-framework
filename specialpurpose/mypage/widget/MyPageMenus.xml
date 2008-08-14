@@ -92,7 +92,7 @@ under the License.
         </menu-item>
         <menu-item name="preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
             <condition>
-                <not><if-empty field-name="userLogin"/></not>
+                <if-has-permission permission="MYPAGE_EMPLOYEE"/>
             </condition>
             <link target="preferences"/>
         </menu-item>

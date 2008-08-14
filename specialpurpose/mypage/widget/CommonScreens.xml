@@ -139,31 +139,40 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="main">
-        <section>
-            <actions>
-                <entity-one entity-name="PartyRole" value-name="isEmployee">
-                    <field-map field-name="partyId" env-name="userLogin.partyId" />
-                    <field-map field-name="roleTypeId" value="EMPLOYEE" />
-                </entity-one>
-            </actions>
-            <widgets>
+
+	<screen name="main">
+		<section>
+			<widgets>
+				<section>
+					<condition>
+						<if-has-permission permission="MYPAGE_EMPLOYEE" />
+					</condition>
+					<widgets>
+						<include-screen name="mainEmployee" />
+					</widgets>
+				</section>
                 <section>
                     <condition>
-                        <not>
-                            <if-empty field-name="isEmployee" />
-                        </not>
+                        <if-has-permission permission="MYPAGE_CUSTOMER" />
                     </condition>
                     <widgets>
-                        <include-screen name="mainEmployee" />
+                        <include-screen name="mainCustomer" />
                     </widgets>
-                    <fail-widgets>
-                        <include-screen name="mainNotEmployee" />
-                    </fail-widgets>
                 </section>
-            </widgets>
-        </section>
-    </screen>
+                <section>
+                    <condition>
+                        <and>
+                            <not><if-has-permission permission="MYPAGE_CUSTOMER"/></not>
+                            <not><if-has-permission permission="MYPAGE_EMPLOYEE"/></not>
+                        </and>
+                    </condition>
+                    <widgets>
+                        <include-screen name="mainNoAccess" />
+                    </widgets>
+                </section>
+			</widgets>
+		</section>
+	</screen>
     
     <screen name="mainEmployee">
         <section>
@@ -200,7 +209,7 @@ under the License.
                                 <not><if-empty field-name="custRequests"/></not>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.OrderRequestList}" navigation-form-name="ListRequestList" >
+                                <screenlet title="${uiLabelMap.IncomingCustRequests}" navigation-form-name="ListRequestList" >
                                     <include-form name="ListRequestList" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                                 </screenlet>
                             </widgets>
@@ -260,7 +269,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="mainNotEmployee">
+    <screen name="mainCustomer">
         <section>
             <actions>
                 <entity-and list-name="custRequests" entity-name="WorkEffortCustRequestView">
@@ -272,8 +281,33 @@ under the License.
                 <decorator-screen name="main-decorator"
                     location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.OrderRequestList}" navigation-form-name="ListRequestList" >
+                        <screenlet title="${uiLabelMap.MyCustRequests}" navigation-form-name="ListRequestList" >
                             <include-form name="ListCustRequests" location="component://mypage/widget/MyPageForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="mainNoAccess">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator"
+                    location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.CommonNoAccess}" navigation-form-name="ListRequestList" >
+                            <container>
+                                <label style="h1" text="${uiLabelMap.MyPageNoAccess1}"></label>
+                            </container>
+                            <container>
+                                <label style="h2" text="${uiLabelMap.MyPageNoAccess2}"></label>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.MyPageNoAccess3}"></label>
+                            </container>
+                            <container>
+                                <label style="h3" text="${uiLabelMap.MyPageNoAccess4}"></label>
+                            </container>
                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
