@@ -147,9 +147,9 @@ public class TrackingCodeEvents {
                     trackingCode.set("lastModifiedDate", UtilDateTime.nowTimestamp());
 
                     //use nearly unlimited trackable lifetime: 10 billion seconds, 310 years
-                    trackingCode.set("trackableLifetime", new Long(10000000000L));
+                    trackingCode.set("trackableLifetime", Long.valueOf(10000000000L));
                     //use 2592000 seconds as billable lifetime: equals 1 month
-                    trackingCode.set("billableLifetime", new Long(2592000));
+                    trackingCode.set("billableLifetime", Long.valueOf(2592000));
 
                     trackingCode.set("comments", "This TrackingCode has default values because no default TrackingCode could be found.");
                     
