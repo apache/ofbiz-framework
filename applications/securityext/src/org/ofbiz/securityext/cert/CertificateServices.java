@@ -40,7 +40,7 @@ public class CertificateServices {
 
     public static final String module = CertificateServices.class.getName();
 
-    public static Map importIssuerCertificate(DispatchContext dctx, Map context) {
+    public static Map<String, Object> importIssuerCertificate(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String certString = (String) context.get("certString");
         String componentName = (String) context.get("componentName");
@@ -81,7 +81,7 @@ public class CertificateServices {
         }
 
         // set the issuer provision
-        Map x500Map = KeyStoreUtil.getCertX500Map(cert);       
+        Map<String, String> x500Map = KeyStoreUtil.getCertX500Map(cert);       
         if (importIssuer != null && "Y".equalsIgnoreCase(importIssuer)) {
             GenericValue provision = delegator.makeValue("X509IssuerProvision");
             provision.set("commonName", x500Map.get("CN"));

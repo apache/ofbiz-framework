@@ -154,7 +154,7 @@ public class LoginEvents {
             return "error";
         }
 
-        Map messageMap = UtilMisc.toMap("passwordHint", passwordHint);
+        Map<String, String> messageMap = UtilMisc.toMap("passwordHint", passwordHint);
         errMsg = UtilProperties.getMessage(resource, "loginevents.password_hint_is", messageMap, UtilHttp.getLocale(request));
         request.setAttribute("_ERROR_MESSAGE_", errMsg);
         return "success";
@@ -176,7 +176,7 @@ public class LoginEvents {
         
         String errMsg = null;
 
-        Map subjectData = FastMap.newInstance();
+        Map<String, String> subjectData = FastMap.newInstance();
         subjectData.put("productStoreId", productStoreId);
 
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
@@ -219,20 +219,20 @@ public class LoginEvents {
             }
         } catch (GenericEntityException e) {
             Debug.logWarning(e, "", module);
-            Map messageMap = UtilMisc.toMap("errorMessage", e.toString());
+            Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.toString());
             errMsg = UtilProperties.getMessage(resource, "loginevents.error_accessing_password", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
         if (supposedUserLogin == null) {
             // the Username was not found
-            Map messageMap = UtilMisc.toMap("userLoginId", userLoginId);
+            Map<String, String> messageMap = UtilMisc.toMap("userLoginId", userLoginId);
             errMsg = UtilProperties.getMessage(resource, "loginevents.user_with_the_username_not_found", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
-        StringBuffer emails = new StringBuffer();
+        StringBuilder emails = new StringBuilder();
         GenericValue party = null;
 
         try {
@@ -242,9 +242,9 @@ public class LoginEvents {
             party = null;
         }
         if (party != null) {
-            Iterator emailIter = UtilMisc.toIterator(ContactHelper.getContactMechByPurpose(party, "PRIMARY_EMAIL", false));
+            Iterator<GenericValue> emailIter = UtilMisc.toIterator(ContactHelper.getContactMechByPurpose(party, "PRIMARY_EMAIL", false));
             while (emailIter != null && emailIter.hasNext()) {
-                GenericValue email = (GenericValue) emailIter.next();
+                GenericValue email = emailIter.next();
                 emails.append(emails.length() > 0 ? "," : "").append(email.getString("infoString"));
             }
         }
@@ -276,13 +276,13 @@ public class LoginEvents {
         }
         
         // set the needed variables in new context
-        Map bodyParameters = FastMap.newInstance();
-        bodyParameters.put("useEncryption", new Boolean(useEncryption));
+        Map<String, Object> bodyParameters = FastMap.newInstance();
+        bodyParameters.put("useEncryption", Boolean.valueOf(useEncryption));
         bodyParameters.put("password", UtilFormatOut.checkNull(passwordToSend));
         bodyParameters.put("locale", UtilHttp.getLocale(request));
         bodyParameters.put("userLogin", supposedUserLogin);
 
-        Map serviceContext = FastMap.newInstance();
+        Map<String, Object> serviceContext = FastMap.newInstance();
         serviceContext.put("bodyScreenUri", bodyScreenLocation);
         serviceContext.put("bodyParameters", bodyParameters);
         serviceContext.put("subject", productStoreEmail.getString("subject"));
@@ -293,10 +293,10 @@ public class LoginEvents {
         serviceContext.put("sendTo", emails.toString());
 
         try {
-            Map result = dispatcher.runSync("sendMailFromScreen", serviceContext);
+            Map<String, Object> result = dispatcher.runSync("sendMailFromScreen", serviceContext);
 
             if (ModelService.RESPOND_ERROR.equals((String) result.get(ModelService.RESPONSE_MESSAGE))) {
-                Map messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
+                Map<String, Object> messageMap = UtilMisc.toMap("errorMessage", result.get(ModelService.ERROR_MESSAGE));
                 errMsg = UtilProperties.getMessage(resource, "loginevents.error_unable_email_password_contact_customer_service_errorwas", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
@@ -314,7 +314,7 @@ public class LoginEvents {
                 supposedUserLogin.store();
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, "", module);
-                Map messageMap = UtilMisc.toMap("errorMessage", e.toString());
+                Map<String, String> messageMap = UtilMisc.toMap("errorMessage", e.toString());
                 errMsg = UtilProperties.getMessage(resource, "loginevents.error_saving_new_password_email_not_correct_password", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
                 return "error";
@@ -357,9 +357,9 @@ public class LoginEvents {
         Cookie[] cookies = request.getCookies();
         if (Debug.verboseOn()) Debug.logVerbose("Cookies:" + cookies, module);
         if (cookies != null) {
-            for (int i = 0; i < cookies.length; i++) {
-                if (cookies[i].getName().equals(usernameCookieName)) {
-                    cookieUsername = cookies[i].getValue();
+            for (Cookie cookie: cookies) {
+                if (cookie.getName().equals(usernameCookieName)) {
+                    cookieUsername = cookie.getValue();
                     break;
                 }
             }
