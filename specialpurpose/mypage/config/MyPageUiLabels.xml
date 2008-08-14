@@ -28,6 +28,7 @@
     </property>
     <property key="IncomingCustRequests">
         <value xml:lang="en">Incoming customer requests</value>
+        <value xml:lang="fr">Nouvelle demande utilisateur</value>
     </property>
     <property key="MyCommunications">
         <value xml:lang="en">My Communications</value>
@@ -41,21 +42,33 @@
         <value xml:lang="en">Company Events</value>
         <value xml:lang="fr">Evènements de l'entreprise</value>
     </property>
+    <property key="MyPageAppBar">
+        <value xml:lang="en">My Page App Bar</value>
+        <value xml:lang="fr">Menu des applications</value>
+    </property>
     <property key="MyPageNewMessage">
         <value xml:lang="en">New Message</value>
         <value xml:lang="fr">Nouveau message</value>
+    </property>    
+    <property key="MyInformation">
+        <value xml:lang="en">My Information</value>
+        <value xml:lang="fr">Mes informations </value>
     </property>
     <property key="MyPageNoAccess1">
         <value xml:lang="en">No Access priviledges has been setup.</value>
+        <value xml:lang="fr">Aucun accès provolégié n'a été paramétré.</value>
     </property>
     <property key="MyPageNoAccess2">
-        <value xml:lang="en">You do not have access to any function in the MyPage subsystem, please contact your system admin</value>
+        <value xml:lang="en">You do not have access to any functions in the MyPage subsystem, please contact your system admin</value>
+        <value xml:lang="fr">Vous n'avez accès à aucune fonction dans l'application Ma Page, contactez votre administrateur système SVP.</value>
     </property>
     <property key="MyPageNoAccess3">
         <value xml:lang="en">At least MYPAGE_CUSTOMER or MYPAGE_EMPLOYEE permission is required</value>
+        <value xml:lang="fr">Au moins une permission MYPAGE_CUSTOMER ou MYPAGE_EMPLOYEE est nécessaire</value>
     </property>
     <property key="MyPageNoAccess4">
         <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer1' and 'DemoEmployee1' for a demo.</value>
+        <value xml:lang="fr">Utilisez l'identifiant de connexion 'DemoCustomer1' ou 'DemoEmployee1' pour une démonstration.</value>
     </property>
     <property key="OpenEvents">
         <value xml:lang="en">Open Communications</value>
@@ -63,6 +76,7 @@
     </property>
     <property key="MyCustRequests">
         <value xml:lang="en">My customer requests</value>
+        <value xml:lang="fr">Mes demandes utilisateur</value>
     </property>
     <property key="OtherCommunications">
         <value xml:lang="en">Other Communications</value>
@@ -75,5 +89,17 @@
     <property key="CommunicationsOfParty">
         <value xml:lang="en">Communications of party</value>
         <value xml:lang="fr">Communications de l'acteur</value>
+    </property>
+    <property key="SelectedVisualTheme">
+        <value xml:lang="en">Selected Visual Theme</value>
+        <value xml:lang="it">Tema grafico selezionato</value>
+    </property>
+    <property key="VisualTheme">
+        <value xml:lang="en">Visual Theme</value>
+        <value xml:lang="it">Tema grafico</value>
+    </property>
+    <property key="NoScreenshotsAvailable">
+        <value xml:lang="en">No Screenshots Available</value>
+        <value xml:lang="it">Anteprima non disponibile</value>
     </property>
 </resource>
