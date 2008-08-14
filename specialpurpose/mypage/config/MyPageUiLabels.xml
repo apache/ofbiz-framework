@@ -28,7 +28,7 @@
     </property>
     <property key="IncomingCustRequests">
         <value xml:lang="en">Incoming customer requests</value>
-        <value xml:lang="fr">Nouvelle demande utilisateur</value>
+        <value xml:lang="fr">Nouvelles demandes utilisateur</value>
     </property>
     <property key="MyCommunications">
         <value xml:lang="en">My Communications</value>
@@ -69,6 +69,10 @@
     <property key="MyPageNoAccess4">
         <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer1' and 'DemoEmployee1' for a demo.</value>
         <value xml:lang="fr">Utilisez l'identifiant de connexion 'DemoCustomer1' ou 'DemoEmployee1' pour une démonstration.</value>
+    </property>
+    <property key="MyPagePagesVisible">
+        <value xml:lang="en">pages visible on the main screen.</value>
+        <value xml:lang="fr">Pages visibles sur l'écran principal.</value>
     </property>
     <property key="OpenEvents">
         <value xml:lang="en">Open Communications</value>
