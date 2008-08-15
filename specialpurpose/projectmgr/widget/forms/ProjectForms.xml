@@ -121,39 +121,28 @@
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <set field="parameters.workEffortTypeId" value="PROJECT"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+            <service service-name="performFind" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="WorkEffort"/>
                 <field-map field-name="orderBy" value="lastStatusUpdate DESC"/>
             </service>
         </actions>
         <row-actions>
-            <service service-name="getProject" result-map-name="result">
+            <service service-name="getProject" result-map-name="resultProject">
                 <field-map field-name="projectId" value="${workEffortId}"/>
             </service>
-            <set field="projectName" from-field="result.projectInfo.projectName"/>
-            <set field="projectId" from-field="result.projectInfo.projectId"/>
-            <set field="currentStatusId" from-field="result.projectInfo.currentStatusId"/>
-            <set field="priority" from-field="result.projectInfo.priority"/>
-            <set field="plannedHours" from-field="result.projectInfo.plannedHours"/>
-            <set field="actualHours" from-field="result.projectInfo.actualHours"/>
-            <set field="createdStamp" from-field="result.projectInfo.createdStamp"/>
-            <set field="estimatedStartDate" from-field="result.projectInfo.estimatedStartDate"/>
-            <set field="estimatedCompletionDate" from-field="result.projectInfo.estimatedCompletionDate"/>
-            <set field="actualStartDate" from-field="result.projectInfo.actualStartDate"/>
-            <set field="actualCompletionDate" from-field="result.projectInfo.actualCompletionDate"/>
         </row-actions>
-        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
-            <hyperlink description="${projectName}" target="projectView?projectId=${projectId}"/>
+        <field name="projectName" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
+            <hyperlink description="${resultProject.projectInfo.projectName}" target="projectView?projectId=${projectId}"/>
         </field>
-        <field name="currentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
-        <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
-        <field name="estimatedStartDate" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
-        <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
-        <field name="actualStartDate" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>
-        <field name="actualCompletionDate" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
-        <field name="plannedHours" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
-        <field name="actualHours" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
+        <field name="currentStatusId" map-name="resultProject.projectInfo" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
+        <field name="priority" map-name="resultProject.projectInfo" title="${uiLabelMap.CommonPriority}"><display/></field>
+        <field name="estimatedStartDate" map-name="resultProject.projectInfo" title="${uiLabelMap.FormFieldTitle_estimatedStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" map-name="resultProject.projectInfo" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><display type="date"/></field>
+        <field name="actualStartDate" map-name="resultProject.projectInfo" title="${uiLabelMap.FormFieldTitle_actualStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" map-name="resultProject.projectInfo" title="${uiLabelMap.FormFieldTitle_actualCompletionDate}"><display type="date"/></field>
+        <field name="plannedHours" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
+        <field name="actualHours" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
         <field name="createdStamp" title="${uiLabelMap.FormFieldTitle_createdDate}"><display type="date"/></field>
     </form>                                        	
     <form name="EditSubProjects" list-name="projects" type="list" target="RemoveSubProject"
