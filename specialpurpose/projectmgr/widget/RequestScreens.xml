@@ -26,9 +26,10 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortRequests"/>
                 <set field="tabButtonItem" value="requestlist"/>
                 <set field="headerItem" value="request"/>
-                <set field="custRequestId" from-field="parameters.custRequestId"/>
-                <set field="parameters.statusId" value="CRQ_ACCEPTED"/>
-                <set field="entityName" value="CustRequest"/>
+                <entity-and list-name="custRequests" entity-name="CustRequest">
+                    <field-map field-name="statusId" value="CRQ_ACCEPTED"/>
+                    <order-by field-name="-lastModifiedDate"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
