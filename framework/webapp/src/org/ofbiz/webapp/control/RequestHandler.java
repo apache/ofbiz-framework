@@ -418,15 +418,6 @@ public class RequestHandler implements Serializable {
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a Request redirect with no parameters." + " sessionId=" + UtilHttp.getSessionId(request), module);
                 nextView = nextView.substring(25);
                 callRedirect(makeLink(request, response, nextView), response, request);
-            } else if (nextView != null && nextView.startsWith("request-redirect-filterparam:")) {
-                // check for a Request redirect
-                Debug.logInfo("[RequestHandler.doRequest]: Response is a Request redirect with filtered parameters." + " sessionId=" + UtilHttp.getSessionId(request), module);
-                nextView = nextView.substring(29);
-                Set allowedParams = (Set)requestManager.getRequestMapMap(requestUri).get(ConfigXMLReader.RESPONSE_MAP).get(ConfigXMLReader.RESPONSE_ALLOWEDPARAMS);
-                Set allowedAttributes = (Set)requestManager.getRequestMapMap(requestUri).get(ConfigXMLReader.RESPONSE_MAP).get(ConfigXMLReader.RESPONSE_ALLOWEDATTRIBUTES);
-                if (allowedParams != null) Debug.logInfo("Filtering parameters : "+allowedParams, module);
-                if (allowedAttributes != null) Debug.logInfo("Filtering attributes : "+allowedAttributes, module);
-                callRedirect(makeLinkWithQueryString(request, response, "/" + nextView, allowedParams, allowedAttributes), response, request);
             } else if (nextView != null && nextView.startsWith("view:")) {
                 // check for a View
                 Debug.logInfo("[RequestHandler.doRequest]: Response is a view." + " sessionId=" + UtilHttp.getSessionId(request), module);
@@ -475,21 +466,10 @@ public class RequestHandler implements Serializable {
                     queryString.append(name);
                     queryString.append("=");
                     queryString.append(value);
-                } else {
-                    Debug.logInfo("found param not a String: "+name+" = "+value, module);
                 }
-
             }
         }
         return queryString.toString();
-    }
-
-    public String makeQueryString(HttpServletRequest request, Set allowedParams) {
-        return makeQueryString(request, null, null);
-    }
-
-    public String makeQueryString(HttpServletRequest request) {
-        return makeQueryString(request, null);
     }
 
     /** Returns the RequestManager Object. */
@@ -716,14 +696,10 @@ public class RequestHandler implements Serializable {
     }
 
 
-    public String makeLinkWithQueryString(HttpServletRequest request, HttpServletResponse response, String url, Set allowedParams, Set allowedAttributes) {
-        String initialLink = this.makeLink(request, response, url);
-        String queryString = this.makeQueryString(request, allowedParams, allowedAttributes);
-        return initialLink + queryString;
-    }
-
     public String makeLinkWithQueryString(HttpServletRequest request, HttpServletResponse response, String url) {
-        return makeLinkWithQueryString(request, response, url, null, null);
+        String initialLink = this.makeLink(request, response, url);
+        String queryString = this.makeQueryString(request);
+        return initialLink + queryString;
     }
 
     public String makeLink(HttpServletRequest request, HttpServletResponse response, String url) {
