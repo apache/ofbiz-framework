@@ -279,7 +279,7 @@ under the License.
     <screen name="mainCustomer">
         <section>
             <actions>
-                <entity-and list-name="custRequests" entity-name="CustRequest">
+                <entity-and list-name="custRequests" entity-name="CustRequestInfoAndWorkEffort">
                     <field-map field-name="fromPartyId" env-name="userLogin.partyId"/>
                     <order-by field-name="createdDate"/>
                 </entity-and>
