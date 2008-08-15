@@ -89,7 +89,7 @@ under the License.
         <field name="responseRequiredDate"><display/></field>
         <field name="fromPartyId">
             <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink description="[${fromPartyId}]" target="/partymgr/control/viewprofile" target-type="inter-app"/>
+                <sub-hyperlink description="[${fromPartyId}]" target="/partymgr/control/viewprofile?partyId=${fromPartyId}" target-type="inter-app"/>
             </display-entity>
         </field>
         <field name="statusId">
