@@ -148,7 +148,7 @@ under the License.
         <field name="groupId" title="${uiLabelMap.CommonGroup}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="SecurityGroup" description="${groupId} ${description}">
-                    <entity-order-by field-name="description"/>
+                    <entity-order-by field-name="groupId"/>
                 </entity-options>
             </drop-down>
         </field>
