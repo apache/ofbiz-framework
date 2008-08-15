@@ -116,7 +116,7 @@ public class InvoiceServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         try {
             List orderItems = delegator.findByAnd("OrderItem", UtilMisc.toMap("orderId", (String) context.get("orderId")));
-            if (orderItems != null && orderItems.size() > 0) {
+            if (orderItems.size() > 0) {
                 context.put("billItems", orderItems);
             }
             // get the system userid and store in context otherwise the invoice add service does not work
@@ -166,7 +166,7 @@ public class InvoiceServices {
 
             // get list of previous invoices for the order
             List billedItems = delegator.findByAnd("OrderItemBilling", UtilMisc.toMap("orderId", orderId));
-            if (billedItems != null && billedItems.size() > 0) {
+            if (billedItems.size() > 0) {
                 boolean nonDigitalInvoice = false;
                 Iterator bii = billedItems.iterator();
                 while (bii.hasNext() && !nonDigitalInvoice) {
@@ -766,33 +766,31 @@ public class InvoiceServices {
 
             // check for previous order payments
             List orderPaymentPrefs = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId));
-            if (orderPaymentPrefs != null) {
-                List currentPayments = new ArrayList();
-                Iterator opi = orderPaymentPrefs.iterator();
-                while (opi.hasNext()) {
-                    GenericValue paymentPref = (GenericValue) opi.next();
-                    List payments = paymentPref.getRelated("Payment");
-                    currentPayments.addAll(payments);
-                }
-                if (currentPayments.size() > 0) {
-                    // apply these payments to the invoice; only if they haven't already been applied
-                    Iterator cpi = currentPayments.iterator();
-                    while (cpi.hasNext()) {
-                        GenericValue payment = (GenericValue) cpi.next();
-                        List currentApplications = null;
-                        currentApplications = payment.getRelated("PaymentApplication");
-                        if (currentApplications == null || currentApplications.size() == 0) {
-                            // no applications; okay to apply
-                            Map appl = new HashMap();
-                            appl.put("paymentId", payment.get("paymentId"));
-                            appl.put("invoiceId", invoiceId);
-                            appl.put("billingAccountId", billingAccountId);
-                            appl.put("amountApplied", payment.get("amount"));
-                            appl.put("userLogin", userLogin);
-                            Map createPayApplResult = dispatcher.runSync("createPaymentApplication", appl); 
-                            if (ServiceUtil.isError(createPayApplResult)) {
-                                return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceFromOrder",locale), null, null, createPayApplResult);
-                            }
+            List currentPayments = FastList.newInstance();
+            Iterator opi = orderPaymentPrefs.iterator();
+            while (opi.hasNext()) {
+                GenericValue paymentPref = (GenericValue) opi.next();
+                List payments = paymentPref.getRelated("Payment");
+                currentPayments.addAll(payments);
+            }
+            if (currentPayments.size() > 0) {
+                // apply these payments to the invoice; only if they haven't already been applied
+                Iterator cpi = currentPayments.iterator();
+                while (cpi.hasNext()) {
+                    GenericValue payment = (GenericValue) cpi.next();
+                    List currentApplications = null;
+                    currentApplications = payment.getRelated("PaymentApplication");
+                    if (currentApplications == null || currentApplications.size() == 0) {
+                        // no applications; okay to apply
+                        Map appl = new HashMap();
+                        appl.put("paymentId", payment.get("paymentId"));
+                        appl.put("invoiceId", invoiceId);
+                        appl.put("billingAccountId", billingAccountId);
+                        appl.put("amountApplied", payment.get("amount"));
+                        appl.put("userLogin", userLogin);
+                        Map createPayApplResult = dispatcher.runSync("createPaymentApplication", appl); 
+                        if (ServiceUtil.isError(createPayApplResult)) {
+                            return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingErrorCreatingInvoiceFromOrder",locale), null, null, createPayApplResult);
                         }
                     }
                 }
@@ -959,7 +957,7 @@ public class InvoiceServices {
                 
                 // create the bill-from (or pay-to) contact mech as the primary PAYMENT_LOCATION of the party from the store
                 List contactMechs = delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyIdBillTo, "contactMechPurposeTypeId", "BILLING_LOCATION"));
-                if ((contactMechs != null) && (contactMechs.size() > 0)) {
+                if (contactMechs.size() > 0) {
                     GenericValue address = (GenericValue) contactMechs.get(0);
                     GenericValue payToCm = delegator.makeValue("InvoiceContactMech", UtilMisc.toMap(
                             "invoiceId", invoiceId,
@@ -968,7 +966,7 @@ public class InvoiceServices {
                     toStore.add(payToCm);
                 }
                 contactMechs = delegator.findByAnd("PartyContactMechPurpose", UtilMisc.toMap("partyId", partyIdBillFrom, "contactMechPurposeTypeId", "PAYMENT_LOCATION"));
-                if ((contactMechs != null) && (contactMechs.size() > 0)) {
+                if (contactMechs.size() > 0) {
                     GenericValue address = (GenericValue) contactMechs.get(0);
                     GenericValue payToCm = delegator.makeValue("InvoiceContactMech", UtilMisc.toMap(
                             "invoiceId", invoiceId,
@@ -1120,15 +1118,13 @@ public class InvoiceServices {
             if (purchaseShipmentFound) {
                 items = delegator.findList("ShipmentReceipt", shipmentIdsCond, null, UtilMisc.toList("shipmentId"), null, false);
                 // filter out items which have been received but are not actually owned by an internal organization, so they should not be on a purchase invoice
-                if (items != null) {
-                    Iterator itemsIter = items.iterator();
-                    while (itemsIter.hasNext()) {
-                        GenericValue item = (GenericValue) itemsIter.next();
-                        GenericValue inventoryItem = item.getRelatedOne("InventoryItem");
-                        GenericValue ownerPartyRole = delegator.findByPrimaryKeyCache("PartyRole", UtilMisc.toMap("partyId", inventoryItem.getString("ownerPartyId"), "roleTypeId", "INTERNAL_ORGANIZATIO"));
-                        if (UtilValidate.isEmpty(ownerPartyRole)) {
-                            items.remove(item);
-                        }
+                Iterator itemsIter = items.iterator();
+                while (itemsIter.hasNext()) {
+                    GenericValue item = (GenericValue) itemsIter.next();
+                    GenericValue inventoryItem = item.getRelatedOne("InventoryItem");
+                    GenericValue ownerPartyRole = delegator.findByPrimaryKeyCache("PartyRole", UtilMisc.toMap("partyId", inventoryItem.getString("ownerPartyId"), "roleTypeId", "INTERNAL_ORGANIZATIO"));
+                    if (UtilValidate.isEmpty(ownerPartyRole)) {
+                        itemsIter.remove();
                     }
                 }
             } else if (dropShipmentFound) {
@@ -1138,7 +1134,7 @@ public class InvoiceServices {
                 // Get the list of purchase order IDs related to the shipments
                 List purchaseOrderIds = EntityUtil.getFieldListFromEntityList(shipments, "primaryOrderId", true);
     
-                if (createSalesInvoicesForDropShipments.booleanValue()) {
+                if (createSalesInvoicesForDropShipments) {
                 
                     // If a sales invoice is being created for a drop shipment, we have to reference the original sales order items
                     // Get the list of the linked orderIds (original sales orders)
@@ -1159,13 +1155,13 @@ public class InvoiceServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        if (items == null) {
+        if (items.size() == 0) {
             Debug.logInfo("No items issued for shipments", module);
             return ServiceUtil.returnSuccess();
         }
 
         // group items by order
-        Map shippedOrderItems = new HashMap();
+        Map shippedOrderItems = FastMap.newInstance();
         Iterator itemsIter = items.iterator();
         while (itemsIter.hasNext()) {
             GenericValue item = (GenericValue) itemsIter.next();
@@ -1199,7 +1195,7 @@ public class InvoiceServices {
             }
 
             // if none found, then okay to bill
-            if (itemBillings == null || itemBillings.size() == 0) {
+            if (itemBillings.size() == 0) {
                 itemsByOrder.add(item);
             }
 
@@ -1264,7 +1260,7 @@ public class InvoiceServices {
 
 
                     // add up the already billed total
-                    if (billed != null && billed.size() > 0) {
+                    if (billed.size() > 0) {
                         BigDecimal billedQuantity = ZERO;
                         Iterator bi = billed.iterator();
                         while (bi.hasNext()) {
@@ -1312,7 +1308,7 @@ public class InvoiceServices {
                     if (dropShipmentFound) {
                         
                         List invoiceablePrimaryOrderIds = null;
-                        if (createSalesInvoicesForDropShipments.booleanValue()) {
+                        if (createSalesInvoicesForDropShipments) {
                         
                             // If a sales invoice is being created for the drop shipment, we need to reference back to the original purchase order IDs
 
@@ -1340,7 +1336,7 @@ public class InvoiceServices {
                         }
                     } else {
                         List invoiceableShipmentIds = EntityUtil.getFieldListFromEntityList(toBillItems, "shipmentId", true);
-                        if (! UtilValidate.isEmpty(invoiceableShipmentIds)) {
+                        if (UtilValidate.isNotEmpty(invoiceableShipmentIds)) {
                             invoiceableShipments = delegator.findList("Shipment", EntityCondition.makeCondition("shipmentId", EntityOperator.IN, invoiceableShipmentIds), null, null, null, false);
                         }
                     }
@@ -1351,9 +1347,9 @@ public class InvoiceServices {
                 }
                 
                 // Total the additional shipping charges for the shipments
-                Map additionalShippingCharges = new HashMap();
+                Map additionalShippingCharges = FastMap.newInstance();
                 BigDecimal totalAdditionalShippingCharges = ZERO;
-                if (! UtilValidate.isEmpty(invoiceableShipments)) {
+                if (UtilValidate.isNotEmpty(invoiceableShipments)) {
                     Iterator isit = invoiceableShipments.iterator();
                     while(isit.hasNext()) {
                         GenericValue shipment = (GenericValue) isit.next();
@@ -1453,7 +1449,7 @@ public class InvoiceServices {
                         }
 
                         // If part of the order was paid via credit card, try to charge it for the additional shipping
-                        List orderPaymentPreferences = new ArrayList();
+                        List orderPaymentPreferences = null;
                         try {
                             orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "CREDIT_CARD"));
                         } catch( GenericEntityException e ) {
@@ -1642,7 +1638,7 @@ public class InvoiceServices {
                     billings = delegator.findByAnd("ReturnItemBilling", UtilMisc.toMap("returnId", returnId, "returnItemSeqId", returnItemSeqId));
                 }
                 // if there are billings, we have already billed the item, so skip it
-                if (billings.size() > 0) continue;
+                if (billings != null && billings.size() > 0) continue;
 
                 // get the List of items shipped to/from this returnId
                 List billItems = (List) itemsShippedGroupedByReturn.get(returnId);
@@ -1977,20 +1973,17 @@ public class InvoiceServices {
         List paymentAppl = null;
         try {
             paymentAppl = delegator.findByAnd("PaymentAndApplication", UtilMisc.toMap("invoiceId", invoiceId));
-            if (paymentAppl != null) {
-
-                // For each payment application, select only those that are RECEIVED or SENT based on whether the payment is a RECEIPT or DISBURSEMENT respectively
-                for (Iterator iter = paymentAppl.iterator(); iter.hasNext(); ) {
-                    GenericValue payment = (GenericValue) iter.next();
-                    if ("PMNT_RECEIVED".equals(payment.get("statusId")) && UtilAccounting.isReceipt(payment)) {
-                        continue; // keep
-                    }
-                    if ("PMNT_SENT".equals(payment.get("statusId")) && UtilAccounting.isDisbursement(payment)) {
-                        continue; // keep
-                    }
-                    // all other cases, remove the payment applicaition
-                    iter.remove();
+            // For each payment application, select only those that are RECEIVED or SENT based on whether the payment is a RECEIPT or DISBURSEMENT respectively
+            for (Iterator iter = paymentAppl.iterator(); iter.hasNext(); ) {
+                GenericValue payment = (GenericValue) iter.next();
+                if ("PMNT_RECEIVED".equals(payment.get("statusId")) && UtilAccounting.isReceipt(payment)) {
+                    continue; // keep
                 }
+                if ("PMNT_SENT".equals(payment.get("statusId")) && UtilAccounting.isDisbursement(payment)) {
+                    continue; // keep
+                }
+                // all other cases, remove the payment applicaition
+                iter.remove();
             }
         } catch (GenericEntityException e) {
             String errMsg = UtilProperties.getMessage(resource, "AccountingProblemGettingPaymentApplication",UtilMisc.toMap("invoiceId",invoiceId), locale);
@@ -2802,9 +2795,9 @@ public class InvoiceServices {
                 try {
                     invoiceItems = delegator.findByAnd("InvoiceItem", UtilMisc.toMap("invoiceId", invoiceId));
                 } catch (GenericEntityException e) {
-                    ServiceUtil.returnError(e.getMessage());
+                    return ServiceUtil.returnError(e.getMessage());
                 }
-                if (invoiceItems == null || invoiceItems.size() == 0) {
+                if (invoiceItems.size() == 0) {
                     errorMessageList.add("No invoice items found for invoice " + invoiceId + " to match payment against...\n");
                     return ServiceUtil.returnError(errorMessageList);
                 } else { // we found some invoice items, start processing....
@@ -2987,9 +2980,9 @@ public class InvoiceServices {
                     "toPaymentId", paymentApplication.get("toPaymentId"), 
                     "taxAuthGeoId", paymentApplication.get("taxAuthGeoId")));
         } catch (GenericEntityException e) {
-            ServiceUtil.returnError(e.getMessage());
+            return ServiceUtil.returnError(e.getMessage());
         }
-        if (checkAppls != null && checkAppls.size() > 0) {
+        if (checkAppls.size() > 0) {
             if (debug) Debug.logInfo(checkAppls.size() + " records already exist", module);
             // 1 record exists just update and if diffrent ID delete other record and add together.
             GenericValue checkAppl = (GenericValue) checkAppls.get(0);

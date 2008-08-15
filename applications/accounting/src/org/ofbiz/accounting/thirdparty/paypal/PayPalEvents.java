@@ -408,7 +408,7 @@ public class PayPalEvents {
             Debug.logError(e, "Cannot get payment preferences for order #" + orderId, module);
             return false;
         }
-        if (paymentPrefs != null && paymentPrefs.size() > 0) {
+        if (paymentPrefs.size() > 0) {
             Iterator <GenericValue> i = paymentPrefs.iterator();
             while (i.hasNext()) {
                 GenericValue pref = (GenericValue) i.next();

@@ -82,7 +82,7 @@ public class BillingAccountWorker {
         List<GenericValue> billingAccountRoleList = delegator.findList("BillingAccountRole", barFindCond, null, null, null, false);
         billingAccountRoleList = EntityUtil.filterByDate(billingAccountRoleList);
 
-        if (billingAccountRoleList != null && billingAccountRoleList.size() > 0) {
+        if (billingAccountRoleList.size() > 0) {
             double totalAvailable = 0.0;
             Iterator billingAcctIter = billingAccountRoleList.iterator();
             while (billingAcctIter.hasNext()) {
@@ -155,26 +155,22 @@ public class BillingAccountWorker {
             ), EntityOperator.AND); 
 
         List orderPaymentPreferenceSums = delegator.findList("OrderPurchasePaymentSummary", whereConditions, UtilMisc.toSet("maxAmount"), null, null, false);
-        if (orderPaymentPreferenceSums != null) {
-            for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext(); ) {
-                GenericValue orderPaymentPreferenceSum = (GenericValue) oppsi.next();
-                BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
-                balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
-            }
+        for (Iterator oppsi = orderPaymentPreferenceSums.iterator(); oppsi.hasNext(); ) {
+            GenericValue orderPaymentPreferenceSum = (GenericValue) oppsi.next();
+            BigDecimal maxAmount = orderPaymentPreferenceSum.getBigDecimal("maxAmount");
+            balance = maxAmount != null ? balance.subtract(maxAmount) : balance;
         }
 
         List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
         // TODO: cancelled payments?
-        if (paymentAppls != null) {
-            for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext(); ) {
-                GenericValue paymentAppl = (GenericValue) pAi.next();
-                if (paymentAppl.getString("invoiceId") == null) {
-                    BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
-                    balance = balance.add(amountApplied);
-                }
+        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext(); ) {
+            GenericValue paymentAppl = (GenericValue) pAi.next();
+            if (paymentAppl.getString("invoiceId") == null) {
+                BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
+                balance = balance.add(amountApplied);
             }
         }
-    
+
         balance = balance.setScale(decimals, rounding);
         return balance;
         /*
@@ -258,19 +254,17 @@ public class BillingAccountWorker {
      
         // search through all PaymentApplications and add the amount that was applied to invoice and subtract the amount applied from payments
         List paymentAppls = delegator.findByAnd("PaymentApplication", UtilMisc.toMap("billingAccountId", billingAccountId));
-        if (paymentAppls != null) {
-            for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext(); ) {
-                GenericValue paymentAppl = (GenericValue) pAi.next();
-                BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
-                GenericValue invoice = paymentAppl.getRelatedOne("Invoice");
-                if (invoice != null) {
-                    // make sure the invoice has not been canceled and it is not a "Customer return invoice"
-                    if (!"CUST_RTN_INVOICE".equals(invoice.getString("invoiceTypeId")) && !"INVOICE_CANCELLED".equals(invoice.getString("statusId"))) {
-                        balance = balance.add(amountApplied);    
-                    }
-                } else {
-                    balance = balance.subtract(amountApplied);
+        for (Iterator pAi = paymentAppls.iterator(); pAi.hasNext(); ) {
+            GenericValue paymentAppl = (GenericValue) pAi.next();
+            BigDecimal amountApplied = paymentAppl.getBigDecimal("amountApplied");
+            GenericValue invoice = paymentAppl.getRelatedOne("Invoice");
+            if (invoice != null) {
+                // make sure the invoice has not been canceled and it is not a "Customer return invoice"
+                if (!"CUST_RTN_INVOICE".equals(invoice.getString("invoiceTypeId")) && !"INVOICE_CANCELLED".equals(invoice.getString("statusId"))) {
+                    balance = balance.add(amountApplied);    
                 }
+            } else {
+                balance = balance.subtract(amountApplied);
             }
         }
     
