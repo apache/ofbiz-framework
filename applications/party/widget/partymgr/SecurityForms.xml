@@ -25,7 +25,7 @@ under the License.
         paginate-target="FindSecurityGroup" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="SecurityGroup">
-                <order-by field-name="description"/>
+                <order-by field-name="groupId"/>
             </entity-condition>
         </actions>
         <field name="groupId" title="${uiLabelMap.PartySecurityGroupId}" widget-style="buttontext">
