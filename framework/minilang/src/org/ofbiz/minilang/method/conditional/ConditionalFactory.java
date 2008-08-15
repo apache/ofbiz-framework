@@ -18,6 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.conditional;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.imageio.spi.ServiceRegistry;
+
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.minilang.*;
@@ -25,36 +32,32 @@ import org.ofbiz.minilang.*;
 /**
  * Creates Conditional objects according to the element that is passed.
  */
-public class ConditionalFactory {
+public abstract class ConditionalFactory<C extends Conditional> {
+    private static final Map<String, ConditionalFactory> conditionalFactories;
+    static {
+        Map<String, ConditionalFactory> factories = new HashMap<String, ConditionalFactory>();
+        Iterator<ConditionalFactory> it = ServiceRegistry.lookupProviders(ConditionalFactory.class, ConditionalFactory.class.getClassLoader());
+        while (it.hasNext()) {
+            ConditionalFactory factory = it.next();
+            factories.put(factory.getName(), factory);
+        }
+        conditionalFactories = Collections.unmodifiableMap(factories);
+    }
     
     public static final String module = ConditionalFactory.class.getName();
     
     public static Conditional makeConditional(Element element, SimpleMethod simpleMethod) {
         String tagName = element.getTagName();
         
-        if ("or".equals(tagName)) {
-            return new CombinedCondition(element, CombinedCondition.OR, simpleMethod);
-        } else if ("xor".equals(tagName)) {
-            return new CombinedCondition(element, CombinedCondition.XOR, simpleMethod);
-        } else if ("and".equals(tagName)) {
-            return new CombinedCondition(element, CombinedCondition.AND, simpleMethod);
-        } else if ("not".equals(tagName)) {
-            return new CombinedCondition(element, CombinedCondition.NOT, simpleMethod);
-        } else if ("if-validate-method".equals(tagName)) {
-            return new ValidateMethodCondition(element);
-        } else if ("if-compare".equals(tagName)) {
-            return new CompareCondition(element, simpleMethod);
-        } else if ("if-compare-field".equals(tagName)) {
-            return new CompareFieldCondition(element, simpleMethod);
-        } else if ("if-empty".equals(tagName)) {
-            return new EmptyCondition(element, simpleMethod);
-        } else if ("if-regexp".equals(tagName)) {
-            return new RegexpCondition(element, simpleMethod);
-        } else if ("if-has-permission".equals(tagName)) {
-            return new HasPermissionCondition(element, simpleMethod);
+        ConditionalFactory factory = conditionalFactories.get(tagName);
+        if (factory != null) {
+            return factory.createCondition(element, simpleMethod);
         } else {
             Debug.logWarning("Found an unknown if condition: " + tagName, module);
             return null;
         }
     }
+
+    public abstract C createCondition(Element element, SimpleMethod simpleMethod);
+    public abstract String getName();
 }

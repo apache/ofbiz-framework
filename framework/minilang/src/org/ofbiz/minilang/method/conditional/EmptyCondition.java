@@ -28,6 +28,16 @@ import org.ofbiz.minilang.method.*;
  * Implements compare to a constant condition.
  */
 public class EmptyCondition implements Conditional {
+    public static final class EmptyConditionFactory extends ConditionalFactory<EmptyCondition> {
+        public EmptyCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new EmptyCondition(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-empty";
+        }
+    }
+
     
     public static final String module = EmptyCondition.class.getName();
     

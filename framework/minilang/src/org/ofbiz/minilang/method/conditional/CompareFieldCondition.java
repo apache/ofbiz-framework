@@ -30,6 +30,16 @@ import org.ofbiz.minilang.operation.*;
  * Implements compare to a field condition.
  */
 public class CompareFieldCondition implements Conditional {
+    public static final class CompareFieldConditionFactory extends ConditionalFactory<CompareFieldCondition> {
+        public CompareFieldCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CompareFieldCondition(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-compare-field";
+        }
+    }
+
     
     public static final String module = CompareFieldCondition.class.getName();
     

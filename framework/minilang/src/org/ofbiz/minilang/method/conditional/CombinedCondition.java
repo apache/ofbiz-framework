@@ -29,6 +29,45 @@ import org.ofbiz.minilang.method.*;
  * Implements generic combining conditions such as or, and, etc.
  */
 public class CombinedCondition implements Conditional {
+    public static final class OrConditionFactory extends ConditionalFactory<CombinedCondition> {
+        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CombinedCondition(element, OR, simpleMethod);
+        }
+
+        public String getName() {
+            return "or";
+        }
+    }
+
+    public static final class XorConditionFactory extends ConditionalFactory<CombinedCondition> {
+        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CombinedCondition(element, XOR, simpleMethod);
+        }
+
+        public String getName() {
+            return "xor";
+        }
+    }
+
+    public static final class AndConditionFactory extends ConditionalFactory<CombinedCondition> {
+        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CombinedCondition(element, AND, simpleMethod);
+        }
+
+        public String getName() {
+            return "and";
+        }
+    }
+
+    public static final class NotConditionFactory extends ConditionalFactory<CombinedCondition> {
+        public CombinedCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CombinedCondition(element, NOT, simpleMethod);
+        }
+
+        public String getName() {
+            return "not";
+        }
+    }
     
     public static final int OR = 1;
     public static final int XOR = 2;

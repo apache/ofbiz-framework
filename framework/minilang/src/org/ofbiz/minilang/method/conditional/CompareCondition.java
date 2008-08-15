@@ -31,6 +31,16 @@ import org.ofbiz.minilang.operation.*;
  * Implements compare to a constant condition.
  */
 public class CompareCondition implements Conditional {
+    public static final class CompareConditionFactory extends ConditionalFactory<CompareCondition> {
+        public CompareCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new CompareCondition(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-compare";
+        }
+    }
+
     
     public static final String module = CompareCondition.class.getName();
     

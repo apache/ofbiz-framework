@@ -22,12 +22,23 @@ import java.util.*;
 import java.lang.reflect.*;
 import org.w3c.dom.*;
 import org.ofbiz.base.util.*;
+import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.*;
 
 /**
  * Implements validate method condition.
  */
 public class ValidateMethodCondition implements Conditional {
+    public static final class ValidateMethodConditionFactory extends ConditionalFactory<ValidateMethodCondition> {
+        public ValidateMethodCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new ValidateMethodCondition(element);
+        }
+
+        public String getName() {
+            return "if-validate-method";
+        }
+    }
+
     
     public static final String module = ValidateMethodCondition.class.getName();
     
