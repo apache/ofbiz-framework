@@ -241,6 +241,7 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="value"/>
+        <!-- the following two attributes should only be used for request-redirect-filterparam -->
         <xs:attribute type="xs:string" name="allowed-params"/>
         <xs:attribute type="xs:string" name="allowed-attributes"/>
     </xs:attributeGroup>
