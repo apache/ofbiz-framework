@@ -28,6 +28,8 @@ import java.util.Map;
 import javax.servlet.ServletRequest;
 import javax.servlet.jsp.PageContext;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
@@ -64,25 +66,23 @@ public class PaymentWorker {
             List paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", partyId));
 
             if (!showOld) paymentMethods = EntityUtil.filterByDate(paymentMethods, true);
-            if (paymentMethods != null) {
-                Iterator pmIter = paymentMethods.iterator();
+            Iterator pmIter = paymentMethods.iterator();
 
-                while (pmIter.hasNext()) {
-                    GenericValue paymentMethod = (GenericValue) pmIter.next();
-                    Map valueMap = new HashMap();
+            while (pmIter.hasNext()) {
+                GenericValue paymentMethod = (GenericValue) pmIter.next();
+                Map valueMap = FastMap.newInstance();
 
-                    paymentMethodValueMaps.add(valueMap);
-                    valueMap.put("paymentMethod", paymentMethod);
-                    if ("CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
-                        GenericValue creditCard = paymentMethod.getRelatedOne("CreditCard");
-                        if (creditCard != null) valueMap.put("creditCard", creditCard);
-                    } else if ("GIFT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
-                        GenericValue giftCard = paymentMethod.getRelatedOne("GiftCard");
-                        if (giftCard != null) valueMap.put("giftCard", giftCard);
-                    } else if ("EFT_ACCOUNT".equals(paymentMethod.getString("paymentMethodTypeId"))) {
-                        GenericValue eftAccount = paymentMethod.getRelatedOne("EftAccount");
-                        if (eftAccount != null) valueMap.put("eftAccount", eftAccount);
-                    }
+                paymentMethodValueMaps.add(valueMap);
+                valueMap.put("paymentMethod", paymentMethod);
+                if ("CREDIT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+                    GenericValue creditCard = paymentMethod.getRelatedOne("CreditCard");
+                    if (creditCard != null) valueMap.put("creditCard", creditCard);
+                } else if ("GIFT_CARD".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+                    GenericValue giftCard = paymentMethod.getRelatedOne("GiftCard");
+                    if (giftCard != null) valueMap.put("giftCard", giftCard);
+                } else if ("EFT_ACCOUNT".equals(paymentMethod.getString("paymentMethodTypeId"))) {
+                    GenericValue eftAccount = paymentMethod.getRelatedOne("EftAccount");
+                    if (eftAccount != null) valueMap.put("eftAccount", eftAccount);
                 }
             }
         } catch (GenericEntityException e) {

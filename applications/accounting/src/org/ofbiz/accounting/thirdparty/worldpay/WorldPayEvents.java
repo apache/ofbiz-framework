@@ -88,7 +88,7 @@ public class WorldPayEvents {
         GenericValue contactAddress = null;
         try {
             List addresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "BILLING_LOCATION"));
-            if (addresses == null || addresses.size() == 0)
+            if (addresses.size() == 0)
                 addresses = delegator.findByAnd("OrderContactMech", UtilMisc.toMap("orderId", orderId, "contactMechPurposeTypeId", "SHIPPING_LOCATION"));
             GenericValue contactMech = EntityUtil.getFirst(addresses); 
             contactAddress = delegator.findByPrimaryKey("PostalAddress", UtilMisc.toMap("contactMechId", contactMech.getString("contactMechId")));                      

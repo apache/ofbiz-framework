@@ -314,7 +314,7 @@ public class PaymentGatewayServices {
             Map lookupMap = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_NOT_AUTH");
             List orderList = UtilMisc.toList("maxAmount");
             paymentPrefs = delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList);
-            if(reAuth) {
+            if (reAuth) {
                 lookupMap.put("orderId", orderId);
                 lookupMap.put("statusId", "PAYMENT_AUTHORIZED");
                 paymentPrefs.addAll(delegator.findByAnd("OrderPaymentPreference", lookupMap, orderList));
@@ -340,7 +340,7 @@ public class PaymentGatewayServices {
         // loop through and auth each order payment preference
         int finished = 0;
         int hadError = 0;
-        List messages = new ArrayList();
+        List messages = FastList.newInstance();
         Iterator payments = paymentPrefs.iterator();
         while (payments.hasNext()) {
             GenericValue paymentPref = (GenericValue) payments.next();
@@ -700,7 +700,7 @@ public class PaymentGatewayServices {
         }
 
         // return complete if no payment prefs were found
-        if (paymentPrefs == null || paymentPrefs.size() == 0) {
+        if (paymentPrefs.size() == 0) {
             Debug.logWarning("No OrderPaymentPreference records available for release", module);
             result.put("processResult", "COMPLETE");
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
@@ -708,7 +708,7 @@ public class PaymentGatewayServices {
         }
 
         // iterate over the prefs and release each one
-        List finished = new ArrayList();
+        List finished = FastList.newInstance();
         Iterator payments = paymentPrefs.iterator();
         while (payments.hasNext()) {
             GenericValue paymentPref = (GenericValue) payments.next();
@@ -1365,7 +1365,7 @@ public class PaymentGatewayServices {
                 }
                 // See if there's an orderPaymentPreference - there should be only one OPP for EXT_BILLACT per order
                 List orderPaymentPreferences = delegator.findByAnd("OrderPaymentPreference", UtilMisc.toMap("orderId", orderId, "paymentMethodTypeId", "EXT_BILLACT"));
-                if (orderPaymentPreferences != null && orderPaymentPreferences.size() > 0) {
+                if (orderPaymentPreferences.size() > 0) {
                     GenericValue orderPaymentPreference = EntityUtil.getFirst(orderPaymentPreferences);
                     
                     // Check the productStore setting to see if we need to do this explicitly
@@ -2505,7 +2505,7 @@ public class PaymentGatewayServices {
                     EntityCondition.makeCondition(EntityCondition.makeCondition("needsNsfRetry", EntityOperator.EQUALS, "Y"), EntityOperator.AND, EntityCondition.makeCondition(ModelEntity.STAMP_FIELD, EntityOperator.LESS_THAN_EQUAL_TO, oneWeekAgo)), 
                     null, null, UtilMisc.toList("orderId"), null);
 
-            List processList = new ArrayList();
+            List processList = FastList.newInstance();
             if (eli != null) {
                 Debug.logInfo("Processing failed order re-auth(s)", module);
                 GenericValue value = null;

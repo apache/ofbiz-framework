@@ -69,7 +69,7 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
         GenericValue acctgTransEntry;
         try {
             List acctgTransEntries = delegator.findByAnd("AcctgTransEntry", UtilMisc.toMap("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId));
-            if (UtilValidate.isNotEmpty(acctgTransEntries)) {
+            if (acctgTransEntries.size() > 0) {
                 Iterator acctgTransEntryItr = acctgTransEntries.iterator();
                 while (acctgTransEntryItr.hasNext()) {  //calculate amount for each AcctgTransEntry according to glAccountId based on debit and credit
                     acctgTransEntry = (GenericValue) acctgTransEntryItr.next();
@@ -112,7 +112,7 @@ public static String createReconcileAccount(HttpServletRequest request,HttpServl
         GenericValue acctgTransEntry;
         try {
             List acctgTransEntries = delegator.findByAnd("AcctgTransEntry", UtilMisc.toMap("acctgTransId", acctgTransId, "acctgTransEntrySeqId", acctgTransEntrySeqId));
-            if (UtilValidate.isNotEmpty(acctgTransEntries)) {
+            if (acctgTransEntries.size() > 0) {
                 Iterator acctgTransEntryItr = acctgTransEntries.iterator();
                 while (acctgTransEntryItr.hasNext()) {
                     acctgTransEntry = (GenericValue) acctgTransEntryItr.next();
