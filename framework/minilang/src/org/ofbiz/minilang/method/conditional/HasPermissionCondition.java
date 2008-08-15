@@ -29,6 +29,16 @@ import org.w3c.dom.Element;
  * Implements compare to a constant condition.
  */
 public class HasPermissionCondition implements Conditional {
+    public static final class HasPermissionConditionFactory extends ConditionalFactory<HasPermissionCondition> {
+        public HasPermissionCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new HasPermissionCondition(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-has-permission";
+        }
+    }
+
     
     SimpleMethod simpleMethod;
     

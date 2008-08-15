@@ -43,6 +43,16 @@ import org.w3c.dom.Element;
  * Implements compare to a constant condition.
  */
 public class RegexpCondition implements Conditional {
+    public static final class RegexpConditionFactory extends ConditionalFactory<RegexpCondition> {
+        public RegexpCondition createCondition(Element element, SimpleMethod simpleMethod) {
+            return new RegexpCondition(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "if-regexp";
+        }
+    }
+
     
     public static final String module = RegexpCondition.class.getName();
     

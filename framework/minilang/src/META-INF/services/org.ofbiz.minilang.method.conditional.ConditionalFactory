@@ -1,0 +1,11 @@
+org.ofbiz.minilang.method.conditional.CombinedCondition$OrConditionFactory
+org.ofbiz.minilang.method.conditional.CombinedCondition$XorConditionFactory
+org.ofbiz.minilang.method.conditional.CombinedCondition$AndConditionFactory
+org.ofbiz.minilang.method.conditional.CombinedCondition$NotConditionFactory
+org.ofbiz.minilang.method.conditional.CompareCondition$CompareConditionFactory
+org.ofbiz.minilang.method.conditional.CompareFieldCondition$CompareFieldConditionFactory
+org.ofbiz.minilang.method.conditional.EmptyCondition$EmptyConditionFactory
+org.ofbiz.minilang.method.conditional.HasPermissionCondition$HasPermissionConditionFactory
+org.ofbiz.minilang.method.conditional.RegexpCondition$RegexpConditionFactory
+org.ofbiz.minilang.method.conditional.ValidateMethodCondition$ValidateMethodConditionFactory
+
