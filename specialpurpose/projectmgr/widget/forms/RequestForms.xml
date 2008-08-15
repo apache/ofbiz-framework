@@ -21,7 +21,7 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="ListRequests" type="list" 
-        extends="ListRequests" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+        extends="ListRequestList" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="createTaskFromRequest" title="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" widget-style="buttontext">
             <hyperlink description="${uiLabelMap.ProjectMgrCreateTaskFromRequest}" target="EditTaskFromRequest?custRequestId=${custRequestId}"/>
         </field>

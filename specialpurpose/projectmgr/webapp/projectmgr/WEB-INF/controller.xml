@@ -567,7 +567,12 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ViewRequest"/>
     </request-map>
-    <!-- New request-map -->
+    <request-map uri="createrequest">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCustRequest"/>
+        <response name="success" type="request-redirect-noparam" value="requestlist"/>
+    <response name="error" type="view" value="EditRequest"/>
+    </request-map>
     <request-map uri="viewprofile">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="viewprofile"/>
