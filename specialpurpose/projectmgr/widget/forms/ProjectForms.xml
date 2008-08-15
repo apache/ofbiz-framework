@@ -133,7 +133,7 @@
             </service>
         </row-actions>
         <field name="projectName" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrProjectName}" widget-style="buttontext">
-            <hyperlink description="${resultProject.projectInfo.projectName}" target="projectView?projectId=${projectId}"/>
+            <hyperlink description="${resultProject.projectInfo.projectName}" target="projectView?projectId=${resultProject.projectInfo.projectId}"/>
         </field>
         <field name="currentStatusId" map-name="resultProject.projectInfo" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="priority" map-name="resultProject.projectInfo" title="${uiLabelMap.CommonPriority}"><display/></field>
