@@ -119,7 +119,7 @@ under the License.
             </service>
         </row-actions> 
         <field name="custRequestId">
-            <hyperlink target="/ordermgr/control/ViewRequest?custRequestId=${custRequestId}" target-type="inter-app" description="${custRequestName} [${custRequestId}]"/>
+            <hyperlink target="ViewRequest?custRequestId=${custRequestId}" description="${custRequestName} [${custRequestId}]"/>
          </field>
         <field name="projectId" map-name="sResult">
             <hyperlink target="projectView?projectId=${sResult.projectId}" description="${sResult.projectName} [${sResult.projectId}]"/>
@@ -146,5 +146,13 @@ under the License.
         <field name="workEffortId">
             <hyperlink target="taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]"/>
         </field>
+    </form>
+    <form name="OverviewRequestItems" extends="OverviewRequestItems" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+        <field name="story" title="${uiLabelMap.CommonText}"><display/></field>
+        <field name="productId"><ignored/></field>
+        <field name="statusId"><ignored/></field>
+        <field name="quantity"><ignored/></field>
+        <field name="description"><ignored/></field>
+        <field name="custRequestItemSeqId"><ignored/></field>
     </form>
 </forms>
