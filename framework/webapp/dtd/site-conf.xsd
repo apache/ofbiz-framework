@@ -235,11 +235,14 @@ under the License.
                     <xs:enumeration value="request"/>
                     <xs:enumeration value="request-redirect"/>
                     <xs:enumeration value="request-redirect-noparam"/>
+                    <xs:enumeration value="request-redirect-filterparam"/>
                     <xs:enumeration value="url"/>
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute type="xs:string" name="value"/>
+        <xs:attribute type="xs:string" name="allowed-params"/>
+        <xs:attribute type="xs:string" name="allowed-attributes"/>
     </xs:attributeGroup>
     <xs:element name="view-map">
         <xs:complexType>
