@@ -571,7 +571,13 @@
         <security https="true" auth="true"/>
         <event type="service" invoke="createCustRequest"/>
         <response name="success" type="request-redirect-noparam" value="requestlist"/>
-    <response name="error" type="view" value="EditRequest"/>
+        <response name="error" type="view" value="EditRequest"/>
+    </request-map>
+    <request-map uri="updaterequest">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCustRequest"/>
+        <response name="success" type="request-redirect-noparam" value="requestlist"/>
+        <response name="error" type="view" value="EditRequest"/>
     </request-map>
     <request-map uri="viewprofile">
         <security https="true" auth="true"/>
