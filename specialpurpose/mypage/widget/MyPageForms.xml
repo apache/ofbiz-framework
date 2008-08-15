@@ -136,11 +136,11 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="createdDate" title="Date"><display type="date"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
-        <field name="currentStatusId" map-name="taskResult.taskInfo"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
-        <field name="estimatedStartDate" map-name="taskResult.taskInfo"><display type="date"/></field>
-        <field name="estimatedCompletionDate" map-name="taskResult.taskInfo"><display type="date"/></field>
-        <field name="actualStartDate" map-name="taskResult.taskInfo"><display type="date"/></field>
-        <field name="actualCompletionDate" map-name="taskResult.taskInfo"><display type="date"/></field>
+        <field name="currentStatusId" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="estimatedStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskPlanStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskPlanEndDate}"><display type="date"/></field>
+        <field name="actualStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskActStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskActEndDate}"><display type="date"/></field>
         <field name="plannedHours" map-name="taskResult.taskInfo"><display/></field>
         <field name="actualHours" map-name="taskResult.taskInfo"><display/></field>
     </form>

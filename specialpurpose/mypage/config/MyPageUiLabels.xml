@@ -94,4 +94,19 @@
         <value xml:lang="en">Communications of party</value>
         <value xml:lang="fr">Communications de l'acteur</value>
     </property>
+    <property key="TaskStatus">
+        <value xml:lang="en">Task Status</value>
+    </property>
+    <property key="TaskPlanStartDate">
+        <value xml:lang="en">Task Pln Start</value>
+    </property>
+    <property key="TaskPlanEndDate">
+        <value xml:lang="en">Task Pln End</value>
+    </property>
+    <property key="TaskActStartDate">
+        <value xml:lang="en">Task Act Start</value>
+    </property>
+    <property key="TaskActEndDate">
+        <value xml:lang="en">Task Act End</value>
+    </property>
 </resource>

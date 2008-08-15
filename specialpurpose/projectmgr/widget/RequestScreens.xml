@@ -115,7 +115,7 @@ under the License.
                                 <html><html-template location="component://order/webapp/ordermgr/request/requestInfo.ftl"/></html>
                             </platform-specific>
                             <screenlet title="${uiLabelMap.PageTitleRequestItems}">
-                                <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                                <include-form name="OverviewRequestItems" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                             </screenlet>
                         </container>
                         <container style="righthalf">
