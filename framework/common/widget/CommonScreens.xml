@@ -128,6 +128,10 @@ under the License.
                 <!-- The default (global) logo -->
                 <set field="layoutSettings.commonHeaderImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
+                <service service-name="getUserPreferenceGroup">
+                    <field-map field-name="userPrefGroupId" value="GLOBAL_PREFERENCES"/>
+                </service>
+                <set field="userPreferences" from-field="userPrefMap" global="true"/>
             </actions>
             <widgets>
                 <!-- render header -->

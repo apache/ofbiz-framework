@@ -876,11 +876,11 @@ background-color: #FFFFFF;
 color: #000000;
 font-weight: bold;
 height: 1%; /* IE fix */
-padding: 0.4em;
 }
 
 #masthead ul li {
 float: left;
+padding: 0.4em;
 }
 
 #masthead ul .logo-area {
@@ -891,6 +891,18 @@ float: left;
 #masthead ul .control-area {
 float: right;
 text-align: right;
+}
+
+#masthead ul .control-area .expanded {
+background: url(/images/collapse.gif) no-repeat right;
+min-height: 10px;
+min-width: 10px;
+}
+
+#masthead ul .control-area .collapsed {
+background: url(/images/expand.gif) no-repeat right;
+min-height: 10px;
+min-width: 10px;
 }
 
 /* ========================================= */
