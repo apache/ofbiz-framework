@@ -96,17 +96,22 @@
     </property>
     <property key="TaskStatus">
         <value xml:lang="en">Task Status</value>
+        <value xml:lang="fr">Status de la tâche</value>
     </property>
     <property key="TaskPlanStartDate">
-        <value xml:lang="en">Task Pln Start</value>
+        <value xml:lang="en">Task Plan Start</value>
+        <value xml:lang="fr">Départ prévu de la tâche</value>        
     </property>
     <property key="TaskPlanEndDate">
-        <value xml:lang="en">Task Pln End</value>
+        <value xml:lang="en">Task Plan End</value>
+        <value xml:lang="fr">Fin prévue de la tâche</value>        
     </property>
     <property key="TaskActStartDate">
         <value xml:lang="en">Task Act Start</value>
+        <value xml:lang="fr">Départ réel de de la tâche</value>                
     </property>
     <property key="TaskActEndDate">
         <value xml:lang="en">Task Act End</value>
+        <value xml:lang="fr">Fin réelle de de la tâche</value>                
     </property>
 </resource>
