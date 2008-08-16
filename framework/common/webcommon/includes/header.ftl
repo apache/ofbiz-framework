@@ -60,7 +60,11 @@ under the License.
     </#if>
     ${layoutSettings.extraHead?if_exists}
 </head>
-
+<#if layoutSettings.headerImageLinkUrl?exists>
+  <#assign logoLinkURL = "${layoutSettings.headerImageLinkUrl}">
+<#else>
+  <#assign logoLinkURL = "${layoutSettings.commonHeaderImageLinkUrl}">
+</#if>
 <body>
   <div class="hidden">
     <a href="#column-container" title="${uiLabelMap.CommonSkipNavigation}" accesskey="2">
@@ -69,30 +73,49 @@ under the License.
   </div>
   <div id="masthead">
     <ul>
-      <#if layoutSettings.headerImageLinkUrl?exists>
-        <#assign logoLinkURL = "${layoutSettings.headerImageLinkUrl}">
+      <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
+        <li class="logo-area">
+          <#if layoutSettings.shortcutIcon?has_content>
+            <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${layoutSettings.shortcutIcon}</@ofbizContentUrl>"/></a>
+          </#if>
+        </li>
+        <li>
+          <#if person?has_content>
+            ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
+          <#elseif partyGroup?has_content>
+            ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
+          <#else>
+            ${uiLabelMap.CommonWelcome}!
+          </#if>
+        </li>
+        <li>${nowTimestamp?datetime?string.short}</li>
+        <li class="control-area">
+          <p class="collapsed"><a href="setUserPreference?userPrefGroupId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=N">&nbsp;&nbsp;</a></p>
+        </li>
       <#else>
-        <#assign logoLinkURL = "${layoutSettings.commonHeaderImageLinkUrl}">
-      </#if>
-      <#if layoutSettings.headerImageUrl?exists>
-        <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></a></li>
-      <#else>
-        <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.commonHeaderImageUrl}</@ofbizContentUrl>"/></a></li>
-      </#if>
-      <li class="control-area"<#if layoutSettings.headerRightBackgroundUrl?has_content> background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
-        <p>
-        <#if person?has_content>
-          ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
-        <#elseif partyGroup?has_content>
-          ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
+        <#if layoutSettings.headerImageUrl?exists>
+          <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></a></li>
         <#else>
-          ${uiLabelMap.CommonWelcome}!
+          <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.commonHeaderImageUrl}</@ofbizContentUrl>"/></a></li>
         </#if>
-        </p>
-        <p>${nowTimestamp?datetime?string.short}</p>
-        <p>${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)} <a href="<@ofbizUrl>LookupLocales</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonChange}</a></p>
-        <p>${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)} <a href="<@ofbizUrl>LookupTimezones</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonChange}</a></p>
-      </li>
+        <li class="control-area"<#if layoutSettings.headerRightBackgroundUrl?has_content> background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
+          <#if userLogin?exists>
+            <p class="expanded"><a href="setUserPreference?userPrefGroupId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a></p>
+          </#if>
+          <p>
+          <#if person?has_content>
+            ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
+          <#elseif partyGroup?has_content>
+            ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
+          <#else>
+            ${uiLabelMap.CommonWelcome}!
+          </#if>
+          </p>
+          <p>${nowTimestamp?datetime?string.short}</p>
+          <p>${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)} <a href="<@ofbizUrl>LookupLocales</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonChange}</a></p>
+          <p>${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)} <a href="<@ofbizUrl>LookupTimezones</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonChange}</a></p>
+        </li>
+      </#if>
     </ul>
     <br class="clear" />
   </div>
