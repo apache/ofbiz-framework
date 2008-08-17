@@ -94,6 +94,7 @@ under the License.
                 <and>
                     <not><if-empty field-name="parameters.communicationEventId"/></not>
                     <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
                 </and>
             </condition>
             <link target="editRequestFromCommEvent?communicationEventId=${parameters.communicationEventId}"/>
