@@ -124,12 +124,10 @@ under the License.
     <request-map uri="view">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
     <request-map uri="authview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
 
     <request-map uri="main"><security https="false" auth="false"/><response name="success" type="view" value="main"/></request-map>
@@ -524,7 +522,7 @@ under the License.
     
    <request-map uri="quickAnonEnterExtOffline">
         <security https="true" auth="false"/>
-       <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/processPaymentSettings.bsh"/>        
+        <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/processPaymentSettings.bsh"/>        
         <response name="success" type="view" value="quickAnonOrderReview"/>
         <response name="error" type="view" value="quickAnonOrderReview"/>
    </request-map>

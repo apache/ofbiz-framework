@@ -46,12 +46,10 @@ under the License.
     <request-map uri="view">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
     <request-map uri="authview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
     
     <request-map uri="changeDelegator">
@@ -117,7 +115,6 @@ under the License.
     <request-map uri="FindPartySkills">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindPartySkills"/>
-        <response name="error" type="view"  value="FindPartySkills"/>
     </request-map>
     <request-map uri="NewPartySkill">
         <security https="true" auth="true"/>
@@ -307,12 +304,10 @@ under the License.
     <request-map uri="FindPayGrades">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindPayGrades"/>
-        <response name="error" type="view" value="FindPayGrades"/>
     </request-map>
     <request-map uri="EditPayGrade">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPayGrade"/>
-        <response name="error" type="view" value="EditPayGrade"/>
     </request-map>
     <request-map uri="createPayGrade">
         <security https="true" auth="true"/>
@@ -619,17 +614,14 @@ under the License.
     <request-map uri="emplPositionView">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EmplPositionView"/>
-        <response name="error" type="view" value="EmplPositionView"/>
     </request-map>
     <request-map uri="FindPersonTrainings">
         <security https="true" auth="true"/>
         <response  name="success" type="view" value="FindPersonTrainings"/>
-        <response name="error" type="view"  value="FindPersonTrainings"/>
     </request-map>
     <request-map uri="NewPersonTraining">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="NewPersonTraining"/>
-        <response name="error" type="view" value="FindPersonTrainings"/>
     </request-map>
     <request-map uri="createPersonTraining">
         <security https="true" auth="true"/>
@@ -735,7 +727,6 @@ under the License.
     <request-map uri="EditPartySkillsExt">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartySkills"/>        
-        <response name="error"  type="view" value="EditPartySkills"/>
     </request-map>
     <request-map uri="EditPersonTrainings">
         <security https="true" auth="true"/>
@@ -753,7 +744,6 @@ under the License.
     <request-map uri="EditPartyResumesExt">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartyResumes"/>
-        <response name="error"  type="view" value="EditPartyResumes"/>
     </request-map>
     <request-map uri="EditEmploymentApps">
         <security https="true" auth="true"/>
@@ -762,7 +752,6 @@ under the License.
     <request-map uri="EditEmploymentAppsExt">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditEmploymentApps"/>
-        <response name="error"  type="view" value="EditEmploymentApps"/>
     </request-map>
     <request-map uri="createPartySkillExt">
         <security https="true" auth="true"/>

@@ -98,7 +98,7 @@ under the License.
         <security https="true" auth="true"/>
         <!-- <event type="service" invoke="tc_POExists"/> -->
         <response name="success" type="view" value="linereceipt"/>
-        <response name="error" type="view" value="poreceipt"/>
+        <!-- <response name="error" type="view" value="poreceipt"/> -->
     </request-map>
 
     
@@ -119,7 +119,6 @@ under the License.
     <request-map uri="productstocktake">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="productstocktake"/>
-        <response name="error" type="view" value="productstocktake"/>
     </request-map>
     
     <request-map uri="updateproductstocktake">

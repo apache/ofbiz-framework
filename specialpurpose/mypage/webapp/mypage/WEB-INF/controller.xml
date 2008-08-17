@@ -165,14 +165,14 @@
     <!-- to clean up old data -->
     <request-map uri="createCommEventRoles">
         <security https="true" auth="true"/>
-        <event  type="simple" invoke="createCommunicationEventRoles" path="org/ofbiz/mypage/Events.xml"/>
+        <event type="simple" invoke="createCommunicationEventRoles" path="org/ofbiz/mypage/Events.xml"/>
         <response name="success" type="request" value="getToNextDonePage"/>
         <response name="error" type="view" value="main"/>
     </request-map>
 
     <request-map uri="getToNextDonePage">
         <security https="true" auth="true"/>
-        <event  type="simple" invoke="getToNextDonePage" path="org/ofbiz/mypage/Events.xml"/>
+        <event type="simple" invoke="getToNextDonePage" path="org/ofbiz/mypage/Events.xml"/>
         <response name="main" type="request" value="main"/>
         <response name="ViewCommunicationEvent" type="request" value="ViewCommunicationEvent"/>
         <response name="myCommunications" type="request" value="myCommunications"/>
