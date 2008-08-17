@@ -174,7 +174,7 @@ under the License.
         </actions>
         <field name="donePage"><hidden/></field>
         <field name="communicationEventTypeId"><hidden value="COMMENT_NOTE"/></field>
-        <field name="parentCommEventId"><hidden value="${parentCommEventId}"/></field>
+        <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
         <field name="statusId"><hidden value="COM_COMPLETE"/></field>
         <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
         <field name="partyIdTo" title="${uiLabelMap.PartyPartyTo}">
