@@ -67,8 +67,8 @@
         <value xml:lang="fr">Au moins une permission MYPAGE_CUSTOMER ou MYPAGE_EMPLOYEE est nécessaire</value>
     </property>
     <property key="MyPageNoAccess4">
-        <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer1' and 'DemoEmployee1' for a demo.</value>
-        <value xml:lang="fr">Utilisez l'identifiant de connexion 'DemoCustomer1' ou 'DemoEmployee1' pour une démonstration.</value>
+        <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer' and 'DemoEmployee' for a demo.</value>
+        <value xml:lang="fr">Utilisez l'identifiant de connexion 'DemoCustomer' ou 'DemoEmployee' pour une démonstration.</value>
     </property>
     <property key="MyPagePagesVisible">
         <value xml:lang="en">pages visible on the main screen.</value>

@@ -43,18 +43,15 @@ under the License.
     <UserLoginSecurityGroup groupId="MYPAGE_CUSTOMER" userLoginId="DemoCustomer1" fromDate="2000-01-01 00:00:00.0"/>
     <UserLoginSecurityGroup groupId="MYPAGE_CUSTOMER" userLoginId="DemoCustomer2" fromDate="2000-01-01 00:00:00.0"/>
     <UserLoginSecurityGroup groupId="MYPAGE_CUSTOMER" userLoginId="DemoCustomer3" fromDate="2000-01-01 00:00:00.0"/>
-    <!-- demo employee has limited projectmanager access including timesheets, can read/write internal notes-->
-    <UserLoginSecurityGroup groupId="MYPAGE_EMPLOYEE" userLoginId="DemoEmployee1" fromDate="2000-01-01 00:00:00.0"/>
-    <UserLoginSecurityGroup groupId="MYPAGE_EMPLOYEE" userLoginId="DemoEmployee2" fromDate="2000-01-01 00:00:00.0"/>
-    <UserLoginSecurityGroup groupId="MYPAGE_EMPLOYEE" userLoginId="DemoEmployee3" fromDate="2000-01-01 00:00:00.0"/>
+    <!-- demo employee has limited projectmanager access including timesheets, can read/write comms internal notes but cannot send external email-->
+    <UserLoginSecurityGroup groupId="MYPAGE_EMPL-NOEMAIL" userLoginId="DemoEmployee1" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="MYPAGE_EMPL-NOEMAIL" userLoginId="DemoEmployee2" fromDate="2000-01-01 00:00:00.0"/>
+    <UserLoginSecurityGroup groupId="MYPAGE_EMPL-NOEMAIL" userLoginId="DemoEmployee3" fromDate="2000-01-01 00:00:00.0"/>
     <!-- employee have no access to any project -->
     <UserLoginSecurityGroup groupId="MYPAGE_EMPLOYEE" userLoginId="DemoEmployee" fromDate="2000-01-01 00:00:00.0"/>
-    
     <!-- admin logins -->
     <UserLoginSecurityGroup groupId="MYPAGE_EMPLOYEE" userLoginId="admin" fromDate="2000-01-01 00:00:00.0"/>
-    <UserLoginSecurityGroup groupId="MYPAGE_CUSTOMER" userLoginId="admin" fromDate="2000-01-01 00:00:00.0"/>
     <UserLoginSecurityGroup groupId="MYPAGE_EMPLOYEE" userLoginId="demoadmin" fromDate="2000-01-01 00:00:00.0"/>
-    <UserLoginSecurityGroup groupId="MYPAGE_CUSTOMER" userLoginId="demoadmin" fromDate="2000-01-01 00:00:00.0"/>
     
     
     
