@@ -18,20 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.common.geo;
 
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.GenericEntityException;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.base.util.Debug;
-
 import java.util.List;
-import java.util.LinkedList;
-import java.util.Iterator;
-import java.util.ArrayList;
 import java.util.Set;
 
 import javolution.util.FastList;
 import javolution.util.FastSet;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.entity.GenericDelegator;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 
 /**
  * Worker methods for Geos
@@ -67,7 +65,7 @@ public class GeoWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Unable to get associated Geo GROUP_MEMBER relationship(s)", module);
         }
-        if (thisGeoAssoc != null && thisGeoAssoc.size() > 0) {
+        if (UtilValidate.isNotEmpty(thisGeoAssoc)) {
             for (GenericValue nextGeoAssoc: thisGeoAssoc) {
                 GenericValue nextGeo = null;
                 try {

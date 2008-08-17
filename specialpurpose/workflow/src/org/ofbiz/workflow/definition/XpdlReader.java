@@ -600,7 +600,7 @@ public class XpdlReader {
             } else if (loopElement != null) {
                 activityValue.set("activityTypeEnumId", "WAT_LOOP");
                 readLoop(loopElement, packageId, packageVersion, processId, processVersion, activityId);
-            } else if (tools != null && tools.size() > 0) {
+            } else if (UtilValidate.isNotEmpty(tools)) {
                 activityValue.set("activityTypeEnumId", "WAT_TOOL");
                 readTools(tools, packageId, packageVersion, processId, processVersion, activityId);
             } else {
@@ -902,7 +902,7 @@ public class XpdlReader {
             // a Condition will have either a list of XPression elements, or plain PCDATA
             List xPressions = UtilXml.childElementList(conditionElement, "XPression");
 
-            if (xPressions != null && xPressions.size() > 0) {
+            if (UtilValidate.isNotEmpty(xPressions)) {
                 throw new DefinitionParserException("XPression elements under Condition not yet supported, just use text inside Condition with the expression");
             } else {
                 transitionValue.set("conditionExpr", UtilXml.elementValue(conditionElement));

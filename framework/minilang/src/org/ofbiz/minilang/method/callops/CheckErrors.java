@@ -20,6 +20,7 @@ package org.ofbiz.minilang.method.callops;
 
 import java.util.List;
 
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.minilang.SimpleMethod;
 import org.ofbiz.minilang.method.ContextAccessor;
@@ -65,7 +66,7 @@ public class CheckErrors extends MethodOperation {
     public boolean exec(MethodContext methodContext) {
         List<Object> messages = errorListAcsr.get(methodContext);
 
-        if (messages != null && messages.size() > 0) {
+        if (UtilValidate.isNotEmpty(messages)) {
             String errorCode = methodContext.expandString(this.errorCode);
             
             if (methodContext.getMethodType() == MethodContext.EVENT) {

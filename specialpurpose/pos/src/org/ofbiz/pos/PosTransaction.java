@@ -298,7 +298,7 @@ public class PosTransaction implements Serializable {
             fields.put("orderId", this.getOrderId());
 
             List paymentPrefs = session.getDelegator().findByAnd("OrderPaymentPreference", fields);
-            if (paymentPrefs != null && paymentPrefs.size() > 0) {
+            if (UtilValidate.isNotEmpty(paymentPrefs)) {
                 //Debug.log("Found some prefs - " + paymentPrefs.size(), module);
                 if (paymentPrefs.size() > 1) {
                     Debug.logError("Multiple OrderPaymentPreferences found for the same payment method!", module);
@@ -953,7 +953,7 @@ public class PosTransaction implements Serializable {
                 }
             }
             
-            if (adjustments != null && adjustments.size() > 0) {
+            if (UtilValidate.isNotEmpty(adjustments)) {
                 Iterator iter = adjustments.iterator();
                 while(iter.hasNext()){
                     GenericValue orderAdjustment = (GenericValue) iter.next();

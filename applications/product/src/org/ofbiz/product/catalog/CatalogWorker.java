@@ -262,7 +262,7 @@ public class CatalogWorker {
 
         List prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_BROWSE_ROOT");
 
-        if (prodCatalogCategories != null && prodCatalogCategories.size() > 0) {
+        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
 
             return prodCatalogCategory.getString("productCategoryId");
@@ -282,7 +282,7 @@ public class CatalogWorker {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
         List prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_SEARCH");
-        if (prodCatalogCategories != null && prodCatalogCategories.size() > 0) {
+        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
             return prodCatalogCategory.getString("productCategoryId");
         } else {
@@ -294,7 +294,7 @@ public class CatalogWorker {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
         List prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_VIEW_ALLW");
-        if (prodCatalogCategories != null && prodCatalogCategories.size() > 0) {
+        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
             return prodCatalogCategory.getString("productCategoryId");
         } else {
@@ -306,7 +306,7 @@ public class CatalogWorker {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
         List prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_PURCH_ALLW");
-        if (prodCatalogCategories != null && prodCatalogCategories.size() > 0) {
+        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
             return prodCatalogCategory.getString("productCategoryId");
         } else {
@@ -323,7 +323,7 @@ public class CatalogWorker {
 
         List prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_PROMOTIONS");
 
-        if (prodCatalogCategories != null && prodCatalogCategories.size() > 0) {
+        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
 
             return prodCatalogCategory.getString("productCategoryId");
@@ -361,7 +361,7 @@ public class CatalogWorker {
 
         List prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD");
 
-        if (prodCatalogCategories != null && prodCatalogCategories.size() > 0) {
+        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
 
             return prodCatalogCategory.getString("productCategoryId");
@@ -381,7 +381,7 @@ public class CatalogWorker {
 
         Collection prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD");
 
-        if (prodCatalogCategories != null && prodCatalogCategories.size() > 0) {
+        if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             Iterator pccIter = prodCatalogCategories.iterator();
 
             while (pccIter.hasNext()) {

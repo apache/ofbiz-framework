@@ -1687,7 +1687,7 @@ public class ModelFormField {
             this.filterByDate = entityOptionsElement.getAttribute("filter-by-date");
 
             List constraintElements = UtilXml.childElementList(entityOptionsElement, "entity-constraint");
-            if (constraintElements != null && constraintElements.size() > 0) {
+            if (UtilValidate.isNotEmpty(constraintElements)) {
                 this.constraintList = new LinkedList<EntityFinderUtil.ConditionExpr>();
                 Iterator constraintElementIter = constraintElements.iterator();
                 while (constraintElementIter.hasNext()) {
@@ -1697,7 +1697,7 @@ public class ModelFormField {
             }
 
             List orderByElements = UtilXml.childElementList(entityOptionsElement, "entity-order-by");
-            if (orderByElements != null && orderByElements.size() > 0) {
+            if (UtilValidate.isNotEmpty(orderByElements)) {
                 this.orderByList = new LinkedList<String>();
                 Iterator orderByElementIter = orderByElements.iterator();
                 while (orderByElementIter.hasNext()) {
@@ -1721,7 +1721,7 @@ public class ModelFormField {
         public void addOptionValues(List<OptionValue> optionValues, Map<String, Object> context, GenericDelegator delegator) {
             // first expand any conditions that need expanding based on the current context
             EntityCondition findCondition = null;
-            if (this.constraintList != null && this.constraintList.size() > 0) {
+            if (UtilValidate.isNotEmpty(this.constraintList)) {
                 List<EntityCondition> expandedConditionList = new LinkedList<EntityCondition>();
                 Iterator constraintIter = constraintList.iterator();
                 while (constraintIter.hasNext()) {

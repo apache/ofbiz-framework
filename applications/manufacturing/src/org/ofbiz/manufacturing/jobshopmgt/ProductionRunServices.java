@@ -2398,7 +2398,7 @@ public class ProductionRunServices {
             }
             try {
                 List existingProductionRuns = delegator.findByAndCache("WorkOrderItemFulfillment", UtilMisc.toMap("orderId", orderItem.getString("orderId"), "orderItemSeqId", orderItem.getString("orderItemSeqId")));
-                if (existingProductionRuns != null && existingProductionRuns.size() > 0) {
+                if (UtilValidate.isNotEmpty(existingProductionRuns)) {
                     Debug.logWarning("Production Run for order item [" + orderItem.getString("orderId") + "/" + orderItem.getString("orderItemSeqId") + "] already exists.", module);
                     continue;
                 }

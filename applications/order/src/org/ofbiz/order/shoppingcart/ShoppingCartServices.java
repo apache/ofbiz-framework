@@ -238,7 +238,7 @@ public class ShoppingCartServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        if (orderPaymentPrefs != null && orderPaymentPrefs.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderPaymentPrefs)) {
             Iterator oppi = orderPaymentPrefs.iterator();
             while (oppi.hasNext()) {
                 GenericValue opp = (GenericValue) oppi.next();

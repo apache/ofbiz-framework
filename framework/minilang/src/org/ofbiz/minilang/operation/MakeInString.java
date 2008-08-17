@@ -40,7 +40,7 @@ public class MakeInString {
 
         List<? extends Element> operationElements = UtilXml.childElementList(makeInStringElement);
 
-        if (operationElements != null && operationElements.size() > 0) {
+        if (UtilValidate.isNotEmpty(operationElements)) {
             for (Element curOperElem: operationElements) {
                 String nodeName = curOperElem.getNodeName();
 

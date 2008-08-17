@@ -555,7 +555,7 @@ public class MrpServices {
         // TODO : change the return type to boolean to be able to test if all is ok or if it have had a exception
         GenericDelegator delegator = product.getDelegator();
 
-        if (listComponent != null && listComponent.size() >0) {
+        if (UtilValidate.isNotEmpty(listComponent)) {
             Iterator listComponentIter = listComponent.iterator();
             while (listComponentIter.hasNext()) {
                 BOMNode node = (BOMNode) listComponentIter.next();
@@ -744,7 +744,7 @@ public class MrpServices {
                             return ServiceUtil.returnError("An error occurred exploding the product [" + product.getString("productId") + "]");
                         }
                         components = (List)serviceResponse.get("components");
-                        if (components != null && components.size() > 0) {
+                        if (UtilValidate.isNotEmpty(components)) {
                             BOMNode node = ((BOMNode)components.get(0)).getParentNode();
                             isBuilt = node.isManufactured();
                         } else {
@@ -786,7 +786,7 @@ public class MrpServices {
                         } else {
                             routing = null;
                         }
-                        if (components != null && components.size() > 0) {
+                        if (UtilValidate.isNotEmpty(components)) {
                             BOMNode node = ((BOMNode)components.get(0)).getParentNode();
                             isBuilt = node.isManufactured();
                         } else {

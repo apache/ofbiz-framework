@@ -996,7 +996,7 @@ public class ServiceDispatcher {
 
         int servicesScheduled = 0;
         List<? extends Element> startupServices = UtilXml.childElementList(root, "startup-service");
-        if (startupServices != null && startupServices.size() > 0) {
+        if (UtilValidate.isNotEmpty(startupServices)) {
             for (Element ss: startupServices) {
                 String serviceName = ss.getAttribute("name");
                 String runtimeDataId = ss.getAttribute("runtime-data-id");

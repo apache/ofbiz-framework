@@ -151,7 +151,7 @@ public class JobManager {
                     List<GenericValue> jobEnt = delegator.findByAnd("JobSandbox", updateFields, order);
                     //jobEnt = delegator.findByCondition("JobSandbox", mainCondition, null, order);
 
-                    if (jobEnt != null && jobEnt.size() > 0) {
+                    if (UtilValidate.isNotEmpty(jobEnt)) {
                         for (GenericValue v: jobEnt) {
                             DispatchContext dctx = getDispatcher().getDispatchContext();
                             if (dctx == null) {
@@ -212,7 +212,7 @@ public class JobManager {
             Debug.logError(e, "Unable to load crashed jobs", module);
         }
 
-        if (crashed != null && crashed.size() > 0) {
+        if (UtilValidate.isNotEmpty(crashed)) {
             try {
                 int rescheduled = 0;
                 for (GenericValue job: crashed) {

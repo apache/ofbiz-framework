@@ -138,7 +138,7 @@ public class ProductConfigWrapper implements Serializable {
         if (UtilValidate.isNotEmpty(configId)) {
             this.configId = configId;
             List productConfigConfig = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configId", configId));
-            if (productConfigConfig != null && productConfigConfig.size() > 0) {
+            if (UtilValidate.isNotEmpty(productConfigConfig)) {
                 Iterator pccIt = productConfigConfig.iterator();
                 while (pccIt.hasNext()) {
                     GenericValue pcc =(GenericValue) pccIt.next();

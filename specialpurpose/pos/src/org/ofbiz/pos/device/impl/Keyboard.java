@@ -23,6 +23,7 @@ import java.util.List;
 import jpos.JposException;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.pos.adaptor.DataEventAdaptor;
 import org.ofbiz.pos.config.ButtonEventConfig;
 import org.ofbiz.pos.device.GenericDevice;
@@ -68,7 +69,7 @@ public class Keyboard extends GenericDevice {
                     }
 
                     List buttonEvents = ButtonEventConfig.findButtonKeyAssign(keyCode);
-                    if (buttonEvents != null && buttonEvents.size() > 0) {
+                    if (UtilValidate.isNotEmpty(buttonEvents)) {
 
                         Debug.log("Key -> Button Mapping(s) Found [" + keyCode + "]", module);
                         try {

@@ -268,7 +268,7 @@ public class PaymentWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting paymentApplicationlist", module);            
         }
-        if (paymentApplications != null && paymentApplications.size() > 0) {
+        if (UtilValidate.isNotEmpty(paymentApplications)) {
             Iterator p = paymentApplications.iterator();
             while (p.hasNext()) {
                 GenericValue paymentApplication = (GenericValue) p.next();
@@ -282,7 +282,7 @@ public class PaymentWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting the 'to' paymentApplicationlist", module);            
         }
-        if (paymentApplications != null && paymentApplications.size() > 0) {
+        if (UtilValidate.isNotEmpty(paymentApplications)) {
             Iterator p = paymentApplications.iterator();
             while (p.hasNext()) {
                 GenericValue paymentApplication = (GenericValue) p.next();

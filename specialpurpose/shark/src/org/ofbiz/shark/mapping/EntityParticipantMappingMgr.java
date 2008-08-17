@@ -83,7 +83,7 @@ public class EntityParticipantMappingMgr implements ParticipantMappingManager {
 
     public boolean doesParticipantMappingExist(ParticipantMappingTransaction mappingTransaction, ParticipantMap participantMap) throws RootException {
         List mappings = getParticipantMappings(mappingTransaction, participantMap.getPackageId(), participantMap.getProcessDefinitionId(), participantMap.getParticipantId());
-        if (mappings != null && mappings.size() > 0) {
+        if (UtilValidate.isNotEmpty(mappings)) {
             return true;
         }
         return false;

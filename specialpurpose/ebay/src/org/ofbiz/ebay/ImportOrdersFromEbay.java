@@ -933,7 +933,7 @@ public class ImportOrdersFromEbay {
             Map paymentFields = UtilMisc.toMap("orderId", orderId, "statusId", "PAYMENT_RECEIVED", "paymentMethodTypeId", "EXT_EBAY");
             paymentPreferences = delegator.findByAnd("OrderPaymentPreference", paymentFields);
             
-            if (paymentPreferences != null && paymentPreferences.size() > 0) {
+            if (UtilValidate.isNotEmpty(paymentPreferences)) {
                 Iterator i = paymentPreferences.iterator();
                 while (i.hasNext()) {
                     GenericValue pref = (GenericValue) i.next();
@@ -1203,7 +1203,7 @@ public class ImportOrdersFromEbay {
         Debug.logInfo("Checking for existing externalId: " + externalId +" and transactionId: " + transactionId, module);
         GenericValue orderHeader = null;
         List entities = delegator.findByAnd("OrderHeader", UtilMisc.toMap("externalId", externalId, "transactionId", transactionId));
-        if (entities != null && entities.size() > 0) {
+        if (UtilValidate.isNotEmpty(entities)) {
             orderHeader = EntityUtil.getFirst(entities);
         }
         return orderHeader;

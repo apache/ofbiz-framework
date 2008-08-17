@@ -534,7 +534,7 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
 
         // first item in map is the most current directory
         File latestDir = null;
-        if (dirMap != null && dirMap.size() > 0) {
+        if (UtilValidate.isNotEmpty(dirMap)) {
             latestDir = (File) dirMap.values().iterator().next();
             if (latestDir != null) {
                 File[] dirList = latestDir.listFiles();

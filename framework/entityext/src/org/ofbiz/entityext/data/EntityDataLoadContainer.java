@@ -21,7 +21,6 @@ package org.ofbiz.entityext.data;
 import java.net.URL;
 import java.net.MalformedURLException;
 import java.text.NumberFormat;
-import java.util.Iterator;
 import java.util.List;
 import java.io.File;
 
@@ -33,6 +32,7 @@ import org.ofbiz.base.container.ContainerException;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.util.EntityDataLoader;
@@ -248,7 +248,7 @@ public class EntityDataLoadContainer implements Container {
         List<Object> errorMessages = FastList.newInstance();
         List<String> infoMessages = FastList.newInstance();
         int totalRowsChanged = 0;
-        if (urlList != null && urlList.size() > 0) {
+        if (UtilValidate.isNotEmpty(urlList)) {
             Debug.logImportant("=-=-=-=-=-=-= Doing a data load with the following files:", module);
             for (URL dataUrl: urlList) {
                 Debug.logImportant(dataUrl.toExternalForm(), module);

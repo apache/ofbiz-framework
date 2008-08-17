@@ -202,7 +202,7 @@ public class ContainerConfig {
 
         public List<Property> getPropertiesWithValue(String value) {
             List<Property> props = new LinkedList<Property>();
-            if (properties != null && properties.size() > 0) {
+            if (UtilValidate.isNotEmpty(properties)) {
                 for (Property p: properties.values()) {
                     if (p != null && value.equals(p.value)) {
                         props.add(p);
@@ -237,7 +237,7 @@ public class ContainerConfig {
 
             public List<Property> getPropertiesWithValue(String value) {
                 List<Property> props = new LinkedList<Property>();
-                if (properties != null && properties.size() > 0) {
+                if (UtilValidate.isNotEmpty(properties)) {
                     for (Property p: properties.values()) {
                         if (p != null && value.equals(p.value)) {
                             props.add(p);

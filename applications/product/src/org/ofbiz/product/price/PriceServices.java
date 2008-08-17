@@ -300,7 +300,7 @@ public class PriceServices {
         }
 
         // if any of these prices is missing and this product is a variant, default to the corresponding price on the virtual product
-        if (virtualProductPrices != null && virtualProductPrices.size() > 0) {
+        if (UtilValidate.isNotEmpty(virtualProductPrices)) {
             if (listPriceValue == null) {
                 List virtualTempPrices = EntityUtil.filterByAnd(virtualProductPrices, UtilMisc.toMap("productPriceTypeId", "LIST_PRICE"));
                 listPriceValue = EntityUtil.getFirst(virtualTempPrices);
@@ -741,7 +741,7 @@ public class PriceServices {
             // for we will always include any rules that go by category, shouldn't be too many to iterate through each time and will save on cache entries
             // note that we always want to put the category, quantity, etc ones that find all rules with these conditions in separate cache lists so that they can be easily cleared
             Collection productCategoryIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_CAT_ID"));
-            if (productCategoryIdConds != null && productCategoryIdConds.size() > 0) {
+            if (UtilValidate.isNotEmpty(productCategoryIdConds)) {
                 Iterator productCategoryIdCondsIter = productCategoryIdConds.iterator();
                 while (productCategoryIdCondsIter.hasNext()) {
                     GenericValue productCategoryIdCond = (GenericValue) productCategoryIdCondsIter.next();
@@ -751,7 +751,7 @@ public class PriceServices {
 
             // by productFeatureId
             Collection productFeatureIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_FEAT_ID"));
-            if (productFeatureIdConds != null && productFeatureIdConds.size() > 0) {
+            if (UtilValidate.isNotEmpty(productFeatureIdConds)) {
                 Iterator productFeatureIdCondsIter = productFeatureIdConds.iterator();
                 while (productFeatureIdCondsIter.hasNext()) {
                     GenericValue productFeatureIdCond = (GenericValue) productFeatureIdCondsIter.next();
@@ -763,7 +763,7 @@ public class PriceServices {
             // we could say that all rules with quantity on them must have one of these other values
             // but, no we'll do it the other way, any that have a quantity will always get compared
             Collection quantityConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_QUANTITY"));
-            if (quantityConds != null && quantityConds.size() > 0) {
+            if (UtilValidate.isNotEmpty(quantityConds)) {
                 Iterator quantityCondsIter = quantityConds.iterator();
                 while (quantityCondsIter.hasNext()) {
                     GenericValue quantityCond = (GenericValue) quantityCondsIter.next();
@@ -773,7 +773,7 @@ public class PriceServices {
 
             // by roleTypeId
             Collection roleTypeIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_ROLE_TYPE"));
-            if (roleTypeIdConds != null && roleTypeIdConds.size() > 0) {
+            if (UtilValidate.isNotEmpty(roleTypeIdConds)) {
                 Iterator roleTypeIdCondsIter = roleTypeIdConds.iterator();
                 while (roleTypeIdCondsIter.hasNext()) {
                     GenericValue roleTypeIdCond = (GenericValue) roleTypeIdCondsIter.next();
@@ -787,7 +787,7 @@ public class PriceServices {
 
             // by listPrice
             Collection listPriceConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_LIST_PRICE"));
-            if (listPriceConds != null && listPriceConds.size() > 0) {
+            if (UtilValidate.isNotEmpty(listPriceConds)) {
                 Iterator listPriceCondsIter = listPriceConds.iterator();
                 while (listPriceCondsIter.hasNext()) {
                     GenericValue listPriceCond = (GenericValue) listPriceCondsIter.next();
@@ -799,7 +799,7 @@ public class PriceServices {
 
             // by productId
             Collection productIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", productId));
-            if (productIdConds != null && productIdConds.size() > 0) {
+            if (UtilValidate.isNotEmpty(productIdConds)) {
                 Iterator productIdCondsIter = productIdConds.iterator();
                 while (productIdCondsIter.hasNext()) {
                     GenericValue productIdCond = (GenericValue) productIdCondsIter.next();
@@ -810,7 +810,7 @@ public class PriceServices {
             // by virtualProductId, if not null
             if (virtualProductId != null) {
                 Collection virtualProductIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", virtualProductId));
-                if (virtualProductIdConds != null && virtualProductIdConds.size() > 0) {
+                if (UtilValidate.isNotEmpty(virtualProductIdConds)) {
                     Iterator virtualProductIdCondsIter = virtualProductIdConds.iterator();
                     while (virtualProductIdCondsIter.hasNext()) {
                         GenericValue virtualProductIdCond = (GenericValue) virtualProductIdCondsIter.next();
@@ -822,7 +822,7 @@ public class PriceServices {
             // by prodCatalogId - which is optional in certain cases
             if (UtilValidate.isNotEmpty(prodCatalogId)) {
                 Collection prodCatalogIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_CLG_ID", "condValue", prodCatalogId));
-                if (prodCatalogIdConds != null && prodCatalogIdConds.size() > 0) {
+                if (UtilValidate.isNotEmpty(prodCatalogIdConds)) {
                     Iterator prodCatalogIdCondsIter = prodCatalogIdConds.iterator();
                     while (prodCatalogIdCondsIter.hasNext()) {
                         GenericValue prodCatalogIdCond = (GenericValue) prodCatalogIdCondsIter.next();
@@ -834,7 +834,7 @@ public class PriceServices {
             // by productStoreGroupId
             if (UtilValidate.isNotEmpty(productStoreGroupId)) {
                 Collection storeGroupConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_SGRP_ID", "condValue", productStoreGroupId));
-                if (storeGroupConds != null && storeGroupConds.size() > 0) {
+                if (UtilValidate.isNotEmpty(storeGroupConds)) {
                     Iterator storeGroupCondsIter = storeGroupConds.iterator();
                     while (storeGroupCondsIter.hasNext()) {
                         GenericValue storeGroupCond = (GenericValue) storeGroupCondsIter.next();
@@ -846,7 +846,7 @@ public class PriceServices {
             // by webSiteId
             if (UtilValidate.isNotEmpty(webSiteId)) {
                 Collection webSiteIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_WEBSITE_ID", "condValue", webSiteId));
-                if (webSiteIdConds != null && webSiteIdConds.size() > 0) {
+                if (UtilValidate.isNotEmpty(webSiteIdConds)) {
                     Iterator webSiteIdCondsIter = webSiteIdConds.iterator();
                     while (webSiteIdCondsIter.hasNext()) {
                         GenericValue webSiteIdCond = (GenericValue) webSiteIdCondsIter.next();
@@ -858,7 +858,7 @@ public class PriceServices {
             // by partyId
             if (UtilValidate.isNotEmpty(partyId)) {
                 Collection partyIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PARTY_ID", "condValue", partyId));
-                if (partyIdConds != null && partyIdConds.size() > 0) {
+                if (UtilValidate.isNotEmpty(partyIdConds)) {
                     Iterator partyIdCondsIter = partyIdConds.iterator();
                     while (partyIdCondsIter.hasNext()) {
                         GenericValue partyIdCond = (GenericValue) partyIdCondsIter.next();
@@ -869,7 +869,7 @@ public class PriceServices {
 
             // by currencyUomId
             Collection currencyUomIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_CURRENCY_UOMID", "condValue", currencyUomId));
-            if (currencyUomIdConds != null && currencyUomIdConds.size() > 0) {
+            if (UtilValidate.isNotEmpty(currencyUomIdConds)) {
                 Iterator currencyUomIdCondsIter = currencyUomIdConds.iterator();
                 while (currencyUomIdCondsIter.hasNext()) {
                     GenericValue currencyUomIdCond = (GenericValue) currencyUomIdCondsIter.next();
@@ -1171,7 +1171,7 @@ public class PriceServices {
             // and from/thru date within range
             productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, nowTimestamp, null, null, true);
             // then 0 (equals), otherwise 1 (not equals)
-            if (productCategoryMembers != null && productCategoryMembers.size() > 0) {
+            if (UtilValidate.isNotEmpty(productCategoryMembers)) {
                 compare = 0;
             } else {
                 compare = 1;
@@ -1185,7 +1185,7 @@ public class PriceServices {
                         UtilMisc.toMap("productId", virtualProductId, "productCategoryId", productCategoryId));
                 // and from/thru date within range
                 virtualProductCategoryMembers = EntityUtil.filterByDate(virtualProductCategoryMembers, nowTimestamp, null, null, true);
-                if (virtualProductCategoryMembers != null && virtualProductCategoryMembers.size() > 0) {
+                if (UtilValidate.isNotEmpty(virtualProductCategoryMembers)) {
                     // we found a member record? great, then this condition is satisfied
                     compare = 0;
                 }
@@ -1200,7 +1200,7 @@ public class PriceServices {
             // and from/thru date within range
             productFeatureAppls = EntityUtil.filterByDate(productFeatureAppls, nowTimestamp, null, null, true);
             // then 0 (equals), otherwise 1 (not equals)
-            if (productFeatureAppls != null && productFeatureAppls.size() > 0) {
+            if (UtilValidate.isNotEmpty(productFeatureAppls)) {
                 compare = 0;
             } else {
                 compare = 1;
@@ -1251,14 +1251,14 @@ public class PriceServices {
                     // and from/thru date within range
                     partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, nowTimestamp, null, null, true);
                     // then 0 (equals), otherwise 1 (not equals)
-                    if (partyRelationshipList != null && partyRelationshipList.size() > 0) {
+                    if (UtilValidate.isNotEmpty(partyRelationshipList)) {
                         compare = 0;
                     } else {
                         // before setting 1 try one more query: look for a 2 hop relationship
                         List partyRelationshipTwoHopList = delegator.findByAndCache("PartyRelationshipToFrom", UtilMisc.toMap("onePartyIdFrom", groupPartyId, "twoPartyIdTo", partyId, "onePartyRelationshipTypeId", "GROUP_ROLLUP", "twoPartyRelationshipTypeId", "GROUP_ROLLUP"));
                         partyRelationshipTwoHopList = EntityUtil.filterByDate(partyRelationshipTwoHopList, nowTimestamp, "oneFromDate", "oneThruDate", true);
                         partyRelationshipTwoHopList = EntityUtil.filterByDate(partyRelationshipTwoHopList, nowTimestamp, "twoFromDate", "twoThruDate", true);
-                        if (partyRelationshipTwoHopList != null && partyRelationshipTwoHopList.size() > 0) {
+                        if (UtilValidate.isNotEmpty(partyRelationshipTwoHopList)) {
                             compare = 0;
                         } else {
                             compare = 1;
@@ -1276,7 +1276,7 @@ public class PriceServices {
                 // and from/thru date within range
                 partyClassificationList = EntityUtil.filterByDate(partyClassificationList, nowTimestamp, null, null, true);
                 // then 0 (equals), otherwise 1 (not equals)
-                if (partyClassificationList != null && partyClassificationList.size() > 0) {
+                if (UtilValidate.isNotEmpty(partyClassificationList)) {
                     compare = 0;
                 } else {
                     compare = 1;

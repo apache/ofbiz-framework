@@ -35,6 +35,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 
 import javolution.util.FastList;
 
@@ -43,8 +44,6 @@ import java.io.*;
 import java.net.URI;
 import java.net.URL;
 import java.net.URISyntaxException;
-
-import javolution.util.FastList;
 
 /**
  * Entity Data Import/Export Services
@@ -94,7 +93,7 @@ public class EntityDataServices {
 
         // get the file list
         List<File> files = getFileList(root);
-        if (files != null && files.size() > 0) {
+        if (UtilValidate.isNotEmpty(files)) {
             for (File file: files) {
                 try {
                     Map<String, Object> serviceCtx = UtilMisc.toMap("file", file, "delimiter", delimiter, "userLogin", userLogin);

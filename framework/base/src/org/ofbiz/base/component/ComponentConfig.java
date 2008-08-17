@@ -747,7 +747,7 @@ public class ComponentConfig {
 
             // load the virtual hosts
             List<? extends Element> virtHostList = UtilXml.childElementList(element, "virtual-host");
-            if (virtHostList != null && virtHostList.size() > 0) {
+            if (UtilValidate.isNotEmpty(virtHostList)) {
                 for (Element e: virtHostList) {
                     virtualHosts.add(e.getAttribute("host-name"));
                 }
@@ -755,7 +755,7 @@ public class ComponentConfig {
 
             // load the init parameters
             List<? extends Element> initParamList = UtilXml.childElementList(element, "init-param");
-            if (initParamList != null && initParamList.size() > 0) {
+            if (UtilValidate.isNotEmpty(initParamList)) {
                 for (Element e: virtHostList) {
                     this.initParameters.put(e.getAttribute("name"), e.getAttribute("value"));
                 }

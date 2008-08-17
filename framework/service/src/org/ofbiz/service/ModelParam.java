@@ -30,6 +30,7 @@ import javax.xml.namespace.QName;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 
 /**
  * Generic Service Model Parameter
@@ -108,7 +109,7 @@ public class ModelParam implements Serializable {
     }
 
     public String getPrimaryFailMessage(Locale locale) {
-        if (validators != null && validators.size() > 0) {
+        if (UtilValidate.isNotEmpty(validators)) {
             return validators.get(0).getFailMessage(locale);
         } else {
             return null;

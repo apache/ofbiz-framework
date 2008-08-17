@@ -435,7 +435,7 @@ public class ModelServiceReader implements Serializable {
 
     protected void createGroupDefs(Element baseElement, ModelService service) {
         List<? extends Element> group = UtilXml.childElementList(baseElement, "group");
-        if (group != null && group.size() > 0) {
+        if (UtilValidate.isNotEmpty(group)) {
             Element groupElement = group.get(0);
             groupElement.setAttribute("name", "_" + service.name + ".group");
             service.internalGroup = new GroupModel(groupElement);
@@ -705,7 +705,7 @@ public class ModelServiceReader implements Serializable {
 
     protected void addValidators(Element attribute, ModelParam param) {
         List<? extends Element> validateElements = UtilXml.childElementList(attribute, "type-validate");
-        if (validateElements != null && validateElements.size() > 0) {
+        if (UtilValidate.isNotEmpty(validateElements)) {
             // always clear out old ones; never append
             param.validators = FastList.newInstance();
 

@@ -382,7 +382,7 @@ public class WebToolsServices {
         List<Object> errorMessages = FastList.newInstance();
         List<String> infoMessages = FastList.newInstance();
         int totalRowsChanged = 0;
-        if (urlList != null && urlList.size() > 0) {
+        if (UtilValidate.isNotEmpty(urlList)) {
             messages.add("=-=-=-=-=-=-= Doing a data " + (checkDataOnly ? "check" : "load") + " with the following files:");
             for (URL dataUrl: urlList) {
                 messages.add(dataUrl.toExternalForm());

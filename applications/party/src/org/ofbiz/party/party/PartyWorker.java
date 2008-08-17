@@ -302,7 +302,7 @@ public class PartyWorker {
                 }
             }
 
-            if (validFound != null && validFound.size() > 0) {
+            if (UtilValidate.isNotEmpty(validFound)) {
                 for (GenericValue partyAndAddr: validFound) {
                     String partyId = partyAndAddr.getString("partyId");
                     String cmId = partyAndAddr.getString("contactMechId");

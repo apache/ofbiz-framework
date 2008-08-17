@@ -362,7 +362,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             Debug.logError(e, module);
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -391,7 +391,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -411,7 +411,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -430,7 +430,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -461,7 +461,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -563,7 +563,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -627,7 +627,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -691,7 +691,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
             Debug.logError(e, module);
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Debug.log("Lookup list contains : " + lookupList.size(), module);
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
@@ -716,7 +716,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -752,7 +752,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         List createdList = new ArrayList();
         List lookupList = getAndJoinValues(procId, asDefId, aDefId);
 
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -1012,7 +1012,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -1150,7 +1150,7 @@ public class EntityPersistentMgr implements PersistentManagerInterface {
         } catch (GenericEntityException e) {
             throw new PersistenceException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();

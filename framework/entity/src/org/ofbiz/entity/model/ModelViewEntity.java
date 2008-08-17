@@ -689,7 +689,7 @@ public class ModelViewEntity extends ModelEntity {
             this.function = UtilXml.checkEmpty(aliasAllElement.getAttribute("function"));
             
             List<? extends Element> excludes = UtilXml.childElementList(aliasAllElement, "exclude");
-            if (excludes != null && excludes.size() > 0) {
+            if (UtilValidate.isNotEmpty(excludes)) {
                 this.fieldsToExclude = new HashSet<String>();
                 for (Element excludeElement: excludes) {
                     this.fieldsToExclude.add(excludeElement.getAttribute("field").intern());

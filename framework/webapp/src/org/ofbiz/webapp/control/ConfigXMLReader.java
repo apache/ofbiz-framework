@@ -759,7 +759,7 @@ public class ConfigXMLReader {
             Debug.logVerbose("-------- Handler Mappings --------", module);
             Map<String, String> debugMap = checkMap(map.get("event"), String.class, String.class);
 
-            if (debugMap != null && debugMap.size() > 0) {
+            if (UtilValidate.isNotEmpty(debugMap)) {
                 Debug.logVerbose("-------------- EVENT -------------", module);
                 for (Map.Entry<String, String> entry: debugMap.entrySet()) {
                     String handlerName = entry.getKey();
@@ -768,7 +768,7 @@ public class ConfigXMLReader {
                 }
             }
             debugMap = checkMap(map.get("view"), String.class, String.class);
-            if (debugMap != null && debugMap.size() > 0) {
+            if (UtilValidate.isNotEmpty(debugMap)) {
                 Debug.logVerbose("-------------- VIEW --------------", module);
                 for (Map.Entry<String, String> entry: debugMap.entrySet()) {
                     String handlerName = entry.getKey();

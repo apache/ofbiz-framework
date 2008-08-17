@@ -33,7 +33,7 @@ import org.ofbiz.service.DispatchContext;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.widget.screen.ScreenRenderer;
@@ -54,7 +54,7 @@ public class FoPrintServerEvents {
         reqParams.put("locale", UtilHttp.getLocale(req));
 
         String screenUri = (String) reqParams.remove("screenUri");
-        if (screenUri != null && reqParams.size() > 0) {
+        if (UtilValidate.isNotEmpty(screenUri)) {
             String base64String = null;
             try {
                 byte[] bytes = FoPrintServerEvents.getXslFo(dispatcher.getDispatchContext(), screenUri, reqParams);

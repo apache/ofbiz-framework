@@ -653,7 +653,7 @@ public class InventoryServices {
         Double availableToPromiseTotal = new Double(0);
         Double quantityOnHandTotal = new Double(0);
         
-        if (productAssocList != null && productAssocList.size() > 0) {
+        if (UtilValidate.isNotEmpty(productAssocList)) {
            // minimum QOH and ATP encountered
            double minQuantityOnHandTotal = Double.MAX_VALUE;
            double minAvailableToPromiseTotal = Double.MAX_VALUE;

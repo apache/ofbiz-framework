@@ -557,7 +557,7 @@ public class BOMServices {
                 if (productsInPackages != null && productsInPackages.size() == 0) {
                     productsInPackages = null;
                 }
-                if (productsInPackages != null && productsInPackages.size() > 0) {
+                if (UtilValidate.isNotEmpty(productsInPackages)) {
                     orderShipmentReadMap.put("productsInPackages", productsInPackages);
                 }
             }

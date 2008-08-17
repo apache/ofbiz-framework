@@ -25,10 +25,10 @@ import java.util.Map;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
-import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
@@ -184,7 +184,7 @@ public class OrderChangeHelper {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "ERROR: Unable to get OrderItem records for OrderHeader : " + orderId, module);
                 }
-                if (orderItems != null && orderItems.size() > 0) {
+                if (UtilValidate.isNotEmpty(orderItems)) {
                     Iterator oii = orderItems.iterator();
                     while (oii.hasNext()) {
                         GenericValue orderItem = (GenericValue) oii.next();

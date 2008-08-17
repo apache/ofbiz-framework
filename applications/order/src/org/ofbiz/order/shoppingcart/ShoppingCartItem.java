@@ -854,7 +854,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             String msg = UtilProperties.getMessage(resource, "item.cannot_find_Fixed_Asset", messageMap , cart.getLocale());                                       
             return msg;
         }
-        if (selFixedAssetProduct != null && selFixedAssetProduct.size() > 0) {
+        if (UtilValidate.isNotEmpty(selFixedAssetProduct)) {
             Iterator firstOne = selFixedAssetProduct.iterator();
             fixedAssetProduct = (GenericValue) firstOne.next();
         } else {
@@ -1139,7 +1139,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
                     // check if a survey is associated with the item and add to the price calculation
                     List surveyResponses = (List) getAttribute("surveyResponses");
-                    if (surveyResponses != null && surveyResponses.size() > 0) {
+                    if (UtilValidate.isNotEmpty(surveyResponses)) {
                         priceContext.put("surveyResponseId", surveyResponses.get(0));
                     }
 
@@ -1772,7 +1772,7 @@ public class ShoppingCartItem implements java.io.Serializable {
     /** Returns a List of the item's features for supplier*/
    public List getFeaturesForSupplier(LocalDispatcher dispatcher,String partyId) {
        List featureAppls = getStandardFeatureList();
-       if (featureAppls != null && featureAppls.size() > 0) {
+       if (UtilValidate.isNotEmpty(featureAppls)) {
            try {
               Map result = dispatcher.runSync("convertFeaturesForSupplier", UtilMisc.toMap("partyId", partyId, "productFeatures", featureAppls));
               featuresForSupplier = (List) result.get("convertedProductFeatures");
@@ -2391,7 +2391,7 @@ public class ShoppingCartItem implements java.io.Serializable {
 
                 // now copy/calc the adjustments
                 Debug.logInfo("Clone's adj: " + item.getAdjustments(), module);
-                if (item.getAdjustments() != null && item.getAdjustments().size() > 0) {
+                if (UtilValidate.isNotEmpty(item.getAdjustments())) {
                     List adjustments = new LinkedList(item.getAdjustments());
                     Iterator adjIterator = adjustments.iterator();
 
@@ -2423,7 +2423,7 @@ public class ShoppingCartItem implements java.io.Serializable {
             Debug.logInfo("Item's Adj: " + this.getAdjustments(), module);
 
             // re-calc this item's adjustments
-            if (this.getAdjustments() != null && this.getAdjustments().size() > 0) {
+            if (UtilValidate.isNotEmpty(this.getAdjustments())) {
                 List adjustments = new LinkedList(this.getAdjustments());
                 Iterator adjIterator = adjustments.iterator();
 

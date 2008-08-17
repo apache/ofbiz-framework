@@ -297,7 +297,7 @@ public class ServiceUtil {
 
     public static String makeMessageList(List<? extends Object> msgList, String msgPrefix, String msgSuffix) {
         StringBuilder outMsg = new StringBuilder();
-        if (msgList != null && msgList.size() > 0) {
+        if (UtilValidate.isNotEmpty(msgList)) {
             for (Object msg: msgList) {
                 if (msg == null) continue;
                 String curMsg = msg.toString();
@@ -410,7 +410,7 @@ public class ServiceUtil {
                 }
 
                 // remove each from the list in its own transaction
-                if (curList != null && curList.size() > 0) {
+                if (UtilValidate.isNotEmpty(curList)) {
                     // list of runtime data IDs to attempt to delete
                     List<String> runtimeToDelete = FastList.newInstance();
 

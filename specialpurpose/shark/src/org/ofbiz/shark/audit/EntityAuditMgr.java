@@ -176,7 +176,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             Debug.logError(e, module);
             throw new EventAuditException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -199,7 +199,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             Debug.logError(e, module);
             throw new EventAuditException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -222,7 +222,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             Debug.logError(e, module);
             throw new EventAuditException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -246,7 +246,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             Debug.logError(e, module);
             throw new EventAuditException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -269,7 +269,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             Debug.logError(e, module);
             throw new EventAuditException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -292,7 +292,7 @@ public class EntityAuditMgr implements EventAuditManagerInterface {
             Debug.logError(e, module);
             throw new EventAuditException(e);
         }
-        if (lookupList != null && lookupList.size() > 0) {
+        if (UtilValidate.isNotEmpty(lookupList)) {
             Iterator i = lookupList.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();

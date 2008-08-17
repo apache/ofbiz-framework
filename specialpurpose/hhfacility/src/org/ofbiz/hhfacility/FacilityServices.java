@@ -77,7 +77,7 @@ public class FacilityServices {
 
         // Send back the results
         Map result = ServiceUtil.returnSuccess();
-        if (productsFound != null && productsFound.size() > 0) {
+        if (UtilValidate.isNotEmpty(productsFound)) {
             result.put("productList", productsFound);
         }
         return result;

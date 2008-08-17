@@ -222,7 +222,7 @@ public class SelectRespServlet extends SelectServlet implements SelectDefs {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Cannot get payment preferences for order #" + orderId, module);
         }
-        if (paymentPrefs != null && paymentPrefs.size() > 0) {
+        if (UtilValidate.isNotEmpty(paymentPrefs)) {
             Iterator i = paymentPrefs.iterator();            
             while (okay && i.hasNext()) {
                 GenericValue pref = (GenericValue) i.next();

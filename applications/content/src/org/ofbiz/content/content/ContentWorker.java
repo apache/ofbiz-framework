@@ -140,7 +140,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
                     "caContentAssocTypeId", "PUBLISH_LINK"), UtilMisc.toList("caFromDate"));
 
             relContentIds = EntityUtil.filterByDate(relContentIds, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
-            if (relContentIds != null && relContentIds.size() > 0) {
+            if (UtilValidate.isNotEmpty(relContentIds)) {
                 content = EntityUtil.getFirst(relContentIds);
             }
 
@@ -488,7 +488,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         }
 
         List kids = (List)currentNode.get("kids");
-        if (kids != null && kids.size() > 0) {
+        if (UtilValidate.isNotEmpty(kids)) {
             int idx = 0;
             while (idx < kids.size()) {
                 currentNode = (Map)kids.get(idx);
@@ -722,7 +722,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             String contentId = (String) assoc.get(contentIdName);
             if (Debug.infoOn()) Debug.logInfo("contentId:" + contentId, "");
             content = delegator.findByPrimaryKey("Content", UtilMisc.toMap("contentId", contentId));
-            if (contentTypes != null && contentTypes.size() > 0) {
+            if (UtilValidate.isNotEmpty(contentTypes)) {
                 contentTypeId = (String) content.get("contentTypeId");
                 if (contentTypes.contains(contentTypeId)) {
                     contentList.add(content);
@@ -801,7 +801,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
             joinExpr = EntityCondition.makeCondition("contentId", EntityOperator.EQUALS, contentId);
         }
         exprList.add(joinExpr);
-        if (assocTypes != null && assocTypes.size() > 0) {
+        if (UtilValidate.isNotEmpty(assocTypes)) {
             List exprListOr = FastList.newInstance();
             Iterator it = assocTypes.iterator();
             while (it.hasNext()) {
@@ -1101,7 +1101,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         GenericValue view = null;
         List lst = delegator.findByAndCache("ContentDataResourceView", UtilMisc.toMap("contentId", contentId));
             //if (Debug.infoOn()) Debug.logInfo("getContentCache, lst(2):" + lst, "");
-        if (lst != null && lst.size() > 0) {
+        if (UtilValidate.isNotEmpty(lst)) {
             view = (GenericValue) lst.get(0);
         }
         return view;
@@ -1117,7 +1117,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
         List passedGlobalNodeTrail = null;
         GenericValue currentContent = null;
         String viewContentId = null;
-        if (trail != null && trail.size() > 0) { 
+        if (UtilValidate.isNotEmpty(trail)) { 
             passedGlobalNodeTrail = UtilMisc.makeListWritable(trail);
         } else {
             passedGlobalNodeTrail = FastList.newInstance();

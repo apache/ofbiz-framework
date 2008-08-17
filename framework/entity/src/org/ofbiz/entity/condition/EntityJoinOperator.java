@@ -24,6 +24,7 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericModelException;
@@ -58,7 +59,7 @@ public class EntityJoinOperator extends EntityOperator<Boolean> {
     }
 
     public void addSqlValue(StringBuilder sql, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, List<? extends EntityCondition> conditionList, DatasourceInfo datasourceInfo) {
-        if (conditionList != null && conditionList.size() > 0) {
+        if (UtilValidate.isNotEmpty(conditionList)) {
             sql.append('(');
             Iterator<? extends EntityCondition> conditionIter = conditionList.iterator();
             while (conditionIter.hasNext()) {
@@ -91,7 +92,7 @@ public class EntityJoinOperator extends EntityOperator<Boolean> {
     }
 
     public void visit(EntityConditionVisitor visitor, List<? extends EntityCondition> conditionList) {
-        if (conditionList != null && conditionList.size() > 0) {
+        if (UtilValidate.isNotEmpty(conditionList)) {
             for (EntityCondition condition: conditionList) {
                 visitor.visit(condition);
             }
@@ -136,7 +137,7 @@ public class EntityJoinOperator extends EntityOperator<Boolean> {
     }
 
     public boolean mapMatches(GenericDelegator delegator, Map<String, ? extends Object> map, List<? extends EntityCondition> conditionList) {
-        if (conditionList != null && conditionList.size() > 0) {
+        if (UtilValidate.isNotEmpty(conditionList)) {
             for (EntityCondition condition: conditionList) {
                 if (condition.mapMatches(delegator, map) == shortCircuitValue) return shortCircuitValue;
             }

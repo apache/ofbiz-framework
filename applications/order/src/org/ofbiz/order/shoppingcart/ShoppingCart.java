@@ -1708,7 +1708,7 @@ public class ShoppingCart implements Serializable {
     /** Returns a list of PaymentMethod value objects selected in the cart */
     public List getPaymentMethods() {
         List methods = FastList.newInstance();
-        if (paymentInfo != null && paymentInfo.size() > 0) {
+        if (UtilValidate.isNotEmpty(paymentInfo)) {
             Iterator paymentMethodIdIter = getPaymentMethodIds().iterator();
             while (paymentMethodIdIter.hasNext()) {
                 String paymentMethodId = (String) paymentMethodIdIter.next();
@@ -1731,7 +1731,7 @@ public class ShoppingCart implements Serializable {
     /** Returns a list of PaymentMethodType value objects selected in the cart */
     public List getPaymentMethodTypes() {
         List types = new LinkedList();
-        if (paymentInfo != null && paymentInfo.size() > 0) {
+        if (UtilValidate.isNotEmpty(paymentInfo)) {
             Iterator i = getPaymentMethodTypeIds().iterator();
             while (i.hasNext()) {
                 String id = (String) i.next();
@@ -2373,7 +2373,7 @@ public class ShoppingCart implements Serializable {
                 try {
                     GenericValue orderParty = delegator.findByPrimaryKey("Party", UtilMisc.toMap("partyId", this.getPartyId()));
                     Collection shippingContactMechList = ContactHelper.getContactMech(orderParty, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false);
-                    if (shippingContactMechList != null && shippingContactMechList.size() > 0) {
+                    if (UtilValidate.isNotEmpty(shippingContactMechList)) {
                         GenericValue shippingContactMech = (GenericValue)(shippingContactMechList.iterator()).next();
                         this.setShippingContactMechId(shippingContactMech.getString("contactMechId"));
                     }

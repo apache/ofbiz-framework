@@ -27,6 +27,7 @@ import javax.servlet.http.HttpSession;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.webapp.stats.VisitHandler;
 import org.ofbiz.workeffort.workeffort.WorkEffortSearch.ResultSortOrder;
@@ -68,7 +69,7 @@ public class WorkEffortSearchEvents {
         String visitId = VisitHandler.getVisitId(session);
         List<WorkEffortSearchConstraint> workEffortSearchConstraintList = WorkEffortSearchOptions.getConstraintList(session);
         // if no constraints, don't do a search...
-        if (workEffortSearchConstraintList != null && workEffortSearchConstraintList.size() > 0) {
+        if (UtilValidate.isNotEmpty(workEffortSearchConstraintList)) {
             // if the search options have changed since the last search, put at the beginning of the options history list
             WorkEffortSearchSession.checkSaveSearchOptionsHistory(session);
 

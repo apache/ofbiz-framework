@@ -35,6 +35,7 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.datafile.DataFile;
 import org.ofbiz.datafile.DataFileException;
 import org.ofbiz.datafile.Record;
@@ -285,11 +286,11 @@ public class ZipSalesServices {
         if (zipLookup != null && zipLookup.size() > 1) {
             // first filter by city
             List cityLookup = EntityUtil.filterByAnd(zipLookup, UtilMisc.toMap("city", city.toUpperCase()));
-            if (cityLookup != null && cityLookup.size() > 0) {
+            if (UtilValidate.isNotEmpty(cityLookup)) {
                 if (cityLookup.size() > 1) {
                     // filter by county
                     List countyLookup = EntityUtil.filterByAnd(taxLookup, UtilMisc.toMap("countyDefault", "Y"));
-                    if (countyLookup != null && countyLookup.size() > 0) {
+                    if (UtilValidate.isNotEmpty(countyLookup)) {
                         // use the county default
                         taxLookup = countyLookup;
                     } else {
@@ -303,7 +304,7 @@ public class ZipSalesServices {
             } else {
                 // no city found; lookup default city
                 List defaultLookup = EntityUtil.filterByAnd(zipLookup, UtilMisc.toMap("generalDefault", "Y"));
-                if (defaultLookup != null && defaultLookup.size() > 0) {
+                if (UtilValidate.isNotEmpty(defaultLookup)) {
                     // use the default city lookup
                     taxLookup = defaultLookup;
                 } else {
@@ -318,7 +319,7 @@ public class ZipSalesServices {
 
         // get the first one
         GenericValue taxEntry = null;
-        if (taxLookup != null && taxLookup.size() > 0) {
+        if (UtilValidate.isNotEmpty(taxLookup)) {
             taxEntry = (GenericValue) taxLookup.iterator().next();
         }
 

@@ -23,6 +23,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Set;
 
@@ -32,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -332,8 +334,9 @@ public class IterateSectionWidget extends ModelScreenWidget {
             linkText += "VIEW_SIZE=" + viewSize + "&amp;VIEW_INDEX=" + (viewIndex - 1) + "\"";
 
             // make the link
-            writer.append(rh.makeLink(request, response, linkText, false, false, false));
-            writer.append(" class=\"buttontext\">[Previous]</a>\n");
+            writer.append(rh.makeLink(request, response, linkText, false, false, false));           
+            String previous = UtilProperties.getMessage("CommonUiLabels", "CommonPrevious", (Locale) context.get("locale"));
+            writer.append(" class=\"buttontext\">[" + previous +"]</a>\n");
 
         }
         if (listSize > 0) {
@@ -348,7 +351,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
             // make the link
             writer.append(rh.makeLink(request, response, linkText, false, false, false));
-            writer.append(" class=\"buttontext\">[Next]</a>\n");
+            String next = UtilProperties.getMessage("CommonUiLabels", "CommonNext", (Locale) context.get("locale"));
+            writer.append(" class=\"buttontext\">[" + next +"]</a>\n");
 
         }
         writer.append("      </b>\n");

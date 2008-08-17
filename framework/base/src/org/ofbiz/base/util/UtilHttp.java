@@ -166,7 +166,7 @@ public class UtilHttp {
         if (paramMap.size() == 0) {
             // nothing found in the parameters; maybe we read the stream instead
             Map<String, Object> multiPartMap = UtilGenerics.checkMap(request.getAttribute("multiPartMap"));
-            if (multiPartMap != null && multiPartMap.size() > 0) {
+            if (UtilValidate.isNotEmpty(multiPartMap)) {
                 paramMap.putAll(multiPartMap);
             }
         }

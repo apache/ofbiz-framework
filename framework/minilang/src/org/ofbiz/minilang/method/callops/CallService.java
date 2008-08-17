@@ -128,14 +128,14 @@ public class CallService extends MethodOperation {
         defaultMessage = new FlexibleMessage(UtilXml.firstChildElement(element, "default-message"), "service.default.message");
 
         List<? extends Element> resultsToMapElements = UtilXml.childElementList(element, "results-to-map");
-        if (resultsToMapElements != null && resultsToMapElements.size() > 0) {
+        if (UtilValidate.isNotEmpty(resultsToMapElements)) {
             for (Element resultsToMapElement: resultsToMapElements) {
                 resultsToMap.add(resultsToMapElement.getAttribute("map-name"));
             }
         }
 
         List<? extends Element> resultToFieldElements = UtilXml.childElementList(element, "result-to-field");
-        if (resultToFieldElements != null && resultToFieldElements.size() > 0) {
+        if (UtilValidate.isNotEmpty(resultToFieldElements)) {
             for (Element resultToFieldElement: resultToFieldElements) {
                 ResultToFieldDef rtfDef = new ResultToFieldDef();
 
@@ -149,7 +149,7 @@ public class CallService extends MethodOperation {
 
         // get result-to-request and result-to-session sub-ops
         List<? extends Element> resultToRequestElements = UtilXml.childElementList(element, "result-to-request");
-        if (resultToRequestElements != null && resultToRequestElements.size() > 0) {
+        if (UtilValidate.isNotEmpty(resultToRequestElements)) {
             for (Element resultToRequestElement: resultToRequestElements) {
                 FlexibleServletAccessor<Object> reqAcsr = new FlexibleServletAccessor<Object>(resultToRequestElement.getAttribute("request-name"), resultToRequestElement.getAttribute("result-name"));
                 ContextAccessor<Object> resultAcsr = new ContextAccessor<Object>(resultToRequestElement.getAttribute("result-name"));
@@ -158,7 +158,7 @@ public class CallService extends MethodOperation {
         }
 
         List<? extends Element> resultToSessionElements = UtilXml.childElementList(element, "result-to-session");
-        if (resultToSessionElements != null && resultToSessionElements.size() > 0) {
+        if (UtilValidate.isNotEmpty(resultToSessionElements)) {
             for (Element resultToSessionElement: resultToSessionElements) {
                 FlexibleServletAccessor<Object> sesAcsr = new FlexibleServletAccessor<Object>(resultToSessionElement.getAttribute("session-name"), resultToSessionElement.getAttribute("result-name"));
                 ContextAccessor<Object> resultAcsr = new ContextAccessor<Object>(resultToSessionElement.getAttribute("result-name"));
@@ -167,7 +167,7 @@ public class CallService extends MethodOperation {
         }
 
         List<? extends Element> resultToResultElements = UtilXml.childElementList(element, "result-to-result");
-        if (resultToResultElements != null && resultToResultElements.size() > 0) {
+        if (UtilValidate.isNotEmpty(resultToResultElements)) {
             for (Element resultToResultElement: resultToResultElements) {
                 ContextAccessor<Object> serResAcsr = new ContextAccessor<Object>(resultToResultElement.getAttribute("service-result-name"), resultToResultElement.getAttribute("result-name"));
                 ContextAccessor<Object> resultAcsr = new ContextAccessor<Object>(resultToResultElement.getAttribute("result-name"));

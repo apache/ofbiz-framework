@@ -366,7 +366,7 @@ public class ProductPromoWorker {
                     String productPromoId = productPromo.getString("productPromoId");
 
                     List productPromoRules = productPromo.getRelatedCache("ProductPromoRule", null, null);
-                    if (productPromoRules != null && productPromoRules.size() > 0) {
+                    if (UtilValidate.isNotEmpty(productPromoRules)) {
                         // always have a useLimit to avoid unlimited looping, default to 1 if no other is specified
                         Long candidateUseLimit = getProductPromoUseLimit(productPromo, partyId, delegator);
                         Long useLimit = candidateUseLimit;
@@ -935,7 +935,7 @@ public class ProductPromoWorker {
                 List productCategoryMembers = delegator.findByAndCache("ProductCategoryMember", UtilMisc.toMap("productId", productId, "productCategoryId", productCategoryId));
                 // and from/thru date within range
                 productCategoryMembers = EntityUtil.filterByDate(productCategoryMembers, nowTimestamp);
-                if (productCategoryMembers != null && productCategoryMembers.size() > 0) {
+                if (UtilValidate.isNotEmpty(productCategoryMembers)) {
                     // if any product is in category, set true and break
                     // then 0 (equals), otherwise 1 (not equals)
                     compareBase = new Integer(0);
@@ -969,7 +969,7 @@ public class ProductPromoWorker {
                     // and from/thru date within range
                     partyRelationshipList = EntityUtil.filterByDate(partyRelationshipList, true);
                     // then 0 (equals), otherwise 1 (not equals)
-                    if (partyRelationshipList != null && partyRelationshipList.size() > 0) {
+                    if (UtilValidate.isNotEmpty(partyRelationshipList)) {
                         compareBase = new Integer(0);
                     } else {
                         compareBase = new Integer(1);
@@ -986,7 +986,7 @@ public class ProductPromoWorker {
                 // and from/thru date within range
                 partyClassificationList = EntityUtil.filterByDate(partyClassificationList, true);
                 // then 0 (equals), otherwise 1 (not equals)
-                if (partyClassificationList != null && partyClassificationList.size() > 0) {
+                if (UtilValidate.isNotEmpty(partyClassificationList)) {
                     compareBase = new Integer(0);
                 } else {
                     compareBase = new Integer(1);

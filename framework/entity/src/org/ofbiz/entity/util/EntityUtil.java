@@ -35,15 +35,13 @@ import javolution.util.FastSet;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityDateFilterCondition;
-import org.ofbiz.entity.condition.EntityFieldMap;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.OrderByList;
 import org.ofbiz.entity.model.ModelField;
 
@@ -411,7 +409,7 @@ public class EntityUtil {
     public static GenericValue newDatedInclusionEntity(GenericDelegator delegator, String entityName, Map<String, ? extends Object> find, Timestamp now) throws GenericEntityException {
         Map<String, Object> search;
         List<GenericValue> entities = findDatedInclusionEntity(delegator, entityName, find, now);
-        if (entities != null && entities.size() > 0) {
+        if (UtilValidate.isNotEmpty(entities)) {
             search = null;
             for (GenericValue entity: entities) {
                 if (now.equals(entity.get("fromDate"))) {

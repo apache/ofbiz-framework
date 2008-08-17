@@ -522,7 +522,7 @@ public class ShoppingListEvents {
      * Creates records for survey responses on survey items
      */
     public static int makeListItemSurveyResp(GenericDelegator delegator, GenericValue item, List surveyResps) throws GenericEntityException {
-        if (surveyResps != null && surveyResps.size() > 0) {
+        if (UtilValidate.isNotEmpty(surveyResps)) {
             Iterator i = surveyResps.iterator();
             int count = 0;
             while (i.hasNext()) {
@@ -544,7 +544,7 @@ public class ShoppingListEvents {
      */
     public static Map getItemSurveyInfos(List items) {
         Map surveyInfos = new HashMap();
-        if (items != null && items.size() > 0) {
+        if (UtilValidate.isNotEmpty(items)) {
             Iterator itemIt = items.iterator();
             while (itemIt.hasNext()) {
                 GenericValue item = (GenericValue) itemIt.next();
@@ -569,7 +569,7 @@ public class ShoppingListEvents {
             Debug.logError(e, module);
         }
 
-        if (surveyResp != null && surveyResp.size() > 0) {
+        if (UtilValidate.isNotEmpty(surveyResp)) {
             Iterator respIt = surveyResp.iterator();
             while (respIt.hasNext()) {
                 GenericValue resp = (GenericValue) respIt.next();

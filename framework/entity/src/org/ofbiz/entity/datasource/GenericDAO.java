@@ -634,7 +634,7 @@ public class GenericDAO {
 
         // make two ArrayLists of fields, one for fields to select and the other for where clause fields (to find by)
         List<ModelField> selectFields = FastList.newInstance();
-        if (fieldsToSelect != null && fieldsToSelect.size() > 0) {
+        if (UtilValidate.isNotEmpty(fieldsToSelect)) {
             Set<String> tempKeys = FastSet.newInstance();
             tempKeys.addAll(fieldsToSelect);
             Iterator<ModelField> fieldIter = modelEntity.getFieldsIterator();
