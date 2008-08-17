@@ -441,7 +441,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
      * @see org.ofbiz.workflow.WfActivity#setResult(java.util.Map)
      */
     public void setResult(Map newResult) throws WfException, InvalidData {
-        if (newResult != null && newResult.size() > 0) {
+        if (UtilValidate.isNotEmpty(newResult)) {
             if (Debug.verboseOn())
                 Debug.logVerbose(
                     "[WfActivity.setResult]: putting (" + newResult.size() + ") keys into context.",
@@ -727,7 +727,7 @@ public class WfActivityImpl extends WfExecutionObjectImpl implements WfActivity 
         // extended attributes take priority over context attributes
         Map extendedAttributes = StringUtil.strToMap(extendedAttr);
 
-        if (extendedAttributes != null && extendedAttributes.size() > 0) {        
+        if (UtilValidate.isNotEmpty(extendedAttributes)) {        
             context.putAll(extendedAttributes);
         }
 

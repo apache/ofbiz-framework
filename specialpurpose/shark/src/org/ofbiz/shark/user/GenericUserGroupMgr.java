@@ -57,7 +57,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
             Debug.logError(e, module);
             throw new RootException(e);
         }
-        if (groups != null && groups.size() > 0) {
+        if (UtilValidate.isNotEmpty(groups)) {
             Iterator i = groups.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -77,7 +77,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
             Debug.logError(e, module);
             throw new RootException(e);
         }
-        if (users != null && users.size() > 0) {
+        if (UtilValidate.isNotEmpty(users)) {
             Iterator i = users.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -97,7 +97,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
             Debug.logError(e, module);
             throw new RootException(e);
         }
-        if (members != null && members.size() > 0) {
+        if (UtilValidate.isNotEmpty(members)) {
             Iterator i = members.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -109,7 +109,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
 
     public List getAllUsers(UserTransaction trans, List groupNames) throws RootException {
         List userNames = new ArrayList();
-        if (groupNames != null && groupNames.size() > 0) {
+        if (UtilValidate.isNotEmpty(groupNames)) {
             Iterator i = groupNames.iterator();
             while (i.hasNext()) {
                 String groupName = (String) i.next();
@@ -133,7 +133,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
             Debug.logError(e, module);
             throw new RootException(e);
         }
-        if (rollups != null && rollups.size() > 0) {
+        if (UtilValidate.isNotEmpty(rollups)) {
             Iterator i = rollups.iterator();
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
@@ -145,7 +145,7 @@ public class GenericUserGroupMgr implements UserGroupManager {
 
     public List getAllSubgroups(UserTransaction trans, List groupNames) throws RootException {
         List subGroups = new ArrayList();
-        if (groupNames != null && groupNames.size() > 0) {
+        if (UtilValidate.isNotEmpty(groupNames)) {
             Iterator i = groupNames.iterator();
             while (i.hasNext()) {
                 String groupName = (String) i.next();

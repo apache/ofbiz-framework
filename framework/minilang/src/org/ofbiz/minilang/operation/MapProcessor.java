@@ -54,13 +54,13 @@ public class MapProcessor {
     }
 
     public void exec(Map<String, Object> inMap, Map<String, Object> results, List<Object> messages, Locale locale, ClassLoader loader) {
-        if (makeInStrings != null && makeInStrings.size() > 0) {
+        if (UtilValidate.isNotEmpty(makeInStrings)) {
             for (MakeInString makeInString: makeInStrings) {
                 makeInString.exec(inMap, results, messages, locale, loader);
             }
         }
 
-        if (simpleMapProcesses != null && simpleMapProcesses.size() > 0) {
+        if (UtilValidate.isNotEmpty(simpleMapProcesses)) {
             for (SimpleMapProcess simpleMapProcess: simpleMapProcesses) {
                 simpleMapProcess.exec(inMap, results, messages, locale, loader);
             }

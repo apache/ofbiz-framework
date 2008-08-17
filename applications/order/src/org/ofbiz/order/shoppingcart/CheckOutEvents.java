@@ -60,7 +60,7 @@ public class CheckOutEvents {
         //Locale locale = UtilHttp.getLocale(request);
         String errMsg = null;
 
-        if (cart != null && cart.size() > 0) {
+        if (UtilValidate.isNotEmpty(cart)) {
             return "success";
         } else {
             errMsg = UtilProperties.getMessage(resource, "checkevents.cart_empty", (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -557,7 +557,7 @@ public class CheckOutEvents {
 
         // check for customer message(s)
         List messages = (List) callResult.get("authResultMsgs");
-        if (messages != null && messages.size() > 0) {
+        if (UtilValidate.isNotEmpty(messages)) {
             request.setAttribute("_EVENT_MESSAGE_LIST_", messages);
         }
 

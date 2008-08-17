@@ -246,7 +246,7 @@ public class OrderManagerEvents {
         } catch (GenericEntityException e) {
             Debug.logError(e, "ERROR: Unable to get existing payment preferences from order", module);
         }
-        if (currentPrefs != null && currentPrefs.size() > 0) {
+        if (UtilValidate.isNotEmpty(currentPrefs)) {
             Iterator cpi = currentPrefs.iterator();
             while (cpi.hasNext()) {
                 GenericValue cp = (GenericValue) cpi.next();

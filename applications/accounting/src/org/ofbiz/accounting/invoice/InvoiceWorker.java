@@ -29,6 +29,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -108,7 +109,7 @@ public class InvoiceWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", module);            
         }
-        if (invoiceTaxItems != null && invoiceTaxItems.size() > 0) {
+        if (UtilValidate.isNotEmpty(invoiceTaxItems)) {
             Iterator invoiceItemsIter = invoiceTaxItems.iterator();
             while (invoiceItemsIter.hasNext()) {
                 GenericValue invoiceItem = (GenericValue) invoiceItemsIter.next();
@@ -150,7 +151,7 @@ public class InvoiceWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting InvoiceItem list", module);            
         }
-        if (invoiceItems != null && invoiceItems.size() > 0) {
+        if (UtilValidate.isNotEmpty(invoiceItems)) {
             Iterator invoiceItemsIter = invoiceItems.iterator();
             while (invoiceItemsIter.hasNext()) {
                 GenericValue invoiceItem = (GenericValue) invoiceItemsIter.next();
@@ -307,7 +308,7 @@ public class InvoiceWorker {
         // now return the first PostalAddress from the locations
         GenericValue postalAddress = null;
         GenericValue contactMech = null;
-        if (locations != null && locations.size() > 0) {
+        if (UtilValidate.isNotEmpty(locations)) {
             try {
                 contactMech = ((GenericValue) locations.get(0)).getRelatedOne("ContactMech");
             } catch (GenericEntityException e) {
@@ -425,7 +426,7 @@ public class InvoiceWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting paymentApplicationlist", module);            
         }
-        if (paymentApplications != null && paymentApplications.size() > 0) {
+        if (UtilValidate.isNotEmpty(paymentApplications)) {
             Iterator p = paymentApplications.iterator();
             while (p.hasNext()) {
                 GenericValue paymentApplication = (GenericValue) p.next();
@@ -509,7 +510,7 @@ public class InvoiceWorker {
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting paymentApplicationlist", module);            
         }
-        if (paymentApplications != null && paymentApplications.size() > 0) {
+        if (UtilValidate.isNotEmpty(paymentApplications)) {
             Iterator p = paymentApplications.iterator();
             while (p.hasNext()) {
                 GenericValue paymentApplication = (GenericValue) p.next();

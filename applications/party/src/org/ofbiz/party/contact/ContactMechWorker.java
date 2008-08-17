@@ -208,7 +208,7 @@ public class ContactMechWorker {
     public static void getOrderContactMechValueMaps(PageContext pageContext, String orderId, String orderContactMechValueMapsAttr) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         List<Map<String, GenericValue>> maps = getOrderContactMechValueMaps(delegator, orderId);
-        if (maps != null && maps.size() > 0) {
+        if (UtilValidate.isNotEmpty(maps)) {
             pageContext.setAttribute(orderContactMechValueMapsAttr, maps);
         }
     }

@@ -91,7 +91,7 @@ public class ProductSearch {
             productSearchConstraintList.add(new KeywordConstraint(keywordsString, anyPrefix, anySuffix, null, isAnd));
         }
 
-        if (featureIdSet != null && featureIdSet.size() > 0) {
+        if (UtilValidate.isNotEmpty(featureIdSet)) {
             Iterator featureIdIter = featureIdSet.iterator();
             while (featureIdIter.hasNext()) {
                 String productFeatureId = (String) featureIdIter.next();
@@ -2141,7 +2141,7 @@ public class ProductSearch {
         }
 
         // Features
-        if (featureIdSet != null && featureIdSet.size() > 0) {
+        if (UtilValidate.isNotEmpty(featureIdSet)) {
             Iterator featureIdIter = featureIdSet.iterator();
             while (featureIdIter.hasNext()) {
                 String productFeatureId = (String) featureIdIter.next();

@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -266,7 +267,7 @@ public class RecurrenceInfo {
     private long checkDateList(List<Date> dateList, long time, long fromTime) {
         long nextTime = time;
 
-        if (dateList != null && dateList.size() > 0) {
+        if (UtilValidate.isNotEmpty(dateList)) {
             for (Date thisDate: dateList) {
                 if (nextTime > 0 && thisDate.getTime() < nextTime && thisDate.getTime() > fromTime)
                     nextTime = thisDate.getTime();

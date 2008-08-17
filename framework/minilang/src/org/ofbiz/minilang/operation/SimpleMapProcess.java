@@ -53,7 +53,7 @@ public class SimpleMapProcess {
     void readOperations(Element simpleMapProcessElement) {
         List<? extends Element> operationElements = UtilXml.childElementList(simpleMapProcessElement);
 
-        if (operationElements != null && operationElements.size() > 0) {
+        if (UtilValidate.isNotEmpty(operationElements)) {
             for (Element curOperElem: operationElements) {
                 String nodeName = curOperElem.getNodeName();
 

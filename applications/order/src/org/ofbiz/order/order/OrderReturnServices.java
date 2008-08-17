@@ -158,7 +158,7 @@ public class OrderReturnServices {
                     Debug.logError(e, module);
                     throw new GeneralRuntimeException(e.getMessage());
                 }
-                if (itemIssue != null && itemIssue.size() > 0) {
+                if (UtilValidate.isNotEmpty(itemIssue)) {
                     Debug.log("Found item issuance reference", module);
                     // just use the first one for now; maybe later we can find a better way to determine which was the
                     // actual item being returned; maybe by serial number
@@ -215,7 +215,7 @@ public class OrderReturnServices {
         // get the order header -- the first item will determine which product store to use from the order
         String productStoreId = null;
         String emailAddress = null;
-        if (returnItems != null && returnItems.size() > 0) {
+        if (UtilValidate.isNotEmpty(returnItems)) {
             GenericValue firstItem = EntityUtil.getFirst(returnItems);
             GenericValue orderHeader = null;
             try {
@@ -549,7 +549,7 @@ public class OrderReturnServices {
         Timestamp now = UtilDateTime.nowTimestamp();
 
         List completedItems = new ArrayList();
-        if (returnHeader != null && returnItems != null && returnItems.size() > 0) {
+        if (returnHeader != null && UtilValidate.isNotEmpty(returnItems)) {
             Iterator itemsIter = returnItems.iterator();
             while (itemsIter.hasNext()) {
                 GenericValue item = (GenericValue) itemsIter.next();
@@ -1350,7 +1350,7 @@ public class OrderReturnServices {
         }
         String returnHeaderTypeId = returnHeader.getString("returnHeaderTypeId");
         List createdOrderIds = new ArrayList();
-        if (returnHeader != null && returnItems != null && returnItems.size() > 0) {
+        if (returnHeader != null && UtilValidate.isNotEmpty(returnItems)) {
             Map returnItemsByOrderId = new HashMap();
             Map totalByOrder = new HashMap();
             groupReturnItemsByOrder(returnItems, returnItemsByOrderId, totalByOrder, delegator, returnId, returnTypeId);

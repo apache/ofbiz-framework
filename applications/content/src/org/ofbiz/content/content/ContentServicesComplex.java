@@ -99,10 +99,10 @@ public class ContentServicesComplex {
             viewName = "ContentAssocDataResourceViewTo";
         }
         exprList.add(joinExpr);
-        if (assocTypes != null && assocTypes.size() > 0) {
+        if (UtilValidate.isNotEmpty(assocTypes)) {
             exprList.add(EntityCondition.makeCondition("caContentAssocTypeId", EntityOperator.IN, assocTypes));
         }
-        if (contentTypes != null && contentTypes.size() > 0) {
+        if (UtilValidate.isNotEmpty(contentTypes)) {
             exprList.add(EntityCondition.makeCondition("contentTypeId", EntityOperator.IN, contentTypes));
         }
 
@@ -300,7 +300,7 @@ public class ContentServicesComplex {
         while (it.hasNext()) {
             contentAssoc = (GenericValue)it.next();
             content = contentAssoc.getRelatedOneCache(assocRelationName);
-            if (contentTypes != null && contentTypes.size() > 0) {
+            if (UtilValidate.isNotEmpty(contentTypes)) {
                 String contentTypeId = (String)content.get("contentTypeId");
                 if (contentTypes.contains(contentTypeId)) {
                     contentAssocDataResourceView = delegator.makeValue(viewName);
@@ -333,7 +333,7 @@ public class ContentServicesComplex {
         }
         Map results = FastMap.newInstance();
         results.put("entityList", contentAssocDataResourceList);
-        if (contentAssocDataResourceList != null && contentAssocDataResourceList.size() > 0) {
+        if (UtilValidate.isNotEmpty(contentAssocDataResourceList)) {
             results.put("view", contentAssocDataResourceList.get(0));
         }
         return results;

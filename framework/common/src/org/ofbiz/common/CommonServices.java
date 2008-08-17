@@ -32,6 +32,8 @@ import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilValidate;
+
 import static org.ofbiz.base.util.UtilGenerics.checkList;
 import static org.ofbiz.base.util.UtilGenerics.checkMap;
 import org.ofbiz.base.util.UtilMisc;
@@ -321,7 +323,7 @@ public class CommonServices {
 
     public static Map<String, Object> displayXaDebugInfo(DispatchContext dctx, Map<String, ?> context) {
         if (TransactionUtil.debugResources) {
-            if (TransactionUtil.debugResMap != null && TransactionUtil.debugResMap.size() > 0) {
+            if (UtilValidate.isNotEmpty(TransactionUtil.debugResMap)) {
                 TransactionUtil.logRunningTx();
             } else {
                 Debug.log("No running transaction to display.", module);

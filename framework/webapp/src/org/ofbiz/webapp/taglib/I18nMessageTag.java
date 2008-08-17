@@ -28,6 +28,7 @@ import javax.servlet.jsp.tagext.TagSupport;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilJ2eeCompat;
+import org.ofbiz.base.util.UtilValidate;
 
 /**
  * I18nMessageTag - JSP tag to use a resource bundle to internationalize
@@ -98,7 +99,7 @@ public class I18nMessageTag extends BodyTagSupport {
 
     public int doEndTag() throws JspException {
         try {
-            if (this.value != null && this.arguments != null && this.arguments.size() > 0) {
+            if (this.value != null && UtilValidate.isNotEmpty(this.arguments)) {
                 MessageFormat messageFormat = new MessageFormat(this.value);
 
                 messageFormat.setLocale(this.bundle.getLocale());

@@ -89,7 +89,7 @@ public class StringAppend extends MethodOperation {
         
         if (!argListAcsr.isEmpty()) {
             List<? extends Object> argList = argListAcsr.get(methodContext);
-            if (argList != null && argList.size() > 0) {
+            if (UtilValidate.isNotEmpty(argList)) {
                 value = MessageFormat.format(value, argList.toArray());
             }
         }

@@ -898,7 +898,7 @@ public class InvoiceServices {
                     // build a Map of partyIds (both to and from) in a commission and the amounts
                     // Note that getCommissionForProduct returns a List of Maps with a lot values.  See services.xml definition for reference.
                     List itemComms = (List) outMap.get("commissions");
-                    if (itemComms != null && itemComms.size() > 0) {
+                    if (UtilValidate.isNotEmpty(itemComms)) {
                         Iterator it = itemComms.iterator();
                         while (it.hasNext()) {
                             Map commMap = (Map)it.next();
@@ -2828,7 +2828,7 @@ public class InvoiceServices {
                         BigDecimal tobeApplied = ZERO; 
                         // item total amount - already applied (if any)
                         BigDecimal alreadyApplied = ZERO;
-                        if (paymentApplications != null && paymentApplications.size() > 0) { 
+                        if (UtilValidate.isNotEmpty(paymentApplications)) { 
                             // application(s) found, add them all together
                             Iterator p = paymentApplications.iterator();
                             while (p.hasNext()) {

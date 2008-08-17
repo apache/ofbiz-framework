@@ -770,7 +770,7 @@ public class SimpleMethod {
                 summaryErrorStringBuffer.append(errorMsg);
             }
             List<Object> tempErrorMsgList = UtilGenerics.checkList(methodContext.getEnv(eventErrorMessageListName));
-            if (tempErrorMsgList != null && tempErrorMsgList.size() > 0) {
+            if (UtilValidate.isNotEmpty(tempErrorMsgList)) {
                 methodContext.getRequest().setAttribute("_ERROR_MESSAGE_LIST_", tempErrorMsgList);
                 forceError = true;
                 
@@ -783,7 +783,7 @@ public class SimpleMethod {
                 methodContext.getRequest().setAttribute("_EVENT_MESSAGE_", eventMsg);
             }
             List<String> eventMsgList = UtilGenerics.checkList(methodContext.getEnv(eventEventMessageListName));
-            if (eventMsgList != null && eventMsgList.size() > 0) {
+            if (UtilValidate.isNotEmpty(eventMsgList)) {
                 methodContext.getRequest().setAttribute("_EVENT_MESSAGE_LIST_", eventMsgList);
             }
 
@@ -814,7 +814,7 @@ public class SimpleMethod {
             }
 
             List<Object> errorMsgList = UtilGenerics.checkList(methodContext.getEnv(serviceErrorMessageListName));
-            if (errorMsgList != null && errorMsgList.size() > 0) {
+            if (UtilValidate.isNotEmpty(errorMsgList)) {
                 methodContext.putResult(ModelService.ERROR_MESSAGE_LIST, errorMsgList);
                 forceError = true;
                 
@@ -823,7 +823,7 @@ public class SimpleMethod {
             }
 
             Map<String, Object> errorMsgMap = UtilGenerics.checkMap(methodContext.getEnv(serviceErrorMessageMapName));
-            if (errorMsgMap != null && errorMsgMap.size() > 0) {
+            if (UtilValidate.isNotEmpty(errorMsgMap)) {
                 methodContext.putResult(ModelService.ERROR_MESSAGE_MAP, errorMsgMap);
                 forceError = true;
                 
@@ -837,7 +837,7 @@ public class SimpleMethod {
             }
 
             List<Object> successMsgList = UtilGenerics.checkList(methodContext.getEnv(serviceSuccessMessageListName));
-            if (successMsgList != null && successMsgList.size() > 0) {
+            if (UtilValidate.isNotEmpty(successMsgList)) {
                 methodContext.putResult(ModelService.SUCCESS_MESSAGE_LIST, successMsgList);
             }
 
@@ -891,7 +891,7 @@ public class SimpleMethod {
     public static void readOperations(Element simpleMethodElement, List<MethodOperation> methodOperations, SimpleMethod simpleMethod) {
         List<? extends Element> operationElements = UtilXml.childElementList(simpleMethodElement);
 
-        if (operationElements != null && operationElements.size() > 0) {
+        if (UtilValidate.isNotEmpty(operationElements)) {
             for (Element curOperElem: operationElements) {
                 String nodeName = curOperElem.getNodeName();
                 MethodOperation methodOp = null;

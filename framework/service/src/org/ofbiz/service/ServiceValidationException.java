@@ -20,7 +20,8 @@ package org.ofbiz.service;
 
 import java.util.List;
 import java.util.ArrayList;
-import java.util.Iterator;
+
+import org.ofbiz.base.util.UtilValidate;
 
 /**
  * ServiceValidationException
@@ -129,7 +130,7 @@ public class ServiceValidationException extends GenericServiceException {
 
     public String getMessage() {
         String msg = super.getMessage();
-        if (this.messages != null && this.messages.size() > 0) {
+        if (UtilValidate.isNotEmpty(this.messages)) {
             StringBuilder sb = new StringBuilder();
             if (msg != null) {
                 sb.append(msg).append('\n');

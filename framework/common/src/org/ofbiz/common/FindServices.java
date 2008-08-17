@@ -333,7 +333,7 @@ public class FindServices {
 
             // add to queryStringMap
             List<Object[]> origList = origValueMap.get(fieldName);
-            if (origList != null && origList.size() > 0) {
+            if (UtilValidate.isNotEmpty(origList)) {
                 for (Object[] arr: origList) {
                     queryStringMap.put((String) arr[0], arr[1]);
                 }

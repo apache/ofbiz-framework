@@ -208,7 +208,7 @@ public class ServiceEcaAction implements java.io.Serializable {
                 }
             }
             // do something with the errorMessageList
-            if (errorMessageList != null && errorMessageList.size() > 0) {
+            if (UtilValidate.isNotEmpty(errorMessageList)) {
                 List<Object> origErrorMessageList = UtilGenerics.checkList(result.get(ModelService.ERROR_MESSAGE_LIST));
                 if (origErrorMessageList == null) {
                     result.put(ModelService.ERROR_MESSAGE_LIST, errorMessageList);
@@ -217,7 +217,7 @@ public class ServiceEcaAction implements java.io.Serializable {
                 }
             }
             // do something with the errorMessageMap
-            if (errorMessageMap != null && errorMessageMap.size() > 0) {
+            if (UtilValidate.isNotEmpty(errorMessageMap)) {
                 Map<String, Object> origErrorMessageMap = UtilGenerics.checkMap(result.get(ModelService.ERROR_MESSAGE_MAP));
                 if (origErrorMessageMap == null) {
                     result.put(ModelService.ERROR_MESSAGE_MAP, errorMessageMap);

@@ -311,7 +311,7 @@ public class SurveyWrapper {
             Debug.logError(e, module);
         }
 
-        if (responses != null && responses.size() > 0) {
+        if (UtilValidate.isNotEmpty(responses)) {
             GenericValue response = EntityUtil.getFirst(responses);
             responseId = response.getString("surveyResponseId");
             if (responses.size() > 1) {
@@ -359,7 +359,7 @@ public class SurveyWrapper {
                 Debug.logError(e, module);
             }
 
-            if (answers != null && answers.size() > 0) {
+            if (UtilValidate.isNotEmpty(answers)) {
                 Iterator i = answers.iterator();
                 while (i.hasNext()) {
                     GenericValue answer = (GenericValue) i.next();
@@ -369,7 +369,7 @@ public class SurveyWrapper {
         }
 
         // get the pass-thru (posted form data)
-        if (passThru != null && passThru.size() > 0) {
+        if (UtilValidate.isNotEmpty(passThru)) {
             Iterator i = passThru.keySet().iterator();
             while (i.hasNext()) {
                 String key = (String) i.next();

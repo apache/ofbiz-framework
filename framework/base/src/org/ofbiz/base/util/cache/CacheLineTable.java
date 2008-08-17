@@ -23,7 +23,6 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -33,6 +32,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.LRUMap;
 
 
@@ -235,7 +235,7 @@ public class CacheLineTable<K, V> implements Serializable {
     }
 
     public synchronized void clear() {
-        if (fileTable != null && this.size() > 0) {
+        if (UtilValidate.isNotEmpty(fileTable)) {
             try {
                 // remove this table
                 long recid = fileTable.getRecid();

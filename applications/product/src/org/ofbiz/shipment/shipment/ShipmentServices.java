@@ -397,7 +397,7 @@ public class ShipmentServices {
                 // add the feature quantities
                 Double quantity = (Double) itemMap.get("quantity");
                 Set featureSet = (Set) itemMap.get("featureSet");
-                if (featureSet != null && featureSet.size() > 0) {
+                if (UtilValidate.isNotEmpty(featureSet)) {
                     Iterator fi = featureSet.iterator();
                     while (fi.hasNext()) {
                         String featureId = (String) fi.next();

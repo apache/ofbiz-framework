@@ -346,7 +346,7 @@ public class WorkEffortServices {
         if (UtilValidate.isNotEmpty(workEffortTypeId)) {
             typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, workEffortTypeId));
         }        
-        if (partyIds != null && partyIds.size() > 0) {
+        if (UtilValidate.isNotEmpty(partyIds)) {
             entityExprList.add(EntityCondition.makeCondition("partyId", EntityOperator.IN, partyIds));
         }
         if (UtilValidate.isNotEmpty(facilityId)) {
@@ -488,7 +488,7 @@ public class WorkEffortServices {
         if (partyIdsToUse.size() > 0 || UtilValidate.isNotEmpty(facilityId) || UtilValidate.isNotEmpty(fixedAssetId)) {
             try {
                 List<GenericValue> tempWorkEfforts = null;
-                if (partyIds != null && partyIds.size() > 0) {
+                if (UtilValidate.isNotEmpty(partyIds)) {
                     tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssign", ecl, null, UtilMisc.toList("estimatedStartDate"), null, false));
                 } else {
                     tempWorkEfforts = delegator.findList("WorkEffort", ecl, null, UtilMisc.toList("estimatedStartDate"), null, false);

@@ -21,6 +21,7 @@ package org.ofbiz.webapp.control;
 import java.sql.Timestamp;
 import java.util.Enumeration;
 import java.util.Map;
+
 import javax.servlet.http.HttpSession;
 import javax.servlet.http.HttpSessionEvent;
 import javax.servlet.http.HttpSessionListener;
@@ -28,7 +29,7 @@ import javax.servlet.http.HttpSessionListener;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
-import org.ofbiz.webapp.stats.VisitHandler;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.serialize.XmlSerializer;
@@ -194,7 +195,7 @@ public class ControlEventListener implements HttpSessionListener {
         Map userLoginSession = (Map) session.getAttribute("userLoginSession");
 
         String sessionData = null;
-        if (userLoginSession != null && userLoginSession.size() > 0) {
+        if (UtilValidate.isNotEmpty(userLoginSession)) {
             try {
                 sessionData = XmlSerializer.serialize(userLoginSession);
             } catch (Exception e) {

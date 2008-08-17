@@ -67,7 +67,7 @@ public class StringToField extends MethodOperation {
         
         if (!argListAcsr.isEmpty()) {
             List<? extends Object> argList = argListAcsr.get(methodContext);
-            if (argList != null && argList.size() > 0) {
+            if (UtilValidate.isNotEmpty(argList)) {
                 valueStr = MessageFormat.format(valueStr, argList.toArray());
             }
         }

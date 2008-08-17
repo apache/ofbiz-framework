@@ -262,7 +262,7 @@ public class CategoryServices {
                     }
 
                     // filter out the view allow before getting the sublist
-                    if (viewProductCategoryId != null && productCategoryMembers.size() > 0) {
+                    if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
                         productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
                         listSize = productCategoryMembers.size();
                     }
@@ -321,7 +321,7 @@ public class CategoryServices {
                         }
                     } else {
                         productCategoryMembers = pli.getCompleteList();
-                        if (viewProductCategoryId != null && productCategoryMembers.size() > 0) {
+                        if (UtilValidate.isNotEmpty(viewProductCategoryId)) {
                             // fiter out the view allow
                             productCategoryMembers = CategoryWorker.filterProductsInCategory(delegator, productCategoryMembers, viewProductCategoryId);
                         }

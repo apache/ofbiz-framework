@@ -282,7 +282,7 @@ public class CatalinaContainer implements Container {
             throw new ContainerException("Only one cluster configuration allowed per engine");
         }
 
-        if (clusterProps != null && clusterProps.size() > 0) {
+        if (UtilValidate.isNotEmpty(clusterProps)) {
             ContainerConfig.Container.Property clusterProp = clusterProps.get(0);
             createCluster(clusterProp, host);
             clusterConfig.put(engineName, clusterProp);
@@ -464,7 +464,7 @@ public class CatalinaContainer implements Container {
         }
 
         Connector connector = null;
-        if (connectorProp.properties != null && connectorProp.properties.size() > 0) {
+        if (UtilValidate.isNotEmpty(connectorProp.properties)) {
             connector = embedded.createConnector(address, port, protocol);
             try {
                 for (ContainerConfig.Container.Property prop: connectorProp.properties.values()) {
@@ -621,7 +621,7 @@ public class CatalinaContainer implements Container {
 
     protected void configureMimeTypes(Context context) throws ContainerException {
         Map<String, String> mimeTypes = CatalinaContainer.getMimeTypes();
-        if (mimeTypes != null && mimeTypes.size() > 0) {
+        if (UtilValidate.isNotEmpty(mimeTypes)) {
             for (Map.Entry<String, String> entry: mimeTypes.entrySet()) {
                 context.addMimeMapping(entry.getKey(), entry.getValue());
             }
@@ -629,7 +629,7 @@ public class CatalinaContainer implements Container {
     }
 
     protected static synchronized Map<String, String> getMimeTypes() throws ContainerException {
-        if (mimeTypes != null && mimeTypes.size() > 0) {
+        if (UtilValidate.isNotEmpty(mimeTypes)) {
             return mimeTypes;
         }
 

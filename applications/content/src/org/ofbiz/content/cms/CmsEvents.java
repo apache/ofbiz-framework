@@ -254,7 +254,7 @@ public class CmsEvents {
         }
 
         publishPoints = EntityUtil.filterByDate(publishPoints);
-        if (publishPoints != null && publishPoints.size() > 0) {
+        if (UtilValidate.isNotEmpty(publishPoints)) {
             if (Debug.verboseOn()) Debug.logVerbose("Found publish points: " + publishPoints, module);
             return true;
         } else {

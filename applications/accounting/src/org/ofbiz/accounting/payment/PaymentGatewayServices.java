@@ -210,7 +210,7 @@ public class PaymentGatewayServices {
                                         otherPaymentMethodAndCreditCardList = EntityUtil.filterByDate(otherPaymentMethodAndCreditCardList, true);
                                     }
 
-                                    if (otherPaymentMethodAndCreditCardList != null && otherPaymentMethodAndCreditCardList.size() > 0) {
+                                    if (UtilValidate.isNotEmpty(otherPaymentMethodAndCreditCardList)) {
                                         Iterator otherPaymentMethodAndCreditCardIter = otherPaymentMethodAndCreditCardList.iterator();
                                         while (otherPaymentMethodAndCreditCardIter.hasNext()) {
                                             GenericValue otherPaymentMethodAndCreditCard = (GenericValue) otherPaymentMethodAndCreditCardIter.next();
@@ -885,7 +885,7 @@ public class PaymentGatewayServices {
 
         // create the internal messages
         List messages = (List) context.get("internalRespMsgs");
-        if (messages != null && messages.size() > 0) {
+        if (UtilValidate.isNotEmpty(messages)) {
             Iterator i = messages.iterator();
             while (i.hasNext()) {
                 GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
@@ -1751,7 +1751,7 @@ public class PaymentGatewayServices {
     
             // create the internal messages
             List messages = (List) context.get("internalRespMsgs");
-            if (messages != null && messages.size() > 0) {
+            if (UtilValidate.isNotEmpty(messages)) {
                 Iterator i = messages.iterator();
                 while (i.hasNext()) {
                     GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
@@ -2061,7 +2061,7 @@ public class PaymentGatewayServices {
 
             // create the internal messages
             List messages = (List) context.get("internalRespMsgs");
-            if (messages != null && messages.size() > 0) {
+            if (UtilValidate.isNotEmpty(messages)) {
                 Iterator i = messages.iterator();
                 while (i.hasNext()) {
                     GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");
@@ -2102,7 +2102,7 @@ public class PaymentGatewayServices {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, module);
                 }
-                if (orl != null && orl.size() > 0) {
+                if (UtilValidate.isNotEmpty(orl)) {
                     GenericValue orderRole = EntityUtil.getFirst(orl);
                     partyIdFrom = orderRole.getString("partyId");
                 }
@@ -2312,7 +2312,7 @@ public class PaymentGatewayServices {
 
         // create the internal messages
         List messages = (List) context.get("internalRespMsgs");
-        if (messages != null && messages.size() > 0) {
+        if (UtilValidate.isNotEmpty(messages)) {
             Iterator i = messages.iterator();
             while (i.hasNext()) {
                 GenericValue respMsg = delegator.makeValue("PaymentGatewayRespMsg");

@@ -399,7 +399,7 @@ public class ProductWorker {
             if (alternativeOptionProduct != null) {
                 if ("Y".equals(alternativeOptionProduct.getString("isVariant"))) {
                     Set distFeatures = getVariantDistinguishingFeatures(alternativeOptionProduct);
-                    if (distFeatures != null && distFeatures.size() > 0) {
+                    if (UtilValidate.isNotEmpty(distFeatures)) {
                         // Debug.logInfo("Found distinguishing features: " + distFeatures, module);
                         
                         StringBuffer nameBuf = new StringBuffer();
@@ -590,7 +590,7 @@ public class ProductWorker {
     public static double calcOrderAdjustments(List orderHeaderAdjustments, double subTotal, boolean includeOther, boolean includeTax, boolean includeShipping) {
         double adjTotal = 0.0;
 
-        if (orderHeaderAdjustments != null && orderHeaderAdjustments.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderHeaderAdjustments)) {
             List filteredAdjs = filterOrderAdjustments(orderHeaderAdjustments, includeOther, includeTax, includeShipping, false, false);
             Iterator adjIt = filteredAdjs.iterator();
 
@@ -618,7 +618,7 @@ public class ProductWorker {
     public static List filterOrderAdjustments(List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
         List newOrderAdjustmentsList = new LinkedList();
 
-        if (adjustments != null && adjustments.size() > 0) {
+        if (UtilValidate.isNotEmpty(adjustments)) {
             Iterator adjIt = adjustments.iterator();
 
             while (adjIt.hasNext()) {

@@ -372,7 +372,7 @@ public class OrderServices {
                             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderCouldNotFindRelatedFixedAssetForTheProduct",UtilMisc.toMap("productId",orderItem.getString("productId")), locale ));
                         }
                         
-                        if (selFixedAssetProduct != null && selFixedAssetProduct.size() > 0) {
+                        if (UtilValidate.isNotEmpty(selFixedAssetProduct)) {
                             Iterator firstOne = selFixedAssetProduct.iterator();
                             if(firstOne.hasNext())        {
                                 GenericValue fixedAssetProduct = delegator.makeValue("FixedAssetProduct");
@@ -532,7 +532,7 @@ public class OrderServices {
 
         // before processing orderItems process orderItemGroups so that they'll be in place for the foreign keys and what not
         List orderItemGroups = (List) context.get("orderItemGroups");
-        if (orderItemGroups != null && orderItemGroups.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderItemGroups)) {
             Iterator orderItemGroupIter = orderItemGroups.iterator();
             while (orderItemGroupIter.hasNext()) {
                 GenericValue orderItemGroup = (GenericValue) orderItemGroupIter.next();
@@ -561,7 +561,7 @@ public class OrderServices {
 
         // set the order attributes
         List orderAttributes = (List) context.get("orderAttributes");
-        if (orderAttributes != null && orderAttributes.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderAttributes)) {
             Iterator oattr = orderAttributes.iterator();
             while (oattr.hasNext()) {
                 GenericValue oatt = (GenericValue) oattr.next();
@@ -572,7 +572,7 @@ public class OrderServices {
 
         // set the order item attributes
         List orderItemAttributes = (List) context.get("orderItemAttributes");
-        if (orderItemAttributes != null && orderItemAttributes.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderItemAttributes)) {
             Iterator oiattr = orderItemAttributes.iterator();
             while (oiattr.hasNext()) {
                 GenericValue oiatt = (GenericValue) oiattr.next();
@@ -583,7 +583,7 @@ public class OrderServices {
 
         // create the order internal notes
         List orderInternalNotes = (List) context.get("orderInternalNotes");
-        if (orderInternalNotes != null && orderInternalNotes.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderInternalNotes)) {
             Iterator orderInternalNotesIt = orderInternalNotes.iterator();
             while (orderInternalNotesIt.hasNext()) {
                 String orderInternalNote = (String) orderInternalNotesIt.next();
@@ -605,7 +605,7 @@ public class OrderServices {
 
         // create the order public notes
         List orderNotes = (List) context.get("orderNotes");
-        if (orderNotes != null && orderNotes.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderNotes)) {
             Iterator orderNotesIt = orderNotes.iterator();
             while (orderNotesIt.hasNext()) {
                 String orderNote = (String) orderNotesIt.next();
@@ -628,7 +628,7 @@ public class OrderServices {
         // create the workeffort records
         // and connect them with the orderitem over the WorkOrderItemFulfillment
         // create also the techData calendars to keep track of availability of the fixed asset.
-        if (workEfforts != null && workEfforts.size() > 0) {
+        if (UtilValidate.isNotEmpty(workEfforts)) {
             List tempList = new LinkedList();
             Iterator we = workEfforts.iterator();
             while (we.hasNext()) {
@@ -764,7 +764,7 @@ public class OrderServices {
 
         // set the orderId on all adjustments; this list will include order and
         // item adjustments...
-        if (orderAdjustments != null && orderAdjustments.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderAdjustments)) {
             Iterator iter = orderAdjustments.iterator();
 
             while (iter.hasNext()) {
@@ -791,7 +791,7 @@ public class OrderServices {
 
         // set the order contact mechs
         List orderContactMechs = (List) context.get("orderContactMechs");
-        if (orderContactMechs != null && orderContactMechs.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderContactMechs)) {
             Iterator ocmi = orderContactMechs.iterator();
 
             while (ocmi.hasNext()) {
@@ -803,7 +803,7 @@ public class OrderServices {
 
         // set the order item contact mechs
         List orderItemContactMechs = (List) context.get("orderItemContactMechs");
-        if (orderItemContactMechs != null && orderItemContactMechs.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderItemContactMechs)) {
             Iterator oicmi = orderItemContactMechs.iterator();
 
             while (oicmi.hasNext()) {
@@ -815,7 +815,7 @@ public class OrderServices {
 
         // set the order item ship groups
         List dropShipGroupIds = FastList.newInstance(); // this list will contain the ids of all the ship groups for drop shipments (no reservations)
-        if (orderItemShipGroupInfo != null && orderItemShipGroupInfo.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderItemShipGroupInfo)) {
             Iterator osiInfos = orderItemShipGroupInfo.iterator();
             while (osiInfos.hasNext()) {
                 GenericValue valueObj = (GenericValue) osiInfos.next();
@@ -862,7 +862,7 @@ public class OrderServices {
 
         // set the item survey responses
         List surveyResponses = (List) context.get("orderItemSurveyResponses");
-        if (surveyResponses != null && surveyResponses.size() > 0) {
+        if (UtilValidate.isNotEmpty(surveyResponses)) {
             Iterator oisr = surveyResponses.iterator();
             while (oisr.hasNext()) {
                 GenericValue surveyResponse = (GenericValue) oisr.next();
@@ -872,7 +872,7 @@ public class OrderServices {
         }
 
         // set the item price info; NOTE: this must be after the orderItems are stored for referential integrity
-        if (orderItemPriceInfo != null && orderItemPriceInfo.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderItemPriceInfo)) {
             Iterator oipii = orderItemPriceInfo.iterator();
 
             while (oipii.hasNext()) {
@@ -890,7 +890,7 @@ public class OrderServices {
 
         // set the item associations
         List orderItemAssociations = (List) context.get("orderItemAssociations");
-        if (orderItemAssociations != null && orderItemAssociations.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderItemAssociations)) {
             Iterator oia = orderItemAssociations.iterator();
             while (oia.hasNext()) {
                 GenericValue orderItemAssociation = (GenericValue) oia.next();
@@ -905,7 +905,7 @@ public class OrderServices {
 
         // store the orderProductPromoUseInfos
         List orderProductPromoUses = (List) context.get("orderProductPromoUses");
-        if (orderProductPromoUses != null && orderProductPromoUses.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderProductPromoUses)) {
             Iterator orderProductPromoUseIter = orderProductPromoUses.iterator();
             while (orderProductPromoUseIter.hasNext()) {
                 GenericValue productPromoUse = (GenericValue) orderProductPromoUseIter.next();
@@ -1004,7 +1004,7 @@ public class OrderServices {
 
         // set the order payment info
         List orderPaymentInfos = (List) context.get("orderPaymentInfo");
-        if (orderPaymentInfos != null && orderPaymentInfos.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderPaymentInfos)) {
             Iterator oppIter = orderPaymentInfos.iterator();
             while (oppIter.hasNext()) {
                 GenericValue valueObj = (GenericValue) oppIter.next();
@@ -1025,7 +1025,7 @@ public class OrderServices {
 
         // store the trackingCodeOrder entities
         List trackingCodeOrders = (List) context.get("trackingCodeOrders");
-        if (trackingCodeOrders != null && trackingCodeOrders.size() > 0) {
+        if (UtilValidate.isNotEmpty(trackingCodeOrders)) {
             Iterator tkcdordIter = trackingCodeOrders.iterator();
             while (tkcdordIter.hasNext()) {
                 GenericValue trackingCodeOrder = (GenericValue) tkcdordIter.next();
@@ -1037,7 +1037,7 @@ public class OrderServices {
        // store the OrderTerm entities
 
        List orderTerms = (List) context.get("orderTerms");
-       if (orderTerms != null && orderTerms.size() > 0) {
+       if (UtilValidate.isNotEmpty(orderTerms)) {
            Iterator orderTermIter = orderTerms.iterator();
            while (orderTermIter.hasNext()) {
                GenericValue orderTerm = (GenericValue) orderTermIter.next();
@@ -1105,7 +1105,7 @@ public class OrderServices {
 
         // START inventory reservation
         // decrement inventory available for each OrderItemShipGroupAssoc, within the same transaction
-        if (orderItemShipGroupInfo != null && orderItemShipGroupInfo.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderItemShipGroupInfo)) {
             Iterator osiInfos = orderItemShipGroupInfo.iterator();
             while (osiInfos.hasNext()) {
                 GenericValue orderItemShipGroupAssoc = (GenericValue) osiInfos.next();
@@ -1494,7 +1494,7 @@ public class OrderServices {
                     List itemAdj = (List) serviceResult.get("itemAdjustments");
 
                     // Accumulate the new tax total from the recalculated header adjustments
-                    if (orderAdj != null && orderAdj.size() > 0) {
+                    if (UtilValidate.isNotEmpty(orderAdj)) {
                         Iterator oai = orderAdj.iterator();
                         while (oai.hasNext()) {
                             GenericValue oa = (GenericValue) oai.next();
@@ -1507,7 +1507,7 @@ public class OrderServices {
                     }
 
                     // Accumulate the new tax total from the recalculated item adjustments
-                    if (itemAdj != null && itemAdj.size() > 0) {
+                    if (UtilValidate.isNotEmpty(itemAdj)) {
                         for (int i = 0; i < itemAdj.size(); i++) {
                             List itemAdjustments = (List) itemAdj.get(i);
                             Iterator ida = itemAdjustments.iterator();
@@ -1962,7 +1962,7 @@ public class OrderServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorCannotGetOrderItemEntity ",locale) + e.getMessage());
         }
 
-        if (orderItems != null && orderItems.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderItems)) {
             List toBeStored = new ArrayList();
             Iterator itemsIterator = orderItems.iterator();
             while (itemsIterator.hasNext()) {
@@ -2812,7 +2812,7 @@ public class OrderServices {
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problem getting order item records", module);
                 }
-                if (orderItems != null && orderItems.size() > 0) {
+                if (UtilValidate.isNotEmpty(orderItems)) {
                     Iterator oii = orderItems.iterator();
                     while (oii.hasNext()) {
                         GenericValue orderItem = (GenericValue) oii.next();
@@ -2870,7 +2870,7 @@ public class OrderServices {
         List digitalItems = new ArrayList();
         Map digitalProducts = new HashMap();
 
-        if (orderItems != null && orderItems.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderItems)) {
             Iterator i = orderItems.iterator();
             while (i.hasNext()) {
                 GenericValue item = (GenericValue) i.next();
@@ -3021,7 +3021,7 @@ public class OrderServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         Locale locale = (Locale) context.get("locale");
 
-        if (orderItems != null && orderItems.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderItems)) {
             // loop through the digital items to fulfill
             Iterator itemsIterator = orderItems.iterator();
             while (itemsIterator.hasNext()) {
@@ -3054,7 +3054,7 @@ public class OrderServices {
                         }
                     }
                     
-                    if (allProductContent != null && allProductContent.size() > 0) {
+                    if (UtilValidate.isNotEmpty(allProductContent)) {
                         // only keep ones with valid dates
                         productContent = EntityUtil.filterByDate(allProductContent, UtilDateTime.nowTimestamp(), "fromDate", "thruDate", true);
                         Debug.logInfo("Product has " + allProductContent.size() + " associations, " +
@@ -3065,7 +3065,7 @@ public class OrderServices {
                 }
 
                 // now use the ProductContent to fulfill the item
-                if (productContent != null && productContent.size() > 0) {
+                if (UtilValidate.isNotEmpty(productContent)) {
                     Iterator prodcontentIterator = productContent.iterator();
                     while (prodcontentIterator.hasNext()) {
                         GenericValue productContentItem = (GenericValue) prodcontentIterator.next();

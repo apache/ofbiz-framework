@@ -23,6 +23,7 @@ import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilValidate;
 
 import java.util.List;
 import java.util.Map;
@@ -102,7 +103,7 @@ public class ModelNotification {
         ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
         if (group != null) {
             List<String> addr = group.getAddress("to");
-            if (addr != null && addr.size() > 0) {
+            if (UtilValidate.isNotEmpty(addr)) {
                 return StringUtil.join(addr, ",");
             }
         }
@@ -124,7 +125,7 @@ public class ModelNotification {
         ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
         if (group != null) {
             List<String> addr = group.getAddress("bcc");
-            if (addr != null && addr.size() > 0) {
+            if (UtilValidate.isNotEmpty(addr)) {
                 return StringUtil.join(addr, ",");
             }
         }
@@ -135,7 +136,7 @@ public class ModelNotification {
         ServiceConfigUtil.NotificationGroup group = ServiceConfigUtil.getNotificationGroup(notificationGroupName);
         if (group != null) {
             List<String> addr = group.getAddress("from");
-            if (addr != null && addr.size() > 0) {
+            if (UtilValidate.isNotEmpty(addr)) {
                 return addr.get(0);
             }
         }

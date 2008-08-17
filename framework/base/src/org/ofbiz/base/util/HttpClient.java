@@ -399,7 +399,7 @@ public class HttpClient {
 
         if (rawStream != null) {
             arguments = rawStream;
-        } else if (parameters != null && parameters.size() > 0) {
+        } else if (UtilValidate.isNotEmpty(parameters)) {
             arguments = UtilHttp.urlEncodeArgs(parameters, false);
         }
 
@@ -453,7 +453,7 @@ public class HttpClient {
                 if (Debug.verboseOn() || debug) Debug.log("Header - Authorization: " + basicAuthString, module);
             }
             
-            if (headers != null && headers.size() > 0) {
+            if (UtilValidate.isNotEmpty(headers)) {
                 for (Map.Entry<String, String> entry: headers.entrySet()) {
                     String headerName = entry.getKey();
                     String headerValue = entry.getValue();

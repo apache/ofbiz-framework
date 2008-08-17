@@ -342,7 +342,7 @@ public class DhlServices {
                 "Charge");
 
         List chargeList = new ArrayList();
-        if (chargeNodeList != null && chargeNodeList.size() > 0) {
+        if (UtilValidate.isNotEmpty(chargeNodeList)) {
             for (int i = 0; chargeNodeList.size() > i; i++) {
                 Map charge = new HashMap();
 

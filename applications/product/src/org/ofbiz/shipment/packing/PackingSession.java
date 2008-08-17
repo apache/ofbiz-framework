@@ -803,7 +803,7 @@ public class PackingSession implements java.io.Serializable {
                 currentRoles = EntityUtil.filterByDate(currentRoles);
 
                 // if not; create the role
-                if (currentRoles != null && currentRoles.size() > 0) {
+                if (UtilValidate.isNotEmpty(currentRoles)) {
                     ctx.put("userLogin", userLogin);
                     Map addRole = this.getDispatcher().runSync("createPicklistRole", ctx);
                     if (ServiceUtil.isError(addRole)) {

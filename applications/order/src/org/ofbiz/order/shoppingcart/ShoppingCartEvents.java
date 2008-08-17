@@ -441,7 +441,7 @@ public class ShoppingCartEvents {
         if (productId != null) {
             String productStoreId = ProductStoreWorker.getProductStoreId(request);
             List productSurvey = ProductStoreWorker.getProductSurveys(delegator, productStoreId, productId, "CART_ADD", parentProductId);
-            if (productSurvey != null && productSurvey.size() > 0) {
+            if (UtilValidate.isNotEmpty(productSurvey)) {
                 // TODO: implement multiple survey per product
                 GenericValue survey = EntityUtil.getFirst(productSurvey);
                 String surveyResponseId = (String) request.getAttribute("surveyResponseId");
@@ -1401,7 +1401,7 @@ public class ShoppingCartEvents {
                             //
                         }
                         storeReps = EntityUtil.filterByDate(storeReps);
-                        if (storeReps != null && storeReps.size() > 0) {
+                        if (UtilValidate.isNotEmpty(storeReps)) {
                             hasPermission = true;
                         }
                     }

@@ -393,7 +393,7 @@ public class ProductSearchSession {
                     Debug.logError(e, "Error reading ProductStoreKeywordOvrd list, not doing keyword override", module);
                 }
 
-                if (productStoreKeywordOvrdList != null && productStoreKeywordOvrdList.size() > 0) {
+                if (UtilValidate.isNotEmpty(productStoreKeywordOvrdList)) {
                     Iterator productStoreKeywordOvrdIter = productStoreKeywordOvrdList.iterator();
                     while (productStoreKeywordOvrdIter.hasNext()) {
                         GenericValue productStoreKeywordOvrd = (GenericValue) productStoreKeywordOvrdIter.next();
@@ -872,7 +872,7 @@ public class ProductSearchSession {
         String visitId = VisitHandler.getVisitId(session);
         List productSearchConstraintList = ProductSearchOptions.getConstraintList(session);
         // if no constraints, don't do a search...
-        if (productSearchConstraintList != null && productSearchConstraintList.size() > 0) {
+        if (UtilValidate.isNotEmpty(productSearchConstraintList)) {
             // if the search options have changed since the last search, put at the beginning of the options history list
             checkSaveSearchOptionsHistory(session);
 

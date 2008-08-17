@@ -272,7 +272,7 @@ public class SqlJdbcUtil {
     public static String makeWhereClause(ModelEntity modelEntity, List modelFields, Map<String, Object> fields, String operator, String joinStyle) throws GenericEntityException {
         StringBuilder whereString = new StringBuilder("");
 
-        if (modelFields != null && modelFields.size() > 0) {
+        if (UtilValidate.isNotEmpty(modelFields)) {
             whereString.append(makeWhereStringFromFields(modelFields, fields, "AND"));
         }
 
@@ -370,7 +370,7 @@ public class SqlJdbcUtil {
         StringBuilder sql = new StringBuilder("");
         //String fieldPrefix = includeTablenamePrefix ? (modelEntity.getTableName(datasourceInfo) + ".") : "";
 
-        if (orderBy != null && orderBy.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderBy)) {
             if (Debug.verboseOn()) Debug.logVerbose("Order by list contains: " + orderBy.size() + " entries.", module);
             OrderByList orderByList = new OrderByList(orderBy);
             orderByList.checkOrderBy(modelEntity);

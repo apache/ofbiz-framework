@@ -20,7 +20,6 @@ package org.ofbiz.base.component;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Properties;
@@ -29,6 +28,7 @@ import javax.xml.parsers.ParserConfigurationException;
 
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilURL;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.w3c.dom.Document;
@@ -83,7 +83,7 @@ public class ComponentLoaderConfig {
 
         Element root = document.getDocumentElement();
         List<? extends Element> toLoad = UtilXml.childElementList(root);
-        if (toLoad != null && toLoad.size() > 0) {
+        if (UtilValidate.isNotEmpty(toLoad)) {
             componentsFromConfig = new LinkedList<ComponentDef>();
             for (Element element: toLoad) {
                 componentsFromConfig.add(new ComponentDef(element));

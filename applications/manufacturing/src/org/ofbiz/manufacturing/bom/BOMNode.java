@@ -261,7 +261,7 @@ public class BOMNode {
                     if (newNode == oneChildNode) {
                         // If no substitution has been done (no valid rule applied),
                         // we try to set the default (first) node-substitution
-                        if (genericNodeRules != null && genericNodeRules.size() > 0) {
+                        if (UtilValidate.isNotEmpty(genericNodeRules)) {
                             // FIXME
                             //...
                         }

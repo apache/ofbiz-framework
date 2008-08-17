@@ -247,7 +247,7 @@ public abstract class ModelFormAction {
 
             if (!argListAcsr.isEmpty()) {
                 List<Object> argList = argListAcsr.get(context);
-                if (argList != null && argList.size() > 0) {
+                if (UtilValidate.isNotEmpty(argList)) {
                     value = MessageFormat.format(value, argList.toArray());
                 }
             }

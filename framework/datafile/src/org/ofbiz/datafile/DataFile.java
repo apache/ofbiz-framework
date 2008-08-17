@@ -32,6 +32,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilValidate;
 
 
 /**
@@ -231,7 +232,7 @@ public class DataFile {
                 throw new DataFileException("Could not write to stream;", e);
             }
 
-            if (record.getChildRecords() != null && record.getChildRecords().size() > 0) {
+            if (UtilValidate.isNotEmpty(record.getChildRecords())) {
                 writeRecords(outStream, record.getChildRecords());
             }
         }

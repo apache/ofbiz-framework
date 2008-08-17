@@ -462,8 +462,8 @@ public class ProductServices {
             }
             // filter the list by date
             productAssocs = EntityUtil.filterByDate(productAssocs);
-            // first check to see if there is a view allow category and if these producta are in it...
-            if (checkViewAllow && prodCatalogId != null && productAssocs != null && productAssocs.size() > 0) {
+            // first check to see if there is a view allow category and if these products are in it...
+            if (checkViewAllow && prodCatalogId != null && UtilValidate.isNotEmpty(productAssocs)) {
                 String viewProductCategoryId = CatalogWorker.getCatalogViewAllowCategoryId(delegator, prodCatalogId);
                 if (viewProductCategoryId != null) {
                     if (productIdTo == null) {
@@ -587,7 +587,7 @@ public class ProductServices {
             Object key = groupIterator.next();
             List itemList = (List) group.get(key);
 
-            if (itemList != null && itemList.size() > 0) {
+            if (UtilValidate.isNotEmpty(itemList)) {
                 Map subGroup = makeGroup(delegator, featureList, itemList, order, index + 1);
                 group.put(key, subGroup);
             } else {

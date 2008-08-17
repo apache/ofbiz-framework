@@ -26,6 +26,7 @@ import java.util.List;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -488,19 +489,19 @@ public class RecurrenceRule {
         cal.setTime(date);
 
         // Test each byXXX rule.
-        if (bySecondList != null && bySecondList.size() > 0) {
+        if (UtilValidate.isNotEmpty(bySecondList)) {
             if (!bySecondList.contains(String.valueOf(cal.get(Calendar.SECOND))))
                 return false;
         }
-        if (byMinuteList != null && byMinuteList.size() > 0) {
+        if (UtilValidate.isNotEmpty(byMinuteList)) {
             if (!byMinuteList.contains(String.valueOf(cal.get(Calendar.MINUTE))))
                 return false;
         }
-        if (byHourList != null && byHourList.size() > 0) {
+        if (UtilValidate.isNotEmpty(byHourList)) {
             if (!byHourList.contains(String.valueOf(cal.get(Calendar.HOUR_OF_DAY))))
                 return false;
         }
-        if (byDayList != null && byDayList.size() > 0) {
+        if (UtilValidate.isNotEmpty(byDayList)) {
             Iterator iter = byDayList.iterator();
             boolean foundDay = false;
 
@@ -569,7 +570,7 @@ public class RecurrenceRule {
                 return false;
             }
         }
-        if (byMonthDayList != null && byMonthDayList.size() > 0) {
+        if (UtilValidate.isNotEmpty(byMonthDayList)) {
             Iterator iter = byMonthDayList.iterator();
             boolean foundDay = false;
 
@@ -596,7 +597,7 @@ public class RecurrenceRule {
                 return false;
             }
         }
-        if (byYearDayList != null && byYearDayList.size() > 0) {
+        if (UtilValidate.isNotEmpty(byYearDayList)) {
             Iterator iter = byYearDayList.iterator();
             boolean foundDay = false;
 
@@ -620,7 +621,7 @@ public class RecurrenceRule {
             if (!foundDay)
                 return false;
         }
-        if (byWeekNoList != null && byWeekNoList.size() > 0) {
+        if (UtilValidate.isNotEmpty(byWeekNoList)) {
             Iterator iter = byWeekNoList.iterator();
             boolean foundWeek = false;
 
@@ -644,7 +645,7 @@ public class RecurrenceRule {
             if (!foundWeek)
                 return false;
         }
-        if (byMonthList != null && byMonthList.size() > 0) {
+        if (UtilValidate.isNotEmpty(byMonthList)) {
             Iterator iter = byMonthList.iterator();
             boolean foundMonth = false;
 

@@ -126,7 +126,7 @@ public class EntityFinderUtil {
     
     public static Set<String> makeFieldsToSelect(List<FlexibleStringExpander> selectFieldExpanderList, Map<String, Object> context) {
         Set<String> fieldsToSelect = null;
-        if (selectFieldExpanderList != null && selectFieldExpanderList.size() > 0) {
+        if (UtilValidate.isNotEmpty(selectFieldExpanderList)) {
             fieldsToSelect = new HashSet<String>();
             for (FlexibleStringExpander selectFieldExpander: selectFieldExpanderList) {
                 fieldsToSelect.add(selectFieldExpander.expandString(context));
@@ -137,7 +137,7 @@ public class EntityFinderUtil {
     
     public static List<String> makeOrderByFieldList(List<FlexibleStringExpander> orderByExpanderList, Map<String, Object> context) {
         List<String> orderByFields = null;
-        if (orderByExpanderList != null && orderByExpanderList.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderByExpanderList)) {
             orderByFields = new LinkedList<String>();
             for (FlexibleStringExpander orderByExpander: orderByExpanderList) {
                 orderByFields.add(orderByExpander.expandString(context));

@@ -60,7 +60,7 @@ public class RequirementServices {
                     EntityCondition.makeCondition("requirementTypeId", EntityOperator.EQUALS, "PRODUCT_REQUIREMENT"),
                     EntityUtil.getFilterByDateExpr()
                     );
-            if (statusIds != null && statusIds.size() > 0) {
+            if (UtilValidate.isNotEmpty(statusIds)) {
                 conditions.add( EntityCondition.makeCondition("statusId", EntityOperator.IN, statusIds) );
             } else {
                 conditions.add( EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "REQ_APPROVED") );

@@ -470,7 +470,7 @@ public class TransactionUtil implements Status {
 
     public static void logRunningTx() {
         if (debugResources) {
-            if (debugResMap != null && debugResMap.size() > 0) {
+            if (UtilValidate.isNotEmpty(debugResMap)) {
                 for (DebugXaResource dxa: debugResMap.values()) {
                     dxa.log();
                 }
@@ -518,7 +518,7 @@ public class TransactionUtil implements Status {
     }
     public static boolean suspendedTransactionsHeld() {
         List<Transaction> tl = suspendedTxStack.get();
-        if (tl != null && tl.size() > 0) {
+        if (UtilValidate.isNotEmpty(tl)) {
             return true;
         } else {
             return false;
@@ -536,7 +536,7 @@ public class TransactionUtil implements Status {
     }
     protected static Transaction popSuspendedTransaction() {
         List<Transaction> tl = suspendedTxStack.get();
-        if (tl != null && tl.size() > 0) {
+        if (UtilValidate.isNotEmpty(tl)) {
             // restore the transaction start stamp
             popTransactionStartStamp();
             return tl.remove(0);
@@ -546,7 +546,7 @@ public class TransactionUtil implements Status {
     }
     protected static void removeSuspendedTransaction(Transaction t) {
         List<Transaction> tl = suspendedTxStack.get();
-        if (tl != null && tl.size() > 0) {
+        if (UtilValidate.isNotEmpty(tl)) {
             tl.remove(t);
             popTransactionStartStamp(t);
         }
@@ -576,13 +576,13 @@ public class TransactionUtil implements Status {
     	// do the unofficial all threads Map one first, and don't do a real return
         Long curThreadId = Thread.currentThread().getId();
         List<Exception> ctEl = allThreadsTransactionBeginStackSave.get(curThreadId);
-        if (ctEl != null && ctEl.size() > 0) {
+        if (UtilValidate.isNotEmpty(ctEl)) {
             ctEl.remove(0);
         }
     	
     	// then do the more reliable ThreadLocal one
         List<Exception> el = transactionBeginStackSave.get();
-        if (el != null && el.size() > 0) {
+        if (UtilValidate.isNotEmpty(el)) {
             return el.remove(0);
         } else {
             return null;
@@ -620,7 +620,7 @@ public class TransactionUtil implements Status {
     		
 			Debug.logInfo(transactionBeginStack, "===================================================\n===================================================\n Current tx begin stack for thread [" + curThreadId + "]:", module);
     		
-    		if (txBeginStackList != null && txBeginStackList.size() > 0) {
+    		if (UtilValidate.isNotEmpty(txBeginStackList)) {
         		int stackLevel = 0;
         		for (Exception stack : txBeginStackList) {
         			Debug.logInfo(stack, "===================================================\n===================================================\n Tx begin stack history for thread [" + curThreadId + "] history number [" + stackLevel + "]:", module);
@@ -696,7 +696,7 @@ public class TransactionUtil implements Status {
     }
     private static RollbackOnlyCause popSetRollbackOnlyCauseSave() {
         List<RollbackOnlyCause> el = setRollbackOnlyCauseSave.get();
-        if (el != null && el.size() > 0) {
+        if (UtilValidate.isNotEmpty(el)) {
             return el.remove(0);
         } else {
             return null;

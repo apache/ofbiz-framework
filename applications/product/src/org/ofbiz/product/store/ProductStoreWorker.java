@@ -700,7 +700,7 @@ public class ProductStoreWorker {
                 return false;
             }
 
-            if (productFacilities != null && productFacilities.size() > 0) {
+            if (UtilValidate.isNotEmpty(productFacilities)) {
                 Iterator pfIter = productFacilities.iterator();
 
                 while (pfIter.hasNext()) {

@@ -59,7 +59,7 @@ public class MasterIf extends MethodOperation {
         SimpleMethod.readOperations(thenElement, thenSubOps, simpleMethod);
         
         List<? extends Element> elseIfElements = UtilXml.childElementList(element, "else-if");
-        if (elseIfElements != null && elseIfElements.size() > 0) {
+        if (UtilValidate.isNotEmpty(elseIfElements)) {
             elseIfs = FastList.newInstance();
             for (Element elseIfElement: elseIfElements) {
                 elseIfs.add(new ElseIf(elseIfElement, simpleMethod));
@@ -85,7 +85,7 @@ public class MasterIf extends MethodOperation {
             return SimpleMethod.runSubOps(thenSubOps, methodContext);
         } else {
             // try the else-ifs
-            if (elseIfs != null && elseIfs.size() > 0) {
+            if (UtilValidate.isNotEmpty(elseIfs)) {
                 for (ElseIf elseIf: elseIfs) {
                     if (elseIf.checkCondition(methodContext)) {
                         return elseIf.runSubOps(methodContext);

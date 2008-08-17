@@ -1430,7 +1430,7 @@ public class OrderReadHelper {
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }                         
-            if (receipts != null && receipts.size() > 0) {
+            if (UtilValidate.isNotEmpty(receipts)) {
                 Iterator recIter = receipts.iterator();
                 while (recIter.hasNext()) {
                     GenericValue rec = (GenericValue) recIter.next();
@@ -1468,7 +1468,7 @@ public class OrderReadHelper {
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }                         
-            if (receipts != null && receipts.size() > 0) {
+            if (UtilValidate.isNotEmpty(receipts)) {
                 Iterator recIter = receipts.iterator();
                 while (recIter.hasNext()) {
                     GenericValue rec = (GenericValue) recIter.next();
@@ -1534,7 +1534,7 @@ public class OrderReadHelper {
                                 Debug.logError(e, "Unable to get OrderItemBilling from OrderItem");
                             }
 
-                            if (orderItemBillings != null && orderItemBillings.size() > 0) {
+                            if (UtilValidate.isNotEmpty(orderItemBillings)) {
                                 // get the ProductContent records
                                 List productContents = null;
                                 try {
@@ -1550,7 +1550,7 @@ public class OrderReadHelper {
                                 productContents = EntityUtil.filterByDate(productContents);
                                 productContents = EntityUtil.filterByOr(productContents, cExprs);
 
-                                if (productContents != null && productContents.size() > 0) {
+                                if (UtilValidate.isNotEmpty(productContents)) {
                                     // make sure we are still within the allowed timeframe and use limits
                                     Iterator pci = productContents.iterator();
                                     while (pci.hasNext()) {
@@ -2356,7 +2356,7 @@ public class OrderReadHelper {
     public static BigDecimal calcOrderAdjustments(List orderHeaderAdjustments, BigDecimal subTotal, boolean includeOther, boolean includeTax, boolean includeShipping) {
         BigDecimal adjTotal = ZERO;
 
-        if (orderHeaderAdjustments != null && orderHeaderAdjustments.size() > 0) {
+        if (UtilValidate.isNotEmpty(orderHeaderAdjustments)) {
             List filteredAdjs = filterOrderAdjustments(orderHeaderAdjustments, includeOther, includeTax, includeShipping, false, false);
             Iterator adjIt = filteredAdjs.iterator();
 
@@ -2577,7 +2577,7 @@ public class OrderReadHelper {
     public static BigDecimal calcItemAdjustments(BigDecimal quantity, BigDecimal unitPrice, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
         BigDecimal adjTotal = ZERO;
 
-        if (adjustments != null && adjustments.size() > 0) {
+        if (UtilValidate.isNotEmpty(adjustments)) {
             List filteredAdjs = filterOrderAdjustments(adjustments, includeOther, includeTax, includeShipping, forTax, forShipping);
             Iterator adjIt = filteredAdjs.iterator();
 
@@ -2593,7 +2593,7 @@ public class OrderReadHelper {
     public static BigDecimal calcItemAdjustmentsRecurringBd(BigDecimal quantity, BigDecimal unitPrice, List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
         BigDecimal adjTotal = ZERO;
 
-        if (adjustments != null && adjustments.size() > 0) {
+        if (UtilValidate.isNotEmpty(adjustments)) {
             List filteredAdjs = filterOrderAdjustments(adjustments, includeOther, includeTax, includeShipping, forTax, forShipping);
             Iterator adjIt = filteredAdjs.iterator();
 
@@ -2634,7 +2634,7 @@ public class OrderReadHelper {
     public static List filterOrderAdjustments(List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
         List newOrderAdjustmentsList = FastList.newInstance();
 
-        if (adjustments != null && adjustments.size() > 0) {
+        if (UtilValidate.isNotEmpty(adjustments)) {
             Iterator adjIt = adjustments.iterator();
 
             while (adjIt.hasNext()) {
@@ -2685,7 +2685,7 @@ public class OrderReadHelper {
             Debug.logError(e, module);
         }
 
-        if (openOrders != null && openOrders.size() > 0) {
+        if (UtilValidate.isNotEmpty(openOrders)) {
             Iterator i = openOrders.iterator();
             while (i.hasNext()) {
                 GenericValue order = (GenericValue) i.next();

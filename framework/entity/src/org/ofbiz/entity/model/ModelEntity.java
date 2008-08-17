@@ -501,7 +501,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
     public String getFirstPkFieldName() {
         List<String> pkFieldNames = this.getPkFieldNames();
         String idFieldName = null;
-        if (pkFieldNames != null && pkFieldNames.size() > 0) {
+        if (UtilValidate.isNotEmpty(pkFieldNames)) {
             idFieldName = pkFieldNames.get(0);
         }
         return idFieldName;

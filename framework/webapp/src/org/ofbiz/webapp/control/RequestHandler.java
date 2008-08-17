@@ -332,7 +332,7 @@ public class RequestHandler implements Serializable {
             request.getSession().removeAttribute("_REQ_ATTR_MAP_");
             byte[] reqAttrMapBytes = StringUtil.fromHexString(preReqAttStr);
             Map<String, Object> preRequestMap = checkMap(UtilObject.getObject(reqAttrMapBytes), String.class, Object.class);
-            if (preRequestMap != null && preRequestMap.size() > 0) {
+            if (UtilValidate.isNotEmpty(preRequestMap)) {
                 for (Map.Entry<String, Object> entry: preRequestMap.entrySet()) {
                     String key = entry.getKey();
                     if("_ERROR_MESSAGE_LIST_".equals(key) || "_ERROR_MESSAGE_MAP_".equals(key) || "_ERROR_MESSAGE_".equals(key) ||
@@ -454,7 +454,7 @@ public class RequestHandler implements Serializable {
     public String makeQueryString(HttpServletRequest request) {
         Map<String, Object> paramMap = UtilHttp.getParameterMap(request);
         StringBuilder queryString = new StringBuilder();
-        if (paramMap != null && paramMap.size() > 0) {
+        if (UtilValidate.isNotEmpty(paramMap)) {
             queryString.append("?");
             for (Map.Entry<String, Object> entry: paramMap.entrySet()) {
                 String name = entry.getKey();

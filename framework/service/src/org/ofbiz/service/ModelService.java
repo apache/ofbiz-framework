@@ -551,7 +551,7 @@ public class ModelService extends AbstractMap implements Serializable {
             Object testObject = test.get(key);
             String infoType = info.get(key);
 
-            if (param.validators != null && param.validators.size() > 0) {
+            if (UtilValidate.isNotEmpty(param.validators)) {
                 for (ModelParam.ModelParamValidator val: param.validators) {
                     if (UtilValidate.isNotEmpty(val.getMethodName())) {
                         try {
@@ -773,13 +773,13 @@ public class ModelService extends AbstractMap implements Serializable {
                 // internal map of strings
                 if (param.stringMapPrefix != null && param.stringMapPrefix.length() > 0 && !source.containsKey(key)) {
                     Map<String, Object> paramMap = this.makePrefixMap(source, param);
-                    if (paramMap != null && paramMap.size() > 0) {
+                    if (UtilValidate.isNotEmpty(paramMap)) {
                         target.put(key, paramMap);
                     }
                 // internal list of strings
                 } else if (param.stringListSuffix != null && param.stringListSuffix.length() > 0 && !source.containsKey(key)) {
                     List<Object> paramList = this.makeSuffixList(source, param);
-                    if (paramList != null && paramList.size() > 0) {
+                    if (UtilValidate.isNotEmpty(paramList)) {
                         target.put(key, paramList);
                     }
                 // other attributes
@@ -1034,7 +1034,7 @@ public class ModelService extends AbstractMap implements Serializable {
             }
 
             // handle any override parameters
-            if (overrideParameters != null && overrideParameters.size() > 0) {
+            if (UtilValidate.isNotEmpty(overrideParameters)) {
                 for (ModelParam overrideParam: overrideParameters) {
                     ModelParam existingParam = contextInfo.get(overrideParam.name);
 

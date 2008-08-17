@@ -430,7 +430,7 @@ public class UtilProperties implements java.io.Serializable {
         if (value == null || value.length() == 0) {
             return "";
         } else {
-            if (arguments != null && arguments.size() > 0) {
+            if (UtilValidate.isNotEmpty(arguments)) {
                 value = MessageFormat.format(value, arguments.toArray());
             }
             return value;
@@ -455,7 +455,7 @@ public class UtilProperties implements java.io.Serializable {
         if (value == null || value.length() == 0) {
             return "";
         } else {
-            if (context != null && context.size() > 0) {
+            if (UtilValidate.isNotEmpty(context)) {
                 value = FlexibleStringExpander.expandString(value, context, locale);
             }
             return value;

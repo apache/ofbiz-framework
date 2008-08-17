@@ -176,7 +176,7 @@ public class CategoryWorker {
             Debug.logWarning(e.getMessage(), module);
             rollups = null;
         }
-        if (rollups != null && rollups.size() > 0) {
+        if (UtilValidate.isNotEmpty(rollups)) {
             // Debug.log("Rollup size: " + rollups.size(), module);
             Iterator ri = rollups.iterator();
 
@@ -387,7 +387,7 @@ public class CategoryWorker {
     public static String lastTrailItem(ServletRequest request) {
         List crumb = getTrail(request);
 
-        if (crumb != null && crumb.size() > 0) {
+        if (UtilValidate.isNotEmpty(crumb)) {
             return (String) crumb.get(crumb.size() - 1);
         } else {
             return null;
@@ -405,7 +405,7 @@ public class CategoryWorker {
             GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
             List productAssocs = ProductWorker.getVariantVirtualAssocs(product);
             //this does take into account that a product could be a variant of multiple products, but this shouldn't ever really happen...
-            if (productAssocs != null && productAssocs.size() > 0) {
+            if (UtilValidate.isNotEmpty(productAssocs)) {
                 Iterator pasIter = productAssocs.iterator();
                 while (pasIter.hasNext()) {
                     GenericValue productAssoc = (GenericValue) pasIter.next();

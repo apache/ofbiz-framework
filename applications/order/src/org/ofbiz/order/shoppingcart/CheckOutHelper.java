@@ -85,7 +85,7 @@ public class CheckOutHelper {
         Map result;
         String errMsg = null;
 
-        if (this.cart != null && this.cart.size() > 0) {
+        if (UtilValidate.isNotEmpty(this.cart)) {
             errorMessages.addAll(setCheckOutShippingAddressInternal(shippingContactMechId));
         } else {
             errMsg = UtilProperties.getMessage(resource,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -124,7 +124,7 @@ public class CheckOutHelper {
         Map result;
         String errMsg = null;
 
-        if (this.cart != null && this.cart.size() > 0) {
+        if (UtilValidate.isNotEmpty(this.cart)) {
             errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, shippingInstructions, 
                     orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate));
         } else {
@@ -219,7 +219,7 @@ public class CheckOutHelper {
         Map result;
         String errMsg = null;
 
-        if (this.cart != null && this.cart.size() > 0) {
+        if (UtilValidate.isNotEmpty(this.cart)) {
             errorMessages.addAll(setCheckOutPaymentInternal(selectedPaymentMethods, singleUsePayments, billingAccountId));
         } else {
             errMsg = UtilProperties.getMessage(resource,"checkhelper.no_items_in_cart", (cart != null ? cart.getLocale() : Locale.getDefault()));
@@ -246,7 +246,7 @@ public class CheckOutHelper {
         }
 
         // set the payment method option
-        if (selectedPaymentMethods != null && selectedPaymentMethods.size() > 0) {
+        if (UtilValidate.isNotEmpty(selectedPaymentMethods)) {
             // clear out the old payments
             cart.clearPayments();
 
@@ -360,7 +360,7 @@ public class CheckOutHelper {
           Map result = null;
           String errMsg = null;
 
-          if (this.cart != null && this.cart.size() > 0) {
+          if (UtilValidate.isNotEmpty(this.cart)) {
               this.cart.setShipBeforeDate(shipBefore);
               this.cart.setShipAfterDate(shipAfter);
           } else {
@@ -388,7 +388,7 @@ public class CheckOutHelper {
         String errMsg = null;
 
 
-        if (this.cart != null && this.cart.size() > 0) {
+        if (UtilValidate.isNotEmpty(this.cart)) {
             // set the general shipping options and method
             errorMessages.addAll(setCheckOutShippingOptionsInternal(shippingMethod, shippingInstructions, 
                     orderAdditionalEmails, maySplit, giftMessage, isGift, internalCode, shipBeforeDate, shipAfterDate));
@@ -480,7 +480,7 @@ public class CheckOutHelper {
                 }   
             }                
             
-            if (selectedPaymentMethods != null && selectedPaymentMethods.size() > 0) {
+            if (UtilValidate.isNotEmpty(selectedPaymentMethods)) {
                 if (gcAmt == null || gcAmt.length() == 0) {
                     errMsg = UtilProperties.getMessage(resource,"checkhelper.enter_amount_to_place_on_gift_card", (cart != null ? cart.getLocale() : Locale.getDefault()));
                     errorMessages.add(errMsg);
@@ -905,7 +905,7 @@ public class CheckOutHelper {
         // check for online payment methods or in-hand payment types with verbal or external refs
         List exprs = UtilMisc.toList(EntityCondition.makeCondition("manualRefNum", EntityOperator.NOT_EQUAL, null));
         List manualRefPaymentPrefs = EntityUtil.filterByAnd(allPaymentPreferences, exprs);
-        if (manualRefPaymentPrefs != null && manualRefPaymentPrefs.size() > 0) {
+        if (UtilValidate.isNotEmpty(manualRefPaymentPrefs)) {
             Iterator i = manualRefPaymentPrefs.iterator();
             while (i.hasNext()) {
                 GenericValue opp = (GenericValue) i.next();
@@ -955,7 +955,7 @@ public class CheckOutHelper {
 
         // Check the payment preferences; if we have ANY w/ status PAYMENT_NOT_AUTH invoke payment service.
         // Invoke payment processing.
-        if (onlinePaymentPrefs != null && onlinePaymentPrefs.size() > 0) {
+        if (UtilValidate.isNotEmpty(onlinePaymentPrefs)) {
             boolean autoApproveOrder = UtilValidate.isEmpty(productStore.get("autoApproveOrder")) || "Y".equalsIgnoreCase(productStore.getString("autoApproveOrder"));
             if (orderTotal == 0 && autoApproveOrder) {
                 // if there is nothing to authorize; don't bother
@@ -1210,7 +1210,7 @@ public class CheckOutHelper {
             }
         }
 
-        if (blacklistFound != null && blacklistFound.size() > 0) {
+        if (UtilValidate.isNotEmpty(blacklistFound)) {
             return ServiceUtil.returnFailure(UtilProperties.getMessage(resource_error,"OrderFailed", (cart != null ? cart.getLocale() : Locale.getDefault())));
         } else {
             return ServiceUtil.returnSuccess("success");
@@ -1272,7 +1272,7 @@ public class CheckOutHelper {
                 result = ServiceUtil.returnError(errMsg);
                 return result;
             }
-            if (paymentPrefs != null && paymentPrefs.size() > 0) {
+            if (UtilValidate.isNotEmpty(paymentPrefs)) {
                 if (paymentPrefs.size() > 1) {
                     Debug.logError("Too many payment preferences, you cannot have more then one when using external gateways", module);
                 }
