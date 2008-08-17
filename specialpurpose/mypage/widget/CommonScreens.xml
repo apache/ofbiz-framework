@@ -288,6 +288,8 @@ under the License.
                 <screenlet title="${uiLabelMap.MyCustRequests}" navigation-form-name="ListRequestList" >
                     <include-form name="ListCustRequests" location="component://mypage/widget/MyPageForms.xml"/>
                 </screenlet>
+                <include-screen name="MyCommunications"
+                        location="component://mypage/widget/MyPageScreens.xml"/>
             </widgets>
         </section>
     </screen>

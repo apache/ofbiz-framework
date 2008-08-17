@@ -104,20 +104,17 @@ under the License.
         </menu-item>
     </menu>
     <menu name="communicationsMenu">
-        <actions>
-        <entity-and entity-name="PartyContactDetailByPurpose" filter-by-date="true" list-name="emails">
-            <field-map field-name="partyId" env-name="userLogin.partyId"/>
-            <field-map field-name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
-        </entity-and>
-        </actions>
         <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
             <condition>
-                <not><if-empty field-name="emails"/></not>
+                <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
             </condition>      
             <link
                 target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}" />
         </menu-item>
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <condition>
+                <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+            </condition>      
             <link
                 target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}" />
         </menu-item>
