@@ -40,9 +40,11 @@ under the License.
     <SecurityPermission description="Create party quals in the Party Manager." permissionId="PARTYMGR_QAL_CREATE"/>
     <SecurityPermission description="Update party quals in the Party Manager." permissionId="PARTYMGR_QAL_UPDATE"/>
     <SecurityPermission description="Delete party quals in the Party Manager." permissionId="PARTYMGR_QAL_DELETE"/>
-    <SecurityPermission description="Create communication event." permissionId="PARTYMGR_CME_CREATE"/>
-    <SecurityPermission description="Update communication event." permissionId="PARTYMGR_CME_UPDATE"/>
-    <SecurityPermission description="Delete communication event." permissionId="PARTYMGR_CME_DELETE"/>
+    <SecurityPermission description="Create communication event, any from/to party." permissionId="PARTYMGR_CME_CREATE"/>
+    <SecurityPermission description="Update communication event, any from/to party." permissionId="PARTYMGR_CME_UPDATE"/>
+    <SecurityPermission description="Delete communication event, any from/to party." permissionId="PARTYMGR_CME_DELETE"/>
+    <SecurityPermission description="Can create Email communication events for logged-in user." permissionId="PARTYMGR_CME-EMAIL_CREATE"/>
+    <SecurityPermission description="Can create Internal note communication event for logged-in user." permissionId="PARTYMGR_COM-NOTE_CREATE"/>
 
     <SecurityGroup description="Party Admin group, has all party permissions." groupId="PARTYADMIN"/>
     <SecurityGroupPermission groupId="PARTYADMIN" permissionId="PARTYMGR_ADMIN"/>
