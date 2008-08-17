@@ -255,7 +255,6 @@
     <request-map uri="EditTaskAndAssoc">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskAndAssoc"/>
-        <response name="error" type="view" value="EditTaskAndAssoc"/>
     </request-map>
     <request-map uri="createTaskAndAssoc">
         <security https="true" auth="true"/>
@@ -272,7 +271,6 @@
     <request-map uri="Dependencies">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="Dependencies"/>
-        <response name="error" type="view" value="Dependencies"/>
     </request-map>
     <request-map uri="MyTasks">
         <security https="true" auth="true"/>
@@ -298,7 +296,6 @@
     <request-map uri="EditTaskListAndAssoc">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskListAndAssoc"/>
-        <response name="error" type="view" value="EditTaskListAndAssoc"/>
     </request-map>
     <request-map uri="createTaskListAndAssoc">
         <security https="true" auth="true"/>
@@ -373,7 +370,6 @@
     <request-map uri="projectView">
         <security https="true" auth="true"/>        
         <response name="success" type="view" value="projectView"/>
-        <response name="error" type="view" value="projectView"/>
     </request-map>
     <request-map uri="createWeeklyTimesheet">
         <security https="true" auth="true"/>
@@ -384,7 +380,6 @@
     <request-map uri="addWeeklyTimesheet">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="addWeeklyTimesheet"/>
-        <response name="error" type="view" value="addWeeklyTimesheet"/>
     </request-map>
     <request-map uri="createMyWeeklyTimesheet">
         <security https="true" auth="true"/>
@@ -395,12 +390,10 @@
     <request-map uri="MyTimesheet">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="MyTimesheet"/>
-        <response name="error" type="view" value="MyTimesheet"/>
     </request-map>
     <request-map uri="EditTimeEntries">
         <security https="true" auth="true"/>        
         <response name="success" type="view" value="EditTimeEntries"/>
-        <response name="error" type="view" value="EditTimeEntries"/>     
     </request-map>
     <request-map uri="createTimeEntry">
         <security https="true" auth="true"/>
@@ -435,12 +428,10 @@
     <request-map uri="FindTimeSheet">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindTimeSheet"/>
-        <response name="error" type="view" value="FindTimeSheet"/>
     </request-map>
     <request-map uri="EditTimeSheet">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTimeSheet"/>
-        <response name="error" type="view" value="FindTimeSheet"/>
     </request-map>
     <request-map uri="createTimesheets">
         <security https="true" auth="true"/>
@@ -457,7 +448,6 @@
     <request-map uri="EditTaskNotes">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskNotes"/>
-        <response name="error" type="view" value="EditTaskNotes"/>
     </request-map>
     <request-map uri="createTaskNote">
         <security https="true" auth="true"/>
@@ -486,12 +476,10 @@
     <request-map uri="taskView">
         <security https="true" auth="true"/>        
         <response name="success" type="view" value="taskView"/>
-        <response name="error" type="view" value="taskView"/>
     </request-map>
     <request-map uri="newNotesForProject">
         <security https="true" auth="true"/>        
         <response name="success" type="view" value="projectView"/>
-        <response name="error" type="view" value="projectView"/>
     </request-map>
     <request-map uri="createNewNotesForProject">
         <security https="true" auth="true"/>
@@ -502,7 +490,6 @@
     <request-map uri="newNotesForTask">
         <security https="true" auth="true"/>        
         <response name="success" type="view" value="taskView"/>
-        <response name="error" type="view" value="taskView"/>
     </request-map>
     <request-map uri="createNewNotesForTask">
         <security https="true" auth="true"/>
@@ -529,7 +516,6 @@
     <request-map uri="Timesheet">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="Timesheet"/>
-        <response name="error" type="view" value="Timesheet"/>
     </request-map>
     <request-map uri="TimeSheetStatustoComplete">
         <security https="true" auth="true"/>
@@ -586,17 +572,14 @@
     <request-map uri="listResourcesTask">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="listResourcesTask"/>
-        <response name="error" type="view" value="listResourcesTask"/>
     </request-map>
     <request-map uri="listResourcesProject">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="listResourcesProject"/>
-        <response name="error" type="view" value="listResourcesProject"/>
     </request-map>
     <request-map uri="ListResourcesUnBilledHours">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListResourcesUnBilledHours"/>
-        <response name="error" type="view" value="ListResourcesUnBilledHours"/>
     </request-map>
     <request-map uri="editperson"><security https="true" auth="true"/><response name="success" type="view" value="EditPerson"/></request-map>
     <request-map uri="updatePerson">

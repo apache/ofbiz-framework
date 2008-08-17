@@ -37,7 +37,6 @@
     <request-map uri="printFixedAssetMaint.pdf">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="PrintFixedAssetMaint"/>
-        <response name="error" type="view" value="EditFixedAssetMaint"/>
     </request-map>
     <request-map uri="createFixedAssetMaintUpdateWorkEffort">
         <security https="true" auth="true"/>
@@ -54,7 +53,6 @@
     <request-map uri="findFixedAssetMaints">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindFixedAssetMaints"/>
-        <response name="error" type="view" value="FindFixedAssetMaints"/>
     </request-map>
     <request-map uri="ListFixedAssetCalendar">
         <security https="true" auth="true"/>
@@ -66,7 +64,6 @@
     <request-map uri="EditWorkEfforts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditWorkEfforts"/>
-        <response name="error" type="view" value="EditWorkEfforts"/>
     </request-map>
     <request-map uri="createWorkEffort">
         <security https="true" auth="true"/>
@@ -108,7 +105,6 @@
     <request-map uri="EditItemIssuances">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditItemIssuances"/>
-        <response name="error" type="view" value="EditItemIssuances"/>
     </request-map>
     <request-map uri="issueInventoryItemToFixedAssetMaint">
         <security https="true" auth="true"/>

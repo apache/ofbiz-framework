@@ -355,12 +355,10 @@ under the License.
     <request-map uri="TrackingCodeReport">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="TrackingCodeReport"/>
-        <response name="error"   type="view" value="MarketingReport"/>
     </request-map>
     <request-map uri="MarketingCampaignReport">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="MarketingCampaignReport"/>
-        <response name="error"   type="view" value="MarketingReport"/>
     </request-map>
     
     <!-- end of request mappings -->

@@ -44,13 +44,11 @@ under the License.
     <request-map uri="view">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
 
     <request-map uri="authview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
 
     <request-map uri="main">
@@ -85,7 +83,6 @@ under the License.
     <request-map uri="confirmationmailedit">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="SendConfirmationMail"/>
-        <response name="error" type="view" value="orderview"/>
     </request-map>
     <request-map uri="sendconfirmationmail">
         <security https="true" auth="true"/>
@@ -361,13 +358,13 @@ under the License.
     </request-map>
     <request-map uri="setOrderAgreement">
         <security https="true" auth="true"/>
-         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="selectAgreement"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="selectAgreement"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderagreements"/>
     </request-map>
     <request-map uri="setOrderCurrency">
         <security https="true" auth="true"/>
-         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setCurrency"/>
+        <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="setCurrency"/>
         <response name="success" type="request" value="orderentry"/>
         <response name="error" type="request" value="orderagreements"/>
     </request-map>
@@ -447,12 +444,10 @@ under the License.
     <request-map uri="viewPartyShoppingLists">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="viewshoppinglists"/>
-        <response name="error" type="view" value="checkinits"/>
     </request-map>
     <request-map uri="addFromShoppingList">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="addfromshoppinglist"/>
-        <response name="error" type="view" value="checkinits"/>
     </request-map>
     <request-map uri="addAllFromShoppingList">
         <security https="true" auth="true"/>

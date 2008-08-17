@@ -563,7 +563,6 @@ under the License.
     <request-map uri="EditElectronicText">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="EditElectronicText"/>
-        <response name="error" type="view" value="main"/>
     </request-map>
     <request-map uri="EditHtmlText">
         <security auth="true" https="true"/>

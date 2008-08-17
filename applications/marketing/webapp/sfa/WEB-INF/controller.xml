@@ -34,7 +34,6 @@ under the License.
     <request-map uri="FindOpportunity">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindOpportunity"/>
-        <response name="error" type="view" value="FindOpportunity"/>
     </request-map>
     <request-map uri="ViewOpportunity">
         <security https="true" auth="true"/>
@@ -43,7 +42,6 @@ under the License.
     <request-map uri="EditOpportunity">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditOpportunity"/>
-        <response name="error" type="view" value="EditOpportunity"/>
     </request-map>
     <request-map uri="createOpportunity">
         <security https="true" auth="true"/>
@@ -62,7 +60,6 @@ under the License.
     <request-map uri="FindAccounts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindAccounts"/>
-        <response name="error" type="view" value="FindAccounts"/>
     </request-map>
     <request-map uri="NewAccounts">
         <security https="true" auth="true"/>
@@ -107,7 +104,6 @@ under the License.
     <request-map uri="viewLead">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="viewLead"/>
-        <response name="error" type="view" value="FindLeads"/>
     </request-map>
     <request-map uri="MergeLeads">
         <security https="true" auth="true"/>
@@ -188,7 +184,6 @@ under the License.
     <request-map uri="EditSalesForecast">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditSalesForecast"/>
-        <response name="error" type="view" value="EditSalesForecast"/>
     </request-map>
     <request-map uri="createSalesForecast">
         <security https="true" auth="true"/>

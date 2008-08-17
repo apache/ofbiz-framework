@@ -102,7 +102,6 @@ under the License.
     <request-map uri="view">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
     <request-map uri="chain">
         <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
@@ -148,7 +147,6 @@ under the License.
     <request-map uri="entityrefReport">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="entityrefReport"/>
-        <response name="error" type="view" value="main"/>
     </request-map>
 
     <request-map uri="ModelWriter">
@@ -219,7 +217,6 @@ under the License.
     <request-map uri="FindUtilCacheElements">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindUtilCacheElements"/>
-        <response name="error" type="view" value="FindUtilCacheElements"/>
     </request-map>
     <request-map uri="FindUtilCacheElementsRemoveElement">
         <security https="true" auth="true"/>
@@ -395,7 +392,6 @@ under the License.
     <request-map uri="EntitySQLProcessor">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EntitySQLProcessor"/>
-        <response name="error" type="view" value="EntitySQLProcessor"/>
     </request-map>
 
     <!-- Entity Export/Import requests -->
@@ -406,21 +402,21 @@ under the License.
         <response name="success" type="view" value="EntityExportAll"/>
         <response name="error" type="view" value="EntityExportAll"/>
     </request-map>
-    <request-map uri="EntityImportDir"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportDir"/><response name="error" type="view" value="EntityImportDir"/></request-map>
+    <request-map uri="EntityImportDir"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportDir"/></request-map>
     <request-map uri="entityImportDir">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="entityImportDir"/>
         <response name="success" type="view" value="EntityImportDir"/>
         <response name="error" type="view" value="EntityImportDir"/>
     </request-map>
-    <request-map uri="EntityImport"><security https="true" auth="true"/><response name="success" type="view" value="EntityImport"/><response name="error" type="view" value="EntityImport"/></request-map>
+    <request-map uri="EntityImport"><security https="true" auth="true"/><response name="success" type="view" value="EntityImport"/></request-map>
     <request-map uri="entityImport">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="entityImport"/>
         <response name="success" type="view" value="EntityImport"/>
         <response name="error" type="view" value="EntityImport"/>
     </request-map>
-    <request-map uri="EntityImportReaders"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportReaders"/><response name="error" type="view" value="EntityImport"/></request-map>
+    <request-map uri="EntityImportReaders"><security https="true" auth="true"/><response name="success" type="view" value="EntityImportReaders"/></request-map>
     <request-map uri="entityImportReaders">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="entityImportReaders"/>

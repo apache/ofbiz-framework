@@ -43,12 +43,10 @@ under the License.
     <request-map uri="view">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
     <request-map uri="authview">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
     
     <request-map uri="changeDelegator">
@@ -191,7 +189,6 @@ under the License.
     <request-map uri="editInvoiceItem">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="listInvoiceItems"/>
-        <response name="error" type="view" value="listInvoiceItems"/>
     </request-map>    
     <request-map uri="createInvoiceItem">
         <security https="true" auth="true"/>
@@ -224,7 +221,6 @@ under the License.
     <request-map uri="editInvoiceApplications">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="editInvoiceApplications"/>
-        <response name="error" type="view" value="editInvoiceApplications"/>
     </request-map>
     <request-map uri="updateInvoiceApplication">
         <security https="true" auth="true"/>
@@ -625,7 +621,6 @@ under the License.
     <request-map uri="editPartyGlAccounts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartyGlAccount"/>
-        <response name="error" type="view" value="EditPartyGlAccount"/>
     </request-map> 
 
     <request-map uri="createPartyGlAccount">
@@ -773,7 +768,6 @@ under the License.
     <request-map uri="EditFixedAssetIdents">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFixedAssetIdents"/>
-        <response name="error" type="view" value="EditFixedAssetIdents"/>
     </request-map>
     <request-map uri="createFixedAssetIdent">
         <security https="true" auth="true"/>
@@ -798,7 +792,6 @@ under the License.
     <request-map uri="EditFixedAssetRegistrations">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFixedAssetRegistrations"/>
-        <response name="error" type="view" value="EditFixedAssetRegistrations"/>
     </request-map>
     <request-map uri="createFixedAssetRegistration">
         <security https="true" auth="true"/>
@@ -822,7 +815,6 @@ under the License.
     <request-map uri="EditFixedAssetMeters">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFixedAssetMeters"/>
-        <response name="error" type="view" value="EditFixedAssetMeters"/>
     </request-map>
     <request-map uri="createFixedAssetMeter">
         <security https="true" auth="true"/>
@@ -846,7 +838,6 @@ under the License.
     <request-map uri="ListFixedAssetMaints">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListFixedAssetMaints"/>
-        <response name="error" type="view" value="ListFixedAssetMaints"/>
     </request-map>
     <request-map uri="EditFixedAssetMaint">
         <security https="true" auth="true"/>
@@ -904,7 +895,6 @@ under the License.
     <request-map uri="EditFixedAssetMaintOrders">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFixedAssetMaintOrders"/>
-        <response name="error" type="view" value="EditFixedAssetMaintOrders"/>
     </request-map>
     <request-map uri="createFixedAssetMaintOrder">
         <security https="true" auth="true"/>
@@ -1599,12 +1589,10 @@ under the License.
     <request-map uri="FindFinAccount">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindFinAccount"/>
-        <response name="error" type="view" value="FindFinAccount"/>
     </request-map>
     <request-map uri="EditFinAccount">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFinAccount"/>
-        <response name="error" type="view" value="EditFinAccount"/>
     </request-map>
     <request-map uri="createFinAccount">
         <security https="true" auth="true"/>
@@ -1663,7 +1651,6 @@ under the License.
     <request-map uri="EditFinAccountAuths">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditFinAccountAuths"/>
-        <response name="error" type="view" value="EditFinAccountAuths"/>
     </request-map>
     <request-map uri="createFinAccountAuth">
         <security https="true" auth="true"/>
@@ -1710,7 +1697,6 @@ under the License.
     <request-map uri="EditPartyFixedAssetAssignments">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditPartyFixedAssetAssignments"/>
-        <response name="error" type="view" value="EditPartyFixedAssetAssignments"/>
     </request-map>
     
     <request-map uri="createPartyFixedAssetAssignment">

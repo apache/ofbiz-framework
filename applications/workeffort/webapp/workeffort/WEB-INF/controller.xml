@@ -47,13 +47,11 @@ under the License.
     <request-map uri="view">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
 
     <request-map uri="chain">
         <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
         <response name="success" type="request" value="/view"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
 
     <request-map uri="main"><security https="true" auth="true"/><response name="success" type="view" value="mytasks"/></request-map>
@@ -482,7 +480,6 @@ under the License.
     <request-map uri="EditWorkEffortReviews">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditWorkEffortReviews"/>
-        <response name="error" type="view" value="EditWorkEffortReviews"/>
     </request-map>
     <request-map uri="createWorkEffortReview">
         <security https="true" auth="true"/>

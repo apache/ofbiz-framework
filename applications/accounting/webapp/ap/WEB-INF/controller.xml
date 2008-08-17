@@ -39,7 +39,6 @@ under the License.
     <request-map uri="editVendor">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditVendor"/>
-        <response name="error" type="view" value="EditVendor"/>
     </request-map>
     <request-map uri="createVendor">
         <security https="true" auth="true"/>

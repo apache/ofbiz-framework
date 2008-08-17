@@ -44,7 +44,6 @@ under the License.
     <request-map uri="view">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="main"/>
-        <response name="error" type="view" value="error"/>
     </request-map>
     <request-map uri="chain">
         <event type="java" path="org.ofbiz.webapp.event.TestEvent" invoke="test"/>
@@ -1617,7 +1616,6 @@ under the License.
     <request-map uri="EditSubscriptionCommEvent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditSubscriptionCommEvent"/>
-        <response name="error" type="view" value="EditSubscriptionCommEvent"/>
     </request-map>
     
     <request-map uri="createSubscriptionCommEvent">
@@ -2454,7 +2452,6 @@ under the License.
     <request-map uri="EditProductWorkEfforts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProductWorkEfforts"/>
-        <response name="error" type="view" value="EditProductWorkEfforts"/>
     </request-map>
 
     <request-map uri="createWorkEffortGoodStandard">
@@ -2502,7 +2499,6 @@ under the License.
     <request-map uri="EditVendorProduct">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditVendorProduct"/>
-        <response name="error" type="view" value="EditVendorProduct"/>
     </request-map>
     
     <request-map uri="createVendorProduct">

@@ -960,7 +960,6 @@ under the License.
     <request-map uri="editCarrierAccount">
         <security auth="true" https="true"/>
         <response name="success" type="view" value="editCarrierAccount"/>
-        <response name="error" type="view" value="editCarrierAccount"/>
     </request-map>    
     <request-map uri="createPartyCarrierAccount">
         <security auth="true" https="true"/>
