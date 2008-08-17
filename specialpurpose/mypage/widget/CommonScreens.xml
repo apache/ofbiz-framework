@@ -279,17 +279,40 @@ under the License.
     <screen name="mainCustomer">
         <section>
             <actions>
+                <set field="partyId" from-field="userLogin.partyId"/>
+                <set field="status" from-field="parameters.status" default-value="open"/>
+                <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
                 <entity-and list-name="custRequests" entity-name="CustRequestInfoAndWorkEffort">
                     <field-map field-name="fromPartyId" env-name="userLogin.partyId"/>
                     <order-by field-name="createdDate"/>
                 </entity-and>
+                <!-- only list internal notes to the customer do not show the incoming or outgoing emails: will confuse only -->
+                <entity-condition entity-name="CommunicationEventAndRole" list-name="commEvents">
+                    <condition-list combine="and">
+                        <condition-expr field-name="communicationEventTypeId" operator="equals" value="COMMENT_NOTE" />
+                        <condition-expr field-name="partyId" operator="equals" value="${partyId}" />
+                        <condition-list combine="or">
+                            <condition-expr field-name="roleStatusId"
+                                operator="not-equals" value="COM_ROLE_COMPLETED" />
+                            <condition-expr field-name="roleStatusId"
+                                operator="like" value="${status}" />
+                        </condition-list>
+                    </condition-list>
+                    <order-by field-name="-datetimeStarted" />
+                </entity-condition>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.MyCustRequests}" navigation-form-name="ListRequestList" >
                     <include-form name="ListCustRequests" location="component://mypage/widget/MyPageForms.xml"/>
                 </screenlet>
-                <include-screen name="MyCommunications"
-                        location="component://mypage/widget/MyPageScreens.xml"/>
+                <screenlet title="${uiLabelMap.CommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
+                    navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents"
+                    name="myComms">
+                    <include-menu name="communicationsMenu"
+                        location="component://mypage/widget/MyPageMenus.xml" />
+                    <include-form name="ListPartyCommEvents"
+                        location="component://mypage/widget/MyPageForms.xml" />
+                </screenlet>                
             </widgets>
         </section>
     </screen>
