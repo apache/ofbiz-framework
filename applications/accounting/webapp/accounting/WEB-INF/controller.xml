@@ -42,7 +42,7 @@ under the License.
     <!-- Request Mappings -->
     <request-map uri="view">
         <security https="true" auth="false"/>
-        <response name="success" type="view" value="main"/>
+        <response name="success" type="request" value="main"/>
     </request-map>
     <request-map uri="authview">
         <security https="true" auth="true"/>
@@ -1761,16 +1761,19 @@ under the License.
         <response name="success" type="view" value="EditAgreementRoles"/>
     </request-map>
     <request-map uri="createAgreementRole">
+        <security https="true" auth="true"/>    
         <event type="service" invoke="createAgreementRole"/>
         <response name="success" type="view" value="EditAgreementRoles"/>
         <response name="error" type="view" value="EditAgreementRoles"/>
     </request-map>
     <request-map uri="updateAgreementRole">
+        <security https="true" auth="true"/>    
         <event type="service" invoke="updateAgreementRole"/>
         <response name="success" type="view" value="EditAgreementRoles"/>
         <response name="error" type="view" value="EditAgreementRoles"/>
     </request-map>
     <request-map uri="deleteAgreementRole">
+        <security https="true" auth="true"/>    
         <event type="service" invoke="deleteAgreementRole"/>
         <response name="success" type="view" value="EditAgreementRoles"/>
         <response name="error" type="view" value="EditAgreementRoles"/>
