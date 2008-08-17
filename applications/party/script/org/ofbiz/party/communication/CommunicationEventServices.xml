@@ -239,8 +239,12 @@ under the License.
         <!-- check if role already exist, then ignore -->
         <entity-one entity-name="CommunicationEventRole" value-name="communicationEventRole" />
         <if-empty field="communicationEventRole">
+            <entity-one entity-name="UserLogin" value-name="sysUserLogin">
+                <field-map field-name="userLoginId" value="system"/>
+            </entity-one>
             <set-service-fields service-name="createPartyRole" map-name="parameters" to-map-name="partyRole"/>
-            <call-service service-name="createPartyRole" in-map-name="partyRole" />
+            <set field="partyRole.userLogin" from-field="sysUserLogin"/>
+            <call-service service-name="createPartyRole" in-map-name="partyRole" include-user-login="false"/>
             <make-value value-name="newEntity" entity-name="CommunicationEventRole" />
             <set-pk-fields map-name="parameters" value-name="newEntity" />
             <set-nonpk-fields map-name="parameters" value-name="newEntity" />
@@ -258,17 +262,19 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="removeCommunicationEventRole" short-description="Remove a CommunicationEventRole">
-        <entity-one entity-name="CommunicationEventRole" value-name="eventRole"/>        
-        <remove-value value-name="eventRole"/>
-        <if-compare field="parameters.deleteCommEventIfLast" operator="equals" value="Y">
-            <entity-and list-name="roles" entity-name="CommunicationEventRole">
-                <field-map field-name="communicationEventId" env-name="eventRole.communicationEventId"/>
-            </entity-and>
-            <if-empty field="roles">
-                <set-service-fields service-name="deleteCommunicationEvent" map-name="parameters" to-map-name="inMapDel"/>
-                <call-service service-name="deleteCommunicationEvent" in-map-name="inMapDel"/>
-            </if-empty>
-        </if-compare>
+        <entity-one entity-name="CommunicationEventRole" value-name="eventRole"/>
+        <if-not-empty field="eventRole">
+            <remove-value value-name="eventRole"/>
+            <if-compare field="parameters.deleteCommEventIfLast" operator="equals" value="Y">
+                <entity-and list-name="roles" entity-name="CommunicationEventRole">
+                    <field-map field-name="communicationEventId" env-name="eventRole.communicationEventId"/>
+                </entity-and>
+                <if-empty field="roles">
+                    <set-service-fields service-name="deleteCommunicationEvent" map-name="parameters" to-map-name="inMapDel"/>
+                    <call-service service-name="deleteCommunicationEvent" in-map-name="inMapDel"/>
+                </if-empty>
+            </if-compare>
+        </if-not-empty>        
     </simple-method>
 
     <simple-method method-name="markEventRead" short-description="Marks a Communication Event as Read">
@@ -408,11 +414,11 @@ under the License.
                     <store-value value-name="communicationEvent"/>
                     <!-- if complete, set all role status fields to 'complete' (intentionally ignoring the status change checking)-->
                     <if-compare operator="equals" value="COM_COMPLETE" field="parameters.statusId">
-	                    <get-related value-name="communicationEvent" relation-name="CommunicationEventRole" list-name="updRoles"/>
-	                    <iterate entry-name="updRole" list-name="updRoles">
-	                        <set field="updRole.statusId" value="COM_ROLE_COMPLETED"/>
-	                        <store-value value-name="updRole"/>
-	                    </iterate>
+                        <get-related value-name="communicationEvent" relation-name="CommunicationEventRole" list-name="updRoles"/>
+                        <iterate entry-name="updRole" list-name="updRoles">
+                            <set field="updRole.statusId" value="COM_ROLE_COMPLETED"/>
+                            <store-value value-name="updRole"/>
+                        </iterate>
                     </if-compare>
                 </else>
             </if-empty>
