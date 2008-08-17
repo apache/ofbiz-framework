@@ -24,6 +24,7 @@ under the License.
     <div class="screenlet-body" style="text-align: center;">
         <form method="post" name="chooseLanguage" action="<@ofbizUrl>setSessionLocale</@ofbizUrl>" style="margin: 0;">
           <select name="newLocale" class="selectBox" style="width:95%" onchange="submit()">
+            <#assign availableLocales = Static["org.ofbiz.base.util.UtilMisc"].availableLocales()/>
             <#list availableLocales as availableLocale>
               <#assign langAttr = availableLocale.toString()?replace("_", "-")>
               <#assign langDir = "ltr">
