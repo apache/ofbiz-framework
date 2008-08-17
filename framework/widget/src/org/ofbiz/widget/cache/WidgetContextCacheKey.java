@@ -45,8 +45,6 @@ public class WidgetContextCacheKey {
         fieldNamesToSkip.add("userLogin");
         fieldNamesToSkip.add("screens");
         fieldNamesToSkip.add("nullField");
-        fieldNamesToSkip.add("availableLocales");
-        fieldNamesToSkip.add("availableTimeZones");
         fieldNamesToSkip.add("autoUserLogin");
         fieldNamesToSkip.add("person");
         fieldNamesToSkip.add("partyGroup");
