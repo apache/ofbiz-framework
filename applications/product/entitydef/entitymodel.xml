@@ -453,7 +453,7 @@ under the License.
             package-name="org.ofbiz.product.category"
             title="Product Category Rollup Entity">
       <field name="productCategoryId" type="id-ne"></field>
-      <field name="parentProductCategoryId" type="id-ne"></field>
+      <field name="parentProductCategoryId" type="id-ne"><description>The parent category; it should be one of productCategoryId already setup in ProductCategory or ProductCategoryRollup</description></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="sequenceNum" type="numeric"></field>
@@ -2401,7 +2401,7 @@ under the License.
             title="Product Entity">
       <field name="productId" type="id-ne"></field>
       <field name="productTypeId" type="id"></field>
-      <field name="primaryProductCategoryId" type="id"></field>
+      <field name="primaryProductCategoryId" type="id"><description>The primary category ; it should be one of the productCategoryId already setup in ProductCategoryMember</description></field>      
       <field name="manufacturerPartyId" type="id"></field>
       <field name="facilityId" type="id"></field>
       <field name="introductionDate" type="date-time"></field>
@@ -2426,9 +2426,7 @@ under the License.
       <field name="quantityIncluded" type="floating-point"></field>
       <field name="piecesIncluded" type="numeric"></field>
       <field name="requireAmount" type="indicator"></field>
-      <field name="fixedAmount" type="currency-amount">
-        <description>Use this for products which are sold in fixed denominations, such as gift certificates or calling cards.</description>
-      </field>
+      <field name="fixedAmount" type="currency-amount"><description>Use this for products which are sold in fixed denominations, such as gift certificates or calling cards.</description></field>
       <field name="amountUomTypeId" type="id"></field>
       <field name="weightUomId" type="id"></field>
       <field name="weight" type="floating-point"></field>
