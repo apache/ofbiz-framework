@@ -100,7 +100,7 @@ under the License.
                 <entity-and list-name="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
                     <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
                 </entity-and>
-                <get-related value-name="custRequest" relation-name="CustRequestRole" list-name="requestRoles"/>
+                <get-related value-name="custRequest" relation-name="CustRequestParty" list-name="requestParties"/>
                 <set field="orderBy[]" value="sequenceNum"/>
                 <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="custRequestItems" order-by-list-name="orderBy"/>
                 <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">

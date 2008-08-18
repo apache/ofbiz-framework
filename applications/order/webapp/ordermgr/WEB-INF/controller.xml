@@ -1119,15 +1119,21 @@ under the License.
     </request-map>
 
     <request-map uri="requestroles"><security https="true" auth="true"/><response name="success" type="view" value="RequestRoles"/></request-map>
-    <request-map uri="createrequestrole">
+    <request-map uri="createCustRequestParty">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createCustRequestRole"/>
+        <event type="service" invoke="createCustRequestParty"/>
         <response name="success" type="view" value="RequestRoles"/>
         <response name="error" type="view" value="RequestRoles"/>
     </request-map>
-    <request-map uri="removerequestrole">
+    <request-map uri="updateCustRequestParty">
         <security https="true" auth="true"/>
-        <event type="service" invoke="removeCustRequestRole"/>
+        <event type="service" invoke="updateCustRequestParty"/>
+        <response name="success" type="view" value="RequestRoles"/>
+        <response name="error" type="view" value="RequestRoles"/>
+    </request-map>
+    <request-map uri="deleteCustRequestParty">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteCustRequestParty"/>
         <response name="success" type="view" value="RequestRoles"/>
         <response name="error" type="view" value="RequestRoles"/>
     </request-map>

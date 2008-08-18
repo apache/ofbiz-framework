@@ -34,4 +34,15 @@ under the License.
             order/data/OrderTypeData.xml
         </description>
     </service>
+    <service name="migrateCustRequestRole" engine="simple"
+            location="org/ofbiz/order/UpgradeServices.xml" invoke="migrateCustRequestRole">
+        <description>
+            Migrate data from OldCustRequestRole to CustRequestParty.
+            Since revision 684647 (2008-08-11) the entity CustRequestRole has been deprecated.
+            This service can be used to upgrade existing data from the OldCustRequestRole entity to the new
+            CustRequestParty entity.
+            Before running this service, load the seed data for the RoleType entity from the file:
+            party/data/PartyTypeData.xml
+        </description>
+    </service>
 </services>

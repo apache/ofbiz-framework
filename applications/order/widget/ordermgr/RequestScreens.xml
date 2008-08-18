@@ -61,7 +61,7 @@ under the License.
                 <entity-and list-name="requestWorkEfforts" entity-name="CustRequestAndWorkEffort">
                     <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
                 </entity-and>
-                <get-related value-name="custRequest" relation-name="CustRequestRole" list-name="requestRoles"/>
+                <get-related value-name="custRequest" relation-name="CustRequestParty" list-name="requestParties"/>
                 <set field="orderBy[]" value="sequenceNum"/>
                 <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="custRequestItems" order-by-list-name="orderBy"/>
                 <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
@@ -131,7 +131,7 @@ under the License.
                 <set field="headerItem" value="request"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-name="custRequest"/>
-                <entity-and entity-name="CustRequestRole" list-name="custRequestRoles">
+                <entity-and entity-name="CustRequestParty" list-name="custRequestParties">
                     <field-map env-name="custRequestId" field-name="custRequestId"/>
                 </entity-and>
             </actions>
@@ -141,7 +141,7 @@ under the License.
                         <screenlet id="EditRequestRolePanel" title="${uiLabelMap.PageTitleEditRequestRoles}" collapsible="true">
                             <include-form name="EditRequestRole" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                         </screenlet>
-                        <include-form name="ListRequestRoles" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                        <include-form name="ListRequestParty" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

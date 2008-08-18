@@ -23,9 +23,9 @@ under the License.
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
          <#assign row = 1>
-         <#list requestRoles as requestRole>
-            <#assign roleType = requestRole.getRelatedOne("RoleType")>
-            <#assign party = requestRole.getRelatedOne("Party")>
+         <#list requestParties as requestParty>
+            <#assign roleType = requestParty.getRelatedOne("RoleType")>
+            <#assign party = requestParty.getRelatedOne("Party")>
               <tr>
                   <td align="right" valign="top" width="15%" class="label">
                       &nbsp;${roleType.get("description", locale)?if_exists}
@@ -35,7 +35,7 @@ under the License.
                       ${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(party)}
                   </td>
               </tr>
-              <#if requestRoles.size() != row>
+              <#if requestParties.size() != row>
                 <tr><td colspan="3"><hr/></td></tr>
               </#if>
               <#assign row = row + 1>

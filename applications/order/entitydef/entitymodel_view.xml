@@ -1168,7 +1168,7 @@ under the License.
             title="Customer Request And Role View Entity">
       <description>See CustRequest for descriptions of date fields</description>      
       <member-entity entity-alias="CR" entity-name="CustRequest"/>
-      <member-entity entity-alias="CRR" entity-name="CustRequestRole"/>
+      <member-entity entity-alias="CRP" entity-name="CustRequestParty"/>
       <alias entity-alias="CR" name="custRequestId"/>
       <alias entity-alias="CR" name="custRequestTypeId"/>
       <alias entity-alias="CR" name="statusId"/>
@@ -1181,18 +1181,21 @@ under the License.
       <alias entity-alias="CR" name="createdDate"/>
       <alias entity-alias="CR" name="lastModifiedDate"/>
       <alias entity-alias="CR" name="lastModifiedByUserLogin"/>
-      <alias entity-alias="CRR" name="partyId"/>
-      <alias entity-alias="CRR" name="roleTypeId"/>
-      <view-link entity-alias="CR" rel-entity-alias="CRR">
+      <alias entity-alias="CRP" name="partyId"/>
+      <alias entity-alias="CRP" name="roleTypeId"/>
+      <alias entity-alias="CRP" name="fromDate"/>
+      <alias entity-alias="CRP" name="thruDate"/>  
+      <view-link entity-alias="CR" rel-entity-alias="CRP">
         <key-map field-name="custRequestId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="CustRequest">
         <key-map field-name="custRequestId"/>
       </relation>
-      <relation type="one-nofk" rel-entity-name="CustRequestRole">
+      <relation type="one-nofk" rel-entity-name="CustRequestParty">
         <key-map field-name="custRequestId"/>
         <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
+        <key-map field-name="fromDate"/>  
       </relation>
       <relation type="one-nofk" rel-entity-name="Party">
         <key-map field-name="partyId"/>
