@@ -160,7 +160,7 @@ public class ScreenRenderer {
     }
     
     /**
-     * This method populates the context for this ScreenRenderer based on the HTTP Request and Respone objects and the ServletContext.
+     * This method populates the context for this ScreenRenderer based on the HTTP Request and Response objects and the ServletContext.
      * It leverages various conventions used in other places, namely the ControlServlet and so on, of OFBiz to get the different resources needed.
      * 
      * @param request
