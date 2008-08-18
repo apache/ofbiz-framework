@@ -213,7 +213,7 @@
         
         <!-- TIMESHEET -->
         <if-compare field="sec_object" value="TIMESHEET" operator="equals">
-            <!--log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} Id: ${parameters.timesheetId} partyId: ${parameters.partyId} resourceDescription: ${parameters.resourceDescription}"/-->
+            <!-- log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} timesheetId: ${timesheet.timesheetId} partyId: ${timesheet.partyId} resourceDescription: ${parameters.resourceDescription}"/-->
             <if>
                 <condition>
                     <or>
@@ -234,11 +234,11 @@
                         </and>
                         <and><!-- can always create ones own timesheet -->
                             <if-compare field="mainAction" value="CREATE" operator="equals"/>
-                            <if-compare-field field="parameters.partyId" to-field="parameters.userLogin.partyId" operator="equals"/>
+                            <if-compare-field field="timesheet.partyId" to-field="parameters.userLogin.partyId" operator="equals"/>
                         </and>
                         <and><!-- can always update ones own timesheet -->
                             <if-compare field="mainAction" value="UPDATE" operator="equals"/>
-                            <if-compare-field field="parameters.partyId" to-field="parameters.userLogin.userLoginId" operator="equals"/>
+                            <if-compare-field field="timesheet.partyId" to-field="parameters.userLogin.partyId" operator="equals"/>
                         </and>
                     </or>
                 </condition>
@@ -257,17 +257,17 @@
         
         <!-- TIMEENTRY -->
         <if-compare field="sec_object" value="TIMEENTRY" operator="equals">
-            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} value: ${parameters.timeEntryId} workEffortId: ${parameters.workEffortId} timesheetId: ${parameters.timesheetId} resourceDescription: ${parameters.resourceDescription}"/-->
             <entity-one entity-name="Timesheet" value-name="timesheet"/>
             <set field="timesheetId" from-field="timesheet.timesheetId"/>
             <set field="taskId" from-field="parameters.workEffortId"/>
             <set field="partyId" from-field="timesheet.partyId"/>
             <call-simple-method method-name="checkProjectMembership"/>
+            <!-- log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} timesheetId: ${timesheetId} from partyId: ${partyId} workEffortId: ${parameters.workEffortId} resourceDescription: ${parameters.resourceDescription}"/-->
             <if>
                 <condition>
                     <or>
                         <if-empty field="parameters.workEffortId"/><!-- no use without a workeffortId -->
-                        <if-compare field="parameters.workEfortId" value="Totals" operator="equals"/>
+                        <if-compare field="parameters.workEffortId" value="Totals" operator="equals"/>
                         <if-empty field="parameters.timesheetId"/>
                         <if-has-permission permission="PROJECTMGR_ADMIN"/>
                         <and>
@@ -287,13 +287,13 @@
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
                             <if-compare field="mainAction" value="CREATE" operator="equals"/>
-                            <if-compare-field field="timesheet.partyId" to-field="parameters.userLogin.userLoginId" operator="equals"/>
+                            <if-compare-field field="partyId" to-field="parameters.userLogin.partyId" operator="equals"/>
                             <if-compare field="isMember" value="true" operator="equals"/>
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
                             <if-compare field="mainAction" value="UPDATE" operator="equals"/>
-                            <if-compare-field field="timesheet.partyId" to-field="parameters.userLogin.userLoginId" operator="equals"/>
+                            <if-compare-field field="partyId" to-field="parameters.userLogin.partyId" operator="equals"/>
                             <if-compare field="isMember" value="true" operator="equals"/>
                         </and>
                     </or>
