@@ -399,6 +399,13 @@ ${virtualJavaScript?if_exists}
         <div><b>${uiLabelMap.ProductUsuallyShipsIn} <font color="red">${daysToShip}</font> ${uiLabelMap.CommonDays}!<b></div>
       </#if>
 
+      <#-- show tell a friend details only in ecommerce application -->
+      <div>&nbsp;</div>
+      <div>
+          <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}</@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
+      </div>
+      <br/>
+
       <#if disFeatureList?exists && 0 < disFeatureList.size()>
       <p>&nbsp;</p>
         <#list disFeatureList as currentFeature>
@@ -608,7 +615,53 @@ ${virtualJavaScript?if_exists}
 
   <#-- Any attributes/etc may go here -->
 
-  <#-- Upgrades/Up-Sell/Cross-Sell -->
+  <#-- Product Reviews -->
+    <div id="reviews">
+      <div>${uiLabelMap.OrderCustomerReviews}:</div>
+      <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
+          <div>${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
+      </#if>
+      <tr><td colspan="2"><hr/></td></tr>
+      <#if productReviews?has_content>
+        <#list productReviews as productReview>
+          <#assign postedUserLogin = productReview.getRelatedOne("UserLogin")>
+          <#assign postedPerson = postedUserLogin.getRelatedOne("Person")?if_exists>
+              <table border="0" cellpadding="0" cellspacing="0">
+                <tr>
+                  <td>
+                    <div><b>${uiLabelMap.CommonBy}: </b><#if productReview.postedAnonymous?default("N") == "Y"> ${uiLabelMap.OrderAnonymous}<#else> ${postedPerson.firstName} ${postedPerson.lastName}&nbsp;</#if></div>
+                  </td>
+                  <td>
+                    <div><b>${uiLabelMap.CommonAt}: </b>${productReview.postedDateTime?if_exists}&nbsp;</div>
+                  </td>
+                  <td>
+                    <div><b>${uiLabelMap.OrderRanking}: </b>${productReview.productRating?if_exists?string}</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <div>&nbsp;</div>
+                  </td>
+                </tr>
+                <tr>
+                  <td colspan="3">
+                    <div>${productReview.productReview?if_exists}</div>
+                  </td>
+                </tr>
+                <tr><td colspan="3"><hr/></td></tr>
+              </table>
+        </#list>
+        <div>
+            <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="linktext">${uiLabelMap.ProductReviewThisProduct}!</a>
+        </div>
+      <#else>
+        <div>${uiLabelMap.ProductProductNotReviewedYet}.</div>
+        <div>
+            <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="linktext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}</a>
+        </div>
+    </div>
+  </#if>
+<#-- Upgrades/Up-Sell/Cross-Sell -->
   <#macro associated assocProducts beforeName showName afterName formNamePrefix targetRequestName>
   <#assign targetRequest = "product">
   <#if targetRequestName?has_content>

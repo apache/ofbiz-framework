@@ -275,6 +275,12 @@ function getConfigDetails(event) {
       <#if daysToShip?exists>
         <div><b>${uiLabelMap.ProductUsuallyShipsIn} <font color='red'>${daysToShip}</font> ${uiLabelMap.CommonDays}!<b></div>
       </#if>
+
+      <#-- show tell a friend details only in ecommerce application -->
+      <div>&nbsp;</div>
+      <div>
+        <a href="javascript:popUpSmall('<@ofbizUrl>tellafriend?productId=${product.productId}</@ofbizUrl>','tellafriend');" class="buttontext">${uiLabelMap.CommonTellAFriend}</a>
+      </div>
      
       <#if disFeatureList?exists && 0 < disFeatureList.size()>
         <p>&nbsp;</p>
@@ -599,6 +605,68 @@ function getConfigDetails(event) {
     </td>
   </tr>
   <tr><td colspan="2"><hr class='sepbar'></td></tr>
+
+  <#-- Product Reviews -->
+  <tr>
+    <td colspan="2">
+      <div>${uiLabelMap.OrderCustomerReviews}:</div>
+      <#if averageRating?exists && (averageRating?double > 0) && numRatings?exists && (numRatings?double > 1)>
+          <div>${uiLabelMap.OrderAverageRating}: ${averageRating} <#if numRatings?exists>(${uiLabelMap.CommonFrom} ${numRatings} ${uiLabelMap.OrderRatings})</#if></div>
+      </#if>
+    </td>
+  </tr>
+  <tr><td colspan="2"><hr class='sepbar'></td></tr>
+  <#if productReviews?has_content>
+    <#list productReviews as productReview>
+      <#assign postedUserLogin = productReview.getRelatedOne("UserLogin")>
+      <#assign postedPerson = postedUserLogin.getRelatedOne("Person")?if_exists>
+      <tr>
+        <td colspan="2">
+          <table border="0" cellpadding="0" cellspacing='0'>
+            <tr>
+              <td>
+                <div><b>${uiLabelMap.CommonBy}: </b><#if productReview.postedAnonymous?default("N") == "Y">${uiLabelMap.OrderAnonymous}<#else>${postedPerson.firstName} ${postedPerson.lastName}</#if></div>
+              </td>
+              <td>
+                <div><b>${uiLabelMap.CommonOn}: </b>${productReview.postedDateTime?if_exists}</div>
+              </td>
+              <td>
+                <div><b>${uiLabelMap.OrderRanking}: </b>${productReview.productRating?if_exists?string}</div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <div>&nbsp;</div>
+              </td>
+            </tr>
+            <tr>
+              <td colspan="3">
+                <div>${productReview.productReview?if_exists}</div>
+              </td>
+            </tr>
+            <tr><td colspan="3"><hr/></td></tr>
+          </table>
+        </td>
+      </tr>
+    </#list>
+    <tr>
+      <td colspan="2">
+        <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductReviewThisProduct}!</a>
+      </td>
+    </tr>
+  <#else>
+    <tr>
+      <td colspan="2">
+        <div>${uiLabelMap.ProductProductNotReviewedYet}.</div>
+      </td>
+    </tr>
+    <tr>
+      <td colspan="2">
+        <a href="<@ofbizUrl>reviewProduct?category_id=${categoryId?if_exists}&product_id=${product.productId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductBeTheFirstToReviewThisProduct}</a>
+      </td>
+    </tr>
+</table>
+</#if>
 
 <#-- Upgrades/Up-Sell/Cross-Sell -->
   <#macro associated assocProducts beforeName showName afterName formNamePrefix targetRequestName>
