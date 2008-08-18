@@ -78,22 +78,25 @@ under the License.
         <attribute name="copyLinkedQuotes" type="String" mode="IN" optional="true"/>
     </service>
 
-    <service name="createCustRequestRole" engine="simple"
-            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestRole" auth="true">
-        <description>Create a CustRequestRole record</description>
-        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    <service name="createCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestParty" auth="true">
+        <description>Create a CustRequestParty record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="fromDate" mode="IN" type="Timestamp" optional="true"/>
     </service>
-    <service name="removeCustRequestRole" engine="simple"
-            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="removeCustRequestRole" auth="true">
-        <description>Remove a CustRequestRole record</description>
-        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+    <service name="updateCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestParty" auth="true">
+        <description>Update CustRequestParty record</description>
+        <auto-attributes mode="IN" include="pk" optional="true"/>
+        <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-
-    <service name="createCustRequestNote" engine="simple"
+    <service name="deleteCustRequestParty" engine="simple" default-entity-name="CustRequestParty"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="deleteCustRequestParty" auth="true">
+        <description>Delete a CustRequestParty record</description>
+        <auto-attributes mode="IN" include="pk" optional="false"/>
+    </service>
+    <service name="createCustRequestNote" engine="simple" 
             location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestNote" auth="true">
         <description>Create a note for a CustRequest</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>

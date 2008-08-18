@@ -527,9 +527,9 @@ under the License.
         <create-value value-name="newQuote"/>
         <create-value value-name="newQuoteItem"/>
         <!-- copy the roles from the request to the quote-->
-        <make-value value-name="lookupRequestRole" entity-name="CustRequestRole"/>
+        <make-value value-name="lookupRequestRole" entity-name="CustRequestParty"/>
         <set from-field="parameters.custRequestId" field="lookupRequestRole.custRequestId"/>
-        <find-by-and entity-name="CustRequestRole" map-name="lookupRequestRole" list-name="roles"/>
+        <find-by-and entity-name="CustRequestParty" map-name="lookupRequestRole" list-name="roles"/>
         <iterate entry-name="role" list-name="roles">
             <clear-field field-name="cqrContext"/>
             <set from-field="quoteId" field="cqrContext.quoteId"/>
@@ -848,14 +848,14 @@ under the License.
             <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap"/>
         </iterate>
         <!-- roles -->
-        <get-related value-name="custRequest" relation-name="CustRequestRole" list-name="custRequestRoles"/>
-        <iterate list-name="custRequestRoles" entry-name="custRequestRole">
+        <get-related value-name="custRequest" relation-name="CustRequestParty" list-name="custRequestParties"/>
+        <iterate list-name="custRequestParties" entry-name="custRequestParty">
             <clear-field field-name="createQuoteRoleInMap"/>
             <!-- The REQ_TAKER role is automatically added by the createQuote service -->
-            <if-compare field="custRequestRole.roleTypeId" value="REQ_TAKER" operator="not-equals">
+            <if-compare field="custRequestParty.roleTypeId" value="REQ_TAKER" operator="not-equals">
                 <set field="createQuoteRoleInMap.quoteId" from-field="quoteId"/>
-                <set field="createQuoteRoleInMap.partyId" from-field="custRequestRole.partyId"/>
-                <set field="createQuoteRoleInMap.roleTypeId" from-field="custRequestRole.roleTypeId"/>
+                <set field="createQuoteRoleInMap.partyId" from-field="custRequestParty.partyId"/>
+                <set field="createQuoteRoleInMap.roleTypeId" from-field="custRequestParty.roleTypeId"/>
                 <call-service service-name="createQuoteRole" in-map-name="createQuoteRoleInMap"/>
             </if-compare>
         </iterate>

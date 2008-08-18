@@ -62,7 +62,7 @@ under the License.
                 <set from-field="newEntity.custRequestId" field="takerMap.custRequestId"/>
                 <set from-field="userLogin.partyId" field="takerMap.partyId"/>
                 <set value="REQ_TAKER" field="takerMap.roleTypeId"/>
-                <call-service service-name="createCustRequestRole" in-map-name="takerMap"/>
+                <call-service service-name="createCustRequestParty" in-map-name="takerMap"/>
             </if-compare-field>
         </if-not-empty>
         
@@ -70,7 +70,7 @@ under the License.
         <set-service-fields to-map-name="statusMap" service-name="createCustRequestStatus" map-name="newEntity"/>
         <call-service service-name="createCustRequestStatus" in-map-name="statusMap"/>
 
-        <!-- This code is commented because the requester party is no more maintained in the CustRequestRole entity.
+        <!-- This code is commented because the requester party is no more maintained in the CustRequestParty entity.
              There is now the fromPartyId field in the CustRequest entity for this. -->
         <!--
         <field-to-field field-name="custRequestId" map-name="newEntity" to-map-name="requesterMap"/>
@@ -81,7 +81,7 @@ under the License.
             </else>
         </if-not-empty>
         <string-to-field string="REQ_REQUESTER" map-name="requesterMap" field-name="roleTypeId"/>
-        <call-service service-name="createCustRequestRole" in-map-name="requesterMap"/>
+        <call-service service-name="createCustRequestParty" in-map-name="requesterMap"/>
         -->
         
         <!-- create also the item if key fields are provided -->
@@ -153,7 +153,7 @@ under the License.
         <store-value value-name="custRequestItem"/>
     </simple-method>
 
-    <simple-method method-name="createCustRequestRole" short-description="Create Customer RequestRole">
+    <simple-method method-name="createCustRequestParty" short-description="Create Customer RequestParty">
         <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="partyRole"/>
@@ -162,18 +162,25 @@ under the License.
             <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>
             <create-value value-name="partyRole"/>
         </if-empty>
-        <make-value value-name="newEntity" entity-name="CustRequestRole"/>
+        <make-value value-name="newEntity" entity-name="CustRequestParty"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+        </if-empty>
         <create-value value-name="newEntity"/>
     </simple-method>
-    <simple-method method-name="removeCustRequestRole" short-description="Remove Customer RequestRole">
-        <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
-        <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
-        <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
-        <find-by-primary-key entity-name="CustRequestRole" map-name="lookupPKMap" value-name="custRequestRole"/>
-        <remove-value value-name="custRequestRole"/>
+    <simple-method method-name="updateCustRequestParty" short-description="Update an existing CustRequestParty">
+        <entity-one entity-name="CustRequestParty" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValue"/>
     </simple-method>
-
+    <simple-method method-name="deleteCustRequestParty" short-description="Delete Customer CustRequestParty">
+        <entity-one entity-name="CustRequestParty" value-name="lookedUpValue"/>
+        <now-timestamp-to-env env-name="thruDate"/>
+        <set field="lookedUpValue.thruDate" from-field="thruDate"/>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
     <simple-method method-name="createCustRequestNote" short-description="Create Customer Request Note">
         <make-value value-name="newEntity" entity-name="CustRequestNote"/>
         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>

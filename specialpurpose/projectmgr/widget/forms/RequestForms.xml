@@ -92,7 +92,7 @@ under the License.
     <form name="RequestRolesInfo" type="list"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-and entity-name="CustRequestRole">
+            <entity-and entity-name="CustRequestParty">
                 <field-map field-name="custRequestId" env-name="custRequestId"/>
             </entity-and>
         </actions>

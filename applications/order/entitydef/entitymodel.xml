@@ -1832,25 +1832,28 @@ under the License.
         <key-map field-name="custRequestTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="CustRequestRole"
+    <entity entity-name="CustRequestParty"
             package-name="org.ofbiz.order.request"
             title="Customer Request Role Entity">
       <field name="custRequestId" type="id-ne"></field>
       <field name="partyId" type="id-ne"></field>
       <field name="roleTypeId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>  
       <prim-key field="custRequestId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>
-      <relation type="one" fk-name="CUSTREQ_RL_CRQST" rel-entity-name="CustRequest">
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="CREQ_RL_CRQST" rel-entity-name="CustRequest">
         <key-map field-name="custRequestId"/>
       </relation>
-      <relation type="one" fk-name="CUSTREQ_RL_PARTY" rel-entity-name="Party">
+      <relation type="one" fk-name="CREQ_RL_PARTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="RoleType">
         <key-map field-name="roleTypeId"/>
       </relation>
-      <relation type="one" fk-name="CUSTREQ_RL_PROLE" rel-entity-name="PartyRole">
+      <relation type="one" fk-name="CREQ_RL_PROLE" rel-entity-name="PartyRole">
         <key-map field-name="partyId"/>
         <key-map field-name="roleTypeId"/>
       </relation>

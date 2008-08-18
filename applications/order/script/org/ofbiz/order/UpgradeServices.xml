@@ -35,5 +35,18 @@ under the License.
             <create-value value-name="orderItemAssoc"/>
         </iterate>
     </simple-method>
+    
+    <simple-method method-name="migrateCustRequestRole" short-description="Migrate data from OldCustRequestRole to CustRequestParty">
+        <entity-condition entity-name="OldCustRequestRole" list-name="oldCustRequestRoles"/>
+        <now-timestamp-to-env env-name="fromDate"/>
+        <iterate list-name="oldCustRequestRoles" entry-name="oldCustRequestRole">
+            <make-value entity-name="CustRequestParty" value-name="custRequestParty"/>
+            <set field="custRequestParty.custRequestId" from-field="oldCustRequestRole.custRequestId"/>
+            <set field="custRequestParty.partyId" from-field="oldCustRequestRole.partyId"/>
+            <set field="custRequestParty.roleTypeId" from-field="oldCustRequestRole.roleTypeId"/>
+            <set field="custRequestParty.fromDate" from-field="fromDate"/>
+            <create-value value-name="custRequestParty"/>
+        </iterate>
+    </simple-method>    
 </simple-methods>
 
