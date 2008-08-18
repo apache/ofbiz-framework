@@ -145,13 +145,14 @@ public class ProductConfigWrapper implements Serializable {
                     String configItemId = pcc.getString("configItemId");
                     String configOptionId = pcc.getString("configOptionId");
                     Long sequenceNum = pcc.getLong("sequenceNum");
-                    this.setSelected(configItemId, sequenceNum, configOptionId);
+                    String comments = pcc.getString("description");
+                    this.setSelected(configItemId, sequenceNum, configOptionId, comments);
                 }
             }
         }
     }
 
-    public void setSelected(String configItemId, Long sequenceNum, String configOptionId) throws Exception {
+    public void setSelected(String configItemId, Long sequenceNum, String configOptionId, String comments) throws Exception {
         for (int i = 0; i < questions.size(); i++) {
             ConfigItem ci = (ConfigItem)questions.get(i);
             if (ci.configItemAssoc.getString("configItemId").equals(configItemId) && ci.configItemAssoc.getLong("sequenceNum").equals(sequenceNum)) {
@@ -159,7 +160,7 @@ public class ProductConfigWrapper implements Serializable {
                 for (int j = 0; j < avalOptions.size(); j++) {
                     ConfigOption oneOption = (ConfigOption)avalOptions.get(j);
                     if (oneOption.configOption.getString("configOptionId").equals(configOptionId)) {
-                        setSelected(i, j);
+                        setSelected(i, j, comments);
                         break;
                     }
                 }
@@ -175,6 +176,7 @@ public class ProductConfigWrapper implements Serializable {
                 for (int j = 0; j < options.size(); j++) {
                     ConfigOption co = (ConfigOption)options.get(j);
                     co.setSelected(false);
+                    co.setComments(null);
                 }
             }
         }
@@ -233,13 +235,14 @@ public class ProductConfigWrapper implements Serializable {
         return product;
     }
     
-    public void setSelected(int question, int option) throws Exception {
+    public void setSelected(int question, int option, String comments) throws Exception {
         ConfigItem ci = (ConfigItem)questions.get(question);
         List avalOptions = ci.getOptions();
         if (ci.isSingleChoice()) {
             for (int j = 0; j < avalOptions.size(); j++) {
                 ConfigOption oneOption = (ConfigOption)avalOptions.get(j);
                 oneOption.setSelected(false);
+                oneOption.setComments(null);
             }
         }
         ConfigOption theOption = null;
@@ -248,11 +251,11 @@ public class ProductConfigWrapper implements Serializable {
         }
         if (theOption != null) {
             theOption.setSelected(true);
+            theOption.setComments(comments);
         }
     }
     
     public void setSelected(int question, int option, int component, String componentOption) throws Exception {
-        setSelected(question, option);
         //  set variant products
         ConfigOption theOption = getItemOtion(question, option);
         List components = theOption.getComponents();
@@ -527,6 +530,7 @@ public class ProductConfigWrapper implements Serializable {
         boolean selected = false;
         boolean available = true;
         ConfigItem parentConfigItem = null;
+        String comments = null;  //  comments for production run entered during ordering
         
         public ConfigOption(GenericDelegator delegator, LocalDispatcher dispatcher, GenericValue option, ConfigItem configItem, String catalogId, String webSiteId, String currencyUomId, GenericValue autoUserLogin) throws Exception {
             configOption = option;
@@ -572,6 +576,7 @@ public class ProductConfigWrapper implements Serializable {
             optionPrice = co.optionPrice;
             available = co.available;
             selected = co.selected;
+            comments = co.getComments();
         }
         
         public void recalculateOptionPrice(ProductConfigWrapper pcw) throws Exception {
@@ -619,6 +624,14 @@ public class ProductConfigWrapper implements Serializable {
         
         public String getId(){
             return configOption.getString("configOptionId");
+        }
+        
+        public String getComments() {
+            return comments;
+        }
+        
+        public void setComments(String comments) {
+            this.comments = comments;
         }
         
         public double getPrice() {

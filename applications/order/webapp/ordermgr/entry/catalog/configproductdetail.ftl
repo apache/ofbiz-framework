@@ -140,7 +140,13 @@ Event.observe(window, 'load', function() {
 });
 
 function getConfigDetails(event) {
-        new Ajax.Request('/ordermgr/control/getConfigDetailsEvent',{parameters: $('configFormId').serialize(),  requestHeaders: {Accept: 'application/json'},
+       var element = Event.element(event);
+       if (element.identify().startsWith('comments_')) {
+         //  don't update the price for comment change
+         return;
+       }
+
+       new Ajax.Request('/ordermgr/control/getConfigDetailsEvent',{parameters: $('configFormId').serialize(),  requestHeaders: {Accept: 'application/json'},
         
            onSuccess: function(transport){     
                 var data = transport.responseText.evalJSON(true);
@@ -477,8 +483,11 @@ function getConfigDetails(event) {
             <#if question.isStandard()>
               <#-- Standard item: all the options are always included -->
               <#assign options = question.options>
+              <#assign optionCounter = 0>              
               <#list options as option>
                 <div>${option.description} <#if !option.isAvailable()> (*)</#if></div>
+                <div>${uiLabelMap.CommonComments}: <input type='text' name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments?if_exists}' ></div>                                  
+                <#assign optionCounter = optionCounter + 1>                 
               </#list>
             <#else>
               <#if question.isSingleChoice()>
@@ -495,6 +504,7 @@ function getConfigDetails(event) {
                 <#if !question.isMandatory()>
                   <div><input type="radio" name='${counter}' value='<#if !question.isSelected()>checked</#if>'> No option</div>
                 </#if>
+                <#assign optionComment = "">
                 <#assign optionCounter = 0>              
                 <#list options as option>
                   <#assign componentCounter = 0>                  
@@ -503,6 +513,9 @@ function getConfigDetails(event) {
                   <#else>
                     <#assign shownPrice = option.price>
                   </#if>
+                  <#if option.isSelected()>
+                    <#assign optionComment = option.getComments()?if_exists>
+                  </#if>                   
                     <#-- Render virtual compoennts -->
                     <#if option.hasVirtualComponent()>
                       <div >
@@ -530,6 +543,7 @@ function getConfigDetails(event) {
                     </#if>
                   <#assign optionCounter = optionCounter + 1>
                 </#list>
+                <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_0' id='comments_${counter}_0' value='${optionComment?if_exists}' /></div>                
                 <#else>
                 <#-- And this is the select box implementation -->
                 <select name='${counter}'>
@@ -538,6 +552,7 @@ function getConfigDetails(event) {
                 </#if>
                 <#assign options = question.options>
                 <#assign optionCounter = 0>
+                <#assign optionComment = "">
                 <#list options as option>
                   <#if showOffsetPrice?exists && "Y" == showOffsetPrice>
                     <#assign shownPrice = option.price - selectedPrice>
@@ -545,6 +560,7 @@ function getConfigDetails(event) {
                     <#assign shownPrice = option.price>
                   </#if>
                   <#if option.isSelected()>
+                    <#assign optionComment = option.getComments()>
                     <#assign optionCounter = optionCounter + 1>
                   </#if>
                   <option value='${optionCounter}' <#if option.isSelected()>selected</#if>>
@@ -556,6 +572,7 @@ function getConfigDetails(event) {
                   <#assign optionCounter = optionCounter + 1>
                 </#list>
                 </select>
+                <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_0' id='comments_${counter}_0' value='${optionComment?if_exists}' /></div>                 
                 </#if>
               <#else>
                 <#-- Multi choice question -->
@@ -585,13 +602,16 @@ function getConfigDetails(event) {
                       ${option.description} +<@ofbizCurrency amount=option.price isoCode=price.currencyUsed/><#if !option.isAvailable()> (*)</#if>
                     </div>
                     </#if>
+                    <div>${uiLabelMap.CommonComments}: <input type="text" name='comments_${counter}_${optionCounter}' id='comments_${counter}_${optionCounter}' value='${option.comments?if_exists}'></div>                    
                   <#assign optionCounter = optionCounter + 1>
                 </#list>
               </#if>
             </#if>
             </td>
           </tr>
-          <tr><td><hr/></td></tr>
+          <#if question_has_next>
+            <tr><td><hr/></td></tr>
+          </#if>
           <#assign counter = counter + 1>
         </#list>
         </table>

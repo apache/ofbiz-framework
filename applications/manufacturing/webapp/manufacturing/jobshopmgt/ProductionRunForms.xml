@@ -520,6 +520,15 @@ under the License.
             <display-entity entity-name="StatusItem" />
         </field>
     </form>
+    <form name="ListProductionRunNotes" type="list" title="" list-name="productionRunNoteData"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <auto-fields-entity entity-name="WorkEffortNoteAndData" default-field-type="display" />
+        <field name="workEffortId"><hidden/></field>
+        <field name="internalNote"><hidden/></field>
+        <field name="noteId"><hidden/></field>
+        <field name="noteParty"><hidden/></field>
+        <field name="noteDateTime"><hidden/></field>
+    </form>     
     <form name="EditProductionRunTaskFixedAsset" type="single" target="EditProductionRun" title="" default-map-name="fixedAssetData"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target use-when="declarationScreen.equals(&quot;Y&quot;)" target="ProductionRunDeclaration" />
