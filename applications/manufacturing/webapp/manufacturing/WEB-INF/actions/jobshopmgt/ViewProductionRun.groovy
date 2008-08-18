@@ -63,5 +63,11 @@ if (productionRunId) {
         context.quantity = productionRun.getQuantity(); // this is useful to compute the total estimates runtime in the form
         //  Product component/parts list
         context.productionRunComponents = productionRun.getProductionRunComponents();;
+        
+        // Find all the notes linked to this production run.
+        productionRunNoteData = delegator.findByAnd("WorkEffortNoteAndData", [workEffortId : productionRunId]);
+        if (productionRunNoteData) {
+            context.productionRunNoteData = productionRunNoteData;
+        }        
     }
 }

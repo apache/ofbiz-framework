@@ -1379,6 +1379,9 @@
         <value xml:lang="th">รายการของการผลิตสินค้าจากสินทรัพย์ไม่ถาวร</value>
         <value xml:lang="zh">生产运行固定资产列表</value>
     </property>
+    <property key="ManufacturingListOfProductionRunNotes">
+        <value xml:lang="en">List Of Production Run Notes</value>
+    </property>    
     <property key="ManufacturingListOfProductionRunRoutingTasks">
         <value xml:lang="en">Tasks</value>
         <value xml:lang="es">Lista de tareas de la corrida de producción</value>

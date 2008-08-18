@@ -87,13 +87,41 @@ public class ProductConfigWorker {
         for (int k = 0; k < numOfQuestions; k++) {
             String[] opts = request.getParameterValues("" + k);
             if (opts == null) {
+                
+                //  check for standard item comments
+                ProductConfigWrapper.ConfigItem question = (ProductConfigWrapper.ConfigItem) configWrapper.getQuestions().get(k);
+                if (question.isStandard()) {
+                    int i = 0;
+                    while (i <= (question.getOptions().size() -1)) {
+                        String comments = request.getParameter("comments_" + k + "_" + i);
+                        if (UtilValidate.isNotEmpty(comments)) {
+                            try {
+                                configWrapper.setSelected(k, i, comments);
+                            } catch(Exception e) {
+                                Debug.logWarning(e.getMessage(), module);
+                            }                            
+                        }
+                        i++;
+                    }
+                }
                 continue;
             }
             for (int h = 0; h < opts.length; h++) {
                 int cnt = -1;
                 try {
                     cnt = Integer.parseInt(opts[h]);
+                    String comments = null;
+                    ProductConfigWrapper.ConfigItem question = (ProductConfigWrapper.ConfigItem) configWrapper.getQuestions().get(k);
+                    if (question.isSingleChoice()) {
+                        comments = request.getParameter("comments_" + k + "_" + "0");
+                    } else {
+                        comments = request.getParameter("comments_" + k + "_" + cnt);
+                    }
+                                        
+                    configWrapper.setSelected(k, cnt, comments);
                     ProductConfigWrapper.ConfigOption option = configWrapper.getItemOtion(k, cnt);
+                    
+                    //  set selected variant products 
                     if (UtilValidate.isNotEmpty(option) && (option.hasVirtualComponent())) {
                         List components = option.getComponents();
                         int variantIndex = 0;
@@ -105,7 +133,8 @@ public class ProductConfigWorker {
                                 if (UtilValidate.isEmpty(selectedProdcutId)) {
                                     Debug.logWarning("ERROR: Request param [" + productParamName + "] not found!", module);
                                 } else {
-                                    //  handle both types of virtual variant methods
+                                    
+                                    //  handle also feature tree virtual variant methods
                                     if (ProductWorker.isVirtual((GenericDelegator)request.getAttribute("delegator"), selectedProdcutId)) {
                                         if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod((GenericDelegator)request.getAttribute("delegator"), selectedProdcutId))) {
                                             // get the selected features
@@ -136,10 +165,7 @@ public class ProductConfigWorker {
                                 variantIndex ++;
                             }
                         }
-                    } else {
-                        configWrapper.setSelected(k, cnt);
-                    }
-
+                    } 
                 } catch(Exception e) {
                     Debug.logWarning(e.getMessage(), module);
                 }
@@ -190,9 +216,12 @@ public class ProductConfigWorker {
                         Iterator selOpIt = selectedOptions.iterator();
                         while (selOpIt.hasNext()) {
                             ConfigOption oneOption = (ConfigOption)selOpIt.next();
-                            String configOptionId = oneOption.configOption.getString("configOptionId");
+                            String configOptionId = oneOption.configOption.getString("configOptionId");                            
                             if (productConfigConfig.getString("configOptionId").equals(configOptionId)) {
-                                configsToCheck.add(productConfigConfig);
+                                String comments = oneOption.getComments() != null ? oneOption.getComments() : "";
+                                if ((UtilValidate.isEmpty(comments) && UtilValidate.isEmpty(productConfigConfig.getString("description"))) || comments.equals(productConfigConfig.getString("description"))) {
+                                    configsToCheck.add(productConfigConfig);
+                                }                                                               
                             }
                         } 
                     }
@@ -315,11 +344,13 @@ public class ProductConfigWorker {
                     List toBeStored = new LinkedList();
                     ConfigOption oneOption = (ConfigOption)selOpIt.next();
                     String configOptionId = oneOption.configOption.getString("configOptionId");
+                    String description = oneOption.getComments();
                     GenericValue productConfigConfig = delegator.makeValue("ProductConfigConfig");
                     productConfigConfig.put("configId", configId);
                     productConfigConfig.put("configItemId", configItemId);
                     productConfigConfig.put("sequenceNum", sequenceNum);
                     productConfigConfig.put("configOptionId", configOptionId);
+                    productConfigConfig.put("description", description);                    
                     toBeStored.add(productConfigConfig);
 
                     if (oneOption.hasVirtualComponent()) {                        

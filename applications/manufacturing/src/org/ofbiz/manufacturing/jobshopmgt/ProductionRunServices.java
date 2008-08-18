@@ -2196,6 +2196,25 @@ public class ProductionRunServices {
                     componentQuantity = new Double(totalQuantity.doubleValue() + componentQuantity.doubleValue());
                 }
                 components.put(componentProductId, componentQuantity);
+                
+                //  create production run notes from comments
+                String comments = co.getComments();
+                if (UtilValidate.isNotEmpty(comments)) {
+                    resultService.clear();
+                    serviceContext.clear();
+                    serviceContext.put("workEffortId", productionRunId);
+                    serviceContext.put("internalNote", "Y");
+                    serviceContext.put("noteInfo", comments);
+                    serviceContext.put("noteName", co.getDescription());
+                    serviceContext.put("userLogin", userLogin);
+                    serviceContext.put("noteParty", userLogin.getString("partyId"));                                        
+                    try {
+                        resultService = dispatcher.runSync("createWorkEffortNote", serviceContext);
+                    } catch (GenericServiceException e) {
+                        Debug.logWarning(e.getMessage(), module);
+                        return ServiceUtil.returnError(e.getMessage());
+                    }
+                }
             }
         }
         
