@@ -1190,7 +1190,7 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
                        kidContent.put("contentTypeId", "PAGE_NODE");
                        kidContent.store();
                        List kids2 = ContentWorker.getAssociatedContent(kidContent, "from", UtilMisc.toList("SUB_CONTENT"), null, null, null);
-                    Iterator iter2 = kids.iterator();
+                    Iterator iter2 = kids2.iterator();
                     while (iter2.hasNext()) {
                         GenericValue kidContent2 = (GenericValue)iter2.next();
                            updatePageNodeChildren(kidContent2, context);
