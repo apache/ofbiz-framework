@@ -43,7 +43,7 @@ under the License.
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PROJECTMGR_ROLE_TASK_CREATE"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PROJECTMGR_ROLE_TIMESHEET_CREATE"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PROJECTMGR_ROLE_TIMESHEET_UPDATE"/>
-    <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PARTYMGR_CME-NOT_CREATE"/>
+    <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PARTYMGR_CME-NOTE_CREATE"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PARTYMGR_CME_UPDATE"/>
     
     <SecurityPermission permissionId="MYPAGE_CUSTOMER" description="Use the customer screens in mypage."/>
