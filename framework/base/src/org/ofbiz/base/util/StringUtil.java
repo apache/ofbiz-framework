@@ -85,11 +85,11 @@ public class StringUtil {
      * @param delim the delimiter character(s) to use. (null value will join with no delimiter)
      * @return a String of all values in the list seperated by the delimiter
      */
-    public static String join(List<String> list, String delim) {
+    public static String join(List<?> list, String delim) {
         if (list == null || list.size() < 1)
             return null;
         StringBuilder buf = new StringBuilder();
-        Iterator<String> i = list.iterator();
+        Iterator<?> i = list.iterator();
 
         while (i.hasNext()) {
             buf.append(i.next());
