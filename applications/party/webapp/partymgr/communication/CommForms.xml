@@ -118,6 +118,7 @@ under the License.
     </form>
     
     <form name="NewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+        <field name="donePage"><hidden/></field>
         <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
         <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
