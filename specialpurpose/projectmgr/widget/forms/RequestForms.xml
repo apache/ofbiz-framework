@@ -33,13 +33,21 @@ under the License.
             <lookup target-form-name="LookupPartyName"/>
         </field>
         <field name="custRequestName" title="${uiLabelMap.CommonTitle}"><text/></field>
-        <field name="description" parameter-name="story"><textarea cols="60" rows="12"/></field>
+        <field name="description" parameter-name="story" use-when="custRequest==null"><textarea cols="60" rows="12"/></field>
         <field name="custRequestTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="CustRequestType" description="${description}"/>
             </drop-down>
         </field>
-        <field name="statusId"><hidden value="CRQ_ACCEPTED"/></field>
+        <field use-when="custRequest!=null" name="statusId">
+            <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${custRequest.statusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="custRequest==null"><hidden value="CRQ_ACCEPTED"/></field>
         <field name="priority">
             <drop-down allow-empty="true">
                 <option key="9"/>
