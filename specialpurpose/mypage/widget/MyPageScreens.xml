@@ -169,7 +169,7 @@ under the License.
                 <set field="donePage" from-field="donePage" default-value="myCompanyComms"/>
             </actions>
             <widgets>
-                <screenlet title="Company events" navigation-menu-name="MyCompanyCommsMenu" name="companyEvents" collapsible="true">
+                <screenlet title="${uiLabelMap.CompanyEvents}" navigation-menu-name="MyCompanyCommsMenu" name="companyEvents" collapsible="true">
                     <include-menu name="MyCompanyCommsMenu" location="component://mypage/widget/MyPageMenus.xml"/>
                     <include-form name="MyCompanyComms" location="component://mypage/widget/MyPageForms.xml"/>
                 </screenlet>
@@ -239,13 +239,13 @@ under the License.
                             </not>
                         </condition>
                         <widgets>
-                            <label style="h2" text="Emails from unknown origin"></label>
+                            <label style="h2" text="${uiLabelMap.EmailsFromUnknownOrigin}"></label>
                             <include-form
                                 location="component://mypage/widget/MyPageForms.xml"
                                 name="ListMyUnknownPartyEmails" />
                         </widgets>
                     </section>
-                    <label style="h2" text="Emails from known origin"></label>
+                    <label style="h2" text="${uiLabelMap.EmailsFromKnownOrigin}"></label>
                     <include-form name="ListPartyCommEvents"
                         location="component://mypage/widget/MyPageForms.xml" />
                 </screenlet>
@@ -293,7 +293,7 @@ under the License.
                             <section>
                                 <widgets>
                                     <label style="h1"
-                                        text="Communication Event id: ${parameters.communicationEventId}"></label>
+                                        text="${uiLabelMap.CommunicationEventId} ${parameters.communicationEventId}"></label>
                                     <include-screen name="commEvent" 
                                             location="component://party/widget/partymgr/CommunicationScreens.xml" />
                                 </widgets>

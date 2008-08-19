@@ -26,6 +26,22 @@
         <value xml:lang="en">All Communications</value>
         <value xml:lang="fr">Toutes les communications</value>
     </property>
+    <property key="EmailsFromKnownOrigin">
+        <value xml:lang="en">Emails from known origin</value>
+        <value xml:lang="fr">Courriel issue d'une origine connue</value>
+    </property>
+    <property key="EmailsFromUnnownOrigin">
+        <value xml:lang="en">Emails from unknown origin</value>
+        <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
+    </property>
+    <property key="CommunicationEventId">
+        <value xml:lang="en">Communication Event id:</value>
+        <value xml:lang="fr">Réf. d'évènement de comm.</value>
+    </property>
+    <property key="CompanyEvents">
+        <value xml:lang="en">Company events</value>
+        <value xml:lang="fr">Evènements de l'entreprise</value>
+    </property>
     <property key="IncomingCustRequests">
         <value xml:lang="en">Incoming customer requests</value>
         <value xml:lang="fr">Nouvelles demandes utilisateur</value>
