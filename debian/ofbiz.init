@@ -67,9 +67,8 @@ run_ofbiz_cmd() {
 	)
 }
 
-if [ -n "$(which jsvc)" ] || true; then
+if [ -n "$(which jsvc)" ]; then
 	jsvc() {
-		set -x
 		jsvc_jvm=""
 		jsvc_wait=""
 		jsvc_verbose_class=""
