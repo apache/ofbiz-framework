@@ -62,7 +62,6 @@ Event.observe(window, 'load', function() {
         if (isCartStepValidate && isShipStepValidate) {
             if (validateShipOption.validate()) {
                 setShippingOption();
-                getAssociatedBillingStateList(); 
                 displayBillingPanel();
                 isShipOptionStepValidate = true;
             }
@@ -94,7 +93,6 @@ Event.observe(window, 'load', function() {
     
     // For Billing Address Same As Shipping
     Event.observe('useShippingAddressForBilling', 'click', function() {
-        getAssociatedBillingStateList();
         useShippingAddressForBillingToggle();
         validateBill.validate();
     });
@@ -105,7 +103,9 @@ Event.observe(window, 'load', function() {
     Event.observe('processOrderButton', 'click', processOrder);
 
     // Get associate states for billing panel
-    Event.observe($('billToCountryGeoId'), 'change', getAssociatedBillingStateList);
+    Event.observe($('billToStateProvinceGeoId'), 'focus', function(){
+      getAssociatedBillingStateList('billingForm', 'billToStateProvinceGeoId');
+    });
 });
 
 // Check server side error
@@ -329,13 +329,13 @@ function setDataInShippingOptionCompleted() {
 
 // Billing
 function useShippingAddressForBillingToggle() {
-    $('billToStateProvinceGeoId').value = $F('shipToStateProvinceGeoId');
     if ($('useShippingAddressForBilling').checked) {
         $('billToAddress1').value = $F('shipToAddress1');
         $('billToAddress2').value = $F('shipToAddress2');
         $('billToCity').value = $F('shipToCity');
         $('billToPostalCode').value = $F('shipToPostalCode');
         $('billToCountryGeoId').value = $F('shipToCountryGeoId');
+        $('billToStateProvinceGeoId').update("<option value = " + $F('shipToStateProvinceGeoId') + " > " + $('shipToStateProvinceGeo').value + " </option>");
         Effect.BlindUp($('billingAddress'), {duration: 0.3});
     } else {
         Effect.BlindDown($('billingAddress'), {duration: 0.3});
@@ -511,11 +511,11 @@ function processOrder() {
     $('orderSubmitForm').submit();
 }
 
-function getAssociatedBillingStateList() {
+function getAssociatedBillingStateList(formName, divId) {
     var optionList = [];
     new Ajax.Request("getAssociatedStateList", {
         asynchronous: false,
-        parameters: $('billingForm').serialize(),
+        parameters: $(formName).serialize(),
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
             stateList = data.stateList;
@@ -523,7 +523,7 @@ function getAssociatedBillingStateList() {
                 geoVolues = state.split(': ');
                 optionList.push("<option value = "+geoVolues[1]+" >"+geoVolues[0]+"</option>");
             });
-            $('billToStateProvinceGeoId').update(optionList);
+            $(divId).update(optionList);
         }
     });
 }
