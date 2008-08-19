@@ -101,10 +101,10 @@
         <value xml:lang="th">คัดลอกแผนงาน</value>
     </property>
     <property key="ContentCompDoc">
-        <value xml:lang="ar">CompDoc</value>
+        <value xml:lang="ar">Composite document</value>
         <value xml:lang="en">CompDoc</value>
         <value xml:lang="es">ComponerDoc</value>
-        <value xml:lang="fr">CompDoc</value>
+        <value xml:lang="fr">Document composite</value>
         <value xml:lang="it">Composizione Documenti</value>
         <value xml:lang="ro">CompDoc</value>
         <value xml:lang="th">เอกสารคอมพิวเตอร์</value>
