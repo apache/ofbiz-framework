@@ -67,6 +67,87 @@ run_ofbiz_cmd() {
 	)
 }
 
+if [ -n "$(which jsvc)" ] || true; then
+	jsvc() {
+		set -x
+		jsvc_jvm=""
+		jsvc_wait=""
+		jsvc_verbose_class=""
+		jsvc_verbose_gc=""
+		jsvc_verbose_jni=""
+		jsvc_pidfile=""
+		jsvc_detach=1
+		jsvc_user=""
+		jsvc_outfile="/dev/null"
+		jsvc_errfile="/dev/null"
+		jsvc_home=""
+		jsvc_cp=""
+		jsvc_extra=""
+		jsvc_stop=""
+		while [ $# -gt 0 ]; do
+			case "$1" in
+				(-version)		;;
+				(-help)			;;
+				(-?)			;;
+				(-check)		;;
+				(-jvm)			jsvc_jvm="$2"; shift;;
+				(-wait)			jsvc_wait="$2"; shift;;
+				(-stop)			jsvc_stop=1;;
+				(-verbose:class)	jsvc_verbose_class=1; shift;;
+				(-verbose:gc)		jsvc_verbose_gc=1; shift;;
+				(-verbose:jni)		jsvc_verbose_jni=1; shift;;
+				(-pidfile)		jsvc_pidfile="$2"; shift;;
+				(-nodetach)		jsvc_detach="";;
+				(-user)			jsvc_user="$2"; shift;;
+				(-outfile)		jsvc_outfile="$2"; shift;;
+				(-errfile)		jsvc_errfile="$2"; shift;;
+				(-home)			jsvc_home="$2"; shift;;
+				(-classpath)		jsvc_cp="$2"; shift;;
+				(-cp)			jsvc_cp="$2"; shift;;
+				(-D*)			jsvc_extra="$jsvc_extra \"$1\"";;
+				(-X*)			jsvc_extra="$jsvc_extra \"$1\"";;
+				(*)			break;;
+			esac
+			shift
+		done
+		if ! [ "$jsvc_home" ]; then log_failure_msg "-home not set"; exit 1; fi
+		if ! [ "$jsvc_cp" ]; then log_failure_msg "-cp not set"; exit 1; fi
+		if [ "$jsvc_jvm" ]; then log_failure_msg "-jvm not supported"; exit 1; fi
+		if [ "$jsvc_wait" ]; then log_failure_msg "-wait not supported"; exit 1; fi
+		if [ "$jsvc_stop" ]; then log_failure_msg "-stop not supported"; exit 1; fi
+		jsvc_args=""
+		if [ "$jsvc_verbose_class" ]; then :; fi
+		if [ "$jsvc_verbose_gc" ]; then :; fi
+		if [ "$jsvc_verbose_jni" ]; then :; fi
+		jsvc_command_file=$(mktemp)
+		echo "#!/bin/sh" > "$jsvc_command_file"
+		chmod +x "$jsvc_command_file"
+		echo "rm -f \"$jsvc_command_file\"" >> "$jsvc_command_file"
+		if [ "$jsvc_pidfile" ]; then
+			touch "$jsvc_pidfile"
+			if [ "$jsvc_user" ]; then
+				chown "$jsvc_user" "$jsvc_pidfile"
+			fi
+			echo "echo \$\$ > \"$jsvc_pidfile\"" >> "$jsvc_command_file"
+		fi
+		echo "exec \"$JAVA\" -classpath \"$jsvc_cp\" $jsvc_extra $@" >> "$jsvc_command_file"
+		if [ "$jsvc_user" ]; then
+			chown "$jsvc_user" "$jsvc_command_file"
+			jsvc_command="su -c \"$jsvc_command_file\" -s \"/bin/sh\" \"$jsvc_user\""
+		else
+			jsvc_command="$jsvc_command_file"
+		fi
+		jsvc_command="$jsvc_command 1>\"$jsvc_outfile\" 2>\"$jsvc_errfile\""
+		if [ "$jsvc_detach" ]; then
+			eval $jsvc_command &
+		else
+			trap "rm -f \"$jsvc_command_file\"" EXIT
+			eval $jsvc_command
+		fi
+		return $?
+	}
+fi
+	
 get_status() {
 	status="$(run_ofbiz_cmd -status 2>/dev/null | sed -n 's/^Current Status : //p')"
 	case "$status" in
