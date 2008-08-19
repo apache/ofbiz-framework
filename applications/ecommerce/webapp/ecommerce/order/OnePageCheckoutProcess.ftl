@@ -557,9 +557,8 @@ under the License.
                         </div>
                         <div class="field-widget">
                           <select name="countryGeoId" id="billToCountryGeoId" class="required selectBox">
-                            <#if (parameters.countryGeoId)?exists>
+                            <#if parameters.billToCountryGeoId?exists>
                               <option>${parameters.billToCountryProvinceGeo}</option>
-                              <option value="${parameters.billToCountryGeoId}">---</option>
                             </#if>
                             ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                           </select>
@@ -573,7 +572,6 @@ under the License.
                           <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId" class="required selectBox">
                             <#if parameters.billToStateProvinceGeoId?has_content>
                               <option>${parameters.billToStateProvinceGeo}</option>
-                              <option value="${parameters.billToStateProvinceGeoId}">---</option>
                             <#else>
                               <option value="">${uiLabelMap.PartyNoState}</option>
                             </#if>
