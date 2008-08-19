@@ -213,6 +213,7 @@
         
         <!-- TIMESHEET -->
         <if-compare field="sec_object" value="TIMESHEET" operator="equals">
+            <entity-one entity-name="Timesheet" value-name="timesheet"/>
             <!-- log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} timesheetId: ${timesheet.timesheetId} partyId: ${timesheet.partyId} resourceDescription: ${parameters.resourceDescription}"/-->
             <if>
                 <condition>
@@ -234,7 +235,7 @@
                         </and>
                         <and><!-- can always create ones own timesheet -->
                             <if-compare field="mainAction" value="CREATE" operator="equals"/>
-                            <if-compare-field field="timesheet.partyId" to-field="parameters.userLogin.partyId" operator="equals"/>
+                            <if-compare-field field="parameters.partyId" to-field="parameters.userLogin.partyId" operator="equals"/><!-- timesheet not exist yet -->
                         </and>
                         <and><!-- can always update ones own timesheet -->
                             <if-compare field="mainAction" value="UPDATE" operator="equals"/>
@@ -262,7 +263,7 @@
             <set field="taskId" from-field="parameters.workEffortId"/>
             <set field="partyId" from-field="timesheet.partyId"/>
             <call-simple-method method-name="checkProjectMembership"/>
-            <!-- log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} timesheetId: ${timesheetId} from partyId: ${partyId} workEffortId: ${parameters.workEffortId} resourceDescription: ${parameters.resourceDescription}"/-->
+            <log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} timesheetId: ${timesheetId} from partyId: ${partyId} workEffortId: ${parameters.workEffortId} resourceDescription: ${parameters.resourceDescription}"/>
             <if>
                 <condition>
                     <or>
