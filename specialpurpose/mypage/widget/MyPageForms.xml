@@ -29,7 +29,8 @@ under the License.
         <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="/projectmgr/control/projectView?projectId=${resultProject.projectId}"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}"/></field>
         <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.CommonRemove}"/></field>
-        <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.CommonStatustoComplete}"/></field>
+        <!-- better set to complete on the timesheet -->
+        <!-- field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.CommonStatustoComplete}"/></field-->
     </form>
     
     <form name="EditWeekTimesheet" extends="EditWeekTimesheet" extends-resource="component://projectmgr/widget/forms/TimeSheetForms.xml">

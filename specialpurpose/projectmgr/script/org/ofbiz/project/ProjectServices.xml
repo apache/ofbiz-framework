@@ -132,6 +132,17 @@
             <now-timestamp-to-env env-name="parameters.actualCompletionDate"/>
             <set field="parameters.currentStatusId" value="PTS_COMPLETED"/>
             <call-simple-method method-name="updateWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
+            <!-- check for related customer request, set these too to completed -->
+            <entity-and list-name="custRequests" entity-name="CustRequestWorkEffort">
+                <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+            </entity-and>            
+            <if-not-empty field="custRequests">
+                <iterate entry-name="custReq" list-name="custRequests">
+                    <set field="updStat.custRequestId" from-field="custReq.custRequestId"/>
+                    <set field="updStat.statusId" value="CRQ_COMPLETED"/>
+                    <call-service service-name="updateCustRequest" in-map-name="updStat"/>
+                </iterate>
+            </if-not-empty>
         </if-empty>
     </simple-method>
     
