@@ -209,23 +209,6 @@ under the License.
                                 </screenlet>
                             </widgets>
                         </section>
-                        <section>
-                            <condition>
-                                <or>
-                                    <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
-                                    <if-has-permission permission="PROJECTMGR_ROLE_VIEW"/>
-                                </or>
-                            </condition>
-                            <actions>
-                                <set field="entityName" value="ProjectPartyAndPhaseAndTask"/>
-                                <set field="parameters.partyId" from-field="context.userLogin.partyId"/>
-                            </actions>
-                            <widgets>
-                                <screenlet  title="${uiLabelMap.PageTitleListTaskSearchResult}" navigation-form-name="ListTasks">
-                                    <include-form name="ListTasks" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
