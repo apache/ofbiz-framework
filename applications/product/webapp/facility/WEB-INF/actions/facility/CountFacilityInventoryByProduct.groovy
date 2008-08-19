@@ -30,6 +30,8 @@
 // is not computed; you can use the ViewFacilityInventoryByProduct.groovy if you
 // need it (but it is slower than this one).
 
+import org.ofbiz.base.util.Debug
+import org.ofbiz.base.util.ObjectType
 import org.ofbiz.entity.*
 import org.ofbiz.entity.condition.*
 import org.ofbiz.entity.transaction.*
@@ -138,7 +140,8 @@ if (action) {
         discontinuationDateCondition = EntityCondition.makeCondition(
                [
                 EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null),
-                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, productsSoldThruTimestamp)
+                EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN,
+                ObjectType.simpleTypeConvert(productsSoldThruTimestamp, "Timestamp", null, null, false))
                ],
                EntityOperator.OR);
         whereConditionsList.add(discontinuationDateCondition);
@@ -246,15 +249,16 @@ if (action) {
 
             oneInventory = [:];
             oneInventory.productId = oneProd.productId;
-            oneInventory.minimumStock = oneProd.minimumStock;
-            oneInventory.reorderQuantity = oneProd.reorderQuantity;
-            oneInventory.daysToShip = oneProd.daysToShip;
+            oneInventory.minimumStock = oneProd.getString("minimumStock");
+            oneInventory.reorderQuantity = oneProd.getString("reorderQuantity");
+            oneInventory.daysToShip = oneProd.getString("daysToShip");
             oneInventory.totalQuantityOnHand = oneProd.totalQuantityOnHandTotal;
             oneInventory.totalAvailableToPromise = oneProd.totalAvailableToPromiseTotal;
             oneInventory.offsetQOHQtyAvailable = offsetQOHQtyAvailable;
             oneInventory.offsetATPQtyAvailable = offsetATPQtyAvailable;
             oneInventory.quantityOnOrder = InventoryWorker.getOutstandingPurchasedQuantity(oneProd.productId, delegator);
 
+            
             if (checkTime) {
             
                 // Make a query against the sales usage view entity
@@ -354,7 +358,7 @@ if (action) {
         // after rolling back, rethrow the exception
         throw e;
     } finally {
-        if (prodsEli) {
+        if (prodsEli != null) {
             try {
                 prodsEli.close();
             } catch (Exception exc) {}
