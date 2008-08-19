@@ -20,30 +20,35 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="CommonStatustoComplete">
         <value xml:lang="en">Status to 'complete'</value>
+        <value xml:lang="fr">Status à 'complet'</value>
         <value xml:lang="it">Stato a 'completo'</value>
         <value xml:lang="th">สถานะเป็น 'เสร็จสมบูรณ์'</value>
         <value xml:lang="zh">置状态为完成</value>
     </property>
     <property key="PageTitleAddATimesheet">
         <value xml:lang="en">Add a new weekly Timesheet</value>
+        <value xml:lang="fr">Ajouter une nouvelle feuille de présence hebdomadaire</value>
         <value xml:lang="it">Aggiungi una nuova Timbratura settimanale</value>
         <value xml:lang="th">เพิ่มตารางเวลารายสัปดาห์ใหม่</value>
         <value xml:lang="zh">增加新的周时间表</value>
     </property>
     <property key="PageTitleAddDependencyAfter">
         <value xml:lang="en">Add Dependency After the current Task</value>
+        <value xml:lang="fr">Ajouter une dépendance après la tâche courante</value>
         <value xml:lang="it">Aggiungi Dipendenza Dopo l'attuale Compito</value>
         <value xml:lang="th">เพิ่มความสัมพันธ์หลังจากงานเป็นที่ยอมรับ</value>
         <value xml:lang="zh">在当前任务后增加依赖</value>
     </property>
     <property key="PageTitleAddDependencyBefore">
         <value xml:lang="en">Add Dependency before the current Task</value>
+        <value xml:lang="fr">Ajouter une dépendance avant la tâche courante</value>
         <value xml:lang="it">Aggiungi Dipendenza prima del Compito</value>
         <value xml:lang="th">เพิ่มความสัมพันธ์ก่อนงานเป็นที่ยอมรับ</value>
         <value xml:lang="zh">在当前任务前增加依赖</value>
     </property>
     <property key="PageTitleAddPartyAssign">
         <value xml:lang="en">Add Resource Assignment</value>
+        <value xml:lang="fr">Ajouter une ressource à la tâche</value>
         <value xml:lang="it">Aggiungi Assegnazione Risorsa</value>
         <value xml:lang="th">เพิ่มการกำหนดแหล่งข้อมูล</value>
         <value xml:lang="zh">增加资源分配</value>
@@ -51,53 +56,62 @@
     <property key="PageTitleAddPhase">
         <value xml:lang="en">Add Phase</value>
         <value xml:lang="it">Aggiungi Fase</value>
+        <value xml:lang="fr">Ajouter une phase</value>
         <value xml:lang="th">เพิ่มขั้นตอนการทำงาน</value>
         <value xml:lang="zh">增加项目阶段</value>
     </property>
     <property key="PageTitleAddProject">
         <value xml:lang="en">Add Project</value>
+        <value xml:lang="fr">Ajouter un projet</value>
         <value xml:lang="it">Aggiungi Progetto</value>
         <value xml:lang="th">เพิ่มโปรเจค</value>
         <value xml:lang="zh">增加项目</value>
     </property>
     <property key="PageTitleAddProjectNotes">
         <value xml:lang="en">Add Project Notes</value>
+        <value xml:lang="fr">Ajouter des notes au projet</value>
         <value xml:lang="it">Aggiungi Note Progetto</value>
         <value xml:lang="th">เพิ่มข้อความโปรเจค</value>
         <value xml:lang="zh">增加项目备注</value>
     </property>
     <property key="PageTitleAddResource">
         <value xml:lang="en">Add a Resource</value>
+        <value xml:lang="fr">Ajouter une ressource</value>
         <value xml:lang="it">Aggiungi una Risorsa</value>
         <value xml:lang="th">เพิ่มแหล่งที่มา</value>
         <value xml:lang="zh">增加资源</value>
     </property>
     <property key="PageTitleAddSkill">
         <value xml:lang="en">Add Requirement</value>
+        <value xml:lang="fr">Ajouter une condition</value>
         <value xml:lang="it">Aggiungi Abilità</value>
         <value xml:lang="th">เพิ่มความต้องการ</value>
         <value xml:lang="zh">增加需求</value>
     </property>
     <property key="PageTitleAddSubProject">
         <value xml:lang="en">Add Sub Project</value>
+        <value xml:lang="fr">Ajouter un sous-projet</value>
         <value xml:lang="it">Aggiungi Sotto-Progetto</value>
         <value xml:lang="th">เพิ่มโปรเจคย่อย</value>
         <value xml:lang="zh">增加子项目</value>
     </property>
     <property key="PageTitleAddSubTask">
         <value xml:lang="en">Add Sub Task</value>
+        <value xml:lang="fr">Ajouter une sous-tâche</value>
         <value xml:lang="it">Aggiungi Sotto-Compito</value>
         <value xml:lang="th">เพิ่มงานย่อย</value>
         <value xml:lang="zh">增加子任务</value>
     </property>
     <property key="PageTitleAddTask">
         <value xml:lang="en">Add Task</value>
+        <value xml:lang="fr">Ajouter une tâche</value>
         <value xml:lang="it">Aggiungi Compito</value>
         <value xml:lang="th">เพิ่มงาน</value>
         <value xml:lang="zh">增加任务</value>
     </property>
     <property key="PageTitleAddTaskNotes">
         <value xml:lang="en">Add Task Notes</value>
+        <value xml:lang="fr">Ajouter des notes à la tâche</value>
         <value xml:lang="it">Aggiungi Note Compito</value>
         <value xml:lang="th">เพิ่มข้อความงาน</value>
         <value xml:lang="zh">增加任务备注</value>
