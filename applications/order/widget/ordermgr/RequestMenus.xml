@@ -44,24 +44,12 @@ under the License.
             <link target="createQuoteFromCustRequest?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
     </menu>
-    
 
     <menu name="editrequestitemmenu" default-selected-style="selected" type="simple"
         menu-container-style="button-bar tab-bar">
         <menu-item name="requestitem">
             <link id="requestitem" target="requestitem?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
         </menu-item>
-        <menu-item name="requestitemnotes" title="Request Item Notes" >
-            <link id="requestitemnotes" target="requestitemnotes?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
-        </menu-item>
-        <menu-item name="requestitemquotes" title="Request Item Quotes" >
-            <link id="requestitemquotes" target="RequestItemQuotes?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
-        </menu-item>
-        <menu-item name="workeffortrequirements" title="WorkEffort Requirements" >
-            <link id="workeffortrequirements" target="requestitemrequirements?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
-        </menu-item>
-    </menu>
-    <menu name="requestItemNoteMmenu" default-selected-style="selected" type="simple" menu-container-style="button-bar tab-bar">
         <menu-item name="requestitemnotes" title="Request Item Notes" >
             <link id="requestitemnotes" target="requestitemnotes?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
         </menu-item>
