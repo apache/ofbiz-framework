@@ -19,7 +19,7 @@
 package org.ofbiz.base.util.string;
 
 import java.io.Serializable;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -245,10 +245,11 @@ public class FlexibleStringExpander implements Serializable {
         if (original == null || origLen == 0) {
             return null;
         }
-        List<StrElem> strElems = new LinkedList<StrElem>();
+        ArrayList<StrElem> strElems = new ArrayList<StrElem>();
         int start = original.indexOf("${");
         if (start == -1) {
             strElems.add(new ConstElem(original));
+            strElems.trimToSize();
             return strElems;
         }
         int currentInd = 0;
@@ -296,6 +297,7 @@ public class FlexibleStringExpander implements Serializable {
         if (currentInd < origLen) {
             strElems.add(new ConstElem(original.substring(currentInd)));
         }
+        strElems.trimToSize();
         return strElems;
     }
 
