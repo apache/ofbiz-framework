@@ -523,7 +523,7 @@
         <value xml:lang="zh">你没有访问该项目的权限：${projectId}</value>
     </property>
     <property key="ProjectMgrNoAccessToTask">
-        <value xml:lang="en">You have no access to the task#: ${taskId}</value>
+        <value xml:lang="en">You have no access to the taskId: ${taskId} or projectId: ${projectId}</value>
         <value xml:lang="it">Tu non hai accesso al compito#: ${taskId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าถึงงาน#: ${taskId}</value>
         <value xml:lang="zh">你没有访问该任务的权限：${taskId}</value>

@@ -56,8 +56,9 @@
         </field>
         <field use-when="myTask!=void" name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
-                <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${phaseName} (Proj:${projectName})">
+                <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
+                    <entity-order-by field-name="projectName"/>
                     <entity-order-by field-name="phaseName"/>
                 </entity-options>        
             </drop-down>
@@ -114,9 +115,9 @@
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProjectAndPhaseAndTask" description="${projectName} : ${phaseName}">    
                     <entity-order-by field-name="workEffortParentId"/>
-                    </entity-options>
-                </drop-down>
-            </field>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="estimatedHours" title="${uiLabelMap.ProjectMgrEstimatedHours}"><text size="5"/></field>
         <field name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}">
             <drop-down allow-empty="true">
@@ -286,7 +287,7 @@
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down>
-                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} (${phaseName}-${projectName})">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
                     <entity-constraint name="workEffortTypeId" value="TASK"/>
                     <entity-constraint name="currentStatusId" operator="equals" value="PTS_CREATED"/>

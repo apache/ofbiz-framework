@@ -416,7 +416,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
                 <set field="tabButtonItem" value="parties"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortPartyAssigns"/>
-                <set field="workEffortId" from-field="parameters.projectId" default-value="parameters.workEffortId"/>
+                <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="projectId" from-field="workEffortId"/>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
@@ -528,7 +528,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProjectMgrProjectSummary"/>
                 <set field="tabButtonItem" value="projectView"/>
-                <set field="projectId" from-field="parameters.projectId" default-value="parameters.workEffortId"/>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <service service-name="getProject" result-map-name="result">
                     <field-map field-name="projectId" env-name="projectId"/>
                 </service>
@@ -784,7 +784,7 @@ under the License.
                     <field-map field-name="projectId" env-name="projectId"/>
                 </service>
                 <set field="project" from-field="result.projectInfo"/>
-                <set field="workEffortId" from-field="parameters.projectId" default-value="parameters.workEffortId"/>
+                <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
                 <set field="projectId" from-field="workEffortId"/>
                 <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
                 <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>

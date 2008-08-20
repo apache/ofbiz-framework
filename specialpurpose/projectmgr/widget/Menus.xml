@@ -380,7 +380,7 @@
         </menu-item>
     </menu>
     <menu name="RequestTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
-        <menu-item name="viewRequest" title="${uiLabelMap.ProjectMgrView}">
+        <menu-item name="ViewRequest" title="${uiLabelMap.ProjectMgrView}">
             <link target="ViewRequest?custRequestId=${parameters.custRequestId}"/>
         </menu-item>
         <menu-item name="editRequest" title="${uiLabelMap.ProjectMgrEdit}">
