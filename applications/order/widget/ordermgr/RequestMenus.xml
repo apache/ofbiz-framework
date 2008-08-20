@@ -21,25 +21,47 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
 
-    <menu name="editRequest"  default-selected-style="selected" type="simple"
+    <menu name="RequestTabBar"  default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"
         menu-container-style="button-bar tab-bar">
+        <menu-item name="ViewRequest" title="Overview" >
+            <link target="ViewRequest?custRequestId=${custRequest.custRequestId}"/>
+        </menu-item>
         <menu-item name="request" title="Request" >
-            <link id="requestheader" target="request?custRequestId=${custRequest.custRequestId}"/>
+            <link target="request?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
         <menu-item name="requestroles" title="Request Roles" >
-            <link id="requestroles" target="requestroles?custRequestId=${custRequest.custRequestId}"/>
+            <link target="requestroles?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
         <menu-item name="requestitems" title="Request Items" >
-            <link id="requestitems" target="/requestitems?custRequestId=${custRequest.custRequestId}">
-            </link>
+            <link target="/requestitems?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
     </menu>
+    <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
+        <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">
+            <link target="request"/>
+        </menu-item>
+        <menu-item name="createQuoteFromRequest" title="Create Quote from request" >
+            <link target="createQuoteFromCustRequest?custRequestId=${custRequest.custRequestId}"/>
+        </menu-item>
+    </menu>
+    
 
     <menu name="editrequestitemmenu" default-selected-style="selected" type="simple"
         menu-container-style="button-bar tab-bar">
         <menu-item name="requestitem">
             <link id="requestitem" target="requestitem?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
         </menu-item>
+        <menu-item name="requestitemnotes" title="Request Item Notes" >
+            <link id="requestitemnotes" target="requestitemnotes?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
+        </menu-item>
+        <menu-item name="requestitemquotes" title="Request Item Quotes" >
+            <link id="requestitemquotes" target="RequestItemQuotes?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
+        </menu-item>
+        <menu-item name="workeffortrequirements" title="WorkEffort Requirements" >
+            <link id="workeffortrequirements" target="requestitemrequirements?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
+        </menu-item>
+    </menu>
+    <menu name="requestItemNoteMmenu" default-selected-style="selected" type="simple" menu-container-style="button-bar tab-bar">
         <menu-item name="requestitemnotes" title="Request Item Notes" >
             <link id="requestitemnotes" target="requestitemnotes?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
         </menu-item>

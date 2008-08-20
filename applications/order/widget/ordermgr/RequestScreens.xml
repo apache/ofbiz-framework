@@ -75,9 +75,12 @@ under the License.
 			                <platform-specific>
 			                    <html><html-template location="component://order/webapp/ordermgr/request/requestInfo.ftl"/></html>
 			                </platform-specific>
-		                    <screenlet title="${uiLabelMap.PageTitleRequestItems}">
-		                        <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
-		                    </screenlet>
+                            <screenlet title="${uiLabelMap.PageTitleRequestItems}">
+                                <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.PageTitleRequestItemNotes}">
+                                <include-form name="ListRequestItemNotes" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
 		                </container>
 		                <container style="righthalf">
 			                <platform-specific>
