@@ -62,31 +62,18 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!--
                             <condition>
-                                <if-has-permission permission="ORDERMGR" action="_VIEW"/>
+                                <not><if-empty field-name="custRequest"/></not>
                             </condition>
-                            -->
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/request/RequestTabBar.ftl"/></html>
-                                </platform-specific>
-                                <container>
-                                                        <container>
-                            <link target="request" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
-                            <link target="createQuoteFromCustRequest?custRequestId=${custRequestId}" text="${uiLabelMap.OrderNewQuote}" style="buttontext"/>
-                        </container>
-                                
-                                    <label style="h1">[${uiLabelMap.CommonId}:${custRequest.custRequestId}] ${custRequest.custRequestName}</label>
-                                </container>
-                                <decorator-section-include name="body"/>
+                                 <include-menu name="RequestTabBar" location="component://order/widget/ordermgr/RequestMenus.xml"/>
                             </widgets>
-                            <!--
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.OrderViewPermissionError}</label>
-                            </fail-widgets>
-                            -->
                         </section>
+                        <include-menu name="RequestSubTabBar" location="component://order/widget/ordermgr/RequestMenus.xml"/>
+                        <container>
+                            <label style="h1">[${uiLabelMap.CommonId}:${custRequest.custRequestId}] ${custRequest.custRequestName}</label>
+                        </container>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
