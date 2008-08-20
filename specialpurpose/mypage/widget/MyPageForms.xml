@@ -37,7 +37,7 @@ under the License.
             <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTimesheetKey"/>        
             <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="true">
-                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} -- ${phaseName} -- ${projectName}">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}">
                     <entity-constraint name="workEffortTypeId" operator="not-equals" value="TASK_TEMPLATE"/>
                     <entity-constraint name="partyId" env-name="timesheet.partyId"/>
                     <entity-order-by field-name="projectName"/>

@@ -54,7 +54,7 @@
         
         <!-- PROJECT -->
         <if-compare field="sec_object" value="PROJECT" operator="equals">
-            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/-->
+            <log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/>
             <set field="projectId" from-field="parameters.projectId"/>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
             <call-simple-method method-name="checkProjectMembership"/>
@@ -148,10 +148,10 @@
                 <set field="phaseId" from-field="parameters.workEffortParentId"/>
             </if-empty>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
-            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription}"/-->
             <call-simple-method method-name="checkProjectMembership"/>
+            <!-- log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription} isMember: ${isMember}"/-->
             <entity-and list-name="custRequests" entity-name="WorkEffortCustRequestView">
-                <field-map field-name="workEffortId" env-name="parameters.taskId"/>
+                <field-map field-name="workEffortId" env-name="taskId"/>
             </entity-and>
             <first-from-list list-name="custRequests" entry-name="custRequest"/>
             <if>
@@ -188,7 +188,7 @@
                         </and>
                         <and>
                             <if-has-permission permission="PROJECTMGR_ROLE_TASK_CREATE"/>
-                            <if-compare field="isMember" value="true" operator="equals"/>
+                            <!-- if-compare field="isMember" value="true" operator="equals"/--><!-- currently disabled because the workEffortParentId is supplied but is empty here -->
                             <or>
                                 <if-compare field="parameters.mainAction" value="CREATE" operator="equals"/>
                                 <if-compare field="parameters.mainAction" value="UPDATE" operator="equals"/>
@@ -343,6 +343,9 @@
                     <set field="isMember" value="true" type="Boolean"/>
                 </else>
             </if-empty>
+            <else>
+                <set field="isMember" value="false" type="Boolean"/>
+            </else>
         </if-not-empty>
     </simple-method>
 </simple-methods>

@@ -95,6 +95,10 @@ under the License.
                 <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
                     <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
                 </entity-and>
+                <entity-and list-name="notes" entity-name="CustRequestItemNoteView">
+                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                    <order-by  field-name="custRequestItemSeqId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
@@ -105,6 +109,9 @@ under the License.
                             </platform-specific>
                             <screenlet title="${uiLabelMap.PageTitleRequestItems}">
                                 <include-form name="OverviewRequestItems" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.PageTitleRequestItemNotes}">
+                                <include-form name="ListRequestItemNotes" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                             </screenlet>
                         </container>
                         <container style="righthalf">
@@ -121,7 +128,7 @@ under the License.
                                 <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequestWorkEfforts">
-                                <include-form name="ViewRequestWorkEfforts" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                                <include-form name="ListRequestItemNotes" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                             </screenlet>
                         </container>
                     </decorator-section>

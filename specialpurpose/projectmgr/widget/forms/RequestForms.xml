@@ -156,11 +156,17 @@ under the License.
         </field>
     </form>
     <form name="OverviewRequestItems" extends="OverviewRequestItems" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+        <field name="custRequestItemSeqId" title="${uiLabelMap.CommonNbr}"><display/></field>
         <field name="story" title="${uiLabelMap.CommonText}"><display/></field>
         <field name="productId"><ignored/></field>
         <field name="statusId"><ignored/></field>
         <field name="quantity"><ignored/></field>
         <field name="description"><ignored/></field>
-        <field name="custRequestItemSeqId"><ignored/></field>
+    </form>
+    <form name="ListRequestItemNotes" extends="ListRequestItemNotes" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+        <field name="custRequestItemSeqId" title="${uiLabelMap.CommonNbr}"><display/></field>
+        <field name="noteDateTime"><ignored/></field>
+        <field name="partyId"><ignored/></field>
+        <field name="name"><ignored/></field>
     </form>
 </forms>
