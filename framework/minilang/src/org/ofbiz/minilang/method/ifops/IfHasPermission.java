@@ -54,8 +54,8 @@ public class IfHasPermission extends MethodOperation {
 
     public IfHasPermission(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.permissionExdr = new FlexibleStringExpander(element.getAttribute("permission"));
-        this.actionExdr = new FlexibleStringExpander(element.getAttribute("action"));
+        this.permissionExdr = FlexibleStringExpander.getInstance(element.getAttribute("permission"));
+        this.actionExdr = FlexibleStringExpander.getInstance(element.getAttribute("action"));
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
 

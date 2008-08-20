@@ -53,7 +53,7 @@ public class PrimaryKeyFinder extends Finder {
         super(entityOneElement);
         if (UtilValidate.isNotEmpty(entityOneElement.getAttribute("value-name")))
             this.valueNameAcsr = new FlexibleMapAccessor<Object>(entityOneElement.getAttribute("value-name"));
-        this.autoFieldMapExdr = new FlexibleStringExpander(entityOneElement.getAttribute("auto-field-map"));
+        this.autoFieldMapExdr = FlexibleStringExpander.getInstance(entityOneElement.getAttribute("auto-field-map"));
 
         // process field-map
         this.fieldMap = EntityFinderUtil.makeFieldMap(entityOneElement);

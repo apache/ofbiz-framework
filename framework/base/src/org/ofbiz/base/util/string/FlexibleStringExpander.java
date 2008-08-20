@@ -28,50 +28,53 @@ import java.util.TimeZone;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
-import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.cache.UtilCache;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
+import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
 
 import bsh.EvalError;
 
-/**
- * Expands string values with in a Map context supporting the ${} syntax for
+/** Expands string values within a Map context supporting the ${} syntax for
  * variable placeholders and the "." (dot) and "[]" (square-brace) syntax
  * elements for accessing Map entries and List elements in the context.
  * It Also supports the execution of bsh files by using the 'bsh:' prefix.
  * Further it is possible to control the output by specifying the suffix
  * '?currency(XXX)' to format the output according the current locale
  * and specified (XXX) currency
- *
  */
 @SuppressWarnings("serial")
 public class FlexibleStringExpander implements Serializable {
     
     public static final String module = FlexibleStringExpander.class.getName();
-    
-    protected String original;
-    protected List<StringElement> stringElements = new LinkedList<StringElement>();
-    protected static boolean localizeCurrency = false;
-    protected static String currencyCode = null;
-    
+    protected static UtilCache<String, FlexibleStringExpander> exprCache = new UtilCache<String, FlexibleStringExpander>("flexibleStringExpander.ExpressionCache");
+    protected static FlexibleStringExpander nullExpr = new FlexibleStringExpander(null);
+    protected String orig;
+    protected List<StrElem> strElems = null;
+    protected int hint = 20;
+
+    /**
+     * @deprecated Use getInstance(String original) instead.
+     * @param original
+     */
     public FlexibleStringExpander(String original) {
-        this.original = original;
-        
-        ParseElementHandler handler = new PreParseHandler(stringElements);
-        parseString(original, handler);
-    }
-    
-    public boolean isEmpty() {
-        if (this.original == null || this.original.length() == 0) {
-            return true;
-        } else {
-            return false;
+        // TODO: Change this to protected, remove @deprecated javadoc comment
+        this.orig = original;
+        if (original != null && original.contains("${")) {
+            this.strElems = getStrElems(original);
+            if (original.length() > this.hint) {
+                this.hint = original.length();
+            }
         }
     }
     
+    public boolean isEmpty() {
+        return this.orig == null || this.orig.length() == 0;
+    }
+    
     public String getOriginal() {
-        return this.original;
+        return this.orig;
     }
 
     /** 
@@ -84,7 +87,7 @@ public class FlexibleStringExpander implements Serializable {
      * @return The original String expanded by replacing varaible place holders.
      */    
     public String expandString(Map<String, ? extends Object> context) {
-        return this.expandString(context, context != null ? (Locale) context.get("locale") : null);
+        return this.expandString(context, null, null);
     }
     
     /** 
@@ -98,14 +101,75 @@ public class FlexibleStringExpander implements Serializable {
      * @return The original String expanded by replacing varaible place holders.
      */    
     public String expandString(Map<String, ? extends Object> context, Locale locale) {
-        StringBuilder expanded = new StringBuilder();
-        
-        for (StringElement element: stringElements) {
-            element.appendElement(expanded, context, locale);
+        return this.expandString(context, null, locale);
+    }
+    
+    /** 
+     * This expands the pre-parsed String given the context passed in. Note that
+     * pre-parsing can only parse the top-level place-holders and if there are 
+     * nested expansions they will be done on the fly instead of pre-parsed because
+     * they are dependent on the context which isn't known until expansion time.
+     * 
+     * @param context A context Map containing the variable values
+     * @param timeZone the current set time zone
+     * @param locale the current set locale
+     * @return The original String expanded by replacing varaible place holders.
+     */    
+    public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+        if (this.strElems == null) {
+            return this.orig == null ? "" : this.orig;
         }
-        
-        //call back into this method with new String to take care of any/all nested expands
-        return expandString(expanded.toString(), context, locale);
+        if (locale == null) {
+            locale = (Locale) context.get("locale");
+            if (locale == null && context.containsKey("autoUserLogin")) {
+                locale = UtilMisc.ensureLocale(((Map) context.get("autoUserLogin")).get("lastLocale"));
+            }
+            if (locale == null) {
+                locale = Locale.getDefault();
+            }
+        }
+        if (timeZone == null) {
+            timeZone = (TimeZone) context.get("timeZone");
+            if (timeZone == null && context.containsKey("autoUserLogin")) {
+                timeZone = UtilDateTime.toTimeZone((String)((Map) context.get("autoUserLogin")).get("lastTimeZone"));
+            }
+            if (timeZone == null) {
+                timeZone = TimeZone.getDefault();
+            }
+        }
+        StringBuilder buffer = new StringBuilder(this.hint);
+        for (StrElem elem : this.strElems) {
+            elem.append(buffer, context, timeZone, locale);
+        }
+        if (buffer.length() > this.hint) {
+            this.hint = buffer.length();
+        }
+        return buffer.toString();
+    }
+    
+    /** Returns a FlexibleStringExpander instance.
+     * @param original The original String expression
+     * @return A FlexibleStringExpander instance
+     */
+    public static FlexibleStringExpander getInstance(String original) {
+        if (original == null || original.length() == 0) {
+            return nullExpr;
+        }
+        // Remove the next three lines to cache all expressions
+        if (!original.contains("${")) {
+            return new FlexibleStringExpander(original);
+        }
+        FlexibleStringExpander fse = exprCache.get(original);
+        if (fse == null) {
+            synchronized (exprCache) {
+                fse = exprCache.get(original);
+                if (fse == null) {
+                    fse = new FlexibleStringExpander(original);
+                    exprCache.put(original, fse);
+                }
+            }
+        }
+        return fse;
     }
     
     /**
@@ -165,57 +229,27 @@ public class FlexibleStringExpander implements Serializable {
         if (context == null) {
             return original;
         }
-        
-        // if null or less than 3 return original; 3 chars because that is the minimum necessary for a ${}
-        if (original == null || original.length() < 3) {
+        if (original == null || !original.contains("${")) {
             return original;
         }
-        
-        // start by checking to see if expansion is necessary for better performance
-        // this is also necessary for the nested stuff since this will be the stopping point for nested expansions
-        int start = original.indexOf("${");
-        if (start == -1) {
-            return original;
-        } else {
-            if (original.indexOf("}", start) == -1) {
-                //no ending for the start, so we also have a stop condition
-                Debug.logWarning("Found a \"${\" without a closing \"}\" (curly-brace) in the String: " + original, module);
-                return original;  
-            }
-        }
-        
-        if (locale == null && context.containsKey("locale")) {
-            locale = (Locale) context.get("locale");
-        }
-        if (locale == null && context.containsKey("autoUserLogin")) {
-            locale = UtilMisc.ensureLocale(((Map) context.get("autoUserLogin")).get("lastLocale"));
-        }
-        
-        if (timeZone == null) {
-            timeZone = (TimeZone) context.get("timeZone");
-            if (timeZone == null) {
-                timeZone = TimeZone.getDefault();
-            }
-        }
-
-        StringBuilder expanded = new StringBuilder();
-        // TODO: for performance to save object build up and tear down times we should use Javolution to make OnTheFlyHandler reusable and use a factory methods instead of constructor
-        ParseElementHandler handler = new OnTheFlyHandler(expanded, context, timeZone, locale);
-        parseString(original, handler);
-        
-        //call back into this method with new String to take care of any/all nested expands
-        return expandString(expanded.toString(), context, timeZone, locale);
+        FlexibleStringExpander fse = FlexibleStringExpander.getInstance(original);
+        return fse.expandString(context, timeZone, locale);
     }
     
-    public static void parseString(String original, ParseElementHandler handler) {
-        if (original == null || original.length() == 0) {
-            return;
+    /** Protected helper method.
+     * @param original
+     * @return
+     */
+    protected static List<StrElem> getStrElems(String original) {
+        int origLen = original.length();
+        if (original == null || origLen == 0) {
+            return null;
         }
-        
+        List<StrElem> strElems = new LinkedList<StrElem>();
         int start = original.indexOf("${");
         if (start == -1) {
-            handler.handleConstant(original, 0);
-            return;
+            strElems.add(new ConstElem(original));
+            return strElems;
         }
         int currentInd = 0;
         int end = -1;
@@ -225,204 +259,152 @@ public class FlexibleStringExpander implements Serializable {
                 Debug.logWarning("Found a ${ without a closing } (curly-brace) in the String: " + original, module);
                 break;
             } 
-            
-            // check to see if there is a nested ${}, ie something like ${foo.${bar}} or ${foo[$bar}]}
-            // since we are only handling one at a time, and then recusively looking for nested ones, just look backward from the } for another ${ and if found and is not the same start spot, update the start spot
-            int possibleNestedStart = original.lastIndexOf("${", end);
-            if (start != possibleNestedStart) {
-                // found a nested one, could print something here, but just do the simple thing...
-                start = possibleNestedStart;
+            if (start > currentInd) {
+                // append everything from the current index to the start of the var
+                strElems.add(new ConstElem(original.substring(currentInd, start)));
             }
-            
-            // append everything from the current index to the start of the var
-            handler.handleConstant(original, currentInd, start);
-            
             // check to see if this starts with a "bsh:", if so treat the rest of the string as a bsh scriptlet
-            if (original.indexOf("bsh:", start+2) == start+2) {
-                // get the bsh scriptlet and append it
-                handler.handleBsh(original, start+6, end);
+            if (original.indexOf("bsh:", start + 2) == start + 2) {
+                strElems.add(new BshElem(original.substring(start + 6, end)));
             } else {
-                // get the environment value and append it
-                handler.handleVariable(original, start+2, end);
+                int ptr = original.indexOf("${", start + 2);
+                while (ptr != -1 && end != -1 && ptr < end) {
+                    end = original.indexOf("}", end + 1);
+                    ptr = original.indexOf("${", ptr + 2);
+                }
+                if (end == -1) {
+                    end = origLen;
+                }
+                String expression = original.substring(start + 2, end);
+                // Evaluation sequence is important - do not change it
+                if (expression.contains("?currency(")) {
+                    strElems.add(new CurrElem(expression));
+                } else if (expression.contains("${")){
+                    strElems.add(new NestedVarElem(expression));
+                } else {
+                    strElems.add(new VarElem(expression));
+                }
             }
-            
             // reset the current index to after the var, and the start to the beginning of the next var
             currentInd = end + 1;
+            if (currentInd > origLen) {
+                currentInd = origLen;
+            }
             start = original.indexOf("${", currentInd);
         }
-        
         // append the rest of the original string, ie after the last variable
-        if (currentInd < original.length()) {
-            handler.handleConstant(original, currentInd);
+        if (currentInd < origLen) {
+            strElems.add(new ConstElem(original.substring(currentInd)));
         }
+        return strElems;
     }
 
-    public static interface StringElement extends Serializable {
-        public void appendElement(StringBuilder buffer, Map<String, ? extends Object> context, Locale locale);
+    protected static interface StrElem extends Serializable {
+        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale);
     }
     
-    public static class ConstantElement implements StringElement {
-        protected String value;
-        
-        public ConstantElement(String value) {
-            this.value = value;
+    protected static class ConstElem implements StrElem {
+        protected String str;
+        protected ConstElem(String value) {
+            this.str = value.intern();
         }
-        
-        public void appendElement(StringBuilder buffer, Map<String, ? extends Object> context, Locale locale) {
-            buffer.append(this.value); 
+        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            buffer.append(this.str); 
         }
     }
     
-    public static class BshElement implements StringElement {
-        String scriptlet;
-        
-        public BshElement(String scriptlet) {
-            this.scriptlet = scriptlet;
+    protected static class BshElem implements StrElem {
+        String str;
+        protected BshElem(String scriptlet) {
+            this.str = scriptlet;
         }
-        
-        public void appendElement(StringBuilder buffer, Map<String, ? extends Object> context, Locale locale) {
+        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             try {
-                Object scriptResult = BshUtil.eval(scriptlet, UtilMisc.makeMapWritable(context));
-                if (scriptResult != null) {
+                Object obj = BshUtil.eval(this.str, UtilMisc.makeMapWritable(context));
+                if (obj != null) {
                     try {
-                        buffer.append(ObjectType.simpleTypeConvert(scriptResult, "String", null, (TimeZone) context.get("timeZone"), locale, true));
+                        buffer.append(ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
                     } catch (Exception e) {
-                        buffer.append(scriptResult);
+                        buffer.append(obj);
                     }
                 } else {
-                    Debug.logWarning("BSH scriptlet evaluated to null [" + scriptlet + "], got no return so inserting nothing.", module);
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("BSH scriptlet evaluated to null [" + this.str + "], got no return so inserting nothing.", module);
+                    }
                 }
             } catch (EvalError e) {
-                Debug.logWarning(e, "Error evaluating BSH scriptlet [" + scriptlet + "], inserting nothing; error was: " + e.toString(), module);
+                Debug.logWarning(e, "Error evaluating BSH scriptlet [" + this.str + "], inserting nothing; error was: " + e, module);
             }
         }
     }
-    public static class VariableElement implements StringElement {
-        protected FlexibleMapAccessor<Object> fma;
-        
-        public VariableElement(String valueName) {
-            this.fma = new FlexibleMapAccessor<Object>(valueName);
+
+    protected static class CurrElem implements StrElem {
+        String str;
+        protected FlexibleStringExpander codeExpr = null;
+        protected CurrElem(String original) {
+            int currencyPos = original.indexOf("?currency(");
+            int closeBracket = original.indexOf(")", currencyPos+10);
+            this.codeExpr = FlexibleStringExpander.getInstance(original.substring(currencyPos+10, closeBracket));
+            this.str = original.substring(0, currencyPos);
         }
+        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            FlexibleMapAccessor<Object> fma = new FlexibleMapAccessor<Object>(this.str);
+            Object obj = fma.get(context, locale);
+            if (obj != null) {
+                String currencyCode = this.codeExpr.expandString(context, timeZone, locale);
+                buffer.append(UtilFormatOut.formatCurrency(Double.valueOf(obj.toString()), currencyCode, locale));
+            }
+        }
+    }
         
-        public void appendElement(StringBuilder buffer, Map<String, ? extends Object> context, Locale locale) {
-            Object retVal = fma.get(context, locale);
-            if (retVal != null) {
+    protected static class NestedVarElem implements StrElem {
+        protected List<StrElem> strElems = null;
+        protected int hint = 20;
+        protected NestedVarElem(String original) {
+            this.strElems = getStrElems(original);
+            if (original.length() > this.hint) {
+                this.hint = original.length();
+            }
+        }
+        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            if (strElems == null) {
+                return;
+            }
+            StringBuilder expr = new StringBuilder(this.hint);
+            for (StrElem elem : this.strElems) {
+                elem.append(expr, context, timeZone, locale);
+            }
+            if (expr.length() > this.hint) {
+                this.hint = expr.length();
+            }
+            FlexibleMapAccessor<Object> fma = new FlexibleMapAccessor<Object>(expr.toString());
+            Object obj = fma.get(context, locale);
+            if (obj != null) {
                 try {
-                    buffer.append((String) ObjectType.simpleTypeConvert(retVal, "String", null, (TimeZone) context.get("timeZone"), locale, true));
+                    buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
                 } catch (Exception e) {
-                    buffer.append(retVal);
+                    buffer.append(obj);
                 }
-            } else {
-                // otherwise do nothing
             }
         }
     }
 
-    public static interface ParseElementHandler extends Serializable {
-        public void handleConstant(String original, int start); 
-        public void handleConstant(String original, int start, int end); 
-        public void handleVariable(String original, int start, int end); 
-        public void handleBsh(String original, int start, int end); 
-    }
-    
-    public static class PreParseHandler implements ParseElementHandler {
-        protected List<StringElement> stringElements;
-        
-        public PreParseHandler(List<StringElement> stringElements) {
-            this.stringElements = stringElements;
+    protected static class VarElem implements StrElem {
+        protected String str;
+        protected VarElem(String original) {
+            this.str = original;
         }
-        
-        public void handleConstant(String original, int start) {
-            stringElements.add(new ConstantElement(original.substring(start))); 
-        }
-        
-        public void handleConstant(String original, int start, int end) {
-            stringElements.add(new ConstantElement(original.substring(start, end))); 
-        }
-        
-        public void handleVariable(String original, int start, int end) {
-            stringElements.add(new VariableElement(original.substring(start, end))); 
-        }
-
-        public void handleBsh(String original, int start, int end) {
-            stringElements.add(new BshElement(original.substring(start, end))); 
-        }
-    }
-    
-    public static class OnTheFlyHandler implements ParseElementHandler {
-        protected StringBuilder targetBuffer;
-        protected Map<String, ? extends Object> context;
-        protected Locale locale;
-        protected TimeZone timeZone;
-        
-        public OnTheFlyHandler(StringBuilder targetBuffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            this.targetBuffer = targetBuffer;
-            this.context = context;
-            this.timeZone = timeZone;
-            this.locale = locale;
-        }
-        
-        public void handleConstant(String original, int start) { 
-            targetBuffer.append(original.substring(start));
-        }
-        
-        public void handleConstant(String original, int start, int end) {
-            targetBuffer.append(original.substring(start, end));
-        }
-        
-        public void handleVariable(String original, int start, int end) {
-            //get the environment value and append it
-            String envName = original.substring(start, end);
-
-            // see if ?currency(xxx) formatting is required
-            localizeCurrency = false;
-            int currencyPos = envName.indexOf("?currency(");
-            if (currencyPos != -1) {
-                int closeBracket = envName.indexOf(")", currencyPos+10);
-                currencyCode = envName.substring(currencyPos+10, closeBracket);
-                localizeCurrency = true;
-                envName = envName.substring(0, currencyPos);
-            }
-
-            FlexibleMapAccessor<Object> fma = new FlexibleMapAccessor<Object>(envName);
-            Object envVal = fma.get(context, locale);
-            if (envVal != null) {
-                if (localizeCurrency) {
-                    targetBuffer.append(UtilFormatOut.formatCurrency(Double.valueOf(envVal.toString()), currencyCode, locale));
-                } else {
-                    try {
-                        targetBuffer.append(ObjectType.simpleTypeConvert(envVal, "String", null, timeZone, locale, true));
-                    } catch (Exception e) {
-                        targetBuffer.append(envVal);
-                    }
+        public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            FlexibleMapAccessor<Object> fma = new FlexibleMapAccessor<Object>(str);
+            Object obj = fma.get(context, locale);
+            if (obj != null) {
+                try {
+                    buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
+                } catch (Exception e) {
+                    buffer.append(obj);
                 }
-            } else if (envName.equals("ofbiz.home")) { // This is only used in case of Geronimo or WASCE using OFBiz multi-instances. It allows to retrieve ofbiz.home value set in JVM env
-                String ofbizHome = System.getProperty("ofbiz.home");
-                if (UtilValidate.isNotEmpty(ofbizHome)) {
-                    targetBuffer.append(ofbizHome);
-                }
-            } else {
-                Debug.logWarning("Could not find value in environment for the name [" + envName + "], inserting nothing.", module);
-            }
-        }
-
-        public void handleBsh(String original, int start, int end) {
-            //run the scriptlet and append the result
-            String scriptlet = original.substring(start, end);
-            try {
-                Object scriptResult = BshUtil.eval(scriptlet, UtilMisc.makeMapWritable(context));
-                if (scriptResult != null) {
-                    try {
-                        targetBuffer.append(ObjectType.simpleTypeConvert(scriptResult, "String", null, timeZone, locale, true));
-                    } catch (Exception e) {
-                        targetBuffer.append(scriptResult);
-                    }
-                } else {
-                    Debug.logWarning("BSH scriptlet evaluated to null [" + scriptlet + "], got no return so inserting nothing.", module);
-                }
-            } catch (EvalError e) {
-                Debug.logWarning(e, "Error evaluating BSH scriptlet [" + scriptlet + "], inserting nothing; error was: " + e.toString(), module);
             }
         }
     }
+
 }

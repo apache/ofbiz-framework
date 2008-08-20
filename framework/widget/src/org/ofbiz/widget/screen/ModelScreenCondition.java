@@ -214,10 +214,10 @@ public class ModelScreenCondition implements Serializable {
 
         public IfServicePermission(ModelScreen modelScreen, Element condElement) {
             super(modelScreen, condElement);
-            this.serviceExdr = new FlexibleStringExpander(condElement.getAttribute("service-name"));
-            this.actionExdr = new FlexibleStringExpander(condElement.getAttribute("main-action"));
-            this.ctxMapExdr = new FlexibleStringExpander(condElement.getAttribute("context-map"));
-            this.resExdr = new FlexibleStringExpander(condElement.getAttribute("resource-description"));
+            this.serviceExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("service-name"));
+            this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("main-action"));
+            this.ctxMapExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("context-map"));
+            this.resExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("resource-description"));
         }
 
         public boolean eval(Map<String, Object> context) {
@@ -295,8 +295,8 @@ public class ModelScreenCondition implements Serializable {
         
         public IfHasPermission(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
-            this.permissionExdr = new FlexibleStringExpander(condElement.getAttribute("permission"));
-            this.actionExdr = new FlexibleStringExpander(condElement.getAttribute("action"));
+            this.permissionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("permission"));
+            this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("action"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -331,8 +331,8 @@ public class ModelScreenCondition implements Serializable {
         public IfValidateMethod(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
-            this.methodExdr = new FlexibleStringExpander(condElement.getAttribute("method"));
-            this.classExdr = new FlexibleStringExpander(condElement.getAttribute("class"));
+            this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
+            this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -393,12 +393,12 @@ public class ModelScreenCondition implements Serializable {
         public IfCompare(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
-            this.valueExdr = new FlexibleStringExpander(condElement.getAttribute("value"));
+            this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
             
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
-            this.formatExdr = new FlexibleStringExpander(condElement.getAttribute("format"));
+            this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -447,7 +447,7 @@ public class ModelScreenCondition implements Serializable {
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
-            this.formatExdr = new FlexibleStringExpander(condElement.getAttribute("format"));
+            this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -490,7 +490,7 @@ public class ModelScreenCondition implements Serializable {
         public IfRegexp(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
             this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
-            this.exprExdr = new FlexibleStringExpander(condElement.getAttribute("expr"));
+            this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
         
         public boolean eval(Map<String, Object> context) {

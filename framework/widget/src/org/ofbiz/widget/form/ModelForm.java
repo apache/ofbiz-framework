@@ -404,19 +404,19 @@ public class ModelForm extends ModelWidget {
             setPaginateSizeField(formElement.getAttribute("paginate-size-field"));
         }
         if (this.overrideListSize == null || formElement.hasAttribute("override-list-size")) {
-            this.overrideListSize = new FlexibleStringExpander(formElement.getAttribute("override-list-size"));
+            this.overrideListSize = FlexibleStringExpander.getInstance(formElement.getAttribute("override-list-size"));
         }
         if (this.paginateFirstLabel == null || formElement.hasAttribute("paginate-first-label")) {
-            this.paginateFirstLabel = new FlexibleStringExpander(formElement.getAttribute("paginate-first-label"));
+            this.paginateFirstLabel = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate-first-label"));
         }
         if (this.paginatePreviousLabel == null || formElement.hasAttribute("paginate-previous-label")) {
-            this.paginatePreviousLabel = new FlexibleStringExpander(formElement.getAttribute("paginate-previous-label"));
+            this.paginatePreviousLabel = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate-previous-label"));
         }
         if (this.paginateNextLabel == null || formElement.hasAttribute("paginate-next-label")) {
-            this.paginateNextLabel = new FlexibleStringExpander(formElement.getAttribute("paginate-next-label"));
+            this.paginateNextLabel = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate-next-label"));
         }
         if (this.paginateLastLabel == null || formElement.hasAttribute("paginate-last-label")) {
-            this.paginateLastLabel = new FlexibleStringExpander(formElement.getAttribute("paginate-last-label"));
+            this.paginateLastLabel = FlexibleStringExpander.getInstance(formElement.getAttribute("paginate-last-label"));
         }
         if (this.paginateStyle == null || formElement.hasAttribute("paginate-style")) {
             setPaginateStyle(formElement.getAttribute("paginate-style"));
@@ -441,7 +441,7 @@ public class ModelForm extends ModelWidget {
             setDefaultViewSize(formElement.getAttribute("view-size"));
         }
         if (this.rowCountExdr == null || formElement.hasAttribute("row-count")) {
-            this.rowCountExdr = new FlexibleStringExpander(formElement.getAttribute("row-count"));
+            this.rowCountExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("row-count"));
         }
 
         // alt-target
@@ -2172,7 +2172,7 @@ public class ModelForm extends ModelWidget {
      * @param string
      */
     public void setTarget(String string) {
-        this.target = new FlexibleStringExpander(string);
+        this.target = FlexibleStringExpander.getInstance(string);
     }
 
     /**
@@ -2364,7 +2364,7 @@ public class ModelForm extends ModelWidget {
     }
             
     public void setTargetWindow( String val ) {
-        this.targetWindowExdr = new FlexibleStringExpander(val);
+        this.targetWindowExdr = FlexibleStringExpander.getInstance(val);
     }
 
     /**
@@ -2415,15 +2415,15 @@ public class ModelForm extends ModelWidget {
     }
 
     public void setPaginateTarget(String string) {
-        this.paginateTarget = new FlexibleStringExpander(string);
+        this.paginateTarget = FlexibleStringExpander.getInstance(string);
     }
 
     public void setPaginateIndexField(String string) {
-        this.paginateIndexField = new FlexibleStringExpander(string);
+        this.paginateIndexField = FlexibleStringExpander.getInstance(string);
     }
 
     public void setPaginateSizeField(String string) {
-        this.paginateSizeField = new FlexibleStringExpander(string);
+        this.paginateSizeField = FlexibleStringExpander.getInstance(string);
     }
 
     public void setPaginateStyle(String string) {
@@ -2765,13 +2765,13 @@ public class ModelForm extends ModelWidget {
         
         public Banner(Element sortOrderElement, ModelForm modelForm) {
             this.modelForm = modelForm;
-            this.style = new FlexibleStringExpander(sortOrderElement.getAttribute("style"));
-            this.text = new FlexibleStringExpander(sortOrderElement.getAttribute("text"));
-            this.textStyle = new FlexibleStringExpander(sortOrderElement.getAttribute("text-style"));
-            this.leftText = new FlexibleStringExpander(sortOrderElement.getAttribute("left-text"));
-            this.leftTextStyle = new FlexibleStringExpander(sortOrderElement.getAttribute("left-text-style"));
-            this.rightText = new FlexibleStringExpander(sortOrderElement.getAttribute("right-text"));
-            this.rightTextStyle = new FlexibleStringExpander(sortOrderElement.getAttribute("right-text-style"));
+            this.style = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("style"));
+            this.text = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("text"));
+            this.textStyle = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("text-style"));
+            this.leftText = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("left-text"));
+            this.leftTextStyle = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("left-text-style"));
+            this.rightText = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("right-text"));
+            this.rightTextStyle = FlexibleStringExpander.getInstance(sortOrderElement.getAttribute("right-text-style"));
         }
         
         public String getStyle(Map<String, Object> context) { return this.style.expandString(context); }

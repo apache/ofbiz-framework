@@ -665,7 +665,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
    
         boolean isWhen = true; //opposite default from checkReturnWhen
         if (whenStr != null && whenStr.length() > 0) {
-            FlexibleStringExpander fse = new FlexibleStringExpander(whenStr);
+            FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
             String newWhen = fse.expandString(context);
             //if (Debug.infoOn()) Debug.logInfo("newWhen:" + newWhen,null);
             //if (Debug.infoOn()) Debug.logInfo("context:" + context,null);
@@ -685,7 +685,7 @@ public class ContentWorker implements org.ofbiz.widget.ContentWorkerInterface {
     public static boolean checkReturnWhen(Map context, String whenStr) {
         boolean isWhen = false; //opposite default from checkWhen
         if (whenStr != null && whenStr.length() > 0) {
-            FlexibleStringExpander fse = new FlexibleStringExpander(whenStr);
+            FlexibleStringExpander fse = FlexibleStringExpander.getInstance(whenStr);
             String newWhen = fse.expandString(context);
             try {
                 Boolean isWhenObj = (Boolean) BshUtil.eval(newWhen, context);

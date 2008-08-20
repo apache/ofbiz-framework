@@ -60,8 +60,8 @@ public class ModelMenuCondition {
 
     public ModelMenuCondition(ModelMenuItem modelMenuItem, Element conditionElement) {
         this.modelMenuItem = modelMenuItem;
-        this.passStyleExdr = new FlexibleStringExpander(conditionElement.getAttribute("pass-style"));
-        this.failStyleExdr = new FlexibleStringExpander(conditionElement.getAttribute("disabled-style"));
+        this.passStyleExdr = FlexibleStringExpander.getInstance(conditionElement.getAttribute("pass-style"));
+        this.failStyleExdr = FlexibleStringExpander.getInstance(conditionElement.getAttribute("disabled-style"));
         Element firstChildElement = UtilXml.firstChildElement(conditionElement);
         this.rootCondition = readCondition(modelMenuItem, firstChildElement);
     }
@@ -232,9 +232,9 @@ public class ModelMenuCondition {
 
         public IfServicePermission(ModelMenuItem modelMenuItem, Element condElement) {
             super(modelMenuItem, condElement);
-            this.serviceExdr = new FlexibleStringExpander(condElement.getAttribute("service-name"));
-            this.actionExdr = new FlexibleStringExpander(condElement.getAttribute("main-action"));
-            this.resExdr = new FlexibleStringExpander(condElement.getAttribute("resource-description"));            
+            this.serviceExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("service-name"));
+            this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("main-action"));
+            this.resExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("resource-description"));            
         }
 
         public boolean eval(Map<String, Object> context) {
@@ -302,8 +302,8 @@ public class ModelMenuCondition {
         
         public IfHasPermission(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
-            this.permissionExdr = new FlexibleStringExpander(condElement.getAttribute("permission"));
-            this.actionExdr = new FlexibleStringExpander(condElement.getAttribute("action"));
+            this.permissionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("permission"));
+            this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("action"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -338,8 +338,8 @@ public class ModelMenuCondition {
         public IfValidateMethod(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
-            this.methodExdr = new FlexibleStringExpander(condElement.getAttribute("method"));
-            this.classExdr = new FlexibleStringExpander(condElement.getAttribute("class"));
+            this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
+            this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -400,12 +400,12 @@ public class ModelMenuCondition {
         public IfCompare(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
-            this.valueExdr = new FlexibleStringExpander(condElement.getAttribute("value"));
+            this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
             
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
-            this.formatExdr = new FlexibleStringExpander(condElement.getAttribute("format"));
+            this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -454,7 +454,7 @@ public class ModelMenuCondition {
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
-            this.formatExdr = new FlexibleStringExpander(condElement.getAttribute("format"));
+            this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -497,7 +497,7 @@ public class ModelMenuCondition {
         public IfRegexp(ModelMenuItem modelMenuItem, Element condElement) {
             super (modelMenuItem, condElement);
             this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
-            this.exprExdr = new FlexibleStringExpander(condElement.getAttribute("expr"));
+            this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
         
         public boolean eval(Map<String, Object> context) {

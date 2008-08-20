@@ -58,7 +58,7 @@ public class Assert extends MethodOperation {
         super(element, simpleMethod);
 
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
-        titleExdr = new FlexibleStringExpander(element.getAttribute("title"));
+        titleExdr = FlexibleStringExpander.getInstance(element.getAttribute("title"));
         
         for (Element conditionalElement: UtilXml.childElementList(element)) {
             this.conditionalList.add(ConditionalFactory.makeConditional(conditionalElement, simpleMethod));

@@ -72,8 +72,8 @@ public class EntityPermissionChecker {
     protected AuxiliaryValueGetter auxiliaryValueGetter;
     
     public EntityPermissionChecker(Element element) {
-        this.entityNameExdr = new FlexibleStringExpander(element.getAttribute("entity-name"));
-        this.entityIdExdr = new FlexibleStringExpander(element.getAttribute("entity-id"));
+        this.entityNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
+        this.entityIdExdr = FlexibleStringExpander.getInstance(element.getAttribute("entity-id"));
         this.displayFailCond = "true".equals(element.getAttribute("display-fail-cond"));
         Element permissionConditionElement = UtilXml.firstChildElement(element, "permission-condition-getter");
         if (permissionConditionElement == null) {

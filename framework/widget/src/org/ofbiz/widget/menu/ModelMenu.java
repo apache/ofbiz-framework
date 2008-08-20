@@ -567,7 +567,7 @@ public class ModelMenu extends ModelWidget {
      * @param string
      */
     public void setTitle(String string) {
-        this.title = new FlexibleStringExpander(string);
+        this.title = FlexibleStringExpander.getInstance(string);
     }
 
     /**
@@ -588,14 +588,14 @@ public class ModelMenu extends ModelWidget {
      * @param string
      */
     public void setDefaultAssociatedContentId(String string) {
-        this.defaultAssociatedContentId = new FlexibleStringExpander(string);
+        this.defaultAssociatedContentId = FlexibleStringExpander.getInstance(string);
     }
 
     /**
      * @param string
      */
     public void setMenuContainerStyle(String string) {
-        this.menuContainerStyleExdr = new FlexibleStringExpander(string);
+        this.menuContainerStyleExdr = FlexibleStringExpander.getInstance(string);
     }
 
     /**

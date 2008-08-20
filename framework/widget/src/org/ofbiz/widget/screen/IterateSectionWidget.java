@@ -70,10 +70,10 @@ public class IterateSectionWidget extends ModelScreenWidget {
     public IterateSectionWidget(ModelScreen modelScreen, Element iterateSectionElement) {
         super(modelScreen, iterateSectionElement);
         listNameExdr = new FlexibleMapAccessor<Object>(iterateSectionElement.getAttribute("list-name"));
-        entryNameExdr = new FlexibleStringExpander(iterateSectionElement.getAttribute("entry-name"));
-        keyNameExdr = new FlexibleStringExpander(iterateSectionElement.getAttribute("key-name"));
+        entryNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("entry-name"));
+        keyNameExdr = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("key-name"));
         if (this.paginateTarget == null || iterateSectionElement.hasAttribute("paginate-target"))
-            this.paginateTarget = new FlexibleStringExpander(iterateSectionElement.getAttribute("paginate-target"));
+            this.paginateTarget = FlexibleStringExpander.getInstance(iterateSectionElement.getAttribute("paginate-target"));
          
         paginate = "true".equals(iterateSectionElement.getAttribute("paginate"));
         if (iterateSectionElement.hasAttribute("view-size"))

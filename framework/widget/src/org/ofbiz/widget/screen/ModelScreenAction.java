@@ -138,9 +138,9 @@ public abstract class ModelScreenAction implements Serializable {
             super (modelScreen, setElement);
             this.field = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
             this.fromField = new FlexibleMapAccessor<Object>(setElement.getAttribute("from-field"));
-            this.valueExdr = new FlexibleStringExpander(setElement.getAttribute("value"));
-            this.defaultExdr = new FlexibleStringExpander(setElement.getAttribute("default-value"));
-            this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
+            this.valueExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("value"));
+            this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default-value"));
+            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
             this.type = setElement.getAttribute("type");
             this.toScope = setElement.getAttribute("to-scope");
             this.fromScope = setElement.getAttribute("from-scope");
@@ -285,9 +285,9 @@ public abstract class ModelScreenAction implements Serializable {
         
         public PropertyMap(ModelScreen modelScreen, Element setElement) {
             super (modelScreen, setElement);
-            this.resourceExdr = new FlexibleStringExpander(setElement.getAttribute("resource"));
+            this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
             this.mapNameAcsr = new FlexibleMapAccessor<ResourceBundleMapWrapper>(setElement.getAttribute("map-name"));
-            this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
+            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
         public void runAction(Map<String, Object> context) {
@@ -335,13 +335,13 @@ public abstract class ModelScreenAction implements Serializable {
 
         public PropertyToField(ModelScreen modelScreen, Element setElement) {
             super (modelScreen, setElement);
-            this.resourceExdr = new FlexibleStringExpander(setElement.getAttribute("resource"));
-            this.propertyExdr = new FlexibleStringExpander(setElement.getAttribute("property"));
+            this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
+            this.propertyExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("property"));
             this.fieldAcsr = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
-            this.defaultExdr = new FlexibleStringExpander(setElement.getAttribute("default"));
+            this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default"));
             noLocale = "true".equals(setElement.getAttribute("no-locale"));
             this.argListAcsr = new FlexibleMapAccessor<List<? extends Object>>(setElement.getAttribute("arg-list-name"));
-            this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
+            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
         public void runAction(Map<String, Object> context) {
@@ -429,9 +429,9 @@ public abstract class ModelScreenAction implements Serializable {
         
         public Service(ModelScreen modelScreen, Element serviceElement) {
             super (modelScreen, serviceElement);
-            this.serviceNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("service-name"));
+            this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
             this.resultMapNameAcsr = UtilValidate.isNotEmpty(serviceElement.getAttribute("result-map-name")) ? new FlexibleMapAccessor<Map<String, Object>>(serviceElement.getAttribute("result-map-name")) : null;
-            this.autoFieldMapExdr = new FlexibleStringExpander(serviceElement.getAttribute("auto-field-map"));
+            this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
         }
         

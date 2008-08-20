@@ -274,9 +274,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         
         public Container(ModelScreen modelScreen, Element containerElement) {
             super(modelScreen, containerElement);
-            this.idExdr = new FlexibleStringExpander(containerElement.getAttribute("id"));
-            this.styleExdr = new FlexibleStringExpander(containerElement.getAttribute("style"));
-            this.autoUpdateTargetExdr = new FlexibleStringExpander(containerElement.getAttribute("auto-update-target"));
+            this.idExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("id"));
+            this.styleExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("style"));
+            this.autoUpdateTargetExdr = FlexibleStringExpander.getInstance(containerElement.getAttribute("auto-update-target"));
             if (containerElement.hasAttribute("auto-update-interval")) {
                 this.autoUpdateInterval = containerElement.getAttribute("auto-update-interval");
             }
@@ -336,7 +336,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         
         public Screenlet(ModelScreen modelScreen, Element screenletElement) {
             super(modelScreen, screenletElement);
-            this.idExdr = new FlexibleStringExpander(screenletElement.getAttribute("id"));
+            this.idExdr = FlexibleStringExpander.getInstance(screenletElement.getAttribute("id"));
             this.collapsible = "true".equals(screenletElement.getAttribute("collapsible"));
             this.initiallyCollapsed = "true".equals(screenletElement.getAttribute("initially-collapsed"));
             if (this.initiallyCollapsed) {
@@ -346,7 +346,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             if (this.collapsible && UtilValidate.isEmpty(this.name) && idExdr.isEmpty()) {
                 throw new IllegalArgumentException("Collapsible screenlets must have a name or id [" + this.modelScreen.getName() + "]");
             }
-            this.titleExdr = new FlexibleStringExpander(screenletElement.getAttribute("title"));
+            this.titleExdr = FlexibleStringExpander.getInstance(screenletElement.getAttribute("title"));
             List subElementList = UtilXml.childElementList(screenletElement);
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
             String navMenuName = screenletElement.getAttribute("navigation-menu-name");
@@ -460,8 +460,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         
         public HorizontalSeparator(ModelScreen modelScreen, Element separatorElement) {
             super(modelScreen, separatorElement);
-            this.idExdr = new FlexibleStringExpander(separatorElement.getAttribute("id"));
-            this.styleExdr = new FlexibleStringExpander(separatorElement.getAttribute("style"));
+            this.idExdr = FlexibleStringExpander.getInstance(separatorElement.getAttribute("id"));
+            this.styleExdr = FlexibleStringExpander.getInstance(separatorElement.getAttribute("style"));
         }
 
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
@@ -489,9 +489,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         
         public IncludeScreen(ModelScreen modelScreen, Element includeScreenElement) {
             super(modelScreen, includeScreenElement);
-            this.nameExdr = new FlexibleStringExpander(includeScreenElement.getAttribute("name"));
-            this.locationExdr = new FlexibleStringExpander(includeScreenElement.getAttribute("location"));
-            this.shareScopeExdr = new FlexibleStringExpander(includeScreenElement.getAttribute("share-scope"));
+            this.nameExdr = FlexibleStringExpander.getInstance(includeScreenElement.getAttribute("name"));
+            this.locationExdr = FlexibleStringExpander.getInstance(includeScreenElement.getAttribute("location"));
+            this.shareScopeExdr = FlexibleStringExpander.getInstance(includeScreenElement.getAttribute("share-scope"));
         }
 
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
@@ -588,8 +588,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         
         public DecoratorScreen(ModelScreen modelScreen, Element decoratorScreenElement) {
             super(modelScreen, decoratorScreenElement);
-            this.nameExdr = new FlexibleStringExpander(decoratorScreenElement.getAttribute("name"));
-            this.locationExdr = new FlexibleStringExpander(decoratorScreenElement.getAttribute("location"));
+            this.nameExdr = FlexibleStringExpander.getInstance(decoratorScreenElement.getAttribute("name"));
+            this.locationExdr = FlexibleStringExpander.getInstance(decoratorScreenElement.getAttribute("location"));
             
             List decoratorSectionElementList = UtilXml.childElementList(decoratorScreenElement, "decorator-section");
             Iterator decoratorSectionElementIter = decoratorSectionElementList.iterator();
@@ -736,10 +736,10 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             // put the text attribute first, then the pcdata under the element, if both are there of course
             String textAttr = UtilFormatOut.checkNull(labelElement.getAttribute("text"));
             String pcdata = UtilFormatOut.checkNull(UtilXml.elementValue(labelElement));
-            this.textExdr = new FlexibleStringExpander(textAttr + pcdata);
+            this.textExdr = FlexibleStringExpander.getInstance(textAttr + pcdata);
 
-            this.idExdr = new FlexibleStringExpander(labelElement.getAttribute("id"));
-            this.styleExdr = new FlexibleStringExpander(labelElement.getAttribute("style"));
+            this.idExdr = FlexibleStringExpander.getInstance(labelElement.getAttribute("id"));
+            this.styleExdr = FlexibleStringExpander.getInstance(labelElement.getAttribute("style"));
         }
 
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
@@ -779,9 +779,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         public Form(ModelScreen modelScreen, Element formElement) {
             super(modelScreen, formElement);
 
-            this.nameExdr = new FlexibleStringExpander(formElement.getAttribute("name"));
-            this.locationExdr = new FlexibleStringExpander(formElement.getAttribute("location"));
-            this.shareScopeExdr = new FlexibleStringExpander(formElement.getAttribute("share-scope"));
+            this.nameExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("name"));
+            this.locationExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("location"));
+            this.shareScopeExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("share-scope"));
         }
 
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
@@ -865,9 +865,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         public Tree(ModelScreen modelScreen, Element treeElement) {
             super(modelScreen, treeElement);
 
-            this.nameExdr = new FlexibleStringExpander(treeElement.getAttribute("name"));
-            this.locationExdr = new FlexibleStringExpander(treeElement.getAttribute("location"));
-            this.shareScopeExdr = new FlexibleStringExpander(treeElement.getAttribute("share-scope"));
+            this.nameExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("name"));
+            this.locationExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("location"));
+            this.shareScopeExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("share-scope"));
         }
 
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
@@ -1024,11 +1024,11 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             super(modelScreen, subContentElement);
 
             // put the text attribute first, then the pcdata under the element, if both are there of course
-            this.contentId = new FlexibleStringExpander(subContentElement.getAttribute("content-id"));
-            this.dataResourceId = new FlexibleStringExpander(subContentElement.getAttribute("dataresource-id"));
-            this.editRequest = new FlexibleStringExpander(subContentElement.getAttribute("edit-request"));
-            this.editContainerStyle = new FlexibleStringExpander(subContentElement.getAttribute("edit-container-style"));
-            this.enableEditName = new FlexibleStringExpander(subContentElement.getAttribute("enable-edit-name"));
+            this.contentId = FlexibleStringExpander.getInstance(subContentElement.getAttribute("content-id"));
+            this.dataResourceId = FlexibleStringExpander.getInstance(subContentElement.getAttribute("dataresource-id"));
+            this.editRequest = FlexibleStringExpander.getInstance(subContentElement.getAttribute("edit-request"));
+            this.editContainerStyle = FlexibleStringExpander.getInstance(subContentElement.getAttribute("edit-container-style"));
+            this.enableEditName = FlexibleStringExpander.getInstance(subContentElement.getAttribute("enable-edit-name"));
             this.xmlEscape = "true".equals(subContentElement.getAttribute("xml-escape"));
             this.width = subContentElement.getAttribute("width");
             if (UtilValidate.isEmpty(this.width)) this.width="60%";
@@ -1077,7 +1077,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 GenericValue dataResource = null;
                 if (UtilValidate.isNotEmpty(expandedDataResourceId)) {
                 	dataResource = delegator.findByPrimaryKeyCache("DataResource", UtilMisc.toMap("dataResourceId", expandedDataResourceId));
-                    this.dataResourceId = new FlexibleStringExpander(expandedDataResourceId);
+                    this.dataResourceId = FlexibleStringExpander.getInstance(expandedDataResourceId);
                 }
                 
                 String mimeTypeId = null;
@@ -1161,14 +1161,14 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             super(modelScreen, subContentElement);
 
             // put the text attribute first, then the pcdata under the element, if both are there of course
-            this.contentId = new FlexibleStringExpander(UtilFormatOut.checkNull(subContentElement.getAttribute("content-id")));
-            this.mapKey = new FlexibleStringExpander(UtilFormatOut.checkNull(subContentElement.getAttribute("map-key")));
+            this.contentId = FlexibleStringExpander.getInstance(UtilFormatOut.checkNull(subContentElement.getAttribute("content-id")));
+            this.mapKey = FlexibleStringExpander.getInstance(UtilFormatOut.checkNull(subContentElement.getAttribute("map-key")));
             if (this.mapKey.isEmpty()) {
-                this.mapKey = new FlexibleStringExpander(UtilFormatOut.checkNull(subContentElement.getAttribute("assoc-name")));
+                this.mapKey = FlexibleStringExpander.getInstance(UtilFormatOut.checkNull(subContentElement.getAttribute("assoc-name")));
             }
-            this.editRequest = new FlexibleStringExpander(UtilFormatOut.checkNull(subContentElement.getAttribute("edit-request")));
-            this.editContainerStyle = new FlexibleStringExpander(subContentElement.getAttribute("edit-container-style"));
-            this.enableEditName = new FlexibleStringExpander(subContentElement.getAttribute("enable-edit-name"));
+            this.editRequest = FlexibleStringExpander.getInstance(UtilFormatOut.checkNull(subContentElement.getAttribute("edit-request")));
+            this.editContainerStyle = FlexibleStringExpander.getInstance(subContentElement.getAttribute("edit-container-style"));
+            this.enableEditName = FlexibleStringExpander.getInstance(subContentElement.getAttribute("enable-edit-name"));
             this.xmlEscape = "true".equals(subContentElement.getAttribute("xml-escape"));
         }
 
@@ -1222,8 +1222,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         public Menu(ModelScreen modelScreen, Element menuElement) {
             super(modelScreen, menuElement);
 
-            this.nameExdr = new FlexibleStringExpander(menuElement.getAttribute("name"));
-            this.locationExdr = new FlexibleStringExpander(menuElement.getAttribute("location"));
+            this.nameExdr = FlexibleStringExpander.getInstance(menuElement.getAttribute("name"));
+            this.locationExdr = FlexibleStringExpander.getInstance(menuElement.getAttribute("location"));
         }
 
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws IOException {
@@ -1378,25 +1378,25 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
         public void setText(String val) {
             String textAttr = UtilFormatOut.checkNull(val);
-            this.textExdr = new FlexibleStringExpander(textAttr);
+            this.textExdr = FlexibleStringExpander.getInstance(textAttr);
         }
         public void setId(String val) {
-            this.idExdr = new FlexibleStringExpander(val);
+            this.idExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setStyle(String val) {
-            this.styleExdr = new FlexibleStringExpander(val);
+            this.styleExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setTarget(String val) {
-            this.targetExdr = new FlexibleStringExpander(val);
+            this.targetExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setName(String val) {
-            this.nameExdr = new FlexibleStringExpander(val);
+            this.nameExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setTargetWindow(String val) {
-            this.targetWindowExdr = new FlexibleStringExpander(val);
+            this.targetWindowExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setPrefix(String val) {
-            this.prefixExdr = new FlexibleStringExpander(val);
+            this.prefixExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setUrlMode(String val) {
             if (UtilValidate.isNotEmpty(val))
@@ -1497,22 +1497,22 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         
         public void setSrc(String val) {
             String textAttr = UtilFormatOut.checkNull(val);
-            this.srcExdr = new FlexibleStringExpander(textAttr);
+            this.srcExdr = FlexibleStringExpander.getInstance(textAttr);
         }
         public void setId(String val) {
-            this.idExdr = new FlexibleStringExpander(val);
+            this.idExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setStyle(String val) {
-            this.styleExdr = new FlexibleStringExpander(val);
+            this.styleExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setWidth(String val) {
-            this.widthExdr = new FlexibleStringExpander(val);
+            this.widthExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setHeight(String val) {
-            this.heightExdr = new FlexibleStringExpander(val);
+            this.heightExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setBorder(String val) {
-            this.borderExdr = new FlexibleStringExpander(val);
+            this.borderExdr = FlexibleStringExpander.getInstance(val);
         }
         public void setUrlMode(String val) {
             if (UtilValidate.isEmpty(val)) {
