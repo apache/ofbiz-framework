@@ -18,6 +18,9 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="AcceptedCustomerRequestList">
+        <value xml:lang="en">Accepted Customer Request list'</value>
+    </property>
     <property key="CommonStatustoComplete">
         <value xml:lang="en">Status to 'complete'</value>
         <value xml:lang="fr">Status à 'complet'</value>
@@ -1009,6 +1012,9 @@
         <value xml:lang="en">Check Complete</value>
         <value xml:lang="zh">是否完成</value>
     </property>    
+    <property key="ReviewedCustomerRequestTaskList">
+        <value xml:lang="en">Reviewed but not completed Customer Request list with task assigned'</value>
+    </property>
     <property key="FormFieldTitle_newTimesheetId">
         <value xml:lang="en">New Timesheet Id</value>
         <value xml:lang="zh">新的时间表Id</value>

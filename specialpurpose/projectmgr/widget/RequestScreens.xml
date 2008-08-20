@@ -34,11 +34,11 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.OrderRequestList}" navigation-form-name="ListRequests">
+                        <screenlet title="${uiLabelMap.AcceptedCustomerRequestList}" navigation-form-name="ListRequests">
                             <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                             <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                         </screenlet>
-                        <screenlet title="${uiLabelMap.ProjectMgrRequestWorkEffortList}" navigation-form-name="ListRequestsWorkEffortForm">
+                        <screenlet title="${uiLabelMap.ReviewedCustomerRequestTaskList}" navigation-form-name="ListRequestsWorkEffortForm">
                             <include-form name="ListRequestsWorkEffortForm" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                         </screenlet>
                     </decorator-section>

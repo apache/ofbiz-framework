@@ -554,20 +554,9 @@ under the License.
                 <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
-                <container style="screenlet">
-                     <container style="screenlet-title-bar">
-                         <container style="h3">
-                             <label text="${uiLabelMap.PageTitleRequestList}"/>
-                         </container>
-                     </container>
-                     <container style="screenlet-body">
-                         <section>
-                             <widgets>    
-                                 <include-form name="ListWorkEffortRequests" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                             </widgets>
-                         </section>
-                     </container>
-                 </container>
+                <screenlet title="${uiLabelMap.PageTitleRequestList}">
+                    <include-form name="ListWorkEffortRequests" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>

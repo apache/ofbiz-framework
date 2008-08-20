@@ -568,7 +568,7 @@
             </entity-and>
         </actions>
         <field name="workEffortId"><hidden/></field>
-        <field name="custRequestId" widget-style="buttontext"><hyperlink description="${custRequestId}" target="/projectmgr/control/ViewRequest?custRequestId=${custRequestId}" target-type="inter-app"/></field>
+        <field name="custRequestId" widget-style="buttontext"><hyperlink description="${custRequestName} [${custRequestId}]" target="/projectmgr/control/ViewRequest?custRequestId=${custRequestId}" target-type="inter-app"/></field>
         <field name="description"><display/></field>
         <field name="custRequestTypeDescription"><display/></field>
         <field name="statusItemDescription"><display/></field>
