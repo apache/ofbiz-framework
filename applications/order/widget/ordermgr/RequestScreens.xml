@@ -67,6 +67,10 @@ under the License.
                 <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
                     <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
                 </entity-and>
+                <entity-and list-name="notes" entity-name="CustRequestItemNoteView">
+                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                    <order-by  field-name="custRequestItemSeqId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
