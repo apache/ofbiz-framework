@@ -125,9 +125,11 @@ under the License.
         <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
         <field name="emailAddress" parameter-name="contactMechIdFrom">
             <drop-down>
-                <entity-options entity-name="PartyAndContactMech" description="${infoString}" key-field-name="contactMechId">
+                <entity-options entity-name="PartyContactWithPurpose" description="${infoString}" key-field-name="contactMechId">
                     <entity-constraint name="partyId" value="${userLogin.partyId}"/>
                     <entity-constraint name="contactMechTypeId" value="EMAIL_ADDRESS"/>
+                    <entity-constraint name="contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
+                    <entity-order-by field-name="infoString"/>
                 </entity-options>
             </drop-down>
         </field>
