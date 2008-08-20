@@ -35,7 +35,7 @@ under the License.
     <PartyRole partyId="admin" roleTypeId="_NA_"/>
     <ContactMech contactMechId="admin" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
     <PartyContactMech partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0" allowSolicitation="Y"/>
-
+    <PartyContactMechPurpose contactMechPurposeTypeId="PRIMARY_EMAIL" partyId="admin" contactMechId="admin" fromDate="2003-01-01 00:00:00.0"/>
     <UserLogin userLoginId="anonymous" partyId=""/>
     <UserLogin userLoginId="admin" partyId="admin"/>
 
