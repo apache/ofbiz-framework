@@ -441,7 +441,7 @@ public class ModelMenuItem {
      * @param string
      */
     public void setTitle(String string) {
-        this.title = new FlexibleStringExpander(string);
+        this.title = FlexibleStringExpander.getInstance(string);
     }
 
     /**
@@ -455,7 +455,7 @@ public class ModelMenuItem {
      * @param string
      */
     public void setTooltip(String string) {
-        this.tooltip = new FlexibleStringExpander(string);
+        this.tooltip = FlexibleStringExpander.getInstance(string);
     }
 
 
@@ -478,7 +478,7 @@ public class ModelMenuItem {
      * @param string
      */
     public void setAssociatedContentId(String string) {
-        this.associatedContentId = new FlexibleStringExpander(string);
+        this.associatedContentId = FlexibleStringExpander.getInstance(string);
     }
 
     /**
@@ -659,27 +659,27 @@ public class ModelMenuItem {
 
         public void setText(String val) {
             String textAttr = UtilFormatOut.checkNull(val);
-            this.textExdr = new FlexibleStringExpander(textAttr);
+            this.textExdr = FlexibleStringExpander.getInstance(textAttr);
         }
 
         public void setId(String val) {
-            this.idExdr = new FlexibleStringExpander(val);
+            this.idExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setStyle(String val) {
-            this.styleExdr = new FlexibleStringExpander(val);
+            this.styleExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setTarget(String val) {
-            this.targetExdr = new FlexibleStringExpander(val);
+            this.targetExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setTargetWindow(String val) {
-            this.targetWindowExdr = new FlexibleStringExpander(val);
+            this.targetWindowExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setPrefix(String val) {
-            this.prefixExdr = new FlexibleStringExpander(val);
+            this.prefixExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setUrlMode(String val) {
@@ -688,7 +688,7 @@ public class ModelMenuItem {
         }
 
         public void setName(String val) {
-            this.nameExdr = new FlexibleStringExpander(val);
+            this.nameExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setFullPath(String val) {
@@ -781,27 +781,27 @@ public class ModelMenuItem {
 
         public void setSrc(String val) {
             String textAttr = UtilFormatOut.checkNull(val);
-            this.srcExdr = new FlexibleStringExpander(textAttr);
+            this.srcExdr = FlexibleStringExpander.getInstance(textAttr);
         }
 
         public void setId(String val) {
-            this.idExdr = new FlexibleStringExpander(val);
+            this.idExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setStyle(String val) {
-            this.styleExdr = new FlexibleStringExpander(val);
+            this.styleExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setWidth(String val) {
-            this.widthExdr = new FlexibleStringExpander(val);
+            this.widthExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setHeight(String val) {
-            this.heightExdr = new FlexibleStringExpander(val);
+            this.heightExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setBorder(String val) {
-            this.borderExdr = new FlexibleStringExpander(val);
+            this.borderExdr = FlexibleStringExpander.getInstance(val);
         }
 
         public void setUrlMode(String val) {

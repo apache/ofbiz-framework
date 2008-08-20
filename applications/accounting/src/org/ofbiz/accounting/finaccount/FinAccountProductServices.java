@@ -172,7 +172,7 @@ public class FinAccountProductServices {
         expContext.put("partyGroup", partyGroup);
 
         // expand the name field to dynamicly add information
-        FlexibleStringExpander exp = new FlexibleStringExpander(finAccountName);
+        FlexibleStringExpander exp = FlexibleStringExpander.getInstance(finAccountName);
         finAccountName = exp.expandString(expContext);
 
         // price/amount/quantity to create initial deposit amount

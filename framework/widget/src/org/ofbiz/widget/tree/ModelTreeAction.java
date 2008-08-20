@@ -121,8 +121,8 @@ public abstract class ModelTreeAction {
             super (modelNode, setElement);
             this.field = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
             this.fromField = UtilValidate.isNotEmpty(setElement.getAttribute("from-field")) ? new FlexibleMapAccessor<Object>(setElement.getAttribute("from-field")) : null;
-            this.valueExdr = UtilValidate.isNotEmpty(setElement.getAttribute("value")) ? new FlexibleStringExpander(setElement.getAttribute("value")) : null;
-            this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
+            this.valueExdr = UtilValidate.isNotEmpty(setElement.getAttribute("value")) ? FlexibleStringExpander.getInstance(setElement.getAttribute("value")) : null;
+            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
             this.type = setElement.getAttribute("type");
             if (this.fromField != null && this.valueExdr != null) {
                 throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a tree widget");
@@ -230,13 +230,13 @@ public abstract class ModelTreeAction {
         
         public void initService( Element serviceElement ) {
             
-            this.serviceNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("service-name"));
+            this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
             this.resultMapNameAcsr = UtilValidate.isNotEmpty(serviceElement.getAttribute("result-map-name")) ? new FlexibleMapAccessor<Map<String, Object>>(serviceElement.getAttribute("result-map-name")) : null;
-            this.autoFieldMapExdr = new FlexibleStringExpander(serviceElement.getAttribute("auto-field-map"));
-            this.resultMapListNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("result-map-list-name"));
-            this.resultMapListIteratorNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("result-map-list-iterator-name"));
-            this.resultMapValueNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("result-map-value-name"));
-            this.valueNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("value-name"));
+            this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
+            this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-name"));
+            this.resultMapListIteratorNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-iterator-name"));
+            this.resultMapValueNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-value-name"));
+            this.valueNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("value-name"));
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
         }
         

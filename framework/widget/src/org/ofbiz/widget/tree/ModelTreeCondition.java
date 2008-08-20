@@ -200,8 +200,8 @@ public class ModelTreeCondition {
         
         public IfHasPermission(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.permissionExdr = new FlexibleStringExpander(condElement.getAttribute("permission"));
-            this.actionExdr = new FlexibleStringExpander(condElement.getAttribute("action"));
+            this.permissionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("permission"));
+            this.actionExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("action"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -236,8 +236,8 @@ public class ModelTreeCondition {
         public IfValidateMethod(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
-            this.methodExdr = new FlexibleStringExpander(condElement.getAttribute("method"));
-            this.classExdr = new FlexibleStringExpander(condElement.getAttribute("class"));
+            this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
+            this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -298,12 +298,12 @@ public class ModelTreeCondition {
         public IfCompare(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
-            this.valueExdr = new FlexibleStringExpander(condElement.getAttribute("value"));
+            this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
             
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
-            this.formatExdr = new FlexibleStringExpander(condElement.getAttribute("format"));
+            this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -352,7 +352,7 @@ public class ModelTreeCondition {
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
 
-            this.formatExdr = new FlexibleStringExpander(condElement.getAttribute("format"));
+            this.formatExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("format"));
         }
         
         public boolean eval(Map<String, Object> context) {
@@ -395,7 +395,7 @@ public class ModelTreeCondition {
         public IfRegexp(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
             this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
-            this.exprExdr = new FlexibleStringExpander(condElement.getAttribute("expr"));
+            this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
         
         public boolean eval(Map<String, Object> context) {

@@ -70,19 +70,19 @@ public class SetCalendar extends MethodOperation {
         super(element, simpleMethod);
         this.field = new ContextAccessor<Timestamp>(element.getAttribute("field"));
         this.fromField = new ContextAccessor<Object>(element.getAttribute("from-field"));
-        this.valueExdr = new FlexibleStringExpander(element.getAttribute("value"));
-        this.defaultExdr = new FlexibleStringExpander(element.getAttribute("default-value"));
-        this.yearsExdr = new FlexibleStringExpander(element.getAttribute("years"));
-        this.monthsExdr = new FlexibleStringExpander(element.getAttribute("months"));
-        this.daysExdr = new FlexibleStringExpander(element.getAttribute("days"));
-        this.hoursExdr = new FlexibleStringExpander(element.getAttribute("hours"));
-        this.minutesExdr = new FlexibleStringExpander(element.getAttribute("minutes"));
-        this.secondsExdr = new FlexibleStringExpander(element.getAttribute("seconds"));
-        this.millisExdr = new FlexibleStringExpander(element.getAttribute("millis"));
-        this.periodAlignStart = new FlexibleStringExpander(element.getAttribute("period-align-start"));
-        this.periodAlignEnd = new FlexibleStringExpander(element.getAttribute("period-align-end"));
-        this.localeExdr = new FlexibleStringExpander(element.getAttribute("locale"));
-        this.timeZoneExdr = new FlexibleStringExpander(element.getAttribute("time-zone"));
+        this.valueExdr = FlexibleStringExpander.getInstance(element.getAttribute("value"));
+        this.defaultExdr = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
+        this.yearsExdr = FlexibleStringExpander.getInstance(element.getAttribute("years"));
+        this.monthsExdr = FlexibleStringExpander.getInstance(element.getAttribute("months"));
+        this.daysExdr = FlexibleStringExpander.getInstance(element.getAttribute("days"));
+        this.hoursExdr = FlexibleStringExpander.getInstance(element.getAttribute("hours"));
+        this.minutesExdr = FlexibleStringExpander.getInstance(element.getAttribute("minutes"));
+        this.secondsExdr = FlexibleStringExpander.getInstance(element.getAttribute("seconds"));
+        this.millisExdr = FlexibleStringExpander.getInstance(element.getAttribute("millis"));
+        this.periodAlignStart = FlexibleStringExpander.getInstance(element.getAttribute("period-align-start"));
+        this.periodAlignEnd = FlexibleStringExpander.getInstance(element.getAttribute("period-align-end"));
+        this.localeExdr = FlexibleStringExpander.getInstance(element.getAttribute("locale"));
+        this.timeZoneExdr = FlexibleStringExpander.getInstance(element.getAttribute("time-zone"));
         // default to false, anything but true is false
         this.setIfNull = "true".equals(element.getAttribute("set-if-null"));
         // default to true, anything but false is true

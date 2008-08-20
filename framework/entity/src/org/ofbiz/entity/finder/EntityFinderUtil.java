@@ -77,7 +77,7 @@ public class EntityFinderUtil {
                     fieldMap.put(new FlexibleMapAccessor<Object>(envName), new FlexibleMapAccessor<Object>(envName));
                 } else {
                     if (UtilValidate.isNotEmpty(value)) {
-                        fieldMap.put(new FlexibleMapAccessor<Object>(fieldName), new FlexibleStringExpander(value));
+                        fieldMap.put(new FlexibleMapAccessor<Object>(fieldName), FlexibleStringExpander.getInstance(value));
                     } else {
                         // at this point we have a fieldName and no value, do we have a envName?
                         if (UtilValidate.isNotEmpty(envName)) {
@@ -118,7 +118,7 @@ public class EntityFinderUtil {
         if (selectFieldElementList.size() > 0) {
             selectFieldExpanderList = new LinkedList<FlexibleStringExpander>();
             for (Element selectFieldElement: selectFieldElementList) {
-                selectFieldExpanderList.add(new FlexibleStringExpander(selectFieldElement.getAttribute("field-name")));
+                selectFieldExpanderList.add(FlexibleStringExpander.getInstance(selectFieldElement.getAttribute("field-name")));
             }
         }
         return selectFieldExpanderList;
@@ -159,15 +159,15 @@ public class EntityFinderUtil {
         protected boolean ignoreCase;
         
         public ConditionExpr(Element conditionExprElement) {
-            this.fieldNameExdr = new FlexibleStringExpander(conditionExprElement.getAttribute("field-name"));
+            this.fieldNameExdr = FlexibleStringExpander.getInstance(conditionExprElement.getAttribute("field-name"));
             if (this.fieldNameExdr.isEmpty()) {
                 // no "field-name"? try "name"
-                this.fieldNameExdr = new FlexibleStringExpander(conditionExprElement.getAttribute("name"));
+                this.fieldNameExdr = FlexibleStringExpander.getInstance(conditionExprElement.getAttribute("name"));
             }
 
-            this.operatorExdr = new FlexibleStringExpander(UtilFormatOut.checkEmpty(conditionExprElement.getAttribute("operator"), "equals"));
+            this.operatorExdr = FlexibleStringExpander.getInstance(UtilFormatOut.checkEmpty(conditionExprElement.getAttribute("operator"), "equals"));
             this.envNameAcsr = new FlexibleMapAccessor<Object>(conditionExprElement.getAttribute("env-name"));
-            this.valueExdr = new FlexibleStringExpander(conditionExprElement.getAttribute("value"));
+            this.valueExdr = FlexibleStringExpander.getInstance(conditionExprElement.getAttribute("value"));
             this.ignoreIfNull = "true".equals(conditionExprElement.getAttribute("ignore-if-null"));
             this.ignoreIfEmpty = "true".equals(conditionExprElement.getAttribute("ignore-if-empty"));
             this.ignoreCase = "true".equals(conditionExprElement.getAttribute("ignore-case"));
@@ -255,7 +255,7 @@ public class EntityFinderUtil {
         FlexibleStringExpander combineExdr;
         
         public ConditionList(Element conditionListElement) {
-            this.combineExdr = new FlexibleStringExpander(conditionListElement.getAttribute("combine"));
+            this.combineExdr = FlexibleStringExpander.getInstance(conditionListElement.getAttribute("combine"));
             
             List<? extends Element> subElements = UtilXml.childElementList(conditionListElement);
             for (Element subElement: subElements) {
@@ -323,8 +323,8 @@ public class EntityFinderUtil {
         FlexibleStringExpander sizeExdr;
         
         public LimitRange(Element limitRangeElement) {
-            this.startExdr = new FlexibleStringExpander(limitRangeElement.getAttribute("start"));
-            this.sizeExdr = new FlexibleStringExpander(limitRangeElement.getAttribute("size"));
+            this.startExdr = FlexibleStringExpander.getInstance(limitRangeElement.getAttribute("start"));
+            this.sizeExdr = FlexibleStringExpander.getInstance(limitRangeElement.getAttribute("size"));
         }
         
         int getStart(Map<String, Object> context) {
@@ -377,8 +377,8 @@ public class EntityFinderUtil {
         FlexibleStringExpander viewSizeExdr;
         
         public LimitView(Element limitViewElement) {
-            this.viewIndexExdr = new FlexibleStringExpander(limitViewElement.getAttribute("view-index"));
-            this.viewSizeExdr = new FlexibleStringExpander(limitViewElement.getAttribute("view-size"));
+            this.viewIndexExdr = FlexibleStringExpander.getInstance(limitViewElement.getAttribute("view-index"));
+            this.viewSizeExdr = FlexibleStringExpander.getInstance(limitViewElement.getAttribute("view-size"));
         }
         
         int getIndex(Map<String, Object> context) {

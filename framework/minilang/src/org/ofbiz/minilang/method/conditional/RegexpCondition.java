@@ -75,7 +75,7 @@ public class RegexpCondition implements Conditional {
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
 
-        this.exprExdr = new FlexibleStringExpander(element.getAttribute("expr"));
+        this.exprExdr = FlexibleStringExpander.getInstance(element.getAttribute("expr"));
     }
 
     public boolean checkCondition(MethodContext methodContext) {

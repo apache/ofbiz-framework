@@ -62,9 +62,9 @@ public class EntityData extends MethodOperation {
 
     public EntityData(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        locationExdr = new FlexibleStringExpander(element.getAttribute("location"));
-        delegatorNameExdr = new FlexibleStringExpander(element.getAttribute("delegator-name"));
-        timeoutExdr = new FlexibleStringExpander(element.getAttribute("timeout"));
+        locationExdr = FlexibleStringExpander.getInstance(element.getAttribute("location"));
+        delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
+        timeoutExdr = FlexibleStringExpander.getInstance(element.getAttribute("timeout"));
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
         
         mode = element.getAttribute("mode");

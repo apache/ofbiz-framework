@@ -132,9 +132,9 @@ public abstract class ModelMenuAction {
             super (modelMenu, setElement);
             this.field = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
             this.fromField = UtilValidate.isNotEmpty(setElement.getAttribute("from-field")) ? new FlexibleMapAccessor<Object>(setElement.getAttribute("from-field")) : null;
-            this.valueExdr = UtilValidate.isNotEmpty(setElement.getAttribute("value")) ? new FlexibleStringExpander(setElement.getAttribute("value")) : null;
-            this.defaultExdr = UtilValidate.isNotEmpty(setElement.getAttribute("default-value")) ? new FlexibleStringExpander(setElement.getAttribute("default-value")) : null;
-            this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
+            this.valueExdr = UtilValidate.isNotEmpty(setElement.getAttribute("value")) ? FlexibleStringExpander.getInstance(setElement.getAttribute("value")) : null;
+            this.defaultExdr = UtilValidate.isNotEmpty(setElement.getAttribute("default-value")) ? FlexibleStringExpander.getInstance(setElement.getAttribute("default-value")) : null;
+            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
             this.type = setElement.getAttribute("type");
             this.toScope = setElement.getAttribute("to-scope");
             this.fromScope = setElement.getAttribute("from-scope");
@@ -242,9 +242,9 @@ public abstract class ModelMenuAction {
         
         public PropertyMap(ModelMenu modelMenu, Element setElement) {
             super (modelMenu, setElement);
-            this.resourceExdr = new FlexibleStringExpander(setElement.getAttribute("resource"));
+            this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
             this.mapNameAcsr = new FlexibleMapAccessor<Map<String, Object>>(setElement.getAttribute("map-name"));
-            this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
+            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
         public void runAction(Map<String, Object> context) {
@@ -278,13 +278,13 @@ public abstract class ModelMenuAction {
 
         public PropertyToField(ModelMenu modelMenu, Element setElement) {
             super (modelMenu, setElement);
-            this.resourceExdr = new FlexibleStringExpander(setElement.getAttribute("resource"));
-            this.propertyExdr = new FlexibleStringExpander(setElement.getAttribute("property"));
+            this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
+            this.propertyExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("property"));
             this.fieldAcsr = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
-            this.defaultExdr = new FlexibleStringExpander(setElement.getAttribute("default"));
+            this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default"));
             noLocale = "true".equals(setElement.getAttribute("no-locale"));
             this.argListAcsr = new FlexibleMapAccessor<List<? extends Object>>(setElement.getAttribute("arg-list-name"));
-            this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
+            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
         public void runAction(Map<String, Object> context) {
@@ -351,9 +351,9 @@ public abstract class ModelMenuAction {
         
         public Service(ModelMenu modelMenu, Element serviceElement) {
             super (modelMenu, serviceElement);
-            this.serviceNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("service-name"));
+            this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
             this.resultMapNameAcsr = UtilValidate.isNotEmpty(serviceElement.getAttribute("result-map-name")) ? new FlexibleMapAccessor<Map<String, Object>>(serviceElement.getAttribute("result-map-name")) : null;
-            this.autoFieldMapExdr = new FlexibleStringExpander(serviceElement.getAttribute("auto-field-map"));
+            this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
             
             List<? extends Element> fieldMapElementList = UtilXml.childElementList(serviceElement, "field-map");
             if (fieldMapElementList.size() > 0) {

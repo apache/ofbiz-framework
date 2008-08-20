@@ -63,7 +63,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
     public ModelScreen(Element screenElement, Map modelScreenMap, String sourceLocation) {
         super(screenElement);
         this.sourceLocation = sourceLocation;
-        this.transactionTimeoutExdr = new FlexibleStringExpander(screenElement.getAttribute("transaction-timeout"));
+        this.transactionTimeoutExdr = FlexibleStringExpander.getInstance(screenElement.getAttribute("transaction-timeout"));
         this.modelScreenMap = modelScreenMap;
         this.useCache = "true".equals(screenElement.getAttribute("use-cache"));
 

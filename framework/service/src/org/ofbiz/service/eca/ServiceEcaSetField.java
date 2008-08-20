@@ -51,7 +51,7 @@ public class ServiceEcaSetField {
             // try to expand the envName
             if (UtilValidate.isEmpty(value)) {
                 if (UtilValidate.isNotEmpty(envName) && envName.startsWith("${")) {
-                    FlexibleStringExpander exp = new FlexibleStringExpander(envName);
+                    FlexibleStringExpander exp = FlexibleStringExpander.getInstance(envName);
                     String s = exp.expandString(context);
                     if (UtilValidate.isNotEmpty(s)) {
                         value = s;

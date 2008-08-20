@@ -114,9 +114,9 @@ public abstract class ModelFormAction {
             super (modelForm, setElement);
             this.field = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
             this.fromField = UtilValidate.isNotEmpty(setElement.getAttribute("from-field")) ? new FlexibleMapAccessor<String>(setElement.getAttribute("from-field")) : null;
-            this.valueExdr = UtilValidate.isNotEmpty(setElement.getAttribute("value")) ? new FlexibleStringExpander(setElement.getAttribute("value")) : null;
-            this.defaultExdr = new FlexibleStringExpander(setElement.getAttribute("default-value"));
-            this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
+            this.valueExdr = UtilValidate.isNotEmpty(setElement.getAttribute("value")) ? FlexibleStringExpander.getInstance(setElement.getAttribute("value")) : null;
+            this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default-value"));
+            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
             this.type = setElement.getAttribute("type");
             if (this.fromField != null && this.valueExdr != null) {
                 throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a screen widget");
@@ -176,9 +176,9 @@ public abstract class ModelFormAction {
         
         public PropertyMap(ModelForm modelForm, Element setElement) {
             super (modelForm, setElement);
-            this.resourceExdr = new FlexibleStringExpander(setElement.getAttribute("resource"));
+            this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
             this.mapNameAcsr = new FlexibleMapAccessor<Map<String, Object>>(setElement.getAttribute("map-name"));
-            this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
+            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
         public void runAction(Map<String, Object> context) {
@@ -212,13 +212,13 @@ public abstract class ModelFormAction {
 
         public PropertyToField(ModelForm modelForm, Element setElement) {
             super (modelForm, setElement);
-            this.resourceExdr = new FlexibleStringExpander(setElement.getAttribute("resource"));
-            this.propertyExdr = new FlexibleStringExpander(setElement.getAttribute("property"));
+            this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
+            this.propertyExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("property"));
             this.fieldAcsr = new FlexibleMapAccessor<String>(setElement.getAttribute("field"));
-            this.defaultExdr = new FlexibleStringExpander(setElement.getAttribute("default"));
+            this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default"));
             noLocale = "true".equals(setElement.getAttribute("no-locale"));
             this.argListAcsr = new FlexibleMapAccessor<List<Object>>(setElement.getAttribute("arg-list-name"));
-            this.globalExdr = new FlexibleStringExpander(setElement.getAttribute("global"));
+            this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
         public void runAction(Map<String, Object> context) {
@@ -296,22 +296,22 @@ public abstract class ModelFormAction {
         
         public Service(ModelForm modelForm, Element serviceElement) {
             super (modelForm, serviceElement);
-            this.serviceNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("service-name"));
+            this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
             this.resultMapNameAcsr = UtilValidate.isNotEmpty(serviceElement.getAttribute("result-map-name")) ? new FlexibleMapAccessor<Map<String, Object>>(serviceElement.getAttribute("result-map-name")) : null;
-            this.autoFieldMapExdr = new FlexibleStringExpander(serviceElement.getAttribute("auto-field-map"));
+            this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
             if (UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-name"))) {
                 if (UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-iterator-name"))) {
                     String lstNm = modelForm.getListName();
                     if (UtilValidate.isEmpty(lstNm)) {
                         lstNm = ModelForm.DEFAULT_FORM_RESULT_LIST_NAME;
                     }
-                    this.resultMapListNameExdr = new FlexibleStringExpander(lstNm);
+                    this.resultMapListNameExdr = FlexibleStringExpander.getInstance(lstNm);
                 } else {
                     // this is deprecated, but support it for now anyway
-                    this.resultMapListNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("result-map-list-iterator-name"));
+                    this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-iterator-name"));
                 }
             } else {
-                this.resultMapListNameExdr = new FlexibleStringExpander(serviceElement.getAttribute("result-map-list-name"));
+                this.resultMapListNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("result-map-list-name"));
             }
             
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
@@ -475,6 +475,7 @@ public abstract class ModelFormAction {
         }
     }
 }
+
 
 
 

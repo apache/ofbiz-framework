@@ -1275,7 +1275,7 @@ public class ModelFormField {
      * @param string
      */
     public void setAction(String string) {
-        this.action = new FlexibleStringExpander(string);
+        this.action = FlexibleStringExpander.getInstance(string);
     }
 
     /**
@@ -1289,7 +1289,7 @@ public class ModelFormField {
      * @param string
      */
     public void setTitle(String string) {
-        this.title = new FlexibleStringExpander(string);
+        this.title = FlexibleStringExpander.getInstance(string);
     }
 
     /**
@@ -1310,14 +1310,14 @@ public class ModelFormField {
      * @param string
      */
     public void setTooltip(String string) {
-        this.tooltip = new FlexibleStringExpander(string);
+        this.tooltip = FlexibleStringExpander.getInstance(string);
     }
 
     /**
      * @param string
      */
     public void setUseWhen(String string) {
-        this.useWhen = new FlexibleStringExpander(string);
+        this.useWhen = FlexibleStringExpander.getInstance(string);
     }
 
     /**
@@ -1510,7 +1510,7 @@ public class ModelFormField {
         public FieldInfoWithOptions(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
 
-            noCurrentSelectedKey = new FlexibleStringExpander(element.getAttribute("no-current-selected-key"));
+            noCurrentSelectedKey = FlexibleStringExpander.getInstance(element.getAttribute("no-current-selected-key"));
 
             // read all option and entity-options sub-elements, maintaining order
             List childElements = UtilXml.childElementList(element);
@@ -1571,7 +1571,7 @@ public class ModelFormField {
         }
 
         public void setNoCurrentSelectedKey(String string) {            
-            this.noCurrentSelectedKey = new FlexibleStringExpander(string);
+            this.noCurrentSelectedKey = FlexibleStringExpander.getInstance(string);
         }
 
         public void addOptionSource(OptionSource optionSource) {
@@ -1608,14 +1608,14 @@ public class ModelFormField {
         protected FlexibleStringExpander description;
 
         public SingleOption(String key, String description, FieldInfo fieldInfo) {
-            this.key = new FlexibleStringExpander(key);
-            this.description = new FlexibleStringExpander(UtilXml.checkEmpty(description, key));
+            this.key = FlexibleStringExpander.getInstance(key);
+            this.description = FlexibleStringExpander.getInstance(UtilXml.checkEmpty(description, key));
             this.fieldInfo = fieldInfo;
         }
 
         public SingleOption(Element optionElement, FieldInfo fieldInfo) {
-            this.key = new FlexibleStringExpander(optionElement.getAttribute("key"));
-            this.description = new FlexibleStringExpander(UtilXml.checkEmpty(optionElement.getAttribute("description"), optionElement.getAttribute("key")));
+            this.key = FlexibleStringExpander.getInstance(optionElement.getAttribute("key"));
+            this.description = FlexibleStringExpander.getInstance(UtilXml.checkEmpty(optionElement.getAttribute("description"), optionElement.getAttribute("key")));
             this.fieldInfo = fieldInfo;
         }
 
@@ -1634,7 +1634,7 @@ public class ModelFormField {
             this.listAcsr = new FlexibleMapAccessor<List<? extends Object>>(listName);
             this.listEntryName = listEntryName;
             this.keyAcsr = new FlexibleMapAccessor<String>(keyName);
-            this.description = new FlexibleStringExpander(description);
+            this.description = FlexibleStringExpander.getInstance(description);
             this.fieldInfo = fieldInfo;
         }
 
@@ -1643,7 +1643,7 @@ public class ModelFormField {
             this.keyAcsr = new FlexibleMapAccessor<String>(optionElement.getAttribute("key-name"));
             this.listAcsr = new FlexibleMapAccessor<List<? extends Object>>(optionElement.getAttribute("list-name"));
             this.listEntryName = optionElement.getAttribute("list-entry-name");
-            this.description = new FlexibleStringExpander(optionElement.getAttribute("description"));
+            this.description = FlexibleStringExpander.getInstance(optionElement.getAttribute("description"));
             this.fieldInfo = fieldInfo;
         }
 
@@ -1682,7 +1682,7 @@ public class ModelFormField {
         public EntityOptions(Element entityOptionsElement, FieldInfo fieldInfo) {
             this.entityName = entityOptionsElement.getAttribute("entity-name");
             this.keyFieldName = entityOptionsElement.getAttribute("key-field-name");
-            this.description = new FlexibleStringExpander(entityOptionsElement.getAttribute("description"));
+            this.description = FlexibleStringExpander.getInstance(entityOptionsElement.getAttribute("description"));
             this.cache = !"false".equals(entityOptionsElement.getAttribute("cache"));
             this.filterByDate = entityOptionsElement.getAttribute("filter-by-date");
 
@@ -1936,7 +1936,7 @@ public class ModelFormField {
         }
 
         public void setUrl(String url) {
-            this.url = new FlexibleStringExpander(url);
+            this.url = FlexibleStringExpander.getInstance(url);
         }
 
         public void setCancelControl(String string) {
@@ -2129,20 +2129,20 @@ public class ModelFormField {
          * @param Description
          */
         public void setDescription(String string) {
-            description = new FlexibleStringExpander(string);
+            description = FlexibleStringExpander.getInstance(string);
         }
         
         /**
          * @param string
          */
         public void setCurrency(String string) {
-            currency = new FlexibleStringExpander(string);
+            currency = FlexibleStringExpander.getInstance(string);
         }
         /**
          * @param date
          */
         public void setDate(String string) {
-            date = new FlexibleStringExpander(string);
+            date = FlexibleStringExpander.getInstance(string);
         }
         
         public void setInPlaceEditor(InPlaceEditor newInPlaceEditor) {
@@ -2264,7 +2264,7 @@ public class ModelFormField {
             this.setTarget(element.getAttribute("target"));
             this.alsoHidden = !"false".equals(element.getAttribute("also-hidden"));
             this.targetType = element.getAttribute("target-type");
-            this.targetWindowExdr = new FlexibleStringExpander(element.getAttribute("target-window"));
+            this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
         }
 
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
@@ -2326,14 +2326,14 @@ public class ModelFormField {
          * @param string
          */
         public void setDescription(String string) {
-            this.description = new FlexibleStringExpander(string);
+            this.description = FlexibleStringExpander.getInstance(string);
         }
 
         /**
          * @param string
          */
         public void setTarget(String string) {
-            this.target = new FlexibleStringExpander(string);
+            this.target = FlexibleStringExpander.getInstance(string);
         }
     }
 
@@ -2351,7 +2351,7 @@ public class ModelFormField {
             this.setUseWhen(element.getAttribute("use-when"));
             this.linkStyle = element.getAttribute("link-style");
             this.targetType = element.getAttribute("target-type");
-            this.targetWindowExdr = new FlexibleStringExpander(element.getAttribute("target-window"));
+            this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
         }
 
         /**
@@ -2458,21 +2458,21 @@ public class ModelFormField {
          * @param string
          */
         public void setDescription(String string) {
-            this.description = new FlexibleStringExpander(string);
+            this.description = FlexibleStringExpander.getInstance(string);
         }
 
         /**
          * @param string
          */
         public void setTarget(String string) {
-            this.target = new FlexibleStringExpander(string);
+            this.target = FlexibleStringExpander.getInstance(string);
         }
 
         /**
          * @param string
          */
         public void setUseWhen(String string) {
-            this.useWhen = new FlexibleStringExpander(string);
+            this.useWhen = FlexibleStringExpander.getInstance(string);
         }
     }
     
@@ -2681,7 +2681,7 @@ public class ModelFormField {
          * @param str
          */
         public void setDefaultValue(String str) {
-            this.defaultValue = new FlexibleStringExpander(str);
+            this.defaultValue = FlexibleStringExpander.getInstance(str);
         }
 
         public SubHyperlink getSubHyperlink() {
@@ -2717,7 +2717,7 @@ public class ModelFormField {
             this.setDefaultValue(element.getAttribute("default-value"));
             
             visualEditorEnable = "true".equals(element.getAttribute("visual-editor-enable"));
-            visualEditorButtons = new FlexibleStringExpander(element.getAttribute("visual-editor-buttons"));
+            visualEditorButtons = FlexibleStringExpander.getInstance(element.getAttribute("visual-editor-buttons"));
             readOnly = "true".equals(element.getAttribute("read-only"));
 
             String colsStr = element.getAttribute("cols");
@@ -2814,7 +2814,7 @@ public class ModelFormField {
          * @param str
          */
         public void setDefaultValue(String str) {
-            this.defaultValue = new FlexibleStringExpander(str);
+            this.defaultValue = FlexibleStringExpander.getInstance(str);
         }
 
         /**
@@ -2828,7 +2828,7 @@ public class ModelFormField {
          * @param i
          */
         public void setVisualEditorButtons(String eb) {
-            this.visualEditorButtons = new FlexibleStringExpander(eb);
+            this.visualEditorButtons = FlexibleStringExpander.getInstance(eb);
         }
     }
 
@@ -2899,7 +2899,7 @@ public class ModelFormField {
          * @param str
          */
         public void setDefaultValue(String str) {
-            this.defaultValue = new FlexibleStringExpander(str);
+            this.defaultValue = FlexibleStringExpander.getInstance(str);
         }
 
         public void setInputMethod(String str) {
@@ -2960,7 +2960,7 @@ public class ModelFormField {
             this.size = element.getAttribute("size");
             this.allowEmpty = "true".equals(element.getAttribute("allow-empty"));
             this.allowMulti = "true".equals(element.getAttribute("allow-multiple"));
-            this.currentDescription = new FlexibleStringExpander(element.getAttribute("current-description"));
+            this.currentDescription = FlexibleStringExpander.getInstance(element.getAttribute("current-description"));
 
             // set the default size
             if (size == null) {
@@ -3023,7 +3023,7 @@ public class ModelFormField {
         }
 
         public void setCurrentDescription(String string) {
-            this.currentDescription = new FlexibleStringExpander(string);
+            this.currentDescription = FlexibleStringExpander.getInstance(string);
         }
 
         public SubHyperlink getSubHyperlink() {
@@ -3114,7 +3114,7 @@ public class ModelFormField {
 
         public CheckField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
-            allChecked = new FlexibleStringExpander(element.getAttribute("all-checked"));
+            allChecked = FlexibleStringExpander.getInstance(element.getAttribute("all-checked"));
         }
 
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
@@ -3152,7 +3152,7 @@ public class ModelFormField {
             super(element, modelFormField);
             this.buttonType = element.getAttribute("button-type");
             this.imageLocation = element.getAttribute("image-location");
-            this.backgroundSubmitRefreshTargetExdr = new FlexibleStringExpander(element.getAttribute("background-submit-refresh-target"));
+            this.backgroundSubmitRefreshTargetExdr = FlexibleStringExpander.getInstance(element.getAttribute("background-submit-refresh-target"));
         }
 
         public void renderFieldString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
@@ -3247,7 +3247,7 @@ public class ModelFormField {
         }
 
         public void setValue(String string) {
-            this.value = new FlexibleStringExpander(string);
+            this.value = FlexibleStringExpander.getInstance(string);
         }
     }
 
@@ -3375,7 +3375,7 @@ public class ModelFormField {
         
         public LookupField(Element element, ModelFormField modelFormField) {
             super(element, modelFormField);
-            this.formName = new FlexibleStringExpander(element.getAttribute("target-form-name"));
+            this.formName = FlexibleStringExpander.getInstance(element.getAttribute("target-form-name"));
             this.descriptionFieldName = element.getAttribute("description-field-name");
             this.targetParameter = element.getAttribute("target-parameter");
         }
@@ -3404,7 +3404,7 @@ public class ModelFormField {
         }
 
         public void setFormName(String str) {
-            this.formName = new FlexibleStringExpander(str);
+            this.formName = FlexibleStringExpander.getInstance(str);
         }
         
         public String getDescriptionFieldName() {
@@ -3518,7 +3518,7 @@ public class ModelFormField {
          * @param str
          */
         public void setDefaultValue(String str) {
-            this.defaultValue = new FlexibleStringExpander(str);
+            this.defaultValue = FlexibleStringExpander.getInstance(str);
         }
 
         public SubHyperlink getSubHyperlink() {
@@ -3567,7 +3567,7 @@ public class ModelFormField {
         }
 
         public void setValue(String string) {
-            this.value = new FlexibleStringExpander(string);
+            this.value = FlexibleStringExpander.getInstance(string);
         }
 
     }

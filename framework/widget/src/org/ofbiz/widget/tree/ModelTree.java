@@ -96,9 +96,9 @@ public class ModelTree extends ModelWidget {
             if (UtilValidate.isNotEmpty(rStyle))
                 this.defaultRenderStyle = rStyle;
         }
-        this.defaultWrapStyleExdr = new FlexibleStringExpander(treeElement.getAttribute("default-wrap-style"));
-        this.expandCollapseRequestExdr = new FlexibleStringExpander(treeElement.getAttribute("expand-collapse-request"));
-        this.trailNameExdr = new FlexibleStringExpander(UtilFormatOut.checkEmpty(treeElement.getAttribute("trail-name"), "trail"));
+        this.defaultWrapStyleExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("default-wrap-style"));
+        this.expandCollapseRequestExdr = FlexibleStringExpander.getInstance(treeElement.getAttribute("expand-collapse-request"));
+        this.trailNameExdr = FlexibleStringExpander.getInstance(UtilFormatOut.checkEmpty(treeElement.getAttribute("trail-name"), "trail"));
         this.delegator = delegator;
         this.dispatcher = dispatcher;
         this.forceChildCheck = !"false".equals(treeElement.getAttribute("force-child-check"));
@@ -285,7 +285,7 @@ public class ModelTree extends ModelWidget {
             this.modelTree = modelTree;
             this.name = nodeElement.getAttribute("name");
             this.expandCollapseStyle = nodeElement.getAttribute("expand-collapse-style");
-            this.wrapStyleExdr = new FlexibleStringExpander(nodeElement.getAttribute("wrap-style"));
+            this.wrapStyleExdr = FlexibleStringExpander.getInstance(nodeElement.getAttribute("wrap-style"));
             this.renderStyle = nodeElement.getAttribute("render-style");
             this.entryName = UtilFormatOut.checkEmpty(nodeElement.getAttribute("entry-name"), null); 
             setEntityName(nodeElement.getAttribute("entity-name"));
@@ -309,8 +309,8 @@ public class ModelTree extends ModelWidget {
         
             Element screenElement = UtilXml.firstChildElement(nodeElement, "include-screen");
             if (screenElement != null) {
-                this.screenNameExdr =  new FlexibleStringExpander(screenElement.getAttribute("name"));
-                this.screenLocationExdr =  new FlexibleStringExpander(screenElement.getAttribute("location"));
+                this.screenNameExdr =  FlexibleStringExpander.getInstance(screenElement.getAttribute("name"));
+                this.screenLocationExdr =  FlexibleStringExpander.getInstance(screenElement.getAttribute("location"));
                 this.shareScope =  screenElement.getAttribute("share-scope");
             }
             
@@ -691,7 +691,7 @@ public class ModelTree extends ModelWidget {
             public ModelSubNode(Element nodeElement, ModelNode modelNode) {
     
                 this.rootNode = modelNode;
-                this.nodeNameExdr = new FlexibleStringExpander(nodeElement.getAttribute("node-name"));
+                this.nodeNameExdr = FlexibleStringExpander.getInstance(nodeElement.getAttribute("node-name"));
         
                 Element actionElement = UtilXml.firstChildElement(nodeElement, "entity-and");
                 if (actionElement != null) {
@@ -747,10 +747,10 @@ public class ModelTree extends ModelWidget {
                 // put the text attribute first, then the pcdata under the element, if both are there of course
                 String textAttr = UtilFormatOut.checkNull(labelElement.getAttribute("text"));
                 String pcdata = UtilFormatOut.checkNull(UtilXml.elementValue(labelElement));
-                this.textExdr = new FlexibleStringExpander(textAttr + pcdata);
+                this.textExdr = FlexibleStringExpander.getInstance(textAttr + pcdata);
     
-                this.idExdr = new FlexibleStringExpander(labelElement.getAttribute("id"));
-                this.styleExdr = new FlexibleStringExpander(labelElement.getAttribute("style"));
+                this.idExdr = FlexibleStringExpander.getInstance(labelElement.getAttribute("id"));
+                this.styleExdr = FlexibleStringExpander.getInstance(labelElement.getAttribute("style"));
             }
     
             public void renderLabelString(Appendable writer, Map<String, Object> context, TreeStringRenderer treeStringRenderer) {
@@ -891,28 +891,28 @@ public class ModelTree extends ModelWidget {
 
             public void setText(String val) {
                 String textAttr = UtilFormatOut.checkNull(val);
-                this.textExdr = new FlexibleStringExpander(textAttr);
+                this.textExdr = FlexibleStringExpander.getInstance(textAttr);
             }
             public void setId(String val) {
-                this.idExdr = new FlexibleStringExpander(val);
+                this.idExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setStyle(String val) {
-                this.styleExdr = new FlexibleStringExpander(val);
+                this.styleExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setName(String val) {
-                this.nameExdr = new FlexibleStringExpander(val);
+                this.nameExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setTitle(String val) {
-                this.titleExdr = new FlexibleStringExpander(val);
+                this.titleExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setTarget(String val) {
-                this.targetExdr = new FlexibleStringExpander(val);
+                this.targetExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setTargetWindow(String val) {
-                this.targetWindowExdr = new FlexibleStringExpander(val);
+                this.targetWindowExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setPrefix(String val) {
-                this.prefixExdr = new FlexibleStringExpander(val);
+                this.prefixExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setUrlMode(String val) {
                 if (UtilValidate.isNotEmpty(val))
@@ -1020,22 +1020,22 @@ public class ModelTree extends ModelWidget {
             
             public void setSrc(String val) {
                 String textAttr = UtilFormatOut.checkNull(val);
-                this.srcExdr = new FlexibleStringExpander(textAttr);
+                this.srcExdr = FlexibleStringExpander.getInstance(textAttr);
             }
             public void setId(String val) {
-                this.idExdr = new FlexibleStringExpander(val);
+                this.idExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setStyle(String val) {
-                this.styleExdr = new FlexibleStringExpander(val);
+                this.styleExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setWidth(String val) {
-                this.widthExdr = new FlexibleStringExpander(val);
+                this.widthExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setHeight(String val) {
-                this.heightExdr = new FlexibleStringExpander(val);
+                this.heightExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setBorder(String val) {
-                this.borderExdr = new FlexibleStringExpander(val);
+                this.borderExdr = FlexibleStringExpander.getInstance(val);
             }
             public void setUrlMode(String val) {
                 if (UtilValidate.isEmpty(val)) {

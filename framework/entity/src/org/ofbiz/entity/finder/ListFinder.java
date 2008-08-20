@@ -75,11 +75,11 @@ public abstract class ListFinder extends Finder {
         super(element);
         this.label = label;
 
-        this.filterByDateStrExdr = new FlexibleStringExpander(element.getAttribute("filter-by-date"));
-        this.distinctStrExdr = new FlexibleStringExpander(element.getAttribute("distinct"));
-        this.delegatorNameExdr = new FlexibleStringExpander(element.getAttribute("delegator-name"));
+        this.filterByDateStrExdr = FlexibleStringExpander.getInstance(element.getAttribute("filter-by-date"));
+        this.distinctStrExdr = FlexibleStringExpander.getInstance(element.getAttribute("distinct"));
+        this.delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
         this.listAcsr = new FlexibleMapAccessor<Object>(element.getAttribute("list-name"));
-        this.resultSetTypeExdr = new FlexibleStringExpander(element.getAttribute("result-set-type"));
+        this.resultSetTypeExdr = FlexibleStringExpander.getInstance(element.getAttribute("result-set-type"));
 
         // process select-field
         selectFieldExpanderList = EntityFinderUtil.makeSelectFieldExpanderList(element);
@@ -89,7 +89,7 @@ public abstract class ListFinder extends Finder {
         if (orderByElementList.size() > 0) {
             orderByExpanderList = FastList.newInstance();
             for (Element orderByElement: orderByElementList) {
-                orderByExpanderList.add(new FlexibleStringExpander(orderByElement.getAttribute("field-name")));
+                orderByExpanderList.add(FlexibleStringExpander.getInstance(orderByElement.getAttribute("field-name")));
             }
         }
 

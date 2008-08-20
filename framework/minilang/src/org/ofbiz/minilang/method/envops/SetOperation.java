@@ -59,8 +59,8 @@ public class SetOperation extends MethodOperation {
         super(element, simpleMethod);
         this.field = new ContextAccessor<Object>(element.getAttribute("field"));
         this.fromField = new ContextAccessor<Object>(element.getAttribute("from-field"));
-        this.valueExdr = new FlexibleStringExpander(element.getAttribute("value"));
-        this.defaultExdr = new FlexibleStringExpander(element.getAttribute("default-value"));
+        this.valueExdr = FlexibleStringExpander.getInstance(element.getAttribute("value"));
+        this.defaultExdr = FlexibleStringExpander.getInstance(element.getAttribute("default-value"));
         this.type = element.getAttribute("type");
         // default to false, anything but true is false
         this.setIfNull = "true".equals(element.getAttribute("set-if-null"));
