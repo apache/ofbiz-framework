@@ -134,7 +134,7 @@ public class JavaMailContainer implements Container {
     public void stop() throws ContainerException {
         // stop the poller
         this.pollTimer.cancel();
-        Debug.logVerbose("stop JavaMail poller", module);
+        Debug.logWarning("stop JavaMail poller", module);
     }
 
     // java-mail methods
