@@ -55,7 +55,7 @@ under the License.
                           </#if>
                     </#if>    
                     <#if note.internalNote?if_exists == "Y">
-	                    <div>${uiLabelMap.ProjectMgrNotPrintableNote}</div>
+	                    <div>${uiLabelMap.OrderNotPrintableNote}</div>
                            <#if project?has_content>
                              <a href="<@ofbizUrl>updateProjectNote?workEffortId=${project.workEffortId?if_exists}&noteId=${note.noteId}&internalNote=N</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderNotesPublic}</a>
                           <#else>
