@@ -308,6 +308,7 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
     mapRelation.put("type", relation.getType());    
     mapRelation.put("title", relation.getTitle()); 
     mapRelation.put("relEntityName", relation.getRelEntityName());
+    mapRelation.put("sortName", relation.getTitle() + relation.getRelEntityName()); 
     mapRelation.put("relatedTable", relatedEntity.getEntityName());     
     mapRelation.put("relCreate", relCreate);
     
@@ -422,5 +423,5 @@ for (int relIndex = 0; relIndex < entity.getRelationsSize(); relIndex++) {
         }
     }
 }
-context.put("relationFieldList", relationFieldList);
+context.put("relationFieldList", UtilMisc.sortMaps(relationFieldList, UtilMisc.toList("sortName")));
 context.put("relSize", relationFieldList.size() + 2);
