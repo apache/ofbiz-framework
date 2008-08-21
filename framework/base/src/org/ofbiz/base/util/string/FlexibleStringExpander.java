@@ -142,7 +142,9 @@ public class FlexibleStringExpander implements Serializable {
             elem.append(buffer, context, timeZone, locale);
         }
         if (buffer.length() > this.hint) {
-            this.hint = buffer.length();
+            synchronized(this) {
+                this.hint = buffer.length();
+            }
         }
         return buffer.toString();
     }
@@ -374,7 +376,9 @@ public class FlexibleStringExpander implements Serializable {
                 elem.append(expr, context, timeZone, locale);
             }
             if (expr.length() > this.hint) {
-                this.hint = expr.length();
+                synchronized(this) {
+                    this.hint = expr.length();
+                }
             }
             FlexibleMapAccessor<Object> fma = new FlexibleMapAccessor<Object>(expr.toString());
             Object obj = fma.get(context, locale);
