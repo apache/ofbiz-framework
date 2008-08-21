@@ -545,6 +545,7 @@ public class ProductConfigWrapper implements Serializable {
                         "currencyUomId", currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", autoUserLogin);
                 Map priceMap = dispatcher.runSync("calculateProductPrice", fieldMap);
                 Double componentPrice = (Double) priceMap.get("price");
+                Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound"); 
                 double mult = 1;
                 if (oneComponent.getDouble("quantity") != null) {
                     mult = oneComponent.getDouble("quantity").doubleValue();
@@ -552,7 +553,7 @@ public class ProductConfigWrapper implements Serializable {
                 if (mult == 0) {
                     mult = 1;
                 }
-                if (componentPrice != null) {
+                if (componentPrice != null && validPriceFound.booleanValue()) {
                     price = componentPrice.doubleValue();
                 } else {
                     fieldMap.put("productPricePurposeId", "PURCHASE");
@@ -597,6 +598,7 @@ public class ProductConfigWrapper implements Serializable {
                         "currencyUomId", pcw.currencyUomId, "productPricePurposeId", "COMPONENT_PRICE", "autoUserLogin", pcw.autoUserLogin);
                 Map priceMap = dispatcher.runSync("calculateProductPrice", fieldMap);
                 Double componentPrice = (Double) priceMap.get("price");
+                Boolean validPriceFound = (Boolean)priceMap.get("validPriceFound");                 
                 double mult = 1;
                 if (oneComponent.getDouble("quantity") != null) {
                     mult = oneComponent.getDouble("quantity").doubleValue();
@@ -604,7 +606,7 @@ public class ProductConfigWrapper implements Serializable {
                 if (mult == 0) {
                     mult = 1;
                 }
-                if (componentPrice != null) {
+                if (componentPrice != null && validPriceFound.booleanValue()) {
                     price = componentPrice.doubleValue();
                 } else {
                     fieldMap.put("productPricePurposeId", "PURCHASE");
