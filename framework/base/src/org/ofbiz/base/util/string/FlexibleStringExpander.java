@@ -188,7 +188,7 @@ public class FlexibleStringExpander implements Serializable {
      * @return The original String expanded by replacing varaible place holders.
      */
     public static String expandString(String original, Map<String, ? extends Object> context) {
-        return expandString(original, context, null);
+        return expandString(original, context, null, null);
     }
     
     /**
@@ -226,10 +226,7 @@ public class FlexibleStringExpander implements Serializable {
      * @return The original String expanded by replacing varaible place holders.
      */
     public static String expandString(String original, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-        if (context == null) {
-            return original;
-        }
-        if (original == null || !original.contains("${")) {
+        if (context == null || original == null || !original.contains("${")) {
             return original;
         }
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(original);
@@ -241,10 +238,10 @@ public class FlexibleStringExpander implements Serializable {
      * @return
      */
     protected static List<StrElem> getStrElems(String original) {
-        int origLen = original.length();
-        if (original == null || origLen == 0) {
+        if (original == null || original.length() == 0) {
             return null;
         }
+        int origLen = original.length();
         ArrayList<StrElem> strElems = new ArrayList<StrElem>();
         int start = original.indexOf("${");
         if (start == -1) {
@@ -392,13 +389,12 @@ public class FlexibleStringExpander implements Serializable {
     }
 
     protected static class VarElem implements StrElem {
-        protected String str;
+        protected FlexibleMapAccessor<Object> fma = null;
         protected VarElem(String original) {
-            this.str = original;
+            this.fma = new FlexibleMapAccessor<Object>(original);
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            FlexibleMapAccessor<Object> fma = new FlexibleMapAccessor<Object>(str);
-            Object obj = fma.get(context, locale);
+            Object obj = this.fma.get(context, locale);
             if (obj != null) {
                 try {
                     buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
