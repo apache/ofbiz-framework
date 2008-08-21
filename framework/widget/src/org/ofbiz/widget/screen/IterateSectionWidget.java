@@ -340,7 +340,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
         }
         if (listSize > 0) {
-            writer.append("          <span class=\"tabletext\">" + (lowIndex + 1) + " - " + (lowIndex + actualPageSize) + " of " + listSize + "</span> \n");
+            String ofLabel = UtilProperties.getMessage("CommonUiLabels", "CommonOf", (Locale) context.get("locale"));
+            writer.append(" <span class=\"tabletext\">" + (lowIndex + 1) + " - " + (lowIndex + actualPageSize) + " "+ ofLabel + " " + listSize + "</span> \n");
         }
         if (highIndex < listSize) {
             writer.append(" <a href=\"");
