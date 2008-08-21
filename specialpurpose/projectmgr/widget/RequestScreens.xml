@@ -128,7 +128,7 @@ under the License.
                                 <include-form name="ViewRequestCommunicationEvents" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequestWorkEfforts">
-                                <include-form name="ListRequestItemNotes" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                                <include-form name="ViewRequestWorkEfforts" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                             </screenlet>
                         </container>
                     </decorator-section>
