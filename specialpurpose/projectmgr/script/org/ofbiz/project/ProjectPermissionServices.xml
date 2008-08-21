@@ -54,7 +54,7 @@
         
         <!-- PROJECT -->
         <if-compare field="sec_object" value="PROJECT" operator="equals">
-            <log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/>
+            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/-->
             <set field="projectId" from-field="parameters.projectId"/>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
             <call-simple-method method-name="checkProjectMembership"/>
