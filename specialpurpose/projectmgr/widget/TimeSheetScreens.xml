@@ -186,8 +186,7 @@ under the License.
                 <set field="tabButtonItem" value="edittimesheet"/>
                 <set field="labelTitleProperty" value="PageTitleAddTimesheet"/>
                 <set field="my" value="My"/><!-- change link and target -->
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonMyTimeDecorator" location="${parameters.mainDecoratorLocation}">
@@ -266,9 +265,6 @@ under the License.
     </screen>
     <screen name="CurrentTimesheet">
         <section>
-            <actions>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
-            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
                     navigation-menu-name="TimesheetBar">
@@ -300,12 +296,8 @@ under the License.
     <screen name="ListTimesheets">
         <section>
             <actions>
-                <entity-and entity-name="Timesheet" list-name="timesheets">
-                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
-                    <order-by field-name="-fromDate"/>
-                </entity-and>
                 <entity-one entity-name="PartyNameView" value-name="partyNameView">
-                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="partyId" env-name="timesheet.partyId"/>
                 </entity-one>
             </actions>
             <widgets>

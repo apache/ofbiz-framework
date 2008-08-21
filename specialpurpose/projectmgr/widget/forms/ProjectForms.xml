@@ -524,7 +524,7 @@
         <field name="partyId"><hidden/></field>
         <field entry-name="test" name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}"><!-- task level -->
             <drop-down allow-empty="false">
-                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${workEffortName} (${phaseName}-${projectName})">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}">
                     <entity-constraint name="partyId" env-name="parameters.partyId"/>
                     <entity-constraint name="workEffortTypeId" value="TASK"/>
                     <entity-constraint name="currentStatusId" operator="equals" value="PTS_CREATED"/>
