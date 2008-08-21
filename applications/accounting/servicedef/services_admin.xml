@@ -30,14 +30,13 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="updatePartyAcctgPreference" default-entity-name="PartyAcctgPreference" engine="simple"
-        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="updatePartyAcctgPreference" auth="true">
+    <service name="updatePartyAcctgPreference" default-entity-name="PartyAcctgPreference" engine="entity-auto" invoke="update" auth="true">
         <description>Update accounting preferences for a party (organization)</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <!-- the following fields should not be updated because can cause big problems.
-                this allows for the local addition of fields with will appear automagically on the update screen. -->
+                this allows for the local addition of fields which will appear automagically on the update screen. -->
             <exclude field-name="fiscalYearStartMonth"/>
             <exclude field-name="fiscalYearStartDay"/>
             <exclude field-name="taxFormId"/>
@@ -74,52 +73,44 @@ under the License.
         <attribute type="Timestamp" mode="IN" name="asOfTimestamp" optional="true"/>
     </service>
 
-    <service name="createGlAccountTypeDefault" engine="simple" 
-        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="createGlAccountTypeDefault">
+    <service name="createGlAccountTypeDefault" engine="entity-auto" default-entity-name="GlAccountTypeDefault" invoke="create" auth="true">
         <description>Define a default GL account for an Account Type for a certain organisation party.</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="GlAccountTypeDefault" include="all" optional="false"/>
     </service>
-    <service name="removeGlAccountTypeDefault" engine="simple" 
-        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="removeGlAccountTypeDefault">
+    <service name="removeGlAccountTypeDefault" engine="entity-auto" default-entity-name="GlAccountTypeDefault" invoke="delete" auth="true">
         <description>Remove a default GL account for an Account Type for a certain organisation party.</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" entity-name="GlAccountTypeDefault" include="pk" optional="false"/>
     </service>
-    <service name="addInvoiceItemTypeGlAssignment" engine="simple" 
-        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="addInvoiceItemTypeGlAssignment">
+    <service name="addInvoiceItemTypeGlAssignment" engine="entity-auto" default-entity-name="InvoiceItemTypeGlAccount" invoke="create" auth="true">
         <description>add a override GL account number to a invoice Itemtype for a certain organisation party.</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="InvoiceItemTypeGlAccount" include="all" optional="false"/>
     </service>
-    <service name="removeInvoiceItemTypeGlAssignment" engine="simple" 
-        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="removeInvoiceItemTypeGlAssignment">
+    <service name="removeInvoiceItemTypeGlAssignment" engine="entity-auto" default-entity-name="InvoiceItemTypeGlAccount" invoke="delete" auth="true">
         <description>Remove a override GL account number to a invoice type for a certain organisation party.</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" entity-name="InvoiceItemTypeGlAccount" include="pk" optional="false"/>
     </service>
 
-    <service name="addPaymentTypeGlAssignment" engine="simple" 
-        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="addPaymentTypeGlAssignment">
+    <service name="addPaymentTypeGlAssignment" engine="entity-auto" default-entity-name="PaymentGlAccountTypeMap" invoke="create" auth="true">
         <description>add a default GL account type to a payment type.</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="PaymentGlAccountTypeMap" include="all" optional="false"/>
     </service>
-    <service name="removePaymentTypeGlAssignment" engine="simple" 
-        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="removePaymentTypeGlAssignment">
+    <service name="removePaymentTypeGlAssignment" engine="entity-auto" default-entity-name="PaymentGlAccountTypeMap" invoke="delete" auth="true">
         <description>Remove a default GL account type from a payment type.</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" entity-name="PaymentGlAccountTypeMap" include="pk" optional="false"/>
     </service>
     
-    <service name="addPaymentMethodTypeGlAssignment" engine="simple" 
-        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="addPaymentMethodTypeGlAssignment">
+    <service name="addPaymentMethodTypeGlAssignment" engine="entity-auto" default-entity-name="PaymentMethodTypeGlAccount" invoke="create" auth="true">
         <description>add a default GL account number to a payment method type.</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="CREATE"/>
         <auto-attributes mode="IN" entity-name="PaymentMethodTypeGlAccount" include="all" optional="false"/>
     </service>
-    <service name="removePaymentMethodTypeGlAssignment" engine="simple" 
-        location="org/ofbiz/accounting/admin/AcctgAdminServices.xml" invoke="removePaymentMethodTypeGlAssignment">
+    <service name="removePaymentMethodTypeGlAssignment" engine="entity-auto" default-entity-name="PaymentMethodTypeGlAccount" invoke="delete" auth="true">
         <description>Remove a default GL account number from a payment method type.</description>
         <permission-service service-name="acctgPrefPermissionCheck" main-action="DELETE"/>
         <auto-attributes mode="IN" entity-name="PaymentMethodTypeGlAccount" include="pk" optional="false"/>

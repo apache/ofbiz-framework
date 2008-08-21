@@ -41,14 +41,6 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     
-    <simple-method method-name="updatePartyAcctgPreference"
-        short-description="Update the accounting preference settings for a party">
-        <!-- permission checking is done in the services definition file (services_other.xml) -->
-        <entity-one entity-name="PartyAcctgPreference" value-name="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <store-value value-name="newEntity"/>
-    </simple-method>
-    
     <simple-method method-name="getPartyAccountingPreferences"
             short-description="Get the accounting preference settings for a party (organization)">
         <make-value entity-name="PartyAcctgPreference" value-name="aggregatedPartyAcctgPref" />
@@ -136,72 +128,4 @@ under the License.
         <set from-field="nowTimestamp" field="createParams.fromDate"/>
         <call-service service-name="createUomConversionDated" in-map-name="createParams"/>
     </simple-method>
-
-    <simple-method method-name="createGlAccountTypeDefault" short-description="Define a default GL account for an Account Type for a certain organisation party.">
-        <make-value entity-name="GlAccountTypeDefault" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <create-value value-name="newEntity"/>
-    </simple-method>
-    <simple-method method-name="removeGlAccountTypeDefault" short-description="Remove a default GL account for an Account Type for a certain organisation party.">
-        <entity-one entity-name="GlAccountTypeDefault" value-name="glAccountTypeDefault"/>
-        <remove-value value-name="glAccountTypeDefault"/>
-    </simple-method>
-
-    <simple-method method-name="addInvoiceItemTypeGlAssignment" short-description="add a override GL account number to a invoice Itemtype for a certain organisation party.">
-        <!--string-to-field string="_CREATE" field-name="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/-->
-        <make-value entity-name="InvoiceItemTypeGlAccount" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <create-value value-name="newEntity"/>
-    </simple-method>
-    
-    <simple-method method-name="removeInvoiceItemTypeGlAssignment" short-description="remove a override GL account number from a invoice Itemtype for a certain organisation party.">
-        <!--string-to-field string="_CREATE" field-name="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/-->
-        <make-value entity-name="InvoiceItemTypeGlAccount" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <remove-value value-name="newEntity"/>
-    </simple-method>
-
-    <simple-method method-name="addPaymentTypeGlAssignment" short-description="add a default GL account type to a payment Type">
-        <!--string-to-field string="_CREATE" field-name="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/-->
-        <make-value entity-name="PaymentGlAccountTypeMap" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <create-value value-name="newEntity"/>  
-    </simple-method>   
-    
-    <simple-method method-name="removePaymentTypeGlAssignment" short-description="remove a default GL account type from a payment Type">
-        <!--string-to-field string="_CREATE" field-name="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/-->
-        <make-value entity-name="PaymentGlAccountTypeMap" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <remove-value value-name="newEntity"/>
-    </simple-method>   
-
-    <simple-method method-name="addPaymentMethodTypeGlAssignment" short-description="add a default GL account number to a payment method Type">
-        <!--string-to-field string="_CREATE" field-name="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/-->
-        <make-value entity-name="PaymentMethodTypeGlAccount" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <create-value value-name="newEntity"/>  
-    </simple-method>   
-    
-    <simple-method method-name="removePaymentMethodTypeGlAssignment" short-description="remove a default GL account number from a payment method Type">
-        <!--string-to-field string="_CREATE" field-name="securityAction"/>
-        <check-permission permission="EXAMPLE" action="${securityAction}"><fail-property resource="ExampleUiLabels" property="ExamplePermissionError"/></check-permission>
-        <check-errors/-->
-        <make-value entity-name="PaymentMethodTypeGlAccount" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <remove-value value-name="newEntity"/>
-    </simple-method>   
 </simple-methods>
