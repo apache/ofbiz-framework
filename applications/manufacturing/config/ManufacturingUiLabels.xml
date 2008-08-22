@@ -1381,11 +1381,12 @@
     </property>
     <property key="ManufacturingListOfProductionRunNotes">
         <value xml:lang="en">List Of Production Run Notes</value>
+        <value xml:lang="fr">Liste des notes de l'ordre de fabrication</value>
     </property>    
     <property key="ManufacturingListOfProductionRunRoutingTasks">
         <value xml:lang="en">Tasks</value>
         <value xml:lang="es">Lista de tareas de la corrida de producción</value>
-        <value xml:lang="fr">Liste des opérations de l'Ordre de Fabrication</value>
+        <value xml:lang="fr">Liste des opérations de l'ordre de fabrication</value>
         <value xml:lang="it">Lista delle Operazioni dell'Ordine di Produzione</value>
         <value xml:lang="ro">Lista Operatiilor pe Comanda de Productie</value>
         <value xml:lang="th">งาน</value>

@@ -33,6 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
@@ -340,8 +341,9 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
         }
         if (listSize > 0) {
-            String ofLabel = UtilProperties.getMessage("CommonUiLabels", "CommonOf", (Locale) context.get("locale"));
-            writer.append(" <span class=\"tabletext\">" + (lowIndex + 1) + " - " + (lowIndex + actualPageSize) + " "+ ofLabel + " " + listSize + "</span> \n");
+            Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", Integer.valueOf(lowIndex + 1), "highCount", Integer.valueOf(lowIndex + actualPageSize), "total", Integer.valueOf(listSize)); 
+            String commonDisplaying = UtilProperties.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));
+            writer.append(" <span class=\"tabletext\">" + commonDisplaying + "</span> \n");
         }
         if (highIndex < listSize) {
             writer.append(" <a href=\"");

@@ -1705,6 +1705,10 @@
         <value xml:lang="zh_CN">禁用</value>
         <value xml:lang="zh">无效</value>
     </property>
+    <property key="CommonDisplaying">
+        <value xml:lang="en">Displaying ${lowCount} - ${highCount} of ${total}</value>
+        <value xml:lang="fr">Affichage de ${lowCount} à ${highCount} sur ${total}</value>
+    </property>
     <property key="CommonDistance">
         <value xml:lang="ar">مسافة</value>
         <value xml:lang="de">Distanz</value>
