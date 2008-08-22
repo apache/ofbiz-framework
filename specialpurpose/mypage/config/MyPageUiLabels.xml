@@ -30,7 +30,7 @@
         <value xml:lang="en">Emails from known origin</value>
         <value xml:lang="fr">Courriel issue d'une origine connue</value>
     </property>
-    <property key="EmailsFromUnnownOrigin">
+    <property key="EmailsFromUnknownOrigin">
         <value xml:lang="en">Emails from unknown origin</value>
         <value xml:lang="fr">Courriel issue d'une origine inconnue</value>
     </property>
