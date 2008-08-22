@@ -9004,7 +9004,7 @@
         <value xml:lang="th">หัวข้อการร้องขอ</value>
         <value xml:lang="zh">请求明细</value>
     </property>
-    <property key="PageTitleRequestItems">
+    <property key="PageTitleRequestItemNotes">
         <value xml:lang="en">Request Item Notes</value>
     </property>
     <property key="PageTitleRequestRoles">

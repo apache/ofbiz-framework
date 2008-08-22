@@ -377,7 +377,7 @@ under the License.
         header-row-style="header-row" default-table-style="basic-table">
         <field name="custRequestId"><hidden/></field>
         <field name="custRequestItemSeqId"><hidden/></field>
-        <field name="note"><textarea/></field>
+        <field name="note"><textarea cols="60" rows="10"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit">
             <submit button-type="button"/>
         </field>
