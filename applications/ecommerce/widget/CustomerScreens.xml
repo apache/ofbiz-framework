@@ -516,8 +516,9 @@ under the License.
             </widgets>
         </section>
     </screen>
-
-    <!--screen name="newcustomer">
+    <!-- To use new pages uncomment following screens i.e. newcustomer and viewprofile and comment existing newcustomer and viewprofile screens above -->
+    <!-- 
+    <screen name="newcustomer">
         <section>
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
@@ -557,7 +558,8 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen-->
+    </screen> 
+    -->
 
     <screen name="EditProfile">
         <section>
