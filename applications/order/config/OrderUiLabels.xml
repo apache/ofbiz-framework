@@ -8963,7 +8963,7 @@
     <property key="PageTitleRequestItemNotes">
         <value xml:lang="de">Anfrageelement Anmerkungen</value>
         <value xml:lang="en">Request Item Notes</value>
-        <value xml:lang="fr">Demander de notes sur article</value>
+        <value xml:lang="fr">Notes sur la demande d'articles</value>
         <value xml:lang="it">Note Riga Richiesta</value>
         <value xml:lang="nl">Request Item Notes</value>
         <value xml:lang="ro">Note Linie Cerere</value>
