@@ -175,7 +175,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         super(id, code);
     }
 
-    public static final <T extends Comparable<T>> boolean compareEqual(T lhs, T rhs) {
+    public static final boolean compareEqual(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -186,7 +186,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final <T extends Comparable<T>> boolean compareNotEqual(T lhs, T rhs) {
+    public static final boolean compareNotEqual(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs == null) {
                 return false;
@@ -197,7 +197,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final <T extends Comparable<T>> boolean compareGreaterThan(T lhs, T rhs) {
+    public static final boolean compareGreaterThan(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -208,7 +208,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final <T extends Comparable<T>> boolean compareGreaterThanEqualTo(T lhs, T rhs) {
+    public static final boolean compareGreaterThanEqualTo(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -219,7 +219,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final <T extends Comparable<T>> boolean compareLessThan(T lhs, T rhs) {
+    public static final boolean compareLessThan(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
@@ -230,7 +230,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         return true;
     }
 
-    public static final <T extends Comparable<T>> boolean compareLessThanEqualTo(T lhs, T rhs) {
+    public static final boolean compareLessThanEqualTo(Comparable lhs, Object rhs) {
         if (lhs == null) {
             if (rhs != null) {
                 return false;
