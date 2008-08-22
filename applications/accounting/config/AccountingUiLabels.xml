@@ -644,6 +644,7 @@
     </property>
     <property key="AccountingApplyServiceCredit">
         <value xml:lang="en">Apply Service Credit</value>
+        <value xml:lang="fr">Alimenter le crédit</value>
         <value xml:lang="ru">Применить сервисный кредит</value>
         <value xml:lang="th">ใช้บริการเครดิต</value>
     </property>
@@ -8525,6 +8526,7 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleFinancialAccountSummary">
         <value xml:lang="en">Financial Account Summary</value>
+        <value xml:lang="fr">Résumé des comptes financiers</value>
         <value xml:lang="ru">Резюме финансового счета</value>
         <value xml:lang="th">งบกำไรสะสมโดยสรุป</value>
     </property>
