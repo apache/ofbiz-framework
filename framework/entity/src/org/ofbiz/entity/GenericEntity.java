@@ -55,7 +55,6 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
-import org.ofbiz.entity.util.ByteWrapper;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 /**
@@ -637,6 +636,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         }
     }
 
+    @SuppressWarnings("deprecation")
     public byte[] getBytes(String name) {
         Object value = get(name);
         if (value == null) {
@@ -655,10 +655,10 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
         if (value instanceof byte[]) {
             return (byte[]) value;
         }
-        if (value instanceof ByteWrapper) {
+        if (value instanceof org.ofbiz.entity.util.ByteWrapper) {
             // NOTE DEJ20071022: the use of ByteWrapper is not recommended and is deprecated, only old data should be stored that way
             Debug.logWarning("Found a ByteWrapper object in the database for field [" + this.getEntityName() + "." + name + "]; converting to byte[] and returning, but note that you need to update your database to unwrap these objects for future compatibility", module);
-            ByteWrapper wrapper = (ByteWrapper) value;
+            org.ofbiz.entity.util.ByteWrapper wrapper = (org.ofbiz.entity.util.ByteWrapper) value;
             return wrapper.getBytes();
         }
         // uh-oh, this shouldn't happen...
