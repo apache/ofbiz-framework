@@ -6068,8 +6068,8 @@
         <value xml:lang="it">Aggiungi Categoria Figlio</value>
         <value xml:lang="th">เพิ่มหมวดหมู่เด็ก</value>
     </property>
-    <property key="ProductAddCategoryFather">
-        <value xml:lang="en">Add Category Father</value>
+    <property key="ProductAddCategoryParent">
+        <value xml:lang="en">Add Category Parent</value>
         <value xml:lang="fr">Ajouter une catégorie parente</value>
         <value xml:lang="it">Aggiungi Categoria Padre</value>
         <value xml:lang="th">เพิ่มหมวดหมู่</value>

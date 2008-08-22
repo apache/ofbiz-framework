@@ -83,7 +83,7 @@ under the License.
 </div>
 <div class="screenlet">
     <div class="screenlet-title-bar">
-        <h3>${uiLabelMap.ProductAddCategoryFather} ${uiLabelMap.ProductCategorySelectCategoryAndEnterFromDate}:</h3>
+        <h3>${uiLabelMap.ProductAddCategoryParent} ${uiLabelMap.ProductCategorySelectCategoryAndEnterFromDate}:</h3>
     </div>
     <div class="screenlet-body">
         <table cellspacing="0" class="basic-table">
