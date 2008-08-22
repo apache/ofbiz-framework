@@ -1931,6 +1931,7 @@
     </property>
     <property key="AccountingFinAccounts">
         <value xml:lang="en">Financial Accounts</value>
+        <value xml:lang="fr">Comptes financiers</value>
         <value xml:lang="it">Conti Finanziari</value>
         <value xml:lang="ru">Финансовые счета</value>
         <value xml:lang="th">งบกำไรสะสมและงบแสดงการเปลี่ยนแปลงฐานะการเงิน</value>
