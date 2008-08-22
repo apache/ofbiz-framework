@@ -1124,6 +1124,12 @@
         <value xml:lang="th">เพิ่มที่เลือกลงสู่รายการ</value>
         <value xml:lang="zh">把选中的添加到列表中</value>
     </property>
+    <property key="EcommerceAdditional">
+        <value xml:lang="en">Additional</value>
+    </property>
+    <property key="EcommerceAddressBook">
+        <value xml:lang="en">Address Book</value>
+    </property>
     <property key="EcommerceAdjustment">
         <value xml:lang="cs">Úprava</value>
         <value xml:lang="de">Anpassung</value>
@@ -1358,6 +1364,9 @@
         <value xml:lang="ru">Data Resource Id</value>
         <value xml:lang="th">หมายเลขแหล่งที่มา</value>
         <value xml:lang="zh">数据资源标识</value>
+    </property>
+    <property key="EcommerceDefault">
+        <value xml:lang="en">Default</value>
     </property>
     <property key="EcommerceDigitalAddFromMyFiles">
         <value xml:lang="en">Digital Add From My Files</value>
@@ -2119,6 +2128,9 @@
         <value xml:lang="th">เห็นด้วย</value>
         <value xml:lang="zh">忠诚度点数</value>
     </property>
+    <property key="EcommerceManage">
+        <value xml:lang="en">Manage</value>
+    </property>
     <property key="EcommerceMessage1">
         <value xml:lang="en">Sorry, it appears that the specified product ID</value>
         <value xml:lang="fr">Désolé, il semble que l'article spécifié</value>
@@ -2185,6 +2197,15 @@
         <value xml:lang="ru">месяцы</value>
         <value xml:lang="th">เดือน</value>
         <value xml:lang="zh">月</value>
+    </property>
+    <property key="EcommerceMyAccount">
+        <value xml:lang="en">My Account</value>
+    </property>
+    <property key="EcommerceMyDefaultBillingAddress">
+        <value xml:lang="en">Make this my default billing address</value>
+    </property>
+    <property key="EcommerceMyDefaultShippingAddress">
+        <value xml:lang="en">Make this my default shipping address</value>
     </property>
     <property key="EcommerceNbrOfDays">
         <value xml:lang="en">Nbr Of Days</value>
@@ -2395,6 +2416,9 @@
         <value xml:lang="th">ไม่เสร็จสมบูรณ์</value>
         <value xml:lang="zh">未完成</value>
     </property>
+    <property key="EcommerceNotExists">
+        <value xml:lang="en">Not Exists</value>
+    </property>
     <property key="EcommerceNotYetKnown">
         <value xml:lang="en">Not Yet Known</value>
         <value xml:lang="fr">Pas encore connu</value>
@@ -2524,6 +2548,9 @@
         <value xml:lang="ru">Цена</value>
         <value xml:lang="th">ราคา</value>
         <value xml:lang="zh">价格</value>
+    </property>
+    <property key="EcommercePrimary">
+        <value xml:lang="en">Primary</value>
     </property>
     <property key="EcommerceProductNumber">
         <value xml:lang="en">Product Number</value>

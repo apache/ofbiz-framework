@@ -194,6 +194,7 @@ under the License.
         <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="defaultShipAddr" type="String" mode="IN" optional="true"/>
+        <attribute name="defaultBillAddr" type="String" mode="IN" optional="true"/>
         <attribute name="defaultPayMeth" type="String" mode="IN" optional="true"/>
         <attribute name="defaultShipMeth" type="String" mode="IN" optional="true"/>
     </service>
@@ -1046,5 +1047,25 @@ under the License.
         <implements service="permissionInterface"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="partyIdTo" type="String" mode="IN" optional="true"/>
+    </service>
+    <service name="createPostalAddressAndPurposes" engine="simple" location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="createPostalAddressAndPurposes">
+        <description>Create postal address, purposes and set them defaults</description>
+        <implements service="createPartyPostalAddress"/>
+        <attribute name="setShippingPurpose" type="String" mode="IN" optional="true"/>
+        <attribute name="setBillingPurpose" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>        
+    </service>
+    <service name="updatePostalAddressAndPurposes" engine="simple" location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updatePostalAddressAndPurposes">
+        <description>Update postal address, purposes and set them defaults</description>
+        <implements service="updatePartyPostalAddress"/>
+        <attribute name="setShippingPurpose" type="String" mode="IN" optional="true"/>
+        <attribute name="setBillingPurpose" type="String" mode="IN" optional="true"/>
+        <attribute name="productStoreId" type="String" mode="IN" optional="true"/>        
+    </service>
+    <service name="updateContactMechAndPurposes" engine="simple" location="org/ofbiz/party/contact/PartyContactMechServices.xml" invoke="updateContactMechAndPurposes">
+        <description>Update postal address, telecom number and purposes</description>
+        <implements service="updatePostalAddressAndPurposes"/>
+        <auto-attributes entity-name="TelecomNumber" include="nonpk" mode="IN" optional="true"/>
+        <attribute name="phoneContactMechId" type="String" mode="IN" optional="true"/>
     </service>
 </services>

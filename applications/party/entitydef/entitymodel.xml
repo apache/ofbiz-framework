@@ -2081,6 +2081,7 @@ under the License.
       <field name="partyId" type="id-ne"></field>
       <field name="productStoreId" type="id-ne"></field>
       <field name="defaultShipAddr" type="id"></field>
+      <field name="defaultBillAddr" type="id"></field>
       <field name="defaultPayMeth" type="id"></field>
       <field name="defaultShipMeth" type="id"></field>
       <prim-key field="partyId"/>
