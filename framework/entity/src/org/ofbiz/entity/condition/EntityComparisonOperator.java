@@ -127,7 +127,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         }
     }
             
-    public <T extends Comparable<T>> boolean compare(T lhs, Object rhs) {
+    public <T extends Comparable<T>> boolean compare(T lhs, T rhs) {
         throw new UnsupportedOperationException(codeString);
     }
 
@@ -155,7 +155,7 @@ public class EntityComparisonOperator extends EntityOperator<Boolean> {
         }
 
         if (leftValue == WILDCARD || rightValue == WILDCARD) return true;
-        return compare((Comparable) leftValue, rightValue);
+        return compare((Comparable) leftValue, (Comparable) rightValue);
     }
 
     public EntityCondition freeze(Object lhs, Object rhs) {
