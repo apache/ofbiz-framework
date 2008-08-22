@@ -168,4 +168,36 @@ under the License.
         </process>
     </simple-map-processor>
 
+    <simple-map-processor name="shipToPhone">
+        <process field="shipToCountryCode">
+            <copy to-field="countryCode"/>
+            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyCountryCodeMissing"/></not-empty>
+        </process>
+        <process field="shipToAreaCode">
+            <copy to-field="areaCode"/>
+            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyAreaCodeMissingError"/></not-empty>
+        </process>
+        <process field="shipToContactNumber">
+            <copy to-field="contactNumber"/>
+            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyContactTelephoneMissingError"/></not-empty>
+        </process>
+        <process field="shipToExtension"><copy to-field="extension"/></process>
+    </simple-map-processor>
+
+    <simple-map-processor name="billToPhone">
+        <process field="billToCountryCode">
+            <copy to-field="countryCode"/>
+            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyCountryCodeMissing"/></not-empty>
+        </process>
+        <process field="billToAreaCode">
+            <copy to-field="areaCode"/>
+            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyAreaCodeMissingError"/></not-empty>
+        </process>
+        <process field="billToContactNumber">
+            <copy to-field="contactNumber"/>
+            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyContactTelephoneMissingError"/></not-empty>
+        </process>
+        <process field="billToExtension"><copy to-field="extension"/></process>
+    </simple-map-processor>
+
 </simple-map-processors>

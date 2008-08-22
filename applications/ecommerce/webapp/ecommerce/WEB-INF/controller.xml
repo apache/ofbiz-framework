@@ -1698,6 +1698,61 @@ under the License.
         <response name="cod" type="request" value="emailorder"/> -->
         <response name="error" type="view" value="OnePageCheckout"/>
     </request-map>
+
+    <request-map uri="editProfile">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditProfile"/>
+        <response name="error" type="view" value="EditProfile"/>
+    </request-map>
+
+    <request-map uri="manageAddress">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ManageAddress"/>
+        <response name="error" type="view" value="ManageAddress"/>
+    </request-map>
+
+    <request-map uri="createCustomerProfile">
+        <security https="true" auth="false"/>
+        <event type="simple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createCustomerProfile"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="newcustomer"/>
+    </request-map>
+
+    <request-map uri="updateCustomerProfile">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="updateCustomerProfile"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="EditProfile"/>
+    </request-map>
+
+    <request-map uri="createPartyPostalAddress">
+        <security https="true" auth="true"/>
+        <event type="jsonservice" invoke="createPostalAddressAndPurposes"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
+
+    <request-map uri="updatePartyPostalAddress">
+        <security https="true" auth="true"/>
+        <event type="jsonservice" invoke="updateContactMechAndPurposes"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
+
+    <request-map uri="deletePostalAddress">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePartyContactMech"/>
+        <response name="success" type="view" value="ManageAddress"/>
+        <response name="error" type="view" value="ManageAddress"/>
+    </request-map>
+
+    <request-map uri="updatePartyEmailAddress">
+        <security https="true" auth="true"/>
+        <event type="jsonsimple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createUpdateEmailAddress"/>
+        <response name="success" type="none"/>
+        <response name="error" type="none"/>
+    </request-map>
+
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
@@ -1779,6 +1834,8 @@ under the License.
     <view-map name="messagelist" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#messagelist"/>
     <view-map name="messagedetail" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#messagedetail"/>
     <view-map name="messagecreate" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#messagecreate"/>
+    <view-map name="ManageAddress" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#ManageAddress"/>
+    <view-map name="EditProfile" type="screen" page="component://ecommerce/widget/CustomerScreens.xml#EditProfile"/>
 
     <!-- Content Views -->
     <view-map name="defaultcontent" type="screen" page="component://ecommerce/widget/ContentScreens.xml#defaultcontent"/>

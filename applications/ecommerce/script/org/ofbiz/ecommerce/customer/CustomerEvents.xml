@@ -955,21 +955,31 @@ under the License.
             <entity-one entity-name="UserLogin" value-name="userLogin">
                 <field-map field-name="userLoginId" env-name="userLoginMap.userLoginId"/>
             </entity-one>
+
+            <!-- now finished, log in the user and set the cart's partyId -->
+            <call-bsh>
+                <![CDATA[
+                    org.ofbiz.webapp.control.LoginWorker.doBasicLogin(userLogin, request);
+                    org.ofbiz.webapp.control.LoginWorker.autoLoginSet(request, response);
+                ]]>
+            </call-bsh>
             <set field="parameters.userLogin" from-field="userLogin"/>             
         <else>
-            <call-map-processor xml-resource="org/ofbiz/securityext/login/LoginMapProcs.xml"
-                processor-name="updatePassword" in-map-name="parameters" out-map-name="passwordMap"/>
-            <check-errors/>
-            <set-service-fields service-name="updatePassword"  map-name="passwordMap" to-map-name="passwordCtx"/>
-            <call-service service-name="updatePassword" in-map-name="passwordCtx">
-                <result-to-field result-name="updatedUserLogin"/>
-            </call-service>
-            <set-current-user-login value-name="updatedUserLogin"/>
-            <session-to-field field-name="userLogin"/>
-            <if-compare field="userLogin.userLoginId" operator="equals" value="${updatedUserLogin.userLoginId}">
-                <field-to-session field-name="updatedUserLogin" session-name="userLogin"/>
-            </if-compare>
-            <session-to-field field-name="userLogin"/>
+            <if-not-empty field="parameters.currentPassword">
+                <call-map-processor xml-resource="org/ofbiz/securityext/login/LoginMapProcs.xml"
+                    processor-name="updatePassword" in-map-name="parameters" out-map-name="passwordMap"/>
+                <check-errors/>
+                <set-service-fields service-name="updatePassword" map-name="passwordMap" to-map-name="passwordCtx"/>
+                <call-service service-name="updatePassword" in-map-name="passwordCtx">
+                    <result-to-field result-name="updatedUserLogin"/>
+                </call-service>
+                <set-current-user-login value-name="updatedUserLogin"/>
+                <session-to-field field-name="userLogin"/>
+                <if-compare field="userLogin.userLoginId" operator="equals" value="${updatedUserLogin.userLoginId}">
+                    <field-to-session field-name="updatedUserLogin" session-name="userLogin"/>
+                </if-compare>
+                <session-to-field field-name="userLogin"/>
+            </if-not-empty>
         </else>
         </if-empty>
     </simple-method>
@@ -1017,7 +1027,7 @@ under the License.
         <field-to-request field-name="parameters.phoneContactMechId" request-name="phoneContactMechId"/>
     </simple-method>
 
-    <simple-method method-name="createUpdateEmailAddress" short-description="Create and update phone number" login-required="false">
+    <simple-method method-name="createUpdateEmailAddress" short-description="Create and update email address" login-required="false">
         <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressContext"/>
         <check-errors/>        
@@ -1039,7 +1049,11 @@ under the License.
             <log level="info" message="Email Contact updated emailContactMechId is ${parameters.emailContactMechId}"></log>
         </else>
         </if-empty>
+        <entity-one entity-name="ContactMech" value-name="emailContactMech">
+            <field-map field-name="contactMechId" env-name="parameters.emailContactMechId"/>
+        </entity-one>
         <field-to-request field-name="parameters.emailContactMechId" request-name="emailContactMechId"/>
+        <field-to-request field-name="emailContactMech" request-name="emailContactMech"/>
     </simple-method>
 
     <simple-method method-name="createUpdateShippingAddress" short-description="create and update shipping address" login-required="false">
@@ -1376,4 +1390,102 @@ under the License.
             <set field="paymentMethodId" from-field="parameters.paymentMethodId"/>
             <field-to-request field-name="parameters.paymentMethodId" request-name="paymentMethodId"/>
     </simple-method>
+
+    <simple-method method-name="createCustomerProfile" short-description="create a customer profile" login-required="false">
+        <!-- Process all map -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="person" in-map-name="parameters" out-map-name="personCtx"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressCtx"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+            processor-name="shipToAddress" in-map-name="parameters" out-map-name="shipToAddressCtx"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="shipToPhone" in-map-name="parameters" out-map-name="shipToTelecomNumberCtx"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="billToAddress" in-map-name="parameters" out-map-name="billToAddressCtx"/>
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="billToPhone" in-map-name="parameters" out-map-name="billToTelecomNumberCtx"/>
+        <check-errors/>
+
+        <!-- create person -->
+        <set-service-fields service-name="createPerson" map-name="personCtx" to-map-name="createPersonCtx"/>
+        <call-service service-name="createPerson" in-map-name="createPersonCtx">
+            <result-to-field result-name="partyId" field-name="partyId"/>
+        </call-service>
+        <set field="parameters.partyId" from-field="partyId"/>
+
+        <!-- create userLogin -->
+        <call-simple-method method-name="createUpdateUserLogin"/>
+        
+        <!-- Create party role-->
+        <set field="partyRoleContext.partyId" from-field="parameters.partyId"/>
+        <set field="partyRoleContext.roleTypeId" from-field="parameters.roleTypeId"/>
+        <set field="partyRoleContext.userLogin" from-field="parameters.userLogin"/>
+        <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
+
+        <!-- Create email address -->
+        <set field="emailAddressCtx.partyId" from-field="parameters.partyId"/>
+        <set field="emailAddressCtx.userLogin" from-field="parameters.userLogin"/>
+        <set field="emailAddressCtx.contactMechPurposeTypeId" from-field="parameters.emailContactMechPurposeTypeId"/>
+        <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressCtx">
+            <result-to-field result-name="contactMechId" field-name="emailContactMechId"/>
+        </call-service>
+        <log level="info" message="Email Contact Created emailContactMechId is ${emailContactMechId}"/>
+
+        <!-- Create shipping address -->
+        <set field="shipToAddressCtx.partyId" from-field="parameters.partyId"/>
+        <set field="shipToAddressCtx.userLogin" from-field="parameters.userLogin"/>
+        <set field="shipToAddressCtx.setShippingPurpose" value="Y"/>
+        <set field="shipToAddressCtx.productStoreId" from-field="parameters.productStoreId"/>
+        <if-compare field="parameters.useShippingAddressForBilling" operator="equals" value="Y">
+          <set field="shipToAddressCtx.setBillingPurpose" value="Y"/>
+        </if-compare>
+        <call-service service-name="createPostalAddressAndPurposes" in-map-name="shipToAddressCtx">
+            <result-to-field result-name="contactMechId" field-name="shipToContactMechId"/>
+        </call-service>
+        <log level="info" message="Shipping address created with contactMechId ${shipToContactMechId}"/>
+        
+        <!-- create shipping telecom number  -->
+        <set field="shipToTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
+        <set field="shipToTelecomNumberCtx.userLogin" from-field="parameters.userLogin"/>
+        <set field="shipToTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_SHIPPING"/>
+        <!-- call create telecom service -->
+        <call-service service-name="createPartyTelecomNumber" in-map-name="shipToTelecomNumberCtx">
+            <result-to-field result-name="contactMechId" field-name="shipToTelecomContactMechId"/>
+        </call-service>
+        <log level="info" message="Shipping telecom number is created with contactMechId ${shipToTelecomContactMechId}"/>
+
+        <!-- Create billing address -->
+        <if-compare field="parameters.useShippingAddressForBilling" operator="not-equals" value="Y">
+            <set field="billToAddressCtx.partyId" from-field="parameters.partyId"/>
+            <set field="billToAddressCtx.userLogin" from-field="parameters.userLogin"/>
+            <set field="billToAddressCtx.setBillingPurpose" value="Y"/>
+            <set field="billToAddressCtx.productStoreId" from-field="parameters.productStoreId"/>
+            <call-service service-name="createPostalAddressAndPurposes" in-map-name="billToAddressCtx">
+                <result-to-field result-name="contactMechId" field-name="billToContactMechId"/>
+            </call-service>
+            <log level="info" message="Billing address created with contactMechId ${billToContactMechId}"/>
+        <else>
+            <log level="info" message="Billing address created same as Shipping address with contactMechId ${shipToContactMechId}"/>
+        </else>
+        </if-compare>
+
+        <!-- create billing telecom number  -->
+        <set field="billToTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
+        <set field="billToTelecomNumberCtx.userLogin" from-field="parameters.userLogin"/>
+        <set field="billToTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_BILLING"/>
+        <!-- call create telecom service -->
+        <call-service service-name="createPartyTelecomNumber" in-map-name="billToTelecomNumberCtx">
+            <result-to-field result-name="contactMechId" field-name="billToTelecomContactMechId"/>
+        </call-service>
+        <log level="info" message="Billing telecom number is created with contactMechId ${billToTelecomContactMechId}"/>
+     </simple-method>
+    
+    <simple-method method-name="updateCustomerProfile" short-description="Update a customer profile">
+        <set field="partyId" from-field="userLogin.partyId"/>
+        <call-simple-method method-name="createUpdatePerson"/>
+        <call-simple-method method-name="createUpdateUserLogin"/>
+        <call-simple-method method-name="createUpdateEmailAddress"/>
+    </simple-method>
+
 </simple-methods>
