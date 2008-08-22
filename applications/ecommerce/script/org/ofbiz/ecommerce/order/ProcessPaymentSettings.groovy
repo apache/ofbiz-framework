@@ -34,42 +34,41 @@ import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceUtil;
 
 cart = ShoppingCartEvents.getCartObject(request);
-LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-CheckOutHelper checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
+dispatcher = request.getAttribute("dispatcher");
+delegator = request.getAttribute("delegator");
+checkOutHelper = new CheckOutHelper(dispatcher, delegator, cart);
+paramMap = UtilHttp.getParameterMap(request);
 
-paymentMethodTypeId = request.getParameter("paymentMethodTypeId");
-Map callResult = ServiceUtil.returnSuccess();
-List errorMessages = new ArrayList();
-Map errorMaps = new HashMap();
+paymentMethodTypeId = paramMap.paymentMethodTypeId;
+errorMessages = [];
+errorMaps = [:];
 
-if(paymentMethodTypeId != null){
-    paymentMethodId = (String) request.getAttribute("paymentMethodId");
+if(paymentMethodTypeId){
+    paymentMethodId = request.getAttribute("paymentMethodId");
     if ("EXT_OFFLINE".equals(paymentMethodTypeId)) {
         paymentMethodId = "EXT_OFFLINE";            
     }
-    singleUsePayment = request.getParameter("singleUsePayment");
-    appendPayment = request.getParameter("appendPayment");
-    boolean isSingleUsePayment = singleUsePayment != null && "Y".equalsIgnoreCase(singleUsePayment) ? true : false;
-    boolean doAppendPayment = appendPayment != null && "Y".equalsIgnoreCase(appendPayment) ? true : false;
+    singleUsePayment = paramMap.singleUsePayment;
+    appendPayment = paramMap.appendPayment;
+    isSingleUsePayment = "Y".equalsIgnoreCase(singleUsePayment) ?: false;
+    doAppendPayment = "Y".equalsIgnoreCase(appendPayment) ?: false;
     callResult = checkOutHelper.finalizeOrderEntryPayment(paymentMethodId, null, isSingleUsePayment, doAppendPayment);
-    ShoppingCart.CartPaymentInfo cpi = cart.getPaymentInfo(paymentMethodId, null, null, null, true);
-    cpi.securityCode = (String) request.getParameter("cardSecurityCode");
+    cpi = cart.getPaymentInfo(paymentMethodId, null, null, null, true);
+    cpi.securityCode = paramMap.cardSecurityCode;
     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
 }
 
-if (errorMessages.size() == 0 && errorMaps.size() == 0) {
-    Map selPaymentMethods = null;   
-    Map paramMap = UtilHttp.getParameterMap(request);
-    addGiftCard = request.getParameter("addGiftCard");
+if (!errorMessages && !errorMaps) {
+    selPaymentMethods = null;   
+    addGiftCard = paramMap.addGiftCard;
     if("Y".equalsIgnoreCase(addGiftCard)){
-        selPaymentMethods = UtilMisc.toMap(paymentMethodTypeId, null);
+        selPaymentMethods = [paymentMethodTypeId : null];
         callResult = checkOutHelper.checkGiftCard(paramMap, selPaymentMethods);
         ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
-        if (errorMessages.size() == 0 && errorMaps.size() == 0) {
-           String gcPaymentMethodId = (String) callResult.get("paymentMethodId");
-            Double giftCardAmount = (Double) callResult.get("amount");
-            Map gcCallRes = checkOutHelper.finalizeOrderEntryPayment(gcPaymentMethodId, giftCardAmount, true, true);
+        if (!errorMessages && !errorMaps) {
+            gcPaymentMethodId = callResult.paymentMethodId;
+            giftCardAmount = callResult.amount;
+            gcCallRes = checkOutHelper.finalizeOrderEntryPayment(gcPaymentMethodId, giftCardAmount, true, true);
             ServiceUtil.addErrors(errorMessages, errorMaps, gcCallRes);
         }
     }
@@ -77,7 +76,7 @@ if (errorMessages.size() == 0 && errorMaps.size() == 0) {
 
 //See whether we need to return an error or not
 callResult = ServiceUtil.returnSuccess();
-if (errorMessages.size() > 0 || errorMaps.size() > 0) {
+if (errorMessages || errorMaps) {
     request.setAttribute(ModelService.ERROR_MESSAGE_LIST, errorMessages);
     request.setAttribute(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
     return "error";
