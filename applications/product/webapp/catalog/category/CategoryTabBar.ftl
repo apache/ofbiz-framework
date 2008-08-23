@@ -24,7 +24,7 @@ under the License.
         <ul>
             <li><a href="<@ofbizUrl>EditCategory?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategory?default(unselectedClassName)}">${uiLabelMap.ProductCategory}</a></li>
             <li><a href="<@ofbizUrl>EditCategoryContent?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryContent?default(unselectedClassName)}">${uiLabelMap.ProductCategoryContent}</a></li>
-            <li><a href="<@ofbizUrl>EditCategoryRollup?showProductCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryRollup?default(unselectedClassName)}">${uiLabelMap.ProductRollupShort}</a></li>
+            <li><a href="<@ofbizUrl>EditCategoryRollup?showProductCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryRollup?default(unselectedClassName)}">${uiLabelMap.ProductRollup}</a></li>
             <li><a href="<@ofbizUrl>EditCategoryProducts?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryProducts?default(unselectedClassName)}">${uiLabelMap.ProductProducts}</a></li>
             <li><a href="<@ofbizUrl>EditCategoryProdCatalogs?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryProdCatalogs?default(unselectedClassName)}">${uiLabelMap.ProductCatalogs}</a></li>
             <li><a href="<@ofbizUrl>EditCategoryFeatureCats?productCategoryId=${productCategoryId}</@ofbizUrl>" class="${selectedClassMap.EditCategoryFeatureCats?default(unselectedClassName)}">${uiLabelMap.ProductFeatureCats}</a></li>
