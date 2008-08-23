@@ -22,12 +22,10 @@ import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
-import java.util.HashSet;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -212,8 +210,6 @@ public class ConfigXMLReader {
     public static final String RESPONSE_TYPE = "type";
     public static final String RESPONSE_VALUE = "value";
     public static final String RESPONSE_MAP = "response-map";
-    public static final String RESPONSE_ALLOWEDPARAMS = "allowed-params";
-    public static final String RESPONSE_ALLOWEDATTRIBUTES = "allowed-attributes";
 
     /** View Config Variables */
     public static final String VIEW_MAPPING = "view-map";
@@ -335,7 +331,7 @@ public class ConfigXMLReader {
             uriMap.put(REQUEST_DESCRIPTION, UtilValidate.isNotEmpty(description) ? description : "");
 
             // Get the response(s).
-            Map<String, Object> responseMap = FastMap.newInstance();
+            Map<String, String> responseMap = FastMap.newInstance();
             uriMap.put(RESPONSE_MAP, responseMap);
             
             for (Element responseElement: UtilXml.childElementList(requestMapElement, RESPONSE)) {
@@ -343,20 +339,6 @@ public class ConfigXMLReader {
                 String type = responseElement.getAttribute(RESPONSE_TYPE);
                 String value = responseElement.getAttribute(RESPONSE_VALUE);
                 
-                String allowedParams = responseElement.getAttribute(RESPONSE_ALLOWEDPARAMS);
-                if (allowedParams != null && allowedParams.length() > 0) {
-                    String[] allowedParamsList = allowedParams.split(",");
-                    Set allowedParamsSet = new HashSet();
-                    allowedParamsSet.addAll(Arrays.asList(allowedParamsList));
-                    responseMap.put(RESPONSE_ALLOWEDPARAMS, allowedParamsSet);
-                }
-                String allowedAttributes = responseElement.getAttribute(RESPONSE_ALLOWEDATTRIBUTES);
-                if (allowedAttributes != null && allowedAttributes.length() > 0) {
-                    String[] allowedAttributesList = allowedAttributes.split(",");
-                    Set allowedAttributesSet = new HashSet();
-                    allowedAttributesSet.addAll(Arrays.asList(allowedAttributesList));
-                    responseMap.put(RESPONSE_ALLOWEDATTRIBUTES, allowedAttributesSet);
-                }
                 responseMap.put(name, type + ":" + value);
             }
 
