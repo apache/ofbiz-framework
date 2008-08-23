@@ -19,19 +19,19 @@ under the License.
 
 <div class="screenlet">
   <div class="screenlet-header">
-    <div class="boxhead">&nbsp; ${uiLabelMap.EcommerceMyAccount}</div>
+    <div class="boxhead">&nbsp;${uiLabelMap.EcommerceMyAccount}</div>
   </div>
   <div class="screenlet-body">
     <div align="right"><a class="buttontext" href="<@ofbizUrl>editProfile</@ofbizUrl>">${uiLabelMap.CommonEdit} ${uiLabelMap.CommonProfile}</a>&nbsp;</div><br/>
     <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.PartyContactInformation}</div></div>
     <div class="screenlet-body">
-      <div class="tabletext"><h3>${uiLabelMap.PartyName}</h3></div>
-      <div class="form-row">${parameters.firstName?if_exists} ${parameters.lastName?if_exists}</div>
+      <div class="form-row">
+        <div class="form-field">${parameters.firstName?if_exists} ${parameters.lastName?if_exists}</div>
+      </div>
 
       <#assign emailContactMech = delegator.findOne("ContactMech", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechId", parameters.emailContactMechId), true)>
       <#assign emailContactMechType = emailContactMech.getRelatedOneCache("ContactMechType")>
 
-      <div class="tabletext"><h3>${emailContactMechType.description?if_exists}</h3></div> 
       <div class="form-row">
         <input type="hidden" id="updatedEmailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId}">
         <input type="hidden" id="updatedEmailAddress" name="updatedEmailAddress" value="${parameters.emailAddress}">
@@ -46,8 +46,8 @@ under the License.
     <div class="screenlet-body">
       <div align="right"><a class="buttontext" href="<@ofbizUrl>manageAddress</@ofbizUrl>">${uiLabelMap.EcommerceManage} ${uiLabelMap.CommonAddresses}</a>&nbsp;</div>
       <div class="left center">
+        <div class="screenlet-header"><div class='boxhead'>${uiLabelMap.EcommercePrimary} ${uiLabelMap.OrderShippingAddress}</div></div>
         <div class="screenlet-body">
-          <h3>${uiLabelMap.OrderShippingAddress}</h3>
           <#if parameters.shipToContactMechId?exists>
             ${parameters.shipToAddress1?if_exists}<br/>
             ${parameters.shipToAddress2?if_exists}<br/>
@@ -62,7 +62,6 @@ under the License.
             </#if>
             <#if telecomNumber?has_content>
               <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-              <h3>${uiLabelMap.PartyPhoneNumber}</h3>
               ${telecomNumber.countryCode?if_exists}-
               ${telecomNumber.areaCode?if_exists}-
               ${telecomNumber.contactNumber?if_exists}-
@@ -75,8 +74,8 @@ under the License.
       </div>
 
       <div class="center right">
+        <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.EcommercePrimary} ${uiLabelMap.PartyBillingAddress}</div></div>
         <div class="screenlet-body">
-          <h3>${uiLabelMap.PartyBillingAddress}</h3>
           <#if parameters.billToContactMechId?exists>
             ${parameters.billToAddress1?if_exists}<br/>
             ${parameters.billToAddress2?if_exists}<br/>
@@ -91,7 +90,6 @@ under the License.
             </#if>
             <#if telecomNumber?has_content>
               <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-              <h3>${uiLabelMap.PartyPhoneNumber}</h3>
               ${telecomNumber.countryCode?if_exists}-
               ${telecomNumber.areaCode?if_exists}-
               ${telecomNumber.contactNumber?if_exists}-

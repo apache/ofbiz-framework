@@ -19,7 +19,7 @@ under the License.
 
 <div id="form-container" class="screenlet">
   <div class="screenlet-header">
-    <div class='boxhead'>&nbsp;${uiLabelMap.CommonEdit} ${uiLabelMap.CommonProfile}</div>
+    <div class='boxhead'>&nbsp;${uiLabelMap.EcommerceMyAccount}</div>
   </div>
   <div class="screenlet-body">
     <form id="editUserForm" name="editUserForm" method="post" action="<@ofbizUrl>updateCustomerProfile</@ofbizUrl>">
@@ -31,15 +31,21 @@ under the License.
         <div class="screenlet-body">
           <div class="form-row">
             <div class="field-label"><label for="firstName">${uiLabelMap.PartyFirstName}*<span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label></div>
-            <div class="field-widget"><input type="text" name="firstName" id="firstName" class="inputBox required" value="${parameters.firstName?if_exists}" size="30" maxlength="30"></div>
+            <div class="form-field"><input type="text" name="firstName" id="firstName" class="required" value="${parameters.firstName?if_exists}" size="30" maxlength="30"></div>
           </div>
           <div class="form-row">
             <div class="field-label"><label for="lastName">${uiLabelMap.PartyLastName}*<span id="advice-required-lastName" style="display: none" class="errorMessage">(required)</span></label></div>
-            <div class="field-widget"><input type="text" name="lastName" id="lastName" class="inputBox required" value="${parameters.lastName?if_exists}" size="30" maxlength="30"></div>
+            <div class="form-field"><input type="text" name="lastName" id="lastName" class="required" value="${parameters.lastName?if_exists}" size="30" maxlength="30"></div>
           </div>
           <div class="form-row">
-            <div class="field-label"><label for="emailAddress">${uiLabelMap.PartyEmailAddress}*<span id="advice-required-emailAddress" style="display: none" class="errorMessage">(required)</span></label></div>
-            <div class="field-widget"><input type="text" class="inputBox required" name="emailAddress" id="emailAddress" value="${parameters.emailAddress?if_exists}" size="30" maxlength="255"/></div>
+            <div class="field-label">
+              <label for="emailAddress">
+                ${uiLabelMap.CommonEmail}*
+                <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(required)</span>
+                <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">Please enter a valid email address. For example fred@domain.com .</span>
+              </label>
+            </div>
+            <div class="form-field"><input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${parameters.emailAddress?if_exists}" size="30" maxlength="255"/></div>
           </div>
         </div>
       </div>
@@ -49,23 +55,23 @@ under the License.
         <div class="screenlet-body">
           <div class="form-row">
             <div class="field-label"><label for="userName">${uiLabelMap.CommonUsername}*</label></div>
-            <div class="field-widget"><input type="text" name="userLoginId" id="userLoginId" class="inputBox" value="${userLogin.userLoginId?if_exists}" size="30" maxlength="255" <#if userLogin.userLoginId?exists>disabled</#if>></div>
+            <div class="form-field"><input type="text" name="userLoginId" id="userLoginId" value="${userLogin.userLoginId?if_exists}" size="30" maxlength="255" <#if userLogin.userLoginId?exists>disabled</#if>></div>
           </div>
           <div class="form-row">
             <div class="field-label"><label for="currentPassword">${uiLabelMap.CommonCurrentPassword}*</label></div>
-            <div class="field-widget"><input type="password" name="currentPassword" id="currentPassword" class="inputBox" value="${parameters.currentPassword?if_exists}" size="30" maxlength="16"></div>
+            <div class="form-field"><input type="password" name="currentPassword" id="currentPassword" value="${parameters.currentPassword?if_exists}" size="30" maxlength="16"></div>
           </div>
           <div class="form-row">
             <div class="field-label"><label for="newPassword">${uiLabelMap.CommonNewPassword}*</label></div>
-            <div class="field-widget"><input type="password" name="newPassword" id="newPassword" class="inputBox" value="${parameters.newPassword?if_exists}" size="30" maxlength="16"></div>
+            <div class="form-field"><input type="password" name="newPassword" id="newPassword" value="${parameters.newPassword?if_exists}" size="30" maxlength="16"></div>
           </div>
           <div class="form-row">
             <div class="field-label"><label for="newPasswordVerify">${uiLabelMap.CommonNewPasswordVerify}*</label></div>
-            <div class="field-widget"><input type="password" name="newPasswordVerify" id="newPasswordVerify" class="inputBox" value="${parameters.passwordVerify?if_exists}" size="30" maxlength="16"></div>
+            <div class="form-field"><input type="password" name="newPasswordVerify" id="newPasswordVerify" value="${parameters.passwordVerify?if_exists}" size="30" maxlength="16"></div>
           </div>
         </div>
       </div>
-      <div class="form-row">&nbsp;&nbsp;<a id="submitEditUserForm" href="javascript:void(0);" class="buttontext">${uiLabelMap.CommonSave}</a></div>
+      <div class="form-row">&nbsp;<a id="submitEditUserForm" href="javascript:void(0);" class="buttontext">${uiLabelMap.CommonSubmit}</a></div>
     </form>
   </div>
 </div>

@@ -1702,13 +1702,11 @@ under the License.
     <request-map uri="editProfile">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditProfile"/>
-        <response name="error" type="view" value="EditProfile"/>
     </request-map>
 
     <request-map uri="manageAddress">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ManageAddress"/>
-        <response name="error" type="view" value="ManageAddress"/>
     </request-map>
 
     <request-map uri="createCustomerProfile">

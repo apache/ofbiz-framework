@@ -22,11 +22,12 @@ under the License.
   <form id="refreshRequestForm" name="refreshRequestForm" method="post" action="<@ofbizUrl>manageAddress</@ofbizUrl>">
   </form>
 
-  <#-- Add address -->
-  <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.CommonAdd} ${uiLabelMap.CommonNew} ${uiLabelMap.CommonAddresses}</div>
-  </div>
+  <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.EcommerceAddressBook}</div></div>
   <div class="screenlet-body">
-    <a class="buttontext" id="addAddress" href="javascript:void(0)">${uiLabelMap.CommonAdd} ${uiLabelMap.OrderAddress}</a>
+    <#-- Add address -->
+    <div class="form-row" align="right">
+      <a class="buttontext" id="addAddress" href="javascript:void(0)">${uiLabelMap.CommonAdd} ${uiLabelMap.CommonNew} ${uiLabelMap.CommonAddresses}</a>
+    </div>  
     <div id="displayCreateAddressForm" class="popup" style="display: none;">
       <div id="serverError" class="errorMessage"></div>
       <form id="createPostalAddressForm" name="createPostalAddressForm" method="post" action="<@ofbizUrl></@ofbizUrl>">
@@ -35,7 +36,7 @@ under the License.
         <div class="form-row">
           ${uiLabelMap.PartyAddressLine1}*
           <div class="form-field">
-            <input type="text" class="inputBox required" name="address1" id="address1" value="" size="30" maxlength="30"><span id="advice-required-address1" style="display: none" class="errorMessage">(required)</span>
+            <input type="text" class="required" name="address1" id="address1" value="" size="30" maxlength="30"><span id="advice-required-address1" style="display: none" class="errorMessage">(required)</span>
           </div>
         </div>
         <div class="form-row">
@@ -44,19 +45,19 @@ under the License.
         <div class="form-row">
           ${uiLabelMap.PartyCity}*
           <div class="form-field">
-            <input type="text" class="inputBox required" name="city" id="city" value="" size="30" maxlength="30"><span id="advice-required-city" style="display: none" class="errorMessage">(required)</span>
+            <input type="text" class="required" name="city" id="city" value="" size="30" maxlength="30"><span id="advice-required-city" style="display: none" class="errorMessage">(required)</span>
           </div>
         </div>
         <div class="form-row">
           ${uiLabelMap.PartyZipCode}*
           <div class="form-field">
-            <input type="text" class="inputBox required" name="postalCode" id="postalCode" value="" size="12" maxlength="10"><span id="advice-required-postalCode" style="display: none" class="errorMessage">(required)</span>
+            <input type="text" class="required" name="postalCode" id="postalCode" value="" size="30" maxlength="10"><span id="advice-required-postalCode" style="display: none" class="errorMessage">(required)</span>
           </div>
         </div>
         <div class="form-row">
           ${uiLabelMap.PartyCountry}*
           <div class="form-field">
-            <select name="countryGeoId" id="countryGeoId" class="selectBox required" style="width: 70%">
+            <select name="countryGeoId" id="countryGeoId" class="required" style="width: 70%">
               ${screens.render("component://common/widget/CommonScreens.xml#countries")}
             </select>
             <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(required)</span>
@@ -65,7 +66,7 @@ under the License.
         <div class="form-row">
           ${uiLabelMap.PartyState}*
           <div class="form-field">
-            <select name="stateProvinceGeoId" id="stateProvinceGeoId" class="selectBox required" style="width: 70%">
+            <select name="stateProvinceGeoId" id="stateProvinceGeoId" class="required" style="width: 70%">
               <option value="">${uiLabelMap.PartyNoState}</option>
               ${screens.render("component://common/widget/CommonScreens.xml#states")}
             </select>
@@ -81,7 +82,7 @@ under the License.
           <input type="checkbox" name="setBillingPurpose" id="setBillingPurpose" value="Y" <#if setBillingPurpose?exists>checked</#if>/>
         </div>
         <div class="form-row">
-          <a href="javascript:void(0);" id="submitPostalAddressForm" class="buttontext" onclick="createPartyPostalAddress('submitPostalAddressForm')">${uiLabelMap.CommonSave}</a>
+          <a href="javascript:void(0);" id="submitPostalAddressForm" class="buttontext" onclick="createPartyPostalAddress('submitPostalAddressForm')">${uiLabelMap.CommonSubmit}</a>
           <form action="">
             <input class="popup_closebox buttontext" type="button" value="${uiLabelMap.CommonClose}"/>
           </form>
@@ -92,9 +93,6 @@ under the License.
       new Popup('displayCreateAddressForm','addAddress', {modal: true, position: 'center', trigger: 'click'})
     </script>
   </div>
-  <br/>
-  <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.EcommerceAddressBook}</div></div>
-  <div class="screenlet-body"></div>
 
   <#-- Manage Addresses -->
   <div class="left center">
@@ -114,10 +112,8 @@ under the License.
               <div class="form-field">
                 <#if showSetShippingPurpose == "N">
                   <h3>${uiLabelMap.EcommercePrimary} ${uiLabelMap.OrderShippingAddress}</h3>
-                  <span class="buttontextdisabled">${uiLabelMap.EcommerceIsDefault}</span>
                 <#else>
                   <h3>${uiLabelMap.EcommercePrimary} ${uiLabelMap.PartyBillingAddress}</h3>
-                  <span class="buttontextdisabled">${uiLabelMap.EcommerceIsDefault}</span>
                 </#if>
               </div>
             </div>
@@ -157,7 +153,6 @@ under the License.
       
                     <#if telecomNumber?has_content>
                       <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-                      <h3>${uiLabelMap.PartyPhoneNumber}</h3>
                       ${telecomNumber.countryCode?if_exists}-
                       ${telecomNumber.areaCode?if_exists}-
                       ${telecomNumber.contactNumber?if_exists}-
@@ -175,7 +170,6 @@ under the License.
                      
                     <#if telecomNumber?has_content>
                       <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-                      <h3>${uiLabelMap.PartyPhoneNumber}</h3>
                       ${telecomNumber.countryCode?if_exists}-
                       ${telecomNumber.areaCode?if_exists}-
                       ${telecomNumber.contactNumber?if_exists}-
