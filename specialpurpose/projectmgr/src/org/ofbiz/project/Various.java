@@ -85,5 +85,26 @@ public class Various {
     	return UtilDateTime.addDaysToTimestamp(startDate, plannedHours / 8); 
     }
     
-    
+    public static double calculateActualHours(GenericDelegator delegator, String timesheetId) {
+		List actuals = FastList.newInstance();
+		double actualHours = 0.00;
+		if(timesheetId != null){
+			try {
+				actuals = delegator.findByAnd("TimeEntry", UtilMisc.toMap("timesheetId", timesheetId));
+				if(actuals.size() > 0){
+					Iterator ite = actuals.iterator();
+					while(ite.hasNext()){
+						GenericValue actual =(GenericValue)ite.next();
+						 Double hour = (Double) actual.get("hours");
+						 double hours = hour.doubleValue();
+						 actualHours = actualHours + hours;
+					}
+				}
+			} catch (GenericEntityException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		}
+		return actualHours;
+    }
 }
