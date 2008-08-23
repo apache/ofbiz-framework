@@ -184,7 +184,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
+                <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" env-name="entityName"/>
             </service>
         </actions>
@@ -276,7 +276,7 @@ under the License.
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
           <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-            <field-map field-name="inputFields" env-name="requestParameters"/>
+            <field-map field-name="inputFields" env-name="parameters"/>
             <field-map field-name="entityName" env-name="entityName"/>
           </service>
         </actions>
