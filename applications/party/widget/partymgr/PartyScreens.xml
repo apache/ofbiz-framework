@@ -186,7 +186,6 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="Party" value-name="party"/>
-
                 <entity-condition entity-name="RoleType" list-name="roleTypes">
                     <order-by field-name="description"/>
                     <order-by field-name="roleTypeId"/>
@@ -213,6 +212,21 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-compare field-name="party.partyTypeId" operator="equals" value="PERSON"/>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.AddRelatedAccount}">
+                                    <include-form name="AddAccount" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                            <fail-widgets>
+                                <screenlet title="${uiLabelMap.AddRelatedContact}">
+                                    <include-form name="AddContact" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </screenlet>
+                            </fail-widgets>
+                        </section>
                         <platform-specific>
                             <html><html-template location="component://party/webapp/partymgr/party/EditPartyRelationships.ftl"/></html>
                         </platform-specific>
@@ -221,20 +235,9 @@ under the License.
                                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
                             </condition>
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PartyNewRelationshipType}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>
-                                                <include-form name="AddPartyRelationshipType" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PartyNewRelationshipType}">
+                                    <include-form name="AddPartyRelationshipType" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>

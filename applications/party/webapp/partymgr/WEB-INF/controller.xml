@@ -637,6 +637,12 @@ under the License.
         <response name="success" type="view" value="EditPartyRelationships"/>
         <response name="error" type="view" value="EditPartyRelationships"/>
     </request-map>
+    <request-map uri="createAccountContact">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="createPartyRelationship"/>
+        <response name="success" type="view" value="viewprofile"/>
+        <response name="error" type="view" value="EditPartyRelationships"/>
+    </request-map>
     <request-map uri="updatePartyRelationship">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePartyRelationship"/>
@@ -1062,9 +1068,11 @@ under the License.
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
     <request-map uri="LookupPartyEmail"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyEmail"/></request-map>
     <request-map uri="LookupPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPerson"/></request-map>
+    <request-map uri="LookupContact"><security https="true" auth="true"/><response name="success" type="view" value="LookupContact"/></request-map>
     <request-map uri="LookupPartyAndUserLoginAndPerson"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyAndUserLoginAndPerson"/></request-map>
     <request-map uri="LookupUserLoginAndPartyDetails"><security https="true" auth="true"/><response name="success" type="view" value="LookupUserLoginAndPartyDetails"/></request-map>
     <request-map uri="LookupPartyGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyGroup"/></request-map>
+    <request-map uri="LookupAccount"><security https="true" auth="true"/><response name="success" type="view" value="LookupAccount"/></request-map>
     <request-map uri="LookupPartyClassificationGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyClassificationGroup"/></request-map>
     <request-map uri="LookupCommEvent"><security https="true" auth="true"/><response name="success" type="view" value="LookupCommEvent"/></request-map>
     <request-map uri="LookupCustRequest"><security https="true" auth="true"/><response name="success" type="view" value="LookupCustRequest"/></request-map>
@@ -1153,9 +1161,11 @@ under the License.
     <view-map name="LookupPartyEmail" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyEmail"/>
     <view-map name="LookupPartyClassificationGroup" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyClassificationGroup"/>
     <view-map name="LookupPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPerson"/>
+    <view-map name="LookupContact" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupContact"/>
     <view-map name="LookupPartyAndUserLoginAndPerson" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyAndUserLoginAndPerson"/>
     <view-map name="LookupUserLoginAndPartyDetails" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupUserLoginAndPartyDetails"/>    
     <view-map name="LookupPartyGroup" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupPartyGroup"/>
+    <view-map name="LookupAccount" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupAccount"/>
     <view-map name="LookupCommEvent" type="screen" page="component://party/widget/partymgr/LookupScreens.xml#LookupCommEvent"/>
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>    
     <view-map name="LookupCustRequest" type="screen" page="component://order/widget/ordermgr/LookupScreens.xml#LookupCustRequest"/>
