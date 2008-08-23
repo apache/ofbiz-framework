@@ -460,12 +460,12 @@
         <section>
             <actions>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-and list-name="contacts" entity-name="PartyRelationshipAndDetail">
+                <entity-and list-name="contacts" entity-name="PartyRelationship">
                     <field-map field-name="partyIdFrom" env-name="parameters.partyId"/>
                     <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                     <field-map field-name="roleTypeIdTo" value="CONTACT"/>
                 </entity-and>
-                <entity-and list-name="accounts" entity-name="PartyRelationshipAndDetail">
+                <entity-and list-name="accounts" entity-name="PartyRelationship">
                     <field-map field-name="partyIdTo" env-name="parameters.partyId"/>
                     <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                     <field-map field-name="roleTypeIdTo" value="CONTACT"/>
