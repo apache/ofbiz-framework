@@ -120,18 +120,22 @@ public class FlexibleStringExpander implements Serializable {
             return this.orig == null ? "" : this.orig;
         }
         if (locale == null) {
-            locale = (Locale) context.get("locale");
-            if (locale == null && context.containsKey("autoUserLogin")) {
-                locale = UtilMisc.ensureLocale(((Map) context.get("autoUserLogin")).get("lastLocale"));
+            if (context != null) {
+                locale = (Locale) context.get("locale");
+                if (locale == null && context.containsKey("autoUserLogin")) {
+                    locale = UtilMisc.ensureLocale(((Map) context.get("autoUserLogin")).get("lastLocale"));
+                }
             }
             if (locale == null) {
                 locale = Locale.getDefault();
             }
         }
         if (timeZone == null) {
-            timeZone = (TimeZone) context.get("timeZone");
-            if (timeZone == null && context.containsKey("autoUserLogin")) {
-                timeZone = UtilDateTime.toTimeZone((String)((Map) context.get("autoUserLogin")).get("lastTimeZone"));
+            if (context != null) {
+                timeZone = (TimeZone) context.get("timeZone");
+                if (timeZone == null && context.containsKey("autoUserLogin")) {
+                    timeZone = UtilDateTime.toTimeZone((String)((Map) context.get("autoUserLogin")).get("lastTimeZone"));
+                }
             }
             if (timeZone == null) {
                 timeZone = TimeZone.getDefault();
