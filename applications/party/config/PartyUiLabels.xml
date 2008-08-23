@@ -172,6 +172,12 @@
         <value xml:lang="th">รหัสส่วนตัว</value>
         <value xml:lang="zh">密码</value>
     </property>
+    <property key="AddRelatedAccount">
+        <value xml:lang="en">Add Related Account</value>
+    </property>
+    <property key="AddRelatedContact">
+        <value xml:lang="en">Add Related Contact</value>
+    </property>
     <property key="Description">
         <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
@@ -4374,6 +4380,12 @@
         <value xml:lang="ru">Тип списка</value>
         <value xml:lang="th">รายการประเภท</value>
         <value xml:lang="zh">类型列表</value>
+    </property>
+    <property key="PartyLookupAccount">
+        <value xml:lang="en">Lookup Party with the role Account</value>
+    </property>
+    <property key="PartyLookupContact">
+        <value xml:lang="en">Lookup Party with the role Contact</value>
     </property>
     <property key="PartyLookupContactMech">
         <value xml:lang="de">Kontaktmechanismus suchen</value>
