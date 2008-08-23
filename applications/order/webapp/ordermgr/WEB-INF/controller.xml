@@ -1476,11 +1476,11 @@ under the License.
         <handler name="jasperreportspdf" type="view" class="org.ofbiz.webapp.view.JasperReportsPdfViewHandler"/>
         to the handler section of this file and uncomment the following lines:
     <request-map uri="orderreportjasper.pdf"><security https="true" auth="true"/>
-        <event type="bsf" path="/reports/" invoke="OrderReportPrepare.bsh"/>
+        <event type="bsf" path="/reports/" invoke="OrderReportPrepare.groovy"/>
         <response name="success" type="view" value="orderreportjasper"/>
     </request-map>
     <request-map uri="orderitemreportjasper.pdf"><security https="true" auth="true"/>
-        <event type="bsf" path="/reports/" invoke="OrderReportPrepare.bsh"/>
+        <event type="bsf" path="/reports/" invoke="OrderReportPrepare.groovy"/>
         <response name="success" type="view" value="orderitemreportjasper"/>
     </request-map>
     <request-map uri="orderreportlist">
