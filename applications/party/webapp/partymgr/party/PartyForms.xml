@@ -654,4 +654,26 @@ under the License.
         <field name="thruDate"><display/></field>
     </form>
 
+    <form name="ListRelatedContacts" type="list" list-name="contacts" default-table-style="basic-table">
+        <field name="partyIdTo">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
+                <sub-hyperlink description="[${partyIdTo}]" target="viewprofile?partyId=${partyIdTo}"/>
+            </display-entity>
+        </field>
+        <field name="partyRelationshipTypeId"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
+        <field name="fromDate"><display type="date"/></field>
+        <field name="thruDate"><display type="date"/></field>
+    </form>
+
+    <form name="ListRelatedAccounts" type="list" list-name="accounts" default-table-style="basic-table">
+        <field name="partyIdFrom">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
+                <sub-hyperlink description="[${partyIdFrom}]" target="viewprofile?partyId=${partyIdFrom}"/>
+            </display-entity>
+        </field>
+        <field name="partyRelationshipTypeId"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
+        <field name="fromDate"><display type="date"/></field>
+        <field name="thruDate"><display type="date"/></field>
+    </form>
+
 </forms>

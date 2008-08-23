@@ -444,16 +444,54 @@
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
-                <container style="screenlet">
+                <screenlet title="${uiLabelMap.PartyShipperAccount}">
                     <platform-specific>
                         <html>
                             <html-template location="component://party/webapp/partymgr/party/profileblocks/ShipperAccount.ftl"/>
                         </html>
                     </platform-specific> 
-                    <container style="screenlet-body">
                         <include-form name="ListCarrierAccounts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                    </container>
-                </container>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="contactsAndAccounts">
+        <section>
+            <actions>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-and list-name="contacts" entity-name="PartyRelationshipAndDetail">
+                    <field-map field-name="partyIdFrom" env-name="parameters.partyId"/>
+                    <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
+                    <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                </entity-and>
+                <entity-and list-name="accounts" entity-name="PartyRelationshipAndDetail">
+                    <field-map field-name="partyIdTo" env-name="parameters.partyId"/>
+                    <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
+                    <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="contacts"/></not>
+                    </condition>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.ListRelatedContacts}" navigation-form-name="ListContacts">
+                            <include-form name="ListRelatedContacts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="accounts"/></not>
+                    </condition>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.ListRelatedAccounts}" navigation-form-name="ListAccounts">
+                            <include-form name="ListRelatedAccounts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
             </widgets>
         </section>
     </screen>

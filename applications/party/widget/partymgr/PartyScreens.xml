@@ -100,6 +100,7 @@ under the License.
                                         <container style="profile-left">
                                             <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="contactsAndAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="LoyaltyPoints" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="PaymentMethods" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="AvsSettings" location="component://party/widget/partymgr/ProfileScreens.xml"/>
