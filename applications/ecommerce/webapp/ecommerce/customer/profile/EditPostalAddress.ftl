@@ -48,48 +48,36 @@ under the License.
   </#list>
   <div class="screenlet-body">
     <div class="form-row">
-      <span>${uiLabelMap.PartyAddressLine1}*</span>
+      <label>${uiLabelMap.PartyAddressLine1}*</label>
       <span>
-        <input type="text" class="left inputBox required" name="address1" id="address1_${contactMech.contactMechId}" value="${postalAddress.address1?if_exists}" style="width: 50%" size="30" maxlength="30">
+        <input type="text" class="left required" name="address1" id="address1_${contactMech.contactMechId}" value="${postalAddress.address1?if_exists}" style="width: 50%" size="30" maxlength="30">
         <span id="advice-required-address1_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
       </span>
     </div>
     <div class="form-row">
-      <span>${uiLabelMap.PartyAddressLine2}</span>
+      <label>${uiLabelMap.PartyAddressLine2}</label>
       <span>
-        <input type="text" class="left inputBox" name="address2" value="${postalAddress.address2?if_exists}" style="width: 50%" size="30" maxlength="30">    
+        <input type="text" class="left" name="address2" value="${postalAddress.address2?if_exists}" style="width: 50%" size="30" maxlength="30">    
       </span>
     </div>
     <div class="form-row">
-      <span>${uiLabelMap.PartyCity}*</span>
+      <label>${uiLabelMap.PartyCity}*</label>
       <span>
-        <input type="text" class="left inputBox required" name="city" id="city_${contactMech.contactMechId}" value="${postalAddress.city?if_exists}" size="30" maxlength="30">
+        <input type="text" class="left required" name="city" id="city_${contactMech.contactMechId}" value="${postalAddress.city?if_exists}" size="30" maxlength="30">
         <span id="advice-required-city_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
       </span>
     </div>
     <div class="form-row">
-      <span>${uiLabelMap.PartyZipCode}*</span>
+      <label>${uiLabelMap.PartyZipCode}*</label>
       <span>
-        <input type="text" class="left inputBox required" name="postalCode" id="postalCode_${contactMech.contactMechId}" value="${postalAddress.postalCode?if_exists}" size="12" maxlength="10">
+        <input type="text" class="left required" name="postalCode" id="postalCode_${contactMech.contactMechId}" value="${postalAddress.postalCode?if_exists}" size="12" maxlength="10">
         <span id="advice-required-postalCode_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
       </span>
     </div>
     <div class="form-row">
-      <span>${uiLabelMap.PartyCountry}*</span>
+      <label>${uiLabelMap.PartyState}*</label>
       <span>
-        <select name="countryGeoId" id="countryGeoId_${contactMech.contactMechId}" class="left selectBox required" style="width: 70%">
-          <#if postalAddress.countryGeoId?exists>
-            <option value='${postalAddress.countryGeoId}'>${selectedCountryName?default(postalAddress.countryGeoId)}</option>
-          </#if>
-          ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-        </select>
-        <span id="advice-required-countryGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
-      </span>
-    </div>
-    <div class="form-row">
-      <span>${uiLabelMap.PartyState}*</span>
-      <span>
-        <select name="stateProvinceGeoId" id="stateProvinceGeoId_${contactMech.contactMechId}" class="left selectBox required" style="width: 70%">
+        <select name="stateProvinceGeoId" id="stateProvinceGeoId_${contactMech.contactMechId}" class="left required" style="width: 70%">
           <#if postalAddress.stateProvinceGeoId?exists>
             <option value='${postalAddress.stateProvinceGeoId}'>${selectedStateName?default(postalAddress.stateProvinceGeoId)}</option>
           </#if>
@@ -99,25 +87,31 @@ under the License.
         <span id="advice-required-stateProvinceGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
       </span>
     </div>
+    <div class="form-row">
+      <label>${uiLabelMap.PartyCountry}*</label>
+      <span>
+        <select name="countryGeoId" id="countryGeoId_${contactMech.contactMechId}" class="left required" style="width: 70%">
+          <#if postalAddress.countryGeoId?exists>
+            <option value='${postalAddress.countryGeoId}'>${selectedCountryName?default(postalAddress.countryGeoId)}</option>
+          </#if>
+          ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+        </select>
+        <span id="advice-required-countryGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
+      </span>
+    </div>
 
     <#if telecomNumber?has_content>
       <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
       <div class="form-row">
-        <h3>${uiLabelMap.PartyPhoneNumber}</h3>
         <div class="field-label">
-          <label for="countryCode_${telecomNumber.contactMechId}">${uiLabelMap.PartyCountry}<span>*</span>
-            <span id="advice-required-countryCode_${telecomNumber.contactMechId}" style="display:none" class="errorMessage">(required)</span>
-          </label>
-          <label for="areaCode_${telecomNumber.contactMechId}">${uiLabelMap.PartyAreaCode}<span>*</span><span id="advice-required-areaCode_${telecomNumber.contactMechId}" style="display:none" class="errorMessage">(required)</span></label>
-          <label for="contactNumber_${telecomNumber.contactMechId}">${uiLabelMap.PartyContactNumber}<span>*</span><span id="advice-required-contactNumber_${telecomNumber.contactMechId}" style="display:none" class="errorMessage">(required)</span></label>
-          <label for="extension_${telecomNumber.contactMechId}">${uiLabelMap.PartyExtension}</label>
+          <label for="phoneNumber_${telecomNumber.contactMechId}">${uiLabelMap.PartyPhoneNumber}*</label>
         </div>
-        <div class="field-widget">
+        <div>
           <input type="hidden" name="phoneContactMechId" value="${telecomNumber.contactMechId?if_exists}"/>
-          <input type="text" name="countryCode" id="countryCode_${telecomNumber.contactMechId}" class="inputBox required" value="${telecomNumber.countryCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="areaCode" id="areaCode_${telecomNumber.contactMechId}" class="inputBox required" value="${telecomNumber.areaCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="contactNumber" id="contactNumber_${telecomNumber.contactMechId}" class="inputBox required" value="${contactNumber?default("${telecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
-          - <input type="text" name="extension" id="extension_${telecomNumber.contactMechId}" class="inputBox" value="${extension?default("${pcm.extension?if_exists}")}" size="3" maxlength="3"/>
+          <input type="text" name="countryCode" id="countryCode_${telecomNumber.contactMechId}" class="required" value="${telecomNumber.countryCode?if_exists}" size="3" maxlength="3"/>
+          - <input type="text" name="areaCode" id="areaCode_${telecomNumber.contactMechId}" class="required" value="${telecomNumber.areaCode?if_exists}" size="3" maxlength="3"/>
+          - <input type="text" name="contactNumber" id="contactNumber_${telecomNumber.contactMechId}" class="required" value="${contactNumber?default("${telecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
+          - <input type="text" name="extension" id="extension_${telecomNumber.contactMechId}" value="${extension?default("${pcm.extension?if_exists}")}" size="3" maxlength="3"/>
         </div>
       </div>    
     </#if>
@@ -139,7 +133,7 @@ under the License.
     </#if>
 
     <div class="form-row">
-      <a name="submitEditPostalAddress_${contactMech.contactMechId}" id="submitEditPostalAddress_${contactMech.contactMechId}" class="buttontext" onclick="updatePartyPostalAddress('submitEditPostalAddress_${contactMech.contactMechId}')">${uiLabelMap.CommonSave}</a>
+      <a name="submitEditPostalAddress_${contactMech.contactMechId}" id="submitEditPostalAddress_${contactMech.contactMechId}" class="buttontext" onclick="updatePartyPostalAddress('submitEditPostalAddress_${contactMech.contactMechId}')">${uiLabelMap.CommonSubmit}</a>
       <form action="">
         <input class="popup_closebox buttontext" type="button" value="${uiLabelMap.CommonClose}"/>
       </form>

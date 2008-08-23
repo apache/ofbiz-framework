@@ -4,7 +4,7 @@ var validatePostalAddress = null;
 Event.observe(window, 'load', function() {
     if ($('newUserForm')) {
         validateNewUser = new Validation('newUserForm', {immediate: true, onSubmit: false});
-        Event.observe($('emailAddress'), 'blur', setUserNameFromEmail);
+        Event.observe($('emailAddress'), 'change', setUserNameFromEmail);
         Event.observe('useShippingAddressForBilling', 'click', useShippingAddressAsBillingToggle);
         Event.observe($('submitNewUserForm'), 'click', submitValidNewUser);
     }
@@ -21,9 +21,49 @@ Event.observe(window, 'load', function() {
     if ($('submitPostalAddressForm')) {
         Event.observe($('submitPostalAddressForm'), 'click', submitValidPostalAddress);
     }
+
+    if ($('shipToPhoneRequired')) {
+        Event.observe($('shipToCountryCode'), 'blur', function() {
+            validatePhoneNumber('shipToPhoneRequired', 'shipToCountryCode', 'shipToAreaCode', 'shipToContactNumber');
+        });
+        Event.observe($('shipToAreaCode'), 'blur', function() {
+            validatePhoneNumber('shipToPhoneRequired', 'shipToAreaCode', 'shipToCountryCode', 'shipToContactNumber');
+        });
+        Event.observe($('shipToContactNumber'), 'blur', function() {
+            validatePhoneNumber('shipToPhoneRequired', 'shipToContactNumber', 'shipToCountryCode', 'shipToAreaCode');
+        });
+    }
+    if ($('billToPhoneRequired')) {
+        Event.observe($('billToCountryCode'), 'blur', function() {
+            validatePhoneNumber('billToPhoneRequired', 'billToCountryCode', 'billToAreaCode', 'billToContactNumber');
+        });
+        Event.observe($('billToAreaCode'), 'blur', function() {
+            validatePhoneNumber('billToPhoneRequired', 'billToAreaCode', 'billToCountryCode', 'billToContactNumber');
+        });
+        Event.observe($('billToContactNumber'), 'blur', function() {
+            validatePhoneNumber('billToPhoneRequired', 'billToContactNumber', 'billToCountryCode', 'billToAreaCode');
+        });
+    }
 });
 
+/*
+ * This function is used for validation of Phone number with only 1 error message instead of multiple (for eg: required) on label. 
+ * It takes following parameters :-  
+ * 1) errorDivId : div to display error, 
+ * 2) focusedTextId : Text box, last focused,
+ * 3) textToCheck1, textToCheck2 : Other text boxes to be check.
+ */ 
+function validatePhoneNumber(errorDivId, focusedTextId, textToCheck1, textToCheck2) {
+    if (($(focusedTextId).value == "")) {
+        Effect.Appear(errorDivId, {duration: 0.5});
+    } else if (($(textToCheck1).value != "") && ($(textToCheck2).value != "" )) {
+       Effect.Fade(errorDivId, {duration: 0.5}); 
+    }
+}
+
 function submitValidNewUser() {
+	validatePhoneNumber('shipToPhoneRequired', 'shipToContactNumber', 'shipToCountryCode', 'shipToAreaCode');
+	validatePhoneNumber('billToPhoneRequired', 'billToContactNumber', 'billToCountryCode', 'billToAreaCode');
     if (validateNewUser.validate()) {
         $('newUserForm').submit();
     }
