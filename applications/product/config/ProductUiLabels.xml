@@ -4181,7 +4181,7 @@
     <property key="PageTitleEditCategoryRollup">
         <value xml:lang="en">Edit Category Rollup</value>
         <value xml:lang="es">Editar jerarquía de una Categoría</value>
-        <value xml:lang="fr">Édition de la nomenclature de catégorie</value>
+        <value xml:lang="fr">Édition de la hiérarchie des catégorie</value>
         <value xml:lang="it">Aggiorna Categoria Arrivo</value>
         <value xml:lang="ro">Actualizeaza Categoria Sosire</value>
         <value xml:lang="ru">Изменить подчиненность категории</value>
@@ -4249,7 +4249,7 @@
     <property key="PageTitleEditFacilityGroupRollup">
         <value xml:lang="en">Edit Facility Group Rollup</value>
         <value xml:lang="es">Editar jerarquía de un Grupo de Almacén</value>
-        <value xml:lang="fr">Édition des nomenclatures du groupe de lieux de stockage</value>
+        <value xml:lang="fr">Édition de la hiérarchie du groupe de lieux de stockage</value>
         <value xml:lang="it">Aggiorna Gruppo Stabilimento Arrivo</value>
         <value xml:lang="ro">Actualizeaza Grup Compartiment Sosire</value>
         <value xml:lang="ru">Изменить подчиненность группы объектов</value>
@@ -7451,7 +7451,7 @@
     <property key="ProductCategoryRollupChildCategories">
         <value xml:lang="en">Category Rollup : Child Categories</value>
         <value xml:lang="es">Jerarquía de Categoría: Categorías hijas</value>
-        <value xml:lang="fr">Nomenclature : catégorie fille</value>
+        <value xml:lang="fr">Hiérarchie : catégorie fille</value>
         <value xml:lang="it">Categoria Arrivo : Categorie Figlie</value>
         <value xml:lang="ro">Categorie Sosire : Categorie Fice</value>
         <value xml:lang="ru">Подчиненность категории: подчиненные</value>
@@ -7461,7 +7461,7 @@
     <property key="ProductCategoryRollupParentCategories">
         <value xml:lang="en">Category Rollup : Parent Categories</value>
         <value xml:lang="es">Jerarquía de Categoría: Categorías padre</value>
-        <value xml:lang="fr">Nomenclature : catégorie parente</value>
+        <value xml:lang="fr">Hiérarchie : catégorie parente</value>
         <value xml:lang="it">Categoria Arrivo : Categorie Padri</value>
         <value xml:lang="ro">Categoria Sosire : Categorie Parinti</value>
         <value xml:lang="ru">Подчиненность категорий: родительские</value>
@@ -9274,7 +9274,7 @@
     <property key="ProductFacilityGroupRollupParentGroups">
         <value xml:lang="en">FacilityGroup Rollup : Parent Groups</value>
         <value xml:lang="es">Jerarquía de grupo de Almacén : Grupos padre</value>
-        <value xml:lang="fr">Nomenclature des groupes de lieux de stockage : groupes parents</value>
+        <value xml:lang="fr">Hiérarchie des groupes de lieux de stockage : groupes parents</value>
         <value xml:lang="it">Gruppo Stabilimento Arrivo : Gruppi Padri</value>
         <value xml:lang="ro">Grup Compartiment Sosire : Grup Parinti</value>
         <value xml:lang="ru">Подчиненность группы объектов: Родительские группы</value>
@@ -9945,7 +9945,7 @@
     </property>
     <property key="ProductGroupRollupChildGroupsAdd">
         <value xml:lang="en">Group Rollup : Add Child Groups</value>
-        <value xml:lang="fr">Nomenclature de groupe: ajouter des groupes descendants</value>
+        <value xml:lang="fr">Hiérarchie du groupe: ajouter des groupes descendants</value>
         <value xml:lang="it">Aggiungi Gruppo Stabilimento Arrivo : Gruppi Figlio</value>
         <value xml:lang="th">Group Rollup : Add Child Groups</value>
     </property>
@@ -15139,17 +15139,7 @@
     <property key="ProductRollup">
         <value xml:lang="en">Rollup</value>
         <value xml:lang="es">Jerarquía</value>
-        <value xml:lang="fr">Nomenclature</value>
-        <value xml:lang="it">Gerarchia</value>
-        <value xml:lang="ro">Sosire</value>
-        <value xml:lang="ru">Иерархия</value>
-        <value xml:lang="th">Rollup</value>
-        <value xml:lang="zh">汇总</value>
-    </property>
-    <property key="ProductRollupShort">
-        <value xml:lang="en">Rollup</value>
-        <value xml:lang="es">Jerarquía</value>
-        <value xml:lang="fr">Nomencl.</value>
+        <value xml:lang="fr">Hiérarchie</value>
         <value xml:lang="it">Gerarchia</value>
         <value xml:lang="ro">Sosire</value>
         <value xml:lang="ru">Иерархия</value>
@@ -15159,7 +15149,7 @@
     <property key="ProductRollups">
         <value xml:lang="en">Rollups</value>
         <value xml:lang="es">Jerarquía</value>
-        <value xml:lang="fr">Nomenclatures</value>
+        <value xml:lang="fr">Hiérarchies</value>
         <value xml:lang="it">Arrivi</value>
         <value xml:lang="ro">Sosiri</value>
         <value xml:lang="ru">Подчиненность</value>
