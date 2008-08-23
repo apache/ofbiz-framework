@@ -1232,9 +1232,11 @@
     </property>
     <property key="ListRelatedContacts">
         <value xml:lang="en">List Related Contacts</value>
+        <value xml:lang="fr">Voir les contact associés</value>
     </property>
     <property key="ListRelatedAccounts">
         <value xml:lang="en">List Related Accounts</value>
+        <value xml:lang="fr">Voir les comptes associés</value>
     </property>
     <property key="OrderNewOrder">
         <value xml:lang="de">Neuer Auftrag</value>
