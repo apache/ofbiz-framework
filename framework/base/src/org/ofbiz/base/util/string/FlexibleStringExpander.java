@@ -77,12 +77,8 @@ public class FlexibleStringExpander implements Serializable {
         return this.orig;
     }
 
-    /** 
-     * This expands the pre-parsed String given the context passed in. Note that
-     * pre-parsing can only parse the top-level place-holders and if there are 
-     * nested expansions they will be done on the fly instead of pre-parsed because
-     * they are dependent on the context which isn't known until expansion time.
-     * 
+    /** This expands the pre-parsed String given the context passed in. A
+     * null context argument will return the original String.
      * @param context A context Map containing the variable values
      * @return The original String expanded by replacing varaible place holders.
      */    
@@ -90,12 +86,8 @@ public class FlexibleStringExpander implements Serializable {
         return this.expandString(context, null, null);
     }
     
-    /** 
-     * This expands the pre-parsed String given the context passed in. Note that
-     * pre-parsing can only parse the top-level place-holders and if there are 
-     * nested expansions they will be done on the fly instead of pre-parsed because
-     * they are dependent on the context which isn't known until expansion time.
-     * 
+    /** This expands the pre-parsed String given the context passed in. A
+     * null context argument will return the original String.
      * @param context A context Map containing the variable values
      * @param locale the current set locale
      * @return The original String expanded by replacing varaible place holders.
@@ -104,38 +96,30 @@ public class FlexibleStringExpander implements Serializable {
         return this.expandString(context, null, locale);
     }
     
-    /** 
-     * This expands the pre-parsed String given the context passed in. Note that
-     * pre-parsing can only parse the top-level place-holders and if there are 
-     * nested expansions they will be done on the fly instead of pre-parsed because
-     * they are dependent on the context which isn't known until expansion time.
-     * 
+    /** This expands the pre-parsed String given the context passed in. A
+     * null context argument will return the original String.
      * @param context A context Map containing the variable values
      * @param timeZone the current set time zone
      * @param locale the current set locale
      * @return The original String expanded by replacing varaible place holders.
      */    
     public String expandString(Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-        if (this.strElems == null) {
+        if (this.strElems == null || context == null) {
             return this.orig == null ? "" : this.orig;
         }
         if (locale == null) {
-            if (context != null) {
-                locale = (Locale) context.get("locale");
-                if (locale == null && context.containsKey("autoUserLogin")) {
-                    locale = UtilMisc.ensureLocale(((Map) context.get("autoUserLogin")).get("lastLocale"));
-                }
+            locale = (Locale) context.get("locale");
+            if (locale == null && context.containsKey("autoUserLogin")) {
+                locale = UtilMisc.ensureLocale(((Map) context.get("autoUserLogin")).get("lastLocale"));
             }
             if (locale == null) {
                 locale = Locale.getDefault();
             }
         }
         if (timeZone == null) {
-            if (context != null) {
-                timeZone = (TimeZone) context.get("timeZone");
-                if (timeZone == null && context.containsKey("autoUserLogin")) {
-                    timeZone = UtilDateTime.toTimeZone((String)((Map) context.get("autoUserLogin")).get("lastTimeZone"));
-                }
+            timeZone = (TimeZone) context.get("timeZone");
+            if (timeZone == null && context.containsKey("autoUserLogin")) {
+                timeZone = UtilDateTime.toTimeZone((String)((Map) context.get("autoUserLogin")).get("lastTimeZone"));
             }
             if (timeZone == null) {
                 timeZone = TimeZone.getDefault();
@@ -178,17 +162,9 @@ public class FlexibleStringExpander implements Serializable {
         return fse;
     }
     
-    /**
-     * Does on-the-fly parsing and expansion of the original String using
-     * varaible values from the passed context. Variables are denoted with
-     * the "${}" syntax and the variable name inside the curly-braces can use
-     * the "." (dot) syntax to access sub-Map entries and the "[]" square-brace
-     * syntax to access List elements.
-     * It Also supports the execution of bsh files by using the 'bsh:' prefix.
-     * Further it is possible to control the output by specifying the suffix 
-     *     '?currency(XXX)' to format the output according the current locale
-     *     and specified (XXX) currency
-     * 
+    /** Does on-the-fly parsing and expansion of the original String using
+     * variable values from the passed context. A null context argument will
+     * return the original String.
      * @param original The original String that will be expanded
      * @param context A context Map containing the variable values
      * @return The original String expanded by replacing varaible place holders.
@@ -197,17 +173,9 @@ public class FlexibleStringExpander implements Serializable {
         return expandString(original, context, null, null);
     }
     
-    /**
-     * Does on-the-fly parsing and expansion of the original String using
-     * varaible values from the passed context. Variables are denoted with
-     * the "${}" syntax and the variable name inside the curly-braces can use
-     * the "." (dot) syntax to access sub-Map entries and the "[]" square-brace
-     * syntax to access List elements.
-     * It Also supports the execution of bsh files by using the 'bsh:' prefix.
-     * Further it is possible to control the output by specifying the suffix 
-     *     '?currency(XXX)' to format the output according the current locale
-     *     and specified (XXX) currency
-     * 
+    /** Does on-the-fly parsing and expansion of the original String using
+     * variable values from the passed context. A null context argument will
+     * return the original String.
      * @param original The original String that will be expanded
      * @param context A context Map containing the variable values
      * @return The original String expanded by replacing varaible place holders.
@@ -216,17 +184,9 @@ public class FlexibleStringExpander implements Serializable {
         return expandString(original, context, null, locale);
     }
     
-    /**
-     * Does on-the-fly parsing and expansion of the original String using
-     * varaible values from the passed context. Variables are denoted with
-     * the "${}" syntax and the variable name inside the curly-braces can use
-     * the "." (dot) syntax to access sub-Map entries and the "[]" square-brace
-     * syntax to access List elements.
-     * It Also supports the execution of bsh files by using the 'bsh:' prefix.
-     * Further it is possible to control the output by specifying the suffix 
-     *     '?currency(XXX)' to format the output according the current locale
-     *     and specified (XXX) currency
-     * 
+    /** Does on-the-fly parsing and expansion of the original String using
+     * variable values from the passed context. A null context argument will
+     * return the original String.
      * @param original The original String that will be expanded
      * @param context A context Map containing the variable values
      * @return The original String expanded by replacing varaible place holders.
