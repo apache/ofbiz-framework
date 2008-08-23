@@ -119,6 +119,7 @@ under the License.
         <actions>
             <entity-and entity-name="WorkEffortCustRequestView" list-name="requests">
                 <field-map field-name="statusId" value="CRQ_REVIEWED"/>
+                <order-by field-name="createdDate"/>
             </entity-and>
         </actions>
         <row-actions>
@@ -148,7 +149,6 @@ under the License.
         <field name="statusId">
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
-        <field name="description"><display/></field>
     </form>
     <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
         <field name="workEffortId">
