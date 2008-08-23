@@ -26,42 +26,18 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindTimeSheet"/>
                 <set field="headerItem" value="timesheet"/>
                 <set field="labelTitleProperty" value="ProjectMgrFindTimeSheet"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>                        
                             <widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleFindTimeSheet}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="FindTimeSheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.PageTitleTimesheets}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <include-form name="ListFindTimeSheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.PageTitleFindTimeSheet}">
+                                    <include-form name="FindTimeSheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                </screenlet>
+                                <screenlet title="${uiLabelMap.PageTitleTimesheets}" navigation-form-name="ListFindTimeSheet">
+                                    <include-form name="ListFindTimeSheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>
@@ -77,8 +53,6 @@ under the License.
                 <set field="tabButtonItem" value="editTimesheet"/>
                 <set field="labelTitleProperty" value="ProjectMgrTimeSheetMyTime"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
@@ -208,8 +182,6 @@ under the License.
                 
                 <set field="timesheetId" from-field="parameters.timesheetId"/>
                 <entity-one entity-name="Timesheet" value-name="timesheet"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="10"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonTimesheetDecorator" location="${parameters.mainDecoratorLocation}">
@@ -266,21 +238,24 @@ under the License.
     <screen name="CurrentTimesheet">
         <section>
             <widgets>
-                <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
-                    navigation-menu-name="TimesheetBar">
-                    <include-menu name="TimesheetBar" location="component://projectmgr/widget/Menus.xml"/>
                     <section>
                         <condition>
                             <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_COMPLETED"/>
                         </condition>          
                         <widgets>
+                            <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
+                                navigation-form-name="WeekTimesheet">
                             <include-form name="WeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                            </screenlet>
                         </widgets>
                         <fail-widgets>
-                            <include-form name="EditWeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                            <screenlet title="${uiLabelMap.PageTitleCurrentTimesheet} ${uiLabelMap.CommonNbr} ${timesheet.timesheetId} ${uiLabelMap.ProjectMgrWeek}: ${weekNumber} ${uiLabelMap.CommonFrom} ${bsh:timesheet.get(&quot;fromDate&quot;).toString().substring(0,10)} ${uiLabelMap.CommonTo} ${bsh:timesheet.get(&quot;thruDate&quot;).toString().substring(0,10)}"
+                                navigation-menu-name="TimesheetBar">
+                                <include-menu name="TimesheetBar" location="component://projectmgr/widget/Menus.xml"/>
+                                <include-form name="EditWeekTimesheet" location="component://projectmgr/widget/forms/TimeSheetForms.xml"/>
+                            </screenlet>
                         </fail-widgets>
                     </section>
-                </screenlet>
             </widgets>
         </section>
     </screen>    
