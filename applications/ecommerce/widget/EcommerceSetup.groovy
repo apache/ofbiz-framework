@@ -29,14 +29,13 @@ import org.ofbiz.webapp.control.*;
 productStore = ProductStoreWorker.getProductStore(request);
 
 prodCatalog = CatalogWorker.getProdCatalog(request);
-if (prodCatalog != null) {
-    catalogStyleSheet = prodCatalog.get("styleSheet");
-    if (catalogStyleSheet != null) globalContext.put("catalogStyleSheet", catalogStyleSheet);
-    catalogHeaderLogo = prodCatalog.get("headerLogo");
-    if (catalogHeaderLogo != null) globalContext.put("catalogHeaderLogo", catalogHeaderLogo);
+if (prodCatalog) {
+    catalogStyleSheet = prodCatalog.styleSheet;
+    if (catalogStyleSheet) globalContext.catalogStyleSheet = catalogStyleSheet;
+    catalogHeaderLogo = prodCatalog.headerLogo;
+    if (catalogHeaderLogo) globalContext.catalogHeaderLogo = catalogHeaderLogo;
 }
 
-globalContext.put("productStore", productStore);
-globalContext.put("checkLoginUrl", LoginWorker.makeLoginUrl(request, "checkLogin"));
-globalContext.put("catalogQuickaddUse", CatalogWorker.getCatalogQuickaddUse(request));
-
+globalContext.productStore = productStore;
+globalContext.checkLoginUrl = LoginWorker.makeLoginUrl(request, "checkLogin");
+globalContext.catalogQuickaddUse = CatalogWorker.getCatalogQuickaddUse(request);
