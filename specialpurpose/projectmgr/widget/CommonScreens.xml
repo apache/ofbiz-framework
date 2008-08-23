@@ -316,8 +316,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ProjectMgrProjectSummary}" navigation-form-name="main" navigation-menu-name="ProjectSubTabBar">
-                            <include-menu name="ProjectSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
+                        <screenlet title="${uiLabelMap.ProjectMgrProjectSummary}" navigation-form-name="ListProjects">
                             <include-form name="ListProjects" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
                     </decorator-section>

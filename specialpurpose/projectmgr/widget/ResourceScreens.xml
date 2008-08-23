@@ -27,8 +27,6 @@ under the License.
                 <set field="tabButtonItem" value="ListUnBilledHours"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer"/>
-                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListUnBilledHoursResources.bsh"/>
             </actions>                                                
             <widgets>  
