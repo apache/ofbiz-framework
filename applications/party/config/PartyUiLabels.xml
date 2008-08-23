@@ -1230,6 +1230,12 @@
         <value xml:lang="th">ปีกับผู้ว่าจ้าง</value>
         <value xml:lang="zh">年为雇主</value>
     </property>
+    <property key="ListRelatedContacts">
+        <value xml:lang="en">List Related Contacts</value>
+    </property>
+    <property key="ListRelatedAccounts">
+        <value xml:lang="en">List Related Accounts</value>
+    </property>
     <property key="OrderNewOrder">
         <value xml:lang="de">Neuer Auftrag</value>
         <value xml:lang="en">New Order</value>
