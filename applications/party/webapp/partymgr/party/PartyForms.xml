@@ -676,6 +676,78 @@ under the License.
         <field name="thruDate"><display type="date"/></field>
     </form>
 
+    <form name="ListPartyRelationships" type="list" list-name="partyRelationships" default-table-style="basic-table" target="updatePartyRelationship">
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="partyIdTo" title="${uiLabelMap.PartyPartyId}">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
+                <sub-hyperlink description="[${partyIdTo}]" target="viewprofile?partyId=${partyIdTo}"/>
+            </display-entity>
+        </field>
+        <field name="roleTypeIdTo" title="${uiLabelMap.InTheRoleOf}">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
+        </field>
+        <field name="partyRelationshipTypeId" title="${uiLabelMap.IsA}"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.PartyOfParty}">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
+                <sub-hyperlink description="[${partyIdFrom}]" target="viewprofile?partyId=${partyIdFrom}"/>
+            </display-entity>
+        </field>
+        <field name="roleTypeIdFrom" title="${uiLabelMap.InTheRoleOf}">
+            <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
+        </field>
+        <field name="fromDate"><display type="date"/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="comments"><text/></field>
+        <field name="updateButton"><submit button-type="button"/></field>
+        <field name="deleteButton"><hyperlink description="${uiLabelMap.CommonDelete}" target="deletePartyRelationship?partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;fromDate=${fromDate}"/></field>
+    </form>
+
+    <form name="AddOtherPartyRelationship" type="single" target="createAccountContact">
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="partyIdTo"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeIdTo" title="${uiLabelMap.InTheRoleOf}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyRelationshipTypeId" title="${uiLabelMap.IsA}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRelationshipType" description="${partyRelationshipName}">
+                    <entity-order-by field-name="partyRelationshipName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeIdFrom" title="${uiLabelMap.InTheRoleOf}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" title="${uiLabelMap.CommonStatus}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="StatusItem" description="${description}">
+                    <entity-constraint name="statusTypeId" value="PARTY_REL_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="groupId" title="${uiLabelMap.PartySecurityGroupId}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="SecurityGroup" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="comments"><text/></field>
+        <field name="submitButton"><submit button-type="button"/></field>
+    </form> 
+    
     <form name="AddAccount" type="single" target="createAccountContact">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="partyIdFrom"><lookup target-form-name="LookupAccount"/></field>

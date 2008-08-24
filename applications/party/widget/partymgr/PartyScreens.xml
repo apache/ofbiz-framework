@@ -212,6 +212,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PartyRelationships}">
+                            <include-form name="ListPartyRelationships" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                        <container style="lefthalf">
                         <section>
                             <condition>
                                 <if-compare field-name="party.partyTypeId" operator="equals" value="PERSON"/>
@@ -227,9 +231,6 @@ under the License.
                                 </screenlet>
                             </fail-widgets>
                         </section>
-                        <platform-specific>
-                            <html><html-template location="component://party/webapp/partymgr/party/EditPartyRelationships.ftl"/></html>
-                        </platform-specific>
                         <section>
                             <condition>
                                 <if-has-permission permission="PARTYMGR" action="_CREATE"/>
@@ -240,6 +241,13 @@ under the License.
                                 </screenlet>
                             </widgets>
                         </section>
+                        </container>
+                        <container style="righthalf">
+                        <screenlet title="${uiLabelMap.PartyAddOtherRelationship}">
+                            <include-form name="AddOtherPartyRelationship" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                        </container>
+                        <container style="clear"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
