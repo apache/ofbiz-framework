@@ -58,7 +58,7 @@ under the License.
         <menu-item name="PartyContents" title="${uiLabelMap.PartyContent}">
             <link target="EditPartyContents?partyId=${partyId}"/>
         </menu-item>
-        <menu-item name="EditPartySkills" title="${uiLabelMap.ProjectMgrPartySkills}">
+        <menu-item name="EditPartySkills" title="${uiLabelMap.CommonPartySkills}">
             <link target="EditPartySkills?partyId=${partyId}"/>
         </menu-item>
         <menu-item name="EditPersonTrainings" title="${uiLabelMap.HumanResTraining}">

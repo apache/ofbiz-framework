@@ -602,12 +602,6 @@
         <value xml:lang="th">รหัสสถานะประเภท</value>
         <value xml:lang="zh">角色类型Id</value>
     </property>
-    <property key="ProjectMgrPartySkills">
-        <value xml:lang="en">Party Skills</value>
-        <value xml:lang="it">Abilità Soggetto</value>
-        <value xml:lang="th">ทักษะของกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员技能</value>
-    </property>
     <property key="ProjectMgrPhaseDetails">
         <value xml:lang="en">Enter the Phase Details below</value>
         <value xml:lang="it">Inserire i Dettagli della Fase qui sotto</value>
