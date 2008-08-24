@@ -1,0 +1,249 @@
+/*
+ * Licensed to the Apache Software Foundation (ASF) under one
+ * or more contributor license agreements.  See the NOTICE file
+ * distributed with this work for additional information
+ * regarding copyright ownership.  The ASF licenses this file
+ * to you under the Apache License, Version 2.0 (the
+ * "License"); you may not use this file except in compliance
+ * with the License.  You may obtain a copy of the License at
+ * 
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 
+ * Unless required by applicable law or agreed to in writing,
+ * software distributed under the License is distributed on an
+ * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+ * KIND, either express or implied.  See the License for the
+ * specific language governing permissions and limitations
+ * under the License.
+ */
+
+import java.text.DecimalFormat;
+import java.util.*;
+import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.security.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.base.util.*;
+
+DecimalFormat decimalFormat = new DecimalFormat("#,##0.#######");
+
+if (security.hasPermission("ENTITY_MAINT", session)) {
+    performanceList = [];
+
+    calls = 1000;
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) {
+        dummy = delegator.findByPrimaryKey("Product", [productId : "GZ-1000"]);
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime/1000);
+
+    perfRow = [:];
+    perfRow.operation = "findByPrimaryKey";
+    perfRow.entity = "Large:Product";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    calls = 10000;
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) {
+        dummy = delegator.findByPrimaryKeyCache("Product", [productId : "GZ-1000"]);
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime / 1000);
+
+    perfRow = [:];
+    perfRow.operation = "findByPrimaryKeyCache";
+    perfRow.entity = "Large:Product";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    calls = 1000;
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) {
+        dummy = delegator.findByPrimaryKey("Party", [partyId : "_NA_"]);
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime / 1000);
+
+    perfRow = [:];
+    perfRow.operation = "findByPrimaryKey";
+    perfRow.entity = "Small:Party";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    calls = 10000;
+    startTime = System.currentTimeMillis();
+    for (int i=0; i < calls; i++) {
+        dummy = delegator.findByPrimaryKeyCache("Party", [partyId : "_NA_"]);
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime / 1000);
+
+    perfRow = [:];
+    perfRow.operation = "findByPrimaryKeyCache";
+    perfRow.entity = "Small:Party";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+  	createTestList = [];
+    calls = 1000;
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) { 
+        dummy = delegator.makeValue("Product", [autoCreateKeywords : "N", description : "Initial Description", internalName : "Auto-Test Name", productId : "_~WRITE_TEST~_" + i]);
+        createTestList.add(dummy); 
+        delegator.create(dummy);
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime / 1000);
+
+    perfRow = [:];
+    perfRow.operation = "create";
+    perfRow.entity = "Large:Product";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    calls = 1000;
+    startTime = System.currentTimeMillis();    
+    for (int i = 0; i < calls; i++) { 
+        dummy = createTestList.get(i); 
+        dummy.description = "This was a test from the performance groovy script";
+        dummy.store();
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime / 1000);
+
+    perfRow = [:];
+    perfRow.operation = "update";
+    perfRow.entity = "Large:Product";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    calls = 1000;
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) { 
+        dummy = createTestList.get(i); 
+        dummy.remove();
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = (double) calls / (totalTime / 1000);
+
+    perfRow = [:];
+    perfRow.operation = "remove";
+    perfRow.entity = "Large:Product";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    calls = 100000;
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) {
+        ptyMap = [:];
+        ptyMap.partyId = "_NA_";
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime / 1000);
+
+    perfRow = [:];
+    perfRow.operation = "new HashMap";
+    perfRow.entity = "N/A";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    calls = 100000;
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) {
+        ptyMap = UtilMisc.toMap("partyId", "_NA_");
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime / 1000);
+
+    perfRow = [:];
+    perfRow.operation = "UtilMisc.toMap";
+    perfRow.entity = "N/A";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    utilCache = new UtilCache("test-cache", 0, 0, false);
+    utilCache.put("testName", "testValue");
+    calls = 1000000;
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) {
+        utilCache.get("testName");
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime / 1000);
+
+    perfRow = [:];
+    perfRow.operation = "UtilCache.get(String) - basic settings";
+    perfRow.entity = "N/A";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    testPk = delegator.makePK("Party", [partyId : "_NA_"]);
+    utilCache.put(testPk, "testValue");
+    calls = 1000000;
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) {
+        utilCache.get(testPk);
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime/1000);
+
+    perfRow = [:];
+    perfRow.operation = "UtilCache.get(GenericPK) - basic settings";
+    perfRow.entity = "N/A";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    calls = 1000000;
+    startTime = System.currentTimeMillis();
+    for (int i = 0; i < calls; i++) {
+        utilCache.put(testPk, "testValue");
+    }
+    totalTime = System.currentTimeMillis() - startTime;
+    callsPerSecond = calls / (totalTime / 1000);
+
+    perfRow = [:];
+    perfRow.operation = "UtilCache.put(GenericPK) - basic settings";
+    perfRow.entity = "N/A";
+    perfRow.calls = decimalFormat.format(calls);
+    perfRow.seconds = decimalFormat.format(totalTime / 1000);
+    perfRow.secsPerCall = decimalFormat.format(1 / callsPerSecond);
+    perfRow.callsPerSecond = decimalFormat.format(callsPerSecond);
+    performanceList.add(perfRow);
+
+    context.performanceList = performanceList;
+}

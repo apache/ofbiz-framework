@@ -51,7 +51,7 @@ under the License.
              <actions>
                  <set field="titleProperty" value="PageTitleLogConfiguration"/>
                  <set field="logMenuItem" value="logConfiguration"/>
-                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/LogConfiguration.bsh"/>
+                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/LogConfiguration.groovy"/>
              </actions>
              <widgets>
                  <decorator-screen name="log-decorator">
@@ -112,7 +112,7 @@ under the License.
                  <!-- TODO: the following command is not really working (and the default value is always used);
                               my guess is that the base/config/debug.properties file is not found in the classpath -->
                  <property-to-field resource="debug" property="log4j.appender.css.File" field="logFileName" default="runtime/logs/ofbiz.html" no-locale="true"/>
-                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/LogView.bsh"/>
+                 <script location="component://webtools/webapp/webtools/WEB-INF/actions/log/LogView.groovy"/>
              </actions>
              <widgets>
                  <decorator-screen name="log-decorator">

@@ -100,7 +100,7 @@ under the License.
                 <set field="fieldName" from-field="parameters.fieldName"/>
                 <set field="selectFields" from-field="parameters.selectFields"/>
                 <set field="sortByFields" from-field="parameters.sortByFields"/>
-                <script location="component://common/webcommon/WEB-INF/actions/includes/findAutocompleteOptions.bsh"/>
+                <script location="component://common/webcommon/WEB-INF/actions/includes/FindAutocompleteOptions.groovy"/>
                 -->
             </actions>
             <widgets>

@@ -32,13 +32,12 @@ import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-String starSchemaName = parameters.get("starSchemaName");
-String[] selectedFields = request.getParameterValues("selectedField");
-context.put("columnNames", selectedFields);
+starSchemaName = parameters.starSchemaName;
+selectedFields = parameters.selectedField as Set;
+context.columnNames = selectedFields;
 
 List conditionList = null;
 EntityConditionList condition =  null;
-selectFields = UtilMisc.toSetArray(selectedFields);
 List orderByFields = null;
 EntityFindOptions findOptions = null;
 
@@ -52,6 +51,6 @@ orderByFields = null;
 findOptions = new EntityFindOptions(); 
 findOptions.setDistinct(false);
 
-records = delegator.findList(starSchemaName, condition, selectFields, orderByFields, findOptions, false);
+records = delegator.findList(starSchemaName, condition, selectedFields, orderByFields, findOptions, false);
 
-context.put("records", records);
+context.records = records;

@@ -26,39 +26,34 @@ import java.util.Iterator;
 import org.ofbiz.entity.*;
 import org.ofbiz.entity.model.ModelGroupReader;
 
-String resultMessage = "";
-ResultSet rs = null;
-ArrayList columns = new ArrayList();
-ArrayList records = new ArrayList();
-ArrayList groups = new ArrayList();
-ModelGroupReader mgr = delegator.getModelGroupReader();
-Iterator groupMapIt = mgr.getGroupNames(delegator.getDelegatorName()).iterator();
+resultMessage = "";
+rs = null;
+columns = [];
+records = [];
+mgr = delegator.getModelGroupReader();
+groups = mgr.getGroupNames(delegator.getDelegatorName());
 
-while (groupMapIt.hasNext()) {
-    groups.add(groupMapIt.next());
-}
-
-if (sqlCommand != null && sqlCommand.length() > 0 && selGroup != null && selGroup.length() > 0) {
-    String helperName = delegator.getGroupHelperName(selGroup);
-    SQLProcessor du = new SQLProcessor(helperName);
+if (sqlCommand && selGroup) {
+    helperName = delegator.getGroupHelperName(selGroup);
+    du = new SQLProcessor(helperName);
     try {
         if (sqlCommand.toUpperCase().startsWith("SELECT")) {
             rs = du.executeQuery(sqlCommand);
-            if (rs != null) {
-                ResultSetMetaData rsmd = rs.getMetaData();
-                int numberOfColumns = rsmd.getColumnCount();
-                for (int i = 1; i <= numberOfColumns; i++) {
+            if (rs) {
+                rsmd = rs.getMetaData();
+                numberOfColumns = rsmd.getColumnCount();
+                for (i = 1; i <= numberOfColumns; i++) {
                     columns.add(rsmd.getColumnName(i));
                 }
-                boolean rowLimitReached = false;
+                rowLimitReached = false;
                 while (rs.next()) {
                     if (records.size() >= rowLimit) {
-                        resultMessage = "Returned top " + rowLimit + " rows.";
+                        resultMessage = "Returned top $rowLimit rows.";
                         rowLimitReached = true;
                         break;
                     }
-                    ArrayList record = new ArrayList();
-                    for (int i = 1; i <= numberOfColumns; i++) {
+                    record = [];
+                    for (i = 1; i <= numberOfColumns; i++) {
                         record.add(rs.getObject(i));
                     }
                     records.add(record);
@@ -68,16 +63,14 @@ if (sqlCommand != null && sqlCommand.length() > 0 && selGroup != null && selGrou
             }
         } else {
             du.prepareStatement(sqlCommand);
-            int numOfaffectedRows = du.executeUpdate();
-            resultMessage = "Affected " + numOfaffectedRows + " rows.";
+            numOfAffectedRows = du.executeUpdate();
+            resultMessage = "Affected $numOfAffectedRows rows.";
         }
     } catch(Exception exc) {
         resultMessage = exc.getMessage();
     }
 }
-context.put("groups", groups);
-context.put("resultMessage", resultMessage);
-context.put("columns", columns);
-context.put("records", records);
-
-
+context.groups = groups;
+context.resultMessage = resultMessage;
+context.columns = columns;
+context.records = records;

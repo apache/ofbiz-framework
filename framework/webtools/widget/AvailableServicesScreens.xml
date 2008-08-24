@@ -26,7 +26,7 @@ under the License.
                 <set field="titleProperty" value="WebtoolsServiceReference"/>
                 <set field="appButtonItem" value="service"/>
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/availableservices.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/AvailableServices.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

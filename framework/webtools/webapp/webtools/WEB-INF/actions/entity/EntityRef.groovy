@@ -16,13 +16,18 @@
  * specific language governing permissions and limitations
  * under the License.
  */
+controlPath = parameters._CONTROL_PATH_;
+list = "$controlPath/view/entityref_list";
+main = "$controlPath/view/entityref_main";
+search = parameters.search;
+forstatic = parameters.forstatic;
 
-import org.ofbiz.base.util.FileUtil;
-
-StringBuffer sb = null;
-try {
-    sb = FileUtil.readTextFile(logFileName, true);
-} catch(Exception exc) {}
-if (sb != null) {
-    context.put("logFileContent", sb.toString());
+if (search) {
+    list = "$list?search=$search";
+    main = "$main?search=$search";
+} else if (forstatic) {
+    list = "$list?forstatic=$forstatic";
+    main = "$main?forstatic=$forstatic";
 }
+context.encodeUrlList = response.encodeURL(list);
+context.encodeUrlMain = response.encodeURL(main);

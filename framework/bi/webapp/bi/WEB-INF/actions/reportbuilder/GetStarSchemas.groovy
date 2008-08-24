@@ -29,24 +29,24 @@ import org.ofbiz.entity.model.ModelViewEntity;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-ModelReader reader = delegator.getModelReader();
-Collection ec = reader.getEntityNames();
-TreeSet entities = new TreeSet(ec);
-Iterator entitiesIt = entities.iterator();
+reader = delegator.getModelReader();
+ec = reader.getEntityNames();
+entities = new TreeSet(ec);
+entitiesIt = entities.iterator();
 
 List starSchemas = FastList.newInstance();
 
-while (entitiesIt != null && entitiesIt.hasNext()) {
-    ModelEntity entity = reader.getModelEntity((String)entitiesIt.next());
-    String packageName = entity.getPackageName();
+while (entitiesIt.hasNext()) {
+    entity = reader.getModelEntity(entitiesIt.next());
+    packageName = entity.getPackageName();
     if (!packageName.contains("starschema")) {
         continue;
     }
 
-    Map entityMap = FastMap.newInstance();
-    entityMap.put("name", entity.getEntityName());
-    entityMap.put("title", entity.getTitle());
+    entityMap = FastMap.newInstance();
+    entityMap.name = entity.getEntityName();
+    entityMap.title = entity.getTitle();
 
     starSchemas.add(entityMap);
 }
-context.put("starSchemas", starSchemas);
+context.starSchemas = starSchemas;

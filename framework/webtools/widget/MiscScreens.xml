@@ -41,7 +41,7 @@
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsEditCustomTimePeriods"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/period/EditCustomTimePeriod.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/period/EditCustomTimePeriod.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -75,7 +75,7 @@
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsReadXPDLFile"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/workflow/readxpdl.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/workflow/ReadXpdl.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -109,7 +109,7 @@
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsActiveWorkflowMonitor"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/workflow/workflowMonitor.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/workflow/WorkflowMonitor.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

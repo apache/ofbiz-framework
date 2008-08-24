@@ -28,14 +28,14 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
 
 andExprs = FastList.newInstance();
-fieldValue = request.getParameter(fieldName);
-if (UtilValidate.isNotEmpty(fieldValue)) {
+fieldValue = parameters[fieldName];
+if (fieldValue) {
     andExprs.add(EntityCondition.makeCondition(EntityFunction.UPPER(EntityFieldValue.makeFieldValue(fieldName)),
             EntityOperator.LIKE, "%" + fieldValue.toUpperCase() + "%"));
 }
 
-if (andExprs.size() > 0) {
+if (andExprs) {
     entityConditionList = EntityCondition.makeCondition(andExprs, EntityOperator.AND);
-    List autocompleteOptions = delegator.findList(entityName, entityConditionList, new TreeSet(StringUtil.toList(selectFields)), StringUtil.toList(sortByFields), null, false);
-    context.put("autocompleteOptions", autocompleteOptions);
+    autocompleteOptions = delegator.findList(entityName, entityConditionList, StringUtil.toList(selectFields) as Set, StringUtil.toList(sortByFields), null, false);
+    context.autocompleteOptions = autocompleteOptions;
 }

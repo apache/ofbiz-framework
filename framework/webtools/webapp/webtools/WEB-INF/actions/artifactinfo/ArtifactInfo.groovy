@@ -22,41 +22,40 @@ import org.ofbiz.webtools.artifactinfo.*;
 import org.ofbiz.base.util.*;
 import javolution.util.FastList;
 
-name = parameters.get("name");
-location = parameters.get("location");
-type = parameters.get("type");
-uniqueId = parameters.get("uniqueId");
+name = parameters.name;
+location = parameters.location;
+type = parameters.type;
+uniqueId = parameters.uniqueId;
 
 aif = ArtifactInfoFactory.getArtifactInfoFactory(delegator.getDelegatorName());
-context.put("aif", aif);
-
+context.aif = aif;
 artifactInfo = null;
-if ("search".equals(parameters.get("findType"))) {
+if ("search".equals(parameters.findType)) {
     artifactInfoSet = aif.getAllArtifactInfosByNamePartial(name, type);
     if (artifactInfoSet.size() == 1) {
-        artifactInfo = artifactInfoSet.iterator().next();
-        context.put("artifactInfo", artifactInfo);
+        artifactInfo = artifactInfoSet[0];
+        context.artifactInfo = artifactInfo;
     } else {
-        context.put("artifactInfoSet", new TreeSet(artifactInfoSet));
+        context.artifactInfoSet = new TreeSet(artifactInfoSet);
     }
 } else {
-    if (UtilValidate.isNotEmpty(name)) {
+    if (name) {
         artifactInfo = aif.getArtifactInfoByNameAndType(name, location, type);
-        context.put("artifactInfo", artifactInfo);
-    } else if (UtilValidate.isNotEmpty(uniqueId)) {
+        context.artifactInfo = artifactInfo;
+    } else if (uniqueId) {
         artifactInfo = aif.getArtifactInfoByUniqueIdAndType(uniqueId, type);
-        context.put("artifactInfo", artifactInfo);
+        context.artifactInfo = artifactInfo;
     }
 }
 
-if (artifactInfo != null) {
+if (artifactInfo) {
     // add to the recently viewed list
     recentArtifactInfoList = session.getAttribute("recentArtifactInfoList");
-    if (recentArtifactInfoList == null) {
+    if (!recentArtifactInfoLis) {
         recentArtifactInfoList = FastList.newInstance();
         session.setAttribute("recentArtifactInfoList", recentArtifactInfoList);
     }
-    if (recentArtifactInfoList.size() > 0 && recentArtifactInfoList.get(0).equals(artifactInfo)) {
+    if (recentArtifactInfoList && recentArtifactInfoList.get(0).equals(artifactInfo)) {
         // hmmm, I guess do nothing if it's already there
     } else {
         recentArtifactInfoList.add(0, artifactInfo);

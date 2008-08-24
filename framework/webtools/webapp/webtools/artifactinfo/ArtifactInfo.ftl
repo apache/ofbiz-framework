@@ -51,7 +51,7 @@ under the License.
       <form name="ArtifactInfoByNameAndType" method="post" action="<@ofbizUrl>ArtifactInfo</@ofbizUrl>" class="basic-form">
         <div>Name: <input type="text" name="name" value="${parameters.name?if_exists}" size="40"/></div>
         <div>Location: <input type="text" name="location" value="${parameters.location?if_exists}" size="60"/></div>
-        <div>
+        <div>Type: 
           <select name="type">
             <option>entity</option>
             <option>service</option>

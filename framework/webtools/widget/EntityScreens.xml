@@ -33,7 +33,7 @@ under the License.
                 <set field="rowLimit" from-field="parameters.rowLimit" type="Integer"/>
                 <set field="parameters.TRANSACTION_TIMEOUT" value="7200"/>
                 
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntitySQLProcessor.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntitySQLProcessor.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -207,7 +207,7 @@ under the License.
             </condition>
             <actions>
                 <set field="titleProperty" value="WebtoolsEntityDataMaintenance"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityMaint.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityMaint.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -277,7 +277,7 @@ under the License.
                 <if-has-permission permission="ENTITY_MAINT"/>
             </condition>
             <actions>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewRelations.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/ViewRelations.groovy"/>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap"/>
                 <set field="title" value="${uiLabelMap.WebtoolsRelations}: ${entityName}"/>
             </actions>
@@ -303,7 +303,7 @@ under the License.
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsEntityReferenceChart"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRef.bsh"/>                            
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRef.groovy"/>                            
             </actions>
             <widgets> 
                 <section>
@@ -357,7 +357,7 @@ under the License.
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsEntityReference"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRefList.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityRefList.groovy"/>
             </actions>
             <widgets> 
                 <section>
@@ -419,7 +419,7 @@ under the License.
             <actions>
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="WebtoolsCheckUpdateDatabase"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/CheckDb.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/CheckDb.groovy"/>
             </actions>
             <widgets>  
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -453,7 +453,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="WebtoolsPerformanceTests"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityPerformanceTest.bsh"/>                            
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/EntityPerformanceTest.groovy"/>
             </actions>
             <widgets>  
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -472,7 +472,7 @@ under the License.
                 <property-map resource="WebtoolsUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="headerItem" value="main"/>
                 <set field="titleProperty" value="PageTitleEntityExport"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/xmldsdump.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/entity/XmlDsDump.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

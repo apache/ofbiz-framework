@@ -20,13 +20,13 @@
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.base.util.Debug;
 
-Debug.logInfo("-=-=-=- TEST BSH SERVICE -=-=-=-", "");
+Debug.logInfo("-=-=-=- TEST GROOVY SERVICE -=-=-=-", "");
 result = ServiceUtil.returnSuccess();
-if (context.message != null) {
+if (context.message) {
     message = context.message;
-    result.successMessage = "Got message [" + message + "] and finished fine";
+    result.successMessage = "Got message [$message] and finished fine";
     result.result = message;
-    Debug.logInfo("----- Message is: " + message + " -----", "");
+    Debug.logInfo("----- Message is: $message -----", "");
 } else {
     result.successMessage = "Got no message but finished fine anyway";
     result.result = "[no message received]";

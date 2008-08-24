@@ -27,19 +27,20 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.workflow.definition.*;
 import org.ofbiz.workflow.*;
 
-String workflow = request.getParameter("workflow");
-GenericValue workflowDef = null;
-if (workflow == null) {									
-	List runningProcesses = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortTypeId", "WORK_FLOW", "currentStatusId", "WF_RUNNING"));
-	if (runningProcesses != null)
-		context.put("runningProcesses", runningProcesses);
+workflow = parameters.workflow;
+workflowDef = null;
+if (!workflow) {									
+    runningProcesses = delegator.findByAnd("WorkEffort", [workEffortTypeId : "WORK_FLOW", currentStatusId : "WF_RUNNING"]);
+    if (runningProcesses) {
+        context.runningProcesses = runningProcesses;
+    }
 } else {
-    workflowDef = delegator.findByPrimaryKey("WorkEffort", UtilMisc.toMap("workEffortId", workflow));
-    if (workflowDef != null) {
-        context.put("workflow", workflowDef);
-		List activities = delegator.findByAnd("WorkEffort", UtilMisc.toMap("workEffortParentId", workflow));
-		if (activities != null) {
-			context.put("activities", activities);
-		}
-	}
+    workflowDef = delegator.findByPrimaryKey("WorkEffort", [workEffortId : workflow]);
+    if (workflowDef) {
+        context.workflow = workflowDef;
+        activities = delegator.findByAnd("WorkEffort", [workEffortParentId : workflow]);
+        if (activities) {
+            context.activities = activities;
+        }
+    }
 }

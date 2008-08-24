@@ -31,36 +31,29 @@ import org.ofbiz.service.engine.GenericEngine;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 
-locale = UtilHttp.getLocale(request);
-request.setAttribute("locale",locale);
 uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
 uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
-List threads = new ArrayList();
-List jobs = dispatcher.getJobManager().processList();
-if (jobs != null) {
-    Iterator i = jobs.iterator();
-    while (i.hasNext()) {
-        Map job = (Map) i.next();
-        String status = uiLabelMap.get("WebtoolsStatusInvalid");
-        int state = ((Integer) job.get("status")).intValue();
-        switch (state) {
-            case 0 : status = uiLabelMap.get("WebtoolsStatusSleeping"); break;
-            case 1 : status = uiLabelMap.get("WebtoolsStatusRunning"); break;
-            case -1: status = uiLabelMap.get("WebtoolsStatusShuttingDown"); break;
-            default: status = uiLabelMap.get("WebtoolsStatusInvalid"); break;
-        }
-        job.put("status", status);
-        threads.add(job);
+threads = [];
+jobs = dispatcher.getJobManager().processList();
+jobs.each { job ->
+    state = job.status;
+    switch (state) {
+        case 0 : status = uiLabelMap.WebtoolsStatusSleeping; break;
+        case 1 : status = uiLabelMap.WebtoolsStatusRunning; break;
+        case -1: status = uiLabelMap.WebtoolsStatusShuttingDown; break;
+        default: status = uiLabelMap.WebtoolsStatusInvalid; break;
     }
+    job.status = status;
+    threads.add(job);
 }
-context.put("threads", threads);
+context.threads = threads;
 
 // Some stuff for general threads on the server
 currentThread = Thread.currentThread();
 currentThreadGroup = currentThread.getThreadGroup();
 topThreadGroup = currentThreadGroup;
-while (topThreadGroup.getParent() != null) {
+while (topThreadGroup.getParent()) {
     topThreadGroup = topThreadGroup.getParent();
 }
 
@@ -68,4 +61,4 @@ Thread[] allThreadArray = new Thread[1000];
 topThreadGroup.enumerate(allThreadArray);
 allThreadList = Arrays.asList(allThreadArray);
 
-context.put("allThreadList", allThreadList);
+context.allThreadList = allThreadList;

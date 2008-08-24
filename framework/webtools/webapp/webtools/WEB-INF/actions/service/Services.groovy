@@ -30,26 +30,19 @@ import org.ofbiz.service.engine.GenericEngine;
 import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilProperties;
 
-locale = UtilHttp.getLocale(request);
-request.setAttribute("locale",locale);
 uiLabelMap = UtilProperties.getResourceBundleMap("WebtoolsUiLabels", locale);
 uiLabelMap.addBottomResourceBundle("CommonUiLabels");
 
-Map log = ServiceDispatcher.getServiceLogMap();
-List serviceList = new ArrayList();
-if (log != null) {
-    Iterator i = log.keySet().iterator();
-    while (i.hasNext()) {
-        Map service = new HashMap();
-        RunningService rs = (RunningService) i.next();
+log = ServiceDispatcher.getServiceLogMap();
+serviceList = [];
+log.each { rs, value ->
+    service = [:];
+    service.serviceName = rs.getModelService().name;
+    service.localName = rs.getLocalName();
+    service.startTime = rs.getStartStamp();
+    service.endTime = rs.getEndStamp();
+    service.modeStr = rs.getMode() == GenericEngine.SYNC_MODE ? uiLabelMap.WebtoolsSync : uiLabelMap.WebtoolsAsync;
 
-        service.put("serviceName", rs.getModelService().name);
-        service.put("localName", rs.getLocalName());
-        service.put("startTime", rs.getStartStamp());
-        service.put("endTime", rs.getEndStamp());
-        service.put("modeStr", (rs.getMode() == GenericEngine.SYNC_MODE? uiLabelMap.get("WebtoolsSync") : uiLabelMap.get("WebtoolsAsync")));
-
-        serviceList.add(service);
-    }
+    serviceList.add(service);
 }
-context.put("services", serviceList);
+context.services = serviceList;

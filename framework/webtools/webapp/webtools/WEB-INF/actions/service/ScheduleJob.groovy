@@ -35,48 +35,47 @@ import org.ofbiz.service.RunningService;
 import org.ofbiz.service.engine.GenericEngine;
 import org.ofbiz.service.config.ServiceConfigUtil;
 
-Map savedSyncResult = null;
-if( null!=session.getAttribute("_SAVED_SYNC_RESULT_") ){
-    savedSyncResult = (Map)session.getAttribute("_SAVED_SYNC_RESULT_");
+savedSyncResult = null;
+if (session.getAttribute("_SAVED_SYNC_RESULT_") != null) {
+    savedSyncResult = session.getAttribute("_SAVED_SYNC_RESULT_");
 }
 
-String serviceName = request.getParameter("SERVICE_NAME");
-context.put("POOL_NAME", ServiceConfigUtil.getSendPool());
+serviceName = parameters.SERVICE_NAME;
+context.POOL_NAME = ServiceConfigUtil.getSendPool();
 
-List scheduleOptions = new ArrayList();
-List serviceParameters = new ArrayList();
-Enumeration e = request.getParameterNames();
+scheduleOptions = [];
+serviceParameters = [];
+e = request.getParameterNames();
 while (e.hasMoreElements()) {
-    String paramName = (String) e.nextElement();
-    String paramValue = request.getParameter(paramName);
-    scheduleOptions.add(UtilMisc.toMap("name", paramName, "value", paramValue));
+    paramName = e.nextElement();
+    paramValue = parameters[paramName];
+    scheduleOptions.add([name : paramName, value : paramValue]);
 }
 
-context.put("scheduleOptions", scheduleOptions);
+context.scheduleOptions = scheduleOptions;
 
-if (UtilValidate.isNotEmpty(serviceName)) {
-    DispatchContext dctx = dispatcher.getDispatchContext();
-    ModelService model = null;
+if (serviceName) {
+    dctx = dispatcher.getDispatchContext();
+    model = null;
     try {
         model = dctx.getModelService(serviceName);
     } catch(Exception exc) {
-        context.put("errorMessageList", UtilMisc.toList(exc.getMessage()));
+        context.errorMessageList = [exc.getMessage()];
     }
     if (model != null) {
-        Iterator params = model.getInParamNames().iterator();
-        while (params.hasNext()) {
-            ModelParam par = model.getParam((String) params.next());
+        model.getInParamNames().each { paramName ->
+            par = model.getParam(paramName);
             if (par.internal) {
-                continue;
+                return;
             }
-            Map serviceParam = null;
-            if(null != savedSyncResult && null != savedSyncResult.get(par.name)){
-                serviceParam = UtilMisc.toMap("name", par.name, "type", par.type, "optional", (par.optional? "Y": "N"), "defaultValue", par.defaultValue, "value", savedSyncResult.get(par.name).toString());
-            }else{
-                serviceParam = UtilMisc.toMap("name", par.name, "type", par.type, "optional", (par.optional? "Y": "N"), "defaultValue", par.defaultValue);
+            serviceParam = null;
+            if (savedSyncResult?.get(par.name)) {
+                serviceParam = [name : par.name, type : par.type, optional : par.optional ? "Y" : "N", defaultValue : par.defaultValue, value : savedSyncResult.get(par.name)];
+            } else {
+                serviceParam = [name : par.name, type : par.type, optional : par.optional ? "Y" : "N", defaultValue : par.defaultValue];
             }
             serviceParameters.add(serviceParam);
         }
     }
 }
-context.put("serviceParameters", serviceParameters);
+context.serviceParameters = serviceParameters;
