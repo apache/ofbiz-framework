@@ -28,7 +28,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="WebtoolsArtifactInfo"/>
                 <set field="headerItem" value="ArtifactInfo"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/artifactinfo/ArtifactInfo.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/artifactinfo/ArtifactInfo.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

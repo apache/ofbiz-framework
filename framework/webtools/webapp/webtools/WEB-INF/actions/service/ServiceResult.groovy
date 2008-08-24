@@ -32,34 +32,30 @@ import org.ofbiz.webapp.event.CoreEvents;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
-if(null!=session.getAttribute("_RUN_SYNC_RESULT_")){
-    List serviceResultList = FastList.newInstance();
-    Map serviceResult = (Map)session.getAttribute("_RUN_SYNC_RESULT_");
+if (session.getAttribute("_RUN_SYNC_RESULT_")) {
+    serviceResultList = FastList.newInstance();
+    serviceResult = session.getAttribute("_RUN_SYNC_RESULT_");
 
-    if(request.getParameter("servicePath")!=null && !request.getParameter("servicePath").equals("")){
-        String servicePath = request.getParameter("servicePath");
+    if (parameters.servicePath) {
+        servicePath = parameters.servicePath;
         newServiceResult = CoreEvents.getObjectFromServicePath(servicePath, serviceResult);
-        if(null!=newServiceResult && newServiceResult instanceof Map)
+        if (newServiceResult && newServiceResult instanceof Map) {
             serviceResult = newServiceResult;
-        context.put("servicePath", servicePath);
+        }
+        context.servicePath = servicePath;
     }
-    
-    Set serviceResultSet = serviceResult.keySet();
-    Iterator serviceResultItr = serviceResultSet.iterator();
-    while(serviceResultItr.hasNext()){
-        String key = serviceResultItr.next();
-        Map valueMap = UtilMisc.toMap("key", key, "value", (null==serviceResult.get(key))?"null":serviceResult.get(key).toString());
-        if(serviceResult.get(key) instanceof GenericEntity || 
-            serviceResult.get(key) instanceof HashMap || 
-            serviceResult.get(key) instanceof Collection){
-            valueMap.put("hasChild", "Y");
-        }else{
-            valueMap.put("hasChild", "N");
+
+    serviceResult.each { key, value ->
+        valueMap = [key : key, value : value.toString()];
+        if (value instanceof Map || value instanceof Collection) {
+            valueMap.hasChild = "Y";
+        } else {
+            valueMap.hasChild = "N";
         }
         serviceResultList.add(valueMap);
     }
 
-    context.put("serviceResultList", serviceResultList);
+    context.serviceResultList = serviceResultList;
 }
 
 

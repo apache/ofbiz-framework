@@ -17,11 +17,11 @@ specific language governing permissions and limitations
 under the License.
 --%><%@ page import="java.io.*, java.util.*, java.net.*, org.w3c.dom.*, org.ofbiz.security.*, org.ofbiz.entity.*, org.ofbiz.entity.condition.*, org.ofbiz.entity.util.*, org.ofbiz.base.util.*, org.ofbiz.entity.model.*, org.ofbiz.entity.transaction.*" %><%@ taglib uri="ofbizTags" prefix="ofbiz" %><jsp:useBean id="security" type="org.ofbiz.security.Security" scope="request" /><jsp:useBean id="delegator" type="org.ofbiz.entity.GenericDelegator" scope="request" /><%
   if(security.hasPermission("ENTITY_MAINT", session)) {
-      String[] entityName = (String[]) session.getAttribute("xmlrawdump_entitylist");
+      TreeSet passedEntityNames = (TreeSet) session.getAttribute("xmlrawdump_entitylist");
       session.removeAttribute("xmlrawdump_entitylist");
       EntityExpr entityDateCond = (EntityExpr) session.getAttribute("entityDateCond");
       session.removeAttribute("entityDateCond");
-      if (entityName != null) {
+      if (passedEntityNames != null) {
 
           ModelReader reader = delegator.getModelReader();
           Collection ec = reader.getEntityNames();
@@ -33,12 +33,7 @@ under the License.
           response.setContentType("text/xml; charset=UTF-8");
           //UtilXml.writeXmlDocument(, document);
 
-          if(entityName != null && entityName.length > 0) {
-            TreeSet passedEntityNames = new TreeSet();
-            for(int inc=0; inc<entityName.length; inc++) {
-              passedEntityNames.add(entityName[inc]);
-            }
-
+          if(passedEntityNames.size() > 0) {
             numberOfEntities = passedEntityNames.size();
             
             PrintWriter writer = null;

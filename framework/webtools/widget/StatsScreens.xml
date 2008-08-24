@@ -26,7 +26,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="WebtoolsStatsMainPageTitle"/>
                 <set field="headerItem" value="stats"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/stats/StatsSinceStart.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/stats/StatsSinceStart.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -51,7 +51,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="WebtoolsStatsMainPageTitle"/>
                 <set field="headerItem" value="stats"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/stats/StatBinsHistory.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/stats/StatBinsHistory.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

@@ -57,7 +57,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleServiceList"/>
                 <set field="tabButtonItem" value="ServiceList"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/services.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/Services.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonServiceDecorator">
@@ -112,7 +112,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleThreadList"/>
                 <set field="tabButtonItem" value="ThreadList"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/threads.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/Threads.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonServiceDecorator">
@@ -130,7 +130,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
                 <set field="tabButtonItem" value="ScheduleJob"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonServiceDecorator">
@@ -160,7 +160,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleRunService"/>
                 <set field="tabButtonItem" value="RunService"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonServiceDecorator">
@@ -183,7 +183,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
                 <set field="tabButtonItem" value="ScheduleJob"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonServiceDecorator">
@@ -209,7 +209,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
                 <set field="headerItem" value="services"/>
                 <set field="tabButtonItem" value="ScheduleJob"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/scheduleJob.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ScheduleJob.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -235,7 +235,7 @@ under the License.
                 <set field="titleProperty" value="PageTitleScheduleJob"/>
                 <set field="headerItem" value="services"/>
                 <set field="tabButtonItem" value="ScheduleJob"/>
-                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/serviceResult.bsh"/>
+                <script location="component://webtools/webapp/webtools/WEB-INF/actions/service/ServiceResult.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

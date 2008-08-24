@@ -25,64 +25,55 @@ import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelViewEntity;
 
-delegator = request.getAttribute("delegator");
+mgr = delegator.getModelGroupReader();
+entityGroups = mgr.getGroupNames(delegator.getDelegatorName()).iterator();
 
-ModelGroupReader mgr = delegator.getModelGroupReader();
-Iterator groupMapIt = mgr.getGroupNames(delegator.getDelegatorName()).iterator();
-List entityGroups = FastList.newInstance();
+filterByGroupName = parameters.filterByGroupName;
+context.filterByGroupName = filterByGroupName;
 
-while (groupMapIt.hasNext()) {
-    entityGroups.add(groupMapIt.next());
-}
-
-filterByGroupName = parameters.get("filterByGroupName");
-context.put("filterByGroupName", filterByGroupName);
-
-ModelReader reader = delegator.getModelReader();
-Collection ec = reader.getEntityNames();
-TreeSet entities = new TreeSet(ec);
-Iterator classNamesIterator = entities.iterator();
+reader = delegator.getModelReader();
+entities = new TreeSet(reader.getEntityNames());
 
 int colSize = entities.size()/3 + 1;
 int kIdx = 0;
-List entitiesList = new ArrayList();
-while (classNamesIterator != null && classNamesIterator.hasNext()) {
-    ModelEntity entity = reader.getModelEntity((String)classNamesIterator.next());
+entitiesList = [];
+entities.each { entityName ->
+    entity = reader.getModelEntity(entityName);
 
-    if (UtilValidate.isNotEmpty(filterByGroupName) && !filterByGroupName.equals(delegator.getEntityGroupName(entity.getEntityName()))) {
-    	continue;
+    if (filterByGroupName && !filterByGroupName.equals(delegator.getEntityGroupName(entity.getEntityName()))) {
+    	return;
     }
 
-    String viewEntity = "N";
+    viewEntity = "N";
     if (entity instanceof ModelViewEntity) {
         viewEntity = "Y";
     }
 
-    String entityPermissionView = "N";
+    entityPermissionView = "N";
     if (security.hasEntityPermission("ENTITY_DATA", "_VIEW", session) || security.hasEntityPermission(entity.getPlainTableName(), "_VIEW", session)) {
         entityPermissionView = "Y";
     }
     
-    String entityPermissionCreate = "N";
+    entityPermissionCreate = "N";
     if (security.hasEntityPermission("ENTITY_DATA", "_CREATE", session) || security.hasEntityPermission(entity.getPlainTableName(), "_CREATE", session)) { 
         entityPermissionCreate = "Y";
     }
         
-    String changeColumn = "N";
+    changeColumn = "N";
     kIdx++;
     if (kIdx >= colSize) {
         colSize += colSize;
         changeColumn = "Y";
     }
     
-    Map entityMap = new HashMap();
-    entityMap.put("entityName", entity.getEntityName());
-    entityMap.put("entityPermissionView", entityPermissionView);
-    entityMap.put("entityPermissionCreate", entityPermissionCreate);
-    entityMap.put("viewEntity", viewEntity);
-    entityMap.put("changeColumn", changeColumn);
+    entityMap = [:];
+    entityMap.entityName = entity.getEntityName();
+    entityMap.entityPermissionView = entityPermissionView;
+    entityMap.entityPermissionCreate = entityPermissionCreate;
+    entityMap.viewEntity = viewEntity;
+    entityMap.changeColumn = changeColumn;
 
     entitiesList.add(entityMap);
 }
-context.put("entityGroups", entityGroups);
-context.put("entitiesList", entitiesList);
+context.entityGroups = entityGroups;
+context.entitiesList = entitiesList;

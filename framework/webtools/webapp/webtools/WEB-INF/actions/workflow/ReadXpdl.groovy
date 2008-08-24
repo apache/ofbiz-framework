@@ -28,47 +28,44 @@ import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.transaction.*;
 
-List messages = new LinkedList();
+messages = [];
     
-String xpdlLoc = request.getParameter("XPDL_LOCATION");
-boolean xpdlIsUrl = request.getParameter("XPDL_IS_URL")!=null?true:false;
-boolean xpdlImport = request.getParameter("XPDL_IMPORT")!=null?true:false;
-    
+xpdlLoc = parameters.XPDL_LOCATION;
+xpdlIsUrl = parameters.XPDL_IS_URL != null;
+xpdlImport = parameters.XPDL_IMPORT != null;
+
 URL xpdlUrl = null;
 try {
-    xpdlUrl = xpdlIsUrl?new URL(xpdlLoc):UtilURL.fromFilename(xpdlLoc);
-}
-catch (java.net.MalformedURLException e) {
+    xpdlUrl = xpdlIsUrl ? new URL(xpdlLoc) : UtilURL.fromFilename(xpdlLoc);
+} catch (java.net.MalformedURLException e) {
     messages.add(e.getMessage());
     messages.add(e.toString());
     Debug.log(e);
 }
-if (xpdlUrl == null) {
+if (!xpdlUrl) {
     messages.add("Could not find file/URL: " + xpdlLoc);
 }
-    
-List toBeStored = null;
+
+toBeStored = null;
 try {
-    if (xpdlUrl != null) {
+    if (xpdlUrl) {
         toBeStored = XpdlReader.readXpdl(xpdlUrl, delegator);
-        context.put("toBeStored", toBeStored);
+        context.toBeStored = toBeStored;
     }
-}
-catch (Exception e) {
+} catch (Exception e) {
     messages.add(e.getMessage());
     messages.add(e.toString());
     Debug.log(e);
 }
-		
-if (toBeStored != null && xpdlImport) {
-    boolean beganTransaction = false;
+	
+if (toBeStored && xpdlImport) {
+    beganTransaction = false;
     try {
         beganTransaction = TransactionUtil.begin();
         delegator.storeAll(toBeStored);
         TransactionUtil.commit(beganTransaction);
         messages.add("Wrote/Updated " + toBeStored.size() + " toBeStored objects to the data source.");
-    }
-    catch (GenericEntityException e) {
+    } catch (GenericEntityException e) {
         TransactionUtil.rollback(beganTransaction, "Error storing data from XPDL file", e);
         messages.add(e.getMessage());
         messages.add(e.toString());
@@ -76,4 +73,4 @@ if (toBeStored != null && xpdlImport) {
     }
 }
 
-context.put("messages", messages);
+context.messages = messages;
