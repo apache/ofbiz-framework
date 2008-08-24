@@ -699,7 +699,7 @@ under the License.
         <field name="thruDate"><date-time/></field>
         <field name="comments"><text/></field>
         <field name="updateButton"><submit button-type="button"/></field>
-        <field name="deleteButton"><hyperlink description="${uiLabelMap.CommonDelete}" target="deletePartyRelationship?partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;fromDate=${fromDate}"/></field>
+        <field name="deleteButton"><hyperlink description="${uiLabelMap.CommonDelete}" target="deletePartyRelationship?partyId=${parameters.partyId}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;fromDate=${fromDate}"/></field>
     </form>
 
     <form name="AddOtherPartyRelationship" type="single" target="createAccountContact">
