@@ -1238,6 +1238,12 @@
         <value xml:lang="th">ปีกับผู้ว่าจ้าง</value>
         <value xml:lang="zh">年为雇主</value>
     </property>
+    <property key="InTheRoleOf">
+        <value xml:lang="en">in the Role of</value>
+    </property>
+    <property key="IsA"><!-- Peter 'is a' employee of company B -->
+        <value xml:lang="en">is A</value>
+    </property>
     <property key="ListRelatedContacts">
         <value xml:lang="en">List Related Contacts</value>
         <value xml:lang="fr">Voir les contact associés</value>
@@ -2043,6 +2049,9 @@
         <value xml:lang="en">New Address</value>
         <value xml:lang="fr">Nouvelle adresse</value>
         <value xml:lang="th">ที่อยู่ใหม่</value>
+    </property>
+    <property key="PartyAddOtherRelationship">
+        <value xml:lang="en">Add other party relationship</value>
     </property>
     <property key="PartyAddPermissionManuallyToSecurityGroup">
         <value xml:lang="de">Berechtigung (durch Eingabe) zur Sicherheitsgruppe hinzufügen</value>
@@ -5196,6 +5205,9 @@
         <value xml:lang="ru">Это не может быть изменено без повторного создания группы безопасности.</value>
         <value xml:lang="th">นี่ไม่สามารถเปลี่ยนแปลงได้หากปราศจากการสร้างกลุ่มความปลอดภัย</value>
         <value xml:lang="zh">如果不重新创建安全组的话，不能修改这个。</value>
+    </property>
+    <property key="PartyOfParty">
+        <value xml:lang="en">of Party</value>
     </property>
     <property key="PartyOptional">
         <value xml:lang="de">Optional</value>
