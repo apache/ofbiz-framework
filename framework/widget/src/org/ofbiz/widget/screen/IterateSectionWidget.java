@@ -59,7 +59,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
     protected FlexibleStringExpander paginateTarget;
     protected boolean paginate = true;
     
-    public static int DEFAULT_PAGE_SIZE = 100;
+    public static int DEFAULT_PAGE_SIZE = 5;
     protected int viewIndex = 0;
     protected int viewSize = DEFAULT_PAGE_SIZE;
     protected int lowIndex = -1;
