@@ -552,6 +552,7 @@
     </property>
     <property key="HumanResEmploymentApp">
         <value xml:lang="en">Employment Applications</value>
+        <value xml:lang="fr">Demandes d'emploi</value>
         <value xml:lang="it">Applicazione Impiegato</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจ้างงาน</value>
     </property>
@@ -768,6 +769,7 @@
     </property>
     <property key="HumanResPartySkills">
         <value xml:lang="en">Party Skills</value>
+        <value xml:lang="fr">Compétences de l'acteur</value>
     </property>
     <property key="HumanResEditEmplPositionType">
         <value xml:lang="en">Edit Position Types</value>
@@ -842,6 +844,7 @@
     </property>
     <property key="HumanResPartyResume">
         <value xml:lang="en">Resumes</value>
+        <value xml:lang="fr">CV</value>
     </property>
     <property key="HumanResPartyReview">
         <value xml:lang="en">Party Review</value>
@@ -989,6 +992,7 @@
     </property>
     <property key="HumanResTraining">
         <value xml:lang="en">Trainings</value>
+        <value xml:lang="fr">Formation</value>
     </property>
     <property key="HumanResViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
