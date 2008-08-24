@@ -45,7 +45,8 @@ under the License.
         <field name="oldValueText" type="long-varchar"></field>
         <field name="newValueText" type="long-varchar"></field>
         <field name="changedDate" type="date-time"></field>
-        <field name="changedByInfo" type="long-varchar"><description>This should contain whatever information about the user or system that changed the value that is available. This could be a userLoginId, but could be something else too, so there is no foreign key.</description></field>
+        <field name="changedByInfo" type="long-varchar"><description>This should contain whatever information is available about the user or system that changed the value. This could be a userLoginId, but could be something else too, so there is no foreign key.</description></field>
+        <field name="changedSessionInfo" type="long-varchar"><description>This should contain whatever information is available about the session during which the value was changed. This could be a visitId, but could be something else too, so there is no foreign key.</description></field>
         <prim-key field="auditHistorySeqId"/>
     </entity>
     <entity entity-name="EntityKeyStore" package-name="org.ofbiz.entity.crypto" title="Entity Key Store Entity">

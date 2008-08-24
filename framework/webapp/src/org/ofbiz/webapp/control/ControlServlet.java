@@ -181,7 +181,13 @@ public class ControlServlet extends HttpServlet {
         // setup some things that should always be there
         UtilHttp.setInitialRequestInfo(request);
         VisitHandler.getVisitor(request, response);
-        
+
+        // set the Entity Engine user info if we have a userLogin
+        String visitId = VisitHandler.getVisitId(session);
+        if (UtilValidate.isNotEmpty(visitId)) {
+            GenericDelegator.pushSessionIdentifier(visitId);
+        }
+
         // display details on the servlet objects
         if (Debug.verboseOn()) {
             logRequestInfo(request);
@@ -276,9 +282,6 @@ public class ControlServlet extends HttpServlet {
         } catch (GenericTransactionException e) {
             Debug.logWarning(e, module);
         }
-        
-        // sanity check 2: make sure there are no user infos in the delegator, ie clear the thread
-        GenericDelegator.clearUserIdentifierStack();
 
         // run these two again before the ServerHitBin.countRequest call because on a logout this will end up creating a new visit
         if (response.isCommitted() && request.getSession(false) == null) {
@@ -297,6 +300,10 @@ public class ControlServlet extends HttpServlet {
             }
         }
         if (Debug.timingOn()) timer.timerString("[" + rname + "] Done rendering page, Servlet Finished", module);
+
+        // sanity check 2: make sure there are no user or session infos in the delegator, ie clear the thread
+        GenericDelegator.clearUserIdentifierStack();
+        GenericDelegator.clearSessionIdentifierStack();
     }
 
     /**

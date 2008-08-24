@@ -109,8 +109,11 @@ public class GenericDelegator implements DelegatorInterface {
     protected SequenceUtil sequencer = null;
     protected EntityCrypto crypto = null;
     
-    /** A ThreadLocal variable to allow other methods to specify an identifier (usually the userLoginId, though technically the Entity Engine doesn't know anything about the UserLogin entity) */
+    /** A ThreadLocal variable to allow other methods to specify a user identifier (usually the userLoginId, though technically the Entity Engine doesn't know anything about the UserLogin entity) */
     protected static ThreadLocal<List<Object>> userIdentifierStack = new ThreadLocal<List<Object>>();
+    /** A ThreadLocal variable to allow other methods to specify a session identifier (usually the visitId, though technically the Entity Engine doesn't know anything about the Visit entity) */
+    protected static ThreadLocal<List<Object>> sessionIdentifierStack = new ThreadLocal<List<Object>>();
+    
 
     public static GenericDelegator getGenericDelegator(String delegatorName) {
         if (delegatorName == null) {
@@ -180,6 +183,47 @@ public class GenericDelegator implements DelegatorInterface {
     
     public static void clearUserIdentifierStack() {
         List<Object> curValList = getUserIdentifierStack();
+        curValList.clear();
+    }
+
+    protected static List<Object> getSessionIdentifierStack() {
+        List<Object> curValList = sessionIdentifierStack.get();
+        if (curValList == null) {
+            curValList = FastList.newInstance();
+            sessionIdentifierStack.set(curValList);
+        }
+        return curValList;
+    }
+    
+    public static String getCurrentSessionIdentifier() {
+        List<Object> curValList = getSessionIdentifierStack();
+        Object curVal = curValList.size() > 0 ? curValList.get(0) : null;
+        if (curVal == null) {
+            return null;
+        } else {
+            return curVal.toString();
+        }
+    }
+    
+    public static void pushSessionIdentifier(String sessionIdentifier) {
+        if (sessionIdentifier == null) {
+            return;
+        }
+        List<Object> curValList = getSessionIdentifierStack();
+        curValList.add(0, sessionIdentifier);
+    }
+    
+    public static String popSessionIdentifier() {
+        List<Object> curValList = getSessionIdentifierStack();
+        if (curValList.size() == 0) {
+            return null;
+        } else {
+            return (String) curValList.remove(0);
+        }
+    }
+    
+    public static void clearSessionIdentifierStack() {
+        List<Object> curValList = getSessionIdentifierStack();
         curValList.clear();
     }
 
@@ -3284,6 +3328,7 @@ public class GenericDelegator implements DelegatorInterface {
 
         entityAuditLog.set("changedDate", UtilDateTime.nowTimestamp());
         entityAuditLog.set("changedByInfo", getCurrentUserIdentifier());
+        entityAuditLog.set("changedSessionInfo", getCurrentSessionIdentifier());
         
         this.create(entityAuditLog);
     }
