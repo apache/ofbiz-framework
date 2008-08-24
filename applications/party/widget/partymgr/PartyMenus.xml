@@ -173,4 +173,10 @@ under the License.
         </menu-item>
     </menu>
     
+    <menu name="addSchipper">
+        <menu-item name="new" title="${uiLabelMap.CommonCreateNew}">
+            <link target="editCarrierAccount?partyId=${party.partyId}"/>
+        </menu-item>
+    </menu>
+    
 </menus>

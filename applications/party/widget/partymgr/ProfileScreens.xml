@@ -444,13 +444,9 @@
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
-                <screenlet title="${uiLabelMap.PartyShipperAccount}">
-                    <platform-specific>
-                        <html>
-                            <html-template location="component://party/webapp/partymgr/party/profileblocks/ShipperAccount.ftl"/>
-                        </html>
-                    </platform-specific> 
-                        <include-form name="ListCarrierAccounts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                <screenlet title="${uiLabelMap.PartyShipperAccount}" navigation-menu-name="addSchipper">
+                    <include-menu name="addSchipper" location="component://party/widget/partymgr/PartyMenus.xml"/>
+                    <include-form name="ListCarrierAccounts" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                 </screenlet>
             </widgets>
         </section>
