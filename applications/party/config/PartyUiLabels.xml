@@ -1243,10 +1243,11 @@
     </property>
     <property key="IsA"><!-- Peter 'is a' employee of company B -->
         <value xml:lang="en">is A</value>
+        <value xml:lang="fr">est un</value>
     </property>
     <property key="ListRelatedContacts">
         <value xml:lang="en">List Related Contacts</value>
-        <value xml:lang="fr">Voir les contact associés</value>
+        <value xml:lang="fr">Voir les contacts associés</value>
     </property>
     <property key="ListRelatedAccounts">
         <value xml:lang="en">List Related Accounts</value>
@@ -2052,6 +2053,7 @@
     </property>
     <property key="PartyAddOtherRelationship">
         <value xml:lang="en">Add other party relationship</value>
+        <value xml:lang="fr">Ajouter une autre relation entre acteurs</value>
     </property>
     <property key="PartyAddPermissionManuallyToSecurityGroup">
         <value xml:lang="de">Berechtigung (durch Eingabe) zur Sicherheitsgruppe hinzufügen</value>
@@ -5208,6 +5210,7 @@
     </property>
     <property key="PartyOfParty">
         <value xml:lang="en">of Party</value>
+        <value xml:lang="fr">de l'acteur</value>
     </property>
     <property key="PartyOptional">
         <value xml:lang="de">Optional</value>
