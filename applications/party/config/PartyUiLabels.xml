@@ -174,9 +174,11 @@
     </property>
     <property key="AddRelatedAccount">
         <value xml:lang="en">Add Related Account</value>
+        <value xml:lang="fr">Ajouter un compte associé</value>
     </property>
     <property key="AddRelatedContact">
         <value xml:lang="en">Add Related Contact</value>
+        <value xml:lang="fr">Ajouter un contact associé</value>
     </property>
     <property key="Description">
         <value xml:lang="de">Beschreibung</value>
@@ -4383,9 +4385,11 @@
     </property>
     <property key="PartyLookupAccount">
         <value xml:lang="en">Lookup Party with the role Account</value>
+        <value xml:lang="fr">Rechercher l'acteur ayant le role "compte"</value>
     </property>
     <property key="PartyLookupContact">
         <value xml:lang="en">Lookup Party with the role Contact</value>
+        <value xml:lang="fr">Rechercher l'acteur ayant le role "contact"</value>
     </property>
     <property key="PartyLookupContactMech">
         <value xml:lang="de">Kontaktmechanismus suchen</value>
