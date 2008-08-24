@@ -173,8 +173,11 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="addSchipper">
+    <menu name="addShipper">
         <menu-item name="new" title="${uiLabelMap.CommonCreateNew}">
+            <condition>
+                <if-has-permission permission="PARTYMGR" action="_CREATE"/>
+            </condition>
             <link target="editCarrierAccount?partyId=${party.partyId}"/>
         </menu-item>
     </menu>
