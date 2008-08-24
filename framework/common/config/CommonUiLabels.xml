@@ -4185,6 +4185,13 @@
         <value xml:lang="zh_CN">团体标识</value>
         <value xml:lang="zh">会员标识</value>
     </property>
+    <property key="CommonPartySkills">
+        <value xml:lang="en">Party Skills</value>
+        <value xml:lang="fr">Compétences de l'acteur</value>
+        <value xml:lang="it">Abilità Soggetto</value>
+        <value xml:lang="th">ทักษะของกลุ่มผู้ใช้</value>
+        <value xml:lang="zh">会员技能</value>
+    </property>
     <property key="CommonPassword">
         <value xml:lang="ar">كلمة السر</value>
         <value xml:lang="cs">Heslo</value>
