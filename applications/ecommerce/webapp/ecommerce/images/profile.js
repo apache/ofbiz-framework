@@ -99,8 +99,10 @@ function useShippingAddressAsBillingToggle() {
         $('billToAreaCode').value = $F('shipToAreaCode');
         $('billToContactNumber').value = $F('shipToContactNumber');
         $('billToExtension').value = $F('shipToExtension');
+        hideErrorMessage();
         Effect.BlindUp($('billingAddress'), {duration: 0.3});
     } else {
+    	validBillingAddress();
         Effect.BlindDown($('billingAddress'), {duration: 0.3});
     }
 }
@@ -206,4 +208,91 @@ function updatePartyPostalAddress(e) {
             }, parameters: $(formId).serialize(), requestHeaders: {Accept: 'application/json'}
         });
     }
+}
+
+function updatePartyShipToPostalAddress(e) {
+    formId = 'editShipToPostalAddress';
+    var validateEditPostalAddress = new Validation(formId, {immediate: true, onSubmit: false});
+    errorId = 'shipToServerError';
+    popupId = 'displayEditShipToPostalAddress';
+    if (validateEditPostalAddress.validate()) {
+        new Ajax.Request('updatePartyPostalAddress', {
+            asynchronous: false, 
+            onSuccess: function(transport) {
+                var data = transport.responseText.evalJSON(true);
+                var serverError = getServerError(data);
+                if (serverError != "") {
+                    Effect.Appear(errorId);
+                    Effect.Appear(popupId);
+                    $(errorId).update(serverError);
+                } else {
+                    Effect.Fade(popupId);
+                    Effect.Fade(errorId);
+                    $('refreshRequestForm').submit();
+                }
+            }, parameters: $(formId).serialize(), requestHeaders: {Accept: 'application/json'}
+        });
+    }
+}
+
+function updatePartyBillToPostalAddress(e) {
+    formId = 'editBillToPostalAddress';
+    var validateEditPostalAddress = new Validation(formId, {immediate: true, onSubmit: false});
+    errorId = 'billToServerError';
+    popupId = 'displayEditBillToPostalAddress';
+    if (validateEditPostalAddress.validate()) {
+        new Ajax.Request('updatePartyPostalAddress', {
+            asynchronous: false, 
+            onSuccess: function(transport) {
+                var data = transport.responseText.evalJSON(true);
+                var serverError = getServerError(data);
+                if (serverError != "") {
+                    Effect.Appear(errorId);
+                    Effect.Appear(popupId);
+                    $(errorId).update(serverError);
+                } else {
+                    Effect.Fade(popupId);
+                    Effect.Fade(errorId);
+                    $('refreshRequestForm').submit();
+                }
+            }, parameters: $(formId).serialize(), requestHeaders: {Accept: 'application/json'}
+        });
+    }
+}
+
+function validBillingAddress () {
+    Event.observe($('billToAddress1'), 'blur', function() {
+        if ($('billToAddress1').value == "") {
+            Effect.Appear('advice-required-billToAddress1');
+        }
+    });
+    Event.observe($('billToStateProvinceGeoId'), 'blur', function() {
+        if ($('billToStateProvinceGeoId').value == "") {
+            Effect.Appear('advice-required-billToStateProvinceGeoId');
+        }
+    });
+    Event.observe($('billToCity'), 'blur', function() {
+        if ($('billToCity').value == "") {
+            Effect.Appear('advice-required-billToCity');
+        }
+    });
+    Event.observe($('billToPostalCode'), 'blur', function() {
+        if ($('billToPostalCode').value == "") {
+            Effect.Appear('advice-required-billToPostalCode');
+        }
+    });
+    Event.observe($('billToCountryGeoId'), 'blur', function() {
+        if ($('billToCountryGeoId').value == "") {
+            Effect.Appear('advice-required-billToCountryGeoId');
+        }
+    });
+}
+
+function hideErrorMessage() {
+    Effect.Fade('advice-required-billToAddress1');
+    Effect.Fade('advice-required-billToStateProvinceGeoId');
+    Effect.Fade('advice-required-billToCity');
+    Effect.Fade('advice-required-billToPostalCode');
+    Effect.Fade('advice-required-billToCountryGeoId');
+    Effect.Fade('billToPhoneRequired');
 }
