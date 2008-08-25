@@ -325,7 +325,7 @@ if (selectedService) {
     curServiceModel = curDispatchContext.getModelService(selectedService);
     curServiceMap.description = curServiceModel.description;
 
-    if (curServiceModel) {
+    if (curServiceModel != null) {
 
         engineName = curServiceModel.engineName ?: "NA";
         defaultEntityName = curServiceModel.defaultEntityName ?: "NA";
@@ -386,7 +386,7 @@ if (selectedService) {
 
         inParams = curServiceModel.getInParamNames();
         inParamsList = new ArrayList(inParams.size());
-        imParams.each { paramName ->
+        inParams.each { paramName ->
             curParam = curServiceModel.getParam(paramName);
             curInParam = [:];
             curInParam.entityName = curParam.entityName;
