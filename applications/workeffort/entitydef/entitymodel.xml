@@ -46,18 +46,23 @@ under the License.
             title="Party Rate Entity">
       <field name="partyId" type="id-ne"></field>
       <field name="rateTypeId" type="id-ne"></field>
+      <field name="currencyUomId" type="id-ne"/>
       <field name="defaultRate" type="indicator"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
       <field name="rate" type="currency-amount"></field>
       <prim-key field="partyId"/>
       <prim-key field="rateTypeId"/>
+      <prim-key field="currencyUomId"/>
       <prim-key field="fromDate"/>
       <relation type="one" fk-name="PRTY_RTE_PRTY" rel-entity-name="Party">
         <key-map field-name="partyId"/>
       </relation>
       <relation type="one" fk-name="PRTY_RTE_RTTP" rel-entity-name="RateType">
         <key-map field-name="rateTypeId"/>
+      </relation>
+      <relation type="one" fk-name="PARTY_RATE_CUOM" title="Currency" rel-entity-name="Uom">
+        <key-map field-name="currencyUomId" rel-field-name="uomId"/>
       </relation>
     </entity>
     <entity entity-name="RateType"

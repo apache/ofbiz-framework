@@ -291,6 +291,9 @@ under the License.
     <!-- PartyRate -->
     <form name="AddPartyRate" type="single" target="createPartyRate"
         focus-field-name="rateTypeId" header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+        </actions>
         <auto-fields-service service-name="createPartyRate"/>
         <field name="partyId"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
@@ -304,6 +307,14 @@ under the License.
             <drop-down no-current-selected-key="N">
                 <option key="N"/>
                 <option key="Y"/>
+            </drop-down>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}">
+            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
@@ -322,9 +333,10 @@ under the License.
         <field name="partyId"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}"><display-entity entity-name="RateType" also-hidden="true"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
+        <field name="currencyUomId"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink target="deletePartyRate?partyId=${partyId}&amp;rateTypeId=${rateTypeId}&amp;fromDate=${fromDate}"
+            <hyperlink target="deletePartyRate?partyId=${partyId}&amp;rateTypeId=${rateTypeId}&amp;currencyUomId=${currencyUomId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>

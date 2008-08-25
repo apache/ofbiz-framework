@@ -244,10 +244,12 @@ under the License.
         
         <!-- no rateAmount yet, try PartyRate -->
         <if-empty field="rateAmount">
+            <property-to-field field-name="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
             <entity-condition entity-name="PartyRate" list-name="partyRateList">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" env-name="timeEntry.partyId"/>
                     <condition-expr field-name="rateTypeId" env-name="timeEntry.rateTypeId"/>
+                    <condition-expr field-name="currencyUomId" env-name="timeEntry.defaultCurrencyUomId"/>
                 </condition-list>
                 <order-by field-name="-fromDate"/>
             </entity-condition>
