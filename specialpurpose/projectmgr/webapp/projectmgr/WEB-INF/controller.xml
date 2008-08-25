@@ -219,7 +219,7 @@
     <request-map uri="updateTask">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateWorkEffort"/>
-        <response name="success" type="view" value="TaskView"/>
+        <response name="success" type="view" value="taskView"/>
         <response name="error" type="view" value="EditTask"/>
     </request-map>
     <request-map uri="addDependency">
