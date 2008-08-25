@@ -20,7 +20,7 @@ under the License.
 <entity-engine-xml>
 
     <SecurityPermission permissionId="MYPAGE_EMPLOYEE" description="Use the employee screens in mypage."/>
-    <SecurityGroup description="Employee user of mypage, giving limited access to the projectmanager and communications can create email and create customer requests" groupId="MYPAGE_EMPLOYEE"/>
+    <SecurityGroup description="Employee user of mypage, Limited access to the projectmgr, comms,custRequests" groupId="MYPAGE_EMPLOYEE"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPLOYEE" permissionId="MYPAGE_EMPLOYEE"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPLOYEE" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPLOYEE" permissionId="PROJECTMGR_ROLE_VIEW"/>
@@ -35,8 +35,8 @@ under the License.
     <!-- and can create customer request from emails -->
     <SecurityGroupPermission groupId="MYPAGE_EMPLOYEE" permissionId="ORDERMGR_CRQ_CREATE"/>
     
-    <SecurityPermission permissionId="MYPAGE_EMPL-NOEMAIL" description="Use the employee screens in mypage have limited access to the projectmanager and can create internal notes."/>
-    <SecurityGroup description="Employee user of mypage, giving limited access to the projectmanager and communications" groupId="MYPAGE_EMPL-NOEMAIL"/>
+    <SecurityPermission permissionId="MYPAGE_EMPL-NOEMAIL" description="Usage of the employee screens in mypage: projectmanager and internal notes."/>
+    <SecurityGroup description="Employee user of mypage, Limited access to the projectmgr and comms, custReq, no email" groupId="MYPAGE_EMPL-NOEMAIL"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="MYPAGE_EMPLOYEE"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PROJECTMGR_VIEW"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PROJECTMGR_ROLE_VIEW"/>
@@ -47,7 +47,7 @@ under the License.
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PARTYMGR_CME_UPDATE"/>
     
     <SecurityPermission permissionId="MYPAGE_CUSTOMER" description="Use the customer screens in mypage."/>
-    <SecurityGroup description="Customer user of mypage, giving limited access to entered customer requests and related tasks" groupId="MYPAGE_CUSTOMER"/>
+    <SecurityGroup description="Customer user of mypage, Limited access to own custRequests" groupId="MYPAGE_CUSTOMER"/>
     <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="PARTYMGR_CME-NOTE_CREATE"/><!-- allow customer to read/write internal notes -->
     <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="MYPAGE_CUSTOMER"/>
     <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="PARTYMGR_CME_UPDATE"/>
