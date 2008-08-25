@@ -32,13 +32,13 @@ under the License.
         <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}">
             <lookup target-form-name="LookupPartyName"/>
         </field>
-        <field name="custRequestName" title="${uiLabelMap.CommonTitle}"><text/></field>
-        <field name="description" parameter-name="story" use-when="custRequest==null"><textarea cols="60" rows="12"/></field>
+        <field name="custRequestName" title="${uiLabelMap.PartySubject}"><text/></field>
         <field name="custRequestTypeId">
             <drop-down allow-empty="false">
                 <entity-options entity-name="CustRequestType" description="${description}"/>
             </drop-down>
         </field>
+        <field name="description" parameter-name="story" use-when="custRequest==null"><textarea cols="60" rows="12"/></field>
         <field use-when="custRequest!=null" name="statusId">
             <drop-down allow-empty="false" current="first-in-list" current-description="${currentStatus.description}">
                 <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">

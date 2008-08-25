@@ -434,4 +434,33 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditRequest">
+        <section>
+            <actions>
+                <set field="titleProperty" value="OrderRequest"/>
+                <set field="tabButtonItem" value="editRequest"/>
+                <set field="headerItem" value="request"/>
+                
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                
+                <set field="statusId" from-field="custRequest.statusId"/>
+                <entity-one entity-name="StatusItem" value-name="currentStatus"/>
+            </actions>
+            <widgets>
+                <section>
+                    <widgets>
+                        <decorator-screen name="main-decorator"
+                            location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                                <screenlet title="${uiLabelMap.OrderNewRequest}">
+                                    <include-form name="EditCustRequest" location="component://mypage/widget/MyPageForms.xml"/>
+                                </screenlet>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
 </screens>

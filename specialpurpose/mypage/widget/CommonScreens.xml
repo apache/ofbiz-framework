@@ -282,9 +282,15 @@ under the License.
                 <set field="partyId" from-field="userLogin.partyId"/>
                 <set field="status" from-field="parameters.status" default-value="open"/>
                 <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
+                <entity-condition list-name="custRequests" entity-name="CustRequestInfoAndWorkEffort">
+                    <condition-list combine="and">
+                        <condition-expr field-name="fromPartyId" operator="equals" value="userLogin.partyId"/>
+                    </condition-list>
+                    <order-by field-name="-custRequestDate"/>
+                </entity-condition>
                 <entity-and list-name="custRequests" entity-name="CustRequestInfoAndWorkEffort">
                     <field-map field-name="fromPartyId" env-name="userLogin.partyId"/>
-                    <order-by field-name="createdDate"/>
+                    <order-by field-name="-custRequestDate"/>
                 </entity-and>
                 <!-- only list internal notes to the customer do not show the incoming or outgoing emails: will confuse only -->
                 <entity-condition entity-name="CommunicationEventAndRole" list-name="commEvents">
@@ -303,6 +309,7 @@ under the License.
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.MyCustRequests}" navigation-form-name="ListRequestList" >
+                    <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                     <include-form name="ListCustRequests" location="component://mypage/widget/MyPageForms.xml"/>
                 </screenlet>
                 <screenlet title="${uiLabelMap.CommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
