@@ -683,7 +683,7 @@ under the License.
                 <sub-hyperlink description="[${partyIdTo}]" target="viewprofile?partyId=${partyIdTo}"/>
             </display-entity>
         </field>
-        <field name="roleTypeIdTo" title="${uiLabelMap.InTheRoleOf}">
+        <field name="roleTypeIdTo" title="${uiLabelMap.PartyPartyInTheRoleOf}">
             <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
         </field>
         <field name="partyRelationshipTypeId" title="${uiLabelMap.IsA}"><display-entity entity-name="PartyRelationshipType" description="${partyRelationshipName}"/></field>
@@ -692,7 +692,7 @@ under the License.
                 <sub-hyperlink description="[${partyIdFrom}]" target="viewprofile?partyId=${partyIdFrom}"/>
             </display-entity>
         </field>
-        <field name="roleTypeIdFrom" title="${uiLabelMap.InTheRoleOf}">
+        <field name="roleTypeIdFrom" title="${uiLabelMap.PartyPartyInTheRoleOf}">
             <display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/>
         </field>
         <field name="fromDate"><display type="date"/></field>
@@ -705,7 +705,7 @@ under the License.
     <form name="AddOtherPartyRelationship" type="single" target="createAccountContact">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="partyIdTo"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeIdTo" title="${uiLabelMap.InTheRoleOf}">
+        <field name="roleTypeIdTo" title="${uiLabelMap.PartyPartyInTheRoleOf}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
                     <entity-order-by field-name="description"/>
@@ -720,7 +720,7 @@ under the License.
             </drop-down>
         </field>
         <field name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeIdFrom" title="${uiLabelMap.InTheRoleOf}">
+        <field name="roleTypeIdFrom" title="${uiLabelMap.PartyPartyInTheRoleOf}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
                     <entity-order-by field-name="description"/>

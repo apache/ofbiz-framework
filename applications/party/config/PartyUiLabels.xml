@@ -1238,9 +1238,6 @@
         <value xml:lang="th">ปีกับผู้ว่าจ้าง</value>
         <value xml:lang="zh">年为雇主</value>
     </property>
-    <property key="InTheRoleOf">
-        <value xml:lang="en">in the Role of</value>
-    </property>
     <property key="IsA"><!-- Peter 'is a' employee of company B -->
         <value xml:lang="en">is A</value>
         <value xml:lang="fr">est un</value>
