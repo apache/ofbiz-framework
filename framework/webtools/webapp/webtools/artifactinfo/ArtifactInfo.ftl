@@ -119,7 +119,7 @@ under the License.
         <h2>Service Info</h2>
         <div>&nbsp;Description: ${artifactInfo.modelService.description}</div>
         <div>&nbsp;Run (${artifactInfo.modelService.engineName}): ${artifactInfo.modelService.location} :: ${artifactInfo.modelService.invoke}</div>
-        <div>&nbsp;Impl Location: <a href="${artifactInfo.getImplementationLocationURL()}">${artifactInfo.getImplementationLocationURL()}</a></div>
+        <div>&nbsp;Impl Location: <a href="${artifactInfo.getImplementationLocationURL()?if_exists}">${artifactInfo.getImplementationLocationURL()?if_exists}</a></div>
         <h2>Service Parameters</h2>
         <table>
             <tr><td>Name</td><td>Type</td><td>Optional</td><td>Mode</td></tr>
