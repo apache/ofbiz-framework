@@ -332,14 +332,14 @@
         <menu-item name="addTimesheet" title="${uiLabelMap.CommonNew}">
             <link target="addWeeklyTimesheet"/>
         </menu-item>
-        <menu-item name="TimeSheetStatustoComplete" title="${uiLabelMap.CommonStatustoComplete}">
+        <menu-item name="TimeSheetStatusToComplete" title="${uiLabelMap.CommonStatustoComplete}">
             <condition>
                 <and>
                     <not><if-empty field-name="timesheet"/></not>
                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
                 </and>
             </condition>
-            <link target="TimeSheetStatustoComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+            <link target="TimeSheetStatusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
         </menu-item>
         <menu-item name="TimeSheetStatustoProgress" title="Set status to In Progress">
             <condition>
@@ -352,14 +352,14 @@
         </menu-item>
     </menu>
     <menu name="MyTimeSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">  
-        <menu-item name="TimeSheetStatustoComplete" title="${uiLabelMap.CommonStatustoComplete}">
+        <menu-item name="TimeSheetStatusToComplete" title="${uiLabelMap.CommonStatustoComplete}">
             <condition>
                 <and>
                     <not><if-empty field-name="timesheet"/></not>
                     <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
                 </and>
             </condition>
-            <link target="myTimeSheetStatustoComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+            <link target="myTimeSheetStatusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
         </menu-item>
     </menu>
     <menu name="ResourceTabBar" menu-container-style="button-bar tab-bar" default-menu-item-name="edittimesheet" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
