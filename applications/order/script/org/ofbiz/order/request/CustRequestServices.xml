@@ -42,6 +42,11 @@ under the License.
         <set from-field="nowTimestamp" field="newEntity.createdDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
+
+        <if-empty field="parameters.custRequestDate">
+            <set field="newEntity.custRequestDate" from-field="nowTimestamp"/>
+        </if-empty>
+
         
         <if-empty field="parameters.statusId">
             <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
