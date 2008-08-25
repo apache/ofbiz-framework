@@ -51,7 +51,7 @@ if ("search".equals(parameters.findType)) {
 if (artifactInfo) {
     // add to the recently viewed list
     recentArtifactInfoList = session.getAttribute("recentArtifactInfoList");
-    if (!recentArtifactInfoLis) {
+    if (!recentArtifactInfoList) {
         recentArtifactInfoList = FastList.newInstance();
         session.setAttribute("recentArtifactInfoList", recentArtifactInfoList);
     }
