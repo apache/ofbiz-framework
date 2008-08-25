@@ -748,7 +748,7 @@ under the License.
         <field name="submitButton"><submit button-type="button"/></field>
     </form> 
     
-    <form name="AddAccount" type="single" target="createAccountContact">
+    <form name="AddAccount" type="single" target="createPartyRelationship">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="partyIdFrom"><lookup target-form-name="LookupAccount"/></field>
         <field name="roleTypeIdFrom"><hidden value="ACCOUNT"/></field>
@@ -758,7 +758,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form> 
     
-    <form name="AddContact" type="single" target="createAccountContact">
+    <form name="AddContact" type="single" target="createPartyRelationship">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
         <field name="partyIdFrom"><hidden value="${parameters.partyId}"/></field>
         <field name="roleTypeIdFrom"><hidden value="ACCOUNT"/></field>
