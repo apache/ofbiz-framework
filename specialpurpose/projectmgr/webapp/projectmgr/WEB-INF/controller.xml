@@ -517,13 +517,13 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="Timesheet"/>
     </request-map>
-    <request-map uri="TimeSheetStatustoComplete">
+    <request-map uri="TimeSheetStatusToComplete">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimesheet"/>
         <response name="success" type="view" value="Timesheet"/>
         <response name="error" type="view" value="Timesheet"/>
     </request-map>
-    <request-map uri="myTimeSheetStatustoComplete">
+    <request-map uri="myTimeSheetStatusToComplete">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateTimesheet"/>
         <response name="success" type="view" value="MyTimesheet"/>
