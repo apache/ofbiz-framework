@@ -482,7 +482,7 @@ if (!selectedService) {
         curServiceModel = curDispatchContext.getModelService(serviceName);
 
         canIncludeService = true;
-        if (constraint && curServiceModel) {
+        if (constraint && curServiceModel != null) {
             consArr = constraint.split("@");
             constraintName = consArr[0];
             constraintVal = consArr[1];
