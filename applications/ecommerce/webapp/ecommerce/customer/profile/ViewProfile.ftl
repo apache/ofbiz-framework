@@ -44,7 +44,7 @@ under the License.
     <#-- Manage Addresses -->
     <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.EcommerceAddressBook}</div></div>
     <div class="screenlet-body">
-      <div align="right"><a class="buttontext" href="<@ofbizUrl>manageAddress</@ofbizUrl>">${uiLabelMap.EcommerceManage} ${uiLabelMap.CommonAddresses}</a>&nbsp;</div>
+      <div align="right"><a class="buttontext" href="<@ofbizUrl>manageAddress</@ofbizUrl>">${uiLabelMap.EcommerceManageAddresses}</a>&nbsp;</div>
       <div class="left center">
         <div class="screenlet-header"><div class='boxhead'>${uiLabelMap.EcommercePrimary} ${uiLabelMap.OrderShippingAddress}</div></div>
         <div class="screenlet-body">

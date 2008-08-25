@@ -2128,8 +2128,8 @@
         <value xml:lang="th">เห็นด้วย</value>
         <value xml:lang="zh">忠诚度点数</value>
     </property>
-    <property key="EcommerceManage">
-        <value xml:lang="en">Manage</value>
+    <property key="EcommerceManageAddresses">
+        <value xml:lang="en">Manage Addresses</value>
     </property>
     <property key="EcommerceMessage1">
         <value xml:lang="en">Sorry, it appears that the specified product ID</value>

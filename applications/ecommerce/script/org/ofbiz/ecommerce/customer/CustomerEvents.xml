@@ -1451,9 +1451,9 @@ under the License.
         <set field="shipToTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_SHIPPING"/>
         <!-- call create telecom service -->
         <call-service service-name="createPartyTelecomNumber" in-map-name="shipToTelecomNumberCtx">
-            <result-to-field result-name="contactMechId" field-name="shipToTelecomContactMechId"/>
+            <result-to-field result-name="contactMechId" field-name="parameters.shipToTelecomContactMechId"/>
         </call-service>
-        <log level="info" message="Shipping telecom number is created with contactMechId ${shipToTelecomContactMechId}"/>
+        <log level="info" message="Shipping telecom number is created with contactMechId ${parameters.shipToTelecomContactMechId}"/>
 
         <!-- Create billing address -->
         <if-compare field="parameters.useShippingAddressForBilling" operator="not-equals" value="Y">
@@ -1464,21 +1464,26 @@ under the License.
             <call-service service-name="createPostalAddressAndPurposes" in-map-name="billToAddressCtx">
                 <result-to-field result-name="contactMechId" field-name="billToContactMechId"/>
             </call-service>
+            <!-- create billing telecom number  -->
+            <set field="billToTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
+            <set field="billToTelecomNumberCtx.userLogin" from-field="parameters.userLogin"/>
+            <set field="billToTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_BILLING"/>
+            <!-- call create telecom service -->
+            <call-service service-name="createPartyTelecomNumber" in-map-name="billToTelecomNumberCtx">
+                <result-to-field result-name="contactMechId" field-name="billToTelecomContactMechId"/>
+            </call-service>
+        
             <log level="info" message="Billing address created with contactMechId ${billToContactMechId}"/>
         <else>
+            <set field="billToTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_BILLING"/>
+            <set field="billToTelecomNumberCtx.partyId" from-field="partyId"/>
+            <set-service-fields service-name="createPartyContactMechPurpose" map-name="billToTelecomNumberCtx" to-map-name="serviceInMap"/>
+            <set field="serviceInMap.contactMechId" from-field="parameters.shipToTelecomContactMechId"/>
+            <set field="serviceInMap.userLogin" from-field="parameters.userLogin"/>
+            <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceInMap"/>
             <log level="info" message="Billing address created same as Shipping address with contactMechId ${shipToContactMechId}"/>
         </else>
         </if-compare>
-
-        <!-- create billing telecom number  -->
-        <set field="billToTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
-        <set field="billToTelecomNumberCtx.userLogin" from-field="parameters.userLogin"/>
-        <set field="billToTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_BILLING"/>
-        <!-- call create telecom service -->
-        <call-service service-name="createPartyTelecomNumber" in-map-name="billToTelecomNumberCtx">
-            <result-to-field result-name="contactMechId" field-name="billToTelecomContactMechId"/>
-        </call-service>
-        <log level="info" message="Billing telecom number is created with contactMechId ${billToTelecomContactMechId}"/>
      </simple-method>
     
     <simple-method method-name="updateCustomerProfile" short-description="Update a customer profile">

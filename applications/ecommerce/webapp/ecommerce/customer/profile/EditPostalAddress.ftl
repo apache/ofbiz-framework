@@ -24,28 +24,6 @@ under the License.
   <input type="hidden" name="contactMechId" value="${postalAddress.contactMechId?if_exists}"/>
   <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request)/>
   <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
-  <#assign showSetShippingPurpose = "Y">
-  <#assign showSetBillingPurpose = "Y">
-  <#assign telecomNumber = "">
-  <#list partyContactMechValueMap.partyContactMechPurposes?if_exists as partyContactMechPurpose> 
-    <#assign contactMechPurposeType = partyContactMechPurpose.getRelatedOneCache("ContactMechPurposeType")>
-    <#if contactMechPurposeType.contactMechPurposeTypeId == "SHIPPING_LOCATION">
-      <#assign showSetShippingPurpose = "N">
-      <#assign pcmps = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(party.getRelatedByAnd("PartyContactMechPurpose", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechPurposeTypeId", "PHONE_SHIPPING")))>
-      <#if pcmps?has_content>
-        <#assign pcmp = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(pcmps)/>
-        <#assign telecomNumber = pcmp.getRelatedOne("TelecomNumber")/>
-      </#if>
-    </#if>
-    <#if contactMechPurposeType.contactMechPurposeTypeId == "BILLING_LOCATION">
-      <#assign showSetBillingPurpose = "N">
-      <#assign pcmps = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(party.getRelatedByAnd("PartyContactMechPurpose", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechPurposeTypeId", "PHONE_BILLING")))>
-      <#if pcmps?has_content>
-        <#assign pcmp = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(pcmps)/>
-        <#assign telecomNumber = pcmp.getRelatedOne("TelecomNumber")/>
-      </#if>
-    </#if>
-  </#list>
   <div class="screenlet-body">
     <div class="form-row">
       <label>${uiLabelMap.PartyAddressLine1}*</label>
@@ -99,39 +77,14 @@ under the License.
         <span id="advice-required-countryGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
       </span>
     </div>
-
-    <#if telecomNumber?has_content>
-      <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-      <div class="form-row">
-        <div class="field-label">
-          <label for="phoneNumber_${telecomNumber.contactMechId}">${uiLabelMap.PartyPhoneNumber}*</label>
-        </div>
-        <div>
-          <input type="hidden" name="phoneContactMechId" value="${telecomNumber.contactMechId?if_exists}"/>
-          <input type="text" name="countryCode" id="countryCode_${telecomNumber.contactMechId}" class="required" value="${telecomNumber.countryCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="areaCode" id="areaCode_${telecomNumber.contactMechId}" class="required" value="${telecomNumber.areaCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="contactNumber" id="contactNumber_${telecomNumber.contactMechId}" class="required" value="${contactNumber?default("${telecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
-          - <input type="text" name="extension" id="extension_${telecomNumber.contactMechId}" value="${extension?default("${pcm.extension?if_exists}")}" size="3" maxlength="3"/>
-        </div>
-      </div>    
-    </#if>
-    <#if showSetShippingPurpose == "Y">
-      <div class="form-row">
-        <b>${uiLabelMap.EcommerceMyDefaultShippingAddress}</b>
-        <input type="checkbox" name="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked</#if>/>
-      </div>
-    <#else>
-        <input type="hidden" name="setShippingPurpose" value="Y"/>
-    </#if>
-    <#if showSetBillingPurpose == "Y">
-      <div class="form-row">
-        <b>${uiLabelMap.EcommerceMyDefaultBillingAddress}</b>
-        <input type="checkbox" name="setBillingPurpose" value="Y" <#if setBillingPurpose?exists>checked</#if>/>
-      </div>
-    <#else>
-      <input type="hidden" name="setBillingPurpose" value="Y"/>
-    </#if>
-
+    <div class="form-row">
+      <b>${uiLabelMap.EcommerceMyDefaultShippingAddress}</b>
+      <input type="checkbox" name="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked</#if>/>
+    </div>
+    <div class="form-row">
+      <b>${uiLabelMap.EcommerceMyDefaultBillingAddress}</b>
+      <input type="checkbox" name="setBillingPurpose" value="Y" <#if setBillingPurpose?exists>checked</#if>/>
+    </div>
     <div class="form-row">
       <a name="submitEditPostalAddress_${contactMech.contactMechId}" id="submitEditPostalAddress_${contactMech.contactMechId}" class="buttontext" onclick="updatePartyPostalAddress('submitEditPostalAddress_${contactMech.contactMechId}')">${uiLabelMap.CommonSubmit}</a>
       <form action="">

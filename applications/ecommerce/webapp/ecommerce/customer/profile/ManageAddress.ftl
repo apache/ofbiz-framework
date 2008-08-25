@@ -40,7 +40,7 @@ under the License.
           </div>
         </div>
         <div class="form-row">
-          ${uiLabelMap.PartyAddressLine2}<div class="form-field"><input type="text" class="inputBox" name="address2" value="" size="30" maxlength="30"></div>
+          ${uiLabelMap.PartyAddressLine2}<div class="form-field"><input type="text" name="address2" value="" size="30" maxlength="30"></div>
         </div>
         <div class="form-row">
           ${uiLabelMap.PartyCity}*
@@ -94,118 +94,79 @@ under the License.
     </script>
   </div>
 
-  <#-- Manage Addresses -->
+  <#-- Default Addresses -->
   <div class="left center">
     <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.EcommerceDefault} ${uiLabelMap.CommonAddresses}</div></div>
     <div class="screenlet-body">
-      <#assign postalAddressFlag = "N">
-      <#list partyContactMechValueMaps as partyContactMechValueMap>
-        <#assign contactMech = partyContactMechValueMap.contactMech?if_exists>
-        <#if contactMech.contactMechTypeId?if_exists = "POSTAL_ADDRESS">
-          <#assign partyContactMech = partyContactMechValueMap.partyContactMech?if_exists>
-          <#if partyContactMechValueMap.partyContactMechPurposes?has_content>
-            <#assign postalAddressFlag = "Y">
-            <div id="displayEditAddressForm_${contactMech.contactMechId}" class="popup" style="display: none;">
-              <#include "EditPostalAddress.ftl"/>
-            </div>
-            <div class="form-row">
-              <div class="form-field">
-                <#if showSetShippingPurpose == "N">
-                  <h3>${uiLabelMap.EcommercePrimary} ${uiLabelMap.OrderShippingAddress}</h3>
-                <#else>
-                  <h3>${uiLabelMap.EcommercePrimary} ${uiLabelMap.PartyBillingAddress}</h3>
-                </#if>
-              </div>
-            </div>
-
-            <#assign postalAddress = partyContactMechValueMap.postalAddress?if_exists>
-            <#if postalAddress?exists>
-              <div class="form-row">
-                <div class="form-label"></div>
-                <div class="form-field">
-                  <div>
-                    ${postalAddress.address1}<br/>
-                    <#if postalAddress.address2?has_content>${postalAddress.address2}<br/></#if>
-                    ${postalAddress.city}
-                    <#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>
-                    &nbsp;${postalAddress.postalCode?if_exists}
-                    <#if postalAddress.countryGeoId?has_content><br/>${postalAddress.countryGeoId}</#if>
-                    <#if (!postalAddress.countryGeoId?has_content || postalAddress.countryGeoId?if_exists = "USA")>
-                      <#assign addr1 = postalAddress.address1?if_exists>
-                      <#if (addr1.indexOf(" ")  gt 0)>
-                        <#assign addressNum = addr1.substring(0, addr1.indexOf(" "))>
-                        <#assign addressOther = addr1.substring(addr1.indexOf(" ")+1)>
-                        <a target="_blank" href="${uiLabelMap.EcommerceLookupWhitepagesLink}" class="linktext">(${uiLabelMap.EcommerceLookupWhitepages})</a>
-                      </#if>
-                    </#if>
-                  </div>
-                </div>
-              </div>
-              <div class="form-row"></div>
-              <span>
-                <#if showSetShippingPurpose == "N">
-                  <div class="form-row">
-                     <#assign pcmps = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(party.getRelatedByAnd("PartyContactMechPurpose", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechPurposeTypeId", "PHONE_SHIPPING")))>
-                     <#if pcmps?has_content>
-                       <#assign pcmp = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(pcmps)/>
-                       <#assign telecomNumber = pcmp.getRelatedOne("TelecomNumber")/>
-                     </#if>
-      
-                    <#if telecomNumber?has_content>
-                      <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-                      ${telecomNumber.countryCode?if_exists}-
-                      ${telecomNumber.areaCode?if_exists}-
-                      ${telecomNumber.contactNumber?if_exists}-
-                      ${pcm.extension?if_exists}
-                    </#if>
-                  </div><br/>
-                  <a id="update_${contactMech.contactMechId}" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.OrderShippingAddress}</a>&nbsp;
-                <#else>
-                  <div class="form-row">
-                     <#assign pcmps = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(party.getRelatedByAnd("PartyContactMechPurpose", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechPurposeTypeId", "PHONE_BILLING")))>
-                     <#if pcmps?has_content>
-                       <#assign pcmp = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(pcmps)/>
-                       <#assign telecomNumber = pcmp.getRelatedOne("TelecomNumber")/>
-                     </#if>
-                     
-                    <#if telecomNumber?has_content>
-                      <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-                      ${telecomNumber.countryCode?if_exists}-
-                      ${telecomNumber.areaCode?if_exists}-
-                      ${telecomNumber.contactNumber?if_exists}-
-                      ${pcm.extension?if_exists}
-                    </#if>
-                  </div><br/>
-                  <a id="update_${contactMech.contactMechId}" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.PartyBillingAddress}</a>&nbsp;
-                </#if>
-
-                <div class="form-row"></div>
-                <a href="<@ofbizUrl>deletePostalAddress?contactMechId=${contactMech.contactMechId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>&nbsp;&nbsp;
-              </span>
-              <script type="text/javascript">
-                new Popup('displayEditAddressForm_${contactMech.contactMechId}','update_${contactMech.contactMechId}', {modal: true, position: 'center', trigger: 'click'})
-              </script>
-            <#else>
-              <div class="form-row">
-                <div class="form-label">
-                  <h5>${uiLabelMap.PartyPostalInformationNotFound}.</h5>
-                </div>
-              </div>
-            </#if>
-            <div class="form-row"><hr class="sepbar"/></div>
-          </#if>
+      <#--===================================== Billing Address and Telecom number ===========================================-->
+      <h3>${uiLabelMap.EcommercePrimary} ${uiLabelMap.PartyBillingAddress}</h3>
+      <#if parameters.billToContactMechId?exists>
+        ${parameters.billToAddress1?if_exists}<br/>
+        <#if parameters.billToAddress2?has_content>${parameters.billToAddress2?if_exists}<br/></#if>
+        ${parameters.billToCity?if_exists},
+        ${parameters.billToStateProvinceGeoId?if_exists}
+        ${parameters.billToPostalCode?if_exists}<br/>
+        ${parameters.billToCountryGeoId?if_exists}<br/>
+        <#assign pcmps = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(party.getRelatedByAnd("PartyContactMechPurpose", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechPurposeTypeId", "PHONE_BILLING")))>
+        <#if pcmps?has_content>
+          <#assign pcmp = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(pcmps)/>
+          <#assign telecomNumber = pcmp.getRelatedOne("TelecomNumber")/>
         </#if>
-      </#list>
-      <#if postalAddressFlag == "N">
-        <div class="form-row">
-          <div class="form-label">
-            <h5>${uiLabelMap.PartyPostalInformationNotFound}.</h5>
-          </div>
-        </div>
+        <#if telecomNumber?has_content>
+          <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
+          ${telecomNumber.countryCode?if_exists}-
+          ${telecomNumber.areaCode?if_exists}-
+          ${telecomNumber.contactNumber?if_exists}
+          <#if pcm.extension?has_content>-${pcm.extension?if_exists}</#if><br/>
+          <a id="updateBillToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.PartyBillingAddress}</a>&nbsp;
+        </#if>
+      <#else>
+        ${uiLabelMap.PartyBillingAddress} ${uiLabelMap.EcommerceNotExists}
       </#if>
+      <div id="displayEditBillToPostalAddress" class="popup" style="display: none;">
+        <#include "EditBillToAddress.ftl"/>
+      </div>
+      <div class="form-row"><hr class="sepbar"/></div>
+      <script type="text/javascript">
+        new Popup('displayEditBillToPostalAddress','updateBillToPostalAddress', {modal: true, position: 'center', trigger: 'click'})
+      </script>
+
+    <#--===================================== Shipping Address and Telecom number ===========================================-->
+      <h3>${uiLabelMap.EcommercePrimary} ${uiLabelMap.OrderShippingAddress}</h3>
+      <#if parameters.shipToContactMechId?exists>
+        ${parameters.shipToAddress1?if_exists}<br/>
+        <#if parameters.shipToAddress2?has_content>${parameters.shipToAddress2?if_exists}<br/></#if>
+        ${parameters.shipToCity?if_exists},
+        ${parameters.shipToStateProvinceGeoId?if_exists}
+        ${parameters.shipToPostalCode?if_exists}<br/>
+        ${parameters.shipToCountryGeoId?if_exists}<br/>
+        <#assign pcmps = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(party.getRelatedByAnd("PartyContactMechPurpose", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechPurposeTypeId", "PHONE_SHIPPING")))>
+        <#if pcmps?has_content>
+          <#assign pcmp = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(pcmps)/>
+          <#assign telecomNumber = pcmp.getRelatedOne("TelecomNumber")/>
+        </#if>
+        <#if telecomNumber?has_content>
+          <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
+          ${telecomNumber.countryCode?if_exists}-
+          ${telecomNumber.areaCode?if_exists}-
+          ${telecomNumber.contactNumber?if_exists}
+          <#if pcm.extension?has_content>-${pcm.extension?if_exists}</#if><br/>
+          <a id="updateShipToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.OrderShippingAddress}</a>&nbsp;
+        </#if>
+      <#else>
+        ${uiLabelMap.OrderShippingAddress} ${uiLabelMap.EcommerceNotExists}
+      </#if>
+      <div id="displayEditShipToPostalAddress" class="popup" style="display: none;">
+        <#include "EditShipToAddress.ftl"/>
+      </div>
+      <div class="form-row"><hr class="sepbar"/></div>
+      <script type="text/javascript">
+          new Popup('displayEditShipToPostalAddress','updateShipToPostalAddress', {modal: true, position: 'center', trigger: 'click'})
+      </script>
     </div>
   </div>
 
+  <#-- Additional Addresses -->
   <div class="center right">
     <div class="screenlet-header">
       <div class="boxhead">&nbsp;${uiLabelMap.EcommerceAdditional} ${uiLabelMap.CommonAddresses}</div>
