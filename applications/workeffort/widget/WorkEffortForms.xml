@@ -796,7 +796,9 @@ under the License.
                 <order-by field-name="noteId"/>
             </entity-condition>
         </actions>
-        <field name="noteId"><display/></field>
+        <field name="noteId">
+            <hyperlink target="EditWorkEffortNotes?workEffortId=${workEffortId}&amp;noteId=${noteId}" also-hidden="false" description="${noteId}"/>
+        </field>
         <field name="workEffortId" entity-name="WorkEffort" widget-style="buttontext">
            <hyperlink target="EditWorkEffort?workEffortId=${workEffortId}" also-hidden="false" description="${workEffortId}"/> 
         </field>
@@ -810,10 +812,11 @@ under the License.
         </field>
     </form>
     
-    <form name="AddWorkEffortNote" type="single" target="createWorkEffortNote" title=""
+    <form name="AddWorkEffortNote" type="single" target="updateWorkEffortNote" title="" default-map-name="workEffortNoteAndData"
         header-row-style="header-row" default-table-style="basic-table">
+        <alt-target use-when="noteId == null" target="createWorkEffortNote"/>
         <auto-fields-service service-name="createWorkEffortNote"/>
-        <field name="noteId"><ignored/><!-- don't pass, will be sequenced --></field>
+        <field name="noteId" use-when="noteId != null"><hidden/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="noteInfo" title="${uiLabelMap.CommonNote}"><textarea cols="70" rows="5" /></field>
         <field name="internalNote" title="${uiLabelMap.WorKEffortInternalNote}">
@@ -824,7 +827,8 @@ under the License.
         </field>
         <field name="noteParty"><hidden/></field>
         <field name="noteName"><hidden/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="noteId == null" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" use-when="noteId != null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
     <!-- WorkEffortContent forms -->

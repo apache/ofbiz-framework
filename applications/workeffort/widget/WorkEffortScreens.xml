@@ -695,6 +695,8 @@ under the License.
                 <set field="tabButtonItem" value="WorkEffortNotes"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortNotes"/>
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <set field="noteId" from-field="parameters.noteId"/>
+                <entity-one entity-name="WorkEffortNoteAndData" value-name="workEffortNoteAndData"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">

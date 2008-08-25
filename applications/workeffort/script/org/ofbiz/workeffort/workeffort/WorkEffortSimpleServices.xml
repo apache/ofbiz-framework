@@ -590,8 +590,11 @@ under the License.
     </simple-method>
     <simple-method method-name="updateWorkEffortNote" short-description="Update Work Effort Note">
         <entity-one entity-name="WorkEffortNote" value-name="lookedUpValue"/>
+        <entity-one entity-name="NoteData" value-name="lookedUpValueForNoteData"/>
+        <set-nonpk-fields value-name="lookedUpValueForNoteData" map-name="parameters"/>
         <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
-        <store-value value-name="lookedUpValue"/>  
+        <store-value value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValueForNoteData"/>  
     </simple-method>    
     <simple-method method-name="createWorkEffortAndAssoc" short-description="Create a WorkEffort and association">
         <if-empty field="parameters.fromDate">
