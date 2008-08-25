@@ -230,10 +230,10 @@ under the License.
                             <get-related-one value-name="newNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
                             <clear-field field-name="daysToShip"/>
                             <set field="daysToShip" from-field="productFacility.daysToShip"/>
-                             <if-empty field="daysToShip">
-                                 <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
+                            <if-empty field="daysToShip">
+                                <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
                                 <if-not-empty field="facility.defaultDaysToShip">
-                                        <set field="daysToShip" from-field="facility.defaultDaysToShip" type="Long"/>
+                                    <set field="daysToShip" from-field="facility.defaultDaysToShip" type="Long"/>
                                     <else>
                                         <set field="daysToShip" value="30" type="Long"/>
                                     </else>
