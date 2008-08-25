@@ -183,7 +183,25 @@
         <response name="error" type="view" value="main"/>
     </request-map>
 
-
+    <!-- Create Customer Request-->
+    <request-map uri="newrequest">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditRequest"/>
+    </request-map>
+    <request-map uri="createrequest">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createCustRequest"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="EditRequest"/>
+    </request-map>
+    <request-map uri="updateRequest">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCustRequest"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="main"/>
+    </request-map>
+    
+    
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>
     <view-map name="preferences" type="screen" page="component://mypage/widget/CommonScreens.xml#preferences"/>
     <view-map name="myTasks" type="screen" page="component://mypage/widget/CommonScreens.xml#MyTasks"/>
@@ -194,4 +212,5 @@
     <view-map name="newEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#newEvent"/>
     <view-map name="ViewCommunicationEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#ViewCommunicationEvent"/>
     <view-map name="ViewRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#ViewRequest"/>
+    <view-map name="EditRequest" type="screen" page="component://mypage/widget/MyPageScreens.xml#EditRequest"/>
 </site-conf>

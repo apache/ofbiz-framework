@@ -127,16 +127,30 @@ under the License.
             <hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]" target-type="inter-app"/>
         </field>
     </form>
-    <form name="ListCustRequests" type="list" list-name="custRequests" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+    <form name="ListCustRequests" type="list"  list-name="custRequests" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" target="updateRequest">
         <row-actions>
             <service service-name="getProjectTask" result-map-name="taskResult">
                 <field-map field-name="taskId" env-name="workEffortId"/>
             </service>
         </row-actions>
+        <field name="custRequestId"><hidden/></field>
         <field name="custRequestName"><hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
-        <field name="createdDate" title="Date"><display type="date"/></field>
+        <field name="custRequestDate" title="Date"><display type="date"/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="priority">
+            <drop-down allow-empty="true">
+                <option key="9"/>
+                <option key="8"/>
+                <option key="7"/>
+                <option key="6"/>
+                <option key="5"/>
+                <option key="4"/>
+                <option key="3"/>
+                <option key="2"/>
+                <option key="1"/>
+            </drop-down>
+        </field>
+        <field name="updateButton" widget-style="smallSubmit"><submit /></field>
         <field name="currentStatusId" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="estimatedStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskPlanStartDate}"><display type="date"/></field>
         <field name="estimatedCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskPlanEndDate}"><display type="date"/></field>
@@ -145,4 +159,10 @@ under the License.
         <field name="plannedHours" map-name="taskResult.taskInfo"><display/></field>
         <field name="actualHours" map-name="taskResult.taskInfo"><display/></field>
     </form>
+
+    <form name="EditCustRequest" extends="EditCustRequest" extends-resource="component://projectmgr/widget/forms/RequestForms.xml">
+        <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}"><hidden value="${userLogin.partyId}"/></field>
+        <field name="custRequestDate"><ignored/></field>
+    </form>
+
 </forms>
