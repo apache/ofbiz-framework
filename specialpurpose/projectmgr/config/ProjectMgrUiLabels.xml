@@ -340,103 +340,119 @@
     </property>
     <property key="PageTitleTaskAssignedToMe">
         <value xml:lang="en">Open Tasks Assigned to me.</value>
-        <value xml:lang="fr">Ouvrir les tâches qui me sont assignées</value>
+        <value xml:lang="fr">Ouvrir les tâches qui me sont affectées</value>
         <value xml:lang="it">Compiti Aperti Assegnati a me.</value>
         <value xml:lang="th">งานที่มอบหมายให้ฉัน</value>
         <value xml:lang="zh">打开分配给我的任务</value>
     </property>
     <property key="PageTitleTaskInformation">
         <value xml:lang="en">Task information</value>
+        <value xml:lang="fr">Information sur la tâche</value>
         <value xml:lang="it">Informazione Compito</value>
         <value xml:lang="th">ข้อมูลงาน</value>
         <value xml:lang="zh">任务信息</value>
     </property>
     <property key="PageTitleTasksAfter">
         <value xml:lang="en">Tasks to be executed after the current task</value>
+        <value xml:lang="fr">Tâches à exécuter après la tâche courante</value>
         <value xml:lang="it">Compiti che saranno eseguiti dopo il compito attuale</value>
         <value xml:lang="th">งานที่ทำให้สำเร็จหลังจากงานเป็นที่ยอมรับ</value>
         <value xml:lang="zh">当前任务完成后才执行的任务</value>
     </property>
     <property key="PageTitleTasksBefore">
         <value xml:lang="en">Tasks to be executed before the current task</value>
+        <value xml:lang="fr">Tâches à exécuter avant la tâche courante</value>
         <value xml:lang="it">Compiti che saranno eseguiti prima del compito attuale</value>
         <value xml:lang="th">งานที่ทำให้สำเร็จก่อนงานเป็นที่ยอมรับ</value>
         <value xml:lang="zh">当前任务执行前要执行的任务</value>
     </property>
     <property key="PageTitleTimesheet">
         <value xml:lang="en">Timesheet</value>
+        <value xml:lang="fr">Feuille de présence</value>
         <value xml:lang="it">Timbratura</value>
         <value xml:lang="th">ตารางเวลา</value>
         <value xml:lang="zh">时间表</value>
     </property>
     <property key="PageTitleTimesheets">
         <value xml:lang="en">Timesheet list</value>
+        <value xml:lang="fr">Liste des feuilles de présence</value>
         <value xml:lang="it">Lista Timbrature</value>
         <value xml:lang="th">แสดงรายการตารางเวลา</value>
         <value xml:lang="zh">时间表列表</value>
     </property>
     <property key="PageTitleUnassignedTask">
         <value xml:lang="en">Unassigned Task</value>
+        <value xml:lang="fr">Tâches non affectées</value>
         <value xml:lang="it">Compito Non Assegnato</value>
         <value xml:lang="th">ไม่กำหนดงาน</value>
         <value xml:lang="zh">未分配任务</value>
     </property>
     <property key="ProjectMgrActualHours">
         <value xml:lang="en">Actual Hours</value>
+        <value xml:lang="fr">Heures réelles</value>
         <value xml:lang="it">Ore Attuali</value>
         <value xml:lang="th">ชั่วโมงจริง</value>
         <value xml:lang="zh">实际工时</value>
     </property>
     <property key="ProjectMgrAddNewTask">
         <value xml:lang="en">Add a new task to one of my projects.</value>
+        <value xml:lang="fr">Ajouter une nouvelle tâches à mes projets</value>
         <value xml:lang="it">Aggiungi un nuovo compito ad uno dei miei progetti.</value>
         <value xml:lang="th">เพิ่มงานใหม่ไปยังส่วนหนึ่งของโปรเจคของฉัน</value>
         <value xml:lang="zh">为我的一个项目增加新任务</value>
     </property>
     <property key="ProjectMgrApplication">
         <value xml:lang="en">Project Manager Application</value>
+        <value xml:lang="fr">Application de gestion de projet</value>
         <value xml:lang="it">Applicazione Gestione Progetti</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการโปรเจค</value>
         <value xml:lang="zh">项目管理应用程序</value>
     </property>
     <property key="ProjectMgrAssignATaskToMe">
         <value xml:lang="en">Assign an existing Task to me.</value>
+        <value xml:lang="fr">M'affecter une tâche existante</value>
         <value xml:lang="it">Assegna un Compito esistente a me.</value>
         <value xml:lang="th">กำหนดงานที่มีอยู่ให้ฉัน</value>
         <value xml:lang="zh">给我分配一个已有的任务</value>
     </property>
     <property key="ProjectMgrAssignMyTaskToSomebodyElse">
         <value xml:lang="en">Assign My Task To Somebody Else.</value>
+        <value xml:lang="fr">Affecter ma tâche à quelqu'un d'autre</value>
         <value xml:lang="it">Assegna Mio Compito Per Qualcuno Altro.</value>
         <value xml:lang="th">กำหนดงานของฉันให้คนอื่น</value>
         <value xml:lang="zh">把我的任务分配给别人</value>
     </property>
     <property key="ProjectMgrBilling">
         <value xml:lang="en">Billing</value>
+        <value xml:lang="fr">Facturation</value>
         <value xml:lang="it">Fatturazione</value>
         <value xml:lang="th">Billing</value>
         <value xml:lang="zh">账单</value>
     </property>
     <property key="ProjectMgrCompanyName">
         <value xml:lang="en">OFBiz: Project</value>
+        <value xml:lang="fr">OFBiz : projet</value>
         <value xml:lang="it">OFBiz: Progetti</value>
         <value xml:lang="th">OFBiz: โปรเจค</value>
         <value xml:lang="zh">OFBIZ: 项目</value>
     </property>
     <property key="ProjectMgrCompanySubtitle">
         <value xml:lang="en">Project</value>
+        <value xml:lang="fr">Projet</value>
         <value xml:lang="it">Progetti</value>
         <value xml:lang="th">โปรเจค</value>
         <value xml:lang="zh">项目</value>
     </property>
     <property key="ProjectMgrCopyProject">
         <value xml:lang="en">Copy Project</value>
+        <value xml:lang="fr">Copier le projet</value>
         <value xml:lang="it">Copia Progetto</value>
         <value xml:lang="th">คัดลอกโปรเจค</value>
         <value xml:lang="zh">复制项目</value>
     </property>
     <property key="ProjectMgrCreateByExistingTask">
         <value xml:lang="en">Link to an existing Task</value>
+        <value xml:lang="fr">Lien à une tâche existante</value>
         <value xml:lang="it">Link ad un Compito esistente</value>
         <value xml:lang="th">เชื่อมต่อไปยังงานที่มีอยู่แล้ว</value>
         <value xml:lang="zh">链接到已存在的任务</value>
