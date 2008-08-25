@@ -2297,7 +2297,7 @@ public class ModelForm extends ModelWidget {
 
             if (value instanceof Integer) {
                 viewSize = ((Integer) value).intValue();
-            } else if (value instanceof String) {
+            } else if (value instanceof String && UtilValidate.isNotEmpty(value)) {
                 viewSize = Integer.parseInt((String) value);
             }
         } catch (Exception e) {
