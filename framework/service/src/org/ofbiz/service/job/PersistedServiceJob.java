@@ -126,7 +126,7 @@ public class PersistedServiceJob extends GenericServiceJob {
 
         String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
         if (!instanceId.equals(job.getString("runByInstanceId"))) {
-            throw new InvalidJobException("Job has been accpeted by a different instance!");
+            throw new InvalidJobException("Job has been accepted by a different instance!");
         }
 
         try {
@@ -138,7 +138,7 @@ public class PersistedServiceJob extends GenericServiceJob {
         } catch (GenericEntityException e) {
             throw new RuntimeException(e.getMessage());
         }
-        if (Debug.infoOn()) Debug.logInfo(this.toString() + "[" + getJobId() + "] -- Next runtime: " + nextRecurrence, module);
+        if (Debug.infoOn()) Debug.logInfo(this.toString() + "[" + getJobId() + "] -- Next runtime: " + new java.sql.Timestamp(nextRecurrence), module);
     }
 
     private void createRecurrence(GenericValue job, long next) throws GenericEntityException {
