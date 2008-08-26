@@ -14998,6 +14998,7 @@
     </property>
     <property key="ProductReserveInventoryFromFacility">
         <value xml:lang="en">Reserve inventory from facility</value>
+        <value xml:lang="en">Réserver depuis le stock d'un lieu de stockage</value>
     </property>
     <property key="ProductReserveInventory">
         <value xml:lang="en">Reserve Inventory</value>
