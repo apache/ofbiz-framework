@@ -22,7 +22,7 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method short-description="Create Contact" method-name="createContact">
         <set field="parameters.roleTypeId" value="CONTACT"/>
-        <if-compare field="parameters.quickAdd" operator="not-equals" value="true">
+        <if-compare field="parameters.quickAdd" operator="not-equals" value="Y">
             <call-simple-method method-name="createPersonRoleAndContactMechs" xml-resource="org/ofbiz/party/party/PartySimpleMethods.xml"/>
         <else>
             <call-map-processor processor-name="person" in-map-name="parameters" out-map-name="personCtx"
