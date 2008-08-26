@@ -46,4 +46,13 @@ if (userLogin) {
             parameters.shipToCountryProvinceGeo =  shipToCountryProvinceGeo.geoName;
         }
     }
+    
+	shipToContactMechList = ContactHelper.getContactMech(party, "PHONE_SHIPPING", "TELECOM_NUMBER", false)
+    if (shipToContactMechList) {
+        shipToTelecomNumber = (EntityUtil.getFirst(shipToContactMechList)).getRelatedOne("TelecomNumber");
+        pcm = EntityUtil.getFirst(shipToTelecomNumber.getRelated("PartyContactMech"));
+        context.shipToTelecomNumber = shipToTelecomNumber;
+        context.shipToExtension = pcm.extension;
+    }
+
 }

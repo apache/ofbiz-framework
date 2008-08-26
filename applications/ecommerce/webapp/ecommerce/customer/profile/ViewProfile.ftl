@@ -50,22 +50,16 @@ under the License.
         <div class="screenlet-body">
           <#if parameters.shipToContactMechId?exists>
             ${parameters.shipToAddress1?if_exists}<br/>
-            ${parameters.shipToAddress2?if_exists}<br/>
+            <#if parameters.shipToAddress2?has_content>${parameters.shipToAddress2?if_exists}<br/></#if>
             ${parameters.shipToCity?if_exists},
             ${parameters.shipToStateProvinceGeoId?if_exists}
             ${parameters.shipToPostalCode?if_exists}<br/>
             ${parameters.shipToCountryGeoId?if_exists}<br/>
-            <#assign pcmps = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(party.getRelatedByAnd("PartyContactMechPurpose", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechPurposeTypeId", "PHONE_SHIPPING")))>
-            <#if pcmps?has_content>
-              <#assign pcmp = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(pcmps)/>
-              <#assign telecomNumber = pcmp.getRelatedOne("TelecomNumber")/>
-            </#if>
-            <#if telecomNumber?has_content>
-              <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-              ${telecomNumber.countryCode?if_exists}-
-              ${telecomNumber.areaCode?if_exists}-
-              ${telecomNumber.contactNumber?if_exists}-
-              ${pcm.extension?if_exists}
+            <#if shipToTelecomNumber?has_content>
+              ${shipToTelecomNumber.countryCode?if_exists}-
+              ${shipToTelecomNumber.areaCode?if_exists}-
+              ${shipToTelecomNumber.contactNumber?if_exists}
+              <#if shipToExtension?exists>-${shipToExtension?if_exists}</#if><br/>
             </#if>
           <#else>
             ${uiLabelMap.OrderShippingAddress} ${uiLabelMap.EcommerceNotExists}
@@ -78,22 +72,16 @@ under the License.
         <div class="screenlet-body">
           <#if parameters.billToContactMechId?exists>
             ${parameters.billToAddress1?if_exists}<br/>
-            ${parameters.billToAddress2?if_exists}<br/>
+            <#if parameters.billToAddress2?has_content>${parameters.billToAddress2?if_exists}<br/></#if>
             ${parameters.billToCity?if_exists},
             ${parameters.billToStateProvinceGeoId?if_exists}
             ${parameters.billToPostalCode?if_exists}<br/>
             ${parameters.billToCountryGeoId?if_exists}<br/>
-            <#assign pcmps = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(party.getRelatedByAnd("PartyContactMechPurpose", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechPurposeTypeId", "PHONE_BILLING")))>
-            <#if pcmps?has_content>
-              <#assign pcmp = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(pcmps)/>
-              <#assign telecomNumber = pcmp.getRelatedOne("TelecomNumber")/>
-            </#if>
-            <#if telecomNumber?has_content>
-              <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-              ${telecomNumber.countryCode?if_exists}-
-              ${telecomNumber.areaCode?if_exists}-
-              ${telecomNumber.contactNumber?if_exists}-
-              ${pcm.extension?if_exists}
+            <#if billToTelecomNumber?has_content>
+              ${billToTelecomNumber.countryCode?if_exists}-
+              ${billToTelecomNumber.areaCode?if_exists}-
+              ${billToTelecomNumber.contactNumber?if_exists}
+              <#if billToExtension?exists>-${billToExtension?if_exists}</#if><br/>
             </#if>
           <#else>
             ${uiLabelMap.PartyBillingAddress} ${uiLabelMap.EcommerceNotExists}

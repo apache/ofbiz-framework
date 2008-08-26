@@ -449,18 +449,27 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateContactMechAndPurposes" short-description="Update postal address, telecom number and purposes">
-        <entity-one entity-name="PartyProfileDefault" value-name="partyProfileDefault" >
-            <field-map field-name="partyId" env-name="userLogin.partyId"/>
-            <field-map field-name="productStoreId" env-name="parameters.productStoreId"/>
-        </entity-one>
         <set-service-fields service-name="updatePostalAddressAndPurposes" map-name="parameters" to-map-name="updatePostalAddressAndPurposesCtx"/>
         <call-service service-name="updatePostalAddressAndPurposes" in-map-name="updatePostalAddressAndPurposesCtx"/>
 
         <if-not-empty field="parameters.phoneContactMechId">
-
+            <entity-and entity-name="PartyContactMechPurpose" list-name="partyContactMachPurposes" filter-by-date="true">
+                <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                <field-map field-name="contactMechId" env-name="parameters.phoneContactMechId"/>
+                <select-field field-name="contactMechPurposeTypeId"/>
+            </entity-and>
+            
+            <iterate list-name="partyContactMachPurposes" entry-name="partyContactMachPurpose">
+                <if-compare field="partyContactMachPurpose.contactMechPurposeTypeId" operator="equals" value="PHONE_SHIPPING">
+                    <set field="hasShipToPhonePurpose" value="Y"/>
+                </if-compare>
+                <if-compare field="partyContactMachPurpose.contactMechPurposeTypeId" operator="equals" value="PHONE_BILLING">
+                    <set field="hasBillToPhonePurpose" value="Y"/>
+                </if-compare>
+            </iterate>
             <set field="parameters.contactMechId" from-field="parameters.phoneContactMechId"/>
-       
-            <if-compare-field field="partyProfileDefault.defaultBillAddr" operator="not-equals" to-field="partyProfileDefault.defaultShipAddr">
+
+            <if-compare-field field="hasShipToPhonePurpose" operator="not-equals" to-field="hasBillToPhonePurpose">
                 <set-service-fields service-name="updatePartyTelecomNumber" map-name="parameters" to-map-name="updatePartyTelecomNumberCtx"/>
                 <call-service service-name="updatePartyTelecomNumber" in-map-name="updatePartyTelecomNumberCtx">
                     <result-to-field result-name="contactMechId" field-name="parameters.contactMechId"/>

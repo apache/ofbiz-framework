@@ -76,27 +76,24 @@ under the License.
         <span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(required)</span>
       </span>
     </div>
-    <#if telecomNumber?has_content>
-      <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
+    <#if billToTelecomNumber?has_content>
       <div class="form-row">
         <div class="field-label">
-          <label for="phoneNumber_${telecomNumber.contactMechId}">${uiLabelMap.PartyPhoneNumber}*</label>
+          <label for="phoneNumber_${billToTelecomNumber.contactMechId}">${uiLabelMap.PartyPhoneNumber}*</label>
         </div>
         <div>
-          <input type="hidden" name="phoneContactMechId" value="${telecomNumber.contactMechId?if_exists}"/>
-          <input type="text" name="countryCode" id="countryCode_${telecomNumber.contactMechId}" class="required" value="${telecomNumber.countryCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="areaCode" id="areaCode_${telecomNumber.contactMechId}" class="required" value="${telecomNumber.areaCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="contactNumber" id="contactNumber_${telecomNumber.contactMechId}" class="required" value="${contactNumber?default("${telecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
-          - <input type="text" name="extension" id="extension_${telecomNumber.contactMechId}" value="${extension?default("${pcm.extension?if_exists}")}" size="3" maxlength="3"/>
+          <input type="hidden" name="phoneContactMechId" value="${billToTelecomNumber.contactMechId?if_exists}"/>
+          <input type="text" name="countryCode" id="countryCode_${billToTelecomNumber.contactMechId}" class="required" value="${billToTelecomNumber.countryCode?if_exists}" size="3" maxlength="3"/>
+          - <input type="text" name="areaCode" id="areaCode_${billToTelecomNumber.contactMechId}" class="required" value="${billToTelecomNumber.areaCode?if_exists}" size="3" maxlength="3"/>
+          - <input type="text" name="contactNumber" id="contactNumber_${billToTelecomNumber.contactMechId}" class="required" value="${contactNumber?default("${billToTelecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
+          - <input type="text" name="extension" id="extension_${billToTelecomNumber.contactMechId}" value="${extension?default("${billToExtension?if_exists}")}" size="3" maxlength="3"/>
         </div>
       </div>
     </#if>
-    <#if parameters.shipToContactMechId != parameters.billToContactMechId>
-      <div class="form-row">
-        <b>${uiLabelMap.EcommerceMyDefaultShippingAddress}</b>
-        <input type="checkbox" name="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked</#if>/>
-      </div>
-    </#if>
+    <div class="form-row">
+      <b>${uiLabelMap.EcommerceMyDefaultShippingAddress}</b>
+      <input type="checkbox" name="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked</#if>/>
+    </div>
     <div class="form-row">
       <a name="submitEditBillToPostalAddress" id="submitEditBillToPostalAddress" class="buttontext" onclick="updatePartyBillToPostalAddress('submitEditBillToPostalAddress')">${uiLabelMap.CommonSubmit}</a>
       <form action="">
