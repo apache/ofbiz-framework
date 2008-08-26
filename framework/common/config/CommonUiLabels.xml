@@ -1741,7 +1741,7 @@
         <value xml:lang="de">Bearbeiten</value>
         <value xml:lang="en">Edit</value>
         <value xml:lang="es">Editar</value>
-        <value xml:lang="fr">Editer</value>
+        <value xml:lang="fr">Modifier</value>
         <value xml:lang="it">Aggiorna</value>
         <value xml:lang="nl">Wijzigen</value>
         <value xml:lang="pt">Editar</value>
@@ -7343,7 +7343,7 @@
         <value xml:lang="de">Datenquelle bearbeiten</value>
         <value xml:lang="en">Edit Data Source</value>
         <value xml:lang="es">Editar fuente de datos</value>
-        <value xml:lang="fr">Edition de source de données</value>
+        <value xml:lang="fr">Modification de source de données</value>
         <value xml:lang="it">Aggiorna Sorgente Dati</value>
         <value xml:lang="nl">Edit Data Bron</value>
         <value xml:lang="pt">Editar Origem de Dados</value>
@@ -7358,7 +7358,7 @@
         <value xml:lang="de">Datenquelle Typ bearbeiten</value>
         <value xml:lang="en">Edit Data Source Type</value>
         <value xml:lang="es">Editar tipo de fuente de datos</value>
-        <value xml:lang="fr">Edition de type de source de données</value>
+        <value xml:lang="fr">Modification de type de source de données</value>
         <value xml:lang="it">Aggiorna Tipo Sorgente Dati</value>
         <value xml:lang="nl">Edit Data Bron Type</value>
         <value xml:lang="pt">Editar Tipo de Origem de Dados</value>

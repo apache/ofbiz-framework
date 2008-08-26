@@ -1351,7 +1351,7 @@
     </property>
     <property key="FormFieldTitle_editDataResource">
         <value xml:lang="en">Edit Data Resource</value>
-        <value xml:lang="fr">Editer la ressource de donnée</value>
+        <value xml:lang="fr">Modifier la ressource de donnée</value>
         <value xml:lang="it">Aggiorna Risorsa Dati</value>
         <value xml:lang="th">แก้ไขแหล่งข้อมูล</value>
     </property>

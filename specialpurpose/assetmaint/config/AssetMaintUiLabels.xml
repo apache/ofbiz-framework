@@ -81,13 +81,13 @@
     </property>
     <property key="PageTitleEditFixedAsset">
         <value xml:lang="en">Edit Equipment</value>
-        <value xml:lang="fr">Editer l'équipement</value>
+        <value xml:lang="fr">Modifier l'équipement</value>
         <value xml:lang="it">Aggiorna Cespite</value>
         <value xml:lang="th">แก้ไขเครื่องมือ</value>
     </property>
     <property key="PageTitleEditWorkEffort">
         <value xml:lang="en">Edit Task</value>
-        <value xml:lang="fr">Editer la tâche</value>
+        <value xml:lang="fr">Modifier la tâche</value>
         <value xml:lang="it">Aggiorna Compito</value>
         <value xml:lang="th">แก้ไขงาน</value>
     </property>
