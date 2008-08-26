@@ -509,7 +509,7 @@ if (!selectedService) {
             }
 
             if (canIncludeService && constraintName.equals("alpha")) {
-                canIncludeService = (serviceName.charAt(0)+"").equals(constraintVal);
+                canIncludeService = (serviceName[0]).equals(constraintVal);
                 if (constraintVal.equals("NA")) {
                     canIncludeService = true;
                 }
