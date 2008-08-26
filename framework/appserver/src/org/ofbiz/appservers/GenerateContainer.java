@@ -412,9 +412,11 @@ public class GenerateContainer implements Container {
         for (File f: elements) {
             if (f.exists()) {
                 if (f.isDirectory()) {
-                    dir.add(f.getAbsolutePath());
+					String path = f.getAbsolutePath();
+                    dir.add(path.replace('\\','/'));
                 } else {
-                    jar.add(f.getAbsolutePath());
+					String path = f.getAbsolutePath();
+                    jar.add(path.replace('\\','/'));
                 }
             }
         }
