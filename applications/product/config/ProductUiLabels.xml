@@ -14996,8 +14996,11 @@
         <value xml:lang="th">รายการสั่งจอง</value>
         <value xml:lang="zh">预订订单</value>
     </property>
+    <property key="ProductReserveInventoryFromFacility">
+        <value xml:lang="en">Reserve inventory from facility</value>
+    </property>
     <property key="ProductReserveInventory">
-        <value xml:lang="en">Reservenventory</value>
+        <value xml:lang="en">Reserve Inventory</value>
         <value xml:lang="fr">Réservation de stock</value>
         <value xml:lang="es">Inventario reservado</value>
         <value xml:lang="fr">Stock de réserve</value>

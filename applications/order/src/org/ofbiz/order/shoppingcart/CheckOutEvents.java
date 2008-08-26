@@ -751,6 +751,8 @@ public class CheckOutEvents {
                         shippingContactMechId = (String) request.getAttribute("contactMechId"); // FIXME
                     }
                     String supplierPartyId = request.getParameter(shipGroupIndex + "_supplierPartyId");
+                    String facilityId = request.getParameter(shipGroupIndex + "_shipGroupFacilityId");
+                    cart.setShipGroupFacilityId(shipGroupIndex, facilityId);                  
                     callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId);
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }

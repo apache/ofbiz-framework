@@ -1115,6 +1115,8 @@ public class OrderServices {
                         continue;
                     }
                     GenericValue orderItem = (GenericValue) itemValuesBySeqId.get(orderItemShipGroupAssoc.get("orderItemSeqId"));
+                    GenericValue orderItemShipGroup = orderItemShipGroupAssoc.getRelatedOne("OrderItemShipGroup");
+                    String shipGroupFacilityId = orderItemShipGroup.getString("facilityId");
                     String itemStatus = orderItem.getString("statusId");
                     if ("ITEM_REJECTED".equals(itemStatus) || "ITEM_CANCELLED".equals(itemStatus) || "ITEM_COMPLETED".equals(itemStatus)) {
                         Debug.logInfo("Order item [" + orderItem.getString("orderId") + " / " + orderItem.getString("orderItemSeqId") + "] is not in a proper status for reservation", module);
@@ -1153,6 +1155,7 @@ public class OrderServices {
                                             reserveInput.put("shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
                                             reserveInput.put("quantity", quantity);
                                             reserveInput.put("userLogin", userLogin);
+                                            reserveInput.put("facilityId", shipGroupFacilityId);
                                             Map reserveResult = dispatcher.runSync("reserveStoreInventory", reserveInput);
 
                                             if (ServiceUtil.isError(reserveResult)) {
@@ -1173,6 +1176,7 @@ public class OrderServices {
                                     reserveInput.put("orderId", orderItem.getString("orderId"));
                                     reserveInput.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
                                     reserveInput.put("shipGroupSeqId", orderItemShipGroupAssoc.getString("shipGroupSeqId"));
+                                    reserveInput.put("facilityId", shipGroupFacilityId);
                                     // use the quantity from the orderItemShipGroupAssoc, NOT the orderItem, these are reserved by item-group assoc
                                     reserveInput.put("quantity", orderItemShipGroupAssoc.getDouble("quantity"));
                                     reserveInput.put("userLogin", userLogin);
@@ -1195,7 +1199,11 @@ public class OrderServices {
                                 // that can actually create and run a production run
                                 GenericValue permUserLogin = delegator.findByPrimaryKeyCache("UserLogin", UtilMisc.toMap("userLoginId", "system"));
                                 Map inputMap = new HashMap();
-                                inputMap.put("facilityId", productStore.getString("inventoryFacilityId"));
+                                if (UtilValidate.isNotEmpty(shipGroupFacilityId)) {
+                                    inputMap.put("facilityId", shipGroupFacilityId);
+                                } else {
+                                    inputMap.put("facilityId", productStore.getString("inventoryFacilityId"));
+                                }
                                 inputMap.put("orderId", orderItem.getString("orderId"));
                                 inputMap.put("orderItemSeqId", orderItem.getString("orderItemSeqId"));
                                 inputMap.put("userLogin", permUserLogin);
