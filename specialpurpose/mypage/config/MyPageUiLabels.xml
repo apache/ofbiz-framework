@@ -70,6 +70,12 @@
         <value xml:lang="en">My Information</value>
         <value xml:lang="fr">Mes informations </value>
     </property>
+    <property key="MyCompletedCustomerRequests">
+        <value xml:lang="en">My Completed Customer Requests</value>
+    </property>
+    <property key="MyOpenCustomerRequests">
+        <value xml:lang="en">My Open Customer Requests</value>
+    </property>
     <property key="MyPageNoAccess1">
         <value xml:lang="en">No Access priviledges has been setup.</value>
         <value xml:lang="fr">Aucun accès provolégié n'a été paramétré.</value>

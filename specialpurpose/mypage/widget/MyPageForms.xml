@@ -159,6 +159,18 @@ under the License.
         <field name="plannedHours" map-name="taskResult.taskInfo"><display/></field>
         <field name="actualHours" map-name="taskResult.taskInfo"><display/></field>
     </form>
+    <form name="ListCustRequestsCompleted" extends="ListCustRequests" list-name="custRequestsCompleted">
+        <field name="priority"><display/></field>
+        <field name="updateButton"><ignored/></field>
+        <field name="currentStatusId"><ignored/></field>
+    </form>
+
+    <form name="ListCustRequestsCompletedTotal" type="single">
+        <actions>
+            <set field="TotalHoursThisMonth" value="33"/>
+        </actions>
+        <field name="TotalHoursThisMonth"><display/></field>
+    </form>
 
     <form name="EditCustRequest" extends="EditCustRequest" extends-resource="component://projectmgr/widget/forms/RequestForms.xml">
         <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}"><hidden value="${userLogin.partyId}"/></field>
