@@ -149,7 +149,7 @@
     </property>
     <property key="PageTitleEditCurrentTimesheet">
         <value xml:lang="en">Edit current timesheet</value>
-        <value xml:lang="fr">Editier la feuille de présence courante</value>
+        <value xml:lang="fr">Modifier la feuille de présence courante</value>
         <value xml:lang="it">Aggiorna timbratura correnti</value>
         <value xml:lang="th">แก้ไขตารางเวลาที่ใช้อยู่ในปัจจุบัน</value>
         <value xml:lang="zh">编辑当前时间表</value>
