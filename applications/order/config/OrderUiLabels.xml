@@ -2804,7 +2804,7 @@
         <value xml:lang="de">Elemente bearbeiten</value>
         <value xml:lang="en">Edit Items</value>
         <value xml:lang="es">Editar ítems de orden</value>
-        <value xml:lang="fr">Edition des lignes de commande</value>
+        <value xml:lang="fr">Modification des lignes de commande</value>
         <value xml:lang="it">Aggiorna Righe</value>
         <value xml:lang="nl">Wijzig Items</value>
         <value xml:lang="ro">Actualizeaza Linii </value>
@@ -2817,13 +2817,13 @@
         <value xml:lang="de">Bedarf bearbeiten</value>
         <value xml:lang="en">Edit Requirement</value>
         <value xml:lang="es">Editar requerimientos</value>
-        <value xml:lang="fr">Editer la condition</value>
+        <value xml:lang="fr">Modifier la condition</value>
         <value xml:lang="th">แก้ไขความต้องการ</value>
     </property>
     <property key="OrderEditShipmentInfo">
         <value xml:lang="de">Versandinformationen bearbeiten</value>
         <value xml:lang="en">Edit Shipment Info</value>
-        <value xml:lang="fr">Editer l'info d'expédition</value>
+        <value xml:lang="fr">Modifier l'info d'expédition</value>
         <value xml:lang="ru">Изменить информацию о поставке</value>
         <value xml:lang="th">แก้ไขข้อมูลการส่งสินค้า</value>
         <value xml:lang="zh">编辑货运信息</value>
@@ -4925,7 +4925,7 @@
         <value xml:lang="de">Offerte bearbeiten</value>
         <value xml:lang="en">Edit Quote</value>
         <value xml:lang="es">Editar Cotización</value>
-        <value xml:lang="fr">Editer le devis</value>
+        <value xml:lang="fr">Modifier le devis</value>
         <value xml:lang="it">Aggiorna Preventivo</value>
         <value xml:lang="nl">Edit Offerte</value>
         <value xml:lang="ro">Actualizeaza Oferta</value>
@@ -4937,7 +4937,7 @@
         <value xml:lang="de">Offertanpassung bearbeiten</value>
         <value xml:lang="en">Edit Quote Adjustments</value>
         <value xml:lang="es">Editar Ajustes de Cotización</value>
-        <value xml:lang="fr">Editer les ajustements du devis</value>
+        <value xml:lang="fr">Modifier les ajustements du devis</value>
         <value xml:lang="it">Aggiorna Aggiustamenti Preventivo</value>
         <value xml:lang="nl">Wijzigen Offerte Correcties</value>
         <value xml:lang="ro">Actualizeaza Modificari Oferta</value>
@@ -4949,7 +4949,7 @@
         <value xml:lang="de">Offertattribut bearbeiten</value>
         <value xml:lang="en">Edit Quote Attributes</value>
         <value xml:lang="es">Editar atributos de cotización</value>
-        <value xml:lang="fr">Editer les attributs du devis</value>
+        <value xml:lang="fr">Modifier les attributs du devis</value>
         <value xml:lang="it">Aggiorna Attributi Preventivo</value>
         <value xml:lang="nl">Edit Offerte Attributen</value>
         <value xml:lang="ro">Actualizeaza Atribute Oferta</value>
@@ -4961,7 +4961,7 @@
         <value xml:lang="de">Offertkoeffizient bearbeiten</value>
         <value xml:lang="en">Edit Quote Coefficients</value>
         <value xml:lang="es">Editar coeficientes de cotización</value>
-        <value xml:lang="fr">Editer les coefficients du devis</value>
+        <value xml:lang="fr">Modifier les coefficients du devis</value>
         <value xml:lang="it">Aggiorna Coefficienti Preventivo</value>
         <value xml:lang="nl">Edit Offerte Coefficienten</value>
         <value xml:lang="ro">Actualizeaza Coeficienti Oferte</value>
@@ -4973,7 +4973,7 @@
         <value xml:lang="de">Offertelement bearbeiten</value>
         <value xml:lang="en">Edit Quote Items</value>
         <value xml:lang="es">Editar artículos cotizados</value>
-        <value xml:lang="fr">Editer les lignes du devis</value>
+        <value xml:lang="fr">Modifier les lignes du devis</value>
         <value xml:lang="it">Aggiorna Righe Preventivo</value>
         <value xml:lang="nl">Edit Offerte Items</value>
         <value xml:lang="ro">Actualizeaza Linii Oferte</value>
@@ -4985,7 +4985,7 @@
         <value xml:lang="de">Offertbericht E-Mail bearbeiten</value>
         <value xml:lang="en">Edit Quote Report Mail</value>
         <value xml:lang="es">Editar correo de reporte de la cotización</value>
-        <value xml:lang="fr">Editer le courriel d'état du devis</value>
+        <value xml:lang="fr">Modifier le courriel d'état du devis</value>
         <value xml:lang="it">Aggiorna Mail Stampa Preventivo</value>
         <value xml:lang="nl">Edit Offerte Report Mail</value>
         <value xml:lang="ro">Actualizeaza Mail Stampa Oferta</value>
@@ -4997,7 +4997,7 @@
         <value xml:lang="de">Offertrolle bearbeiten</value>
         <value xml:lang="en">Edit Quote Roles</value>
         <value xml:lang="es">Editar Roles de la cotización</value>
-        <value xml:lang="fr">Editer les rôles du devis</value>
+        <value xml:lang="fr">Modifier les rôles du devis</value>
         <value xml:lang="it">Aggiorna Ruoli Preventivo</value>
         <value xml:lang="nl">Wijzig Offerte Rollen</value>
         <value xml:lang="ro">Actualizeaza Roluri Oferte</value>
@@ -5009,7 +5009,7 @@
         <value xml:lang="de">Offertarbeitseinsatz bearbeiten</value>
         <value xml:lang="en">Edit Quote Work Efforts</value>
         <value xml:lang="es">Editar Esfuerzos de la Cotización</value>
-        <value xml:lang="fr">Editer les tâches du devis</value>
+        <value xml:lang="fr">Modifier les tâches du devis</value>
         <value xml:lang="it">Aggiorna Preventivo Impegno di Lavoro</value>
         <value xml:lang="nl">Edit Offerte Activiteiten</value>
         <value xml:lang="ro">Actualizeaza Preventiv Sarcini de Lucru</value>
@@ -8694,7 +8694,7 @@
     <property key="PageTitleEditQuoteItemForCustRequest">
         <value xml:lang="de">Offertelement für Kundenanfrage bearbeiten</value>
         <value xml:lang="en">Edit a QuoteItem For a CustRequest</value>
-        <value xml:lang="fr">Editer un ligne de devis à la demande d'un client</value>
+        <value xml:lang="fr">Modifier un ligne de devis à la demande d'un client</value>
         <value xml:lang="it">Aggiorna Riga Preventivo Per una Richiesta Cliente</value>
         <value xml:lang="nl">Edit a QuoteItem For a CustRequest</value>
         <value xml:lang="ro">Actualizeaza Linie oferta pentru o Cerere Client</value>
@@ -8705,7 +8705,7 @@
     <property key="PageTitleEditRequestItem">
         <value xml:lang="de">Anfrageelemen bearbeiten</value>
         <value xml:lang="en">Edit a Request Item</value>
-        <value xml:lang="fr">Editer une ligne de demande</value>
+        <value xml:lang="fr">Modifier une ligne de demande</value>
         <value xml:lang="it">Aggiorna Riga Richiesta</value>
         <value xml:lang="nl">Edit a Request Item</value>
         <value xml:lang="ro">Actualizeaza Linie Cerere</value>
@@ -8716,7 +8716,7 @@
     <property key="PageTitleEditRequestItemWorkEffort">
         <value xml:lang="de">Anfrageelement Arbeitseinsatz bearbeiten</value>
         <value xml:lang="en">Edit a Request Item WorkEffort</value>
-        <value xml:lang="fr">Editer une demande de service</value>
+        <value xml:lang="fr">Modifier une demande de service</value>
         <value xml:lang="it">Aggiorna Riga Richiesta Impegno di Lavoro</value>
         <value xml:lang="nl">Edit a Request Item WorkEffort</value>
         <value xml:lang="ro">Actualizeaza linie Cerere Sarcina de Lucru</value>
@@ -8727,14 +8727,14 @@
     <property key="PageTitleEditRequestRoles">
         <value xml:lang="de">Anfrage Rolle bearbeiten</value>
         <value xml:lang="en">Edit Request Roles</value>
-        <value xml:lang="fr">Editer une demande de rôles</value>
+        <value xml:lang="fr">Modifier une demande de rôles</value>
         <value xml:lang="it">Aggiorna Ruoli Richiesta</value>
         <value xml:lang="th">แก้ไขสถานะการร้องขอ</value>
     </property>
     <property key="PageTitleEditRequirement">
         <value xml:lang="de">Bedarf bearbeiten</value>
         <value xml:lang="en">Edit Requirement</value>
-        <value xml:lang="fr">Editer une condition</value>
+        <value xml:lang="fr">Modifier une condition</value>
         <value xml:lang="it">Aggiorna Fabbisogno</value>
         <value xml:lang="nl">Edit Requirement</value>
         <value xml:lang="ro">Actualizeaza Necesarul</value>

@@ -156,42 +156,42 @@
     </property>
     <property key="PageTitleEditPhase">
         <value xml:lang="en">Edit Phase</value>
-        <value xml:lang="fr">Editer la phase</value>
+        <value xml:lang="fr">Modifier la phase</value>
         <value xml:lang="it">Aggiorna Fase</value>
         <value xml:lang="th">แก้ไขขั้นตอนการทำงาน</value>
         <value xml:lang="zh">编辑项目阶段</value>
     </property>
     <property key="PageTitleEditProject">
         <value xml:lang="en">Edit Project</value>
-        <value xml:lang="fr">Editer le projet</value>
+        <value xml:lang="fr">Modifier le projet</value>
         <value xml:lang="it">Aggiorna Progetto</value>
         <value xml:lang="th">แก้ไขโปรเจค</value>
         <value xml:lang="zh">编辑项目</value>
     </property>
     <property key="PageTitleEditSkill">
         <value xml:lang="en">Edit Requirement</value>
-        <value xml:lang="fr">Editer la condition</value>
+        <value xml:lang="fr">Modifier la condition</value>
         <value xml:lang="it">Aggiorna Abilità</value>
         <value xml:lang="th">แก้ไขความต้องการ</value>
         <value xml:lang="zh">编辑需求</value>
     </property>
     <property key="PageTitleEditSubProject">
         <value xml:lang="en">Edit Sub Project</value>
-        <value xml:lang="fr">Editer le sous-projet</value>
+        <value xml:lang="fr">Modifier le sous-projet</value>
         <value xml:lang="it">Aggiorna Sotto-Progetto</value>
         <value xml:lang="th">แก้ไขโปรเจคย่อย</value>
         <value xml:lang="zh">编辑子项目</value>
     </property>
     <property key="PageTitleEditSubTask">
         <value xml:lang="en">Edit Sub Task</value>
-        <value xml:lang="fr">Editer la sous-tâche</value>
+        <value xml:lang="fr">Modifier la sous-tâche</value>
         <value xml:lang="it">Aggiorna Sotto-Compito</value>
         <value xml:lang="th">แก้ไขงานย่อย</value>
         <value xml:lang="zh">编辑子任务</value>
     </property>
     <property key="PageTitleEditTask">
         <value xml:lang="en">Edit Task</value>
-        <value xml:lang="fr">Editer la tâche</value>
+        <value xml:lang="fr">Modifier la tâche</value>
         <value xml:lang="it">Aggiorna Compito</value>
         <value xml:lang="th">แก้ไขงาน</value>
         <value xml:lang="zh">编辑任务</value>
@@ -459,30 +459,35 @@
     </property>
     <property key="ProjectMgrCreateTaskFromRequest">
         <value xml:lang="en">Create Task From Request</value>
+        <value xml:lang="fr">Créer une tâche depuis une demande</value>
         <value xml:lang="it">Creare Compito Dalla Richiesta</value>
         <value xml:lang="th">สร้างงานจากคำร้อง</value>
         <value xml:lang="zh">为请求创建任务</value>
     </property>
     <property key="ProjectMgrCustRequestWorkEffort">
         <value xml:lang="en">CustRequest WorkEffort</value>
+        <value xml:lang="fr">Créer une tâche depuis une demande client</value>
         <value xml:lang="it">Impegno di Lavoro Richiesta</value>
         <value xml:lang="th">งานคำร้องของลูกค้า</value>
         <value xml:lang="zh">客户请求的工作任务</value>
     </property>
     <property key="ProjectMgrDependencies">
         <value xml:lang="en">Dependencies</value>
+        <value xml:lang="fr">Dépendances</value>
         <value xml:lang="it">Dipendenze</value>
         <value xml:lang="th">ความสัมพันธ์</value>
         <value xml:lang="zh">依赖</value>
     </property>
     <property key="ProjectMgrEdit">
         <value xml:lang="en">Edit</value>
+        <value xml:lang="fr">Modifier</value>
         <value xml:lang="it">Aggiorna</value>
         <value xml:lang="th">แก้ไข</value>
         <value xml:lang="zh">编辑</value>
     </property>
     <property key="ProjectMgrEditPatySkill">
         <value xml:lang="en">Edit PartySkill</value>
+        <value xml:lang="fr">Créer une tâche depuis une demande client</value>
         <value xml:lang="it">Aggiorna Abilità Soggetto</value>
         <value xml:lang="th">แก้ไขทักษะกลุ่มผู้ใช้</value>
         <value xml:lang="zh">编辑会员技能</value>

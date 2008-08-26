@@ -109,14 +109,14 @@
     <property key="AccountingEditCreditCard">
         <value xml:lang="de">Kreditkarte bearbeiten</value>
         <value xml:lang="en">Edit Credit Card</value>
-        <value xml:lang="fr">Editer carte de crédit</value>
+        <value xml:lang="fr">Modifier la carte de crédit</value>
         <value xml:lang="th">แก้ไขบัตรเครดิต</value>
     </property>
     <property key="AccountingEditGiftCard">
         <value xml:lang="de">Gutschein bearbeiten</value>
         <value xml:lang="en">Edit Gift Card</value>
         <value xml:lang="es">Editar certificado de regalo</value>
-        <value xml:lang="fr">Editer la carte cadeau</value>
+        <value xml:lang="fr">Modifier la carte cadeau</value>
         <value xml:lang="it">Aggiorna Carta Omaggio</value>
         <value xml:lang="nl">Wijzig cadeaubon</value>
         <value xml:lang="ro">Actualizare Carte Omagiu</value>
@@ -484,7 +484,7 @@
     <property key="FormFieldTitle_editContent">
         <value xml:lang="de">Inhalt bearbeiten</value>
         <value xml:lang="en">Edit Content</value>
-        <value xml:lang="fr">Editer le contenu</value>
+        <value xml:lang="fr">Modifier le contenu</value>
         <value xml:lang="it">Aggiorna Contenuto</value>
         <value xml:lang="ru">Изменить контент</value>
         <value xml:lang="th">แก้ไขหัวข้อ</value>
@@ -1363,7 +1363,7 @@
         <value xml:lang="de">AVS (Adressprüfungsdienst für Kreditkarten) Übersteuerung bearbeiten</value>
         <value xml:lang="en">Edit AVS Override</value>
         <value xml:lang="es">Editar AVS</value>
-        <value xml:lang="fr">Editer le forçage AVS (Service de Vérification d'Adresse)</value>
+        <value xml:lang="fr">Modifier le forçage AVS (Service de Vérification d'Adresse)</value>
         <value xml:lang="it">Aggiorna Sovrapposizioni AVS</value>
         <value xml:lang="nl">Wijzig AVS overscrijven</value>
         <value xml:lang="ro">Actualizare Suprapuneri AVS</value>
@@ -1375,7 +1375,7 @@
     <property key="PageTitleEditCommContent">
         <value xml:lang="de">Kommunikationsinhalt bearbeiten</value>
         <value xml:lang="en">Edit Comm Content</value>
-        <value xml:lang="fr">Editer le contenu de communication</value>
+        <value xml:lang="fr">Modifier le contenu de communication</value>
         <value xml:lang="it">Aggiorna Contenuto Comunicazione</value>
         <value xml:lang="nl">Wijzig Comm Content</value>
         <value xml:lang="ro">Actualizare Continut Comunicatii</value>
@@ -1459,7 +1459,7 @@
     <property key="PageTitleEditIssuerProvisions">
         <value xml:lang="de">Aussteller Bestimmungen bearbeiten</value>
         <value xml:lang="en">Edit Issuer Provisions</value>
-        <value xml:lang="fr">Editer les dispositions d'émetteur</value>
+        <value xml:lang="fr">Modifier les dispositions d'émetteur</value>
         <value xml:lang="it">Aggiorna Fornitore Certificati</value>
         <value xml:lang="ru">Изменить запасы отгрузчика</value>
         <value xml:lang="th">แก้ไขประเด็นที่ผ่านมา</value>
@@ -1468,7 +1468,7 @@
         <value xml:lang="de">Akteur Attribute bearbeiten</value>
         <value xml:lang="en">Edit Party Attribute</value>
         <value xml:lang="es">Editar atributos</value>
-        <value xml:lang="fr">Editer les attributs de l'acteur</value>
+        <value xml:lang="fr">Modifier les attributs de l'acteur</value>
         <value xml:lang="it">Aggiorna Attributo Soggetto</value>
         <value xml:lang="nl">Wijzig relatie kenmerk</value>
         <value xml:lang="ro">Actualizare Atribut Subiect</value>
@@ -1480,7 +1480,7 @@
         <value xml:lang="de">Akteur Klassifizierung bearbeiten</value>
         <value xml:lang="en">Edit Party Classification Group</value>
         <value xml:lang="es">Editar grupo de clasificación</value>
-        <value xml:lang="fr">Editer le groupe de classification de l'acteur</value>
+        <value xml:lang="fr">Modifier le groupe de classification de l'acteur</value>
         <value xml:lang="it">Aggiorna Classificazione Gruppo Soggetto</value>
         <value xml:lang="nl">Wijzig kenmerk relatiegroep</value>
         <value xml:lang="ro">Actualizare Clasificare Grup Subiect</value>
@@ -1492,7 +1492,7 @@
         <value xml:lang="de">Klassifizierungsgruppen für Akteure bearbeiten</value>
         <value xml:lang="en">Edit Classification Group Parties</value>
         <value xml:lang="es">Editar grupos de clasificación</value>
-        <value xml:lang="fr">Editer les groupes de classifications de l'acteurs</value>
+        <value xml:lang="fr">Modifier les groupes de classifications de l'acteurs</value>
         <value xml:lang="it">Aggiorna Classificazione Gruppo Soggetto</value>
         <value xml:lang="nl">Wijzig kenmerg relatiegroep</value>
         <value xml:lang="ro">Actualizare Clasificare Grup Subiect</value>
@@ -1502,14 +1502,14 @@
     </property>
     <property key="PageTitleEditPartyInvitationGroupAssoc">
         <value xml:lang="en">Edit Party Invitation GroupAssoc</value>
-        <value xml:lang="fr">Editer l'association groupe invitation de l'acteurs</value>
+        <value xml:lang="fr">Modifier l'association groupe invitation de l'acteurs</value>
         <value xml:lang="it">Aggiorna Associazione Gruppo Invito</value>
         <value xml:lang="th">แก้ไขการเชิญชวนกลุ่มผู้ใช้</value>
     </property>
     <property key="PageTitleEditPartyInvitationRoleAssoc">
         <value xml:lang="de">Verbindung Rolle Einladung Akteur bearbeiten</value>
         <value xml:lang="en">Edit Party Invitation RoleAssoc</value>
-        <value xml:lang="fr">Editer l'association de rôle d'invitation de l'acteur</value>
+        <value xml:lang="fr">Modifier l'association de rôle d'invitation de l'acteur</value>
         <value xml:lang="it">Aggiorna Associazione Ruolo Invito</value>
         <value xml:lang="th">แก้ไขสถานะการเชิญชวนกลุ่มผู้ใช้</value>
     </property>
@@ -1517,7 +1517,7 @@
         <value xml:lang="de">Akteur Ansätze bearbeiten</value>
         <value xml:lang="en">Edit Party Rates</value>
         <value xml:lang="es">Editar tasas de participación</value>
-        <value xml:lang="fr">Editer le taux de l'acteur</value>
+        <value xml:lang="fr">Modifier le taux de l'acteur</value>
         <value xml:lang="it">Aggiorna Percentuali Soggetto</value>
         <value xml:lang="nl">Wijzig relatie commisies</value>
         <value xml:lang="ro">Actualizare Procente Subiect</value>
@@ -1529,7 +1529,7 @@
         <value xml:lang="de">Akteur Beziehungen bearbeiten</value>
         <value xml:lang="en">Edit Party Relationships</value>
         <value xml:lang="es">Editar relaciones de participantes</value>
-        <value xml:lang="fr">Editer les relations entre acteurs</value>
+        <value xml:lang="fr">Modifier les relations entre acteurs</value>
         <value xml:lang="it">Aggiorna Rapporti Soggetto</value>
         <value xml:lang="nl">Wijzig relaties tussen relaties</value>
         <value xml:lang="ro">Actualizare Rapoarte Subiect</value>
@@ -1541,7 +1541,7 @@
         <value xml:lang="de">Informationen Steuerbehörde Akteur bearbeiten</value>
         <value xml:lang="en">Edit Party Tax Authority Info</value>
         <value xml:lang="es">Editar información de impuestos</value>
-        <value xml:lang="fr">Editer l'information sur l'administration fiscale de l'acteur </value>
+        <value xml:lang="fr">Modifier l'information sur l'administration fiscale de l'acteur </value>
         <value xml:lang="it">Aggiorna Informazioni Autorità Tasse Soggetto</value>
         <value xml:lang="nl">Wijzig BTW informatie</value>
         <value xml:lang="ro">Actualizare Informatii Taxe Autoritati Subiect</value>
@@ -1553,7 +1553,7 @@
         <value xml:lang="de">Angaben zur Person bearbeiten</value>
         <value xml:lang="en">Edit Personal Information</value>
         <value xml:lang="es">Editar información personal</value>
-        <value xml:lang="fr">Editer les informations personnelles</value>
+        <value xml:lang="fr">Modifier les informations personnelles</value>
         <value xml:lang="it">Aggiorna Informazioni Personali</value>
         <value xml:lang="nl">Wijzig persoonlijke informatie</value>
         <value xml:lang="ro">Actualizare Informatii Personale</value>
@@ -1565,7 +1565,7 @@
         <value xml:lang="de">Sicherheitsgruppe bearbeiten</value>
         <value xml:lang="en">Edit Security Group</value>
         <value xml:lang="es">Editar grupo de seguridad</value>
-        <value xml:lang="fr">Editer le groupe de sécurité</value>
+        <value xml:lang="fr">Modifier le groupe de sécurité</value>
         <value xml:lang="it">Aggiorna Gruppo Sicurezza</value>
         <value xml:lang="nl">Wijzig beveiligings groep</value>
         <value xml:lang="pt_PT">Editar Grupo de Segurança</value>
@@ -1578,7 +1578,7 @@
         <value xml:lang="de">Sicherheitsgruppe Berechtigungen bearbeiten</value>
         <value xml:lang="en">Edit Security Group Permissions</value>
         <value xml:lang="es">Editar permisos</value>
-        <value xml:lang="fr">Editer les permissions du groupe de sécurité</value>
+        <value xml:lang="fr">Modifier les permissions du groupe de sécurité</value>
         <value xml:lang="it">Aggiorna Permessi Gruppo Sicurezza</value>
         <value xml:lang="nl">Wijzig rechten groep</value>
         <value xml:lang="pt_PT">Editar Permissões do Grupo de Segurança</value>
@@ -1591,7 +1591,7 @@
         <value xml:lang="de">Benutzeranmeldungen der Sicherheitsgruppe bearbeiten</value>
         <value xml:lang="en">Edit Security Group UserLogins</value>
         <value xml:lang="es">Editar grupo de ususario</value>
-        <value xml:lang="fr">Editer les utilisateurs du groupe de sécurité</value>
+        <value xml:lang="fr">Modifier les utilisateurs du groupe de sécurité</value>
         <value xml:lang="it">Aggiorna Gruppo Sicurezza Utente</value>
         <value xml:lang="nl">Wijzig rechten users</value>
         <value xml:lang="pt_PT">Editar Inícios Dos Utilizadores De Segurança</value>
@@ -1604,7 +1604,7 @@
         <value xml:lang="de">Sicherheitsgruppen zur Benuterzanmeldung bearbeiten</value>
         <value xml:lang="en">Edit UserLogin Security Groups</value>
         <value xml:lang="es">Editar grupos de seguridad</value>
-        <value xml:lang="fr">Editer les groupes de sécurité de l'utilisateur</value>
+        <value xml:lang="fr">Modifier les groupes de sécurité de l'utilisateur</value>
         <value xml:lang="it">Aggiorna Gruppi Sicurezza Utente</value>
         <value xml:lang="nl">Wijzig groepen gebruiker</value>
         <value xml:lang="ro">Actualizare Grup Siguranta Utilizator</value>
@@ -1615,7 +1615,7 @@
     <property key="PageTitleEditcontactmech">
         <value xml:lang="de">Kontaktmechanismus bearbeiten</value>
         <value xml:lang="en">Edit contact mech</value>
-        <value xml:lang="fr">Editer les coordonnées</value>
+        <value xml:lang="fr">Modifier les coordonnées</value>
         <value xml:lang="pt_PT">Editar Contacto</value>
         <value xml:lang="th">แก้ไขการติดต่อ</value>
     </property>
@@ -1782,7 +1782,7 @@
     <property key="PageTitlePartyCarrierAccount">
         <value xml:lang="de">Akteur Spediteur Konto bearbeiten</value>
         <value xml:lang="en">Edit Party Carrier Account</value>
-        <value xml:lang="fr">Editer le compte du transporteur</value>
+        <value xml:lang="fr">Modifier le compte du transporteur</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้ในบัญชีผู้ส่ง</value>
     </property>
     <property key="PageTitlePartyInvitation">
@@ -3569,7 +3569,7 @@
         <value xml:lang="de">Kommunikation Arbeitszweck bearbeiten</value>
         <value xml:lang="en">Edit Communication Work Purpose</value>
         <value xml:lang="es">Editar propósito de trabajo</value>
-        <value xml:lang="fr">Editer la communication de but d'activité</value>
+        <value xml:lang="fr">Modifier la communication de but d'activité</value>
         <value xml:lang="it">Aggiorna Comunicazione Work</value>
         <value xml:lang="nl">Wijzig doel communicatie</value>
         <value xml:lang="ro">Actualizare Comunicare Work</value>
@@ -3581,7 +3581,7 @@
         <value xml:lang="de">Kommunikationsrolle bearbeiten</value>
         <value xml:lang="en">Edit Communication Role</value>
         <value xml:lang="es">Editar rol de comunicación</value>
-        <value xml:lang="fr">Editer le rôle de communication</value>
+        <value xml:lang="fr">Modifier le rôle de communication</value>
         <value xml:lang="it">Aggiorna Ruolo Comunicazione</value>
         <value xml:lang="nl">Wijzig communicatie rol</value>
         <value xml:lang="ro">Actualizare Comunicare Rol</value>
@@ -3605,7 +3605,7 @@
         <value xml:lang="de">Kommunikationsereignis bearbeiten</value>
         <value xml:lang="en">Edit Communication Event</value>
         <value xml:lang="es">Editar evento de comunicación</value>
-        <value xml:lang="fr">Editer l'événement de communication</value>
+        <value xml:lang="fr">Modifier l'événement de communication</value>
         <value xml:lang="it">Aggiorna Evento Comunicazione</value>
         <value xml:lang="nl">Wijzig communicatie actie</value>
         <value xml:lang="ro">Actualizare Eveniment Comunicare</value>
@@ -3616,7 +3616,7 @@
     <property key="PartyEditContactInformation">
         <value xml:lang="de">Kontaktinformationen bearbeiten</value>
         <value xml:lang="en">Edit Contact Information</value>
-        <value xml:lang="fr">Editer les coordonnées</value>
+        <value xml:lang="fr">Modifier les coordonnées</value>
         <value xml:lang="it">Aggiorna Informazioni Contatto</value>
         <value xml:lang="nl">Wijzig Contact Informatie</value>
         <value xml:lang="pt_PT">Editar Informação de Contacto</value>
