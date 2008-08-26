@@ -171,7 +171,8 @@ under the License.
         <response name="success" type="view" value="FindContacts"/><!-- This need to be fixed -->
         <response name="error" type="view" value="FindContacts"/>
     </request-map>        
-    <request-map uri="quickAddContact">   
+    <request-map uri="quickAddContact">
+        <security https="true" auth="true"/>
         <event type="service" invoke="createContact"/>
         <response name="success" type="view" value="viewprofile"/>
     </request-map>
