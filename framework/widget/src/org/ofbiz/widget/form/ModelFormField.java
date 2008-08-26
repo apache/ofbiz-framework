@@ -714,7 +714,7 @@ public class ModelFormField {
                     	//TODO: this may never come up, but if necessary use the FlexibleStringExander to eval the name first: String evaled = this.entryAcsr
                     }
                 } else {
-                    retVal = this.entryAcsr.get(dataMap);
+                    retVal = this.entryAcsr.get(dataMap, locale);
                 }
             } else {
                 //Debug.logInfo("Getting entry, no entryAcsr so using field name " + this.name + " for field " + this.getName() + " of form " + this.modelForm.getName(), module);
