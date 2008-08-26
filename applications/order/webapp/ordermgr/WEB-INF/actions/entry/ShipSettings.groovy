@@ -63,6 +63,10 @@ if ("SALES_ORDER".equals(cart.getOrderType())) {
     // suppliers for the drop-ship select box
     suppliers = delegator.findByAnd("PartyRole", [roleTypeId : "SUPPLIER"]);
     context.suppliers = suppliers;
+    
+    // facilities used to reserve the items per ship group
+    productStoreFacilities = delegator.findByAnd("ProductStoreFacility", [productStoreId : cart.getProductStoreId()]);
+    context.productStoreFacilities = productStoreFacilities;
 } else {
     // Purchase order
     if (!"_NA_".equals(orderPartyId)) {

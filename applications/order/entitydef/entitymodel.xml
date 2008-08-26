@@ -794,6 +794,7 @@ under the License.
       <field name="vendorPartyId" type="id"><description>For use with multi-vendor stores, order will be split so that each ship group is associated with only one vendor (only if applicable)</description></field>
       <field name="carrierPartyId" type="id"></field>
       <field name="carrierRoleTypeId" type="id"></field>
+      <field name="facilityId" type="id"></field>
       <field name="contactMechId" type="id"></field>
       <field name="telecomContactMechId" type="id"></field>
       <field name="trackingNumber" type="short-varchar"></field>
@@ -825,6 +826,9 @@ under the License.
       <relation type="one" fk-name="ORDER_ITSG_CPRLE" title="Carrier" rel-entity-name="PartyRole">
         <key-map field-name="carrierPartyId" rel-field-name="partyId"/>
         <key-map field-name="carrierRoleTypeId" rel-field-name="roleTypeId"/>
+      </relation>
+      <relation type="one" fk-name="ORDER_ITSG_FAC" rel-entity-name="Facility">
+        <key-map field-name="facilityId"/>
       </relation>
       <relation type="one" fk-name="ORDER_ITSG_SHMTP" rel-entity-name="ShipmentMethodType">
         <key-map field-name="shipmentMethodTypeId"/>

@@ -117,6 +117,7 @@ under the License.
 
 <#assign currShipContactMechId = cart.getShippingContactMechId(shipGroupIndex)?if_exists>
 <#assign supplierPartyId = cart.getSupplierPartyId(shipGroupIndex)?if_exists>
+<#assign facilityId = cart.getShipGroupFacilityId(shipGroupIndex)?if_exists>
             <hr/>
             <table width="100%" border="0" cellpadding="1" cellspacing="0">
               <tr>
@@ -134,6 +135,14 @@ under the License.
                           <option value="${supplier.partyId}"<#if supplierPartyId?exists><#if supplier.partyId == supplierPartyId> selected</#if></#if>>${Static["org.ofbiz.party.party.PartyHelper"].getPartyName(supplier, true)}</option>
                         </#list>
                       </select>
+                      ${uiLabelMap.ProductReserveInventoryFromFacility}:
+                      <select name="${shipGroupIndex?default("0")}_shipGroupFacilityId">
+                        <option value=""></option>
+                        <#list productStoreFacilities as productStoreFacility>
+                          <#assign facility = productStoreFacility.getRelatedOne("Facility")>
+                          <option value="${productStoreFacility.facilityId}"<#if facilityId?exists><#if productStoreFacility.facilityId == facilityId> selected</#if></#if>>${facility.facilityName?if_exists} </option>
+                        </#list>
+                      </select>                      
                     </div>
                 </td>
               </tr>

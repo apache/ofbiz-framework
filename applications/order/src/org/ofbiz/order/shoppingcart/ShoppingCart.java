@@ -2310,6 +2310,16 @@ public class ShoppingCart implements Serializable {
         return this.getCarrierPartyId(0);
     }
 
+    public void setShipGroupFacilityId(int idx, String facilityId) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        csi.facilityId = facilityId;
+    }
+
+    public String getShipGroupFacilityId(int idx) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        return csi.facilityId;
+    }
+
     public void setOrderAdditionalEmails(String orderAdditionalEmails) {
         this.orderAdditionalEmails = orderAdditionalEmails;
     }
@@ -4193,6 +4203,7 @@ public class ShoppingCart implements Serializable {
         public String supplierPartyId = null;
         public String carrierRoleTypeId = null;
         public String carrierPartyId = null;
+        public String facilityId = null;
         public String giftMessage = null;
         public String shippingInstructions = null;
         public String maySplit = "N";
@@ -4214,6 +4225,7 @@ public class ShoppingCart implements Serializable {
         public String getShipmentMethodTypeId() { return shipmentMethodTypeId; }
         public double getShipEstimate() { return shipEstimate; }
         public String getShipGroupSeqId() { return shipGroupSeqId; }
+        public String getFacilityId() { return facilityId; }
         public void setShipGroupSeqId(String shipGroupSeqId) {
             this.shipGroupSeqId = shipGroupSeqId;
         }
@@ -4247,6 +4259,7 @@ public class ShoppingCart implements Serializable {
             shipGroup.set("isGift", isGift);
             shipGroup.set("shipGroupSeqId", shipGroupSeqId);
             shipGroup.set("vendorPartyId", vendorPartyId);
+            shipGroup.set("facilityId", facilityId);
             
             // use the cart's default ship before and after dates here
             if ((shipBeforeDate == null) && (cart.getDefaultShipBeforeDate() != null)) {

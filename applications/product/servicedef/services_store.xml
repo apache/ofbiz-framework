@@ -44,6 +44,7 @@ under the License.
         <description>Reserve Inventory in a Product Store</description>
         <attribute name="productStoreId" type="String" mode="IN" optional="false"></attribute>
         <attribute name="productId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="facilityId" type="String" mode="IN" optional="true"></attribute>
         <attribute name="quantity" type="Double" mode="IN" optional="false"></attribute>
         <attribute name="orderId" type="String" mode="IN" optional="true"></attribute>
         <attribute name="orderItemSeqId" type="String" mode="IN" optional="true"></attribute>
