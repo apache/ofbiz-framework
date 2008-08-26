@@ -43,6 +43,14 @@ if (userLogin) {
         }
     }
     
+	billToContactMechList = ContactHelper.getContactMech(party, "PHONE_BILLING", "TELECOM_NUMBER", false)
+	if (billToContactMechList) {
+        billToTelecomNumber = (EntityUtil.getFirst(billToContactMechList)).getRelatedOne("TelecomNumber");
+        pcm = EntityUtil.getFirst(billToTelecomNumber.getRelated("PartyContactMech"));
+        context.billToTelecomNumber = billToTelecomNumber;
+        context.billToExtension = pcm.extension;
+    }
+    
     creditCards = []; 
     paymentMethod = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PaymentMethod", EntityCondition.makeCondition([partyId : party.partyId]), null, ["fromDate"], null, false)));
     if (paymentMethod) {

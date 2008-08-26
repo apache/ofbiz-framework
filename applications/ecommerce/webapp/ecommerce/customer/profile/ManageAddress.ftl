@@ -55,15 +55,6 @@ under the License.
           </div>
         </div>
         <div class="form-row">
-          ${uiLabelMap.PartyCountry}*
-          <div class="form-field">
-            <select name="countryGeoId" id="countryGeoId" class="required" style="width: 70%">
-              ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-            </select>
-            <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(required)</span>
-          </div>
-        </div>
-        <div class="form-row">
           ${uiLabelMap.PartyState}*
           <div class="form-field">
             <select name="stateProvinceGeoId" id="stateProvinceGeoId" class="required" style="width: 70%">
@@ -71,6 +62,15 @@ under the License.
               ${screens.render("component://common/widget/CommonScreens.xml#states")}
             </select>
             <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(required)</span>
+          </div>
+        </div>
+        <div class="form-row">
+          ${uiLabelMap.PartyCountry}*
+          <div class="form-field">
+            <select name="countryGeoId" id="countryGeoId" class="required" style="width: 70%">
+              ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+            </select>
+            <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(required)</span>
           </div>
         </div>
         <div class="form-row">
@@ -107,17 +107,11 @@ under the License.
         ${parameters.billToStateProvinceGeoId?if_exists}
         ${parameters.billToPostalCode?if_exists}<br/>
         ${parameters.billToCountryGeoId?if_exists}<br/>
-        <#assign pcmps = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(party.getRelatedByAnd("PartyContactMechPurpose", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechPurposeTypeId", "PHONE_BILLING")))>
-        <#if pcmps?has_content>
-          <#assign pcmp = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(pcmps)/>
-          <#assign telecomNumber = pcmp.getRelatedOne("TelecomNumber")/>
-        </#if>
-        <#if telecomNumber?has_content>
-          <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-          ${telecomNumber.countryCode?if_exists}-
-          ${telecomNumber.areaCode?if_exists}-
-          ${telecomNumber.contactNumber?if_exists}
-          <#if pcm.extension?has_content>-${pcm.extension?if_exists}</#if><br/>
+        <#if billToTelecomNumber?has_content>
+          ${billToTelecomNumber.countryCode?if_exists}-
+          ${billToTelecomNumber.areaCode?if_exists}-
+          ${billToTelecomNumber.contactNumber?if_exists}
+          <#if billToExtension?has_content>-${billToExtension?if_exists}</#if><br/>
           <a id="updateBillToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.PartyBillingAddress}</a>&nbsp;
         </#if>
       <#else>
@@ -128,7 +122,7 @@ under the License.
       </div>
       <div class="form-row"><hr class="sepbar"/></div>
       <script type="text/javascript">
-        new Popup('displayEditBillToPostalAddress','updateBillToPostalAddress', {modal: true, position: 'center', trigger: 'click'})
+        new Popup('displayEditBillToPostalAddress', 'updateBillToPostalAddress', {modal: true, position: 'center', trigger: 'click'})
       </script>
 
     <#--===================================== Shipping Address and Telecom number ===========================================-->
@@ -140,17 +134,11 @@ under the License.
         ${parameters.shipToStateProvinceGeoId?if_exists}
         ${parameters.shipToPostalCode?if_exists}<br/>
         ${parameters.shipToCountryGeoId?if_exists}<br/>
-        <#assign pcmps = Static["org.ofbiz.entity.util.EntityUtil"].filterByDate(party.getRelatedByAnd("PartyContactMechPurpose", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechPurposeTypeId", "PHONE_SHIPPING")))>
-        <#if pcmps?has_content>
-          <#assign pcmp = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(pcmps)/>
-          <#assign telecomNumber = pcmp.getRelatedOne("TelecomNumber")/>
-        </#if>
-        <#if telecomNumber?has_content>
-          <#assign pcm = Static["org.ofbiz.entity.util.EntityUtil"].getFirst(telecomNumber.getRelated("PartyContactMech"))/>
-          ${telecomNumber.countryCode?if_exists}-
-          ${telecomNumber.areaCode?if_exists}-
-          ${telecomNumber.contactNumber?if_exists}
-          <#if pcm.extension?has_content>-${pcm.extension?if_exists}</#if><br/>
+        <#if shipToTelecomNumber?has_content>
+          ${shipToTelecomNumber.countryCode?if_exists}-
+          ${shipToTelecomNumber.areaCode?if_exists}-
+          ${shipToTelecomNumber.contactNumber?if_exists}
+          <#if shipToExtension?exists>-${shipToExtension?if_exists}</#if><br/>
           <a id="updateShipToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.OrderShippingAddress}</a>&nbsp;
         </#if>
       <#else>
