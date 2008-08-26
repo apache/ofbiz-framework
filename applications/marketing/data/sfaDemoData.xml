@@ -20,8 +20,6 @@
     <PartyContactMechPurpose partyId="sfa100" contactMechId="sfa100" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="sfa100" contactMechId="sfa101" contactMechPurposeTypeId="PRIMARY_PHONE" fromDate="2000-01-01 00:00:00.000"/>
     <PartyContactMechPurpose partyId="sfa100" contactMechId="sfa102" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2000-01-01 00:00:00.000"/>
-    <Party partyId="DemoCustomer"/>
-    <PartyRole partyId="DemoCustomer" roleTypeId="ACCOUNT"/>
     <Party partyId="DemoCustCompany"/>
     <PartyRole partyId="DemoCustCompany" roleTypeId="ACCOUNT"/>
     <Party partyId="DemoSupplier"/>
