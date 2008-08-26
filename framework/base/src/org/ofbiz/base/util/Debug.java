@@ -83,7 +83,9 @@ public final class Debug {
         levelStringMap.put("notify", Debug.NOTIFY);
         
         // initialize Log4J
-        org.apache.log4j.xml.DOMConfigurator.configure(UtilURL.fromResource("log4j.xml"));
+        if (!UtilProperties.propertyValueEqualsIgnoreCase("debug.properties", "disable.log4j.config", "true")) {
+            org.apache.log4j.xml.DOMConfigurator.configure(UtilURL.fromResource("log4j.xml"));
+        }
 
         // initialize levelOnCache
         for (int i = 0; i < 9; i++) {
