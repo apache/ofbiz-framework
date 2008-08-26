@@ -204,6 +204,7 @@ under the License.
                         <condition-expr field-name="partyIdTo" env-name="partyId"/>
                         <condition-expr field-name="partyIdFrom" env-name="partyId"/>
                     </condition-list>
+                    <order-by field-name="partyIdTo"/>
                     <order-by field-name="partyRelationshipTypeId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-condition>

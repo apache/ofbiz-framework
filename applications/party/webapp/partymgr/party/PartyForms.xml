@@ -714,11 +714,11 @@ under the License.
         <field name="deleteButton"><hyperlink description="${uiLabelMap.CommonDelete}" target="deletePartyRelationship?partyId=${parameters.partyId}&amp;partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdTo=${roleTypeIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;fromDate=${fromDate}"/></field>
     </form>
 
-    <form name="AddOtherPartyRelationship" type="single" target="createAccountContact">
+    <form name="AddOtherPartyRelationship" type="single" target="createPartyRelationship">
         <field name="partyId"><hidden value="${parameters.partyId}"/></field>
-        <field name="partyIdTo"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo" entry-name="parameters.partyId"><display/></field>
         <field name="roleTypeIdTo" title="${uiLabelMap.PartyPartyInTheRoleOf}">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="false" no-current-selected-key="_NA_">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
@@ -733,7 +733,7 @@ under the License.
         </field>
         <field name="partyIdFrom"><lookup target-form-name="LookupPartyName"/></field>
         <field name="roleTypeIdFrom" title="${uiLabelMap.PartyPartyInTheRoleOf}">
-            <drop-down allow-empty="true">
+            <drop-down allow-empty="false" no-current-selected-key="_NA_">
                 <entity-options entity-name="RoleType" key-field-name="roleTypeId" description="${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>
