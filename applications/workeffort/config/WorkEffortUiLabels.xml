@@ -3652,7 +3652,7 @@
     <property key="WorkEffortViewTasksEdit">
         <value xml:lang="en">ViewTasks / Edit</value>
         <value xml:lang="es">Ver tareas / Editar</value>
-        <value xml:lang="fr">Vue des tâches / Edition</value>
+        <value xml:lang="fr">Vue des tâches / Modification</value>
         <value xml:lang="it">Mostra / Aggiorna Compiti</value>
         <value xml:lang="nl">Laat taken zien en/of wijzig</value>
         <value xml:lang="ro">Afiseaza / Actualizeaza Sarcini</value>
