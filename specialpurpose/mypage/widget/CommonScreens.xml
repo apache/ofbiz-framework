@@ -142,6 +142,12 @@ under the License.
 
 	<screen name="main">
 		<section>
+		    <actions>
+                <set field="headerItem" value="main" />
+                <set field="parameters.donePage" value="main"/>
+                <!-- refresh every 3 minutes -->
+                <!-- set field="layoutSettings.extraHead" value="&lt;META HTTP-EQUIV=&quot;REFRESH&quot; CONTENT=&quot;180&quot;&gt;"/-->
+		    </actions>
 			<widgets>
 			    <decorator-screen name="main-decorator"
                     location="${parameters.mainDecoratorLocation}">
@@ -188,13 +194,6 @@ under the License.
     <screen name="mainEmployee">
         <section>
             <actions>
-                <set field="headerItem" value="main" />
-                <set field="parameters.donePage" value="main"/>
-                <!-- refresh every 3 minutes -->
-                <!--
-                    set field="layoutSettings.extraHead" value="&lt;META
-                    HTTP-EQUIV=&quot;REFRESH&quot; CONTENT=&quot;180&quot;&gt;"/
-                -->
                 <service service-name="getUserPreferenceGroup"
                     result-map-name="preferences">
                     <field-map field-name="userPrefGroupId" value="MyPage" />
@@ -279,7 +278,6 @@ under the License.
     <screen name="mainCustomer">
         <section>
             <actions>
-                <set field="headerItem" value="Main" />
                 <set field="partyId" from-field="userLogin.partyId"/>
                 <set field="status" from-field="parameters.status" default-value="open"/>
                 <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
