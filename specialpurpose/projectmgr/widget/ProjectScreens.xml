@@ -44,30 +44,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="FindResource">
-        <section>            
-            <actions>
-                <set field="titleProperty" value="PageTitleFindResource"/>
-                <set field="labelTitleProperty" value="ProjectMgrResourceName"/>
-                <set field="workEffortId" from-field="parameters.projectId"/>
-                <entity-and entity-name="PartyRoleAndPartyDetail" list-name="resources">
-                    <field-map field-name="roleTypeId" value="PROJECT_TEAM"/>
-                    <order-by field-name="lastName"/>
-                    <order-by field-name="groupName"/>
-                </entity-and>
-            </actions>                                                
-            <widgets>  
-                <decorator-screen name="CommonResourceDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet id="AddResourcePanel" title="${uiLabelMap.PageTitleAddResource}" collapsible="true">
-                            <include-form name="AddResource" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                        </screenlet>
-                        <include-form name="ListResources" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="FindProject">
         <section>            
             <actions>
@@ -701,45 +677,6 @@ under the License.
                 <platform-specific>
                     <html><html-template location="component://projectmgr/webapp/projectmgr/project/summary/noteinfo.ftl"/></html>
                 </platform-specific>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="viewprofile">
-        <section>
-            <actions>
-                <set field="tabButtonItem" value="ResourcesProfile"/>
-                <set field="titleProperty" value="PartyProfile"/>
-                <set field="headerItem" value="find"/>
-                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>                
-                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>                
-                <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>                
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <not><if-empty field-name="party"/></not>
-                            </condition>
-                            <widgets>
-                                <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>                               
-                            </widgets>
-                            <fail-widgets>
-                                <container>
-                                    <label style="h3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
-                                </container>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
             </widgets>
         </section>
     </screen>
