@@ -373,30 +373,46 @@ under the License.
             <field-map field-name="partyId" env-name="userLogin.partyId"/>
             <field-map field-name="productStoreId" env-name="parameters.productStoreId"/>
         </entity-one>
-        <if-compare-field field="partyProfileDefault.defaultBillAddr" operator="not-equals" to-field="partyProfileDefault.defaultShipAddr"> 
-            <call-service service-name="updatePartyPostalAddress" in-map-name="parameters">
-                <result-to-field result-name="contactMechId" field-name="parameters.contactMechId"/>
-                <result-to-result result-name="contactMechId"/>
-            </call-service>
-        <else>
-            <set-service-fields service-name="updatePostalAddress" map-name="parameters" to-map-name="updatePostalAddressMap"/>
-            <call-service service-name="updatePostalAddress" in-map-name="updatePostalAddressMap">
-                <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
-                <result-to-field result-name="contactMechId" field-name="parameters.newContactMechId"/>
-                <result-to-result result-name="contactMechId"/>
-            </call-service>
+        <if>
+            <condition>
+                <or>
+                    <if-compare-field field="parameters.contactMechId" operator="equals" to-field="partyProfileDefault.defaultBillAddr"/>
+                    <if-compare-field field="parameters.contactMechId" operator="equals" to-field="partyProfileDefault.defaultShipAddr"/>
+                </or>
+            </condition>
+            <then>
+                <if-compare-field field="partyProfileDefault.defaultBillAddr" operator="not-equals" to-field="partyProfileDefault.defaultShipAddr"> 
+                    <call-service service-name="updatePartyPostalAddress" in-map-name="parameters">
+                        <result-to-field result-name="contactMechId" field-name="parameters.contactMechId"/>
+                        <result-to-result result-name="contactMechId"/>
+                    </call-service>
+                <else>
+                    <set-service-fields service-name="updatePostalAddress" map-name="parameters" to-map-name="updatePostalAddressMap"/>
+                    <call-service service-name="updatePostalAddress" in-map-name="updatePostalAddressMap">
+                        <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
+                        <result-to-field result-name="contactMechId" field-name="parameters.newContactMechId"/>
+                        <result-to-result result-name="contactMechId"/>
+                    </call-service>
 
-            <if-compare-field field="parameters.contactMechId" operator="not-equals" to-field="parameters.newContactMechId">
-                <set-service-fields service-name="createPartyContactMech" map-name="parameters" to-map-name="createPartyContactMechMap"/>
-                <set field="createPartyContactMechMap.contactMechId" from-field="parameters.newContactMechId"/>
-                <set field="createPartyContactMechMap.contactMechTypeId" value="POSTAL_ADDRESS"/>
-                <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechMap" break-on-error="true">
-                    <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
+                    <if-compare-field field="parameters.contactMechId" operator="not-equals" to-field="parameters.newContactMechId">
+                        <set-service-fields service-name="createPartyContactMech" map-name="parameters" to-map-name="createPartyContactMechMap"/>
+                        <set field="createPartyContactMechMap.contactMechId" from-field="parameters.newContactMechId"/>
+                        <set field="createPartyContactMechMap.contactMechTypeId" value="POSTAL_ADDRESS"/>
+                        <call-service service-name="createPartyContactMech" in-map-name="createPartyContactMechMap" break-on-error="true">
+                            <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
+                        </call-service>
+                    </if-compare-field>
+                    <set field="parameters.contactMechId" from-field="parameters.newContactMechId"/>
+                </else>
+                </if-compare-field>
+            </then>
+            <else>
+                <call-service service-name="updatePartyPostalAddress" in-map-name="parameters">
+                    <result-to-field result-name="contactMechId" field-name="parameters.contactMechId"/>
+                    <result-to-result result-name="contactMechId"/>
                 </call-service>
-            </if-compare-field>
-            <set field="parameters.contactMechId" from-field="parameters.newContactMechId"/>
-        </else>
-        </if-compare-field>
+            </else>
+        </if>
         <if>
             <condition>
                 <or>
