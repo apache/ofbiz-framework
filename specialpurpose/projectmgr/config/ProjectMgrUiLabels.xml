@@ -585,21 +585,21 @@
     </property>
     <property key="ProjectMgrNoAccessToProject">
         <value xml:lang="en">You have no access to the project#: ${projectId}</value>
-        <value xml:lang="fr">Vous n'avez pas accès au projet ${projectId}</value>
+        <value xml:lang="fr">Vous n'avez pas accès au projet n° ${projectId}</value>
         <value xml:lang="it">Tu non hai accesso al progetto#: ${projectId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าใช้ถึงโปรเจค#: ${projectId}</value>
         <value xml:lang="zh">你没有访问该项目的权限：${projectId}</value>
     </property>
     <property key="ProjectMgrNoAccessToTask">
-        <value xml:lang="en">You have no access to the task: ${taskId} or project: ${projectId}</value>
-        <value xml:lang="fr">Vous n'avez pas accès à la tâche ${taskId} ou au projet ${projectId}</value>
+        <value xml:lang="en">You have no access to the taskId: ${taskId} or projectId: ${projectId}</value>
+        <value xml:lang="fr">Vous n'avez pas accès à la tâche n° ${taskId} ou au projet n° ${projectId}</value>
         <value xml:lang="it">Tu non hai accesso al compito#: ${taskId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าถึงงาน#: ${taskId}</value>
         <value xml:lang="zh">你没有访问该任务的权限：${taskId}</value>
     </property>
     <property key="ProjectMgrNoAccessToTimesheet">
         <value xml:lang="en">You have no access to the timesheet#: ${timesheetId}</value>
-        <value xml:lang="fr">Vous n'avez pas accès à la feuille de présence ${timesheetId}</value>
+        <value xml:lang="fr">Vous n'avez pas accès à la feuille de présence n° ${timesheetId}</value>
         <value xml:lang="it">Tu non hai accesso alla marcatura#: ${timesheetId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าถึงตารางเวลา#: ${timesheetId}</value>
         <value xml:lang="zh">你没有访问该时间表的权限：${timesheetId}</value>
