@@ -487,103 +487,119 @@
     </property>
     <property key="ProjectMgrEditPatySkill">
         <value xml:lang="en">Edit PartySkill</value>
-        <value xml:lang="fr">Créer une tâche depuis une demande client</value>
+        <value xml:lang="fr">Modifier les compétences de l'acteur</value>
         <value xml:lang="it">Aggiorna Abilità Soggetto</value>
         <value xml:lang="th">แก้ไขทักษะกลุ่มผู้ใช้</value>
         <value xml:lang="zh">编辑会员技能</value>
     </property>
     <property key="ProjectMgrEditPoject">
         <value xml:lang="en">Edit Project</value>
+        <value xml:lang="fr">Modifier le projet</value>
         <value xml:lang="it">Aggiorna Progetto</value>
         <value xml:lang="th">แก้ไขโปรเจค</value>
         <value xml:lang="zh">编辑项目</value>
     </property>
     <property key="ProjectMgrEditTask">
         <value xml:lang="en">Edit Task</value>
+        <value xml:lang="fr">Modifier la tâche</value>
         <value xml:lang="it">Aggiorna Compito</value>
         <value xml:lang="th">แก้ไขงาน</value>
         <value xml:lang="zh">编辑任务</value>
     </property>
     <property key="ProjectMgrEstimatedCost">
         <value xml:lang="en">Estimated Cost</value>
+        <value xml:lang="fr">Coût estimé</value>
         <value xml:lang="it">Costo Stimato</value>
         <value xml:lang="th">ราคาโดยประมาณ</value>
         <value xml:lang="zh">评估费用</value>
     </property>
     <property key="ProjectMgrEstimatedDuration">
         <value xml:lang="en">Estimated Duration</value>
+        <value xml:lang="fr">Durée estimée</value>
         <value xml:lang="it">Durata Stimata</value>
         <value xml:lang="th">ช่วงเวลาโดยประมาณ</value>
         <value xml:lang="zh">评估周期</value>
     </property>
     <property key="ProjectMgrEstimatedHours">
         <value xml:lang="en">Estimated Hours</value>
+        <value xml:lang="fr">Heures estimées</value>
         <value xml:lang="it">Ore Stimate</value>
         <value xml:lang="th">ชั่วโมงโดยประมาณ</value>
         <value xml:lang="zh">评估工时</value>
     </property>
     <property key="ProjectMgrEstimatedNumPeople">
         <value xml:lang="en">Estimated People</value>
+        <value xml:lang="fr">Nombre de personnes estimé</value>
         <value xml:lang="it">Persone Stimate</value>
         <value xml:lang="th">บุคคลโดยประมาณ</value>
         <value xml:lang="zh">评估人力</value>
     </property>
     <property key="ProjectMgrFilterOn">
         <value xml:lang="en">Filter on</value>
+        <value xml:lang="fr">Filtre actif</value>
         <value xml:lang="it">Filtra su</value>
         <value xml:lang="th">Filter on</value>
         <value xml:lang="zh">过滤</value>
     </property>
     <property key="ProjectMgrGanttChart">
         <value xml:lang="en">Gantt Chart</value>
+        <value xml:lang="fr">Diagramme de Gantt</value>
         <value xml:lang="it">Grafico Gantt</value>
         <value xml:lang="th">แผนผังคุมการกำหนดงาน</value>
         <value xml:lang="zh">甘特图</value>
     </property>
     <property key="ProjectMgrMyRoleForThisTask">
         <value xml:lang="en">My Role For This Task</value>
+        <value xml:lang="fr">Mon rôle pour cette tâches</value>
         <value xml:lang="it">Mio Ruolo Per Questo Compito</value>
         <value xml:lang="th">สถานะของฉันสำหรับงานนี้</value>
         <value xml:lang="zh">在这个任务中我的角色</value>
     </property>
     <property key="ProjectMgrNewProject">
         <value xml:lang="en">New Project</value>
+        <value xml:lang="fr">Nouveau projet</value>
         <value xml:lang="it">Nuovo Progetto</value>
         <value xml:lang="th">โปรเจคใหม่</value>
         <value xml:lang="zh">新项目</value>
     </property>
     <property key="ProjectMgrNewSubProject">
         <value xml:lang="en">New Sub Project</value>
+        <value xml:lang="fr">Nouveau sous-projet</value>
         <value xml:lang="it">Nuovo Sotto-Progetto</value>
         <value xml:lang="th">โปรเจคย่อยใหม่</value>
         <value xml:lang="zh">新子项目</value>
     </property>
     <property key="ProjectMgrNewSubTask">
         <value xml:lang="en">New Sub Task</value>
+        <value xml:lang="fr">Nouvelle sous-tâche</value>
         <value xml:lang="it">Nuovo Sotto-Compito</value>
         <value xml:lang="th">งานย่อยใหม่</value>
         <value xml:lang="zh">新子任务</value>
     </property>
     <property key="ProjectMgrNewTask">
         <value xml:lang="en">New Task</value>
+        <value xml:lang="fr">Nouvelle tâche</value>
         <value xml:lang="it">Nuovo Compito</value>
         <value xml:lang="th">งานใหม่</value>
         <value xml:lang="zh">新任务</value>
     </property>
     <property key="ProjectMgrNoAccessToProject">
         <value xml:lang="en">You have no access to the project#: ${projectId}</value>
+        <value xml:lang="fr">Vous n'avez pas accès au projet ${projectId}</value>
         <value xml:lang="it">Tu non hai accesso al progetto#: ${projectId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าใช้ถึงโปรเจค#: ${projectId}</value>
         <value xml:lang="zh">你没有访问该项目的权限：${projectId}</value>
     </property>
     <property key="ProjectMgrNoAccessToTask">
-        <value xml:lang="en">You have no access to the taskId: ${taskId} or projectId: ${projectId}</value>
+        <value xml:lang="en">You have no access to the task: ${taskId} or project: ${projectId}</value>
+        <value xml:lang="fr">Vous n'avez pas accès à la tâche ${taskId} ou au projet ${projectId}</value>
         <value xml:lang="it">Tu non hai accesso al compito#: ${taskId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าถึงงาน#: ${taskId}</value>
         <value xml:lang="zh">你没有访问该任务的权限：${taskId}</value>
     </property>
     <property key="ProjectMgrNoAccessToTimesheet">
         <value xml:lang="en">You have no access to the timesheet#: ${timesheetId}</value>
+        <value xml:lang="fr">Vous n'avez pas accès à la feuille de présence ${timesheetId}</value>
         <value xml:lang="it">Tu non hai accesso alla marcatura#: ${timesheetId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าถึงตารางเวลา#: ${timesheetId}</value>
         <value xml:lang="zh">你没有访问该时间表的权限：${timesheetId}</value>
