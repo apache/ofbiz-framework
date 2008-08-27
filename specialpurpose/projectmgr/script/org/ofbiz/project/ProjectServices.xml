@@ -104,7 +104,7 @@
                     <set-nonpk-fields value-name="assignment" map-name="parameters"/>
                     <store-value value-name="assignment"/>
                     <if-compare field="assignment.statusId" value="PAS_COMPLETED" operator="equals">
-                        <call-simple-method method-name="updateTaskStatus"/>
+                        <call-simple-method method-name="updateTaskStatusToComplete"/>
                     </if-compare>
                     <else>
                         <!-- new assignment -->
@@ -115,7 +115,7 @@
         </if>
     </simple-method>
     
-    <simple-method method-name="updateTaskStatus" 
+    <simple-method method-name="updateTaskStatusToComplete" 
         short-description="Check partyassignments on a task, if all completes set task status to completed and set actual completiondate to now">
         <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignments" filter-by-date="true">
             <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
@@ -368,7 +368,8 @@
         <set field="newProjectId" from-field="newEntity.workEffortId"/>
         
         <!-- copy assigned parties -->
-        <get-related value-name="project" relation-name="WorkEffortPartyAssignment" list-name="parties"/>
+        <get-related value-name="project" relation-name="WorkEffortPartyAssignment" list-name="partiesAll"/>
+        <filter-list-by-date list-name="partiesAll" to-list-name="parties"/>
         <if-not-empty field="parties">
             <iterate entry-name="party" list-name="parties">
                 <set field="parameters.workEffortId" from-field="newProjectId"/>            
@@ -672,7 +673,7 @@
         <if-empty field="parameters.workEffortId">
             <set field="parameters.workEffortId" value="%"/>
         </if-empty>
-        <entity-condition entity-name="WorkEffortPartyAssignment" list-name="tasks">
+        <entity-condition entity-name="WorkEffortPartyAssignment" list-name="tasks" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="partyId" operator="like" env-name="parameters.partyId"/>
                 <condition-expr field-name="workEffortId" operator="like" env-name="parameters.workEffortId"/>
