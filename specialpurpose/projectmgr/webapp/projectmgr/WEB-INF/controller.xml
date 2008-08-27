@@ -772,7 +772,7 @@
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
-    <view-map name="viewprofile" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#viewprofile"/>
+    <view-map name="viewprofile" type="screen" page="component://projectmgr/widget/ResourceScreens.xml#viewprofile"/>
     <view-map name="listResourcesTask" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#listResourcesTask"/>
     <view-map name="listResourcesProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#listResourcesProject"/>
     <view-map name="EditPartyGroup" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartyGroup"/>
@@ -786,7 +786,7 @@
     <view-map name="main" type="screen" page="component://projectmgr/widget/CommonScreens.xml#Main"/>
     <view-map name="ganttChart" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ganttChart"/>    
     <view-map name="ListSubProjects" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ListSubProjects"/>    
-    <view-map name="FindResource" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindResource"/>    
+    <view-map name="FindResource" type="screen" page="component://projectmgr/widget/ResourceScreens.xml#FindResource"/>    
     <view-map name="FindProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindProject"/>    
     <view-map name="EditProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProject"/>
     <view-map name="projectBilling" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#projectBilling"/>

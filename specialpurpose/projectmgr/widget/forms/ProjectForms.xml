@@ -72,33 +72,6 @@
         </field>
         <field name="add"><submit/></field>
     </form>
-    <form name="FindResource" type="single" target="FindResource"
-        header-row-style="header-row" default-table-style="basic-table">
-        <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}"><text/></field>
-        <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
-    </form>
-    <form name="ListResources" type="list" list-name="resources" paginate-target="FindResource"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
-        <row-actions>
-            <service service-name="getPartyEmail" result-map-name="emailResult"/>
-            <service service-name="getPartyTelephone" result-map-name="telResult"/>
-        </row-actions>
-        <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${firstName} ${middleName} ${lastName} ${groupName}" target="viewprofile?partyId=${partyId}"/>
-        </field>
-        <field name="roleTypeId"><hidden/></field>
-        <field name="emailAddess" title="${uiLabelMap.PartyEmailAddress}"><hyperlink target="/partymgr/control/EditCommunicationEvent?partyIdFrom=${userLogin.partyId}&amp;partyIdTo=${partyId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;contactMechIdTo=${contactMechId}&amp;contactMechTypeId=EMAIL_ADDRESS" description="${emailResult.emailAddress}" target-type="inter-app"/></field>
-        <field use-when="telResult.get(&quot;extension&quot;)!=null" name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber} Ext:${telResult.extension}"/></field>
-        <field use-when="telResult.get(&quot;extension&quot;)==null" name="telephone" title="${uiLabelMap.PartyPhoneNumber}"><display description="${telResult.countryCode} ${telResult.areaCode} ${telResult.contactNumber}"/></field>
-        <field name="contactMechPurposeTypeId" entry-name="telResult.contactMechPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ContactMechPurposeType"/></field>
-        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="removeResource?partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonRemove}"/></field>
-    </form>                                         
-    <form name="AddResource" type="single" target="addResource"
-        header-row-style="header-row" default-table-style="basic-table">
-        <field name="PartyId" parameter-name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId"><hidden value="PROJECT_TEAM"/></field>
-        <field name="addButton" ><submit/></field>
-    </form>
     <form name="FindProject" type="single" target="FindProject" title="Find and List Project"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="projectId" title="${uiLabelMap.ProjectMgrProjectId}" parameter-name="workEffortId"><text-find size="25" default-option="contains"></text-find></field>
