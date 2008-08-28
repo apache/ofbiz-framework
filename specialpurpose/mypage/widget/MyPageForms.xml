@@ -177,4 +177,13 @@ under the License.
         <field name="custRequestDate"><ignored/></field>
     </form>
 
+    <form name="ListInvoices" extends="ListInvoices" extends-resource="component://accounting/webapp/accounting/invoice/InvoiceForms.xml">
+        <row-actions>
+            <script location="component://mypage/webapp/mypage/WEB-INF/actions/ConvertInvoiceCurrency.groovy"/>
+        </row-actions>
+        <field name="invoiceId" widget-style="buttontext">
+            <hyperlink description="${invoiceId}" target="invoice.pdf?invoiceId=${invoiceId}&amp;other=Y"/>
+        </field>
+    </form>
+
 </forms>

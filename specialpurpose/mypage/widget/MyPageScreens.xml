@@ -472,7 +472,7 @@ under the License.
                         <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                             <decorator-section name="body">
                                 <screenlet title="${uiLabelMap.PageTitleListInvoices}" navigation-form-name="ListInvoices">
-                                    <include-form name="ListInvoices"  location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                                    <include-form name="ListInvoices"  location="component://mypage/widget/MyPageForms.xml"/>
                                 </screenlet>
                             </decorator-section>
                         </decorator-screen>
