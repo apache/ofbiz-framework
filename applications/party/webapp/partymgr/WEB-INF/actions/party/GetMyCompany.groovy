@@ -17,19 +17,15 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
-import org.ofbiz.entity.util.EntityUtil;
-
-if (userLogin != null) {
-	companies = delegator.findByAnd("PartyRelationship", UtilMisc.toMap( 
-			"partyIdTo", userLogin.getString("partyId"), 
-	        "roleTypeIdTo", "CONTACT",
-	        "roleTypeIdFrom", "ACCOUNT"
-	        ));
-	if (UtilValidate.isNotEmpty(companies)) {
+if (userLogin) {
+	companies = delegator.findByAnd("PartyRelationship", 
+			[partyIdTo: userLogin.partyId, 
+	         roleTypeIdTo: "CONTACT",
+	         roleTypeIdFrom: "ACCOUNT"]);
+	if (companies) {
 		company = companies.get(0);
-		context.put("myCompanyId", company.getString("partyIdFrom"));
+		context.myCompanyId = company.partyIdFrom;
 	} else {
-		context.put("myCompanyId", userLogin.getString("partyId"));
+		context.myCompanyId = userLogin.partyId;
 	}
 }

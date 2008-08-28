@@ -463,7 +463,7 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="invoices"/>
-                <script location="component://mypage/webapp/mypage/WEB-INF/actions/GetMyCompany.bsh"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
                 <set field="parameters.partyId" from-field="myCompanyId"/>
             </actions>
             <widgets>
