@@ -22,6 +22,7 @@ import org.ofbiz.entity.*;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.base.util.*;
 import java.sql.Timestamp;
+import org.ofbiz.base.util.ObjectType
 
 contentId = request.getParameter("contentId");
 if ("".equals(contentId)) {
@@ -33,7 +34,10 @@ productContentTypeId = request.getParameter("productContentTypeId");
 fromDate = request.getParameter("fromDate");
 if ("".equals(fromDate)) {
     fromDate = null;
+} else {
+    fromDate = ObjectType.simpleTypeConvert(fromDate, "Timestamp", null, null, false)    
 }
+
 
 description = request.getParameter("description");
 if ("".equals(description)) {
@@ -115,6 +119,8 @@ if ("FULFILLMENT_EMAIL".equals(productContentTypeId)) {
     context.downloadData = downloadData;
 } else if ("FULFILLMENT_EXTERNAL".equals(productContentTypeId)) {
     context.contentFormName = "EditProductContentExternal";
+} else if (productContentTypeId.indexOf("ADDITIONAL_IMAGE") > -1) {
+	context.contentFormName = "EditProductAdditionalImageContent";
 } else {
     //Assume it is a generic simple text content
     textData = [:];

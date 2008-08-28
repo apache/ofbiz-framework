@@ -700,6 +700,12 @@ under the License.
         <response name="success" type="view" value="EditProductContent"/>
         <response name="error" type="view" value="EditProductContentContent"/>
     </request-map>
+    <request-map uri="addAdditionalImageContentForProduct">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="addAdditionalViewForProduct"/>
+        <response name="success" type="view" value="EditProductContent"/>
+        <response name="error" type="view" value="EditProductContentContent"/>
+    </request-map>
 
     <!-- ================ Product GoodIdentification Requests ================= -->
     <request-map uri="EditProductGoodIdentifications">
