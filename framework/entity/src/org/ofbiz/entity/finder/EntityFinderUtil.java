@@ -154,6 +154,7 @@ public class EntityFinderUtil {
         protected FlexibleStringExpander operatorExdr;
         protected FlexibleMapAccessor<Object> envNameAcsr;
         protected FlexibleStringExpander valueExdr;
+        protected FlexibleStringExpander ignoreExdr;
         protected boolean ignoreIfNull;
         protected boolean ignoreIfEmpty;
         protected boolean ignoreCase;
@@ -171,6 +172,7 @@ public class EntityFinderUtil {
             this.ignoreIfNull = "true".equals(conditionExprElement.getAttribute("ignore-if-null"));
             this.ignoreIfEmpty = "true".equals(conditionExprElement.getAttribute("ignore-if-empty"));
             this.ignoreCase = "true".equals(conditionExprElement.getAttribute("ignore-case"));
+            this.ignoreExdr = FlexibleStringExpander.getInstance(conditionExprElement.getAttribute("ignore"));            
         }
         
         public EntityCondition createCondition(Map<String, ? extends Object> context, String entityName, GenericDelegator delegator) {
@@ -225,6 +227,10 @@ public class EntityFinderUtil {
                 return null;
             }
 
+            if ("true".equals(this.ignoreExdr.expandString(context))) {
+                return null;
+            }
+           
             if (operator == EntityOperator.NOT_EQUAL && value != null) {
                 // since some databases don't consider nulls in != comparisons, explicitly include them
                 // this makes more sense logically, but if anyone ever needs it to not behave this way we should add an "or-null" attribute that is true by default

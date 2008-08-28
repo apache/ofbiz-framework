@@ -2643,6 +2643,14 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
+        <xs:attribute name="ignore" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    Ignore the condition if flag is true.
+                    Defaults to false.
+                </xs:documentation>
+            </xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="condition-object">
         <xs:annotation>
