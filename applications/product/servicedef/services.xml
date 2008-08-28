@@ -414,6 +414,16 @@ under the License.
         <override name="localeString" optional="false"/>
         <override name="contentId" mode="INOUT"/>
     </service>
+    
+    <service name="addAdditionalViewForProduct" default-entity-name="ProductContent" engine="java"
+        location="org.ofbiz.product.product.ProductServices" invoke="addAdditionalViewForProduct" auth="true">
+        <implements service="uploadFileInterface"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute mode="IN" name="contentId" optional="true" type="String"/>
+        <override name="productContentTypeId" optional="false"/>
+        <override name="productId" optional="false"/>
+    </service>
 
     <!-- SupplierProduct Services -->
     <service name="createSupplierProduct" default-entity-name="SupplierProduct" engine="simple"

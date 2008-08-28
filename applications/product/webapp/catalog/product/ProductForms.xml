@@ -662,6 +662,26 @@ under the License.
         <field use-when="contentId == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field use-when="contentId != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    
+    <form name="EditProductAdditionalImageContent" type="upload" target="addAdditionalImageContentForProduct" title="">
+        <auto-fields-entity entity-name="ProductContent" map-name="productContentData"/>
+        <field name="productContentTypeId"><display-entity entity-name="ProductContentType" also-hidden="true"/></field>
+        <field name="fromDate" use-when="contentId==null" title="${uiLabelMap.CommonFromDate}*" ><date-time/></field>
+        <field name="fromDate" use-when="contentId!=null" title="${uiLabelMap.CommonFromDate}" ><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"></field>
+        <field use-when="contentId == null" name="contentId"><ignored/></field>
+        <field use-when="contentId != null" name="contentId" tooltip="${uiLabelMap.ProductNotModificationRecrationProductContentAssociation}" map-name="productContentData" ><display/></field>
+        <field name="useTime"><hidden/></field>
+        <field name="useTimeUomId"><hidden/></field>
+        <field name="useRoleTypeId"><hidden/></field>
+        <field name="useCountLimit"><hidden/></field>
+        <field name="purchaseThruDate"><hidden/></field>
+        <field name="purchaseFromDate"><hidden/></field>
+        <field name="uploadedFile" title="${uiLabelMap.ProductFile}"><file/></field>
+        <field name="productId"><hidden/></field>
+        <field use-when="contentId == null" name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field use-when="contentId != null" name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 
     <!-- SupplierProduct -->
     <form name="AddSupplierProduct" type="single" target="updateSupplierProduct" title="" default-map-name="supplierProduct"
