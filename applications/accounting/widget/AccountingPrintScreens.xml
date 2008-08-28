@@ -32,45 +32,61 @@ under the License.
                 <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="title" value="Invoice"/>
-                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/EditInvoice.groovy"/>                
+                <script location="component://accounting/webapp/accounting/WEB-INF/actions/invoice/EditInvoice.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
             </actions>
             <widgets>
-                <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
-                    <decorator-section name="topLeft">
-                        <section>
-                            <widgets>
+                <section>
+                    <condition>
+                        <or>
+                            <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+                            <!-- can always see own invoice -->
+                            <if-compare field-name="invoice.partyIdFrom" operator="equals" value="${userLogin.partyId}" />
+                            <if-compare field-name="invoice.partyId" operator="equals" value="${userLogin.partyId}" />
+                            <!-- or is a contact of a company who owns the invoice-->
+                            <if-compare field-name="invoice.partyIdFrom" operator="equals" value="${myCompanyId}" />
+                            <if-compare field-name="invoice.partyId" operator="equals" value="${myCompanyId}" />
+                        </or>
+                    </condition>
+                    <widgets>
+                        <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="topLeft">
                                 <include-screen name="CompanyLogo" location="component://order/widget/ordermgr/OrderPrintScreens.xml"/>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                    <decorator-section name="topRight">
-                        <section>
-                            <widgets>
-                                <platform-specific>
+                            </decorator-section>
+                            <decorator-section name="topRight">
+                               <platform-specific>
                                     <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportHeaderInfo.fo.ftl"/></xsl-fo>
                                 </platform-specific>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                    <decorator-section name="body">
-                        <section>
-                            <widgets>
+                            </decorator-section>
+                            <decorator-section name="body">
+                               <platform-specific>
+                                   <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportContactMechs.fo.ftl"/></xsl-fo>
+                              </platform-specific>
+                               <platform-specific>
+                                   <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportItems.fo.ftl"/></xsl-fo>
+                               </platform-specific>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                    <fail-widgets>
+                        <decorator-screen name="FoReportDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="body">
                                 <platform-specific>
-                                    <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportContactMechs.fo.ftl"/></xsl-fo>
+                                    <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/NoAccountingView.fo.ftl"/></xsl-fo>
                                 </platform-specific>
-                                <platform-specific>
-                                    <xsl-fo><html-template location="component://accounting/webapp/accounting/invoice/invoiceReportItems.fo.ftl"/></xsl-fo>
-                                </platform-specific>
-                            </widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
+                            </decorator-section>
+                        </decorator-screen>
+                    </fail-widgets>
+                </section>
             </widgets>
         </section>
     </screen>
     
     <screen name="PrintCheckPDF">
         <section>
+            <condition>
+                <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
+            </condition>
             <actions>
                 <set field="title" value="Check"/>
             </actions>
@@ -79,6 +95,9 @@ under the License.
                     <xsl-fo><html-template location="component://accounting/webapp/accounting/payment/printCheck.fo.ftl"/></xsl-fo>
                 </platform-specific>                
             </widgets>
+            <fail-widgets>
+                <label style="h3" text="${uiLabelMap.AccountingPrintChecksPermissionError}"/>
+            </fail-widgets>
         </section>
     </screen>    
 </screens>
