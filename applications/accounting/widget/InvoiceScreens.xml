@@ -70,34 +70,12 @@ under the License.
                 <decorator-screen name="CommonInvoiceDecorator" location="${parameters.invoiceDecoratorLocation}">
                     <decorator-section name="body">
                         <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindInvoice}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="FindInvoices" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListInvoices}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="ListInvoices"  location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleFindInvoice}">
+                            <include-form name="FindInvoices" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleListInvoices}" navigation-form-name="ListInvoices">
+                            <include-form name="ListInvoices"  location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
