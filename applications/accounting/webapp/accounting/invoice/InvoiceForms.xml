@@ -51,7 +51,7 @@ under the License.
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="Invoice"/>
-                <field-map field-name="orderBy" value="invoiceDate"/>
+                <field-map field-name="orderBy" value="invoiceDate DESC"/>
             </service>
         </actions>
         <row-actions>
