@@ -5748,7 +5748,8 @@
         <value xml:lang="zh">正在递送</value>
     </property>
     <property key="StatusItem.description.INV_BEING_TRANS_PRM">
-        <value xml:lang="en">Wird übertragen (Reserviert)</value>
+        <value xml:lang="en">Being Transfered (Promised)</value>
+        <value xml:lang="de">Wird übertragen (Reserviert)</value>
         <value xml:lang="fr">En cours de transfert (réservé)</value>
         <value xml:lang="it">In Trasferimento (Promessa)</value>
         <value xml:lang="pt">A ser Tranferido (Prometido)</value>
