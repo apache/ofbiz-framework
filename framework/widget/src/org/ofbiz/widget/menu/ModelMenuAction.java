@@ -31,6 +31,7 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.GroovyUtil;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilFormatOut;
@@ -334,6 +335,14 @@ public abstract class ModelMenuAction {
                     BshUtil.runBshAtLocation(location, context);
                 } catch (GeneralException e) {
                     String errMsg = "Error running BSH script at location [" + location + "]: " + e.toString();
+                    Debug.logError(e, errMsg, module);
+                    throw new IllegalArgumentException(errMsg);
+                }
+            } else if (location.endsWith(".groovy")) {
+                try {
+                    GroovyUtil.runScriptAtLocation(location, context);
+                } catch (GeneralException e) {
+                    String errMsg = "Error running Groovy script at location [" + location + "]: " + e.toString();
                     Debug.logError(e, errMsg, module);
                     throw new IllegalArgumentException(errMsg);
                 }
