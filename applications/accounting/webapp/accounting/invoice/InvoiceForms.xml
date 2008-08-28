@@ -65,12 +65,8 @@ under the License.
                 <field-map field-name="compareDate" env-name="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <set field="amountToApply" value="${bsh:
-                import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId)));}"/>
-            <set field="total" value="${bsh:
-                import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(delegator,invoiceId)));}"/>
+            <set field="amountToApply" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId));}"/>
+            <set field="total" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId));}"/>
         </row-actions>
         
         <field name="invoiceId" widget-style="buttontext">
