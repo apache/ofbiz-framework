@@ -207,7 +207,7 @@
         </if-not-empty>
     </simple-method>        
     
-    <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffort and timesheetId ">
+    <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffortId and timesheetId ">
         <field-to-result field-name="parameters.timesheetId" result-name="timesheetId"/>
         <if-empty field="parameters.workEffortId">
             <return/>
@@ -603,17 +603,10 @@
     </simple-method>
 
     <simple-method method-name="getProjectsByParties" short-description="get Project information by party member" login-required="true">
-        <!-- get the list of tasks optionaly selected for a party -->
-        <if-empty field="parameters.partyId">
-            <set field="parameters.partyId" value="%"/>
-        </if-empty>
-        <if-empty field="parameters.projectId">
-            <set field="parameters.projectId" value="%"/>
-        </if-empty>
-        <entity-condition entity-name="ProjectPartyAndPhaseAndTask" list-name="tasks">
+        <entity-condition entity-name="ProjectAndPhaseAndTaskParty" list-name="tasks">
             <condition-list combine="and">
-                <condition-expr field-name="partyId" operator="like" env-name="parameters.partyId"/>
-                <condition-expr field-name="projectId" operator="like" env-name="parameters.projectId"/>
+                <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId" ignore-if-empty="true"/>
+                <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
             </condition-list>
             <order-by field-name="projectId"/>
             <order-by field-name="partyId"/>
@@ -621,17 +614,16 @@
         <if-not-empty field="tasks">
             <iterate entry-name="task" list-name="tasks">
                 <if>
-                    <condition >
+                    <condition>
                         <and>
-                            <not>
-                                <if-empty field="projectParty"/>
-                            </not>
+                            <not><if-empty field="projectParty"/></not>
                             <if-compare-field field="task.partyId" to-field="projectParty.partyId" operator="not-equals"/>
                         </and>
                     </condition>
                     <then>
                         <field-to-list field-name="projectParty" list-name="projectParties"/>
                         <clear-field field-name="projectParty"/>
+                        <clear-field field-name="highInfo"/>
                     </then>
                 </if>
                 
@@ -648,9 +640,9 @@
                     <set field="projectParty.thruDate" from-field="task.thruDate"/>
                 </if-empty>
                 
-                <!-- get the planned hours -->
+                <!-- get the planned/actual hours -->
                 <set field="lowInfo" from-field="task"/>
-                <set field="hoursPartyId" from-field="task.partyId"/>
+                <set field="parameters.hoursPartyId" from-field="task.partyId"/>
                 <call-simple-method method-name="getHours"/>
                 <set field="projectParty.plannedHours" from-field="highInfo.plannedHours"/>                    
                 <set field="projectParty.actualHours" from-field="highInfo.actualHours"/>                    

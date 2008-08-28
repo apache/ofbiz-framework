@@ -190,8 +190,7 @@ under the License.
 	<screen name="Communications">
 		<section>
 			<actions>
-                <set field="status" from-field="parameters.status"/>
-                <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
+                <set field="all" from-field="parameters.all"/>
 				<entity-condition entity-name="CommunicationEventAndRole"
 					list-name="commEvents">
 					<condition-list combine="and">
@@ -199,12 +198,8 @@ under the License.
 							value="COM_UNKNOWN_PARTY" />
 						<condition-expr field-name="partyId" operator="equals"
 							value="${partyId}" />
-                        <condition-list combine="or">
-                            <condition-expr field-name="roleStatusId"
-                                operator="not-equals" value="COM_ROLE_COMPLETED" />
-                            <condition-expr field-name="roleStatusId"
-                                operator="like" value="${status}" />
-                        </condition-list>
+                        <condition-expr field-name="roleStatusId"
+                                operator="not-equals" value="COM_ROLE_COMPLETED" ignore="${all}" />
 					</condition-list>
 					<order-by field-name="-datetimeStarted" />
 				</entity-condition>
@@ -311,6 +306,7 @@ under the License.
                                         <field-map field-name="communicationEventId"
                                             env-name="communicationEvent.parentCommEventId" />
                                     </entity-one>
+                                    <set field="donePage" from-field="parameters.donePage"/>
                                 </actions>
                                 <widgets>
                                     <include-screen name="commEvent"
