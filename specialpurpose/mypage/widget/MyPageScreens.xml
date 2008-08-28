@@ -180,7 +180,7 @@ under the License.
         <section>
             <actions>
                 <set field="partyId" from-field="userLogin.partyId" />
-	            <set field="donePage" value="myCommunications"/>
+                <set field="donePage" value="myCommunications"/>
             </actions>
             <widgets>
                 <include-screen name="Communications"/>
@@ -451,6 +451,28 @@ under the License.
                             <decorator-section name="body">
                                 <screenlet title="${uiLabelMap.OrderNewRequest}">
                                     <include-form name="EditCustRequest" location="component://mypage/widget/MyPageForms.xml"/>
+                                </screenlet>
+                            </decorator-section>
+                        </decorator-screen>
+                    </widgets>
+                </section>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListInvoices">
+        <section>
+            <actions>
+                <set field="headerItem" value="invoices"/>
+                <script location="component://mypage/webapp/mypage/WEB-INF/actions/GetMyCompany.bsh"/>
+                <set field="parameters.partyId" from-field="myCompanyId"/>
+            </actions>
+            <widgets>
+                <section>
+                    <widgets>
+                        <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                            <decorator-section name="body">
+                                <screenlet title="${uiLabelMap.PageTitleListInvoices}" navigation-form-name="ListInvoices">
+                                    <include-form name="ListInvoices"  location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
                                 </screenlet>
                             </decorator-section>
                         </decorator-screen>

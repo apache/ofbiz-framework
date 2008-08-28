@@ -200,7 +200,10 @@
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
+    <request-map uri="listInvoices">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListInvoices"/>
+    </request-map>
     
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>
     <view-map name="preferences" type="screen" page="component://mypage/widget/CommonScreens.xml#preferences"/>
@@ -213,4 +216,5 @@
     <view-map name="ViewCommunicationEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#ViewCommunicationEvent"/>
     <view-map name="ViewRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#ViewRequest"/>
     <view-map name="EditRequest" type="screen" page="component://mypage/widget/MyPageScreens.xml#EditRequest"/>
+    <view-map name="ListInvoices" type="screen" page="component://mypage/widget/MyPageScreens.xml#ListInvoices"/>
 </site-conf>
