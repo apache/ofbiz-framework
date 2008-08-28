@@ -85,13 +85,16 @@ under the License.
       </div> 
       <div class="form-row">
         <div class="field-label"><label for="shipToPostalCode">${uiLabelMap.PartyZipCode}*<span id="advice-required-shipToPostalCode" style="display: none" class="errorMessage">(required)</span></label></div>
-        <div class="form-field"><input type="text" name="shipToPostalCode" id="shipToPostalCode" class="required" value="${parameters.shipToPostalCode?if_exists}"/></div>
+        <div class="form-field"><input type="text" name="shipToPostalCode" id="shipToPostalCode" class="required" value="${parameters.shipToPostalCode?if_exists}" maxlength="10"/></div>
       </div> 
       <div class="form-row">
         <div class="field-label"><label for="shipToStateProvinceGeoId">${uiLabelMap.CommonState}*<span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
         <div class="form-field">
           <select name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" class='selectBox'>
-            <#if parameters.shipToStateProvinceGeoId?exists><option>${parameters.shipToStateProvinceGeoId?if_exists}</option></#if>
+            <#if parameters.shipToStateProvinceGeoId?exists>
+              <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", parameters.shipToStateProvinceGeoId), true)>
+              <option value='${parameters.shipToStateProvinceGeoId}'>${geo.geoName?default(parameters.shipToStateProvinceGeoId)}</option>
+            </#if>
             ${screens.render("component://common/widget/CommonScreens.xml#states")}
           </select>
         </div>
@@ -100,7 +103,10 @@ under the License.
         <div class="field-label"><label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}*<span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
         <div class="form-field">
           <select name="shipToCountryGeoId" id="shipToCountryGeoId" class='selectBox'>
-            <#if parameters.shipToCountryGeoId?exists><option>${parameters.shipToCountryGeoId?if_exists}</option></#if>
+            <#if parameters.shipToCountryGeoId?exists>
+              <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", parameters.shipToCountryGeoId), true)>
+              <option value='${parameters.shipToCountryGeoId}'>${geo.geoName?default(parameters.shipToCountryGeoId)}</option>
+            </#if>
             ${screens.render("component://common/widget/CommonScreens.xml#countries")}
           </select>
         </div>
@@ -114,10 +120,10 @@ under the License.
         </div>
         <div id="shipToPhoneRequired" style="display: none;" class="errorMessage">(required)</div>
         <div class="form-field">
-          <input type="text" name="shipToCountryCode" id="shipToCountryCode" class="required" value="${parameters.countryCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="shipToAreaCode" id="shipToAreaCode" class="required" value="${parameters.areaCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="shipToContactNumber" id="shipToContactNumber" class="required" value="${contactNumber?default("${parameters.contactNumber?if_exists}")}" size="6" maxlength="7"/>
-          - <input type="text" name="shipToExtension" id="shipToExtension" value="${extension?default("${parameters.extension?if_exists}")}" size="3" maxlength="3"/>
+          <input type="text" name="shipToCountryCode" id="shipToCountryCode" class="required" value="${parameters.shipToCountryCode?if_exists}" size="3" maxlength="3"/>
+          - <input type="text" name="shipToAreaCode" id="shipToAreaCode" class="required" value="${parameters.shipToAreaCode?if_exists}" size="3" maxlength="3"/>
+          - <input type="text" name="shipToContactNumber" id="shipToContactNumber" class="required" value="${contactNumber?default("${parameters.shipToContactNumber?if_exists}")}" size="6" maxlength="7"/>
+          - <input type="text" name="shipToExtension" id="shipToExtension" value="${extension?default("${parameters.shipToExtension?if_exists}")}" size="3" maxlength="3"/>
         </div>
       </div>
       <div class="form-row">
@@ -142,13 +148,16 @@ under the License.
         </div>
         <div class="form-row">
           <div class="field-label"><label for="billToPostalCode">${uiLabelMap.PartyZipCode}*<span id="advice-required-billToPostalCode" style="display: none" class="errorMessage">(required)</span></label></div>
-          <div class="form-field"><input type="text" name="billToPostalCode" id="billToPostalCode" class="required" value="${parameters.billToPostalCode?if_exists}"/></div>
+          <div class="form-field"><input type="text" name="billToPostalCode" id="billToPostalCode" class="required" value="${parameters.billToPostalCode?if_exists}" maxlength="10"/></div>
         </div> 
         <div class="form-row">
           <div class="field-label"><label for="billToStateProvinceGeoId">${uiLabelMap.CommonState}*<span id="advice-required-billToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
           <div class="form-field">
             <select name="billToStateProvinceGeoId" id="billToStateProvinceGeoId" class="selectBox required">
-              <#if parameters.billToStateProvinceGeoId?exists><option>${parameters.billToStateProvinceGeoId?if_exists}</option></#if>
+              <#if parameters.billToStateProvinceGeoId?exists>
+                <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", parameters.billToStateProvinceGeoId), true)>
+                <option value='${parameters.billToStateProvinceGeoId}'>${geo.geoName?default(parameters.billToStateProvinceGeoId)}</option>
+              </#if>
               ${screens.render("component://common/widget/CommonScreens.xml#states")}
             </select>
           </div>
@@ -157,7 +166,10 @@ under the License.
           <div class="field-label"><label for="billToCountryGeoId">${uiLabelMap.PartyCountry}*<span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
           <div class="form-field">
             <select name="billToCountryGeoId" id="billToCountryGeoId" class="selectBox required">
-              <#if parameters.billToCountryGeoId?exists><option>${parameters.billToCountryGeoId?if_exists}</option></#if>
+              <#if parameters.billToCountryGeoId?exists>
+                <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", parameters.billToCountryGeoId), true)>
+                <option value='${parameters.billToCountryGeoId}'>${geo.geoName?default(parameters.billToCountryGeoId)}</option>
+              </#if>
               ${screens.render("component://common/widget/CommonScreens.xml#countries")}
             </select>
           </div>
@@ -171,10 +183,10 @@ under the License.
           </div>
           <div id="billToPhoneRequired" style="display: none;" class="errorMessage">(required)</div>
           <div class="form-field">
-            <input type="text" name="billToCountryCode" id="billToCountryCode" class="required" value="${parameters.countryCode?if_exists}" size="3" maxlength="3"/>
-            - <input type="text" name="billToAreaCode" id="billToAreaCode" class="required" value="${parameters.areaCode?if_exists}" size="3" maxlength="3"/>
-            - <input type="text" name="billToContactNumber" id="billToContactNumber" class="required" value="${contactNumber?default("${parameters.contactNumber?if_exists}")}" size="6" maxlength="7"/>
-            - <input type="text" name="billToExtension" id="billToExtension" value="${extension?default("${parameters.extension?if_exists}")}" size="3" maxlength="3"/>
+            <input type="text" name="billToCountryCode" id="billToCountryCode" class="required" value="${parameters.billToCountryCode?if_exists}" size="3" maxlength="3"/>
+            - <input type="text" name="billToAreaCode" id="billToAreaCode" class="required" value="${parameters.billToAreaCode?if_exists}" size="3" maxlength="3"/>
+            - <input type="text" name="billToContactNumber" id="billToContactNumber" class="required" value="${contactNumber?default("${parameters.billToContactNumber?if_exists}")}" size="6" maxlength="7"/>
+            - <input type="text" name="billToExtension" id="billToExtension" value="${extension?default("${parameters.billToExtension?if_exists}")}" size="3" maxlength="3"/>
           </div>
         </div>
       </div>  

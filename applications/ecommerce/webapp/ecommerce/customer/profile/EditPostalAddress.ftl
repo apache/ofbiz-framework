@@ -57,7 +57,8 @@ under the License.
       <span>
         <select name="stateProvinceGeoId" id="stateProvinceGeoId_${contactMech.contactMechId}" class="left required" style="width: 70%">
           <#if postalAddress.stateProvinceGeoId?exists>
-            <option value='${postalAddress.stateProvinceGeoId}'>${selectedStateName?default(postalAddress.stateProvinceGeoId)}</option>
+            <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.stateProvinceGeoId), true)>
+            <option value='${postalAddress.stateProvinceGeoId}'>${geo.geoName?default(postalAddress.stateProvinceGeoId)}</option>
           </#if>
           <option value="">${uiLabelMap.PartyNoState}</option>
           ${screens.render("component://common/widget/CommonScreens.xml#states")}
@@ -70,7 +71,8 @@ under the License.
       <span>
         <select name="countryGeoId" id="countryGeoId_${contactMech.contactMechId}" class="left required" style="width: 70%">
           <#if postalAddress.countryGeoId?exists>
-            <option value='${postalAddress.countryGeoId}'>${selectedCountryName?default(postalAddress.countryGeoId)}</option>
+            <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.countryGeoId), true)>
+            <option value='${postalAddress.countryGeoId}'>${geo.geoName?default(postalAddress.countryGeoId)}</option>
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>

@@ -22,7 +22,7 @@ under the License.
     <div class="boxhead">&nbsp;${uiLabelMap.EcommerceMyAccount}</div>
   </div>
   <div class="screenlet-body">
-    <div align="right"><a class="buttontext" href="<@ofbizUrl>editProfile</@ofbizUrl>">${uiLabelMap.CommonEdit} ${uiLabelMap.CommonProfile}</a>&nbsp;</div><br/>
+    <div align="right"><a class="buttontext" href="<@ofbizUrl>editProfile</@ofbizUrl>">${uiLabelMap.EcommerceEditProfile}</a>&nbsp;</div><br/>
     <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.PartyContactInformation}</div></div>
     <div class="screenlet-body">
       <div class="form-row">
