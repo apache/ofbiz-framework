@@ -32,6 +32,7 @@ clean-debian:
 
 clean: clean-debian
 	ant clean-all
+	debconf-updatepo
 
 build: build-ofbiz debian/EncryptPassword.class
 build-ofbiz:
