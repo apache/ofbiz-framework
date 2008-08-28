@@ -177,13 +177,33 @@ under the License.
         <field name="custRequestDate"><ignored/></field>
     </form>
 
-    <form name="ListInvoices" extends="ListInvoices" extends-resource="component://accounting/webapp/accounting/invoice/InvoiceForms.xml">
+    <form name="ListInvoices" type="list" separate-columns="true" paginate-target="listInvoices" list-name="invoices"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
+            <service service-name="getPartyNameForDate" result-map-name="partyNameResultFrom">
+                <field-map field-name="partyId" env-name="partyIdFrom"/>
+                <field-map field-name="compareDate" env-name="invoiceDate"/>
+                <field-map field-name="lastNameFirst" value="Y"/>
+            </service>
+            <service service-name="getPartyNameForDate" result-map-name="partyNameResultTo">
+                <field-map field-name="partyId" env-name="partyId"/>
+                <field-map field-name="compareDate" env-name="invoiceDate"/>
+                <field-map field-name="lastNameFirst" value="Y"/>
+            </service>
             <script location="component://mypage/webapp/mypage/WEB-INF/actions/ConvertInvoiceCurrency.groovy"/>
         </row-actions>
         <field name="invoiceId" widget-style="buttontext">
             <hyperlink description="${invoiceId}" target="invoice.pdf?invoiceId=${invoiceId}&amp;other=Y"/>
         </field>
+        <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
+        <field name="invoiceDate"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="description"><display/></field>
+        <field name="partyIdFrom"><display description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/></field>
+        <field name="partyIdTo" parameter-name="partyId"><display description="${partyNameResultTo.fullName} [${partyId}]"/></field>
+        <field name="invoiceDate"><display description="${bsh:invoiceDate.toString().substring(0,10)}"/></field>
+        <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
 </forms>

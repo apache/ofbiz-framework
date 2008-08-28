@@ -464,7 +464,17 @@ under the License.
             <actions>
                 <set field="headerItem" value="invoices"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
-                <set field="parameters.partyId" from-field="myCompanyId"/>
+                <entity-condition list-name="invoices" entity-name="Invoice">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyId" operator="equals" env-name="myCompanyId"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="APPROVED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="SEND"/>
+                            <condition-expr field-name="statusId" operator="equals" value="READY"/>
+                            <condition-expr field-name="statusId" operator="equals" value="PAID"/>
+                        </condition-list>
+                    </condition-list>
+                </entity-condition>
             </actions>
             <widgets>
                 <section>
