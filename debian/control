@@ -4,7 +4,7 @@ Priority: extra
 Maintainer: Adam Heath <doogie@brainfood.com>
 Origin: brainfood
 Bugs: mozilla://bugs.brainfood.com
-Standards-Version: 3.7.2
+Standards-Version: 3.8.0
 Build-Depends: sun-java6-jdk, debhelper (>= 5), po-debconf
 
 Package: ofbiz
