@@ -11,12 +11,22 @@ Package: ofbiz
 Architecture: all
 Depends: dbconfig-common, xalan, ${misc:Depends}, ucf, sun-java6-jdk | j2sdk1.5, libpg-java, libmysql-java, jsvc, adduser
 Recommends: postgresql-8.1 | postgresql-7.5 | mysql-server
-Description: foo
- bar
+Description: An Open Source E-Commerce System
+ The Apache Open For Business Project is an open source enterprise
+ automation software providing: ERP, CRM, E-Business / E-Commerce,
+ SCM, MRP, CMMS/EAM, and more.
+ .
+ This package contains the Apache OfBiz framework and applications.
 
 Package: ofbiz-specialpurpose
 Architecture: all
 Depends: ofbiz (= ${binary:Version})
-Description: foo
- bar
+Description: OfBiz - SpecialPurpose Applications
+ The Apache Open For Business Project is an open source enterprise
+ automation software providing: ERP, CRM, E-Business / E-Commerce,
+ SCM, MRP, CMMS/EAM, and more.
+ .
+ This package contains additional specialpurpose applications:
+ assetmaint, bi, cmssite, googlebase, googleCheckout, hhfacility,
+ oagis, pos, projectmgr
 
