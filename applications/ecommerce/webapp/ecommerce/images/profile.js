@@ -12,8 +12,10 @@ Event.observe(window, 'load', function() {
         validateEditUser = new Validation('editUserForm', {immediate: true, onSubmit: false});
         Event.observe($('submitEditUserForm'), 'click', submitValidEditUser);
     }
-    if ($('emailAddress')) { 
-        inPlaceEditEmail('emailAddress');
+    if (!$('newUserForm') && !$('editUserForm')) {
+        if ($('emailAddress')) {
+            inPlaceEditEmail('emailAddress');
+        }
     }
     if ($('addAddress')) {
         validatePostalAddress = new Validation('createPostalAddressForm', {immediate: true, onSubmit: false});

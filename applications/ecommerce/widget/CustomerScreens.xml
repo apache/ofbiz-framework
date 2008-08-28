@@ -565,7 +565,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="titleProperty" value="PageTitleNewCustomer"/>
+                <set field="titleProperty" value="EcommerceEditProfile"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditShippingAddress.groovy"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/customer/EditEmailAndTelecomNumber.groovy"/>
@@ -585,9 +585,6 @@ under the License.
             <actions>
                 <set field="titleProperty" value="EcommerceManageAddresses"/>
                 <set field="partyId" from-field="userLogin.partyId"/>
-                <entity-one entity-name="Party" value-name="party"/>
-                <entity-one entity-name="Person" value-name="person"/>
-                <entity-one entity-name="PartyGroup" value-name="partyGroup"/>
 
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/controls.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>

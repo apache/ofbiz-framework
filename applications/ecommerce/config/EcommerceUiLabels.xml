@@ -1430,6 +1430,9 @@
         <value xml:lang="th">โหลดหัวข้อที่มีอยู่</value>
         <value xml:lang="zh">可用的下载文件</value>
     </property>
+    <property key="EcommerceEditProfile">
+        <value xml:lang="en">Edit Profile</value>        
+    </property>
     <property key="EcommerceEmptyBody">
         <value xml:lang="en">Empty Body</value>
         <value xml:lang="es">Contenido vacío</value>

@@ -33,11 +33,11 @@ if (userLogin) {
         parameters.billToPostalCode = postalAddress.postalCode;
         parameters.billToStateProvinceGeoId = postalAddress.stateProvinceGeoId;
         parameters.billToCountryGeoId = postalAddress.countryGeoId;
-        billToStateProvinceGeo = delegator.findByPrimaryKey("Geo", [geoId : postalAddress.stateProvinceGeoId]);
+        billToStateProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.stateProvinceGeoId], false);
         if (billToStateProvinceGeo) {
             parameters.billToStateProvinceGeo = billToStateProvinceGeo.geoName;
         }
-        billToCountryProvinceGeo = delegator.findByPrimaryKey("Geo", [geoId : postalAddress.countryGeoId]);
+        billToCountryProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.countryGeoId], false);
         if (billToCountryProvinceGeo) {
             parameters.billToCountryProvinceGeo = billToCountryProvinceGeo.geoName;
         }

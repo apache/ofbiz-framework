@@ -413,6 +413,7 @@ under the License.
                 </call-service>
             </else>
         </if>
+        <!-- Setting the purposes -->
         <if>
             <condition>
                 <or>
@@ -421,21 +422,32 @@ under the License.
                 </or>
             </condition>
             <then>
-                <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
-                <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
                 <if-compare field="parameters.setShippingPurpose" operator="equals" value="Y">
+                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpShipList" filter-by-date="true">
+                        <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                        <field-map field-name="contactMechId" env-name="parameters.contactMechId"/>
+                        <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
+                    </entity-and>
+                    <!-- If purpose is not exists then create -->
+                    <if-empty field="pcmpShipList">
+                    <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
+                    <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
+
                     <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
                         <field-map field-name="partyId" env-name="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
                     <if-not-empty field="pcmpList">
-                        <first-from-list entry-name="pcmp" list-name="pcmpList"/>
+                        <first-from-list list-name="pcmpList" entry-name="pcmp"/>
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field-name="serviceInMap"/>
                     </if-not-empty>
                     <set field="serviceContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
+                    <clear-field field-name="pcmpList"/>
+                    <clear-field field-name="serviceContext"/>
+                    </if-empty>
 
                     <set-service-fields service-name="setPartyProfileDefaults" map-name="parameters" to-map-name="partyProfileDefaultsCtx"/>
                     <set field="partyProfileDefaultsCtx.defaultShipAddr" from-field="parameters.contactMechId"/>
@@ -443,17 +455,28 @@ under the License.
                     <call-service service-name="setPartyProfileDefaults" in-map-name="partyProfileDefaultsCtx"/>
                 </if-compare>
                 <if-compare field="parameters.setBillingPurpose" operator="equals" value="Y">
+                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpBillList" filter-by-date="true">
+                        <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                        <field-map field-name="contactMechId" env-name="parameters.contactMechId"/>
+                        <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
+                    </entity-and>
+                    <!-- If purpose is not exists then create -->
+                    <if-empty field="pcmpBillList">
+                    <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
+                    <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
+
                     <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
                         <field-map field-name="partyId" env-name="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
                     <if-not-empty field="pcmpList">
-                        <first-from-list entry-name="pcmp" list-name="pcmpList"/>
+                        <first-from-list list-name="pcmpList" entry-name="pcmp"/>
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                     </if-not-empty>
                     <set field="serviceContext.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
+                    </if-empty>
 
                     <set-service-fields service-name="setPartyProfileDefaults" map-name="parameters" to-map-name="partyProfileDefaultsCtx"/>
                     <set field="partyProfileDefaultsCtx.defaultBillAddr" from-field="parameters.contactMechId"/>
@@ -508,36 +531,59 @@ under the License.
                 <set field="parameters.contactMechId" from-field="parameters.newContactMechId"/>
             </else>
             </if-compare-field>
-            <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
-            <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
+            <!-- Setting the purposes -->
             <if-compare field="parameters.setShippingPurpose" operator="equals" value="Y">
+                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpShipList" filter-by-date="true">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="contactMechId" env-name="parameters.contactMechId"/>
+                    <field-map field-name="contactMechPurposeTypeId" value="PHONE_SHIPPING"/>
+                </entity-and>
+                <!-- If purpose is not exists then create -->
+                <if-empty field="pcmpShipList">
+                <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
+                <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
+
                 <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="contactMechPurposeTypeId" value="PHONE_SHIPPING"/>
                 </entity-and>
                 <if-not-empty field="pcmpList">
-                    <first-from-list entry-name="pcmp" list-name="pcmpList"/>
+                    <first-from-list list-name="pcmpList" entry-name="pcmp"/>
                     <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                     <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                     <clear-field field-name="serviceInMap"/>
                 </if-not-empty>
                 <set field="serviceContext.contactMechPurposeTypeId" value="PHONE_SHIPPING"/>
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
+                <clear-field field-name="pcmpList"/>
+                <clear-field field-name="serviceContext"/>
+                </if-empty>
             </if-compare>
 
             <if-compare field="parameters.setBillingPurpose" operator="equals" value="Y">
+                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpBillList" filter-by-date="true">
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="contactMechId" env-name="parameters.contactMechId"/>
+                    <field-map field-name="contactMechPurposeTypeId" value="PHONE_BILLING"/>
+                </entity-and>
+                <!-- If purpose is not exists then create -->
+                <if-empty field="pcmpBillList">
+                <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
+                <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
+
                 <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="contactMechPurposeTypeId" value="PHONE_BILLING"/>
                 </entity-and>
                 <if-not-empty field="pcmpList">
-                    <first-from-list entry-name="pcmp" list-name="pcmpList"/>
+                    <first-from-list list-name="pcmpList" entry-name="pcmp"/>
                     <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                     <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                     <clear-field field-name="serviceInMap"/>
                 </if-not-empty>
                 <set field="serviceContext.contactMechPurposeTypeId" value="PHONE_BILLING"/>
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
+                </if-empty>
             </if-compare>
         </if-not-empty>
     </simple-method>

@@ -26,7 +26,7 @@ under the License.
   <div class="screenlet-body">
     <#-- Add address -->
     <div class="form-row" align="right">
-      <a class="buttontext" id="addAddress" href="javascript:void(0)">${uiLabelMap.CommonAdd} ${uiLabelMap.CommonNew} ${uiLabelMap.CommonAddresses}</a>
+      <a class="buttontext" id="addAddress" href="javascript:void(0)">${uiLabelMap.CommonAdd} ${uiLabelMap.CommonNew} ${uiLabelMap.OrderAddress}</a>
     </div>  
     <div id="displayCreateAddressForm" class="popup" style="display: none;">
       <div id="serverError" class="errorMessage"></div>
@@ -111,9 +111,9 @@ under the License.
           ${billToTelecomNumber.countryCode?if_exists}-
           ${billToTelecomNumber.areaCode?if_exists}-
           ${billToTelecomNumber.contactNumber?if_exists}
-          <#if billToExtension?has_content>-${billToExtension?if_exists}</#if><br/>
-          <a id="updateBillToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.PartyBillingAddress}</a>&nbsp;
+          <#if billToExtension?exists>-${billToExtension?if_exists}</#if><br/>
         </#if>
+        <a id="updateBillToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.PartyBillingAddress}</a>&nbsp;
       <#else>
         ${uiLabelMap.PartyBillingAddress} ${uiLabelMap.EcommerceNotExists}
       </#if>
@@ -139,8 +139,8 @@ under the License.
           ${shipToTelecomNumber.areaCode?if_exists}-
           ${shipToTelecomNumber.contactNumber?if_exists}
           <#if shipToExtension?exists>-${shipToExtension?if_exists}</#if><br/>
-          <a id="updateShipToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.OrderShippingAddress}</a>&nbsp;
         </#if>
+        <a id="updateShipToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.OrderShippingAddress}</a>&nbsp;
       <#else>
         ${uiLabelMap.OrderShippingAddress} ${uiLabelMap.EcommerceNotExists}
       </#if>

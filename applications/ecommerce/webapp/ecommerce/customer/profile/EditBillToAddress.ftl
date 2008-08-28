@@ -56,7 +56,7 @@ under the License.
       <span>
         <select name="stateProvinceGeoId" id="billToStateProvinceGeoId" class="left required" style="width: 70%">
           <#if parameters.billToStateProvinceGeoId?exists>
-            <option value='${parameters.billToStateProvinceGeoId}'>${selectedStateName?default(parameters.billToStateProvinceGeoId)}</option>
+            <option value='${parameters.billToStateProvinceGeoId}'>${parameters.billToStateProvinceGeo?default(parameters.billToStateProvinceGeoId)}</option>
           </#if>
           <option value="">${uiLabelMap.PartyNoState}</option>
           ${screens.render("component://common/widget/CommonScreens.xml#states")}
@@ -69,7 +69,7 @@ under the License.
       <span>
         <select name="countryGeoId" id="billToCountryGeoId" class="left required" style="width: 70%">
           <#if parameters.billToCountryGeoId?exists>
-            <option value='${parameters.billToCountryGeoId}'>${selectedCountryName?default(parameters.billToCountryGeoId)}</option>
+            <option value='${parameters.billToCountryGeoId}'>${parameters.billToCountryProvinceGeo?default(parameters.billToCountryGeoId)}</option>
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
