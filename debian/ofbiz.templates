@@ -21,7 +21,7 @@ _Description: Email from address:
 
 Template: ofbiz/admin-password-encrypted
 Type: password
-_Description: temporary placeholder for the encrypted password, not shown
+_Description: for internal use
 
 Template: ofbiz/mismatched-passwords
 Type: note
