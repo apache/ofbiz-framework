@@ -66,8 +66,6 @@
     <ProductStoreFacility productStoreId="9100" facilityId="MyRetailStore" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="9100" fromDate="2001-05-13 12:00:00.0"/>
 
-    <SimpleSalesTaxLookup productStoreId="9100" countryGeoId="_NA_" stateProvinceGeoId="_NA_" taxCategory="_NA_" fromDate="2001-01-01 00:00:00.001" description="10% OFB Tax" minItemPrice="0.00" minPurchase="0.0" taxShipping="N" salesTaxPercentage="0.1"/>
-
     <ProductStoreCatalog productStoreId="9100" prodCatalogId="DemoCatalog" fromDate="2001-05-13 12:00:00.0" sequenceNum="1"/>
 
     <Facility facilityId="MyRetailStore" productStoreId="9100" defaultInventoryItemTypeId="NON_SERIAL_INV_ITEM"/>

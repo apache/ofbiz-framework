@@ -16732,26 +16732,6 @@
         <value xml:lang="th">การระบุประเภทเป้าหมาย [รหัส]</value>
         <value xml:lang="zh">目标类型枚举 [标识]</value>
     </property>
-    <property key="ProductTaxCategory">
-        <value xml:lang="en">Tax Category</value>
-        <value xml:lang="es">Categoría de impuesto</value>
-        <value xml:lang="fr">Catégorie de taxe</value>
-        <value xml:lang="it">Categoria Tasse</value>
-        <value xml:lang="ro">Categorie Taxe</value>
-        <value xml:lang="ru">Налоговая категория</value>
-        <value xml:lang="th">หมวดหมู่ภาษี</value>
-        <value xml:lang="zh">税务分类</value>
-    </property>
-    <property key="ProductTaxDutyCode">
-        <value xml:lang="en">Tax Duty Code</value>
-        <value xml:lang="es">Código del impuesto</value>
-        <value xml:lang="fr">Code taxe</value>
-        <value xml:lang="it">Codice Tassa</value>
-        <value xml:lang="ro">Cod Taxa</value>
-        <value xml:lang="ru">Код налоговой пошлины</value>
-        <value xml:lang="th">รหัสค่าธรรมเนียมภาษี</value>
-        <value xml:lang="zh">关税代码</value>
-    </property>
     <property key="ProductTaxRate">
         <value xml:lang="en">Tax Rate</value>
         <value xml:lang="es">Porcentaje de Impuesto</value>
@@ -16771,16 +16751,6 @@
         <value xml:lang="ru">Налоги поставки</value>
         <value xml:lang="th">ภาษีการขนส่ง</value>
         <value xml:lang="zh">货运税</value>
-    </property>
-    <property key="ProductTaxVatCode">
-        <value xml:lang="en">Tax Vat Code</value>
-        <value xml:lang="es">Código del IGV</value>
-        <value xml:lang="fr">Code TVA</value>
-        <value xml:lang="it">Codice IVA Tasse</value>
-        <value xml:lang="ro">Cod IVA Taxe</value>
-        <value xml:lang="ru">Код НДС</value>
-        <value xml:lang="th">รหัสภาษีมูลค่าเพิ่ม</value>
-        <value xml:lang="zh">增值税代码</value>
     </property>
     <property key="ProductTaxable">
         <value xml:lang="en">Taxable</value>

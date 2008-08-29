@@ -2443,9 +2443,6 @@ under the License.
       <field name="ratingTypeEnum" type="id"></field>
       <field name="returnable" type="indicator"></field>
       <field name="taxable" type="indicator"></field>
-      <field name="taxCategory" type="id"></field>
-      <field name="taxVatCode" type="short-varchar"></field>
-      <field name="taxDutyCode" type="short-varchar"></field>
       <field name="chargeShipping" type="indicator"></field>
       <field name="autoCreateKeywords" type="indicator"></field>
       <field name="includeInPromotions" type="indicator"></field>
@@ -2519,9 +2516,6 @@ under the License.
       </relation>
       <relation type="many" rel-entity-name="ProductFeatureAndAppl">
         <key-map field-name="productId"/>
-      </relation>
-      <relation type="many" rel-entity-name="SimpleSalesTaxLookup">
-        <key-map field-name="taxCategory"/>
       </relation>
       <relation type="one" fk-name="PROD_SHBX_TYPE" title="Default" rel-entity-name="ShipmentBoxType">
           <key-map field-name="defaultShipmentBoxTypeId" rel-field-name="shipmentBoxTypeId"/>

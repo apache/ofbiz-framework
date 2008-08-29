@@ -115,6 +115,7 @@ under the License.
     <TaxAuthorityGlAccount taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" organizationPartyId="Company" glAccountId="224209"/>
     
     <!-- Party TaxAuthority info for Company -->
+    <!-- some interesting information at: http://www.taxadmin.org/fta/rate/tax_stru.html -->
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="USA" taxAuthPartyId="USA_IRS" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="12-3456789" isExempt="Y" isNexus="N"/>
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="CA" taxAuthPartyId="CA_BOE" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
@@ -125,17 +126,4 @@ under the License.
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="CAN" taxAuthPartyId="CAN_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="87654321" isExempt="N" isNexus="Y"/>
     <PartyTaxAuthInfo partyId="Company" taxAuthGeoId="ON" taxAuthPartyId="ON_TAXMAN" fromDate="2001-05-13 00:00:00.001" thruDate="" partyTaxId="" isExempt="" isNexus="Y"/>
     
-  <!-- the older style records... -->
-    <SimpleSalesTaxLookup productStoreId="9000" countryGeoId="_NA_" stateProvinceGeoId="_NA_" taxCategory="_NA_" fromDate="2001-05-13 00:00:00.001" description="1% OFB _NA_ Tax" minItemPrice="25.00" minPurchase="0.0" taxShipping="N" salesTaxPercentage="0.01" taxAuthPartyId="_NA_" taxAuthGlAccountId="224000"/>
-    
-    <!-- some interesting information at: http://www.taxadmin.org/fta/rate/tax_stru.html -->
-    <!-- note that these rates are for the given Geo only and do not include local taxes (county, city) -->
-    <SimpleSalesTaxLookup productStoreId="9000" countryGeoId="USA" stateProvinceGeoId="CA" taxCategory="_NA_" fromDate="2001-05-13 00:00:00.001" 
-        description="California State Sales Tax" minItemPrice="0.0" minPurchase="0.0" taxShipping="N" salesTaxPercentage="0.0625" taxAuthPartyId="CA_BOE" taxAuthGlAccountId="224100"/>
-    <SimpleSalesTaxLookup productStoreId="9000" countryGeoId="USA" stateProvinceGeoId="NY" taxCategory="_NA_" fromDate="2001-05-13 00:00:00.001" 
-        description="New York State Sales Tax" minItemPrice="0.0" minPurchase="0.0" taxShipping="N" salesTaxPercentage="0.0425" taxAuthPartyId="NY_DTF" taxAuthGlAccountId="224200"/>
-    <SimpleSalesTaxLookup productStoreId="9000" countryGeoId="USA" stateProvinceGeoId="TX" taxCategory="_NA_" fromDate="2001-05-13 00:00:00.001" 
-        description="Texas State Sales Tax" minItemPrice="0.0" minPurchase="0.0" taxShipping="N" salesTaxPercentage="0.0625" taxAuthPartyId="TX_TAXMAN" taxAuthGlAccountId="224400"/>
-    <SimpleSalesTaxLookup productStoreId="9000" countryGeoId="USA" stateProvinceGeoId="UT" taxCategory="_NA_" fromDate="2001-05-13 00:00:00.001" 
-        description="Utah State Sales Tax" minItemPrice="0.0" minPurchase="0.0" taxShipping="N" salesTaxPercentage="0.0475" taxAuthPartyId="UT_TAXMAN" taxAuthGlAccountId="224300"/>
 </entity-engine-xml>
