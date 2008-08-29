@@ -2148,16 +2148,6 @@
         <value xml:lang="th">การตั้งค่าสกุลเงินผิดพลาด</value>
         <value xml:lang="zh">设置货币错误： </value>
     </property>
-    <property key="OrderSimpleTaxCalcNoStateTaxCategoryPairFoundWithOrWithoutTaxCat">
-        <value xml:lang="en">SimpleTaxCalc : No State/TaxCategory pair found (with or without taxCat). </value>
-        <value xml:lang="es">Cálculo de impuestos simple: No se encontró categoría de impuestos</value>
-        <value xml:lang="fr">Calcul d'impôt simple : aucune paire d' état/de catégorie trouvé (avec ou sans la catégorie fiscale).</value>
-        <value xml:lang="it">SimpleTaxCalc : Nessun coppia Stato/Categoria Tasse trovata (con o senza taxCat). </value>
-        <value xml:lang="ro">SimpleTaxCalc : Nici-o pereche Stat/Categoria Taxe gasita (cu sau fara taxCat). </value>
-        <value xml:lang="ru">SimpleTaxCalc: Не найдена пара Штат/Налоговая категория (с или без taxCat). </value>
-        <value xml:lang="th">SimpleTaxCalc : ไม่มีรัฐ/พบหมวดหมู่ภาษีคู่ (with or without taxCat). </value>
-        <value xml:lang="zh">简化税务计算：没有找到省/税务类别对 (有或没有税务类别)。 </value>
-    </property>
     <property key="OrderStatusIdNotExist">
         <value xml:lang="en">Status id not exist</value>
         <value xml:lang="es">Código de estado inexistente</value>

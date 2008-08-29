@@ -2939,32 +2939,6 @@ under the License.
             <key-map field-name="taxAuthGeoId" rel-field-name="geoId"/>
         </view-link>
     </view-entity>
-    <entity entity-name="SimpleSalesTaxLookup" package-name="org.ofbiz.accounting.tax" title="Simple Sales Tax Lookup Entity">
-        <description>NOTE: this entity is deprecated by TaxAuthorityRateProduct</description>
-        <field name="productStoreId" type="id-ne"></field>
-        <field name="countryGeoId" type="id-ne"></field>
-        <field name="stateProvinceGeoId" type="id-ne"></field>
-        <field name="taxCategory" type="id-ne"></field>
-        <field name="fromDate" type="date-time"></field>
-        <field name="thruDate" type="date-time"></field>
-        <field name="description" type="description"></field>
-        <field name="minItemPrice" type="currency-amount"></field>
-        <field name="minPurchase" type="currency-amount"></field>
-        <field name="taxShipping" type="indicator"></field>
-        <field name="salesTaxPercentage" type="floating-point"></field>
-        <field name="taxAuthPartyId" type="id"></field>
-        <field name="taxAuthGlAccountId" type="id"></field>
-        <prim-key field="productStoreId"/>
-        <prim-key field="countryGeoId"/>
-        <prim-key field="stateProvinceGeoId"/>
-        <prim-key field="taxCategory"/>
-        <prim-key field="minItemPrice"/>
-        <prim-key field="minPurchase"/>
-        <prim-key field="fromDate"/>
-        <relation type="many" rel-entity-name="Product">
-            <key-map field-name="taxCategory"/>
-        </relation>
-    </entity>
     <entity entity-name="TaxAuthority" package-name="org.ofbiz.accounting.tax" title="Tax Authority Entity">
         <field name="taxAuthGeoId" type="id-ne"></field>
         <field name="taxAuthPartyId" type="id-ne"></field>

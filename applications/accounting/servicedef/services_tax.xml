@@ -196,40 +196,6 @@ under the License.
         <attribute name="fromDate" type="String" mode="IN" optional="true"/>
     </service>
     
-    <!-- Simple Tax Rate Services (SimpleSalesTaxLookup) -->
-    <service name="simpleTaxCalc" engine="java"
-        location="org.ofbiz.accounting.tax.SimpleTaxServices" invoke="simpleTaxCalc">
-        <description>Simple Calc Tax Service</description>
-        <implements service="calcTaxInterface"/>
-    </service>
-    
-    <service name="createTaxRate" engine="simple"
-        location="org/ofbiz/accounting/tax/TaxRateServices.xml" invoke="createTaxRate">
-        <description>Create a Tax Rate entry</description>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
-        <attribute name="countryGeoId" type="String" mode="IN" optional="false"/>
-        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="false"/>
-        <attribute name="taxCategory" type="String" mode="IN" optional="true"/>
-        <attribute name="taxShipping" type="String" mode="IN" optional="false"/>
-        <attribute name="minItemPrice" type="Double" mode="IN" optional="false"/>
-        <attribute name="minPurchase" type="Double" mode="IN" optional="false"/>
-        <attribute name="description" type="String" mode="IN" optional="true"/>
-        <attribute name="salesTaxPercentage" type="Double" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="true"/>
-        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
-    </service>
-    <service name="removeTaxRate" engine="simple"
-        location="org/ofbiz/accounting/tax/TaxRateServices.xml" invoke="removeTaxRate">
-        <description>Remove a Tax Rate entry</description>
-        <attribute name="productStoreId" type="String" mode="IN" optional="false"/>
-        <attribute name="countryGeoId" type="String" mode="IN" optional="false"/>
-        <attribute name="stateProvinceGeoId" type="String" mode="IN" optional="false"/>
-        <attribute name="taxCategory" type="String" mode="IN" optional="false"/>
-        <attribute name="minItemPrice" type="Double" mode="IN" optional="false"/>
-        <attribute name="minPurchase" type="Double" mode="IN" optional="false"/>
-        <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
-    </service>
-    
     <!-- ZipSales Tax Services -->
     <service name="importZipSalesTaxData" engine="java" transaction-timeout="7200"
         location="org.ofbiz.order.thirdparty.zipsales.ZipSalesServices" invoke="importFlatTable">

@@ -61,8 +61,6 @@ under the License.
     <ProductStoreRole partyId="admin" roleTypeId="SALES_REP" productStoreId="RentalStore" fromDate="2001-05-13 12:00:00.0"/>
     <ProductStoreKeywordOvrd productStoreId="RentalStore" keyword="gizmo" fromDate="2001-05-13 12:00:00.0" target="100" targetTypeEnumId="KOTT_PRODCAT"/>
 
-    <SimpleSalesTaxLookup productStoreId="RentalStore" countryGeoId="_NA_" stateProvinceGeoId="_NA_" taxCategory="_NA_" fromDate="2001-01-01 00:00:00.001" description="10% OFB Tax" minItemPrice="0.0" minPurchase="0.0" taxShipping="N" salesTaxPercentage="0.1" taxAuthPartyId="OFBIZ_TAX" taxAuthGlAccountId="224000"/>
-
     <WebSite webSiteId="OpenTravelSystem" siteName="The Open source Travel System" productStoreId="RentalStore"/>
     
     <!-- product catalog -->

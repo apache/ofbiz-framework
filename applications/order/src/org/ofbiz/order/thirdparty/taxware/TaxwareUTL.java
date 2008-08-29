@@ -155,6 +155,7 @@ public class TaxwareUTL {
         this.shipToAddress = v;
     }
 
+    /* deprecated : the taxCategory field does not exist anymore in OFBiz
     public void addItem(GenericValue product, double linePrice, double itemShipping) {
         Record record = outItem.makeRecord("outItem");
 
@@ -169,7 +170,7 @@ public class TaxwareUTL {
                 record.set("FREIGHT_AMOUNT", new Double(itemShipping));
         }
         records.add(record);
-    }
+    }*/
 
     public List getItemAdjustments() {
         return itemAdjustments;
