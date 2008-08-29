@@ -100,8 +100,15 @@ under the License.
             location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestNote" auth="true">
         <description>Create a note for a CustRequest</description>
         <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
-        <attribute name="note" type="String" mode="IN" optional="false"/>
+        <attribute name="noteInfo" type="String" mode="IN" optional="false"/>
         <attribute name="noteId" type="String" mode="OUT" optional="false"/>
+    </service>
+    <service name="updateCustRequestNote" engine="simple"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="updateCustRequestNote" auth="true">
+        <description>Update CustRequest Note</description>
+        <attribute name="custRequestId" type="String" mode="IN" optional="false"/>
+        <attribute name="noteId" type="String" mode="IN" optional="false"/>
+        <attribute name="noteInfo" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createCustRequestItemNote" engine="simple"
             location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequestItemNote" auth="true">
