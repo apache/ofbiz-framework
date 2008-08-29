@@ -23,27 +23,27 @@ import org.ofbiz.party.contact.ContactHelper;
 if (userLogin) {
     party = userLogin.getRelatedOne("Party");
     person = delegator.findByPrimaryKey("Person", [partyId : party.partyId]);
-    parameters.firstName = person.firstName;
-    parameters.lastName = person.lastName;
+    context.firstName = person.firstName;
+    context.lastName = person.lastName;
     
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "SHIPPING_LOCATION", "POSTAL_ADDRESS", false));
     if (contactMech) {
         postalAddress = contactMech.getRelatedOne("PostalAddress");
-        parameters.shipToContactMechId = postalAddress.contactMechId;
+        context.shipToContactMechId = postalAddress.contactMechId;
 
-        parameters.shipToAddress1 = postalAddress.address1;
-        parameters.shipToAddress2 = postalAddress.address2;
-        parameters.shipToCity = postalAddress.city;
-        parameters.shipToPostalCode = postalAddress.postalCode;
-        parameters.shipToStateProvinceGeoId = postalAddress.stateProvinceGeoId;
-        parameters.shipToCountryGeoId = postalAddress.countryGeoId;
+        context.shipToAddress1 = postalAddress.address1;
+        context.shipToAddress2 = postalAddress.address2;
+        context.shipToCity = postalAddress.city;
+        context.shipToPostalCode = postalAddress.postalCode;
+        context.shipToStateProvinceGeoId = postalAddress.stateProvinceGeoId;
+        context.shipToCountryGeoId = postalAddress.countryGeoId;
         shipToStateProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.stateProvinceGeoId], false);
         if (shipToStateProvinceGeo) {
-            parameters.shipToStateProvinceGeo =  shipToStateProvinceGeo.geoName;
+            context.shipToStateProvinceGeo =  shipToStateProvinceGeo.geoName;
         }
         shipToCountryProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.countryGeoId], false);
         if (shipToCountryProvinceGeo) {
-            parameters.shipToCountryProvinceGeo =  shipToCountryProvinceGeo.geoName;
+            context.shipToCountryProvinceGeo =  shipToCountryProvinceGeo.geoName;
         }
     }
     

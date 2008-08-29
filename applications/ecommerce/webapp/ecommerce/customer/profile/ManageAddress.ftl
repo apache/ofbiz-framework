@@ -100,13 +100,13 @@ under the License.
     <div class="screenlet-body">
       <#--===================================== Billing Address and Telecom number ===========================================-->
       <h3>${uiLabelMap.EcommercePrimary} ${uiLabelMap.PartyBillingAddress}</h3>
-      <#if parameters.billToContactMechId?exists>
-        ${parameters.billToAddress1?if_exists}<br/>
-        <#if parameters.billToAddress2?has_content>${parameters.billToAddress2?if_exists}<br/></#if>
-        ${parameters.billToCity?if_exists},
-        ${parameters.billToStateProvinceGeoId?if_exists}
-        ${parameters.billToPostalCode?if_exists}<br/>
-        ${parameters.billToCountryGeoId?if_exists}<br/>
+      <#if billToContactMechId?exists>
+        ${billToAddress1?if_exists}<br/>
+        <#if billToAddress2?has_content>${billToAddress2?if_exists}<br/></#if>
+        ${billToCity?if_exists},
+        ${billToStateProvinceGeoId?if_exists}
+        ${billToPostalCode?if_exists}<br/>
+        ${billToCountryGeoId?if_exists}<br/>
         <#if billToTelecomNumber?has_content>
           ${billToTelecomNumber.countryCode?if_exists}-
           ${billToTelecomNumber.areaCode?if_exists}-
@@ -127,13 +127,13 @@ under the License.
 
     <#--===================================== Shipping Address and Telecom number ===========================================-->
       <h3>${uiLabelMap.EcommercePrimary} ${uiLabelMap.OrderShippingAddress}</h3>
-      <#if parameters.shipToContactMechId?exists>
-        ${parameters.shipToAddress1?if_exists}<br/>
-        <#if parameters.shipToAddress2?has_content>${parameters.shipToAddress2?if_exists}<br/></#if>
-        ${parameters.shipToCity?if_exists},
-        ${parameters.shipToStateProvinceGeoId?if_exists}
-        ${parameters.shipToPostalCode?if_exists}<br/>
-        ${parameters.shipToCountryGeoId?if_exists}<br/>
+      <#if shipToContactMechId?exists>
+        ${shipToAddress1?if_exists}<br/>
+        <#if shipToAddress2?has_content>${shipToAddress2?if_exists}<br/></#if>
+        ${shipToCity?if_exists},
+        ${shipToStateProvinceGeoId?if_exists}
+        ${shipToPostalCode?if_exists}<br/>
+        ${shipToCountryGeoId?if_exists}<br/>
         <#if shipToTelecomNumber?has_content>
           ${shipToTelecomNumber.countryCode?if_exists}-
           ${shipToTelecomNumber.areaCode?if_exists}-

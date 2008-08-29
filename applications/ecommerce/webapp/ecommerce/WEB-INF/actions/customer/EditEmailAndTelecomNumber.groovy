@@ -25,8 +25,8 @@ if (userLogin) {
     
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_EMAIL", "EMAIL_ADDRESS", false));
     if (contactMech) {
-        parameters.emailContactMechId = contactMech.contactMechId;
-        parameters.emailAddress = contactMech.infoString;
+        context.emailContactMechId = contactMech.contactMechId;
+        context.emailAddress = contactMech.infoString;
     }
     
 	contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "PRIMARY_PHONE", "TELECOM_NUMBER", false));
@@ -34,11 +34,11 @@ if (userLogin) {
 	    partyContactMech = EntityUtil.getFirst(delegator.findByAnd("PartyContactMech", [partyId : party.partyId, contactMechId : contactMech.contactMechId]));
 	    if (partyContactMech) {
 	        telecomNumber = partyContactMech.getRelatedOne("TelecomNumber");
-	        parameters.phoneContactMechId = telecomNumber.contactMechId;
-	        parameters.countryCode = telecomNumber.countryCode;
-	        parameters.areaCode = telecomNumber.areaCode;
-	        parameters.contactNumber = telecomNumber.contactNumber;
-	        parameters.extension = partyContactMech.extension; 
+	        context.phoneContactMechId = telecomNumber.contactMechId;
+	        context.countryCode = telecomNumber.countryCode;
+	        context.areaCode = telecomNumber.areaCode;
+	        context.contactNumber = telecomNumber.contactNumber;
+	        context.extension = partyContactMech.extension; 
 	    }
 	}
 }

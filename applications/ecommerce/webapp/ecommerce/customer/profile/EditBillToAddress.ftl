@@ -21,33 +21,33 @@ under the License.
 <form id="editBillToPostalAddress" name="editBillToPostalAddress" method="post" action="<@ofbizUrl></@ofbizUrl>">
   <div>
     <input type="hidden" name="setBillingPurpose" value="Y"/>
-    <input type="hidden" name="contactMechId" value="${parameters.billToContactMechId?if_exists}"/>
+    <input type="hidden" name="contactMechId" value="${billToContactMechId?if_exists}"/>
     <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request)/>
     <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
     <div class="form-row">
       <label>${uiLabelMap.PartyAddressLine1}*</label>
       <span>
-        <input type="text" class="left required" name="address1" id="billToAddress1" value="${parameters.billToAddress1?if_exists}" size="30" maxlength="30">
+        <input type="text" class="left required" name="address1" id="billToAddress1" value="${billToAddress1?if_exists}" size="30" maxlength="30">
         <span id="advice-required-billToAddress1" style="display: none" class="errorMessage">(required)</span>
       </span>
     </div>
     <div class="form-row">
       <label>${uiLabelMap.PartyAddressLine2}</label>
       <span>
-        <input type="text" class="left" name="address2" value="${parameters.billToAddress2?if_exists}" size="30" maxlength="30">    
+        <input type="text" class="left" name="address2" value="${billToAddress2?if_exists}" size="30" maxlength="30">    
       </span>
     </div>
     <div class="form-row">
       <label>${uiLabelMap.PartyCity}*</label>
       <span>
-        <input type="text" class="left required" name="city" id="billToCity" value="${parameters.billToCity?if_exists}" size="30" maxlength="30">
+        <input type="text" class="left required" name="city" id="billToCity" value="${billToCity?if_exists}" size="30" maxlength="30">
         <span id="advice-required-billToCity" style="display: none" class="errorMessage">(required)</span>
       </span>
     </div>
     <div class="form-row">
       <label>${uiLabelMap.PartyZipCode}*</label>
       <span>
-        <input type="text" class="left required" name="postalCode" id="billToPostalCode" value="${parameters.billToPostalCode?if_exists}" size="12" maxlength="10">
+        <input type="text" class="left required" name="postalCode" id="billToPostalCode" value="${billToPostalCode?if_exists}" size="12" maxlength="10">
         <span id="advice-required-billToPostalCode" style="display: none" class="errorMessage">(required)</span>
       </span>
     </div>
@@ -55,8 +55,8 @@ under the License.
       <label>${uiLabelMap.PartyState}*</label>
       <span>
         <select name="stateProvinceGeoId" id="billToStateProvinceGeoId" class="left required" style="width: 70%">
-          <#if parameters.billToStateProvinceGeoId?exists>
-            <option value='${parameters.billToStateProvinceGeoId}'>${parameters.billToStateProvinceGeo?default(parameters.billToStateProvinceGeoId)}</option>
+          <#if billToStateProvinceGeoId?exists>
+            <option value='${billToStateProvinceGeoId?if_exists}'>${billToStateProvinceGeo?default(billToStateProvinceGeoId?if_exists)}</option>
           </#if>
           <option value="">${uiLabelMap.PartyNoState}</option>
           ${screens.render("component://common/widget/CommonScreens.xml#states")}
@@ -68,8 +68,8 @@ under the License.
       <label>${uiLabelMap.PartyCountry}*</label>
       <span>
         <select name="countryGeoId" id="billToCountryGeoId" class="left required" style="width: 70%">
-          <#if parameters.billToCountryGeoId?exists>
-            <option value='${parameters.billToCountryGeoId}'>${parameters.billToCountryProvinceGeo?default(parameters.billToCountryGeoId)}</option>
+          <#if billToCountryGeoId?exists>
+            <option value='${billToCountryGeoId?if_exists}'>${billToCountryProvinceGeo?default(billToCountryGeoId?if_exists)}</option>
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
