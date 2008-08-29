@@ -242,14 +242,22 @@ under the License.
             </if-not-empty>
         </if-not-empty>
         
-        <!-- no rateAmount yet, try PartyRate -->
+        <!-- no rateAmount yet, try PartyRate if partyId not provided try the timesheet-->
         <if-empty field="rateAmount">
-            <property-to-field field-name="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            <if-empty field="timeEntry.partyId">
+                <get-related-one value-name="timeEntry" relation-name="Timesheet" to-value-name="timesheet"/>
+                <if-not-empty field="timesheet">
+                    <set field="timeEntry.partyId" from-field="timesheet.partyId"/>
+                </if-not-empty>
+            </if-empty>
+            <if-empty field="parameters.currencyUomId">
+                <property-to-field field-name="parameters.currencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            </if-empty>
             <entity-condition entity-name="PartyRate" list-name="partyRateList">
                 <condition-list combine="and">
                     <condition-expr field-name="partyId" env-name="timeEntry.partyId"/>
                     <condition-expr field-name="rateTypeId" env-name="timeEntry.rateTypeId"/>
-                    <condition-expr field-name="currencyUomId" env-name="timeEntry.defaultCurrencyUomId"/>
+                    <condition-expr field-name="currencyUomId" env-name="parameters.currencyUomId"/>
                 </condition-list>
                 <order-by field-name="-fromDate"/>
             </entity-condition>
