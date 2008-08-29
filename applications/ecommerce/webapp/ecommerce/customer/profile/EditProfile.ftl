@@ -42,7 +42,7 @@ under the License.
               <label for="emailAddress">
                 ${uiLabelMap.CommonEmail}*
                 <span id="advice-required-emailAddress" style="display: none" class="errorMessage">(required)</span>
-                <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">Please enter a valid email address. For example fred@domain.com .</span>
+                <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
               </label>
             </div>
             <div class="form-field"><input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${parameters.emailAddress?if_exists}" size="30" maxlength="255"/></div>
