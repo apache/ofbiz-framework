@@ -205,7 +205,7 @@ under the License.
             </form>
           </div>
           <div align="right">
-            <h3><span><a class="buttontext" href="javascript:void(0);" id="editShipping">Continue for step 2</a></span></h3>
+            <h3><span><a class="buttontext" href="javascript:void(0);" id="editShipping">${uiLabelMap.CommonContinue} ${uiLabelMap.CommonTo} ${uiLabelMap.EcommerceStep} 2</a></span></h3>
             <h3><span><a class="buttontext" style="display: none" href="javascript:void(0);" id="processingShipping">${uiLabelMap.EcommercePleaseWait}....</a></span></h3>
           </div>
         </div>
@@ -352,7 +352,7 @@ under the License.
             </form>
           </div>
           <div align="right">
-            <h3><span><a class="buttontext" style="display:none" href="javascript:void(0);" id="editShippingOptions">Continue for step 3</a></span></h3>
+            <h3><span><a class="buttontext" style="display:none" href="javascript:void(0);" id="editShippingOptions">${uiLabelMap.CommonContinue} ${uiLabelMap.CommonTo} ${uiLabelMap.EcommerceStep} 3</a></span></h3>
             <h3><span><a class="buttontext" style="display:none" href="javascript:void(0);" id="processingShippingOptions">${uiLabelMap.EcommercePleaseWait}....</a></span></h3>
           </div>
         </div>
@@ -394,7 +394,7 @@ under the License.
             </form>
           </div>
           <div align="right">
-            <h3><span><a class="buttontext" style="display:none" href="javascript:void(0);" id="editBilling">Continue for step 4</a></span></h3>
+            <h3><span><a class="buttontext" style="display:none" href="javascript:void(0);" id="editBilling">${uiLabelMap.CommonContinue} ${uiLabelMap.CommonTo} ${uiLabelMap.EcommerceStep} 4</a></span></h3>
             <h3><span><a class="buttontext" style="display:none" href="javascript:void(0);" id="processingBilling">${uiLabelMap.EcommercePleaseWait}....</a></span></h3>
           </div>
         </div>
@@ -595,7 +595,7 @@ under the License.
             </form>
           </div>
           <div align="right">
-            <h3><span><a class="buttontext" href="javascript:void(0);" style="display: none;" id="openOrderSubmitPanel">Continue for step 5</a></span></h3>
+            <h3><span><a class="buttontext" href="javascript:void(0);" style="display: none;" id="openOrderSubmitPanel">${uiLabelMap.CommonContinue} ${uiLabelMap.CommonTo} ${uiLabelMap.EcommerceStep} 5</a></span></h3>
             <h3><span><a class="buttontext" href="javascript:void(0);" style="display: none;" id="processingOrderSubmitPanel">${uiLabelMap.EcommercePleaseWait}....</a></span></h3>
           </div>
         </div>
