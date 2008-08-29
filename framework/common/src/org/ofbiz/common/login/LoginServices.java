@@ -380,30 +380,31 @@ public class LoginServices {
             //No valid value is found so don't bother to save any password history
             passwordChangeHistoryLimit = 0;
         }
-        if(passwordChangeHistoryLimit == 0 || passwordChangeHistoryLimit < 0){
+        if (passwordChangeHistoryLimit == 0 || passwordChangeHistoryLimit < 0){
             // Not saving password history, so return from here.
             return;
         }
-        List<EntityCondition> exprs = FastList.newInstance();
+        
         EntityFindOptions efo = new EntityFindOptions();
         efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
-        exprs.add(EntityCondition.makeConditionMap("userLoginId", userLoginId));
-        EntityListIterator eli = delegator.find("UserLoginPasswordHistory", EntityCondition.makeCondition(exprs), null, null, UtilMisc.toList("-fromDate"), efo);
+        EntityListIterator eli = delegator.find("UserLoginPasswordHistory", EntityCondition.makeConditionMap("userLoginId", userLoginId), null, null, UtilMisc.toList("-fromDate"), efo);
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         GenericValue pwdHist;
-        if((pwdHist = eli.next()) !=null){
+        if ((pwdHist = eli.next()) != null){
             // updating password so set end date on previous password in history
             pwdHist.set("thruDate", nowTimestamp);
             pwdHist.store();
             // check if we have hit the limit on number of password changes to be saved. If we did then delete the oldest password from history.
             eli.last();
             int rowIndex = eli.currentIndex();
-            if(rowIndex==passwordChangeHistoryLimit){
+            if (rowIndex==passwordChangeHistoryLimit){
                 eli.afterLast();
                 pwdHist = eli.previous();
                 pwdHist.remove();
             }
         }
+        eli.close();
+        
         // save this password in history         
         GenericValue userLoginPwdHistToCreate = delegator.makeValue("UserLoginPasswordHistory", UtilMisc.toMap("userLoginId", userLoginId,"fromDate", nowTimestamp));
         boolean useEncryption = "true".equals(UtilProperties.getPropertyValue("security.properties", "password.encrypt"));
