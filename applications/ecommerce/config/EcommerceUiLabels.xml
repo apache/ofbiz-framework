@@ -2509,6 +2509,7 @@
     </property>
     <property key="EcommercePleaseWait">
         <value xml:lang="en">Please wait</value>
+        <value xml:lang="fr">Attendez SVP</value>
     </property>
     <property key="EcommercePointsFrom">
         <value xml:lang="en">Points From</value>
@@ -3055,6 +3056,7 @@
     </property>
     <property key="EcommerceStep">
         <value xml:lang="en">Step</value>
+        <value xml:lang="fr">Etape</value>
     </property>
     <property key="EcommerceSubject">
         <value xml:lang="en">Subject</value>
