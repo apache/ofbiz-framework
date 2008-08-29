@@ -1401,10 +1401,6 @@ under the License.
             processor-name="shipToAddress" in-map-name="parameters" out-map-name="shipToAddressCtx"/>
         <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
                 processor-name="shipToPhone" in-map-name="parameters" out-map-name="shipToTelecomNumberCtx"/>
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
-                processor-name="billToAddress" in-map-name="parameters" out-map-name="billToAddressCtx"/>
-        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
-                processor-name="billToPhone" in-map-name="parameters" out-map-name="billToTelecomNumberCtx"/>
         <check-errors/>
 
         <!-- create person -->
@@ -1457,6 +1453,10 @@ under the License.
 
         <!-- Create billing address -->
         <if-compare field="parameters.useShippingAddressForBilling" operator="not-equals" value="Y">
+            <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                    processor-name="billToAddress" in-map-name="parameters" out-map-name="billToAddressCtx"/>
+            <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                    processor-name="billToPhone" in-map-name="parameters" out-map-name="billToTelecomNumberCtx"/>
             <set field="billToAddressCtx.partyId" from-field="parameters.partyId"/>
             <set field="billToAddressCtx.userLogin" from-field="parameters.userLogin"/>
             <set field="billToAddressCtx.setBillingPurpose" value="Y"/>
