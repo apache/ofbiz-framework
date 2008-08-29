@@ -29,6 +29,8 @@ Event.observe(window, 'load', function() {
     var validateBill = new Validation('billingForm', {immediate: true, onSubmit: false});    
     Event.observe($('editShipping'), 'click', function() {
         if (validateCart.validate()) {
+            Effect.Fade('editShipping', {duration: 0.1});
+            Effect.Appear('processingShipping', {duration: 0.1});
             displayShippingPanel();
             isCartStepValidate = true;
         }
@@ -42,6 +44,8 @@ Event.observe(window, 'load', function() {
     Event.observe($('editShippingOptions'), 'click', function() {
         if (isCartStepValidate) {
             if (validateShip.validate()) {
+                Effect.Fade('editShippingOptions', {duration: 0.1});
+                Effect.Appear('processingShippingOptions', {duration: 0.1});
                 processShippingAddress();
                 displayShippingOptionPanel();
                 isShipStepValidate = true;
@@ -61,6 +65,8 @@ Event.observe(window, 'load', function() {
     Event.observe($('editBilling'), 'click', function() {
         if (isCartStepValidate && isShipStepValidate) {
             if (validateShipOption.validate()) {
+                Effect.Fade('editBilling', {duration: 0.1});
+                Effect.Appear('processingBilling', {duration: 0.1});
                 setShippingOption();
                 displayBillingPanel();
                 isShipOptionStepValidate = true;
@@ -84,6 +90,8 @@ Event.observe(window, 'load', function() {
     Event.observe($('openOrderSubmitPanel'), 'click', function() {
         if (isCartStepValidate && isShipStepValidate && isShipOptionStepValidate) {
             if (validateBill.validate()) {
+                Effect.Fade('openOrderSubmitPanel', {duration: 0.1});
+                Effect.Appear('processingOrderSubmitPanel', {duration: 0.1});
                 processBillingAndPayment();
                 displayOrderSubmitPanel();
                 isBillStepValidate = true;
@@ -128,30 +136,39 @@ function getServerError(data) {
 function displayShippingPanel() {
     if (!$('editShippingPanel').visible()) {
         Effect.BlindDown('editShippingPanel', {duration: 0.5});
-        Effect.BlindUp('editCartPanel', {duration: 0.5});
+        Effect.Fade('editCartPanel', {duration: 0.3});
         Effect.BlindUp('editShippingOptionPanel', {duration: 0.5});
         Effect.BlindUp('editBillingPanel', {duration: 0.5});
         Effect.BlindUp('orderSubmitPanel', {duration: 0.5});
 
         Effect.Fade('shippingSummaryPanel', {duration: 0.5});
-        Effect.Appear('cartSummaryPanel', {duration: 0.5});
+        Effect.Appear('cartSummaryPanel', {duration: 0.3});
         Effect.Appear('shippingOptionSummaryPanel', {duration: 0.5});
         Effect.Appear('billingSummaryPanel', {duration: 0.5});
+        Effect.Appear('editShippingOptions', {duration: 0.3});
+        Effect.Fade('editShipping', {duration: 0.5});
+        Effect.Fade('editBilling', {duration: 0.5});
+        Effect.Fade('openOrderSubmitPanel', {duration: 0.3});
+        Effect.Fade('processingShipping', {duration: 0.9});
         //Effect.Appear('orderSubmitPanel', {duration: 0.5});
     }
 }
 function displayCartPanel() {
     if (!$('editCartPanel').visible()) {
         Effect.BlindDown('editCartPanel', {duration: 0.5});
-        Effect.BlindUp('editShippingPanel', {duration: 0.5});
-        Effect.BlindUp('editShippingOptionPanel', {duration: 0.5});
+        Effect.Fade('editShippingPanel', {duration: 0.3});
+        Effect.Fade('editShippingOptionPanel', {duration: 0.5});
         Effect.BlindUp('editBillingPanel', {duration: 0.5});
         Effect.BlindUp('orderSubmitPanel', {duration: 0.5});
 
-        Effect.Fade('cartSummaryPanel', {duration: 0.5});
+        Effect.Fade('cartSummaryPanel', {duration: 0.3});
         Effect.Appear('shippingSummaryPanel', {duration: 0.5});
         Effect.Appear('shippingOptionSummaryPanel', {duration: 0.5});
         Effect.Appear('billingSummaryPanel', {duration: 0.5});
+        Effect.Appear('editShipping', {duration: 0.1});
+        Effect.Fade('editShippingOptions', {duration: 0.3});///
+        Effect.Fade('editBilling', {duration: 0.3});
+        Effect.Fade('openOrderSubmitPanel', {duration: 0.3});
         //Effect.Appear('orderSubmitPanel', {duration: 0.5});
     }
 }
@@ -170,6 +187,11 @@ function displayShippingOptionPanel() {
         Effect.Appear('cartSummaryPanel', {duration: 0.5});
         Effect.Appear('shippingSummaryPanel', {duration: 0.5});
         Effect.Appear('billingSummaryPanel', {duration: 0.5});
+        Effect.Appear('editBilling', {duration: 0.3});
+        Effect.Fade('editShipping', {duration: 0.3});
+        Effect.Fade('processingShippingOptions', {duration: 0.9});
+        Effect.Fade('openOrderSubmitPanel', {duration: 0.3});
+        Effect.Fade('editShippingOptions', {duration: 0.3});
         //Effect.Appear('orderSubmitPanel', {duration: 0.5});
     }
     setDataInShippingCompleted();
@@ -189,6 +211,11 @@ function displayBillingPanel() {
         Effect.Appear('cartSummaryPanel', {duration: 0.5});
         Effect.Appear('shippingSummaryPanel', {duration: 0.5});
         Effect.Appear('shippingOptionSummaryPanel', {duration: 0.5});
+        Effect.Appear('openOrderSubmitPanel', {duration: 0.3});
+        Effect.Fade('editShipping', {duration: 0.3});
+        Effect.Fade('processingBilling', {duration: 1.9});
+        Effect.Fade('editShippingOptions', {duration: 0.3});
+        Effect.Fade('editBilling', {duration: 0.3});
         //Effect.Appear('orderSubmitPanel', {duration: 0.5});
     }
     setDataInShippingOptionCompleted();
@@ -210,6 +237,7 @@ function displayOrderSubmitPanel() {
         Effect.Appear('billingSummaryPanel', {duration: 0.5});
         Effect.Fade('processingOrderButton', {duration: 0.5});
         Effect.Appear('processOrderButton', {duration: 0.5});
+        Effect.Fade('processingOrderSubmitPanel', {duration: 0.9});
     }
     setDataInBillingCompleted();
 }

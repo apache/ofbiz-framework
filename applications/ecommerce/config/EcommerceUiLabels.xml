@@ -2507,6 +2507,9 @@
         <value xml:lang="it">password inviata a te</value>
         <value xml:lang="th">ส่งรหัสผ่านถึงคุณ</value>
     </property>
+    <property key="EcommercePleaseWait">
+        <value xml:lang="en">Please wait</value>
+    </property>
     <property key="EcommercePointsFrom">
         <value xml:lang="en">Points From</value>
         <value xml:lang="es">puntos de</value>
