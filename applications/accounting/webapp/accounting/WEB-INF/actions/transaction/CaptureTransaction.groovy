@@ -20,6 +20,7 @@ import org.ofbiz.order.order.OrderReadHelper;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
 
 orderId = context.orderId;
@@ -42,7 +43,7 @@ if (orderPaymentPreference) {
    context.paymentMethodType = paymentMethodType;
 }
 
-if (orderPaymentPrefrence) {
+if (orderPaymentPreference) {
     context.paymentTypeId = "CUSTOMER_PAYMENT";
 }
 
