@@ -28,7 +28,7 @@ under the License.
         </if-empty>
         
         <!-- check if the contact mech infostring is already existing if so, do not create a new one-->
-        <entity-and list-name="partyAndContactMechs" entity-name="PartyAndContactMech">
+        <entity-and list-name="partyAndContactMechs" entity-name="PartyAndContactMech" filter-by-date="true">
             <field-map field-name="partyId" env-name="parameters.partyId"/>
         </entity-and>
         <iterate entry-name="partyAndContactMech" list-name="partyAndContactMechs">
@@ -43,7 +43,7 @@ under the License.
                     </and>
                 </condition>
                 <then>
-                    <log level="info" message="Contact mechTypeId: ${parameters.contactMechTypeId} already exists with value: ${partyAndContactMech.infoString} for party: ${parameters.partyId}"/>
+                    <log level="info" message="Contact mechTypeId: ${parameters.contactMechId} already exists with value: ${partyAndContactMech.infoString} for party: ${parameters.partyId}"/>
                     <return response-code="success"/>                
                 </then>
             </if>
