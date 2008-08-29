@@ -189,12 +189,20 @@ under the License.
     <simple-method method-name="createCustRequestNote" short-description="Create Customer Request Note">
         <make-value value-name="newEntity" entity-name="CustRequestNote"/>
         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
-        <set from-field="parameters.note" field="newNoteMap.note"/>
+        <set from-field="parameters.noteInfo" field="newNoteMap.note"/>
         <call-service service-name="createNote" in-map-name="newNoteMap">
             <result-to-field result-name="noteId" map-name="newEntity"/>
         </call-service>
         <create-value value-name="newEntity"/>
         <field-to-result field-name="newEntity.noteId" result-name="noteId"/>
+    </simple-method>
+    <simple-method method-name="updateCustRequestNote" short-description="Update CustRequest Note">
+        <entity-one entity-name="CustRequestNote" value-name="lookedUpValue"/>
+        <entity-one entity-name="NoteData" value-name="lookedUpValueForNoteData"/>
+        <set-nonpk-fields value-name="lookedUpValueForNoteData" map-name="parameters"/>
+        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <store-value value-name="lookedUpValue"/>
+        <store-value value-name="lookedUpValueForNoteData"/>
     </simple-method>
     <simple-method method-name="createCustRequestItemNote" short-description="Create Customer RequestItem Note">
         <make-value value-name="newEntity" entity-name="CustRequestItemNote"/>
