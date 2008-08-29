@@ -29,9 +29,6 @@ under the License.
         <div class="form-field">${parameters.firstName?if_exists} ${parameters.lastName?if_exists}</div>
       </div>
 
-      <#assign emailContactMech = delegator.findOne("ContactMech", Static["org.ofbiz.base.util.UtilMisc"].toMap("contactMechId", parameters.emailContactMechId), true)>
-      <#assign emailContactMechType = emailContactMech.getRelatedOneCache("ContactMechType")>
-
       <div class="form-row">
         <input type="hidden" id="updatedEmailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId}">
         <input type="hidden" id="updatedEmailAddress" name="updatedEmailAddress" value="${parameters.emailAddress}">
