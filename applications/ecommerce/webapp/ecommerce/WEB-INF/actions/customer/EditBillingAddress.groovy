@@ -26,20 +26,20 @@ if (userLogin) {
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "BILLING_LOCATION", "POSTAL_ADDRESS", false));
     if (contactMech) {
         postalAddress = contactMech.getRelatedOne("PostalAddress");    
-        parameters.billToContactMechId = postalAddress.contactMechId;
-        parameters.billToAddress1 = postalAddress.address1;
-        parameters.billToAddress2 = postalAddress.address2;
-        parameters.billToCity = postalAddress.city;
-        parameters.billToPostalCode = postalAddress.postalCode;
-        parameters.billToStateProvinceGeoId = postalAddress.stateProvinceGeoId;
-        parameters.billToCountryGeoId = postalAddress.countryGeoId;
+        context.billToContactMechId = postalAddress.contactMechId;
+        context.billToAddress1 = postalAddress.address1;
+        context.billToAddress2 = postalAddress.address2;
+        context.billToCity = postalAddress.city;
+        context.billToPostalCode = postalAddress.postalCode;
+        context.billToStateProvinceGeoId = postalAddress.stateProvinceGeoId;
+        context.billToCountryGeoId = postalAddress.countryGeoId;
         billToStateProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.stateProvinceGeoId], false);
         if (billToStateProvinceGeo) {
-            parameters.billToStateProvinceGeo = billToStateProvinceGeo.geoName;
+            context.billToStateProvinceGeo = billToStateProvinceGeo.geoName;
         }
         billToCountryProvinceGeo = delegator.findOne("Geo", [geoId : postalAddress.countryGeoId], false);
         if (billToCountryProvinceGeo) {
-            parameters.billToCountryProvinceGeo = billToCountryProvinceGeo.geoName;
+            context.billToCountryProvinceGeo = billToCountryProvinceGeo.geoName;
         }
     }
     
@@ -56,13 +56,13 @@ if (userLogin) {
     if (paymentMethod) {
         creditCard = paymentMethod.getRelatedOne("CreditCard");
         if (creditCard) {
-            parameters.paymentMethodTypeId = "CREDIT_CARD";
-            parameters.cardNumber = creditCard.cardNumber;
-            parameters.paymentMethodId = creditCard.paymentMethodId;
-            parameters.firstNameOnCard = creditCard.firstNameOnCard;
-            parameters.lastNameOnCard = creditCard.lastNameOnCard;
-            parameters.expMonth = (creditCard.expireDate).substring(0, 2);
-            parameters.expYear = (creditCard.expireDate).substring(3);
+            context.paymentMethodTypeId = "CREDIT_CARD";
+            context.cardNumber = creditCard.cardNumber;
+            context.paymentMethodId = creditCard.paymentMethodId;
+            context.firstNameOnCard = creditCard.firstNameOnCard;
+            context.lastNameOnCard = creditCard.lastNameOnCard;
+            context.expMonth = (creditCard.expireDate).substring(0, 2);
+            context.expYear = (creditCard.expireDate).substring(3);
        } 
     }    
 } 

@@ -24,18 +24,18 @@ under the License.
   <div class="screenlet-body">
     <form id="editUserForm" name="editUserForm" method="post" action="<@ofbizUrl>updateCustomerProfile</@ofbizUrl>">
       <input type="hidden" name="emailContactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
-      <input type="hidden" name="emailContactMechId" value="${parameters.emailContactMechId?if_exists}"/>
+      <input type="hidden" name="emailContactMechId" value="${emailContactMechId?if_exists}"/>
 
       <div class="left center">
         <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.PartyContactInformation}</div></div>
         <div class="screenlet-body">
           <div class="form-row">
             <div class="field-label"><label for="firstName">${uiLabelMap.PartyFirstName}*<span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label></div>
-            <div class="form-field"><input type="text" name="firstName" id="firstName" class="required" value="${parameters.firstName?if_exists}" size="30" maxlength="30"></div>
+            <div class="form-field"><input type="text" name="firstName" id="firstName" class="required" value="${firstName?if_exists}" size="30" maxlength="30"></div>
           </div>
           <div class="form-row">
             <div class="field-label"><label for="lastName">${uiLabelMap.PartyLastName}*<span id="advice-required-lastName" style="display: none" class="errorMessage">(required)</span></label></div>
-            <div class="form-field"><input type="text" name="lastName" id="lastName" class="required" value="${parameters.lastName?if_exists}" size="30" maxlength="30"></div>
+            <div class="form-field"><input type="text" name="lastName" id="lastName" class="required" value="${lastName?if_exists}" size="30" maxlength="30"></div>
           </div>
           <div class="form-row">
             <div class="field-label">
@@ -45,7 +45,7 @@ under the License.
                 <span id="advice-validate-email-emailAddress" class="errorMessage" style="display:none">${uiLabelMap.PartyEmailAddressNotFormattedCorrectly}</span>
               </label>
             </div>
-            <div class="form-field"><input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${parameters.emailAddress?if_exists}" size="30" maxlength="255"/></div>
+            <div class="form-field"><input type="text" class="required validate-email" name="emailAddress" id="emailAddress" value="${emailAddress?if_exists}" size="30" maxlength="255"/></div>
           </div>
         </div>
       </div>
@@ -59,15 +59,15 @@ under the License.
           </div>
           <div class="form-row">
             <div class="field-label"><label for="currentPassword">${uiLabelMap.CommonCurrentPassword}*</label></div>
-            <div class="form-field"><input type="password" name="currentPassword" id="currentPassword" value="${parameters.currentPassword?if_exists}" size="30" maxlength="16"></div>
+            <div class="form-field"><input type="password" name="currentPassword" id="currentPassword" value="" size="30" maxlength="16"></div>
           </div>
           <div class="form-row">
             <div class="field-label"><label for="newPassword">${uiLabelMap.CommonNewPassword}*</label></div>
-            <div class="form-field"><input type="password" name="newPassword" id="newPassword" value="${parameters.newPassword?if_exists}" size="30" maxlength="16"></div>
+            <div class="form-field"><input type="password" name="newPassword" id="newPassword" value="" size="30" maxlength="16"></div>
           </div>
           <div class="form-row">
             <div class="field-label"><label for="newPasswordVerify">${uiLabelMap.CommonNewPasswordVerify}*</label></div>
-            <div class="form-field"><input type="password" name="newPasswordVerify" id="newPasswordVerify" value="${parameters.passwordVerify?if_exists}" size="30" maxlength="16"></div>
+            <div class="form-field"><input type="password" name="newPasswordVerify" id="newPasswordVerify" value="" size="30" maxlength="16"></div>
           </div>
         </div>
       </div>

@@ -3050,6 +3050,9 @@
         <value xml:lang="th">วันที่เริ่มต้น</value>
         <value xml:lang="zh">开始日期</value>
     </property>
+    <property key="EcommerceStep">
+        <value xml:lang="en">Step</value>
+    </property>
     <property key="EcommerceSubject">
         <value xml:lang="en">Subject</value>
         <value xml:lang="es">Asunto</value>

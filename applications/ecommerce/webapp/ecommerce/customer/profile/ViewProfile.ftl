@@ -26,16 +26,16 @@ under the License.
     <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.PartyContactInformation}</div></div>
     <div class="screenlet-body">
       <div class="form-row">
-        <div class="form-field">${parameters.firstName?if_exists} ${parameters.lastName?if_exists}</div>
+        <div class="form-field">${firstName?if_exists} ${lastName?if_exists}</div>
       </div>
 
       <div class="form-row">
-        <input type="hidden" id="updatedEmailContactMechId" name="emailContactMechId" value="${parameters.emailContactMechId}">
-        <input type="hidden" id="updatedEmailAddress" name="updatedEmailAddress" value="${parameters.emailAddress}">
-        <div class="form-field" id="emailAddress">${parameters.emailAddress}</div>
-        <a href="mailto:${parameters.emailAddress}" class="linktext">(${uiLabelMap.PartySendEmail})</a>&nbsp;
+        <input type="hidden" id="updatedEmailContactMechId" name="emailContactMechId" value="${emailContactMechId}">
+        <input type="hidden" id="updatedEmailAddress" name="updatedEmailAddress" value="${emailAddress}">
+        <div class="form-field" id="emailAddress">${emailAddress}</div>
+        <a href="mailto:${emailAddress}" class="linktext">(${uiLabelMap.PartySendEmail})</a>&nbsp;
       </div>
-      <div class="form-row"><div id="serverError_${parameters.emailContactMechId}" class="errorMessage"></div></div>
+      <div class="form-row"><div id="serverError_${emailContactMechId}" class="errorMessage"></div></div>
     </div>
 
     <#-- Manage Addresses -->
@@ -45,13 +45,13 @@ under the License.
       <div class="left center">
         <div class="screenlet-header"><div class='boxhead'>${uiLabelMap.EcommercePrimary} ${uiLabelMap.OrderShippingAddress}</div></div>
         <div class="screenlet-body">
-          <#if parameters.shipToContactMechId?exists>
-            ${parameters.shipToAddress1?if_exists}<br/>
-            <#if parameters.shipToAddress2?has_content>${parameters.shipToAddress2?if_exists}<br/></#if>
-            ${parameters.shipToCity?if_exists},
-            ${parameters.shipToStateProvinceGeoId?if_exists}
-            ${parameters.shipToPostalCode?if_exists}<br/>
-            ${parameters.shipToCountryGeoId?if_exists}<br/>
+          <#if shipToContactMechId?exists>
+            ${shipToAddress1?if_exists}<br/>
+            <#if shipToAddress2?has_content>${shipToAddress2?if_exists}<br/></#if>
+            ${shipToCity?if_exists},
+            ${shipToStateProvinceGeoId?if_exists}
+            ${shipToPostalCode?if_exists}<br/>
+            ${shipToCountryGeoId?if_exists}<br/>
             <#if shipToTelecomNumber?has_content>
               ${shipToTelecomNumber.countryCode?if_exists}-
               ${shipToTelecomNumber.areaCode?if_exists}-
@@ -67,13 +67,13 @@ under the License.
       <div class="center right">
         <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.EcommercePrimary} ${uiLabelMap.PartyBillingAddress}</div></div>
         <div class="screenlet-body">
-          <#if parameters.billToContactMechId?exists>
-            ${parameters.billToAddress1?if_exists}<br/>
-            <#if parameters.billToAddress2?has_content>${parameters.billToAddress2?if_exists}<br/></#if>
-            ${parameters.billToCity?if_exists},
-            ${parameters.billToStateProvinceGeoId?if_exists}
-            ${parameters.billToPostalCode?if_exists}<br/>
-            ${parameters.billToCountryGeoId?if_exists}<br/>
+          <#if billToContactMechId?exists>
+            ${billToAddress1?if_exists}<br/>
+            <#if billToAddress2?has_content>${billToAddress2?if_exists}<br/></#if>
+            ${billToCity?if_exists},
+            ${billToStateProvinceGeoId?if_exists}
+            ${billToPostalCode?if_exists}<br/>
+            ${billToCountryGeoId?if_exists}<br/>
             <#if billToTelecomNumber?has_content>
               ${billToTelecomNumber.countryCode?if_exists}-
               ${billToTelecomNumber.areaCode?if_exists}-
