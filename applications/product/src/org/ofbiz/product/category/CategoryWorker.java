@@ -41,8 +41,6 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.product.product.ProductWorker;
@@ -54,6 +52,7 @@ public class CategoryWorker {
 
     public static final String module = CategoryWorker.class.getName();
 
+    /** @deprecated */
     public static String getCatalogTopCategory(PageContext pageContext, String defaultTopCategory) {
         return getCatalogTopCategory(pageContext.getRequest(), defaultTopCategory);
     }
@@ -85,6 +84,7 @@ public class CategoryWorker {
         return topCatName;
     }
 
+    /** @deprecated */
     public static void getCategoriesWithNoParent(PageContext pageContext, String attributeName) {
         getCategoriesWithNoParent(pageContext.getRequest(), attributeName);
     }
@@ -113,6 +113,7 @@ public class CategoryWorker {
         request.setAttribute(attributeName, results);
     }
 
+    /** @deprecated */
     public static void getRelatedCategories(PageContext pageContext, String attributeName, boolean limitView) {
             getRelatedCategories(pageContext.getRequest(), attributeName, limitView);
     }
@@ -130,6 +131,7 @@ public class CategoryWorker {
         getRelatedCategories(request, attributeName, requestId, limitView);
     }
 
+    /** @deprecated */
     public static void getRelatedCategories(PageContext pageContext, String attributeName, String parentId, boolean limitView) {
         getRelatedCategories(pageContext.getRequest(), attributeName, parentId, limitView);
     }
@@ -145,6 +147,7 @@ public class CategoryWorker {
             request.setAttribute(attributeName, categories);
     }
 
+    /** @deprecated */
     public static List getRelatedCategoriesRet(PageContext pageContext, String attributeName, String parentId, boolean limitView) {
         return getRelatedCategoriesRet(pageContext.getRequest(), attributeName, parentId, limitView);
     }
@@ -270,6 +273,7 @@ public class CategoryWorker {
         return andCond;
     }
 
+    /** @deprecated */
     public static void setTrail(PageContext pageContext, String currentCategory) {
         setTrail(pageContext.getRequest(), currentCategory);
     }
@@ -347,6 +351,7 @@ public class CategoryWorker {
         setTrail(request, crumb);
     }
 
+    /** @deprecated */
     public static List getTrail(PageContext pageContext) {
         return getTrail(pageContext.getRequest());
     }
@@ -357,6 +362,7 @@ public class CategoryWorker {
         return crumb;
     }
 
+    /** @deprecated */
     public static List setTrail(PageContext pageContext, List crumb) {
         return setTrail(pageContext.getRequest(), crumb);
     }
@@ -367,6 +373,7 @@ public class CategoryWorker {
         return crumb;
     }
 
+    /** @deprecated */
     public static boolean checkTrailItem(PageContext pageContext, String category) {
         return checkTrailItem(pageContext.getRequest(), category);
     }
@@ -380,6 +387,7 @@ public class CategoryWorker {
             return false;
     }
 
+    /** @deprecated */
     public static String lastTrailItem(PageContext pageContext) {
         return lastTrailItem(pageContext.getRequest());
     }
