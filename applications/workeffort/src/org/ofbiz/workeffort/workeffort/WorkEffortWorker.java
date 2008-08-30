@@ -41,7 +41,7 @@ public class WorkEffortWorker {
     
     public static final String module = WorkEffortWorker.class.getName();
     
-    // TODO: REMOVE this method when JSPs/etc are moved to FreeMarker; this is replaced by a corresponding service
+    /** @deprecated */
     public static void getWorkEffort(PageContext pageContext, String workEffortIdAttrName, String workEffortAttrName, String partyAssignsAttrName,
         String canViewAttrName, String tryEntityAttrName, String currentStatusAttrName) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
@@ -125,12 +125,15 @@ public class WorkEffortWorker {
             pageContext.setAttribute(currentStatusAttrName, currentStatus);
     }
 
+    /** @deprecated */
     public static void getMonthWorkEffortEvents(PageContext pageContext, String attributeName) {}
 
+    /** @deprecated */
     public static void getActivityContext(PageContext pageContext, String workEffortId) {
         getActivityContext(pageContext, workEffortId, "activityContext");
     }
 
+    /** @deprecated */
     public static void getActivityContext(PageContext pageContext, String workEffortId, String attribute) {
         LocalDispatcher dispatcher = (LocalDispatcher) pageContext.getRequest().getAttribute("dispatcher");
         GenericValue userLogin = (GenericValue) pageContext.getSession().getAttribute("userLogin");

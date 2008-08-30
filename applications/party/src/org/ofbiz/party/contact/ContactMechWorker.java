@@ -20,9 +20,7 @@
 package org.ofbiz.party.contact;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -40,7 +38,6 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.util.EntityUtil;
 
 /**
@@ -50,6 +47,7 @@ public class ContactMechWorker {
     
     public static final String module = ContactMechWorker.class.getName();
     
+    /** @deprecated */
     public static void getPartyContactMechValueMaps(PageContext pageContext, String partyId, boolean showOld, String partyContactMechValueMapsAttr) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         List<Map<String, Object>> partyContactMechValueMaps = getPartyContactMechValueMaps(delegator, partyId, showOld);
@@ -205,6 +203,7 @@ public class ContactMechWorker {
     }
     
 
+    /** @deprecated */
     public static void getOrderContactMechValueMaps(PageContext pageContext, String orderId, String orderContactMechValueMapsAttr) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         List<Map<String, GenericValue>> maps = getOrderContactMechValueMaps(delegator, orderId);

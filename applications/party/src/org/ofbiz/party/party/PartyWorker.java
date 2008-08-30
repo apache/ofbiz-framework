@@ -20,7 +20,6 @@
 package org.ofbiz.party.party;
 
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -84,6 +83,7 @@ public class PartyWorker {
         return result;
     }              
     
+    /** @deprecated */
     public static void getPartyOtherValues(PageContext pageContext, String partyId, String partyAttr, String personAttr, String partyGroupAttr) {
         Map<String, GenericValue> partyMap = getPartyOtherValues(pageContext.getRequest(), partyId, partyAttr, personAttr, partyGroupAttr);
         for (Map.Entry<String, GenericValue> e: partyMap.entrySet()) {
