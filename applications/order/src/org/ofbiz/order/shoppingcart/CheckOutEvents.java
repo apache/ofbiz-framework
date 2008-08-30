@@ -752,7 +752,9 @@ public class CheckOutEvents {
                     }
                     String supplierPartyId = request.getParameter(shipGroupIndex + "_supplierPartyId");
                     String facilityId = request.getParameter(shipGroupIndex + "_shipGroupFacilityId");
-                    cart.setShipGroupFacilityId(shipGroupIndex, facilityId);                  
+                    if (UtilValidate.isNotEmpty(facilityId)) {
+                        cart.setShipGroupFacilityId(shipGroupIndex, facilityId);
+                    }
                     callResult = checkOutHelper.finalizeOrderEntryShip(shipGroupIndex, shippingContactMechId, supplierPartyId);
                     ServiceUtil.addErrors(errorMessages, errorMaps, callResult);
                 }
