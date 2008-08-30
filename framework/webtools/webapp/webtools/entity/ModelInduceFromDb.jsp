@@ -24,11 +24,16 @@ if(security.hasPermission("ENTITY_MAINT", session)) {
     response.setContentType("text/html");
 %>
 
-<div class='h3'><b>Please specify the helperName to induce from:</b></div>
+<div class='h3'><b>Put the name of the Datasource in the EntityEngine.xml to induce from:</b></div>
 <form action='' method="post">
     <input type='TEXT' class='inputBox' size='40' name='helperName'>
     <input type=SUBMIT value='Induce!'>
 </form>
+It's the datasource name. It doesn't need to be associated with a
+ delegator, just defined in entityengine.xml.
+
+
+
 <%
   } else {
       response.setContentType("text/xml");
