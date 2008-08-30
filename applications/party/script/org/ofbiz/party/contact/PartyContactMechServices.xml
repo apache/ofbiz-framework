@@ -101,7 +101,7 @@ under the License.
             </else>    
         </if-empty> 
                    
-        <set-nonpk-fields value-name="newPartyContactMech" map-name="parameters" set-if-null="false"/>
+        <set-nonpk-fields value-name="newPartyContactMech" map-name="parameters"/>
         <now-timestamp-to-env env-name="newPartyContactMech.fromDate"/>
         <now-timestamp-to-env env-name="partyContactMech.thruDate"/>
 
