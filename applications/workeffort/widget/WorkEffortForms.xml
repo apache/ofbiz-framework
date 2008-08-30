@@ -18,8 +18,8 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
-
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="FilterUserJobs" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="statusId">
@@ -175,10 +175,9 @@ under the License.
   
     <form name="FindWorkEffort" default-map-name="workEffort" target="ListWorkEfforts" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="WorkEffort" default-field-type="find"/>
+        <!-- auto-fields-entity entity-name="WorkEffort" default-field-type="find"/-->
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}"><text-find/></field>
-        <field name="workEffortParentId"><text-find/></field>
-        <field name="workEffortName"><text-find/></field>
+        <field name="workEffortParentId" position="2"><text-find/></field>
         <field name="workEffortTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="WorkEffortType" key-field-name="workEffortTypeId">
@@ -186,14 +185,13 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortPurposeTypeId">
+        <field name="workEffortPurposeTypeId" position="2">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="WorkEffortPurposeType" key-field-name="workEffortPurposeTypeId">
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-
         <field name="currentStatusId" title="${uiLabelMap.CommonStatus}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="StatusItem" key-field-name="statusId" description="[${uiLabelMap.WorkEffortGeneral}] ${description}">
@@ -210,9 +208,23 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="workEffortParentId"><lookup target-form-name="LookupWorkEffort"/></field>
+        <field name="priority" position="2">
+            <drop-down allow-empty="true">
+                <option key="9"/>
+                <option key="8"/>
+                <option key="7"/>
+                <option key="6"/>
+                <option key="5"/>
+                <option key="4"/>
+                <option key="3"/>
+                <option key="2"/>
+                <option key="1"/>
+            </drop-down>
+        </field>
+        <field name="workEffortName"><text-find/></field>
+        <field name="description" position="2"><text-find/></field>
         <field name="facilityId"><lookup target-form-name="LookupFacility"/></field>
-        <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
+        <field name="fixedAssetId" position="2"><lookup target-form-name="LookupFixedAsset"/></field>
         <field name="scopeEnumId">
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
@@ -220,7 +232,7 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="moneyUomId" title="${uiLabelMap.CommonCurrency}">
+        <field name="moneyUomId" title="${uiLabelMap.CommonCurrency}" position="2">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -250,9 +262,8 @@ under the License.
             </service>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${workEffortId}" target="javascript:set_value('${workEffortId}')" target-type="plain"/>
+            <hyperlink also-hidden="false" description="${workEffortName}[${workEffortId}]" target="javascript:set_value('${workEffortId}')" target-type="plain"/>
         </field>
-        <field name="workEffortName"><display/></field>
         <field name="workEffortTypeId"><display-entity entity-name="WorkEffortType"/></field>
         <field name="contactMechTypeId"><display-entity entity-name="ContactMechType"/></field>
         <field name="marketingCampaignId"><display-entity description="${campaignName}" entity-name="MarketingCampaign"/></field>
@@ -362,19 +373,27 @@ under the License.
         </sort-order>
     </form>
   
-    <form name="ListWorkEfforts" target="ListWorkEfforts" title="" type="list" list-name="listIt"
+    <form name="ListWorkEfforts" type="list" list-name="listIt" paginate-target="ListWorkEfforts" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service result-map-list-name="listIt" result-map-name="result" service-name="performFind">
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="parameters"/>
                 <field-map field-name="entityName" value="WorkEffort"/>
+                <field-map field-name="orderBy" value="lastModifiedDate DESC"/>
             </service>
         </actions>
         <field name="workEffortId" title="${uiLabelMap.WorkEffortWorkEffortId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${workEffortName} [${workEffortId}]" target="EditWorkEffort?workEffortId=${workEffortId}"/>
         </field>
         <field name="workEffortTypeId"><display-entity entity-name="WorkEffortType"/></field>
+        <field name="currentStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
         <field name="workEffortPurposeTypeId"><display-entity entity-name="WorkEffortPurposeType"/></field>
+        <field name="description"><display/></field>
+        <field name="priority"><display/></field>
+        <field name="estimatedStartDate"><display type="date"/></field>
+        <field name="estimatedCompletionDate"><display type="date"/></field>
+        <field name="actualStartDate"><display type="date"/></field>
+        <field name="actualCompletionDate"><display type="date"/></field>
         <!-- These links have been commented because they are (partially or totally) broken
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="linktext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditWorkEffort?workEffortId=${workEffortId}&amp;DONE_PAGE=ListWorkEfforts?${queryStringEncoded}"/>
@@ -780,7 +799,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.PageTitleAddWorkEffortTimeToInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddWorkEffortTimeToNewInvoice" target="addWorkEffortTimeToNewInvoice" title="" type="single">
-        
+        <field name="combineInvoiceItem"><hidden value="Y"/></field>
         <field name="workEffortId"><hidden/></field>
         <field name="partyIdFrom" title="${uiLabelMap.WorkEffortTimeBillFromParty}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.clientPartyId}"/></field>

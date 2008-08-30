@@ -191,8 +191,8 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>    
-                                           <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="buttontext"/></container>
-                                        <container><link  text="${uiLabelMap.ProductAdvancedSearch}" target="WorkEffortSearchOptions" style="buttontext"/></container>
+                                        <link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="buttontext"/>
+                                        <link  text="${uiLabelMap.ProductAdvancedSearch}" target="WorkEffortSearchOptions" style="buttontext"/>
                                         <include-form name="FindWorkEffort" location="component://workeffort/widget/WorkEffortForms.xml"/>
                                     </widgets>
                                 </section>
@@ -210,28 +210,14 @@ under the License.
                 <set field="titleProperty" value="PageTitleListWorkEfforts"/>
                 <set field="tabButtonItem" value="WorkEffort"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEfforts"/>
-
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleListWorkEfforts}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                           <container><link  text="${uiLabelMap.WorkEffortCreate}" target="EditWorkEffort?DONE_PAGE=${donePage}" style="buttontext"/></container>
-                                        <container><link  text="${uiLabelMap.CommonFind}" target="FindWorkEffort" style="buttontext"/></container>
-                                        <include-form name="ListWorkEfforts" location="component://workeffort/widget/WorkEffortForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                        <screenlet title="${uiLabelMap.PageTitleListWorkEfforts}" navigation-form-name="ListWorkEfforts"> 
+                            <include-form name="ListWorkEfforts" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
