@@ -114,7 +114,6 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="WorkEffort" value-name="workEffort"/>
-        <get-related value-name="workEffort" relation-name="TimeEntry" list-name="timeEntryList"/>
         
         <if-empty field="parameters.invoiceId">
             <set-service-fields service-name="createInvoice" map-name="parameters" to-map-name="createInvoiceMap"/>
@@ -138,33 +137,76 @@ under the License.
         <call-simple-method method-name="createTimeEntryInvoiceItemsInline"/>
     </simple-method>
     <simple-method method-name="createTimeEntryInvoiceItemsInline" short-description="createTimeEntryInvoiceItemsInline">
+    <log level="always" message="=========input: ${parameters.combineInvoiceItem}"/>
+        <set field="orderBy[]" value="rateTypeId"/>
+        <get-related value-name="workEffort" relation-name="TimeEntry" list-name="timeEntryList" order-by-list-name="orderBy"/>
+        <set field="invoiceItemMap.invoiceId" from-field="invoiceId"/>
+        <set field="invoiceItemMap.taxableFlag" value="N"/>
+        <set field="invoiceItemMap.invoiceItemTypeId" value="INV_TE_ITEM"/>
+        <set field="invoiceItemMap.uomId" value="TF_hr"/>
         <iterate entry-name="timeEntry" list-name="timeEntryList">
+        
             <!-- only add to invoice if it is not already on an invoice; may want to make this smarter in the future to see if invoice cancelled or some such -->
             <if-empty field="timeEntry.invoiceId">
-                <clear-field field-name="createInvoiceItemMap"/>
-                <clear-field field-name="getTimeEntryRate"/>
-                <clear-field field-name="rateAmount"/>
+
+                <!--  check if the RateTypeId changed or the first record -->
+                <if>
+                    <condition>
+                        <or>
+                            <if-empty field="oldRateTypeId"/>
+                            <and>
+                                <not><if-empty field="oldRateTypeId"/></not>
+                                <if-compare-field field="timeEntry.rateTypeId" operator="not-equals" to-field="oldRateTypeId"/>
+                            </and>
+                        </or>
+                    </condition>
+                    <then>
+                        <set field="getTimeEntryRate.timeEntryId" from-field="timeEntry.timeEntryId"/>
+                        <call-service service-name="getTimeEntryRate" in-map-name="getTimeEntryRate">
+                            <result-to-field result-name="rateAmount"/>
+                        </call-service>
+                        <set field="invoiceItemMap.amount" from-field="rateAmount" default-value="0.0" type="Double"/>
+                        <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
+                            <log level="always" message="===== first line of rateTypeId with hours: ${timeEntry.hours}"/>
+                            <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
+                            <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
+                                <result-to-field result-name="invoiceItemSeqId" field-name="invoiceItemMap.invoiceItemSeqId"/>
+                            </call-service>
+                        </if-compare>
+                    </then>
+                    <else>
+                        <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
+                            <log level="always" message="===== following lines with hours: ${timeEntry.hours}"/>
+                            <!-- or combine them when it is the same rate -->
+                            <calculate field-name="invoiceItemMap.quantity">
+                                <calcop operator="get" field-name="invoiceItemMap.quantity"/>
+                                <calcop operator="add" field-name="timeEntry.hours"/>
+                            </calculate>
+                            <call-service service-name="updateInvoiceItem" in-map-name="invoiceItemMap"/>
+                        </if-compare>
+                    </else>                
+                </if>
+                <set field="oldRateTypeId" from-field="timeEntry.rateTypeId"/>
                 
-                <set field="getTimeEntryRate.timeEntryId" from-field="timeEntry.timeEntryId"/>
-                <call-service service-name="getTimeEntryRate" in-map-name="getTimeEntryRate">
-                    <result-to-field result-name="rateAmount"/>
-                </call-service>
+                <set field="invoiceItemMap.description" from-field="timeEntry.comments"/>
+                <if-empty field="invoiceItemMap.description">
+                    <set field="invoiceItemMap.description" from-field="workEffort.workEffortName"/>
+                </if-empty>
+
+                <!-- create an invoiceitem for every time entry -->
+                <if-compare field="parameters.combineInvoiceItem" operator="not-equals" value="Y" >
+                    <log level="always" message="===== always create item lines with hours: ${timeEntry.hours}"/>
+                    <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
+                    <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
+                        <result-to-field result-name="invoiceItemSeqId" field-name="invoiceItemMap.invoiceItemSeqId"/>
+                    </call-service>
+                </if-compare>
                 
-                <set field="createInvoiceItemMap.invoiceId" from-field="invoiceId"/>
-                <set field="createInvoiceItemMap.taxableFlag" value="N"/>
-                <set field="createInvoiceItemMap.invoiceItemTypeId" value="INV_TE_ITEM"/>
-                
-                <set field="createInvoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
-                <set field="createInvoiceItemMap.uomId" value="TF_hr"/>
-                <set field="createInvoiceItemMap.amount" from-field="rateAmount" default-value="0.0" type="Double"/>
-                
-                <set field="createInvoiceItemMap.description" from-field="timeEntry.comments"/>
-                
-                <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItemMap">
-                    <result-to-field result-name="invoiceItemSeqId" field-name="timeEntry.invoiceItemSeqId"/>
-                </call-service>
+                <!--  update the timeentry -->
                 <set field="timeEntry.invoiceId" from-field="invoiceId"/>
+                <set field="timeEntry.invoiceItemSeqId" from-field="invoiceItemMap.invoiceItemSeqId"/>
                 <store-value value-name="timeEntry"/>
+                    
             </if-empty>
         </iterate>
     </simple-method>
