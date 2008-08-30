@@ -50,8 +50,6 @@ under the License.
         <field name="custRequestCategoryId"><ignored/></field>
         <field name="fulfillContactMechId"><ignored/></field>
         <field name="priority"><ignored/></field>
-        <field name="priority"><ignored/></field>
-        <field name="priority"><ignored/></field>
         <field name="description"><ignored/></field>
         <field name="createdDate"><ignored/></field>
         <field name="createdByUserLogin"><ignored/></field>
