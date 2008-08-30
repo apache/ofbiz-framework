@@ -21,45 +21,50 @@ under the License.
 <forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
 
-    <form name="ListAccounts" type="list" list-name="partyList" list-entry-name="partyRow" paginate-target="FindAccount" 
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true">
+    <form name="ListAccounts" type="list" list-name="partyList" paginate-target="FindAccount" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <row-actions>
-            <entity-one entity-name="PartyGroup" value-name="partyGroup">
-                <field-map field-name="partyId" env-name="partyRow.partyId"/>
-            </entity-one>
-            <entity-one entity-name="PartyType" value-name="partyType">
-                <field-map field-name="partyTypeId" env-name="partyRow.partyTypeId"/>
-            </entity-one>
+            <entity-one entity-name="PartyGroup" value-name="partyGroup"/>
         </row-actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
-            <hyperlink target="viewprofile?partyId=${partyRow.partyId}" description="${partyRow.partyId}" target-type="inter-app"/>
+            <hyperlink target="viewprofile?partyId=${partyId}" description="${partyId}" target-type="inter-app"/>
         </field>
-        <field name="partyName" title="${uiLabelMap.PartyName}" use-when="partyGroup != null"><display description="${partyGroup.groupName}"/></field>
-        <field name="partyTypeId" title="${uiLabelMap.PartyType}"><display description="${partyType.description}"/> </field>
+        <field name="partyName" title="${uiLabelMap.PartyName}"><display description="${partyGroup.groupName}"/></field>
+        <field name="partyTypeId" title="${uiLabelMap.PartyType}"><display-entity entity-name="PartyType"/></field>
     </form>
     <form name="NewAccount" type="single" target="createAccount" header-row-style="header-row" default-table-style="basic-table">
         <field name="accountType"><hidden value="${accountType}"/></field>
-        <field name="groupName" title="${uiLabelMap.PartyGroupName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="groupName" title="${uiLabelMap.PartyGroupName}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <text size="30" maxlength="60"/>
+        </field>
         <field name="numEmployees" title="${uiLabelMap.MarketingEmployees}"><text size="30"/></field>
         <field name="siteName" title="${uiLabelMap.FormFieldTitle_officeSiteName}"><text size="30" maxlength="60"/></field>
-        <field name="postalAddressTitle" title="${uiLabelMap.PartyGeneralCorrespondenceAddress}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="50" maxlength="60"/></field>
+        <field name="postalAddressTitle" title="${uiLabelMap.PartyGeneralCorrespondenceAddress}" title-area-style="group-label">
+            <display description=" " also-hidden="false"/>
+        </field>
+        <field name="address1" title="${uiLabelMap.CommonAddress1}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <text size="50" maxlength="60"/>
+        </field>
         <field name="address2" title="${uiLabelMap.CommonAddress2}"><text size="50" maxlength="60"/></field>
-        <field name="city" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="30" maxlength="60"/></field>
+        <field name="city" title="${uiLabelMap.CommonCity}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <text size="30" maxlength="60"/>
+        </field>
         <field name="state" title="${uiLabelMap.CommonState}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="true">
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId} - ${geoName}">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" operator="in" value="STATE,PROVINCE"/>
-                    <entity-order-by field-name="geoId"/>
+                    <entity-order-by field-name="geoName"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text size="10" maxlength="30"/></field>
+        <field name="postalCode" title="${uiLabelMap.CommonZipPostalCode}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <text size="10" maxlength="30"/>
+        </field>
         <field name="country" title="${uiLabelMap.CommonCountry}" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
             <drop-down allow-empty="false" no-current-selected-key="${defaultCountryGeoId}">
-                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoId}: ${geoName}">
+                <entity-options entity-name="Geo" key-field-name="geoId" description="${geoName} - ${geoId}">
                     <entity-constraint name="geoTypeId" value="COUNTRY"/>
-                    <entity-order-by field-name="geoId"/>
+                    <entity-order-by field-name="geoName"/>
                 </entity-options>
             </drop-down>
         </field>
