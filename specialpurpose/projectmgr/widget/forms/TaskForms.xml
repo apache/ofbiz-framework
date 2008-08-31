@@ -195,7 +195,7 @@
         <field name="estimatedStartDate" title="${uiLabelMap.CommonFromDate}"><date-find/></field>
         <field name="find" title="${uiLabelMap.CommonFind}"><submit/></field>
     </form>
-    <form name="ListTasks" type="list" separate-columns="true" title="Project List" list-name="listIt"  paginate-target="FindTask"
+    <form name="ListTasks" type="list" separate-columns="true" title="Task List" list-name="listIt"  paginate-target="FindTask"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">

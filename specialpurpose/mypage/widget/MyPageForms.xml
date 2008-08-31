@@ -162,14 +162,12 @@ under the License.
     <form name="ListCustRequestsCompleted" extends="ListCustRequests" list-name="custRequestsCompleted">
         <field name="priority"><display/></field>
         <field name="updateButton"><ignored/></field>
-        <field name="currentStatusId"><ignored/></field>
     </form>
 
-    <form name="ListCustRequestsCompletedTotal" type="single">
-        <actions>
-            <set field="TotalHoursThisMonth" value="33"/>
-        </actions>
-        <field name="TotalHoursThisMonth"><display/></field>
+    <form name="ListOtherCompanyRequests" extends="ListCustRequestsCompleted" list-name="companyCustRequests">
+        <field name="fromPartyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${fromPartyId}])"/>
+        </field>
     </form>
 
     <form name="EditCustRequest" extends="EditCustRequest" extends-resource="component://projectmgr/widget/forms/RequestForms.xml">

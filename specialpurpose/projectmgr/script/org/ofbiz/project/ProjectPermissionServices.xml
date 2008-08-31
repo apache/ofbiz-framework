@@ -154,13 +154,29 @@
                 <field-map field-name="workEffortId" env-name="taskId"/>
             </entity-and>
             <first-from-list list-name="custRequests" entry-name="custRequest"/>
+            <entity-and entity-name="PartyRelationship" list-name="accounts">
+                <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
+                <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                <field-map field-name="partyIdTo" env-name="custRequest.fromPartyId"/>
+            </entity-and>
+            <first-from-list list-name="accounts" entry-name="accountCustReq"/> 
+            <entity-and entity-name="PartyRelationship" list-name="accounts">
+                <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
+                <field-map field-name="roleTypeIdTo" value="CONTACT"/>
+                <field-map field-name="partyIdTo" env-name="parameters.userLogin.partyId"/>
+            </entity-and>
+            <first-from-list list-name="accounts" entry-name="accountLogin"/> 
             <if>
                 <condition>
                     <or>
                         <and>
-                            <!-- allow a customer to look at his own tasks related to his own customer requests -->
                             <if-compare field="parameters.mainAction" value="VIEW" operator="equals"/>
-                            <if-compare operator="equals" value="${parameters.userLogin.partyId}" field="custRequest.fromPartyId"/>
+                            <or>
+                                <!-- allow a customer to look at his own tasks related to his own customer requests -->
+                                <if-compare operator="equals" value="${parameters.userLogin.partyId}" field="custRequest.fromPartyId"/>
+                                <!-- allow to view if the logged on party is a contact of the same account as the customer requester -->
+                                <if-compare operator="equals" value="${accountLogin.partyIdFrom}" field="accountCustReq.partyIdFrom"/>
+                            </or>
                         </and>
                         <and>
                             <!-- view a task with a null id is a null operation, so ok... -->
