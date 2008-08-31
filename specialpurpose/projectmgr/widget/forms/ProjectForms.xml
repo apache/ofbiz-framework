@@ -119,7 +119,7 @@
         <field name="plannedHours" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrPlannedHours}"><display/></field>
         <field name="actualHours" map-name="resultProject.projectInfo" title="${uiLabelMap.ProjectMgrActualHours}"><display/></field>
         <field name="createdStamp" title="${uiLabelMap.FormFieldTitle_createdDate}"><display type="date"/></field>
-    </form>                                        	
+    </form>                                            
     <form name="EditSubProjects" list-name="projects" type="list" target="RemoveSubProject"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
