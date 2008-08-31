@@ -493,8 +493,8 @@ under the License.
     </form>
     <form name="ListTimeEntries" type="list" list-name="timeEntries"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="invoiceItemSeqId"><display/></field>
         <auto-fields-service service-name="updateTimeEntry" default-field-type="display"/>
-        
         <field name="invoiceId"><hidden/></field>
     </form>
     <form name="lookupInvoicesStatus" type="single" target="BillingAccountInvoices" title=""
