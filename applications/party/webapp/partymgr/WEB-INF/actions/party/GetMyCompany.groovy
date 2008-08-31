@@ -23,7 +23,7 @@ if (userLogin) {
 	         roleTypeIdTo: "CONTACT",
 	         roleTypeIdFrom: "ACCOUNT"]);
 	if (companies) {
-		company = companies.get(0);
+		company = companies[0];
 		context.myCompanyId = company.partyIdFrom;
 	} else {
 		context.myCompanyId = userLogin.partyId;
