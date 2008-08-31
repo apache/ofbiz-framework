@@ -86,8 +86,10 @@
         </actions>
         <field name="workEffortName"><display/></field>
         <field name="phaseName"><display/></field>
+        <field name="timesheetId"><hyperlink description="${timesheetId}" target="Timesheet?timesheetId=${timesheetId}"/></field>
         <field name="hours"><display/></field>
         <field name="partyId"><display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName}"/></field>
+        <field name="rateTypeId"><display-entity entity-name="RateType" description="${description}"/></field>
         <field name="fromDate"><display type="date"/></field>
     </form>
     <form name="ListProjects" type="list" list-name="listIt" paginate-target="FindProject"
@@ -514,5 +516,12 @@
         <field entry-name="test" name="fromDate"><date-time type="date"/></field>
         <field entry-name="test" name="thruDate"><date-time type="date"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="AddProjectTimeToNewInvoice" target="addProjectTimeToNewInvoice" title="" type="single">
+        <field name="combineInvoiceItem"><hidden value="Y"/></field>
+        <field name="projectId"><hidden value="${parameters.projectId}"/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.WorkEffortTimeBillFromParty}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.clientPartyId}"/></field>
+        <field name="submitButton" title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>

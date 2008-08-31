@@ -80,21 +80,10 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">  
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="EditProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="body">
+                    <screenlet title="${uiLabelMap.PageTitleEditProject} ${uiLabelMap.CommonInformation}" >
+                        <include-form name="EditProject" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                    </screenlet>  
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -110,21 +99,13 @@ under the License.
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">  
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleHoursNotYetBilled} ${uiLabelMap.CommonInformation}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="hoursNotYetBilled" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
+                    <decorator-section name="body" >
+                        <screenlet title="${uiLabelMap.PageTitleHoursNotYetBilled} ${uiLabelMap.CommonInformation}" navigation-form-name="hoursNotYetBilled">
+                            <include-form name="hoursNotYetBilled" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>  
+                        <screenlet title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}">
+                            <include-form name="AddProjectTimeToNewInvoice" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

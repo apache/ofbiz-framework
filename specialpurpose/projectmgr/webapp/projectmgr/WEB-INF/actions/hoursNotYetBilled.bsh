@@ -61,6 +61,8 @@ while (t.hasNext()) {
 				all.put("partyId", timesheet.getString("partyId"));
 				all.put("hours", entryItem.getDouble("hours"));
 				all.put("fromDate", entryItem.getTimestamp("fromDate"));
+				all.put("timesheetId", timesheet.getString("timesheetId"));
+				all.put("rateTypeId", entryItem.getString("rateTypeId"));
 				entryList.add(all);
 			}
 		}

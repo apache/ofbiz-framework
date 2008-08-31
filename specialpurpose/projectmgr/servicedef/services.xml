@@ -223,5 +223,13 @@ under the License.
         <attribute name="statusId" type="String" mode="IN"/>
         <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
     </service>
+    <service name="addProjectTimeToNewInvoice" engine="simple" auth="true"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="addProjectTimeToNewInvoice">
+        <description>Add Project Time to a new Invoice</description>
+        <attribute name="projectId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="invoiceId" type="String" mode="OUT" optional="true"/>
+    </service>
 
 </services>

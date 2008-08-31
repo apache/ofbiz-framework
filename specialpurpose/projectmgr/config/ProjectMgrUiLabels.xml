@@ -28,6 +28,9 @@
         <value xml:lang="th">สถานะเป็น 'เสร็จสมบูรณ์'</value>
         <value xml:lang="zh">置状态为完成</value>
     </property>
+    <property key="PageTitleAddProjectTimeToNewInvoice">
+        <value xml:lang="en">Add all reported/approved task time to a new invoice</value>
+    </property>
     <property key="PageTitleAddATimesheet">
         <value xml:lang="en">Add a new weekly Timesheet</value>
         <value xml:lang="fr">Ajouter une nouvelle feuille de présence hebdomadaire</value>
