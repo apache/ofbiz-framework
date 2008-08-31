@@ -120,6 +120,7 @@
     </property>
     <property key="OtherCompanyCustomerRequests">
         <value xml:lang="en">Customer Requests from other contacts of my company</value>
+        <value xml:lang="fr">Demandes client depuis d'autres contacts de mon entreprise</value>
     </property>
     <property key="TaskStatus">
         <value xml:lang="en">Task Status</value>
