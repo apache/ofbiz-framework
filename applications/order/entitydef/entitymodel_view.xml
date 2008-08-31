@@ -1270,17 +1270,25 @@ under the License.
         <key-map field-name="workEffortId"/>
       </relation>
     </view-entity>
-    <view-entity entity-name="CustRequestInfoAndWorkEffort"
+    <view-entity entity-name="CustRequestInfoAndWorkEffortAndPartyRel"
             package-name="org.ofbiz.order.request"
             title="Customer Request And WorkEffort">
       <member-entity entity-alias="CR" entity-name="CustRequest"/>
       <member-entity entity-alias="CRW" entity-name="CustRequestWorkEffort"/>
+      <member-entity entity-alias="PR" entity-name="PartyRelationship"/>
       <alias-all entity-alias="CR"/>
       <alias-all entity-alias="CRW">
         <exclude field="custRequestId"/>
       </alias-all>
+      <alias entity-alias="PR" name="partyIdFrom"/>
+      <alias entity-alias="PR" name="roleTypeIdFrom"/>
+      <alias entity-alias="PR" name="partyIdTo"/>
+      <alias entity-alias="PR" name="roleTypeIdTo"/>
       <view-link entity-alias="CR" rel-entity-alias="CRW" rel-optional="true">
         <key-map field-name="custRequestId"/>
+      </view-link>
+      <view-link entity-alias="CR" rel-entity-alias="PR" rel-optional="true">
+        <key-map field-name="fromPartyId" rel-field-name="partyIdTo"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="WorkEffort">
         <key-map field-name="workEffortId"/>

@@ -26,6 +26,10 @@
         <value xml:lang="en">All Communications</value>
         <value xml:lang="fr">Toutes les communications</value>
     </property>
+    <property key="CommunicationsOfParty">
+        <value xml:lang="en">Communications of party</value>
+        <value xml:lang="fr">Communications de l'acteur</value>
+    </property>
     <property key="EmailsFromKnownOrigin">
         <value xml:lang="en">Emails from known origin</value>
         <value xml:lang="fr">Courriel issue d'une origine connue</value>
@@ -114,9 +118,8 @@
         <value xml:lang="en">You do not have access to this information</value>
         <value xml:lang="fr">Vous n'avez pas accès à cette information</value>
     </property>
-    <property key="CommunicationsOfParty">
-        <value xml:lang="en">Communications of party</value>
-        <value xml:lang="fr">Communications de l'acteur</value>
+    <property key="OtherCompanyCustomerRequests">
+        <value xml:lang="en">Customer Requests from other contacts of my company</value>
     </property>
     <property key="TaskStatus">
         <value xml:lang="en">Task Status</value>

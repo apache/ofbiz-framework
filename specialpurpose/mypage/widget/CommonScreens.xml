@@ -281,7 +281,7 @@ under the License.
                 <set field="partyId" from-field="userLogin.partyId"/>
                 <set field="status" from-field="parameters.status" default-value="open"/>
                 <set field="status" value="${bsh:&quot;all&quot;.equals(status)?&quot;%&quot;:&quot;open&quot;}"/>
-                <entity-condition list-name="custRequests" entity-name="CustRequestInfoAndWorkEffort">
+                <entity-condition list-name="custRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
                     <condition-list combine="and">
                         <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
                         <condition-list combine="or">
@@ -292,10 +292,18 @@ under the License.
                     <order-by field-name="+priority"/>
                     <order-by field-name="+custRequestDate"/>
                 </entity-condition>
-                <entity-condition list-name="custRequestsCompleted" entity-name="CustRequestInfoAndWorkEffort">
+                <entity-condition list-name="custRequestsCompleted" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
                     <condition-list combine="and">
                         <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
                         <condition-expr field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
+                    </condition-list>
+                    <order-by field-name="custRequestDate"/>
+                </entity-condition>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetMyCompany.groovy"/>                
+                <entity-condition list-name="companyCustRequests" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" value="${myCompanyId}"/>
+                        <condition-expr field-name="fromPartyId" operator="not-equals" value="${userLogin.partyId}"/>
                     </condition-list>
                     <order-by field-name="custRequestDate"/>
                 </entity-condition>
@@ -321,15 +329,21 @@ under the License.
                 </screenlet>
                 <screenlet title="${uiLabelMap.MyCompletedCustomerRequests}" navigation-form-name="ListCustRequestsCompleted">
                     <include-form name="ListCustRequestsCompleted" location="component://mypage/widget/MyPageForms.xml"/>
-                    <!-- include-form name="ListCustRequestsCompletedTotal" location="component://mypage/widget/MyPageForms.xml"/-->
                 </screenlet>
+                <section>
+                    <condition>
+                        <not><if-empty field-name="companyCustRequests"/></not>
+                    </condition>
+                    <widgets>
+                        <screenlet title="${uiLabelMap.OtherCompanyCustomerRequests}" navigation-form-name="ListOtherCompanyRequests">
+                            <include-form name="ListOtherCompanyRequests" location="component://mypage/widget/MyPageForms.xml"/>
+                        </screenlet>
+                    </widgets>
+                </section>
                 <screenlet title="${uiLabelMap.CommunicationsOfParty}: ${partyName.firstName} ${partyName.middleName} ${partyName.lastName} ${partyName.groupName} [${partyId}] "
-                    navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents"
-                    name="myComms">
-                    <include-menu name="communicationsMenu"
-                        location="component://mypage/widget/MyPageMenus.xml" />
-                    <include-form name="ListPartyCommEvents"
-                        location="component://mypage/widget/MyPageForms.xml" />
+                    navigation-menu-name="communicationsMenu" navigation-form-name="ListPartyCommEvents" name="myComms">
+                    <include-menu name="communicationsMenu" location="component://mypage/widget/MyPageMenus.xml" />
+                    <include-form name="ListPartyCommEvents" location="component://mypage/widget/MyPageForms.xml" />
                 </screenlet>                
             </widgets>
         </section>
