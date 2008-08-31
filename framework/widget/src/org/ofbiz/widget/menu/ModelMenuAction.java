@@ -19,8 +19,7 @@
 package org.ofbiz.widget.menu;
 
 import java.text.MessageFormat;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -73,17 +72,14 @@ public abstract class ModelMenuAction {
     
     public abstract void runAction(Map<String, Object> context);
     
-    public static List readSubActions(ModelMenuItem modelMenuItem, Element parentElement) {
+    public static List<ModelMenuAction> readSubActions(ModelMenuItem modelMenuItem, Element parentElement) {
         return readSubActions(modelMenuItem.getModelMenu(), parentElement);
     }
     
     public static List<ModelMenuAction> readSubActions(ModelMenu modelMenu, Element parentElement) {
-        List<ModelMenuAction> actions = new LinkedList<ModelMenuAction>();
-        
-        List actionElementList = UtilXml.childElementList(parentElement);
-        Iterator actionElementIter = actionElementList.iterator();
-        while (actionElementIter.hasNext()) {
-            Element actionElement = (Element) actionElementIter.next();
+        List<? extends Element> actionElementList = UtilXml.childElementList(parentElement);
+        ArrayList<ModelMenuAction> actions = new ArrayList<ModelMenuAction>(actionElementList.size());
+        for (Element actionElement : actionElementList) {
             if ("set".equals(actionElement.getNodeName())) {
                 actions.add(new SetField(modelMenu, actionElement));
             } else if ("property-map".equals(actionElement.getNodeName())) {
@@ -104,16 +100,13 @@ public abstract class ModelMenuAction {
                 throw new IllegalArgumentException("Action element not supported with name: " + actionElement.getNodeName());
             }
         }
-        
+        actions.trimToSize();
         return actions;
     }
     
-    public static void runSubActions(List actions, Map<String, Object> context) {
+    public static void runSubActions(List<ModelMenuAction> actions, Map<String, Object> context) {
         if (actions == null) return;
-        
-        Iterator actionIter = actions.iterator();
-        while (actionIter.hasNext()) {
-            ModelMenuAction action = (ModelMenuAction) actionIter.next();
+        for (ModelMenuAction action : actions) {
             if (Debug.verboseOn()) Debug.logVerbose("Running screen action " + action.getClass().getName(), module);
             action.runAction(context);
         }
