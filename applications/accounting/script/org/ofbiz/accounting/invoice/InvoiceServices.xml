@@ -249,7 +249,7 @@ under the License.
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.invoiceItemSeqId">
             <make-next-seq-id value-name="newEntity" seq-field-name="invoiceItemSeqId"/> <!-- this finds the next sub-sequence ID -->
-            <!--field-to-result field-name="newEntity.invoiceItemSeqId" result-name="invoiceItemSeqId"/-->
+            <field-to-result field-name="newEntity.invoiceItemSeqId" result-name="invoiceItemSeqId"/>
         </if-empty>
         <!-- if there is no amount and a productItem is supplied fill the amount(price) and description from the product record
              TODO: there are return adjustments now that make this code very broken. The check for price was added as a quick fix. -->
