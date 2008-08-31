@@ -19,9 +19,8 @@
 package org.ofbiz.widget.menu;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -87,7 +86,7 @@ public class ModelMenu extends ModelWidget {
      * necessary to use the Map. The Map is used when loading the menu definition to keep the
      * list clean and implement the override features for item definitions.
      */
-    protected List<ModelMenuItem> menuItemList = new LinkedList<ModelMenuItem>();
+    protected List<ModelMenuItem> menuItemList = new ArrayList<ModelMenuItem>();
 
     /** This Map is keyed with the item name and has a ModelMenuItem for the value; items
      * with conditions will not be put in this Map so item definition overrides for items
@@ -123,12 +122,10 @@ public class ModelMenu extends ModelWidget {
             } else {
                 // try to find a menu definition in the same file
                 Element rootElement = menuElement.getOwnerDocument().getDocumentElement();
-                List menuElements = UtilXml.childElementList(rootElement, "menu");
+                List<? extends Element> menuElements = UtilXml.childElementList(rootElement, "menu");
                 //Uncomment below to add support for abstract menus
                 //menuElements.addAll(UtilXml.childElementList(rootElement, "abstract-menu"));
-                Iterator menuElementIter = menuElements.iterator();
-                while (menuElementIter.hasNext()) {
-                    Element menuElementEntry = (Element) menuElementIter.next();
+                for (Element menuElementEntry : menuElements) {
                     if (menuElementEntry.getAttribute("name").equals(parentMenu)) {
                         parent = new ModelMenu(menuElementEntry, delegator, dispatcher);
                         break;
@@ -170,10 +167,9 @@ public class ModelMenu extends ModelWidget {
                 this.selectedMenuItemContextFieldName = parent.selectedMenuItemContextFieldName;
                 this.menuContainerStyleExdr = parent.menuContainerStyleExdr;
                 if (parent.actions != null) {
-                    this.actions = new LinkedList<ModelMenuAction>();
+                    this.actions = new ArrayList<ModelMenuAction>();
                     this.actions.addAll(parent.actions);
                 }
-                this.actions = parent.actions;
             }
         }
 
@@ -243,14 +239,14 @@ public class ModelMenu extends ModelWidget {
                 this.actions = ModelMenuAction.readSubActions(this, actionsElement);
             } else {
                 this.actions.addAll(ModelMenuAction.readSubActions(this, actionsElement));
+                ArrayList<ModelMenuAction> actionsList = (ArrayList<ModelMenuAction>)this.actions;
+                actionsList.trimToSize();
             }
         }
 
         // read in add item defs, add/override one by one using the menuItemList and menuItemMap
-        List itemElements = UtilXml.childElementList(menuElement, "menu-item");
-        Iterator itemElementIter = itemElements.iterator();
-        while (itemElementIter.hasNext()) {
-            Element itemElement = (Element) itemElementIter.next();
+        List<? extends Element> itemElements = UtilXml.childElementList(menuElement, "menu-item");
+        for (Element itemElement : itemElements) {
             ModelMenuItem modelMenuItem = new ModelMenuItem(itemElement, this);
             modelMenuItem = this.addUpdateMenuItem(modelMenuItem);
         }
@@ -286,9 +282,7 @@ public class ModelMenu extends ModelWidget {
         ModelMenuItem existingMenuItem = null;
         if (UtilValidate.isEmpty(contentId))
             return existingMenuItem;
-        Iterator iter = menuItemList.iterator();
-        while (iter.hasNext()) {
-            ModelMenuItem mi = (ModelMenuItem) iter.next();
+        for (ModelMenuItem mi : this.menuItemList) {
             String assocContentId = mi.getAssociatedContentId(context);
             if (contentId.equals(assocContentId)) {
                 existingMenuItem = mi;
@@ -343,9 +337,7 @@ public class ModelMenu extends ModelWidget {
             //Debug.logInfo("in ModelMenu, menuItemList:" + menuItemList, module);
         // render each menuItem row, except hidden & ignored rows
         //menuStringRenderer.renderFormatSimpleWrapperRows(writer, context, this);
-        Iterator iter = menuItemList.iterator();
-        while (iter.hasNext()) {
-            ModelMenuItem item = (ModelMenuItem)iter.next();
+        for (ModelMenuItem item : this.menuItemList) {
             item.renderMenuItemString(writer, context, menuStringRenderer);
         }
 
@@ -723,7 +715,7 @@ public class ModelMenu extends ModelWidget {
         return this.defaultHideIfSelected;
     }
 
-    public List getMenuItemList() {
+    public List<ModelMenuItem> getMenuItemList() {
         return menuItemList;
     }
 
