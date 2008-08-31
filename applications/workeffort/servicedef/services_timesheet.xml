@@ -84,7 +84,7 @@ under the License.
     
     <service name="addWorkEffortTimeToInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
         location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="addWorkEffortTimeToInvoice">
-        <description>Add WorkEffort Time to Invoice, with the option to combine all timeentries with the same rateType into one invoiceItem </description>
+        <description>Add WorkEffort Time to existing Invoice, with the option to combine all timeentries with the same rateType into one invoiceItem </description>
         <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
@@ -92,11 +92,12 @@ under the License.
     </service>
     <service name="addWorkEffortTimeToNewInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
         location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="addWorkEffortTimeToInvoice">
-        <description>Add WorkEffort Time to Invoice</description>
+        <description>Add WorkEffort Time to a new Invoice with the option to combine all timeentries with the same rateType into one invoiceItem</description>
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
+        <attribute name="combineInvoiceItem" mode="IN" type="String" optional="true"/>
     </service>
     
     <!-- TimesheetRole Services -->
