@@ -120,8 +120,16 @@ under the License.
             <call-service service-name="createInvoice" in-map-name="createInvoiceMap">
                 <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
             </call-service>
+            <field-to-result field-name="parameters.invoiceId" result-name="invoiceId"/>
+            <!-- find the currency of the receiving party -->
+            <entity-one entity-name="Party" value-name="party">
+                <field-map field-name="partyId" value="${invoice.partyId}"/>
+            </entity-one>
+            <set field="invoice.currencyUomId" from-field="party.preferredCurrencyUomId"/>
+            <if-empty field="invoice.currencyUomId">
+                <property-to-field field-name="invoice.currencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            </if-empty>                
         </if-empty>
-        <field-to-result field-name="parameters.invoiceId" result-name="invoiceId"/>
         <entity-one entity-name="Invoice" value-name="invoice"/>
         <if-empty field="invoice">
             <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
@@ -153,13 +161,22 @@ under the License.
 	                        </or>
 	                    </condition>
 	                    <then>
-	                        <set field="getTimeEntryRate.timeEntryId" from-field="timeEntry.timeEntryId"/>
+                            <set field="getTimeEntryRate.timeEntryId" from-field="timeEntry.timeEntryId"/>
+                            <set field="getTimeEntryRate.currencyUomId" from-field="invoice.currencyUomId"/>
 	                        <call-service service-name="getTimeEntryRate" in-map-name="getTimeEntryRate">
 	                            <result-to-field result-name="rateAmount"/>
 	                        </call-service>
 	                        <set field="invoiceItemMap.amount" from-field="rateAmount" default-value="0.0" type="Double"/>
 	                        <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
+                                <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
+	                            <get-related value-name="workEffort" relation-name="CustRequestWorkEffort" list-name="custRequestWorkEfforts"/>
+	                            <first-from-list entry-name="custRequestWorkEffort" list-name="custRequestWorkEfforts"/>
+	                            <get-related-one value-name="custRequestWorkEffort" relation-name="CustRequest" to-value-name="custRequest"/>
+	                            <if-not-empty field="custRequest">
+                                    <set field="invoiceItemMap.description" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}]"/>
+	                            </if-not-empty>
 	                            <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
+	                            <clear-field field-name="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
 	                            <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
 	                                <result-to-field result-name="invoiceItemSeqId" field-name="invoiceItemMap.invoiceItemSeqId"/>
 	                            </call-service>
@@ -178,13 +195,12 @@ under the License.
 	                </if>
 	                <set field="oldRateTypeId" from-field="timeEntry.rateTypeId"/>
 	                
-	                <set field="invoiceItemMap.description" from-field="timeEntry.comments"/>
-	                <if-empty field="invoiceItemMap.description">
-	                    <set field="invoiceItemMap.description" from-field="workEffort.workEffortName"/>
-	                </if-empty>
-	
 	                <!-- create an invoiceitem for every time entry -->
 	                <if-compare field="parameters.combineInvoiceItem" operator="not-equals" value="Y" >
+                        <set field="invoiceItemMap.description" from-field="timeEntry.comments"/>
+                        <if-empty field="invoiceItemMap.description">
+                            <set field="invoiceItemMap.description" from-field="workEffort.workEffortName"/>
+                        </if-empty>
 	                    <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
 	                    <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
 	                        <result-to-field result-name="invoiceItemSeqId" field-name="invoiceItemMap.invoiceItemSeqId"/>
@@ -192,15 +208,15 @@ under the License.
 	                </if-compare>
 	                
 	                <!--  update the timeentry -->
-	                <set field="timeEntry.invoiceId" from-field="invoiceId"/>
+	                <set field="timeEntry.invoiceId" from-field="invoiceItemMap.invoiceId"/>
 	                <set field="timeEntry.invoiceItemSeqId" from-field="invoiceItemMap.invoiceItemSeqId"/>
 	                <store-value value-name="timeEntry"/>
 	                <else>
-	                    <log level="info" message="Timeentry: ${timeEntry.timeEntryId} already connected to invoiceId: ${timeEntry.invoiceId}...not added to invoiceItem added"/>
+	                    <log level="info" message="Timeentry: ${timeEntry.timeEntryId} already connected to invoiceId: ${timeEntry.invoiceId}...not added to invoiceItem"/>
 	                </else>                    
 	            </if-empty>
 	            <else>
-		            <set field="errMsg" value="Invoice ${invoiceId} should have the status 'in progress', the status is however: ${inoice.statusId}"/>
+		            <set field="errMsg" value="Invoice ${invoiceId} should have the status 'in progress', the status is however: ${invoice.statusId}"/>
 		            <log level="error" message="${errMsg}"/>
 		            <add-error error-list-name="errorMessageList"><fail-message message="${errMsg}"/></add-error>
 		            <return response-code="error"/>
