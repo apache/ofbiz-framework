@@ -962,5 +962,29 @@
         <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         <call-simple-method method-name="createTimeEntry" xml-resource="component://workeffort/script/org/ofbiz/workeffort/timesheet/TimesheetServices.xml"/>
     </simple-method>
-    
+
+    <simple-method method-name="addProjectTimeToNewInvoice" short-description="add all reported time on all completed timesheets from all workefforts for a project">
+        <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
+            <field-map field-name="projectId" env-name="parameters.projectId"/>
+        </entity-and>
+        <iterate entry-name="task" list-name="tasks">
+            <if-empty field="notFirst">
+                <!-- first time so create invoice -->
+                <set-service-fields service-name="addWorkEffortTimeToNewInvoice" map-name="parameters" to-map-name="addtaskToNewInvoice"/>
+                <set field="addtaskToNewInvoice.workEffortId" from-field="task.workEffortId"/>
+                <set field="addtaskToNewInvoice.combineInvoiceItem" value="Y"/>
+                <call-service service-name="addWorkEffortTimeToNewInvoice" in-map-name="addtaskToNewInvoice">
+                    <result-to-field result-name="invoiceId" field-name="addTaskToInvoice.invoiceId"/>
+                </call-service>
+                <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>
+                <set field="notFirst" value="Y"/>
+                <field-to-result field-name="addTaskToInvoice.invoiceId" result-name="invoiceId"/>
+                <else>
+                    <!-- add to created invoice -->
+                    <set field="addTaskToInvoice.workEffortId" from-field="task.workEffortId"/>
+                    <call-service service-name="addWorkEffortTimeToInvoice" in-map-name="addTaskToInvoice"/>
+                </else>
+            </if-empty>
+        </iterate>
+    </simple-method>    
 </simple-methods>
