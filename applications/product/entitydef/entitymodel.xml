@@ -1401,6 +1401,7 @@ under the License.
     </entity>
     <entity entity-name="ProductFeatureCategory"
             package-name="org.ofbiz.product.feature"
+            default-resource-name="ProductEntityLabels"
             title="Product Feature Category Entity">
       <field name="productFeatureCategoryId" type="id-ne"></field>
       <field name="parentCategoryId" type="id"></field>

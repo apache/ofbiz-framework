@@ -106,7 +106,7 @@ under the License.
                   <option value='${productFeature.productFeatureCategoryId}'>---</option>
                 </#if>
                 <#list productFeatureCategories as productFeatureCategory>
-                  <option value='${productFeatureCategory.productFeatureCategoryId}'>${productFeatureCategory.description} [${productFeatureCategory.productFeatureCategoryId}]</option>
+                  <option value='${productFeatureCategory.productFeatureCategoryId}'>${productFeatureCategory.get("description",locale)?if_exists} [${productFeatureCategory.productFeatureCategoryId}]</option>
                 </#list>
               </select></td>
               <td><input type="text" size='10' name="uomId_o_${rowCount}" value="${productFeature.uomId?if_exists}"></td>
