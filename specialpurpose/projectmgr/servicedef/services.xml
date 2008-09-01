@@ -227,9 +227,10 @@ under the License.
         location="org/ofbiz/project/ProjectServices.xml" invoke="addProjectTimeToNewInvoice">
         <description>Add Project Time to a new Invoice</description>
         <attribute name="projectId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyIdFrom" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="invoiceId" type="String" mode="OUT" optional="true"/>
+        <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="invoiceId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="reCreate" type="String" mode="IN" optional="true"/>
     </service>
 
 </services>

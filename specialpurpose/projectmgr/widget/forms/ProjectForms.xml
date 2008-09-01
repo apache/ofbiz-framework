@@ -518,10 +518,16 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddProjectTimeToNewInvoice" target="addProjectTimeToNewInvoice" title="" type="single">
-        <field name="combineInvoiceItem"><hidden value="Y"/></field>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.WorkEffortTimeBillFromParty}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.clientPartyId}"/></field>
+        <field name="reCreate">
+        	<drop-down no-current-selected-key="N">
+        		<option key="Y" description="Yes"/>
+        		<option key="N" description="No"/>
+        	</drop-down>
+       	</field>
+        <field name="invoiceId" position="2"><text/></field>
         <field name="submitButton" title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
