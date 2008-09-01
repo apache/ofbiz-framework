@@ -259,6 +259,8 @@ function createUpdateCustomerAndShippingAddress() {
                 Effect.Appear('shippingFormServerError');
                 $('shippingFormServerError').update(serverError);
                 isShipStepValidate = false;
+                Effect.Appear('editShippingOptions');
+                Effect.Fade('processingShippingOptions');
             } else {
                 Effect.Fade('shippingFormServerError');
                 isShipStepValidate = true;
@@ -331,6 +333,8 @@ function setShippingOption() {
                 Effect.Appear('shippingOptionFormServerError');
                 $('shippingOptionFormServerError').update(serverError);
                 isShipOptionStepValidate = false;
+                Effect.Appear('editBilling');
+                Effect.Fade('processingBilling');
             } else {
                 Effect.Fade('shippingOptionFormServerError');
                 isShipOptionStepValidate = true;
@@ -380,6 +384,8 @@ function processBillingAndPayment() {
                 Effect.Appear('billingFormServerError');
                 $('billingFormServerError').update(serverError);
                 isBillStepValidate = false;
+                Effect.Appear('openOrderSubmitPanel');
+                Effect.Fade('processingOrderSubmitPanel');                
             } else {
                 Effect.Fade('billingFormServerError');
                 isBillStepValidate = true;
