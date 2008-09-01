@@ -121,20 +121,24 @@ under the License.
                 <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
             </call-service>
             <field-to-result field-name="parameters.invoiceId" result-name="invoiceId"/>
-            <!-- find the currency of the receiving party -->
-            <entity-one entity-name="Party" value-name="party">
-                <field-map field-name="partyId" value="${invoice.partyId}"/>
-            </entity-one>
-            <set field="invoice.currencyUomId" from-field="party.preferredCurrencyUomId"/>
-            <if-empty field="invoice.currencyUomId">
-                <property-to-field field-name="invoice.currencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
-            </if-empty>                
         </if-empty>
         <entity-one entity-name="Invoice" value-name="invoice"/>
         <if-empty field="invoice">
             <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
             <check-errors/>
         </if-empty>
+        <!-- update currency, can be changed with regenerate -->
+        <!-- find the currency of the receiving party -->
+        <entity-one entity-name="Party" value-name="party">
+        	<field-map field-name="partyId" value="${invoice.partyId}"/>
+        </entity-one>
+        <set field="updateInvoiceMap.invoiceId" from-field="parameters.invoiceId"/>
+        <set field="updateInvoiceMap.currencyUomId" from-field="party.preferredCurrencyUomId"/>
+        <if-empty field="updateInvoiceMap.currencyUomId">
+        	<property-to-field field-name="invoice.currencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+        </if-empty>                
+        <call-service service-name="updateInvoice" in-map-name="updateInvoiceMap"/>
+        
         <call-simple-method method-name="createTimeEntryInvoiceItemsInline"/>
     </simple-method>
     <simple-method method-name="createTimeEntryInvoiceItemsInline" short-description="createTimeEntryInvoiceItemsInline">
@@ -202,6 +206,7 @@ under the License.
                             <set field="invoiceItemMap.description" from-field="workEffort.workEffortName"/>
                         </if-empty>
                         <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
+                        <clear-field field-name="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
                         <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
                             <result-to-field result-name="invoiceItemSeqId" field-name="invoiceItemMap.invoiceItemSeqId"/>
                         </call-service>
@@ -297,7 +302,6 @@ under the License.
                 <set field="rateAmount" from-field="workEffortAssignmentRate.rate"/>
             </if-not-empty>
         </if-not-empty>
-        
         <!-- no rateAmount yet, try PartyRate if partyId not provided try the timesheet-->
         <if-empty field="rateAmount">
             <if-empty field="timeEntry.partyId">
@@ -323,7 +327,6 @@ under the License.
                 <set field="rateAmount" from-field="partyRate.rate"/>
             </if-not-empty>
         </if-empty>
-        
         <field-to-result field-name="rateAmount"/>
     </simple-method>
     

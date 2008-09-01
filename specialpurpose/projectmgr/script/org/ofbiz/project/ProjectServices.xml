@@ -964,6 +964,31 @@
     </simple-method>
 
     <simple-method method-name="addProjectTimeToNewInvoice" short-description="add all reported time on all completed timesheets from all workefforts for a project">
+
+		<!-- recreate the invoice if still in preparation in order to correct errors. -->
+        <if-compare operator="equals" value="Y" field="parameters.reCreate">
+	        <entity-one entity-name="Invoice" value-name="invoice"/>
+    	    <if-empty field="invoice">
+        	    <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
+            	<check-errors/>
+        	</if-empty>
+            <if-compare field="invoice.statusId" operator="not-equals" value="INVOICE_IN_PROCESS"> 
+        	    <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
+            	<check-errors/>
+			</if-compare>
+			<entity-and list-name="entries" entity-name="TimeEntry">
+				<field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
+			</entity-and>
+			<iterate list-name="entries" entry-name="timeEntry">			        
+	       		<clear-field field-name="timeEntry.invoiceId"/>
+           		<clear-field field-name="timeEntry.invoiceItemSeqId"/>
+           		<store-value value-name="timeEntry"/>
+        	</iterate>
+        	<set field="removeItems.invoiceId" from-field="parameters.invoiceId"/>
+        	<remove-by-and entity-name="InvoiceItem" map-name="removeItems"/>
+        	<set field="notFirst" value="Y"/><!-- do not create, only add -->
+        </if-compare>
+        <log level="always" message="==============invoice items deleted"/>
         <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
             <field-map field-name="projectId" env-name="parameters.projectId"/>
         </entity-and>
@@ -971,17 +996,21 @@
             <if-empty field="notFirst">
                 <!-- first time so create invoice -->
                 <set-service-fields service-name="addWorkEffortTimeToNewInvoice" map-name="parameters" to-map-name="addtaskToNewInvoice"/>
-                <set field="addtaskToNewInvoice.workEffortId" from-field="task.workEffortId"/>
+                <set field="addTaskToNewInvoice.workEffortId" from-field="task.workEffortId"/>
                 <set field="addtaskToNewInvoice.combineInvoiceItem" value="Y"/>
-                <call-service service-name="addWorkEffortTimeToNewInvoice" in-map-name="addtaskToNewInvoice">
-                    <result-to-field result-name="invoiceId" field-name="addTaskToInvoice.invoiceId"/>
+   	        	<set field="addtaskToNewInvoice.invoiceId" from-field="parameters.invoiceId"/>
+	            <call-service service-name="addWorkEffortTimeToNewInvoice" in-map-name="addtaskToNewInvoice">
+    	            <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
                 </call-service>
                 <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>
                 <set field="notFirst" value="Y"/>
-                <field-to-result field-name="addTaskToInvoice.invoiceId" result-name="invoiceId"/>
+                <field-to-result field-name="parameters.invoiceId" result-name="invoiceId"/>
                 <else>
                     <!-- add to created invoice -->
+	                <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>
+                    <set field="addTaskToInvoice.invoiceId" from-field="parameters.invoiceId"/>
                     <set field="addTaskToInvoice.workEffortId" from-field="task.workEffortId"/>
+        <log level="always" message="==============add workeffort iwth data ${addTaskToInvoice}"/>
                     <call-service service-name="addWorkEffortTimeToInvoice" in-map-name="addTaskToInvoice"/>
                 </else>
             </if-empty>
