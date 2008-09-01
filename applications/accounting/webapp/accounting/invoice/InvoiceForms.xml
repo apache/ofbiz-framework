@@ -493,9 +493,35 @@ under the License.
     </form>
     <form name="ListTimeEntries" type="list" list-name="timeEntries"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="invoiceItemSeqId"><display/></field>
-        <auto-fields-service service-name="updateTimeEntry" default-field-type="display"/>
+        <row-actions>
+        	<entity-one entity-name="Timesheet" value-name="timesheet">
+        		<field-map field-name="timesheetId" env-name="timesheetId"/>
+        	</entity-one>
+        </row-actions>
         <field name="invoiceId"><hidden/></field>
+        <field name="invoiceItemSeqId"><display/></field>
+        <field name="timeEntryId"><display/></field>
+        <field name="timesheetId" entry-name="timesheet.timesheetId"><hyperlink target="/workeffort/control/EditTimesheet?timesheetId=${timesheetId}" target-type="inter-app" description="${timesheetId}"/></field>
+        <field name="partyId" entry-name="partyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${middleName} ${lastName}">
+            	<sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app"  description=" [${partyId}]"/>
+            </display-entity>
+        </field>
+        <field name="timesheetPartyId" entry-name="timesheet.partyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName} ${firstName} ${middleName} ${lastName}">
+            	<sub-hyperlink target="/partymgr/control/viewprofile?partyId=${timesheet.partyId}" target-type="inter-app" description=" [${timesheet.partyId}]"/>
+            </display-entity>
+        </field>
+        <field name="hours"><display/></field>
+        <field name="rateTypeId"><display-entity entity-name="RateType" description="${description}"/></field>
+        <field name="workEffortId">
+        	<display-entity entity-name="WorkEffort" description="${workEffortName} [${workEffortId}]">
+        		<sub-hyperlink description=" [${workEffortId}]" target="/workeffort/control/WorkEffortSummary?workEffortId=${workEffortId}" target-type="inter-app"/>
+        	</display-entity>
+        </field>
+        <field name="fromDate"><display type="date"/></field>
+        <field name="thruDate"><display type="date"/></field>
+        <field name="comments"><display/></field>
     </form>
     <form name="lookupInvoicesStatus" type="single" target="BillingAccountInvoices" title=""
         header-row-style="header-row" default-table-style="basic-table">
