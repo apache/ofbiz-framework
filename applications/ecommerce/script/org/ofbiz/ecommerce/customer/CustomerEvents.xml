@@ -1493,4 +1493,47 @@ under the License.
         <call-simple-method method-name="createUpdateEmailAddress"/>
     </simple-method>
 
+    <simple-method method-name="setUserLoginFromEmail" short-description="Set userloginId from email. If user edit email address then set it as a new userLoginId and disabled date to far in the future for existing userLoginId">
+        <if-compare field="parameters.userLoginId" operator="not-equals" value="userLogin.userLoginId">
+            <set-service-fields service-name="updateUserLoginId" map-name="parameters" to-map-name="serviceContext"/>
+            <set field="serviceContext.userLogin" from-field="userLogin"/>
+            <call-service service-name="updateUserLoginId" in-map-name="serviceContext">
+                <result-to-field result-name="newUserLogin"/>
+            </call-service>
+            <set-current-user-login value-name="newUserLogin"/>
+            <call-bsh>
+                <![CDATA[
+                    org.ofbiz.webapp.control.LoginWorker.doBasicLogin(newUserLogin, request);
+                    org.ofbiz.webapp.control.LoginWorker.autoLoginSet(request, response);
+                ]]>
+            </call-bsh>
+            <!-- disabledDateTime/disableForYears set time until a user login remains disabled -->
+            <if-not-empty field="parameters.disabledDateTime">
+                <set field="disabledDateTime" from-field="parameters.disabledDateTime" type="Date"/>
+            <else>
+                <now-date-to-env env-name="nowTimeStamp"/>
+                <if-not-empty field="parameters.disableForYear">
+                    <set-calendar field="disabledDateTime" from-field="nowTimeStamp" years="${parameters.disableForYear}"/>
+                <else>
+                    <set-calendar field="disabledDateTime" from-field="nowTimeStamp" years="20"/>
+                </else>
+                </if-not-empty>
+            </else>
+            </if-not-empty>
+            <set field="loggedInUser.disabledDateTime" from-field="disabledDateTime"/>
+            <set field="loggedInUser.enabled" value="N"/>
+            <store-value value-name="loggedInUser"/>
+        </if-compare>
+    </simple-method>
+
+    <simple-method method-name="updateProfileAndUserLoginFromEmail" short-description="Update a customer profile and userloginId from email">
+        <set field="partyId" from-field="userLogin.partyId"/>
+        <set field="parameters.userLoginId" from-field="parameters.emailAddress"/>
+        <set field="loggedInUser" from-field="userLogin"/>
+        <call-simple-method method-name="createUpdatePerson"/>
+        <call-simple-method method-name="setUserLoginFromEmail"/>
+        <call-simple-method method-name="createUpdateUserLogin"/>
+        <call-simple-method method-name="createUpdateEmailAddress"/>
+    </simple-method>
+
 </simple-methods>
