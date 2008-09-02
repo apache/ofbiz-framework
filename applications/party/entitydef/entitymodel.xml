@@ -1150,7 +1150,6 @@ under the License.
       <field name="stateProvinceGeoId" type="id"></field>
       <field name="countyGeoId" type="id"></field>
       <field name="postalCodeGeoId" type="id"></field>
-      <field name="geoPointId" type="id"></field>
       <prim-key field="contactMechId"/>
       <relation type="one" fk-name="POST_ADDR_CMECH" rel-entity-name="ContactMech">
         <key-map field-name="contactMechId"/>
@@ -1166,9 +1165,6 @@ under the License.
       </relation>
       <relation type="one" fk-name="POST_ADDR_PCGEO" title="PostalCode" rel-entity-name="Geo">
         <key-map field-name="postalCodeGeoId" rel-field-name="geoId"/>
-      </relation>
-      <relation type="one" fk-name="POST_ADDR_GEOPT" title="Geo Point" rel-entity-name="GeoPoint">
-        <key-map field-name="geoPointId"/>
       </relation>
       <index name="ADDRESS1_IDX">
         <index-field name="address1"/>
@@ -2626,19 +2622,4 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
     </extend-entity>
-    <entity entity-name="PartyGeoPoint" package-name="org.ofbiz.party.party" title="Party Geo Location with history">
-      <field name="partyId" type="id-ne"></field>
-      <field name="geoPointId" type="id-ne"></field>
-      <field name="fromDate" type="date-time"></field>
-      <field name="thruDate" type="date-time"></field>
-      <prim-key field="partyId"/>
-      <prim-key field="geoPointId"/>
-      <prim-key field="fromDate"/>
-      <relation type="one" fk-name="PARTYGEOPT_PARTY" rel-entity-name="Party">
-          <key-map field-name="partyId"/>
-      </relation>
-      <relation type="one" fk-name="PARTYGEOPT_GEOPT" rel-entity-name="GeoPoint">
-          <key-map field-name="geoPointId"/>
-      </relation>
-    </entity>
 </entitymodel>
