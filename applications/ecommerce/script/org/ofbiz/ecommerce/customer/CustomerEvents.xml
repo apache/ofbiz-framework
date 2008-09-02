@@ -1489,12 +1489,17 @@ under the License.
     <simple-method method-name="updateCustomerProfile" short-description="Update a customer profile">
         <set field="partyId" from-field="userLogin.partyId"/>
         <call-simple-method method-name="createUpdatePerson"/>
+        <if-compare field="productStore.usePrimaryEmailUsername" operator="equals" value="Y">
+            <set field="parameters.userLoginId" from-field="parameters.emailAddress"/>
+            <call-simple-method method-name="setUserLoginFromEmail"/>
+        </if-compare>
         <call-simple-method method-name="createUpdateUserLogin"/>
         <call-simple-method method-name="createUpdateEmailAddress"/>
     </simple-method>
 
     <simple-method method-name="setUserLoginFromEmail" short-description="Set userloginId from email. If user edit email address then set it as a new userLoginId and disabled date to far in the future for existing userLoginId">
         <if-compare field="parameters.userLoginId" operator="not-equals" value="userLogin.userLoginId">
+            <set field="loggedInUser" from-field="userLogin"/> 
             <set-service-fields service-name="updateUserLoginId" map-name="parameters" to-map-name="serviceContext"/>
             <set field="serviceContext.userLogin" from-field="userLogin"/>
             <call-service service-name="updateUserLoginId" in-map-name="serviceContext">
@@ -1525,15 +1530,4 @@ under the License.
             <store-value value-name="loggedInUser"/>
         </if-compare>
     </simple-method>
-
-    <simple-method method-name="updateProfileAndUserLoginFromEmail" short-description="Update a customer profile and userloginId from email">
-        <set field="partyId" from-field="userLogin.partyId"/>
-        <set field="parameters.userLoginId" from-field="parameters.emailAddress"/>
-        <set field="loggedInUser" from-field="userLogin"/>
-        <call-simple-method method-name="createUpdatePerson"/>
-        <call-simple-method method-name="setUserLoginFromEmail"/>
-        <call-simple-method method-name="createUpdateUserLogin"/>
-        <call-simple-method method-name="createUpdateEmailAddress"/>
-    </simple-method>
-
 </simple-methods>

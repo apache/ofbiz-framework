@@ -1719,8 +1719,6 @@ under the License.
     <request-map uri="updateCustomerProfile">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="updateCustomerProfile"/>
-        <!-- Use following event only if email address will be used as userLoginId. Updating email address will set it as new userLoginId and disable existing userLoginId -->
-        <!--event type="simple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="updateProfileAndUserLoginFromEmail"/-->
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="EditProfile"/>
     </request-map>
