@@ -1517,12 +1517,8 @@ under the License.
                 <set field="disabledDateTime" from-field="parameters.disabledDateTime" type="Date"/>
             <else>
                 <now-date-to-env env-name="nowTimeStamp"/>
-                <if-not-empty field="parameters.disableForYear">
-                    <set-calendar field="disabledDateTime" from-field="nowTimeStamp" years="${parameters.disableForYear}"/>
-                <else>
-                    <set-calendar field="disabledDateTime" from-field="nowTimeStamp" years="20"/>
-                </else>
-                </if-not-empty>
+                <set field="disableForYears" from-field="parameters.disableForYears" default-value="20"/>
+                <set-calendar field="disabledDateTime" from-field="nowTimeStamp" years="${disableForYears}"/>
             </else>
             </if-not-empty>
             <set field="loggedInUser.disabledDateTime" from-field="disabledDateTime"/>
