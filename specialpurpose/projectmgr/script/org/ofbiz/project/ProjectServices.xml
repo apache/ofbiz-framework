@@ -995,11 +995,10 @@
         <iterate entry-name="task" list-name="tasks">
             <if-empty field="notFirst">
                 <!-- first time so create invoice -->
-                <set-service-fields service-name="addWorkEffortTimeToNewInvoice" map-name="parameters" to-map-name="addtaskToNewInvoice"/>
+                <set-service-fields service-name="addWorkEffortTimeToNewInvoice" map-name="parameters" to-map-name="addTaskToNewInvoice"/>
                 <set field="addTaskToNewInvoice.workEffortId" from-field="task.workEffortId"/>
-                <set field="addtaskToNewInvoice.combineInvoiceItem" value="Y"/>
-   	        	<set field="addtaskToNewInvoice.invoiceId" from-field="parameters.invoiceId"/>
-	            <call-service service-name="addWorkEffortTimeToNewInvoice" in-map-name="addtaskToNewInvoice">
+                <set field="addTaskToNewInvoice.combineInvoiceItem" value="Y"/>
+	            <call-service service-name="addWorkEffortTimeToNewInvoice" in-map-name="addTaskToNewInvoice">
     	            <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
                 </call-service>
                 <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>

@@ -174,10 +174,12 @@ under the License.
                             <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
                                 <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
                                 <get-related value-name="workEffort" relation-name="CustRequestWorkEffort" list-name="custRequestWorkEfforts"/>
-                                <first-from-list entry-name="custRequestWorkEffort" list-name="custRequestWorkEfforts"/>
-                                <get-related-one value-name="custRequestWorkEffort" relation-name="CustRequest" to-value-name="custRequest"/>
-                                <if-not-empty field="custRequest">
-                                    <set field="invoiceItemMap.description" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}]"/>
+                                <if-not-empty field="custRequestWorkEfforts">
+                                	<first-from-list entry-name="custRequestWorkEffort" list-name="custRequestWorkEfforts"/>
+                                	<get-related-one value-name="custRequestWorkEffort" relation-name="CustRequest" to-value-name="custRequest"/>
+                                	<if-not-empty field="custRequest">
+                                    	<set field="invoiceItemMap.description" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}]"/>
+                                	</if-not-empty>
                                 </if-not-empty>
                                 <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
                                 <clear-field field-name="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
@@ -211,11 +213,11 @@ under the License.
                             <result-to-field result-name="invoiceItemSeqId" field-name="invoiceItemMap.invoiceItemSeqId"/>
                         </call-service>
                     </if-compare>
-                    
-                    <!--  update the timeentry -->
-                    <set field="timeEntry.invoiceId" from-field="invoiceItemMap.invoiceId"/>
-                    <set field="timeEntry.invoiceItemSeqId" from-field="invoiceItemMap.invoiceItemSeqId"/>
-                    <store-value value-name="timeEntry"/>
+                    <!--  update the time entry -->
+                    <set field="updTimeEntry.timeEntryId" from-field="timeEntry.timeEntryId"/>
+                    <set field="updTimeEntry.invoiceId" from-field="invoiceItemMap.invoiceId"/>
+                    <set field="updTimeEntry.invoiceItemSeqId" from-field="invoiceItemMap.invoiceItemSeqId"/>
+                    <call-service service-name="updateTimeEntry" in-map-name="updTimeEntry"/>
                     <else>
                         <log level="info" message="Timeentry: ${timeEntry.timeEntryId} already connected to invoiceId: ${timeEntry.invoiceId}...not added to invoiceItem"/>
                     </else>                    
@@ -266,9 +268,18 @@ under the License.
     </simple-method>
     <simple-method method-name="updateTimeEntry" short-description="Update TimeEntry">
         <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
-        <call-simple-method method-name="checkTimesheetStatus"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <!-- allow update of invoiceId and seqId if not yet filled, else check status -->
+        <if-not-empty field="parameters.invoiceId">
+        	<if-empty field="lookedUpValue.invoiceId">
+        	<set field="lookedUpValue.invoiceId" from-field="parameters.invoiceId"/>
+        	<set field="lookedUpValue.invoiceItemSeqId" from-field="parameters.invoiceItemSeqId"/>
+        	<else>
+	        	<call-simple-method method-name="checkTimesheetStatus"/>
+    	    	<set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        	</else>
+        	</if-empty>
+        </if-not-empty>
+		<store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTimeEntry" short-description="Delete TimeEntry">
         <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
@@ -359,7 +370,5 @@ under the License.
         </if>
         <check-errors/>
     </simple-method>
-    
-    
     
 </simple-methods>
