@@ -444,6 +444,41 @@ under the License.
         <key-map field-name="termTypeId"/>
       </relation>
     </entity>
+    <entity entity-name="AgreementEmploymentAppl"
+            package-name="org.ofbiz.party.agreement"
+            title="Agreement Employment Application Entity">
+        <field name="agreementId" type="id-ne"></field>
+        <field name="agreementItemSeqId" type="id-ne"></field>
+        <field name="partyIdFrom" type="id-ne"></field>
+        <field name="partyIdTo" type="id-ne"></field>
+        <field name="roleTypeIdFrom" type="id-ne"></field>
+        <field name="roleTypeIdTo" type="id-ne"></field>                
+        <field name="fromDate" type="date-time"></field>
+        <field name="agreementDate" type="date-time"/>  
+        <field name="thruDate" type="date-time"/>                      
+        <prim-key field="agreementId"/>
+        <prim-key field="agreementItemSeqId"/>        
+        <prim-key field="partyIdTo"/>
+        <prim-key field="partyIdFrom"/>
+        <prim-key field="roleTypeIdTo"/>
+        <prim-key field="roleTypeIdFrom"/>
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="AGRMNT_EMPL_APPL" rel-entity-name="Employment">
+            <key-map field-name="roleTypeIdFrom"/>
+            <key-map field-name="roleTypeIdTo"/>
+            <key-map field-name="partyIdFrom"/>
+            <key-map field-name="partyIdTo"/>
+            <key-map field-name="fromDate"/>
+        </relation>
+        <relation type="many" rel-entity-name="Agreement">
+            <key-map field-name="agreementId" rel-field-name="partyIdFrom"/>
+            <key-map field-name="agreementId" rel-field-name="partyIdTo"/>
+        </relation>
+        <relation type="one" fk-name="AGRMNT_EMPL_AITM" rel-entity-name="AgreementItem">
+            <key-map field-name="agreementId"/>
+            <key-map field-name="agreementItemSeqId"/>
+        </relation>
+    </entity>
     <view-entity entity-name="AgreementItemAndProductAppl"
         package-name="org.ofbiz.party.agreement"
         title="Agreement Item and Agreement Product Applicability View Entity">
@@ -1115,12 +1150,10 @@ under the License.
       <field name="stateProvinceGeoId" type="id"></field>
       <field name="countyGeoId" type="id"></field>
       <field name="postalCodeGeoId" type="id"></field>
+      <field name="geoPointId" type="id"></field>
       <prim-key field="contactMechId"/>
       <relation type="one" fk-name="POST_ADDR_CMECH" rel-entity-name="ContactMech">
         <key-map field-name="contactMechId"/>
-      </relation>
-      <relation type="many" rel-entity-name="SimpleSalesTaxLookup">
-        <key-map field-name="stateProvinceGeoId"/>
       </relation>
       <relation type="one" fk-name="POST_ADDR_CGEO" title="Country" rel-entity-name="Geo">
         <key-map field-name="countryGeoId" rel-field-name="geoId"/>
@@ -1133,6 +1166,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="POST_ADDR_PCGEO" title="PostalCode" rel-entity-name="Geo">
         <key-map field-name="postalCodeGeoId" rel-field-name="geoId"/>
+      </relation>
+      <relation type="one" fk-name="POST_ADDR_GEOPT" title="Geo Point" rel-entity-name="GeoPoint">
+        <key-map field-name="geoPointId"/>
       </relation>
       <index name="ADDRESS1_IDX">
         <index-field name="address1"/>
@@ -2590,39 +2626,19 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
     </extend-entity>
-    <entity entity-name="AgreementEmploymentAppl"
-            package-name="org.ofbiz.party.agreement"
-            title="Agreement Employment Application Entity">
-        <field name="agreementId" type="id-ne"></field>
-        <field name="agreementItemSeqId" type="id-ne"></field>
-        <field name="partyIdFrom" type="id-ne"></field>
-        <field name="partyIdTo" type="id-ne"></field>
-        <field name="roleTypeIdFrom" type="id-ne"></field>
-        <field name="roleTypeIdTo" type="id-ne"></field>                
-        <field name="fromDate" type="date-time"></field>
-        <field name="agreementDate" type="date-time"/>  
-        <field name="thruDate" type="date-time"/>                      
-        <prim-key field="agreementId"/>
-        <prim-key field="agreementItemSeqId"/>        
-        <prim-key field="partyIdTo"/>
-        <prim-key field="partyIdFrom"/>
-        <prim-key field="roleTypeIdTo"/>
-        <prim-key field="roleTypeIdFrom"/>
-        <prim-key field="fromDate"/>
-        <relation type="one" fk-name="AGRMNT_EMPL_APPL" rel-entity-name="Employment">
-            <key-map field-name="roleTypeIdFrom"/>
-            <key-map field-name="roleTypeIdTo"/>
-            <key-map field-name="partyIdFrom"/>
-            <key-map field-name="partyIdTo"/>
-            <key-map field-name="fromDate"/>
-        </relation>
-        <relation type="many" rel-entity-name="Agreement">
-            <key-map field-name="agreementId" rel-field-name="partyIdFrom"/>
-            <key-map field-name="agreementId" rel-field-name="partyIdTo"/>
-        </relation>
-        <relation type="one" fk-name="AGRMNT_EMPL_AITM" rel-entity-name="AgreementItem">
-            <key-map field-name="agreementId"/>
-            <key-map field-name="agreementItemSeqId"/>
-        </relation>
+    <entity entity-name="PartyGeoPoint" package-name="org.ofbiz.party.party" title="Party Geo Location with history">
+      <field name="partyId" type="id-ne"></field>
+      <field name="geoPointId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="geoPointId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="PARTYGEOPT_PARTY" rel-entity-name="Party">
+          <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="PARTYGEOPT_GEOPT" rel-entity-name="GeoPoint">
+          <key-map field-name="geoPointId"/>
+      </relation>
     </entity>
 </entitymodel>
