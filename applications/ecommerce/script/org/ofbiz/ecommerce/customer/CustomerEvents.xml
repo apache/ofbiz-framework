@@ -1487,6 +1487,9 @@ under the License.
      </simple-method>
     
     <simple-method method-name="updateCustomerProfile" short-description="Update a customer profile">
+        <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field-name="productStore">
+            <field field-name="request" type="javax.servlet.ServletRequest"/>
+        </call-class-method>
         <set field="partyId" from-field="userLogin.partyId"/>
         <call-simple-method method-name="createUpdatePerson"/>
         <if-compare field="productStore.usePrimaryEmailUsername" operator="equals" value="Y">
