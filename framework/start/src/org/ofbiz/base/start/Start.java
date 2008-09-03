@@ -518,19 +518,19 @@ public class Start implements Runnable {
             // base config directory
             baseConfig = System.getProperty("ofbiz.base.config");
             if (baseConfig == null) {
-                baseConfig = ofbizHome + "/" + props.getProperty("ofbiz.base.config", "base/config");
+                baseConfig = ofbizHome + "/" + props.getProperty("ofbiz.base.config", "framework/base/config");
             }
 
             // base schema directory
             baseDtd = System.getProperty("ofbiz.base.schema");
             if (baseDtd == null) {
-                baseDtd = ofbizHome + "/" + props.getProperty("ofbiz.base.schema", "base/dtd");
+                baseDtd = ofbizHome + "/" + props.getProperty("ofbiz.base.schema", "framework/base/dtd");
             }
 
             // base lib directory
             baseLib = System.getProperty("ofbiz.base.lib");
             if (baseLib == null) {
-                baseLib = ofbizHome + "/" + props.getProperty("ofbiz.base.lib", "base/lib");
+                baseLib = ofbizHome + "/" + props.getProperty("ofbiz.base.lib", "framework/base/lib");
             }
 
             // base jar file
@@ -558,7 +558,7 @@ public class Start implements Runnable {
             // log directory
             logDir = System.getProperty("ofbiz.log.dir");
             if (logDir == null) {
-                logDir = ofbizHome + "/" + props.getProperty("ofbiz.log.dir", "logs");
+                logDir = ofbizHome + "/" + props.getProperty("ofbiz.log.dir", "runtime/logs");
             }
 
             // container configuration
@@ -597,11 +597,11 @@ public class Start implements Runnable {
             // set the Derby system home
             String derbyPath = System.getProperty("derby.system.home");
             if (derbyPath == null) {
-                derbyPath = props.getProperty("derby.system.home", "data/derby");
+                derbyPath = props.getProperty("derby.system.home", "runtime/data/derby");
             }
             System.setProperty("derby.system.home", derbyPath);
 
-            // set the property to tell Log4J to use debug.properties
+            // set the property to tell Log4J to use log4j.xml
             String log4jConfig = System.getProperty("log4j.configuration");
             if (log4jConfig == null) {
                 log4jConfig = props.getProperty("log4j.configuration");
