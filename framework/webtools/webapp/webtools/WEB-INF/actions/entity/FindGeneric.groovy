@@ -77,7 +77,7 @@ for (int fnum = 0; fnum < modelEntity.getFieldsSize(); fnum++) {
             try {
                 findByEntity.setString(field.getName(), fval);
             } catch (NumberFormatException nfe) {
-                Debug.logError(nfe, "Caught an exception : " + nfe.toString(), "FindGeneric.bsh");
+                Debug.logError(nfe, "Caught an exception : " + nfe.toString(), "FindGeneric.groovy");
                 errMsgList.add("Entered value is non-numeric for numeric field: " + field.getName());
             }
         }
@@ -153,12 +153,12 @@ if ("true".equals(find)) {
             
             resultEli.close();
         } catch (GenericEntityException e) {
-            Debug.logError(e, "Failure in operation, rolling back transaction", "FindGeneric.bsh");
+            Debug.logError(e, "Failure in operation, rolling back transaction", "FindGeneric.groovy");
             try {
                 // only rollback the transaction if we started one...
                 TransactionUtil.rollback(beganTransaction, "Error looking up entity values in WebTools Entity Data Maintenance", e);
             } catch (GenericEntityException e2) {
-                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), "FindGeneric.bsh");
+                Debug.logError(e2, "Could not rollback transaction: " + e2.toString(), "FindGeneric.groovy");
             }
             // after rolling back, rethrow the exception
             throw e;
