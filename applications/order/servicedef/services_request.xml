@@ -25,9 +25,18 @@ under the License.
     <version>1.0</version>
 
     <!-- Customer Request Services -->
+    <service name="custRequestPermissionCheck" engine="simple"
+            location="org/ofbiz/order/request/CustRequestServices.xml" invoke="custRequestPermissionCheck">
+        <description>
+            Performs a security check for CustRequest. The user, if enters a request for someone else,
+            must have one of the base ORDERMGR_CRQ CRUD+ADMIN permissions.
+        </description>
+        <implements service="permissionInterface"/>
+    </service>
     <service name="createCustRequest" engine="simple" default-entity-name="CustRequest"
             location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequest" auth="true">
         <description>Create a custRequest record and optionally create a custRequest item.</description>
+        <permission-service service-name="custRequestPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes include="pk" mode="INOUT" optional="true"/>
         <auto-attributes include="all" mode="IN" entity-name="CustRequestItem" optional="true"/>

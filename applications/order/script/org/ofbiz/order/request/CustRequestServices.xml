@@ -20,20 +20,35 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="createCustRequest" short-description="Create Customer Request">
+    <simple-method method-name="custRequestPermissionCheck" short-description="Cust Request Permission Check">
         <if>
             <condition>
                 <and>
                     <not><if-empty field="parameters.fromPartyId"/></not>
                     <not><if-compare-field field="parameters.fromPartyId" to-field="userLogin.partyId" operator="equals"/></not>
-                    <not><if-has-permission permission="ORDERMGR" action="_CRQ_CREATE"/></not>
                 </and>
             </condition>
             <then>
-                <add-error><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateCustRequest"/></add-error>
+                <set field="primaryPermission" value="ORDERMGR_CRQ"/>
+                <call-simple-method method-name="genericBasePermissionCheck" xml-resource="component://common/script/org/ofbiz/common/permission/CommonPermissionServices.xml"/>
+                <if-compare field="hasPermission" operator="not-equals" value="true">
+                    <set field="resourceDescription" from-field="parameters.resourceDescription"/>
+                    <if-empty field="resourceDescription">
+                        <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
+                    </if-empty>
+                    <property-to-field resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateCustRequest" field-name="failMessage"/>
+                    <set field="hasPermission" type="Boolean" value="false"/>
+                    <field-to-result field-name="failMessage"/>
+                </if-compare>
             </then>
+            <else>
+                <set field="hasPermission" type="Boolean" value="true"/>
+            </else>
         </if>
-        <check-errors/>
+        <field-to-result field-name="hasPermission"/>
+    </simple-method>
+
+    <simple-method method-name="createCustRequest" short-description="Create Customer Request">
         <make-value value-name="newEntity" entity-name="CustRequest"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -47,7 +62,6 @@ under the License.
             <set field="newEntity.custRequestDate" from-field="nowTimestamp"/>
         </if-empty>
 
-        
         <if-empty field="parameters.statusId">
             <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
         </if-empty>
