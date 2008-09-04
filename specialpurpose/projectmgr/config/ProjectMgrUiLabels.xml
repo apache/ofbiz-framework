@@ -861,114 +861,133 @@
     </property>
     <property key="ProjectMgrSchedule">
         <value xml:lang="en">Schedule</value>
+        <value xml:lang="fr">Planifier</value>
         <value xml:lang="it">Schedula</value>
         <value xml:lang="th">ตารางเวลา</value>
         <value xml:lang="zh">进度表</value>
     </property>
     <property key="ProjectMgrSetOnHold">
         <value xml:lang="en">On-Hold</value>
+        <value xml:lang="fr">En attente</value>
         <value xml:lang="it">Sospeso</value>
         <value xml:lang="th">หยุดไว้ชั่วคราว</value>
         <value xml:lang="zh">暂停</value>
     </property>
     <property key="ProjectMgrSkillStandards">
         <value xml:lang="en">Planned Hours</value>
+        <value xml:lang="fr">Heures planifiées</value>
         <value xml:lang="it">Abilità Standard</value>
         <value xml:lang="th">ชั่วโมงที่วางแผน</value>
         <value xml:lang="zh">已计划工时</value>
     </property>
     <property key="ProjectMgrSkillType">
         <value xml:lang="en">Skill Type</value>
+        <value xml:lang="fr">Type de comptétence</value>
         <value xml:lang="it">Tipo Abilità</value>
         <value xml:lang="th">ประเภททักษะ</value>
         <value xml:lang="zh">技能类别</value>
     </property>
     <property key="ProjectMgrStatusCannotUpdate">
         <value xml:lang="en">Status does not allow an update</value>
+        <value xml:lang="fr">CE status ne permet pas une mise à jour</value>
         <value xml:lang="it">Stato non permette un aggiornamento</value>
         <value xml:lang="th">สถานะยังไม่อนุญาตให้อัพเดท</value>
         <value xml:lang="zh">状态不允许更新</value>
     </property>
     <property key="ProjectMgrStatusId">
         <value xml:lang="en">Status Id</value>
+        <value xml:lang="fr">Réf. de status</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="th">รหัสสถานะ</value>
         <value xml:lang="zh">状态Id</value>
     </property>
     <property key="ProjectMgrSubProjectDetails">
         <value xml:lang="en">Enter the SubProject Details below</value>
+        <value xml:lang="fr">Saisissez les détails du sous-projet ci-dessous</value>
         <value xml:lang="it">Inserire i Dettagli del Sotto-Progetto qui sotto</value>
         <value xml:lang="th">เข้าสู่รายละเอียดโปรเจคย่อยข้างล่าง</value>
         <value xml:lang="zh">在下面输入子项目的明细</value>
     </property>
     <property key="ProjectMgrSubProjectList">
         <value xml:lang="en">List of SubProjects</value>
+        <value xml:lang="fr">Listes des sous-projets</value>
         <value xml:lang="it">Lista dei Sotto-Progetti</value>
         <value xml:lang="th">รายการของโปรเจคย่อย</value>
         <value xml:lang="zh">子项目列表</value>
     </property>
     <property key="ProjectMgrSubProjectName">
         <value xml:lang="en">Sub Project Name</value>
+        <value xml:lang="fr">Nom du sous-projet</value>
         <value xml:lang="it">Nome Sotto-Progetto</value>
         <value xml:lang="th">ชื่อโปรเจคย่อย</value>
         <value xml:lang="zh">子项目名称</value>
     </property>
     <property key="ProjectMgrSubProjects">
         <value xml:lang="en">Sub Projects</value>
+        <value xml:lang="fr">Sous-projets</value>
         <value xml:lang="it">Sotto-Progetti</value>
         <value xml:lang="th">โปรเจคย่อย</value>
         <value xml:lang="zh">子项目</value>
     </property>
     <property key="ProjectMgrSubTaskName">
         <value xml:lang="en">Sub Task Name</value>
+        <value xml:lang="fr">Nom de la sous-tâche</value>
         <value xml:lang="it">Nome Sotto-Compito</value>
         <value xml:lang="th">ชื่องานย่อย</value>
         <value xml:lang="zh">子任务名称</value>
     </property>
     <property key="ProjectMgrSubTasks">
         <value xml:lang="en">Sub Tasks</value>
+        <value xml:lang="fr">Sous-tâches</value>
         <value xml:lang="it">Sotto-Compito</value>
         <value xml:lang="th">งานย่อย</value>
         <value xml:lang="zh">子任务</value>
     </property>
     <property key="ProjectMgrTaskCurrent">
         <value xml:lang="en">Current Task</value>
+        <value xml:lang="fr">Tâche courante</value>
         <value xml:lang="it">Compito Attuale</value>
         <value xml:lang="th">งานที่ใช้กันอยู่ในปัจจุบัน</value>
         <value xml:lang="zh">当前任务</value>
     </property>
     <property key="ProjectMgrTaskDetails">
         <value xml:lang="en">Enter the Task Details below</value>
+        <value xml:lang="fr">Saisissez les détails de la tâche ci-dessous</value>
         <value xml:lang="it">Inserire i Dettagli Compito qui sotto</value>
         <value xml:lang="th">เข้าสู่รายละเอียดงานข้างล่าง</value>
         <value xml:lang="zh">在下面输入任务明细</value>
     </property>
     <property key="ProjectMgrTaskId">
         <value xml:lang="en">Task Id</value>
+        <value xml:lang="fr">Réf. de tâche</value>
         <value xml:lang="it">Compito</value>
         <value xml:lang="th">รหัสงาน</value>
         <value xml:lang="zh">任务Id</value>
     </property>
     <property key="ProjectMgrTaskList">
         <value xml:lang="en">List of Project Tasks</value>
+        <value xml:lang="fr">Liste des tâches du projet</value>
         <value xml:lang="it">Lista dei Compiti Progetto</value>
         <value xml:lang="th">รายการงานของโปรเจค</value>
         <value xml:lang="zh">项目任务列表</value>
     </property>
     <property key="ProjectMgrTaskMember">
         <value xml:lang="en">You are'nt member of any project, contact your project manager.</value>
+        <value xml:lang="fr">Vous n'êtes membre d'aucun projet, contactez votre directeur de projet</value>
         <value xml:lang="it">Tu non sei membro di nessun progetto, contatta il tuo responsabile di progetto.</value>
         <value xml:lang="th">คุณไม่เป็นสมาชิกของทุก ๆ โปรเจค, ติดต่อผู้จัดการโปรเจคของคุณ</value>
         <value xml:lang="zh">你不属于任何项目，请与你的项目经理联系</value>
     </property>
     <property key="ProjectMgrTaskName">
         <value xml:lang="en">Task Name</value>
+        <value xml:lang="fr">Nom de la tâche</value>
         <value xml:lang="it">Nome Compito</value>
         <value xml:lang="th">ชื่องาน</value>
         <value xml:lang="zh">任务名称</value>
     </property>
     <property key="ProjectMgrTaskNoNotes">
         <value xml:lang="en">No Notes for this Task</value>
+        <value xml:lang="fr">Aucune note pour cette tâche</value>
         <value xml:lang="it">Nessuna Nota per questo Compito</value>
         <value xml:lang="th">ไม่มีข้อความสำหรับงานนี้</value>
         <value xml:lang="zh">该任务无注释</value>
