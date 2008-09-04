@@ -24,6 +24,7 @@ import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.Set;
@@ -169,10 +170,6 @@ public class ModelForm extends ModelWidget {
     protected int defaultViewSize = DEFAULT_PAGE_SIZE;
     public static String DEFAULT_PAG_INDEX_FIELD = "viewIndex";
     public static String DEFAULT_PAG_SIZE_FIELD = "viewSize";
-    public static String DEFAULT_PAG_FIRST_LABEL = "First";
-    public static String DEFAULT_PAG_PREV_LABEL = "Previous";
-    public static String DEFAULT_PAG_NEXT_LABEL = "Next";
-    public static String DEFAULT_PAG_LAST_LABEL = "Last";
     public static String DEFAULT_PAG_STYLE = "nav-pager";
     public static String DEFAULT_PAG_FIRST_STYLE = "nav-first";
     public static String DEFAULT_PAG_PREV_STYLE = "nav-previous";
@@ -2308,33 +2305,37 @@ public class ModelForm extends ModelWidget {
     }
 
     public String getPaginateFirstLabel(Map<String, Object> context) {
+        Locale locale = (Locale)context.get("locale");
         String field = this.paginateFirstLabel.expandString(context);
         if (UtilValidate.isEmpty(field)) {
-            field = DEFAULT_PAG_FIRST_LABEL;
+            field = UtilProperties.getMessage("CommonUiLabels", "CommonFirst", locale);
         }
         return field;
     }
 
     public String getPaginatePreviousLabel(Map<String, Object> context) {
+        Locale locale = (Locale)context.get("locale");
         String field = this.paginatePreviousLabel.expandString(context);
         if (UtilValidate.isEmpty(field)) {
-            field = DEFAULT_PAG_PREV_LABEL;
+            field = UtilProperties.getMessage("CommonUiLabels", "CommonPrevious", locale);
         }
         return field;
     }
 
     public String getPaginateNextLabel(Map<String, Object> context) {
+        Locale locale = (Locale)context.get("locale");
         String field = this.paginateNextLabel.expandString(context);
         if (UtilValidate.isEmpty(field)) {
-            field = DEFAULT_PAG_NEXT_LABEL;
+            field = UtilProperties.getMessage("CommonUiLabels", "CommonNext", locale);
         }
         return field;
     }
 
     public String getPaginateLastLabel(Map<String, Object> context) {
+        Locale locale = (Locale)context.get("locale");
         String field = this.paginateLastLabel.expandString(context);
         if (UtilValidate.isEmpty(field)) {
-            field = DEFAULT_PAG_LAST_LABEL;
+            field = UtilProperties.getMessage("CommonUiLabels", "CommonLast", locale);
         }
         return field;
     }

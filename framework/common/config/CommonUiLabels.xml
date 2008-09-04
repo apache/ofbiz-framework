@@ -2260,6 +2260,8 @@
     <property key="CommonFirst">
         <value xml:lang="de">Erster</value>
         <value xml:lang="en">First</value>
+        <value xml:lang="it">Primo</value>
+        <value xml:lang="fr">Premier</value>
         <value xml:lang="th">อันดับแรก</value>
     </property>
     <property key="CommonFollowingErrorsOccurred">
@@ -3056,6 +3058,7 @@
         <value xml:lang="de">Letzter</value>
         <value xml:lang="en">Last</value>
         <value xml:lang="fr">Dernier</value>
+        <value xml:lang="it">Ultimo</value>
         <value xml:lang="th">สุดท้าย</value>
     </property>
     <property key="CommonLastUpdated">
@@ -4931,6 +4934,7 @@
         <value xml:lang="de">Zeilen</value>
         <value xml:lang="en">rows</value>
         <value xml:lang="fr">lignes</value>
+        <value xml:lang="it">righe</value>
         <value xml:lang="th">แถว</value>
     </property>
     <property key="CommonRun">
@@ -5443,7 +5447,7 @@
         <value xml:lang="de">Sortiert nach</value>
         <value xml:lang="en">Sorted By</value>
         <value xml:lang="fr">Triés par</value>
-        <value xml:lang="it">Ordinato Per</value>
+        <value xml:lang="it">Ordinato per</value>
         <value xml:lang="pt">Listar por</value>
         <value xml:lang="ro">Ordinat Pe</value>
         <value xml:lang="ru">Сортировка по</value>
