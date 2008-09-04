@@ -19,7 +19,12 @@ under the License.
 -->
 
 <entity-engine-xml>
-    <!-- Based on: ISO 3166 http://www.iso.org/iso/en/prods-services/iso3166ma/index.html -->
+    <!-- 
+        Based on: ISO 3166 http://www.iso.org/iso/en/prods-services/iso3166ma/index.html
+        See also: http://en.wikipedia.org/wiki/ISO_3166-1_alpha-3
+                  http://en.wikipedia.org/wiki/ISO_3166-1_alpha-2
+                  http://en.wikipedia.org/wiki/ISO_3166-1_numeric
+    -->
     <Geo abbreviation="_NA_" geoCode="_NA_" geoId="_NA_" geoName="Not Applicable"/>
     <Geo abbreviation="IRQ" geoCode="IQ" geoId="IRQ" geoName="Iraq" geoSecCode="368" geoTypeId="COUNTRY"/>
     <Geo abbreviation="NIU" geoCode="NU" geoId="NIU" geoName="Niue" geoSecCode="570" geoTypeId="COUNTRY"/>
@@ -166,6 +171,7 @@ under the License.
     <Geo abbreviation="MCO" geoCode="MC" geoId="MCO" geoName="Monaco" geoSecCode="492" geoTypeId="COUNTRY"/>
     <Geo abbreviation="MNG" geoCode="MN" geoId="MNG" geoName="Mongolia" geoSecCode="496" geoTypeId="COUNTRY"/>
     <Geo abbreviation="MDA" geoCode="MD" geoId="MDA" geoName="Moldova, Republic Of" geoSecCode="498" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="MNE" geoCode="ME" geoId="MNE" geoName="Montenegro" geoSecCode="499" geoTypeId="COUNTRY"/>
     <Geo abbreviation="MSR" geoCode="MS" geoId="MSR" geoName="Montserrat" geoSecCode="500" geoTypeId="COUNTRY"/>
     <Geo abbreviation="MAR" geoCode="MA" geoId="MAR" geoName="Morocco" geoSecCode="504" geoTypeId="COUNTRY"/>
     <Geo abbreviation="MOZ" geoCode="MZ" geoId="MOZ" geoName="Mozambique" geoSecCode="508" geoTypeId="COUNTRY"/>
@@ -215,6 +221,7 @@ under the License.
     <Geo abbreviation="STP" geoCode="ST" geoId="STP" geoName="Sao Tome And Principe" geoSecCode="678" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SAU" geoCode="SA" geoId="SAU" geoName="Saudi Arabia" geoSecCode="682" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SEN" geoCode="SN" geoId="SEN" geoName="Senegal" geoSecCode="686" geoTypeId="COUNTRY"/>
+    <Geo abbreviation="SRB" geoCode="RS" geoId="SRB" geoName="Serbia" geoSecCode="688" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SYC" geoCode="SC" geoId="SYC" geoName="Seychelles" geoSecCode="690" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SLE" geoCode="SL" geoId="SLE" geoName="Sierra Leone" geoSecCode="694" geoTypeId="COUNTRY"/>
     <Geo abbreviation="SGP" geoCode="SG" geoId="SGP" geoName="Singapore" geoSecCode="702" geoTypeId="COUNTRY"/>
