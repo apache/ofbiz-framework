@@ -524,11 +524,9 @@ under the License.
                   <td width="20%">&nbsp;</td>
                   <td valign="top"> 
                     <div class="form-row">
-                      <div>
-                        <input class="checkbox" id="useShippingAddressForBilling" name="useShippingAddressForBilling" type="checkbox" value="Y" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">checked</#if>> ${uiLabelMap.FacilityBillingAddressSameShipping}
-                      </div>
+                      <div><input class="checkbox" id="useShippingAddressForBilling" name="useShippingAddressForBilling" type="checkbox" value="Y" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">checked</#if>>${uiLabelMap.FacilityBillingAddressSameShipping}</div>
                     </div>
-                    <div id="billingAddress" <#if parameters.useShippingAddressForBilling?has_content && parameters.useShippingAddressForBilling?default("")=="Y">style="display:none"</#if>>
+                    <div id="billingAddress" <#if useShippingAddressForBilling?has_content && useShippingAddressForBilling?default("")=="Y">style="display:none"</#if>>
                       <div class="form-row">
                         <div class="field-label">
                           <label for="address1">${uiLabelMap.PartyAddressLine1}*<span id="advice-required-billToAddress1" style="display:none" class="errorMessage"> (required)</span></label>
