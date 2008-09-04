@@ -125,16 +125,16 @@ under the License.
             <xs:annotation><xs:documentation>The total number of rows in the original list (used for pagination). If not specified, the size of the list will be used. Accepts ${} notation.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="paginate-first-label">
-            <xs:annotation><xs:documentation>Text to display for the [First] button in a form with pagination. Defaults to "First". Accepts ${} notation.</xs:documentation></xs:annotation>
+            <xs:annotation><xs:documentation>Text to display for the [First] button in a form with pagination. Defaults to the CommonFirst label defined in CommonUiLabels.xml. Accepts ${} notation.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="paginate-previous-label">
-            <xs:annotation><xs:documentation>Text to display for the [Previous] button in a form with pagination. Defaults to "Previous". Accepts ${} notation.</xs:documentation></xs:annotation>
+            <xs:annotation><xs:documentation>Text to display for the [Previous] button in a form with pagination. Defaults to the CommonPrevious label defined in CommonUiLabels.xml. Accepts ${} notation.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="paginate-next-label">
-            <xs:annotation><xs:documentation>Text to display for the [Next] button in a form with pagination. Defaults to "Next". Accepts ${} notation.</xs:documentation></xs:annotation>
+            <xs:annotation><xs:documentation>Text to display for the [Next] button in a form with pagination. Defaults to the CommonNext label defined in CommonUiLabels.xml. Accepts ${} notation.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="paginate-last-label">
-            <xs:annotation><xs:documentation>Text to display for the [Last] button in a form with pagination. Defaults to "Last". Accepts ${} notation.</xs:documentation></xs:annotation>
+            <xs:annotation><xs:documentation>Text to display for the [Last] button in a form with pagination. Defaults to the CommonLast label defined in CommonUiLabels.xml. Accepts ${} notation.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="paginate-style">
             <xs:annotation><xs:documentation>CSS style to use for the whole pager in a form with pagination. Defaults to "nav-pager".</xs:documentation></xs:annotation>

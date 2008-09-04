@@ -39,6 +39,7 @@ import org.apache.commons.lang.StringEscapeUtils;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilHttp;
+import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -2242,15 +2243,13 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         // needed for the "Page" and "rows" labels
         Map uiLabelMap = (Map) context.get("uiLabelMap");
         String pageLabel = "";
-        String rowsLabel = "";
-        String ofLabel = "";
+        String commonDisplaying = "";
         if (uiLabelMap == null) {
             Debug.logWarning("Could not find uiLabelMap in context", module);
         } else {
             pageLabel = (String) uiLabelMap.get("CommonPage");
-            rowsLabel = (String) uiLabelMap.get("CommonRows");
-            ofLabel = (String) uiLabelMap.get("CommonOf");
-            ofLabel = ofLabel.toLowerCase();
+            Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", Integer.valueOf(lowIndex + 1), "highCount", Integer.valueOf(lowIndex + actualPageSize), "total", Integer.valueOf(listSize)); 
+            commonDisplaying = UtilProperties.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));        
         }
 
         // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"
@@ -2367,12 +2366,14 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
                 i = page * viewSize;
             }
             writer.append("</select></li>");
-            writer.append("<li>");
-            writer.append(Integer.toString((lowIndex + 1)) + " - " + Integer.toString((lowIndex + actualPageSize)) + " " + ofLabel + " " + Integer.toString(listSize) + " " + rowsLabel);
-            writer.append("</li>");
-            appendWhitespace(writer);
         }
 
+        //  show row count
+        writer.append("<li>");
+        writer.append(commonDisplaying);
+        writer.append("</li>");
+        appendWhitespace(writer);
+        
         // Next button
         writer.append("  <li class=\"" + modelForm.getPaginateNextStyle());
         if (highIndex < listSize) {
