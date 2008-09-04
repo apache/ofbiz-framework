@@ -25,8 +25,9 @@ if (userLogin) {
     party = userLogin.getRelatedOne("Party");
     contactMech = EntityUtil.getFirst(ContactHelper.getContactMech(party, "BILLING_LOCATION", "POSTAL_ADDRESS", false));
     if (contactMech) {
-        postalAddress = contactMech.getRelatedOne("PostalAddress");    
-        context.billToContactMechId = postalAddress.contactMechId;
+        postalAddress = contactMech.getRelatedOne("PostalAddress");
+        billToContactMechId = postalAddress.contactMechId;
+        context.billToContactMechId = billToContactMechId;
         context.billToAddress1 = postalAddress.address1;
         context.billToAddress2 = postalAddress.address2;
         context.billToCity = postalAddress.city;
@@ -64,5 +65,10 @@ if (userLogin) {
             context.expMonth = (creditCard.expireDate).substring(0, 2);
             context.expYear = (creditCard.expireDate).substring(3);
        } 
+    }
+    if (shipToContactMechId) {
+        if (billToContactMechId && billToContactMechId.equals(shipToContactMechId)) {
+            context.put("useShippingAddressForBilling", "Y");
+        }
     }    
 } 
