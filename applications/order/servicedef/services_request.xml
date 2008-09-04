@@ -32,6 +32,7 @@ under the License.
             must have one of the base ORDERMGR_CRQ CRUD+ADMIN permissions.
         </description>
         <implements service="permissionInterface"/>
+        <attribute name="fromPartyId" type="String" mode="IN" optional="true"/>
     </service>
     <service name="createCustRequest" engine="simple" default-entity-name="CustRequest"
             location="org/ofbiz/order/request/CustRequestServices.xml" invoke="createCustRequest" auth="true">
