@@ -38,7 +38,8 @@ invoiceType = delegator.findByPrimaryKey("InvoiceType", ["invoiceTypeId" : invoi
   } else {
     otherCurrency = delegator.findByPrimaryKey("Party", ["partyId" : fromPartyId]).preferredCurrencyUomId;
   }
-  if (otherCurrency && currencyUomId && !otherCurrency.equals(currencyUomId)) {
+  // check if conversion required
+  if (currencyUomId && otherCurrency != currencyUomId && !otherCurrency.equals(currencyUomId)) {
     result = dispatcher.runSync("convertUom", [uomId : currencyUomId, 
                                                uomIdTo : otherCurrency, 
                                                originalValue : new Double("1.00"), 
@@ -49,4 +50,7 @@ invoiceType = delegator.findByPrimaryKey("InvoiceType", ["invoiceTypeId" : invoi
         context.amountToApply = org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId).multiply(new BigDecimal(result.convertedValue.toString())).setScale(decimals, rounding);
         context.currencyUomId = otherCurrency;
     }
+  } else {
+      context.total = (org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(delegator,invoiceId)); 
+      context.amountToApply = org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId);
   }

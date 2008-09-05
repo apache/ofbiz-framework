@@ -468,12 +468,13 @@ under the License.
                     <condition-list combine="and">
                         <condition-expr field-name="partyId" operator="equals" env-name="myCompanyId"/>
                         <condition-list combine="or">
-                            <condition-expr field-name="statusId" operator="equals" value="APPROVED"/>
-                            <condition-expr field-name="statusId" operator="equals" value="SEND"/>
-                            <condition-expr field-name="statusId" operator="equals" value="READY"/>
-                            <condition-expr field-name="statusId" operator="equals" value="PAID"/>
+                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_APPROVED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_SEND"/>
+                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_READY"/>
+                            <condition-expr field-name="statusId" operator="equals" value="INVOICE_PAID"/>
                         </condition-list>
                     </condition-list>
+                    <order-by field-name="invoiceDate DESC"/>
                 </entity-condition>
             </actions>
             <widgets>
