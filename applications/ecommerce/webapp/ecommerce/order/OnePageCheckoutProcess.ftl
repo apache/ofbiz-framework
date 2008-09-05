@@ -248,9 +248,18 @@ under the License.
               <input type="hidden" id="shipToContactMechId" name="shipToContactMechId" value="${shipToContactMechId?if_exists}"/>
               <input type="hidden" id="billToContactMechIdInShipingForm" name="billToContactMechId" value="${billToContactMechId?if_exists}"/>
               <input type="hidden" id="shipToPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
-              <input type="hidden" id="phoneContactMechId" name="phoneContactMechId" value="${phoneContactMechId?if_exists}"/>
+              <input type="hidden" id="shipToPhoneContactMechId" name="shipToPhoneContactMechId" value="${(shipToTelecomNumber.contactMechId)?if_exists}"/>
               <input type="hidden" id="emailContactMechId" name="emailContactMechId" value="${emailContactMechId?if_exists}"/>
               <input type="hidden" name="roleTypeId" value="CUSTOMER"/>
+              <input type="hidden" id="shipToPhoneContactMechPurposeTypeId" name="contactMechPurposeTypeId" value="PHONE_SHIPPING"/>
+              <#if userLogin?exists>
+                <input type="hidden" name="keepAddressBook" value="Y"/>
+                <input type="hidden" name="setDefaultShipping" value="Y"/>
+                <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request)/>
+                <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
+              <#else>
+                <input type="hidden" name="keepAddressBook" value="N"/>
+              </#if>
               <div id="shippingFormServerError" class="errorMessage"></div>
               <table>
                 <tr>
@@ -274,18 +283,28 @@ under the License.
                     <div class="form-row">
                       <div class="field-label">
                         <label for="countryCode">${uiLabelMap.PartyCountry}*
-                          <span id="advice-required-shippingCountryCode" style="display:none" class="errorMessage"> (required)</span>
+                          <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"> (required)</span>
                         </label>
-                        <label for="areaCode">${uiLabelMap.PartyAreaCode}*<span id="advice-required-shippingAreaCode" style="display:none" class="errorMessage"> (required)</span></label>
-                        <label for="contactNumber">${uiLabelMap.PartyContactNumber}*<span id="advice-required-shippingContactNumber" style="display:none" class="errorMessage"> (required)</span></label>
+                        <label for="areaCode">${uiLabelMap.PartyAreaCode}*<span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"> (required)</span></label>
+                        <label for="contactNumber">${uiLabelMap.PartyContactNumber}*<span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"> (required)</span></label>
                         <label for="extension">${uiLabelMap.PartyExtension}</label>
                       </div>
                       <div>
-                        <input name="countryCode" class="required" id="shippingCountryCode" value="${countryCode?if_exists}" size="5" maxlength=3> - 
-                        <input name="areaCode" class="required" id="shippingAreaCode" value="${areaCode?if_exists}" size="5" maxlength=3> - 
-                        <input name="contactNumber" class="required" id="shippingContactNumber" value="${contactNumber?if_exists}" size="10" maxlength=7> - 
-                        <input name="extension" id="shippingExtension" value="${extension?if_exists}" size="5" maxlength=3>
-                      </div>
+                      <#if shipToTelecomNumber?has_content>
+                        <div>
+                          <input name="countryCode" class="required" id="shipToCountryCode" value="${shipToTelecomNumber.countryCode?if_exists}" size="5" maxlength=3> - 
+                          <input name="areaCode" class="required" id="shipToAreaCode" value="${shipToTelecomNumber.areaCode?if_exists}")}" size="5" maxlength=3> - 
+                          <input name="contactNumber" class="required" id="shipToContactNumber" value="${shipToTelecomNumber.contactNumber?if_exists}")}" size="10" maxlength=7> - 
+                          <input name="extension" id="shipToExtension" value="${shipToExtension?if_exists}")}" size="5" maxlength=3>
+                        </div>
+                      <#else>
+                        <div>
+                          <input name="countryCode" class="required" id="shipToCountryCode" value="${parameters.countryCode?if_exists}" size="5" maxlength=3> - 
+                          <input name="areaCode" class="required" id="shipToAreaCode" value="${parameters.areaCode?if_exists}" size="5" maxlength=3> - 
+                          <input name="contactNumber" class="required" id="shipToContactNumber" value="${parameters.contactNumber?if_exists}" size="10" maxlength=7> - 
+                          <input name="extension" id="shipToExtension" value="${parameters.extension?if_exists}" size="5" maxlength=3>
+                        </div>
+                      </#if>
                     </div>
                     <div class="form-row">
                       <div class="field-label">
@@ -413,6 +432,7 @@ under the License.
                     <td valign="top" width="20%">
                       <div>
                         <div id="completedBillToAttn"></div>
+                        <div id="completedBillToPhoneNumber"></div>
                         <div id="completedCCNumber"></div>
                         <div id="completedExpiryDate"></div>
                       </div>
@@ -446,6 +466,16 @@ under the License.
               <input type="hidden" id="billToPartyId" name="partyId" value="${parameters.partyId?if_exists}"/>
               <input type="hidden" name="expireDate" value="${expireDate?if_exists}"/>
               <input type="hidden" name="roleTypeId" value="CUSTOMER"/>
+              <input type="hidden" id="billToPhoneContactMechPurposeTypeId" name="contactMechPurposeTypeId" value="PHONE_BILLING"/>
+              <input type="hidden" id="billToPhoneContactMechId" name="billToPhoneContactMechId" value="${(billToTelecomNumber.contactMechId)?if_exists}"/>
+              <#if userLogin?exists>
+                <input type="hidden" name="keepAddressBook" value="Y"/>
+                <input type="hidden" name="setDefaultBilling" value="Y"/>
+                <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request)/>
+                <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
+              <#else>
+                <input type="hidden" name="keepAddressBook" value="N"/>
+              </#if>
               <div id="billingFormServerError" class="errorMessage"></div>
               <table>
                 <tr>
@@ -519,6 +549,31 @@ under the License.
                           ${screens.render("component://common/widget/CommonScreens.xml#ccyears")}
                         </select>
                       </span>
+                    </div>
+                    <div class="form-row">
+                      <div class="field-label">
+                        <label for="countryCode">${uiLabelMap.PartyCountry}*
+                          <span id="advice-required-billToCountryCode" style="display:none" class="errorMessage"> (required)</span>
+                        </label>
+                        <label for="areaCode">${uiLabelMap.PartyAreaCode}*<span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"> (required)</span></label>
+                        <label for="contactNumber">${uiLabelMap.PartyContactNumber}*<span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"> (required)</span></label>
+                        <label for="extension">${uiLabelMap.PartyExtension}</label>
+                      </div>
+                      <#if billToTelecomNumber?has_content>
+                        <div>
+                          <input name="countryCode" class="required" id="billToCountryCode" value="${billToTelecomNumber.countryCode?if_exists}" size="5" maxlength=3> - 
+                          <input name="areaCode" class="required" id="billToAreaCode" value="${billToTelecomNumber.areaCode?if_exists}" size="5" maxlength=3> - 
+                          <input name="contactNumber" class="required" id="billToContactNumber" value="${billToTelecomNumber.contactNumber?if_exists}" size="10" maxlength=7> - 
+                          <input name="extension" id="billToExtension" value="${billToExtension?if_exists}" size="5" maxlength=3>
+                        </div>
+                      <#else>
+                        <div>
+                          <input name="countryCode" class="required" id="billToCountryCode" value="${parameters.countryCode?if_exists}" size="5" maxlength=3> - 
+                          <input name="areaCode" class="required" id="billToAreaCode" value="${parameters.areaCode?if_exists}" size="5" maxlength=3> - 
+                          <input name="contactNumber" class="required" id="billToContactNumber" value="${parameters.contactNumber?if_exists}" size="10" maxlength=7> - 
+                          <input name="extension" id="billToExtension" value="${parameters.extension?if_exists}" size="5" maxlength=3>
+                        </div>
+                      </#if>  
                     </div>
                   </td>
                   <td width="20%">&nbsp;</td>

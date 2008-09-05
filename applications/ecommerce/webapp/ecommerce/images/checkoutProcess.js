@@ -268,7 +268,7 @@ function createUpdateCustomerAndShippingAddress() {
                 $('shipToPartyId').value = data.partyId;
                 $('billToPartyId').value = data.partyId;
                 $('shipToContactMechId').value = data.shipToContactMechId;
-                $('phoneContactMechId').value = data.phoneContactMechId;
+                $('shipToPhoneContactMechId').value = data.shipToPhoneContactMechId;
                 $('emailContactMechId').value = data.emailContactMechId;
                 $('completedShippingMethod').update(data.shippingDescription);
             }
@@ -305,8 +305,8 @@ function getShipOptions() {
 
 function setDataInShippingCompleted() {
     var fullName = $('firstName').value + " " +$('lastName').value;
-    var shippingContactPhoneNumber = $F('shippingCountryCode')+ "-" + $F('shippingAreaCode') 
-            + "-" + $F('shippingContactNumber')+ "-" + $F('shippingExtension');
+    var shippingContactPhoneNumber = $F('shipToCountryCode')+ "-" + $F('shipToAreaCode') 
+            + "-" + $F('shipToContactNumber')+ "-" + $F('shipToExtension');
     $('completedShipToAttn').update("Attn: " + fullName);
     $('completedShippingContactNumber').update(shippingContactPhoneNumber);
     $('completedEmailAddress').update($('emailAddress').value);
@@ -391,6 +391,7 @@ function processBillingAndPayment() {
                 isBillStepValidate = true;
                 $('billToContactMechId').value = data.billToContactMechId;
                 $('paymentMethodId').value = data.paymentMethodId;
+                $('billToPhoneContactMechId').value = data.billToPhoneContactMechId;
             }
         }, parameters: $('billingForm').serialize(), requestHeaders: {Accept: 'application/json'}
     });
@@ -399,6 +400,8 @@ function processBillingAndPayment() {
 function setDataInBillingCompleted() {
     var fullName = $F('firstNameOnCard') + " " +$F('lastNameOnCard');
     $('completedBillToAttn').update("Attn: " + fullName);
+    var billToPhoneNumber = $F('billToCountryCode') + "-" + $F('billToAreaCode') + "-" +$F('billToContactNumber') + "-" + $F('billToExtension'); 
+    $('completedBillToPhoneNumber').update(billToPhoneNumber);
     var cardNumber = "CC#:XXXXXXXXXXXX"+$F('cardNumber').gsub('-','').slice(12,16);
     $('completedCCNumber').update(cardNumber);
     var expiryDate = "Expires:"+$F('expMonth')+"/"+$F('expYear');
