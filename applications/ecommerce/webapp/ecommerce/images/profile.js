@@ -97,10 +97,6 @@ function useShippingAddressAsBillingToggle() {
         $('billToCountryGeoId').value = $F('shipToCountryGeoId');
         $('billToStateProvinceGeoId').value = $F('shipToStateProvinceGeoId');
         $('billToPostalCode').value = $F('shipToPostalCode');
-        $('billToCountryCode').value = $F('shipToCountryCode');
-        $('billToAreaCode').value = $F('shipToAreaCode');
-        $('billToContactNumber').value = $F('shipToContactNumber');
-        $('billToExtension').value = $F('shipToExtension');
         
         $('billToAddress1').disabled = true ;
         $('billToAddress2').disabled = true ;
@@ -108,10 +104,6 @@ function useShippingAddressAsBillingToggle() {
         $('billToCountryGeoId').disabled = true ;
         $('billToStateProvinceGeoId').disabled = true ;
         $('billToPostalCode').disabled = true;
-        $('billToCountryCode').disabled = true;
-        $('billToAreaCode').disabled = true;
-        $('billToContactNumber').disabled = true;
-        $('billToExtension').disabled = true;
         copyShipToBillAddress();
         hideErrorMessage();
     } else {
@@ -123,10 +115,6 @@ function useShippingAddressAsBillingToggle() {
         $('billToCountryGeoId').disabled = false ;
         $('billToStateProvinceGeoId').disabled = false ;
         $('billToPostalCode').disabled = false;
-        $('billToCountryCode').disabled = false;
-        $('billToAreaCode').disabled = false;
-        $('billToContactNumber').disabled = false;
-        $('billToExtension').disabled = false;
     }
 }
 
@@ -339,18 +327,6 @@ function copyShipToBillAddress() {
     Event.observe($('shipToPostalCode'), 'change', function() {
         $('billToPostalCode').value = $F('shipToPostalCode')
     });
-    Event.observe($('shipToCountryCode'), 'change', function() {
-        $('billToCountryCode').value = $F('shipToCountryCode')
-    });
-    Event.observe($('shipToAreaCode'), 'change', function() {
-        $('billToAreaCode').value = $F('shipToAreaCode')
-    });
-    Event.observe($('shipToContactNumber'), 'change', function() {
-        $('billToContactNumber').value = $F('shipToContactNumber')
-    });
-    Event.observe($('shipToExtension'), 'change', function() {
-        $('billToExtension').value = $F('shipToExtension')
-    });
 }
 
 function stopObservingShipToBillAddress() {
@@ -360,8 +336,4 @@ function stopObservingShipToBillAddress() {
     Event.stopObserving($('shipToStateProvinceGeoId'), 'change', "");
     Event.stopObserving($('shipToCountryGeoId'), 'change', "");
     Event.stopObserving($('shipToPostalCode'), 'change', "");
-    Event.stopObserving($('shipToCountryCode'), 'change', "");
-    Event.stopObserving($('shipToAreaCode'), 'change', "");
-    Event.stopObserving($('shipToContactNumber'), 'change', "");
-    Event.stopObserving($('shipToExtension'), 'change', "");
 }

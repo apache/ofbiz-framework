@@ -925,5 +925,61 @@ under the License.
         </if-empty>
         <field-to-result field-name="stateList"/>
     </simple-method>
+
+    <simple-method method-name="createUpdatePerson" short-description="Create and update a person" login-required="false">
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="person" in-map-name="parameters" out-map-name="personMap"/>
+        <check-errors/>
+        <set field="partyId" from-field="parameters.partyId"/>
+        <set-service-fields service-name="createPerson" map-name="personMap" to-map-name="personContext"/>
+        <if-empty field="partyId">
+            <call-service service-name="createPerson" in-map-name="personContext">
+                <result-to-field result-name="partyId" field-name="partyId"/>
+            </call-service>
+        <else><!-- If partyId already exists. -->
+            <set field="personContext.partyId" from-field="partyId"/>
+            <set field="personContext.userLogin" from-field="parameters.userLogin"/>
+            <call-service service-name="updatePerson" in-map-name="personContext"/>
+            <log level="info" message="Party Updated partyId is ${partyId}"/>
+        </else>
+        </if-empty>
+        <field-to-result field-name="partyId"/>
+    </simple-method>
     
+    <simple-method method-name="createUpdateTelecomNumber" short-description="Create and update phone number" login-required="false">
+        <if-empty field="parameters.contactMechId">
+            <set-service-fields service-name="createPartyTelecomNumber" map-name="parameters" to-map-name="phoneContext"/>
+            <call-service service-name="createPartyTelecomNumber" in-map-name="phoneContext">
+                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+            </call-service>
+            <log level="info" message="Phone Contact created phoneContactMechId is ${contactMechId}"/>
+        <else>
+            <set-service-fields service-name="createPartyTelecomNumber" map-name="parameters" to-map-name="phoneContext"/>
+            <call-service service-name="updatePartyTelecomNumber" in-map-name="phoneContext">
+                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+            </call-service> 
+            <log level="info" message="Phone Contact updated phoneContactMechId is ${contactMechId}"/>
+        </else>
+        </if-empty>
+        <field-to-result field-name="contactMechId"/>
+    </simple-method>
+    
+    <simple-method method-name="createUpdateEmailAddress" short-description="Create and update email address" login-required="false">
+        <if-empty field="parameters.contactMechId">
+            <set-service-fields service-name="createPartyEmailAddress" map-name="parameters" to-map-name="emailAddressContext"/>
+            <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext">
+                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+            </call-service>
+            <log level="info" message="Email Contact Created emailContactMechId is ${contactMechId}"></log>
+        <else>
+            <set-service-fields service-name="updatePartyEmailAddress" map-name="parameters" to-map-name="emailAddressContext"/>
+            <call-service service-name="updatePartyEmailAddress" in-map-name="emailAddressContext">
+                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+            </call-service> 
+            <log level="info" message="Email Contact updated emailContactMechId is ${contactMechId}"></log>
+        </else>
+        </if-empty>
+        <field-to-result field-name="contactMechId"/>
+    </simple-method>
+
 </simple-methods>
