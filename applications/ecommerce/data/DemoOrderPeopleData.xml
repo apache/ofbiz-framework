@@ -127,6 +127,7 @@ under the License.
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="9015" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
     <ContactMech contactMechId="9025" contactMechTypeId="TELECOM_NUMBER"/>
+    <ContactMech contactMechId="9027" contactMechTypeId="TELECOM_NUMBER"/>
     <TelecomNumber contactMechId="9025" countryCode="1" areaCode="801" contactNumber="555-5555"/>
     <TelecomNumber contactMechId="9027" countryCode="1" areaCode="801" contactNumber="444-4444"/>
     <PartyContactMech partyId="DemoCustomer" contactMechId="9025" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y" extension="222"/>
