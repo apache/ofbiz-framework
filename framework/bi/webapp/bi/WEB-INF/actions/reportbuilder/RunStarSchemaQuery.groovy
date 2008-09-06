@@ -29,13 +29,19 @@ import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelViewEntity;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 
+import javolution.util.FastSet;
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 starSchemaName = parameters.starSchemaName;
-selectedFields = parameters.selectedField as Set;
-context.columnNames = selectedFields;
+selectedFieldList = UtilHttp.parseMultiFormData(parameters);
 
+//selectedFields = parameters.selectedField as Set;
+columnNames = FastSet.newInstance();
+selectedFieldList.each { selectedField ->
+  columnNames.add(selectedField.selectedFieldName);
+}
+context.columnNames = columnNames;
 List conditionList = null;
 EntityConditionList condition =  null;
 List orderByFields = null;
@@ -51,6 +57,6 @@ orderByFields = null;
 findOptions = new EntityFindOptions(); 
 findOptions.setDistinct(false);
 
-records = delegator.findList(starSchemaName, condition, selectedFields, orderByFields, findOptions, false);
+records = delegator.findList(starSchemaName, condition, context.columnNames, orderByFields, findOptions, false);
 
 context.records = records;
