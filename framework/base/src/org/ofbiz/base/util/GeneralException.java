@@ -28,6 +28,17 @@ import java.util.List;
  */
 public class GeneralException extends Exception {
 
+    public static <T> T checkException(Throwable t) throws GeneralException {
+        return GeneralException.<T>checkException(t.getMessage(), t);
+    }
+
+    public static <T> T checkException(String message, Throwable t) throws GeneralException {
+        if (t instanceof Error) throw (Error) t;
+        if (t instanceof RuntimeException) throw (RuntimeException) t;
+        if (t instanceof GeneralException) throw (GeneralException) t;
+        throw (GeneralException) new GeneralException(message).initCause(t);
+    }
+
     Throwable nested = null;
     List<String> messages = null;
 
