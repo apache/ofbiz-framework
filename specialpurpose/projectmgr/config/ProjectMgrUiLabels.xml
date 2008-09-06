@@ -874,8 +874,8 @@
         <value xml:lang="zh">暂停</value>
     </property>
     <property key="ProjectMgrSkillStandards">
-        <value xml:lang="en">Planned Hours</value>
-        <value xml:lang="fr">Heures planifiées</value>
+        <value xml:lang="en">Skill Standards</value>
+        <value xml:lang="fr">Compétences standards</value>
         <value xml:lang="it">Abilità Standard</value>
         <value xml:lang="th">ชั่วโมงที่วางแผน</value>
         <value xml:lang="zh">已计划工时</value>
@@ -994,47 +994,55 @@
     </property>
     <property key="ProjectMgrTaskNoOpen1">
         <value xml:lang="en">Currently no 'open' tasks are assigned to you.</value>
+        <value xml:lang="fr">Actuellement aucune tâche ne vous est affectée</value>
         <value xml:lang="it">Attualmente nessun compito 'aperto' è assegnato a te.</value>
         <value xml:lang="th">ในปัจจุบันไม่เปิดเผยงานที่มอบหมายให้คุณ</value>
         <value xml:lang="zh">当前没有给你分配开放的任务</value>
     </property>
     <property key="ProjectMgrTaskNoOpen2">
         <value xml:lang="en">Add an existing or a new task to a project you are member of.</value>
+        <value xml:lang="fr">Ajouter une tâche, existante ou nouvelle, au projet dont vous êtes membre</value>
         <value xml:lang="it">Aggiungere uno esistente o un nuovo compito al progetto che tu sei membro di.</value>
         <value xml:lang="th">เพิ่มงานที่มีอยู่หรืองานใหม่ไปยังโปรเจคคุณเป็นสมาชิกของ</value>
         <value xml:lang="zh">给属于你的项目增加一个新的或者已经存在的任务</value>
     </property>
     <property key="ProjectMgrTaskNotAssignedPhase">
         <value xml:lang="en">Task not assigned to Phase/Iteration</value>
+        <value xml:lang="fr">Tâche non affectée à une phase/itération</value>
         <value xml:lang="it">Compito non assegnato alla Fase/Iterazione</value>
         <value xml:lang="th">ไม่กำหนดงานถึงขั้นตอนการทำงาน/การทำซ้ำ</value>
         <value xml:lang="zh">孤立的任务</value>
     </property>
     <property key="ProjectMgrTaskPhase">
         <value xml:lang="en">Parent Phase</value>
+        <value xml:lang="fr">Phase parente</value>
         <value xml:lang="it">Fase Padre</value>
         <value xml:lang="th">กลุ่มขั้นตอนการทำงาน</value>
         <value xml:lang="zh">父阶段</value>
     </property>
     <property key="ProjectMgrTaskSummary">
         <value xml:lang="en">Task Summary</value>
+        <value xml:lang="fr">Résumé de la tâche</value>
         <value xml:lang="it">Sommario Compito</value>
         <value xml:lang="th">สรุปงาน</value>
         <value xml:lang="zh">任务总览</value>
     </property>
     <property key="ProjectMgrTaskTeam">
         <value xml:lang="en">Task Team</value>
+        <value xml:lang="fr">Equipe de la tâche</value>
         <value xml:lang="th">ทีมงาน</value>
         <value xml:lang="zh">任务团队</value>
     </property>
     <property key="ProjectMgrTasks">
         <value xml:lang="en">Tasks</value>
+        <value xml:lang="fr">Tâches</value>
         <value xml:lang="it">Compiti</value>
         <value xml:lang="th">งาน</value>
         <value xml:lang="zh">任务</value>
     </property>
     <property key="ProjectMgrTimeEntries">
-        <value xml:lang="en">Actual Hours</value>
+        <value xml:lang="en">Time Entries</value>
+        <value xml:lang="fr">Echéances</value>
         <value xml:lang="it">Aggiungere/Aggiornare Voce Orario</value>
         <value xml:lang="th">ชั่วโมงจริง</value>
         <value xml:lang="zh">实际工时</value>
