@@ -35,7 +35,8 @@ under the License.
         <#list starSchemaFields as starSchemaField>
         <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
             <td>
-                <input name="selectedField" value="${starSchemaField.name}" type="checkbox"/>
+                <input name="selectedFieldName_o_${starSchemaField_index}" value="${starSchemaField.name}" type="hidden"/>
+                <input name="_rowSubmit_o_${starSchemaField_index}" value="Y" type="checkbox"/>
             </td>
             <td>
                 ${starSchemaField.name}
