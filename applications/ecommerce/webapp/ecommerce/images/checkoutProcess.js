@@ -305,8 +305,12 @@ function getShipOptions() {
 
 function setDataInShippingCompleted() {
     var fullName = $('firstName').value + " " +$('lastName').value;
+    var extension = "";
+    if ($F('shipToExtension')) {
+        extension = "-" + $F('shipToExtension');
+    }
     var shippingContactPhoneNumber = $F('shipToCountryCode')+ "-" + $F('shipToAreaCode') 
-            + "-" + $F('shipToContactNumber')+ "-" + $F('shipToExtension');
+            + "-" + $F('shipToContactNumber') + extension;
     $('completedShipToAttn').update("Attn: " + fullName);
     $('completedShippingContactNumber').update(shippingContactPhoneNumber);
     $('completedEmailAddress').update($('emailAddress').value);
@@ -400,7 +404,11 @@ function processBillingAndPayment() {
 function setDataInBillingCompleted() {
     var fullName = $F('firstNameOnCard') + " " +$F('lastNameOnCard');
     $('completedBillToAttn').update("Attn: " + fullName);
-    var billToPhoneNumber = $F('billToCountryCode') + "-" + $F('billToAreaCode') + "-" +$F('billToContactNumber') + "-" + $F('billToExtension'); 
+    var extension = "";
+    if ($F('billToExtension')) {
+        extension = "-" + $F('billToExtension');
+    }
+    var billToPhoneNumber = $F('billToCountryCode') + "-" + $F('billToAreaCode') + "-" + $F('billToContactNumber') + extension;
     $('completedBillToPhoneNumber').update(billToPhoneNumber);
     var cardNumber = "CC#:XXXXXXXXXXXX"+$F('cardNumber').gsub('-','').slice(12,16);
     $('completedCCNumber').update(cardNumber);
