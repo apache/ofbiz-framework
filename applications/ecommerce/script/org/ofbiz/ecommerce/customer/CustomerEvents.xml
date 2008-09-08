@@ -1282,8 +1282,6 @@ under the License.
         <if-compare field="parameters.useShippingAddressForBilling" operator="not-equals" value="Y">
             <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
                     processor-name="billToAddress" in-map-name="parameters" out-map-name="billToAddressCtx"/>
-            <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
-                    processor-name="billToPhone" in-map-name="parameters" out-map-name="billToTelecomNumberCtx"/>
             <set field="billToAddressCtx.partyId" from-field="parameters.partyId"/>
             <set field="billToAddressCtx.userLogin" from-field="parameters.userLogin"/>
             <set field="billToAddressCtx.setBillingPurpose" value="Y"/>
@@ -1297,6 +1295,8 @@ under the License.
         </else>
         </if-compare>
         <!-- create billing telecom number  -->
+        <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
+                processor-name="billToPhone" in-map-name="parameters" out-map-name="billToTelecomNumberCtx"/>
         <set field="billToTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
         <set field="billToTelecomNumberCtx.userLogin" from-field="parameters.userLogin"/>
         <set field="billToTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_BILLING"/>
