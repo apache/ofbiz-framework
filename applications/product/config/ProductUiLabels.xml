@@ -14930,7 +14930,7 @@
     <property key="ProductRequirementMethodEnumId">
         <value xml:lang="en">Requirement Method Enum Id</value>
         <value xml:lang="es">Código de enumeración de método de requerimiento</value>
-        <value xml:lang="fr">Méthode de ré-approvisionnement</value>
+        <value xml:lang="fr">Méthode de réapprovisionnement</value>
         <value xml:lang="it">Tipo Metodo Fabbisogno</value>
         <value xml:lang="ro">Tip Metoda Necesar</value>
         <value xml:lang="ru">Код метода создания требования</value>
