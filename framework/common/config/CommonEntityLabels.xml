@@ -1680,6 +1680,10 @@
         <value xml:lang="th">เว็บไซต์</value>
         <value xml:lang="zh">站点</value>
     </property>
+    <property key="Enumeration.description.PRODRQM_ATP">
+        <value xml:lang="en">Requirement for order when ATP Reaches Minimum Stock for Product-Facility</value>
+        <value xml:lang="fr">Besoin créé quand la quantité disponible (ATP) atteint le stock minimum fixé pour le lieu de stockage</value>
+    </property>
     <property key="Enumeration.description.PRODRQM_AUTO">
         <value xml:lang="de">Automatisch für jeden Verkaufsauftrag</value>
         <value xml:lang="en">Automatic For Every Sales Order</value>
@@ -1691,10 +1695,18 @@
         <value xml:lang="th">อัตโนมัติสำหรับทุก ๆ รายการขาย</value>
         <value xml:lang="zh">对每个销售定单自动</value>
     </property>
+    <property key="Enumeration.description.PRODRQM_DS">
+        <value xml:lang="en">Drop-ship only</value>
+        <value xml:lang="fr">Expédition par un tiers seulement</value>
+    </property>
+    <property key="Enumeration.description.PRODRQM_DSATP">
+        <value xml:lang="en">Auto drop-ship on low quantity</value>
+        <value xml:lang="fr">Expédition par un tiers automatique sur faible quantité</value>
+    </property>
     <property key="Enumeration.description.PRODRQM_NONE">
         <value xml:lang="de">Kein Bedarf erstellt</value>
         <value xml:lang="en">No Requirement Created</value>
-        <value xml:lang="fr">Aucune condition créée</value>
+        <value xml:lang="fr">Aucun besoin créé</value>
         <value xml:lang="it">Nessun Fabbisogno Creato</value>
         <value xml:lang="pt">Nenhuma Requisição Criada</value>
         <value xml:lang="ro">Nessun Necesar Creat</value>
@@ -1705,7 +1717,7 @@
     <property key="Enumeration.description.PRODRQM_STOCK">
         <value xml:lang="de">Wenn QOH (Quantity on Hand) den Minimum Lagerbestand für den Produkt-Standort (Facility) erreicht</value>
         <value xml:lang="en">When QOH Reaches Minimum Stock for Product-Facility</value>
-        <value xml:lang="fr">Quand la quantité existante (QOH) atteint le stock minimum fixé pour l'emplacement</value>
+        <value xml:lang="fr">Quand la quantité existante (QOH) atteint le stock minimum fixé pour le lieu de stockage</value>
         <value xml:lang="it">Quando la QOH Raggiunge la Giacenza Minima per il Prodotto-Stabilimento</value>
         <value xml:lang="pt">Quando QOH (quantidade em espera) Atinge o Stock Mínimo para Produto-Armazém</value>
         <value xml:lang="ro">Cand cantitatea QOH Ajunge la Stocul Minim pe Produs-Compartiment</value>
@@ -1716,6 +1728,7 @@
     <property key="Enumeration.description.PRODRQM_STOCK_ATP">
         <value xml:lang="de">Wenn ATP (available to promise) den minimum Lagerbestand für den Produkt-Standort (Facility) erreicht</value>
         <value xml:lang="en">When ATP Reaches Minimum Stock for Product-Facility</value>
+        <value xml:lang="fr">Quand la quantité disponible (ATP) atteint le stock minimum fixé pour le lieu de stockage</value>
         <value xml:lang="it">Quando la ATP Raggiunge la Giacenza Minima per il Prodotto-Stabilimento</value>
         <value xml:lang="pt">Quando ATP Atinge o Stock Mínimo para Produto-Armazém</value>
         <value xml:lang="ro">Cand ATP Ajunge Stocul Minim pe Produs-Compartiment</value>
