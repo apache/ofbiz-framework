@@ -19,7 +19,7 @@ under the License.
 <div class="screenlet">
   <div class="screenlet-title-bar">
     <ul>      
-        <li class="h3">&nbsp;${uiLabelMap.PageTitleAddTimeEntry}</li>
+        <li class="h3">&nbsp;${uiLabelMap.ProjectMgrAddTimeEntry}</li>
     </ul>
     <br class="clear" />
   </div> 
