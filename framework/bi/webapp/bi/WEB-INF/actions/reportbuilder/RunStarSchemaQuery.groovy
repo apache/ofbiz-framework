@@ -36,7 +36,6 @@ import javolution.util.FastMap;
 starSchemaName = parameters.starSchemaName;
 selectedFieldList = UtilHttp.parseMultiFormData(parameters);
 
-//selectedFields = parameters.selectedField as Set;
 columnNames = FastSet.newInstance();
 selectedFieldList.each { selectedField ->
   columnNames.add(selectedField.selectedFieldName);
