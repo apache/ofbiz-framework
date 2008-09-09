@@ -12403,7 +12403,7 @@
     <property key="ProductNoteForContentOptions">
         <value xml:lang="en">NOTE: For content options, use the Content tab.</value>
         <value xml:lang="es">NOTA: Para opciones de contenido, use la pestaña Contenido</value>
-        <value xml:lang="fr">NOTE: Pour les options concernant le contenu, utiliser l'onglet contenu>.</value>
+        <value xml:lang="fr">NOTE: Pour les options concernant le contenu, utiliser l'onglet contenu.</value>
         <value xml:lang="it">NOTA: Per le opzioni contenuto, usare il Tab Contenuto.</value>
         <value xml:lang="ro">NOTA: Pentru optiunile continut, folositi Tab Continut.</value>
         <value xml:lang="ru">ПРИМЕЧАНИЕ: для параметров контента используйте разделитель Контент.</value>
@@ -14845,7 +14845,7 @@
     <property key="ProductRequireAmount">
         <value xml:lang="en">Require Amount</value>
         <value xml:lang="es">Monto requerido</value>
-        <value xml:lang="fr">Nécessite la quantitée</value>
+        <value xml:lang="fr">Nécessite une quantitée</value>
         <value xml:lang="it">Importo Richiesto</value>
         <value xml:lang="ro">Valoare Ceruta</value>
         <value xml:lang="ru">Требуется количество</value>
@@ -14873,7 +14873,7 @@
     <property key="ProductRequireCustomerAmount">
         <value xml:lang="en">Require the customer to enter an amount.</value>
         <value xml:lang="es">Requerir que el cliente ingrese una cantidad</value>
-        <value xml:lang="fr">Demander au client de fixer un montant</value>
+        <value xml:lang="fr">Demander au client d'en fixer la valeur</value>
         <value xml:lang="it">Richiedi al cliente di inserire l'importo.</value>
         <value xml:lang="ro">Se cere clientului sa introduca Valoarea.</value>
         <value xml:lang="ru">Требуется чтобы заказчик указывал количество</value>
