@@ -486,10 +486,10 @@
         <field name="workEffortId"><hidden/></field>
         <field name="noteParty" title="${uiLabelMap.CommonBy}"><display description="${bsh:org.ofbiz.party.party.PartyHelper.getPartyName(delegator, noteParty, true)} at ${bsh: org.ofbiz.base.util.UtilDateTime.timeStampToString(noteDateTime, &quot;dd-MM-yyyy HH:mm&quot;, TimeZone.getDefault(), context.get(&quot;locale&quot;))}"/></field>
      
-        <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.PorjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;N&quot;)">
+        <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.ProjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;N&quot;)">
             <hyperlink target="updateTaskNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=Y" description="${uiLabelMap.OrderNotesPrivate}"></hyperlink>
         </field>
-        <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.PorjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;Y&quot;)">
+        <field name="Private/Public" widget-style="buttontext" title="${uiLabelMap.ProjectMgrPrivateOrPublic}" use-when="internalNote.equals(&quot;Y&quot;)">
             <hyperlink target="updateTaskNote?workEffortId=${workEffortId}&amp;noteId=${noteId}&amp;internalNote=N" description="${uiLabelMap.OrderNotesPublic}"></hyperlink>
         </field>
     </form>

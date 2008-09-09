@@ -123,13 +123,6 @@
         <value xml:lang="th">เพิ่มข้อความงาน</value>
         <value xml:lang="zh">增加任务备注</value>
     </property>
-    <property key="PageTitleAddTimeEntry">
-        <value xml:lang="en">Add Time Entry</value>
-        <value xml:lang="fr">Ajouter une échéance</value>
-        <value xml:lang="it">Aggiungi Voce Tempo</value>
-        <value xml:lang="th">เพิ่มตารางเวลา</value>
-        <value xml:lang="zh">增加时间条目</value>
-    </property>
     <property key="PageTitleCreateTaskbyRequest">
         <value xml:lang="en">Create a new Task for this Request</value>
         <value xml:lang="fr">Créer une nouvelle tâche pour cette demande</value>
@@ -1166,54 +1159,33 @@
     </property>    
     <property key="ReviewedCustomerRequestTaskList">
         <value xml:lang="en">Reviewed but not completed Customer Request list with task assigned'</value>
+        <value xml:lang="fr">Liste des demandes client vérifiée mais incomplète et ayant une tâche affectée</value>
     </property>
     <property key="FormFieldTitle_newTimesheetId">
         <value xml:lang="en">New Timesheet Id</value>
+        <value xml:lang="fr">Liste des demandes client vérifiée mais incomplète et ayant une tâche affectée</value>
         <value xml:lang="zh">新的时间表Id</value>
     </property>
     <property key="FormFieldTitle_fromPartyId">
         <value xml:lang="en">From Party Id</value>
+        <value xml:lang="fr">Depuis l'acteur de réf.</value>
         <value xml:lang="zh">来自会员</value>
     </property> 
     <property key="ProjectMgrAddTimeEntry">
         <value xml:lang="en">Add Time Entry</value>
-        <value xml:lang="zh">增加工时</value>
+        <value xml:lang="fr">Ajouter une échéance</value>
+        <value xml:lang="it">Aggiungi Voce Tempo</value>
+        <value xml:lang="th">เพิ่มตารางเวลา</value>
+        <value xml:lang="zh">增加时间条目</value>
     </property>  
     <property key="ProjectMgrPrivateOrPublic">
         <value xml:lang="en">Private/Public</value>
+        <value xml:lang="fr">Privé/Public</value>
         <value xml:lang="zh">私人/公开</value>
     </property>  
     <property key="ProjectMgrUnbilledHours">
         <value xml:lang="en">Unbilled hours</value>
+        <value xml:lang="fr">Heures non facturées</value>
         <value xml:lang="zh">没记账工时</value>
-    </property>
-    <property key="de">
-        <value xml:lang="en">German</value>
-        <value xml:lang="it">Tedesco</value>
-        <value xml:lang="th">เยอรมัน</value>
-    </property>
-    <property key="en">
-        <value xml:lang="en">English</value>
-        <value xml:lang="it">Inglese</value>
-        <value xml:lang="th">อังกฤษ</value>
-    </property>
-    <property key="fr">
-        <value xml:lang="en">French</value>
-        <value xml:lang="it">Francese</value>
-        <value xml:lang="th">ฝรั่งเศส</value>
-    </property>
-    <property key="it">
-        <value xml:lang="en">Italian</value>
-        <value xml:lang="it">Italiano</value>
-        <value xml:lang="th">อีตาเลียน</value>
-    </property>
-    <property key="nl">
-        <value xml:lang="en">Dutch</value>
-        <value xml:lang="it">Olandese</value>
-        <value xml:lang="th">เนเธอร์แลนด์</value>
-    </property>
-    <property key="zh">
-        <value xml:lang="en">Chinese</value>
-        <value xml:lang="zh">中文</value>
     </property>
 </resource>
