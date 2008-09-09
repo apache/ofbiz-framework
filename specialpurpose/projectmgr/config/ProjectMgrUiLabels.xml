@@ -1049,102 +1049,119 @@
     </property>
     <property key="ProjectMgrToFindProject">
         <value xml:lang="en">To Find Project Give Range</value>
+        <value xml:lang="fr">Pour trouver le projet donner un intervalle</value>
         <value xml:lang="it">Per Trovare il Progetto Inserire Intervallo</value>
         <value xml:lang="th">ค้นหาโปรเจคแสดงขอบเขต</value>
         <value xml:lang="zh">查找项目的范围</value>
     </property>
     <property key="ProjectMgrToFindTask">
         <value xml:lang="en">To Find Task Give Range</value>
+        <value xml:lang="fr">Pour trouver la tâche donner un intervalle</value>
         <value xml:lang="it">Per Trovare il Compito Inserire Intervallo</value>
         <value xml:lang="th">ค้นหางานแสดงขอบเขต</value>
         <value xml:lang="zh">查找任务的范围</value>
     </property>
     <property key="ProjectMgrTreeDetails">
-        <value xml:lang="en">TreeDetails</value>
+        <value xml:lang="en">Tree Details</value>
+        <value xml:lang="fr">Détails de l'arborescence</value>
         <value xml:lang="it">Dettagli Albero</value>
         <value xml:lang="th">รายละเอียดแผนผังแบบต้นไม้</value>
         <value xml:lang="zh">树明细</value>
     </property>
     <property key="ProjectMgrView">
         <value xml:lang="en">View</value>
+        <value xml:lang="fr">Voir</value>
         <value xml:lang="it">Mostra</value>
         <value xml:lang="th">แสดง</value>
         <value xml:lang="zh">查看</value>
     </property>
     <property key="ProjectMgrViewPermissionError">
         <value xml:lang="en">You need at least PROJECTMGR_READ permission to view this screen.</value>
+        <value xml:lang="fr">Il vous faut au moins la permission PROJECTMGR_READ pour voir cet écran</value>
         <value xml:lang="it">Tu hai bisogno al minimo del permesso PROJECTMGR_READ per vedere questa videata.</value>
         <value xml:lang="th">คุณต้องการการอนุญาตอย่างน้อยที่สุด PROJECTMGR_READ ในการแสดงหน้าจอนี้</value>
         <value xml:lang="zh">你至少需要有PROJECTMGR_READ权限才能查看本页</value>
     </property>
     <property key="ProjectMgrWorkEffortActualCompletionDate">
         <value xml:lang="en">Actual Completion Date</value>
+        <value xml:lang="fr">Date de fin réelle</value>
         <value xml:lang="it">Data Fine Attuale</value>
         <value xml:lang="th">วันที่ทำเสร็จจริง</value>
         <value xml:lang="zh">实际完成日期</value>
     </property>
     <property key="ProjectMgrWorkEffortActualStartDate">
         <value xml:lang="en">Actual Start Date</value>
+        <value xml:lang="fr">Date de début réelle</value>
         <value xml:lang="it">Data Inizio Attuale</value>
         <value xml:lang="th">วันที่เริ่มทำจริง</value>
         <value xml:lang="zh">实际开始日期</value>
     </property>
     <property key="ProjectMgrWorkEffortAssocTypeId">
         <value xml:lang="en">Association Type</value>
+        <value xml:lang="fr">Type d'association</value>
         <value xml:lang="it">Tipo Associazione</value>
         <value xml:lang="th">ประเภทกลุ่ม</value>
         <value xml:lang="zh">相关类型</value>
     </property>
     <property key="ProjectMgrWorkEffortEstimatedCompletionDate">
         <value xml:lang="en">Estimated Completion Date</value>
+        <value xml:lang="fr">Date de fin prévue</value>
         <value xml:lang="it">Data Fine Stimata</value>
         <value xml:lang="th">วันที่เสร็จโดยประมาณ</value>
         <value xml:lang="zh">估计完成日期</value>
     </property>
     <property key="ProjectMgrWorkEffortEstimatedStartDate">
         <value xml:lang="en">Estimated Start Date</value>
+        <value xml:lang="fr">Date de début prévue</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="th">วันที่เริ่มโดยประมาณ</value>
         <value xml:lang="zh">估计开始日期</value>
     </property>
     <property key="ProjectMgrWorkEffortId">
         <value xml:lang="en">Id</value>
+        <value xml:lang="fr">Réf.</value>
         <value xml:lang="it">Codice</value>
         <value xml:lang="th">รหัส</value>
         <value xml:lang="zh">Id</value>
     </property>
     <property key="ProjectMgrWorkEffortIdFrom">
         <value xml:lang="en">Id From</value>
+        <value xml:lang="fr">Réf. depuis</value>
         <value xml:lang="it">Codice Da</value>
         <value xml:lang="th">จากรหัส</value>
         <value xml:lang="zh">Id来至</value>
     </property>
     <property key="ProjectMgrWorkEffortIdTo">
         <value xml:lang="en">Id To</value>
+        <value xml:lang="fr">Réf. vers</value>
         <value xml:lang="it">Codice A</value>
         <value xml:lang="th">ถึงรหัส</value>
         <value xml:lang="zh">Id到</value>
     </property>
     <property key="ProjectMgrWorkEffortPurposeTypeId">
         <value xml:lang="en">Purpose Type</value>
+        <value xml:lang="fr">Type de but</value>
         <value xml:lang="it">Tipo Funzione</value>
         <value xml:lang="th">ประเภทเป้าหมาย</value>
         <value xml:lang="zh">目标类型</value>
     </property>
     <property key="ProjectMgrWorkEffortScopeEnumId">
         <value xml:lang="en">Scope</value>
+        <value xml:lang="fr">Portée</value>
         <value xml:lang="it">Scopo</value>
         <value xml:lang="th">ขอบเขต</value>
         <value xml:lang="zh">范围</value>
     </property>
     <property key="ProjectMgrWorkEffortTypeId">
         <value xml:lang="en">Type</value>
+        <value xml:lang="fr">Type</value>
         <value xml:lang="it">Tipo</value>
         <value xml:lang="th">ประเภท</value>
         <value xml:lang="zh">类型</value>
     </property>
     <property key="ProjectMgrCheckComplete">
         <value xml:lang="en">Check Complete</value>
+        <value xml:lang="fr">Marquée comme terminée</value>
         <value xml:lang="zh">是否完成</value>
     </property>    
     <property key="ReviewedCustomerRequestTaskList">
@@ -1158,90 +1175,14 @@
         <value xml:lang="en">From Party Id</value>
         <value xml:lang="zh">来自会员</value>
     </property> 
-    <property key="FormFieldTitle_actualHours">
-        <value xml:lang="en">Actual Hours</value>
-        <value xml:lang="zh">实际工时</value>
-    </property> 
-    <property key="FormFieldTitle_plannedHours">
-        <value xml:lang="en">Planned Hours</value>
-        <value xml:lang="zh">计划工时</value>
-    </property>
-    <property key="FormFieldTitle_relatedTasks">
-        <value xml:lang="en">Related Tasks</value>
-        <value xml:lang="zh">相关任务</value>
-    </property>
-    <property key="FormFieldTitle_complete">
-        <value xml:lang="en">Complete</value>
-        <value xml:lang="zh">完成</value>
-    </property>     
-    <property key="PorjectMgrAddTimeEntry">
+    <property key="ProjectMgrAddTimeEntry">
         <value xml:lang="en">Add Time Entry</value>
         <value xml:lang="zh">增加工时</value>
     </property>  
-    <property key="PorjectMgrPrivateOrPublic">
+    <property key="ProjectMgrPrivateOrPublic">
         <value xml:lang="en">Private/Public</value>
         <value xml:lang="zh">私人/公开</value>
     </property>  
-    <property key="FormFieldTitle_isPrintable">
-        <value xml:lang="en">isPrintable</value>
-        <value xml:lang="zh">是否可印</value>
-    </property>
-    <property key="FormFieldTitle_templateId">
-        <value xml:lang="en">Template Id</value>
-        <value xml:lang="zh">模板Id</value>
-    </property>
-    <property key="FormFieldTitle_parentProjectName">
-        <value xml:lang="en">Parent Project Name</value>
-        <value xml:lang="zh">父项目名称</value>
-    </property>
-    <property key="ProjectMgrCustRequestCategoryId">
-        <value xml:lang="en">Cust Request Category Id</value>
-        <value xml:lang="zh">请求分类Id</value>
-    </property>
-    <property key="FormFieldTitle_openDateTime">
-        <value xml:lang="en">Open Date Time</value>
-        <value xml:lang="zh">开启日期</value>
-    </property>
-    <property key="FormFieldTitle_internalComment">
-        <value xml:lang="en">Internal Comment</value>
-        <value xml:lang="zh">内部评论</value>
-    </property>
-    <property key="FormFieldTitle_closedDateTime">
-        <value xml:lang="en">Closed Date Time</value>
-        <value xml:lang="zh">关闭日期</value>
-    </property>
-    <property key="FormFieldTitle_phase">
-        <value xml:lang="en">Phase</value>
-        <value xml:lang="zh">项目阶段</value>
-    </property>
-    <property key="FormFieldTitle_startDate">
-        <value xml:lang="en">Start Date</value>
-        <value xml:lang="zh">开始日期</value>
-    </property>
-    <property key="FormFieldTitle_completionDate">
-        <value xml:lang="en">Completion Date</value>
-        <value xml:lang="zh">完成日期</value>
-    </property>
-    <property key="FormFieldTitle_task">
-        <value xml:lang="en">Task</value>
-        <value xml:lang="zh">任务</value>
-    </property>
-    <property key="FormFieldTitle_phaseName">
-        <value xml:lang="en">Phase Name</value>
-        <value xml:lang="zh">阶段名称</value>
-    </property>
-    <property key="FormFieldTitle_createdStamp">
-        <value xml:lang="en">Created Stamp</value>
-        <value xml:lang="zh">创建时间</value>
-    </property>
-    <property key="FormFieldTitle_projectName">
-        <value xml:lang="en">Project Name</value>
-        <value xml:lang="zh">项目名称</value>
-    </property>
-    <property key="FormFieldTitle_taskName">
-        <value xml:lang="en">Task Name</value>
-        <value xml:lang="zh">任务名称</value>
-    </property>
     <property key="ProjectMgrUnbilledHours">
         <value xml:lang="en">Unbilled hours</value>
         <value xml:lang="zh">没记账工时</value>
