@@ -35,8 +35,9 @@ under the License.
         <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
         <div class="form-row">
           ${uiLabelMap.PartyAddressLine1}*
+          <span id="advice-required-address1" style="display: none" class="errorMessage">(required)</span>
           <div class="form-field">
-            <input type="text" class="required" name="address1" id="address1" value="" size="30" maxlength="30"><span id="advice-required-address1" style="display: none" class="errorMessage">(required)</span>
+            <input type="text" class="required" name="address1" id="address1" value="" size="30" maxlength="30">
           </div>
         </div>
         <div class="form-row">
@@ -44,42 +45,44 @@ under the License.
         </div>
         <div class="form-row">
           ${uiLabelMap.PartyCity}*
+          <span id="advice-required-city" style="display: none" class="errorMessage">(required)</span>
           <div class="form-field">
-            <input type="text" class="required" name="city" id="city" value="" size="30" maxlength="30"><span id="advice-required-city" style="display: none" class="errorMessage">(required)</span>
+            <input type="text" class="required" name="city" id="city" value="" size="30" maxlength="30">
           </div>
         </div>
         <div class="form-row">
           ${uiLabelMap.PartyZipCode}*
+          <span id="advice-required-postalCode" style="display: none" class="errorMessage">(required)</span>
           <div class="form-field">
-            <input type="text" class="required" name="postalCode" id="postalCode" value="" size="30" maxlength="10"><span id="advice-required-postalCode" style="display: none" class="errorMessage">(required)</span>
+            <input type="text" class="required" name="postalCode" id="postalCode" value="" size="30" maxlength="10">
           </div>
         </div>
         <div class="form-row">
           ${uiLabelMap.PartyState}*
+          <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(required)</span>
           <div class="form-field">
             <select name="stateProvinceGeoId" id="stateProvinceGeoId" class="required" style="width: 70%">
               <option value="">${uiLabelMap.PartyNoState}</option>
               ${screens.render("component://common/widget/CommonScreens.xml#states")}
             </select>
-            <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(required)</span>
           </div>
         </div>
         <div class="form-row">
           ${uiLabelMap.PartyCountry}*
+          <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(required)</span>
           <div class="form-field">
             <select name="countryGeoId" id="countryGeoId" class="required" style="width: 70%">
               ${screens.render("component://common/widget/CommonScreens.xml#countries")}
             </select>
-            <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(required)</span>
           </div>
-        </div>
-        <div class="form-row">
-          <b>${uiLabelMap.EcommerceMyDefaultShippingAddress}</b>
-          <input type="checkbox" name="setShippingPurpose" id="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked</#if>/>
         </div>
         <div class="form-row">
           <b>${uiLabelMap.EcommerceMyDefaultBillingAddress}</b>
           <input type="checkbox" name="setBillingPurpose" id="setBillingPurpose" value="Y" <#if setBillingPurpose?exists>checked</#if>/>
+        </div>
+        <div class="form-row">
+          <b>${uiLabelMap.EcommerceMyDefaultShippingAddress}</b>
+          <input type="checkbox" name="setShippingPurpose" id="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked</#if>/>
         </div>
         <div class="form-row">
           <a href="javascript:void(0);" id="submitPostalAddressForm" class="buttontext" onclick="createPartyPostalAddress('submitPostalAddressForm')">${uiLabelMap.CommonSubmit}</a>
