@@ -55,7 +55,7 @@ import org.ofbiz.service.ModelService;
 public class LayoutEvents {
 
     public static final String module = LayoutEvents.class.getName();
-    public static final String err_resource = "ContentErrorUiLabel";
+    public static final String err_resource = "ContentErrorUiLabels";
 
     public static String createLayoutImage(HttpServletRequest request, HttpServletResponse response) {
         Locale locale = UtilHttp.getLocale(request);
