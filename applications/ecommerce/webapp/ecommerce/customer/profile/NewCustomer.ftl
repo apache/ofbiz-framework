@@ -31,11 +31,11 @@ under the License.
     <div class="left center">
       <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.PartyContactInformation}</div></div>
       <div class="form-row">
-        <div class="field-label"><label for="firstName">${uiLabelMap.PartyFirstName}*<span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label></div>
+        <div class="field-label"><label for="firstName">${uiLabelMap.PartyFirstName}* <span id="advice-required-firstName" style="display: none" class="errorMessage">(required)</span></label></div>
         <div><input type="text" name="firstName" id="firstName" class="required" value="${parameters.firstName?if_exists}" size="30" maxlength="30"></div>
       </div>
       <div class="form-row">
-        <div class="field-label"><label for="lastName">${uiLabelMap.PartyLastName}*<span id="advice-required-lastName" style="display: none" class="errorMessage">(required)</span></label></div>
+        <div class="field-label"><label for="lastName">${uiLabelMap.PartyLastName}* <span id="advice-required-lastName" style="display: none" class="errorMessage">(required)</span></label></div>
         <div><input type="text" name="lastName" id="lastName" class="required" value="${parameters.lastName?if_exists}" size="30" maxlength="30"></div>
       </div>
       <div class="form-row">
@@ -51,15 +51,15 @@ under the License.
       <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.AccountInformation}</div></div>
       <div id="userNameAndPasswordPanel">
         <div class="form-row">
-          <div class="field-label"><label for="userName">${uiLabelMap.CommonUsername}*<span id="advice-required-username" style="display: none" class="errorMessage">(required)</span></label></div>
+          <div class="field-label"><label for="userName">${uiLabelMap.CommonUsername}* <span id="advice-required-username" style="display: none" class="errorMessage">(required)</span></label></div>
           <div><input type="text" name="username" id="username" class="required" value="${parameters.username?if_exists}" size="30" maxlength="255"></div>
         </div>
         <div class="form-row">
-          <div class="field-label"><label for="password">${uiLabelMap.CommonPassword}*<span id="advice-required-password" style="display: none" class="errorMessage">(required)</span></label></div>
+          <div class="field-label"><label for="password">${uiLabelMap.CommonPassword}* <span id="advice-required-password" style="display: none" class="errorMessage">(required)</span></label></div>
           <div><input type="password" name="password" id="password" class="required" value="${parameters.password?if_exists}" maxlength="16"></div>
         </div>
         <div class="form-row">
-          <div class="field-label"><label for="passwordVerify">${uiLabelMap.CommonConfirm} ${uiLabelMap.CommonPassword}*<span id="advice-required-passwordVerify" style="display: none" class="errorMessage">(required)</span></label></div>
+          <div class="field-label"><label for="passwordVerify">${uiLabelMap.PartyRepeatPassword}* <span id="advice-required-passwordVerify" style="display: none" class="errorMessage">(required)</span></label></div>
           <div><input type="password" name="passwordVerify" id="passwordVerify" class="required" value="${parameters.passwordVerify?if_exists}" maxlength="16"></div>
         </div>
       </div>
@@ -72,7 +72,7 @@ under the License.
     <div class="left center">
       <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.OrderShippingInformation}</div></div>
       <div class="form-row">
-        <div class="field-label"><label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}*<span id="advice-required-shipToAddress1" style="display: none" class="errorMessage">(required)</span></label></div>
+        <div class="field-label"><label for="shipToAddress1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-shipToAddress1" style="display: none" class="errorMessage">(required)</span></label></div>
         <div><input type="text" name="shipToAddress1" id="shipToAddress1" class="required" value="${parameters.shipToAddress1?if_exists}"/></div>
       </div>  
       <div class="form-row">
@@ -80,15 +80,15 @@ under the License.
         <div><input type="text" name="shipToAddress2" id="shipToAddress2" value="${parameters.shipToAddress2?if_exists}"/></div>
       </div>  
       <div class="form-row">
-        <div class="field-label"><label for="shipToCity">${uiLabelMap.CommonCity}*<span id="advice-required-shipToCity" style="display: none" class="errorMessage">(required)</span></label></div>
+        <div class="field-label"><label for="shipToCity">${uiLabelMap.CommonCity}* <span id="advice-required-shipToCity" style="display: none" class="errorMessage">(required)</span></label></div>
         <div><input type="text" name="shipToCity" id="shipToCity" class="required" value="${parameters.shipToCity?if_exists}"/></div>
       </div> 
       <div class="form-row">
-        <div class="field-label"><label for="shipToPostalCode">${uiLabelMap.PartyZipCode}*<span id="advice-required-shipToPostalCode" style="display: none" class="errorMessage">(required)</span></label></div>
+        <div class="field-label"><label for="shipToPostalCode">${uiLabelMap.PartyZipCode}* <span id="advice-required-shipToPostalCode" style="display: none" class="errorMessage">(required)</span></label></div>
         <div><input type="text" name="shipToPostalCode" id="shipToPostalCode" class="required" value="${parameters.shipToPostalCode?if_exists}" maxlength="10"/></div>
       </div> 
       <div class="form-row">
-        <div class="field-label"><label for="shipToStateProvinceGeoId">${uiLabelMap.CommonState}*<span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
+        <div class="field-label"><label for="shipToStateProvinceGeoId">${uiLabelMap.CommonState}* <span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
         <div>
           <select name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" class='selectBox'>
             <#if parameters.shipToStateProvinceGeoId?exists>
@@ -100,7 +100,7 @@ under the License.
         </div>
       </div>  
       <div class="form-row">
-        <div class="field-label"><label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}*<span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
+        <div class="field-label"><label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}* <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
         <div>
           <select name="shipToCountryGeoId" id="shipToCountryGeoId" class='selectBox'>
             <#if parameters.shipToCountryGeoId?exists>
@@ -135,7 +135,7 @@ under the License.
       <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.PageTitleBillingInformation}</div></div>
       <div id="billingAddress">
         <div class="form-row">
-          <div class="field-label"><label for="billToAddress1">${uiLabelMap.PartyAddressLine1}*<span id="advice-required-billToAddress1" style="display: none" class="errorMessage">(required)</span></label></div>
+          <div class="field-label"><label for="billToAddress1">${uiLabelMap.PartyAddressLine1}* <span id="advice-required-billToAddress1" style="display: none" class="errorMessage">(required)</span></label></div>
           <div><input type="text" name="billToAddress1" id="billToAddress1" class="required" value="${parameters.billToAddress1?if_exists}"/></div>
         </div>  
         <div class="form-row">
@@ -143,15 +143,15 @@ under the License.
           <div><input type="text" name="billToAddress2" id="billToAddress2" value="${parameters.billToAddress2?if_exists}"/></div>
         </div>  
         <div class="form-row">
-          <div class="field-label"><label for="billToCity">${uiLabelMap.CommonCity}*<span id="advice-required-billToCity" style="display: none" class="errorMessage">(required)</span></label></div>
+          <div class="field-label"><label for="billToCity">${uiLabelMap.CommonCity}* <span id="advice-required-billToCity" style="display: none" class="errorMessage">(required)</span></label></div>
           <div><input type="text" name="billToCity" id="billToCity" class="required" value="${parameters.billToCity?if_exists}"/></div>
         </div>
         <div class="form-row">
-          <div class="field-label"><label for="billToPostalCode">${uiLabelMap.PartyZipCode}*<span id="advice-required-billToPostalCode" style="display: none" class="errorMessage">(required)</span></label></div>
+          <div class="field-label"><label for="billToPostalCode">${uiLabelMap.PartyZipCode}* <span id="advice-required-billToPostalCode" style="display: none" class="errorMessage">(required)</span></label></div>
           <div><input type="text" name="billToPostalCode" id="billToPostalCode" class="required" value="${parameters.billToPostalCode?if_exists}" maxlength="10"/></div>
         </div> 
         <div class="form-row">
-          <div class="field-label"><label for="billToStateProvinceGeoId">${uiLabelMap.CommonState}*<span id="advice-required-billToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
+          <div class="field-label"><label for="billToStateProvinceGeoId">${uiLabelMap.CommonState}* <span id="advice-required-billToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
           <div>
             <select name="billToStateProvinceGeoId" id="billToStateProvinceGeoId" class="selectBox required">
               <#if parameters.billToStateProvinceGeoId?exists>
@@ -163,7 +163,7 @@ under the License.
           </div>
         </div>
         <div class="form-row">
-          <div class="field-label"><label for="billToCountryGeoId">${uiLabelMap.PartyCountry}*<span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
+          <div class="field-label"><label for="billToCountryGeoId">${uiLabelMap.PartyCountry}* <span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
           <div>
             <select name="billToCountryGeoId" id="billToCountryGeoId" class="selectBox required">
               <#if parameters.billToCountryGeoId?exists>

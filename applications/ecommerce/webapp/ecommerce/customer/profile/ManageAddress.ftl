@@ -26,7 +26,7 @@ under the License.
   <div class="screenlet-body">
     <#-- Add address -->
     <div class="form-row" align="right">
-      <a class="buttontext" id="addAddress" href="javascript:void(0)">${uiLabelMap.CommonAdd} ${uiLabelMap.CommonNew} ${uiLabelMap.OrderAddress}</a>
+      <a class="buttontext" id="addAddress" href="javascript:void(0)">${uiLabelMap.EcommerceAddNewAddress}</a>
     </div>  
     <div id="displayCreateAddressForm" class="popup" style="display: none;">
       <div id="serverError" class="errorMessage"></div>
@@ -99,10 +99,10 @@ under the License.
 
   <#-- Default Addresses -->
   <div class="left center">
-    <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.EcommerceDefault} ${uiLabelMap.CommonAddresses}</div></div>
+    <div class="screenlet-header"><div class="boxhead">&nbsp;${uiLabelMap.EcommerceDefaultAddresses}</div></div>
     <div class="screenlet-body">
       <#--===================================== Billing Address and Telecom number ===========================================-->
-      <h3>${uiLabelMap.EcommercePrimary} ${uiLabelMap.PartyBillingAddress}</h3>
+      <h3>${uiLabelMap.EcommercePrimaryBillingAddress}</h3>
       <#if billToContactMechId?exists>
         ${billToAddress1?if_exists}<br/>
         <#if billToAddress2?has_content>${billToAddress2?if_exists}<br/></#if>
@@ -116,9 +116,9 @@ under the License.
           ${billToTelecomNumber.contactNumber?if_exists}
           <#if billToExtension?exists>-${billToExtension?if_exists}</#if><br/>
         </#if>
-        <a id="updateBillToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.PartyBillingAddress}</a>&nbsp;
+        <a id="updateBillToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit}</a>&nbsp;
       <#else>
-        ${uiLabelMap.PartyBillingAddress} ${uiLabelMap.EcommerceNotExists}
+        ${uiLabelMap.PartyPostalInformationNotFound}
       </#if>
       <div id="displayEditBillToPostalAddress" class="popup" style="display: none;">
         <#include "EditBillToAddress.ftl"/>
@@ -129,7 +129,7 @@ under the License.
       </script>
 
     <#--===================================== Shipping Address and Telecom number ===========================================-->
-      <h3>${uiLabelMap.EcommercePrimary} ${uiLabelMap.OrderShippingAddress}</h3>
+      <h3>${uiLabelMap.EcommercePrimaryShippingAddress}</h3>
       <#if shipToContactMechId?exists>
         ${shipToAddress1?if_exists}<br/>
         <#if shipToAddress2?has_content>${shipToAddress2?if_exists}<br/></#if>
@@ -143,9 +143,9 @@ under the License.
           ${shipToTelecomNumber.contactNumber?if_exists}
           <#if shipToExtension?exists>-${shipToExtension?if_exists}</#if><br/>
         </#if>
-        <a id="updateShipToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit} ${uiLabelMap.OrderShippingAddress}</a>&nbsp;
+        <a id="updateShipToPostalAddress" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit}</a>&nbsp;
       <#else>
-        ${uiLabelMap.OrderShippingAddress} ${uiLabelMap.EcommerceNotExists}
+        ${uiLabelMap.PartyPostalInformationNotFound}
       </#if>
       <div id="displayEditShipToPostalAddress" class="popup" style="display: none;">
         <#include "EditShipToAddress.ftl"/>
@@ -160,7 +160,7 @@ under the License.
   <#-- Additional Addresses -->
   <div class="center right">
     <div class="screenlet-header">
-      <div class="boxhead">&nbsp;${uiLabelMap.EcommerceAdditional} ${uiLabelMap.CommonAddresses}</div>
+      <div class="boxhead">&nbsp;${uiLabelMap.EcommerceAdditionalAddresses}</div>
     </div>
 
     <div class="screenlet-body">

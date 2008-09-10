@@ -43,7 +43,7 @@ under the License.
     <div class="screenlet-body">
       <div align="right"><a class="buttontext" href="<@ofbizUrl>manageAddress</@ofbizUrl>">${uiLabelMap.EcommerceManageAddresses}</a>&nbsp;</div>
       <div class="left center">
-        <div class="screenlet-header"><div class='boxhead'>${uiLabelMap.EcommercePrimary} ${uiLabelMap.OrderShippingAddress}</div></div>
+        <div class="screenlet-header"><div class='boxhead'>${uiLabelMap.EcommercePrimaryShippingAddress}</div></div>
         <div class="screenlet-body">
           <#if shipToContactMechId?exists>
             ${shipToAddress1?if_exists}<br/>
@@ -59,13 +59,13 @@ under the License.
               <#if shipToExtension?exists>-${shipToExtension?if_exists}</#if><br/>
             </#if>
           <#else>
-            ${uiLabelMap.OrderShippingAddress} ${uiLabelMap.EcommerceNotExists}
+            ${uiLabelMap.PartyPostalInformationNotFound}
           </#if>
         </div>
       </div>
 
       <div class="center right">
-        <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.EcommercePrimary} ${uiLabelMap.PartyBillingAddress}</div></div>
+        <div class="screenlet-header"><div class='boxhead'>&nbsp;${uiLabelMap.EcommercePrimaryBillingAddress}</div></div>
         <div class="screenlet-body">
           <#if billToContactMechId?exists>
             ${billToAddress1?if_exists}<br/>
@@ -81,7 +81,7 @@ under the License.
               <#if billToExtension?exists>-${billToExtension?if_exists}</#if><br/>
             </#if>
           <#else>
-            ${uiLabelMap.PartyBillingAddress} ${uiLabelMap.EcommerceNotExists}
+            ${uiLabelMap.PartyPostalInformationNotFound}
           </#if>
         </div>
       </div>
