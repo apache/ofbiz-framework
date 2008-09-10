@@ -28,6 +28,25 @@ under the License.
     <copyright>Copyright 2001-2008 The Apache Software Foundation</copyright>
     <author>None</author>
     <version>1.0</version>
+    <view-entity entity-name="WorkEffortAndChild"
+        package-name="org.ofbiz.workeffort.workEffort"
+        title="WorkEffort for use in tree relationships">
+        <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
+        <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
+        <alias entity-alias="WEP" name="workEffortId"/>
+        <alias entity-alias="WEP" name="workEffortName"/>
+        <alias entity-alias="WEP" name="workEffortTypeId"/>
+        <alias entity-alias="WEP" name="workEffortParentId"/>
+        <alias entity-alias="WEP" name="currentStatusId"/>
+        <alias entity-alias="WEPH" field="workEffortId" name="childWorkEffortId"/>
+        <alias entity-alias="WEPH" field="workEffortName" name="childWorkEffortName"/>
+        <alias entity-alias="WEPH" field="workEffortTypeId" name="childWorkEffortTypeId"/>
+        <alias entity-alias="WEPH" field="currentStatusId" name="childCurrentStatusId"/>
+        <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+            <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+        </view-link>
+    </view-entity>
+  
     <view-entity entity-name="WorkEffortAndFulfillment"
             package-name="org.ofbiz.workeffort.workeffort"
             title="WorkEffort Requirement View Entity">
