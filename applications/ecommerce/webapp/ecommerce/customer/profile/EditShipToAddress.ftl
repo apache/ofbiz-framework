@@ -79,14 +79,18 @@ under the License.
     <#if shipToTelecomNumber?has_content>
       <div class="form-row">
         <div class="field-label">
-          <label for="phoneNumber_${shipToTelecomNumber.contactMechId}">${uiLabelMap.PartyPhoneNumber}*</label>
+          <label>${uiLabelMap.PartyPhoneNumber}*</label>
+          <span id="advice-required-shipToCountryCode" style="display:none" class="errorMessage"></span>
+          <span id="advice-required-shipToAreaCode" style="display:none" class="errorMessage"></span>
+          <span id="advice-required-shipToContactNumber" style="display:none" class="errorMessage"></span>
+          <span id="shipToPhoneRequired" style="display: none;" class="errorMessage">(required)</span>
         </div>
         <div>
           <input type="hidden" name="phoneContactMechId" value="${shipToTelecomNumber.contactMechId?if_exists}"/>
-          <input type="text" name="countryCode" id="countryCode_${shipToTelecomNumber.contactMechId}" class="required" value="${shipToTelecomNumber.countryCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="areaCode" id="areaCode_${shipToTelecomNumber.contactMechId}" class="required" value="${shipToTelecomNumber.areaCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="contactNumber" id="contactNumber_${shipToTelecomNumber.contactMechId}" class="required" value="${contactNumber?default("${shipToTelecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
-          - <input type="text" name="extension" id="extension_${shipToTelecomNumber.contactMechId}" value="${extension?default("${shipToExtension?if_exists}")}" size="3" maxlength="3"/>
+          <input type="text" name="countryCode" id="shipToCountryCode" class="required" value="${shipToTelecomNumber.countryCode?if_exists}" size="3" maxlength="3"/>
+          - <input type="text" name="areaCode" id="shipToAreaCode" class="required" value="${shipToTelecomNumber.areaCode?if_exists}" size="3" maxlength="3"/>
+          - <input type="text" name="contactNumber" id="shipToContactNumber" class="required" value="${contactNumber?default("${shipToTelecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
+          - <input type="text" name="extension" value="${extension?default("${shipToExtension?if_exists}")}" size="3" maxlength="3"/>
         </div>
       </div>    
     </#if>

@@ -80,12 +80,12 @@ under the License.
       </span>
     </div>
     <div class="form-row">
-      <b>${uiLabelMap.EcommerceMyDefaultShippingAddress}</b>
-      <input type="checkbox" name="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked</#if>/>
-    </div>
-    <div class="form-row">
       <b>${uiLabelMap.EcommerceMyDefaultBillingAddress}</b>
       <input type="checkbox" name="setBillingPurpose" value="Y" <#if setBillingPurpose?exists>checked</#if>/>
+    </div>
+    <div class="form-row">
+      <b>${uiLabelMap.EcommerceMyDefaultShippingAddress}</b>
+      <input type="checkbox" name="setShippingPurpose" value="Y" <#if setShippingPurpose?exists>checked</#if>/>
     </div>
     <div class="form-row">
       <a name="submitEditPostalAddress_${contactMech.contactMechId}" id="submitEditPostalAddress_${contactMech.contactMechId}" class="buttontext" onclick="updatePartyPostalAddress('submitEditPostalAddress_${contactMech.contactMechId}')">${uiLabelMap.CommonSubmit}</a>

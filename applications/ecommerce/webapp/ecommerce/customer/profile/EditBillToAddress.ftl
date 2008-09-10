@@ -79,14 +79,18 @@ under the License.
     <#if billToTelecomNumber?has_content>
       <div class="form-row">
         <div class="field-label">
-          <label for="phoneNumber_${billToTelecomNumber.contactMechId}">${uiLabelMap.PartyPhoneNumber}*</label>
+          <label>${uiLabelMap.PartyPhoneNumber}*</label>
+          <span id="advice-required-billToCountryCode" style="display:none" class="errorMessage"></span>
+          <span id="advice-required-billToAreaCode" style="display:none" class="errorMessage"></span>
+          <span id="advice-required-billToContactNumber" style="display:none" class="errorMessage"></span>
+          <span id="billToPhoneRequired" style="display: none;" class="errorMessage">(required)</span>
         </div>
         <div>
           <input type="hidden" name="phoneContactMechId" value="${billToTelecomNumber.contactMechId?if_exists}"/>
-          <input type="text" name="countryCode" id="countryCode_${billToTelecomNumber.contactMechId}" class="required" value="${billToTelecomNumber.countryCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="areaCode" id="areaCode_${billToTelecomNumber.contactMechId}" class="required" value="${billToTelecomNumber.areaCode?if_exists}" size="3" maxlength="3"/>
-          - <input type="text" name="contactNumber" id="contactNumber_${billToTelecomNumber.contactMechId}" class="required" value="${contactNumber?default("${billToTelecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
-          - <input type="text" name="extension" id="extension_${billToTelecomNumber.contactMechId}" value="${extension?default("${billToExtension?if_exists}")}" size="3" maxlength="3"/>
+          <input type="text" name="countryCode" id="billToCountryCode" class="required" value="${billToTelecomNumber.countryCode?if_exists}" size="3" maxlength="3"/>
+          - <input type="text" name="areaCode" id="billToAreaCode" class="required" value="${billToTelecomNumber.areaCode?if_exists}" size="3" maxlength="3"/>
+          - <input type="text" name="contactNumber" id="billToContactNumber" class="required" value="${contactNumber?default("${billToTelecomNumber.contactNumber?if_exists}")}" size="6" maxlength="7"/>
+          - <input type="text" name="extension" value="${extension?default("${billToExtension?if_exists}")}" size="3" maxlength="3"/>
         </div>
       </div>
     </#if>
