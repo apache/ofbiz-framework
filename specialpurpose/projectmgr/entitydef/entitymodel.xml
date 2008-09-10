@@ -155,23 +155,6 @@ under the License.
     </relation>
   </view-entity>
   
-  <view-entity entity-name="ProjectAndPhase"
-    package-name="org.ofbiz.workeffort.project"
-    title="WorkEffort for use in project -> phase">
-    <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
-    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
-    <alias-all entity-alias="WEP"/>
-    <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
-    <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
-    <alias entity-alias="WEP" field="currentStatusId" name="projectStatusId"/>
-    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
-    <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
-    <alias entity-alias="WEPH" field="currentStatusId" name="phaseStatusId"/>
-    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
-      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
-    </view-link>
-  </view-entity>
-  
   <view-entity entity-name="TimesheetAndTimeEntry"
     package-name="org.ofbiz.workeffort.project"
     title="Time entry for Timesheets, time entries always have a timesheet and are always for one day only and recording the hours for one person which is defined on the timesheet. A timesheet will always have at least one time entry.">
