@@ -74,7 +74,7 @@ import javolution.util.FastMap;
 public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerInterface {
 
     public static final String module = DataResourceWorker.class.getName();
-    public static final String err_resource = "ContentErrorUiLabel";
+    public static final String err_resource = "ContentErrorUiLabels";
 
     /**
      * Traverses the DataCategory parent/child structure and put it in categoryNode. Returns non-null error string if there is an error.

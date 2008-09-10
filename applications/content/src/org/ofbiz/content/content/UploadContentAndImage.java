@@ -66,7 +66,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class UploadContentAndImage {
 
     public static final String module = UploadContentAndImage.class.getName();
-    public static final String err_resource = "ContentErrorUiLabel";
+    public static final String err_resource = "ContentErrorUiLabels";
 
     public UploadContentAndImage() {}
 

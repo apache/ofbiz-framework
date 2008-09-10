@@ -42,7 +42,7 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 public class LayoutWorker {
 
     public static final String module = LayoutWorker.class.getName();
-    public static final String err_resource = "ContentErrorUiLabel";
+    public static final String err_resource = "ContentErrorUiLabels";
 
     /**
      * Uploads image data from a form and stores it in ImageDataResource. 

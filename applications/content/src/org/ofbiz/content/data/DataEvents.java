@@ -51,7 +51,7 @@ import org.ofbiz.service.ServiceUtil;
 public class DataEvents {
 
     public static final String module = DataEvents.class.getName();
-    public static final String err_resource = "ContentErrorUiLabel";
+    public static final String err_resource = "ContentErrorUiLabels";
 
     public static String uploadImage(HttpServletRequest request, HttpServletResponse response) {
         return DataResourceWorker.uploadAndStoreImage(request, "dataResourceId", "imageData");
