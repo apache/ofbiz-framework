@@ -1091,6 +1091,9 @@
         <value xml:lang="th">เพิ่มรายการลงตระกร้า</value>
         <value xml:lang="zh">把列表放入购物车</value>
     </property>
+    <property key="EcommerceAddNewAddress">
+        <value xml:lang="en">Add New Address</value>
+    </property>
     <property key="EcommerceAddNewDigitalProduct">
         <value xml:lang="en">Add New Digital Product</value>
         <value xml:lang="fr">Ajouter le nouveau produit numérique</value>
@@ -1129,8 +1132,8 @@
         <value xml:lang="th">เพิ่มที่เลือกลงสู่รายการ</value>
         <value xml:lang="zh">把选中的添加到列表中</value>
     </property>
-    <property key="EcommerceAdditional">
-        <value xml:lang="en">Additional</value>
+    <property key="EcommerceAdditionalAddresses">
+        <value xml:lang="en">Additional Addresses</value>
     </property>
     <property key="EcommerceAddressBook">
         <value xml:lang="en">Address Book</value>
@@ -1370,8 +1373,8 @@
         <value xml:lang="th">หมายเลขแหล่งที่มา</value>
         <value xml:lang="zh">数据资源标识</value>
     </property>
-    <property key="EcommerceDefault">
-        <value xml:lang="en">Default</value>
+    <property key="EcommerceDefaultAddresses">
+        <value xml:lang="en">Default Addresses</value>
     </property>
     <property key="EcommerceDigitalAddFromMyFiles">
         <value xml:lang="en">Digital Add From My Files</value>
@@ -2567,8 +2570,11 @@
         <value xml:lang="th">ราคา</value>
         <value xml:lang="zh">价格</value>
     </property>
-    <property key="EcommercePrimary">
-        <value xml:lang="en">Primary</value>
+    <property key="EcommercePrimaryBillingAddress">
+        <value xml:lang="en">Primary Billing Address</value>
+    </property>
+    <property key="EcommercePrimaryShippingAddress">
+        <value xml:lang="en">Primary Shipping Address</value>
     </property>
     <property key="EcommerceProductNumber">
         <value xml:lang="en">Product Number</value>
