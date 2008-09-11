@@ -977,6 +977,9 @@
         <value xml:lang="ru">больше чем</value>
         <value xml:lang="th">มากกว่า</value>
     </property>
+    <property key="CommonNewSmall">
+        <value xml:lang="en">new</value>
+    </property>
     <property key="CommonNewListSubscription">
         <value xml:lang="en">New List Subscription</value>
         <value xml:lang="es">Nueva lista de subscripción</value>
@@ -1028,6 +1031,9 @@
         <value xml:lang="fr">Votre</value>
         <value xml:lang="it">tuo</value>
         <value xml:lang="th">ของคุณ</value>
+    </property>
+    <property key="CommonYourCapital">
+        <value xml:lang="en">Your</value>
     </property>
     <property key="EcommerceAccountLogin">
         <value xml:lang="en">Your account login is:</value>

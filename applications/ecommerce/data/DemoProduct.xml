@@ -86,7 +86,7 @@ under the License.
 
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_TELL_FRIEND" bodyScreenLocation="component://ecommerce/widget/EmailProductScreens.xml#TellFriend" subject="${sendFrom} has sent you a link!" fromAddress="ofbiztest@yahoo.com"/>
 
-    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_PWD_RETRIEVE" bodyScreenLocation="component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail" subject="OFBiz Demo - Password Reminder (${userLoginId})" fromAddress="ofbiztest@yahoo.com"/>
+    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_PWD_RETRIEVE" bodyScreenLocation="component://securityext/widget/EmailSecurityScreens.xml#PasswordEmail" subject="OFBiz Demo - Password Reminder (${userLogin.userLoginId})" fromAddress="ofbiztest@yahoo.com"/>
 
     <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_QUO_CONFIRM" bodyScreenLocation="component://order/widget/ordermgr/QuoteScreens.xml#ViewQuoteSimple" xslfoAttachScreenLocation="component://order/widget/ordermgr/QuoteScreens.xml#QuoteReport" subject="OFBiz Demo - Quote Confirmation #${quoteId}" bccAddress="ofbiztest@yahoo.com" fromAddress="ofbiztest@yahoo.com"/>
     
