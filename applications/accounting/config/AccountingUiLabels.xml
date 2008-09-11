@@ -7760,7 +7760,7 @@ esetata in mod automat</value>
     <property key="FormFieldTitle_scheduleWorkEffortId">
         <value xml:lang="en">Schedule Work Effort Id</value>
         <value xml:lang="es">Id Planificación de esfuerzo de trabajo</value>
-        <value xml:lang="fr">Programmer l'activité réf.</value>
+        <value xml:lang="fr">Planifier l'activité de réf.</value>
         <value xml:lang="it">Schedulazione Impegno di Lavoro</value>
         <value xml:lang="ro">Impaginare Sarcini de Serviciu</value>
         <value xml:lang="ru">Запланированное событие</value>
@@ -8036,7 +8036,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_workEffortId">
         <value xml:lang="en">Work Effort Id</value>
-        <value xml:lang="fr">Réf. activité</value>
+        <value xml:lang="fr">Réf. d'activité</value>
         <value xml:lang="it">Impegno di Lavoro</value>
         <value xml:lang="ro">Sarcina de Lucru</value>
         <value xml:lang="ru">Код задачи</value>

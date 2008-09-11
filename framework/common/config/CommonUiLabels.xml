@@ -2460,7 +2460,7 @@
         <value xml:lang="de">Von Datum</value>
         <value xml:lang="en">From Date</value>
         <value xml:lang="es">Desde la fecha</value>
-        <value xml:lang="fr">de la date</value>
+        <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Dalla Data</value>
         <value xml:lang="nl">Van Datum</value>
         <value xml:lang="pt">Data Origem</value>
@@ -2689,7 +2689,7 @@
     <property key="CommonHelp">
         <value xml:lang="de">Hilfe</value>
         <value xml:lang="en">Help</value>
-        <value xml:lang="en">Aide</value>
+        <value xml:lang="fr">Aide</value>
         <value xml:lang="zh_CN">帮助</value>
         <value xml:lang="zh">帮助</value>
     </property>
@@ -5575,6 +5575,13 @@
         <value xml:lang="th">สถานะข้อมูล</value>
         <value xml:lang="zh_CN">状态历史</value>
         <value xml:lang="zh">状态历史记录</value>
+    </property>
+    <property key="CommonStatustoComplete">
+        <value xml:lang="en">Status to 'complete'</value>
+        <value xml:lang="fr">Mettre statut à terminé</value>
+        <value xml:lang="it">Stato a 'completo'</value>
+        <value xml:lang="th">สถานะเป็น 'เสร็จสมบูรณ์'</value>
+        <value xml:lang="zh">置状态为完成</value>
     </property>
     <property key="CommonSubTitle">
         <value xml:lang="ar">العنوان الثانوي</value>

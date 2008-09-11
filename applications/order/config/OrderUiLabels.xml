@@ -5284,7 +5284,7 @@
         <value xml:lang="de">Offerte Kompetenztyp ID</value>
         <value xml:lang="en">Quote Skill Type Id</value>
         <value xml:lang="es">Tipo de habilidad</value>
-        <value xml:lang="fr">Réf. de type de compétences</value>
+        <value xml:lang="fr">Réf. de compétence (devis)</value>
         <value xml:lang="it">Tipo Skill Preventivo</value>
         <value xml:lang="nl">Offerte Skill Type Id</value>
         <value xml:lang="ro">Tip Skill Oferta</value>
@@ -5354,6 +5354,7 @@
     <property key="OrderOrderQuoteWorkEffortId">
         <value xml:lang="de">Offertarbeitseinsatz ID</value>
         <value xml:lang="en">Quote Work Effort Id</value>
+        <value xml:lang="fr">Réf. d'activité de devis</value>
         <value xml:lang="es">Código de esfuerzo de trabajo</value>
         <value xml:lang="fr">Réf. de la tâche du devis</value>
         <value xml:lang="it">Preventivo Impegno di Lavoro</value>
@@ -6754,7 +6755,7 @@
         <value xml:lang="de">Liste Kundenanfragen</value>
         <value xml:lang="en">Customer Request List</value>
         <value xml:lang="es">Lista de pedidos</value>
-        <value xml:lang="fr">Liste de demandes client</value>
+        <value xml:lang="fr">Liste des demandes client</value>
         <value xml:lang="it">Lista Richieste</value>
         <value xml:lang="nl">Request List</value>
         <value xml:lang="ro">Lista Cerere</value>

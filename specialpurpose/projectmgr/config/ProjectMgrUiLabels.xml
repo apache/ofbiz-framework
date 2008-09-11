@@ -18,23 +18,13 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="AcceptedCustomerRequestList">
-        <value xml:lang="en">Accepted Customer Request list'</value>
-    </property>
-    <property key="CommonStatustoComplete">
-        <value xml:lang="en">Status to 'complete'</value>
-        <value xml:lang="fr">Status à 'complet'</value>
-        <value xml:lang="it">Stato a 'completo'</value>
-        <value xml:lang="th">สถานะเป็น 'เสร็จสมบูรณ์'</value>
-        <value xml:lang="zh">置状态为完成</value>
-    </property>
     <property key="PageTitleAddProjectTimeToNewInvoice">
         <value xml:lang="en">Add all reported/approved task time to a new invoice</value>
         <value xml:lang="fr">Ajouter tout le temps de la tâche rapporté/approuvé à une nouvelle facture/</value>
     </property>
     <property key="PageTitleAddATimesheet">
         <value xml:lang="en">Add a new weekly Timesheet</value>
-        <value xml:lang="fr">Ajouter une nouvelle feuille de présence hebdomadaire</value>
+        <value xml:lang="fr">Ajouter une nouvelle feuille d'activité hebdomadaire</value>
         <value xml:lang="it">Aggiungi una nuova Timbratura settimanale</value>
         <value xml:lang="th">เพิ่มตารางเวลารายสัปดาห์ใหม่</value>
         <value xml:lang="zh">增加新的周时间表</value>
@@ -132,7 +122,7 @@
     </property>
     <property key="PageTitleCurrentTimesheet">
         <value xml:lang="en">Current Timesheet</value>
-        <value xml:lang="fr">Feuille de présence courante</value>
+        <value xml:lang="fr">Feuille d'activité courante</value>
         <value xml:lang="it">Timbratura Corrente</value>
         <value xml:lang="th">ตารางเวลาที่ใช้กันอยู่ในปัจจุบัน</value>
         <value xml:lang="zh">当前时间表</value>
@@ -146,7 +136,7 @@
     </property>
     <property key="PageTitleEditCurrentTimesheet">
         <value xml:lang="en">Edit current timesheet</value>
-        <value xml:lang="fr">Modifier la feuille de présence courante</value>
+        <value xml:lang="fr">Modifier la feuille d'activité courante</value>
         <value xml:lang="it">Aggiorna timbratura correnti</value>
         <value xml:lang="th">แก้ไขตารางเวลาที่ใช้อยู่ในปัจจุบัน</value>
         <value xml:lang="zh">编辑当前时间表</value>
@@ -202,14 +192,14 @@
     </property>
     <property key="PageTitleFindProject">
         <value xml:lang="en">Find Project</value>
-        <value xml:lang="fr">Rechercher le projet</value>
+        <value xml:lang="fr">Recherche de projet(s)</value>
         <value xml:lang="it">Ricerca Progetto</value>
         <value xml:lang="th">ค้นหาโปรเจค</value>
         <value xml:lang="zh">查找项目</value>
     </property>
     <property key="PageTitleFindProjectResults">
         <value xml:lang="en">Find Project Results</value>
-        <value xml:lang="fr">Rechercher les résultats du projet</value>
+        <value xml:lang="fr">Voir les résultats du projet</value>
         <value xml:lang="th">ผลลัพธ์ที่ได้จากการค้นหาโปรเจค</value>
         <value xml:lang="zh">查找项目情况</value>
     </property>
@@ -243,7 +233,7 @@
     </property>
     <property key="PageTitleFindTimeSheet">
         <value xml:lang="en">Find TimeSheet</value>
-        <value xml:lang="fr">Rechercher la feuille de présence</value>
+        <value xml:lang="fr">Rechercher une feuilled'activitée</value>
         <value xml:lang="it">Ricerca Timbratura</value>
         <value xml:lang="th">ค้นหาตารางเวลา</value>
         <value xml:lang="zh">查找时间表</value>
@@ -365,14 +355,14 @@
     </property>
     <property key="PageTitleTimesheet">
         <value xml:lang="en">Timesheet</value>
-        <value xml:lang="fr">Feuille de présence</value>
+        <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Timbratura</value>
         <value xml:lang="th">ตารางเวลา</value>
         <value xml:lang="zh">时间表</value>
     </property>
     <property key="PageTitleTimesheets">
         <value xml:lang="en">Timesheet list</value>
-        <value xml:lang="fr">Liste des feuilles de présence</value>
+        <value xml:lang="fr">Liste des feuilles d'activité</value>
         <value xml:lang="it">Lista Timbrature</value>
         <value xml:lang="th">แสดงรายการตารางเวลา</value>
         <value xml:lang="zh">时间表列表</value>
@@ -383,6 +373,10 @@
         <value xml:lang="it">Compito Non Assegnato</value>
         <value xml:lang="th">ไม่กำหนดงาน</value>
         <value xml:lang="zh">未分配任务</value>
+    </property>
+    <property key="ProjectMgrAcceptedCustomerRequestList">
+        <value xml:lang="en">Accepted Customer Request list</value>
+        <value xml:lang="fr">Liste des demandes client acceptées</value>
     </property>
     <property key="ProjectMgrActualHours">
         <value xml:lang="en">Actual Hours</value>
@@ -596,7 +590,7 @@
     </property>
     <property key="ProjectMgrNoAccessToTimesheet">
         <value xml:lang="en">You have no access to the timesheet#: ${timesheetId}</value>
-        <value xml:lang="fr">Vous n'avez pas accès à la feuille de présence n° ${timesheetId}</value>
+        <value xml:lang="fr">Vous n'avez pas accès à la feuille d'activité n° ${timesheetId}</value>
         <value xml:lang="it">Tu non hai accesso alla marcatura#: ${timesheetId}</value>
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าถึงตารางเวลา#: ${timesheetId}</value>
         <value xml:lang="zh">你没有访问该时间表的权限：${timesheetId}</value>
@@ -700,7 +694,7 @@
     </property>
     <property key="ProjectMgrProjectId">
         <value xml:lang="en">Project Id</value>
-        <value xml:lang="fr">Réf. du projet</value>
+        <value xml:lang="fr">Réf. de projet</value>
         <value xml:lang="it">Progetto</value>
         <value xml:lang="th">รหัสโปรเจค</value>
         <value xml:lang="zh">项目Id</value>
@@ -794,7 +788,7 @@
     </property>
     <property key="ProjectMgrPlanHours">
         <value xml:lang="en">Plan Hours</value>
-        <value xml:lang="fr">Planifier des heures</value>
+        <value xml:lang="fr">Heures planifiées</value>
 	    <value xml:lang="zh">计划时间</value>
     </property>
     <property key="ProjectMgrWeekNumber">
@@ -875,7 +869,7 @@
     </property>
     <property key="ProjectMgrSkillType">
         <value xml:lang="en">Skill Type</value>
-        <value xml:lang="fr">Type de comptétence</value>
+        <value xml:lang="fr">Compétences</value>
         <value xml:lang="it">Tipo Abilità</value>
         <value xml:lang="th">ประเภททักษะ</value>
         <value xml:lang="zh">技能类别</value>
@@ -987,14 +981,14 @@
     </property>
     <property key="ProjectMgrTaskNoOpen1">
         <value xml:lang="en">Currently no 'open' tasks are assigned to you.</value>
-        <value xml:lang="fr">Actuellement aucune tâche ne vous est affectée</value>
+        <value xml:lang="fr">Actuellement, aucune tâche ne vous est affectée.</value>
         <value xml:lang="it">Attualmente nessun compito 'aperto' è assegnato a te.</value>
         <value xml:lang="th">ในปัจจุบันไม่เปิดเผยงานที่มอบหมายให้คุณ</value>
         <value xml:lang="zh">当前没有给你分配开放的任务</value>
     </property>
     <property key="ProjectMgrTaskNoOpen2">
         <value xml:lang="en">Add an existing or a new task to a project you are member of.</value>
-        <value xml:lang="fr">Ajouter une tâche, existante ou nouvelle, au projet dont vous êtes membre</value>
+        <value xml:lang="fr">Ajouter une tâche, existante ou nouvelle, à un projet dont vous êtes membre</value>
         <value xml:lang="it">Aggiungere uno esistente o un nuovo compito al progetto che tu sei membro di.</value>
         <value xml:lang="th">เพิ่มงานที่มีอยู่หรืองานใหม่ไปยังโปรเจคคุณเป็นสมาชิกของ</value>
         <value xml:lang="zh">给属于你的项目增加一个新的或者已经存在的任务</value>
@@ -1039,6 +1033,13 @@
         <value xml:lang="it">Aggiungere/Aggiornare Voce Orario</value>
         <value xml:lang="th">ชั่วโมงจริง</value>
         <value xml:lang="zh">实际工时</value>
+    </property>
+    <property key="ProjectMgrToComplete">
+        <value xml:lang="en">To complete</value>
+        <value xml:lang="fr">Changer pour 'terminé'</value>
+        <value xml:lang="it">Per Trovare il Progetto Inserire Intervallo</value>
+        <value xml:lang="th">ค้นหาโปรเจคแสดงขอบเขต</value>
+        <value xml:lang="zh">查找项目的范围</value>
     </property>
     <property key="ProjectMgrToFindProject">
         <value xml:lang="en">To Find Project Give Range</value>
@@ -1114,7 +1115,6 @@
         <value xml:lang="en">Id</value>
         <value xml:lang="fr">Réf.</value>
         <value xml:lang="it">Codice</value>
-        <value xml:lang="th">รหัส</value>
         <value xml:lang="zh">Id</value>
     </property>
     <property key="ProjectMgrWorkEffortIdFrom">
@@ -1140,7 +1140,7 @@
     </property>
     <property key="ProjectMgrWorkEffortScopeEnumId">
         <value xml:lang="en">Scope</value>
-        <value xml:lang="fr">Portée</value>
+        <value xml:lang="fr">Public concerné</value>
         <value xml:lang="it">Scopo</value>
         <value xml:lang="th">ขอบเขต</value>
         <value xml:lang="zh">范围</value>
@@ -1163,7 +1163,7 @@
     </property>
     <property key="FormFieldTitle_newTimesheetId">
         <value xml:lang="en">New Timesheet Id</value>
-        <value xml:lang="fr">Liste des demandes client vérifiée mais incomplète et ayant une tâche affectée</value>
+        <value xml:lang="fr">Réf. de nouvelle feuille d'activité</value>
         <value xml:lang="zh">新的时间表Id</value>
     </property>
     <property key="FormFieldTitle_fromPartyId">
@@ -1171,6 +1171,26 @@
         <value xml:lang="fr">Depuis l'acteur de réf.</value>
         <value xml:lang="zh">来自会员</value>
     </property> 
+    <property key="FormFieldTitle_actualHours">
+        <value xml:lang="en">Actual Hours</value>
+        <value xml:lang="fr">Heures réelles</value>
+        <value xml:lang="zh">实际工时</value>
+    </property> 
+    <property key="FormFieldTitle_plannedHours">
+        <value xml:lang="en">Planned Hours</value>
+        <value xml:lang="fr">Heures planifiées</value>
+        <value xml:lang="zh">计划工时</value>
+    </property>
+    <property key="FormFieldTitle_relatedTasks">
+        <value xml:lang="en">Related Tasks</value>
+        <value xml:lang="fr">Tâches associées</value>
+        <value xml:lang="zh">相关任务</value>
+    </property>
+    <property key="FormFieldTitle_complete">
+        <value xml:lang="en">Complete</value>
+        <value xml:lang="fr">Terminé</value>
+        <value xml:lang="zh">完成</value>
+    </property>     
     <property key="ProjectMgrAddTimeEntry">
         <value xml:lang="en">Add Time Entry</value>
         <value xml:lang="fr">Ajouter une échéance</value>
@@ -1183,6 +1203,81 @@
         <value xml:lang="fr">Privé/Public</value>
         <value xml:lang="zh">私人/公开</value>
     </property>  
+    <property key="FormFieldTitle_isPrintable">
+        <value xml:lang="en">is Printable</value>
+        <value xml:lang="fr">est imprimable</value>
+        <value xml:lang="zh">是否可印</value>
+    </property>
+    <property key="FormFieldTitle_templateId">
+        <value xml:lang="en">Template Id</value>
+        <value xml:lang="fr">Réf. de modèle</value>
+        <value xml:lang="zh">模板Id</value>
+    </property>
+    <property key="FormFieldTitle_parentProjectName">
+        <value xml:lang="en">Parent Project Name</value>
+        <value xml:lang="fr">Nom du projet parent</value>
+        <value xml:lang="zh">父项目名称</value>
+    </property>
+    <property key="ProjectMgrCustRequestCategoryId">
+        <value xml:lang="en">Cust Request Category Id</value>
+        <value xml:lang="fr">Réf. de catégorie de demande client</value>
+        <value xml:lang="zh">请求分类Id</value>
+    </property>
+    <property key="FormFieldTitle_openDateTime">
+        <value xml:lang="en">Open Date Time</value>
+        <value xml:lang="fr">Date/heure ouverte</value>
+        <value xml:lang="zh">开启日期</value>
+    </property>
+    <property key="FormFieldTitle_internalComment">
+        <value xml:lang="en">Internal Comment</value>
+        <value xml:lang="fr">Commentaire interne</value>
+        <value xml:lang="zh">内部评论</value>
+    </property>
+    <property key="FormFieldTitle_closedDateTime">
+        <value xml:lang="en">Closed Date Time</value>
+        <value xml:lang="fr">Date/heure fermée</value>
+        <value xml:lang="zh">关闭日期</value>
+    </property>
+    <property key="FormFieldTitle_phase">
+        <value xml:lang="en">Phase</value>
+        <value xml:lang="fr">Phase</value>
+        <value xml:lang="zh">项目阶段</value>
+    </property>
+    <property key="FormFieldTitle_startDate">
+        <value xml:lang="en">Start Date</value>
+        <value xml:lang="fr">Date de début</value>
+        <value xml:lang="zh">开始日期</value>
+    </property>
+    <property key="FormFieldTitle_completionDate">
+        <value xml:lang="en">Completion Date</value>
+        <value xml:lang="fr">Date d'achèvement</value>
+        <value xml:lang="zh">完成日期</value>
+    </property>
+    <property key="FormFieldTitle_task">
+        <value xml:lang="en">Task</value>
+        <value xml:lang="fr">Tâche</value>
+        <value xml:lang="zh">任务</value>
+    </property>
+    <property key="FormFieldTitle_phaseName">
+        <value xml:lang="en">Phase Name</value>
+        <value xml:lang="fr">Nom de phase</value>
+        <value xml:lang="zh">阶段名称</value>
+    </property>
+    <property key="FormFieldTitle_createdStamp">
+        <value xml:lang="en">Created Stamp</value>
+        <value xml:lang="fr">Estampille créée</value>
+        <value xml:lang="zh">创建时间</value>
+    </property>
+    <property key="FormFieldTitle_projectName">
+        <value xml:lang="en">Project Name</value>
+        <value xml:lang="fr">Nom de projet</value>
+        <value xml:lang="zh">项目名称</value>
+    </property>
+    <property key="FormFieldTitle_taskName">
+        <value xml:lang="en">Task Name</value>
+        <value xml:lang="fr">Nom de tâche</value>
+        <value xml:lang="zh">任务名称</value>
+    </property>
     <property key="ProjectMgrUnbilledHours">
         <value xml:lang="en">Unbilled hours</value>
         <value xml:lang="fr">Heures non facturées</value>
