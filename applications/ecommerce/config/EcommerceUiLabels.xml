@@ -1099,6 +1099,7 @@
     </property>
     <property key="EcommerceAddNewAddress">
         <value xml:lang="en">Add New Address</value>
+        <value xml:lang="fr">Ajouter une nouvelle adresse</value>
     </property>
     <property key="EcommerceAddNewDigitalProduct">
         <value xml:lang="en">Add New Digital Product</value>
@@ -1140,9 +1141,11 @@
     </property>
     <property key="EcommerceAdditionalAddresses">
         <value xml:lang="en">Additional Addresses</value>
+        <value xml:lang="fr">Adresses additionelles</value>
     </property>
     <property key="EcommerceAddressBook">
         <value xml:lang="en">Address Book</value>
+        <value xml:lang="fr">Carnet d'adresses</value>
     </property>
     <property key="EcommerceAdjustment">
         <value xml:lang="cs">Úprava</value>
@@ -1381,6 +1384,7 @@
     </property>
     <property key="EcommerceDefaultAddresses">
         <value xml:lang="en">Default Addresses</value>
+        <value xml:lang="fr">Adresses par défaut</value>
     </property>
     <property key="EcommerceDigitalAddFromMyFiles">
         <value xml:lang="en">Digital Add From My Files</value>
@@ -2578,9 +2582,11 @@
     </property>
     <property key="EcommercePrimaryBillingAddress">
         <value xml:lang="en">Primary Billing Address</value>
+        <value xml:lang="fr">Adresse de facturation principale</value>
     </property>
     <property key="EcommercePrimaryShippingAddress">
         <value xml:lang="en">Primary Shipping Address</value>
+        <value xml:lang="fr">Adresse d'expédition principale</value>
     </property>
     <property key="EcommerceProductNumber">
         <value xml:lang="en">Product Number</value>
