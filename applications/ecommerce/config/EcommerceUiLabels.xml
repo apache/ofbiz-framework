@@ -1477,12 +1477,15 @@
     </property>
     <property key="EcommerceNewPasswordMssgEncryptionOn">
         <value xml:lang="en">Your new password is :- </value>
+        <value xml:lang="fr">Votre nouveau mot de passe est : </value>
     </property>        
     <property key="EcommerceNewPasswordMssgEncryptionOff">
         <value xml:lang="en">Your password is :- </value>
+        <value xml:lang="fr">Votre mot de passe est : </value>
     </property>        
     <property key="EcommerceEnterPromoCode">
         <value xml:lang="en">Enter Promo Code</value>
+        <value xml:lang="fr">Saisissez votre code de promotion</value>
     </property>        
     <property key="EcommerceEnterQueryParameters">
         <value xml:lang="en">Enter Query Parameters</value>
