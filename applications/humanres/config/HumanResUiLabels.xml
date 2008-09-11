@@ -964,6 +964,7 @@
     </property>
     <property key="HumanResSkillTypeId">
         <value xml:lang="en">Skill Type Id</value>
+        <value xml:lang="fr">Réf. de compétence</value>
         <value xml:lang="it">Codice Tipo Abilità</value>
         <value xml:lang="th">รหัสประเภททักษะ</value>
         <value xml:lang="zh">技能类型Id</value>

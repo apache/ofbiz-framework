@@ -29,6 +29,7 @@
     <property key="FormFieldTitle_actualStartDate">
         <value xml:lang="de">Ist-Start-Datum</value>
         <value xml:lang="en">Actual Start Date</value>
+        <value xml:lang="fr">Date de début réelle</value>
         <value xml:lang="it">Data Inizio Attuale</value>
         <value xml:lang="ro">Data initiere Actuala</value>
         <value xml:lang="th">วันที่เริ่มจริง</value>
@@ -82,6 +83,7 @@
     <property key="FormFieldTitle_estimatedCompletionDate">
         <value xml:lang="de">Geschätztes Fertigstellungsdatum</value>
         <value xml:lang="en">Estimated Completion Date</value>
+        <value xml:lang="fr">Date de fin prévue</value>
         <value xml:lang="it">Data Completamento Stimata</value>
         <value xml:lang="ro">Data Terminare Stimata</value>
         <value xml:lang="th">วันที่คาดว่าจะเสร็จ</value>
@@ -112,6 +114,7 @@
     <property key="FormFieldTitle_estimatedStartDate">
         <value xml:lang="de">Geschätztes Start-Datum</value>
         <value xml:lang="en">Estimated Start Date</value>
+        <value xml:lang="fr">Date de début prévue</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="ro">Data Initiere Stimata</value>
         <value xml:lang="th">ประมาณวันเริ่มต้น</value>
@@ -1213,7 +1216,7 @@
         <value xml:lang="de">Geschätztes Start-Datum</value>
         <value xml:lang="en">Estimated Start Date</value>
         <value xml:lang="es">Fecha de inicio estimada</value>
-        <value xml:lang="fr">Estimated Start Date</value>
+        <value xml:lang="fr">Date de début prévue</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="ro">Data Initiala Stimata</value>
         <value xml:lang="th">ประมาณวันที่เริ่มต้น</value>
@@ -1394,7 +1397,7 @@
         <value xml:lang="de">Von-Datum</value>
         <value xml:lang="en">From Date</value>
         <value xml:lang="es">Fecha de inicio</value>
-        <value xml:lang="fr">From Date</value>
+        <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Da Data</value>
         <value xml:lang="ro">De la Data</value>
         <value xml:lang="th">จากวันที่</value>

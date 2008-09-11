@@ -52,6 +52,7 @@
     </property>
     <property key="FormFieldTitle_actualStartDate">
         <value xml:lang="en">Actual Start Date</value>
+        <value xml:lang="fr">Date de début réelle</value>
         <value xml:lang="it">Data Inizio Attuale</value>
         <value xml:lang="nl">Actual Start Date</value>
         <value xml:lang="ro">Data Initiere Actuala</value>
@@ -134,6 +135,7 @@
     </property>
     <property key="FormFieldTitle_estimatedCompletionDate">
         <value xml:lang="en">Estimated Completion Date</value>
+        <value xml:lang="fr">Date de fin prévue</value>
         <value xml:lang="it">Data Completamento Stimata</value>
         <value xml:lang="nl">Estimated Completion Date</value>
         <value xml:lang="ro">Data Finalizare Stimata</value>
@@ -166,6 +168,7 @@
     </property>
     <property key="FormFieldTitle_estimatedStartDate">
         <value xml:lang="en">Estimated Start Date</value>
+        <value xml:lang="fr">Date de début prévue</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="nl">Verwachtte start datum</value>
         <value xml:lang="ro">Data Initiala Stimata</value>
@@ -195,6 +198,7 @@
     </property>
     <property key="FormFieldTitle_hours">
         <value xml:lang="en">Hours</value>
+        <value xml:lang="fr">Heures</value>
         <value xml:lang="it">Ore</value>
         <value xml:lang="nl">Uren</value>
         <value xml:lang="ro">Ore</value>
@@ -550,6 +554,7 @@
     </property>
     <property key="FormFieldTitle_timesheetId">
         <value xml:lang="en">Timesheet Id</value>
+        <value xml:lang="fr">Réf. de feuille d'activité</value>
         <value xml:lang="it">Numero Timbratura</value>
         <value xml:lang="nl">Tijdschema Id</value>
         <value xml:lang="ro">Numar Pontaj</value>
@@ -595,6 +600,7 @@
     </property>
     <property key="FormFieldTitle_workEffortId">
         <value xml:lang="en">Work Effort Id</value>
+        <value xml:lang="fr">Réf. d'activité</value>
         <value xml:lang="it">Numero Impegno di Lavoro</value>
         <value xml:lang="nl">Activiteit Id</value>
         <value xml:lang="ro">Numar Sarcina de Lucru </value>
@@ -603,6 +609,7 @@
     </property>
     <property key="FormFieldTitle_workEffortIdFrom">
         <value xml:lang="en">Work Effort Id From</value>
+        <value xml:lang="fr">Réf. d'activité issue de</value>
         <value xml:lang="it">Impegno di Lavoro Da</value>
         <value xml:lang="nl">Actie Id van</value>
         <value xml:lang="ro">Sarcina de Lucru De la</value>
@@ -611,6 +618,7 @@
     </property>
     <property key="FormFieldTitle_workEffortIdTo">
         <value xml:lang="en">Work Effort Id To</value>
+        <value xml:lang="fr">Réf. d'activité allant vers</value>
         <value xml:lang="it">Impegno di Lavoro A</value>
         <value xml:lang="nl">Activiteit Id To</value>
         <value xml:lang="ro">Sarcina de Lucru La</value>
@@ -1613,6 +1621,7 @@
     <property key="Timesheet">
         <value xml:lang="en">Timesheet</value>
         <value xml:lang="es">Hoja de tiempos</value>
+        <value xml:lang="fr">Feuille d'activités</value>
         <value xml:lang="it">Timbratura</value>
         <value xml:lang="nl">Tijdschema</value>
         <value xml:lang="ro">Pontaj</value>
@@ -1630,6 +1639,7 @@
     </property>
     <property key="TimesheetHours">
         <value xml:lang="en">Hours</value>
+        <value xml:lang="fr">Heures</value>
         <value xml:lang="it">Ore</value>
         <value xml:lang="nl">Uren</value>
         <value xml:lang="ro">Ore</value>
@@ -1639,6 +1649,7 @@
     <property key="TimesheetMyTime">
         <value xml:lang="en">My Time</value>
         <value xml:lang="es">Mi tiempo</value>
+        <value xml:lang="fr">Mon temps</value>
         <value xml:lang="it">Mio Tempo</value>
         <value xml:lang="nl">Mijn tijd</value>
         <value xml:lang="ro">Timpul Meu</value>
@@ -1691,6 +1702,7 @@
     </property>
     <property key="TimesheetTimesheetId">
         <value xml:lang="en">Timesheet ID</value>
+        <value xml:lang="fr">Réf. de feuille d'activité</value>
         <value xml:lang="es">Código de hoja de tiempos</value>
         <value xml:lang="it">Numero Timbratura</value>
         <value xml:lang="nl">Tijdschema ID</value>
@@ -2285,6 +2297,7 @@
     </property>
     <property key="WorkEffortEstimatedCompletionDate">
         <value xml:lang="en">Estimated Completion Date</value>
+        <value xml:lang="fr">Date de fin prévue</value>
         <value xml:lang="it">Data Completamento Stimata</value>
         <value xml:lang="nl">Estimated Completion Date</value>
         <value xml:lang="ro">Data Terminare Stimata</value>
@@ -2293,6 +2306,7 @@
     </property>
     <property key="WorkEffortEstimatedStartDate">
         <value xml:lang="en">Estimated Start Date</value>
+        <value xml:lang="fr">Date de début prévue</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="nl">Estimated Start Date</value>
         <value xml:lang="ro">Data Initiere Stimata</value>
@@ -2590,7 +2604,7 @@
     <property key="WorkEffortMyRequestList">
         <value xml:lang="en">My Request List</value>
         <value xml:lang="es">Mi lista de pedidos</value>
-        <value xml:lang="fr">Ma liste de requête</value>
+        <value xml:lang="fr">Ma liste de demandes</value>
         <value xml:lang="it">Mia Lista Richieste</value>
         <value xml:lang="nl">My Request List</value>
         <value xml:lang="ro">Lista mea de Cereri</value>
@@ -2601,7 +2615,7 @@
     <property key="WorkEffortMyStatus">
         <value xml:lang="en">My Status</value>
         <value xml:lang="es">Mi estado</value>
-        <value xml:lang="fr">Mon état</value>
+        <value xml:lang="fr">Mon statut</value>
         <value xml:lang="it">Mio Stato</value>
         <value xml:lang="nl">My Status</value>
         <value xml:lang="ro">Starea Mea</value>
@@ -2611,6 +2625,7 @@
     </property>
     <property key="WorkEffortMyTasks">
         <value xml:lang="en">My Tasks</value>
+        <value xml:lang="fr">Mes tâches</value>
         <value xml:lang="it">Miei Compiti</value>
         <value xml:lang="th">ภารกิจของฉัน</value>
         <value xml:lang="zh">我的任务</value>
@@ -2618,6 +2633,7 @@
     <property key="WorkEffortMyTimesheets">
         <value xml:lang="en">My Timesheets</value>
         <value xml:lang="it">Mie Timbrature</value>
+        <value xml:lang="fr">Mes feuilles d'activité</value>
         <value xml:lang="nl">My Timesheets</value>
         <value xml:lang="ro">Pontajul Meu</value>
         <value xml:lang="th">ตารางการทำงานของฉัน</value>
@@ -3196,7 +3212,7 @@
     <property key="WorkEffortRequestList">
         <value xml:lang="en">Request List</value>
         <value xml:lang="es">Lista de pedidos</value>
-        <value xml:lang="fr">Liste de requête</value>
+        <value xml:lang="fr">Liste des demandes</value>
         <value xml:lang="it">Lista Richiesta</value>
         <value xml:lang="nl">Request List</value>
         <value xml:lang="ro">Lista Cerere</value>

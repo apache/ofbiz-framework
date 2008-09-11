@@ -2046,7 +2046,7 @@
     </property>
     <property key="FormFieldTitle_maintTemplateWorkEffortId">
         <value xml:lang="en">Maint Template Work Effort Id</value>
-        <value xml:lang="fr">Réf. maint. de canevas de tâche</value>
+        <value xml:lang="fr">Réf. maint. de canevas d'activité</value>
         <value xml:lang="it">Manutenzione Template Impegno di Lavoro</value>
         <value xml:lang="ru">Код шаблона задачи обслуживания</value>
         <value xml:lang="th">รหัสงานการรักษาสภาพเทมเพลต</value>
@@ -3686,7 +3686,7 @@
     </property>
     <property key="FormFieldTitle_workEffortId">
         <value xml:lang="en">Work Effort Id</value>
-        <value xml:lang="fr">Réf. de tâche</value>
+        <value xml:lang="fr">Réf. d'activité</value>
         <value xml:lang="it">Numero Impegno di Lavoro</value>
         <value xml:lang="ro">Numar Sarcina de Lucru</value>
         <value xml:lang="ru">Код работы</value>

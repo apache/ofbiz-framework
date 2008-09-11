@@ -34,7 +34,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.AcceptedCustomerRequestList}" navigation-form-name="ListRequests">
+                        <screenlet title="${uiLabelMap.ProjectMgrAcceptedCustomerRequestList}" navigation-form-name="ListRequests">
                             <link target="newrequest" text="${uiLabelMap.OrderNewRequest}" style="buttontext"/>
                             <include-form name="ListRequests" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                         </screenlet>
