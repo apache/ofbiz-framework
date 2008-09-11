@@ -23,6 +23,6 @@ under the License.
 <body>
   <div>${uiLabelMap.EcommerceThisEmailIsInResponseToYourRequestToHave} <#if useEncryption>${uiLabelMap.EcommerceANew}<#else>${uiLabelMap.CommonYour}</#if> ${uiLabelMap.EcommercePasswordSentToYou}.</div>
   <br/>
-  <div>${uiLabelMap.CommonYour} <#if useEncryption>${uiLabelMap.CommonNew}</#if> ${uiLabelMap.EcommercePasswordIs} "${password}"</div>
+  <div>${uiLabelMap.CommonYourCapital} <#if useEncryption>${uiLabelMap.CommonNewSmall}</#if> ${uiLabelMap.EcommercePasswordIs} "${password}"</div>
 </body>
 </html>
