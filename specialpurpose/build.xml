@@ -28,7 +28,8 @@
         oagis/build.xml, 
         googlebase/build.xml, 
         ebay/build.xml, 
-        projectmgr/build.xml"/>
+        projectmgr/build.xml,
+        ldap/build.xml"/>
     <!-- For the old OFBiz Workflow Engine add "workflow/build.xml" to the list above -->
     <!-- For Shark add "shark/build.xml" to the list above, in the specialpurpose-builds list (after workflow) -->
     
