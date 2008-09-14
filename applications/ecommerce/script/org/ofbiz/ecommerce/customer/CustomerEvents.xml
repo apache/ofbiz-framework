@@ -307,6 +307,13 @@ under the License.
         <create-value value-name="partyDataSource"/>
         <call-service service-name="createPartyRole" in-map-name="partyRoleContext" include-user-login="true"/>
 
+        <!--  Create party relationship between the new customer and the product store sales representative -->
+        <set field="partyRelationshipCtx.partyIdTo" value="admin"/>
+        <set field="partyRelationshipCtx.roleTypeIdTo" value="SALES_REP"/>
+        <set field="partyRelationshipCtx.roleTypeIdFrom" value="CUSTOMER"/>
+        <set field="partyRelationshipCtx.partyRelationshipTypeId" value="CUSTOMER_REL"/>
+        <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
+
         <!-- shipping address -->
         <if-compare field="parameters.USE_ADDRESS" operator="equals" value="false">
             <!-- address not used, do nothing -->
