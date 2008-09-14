@@ -311,7 +311,7 @@ under the License.
         <set field="partyRelationshipCtx.partyIdTo" value="admin"/>
         <set field="partyRelationshipCtx.roleTypeIdTo" value="SALES_REP"/>
         <set field="partyRelationshipCtx.roleTypeIdFrom" value="CUSTOMER"/>
-        <set field="partyRelationshipCtx.partyRelationshipTypeId" value="CUSTOMER_REL"/>
+        <set field="partyRelationshipCtx.partyRelationshipTypeId" value="DISTRIBUTION_CHANNEL"/>
         <call-service service-name="createPartyRelationship" in-map-name="partyRelationshipCtx"/>
 
         <!-- shipping address -->
