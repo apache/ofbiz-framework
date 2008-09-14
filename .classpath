@@ -27,6 +27,7 @@ under the License.
 	<classpathentry kind="src" path="specialpurpose/projectmgr/src"/>
 	<classpathentry kind="src" path="specialpurpose/ebay/src"/>
 	<classpathentry kind="src" path="specialpurpose/googlebase/src"/>
+	<classpathentry kind="src" path="specialpurpose/ldap/src"/>
 	<classpathentry kind="src" path="framework/base/src"/>
 	<classpathentry kind="src" path="framework/start/src"/>
 	<classpathentry kind="src" path="framework/geronimo/src"/>
@@ -130,6 +131,7 @@ under the License.
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/jpos18-controls.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/jcl.jar"/>
+	<classpathentry kind="lib" path="specialpurpose/ldap/lib/cas-server-core-3.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlgraphics-commons-1.2.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/rome-0.9.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/jdom-1.0.jar"/>
