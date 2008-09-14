@@ -3699,7 +3699,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">مرحبا إلى مسير الحسابات</value>
         <value xml:lang="en">Welcome to the Accounting Manager!</value>
         <value xml:lang="es">Bienvenido al Administrador Contable!</value>
-        <value xml:lang="fr">Bienvenue dans le module de Gestion comptable!</value>
+        <value xml:lang="fr">Bienvenue dans le module de Gestion comptable !</value>
         <value xml:lang="it">Benvenuto nella Gestione Contabilità!</value>
         <value xml:lang="nl">Welkom op de boekhouding pagina</value>
         <value xml:lang="pt_BR">Nota: esta aplicação encontra-se em desenvolvimento. Esta página sofrerá alterações.</value>
@@ -4335,7 +4335,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">الوضعية لا يمكن عغييرها إلى 'موفقة', التسديد لم يطبق كليا</value>
         <value xml:lang="en">Status cannot be set to 'Confirmed', the payment is not fully applied!</value>
         <value xml:lang="es">Status no puede ser 'Confirmado', el pago no esta completamente aplicado!</value>
-        <value xml:lang="fr">Le status n'a pas pu être passé à 'Confirmé', le paiement n'a pas pu être entièrement alloué!</value>
+        <value xml:lang="fr">Le status n'a pas pu être passé à 'Confirmé', le paiement n'a pas pu être entièrement alloué !</value>
         <value xml:lang="it">Stato non può essere impostato a 'Confermato', il pagamento non è completamento applicato!</value>
         <value xml:lang="nl">Status kan niet op 'bevestigd' gezet worden, omdat hij niet geheel is toegewezen.</value>
         <value xml:lang="ro">Statutul nu poate fi setat ca 'Confirmat', Plata nu a fost facuta in intregime!</value>
@@ -7094,7 +7094,7 @@ esetata in mod automat</value>
         <value xml:lang="ar">مختصر ؟</value>
         <value xml:lang="en">Summary ?</value>
         <value xml:lang="es">Resumen ?</value>
-        <value xml:lang="fr">Résumé?</value>
+        <value xml:lang="fr">Résumé ?</value>
         <value xml:lang="it">Sommario ?</value>
         <value xml:lang="ro">Breviar-Sumar </value>
         <value xml:lang="ru">Резюме?</value>
