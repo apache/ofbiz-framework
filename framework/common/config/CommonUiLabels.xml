@@ -3834,7 +3834,7 @@
         <value xml:lang="de">Keine Nutzerübereinstimmung</value>
         <value xml:lang="en">Not You</value>
         <value xml:lang="es">No es usted</value>
-        <value xml:lang="fr">Pas vous</value>
+        <value xml:lang="fr">Pas vous </value>
         <value xml:lang="it">Non Sei Te</value>
         <value xml:lang="nl">Niet U</value>
         <value xml:lang="pt">Você Não</value>
@@ -6549,7 +6549,7 @@
         <value xml:lang="de">Willkommen</value>
         <value xml:lang="en">Welcome</value>
         <value xml:lang="es">Bienvenido</value>
-        <value xml:lang="fr">Bienvenue</value>
+        <value xml:lang="fr">Bienvenue </value>
         <value xml:lang="it">Benvenuto</value>
         <value xml:lang="nl">Welkom</value>
         <value xml:lang="pt">Bem Vindo</value>
