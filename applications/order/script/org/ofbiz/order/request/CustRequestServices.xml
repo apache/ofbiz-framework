@@ -121,8 +121,8 @@ under the License.
         </if>
     </simple-method>
     <simple-method method-name="updateCustRequest" short-description="Update Customer Request">
-        <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
-        <find-by-primary-key entity-name="CustRequest" map-name="lookupPKMap" value-name="custRequest"/>
+        <entity-one entity-name="CustRequest" value-name="custRequest"/>     
+        <field-to-result field-name="custRequest.statusId" result-name="oldStatusId"/>          
         <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
             <!-- save the changed status in the history -->
             <set field="custRequest.statusId" from-field="parameters.statusId"/>
@@ -379,7 +379,9 @@ under the License.
             <return response-code="error"/>
         </if-empty>    
         <set-service-fields service-name="createCustRequest" map-name="parameters" to-map-name="custRequest"/>
-        <set field="custRequest.custRequestName" from-field="communicationEvent.subject"/>
+        <if-empty field="custRequest.custRequestName">
+            <set field="custRequest.custRequestName" from-field="communicationEvent.subject"/>
+        </if-empty>
         <if-empty field="parameters.custRequestTypeId">
             <set field="custRequest.custRequestTypeId" value="RF_SUPPORT"/>
         </if-empty>

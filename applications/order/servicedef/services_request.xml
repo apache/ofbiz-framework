@@ -47,6 +47,7 @@ under the License.
         <description>Update a custRequest record</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="oldStatusId" type="String" mode="OUT"/>
     </service>
 
     <service name="createCustRequestAttribute" engine="simple"
@@ -171,6 +172,7 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <attribute name="custRequestTypeId" mode="IN" type="String" optional="true"/>
+        <attribute name="custRequestName" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
     </service>
 </services>
