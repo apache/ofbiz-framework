@@ -627,9 +627,9 @@
         <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
         <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text default-value="${custRequest.custRequestName}"/></field>
         <field name="taskDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text default-value="${custRequest.description}"/></field>
-        <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*" parameter-name="workEffortParentId">
+        <field name="childWorkEffortId" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*">
             <drop-down allow-empty="false">
-                <entity-options entity-name="WorkEffortAndChild" description="${workEffortName} -- ${childWorkEffortName}" key-field-name="workEffortId">
+                <entity-options entity-name="WorkEffortAndChild" description="${workEffortName} -- ${childWorkEffortName}">
                     <entity-constraint name="workEffortTypeId" value="PROJECT"/>    
                     <entity-constraint name="childWorkEffortTypeId" value="PHASE"/>    
                     <entity-order-by field-name="workEffortName"/>
