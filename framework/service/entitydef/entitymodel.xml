@@ -128,6 +128,39 @@ under the License.
         <prim-key field="runtimeDataId"/>
     </entity>
 
+    <!-- Note: TemporalExpression values should be treated as immutable.
+        In other words, they should be created once and left unmodified by user
+        interaction. -->
+    <entity entity-name="TemporalExpression"
+            package-name="org.ofbiz.service.schedule"
+            title="Temporal Expression">
+      <field name="tempExprId" type="id-ne"></field>
+      <field name="tempExprTypeId" type="id-ne"></field>
+      <field name="date1" type="date-time"></field>
+      <field name="date2" type="date-time"></field>
+      <field name="integer1" type="numeric"></field>
+      <field name="integer2" type="numeric"></field>
+      <field name="string1" type="id"></field>
+      <field name="string2" type="id"></field>
+      <prim-key field="tempExprId"/>
+    </entity>
+
+    <entity entity-name="TemporalExpressionAssoc"
+            package-name="org.ofbiz.service.schedule"
+            title="Temporal Expression Association">
+      <field name="fromTempExprId" type="id-ne"><description>The "parent" expression</description></field>
+      <field name="toTempExprId" type="id-ne"><description>The "child" expression</description></field>
+      <field name="exprAssocType" type="id"><description>Expression association type, applies to DIFFERENCE expression types only. Valid values are INCLUDED or EXCLUDED.</description></field>
+      <prim-key field="fromTempExprId"/>
+      <prim-key field="toTempExprId"/>
+      <relation type="one" fk-name="TEMP_EXPR_FROM" rel-entity-name="TemporalExpression" title="From">
+        <key-map field-name="fromTempExprId" rel-field-name="tempExprId"/>
+      </relation>
+      <relation type="one" fk-name="TEMP_EXPR_TO" rel-entity-name="TemporalExpression" title="To">
+        <key-map field-name="toTempExprId" rel-field-name="tempExprId"/>
+      </relation>
+    </entity>
+
   <!-- ========================================================= -->
   <!-- org.ofbiz.service.semaphore -->
   <!-- ========================================================= -->
