@@ -1295,6 +1295,9 @@
         <value xml:lang="th">รายการที่สั่งซื้อสินค้าเด็ก</value>
         <value xml:lang="zh">子购物列表</value>
     </property>
+    <property key="EcommerceClickHereToEdit">
+        <value xml:lang="en">Click here to edit</value>
+    </property>
     <property key="EcommerceCompleted">
         <value xml:lang="en">Completed</value>
         <value xml:lang="es">Completado</value>
@@ -1362,6 +1365,9 @@
         <value xml:lang="ru">Продолжить покупки</value>
         <value xml:lang="th">ทำการซื้อสินค้าต่อไป</value>
         <value xml:lang="zh">继续购物</value>
+    </property>
+    <property key="EcommerceContinueToStep">
+        <value xml:lang="en">Continue to step</value>
     </property>
     <property key="EcommerceDataResourceId">
         <value xml:lang="en">Data Resource Id</value>
