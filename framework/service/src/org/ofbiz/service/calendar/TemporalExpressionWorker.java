@@ -30,8 +30,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
 
-/** Schedule and TemporalExpression persistence worker.
- */
+/** TemporalExpression persistence worker. */
 public class TemporalExpressionWorker {
 
     // Temporal expression constants
