@@ -522,6 +522,7 @@ under the License.
         <section>
             <actions>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="SecurityextUiLabels" map-name="uiLabelMap" global="true"/>
                 <set field="titleProperty" value="PageTitleNewCustomer"/>
                 <set field="layoutSettings.javaScripts[]" value="/ecommerce/images/profile.js" global="true"/>
             </actions>

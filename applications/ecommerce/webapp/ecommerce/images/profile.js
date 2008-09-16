@@ -4,6 +4,7 @@ var validatePostalAddress = null;
 Event.observe(window, 'load', function() {
     if ($('newUserForm')) {
         validateNewUser = new Validation('newUserForm', {immediate: true, onSubmit: false});
+        addValidations();
         Event.observe($('emailAddress'), 'change', setUserNameFromEmail);
         Event.observe('useShippingAddressForBilling', 'click', useShippingAddressAsBillingToggle);
         Event.observe($('submitNewUserForm'), 'click', submitValidNewUser);
@@ -336,4 +337,15 @@ function stopObservingShipToBillAddress() {
     Event.stopObserving($('shipToStateProvinceGeoId'), 'change', "");
     Event.stopObserving($('shipToCountryGeoId'), 'change', "");
     Event.stopObserving($('shipToPostalCode'), 'change', "");
+}
+
+function addValidations() {
+    Validation.add('validate-password', "", {
+        minLength : 5,
+        notOneOf : ['password','PASSWORD'],
+        notEqualToField : 'username'
+    });
+    Validation.add('validate-passwordVerify', "", {
+        equalToField : 'password'
+    });
 }
