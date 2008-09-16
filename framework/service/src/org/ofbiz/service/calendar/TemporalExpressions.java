@@ -42,9 +42,6 @@ public class TemporalExpressions implements Serializable {
         public Calendar next(Calendar cal) {
             return null;
         }
-        public Calendar previous(Calendar cal) {
-            return null;
-        }
     }
 
     /** This class represents a mathematical union of all of its
