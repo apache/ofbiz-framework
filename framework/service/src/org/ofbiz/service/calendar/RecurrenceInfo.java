@@ -19,6 +19,7 @@
 package org.ofbiz.service.calendar;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.Iterator;
@@ -27,6 +28,7 @@ import java.util.List;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.service.calendar.TemporalExpression;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
@@ -323,6 +325,43 @@ public class RecurrenceInfo {
             throw new RecurrenceInfoException(ee.getMessage(), ee);
         } catch (RecurrenceInfoException rie) {
             throw rie;
+        }
+    }
+
+    public static TemporalExpression toTemporalExpression(RecurrenceInfo info) {
+        if (info == null) {
+            throw new IllegalArgumentException("info argument cannot be null");
+        }
+        return new RecurrenceWrapper(info);
+    }
+
+    @SuppressWarnings("serial")
+    protected static class RecurrenceWrapper extends TemporalExpression {
+        protected RecurrenceInfo info;
+        protected RecurrenceWrapper() {}
+        public RecurrenceWrapper(RecurrenceInfo info) {
+            this.info = info;
+        }
+        public Calendar first(Calendar cal) {
+            long result = info.first();
+            if (result == 0) {
+                return null;
+            }
+            Calendar first = (Calendar) cal.clone();
+            first.setTimeInMillis(result);
+            return first;
+        }
+        public boolean includesDate(Calendar cal) {
+            return info.isValidCurrent(cal.getTimeInMillis());
+        }
+        public Calendar next(Calendar cal) {
+            long result = info.next(cal.getTimeInMillis());
+            if (result == 0) {
+                return null;
+            }
+            Calendar next = (Calendar) cal.clone();
+            next.setTimeInMillis(result);
+            return next;
         }
     }
 }

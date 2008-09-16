@@ -31,15 +31,15 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
-import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.service.calendar.TemporalExpression;
+import org.ofbiz.service.calendar.TemporalExpressionWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityFieldMap;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.serialize.SerializeException;
 import org.ofbiz.entity.serialize.XmlSerializer;
 import org.ofbiz.service.DispatchContext;
@@ -52,6 +52,7 @@ import org.xml.sax.SAXException;
 /**
  * Entity Service Job - Store => Schedule => Run
  */
+@SuppressWarnings("serial")
 public class PersistedServiceJob extends GenericServiceJob {
 
     public static final String module = PersistedServiceJob.class.getName();
@@ -60,6 +61,7 @@ public class PersistedServiceJob extends GenericServiceJob {
     private Timestamp storedDate = null;
     private long nextRecurrence = -1;
     private long maxRetry = -1;
+    private boolean warningLogged = false;
 
     /**
      * Creates a new PersistedServiceJob
@@ -122,23 +124,56 @@ public class PersistedServiceJob extends GenericServiceJob {
 
         // configure any addition recurrences
         GenericValue job = this.getJob();
+        long maxRecurrenceCount = -1;
+        long currentRecurrenceCount = 0;
+        TemporalExpression expr = null;
         RecurrenceInfo recurrence = JobManager.getRecurrenceInfo(job);
+        if (recurrence != null) {
+            if (!this.warningLogged) {
+                Debug.logWarning("Persisted Job [" + getJobId() + "] references a RecurrenceInfo, recommend using TemporalExpression instead", module);
+                this.warningLogged = true;
+            }
+            currentRecurrenceCount = recurrence.getCurrentCount();
+            expr = RecurrenceInfo.toTemporalExpression(recurrence);
+        }
+        if (expr == null && UtilValidate.isNotEmpty(job.getString("tempExprId"))) {
+            try {
+                expr = TemporalExpressionWorker.getTemporalExpression(this.delegator, job.getString("tempExprId"));
+            } catch (GenericEntityException e) {
+                throw new RuntimeException(e.getMessage());
+            }
+        }
 
         String instanceId = UtilProperties.getPropertyValue("general.properties", "unique.instanceId", "ofbiz0");
         if (!instanceId.equals(job.getString("runByInstanceId"))) {
             throw new InvalidJobException("Job has been accepted by a different instance!");
         }
 
+        if (job.get("maxRecurrenceCount") != null) {
+            maxRecurrenceCount = job.getLong("maxRecurrenceCount").longValue();
+        }
+        if (job.get("currentRecurrenceCount") != null) {
+            currentRecurrenceCount = job.getLong("currentRecurrenceCount").longValue();
+        }
+        if (maxRecurrenceCount != -1) {
+            currentRecurrenceCount++;
+            job.set("currentRecurrenceCount", currentRecurrenceCount);
+        }
+
         try {
-            if (recurrence != null) {
-                recurrence.incrementCurrentCount();
-                long next = recurrence.next();
-                createRecurrence(job, next);
+            if (expr != null && (maxRecurrenceCount == -1 || currentRecurrenceCount <= maxRecurrenceCount)) {
+                if (recurrence != null) {
+                    recurrence.incrementCurrentCount();
+                }
+                Calendar next = expr.next(Calendar.getInstance());
+                if (next != null) {
+                    createRecurrence(job, next.getTimeInMillis());
+                }
             }
         } catch (GenericEntityException e) {
             throw new RuntimeException(e.getMessage());
         }
-        if (Debug.infoOn()) Debug.logInfo(this.toString() + "[" + getJobId() + "] -- Next runtime: " + new java.sql.Timestamp(nextRecurrence), module);
+        if (Debug.infoOn()) Debug.logInfo(this.toString() + "[" + getJobId() + "] -- Next runtime: " + new Date(nextRecurrence), module);
     }
 
     private void createRecurrence(GenericValue job, long next) throws GenericEntityException {

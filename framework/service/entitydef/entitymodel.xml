@@ -56,7 +56,10 @@ under the License.
         <field name="authUserLoginId" type="id-vlong"></field>
         <field name="runAsUser" type="id-vlong"></field>
         <field name="runtimeDataId" type="id"></field>
-        <field name="recurrenceInfoId" type="id"></field>
+        <field name="recurrenceInfoId" type="id"><description>Deprecated - use tempExprId instead</description></field>
+        <field name="tempExprId" type="id"><description>Temporal expression id</description></field>
+        <field name="currentRecurrenceCount" type="numeric"></field>
+        <field name="maxRecurrenceCount" type="numeric"></field>
         <field name="runByInstanceId" type="id"></field>
         <field name="startDateTime" type="date-time"></field>
         <field name="finishDateTime" type="date-time"></field>
@@ -64,6 +67,9 @@ under the License.
         <prim-key field="jobId"/>
         <relation type="one" fk-name="JOB_SNDBX_RECINFO" rel-entity-name="RecurrenceInfo">
             <key-map field-name="recurrenceInfoId"/>
+        </relation>
+        <relation type="one" fk-name="JOB_SNDBX_TEMPEXPR" rel-entity-name="TemporalExpression">
+            <key-map field-name="tempExprId"/>
         </relation>
         <relation type="one" fk-name="JOB_SNDBX_RNTMDTA" rel-entity-name="RuntimeData">
             <key-map field-name="runtimeDataId"/>
@@ -91,7 +97,7 @@ under the License.
       <field name="recurrenceDateTimes" type="very-long"></field>
       <field name="exceptionRuleId" type="id-ne"></field>
       <field name="recurrenceRuleId" type="id-ne"></field>
-      <field name="recurrenceCount" type="numeric"></field>
+      <field name="recurrenceCount" type="numeric"><description>Not recommended - more than one process could be using this RecurrenceInfo</description></field>
       <prim-key field="recurrenceInfoId"/>
       <relation type="one" fk-name="REC_INFO_RCRLE" rel-entity-name="RecurrenceRule">
         <key-map field-name="recurrenceRuleId"/>
