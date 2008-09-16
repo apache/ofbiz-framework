@@ -48,31 +48,31 @@ public class TimeDuration implements Serializable {
         this.years = years;
     }
 
-    public long millis() {
+    public int millis() {
         return this.millis;
     }
 
-    public long seconds() {
+    public int seconds() {
         return this.seconds;
     }
 
-    public long minutes() {
+    public int minutes() {
         return this.minutes;
     }
 
-    public long hours() {
+    public int hours() {
         return this.hours;
     }
 
-    public long days() {
+    public int days() {
         return this.days;
     }
 
-    public long months() {
+    public int months() {
         return this.months;
     }
 
-    public long years() {
+    public int years() {
         return this.years;
     }
 

@@ -689,9 +689,9 @@ public class TemporalExpressions implements Serializable {
         protected int occurrence;
         
         /**
-         * @param start An integer in the range of <code>Calendar.SUNDAY</code>
+         * @param dayOfWeek An integer in the range of <code>Calendar.SUNDAY</code>
          * to <code>Calendar.SATURDAY</code>
-         * @param end An integer in the range of -5 to 5, excluding zero
+         * @param occurrence An integer in the range of -5 to 5, excluding zero
          */
         public DayInMonth(int dayOfWeek, int occurrence) {
             if (dayOfWeek < Calendar.SUNDAY || dayOfWeek > Calendar.SATURDAY) {
@@ -790,15 +790,13 @@ public class TemporalExpressions implements Serializable {
         protected int freqCount;
         
         /**
-         * @param start One of the following integer values: <code>Calendar.SECOND
+         * @param start Starting date, defaults to current system time
+         * @param freqType One of the following integer values: <code>Calendar.SECOND
          * Calendar.MINUTE Calendar.HOUR Calendar.DAY_OF_MONTH Calendar.MONTH
          * Calendar.YEAR</code>
-         * @param end An integer in the range of -5 to 5, excluding zero
+         * @param freqCount A positive integer
          */
         public Frequency(Date start, int freqType, int freqCount) {
-            if (start == null) {
-                throw new IllegalArgumentException("Invalid start argument");
-            }
             if (freqType != Calendar.SECOND && freqType != Calendar.MINUTE
                     && freqType != Calendar.HOUR && freqType != Calendar.DAY_OF_MONTH
                     && freqType != Calendar.MONTH && freqType != Calendar.YEAR) {
@@ -807,9 +805,13 @@ public class TemporalExpressions implements Serializable {
             if (freqCount < 1) {
                 throw new IllegalArgumentException("freqCount argument must be a positive integer");
             }
+            if (start != null) {
+                this.start = start;
+            } else {
+                this.start = new Date();
+            }
             this.sequence = 100;
             this.subSequence = freqType;
-            this.start = start;
             this.freqType = freqType;
             this.freqCount = freqCount;
             if (Debug.verboseOn()) {

@@ -176,7 +176,7 @@ under the License.
         MONTH_RANGE          start [3]      end [3]
         DAY_OF_MONTH_RANGE   start [4]      end [4]
         DAY_IN_MONTH         day [2]        occurrence [5]
-        FREQUENCY            freq type [6]  freq count [7]  start
+        FREQUENCY            freq type [6]  freq count [7]  start[8]
 
         [1] hh:mm:ss.sss
         [2] Day of week: 1 = Sunday, 7 = Saturday
@@ -185,6 +185,7 @@ under the License.
         [5] Integer: -5 to +5, zero excluded
         [6] Second = 13, Minute = 12, Hour = 11, Day = 5, Month = 2, Year = 1
         [7] Positive integer, zero excluded
+        [8] If null, defaults to system date when the expression was retrieved from storage.
     -->
     
 </entity-engine-xml>

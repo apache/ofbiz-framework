@@ -328,6 +328,10 @@ public class RecurrenceInfo {
         }
     }
 
+    /** Convert a RecurrenceInfo object to a TemporalExpression object.
+     * @param info A RecurrenceInfo instance
+     * @return A TemporalExpression instance
+     */
     public static TemporalExpression toTemporalExpression(RecurrenceInfo info) {
         if (info == null) {
             throw new IllegalArgumentException("info argument cannot be null");
@@ -335,6 +339,10 @@ public class RecurrenceInfo {
         return new RecurrenceWrapper(info);
     }
 
+    /** Wraps a RecurrenceInfo object with a TemporalExpression object. This
+     * class is intended to help with the transition from RecurrenceInfo/RecurrenceRule
+     * to TemporalExpression.
+     */
     @SuppressWarnings("serial")
     protected static class RecurrenceWrapper extends TemporalExpression {
         protected RecurrenceInfo info;
@@ -343,7 +351,7 @@ public class RecurrenceInfo {
             this.info = info;
         }
         public Calendar first(Calendar cal) {
-            long result = info.first();
+            long result = this.info.first();
             if (result == 0) {
                 return null;
             }
@@ -352,10 +360,10 @@ public class RecurrenceInfo {
             return first;
         }
         public boolean includesDate(Calendar cal) {
-            return info.isValidCurrent(cal.getTimeInMillis());
+            return this.info.isValidCurrent(cal.getTimeInMillis());
         }
         public Calendar next(Calendar cal) {
-            long result = info.next(cal.getTimeInMillis());
+            long result = this.info.next(cal.getTimeInMillis());
             if (result == 0) {
                 return null;
             }
