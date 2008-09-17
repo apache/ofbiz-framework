@@ -96,6 +96,10 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
         return set;
     }
 
+    protected boolean containsExpression(TemporalExpression expression) {
+        return false;
+    }
+
     protected Calendar setStartOfDay(Calendar cal) {
         cal.set(Calendar.HOUR_OF_DAY, 0);
         cal.set(Calendar.MINUTE, 0);

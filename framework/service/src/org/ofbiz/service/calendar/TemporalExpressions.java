@@ -56,6 +56,9 @@ public class TemporalExpressions implements Serializable {
                 throw new IllegalArgumentException("expressionSet argument cannot be null");
             }
             this.expressionSet = expressionSet;
+            if (containsExpression(this)) {
+                throw new IllegalArgumentException("recursive expression");
+            }
             if (this.expressionSet.size() > 0) {
                 TemporalExpression that = this.expressionSet.iterator().next();
                 if (this.compareTo(that) > 0) {
@@ -126,6 +129,15 @@ public class TemporalExpressions implements Serializable {
             }
             return finalSet;
         }
+
+        protected boolean containsExpression(TemporalExpression expression) {
+            for (TemporalExpression setItem : this.expressionSet) {
+                if (setItem.containsExpression(expression)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     /** This class represents a mathematical intersection of all of its
@@ -139,7 +151,15 @@ public class TemporalExpressions implements Serializable {
             if (expressionSet == null) {
                 throw new IllegalArgumentException("expressionSet argument cannot be null");
             }
+            for (TemporalExpression that : expressionSet) {
+                if (this == that) {
+                    throw new IllegalArgumentException("recursive expression");
+                }
+            }
             this.expressionSet = expressionSet;
+            if (containsExpression(this)) {
+                throw new IllegalArgumentException("recursive expression");
+            }
             if (this.expressionSet.size() > 0) {
                 TemporalExpression that = this.expressionSet.iterator().next();
                 if (this.compareTo(that) > 0) {
@@ -235,6 +255,15 @@ public class TemporalExpressions implements Serializable {
             }
             return finalSet;
         }
+
+        protected boolean containsExpression(TemporalExpression expression) {
+            for (TemporalExpression setItem : this.expressionSet) {
+                if (setItem.containsExpression(expression)) {
+                    return true;
+                }
+            }
+            return false;
+        }
     }
 
     /** This class represents a difference of two temporal expressions. */
@@ -246,11 +275,11 @@ public class TemporalExpressions implements Serializable {
             if (included == null) {
                 throw new IllegalArgumentException("included argument cannot be null");
             }
-            if (excluded == null) {
-                throw new IllegalArgumentException("excluded argument cannot be null");
-            }
             this.included = included;
             this.excluded = excluded;
+            if (containsExpression(this)) {
+                throw new IllegalArgumentException("recursive expression");
+            }
             if (this.compareTo(included) > 0) {
                 this.sequence = included.sequence;
                 this.subSequence = included.subSequence;
@@ -306,6 +335,10 @@ public class TemporalExpressions implements Serializable {
                 }
             }
             return finalSet;
+        }
+
+        protected boolean containsExpression(TemporalExpression expression) {
+            return this.included.containsExpression(expression) || this.excluded.containsExpression(expression);
         }
     }
 
@@ -648,33 +681,19 @@ public class TemporalExpressions implements Serializable {
 
         public boolean includesDate(Calendar cal) {
             int dom = cal.get(Calendar.DAY_OF_MONTH);
-            int end = this.end;
-            if (cal.getActualMaximum(Calendar.DAY_OF_MONTH) < end) {
-                end = cal.getActualMaximum(Calendar.DAY_OF_MONTH);
-            }
-            return dom >= this.start && dom <= end;
+            return dom >= this.start && dom <= this.end;
         }
 
         public Calendar first(Calendar cal) {
-            int month = cal.get(Calendar.MONTH);
-            Calendar first = (Calendar) cal.clone();
-            if (first.get(Calendar.DAY_OF_MONTH) > first.getActualMaximum(Calendar.DAY_OF_MONTH)) {
-                first.set(Calendar.DAY_OF_MONTH, first.getActualMaximum(Calendar.DAY_OF_MONTH));
-            }
-            setStartOfDay(first);
+            Calendar first = setStartOfDay((Calendar) cal.clone());
             while (!includesDate(first)) {
                 first.add(Calendar.DAY_OF_MONTH, 1);
-                if (first.get(Calendar.MONTH) != month) {
-                    first.set(Calendar.MONTH, month);
-                    first.set(Calendar.DAY_OF_MONTH, 1);
-                }
             }
             return first;
         }
 
         public Calendar next(Calendar cal) {
-            Calendar next = (Calendar) cal.clone();
-            setStartOfDay(next);
+            Calendar next = setStartOfDay((Calendar) cal.clone());
             next.add(Calendar.DAY_OF_MONTH, 1);
             while (!includesDate(next)) {
                 next.add(Calendar.DAY_OF_MONTH, 1);
@@ -737,9 +756,7 @@ public class TemporalExpressions implements Serializable {
 
         public Calendar first(Calendar cal) {
             int month = cal.get(Calendar.MONTH);
-            Calendar first = (Calendar) cal.clone();
-            alignDayOfWeek(first);
-            setStartOfDay(first);
+            Calendar first = setStartOfDay(alignDayOfWeek((Calendar) cal.clone()));
             if (first.before(cal)) {
                 first.set(Calendar.DAY_OF_MONTH, 1);
                 if (first.get(Calendar.MONTH) == month) {
@@ -752,9 +769,7 @@ public class TemporalExpressions implements Serializable {
 
         public Calendar next(Calendar cal) {
             int month = cal.get(Calendar.MONTH);
-            Calendar next = (Calendar) cal.clone();
-            alignDayOfWeek(next);
-            setStartOfDay(next);
+            Calendar next = setStartOfDay(alignDayOfWeek((Calendar) cal.clone()));
             if (next.before(cal) || next.equals(cal)) {
                 next.set(Calendar.DAY_OF_MONTH, 1);
                 if (next.get(Calendar.MONTH) == month) {
@@ -765,7 +780,7 @@ public class TemporalExpressions implements Serializable {
             return next;
         }
 
-        protected void alignDayOfWeek(Calendar cal) {
+        protected Calendar alignDayOfWeek(Calendar cal) {
             cal.set(Calendar.DAY_OF_MONTH, 1);
             if (this.occurrence > 0) {
                 while (cal.get(Calendar.DAY_OF_WEEK) != this.dayOfWeek) {
@@ -780,6 +795,7 @@ public class TemporalExpressions implements Serializable {
                 }
                 cal.add(Calendar.DAY_OF_MONTH, (this.occurrence + 1) * 7);
             }
+            return cal;
         }
     }
 
@@ -840,8 +856,7 @@ public class TemporalExpressions implements Serializable {
         }
 
         public Calendar first(Calendar cal) {
-            Calendar first = (Calendar) cal.clone();
-            first.setTime(this.start);
+            Calendar first = prepareCal(cal);
             while (first.before(cal)) {
                 first.add(this.freqType, this.freqCount);
             }
@@ -849,12 +864,41 @@ public class TemporalExpressions implements Serializable {
         }
 
         public Calendar next(Calendar cal) {
-            Calendar next = (Calendar) cal.clone();
-            next.setTime(this.start);
-            while (next.before(cal) || next.equals(cal)) {
+            Calendar next = first(cal);
+            if (next.equals(cal)) {
                 next.add(this.freqType, this.freqCount);
             }
             return next;
+        }
+
+        protected Calendar prepareCal(Calendar cal) {
+            // Performs a "sane" skip forward in time - avoids time consuming loops
+            // like incrementing every second from Jan 1 2000 until today
+            Calendar skip = (Calendar) cal.clone();
+            skip.setTime(this.start);
+            long deltaMillis = cal.getTimeInMillis() - this.start.getTime();
+            if (deltaMillis < 1000) {
+                return skip;
+            }
+            long divisor = deltaMillis;
+            if (this.freqType == Calendar.DAY_OF_MONTH) {
+                divisor = 86400000;
+            } else if (this.freqType == Calendar.HOUR) {
+                divisor = 3600000;
+            } else if (this.freqType == Calendar.MINUTE) {
+                divisor = 60000;
+            } else if (this.freqType == Calendar.SECOND) {
+                divisor = 1000;
+            } else {
+                return skip;
+            }
+            float units = deltaMillis / divisor;
+            units = (units / this.freqCount) * this.freqCount;
+            skip.add(this.freqType, (int)units);
+            while (skip.after(cal)) {
+                skip.add(this.freqType, -this.freqCount);
+            }
+            return skip;
         }
     }
 }
