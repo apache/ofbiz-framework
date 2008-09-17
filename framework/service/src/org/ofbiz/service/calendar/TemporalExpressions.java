@@ -151,11 +151,6 @@ public class TemporalExpressions implements Serializable {
             if (expressionSet == null) {
                 throw new IllegalArgumentException("expressionSet argument cannot be null");
             }
-            for (TemporalExpression that : expressionSet) {
-                if (this == that) {
-                    throw new IllegalArgumentException("recursive expression");
-                }
-            }
             this.expressionSet = expressionSet;
             if (containsExpression(this)) {
                 throw new IllegalArgumentException("recursive expression");
@@ -184,14 +179,6 @@ public class TemporalExpressions implements Serializable {
 
         public String toString() {
             return super.toString() + ", size = " + this.expressionSet.size();
-        }
-
-        public void add(TemporalExpression expr) {
-            this.expressionSet.add(expr);
-            if (this.compareTo(expr) > 0) {
-                this.sequence = expr.sequence;
-                this.subSequence = expr.subSequence;
-            }
         }
 
         public boolean includesDate(Calendar cal) {
@@ -383,12 +370,18 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a time of day range. */
     public static class TimeOfDayRange extends TemporalExpression {
-        protected int start = 0;
-        protected int end = 0;
+        protected String startStr = null;
+        protected String endStr = null;
+        protected int startSecs = 0;
+        protected int startMins = 0;
+        protected int startHrs = 0;
+        protected int endSecs = 0;
+        protected int endMins = 0;
+        protected int endHrs = 0;
         
         /**
-         * @param start A time String in the form of hh:mm:ss.sss (24 hr clock)
-         * @param end A time String in the form of hh:mm:ss.sss (24 hr clock)
+         * @param start A time String in the form of hh:mm:ss (24 hr clock)
+         * @param end A time String in the form of hh:mm:ss (24 hr clock)
          */
         public TimeOfDayRange(String start, String end) {
             if (start == null || start.length() == 0) {
@@ -397,10 +390,11 @@ public class TemporalExpressions implements Serializable {
             if (end == null || end.length() == 0) {
                 throw new IllegalArgumentException("end argument cannot be null or empty");
             }
-            this.start = strToMillis(start);
-            this.end = strToMillis(end);
+            this.startStr = start;
+            this.endStr = end;
+            init();
             this.sequence = 600;
-            this.subSequence = this.start;
+            this.subSequence = (this.startHrs * 4000) + (this.startMins * 60) + this.startSecs;
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, module);
             }
@@ -412,72 +406,92 @@ public class TemporalExpressions implements Serializable {
             }
             try {
                 TimeOfDayRange that = (TimeOfDayRange) obj;
-                return this.start == that.start && this.end == that.end;
+                return this.startStr.equals(that.startStr) && this.endStr.equals(that.endStr);
             } catch (Exception e) {}
             return false;
         }
 
         public String toString() {
-            return super.toString() + ", start = " + this.start + ", end = " + this.end;
+            return super.toString() + ", start = " + this.startStr + ", end = " + this.endStr;
         }
 
         public boolean includesDate(Calendar cal) {
-            int millis = calToMillis(cal);
-            if (this.start <= this.end) {
-                return millis >= this.start && millis <= this.end;
-            } else {
-                return millis <= this.start && millis >= this.end;
-            }
+            long millis = cal.getTimeInMillis();
+            Calendar startCal = setStart(cal);
+            long startMillis = startCal.getTimeInMillis();
+            long endMillis = setEnd(startCal).getTimeInMillis();
+            return millis >= startMillis && millis <= endMillis;
         }
 
         public Calendar first(Calendar cal) {
             if (includesDate(cal)) {
                 return cal;
             }
-            Calendar first = (Calendar) cal.clone();
-            if (calToMillis(cal) > this.end) {
-                first.add(Calendar.DAY_OF_MONTH, 1);
-            }
-            int start = this.start;
-            int hour = start / 3600000;
-            start -= hour * 3600000;
-            int minute = start / 60000;
-            start -= minute * 60000;
-            int second = start  / 1000;
-            int millis = start - (second * 1000);
-            first.set(Calendar.HOUR_OF_DAY, hour);
-            first.set(Calendar.MINUTE, minute);
-            first.set(Calendar.SECOND, second);
-            first.set(Calendar.MILLISECOND, millis);
-            return first;
+            return setStart(cal);
         }
 
         public Calendar next(Calendar cal) {
             return first(cal);
         }
 
-        protected int strToMillis(String str) {
-            int result = 0;
-            String strArray[] = str.split(":");
+        protected void init() {
+            String strArray[] = this.startStr.split(":");
             if (strArray.length == 0 || strArray.length > 3) {
                 throw new IllegalArgumentException("Invalid time argument");
             }
-            result = Integer.valueOf(strArray[0]) * 3600000;
+            this.startHrs = Integer.valueOf(strArray[0]);
             if (strArray.length > 1) {
-                result += (Integer.valueOf(strArray[1]) * 60000);
+                this.startMins = Integer.valueOf(strArray[1]);
             }
             if (strArray.length > 2) {
-                float val = Float.valueOf(strArray[2]);
-                result += (int)(val * 1000);
+                this.startSecs = Integer.valueOf(strArray[2]);
             }
-            return result;
+            if (this.startHrs > 23 || this.startMins > 59 || this.startSecs > 59) {
+                throw new IllegalArgumentException("Invalid time argument");
+            }
+            strArray = this.endStr.split(":");
+            if (strArray.length == 0 || strArray.length > 3) {
+                throw new IllegalArgumentException("Invalid time argument");
+            }
+            this.endHrs = Integer.valueOf(strArray[0]);
+            if (strArray.length > 1) {
+                this.endMins = Integer.valueOf(strArray[1]);
+            }
+            if (strArray.length > 2) {
+                this.endSecs = Integer.valueOf(strArray[2]);
+            }
+            if (this.endHrs > 23 || this.endMins > 59 || this.endSecs > 59) {
+                throw new IllegalArgumentException("Invalid time argument");
+            }
         }
 
-        protected int calToMillis(Calendar cal) {
-            return (cal.get(Calendar.HOUR_OF_DAY) * 3600000) +
-            (cal.get(Calendar.MINUTE) * 60000) +
-            (cal.get(Calendar.SECOND) * 1000) +
-            (cal.get(Calendar.MILLISECOND));
+        protected Calendar advanceCalendar(Calendar cal, int hrs, int mins, int secs) {
+            Calendar advance = (Calendar) cal.clone();
+            advance.set(Calendar.MILLISECOND, 0);
+            int adjust = secs - advance.get(Calendar.SECOND);
+            if (adjust < 0) {
+                adjust += 60;
+            }
+            advance.add(Calendar.SECOND, adjust);
+            adjust = mins - advance.get(Calendar.MINUTE);
+            if (adjust < 0) {
+                adjust += 60;
+            }
+            advance.add(Calendar.MINUTE, adjust);
+            adjust = hrs - advance.get(Calendar.HOUR_OF_DAY);
+            if (adjust < 0) {
+                adjust += 24;
+            }
+            advance.add(Calendar.HOUR_OF_DAY, adjust);
+            return advance;
+        }
+
+        protected Calendar setStart(Calendar cal) {
+            return advanceCalendar(cal, this.startHrs, this.startMins, this.startSecs);
+        }
+
+        protected Calendar setEnd(Calendar cal) {
+            return advanceCalendar(cal, this.endHrs, this.endMins, this.endSecs);
         }
     }
 

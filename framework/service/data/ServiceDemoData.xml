@@ -178,7 +178,7 @@ under the License.
         DAY_IN_MONTH         day [2]        occurrence [5]
         FREQUENCY            freq type [6]  freq count [7]  start[8]
 
-        [1] hh:mm:ss.sss
+        [1] hh:mm:ss
         [2] Day of week: 1 = Sunday, 7 = Saturday
         [3] Month: January = 0, Undecimber = 12
         [4] Day of month: 1 to 31
