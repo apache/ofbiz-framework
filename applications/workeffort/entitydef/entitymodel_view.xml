@@ -29,7 +29,7 @@ under the License.
     <author>None</author>
     <version>1.0</version>
     <view-entity entity-name="WorkEffortAndChild"
-        package-name="org.ofbiz.workeffort.workEffort"
+        package-name="org.ofbiz.workeffort.workeffort"
         title="WorkEffort for use in tree relationships">
         <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
         <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
