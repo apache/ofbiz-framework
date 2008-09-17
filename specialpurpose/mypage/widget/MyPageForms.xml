@@ -90,6 +90,12 @@ under the License.
         <field name="updateButton"><submit/></field>
     </form>
     
+    <form name="custPreferences" type="single" target="updateCustPreferences" default-map-name="preferences.userPrefMap">
+        <field name="userPrefGroupId"><hidden value="MyPage"/></field>
+        <field name="sendCustRequestEmail" title="Send Email To Every Customer Request Change"><check/></field>
+        <field name="updateButton"><submit/></field>
+    </form>
+    
     <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list">
         <row-actions>
             <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;->Complete&quot;:&quot;&quot;}"/>

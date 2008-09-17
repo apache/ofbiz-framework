@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="sendEmailToCustomer" short-description="Send Mail When Customer Request is created or commpleted.">
+        <entity-one entity-name="CustRequest" value-name="custReq">
+            <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+        </entity-one>
+        <if>
+            <condition>
+                <if-compare field="custReq.statusId" value="CRQ_COMPLETED" operator="equals"></if-compare>
+            </condition>
+            <then>
+                <if-not-empty field="custReq.fromPartyId">
+                    <entity-and entity-name="PartyAndUserLogin" list-name="partyUserLogin">
+                        <field-map field-name="partyId" env-name="custReq.fromPartyId"/>
+                    </entity-and>
+                    <first-from-list entry-name="partyUserLogin" list-name="partyUserLogin"/>
+                    <entity-one entity-name="UserPreference" value-name="userPref">
+                        <field-map field-name="userLoginId" value="${partyUserLogin.userLoginId}"/>
+                        <field-map field-name="userPrefTypeId" value="sendCustRequestEmail"/>
+                    </entity-one>
+                    <if-empty field="userPref.userPrefValue">
+                        <!-- set send customer requst email field to default-->
+                        <set field="setUserPref.userPrefMap.sendCustRequestEmail" value="Y"/>
+                        <set field="setUserPref.userLoginId" from-field="partyUserLogin.userLoginId"/>
+                        <set field="setUserPref.userPrefGroupId" value="MyPage"/>
+                        <call-service service-name="setUserPreferenceGroup" in-map-name="setUserPref"/>
+                    </if-empty>
+                    <!-- if customer want to send email notification when customer request completed then send email-->
+                    <if>
+                        <condition>
+                            <or>
+                                <if-compare field="userPref.userPrefValue" value="Y" operator="equals"/>
+                                <if-empty field="userPref.userPrefValue"></if-empty>
+                            </or>
+                        </condition>
+                        <then>
+                            <entity-and entity-name="ProductStoreEmailSetting" list-name="storeEmail">
+                                <field-map field-name="emailType" value="PRDS_CUST_CONFIRM"/>
+                            </entity-and>
+                            <first-from-list entry-name="storeEmail" list-name="storeEmail"/>
+                            <set field="statusCustReq" value="COMPLETED"/>                                     
+                        </then>
+                    </if>
+                </if-not-empty>                
+            </then>
+            <else-if>
+                <condition>
+                    <if-compare field="custReq.statusId" value="CRQ_ACCEPTED" operator="equals"></if-compare>
+                </condition>
+                <then>
+                    <entity-and entity-name="ProductStoreEmailSetting" list-name="storeEmail">
+                        <field-map field-name="emailType" value="PRDS_CUST_CREATED"/>
+                    </entity-and>
+                    <first-from-list entry-name="storeEmail" list-name="storeEmail"/>
+                    <set field="statusCustReq" value="ACCEPTED"/>
+                </then>
+            </else-if>
+        </if>
+        <!-- Send Email to Customer when Customer Request is Completed or Created-->
+        <if>
+            <condition>
+                <or>
+                    <if-compare field="statusCustReq" value="COMPLETED" operator="equals"/>
+                    <if-compare field="statusCustReq" value="ACCEPTED" operator="equals"/>
+                </or>
+            </condition>
+            <then>
+                <if-not-empty field="storeEmail.bodyScreenLocation">
+                    <entity-one entity-name="Person" value-name="person">
+                        <field-map field-name="partyId" env-name="custReq.fromPartyId"/>
+                    </entity-one>
+                    <set field="getPartyEmail.partyId" from-field="custReq.fromPartyId"/>
+                    <call-service service-name="getPartyEmail" in-map-name="getPartyEmail">
+                    	<result-to-field result-name="emailAddress" field-name="emailParams.sendTo"/>
+                    </call-service>
+                    <set field="bodyParameters.person" from-field="person"/>
+                    <set field="bodyParameters.custRequestId" from-field="parameters.custRequestId"/>
+                    <set field="bodyParameters.partyId" from-field="custReq.fromPartyId"/>
+                    <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+                    <set field="emailParams.subject" from-field="storeEmail.subject"/>
+                    <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+                    <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+                    <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+                    <set field="emailParams.contentType" value="text/html"/>
+                    <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+                    <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
+                    <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+                </if-not-empty>
+            </then>
+        </if>
+    </simple-method>
+</simple-methods>

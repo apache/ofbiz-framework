@@ -136,6 +136,16 @@
         <response name="success" type="view" value="main"/>
         <response name="error" type="view" value="preferences"/>
     </request-map>
+    <request-map uri="custPreferences">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="custPreferences"/>
+    </request-map>
+    <request-map uri="updateCustPreferences">
+        <security https="true" auth="true"/>
+        <event invoke="updateCustPreferences" path="org/ofbiz/mypage/Events.xml" type="simple"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="custPreferences"/>
+    </request-map>
     
     <!-- OTHER COMMUNICATIONS -->
     <request-map uri="otherCommunications">
@@ -217,4 +227,5 @@
     <view-map name="ViewRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#ViewRequest"/>
     <view-map name="EditRequest" type="screen" page="component://mypage/widget/MyPageScreens.xml#EditRequest"/>
     <view-map name="ListInvoices" type="screen" page="component://mypage/widget/MyPageScreens.xml#ListInvoices"/>
+    <view-map name="custPreferences" type="screen" page="component://mypage/widget/CommonScreens.xml#custPreferences"/>
 </site-conf>
