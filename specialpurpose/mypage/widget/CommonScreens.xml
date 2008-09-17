@@ -321,6 +321,9 @@ under the License.
                     </condition-list>
                     <order-by field-name="-datetimeStarted" />
                 </entity-condition>
+                <service service-name="getUserPreferenceGroup" result-map-name="preferences">
+                    <field-map field-name="userPrefGroupId" value="MyPage" />
+                </service>
             </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.MyOpenCustomerRequests}" navigation-form-name="ListCustRequests" >
@@ -478,6 +481,26 @@ under the License.
                       <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="custPreferences">
+        <section>
+            <actions>
+                <set field="headerItem" value="custPreferences"/>
+                <service service-name="getUserPreferenceGroup"
+                        result-map-name="preferences">
+                        <field-map field-name="userPrefGroupId" value="MyPage" />
+                    </service>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                        <decorator-section name="body">
+                                <screenlet title="${uiLabelMap.CommonPreferences}">
+                                        <include-form name="custPreferences" location="component://mypage/widget/MyPageForms.xml"/>
+                                    </screenlet>
+                            </decorator-section>
+                    </decorator-screen>
             </widgets>
         </section>
     </screen>

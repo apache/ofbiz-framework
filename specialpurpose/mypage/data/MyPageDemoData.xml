@@ -53,7 +53,7 @@ under the License.
     <UserLoginSecurityGroup groupId="MYPAGE_EMPLOYEE" userLoginId="admin" fromDate="2000-01-01 00:00:00.0"/>
     <UserLoginSecurityGroup groupId="MYPAGE_EMPLOYEE" userLoginId="demoadmin" fromDate="2000-01-01 00:00:00.0"/>
     
-    
-    
+    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_CUST_CONFIRM" bodyScreenLocation="component://mypage/widget/MyPageScreens.xml#CompletedCustRequestNotification" subject="OFBiz - Your Request Is Complete[${custRequestId}]" fromAddress="ofbiztest@yahoo.com"/>
+    <ProductStoreEmailSetting productStoreId="9000" emailType="PRDS_CUST_CREATED" bodyScreenLocation="component://mypage/widget/MyPageScreens.xml#CreateCustRequestNotification" subject="OFBiz - Your Request Is Created[${custRequestId}]" fromAddress="ofbiztest@yahoo.com"/>
     
 </entity-engine-xml>

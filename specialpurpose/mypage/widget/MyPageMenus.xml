@@ -105,6 +105,12 @@ under the License.
             </condition>
             <link target="preferences"/>
         </menu-item>
+        <menu-item name="custPreferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
+            <condition>
+                <if-has-permission permission="MYPAGE_CUSTOMER"/>
+            </condition>
+            <link target="custPreferences"/>
+        </menu-item>
     </menu>    
     
     <menu name="MyCompanyCommsMenu">

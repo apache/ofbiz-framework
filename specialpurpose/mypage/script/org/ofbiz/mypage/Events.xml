@@ -57,6 +57,19 @@ under the License.
 			in-map-name="inMap" />
 	</simple-method>
 
+    <simple-method method-name="updateCustPreferences" short-description="Update the customer preferences">
+        <if-compare operator="equals" value="Y" field="parameters.sendCustRequestEmail">
+            <set field="parameters.userPrefMap.sendCustRequestEmail" value="Y" />
+            <else>
+                <set field="parameters.userPrefMap.sendCustRequestEmail" value="N" />
+            </else>
+        </if-compare>
+        <set-service-fields service-name="setUserPreferenceGroup"
+                map-name="parameters" to-map-name="inMap" />
+        <call-service service-name="setUserPreferenceGroup"
+                in-map-name="inMap" />
+    </simple-method>
+    
 	<simple-method method-name="setCommEventToRead"
 		short-description="">
 		<entity-one entity-name="CommunicationEventRole"

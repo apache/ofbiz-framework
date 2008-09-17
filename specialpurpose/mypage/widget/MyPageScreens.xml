@@ -492,4 +492,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="CreateCustRequestNotification">
+        <section>
+            <actions>
+                <set field="title" value="Customer Request Creation Notification Mail #${custRequestId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://mypage/templates/email/CreateCustRequestNotification.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CompletedCustRequestNotification">
+        <section>
+            <actions>
+                <set field="title" value="Customer Request Completed Notification Mail #${custRequestId}"/>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://mypage/templates/email/CompletedCustRequestNotification.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
 </screens>

@@ -27,7 +27,12 @@ under the License.
     <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myCommunications" userPrefValue="Y"/> 
     <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="otherCommunications" userPrefValue="Y"/> 
     <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myCompanyComms" userPrefValue="Y"/> 
-
+    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="sendCustRequestEmail" userPrefValue="Y"/>
+    
     <RoleType description="Email Administrator" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMAIL_ADMIN"/>
 
+    <!-- ProductStoreEmailSetting for send auto email to customer when CustRequest completed -->
+    <Enumeration description="Customer Request Created" enumCode="CUST_CREATED" enumId="PRDS_CUST_CREATED" sequenceId="17" enumTypeId="PRDS_EMAIL"/>
+    <Enumeration description="Customer Request Completed" enumCode="CUST_COMPLETE" enumId="PRDS_CUST_CONFIRM" sequenceId="18" enumTypeId="PRDS_EMAIL"/>
+    
 </entity-engine-xml>
