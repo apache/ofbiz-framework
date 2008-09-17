@@ -612,7 +612,9 @@ under the License.
       <member-entity entity-alias="II" entity-name="InventoryItem"/>
       <alias-all entity-alias="OH"/>
       <alias-all entity-alias="OISGA"/>
-      <alias-all entity-alias="OISG"/>
+      <alias-all entity-alias="OISG">
+        <exclude field="facilityId"/>
+      </alias-all>
       <alias-all entity-alias="OI">
         <exclude field="quantity"/>
         <exclude field="cancelQuantity"/>
