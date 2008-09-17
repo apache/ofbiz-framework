@@ -36,10 +36,10 @@ invoiceType = delegator.findByPrimaryKey("InvoiceType", ["invoiceTypeId" : invoi
   if (invoiceType.parentTypeId.equals("SALES_INVOICE")) { 
     otherCurrency = delegator.findByPrimaryKey("Party", ["partyId" : partyId]).preferredCurrencyUomId;
   } else {
-    otherCurrency = delegator.findByPrimaryKey("Party", ["partyId" : fromPartyId]).preferredCurrencyUomId;
+    otherCurrency = delegator.findByPrimaryKey("Party", ["partyId" : partyIdFrom]).preferredCurrencyUomId;
   }
   // check if conversion required
-  if (currencyUomId && otherCurrency != currencyUomId && !otherCurrency.equals(currencyUomId)) {
+  if (currencyUomId && otherCurrency && otherCurrency != currencyUomId && !otherCurrency.equals(currencyUomId)) {
     result = dispatcher.runSync("convertUom", [uomId : currencyUomId, 
                                                uomIdTo : otherCurrency, 
                                                originalValue : new Double("1.00"), 
