@@ -87,10 +87,6 @@ under the License.
             </condition>
             <link target="listInvoices"/>
         </menu-item>
-        <menu-item name="help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
-            <condition><not><if-empty field-name="userLogin"/></not></condition>
-            <link target="http://docs.ofbiz.org/display/OFBENDUSER/My+Page?decorator=printable" url-mode="plain" target-window="new"/>
-        </menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
@@ -98,6 +94,10 @@ under the License.
         <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
             <condition><if-empty field-name="userLogin"/></condition>
             <link target="${checkLoginUrl}"/>
+        </menu-item>
+        <menu-item name="help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="http://docs.ofbiz.org/display/OFBENDUSER/My+Page?decorator=printable" url-mode="plain" target-window="new"/>
         </menu-item>
         <menu-item name="preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
             <condition>
