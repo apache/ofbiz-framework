@@ -478,33 +478,18 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <section>                                                 
-                            <widgets>                                                   
-                                <container style="lefthalf">
-                                    <container style="screenlet">
-                                        <container style="screenlet-title-bar">
-                                            <container style="h3">
-                                                <label text="${uiLabelMap.PageTitleProjectInformation}"/>
-                                            </container>
-                                        </container>
-                                        <container style="screenlet-body">
-                                            <section>
-                                                <widgets>    
-                                                    <include-form name="ProjectInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                                                </widgets>
-                                            </section>
-                                        </container>
-                                    </container>
-                                    <include-screen name="PhasesInfo"/>
-                                    <include-screen name="TasksInfo"/> 
-                                </container>
-                                <container style="righthalf">
-                                    <include-screen name="SubProjectsInfo"/>
-                                    <include-screen name="PartiesInfo"/>
-                                    <include-screen name="NoteInfo"/>
-                                </container>
-                            </widgets>
-                        </section>
+                        <container style="lefthalf">
+                            <screenlet title="${uiLabelMap.PageTitleProjectInformation}">
+                                <include-form name="ProjectInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                            </screenlet>
+                            <include-screen name="PhasesInfo"/>
+                            <include-screen name="TasksInfo"/> 
+                        </container>
+                        <container style="righthalf">
+                           <include-screen name="SubProjectsInfo"/>
+                           <include-screen name="PartiesInfo"/>
+                           <include-screen name="NoteInfo"/>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>            
@@ -601,21 +586,10 @@ under the License.
                 </service>
                 <set field="tasks" from-field="result.taskList"/>
             </actions>
-            <widgets>                
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.ProjectMgrTasks}"/>
-                        </container>
-                    </container>
-                    <container style="screenlet-body">
-                        <section>
-                            <widgets>    
-                                <include-form name="ListTaskInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                            </widgets>
-                        </section>
-                    </container>
-                </container>        
+            <widgets>
+                <screenlet title="${uiLabelMap.ProjectMgrTasks}" navigation-form-name="ListTaskInfo">
+                    <include-form name="ListTaskInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                </screenlet>                
             </widgets>
         </section>
     </screen>

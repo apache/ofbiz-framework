@@ -22,9 +22,7 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="sendEmailToCustomer" short-description="Send Mail When Customer Request is created or commpleted.">
-        <entity-one entity-name="CustRequest" value-name="custReq">
-            <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
-        </entity-one>
+        <entity-one entity-name="CustRequest" value-name="custReq"/>
         <if>
             <condition>
                 <if-compare field="custReq.statusId" value="CRQ_COMPLETED" operator="equals"></if-compare>
@@ -99,7 +97,7 @@
                     	<result-to-field result-name="emailAddress" field-name="emailParams.sendTo"/>
                     </call-service>
                     <set field="bodyParameters.person" from-field="person"/>
-                    <set field="bodyParameters.custRequestId" from-field="parameters.custRequestId"/>
+                    <set field="bodyParameters.custRequest" from-field="custReq"/>
                     <set field="bodyParameters.partyId" from-field="custReq.fromPartyId"/>
                     <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
                     <set field="emailParams.subject" from-field="storeEmail.subject"/>
