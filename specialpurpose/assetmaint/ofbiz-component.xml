@@ -43,7 +43,6 @@
 
     <webapp name="assetmaint"
         title="AssetMaint"
-        menu-name="secondary"
         server="default-server"
         location="webapp/assetmaint"
         base-permission="ASSETMAINT"
