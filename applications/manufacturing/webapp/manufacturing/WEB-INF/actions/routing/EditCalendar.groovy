@@ -33,7 +33,12 @@ if (errorMessage) {
 }
 
 calendarData = context.techDataCalendar;
-if (!tryEntity) calendarData = requestParams ?: [:];
+if (!tryEntity) {
+    calendarData = requestParams ?: [:];
+}
+if (!calendarData) {
+    calendarData = [:];
+}
 context.calendarData = calendarData;
 
 allCalendarWeek = delegator.findList("TechDataCalendarWeek", null, null, null, null, false);
