@@ -1297,6 +1297,7 @@
     </property>
     <property key="EcommerceClickHereToEdit">
         <value xml:lang="en">Click here to edit</value>
+        <value xml:lang="fr">Cliquez-ici pour modifier</value>
     </property>
     <property key="EcommerceCompleted">
         <value xml:lang="en">Completed</value>
@@ -1368,6 +1369,7 @@
     </property>
     <property key="EcommerceContinueToStep">
         <value xml:lang="en">Continue to step</value>
+        <value xml:lang="fr">Continuer (prochaine étape)</value>
     </property>
     <property key="EcommerceDataResourceId">
         <value xml:lang="en">Data Resource Id</value>
