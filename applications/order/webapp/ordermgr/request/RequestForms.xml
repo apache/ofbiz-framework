@@ -241,7 +241,7 @@ under the License.
                 <option key="1"/>
             </drop-down>
         </field>
-        <field name="maximumAmountUomId" title="${uiLabelMap.CommonCurrency}">
+        <field name="maximumAmountUomId">
             <drop-down allow-empty="true">
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
@@ -262,6 +262,14 @@ under the License.
         </field>
         <field name="fulfillContactMechId">
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="fromPartyId"/>
+        </field>
+        <field name="currencyUomId" title="${uiLabelMap.CommonCurrency}">
+            <drop-down allow-empty="true">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
         </field>
         <field name="createdDate"><hidden/></field>
         <field name="createdByUserLogin"><hidden/></field>
@@ -447,4 +455,30 @@ under the License.
         
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    
+    <!-- request form -->  
+    <form name="requestInfo" type="single" title="request information" default-map-name="custRequest"
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>    
+            <service service-name="getPartyNameForDate" result-map-name="partyNameResultTo">
+                <field-map field-name="partyId" env-name="custRequest.fromPartyId"/>
+                <field-map field-name="compareDate" env-name="custRequest.custRequestDate"/>
+                <field-map field-name="lastNameFirst" value="Y"/>
+            </service>
+        </actions>
+        <field name="custRequestId"><hidden/></field>
+        <field name="custRequestTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="CustRequestType" description="${description}"/></field>  
+        <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="fromPartyId" title="${uiLabelMap.PartyPartyId}"><hyperlink target="/partymgr/control/viewprofile?partyId=${custRequest.fromPartyId}" target-type="inter-app" description="${partyNameResultTo.fullName} [${custRequest.fromPartyId}]"/></field>
+        <field name="custRequestName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="productStoreId" title="${uiLabelMap.ProductProductStore}"><display-entity entity-name="ProductStore" description="${storeName}"/></field>
+        <field name="internalComment" title="${uiLabelMap.CommonInternalComment}"><display/></field>
+        <field name="reason" title="${uiLabelMap.CommonReason}"><display/></field>
+        <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><display/></field>
+        <field name="createdDate" title="${uiLabelMap.OrderRequestCreatedDate}"><display/></field>
+        <field name="lastModifiedDate" title="${uiLabelMap.OrderRequestLastModifiedDate}"><display/></field>       
+    </form>
+    
+    
 </forms>
