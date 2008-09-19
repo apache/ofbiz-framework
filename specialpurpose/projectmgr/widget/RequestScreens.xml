@@ -104,9 +104,9 @@ under the License.
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="lefthalf">
-                            <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/requestInfo.ftl"/></html>
-                            </platform-specific>
+                            <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
+                                <include-form name="requestInfo" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
                             <screenlet title="${uiLabelMap.PageTitleRequestItems}">
                                 <include-form name="OverviewRequestItems" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                             </screenlet>
@@ -114,10 +114,7 @@ under the License.
                                 <include-form name="ListRequestItemNotes" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                             </screenlet>
                         </container>
-                        <container style="righthalf">
-                            <platform-specific>
-                                <html><html-template location="component://order/webapp/ordermgr/request/requestDate.ftl"/></html>
-                            </platform-specific>
+                        <container style="righthalf">                           
                             <platform-specific>
                                 <html><html-template location="component://order/webapp/ordermgr/request/requestContactMech.ftl"/></html>
                             </platform-specific>
