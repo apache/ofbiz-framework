@@ -63,12 +63,11 @@ under the License.
                 <set field="tabButtonItem" value="viewprofile"/>
                 <set field="headerItem" value="find"/>
                 <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
-
+                <set field="partyId" from-field="parameters.partyId"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>                
                 <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>                
                 <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
-                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>                
-
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>    
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
@@ -963,6 +962,82 @@ under the License.
                             <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
                         </screenlet>
                         <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="PartyFinancialHistory">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditPartyAttribute"/>
+                <set field="headerItem" value="accountsMain"/>
+                <set field="tabButtonItem" value="FinancialHistory"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <entity-one entity-name="PartyNameView" value-name="party"></entity-one>
+                <set field="organizationPartyId" from-scope="user" to-scope="screen" from-field="productStoreId"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyFinancailHistory.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container><label style="h1" text="Financial History"/></container>
+                        <screenlet title="${uiLabelMap.Invoices paid by payments}" navigation-form-name="Invoices">
+                            <include-form name="partyFinancialHistoryInvoices" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                        <section>
+                            <condition>
+                                <not>
+                                    <if-empty field-name="historyListPaymentsO"/>
+                                </not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.Invoices of other parties paid by payments from }${partyId}" navigation-form-name="PaymentsO">
+                                <include-form name="partyFinancialHistoryPaymentsO" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <not>
+                                    <if-empty field-name="historyListPayments"/>
+                                </not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.Applied payments to payments" navigation-form-name="Payments">
+                                <container><label style="head1" text="Applied payments to payments"/></container>
+                                <include-form name="partyFinancialHistoryPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <not>
+                                    <if-empty field-name="historyListInvoicesN"/>
+                                </not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.Invoices not yet (fully) applied}" navigation-form-name="InvoicesN">
+                                <include-form name="partyFinancialHistoryInvoicesN" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition>
+                                <not>
+                                    <if-empty field-name="historyListPaymentsN"/>
+                                </not>
+                            </condition>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.Payments not yet (fully) applied}" navigation-form-name="PaymentsN">
+                                <include-form name="partyFinancialHistoryPaymentsN" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                </screenlet>
+                            </widgets>
+                        </section>
+                        <screenlet title="${uiLabelMap.Totals for Company:}${organizationPartyId}" navigation-form-name="Summary">
+                        <include-form name="partyFinancialSummary" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>    
                     </decorator-section>
                 </decorator-screen>
             </widgets>

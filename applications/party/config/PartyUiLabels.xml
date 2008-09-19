@@ -196,6 +196,9 @@
         <value xml:lang="de">E-Mail von unbekanntem Akteur</value>
         <value xml:lang="en">Email from unknown parties</value>
         <value xml:lang="fr">Courriel depuis un acteur inconnu</value>
+    </property>
+    <property key="FinancialHistory">
+        <value xml:lang="en">Fin.History</value>
     </property>    
     <property key="FormFieldTitle_attrName">
         <value xml:lang="de">Attribut Name</value>

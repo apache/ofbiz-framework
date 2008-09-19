@@ -778,6 +778,106 @@ under the License.
         <field name="roleTypeIdTo"><hidden value="CONTACT"/></field>
         <field name="partyRelationshipTypeId"><hidden value="EMPLOYMENT"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
-    </form> 
+    </form>
     
+    <form name="partyFinancialHistoryInvoices" type="list" list-name="historyListInvoices" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+        default-tooltip-style="tabletext" target="updateCategoryProductMember">
+        <field name="invoiceId"><hidden/></field>
+        <field name="invoiceId" title="invoiceId">
+            <display-entity entity-name="Invoice" description=" ">
+                <sub-hyperlink target="/accounting/control/invoiceOverview?invoiceId=${invoiceId}" description="[${invoiceId}]" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="invoiceTypeId" title="T"><display/></field>
+        <field name="invoiceDate"><display/></field>
+        <field name="invoiceAmount" widget-area-style="tabletextright"><display/></field>
+        <field name="totInvoiceApplied" widget-area-style="tabletextright"><display/></field>
+        <field name="applied" widget-area-style="tabletextright"><display/></field>  
+        <field name="paymentId"><hidden/></field>
+        <field name="paymentId" title="PaymentId">
+            <display-entity entity-name="Payment" description=" ">
+                <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="effectiveDate"><display/></field>
+        <field name="amount" widget-area-style="tabletextright"><display/></field>
+    </form>
+    <!--/accounting/control/invoiceOverview-->
+    <form name="partyFinancialHistoryPayments" type="list" list-name="historyListPayments" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+        default-tooltip-style="tabletext" target="updateCategoryProductMember">
+        <field name="paymentId"><hidden/></field>
+        <field name="paymentId" title="PaymentId">
+            <display-entity entity-name="Payment" description=" ">
+                <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="effectiveDate"><display/></field>
+        <field name="amount" widget-area-style="tabletextright"><display/></field>
+        <field name="applied" widget-area-style="tabletextright"><display/></field>
+        <field name="toPaymentId"><hyperlink target="paymentOverview?paymentId=${paymentId}" description="${toPaymentId}"/></field>
+        <field name="toEffectiveDate"><display/></field>
+        <field name="toAmount" widget-area-style="tabletextright"><display/></field>
+    </form>
+    
+    <form name="partyFinancialHistoryInvoicesN" type="list" list-name="historyListInvoicesN" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+        default-tooltip-style="tabletext" target="updateCategoryProductMember">
+        <field name="invoiceId"><hidden/></field>
+        <field name="invoiceId" title="invoiceId">
+            <display-entity entity-name="Invoice" description=" ">
+                <sub-hyperlink target="/accounting/control/invoiceOverview?invoiceId=${invoiceId}" description="[${invoiceId}]" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="invoiceTypeId" title="T"><display/></field>
+        <field name="invoiceDate"><display/></field>
+        <field name="invoiceAmount" widget-area-style="tabletextright"><display/></field>
+        <field name="invoiceNotApplied" widget-area-style="tabletextright"><display/></field>
+    </form>
+    
+    <form name="partyFinancialHistoryPaymentsO" 
+        type="list" 
+        list-name="historyListPaymentsO" 
+        default-title-style="tableheadtext" default-widget-style="tabletext" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+        default-tooltip-style="tabletext" target="updateCategoryProductMember">
+        <field name="paymentId" title="PaymentId" >
+            <display-entity entity-name="Payment" description=" ">
+                <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="effectiveDate"><display/></field>
+        <field name="amount" widget-area-style="tabletextright"><display/></field>
+        <field name="applied" widget-area-style="tabletextright"><display/></field>
+        <field name="invoiceId"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
+        <field name="invoiceItemSeqId" title="Seq"><display/></field>
+        <field name="partyId" widget-area-style="tabletextright"><display/></field>
+    </form>
+    
+    <form name="partyFinancialHistoryPaymentsN" type="list" list-name="historyListPaymentsN" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+        default-title-style="tableheadtext" default-widget-style="tabletext"
+        default-tooltip-style="tabletext" target="updateCategoryProductMember">
+        <field name="paymentId"><hidden/></field>
+        <field name="paymentId" title="PaymentId">
+            <display-entity entity-name="Payment" description=" ">
+                <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="effectiveDate"><display/></field>
+        <field name="amount" widget-area-style="tabletextright"><display/></field>
+        <field name="notApplied" widget-area-style="tabletextright"><display/></field>
+    </form>
+    
+    <form name="partyFinancialSummary" type="single" title="Financial summary" default-map-name="finanSummary"
+        default-title-style="tableheadtext" default-widget-style="tabletext" default-tooltip-style="tabletext">
+        <field position="1" name="totalSalesInvoice"><display/></field>
+        <field position="2" name="totalPurchaseInvoice"><display/></field>
+        <field position="1" name="totalPaymentsIn"><display/></field>
+        <field position="2" name="totalPaymentsOut"><display/></field>
+        <field position="1" name="totalInvoiceNotApplied"><display/></field>
+        <field position="2" name="totalPaymentNotApplied"><display/></field>
+        <field position="1" name="totalToBePaid" title="To be paid to: ${parameters.partyId}"><display/></field>
+        <field position="2" name="totalToBeReceived" title="To be received from: ${parameters.partyId}"><display/></field>
+    </form>
 </forms>

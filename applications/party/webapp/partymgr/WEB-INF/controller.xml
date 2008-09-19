@@ -1057,6 +1057,7 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
+
                 
     <!-- Lookup request mappings -->
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
@@ -1078,9 +1079,15 @@ under the License.
     <request-map uri="LookupPreferredContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupPreferredContactMech"/></request-map>
     <request-map uri="LookupEmploymentApp"><security auth="true" https="true"/><response name="success" type="view" value="LookupEmploymentApp"/></request-map>
     <request-map uri="LookupEmplPosition"><security auth="true" https="true"/><response name="success" type="view" value="LookupEmplPosition"/></request-map>
-
+    
+    <!-- Financail History Report-->
+    <request-map uri="PartyFinancialHistory">
+         <security https="true" auth="true"/>
+         <response name="success" type="view" value="PartyFinancialHistory"/>
+         <response name="error" type="view" value="viewprofile"/>
+    </request-map>  
     <!-- end of request mappings -->
-
+        
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#findparty"/>
 
@@ -1186,5 +1193,6 @@ under the License.
     <view-map name="EditPersonTrainings" type="screen" page="component://humanres/widget/PersonTrainingScreens.xml#EditPersonTrainings"/>
     <view-map name="EditPartyResumes" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyResumes"/>
     <view-map name="EditEmploymentApps" type="screen" page="component://humanres/widget/EmploymentAppScreens.xml#EditEmploymentApps"/>
+    <view-map name="PartyFinancialHistory" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyFinancialHistory"/>
     <!-- end of view mappings -->
 </site-conf>
