@@ -199,6 +199,7 @@
     </property>
     <property key="FinancialHistory">
         <value xml:lang="en">Fin.History</value>
+        <value xml:lang="fr">Historique financier</value>
     </property>    
     <property key="FormFieldTitle_attrName">
         <value xml:lang="de">Attribut Name</value>
