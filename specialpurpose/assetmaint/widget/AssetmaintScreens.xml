@@ -92,7 +92,7 @@
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleEditFixedAssetMaintenance"/>
-                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/assetmaint/editMaint.bsh"/>
+                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/assetmaint/EditMaint.groovy"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
                 <set field="maintHistSeqId" from-field="parameters.maintHistSeqId"/>
                 <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
@@ -138,7 +138,7 @@
             <actions>
                 <set field="titleProperty" value="PageTitleEditWorkEffort"/>
                 <set field="tabButtonItemFixedAssetMaint" value="EditWorkEfforts"/>
-                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.bsh"/>
+                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/workeffort/EditWorkEfforts.groovy"/>
                 <set field="fixedAssetId" from-field="parameters.fixedAssetId"/>
             </actions>
             <widgets>
@@ -307,7 +307,7 @@
                     <condition-expr field-name="workEffortId" env-name="workEffortId"/>
                     <order-by field-name="noteId"/>
                 </entity-condition>
-                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/assetmaint/printFixedAssetMaint.bsh"/>
+                <script location="component://assetmaint/webapp/assetmaint/WEB-INF/actions/assetmaint/PrintFixedAssetMaint.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="GlobalFoDecorator" location="component://common/widget/CommonScreens.xml">

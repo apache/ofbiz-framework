@@ -17,22 +17,21 @@
  * under the License.
  */
 
-import org.ofbiz.base.util.*;
 import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
 import org.ofbiz.entity.util.*;
 
 // This is a small script to set things up when the EditFixedAssetMaint 
 // screen is called from one of the WorkEffort calendar screens.
 // The URL coming from WorkEffort does not contain the maintHistSeqId parameter,
 // so this script will look it up using the workEffortId parameter.
+maintHistSeqId = parameters.maintHistSeqId;
+workEffortId = parameters.workEffortId;
 
-String maintHistSeqId = parameters.get("maintHistSeqId");
-String workEffortId = parameters.get("workEffortId");
-
-if (UtilValidate.isEmpty(maintHistSeqId) && UtilValidate.isNotEmpty(workEffortId)) {
-    GenericValue fixedAssetMaint = EntityUtil.getFirst(delegator.findByAnd("FixedAssetMaint", UtilMisc.toMap("scheduleWorkEffortId", workEffortId)));
-    if (fixedAssetMaint != null) {
-        parameters.put("fixedAssetId", fixedAssetMaint.get("fixedAssetId"));
-        parameters.put("maintHistSeqId", fixedAssetMaint.get("maintHistSeqId"));
+if (!maintHistSeqId && workEffortId) {
+    fixedAssetMaint = EntityUtil.getFirst(delegator.findList("FixedAssetMaint", EntityCondition.makeCondition([scheduleWorkEffortId : workEffortId]), null, null, null, false));
+    if (fixedAssetMaint) {
+        parameters.fixedAssetId = fixedAssetMaint.fixedAssetId;
+        parameters.maintHistSeqId = fixedAssetMaint.maintHistSeqId;
     }
 }
