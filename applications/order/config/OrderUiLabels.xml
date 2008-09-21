@@ -1520,7 +1520,7 @@
     <property key="FormFieldTitle_unassignedRequirements">
         <value xml:lang="de">Nicht zugewiesener Bedarf</value>
         <value xml:lang="en">unassigned Requirements</value>
-        <value xml:lang="fr">Conditions non affectées</value>
+        <value xml:lang="fr">Besoins non affectées</value>
         <value xml:lang="it">Fabbisogni non assegnati</value>
         <value xml:lang="ro">Necesaruri neatribuite</value>
         <value xml:lang="ru">Не назначенные требования</value>
@@ -1881,7 +1881,7 @@
     <property key="OrderApprovedProductRequirementsByVendor">
         <value xml:lang="de">Bedarf nach Lieferant bestätigen</value>
         <value xml:lang="en">Approved Requirements By vendor</value>
-        <value xml:lang="fr">Conditions approuvées par vendeur</value>
+        <value xml:lang="fr">Besoins approuvées par le vendeur</value>
         <value xml:lang="it">Fabbisogni Per Fornitore Approvati</value>
         <value xml:lang="ru">Утвержденные вендором требования</value>
         <value xml:lang="th">ปรับปรุงคำร้องโดยผู้จำหน่าย</value>
@@ -3085,14 +3085,14 @@
     <property key="OrderFindRequirements">
         <value xml:lang="de">Bedarf suchen</value>
         <value xml:lang="en">Find Requirements</value>
-        <value xml:lang="fr">Recherche de conditions</value>
+        <value xml:lang="fr">Recherche de besoins</value>
         <value xml:lang="ru">Поиск требований</value>
         <value xml:lang="th">ค้นหาความต้องการ</value>
     </property>
     <property key="OrderFindRequirementsForSupplier">
         <value xml:lang="de">Bedarf suchen für Lieferant</value> 
         <value xml:lang="en">Find Requirements For Supplier</value>
-        <value xml:lang="fr">Recherche de conditions pour le fournisseur</value>
+        <value xml:lang="fr">Recherche de besoins pour le fournisseur</value>
         <value xml:lang="ru">Поиск требований для поставщика</value>
         <value xml:lang="th">ค้นหาความต้องการของผู้จัดหาสิ่งของให้</value>
     </property>
@@ -8746,21 +8746,21 @@
     <property key="PageTitleFindApprovedProductRequirements">
         <value xml:lang="de">Genehmigten Bedarf suchen</value>
         <value xml:lang="en">Find Approved Product Requirements</value>
-        <value xml:lang="fr">Chercher les conditions approuvées</value>
+        <value xml:lang="fr">Chercher les besoins approuvés</value>
         <value xml:lang="it">Ricerca Fabbisogni Approvati Per Prodotto</value>
         <value xml:lang="th">ค้นหาสินค้าที่ต้องการอนุมัติ</value>
     </property>
     <property key="PageTitleFindNotApprovedRequirements">
         <value xml:lang="de">Nicht genehmigten Bedarf suchen</value>
         <value xml:lang="en">Find Not Approved Requirements</value>
-        <value xml:lang="fr">Chercher les conditions non approuvées</value>
+        <value xml:lang="fr">Chercher les besoins non approuvés</value>
         <value xml:lang="it">Ricerca fabbisogni non ancora approvati</value>
         <value xml:lang="th">ค้นหาสิ่งที่ต้องการอนุมัติ</value>
     </property>
     <property key="PageTitleFindApprovedRequirementsByVendor">
         <value xml:lang="de">Genehmigten Bedarf pro Lieferant suchen</value>
         <value xml:lang="en">Find Approved Requirements By Vendor</value>
-        <value xml:lang="fr">Chercher les conditions approuvés par le vendeur</value>
+        <value xml:lang="fr">Chercher les besoins approuvés par le vendeur</value>
         <value xml:lang="it">Ricerca Fabbisogni Approvati Per Fornitore</value>
         <value xml:lang="th">ค้นหาสิ่งที่ต้องการอนุมัติโดยผู้จำหน่าย</value>
     </property>
@@ -8789,7 +8789,7 @@
     <property key="PageTitleListRequirementCustRequests">
         <value xml:lang="de">Liste Bedarf Kundenanfragen</value>
         <value xml:lang="en">List Requirement Cust Requests</value>
-        <value xml:lang="fr">Lister les conditions de demande client</value>
+        <value xml:lang="fr">Lister les besoins des demandes client</value>
         <value xml:lang="it">Lista Fabbisogni Richieste Clienti</value>
         <value xml:lang="nl">List Requirement Cust Requests</value>
         <value xml:lang="ro">Lista Necesar Cereri Clienti</value>
@@ -8800,7 +8800,7 @@
     <property key="PageTitleListRequirementOrders">
         <value xml:lang="de">Liste Bedarf Aufträge</value>
         <value xml:lang="en">List Requirement Orders</value>
-        <value xml:lang="fr">Lister les conditions de commandes</value>
+        <value xml:lang="fr">Lister les besoins de commandes</value>
         <value xml:lang="it">Lista Fabbisogni Ordini</value>
         <value xml:lang="nl">List Requirement Orders</value>
         <value xml:lang="ro">Lista Necesar Comenzi </value>
@@ -8811,7 +8811,7 @@
     <property key="PageTitleListRequirementRoles">
         <value xml:lang="de">Liste Rollen Bedarf</value>
         <value xml:lang="en">List Requirement Roles</value>
-        <value xml:lang="fr">Lister les conditions de rôles</value>
+        <value xml:lang="fr">Lister les besoins de rôles</value>
         <value xml:lang="it">Lista Fabbisogni Ruoli</value>
         <value xml:lang="ru">Список ролей требования</value>
         <value xml:lang="th">รายการสถานะสิ่งที่ต้องการ</value>
@@ -8997,7 +8997,7 @@
     <property key="PageTitleRequestItemRequirements">
         <value xml:lang="de">Anfrageelemente Bedarf</value>
         <value xml:lang="en">Request Item Requirements</value>
-        <value xml:lang="fr">Demande des conditions sur article</value>
+        <value xml:lang="fr">Demande des besoins sur article</value>
         <value xml:lang="it">Fabbisogni Riga Richiesta</value>
         <value xml:lang="nl">Request Item Requirements</value>
         <value xml:lang="ro">Necesar linie Cerere</value>
