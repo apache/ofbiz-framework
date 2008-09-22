@@ -222,6 +222,8 @@ under the License.
         <attribute name="roleTypeId" type="String" mode="IN"/>
         <attribute name="statusId" type="String" mode="IN"/>
         <attribute name="fromDate" type="Timestamp" mode="INOUT" optional="true"/>
+        <attribute name="delegateReasonEnumId" type="String" mode="IN" optional="true"/>
+        <attribute name="comments" type="String" mode="IN" optional="true"/>
     </service>
     <service name="addProjectTimeToNewInvoice" engine="simple" auth="true"
         location="org/ofbiz/project/ProjectServices.xml" invoke="addProjectTimeToNewInvoice">
