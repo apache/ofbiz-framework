@@ -76,6 +76,9 @@
             <then>
                 <!-- roleType and/or partyId changed: end old and create new assign-->
                 <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
+                <set field="workEffortPartyAssignment.delegateReasonEnumId" from-field="parameters.delegateReasonEnumId"/>
+                <set field="workEffortPartyAssignment.comments" from-field="parameters.comments"/>
+                <set field="workEffortPartyAssignment.assignedByUserLoginId" from-field="userLogin.userLoginId"/>
                 <now-date-to-env env-name="workEffortPartyAssignment.thruDate"/>
                 <store-value value-name="workEffortPartyAssignment"/>
                 <!-- create a new one -->
@@ -83,6 +86,7 @@
                 <set field="newAssign.workEffortId" from-field="parameters.workEffortId"/>
                 <set field="newAssign.partyId" from-field="parameters.newPartyId"/>
                 <set field="newAssign.roleTypeId" from-field="parameters.newRoleTypeId"/>
+                <set field="newAssign.assignedByUserLoginId" from-field="userLogin.userLoginId"/>
                 <now-date-to-env env-name="newAssign.fromDate"/>
                 <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
                 <create-value value-name="newAssign"/>
