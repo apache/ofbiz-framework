@@ -66,6 +66,13 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <delegator name="other" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
         <group-map group-name="org.ofbiz" datasource-name="localpostgres"/>        
     </delegator>
+    <!-- NOTE this file includes the datasource to "localpostnew" which is for a 
+    PostgreSQL with all of the varchar entries set to "TEXT". See the 
+    fieldtypepostnew field type file comments for details on why.
+    -->
+    <delegator name="localpostnew" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
+        <group-map group-name="org.ofbiz" datasource-name="localpostnew"/>        
+    </delegator>
 
     <!-- need to at least define a name for each component to use -->
     <entity-model-reader name="main"/>
@@ -98,6 +105,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <field-type name="axion" loader="fieldfile" location="fieldtypeaxion.xml"/>
     <field-type name="mysql" loader="fieldfile" location="fieldtypemysql.xml"/>
     <field-type name="postgres" loader="fieldfile" location="fieldtypepostgres.xml"/>
+    <field-type name="postnew" loader="fieldfile" location="fieldtypepostnew.xml"/>
     <field-type name="oracle" loader="fieldfile" location="fieldtypeoracle.xml"/>
     <field-type name="sapdb" loader="fieldfile" location="fieldtypesapdb.xml"/>
     <field-type name="sybase" loader="fieldfile" location="fieldtypesybase.xml"/>
@@ -337,7 +345,7 @@ access. For a detailed description see the core/docs/entityconfig.html file.
             alias-view-columns="false"
             join-style="ansi"
             use-binary-type-for-blob="true">
-            <!-- use this attribute to make the EntityListIterator more effective for pgjdbc 7.5devel and later:
+            <!-- use this attribute to make the EntityListIterator more effective for pgjdbc 7.5devel and later: 
                 result-fetch-size="50"
             -->
         <read-data reader-name="seed"/>
@@ -357,6 +365,34 @@ access. For a detailed description see the core/docs/entityconfig.html file.
         <!-- <jndi-jdbc jndi-server-name="localweblogic" jndi-name="PostgresDataSource"/> --> <!-- Weblogic Style JNDI name -->
         <!-- <jndi-jdbc jndi-server-name="default" jndi-name="jdbc/localpostgres" isolation-level="ReadCommitted"/> --> <!-- JRun4 Style JNDI name -->
         <!-- <tyrex-dataSource dataSource-name="localpostgres" isolation-level="ReadCommitted"/> -->
+    </datasource>
+
+    <!-- use localpostnew for NEW installations (don't switch from localpostgres) and for PostgreSQL 
+     at or above 8.1 (for more information see the comment in the fieldtype file "fieldtypepostnew") -->
+
+    <datasource name="localpostnew"
+            helper-class="org.ofbiz.entity.datasource.GenericHelperDAO"
+            schema-name="public"
+            field-type-name="postnew"
+            check-on-start="true"
+            add-missing-on-start="true"
+            use-fk-initially-deferred="false"
+            alias-view-columns="false"
+            join-style="ansi"
+            result-fetch-size="50"
+            use-binary-type-for-blob="true">
+        <read-data reader-name="seed"/>
+        <read-data reader-name="seed-initial"/>
+        <read-data reader-name="demo"/>
+        <read-data reader-name="ext"/>
+        <inline-jdbc
+                jdbc-driver="org.postgresql.Driver"
+                jdbc-uri="jdbc:postgresql://127.0.0.1/ofbiz"
+                jdbc-username="ofbiz"
+                jdbc-password="ofbiz"
+                isolation-level="ReadCommitted"
+                pool-minsize="2"
+                pool-maxsize="250"/>
     </datasource>
 
     <datasource name="localoracle"

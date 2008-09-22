@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<!--
+    NOTE:: this is a new field type file for PostgreSQL, It has ONLY been
+        tested on a new install (hence the name fieldtypepostnew.xml)
+        so until you (or someone) tests this on upgrage it should ONLY
+        be used for new installation.
+
+    This fieldtype file uses TEXT for ALL VARCHAR type fields, per a tip in
+    the PostgreSQL manual:
+
+        Tip:  There are no performance differences between these three 
+        types, apart from the increased storage size when using the 
+        blank-padded type. While character(n) has performance advantages 
+        in some other database systems, it has no such advantages in 
+        PostgreSQL. In most situations text or character varying 
+        should be used instead. 
+
+    (Section 8.3. Character Types from the PostgreSQL 8.1 manual)
+
+    Therefore this fieldtype file uses TEXT for all of the VARCHAR types, this
+    will mean that data for a OfBiz system that uses this file MAY NOT be able
+    to load on a system that uses any of the other filetype files (well I have
+    not looked at ALL of them but the ones I looked at will not be able to load
+    the data).
+
+    This has the other advantage that the java type matches the sql type or at
+    least the DB can store anything that java can store (TEXT in PostgreSQL 
+    can go to 2 Gig)
+
+    Indicator is still a CHAR(1).
+-->
+
+<fieldtypemodel xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/fieldtypemodel.xsd">
+  <!-- ===================== field-type-def ==================== -->
+    <!-- General Types --> 
+    <field-type-def type="blob" sql-type="BYTEA" java-type="java.sql.Blob"></field-type-def>
+
+    <field-type-def type="date-time" sql-type="TIMESTAMPTZ" java-type="java.sql.Timestamp"></field-type-def>
+    <field-type-def type="date" sql-type="DATE" java-type="java.sql.Date"></field-type-def>
+    <field-type-def type="time" sql-type="TIME" java-type="java.sql.Time"></field-type-def>
+    
+    <field-type-def type="currency-amount" sql-type="NUMERIC(18,2)" java-type="Double"><validate method="isSignedDouble" /></field-type-def>
+    <field-type-def type="currency-precise" sql-type="NUMERIC(18,3)" java-type="Double"><validate method="isSignedDouble" /></field-type-def>
+    <field-type-def type="floating-point" sql-type="FLOAT8" java-type="Double"><validate method="isSignedDouble" /></field-type-def>
+    <field-type-def type="numeric" sql-type="NUMERIC(20,0)" java-type="Long"><validate method="isSignedLong" /></field-type-def>
+    
+    <field-type-def type="id" sql-type="TEXT" java-type="String"></field-type-def>
+    <field-type-def type="id-long" sql-type="TEXT" java-type="String"></field-type-def>
+    <field-type-def type="id-vlong" sql-type="TEXT" java-type="String"></field-type-def>
+    
+    <field-type-def type="indicator" sql-type="CHAR(1)" sql-type-alias="BPCHAR" java-type="String"></field-type-def>
+    <field-type-def type="very-short" sql-type="TEXT" java-type="String"></field-type-def>
+    <field-type-def type="short-varchar" sql-type="TEXT" java-type="String"></field-type-def>
+    <field-type-def type="long-varchar" sql-type="TEXT" java-type="String"></field-type-def>
+    <field-type-def type="very-long" sql-type="TEXT" java-type="String"></field-type-def>
+    
+    <field-type-def type="comment" sql-type="TEXT" java-type="String"></field-type-def>
+    <field-type-def type="description" sql-type="TEXT" java-type="String"></field-type-def>
+    <field-type-def type="name" sql-type="TEXT" java-type="String"></field-type-def>
+    <field-type-def type="value" sql-type="TEXT" java-type="String"></field-type-def>
+    
+    <!-- Specialized Types -->
+    <field-type-def type="credit-card-number" sql-type="TEXT" java-type="String"><validate method="isAnyCard" /></field-type-def>
+    <field-type-def type="credit-card-date" sql-type="TEXT" java-type="String"><validate method="isDateAfterToday" /></field-type-def>
+    <field-type-def type="email" sql-type="TEXT" java-type="String"><validate method="isEmail" /></field-type-def>
+    <field-type-def type="url" sql-type="TEXT" java-type="String"></field-type-def>
+    <field-type-def type="id-ne" sql-type="TEXT" java-type="String"><validate method="isNotEmpty" /></field-type-def>
+    <field-type-def type="id-long-ne" sql-type="TEXT" java-type="String"><validate method="isNotEmpty" /></field-type-def>
+    <field-type-def type="id-vlong-ne" sql-type="TEXT" java-type="String"><validate method="isNotEmpty" /></field-type-def>
+    <field-type-def type="tel-number" sql-type="TEXT" java-type="String"><validate method="isInternationalPhoneNumber" /></field-type-def>
+</fieldtypemodel>
