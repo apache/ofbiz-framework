@@ -21,6 +21,7 @@ package org.ofbiz.widget;
 import java.io.Serializable;
 import java.util.Map;
 import org.w3c.dom.Element;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
 
 /**
@@ -94,7 +95,8 @@ public class ModelWidget implements Serializable {
      * @param context The screen rendering context
      */
     public void setWidgetBoundaryComments(Map<String, Object> context) {
-        enableWidgetBoundaryComments = widgetBoundaryCommentsEnabled((Map) context.get("parameters"));
+        Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
+        enableWidgetBoundaryComments = widgetBoundaryCommentsEnabled(parameters);
     }
 
     /**
@@ -103,7 +105,7 @@ public class ModelWidget implements Serializable {
      * widget.verbose=true in debug.properties.
      * @param parameters Optional parameters Map
      */
-    public static boolean widgetBoundaryCommentsEnabled(Map parameters) {
+    public static boolean widgetBoundaryCommentsEnabled(Map<String, ? extends Object> parameters) {
         boolean result = "true".equals(UtilProperties.getPropertyValue("widget", "widget.verbose"));
         if (!result && parameters != null) {
             result = "true".equals(parameters.get(enableBoundaryCommentsParam));

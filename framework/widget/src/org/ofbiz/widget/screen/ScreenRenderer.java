@@ -21,7 +21,6 @@ package org.ofbiz.widget.screen;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -33,6 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.xml.parsers.ParserConfigurationException;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.GeneralException;
@@ -242,9 +242,9 @@ public class ScreenRenderer {
 
         // setup message lists
         List<String> eventMessageList = UtilGenerics.toList(request.getAttribute("eventMessageList"));
-        if (eventMessageList == null) eventMessageList = new LinkedList<String>();
+        if (eventMessageList == null) eventMessageList = FastList.newInstance();
         List<String> errorMessageList = UtilGenerics.toList(request.getAttribute("errorMessageList"));
-        if (errorMessageList == null) errorMessageList = new LinkedList<String>();
+        if (errorMessageList == null) errorMessageList = FastList.newInstance();
 
         if (request.getAttribute("_EVENT_MESSAGE_") != null) {
             eventMessageList.add(UtilFormatOut.replaceString((String) request.getAttribute("_EVENT_MESSAGE_"), "\n", "<br/>"));
@@ -277,11 +277,7 @@ public class ScreenRenderer {
         }
 
         // if there was an error message, this is an error
-        if (errorMessageList.size() > 0) {
-            context.put("isError", Boolean.TRUE);
-        } else {
-            context.put("isError", Boolean.FALSE);
-        }
+        context.put("isError", errorMessageList.size() > 0 ? Boolean.TRUE : Boolean.FALSE);
         // if a parameter was passed saying this is an error, it is an error
         if ("true".equals(parameterMap.get("isError"))) {
             context.put("isError", Boolean.TRUE);

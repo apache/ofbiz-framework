@@ -21,13 +21,15 @@ package org.ofbiz.widget.screen;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
+import javolution.util.FastMap;
+
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.MapStack;
@@ -87,7 +89,7 @@ public class HtmlWidget extends ModelScreenWidget {
         
         if (location.endsWith(".ftl")) {
             try {
-                Map parameters = (Map) context.get("parameters");
+                Map<String, ? extends Object> parameters = UtilGenerics.checkMap(context.get("parameters"));
                 boolean insertWidgetBoundaryComments = ModelWidget.widgetBoundaryCommentsEnabled(parameters);
                 if (insertWidgetBoundaryComments) {
                     writer.append(HtmlWidgetRenderer.formatBoundaryComment("Begin", "Template", location));
@@ -145,16 +147,14 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplateDecorator extends ModelScreenWidget {
         protected FlexibleStringExpander locationExdr;
-        protected Map<String, HtmlTemplateDecoratorSection> sectionMap = new HashMap<String, HtmlTemplateDecoratorSection>();
+        protected Map<String, HtmlTemplateDecoratorSection> sectionMap = FastMap.newInstance();
         
         public HtmlTemplateDecorator(ModelScreen modelScreen, Element htmlTemplateDecoratorElement) {
             super(modelScreen, htmlTemplateDecoratorElement);
             this.locationExdr = FlexibleStringExpander.getInstance(htmlTemplateDecoratorElement.getAttribute("location"));
             
-            List htmlTemplateDecoratorSectionElementList = UtilXml.childElementList(htmlTemplateDecoratorElement, "html-template-decorator-section");
-            Iterator htmlTemplateDecoratorSectionElementIter = htmlTemplateDecoratorSectionElementList.iterator();
-            while (htmlTemplateDecoratorSectionElementIter.hasNext()) {
-                Element htmlTemplateDecoratorSectionElement = (Element) htmlTemplateDecoratorSectionElementIter.next();
+            List<? extends Element> htmlTemplateDecoratorSectionElementList = UtilXml.childElementList(htmlTemplateDecoratorElement, "html-template-decorator-section");
+            for (Element htmlTemplateDecoratorSectionElement: htmlTemplateDecoratorSectionElementList) {
                 String name = htmlTemplateDecoratorSectionElement.getAttribute("name");
                 this.sectionMap.put(name, new HtmlTemplateDecoratorSection(modelScreen, htmlTemplateDecoratorSectionElement));
             }
@@ -163,14 +163,16 @@ public class HtmlWidget extends ModelScreenWidget {
         @SuppressWarnings("unchecked")
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) {
             // isolate the scope
+            MapStack<String> contextMs;
             if (!(context instanceof MapStack)) {
-                context = MapStack.create(context);
+                contextMs = MapStack.create(context);
+                context = contextMs;
+            } else {
+                contextMs = UtilGenerics.cast(context);
             }
 
-            MapStack contextMs = (MapStack) context;
-
             // create a standAloneStack, basically a "save point" for this SectionsRenderer, and make a new "screens" object just for it so it is isolated and doesn't follow the stack down
-            MapStack standAloneStack = contextMs.standAloneChildStack();
+            MapStack<String> standAloneStack = contextMs.standAloneChildStack();
             standAloneStack.put("screens", new ScreenRenderer(writer, standAloneStack, screenStringRenderer));
             SectionsRenderer sections = new SectionsRenderer(this.sectionMap, standAloneStack, writer, screenStringRenderer);
             
@@ -189,13 +191,13 @@ public class HtmlWidget extends ModelScreenWidget {
 
     public static class HtmlTemplateDecoratorSection extends ModelScreenWidget {
         protected String name;
-        protected List subWidgets;
+        protected List<ModelScreenWidget> subWidgets;
         
         public HtmlTemplateDecoratorSection(ModelScreen modelScreen, Element htmlTemplateDecoratorSectionElement) {
             super(modelScreen, htmlTemplateDecoratorSectionElement);
             this.name = htmlTemplateDecoratorSectionElement.getAttribute("name");
             // read sub-widgets
-            List subElementList = UtilXml.childElementList(htmlTemplateDecoratorSectionElement);
+            List<? extends Element> subElementList = UtilXml.childElementList(htmlTemplateDecoratorSectionElement);
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
         }
 

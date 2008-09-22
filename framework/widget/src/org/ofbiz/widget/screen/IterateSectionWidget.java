@@ -82,10 +82,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
             setViewSize(iterateSectionElement.getAttribute("view-size"));
         }
         sectionList = new ArrayList<ModelScreenWidget.Section>();
-        List childElementList = UtilXml.childElementList(iterateSectionElement);
-        Iterator childElementIter = childElementList.iterator();
-        while (childElementIter.hasNext()) {
-            Element sectionElement = (Element) childElementIter.next();
+        List<? extends Element> childElementList = UtilXml.childElementList(iterateSectionElement);
+        for (Element sectionElement: childElementList) {
             ModelScreenWidget.Section section = new ModelScreenWidget.Section(modelScreen, sectionElement);
             sectionList.add(section);
         }
@@ -181,8 +179,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
 
     public void setViewSize(String val) {
         try {
-            Integer sz = Integer.valueOf(val);
-            viewSize = sz.intValue();
+            viewSize = Integer.parseInt(val);
         } catch(NumberFormatException e) {
             viewSize = DEFAULT_PAGE_SIZE;   
         }
@@ -227,7 +224,7 @@ public class IterateSectionWidget extends ModelScreenWidget {
         return actualPageSize;
     }
     
-    public void getListLimits(Map<String, Object> context, List items) {
+    public void getListLimits(Map<String, Object> context, List<?> items) {
         listSize = items.size();
         
        if (paginate) {
@@ -330,34 +327,34 @@ public class IterateSectionWidget extends ModelScreenWidget {
         writer.append("      <b>\n");
         if (viewIndex > 0) {
             writer.append(" <a href=\"");
-            String linkText = targetService;
-            if (linkText.indexOf("?") < 0)  linkText += "?";
-            else linkText += "&amp;";
+            StringBuilder linkText = new StringBuilder(targetService);
+            if (linkText.indexOf("?") < 0)  linkText.append("?");
+            else linkText.append("&amp;");
             //if (queryString != null && !queryString.equals("null")) linkText += queryString + "&";
-            linkText += "VIEW_SIZE=" + viewSize + "&amp;VIEW_INDEX=" + (viewIndex - 1) + "\"";
+            linkText.append("VIEW_SIZE=").append(viewSize).append("&amp;VIEW_INDEX=").append(viewIndex - 1).append("\"");
 
             // make the link
-            writer.append(rh.makeLink(request, response, linkText, false, false, false));           
+            writer.append(rh.makeLink(request, response, linkText.toString(), false, false, false));           
             String previous = UtilProperties.getMessage("CommonUiLabels", "CommonPrevious", (Locale) context.get("locale"));
-            writer.append(" class=\"buttontext\">[" + previous +"]</a>\n");
+            writer.append(" class=\"buttontext\">[").append(previous).append("]</a>\n");
 
         }
         if (listSize > 0) {
             Map<String, Integer> messageMap = UtilMisc.toMap("lowCount", Integer.valueOf(lowIndex + 1), "highCount", Integer.valueOf(lowIndex + actualPageSize), "total", Integer.valueOf(listSize)); 
             String commonDisplaying = UtilProperties.getMessage("CommonUiLabels", "CommonDisplaying", messageMap, (Locale) context.get("locale"));
-            writer.append(" <span class=\"tabletext\">" + commonDisplaying + "</span> \n");
+            writer.append(" <span class=\"tabletext\">").append(commonDisplaying).append("</span> \n");
         }
         if (highIndex < listSize) {
             writer.append(" <a href=\"");
-            String linkText = targetService;
-            if (linkText.indexOf("?") < 0)  linkText += "?";
-            else linkText += "&amp;";
-            linkText +=  "VIEW_SIZE=" + viewSize + "&amp;VIEW_INDEX=" + (viewIndex + 1) + "\"";
+            StringBuilder linkText = new StringBuilder(targetService);
+            if (linkText.indexOf("?") < 0)  linkText.append("?");
+            else linkText.append("&amp;");
+            linkText.append("VIEW_SIZE=").append(viewSize).append("&amp;VIEW_INDEX=").append(viewIndex + 1).append("\"");
 
             // make the link
-            writer.append(rh.makeLink(request, response, linkText, false, false, false));
+            writer.append(rh.makeLink(request, response, linkText.toString(), false, false, false));
             String next = UtilProperties.getMessage("CommonUiLabels", "CommonNext", (Locale) context.get("locale"));
-            writer.append(" class=\"buttontext\">[" + next +"]</a>\n");
+            writer.append(" class=\"buttontext\">[").append(next).append("]</a>\n");
 
         }
         writer.append("      </b>\n");

@@ -50,7 +50,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
 
     protected String sourceLocation;
     protected FlexibleStringExpander transactionTimeoutExdr;
-    protected Map modelScreenMap;
+    protected Map<String, ModelScreen> modelScreenMap;
     protected boolean useCache;
     
     protected ModelScreenWidget.Section section;
@@ -60,7 +60,7 @@ public class ModelScreen extends ModelWidget implements Serializable {
     protected ModelScreen() {}
 
     /** XML Constructor */
-    public ModelScreen(Element screenElement, Map modelScreenMap, String sourceLocation) {
+    public ModelScreen(Element screenElement, Map<String, ModelScreen> modelScreenMap, String sourceLocation) {
         super(screenElement);
         this.sourceLocation = sourceLocation;
         this.transactionTimeoutExdr = FlexibleStringExpander.getInstance(screenElement.getAttribute("transaction-timeout"));
