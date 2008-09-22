@@ -10672,16 +10672,6 @@
         <value xml:lang="th">รหัสรายการ</value>
         <value xml:lang="zh">明细标识</value>
     </property>
-    <property key="ProductItemIdGiftPurchaseFreeShipping">
-        <value xml:lang="en">The Item ID on an action is a Product ID for Gift With Purchase actions or for Free Shipping actions it is Shipment Method Type ID to give free shipping on (if blank any Shipment Method Types may receive free shipping)</value>
-        <value xml:lang="es">El código del artículo de la acción es un código para una acción de regalo con la compra o envío gratis (si se deja en blanco, cualquier método de envío puede recibir envío gratis)</value>
-        <value xml:lang="fr">Ligne article cadeau lors des actions d'achat ou pour une expédition gratuite : mode d'expédition auquel la gratuité sera appliquée (si blanc, n'importe quel mode peut être utilisé)</value>
-        <value xml:lang="it">Numero riga su un'azione è un Codice Prodotto per Omaggio Con azioni Acquisto o per azioni Spedizioni Gratuite c'è il Metodo di Spedizione per avere spedizioni gratuite (se vuoto qualsiasi Metodo di Spedizione potrebbe ricevere spedizioni gratuite)</value>
-        <value xml:lang="ro">Numarul de linie pe o actiune este un Cod id Produs pe Omagiu Cu actiuni de Cumparare sau pe actiuni Expedieri Gratuite, este un Tip de Metoda de Expediere cu expedieri gratuite (daca este gol orice Tip Metoda de Expediere poate primi expedieri gratuite)</value>
-        <value xml:lang="ru">Для действия Подарок при покупке код позиции должен быть кодом участника, при Бесплатной доставке - кодом типа способа доставки допускающим бесплатную доставку (если оставить поле пустым, бесплатно возможен любой способ доставки)</value>
-        <value xml:lang="th">รหัสรายการบนการปฏิบัติการเป็นรหัสรหัสสินค้าสำหรับของขวัญด้วยการสั่งซื้อสินค้าหรือสำหรับการปฏิบัติการช่องการขนส่งฟรีมันเป็นรหัสประเภมฃทวิธีการขนส่งไปยังการขนส่งฟรี (ถ้าทุก ๆ ช่องว่างประเภทวิธีการขนส่งอาจจะได้รับการขนส่งฟรี)</value>
-        <value xml:lang="zh">关于行为的明细标识是一个产品标识，用来标识购物而带来的礼品或免费送货，免费送货的货运方式类型标识是把免费送货设为开 (如果为空，任何货运方式类型都可能收到免费送货)</value>
-    </property>
     <property key="ProductItemOutofStock">
         <value xml:lang="en">This item is out of stock</value>
         <value xml:lang="es">El artículo no tiene stock</value>
@@ -12429,26 +12419,6 @@
         <value xml:lang="th">คีย์เวิร์ดสร้างอัตโนมัติเมื่อข้อมูลสินค้าเปลี่ยนแปลง แต่คุณอาจจะสร้างด้วยมือหรือลบคีย์เวิร์ดที่นี่</value>
         <value xml:lang="zh">当修改了产品信息时，会自动创建关键字，但是你也可以在这里手动创建或删除关键字。</value>
     </property>
-    <property key="ProductNoteOnItemId">
-        <value xml:lang="en">NOTE on Item ID</value>
-        <value xml:lang="es">NOTA en código de artículo</value>
-        <value xml:lang="fr">Note à propos de l'article</value>
-        <value xml:lang="it">NOTA su Numero Riga</value>
-        <value xml:lang="ro">NOTA pentru Numar Linie</value>
-        <value xml:lang="ru">Примечания по позиции</value>
-        <value xml:lang="th">ข้อความของรหัสรายการ</value>
-        <value xml:lang="zh">关于明细标识的说明</value>
-    </property>
-    <property key="ProductNoteOnPartyId">
-        <value xml:lang="en">NOTE on Party ID</value>
-        <value xml:lang="es">NOTA en código de participante</value>
-        <value xml:lang="fr">Note à propos de l'acteur</value>
-        <value xml:lang="it">NOTA su Codice Soggetto</value>
-        <value xml:lang="ro">NOTA pentru Cod Subiect</value>
-        <value xml:lang="ru">Примечание по участнику</value>
-        <value xml:lang="th">ข้อความของรหัสกลุ่ม</value>
-        <value xml:lang="zh">关于会员标识的说明</value>
-    </property>
     <property key="ProductNoteOrderStatus">
         <value xml:lang="en">NOTE: Order Status is</value>
         <value xml:lang="es">NOTA: El estado de la orden es</value>
@@ -13061,16 +13031,6 @@
         <value xml:lang="it">Cliente</value>
         <value xml:lang="ru">Заказчик</value>
         <value xml:lang="th">กลุ่มลูกค้า</value>
-    </property>
-    <property key="ProductPartyFreeShipping">
-        <value xml:lang="en">The Party ID for Free Shipping actions is Carrier Party ID to give free shipping for (if blank any Carrier Parties may receive free shipping).</value>
-        <value xml:lang="es">El código de participante en la acción de envío gratis es el código del transportista al que se le dará envío gratis (si se deja en blanco cualquier transportista puede recibir envío gratis)</value>
-        <value xml:lang="fr">Acteur (transporteur) pour l'envoi gratuit (si blanc, n'importe lequel des transporteurs peut effectuer les livraison gratuites).</value>
-        <value xml:lang="it">Codice Soggetto per azioni di Spedizioni Gratuite è Codice Corriere per dare spedizioni gratuite (se vuoto qualsiasi Corriere potrebbe ricevere spedizioni gratuite).</value>
-        <value xml:lang="ro">Codul Subiectilor pentru actiuni de Expediere Gratuite este Codul Curierului pentru expedieri gratuite (daca este gol orice Curier ar putea primi expedieri gratuite).</value>
-        <value xml:lang="ru">Для действия Бесплатная доставка, в поле Участник нужно указывать код перевозчика, с которым возможно осуществить бесплатную доставку товара (если оставить его пустым - бесплатная доставка допускается с любым перевозчиком).</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้สำหรับการขนส่งฟรีเป็นรหัสกลุ่มผู้ส่งถึงให้การขนส่งฟรีสำหรับ (ถ้าว่างทุก ๆ กลุ่มผู้ส่งอาจจะได้รับการขนส่งฟรี).</value>
-        <value xml:lang="zh">用于免费运输行为的会员标识是提供免费送乎的承运商会员标识 (如果为空，任一承运商会员都可能接收免费送货)。</value>
     </property>
     <property key="ProductPaymentTypes">
         <value xml:lang="en">Payment Types</value>

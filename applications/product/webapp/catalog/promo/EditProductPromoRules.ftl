@@ -326,8 +326,6 @@ under the License.
                 </#list>
             </table>
         </div>
-        <div class="tooltip"><b>${uiLabelMap.ProductNoteOnItemId} :</b> ${uiLabelMap.ProductItemIdGiftPurchaseFreeShipping}</div>
-        <div class="tooltip"><b>${uiLabelMap.ProductNoteOnPartyId} :</b> ${uiLabelMap.ProductPartyFreeShipping}</div>
     </div>
     <div class="screenlet">
         <div class="screenlet-title-bar">
