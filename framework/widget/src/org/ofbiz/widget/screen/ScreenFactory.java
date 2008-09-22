@@ -20,13 +20,14 @@ package org.ofbiz.widget.screen;
 
 import java.io.IOException;
 import java.net.URL;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.xml.parsers.ParserConfigurationException;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.Debug;
@@ -95,15 +96,15 @@ public class ScreenFactory {
     
     public static ModelScreen getScreenFromLocation(String resourceName, String screenName) 
             throws IOException, SAXException, ParserConfigurationException {
-        Map modelScreenMap = getScreensFromLocation(resourceName);
-        ModelScreen modelScreen = (ModelScreen) modelScreenMap.get(screenName);
+        Map<String, ModelScreen> modelScreenMap = getScreensFromLocation(resourceName);
+        ModelScreen modelScreen = modelScreenMap.get(screenName);
         if (modelScreen == null) {
             throw new IllegalArgumentException("Could not find screen with name [" + screenName + "] in class resource [" + resourceName + "]");
         }
         return modelScreen;
     }
 
-    public static Map getScreensFromLocation(String resourceName) 
+    public static Map<String, ModelScreen> getScreensFromLocation(String resourceName) 
             throws IOException, SAXException, ParserConfigurationException {
         Map<String, ModelScreen> modelScreenMap = screenLocationCache.get(resourceName);
         if (modelScreenMap == null) {
@@ -165,14 +166,12 @@ public class ScreenFactory {
     }
     
     public static Map<String, ModelScreen> readScreenDocument(Document screenFileDoc, String sourceLocation) {
-        Map<String, ModelScreen> modelScreenMap = new HashMap<String, ModelScreen>();
+        Map<String, ModelScreen> modelScreenMap = FastMap.newInstance();
         if (screenFileDoc != null) {
             // read document and construct ModelScreen for each screen element
             Element rootElement = screenFileDoc.getDocumentElement();
-            List screenElements = UtilXml.childElementList(rootElement, "screen");
-            Iterator screenElementIter = screenElements.iterator();
-            while (screenElementIter.hasNext()) {
-                Element screenElement = (Element) screenElementIter.next();
+            List<? extends Element> screenElements = UtilXml.childElementList(rootElement, "screen");
+            for (Element screenElement: screenElements) {
                 ModelScreen modelScreen = new ModelScreen(screenElement, modelScreenMap, sourceLocation);
                 //Debug.logInfo("Read Screen with name: " + modelScreen.getName(), module);
                 modelScreenMap.put(modelScreen.getName(), modelScreen);

@@ -20,17 +20,17 @@ package org.ofbiz.widget.screen;
 
 import java.io.IOException;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.xml.parsers.ParserConfigurationException;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -80,11 +80,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
     public abstract String rawString();
     
-    public static List<ModelScreenWidget> readSubWidgets(ModelScreen modelScreen, List subElementList) {
-        List<ModelScreenWidget> subWidgets = new LinkedList<ModelScreenWidget>();
-        Iterator subElementIter = subElementList.iterator();
-        while (subElementIter.hasNext()) {
-            Element subElement = (Element) subElementIter.next();
+    public static List<ModelScreenWidget> readSubWidgets(ModelScreen modelScreen, List<? extends Element> subElementList) {
+        List<ModelScreenWidget> subWidgets = FastList.newInstance();
+        for (Element subElement: subElementList) {
 
             if ("section".equals(subElement.getNodeName())) {
                 subWidgets.add(new Section(modelScreen, subElement));
@@ -128,13 +126,11 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         return subWidgets;
     }
     
-    public static void renderSubWidgetsString(List subWidgets, Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
+    public static void renderSubWidgetsString(List<ModelScreenWidget> subWidgets, Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
         if (subWidgets == null) {
             return;
         }
-        Iterator subWidgetIter = subWidgets.iterator();
-        while (subWidgetIter.hasNext()) {
-            ModelScreenWidget subWidget = (ModelScreenWidget) subWidgetIter.next();
+        for (ModelScreenWidget subWidget: subWidgets) {
             if (Debug.verboseOn()) Debug.logVerbose("Rendering screen " + subWidget.modelScreen.getName() + "; widget class is " + subWidget.getClass().getName(), module);
 
             // render the sub-widget itself
@@ -195,13 +191,13 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             
             // read sub-widgets
             Element widgetsElement = UtilXml.firstChildElement(sectionElement, "widgets");
-            List subElementList = UtilXml.childElementList(widgetsElement);
+            List<? extends Element> subElementList = UtilXml.childElementList(widgetsElement);
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
 
             // read fail-widgets
             Element failWidgetsElement = UtilXml.firstChildElement(sectionElement, "fail-widgets");
             if (failWidgetsElement != null) {
-                List failElementList = UtilXml.childElementList(failWidgetsElement);
+                List<? extends Element> failElementList = UtilXml.childElementList(failWidgetsElement);
                 this.failWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, failElementList);
             }
         }
@@ -282,7 +278,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             }
             
             // read sub-widgets
-            List subElementList = UtilXml.childElementList(containerElement);
+            List<? extends Element> subElementList = UtilXml.childElementList(containerElement);
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
         }
 
@@ -347,7 +343,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 throw new IllegalArgumentException("Collapsible screenlets must have a name or id [" + this.modelScreen.getName() + "]");
             }
             this.titleExdr = FlexibleStringExpander.getInstance(screenletElement.getAttribute("title"));
-            List subElementList = UtilXml.childElementList(screenletElement);
+            List<? extends Element> subElementList = UtilXml.childElementList(screenletElement);
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
             String navMenuName = screenletElement.getAttribute("navigation-menu-name");
             if (UtilValidate.isNotEmpty(navMenuName)) {
@@ -387,7 +383,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             boolean collapsed = initiallyCollapsed;
             if (this.collapsible) {
                 String preferenceKey = getPreferenceKey(context) + "_collapsed";
-                Map requestParameters = (Map)context.get("requestParameters");
+                Map<String, Object> requestParameters = UtilGenerics.checkMap(context.get("requestParameters"));
                 if (requestParameters != null) {
                     String collapsedParam = (String) requestParameters.get(preferenceKey);
                     if (UtilValidate.isNotEmpty(collapsedParam)) {
@@ -507,7 +503,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                 // build the widgetpath
                 List<String> widgetTrail = UtilGenerics.toList(context.get("_WIDGETTRAIL_"));
                 if (widgetTrail == null) {
-                    widgetTrail = new ArrayList<String>();
+                    widgetTrail = FastList.newInstance();
                 }
                 
                 String thisName = nameExdr.expandString(context);
@@ -549,7 +545,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                     throw new RuntimeException(errMsg);
                 }
             } else {
-                modelScreen = (ModelScreen) this.modelScreen.modelScreenMap.get(name);
+                modelScreen = this.modelScreen.modelScreenMap.get(name);
                 if (modelScreen == null) {
                     throw new IllegalArgumentException("Could not find screen with name [" + name + "] in the same file as the screen with name [" + this.modelScreen.getName() + "]");
                 }
@@ -591,10 +587,8 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             this.nameExdr = FlexibleStringExpander.getInstance(decoratorScreenElement.getAttribute("name"));
             this.locationExdr = FlexibleStringExpander.getInstance(decoratorScreenElement.getAttribute("location"));
             
-            List decoratorSectionElementList = UtilXml.childElementList(decoratorScreenElement, "decorator-section");
-            Iterator decoratorSectionElementIter = decoratorSectionElementList.iterator();
-            while (decoratorSectionElementIter.hasNext()) {
-                Element decoratorSectionElement = (Element) decoratorSectionElementIter.next();
+            List<? extends Element> decoratorSectionElementList = UtilXml.childElementList(decoratorScreenElement, "decorator-section");
+            for (Element decoratorSectionElement: decoratorSectionElementList) {
                 String name = decoratorSectionElement.getAttribute("name");
                 this.sectionMap.put(name, new DecoratorSection(modelScreen, decoratorSectionElement));
             }
@@ -646,7 +640,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
                     throw new RuntimeException(errMsg);
                 }
             } else {
-                modelScreen = (ModelScreen) this.modelScreen.modelScreenMap.get(name);
+                modelScreen = this.modelScreen.modelScreenMap.get(name);
                 if (modelScreen == null) {
                     throw new IllegalArgumentException("Could not find screen with name [" + name + "] in the same file as the screen with name [" + this.modelScreen.getName() + "]");
                 }
@@ -676,7 +670,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         public DecoratorSection(ModelScreen modelScreen, Element decoratorSectionElement) {
             super(modelScreen, decoratorSectionElement);
             // read sub-widgets
-            List subElementList = UtilXml.childElementList(decoratorSectionElement);
+            List<? extends Element> subElementList = UtilXml.childElementList(decoratorSectionElement);
             this.subWidgets = ModelScreenWidget.readSubWidgets(this.modelScreen, subElementList);
         }
 
@@ -698,7 +692,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         }
 
         public void renderWidgetString(Appendable writer, Map<String, Object> context, ScreenStringRenderer screenStringRenderer) throws GeneralException, IOException {
-            Map preRenderedContent = (Map) context.get("preRenderedContent");
+            Map<String, ? extends Object> preRenderedContent = UtilGenerics.checkMap(context.get("preRenderedContent"));
             if (preRenderedContent != null && preRenderedContent.containsKey(this.name)) {
                 try {
                     writer.append((String) preRenderedContent.get(this.name));
@@ -957,11 +951,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         public PlatformSpecific(ModelScreen modelScreen, Element platformSpecificElement) {
             super(modelScreen, platformSpecificElement);
             subWidgets = new HashMap<String, ModelScreenWidget>();
-            List childElements = UtilXml.childElementList(platformSpecificElement);
+            List<? extends Element> childElements = UtilXml.childElementList(platformSpecificElement);
             if (childElements != null) {
-                Iterator childElementsIt = childElements.iterator();
-                while (childElementsIt.hasNext()) {
-                    Element childElement = (Element)childElementsIt.next();
+                for (Element childElement: childElements) {
                     if ("html".equals(childElement.getNodeName())) {
                         subWidgets.put("html", new HtmlWidget(modelScreen, childElement));
                     } else if ("xsl-fo".equals(childElement.getNodeName())) {
@@ -999,11 +991,11 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
 
         public String rawString() {
             Collection<ModelScreenWidget> subWidgetList = this.subWidgets.values();
-            String subWidgetsRawString = "";
+            StringBuilder subWidgetsRawString = new StringBuilder("<platform-specific>");
             for (ModelScreenWidget subWidget: subWidgetList) {
-                subWidgetsRawString = subWidgetsRawString + subWidget.rawString();
+                subWidgetsRawString.append(subWidget.rawString());
             }
-            return "<platform-specific>" + subWidgetsRawString + "</platform-specific>";
+            return subWidgetsRawString.append("</platform-specific>").toString();
         }
     }
 

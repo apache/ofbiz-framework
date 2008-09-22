@@ -81,10 +81,8 @@ public class ModelScreenCondition implements Serializable {
     
     public static List<ScreenCondition> readSubConditions(ModelScreen modelScreen, Element conditionElement) {
         List<ScreenCondition> condList = FastList.newInstance();
-        List subElementList = UtilXml.childElementList(conditionElement);
-        Iterator subElementIter = subElementList.iterator();
-        while (subElementIter.hasNext()) {
-            Element subElement = (Element) subElementIter.next();
+        List<? extends Element> subElementList = UtilXml.childElementList(conditionElement);
+        for (Element subElement: subElementList) {
             condList.add(readCondition(modelScreen, subElement));
         }
         return condList;
@@ -124,7 +122,7 @@ public class ModelScreenCondition implements Serializable {
     }
     
     public static class And extends ScreenCondition {
-        protected List subConditions;
+        protected List<ScreenCondition> subConditions;
         
         public And(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
@@ -133,9 +131,7 @@ public class ModelScreenCondition implements Serializable {
         
         public boolean eval(Map<String, Object> context) {
             // return false for the first one in the list that is false, basic and algo
-            Iterator subConditionIter = this.subConditions.iterator();
-            while (subConditionIter.hasNext()) {
-                ScreenCondition subCondition = (ScreenCondition) subConditionIter.next();
+            for (ScreenCondition subCondition: this.subConditions) {
                 if (!subCondition.eval(context)) {
                     return false;
                 }
@@ -145,7 +141,7 @@ public class ModelScreenCondition implements Serializable {
     }
     
     public static class Xor extends ScreenCondition {
-        protected List subConditions;
+        protected List<ScreenCondition> subConditions;
         
         public Xor(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
@@ -155,9 +151,7 @@ public class ModelScreenCondition implements Serializable {
         public boolean eval(Map<String, Object> context) {
             // if more than one is true stop immediately and return false; if all are false return false; if only one is true return true
             boolean foundOneTrue = false;
-            Iterator subConditionIter = this.subConditions.iterator();
-            while (subConditionIter.hasNext()) {
-                ScreenCondition subCondition = (ScreenCondition) subConditionIter.next();
+            for (ScreenCondition subCondition: this.subConditions) {
                 if (subCondition.eval(context)) {
                     if (foundOneTrue) {
                         // now found two true, so return false
@@ -172,7 +166,7 @@ public class ModelScreenCondition implements Serializable {
     }
     
     public static class Or extends ScreenCondition {
-        protected List subConditions;
+        protected List<ScreenCondition> subConditions;
         
         public Or(ModelScreen modelScreen, Element condElement) {
             super (modelScreen, condElement);
@@ -181,9 +175,7 @@ public class ModelScreenCondition implements Serializable {
         
         public boolean eval(Map<String, Object> context) {
             // return true for the first one in the list that is true, basic or algo
-            Iterator subConditionIter = this.subConditions.iterator();
-            while (subConditionIter.hasNext()) {
-                ScreenCondition subCondition = (ScreenCondition) subConditionIter.next();
+            for (ScreenCondition subCondition: this.subConditions) {
                 if (subCondition.eval(context)) {
                     return true;
                 }
@@ -417,10 +409,9 @@ public class ModelScreenCondition implements Serializable {
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and value [" + value + "] with operator [" + operator + "] and type [" + type + "]: ");
 
-                StringBuffer fullString = new StringBuffer();
-                Iterator miter = messages.iterator();
-                while (miter.hasNext()) {
-                    fullString.append((String) miter.next());
+                StringBuilder fullString = new StringBuilder();
+                for (Object item: messages) {
+                    fullString.append(item.toString());
                 }
                 Debug.logWarning(fullString.toString(), module);
 
@@ -466,10 +457,9 @@ public class ModelScreenCondition implements Serializable {
             if (messages.size() > 0) {
                 messages.add(0, "Error with comparison in if-compare-field between field [" + fieldAcsr.toString() + "] with value [" + fieldVal + "] and to-field [" + toFieldAcsr.toString() + "] with value [" + toFieldVal + "] with operator [" + operator + "] and type [" + type + "]: ");
 
-                StringBuffer fullString = new StringBuffer();
-                Iterator miter = messages.iterator();
-                while (miter.hasNext()) {
-                    fullString.append((String) miter.next());
+                StringBuilder fullString = new StringBuilder();
+                for (Object item: messages) {
+                    fullString.append(item.toString());
                 }
                 Debug.logWarning(fullString.toString(), module);
 
