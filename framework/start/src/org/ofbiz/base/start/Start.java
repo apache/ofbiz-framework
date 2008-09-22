@@ -488,6 +488,18 @@ public class Start implements Runnable {
             return props;
         }
 
+        private String getOfbizHomeProp(Properties props, String key, String def) {
+            String value = System.getProperty(key);
+            if (value != null) return value;
+            return ofbizHome + "/" + props.getProperty(key, def);
+        }
+
+        private String getProp(Properties props, String key, String def) {
+            String value = System.getProperty(key);
+            if (value != null) return value;
+            return props.getProperty(key, def);
+        }
+
         public void readConfig(String config) throws IOException {
             // check the java_version
             String javaVersion = System.getProperty("java.version");
@@ -516,73 +528,40 @@ public class Start implements Runnable {
             System.setProperty("ofbiz.home", ofbizHome);
 
             // base config directory
-            baseConfig = System.getProperty("ofbiz.base.config");
-            if (baseConfig == null) {
-                baseConfig = ofbizHome + "/" + props.getProperty("ofbiz.base.config", "framework/base/config");
-            }
+            baseConfig = getOfbizHomeProp(props, "ofbiz.base.config", "framework/base/config");
 
             // base schema directory
-            baseDtd = System.getProperty("ofbiz.base.schema");
-            if (baseDtd == null) {
-                baseDtd = ofbizHome + "/" + props.getProperty("ofbiz.base.schema", "framework/base/dtd");
-            }
+            baseDtd = getOfbizHomeProp(props, "ofbiz.base.schema", "framework/base/dtd");
 
             // base lib directory
-            baseLib = System.getProperty("ofbiz.base.lib");
-            if (baseLib == null) {
-                baseLib = ofbizHome + "/" + props.getProperty("ofbiz.base.lib", "framework/base/lib");
-            }
+            baseLib = getOfbizHomeProp(props, "ofbiz.base.lib", "framework/base/lib");
 
             // base jar file
-            baseJar = System.getProperty("ofbiz.base.jar");
-            if (baseJar == null) {
-                baseJar = ofbizHome + "/" + props.getProperty("ofbiz.base.jar", "framework/base/build/lib/ofbiz-base.jar");
-            }
+            baseJar = getOfbizHomeProp(props, "ofbiz.base.jar", "framework/base/build/lib/ofbiz-base.jar");
 
             // tools jar
-            String reqTJ = System.getProperty("java.tools.jar.required");
-            if (reqTJ == null) {
-                reqTJ = props.getProperty("java.tools.jar.required", "false");
-            }
+            String reqTJ = getProp(props, "java.tools.jar.required", "false");
             requireToolsJar = "true".equalsIgnoreCase(reqTJ);
             toolsJar = this.findSystemJar(props, javaVendor, javaVersion, "tools.jar", requireToolsJar);
 
             // comm jar
-            String reqCJ = System.getProperty("java.comm.jar.required");
-            if (reqTJ == null) {
-                reqTJ = props.getProperty("java.comm.jar.required", "false");
-            }
+            String reqCJ = getProp(props, "java.comm.jar.required", "false");
             requireCommJar = "true".equalsIgnoreCase(reqCJ);
             commJar = this.findSystemJar(props, javaVendor, javaVersion, "comm.jar", requireCommJar);
 
             // log directory
-            logDir = System.getProperty("ofbiz.log.dir");
-            if (logDir == null) {
-                logDir = ofbizHome + "/" + props.getProperty("ofbiz.log.dir", "runtime/logs");
-            }
+            logDir = getOfbizHomeProp(props, "ofbiz.log.dir", "runtime/logs");
 
             // container configuration
-            containerConfig = System.getProperty("ofbiz.container.config");
-            if (containerConfig == null) {
-                containerConfig = ofbizHome + "/" + props.getProperty("ofbiz.container.config", "framework/base/config/ofbiz-containers.xml");
-            }
+            containerConfig = getOfbizHomeProp(props, "ofbiz.container.config", "framework/base/config/ofbiz-containers.xml");
 
             // get the admin server info
-            String serverHost = System.getProperty("ofbiz.admin.host");
-            if (serverHost == null) {
-                serverHost = props.getProperty("ofbiz.admin.host", "127.0.0.1");
-            }
+            String serverHost = getProp(props, "ofbiz.admin.host", "127.0.0.1");
 
-            String adminPortStr = System.getProperty("ofbiz.admin.port");
-            if (adminPortStr == null) {
-                adminPortStr = props.getProperty("ofbiz.admin.port", "0");
-            }
+            String adminPortStr = getProp(props, "ofbiz.admin.port", "0");
 
             // set the admin key
-            adminKey = System.getProperty("ofbiz.admin.key");
-            if (adminKey == null) {
-                adminKey = props.getProperty("ofbiz.admin.key", "NA");
-            }
+            String adminKey = getProp(props, "ofbiz.admin.key", "NA");
 
             // create the host InetAddress
             adminAddress = InetAddress.getByName(serverHost);
@@ -595,22 +574,11 @@ public class Start implements Runnable {
             }
 
             // set the Derby system home
-            String derbyPath = System.getProperty("derby.system.home");
-            if (derbyPath == null) {
-                derbyPath = props.getProperty("derby.system.home", "runtime/data/derby");
-            }
+            String derbyPath = getProp(props, "derby.system.home", "runtime/data/derby");
             System.setProperty("derby.system.home", derbyPath);
 
             // set the property to tell Log4J to use log4j.xml
-            String log4jConfig = System.getProperty("log4j.configuration");
-            if (log4jConfig == null) {
-                log4jConfig = props.getProperty("log4j.configuration");
-            }
-
-            // build a default log4j configuration based on ofbizHome
-            if (log4jConfig == null) {
-                log4jConfig = "log4j.xml";
-            }
+            String log4jConfig = getProp(props, "log4j.configuration", "log4j.xml");
 
             // set the log4j configuration property so we don't pick up one inside jars by mistake
             System.setProperty("log4j.configuration", log4jConfig);
@@ -630,10 +598,7 @@ public class Start implements Runnable {
             }
 
             // set AWT headless mode
-            awtHeadless = System.getProperty("java.awt.headless");
-            if (awtHeadless == null) {
-                awtHeadless = props.getProperty("java.awt.headless");
-            }
+            awtHeadless = getProp(props, "java.awt.headless", null);
             if (awtHeadless != null) {
                 System.setProperty("java.awt.headless", awtHeadless);
             }
