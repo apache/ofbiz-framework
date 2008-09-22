@@ -34,6 +34,7 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -455,18 +456,18 @@ public class EntityUtil {
         }
     }
     
-    public static List<Object> getFieldListFromEntityList(List<GenericValue> genericValueList, String fieldName, boolean distinct) {
+    public static <T> List<T> getFieldListFromEntityList(List<GenericValue> genericValueList, String fieldName, boolean distinct) {
         if (genericValueList == null || fieldName == null) {
             return null;
         }
-        List<Object> fieldList = FastList.newInstance();
-        Set<Object> distinctSet = null;
+        List<T> fieldList = FastList.newInstance();
+        Set<T> distinctSet = null;
         if (distinct) {
             distinctSet = FastSet.newInstance();
         }
         
         for (GenericValue value: genericValueList) {
-            Object fieldValue = value.get(fieldName);
+            T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));
             if (fieldValue != null) {
                 if (distinct) {
                     if (!distinctSet.contains(fieldValue)) {
@@ -482,19 +483,19 @@ public class EntityUtil {
         return fieldList;
     }
     
-    public static List<Object> getFieldListFromEntityListIterator(EntityListIterator genericValueEli, String fieldName, boolean distinct) {
+    public static <T> List<T> getFieldListFromEntityListIterator(EntityListIterator genericValueEli, String fieldName, boolean distinct) {
         if (genericValueEli == null || fieldName == null) {
             return null;
         }
-        List<Object> fieldList = FastList.newInstance();
-        Set<Object> distinctSet = null;
+        List<T> fieldList = FastList.newInstance();
+        Set<T> distinctSet = null;
         if (distinct) {
             distinctSet = FastSet.newInstance();
         }
         
         GenericValue value = null;
         while ((value = genericValueEli.next()) != null) {
-            Object fieldValue = value.get(fieldName);
+            T fieldValue = UtilGenerics.<T>cast(value.get(fieldName));
             if (fieldValue != null) {
                 if (distinct) {
                     if (!distinctSet.contains(fieldValue)) {
