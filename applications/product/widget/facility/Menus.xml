@@ -38,8 +38,8 @@ under the License.
         <menu-item name="FindFacilityLocation" title="${uiLabelMap.ProductLocations}">
             <link target="FindFacilityLocation?facilityId=${facilityId}"/>
         </menu-item>
-        <menu-item name="EditFacilityRoles" title="${uiLabelMap.PartyRoles}">
-            <link target="EditFacilityRoles?facilityId=${facilityId}"/>
+        <menu-item name="EditFacilityParties" title="${uiLabelMap.PartyRoles}">
+            <link target="EditFacilityParties?facilityId=${facilityId}"/>
         </menu-item>
         <menu-item name="ViewFacilityInventoryByProduct" title="${uiLabelMap.ProductInventory}">
             <link target="ViewFacilityInventoryByProduct?facilityId=${facilityId}"/>

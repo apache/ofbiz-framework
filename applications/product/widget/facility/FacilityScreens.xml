@@ -682,18 +682,18 @@ under the License.
         </section>
     </screen>
 
-    <screen name="EditFacilityRoles">
+    <screen name="EditFacilityParties">
         <section>
             <actions>
-                <set field="tabButtonItem" value="EditFacilityRoles"/>
+                <set field="tabButtonItem" value="EditFacilityParties"/>
                 <set field="facilityId" from-field="parameters.facilityId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
                 <set field="orderByList[]" value="partyId"/> 
                 <entity-one entity-name="Facility" value-name="facility"/>
-                <get-related value-name="facility" relation-name="FacilityRole" list-name="facilityRoles" order-by-list-name="orderByList"/>
+                <get-related value-name="facility" relation-name="FacilityParty" list-name="facilityParties" order-by-list-name="orderByList"/>
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap"/>
-                <set field="title" value="${uiLabelMap.PageTitleEditFacilityRoles}"/>
+                <set field="title" value="${uiLabelMap.PageTitleEditFacilityParties}"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonFacilityDecorator" location="${parameters.commonFacilityDecoratorLocation}">
@@ -707,7 +707,7 @@ under the License.
                         <screenlet id="add-facility-party-role" title="${uiLabelMap.ProductAddFacilityPartyRole}" collapsible="true">
                             <include-form name="AddPartyToFacility" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                         </screenlet>
-                        <include-form name="EditFacilityRoles" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
+                        <include-form name="EditFacilityParties" location="component://product/webapp/facility/facility/FacilityForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

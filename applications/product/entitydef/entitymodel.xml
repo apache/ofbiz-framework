@@ -1138,20 +1138,27 @@ under the License.
             <key-map field-name="locationTypeEnumId" rel-field-name="enumId"/>
         </relation>
     </entity>
-    <entity entity-name="FacilityRole" package-name="org.ofbiz.product.facility" title="Facility Role Entity">
-        <field name="facilityId" type="id-ne"></field>
+    <entity entity-name="FacilityParty" package-name="org.ofbiz.product.facility" title="Facility Party Entity">
+        <field name="facilityId" type="id"></field>
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
+        <field name="fromDate" type="date-time"></field>
+        <field name="thruDate" type="date-time"></field>
         <prim-key field="facilityId"/>
         <prim-key field="partyId"/>
         <prim-key field="roleTypeId"/>
-        <relation type="one" fk-name="FACILITY_RLE_FAC" rel-entity-name="Facility">
+        <prim-key field="fromDate"/>
+        <relation type="one" fk-name="FACILITY_RLE_FACI" rel-entity-name="Facility">
             <key-map field-name="facilityId"/>
         </relation>
-        <relation type="one" fk-name="FACILITY_RLE_PRTY" rel-entity-name="Party">
+        <relation type="one" fk-name="FACILITY_RLE_PRT" rel-entity-name="Party">
             <key-map field-name="partyId"/>
         </relation>
-        <relation type="one" fk-name="FACILITY_RLE_ROLE" rel-entity-name="RoleType">
+        <relation type="one" fk-name="FACILITY_RLE_ROL" rel-entity-name="RoleType">
+            <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one" fk-name="FACILITY_PRTY_ROLE" rel-entity-name="PartyRole">
+            <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
         </relation>
     </entity>

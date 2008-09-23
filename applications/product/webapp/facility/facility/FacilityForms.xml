@@ -521,10 +521,10 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}"><submit button-type="button"/></field>
     </form>
-    <!-- FacilityRoles -->
-    <form name="EditFacilityRoles" type="list" paginate-target="EditFacilityRoles" title="" list-name="facilityRoles"
+    
+    <!-- FacilityParty -->
+    <form name="EditFacilityParties" type="list" paginate-target="EditFacilityParties" title="" list-name="facilityParties"
         header-row-style="header-row-2" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <auto-fields-entity entity-name="FacilityRole" default-field-type="display"/>
         <field name="facilityId"><hidden/></field>
         <field name="partyId">
             <display-entity description="${groupName} ${firstName} ${lastName} [${partyId}]" entity-name="PartyNameView"/>
@@ -532,14 +532,16 @@ under the License.
         <field name="roleTypeId">
             <display-entity entity-name="RoleType" description="${description}"/>
         </field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="removePartyFromFacility?facilityId=${facilityId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}"
+            <hyperlink target="removePartyFromFacility?facilityId=${facilityId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}"
                 description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
         </field>
     </form>
     <form name="AddPartyToFacility" type="single" target="addPartyToFacility" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-entity entity-name="FacilityRole"/>
+        <auto-fields-entity entity-name="FacilityParty"/>
         <field name="facilityId"><hidden/></field>
         <field name="partyId">
             <lookup target-form-name="LookupPartyName"/>

@@ -367,23 +367,23 @@ under the License.
     </request-map>
 
     <!-- ================ Facility Role Requests ================= -->
-    <request-map uri="EditFacilityRoles">
+    <request-map uri="EditFacilityParties">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="EditFacilityRoles"/>
+        <response name="success" type="view" value="EditFacilityParties"/>
     </request-map>
     <request-map uri="addPartyToFacility">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="addPartyToFacility"/>
-        <response name="success" type="view" value="EditFacilityRoles"/>
-        <response name="error" type="view" value="EditFacilityRoles"/>
+        <response name="success" type="view" value="EditFacilityParties"/>
+        <response name="error" type="view" value="EditFacilityParties"/>
     </request-map>
     <request-map uri="removePartyFromFacility">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="removePartyFromFacility"/>
-        <response name="success" type="view" value="EditFacilityRoles"/>
-        <response name="error" type="view" value="EditFacilityRoles"/>
+        <response name="success" type="view" value="EditFacilityParties"/>
+        <response name="error" type="view" value="EditFacilityParties"/>
     </request-map>
-
+    
     <!-- ================ Inventory Item Labels Requests ================= -->
     <request-map uri="EditInventoryItemLabelTypes">
         <security https="true" auth="true"/>
@@ -1138,7 +1138,7 @@ under the License.
     <view-map name="ViewFacilityInventoryByProductReport" type="screenfop" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductReport" content-type="application/pdf" encoding="none"/>
     <view-map name="ViewFacilityInventoryByProductExport" type="screenxml" page="component://product/widget/facility/FacilityScreens.xml#ViewFacilityInventoryByProductReport" content-type="text/xml"/>
     <view-map name="EditFacilityGroups" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityGroups"/>
-    <view-map name="EditFacilityRoles" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityRoles"/>
+    <view-map name="EditFacilityParties" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditFacilityParties"/>
     <view-map name="ViewContactMechs" type="screen" page="component://product/widget/facility/FacilityScreens.xml#ViewContactMechs"/>
     <view-map name="EditContactMech" type="screen" page="component://product/widget/facility/FacilityScreens.xml#EditContactMech"/>
 
