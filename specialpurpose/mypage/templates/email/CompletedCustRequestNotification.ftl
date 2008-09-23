@@ -26,6 +26,12 @@ under the License.
     <body>
         <h1>${title}</h1>
         <p>Hello ${person.firstName?if_exists} ${person.lastName?if_exists},</p>
-        <p>Your Customer Request[${custRequestId}] has been completed.</p>
+        <p>Your Customer Request ${custRequest.custRequestName?if_exists} [${custRequest.custRequestId}] has been completed.
+        <br/><br/>
+        The status and used hours can always be checked at the url: <br/>
+        https://${baseUrl?if_exists}/mypage/control/ViewRequest?custRequestId=${custRequest.custRequestId} 
+        <br/><br/>
+        Regards.<br/><br/>
+        Thank you for your business.
     </body>
 </html>

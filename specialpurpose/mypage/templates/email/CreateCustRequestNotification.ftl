@@ -26,7 +26,7 @@ under the License.
     <body>
         <h1>${title}</h1>
         <p>Hello ${person.firstName?if_exists} ${person.lastName?if_exists},</p>
-        <p>Your Customer Request ${custRequestName} [${custRequest.custRequestId}] has been created successfully.
+        <p>Your Customer Request ${custRequest.custRequestName?if_exists} [${custRequest.custRequestId}] has been created successfully.
         <br/><br/>
         We will solve/implement the request as soon as possible
         <br/><br/>
