@@ -174,4 +174,34 @@ under the License.
             <field-to-result field-name="parameters.hasStarted" result-name="hasStarted"/>
         </if-not-empty>
     </simple-method>
+
+    <simple-method method-name="getVisualThemeResources" short-description="Get visual theme resources" login-required="false">
+        <set field="visualThemeId" from-field="parameters.visualThemeId"/>
+        <if-empty field="visualThemeId">
+            <add-error><fail-property property="VisualThemeIdNotFound" resource="CommonUiLabels"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <set field="themeResources" from-field="parameters.themeResources"/>
+        <entity-condition list-name="resourceList" entity-name="VisualThemeResource" use-cache="true">
+            <condition-expr field-name="visualThemeId" env-name="visualThemeId"/>
+            <order-by field-name="resourceTypeEnumId"/>
+            <order-by field-name="sequenceId"/>
+        </entity-condition>
+        <if-empty field="resourceList">
+            <add-error><fail-property property="VisualThemeResourcesNotFound" resource="CommonUiLabels"/></add-error>
+            <check-errors/>
+        </if-empty>
+        <iterate list-name="resourceList" entry-name="resourceRecord">
+            <set field="resourceTypeEnumId" from-field="resourceRecord.resourceTypeEnumId"/>
+            <set field="resourceValue" from-field="resourceRecord.resourceValue"/>
+            <if-empty field="resourceValue">
+                <property-to-field field-name="warningMsg" property="VisualThemeInvalidRecord" resource="CommonUiLabels"/>
+                <log level="warning" message="${warningMsg}"/>
+                <else>
+                    <set field="themeResources.${resourceTypeEnumId}[]" from-field="resourceValue"/>
+                </else>
+            </if-empty>
+        </iterate>
+        <field-to-result field-name="themeResources"/>
+    </simple-method>
 </simple-methods>

@@ -120,6 +120,12 @@ under the License.
         <response name="success" type="view" value="help" />
     </request-map>
 
+    <!-- Visual theme mapping -->
+    <request-map uri="LookupVisualThemes">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="LookupVisualThemes" />
+    </request-map>
+
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
@@ -128,6 +134,7 @@ under the License.
 
     <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
     <view-map name="LookupTimezones" type="screen" page="component://common/widget/LookupScreens.xml#LookupTimezones"/>
+    <view-map name="LookupVisualThemes" type="screen" page="component://common/widget/LookupScreens.xml#LookupVisualThemes"/>
 
     <view-map name="ajaxAutocompleteOptions" type="screen" page="component://common/widget/CommonScreens.xml#ajaxAutocompleteOptions"/>
     <view-map name="help" type="screen" page="component://common/widget/CommonScreens.xml#help"/>
