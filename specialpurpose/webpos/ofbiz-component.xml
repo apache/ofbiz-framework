@@ -38,5 +38,5 @@ under the License.
         server="default-server"
         location="webapp/webpos"
         mount-point="/webpos"
-        app-bar-display="true"/>
+        app-bar-display="false"/>
 </ofbiz-component>
