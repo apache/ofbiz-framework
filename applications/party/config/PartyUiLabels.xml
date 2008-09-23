@@ -164,7 +164,7 @@
         <value xml:lang="de">Pin</value>
         <value xml:lang="en">Pin Number</value>
         <value xml:lang="es">Número PIN</value>
-        <value xml:lang="fr">N° d'accès</value>
+        <value xml:lang="fr">N° d'accès (PIN)</value>
         <value xml:lang="it">Numero Pin</value>
         <value xml:lang="nl">Pin code</value>
         <value xml:lang="ro">Numar Pin</value>
@@ -198,7 +198,7 @@
         <value xml:lang="fr">Courriel depuis un acteur inconnu</value>
     </property>
     <property key="FinancialHistory">
-        <value xml:lang="en">Fin.History</value>
+        <value xml:lang="en">Fin. History</value>
         <value xml:lang="fr">Historique financier</value>
     </property>
     <property key="FormFieldTitle_attrName">
@@ -245,7 +245,7 @@
     <property key="FormFieldTitle_certString">
         <value xml:lang="de">Zertifikat Inhalt</value>
         <value xml:lang="en">Cert String</value>
-        <value xml:lang="fr">Chaî�ne de caract. de certif.</value>
+        <value xml:lang="fr">Chaîne de caract. de certif.</value>
         <value xml:lang="it">Stringa Certificato</value>
         <value xml:lang="ru">Строка CERT</value>
         <value xml:lang="th">อย่างต่อเนื่อง</value>
@@ -452,6 +452,12 @@
         <value xml:lang="ru">Код типа ресурса данных</value>
         <value xml:lang="th">รหัสประเภทแหล่งที่มาของข้อมูล  </value>
         <value xml:lang="zh">数据资源类型标识</value>
+    </property>
+    <property key="FormFieldTitle_defaultRate">
+        <value xml:lang="de">Standard Ansatz</value>
+        <value xml:lang="en">Default Rate</value>
+        <value xml:lang="fr">Taux par défaut</value>
+        <value xml:lang="zh">默认费率</value>
     </property>
     <property key="FormFieldTitle_disabledDateTime">
         <value xml:lang="de">Ausgeschaltet Zeitpunkt</value>
@@ -4151,7 +4157,6 @@
     <property key="PartyInvitation">
         <value xml:lang="de">Einladung</value>
         <value xml:lang="en">Invitation</value>
-        <value xml:lang="fr">Invitation</value>
         <value xml:lang="it">Inviti Soggetti</value>
         <value xml:lang="th">คำเชิญ</value>
     </property>
@@ -7782,27 +7787,6 @@
         <value xml:lang="th">บริการนี้ (เปลี่ยนแปลงการติดต่อ) ไม่ควรใช้การติดต่อประเภท TELECOM_NUMBER ควรใช้บริการเปลี่ยนแปลงหมายเลขโทรศัพท์</value>
         <value xml:lang="zh">本服务 (更新联系方式) 不应用于电话号码类型的联系方式，请使用更新电话号码服务。</value>
     </property>
-    <property key="de">
-        <value xml:lang="de">Deutsch</value>
-        <value xml:lang="en">German</value>
-        <value xml:lang="fr">Allemand</value>
-        <value xml:lang="pt_PT">German</value>
-        <value xml:lang="th">เยอรมัน</value>
-    </property>
-    <property key="en">
-        <value xml:lang="de">Englisch</value>
-        <value xml:lang="en">English</value>
-        <value xml:lang="fr">Anglais</value>
-        <value xml:lang="pt_PT">English</value>
-        <value xml:lang="th">อังกฤษ</value>
-    </property>
-    <property key="fr">
-        <value xml:lang="de">Französisch</value>
-        <value xml:lang="en">France</value>
-        <value xml:lang="fr">Français</value>
-        <value xml:lang="pt_PT">French</value>
-        <value xml:lang="th">ฝรั่งเศส</value>
-    </property>
     <property key="party.id_generation_failure">
         <value xml:lang="de">FEHLER: Neue Akteur ID konnte nicht erstellt werden</value>
         <value xml:lang="en">ERROR: Failure generating new party ID</value>
@@ -7905,7 +7889,7 @@
         <value xml:lang="de">Akteur Beziehung kann nicht aktualisiert werden (Beziehung nicht gefunden).</value>
         <value xml:lang="en">Could not update party relationship (relationship not found).</value>
         <value xml:lang="es">No se puede actualizar las relaciones.</value>
-        <value xml:lang="fr">Impossible de mettre à jour la relation à l'acteur (rapport non trouvé).</value>
+        <value xml:lang="fr">Impossible de mettre à jour la relation à l'acteur (relation non trouvée).</value>
         <value xml:lang="it">Non è possibile aggiornare rapporto Soggetto (rapporto non trovato).</value>
         <value xml:lang="nl">Could not update party relationship (relationship not found).</value>
         <value xml:lang="ro">Nu este  posibila Actualizarea raportului Subiect (nu gaseste relatie).</value>
@@ -7929,6 +7913,7 @@
         <value xml:lang="de">Akteur Beziehung kann nicht aktualisiert werden (Schreibfehler): ${errMessage}.</value>
         <value xml:lang="en">Could not update party relationship (write failure): ${errMessage}.</value>
         <value xml:lang="es">No se puede actualizar las relaciones(error de escritura): ${errMessage}</value>
+        <value xml:lang="fr">Impossible de mettre à jour la relation de l'acteur (erreur d'écriture) : $ {errMessage}.</value>
         <value xml:lang="it">Non è possibile aggiornare il rapporto Soggetto (scrittura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Could not update party relationship (write failure): ${errMessage}.</value>
         <value xml:lang="ro">Nu este posibila Actualizarea relatiei Subiect (scriere falita): ${errMessage}.</value>
@@ -7993,7 +7978,7 @@
     <property key="partyservices.cannot_create_affiliate_ID_already_exists">
         <value xml:lang="en">Cannot create, an affiliate with the specified party ID already exists.</value>
         <value xml:lang="es">El código especificado se encuentra en uso.</value>
-        <value xml:lang="fr">Impossible de créer, une filiale avec l'acteur spécifié existe déjà.</value>
+        <value xml:lang="fr">Impossible de créer, un(e) afilié(e), l'acteur spécifié existe déjà.</value>
         <value xml:lang="it">Non è possibile creare, un affiliato con il codice Soggetto specificato esiste gi .</value>
         <value xml:lang="nl">Cannot create, an affiliate with the specified party ID already exists.</value>
         <value xml:lang="ro">Nu este  posibila crearea, un afiliat cu codul Subiectului specificat esista deja.</value>
@@ -8004,7 +7989,7 @@
     <property key="partyservices.cannot_create_affiliate_digit">
         <value xml:lang="en">Cannot create affiliate, specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs.</value>
         <value xml:lang="es">No se pudo crear afiliado, el código del participante no puede empezar con un dígito, los códigos numericos están reservados para ser autogenerados.</value>
-        <value xml:lang="fr">Impossible de créer la filiale, la réf. de l'acteur ne peut pas commencer par un chiffre, les identifiants numériques sont réservés aux identifiants générés automatiquement.</value>
+        <value xml:lang="fr">Impossible de créer l'afilié(e), la réf. de l'acteur ne peut pas commencer par un chiffre, les identifiants numériques sont réservés aux identifiants générés automatiquement.</value>
         <value xml:lang="it">Non è possibile creare affiliato, codice Soggetto specificato non pu  iniziare con un numero, codici numerici sono riservati per la generazione-automatica di codici.</value>
         <value xml:lang="nl">Cannot create affiliate, specified party ID cannot start with a digit, numeric IDs are reserved for auto-generated IDs.</value>
         <value xml:lang="ro">Nu este posibila creare afiliat, cod Subiect specificat nu poate sa inceapa cu un numar, coduri numerice sunt rizervate pentru generarea-automatica de coduri.</value>
@@ -8015,7 +8000,7 @@
     <property key="partyservices.cannot_create_affiliate_generation_failure">
         <value xml:lang="en">ERROR: Could not create affiliate (id generation failure).</value>
         <value xml:lang="es">ERROR: No se pudo crear afiliado (la generación del código fallo)</value>
-        <value xml:lang="fr">ERREUR : Impossible de créer la filiale (échec de génération d'identifiant).</value>
+        <value xml:lang="fr">ERREUR : Impossible de créer l'afilié(e) (échec de génération d'identifiant).</value>
         <value xml:lang="it">ERRORE: Non è possibile creare affiliato (generazione codice fallita).</value>
         <value xml:lang="nl">ERROR: Could not create affiliate (id generation failure).</value>
         <value xml:lang="ro">EROARE: Nu este posibila crearea afiliat (generare cod falita).</value>
@@ -8026,7 +8011,7 @@
     <property key="partyservices.cannot_create_affiliate_no_party_entity">
         <value xml:lang="en">Cannot create affiliate; no party entity found.</value>
         <value xml:lang="es">No se puede crear afiliación, no se encontro la entidad participante.</value>
-        <value xml:lang="fr">Impossible de créer la filiale; aucune entité de l'acteur trouvée.</value>
+        <value xml:lang="fr">Impossible de créer l'afilié(e); aucune entité acteur trouvée.</value>
         <value xml:lang="it">Non è possibile creare affiliato; nessun entit  Soggetto trovata.</value>
         <value xml:lang="nl">Cannot create affiliate; no party entity found.</value>
         <value xml:lang="ro">Nu este posibila creare afiliat; nici-o entitate Subiect gasita.</value>
@@ -8189,7 +8174,7 @@
         <value xml:lang="de">Datenbankfehler beim Hinzufügen der Akteurgruppe: ${errMessage}.</value>
         <value xml:lang="en">Data source error occurred while adding party group: ${errMessage}.</value>
         <value xml:lang="es">Error al crear grupo de participantes:  ${errMessage}</value>
-        <value xml:lang="es">Une erreur de source de données s'est produite en ajoutant le groupe d'acteur : $ {errMessage}.</value>
+        <value xml:lang="fr">Une erreur de source de données s'est produite en ajoutant le groupe d'acteur : $ {errMessage}.</value>
         <value xml:lang="it">Errore successo Sorgente Dati durante l'aggiunta del gruppo Soggetto: ${errMessage}.</value>
         <value xml:lang="nl">Data source error occurred while adding party group: ${errMessage}.</value>
         <value xml:lang="ro">EROARE Sursa de Dati in timpul adaugarii grupului Subiect: ${errMessage}.</value>
@@ -8336,17 +8321,32 @@
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงข้อมูลส่วนบุคคลได้ (ความผิดพลาดในการเขียน): {0}</value>
         <value xml:lang="zh">无法更新人员信息 (写失败)：{0}</value>
     </property>
+    <property key="de">
+        <value xml:lang="de">Deutsch</value>
+        <value xml:lang="en">German</value>
+        <value xml:lang="fr">Allemand</value>
+        <value xml:lang="pt_PT">German</value>
+        <value xml:lang="th">เยอรมัน</value>
+    </property>
+    <property key="en">
+        <value xml:lang="de">Englisch</value>
+        <value xml:lang="en">English</value>
+        <value xml:lang="fr">Anglais</value>
+        <value xml:lang="pt_PT">English</value>
+        <value xml:lang="th">อังกฤษ</value>
+    </property>
+    <property key="fr">
+        <value xml:lang="de">Französisch</value>
+        <value xml:lang="en">France</value>
+        <value xml:lang="fr">Français</value>
+        <value xml:lang="pt_PT">French</value>
+        <value xml:lang="th">ฝรั่งเศส</value>
+    </property>
     <property key="pt">
         <value xml:lang="de">Portugiesisch</value>
         <value xml:lang="en">Portuguese</value>
         <value xml:lang="fr">Portugais</value>
         <value xml:lang="pt_PT">Português</value>
         <value xml:lang="th">โปรตุเกส</value>
-    </property>
-    <property key="FormFieldTitle_defaultRate">
-        <value xml:lang="de">Standard Ansatz</value>
-        <value xml:lang="en">Default Rate</value>
-        <value xml:lang="fr">Taux par défaut</value>
-        <value xml:lang="zh">默认费率</value>
     </property>
 </resource>
