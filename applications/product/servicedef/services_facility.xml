@@ -734,6 +734,7 @@ under the License.
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
     
     <service name="addPartyToFacilityGroup" engine="simple"
