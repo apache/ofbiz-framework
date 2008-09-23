@@ -729,13 +729,13 @@ under the License.
     </service>
 
     <service name="addPartyToFacility" engine="simple"
-                location="org/ofbiz/product/storage/StorageServices.xml" invoke="addPartyToFacility" auth="true">
-        <description>Add Party To Facility</description>
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="addPartyToFacility" auth="true" default-entity-name="FacilityParty">
+        <description>Create a FacilityParty record</description>
         <permission-service service-name="facilityGenericPermission" main-action="CREATE"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
+    
     <service name="addPartyToFacilityGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="addPartyToFacilityGroup" auth="true">
         <description>Add Party To FacilityGroup</description>
@@ -746,13 +746,12 @@ under the License.
     </service>
 
     <service name="removePartyFromFacility" engine="simple"
-                location="org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacility" auth="true">
+                location="org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacility" auth="true" default-entity-name="FacilityParty">
         <description>Remove Party From Facility</description>
         <permission-service service-name="facilityGenericPermission" main-action="DELETE"/>
-        <attribute name="facilityId" type="String" mode="IN" optional="false"/>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
-        <attribute name="roleTypeId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
+    
     <service name="removePartyFromFacilityGroup" engine="simple"
                 location="org/ofbiz/product/storage/StorageServices.xml" invoke="removePartyFromFacilityGroup" auth="true">
         <description>Remove Party From FacilityGroup</description>

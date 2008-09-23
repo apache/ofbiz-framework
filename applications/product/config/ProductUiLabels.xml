@@ -4285,8 +4285,8 @@
         <value xml:lang="th">แก้ไขที่ตั้งคลังสินค้า</value>
         <value xml:lang="zh">编辑场所位置</value>
     </property>
-    <property key="PageTitleEditFacilityRoles">
-        <value xml:lang="en">Edit Facility Roles for ${facility.facilityName} [${facility.facilityId}]</value>
+    <property key="PageTitleEditFacilityParties">
+        <value xml:lang="en">Edit Facility Parties for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Roles de un Almacén</value>
         <value xml:lang="fr">Édition des rôles du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Ruoli Stabilimento</value>
@@ -9377,8 +9377,8 @@
         <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir le CATALOG_${mainAction} ou le CATALOG_ADMIN ou FACILITY_${mainAction} ou FACILITY_ADMIN permission</value>
         <value xml:lang="th">Security Error : ความปลอดภัยผิดพลาด ! ในการดำเนินการ ${resourceDescription} คุณต้องมี CATALOG_${mainAction} หรือ CATALOG_ADMIN หรือ FACILITY_${mainAction} หนือ FACILITY_ADMIN การอนุญาต</value>
     </property>
-    <property key="ProductFacilityRoleMemberMaintenance">
-        <value xml:lang="en">Facility Role Member Maintenance</value>
+    <property key="ProductFacilityPartyMemberMaintenance">
+        <value xml:lang="en">Facility Party Member Maintenance</value>
         <value xml:lang="es">Mantenimiento de roles de los miembros del Almacén</value>
         <value xml:lang="fr">Gestion des acteurs-rôle de ce lieu de stockage</value>
         <value xml:lang="it">Manutenzione Membri Ruoli Stabilimento</value>
