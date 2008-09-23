@@ -897,6 +897,7 @@ text-align: right;
 background: url(/images/collapse.gif) no-repeat right;
 min-height: 10px;
 min-width: 10px;
+padding: 0 0.4em 0 0.4em;
 }
 
 #masthead ul .control-area .collapsed {

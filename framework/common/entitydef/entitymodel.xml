@@ -42,6 +42,7 @@ under the License.
   <!--  - org.ofbiz.common.period -->
   <!--  - org.ofbiz.common.status -->
   <!--  - org.ofbiz.common.uom -->
+  <!--  - org.ofbiz.common.theme -->
   <!-- ========================================================= -->
 
 
@@ -514,6 +515,39 @@ under the License.
       <field name="userPrefGroupId" type="id-long-ne"></field>
       <field name="description" type="description"></field>
       <prim-key field="userPrefGroupId"/>
+    </entity>
+
+    <!-- ============================ -->
+    <!-- org.ofbiz.common.theme -->
+    <!-- ============================ -->
+
+    <entity entity-name="VisualTheme"
+            package-name="org.ofbiz.common.theme"
+            title="Defines a Visual Theme">
+      <description>The VisualTheme entity contains one entry per visual theme.</description>
+      <field name="visualThemeId" type="id-ne"></field>
+      <field name="description" type="description"></field>
+      <prim-key field="visualThemeId"/>
+    </entity>
+
+    <entity entity-name="VisualThemeResource"
+            package-name="org.ofbiz.common.theme"
+            title="Contains All Visual Theme Resources">
+      <description>The VisualThemeResource entity contains visual theme
+          resources. Each visual theme can have any number of resources.</description>
+      <field name="visualThemeId" type="id-ne"></field>
+      <field name="resourceTypeEnumId" type="id-ne"></field>
+      <field name="sequenceId" type="id-ne"><description>Controls the loading order of duplicate resource types</description></field>
+      <field name="resourceValue" type="value"><description>Contains the resource value</description></field>
+      <prim-key field="visualThemeId"/>
+      <prim-key field="resourceTypeEnumId"/>
+      <prim-key field="sequenceId"/>
+      <relation type="one" fk-name="VT_RES_THEME" rel-entity-name="VisualTheme">
+          <key-map field-name="visualThemeId"/>
+      </relation>
+      <relation type="one" fk-name="VT_RES_TYPE_ENUM" rel-entity-name="Enumeration">
+          <key-map field-name="resourceTypeEnumId" rel-field-name="enumId"/>
+      </relation>
     </entity>
 
 </entitymodel>

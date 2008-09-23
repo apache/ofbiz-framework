@@ -24,11 +24,20 @@
     <SecurityPermission description="Create operations in the Common Component." permissionId="COMMON_CREATE"/>
     <SecurityPermission description="Update operations in the Common Component." permissionId="COMMON_UPDATE"/>
     <SecurityPermission description="Delete operations in the Common Component." permissionId="COMMON_DELETE"/>
+    <SecurityPermission description="Create Visual Themes and Visual Theme Resources." permissionId="VISUALTHEME_CREATE"/>
+    <SecurityPermission description="Update Visual Themes and Visual Theme Resources." permissionId="VISUALTHEME_UPDATE"/>
+    <SecurityPermission description="Delete Visual Themes and Visual Theme Resources." permissionId="VISUALTHEME_DELETE"/>
+    <SecurityPermission description="ALL operations on Visual Themes and Visual Theme Resources." permissionId="VISUALTHEME_ADMIN"/>
 
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_CREATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_DELETE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_UPDATE"/>
     <SecurityGroupPermission groupId="FLEXADMIN" permissionId="COMMON_VIEW"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="VISUALTHEME_CREATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="VISUALTHEME_UPDATE"/>
+    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="VISUALTHEME_DELETE"/>
+
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="VISUALTHEME_ADMIN"/>
 
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="COMMON_VIEW"/>
 

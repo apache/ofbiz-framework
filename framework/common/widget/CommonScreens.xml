@@ -113,29 +113,29 @@ under the License.
     <screen name="GlobalDecorator">
         <section>
             <actions>
-                <!-- The default (global) stylesheet is added to the list of stylesheets to the first position -->
-                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
-                <set field="layoutSettings.rtlStyleSheets[+0]" value="/images/mainrtl.css" global="true"/>
                 <!-- The default (global) java scripts -->
-                <!-- NOTE: this should be included on each screen that uses it to avoid including it in all screens: <set field="layoutSettings.javaScripts[]" value="/images/dojo/dojo.js" global="true"/> -->
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/scriptaculous.js" global="true"/>                
                 <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/selectall.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/fieldlookup.js" global="true"/>
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
-                <!-- The default (global) shortcut icon -->
-                <set field="layoutSettings.shortcutIcon" value="/images/ofbiz.ico" global="true"/>
-                <!-- The default (global) logo -->
-                <set field="layoutSettings.commonHeaderImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
                 <service service-name="getUserPreferenceGroup">
                     <field-map field-name="userPrefGroupId" value="GLOBAL_PREFERENCES"/>
                 </service>
                 <set field="userPreferences" from-field="userPrefMap" global="true"/>
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="DEFAULT" global="true"/>
+                <service service-name="getVisualThemeResources">
+                    <field-map field-name="visualThemeId"/>
+                    <field-map field-name="themeResources" env-name="layoutSettings"/>
+                </service>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
+                <set field="headerTemplateLocation" from-field="layoutSettings.VT_HDR_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/header.ftl"/>
+                <set field="footerTemplateLocation" from-field="layoutSettings.VT_FTR_TMPLT_LOC[0]" default-value="component://common/webcommon/includes/footer.ftl"/>
             </actions>
             <widgets>
                 <!-- render header -->
-                <platform-specific><html><html-template location="component://common/webcommon/includes/header.ftl"/></html></platform-specific>
+                <platform-specific><html><html-template location="${headerTemplateLocation}"/></html></platform-specific>
                 <!-- render appbar -->
                 <platform-specific><html><html-template location="component://common/webcommon/includes/appbar.ftl"/></html></platform-specific>
                 
@@ -175,7 +175,7 @@ under the License.
                         <if-empty field-name="applicationFooterTemplate"/>
                     </condition>
                     <widgets>
-                        <platform-specific><html><html-template location="component://common/webcommon/includes/footer.ftl"/></html></platform-specific>
+                        <platform-specific><html><html-template location="${footerTemplateLocation}"/></html></platform-specific>
                     </widgets>
                     <fail-widgets>
                          <platform-specific><html><html-template location="${applicationFooterTemplate}"/></html></platform-specific>
@@ -190,6 +190,13 @@ under the License.
         <section>
             <actions>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="userPreferences" from-field="userPrefMap" global="true"/>
+                <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="DEFAULT" global="true"/>
+                <service service-name="getVisualThemeResources">
+                    <field-map field-name="visualThemeId"/>
+                    <field-map field-name="themeResources" env-name="layoutSettings"/>
+                </service>
+                <set field="layoutSettings" from-field="themeResources" default-value="${layoutSettings}" global="true"/>
             </actions>
             <widgets>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/lookup.ftl"/></html></platform-specific>

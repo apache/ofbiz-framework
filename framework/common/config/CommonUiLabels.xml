@@ -7522,6 +7522,27 @@
         <value xml:lang="th">ไม่มีการตั้งค่ากลุ่มภาษี</value>
         <value xml:lang="zh">没有设置营业税税务机关会员。</value>
     </property>
+    <property key="VisualThemeIdNotFound">
+        <value xml:lang="en">Visual Theme ID not found.</value>
+    </property>
+    <property key="VisualThemeInvalidRecord">
+        <value xml:lang="en">Invalid Visual Theme resource record found: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
+    </property>
+    <property key="VisualThemes">
+        <value xml:lang="en">Visual Themes</value>
+        <value xml:lang="it">Tema grafico</value>
+    </property>
+    <property key="VisualThemeNoScreenshots">
+        <value xml:lang="en">No Screenshots</value>
+        <value xml:lang="it">Anteprima non disponibile</value>
+    </property>
+    <property key="VisualThemeResourcesNotFound">
+        <value xml:lang="en">Visual Theme resources not found.</value>
+    </property>
+    <property key="VisualThemeSelected">
+        <value xml:lang="en">Selected Visual Theme</value>
+        <value xml:lang="it">Tema grafico selezionato</value>
+    </property>
     <property key="WebTools">
         <value xml:lang="ar">أدوات</value>
         <value xml:lang="de">Web-Werkzeuge</value>

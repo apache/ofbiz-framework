@@ -18,7 +18,12 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<html xmlns="http://www.w3.org/1999/xhtml">
+<#assign docLangAttr = locale.toString()?replace("_", "-")>
+<#assign langDir = "ltr">
+<#if "ar.iw"?contains(docLangAttr?substring(0, 2))>
+    <#assign langDir = "rtl">
+</#if>
+<html lang="${docLangAttr}" dir="${langDir}" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${title}</title>
@@ -27,7 +32,26 @@ under the License.
     <script language="javascript" src="<@ofbizContentUrl>/images/fieldlookup.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/selectall.js</@ofbizContentUrl>" type="text/javascript"></script>
     <script language="javascript" src="<@ofbizContentUrl>/images/calendar_date_select.js</@ofbizContentUrl>" type="text/javascript"></script>
-    <link rel="stylesheet" href="<@ofbizContentUrl>/images/maincss.css</@ofbizContentUrl>" type="text/css"/>
+    <#if layoutSettings.styleSheets?has_content>
+        <#list layoutSettings.styleSheets as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
+    <#if layoutSettings.VT_STYLESHEET?has_content>
+        <#list layoutSettings.VT_STYLESHEET as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
+    <#if layoutSettings.rtlStyleSheets?has_content && langDir == "rtl">
+        <#list layoutSettings.rtlStyleSheets as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
+    <#if layoutSettings.VT_RTL_STYLESHEET?has_content && langDir == "rtl">
+        <#list layoutSettings.VT_RTL_STYLESHEET as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
 
     <script language="JavaScript" type="text/javascript">
         // This code inserts the value lookedup by a popup window back into the associated form element

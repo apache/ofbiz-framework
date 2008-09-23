@@ -77,4 +77,10 @@ under the License.
             </else>
         </if>
     </simple-method>
+
+    <simple-method method-name="visualThemePermissionCheck" short-description="Visual Theme permission logic">
+        <set field="primaryPermission" value="VISUALTHEME"/>
+        <call-simple-method method-name="genericBasePermissionCheck"/>
+    </simple-method>
+    
 </simple-methods>

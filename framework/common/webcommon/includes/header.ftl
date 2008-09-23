@@ -31,7 +31,12 @@ under the License.
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <title>${layoutSettings.companyName}: <#if (page.titleProperty)?has_content>${uiLabelMap[page.titleProperty]}<#else>${(page.title)?if_exists}</#if></title>
     <#if layoutSettings.shortcutIcon?has_content>
-      <link rel="shortcut icon" href="<@ofbizContentUrl>${layoutSettings.shortcutIcon}</@ofbizContentUrl>" />    
+      <#assign shortcutIcon = layoutSettings.shortcutIcon/>
+    <#elseif layoutSettings.VT_SHORTCUT_ICON?has_content>    
+      <#assign shortcutIcon = layoutSettings.VT_SHORTCUT_ICON.get(0)/>
+    </#if>
+    <#if shortcutIcon?has_content>
+      <link rel="shortcut icon" href="<@ofbizContentUrl>${shortcutIcon}</@ofbizContentUrl>" />
     </#if>
     <#if layoutSettings.javaScripts?has_content>
         <#--layoutSettings.javaScripts is a list of java scripts. -->
@@ -40,8 +45,13 @@ under the License.
         <#list layoutSettings.javaScripts as javaScript>
             <#if javaScriptsSet.contains(javaScript)>
                 <#assign nothing = javaScriptsSet.remove(javaScript)/>
-                <script language="javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
+                <script type="text/javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
             </#if>
+        </#list>
+    </#if>
+    <#if layoutSettings.VT_HDR_JAVASCRIPT?has_content>
+        <#list layoutSettings.VT_HDR_JAVASCRIPT as javaScript>
+            <script type="text/javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
         </#list>
     </#if>
     <#if layoutSettings.styleSheets?has_content>
@@ -49,8 +59,11 @@ under the License.
         <#list layoutSettings.styleSheets as styleSheet>
             <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
         </#list>
-    <#else>
-        <link rel="stylesheet" href="<@ofbizContentUrl>/images/maincss.css</@ofbizContentUrl>" type="text/css"/>
+    </#if>
+    <#if layoutSettings.VT_STYLESHEET?has_content>
+        <#list layoutSettings.VT_STYLESHEET as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
     </#if>
     <#if layoutSettings.rtlStyleSheets?has_content && langDir == "rtl">
         <#--layoutSettings.rtlStyleSheets is a list of rtl style sheets.-->
@@ -58,7 +71,17 @@ under the License.
             <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
         </#list>
     </#if>
+    <#if layoutSettings.VT_RTL_STYLESHEET?has_content && langDir == "rtl">
+        <#list layoutSettings.VT_RTL_STYLESHEET as styleSheet>
+            <link rel="stylesheet" href="<@ofbizContentUrl>${styleSheet}</@ofbizContentUrl>" type="text/css"/>
+        </#list>
+    </#if>
     ${layoutSettings.extraHead?if_exists}
+    <#if layoutSettings.VT_EXTRA_HEAD?has_content>
+        <#list layoutSettings.VT_EXTRA_HEAD as extraHead>
+            ${extraHead}
+        </#list>
+    </#if>
 </head>
 <#if layoutSettings.headerImageLinkUrl?exists>
   <#assign logoLinkURL = "${layoutSettings.headerImageLinkUrl}">
@@ -75,8 +98,8 @@ under the License.
     <ul>
       <#if (userPreferences.COMPACT_HEADER)?default("N") == "Y">
         <li class="logo-area">
-          <#if layoutSettings.shortcutIcon?has_content>
-            <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${layoutSettings.shortcutIcon}</@ofbizContentUrl>"/></a>
+          <#if shortcutIcon?has_content>
+            <a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img src="<@ofbizContentUrl>${shortcutIcon}</@ofbizContentUrl>"/></a>
           </#if>
         </li>
         <li>
@@ -94,13 +117,21 @@ under the License.
         </li>
       <#else>
         <#if layoutSettings.headerImageUrl?exists>
-          <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.headerImageUrl}</@ofbizContentUrl>"/></a></li>
-        <#else>
-          <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${layoutSettings.commonHeaderImageUrl}</@ofbizContentUrl>"/></a></li>
+          <#assign headerImageUrl = layoutSettings.headerImageUrl>
+        <#elseif layoutSettings.commonHeaderImageUrl?exists>
+          <#assign headerImageUrl = layoutSettings.commonHeaderImageUrl>
+        <#elseif layoutSettings.VT_HDR_IMAGE_URL?exists>
+          <#assign headerImageUrl = layoutSettings.VT_HDR_IMAGE_URL.get(0)>
+        </#if>
+        <#if headerImageUrl?exists>
+          <li class="logo-area"><a href="<@ofbizUrl>${logoLinkURL}</@ofbizUrl>"><img alt="${layoutSettings.companyName}" src="<@ofbizContentUrl>${headerImageUrl}</@ofbizContentUrl>"/></a></li>
         </#if>
         <li class="control-area"<#if layoutSettings.headerRightBackgroundUrl?has_content> background="${layoutSettings.headerRightBackgroundUrl}"</#if>>
           <#if userLogin?exists>
-            <p class="expanded"><a href="setUserPreference?userPrefGroupId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a></p>
+            <p class="expanded">
+              <a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>" class="buttontext">${uiLabelMap.VisualThemes}</a>
+              <a href="setUserPreference?userPrefGroupId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a>
+            </p>
           </#if>
           <p>
           <#if person?has_content>

@@ -60,5 +60,10 @@ under the License.
     <p>Copyright (c) 2001-${nowTimestamp?string("yyyy")} The Apache Software Foundation - <a href="http://www.apache.org" target="_blank">www.apache.org</a><br />
     Powered by <a href="http://ofbiz.apache.org" target="_blank">Apache OFBiz</a></p>
 </div>
+<#if layoutSettings.VT_FTR_JAVASCRIPT?has_content>
+    <#list layoutSettings.VT_FTR_JAVASCRIPT as javaScript>
+        <script type="text/javascript" src="<@ofbizContentUrl>${javaScript}</@ofbizContentUrl>" type="text/javascript"></script>
+    </#list>
+</#if>
 </body>
 </html>

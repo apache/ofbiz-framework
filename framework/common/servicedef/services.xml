@@ -478,4 +478,68 @@ under the License.
         <description>User preference copy permission checking.</description>
         <implements service="permissionInterface"/>
     </service>
+
+    <!-- Visual theme services -->    
+    <service name="getVisualThemeResources" engine="simple"
+            location="component://common/script/org/ofbiz/common/CommonServices.xml" invoke="getVisualThemeResources">
+        <description>Get a visual theme resources Map. Call with visualThemeId String, 
+            and optional themeResources Map. Returns themeResources Map - a
+            Map of Lists, where the resourceTypeEnumId is the key and the value
+            is a List of resourceValue Strings for that resourceTypeEnumId.
+        </description>
+        <attribute name="visualThemeId" type="String" mode="IN" optional="false"/>
+        <attribute name="themeResources" type="Map" mode="IN" optional="true"/>
+        <attribute name="themeResources" type="Map" mode="OUT" optional="false"/>
+    </service>
+    
+    <service name="createVisualTheme" default-entity-name="VisualTheme" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Visual Theme</description>
+        <permission-service service-name="visualThemePermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="updateVisualTheme" default-entity-name="VisualTheme" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Visual Theme</description>
+        <permission-service service-name="visualThemePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="deleteVisualTheme" default-entity-name="VisualTheme" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Visual Theme</description>
+        <permission-service service-name="visualThemePermissionCheck" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="createVisualThemeResource" default-entity-name="VisualThemeResource" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Visual Theme Resource</description>
+        <permission-service service-name="visualThemePermissionCheck" main-action="CREATE"/>
+        <attribute name="visualThemeId" type="String" mode="IN" optional="false"/>
+        <attribute name="resourceTypeEnumId" type="String" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+    </service>
+
+    <service name="updateVisualThemeResource" default-entity-name="VisualThemeResource" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Visual Theme Resource</description>
+        <permission-service service-name="visualThemePermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="deleteVisualThemeResource" default-entity-name="VisualThemeResource" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Visual Theme Resource</description>
+        <permission-service service-name="visualThemePermissionCheck" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <!-- ==============Permission Checking Service============= -->
+    <service name="visualThemePermissionCheck" engine="simple"
+        location="org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="visualThemePermissionCheck">
+        <description>Visual Theme Permission Checking Logic</description>
+        <implements service="permissionInterface"/>
+    </service>
+
 </services>
