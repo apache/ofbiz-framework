@@ -558,7 +558,7 @@
     <property key="PageTitleEditContactList">
         <value xml:lang="en">Edit Contact List</value>
         <value xml:lang="es">Editar lista de contactos</value>
-        <value xml:lang="fr">Édition de la liste de contact</value>
+        <value xml:lang="fr">Modification de la liste de contact</value>
         <value xml:lang="it">Aggiorna Lista Contatto</value>
         <value xml:lang="ro">Editeaza Lista Contacte</value>
         <value xml:lang="th">แก้ไขรายการติดต่อ</value>
@@ -567,7 +567,7 @@
     <property key="PageTitleEditContactListCommEvent">
         <value xml:lang="en">Edit Contact List Comm Event</value>
         <value xml:lang="es">Editar evento de comunicación</value>
-        <value xml:lang="fr">Édition de l'événement de communication de la liste de contact</value>
+        <value xml:lang="fr">Modification de l'événement de communication de la liste de contact</value>
         <value xml:lang="it">Aggiorna Lista Contatto Evento Comunicazione</value>
         <value xml:lang="ro">Actualizeaza Lista Contact Eveniment Comunicatie</value>
         <value xml:lang="th">แก้ไขรายการผลการติดต่อ
@@ -577,7 +577,7 @@
     <property key="PageTitleEditContactListParty">
         <value xml:lang="en">Edit Contact List Party</value>
         <value xml:lang="es">Añadir participante</value>
-        <value xml:lang="fr">Édition de l'acteur de la liste de contact</value>
+        <value xml:lang="fr">Modification de l'acteur de la liste de contact</value>
         <value xml:lang="it">Aggiorna Lista Contatto Soggetto</value>
         <value xml:lang="ro">Editeaza Lista Contacte Parteneri</value>
         <value xml:lang="th">แก้ไขรายการติดต่อกลุ่มผู้ใช้</value>
@@ -586,7 +586,7 @@
     <property key="PageTitleEditMarketingCampaign">
         <value xml:lang="en">Edit Marketing Campaign</value>
         <value xml:lang="es">Editar campaña de marketing</value>
-        <value xml:lang="fr">Édition de campagne marketing</value>
+        <value xml:lang="fr">Modification de campagne marketing</value>
         <value xml:lang="it">Aggiorna Campagna Vendita</value>
         <value xml:lang="ro">Editeaza Campania Vanzare</value>
         <value xml:lang="th">แก้ไขแผนการตลาด</value>
@@ -595,7 +595,7 @@
     <property key="PageTitleEditMarketingCampaignRole">
         <value xml:lang="en">Edit Marketing Campaign Role</value>
         <value xml:lang="es">Editar roles de la campaña de marketing</value>
-        <value xml:lang="fr">Édition des rôles de la campagne marketing</value>
+        <value xml:lang="fr">Modification des rôles de la campagne marketing</value>
         <value xml:lang="it">Aggiorna Ruolo Campagna Vendita</value>
         <value xml:lang="ro">Editeaza Rol Campanie Vanzare</value>
         <value xml:lang="th">แก้ไขสถานะแผนการตลาด</value>
@@ -610,7 +610,7 @@
     <property key="PageTitleEditSegmentGroup">
         <value xml:lang="en">Edit Segment Group</value>
         <value xml:lang="es">Editar segmento</value>
-        <value xml:lang="fr">Édition du groupe de segment</value>
+        <value xml:lang="fr">Modification du groupe de segment</value>
         <value xml:lang="it">Aggiorna Gruppo Segmento</value>
         <value xml:lang="ro">Editeaza Grup Segment</value>
         <value xml:lang="th">แก้ไขการแบ่งกลุ่ม</value>
@@ -619,7 +619,7 @@
     <property key="PageTitleEditSegmentGroupClass">
         <value xml:lang="en">Edit Segment Group Classification</value>
         <value xml:lang="es">Editar clasificación de segmento</value>
-        <value xml:lang="fr">Édition des classification de groupe de segment</value>
+        <value xml:lang="fr">Modification des classification de groupe de segment</value>
         <value xml:lang="it">Aggiorna Classificazione Gruppo Segmento</value>
         <value xml:lang="ro">Editeaza Clasificare Grup Segment</value>
         <value xml:lang="th">แก้ไขการจัดแบ่งประเภทกลุ่ม</value>
@@ -628,7 +628,7 @@
     <property key="PageTitleEditSegmentGroupGeo">
         <value xml:lang="en">Edit Segment Group Geo</value>
         <value xml:lang="es">Editar ubicación de segmento</value>
-        <value xml:lang="fr">Édition des zones géographiques de groupe de segment</value>
+        <value xml:lang="fr">Modification des zones géographiques de groupe de segment</value>
         <value xml:lang="it">Aggiorna Geografia Gruppo Segmento </value>
         <value xml:lang="ro">Editeaza Geografia Grup Segment </value>
         <value xml:lang="th">แก้ไขส่วนโครงสร้างของกลุ่ม</value>
@@ -637,7 +637,7 @@
     <property key="PageTitleEditSegmentGroupRole">
         <value xml:lang="en">Edit Segment Group Role</value>
         <value xml:lang="es">Editar rol de segmento</value>
-        <value xml:lang="fr">Édition rôle de groupe de segment</value>
+        <value xml:lang="fr">Modification rôle de groupe de segment</value>
         <value xml:lang="it">Aggiorna Ruolo Gruppo Segmento </value>
         <value xml:lang="ro">Editeaza Rol Grup Segment </value>
         <value xml:lang="th">แก้ไขส่วนสถานะของกลุ่ม</value>
@@ -646,7 +646,7 @@
     <property key="PageTitleEditTrackingCode">
         <value xml:lang="en">Edit Tracking Code</value>
         <value xml:lang="es">Editar seguimiento</value>
-        <value xml:lang="fr">Édition d'un code de suivi</value>
+        <value xml:lang="fr">Modification d'un code de suivi</value>
         <value xml:lang="it">Aggiorna Codice Tracciatura</value>
         <value xml:lang="ro">Editeaza Cod Traseu</value>
         <value xml:lang="th">แก้ไขรหัส Tracking</value>
@@ -655,7 +655,7 @@
     <property key="PageTitleEditTrackingCodeOrder">
         <value xml:lang="en">Edit Tracking Code Order</value>
         <value xml:lang="es">Editar orden de seguimiento</value>
-        <value xml:lang="fr">Édition d'une commande associée au code de suivi</value>
+        <value xml:lang="fr">Modification d'une commande associée au code de suivi</value>
         <value xml:lang="it">Aggiorna Codice Tracciatura Ordine</value>
         <value xml:lang="ro">Editeaza ordine Cod Traseu </value>
         <value xml:lang="th">แก้ไขรหัส Tracking การสั่งซื้อสินค้า</value>
@@ -664,7 +664,7 @@
     <property key="PageTitleEditTrackingCodeType">
         <value xml:lang="en">Edit Tracking Code Type</value>
         <value xml:lang="es">Editar tipo de seguimiento</value>
-        <value xml:lang="fr">Édition d'un type de code de suivi</value>
+        <value xml:lang="fr">Modification d'un type de code de suivi</value>
         <value xml:lang="it">Aggiorna Tipo Tracciatura</value>
         <value xml:lang="ro">Editeaza Tip Traseu</value>
         <value xml:lang="th">แก้ไขประเภทรหัส Tracking</value>
@@ -673,7 +673,7 @@
     <property key="PageTitleEditTrackingCodeVisit">
         <value xml:lang="en">Edit Tracking Code Visit</value>
         <value xml:lang="es">Editar visita de seguimiento</value>
-        <value xml:lang="fr">Édition d'une visite associée au code de suivi</value>
+        <value xml:lang="fr">Modification d'une visite associée au code de suivi</value>
         <value xml:lang="it">Aggiorna Codice Visita Tracciatura</value>
         <value xml:lang="ro">Editeaza Cod Vizita Traseu</value>
         <value xml:lang="th">แก้ไขรหัส Tracking ของการเยี่ยมชม</value>

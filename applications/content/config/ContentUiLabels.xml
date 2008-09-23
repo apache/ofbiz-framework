@@ -840,7 +840,7 @@
     <property key="FormFieldTitle_caContentAssocPredicateId">
         <value xml:lang="ar">تعريف توقعة ارتباط المحتوى</value>
         <value xml:lang="en">Content Assoc Predicate Id</value>
-        <value xml:lang="fr">Réf. contenu d'attribut Assoc </value>
+        <value xml:lang="fr">Réf. de prédicat de contenu d'association</value>
         <value xml:lang="it">Predicato Associazione Contenuto</value>
         <value xml:lang="ro">Predicat Asociatie Continut</value>
         <value xml:lang="th">รหัสหัวข้อแสดงความคิดเห็น</value>
@@ -849,7 +849,7 @@
     <property key="FormFieldTitle_caContentAssocTypeId">
         <value xml:lang="ar">تعريف نوع الارتباط</value>
         <value xml:lang="en">Assoc Type Id</value>
-        <value xml:lang="fr">Réf. de type Assoc</value>
+        <value xml:lang="fr">Réf. de type d'association</value>
         <value xml:lang="it">Tipo Associazione</value>
         <value xml:lang="ro">Tip Asociatie</value>
         <value xml:lang="th">รหัสประเภทกลุ่มความคิดเห็น</value>
@@ -858,7 +858,7 @@
     <property key="FormFieldTitle_caContentIdTo">
         <value xml:lang="ar">المحتوى إلى</value>
         <value xml:lang="en">Content Id To</value>
-        <value xml:lang="fr">réf. de contenu</value>
+        <value xml:lang="fr">réf. de contenu vers</value>
         <value xml:lang="it">Contenuto A</value>
         <value xml:lang="ro">Continut A</value>
         <value xml:lang="th">รหัสหัวข้อ</value>
@@ -866,14 +866,14 @@
     </property>
     <property key="FormFieldTitle_caFromDate">
         <value xml:lang="en">From Date &amp; Time</value>
-        <value xml:lang="fr">De la date &amp; heure</value>
+        <value xml:lang="fr">Date et heure de début</value>
         <value xml:lang="it">Dalla Data e Ora</value>
         <value xml:lang="th">จากวัน เวลา</value>
     </property>
     <property key="FormFieldTitle_caMapKey">
         <value xml:lang="ar">مفتاح التوافق</value>
         <value xml:lang="en">Map Key</value>
-        <value xml:lang="fr">Clef de carte</value>
+        <value xml:lang="fr">Clef d'association</value>
         <value xml:lang="it">Chiave Mappa</value>
         <value xml:lang="ro">Cheie Mapa</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
@@ -882,7 +882,7 @@
     <property key="FormFieldTitle_categoryName">
         <value xml:lang="ar">اسم الفئة</value>
         <value xml:lang="en">Category Name</value>
-        <value xml:lang="fr">Catégorie de nom</value>
+        <value xml:lang="fr">Nom de catégorie</value>
         <value xml:lang="it">Nome Categoria</value>
         <value xml:lang="ro">Nume Categorie</value>
         <value xml:lang="th">ชื่อหมวดหมู่</value>
@@ -900,7 +900,7 @@
     <property key="FormFieldTitle_childBranchCount">
         <value xml:lang="ar">عدد الفروع</value>
         <value xml:lang="en">Child Branch Count</value>
-        <value xml:lang="fr">Compte de branche enfant</value>
+        <value xml:lang="fr">Compte de branche descendante</value>
         <value xml:lang="it">Conta Rami Figli</value>
         <value xml:lang="ro">Contorizeaza Ramuri Fii</value>
         <value xml:lang="th">นับแผนกเด็ก</value>
@@ -918,7 +918,7 @@
     <property key="FormFieldTitle_columnTitle">
         <value xml:lang="ar">عنوان العمود</value>
         <value xml:lang="en">Column Title</value>
-        <value xml:lang="fr">Titre colonne</value>
+        <value xml:lang="fr">Titre de colonne</value>
         <value xml:lang="it">Titolo Colonna</value>
         <value xml:lang="ro">Titlu Coloana</value>
         <value xml:lang="th">ชื่อคอลัมน์</value>
@@ -936,7 +936,7 @@
     <property key="FormFieldTitle_committedByPartyId">
         <value xml:lang="ar">مرتكبة من طرف</value>
         <value xml:lang="en">Committed By Party Id</value>
-        <value xml:lang="fr">Réf. commis par partie</value>
+        <value xml:lang="fr">Réf. de téléchargement par acteur</value>
         <value xml:lang="it">Registrato Dal Soggetto</value>
         <value xml:lang="ro">Registrat de Partenerul</value>
         <value xml:lang="th">รับผิดชอบโดยกลุ่มผู้ใช้นี้</value>
@@ -945,7 +945,7 @@
     <property key="FormFieldTitle_contentApprovalId">
         <value xml:lang="ar">تعريف موافقة المحتوى</value>
         <value xml:lang="en">Content Approval Id</value>
-        <value xml:lang="fr">Réf. contenu d'approbation </value>
+        <value xml:lang="fr">Réf. de contenu d'approbation</value>
         <value xml:lang="it">Codice Approvazione Contenuto</value>
         <value xml:lang="ro">Cod Aprovare Continut</value>
         <value xml:lang="th">รหัสหัวข้อความคิดเห็น</value>
@@ -954,7 +954,7 @@
     <property key="FormFieldTitle_contentAssocPredicateId">
         <value xml:lang="ar">تعربف توقعة ارتباط المحتوى</value>
         <value xml:lang="en">Content Assoc Predicate Id</value>
-        <value xml:lang="fr">Réf. contenu d'attribut d'assoc</value>
+        <value xml:lang="fr">Réf. de prédicat de contenu d'association</value>
         <value xml:lang="it">Predicato Associazione Contenuto</value>
         <value xml:lang="ro">Predicat Asociatie Continut</value>
         <value xml:lang="th">รหัสกลุ่หัวข้อควาคิดเห็น</value>
@@ -963,7 +963,7 @@
     <property key="FormFieldTitle_contentAssocTypeId">
         <value xml:lang="ar">تعريف نوع ارتباط المحتوى</value>
         <value xml:lang="en">Content Assoc Type Id</value>
-        <value xml:lang="fr">Réf. contenu de contenu assoc </value>
+        <value xml:lang="fr">Réf. de contenu d'association</value>
         <value xml:lang="it">Tipo Associazione Contenuto</value>
         <value xml:lang="ro">Tip Asociatie Continut</value>
         <value xml:lang="th">รหัสประเภทกลุ่หัวข้อควาคิดเห็น</value>
@@ -972,7 +972,7 @@
     <property key="FormFieldTitle_contentId">
         <value xml:lang="ar">تعريف المحتوى</value>
         <value xml:lang="en">Content Id</value>
-        <value xml:lang="fr">Réf. contenu</value>
+        <value xml:lang="fr">Réf. de contenu</value>
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="ro">Continut</value>
         <value xml:lang="th">รหัสหัวข้อ</value>
@@ -981,7 +981,7 @@
     <property key="FormFieldTitle_contentIdFrom">
         <value xml:lang="ar">محتوى من</value>
         <value xml:lang="en">Content Id From</value>
-        <value xml:lang="fr">Réf. de contenu de</value>
+        <value xml:lang="fr">Réf. de contenu depuis</value>
         <value xml:lang="it">Codice Contenuto A</value>
         <value xml:lang="ro">Cod Continut A</value>
         <value xml:lang="th">รหัสหัวข้อจาก</value>
@@ -990,7 +990,7 @@
     <property key="FormFieldTitle_contentIdTo">
         <value xml:lang="ar">محتوى إلى</value>
         <value xml:lang="en">Content Id To</value>
-        <value xml:lang="fr">Réf. contenu à</value>
+        <value xml:lang="fr">Réf. de contenu vers</value>
         <value xml:lang="it">Codice Contenuto A</value>
         <value xml:lang="ro">Cod Continut A</value>
         <value xml:lang="th">รหัสหัวข้อถึง</value>
@@ -999,7 +999,7 @@
     <property key="FormFieldTitle_contentName">
         <value xml:lang="ar">اسم المحتوى</value>
         <value xml:lang="en">Content Name</value>
-        <value xml:lang="fr">Contenu nom</value>
+        <value xml:lang="fr">Nom de contenu</value>
         <value xml:lang="it">Nome Contenuto</value>
         <value xml:lang="ro">Nume Continut</value>
         <value xml:lang="th">ชื่อหัวข้อ</value>
@@ -1008,7 +1008,7 @@
     <property key="FormFieldTitle_contentOperationId">
         <value xml:lang="ar">تعريف عملية المحتوى</value>
         <value xml:lang="en">Content Operation Id</value>
-        <value xml:lang="fr">Réf. contenu d'opération</value>
+        <value xml:lang="fr">Réf. d'opération de contenu</value>
         <value xml:lang="it">Operazione Contenuto</value>
         <value xml:lang="ro">Operatie Continut</value>
         <value xml:lang="th">รหัสหัวข้อปฏิบัติการ</value>
@@ -1017,7 +1017,7 @@
     <property key="FormFieldTitle_contentPurposeList">
         <value xml:lang="ar">قائمة هدف المحتوى</value>
         <value xml:lang="en">Content Purpose List</value>
-        <value xml:lang="fr">Contenu liste de but</value>
+        <value xml:lang="fr">Liste de but de contenu</value>
         <value xml:lang="it">Lista Funzione Contenuto</value>
         <value xml:lang="ro">Lista Functie Continut</value>
         <value xml:lang="th">หัวข้อวัตถุประสงค์</value>
@@ -1026,7 +1026,7 @@
     <property key="FormFieldTitle_contentPurposeString">
         <value xml:lang="ar">سلسلة حروف هدف المحتوى</value>
         <value xml:lang="en">Content Purpose String</value>
-        <value xml:lang="fr">Contenu corde de but </value>
+        <value xml:lang="fr">Chaîne de caractères de but de contenu</value>
         <value xml:lang="it">Stringa Funzione Contenuto</value>
         <value xml:lang="ro">Sirul Functie Continut</value>
         <value xml:lang="th">หัวข้อวัตถุประสงค์ตัวอักษร</value>
@@ -1035,7 +1035,7 @@
     <property key="FormFieldTitle_contentPurposeTypeId">
         <value xml:lang="ar">تعريف نوع هدف المحتوى</value>
         <value xml:lang="en">Content Purpose Type Id</value>
-        <value xml:lang="fr">Réf. contenu type de but</value>
+        <value xml:lang="fr">Type de but de contenu</value>
         <value xml:lang="it">Tipo Funzione Contenuto</value>
         <value xml:lang="ro">Tip Functie Continut</value>
         <value xml:lang="th">รหัสประเภทหัวข้อวัตถุประสงค์</value>

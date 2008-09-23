@@ -1384,7 +1384,7 @@
     <property key="PartyEditContactInformation">
         <value xml:lang="en">Edit Contact Information</value>
         <value xml:lang="es">Editar información de contacto</value>
-        <value xml:lang="fr">Édition de coordonnées</value>
+        <value xml:lang="fr">Modification de coordonnées</value>
         <value xml:lang="it">Aggiorna Informazione Contatto</value>
         <value xml:lang="nl">Wijzig contact informatie</value>
         <value xml:lang="ro">Actualizeaza Informatie Contact</value>
