@@ -223,6 +223,7 @@ under the License.
     <service name="createPartyFixedAssetAssignment" engine="simple" default-entity-name="PartyFixedAssetAssignment"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="createPartyFixedAssetAssignment" auth="true">
         <description>Add Party to a Fixed Asset</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="fromDate" optional="true"/>
@@ -231,6 +232,7 @@ under the License.
     <service name="updatePartyFixedAssetAssignment" engine="simple" default-entity-name="PartyFixedAssetAssignment"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="updatePartyFixedAssetAssignment" auth="true">
         <description>Update Party to Fixed Asset</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -238,6 +240,7 @@ under the License.
     <service name="deletePartyFixedAssetAssignment" engine="simple" default-entity-name="PartyFixedAssetAssignment"
                 location="org/ofbiz/accounting/fixedasset/FixedAssetServices.xml" invoke="deletePartyFixedAssetAssignment" auth="true">
         <description>Delete Party to Fixed Asset</description>
+        <permission-service service-name="fixedAssetPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
