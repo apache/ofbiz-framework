@@ -16,7 +16,7 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.service.calendar;
+package org.ofbiz.base.util;
 
 import java.io.Serializable;
 import java.util.Date;
