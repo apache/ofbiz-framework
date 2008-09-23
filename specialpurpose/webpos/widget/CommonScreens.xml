@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    
+    <screen name="main-decorator">
+        <section>
+            <actions>
+                <!-- base/top/specific map first, then more common map added for shared labels -->
+                <property-map resource="WebPosUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="OrderUiLabels" map-name="uiLabelMap" global="true"/>
+                
+                <set field="MainColumnStyle" value="center" global="true"/>
+                
+                <!-- The default (global) shortcut icon -->
+                <set field="layoutSettings.shortcutIcon" value="/images/favicon.ico" global="true"/>
+                
+                <!-- The default (main) java scripts -->
+                <!-- NOTE: this should be included on each screen that uses it to avoid including it in all screens: -->
+                <set field="layoutSettings.javaScripts[+0]" value="/images/fieldlookup.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/selectall.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/calendar1.js" global="true"/>
+                <set field="layoutSettings.javaScripts[+0]" value="/images/prototypejs/prototype.js" global="true"/><set field="layoutSettings.extraHead" value="&lt;link rel=&quot;stylesheet&quot; href=&quot;/content/images/contentForum.css&quot; type=&quot;text/css&quot;/&gt;" global="true"/>
+                
+                <script location="component://webpos/widget/WebPosSetup.groovy"/>
+                
+                <!-- The default (main) stylesheets -->
+                <set field="layoutSettings.styleSheets[+0]" value="/webpos/images/webpos.css" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="${productStore.styleSheet}" default-value="/images/ecommain.css" global="true"/>
+                <set field="layoutSettings.styleSheets[+0]" value="/images/maincss.css" global="true"/>
+                
+                <set field="activeApp" value="webpos" global="true"/>
+            </actions>
+            <widgets>
+                <!-- render Header -->
+                <include-screen name="Header" location="component://webpos/widget/CommonScreens.xml"/>
+                <container id="ecom-mainarea">
+                    <container>
+                <platform-specific><html><html-template location="component://webpos/webapp/webpos/includes/Messages.ftl"/></html></platform-specific>
+                </container>
+                    <!-- by default will render left-bar only if left/rightbarScreenName value not empty -->
+                    <include-screen name="${leftbarScreenName}" location="${leftbarScreenLocation}"/>
+                    <include-screen name="${rightbarScreenName}" location="${rightbarScreenLocation}"/>
+                    <container style="${MainColumnStyle}">
+                        <decorator-section-include name="body"/>
+                    </container>
+                </container>
+                <!-- render Footer -->
+                <platform-specific><html><html-template location="component://webpos/webapp/webpos/includes/Footer.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="rightbar">
+        <section>
+            <widgets>
+                <container style="right">
+                    <include-screen name="Language"/>
+                    <include-screen name="Main" location="component://webpos/widget/ButtonsScreens.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="rightbar_manager">
+        <section>
+            <widgets>
+                <container style="right">
+                    <include-screen name="Language"/>
+                    <include-screen name="Manager" location="component://webpos/widget/ButtonsScreens.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="rightbar_payment">
+        <section>
+            <widgets>
+                <container style="right">
+                    <include-screen name="Language"/>
+                    <include-screen name="Payment" location="component://webpos/widget/ButtonsScreens.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="rightbar_promo">
+        <section>
+            <widgets>
+                <container style="right">
+                    <include-screen name="Language"/>
+                    <include-screen name="Promo" location="component://webpos/widget/ButtonsScreens.xml"/>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="leftbar">
+        <section>
+            <widgets>
+                <container style="left">
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="Header">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://webpos/webapp/webpos/includes/Header.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+    <!-- Column Included Screens -->
+    <screen name="Language">
+        <section>
+            <widgets>
+                <platform-specific><html><html-template location="component://webpos/webapp/webpos/includes/Language.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    
+    <!-- Top Level Screens -->
+    <screen name="Main">
+        <section>
+            <actions>
+                <set field="MainColumnStyle" value="center"/>
+                <set field="titleProperty" value="WebPosPageTitleMain"/>
+                <set field="headerItem" value="Main" />
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-screen name="SearchProducts" location="component://webpos/widget/WebPosScreens.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="Login">
+        <section>
+            <actions>
+                <set field="MainColumnStyle" value="leftonly"/>
+                <set field="titleProperty" value="PageTitleLogin"/>
+                <set field="headerItem" value="login"/>
+                <script location="component://webpos/webapp/webpos/WEB-INF/actions/Login.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webpos/webapp/webpos/Login.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="RequirePasswordChange">
+        <section>
+            <actions>
+                <set field="titleProperty" value="WebPosPageTitleLogin"/>
+                <script location="component://webpos/webapp/webpos/WEB-INF/actions/Login.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific>
+                            <html><html-template location="component://webpos/webapp/webpos/RequirePasswordChange.ftl"/></html>
+                        </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+</screens>
