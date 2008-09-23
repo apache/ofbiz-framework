@@ -737,8 +737,8 @@ Debug.logInfo("updateSiteRoles, serviceContext(2):" + serviceContext, module);
               if (UtilValidate.isNotEmpty(errorMsg)) {
                   return ServiceUtil.returnError(errorMsg);
               }
-          } else {
-              return ServiceUtil.returnError("'byteBuffer' empty when trying to create database image.");
+//          } else {
+//              return ServiceUtil.returnError("'byteBuffer' empty when trying to create database image.");
           }
       } else if (dataResourceTypeId.equals("SHORT_TEXT")) {
       } else if (dataResourceTypeId.startsWith("SURVEY")) {
