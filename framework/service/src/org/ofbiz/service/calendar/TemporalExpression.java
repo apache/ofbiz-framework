@@ -81,7 +81,7 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
      * @param cal The starting date
      * @return A Set of matching <code>Date</code> objects
      */
-    public Set<Date> getRange(org.ofbiz.service.calendar.DateRange range, Calendar cal) {
+    public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
         Set<Date> set = new TreeSet<Date>();
         Date last = range.start();
         Calendar next = first(cal);

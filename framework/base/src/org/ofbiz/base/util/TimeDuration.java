@@ -16,12 +16,10 @@
  * specific language governing permissions and limitations
  * under the License.
  *******************************************************************************/
-package org.ofbiz.service.calendar;
+package org.ofbiz.base.util;
 
 import java.io.Serializable;
 import java.util.Calendar;
-
-import org.ofbiz.entity.GenericValue;
 
 /** A representation of a period of time. */
 @SuppressWarnings("serial")
@@ -46,6 +44,27 @@ public class TimeDuration implements Serializable {
         this.days = days;
         this.months = months;
         this.years = years;
+    }
+
+    public TimeDuration(Calendar cal1, Calendar cal2) {
+        this.set(cal1, cal2);
+    }
+
+    public boolean equals(Object obj) {
+        if (obj == this) {
+            return true;
+        }
+        try {
+            TimeDuration that = (TimeDuration) obj;
+            return this.years == that.years && this.months == that.months && this.days == that.days
+            && this.hours == that.hours && this.minutes == that.minutes && this.seconds == that.seconds
+            && this.millis == that.millis;
+        } catch (Exception e) {}
+        return false;
+    }
+
+    public String toString() {
+        return this.years + ":" + this.months + ":" + this.days + ":" + this.hours + ":" + this.minutes + ":" + this.seconds + ":" + this.millis;
     }
 
     public int millis() {
@@ -108,36 +127,74 @@ public class TimeDuration implements Serializable {
         return cal;
     }
 
-    /** Get a <code>TimeDuration</code> instance based on duration fields
-     * in a GenericValue. Returns ZeroTimeDuration if there is no
-     * information in the duration fields or if the value argument is null.
-     * <p>The GenericValue <b>must</b> contain the following <code>numeric</code>
-     * fields:<ul><li>durationMillis</li><li>durationSeconds</li><li>durationMinutes</li>
-     * <li>durationHours</li><li>durationDays</li><li>durationMonths</li>
-     * <li>durationYears</li></ul></p>
-     * @param value
-     * @return A TimeDuration instance
-     */
-    public static TimeDuration getTimeDuration(GenericValue value) {
-        if (value != null) {
-            int millis = safeLongToInt(value.getLong("durationMillis"));
-            int secs = safeLongToInt(value.getLong("durationSeconds"));
-            int mins = safeLongToInt(value.getLong("durationMinutes"));
-            int hrs = safeLongToInt(value.getLong("durationHours"));
-            int days = safeLongToInt(value.getLong("durationDays"));
-            int mos = safeLongToInt(value.getLong("durationMonths"));
-            int yrs = safeLongToInt(value.getLong("durationYears"));
-            if (millis != 0 || secs != 0 || mins != 0 || hrs != 0 || days != 0 || mos != 0 || yrs != 0) {
-                return new TimeDuration(millis, secs, mins, hrs, days, mos, yrs);
-            }
+    
+    protected void set(Calendar cal1, Calendar cal2) {
+        // set up Calendar objects
+        Calendar calStart = null;
+        Calendar calEnd = null;
+        if (cal1.before(cal2)) {
+            calStart = (Calendar) cal1.clone();
+            calEnd = (Calendar) cal2.clone();
+        } else {
+            calStart = (Calendar) cal2.clone();
+            calEnd = (Calendar) cal1.clone();
         }
-        return ZeroTimeDuration;
-    }
+        
+        // this will be used to speed up time comparisons
+        long targetMillis = calEnd.getTimeInMillis();
+        long deltaMillis = targetMillis - calStart.getTimeInMillis();
+        
+        // shortcut for equal dates
+        if (deltaMillis == 0) {
+            return;
+        }
+        
+        // compute elapsed years
+        long yearMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_YEAR);
+        float units = deltaMillis / yearMillis;
+        this.years = advanceCalendar(calStart, calEnd, (int) units, Calendar.YEAR);
+        deltaMillis = targetMillis - calStart.getTimeInMillis();
 
-    protected static int safeLongToInt(Long longObj) {
-        return longObj == null ? 0 : longObj.intValue();
+        // compute elapsed months
+        long monthMillis = 86400000 * calStart.getMinimum(Calendar.DAY_OF_MONTH);
+        units = deltaMillis / monthMillis;
+        this.months = advanceCalendar(calStart, calEnd, (int) units, Calendar.MONTH);
+        deltaMillis = targetMillis - calStart.getTimeInMillis();
+
+        // compute elapsed days
+        units = deltaMillis / 86400000;
+        this.days = advanceCalendar(calStart, calEnd, (int) units, Calendar.DAY_OF_MONTH);
+        deltaMillis = targetMillis - calStart.getTimeInMillis();
+
+        // compute elapsed hours
+        units = deltaMillis / 3600000;
+        this.hours = advanceCalendar(calStart, calEnd, (int) units, Calendar.HOUR);
+        deltaMillis = targetMillis - calStart.getTimeInMillis();
+
+        // compute elapsed minutes
+        units = deltaMillis / 60000;
+        this.minutes = advanceCalendar(calStart, calEnd, (int) units, Calendar.MINUTE);
+        deltaMillis = targetMillis - calStart.getTimeInMillis();
+
+        // compute elapsed seconds
+        units = deltaMillis / 1000;
+        this.seconds = advanceCalendar(calStart, calEnd, (int) units, Calendar.SECOND);
+        deltaMillis = targetMillis - calStart.getTimeInMillis();
+        
+        this.millis = (int) deltaMillis;
     }
     
+    protected int advanceCalendar(Calendar start, Calendar end, int units, int type) {
+        if (units >= 1) {
+            start.add(type, units);
+            while (start.after(end)) {
+                start.add(type, -1);
+                units--;
+            }
+        }
+        return units;
+    }
+
     protected static class NullDuration extends TimeDuration {
         public Calendar addToCalendar(Calendar cal) {
             return cal;

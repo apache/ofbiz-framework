@@ -114,7 +114,7 @@ public class TemporalExpressions implements Serializable {
             return null;
         }
 
-        public Set<Date> getRange(org.ofbiz.service.calendar.DateRange range, Calendar cal) {
+        public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
             Set<Date> rawSet = new TreeSet<Date>();
             Set<Date> finalSet = new TreeSet<Date>();
             for (TemporalExpression expression : this.expressionSet) {
@@ -220,7 +220,7 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
-        public Set<Date> getRange(org.ofbiz.service.calendar.DateRange range, Calendar cal) {
+        public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
             Set<Date> finalSet = new TreeSet<Date>();
             Set<Date> rawSet = new TreeSet<Date>();
             Date last = range.start();
@@ -311,7 +311,7 @@ public class TemporalExpressions implements Serializable {
             return next;
         }
 
-        public Set<Date> getRange(org.ofbiz.service.calendar.DateRange range, Calendar cal) {
+        public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
             Set<Date> finalSet = new TreeSet<Date>();
             Set<Date> rawSet = this.included.getRange(range, cal);
             Calendar checkCal = (Calendar) cal.clone();
@@ -331,11 +331,11 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a range of dates. */
     public static class DateRange extends TemporalExpression {
-        protected org.ofbiz.service.calendar.DateRange range = null;
+        protected org.ofbiz.base.util.DateRange range = null;
 
         public DateRange(Date start, Date end) {
             this.sequence = 1000;
-            this.range = new org.ofbiz.service.calendar.DateRange(start, end);
+            this.range = new org.ofbiz.base.util.DateRange(start, end);
             if (Debug.verboseOn()) {
                 Debug.logVerbose("Created " + this, module);
             }
