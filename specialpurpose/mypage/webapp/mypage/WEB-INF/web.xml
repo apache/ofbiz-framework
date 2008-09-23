@@ -21,7 +21,7 @@
 
 <web-app>
     <display-name>Open For Business - My Page</display-name>
-    <description>Asset Management component of the Open For Business Project</description>
+    <description>My Page component of the Open For Business Project</description>
     
     <context-param>
         <param-name>entityDelegatorName</param-name>
@@ -30,7 +30,7 @@
     </context-param>
     <context-param>
         <param-name>localDispatcherName</param-name>
-        <param-value>assetmaint</param-value>
+        <param-value>mypage</param-value>
         <description>A unique name used to identify/recognize the local dispatcher for the Service Engine</description>
     </context-param>    
     <context-param>
