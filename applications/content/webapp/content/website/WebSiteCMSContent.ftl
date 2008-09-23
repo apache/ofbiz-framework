@@ -91,7 +91,7 @@
                             <option value="SHORT_TEXT">${uiLabelMap.ContentResourceShortText}</option>
                             <option value="ELECTRONIC_TEXT">${uiLabelMap.ContentResourceLongText}</option>
                             <option value="URL_RESOURCE">${uiLabelMap.ContentResourceUrlResource}</option>
-                            <option value="IMAGE_OBJECT">${uiLabelMap.ContentResourceImage}</option>
+                            <option value="IMAGE_OBJECT">${uiLabelMap.ContentImage}</option>
                             <option value="VIDEO_OBJECT">${uiLabelMap.ContentResourceVideo}</option>
                             <option value="AUDIO_OBJECT">${uiLabelMap.ContentResourceAudio}</option>
                             <option value="OTHER_OBJECT">${uiLabelMap.ContentResourceOther}</option>

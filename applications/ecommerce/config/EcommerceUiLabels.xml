@@ -388,7 +388,7 @@
         <value xml:lang="de">Kreditkarte bearbeiten</value>
         <value xml:lang="en">Edit Credit Card</value>
         <value xml:lang="es">Editar tarjeta de crédito</value>
-        <value xml:lang="fr">Éditer la carte de crédit</value>
+        <value xml:lang="fr">Modifier la carte de crédit</value>
         <value xml:lang="hi_IN">क्रेडिट कार्ड जानकारी बदलिये</value>
         <value xml:lang="it">Aggiorna carta di credito</value>
         <value xml:lang="ja">クレジットカードの変更</value>
@@ -404,7 +404,7 @@
         <value xml:lang="de">Gutschein bearbeiten</value>
         <value xml:lang="en">Edit Gift Card</value>
         <value xml:lang="es">Editar certificado de regalo</value>
-        <value xml:lang="fr">Éditer la carte cadeau</value>
+        <value xml:lang="fr">Modifier la carte cadeau</value>
         <value xml:lang="hi_IN">उपहार कार्ड बदलिये</value>
         <value xml:lang="it">Aggiorna carta omaggio</value>
         <value xml:lang="ja">ギフトカードの変更</value>
@@ -2387,7 +2387,7 @@
     <property key="EcommerceNoProductStore">
         <value xml:lang="en">No Product Store</value>
         <value xml:lang="es">No hay tienda asociada a este sitio web, revise su configuración</value>
-        <value xml:lang="fr">Aucun magasin de produit</value>
+        <value xml:lang="fr">Aucun centre de profit</value>
         <value xml:lang="it">Nessun negozio</value>
         <value xml:lang="ja">There is no ProductStore for this WebSite; Check Settings.</value>
         <value xml:lang="nl">Er is geen winkel voor deze website, kij naar de instellingen</value>
@@ -5503,7 +5503,7 @@
     <property key="PageTitleEditContent">
         <value xml:lang="en">Edit Content</value>
         <value xml:lang="es">Modificar Contenido</value>
-        <value xml:lang="fr">Éditer le contenu</value>
+        <value xml:lang="fr">Modifier le contenu</value>
         <value xml:lang="it">Aggiorna Contenuto</value>
         <value xml:lang="ja">Edit Content</value>
         <value xml:lang="nl">Pas de inhoud aan</value>
@@ -5546,7 +5546,7 @@
     <property key="PageTitleEditForumContentInfo">
         <value xml:lang="en">Edit Forum Content Info</value>
         <value xml:lang="es">Modificar información de contenido del fóro</value>
-        <value xml:lang="fr">Éditer l'information contenue dans le forum</value>
+        <value xml:lang="fr">Modifier l'information contenue dans le forum</value>
         <value xml:lang="it">Aggiorna Informazioni Contenuto Forum</value>
         <value xml:lang="ja">Edit Forum Content Info</value>
         <value xml:lang="nl">Pas de foruminhoud aan</value>
@@ -5560,7 +5560,7 @@
         <value xml:lang="de">Gutschein bearbeiten</value>
         <value xml:lang="en">Edit Gift Card</value>
         <value xml:lang="es">Modificar Tarjeta de Regalo</value>
-        <value xml:lang="fr">Éditer la carte cadeau</value>
+        <value xml:lang="fr">Modifier la carte cadeau</value>
         <value xml:lang="hi_IN">उपहार कार्ड</value>
         <value xml:lang="it">Aggiorna Carta Omagggio</value>
         <value xml:lang="ja">Edit Gift Card</value>

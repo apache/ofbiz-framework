@@ -200,7 +200,7 @@
     <property key="FinancialHistory">
         <value xml:lang="en">Fin.History</value>
         <value xml:lang="fr">Historique financier</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_attrName">
         <value xml:lang="de">Attribut Name</value>
         <value xml:lang="en">Attr Name</value>
@@ -296,7 +296,7 @@
         <value xml:lang="zh">沟通事件目的类型标识</value>
     </property>
     <property key="FormFieldTitle_communicationEventTypeId">
-        <value xml:lang="de">Kommunikationsereignis Typ ID</value>        
+        <value xml:lang="de">Kommunikationsereignis Typ ID</value>
         <value xml:lang="en">Comm.Type Id</value>
         <value xml:lang="fr">Réf. de type d'évènement de communication</value>
         <value xml:lang="it">Tipo Evento Communicazioni</value>
@@ -874,6 +874,7 @@
     <property key="FormFieldTitle_parentCommEventId">
         <value xml:lang="de">Übergeordnetes Kommunikationsereignis ID</value>
         <value xml:lang="en">Parent Comm Event Id</value>
+        <value xml:lang="fr">Réf. évènement de comm de parent</value>
         <value xml:lang="it">Evento Comunicazione Padre</value>
         <value xml:lang="th">รหัสการติดต่อกับผู้ดูแล</value>
     </property>
@@ -1391,7 +1392,7 @@
         <value xml:lang="de">Kommunikation bearbeiten</value>
         <value xml:lang="en">Edit Communication</value>
         <value xml:lang="es">Editar comunicación</value>
-        <value xml:lang="fr">Éditer la communication</value>
+        <value xml:lang="fr">Modifier la communication</value>
         <value xml:lang="it">Aggiorna Comunicazione</value>
         <value xml:lang="nl">Wijzig communicaties</value>
         <value xml:lang="pt_PT">Editar Comunicação</value>
@@ -1404,7 +1405,7 @@
         <value xml:lang="de">Kontaktmechanismus bearbeiten</value>
         <value xml:lang="en">Edit Contact Mech</value>
         <value xml:lang="es">Editar mecanismo de contacto</value>
-        <value xml:lang="fr">Éditer les coordonnées</value>
+        <value xml:lang="fr">Modifier les coordonnées</value>
         <value xml:lang="it">Aggiorna Contatto</value>
         <value xml:lang="nl">Wijzig contact Mech</value>
         <value xml:lang="ro">Actualizare Contact</value>
@@ -1416,7 +1417,7 @@
         <value xml:lang="de">Kreditkarte bearbeiten</value>
         <value xml:lang="en">Edit Credit Card</value>
         <value xml:lang="es">Editar tarjeta de crédito</value>
-        <value xml:lang="fr">Éditer la carte de crédit</value>
+        <value xml:lang="fr">Modifier la carte de crédit</value>
         <value xml:lang="it">Aggiorna Carta Credito</value>
         <value xml:lang="nl">Wijzig creditcard</value>
         <value xml:lang="ro">Actualizare Carte de Credit</value>
@@ -1428,7 +1429,7 @@
         <value xml:lang="de">Bankverbindung bearbeiten</value>
         <value xml:lang="en">Edit EFT Account</value>
         <value xml:lang="es">Editar cuenta EFT</value>
-        <value xml:lang="fr">Éditer le compte bancaire (transferts électroniques de fonds)</value>
+        <value xml:lang="fr">Modifier le compte bancaire (transferts électroniques de fonds)</value>
         <value xml:lang="it">Aggiorna Conto EFT</value>
         <value xml:lang="nl">Wijzig bankrekening nummer</value>
         <value xml:lang="ro">Actualizare Cont EFT</value>
@@ -1440,7 +1441,7 @@
         <value xml:lang="de">Gutschein bearbeiten</value>
         <value xml:lang="en">Edit Gift Card</value>
         <value xml:lang="es">Editar certificado de regalo</value>
-        <value xml:lang="fr">Éditer la carte cadeau</value>
+        <value xml:lang="fr">Modifier la carte cadeau</value>
         <value xml:lang="it">Aggiorna Carta Omaggio</value>
         <value xml:lang="nl">Wijzig cadeaubon</value>
         <value xml:lang="ro">Actualizare Carte Omagiu</value>
@@ -1452,7 +1453,7 @@
         <value xml:lang="de">Gruppeninformationen bearbeiten</value>
         <value xml:lang="en">Edit Group Information</value>
         <value xml:lang="es">Editar información del grupo</value>
-        <value xml:lang="fr">Éditer l'informations du groupe</value>
+        <value xml:lang="fr">Modifier l'informations du groupe</value>
         <value xml:lang="it">Aggiorna Informazioni Gruppo</value>
         <value xml:lang="nl">Wijzig groep informatie</value>
         <value xml:lang="ro">Actualizare Informatii Grup</value>
@@ -1840,6 +1841,7 @@
     </property>
     <property key="PageTitleViewCommunication">
         <value xml:lang="en">View Communication Event Information</value>
+        <value xml:lang="fr">Afficher l'information d'événement de communication</value>
     </property>
    <property key="PageTitleViewCommPurposes">
         <value xml:lang="de">Kommunikation Zweck anzeigen</value>
@@ -2536,7 +2538,7 @@
     <property key="PartyChildCommunicationEvents">
         <value xml:lang="de">Untergeordnete Kommunikationsereignisse</value>
         <value xml:lang="en">Child Communication Events</value>
-        <value xml:lang="fr">Evènement de communication rattaché</value>        
+        <value xml:lang="fr">Evènement de communication rattaché</value>
     </property>
     <property key="PartyChildShoppingList">
         <value xml:lang="de">Untergeordnete Einkaufsliste</value>
@@ -3210,7 +3212,7 @@
         <value xml:lang="zh">安全错误: 要运行 createCommunicationEvent，你必须具有 PARTYMGR_CREATE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyCreateCommunicationEventPurposePermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um createCommunicationEventPurpose auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um createCommunicationEventPurpose auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createCommunicationEventPurpose you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour ajouter un objet à un appel il faut avoir avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
@@ -3223,7 +3225,7 @@
         <value xml:lang="zh">安全错误: 要运行 createCommunicationEventPurpose，你必须具有 PARTYMGR_CREATE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyCreateCommunicationEventRolePermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um createCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um createCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createCommunicationEventRole you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour ajouter un rôle à une communication il faut avoir avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
@@ -3375,7 +3377,7 @@
         <value xml:lang="zh">新建安全组</value>
     </property>
     <property key="PartyCreatePartyClassificationGroupPermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um createPartyClassificationGroup auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um createPartyClassificationGroup auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createPartyClassificationGroup you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour ajouter un groupe de classification d'acteur, il faut avoir avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
@@ -3406,7 +3408,7 @@
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการสร้างสถานะกลุ่มผู้ใช้ คุณต้องได้รับความยินยอมจาก PARTYMGR_CREATE หรือ PARTYMGR_ADMIN ก่อน</value>
     </property>
     <property key="PartyCreatePostalAddressBoundaryPermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um createPostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um createPostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createPostalAddressBoundary you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour ajouter une adresse postal frontière il faut avoir avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
@@ -3420,6 +3422,7 @@
     <property key="PartyCreateRequestFromCommEvent">
         <value xml:lang="de">Kundenanfrage aus Kommunikationsereignis erstellen</value>
         <value xml:lang="en">Create CustReq from CommEvent</value>
+        <value xml:lang="fr">Créer une demande d'événement de comm.</value>
     </property>
     <property key="PartyCreateUserLogin">
         <value xml:lang="de">Benutzeranmeldung erstellen</value>
@@ -3507,17 +3510,17 @@
         <value xml:lang="de">E-Mail löschen</value>
         <value xml:lang="en">Delete Email</value>
         <value xml:lang="fr">Supprimer un(e adresse?) courriel</value>
-        
+
     </property>
     <property key="PartyDeletePartyRolePermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um deletePartyRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um deletePartyRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePartyRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur sécurité: pour exécuter deletePartyRole vous devez avoir la permission PARTYMGR_DELETE or PARTYMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка доступа: для запуска deletePartyRole у вас должны быть права PARTYMGR_DELETE или PARTYMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการลบสถานะกลุ่มผู้ใช้ คุณต้องได้รับความยินยอมจาก PARTYMGR_DELETE หรือ PARTYMGR_ADMIN ก่อน</value>
     </property>
     <property key="PartyDeleteVendorPermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um deleteVendor auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um deleteVendor auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deleteVendor you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur Sécurité : pour supprimer un vendeur, il faut avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
@@ -3561,7 +3564,7 @@
         <value xml:lang="de">Kommunikation Kundenanfrage bearbeiten</value>
         <value xml:lang="en">Edit Communication Customer Request</value>
         <value xml:lang="es">Editar pedido de comunicación</value>
-        <value xml:lang="fr">Éditer la demande de communication</value>
+        <value xml:lang="fr">Modifier la demande de communication</value>
         <value xml:lang="it">Aggiorna Richiesta Comunicazione Soggetto</value>
         <value xml:lang="nl">Wijzig communicatie aanvraag klant</value>
         <value xml:lang="ro">Actualizare Cerere Comunicare Subiect</value>
@@ -3632,6 +3635,7 @@
     <property key="PartyEditCustomerRequest">
         <value xml:lang="de">Kundenanfrage kopiert von Kommunikationsereignis bearbeiten</value>
         <value xml:lang="en">Edit Customer request copied from Communication Event</value>
+        <value xml:lang="fr">Modifier la requête de client copiée de l'événement de communication</value>
     </property>
     <property key="PartyEditSecurityGroupWithId">
         <value xml:lang="de">Sicherheitsgruppe bearbeiten mit der ID</value>
@@ -3983,7 +3987,7 @@
         <value xml:lang="de">Die Anzahl der Angestellten ist ungültig.</value>
         <value xml:lang="en">Number of employees is invalid</value>
         <value xml:lang="fr">Le nombre d'employés n'est pas valable</value>
-    </property>    
+    </property>
     <property key="PartyHeight">
         <value xml:lang="de">Grösse</value>
         <value xml:lang="en">Height</value>
@@ -4147,7 +4151,7 @@
     <property key="PartyInvitation">
         <value xml:lang="de">Einladung</value>
         <value xml:lang="en">Invitation</value>
-        <value xml:lang="fn">Invitation</value>
+        <value xml:lang="fr">Invitation</value>
         <value xml:lang="it">Inviti Soggetti</value>
         <value xml:lang="th">คำเชิญ</value>
     </property>
@@ -4403,7 +4407,7 @@
     </property>
     <property key="PartyLookupContact">
         <value xml:lang="en">Lookup Party with the role Contact</value>
-        <value xml:lang="fr">Rechercher l'acteur ayant le role "contact"</value>
+        <value xml:lang="fr">Rechercher l'acteur ayant le rôle "contact"</value>
     </property>
     <property key="PartyLookupContactMech">
         <value xml:lang="de">Kontaktmechanismus suchen</value>
@@ -4874,7 +4878,7 @@
     <property key="PartyNewInternalNote">
         <value xml:lang="de">Neue interne Notiz</value>
         <value xml:lang="en">New Internal Note</value>
-        <value xml:lang="fr">Nouvelle note interne</value>        
+        <value xml:lang="fr">Nouvelle note interne</value>
     </property>
     <property key="PartyNewRelationship">
         <value xml:lang="de">Neue Beziehung</value>
@@ -5818,6 +5822,7 @@
     <property key="PartyPostalDirections">
         <value xml:lang="de">Anweisungen</value>
         <value xml:lang="en">Directions</value>
+        <value xml:lang="fr">Directions</value>
         <value xml:lang="th">คำแนะนำ</value>
     </property>
     <property key="PartyPrice">
@@ -5914,8 +5919,7 @@
         <value xml:lang="pt_PT">Tipo de Objectivo não especificado, impossível adicionar objectivo ao mecanismo de contacto</value>
         <value xml:lang="ro">Tip Functie nespecificat, nu este posibil adaugare contactul</value>
         <value xml:lang="ru">Тип назначения не указан, невозможно добавить назначение к способу контакта</value>
-        <value xml:lang="th">ประเภทวัตถุประสงค์ไม่เฉพาะเจาะจง ไม่สามารถเพิ่มวัตถุประสงค์เข้าสู่วิธีการติดต่อได้
-        </value>
+        <value xml:lang="th">ประเภทวัตถุประสงค์ไม่เฉพาะเจาะจง ไม่สามารถเพิ่มวัตถุประสงค์เข้าสู่วิธีการติดต่อได้</value>
         <value xml:lang="zh">没有指定目的类型，不能把目的添加到联系方式</value>
     </property>
     <property key="PartyPurposeTypeMissingCannotRemove">
@@ -6041,7 +6045,7 @@
         <value xml:lang="zh">关系</value>
     </property>
     <property key="PartyRemoveAttributePermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um createPartyAttribute auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="en">Sicherheitsfehler: um createPartyAttribute auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createPartyAttribute you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter createPartyAttribute vous devez avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN</value>
@@ -6053,7 +6057,7 @@
         <value xml:lang="zh">安全错误: 要运行 createPartyAttribute，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemoveCommunicationEventPurposePermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um removeCommunicationEventPurpose auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="en">Sicherheitsfehler: um removeCommunicationEventPurpose auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeCommunicationEventPurpose you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer l'objet d'un appel il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6066,7 +6070,7 @@
         <value xml:lang="zh">安全错误: 要运行 removeCommunicationEventPurpose，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemoveCommunicationEventRolePermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um removeCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="en">Sicherheitsfehler: um removeCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeCommunicationEventRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer le rôle d'une communication il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6078,7 +6082,7 @@
         <value xml:lang="zh">安全错误: 要运行 removeCommunicationEventRole，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemovePartyClassificationGroupPermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um deletePartyClassificationGroup auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="en">Sicherheitsfehler: um deletePartyClassificationGroup auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePartyClassificationGroup you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer un groupe de classification d'acteurs, il faut avoir l'autorisation PARTYMGR_DELETE ou</value>
@@ -6090,7 +6094,7 @@
         <value xml:lang="zh">安全错误: 要运行 deletePartyClassificationGroup，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemovePartyClassificationPermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um deletePartyClassification auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="en">Sicherheitsfehler: um deletePartyClassification auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePartyClassification you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer une classification d'acteur il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6102,7 +6106,7 @@
         <value xml:lang="zh">安全错误: 要运行 deletePartyClassification，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemovePartyRelationshipPermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um removePartyRelationship auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="en">Sicherheitsfehler: um removePartyRelationship auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removePartyRelationship you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer une relation inter-acteurs il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6114,7 +6118,7 @@
         <value xml:lang="zh">安全错误: 要运行 removePartyRelationship，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemovePostalAddressBoundaryPermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um deletePostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="en">Sicherheitsfehler: um deletePostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePostalAddressBoundary you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer une adresse postale frontière il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6126,7 +6130,7 @@
         <value xml:lang="zh">安全错误: 要运行 deletePostalAddressBoundary，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemoveWebSiteRolePermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um removeWebSiteRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="en">Sicherheitsfehler: um removeWebSiteRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeWebSiteRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer un rôle de site web il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -7009,7 +7013,7 @@
         <value xml:lang="zh">安全错误: 要运行 updatePartyAttribute，你必须具有 PARTYMGR_UPDATE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyUpdateCommunicationEventPermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um updateCommunicationEven auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um updateCommunicationEven auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run updateCommunicationEvent you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTYMGR_UPDATE  o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité: pour mettre à jour une communication, il faut avoir avoir la permission PARTYMGR_UPDATE ou PARTYMGR_ADMIN.</value>
@@ -7022,7 +7026,7 @@
         <value xml:lang="zh">安全错误: 要运行 updateCommunicationEvent，你必须具有 PARTYMGR_UPDATE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyUpdatePartyClassificationGroupPermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um updatePartyClassificationGroup auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um updatePartyClassificationGroup auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run updatePartyClassificationGroup you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTYMGR_UPDATE  o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour mettre à jour un groupe de classifications, il faut avoir l'autorisation PARTYMGR_UPDATE ou PARTYMGR_ADMIN</value>
@@ -7034,7 +7038,7 @@
         <value xml:lang="zh">安全错误: 要运行 updatePartyClassificationGroup，你必须具有 PARTYMGR_UPDATE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyUpdatePartyClassificationPermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um updatePartyClassification auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um updatePartyClassification auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run updatePartyClassification you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTYMGR_UPDATE  o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour mettre à jour une classification, il faut avoir l'autorisation PARTYMGR_UPDATE ou PARTYMGR_ADMIN</value>
@@ -7046,7 +7050,7 @@
         <value xml:lang="zh">安全错误: 要运行 updatePartyClassification，你必须具有 PARTYMGR_UPDATE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyUpdateVendorPermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um updateVendor auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um updateVendor auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run updateVendor you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTYMGR_UPDATE  o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour mettre à jour un fournisseur, il faut avoir l'autorisation PARTYMGR_UPDATE ou PARTYMGR_ADMIN</value>
@@ -7058,7 +7062,7 @@
         <value xml:lang="zh">安全错误: 要运行 updateVendor，你必须具有 PARTYMGR_UPDATE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyUpdateWebSiteRolePermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um updateWebSiteRole auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um updateWebSiteRole auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run updateWebSiteRole you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTYMGR_UPDATE  o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité: pour mettre à jour un rôle de site web, il faut avoir avoir la permission PARTYMGR_UPDATE ou PARTYMGR_ADMIN.</value>
@@ -7243,7 +7247,7 @@
         <value xml:lang="zh">浏览图像</value>
     </property>
     <property key="PartyViewPostalAddressBoundaryPermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um getPostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_VIEW oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um getPostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_VIEW oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run getPostalAddressBoundary you must have the PARTY_VIEW or PARTY_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTY_VIEW o PARTY_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité: pour obtenir une adresse postale frontière il faut avoir avoir la permission PARTYMGR_VIEW ou PARTYMGR_ADMIN</value>
@@ -7433,7 +7437,7 @@
         <value xml:lang="zh">邮政编码</value>
     </property>
     <property key="PartyremoveCommunicationEventRolePermissionError">
-        <value xml:lang="de">Sicherheitsfehler: um removeCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>        
+        <value xml:lang="de">Sicherheitsfehler: um removeCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeCommunicationEventRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="fr">Erreur sécurité: pour exécuter removeCommunicationEventRole vous devez avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN</value>
         <value xml:lang="pt_PT">Erro de Segurança: para correr a função de Comunicação de Remoção de Acontecimentos é necessário obter o PARTYMGR_DELETE ou permissão de PARTYMGR_ADMIN</value>
@@ -7708,7 +7712,7 @@
         <value xml:lang="zh">无法把这个联系方式作为通信地址更新，联系方式是 ${contactMechTypeId}。</value>
     </property>
     <property key="contactmechservices.could_not_update_contact_as_TELECOM_NUMBER_specified">
-        <value xml:lang="de">Kontaktmechanismus kann nicht als TELECOM_NUMBER aktualisiert werden. Der angegebene Kontaktmechanismus ist ein ${contactMechTypeId} </value>        
+        <value xml:lang="de">Kontaktmechanismus kann nicht als TELECOM_NUMBER aktualisiert werden. Der angegebene Kontaktmechanismus ist ein ${contactMechTypeId} </value>
         <value xml:lang="en">Could not update this contact mech as a TELECOM_NUMBER the specified contact mech is a ${contactMechTypeId}.</value>
         <value xml:lang="fr">Impossible de mettre à jour cette coordonnée en tant que n° de tél. la coordonée spécifiée est un ${contactMechTypeId}.</value>
         <value xml:lang="it">Non è possibile aggiornare questo meccanismo contatto come un TELECOM_NUMBER specificato sul meccanismo contatto ${contactMechTypeId}.</value>
@@ -7743,7 +7747,7 @@
         <value xml:lang="zh">本服务 (创建联系方式) 不应用于通信地址类型的联系方式，请使用创建通信地址服务。</value>
     </property>
     <property key="contactmechservices.service_createContactMech_not_be_used_for_TELECOM_NUMBER">
-        <value xml:lang="de">Dieser Service (createContactMech) sollte nicht für TELECOM_NUMBER Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>        
+        <value xml:lang="de">Dieser Service (createContactMech) sollte nicht für TELECOM_NUMBER Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
         <value xml:lang="en">This service (createContactMech) should not be used for TELECOM_NUMBER type ContactMechs, use the createTelecomNumber service.</value>
         <value xml:lang="es">El servicio no debe ser usado para números telefónicos, use el servicio de actualización de teléfono</value>
         <value xml:lang="fr">Ce service (createContactMech) ne devrait pas être employé pour le type de coordonnée TELECOM_NUMBER, utiliser le service createTelecomNumber.</value>
@@ -7755,7 +7759,7 @@
         <value xml:lang="zh">本服务 (创建联系方式) 不应用于电话号码类型的联系方式，请使用创建电话号码服务。</value>
     </property>
     <property key="contactmechservices.service_updateContactMech_not_be_used_for_POSTAL_ADDRESS">
-        <value xml:lang="de">Dieser Service (updateContactMech) sollte nicht für POSTAL_ADDRESS Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>        
+        <value xml:lang="de">Dieser Service (updateContactMech) sollte nicht für POSTAL_ADDRESS Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
         <value xml:lang="en">This service (updateContactMech) should not be used for POSTAL_ADDRESS type ContactMechs, use the updatePostalAddress service.</value>
         <value xml:lang="es">El servicio no debe ser usado para dirección postal, use el servicio de actualización de dirección postal</value>
         <value xml:lang="fr">Ce service (updateContactMech) ne devrait pas être employé pour le type de coordonnée POSTAL_ADDRESS, utiliser le serviceupdatePostalAddress.</value>
@@ -7767,7 +7771,7 @@
         <value xml:lang="zh">本服务 (更新联系方式) 不应用做通信地址类型的联系方式，请使用更新通信地址服务。</value>
     </property>
     <property key="contactmechservices.service_updateContactMech_not_be_used_for_TELECOM_NUMBER">
-        <value xml:lang="de">Dieser Service (updateContactMech) sollte nicht für TELECOM_NUMBER Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>        
+        <value xml:lang="de">Dieser Service (updateContactMech) sollte nicht für TELECOM_NUMBER Typ Kontaktmechanismen verwendet werden. Benützen Sie den Service createPostalAdress. </value>
         <value xml:lang="en">This service (updateContactMech) should not be used for TELECOM_NUMBER type ContactMechs, use the updateTelecomNumber service.</value>
         <value xml:lang="es">El servicio no debe ser usado para números telefónicos, use el servicio de actualización de teléfono</value>
         <value xml:lang="fr">Ce service (updateContactMech) ne devrait pas être employé pour le type de coordonnée TELECOM_NUMBER, utiliser le serviceupdateTelecomNumber.</value>

@@ -1066,7 +1066,7 @@
     <property key="OrderNoPayToPartyIdSetOnProductStore">
         <value xml:lang="en">No payToPartyId set on ProductStore : ${productStoreId}</value>
         <value xml:lang="es">Ningún pago para el participante en la tienda: ${productStoreId}</value>
-        <value xml:lang="fr">Aucun paie pour l'identifiant d'acteur dans le magasin de produit : ${productStoreId}</value>
+        <value xml:lang="fr">Aucun paie pour l'identifiant d'acteur dans le centre de profit : ${productStoreId}</value>
         <value xml:lang="it">Nessun payToPartyId impostato sul ProductStore : ${productStoreId}</value>
         <value xml:lang="ro">Nici-o payToPartyId setata in ProductStore : ${productStoreId}</value>
         <value xml:lang="ru">Для торговой точки ${productStoreId не установлен код получателя платежа</value>
@@ -1076,7 +1076,7 @@
     <property key="OrderNoProductStoreCannotCreatePayment">
         <value xml:lang="en">No product store, cannot create payment</value>
         <value xml:lang="es">Ninguna tienda, no puede crear el pago</value>
-        <value xml:lang="fr">Aucun magasin de produit, ne peut créer le paiement</value>
+        <value xml:lang="fr">Aucun centre de profit, ne peut créer le paiement</value>
         <value xml:lang="it">Nessun negozio prodotto, non è possibile creare il pagamento</value>
         <value xml:lang="ro">Nici-un magazin produs, nu este posibila crearea platii</value>
         <value xml:lang="ru">Нет торговой точки, не могу создать платеж</value>
