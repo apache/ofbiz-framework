@@ -20,7 +20,7 @@ under the License.
 -->
 
 <web-app>
-    <display-name>Open For Business - Google Base</display-name>
+    <display-name>Open For Business - Ebay</display-name>
     <description>eBay component of the Open For Business Project</description>
     
     <context-param>
