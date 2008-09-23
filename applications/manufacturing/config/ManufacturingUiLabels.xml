@@ -1058,7 +1058,7 @@
         <value xml:lang="de">Kalender-Ausnahme-Tag für</value>
         <value xml:lang="en">Edit Calendar Exception day for</value>
         <value xml:lang="es">Editar excepción de calendario</value>
-        <value xml:lang="fr">Édition des exceptions de jour du calendrier</value>
+        <value xml:lang="fr">Modification des exceptions de jour du calendrier</value>
         <value xml:lang="it">Aggiorna Calendario giorni speciali per</value>
         <value xml:lang="ro">Actualizare Calendar zile speciale pentru</value>
         <value xml:lang="th">แก้ไขปฏิทินวันที่ยกเว้นสำหรับ</value>
@@ -1068,7 +1068,7 @@
         <value xml:lang="de">Kalender-Ausnahme-Woche für</value>
         <value xml:lang="en">Edit Calendar Exception week for</value>
         <value xml:lang="es">Editar semana de exceipción</value>
-        <value xml:lang="fr">Édition des exceptions de semaine du calendrier</value>
+        <value xml:lang="fr">Modification des exceptions de semaine du calendrier</value>
         <value xml:lang="it">Aggiorna Calendario settimane speciali per</value>
         <value xml:lang="ro">Adauga Calendar saptamanal special pentru</value>
         <value xml:lang="th">แก้ไขสัปดาห์ที่ยกเว้นสำหรับ</value>
@@ -1078,7 +1078,7 @@
         <value xml:lang="de">Woche bearbeiten</value>
         <value xml:lang="en">Edit Week</value>
         <value xml:lang="es">Editar semana</value>
-        <value xml:lang="fr">Édition d'une semaine</value>
+        <value xml:lang="fr">Modification d'une semaine</value>
         <value xml:lang="it">Aggiorna Calendario Settimanale</value>
         <value xml:lang="ro">Actualizare Saptamana</value>
         <value xml:lang="th">แก้ไขสัปดาห์</value>
@@ -1097,7 +1097,7 @@
         <value xml:lang="de">Anlage bearbeiten</value>
         <value xml:lang="en">Edit Fixed Asset</value>
         <value xml:lang="es">Editar máquina</value>
-        <value xml:lang="fr">Édition des machines</value>
+        <value xml:lang="fr">Modification des machines</value>
         <value xml:lang="it">Aggiorna Macchine</value>
         <value xml:lang="ro">Adauga Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขสินทรัพย์ไม่หมุนเวียน</value>
@@ -1107,7 +1107,7 @@
         <value xml:lang="de">Anlagegruppe bearbeiten</value>
         <value xml:lang="en">Edit Fixed AssetGroup</value>
         <value xml:lang="es">Editar grupo de máquinas</value>
-        <value xml:lang="fr">Édition des groupes de machine</value>
+        <value xml:lang="fr">Modification des groupes de machine</value>
         <value xml:lang="it">Aggiorna Gruppo Macchine</value>
         <value xml:lang="ro">Actualizare Grup Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -1127,7 +1127,7 @@
         <value xml:lang="de">Produktionsauftrag bearbeiten</value>
         <value xml:lang="en">Edit Production Run</value>
         <value xml:lang="es">Editar orden de producción</value>
-        <value xml:lang="fr">Édition O.F.</value>
+        <value xml:lang="fr">Modification O.F.</value>
         <value xml:lang="it">Aggiorna Ordine di Produzione</value>
         <value xml:lang="ro">Actualizare Comenzi de Productie</value>
         <value xml:lang="th">แก้ไขการผลิต</value>
@@ -1137,7 +1137,7 @@
         <value xml:lang="de">Arbeitsplan bearbeiten</value>
         <value xml:lang="en">Edit Routing</value>
         <value xml:lang="es">Editar ruta</value>
-        <value xml:lang="fr">Édition gamme</value>
+        <value xml:lang="fr">Modification gamme</value>
         <value xml:lang="it">Aggiorna Ciclo</value>
         <value xml:lang="ro">Actualizare Ciclu</value>
         <value xml:lang="th">แก้ไข Routing</value>
@@ -1147,7 +1147,7 @@
         <value xml:lang="de">Arbeitsplan-Produkt-Verbindung bearbeiten</value>
         <value xml:lang="en">Edit Routing Product Link</value>
         <value xml:lang="es">Editar asociación de producto a ruta</value>
-        <value xml:lang="fr">Édition des liens article - gamme</value>
+        <value xml:lang="fr">Modification des liens article - gamme</value>
         <value xml:lang="it">Aggiorna Link Prodotto Ciclo</value>
         <value xml:lang="ro">Actualizare Link Ciclu Produs </value>
         <value xml:lang="th">แก้ไข Routing การเชื่อมต่อสินค้า</value>
@@ -1157,7 +1157,7 @@
         <value xml:lang="de">Arbeitsgang bearbeiten</value>
         <value xml:lang="en">Edit Routing Task</value>
         <value xml:lang="es">Editar proceso</value>
-        <value xml:lang="fr">Édition d'une opération</value>
+        <value xml:lang="fr">Modification d'une opération</value>
         <value xml:lang="it">Aggiorna Operazione</value>
         <value xml:lang="ro">Actualizare Operatie</value>
         <value xml:lang="th">แก้ไขการทำงาน</value>
@@ -1177,7 +1177,7 @@
         <value xml:lang="de">Arbeitsgang-Zuordnung-Gültigkeit bearbeiten</value>
         <value xml:lang="en">Edit Routing Task Association Date validity</value>
         <value xml:lang="es">Editar validez de fecha de asociación</value>
-        <value xml:lang="fr">Édition des dates de validité du lien opération-gamme</value>
+        <value xml:lang="fr">Modification des dates de validité du lien opération-gamme</value>
         <value xml:lang="it">Aggiorna Associazione Operazione Data validità</value>
         <value xml:lang="ro">Actualizare Asociere Operatie-data valabilitate</value>
         <value xml:lang="th">แก้ไขการทำงานที่เชื่อมโยงกับวันที่ทำ</value>
@@ -1187,7 +1187,7 @@
         <value xml:lang="de">Arbeitsgang-Nr. bearbeiten</value>
         <value xml:lang="en">Edit Routing Task - ID</value>
         <value xml:lang="es">Editar Tarea - Código</value>
-        <value xml:lang="fr">Édition de l'opération - réf</value>
+        <value xml:lang="fr">Modification de l'opération - réf</value>
         <value xml:lang="it">Aggiorna Codice Operazione</value>
         <value xml:lang="ro">Actualizare Cod Operatie</value>
         <value xml:lang="th">แก้ไขรหัสการทำงาน</value>
@@ -2962,7 +2962,7 @@
         <value xml:lang="de">Kalender bearbeiten</value>
         <value xml:lang="en">Edit Calendar</value>
         <value xml:lang="es">Editar calendario</value>
-        <value xml:lang="fr">Édition d'un calendrier</value>
+        <value xml:lang="fr">Modification d'un calendrier</value>
         <value xml:lang="it">Aggiorna Calendario</value>
         <value xml:lang="ro">Actualizare Calendar</value>
         <value xml:lang="th">แก้ไขปฏิทิน</value>
@@ -2972,7 +2972,7 @@
         <value xml:lang="de">Kalender-Ausnahme-Tag bearbeiten</value>
         <value xml:lang="en">Edit Calendar Exception Day</value>
         <value xml:lang="es">Editar día de excepción</value>
-        <value xml:lang="fr">Édition des exceptions de jour d'un calendrier</value>
+        <value xml:lang="fr">Modification des exceptions de jour d'un calendrier</value>
         <value xml:lang="it">Aggiorna Giorno Calendario Speciale</value>
         <value xml:lang="ro">Actualizare Zi Calendar Special</value>
         <value xml:lang="th">แก้ไขปฏิทินที่ยกเว้นวัน</value>
@@ -2982,7 +2982,7 @@
         <value xml:lang="de">Kalender-Ausnahme-Woche bearbeiten</value>
         <value xml:lang="en">Edit Calendar Exception Week</value>
         <value xml:lang="es">Editar semana de excepción</value>
-        <value xml:lang="fr">Édition des exceptions de semaine d'un calendrier</value>
+        <value xml:lang="fr">Modification des exceptions de semaine d'un calendrier</value>
         <value xml:lang="it">Aggiorna Calendario Speciale Settimanale</value>
         <value xml:lang="ro">Actualizare Saptamana Calendar Special </value>
         <value xml:lang="th">แก้ไขปฏิทินที่ยกเว้นสัปดาห์</value>
@@ -2992,7 +2992,7 @@
         <value xml:lang="de">Woche bearbeiten</value>
         <value xml:lang="en">Edit Week</value>
         <value xml:lang="es">Editar semana</value>
-        <value xml:lang="fr">Édition d'une semaine</value>
+        <value xml:lang="fr">Modification d'une semaine</value>
         <value xml:lang="it">Aggiorna Calendario Settimanale</value>
         <value xml:lang="ro">Actualizare Saptamana</value>
         <value xml:lang="th">แก้ไขสัปดาห์</value>
@@ -3010,7 +3010,7 @@
         <value xml:lang="de">Anlagen bearbeiten</value>
         <value xml:lang="en">Edit Fixed Assets</value>
         <value xml:lang="es">Editar máquinas</value>
-        <value xml:lang="fr">Édition des machines</value>
+        <value xml:lang="fr">Modification des machines</value>
         <value xml:lang="it">Aggiorna Macchine</value>
         <value xml:lang="ro">Actualizare Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขสินทรัพย์ไม่หมุนเวียน</value>
@@ -3020,7 +3020,7 @@
         <value xml:lang="de">Anlagen bearbeiten</value>
         <value xml:lang="en">Edit Fixed Asset Group</value>
         <value xml:lang="es">Editar grupo de máquinas</value>
-        <value xml:lang="fr">Édition d'un groupe de machine</value>
+        <value xml:lang="fr">Modification d'un groupe de machine</value>
         <value xml:lang="it">Aggiorna Gruppo Macchine</value>
         <value xml:lang="ro">Actualizare Grup Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -3056,7 +3056,7 @@
         <value xml:lang="de">Arbeitsplan-Produkt-Verbindung bearbeiten</value>
         <value xml:lang="en">Edit Routing-Product Link</value>
         <value xml:lang="es">Editar asociación con producto</value>
-        <value xml:lang="fr">Édition des liens article - gamme</value>
+        <value xml:lang="fr">Modification des liens article - gamme</value>
         <value xml:lang="it">Aggiorna Link Ciclo-Prodotto</value>
         <value xml:lang="ro">Actualizare Link Ciclu-Produs</value>
         <value xml:lang="th">แก้ไข Routing การเชื่อมโยงสินค้า</value>
@@ -3074,7 +3074,7 @@
         <value xml:lang="de">Arbeitsgang-Zuordnung bearbeiten</value>
         <value xml:lang="en">Edit Routing Task Association</value>
         <value xml:lang="es">Editar con proceso</value>
-        <value xml:lang="fr">Édition de la composition d'une gamme</value>
+        <value xml:lang="fr">Modification de la composition d'une gamme</value>
         <value xml:lang="it">Aggiorna Associazione Operazione</value>
         <value xml:lang="ro">Actualizare Asociatie Operatie</value>
         <value xml:lang="th">แก้ไขกลุ่มการทำงาน</value>
@@ -3167,7 +3167,7 @@
         <value xml:lang="de">Arbeitsgang suchen</value>
         <value xml:lang="en">Find - Edit Routing Task</value>
         <value xml:lang="es">Buscar - Editar proceso</value>
-        <value xml:lang="fr">Édition des opérations de gamme</value>
+        <value xml:lang="fr">Modification des opérations de gamme</value>
         <value xml:lang="it">Ricerca - Aggiorna Operazione</value>
         <value xml:lang="ro">Cauta - Actualizare Operatie</value>
         <value xml:lang="th">ค้นหา - แก้ไข งาน</value>

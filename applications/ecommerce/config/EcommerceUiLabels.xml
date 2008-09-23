@@ -5490,7 +5490,7 @@
         <value xml:lang="de">Kontaktmechanismus bearbeiten</value>
         <value xml:lang="en">Edit Contact Mechanism</value>
         <value xml:lang="es">Modificar Mecanismo de Contacto</value>
-        <value xml:lang="fr">Édition des coordonnées</value>
+        <value xml:lang="fr">Modification des coordonnées</value>
         <value xml:lang="it">Aggiorna Contatto</value>
         <value xml:lang="ja">Edit Contact Mechanism</value>
         <value xml:lang="nl">Verander de kontakt methode</value>
@@ -5517,7 +5517,7 @@
         <value xml:lang="de">Kreditkarte bearbeiten</value>
         <value xml:lang="en">Edit Credit Card</value>
         <value xml:lang="es">Modificar Tarjeta De Crédito</value>
-        <value xml:lang="fr">Édition de la carte de crédit</value>
+        <value xml:lang="fr">Modification de la carte de crédit</value>
         <value xml:lang="hi_IN">क्रेडिट कार्ड बदलिये</value>
         <value xml:lang="it">Aggiorna Carta Credito</value>
         <value xml:lang="ja">Edit Credit Card</value>
@@ -5532,7 +5532,7 @@
         <value xml:lang="de">Bankverbindung bearbeiten</value>
         <value xml:lang="en">Edit EFT Account</value>
         <value xml:lang="es">Modificar Cuenta de EFT</value>
-        <value xml:lang="fr">Édition des comptes de transfert électronique de fonds</value>
+        <value xml:lang="fr">Modification des comptes de transfert électronique de fonds</value>
         <value xml:lang="hi_IN">EFT ख़ाता बदलिये</value>
         <value xml:lang="it">Aggiorna Conto EFT </value>
         <value xml:lang="ja">Edit EFT Account</value>
@@ -5575,7 +5575,7 @@
         <value xml:lang="de">Person bearbeiten</value>
         <value xml:lang="en">Edit Person</value>
         <value xml:lang="es">Modificar la Persona</value>
-        <value xml:lang="fr">Édition des données personnelles</value>
+        <value xml:lang="fr">Modification des données personnelles</value>
         <value xml:lang="hi_IN">व्यक्ति बदलिये</value>
         <value xml:lang="it">Aggiorna Persona</value>
         <value xml:lang="ja">Edit Person</value>
@@ -6819,7 +6819,7 @@
         <value xml:lang="de">Kontaktinformation bearbeiten</value>
         <value xml:lang="en">Edit Contact Information</value>
         <value xml:lang="es">Corregir Información de Contacto</value>
-        <value xml:lang="fr">Édition de coordonnées</value>
+        <value xml:lang="fr">Modification de coordonnées</value>
         <value xml:lang="hi_IN">सम्पर्क जानकारी बदलिये</value>
         <value xml:lang="it">Aggiornare Informazioni Contatto</value>
         <value xml:lang="ja">Edit Contact Information</value>
@@ -6835,7 +6835,7 @@
         <value xml:lang="de">Persönliche Information bearbeiten</value>
         <value xml:lang="en">Edit Personal Information</value>
         <value xml:lang="es">Corregir Información Personal</value>
-        <value xml:lang="fr">Édition des informations personnelles</value>
+        <value xml:lang="fr">Modification des informations personnelles</value>
         <value xml:lang="hi_IN">स्वयं जानकारी बदलिये</value>
         <value xml:lang="it">Aggiornare Informazioni Personali</value>
         <value xml:lang="ja">Edit Personal Information</value>

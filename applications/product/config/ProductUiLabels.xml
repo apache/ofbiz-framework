@@ -4107,7 +4107,7 @@
     <property key="PageTitleEditCategory">
         <value xml:lang="en">Edit Category</value>
         <value xml:lang="es">Editar Categoría</value>
-        <value xml:lang="fr">Édition de la catégorie</value>
+        <value xml:lang="fr">Modification de la catégorie</value>
         <value xml:lang="it">Mostra Categoria</value>
         <value xml:lang="ro">Afiseaza Categoria</value>
         <value xml:lang="ru">Редактировать категорию</value>
@@ -4142,7 +4142,7 @@
     <property key="PageTitleEditCategoryFeatureCategories">
         <value xml:lang="en">Edit Category Feature Categories</value>
         <value xml:lang="es">Editar Categorías de Características de una Categoría</value>
-        <value xml:lang="fr">Édition des propriétés des catégories</value>
+        <value xml:lang="fr">Modification des propriétés des catégories</value>
         <value xml:lang="it">Aggiorna Categoria Caratteristica Categorie</value>
         <value xml:lang="ro">Actualizeaza Caracteristica Categoria</value>
         <value xml:lang="ru">Редактировать категории особенностей категории</value>
@@ -4152,7 +4152,7 @@
     <property key="PageTitleEditCategoryParties">
         <value xml:lang="en">Edit Category Parties</value>
         <value xml:lang="es">Editar participantes de una Categoría</value>
-        <value xml:lang="fr">Édition du lien catégorie - acteurs</value>
+        <value xml:lang="fr">Modification du lien catégorie - acteurs</value>
         <value xml:lang="it">Aggiorna Categoria Soggetti</value>
         <value xml:lang="ro">Actualizeaza Categoria Subiecti PageTitleEditCategoryProductCatalogs=Actualizeaza Categoria Produs Cataloage</value>
         <value xml:lang="ru">Изменить категорию участников</value>
@@ -4162,7 +4162,7 @@
     <property key="PageTitleEditCategoryProductCatalogs">
         <value xml:lang="en">Edit Category Product Catalogs</value>
         <value xml:lang="es">Editar Catálogos de Productos de una Categoría</value>
-        <value xml:lang="fr">Édition des liens catégories d'article - catalogue</value>
+        <value xml:lang="fr">Modification des liens catégories d'article - catalogue</value>
         <value xml:lang="it">Aggiorna Categoria Prodotto Cataloghi</value>
         <value xml:lang="ru">Изменить категорию продукта каталогов</value>
         <value xml:lang="th">เพิ่มหมวดหมู่สินค้า</value>
@@ -4171,7 +4171,7 @@
     <property key="PageTitleEditCategoryProducts">
         <value xml:lang="en">Edit Category Products</value>
         <value xml:lang="es">Editar Productos de una Categoría</value>
-        <value xml:lang="fr">Édition des catégories d'article</value>
+        <value xml:lang="fr">Modification des catégories d'article</value>
         <value xml:lang="it">Aggiorna Categoria Prodotti</value>
         <value xml:lang="ro">Actualizeaza Categoria Produs</value>
         <value xml:lang="ru">Изменить категорию продуктов</value>
@@ -4181,7 +4181,7 @@
     <property key="PageTitleEditCategoryRollup">
         <value xml:lang="en">Edit Category Rollup</value>
         <value xml:lang="es">Editar jerarquía de una Categoría</value>
-        <value xml:lang="fr">Édition de la hiérarchie des catégorie</value>
+        <value xml:lang="fr">Modification de la hiérarchie des catégorie</value>
         <value xml:lang="it">Aggiorna Categoria Arrivo</value>
         <value xml:lang="ro">Actualizeaza Categoria Sosire</value>
         <value xml:lang="ru">Изменить подчиненность категории</value>
@@ -4209,7 +4209,7 @@
     <property key="PageTitleEditFacilityContactMech">
         <value xml:lang="en">Edit Facility Contact Mechanism for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Mecanismos de Contacto de un Almacén</value>
-        <value xml:lang="fr">Édition des coordonnées du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="fr">Modification des coordonnées du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Contatto Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Contact Compartiment</value>
         <value xml:lang="ru">Изменить способ контакта объекта</value>
@@ -4219,7 +4219,7 @@
     <property key="PageTitleEditFacilityGroup">
         <value xml:lang="en">Edit Facility Group</value>
         <value xml:lang="es">Editar Grupo de Almacén</value>
-        <value xml:lang="fr">Édition du groupe de lieux de stockage</value>
+        <value xml:lang="fr">Modification du groupe de lieux de stockage</value>
         <value xml:lang="it">Aggiorna Gruppo Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Grup Compartiment</value>
         <value xml:lang="ru">Изменить группу объектов</value>
@@ -4229,7 +4229,7 @@
     <property key="PageTitleEditFacilityGroupMembers">
         <value xml:lang="en">Edit Facility Group Members</value>
         <value xml:lang="es">Editar Miembros de un Grupo de Almacén</value>
-        <value xml:lang="fr">Édition des membres du groupe de lieux de stockage</value>
+        <value xml:lang="fr">Modification des membres du groupe de lieux de stockage</value>
         <value xml:lang="it">Aggiorna Membri Gruppo Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Membri Grup Compartiment</value>
         <value xml:lang="ru">Изменить членов группы объектов</value>
@@ -4239,7 +4239,7 @@
     <property key="PageTitleEditFacilityGroupRoles">
         <value xml:lang="en">Edit Facility Group Roles</value>
         <value xml:lang="es">Editar Roles de un Grupo de Almacén</value>
-        <value xml:lang="fr">Édition des rôles du groupe de lieux de stockage</value>
+        <value xml:lang="fr">Modification des rôles du groupe de lieux de stockage</value>
         <value xml:lang="it">Aggiorna Ruoli Gruppo Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Roluri Grup Compartiment</value>
         <value xml:lang="ru">Изменить роли группы объектов</value>
@@ -4249,7 +4249,7 @@
     <property key="PageTitleEditFacilityGroupRollup">
         <value xml:lang="en">Edit Facility Group Rollup</value>
         <value xml:lang="es">Editar jerarquía de un Grupo de Almacén</value>
-        <value xml:lang="fr">Édition de la hiérarchie du groupe de lieux de stockage</value>
+        <value xml:lang="fr">Modification de la hiérarchie du groupe de lieux de stockage</value>
         <value xml:lang="it">Aggiorna Gruppo Stabilimento Arrivo</value>
         <value xml:lang="ro">Actualizeaza Grup Compartiment Sosire</value>
         <value xml:lang="ru">Изменить подчиненность группы объектов</value>
@@ -4259,7 +4259,7 @@
     <property key="PageTitleEditFacilityGroups">
         <value xml:lang="en">Edit Facility Groups for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Grupos de Almacén</value>
-        <value xml:lang="fr">Édition des groupes de lieux de stockage pour ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="fr">Modification des groupes de lieux de stockage pour ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Gruppi Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Grupuri Compartimente</value>
         <value xml:lang="ru">Изменить группы объектов</value>
@@ -4269,7 +4269,7 @@
     <property key="PageTitleEditFacilityInventoryItems">
         <value xml:lang="en">Edit Facility Inventory Items for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Artículos del Inventario de un Almacén</value>
-        <value xml:lang="fr">Édition des lignes de stocks pour ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="fr">Modification des lignes de stocks pour ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Righe Inventario Stabilimento</value>
         <value xml:lang="ru">Изменить позиции реестра ТМЦ объекта</value>
         <value xml:lang="th">แก้ไขรายคลังสินค้าสินค้าคงเหลือ</value>
@@ -4278,7 +4278,7 @@
     <property key="PageTitleEditFacilityLocation">
         <value xml:lang="en">Edit Facility Location for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar sitios de un Almacén</value>
-        <value xml:lang="fr">Édition des emplacements du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="fr">Modification des emplacements du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Posizione Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Pozitie Compartiment</value>
         <value xml:lang="ru">Изменить местонахождение объекта</value>
@@ -4288,7 +4288,7 @@
     <property key="PageTitleEditFacilityParties">
         <value xml:lang="en">Edit Facility Parties for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Roles de un Almacén</value>
-        <value xml:lang="fr">Édition des rôles du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="fr">Modification des acteurs du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Ruoli Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Rol Compartiment</value>
         <value xml:lang="ru">Изменить роли объекта</value>
@@ -4298,7 +4298,7 @@
     <property key="PageTitleEditFeature">
         <value xml:lang="en">Edit Feature</value>
         <value xml:lang="es">Editar Características</value>
-        <value xml:lang="fr">Édition des caractéristiques</value>
+        <value xml:lang="fr">Modification des caractéristiques</value>
         <value xml:lang="it">Aggiorna Caratteristica</value>
         <value xml:lang="ro">Actualizeaza Caracteristici</value>
         <value xml:lang="ru">Изменить особенность</value>
@@ -4308,7 +4308,7 @@
     <property key="PageTitleEditFeatureCategoryFeatures">
         <value xml:lang="en">Edit Feature Category Features</value>
         <value xml:lang="es">Editar Características de una Categoría de Características</value>
-        <value xml:lang="fr">Édition des caractéristiques de la catégorie</value>
+        <value xml:lang="fr">Modification des caractéristiques de la catégorie</value>
         <value xml:lang="it">Aggiorna Caratteristica Categoria Caratteristiche</value>
         <value xml:lang="ro">Actualizeaza Caracteristica Categoria Caracteristici</value>
         <value xml:lang="ru">Изменить особенности категории особенностей</value>
@@ -4317,7 +4317,7 @@
     </property>
     <property key="PageTitleEditFeaturePrice">
         <value xml:lang="en">Edit Feature Price</value>
-        <value xml:lang="fr">Édition des caractéristiques de prix</value>
+        <value xml:lang="fr">Modification des caractéristiques de prix</value>
     </property>
     <property key="PageTitleEditFeatureType">
         <value xml:lang="en">Edit Feature Type</value>
@@ -4354,7 +4354,7 @@
     <property key="PageTitleEditInventoryItem">
         <value xml:lang="en">Edit Inventory Item</value>
         <value xml:lang="es">Editar Artículo de Inventario</value>
-        <value xml:lang="fr">Édition de la ligne de stock</value>
+        <value xml:lang="fr">Modification de la ligne de stock</value>
         <value xml:lang="it">Aggiorna Riga Inventario</value>
         <value xml:lang="ro">Actualizeaza Linea Inventar</value>
         <value xml:lang="ru">Изменить позицию реестра ТМЦ</value>
@@ -4379,7 +4379,7 @@
     <property key="PageTitleEditProduct">
         <value xml:lang="en">Edit Product</value>
         <value xml:lang="es">Editar Productos</value>
-        <value xml:lang="fr">Édition de l'article</value>
+        <value xml:lang="fr">Modification de l'article</value>
         <value xml:lang="it">Aggiorna Prodotto</value>
         <value xml:lang="ro">Actualizeaza Produs</value>
         <value xml:lang="ru">Редактировать продукт</value>
@@ -4398,7 +4398,7 @@
     <property key="PageTitleEditProductAssociations">
         <value xml:lang="en">Edit Product Associations</value>
         <value xml:lang="es">Editar Asociaciones de un Producto</value>
-        <value xml:lang="fr">Édition des associations d'articles</value>
+        <value xml:lang="fr">Modification des associations d'articles</value>
         <value xml:lang="it">Aggiorna Associazioni Prodotto</value>
         <value xml:lang="ro">Actualizeaza Asociatii Produs</value>
         <value xml:lang="ru">Изменить ассоциации продукта</value>
@@ -4408,7 +4408,7 @@
     <property key="PageTitleEditProductAttributes">
         <value xml:lang="en">Edit Product Attributes</value>
         <value xml:lang="es">Editar Atributos de un Producto</value>
-        <value xml:lang="fr">Édition d'un attribut d'article</value>
+        <value xml:lang="fr">Modification d'un attribut d'article</value>
         <value xml:lang="it">Aggiorna Attributi Prodotto</value>
         <value xml:lang="ro">Actualizeaza Atribute Produs</value>
         <value xml:lang="ru">Изменить атрибуты продукта</value>
@@ -4418,7 +4418,7 @@
     <property key="PageTitleEditProductCatalog">
         <value xml:lang="en">Edit Product Catalog</value>
         <value xml:lang="es">Editar Catálogo de Productos</value>
-        <value xml:lang="fr">Édition des catalogues d'articles</value>
+        <value xml:lang="fr">Modification des catalogues d'articles</value>
         <value xml:lang="it">Aggiorna Catalogo Prodotto</value>
         <value xml:lang="ro">Actualizeaza Catalog Produs</value>
         <value xml:lang="ru">Редактировать каталог продуктов</value>
@@ -4428,7 +4428,7 @@
     <property key="PageTitleEditProductCatalogCategories">
         <value xml:lang="en">Edit Product Catalog Categories</value>
         <value xml:lang="es">Editar Categorías de un Catálogo de Productos</value>
-        <value xml:lang="fr">Édition des catégories du catalogue</value>
+        <value xml:lang="fr">Modification des catégories du catalogue</value>
         <value xml:lang="it">Aggiorna Catalogo Prodotto Categorie</value>
         <value xml:lang="ro">Actualizeaza Catalog Produs Categorie</value>
         <value xml:lang="ru">Изменить категории каталога продуктов</value>
@@ -4438,7 +4438,7 @@
     <property key="PageTitleEditProductCatalogParties">
         <value xml:lang="en">Edit Product Catalog Parties</value>
         <value xml:lang="es">Editar Participantes de un Catálogo de Productos</value>
-        <value xml:lang="fr">Édition du lien catalogues articles - acteurs</value>
+        <value xml:lang="fr">Modification du lien catalogues articles - acteurs</value>
         <value xml:lang="it">Aggiorna Soggetti Catalogo Prodotto</value>
         <value xml:lang="ro">Actualizeaza Catalog Produs Subiecti</value>
         <value xml:lang="ru">Изменить участников каталога продуктов</value>
@@ -4448,7 +4448,7 @@
     <property key="PageTitleEditProductCatalogStores">
         <value xml:lang="en">Edit Product Catalog Stores</value>
         <value xml:lang="es">Editar Tiendas de un Catálogo de Productos</value>
-        <value xml:lang="fr">Édition des centres de profit associés</value>
+        <value xml:lang="fr">Modification des centres de profit associés</value>
         <value xml:lang="it">Aggiorna Catalogo Negozi</value>
         <value xml:lang="ro">Actualizeaza Catalog Magazine</value>
         <value xml:lang="ru">Изменить торговые точки каталога продуктов</value>
@@ -4457,7 +4457,7 @@
     <property key="PageTitleEditProductCategories">
         <value xml:lang="en">Edit Product Categories</value>
         <value xml:lang="es">Editar Categorías de un Producto</value>
-        <value xml:lang="fr">Édition des catégories de produits</value>
+        <value xml:lang="fr">Modification des catégories de produits</value>
         <value xml:lang="it">Aggiorna Categorie Prodotto</value>
         <value xml:lang="ro">Actualizeaza Categorie Produs</value>
         <value xml:lang="ru">Изменить категории продуктов</value>
@@ -4473,7 +4473,7 @@
     </property>
     <property key="PageTitleEditProductConfigItemContent">
         <value xml:lang="en">Edit Product Config Item Content</value>
-        <value xml:lang="fr">Édition du contenu de l'option de configuration d'article</value>
+        <value xml:lang="fr">Modification du contenu de l'option de configuration d'article</value>
         <value xml:lang="it">Aggiorna Contenuto Riga Configurazione Prodotto</value>
         <value xml:lang="ro">Actualizeaza Continut Linie Configuratie Produs</value>
         <value xml:lang="ru">Изменить контента позиции конфигурации продукта</value>
@@ -4482,7 +4482,7 @@
     </property>
     <property key="PageTitleEditProductConfigs">
         <value xml:lang="en">Edit Product Configs</value>
-        <value xml:lang="fr">Édition des configurations d'articles</value>
+        <value xml:lang="fr">Modification des configurations d'articles</value>
         <value xml:lang="it">Aggiorna Configurazioni Prodotto</value>
         <value xml:lang="ro">Actualizeaza Configuratii Produs</value>
         <value xml:lang="ru">Изменить конфигурации продуктов</value>
@@ -4492,7 +4492,7 @@
     <property key="PageTitleEditProductContent">
         <value xml:lang="en">Edit Product Content</value>
         <value xml:lang="es">Editar Contenido de un Producto</value>
-        <value xml:lang="fr">Édition du contenu de l'article</value>
+        <value xml:lang="fr">Modification du contenu de l'article</value>
         <value xml:lang="it">Aggiorna Contenuto Prodotto</value>
         <value xml:lang="ro">Actualizeaza Continut Produs</value>
         <value xml:lang="ru">Изменить контент продукта</value>
@@ -4501,7 +4501,7 @@
     </property>
     <property key="PageTitleEditProductCosts">
         <value xml:lang="en">Edit Product Costs</value>
-        <value xml:lang="fr">Édition des coûts d'articles</value>
+        <value xml:lang="fr">Modification des coûts d'articles</value>
         <value xml:lang="it">Aggiorna Costi Prodotto</value>
         <value xml:lang="ro">Actualizeaza Costuri Produs</value>
         <value xml:lang="ru">Изменить затраты продукта</value>
@@ -4511,7 +4511,7 @@
     <property key="PageTitleEditProductFacilities">
         <value xml:lang="en">Edit Product Facilities</value>
         <value xml:lang="es">Editar Almacenes de un Producto</value>
-        <value xml:lang="fr">Édition des stocks d'articles</value>
+        <value xml:lang="fr">Modification des stocks d'articles</value>
         <value xml:lang="it">Aggiorna Stabilimento Prodotto</value>
         <value xml:lang="ro">Actualizeaza Compartiment Produs</value>
         <value xml:lang="ru">Изменить объекты</value>
@@ -4521,7 +4521,7 @@
     <property key="PageTitleEditProductFacilityLocations">
         <value xml:lang="en">Edit Product Facility Locations</value>
         <value xml:lang="es">Editar sitios de Almacén de un Producto</value>
-        <value xml:lang="fr">Édition des emplacements de stocks d'articles</value>
+        <value xml:lang="fr">Modification des emplacements de stocks d'articles</value>
         <value xml:lang="it">Aggiorna Posizioni Stabilimento Prodotto</value>
         <value xml:lang="ro">Actualizeaza Pozitii Compartiment Produs</value>
         <value xml:lang="ru">Изменить местонахождение объектов</value>
@@ -4531,7 +4531,7 @@
     <property key="PageTitleEditProductFeatureCategories">
         <value xml:lang="en">Edit Product Feature Categories</value>
         <value xml:lang="es">Editar Categorías de características de un Producto</value>
-        <value xml:lang="fr">Édition des catégories de caractéristiques d'articles</value>
+        <value xml:lang="fr">Modification des catégories de caractéristiques d'articles</value>
         <value xml:lang="it">Aggiorna Categorie Caratteristica Prodotto</value>
         <value xml:lang="ro">Actualizeaza Categorie Caracteristica Produs</value>
         <value xml:lang="ru">Изменить категории особенностей продуктов</value>
@@ -4540,7 +4540,7 @@
     </property>
     <property key="PageTitleEditProductFeatureGroups">
         <value xml:lang="en">Edit Feature Groups</value>
-        <value xml:lang="fr">Édition des groupes de caractériques</value>
+        <value xml:lang="fr">Modification des groupes de caractériques</value>
         <value xml:lang="it">Aggiorna Gruppi Caratteristica</value>
         <value xml:lang="ro">Actualizeaza Grupuri Caracteristica</value>
         <value xml:lang="ru">Изменить группы особенностей</value>
@@ -4550,7 +4550,7 @@
     <property key="PageTitleEditProductFeatures">
         <value xml:lang="en">Edit Product Features</value>
         <value xml:lang="es">Editar Características de un Producto</value>
-        <value xml:lang="fr">Édition des caractéristiques d'articles</value>
+        <value xml:lang="fr">Modification des caractéristiques d'articles</value>
         <value xml:lang="it">Aggiorna Caratteristiche Prodotto</value>
         <value xml:lang="ro">Actualizeaza Caracteristici Produs</value>
         <value xml:lang="ru">Изменить особенности продукта</value>
@@ -4567,7 +4567,7 @@
     <property key="PageTitleEditProductGlAccounts">
         <value xml:lang="en">Edit Product GL Accounts</value>
         <value xml:lang="es">Editar Cuentas del Libro Mayor de un Producto</value>
-        <value xml:lang="fr">Édition des comptes d'articles</value>
+        <value xml:lang="fr">Modification des comptes d'articles</value>
         <value xml:lang="it">Aggiorna Contabilità Generale Prodotto</value>
         <value xml:lang="ro">Actualizeaza Contabilitate Generala Produs</value>
         <value xml:lang="ru">Изменить счета продукта</value>
@@ -4577,7 +4577,7 @@
     <property key="PageTitleEditProductGoodIdentifications">
         <value xml:lang="en">Edit Product Good Identifications</value>
         <value xml:lang="es">Editar Identificaciones de un Producto</value>
-        <value xml:lang="fr">Édition des identifiants</value>
+        <value xml:lang="fr">Modification des identifiants</value>
         <value xml:lang="it">Aggiorna Identificazione Prodotto</value>
         <value xml:lang="ro">Actualizeaza Identificare Produs</value>
         <value xml:lang="ru">Изменить товарную идентификацию продукта</value>
@@ -4587,7 +4587,7 @@
     <property key="PageTitleEditProductInventoryItems">
         <value xml:lang="en">Edit Product Inventory Items</value>
         <value xml:lang="es">Editar Artículos de Inventario de un Producto</value>
-        <value xml:lang="fr">Édition des lignes de stock d'articles</value>
+        <value xml:lang="fr">Modification des lignes de stock d'articles</value>
         <value xml:lang="it">Aggiorna Righe Inventario Prodotto</value>
         <value xml:lang="ro">Actualizeaza Linii Inventar Produs</value>
         <value xml:lang="ru">Изменить позиции реестра ТМЦ</value>
@@ -4597,7 +4597,7 @@
     <property key="PageTitleEditProductKeywords">
         <value xml:lang="en">Edit Product Keywords</value>
         <value xml:lang="es">Editar Palabras Clave de un Producto</value>
-        <value xml:lang="fr">Édition des mots-clés</value>
+        <value xml:lang="fr">Modification des mots-clés</value>
         <value xml:lang="it">Aggiorna Chiavi Prodotto</value>
         <value xml:lang="ro">Actualizeaza Chei Produs</value>
         <value xml:lang="ru">Изменить ключевые слова по продукту</value>
@@ -4642,7 +4642,7 @@
     <property key="PageTitleEditProductPriceRules">
         <value xml:lang="en">Edit Product Price Rules</value>
         <value xml:lang="es">Editar Reglas de Precio de un Producto</value>
-        <value xml:lang="fr">Édition des règles de prix des articles</value>
+        <value xml:lang="fr">Modification des règles de prix des articles</value>
         <value xml:lang="it">Aggiorna Regole Prezzo Prodotto</value>
         <value xml:lang="ro">Actualizeaza Reguli Pret Produs</value>
         <value xml:lang="ru">Изменить правила назначения цены продукта</value>
@@ -4652,7 +4652,7 @@
     <property key="PageTitleEditProductPrices">
         <value xml:lang="en">Edit Product Prices</value>
         <value xml:lang="es">Editar Precios de un Producto</value>
-        <value xml:lang="fr">Édition des prix des articles</value>
+        <value xml:lang="fr">Modification des prix des articles</value>
         <value xml:lang="it">Aggiorna Prezzi Prodotto</value>
         <value xml:lang="ro">Actualizeaza Pret Produs</value>
         <value xml:lang="ru">Изменить цены на продукт</value>
@@ -4681,7 +4681,7 @@
     <property key="PageTitleEditProductPromos">
         <value xml:lang="en">Edit Product Promos</value>
         <value xml:lang="es">Editar Promociones de Productos</value>
-        <value xml:lang="fr">Édition des promotions d'articles</value>
+        <value xml:lang="fr">Modification des promotions d'articles</value>
         <value xml:lang="it">Aggiorna Promozioni Prodotto</value>
         <value xml:lang="ro">Actualizeaza Promotii Produs</value>
         <value xml:lang="ru">Изменить акции продукта</value>
@@ -4700,7 +4700,7 @@
     </property>
     <property key="PageTitleEditProductQuickAdmin">
         <value xml:lang="en">Edit Product Quick Admin</value>
-        <value xml:lang="fr">Édition de l'admistration rapide d'article</value>
+        <value xml:lang="fr">Modification de l'admistration rapide d'article</value>
         <value xml:lang="it">Aggiorna Prodotto Amministrazione Veloce</value>
         <value xml:lang="ro">Actualizeaza Produs Administratie Rapida</value>
         <value xml:lang="ru">Изменить быстр. администрирование продукта</value>
@@ -4889,7 +4889,7 @@
     <property key="PageTitleEditShipmentPackages">
         <value xml:lang="en">Edit Shipment Packages</value>
         <value xml:lang="es">Editar Envío de Paquetes</value>
-        <value xml:lang="fr">Édition des paquets à expédier</value>
+        <value xml:lang="fr">Modification des paquets à expédier</value>
         <value xml:lang="it">Aggiorna Pacchi Spedizione</value>
         <value xml:lang="ro">Actualizeaza Pachete Expediere</value>
         <value xml:lang="ru">Изменить места поставки</value>
@@ -5299,7 +5299,7 @@
     <property key="PageTitleNewFacilityContactMech">
         <value xml:lang="en">New Facility Contact Mechanism for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Mecanismos de Contacto de un Almacén</value>
-        <value xml:lang="fr">Édition des coordonnées du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="fr">Modification des coordonnées du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Contatto Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Contact Compartiment</value>
         <value xml:lang="ru">Изменить способ контакта объекта</value>
@@ -5309,7 +5309,7 @@
     <property key="PageTitleNewFacilityLocation">
         <value xml:lang="en">New Facility Location for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar sitios de un Almacén</value>
-        <value xml:lang="fr">Édition des emplacements du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="fr">Modification des emplacements du lieu de stockage ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Aggiorna Posizione Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Pozitie Compartiment</value>
         <value xml:lang="ru">Изменить местонахождение объекта</value>
@@ -5631,7 +5631,7 @@
     <property key="PartyEditContactInformation">
         <value xml:lang="en">Edit Contact Information</value>
         <value xml:lang="es">Editar información de contacto</value>
-        <value xml:lang="fr">Édition de coordonnées</value>
+        <value xml:lang="fr">Modification de coordonnées</value>
         <value xml:lang="it">Aggiorna Informazioni Contatto</value>
         <value xml:lang="ro">Actualizeaza Informatii Contact</value>
         <value xml:lang="ru">Изменить контактную информацию</value>
@@ -8638,7 +8638,7 @@
     <property key="ProductEditCatalog">
         <value xml:lang="en">Edit Catalog</value>
         <value xml:lang="es">Editar Catálogo</value>
-        <value xml:lang="fr">Édition du catalogue</value>
+        <value xml:lang="fr">Modification du catalogue</value>
         <value xml:lang="it">Aggiorna Catalogo</value>
         <value xml:lang="ro">Actualizeaza Catalog</value>
         <value xml:lang="ru">Редактировать</value>
@@ -8648,7 +8648,7 @@
     <property key="ProductEditCatalogWithCatalogId">
         <value xml:lang="en">Edit Catalog with Catalog ID</value>
         <value xml:lang="es">Editar Catálogo con Código</value>
-        <value xml:lang="fr">Édition de catalogue avec sa référence</value>
+        <value xml:lang="fr">Modification de catalogue avec sa référence</value>
         <value xml:lang="it">Aggiorna Catalogo con Codice Catalogo</value>
         <value xml:lang="ro">Actualizeaza Catalog cu Cod Catalog</value>
         <value xml:lang="ru">Редактировать каталог с кодом</value>
@@ -8658,7 +8658,7 @@
     <property key="ProductEditCategory">
         <value xml:lang="en">Edit Category</value>
         <value xml:lang="es">Editar Categoría</value>
-        <value xml:lang="fr">Édition de la catégorie</value>
+        <value xml:lang="fr">Modification de la catégorie</value>
         <value xml:lang="it">Aggiorna Categoria</value>
         <value xml:lang="ro">Actualizeaza Categoria</value>
         <value xml:lang="ru">Редактировать</value>
@@ -8668,7 +8668,7 @@
     <property key="ProductEditCategoryWithCategoryId">
         <value xml:lang="en">Edit Category with Category ID</value>
         <value xml:lang="es">Editar Categoría con Código</value>
-        <value xml:lang="fr">Édition de la catégorie avec sa référence</value>
+        <value xml:lang="fr">Modification de la catégorie avec sa référence</value>
         <value xml:lang="it">Aggiorna Categoria con Codice Categoria</value>
         <value xml:lang="ro">Actualizeaza Categoria cu Cod Categorie</value>
         <value xml:lang="ru">Редактировать категорию с кодом</value>
@@ -8678,7 +8678,7 @@
     <property key="ProductEditContent">
         <value xml:lang="en">Edit Content</value>
         <value xml:lang="es">Editar Contenido</value>
-        <value xml:lang="fr">Édition du contenu</value>
+        <value xml:lang="fr">Modification du contenu</value>
         <value xml:lang="it">Aggiorna Contenuto</value>
         <value xml:lang="ro">Actualizeaza Continut</value>
         <value xml:lang="ru">Изменить контент</value>
@@ -8688,7 +8688,7 @@
     <property key="ProductEditFacility">
         <value xml:lang="en">Edit Facility</value>
         <value xml:lang="es">Editar Almacén</value>
-        <value xml:lang="fr">Édition du lieu de stockage</value>
+        <value xml:lang="fr">Modification du lieu de stockage</value>
         <value xml:lang="it">Aggiorna Stabilimento</value>
         <value xml:lang="ro">Actualizeaza Compartiment</value>
         <value xml:lang="ru">Изменить объект</value>
@@ -8698,7 +8698,7 @@
     <property key="ProductEditFeature">
         <value xml:lang="en">Edit Feature</value>
         <value xml:lang="es">Editar Característica</value>
-        <value xml:lang="fr">Édition de la caractéristique</value>
+        <value xml:lang="fr">Modification de la caractéristique</value>
         <value xml:lang="it">Aggiorna Caratteristica</value>
         <value xml:lang="ro">Actualizeaza Caracteristica</value>
         <value xml:lang="ru">Изменить особенность</value>
@@ -8717,7 +8717,7 @@
     <property key="ProductEditFeatureId">
         <value xml:lang="en">Edit Feature with ID</value>
         <value xml:lang="es">Editar Característica con Código</value>
-        <value xml:lang="fr">Édition de caractéristique de réf:</value>
+        <value xml:lang="fr">Modification de caractéristique de réf:</value>
         <value xml:lang="it">Aggiorna Caratteristica con Codice</value>
         <value xml:lang="ro">Actualizeaza Caracteristica cu Cod</value>
         <value xml:lang="ru">Редактировать особенность с кодом</value>
@@ -8727,7 +8727,7 @@
     <property key="ProductEditFeaturesForFeatureCategory">
         <value xml:lang="en">Edit Features for Feature Category</value>
         <value xml:lang="es">Editar Características para Categorías de Atributos</value>
-        <value xml:lang="fr">Édition des caractéristiques de la catégorie :</value>
+        <value xml:lang="fr">Modification des caractéristiques de la catégorie :</value>
         <value xml:lang="it">Aggiorna Caratteristiche per Categoria Caratteristica</value>
         <value xml:lang="ro">Actualizeaza Caracteristica pe Categorie Caracteristica</value>
         <value xml:lang="ru">Изменить особенности для категории</value>
@@ -8737,7 +8737,7 @@
     <property key="ProductEditInventoryItemWithId">
         <value xml:lang="en">Edit Inventory Item with ID</value>
         <value xml:lang="es">Editar Artículo de Inventario con Código</value>
-        <value xml:lang="fr">Édition de la ligne de stock de réf:</value>
+        <value xml:lang="fr">Modification de la ligne de stock de réf:</value>
         <value xml:lang="it">Aggiorna Riga Inventario con Codice</value>
         <value xml:lang="ro">Actualizeaza Linie Inventar cu Cod</value>
         <value xml:lang="ru">Изменить ТМЦ с кодом</value>
@@ -8747,7 +8747,7 @@
     <property key="ProductEditProduct">
         <value xml:lang="en">Edit Product</value>
         <value xml:lang="es">Editar Producto</value>
-        <value xml:lang="fr">Édition de l'article</value>
+        <value xml:lang="fr">Modification de l'article</value>
         <value xml:lang="it">Aggiorna Prodotto</value>
         <value xml:lang="ro">Actualizeaza Produs</value>
         <value xml:lang="ru">Редактировать</value>
@@ -8767,7 +8767,7 @@
     <property key="ProductEditProductWithProductId">
         <value xml:lang="en">Edit Product with Product ID</value>
         <value xml:lang="es">Editar Producto con Código</value>
-        <value xml:lang="fr">Édition de l'article de réf:</value>
+        <value xml:lang="fr">Modification de l'article de réf:</value>
         <value xml:lang="it">Aggiorna Prodotto con Codice Prodotto</value>
         <value xml:lang="ro">Actualizeaza Produs cu Cod Produs</value>
         <value xml:lang="ru">Редактировать продукт с кодом</value>
@@ -8777,7 +8777,7 @@
     <property key="ProductEditShipment">
         <value xml:lang="en">Edit Shipment</value>
         <value xml:lang="es">Editar Envío</value>
-        <value xml:lang="fr">Édition de l'expédition</value>
+        <value xml:lang="fr">Modification de l'expédition</value>
         <value xml:lang="it">Aggiorna Spedizione</value>
         <value xml:lang="ro">Actualizeaza Expediere</value>
         <value xml:lang="ru">Изменить поставку</value>
