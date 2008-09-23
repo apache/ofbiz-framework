@@ -20,7 +20,7 @@
 -->
 
 <web-app>
-    <display-name>Open For Business - Asset Maintenance</display-name>
+    <display-name>Open For Business - My Page</display-name>
     <description>Asset Management component of the Open For Business Project</description>
     
     <context-param>
