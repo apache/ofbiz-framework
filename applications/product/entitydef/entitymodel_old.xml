@@ -39,7 +39,7 @@ under the License.
     <!-- org.ofbiz.product.facility -->
     <!-- ========================================================= -->
     
-    <entity entity-name="FacilityRole" table-name="FACILITY_ROLE"
+    <entity entity-name="OldFacilityRole" table-name="FACILITY_ROLE"
             package-name="org.ofbiz.product.facility"
             title="Facility Role Entity">
       <field name="facilityId" type="id-ne"></field>
