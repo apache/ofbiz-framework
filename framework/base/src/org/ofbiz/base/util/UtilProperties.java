@@ -842,14 +842,15 @@ public class UtilProperties implements java.io.Serializable {
                     while (candidateLocales.size() > 0) {
                         Locale candidateLocale = candidateLocales.removeLast();
                         // ResourceBundles are connected together as a singly-linked list
-                        String parentName = createResourceName(resource, candidateLocale, true);
-                        UtilResourceBundle lookupBundle = bundleCache.get(parentName);
+                        String lookupName = createResourceName(resource, candidateLocale, true);
+                        UtilResourceBundle lookupBundle = bundleCache.get(lookupName);
                         if (lookupBundle == null) {
                             Properties newProps = getProperties(resource, candidateLocale);
                             if (UtilValidate.isNotEmpty(newProps)) {
-                                bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
-                                bundleCache.put(parentName, bundle);
+                                // The last bundle we found becomes the parent of the new bundle
                                 parentBundle = bundle;
+                                bundle = new UtilResourceBundle(newProps, candidateLocale, parentBundle);
+                                bundleCache.put(lookupName, bundle);
                             }
                         } else {
                             parentBundle = bundle;
