@@ -22,6 +22,7 @@ under the License.
 
     <form name="EditCommEvent" type="single" target="updateCommunicationEvent" default-map-name="communicationEvent">
         <alt-target target="createCommunicationEvent" use-when="communicationEvent==null"/>
+        <field name="donePage" ><hidden value="${parameters.donePage}"/></field>
         <field name="communicationEventId" use-when="communicationEvent!=null"><display/></field>
         <field name="parentCommEventId" position="2">
             <lookup target-form-name="LookupCommEvent">
@@ -606,7 +607,7 @@ under the License.
 
 	<form name="ListMyUnknownPartyEmails" type="multi" use-row-submit="true"
 		title="Email List unknown parties" list-name="commEventsUnknown"
-		target="deleteCommunicationEvents" default-entity-name="CommunicationEvent"
+		target="deleteCommunicationEvents?donePage=${parameters.donePage}" default-entity-name="CommunicationEvent"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <row-actions>
             <set field="subject" from-field="subject" default-value="${uiLabelMap.PartyNoSubject}"/>
