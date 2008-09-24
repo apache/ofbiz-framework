@@ -296,6 +296,7 @@
                     <not><if-empty field-name="workEffort"/></not>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
                     <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                 </and>
             </condition>
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_ON_HOLD"/>

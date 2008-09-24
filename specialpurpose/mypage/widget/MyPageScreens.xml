@@ -273,7 +273,7 @@ under the License.
     <screen name="ViewCommunicationEvent">
         <section>
             <actions>
-                <set field="donePage" value="ViewCommunicationEvent"/>
+                <set field="donePage" value="${parameters.donePage}"/>
                 <set field="titleProperty" value="PageTitleViewCommunication" />
                 <set field="tabButtonItem" value="OverView" />
                 <set field="parentCommEventId" from-field="parameters.parentCommEventId" />
@@ -318,7 +318,7 @@ under the License.
                             <label style="h1" text="${uiLabelMap.CommonRelatedInformation}" />
                             <section>
                                 <actions>
-                                    <set field="donePage" value="ViewCommunicationEvent"/>
+                                    <set field="donePage" value="${parameters.donePage}"/>
                                 </actions>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.PartyCommEventRoles}">
@@ -329,7 +329,7 @@ under the License.
                             </section>
                             <section>
                                 <actions>
-                                    <set field="donePage" value="ViewCommunicationEvent"/>
+                                    <set field="donePage" value="${parameters.donePage}"/>
                                 </actions>
                                 <widgets>
                                     <screenlet title="${uiLabelMap.PartyCommContent}">
@@ -378,7 +378,6 @@ under the License.
                 <set field="tabButtonItem" value="ViewRequest"/>
                 <set field="headerItem" value="request"/>
                 <set field="titleProperty" value="PageTitleViewRequest"/>
-                <!--<set field="headerItem" value="Shopping List"/>-->
                 <set field="showRequestManagementLinks" value="Y"/>
                 <set field="custRequestId" from-field="parameters.custRequestId"/>
                 <entity-one entity-name="CustRequest" value-name="custRequest"/>
