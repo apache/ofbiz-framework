@@ -66,13 +66,6 @@ access. For a detailed description see the core/docs/entityconfig.html file.
     <delegator name="other" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
         <group-map group-name="org.ofbiz" datasource-name="localpostgres"/>        
     </delegator>
-    <!-- NOTE this file includes the datasource to "localpostnew" which is for a 
-    PostgreSQL with all of the varchar entries set to "TEXT". See the 
-    fieldtypepostnew field type file comments for details on why.
-    -->
-    <delegator name="localpostnew" entity-model-reader="main" entity-group-reader="main" entity-eca-reader="main">
-        <group-map group-name="org.ofbiz" datasource-name="localpostnew"/>        
-    </delegator>
 
     <!-- need to at least define a name for each component to use -->
     <entity-model-reader name="main"/>
