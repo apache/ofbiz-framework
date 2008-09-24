@@ -21,14 +21,14 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
-    <simple-method method-name="migrateFacilityRole" short-description="Migrate Data From FacilityRole To FacilityParty">
-        <entity-condition entity-name="FacilityRole" list-name="facilityRoles"/>
+    <simple-method method-name="migrateFacilityRole" short-description="Migrate Data From OldFacilityRole To FacilityParty">
+        <entity-condition entity-name="OldFacilityRole" list-name="oldFacilityRoles"/>
         <now-timestamp-to-env env-name="fromDate"/>
-        <iterate list-name="facilityRoles" entry-name="facilityRole">
+        <iterate list-name="oldFacilityRoles" entry-name="oldFacilityRole">
             <make-value entity-name="FacilityParty" value-name="facilityParty"/>
-            <set field="facilityParty.facilityId" from-field="facilityRole.facilityId"/>
-            <set field="facilityParty.partyId" from-field="facilityRole.partyId"/>
-            <set field="facilityParty.roleTypeId" from-field="facilityRole.roleTypeId"/>
+            <set field="facilityParty.facilityId" from-field="oldFacilityRole.facilityId"/>
+            <set field="facilityParty.partyId" from-field="oldFacilityRole.partyId"/>
+            <set field="facilityParty.roleTypeId" from-field="oldFacilityRole.roleTypeId"/>
             <set field="facilityParty.fromDate" from-field="fromDate"/>
             <entity-one entity-name="PartyRole" value-name="partyRole" auto-field-map="false">
                 <field-map field-name="partyId" env-name="facilityParty.partyId"/>
