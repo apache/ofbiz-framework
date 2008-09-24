@@ -29,7 +29,7 @@ under the License.
         <p>Your Customer Request ${custRequest.custRequestName?if_exists} [${custRequest.custRequestId}] has been completed.
         <br/><br/>
         The status and used hours can always be checked at the url: <br/>
-        https://${baseUrl?if_exists}/mypage/control/ViewRequest?custRequestId=${custRequest.custRequestId} 
+        ${baseUrl?if_exists}/mypage/control/ViewRequest?custRequestId=${custRequest.custRequestId} 
         <br/><br/>
         Regards.<br/><br/>
         Thank you for your business.

@@ -96,18 +96,24 @@
                     <call-service service-name="getPartyEmail" in-map-name="getPartyEmail">
                     	<result-to-field result-name="emailAddress" field-name="emailParams.sendTo"/>
                     </call-service>
-                    <set field="bodyParameters.person" from-field="person"/>
-                    <set field="bodyParameters.custRequest" from-field="custReq"/>
-                    <set field="bodyParameters.partyId" from-field="custReq.fromPartyId"/>
-                    <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
-                    <set field="emailParams.subject" from-field="storeEmail.subject"/>
-                    <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
-                    <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
-                    <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
-                    <set field="emailParams.contentType" value="text/html"/>
-                    <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
-                    <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
-                    <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+                    <entity-and list-name="webSites" entity-name="WebSite">
+                        <field-map field-name="productStoreId" env-name="storeEmail.productStoreId" />
+                    </entity-and>
+                    <first-from-list entry-name="webSite" list-name="webSites" />
+                    <if-not-empty field="emailParams.sendTo">
+                        <set field="bodyParameters.person" from-field="person"/>
+                        <set field="bodyParameters.custRequest" from-field="custReq"/>
+                        <set field="bodyParameters.partyId" from-field="custReq.fromPartyId"/>
+                        <set field="emailParams.bodyParameters" from-field="bodyParameters"/>
+                        <set field="emailParams.subject" from-field="storeEmail.subject"/>
+                        <set field="emailParams.sendFrom" from-field="storeEmail.fromAddress"/>
+                        <set field="emailParams.sendCc" from-field="storeEmail.ccAddress"/>
+                        <set field="emailParams.sendBcc" from-field="storeEmail.bccAddress"/>
+                        <set field="emailParams.contentType" value="text/html"/>
+                        <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
+                        <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
+                        <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+                    </if-not-empty>
                 </if-not-empty>
             </then>
         </if>
