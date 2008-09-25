@@ -28,6 +28,7 @@ under the License.
                 <set field="headerItem" value="request"/>
                 <entity-and list-name="custRequests" entity-name="CustRequest">
                     <field-map field-name="statusId" value="CRQ_ACCEPTED"/>
+                    <field-map field-name="statusId" value="CRQ_CANCELLED"/>
                     <order-by field-name="lastModifiedDate"/>
                 </entity-and>
             </actions>
