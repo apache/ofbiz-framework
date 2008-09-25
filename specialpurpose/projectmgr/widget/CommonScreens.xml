@@ -401,6 +401,7 @@ under the License.
                         <section>
                             <widgets>
                                 <include-menu location="component://projectmgr/widget/Menus.xml" name="RequestTabBar"/>
+                                <include-menu name="RequestSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
                                 <container>
                                     <label style="h1">[${uiLabelMap.CommonId}:${custRequest.custRequestId}] ${custRequest.custRequestName}</label>
                                 </container>

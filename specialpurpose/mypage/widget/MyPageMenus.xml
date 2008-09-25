@@ -193,5 +193,9 @@ under the License.
             <link target="RemoveCommunicationEventRole?communicationEventId=${parameters.communicationEventId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;partyId=${userLogin.partyId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
         </menu-item>
     </menu>
-    
+    <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
+        <menu-item name="cancelledRequest" title="Cancel request" >
+            <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
+        </menu-item>
+    </menu>
 </menus>

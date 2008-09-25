@@ -478,6 +478,7 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-menu name="RequestSubTabBar" location="component://mypage/widget/MyPageMenus.xml"/>
                       <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>

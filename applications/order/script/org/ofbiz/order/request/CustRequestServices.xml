@@ -130,10 +130,51 @@ under the License.
         <entity-one entity-name="CustRequest" value-name="custRequest"/>     
         <field-to-result field-name="custRequest.statusId" result-name="oldStatusId"/>          
         <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
+            <if-compare field="parameters.statusId" value="CRQ_CANCELLED" operator="equals">
+                <!-- check for related workefforts ...and when no time recorded cancel these too -->
+                <get-related value-name="custRequest" relation-name="CustRequestWorkEffort" list-name="workEfforts"/>
+                <if-not-empty field="workEfforts">
+                    <iterate entry-name="workEffort" list-name="workEfforts">
+                        <entity-one entity-name="WorkEffort" value-name="lowInfo">
+                            <field-map field-name="workEffortId" env-name="workEffort.workEffortId"/>
+                        </entity-one>
+                        <call-simple-method method-name="getHours" xml-resource="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml"/>
+                        <set field="actualHours" from-field="highInfo.actualHours"/>
+                        <!-- no hours recorded yet so custrequest can be cancelled -->
+                        <if-empty field="actualHours">
+                            <!-- changed status-->
+                            <set field="custRequest.statusId" from-field="parameters.statusId"/>
+                            <set field="updTask.workEffortId" from-field="workEffort.workEffortId"/>
+                            <set field="updTask.currentStatusId" value="PTS_CANCELLED"/>
+                            <if-has-permission permission="MYPAGE_CUSTOMER">
+                                <entity-one entity-name="UserLogin" value-name="userLogin" auto-field-map="false">
+                                    <field-map field-name="userLoginId" value="system"/>
+                                </entity-one>
+                                <set field="updTask.userLogin" from-field="userLogin"/>
+                                <else>
+                                    <set field="updTask.userLogin" from-field="userLogin"/>
+                                </else>
+                            </if-has-permission>
+                            <call-service service-name="updateWorkEffort" in-map-name="updTask"/>
+                            <else>
+                                <set field="parameters.statusId" from-field="custRequest.statusId"/>
+                                <property-to-field resource="ProjectMgrUiLabels" property="cannotCancelledRequest" field-name="errorMessage"/>
+                                <field-to-result field-name="errorMessage"/>
+                                <set field="isShowEvent" value="N"/>
+                            </else>
+                        </if-empty>
+                    </iterate>
+                </if-not-empty>
+                <else>
+                    <set field="custRequest.statusId" from-field="parameters.statusId"/>
+                </else>
+            </if-compare>
             <!-- save the changed status in the history -->
-            <set field="custRequest.statusId" from-field="parameters.statusId"/>
             <set-service-fields to-map-name="statusMap" service-name="createCustRequestStatus" map-name="custRequest"/>
             <call-service service-name="createCustRequestStatus" in-map-name="statusMap"/>
+            <if-not-empty field="isShowEvent">
+                <clear-field field-name="successMessage"/>
+            </if-not-empty>
         </if-compare-field>
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="custRequest.lastModifiedDate"/>

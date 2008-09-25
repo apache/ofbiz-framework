@@ -1283,4 +1283,7 @@
         <value xml:lang="fr">Heures non facturées</value>
         <value xml:lang="zh">没记账工时</value>
     </property>
+    <property key="cannotCancelledRequest">
+        <value xml:lang="en">Can not cancel request, the request is already being implemented.</value>
+    </property>
 </resource>

@@ -396,4 +396,9 @@
             <link target="${my}StatusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
         </menu-item>
     </menu>
+    <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
+        <menu-item name="cancelledRequest" title="Cancel request" >
+            <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
+        </menu-item>
+    </menu>
 </menus>
