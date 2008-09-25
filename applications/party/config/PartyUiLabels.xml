@@ -180,6 +180,9 @@
         <value xml:lang="en">Add Related Contact</value>
         <value xml:lang="fr">Ajouter un contact associé</value>
     </property>
+    <property key="AppliedPayments">
+        <value xml:lang="en">Applied payments to payments</value>
+    </property>
     <property key="Description">
         <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
@@ -1248,6 +1251,15 @@
         <value xml:lang="ru">Лет работы в организации</value>
         <value xml:lang="th">ปีกับผู้ว่าจ้าง</value>
         <value xml:lang="zh">年为雇主</value>
+    </property>
+    <property key="InvoicesNotApplied">
+        <value xml:lang="en">Invoices not yet (fully) applied</value>
+    </property>
+    <property key="InvoicesOtherParties">
+        <value xml:lang="en">Invoices of other parties paid by payments from</value>
+    </property>
+    <property key="InvoicesPayments">
+        <value xml:lang="en">Invoices Payments</value>
     </property>
     <property key="IsA"><!-- Peter 'is a' employee of company B -->
         <value xml:lang="en">is A</value>
@@ -3805,6 +3817,9 @@
         <value xml:lang="ru">Тип события</value>
         <value xml:lang="th">ประเภทผลที่ได้</value>
         <value xml:lang="zh">事件类型</value>
+    </property>
+    <property key="PartyFinancialSummary">
+        <value xml:lang="en">Totals for Company:</value>
     </property>
     <property key="PartyFindCommunicationEvents">
         <value xml:lang="de">Suche Kommunikationsereignis</value>
@@ -7447,6 +7462,9 @@
         <value xml:lang="fr">Erreur sécurité: pour exécuter removeCommunicationEventRole vous devez avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN</value>
         <value xml:lang="pt_PT">Erro de Segurança: para correr a função de Comunicação de Remoção de Acontecimentos é necessário obter o PARTYMGR_DELETE ou permissão de PARTYMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ในการย้ายสถานะผลการติดต่อ คุณต้องได้รับอนุญาตจาก  PARTYMGR_DELETE หรือ PARTYMGR_ADMIN ก่อน</value>
+    </property>
+    <property key="PaymentsNotApplied">
+        <value xml:lang="en">Payments not yet (fully) applied</value>
     </property>
     <property key="commeventservices.communication_event_from_contact_mech_must_be_email">
         <value xml:lang="de">FEHLER: Kommunikationsereignis muss ein "Kontaktmechanismus von" besitzen das ein E-Mail als Kommunikationereignis ID ist</value>
