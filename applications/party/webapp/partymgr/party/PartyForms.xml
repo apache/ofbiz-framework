@@ -816,7 +816,7 @@ under the License.
         <field name="effectiveDate"><display/></field>
         <field name="amount" widget-area-style="tabletextright"><display/></field>
         <field name="applied" widget-area-style="tabletextright"><display/></field>
-        <field name="toPaymentId"><hyperlink target="paymentOverview?paymentId=${paymentId}" description="${toPaymentId}"/></field>
+        <field name="toPaymentId"><hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="${toPaymentId}" target-type="inter-app"/></field>
         <field name="toEffectiveDate"><display/></field>
         <field name="toAmount" widget-area-style="tabletextright"><display/></field>
     </form>

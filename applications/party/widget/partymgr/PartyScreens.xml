@@ -983,7 +983,7 @@ under the License.
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="h1" text="Financial History"/></container>
-                        <screenlet title="${uiLabelMap.Invoices paid by payments}" navigation-form-name="Invoices">
+                        <screenlet title="${uiLabelMap.InvoicesPayments}" navigation-form-name="Invoices">
                             <include-form name="partyFinancialHistoryInvoices" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                         </screenlet>
                         <section>
@@ -993,8 +993,8 @@ under the License.
                                 </not>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.Invoices of other parties paid by payments from }${partyId}" navigation-form-name="PaymentsO">
-                                <include-form name="partyFinancialHistoryPaymentsO" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                <screenlet title="${uiLabelMap.InvoicesOtherParties}" navigation-form-name="partyFinancialHistoryPayments">
+                                    <include-form name="partyFinancialHistoryPaymentsO" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -1005,9 +1005,8 @@ under the License.
                                 </not>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.Applied payments to payments" navigation-form-name="Payments">
-                                <container><label style="head1" text="Applied payments to payments"/></container>
-                                <include-form name="partyFinancialHistoryPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                <screenlet title="${uiLabelMap.AppliedPayments}" navigation-form-name="partyFinancialHistoryPayments">
+                                    <include-form name="partyFinancialHistoryPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -1018,8 +1017,8 @@ under the License.
                                 </not>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.Invoices not yet (fully) applied}" navigation-form-name="InvoicesN">
-                                <include-form name="partyFinancialHistoryInvoicesN" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                <screenlet title="${uiLabelMap.InvoicesNotApplied}" navigation-form-name="partyFinancialHistoryInvoicesN">
+                                    <include-form name="partyFinancialHistoryInvoicesN" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -1030,13 +1029,13 @@ under the License.
                                 </not>
                             </condition>
                             <widgets>
-                                <screenlet title="${uiLabelMap.Payments not yet (fully) applied}" navigation-form-name="PaymentsN">
-                                <include-form name="partyFinancialHistoryPaymentsN" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                <screenlet title="${uiLabelMap.PaymentsNotApplied}" navigation-form-name="partyFinancialHistoryPaymentsN">
+                                    <include-form name="partyFinancialHistoryPaymentsN" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                 </screenlet>
                             </widgets>
                         </section>
-                        <screenlet title="${uiLabelMap.Totals for Company:}${organizationPartyId}" navigation-form-name="Summary">
-                        <include-form name="partyFinancialSummary" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        <screenlet title="${uiLabelMap.PartyFinancialSummary}${organizationPartyId}" navigation-form-name="partyFinancialSummary">
+                            <include-form name="partyFinancialSummary" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                         </screenlet>    
                     </decorator-section>
                 </decorator-screen>
