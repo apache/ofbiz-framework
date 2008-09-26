@@ -295,7 +295,10 @@ under the License.
                 <entity-condition list-name="custRequestsCompleted" entity-name="CustRequestInfoAndWorkEffortAndPartyRel">
                     <condition-list combine="and">
                         <condition-expr field-name="fromPartyId" operator="equals" value="${userLogin.partyId}"/>
-                        <condition-expr field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_COMPLETED"/>
+                            <condition-expr field-name="statusId" operator="equals" value="CRQ_CANCELLED"/>
+                        </condition-list>
                     </condition-list>
                     <order-by field-name="custRequestDate"/>
                 </entity-condition>

@@ -179,6 +179,8 @@ under the License.
     <form name="EditCustRequest" extends="EditCustRequest" extends-resource="component://projectmgr/widget/forms/RequestForms.xml">
         <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}"><hidden value="${userLogin.partyId}"/></field>
         <field name="custRequestDate"><ignored/></field>
+        <field name="childWorkEffortId"><ignored/></field>
+        <field name="partyId"><ignored/></field>
     </form>
 
     <form name="ListInvoices" type="list" separate-columns="true" paginate-target="listInvoices" list-name="invoices"
