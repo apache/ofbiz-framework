@@ -468,13 +468,14 @@
         <first-from-list entry-name="status" list-name="statusses"/>
         <set field="highInfo.currentStatusId" from-field="status.statusId"/>
         
+        <!-- make sure these statusvalues do not influence the total status if there are other active ones -->
         <if>
             <condition>
                 <and>
                     <or>
                         <if-compare field="highInfo.currentStatusId" value="PTS_COMPLETED" operator="equals"/>
                         <if-compare field="highInfo.currentStatusId" value="PTS_ON_HOLD" operator="equals"/>
-                    </or>
+                        <if-compare field="highInfo.currentStatusId" value="PTS_CANCELLED" operator="equals"/>                    </or>
                     <not>
                         <if-empty field="allTaskStatus"/>
                     </not>
