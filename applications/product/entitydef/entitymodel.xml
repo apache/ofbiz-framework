@@ -4422,4 +4422,27 @@ under the License.
       <field name="description" type="description"></field>
       <prim-key field="supplierRatingTypeId"/>
     </entity>
+  
+  <view-entity entity-name="ProductFacilityAndPostalAddress" 
+        package-name="org.ofbiz.product.product" 
+        title="Product Facility And Contactmech And Postal Address View Entity, to be able to list products by geographic location">
+    <member-entity entity-alias="PDFT" entity-name="ProductFacility"/>
+    <member-entity entity-alias="FTCT" entity-name="FacilityContactMech"/>
+    <member-entity entity-alias="CT" entity-name="ContactMech"/>
+    <member-entity entity-alias="PTA" entity-name="PostalAddress"/>
+    <alias-all entity-alias="PDFT"/>
+    <alias-all entity-alias="FTCT"/>
+    <alias-all entity-alias="CT"/>
+    <alias-all entity-alias="PTA"/>
+    <view-link entity-alias="PDFT" rel-entity-alias="FTCT">
+      <key-map field-name="facilityId"/>
+    </view-link>
+    <view-link entity-alias="FTCT" rel-entity-alias="CT">
+      <key-map field-name="contactMechId"/>
+    </view-link>
+    <view-link entity-alias="CT" rel-entity-alias="PTA">
+      <key-map field-name="contactMechId"/>
+    </view-link>
+  </view-entity>
+  
 </entitymodel>
