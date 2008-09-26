@@ -182,7 +182,6 @@
     </property>
     <property key="AppliedPayments">
         <value xml:lang="en">Applied payments to payments</value>
-        <value xml:lang="fr"></value>
     </property>
     <property key="Description">
         <value xml:lang="de">Beschreibung</value>
