@@ -61,6 +61,23 @@ under the License.
                 <option key="1"/>
             </drop-down>
         </field>
+        <field name="workEffortName"><hidden value="${custRequestName}"/></field>
+        <field name="workEffortId"><hidden value="${custRequestId}"/></field>
+        <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
+        <field name="workEffortTypeId"><hidden value="TASK"/></field>
+        <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
+        <field name="childWorkEffortId" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrProjectAndPhaseName}*">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="WorkEffortAndChild" description="${workEffortName} -- ${childWorkEffortName}">
+                    <entity-constraint name="workEffortTypeId" value="PROJECT"/>    
+                    <entity-constraint name="childWorkEffortTypeId" value="PHASE"/>    
+                    <entity-order-by field-name="workEffortName"/>
+                    <entity-order-by field-name="childWorkEffortName"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId" parameter-name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="roleTypeId"><hidden value="PROJECT_TEAM"/></field>
         <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><date-time type="timestamp"/></field>
         <field name="responseRequiredDate"><date-time type="timestamp"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
@@ -145,7 +162,7 @@ under the License.
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}" key-field-name="partyId">
                 <sub-hyperlink target="viewprofile?partyId=${fromPartyId}" description="[${fromPartyId}]"/>
             </display-entity>
-        </field>
+        </field>      
         <field name="statusId">
             <display-entity also-hidden="false" entity-name="StatusItem"/>
         </field>
