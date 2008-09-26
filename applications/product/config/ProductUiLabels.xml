@@ -4829,7 +4829,7 @@
     </property>
     <property key="PageTitleEditProductStoreVendorPayments">
         <value xml:lang="en">Edit Product Store Vendor Payments</value>
-        <value xml:lang="fr">Éditer paiements d'un vendeur du centre de profit</value>
+        <value xml:lang="fr">Éditer les paiements d'un vendeur du centre de profit</value>
         <value xml:lang="it">Aggiorna Pagamenti dei Fornitori Negozio</value>
         <value xml:lang="th">แก้ไขวิธีการชำระคลังสินค้าของผู้จำหน่าย</value>
     </property>
@@ -5018,7 +5018,7 @@
     <property key="PageTitleFindFacilityLocation">
         <value xml:lang="en">Find Facility Locations for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Buscar Sitio de Almacén</value>
-        <value xml:lang="fr">Rechercher l'emplacement d'un stock pour ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="fr">Rechercher l'emplacement d'un lieu de stockage pour ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="it">Ricerca Posizione Stabilimento</value>
         <value xml:lang="ro">Cauta Pozitie Compartiment</value>
         <value xml:lang="ru">Найти местонахождение объекта</value>
@@ -5027,7 +5027,7 @@
     </property>
     <property key="PageTitleFindFacilityPhysicalInventory">
         <value xml:lang="en">Find Facility Physical Inventory</value>
-        <value xml:lang="fr">Rechercher un inventaire physique</value>
+        <value xml:lang="fr">Rechercher un stock physique</value>
         <value xml:lang="it">Ricerca Stabilimento Inventario Fisico</value>
         <value xml:lang="ru">Найти запись по результатам инвентаризации</value>
         <value xml:lang="th">ค้นหาคลังสินค้าสินค้าคงเหลือทั่วไป</value>
@@ -5035,7 +5035,7 @@
     <property key="PageTitleFindFacilityTransfers">
         <value xml:lang="en">Find Facility Transfers</value>
         <value xml:lang="es">Buscar Transferencias de Almacenes</value>
-        <value xml:lang="fr">Rechercher les transferts entre stocks</value>
+        <value xml:lang="fr">Rechercher les transferts entre lieux de stockages</value>
         <value xml:lang="it">Ricerca Trasferimenti Stabilimento</value>
         <value xml:lang="ro">Cauta Trasferari Compartimente</value>
         <value xml:lang="ru">Найти перемещения по объекту</value>
@@ -5150,7 +5150,7 @@
     </property>
     <property key="PageTitleListProductStoreFinAccountSettings">
         <value xml:lang="en">List Product Store Financial Account Settings</value>
-        <value xml:lang="fr">Liste des attributs des caractéristiques de produit applicables</value>
+        <value xml:lang="fr">Liste des comptes financiers du centre de profit applicables</value>
         <value xml:lang="it">Lista Negozio Configurazione Conti Finanziari</value>
         <value xml:lang="th">การตั้งค่าบัญชีคลังสินค้า</value>
     </property>
@@ -5318,7 +5318,7 @@
     </property>
     <property key="PageTitlePackageShipmentScheduling">
         <value xml:lang="en">Package Shipment Scheduling</value>
-        <value xml:lang="fr">Planification de l'emballage d'expédition</value>
+        <value xml:lang="fr">Planification de l'emballage de l'expédition</value>
         <value xml:lang="it">Schedulazione Spedizione Pacchi</value>
         <value xml:lang="ro">Planificare Expediere Pachete</value>
         <value xml:lang="ru">Планирование поставки мест</value>

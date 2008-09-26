@@ -21,7 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountingAHCElectronicCheck">
         <value xml:lang="en">EFT Account: AHC/Electronic Check</value>
-        <value xml:lang="fr">Compte de transfert de fonds : Transaction de Contrôle de comptabilité/Chèque électronique</value>
+        <value xml:lang="fr">Compte de transfert de fonds électronique : SIT/Chèque électronique</value>
         <value xml:lang="th">บัญชีธนาคาร: AHC/ตรวจสอบระบบอิเล็กทรอนิกส์</value>
     </property>
     <property key="AccountingAccount">

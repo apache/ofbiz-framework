@@ -59,8 +59,8 @@
         <value xml:lang="fr">Mon Profil</value>
     </property>
     <property key="MyCompanyComms">
-        <value xml:lang="en">Company Events</value>
-        <value xml:lang="fr">Evènements de l'entreprise</value>
+        <value xml:lang="en">Company communications</value>
+        <value xml:lang="fr">Communications de l'entreprise</value>
     </property>
     <property key="MyPageAppBar">
         <value xml:lang="en">My Page App Bar</value>

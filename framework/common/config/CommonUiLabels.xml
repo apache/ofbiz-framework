@@ -7524,23 +7524,29 @@
     </property>
     <property key="VisualThemeIdNotFound">
         <value xml:lang="en">Visual Theme ID not found.</value>
+        <value xml:lang="fr">Réf. de charte graphique inconnue.</value>
     </property>
     <property key="VisualThemeInvalidRecord">
         <value xml:lang="en">Invalid Visual Theme resource record found: visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
+        <value xml:lang="fr">Ressource de charte graphique trouvée non valable : visualThemeId = ${visualThemeId}, resourceTypeEnumId = ${resourceTypeEnumId}.</value>
     </property>
     <property key="VisualThemes">
         <value xml:lang="en">Visual Themes</value>
+        <value xml:lang="fr">Charte graphique</value>
         <value xml:lang="it">Tema grafico</value>
     </property>
     <property key="VisualThemeNoScreenshots">
         <value xml:lang="en">No Screenshots</value>
+        <value xml:lang="fr">Aucune copie d'écran</value>
         <value xml:lang="it">Anteprima non disponibile</value>
     </property>
     <property key="VisualThemeResourcesNotFound">
         <value xml:lang="en">Visual Theme resources not found.</value>
+        <value xml:lang="fr">Réf. de ressource de charte graphique inconnue.</value>
     </property>
     <property key="VisualThemeSelected">
         <value xml:lang="en">Selected Visual Theme</value>
+        <value xml:lang="fr">Choisissez une charte graphique</value>
         <value xml:lang="it">Tema grafico selezionato</value>
     </property>
     <property key="WebTools">
