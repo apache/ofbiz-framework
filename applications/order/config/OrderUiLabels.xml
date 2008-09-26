@@ -78,14 +78,14 @@
         <value xml:lang="de">Firmenname des Kontos</value>
         <value xml:lang="en">Company Name Account</value>
         <value xml:lang="es">Nombre de compañía de la cuenta</value>
-        <value xml:lang="fr">Nom de compagnie du compte</value>
+        <value xml:lang="fr">Nom du compte de l'entreprise</value>
         <value xml:lang="th">ชื่อบัญชีบริษัท</value>
     </property>
     <property key="AccountingCompanyNameCard">
         <value xml:lang="de">Firmenname auf Karte</value>
         <value xml:lang="en">Company Name Card</value>
         <value xml:lang="es">Nombre de compañía de la tarjeta</value>
-        <value xml:lang="fr">Nom de compagnie de la carte</value>
+        <value xml:lang="fr">Nom de la carte de l'entreprise</value>
         <value xml:lang="th">ชื่อบริษัท (บัตร)</value>
     </property>
     <property key="AccountingCreditCard">

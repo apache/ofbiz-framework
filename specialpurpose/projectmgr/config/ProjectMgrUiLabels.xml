@@ -1285,5 +1285,6 @@
     </property>
     <property key="cannotCancelledRequest">
         <value xml:lang="en">Can not cancel request, the request is already being implemented.</value>
+        <value xml:lang="fr">Impossible d'annuler cette demande, elle est déjà implémentée</value>
     </property>
 </resource>
