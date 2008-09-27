@@ -20,7 +20,19 @@ under the License.
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
-    <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent">
+    
+    
+    <simple-method method-name="createCommunicationEventWithPermission" short-description="Create a CommunicationEvent with permission check">
+        <set field="parameters.permission" value="true"/>
+        <call-simple-method method-name="createCommunicationEvent"/>
+    </simple-method>
+        
+    <simple-method method-name="createCommunicationEventWithoutPermission" short-description="Create a CommunicationEvent without permission check">
+        <set field="parameters.permission" value="false"/>
+        <call-simple-method method-name="createCommunicationEvent"/>
+    </simple-method>
+        
+    <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent with or w/o permission check">
         <if-not-empty field="parameters.parentCommEventId">
             <entity-and list-name="roles" entity-name="CommunicationEventRole">
                 <field-map field-name="communicationEventId" env-name="parameters.parentCommEventId"/>
@@ -92,7 +104,12 @@ under the License.
             <set field="commRole.roleTypeId" value="ADDRESSEE" />
             <set field="commRole.contactMechId" from-field="newEntity.contactMechIdTo" />
             <set field="commRole.statusId" value="COM_ROLE_CREATED" />
-            <call-service service-name="createCommunicationEventRole" in-map-name="commRole"/>
+            <if-compare field="parameters.permission" value="true" operator="equals">
+                <call-service service-name="createCommunicationEventRole" in-map-name="commRole"/>
+                <else>
+                    <call-service service-name="createCommunicationEventRoleWithoutPermission" in-map-name="commRole"/>
+                </else>
+            </if-compare>
         </if-not-empty>
     
         <!-- partyIdFrom role-->
@@ -101,10 +118,16 @@ under the License.
             <set field="commRole.partyId" from-field="newEntity.partyIdFrom" />
             <set field="commRole.roleTypeId" value="ORIGINATOR" />
             <set field="commRole.contactMechId" from-field="newEntity.contactMechIdFrom" />
-            <set field="commRole.statusId" value="COM_ROLE_COMPLETED" />
-            <call-service service-name="createCommunicationEventRole" in-map-name="commRole"/>
+            <set field="commRole.statusId" value="COM_ROLE_COMPLETED" />            
+            <if-compare field="parameters.permission" value="true" operator="equals">
+                <call-service service-name="createCommunicationEventRole" in-map-name="commRole"/>
+                <else>
+                    <call-service service-name="createCommunicationEventRoleWithoutPermission" in-map-name="commRole"/>
+                </else>
+            </if-compare>
         </if-not-empty>
     </simple-method>
+
     <simple-method method-name="updateCommunicationEvent"
         short-description="Update a CommunicationEvent">
         <entity-one entity-name="CommunicationEvent" value-name="event" />

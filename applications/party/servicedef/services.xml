@@ -647,16 +647,27 @@ under the License.
         <attribute name="statusId" type="String" mode="IN" optional="false"/>
         <attribute name="oldStatusId" type="String" mode="OUT" optional="true"/>
     </service>
-    <service name="createCommunicationEvent" engine="simple"
-            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEvent" auth="true">
-        <description>Create a Communication Event</description>
-        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
+
+    <service name="createCommunicationEventInterface" engine="interface" location="" invoke="">
+        <description>Create a Communication Event with or w/o permission check</description>
         <auto-attributes entity-name="CommunicationEvent" include="nonpk" mode="IN" optional="true"/>
         <auto-attributes entity-name="CommunicationEvent" include="pk" mode="INOUT" optional="true"/>
         <attribute name="productId" type="String" mode="IN" optional="true"/>
         <attribute name="orderId" type="String" mode="IN" optional="true"/>
         <attribute name="custRequestId" type="String" mode="IN" optional="true"/>
+    </service>    
+    <service name="createCommunicationEvent" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithPermission" auth="true">
+        <description>Create a Communication Event with permission check</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
+        <implements service="createCommunicationEventInterface"/>
     </service>
+    <service name="createCommunicationEventWithoutPermission" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventWithoutPermission" auth="true">
+        <description>Create a Communication Event without permission check</description>
+        <implements service="createCommunicationEventInterface"/>
+    </service>
+
     <service name="updateCommunicationEvent" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="updateCommunicationEvent" auth="true">
         <description>Update a Communication Event</description>
@@ -699,12 +710,21 @@ under the License.
         <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="CommunicationEventPurpose" include="pk" mode="IN" optional="false"/>
     </service>
-    <service name="createCommunicationEventRole" engine="simple"
-            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventRole" auth="true">
-        <description>Create a Communication Event Role</description>
-        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
+    <service name="createCommunicationEventRoleInterface" engine="interface" location="" invoke="">
+        <description>Create a Communication Event Role with or w/o permission check</description>
         <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CommunicationEventRole" include="nonpk" mode="IN" optional="true"/>
+    </service>    
+    <service name="createCommunicationEventRole" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventRole" auth="true">
+        <description>Create a Communication Event Role with permission check</description>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
+        <implements service="createCommunicationEventRoleInterface"/>
+    </service>
+    <service name="createCommunicationEventRoleWithoutPermission" engine="simple"
+            location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventRole" auth="true">
+        <description>Create a Communication Event Role without permission check</description>
+        <implements service="createCommunicationEventRoleInterface"/>
     </service>
     <service name="updateCommunicationEventRole" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="updateCommunicationEventRole" auth="true">
