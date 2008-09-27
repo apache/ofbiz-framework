@@ -696,13 +696,13 @@ under the License.
     <service name="removeCommunicationEventPurpose" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventPurpose" auth="true">
         <description>Remove a Communication Event Purpose</description>
-        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="CommunicationEventPurpose" include="pk" mode="IN" optional="false"/>
     </service>
     <service name="createCommunicationEventRole" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="createCommunicationEventRole" auth="true">
         <description>Create a Communication Event Role</description>
-        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="CREATE"/>
         <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
         <auto-attributes entity-name="CommunicationEventRole" include="nonpk" mode="IN" optional="true"/>
     </service>
@@ -716,7 +716,7 @@ under the License.
     <service name="removeCommunicationEventRole" engine="simple"
             location="org/ofbiz/party/communication/CommunicationEventServices.xml" invoke="removeCommunicationEventRole" auth="true">
         <description>Remove a Communication Event Role</description>
-        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="UPDATE"/>
+        <permission-service service-name="partyCommunicationEventPermissionCheck" main-action="DELETE"/>
         <auto-attributes entity-name="CommunicationEventRole" include="pk" mode="IN" optional="false"/>
         <attribute name="deleteCommEventIfLast" mode="IN" type="String" optional="true"/><!-- "Y" for true -->
         <attribute name="delContentDataResource" type="String" mode="IN" optional="true"/>
