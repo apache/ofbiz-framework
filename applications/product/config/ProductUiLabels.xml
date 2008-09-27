@@ -2741,7 +2741,7 @@
     </property>
     <property key="FormFieldTitle_prorateShipping">
         <value xml:lang="en">Prorate Shipping</value>
-        <value xml:lang="fr">Répartir les expéditions</value>
+        <value xml:lang="fr">Coût des expéditions au prorata</value>
         <value xml:lang="it">Ripartire Spedizioni</value>
         <value xml:lang="ro">Repartizeaza Expedieri</value>
         <value xml:lang="ru">Пропорциональная отправка</value>
@@ -9400,7 +9400,7 @@
     <property key="ProductFacilityTypeId">
         <value xml:lang="en">Facility Type ID</value>
         <value xml:lang="es">Código de tipo de Almacén</value>
-        <value xml:lang="fr">Réf. Type de lieu de stockage</value>
+        <value xml:lang="fr">Type de lieu de stockage</value>
         <value xml:lang="it">Tipo Stabilimento</value>
         <value xml:lang="ro">Tip Compartiment ID</value>
         <value xml:lang="ru">Код типа объектов</value>
