@@ -22,7 +22,7 @@ under the License.
         <h3>${uiLabelMap.CommonLanguageTitle}</h3>
     </div>
     <div class="screenlet-body" style="text-align: center;">
-        <form method="post" name="chooseLanguage" action="<@ofbizUrl>setSessionLocale</@ofbizUrl>" style="margin: 0;">
+        <form method="post" name="chooseLanguage" action="<@ofbizUrl>SetSessionLocale</@ofbizUrl>" style="margin: 0;">
           <select name="newLocale" style="width:95%" onchange="submit()">
             <#assign availableLocales = Static["org.ofbiz.base.util.UtilMisc"].availableLocales()/>
             <#list availableLocales as availableLocale>
