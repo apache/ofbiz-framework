@@ -1222,7 +1222,7 @@ under the License.
     </request-map>
     <request-map uri="sendmessage">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createCommunicationEvent"/>
+        <event type="service" invoke="createCommunicationEventWithoutPermission"/>
         <response name="success" type="view" value="messagelist"/>
         <response name="error" type="view" value="messagecreate"/>
     </request-map>
@@ -1233,7 +1233,7 @@ under the License.
     </request-map>
     <request-map uri="contactsubmit">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createCommunicationEvent"/>
+        <event type="service" invoke="createCommunicationEventWithoutPermission"/>
         <response name="success" type="view" value="contactus"/>
         <response name="error" type="view" value="contactus"/>
     </request-map>
