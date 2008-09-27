@@ -858,7 +858,7 @@
     <property key="FormFieldTitle_caContentIdTo">
         <value xml:lang="ar">المحتوى إلى</value>
         <value xml:lang="en">Content Id To</value>
-        <value xml:lang="fr">réf. de contenu vers</value>
+        <value xml:lang="fr">Réf.de contenu vers</value>
         <value xml:lang="it">Contenuto A</value>
         <value xml:lang="ro">Continut A</value>
         <value xml:lang="th">รหัสหัวข้อ</value>
@@ -1044,7 +1044,7 @@
     <property key="FormFieldTitle_contentRevisionSeqId">
         <value xml:lang="ar">تعريف تسلسل مراجعة المحتوى</value>
         <value xml:lang="en">Content Revision Seq Id</value>
-        <value xml:lang="fr">Réf. contenu de révision séq</value>
+        <value xml:lang="fr">Réf. séq. de révision de contenu</value>
         <value xml:lang="it">Numero Sequenza Revisione Contenuto</value>
         <value xml:lang="ro">Numar Secventa Reviziune Continut</value>
         <value xml:lang="th">รหัสหัวข้อที่ปรับปรุง</value>
@@ -1062,7 +1062,7 @@
     <property key="FormFieldTitle_contentTypeId">
         <value xml:lang="ar"> تعريف نوع المحتوى</value>
         <value xml:lang="en">Content Type Id</value>
-        <value xml:lang="fr">Réf. type de contenu</value>
+        <value xml:lang="fr">Réf. de type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
         <value xml:lang="ro">Tip Continut</value>
         <value xml:lang="th">รหัสประเภทหัวข้อ</value>
@@ -1071,7 +1071,7 @@
     <property key="FormFieldTitle_cookieDomain">
         <value xml:lang="ar">مجال الكوكي</value>
         <value xml:lang="en">Domain Cookie</value>
-        <value xml:lang="fr">Domaine de cookie</value>
+        <value xml:lang="fr">Cookie de domaine</value>
         <value xml:lang="it">Dominio Cookie</value>
         <value xml:lang="ro">Domeniu Cookie</value>
         <value xml:lang="th">ขอบเขตบุคคล</value>
@@ -1107,7 +1107,7 @@
     <property key="FormFieldTitle_createdByUserLogin">
         <value xml:lang="ar">استحدث من طرف المستخدم</value>
         <value xml:lang="en">Created By User Login</value>
-        <value xml:lang="fr">Créer par login d'utilisateur</value>
+        <value xml:lang="fr">Créé par l'identifiant</value>
         <value xml:lang="it">Creato Dall'Utente</value>
         <value xml:lang="ro">Creiat De Utilizator</value>
         <value xml:lang="th">สร้างโดยผู้ลงชื่อเข้าใช้ระบบ</value>
@@ -1116,7 +1116,7 @@
     <property key="FormFieldTitle_createdDate">
         <value xml:lang="ar">تاريخ الإستحداث</value>
         <value xml:lang="en">Created Date</value>
-        <value xml:lang="fr">Créer date</value>
+        <value xml:lang="fr">Date de création</value>
         <value xml:lang="it">Data Creazione</value>
         <value xml:lang="ro">Data Creatie</value>
         <value xml:lang="th">วันที่สร้าง</value>
@@ -1125,7 +1125,7 @@
     <property key="FormFieldTitle_dataCategoryId">
         <value xml:lang="ar">تعريف فئة المعلومات</value>
         <value xml:lang="en">Data Category Id</value>
-        <value xml:lang="fr">Réf. catégorie de données</value>
+        <value xml:lang="fr">Réf. de catégorie de données</value>
         <value xml:lang="it">Categoria Dati</value>
         <value xml:lang="ro">Categorie Date</value>
         <value xml:lang="th">รหัสประเภทข้อมูล</value>
@@ -1134,7 +1134,7 @@
     <property key="FormFieldTitle_dataResourceId">
         <value xml:lang="ar">تعريف مورد المعلومات</value>
         <value xml:lang="en">Data Resource Id</value>
-        <value xml:lang="fr">Réf. ressource de données</value>
+        <value xml:lang="fr">Réf. de ressource de données</value>
         <value xml:lang="it">Risorsa Dati</value>
         <value xml:lang="ro">Resurse Date</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล</value>
@@ -1161,7 +1161,7 @@
     <property key="FormFieldTitle_dataResourceTypeId">
         <value xml:lang="ar">تعريف نوع  مورد المعلومات</value>
         <value xml:lang="en">Data Resource Type Id</value>
-        <value xml:lang="fr">Réf. type de ressource de données</value>
+        <value xml:lang="fr">Réf. de type de ressource de données</value>
         <value xml:lang="it">Tipo Risorsa Dati</value>
         <value xml:lang="ro">Tip Resurse Date</value>
         <value xml:lang="th">รหัสประเภทแหล่งที่มาของข้อมูล</value>
@@ -1170,7 +1170,7 @@
     <property key="FormFieldTitle_dataSourceId">
         <value xml:lang="ar">تعريف مصدر المعلومات</value>
         <value xml:lang="en">Data Source Id</value>
-        <value xml:lang="fr">Réf. source de données</value>
+        <value xml:lang="fr">Réf. de source de données</value>
         <value xml:lang="it">Risorsa Dati</value>
         <value xml:lang="ro">Risursa Date</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล</value>
@@ -1179,7 +1179,7 @@
     <property key="FormFieldTitle_dataTemplateTypeId">
         <value xml:lang="ar">تعريف نوع نموذج المعلومات</value>
         <value xml:lang="en">Data Template Type Id</value>
-        <value xml:lang="fr">Réf. type modèle de données</value>
+        <value xml:lang="fr">Réf. de type de modèle de données</value>
         <value xml:lang="it">Tipo Template Dati</value>
         <value xml:lang="ro">Tip Template Date</value>
         <value xml:lang="th">รหัสประเภท Template</value>
@@ -1197,7 +1197,6 @@
     <property key="CommonDescription">
         <value xml:lang="ar">وصف</value>
         <value xml:lang="en">Description</value>
-        <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="th">รายละเอียด</value>
@@ -1206,7 +1205,7 @@
     <property key="FormFieldTitle_displayFailCond">
         <value xml:lang="ar">عرض ظروف الإخفاق</value>
         <value xml:lang="en">Display Fail Cond</value>
-        <value xml:lang="fr">Afficher état d'échec</value>
+        <value xml:lang="fr">Afficher condition(s) d'échec</value>
         <value xml:lang="it">Visualizza Condizione Fallita</value>
         <value xml:lang="ro">Vizualizeaza Conditie Falita</value>
         <value xml:lang="th">แสดงข้อผิดพลาด</value>
@@ -1215,7 +1214,7 @@
     <property key="FormFieldTitle_drCharacterSetId">
         <value xml:lang="ar">تعريف مجموعة الحروف</value>
         <value xml:lang="en">Character Set Id</value>
-        <value xml:lang="fr">Réf.jeu de caractères</value>
+        <value xml:lang="fr">Réf. de jeu de caractères</value>
         <value xml:lang="it">Set di Caratteri</value>
         <value xml:lang="ro">Set de Caractere</value>
         <value xml:lang="th">รหัสเซ็ตลักษณะ</value>
@@ -1233,7 +1232,7 @@
     <property key="FormFieldTitle_drDataResourceTypeId">
         <value xml:lang="ar">تعريف نوع  مورد المعلومات</value>
         <value xml:lang="en">Dr Data Resource Type Id</value>
-        <value xml:lang="fr">Réf. type de ressource de données Dr</value>
+        <value xml:lang="fr">Réf. de type de ressource de données (Dr)</value>
         <value xml:lang="it">Tipo Risorsa Dati</value>
         <value xml:lang="ro">Tip Resurse Date</value>
         <value xml:lang="th">รหัสประเภทแหล่งที่มา</value>
@@ -1251,7 +1250,7 @@
     <property key="FormFieldTitle_drDataTemplateTypeId">
         <value xml:lang="ar">تعريف نوع نموذج المعلومات</value>
         <value xml:lang="en">Dr Data Template Type Id</value>
-        <value xml:lang="fr">réf. type de modèle de données Dr</value>
+        <value xml:lang="fr">Réf. de type de modèle de données (Dr)</value>
         <value xml:lang="it">Tipo Template Dati</value>
         <value xml:lang="ro">Tip Template Date</value>
         <value xml:lang="th">รหัสประเภท Template ของข้อมูล</value>
@@ -1260,7 +1259,7 @@
     <property key="FormFieldTitle_drLocaleString">
         <value xml:lang="ar">سلسلة حروف محلية</value>
         <value xml:lang="en">Locale String</value>
-        <value xml:lang="fr">Corde locale</value>
+        <value xml:lang="fr">Langue et région</value>
         <value xml:lang="it">Stringa Locale</value>
         <value xml:lang="ro">Sir Local</value>
         <value xml:lang="th">เส้นทาง</value>
@@ -1269,7 +1268,7 @@
     <property key="FormFieldTitle_drMimeTypeId">
         <value xml:lang="ar">تعريف نوع  Mime</value>
         <value xml:lang="en">Dr Mime Type Id</value>
-        <value xml:lang="fr">Réf. type mime Dr</value>
+        <value xml:lang="fr">Réf. de type mime (Dr)</value>
         <value xml:lang="it">Tipo Mime</value>
         <value xml:lang="ro">Tip Mime</value>
         <value xml:lang="th">รหัสประเภทที่เลียนแบบ</value>
@@ -1293,7 +1292,7 @@
     <property key="FormFieldTitle_durationUomId">
         <value xml:lang="ar">تعريف وحدة قياس المدة</value>
         <value xml:lang="en">Duration Uom Id</value>
-        <value xml:lang="fr">Réf. durée Uom</value>
+        <value xml:lang="fr">Réf. de durée Uom</value>
         <value xml:lang="it">Udm Durata</value>
         <value xml:lang="ro">Udm Durata</value>
         <value xml:lang="th">รหัสช่วงเวลา Uom</value>
@@ -1320,7 +1319,7 @@
     <property key="FormFieldTitle_fileExtensionId">
         <value xml:lang="ar">تعريف تتمة الملف</value>
         <value xml:lang="en">File Extension Id</value>
-        <value xml:lang="fr">Réf. extension de fichier</value>
+        <value xml:lang="fr">Réf. d'extension de fichier</value>
         <value xml:lang="it">Estensione File</value>
         <value xml:lang="ro">Extensie Fisier</value>
         <value xml:lang="th">รหัสไฟล์ที่เพิ่ม</value>
@@ -1338,7 +1337,7 @@
     <property key="FormFieldTitle_forumGroupDescription">
         <value xml:lang="ar">وصف مجموعة المنتدى</value>
         <value xml:lang="en">Forum Group Description</value>
-        <value xml:lang="fr">Description groupe du forum</value>
+        <value xml:lang="fr">Description de groupe de forum</value>
         <value xml:lang="it">Descrizione Gruppo Forum</value>
         <value xml:lang="ro">Descriere Grup Forum</value>
         <value xml:lang="th">รายละเอียดกลุ่มความคิดเห็น</value>
@@ -1347,7 +1346,7 @@
     <property key="FormFieldTitle_forumGroupName">
         <value xml:lang="ar">إسم مجموعة المنتدى</value>
         <value xml:lang="en">Forum Group Name</value>
-        <value xml:lang="fr">Nom de groupe du forum</value>
+        <value xml:lang="fr">Nom de groupe de forum</value>
         <value xml:lang="it">Nome Gruppo Forum</value>
         <value xml:lang="ro">Nume Grup Forum</value>
         <value xml:lang="th">ชื่อกลุ่มความคิดเห็น</value>
@@ -1356,7 +1355,7 @@
     <property key="FormFieldTitle_forumGroups">
         <value xml:lang="ar">مجموعات المنتدى</value>
         <value xml:lang="en">Forum Groups</value>
-        <value xml:lang="fr">Groupes du forum</value>
+        <value xml:lang="fr">Groupes de forum</value>
         <value xml:lang="it">Gruppi Forum</value>
         <value xml:lang="ro">Grupuri Forum</value>
         <value xml:lang="th">กลุ่มความคิดเห็น</value>
@@ -1401,7 +1400,7 @@
     <property key="FormFieldTitle_fromDate">
         <value xml:lang="ar">إبتداءا من تاريخ و وقت</value>
         <value xml:lang="en">From Date &amp; Time</value>
-        <value xml:lang="fr">Du, de la date &amp; durée </value>
+        <value xml:lang="fr">Date et heure de début</value>
         <value xml:lang="it">Dalla Data e Ora</value>
         <value xml:lang="ro">De la Data si Ora</value>
         <value xml:lang="th">จากวัน เวลา</value>
@@ -1410,7 +1409,7 @@
     <property key="FormFieldTitle_generalFeedback">
         <value xml:lang="ar">ردود عامة</value>
         <value xml:lang="en">General Feedback</value>
-        <value xml:lang="fr">Rétroaction générale</value>
+        <value xml:lang="fr">Remarque générale</value>
         <value xml:lang="it">Ritorno Generale</value>
         <value xml:lang="ro">Return General</value>
         <value xml:lang="th">ผลตอบรับทั่วไป</value>
@@ -1419,7 +1418,7 @@
     <property key="FormFieldTitle_hasTable">
         <value xml:lang="ar">يحوز على جدول</value>
         <value xml:lang="en">Has Table</value>
-        <value xml:lang="fr">Il a le tableau</value>
+        <value xml:lang="fr">A une table</value>
         <value xml:lang="it">Ha Tabella</value>
         <value xml:lang="ro">Are Tabelul</value>
         <value xml:lang="th">มีตาราง</value>
@@ -1428,7 +1427,7 @@
     <property key="FormFieldTitle_hint">
         <value xml:lang="ar">مساعدة</value>
         <value xml:lang="en">Hint</value>
-        <value xml:lang="fr">Conseil</value>
+        <value xml:lang="fr">Indication</value>
         <value xml:lang="it">Suggerimento</value>
         <value xml:lang="ro">Sugeriment</value>
         <value xml:lang="th">ซ่อน</value>
@@ -1437,7 +1436,7 @@
     <property key="FormFieldTitle_httpHost">
         <value xml:lang="ar"> حاوي Http</value>
         <value xml:lang="en">Http Host</value>
-        <value xml:lang="fr">Centre serveur de Http</value>
+        <value xml:lang="fr">Centre serveur HTTP</value>
         <value xml:lang="it">Host Http</value>
         <value xml:lang="ro">Host Http</value>
         <value xml:lang="th">เจ้าของ Http</value>
@@ -1446,7 +1445,7 @@
     <property key="FormFieldTitle_httpPort">
         <value xml:lang="ar">بوابة Http</value>
         <value xml:lang="en">Http Port</value>
-        <value xml:lang="fr">Port de Http</value>
+        <value xml:lang="fr">Port HTTP</value>
         <value xml:lang="it">Porta Http</value>
         <value xml:lang="ro">Poarta Http</value>
         <value xml:lang="zh">Http端口</value>
@@ -1454,7 +1453,7 @@
     <property key="FormFieldTitle_httpsHost">
         <value xml:lang="ar">Https حاوي</value>
         <value xml:lang="en">Https Host</value>
-        <value xml:lang="fr">Centre serveur de Https</value>
+        <value xml:lang="fr">Centre serveur HTTPS</value>
         <value xml:lang="it">Host Https</value>
         <value xml:lang="ro">Host Https</value>
         <value xml:lang="th">เจ้าของ Http</value>
@@ -1463,9 +1462,9 @@
     <property key="FormFieldTitle_httpsPort">
         <value xml:lang="ar">Https بوابة</value>
         <value xml:lang="en">Https Port</value>
-        <value xml:lang="en">Port de Https</value>
-        <value xml:lang="it">Porta Https </value>
-        <value xml:lang="ro">Poarta Https </value>
+        <value xml:lang="fr">Port HTTPS</value>
+        <value xml:lang="it">Porta Https</value>
+        <value xml:lang="ro">Poarta Https</value>
         <value xml:lang="th">Https พอร์ท</value>
         <value xml:lang="zh">Https端口</value>
     </property>
@@ -1508,7 +1507,7 @@
     <property key="FormFieldTitle_instanceOfContentId">
         <value xml:lang="ar">كينونة لتعريف المحتوى</value>
         <value xml:lang="en">Instance Of Content Id</value>
-        <value xml:lang="fr">Réf. exemple de contenu</value>
+        <value xml:lang="fr">Réf. d'exemple de contenu</value>
         <value xml:lang="it">Instanza Del Contenuto</value>
         <value xml:lang="ro">Instanta Continutului</value>
         <value xml:lang="th">ตัวอย่างของรหัสหัวข้อ</value>
@@ -1535,7 +1534,7 @@
     <property key="FormFieldTitle_itemContentId">
         <value xml:lang="ar">تعريف محتوى البند</value>
         <value xml:lang="en">Item Content Id</value>
-        <value xml:lang="fr">Réf. contenu d'article</value>
+        <value xml:lang="fr">Réf. de contenu d'article</value>
         <value xml:lang="it">Numero Riga Contenuto</value>
         <value xml:lang="ro">Numar Linie Continut</value>
         <value xml:lang="th">รหัสหัวข้อสิ่งของ</value>
@@ -1544,7 +1543,7 @@
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
         <value xml:lang="en">Last Modified By User Login</value>
-        <value xml:lang="fr">Dernier login modifié par utilisateur</value>
+        <value xml:lang="fr">Modification en dernier par l'identifiant</value>
         <value xml:lang="it">Ultima Modifica Dell'Utente</value>
         <value xml:lang="ro">Ultima Modificare Utilizator</value>
         <value xml:lang="th">ปรับปรุงครั้งสุดท้ายโดยผู้เข้าใช้ระบบ</value>
@@ -1553,7 +1552,7 @@
     <property key="FormFieldTitle_lastModifiedDate">
         <value xml:lang="ar">تاريخ آخر تغيير</value>
         <value xml:lang="en">Last Modified Date</value>
-        <value xml:lang="fr">Dernière date modifiée</value>
+        <value xml:lang="fr">Dernière date de modification</value>
         <value xml:lang="it">Data Ultima Modifica</value>
         <value xml:lang="ro">Data Ultimei Modificari</value>
         <value xml:lang="th">วันสุดท้ายของการปรับปรุง</value>
@@ -1562,7 +1561,7 @@
     <property key="FormFieldTitle_leftCoordinate">
         <value xml:lang="ar">إحداثيات اليسار</value>
         <value xml:lang="en">Left Coordinate</value>
-        <value xml:lang="fr">Coordonnée de gauche</value>
+        <value xml:lang="fr">Coordonnée gauche</value>
         <value xml:lang="it">Coordinata Sinistra</value>
         <value xml:lang="ro">Coordinata Stanga</value>
         <value xml:lang="th">เท่ากันกับทางซ้าย</value>
@@ -1571,7 +1570,7 @@
     <property key="FormFieldTitle_localeString">
         <value xml:lang="ar">سلسلة حروف محلية</value>
         <value xml:lang="en">Locale String</value>
-        <value xml:lang="fr">Série locale</value>
+        <value xml:lang="fr">Langue et région</value>
         <value xml:lang="it">Stringa Locale</value>
         <value xml:lang="ro">Sir Local</value>
         <value xml:lang="th">ทางที่เกิดเหตุ</value>
@@ -1631,7 +1630,7 @@
     <property key="FormFieldTitle_metaDataPredicateId">
         <value xml:lang="ar">تعريف توقع الميتا معلومات</value>
         <value xml:lang="en">Meta Data Predicate Id</value>
-        <value xml:lang="fr">Réf. attribut de méta-données</value>
+        <value xml:lang="fr">Réf. de attribut de méta-données</value>
         <value xml:lang="it">Predicato Meta Data</value>
         <value xml:lang="ro">Predicat Meta Data</value>
         <value xml:lang="th">รหัสข้อมูลยืนยันหลังการเปลี่ยนแปลง</value>
@@ -1676,7 +1675,7 @@
     <property key="FormFieldTitle_newDataResourceId">
         <value xml:lang="ar">تعريف مورد معلومات جديد</value>
         <value xml:lang="en">New Data Resource Id</value>
-        <value xml:lang="fr">Réf. nouvelle ressource de données</value>
+        <value xml:lang="fr">Réf. de nouvelle ressource de données</value>
         <value xml:lang="it">Nuovo Codice Risorsa Dati</value>
         <value xml:lang="ro">Cod Nou Resurse Date</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล</value>
@@ -1694,7 +1693,7 @@
     <property key="FormFieldTitle_oldDataResourceId">
         <value xml:lang="ar">تعريف مورد معلومات قديم</value>
         <value xml:lang="en">Old Data Resource Id</value>
-        <value xml:lang="fr">Réf. ancienne ressource de données</value>
+        <value xml:lang="fr">Réf. d'ancienne ressource de données</value>
         <value xml:lang="it">Vecchio Codice Risorsa Dati</value>
         <value xml:lang="ro">Cod Vechi Resurse Date</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูลเดิม</value>
@@ -1721,7 +1720,7 @@
     <property key="FormFieldTitle_ownerContentId">
         <value xml:lang="ar">تعريف صاحب المحتوى</value>
         <value xml:lang="en">Owner Content Id</value>
-        <value xml:lang="fr">Réf. contenu de propriétaire</value>
+        <value xml:lang="fr">Réf. de contenu de propriétaire</value>
         <value xml:lang="it">Proprietario Contenuto</value>
         <value xml:lang="ro">Proprietar Continut</value>
         <value xml:lang="th">รหัสเจ้าของหัวข้อ</value>
@@ -1739,7 +1738,7 @@
     <property key="FormFieldTitle_parentCategoryId">
         <value xml:lang="ar">تعريف فئة الوالد</value>
         <value xml:lang="en">Parent Category Id</value>
-        <value xml:lang="fr">Réf. catégorie de parent</value>
+        <value xml:lang="fr">Réf. de catégorie de parent</value>
         <value xml:lang="it">Categoria Padre</value>
         <value xml:lang="ro">Categorie Parinte</value>
         <value xml:lang="th">รหัสหมวดหมู่ผู้ปกครอง</value>
@@ -1748,7 +1747,7 @@
     <property key="FormFieldTitle_parentTypeId">
         <value xml:lang="ar">تعريف نوع الوالد</value>
         <value xml:lang="en">Parent Type Id</value>
-        <value xml:lang="fr">Réf. type de parent</value>
+        <value xml:lang="fr">Réf. de type de parent</value>
         <value xml:lang="it">Tipo Padre</value>
         <value xml:lang="ro">Tip Parinte</value>
         <value xml:lang="th">รหัสประเภทผู้ปกครอง</value>
@@ -1781,7 +1780,7 @@
     <property key="FormFieldTitle_privilegeEnumId">
         <value xml:lang="ar">تعريف تعداد الأفضلية</value>
         <value xml:lang="en">Privilege Enum Id</value>
-        <value xml:lang="fr">Réf. énumération de privilège</value>
+        <value xml:lang="fr">Réf. d'énumération de privilège</value>
         <value xml:lang="it">Enumerazione Privilegio</value>
         <value xml:lang="ro">Enumerare Privilegiu</value>
         <value xml:lang="th">รหัสสิทธิพิเศษ</value>
@@ -1790,7 +1789,7 @@
     <property key="FormFieldTitle_productFeatureId">
         <value xml:lang="ar">تعريف خاصية المنتوج</value>
         <value xml:lang="en">Product Feature Id</value>
-        <value xml:lang="fr">Réf. caractéristique du produit</value>
+        <value xml:lang="fr">Réf. de caractéristique du produit</value>
         <value xml:lang="it">Caratteristica Prodotto</value>
         <value xml:lang="ro">Caracteristica Produs</value>
         <value xml:lang="th">รหัสลักษณะสินค้า</value>
@@ -1799,7 +1798,7 @@
     <property key="FormFieldTitle_productStoreId">
         <value xml:lang="ar">تعريف المتجر</value>
         <value xml:lang="en">Product Store Id</value>
-        <value xml:lang="fr">Réf. centre de profit</value>
+        <value xml:lang="fr">Réf. de centre de profit</value>
         <value xml:lang="it">Negozio</value>
         <value xml:lang="ro">Magazin</value>
         <value xml:lang="th">รหัสคลังสินค้า</value>
@@ -1826,7 +1825,7 @@
     <property key="FormFieldTitle_referenceId">
         <value xml:lang="ar">تعريف المرجع</value>
         <value xml:lang="en">Reference Id</value>
-        <value xml:lang="fr">Réf. référence</value>
+        <value xml:lang="fr">Réf. de référence</value>
         <value xml:lang="it">Numero Riferimento</value>
         <value xml:lang="ro">Numar de Referinta</value>
         <value xml:lang="th">รหัสการอ้างอิง</value>
@@ -1835,7 +1834,7 @@
     <property key="FormFieldTitle_relatedDetailId">
         <value xml:lang="ar">تعريف تفصيل المرجع</value>
         <value xml:lang="en">Related Detail Id</value>
-        <value xml:lang="fr">Réf. détail relatif </value>
+        <value xml:lang="fr">Réf. de détail relatif </value>
         <value xml:lang="it">Dettaglio Relativo</value>
         <value xml:lang="ro">Detaliu Relativ</value>
         <value xml:lang="th">รหัสรายละเอียดที่เกี่ยวข้อง</value>
@@ -1883,7 +1882,7 @@
     <property key="FormFieldTitle_roleTypeId">
         <value xml:lang="ar">تعريف نوع الدور</value>
         <value xml:lang="en">Role Type Id</value>
-        <value xml:lang="fr">Réf. type de rôle</value>
+        <value xml:lang="fr">Réf. de type de rôle</value>
         <value xml:lang="it">Tipo Ruolo</value>
         <value xml:lang="ro">Tip Drepturi</value>
         <value xml:lang="th">รหัสประเภทสถานะ</value>
@@ -1973,7 +1972,7 @@
     <property key="FormFieldTitle_surveyId">
         <value xml:lang="ar">تعريف التصويت</value>
         <value xml:lang="en">Survey Id</value>
-        <value xml:lang="fr">Réf. sondage</value>
+        <value xml:lang="fr">Réf. de sondage</value>
         <value xml:lang="it">Numero Sondaggio</value>
         <value xml:lang="ro">Numar Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจ</value>
@@ -1982,7 +1981,7 @@
     <property key="FormFieldTitle_surveyMultiRespColId">
         <value xml:lang="ar">تعريف عمود متعدد الجواب لتصويت</value>
         <value xml:lang="en">Survey Multi Resp Col Id</value>
-        <value xml:lang="fr">réf. sondage colonne multi réponse</value>
+        <value xml:lang="fr">Réf. de sondage colonne multi réponse</value>
         <value xml:lang="it">Colonna Risposta Multipla Sondaggio</value>
         <value xml:lang="ro">Coloana Raspuns Multiplu Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบหลายๆคำตอบ</value>
@@ -2018,7 +2017,7 @@
     <property key="FormFieldTitle_surveyQuestionCategoryId">
         <value xml:lang="ar">تعريف فئة سؤال تصويت</value>
         <value xml:lang="en">Survey Question Category Id</value>
-        <value xml:lang="fr">réf. sondage catégorie de question</value>
+        <value xml:lang="fr">Réf. de sondage catégorie de question</value>
         <value xml:lang="it">Categoria Domanda Sondaggio</value>
         <value xml:lang="ro">Categorie Intrebare Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจหมวดหมู่คำถาม</value>
