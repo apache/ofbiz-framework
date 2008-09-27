@@ -1474,7 +1474,7 @@
         <value xml:lang="de">Gruppeninformationen bearbeiten</value>
         <value xml:lang="en">Edit Group Information</value>
         <value xml:lang="es">Editar información del grupo</value>
-        <value xml:lang="fr">Modifier l'informations du groupe</value>
+        <value xml:lang="fr">Modifier l'information du groupe</value>
         <value xml:lang="it">Aggiorna Informazioni Gruppo</value>
         <value xml:lang="nl">Wijzig groep informatie</value>
         <value xml:lang="ro">Actualizare Informatii Grup</value>
@@ -4266,7 +4266,7 @@
     </property>
     <property key="PartyIsUsps">
         <value xml:lang="en">Is USPS</value>
-        <value xml:lang="fr">C'est USPS</value>
+        <value xml:lang="fr">C'est USPS ?</value>
         <value xml:lang="th">เป็น USPS</value>
     </property>
     <property key="PartyLastName">

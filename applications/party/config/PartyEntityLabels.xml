@@ -364,7 +364,7 @@
     <property key="ContactMechPurposeType.description.PAYMENT_LOCATION">
         <value xml:lang="de">Zahlungsadresse</value>
         <value xml:lang="en">Payment (AR) Address</value>
-        <value xml:lang="fr">Adresse du du service comptabilité</value>
+        <value xml:lang="fr">Adresse du service comptabilité (paiments)</value>
         <value xml:lang="it">Indirizzo Pagamento (AR)</value>
         <value xml:lang="ro">Adresa Plata (AR)</value>
         <value xml:lang="ru">Адрес получения оплаты (AR)</value>
