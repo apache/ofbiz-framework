@@ -3276,7 +3276,7 @@ esetata in mod automat</value>
         <value xml:lang="zh">已付</value>
     </property>
     <property key="AccountingInvoicePaymentCurrencyProblem">
-        <value xml:lang="en">Payment currency [${paymentCurrencyId}] and invoice currency [${invoiceCurrency}] not the same
+        <value xml:lang="en">Payment currency [${paymentCurrency}] and invoice currency [${invoiceCurrency}] not the same
 </value>
         <value xml:lang="es">Moneda de pago [${paymentCurrencyId}] y moneda de factura [${invoiceCurrency}] no son iguales
 </value>

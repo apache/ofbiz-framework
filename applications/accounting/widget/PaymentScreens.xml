@@ -197,56 +197,53 @@ under the License.
                                 <container><label style="h3" text="${uiLabelMap.AccountingNoPaymentsApplicationsfound}"></label></container>
                             </widgets>
                             <fail-widgets>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingPayment} ${uiLabelMap.AccountingApplications}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <condition>
-                                                <not><if-empty field-name="paymentApplicationsInv"/></not>
-                                            </condition>
-                                            <widgets>
-                                                <include-form name="editPaymentApplicationsInv" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="11${uiLabelMap.CommonAmount} ${uiLabelMap.CommonTotal} ${payment.amount?currency(${payment.currencyUomId})} ${uiLabelMap.AccountingAmountNotApplied} ${notAppliedAmount?currency(${payment.currencyUomId})}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <condition>
-                                                <not><if-empty field-name="paymentApplicationsPay"/></not>
-                                            </condition>
-                                            <widgets>
-                                                <include-form name="editPaymentApplicationsPay" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                        <section>
-                                            <condition>
-                                                <not><if-empty field-name="paymentApplicationsBil"/></not>
-                                            </condition>
-                                            <widgets>
-                                                <include-form name="editPaymentApplicationsBil" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                        <section>
-                                            <condition>
-                                                <not><if-empty field-name="paymentApplicationsTax"/></not>
-                                            </condition>
-                                            <widgets>
-                                                <include-form name="editPaymentApplicationsTax" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container> 
+                                 <section>
+                                    <condition>
+                                        <not><if-empty field-name="paymentApplicationsInv"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.AccountingPayment} ${uiLabelMap.AccountingApplications}">
+                                            <include-form name="editPaymentApplicationsInv" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <or>
+                                            <not><if-empty field-name="paymentApplicationsPay"/></not>
+                                            <not><if-empty field-name="paymentApplicationsBil"/></not>
+                                            <not><if-empty field-name="paymentApplicationsTax"/></not>
+                                        </or>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.CommonAmount} ${uiLabelMap.CommonTotal} ${payment.amount?currency(${payment.currencyUomId})} ${uiLabelMap.AccountingAmountNotApplied} ${notAppliedAmount?currency(${payment.currencyUomId})}">
+	                                        <section>
+	                                            <condition>
+	                                                <not><if-empty field-name="paymentApplicationsPay"/></not>
+	                                            </condition>
+	                                            <widgets>
+	                                                <include-form name="editPaymentApplicationsPay" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+	                                            </widgets>
+	                                        </section>
+	                                        <section>
+	                                            <condition>
+	                                                <not><if-empty field-name="paymentApplicationsBil"/></not>
+	                                            </condition>
+	                                            <widgets>
+	                                                <include-form name="editPaymentApplicationsBil" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+	                                            </widgets>
+	                                        </section>
+	                                        <section>
+	                                            <condition>
+	                                                <not><if-empty field-name="paymentApplicationsTax"/></not>
+	                                            </condition>
+	                                            <widgets>
+	                                                <include-form name="editPaymentApplicationsTax" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+	                                            </widgets>
+	                                        </section>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
                             </fail-widgets>
                         </section>
                         <section>
@@ -259,24 +256,30 @@ under the License.
                                         <not><if-empty field-name="invoices"/></not>
                                     </condition>
                                     <widgets>
-                                        <container style="screenlet">
-                                            <container style="screenlet-title-bar">
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.AccountingListInvoicesNotYetApplied}"/>
-                                                </container>
+                                        <screenlet title="${uiLabelMap.AccountingListInvoicesNotYetApplied}">
+                                            <container>
+                                                <label style="h2" text="${uiLabelMap.CommonFrom} ${partyNameViewTo.groupName}${partyNameViewTo.lastName},${partyNameViewTo.firstName} ${partyNameViewTo.middleName}[${payment.partyIdTo}]"/>
+                                                <label style="h2" text="${uiLabelMap.CommonTo} ${partyNameViewFrom.groupName}${partyNameViewFrom.lastName},${partyNameViewFrom.firstName} ${partyNameViewFrom.middleName} [${payment.partyIdFrom}]"/>
                                             </container>
-                                            <container style="screenlet-body">
-                                                <section>
-                                                    <widgets>    
-                                                        <container>
-                                                            <label style="h2" text="${uiLabelMap.CommonFrom} ${partyNameViewTo.groupName}${partyNameViewTo.lastName},${partyNameViewTo.firstName} ${partyNameViewTo.middleName}[${payment.partyIdTo}]"/>
-                                                            <label style="h2" text="${uiLabelMap.CommonTo} ${partyNameViewFrom.groupName}${partyNameViewFrom.lastName},${partyNameViewFrom.firstName} ${partyNameViewFrom.middleName} [${payment.partyIdFrom}]"/>
-                                                        </container>
-                                                        <include-form name="listInvoicesNotApplied" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                                    </widgets>
-                                                </section>
+                                            <include-form name="listInvoicesNotApplied" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="invoicesOtherCurrency"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.AccountingListInvoicesNotYetApplied}">
+                                            <container>
+                                                <label style="h1" text="Othercurrency invoices"/>
                                             </container>
-                                        </container>
+                                            <container>
+                                                <label style="h2" text="${uiLabelMap.CommonFrom} ${partyNameViewTo.groupName}${partyNameViewTo.lastName},${partyNameViewTo.firstName} ${partyNameViewTo.middleName}[${payment.partyIdTo}]"/>
+                                                <label style="h2" text="${uiLabelMap.CommonTo} ${partyNameViewFrom.groupName}${partyNameViewFrom.lastName},${partyNameViewFrom.firstName} ${partyNameViewFrom.middleName} [${payment.partyIdFrom}]"/>
+                                            </container>
+                                            <include-form name="listInvoicesNotAppliedOtherCurrency" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                        </screenlet>
                                     </widgets>
                                 </section>
                                 <section>
@@ -284,42 +287,18 @@ under the License.
                                         <not><if-empty field-name="payments"/></not>
                                     </condition>
                                     <widgets>
-                                        <container style="screenlet">
-                                            <container style="screenlet-title-bar">
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.AccountingListPaymentsNotYetApplied}"/>
-                                                </container>
+                                        <screenlet title="${uiLabelMap.AccountingListPaymentsNotYetApplied}">
+                                            <container>
+                                                <label style="h2" text="${uiLabelMap.CommonFrom}: ${partyNameViewTo.groupName}${partyNameViewTo.lastName},${partyNameViewTo.firstName} ${partyNameViewTo.middleName}[${payment.partyIdTo}]"/>
+                                                <label style="h2" text="${uiLabelMap.CommonTo}: ${partyNameViewFrom.groupName}${partyNameViewFrom.lastName},${partyNameViewFrom.firstName} ${partyNameViewFrom.middleName} [${payment.partyIdFrom}]"/>
                                             </container>
-                                            <container style="screenlet-body">
-                                                <section>
-                                                    <widgets>    
-                                                        <container>
-                                                            <label style="h2" text="${uiLabelMap.CommonFrom}: ${partyNameViewTo.groupName}${partyNameViewTo.lastName},${partyNameViewTo.firstName} ${partyNameViewTo.middleName}[${payment.partyIdTo}]"/>
-                                                            <label style="h2" text="${uiLabelMap.CommonTo}: ${partyNameViewFrom.groupName}${partyNameViewFrom.lastName},${partyNameViewFrom.firstName} ${partyNameViewFrom.middleName} [${payment.partyIdFrom}]"/>
-                                                        </container>
-                                                        <include-form name="listPaymentsNotApplied" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                                    </widgets>
-                                                </section>
-                                            </container>
-                                        </container>
+                                            <include-form name="listPaymentsNotApplied" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                        </screenlet>
                                     </widgets>
                                 </section>
-                                <container style="screenlet">
-                                    <container style="screenlet-title-bar">
-                                        <container style="h3">
-                                            <label text="${uiLabelMap.AccountingApplyPaymentoTo}"/>
-                                        </container>
-                                    </container>
-                                    <container style="screenlet-body">
-                                        <section>
-                                            <widgets>    
-                                                <container>
-                                                    <include-form name="addPaymentApplication" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                                </container>
-                                            </widgets>
-                                        </section>
-                                    </container>
-                                </container>
+                                <screenlet title="${uiLabelMap.AccountingApplyPaymentoTo}">
+                                   <include-form name="addPaymentApplication" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                </screenlet>
                             </widgets>
                         </section>
                     </decorator-section>

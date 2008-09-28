@@ -33,9 +33,8 @@ payment = delegator.findByPrimaryKey("Payment", [paymentId : paymentId]);
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
-// retrieve invoices for the related parties which have not been (fully) applied yet
-List invoices = delegator.findByAnd("Invoice", [partyId : payment.partyIdFrom, partyIdFrom : payment.partyIdTo], ["invoiceDate"]);
-   
+//retrieve invoices for the related parties which have not been (fully) applied yet and which have the same currency.
+List invoices = delegator.findByAnd("Invoice", [partyId : payment.partyIdFrom, partyIdFrom : payment.partyIdTo, currencyUomId : payment.currencyUomId], ["invoiceDate"]);
 if (invoices)    {
     invoicesList = [];  // to pass back to the screeen list of unapplied invoices
     paymentApplied = PaymentWorker.getPaymentAppliedBd(payment);
@@ -64,4 +63,37 @@ if (invoices)    {
         } 
     }
     context.invoices = invoicesList;
+}
+
+//retrieve invoices for the related parties which have not been (fully) applied yet and which have another currency
+invoices = delegator.findByAnd("Invoice", [partyId : payment.partyIdFrom, partyIdFrom : payment.partyIdTo], ["invoiceDate"]);
+// remove same currencies
+for (int ind=0; ind < invoices.size(); ind++ ) {
+	if (invoices[ind].currencyUomId.equals(payment.currencyUomId)) {
+		invoices.remove(ind);
+	}
+}
+if (invoices)    {
+    invoicesList = [];  // to pass back to the screeen list of unapplied invoices
+    paymentApplied = PaymentWorker.getPaymentAppliedBd(payment);
+    paymentToApply = payment.getBigDecimal("amount").setScale(decimals,rounding).subtract(paymentApplied);
+    invoices.each { invoice ->
+        invoiceAmount = InvoiceWorker.getInvoiceTotalBd(invoice).setScale(decimals,rounding);
+        invoiceApplied = InvoiceWorker.getInvoiceAppliedBd(invoice).setScale(decimals,rounding);
+        if (!invoiceAmount.equals(invoiceApplied) && 
+                !invoice.statusId.equals("INVOICE_CANCELLED") &&
+                !invoice.statusId.equals("INVOICE_IN_PROCESS")) {
+            // put in the map
+            invoiceToApply = invoiceAmount.subtract(invoiceApplied); 
+            invoiceMap = [:];
+            invoiceMap.invoiceId = invoice.invoiceId;
+            invoiceMap.currencyUomId = invoice.currencyUomId;
+            invoiceMap.amount = invoiceAmount;
+            invoiceMap.description = invoice.description; 
+            invoiceMap.invoiceDate = invoice.invoiceDate.toString().substring(0,10); // display only YYYY-MM-DD
+            invoiceMap.amountApplied = invoiceApplied;
+            invoicesList.add(invoiceMap);
+        } 
+    }
+    context.invoicesOtherCurrency = invoicesList;
 }

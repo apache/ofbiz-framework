@@ -2256,7 +2256,9 @@ public class InvoiceServices {
     private static String successMessage = null;
     public static Map updatePaymentApplicationDefBd(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
 
         if (decimals == -1 || rounding == -1) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,"AccountingAritmeticPropertiesNotConfigured",locale));
@@ -2498,6 +2500,38 @@ public class InvoiceServices {
                 
                 if (invoice.getString("statusId").equals("INVOICE_CANCELLED")) {
                     errorMessageList.add(UtilProperties.getMessage(resource,"AccountingInvoiceCancelledCannotApplyTo",UtilMisc.toMap("invoiceId",invoiceId),locale));
+                }
+                
+                // check the currency
+                if (payment.get("currencyUomId") != null && invoice.get("currencyUomId") != null && 
+                        !payment.getString("currencyUomId").equals(invoice.getString("currencyUomId"))) {
+                    Debug.logInfo(UtilProperties.getMessage(resource, "AccountingInvoicePaymentCurrencyProblem",
+                            UtilMisc.toMap("invoiceCurrency", invoice.getString("currencyUomId"), "paymentCurrency", payment.getString("currencyUomId")),locale), module);
+                    Debug.logInfo("will convert invoice currency according original currency amount on payment", module);
+                    
+                    if (payment.get("actualCurrencyAmount") == null || payment.get("actualCurrencyUomId") == null) {
+                        errorMessageList.add("in order to properly convert the Invoice we need the actual currency and actual amount on the payment");
+                    } else {
+                    	if (!payment.get("actualCurrencyUomId").equals(invoice.get("currencyUomId"))) {
+                            errorMessageList.add("actual currency on payment not the same as original invoice currency");
+                    	} else {
+                    		// calculate exchange rate, convert/retrieve invoice
+                    		try {
+                    			Double exchangeRate = new Double( payment.getDouble("actualCurrencyAmount").doubleValue() / payment.getDouble("amount").doubleValue());
+                    			Map inMap = UtilMisc.toMap("userLogin", userLogin, "invoiceId", invoiceId, "newCurrencyUomId", payment.getString("currencyUomId"));
+                    			inMap.put("exchangeRate", exchangeRate);
+                    			dispatcher.runSync("convertInvoiceToOtherCurrency", inMap);
+                    			invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
+                            } catch (GenericServiceException se) {
+                                Debug.logError(se, se.getMessage(), module);
+                                return ServiceUtil.returnError(se.getMessage());
+                            } catch (GenericEntityException e) {
+                                ServiceUtil.returnError(e.getMessage());
+                            }
+                    	}
+                    }
+                    
+                    
                 }
                 
                 // check if the invoice already covered by payments
@@ -3082,4 +3116,5 @@ public class InvoiceServices {
             return ServiceUtil.returnError(ee.getMessage());
         }
     }
+    
 }

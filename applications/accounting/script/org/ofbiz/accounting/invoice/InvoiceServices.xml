@@ -506,6 +506,57 @@ under the License.
         <call-simple-method method-name="copyInvoice"/>
     </simple-method>
 
+    <simple-method method-name="convertInvoiceToOtherCurrency" short-description="service to convert an invoice to another currency having the original currency still there using the exchange rate table.">
+        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <if-empty field="invoice">
+            <add-error><fail-message message="Invoice not found"/></add-error>
+        </if-empty>
+        <entity-one entity-name="Uom" value-name="newCurrencyUom">
+            <field-map field-name="uomId" env-name="parameters.newCurrencyUomId"/>
+        </entity-one>
+        <if-empty field="newCurrencyUom">
+            <add-error><fail-message message="New Currency Code not found"/></add-error>
+        </if-empty>
+        <if-compare-field field="parameters.newCurrencyUomId" operator="equals" to-field="invoice.currencyUomId">
+            <add-error><fail-message message="Invoice already has the requested currency"/></add-error>
+        </if-compare-field>
+        <check-errors/>
+    
+        <get-related value-name="invoice" relation-name="InvoiceItem" list-name="invoiceItems"/>
+        <iterate list-name="invoiceItems" entry-name="invoiceItem">
+             <calculate field-name="invoiceItem.amount" type="Double" decimal-scale="15">
+                <calcop operator="divide">
+                    <calcop operator="get" field-name="invoiceItem.amount"/>
+                    <calcop operator="get" field-name="parameters.exchangeRate"/>
+                </calcop> 
+            </calculate>
+            <store-value value-name="invoiceItem"/>
+        </iterate>
+        
+        <entity-one entity-name="UomConversionDated" value-name="uomValue">
+            <field-map field-name="uomId" env-name="parameters.newCurrencyUomId"/>
+            <field-map field-name="uomIdTo" env-name="invoice.currencyUomId"/>
+            <field-map field-name="fromDate" env-name="invoice.invoiceDate"/>
+        </entity-one>
+
+        <make-value entity-name="UomConversionDated" value-name="uomConversionDated"/>
+        <set field="uomConversionDated.uomId" from-field="parameters.newCurrencyUomId"/>        
+        <set field="uomConversionDated.uomIdTo" from-field="invoice.currencyUomId"/>        
+        <set field="uomConversionDated.fromDate" from-field="invoice.invoiceDate"/>   
+        <set field="uomConversionDated.thruDate" from-field="invoice.invoiceDate"/>
+        <set field="uomConversionDated.conversionFactor" from-field="parameters.exchangeRate"/>
+        <if-empty field="uomValue">
+            <create-value value-name="uomConversionDated"/>
+            <else>
+                <store-value value-name="uomConversionDated"/>
+            </else>        
+        </if-empty>        
+        
+        <set field="invoice.currencyUomId" from-field="parameters.newCurrencyUomId"/>
+        <store-value value-name="invoice"/>
+        <field-to-result field-name="parameters.invoiceId" result-name="invoiceId"/>
+    </simple-method>
+
     <!-- ===============subroutine services =================-->
     <simple-method method-name="InvoiceStatusInProgress" short-description="Check if the invoiceStatus is in progress">
         <!-- find the current header record -->
