@@ -31,4 +31,7 @@ under the License.
     <Enumeration description="Petty Cash out" enumCode="CASH_OUT_REASON" enumId="CASH_OUT_REASON" sequenceId="03" enumTypeId="POS_PAID_REASON_OUT"/>
 
     <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="PERSONAL_CHECK" paymentServiceTypeEnumId="PRDS_PAY_EXTERNAL" paymentService=""/>
+
+    <PosTerminal posTerminalId="pos-2" facilityId="MyRetailStore"/>
+    <PosTerminal posTerminalId="pos-3" facilityId="MyRetailStore"/>
 </entity-engine-xml>

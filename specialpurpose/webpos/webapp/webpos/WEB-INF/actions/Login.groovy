@@ -19,6 +19,8 @@
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.common.CommonWorkers;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.webapp.control.*;
 
 context.autoUserLogin = session.getAttribute("autoUserLogin");
@@ -32,3 +34,16 @@ if (previousParams) {
     previousParams = "";
 }
 context.previousParams = previousParams;
+
+productStoreId = ProductStoreWorker.getProductStoreId(request);
+productStore = ProductStoreWorker.getProductStore(productStoreId, delegator);
+
+if (productStore) {
+	facilityId = productStore.getString("inventoryFacilityId");
+
+    if (facilityId) {	
+	    context.posTerminals = delegator.findList("PosTerminal", EntityCondition.makeCondition("facilityId", EntityOperator.EQUALS, facilityId), null, ["posTerminalId"], null, false);
+	} else {
+        context.posTerminals = delegator.findList("PosTerminal", null, null, ["posTerminalId"], null, false);
+	}
+}

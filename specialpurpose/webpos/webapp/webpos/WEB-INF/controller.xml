@@ -77,8 +77,8 @@
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="posLogin"/>
         <response name="success" type="view" value="main"/>
-        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
-        <response name="error" type="view" value="Login"/>
+        <response name="requirePasswordChange" type="view" value="RequirePasswordChange"/>
+        <response name="error" type="view" value="login"/>
     </request-map>
 
     <request-map uri="logout">
@@ -116,7 +116,7 @@
         <security https="true" auth="false"/>
         <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="posLogin"/>
         <response name="success" type="view" value="main"/>
-        <response name="requirePasswordChange" type="view" value="requirePasswordChange"/>
+        <response name="requirePasswordChange" type="view" value="RequirePasswordChange"/>
         <response name="error" type="view" value="Login"/>
     </request-map>
     
@@ -126,7 +126,7 @@
         <response name="success" type="request-redirect" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
-    
+
     <request-map uri="SetSessionLocale">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
@@ -372,7 +372,7 @@
     <view-map name="main" type="screen" page="component://webpos/widget/WebPosScreens.xml#Main"/>
     <view-map name="login" type="screen" page="component://webpos/widget/CommonScreens.xml#Login"/>
     <view-map name="Login" type="screen" page="component://webpos/widget/CommonScreens.xml#Login"/>
-    <view-map name="requirePasswordChange" type="screen" page="component://webpos/widget/CommonScreens.xml#RequirePasswordChange"/>    
+    <view-map name="RequirePasswordChange" type="screen" page="component://webpos/widget/CommonScreens.xml#RequirePasswordChange"/>
     <view-map name="Manager" type="screen" page="component://webpos/widget/WebPosScreens.xml#Manager"/>
     <view-map name="Payment" type="screen" page="component://webpos/widget/WebPosScreens.xml#Payment"/>
     <view-map name="Promo" type="screen" page="component://webpos/widget/WebPosScreens.xml#Promo"/>

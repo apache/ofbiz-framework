@@ -31,7 +31,6 @@ import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.securityext.login.LoginEvents;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webpos.session.WebPosSession;
-import org.ofbiz.webpos.transaction.WebPosTransaction;
 
 public class WebPosEvents {
     
@@ -74,9 +73,13 @@ public class WebPosEvents {
                 session.setAttribute("shoppingCart", cart);
             }
             
-            //TODO remove hard-coded value pos-1 and take it from login selecting the PosTerminal.
-            webPosSession = new WebPosSession("pos-1", null, userLogin, request.getLocale(), productStoreId, facilityId, currencyUomId, delegator, dispatcher, cart);
-            session.setAttribute("webPosSession", webPosSession);
+            // get the posTerminalId
+            String posTerminalId = (String) request.getParameter("posTerminalId");
+            
+            if (UtilValidate.isNotEmpty(posTerminalId)) {
+            	webPosSession = new WebPosSession(posTerminalId, null, userLogin, request.getLocale(), productStoreId, facilityId, currencyUomId, delegator, dispatcher, cart);
+                session.setAttribute("webPosSession", webPosSession);
+            }
         }
         return webPosSession;
     }

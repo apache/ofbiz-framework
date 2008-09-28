@@ -49,6 +49,16 @@ under the License.
             <td><input type="password" name="PASSWORD" value="" size="20"/></td>
           </tr>
           <tr>
+            <td class="label">${uiLabelMap.WebPosChooseTerminal}</td>
+            <td>
+              <select name="posTerminalId" id="posTerminalId">
+                <#list posTerminals as posTerminal>
+                  <option value="${posTerminal.posTerminalId}">${posTerminal.posTerminalId}</option>
+                </#list>
+              </select>
+            </td>
+          </tr>
+          <tr>
             <td colspan="2" align="center">
               <input type="submit" value="${uiLabelMap.CommonLogin}"/>
             </td>

@@ -38,4 +38,10 @@ under the License.
         <attribute type="java.util.List" mode="OUT" name="productsList" optional="true"/>
         <attribute type="java.util.List" mode="OUT" name="productsId" optional="true"/>
     </service>
+
+    <service name="posLogin" engine="java"
+             location="org.ofbiz.webpos.WebPosEvents" invoke="posLogin">
+        <description>Login for Web Pos</description>
+        <attribute type="String" mode="IN" name="posTerminalId" optional="false"/>
+    </service>
 </services>
