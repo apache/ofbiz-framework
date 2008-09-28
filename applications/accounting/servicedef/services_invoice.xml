@@ -274,11 +274,17 @@ under the License.
         <description>Accounting Invoice Permission Checking Logic</description>
         <implements service="permissionInterface"/>
     </service>
-    <!-- Update InvoiceItemType -->
     <service name="updateInvoiceItemType" engine="simple" default-entity-name="InvoiceItemType"
         location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="updateInvoiceItemType">
         <description>Update Invoice Item Type Record</description>
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+    </service>
+    <service name="convertInvoiceToOtherCurrency" engine="simple"
+        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="convertInvoiceToOtherCurrency">
+        <description>service to convert an invoice to another currency having the original currency still there using the exchange rate table.</description>
+        <attribute name="invoiceId" mode="INOUT" type="String"/>
+        <attribute name="newCurrencyUomId" mode="IN" type="String"/>
+        <attribute name="exchangeRate" mode="IN" type="Double"/>
     </service>
 </services>
