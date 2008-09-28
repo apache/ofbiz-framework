@@ -1585,7 +1585,7 @@
     <property key="FormFieldTitle_mapKey">
         <value xml:lang="ar">مفتاح التوافق</value>
         <value xml:lang="en">Map Key</value>
-        <value xml:lang="fr">Clef de carte</value>
+        <value xml:lang="fr">Clef d'association</value>
         <value xml:lang="it">Chiave Mappa</value>
         <value xml:lang="ro">Cheie Mapa</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
@@ -1594,7 +1594,7 @@
     <property key="FormFieldTitle_messageList">
         <value xml:lang="ar">قائمة الرسائل</value>
         <value xml:lang="en">Msgs List</value>
-        <value xml:lang="fr">Liste mesages</value>
+        <value xml:lang="fr">Liste de messages</value>
         <value xml:lang="it">Lista Messaggi</value>
         <value xml:lang="ro">Lista Mesaje</value>
         <value xml:lang="th">รายการข้อความ</value>
@@ -1603,7 +1603,7 @@
     <property key="FormFieldTitle_messageText">
         <value xml:lang="ar">نص الرسالة</value>
         <value xml:lang="en">Message Text </value>
-        <value xml:lang="fr">Texte des Msgs</value>
+        <value xml:lang="fr">Texte du message</value>
         <value xml:lang="it">Testo Messaggio</value>
         <value xml:lang="ro">Text Mesaj</value>
         <value xml:lang="th">ข้อความตัวอักษร</value>
@@ -1621,7 +1621,7 @@
     <property key="FormFieldTitle_messageTitle">
         <value xml:lang="ar">عنوان الرسالة</value>
         <value xml:lang="en">Message Title</value>
-        <value xml:lang="fr">titre du message</value>
+        <value xml:lang="fr">Titre du message</value>
         <value xml:lang="it">Titolo Messaggio</value>
         <value xml:lang="ro">Titlu Mesaj</value>
         <value xml:lang="th">หัวเรื่องข้อความ</value>
@@ -1630,7 +1630,7 @@
     <property key="FormFieldTitle_metaDataPredicateId">
         <value xml:lang="ar">تعريف توقع الميتا معلومات</value>
         <value xml:lang="en">Meta Data Predicate Id</value>
-        <value xml:lang="fr">Réf. de attribut de méta-données</value>
+        <value xml:lang="fr">Réf. de prédicat de méta-données</value>
         <value xml:lang="it">Predicato Meta Data</value>
         <value xml:lang="ro">Predicat Meta Data</value>
         <value xml:lang="th">รหัสข้อมูลยืนยันหลังการเปลี่ยนแปลง</value>
@@ -1648,7 +1648,7 @@
     <property key="FormFieldTitle_mimeTypeId">
         <value xml:lang="ar">نعريف نوع المايم</value>
         <value xml:lang="en">Mime Type Id</value>
-        <value xml:lang="fr">Type de mime</value>
+        <value xml:lang="fr">Type MIME</value>
         <value xml:lang="it">Tipo Mime</value>
         <value xml:lang="ro">Tip Mime</value>
         <value xml:lang="th">รหัสประเภทสำเนา</value>
@@ -1657,7 +1657,7 @@
     <property key="FormFieldTitle_multiRespTitle">
         <value xml:lang="ar">عنوان جواب متعدد</value>
         <value xml:lang="en">Multi Response Title</value>
-        <value xml:lang="fr">Titre de multi réponse</value>
+        <value xml:lang="fr">Titre de multi-réponses</value>
         <value xml:lang="it">Titolo Risposta Multipla</value>
         <value xml:lang="ro">Titlu Raspuns Multiplu</value>
         <value xml:lang="th">หลายคำตอบ</value>
@@ -1702,7 +1702,7 @@
     <property key="FormFieldTitle_orderId">
         <value xml:lang="ar">تعريف الترتيب</value>
         <value xml:lang="en">Order Id</value>
-        <value xml:lang="fr">Réf. d'ordre</value>
+        <value xml:lang="fr">Réf. de commande</value>
         <value xml:lang="it">Numero Ordine</value>
         <value xml:lang="ro">Numar Ordine</value>
         <value xml:lang="th">รหัสใบสั่งซื้อสินค้า</value>
@@ -1711,7 +1711,7 @@
     <property key="FormFieldTitle_orderItemSeqId">
         <value xml:lang="ar">تعريف تسلسل جزء الترتيب</value>
         <value xml:lang="en">Order Item Seq Id</value>
-        <value xml:lang="fr">Réf. seq d'article d'ordre</value>
+        <value xml:lang="fr">Réf. séq. de ligne de cmd</value>
         <value xml:lang="it">Numero Sequenza Riga Ordine</value>
         <value xml:lang="ro">Numear Secventa Linie Ordine</value>
         <value xml:lang="th">ลำดับรหัสใบสั่งซื้อสินค้า</value>
@@ -1720,7 +1720,7 @@
     <property key="FormFieldTitle_ownerContentId">
         <value xml:lang="ar">تعريف صاحب المحتوى</value>
         <value xml:lang="en">Owner Content Id</value>
-        <value xml:lang="fr">Réf. de contenu de propriétaire</value>
+        <value xml:lang="fr">Réf. de contenu propriétaire</value>
         <value xml:lang="it">Proprietario Contenuto</value>
         <value xml:lang="ro">Proprietar Continut</value>
         <value xml:lang="th">รหัสเจ้าของหัวข้อ</value>
@@ -1738,7 +1738,7 @@
     <property key="FormFieldTitle_parentCategoryId">
         <value xml:lang="ar">تعريف فئة الوالد</value>
         <value xml:lang="en">Parent Category Id</value>
-        <value xml:lang="fr">Réf. de catégorie de parent</value>
+        <value xml:lang="fr">Réf. de catégorie parente</value>
         <value xml:lang="it">Categoria Padre</value>
         <value xml:lang="ro">Categorie Parinte</value>
         <value xml:lang="th">รหัสหมวดหมู่ผู้ปกครอง</value>
@@ -1747,7 +1747,7 @@
     <property key="FormFieldTitle_parentTypeId">
         <value xml:lang="ar">تعريف نوع الوالد</value>
         <value xml:lang="en">Parent Type Id</value>
-        <value xml:lang="fr">Réf. de type de parent</value>
+        <value xml:lang="fr">Réf. de type parent</value>
         <value xml:lang="it">Tipo Padre</value>
         <value xml:lang="ro">Tip Parinte</value>
         <value xml:lang="th">รหัสประเภทผู้ปกครอง</value>
@@ -1756,7 +1756,7 @@
     <property key="FormFieldTitle_partyId">
         <value xml:lang="ar">تعريف الطرف</value>
         <value xml:lang="en">Party Id</value>
-        <value xml:lang="fr">Réf. de partie</value>
+        <value xml:lang="fr">Réf. d'acteur</value>
         <value xml:lang="it">Codice Soggetto</value>
         <value xml:lang="ro">Cod Partener</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
@@ -1771,7 +1771,7 @@
     <property key="FormFieldTitle_pdfFileNameIn">
         <value xml:lang="ar">اسم ملف Pdf الداخل</value>
         <value xml:lang="en">Pdf File Name In</value>
-        <value xml:lang="fr">Dans nom de fichier pdf</value>
+        <value xml:lang="fr">Nom de fichier PDF inclus</value>
         <value xml:lang="it">Nome File Pdf Ingresso</value>
         <value xml:lang="ro">Nume Fisier Pdf Intrare</value>
         <value xml:lang="th">ชื่อในไฟล์ Pdf</value>
@@ -1789,7 +1789,7 @@
     <property key="FormFieldTitle_productFeatureId">
         <value xml:lang="ar">تعريف خاصية المنتوج</value>
         <value xml:lang="en">Product Feature Id</value>
-        <value xml:lang="fr">Réf. de caractéristique du produit</value>
+        <value xml:lang="fr">Réf. de caractéristique de produit</value>
         <value xml:lang="it">Caratteristica Prodotto</value>
         <value xml:lang="ro">Caracteristica Produs</value>
         <value xml:lang="th">รหัสลักษณะสินค้า</value>
@@ -1834,7 +1834,7 @@
     <property key="FormFieldTitle_relatedDetailId">
         <value xml:lang="ar">تعريف تفصيل المرجع</value>
         <value xml:lang="en">Related Detail Id</value>
-        <value xml:lang="fr">Réf. de détail relatif </value>
+        <value xml:lang="fr">Réf. de détail lié</value>
         <value xml:lang="it">Dettaglio Relativo</value>
         <value xml:lang="ro">Detaliu Relativ</value>
         <value xml:lang="th">รหัสรายละเอียดที่เกี่ยวข้อง</value>
@@ -1873,7 +1873,7 @@
     <property key="FormFieldTitle_responseService">
         <value xml:lang="ar">خدمة الجواب</value>
         <value xml:lang="en">Response Service</value>
-        <value xml:lang="fr">Service réponse</value>
+        <value xml:lang="fr">Service de réponse</value>
         <value xml:lang="it">Servizio Risposta</value>
         <value xml:lang="ro">Serviciu Raspuns</value>
         <value xml:lang="th">บริการ</value>
@@ -1891,7 +1891,7 @@
     <property key="FormFieldTitle_roleTypeList">
         <value xml:lang="ar">قائمة نوع الدور</value>
         <value xml:lang="en">Role Type List</value>
-        <value xml:lang="fr">liste type de rôle</value>
+        <value xml:lang="fr">liste de type de rôle</value>
         <value xml:lang="it">Lista Tipo Ruolo</value>
         <value xml:lang="ro">Lista Tip Drept</value>
         <value xml:lang="th">รายการประเภทสถานะ</value>
@@ -1909,7 +1909,7 @@
     <property key="FormFieldTitle_secureContentPrefix">
         <value xml:lang="ar">مقدمة محتوى مؤمن</value>
         <value xml:lang="en">Secure Content Prefix</value>
-        <value xml:lang="fr">Fixez le contenu préfixe</value>
+        <value xml:lang="fr">Sécuriser le préfixe de contenu</value>
         <value xml:lang="it">Prefisso Contenuto Sicuro</value>
         <value xml:lang="ro">Prefix Continut Sigur</value>
         <value xml:lang="th">คำนำหน้าหัวข้อความปลอดภัย</value>
@@ -1918,7 +1918,7 @@
     <property key="FormFieldTitle_select">
         <value xml:lang="ar">إختر</value>
         <value xml:lang="en">Select</value>
-        <value xml:lang="fr">Sélectionner</value>
+        <value xml:lang="fr">Choisir</value>
         <value xml:lang="it">Scegli</value>
         <value xml:lang="ro">Alege</value>
         <value xml:lang="th">เลือก</value>
@@ -1927,7 +1927,7 @@
     <property key="FormFieldTitle_sequenceNum">
         <value xml:lang="ar">رقم التسلسل</value>
         <value xml:lang="en">Sequence Num</value>
-        <value xml:lang="fr">Ordre numérique</value>
+        <value xml:lang="fr">N° de séquence</value>
         <value xml:lang="it">Numero Sequenza</value>
         <value xml:lang="ro">Numar Secventa</value>
         <value xml:lang="th">เรียงลำดับหมายเลข</value>
@@ -1954,7 +1954,7 @@
     <property key="FormFieldTitle_skipPermissionCheck">
         <value xml:lang="ar">تجنب توثيق السماح</value>
         <value xml:lang="en">Skip Permission Check</value>
-        <value xml:lang="fr">Sauter la permission de contrôle</value>
+        <value xml:lang="fr">Sauter le contrôle de permission</value>
         <value xml:lang="it">Salta Controllo Permesso</value>
         <value xml:lang="ro">Salta Controlul Permis</value>
         <value xml:lang="th">เช็คการไม่ยินยอม</value>
@@ -1963,7 +1963,7 @@
     <property key="FormFieldTitle_standardContentPrefix">
         <value xml:lang="ar">المقدم المعياري للمحتوى</value>
         <value xml:lang="en">Standard Content Prefix</value>
-        <value xml:lang="fr">Préfixe contenu standard</value>
+        <value xml:lang="fr">Préfixe standard de contenu</value>
         <value xml:lang="it">Prefisso Contenuto Standard </value>
         <value xml:lang="ro">Prefix Continut Standard </value>
         <value xml:lang="th">หัวข้อมาตรฐาน</value>
@@ -1981,7 +1981,7 @@
     <property key="FormFieldTitle_surveyMultiRespColId">
         <value xml:lang="ar">تعريف عمود متعدد الجواب لتصويت</value>
         <value xml:lang="en">Survey Multi Resp Col Id</value>
-        <value xml:lang="fr">Réf. de sondage colonne multi réponse</value>
+        <value xml:lang="fr">Réf. de colonne (sondage multi réponse)</value>
         <value xml:lang="it">Colonna Risposta Multipla Sondaggio</value>
         <value xml:lang="ro">Coloana Raspuns Multiplu Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบหลายๆคำตอบ</value>
@@ -1990,7 +1990,7 @@
     <property key="FormFieldTitle_surveyMultiRespId">
         <value xml:lang="ar">تعريف جواب متعدد لتصويت</value>
         <value xml:lang="en">Survey Multi Resp Id</value>
-        <value xml:lang="fr">Réf. sondage multi réponse</value>
+        <value xml:lang="fr">Réf. de sondage multi réponse</value>
         <value xml:lang="it">Risposta Multipla Sondaggio</value>
         <value xml:lang="ro">Raspuns Multiplu Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบหลายๆคำตอบ</value>
@@ -2008,7 +2008,7 @@
     <property key="FormFieldTitle_surveyPageSeqId">
         <value xml:lang="ar">تعريف تسلسل صفحة تصويت</value>
         <value xml:lang="en">Survey Page Seq Id</value>
-        <value xml:lang="fr">Réf. sondage de page séq</value>
+        <value xml:lang="fr">Réf. séq. de page de sondage</value>
         <value xml:lang="it">Numero Sequenza Pagina Sondaggio</value>
         <value xml:lang="ro">Numar Secventa Pagina Sondaj</value>
         <value xml:lang="th">รหัสหน้าการสำรวจ</value>
@@ -2017,7 +2017,7 @@
     <property key="FormFieldTitle_surveyQuestionCategoryId">
         <value xml:lang="ar">تعريف فئة سؤال تصويت</value>
         <value xml:lang="en">Survey Question Category Id</value>
-        <value xml:lang="fr">Réf. de sondage catégorie de question</value>
+        <value xml:lang="fr">Réf. de catégorie de question (sondage)</value>
         <value xml:lang="it">Categoria Domanda Sondaggio</value>
         <value xml:lang="ro">Categorie Intrebare Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจหมวดหมู่คำถาม</value>
@@ -2026,7 +2026,7 @@
     <property key="FormFieldTitle_surveyQuestionTypeId">
         <value xml:lang="ar">تعريف نوع سؤال تصويت</value>
         <value xml:lang="en">Survey Question Type Id</value>
-        <value xml:lang="fr">Réf. sondage type de question </value>
+        <value xml:lang="fr">Réf. de type de question (sondage)</value>
         <value xml:lang="it">Tipo Domanda Sondaggio</value>
         <value xml:lang="ro">Tip Intrebare</value>
         <value xml:lang="th">รหัสการสำรวจประเภทคำถาม</value>
@@ -2035,7 +2035,7 @@
     <property key="FormFieldTitle_surveyResponseId">
         <value xml:lang="ar">تعريف جواب تصويت</value>
         <value xml:lang="en">Survey Response Id</value>
-        <value xml:lang="fr">Réf. sondage de réponse</value>
+        <value xml:lang="fr">Réf. de réponse au sondage</value>
         <value xml:lang="it">Risposta Sondaggio</value>
         <value xml:lang="ro">Raspuns Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจคำตอบ</value>
@@ -2044,7 +2044,7 @@
     <property key="FormFieldTitle_targetOperationList">
         <value xml:lang="ar">قائمة عملية الهدف</value>
         <value xml:lang="en">Target Operation List</value>
-        <value xml:lang="fr">Liste d'opération de cible</value>
+        <value xml:lang="fr">Liste d'opération cible</value>
         <value xml:lang="it">Lista Operazione Destinazione</value>
         <value xml:lang="ro">Lista Operatii Destinatie</value>
         <value xml:lang="th">การดำเนินการตามวัตถุประสงค์</value>
@@ -2053,7 +2053,7 @@
     <property key="FormFieldTitle_targetOperationString">
         <value xml:lang="ar">سلسلة حروف عملية الهدف</value>
         <value xml:lang="en">Target Operation String</value>
-        <value xml:lang="fr">Série d'opération cible</value>
+        <value xml:lang="fr">Chaîne de caractère d'opération cible</value>
         <value xml:lang="it">Stringa Operazione Destinazione</value>
         <value xml:lang="ro">Sirul Operatie Destinatie</value>
         <value xml:lang="th">วิธีการดำเนินการ</value>
@@ -2095,7 +2095,7 @@
     <property key="FormFieldTitle_thruDate">
         <value xml:lang="ar">حتى تاريخ و وقت</value>
         <value xml:lang="en">Thru Date &amp; Time</value>
-        <value xml:lang="fr">Par la date &amp; heure</value>
+        <value xml:lang="fr">Date et heure de fin</value>
         <value xml:lang="it">Alla Data e Ora</value>
         <value xml:lang="ro">La Data si Ora</value>
         <value xml:lang="th">ถึงวันที่ เวลา</value>
@@ -2104,7 +2104,7 @@
     <property key="FormFieldTitle_tree">
         <value xml:lang="ar">شجرة</value>
         <value xml:lang="en">Tree</value>
-        <value xml:lang="fr">Arbre</value>
+        <value xml:lang="fr">Arborescence</value>
         <value xml:lang="it">Albero</value>
         <value xml:lang="ro">Arbore</value>
         <value xml:lang="th">ต้นไม้</value>
@@ -2128,7 +2128,7 @@
     <property key="FormFieldTitle_webSiteId">
         <value xml:lang="ar">تعريف موقع الويب</value>
         <value xml:lang="en">Web Site Id</value>
-        <value xml:lang="fr">Réf. site web</value>
+        <value xml:lang="fr">Réf. de site web</value>
         <value xml:lang="it">Sito Web</value>
         <value xml:lang="ro">Sit Web</value>
         <value xml:lang="th">รหัส Web Site</value>
@@ -2154,7 +2154,7 @@
     </property>
     <property key="ForumAddResponseToMessage">
         <value xml:lang="en">Add a response to message</value>
-        <value xml:lang="fr">Ajouter une réponse à un message</value>
+        <value xml:lang="fr">Ajouter une réponse au message</value>
         <value xml:lang="it">Aggiungi una risposta al messaggio</value>
         <value xml:lang="th">ผลตอบรับถึงข้อความ</value>
     </property>
