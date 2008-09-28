@@ -126,6 +126,11 @@
         <value xml:lang="en">Cart Total</value>
         <value xml:lang="it">Totale carrello</value>
     </property>
+    <property key="WebPosChooseTerminal">
+        <value xml:lang="en">Choose Terminal</value>
+        <value xml:lang="it">Scegli Terminale</value>
+    </property>
+
     <property key="WebPosCompleteSale">
         <value xml:lang="en">Press Finish To Complete Sale</value>
         <value xml:lang="it">Premere TERMINA per completare la vendita</value>
@@ -454,5 +459,4 @@
         <value xml:lang="en">Unit Price</value>
         <value xml:lang="it">Prezzo unitario</value>
     </property>
-
 </resource>

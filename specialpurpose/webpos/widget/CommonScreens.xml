@@ -166,7 +166,7 @@ under the License.
         <section>
             <actions>
                 <set field="MainColumnStyle" value="leftonly"/>
-                <set field="titleProperty" value="PageTitleLogin"/>
+                <set field="titleProperty" value="WebPosPageTitleLogin"/>
                 <set field="headerItem" value="login"/>
                 <script location="component://webpos/webapp/webpos/WEB-INF/actions/Login.groovy"/>
             </actions>

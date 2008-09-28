@@ -32,6 +32,8 @@ if (webPosSession) {
     sdf = new SimpleDateFormat(UtilProperties.getMessage(WebPosTransaction.resource, "WebPosTransactionDateFormat", Locale.getDefault()));
     context.transactionDate = sdf.format(new Date());
     context.totalDue = webPosSession.getCurrentTransaction().getTotalDue();
+} else {
+    shoppingCart = null;
 }
 
 // Get the Cart and Prepare Size
@@ -58,10 +60,10 @@ if (shoppingCart) {
             }
         }
     }
+    context.shoppingCart = shoppingCart;
 } else {
     context.shoppingCartSize = 0;
 }
-context.shoppingCart = shoppingCart;
 
 context.paymentCash   = delegator.findOne("PaymentMethodType", ["paymentMethodTypeId" : "CASH"], true);
 context.paymentCheck  = delegator.findOne("PaymentMethodType", ["paymentMethodTypeId" : "PERSONAL_CHECK"], true);
