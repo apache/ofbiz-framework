@@ -76,7 +76,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="partyId" parameter-name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName}">
+                    <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="lastName"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="roleTypeId"><hidden value="PROJECT_TEAM"/></field>
         <field name="custRequestDate" title="${uiLabelMap.OrderRequestDate}"><date-time type="timestamp"/></field>
         <field name="responseRequiredDate"><date-time type="timestamp"/></field>
