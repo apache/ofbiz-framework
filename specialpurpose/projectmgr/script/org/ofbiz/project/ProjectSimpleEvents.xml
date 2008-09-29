@@ -24,5 +24,23 @@
         <call-service service-name="createCustRequest" in-map-name="createCust">
             <result-to-field result-name="custRequestId" field-name="custRequestId"/>
         </call-service>
+        <if-not-empty field="parameters.workEffortParentId"> 
+            <set-service-fields service-name="createWorkEffort" map-name="parameters" to-map-name="createTask" />
+            <set field="createTask.custRequestId" from-field="custRequestId"/>
+            <set field="createTask.workEffortName" from-field="parameters.custRequestName"/>
+            <call-service service-name="createWorkEffort" in-map-name="createTask" >
+                <result-to-field result-name="workEffortId" field-name="workEffortId"/>
+            </call-service>
+            <set field="updCust.statusId" value="CRQ_REVIEWED"/>
+            <set field="updCust.custRequestId" from-field="custRequestId"/>
+            <call-service service-name="updateCustRequest" in-map-name="updCust"/>
+            <if-not-empty field="parameters.partyId"> 
+                <set field="assignParty.workEffortId" from-field="workEffortId"/>
+                <set field="assignParty.partyId" from-field="parameters.partyId"/>
+                <set field="assignParty.roleTypeId" from-field="parameters.roleTypeId"/>
+                <set field="assignParty.statusId" value="PAS_ASSIGNED"/>
+                <call-service service-name="assignPartyToWorkEffort" in-map-name="assignParty" />
+            </if-not-empty>
+        </if-not-empty>    
     </simple-method>    
 </simple-methods>

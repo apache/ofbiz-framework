@@ -382,9 +382,19 @@
     </menu>
     <menu name="RequestTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="ViewRequest" title="${uiLabelMap.ProjectMgrView}">
+            <condition>
+                <not><if-empty field-name="custRequest"/></not>
+            </condition>
             <link target="ViewRequest?custRequestId=${parameters.custRequestId}"/>
         </menu-item>
         <menu-item name="editRequest" title="${uiLabelMap.ProjectMgrEdit}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="custRequest"/></not>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
             <link target="EditRequest?custRequestId=${parameters.custRequestId}"/>
         </menu-item>
     </menu>
@@ -398,6 +408,13 @@
     </menu>
     <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
         <menu-item name="cancelledRequest" title="Cancel request" >
+            <condition>
+                <and>
+                    <not><if-empty field-name="custRequest"/></not>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
             <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
         </menu-item>
     </menu>
