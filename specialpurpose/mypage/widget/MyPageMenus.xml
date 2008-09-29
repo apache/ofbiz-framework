@@ -195,6 +195,12 @@ under the License.
     </menu>
     <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
         <menu-item name="cancelledRequest" title="Cancel request" >
+            <condition>
+                <and>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
             <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
         </menu-item>
     </menu>
