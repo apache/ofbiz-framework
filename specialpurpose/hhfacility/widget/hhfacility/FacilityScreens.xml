@@ -211,7 +211,7 @@ under the License.
         <section>
             <actions>
                 <set field="idValue" from-field="parameters.idValue"/>
-                <script location="component://hhfacility/webapp/hhfacility/WEB-INF/actions/productlist.bsh"/>
+                <script location="component://hhfacility/webapp/hhfacility/WEB-INF/actions/ProductList.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="FacilityDecorator">
@@ -230,7 +230,7 @@ under the License.
     <screen name="productstocktake">
         <section>
             <actions>
-                <script location="component://hhfacility/webapp/hhfacility/WEB-INF/actions/productstocktake.bsh"/>
+                <script location="component://hhfacility/webapp/hhfacility/WEB-INF/actions/ProductStockTake.groovy"/>
 
                 <set field="locationSeqId" from-field="productFacilityLocations"/>
             </actions>

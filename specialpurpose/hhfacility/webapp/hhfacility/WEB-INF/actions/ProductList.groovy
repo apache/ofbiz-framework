@@ -17,10 +17,7 @@
  * under the License.
  */
 
-import org.ofbiz.entity.*;
-
-delegator = request.getAttribute("delegator");
-
-facilities = delegator.findList("Facility", null, null, null, null, false);
-
-context.put("facilities", facilities);
+productList = request.getAttribute("productList");
+if (productList) {
+    context.productList = productList;
+}
