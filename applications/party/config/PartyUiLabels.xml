@@ -182,6 +182,7 @@
     </property>
     <property key="AppliedPayments">
         <value xml:lang="en">Applied payments to payments</value>
+        <value xml:lang="fr">Paiements affectés à d'autres paiements</value>
     </property>
     <property key="Description">
         <value xml:lang="de">Beschreibung</value>
