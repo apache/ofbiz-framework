@@ -160,8 +160,7 @@ under the License.
             <actions>
                 <set field="productsummaryScreen" value="component://order/widget/ordermgr/OrderEntryCatalogScreens.xml#productsummary"/>
                 <set field="showPriceDetails" value="Y"/>
-                <!--<script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/productdetail.bsh"/>-->
-                <!-- Warning: this bsh file in the order component is slightly different from that of the ecommerce one (the currency is taken from the cart) -->
+                <!-- Warning: this groovy file in the order component is slightly different from that of the ecommerce one (the currency is taken from the cart) -->
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/ProductDetail.groovy"/>
             </actions>
             <widgets>

@@ -48,7 +48,6 @@ under the License.
     <screen name="sidedeepcategory">
         <section>
             <actions>
-                <!--<script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/catalog/sidedeepcategory.bsh"/>-->
                 <property-map resource="ProductUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/entry/catalog/SideDeepCategory.groovy"/>
             </actions>

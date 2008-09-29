@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -441,7 +441,6 @@ under the License.
     </request-map>
     <request-map uri="ShowProductionRun">
         <security https="true" auth="true"/>
-        <!-- <event type="bsf" path="/jobshopmgt/" invoke="ShowProductionRun.bsh"/>  -->
         <event type="groovy" path="component://manufacturing/webapp/manufacturing/jobshopmgt/" invoke="ShowProductionRun.groovy"/>
         <response name="docs_not_printed" type="view" value="EditProductionRun"/>
         <response name="docs_printed" type="view" value="ProductionRunDeclaration"/>
