@@ -21,6 +21,7 @@ under the License.
 <site-conf xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/site-conf.xsd">
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
+    <include location="component://common/webcommon/WEB-INF/tempexpr-controller.xml"/>    
     <description>WebTools Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 
@@ -514,6 +515,17 @@ under the License.
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>
+
+    <!-- Temporal expression view mapping -->
+    <request-map uri="editTemporalExpression">
+        <security https="true" auth="true" />
+        <response name="success" type="view" value="editTemporalExpression"/>
+    </request-map>
+    <request-map uri="findTemporalExpression">
+        <security https="true" auth="true" />
+        <response name="success" type="view" value="findTemporalExpression"/>
+    </request-map>
+
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -595,5 +607,10 @@ under the License.
     
     <!-- Artifact Info Views -->
     <view-map name="ArtifactInfo" type="screen" page="component://webtools/widget/ArtifactInfoScreens.xml#ArtifactInfo"/> 
+
+    <!-- Temporal expression views -->
+    <view-map name="editTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#EditTemporalExpression"/>
+    <view-map name="findTemporalExpression" type="screen" page="component://webtools/widget/TempExprScreens.xml#FindTemporalExpression"/>
+
     <!-- end of view mappings -->
 </site-conf>

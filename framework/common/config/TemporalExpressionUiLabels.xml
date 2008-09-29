@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="TemporalExpression">
+        <value xml:lang="en">Temporal Expression</value>
+    </property>
+    <property key="TemporalExpressionFind">
+        <value xml:lang="en">Find Temporal Expression</value>
+    </property>
+    <property key="TemporalExpressionId">
+        <value xml:lang="en">Expression Id</value>
+    </property>
+    <property key="TemporalExpressionType">
+        <value xml:lang="en">Expression Type</value>
+    </property>
+    <property key="TemporalExpressionFreqCount">
+        <value xml:lang="en">Frequency Count</value>
+    </property>
+    <property key="TemporalExpressionFreqType">
+        <value xml:lang="en">Frequency Type</value>
+    </property>
+    <property key="TemporalExpressionTimeFormat">
+        <value xml:lang="en">hh:mm:ss</value>
+    </property>
+    <property key="TemporalExpressionOccurrence">
+        <value xml:lang="en">Occurrence</value>
+    </property>
+    <property key="TemporalExpressionMaintenance">
+        <value xml:lang="en">Temporal Expression Maintenance</value>
+    </property>
+    <property key="TemporalExpressionCollections">
+        <value xml:lang="en">Expression Collections</value>
+    </property>
+    <property key="TemporalExpression_DATE_RANGE">
+        <value xml:lang="en">Date Range</value>
+    </property>
+    <property key="TemporalExpression_DAY_IN_MONTH">
+        <value xml:lang="en">Day In Month</value>
+    </property>
+    <property key="TemporalExpression_DAY_OF_MONTH_RANGE">
+        <value xml:lang="en">Day Of Month Range</value>
+    </property>
+    <property key="TemporalExpression_DAY_OF_WEEK_RANGE">
+        <value xml:lang="en">Day Of Week Range</value>
+    </property>
+    <property key="TemporalExpression_DIFFERENCE">
+        <value xml:lang="en">Difference</value>
+    </property>
+    <property key="TemporalExpression_FREQUENCY">
+        <value xml:lang="en">Frequency</value>
+    </property>
+    <property key="TemporalExpression_INTERSECTION">
+        <value xml:lang="en">Intersection</value>
+    </property>
+    <property key="TemporalExpression_MONTH_RANGE">
+        <value xml:lang="en">Month Range</value>
+    </property>
+    <property key="TemporalExpression_TIME_OF_DAY_RANGE">
+        <value xml:lang="en">Time Of Day Range</value>
+    </property>
+    <property key="TemporalExpression_UNION">
+        <value xml:lang="en">Union</value>
+    </property>
+    <property key="TemporalExpressionInclude">
+        <value xml:lang="en">Include</value>
+    </property>
+    <property key="TemporalExpressionExclude">
+        <value xml:lang="en">Exclude</value>
+    </property>
+</resource>
