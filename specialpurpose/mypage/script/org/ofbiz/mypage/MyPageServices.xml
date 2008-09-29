@@ -100,6 +100,9 @@
                         <field-map field-name="productStoreId" env-name="storeEmail.productStoreId" />
                     </entity-and>
                     <first-from-list entry-name="webSite" list-name="webSites" />
+                    <entity-one entity-name="UserLogin" value-name="userLoginSystem">
+                        <field-map field-name="userLoginId" value="system"/>
+                    </entity-one>
                     <if-not-empty field="emailParams.sendTo">
                         <set field="bodyParameters.person" from-field="person"/>
                         <set field="bodyParameters.custRequest" from-field="custReq"/>
@@ -112,7 +115,8 @@
                         <set field="emailParams.contentType" value="text/html"/>
                         <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
                         <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
-                        <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
+                        <set field="emailParams.userLogin" from-field="userLoginSystem"/>
+                        <call-service service-name="sendMailFromScreen" in-map-name="emailParams" include-user-login="false"/>
                     </if-not-empty>
                 </if-not-empty>
             </then>
