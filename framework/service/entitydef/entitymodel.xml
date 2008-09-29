@@ -156,7 +156,7 @@ under the License.
             title="Temporal Expression Association">
       <field name="fromTempExprId" type="id-ne"><description>The "parent" expression</description></field>
       <field name="toTempExprId" type="id-ne"><description>The "child" expression</description></field>
-      <field name="exprAssocType" type="id"><description>Expression association type, applies to DIFFERENCE expression types only. Valid values are INCLUDED or EXCLUDED.</description></field>
+      <field name="exprAssocType" type="id"><description>Expression association type. Applies to DIFFERENCE expression types only. Valid values are INCLUDED or EXCLUDED.</description></field>
       <prim-key field="fromTempExprId"/>
       <prim-key field="toTempExprId"/>
       <relation type="one" fk-name="TEMP_EXPR_FROM" rel-entity-name="TemporalExpression" title="From">
@@ -166,6 +166,20 @@ under the License.
         <key-map field-name="toTempExprId" rel-field-name="tempExprId"/>
       </relation>
     </entity>
+
+    <view-entity entity-name="TemporalExpressionChild"
+            package-name="org.ofbiz.service.schedule"
+            title="Temporal Expression Children View Entity">
+      <member-entity entity-alias="TEA" entity-name="TemporalExpressionAssoc"/>
+      <member-entity entity-alias="TE" entity-name="TemporalExpression"/>
+      <alias-all entity-alias="TEA">
+          <exclude field="toTempExprId"/>
+      </alias-all>
+      <alias-all entity-alias="TE"/>
+      <view-link entity-alias="TEA" rel-entity-alias="TE">
+        <key-map field-name="toTempExprId" rel-field-name="tempExprId"/>
+      </view-link>
+    </view-entity>
 
   <!-- ========================================================= -->
   <!-- org.ofbiz.service.semaphore -->

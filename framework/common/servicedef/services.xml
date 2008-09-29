@@ -542,4 +542,40 @@ under the License.
         <implements service="permissionInterface"/>
     </service>
 
+
+    <!-- Temporal expression services -->    
+    <service name="tempExprPermissionCheck" engine="simple"
+             location="org/ofbiz/common/permission/CommonPermissionServices.xml" invoke="genericBasePermissionCheck">
+        <implements service="permissionInterface"/>
+        <attribute name="primaryPermission" type="String" mode="IN" optional="false" default-value="TEMPEXPR"/>
+        <attribute name="altPermission" type="String" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createTemporalExpression" default-entity-name="TemporalExpression" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Temporal Expression</description>
+        <permission-service service-name="tempExprPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="updateTemporalExpression" default-entity-name="TemporalExpression" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Temporal Expression</description>
+        <permission-service service-name="tempExprPermissionCheck" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="createTemporalExpressionAssoc" default-entity-name="TemporalExpressionAssoc" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a Temporal Expression Association</description>
+        <permission-service service-name="tempExprPermissionCheck" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <service name="deleteTemporalExpressionAssoc" default-entity-name="TemporalExpressionAssoc" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a Temporal Expression Association</description>
+        <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
 </services>

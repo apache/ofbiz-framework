@@ -63,4 +63,18 @@ under the License.
             <link target="LogConfiguration"/>
         </menu-item>
     </menu>
+
+    <menu name="TempExprTabBar" type="simple" menu-container-style="button-bar tab-bar"
+        default-selected-style="selected" selected-menuitem-context-field-name="tabMenuItem">
+        <menu-item name="findExpression" title="${uiLabelMap.CommonFind}">
+            <link target="findTemporalExpression"/>
+        </menu-item>
+        <menu-item name="editExpression" title="${uiLabelMap.CommonEdit}">
+            <condition>
+                <not><if-empty field-name="temporalExpression"/></not>
+            </condition>
+            <link target="editTemporalExpression?tempExprId=${temporalExpression.tempExprId}"/>
+        </menu-item>
+    </menu>
+
 </menus>

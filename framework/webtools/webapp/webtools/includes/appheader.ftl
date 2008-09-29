@@ -34,6 +34,9 @@ under the License.
       <#if security.hasPermission("ARTIFACT_INFO_VIEW", session)>
         <li<#if selected == "ArtifactInfo"> class="selected"</#if>><a href="<@ofbizUrl>ArtifactInfo</@ofbizUrl>">Artifact Info</a></li>
       </#if>
+      <#if security.hasPermission("TEMPEXPR_ADMIN", session)>
+        <li<#if selected == "tempexpr"> class="selected"</#if>><a href="<@ofbizUrl>findTemporalExpression</@ofbizUrl>">${uiLabelMap.TemporalExpression}</a></li>
+      </#if>
       <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
     <#else>
       <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>

@@ -44,4 +44,8 @@
     <!-- User preferences security -->
     <SecurityPermission description="User preferences admin" permissionId="USERPREF_ADMIN"/>
     <SecurityGroupPermission groupId="FULLADMIN" permissionId="USERPREF_ADMIN"/>
+
+    <!-- Temporal expression security -->
+    <SecurityPermission description="Temporal expression admin" permissionId="TEMPEXPR_ADMIN"/>
+    <SecurityGroupPermission groupId="FULLADMIN" permissionId="TEMPEXPR_ADMIN"/>
 </entity-engine-xml>

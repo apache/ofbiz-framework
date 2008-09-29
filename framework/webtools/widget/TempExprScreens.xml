@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+    
+    <screen name="TemporalExpressionDecorator">
+        <section>
+            <actions>
+                <set field="headerItem" value="tempexpr"/>
+                <property-map resource="TemporalExpressionUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="title" value="${uiLabelMap.${titleProperty}}" global="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <if-service-permission service-name="tempExprPermissionCheck" main-action="VIEW"/>
+                            </condition>
+                            <widgets>
+                                <decorator-section-include name="body"/>
+                            </widgets>
+                            <fail-widgets>
+                                <label style="h3">${uiLabelMap.WebtoolsPermissionError}</label>
+                            </fail-widgets>
+                        </section>                    
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="FindTemporalExpression">
+        <section>
+            <actions>
+                <set field="tabMenuItem" value="findExpression"/>
+                <set field="titleProperty" value="${titleProperty}" default-value="TemporalExpressionFind"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="TemporalExpressionDecorator" location="${parameters.tempExprDecoratorLocation}">
+                    <decorator-section name="body">
+                        <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
+                            <decorator-section name="menu-bar">
+                                <section>
+                                    <condition>
+                                        <if-service-permission service-name="tempExprPermissionCheck" main-action="CREATE"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar"><link target="editTemporalExpression" text="${uiLabelMap.CommonCreate}" style="buttontext"/></container>
+                                    </widgets>
+                                </section>
+                            </decorator-section>
+                            <decorator-section name="search-options">
+                                <include-form name="FindTemporalExpression" location="component://webtools/webapp/webtools/tempexpr/tempExprForms.xml"/>
+                            </decorator-section>
+                            <decorator-section name="search-results">
+                                <include-form name="ListTemporalExpressions" location="component://webtools/webapp/webtools/tempexpr/tempExprForms.xml"/>
+                            </decorator-section>
+                        </decorator-screen>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="EditTemporalExpression">
+        <section>
+            <actions>
+                <set field="tabMenuItem" value="editExpression"/>
+                <set field="titleProperty" value="${titleProperty}" default-value="TemporalExpressionMaintenance"/>
+                <entity-one value-name="temporalExpression" entity-name="TemporalExpression"/>
+                <set field="fromTempExprId" from-field="parameters.tempExprId"/>
+                <entity-condition list-name="childExpressionList" entity-name="TemporalExpressionChild">
+                    <condition-expr field-name="fromTempExprId" env-name="fromTempExprId"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="TemporalExpressionDecorator" location="${parameters.tempExprDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-menu name="TempExprTabBar" location="component://webtools/widget/WebToolsMenus.xml"/>
+                        <platform-specific>
+                            <html><html-template location="component://webtools/webapp/webtools/tempexpr/tempExprMaint.ftl"/></html>
+                        </platform-specific>
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="childExpressionList"/></not>
+                            </condition>
+                            <widgets>
+                                <include-form name="ListChildExpressions" location="component://webtools/webapp/webtools/tempexpr/tempExprForms.xml"/>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+</screens>

@@ -676,6 +676,9 @@
         <value xml:lang="zh_CN">八月</value>
         <value xml:lang="zh">八月</value>
     </property>
+    <property key="CommonAutoAssignedId">
+        <value xml:lang="en">Unique ID - auto-assigned if blank</value>
+    </property>
     <property key="CommonAvailable">
         <value xml:lang="ar">متوفر</value>
         <value xml:lang="cs">k dispozici</value>
@@ -3387,6 +3390,18 @@
         <value xml:lang="zh_CN">方法</value>
         <value xml:lang="zh">方法</value>
     </property>
+    <property key="CommonMinute">
+        <value xml:lang="ar">بدقة</value>
+        <value xml:lang="de">Jede Minute</value>
+        <value xml:lang="en">Minute</value>
+        <value xml:lang="fr">Chaque minute</value>
+        <value xml:lang="it">Minuto</value>
+        <value xml:lang="pt">Minuto a Minuto</value>
+        <value xml:lang="ro">Minut</value>
+        <value xml:lang="ru">Ежеминутно</value>
+        <value xml:lang="th">ทุกนาที</value>
+        <value xml:lang="zh">每分钟</value>
+    </property>
     <property key="CommonMinutely">
         <value xml:lang="ar">بدقة</value>
         <value xml:lang="de">Jede Minute</value>
@@ -5041,6 +5056,19 @@
         <value xml:lang="th">ค้นหาผลลัพธ์สำหรับ</value>
         <value xml:lang="zh_CN">搜索结果</value>
         <value xml:lang="zh">搜索</value>
+    </property>
+    <property key="CommonSecond">
+        <!-- The time measurement, not the ordinal -->
+        <value xml:lang="ar">ثانيا</value>
+        <value xml:lang="de">Zweiter</value>
+        <value xml:lang="en">Second</value>
+        <value xml:lang="fr">Deuxièmement</value>
+        <value xml:lang="it">Secondo</value>
+        <value xml:lang="pt">Secundariamente</value>
+        <value xml:lang="ro">Al doilea</value>
+        <value xml:lang="ru">Во-вторых</value>
+        <value xml:lang="th">ในลำดับที่สอง</value>
+        <value xml:lang="zh">每秒</value>
     </property>
     <property key="CommonSecondly">
         <value xml:lang="ar">ثانيا</value>
