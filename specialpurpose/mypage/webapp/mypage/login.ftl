@@ -1,10 +1,17 @@
 <#if requestAttributes.uiLabelMap?exists><#assign uiLabelMap = requestAttributes.uiLabelMap></#if>
 
+<#assign previousParams = sessionAttributes._PREVIOUS_PARAMS_?if_exists>
 <#if previousParams?has_content>
   <#assign previousParams = "?" + previousParams>
 </#if>
 
 <#assign username = requestParameters.USERNAME?default((sessionAttributes.autoUserLogin.userLoginId)?default(""))>
+<#if username != "">
+  <#assign focusName = false>
+<#else>
+  <#assign focusName = true>
+</#if>
+
 <center>
   <div class="screenlet login-screenlet">
     <div class="screenlet-title-bar">
@@ -27,6 +34,7 @@
             </td>
           </tr>
         </table>
+        <input type="hidden" name="JavaScriptEnabled" value="N"/>
       </form>
     </div>
   </div>
@@ -49,6 +57,7 @@
             </td>
           </tr>
         </table>
+        <input type="hidden" name="JavaScriptEnabled" value="N"/>
       </form>
     </div>
   </div>
@@ -56,6 +65,10 @@
 </center>
 
 <script language="JavaScript" type="text/javascript">
-  <#if autoUserLogin?has_content>document.loginform.PASSWORD.focus();</#if>
-  <#if !autoUserLogin?has_content>document.loginform.USERNAME.focus();</#if>
+  document.loginform.JavaScriptEnabled.value = "Y";
+  <#if focusName>
+    document.loginform.USERNAME.focus();
+  <#else>
+    document.loginform.PASSWORD.focus();
+  </#if>
 </script>
