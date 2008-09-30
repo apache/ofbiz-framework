@@ -37,7 +37,7 @@ under the License.
     <#if temporalExpression.tempExprTypeId == "DATE_RANGE">
       <@DateRange formName="updateExpression" fromDate=temporalExpression.date1 toDate=temporalExpression.date2/>
     <#elseif temporalExpression.tempExprTypeId == "DAY_IN_MONTH">
-      <@DayInMonth/>
+      <@DayInMonth occurrence=temporalExpression.integer2 day=temporalExpression.integer1/>
     <#elseif temporalExpression.tempExprTypeId == "DAY_OF_MONTH_RANGE">
       <@DayOfMonthRange fromDay=temporalExpression.integer1 toDay=temporalExpression.integer2/>
     <#elseif temporalExpression.tempExprTypeId == "DAY_OF_WEEK_RANGE">

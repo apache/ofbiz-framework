@@ -45,23 +45,23 @@ your template file:
   </tr>
 </#macro>
 
-<#macro DayInMonth fieldValue=0>
+<#macro DayInMonth occurrence=0 day=1>
   <tr>
     <td class="label">${uiLabelMap.TemporalExpressionOccurrence}</td>
     <td>
       <select name="integer2">
         <#list 1..5 as i>
-          <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
+          <option value="${i}"<#if i == occurrence> selected="selected"</#if>>${i}</option>
         </#list>
         <#list -1..-5 as i>
-          <option value="${i}"<#if i == fieldValue> selected="selected"</#if>>${i}</option>
+          <option value="${i}"<#if i == occurrence> selected="selected"</#if>>${i}</option>
         </#list>
       </select>
     </td>
   </tr>
   <tr>
     <td class="label">${uiLabelMap.CommonDay}</td>
-    <td><@DayOfWeekField fieldName="integer1" fieldValue=(temporalExpression.integer1)?default(1)/></td>
+    <td><@DayOfWeekField fieldName="integer1" fieldValue=day/></td>
   </tr>
 </#macro>
 
@@ -91,7 +91,7 @@ your template file:
   <tr>
     <td class="label">${uiLabelMap.CommonFrom}</td>
     <td>
-      <@DateField formName=formName fieldName="date1" fieldValue=(temporalExpression.date1)?default("")/>
+      <@DateField formName=formName fieldName="date1" fieldValue=fromDate/>
     </td>
   </tr>
   <tr>
