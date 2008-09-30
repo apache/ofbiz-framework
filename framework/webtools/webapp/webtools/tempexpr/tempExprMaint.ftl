@@ -112,7 +112,7 @@ under the License.
 </#if>
 
 <#macro CreateForm expressionTypeId="" formContents=NullMacro>
-  <form name="${currentForm}" method="post" action="<@ofbizUrl>createTemporalExpression</@ofbizUrl>">
+  <form name="${expressionTypeId}" method="post" action="<@ofbizUrl>createTemporalExpression</@ofbizUrl>">
     <input type="hidden" name="tempExprTypeId" value="${expressionTypeId}"/>
     <table class="basic-table" cellspacing="0">
       <#assign mapExpression = "TemporalExpression_" + expressionTypeId/>
