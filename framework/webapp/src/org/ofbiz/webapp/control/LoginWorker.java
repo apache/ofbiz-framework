@@ -519,9 +519,11 @@ public class LoginWorker {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         HttpSession session = request.getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
+        String domain = UtilProperties.getPropertyValue("url.properties", "cookie.domain");
         if (userLogin != null) {
             Cookie autoLoginCookie = new Cookie(getAutoLoginCookieName(request), userLogin.getString("userLoginId"));
             autoLoginCookie.setMaxAge(60 * 60 * 24 * 365);
+            autoLoginCookie.setDomain(domain);
             autoLoginCookie.setPath("/");
             response.addCookie(autoLoginCookie);
             return autoLoginCheck(delegator, session, userLogin.getString("userLoginId"));
