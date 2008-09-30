@@ -74,7 +74,7 @@ under the License.
             <condition>
                 <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
             </condition>
-            <link target="PartyFinancialHistory?partyId=${partyId}&amp;&amp;referredByPartyId=${partyId}"/>
+            <link target="PartyFinancialHistory?partyId=${partyId}"/>
         </menu-item>
     </menu>
     <menu name="ProfileSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  

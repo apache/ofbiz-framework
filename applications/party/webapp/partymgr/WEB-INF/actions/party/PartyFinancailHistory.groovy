@@ -28,9 +28,7 @@ import org.ofbiz.accounting.invoice.*;
 import org.ofbiz.accounting.payment.*;
 
 delegator = parameters.delegator;
-organizationPartyId = parameters.organizationPartyId;
 partyId = parameters.partyId;
-if (partyId == null && organizationPartyId == null) return;
 List historyList = new LinkedList();
 
 //get payment totals
@@ -41,7 +39,7 @@ Iterator pl = tpayments.iterator();
 while (pl.hasNext()) {
     payment = (GenericValue) pl.next();
     if (payment.statusId.equals("PMNT_CANCELLED")) continue;
-    if (payment.partyIdTo.equals(organizationPartyId))
+    if (payment.partyIdTo.equals(partyId))
         totalPaymentsIn = totalPaymentsIn.add(payment.getBigDecimal("amount")).setScale(2,BigDecimal.ROUND_HALF_UP);
     else
         totalPaymentsOut = totalPaymentsOut.add(payment.getBigDecimal("amount")).setScale(2,BigDecimal.ROUND_HALF_UP);
@@ -68,11 +66,11 @@ if (invoices != null && invoices.size() > 0) {
         if (invoice.statusId.equals("INVOICE_CANCELLED")) continue;
         BigDecimal invoiceAmount = InvoiceWorker.getInvoiceTotalBd(invoice).setScale(2,BigDecimal.ROUND_HALF_UP);
         invoiceApplied = InvoiceWorker.getInvoiceAppliedBd(invoice).setScale(2,BigDecimal.ROUND_HALF_UP);
-/*      if (invoice.getString("partyId").equals(organizationPartyId)) { //negate for outgoing payments
+        if (invoice.getString("partyId").equals(partyId)) { //negate for outgoing payments
             invoiceAmount = invoiceAmount.multiply(new BigDecimal("-1"));
             invoiceApplied = invoiceApplied.multiply(new BigDecimal("-1"));
         }
-*/      if (invoice.invoiceTypeId.equals("PURCHASE_INVOICE")) totalPurchaseInvoice = totalPurchaseInvoice.add(invoiceAmount);
+        if (invoice.invoiceTypeId.equals("PURCHASE_INVOICE")) totalPurchaseInvoice = totalPurchaseInvoice.add(invoiceAmount);
         if (invoice.invoiceTypeId.equals("SALES_INVOICE")) totalSalesInvoice = totalSalesInvoice.add(invoiceAmount);
         totalInvoiceApplied = totalInvoiceApplied.add(invoiceApplied);
 //      Debug.logInfo("Invoice type: "+ invoice.getString("invoiceTypeId") + "amount: " + invoiceAmount + " applied: " + invoiceApplied,"??");
@@ -119,7 +117,7 @@ if (invoices != null && invoices.size() > 0) {
                 if (!first && !paymentId.equals(oldPaymentId)) { // if the payment number has changed, but not the first
                     payment = delegator.findByPrimaryKey("Payment",["paymentId" : oldPaymentId]);
                     BigDecimal amount = payment.getBigDecimal("amount").setScale(2,BigDecimal.ROUND_HALF_UP);
-//                  if (payment.getString("partyIdFrom").equals(organizationPartyId)) amount = amount.multiply(new BigDecimal("-1"));
+                    if (payment.getString("partyIdFrom").equals(partyId)) amount = amount.multiply(new BigDecimal("-1"));
                     historyItem = ["applied" : applied.toString(),
                                    "paymentId" : oldPaymentId,
                                    "amount" : amount.toString(),
@@ -136,7 +134,7 @@ if (invoices != null && invoices.size() > 0) {
                 payment = delegator.findByPrimaryKey("Payment",["paymentId" : oldPaymentId]);
                 if (payment != null) {
                     BigDecimal amount = payment.getBigDecimal("amount").setScale(2,BigDecimal.ROUND_HALF_UP);
-//                  if (payment.getString("partyIdFrom").equals(organizationPartyId))   amount = amount.multiply(new BigDecimal("-1"));
+                    if (payment.getString("partyIdFrom").equals(partyId))   amount = amount.multiply(new BigDecimal("-1"));
                     historyItem = ["invoiceId" : invoice.invoiceId,
                                    "invoiceTypeId" : invoice.invoiceTypeId.substring(0,1),
                                    "invoiceDate" : invoice.invoiceDate.toString().substring(0,10),
@@ -179,7 +177,7 @@ if (payments) {
             toPayment = application.getRelatedOne("Payment");
             historyItem.toEffectiveDate = toPayment.effectiveDate.toString().substring(0,10);
             toAmount = toPayment.getBigDecimal("amount").setScale(2,BigDecimal.ROUND_HALF_UP);
-            if (toPayment.partyIdFrom.equals(organizationPartyId)) toAmount = toAmount.multiply(new BigDecimal("-1"));
+            if (toPayment.partyIdFrom.equals(partyId)) toAmount = toAmount.multiply(new BigDecimal("-1"));
             //reduce the payment amount in the payment list
             pl = payments.iterator();
             while (pl.hasNext()) {
@@ -214,10 +212,11 @@ if (payments) {
 if (notAppliedInvoices != null && notAppliedInvoices.size() > 0) {
     context.historyListInvoicesN = notAppliedInvoices;
 }
-        
+
+/*
 // list payments applied to other companies
 historyList = new LinkedList();
-if (payments != null && payments.size() > 0) {
+if (payments) {
     Iterator pm = payments.iterator();
     while (pm.hasNext())    {
         payment = (GenericValue) pm.next();
@@ -248,7 +247,7 @@ if (payments != null && payments.size() > 0) {
     }
     context.historyListPaymentsO = historyList;
 }
-
+*/
 // list not applied payments
 BigDecimal totalPaymentNotApplied = new BigDecimal("0.00").setScale(2,BigDecimal.ROUND_HALF_UP);
 historyList = new LinkedList();
@@ -275,21 +274,20 @@ if (payments != null && payments.size() > 0) {
 }
 
 // create totals
-
 finanSummary = ["totalSalesInvoice" : totalSalesInvoice.toString(), 
                 "totalPurchaseInvoice" : totalPurchaseInvoice.toString(),   
                 "totalPaymentsIn" : totalPaymentsIn.toString(), 
                 "totalPaymentsOut" : totalPaymentsOut.toString(),   
                 "totalInvoiceApplied" : totalInvoiceApplied.toString(),
-                "totalInvoiceNotApplied" : totalInvoiceNotApplied.toString()];
-finanSummary = ["totalPaymentNotApplied" : totalPaymentNotApplied.toString(),
+                "totalInvoiceNotApplied" : totalInvoiceNotApplied.toString(),
+                "totalPaymentNotApplied" : totalPaymentNotApplied.toString(),
                 "totalPaymentNotApplied" : totalPaymentNotApplied.toString()];
 totalToBePaid = totalSalesInvoice.add(totalPurchaseInvoice).subtract(totalInvoiceApplied).subtract(totalPaymentNotApplied);
 if (totalToBePaid.compareTo(new BigDecimal("0.00")) < 0 ) finanSummary.totalToBePaid = totalToBePaid.toString();
 else if (totalToBePaid.compareTo(new BigDecimal("0.00")) > 0 ) finanSummary.totalToBeReceived = totalToBePaid.toString();
 else    {
-    finanSummary = ["totalToBePaid" : "0.00",
-                    "totalToBeReceived" : "0.00"];
+    finanSummary.totalToBePaid = "0.00";
+    finanSummary.totalToBeReceived = "0.00";
 }
  context.finanSummary = finanSummary;
     
