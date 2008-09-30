@@ -25,6 +25,8 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.nio.ByteBuffer; 
+import java.nio.charset.Charset;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -1615,8 +1617,9 @@ public class PartyServices {
 
     public static Map<String, Object> importAddressMatchMapCsv(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
-        byte[] fileBytes = (byte[]) context.get("uploadedFile");
-        String csvFile = new String(fileBytes);
+        ByteBuffer fileBytes = (ByteBuffer) context.get("uploadedFile");
+        String encoding = System.getProperty("file.encoding");
+        String csvFile = Charset.forName(encoding).decode(fileBytes).toString();
         csvFile = csvFile.replaceAll("\\r", "");
         String[] records = csvFile.split("\\n");
 
