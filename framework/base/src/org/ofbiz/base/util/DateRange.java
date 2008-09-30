@@ -36,10 +36,10 @@ public class DateRange implements Serializable {
 
     public DateRange(Date start, Date end) {
         if (start != null) {
-            this.start = start;
+            this.start = new Date(start.getTime());
         }
         if (end != null) {
-            this.end = end;
+            this.end = new Date(end.getTime());
         }
     }
 
@@ -56,7 +56,7 @@ public class DateRange implements Serializable {
     }
 
     public String toString() {
-        return super.toString() + ", start = " + this.start + ", end = " + this.end;
+        return this.start + " - " + this.end;
     }
 
     public Date start() {
