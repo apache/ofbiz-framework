@@ -36,7 +36,8 @@ under the License.
     <webapp name="webpos"
         title="Web Pos"
         server="default-server"
+        menu-name="secondary"
         location="webapp/webpos"
         mount-point="/webpos"
-        app-bar-display="false"/>
+        app-bar-display="true"/>
 </ofbiz-component>
