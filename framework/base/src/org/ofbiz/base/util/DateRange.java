@@ -37,10 +37,10 @@ public class DateRange implements Serializable {
 
     public DateRange(Date start, Date end) {
         if (start != null) {
-            this.start = downcastTimestamp(start);
+            this.start = new Date(start.getTime());
         }
         if (end != null) {
-            this.end = downcastTimestamp(end);
+            this.end = new Date(end.getTime());
         }
     }
 
