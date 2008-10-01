@@ -280,6 +280,7 @@ under the License.
       <field name="facilityId" type="id"></field>
       <field name="infoUrl" type="long-varchar"></field>
       <field name="recurrenceInfoId" type="id"></field>
+      <field name="tempExprId" type="id"></field>
       <field name="runtimeDataId" type="id"></field>
       <field name="noteId" type="id"></field>
       <field name="serviceLoaderName" type="name"></field>
@@ -326,6 +327,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="WK_EFFRT_RECINFO" rel-entity-name="RecurrenceInfo">
         <key-map field-name="recurrenceInfoId"/>
+      </relation>
+      <relation type="one" fk-name="WK_EFFRT_TEMPEXPR" rel-entity-name="TemporalExpression">
+        <key-map field-name="tempExprId"/>
       </relation>
       <relation type="one" fk-name="WK_EFFRT_RNTMDTA" rel-entity-name="RuntimeData">
         <key-map field-name="runtimeDataId"/>
