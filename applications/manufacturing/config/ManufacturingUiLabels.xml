@@ -766,7 +766,7 @@
         <value xml:lang="de">Sie haben keine Berechtigung diese Seite anzuschauen ("MANUFACTURING_VIEW" oder "MANUFACTURING_ADMIN" wird benötigt)</value>
         <value xml:lang="en">You do not have permission to view this page. ("MANUFACTURING_VIEW" or "MANUFACTURING_ADMIN" needed)</value>
         <value xml:lang="es">Usted no tiene permiso para ver esta página. Necesita los permisos "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN"</value>
-        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un calendrier,  il faut avoir la permission MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un calendrier,  il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. (permesso "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN" necessario)</value>
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta pagina. (Ai nevoie de permis "MANUFACTURING_VIEW" sau "MANUFACTURING_ADMIN")</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ดูหน้านี้ ("MANUFACTURING_VIEW" หรือ "MANUFACTURING_ADMIN" ที่ต้องการ)</value>
@@ -1641,7 +1641,7 @@
         <value xml:lang="de">Sicherheits-Fehler: Um eine Anlagengruppe zu bearbeiten müssen Sie über die Berechtigung MANUFACTURING_CREATE oder MANUFACTURING_ADMIN verfügen</value>
         <value xml:lang="en">Security Error: to work on a Fixed Asset Group you must have the MANUFACTURING_CREATE or MANUFACTURING_ADMIN permission</value>
         <value xml:lang="es">Error:  Para acceder a esta funcionalidad debe contar con los permisos MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un groupe de machine,  il faut avoir la permission MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un groupe de machine,  il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per lavorare sui gruppi Macchine tu devi avere il permesso MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru a avea acces la grupurile de Mijloace Fixe trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการทำงานบนกลุ่มสินทรัพย์ไม่หมุนเวียนคุณต้องได้รับอนุาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -1671,7 +1671,7 @@
         <value xml:lang="de">Sicherheits-Fehler: Um eine Anlage zu bearbeiten müssen Sie über die Berechtigung MANUFACTURING_CREATE oder MANUFACTURING_ADMIN verfügen</value>
         <value xml:lang="en">Security Error: to work on Fixed Asset you must have the MANUFACTURING_CREATE or MANUFACTURING_ADMIN permission</value>
         <value xml:lang="es">Error:  Para acceder a esta funcionalidad debe contar con los permisos MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur une machine,  il faut avoir la permission MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur une machine,  il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per lavorare sulle Macchine tu devi avere il permesso MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru a avea acces la Mijloace Fixe drebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการทำงานบนสินทรัพย์ไม่หมุนเวียนคุณต้องได้รับอนุาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -2859,7 +2859,7 @@
         <value xml:lang="de">Sie haben keine Berechtigung um diese Seite anzuzeigen. ("MANUFACTURING_VIEWW oder WMANUFACTURING_ADMINW wird benötigt)</value>
         <value xml:lang="en">You do not have permission to view this page. ("MANUFACTURING_VIEW" or "MANUFACTURING_ADMIN" needed)</value>
         <value xml:lang="es">No tiene permiso para ver esta página. Necesita los permisos "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN"</value>
-        <value xml:lang="fr">Vous n'avez pas la permission de voir cette page. ("MANUFACTURING_VIEW" ou "MANUFACTURING_ADMIN" nécessaire)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("MANUFACTURING_VIEW" ou "MANUFACTURING_ADMIN" nécessaire)</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. (permesso "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN" necessario)</value>
         <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (este necesar un permis "MANUFACTURING_VIEW" sau "MANUFACTURING_ADMIN")</value>
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้ ("MANUFACTURING_VIEW" หรือ "MANUFACTURING_ADMIN" ที่ต้องการ)</value>

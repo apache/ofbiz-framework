@@ -678,6 +678,7 @@
     </property>
     <property key="CommonAutoAssignedId">
         <value xml:lang="en">Unique ID - auto-assigned if blank</value>
+        <value xml:lang="fr">Réf. unique - générée automatiquement si vide</value>
     </property>
     <property key="CommonAvailable">
         <value xml:lang="ar">متوفر</value>
@@ -2540,7 +2541,7 @@
     <property key="CommonGenericPermissionError">
         <value xml:lang="de">Sicherheitsfehler: Um ${resourceDescription} auszuführen, müssen Sie eine der folgenden Berechtigungen besitzen: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="en">Security Error: To run ${resourceDescription} you must have the one of the following permissions: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
-        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir une des permissions suivantes : ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir une des autorisations suivantes : ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
         <value xml:lang="pt">Erro de Segurança: Para executar ${resourceDescription} você deve ter a ${}_${mainAction} ou a permissão ${}_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения ${resourceDescription} у вас должны быть права ${}_${mainAction} или ${}_ADMIN</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ในการรัน ${resourceDescription} คุณต้องมีการได้รับอนุญาตก่อน${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
@@ -4269,7 +4270,7 @@
     <property key="CommonPermissionErrorMessage">
         <value xml:lang="en">Sicherheitsfehler: Um ${resourceDescription} auszuführen müssen Sie eine der folgenden Berechtigungen besitzen:   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
         <value xml:lang="en">Error  Security: To run ${resourceDescription}  you must have the one of the following permissions:   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir les permissions suivantes :   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir les autorisations suivantes :   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
         <value xml:lang="pt">Erro de Segurança: para executar ${resourceDescription} você deve ter o  EXAMPLE_${mainAction} ou permissão EXAMPLE_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения ${resourceDescription} у вас должны быть права EXAMPLE_${mainAction} или EXAMPLE_ADMIN</value>
         <value xml:lang="th">Error  Security: ความปลอดภัยผิดพลาด ! ในการรัน ${resourceDescription} คุณต้องมีการอนุญาติก่อน EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
@@ -4277,7 +4278,7 @@
     <property key="CommonPermissionMainActionAttributeMissing">
         <value xml:lang="de">Der main-action Parameter fehlt!</value>
         <value xml:lang="en">Permission main-action parameter missing!</value>
-        <value xml:lang="fr">Le paramètre de permission d'action principale manque !</value>
+        <value xml:lang="fr">Le paramètre d'autorisation d'action principale manque !</value>
         <value xml:lang="pt">Parâmetro de acção-principal da permissão em falta!</value>
         <value xml:lang="ru">Permission main-action parameter missing!</value>
         <value xml:lang="th">การอนุญาต main-action ไม่พบพารามิเตอร์ !</value>
@@ -4285,7 +4286,7 @@
     <property key="CommonPermissionPrimaryPermissionMissing">
         <value xml:lang="de">Der Berechtigungsparameter primaryPermission fehlt!</value>
         <value xml:lang="en">Permission primaryPermission parameter missing!</value>
-        <value xml:lang="fr">Le paramètre de permission primaire manque !</value>
+        <value xml:lang="fr">Le paramètre d'autorisation primaire manque !</value>
         <value xml:lang="pt">O parâmetro de Permissão primaryPermission está em falta!</value>
         <value xml:lang="ru">Permission primaryPermission parameter missing!</value>
         <value xml:lang="th">การอนุญาตครั้งแรกไม่พบพารามิเตอร์ !</value>
@@ -5062,7 +5063,7 @@
         <value xml:lang="ar">ثانيا</value>
         <value xml:lang="de">Zweiter</value>
         <value xml:lang="en">Second</value>
-        <value xml:lang="fr">Deuxièmement</value>
+        <value xml:lang="fr">Seconde</value>
         <value xml:lang="it">Secondo</value>
         <value xml:lang="pt">Secundariamente</value>
         <value xml:lang="ro">Al doilea</value>
