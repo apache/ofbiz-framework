@@ -380,7 +380,7 @@
         <value xml:lang="de">Sie müssen mit den erforderlichen Berechtigungen angemeldet sein um ein user-login mit einer Party ID anzulegen, für eine Party die bereits existiert.</value>
         <value xml:lang="en">You must be logged in and have permission to create a user login with a party ID for a party that already exists.</value>
         <value xml:lang="es">Debe estar conectado y contar con permisos para crear un usuario a un participante existente</value>
-        <value xml:lang="fr">Vous devez être connecté et avoir la permission de créer un compte utilisateur avec une réf. d'acteur d'un acteur qui existe déjà.</value>
+        <value xml:lang="fr">Vous devez être connecté et avoir l'autorisation de créer un compte utilisateur avec une réf. d'acteur d'un acteur qui existe déjà.</value>
         <value xml:lang="it">Tu dovresti autenticarti e avere i permessi per creare un'utente con Codice soggetto per un soggetto già esistente.</value>
         <value xml:lang="nl">You must be logged in and have permission to create a user login with a party ID for a party that already exists.</value>
         <value xml:lang="ro">Trebbie sa te autentifici si sa ai dreptul sa creezi un utilizator cu Cod subiect pentru un subiect deja existent.</value>
@@ -392,7 +392,7 @@
         <value xml:lang="de">Sie müssen angemeldet sein und die über erforderlichen Berechtigungen verfügen um ein user-login mit einer party-id anzulegen, für eine party die bereits existiert.</value>
         <value xml:lang="en">You must be logged in and have permission to create a user login with a party ID for a party that already exists.</value>
         <value xml:lang="es">Debe estar conectado y contar con permisos para crear un usuario a un participante existente</value>
-        <value xml:lang="fr">Vous devez être connecté et avoir la permission de créer un compte utilisateur avec une réf. d'acteur d'un acteur qui existe déjà.</value>
+        <value xml:lang="fr">Vous devez être connecté et avoir l'autorisation de créer un compte utilisateur avec une réf. d'acteur d'un acteur qui existe déjà.</value>
         <value xml:lang="it">Ti devi autenticare e avere i permessi per creare un'utente con un Codice soggetto per un soggetto che già esiste.</value>
         <value xml:lang="nl">You must be logged in and have permission to create a user login with a party ID for a party that already exists.</value>
         <value xml:lang="ro">Trebuie sa te autentifici si sa ai dreptul de a crea un utilizator cu un Cod subiect pentru un subiect deja existent.</value>
@@ -410,7 +410,7 @@
         <value xml:lang="de">Sie verfügen nicht über die erforderliche Berechtigungen um das Passwort dieses user-logins zu ändern.</value>
         <value xml:lang="en">You do not have permission to update the password for this user login.</value>
         <value xml:lang="es">No tiene permisos para modificar el password para este usuario</value>
-        <value xml:lang="fr">Vous n'avez pas la permission de mettre à jour le mot de passe pour ce compte utilisateur.</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de mettre à jour le mot de passe pour ce compte utilisateur.</value>
         <value xml:lang="it">Non sei autorizzato ad aggiornare la password per questo utente.</value>
         <value xml:lang="nl">You do not have permission to update the password for this user login.</value>
         <value xml:lang="ro">Nu esti autorizat sa actualizezi parola pentru acest utilizator.</value>
@@ -422,7 +422,7 @@
         <value xml:lang="de">Sie verfügen nicht über die erforderlichen Berechtigungen die Sicherheitsinformationen dieses user-logins zu ändern.</value>
         <value xml:lang="en">You do not have permission to update the security info for this user login.</value>
         <value xml:lang="es">Usted no cuenta con permisos para actualizar la información de este usuario.</value>
-        <value xml:lang="fr">Vous n'avez pas la permission de mettre à jour l'information de sécurité pour ce compte utilisateur.</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de mettre à jour l'information de sécurité pour ce compte utilisateur.</value>
         <value xml:lang="it">Tu non sei autorizzato ad aggiornare le informazioni sulla sicurezza per questo utente.</value>
         <value xml:lang="nl">You do not have permission to update the security info for this user login.</value>
         <value xml:lang="ro">Tu nu esti  autorizat sa actualizezi informatiile de siguranta ale acestui utilizator.</value>
@@ -458,7 +458,7 @@
         <value xml:lang="de">Eine Party mit der angegebenen Party-ID existiert bereits und sie verfügen nicht über die erforderlichen Berechtigungen ein user-login mit dieser Party-ID zu erstellen.</value>
         <value xml:lang="en">Party with specified party ID exists and you do not have permission to create a user login with this party ID.</value>
         <value xml:lang="es">El participante existe y usted no tiene permisos para crear usuarios a este participante</value>
-        <value xml:lang="fr">L'acteur avec la réf. spécifiée existe et vous n'avez pas la permission de créer un compte utilisateur avec cette réf. d'acteur.</value>
+        <value xml:lang="fr">L'acteur avec la réf. spécifiée existe et vous n'avez pas l'autorisation de créer un compte utilisateur avec cette réf. d'acteur.</value>
         <value xml:lang="it">Soggetto con Codice specificato esiste già e non hai i permessi per creare un'utente con questo Codice soggetto.</value>
         <value xml:lang="nl">Party with specified party ID exists and you do not have permission to create a user login with this party ID.</value>
         <value xml:lang="ro">Subiectul cu Codul specificat exista deja si nu ai dreptul sa creezi un utilizator cu  acest Cod subiect.</value>
@@ -470,7 +470,7 @@
         <value xml:lang="de">Party mit angegebener Party ID existiert bereits und sie verfügen nicht über die erforderliche Berechtigung ein user-login mit dieser Party ID anzulegen.</value>
         <value xml:lang="en">Party with specified party ID exists and you do not have permission to create a user login with this party ID.</value>
         <value xml:lang="es">Usted no tiene permiso para crear usuarios para este participante</value>
-        <value xml:lang="fr">L'acteur avec la réf. spécifiée existe et vous n'avez pas la permission de créer un compte utilisateur avec cette réf. d'acteur.</value>
+        <value xml:lang="fr">L'acteur avec la réf. spécifiée existe et vous n'avez pas l'autorisation de créer un compte utilisateur avec cette réf. d'acteur.</value>
         <value xml:lang="it">Soggetto con Codice specificato esiste già e non hai i permessi per create un'utente con questo Codice Soggetto.</value>
         <value xml:lang="nl">Partij met de gespecificeerde ID bestaat reeds en U hebt niet de nodige rechten om een login Nr voor deze party aan te maken.</value>
         <value xml:lang="ro">Subiectul cu Codul specificat exista deja, Nu ai drept sa creezi un utilizator cu acest cod Subiect.</value>

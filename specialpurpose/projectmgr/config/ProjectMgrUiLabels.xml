@@ -1071,7 +1071,7 @@
     </property>
     <property key="ProjectMgrViewPermissionError">
         <value xml:lang="en">You need at least PROJECTMGR_READ permission to view this screen.</value>
-        <value xml:lang="fr">Il vous faut au moins la permission PROJECTMGR_READ pour voir cet écran</value>
+        <value xml:lang="fr">Il vous faut au moins l'autorisation PROJECTMGR_READ pour voir cet écran</value>
         <value xml:lang="it">Tu hai bisogno al minimo del permesso PROJECTMGR_READ per vedere questa videata.</value>
         <value xml:lang="th">คุณต้องการการอนุญาตอย่างน้อยที่สุด PROJECTMGR_READ ในการแสดงหน้าจอนี้</value>
         <value xml:lang="zh">你至少需要有PROJECTMGR_READ权限才能查看本页</value>

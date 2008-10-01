@@ -2265,7 +2265,7 @@
     <property key="WorkEffortErrorPermissionViewActivity">
         <value xml:lang="en">ERROR: You do not have permission to view this activity.This activity must belong to you or you must be an administrator</value>
         <value xml:lang="es">ERROR: No tiene permiso para ver esta actividad. Debe ser el dueño de la actividad o tener permisos de administrardor para verla.</value>
-        <value xml:lang="fr">ERREUR : Vous n'avez pas la permission d'acceder à cette activité.Vous devez être habilité ou vous devez être un administrateur</value>
+        <value xml:lang="fr">ERREUR : Vous n'avez pas l'autorisation d'acceder à cette activité.Vous devez être habilité ou vous devez être un administrateur</value>
         <value xml:lang="it">ERRORE: Tu non sei autorizzato a vedere questa attività.Questa attività deve corrispondere a te o tu devi essere un amministratore</value>
         <value xml:lang="nl">ERROR: You do not have permission to view this activity.This activity must belong to you or you must be an administrator</value>
         <value xml:lang="ro">EROARE: Tu nu esti autorizat sa vezi  aceasta activitate. Aceasta activitate trebuie sa iti corespunda tie sau tu trebuie sa fii un administrator.</value>
@@ -2276,7 +2276,7 @@
     <property key="WorkEffortErrorPermissionViewEvent">
         <value xml:lang="en">ERROR: You do not have permission to view this event.This event must be long to you or you must be an administrator</value>
         <value xml:lang="es">ERROR: No tiene permiso para ver este evento. Debe ser el dueño del evento o tener permisos de administrardor para verlo.</value>
-        <value xml:lang="fr">ERREUR : Vous n'avez pas la permission de voir cet évènement.Cet évènement ne vous appartient pas ou vous devez être un administrateur</value>
+        <value xml:lang="fr">ERREUR : Vous n'avez pas l'autorisation de voir cet évènement.Cet évènement ne vous appartient pas ou vous devez être un administrateur</value>
         <value xml:lang="it">ERRORE: Tu non sei autorizzato a vedere questo evento.Questo evento deve corrispondere a te o tu devi essere un amministratore</value>
         <value xml:lang="nl">ERROR: You do not have permission to view this event.This event must be long to you or you must be an administrator</value>
         <value xml:lang="ro">EROARE: Tu nu esti autorizat sa vezi acest eveniment.Acest eveniment trebuie sa iti corespunda tie sau tu trebuie sa fii un administrator.</value>

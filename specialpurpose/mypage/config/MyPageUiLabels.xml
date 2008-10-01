@@ -92,7 +92,7 @@
     </property>
     <property key="MyPageNoAccess3">
         <value xml:lang="en">At least MYPAGE_CUSTOMER or MYPAGE_EMPLOYEE permission is required</value>
-        <value xml:lang="fr">Au moins une permission MYPAGE_CUSTOMER ou MYPAGE_EMPLOYEE est nécessaire</value>
+        <value xml:lang="fr">Au moins une autorisation MYPAGE_CUSTOMER ou MYPAGE_EMPLOYEE est nécessaire</value>
     </property>
     <property key="MyPageNoAccess4">
         <value xml:lang="en">Use the demo userLogin id's 'DemoCustomer' and 'DemoEmployee' for a demo.</value>

@@ -3695,7 +3695,7 @@
     </property>
     <property key="GeneralCatalogPermissionError">
         <value xml:lang="en">You do not have permission to run ${methodShortDescription}. ("CATALOG${securityAction}" or "CATALOG_ADMIN" needed)</value>
-        <value xml:lang="fr">Vous n'avez pas la permission d'exécuter ${methodShortDescription}. ("CATALOG${securityAction}" ou "CATALOG_ADMIN" nécessaire)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation d'exécuter ${methodShortDescription}. ("CATALOG${securityAction}" ou "CATALOG_ADMIN" nécessaire)</value>
         <value xml:lang="it">Tu non hai il permesso di eseguire ${methodShortDescription}. Necessario ("CATALOG${securityAction}" o "CATALOG_ADMIN")</value>
         <value xml:lang="ru">У вас нет прав для выполнения ${methodShortDescription}. Необходимы ("CATALOG${securityAction}" или "CATALOG_ADMIN")</value>
         <value xml:lang="th">คุณไม่ต้องมีการอนุญาตในการดำเนินการ ${methodShortDescription}. ("CATALOG${securityAction}" หรือ "CATALOG_ADMIN" needed)</value>
@@ -9194,7 +9194,7 @@
     <property key="ProductFacilityCreatePermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("FACILITY_CREATE" or "FACILITY_ADMIN" needed)</value>
         <value xml:lang="es">Necesita permisos para ver esta página. (se necesitan permisos de "FACILITY_CREATE" o "FACILITY_ADMIN")</value>
-        <value xml:lang="fr">Vous n'avez pas la permission de voir cette page. ("FACILITY_CREATE" ou "FACILITY_ADMIN" est nécessaire)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("FACILITY_CREATE" ou "FACILITY_ADMIN" est nécessaire)</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. (Permesso "FACILITY_CREATE" o "FACILITY_ADMIN" necessari)</value>
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta pagina. (Este Necesar Permisul sau "FACILITY_CREATE" sau "FACILITY_ADMIN" )</value>
         <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (необходимы права "FACILITY_CREATE" или "FACILITY_ADMIN")</value>
@@ -9373,8 +9373,7 @@
     </property>
     <property key="ProductFacilityPermissionError">
         <value xml:lang="en">Security Error : to run ${resourceDescription} you must have the CATALOG_${mainAction} or CATALOG_ADMIN or FACILITY_${mainAction} or FACILITY_ADMIN permission</value>
-        <value xml:lang="fr">Erreur de sécurité : to run ${resourceDescription} you must have the CATALOG_${mainAction} or CATALOG_ADMIN or FACILITY_${mainAction} or FACILITY_ADMIN permission</value>
-        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir le CATALOG_${mainAction} ou le CATALOG_ADMIN ou FACILITY_${mainAction} ou FACILITY_ADMIN permission</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir l'autorisation CATALOG_${mainAction} ou le CATALOG_ADMIN ou FACILITY_${mainAction} ou FACILITY_ADMIN</value>
         <value xml:lang="th">Security Error : ความปลอดภัยผิดพลาด ! ในการดำเนินการ ${resourceDescription} คุณต้องมี CATALOG_${mainAction} หรือ CATALOG_ADMIN หรือ FACILITY_${mainAction} หนือ FACILITY_ADMIN การอนุญาต</value>
     </property>
     <property key="ProductFacilityPartyMemberMaintenance">
@@ -9410,7 +9409,7 @@
     <property key="ProductFacilityViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("FACILITY_VIEW" or "FACILITY_ADMIN" needed)</value>
         <value xml:lang="es">No tiene permiso para ver esta página. (se necesitan permisos de "FACILITY_VIEW" o "FACILITY_ADMIN")</value>
-        <value xml:lang="fr">Vous n'avez pas la permission de voir cette page. ("FACILITY_VIEW" ou "FACILITY_ADMIN" est nécessaire)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("FACILITY_VIEW" ou "FACILITY_ADMIN" est nécessaire)</value>
         <value xml:lang="it">Tu non hai l'autorizzazione per vedere questa pagina. (Permesso "FACILITY_VIEW" o "FACILITY_ADMIN" necessario)</value>
         <value xml:lang="ro">Tu nu ai autorizatia sa vezi aceasta pagina. (Este necesar permisul "FACILITY_VIEW" sau "FACILITY_ADMIN")</value>
         <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (нужны права "FACILITY_VIEW" или "FACILITY_ADMIN")</value>
@@ -13063,7 +13062,7 @@
     </property>
     <property key="ProductPermissionError">
         <value xml:lang="en">Security Error: to run ${resourceDescription} you must have the CATALOG_${mainAction} or CATALOG_ADMIN permission</value>
-        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir le CATALOG_${mainAction} ou le CATALOG_ADMIN permission</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir l'autorisation CATALOG_${mainAction} ou le CATALOG_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire ${resourceDescription} tu devi avere il permesso CATALOG_${mainAction} o CATALOG_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения ${resourceDescription} у вас должны быть права CATALOG_${mainAction} или CATALOG_ADMIN</value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาดในการดำเนินการ ${resourceDescription} คุณต้องมี CATALOG_${mainAction} หรือ CATALOG_ADMIN อนุญาต</value>
@@ -17486,7 +17485,7 @@
     <property key="ProductViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("CATALOG_VIEW" or "CATALOG_ADMIN" needed)</value>
         <value xml:lang="es">No tiene permiso para ver esta página. (se necesitan permisos de "CATALOG_VIEW" o "CATALOG_ADMIN")</value>
-        <value xml:lang="fr">Vous n'avez pas la permission de voir cette page. ("CATALOG_VIEW" ou "CATALOG_ADMIN" est nécessaire)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("CATALOG_VIEW" ou "CATALOG_ADMIN" est nécessaire)</value>
         <value xml:lang="it">Non sei autorizzato a vedere questa pagina. (Permesso "CATALOG_VIEW" o "CATALOG_ADMIN" necessario)</value>
         <value xml:lang="ro">Nu esti autorizat sa vezi aceasta pagina. (Permis "CATALOG_VIEW" sau "CATALOG_ADMIN" necesar)</value>
         <value xml:lang="ru">У вас нет прав для просмотра этой страницы. (нужны права "CATALOG_VIEW" или "CATALOG_ADMIN")</value>
@@ -18036,7 +18035,7 @@
     <property key="productevents.not_sufficient_permissions">
         <value xml:lang="en">You do not have sufficient permissions to ${updateMode} CATALOG (CATALOG_${updateMode} or CATALOG_ADMIN needed).</value>
         <value xml:lang="es">No tiene suficientes permisos para ${updateMode} se necesitan permisos de CATALOG (CATALOG_${updateMode} o CATALOG_ADMIN).</value>
-        <value xml:lang="fr">Vous n'avez pas les permissions suffisantes pour ${updatemode} le CATALOGUE (CATALOG_${updateMode} ou CATALOG_ADMIN requis).</value>
+        <value xml:lang="fr">Vous n'avez pas les autorisations suffisantes pour ${updatemode} le CATALOGUE (CATALOG_${updateMode} ou CATALOG_ADMIN requis).</value>
         <value xml:lang="it">Non hai permessi sufficienti per ${updateMode} CATALOG (permesso CATALOG_${updateMode} o CATALOG_ADMIN necessario).</value>
         <value xml:lang="ro">Nu aidestule permise pentru ${updateMode} CATALOG (este necesar permisul CATALOG_${updateMode} sau CATALOG_ADMIN).</value>
         <value xml:lang="ru">У вас нет достаточных прав для ${updateMode} CATALOG (необходимы права CATALOG_${updateMode} или CATALOG_ADMIN).</value>

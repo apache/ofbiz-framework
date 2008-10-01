@@ -1415,7 +1415,7 @@
     </property>
     <property key="AccountingCreateFixedAssetMaintOrderPermissionError">
         <value xml:lang="en">Security Error: to run createFixedAssetMaintOrder you must have the ACCOUNTING_CREATEUPDATE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_CREATE permission</value>
-        <value xml:lang="fr">Erreur de sécurité: pour exécuter createFixedAssetMaintOrder vous devez avoir les permissions ACCOUNTING_CREATEUPDATE ou ACCOUNTING_ADMIN, ou bien la permission limitée ACCOUNTING_ROLE_CREATE</value>
+        <value xml:lang="fr">Erreur de sécurité: pour exécuter createFixedAssetMaintOrder vous devez avoir les autorisations ACCOUNTING_CREATEUPDATE ou ACCOUNTING_ADMIN, ou bien la autorisation limitée ACCOUNTING_ROLE_CREATE</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска createFixedAssetMaintOrder у вас должны быть права ACCOUNTING_CREATEUPDATE, ACCOUNTING_ADMIN, или ограниченные ACCOUNTING_ROLE_CREATE</value>
         <value xml:lang="th">Security Error: ความผิดพลาด! ในการ createFixedAssetMaintOrder คุณต้องมี ACCOUNTING_CREATEUPDATE หรือ ACCOUNTING_ADMIN permission, หรือจำกัด ACCOUNTING_ROLE_CREATE ก่อน</value>
     </property>
@@ -1483,7 +1483,7 @@
     <property key="AccountingCreatePaymentPermissionError">
         <value xml:lang="en">Security Error : To Create a Payment you must either be the to or from party or have the PAY_INFO_CREATE or PAY_INFO_ADMIN permissions.</value>
         <value xml:lang="es">Error de seguridad : Para crear un pago debe ser cualquiera de el grupo de o para o tener el permiso PAY_INFO_CREATE o PAY_INFO_ADMIN.</value>
-        <value xml:lang="fr">Erreur de sécurité : pour saisir un paiement, vous devez être soit être l'acteur demandeur ou payeur, ou bien avoir la permission PAY_INFO_CREATE ou PAY_INFO_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : pour saisir un paiement, vous devez être soit être l'acteur demandeur ou payeur, ou bien avoir l'autorisation PAY_INFO_CREATE ou PAY_INFO_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : Per Creare un Pagamento tu devi inserire entrambi da/a Soggetto o avere il permesso PAY_INFO_CREATE o PAY_INFO_ADMIN.</value>
         <value xml:lang="nl">Toegangsfout : Om een betaling aan te maken is PAY_INFO_CREATE of PAY_INFO_ADMIN permissie vereist</value>
         <value xml:lang="pt_BR">Erro de Segurança: para criar um Pagamento, deverá pertencer a uma secção ou obter permissões para PAY_INFO_CREATE ou PAY_INFO_ADMIN</value>
@@ -1496,7 +1496,7 @@
     <property key="AccountingCreatePermissionError">
         <value xml:lang="en">Security Error: to run createGlAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createGlAccount debe tener el permiso ACCOUNTING_CREATE o ACCOUNTING_ADMIN </value>
-        <value xml:lang="fr">Erreur de sécurité : pour créer un compte de facturation, vous devez avoir la permission ACCOUNTING_CREATE ou ACCOUNTING_ADMIN.</value>
+        <value xml:lang="fr">Erreur de sécurité : pour créer un compte de facturation, vous devez avoir l'autorisation ACCOUNTING_CREATE ou ACCOUNTING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createGlAccount tu devi avere il permesso ACCOUNTING_CREATE o ACCOUNTING_ADMIN</value>
         <value xml:lang="nl">Toegangsfout: to run createGlAccount you must have the ACCOUNTING_CREATE or ACCOUNTING_ADMIN permission</value>
         <value xml:lang="pt_BR">Erro de Segurança: para "Criar Conta GL" deverá obter permissões para  ACCOUNTING_CREATE ou ACCOUNTING_ADMIN </value>
@@ -1610,7 +1610,7 @@
     </property>
     <property key="AccountingDeleteFixedAssetMaintOrderPermissionError">
         <value xml:lang="en">Security Error: to run deleteFixedAssetMaintOrder you must have the ACCOUNTING_DELETE or ACCOUNTING_ADMIN permission, or the limited ACCOUNTING_ROLE_UPDATE permission</value>
-        <value xml:lang="fr">Erreur de sécurité: pour exécuter deleteFixedAssetMaintOrdervous devez avoir les permissions ACCOUNTING_DELETE ou ACCOUNTING_ADMIN, ou bien la permission limitée  ACCOUNTING_ROLE_UPDATE</value>
+        <value xml:lang="fr">Erreur de sécurité: pour exécuter deleteFixedAssetMaintOrdervous devez avoir les autorisations ACCOUNTING_DELETE ou ACCOUNTING_ADMIN, ou bien la autorisation limitée  ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="ru">Ошибка безопасности: для запуска deleteFixedAssetMaintOrder у вас должны быть права ACCOUNTING_DELETE, ACCOUNTING_ADMIN или ограниченные ACCOUNTING_ROLE_UPDATE</value>
         <value xml:lang="th">Security Error: ความผิดพลาด! ในการ deleteFixedAssetMaintOrder คุณต้องมี ACCOUNTING_DELETE หรือ ACCOUNTING_ADMIN permission, หรือ limited ACCOUNTING_ROLE_UPDATE ก่อน</value>
     </property>
@@ -5119,7 +5119,7 @@ esetata in mod automat</value>
     <property key="AccountingPrintChecksPermissionError">
         <value xml:lang="en">Security Error: to print checks, you must have the ACCOUNTING_PRINT_CHECKS permission</value>
         <value xml:lang="es">Error de seguridad: para imprimir cheques, debe tener el permiso ACCOUNTING_PRINT_CHECKS</value>
-        <value xml:lang="fr">Permission refusée: pour imprimer des chèques vous devez avoir la permission ACCOUNTING_PRINT_CHECKS</value>
+        <value xml:lang="fr">Permission refusée: pour imprimer des chèques vous devez avoir l'autorisation ACCOUNTING_PRINT_CHECKS</value>
         <value xml:lang="it">Errore Sicurezza: per stampare assegni, tu devi avere i permessi ACCOUNTING_PRINT_CHECKS</value>
         <value xml:lang="nl">Toegangsfout: om checks af te drukken is de ACCOUNTING_PRINT_CHECKS permissie nodig</value>
         <value xml:lang="ro">Eroare Siguranta: pentru  tiparire CEC-uri, trebuie sa ai permisul ACCOUNTING_PRINT_CHECKS</value>
@@ -5906,7 +5906,7 @@ esetata in mod automat</value>
     <property key="AccountingUpdatePaymentPermissionError">
         <value xml:lang="en">Security Error : To Update a Payment you must either be the to or from party or have the PAY_INFO_UPDATE or PAY_INFO_ADMIN permissions.</value>
         <value xml:lang="es">Error de seguridad : Para actualizar un paga debe ser cualquiera el grupo destino u origen o tener el permiso PAY_INFO_UPDATE or PAY_INFO_ADMIN.</value>
-        <value xml:lang="fr">Erreur de sécurité : pour éditer un paiement, vous devez soit être l'acteur demandeur ou payeur soit il faut avoir la permission PAY_INFO_UPDATE ou PAY_INFO_ADMIN.</value>
+        <value xml:lang="fr">Erreur de sécurité : pour éditer un paiement, vous devez soit être l'acteur demandeur ou payeur soit il faut avoir l'autorisation PAY_INFO_UPDATE ou PAY_INFO_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : Per Aggiornare un Pagamento tu devi avere entrambi da o a Soggetto o il permesso PAY_INFO_UPDATE o PAY_INFO_ADMIN.</value>
         <value xml:lang="nl">Toegangsfout : Om een betaling aan te passen is de PAY_INFO_UPDATE or PAY_INFO_ADMIN permissie vereist.</value>
         <value xml:lang="pt_BR">Erro de Segurança: para atualizar um pagamento deverá pertencer a uma secção ou obter permissões para  PAY_INFO_UPDATE ou PAY_INFO_ADMIN.</value>
@@ -5943,7 +5943,7 @@ esetata in mod automat</value>
     <property key="AccountingViewPermissionError">
         <value xml:lang="en">You do not have permission to view this page. ("ACCOUNTING_VIEW" or "ACCOUNTING_ADMIN" needed)</value>
         <value xml:lang="es">No tiene permiso de ver esta página. ("ACCOUNTING_VIEW" o "ACCOUNTING_ADMIN" requerido)</value>
-        <value xml:lang="fr">Vous n'avez pas la permission de voir cette page. ("ACCOUNTING_VIEW" ou "ACCOUNTING_ADMIN" nécessaire)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("ACCOUNTING_VIEW" ou "ACCOUNTING_ADMIN" nécessaire)</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. ("ACCOUNTING_VIEW" o "ACCOUNTING_ADMIN" necessitano)</value>
         <value xml:lang="nl">U hebt hebt geen toegang to deze pagina. ("ACCOUNTING_VIEW" of "ACCOUNTING_ADMIN" vereist)</value>
         <value xml:lang="pt_BR">Você não tem permissão para visualizar esta página. (necessita "ACCOUNTING_VIEW" ou "ACCOUNTING_ADMIN")</value>

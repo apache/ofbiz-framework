@@ -484,7 +484,7 @@
     <property key="MarketingViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
         <value xml:lang="es">Usted no cuenta con permiso de acceso</value>
-        <value xml:lang="fr">Vous n'avez pas la permission de voir</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir</value>
         <value xml:lang="it">Mostra Errore Permessi</value>
         <value xml:lang="ro">Afiseaza Eroare Permisii</value>
         <value xml:lang="th">แสดงความผิดพลาดในการอนุญาต</value>

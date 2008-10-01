@@ -1605,7 +1605,7 @@
         <value xml:lang="de">Sicherheitsgruppe Berechtigungen bearbeiten</value>
         <value xml:lang="en">Edit Security Group Permissions</value>
         <value xml:lang="es">Editar permisos</value>
-        <value xml:lang="fr">Modifier les permissions du groupe de sécurité</value>
+        <value xml:lang="fr">Modifier les autorisations du groupe de sécurité</value>
         <value xml:lang="it">Aggiorna Permessi Gruppo Sicurezza</value>
         <value xml:lang="nl">Wijzig rechten groep</value>
         <value xml:lang="pt_PT">Editar Permissões do Grupo de Segurança</value>
@@ -2084,7 +2084,7 @@
         <value xml:lang="de">Berechtigung (durch Eingabe) zur Sicherheitsgruppe hinzufügen</value>
         <value xml:lang="en">Add Permission (manually) to SecurityGroup</value>
         <value xml:lang="es">Añadir permiso (manualmente) al grupo de seguridad</value>
-        <value xml:lang="fr">Ajouter une permission (manuellement) au groupe de sécurité</value>
+        <value xml:lang="fr">Ajouter une autorisation (manuellement) au groupe de sécurité</value>
         <value xml:lang="it">Aggiungi Permesso (manualmente) al Gruppo Sicurezza</value>
         <value xml:lang="nl">Voeg handmatig rechten toe aan deze beveiligingsgroep</value>
         <value xml:lang="pt_PT">Adicionar Permissão (manualmente) ao Grupo de Segurança</value>
@@ -2097,7 +2097,7 @@
         <value xml:lang="de">Berechtigung (aus Liste) zur Sicherheitsgruppe hinzufügen</value>
         <value xml:lang="en">Add Permission (from list) to SecurityGroup</value>
         <value xml:lang="es">Añadir permiso (desde lista) a grupo de seguridad</value>
-        <value xml:lang="fr">Ajouter une permission (à partir de la liste) au groupe de sécurité</value>
+        <value xml:lang="fr">Ajouter une autorisation (à partir de la liste) au groupe de sécurité</value>
         <value xml:lang="it">Aggiungi Permesso (dalla lista) al Gruppo Sicurezza</value>
         <value xml:lang="nl">Voeg rechten uit een lijst aan beveiligingsgroep</value>
         <value xml:lang="pt_PT">Adicionar Permissão (da lista)ao Grupo de Segurança</value>
@@ -3199,7 +3199,7 @@
         <value xml:lang="de">Sicherheitsfehler: um addWebSiteRole auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run addWebSiteRole you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour ajouter un rôle de site web il faut avoir avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour ajouter un rôle de site web il faut avoir avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire addWebSiteRole tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run addWebSiteRole you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">Eroare de Siguranta : pentru a folosi  addWebSiteRole trebbie sa ai permisul PARTYMGR_CREATE sau PARTYMGR_ADMIN</value>
@@ -3212,7 +3212,7 @@
         <value xml:lang="de">Sicherheitsfehler: um createPartyAttribute auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createPartyAttribute you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité: pour exécuter createPartyAttribute : vous devez avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité: pour exécuter createPartyAttribute : vous devez avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createPartyAttribute tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run createPartyAttribute you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">Eroare De Siguranta : pentru a folosi createPartyAttribute trebbie sa ai permisul PARTYMGR_CREATE sau PARTYMGR_ADMIN</value>
@@ -3224,7 +3224,7 @@
         <value xml:lang="de">Sicherheitsfehler: um createCommunicationEvent auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createCommunicationEvent you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour créer une communication il faut avoir avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité : pour créer une communication il faut avoir avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createCommunicationEvent tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run createCommunicationEvent you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="pt_PT">Erro de Segurança: para criar Comunicação de Acontecimento necessita permissão para PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
@@ -3237,7 +3237,7 @@
         <value xml:lang="de">Sicherheitsfehler: um createCommunicationEventPurpose auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createCommunicationEventPurpose you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour ajouter un objet à un appel il faut avoir avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité : pour ajouter un objet à un appel il faut avoir avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createCommunicationEventPurpose tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run createCommunicationEventPurpose you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="pt_PT">Erro de Segurança: para criar Objectivo de Comunicação de Acontecimento necessita permissão para PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
@@ -3250,7 +3250,7 @@
         <value xml:lang="de">Sicherheitsfehler: um createCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createCommunicationEventRole you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour ajouter un rôle à une communication il faut avoir avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité : pour ajouter un rôle à une communication il faut avoir avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createCommunicationEventRole tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run createCommunicationEventRole you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="pt_PT">Erro de Segurança: para criar Função de Comunicação de Acontecimento necessita permissão para PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
@@ -3414,7 +3414,7 @@
         <value xml:lang="de">Sicherheitsfehler: um createPartyClassification auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createPartyClassification you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour exécuter createPartyClassification il faut avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité : pour exécuter createPartyClassification il faut avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createPartyClassification tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run createPartyClassification you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa createPartyClassification trebuie sa ai permisul PARTYMGR_CREATE sau PARTYMGR_ADMIN</value>
@@ -3425,7 +3425,7 @@
     <property key="PartyCreatePartyRolePermissionError">
         <value xml:lang="de">Sicherheitsfehler: um createPartyRole auszuführen müssen Sie die Berechtigung PARTYMGR_ROLE_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createPartyRole you must have the PARTYMGR_ROLE_CREATE or PARTYMGR_ADMIN permission</value>
-        <value xml:lang="fr">Erreur sécurité : pour exécuter createPartyRole vous devez avoir la permission PARTYMGR_ROLE_CREATE or PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité : pour exécuter createPartyRole vous devez avoir l'autorisation PARTYMGR_ROLE_CREATE or PARTYMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка доступа: для запуска createPartyRole у вас должны быть права PARTYMGR_ROLE_CREATE или PARTYMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการสร้างสถานะกลุ่มผู้ใช้ คุณต้องได้รับความยินยอมจาก PARTYMGR_CREATE หรือ PARTYMGR_ADMIN ก่อน</value>
     </property>
@@ -3433,7 +3433,7 @@
         <value xml:lang="de">Sicherheitsfehler: um createPostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_CREATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createPostalAddressBoundary you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour ajouter une adresse postal frontière il faut avoir avoir la permission PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité : pour ajouter une adresse postal frontière il faut avoir avoir l'autorisation PARTYMGR_CREATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createPostalAddressBoundary tu devi avere il permesso PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run createPostalAddressBoundary you must have the PARTYMGR_CREATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru  eseguire createPostalAddressBoundary trebuie sa ai permisulPARTYMGR_CREATE sau PARTYMGR_ADMIN</value>
@@ -3537,7 +3537,7 @@
     <property key="PartyDeletePartyRolePermissionError">
         <value xml:lang="de">Sicherheitsfehler: um deletePartyRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePartyRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
-        <value xml:lang="fr">Erreur sécurité: pour exécuter deletePartyRole vous devez avoir la permission PARTYMGR_DELETE or PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité: pour exécuter deletePartyRole vous devez avoir l'autorisation PARTYMGR_DELETE or PARTYMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка доступа: для запуска deletePartyRole у вас должны быть права PARTYMGR_DELETE или PARTYMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการลบสถานะกลุ่มผู้ใช้ คุณต้องได้รับความยินยอมจาก PARTYMGR_DELETE หรือ PARTYMGR_ADMIN ก่อน</value>
     </property>
@@ -4183,14 +4183,14 @@
     <property key="PartyInvitationAccAndDecPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung eine Akteur Einladung anzunehmen oder abzulehen</value>
         <value xml:lang="en">You do not have permission to accept or decline Party Invitation</value>
-        <value xml:lang="fr">Vous n'avez pas la permission d'accepter ou de décliner l'invitation de l'acteur</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation d'accepter ou de décliner l'invitation de l'acteur</value>
         <value xml:lang="it">Tu non sei autorizzato ad accettare o declinare Inviti Soggetti</value>
         <value xml:lang="th">คุณไม่ได้รับการอนุญาตให้ยอมรับหรือปฏิเสธคำเชิญของกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyInvitationCancelPermissionError">
         <value xml:lang="de">Sie haben keine Berechtigung eine Akteur Einladung zu annullieren.</value>
         <value xml:lang="en">You do not have permission to cancel the Party Invitation</value>
-        <value xml:lang="fr">Vous n'avez pas la permission d'annuler l'invitation de l'acteur</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation d'annuler l'invitation de l'acteur</value>
         <value xml:lang="it">Tu non sei autorizzato a annullare Inviti Soggetti</value>
         <value xml:lang="th">คุณไม่ได้รับการอนุญาตให้ยกเลิกคำเชิญของกลุ่มผู้ใช้</value>
     </property>
@@ -4714,7 +4714,7 @@
         <value xml:lang="de">Sie haben nicht die Berechtigung, diese Seite anzusehen. ("PARTYMGR_VIEW" oder "PARTYMGR_ADMIN" benötigt)</value>
         <value xml:lang="en">You do not have permission to view this page. ("PARTYMGR_VIEW" or "PARTYMGR_ADMIN" needed)</value>
         <value xml:lang="es">No tiene permiso para ver esta página. (Se requiere "PARTYMRG_CREATE" o "PARTYMGR_ADMIN")</value>
-        <value xml:lang="fr">Vous n'avez pas la permission de voir cette page. ("PARTYMGR_VIEW" ou "PARTYMGR_ADMIN" est nécessaire)</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation de voir cette page. ("PARTYMGR_VIEW" ou "PARTYMGR_ADMIN" est nécessaire)</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina ("PARTYMGR_VIEW" o "PARTYMGR_ADMIN" necessarie)</value>
         <value xml:lang="nl">You do not have permission to view this page. ("PARTYMGR_VIEW" or "PARTYMGR_ADMIN" needed)</value>
         <value xml:lang="pt_PT">ErroPartyMgrViewPermission:Você não tem permissão para visualizar esta página. (necessita de "PARTYMGR_VIEW" ou "PARTYMGR_ADMIN")</value>
@@ -5651,7 +5651,7 @@
         <value xml:lang="de">Sicherheitsfehler: um ${methodShortDescription} auszuführen müssen Sie die Berechtigung PARTYMGR${securityAction} oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run ${methodShortDescription} you must have the PARTYMGR${securityAction} or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_CREATE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité: Pour exécuter ${methodShortDescription} vous devez avoir la permission PARTYMGR${securityAction} ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité: Pour exécuter ${methodShortDescription} vous devez avoir l'autorisation PARTYMGR${securityAction} ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire ${methodShortDescription} tu devi avere i permessi PARTYMGR${securityAction} o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run ${methodShortDescription} you must have the PARTYMGR${securityAction} or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa ${methodShortDescription} trbuie sa ai permisul PARTYMGR${securityAction} sau PARTYMGR_ADMIN</value>
@@ -5663,7 +5663,7 @@
         <value xml:lang="de">Sie haben keine Berechtigung, diese Aktion für diesen Akteur auszuführen</value>
         <value xml:lang="en">You do not have permission to perform this operation for this party</value>
         <value xml:lang="es">Usted no cuenta con permisos para realizar esta acción</value>
-        <value xml:lang="fr">Vous n'avez pas la permission d'effectuer cette opération pour cet acteur.</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation d'effectuer cette opération pour cet acteur.</value>
         <value xml:lang="it">Tu non sei autorizzato ad eseguire questa operazione per questo Soggetto</value>
         <value xml:lang="nl">You do not have permission to perform this operation for this party</value>
         <value xml:lang="pt_PT">VocÊ não tem permissão para efectuar a operação nesta secção</value>
@@ -5676,7 +5676,7 @@
         <value xml:lang="de">Sicherheitsfehler: Sie haben keine Berechtigung ${resourceDescription} für diesen Akteur auszuführen.</value>
         <value xml:lang="en">Security Error: you do not have permission to perform ${resourceDescription} for this party.</value>
         <value xml:lang="es">Usted no cuenta con permisos para realizar esta acción</value>
-        <value xml:lang="fr">Vous n'avez pas la permission d'effectuer cette opération pour cet acteur.</value>
+        <value xml:lang="fr">Vous n'avez pas l'autorisation d'effectuer cette opération pour cet acteur.</value>
         <value xml:lang="it">Tu non sei autorizzato ad eseguire questa operazione per questo Soggetto</value>
         <value xml:lang="nl">You do not have permission to perform this operation for this party</value>
         <value xml:lang="pt_PT">VocÊ não tem permissão para efectuar a operação nesta secção</value>
@@ -6073,7 +6073,7 @@
         <value xml:lang="en">Sicherheitsfehler: um createPartyAttribute auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createPartyAttribute you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité: pour exécuter createPartyAttribute vous devez avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité: pour exécuter createPartyAttribute vous devez avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createPartyAttribute tu devi avere il permesso PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run createPartyAttribute you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa createPartyAttribute trebuie sa ai permisul PARTYMGR_DELETE sau PARTYMGR_ADMIN</value>
@@ -6085,7 +6085,7 @@
         <value xml:lang="en">Sicherheitsfehler: um removeCommunicationEventPurpose auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeCommunicationEventPurpose you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour supprimer l'objet d'un appel il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour supprimer l'objet d'un appel il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire removeCommunicationEventPurpose tu devi avere il permesso PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run removeCommunicationEventPurpose you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="pt_PT">Erro de Segurança: para correr o objectivo de Comunicação de Remoção de Acontecimentos é necessário obter o PARTYMGR_DELETE ou permissão de PARTYMGR_ADMIN</value>
@@ -6098,7 +6098,7 @@
         <value xml:lang="en">Sicherheitsfehler: um removeCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeCommunicationEventRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour supprimer le rôle d'une communication il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour supprimer le rôle d'une communication il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire removeCommunicationEventRole tu devi avere il permesso PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run removeCommunicationEventRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa removeCommunicationEventRole trebuie sa ai permisul PARTYMGR_DELETE sau PARTYMGR_ADMIN</value>
@@ -6122,7 +6122,7 @@
         <value xml:lang="en">Sicherheitsfehler: um deletePartyClassification auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePartyClassification you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour supprimer une classification d'acteur il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour supprimer une classification d'acteur il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire deletePartyClassification tu devi avere il permesso PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run deletePartyClassification you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa deletePartyClassification trebuie sa ai permisul PARTYMGR_DELETE sau PARTYMGR_ADMIN</value>
@@ -6134,7 +6134,7 @@
         <value xml:lang="en">Sicherheitsfehler: um removePartyRelationship auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removePartyRelationship you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour supprimer une relation inter-acteurs il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour supprimer une relation inter-acteurs il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire removePartyRelationship tu devi avere il permesso PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run removePartyRelationship you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru  a executa removePartyRelationship trebuie sa ai permisul PARTYMGR_DELETE sau PARTYMGR_ADMIN</value>
@@ -6146,7 +6146,7 @@
         <value xml:lang="en">Sicherheitsfehler: um deletePostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePostalAddressBoundary you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour supprimer une adresse postale frontière il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour supprimer une adresse postale frontière il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire deletePostalAddressBoundary tu devi avere il permesso PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run deletePostalAddressBoundary you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa deletePostalAddressBoundary trebuie sa ai permisul PARTYMGR_DELETE sau PARTYMGR_ADMIN</value>
@@ -6158,7 +6158,7 @@
         <value xml:lang="en">Sicherheitsfehler: um removeWebSiteRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeWebSiteRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour supprimer un rôle de site web il faut avoir avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour supprimer un rôle de site web il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire removeWebSiteRole tu devi avere il permesso PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run removeWebSiteRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa  removeWebSiteRole trebuie sa ai permisul PARTYMGR_DELETE sau PARTYMGR_ADMIN</value>
@@ -6354,7 +6354,7 @@
         <value xml:lang="de">Sicherheitsfehler: Sie haben nicht die Berechtigung diese Seite anzusehen. ("SECURITY_VIEW" oder "SECURITY_ADMIN" benötigt) </value>
         <value xml:lang="en">PartySecurityViewPermissionError You do not have permission to view this page. ("SECURITY_VIEW" or "SECURITY_ADMIN" needed)</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos SECURITY_VIEW o SECURITY_ADMIN</value>
-        <value xml:lang="fr">Error Vous n'avez pas la permission de voir cette page. ("SECURITY_VIEW" ou "SECURITY_ADMIN" est nécessaire)</value>
+        <value xml:lang="fr">Error Vous n'avez pas l'autorisation de voir cette page. ("SECURITY_VIEW" ou "SECURITY_ADMIN" est nécessaire)</value>
         <value xml:lang="it">PartySecurityViewPermissionError Tu non sei autorizzato a vedere questa pagina. (I permessi "SECURITY_VIEW" o "SECURITY_ADMIN" sono necessari)</value>
         <value xml:lang="nl">PartySecurityViewPermissionError You do not have permission to view this page. ("SECURITY_VIEW" or "SECURITY_ADMIN" needed)</value>
         <value xml:lang="pt_PT">Erro de Segurança na visualização de Secções Você não tem permissão para visualizar esta página (necessário "SECURITY_VIEW" ou "SECURITY_ADMIN").</value>
@@ -7029,7 +7029,7 @@
         <value xml:lang="de">Sicherheitsfehler: um updatePartyAttribute auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run updatePartyAttribute you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTYMGR_UPDATE  o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">erreur sécurité: pour exécuter updatePartyAttribute vous devez avoir la permission PARTYMGR_UPDATE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">erreur sécurité: pour exécuter updatePartyAttribute vous devez avoir l'autorisation PARTYMGR_UPDATE ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updatePartyAttribute tu devi avere il permesso PARTYMGR_UPDATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run updatePartyAttribute you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa  updatePartyAttribute trebuie sa ai permisul PARTYMGR_UPDATE sau PARTYMGR_ADMIN</value>
@@ -7041,7 +7041,7 @@
         <value xml:lang="de">Sicherheitsfehler: um updateCommunicationEven auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run updateCommunicationEvent you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTYMGR_UPDATE  o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité: pour mettre à jour une communication, il faut avoir avoir la permission PARTYMGR_UPDATE ou PARTYMGR_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité: pour mettre à jour une communication, il faut avoir avoir l'autorisation PARTYMGR_UPDATE ou PARTYMGR_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateCommunicationEvent tu devi avere il permesso PARTYMGR_UPDATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run updateCommunicationEvent you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="pt_PT">Erro de Segurança: para correr a Actualização da Comunicação de Acontecimento deverá possuir PARTYMGR_UPDATE ou permissão para PARTYMGR_ADMIN</value>
@@ -7090,7 +7090,7 @@
         <value xml:lang="de">Sicherheitsfehler: um updateWebSiteRole auszuführen müssen Sie die Berechtigung PARTYMGR_UPDATE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run updateWebSiteRole you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTYMGR_UPDATE  o PARTYMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité: pour mettre à jour un rôle de site web, il faut avoir avoir la permission PARTYMGR_UPDATE ou PARTYMGR_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité: pour mettre à jour un rôle de site web, il faut avoir avoir l'autorisation PARTYMGR_UPDATE ou PARTYMGR_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire updateWebSiteRole tu devi avere il permesso PARTYMGR_UPDATE o PARTYMGR_ADMIN</value>
         <value xml:lang="nl">Security Error: to run updateWebSiteRole you must have the PARTYMGR_UPDATE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa  updateWebSiteRole trebuie sa ai permisul PARTYMGR_UPDATE sau PARTYMGR_ADMIN</value>
@@ -7275,7 +7275,7 @@
         <value xml:lang="de">Sicherheitsfehler: um getPostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_VIEW oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run getPostalAddressBoundary you must have the PARTY_VIEW or PARTY_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar esta funcionalidad necesita los permisos PARTY_VIEW o PARTY_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité: pour obtenir une adresse postale frontière il faut avoir avoir la permission PARTYMGR_VIEW ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité: pour obtenir une adresse postale frontière il faut avoir avoir l'autorisation PARTYMGR_VIEW ou PARTYMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire getPostalAddressBoundary tu devi avere il permesso PARTY_VIEW o PARTY_ADMIN</value>
         <value xml:lang="nl">Security Error: to run getPostalAddressBoundary you must have the PARTY_VIEW or PARTY_ADMIN permission</value>
         <value xml:lang="ro">EROARE De Siguranta : pentru a executa getPostalAddressBoundary trebuie sa ai permisul PARTY_VIEW sau PARTY_ADMIN</value>
@@ -7464,7 +7464,7 @@
     <property key="PartyremoveCommunicationEventRolePermissionError">
         <value xml:lang="de">Sicherheitsfehler: um removeCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeCommunicationEventRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
-        <value xml:lang="fr">Erreur sécurité: pour exécuter removeCommunicationEventRole vous devez avoir la permission PARTYMGR_DELETE ou PARTYMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité: pour exécuter removeCommunicationEventRole vous devez avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN</value>
         <value xml:lang="pt_PT">Erro de Segurança: para correr a função de Comunicação de Remoção de Acontecimentos é necessário obter o PARTYMGR_DELETE ou permissão de PARTYMGR_ADMIN</value>
         <value xml:lang="th">Security Error: ในการย้ายสถานะผลการติดต่อ คุณต้องได้รับอนุญาตจาก  PARTYMGR_DELETE หรือ PARTYMGR_ADMIN ก่อน</value>
     </property>
