@@ -19,6 +19,7 @@
 package org.ofbiz.base.util;
 
 import java.io.Serializable;
+import java.sql.Timestamp;
 import java.util.Date;
 
 /** An immutable range of dates.
@@ -36,10 +37,10 @@ public class DateRange implements Serializable {
 
     public DateRange(Date start, Date end) {
         if (start != null) {
-            this.start = new Date(start.getTime());
+            this.start = downcastTimestamp(start);
         }
         if (end != null) {
-            this.end = new Date(end.getTime());
+            this.end = downcastTimestamp(end);
         }
     }
 
@@ -63,8 +64,16 @@ public class DateRange implements Serializable {
         return (Date) this.start.clone();
     }
 
+    public Timestamp startStamp() {
+        return new Timestamp(this.start.getTime());
+    }
+
     public Date end() {
         return (Date) this.end.clone();
+    }
+
+    public Timestamp endStamp() {
+        return new Timestamp(this.end.getTime());
     }
 
     public boolean isAscending() {
@@ -76,6 +85,7 @@ public class DateRange implements Serializable {
     }
 
     public boolean includesDate(Date date) {
+        date = downcastTimestamp(date);
         if (isPoint()) {
             return date.equals(this.start);
         }
@@ -83,6 +93,56 @@ public class DateRange implements Serializable {
             return (this.start.equals(date) || date.after(this.start)) && (this.end.equals(date) || date.before(this.end));
         } else {
             return (this.start.equals(date) || date.before(this.start)) && (this.end.equals(date) || date.after(this.end));
+        }
+    }
+
+    public boolean before(Date date) {
+        date = downcastTimestamp(date);
+        if (isAscending() || isPoint()) {
+            return this.start.before(date);
+        } else {
+            return this.end.before(date);
+        }
+    }
+
+    public boolean before(DateRange range) {
+        if (isAscending() || isPoint()) {
+            if (range.isAscending()) {
+                return this.end.before(range.start);
+            } else {
+                return this.end.before(range.end);
+            }
+        } else {
+            if (range.isAscending()) {
+                return this.start.before(range.start);
+            } else {
+                return this.start.before(range.end);
+            }
+        }
+    }
+
+    public boolean after(Date date) {
+        date = downcastTimestamp(date);
+        if (isAscending() || isPoint()) {
+            return this.start.after(date);
+        } else {
+            return this.end.after(date);
+        }
+    }
+
+    public boolean after(DateRange range) {
+        if (isAscending() || isPoint()) {
+            if (range.isAscending()) {
+                return this.start.after(range.end);
+            } else {
+                return this.start.after(range.start);
+            }
+        } else {
+            if (range.isAscending()) {
+                return this.end.after(range.end);
+            } else {
+                return this.end.after(range.start);
+            }
         }
     }
 
@@ -97,6 +157,8 @@ public class DateRange implements Serializable {
         if (end == null) {
             throw new IllegalArgumentException("end argument cannot be null");
         }
+        start = downcastTimestamp(start);
+        end = downcastTimestamp(end);
         if (isPoint()) {
             return end.equals(start) && this.start.equals(start);
         }
@@ -111,5 +173,12 @@ public class DateRange implements Serializable {
             }
             return (this.end.equals(start) || start.after(this.end)) && (this.start.equals(end) || end.before(this.start));
         }
+    }
+
+    protected Date downcastTimestamp(Date date) {
+        if (date instanceof Timestamp) {
+            date = new Date(date.getTime());
+        }
+        return date;
     }
 }
