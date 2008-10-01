@@ -20,7 +20,9 @@
 package org.ofbiz.workeffort.workeffort;
 
 import java.sql.Timestamp;
+import java.util.Calendar;
 import java.util.Collection;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -32,6 +34,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 import javolution.util.FastSet;
 
+import org.ofbiz.base.util.DateRange;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
@@ -43,13 +46,14 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
-import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.condition.EntityJoinOperator;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.service.calendar.TemporalExpression;
+import org.ofbiz.service.calendar.TemporalExpressionWorker;
 
 /**
  * WorkEffortServices - WorkEffort related Services
@@ -518,63 +522,72 @@ public class WorkEffortServices {
         // Split the WorkEffort list into a map with entries for each period, period start is the key
         List<Map<String, Object>> periods = FastList.newInstance();
         if (validWorkEfforts != null) {
-
-            // For each day in the set we check all work efforts to see if they fall within range
+            List<DateRange> periodRanges = FastList.newInstance();
             for (int i = 0; i < numPeriods; i++) {
                 Timestamp curPeriodStart = UtilDateTime.adjustTimestamp(startStamp, periodType, i, timeZone, locale);
                 Timestamp curPeriodEnd = UtilDateTime.adjustTimestamp(curPeriodStart, periodType, 1, timeZone, locale);
+                curPeriodEnd = new Timestamp(curPeriodEnd.getTime() - 1);
+                periodRanges.add(new DateRange(curPeriodStart, curPeriodEnd));
+            }
+            try {
+                // Process recurring work efforts
+                Set<GenericValue> exclusions = FastSet.newInstance();
+                Set<GenericValue> inclusions = FastSet.newInstance();
+                DateRange range = new DateRange(startStamp, endStamp);
+                Calendar cal = UtilDateTime.toCalendar(startStamp, timeZone, locale);
+                for (GenericValue workEffort : validWorkEfforts) {
+                    if (UtilValidate.isNotEmpty(workEffort.getString("tempExprId"))) {
+                        TemporalExpression tempExpr = TemporalExpressionWorker.getTemporalExpression(delegator, workEffort.getString("tempExprId"));
+                        Set<Date> occurrences = tempExpr.getRange(range, cal);
+                        for (Date occurrence : occurrences) {
+                            for (DateRange periodRange : periodRanges) {
+                                if (periodRange.includesDate(occurrence)) {
+                                    GenericValue cloneWorkEffort = (GenericValue) workEffort.clone();
+                                    cloneWorkEffort.set("estimatedStartDate", periodRange.startStamp());
+                                    cloneWorkEffort.set("estimatedCompletionDate", periodRange.endStamp());
+                                    inclusions.add(cloneWorkEffort);
+                                }
+                            }
+                        }
+                        exclusions.add(workEffort);
+                    }
+                }
+                validWorkEfforts.removeAll(exclusions);
+                validWorkEfforts.addAll(inclusions);
+            } catch (GenericEntityException e) {
+                Debug.logWarning(e, module);
+            }
+
+            // For each period in the set we check all work efforts to see if they fall within range
+            boolean firstEntry = true;
+            for (DateRange periodRange : periodRanges) {
                 List<Map<String, Object>> curWorkEfforts = FastList.newInstance();
                 Map<String, Object> entry = FastMap.newInstance();
-
-                for (int j = 0; j < validWorkEfforts.size(); j++) {
-
-                    GenericValue workEffort = validWorkEfforts.get(j);
-                    // Debug.log("Got workEffort: " + workEffort.toString(), module);
-
-                    Timestamp estimatedStartDate = workEffort.getTimestamp("estimatedStartDate");
-                    Timestamp estimatedCompletionDate = workEffort.getTimestamp("estimatedCompletionDate");
-
-                    if (estimatedStartDate == null || estimatedCompletionDate == null)
-                        continue;
-
-                    if (estimatedStartDate.compareTo(curPeriodEnd) < 0 && estimatedCompletionDate.compareTo(curPeriodStart) > 0) {
-                        // Debug.logInfo("Task start: "+estimatedStartDate+" Task end: "+estimatedCompletionDate+" Period start: "+curPeriodStart+" Period end: "+curPeriodEnd, module);
-
+                for (GenericValue workEffort : validWorkEfforts) {
+                    DateRange weRange = new DateRange(workEffort.getTimestamp("estimatedStartDate"), workEffort.getTimestamp("estimatedCompletionDate"));
+                    if (periodRange.intersectsRange(weRange)) {
                         Map<String, Object> calEntry = FastMap.newInstance();
                         calEntry.put("workEffort", workEffort);
-
-                        long length = ((estimatedCompletionDate.after(endStamp) ? endStamp.getTime() : estimatedCompletionDate.getTime()) - (estimatedStartDate.before(startStamp) ? startStamp.getTime() : estimatedStartDate.getTime()));
+                        long length = ((weRange.end().after(endStamp) ? endStamp.getTime() : weRange.end().getTime()) - (weRange.start().before(startStamp) ? startStamp.getTime() : weRange.start().getTime()));
                         int periodSpan = (int) Math.ceil((double) length / periodLen);
                         calEntry.put("periodSpan", Integer.valueOf(periodSpan));
-
-                        if (i == 0) {
+                        if (firstEntry) {
                             // If this is the first period any valid entry is starting here
                             calEntry.put("startOfPeriod", Boolean.TRUE);
+                            firstEntry = false;
                         } else {
-                            boolean startOfPeriod = ((estimatedStartDate.getTime() - curPeriodStart.getTime()) >= 0);
+                            boolean startOfPeriod = ((weRange.start().getTime() - periodRange.start().getTime()) >= 0);
                             calEntry.put("startOfPeriod", Boolean.valueOf(startOfPeriod));
                         }
                         curWorkEfforts.add(calEntry);
                     }
-
-                    // if startDate is after hourEnd, continue to the next day, we haven't gotten to this one yet...
-                    if (estimatedStartDate.after(curPeriodEnd))
-                        break;
-
-                    // if completionDate is before the hourEnd, remove from list, we are done with it
-                    if (estimatedCompletionDate.before(curPeriodEnd)) {
-                        validWorkEfforts.remove(j);
-                        j--;
-                    }
                 }
-                // For calendar we want to include empty periods as well
-                // if (curWorkEfforts.size() > 0)
                 int numEntries = curWorkEfforts.size();
                 if (numEntries > maxConcurrentEntries) {
                     maxConcurrentEntries = numEntries;
                 }
-                entry.put("start", curPeriodStart);
-                entry.put("end", curPeriodEnd);
+                entry.put("start", periodRange.startStamp());
+                entry.put("end", periodRange.endStamp());
                 entry.put("calendarEntries", curWorkEfforts);
                 periods.add(entry);
             }
