@@ -19,6 +19,7 @@
 package org.ofbiz.accounting.payment;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -254,6 +255,32 @@ public class PaymentWorker {
         return getPaymentAppliedBd(payment);
     }
     /**
+     * Method to return the amount applied converted to the currency of payment
+     * @param String paymentApplicationId
+     * @return the applied amount as BigDecimal
+     */
+    public static BigDecimal getPaymentAppliedAmount(GenericDelegator delegator, String paymentApplicationId) {
+        GenericValue paymentApplication = null;
+        BigDecimal appliedAmount = BigDecimal.ZERO;
+        try {
+            paymentApplication = delegator.findByPrimaryKey("PaymentApplication", UtilMisc.toMap("paymentApplicationId", paymentApplicationId));
+            appliedAmount = paymentApplication.getBigDecimal("amountApplied");
+            if (paymentApplication.get("paymentId") != null) {
+                GenericValue payment = paymentApplication.getRelatedOne("Payment");
+                if (paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
+                    GenericValue invoice = paymentApplication.getRelatedOne("Invoice");
+                    if (payment.getString("actualCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
+                           appliedAmount = appliedAmount.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
+                    }
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Problem getting Payment", module);
+        }
+        return appliedAmount;
+    }
+
+    /**
      * Method to return the total amount of an payment which is applied to a payment
      * @param payment GenericValue object of the Payment
      * @return the applied total as double
@@ -267,30 +294,24 @@ public class PaymentWorker {
         List paymentApplications = null;
         try {
             paymentApplications = payment.getRelated("PaymentApplication");
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting paymentApplicationlist", module);            
-        }
-        if (UtilValidate.isNotEmpty(paymentApplications)) {
-            Iterator p = paymentApplications.iterator();
-            while (p.hasNext()) {
-                GenericValue paymentApplication = (GenericValue) p.next();
-                paymentApplied = paymentApplied.add(paymentApplication.getBigDecimal("amountApplied")).setScale(decimals,rounding);
+            if (UtilValidate.isNotEmpty(paymentApplications)) {
+                Iterator p = paymentApplications.iterator();
+                while (p.hasNext()) {
+                    GenericValue paymentApplication = (GenericValue) p.next();
+                       BigDecimal amountApplied = paymentApplication.getBigDecimal("amountApplied");
+                    // check currency invoice and if different convert amount applied for display
+                    if (paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
+                        GenericValue invoice = paymentApplication.getRelatedOne("Invoice");
+                        if (payment.getString("actualCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
+                               amountApplied = amountApplied.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
+                        }
+                    }
+                       paymentApplied = paymentApplied.add(amountApplied).setScale(decimals,rounding);
+                }
             }
-        }
-        // check for payment to payment applications
-        paymentApplications = null;
-        try {
-            paymentApplications = payment.getRelated("ToPaymentApplication");
-        } catch (GenericEntityException e) {
-            Debug.logError(e, "Trouble getting the 'to' paymentApplicationlist", module);            
-        }
-        if (UtilValidate.isNotEmpty(paymentApplications)) {
-            Iterator p = paymentApplications.iterator();
-            while (p.hasNext()) {
-                GenericValue paymentApplication = (GenericValue) p.next();
-                paymentApplied = paymentApplied.add(paymentApplication.getBigDecimal("amountApplied")).setScale(decimals,rounding);
-            }
-        }
+           } catch (GenericEntityException e) {
+               Debug.logError(e, "Trouble getting entities", module);            
+           }
         return paymentApplied;        
     }
     public static double getPaymentNotApplied(GenericValue payment) {

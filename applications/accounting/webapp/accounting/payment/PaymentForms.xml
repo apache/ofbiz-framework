@@ -57,9 +57,7 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <set field="amountToApply" value="${bsh:
-                import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(delegator,paymentId)));}"/>
+            <set field="amountToApply" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(delegator,paymentId);}"/>
         </row-actions>
         <field name="paymentId" widget-style="buttontext">
             <hyperlink description="${paymentId}" target="paymentOverview?paymentId=${paymentId}"/>
@@ -310,7 +308,7 @@ under the License.
         <field name="paymentId"><hidden/></field>
         <field name="invoiceId" widget-style="buttontext"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
         <field name="description"><display/></field>
-        <field name="invoiceDate"><display/></field>
+        <field name="invoiceDate"><display type="date"/></field>
         <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountApplied" parameter-name="dummy"><display  type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" parameter-name="amountApplied"><text size="10"/></field>
@@ -321,20 +319,7 @@ under the License.
         </field>
     </form>
 
-    <form name="listInvoicesNotAppliedOtherCurrency" type="list" list-name="invoicesOtherCurrency" target="updatePaymentApplication" title=""
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="paymentId"><hidden/></field>
-        <field name="invoiceId" widget-style="buttontext"><hyperlink target="invoiceOverview?invoiceId=${invoiceId}" description="${invoiceId}"/></field>
-        <field name="description"><display/></field>
-        <field name="invoiceDate"><display/></field>
-        <field name="amount"><display type="currency" currency="${currencyUomId}"/></field>
-        <field name="amountApplied" parameter-name="dummy"><display  type="currency" currency="${currencyUomId}"/></field>
-        <field name="invoiceProcessing" use-when="&quot;${uiConfigMap.invoiceProcessing}&quot;.equals(&quot;Y&quot;)"><check/></field>
-        <field name="invoiceProcessing" use-when="&quot;${uiConfigMap.invoiceProcessing}&quot;.equals(&quot;N&quot;)"><check/></field>
-        <field name="applyButton" widget-style="smallSubmit" title="Convert Invoice to Payment currency and save rate">
-            <submit button-type="button"/>
-        </field>
-    </form>
+    <form name="listInvoicesNotAppliedOtherCurrency" extends="listInvoicesNotApplied" list-name="invoicesOtherCurrency"/>
 
     <form name="listPaymentsNotApplied" type="list" list-name="payments" target="updatePaymentApplication" title=""
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -416,6 +401,9 @@ under the License.
                 <order-by field-name="invoiceItemSeqId"/>
             </entity-condition>
         </actions>
+        <row-actions>
+            <set field="amountApplied" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentAppliedAmount(delegator, paymentApplicationId);}"/>
+        </row-actions>
         <auto-fields-entity entity-name="PaymentApplication" default-field-type="display"/>
         <field name="paymentApplicationId"><hidden/></field>
         <field name="paymentId"><hidden/></field>
