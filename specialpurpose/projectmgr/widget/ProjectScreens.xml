@@ -500,8 +500,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProjectMgrGanttChart"/>
                 <set field="tabButtonItem" value="ganttchart"/>
-                <set field="layoutSettings.javaScripts[+0]" value="/images/dojo/dojo.js" global="true"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/GanttChart.bsh"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/GanttChart.groovy"/>
             </actions>
             <widgets>
                 <label text="${project}"></label>
