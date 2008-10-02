@@ -106,7 +106,7 @@
         <value xml:lang="de">Bankverbindung</value>
         <value xml:lang="en">EFT Account</value>
         <value xml:lang="es">Cuenta bancaria</value>
-        <value xml:lang="fr">Compte électronique de transfert de fonds (EFT)</value>
+        <value xml:lang="fr">Compte de virement électronique</value>
         <value xml:lang="th">EFT Account</value>
     </property>
     <property key="AccountingExpirationDate">

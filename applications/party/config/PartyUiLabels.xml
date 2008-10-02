@@ -72,7 +72,7 @@
         <value xml:lang="de">Neue Bankverbindung erstellen</value>
         <value xml:lang="en">Create New EFT Account</value>
         <value xml:lang="es">Crear nueva cuenta EFT</value>
-        <value xml:lang="fr">Enrg. nouv. compte EFT</value>
+        <value xml:lang="fr">Créer un compte de virement électronique</value>
         <value xml:lang="it">Creare Nuovo Conto EFT</value>
         <value xml:lang="nl">Nieuw bankrekening nummer</value>
         <value xml:lang="pt_PT">Criar Nova Conta EFT</value>
@@ -1451,7 +1451,7 @@
         <value xml:lang="de">Bankverbindung bearbeiten</value>
         <value xml:lang="en">Edit EFT Account</value>
         <value xml:lang="es">Editar cuenta EFT</value>
-        <value xml:lang="fr">Modifier le compte bancaire (transferts électroniques de fonds)</value>
+        <value xml:lang="fr">Modifier le compte de virement électronique</value>
         <value xml:lang="it">Aggiorna Conto EFT</value>
         <value xml:lang="nl">Wijzig bankrekening nummer</value>
         <value xml:lang="ro">Actualizare Cont EFT</value>
@@ -3676,7 +3676,7 @@
         <value xml:lang="de">Bankverbindung</value>
         <value xml:lang="en">EFT Account</value>
         <value xml:lang="es">Cuenta EFT</value>
-        <value xml:lang="fr">Compte Bancaire</value>
+        <value xml:lang="fr">Compte de virement électronique</value>
         <value xml:lang="it">Conto EFT</value>
         <value xml:lang="nl">EFT Account</value>
         <value xml:lang="pt_PT">Conta EFT</value>

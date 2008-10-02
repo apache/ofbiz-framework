@@ -2583,7 +2583,7 @@
     </property>
     <property key="PageTitleEditDataResourceMimeTypeHtmlTemplate">
         <value xml:lang="en">Edit Mime Type Html Template</value>
-        <value xml:lang="fr">Modifier le type modèle de mime HTML</value>
+        <value xml:lang="fr">Modifier le modèle de type de mime HTML</value>
         <value xml:lang="it">Aggiorna Tipo Mime Template Html</value>
         <value xml:lang="th">แก้ไขประเภทสำเนา Template Html</value>
     </property>

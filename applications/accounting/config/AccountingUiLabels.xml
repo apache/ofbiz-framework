@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
-    
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -8,9 +8,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,7 +21,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountingAHCElectronicCheck">
         <value xml:lang="en">EFT Account: AHC/Electronic Check</value>
-        <value xml:lang="fr">Compte de transfert de fonds électronique : SIT/Chèque électronique</value>
+        <value xml:lang="fr">Compte de virement électronique : SIT/Chèque électronique</value>
         <value xml:lang="th">บัญชีธนาคาร: AHC/ตรวจสอบระบบอิเล็กทรอนิกส์</value>
     </property>
     <property key="AccountingAccount">
@@ -108,45 +108,54 @@
     </property>
     <property key="AccountingAcctRecon">
         <value xml:lang="en">Account Reconciliation</value>
+        <value xml:lang="fr">Réconciliation</value>
         <value xml:lang="it">Riconciliazione</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctRecons">
         <value xml:lang="en">Account Reconciliations</value>
+        <value xml:lang="fr">Réconciliations</value>
         <value xml:lang="it">Riconciliazioni</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctgTransEntries">
         <value xml:lang="en">Accounting Transactions Entries</value>
+        <value xml:lang="fr">Entrées de transactions de comptabilité</value>
         <value xml:lang="it">Righe Prime Note</value>
         <value xml:lang="th">รายการบัญชีรายรับ</value>
     </property>
     <property key="AccountingAcctgTranss">
         <value xml:lang="en">Accounting Transactions</value>
+        <value xml:lang="fr">Transactions de comptabilité</value>
         <value xml:lang="it">Prime Note</value>
         <value xml:lang="th">รายการบัญชี</value>
     </property>
     <property key="AccountingActualCurrencyAmount">
         <value xml:lang="en">Actual Currency Amount</value>
+        <value xml:lang="fr">Quantité réelle de devise</value>
         <value xml:lang="it">Attuale Importo in Valuta</value>
         <value xml:lang="ru">Действительная сумма валюты</value>
         <value xml:lang="th">จำนวนเงินที่มีอยู่จริง</value>
     </property>
     <property key="AccountingActualCurrencyUomId">
         <value xml:lang="en">Actual Currency Uom Id</value>
+        <value xml:lang="fr">réf. devise réelle Uom </value>
         <value xml:lang="it">Attuale Udm Valuta</value>
         <value xml:lang="ru">Действительный код валюты</value>
         <value xml:lang="th">รหัสหน่วยวัดจำนวนเงิน</value>
     </property>
     <property key="AccountingAddAgreementWorkEffortAppl">
-        <value xml:lang="en">Add Agreement Work Effort Appl</value>        
+        <value xml:lang="en">Add Agreement Work Effort Appl</value>
+        <value xml:lang="fr">Ajouter l'agrément de main d'oeuvre APPL</value>
     </property>
     <property key="AccountingAddCategoryGlAccount">
         <value xml:lang="en">Add Category GL Account</value>
+        <value xml:lang="fr">Ajouter le compte de la catégorie GL</value>
         <value xml:lang="th">เพิ่มหมวดหมู่บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddFinAccountTypeGlAccount">
         <value xml:lang="en">Add FinAccount Type Gl Account</value>
+        <value xml:lang="fr">Ajouter le type compte de FinAccount de Gl</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddFixedAssetIdent">
@@ -224,7 +233,7 @@
         <value xml:lang="ar">إضافة حساب EFT  جديد</value>
         <value xml:lang="en">Add New EFT Account</value>
         <value xml:lang="es">Agregar nueva cuenta ETF</value>
-        <value xml:lang="fr">Ajouter un compte EFT</value>
+        <value xml:lang="fr">Ajouter un compte de virement électronique</value>
         <value xml:lang="it">Aggiungi Nuovo Conto EFT</value>
         <value xml:lang="nl">Voeg een nieuw bankrekening toe</value>
         <value xml:lang="ro">Adauga un Nou Cont EFT</value>
@@ -234,18 +243,19 @@
     </property>
     <property key="AccountingAddPartyGlAccount">
         <value xml:lang="en">Add Party Gl Account</value>
+        <value xml:lang="fr">Ajouter le compte de partie Gl</value>
         <value xml:lang="th">เพิ่มกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddTaxAuthorityGlAccount">
         <value xml:lang="en">Add TaxAuthority GL Account</value>
+        <value xml:lang="fr">Ajouter le compte de TaxAuthority GL</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAdditionalShippingChargeForShipment">
         <value xml:lang="en">Additional Shipping Charge For Shipment #${shipmentId}</value>
         <value xml:lang="fr">Ajouter des frais de transport à la livraison</value>
         <value xml:lang="ru">Дополнительные затраты на доставку</value>
-        <value xml:lang="th">เพิ่มค่าขนส่งสำหรับการขนส่ง #${shipmentId}
-</value>
+        <value xml:lang="th">เพิ่มค่าขนส่งสำหรับการขนส่ง #${shipmentId}</value>
         <value xml:lang="zh">用于运输的附加运费</value>
     </property>
     <property key="AccountingAdmin">
@@ -279,8 +289,7 @@
         <value xml:lang="it">Lista Contratti Disponibili</value>
         <value xml:lang="ro">Lista Contractelor Disponibile</value>
         <value xml:lang="ru">Список существующих договоров</value>
-        <value xml:lang="th">รายการสัญญาที่มีอยู่
-</value>
+        <value xml:lang="th">รายการสัญญาที่มีอยู่</value>
         <value xml:lang="zh">有效合同列表</value>
     </property>
     <property key="AccountingAgreementDate">
@@ -309,9 +318,11 @@
     </property>
     <property key="AccountingAgreementInformation">
         <value xml:lang="en">Agreement Information</value>
+        <value xml:lang="fr">Information d'agrément</value>
     </property>
     <property key="AccountingAgreementIsNotSetForSupplierProducts">
         <value xml:lang="en">Please set a supplier in Agreement.partyIdTo and a currency in the AgreementItem before editing the price list</value>
+        <value xml:lang="fr">Veuillez placer un fournisseur dans Agreement.partyIdTo et une devise dans l'AgreementItem avant d'éditer les listes des prix</value>
         <value xml:lang="th">กรุณากำหนดผู้จัดหาสิ่งของในสัญญา ถึงกลุ่มผู้ใช้และเงินในสิ่งของที่ตกลงก่อนแก้ไขรายการราคา
 </value>
     </property>
@@ -388,6 +399,7 @@
     </property>
     <property key="AccountingAgreementRoles">
         <value xml:lang="en">Agreement Roles</value>
+        <value xml:lang="fr">Rôles d'accord</value>
     </property>
     <property key="AccountingAgreementTermId">
         <value xml:lang="ar">رمز بند إتفاق</value>
@@ -427,9 +439,11 @@
     </property>
     <property key="AccountingAgreementWorkEffortApplAlreadyExists">
         <value xml:lang="en">Agreement Work Effort Appl Already Exists</value>
+        <value xml:lang="fr">Main d'oeuvre APPL de l'accord existe déjà</value>
     </property>
-    <property key="AccountingAgreementWorkEffortAppls">        
-        <value xml:lang="en">Agreement Work Effort Appls</value>        
+    <property key="AccountingAgreementWorkEffortAppls">
+        <value xml:lang="en">Agreement Work Effort Appls</value>
+        <value xml:lang="fr">Accord d'applications main d'oeuvre</value>
     </property>
     <property key="AccountingAgreements">
         <value xml:lang="ar">إتفاقيات</value>
@@ -521,21 +535,27 @@
     </property>
     <property key="AccountingAp">
         <value xml:lang="en">Account Payable</value>
+        <value xml:lang="fr">Compte à payer</value>
     </property>
     <property key="AccountingApCompanyName">
         <value xml:lang="en">OFBiz: AP Manager</value>
+        <value xml:lang="fr">OFBiz : Directeur d'AP</value>
     </property>
     <property key="AccountingApPageTitleFindVendors">
         <value xml:lang="en">Find Vendors</value>
+        <value xml:lang="fr">Trouver des vendeurs</value>
     </property>
     <property key="AccountingApPageTitleFindVendorResults">
         <value xml:lang="en">Find Vendor Results</value>
+        <value xml:lang="fr">Trouver des résultats de vendeurs</value>
     </property>
     <property key="AccountingApPageTitleListVendors">
         <value xml:lang="en">List Vendors</value>
+        <value xml:lang="fr">Liste des vendeurs</value>
     </property>
     <property key="AccountingApManagerApplication">
         <value xml:lang="en">Account Payable Manager Application</value>
+        <value xml:lang="fr">Application de compte à payer de directeur</value>
     </property>
     <property key="AccountingApplicationSuccess">
         <value xml:lang="en">Applying ${amountApplied?currency(${isoCode})} from payment [${paymentId}] to ${toMessage}</value>
@@ -674,12 +694,15 @@
     </property>
     <property key="AccountingArCompanyName">
         <value xml:lang="en">OFBiz: AR Manager</value>
+        <value xml:lang="fr">OFBiz : Directeur AR</value>
     </property>
     <property key="AccountingArManagerApplication">
         <value xml:lang="en">Account Receivable Manager Application</value>
+        <value xml:lang="fr">Application de compte à recevoir de directeur </value>
     </property>
     <property key="AccountingArPageTitleListReports">
         <value xml:lang="en">List Reports</value>
+        <value xml:lang="fr">Rapports de liste</value>
     </property>
     <property key="AccountingAssets">
         <value xml:lang="ar">الأصول</value>
@@ -707,8 +730,9 @@
     </property>
     <property key="AccountingAssignPurchaseInvoiceToRevenue">
         <value xml:lang="en">Assign Purchase Invoice type to Revenue GL Account Number</value>
+        <value xml:lang="fr">Assigner le type de facture d'achat au numéro de compte du revenu GL</value>
         <value xml:lang="th">กำหนดประเภทใบกำกับสินค้าการสั่งซื้อไปยังหมายเลขบัญชีประเภททั่วไป</value>
-        
+
     </property>
     <property key="AccountingAssignSalesInvoiceToRevenue">
         <value xml:lang="ar">تعيين نوع فاتورة البيع إلى رقم حساب العائدات</value>
@@ -837,64 +861,40 @@
         <value xml:lang="zh">账单账户</value>
     </property>
     <property key="AccountingBillingAccountBalanceNotFound">
-        <value xml:lang="ar">حساب الفوترة [${billingAccountId}] ميزانية غير موجودة...(
-"</value>
-        <value xml:lang="en">Billing Account [${billingAccountId}] balance not found...(
-"</value>
-        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] balance no encontrado...(
-"</value>
+        <value xml:lang="ar">حساب الفوترة [${billingAccountId}] ميزانية غير موجودة...(</value>
+        <value xml:lang="en">Billing Account [${billingAccountId}] balance not found...(</value>
+        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] balance no encontrado...(</value>
         <value xml:lang="fr">Pas trouvé le solde du compte de facturation [${billingAccountId}]...</value>
-        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] bilancio non trovato...(
-"</value>
-        <value xml:lang="nl">Faktuurrekening [${billingAccountId}] saldo niet gevonden...(
-"</value>
-        <value xml:lang="ro">Cont Facturare [${billingAccountId}] Nu Gaseste Bilantul...(
-"</value>
-        <value xml:lang="ru">Кредитный счет [${billingAccountId}] не найден баланс...(
-"</value>
-        <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] ไม่พบยอดเงินคงเหลือ...(
-            "</value>
-        <value xml:lang="zh">没有找到账单账户[${billingAccountId}]余额...(
-"</value>
+        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] bilancio non trovato...(</value>
+        <value xml:lang="nl">Faktuurrekening [${billingAccountId}] saldo niet gevonden...(</value>
+        <value xml:lang="ro">Cont Facturare [${billingAccountId}] Nu Gaseste Bilantul...(</value>
+        <value xml:lang="ru">Кредитный счет [${billingAccountId}] не найден баланс...(</value>
+        <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] ไม่พบยอดเงินคงเหลือ...(</value>
+        <value xml:lang="zh">没有找到账单账户[${billingAccountId}]余额...(</value>
     </property>
     <property key="AccountingBillingAccountBalanceProblem">
-        <value xml:lang="ar">حساب الفوترة [${billingAccountId}] لا يعتد بميزانية إيجابية: ${billingAccountApplyAvailable?currency(${isoCode})}
-</value>
-        <value xml:lang="en">Billing Account [${billingAccountId}] doesn't have a positive balance: ${billingAccountAvailableBalance?currency(${isoCode})}
-</value>
-        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] no tiene un balance positivo: ${billingAccountApplyAvailable?currency(${isoCode})}
-</value>
+        <value xml:lang="ar">حساب الفوترة [${billingAccountId}] لا يعتد بميزانية إيجابية: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
+        <value xml:lang="en">Billing Account [${billingAccountId}] doesn't have a positive balance: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
+        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] no tiene un balance positivo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
         <value xml:lang="fr">Le compte de facturation [${billingAccountId}] n'a pas un solde positif: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
-        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] non ha un bilancio positivo: ${billingAccountApplyAvailable?currency(${isoCode})}
-</value>
-        <value xml:lang="nl">Faktuurrekening [${billingAccountId}] heeft geen positief saldo: ${billingAccountApplyAvailable?currency(${isoCode})}
-</value>
-        <value xml:lang="ro">Cont Facturare [${billingAccountId}] nu are un bilant pozitiv: ${billingAccountApplyAvailable?currency(${isoCode})}
-</value>
-        <value xml:lang="ru">Кредитный счет [${billingAccountId}] не имеет положительного баланса: ${billingAccountApplyAvailable?currency(${isoCode})}
-</value>
+        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] non ha un bilancio positivo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
+        <value xml:lang="nl">Faktuurrekening [${billingAccountId}] heeft geen positief saldo: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
+        <value xml:lang="ro">Cont Facturare [${billingAccountId}] nu are un bilant pozitiv: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
+        <value xml:lang="ru">Кредитный счет [${billingAccountId}] не имеет положительного баланса: ${billingAccountApplyAvailable?currency(${isoCode})}</value>
         <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] ไม่มียอดเงินคงเหลือ: ${billingAccountAvailableBalance?currency(${isoCode})}</value>
-        <value xml:lang="zh">账单账户[${billingAccountId}]没有正的余额：${billingAccountApplyAvailable?currency(${isoCode})}
-</value>
+        <value xml:lang="zh">账单账户[${billingAccountId}]没有正的余额：${billingAccountApplyAvailable?currency(${isoCode})}</value>
     </property>
     <property key="AccountingBillingAccountCurrencyProblem">
         <value xml:lang="ar">العملات لا تتطابق, حساب الفوترة [${billingAccountId}] عملته: ${accountCurrencyUomId} و التسديد [${paymentId}] عملته: ${paymentCurrencyUomId}</value>
-        <value xml:lang="en">Currencies are not the same, Billing Account [${billingAccountId}] has currency: ${accountCurrencyUomId} and Payment [${paymentId}] has currency: ${paymentCurrencyUomId}
-</value>
-        <value xml:lang="es">Monedas no son las mismas, Cuenta de facturación [${billingAccountId}] tiene moneda: ${accountCurrencyUomId} y pago [${paymentId}] tiene moneda: ${paymentCurrencyUomId}
-</value>
+        <value xml:lang="en">Currencies are not the same, Billing Account [${billingAccountId}] has currency: ${accountCurrencyUomId} and Payment [${paymentId}] has currency: ${paymentCurrencyUomId}</value>
+        <value xml:lang="es">Monedas no son las mismas, Cuenta de facturación [${billingAccountId}] tiene moneda: ${accountCurrencyUomId} y pago [${paymentId}] tiene moneda: ${paymentCurrencyUomId}</value>
         <value xml:lang="fr">Les monnaies ne sont pas identiques, le compte de facturation [${billingAccountId}] est en monnaie ${accountCurrencyUomId} et le paiement [${paymentId}] est en monnaie ${paymentCurrencyUomId}</value>
-        <value xml:lang="it">Valute non sono le stesse, Conto Fatturazione [${billingAccountId}] ha valuta: ${accountCurrencyUomId} e Pagamento [${paymentId}] ha valuta: ${paymentCurrencyUomId}
-</value>
-        <value xml:lang="nl">Valuta zijn niet hetzelfde, Faktuurrekening [${billingAccountId}] heeft de ${accountCurrencyUomId} valuta en de betaling [${paymentId}] heeft de ${paymentCurrencyUomId} valuta
-</value>
-        <value xml:lang="ro">Valutele nu sunt identice, Contul de Facturare [${billingAccountId}] are valuta: ${accountCurrencyUomId} iar Plata [${paymentId}] are valuta: ${paymentCurrencyUomId}
-</value>
-        <value xml:lang="ru">Валюты отличаются, кредитный счет [${billingAccountId}] имеет валюту: ${accountCurrencyUomId} а платеж [${paymentId}] валюту: ${paymentCurrencyUomId}
-</value>
+        <value xml:lang="it">Valute non sono le stesse, Conto Fatturazione [${billingAccountId}] ha valuta: ${accountCurrencyUomId} e Pagamento [${paymentId}] ha valuta: ${paymentCurrencyUomId}</value>
+        <value xml:lang="nl">Valuta zijn niet hetzelfde, Faktuurrekening [${billingAccountId}] heeft de ${accountCurrencyUomId} valuta en de betaling [${paymentId}] heeft de ${paymentCurrencyUomId} valuta</value>
+        <value xml:lang="ro">Valutele nu sunt identice, Contul de Facturare [${billingAccountId}] are valuta: ${accountCurrencyUomId} iar Plata [${paymentId}] are valuta: ${paymentCurrencyUomId}</value>
+        <value xml:lang="ru">Валюты отличаются, кредитный счет [${billingAccountId}] имеет валюту: ${accountCurrencyUomId} а платеж [${paymentId}] валюту: ${paymentCurrencyUomId}</value>
         <value xml:lang="th">เงินไม่พอ, ยอดรวมของบัญชี [${billingAccountId}] มีเงิน: ${accountCurrencyUomId} และชำระเงิน [${paymentId}] มีเงิน: ${paymentCurrencyUomId</value>
-        <value xml:lang="zh">货币不同，账单账户[${billingAccountId}]使用币种：${accountCurrencyUomId}，而支付[${paymentId}]使用币种：${paymentCurrencyUomId}
-</value>
+        <value xml:lang="zh">货币不同，账单账户[${billingAccountId}]使用币种：${accountCurrencyUomId}，而支付[${paymentId}]使用币种：${paymentCurrencyUomId}</value>
     </property>
     <property key="AccountingBillingAccountId">
         <value xml:lang="ar">رمز حساب الفوترة</value>
@@ -921,62 +921,40 @@
         <value xml:lang="zh">账单账户发票</value>
     </property>
     <property key="AccountingBillingAccountLessRequested">
-        <value xml:lang="ar">حساب الفوترة  [${billingAccountId}]لديه ${billingAccountApplyAvailable?currency(${isoCode})} للتطبيق لكن ${amountApplied?currency(${isoCode})}مطلوبة
-</value>
-        <value xml:lang="en">Billing Account [${billingAccountId}] has ${billingAccountApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested
-</value>
-        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene ${billingAccountApplyAvailable?currency(${isoCode})} por aplicar pero ${amountApplied?currency(${isoCode})} es requerido
-</value>
+        <value xml:lang="ar">حساب الفوترة  [${billingAccountId}]لديه ${billingAccountApplyAvailable?currency(${isoCode})} للتطبيق لكن ${amountApplied?currency(${isoCode})}مطلوبة</value>
+        <value xml:lang="en">Billing Account [${billingAccountId}] has ${billingAccountApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
+        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene ${billingAccountApplyAvailable?currency(${isoCode})} por aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
         <value xml:lang="fr">Le compte de facturation [${billingAccountId}] a un solde de ${billingAccountApplyAvailable?currency(${isoCode})}; un montant de ${amountApplied?currency(${isoCode})} trop élevé ne peut être alloué</value>
-        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] ha ${billingAccountApplyAvailable?currency(${isoCode})} da applicare ma ${amountApplied?currency(${isoCode})} è richiesto
-</value>
-        <value xml:lang="nl">Faktuurrekening [${billingAccountId}] heeft een saldo van ${billingAccountApplyAvailable?currency(${isoCode})} echter ${amountApplied?currency(${isoCode})} is aangevraagd
-</value>
-        <value xml:lang="ro">Cont Facturare [${billingAccountId}] are ${billingAccountApplyAvailable?currency(${isoCode})} de aplicat dar se cere ${amountApplied?currency(${isoCode})} 
-</value>
-        <value xml:lang="ru">Кредитный счет [${billingAccountId}] использует ${billingAccountApplyAvailable?currency(${isoCode})} но запрошен ${amountApplied?currency(${isoCode})}
-</value>
+        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] ha ${billingAccountApplyAvailable?currency(${isoCode})} da applicare ma ${amountApplied?currency(${isoCode})} è richiesto</value>
+        <value xml:lang="nl">Faktuurrekening [${billingAccountId}] heeft een saldo van ${billingAccountApplyAvailable?currency(${isoCode})} echter ${amountApplied?currency(${isoCode})} is aangevraagd</value>
+        <value xml:lang="ro">Cont Facturare [${billingAccountId}] are ${billingAccountApplyAvailable?currency(${isoCode})} de aplicat dar se cere ${amountApplied?currency(${isoCode})}</value>
+        <value xml:lang="ru">Кредитный счет [${billingAccountId}] использует ${billingAccountApplyAvailable?currency(${isoCode})} но запрошен ${amountApplied?currency(${isoCode})}</value>
         <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] มี ${billingAccountApplyAvailable?currency(${isoCode})} ถึงการสมัครแต่ ${amountApplied?currency(${isoCode})} เรียกร้อง</value>
-        <value xml:lang="zh">账单账户[${billingAccountId}]有${billingAccountApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}
-</value>
+        <value xml:lang="zh">账单账户[${billingAccountId}]有${billingAccountApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}</value>
     </property>
     <property key="AccountingBillingAccountNotEnough">
         <value xml:lang="ar">حساب الفوترة [${billingAccountId}] لديه سوى  ${newBillingAccountApplyAvailable?currency(${isoCode})} متوفرة إذن ${amountApplied?currency(${isoCode})} أكثر من اللازم</value>
-        <value xml:lang="en">Billing Account [${billingAccountId}] has only  ${newBillingAccountApplyAvailable?currency(${isoCode})} available so ${amountApplied?currency(${isoCode})} is too much
-</value>
-        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene solo ${newBillingAccountApplyAvailable?currency(${isoCode})} disponible asi que ${amountApplied?currency(${isoCode})} es demasiado
-</value>
+        <value xml:lang="en">Billing Account [${billingAccountId}] has only  ${newBillingAccountApplyAvailable?currency(${isoCode})} available so ${amountApplied?currency(${isoCode})} is too much</value>
+        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] tiene solo ${newBillingAccountApplyAvailable?currency(${isoCode})} disponible asi que ${amountApplied?currency(${isoCode})} es demasiado</value>
         <value xml:lang="fr">Le compte de facturation [${billingAccountId}] est limité à  ${newBillingAccountApplyAvailable?currency(${isoCode})} donc ${amountApplied?currency(${isoCode})} est trop élevé</value>
-        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] ha solo  ${newBillingAccountApplyAvailable?currency(${isoCode})} disponibile così ${amountApplied?currency(${isoCode})} è troppo grande
-</value>
-        <value xml:lang="nl">Faktuurrekening [${billingAccountId}] heeft maar  ${newBillingAccountApplyAvailable?currency(${isoCode})} beschikbaar, dus ${amountApplied?currency(${isoCode})} is te veel
-</value>
-        <value xml:lang="ro">Contul de Facturare [${billingAccountId}] are numai ${newBillingAccountApplyAvailable?currency(${isoCode})} pozitii disponibile ${amountApplied?currency(${isoCode})} deci este prea mare
-</value>
-        <value xml:lang="ru">Для кредитного счета [${billingAccountId}] доступно только  ${newBillingAccountApplyAvailable?currency(${isoCode})} таким образом ${amountApplied?currency(${isoCode})} это слишком много
-</value>
+        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] ha solo  ${newBillingAccountApplyAvailable?currency(${isoCode})} disponibile così ${amountApplied?currency(${isoCode})} è troppo grande</value>
+        <value xml:lang="nl">Faktuurrekening [${billingAccountId}] heeft maar  ${newBillingAccountApplyAvailable?currency(${isoCode})} beschikbaar, dus ${amountApplied?currency(${isoCode})} is te veel</value>
+        <value xml:lang="ro">Contul de Facturare [${billingAccountId}] are numai ${newBillingAccountApplyAvailable?currency(${isoCode})} pozitii disponibile ${amountApplied?currency(${isoCode})} deci este prea mare</value>
+        <value xml:lang="ru">Для кредитного счета [${billingAccountId}] доступно только  ${newBillingAccountApplyAvailable?currency(${isoCode})} таким образом ${amountApplied?currency(${isoCode})} это слишком много</value>
         <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] มีเพียง ${newBillingAccountApplyAvailable?currency(${isoCode})} ดังนั้นใช้ได้ ${amountApplied?currency(${isoCode})} มาก</value>
-        <value xml:lang="zh">账单账户[${billingAccountId}]只有${newBillingAccountApplyAvailable?currency(${isoCode})}有效，因此${amountApplied?currency(${isoCode})}太多了
-</value>
+        <value xml:lang="zh">账单账户[${billingAccountId}]只有${newBillingAccountApplyAvailable?currency(${isoCode})}有效，因此${amountApplied?currency(${isoCode})}太多了</value>
     </property>
     <property key="AccountingBillingAccountNotFound">
         <value xml:lang="ar">حساب الفوترة ${billingAccountId}] عير موجود...</value>
-        <value xml:lang="en">Billing Account [${billingAccountId}] not found...
-</value>
-        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] no encontrada...
-</value>
+        <value xml:lang="en">Billing Account [${billingAccountId}] not found...</value>
+        <value xml:lang="es">Cuenta de facturación [${billingAccountId}] no encontrada...</value>
         <value xml:lang="fr">Compte de facturation [${billingAccountId}] pas trouvé...</value>
-        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] non trovato...
-</value>
-        <value xml:lang="nl">Faktuurrekening [${billingAccountId}] niet gevonden...
-</value>
-        <value xml:lang="ro">Cont Facturare [${billingAccountId}] non Gasit...
-</value>
-        <value xml:lang="ru">Кредитный счет [${billingAccountId}] не найден...
-</value>
+        <value xml:lang="it">Conto Fatturazione [${billingAccountId}] non trovato...</value>
+        <value xml:lang="nl">Faktuurrekening [${billingAccountId}] niet gevonden...</value>
+        <value xml:lang="ro">Cont Facturare [${billingAccountId}] non Gasit...</value>
+        <value xml:lang="ru">Кредитный счет [${billingAccountId}] не найден...</value>
         <value xml:lang="th">ยอดรวมของบัญชี [${billingAccountId}] ไม่พบ..</value>
-        <value xml:lang="zh">没有找到账单账户[${billingAccountId}]...
-</value>
+        <value xml:lang="zh">没有找到账单账户[${billingAccountId}]...</value>
     </property>
     <property key="AccountingBillingAccountOnly">
         <value xml:lang="ar"> سدد بحساب الفوترة فقط</value>
@@ -1138,14 +1116,17 @@
     </property>
     <property key="AccountingBothInvoiceIdBillingAccountIdEmptyError">
         <value xml:lang="en">AccountingBothInvoiceIdBillingAccountIdEmptyError</value>
+        <value xml:lang="fr">Comptabilité toutes les deux factures réf. facturation de compte réf. erreur vide</value>
         <value xml:lang="th">ผิดพลาดตรงรหัสใบกำกับสินค้าและรหัสบัญชีทั้งคู่เป็นค่าว่าง</value>
     </property>
     <property key="AccountingByAccount">
         <value xml:lang="en">By Account</value>
+        <value xml:lang="fr">Par compte</value>
         <value xml:lang="th">โดยบัญชี</value>
     </property>
     <property key="AccountingByDate">
         <value xml:lang="en">By Date</value>
+        <value xml:lang="fr">Par date</value>
         <value xml:lang="th">โดยวันที่</value>
     </property>
     <property key="AccountingCannotGetPaymentForApplication">
@@ -1232,6 +1213,7 @@
     </property>
     <property key="AccountingClosedTimePeriods">
         <value xml:lang="en">Closed Time Periods</value>
+        <value xml:lang="fr">Périodes de l'heure exacte</value>
         <value xml:lang="it">Periodi Fiscali Chiusi</value>
         <value xml:lang="th">ปิดช่วงเวลา</value>
     </property>
@@ -1312,10 +1294,12 @@
     </property>
     <property key="AccountingComparativeBalanceSheet">
         <value xml:lang="en">Comparative Balance Sheet</value>
+        <value xml:lang="fr">Bilan comparatif</value>
         <value xml:lang="th">เปรียบเทียบงบดุล</value>
     </property>
     <property key="AccountingCompleteAcctgTransFields">
         <value xml:lang="en">Complete transaction fields</value>
+        <value xml:lang="fr">Accomplir les champs de transaction</value>
         <value xml:lang="it">Completa i campi della transazione</value>
     </property>
     <property key="AccountingCopyAgreement">
@@ -1342,16 +1326,19 @@
     </property>
     <property key="AccountingCreateAcctRecons">
         <value xml:lang="en">Create Account Reconciliation</value>
+        <value xml:lang="fr">Créer la réconciliation de compte</value>
         <value xml:lang="it">Crea Riconciliazione</value>
         <value xml:lang="th">สร้างการเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingCreateAcctgTransAndEntries">
         <value xml:lang="en">Quick Create an Accounting Transaction</value>
+        <value xml:lang="fr">Créer vite une transaction de comptabilité</value>
         <value xml:lang="it">Creazione Veloce Prima Nota</value>
         <value xml:lang="th">สร้างรายการบัญชีอย่างรวดเร็ว</value>
     </property>
     <property key="AccountingCreateAnAccountingTransaction">
         <value xml:lang="en">Create an Accounting Transaction</value>
+        <value xml:lang="fr">Créer une transaction de comptabilité</value>
         <value xml:lang="it">Crea una Prima Nota</value>
         <value xml:lang="th">สร้างรายการบัญชี</value>
     </property>
@@ -1410,6 +1397,7 @@
     </property>
     <property key="AccountingCreateCostComponentCalc">
         <value xml:lang="en">Create New Cost Component Calc</value>
+        <value xml:lang="fr">Créer le nouveau composant CALC de coût</value>
         <value xml:lang="it">Creare Nuovo Calcolo Costo Componente</value>
         <value xml:lang="th">Create New Cost Component Calc</value>
     </property>
@@ -1437,7 +1425,7 @@
         <value xml:lang="ar">استحداث  حساب EFT  جديد</value>
         <value xml:lang="en">Create New EFT Account</value>
         <value xml:lang="es">Crear una nueva cuenta EFT</value>
-        <value xml:lang="fr">Enregistrer un nouveau compte EFT</value>
+        <value xml:lang="fr">Enregistrer un nouveau compte de virement électronique</value>
         <value xml:lang="it">Creare Nuovo Conto EFT</value>
         <value xml:lang="nl">Nieuwe Bank account aanmaken</value>
         <value xml:lang="pt_BR">Criar Nova Conta EFT</value>
@@ -1449,16 +1437,19 @@
     </property>
     <property key="AccountingCreateNewInvoice">
         <value xml:lang="en">AccountingCreateNewInvoice</value>
+        <value xml:lang="fr">La comptabilité crée la nouvelle facture</value>
         <value xml:lang="th">สร้างใบกำกับสินค้าใหม่</value>
     </property>
     <property key="AccountingCreateNewPurchaseInvoice">
         <value xml:lang="en">New Purchase Invoice</value>
+        <value xml:lang="fr">Nouvelle facture d'achat</value>
         <value xml:lang="it">Nuova Fattura di Acquisto</value>
         <value xml:lang="ru">Новая приходная накладная</value>
         <value xml:lang="th">ใบเสร็จรับเงินการสั่งซื้อใหม่</value>
     </property>
     <property key="AccountingCreateNewSalesInvoice">
         <value xml:lang="en">New Sales Invoice</value>
+        <value xml:lang="fr">Nouvelle facture de ventes</value>
         <value xml:lang="it">Nuova Fattura di Vendita</value>
         <value xml:lang="ru">Новая расходная накладная</value>
         <value xml:lang="th">ใบกำกับสินค้าใหม่</value>
@@ -1477,6 +1468,7 @@
     </property>
     <property key="AccountingCreatePaymentAcctgTrans">
         <value xml:lang="en">Create Payment Accounting Transaction</value>
+        <value xml:lang="fr">Créer la transaction de comptabilité de paiement</value>
         <value xml:lang="it">Creazione Prima Nota Per Pagamento</value>
         <value xml:lang="th">สร้างรายการบัญชีการชำระเงิน</value>
     </property>
@@ -1508,6 +1500,7 @@
     </property>
     <property key="AccountingCreateSalesAcctgTrans">
         <value xml:lang="en">Create Sales Accounting Transaction</value>
+        <value xml:lang="fr">Créer la transaction de comptabilité des ventes</value>
         <value xml:lang="it">Creazione Prima Nota Per Vendite</value>
         <value xml:lang="th">สร้างบัญชีรายการขาย</value>
     </property>
@@ -1527,18 +1520,22 @@
     </property>
     <property key="AccountingCreditCardBillingAddNotFoundError">
         <value xml:lang="en">Billing Address associated with Credit Card not found.</value>
+        <value xml:lang="fr">L'adresse de facturation s'est associée avec la carte de crédit non trouvée</value>
         <value xml:lang="th">ไม่พบบัตรเครดิตที่เกี่ยวข้องกับใบแจ้งค่าบริการ</value>
     </property>
     <property key="AccountingCreditCardEmailAddNotFoundError">
         <value xml:lang="en">Bill To Email Address not found.</value>
+        <value xml:lang="fr">Facturation à l'adresse courriel non trouvée</value>
         <value xml:lang="th">ไม่พบใบเสร็จถึงที่อยู่อีเมล</value>
     </property>
     <property key="AccountingCreditCardManualAuthFailedError">
         <value xml:lang="en">Not creating credit card.  Credit card not verified, authentication failed.</value>
+        <value xml:lang="fr">Pas de création carte de crédit.  carte de crédit non vérifiée, l'authentification a échoué.</value>
         <value xml:lang="th">ไม่สร้างบัตรเครดิต. บัตรเครดิตไม่ถูกต้อง, เครื่องหมายผิดพลาด</value>
     </property>
     <property key="AccountingCreditCardTypeGlAccount">
         <value xml:lang="en">Credit Card Type GlAccount</value>
+        <value xml:lang="fr">Type carte de crédit compte Gl</value>
         <value xml:lang="th">บัตรเครดิตประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingCustNr">
@@ -1590,10 +1587,12 @@
     </property>
     <property key="AccountingDateAcquiredIsEmpty">
         <value xml:lang="en">Field dateAcquired is empty in FixedAsset data.</value>
+        <value xml:lang="fr">La date de champ acquise est vide dans les données d'immobilisation</value>
         <value xml:lang="th">Field dateAcquired is empty in FixedAsset data.</value>
     </property>
     <property key="AccountingDateFilter">
         <value xml:lang="en">AccountingDateFilter</value>
+        <value xml:lang="fr">Filtre de date de comptabilité</value>
         <value xml:lang="th">Date Filter</value>
     </property>
     <property key="AccountingDebitCreditMustEqual">
@@ -1654,6 +1653,7 @@
     </property>
     <property key="AccountingDuplicateAccountingTransaction">
         <value xml:lang="en">Duplicate Accounting Transaction</value>
+        <value xml:lang="fr">Transaction de comptabilité double</value>
         <value xml:lang="it">Duplicazione Prima Nota</value>
         <value xml:lang="th">จำลองรายการบัญชี</value>
     </property>
@@ -1661,7 +1661,7 @@
         <value xml:lang="ar">حساب EFT</value>
         <value xml:lang="en">EFT Account</value>
         <value xml:lang="es">Cuenta EFT</value>
-        <value xml:lang="fr">Compte EFT</value>
+        <value xml:lang="fr">Compte de virement électronique</value>
         <value xml:lang="it">Conto EFT</value>
         <value xml:lang="nl">Bank rekening</value>
         <value xml:lang="ro">Cont EFT</value>
@@ -1671,6 +1671,7 @@
     </property>
     <property key="AccountingEditAcctRecon">
         <value xml:lang="en">Edit Account Reconciliation</value>
+        <value xml:lang="fr">Éditer la réconciliation de compte</value>
         <value xml:lang="it">Modifica Riconciliazione</value>
         <value xml:lang="th">แก้ไขการเช็คยอดบัญชี</value>
     </property>
@@ -1695,8 +1696,8 @@
     </property>
     <property key="AccountingEditTaxAuthorityGlAccounts">
         <value xml:lang="en">Edit TaxAuthority GL Accounts</value>
-        <value xml:lang="th">แก้ไขภาษีบัญชีแยกประเภททั่วไป
-</value>
+        <value xml:lang="fr">Éditer les comptes de l'administration fiscale GL</value>
+        <value xml:lang="th">แก้ไขภาษีบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingEffective">
         <value xml:lang="ar">فعالة</value>
@@ -1868,6 +1869,7 @@
     </property>
     <property key="AccountingExpEndOfLifeIsEmpty">
         <value xml:lang="en">Field expectedEndOfLife is empty in FixedAsset data.</value>
+        <value xml:lang="fr">Mise en place est vide dans les données d'immobilisation</value>
         <value xml:lang="th">Field expectedEndOfLife is empty in FixedAsset data.</value>
     </property>
     <property key="AccountingExpirationDate">
@@ -1928,6 +1930,7 @@
     </property>
     <property key="AccountingFinAccountTypeGlAccount">
         <value xml:lang="en">FinAccount Type Gl Account</value>
+        <value xml:lang="fr">Type compte financier de compte de Gl</value>
         <value xml:lang="th">งบกำไรสะสมประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingFinAccounts">
@@ -1994,11 +1997,13 @@
     </property>
     <property key="AccountingFindPurchaseInvoicesByDueDate">
         <value xml:lang="en">Find Purchase Invoices By Due Date</value>
+        <value xml:lang="fr">Trouver factures d'achat à l'échéance</value>
         <value xml:lang="it">Ricerca Fatture Acquisto Per Data Scadenza</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้าโดยวันที่</value>
     </property>
     <property key="AccountingFindSalesInvoicesByDueDate">
         <value xml:lang="en">Find Sales Invoices By Due Date</value>
+        <value xml:lang="fr">Trouver factures de ventes à l'échéance</value>
         <value xml:lang="it">Ricerca Fatture Vendita Per Data Scadenza</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้าการขายโดยวันที่</value>
     </property>
@@ -2172,6 +2177,7 @@
     </property>
     <property key="AccountingFixedAssetDepreciation">
         <value xml:lang="en">Depreciation</value>
+        <value xml:lang="fr">Dévalorisation</value>
         <value xml:lang="it">Svalutazioni</value>
         <value xml:lang="th">ค่าเสื่อมราคา</value>
     </property>
@@ -2246,6 +2252,7 @@
     </property>
     <property key="AccountingFixedAssetIdentTypeId">
         <value xml:lang="en">AccountingFixedAssetIdentTypeId</value>
+        <value xml:lang="fr">Le type réf. d'immobilisation de comptabilité</value>
         <value xml:lang="th">รหัสประเภทการแยกแยะทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="AccountingFixedAssetIdents">
@@ -2325,8 +2332,7 @@
         <value xml:lang="es">Si el mantenimiento del producto es especificado, será establecido/reestablecido automaticamente</value>
         <value xml:lang="fr">Si la maintenance est définie au niveau du produit, ceci sera mis à jour automatiquement</value>
         <value xml:lang="it">Se la Manutenzione Prodotto è specificata, questa sarà impostata/azzerata automaticamente</value>
-        <value xml:lang="ro">Daca Intretinerea Produsului este  specificata, aceasta va fi  setata
-esetata in mod automat</value>
+        <value xml:lang="ro">Daca Intretinerea Produsului este  specificata, aceasta va fi  setataesetata in mod automat</value>
         <value xml:lang="ru">Если определено Обслуживание продукта, поле будет устанавливатся/сбрасываться автоматически</value>
         <value xml:lang="th">ถ้าการบำรุงรักษาสินค้าเป็นพิเศษ นี่จะกำหนดอัตโนมัติ</value>
         <value xml:lang="zh">如果指定了产品的维护保养，这会自动设置/复位</value>
@@ -2666,6 +2672,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingGeneralLedger">
         <value xml:lang="en">General Ledger</value>
+        <value xml:lang="fr">Registre de comptabilité général</value>
         <value xml:lang="it">Contabilità Generale</value>
         <value xml:lang="th">บัญชีแยกประเภททั่วไป</value>
     </property>
@@ -2729,6 +2736,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingGlAccountTypeDefaults">
         <value xml:lang="en">GL Account Type Defaults</value>
+        <value xml:lang="fr">Type défauts de compte de GL</value>
         <value xml:lang="it">Default Tipo Conto Contabilità Generale</value>
         <value xml:lang="th">ค่าเริ่มต้นอัตโนมัติของประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -2758,11 +2766,13 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingGlJournals">
         <value xml:lang="en">Journals</value>
+        <value xml:lang="fr">Journaux</value>
         <value xml:lang="it">Giornali</value>
         <value xml:lang="th">นิตยสาร</value>
     </property>
     <property key="AccountingGlobalGLSettings">
         <value xml:lang="en">Global GL Settings</value>
+        <value xml:lang="fr">Arrangements globaux de GL</value>
         <value xml:lang="it">Configurazione Contabilità Generale</value>
         <value xml:lang="th">การกำหนดบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -2794,6 +2804,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingIgnoringAdditionalShipCharges">
         <value xml:lang="en">prorateShipping is not N for productStoreId ${productStoreId}: Additional shipping charges for shipments are ignored</value>
+        <value xml:lang="fr">Partager proportionnellement l'expédition n'est pas N pour le produit StoreId $ {productStoreId} : Des frais d'expédition additionnels pour des expéditions sont ignorés</value>
         <value xml:lang="th">prorateShipping is not N for productStoreId ${productStoreId}: Additional shipping charges for shipments are ignored</value>
     </property>
     <property key="AccountingIllegalValuesPassedToCreateInvoiceService">
@@ -2834,6 +2845,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingInheritedValue">
         <value xml:lang="en">Inherited Value</value>
+        <value xml:lang="fr">Valeur héritée</value>
     </property>
     <property key="AccountingInvNr">
         <value xml:lang="ar">رقم الفاتورة</value>
@@ -2975,22 +2987,15 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingInvoiceCompletelyApplied">
         <value xml:lang="ar">الفاتورة [${invoiceId}] قد غطيت كليا بالتسديدات ...</value>
-        <value xml:lang="en">Invoice [${invoiceId}]  is already completely covered by payments... 
-</value>
-        <value xml:lang="es">Factura [${invoiceId}]  esta completamente cubierta por pagos... 
-</value>
+        <value xml:lang="en">Invoice [${invoiceId}]  is already completely covered by payments...</value>
+        <value xml:lang="es">Factura [${invoiceId}]  esta completamente cubierta por pagos...</value>
         <value xml:lang="fr">La facture  [${invoiceId}] a déjà été entièrement payée...</value>
-        <value xml:lang="it">Fattura [${invoiceId}]  è già completamente coperta dai pagamenti... 
-</value>
-        <value xml:lang="nl">Faktuur [${invoiceId}]  is reeds volledig toegewezen aan betalingen... 
-</value>
-        <value xml:lang="ro">Factura [${invoiceId}]  este deja in intregime Platita 
-</value>
-        <value xml:lang="ru">Накладная [${invoiceId}]  уже полностью оплачена... 
-</value>
+        <value xml:lang="it">Fattura [${invoiceId}]  è già completamente coperta dai pagamenti...</value>
+        <value xml:lang="nl">Faktuur [${invoiceId}]  is reeds volledig toegewezen aan betalingen...</value>
+        <value xml:lang="ro">Factura [${invoiceId}]  este deja in intregime Platita</value>
+        <value xml:lang="ru">Накладная [${invoiceId}]  уже полностью оплачена...</value>
         <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}]  เสร็จเรียบร้อยแล้วครอบคลุมไปถึงการชำระเงิน...</value>
-        <value xml:lang="zh">支付已完全满足了发票[${invoiceId}]的金额... 
-</value>
+        <value xml:lang="zh">支付已完全满足了发票[${invoiceId}]的金额...</value>
     </property>
     <property key="AccountingInvoiceDate">
         <value xml:lang="ar">تاريخ الفاتورة</value>
@@ -3083,74 +3088,48 @@ esetata in mod automat</value>
         <value xml:lang="zh">新建发票明细</value>
     </property>
     <property key="AccountingInvoiceItemLessRequested">
-        <value xml:lang="en">Invoice [${invoiceId} Item [${invoiceItemSeqId} has ${invoiceItemApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested
-</value>
-        <value xml:lang="es">Factura [${invoiceId} Elemento [${invoiceItemSeqId} tiene ${invoiceItemApplyAvailable?currency(${isoCode})} para aplicar pero   ${amountApplied?currency(${isoCode})} es requerio
-</value>
+        <value xml:lang="en">Invoice [${invoiceId} Item [${invoiceItemSeqId} has ${invoiceItemApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested</value>
+        <value xml:lang="es">Factura [${invoiceId} Elemento [${invoiceItemSeqId} tiene ${invoiceItemApplyAvailable?currency(${isoCode})} para aplicar pero   ${amountApplied?currency(${isoCode})} es requerio</value>
         <value xml:lang="fr">La facture [${invoiceId} Item [${invoiceItemSeqId} est payable en ${invoiceItemApplyAvailable?currency(${isoCode})} mais  ${amountApplied?currency(${isoCode})} est requis</value>
-        <value xml:lang="it">Fattura [${invoiceId} Riga [${invoiceItemSeqId} ha ${invoiceItemApplyAvailable?currency(${isoCode})} da applicare ma  ${amountApplied?currency(${isoCode})} è richiesta
-</value>
-        <value xml:lang="nl">Invoice [${invoiceId} Item [${invoiceItemSeqId} has ${invoiceItemApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested
-</value>
-        <value xml:lang="ro">Factura [${invoiceId} Linie [${invoiceItemSeqId} are ${invoiceItemApplyAvailable?currency(${isoCode})} de applicat dar  ${amountApplied?currency(${isoCode})} este ceruta 
-</value>
-        <value xml:lang="ru">Накладная [${invoiceId} Item [${invoiceItemSeqId} имеет неоплаченным ${invoiceItemApplyAvailable?currency(${isoCode})}, а запрашивается  ${amountApplied?currency(${isoCode})}
-</value>
+        <value xml:lang="it">Fattura [${invoiceId} Riga [${invoiceItemSeqId} ha ${invoiceItemApplyAvailable?currency(${isoCode})} da applicare ma  ${amountApplied?currency(${isoCode})} è richiesta</value>
+        <value xml:lang="nl">Invoice [${invoiceId} Item [${invoiceItemSeqId} has ${invoiceItemApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested</value>
+        <value xml:lang="ro">Factura [${invoiceId} Linie [${invoiceItemSeqId} are ${invoiceItemApplyAvailable?currency(${isoCode})} de applicat dar  ${amountApplied?currency(${isoCode})} este ceruta</value>
+        <value xml:lang="ru">Накладная [${invoiceId} Item [${invoiceItemSeqId} имеет неоплаченным ${invoiceItemApplyAvailable?currency(${isoCode})}, а запрашивается  ${amountApplied?currency(${isoCode})}</value>
         <value xml:lang="th">ใบกำกับสินค้า [${invoiceId} สินค้า [${invoiceItemSeqId} มี ${invoiceItemApplyAvailable?currency(${isoCode})} ถึงนำมาใช้แต่ ${amountApplied?currency(${isoCode})} เรียกร้อง</value>
-        <value xml:lang="zh">发票[${invoiceId}的明细[${invoiceItemSeqId}有${invoiceItemApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}
-</value>
+        <value xml:lang="zh">发票[${invoiceId}的明细[${invoiceItemSeqId}有${invoiceItemApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}</value>
     </property>
     <property key="AccountingInvoiceItemNotEnough">
-        <value xml:lang="en">Requested Amount is ${tooMuch?currency(${isoCode})} to much for this Invoice [${invoiceId}] Item [${invoiceItemSeqId}]
-</value>
+        <value xml:lang="en">Requested Amount is ${tooMuch?currency(${isoCode})} to much for this Invoice [${invoiceId}] Item [${invoiceItemSeqId}]</value>
         <value xml:lang="es">Cantidad requerida es ${tooMuch?currency(${isoCode})} demasiado para esta factura [${invoiceId}] elemento [${invoiceItemSeqId}]</value>
         <value xml:lang="fr">Le montant demandé est de ${tooMuch?currency(${isoCode})} trop élevé pour la ligne [${invoiceItemSeqId}] de cette facture [${invoiceId}]</value>
-        <value xml:lang="it">Importo Richiesto è ${tooMuch?currency(${isoCode})} troppo grande per questa Fattura [${invoiceId}] Riga [${invoiceItemSeqId}]
-</value>
-        <value xml:lang="nl">Aangevraagde waarde is ${tooMuch?currency(${isoCode})} te veel voor deze faktuur [${invoiceId}] met regelnummer [${invoiceItemSeqId}]
-</value>
-        <value xml:lang="ro">Valoarea Ceruta este ${tooMuch?currency(${isoCode})} prea mare pentru Aceasta Linie a Factura [${invoiceId}] [${invoiceItemSeqId}]
-</value>
-        <value xml:lang="ru">Запрашиваемая сумма ${tooMuch?currency(${isoCode})} превышает сумму позиции [${invoiceItemSeqId}] накладной [${invoiceId}]
-</value>
+        <value xml:lang="it">Importo Richiesto è ${tooMuch?currency(${isoCode})} troppo grande per questa Fattura [${invoiceId}] Riga [${invoiceItemSeqId}]</value>
+        <value xml:lang="nl">Aangevraagde waarde is ${tooMuch?currency(${isoCode})} te veel voor deze faktuur [${invoiceId}] met regelnummer [${invoiceItemSeqId}]</value>
+        <value xml:lang="ro">Valoarea Ceruta este ${tooMuch?currency(${isoCode})} prea mare pentru Aceasta Linie a Factura [${invoiceId}] [${invoiceItemSeqId}]</value>
+        <value xml:lang="ru">Запрашиваемая сумма ${tooMuch?currency(${isoCode})} превышает сумму позиции [${invoiceItemSeqId}] накладной [${invoiceId}]</value>
         <value xml:lang="th">จำนวนคำร้อง ${tooMuch?currency(${isoCode})} ถึงมากสำหรับใบเสร็จรับเงินนี้ [${invoiceId}] สินค้า[${invoiceItemSeqId}]</value>
-        <value xml:lang="zh">请求的金额是${tooMuch?currency(${isoCode})}，对于这个发票[${invoiceId}]的明细[${invoiceItemSeqId}]来说太多了
-</value>
+        <value xml:lang="zh">请求的金额是${tooMuch?currency(${isoCode})}，对于这个发票[${invoiceId}]的明细[${invoiceItemSeqId}]来说太多了</value>
     </property>
     <property key="AccountingInvoiceItemNotFound">
-        <value xml:lang="en">Invoice [${invoiceId}]  item [${invoiceItemSeqId}] record not found
-</value>
+        <value xml:lang="en">Invoice [${invoiceId}]  item [${invoiceItemSeqId}] record not found</value>
         <value xml:lang="es">Factura[${invoiceId}]  elemento [${invoiceItemSeqId}] registro no encontrado</value>
         <value xml:lang="fr">Pas trouvé la ligne [${invoiceItemSeqId}] de la facture [${invoiceId}]</value>
-        <value xml:lang="it">Fattura [${invoiceId}]  riga [${invoiceItemSeqId}] record non trovata
-</value>
-        <value xml:lang="nl">Faktuur [${invoiceId}]  met regel [${invoiceItemSeqId}] is niet gevonden
-</value>
-        <value xml:lang="ro">Factura [${invoiceId}]nu gaseste linie inregistrare [${invoiceItemSeqId}] 
-</value>
-        <value xml:lang="ru">Накладная [${invoiceId}]  позиция [${invoiceItemSeqId}] : запись не найдена
-</value>
+        <value xml:lang="it">Fattura [${invoiceId}]  riga [${invoiceItemSeqId}] record non trovata</value>
+        <value xml:lang="nl">Faktuur [${invoiceId}]  met regel [${invoiceItemSeqId}] is niet gevonden</value>
+        <value xml:lang="ro">Factura [${invoiceId}]nu gaseste linie inregistrare [${invoiceItemSeqId}]</value>
+        <value xml:lang="ru">Накладная [${invoiceId}]  позиция [${invoiceItemSeqId}] : запись не найдена</value>
         <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}]  สินค้า [${invoiceItemSeqId}] ไม่พบบันทึก</value>
-        <value xml:lang="zh">发票[${invoiceId}]  无法找到明细[${invoiceItemSeqId}]
-</value>
+        <value xml:lang="zh">发票[${invoiceId}]  无法找到明细[${invoiceItemSeqId}]</value>
     </property>
     <property key="AccountingInvoiceItemPaymentCurrencyProblem">
-        <value xml:lang="en">Payment currency [${paymentCurrencyId}] and invoice Item currency [${itemCurrency}] not the same
-"</value>
-        <value xml:lang="es">Moneda de pago [${paymentCurrencyId}] y moneda de elemento de factura [${itemCurrency}] no son las mismas
-"</value>
+        <value xml:lang="en">Payment currency [${paymentCurrencyId}] and invoice Item currency [${itemCurrency}] not the same</value>
+        <value xml:lang="es">Moneda de pago [${paymentCurrencyId}] y moneda de elemento de factura [${itemCurrency}] no son las mismas</value>
         <value xml:lang="fr">La monnaie de paiement [${paymentCurrencyId}] et la monnaie de la ligne de facture [${itemCurrency}] ne correspondent pas</value>
-        <value xml:lang="it">Valuta Pagamento [${paymentCurrencyId}]e valuta riga fattura [${itemCurrency}] non sono le stesse
-"</value>
-        <value xml:lang="nl">Valuta [${paymentCurrencyId}] van de betaling en faktuur [${itemCurrency}] komen niet overeen
-"</value>
-        <value xml:lang="ro">Valuta Plata [${paymentCurrencyId}]si valuta Linie Factura [${itemCurrency}] nu sunt identice 
-"</value>
-        <value xml:lang="ru">Валюта платежа [${paymentCurrencyId}] и валюта позиции накладной [${itemCurrency}] не совпадают
-"</value>
+        <value xml:lang="it">Valuta Pagamento [${paymentCurrencyId}]e valuta riga fattura [${itemCurrency}] non sono le stesse</value>
+        <value xml:lang="nl">Valuta [${paymentCurrencyId}] van de betaling en faktuur [${itemCurrency}] komen niet overeen</value>
+        <value xml:lang="ro">Valuta Plata [${paymentCurrencyId}]si valuta Linie Factura [${itemCurrency}] nu sunt identice</value>
+        <value xml:lang="ru">Валюта платежа [${paymentCurrencyId}] и валюта позиции накладной [${itemCurrency}] не совпадают</value>
         <value xml:lang="th">สกุลเงินที่ชำระ [${paymentCurrencyId}] และใบสั่งของ[${itemCurrency}] ไม่เหมือนกัน"</value>
-        <value xml:lang="zh">支付的币种[${paymentCurrencyId}]与发票明细的币种[${itemCurrency}]不同
-"</value>
+        <value xml:lang="zh">支付的币种[${paymentCurrencyId}]与发票明细的币种[${itemCurrency}]不同</value>
     </property>
     <property key="AccountingInvoiceItemSeqId">
         <value xml:lang="ar">رقم البند</value>
@@ -3166,6 +3145,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingInvoiceItemType">
         <value xml:lang="en">Invoice Item Type</value>
+        <value xml:lang="fr">Type d'article de facture</value>
         <value xml:lang="it">Tipo Riga Fattura</value>
         <value xml:lang="th">ประเภทรายการใบกำกับสินค้า</value>
     </property>
@@ -3182,55 +3162,35 @@ esetata in mod automat</value>
         <value xml:lang="zh">明细</value>
     </property>
     <property key="AccountingInvoiceLessRequested">
-        <value xml:lang="en">Invoice [${invoiceId} has ${invoiceApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested
-</value>
-        <value xml:lang="es">Factura[${invoiceId} tiene ${invoiceApplyAvailable?currency(${isoCode})} para aplicar pero  ${amountApplied?currency(${isoCode})} es requerido
-</value>
+        <value xml:lang="en">Invoice [${invoiceId} has ${invoiceApplyAvailable?currency(${isoCode})} to apply but  ${amountApplied?currency(${isoCode})} is requested</value>
+        <value xml:lang="es">Factura[${invoiceId} tiene ${invoiceApplyAvailable?currency(${isoCode})} para aplicar pero  ${amountApplied?currency(${isoCode})} es requerido</value>
         <value xml:lang="fr">La facture [${invoiceId} est payable en ${invoiceApplyAvailable?currency(${isoCode})} mais ${amountApplied?currency(${isoCode})} est requis</value>
-        <value xml:lang="it">Fattura [${invoiceId} ha ${invoiceApplyAvailable?currency(${isoCode})} da applicare ma  ${amountApplied?currency(${isoCode})} è richiesto
-</value>
-        <value xml:lang="nl">Faktuur [${invoiceId} heeft ${invoiceApplyAvailable?currency(${isoCode})} om toe te wijzen echter  ${amountApplied?currency(${isoCode})} is aangevraagd
-</value>
-        <value xml:lang="ro">Factura [${invoiceId} are ${invoiceApplyAvailable?currency(${isoCode})} de aplicat dar  ${amountApplied?currency(${isoCode})} este cerut
-</value>
-        <value xml:lang="ru">По накладной [${invoiceId} не оплачено ${invoiceApplyAvailable?currency(${isoCode})}, а запрашивается  ${amountApplied?currency(${isoCode})}
-</value>
+        <value xml:lang="it">Fattura [${invoiceId} ha ${invoiceApplyAvailable?currency(${isoCode})} da applicare ma  ${amountApplied?currency(${isoCode})} è richiesto</value>
+        <value xml:lang="nl">Faktuur [${invoiceId} heeft ${invoiceApplyAvailable?currency(${isoCode})} om toe te wijzen echter  ${amountApplied?currency(${isoCode})} is aangevraagd</value>
+        <value xml:lang="ro">Factura [${invoiceId} are ${invoiceApplyAvailable?currency(${isoCode})} de aplicat dar  ${amountApplied?currency(${isoCode})} este cerut</value>
+        <value xml:lang="ru">По накладной [${invoiceId} не оплачено ${invoiceApplyAvailable?currency(${isoCode})}, а запрашивается  ${amountApplied?currency(${isoCode})}</value>
         <value xml:lang="th">ใบกำกับสินค้า [${invoiceId} มี ${invoiceApplyAvailable?currency(${isoCode})} ถึงนำมาใช้แต่  ${amountApplied?currency(${isoCode})} เรียกร้อง</value>
-        <value xml:lang="zh">发票[${invoiceId}有${invoiceApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}
-</value>
+        <value xml:lang="zh">发票[${invoiceId}有${invoiceApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}</value>
     </property>
     <property key="AccountingInvoiceNotEnough">
-        <value xml:lang="en">Requested Amount is ${tooMuch?currency(${isoCode})} to much for this Invoice [${invoiceId}]
-</value>
-        <value xml:lang="es">Cantidad requerida es ${tooMuch?currency(${isoCode})} demasiado para esta factura [${invoiceId}]
-</value>
+        <value xml:lang="en">Requested Amount is ${tooMuch?currency(${isoCode})} to much for this Invoice [${invoiceId}]</value>
+        <value xml:lang="es">Cantidad requerida es ${tooMuch?currency(${isoCode})} demasiado para esta factura [${invoiceId}]</value>
         <value xml:lang="fr">Le montant requis est de ${tooMuch?currency(${isoCode})} trop élevé pour cette facture [${invoiceId}]</value>
-        <value xml:lang="it">Importo Richiesto è ${tooMuch?currency(${isoCode})} troppo grande per questa Fattura [${invoiceId}]
-</value>
-        <value xml:lang="nl">Aangevraagde waarde is ${tooMuch?currency(${isoCode})} te veel voor deze faktuur [${invoiceId}]
-</value>
-        <value xml:lang="ro">Valoare Ceruta este ${tooMuch?currency(${isoCode})} prea mare pentru Aceasta Factura [${invoiceId}]
-</value>
-        <value xml:lang="ru">Запрошенная сумма ${tooMuch?currency(${isoCode})} слишков велика для накладной [${invoiceId}]
-</value>
+        <value xml:lang="it">Importo Richiesto è ${tooMuch?currency(${isoCode})} troppo grande per questa Fattura [${invoiceId}]</value>
+        <value xml:lang="nl">Aangevraagde waarde is ${tooMuch?currency(${isoCode})} te veel voor deze faktuur [${invoiceId}]</value>
+        <value xml:lang="ro">Valoare Ceruta este ${tooMuch?currency(${isoCode})} prea mare pentru Aceasta Factura [${invoiceId}]</value>
+        <value xml:lang="ru">Запрошенная сумма ${tooMuch?currency(${isoCode})} слишков велика для накладной [${invoiceId}]</value>
         <value xml:lang="th">จำนวนเรียกร้อง ${tooMuch?currency(${isoCode})} ถึงมากสำหรับใบเสร็จรับเงินนี้ [${invoiceId}]</value>
-        <value xml:lang="zh">请求的金额是${tooMuch?currency(${isoCode})}，对于这个发票[${invoiceId}]来说太多了
-</value>
+        <value xml:lang="zh">请求的金额是${tooMuch?currency(${isoCode})}，对于这个发票[${invoiceId}]来说太多了</value>
     </property>
     <property key="AccountingInvoiceNotFound">
-        <value xml:lang="en">Invoice [${invoiceId}] record not found
-</value>
-        <value xml:lang="es">Factura [${invoiceId}] registro no encontrado
-</value>
+        <value xml:lang="en">Invoice [${invoiceId}] record not found</value>
+        <value xml:lang="es">Factura [${invoiceId}] registro no encontrado</value>
         <value xml:lang="fr">Facture [${invoiceId}] pas trouvée</value>
-        <value xml:lang="it">Fattura [${invoiceId}] record non trovato
-</value>
-        <value xml:lang="nl">Faktuur [${invoiceId}] niet gevonden
-</value>
-        <value xml:lang="ro">Nu gaseste Record Factura [${invoiceId}] 
-</value>
-        <value xml:lang="ru">Накладная [${invoiceId}]: запись не найдена
-</value>
+        <value xml:lang="it">Fattura [${invoiceId}] record non trovato</value>
+        <value xml:lang="nl">Faktuur [${invoiceId}] niet gevonden</value>
+        <value xml:lang="ro">Nu gaseste Record Factura [${invoiceId}]</value>
+        <value xml:lang="ru">Накладная [${invoiceId}]: запись не найдена</value>
         <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}] ไม่พบเรคคอร์ด</value>
         <value xml:lang="zh">没有找到发票[${invoiceId}]的记录
 </value>
@@ -3260,6 +3220,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingInvoicePDFOtherCur">
         <value xml:lang="en">PDF other Currency</value>
+        <value xml:lang="fr">Pdf autre devise</value>
         <value xml:lang="it">PDF Altra Valuta</value>
         <value xml:lang="th">PDF สกุลเงินอื่น ๆ</value>
     </property>
@@ -3276,22 +3237,15 @@ esetata in mod automat</value>
         <value xml:lang="zh">已付</value>
     </property>
     <property key="AccountingInvoicePaymentCurrencyProblem">
-        <value xml:lang="en">Payment currency [${paymentCurrency}] and invoice currency [${invoiceCurrency}] not the same
-</value>
-        <value xml:lang="es">Moneda de pago [${paymentCurrencyId}] y moneda de factura [${invoiceCurrency}] no son iguales
-</value>
+        <value xml:lang="en">Payment currency [${paymentCurrencyId}] and invoice currency [${invoiceCurrency}] not the same</value>
+        <value xml:lang="es">Moneda de pago [${paymentCurrencyId}] y moneda de factura [${invoiceCurrency}] no son iguales</value>
         <value xml:lang="fr">La monnaie de paiement [${paymentCurrencyId}] et la monnaie de la facture [${invoiceCurrency}] ne correspondent pas</value>
-        <value xml:lang="it">Valuta Pagamento [${paymentCurrencyId}] e valuta fattura [${invoiceCurrency}] non sono le stesse
-</value>
-        <value xml:lang="nl">De valuta [${paymentCurrencyId}] van de betaling en de valuta [${invoiceCurrency}] van de faktuur komen niet overeen
-</value>
-        <value xml:lang="ro">Valuta Plata [${paymentCurrencyId}] si valuta Factura [${invoiceCurrency}] nu sunt aceleasi 
-</value>
-        <value xml:lang="ru">Валюта платежа [${paymentCurrencyId}] не совпадает с валютой накладной [${invoiceCurrency}]
-</value>
+        <value xml:lang="it">Valuta Pagamento [${paymentCurrencyId}] e valuta fattura [${invoiceCurrency}] non sono le stesse</value>
+        <value xml:lang="nl">De valuta [${paymentCurrencyId}] van de betaling en de valuta [${invoiceCurrency}] van de faktuur komen niet overeen</value>
+        <value xml:lang="ro">Valuta Plata [${paymentCurrencyId}] si valuta Factura [${invoiceCurrency}] nu sunt aceleasi</value>
+        <value xml:lang="ru">Валюта платежа [${paymentCurrencyId}] не совпадает с валютой накладной [${invoiceCurrency}]</value>
         <value xml:lang="th">Payment currency [${paymentCurrencyId}] and invoice currency [${invoiceCurrency}] not the same</value>
-        <value xml:lang="zh">支付的币种[${paymentCurrencyId}]与发票的币种[${invoiceCurrency}]不同
-</value>
+        <value xml:lang="zh">支付的币种[${paymentCurrencyId}]与发票的币种[${invoiceCurrency}]不同</value>
     </property>
     <property key="AccountingInvoicePayments">
         <value xml:lang="ar">التسديدات</value>
@@ -3461,6 +3415,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingInvoiceTimeEntries">
         <value xml:lang="en">Time Entries</value>
+        <value xml:lang="fr">Entrées d'horaire</value>
         <value xml:lang="it">Righe Timbratura</value>
         <value xml:lang="th">ตารางการทำงาน</value>
     </property>
@@ -3479,22 +3434,15 @@ esetata in mod automat</value>
         <value xml:lang="zh">发票金额合计</value>
     </property>
     <property key="AccountingInvoiceTotalZero">
-        <value xml:lang="en">Invoice [${invoiceId}] has a total value of zero....cannot apply anything...
-</value>
-        <value xml:lang="es">Factura [${invoiceId}] tiene un valor total de cero....no es posible aplicar nada...
-</value>
+        <value xml:lang="en">Invoice [${invoiceId}] has a total value of zero....cannot apply anything...</value>
+        <value xml:lang="es">Factura [${invoiceId}] tiene un valor total de cero....no es posible aplicar nada...</value>
         <value xml:lang="fr">La facture  [${invoiceId}] a un total de zéro... rien à appliquer...</value>
-        <value xml:lang="it">Fattura [${invoiceId}] ha un valore totale di zero....non può essere applicato qualsiasi...
-</value>
-        <value xml:lang="nl">Faktuur [${invoiceId}] heeft een totaal van nul....kan niets toewijzen...
-</value>
-        <value xml:lang="ro">Factura [${invoiceId}] are o valoare totala de zero....nu poate fi aplicata orice ...
-</value>
-        <value xml:lang="ru">Итоговая сумма по накладной [${invoiceId}] нулевая....невозможно ничего применить...
-</value>
+        <value xml:lang="it">Fattura [${invoiceId}] ha un valore totale di zero....non può essere applicato qualsiasi...</value>
+        <value xml:lang="nl">Faktuur [${invoiceId}] heeft een totaal van nul....kan niets toewijzen...</value>
+        <value xml:lang="ro">Factura [${invoiceId}] are o valoare totala de zero....nu poate fi aplicata orice ...</value>
+        <value xml:lang="ru">Итоговая сумма по накладной [${invoiceId}] нулевая....невозможно ничего применить...</value>
         <value xml:lang="th">ใบกำกับสินค้า [${invoiceId}] มีค่าผลรวมของศูนย์....ไม่สามารถนำไปใช้ได้เลย...</value>
-        <value xml:lang="zh">发票[${invoiceId}]金额合计为0。...无法应用...
-</value>
+        <value xml:lang="zh">发票[${invoiceId}]金额合计为0。...无法应用...</value>
     </property>
     <property key="AccountingInvoices">
         <value xml:lang="ar">القواتير</value>
@@ -3597,14 +3545,17 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingListAgreementWorkEffortAppls">
         <value xml:lang="en">List Agreement Work Effort Appls</value>
+        <value xml:lang="fr">Liste d'accord de Appls main d'oeuvre</value>
     </property>
     <property key="AccountingListInvoiceItemType">
         <value xml:lang="en">Invoice Item Type List</value>
+        <value xml:lang="fr">Type liste d'article de facture</value>
         <value xml:lang="it">Lista Tipi Riga Fattura</value>
         <value xml:lang="th">รายการประเภทใบกำกับสินค้า</value>
     </property>
     <property key="AccountingListInvoices">
         <value xml:lang="en">List Invoices</value>
+        <value xml:lang="fr">liste des factures</value>
         <value xml:lang="it">Lista Fatture</value>
         <value xml:lang="th">รายการใบกำกับสินค้า</value>
     </property>
@@ -3622,6 +3573,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingListPaymentMethodType">
         <value xml:lang="en">Payment Method Type List</value>
+        <value xml:lang="fr">Type de liste de méthode de paiement</value>
         <value xml:lang="it">Lista Tipi Metodo di Pagamento</value>
         <value xml:lang="th">รายการประเภทวิธีการชำระเงิน</value>
     </property>
@@ -3638,10 +3590,12 @@ esetata in mod automat</value>
         <value xml:lang="zh">可用的支付</value>
     </property>
     <property key="AccountingLookupAgreement">
-        <value xml:lang="en">Lookup Agreement</value>        
+        <value xml:lang="en">Lookup Agreement</value>
+        <value xml:lang="fr">Accord de consultation</value>
     </property>
     <property key="AccountingLookupAgreementItem">
         <value xml:lang="en">Lookup Agreement Item</value>
+        <value xml:lang="fr">Article d'accord de consultation</value>
     </property>
     <property key="AccountingLookupInvoices">
         <value xml:lang="ar">إطلالة على  الفواتير</value>
@@ -3869,6 +3823,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingNewAgreementRole">
         <value xml:lang="en">Create New Agreement Role</value>
+        <value xml:lang="fr">Créez le nouveau rôle d'accord</value>
     </property>
     <property key="AccountingNewAgreementTerm">
         <value xml:lang="ar">اضافة بند إتفاقية</value>
@@ -3964,12 +3919,14 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingNewPaymentIncoming">
         <value xml:lang="en">New incoming payment</value>
+        <value xml:lang="fr">Nouveau paiement entrant</value>
         <value xml:lang="it">Nuovo Pagamento in Ingresso</value>
         <value xml:lang="ru">Новый входящий платеж</value>
         <value xml:lang="th">เข้ามาชำระเงินใหม่</value>
     </property>
     <property key="AccountingNewPaymentOutgoing">
         <value xml:lang="en">New outgoing payment</value>
+        <value xml:lang="fr">Nouveau paiement sortant</value>
         <value xml:lang="it">Nuovo Pagamento in Uscita</value>
         <value xml:lang="ru">Новый исходящий платеж</value>
         <value xml:lang="th">ออกจากการชำระเงิน</value>
@@ -4016,8 +3973,7 @@ esetata in mod automat</value>
         <value xml:lang="es">Cantidad requerida a aplicar es cero o no se proporciono: ninguna cantidad aplicada/n</value>
         <value xml:lang="fr">Le montant à allouer est zéro ou manquant: il n'a pas été appliqué de montant/n</value>
         <value xml:lang="it">Importo richiesto da applicare è zero o non inserito: nessun importo applicato/n</value>
-        <value xml:lang="nl">De aangevraagde toewijzing is "0" of niet aangegeven: geen bedrag toegewezen
-</value>
+        <value xml:lang="nl">De aangevraagde toewijzing is "0" of niet aangegeven: geen bedrag toegewezen</value>
         <value xml:lang="ro">Valoarea ceruta de aplicat este zero sau neintrodusa: nici-o Valoare aplicata/n</value>
         <value xml:lang="ru">Сумма для применения нулевая или не указана: невозможно применить/n</value>
         <value xml:lang="th">การเรียกร้องจำนวนในการนำไปใช้เป็นศูนย์หรือไม่จัดหาให้: ไม่นำจำนวนไปใช้/n</value>
@@ -4245,6 +4201,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingOpenTimePeriods">
         <value xml:lang="en">Open Time Periods</value>
+        <value xml:lang="fr">Ouvrir les périodes de temps</value>
         <value xml:lang="it">Periodi Fiscali Aperti</value>
         <value xml:lang="th">เปิดช่วงเวลา</value>
     </property>
@@ -4316,9 +4273,10 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingPostedTransactionTotals">
         <value xml:lang="en">Posted Totals</value>
+        <value xml:lang="fr">Totaux signalés</value>
         <value xml:lang="it">Totali Contabilizzati</value>
         <value xml:lang="th">ผลรวมประกาศ</value>
-    </property>    
+    </property>
     <property key="AccountingPSInvalidStatusChange">
         <value xml:lang="ar">الوضعية الجديدة تغيير  غير صحيح</value>
         <value xml:lang="en">The new status is not a valid change</value>
@@ -4407,11 +4365,13 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingPartyFixedAssetAssignments">
         <value xml:lang="en">Assignments</value>
+        <value xml:lang="fr">Tâches</value>
         <value xml:lang="it">Assegnazioni</value>
         <value xml:lang="th">การกำหนด</value>
     </property>
     <property key="AccountingPartyGlAccounts">
         <value xml:lang="en">Party Gl Accounts</value>
+        <value xml:lang="fr">Comptes de Gl de partie</value>
         <value xml:lang="th">กลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingPartyIdFrom">
@@ -4475,10 +4435,12 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingPayWithPayPal">
         <value xml:lang="en">Pay With PayPal</value>
+        <value xml:lang="fr">Salaire avec PayPal</value>
         <value xml:lang="th">จ่ายโดย PayPal</value>
     </property>
     <property key="AccountingPayWithWorldPay">
         <value xml:lang="en">Pay With WorldPay</value>
+        <value xml:lang="fr">Salaire avec WorldPay</value>
         <value xml:lang="th">จ่ายโดย WorldPay</value>
     </property>
     <property key="AccountingPayment">
@@ -4496,21 +4458,15 @@ esetata in mod automat</value>
         <value xml:lang="zh">支付</value>
     </property>
     <property key="AccountingPaymentAlreadyApplied">
-        <value xml:lang="en">Payment [${paymentId}] is already fully applied
-</value>
+        <value xml:lang="en">Payment [${paymentId}] is already fully applied</value>
         <value xml:lang="es">Pago [${paymentId}] esta completamente aplicado</value>
         <value xml:lang="fr">Le paiement [${paymentId}] a déjà été entièrement alloué</value>
-        <value xml:lang="it">Pagamento [${paymentId}] è già completamente applicato
-</value>
-        <value xml:lang="nl">Betaling [${paymentId}] is reeds volledig toegewezen
-</value>
-        <value xml:lang="ro">Plata [${paymentId}] a fost deja complet aplicata
-</value>
-        <value xml:lang="ru">Платеж [${paymentId}] уже полностью применен
-</value>
+        <value xml:lang="it">Pagamento [${paymentId}] è già completamente applicato</value>
+        <value xml:lang="nl">Betaling [${paymentId}] is reeds volledig toegewezen</value>
+        <value xml:lang="ro">Plata [${paymentId}] a fost deja complet aplicata</value>
+        <value xml:lang="ru">Платеж [${paymentId}] уже полностью применен</value>
         <value xml:lang="th">การชำระเงิน [${paymentId}] นำไปใช้ได้เต็มที่</value>
-        <value xml:lang="zh">支付[${paymentId}]已完整应用
-</value>
+        <value xml:lang="zh">支付[${paymentId}]已完整应用</value>
     </property>
     <property key="AccountingPaymentAlreadyReceived">
         <value xml:lang="ar">تسديد مستلم مسبقا</value>
@@ -4580,22 +4536,15 @@ esetata in mod automat</value>
         <value xml:lang="zh">税务机关辖区 [${paymentApplication.taxAuthGeoId}]</value>
     </property>
     <property key="AccountingPaymentApplicationNotFound">
-        <value xml:lang="en">PaymentApplication record [${paymentApplicationId}] not found
-</value>
-        <value xml:lang="es">Registro de Aplicación de Pago [${paymentApplicationId}] not found
-</value>
+        <value xml:lang="en">PaymentApplication record [${paymentApplicationId}] not found</value>
+        <value xml:lang="es">Registro de Aplicación de Pago [${paymentApplicationId}] not found</value>
         <value xml:lang="fr">L'allocation du paiement  [${paymentApplicationId}] n'a pas été trouvée</value>
-        <value xml:lang="it">PaymentApplication record [${paymentApplicationId}] non trovato
-</value>
-        <value xml:lang="nl">Toewijzing [${paymentApplicationId}] niet gevonden
-</value>
-        <value xml:lang="ro">Nu gaseste PaymentApplication record [${paymentApplicationId}] 
-</value>
-        <value xml:lang="ru">Запись платежного приложения [${paymentApplicationId}] не найдена
-</value>
+        <value xml:lang="it">PaymentApplication record [${paymentApplicationId}] non trovato</value>
+        <value xml:lang="nl">Toewijzing [${paymentApplicationId}] niet gevonden</value>
+        <value xml:lang="ro">Nu gaseste PaymentApplication record [${paymentApplicationId}]</value>
+        <value xml:lang="ru">Запись платежного приложения [${paymentApplicationId}] не найдена</value>
         <value xml:lang="th">ไม่พบบันทึกโปรแกรมประยุกต์ใช้การชำระเงิน [${paymentApplicationId}]</value>
-        <value xml:lang="zh">没有找到支付应用的记录[${paymentApplicationId}]
-</value>
+        <value xml:lang="zh">没有找到支付应用的记录[${paymentApplicationId}]</value>
     </property>
     <property key="AccountingPaymentApplicationParameterMissing">
         <value xml:lang="en">Payment application requires either an invoiceId, a billingAccountId, a taxAuthGeoId or a glAccountId</value>
@@ -4631,21 +4580,15 @@ esetata in mod automat</value>
         <value xml:lang="zh">对不起，没有选择支付。</value>
     </property>
     <property key="AccountingPaymentConfirmed">
-        <value xml:lang="en">Payment [${paymentId}] is confirmed and cannot be applied
-</value>
+        <value xml:lang="en">Payment [${paymentId}] is confirmed and cannot be applied</value>
         <value xml:lang="es">Pago [${paymentId}] ha sido confirmado y no puede ser aplicado</value>
         <value xml:lang="fr">Le paiement [${paymentId}] est confirmé et ne peut pas être alloué</value>
-        <value xml:lang="it">Pagamento [${paymentId}] è confermato e non può essere applicato
-</value>
-        <value xml:lang="nl">Betaling [${paymentId}] is bevestigd en kan niet worden toegewezen
-</value>
-        <value xml:lang="ro">Plata [${paymentId}] este confirmata si nu poate fi  aplicata
-</value>
-        <value xml:lang="ru">Платеж [${paymentId}] подтвержден и не может быть применен
-</value>
+        <value xml:lang="it">Pagamento [${paymentId}] è confermato e non può essere applicato</value>
+        <value xml:lang="nl">Betaling [${paymentId}] is bevestigd en kan niet worden toegewezen</value>
+        <value xml:lang="ro">Plata [${paymentId}] este confirmata si nu poate fi  aplicata</value>
+        <value xml:lang="ru">Платеж [${paymentId}] подтвержден и не может быть применен</value>
         <value xml:lang="th">การชำระเงิน [${paymentId}] ถูกยืนยันและไม่สามารถนำไปใช้ได้</value>
-        <value xml:lang="zh">支付[${paymentId}]已确认然而无法应用
-</value>
+        <value xml:lang="zh">支付[${paymentId}]已确认然而无法应用</value>
     </property>
     <property key="AccountingPaymentDate">
         <value xml:lang="ar">تاريخ التسديد</value>
@@ -4695,22 +4638,15 @@ esetata in mod automat</value>
         <value xml:lang="zh">支付编号</value>
     </property>
     <property key="AccountingPaymentIdBlankNotSupplied">
-        <value xml:lang="en">PaymentId blank or not supplied.... .....
-</value>
-        <value xml:lang="es">IdPago en blanco o no proporcionado.... .....
-</value>
+        <value xml:lang="en">PaymentId blank or not supplied.... .....</value>
+        <value xml:lang="es">IdPago en blanco o no proporcionado.... .....</value>
         <value xml:lang="fr">Vous n'avez pas fourni de réf. de paiement...</value>
-        <value xml:lang="it">Tipo Pagamento vuoto o supportato.... .....
-</value>
-        <value xml:lang="nl">Betalingsnr leeg of niet aangegeven.....
-</value>
-        <value xml:lang="ro">Tip Plata gol sau neactualizat.... .....
-</value>
-        <value xml:lang="ru">PaymentId пустой или не указан.... .....
-</value>
+        <value xml:lang="it">Tipo Pagamento vuoto o supportato.... .....</value>
+        <value xml:lang="nl">Betalingsnr leeg of niet aangegeven.....</value>
+        <value xml:lang="ro">Tip Plata gol sau neactualizat.... .....</value>
+        <value xml:lang="ru">PaymentId пустой или не указан.... .....</value>
         <value xml:lang="th">รหัสการชำระเงินว่างหรือไม่ได้ใส่.... .....</value>
-        <value xml:lang="zh">支付编号空白或没有提供...
-</value>
+        <value xml:lang="zh">支付编号空白或没有提供...</value>
     </property>
     <property key="AccountingPaymentIdTo">
         <value xml:lang="en">PaymentID to apply</value>
@@ -4736,21 +4672,15 @@ esetata in mod automat</value>
         <value xml:lang="zh">支付信息</value>
     </property>
     <property key="AccountingPaymentLessRequested">
-        <value xml:lang="en">Payment [${paymentId}] has  ${paymentApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested
-</value>
+        <value xml:lang="en">Payment [${paymentId}] has  ${paymentApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Pago [${paymentId}] tiene ${paymentApplyAvailable?currency(${isoCode})} para aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
         <value xml:lang="fr">Le paiement [${paymentId}] est en ${paymentApplyAvailable?currency(${isoCode})}mais la monnaie requise est ${amountApplied?currency(${isoCode})}</value>
-        <value xml:lang="it">Pagamento [${paymentId}] ha  ${paymentApplyAvailable?currency(${isoCode})} da applicare ma ${amountApplied?currency(${isoCode})} è richiesto
-</value>
-        <value xml:lang="nl">Betaling [${paymentId}] heeft  ${paymentApplyAvailable?currency(${isoCode})} om toe te wijzen echter ${amountApplied?currency(${isoCode})} is aangevraagd
-</value>
-        <value xml:lang="ro">Plata [${paymentId}]are  ${paymentApplyAvailable?currency(${isoCode})} de  aplicat, dar se cere ${amountApplied?currency(${isoCode})} 
-</value>
-        <value xml:lang="ru">Может быть применен платеж [${paymentId}] на сумму  ${paymentApplyAvailable?currency(${isoCode})}, но запрошено ${amountApplied?currency(${isoCode})} 
-</value>
+        <value xml:lang="it">Pagamento [${paymentId}] ha  ${paymentApplyAvailable?currency(${isoCode})} da applicare ma ${amountApplied?currency(${isoCode})} è richiesto</value>
+        <value xml:lang="nl">Betaling [${paymentId}] heeft  ${paymentApplyAvailable?currency(${isoCode})} om toe te wijzen echter ${amountApplied?currency(${isoCode})} is aangevraagd</value>
+        <value xml:lang="ro">Plata [${paymentId}]are  ${paymentApplyAvailable?currency(${isoCode})} de  aplicat, dar se cere ${amountApplied?currency(${isoCode})}</value>
+        <value xml:lang="ru">Может быть применен платеж [${paymentId}] на сумму  ${paymentApplyAvailable?currency(${isoCode})}, но запрошено ${amountApplied?currency(${isoCode})}</value>
         <value xml:lang="th">การชำระเงิน [${paymentId}] มี  ${paymentApplyAvailable?currency(${isoCode})} นำไปใช้ได้แต่ ${amountApplied?currency(${isoCode})} ต้องการ</value>
-        <value xml:lang="zh">支付[${paymentId}]有${paymentApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}
-</value>
+        <value xml:lang="zh">支付[${paymentId}]有${paymentApplyAvailable?currency(${isoCode})}要应用，但是请求的是${amountApplied?currency(${isoCode})}</value>
     </property>
     <property key="AccountingPaymentMethodId">
         <value xml:lang="en">Payment Method Id</value>
@@ -4765,6 +4695,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingPaymentMethodId........">
         <value xml:lang="en">AccountingPaymentMethodId........</value>
+        <value xml:lang="fr">Réf. de méthode de paiement de comptabilité ........</value>
         <value xml:lang="ro">No values are passed............???</value>
         <value xml:lang="th">รหัสวิธีการชำระเงิน............???</value>
     </property>
@@ -4788,22 +4719,15 @@ esetata in mod automat</value>
         <value xml:lang="zh">支付方法类型</value>
     </property>
     <property key="AccountingPaymentNotEnough">
-        <value xml:lang="en">Payment [${paymentId}] has an amount (${paymentApplyAvailable?currency(${isoCode})} to apply and the  ${amountApplied?currency(${isoCode})} requested is too much
-</value>
-        <value xml:lang="es">Pago [${paymentId}] tiene una cantidad (${paymentApplyAvailable?currency(${isoCode})} para aplicar y ${amountApplied?currency(${isoCode})} requerido es demasiado
-</value>
+        <value xml:lang="en">Payment [${paymentId}] has an amount (${paymentApplyAvailable?currency(${isoCode})} to apply and the  ${amountApplied?currency(${isoCode})} requested is too much</value>
+        <value xml:lang="es">Pago [${paymentId}] tiene una cantidad (${paymentApplyAvailable?currency(${isoCode})} para aplicar y ${amountApplied?currency(${isoCode})} requerido es demasiado</value>
         <value xml:lang="fr">Le paiement [${paymentId}] est d'un montant à allouer de (${paymentApplyAvailable?currency(${isoCode})} et le montant demande ${amountApplied?currency(${isoCode})} est trop élevé</value>
-        <value xml:lang="it">Pagamento [${paymentId}] ha un'importo (${paymentApplyAvailable?currency(${isoCode})} da applicare e ${amountApplied?currency(${isoCode})} richiesto è troppo grosso
-</value>
-        <value xml:lang="nl">Betaling [${paymentId}] heeft een waarde (${paymentApplyAvailable?currency(${isoCode})} om toe te wijzen echter ${amountApplied?currency(${isoCode})} is dus te veel
-</value>
-        <value xml:lang="ro">Plata [${paymentId}] are o'Valoare de (${paymentApplyAvailable?currency(${isoCode})} de aplicat insa ${amountApplied?currency(${isoCode})} cerut este prea mare
-</value>
-        <value xml:lang="ru">Может быть применен платеж [${paymentId}] на сумму (${paymentApplyAvailable?currency(${isoCode})} , но запрашиваемая сумма ${amountApplied?currency(${isoCode})} слишком велика
-</value>
+        <value xml:lang="it">Pagamento [${paymentId}] ha un'importo (${paymentApplyAvailable?currency(${isoCode})} da applicare e ${amountApplied?currency(${isoCode})} richiesto è troppo grosso</value>
+        <value xml:lang="nl">Betaling [${paymentId}] heeft een waarde (${paymentApplyAvailable?currency(${isoCode})} om toe te wijzen echter ${amountApplied?currency(${isoCode})} is dus te veel</value>
+        <value xml:lang="ro">Plata [${paymentId}] are o'Valoare de (${paymentApplyAvailable?currency(${isoCode})} de aplicat insa ${amountApplied?currency(${isoCode})} cerut este prea mare</value>
+        <value xml:lang="ru">Может быть применен платеж [${paymentId}] на сумму (${paymentApplyAvailable?currency(${isoCode})} , но запрашиваемая сумма ${amountApplied?currency(${isoCode})} слишком велика</value>
         <value xml:lang="th">การชำระเงิน [${paymentId}] มีจำนวน (${paymentApplyAvailable?currency(${isoCode})} ถึงนำไปใช้ประโยชน์  ${amountApplied?currency(${isoCode})} มาก</value>
-        <value xml:lang="zh">支付[${paymentId}]有金额(${paymentApplyAvailable?currency(${isoCode})}要应用，而请求的${amountApplied?currency(${isoCode})}太多了
-</value>
+        <value xml:lang="zh">支付[${paymentId}]有金额(${paymentApplyAvailable?currency(${isoCode})}要应用，而请求的${amountApplied?currency(${isoCode})}太多了</value>
     </property>
     <property key="AccountingPaymentOriginalAmount">
         <value xml:lang="ar">المبلغ الأصلي</value>
@@ -4829,23 +4753,18 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingPaymentReceiveViaPayPal">
         <value xml:lang="en">Payment receive via PayPal</value>
+        <value xml:lang="fr">Paiement reçu par l'intermédiaire de PayPal</value>
         <value xml:lang="it">Pagamento ricevuto da PayPal</value>
         <value xml:lang="th">Payment receive via PayPal</value>
     </property>
     <property key="AccountingPaymentRecordNotFound">
-        <value xml:lang="en">Payment [${paymentId}] record not found....
-</value>
-        <value xml:lang="es">Pago [${paymentId}] registro no encontrado....
-</value>
+        <value xml:lang="en">Payment [${paymentId}] record not found....</value>
+        <value xml:lang="es">Pago [${paymentId}] registro no encontrado....</value>
         <value xml:lang="fr">Pas trouvé de paiement [${paymentId}] </value>
-        <value xml:lang="it">Pagamento [${paymentId}] record non trovato....
-</value>
-        <value xml:lang="nl">Betaalingsnr [${paymentId}] niet gevonden....
-</value>
-        <value xml:lang="ro">Nu Gaseste Plata [${paymentId}] record.... 
-</value>
-        <value xml:lang="ru">Запись платежа [${paymentId}] не найдена....
-</value>
+        <value xml:lang="it">Pagamento [${paymentId}] record non trovato....</value>
+        <value xml:lang="nl">Betaalingsnr [${paymentId}] niet gevonden....</value>
+        <value xml:lang="ro">Nu Gaseste Plata [${paymentId}] record....</value>
+        <value xml:lang="ru">Запись платежа [${paymentId}] не найдена....</value>
         <value xml:lang="th">ไม่พบการชำระเงิน [${paymentId}]</value>
         <value xml:lang="zh">没有找到支付[${paymentId}]的记录...
 </value>
@@ -4959,6 +4878,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingPaymentVia">
         <value xml:lang="en">Payment Via</value>
+        <value xml:lang="fr">Paiement par l'intermédiaire de</value>
         <value xml:lang="th">โดยทางการชำระเงิน</value>
     </property>
     <property key="AccountingPayments">
@@ -5212,10 +5132,12 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingProductCategoryGlAccount">
         <value xml:lang="en">Product Category Gl Account</value>
+        <value xml:lang="fr">Compte de Gl de catégorie de produit</value>
         <value xml:lang="th">หมวดหมู่สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingProductGlAccount">
         <value xml:lang="en">Product GL Accounts</value>
+        <value xml:lang="fr">Comptes du produit GL</value>
         <value xml:lang="th">สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingProductId">
@@ -5242,10 +5164,12 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingPurchaseInvoiceToRevenue">
         <value xml:lang="en">Purchase Invoice type to Revenue GL Account Number assignment list</value>
+        <value xml:lang="fr">Type de facture achat à la liste de tâche de numéro de compte du revenu GL</value>
         <value xml:lang="th">Purchase Invoice type to Revenue GL Account Number assignment list</value>
     </property>
     <property key="AccountingQuantity">
         <value xml:lang="en">AccountingQuantity</value>
+        <value xml:lang="fr">Quantité de comptabilité</value>
         <value xml:lang="th">จำนวน</value>
     </property>
     <property key="AccountingReceivePayment">
@@ -5286,6 +5210,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingRevertAccountingTransaction">
         <value xml:lang="en">Revert Accounting Transaction</value>
+        <value xml:lang="fr">Retourner la transaction de comptabilité</value>
         <value xml:lang="it">Annulla (inverti) Prima Nota</value>
         <value xml:lang="th">กลับสู่รายการทางบัญชี</value>
     </property>
@@ -5369,11 +5294,13 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingServiceCredit">
         <value xml:lang="en">Service Credit</value>
+        <value xml:lang="fr">Service crédit</value>
         <value xml:lang="ru">Сервисный кредит</value>
         <value xml:lang="th">บริการเครดิต</value>
     </property>
     <property key="AccountingServiceCredits">
         <value xml:lang="en">Service Credits</value>
+        <value xml:lang="fr">Service crédits</value>
         <value xml:lang="ru">Сервисные кредиты</value>
         <value xml:lang="th">บริการเครดิต</value>
     </property>
@@ -5404,6 +5331,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingSetup">
         <value xml:lang="en">Setup</value>
+        <value xml:lang="fr">Installation</value>
         <value xml:lang="th">ติดตั้ง</value>
     </property>
     <property key="AccountingShipmentNotFound">
@@ -5431,8 +5359,9 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingShipmentNotSalesReturnAndPurchaseReturn">
         <value xml:lang="en">Shipment is not of type SALES_RETURN or PURCHASE_RETURN.</value>
+        <value xml:lang="fr">L'expédition n'est pas du type SALES_RETURN ou PURCHASE_RETURN</value>
         <value xml:lang="fr">L'expédition n'est pas de type SALES_RETURN ou PURCHASE_RETURN.</value>
-    </property>        
+    </property>
     <property key="AccountingShipmentsOfDifferentTypes">
         <value xml:lang="en">Shipments of different types found; shipment [${tmpShipmentId}] of type [${shipmentTypeId}] is of different type from the previous ones.</value>
         <value xml:lang="es">Envíos de diferentes tipos encontratos; envío [${tmpShipmentId}] de tipo [${shipmentTypeId}] es de un tipo distinto a los anteriores.</value>
@@ -5490,6 +5419,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingShowLookupFields">
         <value xml:lang="en">AccountingShowLookupFields</value>
+        <value xml:lang="fr">Champs de comptabilité de consultation d'exposition</value>
         <value xml:lang="th">แสดงการค้นหาฟิลด์</value>
     </property>
     <property key="AccountingShowPayments">
@@ -5504,25 +5434,19 @@ esetata in mod automat</value>
         <value xml:lang="zh">显示支付</value>
     </property>
     <property key="AccountingSpecifyInvoiceToPaymentBillingAccountTaxGeoId">
-        <value xml:lang="en">Specify either Invoice or toPayment or billing account or taxGeoId....
-</value>
-        <value xml:lang="es">Especificar cualquiera: factura o  paraPago o cuenta de facturación o IdAreaFiscal....
-</value>
+        <value xml:lang="en">Specify either Invoice or toPayment or billing account or taxGeoId....</value>
+        <value xml:lang="es">Especificar cualquiera: factura o  paraPago o cuenta de facturación o IdAreaFiscal....</value>
         <value xml:lang="fr">Préciser ou bien facture, paiement à, compte de facturation ou zone de taxation...</value>
-        <value xml:lang="it">Specificato entrambi Fattura o A Pagare o conto fatturazione o autorità tasse geografia....
-</value>
-        <value xml:lang="nl">Specificeer OF faktuur OF betaling OF faktuurrekening OF belastingsinstantie....
-</value>
-        <value xml:lang="ro">Specifica tipul de  Factura ori pentru Plata ori pentru Facturare ori pentru Taxe autoritati geografia....
-</value>
-        <value xml:lang="ru">Укажите Invoice, toPayment, кредитный счет или taxGeoId....
-</value>
+        <value xml:lang="it">Specificato entrambi Fattura o A Pagare o conto fatturazione o autorità tasse geografia....</value>
+        <value xml:lang="nl">Specificeer OF faktuur OF betaling OF faktuurrekening OF belastingsinstantie....</value>
+        <value xml:lang="ro">Specifica tipul de  Factura ori pentru Plata ori pentru Facturare ori pentru Taxe autoritati geografia....</value>
+        <value xml:lang="ru">Укажите Invoice, toPayment, кредитный счет или taxGeoId....</value>
         <value xml:lang="th">Specify either Invoice or toPayment or billing account or taxGeoId...</value>
-        <value xml:lang="zh">需要指定发票、到支付、账单账户或税务地理标识...
-</value>
+        <value xml:lang="zh">需要指定发票、到支付、账单账户或税务地理标识...</value>
     </property>
     <property key="AccountingSplitPayment">
         <value xml:lang="en">Split Payment</value>
+        <value xml:lang="fr">Paiement fractionné</value>
         <value xml:lang="th">แยกการชำระเงิน</value>
     </property>
     <property key="AccountingStatus">
@@ -5587,10 +5511,12 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingTaxAuthorityGeo">
         <value xml:lang="en">Tax Authority Geo</value>
+        <value xml:lang="fr">Administration fiscale Geo</value>
         <value xml:lang="th">โครงสร้างภาษี</value>
     </property>
     <property key="AccountingTaxAuthorityGlAccounts">
         <value xml:lang="en">TaxAuthority GL Accounts </value>
+        <value xml:lang="fr">Comptes de l'administration fiscale GL</value>
         <value xml:lang="th">ภาษีบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingTaxAuthorityParty">
@@ -5699,13 +5625,16 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingTotalExclTax">
         <value xml:lang="en">Total excl. tax</value>
+        <value xml:lang="fr">Excl total. d'impôt</value>
         <value xml:lang="th">Total excl. tax</value>
     </property>
     <property key="AccountingTransactionHasBeenAlreadyPosted">
         <value xml:lang="en">Transaction has been already posted</value>
-    </property>    
+        <value xml:lang="fr">La transaction a été déjà signalée</value>
+    </property>
     <property key="AccountingTransactionTotals">
         <value xml:lang="en">Transaction Totals</value>
+        <value xml:lang="fr">Totaux de transaction</value>
         <value xml:lang="it">Totali Prime Note</value>
         <value xml:lang="th">ผลรวมรายการ</value>
     </property>
@@ -5824,6 +5753,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingTroubleCreateInvoicesFromShipmentsService">
         <value xml:lang="en">AccountingTroubleCreateInvoicesFromShipmentsService</value>
+        <value xml:lang="fr">Problème de comptabilité crée des factures de service d'expéditions</value>
         <value xml:lang="th">ปํญหาในการสร้างใบกำกับสินค้าจากบริการการขนส่งสินค้า</value>
     </property>
     <property key="AccountingTroubleGettingShipmentEntity">
@@ -5839,6 +5769,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingType">
         <value xml:lang="en">AccountingType</value>
+        <value xml:lang="fr">Type de comptabilité</value>
         <value xml:lang="th">ประเภท</value>
     </property>
     <property key="AccountingUnableToAuthAdditionalShipCharges">
@@ -5862,6 +5793,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingUnPostedTransactionTotals">
         <value xml:lang="en">UnPosted Totals</value>
+        <value xml:lang="fr">Totaux non affichés</value>
         <value xml:lang="it">Prime Note Non Contabilizzate</value>
         <value xml:lang="th">UnPosted Totals</value>
     </property>
@@ -5918,6 +5850,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingUseGiftCardNotOnFile">
         <value xml:lang="en">Use Gift Card Not On File</value>
+        <value xml:lang="fr">Ne pas utiliser la carte cadeau sur le dossier</value>
         <value xml:lang="th">ใช้บัตรของขวัญไม่ได้บนไฟล์</value>
     </property>
     <property key="AccountingValidationPattern">
@@ -5932,11 +5865,13 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingVarianceReasonGlAccounts">
         <value xml:lang="en">Variance Reason Gl Accounts</value>
+        <value xml:lang="fr">Raison de désaccord des comptes Gl</value>
         <value xml:lang="fr">Raison de la divergence du Grand Livre général</value>
         <value xml:lang="it">Motivazione Varianza Conti Gl</value>
     </property>
     <property key="AccountingVerifyTransaction">
         <value xml:lang="en">Verify Transaction</value>
+        <value xml:lang="fr">Vérifier la transaction</value>
         <value xml:lang="it">Verifica Prima Nota</value>
         <value xml:lang="th">ตรวจสอบรายการ</value>
     </property>
@@ -5955,6 +5890,7 @@ esetata in mod automat</value>
     </property>
     <property key="AccountingVisaMastercardAmexDiscover">
         <value xml:lang="en">Credit Card: Visa/Mastercard/Amex/Discover</value>
+        <value xml:lang="fr">Carte de crédit : Visa/Mastercard/Amex/Discover</value>
         <value xml:lang="th">บัตรเครดิต: Visa/Mastercard/Amex/Discover</value>
     </property>
     <property key="AccountingtaxAuthGeoId">
@@ -6006,6 +5942,7 @@ esetata in mod automat</value>
     </property>
     <property key="AcctgFindGlJournalEntry">
         <value xml:lang="en">Find Journal Entry</value>
+        <value xml:lang="fr">Trouver écriture comptable</value>
         <value xml:lang="th">ค้นหาการกรอกข้อมูลบัญชีรายวัน</value>
     </property>
     <property key="AcctgGlAcctLabel">
@@ -6034,6 +5971,7 @@ esetata in mod automat</value>
     </property>
     <property key="AcctgGlJournalEntry">
         <value xml:lang="en">GL Journal</value>
+        <value xml:lang="fr">Journal GL</value>
         <value xml:lang="th">GL Journal</value>
     </property>
     <property key="AcctgGlJrnlDescLabel">
@@ -6108,10 +6046,12 @@ esetata in mod automat</value>
     </property>
     <property key="AcctgNewGlJournalEntry">
         <value xml:lang="en">New Journal Entry</value>
+        <value xml:lang="fr">Nouvelle écriture comptable</value>
         <value xml:lang="th">New Journal Entry</value>
     </property>
     <property key="AcctgPartyGlJournalSummary">
         <value xml:lang="en">Summary</value>
+        <value xml:lang="fr">Résumé</value>
         <value xml:lang="th">สรุป</value>
     </property>
     <property key="AsOf">
@@ -6152,6 +6092,7 @@ esetata in mod automat</value>
     </property>
     <property key="Email">
         <value xml:lang="en">Email</value>
+        <value xml:lang="fr">Courriel</value>
         <value xml:lang="th">อีเมล</value>
     </property>
     <property key="FormFieldTitle_accountCode">
@@ -6248,6 +6189,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_actualBalance">
         <value xml:lang="en">Actual Balance</value>
+        <value xml:lang="fr">Équilibre réel</value>
         <value xml:lang="it">Bilancio Corrente</value>
         <value xml:lang="ru">Фактический остаток</value>
         <value xml:lang="th">ยอดเงินจริง</value>
@@ -6307,6 +6249,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_allocatedDate">
         <value xml:lang="en">Allocated Date</value>
+        <value xml:lang="fr">Date assignée</value>
         <value xml:lang="it">Data Allocazione</value>
         <value xml:lang="ru">Дата ввода в экспл.</value>
         <value xml:lang="th">วันที่ปันส่วน</value>
@@ -6392,12 +6335,14 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_authorizationDate">
         <value xml:lang="en">Authorization Date</value>
+        <value xml:lang="fr">Date d'autorisation</value>
         <value xml:lang="it">Data Autorizzazione</value>
         <value xml:lang="ru">Дата авторизации</value>
         <value xml:lang="th">วันที่อนุญาต</value>
     </property>
     <property key="FormFieldTitle_availableBalance">
         <value xml:lang="en">Available Balance</value>
+        <value xml:lang="fr">Équilibre disponible</value>
         <value xml:lang="it">Bilancio Disponibile</value>
         <value xml:lang="ru">Доступный баланс</value>
         <value xml:lang="th">ยอดเงินที่สามารถใช้ได้</value>
@@ -6450,6 +6395,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_capture">
         <value xml:lang="en">Capture</value>
+        <value xml:lang="fr">Capture</value>
         <value xml:lang="it">Cattura</value>
         <value xml:lang="th">ยึดครอง</value>
     </property>
@@ -6486,6 +6432,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormfieldTitle_comments">
         <value xml:lang="en">FormfieldTitle_comments</value>
+        <value xml:lang="fr">Formez le champ Title_comments</value>
         <value xml:lang="th">ความคิดเห็น</value>
     </property>
     <property key="FormFieldTitle_contactMechId">
@@ -6597,6 +6544,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_daysOffset">
         <value xml:lang="en">Days Offset</value>
+        <value xml:lang="fr">Jours compensés</value>
         <value xml:lang="it">Giorni di Intervallo</value>
         <value xml:lang="th">กำหนดวันหยุด</value>
     </property>
@@ -6692,6 +6640,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_entryDate">
         <value xml:lang="en">Entry Date</value>
+        <value xml:lang="fr">Date d'entrée</value>
         <value xml:lang="it">Data Inserimento</value>
         <value xml:lang="ru">Дата ввода</value>
         <value xml:lang="th">วันที่เข้า</value>
@@ -6708,30 +6657,35 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_finAccountAuthId">
         <value xml:lang="en">Fin Account Auth Id</value>
+        <value xml:lang="fr">Réf. authentification de compte financier</value>
         <value xml:lang="it">Autorizzazione Conto Finanziario</value>
         <value xml:lang="ru">Код автор. фин. счета</value>
         <value xml:lang="th">Fin Account Auth Id</value>
     </property>
     <property key="FormFieldTitle_finAccountCode">
         <value xml:lang="en">Fin Account Code</value>
+        <value xml:lang="fr">Code du compte financier</value>
         <value xml:lang="it">Codice Conto Finanziario</value>
         <value xml:lang="ru">Код фин. счета</value>
         <value xml:lang="th">รหัสบัญชีการเงิน</value>
     </property>
     <property key="FormFieldTitle_finAccountId">
         <value xml:lang="en">Fin Account Id</value>
+        <value xml:lang="fr">Réf. du compte financier</value>
         <value xml:lang="it">Conto Finanziario</value>
         <value xml:lang="ru">Код фин. счета</value>
         <value xml:lang="th">รหัสบัญชีการเงิน</value>
     </property>
     <property key="FormFieldTitle_finAccountName">
         <value xml:lang="en">Fin Account Name</value>
+        <value xml:lang="fr">Nom du compte financier</value>
         <value xml:lang="it">Nome Conto Finanziario</value>
         <value xml:lang="ru">Имя фин. счета</value>
         <value xml:lang="th">ชื่อบัญชีการเงิน</value>
     </property>
     <property key="FormFieldTitle_finAccountPin">
         <value xml:lang="en">Fin Account Pin</value>
+        <value xml:lang="fr">Pin du compte financier</value>
         <value xml:lang="it">Pin Conto Finanziario</value>
         <value xml:lang="ru">ПИН фин. счета</value>
         <value xml:lang="th">Fin Account Pin</value>
@@ -6748,12 +6702,14 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_finAccountTransTypeId">
         <value xml:lang="en">Fin Account Trans Type Id</value>
+        <value xml:lang="fr">Réf. type de tranfert de compte financier</value>
         <value xml:lang="it">Tipo Transazione Conto Finanziario</value>
         <value xml:lang="ru">Код типа транзакции фин. счета</value>
         <value xml:lang="th">รหัสรายการประเภทบัญชีการเงิน</value>
     </property>
     <property key="FormFieldTitle_finAccountTypeId">
         <value xml:lang="en">Fin Account Type Id</value>
+        <value xml:lang="fr">Réf. type de compte financier</value>
         <value xml:lang="it">Tipo Conto Finanziario</value>
         <value xml:lang="ru">Код типа финансового счета</value>
         <value xml:lang="th">รหัสประเภทบัญชีการเงิน</value>
@@ -6902,6 +6858,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_glJournalId">
         <value xml:lang="en">Gl Journal Id</value>
+        <value xml:lang="fr">Réf. journal G1</value>
         <value xml:lang="it">Giornale</value>
         <value xml:lang="th">Gl Journal Id</value>
     </property>
@@ -7086,6 +7043,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_isRefundable">
         <value xml:lang="en">Is Refundable</value>
+        <value xml:lang="fr">Est remboursable</value>
         <value xml:lang="it">E' Rimborsabile</value>
         <value xml:lang="ru">Возмещаемый</value>
         <value xml:lang="th">ชำระคืน</value>
@@ -7175,11 +7133,13 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_maxAmount">
         <value xml:lang="en">Max Amount</value>
+        <value xml:lang="fr">Montant maximum</value>
         <value xml:lang="it">Importo Massimo</value>
         <value xml:lang="th">จำนวนมากที่สุด</value>
     </property>
     <property key="FormFieldTitle_maxQuantity">
         <value xml:lang="en">Max Quantity </value>
+        <value xml:lang="fr">Quantité maximum </value>
         <value xml:lang="it">Quantità Massima</value>
         <value xml:lang="ru">Макс. кол-во</value>
         <value xml:lang="th">จำนวนมากสุด</value>
@@ -7206,6 +7166,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_minQuantity">
         <value xml:lang="en">Min Quantity </value>
+        <value xml:lang="fr">Quantité minimum </value>
         <value xml:lang="it">Quantità Minima</value>
         <value xml:lang="ru">Мин. кол-во</value>
         <value xml:lang="th">จำนวนน้อยสุด</value>
@@ -7223,6 +7184,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_orderDate">
         <value xml:lang="en">Order Date</value>
+        <value xml:lang="fr">Date d'ordre</value>
         <value xml:lang="it">Data ordine</value>
         <value xml:lang="th">รายการสั่งซื้อวันที่</value>
     </property>
@@ -7268,11 +7230,13 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_otherCurrency">
         <value xml:lang="en">Other Currency</value>
+        <value xml:lang="fr">Autre devise</value>
         <value xml:lang="it">Altra Valuta</value>
         <value xml:lang="th">สกุลเงินอื่น ๆ</value>
     </property>
     <property key="FormFieldTitle_outstandingAmount">
         <value xml:lang="en">Outstanding Amount</value>
+        <value xml:lang="fr">Montant impayé</value>
         <value xml:lang="it">Importo Da Pagare</value>
         <value xml:lang="th">Outstanding Amount</value>
     </property>
@@ -7288,12 +7252,14 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_ownerPartyId">
         <value xml:lang="en">Owner Party Id</value>
+        <value xml:lang="fr">Réf. partie de propriétaire</value>
         <value xml:lang="it">Soggetto Proprietario</value>
         <value xml:lang="ru">Код владельца</value>
         <value xml:lang="th">รหัสกลุ่มผู้เป็นเจ้าของ</value>
     </property>
     <property key="FormFieldTitle_paidAmount">
         <value xml:lang="en">Paid Amount</value>
+        <value xml:lang="fr">Quantité payée</value>
         <value xml:lang="it">Importo Pagato</value>
         <value xml:lang="th">จำนวนที่จ่าย</value>
     </property>
@@ -7498,6 +7464,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_performedByPartyId">
         <value xml:lang="en">Performed By Party Id</value>
+        <value xml:lang="fr">Réf. partie accomplie</value>
         <value xml:lang="it">Eseguito Dal Soggetto</value>
         <value xml:lang="ru">Выполнено участником</value>
         <value xml:lang="th">แสดงโดยรหัสกลุ่มผู้ใช้</value>
@@ -7514,6 +7481,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_postToGlAccountId">
         <value xml:lang="en">Post To Gl Account Id</value>
+        <value xml:lang="fr">Post To Gl Account Id</value>
         <value xml:lang="it">Contabilizza su Conto Gl</value>
         <value xml:lang="ru">На счет ГК с кодом</value>
         <value xml:lang="th">ประกาศถึงรหัสบัญชีแยกประเภททั่วไป</value>
@@ -7530,6 +7498,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_postedDate">
         <value xml:lang="en">Posted Date</value>
+        <value xml:lang="fr">Date signalée</value>
         <value xml:lang="it">Data Contabilizzazione</value>
         <value xml:lang="th">โพสต์เมื่อวันที่</value>
     </property>
@@ -7636,6 +7605,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_rateTypeId">
         <value xml:lang="en">Rate Type Id</value>
+        <value xml:lang="fr">Réf. type de taux</value>
         <value xml:lang="it">Tipo Tasso</value>
         <value xml:lang="th">รหัสประเภทอัตรา</value>
     </property>
@@ -7671,6 +7641,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_refundPaymentMethodId">
         <value xml:lang="en">Refund Payment Method Id</value>
+        <value xml:lang="fr">Réf. méthode de paiement de remboursement</value>
         <value xml:lang="it">Metodo di Pagamento Resi</value>
         <value xml:lang="ru">Код способа пополнения</value>
         <value xml:lang="th">รหัสวิธีการชำระเงินคืน</value>
@@ -7687,17 +7658,20 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_removeButton">
         <value xml:lang="en">Remove</value>
+        <value xml:lang="fr">Enlever</value>
         <value xml:lang="it">Rimuovi</value>
         <value xml:lang="th">ลบ</value>
     </property>
     <property key="FormFieldTitle_replenishLevel">
         <value xml:lang="en">Replenish Level</value>
+        <value xml:lang="fr">Reconstituer le niveau</value>
         <value xml:lang="it">Livello Rifornimento</value>
         <value xml:lang="ru">Уровень пополнения</value>
         <value xml:lang="th">ระดับการทำให้สมบูรณ์</value>
     </property>
     <property key="FormFieldTitle_replenishPaymentId">
         <value xml:lang="en">Replenish Payment Id</value>
+        <value xml:lang="fr">Réf. reconstituer le paiement</value>
         <value xml:lang="it">Pagamento Rifornimento</value>
         <value xml:lang="ru">Код платежа на пополнение</value>
         <value xml:lang="th">รหัสการชำระเงินเสร็จสมบูรณ์</value>
@@ -7714,24 +7688,28 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_resultBadCardNumber">
         <value xml:lang="en">Result Bad Card Number</value>
+        <value xml:lang="fr">Mauvais résultat du numéro decarte</value>
         <value xml:lang="it">Risultato Numero Carta Errata</value>
         <value xml:lang="ru">Рез. непр. номер карты</value>
         <value xml:lang="th">เป็นผลให้หมายเลขบัตรเสีย</value>
     </property>
     <property key="FormFieldTitle_resultBadExpire">
         <value xml:lang="en">Result Bad Expire</value>
+        <value xml:lang="fr">mauvais résultat expire</value>
         <value xml:lang="it">Risultato Errato Scaduto</value>
         <value xml:lang="ru">Результат устарел</value>
         <value xml:lang="th">เป็นผลให้หมดอายุต่ำกว่ามาตรฐาน</value>
     </property>
     <property key="FormFieldTitle_resultDeclined">
         <value xml:lang="en">Result Declined</value>
+        <value xml:lang="fr">Résultat en baisse</value>
         <value xml:lang="it">Risultato Declinato</value>
         <value xml:lang="ru">Результат отклонен</value>
         <value xml:lang="th">เป็นผลให้ไม่ยอมรับ</value>
     </property>
     <property key="FormFieldTitle_resultNsf">
         <value xml:lang="en">Result Nsf</value>
+        <value xml:lang="fr">Résultat Nsf</value>
         <value xml:lang="it">Risultato Nsf</value>
         <value xml:lang="ru">Результат NSF</value>
         <value xml:lang="th">Result Nsf</value>
@@ -7809,6 +7787,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_statusId">
         <value xml:lang="en">FormFieldTitle_statusId</value>
+        <value xml:lang="fr">FormFieldTitle_statusId</value>
         <value xml:lang="th">รหัสสถานะ</value>
     </property>
     <property key="FormFieldTitle_subReference">
@@ -7834,6 +7813,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_taxAuthGeoId">
         <value xml:lang="en">FormFieldTitle_taxAuthGeoId</value>
+        <value xml:lang="fr">FormFieldTitle_taxAuthGeoId</value>
         <value xml:lang="th">taxAuthGeoId</value>
     </property>
     <property key="FormFieldTitle_taxAuthorityRateSeqId">
@@ -7908,6 +7888,7 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_termTypeId">
         <value xml:lang="en">Term Type Id</value>
+        <value xml:lang="fr">Réf. type de limite</value>
         <value xml:lang="it">Tipo Termine di Pagamento</value>
         <value xml:lang="th">รหัสประเภทช่วงเวลาที่กำหนด</value>
     </property>
@@ -7933,12 +7914,14 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_textValue">
         <value xml:lang="en">Text Value</value>
+        <value xml:lang="fr">Valeur du texte</value>
         <value xml:lang="it">Testo Valore</value>
         <value xml:lang="ru">Текстовое значение</value>
         <value xml:lang="th">ค่าตัวอักษร</value>
     </property>
     <property key="FormFieldTitle_timeEntryId">
         <value xml:lang="en">Time Entry Id</value>
+        <value xml:lang="fr">Réf. entrée de temps </value>
         <value xml:lang="it">Riga Timbratura</value>
         <value xml:lang="th">รหัสตารางการทำงาน</value>
     </property>
@@ -7995,12 +7978,14 @@ esetata in mod automat</value>
     </property>
     <property key="FormFieldTitle_transDescription">
         <value xml:lang="en">Trans Description</value>
+        <value xml:lang="fr">Trans description</value>
         <value xml:lang="it">Descrizione Transazione</value>
         <value xml:lang="ru">Опис. провод.</value>
         <value xml:lang="th">ลำดับคำอธิบาย</value>
     </property>
     <property key="FormFieldTitle_transTypeDescription">
         <value xml:lang="en">Trans Type Description</value>
+        <value xml:lang="fr">Type de trans description</value>
         <value xml:lang="it">Descrizione Tipo Transazione</value>
         <value xml:lang="th">อธิบายประเภทรายการ</value>
     </property>
@@ -8080,6 +8065,7 @@ esetata in mod automat</value>
     </property>
     <property key="OrderSelectAgreementRoles">
         <value xml:lang="en">Select order agreement Roles</value>
+        <value xml:lang="fr">Choisir les rôles d'accord d'ordre</value>
     </property>
     <property key="Organization">
         <value xml:lang="ar">المؤسسة</value>
@@ -8095,9 +8081,11 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleAddAgreementRoles">
         <value xml:lang="en">Add Agreement Roles</value>
+        <value xml:lang="fr">Ajouter rôles d'accord</value>
     </property>
     <property key="PageTitleAddBillingAccountRoles">
         <value xml:lang="en">Add Billing Account Roles</value>
+        <value xml:lang="fr">Ajouter les rôles de compte de facturation</value>
         <value xml:lang="it">Aggiungi Ruoli Conto Fatturazione</value>
         <value xml:lang="nl">เพิ่มสถานะยอดรวมของบัญชี</value>
     </property>
@@ -8157,9 +8145,11 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleAddTransactionEntry">
         <value xml:lang="en">Add Transaction Entry</value>
-    </property>    
+        <value xml:lang="fr">Ajouter entrée de transaction</value>
+    </property>
     <property key="PageTitleCopyAgreement">
         <value xml:lang="en">Copy Agreement</value>
+        <value xml:lang="fr">Convention</value>
         <value xml:lang="it">Copia Contratto</value>
         <value xml:lang="th">คัดลอกสัญญา</value>
     </property>
@@ -8176,6 +8166,7 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleEditAgreementGeographicalApplic">
         <value xml:lang="en">Edit Agreement Geographical Applic</value>
+        <value xml:lang="fr">Editer applic géographique de l'accord</value>
         <value xml:lang="it">Aggiorna Contratto Applicazioni Geografiche</value>
         <value xml:lang="ru">Редактировать географические данные договора</value>
         <value xml:lang="th">Edit Agreement Geographical Applic</value>
@@ -8193,24 +8184,28 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleEditAgreementItemParty">
         <value xml:lang="en">Edit Agreement Item Party</value>
+        <value xml:lang="fr">Editer la partie d'article de l'accord</value>
         <value xml:lang="it">Aggiorna Soggetto Riga Contratto </value>
         <value xml:lang="ru">Изменить участника элемента договора</value>
         <value xml:lang="th">แก้ไขสัญญากลุ่มหัวข้อ</value>
     </property>
     <property key="PageTitleEditAgreementItemProduct">
         <value xml:lang="en">Edit Agreement Item Product</value>
+        <value xml:lang="fr">Editer le produit d'article de l'accord</value>
         <value xml:lang="it">Aggiorna Prodotto Riga Contratto </value>
         <value xml:lang="ru">Изменить продукт элемента договора</value>
         <value xml:lang="th">แก้ไขสัญญาหัวข้อสินค้า</value>
     </property>
     <property key="PageTitleEditAgreementItemTerm">
         <value xml:lang="en">Edit Agreement Item Term</value>
+        <value xml:lang="fr">Editer le limite d'article de l'accord</value>
         <value xml:lang="it">Aggiorna Termini Riga Contratto</value>
         <value xml:lang="ru">Изменить условия элемента договора</value>
         <value xml:lang="th">แก้ไขสัญญาหัวข้อช่วงเวลาที่กำหนด</value>
     </property>
     <property key="PageTitleEditAgreementPromoAppl">
         <value xml:lang="en">Edit Agreement Promo Appl</value>
+        <value xml:lang="fr">Editer une promo Appl de l'accord</value>
         <value xml:lang="it">Aggiorna Applicazioni Promozionali Contratto</value>
         <value xml:lang="ru">Изменить акционные предложения договора</value>
         <value xml:lang="th">Edit Agreement Promo Appl</value>
@@ -8228,6 +8223,7 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleEditAgreementWorkEffortAppls">
         <value xml:lang="en">Edit Agreement Work Effort Appls</value>
+        <value xml:lang="fr">Editer main d'oeuvre Appls de l'accord</value>
     </property>
     <property key="PageTitleEditBillingAccount">
         <value xml:lang="en">Edit Billing Account</value>
@@ -8255,6 +8251,7 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleEditBillingAccountOrders">
         <value xml:lang="en">Edit Billing Account Orders</value>
+        <value xml:lang="fr">Editer les ordres du compte de facturation</value>
         <value xml:lang="it">Aggiorna Ordini Conto Fatturazione</value>
         <value xml:lang="th">แก้ไขรายการยอดรวมของบัญชี</value>
     </property>
@@ -8345,11 +8342,13 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleEditFixedAssetMeters">
         <value xml:lang="en">Fixed Asset Meter Readings</value>
+        <value xml:lang="fr">Lectures de compteur d'immobilisation</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Contatori</value>
         <value xml:lang="th">Edit Fixed Asset Maint Meters</value>
     </property>
     <property key="PageTitleEditFixedAssetMaintOrders">
         <value xml:lang="en">Edit Fixed Asset Maint Orders</value>
+        <value xml:lang="fr">Éditer les ordres de toutes immobilisation</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Ordine</value>
         <value xml:lang="th">แก้ไขรายการบำรุงรักษาทรัพย์สินไม่หมุนเวียน</value>
     </property>
@@ -8427,11 +8426,13 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleEditPartyFixedAssetAssignments">
         <value xml:lang="en">Edit Party Fixed Asset Assignments</value>
+        <value xml:lang="fr">Éditer les tâches d'immobilisation de partie</value>
         <value xml:lang="it">Aggiorna Assegnamenti Cespiti Soggetto</value>
         <value xml:lang="th">แก้ไขกลุ่มทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="PageTitleEditPartyGlAccounts">
         <value xml:lang="en">Edit Party Gl Accounts</value>
+        <value xml:lang="fr">Éditer les comptes de Gl de partie</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="PageTitleEditPayment">
@@ -8513,10 +8514,12 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleEditTransaction">
         <value xml:lang="en">Edit Transaction</value>
+        <value xml:lang="fr">Editer transaction</value>
     </property>
     <property key="PageTitleEditTransactionEntries">
         <value xml:lang="en">Edit Transaction Entries</value>
-    </property>    
+        <value xml:lang="fr">Editer entrées de transaction</value>
+    </property>
     <property key="PageTitleFinAccount">
         <value xml:lang="en">Financial Account</value>
         <value xml:lang="fr">Compte financier</value>
@@ -8532,6 +8535,7 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleFinancialSummaryReportOptions">
         <value xml:lang="en">Financial Summary Report Options</value>
+        <value xml:lang="fr">Options de rapport de relevé</value>
         <value xml:lang="ru">Параметры итогового финансового отчета</value>
         <value xml:lang="th">ตัวเลือกรายงานบัญชีโดยสรุป</value>
     </property>
@@ -8548,6 +8552,7 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleFindAgreementRoles">
         <value xml:lang="en">Find Agreement Roles</value>
+        <value xml:lang="fr">Trouver les rôles d'accord</value>
     </property>
     <property key="PageTitleFindBillingAccount">
         <value xml:lang="en">Find Billing Account(s)</value>
@@ -8574,6 +8579,7 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleFindGlAccount">
         <value xml:lang="en">PageTitleFindGlAccount</value>
+        <value xml:lang="fr">PageTitleFindGlAccount</value>
         <value xml:lang="th">ค้นหาบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="PageTitleFindGlobalGlAccount">
@@ -8620,11 +8626,13 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleFixedAssetDepreciationReport">
         <value xml:lang="en">Fixed Asset Depreciation Report</value>
+        <value xml:lang="fr">Rapport de dépréciation d'immobilisation</value>
         <value xml:lang="it">Report Svalutazione Cespiti</value>
         <value xml:lang="th">รายงานคำอธิบายทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="PageTitleInventoryIssueSummary">
         <value xml:lang="en">Inventory Issue Summary</value>
+        <value xml:lang="fr">Résumé d'issue d'inventaire</value>
         <value xml:lang="ru">Резюме выдачи ТМЦ</value>
         <value xml:lang="th">โดยสรุปการประกาศสินค้าคงเหลือ</value>
     </property>
@@ -8650,29 +8658,34 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleListAgreement">
         <value xml:lang="en">List Agreement</value>
+        <value xml:lang="fr">Liste d'accord</value>
         <value xml:lang="it">Lista Contratti</value>
         <value xml:lang="th">รายการสัญญา</value>
     </property>
     <property key="PageTitleListAgreementGeographicalApplic">
         <value xml:lang="en">List Agreement Geographical Applic</value>
+        <value xml:lang="fr">Liste geographique applic de l'accord</value>
         <value xml:lang="it">Lista Applicazioni Geografiche Contratto</value>
         <value xml:lang="ru">Список географических данных договора</value>
         <value xml:lang="th">List Agreement Geographical Applic</value>
     </property>
     <property key="PageTitleListAgreementItemParties">
         <value xml:lang="en">List Agreement Item Parties</value>
+        <value xml:lang="fr">Liste parties d'article de l'accord</value>
         <value xml:lang="it">Lista Soggetti Riga Contratto</value>
         <value xml:lang="ru">Список участников элемента договора</value>
         <value xml:lang="th">รายการสัญญาไอเทมกลุ่มผู้ใช้</value>
     </property>
     <property key="PageTitleListAgreementItemProducts">
         <value xml:lang="en">List Agreement Item Products</value>
+        <value xml:lang="fr">Liste produits d'article de l'accord </value>
         <value xml:lang="it">Lista Prodotti Riga Contratto</value>
         <value xml:lang="ru">Список продуктов элемента договора</value>
         <value xml:lang="th">รายการสัญญาไอเทมสินค้า</value>
     </property>
     <property key="PageTitleListAgreementItemTerms">
         <value xml:lang="en">List Agreement Item Terms</value>
+        <value xml:lang="fr">Liste des limites d'article de l'accord</value>
         <value xml:lang="it">Lista Termini Riga Contratto</value>
         <value xml:lang="ru">Список условий элемента договора</value>
         <value xml:lang="th">รายการสัญญาไอเทมช่วงเวลาที่กำหนด</value>
@@ -8689,12 +8702,14 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleListAgreementPromoAppls">
         <value xml:lang="en">List Agreement Promo Appls</value>
+        <value xml:lang="fr">Liste des promos Appls de l'accord</value>
         <value xml:lang="it">Lista Applicazioni Promozionali Contratto</value>
         <value xml:lang="ru">Список акций элемента договора</value>
         <value xml:lang="th">List Agreement Promo Appls</value>
     </property>
     <property key="PageTitleListAgreementRoles">
         <value xml:lang="en">List Agreement Roles</value>
+        <value xml:lang="fr">Liste des rôles de l'accord</value>
     </property>
     <property key="PageTitleListAgreementTerms">
         <value xml:lang="en">List Agreement Terms</value>
@@ -8719,16 +8734,19 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleListFinAccountAuths">
         <value xml:lang="en">List Fin Account Auths</value>
+        <value xml:lang="fr">Liste d'authentification de compte financier</value>
         <value xml:lang="it">Lista Autorizzazioni Conto Finanziario</value>
         <value xml:lang="th">List Fin Account Auths</value>
     </property>
     <property key="PageTitleListFinAccountRoles">
         <value xml:lang="en">List Fin Account Roles</value>
+        <value xml:lang="fr">Liste des rôles de compte financier</value>
         <value xml:lang="it">Lista Ruoli Conto Finanziario</value>
         <value xml:lang="th">รายการสถานะบัญชี</value>
     </property>
     <property key="PageTitleListFinAccountTrans">
         <value xml:lang="en">List Fin Account Trans</value>
+        <value xml:lang="fr">Liste de transaction de compte financier</value>
         <value xml:lang="it">Lista Transazioni Conto Finanziario</value>
         <value xml:lang="th">List Fin Account Trans</value>
     </property>
@@ -8754,16 +8772,19 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleListFixedAssetIdents">
         <value xml:lang="en">List Fixed Asset Idents</value>
+        <value xml:lang="fr">Liste des identifications d'immobilisation</value>
         <value xml:lang="it">Lista Identificazione Cespiti</value>
         <value xml:lang="th">รายการแยกแยะทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="PageTitleListFixedAssetMeters">
         <value xml:lang="en">List Fixed Asset Maint Meters</value>
+        <value xml:lang="fr">Liste des mesures de maintenance d'immobilisation</value>
         <value xml:lang="it">Lista Manutenzioni Cespiti Contatori</value>
         <value xml:lang="th">List Fixed Asset Maint Meters</value>
     </property>
     <property key="PageTitleListFixedAssetMaintOrders">
         <value xml:lang="en">List Fixed Asset Maint Orders</value>
+        <value xml:lang="fr">Liste des ordres de maintenance d'immobilisation</value>
         <value xml:lang="it">Lista Manutenzioni Cespiti Ordini</value>
         <value xml:lang="th">แสดงรายการบำรุงรักษาทรัพย์สินไม่หมุนเวียน</value>
     </property>
@@ -8789,6 +8810,7 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleListFixedAssetRegistrations">
         <value xml:lang="en">List Fixed Asset Registrations</value>
+        <value xml:lang="fr">Liste des enregistrements d'immobilisation</value>
         <value xml:lang="it">Lista Registrazioni Cespiti</value>
         <value xml:lang="th">รายการลงทะเบียนทรัพย์สินไม่หมุนเวียน</value>
     </property>
@@ -8837,11 +8859,13 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleListPartyFixedAssetAssignments">
         <value xml:lang="en">List Party Fixed Asset Assignments</value>
+        <value xml:lang="fr">Liste des tâches d'immobilisation de partie</value>
         <value xml:lang="it">Lista Assegnazioni Soggetto Cespite</value>
         <value xml:lang="th">List Party Fixed Asset Assignments</value>
     </property>
     <property key="PageTitleListPaymentApplications">
         <value xml:lang="en">List Payment Applications</value>
+        <value xml:lang="fr">Liste des applications de paiement</value>
         <value xml:lang="it">Lista Applicazioni Pagamento</value>
         <value xml:lang="ru">Список платежных приложений</value>
         <value xml:lang="th">รายการแอพพลิเคชันการชำระเงิน</value>
@@ -8927,6 +8951,7 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitlePaymentByMethodSummary">
         <value xml:lang="en">Payments By Method Summary</value>
+        <value xml:lang="fr">paiements par résumé de méthode</value>
         <value xml:lang="ru">Резюме Платежи по способам</value>
         <value xml:lang="th">การชำระเงินโดยสรุป</value>
     </property>
@@ -8942,11 +8967,13 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleSalesInvoiceByProductCategorySummary">
         <value xml:lang="en">Sales Invoice By Product Category Summary</value>
+        <value xml:lang="fr">Résumé de catégorie de sous-produit de facture de ventes</value>
         <value xml:lang="ru">Резюме Расходные накладные по продуктовым категориям</value>
         <value xml:lang="th">ใบเสร็จการขายโดยสรุปหมวดหมู่สินค้า</value>
     </property>
     <property key="PageTitleSalesInvoiceByProductGlAccountSummary">
         <value xml:lang="en">Sales Invoice By Product GL Account Summary</value>
+        <value xml:lang="fr">Résumé de compte du sous-produit GL de facture de ventes</value>
         <value xml:lang="ru">Резюме Расходные накладные по продуктовым счетам</value>
         <value xml:lang="th">ใบเสร็จการขายโดยสรุปสินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -8993,10 +9020,12 @@ esetata in mod automat</value>
     </property>
     <property key="PageTitleViewTransaction">
         <value xml:lang="en">View Transaction</value>
+        <value xml:lang="fr">Voir la transaction</value>
     </property>
     <property key="PageTitleViewTransactionEntries">
         <value xml:lang="en">View Transaction Entries</value>
-    </property>    
+        <value xml:lang="fr">Voir les entrées de transaction</value>
+    </property>
     <property key="PartyPartyId">
         <value xml:lang="en">Party ID</value>
         <value xml:lang="es">Id Grupo</value>
@@ -9177,6 +9206,7 @@ esetata in mod automat</value>
     </property>
     <property key="es">
         <value xml:lang="en">Spanish</value>
+        <value xml:lang="fr">Espagnol</value>
         <value xml:lang="es">Español</value>
         <value xml:lang="ru">Испанский</value>
         <value xml:lang="th">สเปน</value>
@@ -9197,7 +9227,7 @@ esetata in mod automat</value>
     <property key="isClosed">
         <value xml:lang="en">CLOSED</value>
         <value xml:lang="es">CERRADO</value>
-        <value xml:lang="fr">fermé</value>
+        <value xml:lang="fr">Fermé</value>
         <value xml:lang="it">CHIUSO</value>
         <value xml:lang="nl">GESLOTED</value>
         <value xml:lang="ro">INCHIS</value>
@@ -9208,7 +9238,7 @@ esetata in mod automat</value>
     <property key="isNotClosed">
         <value xml:lang="en">NOT CLOSED</value>
         <value xml:lang="es">NO CERRADO</value>
-        <value xml:lang="fr">non fermé</value>
+        <value xml:lang="fr">Non fermé</value>
         <value xml:lang="it">NON CHIUSO</value>
         <value xml:lang="nl">NIET GESLOTEN</value>
         <value xml:lang="ro">NE INCHIS</value>
@@ -9229,42 +9259,50 @@ esetata in mod automat</value>
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed to execute service createPaymentFromPreference</value>
+        <value xml:lang="fr">Pour exécuter le service créer le paiement de la préférence</value>
         <value xml:lang="it">Fallita esecuzione del servizio createPaymentFromPreference</value>
         <value xml:lang="th">การดำเนินการผิดพลาด createPaymentFromPreference</value>
     </property>
     <property key="payPalEvents.noValidOrderIdReturned">
         <value xml:lang="en">No valid orderId returned with PayPal Callback.</value>
+        <value xml:lang="fr">Aucune identification valide d'ordre n'est retournée avec le rappel de service de PayPal.</value>
         <value xml:lang="it">Nessun ordine valido restituito da PayPal.</value>
         <value xml:lang="th">ไม่มีค่ารหัสรายการสั่งซื้อคืนกลับมาด้วยการเรียกกลับของ paypal</value>
     </property>
     <property key="payPalEvents.previousPayPalOrderHasBeenCancelled">
         <value xml:lang="en">Previous PayPal order has been cancelled.</value>
+        <value xml:lang="fr">L'ordre précédent de PayPal a été décommandé.</value>
         <value xml:lang="it">Ordine PayPal precedente è stato annullato.</value>
         <value xml:lang="th">กลับไปยังรายการpaypalที่ถูกยกเลิก</value>
     </property>
     <property key="payPalEvents.problemsConnectingWithPayPal">
         <value xml:lang="en">Problems connecting with PayPal, please contact customer service.</value>
+        <value xml:lang="fr">Les problèmes avec PayPal, svp entrer en contact avec le service clientèle.</value>
         <value xml:lang="it">Problemi nella connessione a PayPal, prego contattare il servizio clienti.</value>
         <value xml:lang="th">ปัญหาในการเชิ่อมต่อด้วย paypal , กรุณาติดต่อบริการลูกค้า</value>
     </property>
     <property key="payPalEvents.problemsGettingAuthenticationUser">
         <value xml:lang="en">Problems getting authentication user.</value>
+        <value xml:lang="fr">Problèmes d'obtention d'authentification de l'utilisateur</value>
         <value xml:lang="it">Problemi durante autenticazione utente</value>
         <value xml:lang="th">ปัญหาการเรียกใช้สัญลักษณ์ผู้ใช้</value>
     </property>
     <property key="payPalEvents.problemsGettingMerchantConfiguration">
         <value xml:lang="en">Problems getting merchant configuration, please contact customer service.</value>
+        <value xml:lang="fr">Problèmes de la configuration marchande, svp entrer en contact avec le service clientèle.</value>
         <value xml:lang="it">Problemi leggendo la configurazione del venditore, prego contattare il servizio clienti.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้เกี่ยวกับการติดต่อการค้า , กรุณาติดต่อบริการลูกค้า</value>
     </property>
     <property key="payPalEvents.problemsGettingOrderHeader">
         <value xml:lang="en">Problems getting order header.</value>
+        <value xml:lang="fr">Problèmes d'obtention commande d'en-tête.</value>
         <value xml:lang="it">Problemi nel ricavare la testata ordine.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้หัวข้อรายการสั่งซื้อ</value>
     </property>
     <property key="pt">
         <value xml:lang="en">Protuguese </value>
         <value xml:lang="es">Portugués</value>
+        <value xml:lang="fr">Portugais</value>
         <value xml:lang="pt_BR">Português</value>
         <value xml:lang="pt_PT">Português</value>
         <value xml:lang="th">โปรตุเกส</value>
@@ -9272,11 +9310,13 @@ esetata in mod automat</value>
     <property key="pt_BR">
         <value xml:lang="en">Protuguese (Brazil)</value>
         <value xml:lang="es">Protugués Brasileño</value>
+        <value xml:lang="fr">Portugais(Brésil)</value>
         <value xml:lang="pt_BR">Portugu�s Brasileiro</value>
         <value xml:lang="th">บราซิล</value>
     </property>
     <property key="ru">
         <value xml:lang="en">Russian</value>
+        <value xml:lang="fr">Russe</value>
         <value xml:lang="ru">Русский</value>
         <value xml:lang="th">รัสเซีย</value>
     </property>
