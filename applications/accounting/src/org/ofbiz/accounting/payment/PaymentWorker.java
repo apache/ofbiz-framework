@@ -40,6 +40,11 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
+import org.ofbiz.entity.condition.EntityExpr;
+import org.ofbiz.entity.condition.EntityConditionList;
+
 
 /**
  * Worker methods for Payments
@@ -293,7 +298,12 @@ public class PaymentWorker {
         BigDecimal paymentApplied = BigDecimal.ZERO;
         List paymentApplications = null;
         try {
-            paymentApplications = payment.getRelated("PaymentApplication");
+            List cond = UtilMisc.toList(
+            		EntityCondition.makeCondition("paymentId", EntityOperator.EQUALS, payment.getString("paymentId")),
+            		EntityCondition.makeCondition("toPaymentId", EntityOperator.EQUALS, payment.getString("paymentId"))
+            		);
+            EntityCondition partyCond = EntityCondition.makeCondition(cond, EntityOperator.OR);
+            paymentApplications = payment.getDelegator().findList("PaymentApplication", partyCond, null, UtilMisc.toList("invoiceId", "billingAccountId"), null, false);
             if (UtilValidate.isNotEmpty(paymentApplications)) {
                 Iterator p = paymentApplications.iterator();
                 while (p.hasNext()) {
