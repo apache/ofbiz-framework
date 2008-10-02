@@ -35,11 +35,11 @@
     </property>
     <property key="AP">
         <value xml:lang="en">AP</value>
-        <value xml:lang="fr">Compt. clients</value>
+        <value xml:lang="fr">Compt. fourn.</value>
     </property>
     <property key="AR">
         <value xml:lang="en">AR</value>
-        <value xml:lang="fr">Compt. fourn.</value>
+        <value xml:lang="fr">Compt. clients</value>
     </property>
     <property key="AssetMaint">
         <value xml:lang="en">Asset Maint</value>
