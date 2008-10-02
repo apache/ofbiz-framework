@@ -28,6 +28,8 @@ your template file:
 <#assign
   occurrenceList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getOccurrenceList()
   frequencyTypeList = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getFrequencyValueList(uiLabelMap)
+  firstDayOfWeek = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getFirstDayOfWeek(locale)
+  lastDayOfWeek = Static["org.ofbiz.service.calendar.ExpressionUiHelper"].getLastDayOfWeek(locale)
 />
 
 <#macro DateRange formName="" fromDate="" toDate="">
@@ -45,7 +47,7 @@ your template file:
   </tr>
 </#macro>
 
-<#macro DayInMonth occurrence=0 day=1>
+<#macro DayInMonth occurrence=0 day=firstDayOfWeek>
   <tr>
     <td class="label">${uiLabelMap.TemporalExpressionOccurrence}</td>
     <td>
@@ -76,7 +78,7 @@ your template file:
   </tr>
 </#macro>
 
-<#macro DayOfWeekRange fromDay=1 toDay=7>
+<#macro DayOfWeekRange fromDay=firstDayOfWeek toDay=lastDayOfWeek>
   <tr>
     <td class="label">${uiLabelMap.CommonFrom}</td>
     <td><@DayOfWeekField fieldName="integer1" fieldValue=fromDay/></td>
