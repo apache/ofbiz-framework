@@ -21,21 +21,27 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="TemporalExpression">
         <value xml:lang="en">Temporal Expression</value>
+        <value xml:lang="fr">Expression temporelle</value>
     </property>
     <property key="TemporalExpressionFind">
         <value xml:lang="en">Find Temporal Expression</value>
+        <value xml:lang="fr">Chercher une expression temporelle</value>
     </property>
     <property key="TemporalExpressionId">
         <value xml:lang="en">Expression Id</value>
+        <value xml:lang="fr">Réf. d'expression</value>
     </property>
     <property key="TemporalExpressionType">
         <value xml:lang="en">Expression Type</value>
+        <value xml:lang="fr">Type d'expression</value>
     </property>
     <property key="TemporalExpressionFreqCount">
         <value xml:lang="en">Frequency Count</value>
+        <value xml:lang="fr">Nombre d'occurrences</value>
     </property>
     <property key="TemporalExpressionFreqType">
         <value xml:lang="en">Frequency Type</value>
+        <value xml:lang="fr">Type de fréquence</value>
     </property>
     <property key="TemporalExpressionTimeFormat">
         <value xml:lang="en">hh:mm:ss</value>
@@ -45,44 +51,56 @@
     </property>
     <property key="TemporalExpressionMaintenance">
         <value xml:lang="en">Temporal Expression Maintenance</value>
+        <value xml:lang="fr">maintenance d'expression temporelle</value>
     </property>
     <property key="TemporalExpressionCollections">
         <value xml:lang="en">Expression Collections</value>
+        <value xml:lang="fr">Collections d'expression</value>
     </property>
     <property key="TemporalExpression_DATE_RANGE">
         <value xml:lang="en">Date Range</value>
+        <value xml:lang="fr">Intervalle entre 2 dates</value>
     </property>
     <property key="TemporalExpression_DAY_IN_MONTH">
         <value xml:lang="en">Day In Month</value>
+        <value xml:lang="fr">Jour du mois</value>
     </property>
     <property key="TemporalExpression_DAY_OF_MONTH_RANGE">
         <value xml:lang="en">Day Of Month Range</value>
+        <value xml:lang="fr">Intervalle entre 2 jours du mois</value>
     </property>
     <property key="TemporalExpression_DAY_OF_WEEK_RANGE">
         <value xml:lang="en">Day Of Week Range</value>
+        <value xml:lang="fr">Intervalle entre 2 jour de la semaine</value>
     </property>
     <property key="TemporalExpression_DIFFERENCE">
         <value xml:lang="en">Difference</value>
+        <value xml:lang="fr">Différence</value>
     </property>
     <property key="TemporalExpression_FREQUENCY">
         <value xml:lang="en">Frequency</value>
+        <value xml:lang="fr">Fréquence</value>
     </property>
     <property key="TemporalExpression_INTERSECTION">
         <value xml:lang="en">Intersection</value>
     </property>
     <property key="TemporalExpression_MONTH_RANGE">
         <value xml:lang="en">Month Range</value>
+        <value xml:lang="fr">Intervalle entre 2 mois</value>
     </property>
     <property key="TemporalExpression_TIME_OF_DAY_RANGE">
         <value xml:lang="en">Time Of Day Range</value>
+        <value xml:lang="fr">Intervalle entre 2 heures d'un jour</value>
     </property>
     <property key="TemporalExpression_UNION">
         <value xml:lang="en">Union</value>
     </property>
     <property key="TemporalExpressionInclude">
         <value xml:lang="en">Include</value>
+        <value xml:lang="fr">Inclure</value>
     </property>
     <property key="TemporalExpressionExclude">
         <value xml:lang="en">Exclude</value>
+        <value xml:lang="fr">Exclure</value>
     </property>
 </resource>
