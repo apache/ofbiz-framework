@@ -2297,7 +2297,7 @@
     <property key="EcommerceNewEFTAccount">
         <value xml:lang="en">New EFT Account</value>
         <value xml:lang="es">Nueva cuenta EFT</value>
-        <value xml:lang="fr">Nouveau compte de transfert électronique de fonds (EFT)</value>
+        <value xml:lang="fr">Nouveau compte de virement électronique</value>
         <value xml:lang="hi_IN">नया EFT ख़ाता</value>
         <value xml:lang="it">Nuovo conto EFT</value>
         <value xml:lang="ja">New EFT Account</value>
