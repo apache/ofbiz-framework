@@ -58,11 +58,31 @@ public class ExpressionUiHelper {
         tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
         SimpleDateFormat dateFormat = new SimpleDateFormat("EEEE", locale);
         List<Map> result = new ArrayList<Map>(7);
-        for (int i = Calendar.SUNDAY; i <= Calendar.SATURDAY; i++) {
-            result.add(UtilMisc.toMap("description", dateFormat.format(tempCal.getTime()), "value", new Integer(i)));
+        for (int i = 0; i < 7; i++) {
+            result.add(UtilMisc.toMap("description", dateFormat.format(tempCal.getTime()), "value", new Integer(tempCal.get(Calendar.DAY_OF_WEEK))));
             tempCal.roll(Calendar.DAY_OF_WEEK, 1);
         }
         return result;
+    }
+
+    /** Returns the first day of the week for the specified locale.
+     * @param locale
+     * @return The first day of the week for the specified locale
+     */
+    public static int getFirstDayOfWeek(Locale locale) {
+        Calendar tempCal = Calendar.getInstance(locale);
+        return tempCal.getFirstDayOfWeek();
+    }
+
+    /** Returns the last day of the week for the specified locale.
+     * @param locale
+     * @return The last day of the week for the specified locale
+     */
+    public static int getLastDayOfWeek(Locale locale) {
+        Calendar tempCal = Calendar.getInstance(locale);
+        tempCal.set(Calendar.DAY_OF_WEEK, tempCal.getFirstDayOfWeek());
+        tempCal.roll(Calendar.DAY_OF_WEEK, -1);
+        return tempCal.get(Calendar.DAY_OF_WEEK);
     }
 
     /** Returns a List of Maps containing month values.
