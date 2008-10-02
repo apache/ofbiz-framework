@@ -21,7 +21,7 @@
     <property key="AccountingAHCElectronicCheck">
         <value xml:lang="en">EFT Account: AHC/Electronic Check</value>
         <value xml:lang="es">Cuenta EFT (transferencia electrónica)</value>
-        <value xml:lang="fr">Compte de transfert électronique de fonds : AHC/Chèque électronique</value>
+        <value xml:lang="fr">Compte de virement électronique</value>
         <value xml:lang="hi_IN">EFT ख़ाता: AHC/ Electronic जान्च</value>
         <value xml:lang="it">Conto EFT: AHC/Assegni elettronici</value>
         <value xml:lang="ja">EFT Account: AHC/Electronic Check </value>
@@ -100,7 +100,7 @@
         <value xml:lang="en">Add New EFT Account</value>
         <value xml:lang="en_GB">Add New Bank Transfer</value>
         <value xml:lang="es">Añadir cuenta EFT</value>
-        <value xml:lang="fr">Ajouter un nouveau compte de transfert électronique de fonds</value>
+        <value xml:lang="fr">Ajouter un nouveau compte de virement électronique</value>
         <value xml:lang="hi_IN">नया EFT ख़ाता</value>
         <value xml:lang="it">Aggiungi nuovo conto EFT</value>
         <value xml:lang="ja">Add New EFT Account</value>
@@ -373,7 +373,7 @@
     <property key="AccountingEFTAccountInformation">
         <value xml:lang="en">EFT Account Information</value>
         <value xml:lang="es">Información de cuenta EFT</value>
-        <value xml:lang="fr">Information sur le compte de transfert électronique de fonds</value>
+        <value xml:lang="fr">Information sur le compte de virement électronique</value>
         <value xml:lang="hi_IN">EFT ख़ाता जानकारी</value>
         <value xml:lang="it">Informazioni conto EFT</value>
         <value xml:lang="ja">EFT Account Information</value>
@@ -419,7 +419,7 @@
         <value xml:lang="en">EFT Account</value>
         <value xml:lang="en_GB">Bank Account for electronic transfer</value>
         <value xml:lang="es">Cuenta EFT</value>
-        <value xml:lang="fr">Compte de transfert électronique de fonds</value>
+        <value xml:lang="fr">Compte de virement électronique</value>
         <value xml:lang="hi_IN">EFT खाता</value>
         <value xml:lang="it">Conto EFT</value>
         <value xml:lang="ja">EFT Account</value>
@@ -434,7 +434,7 @@
         <value xml:lang="de">Die angegebene Bankverbindung gehört nicht zu Ihnen. Daher dürfen Sie die Infomationen dieser Bankverbindung weder einsehen noch bearbeiten.</value>
         <value xml:lang="en">The EFT Account specified does not belong to you, you may not view or edit it</value>
         <value xml:lang="es">La cuenta EFT no le pertenece, no puede verla o editarla</value>
-        <value xml:lang="fr">Le compte de transfert électronique de fonds spécifié ne vous est pas attribué, vous ne pouvez pas y accéder et l'éditer</value>
+        <value xml:lang="fr">Le compte de virement électronique spécifié ne vous est pas attribué, vous ne pouvez pas y accéder et l'éditer</value>
         <value xml:lang="hi_IN">यह EFT ख़ाता आपका नही है, आप इसे बदल या देख़ नहीन् सकते</value>
         <value xml:lang="it">Il Conto EFT specificato non corrisponde a te, non puoi vederlo o modificarlo</value>
         <value xml:lang="ja">The EFT Account specified does not belong to you, you may not view or edit it</value>
@@ -847,7 +847,7 @@
         <value xml:lang="de">Einwegkonto für elektronischen Zahlungsverkehr</value>
         <value xml:lang="en">Single Use EFT Account</value>
         <value xml:lang="es">Cuenta EFT de solo uso</value>
-        <value xml:lang="fr">Usage unique d'un compte de transfert électronique de fonds</value>
+        <value xml:lang="fr">Usage unique d'un compte de virement électronique</value>
         <value xml:lang="hi_IN">एक बार योग्य EFT ख़ाता</value>
         <value xml:lang="it">Conto EFT monouso</value>
         <value xml:lang="ja">Single Use EFT Account</value>
@@ -5532,7 +5532,7 @@
         <value xml:lang="de">Bankverbindung bearbeiten</value>
         <value xml:lang="en">Edit EFT Account</value>
         <value xml:lang="es">Modificar Cuenta de EFT</value>
-        <value xml:lang="fr">Modification des comptes de transfert électronique de fonds</value>
+        <value xml:lang="fr">Modification des comptes de virement électronique</value>
         <value xml:lang="hi_IN">EFT ख़ाता बदलिये</value>
         <value xml:lang="it">Aggiorna Conto EFT </value>
         <value xml:lang="ja">Edit EFT Account</value>
@@ -6774,7 +6774,7 @@
         <value xml:lang="de">Neue Bankverbindung anlegen</value>
         <value xml:lang="en">Create New EFT Account</value>
         <value xml:lang="es">Crear una Nueva Cuenta de EFT</value>
-        <value xml:lang="fr">Créer un nouveau compte de transfert électronique de fonds</value>
+        <value xml:lang="fr">Créer un nouveau compte de virement électronique</value>
         <value xml:lang="hi_IN">नया EFT खाता बनाऐं</value>
         <value xml:lang="it">Creare Nuovo Conto EFT</value>
         <value xml:lang="ja">Create New EFT Account</value>
