@@ -2507,31 +2507,19 @@ public class InvoiceServices {
                         !payment.getString("currencyUomId").equals(invoice.getString("currencyUomId"))) {
                     Debug.logInfo(UtilProperties.getMessage(resource, "AccountingInvoicePaymentCurrencyProblem",
                             UtilMisc.toMap("invoiceCurrency", invoice.getString("currencyUomId"), "paymentCurrency", payment.getString("currencyUomId")),locale), module);
-                    Debug.logInfo("will convert invoice currency according original currency amount on payment", module);
+                    Debug.logInfo("will try to apply payment on the actualCurrency amount on payment", module);
                     
                     if (payment.get("actualCurrencyAmount") == null || payment.get("actualCurrencyUomId") == null) {
-                        errorMessageList.add("in order to properly convert the Invoice we need the actual currency and actual amount on the payment");
+                        errorMessageList.add("Actual amounts are required in the currency of the invoice to make this work....");
                     } else {
                     	if (!payment.get("actualCurrencyUomId").equals(invoice.get("currencyUomId"))) {
                             errorMessageList.add("actual currency on payment not the same as original invoice currency");
-                    	} else {
-                    		// calculate exchange rate, convert/retrieve invoice
-                    		try {
-                    			Double exchangeRate = new Double( payment.getDouble("actualCurrencyAmount").doubleValue() / payment.getDouble("amount").doubleValue());
-                    			Map inMap = UtilMisc.toMap("userLogin", userLogin, "invoiceId", invoiceId, "newCurrencyUomId", payment.getString("currencyUomId"));
-                    			inMap.put("exchangeRate", exchangeRate);
-                    			dispatcher.runSync("convertInvoiceToOtherCurrency", inMap);
-                    			invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));
-                            } catch (GenericServiceException se) {
-                                Debug.logError(se, se.getMessage(), module);
-                                return ServiceUtil.returnError(se.getMessage());
-                            } catch (GenericEntityException e) {
-                                ServiceUtil.returnError(e.getMessage());
-                            }
-                    	}
+                    	} 
                     }
-                    
-                    
+                    paymentApplyAvailable = payment.getBigDecimal("actualCurrencyAmount").subtract(PaymentWorker.getPaymentAppliedBd(payment)).setScale(decimals,rounding);
+                    if (amountApplied.signum() == 0) {
+                        amountAppliedMax = paymentApplyAvailable;
+                    }
                 }
                 
                 // check if the invoice already covered by payments

@@ -280,11 +280,4 @@ under the License.
         <auto-attributes mode="IN" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
-    <service name="convertInvoiceToOtherCurrency" engine="simple"
-        location="org/ofbiz/accounting/invoice/InvoiceServices.xml" invoke="convertInvoiceToOtherCurrency">
-        <description>service to convert an invoice to another currency having the original currency still there using the exchange rate table.</description>
-        <attribute name="invoiceId" mode="INOUT" type="String"/>
-        <attribute name="newCurrencyUomId" mode="IN" type="String"/>
-        <attribute name="exchangeRate" mode="IN" type="Double"/>
-    </service>
 </services>
