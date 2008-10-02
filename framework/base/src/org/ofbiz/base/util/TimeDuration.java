@@ -24,6 +24,7 @@ import java.util.Calendar;
 /** A representation of a period of time. */
 @SuppressWarnings("serial")
 public class TimeDuration implements Serializable {
+    /** A <code>TimeDuration</code> instance that represents a zero time duration. */
     public static final TimeDuration ZeroTimeDuration = new NullDuration();
 
     protected int millis = 0;
@@ -33,10 +34,18 @@ public class TimeDuration implements Serializable {
     protected int days = 0;
     protected int months = 0;
     protected int years = 0;
-
     protected TimeDuration() {}
 
-    public TimeDuration(int millis, int seconds, int minutes, int hours, int days, int months, int years) {
+    /**
+     * @param years The number of years in this duration
+     * @param months The number of months in this duration
+     * @param days The number of days in this duration
+     * @param hours The number of hours in this duration
+     * @param minutes The number of minutes in this duration
+     * @param seconds The number of years in this duration
+     * @param millis The number of milliseconds in this duration
+     */
+    public TimeDuration(int years, int months, int days, int hours, int minutes, int seconds, int millis) {
         this.millis = millis;
         this.seconds = seconds;
         this.minutes = minutes;
@@ -46,6 +55,11 @@ public class TimeDuration implements Serializable {
         this.years = years;
     }
 
+    /** Elapsed time constructor. The time duration will be computed from the
+     * two <code>Calendar</code> instances.
+     * @param cal1
+     * @param cal2
+     */
     public TimeDuration(Calendar cal1, Calendar cal2) {
         this.set(cal1, cal2);
     }
@@ -67,30 +81,37 @@ public class TimeDuration implements Serializable {
         return this.years + ":" + this.months + ":" + this.days + ":" + this.hours + ":" + this.minutes + ":" + this.seconds + ":" + this.millis;
     }
 
+    /** Returns the milliseconds in this time duration. */
     public int millis() {
         return this.millis;
     }
 
+    /** Returns the seconds in this time duration. */
     public int seconds() {
         return this.seconds;
     }
 
+    /** Returns the minutes in this time duration. */
     public int minutes() {
         return this.minutes;
     }
 
+    /** Returns the hours in this time duration. */
     public int hours() {
         return this.hours;
     }
 
+    /** Returns the days in this time duration. */
     public int days() {
         return this.days;
     }
 
+    /** Returns the months in this time duration. */
     public int months() {
         return this.months;
     }
 
+    /** Returns the years in this time duration. */
     public int years() {
         return this.years;
     }
@@ -98,7 +119,7 @@ public class TimeDuration implements Serializable {
     /** Add this time duration to a Calendar instance. Returns the original
      * Calendar instance.
      * @param cal
-     * @return The <code>cal</code> argument
+     * @return <code>cal</code>
      */
     public Calendar addToCalendar(Calendar cal) {
         cal.add(Calendar.MILLISECOND, this.millis);
@@ -114,7 +135,7 @@ public class TimeDuration implements Serializable {
     /** Subtract this time duration to a Calendar instance. Returns the original
      * Calendar instance.
      * @param cal
-     * @return The <code>cal</code> argument
+     * @return <code>cal</code>
      */
     public Calendar subtractFromCalendar(Calendar cal) {
         cal.add(Calendar.MILLISECOND, -this.millis);
@@ -196,6 +217,7 @@ public class TimeDuration implements Serializable {
     }
 
     protected static class NullDuration extends TimeDuration {
+        protected NullDuration() {}
         public Calendar addToCalendar(Calendar cal) {
             return cal;
         }
