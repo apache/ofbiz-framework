@@ -46,12 +46,12 @@
     <context-param>
         <param-name>fixedAssetDecoratorLocation</param-name>
         <param-value>component://assetmaint/widget/CommonScreens.xml</param-value>
-        <description>The location of the CommonFixedAssetDecorator screen to use for this webapp.</description>
+        <description>The location of the fixedAssetDecorator screen to use for this webapp.</description>
     </context-param>
     <context-param>
         <param-name>fixedAssetMaintDecoratorLocation</param-name>
-        <param-value>component://assetmaint/widget/AssetMaintScreens.xml</param-value>
-        <description>The location of the CommonFixedAssetMaintDecorator screen to use for this webapp.</description>
+        <param-value>component://assetmaint/widget/AssetmaintScreens.xml</param-value>
+        <description>The location of the fixedAssetMaintDecorator screen to use for this webapp.</description>
     </context-param>
 
     <filter>
