@@ -944,7 +944,7 @@
     <property key="CommonDigitalProductUpload">
         <value xml:lang="en">Digital Product Upload</value>
         <value xml:lang="es">carga de productos digitales</value>
-        <value xml:lang="fr">Chargement du produit numérique</value>
+        <value xml:lang="fr">Téléchargement du produit numérique vers le serveur</value>
         <value xml:lang="hi_IN">अंकीय फल अपलोड</value>
         <value xml:lang="it">Upload prodotto digitale</value>
         <value xml:lang="ro">Upload Produs Digital</value>
@@ -3318,7 +3318,7 @@
     <property key="EcommerceUploadNewFile">
         <value xml:lang="en">Upload New File</value>
         <value xml:lang="es">Subir nuevo archivo</value>
-        <value xml:lang="fr">Télécharger le nouveau fichier</value>
+        <value xml:lang="fr">Télécharger le nouveau fichier vers le serveur</value>
         <value xml:lang="it">Upload Nuovo File</value>
         <value xml:lang="ja">Upload New File</value>
         <value xml:lang="nl">Upload nieuw bestand</value>

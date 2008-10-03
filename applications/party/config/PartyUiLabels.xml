@@ -1650,7 +1650,7 @@
         <value xml:lang="de">Kommunikationen suchen</value>
         <value xml:lang="en">Find Communications</value>
         <value xml:lang="es">Buscar comunicaciones</value>
-        <value xml:lang="fr">Trouver les communications</value>
+        <value xml:lang="fr">Rechercher les communications</value>
         <value xml:lang="it">Ricerca Comunicazioni</value>
         <value xml:lang="nl">Zoek communicaties</value>
         <value xml:lang="ro">Cautare Comunicatii</value>
@@ -1660,7 +1660,7 @@
     </property>
     <property key="PageTitleFindMatches">
         <value xml:lang="en">Find Matches</value>
-        <value xml:lang="fr">Trouver les correspondances</value>
+        <value xml:lang="fr">Rechercher les correspondances</value>
         <value xml:lang="it">Ricerca Uguaglianze</value>
         <value xml:lang="nl">Zoek matches</value>
         <value xml:lang="ro">Cautare Egalitati</value>
@@ -1685,7 +1685,7 @@
         <value xml:lang="de">Akteur Klassifizierungsgruppen suchen</value>
         <value xml:lang="en">Find Party Classification Groups</value>
         <value xml:lang="es">Buscar grupos de clasificación</value>
-        <value xml:lang="fr">Trouver les groupes de classification de l'acteur</value>
+        <value xml:lang="fr">Rechercher les groupes de classification de l'acteur</value>
         <value xml:lang="it">Ricerca Gruppi Classificazione Soggetti</value>
         <value xml:lang="nl">Zoek geclassificeerde groepen</value>
         <value xml:lang="ro">Cauta Grupuri Clasificare Subiecti</value>
@@ -1696,7 +1696,7 @@
     <property key="PageTitleFindPartyInvitation">
         <value xml:lang="de">Akteur Einladung suchen</value>
         <value xml:lang="en">Find Party Invitation</value>
-        <value xml:lang="fr">Trouver l'invitation de l'acteur</value>
+        <value xml:lang="fr">Rechercher l'invitation de l'acteur</value>
         <value xml:lang="it">Ricerca Inviti Soggetti</value>
         <value xml:lang="th">ค้นหากลุ่มผู้ใช้ตามการเชิญชวน</value>
     </property>
@@ -3830,7 +3830,7 @@
         <value xml:lang="de">Suche Kommunikationsereignis</value>
         <value xml:lang="en">Find Communication Events</value>
         <value xml:lang="es">Buscar evento de comunicación</value>
-        <value xml:lang="fr">Trouver une communication</value>
+        <value xml:lang="fr">Rechercher une communication</value>
         <value xml:lang="it">Ricerca Eventi Comunicazione</value>
         <value xml:lang="nl">Zoek communicatie acties</value>
         <value xml:lang="ro">Cauta Evenimente Comunicare</value>
@@ -3866,7 +3866,7 @@
     <property key="PartyFindPartyInvitations">
         <value xml:lang="de">Akteur Einladungen suchen</value>
         <value xml:lang="en">Find Party Invitations</value>
-        <value xml:lang="fr">Trouver les invitations de l'acteur</value>
+        <value xml:lang="fr">Rechercher les invitations de l'acteur</value>
         <value xml:lang="it">Ricerca Inviti Soggetto</value>
         <value xml:lang="th">ค้นหาการเชิญชวนของกลุ่มผู้ใช้</value>
     </property>
@@ -4892,7 +4892,7 @@
     <property key="PartyNewFind">
         <value xml:lang="de">Neue Suche</value>
         <value xml:lang="en">New Find</value>
-        <value xml:lang="fr">Trouver</value>
+        <value xml:lang="fr">Nouvelle recherche</value>
         <value xml:lang="it">Nuova Ricerca</value>
         <value xml:lang="nl">New Find</value>
         <value xml:lang="ro">Noua Cerere</value>

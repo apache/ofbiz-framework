@@ -1292,6 +1292,7 @@
     </property>
     <property key="SfaUploadVCard">
         <value xml:lang="en">Upload vCard</value>
+        <value xml:lang="fr">Téléchargement de la vCard vers le serveur</value>        
     </property>    
     <property key="Tracking">
         <value xml:lang="en">Tracking</value>

@@ -75,6 +75,7 @@
     </property>
     <property key="OagisMessageDataFileUpload">
         <value xml:lang="en">Oagis Message DataFile Upload</value>
+        <value xml:lang="fr">Téléchargement du message Oagis par fichier de données vers le serveur</value>
         <value xml:lang="it">Oagis Carica File Dati Messaggi</value>
         <value xml:lang="th">อัพโหลดไฟล์ข้อมูลข้อความการรวมภาษาทางธุรกิจ</value>
     </property>
@@ -90,6 +91,7 @@
     </property>
     <property key="OagisMessageUpload">
         <value xml:lang="en">Upload Oagis Message</value>
+        <value xml:lang="fr">Téléchargement du message Oagis vers le serveur</value>
         <value xml:lang="it">Carica Messaggio Oagis</value>
         <value xml:lang="th">อัพโหลดข้อความการรวมภาษาทางธุรกิจ</value>
     </property>

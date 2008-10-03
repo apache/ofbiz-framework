@@ -543,11 +543,11 @@
     </property>
     <property key="AccountingApPageTitleFindVendors">
         <value xml:lang="en">Find Vendors</value>
-        <value xml:lang="fr">Trouver des vendeurs</value>
+        <value xml:lang="fr">Rechercher des vendeurs</value>
     </property>
     <property key="AccountingApPageTitleFindVendorResults">
         <value xml:lang="en">Find Vendor Results</value>
-        <value xml:lang="fr">Trouver des résultats de vendeurs</value>
+        <value xml:lang="fr">Rechercher les résultats de vendeurs</value>
     </property>
     <property key="AccountingApPageTitleListVendors">
         <value xml:lang="en">List Vendors</value>
@@ -1997,13 +1997,13 @@
     </property>
     <property key="AccountingFindPurchaseInvoicesByDueDate">
         <value xml:lang="en">Find Purchase Invoices By Due Date</value>
-        <value xml:lang="fr">Trouver factures d'achat à l'échéance</value>
+        <value xml:lang="fr">Rechercher les factures d'achat à échéance</value>
         <value xml:lang="it">Ricerca Fatture Acquisto Per Data Scadenza</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้าโดยวันที่</value>
     </property>
     <property key="AccountingFindSalesInvoicesByDueDate">
         <value xml:lang="en">Find Sales Invoices By Due Date</value>
-        <value xml:lang="fr">Trouver factures de ventes à l'échéance</value>
+        <value xml:lang="fr">Rechercher les factures de ventes à échéance</value>
         <value xml:lang="it">Ricerca Fatture Vendita Per Data Scadenza</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้าการขายโดยวันที่</value>
     </property>
@@ -5942,7 +5942,7 @@
     </property>
     <property key="AcctgFindGlJournalEntry">
         <value xml:lang="en">Find Journal Entry</value>
-        <value xml:lang="fr">Trouver écriture comptable</value>
+        <value xml:lang="fr">Rechercher l'écriture comptable</value>
         <value xml:lang="th">ค้นหาการกรอกข้อมูลบัญชีรายวัน</value>
     </property>
     <property key="AcctgGlAcctLabel">
@@ -8552,7 +8552,7 @@
     </property>
     <property key="PageTitleFindAgreementRoles">
         <value xml:lang="en">Find Agreement Roles</value>
-        <value xml:lang="fr">Trouver les rôles d'accord</value>
+        <value xml:lang="fr">Rechercher les rôles d'accord</value>
     </property>
     <property key="PageTitleFindBillingAccount">
         <value xml:lang="en">Find Billing Account(s)</value>
