@@ -72,6 +72,15 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="statusId" use-when="person==null"><hidden/></field>
+        <field name="statusId" use-when="person!=null">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="PARTY_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
@@ -94,6 +103,15 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="statusId" use-when="partyGroup==null"><hidden/></field>
+        <field name="statusId" use-when="partyGroup!=null">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="PARTY_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}"><submit button-type="button"/></field>
         <field name="cancelLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"><hyperlink target="${donePage}?partyId=${partyId}" also-hidden="false" description="${uiLabelMap.CommonCancelDone}"/></field>
     </form>
@@ -105,12 +123,16 @@ under the License.
         <field name="logoImageUrl"><ignored/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
         <field name="preferredCurrencyUomId" title="${uiLabelMap.CommonCurrency}"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
+        <field name="externalId" title="${uiLabelMap.External} ${uiLabelMap.Id}"><display/></field>
+        <field name="statusId" title="${uiLabelMap.Status} ${uiLabelMap.Id}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
     </form>
     
     <form name="ViewPartyPerson" type="single" default-map-name="lookupPerson">
         <field name="partyId"><display/></field>
         <field name="name" title="${uiLabelMap.PartyName}"><display description="${lookupPerson.personalTitle} ${lookupPerson.firstName} ${lookupPerson.middleName} ${lookupPerson.lastName}"/></field>
         <field name="comments" title="${uiLabelMap.PartyComments}"><display/></field>        
+        <field name="externalId" title="${uiLabelMap.External} ${uiLabelMap.Id}"><display/></field>
+        <field name="statusId" title="${uiLabelMap.Status} ${uiLabelMap.Id}"><display-entity entity-name="StatusItem" key-field-name="statusId" description="${description}"/></field>
     </form>
     
     <form name="ViewPartyPersonHistory" type="list" list-name="partyNameHistoryList"

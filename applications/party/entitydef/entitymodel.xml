@@ -1595,6 +1595,7 @@ under the License.
       <alias entity-alias="PTY" name="partyId"/>
       <alias entity-alias="PTY" name="partyTypeId"/>
       <alias entity-alias="PTY" name="createdDate"/>
+      <alias entity-alias="PTY" name="statusId"/>
       <alias entity-alias="ULN" name="userLoginId"/>
       <alias entity-alias="ULN" name="currentPassword"/>
       <alias entity-alias="ULN" name="passwordHint"/>
@@ -1660,6 +1661,7 @@ under the License.
       <alias entity-alias="PTY" name="partyId"/>
       <alias entity-alias="PTY" name="partyTypeId"/>
       <alias entity-alias="PTY" name="createdDate"/>
+      <alias entity-alias="PTY" name="statusId"/>
       <alias entity-alias="PTYGRP" name="groupName"/>
       <alias entity-alias="ULN" name="userLoginId"/>
       <alias entity-alias="ULN" name="currentPassword"/>
@@ -1970,6 +1972,7 @@ under the License.
     <member-entity entity-alias="PTYCM" entity-name="ContactMech"/>
     <alias entity-alias="PTY" name="partyId"/>
     <alias entity-alias="PTY" name="partyTypeId"/>
+    <alias entity-alias="PTY" name="statusId"/>
     <alias entity-alias="PER" name="firstName"/>
     <alias entity-alias="PER" name="middleName"/>
     <alias entity-alias="PER" name="lastName"/>
@@ -2026,6 +2029,7 @@ under the License.
       <alias entity-alias="PTY" name="partyId"/>
       <alias entity-alias="PTY" name="partyTypeId"/>
       <alias entity-alias="PTY" name="description"/>
+      <alias entity-alias="PTY" name="statusId"/>
       <alias entity-alias="PER" name="firstName"/>
       <alias entity-alias="PER" name="middleName"/>
       <alias entity-alias="PER" name="lastName"/>
