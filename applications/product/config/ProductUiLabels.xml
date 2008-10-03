@@ -227,7 +227,7 @@
     <property key="CategoryUploadImage">
         <value xml:lang="en">Upload Category Image</value>
         <value xml:lang="es">Cargar Imagen de la Categoría</value>
-        <value xml:lang="fr">Envoyer une image pour cette catégorie</value>
+        <value xml:lang="fr">Télécharger une image pour cette catégorie vers le serveur</value>
         <value xml:lang="it">Carica Immagine Categoria</value>
         <value xml:lang="ro">Incarca Imagine Categorie</value>
         <value xml:lang="ru">Загрузить изображение для категории</value>
@@ -1370,7 +1370,7 @@
     </property>
     <property key="FormFieldTitle_enableDigProdUpload">
         <value xml:lang="en">Enable Digital Product Upload</value>
-        <value xml:lang="fr">Autoriser le téléchargement d'articles numériques</value>
+        <value xml:lang="fr">Autoriser le téléchargement d'articles numériques vers le serveur</value>
         <value xml:lang="it">Abilita Caricamento Prodotti Digitali</value>
         <value xml:lang="ro">Abilitare Incarcare Produse Digitale</value>
         <value xml:lang="ru">Разрешить загрузку цифровых продуктов</value>
@@ -11966,7 +11966,7 @@
     <property key="ProductNoFileSpecifiedForUpload">
         <value xml:lang="en">No file specified for Upload</value>
         <value xml:lang="es">No se especificaron archivos para la carga</value>
-        <value xml:lang="fr">Pas de fichier spécifié pour le chargement</value>
+        <value xml:lang="fr">Pas de fichier spécifié pour le téléchargement vers le serveur</value>
         <value xml:lang="it">Nessun file specificato da Caricare</value>
         <value xml:lang="ro">Nici-un file specificat de Incarcat</value>
         <value xml:lang="ru">Не указан файл для загрузки</value>
@@ -14081,7 +14081,7 @@
     </property>
     <property key="ProductPromotionUploadSetOfPromotionCodes">
         <value xml:lang="en">Upload Set of Promotion Codes</value>
-        <value xml:lang="fr">Téléchargement d'un ensemble de codes de promotion</value>
+        <value xml:lang="fr">Téléchargement d'un ensemble de codes de promotion vers le serveur</value>
         <value xml:lang="it">Carica Insieme di Codici Promozioni</value>
         <value xml:lang="th">อัพโหลดกลุ่มของรหัสสินค้า</value>
     </property>
@@ -14993,7 +14993,7 @@
     <property key="ProductResultOfImageUpload">
         <value xml:lang="en">Result of image Upload</value>
         <value xml:lang="es">Resultado de la carga de imagen</value>
-        <value xml:lang="fr">Résultat du chargement de l'image</value>
+        <value xml:lang="fr">Résultat du téléchargement de l'image</value>
         <value xml:lang="it">Risultato del Caricamento dell'immagine</value>
         <value xml:lang="ro">Rezultat de Incarcare a imaginii</value>
         <value xml:lang="ru">Результат загрузки изображения</value>
@@ -16774,7 +16774,7 @@
     <property key="ProductTheUrlOfYourUploadedFile">
         <value xml:lang="en">The URL of your Uploaded File</value>
         <value xml:lang="es">El URL del archivo cargado</value>
-        <value xml:lang="fr">L'URL du fichier chargé</value>
+        <value xml:lang="fr">L'URL du fichier téléchargé</value>
         <value xml:lang="it">URL del File da Caricare</value>
         <value xml:lang="ro">URL del File da Caricare</value>
         <value xml:lang="ru">URL Загрузить файл</value>
@@ -17241,7 +17241,7 @@
     <property key="ProductUploadCategoryImage">
         <value xml:lang="en">Upload Category Image</value>
         <value xml:lang="es">Cargar imagen de categoría</value>
-        <value xml:lang="fr">Charger l'image de la catégorie</value>
+        <value xml:lang="fr">Télécharger l'image de la catégorie vers le serveur</value>
         <value xml:lang="it">Aggiorna Immagine Categoria</value>
         <value xml:lang="ro">Actualizeaza Imagine Categorie</value>
         <value xml:lang="ru">Загрузить изображение для категории</value>
@@ -17251,7 +17251,7 @@
     <property key="ProductUploadImage">
         <value xml:lang="en">Upload Image</value>
         <value xml:lang="es">Cargar imagen</value>
-        <value xml:lang="fr">Chargement de l'image URL</value>
+        <value xml:lang="fr">Télécharger l'image vers le serveur</value>
         <value xml:lang="it">Aggiorna Immagine</value>
         <value xml:lang="ro">Actualizeaza Imagine</value>
         <value xml:lang="ru">Загрузить изображение</value>
@@ -17261,7 +17261,7 @@
     <property key="ProductUploadLinkOneImage">
         <value xml:lang="en">Upload Link One Image</value>
         <value xml:lang="es">Cargar la imagen del enlace 1</value>
-        <value xml:lang="fr">Charger l'image du lien 1</value>
+        <value xml:lang="fr">Télécharger l'image du lien 1 vers le serveur</value>
         <value xml:lang="it">Aggiorna Link Immagine 1</value>
         <value xml:lang="ro">Actualizeaza Link Imagine 1</value>
         <value xml:lang="ru">Загрузить ссылку на одно изображение</value>
@@ -17271,7 +17271,7 @@
     <property key="ProductUploadLinkTwoImage">
         <value xml:lang="en">Upload Link Two Image</value>
         <value xml:lang="es">Cargar la imagen del enlace 2</value>
-        <value xml:lang="fr">Charger l'image du lien 2</value>
+        <value xml:lang="fr">Télécharger l'image du lien 2 vers le serveur</value>
         <value xml:lang="it">Aggiorna Link Immagine 2</value>
         <value xml:lang="ro">Actualizeaza Link Imagine 2</value>
         <value xml:lang="ru">Загрузить ссылку на два изображения</value>

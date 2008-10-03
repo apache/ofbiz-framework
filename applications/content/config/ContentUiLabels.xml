@@ -308,7 +308,7 @@
         <value xml:lang="ar">إعداد مورد المعلومات</value>
         <value xml:lang="en">DataResource Setup</value>
         <value xml:lang="es">Administración de recurso de datos</value>
-        <value xml:lang="fr">Installation de ressource de données</value>
+        <value xml:lang="fr">Installation d'une ressource de données</value>
         <value xml:lang="it">Configurazione Risorsa Dati</value>
         <value xml:lang="ro">Configurare Resurse Date</value>
         <value xml:lang="th">ติดตั้งที่มาของข้อมูล</value>
@@ -1657,7 +1657,7 @@
     <property key="FormFieldTitle_multiRespTitle">
         <value xml:lang="ar">عنوان جواب متعدد</value>
         <value xml:lang="en">Multi Response Title</value>
-        <value xml:lang="fr">Titre de multi-réponses</value>
+        <value xml:lang="fr">Titre multi-réponses</value>
         <value xml:lang="it">Titolo Risposta Multipla</value>
         <value xml:lang="ro">Titlu Raspuns Multiplu</value>
         <value xml:lang="th">หลายคำตอบ</value>
@@ -2062,7 +2062,7 @@
     <property key="FormFieldTitle_templateDataResourceId">
         <value xml:lang="ar">تعريف مورد معلومات نموذج</value>
         <value xml:lang="en">Template Data Resource Id</value>
-        <value xml:lang="fr">Réf. modèle de ressource de données</value>
+        <value xml:lang="fr">Réf.  de modèle de ressource de données</value>
         <value xml:lang="it">Template Risorsa Dati</value>
         <value xml:lang="ro">Template Resurse Date</value>
         <value xml:lang="th">รหัสแหล่งที่มาของข้อมูล Template </value>
@@ -2252,7 +2252,7 @@
     <property key="PageTitleAddDataResourceText">
         <value xml:lang="ar">إضافة نص مورد معلومات</value>
         <value xml:lang="en">Add DataResource Text</value>
-        <value xml:lang="efr">Ajouter un texte de ressources de données</value>
+        <value xml:lang="efr">Ajouter une ressource de données (texte)</value>
         <value xml:lang="it">Aggiungi Testo Risorsa Dati</value>
         <value xml:lang="ro">Adauga Text Resurse Date</value>
         <value xml:lang="th">เพิ่มแหล่งที่มาของข้อมูลเป็นตัวอักษร</value>
@@ -2261,7 +2261,7 @@
     <property key="PageTitleAddDataResourceUpload">
         <value xml:lang="ar">إضافة شحن علوي لمورد معلومات</value>
         <value xml:lang="en">Add DataResource Upload</value>
-        <value xml:lang="fr">Ajouter le téléchargement de ressource de données</value>
+        <value xml:lang="fr">Ajouter une ressource de données (téléchargement vers serveur)</value>
         <value xml:lang="it">Aggiungi Caricamento Risorsa Dati</value>
         <value xml:lang="ro">Adauga Incarcare Resursa Dati</value>
         <value xml:lang="th">เพิ่มแหล่งที่มาของข้อมูลโดยการโหลด</value>
@@ -2270,7 +2270,7 @@
     <property key="PageTitleAddDataResourceUrl">
         <value xml:lang="ar">إضافة Url مورد معلومات</value>
         <value xml:lang="en">Add DataResource Url</value>
-        <value xml:lang="fr">Ajouter une URL de ressource de données</value>
+        <value xml:lang="fr">Ajouter une ressource de données (URL)</value>
         <value xml:lang="it">Aggiungi Url Risorsa Dati</value>
         <value xml:lang="ro">Adauga Url Resursa Date</value>
         <value xml:lang="th">เพิ่มแหล่งที่มาของข้อมูลเป็น Url</value>
@@ -2559,7 +2559,7 @@
     </property>
     <property key="PageTitleEditDataResourceCharacterSet">
         <value xml:lang="en">Edit Character Set</value>
-        <value xml:lang="fr">Modifier jeu de caractères</value>
+        <value xml:lang="fr">Modifier le jeu de caractères</value>
         <value xml:lang="it">Aggiorna Set di Caratteri</value>
         <value xml:lang="th">แก้ไขการเซ็ตลักษณะ</value>
     </property>
@@ -2577,7 +2577,7 @@
     </property>
     <property key="PageTitleEditDataResourceMimeType">
         <value xml:lang="en">Edit Mime Type</value>
-        <value xml:lang="fr">Modifier Le Type MIME</value>
+        <value xml:lang="fr">Modifier le type MIME</value>
         <value xml:lang="it">Aggiorna Tipo Mime</value>
         <value xml:lang="th">แก้ไขประเภทสำเนา</value>
     </property>
@@ -2590,7 +2590,7 @@
     <property key="PageTitleEditDataResourceProductFeatures">
         <value xml:lang="ar">تعرير خواص منتوج مورد معلومات</value>
         <value xml:lang="en">Edit Data Resource Product Features</value>
-        <value xml:lang="fr">Modifier les caractéristiques du produit de ressource de données</value>
+        <value xml:lang="fr">Modifier la ressource de données (caractéristiques du produit)</value>
         <value xml:lang="it">Aggiorna Caratteristiche Prodotto Risorsa Dati</value>
         <value xml:lang="ro">Actualizeaza Caracteristicile Produs Resurse Date</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลลักษณะสินค้า</value>
@@ -2599,7 +2599,7 @@
     <property key="PageTitleEditDataResourceRole">
         <value xml:lang="ar">تعرير دور مورد معلومات</value>
         <value xml:lang="en">Edit Data Resource Role</value>
-        <value xml:lang="fr">Modifier le rôle de ressource de données</value>
+        <value xml:lang="fr">Modifier la ressource de données (rôle)</value>
         <value xml:lang="it">Aggiorna Ruolo Risorsa Dati</value>
         <value xml:lang="ro">Actualizeaza Drept Resursa Date</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลหน้าที่</value>
@@ -2608,7 +2608,7 @@
     <property key="PageTitleEditDataResourceText">
         <value xml:lang="ar">تعرير نص مورد معلومات</value>
         <value xml:lang="en">Edit Data Resource Text</value>
-        <value xml:lang="fr">Modifier le texte des ressources de données</value>
+        <value xml:lang="fr">Modifier la ressource de données (texte)</value>
         <value xml:lang="it">Aggiorna Testo Risorsa Dati</value>
         <value xml:lang="ro">Actualizeaza Text Resursa Date</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลตัวอักษร</value>
@@ -2617,7 +2617,7 @@
     <property key="PageTitleEditDataResourceType">
         <value xml:lang="ar">تعرير نوع مورد معلومات</value>
         <value xml:lang="en">Edit Data Resource Type</value>
-        <value xml:lang="fr">Modifier le type de ressources de données</value>
+        <value xml:lang="fr">Modifier la ressource de données (type)</value>
         <value xml:lang="it">Aggiorna Tipo Risorsa Dati</value>
         <value xml:lang="ro">Actualizeaza Tip Risursa Date</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลประเภท</value>
@@ -2625,14 +2625,14 @@
     </property>
     <property key="PageTitleEditDataResourceTypeAttr">
         <value xml:lang="en">Edit Data Resource Type Attribute</value>
-        <value xml:lang="en">Modifier le type d'attibut de ressources de données</value>
+        <value xml:lang="en">Modifier la ressource de données (type d'attibut)</value>
         <value xml:lang="it">Aggiorna Attributo Tipo Risorsa Dati</value>
         <value xml:lang="th">แก้ไขข้อมูลแหล่งที่มาของประเภทคุณสมบัติ</value>
     </property>
     <property key="PageTitleEditDataResourceUpload">
         <value xml:lang="ar">Edit Data Resource Upload</value>
         <value xml:lang="en">Edit Data Resource Upload</value>
-        <value xml:lang="fr">Modifier le téléchargement de ressource de données</value>
+        <value xml:lang="fr">Modifier la ressource de données (téléchargement vers serveur)</value>
         <value xml:lang="it">Aggiorna Caricamento Risorsa Dati</value>
         <value xml:lang="ro">Actualizeaza Incarcare Risurse Date</value>
         <value xml:lang="th">แก้ไขข้อมูลแหล่งที่มาของการโหลด</value>
@@ -2641,7 +2641,7 @@
     <property key="PageTitleEditDataResourceUrl">
         <value xml:lang="ar">Edit Data Resource Url</value>
         <value xml:lang="en">Edit Data Resource Url</value>
-        <value xml:lang="fr">Modifier l'url de ressource de données</value>
+        <value xml:lang="fr">Modifier la ressource de données (URL)</value>
         <value xml:lang="it">Aggiorna Url Risorsa Dati</value>
         <value xml:lang="ro">Actualizeaza Url Resura Date</value>
         <value xml:lang="th">แก้ไขข้อมูลแหล่งที่มาของ Url</value>
@@ -2659,7 +2659,7 @@
     <property key="PageTitleEditForumMessage">
         <value xml:lang="ar">تحرير رسالة</value>
         <value xml:lang="en">Edit message:</value>
-        <value xml:lang="fr">Modifier le message:</value>
+        <value xml:lang="fr">Modifier le message : </value>
         <value xml:lang="it">Aggiorna messaggio:</value>
         <value xml:lang="ro">Adauga mesaj:</value>
         <value xml:lang="th">แก้ไขข้อความ:</value>
@@ -2668,7 +2668,7 @@
     <property key="PageTitleEditHtmlText">
         <value xml:lang="ar">تحرير نص Html</value>
         <value xml:lang="en">Edit Html Text</value>
-        <value xml:lang="fr">Modifier le texte Html</value>
+        <value xml:lang="fr">Modifier le texte HTML</value>
         <value xml:lang="it">Aggiorna Testo Html</value>
         <value xml:lang="ro">Actualizeaza Text Html</value>
         <value xml:lang="th">แก้ไขตัวอักษรใน Html</value>
@@ -2689,7 +2689,7 @@
     <property key="PageTitleEditRootCompDoc">
         <value xml:lang="ar">تحرير وثيقة مركبة للجذر</value>
         <value xml:lang="en">Edit Root Composite Document</value>
-        <value xml:lang="fr">Modifier la racine de la page composite</value>
+        <value xml:lang="fr">Modifier la racine du document composite</value>
         <value xml:lang="es">Modificar Documento compuesto Raíz</value>
         <value xml:lang="it">Aggiorna Radice Documento Composito</value>
         <value xml:lang="ro">Actualizeaza Radacina Document Compus</value>
@@ -2709,7 +2709,7 @@
     <property key="PageTitleEditSurveyMultiResps">
         <value xml:lang="ar">تحرير مجموعات جواب متعدد للتصويت</value>
         <value xml:lang="en">Edit Survey Multi-Response Groups</value>
-        <value xml:lang="fr">Modifier les groupes multi-réponse du sondage</value>
+        <value xml:lang="fr">Modifier les groupes multi-réponses du sondage</value>
         <value xml:lang="es">Modificar Encuesta de grupo de respuestas</value>
         <value xml:lang="it">Aggiorna Risposte Multiple Gruppo Sondaggio</value>
         <value xml:lang="ro">Adauga Raspunsuri Multiple Grup Sondaj</value>
@@ -2770,7 +2770,7 @@
     <property key="PageTitleEditWebSiteParties">
         <value xml:lang="ar">تحرير أطراف موقع الويب</value>
         <value xml:lang="en">Edit WebSite Parties</value>
-        <value xml:lang="fr">Modifier les parties du site web</value>
+        <value xml:lang="fr">Modifier les acteurs du site web</value>
         <value xml:lang="it">Aggiorna Soggetti Sito Web</value>
         <value xml:lang="ro">Actualizeaza Subiecti Sit Web</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้ WebSite</value>
@@ -2778,14 +2778,14 @@
     </property>
     <property key="PageTitleFindCMSContent">
         <value xml:lang="en">CMS Content Find</value>
-        <value xml:lang="fr">trouver le contenu CMS</value>
+        <value xml:lang="fr">Rechercher le contenu CMS</value>
         <value xml:lang="it">Ricerca Contenuto CMS</value>
         <value xml:lang="th">ค้นหาหัวข้อ CMS</value>
     </property>
     <property key="PageTitleFindCompDoc">
         <value xml:lang="ar">إيجاد وثيقة مركبة</value>
         <value xml:lang="en">Find CompDoc</value>
-        <value xml:lang="fr">Trouver la composition du document</value>
+        <value xml:lang="fr">Rechercher le document composite</value>
         <value xml:lang="it">Ricerca Composizione Documenti</value>
         <value xml:lang="ro">Cauta CompDoc</value>
         <value xml:lang="th">ค้นหาเอกสารคอมพิวเตอร์</value>
@@ -2803,7 +2803,7 @@
     <property key="PageTitleFindDataResource">
         <value xml:lang="ar">إيجاد مورد معلومات</value>
         <value xml:lang="en">Find Data Resource</value>
-        <value xml:lang="fr">Trouver la ressource de données</value>
+        <value xml:lang="fr">Rechercher la ressource de données</value>
         <value xml:lang="it">Ricerca Risorsa Dati</value>
         <value xml:lang="ro">Actualizeaza Resurse Date</value>
         <value xml:lang="th">ค้นหาแหล่งที่มาของข้อมูล</value>
@@ -2812,7 +2812,7 @@
     <property key="PageTitleFindForumGroup">
         <value xml:lang="ar">إدراج مجموعة المنتدى</value>
         <value xml:lang="en">Forumgroup list</value>
-        <value xml:lang="fr">liste des groupes de forum</value>
+        <value xml:lang="fr">Liste des groupes de forum</value>
         <value xml:lang="it">Lista gruppo Forum</value>
         <value xml:lang="ro">Lista grup Forum</value>
         <value xml:lang="th">รายการกลุ่มความคิดเห็น</value>
@@ -2838,7 +2838,7 @@
     </property>
     <property key="PageTitleFindLayout">
         <value xml:lang="en">Find Layout</value>
-        <value xml:lang="fr">Trouver la mise en page</value>
+        <value xml:lang="fr">Rechercher la mise en page</value>
         <value xml:lang="it">Ricerca Layout</value>
         <value xml:lang="th">ค้นหา Layout</value>
     </property>
@@ -2846,7 +2846,7 @@
         <value xml:lang="ar">إيجاد تصويت</value>
         <value xml:lang="en">Find Survey</value>
         <value xml:lang="es">Buscar Encuesta</value>
-        <value xml:lang="fr">Trouver le sondage</value>
+        <value xml:lang="fr">Rechercher le sondage</value>
         <value xml:lang="it">Ricerca Sondaggio</value>
         <value xml:lang="ro">Cauta Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจ</value>
@@ -2856,7 +2856,7 @@
         <value xml:lang="ar">إيجاد جواب التصويت</value>
         <value xml:lang="en">Find Survey Response</value>
         <value xml:lang="es">Buscar Respuesta de Encuestas</value>
-        <value xml:lang="fr">Trouver les réponses du sondage</value>
+        <value xml:lang="fr">Rechercher les réponses du sondage</value>
         <value xml:lang="it">Ricerca Risposte Sondaggio</value>
         <value xml:lang="ro">Cauta Raspuns Sondaj</value>
         <value xml:lang="th">ค้นหาการสำรวจคำตอบ</value>
@@ -2865,7 +2865,7 @@
     <property key="PageTitleFindWebSite">
         <value xml:lang="ar">إيجاد موقع الويب</value>
         <value xml:lang="en">Find WebSite</value>
-        <value xml:lang="fr">Trouver le site web</value>
+        <value xml:lang="fr">Rechercher le site web</value>
         <value xml:lang="it">Ricerca Sito Web</value>
         <value xml:lang="ro">Cauta Sit Web</value>
         <value xml:lang="th">ค้นหา WebSite</value>
@@ -2901,7 +2901,7 @@
     <property key="PageTitleListContent">
         <value xml:lang="ar">قائمة المحتوى</value>
         <value xml:lang="en">Content List</value>
-        <value xml:lang="fr">liste de contenu</value>
+        <value xml:lang="fr">Liste de contenus</value>
         <value xml:lang="it">Lista Contenuti</value>
         <value xml:lang="ro">Lista Continuturi</value>
         <value xml:lang="th">รายการหัวข้อ</value>
@@ -2909,14 +2909,14 @@
     </property>
     <property key="PageTitleListContentApproval">
         <value xml:lang="en">List Content Approval</value>
-        <value xml:lang="fr">Autorisation de liste de contenu</value>
+        <value xml:lang="fr">Liste d'autorisations de contenu</value>
         <value xml:lang="it">Lista Approvazione Contenuto</value>
         <value xml:lang="th">รายการหัวข้อที่อนุมัติ</value>
     </property>
     <property key="PageTitleListDataResource">
         <value xml:lang="ar">قائمة مورد المعلومات</value>
         <value xml:lang="en">Data Resource List</value>
-        <value xml:lang="fr">Data Resource List</value>
+        <value xml:lang="fr">Liste de ressources de données</value>
         <value xml:lang="it">Lista Risorse Dati</value>
         <value xml:lang="ro">Lista Resurse Date</value>
         <value xml:lang="th">รายการแหล่งที่มาของข้อมูล</value>
@@ -2924,7 +2924,7 @@
     </property>
     <property key="PageTitleListLayout">
         <value xml:lang="en">List Layout</value>
-        <value xml:lang="fr">Liste de mise en page</value>
+        <value xml:lang="fr">Liste de mises en page</value>
         <value xml:lang="it">Lista Layout</value>
         <value xml:lang="th">รายการ Layout</value>
     </property>
@@ -2948,7 +2948,7 @@
     <property key="PageTitleListWebSite">
         <value xml:lang="ar">قائمة مواقع الويب</value>
         <value xml:lang="en">WebSite List</value>
-        <value xml:lang="fr">Liste de site web</value>
+        <value xml:lang="fr">Liste de sites web</value>
         <value xml:lang="it">Lista Siti Web</value>
         <value xml:lang="ro">Lista Situri Web</value>
         <value xml:lang="th">รายการ WebSite</value>
@@ -2957,7 +2957,7 @@
     <property key="PageTitleLookupContent">
         <value xml:lang="ar">البحث عن المحتوى</value>
         <value xml:lang="en">Lookup Content</value>
-        <value xml:lang="fr">Contenu de recherche</value>
+        <value xml:lang="fr">Recherche de contenu</value>
         <value xml:lang="it">Ricerca Contenuto</value>
         <value xml:lang="ro">Cauta Continut</value>
         <value xml:lang="th">ค้นหาหัวข้อ</value>
@@ -2999,7 +2999,7 @@
     <property key="PageTitleUploadImageDataResource">
         <value xml:lang="ar">إشحن علويا الصورة</value>
         <value xml:lang="en">Upload Image</value>
-        <value xml:lang="fr">Image de téléchargement</value>
+        <value xml:lang="fr">Télécharger une image vers le serveur</value>
         <value xml:lang="it">Carica Immagine</value>
         <value xml:lang="ro">Incarca Imagine</value>
         <value xml:lang="th">โหลดรูปภาพ</value>
@@ -3036,7 +3036,7 @@
     <property key="PartyParties">
         <value xml:lang="ar">الأطراف</value>
         <value xml:lang="en">Parties</value>
-        <value xml:lang="fr">Parties</value>
+        <value xml:lang="fr">Acteurs</value>
         <value xml:lang="it">Soggetti</value>
         <value xml:lang="ro">Parteneri</value>
         <value xml:lang="th">กลุ่มผู้ใช้</value>
@@ -3045,7 +3045,7 @@
     <property key="PartyPartyId">
         <value xml:lang="ar">تعريف الطرف</value>
         <value xml:lang="en">Party Id</value>
-        <value xml:lang="fr">Réf. de partie</value>
+        <value xml:lang="fr">Réf. d'acteur</value>
         <value xml:lang="it">Codice Soggetto</value>
         <value xml:lang="ro">Cod Partener</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
@@ -3054,7 +3054,7 @@
     <property key="ProductFeatures">
         <value xml:lang="ar">خواص المنتوج</value>
         <value xml:lang="en">Product Features</value>
-        <value xml:lang="fr">Caractéristiques du produit</value>
+        <value xml:lang="fr">Caractéristiques de produit</value>
         <value xml:lang="it">Caratteristiche Prodotto</value>
         <value xml:lang="ro">Caracteristici Produs</value>
         <value xml:lang="th">ลักษณะสินค้า</value>
@@ -3073,7 +3073,7 @@
         <value xml:lang="ar">إضافة مجموعة جواب متعدد للتصويت</value>
         <value xml:lang="en">Add Survey Multi-Response Group</value>
         <value xml:lang="es">Añadir Grupo de respuestas a encuesta</value>
-        <value xml:lang="fr">Ajouter l'aperçu du groupe de multi-réponse </value>
+        <value xml:lang="fr">Ajouter un groupe multi-réponses au sondage</value>
         <value xml:lang="it">Aggiungi Risposte Multiple Gruppo Sondaggio</value>
         <value xml:lang="ro">Adauga Raspunsuri Multiple Grup Sondaj</value>
         <value xml:lang="th">เพิ่มการสำรวจกลุ่มคำตอบ</value>
@@ -3083,9 +3083,9 @@
         <value xml:lang="ar">إضافة عمود جواب متعدد للتصويت</value>
         <value xml:lang="en">Add Survey Multi-Resp Column</value>
         <value xml:lang="es">Añadir Columna de Grupo de respuestas</value>
-        <value xml:lang="fr">Ajouter l'aperçu de colonne de multi-réponse</value>
-        <value xml:lang="it">Aggiungi Risposte Multiple Colonna  Sondaggio</value>
-        <value xml:lang="ro">Adauga Raspunsuri Multiple Coloana  Sondaj</value>
+        <value xml:lang="fr">Ajouter une colonne multi-réponses au sondage</value>
+        <value xml:lang="it">Aggiungi Risposte Multiple Colonna Sondaggio</value>
+        <value xml:lang="ro">Adauga Raspunsuri Multiple Coloana Sondaj</value>
         <value xml:lang="th">เพิ่มแถวการสำรวจคำตอบ</value>
         <value xml:lang="zh">新建调查的多个回答的列</value>
     </property>
@@ -3101,7 +3101,7 @@
     <property key="SurveyBuildRespondeFromPDF">
         <value xml:lang="ar">بناء جواب التصويت من PDF</value>
         <value xml:lang="en">Build Survey Response from PDF</value>
-        <value xml:lang="fr">Construire un aperçu des réponses de PDF</value>
+        <value xml:lang="fr">Construire une réponse de sondage depuis le PDF</value>
         <value xml:lang="it">Prepare Risposte Sondaggio Dal PDF</value>
         <value xml:lang="ro">Prepara Raspuns Sondaj De la PDF</value>
         <value xml:lang="th">สร้างการสำรวจคำตอบจาก PDF</value>
@@ -3111,7 +3111,7 @@
         <value xml:lang="ar">إضافة تصويت</value>
         <value xml:lang="en">Create Survey</value>
         <value xml:lang="es">Crear Encuesta</value>
-        <value xml:lang="fr">Créer un aperçu</value>
+        <value xml:lang="fr">Créer un sondage</value>
         <value xml:lang="it">Creare Sondaggio</value>
         <value xml:lang="ro">Creare Sondaj</value>
         <value xml:lang="th">สร้างการสำรวจ</value>
@@ -3138,7 +3138,7 @@
     <property key="SurveyCreateQuestionOption">
         <value xml:lang="ar">إضافة زيادة سؤال</value>
         <value xml:lang="en">Create Question Option</value>
-        <value xml:lang="fr">Créer l'option question</value>
+        <value xml:lang="fr">Créer la question option</value>
         <value xml:lang="it">Creare Opzione Domanda</value>
         <value xml:lang="ro">Creare Optiune Intrebare</value>
         <value xml:lang="th">สร้างทางเลือกคำถาม</value>
@@ -3148,7 +3148,7 @@
         <value xml:lang="ar">إضافة جواب تصويت</value>
         <value xml:lang="en">Create Survey Response</value>
         <value xml:lang="es">Crear respuesta</value>
-        <value xml:lang="fr">Créer l'aperçu de réponse</value>
+        <value xml:lang="fr">Créer la réponse de sondage</value>
         <value xml:lang="it">Creare Risposta Sondaggio</value>
         <value xml:lang="ro">Creare Raspuns Sondaj</value>
         <value xml:lang="th">สร้างคำตอบ</value>
@@ -3157,7 +3157,7 @@
     <property key="SurveyEditQuestionOption">
         <value xml:lang="ar">تحرير زيادة سؤال</value>
         <value xml:lang="en">Edit Question Option</value>
-        <value xml:lang="fr">Modifier l'option question</value>
+        <value xml:lang="fr">Modifier la question option</value>
         <value xml:lang="it">Aggiorna Opzione Domanda</value>
         <value xml:lang="ro">Actualizeaza Optiune Intrebare</value>
         <value xml:lang="th">แก้ไขลักษณะคำถาม</value>
@@ -3167,7 +3167,7 @@
         <value xml:lang="ar">تحرير مجموعة جواب متعدد للتصويت</value>
         <value xml:lang="en">Edit Survey Multi-Response Group</value>
         <value xml:lang="es">Modificar grupo multi-respuesta</value>
-        <value xml:lang="fr">Modifier l'aperçu du groupe multi-réponse</value>
+        <value xml:lang="fr">Modifier le groupe multi-réponses</value>
         <value xml:lang="it">Aggiorna Risposte Multiple Gruppo Sondaggio</value>
         <value xml:lang="ro">Actualizeaza Raspunsuri Multiple Grup Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจกลุ่มคำตอบ</value>
@@ -3177,7 +3177,7 @@
         <value xml:lang="ar">إيجاد جواب</value>
         <value xml:lang="en">Find Response</value>
         <value xml:lang="es">Buscar respuesta</value>
-        <value xml:lang="fr">Trouver la réponse</value>
+        <value xml:lang="fr">Rechercher la réponse</value>
         <value xml:lang="it">Ricerca Risposta</value>
         <value xml:lang="ro">Cautare Raspuns</value>
         <value xml:lang="th">ค้นหาคำตอบ</value>
@@ -3195,7 +3195,7 @@
     <property key="SurveyMultiResp">
         <value xml:lang="ar">جواب متعدد</value>
         <value xml:lang="en">Multi-Resp</value>
-        <value xml:lang="fr">Multi-réponse</value>
+        <value xml:lang="fr">multi-réponses</value>
         <value xml:lang="it">Risposta Multipla</value>
         <value xml:lang="ro">Raspuns Multiplu</value>
         <value xml:lang="th">หลายคำตอบ</value>
@@ -3204,7 +3204,7 @@
     <property key="SurveyMultiRespColumn">
         <value xml:lang="ar">عمود جواب متعدد</value>
         <value xml:lang="en">Multi-Resp Column</value>
-        <value xml:lang="fr">Colonne multi-réponse</value>
+        <value xml:lang="fr">Colonne multi-réponses</value>
         <value xml:lang="it">Colonna Risposta Multipla</value>
         <value xml:lang="ro">Coloana Raspuns Multiplu</value>
         <value xml:lang="th">ช่องของหลายคำตอบ</value>
@@ -3223,7 +3223,7 @@
     <property key="SurveyNoQuestions">
         <value xml:lang="ar">لا أسئلة في التصويت, لا يمكن إيجاد أجوية</value>
         <value xml:lang="en">No questions in survey; no responses can be located.</value>
-        <value xml:lang="fr">Aucune questions dans l'aperçu; aucune réponses ne peuvent être localisées.</value>
+        <value xml:lang="fr">Aucune question dans le sondage, aucune réponse ne peut être localisée.</value>
         <value xml:lang="it">Nessuna domanda nel sondaggio; nessuna risposta pu&#242; essere localizzata.</value>
         <value xml:lang="ro">Nici-o intrebare in sondaj; nu poate fi localizat nici-un raspuns.</value>
         <value xml:lang="th">ไม่มีคำถามในการสำรวจ;ไม่สามารถสร้างคำตอบได้</value>
@@ -3241,7 +3241,7 @@
     <property key="SurveyOptions">
         <value xml:lang="ar">إختيارات التصويت</value>
         <value xml:lang="en">Survey Options</value>
-        <value xml:lang="fr">Aperçu options</value>
+        <value xml:lang="fr">Options du sondage</value>
         <value xml:lang="it">Opzioni Sondaggio</value>
         <value xml:lang="ro">Optiune Sondaj</value>
         <value xml:lang="th">การสำรวจทางเลือก</value>
@@ -3279,7 +3279,7 @@
         <value xml:lang="ar">ماخص الجواب</value>
         <value xml:lang="en">Response Summary</value>
         <value xml:lang="es">Resumen de respuestas</value>
-        <value xml:lang="fr">Sommaire de réponse</value>
+        <value xml:lang="fr">Résumé de réponse</value>
         <value xml:lang="it">Sommario Risposta</value>
         <value xml:lang="ro">Sumar Raspuns</value>
         <value xml:lang="th">คำตอบโดยสรุป</value>
@@ -3299,7 +3299,7 @@
         <value xml:lang="ar">تعريف التصويت</value>
         <value xml:lang="en">Survey ID</value>
         <value xml:lang="es">Id de Encuesta</value>
-        <value xml:lang="fr">Réf. aperçu</value>
+        <value xml:lang="fr">Réf. de sondage</value>
         <value xml:lang="it">Numero Sondaggio</value>
         <value xml:lang="ro">Numer Sondaj</value>
         <value xml:lang="th">รหัสการสำรวจ</value>

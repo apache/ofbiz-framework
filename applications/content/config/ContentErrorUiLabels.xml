@@ -75,7 +75,7 @@
     <property key="dataResourceWorker.no_files_uploaded">
         <value xml:lang="en">No files uploaded</value>
         <value xml:lang="es">No se cargaron los archivos</value>
-        <value xml:lang="fr">Pas de fichiers mis à jour</value>
+        <value xml:lang="fr">Aucun fichier téléchargé vers le serveur</value>
         <value xml:lang="it">Nessun file caricato</value>
         <value xml:lang="ro">Nici-un fisier incarcat</value>
         <value xml:lang="th">ไม่มีไฟล์โหลด</value>
@@ -165,7 +165,7 @@
     <property key="layoutWorker.no_files_uploaded">
         <value xml:lang="en">No files uploaded</value>
         <value xml:lang="es">No se cargaron archivos</value>
-        <value xml:lang="fr">Pas de fichiers chargés</value>
+        <value xml:lang="fr">Aucun fichier téléchargé vers le serveur</value>
         <value xml:lang="it">Nessun file caricato</value>
         <value xml:lang="ro">Nici-un fisier incarcat</value>
         <value xml:lang="th">ไม่มีไฟล์โหลด</value>
@@ -174,7 +174,7 @@
     <property key="uploadContentAndImage.no_files_uploaded">
         <value xml:lang="en">No files uploaded</value>
         <value xml:lang="es">No se cargaron archivos</value>
-        <value xml:lang="fr">Pas de fichiers mis à jour</value>
+        <value xml:lang="fr">Aucun fichier téléchargé vers le serveur</value>
         <value xml:lang="it">Nessun file caricato</value>
         <value xml:lang="ro">Nici-un  fisier incarcat</value>
         <value xml:lang="th">ไม่มีไฟล์</value>
