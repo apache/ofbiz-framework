@@ -977,7 +977,7 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
                 <entity-one entity-name="PartyNameView" value-name="party"></entity-one>
                 <set field="organizationPartyId" from-scope="user" to-scope="screen" from-field="productStoreId"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyFinancailHistory.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyFinancialHistory.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
