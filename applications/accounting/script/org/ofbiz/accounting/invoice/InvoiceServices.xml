@@ -147,7 +147,14 @@ under the License.
             <set from-field="nowTimestamp" field="newEntity.invoiceDate"/>
         </if-empty>
         <if-empty field="parameters.currencyUomId">
-            <set from-field="partyAcctgPreference.baseCurrencyUomId" field="newEntity.currencyUomId"/>
+            <!-- if provided set the default currency to the receiving party -->
+            <entity-one entity-name="Party" value-name="party"/>
+            <if-not-empty field="party.preferredCurrencyUomId">
+                <set field="newEntity.currencyUomId" from-field="party.preferredCurrencyUomId"/>
+                <else>
+                    <set field="newEntity.currencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
+                </else>
+            </if-not-empty>
         </if-empty>
 
         <create-value value-name="newEntity"/>
@@ -340,6 +347,7 @@ under the License.
             <check-errors/>
         </if-empty>
         <!-- payment -->
+        <set field="currencyUomId" value=""/><!-- currency of the paymentApplication -->
         <if-not-empty field="paymentApplication.paymentId">
             <entity-one entity-name="Payment" value-name="payment">
                 <field-map field-name="paymentId" value="${paymentApplication.paymentId}"/>
@@ -351,8 +359,8 @@ under the License.
                 <check-errors/>
             </if-not-empty>
             <field-to-result field-name="paymentApplication.paymentId" result-name="paymentId"/>
+            <set field="currencyUomId" from-field="paymentId.currencyUomId"/>
         </if-not-empty>
-        <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplRemoved" field-name="successMessage"/>
         <!-- check invoice -->
         <if-not-empty field="paymentApplication.invoiceId">
             <entity-one entity-name="Invoice" value-name="invoice">
@@ -363,6 +371,7 @@ under the License.
                 <log level="info" message="Invoice not found, invoice Id: ${invoiceId}"/>
                 <check-errors/>
             </if-empty>
+            <set field="currencyUomId" from-field="invoice.currencyUomId"/>
             <!-- if the invoice is already PAID, then set it back to READY and clear out the paidDate -->
             <if-compare field="invoice.statusId" operator="equals" value="INVOICE_PAID">
                 <set field="invoiceStatusMap.invoiceId" value="${paymentApplication.invoiceId}" />
@@ -398,13 +407,18 @@ under the License.
         <if-not-empty field="paymentApplication.billingAccountId">
             <field-to-result field-name="paymentApplication.billingAccountId" result-name="billingAccountId"/>
             <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToBillingAccount" field-name="toMessage"/>
+            <entity-one entity-name="BillingAccount">
+                <field-map field-name="billingAccountId" env-name="paymentApplication.billingAccountId"/>
+            </entity-one>
+            <set field="currencyUomId" from-field="billingAccount.accountCurrencyUomId"/>
         </if-not-empty>
         <!-- tax authority -->
         <if-not-empty field="paymentApplication.taxAuthGeoId">
             <field-to-result field-name="paymentApplication.taxAuthGeoId" result-name="taxAuthGeoId"/>
             <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToTaxAuth" field-name="toMessage"/>
         </if-not-empty>
-        <!-- finaly delete application -->
+        <!-- finally delete application -->
+        <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplRemoved" field-name="successMessage"/>
         <string-append field-name="successMessage" string=" ${toMessage}"/>
         <remove-value value-name="paymentApplication"/>
     </simple-method>

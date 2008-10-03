@@ -25,6 +25,7 @@ import org.ofbiz.accounting.invoice.*;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.math.BigDecimal;
+import java.math.MathContext;
 import org.ofbiz.base.util.UtilNumber;
 import javolution.util.FastList;
 
@@ -34,32 +35,52 @@ invoiceId = parameters.get("invoiceId");
 invoice = delegator.findByPrimaryKey("Invoice", [invoiceId : invoiceId]);
 context.invoice = invoice;
 
-other = parameters.other;		// allow the display of the invoice in the currency of the other party. sales: partyId, purch: partyIdFrom using the convertUom service.
-conversionRate = BigDecimal.ONE;
+other = parameters.other;        // allow the display of the invoice in the currency of the other party. sales: partyId, purch: partyIdFrom using the convertUom service.
+conversionRate = null;
 ZERO = BigDecimal.ZERO;
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 if ("Y".equalsIgnoreCase(other)) {
-  if ((invoice.getRelatedOne("InvoiceType")).parentTypeId.equals("SALES_INVOICE")) { 
-    otherCurrency = invoice.getRelatedOne("Party").preferredCurrencyUomId;
-  } else {
-    otherCurrency = invoice.getRelatedOne("FromParty").preferredCurrencyUomId;
-  }
-  result = null;
-  if (otherCurrency && invoice.currencyUomId && !otherCurrency.equals(invoice.currencyUomId)) {
-    result = dispatcher.runSync("convertUom", [uomId : invoice.currencyUomId, 
+    if (invoice.currencyUomId.equals(invoice.getRelatedOne("Party").preferredCurrencyUomId)) {
+        otherCurrency = invoice.getRelatedOne("FromParty").preferredCurrencyUomId;
+    } else {
+        otherCurrency = invoice.getRelatedOne("Party").preferredCurrencyUomId;
+    }
+    result = null;
+    if (otherCurrency && invoice.currencyUomId && !otherCurrency.equals(invoice.currencyUomId)) {
+        invoice.currencyUomId = otherCurrency;
+        // check if the transaction is created, take the conversion from there
+        acctgTransEntries = invoice.getRelated("AcctgTrans");
+        if (acctgTransEntries) {
+            acctgTransEntry = acctgTransEntries[0].getRelated("AcctgTransEntry")[0];
+            conversionRate = acctgTransEntry.getBigDecimal("amount").divided(acctgTransEntry.getBigDecimal("origAmount"), new MathContext(100));
+        }
+        // check if a payment is applied and use the currency conversion from there
+        if (!conversionRate) {
+            paymentAppls = invoice.getRelated("PaymentApplication");
+            paymentAppls.each { paymentAppl ->
+                payment = paymentAppl.getRelatedOne("Payment"); 
+                if (!conversionRate) {
+                    conversionRate = payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
+                } else {
+                    conversionRate = conversionRate.add(payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100))).divide(new BigDecimal("2"),new MathContext(100));
+                }
+            }
+        }
+        if (!conversionRate) {
+            result = dispatcher.runSync("convertUom", [uomId : invoice.currencyUomId, 
                                                uomIdTo : otherCurrency, 
                                                originalValue : new Double("1.00"), 
                                                asOfDate : invoice.invoiceDate]);
     
-    if (result.convertedValue != null) {
-      conversionRate = new BigDecimal(result.convertedValue.doubleValue());
-      invoice.invoiceMessage = invoice.get("invoiceMessage") ? 
+            if (result.convertedValue != null) {
+                conversionRate = new BigDecimal(result.convertedValue.doubleValue());
+                invoice.invoiceMessage = invoice.get("invoiceMessage") ? 
                           invoice.invoiceMessage.concat(" Converted from " + invoice.currencyUomId + " Rate: " + conversionRate.setScale(6, rounding).toString()) :
                           "Converted from " + invoice.currencyUomId + " Rate: " + conversionRate.setScale(6, rounding).toString();
-      invoice.currencyUomId = otherCurrency;
-    }
-  }
+            }
+        }
+    } 
 }
 
 if (invoice) {
