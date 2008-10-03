@@ -4481,15 +4481,15 @@
         <value xml:lang="zh">已收到支付</value>
     </property>
     <property key="AccountingPaymentApplRemoved">
-        <value xml:lang="en">PaymentID [${paymentApplication.paymentId}] with amount ${paymentApplication.amountApplied?currency(${payment.currencyUomId})} removed from</value>
-        <value xml:lang="es">IdPago[${paymentApplication.paymentId}] con cantidad ${paymentApplication.amountApplied?currency(${payment.currencyUomId})} suprimido de</value>
-        <value xml:lang="fr">Le paiement [${paymentApplication.paymentId}] d'un montant de ${paymentApplication.amountApplied?currency(${payment.currencyUomId})} a été retiré de</value>
-        <value xml:lang="it">Codice Pagamento [${paymentApplication.paymentId}] con importo ${paymentApplication.amountApplied?currency(${payment.currencyUomId})} cancellato da</value>
-        <value xml:lang="nl">BetalingsNr [${paymentApplication.paymentId}] met het bedrag ${paymentApplication.amountApplied?currency(${payment.currencyUomId})} verwijdert van</value>
-        <value xml:lang="ro">Cod Plata [${paymentApplication.paymentId}] cu o valoare ${paymentApplication.amountApplied?currency(${payment.currencyUomId})} eliminata din</value>
-        <value xml:lang="ru">Платеж с кодом [${paymentApplication.paymentId}] на сумму ${paymentApplication.amountApplied?currency(${payment.currencyUomId})} удален из</value>
-        <value xml:lang="th">รหัสการชำระเงิน [${paymentApplication.paymentId}] ด้วยจำนวน ${paymentApplication.amountApplied?currency(${payment.currencyUomId})} ลบจาก</value>
-        <value xml:lang="zh">把支付编号为[${paymentApplication.paymentId}]、金额为${paymentApplication.amountApplied?currency(${payment.currencyUomId})}的支付删除出</value>
+        <value xml:lang="en">PaymentID [${paymentApplication.paymentId}] with amount ${paymentApplication.amountApplied?currency(${currencyUomId})} removed from</value>
+        <value xml:lang="es">IdPago[${paymentApplication.paymentId}] con cantidad ${paymentApplication.amountApplied?currency(${currencyUomId})} suprimido de</value>
+        <value xml:lang="fr">Le paiement [${paymentApplication.paymentId}] d'un montant de ${paymentApplication.amountApplied?currency(${currencyUomId})} a été retiré de</value>
+        <value xml:lang="it">Codice Pagamento [${paymentApplication.paymentId}] con importo ${paymentApplication.amountApplied?currency(${currencyUomId})} cancellato da</value>
+        <value xml:lang="nl">BetalingsNr [${paymentApplication.paymentId}] met het bedrag ${paymentApplication.amountApplied?currency(${currencyUomId})} verwijdert van</value>
+        <value xml:lang="ro">Cod Plata [${paymentApplication.paymentId}] cu o valoare ${paymentApplication.amountApplied?currency(${currencyUomId})} eliminata din</value>
+        <value xml:lang="ru">Платеж с кодом [${paymentApplication.paymentId}] на сумму ${paymentApplication.amountApplied?currency(${currencyUomId})} удален из</value>
+        <value xml:lang="th">รหัสการชำระเงิน [${paymentApplication.paymentId}] ด้วยจำนวน ${paymentApplication.amountApplied?currency(${currencyUomId})} ลบจาก</value>
+        <value xml:lang="zh">把支付编号为[${paymentApplication.paymentId}]、金额为${paymentApplication.amountApplied?currency(${currencyUomId})}的支付删除出</value>
     </property>
     <property key="AccountingPaymentApplToBillingAccount">
         <value xml:lang="en">Billing Account ID [${paymentApplication.billingAccountId}]</value>
