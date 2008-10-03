@@ -40,11 +40,10 @@ under the License.
     <form name="listLookupPartyName" type="list" list-name="listIt" paginate-target="LookupPartyName"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="orderBy" value="partyId"/>
-                <field-map field-name="entityName" value="PartyNameView"/>
-            </service>
+            <set field="inputFields" from-field="parameters"/>
+            <set field="orderBy" value="partyId"/>
+            <set field="entityName" value="PartyNameView"/>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
         </actions>
         <!--<auto-fields-entity entity-name="PartyNameView" default-field-type="display"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
@@ -78,11 +77,10 @@ under the License.
         <actions>
             <set field="parameters.contactMechTypeId" value="EMAIL_ADDRESS"/>
             <set field="filterByDate" value="Y"/>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="orderBy" value="partyId"/>
-                <field-map field-name="entityName" value="PartyNameContactMechView"/>
-            </service>
+            <set field="inputFields" from-field="parameters"/>
+            <set field="orderBy" value="partyId"/>
+            <set field="entityName" value="PartyNameContactMechView"/>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
         </actions>
         <row-actions>
             <set field="name" value="${firstName} ${middleName} ${lastName} ${groupName}"/>
@@ -113,11 +111,10 @@ under the License.
     <form name="listLookupCustomerName" type="list" list-name="listIt" paginate-target="LookupCustomerName"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="orderBy" value="partyId"/>
-                <field-map field-name="entityName" value="PartyRoleNameDetail"/>
-            </service>
+            <set field="inputFields" from-field="parameters"/>
+            <set field="orderBy" value="partyId"/>
+            <set field="entityName" value="PartyRoleNameDetail"/>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
         </actions>
         <field name="partyId" title="${uiLabelMap.PartyPartyId}"  widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${partyId}" target="javascript:set_value('${partyId}')"/>
@@ -217,10 +214,9 @@ under the License.
     <form name="listLookupPartyAndUserLoginAndPerson" type="list" list-name="listIt" paginate-target="LookupPartyAndUserLoginAndPerson"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
-            </service>
+            <set field="inputFields" from-field="requestParameters"/>
+            <set field="entityName" value="entityName"/>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
         </actions>
         <!--<auto-fields-entity entity-name="PartyAndUserLoginAndPerson" default-field-type="display"/>-->
         <field name="partyId" title="${uiLabelMap.PartyPartyId}">
@@ -248,10 +244,9 @@ under the License.
     <form name="listLookupUserLoginAndPartyDetails" type="list" list-name="listIt" paginate-target="LookupUserLoginAndPartyDetails"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
-                <field-map field-name="inputFields" env-name="requestParameters"/>
-                <field-map field-name="entityName" env-name="entityName"/>
-            </service>
+            <set field="inputFields" from-field="requestParameters"/>
+            <set field="entityName" value="entityName"/>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
         </actions>
         <field name="userLoginId" title="${uiLabelMap.PartyUserLoginId}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" target-type="plain" description="${userLoginId}" target="javascript:set_value('${userLoginId}', '${userLoginId}', '${parameters.webSitePublishPoint}')"/>
@@ -416,10 +411,9 @@ under the License.
     <form name="listLookupContactMech" type="list" list-name="listIt" paginate-target="LookupContactMech"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <service service-name="performFind" result-map-list-name="listIt" result-map-name="result">
-                <field-map field-name="inputFields" env-name="parameters"/>
-                <field-map field-name="entityName" value="PartyAndContactMech"/>
-            </service>
+            <set field="inputFields" from-field="parameters"/>
+            <set field="entityName" value="PartyAndContactMech"/>
+            <script location="component://party/webapp/partymgr/WEB-INF/actions/party/FindLookUp.groovy"/>
         </actions>
 
         <field name="contactMechId"  widget-style="buttontext">

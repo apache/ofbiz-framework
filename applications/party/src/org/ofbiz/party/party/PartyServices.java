@@ -150,6 +150,10 @@ public class PartyServices {
             if (!UtilValidate.isEmpty(preferredCurrencyUomId)) {
                 newPartyMap.put("preferredCurrencyUomId", preferredCurrencyUomId);
             }
+            String externalId = (String) context.get("externalId");
+            if (!UtilValidate.isEmpty(externalId)) {
+                newPartyMap.put("externalId", externalId);
+            }
             if (userLogin != null) {
                 newPartyMap.put("createdByUserLogin", userLogin.get("userLoginId"));
                 newPartyMap.put("lastModifiedByUserLogin", userLogin.get("userLoginId"));
