@@ -128,6 +128,7 @@ under the License.
             </property>
             -->
             <!-- <property name="ssl-accelerator-port" value="8443"/> -->
+            <property name="enable-session-valve" value="true"/>
         </property>
         <!-- all connectors support type, host, port, enable-lookups -->
         <property name="ajp-connector" value="connector">

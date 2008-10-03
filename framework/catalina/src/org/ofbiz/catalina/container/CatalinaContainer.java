@@ -295,6 +295,13 @@ public class CatalinaContainer implements Container {
             engine.addValve(rdv);
         }
 
+        // configure the CrossSubdomainSessionValve
+        boolean enableSessionValve = ContainerConfig.getPropertyValue(engineConfig, "enable-session-valve", false);
+        if (enableSessionValve) {
+            CrossSubdomainSessionValve sessionValve = new CrossSubdomainSessionValve();
+            engine.addValve(sessionValve);
+        }
+        
         // configure the access log valve
         String logDir = ContainerConfig.getPropertyValue(engineConfig, "access-log-dir", null);
         AccessLogValve al = null;
