@@ -191,8 +191,8 @@
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="addToCart"/>
         <response name="success" type="view" value="main"/>
-        <response name="survey" type="view" value="survey"/>
-        <response name="product" type="view" value="product"/>
+        <response name="survey" type="view" value="main"/>
+        <response name="product" type="view" value="main"/>
         <response name="viewcart" type="request-redirect" value="main"/>
         <response name="error" type="view" value="main"/>
     </request-map>
