@@ -2318,8 +2318,8 @@
         <value xml:lang="cs">Zapomněl jste heslo</value>
         <value xml:lang="de">Sie haben Ihr Passwort vergessen</value>
         <value xml:lang="en">Forgot Your Password</value>
-        <value xml:lang="es">¿Olvidó su contraseña?</value>
-        <value xml:lang="fr">Vous avez oublié votre mot de passe</value>
+        <value xml:lang="es">¿Olvidó su contraseña</value>
+        <value xml:lang="fr">Vous avez oublié votre mot de passe </value>
         <value xml:lang="it">Password dimenticata</value>
         <value xml:lang="nl">Wachtwoord vergeten</value>
         <value xml:lang="pt">Esqueceu-ce da Password</value>
