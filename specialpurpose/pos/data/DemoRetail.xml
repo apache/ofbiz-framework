@@ -81,7 +81,9 @@
     -->
 
     <!-- use this one when the scheduled PUSH service is not enabled -->
-    <PosTerminal posTerminalId="pos-1" facilityId="MyRetailStore"/>
+    <PosTerminal posTerminalId="pos-1" terminalName="Pos Terminal 1" facilityId="MyRetailStore"/>
+    <PosTerminal posTerminalId="pos-2" terminalName="Pos Terminal 2" facilityId="MyRetailStore"/>
+    <PosTerminal posTerminalId="pos-3" terminalName="Pos Terminal 3" facilityId="MyRetailStore"/>
 
     <!-- NOTE: this should be commented out for testing the POS without inventory, but should be included on PSS and MCS machines to handle inventory issuance -->
     <!-- <InventoryItem facilityId="MyRetailStore" inventoryItemId="9100" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-1001"/>

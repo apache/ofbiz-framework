@@ -45,6 +45,7 @@ under the License.
       <field name="posTerminalId" type="id-ne"></field>
       <field name="facilityId" type="id"></field>
       <field name="pushEntitySyncId" type="id"></field>
+      <field name="terminalName" type="name"></field>
       <prim-key field="posTerminalId"/>
     </entity>
     <entity entity-name="PosTerminalLog"
