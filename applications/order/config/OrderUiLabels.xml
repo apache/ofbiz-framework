@@ -309,7 +309,7 @@
         <value xml:lang="en">Please ship items I ordered as they become available (you may incur additional shipping charges).</value>
         <value xml:lang="es">Envíe por favor los artículos que pedí en cuanto se encuentren disponibles (usted puede incurrir en cargas adicionales de envío)</value>
         <value xml:lang="fr">Livrer les articles dès qu'ils sont disponibles (peut occasionner des frais additionnels d'expédition)</value>
-        <value xml:lang="it">Perfavore spedire le righe che ho ordinato appena diventano disponibili (tu potresti incorrere in spese di spedizione aggiuntive).</value>
+        <value xml:lang="it">Prego spedire gli articoli ordinati appena diventano disponibili (potresti incorrere in spese di spedizione aggiuntive).</value>
         <value xml:lang="nl">Verstuur items wanneer ze beschikbaar komen (extra verzendkosten mogen worden aangerekend).</value>
         <value xml:lang="ro">Va rugam expediati liniile pe care le-am comandat  ordinato imediat ce devin disponibile (s-ar putea sa ti se adauge cheltuieli de expediere).</value>
         <value xml:lang="ru">Пожалуйста поставляйте заказанные мной позиции по мере доступности (можно учитывать дополнительные расходы на доставку).</value>
@@ -3280,7 +3280,7 @@
         <value xml:lang="en">In Production</value>
         <value xml:lang="es">En Producción</value>
         <value xml:lang="fr">En production</value>
-        <value xml:lang="it">In Produzione</value>
+        <value xml:lang="it">In produzione</value>
         <value xml:lang="nl">In Produktie</value>
         <value xml:lang="ro">In Productie </value>
         <value xml:lang="ru">В производстве</value>
@@ -4383,7 +4383,7 @@
         <value xml:lang="es">en venta</value>
         <value xml:lang="fr">En vente</value>
         <value xml:lang="hi_IN">बिकने मे</value>
-        <value xml:lang="it">In Vendita</value>
+        <value xml:lang="it">In saldi</value>
         <value xml:lang="ja">On Sale</value>
         <value xml:lang="nl">Uitverkoop</value>
         <value xml:lang="pt_PT">Em Promoção</value>
@@ -7252,7 +7252,7 @@
         <value xml:lang="de">Bitte wählen Sie eine 'Versand von' Adresse aus</value>
         <value xml:lang="en">Please select a ship from address</value>
         <value xml:lang="fr">SVP, sélecionner une adresse d'expédition</value>
-        <value xml:lang="it">Perfavore seleziona l'indirizzo di spedizione origine</value>
+        <value xml:lang="it">Prego seleziona l'indirizzo mittente della spedizione</value>
         <value xml:lang="nl">Please select a ship from address</value>
         <value xml:lang="ro">Va rugam selectionati adresa de expediere originala</value>
         <value xml:lang="ru">Пожалуйста выберите поставку с адреса</value>
@@ -8637,7 +8637,7 @@
         <value xml:lang="es">Su Precio</value>
         <value xml:lang="fr">Votre prix</value>
         <value xml:lang="hi_IN">आपका मुल्य</value>
-        <value xml:lang="it">Il tuo Prezzo</value>
+        <value xml:lang="it">Il tuo prezzo</value>
         <value xml:lang="ja">Your Price</value>
         <value xml:lang="nl">Uw prijs</value>
         <value xml:lang="pt_PT">O Seu Preço</value>
@@ -9233,6 +9233,7 @@
         <value xml:lang="en">Advanced  Search  in  Category</value>
         <value xml:lang="es">Búsqueda avanzada en la categoría</value>
         <value xml:lang="fr">Recherche avançée dans la catégorie</value>
+        <value xml:lang="it">Ricerca avanzata nella categoria</value>
         <value xml:lang="pt_PT">Procura Avançada Na Categoria</value>
         <value xml:lang="th">การค้นหาเพิ่มขึ้นในหมวดหมู่</value>
     </property>
@@ -9249,6 +9250,7 @@
         <value xml:lang="en">Catalog</value>
         <value xml:lang="es">Catálogo</value>
         <value xml:lang="fr">Catalogue</value>
+        <value xml:lang="it">Catalogo</value>
         <value xml:lang="th">หมวดหมู่</value>
     </property>
     <property key="ProductCategoryNotFoundforCategoryID">
@@ -9449,6 +9451,7 @@
         <value xml:lang="en">Type</value>
         <value xml:lang="es">Tipo de producto</value>
         <value xml:lang="fr">Type</value>
+        <value xml:lang="it">Tipo</value>
         <value xml:lang="th">ประเภท</value>
     </property>
     <property key="ProductUsuallyShipsIn">
@@ -9682,7 +9685,7 @@
         <value xml:lang="en">Cannot cancel item at this time; please try again.</value>
         <value xml:lang="es">No se puede cancelar el ítem en este momento, por favor vuelva a intentar.</value>
         <value xml:lang="fr">Impossible d'annuler l'article maintenant. Réessayez, s'il vous plait.</value>
-        <value xml:lang="it">Non è possibile annullare la riga in questo momento; perfavore prova dinuovo.</value>
+        <value xml:lang="it">Non è possibile annullare la riga in questo momento. Prego riprovare.</value>
         <value xml:lang="nl">Cannot cancel item at this time; please try again.</value>
         <value xml:lang="ro">Nu este posibila stergerea liniei in acest moment; te rogam incearca din nou.</value>
         <value xml:lang="ru">Не могу отменить позицию; пожалуйста попробуйте снова.</value>
@@ -9825,7 +9828,7 @@
         <value xml:lang="en">Please enter the amount to place on your gift card.</value>
         <value xml:lang="es">Por favor, ingrese el monto a colocar sobre su certificado de regalo.</value>
         <value xml:lang="fr">S'il vous plaît entrer le montant à placer sur votre carte de cadeau.</value>
-        <value xml:lang="it">Perfavore inserisci l'importo per piazzare la tua carta omaggio.</value>
+        <value xml:lang="it">Prego inserisci l'importo da caricare sulla tua carta omaggio.</value>
         <value xml:lang="nl">Please enter the amount to place on your gift card.</value>
         <value xml:lang="ro">Te rugam sa introduci valoarea  pentru a putea plasa cartea ta de omagiu.</value>
         <value xml:lang="ru">Пожалуйста введите сумму в место на вашей дисконтной карте.</value>
@@ -9838,7 +9841,7 @@
         <value xml:lang="en">Please enter your gift card number.</value>
         <value xml:lang="es">Por favor, ingrese el número del certificado de regalo.</value>
         <value xml:lang="fr">S'il vous plaît entrer votre n° de carte de cadeau.</value>
-        <value xml:lang="it">Perfavore inserisci il tuo numero di carta omaggio.</value>
+        <value xml:lang="it">Per favore inserisci il tuo numero della carta omaggio.</value>
         <value xml:lang="nl">Please enter your gift card number.</value>
         <value xml:lang="ro">Te rugam sa introduci numarul cartii tale de omagiu.</value>
         <value xml:lang="ru">Пожалуйста введите номер вашей дисконтной карты.</value>
@@ -9851,7 +9854,7 @@
         <value xml:lang="en">Please enter your gift card pin number.</value>
         <value xml:lang="es">Por favor, ingrese el código del certificado de regalo.</value>
         <value xml:lang="fr">S'il vous plaît entrer votre code de carte de cadeau.</value>
-        <value xml:lang="it">Perfavore inserisci il tuo numero di pin della carta omaggio.</value>
+        <value xml:lang="it">Per favore inserisci il tuo numero di pin della carta omaggio.</value>
         <value xml:lang="nl">Please enter your gift card pin number.</value>
         <value xml:lang="ro">Te rugam sa introduci numarul de pin al  cartii tale de omagiu.</value>
         <value xml:lang="ru">Пожалуйста введите ПИН код вашей дисконтной карты.</value>
@@ -9864,7 +9867,7 @@
         <value xml:lang="en">Please enter a shipping address.</value>
         <value xml:lang="es">Por favor, ingrese una dirección de envío.</value>
         <value xml:lang="fr">S'il vous plaît entrez une adresse d'expédition.</value>
-        <value xml:lang="it">Perfavore inserisci un'indirizzo di spedizione.</value>
+        <value xml:lang="it">Per favore inserisci un'indirizzo per la spedizione.</value>
         <value xml:lang="nl">Please enter a verzend address.</value>
         <value xml:lang="ro">Te rugam sa introduci o adresa pentru expediere.</value>
         <value xml:lang="ru">Пожалуйста введите адрес доставки.</value>
@@ -9992,7 +9995,7 @@
         <value xml:lang="en">Problems reading the database, please try again.</value>
         <value xml:lang="es">Problemas leyendo la base de datos, por favor trate nuevamente.</value>
         <value xml:lang="fr">Problèmes lors de la lecture de la base de données, s'il vous plaît réessayez.</value>
-        <value xml:lang="it">Problema leggendo dal database, perfavore riprovare nuovamente.</value>
+        <value xml:lang="it">Problema nella lettura dal database, prego riprovare.</value>
         <value xml:lang="nl">Problems reading the database, please try again.</value>
         <value xml:lang="ro">Problema la citirea database, va rugam reincercati din nou.</value>
         <value xml:lang="ru">Проблемы чтения из базы данных, пожалуйста, попробуйте снова.</value>
@@ -10012,7 +10015,7 @@
         <value xml:lang="en">Please select a method of payment.</value>
         <value xml:lang="es">Por favor, seleccione un método de pago.</value>
         <value xml:lang="fr">S'il vous plaît choisissez un moyen de paiement.</value>
-        <value xml:lang="it">Perfavore selezionare un metodo di pagamento.</value>
+        <value xml:lang="it">Per favore selezionare un metodo di pagamento.</value>
         <value xml:lang="nl">Please select a method of payment.</value>
         <value xml:lang="ro">Va rugam selectionati o metoda de plata.</value>
         <value xml:lang="ru">Пожалуйста выберите метод платежа.</value>
@@ -10038,7 +10041,7 @@
         <value xml:lang="en">Please Select a Shipping Method.</value>
         <value xml:lang="es">Por favor, seleccione un método de envío.</value>
         <value xml:lang="fr">S'il vous plaît choisissez un moyen d'expédition.</value>
-        <value xml:lang="it">Perfavore Seleziona un Metodo di Spedizione.</value>
+        <value xml:lang="it">Per favore seleziona un metodo di spedizione.</value>
         <value xml:lang="nl">Please Select a Shipping Method.</value>
         <value xml:lang="ro">Va rugam Selectionati o Metoda de Expediere.</value>
         <value xml:lang="ru">Пожалуйста выберите способ доставки.</value>
@@ -10051,7 +10054,7 @@
         <value xml:lang="en">Please Select a Splitting Preference.</value>
         <value xml:lang="es">Por favor, seleccione una preferencia de distribución.</value>
         <value xml:lang="fr">S'il vous plaît choisissez une préférence pour le fractionnement de l'expédition.</value>
-        <value xml:lang="it">Perfavore Seleziona una Preferenza di Divisione.</value>
+        <value xml:lang="it">Per favore seleziona una preferenza di suddivisione.</value>
         <value xml:lang="nl">Please Select a Splitting Preference.</value>
         <value xml:lang="ro">Va rugam selectionati o Preferinta de Divizare.</value>
         <value xml:lang="ru">Пожалуйста укажите предпочтения разделения.</value>
@@ -10064,7 +10067,7 @@
         <value xml:lang="en">Please Specify Whether or Not This Order is a Gift.</value>
         <value xml:lang="es">Por favor, especifique si esta orden es o no un regalo.</value>
         <value xml:lang="fr">Spécifiez, s'il vous plaît, si cette commande est un cadeau.</value>
-        <value xml:lang="it">Perfavore Specificare Se o No Questo Ordine è un'Omaggio.</value>
+        <value xml:lang="it">Per favore specificare se questo ordine è un'omaggio o no.</value>
         <value xml:lang="nl">Please Specify Whether or Not This Bestelling is a Gift.</value>
         <value xml:lang="ro">Va rugam Specificati daca aceasta comanda este sau nu este un Omagiu.</value>
         <value xml:lang="ru">Пожалуйста укажите является ли это заказ подарком, или нет.</value>
@@ -10077,7 +10080,7 @@
         <value xml:lang="en">Please specify ship after date as a date.</value>
         <value xml:lang="es">Por favor especifique la fecha después de la que se enviará como una fecha.</value>
         <value xml:lang="fr">SVP, veuillez remplir correctement la date de "livraison après".</value>
-        <value xml:lang="it">Perfavore specificare consegna dopo la data come data.</value>
+        <value xml:lang="it">Per favore inserire una data nel campo "consegna dopo".</value>
         <value xml:lang="nl">Please specify ship after date as a date.</value>
         <value xml:lang="ro">Va rugam specificati livrarea dupa data ca data.</value>
         <value xml:lang="ru">Пожалуйста указывайте поставку после даты как дату.</value>
@@ -10095,7 +10098,7 @@
         <value xml:lang="en">Please specify a ship before date as a date.</value>
         <value xml:lang="es">Por favor especifique la fecha antes de la que se enviará como una fecha.</value>
         <value xml:lang="fr">SVP, veuillez remplir correctement la date de "livraison avant".</value>
-        <value xml:lang="it">Perfavore specificare consegna prima della data come data.</value>
+        <value xml:lang="it">Per favore inserire una data nel campo "consegna prima".</value>
         <value xml:lang="nl">Please specify a ship before date as a date.</value>
         <value xml:lang="ro">Va rugam specificati livrarea inainte de data ca data.</value>
         <value xml:lang="ru">Пожалуйста указывайте поставку до даты как дату.</value>
@@ -10269,7 +10272,7 @@
         <value xml:lang="de">Bitte geben Sie die Anzahl Tage an, 1 oder mehr...</value>
         <value xml:lang="en">Please enter a number of days, 1, or more....</value>
         <value xml:lang="fr">S'il vous plaît entrer un nombre de jours, 1, ou plus...</value>
-        <value xml:lang="it">Perfavore inserire un numero di giorni, 1, o più....</value>
+        <value xml:lang="it">Per favore inserire un numero di giorni, 1, o più....</value>
         <value xml:lang="ro">Va rugam introduceti un numar de zile, 1, sau mai mult....</value>
         <value xml:lang="ru">Пожалуйста введите количество дней, 1, или больше....</value>
         <value xml:lang="th">กรุณากรอกจำนวนของวัน , 1 , หรือมากกว่า....</value>
@@ -10302,7 +10305,7 @@
         <value xml:lang="de">Sie können Reservationen frühestens mit einem Datum ab morgen durchführen</value>
         <value xml:lang="en">You can only make reservation starting tomorrow....</value>
         <value xml:lang="fr">Vous ne pouvez démarrer votre réservation que demain...</value>
-        <value xml:lang="it">Tu potrai effettuare la prenotazione solo da domani....</value>
+        <value xml:lang="it">Potrai effettuare la prenotazione solo da domani....</value>
         <value xml:lang="ro">Poti sa faci rezervarea numai de maine ....</value>
         <value xml:lang="ru">Резервирование возможно только начиная с завтрашнего дня....</value>
         <value xml:lang="th">คุณสามารถเริ่มการจองได้พรุ่งนี้เท่านั้น....</value>
@@ -10313,7 +10316,7 @@
         <value xml:lang="en">ERROR: There are no items to order</value>
         <value xml:lang="es">ERROR: No hay artículos a ordenar</value>
         <value xml:lang="fr">ERREUR : Il n'y a pas d'article à commander</value>
-        <value xml:lang="it">ERRORE: Non ci sono righe nell'ordine</value>
+        <value xml:lang="it">ERRORE: Non ci sono articoli nell'ordine</value>
         <value xml:lang="nl">ERROR: There are no items to bestelling</value>
         <value xml:lang="pt_PT">ERRO: Não existem itens para encomendar</value>
         <value xml:lang="ro">EROARE: Comanda nu are nici o linie inregistrata</value>
@@ -10327,7 +10330,7 @@
         <value xml:lang="en">Tried to order the Product {0} (productId: {1}). This product is no longer available for sale. Please remove from your order.</value>
         <value xml:lang="es">Intentado pedir el producto {0} (productId: {1}). Este producto ya no está disponible para la venta. Retírelo de su orden por favor.</value>
         <value xml:lang="fr">Vous avez essayé de commander l'article {0} (productId : {1}). Cet article n'est plus disponible à la vente. S'il vous plaît, enlevez le de votre commande.</value>
-        <value xml:lang="it">Provato ad ordinare il prodotto {0} (Codice prodotto: {1}). Questo prodotto non   stato reso disponibile per la vendita. Perfavore rimuovilo dai tuoi ordini.</value>
+        <value xml:lang="it">Hai provato ad ordinare il prodotto {0} (Codice prodotto: {1}). Questo prodotto non è più disponibile per la vendita. Per favore rimuovilo dai tuoi ordini.</value>
         <value xml:lang="nl">Tried to order the Product {0} (productId: {1}). This product is no longer available for sale. Please remove from your order.</value>
         <value xml:lang="pt_PT">Tentou encomendar o Produto {0} (Identificação de Produto: {1}). Este produto já se encontra indisponível para venda.Por favor remova-o desta encomenda.</value>
         <value xml:lang="ro">Incercare de comandare produs {0} (Cod produs: {1}). Acest produs nu a fost dat disponibil pentru vanzare. Te rugam sa-l stergi din comanda ta.</value>
@@ -10355,7 +10358,7 @@
         <value xml:lang="en">Tried to order the Product {0} (productId: {1}). This product has not yet been made available for sale. Please remove from your order.</value>
         <value xml:lang="es">Intentado pedir el producto {0} (productId: {1}). Este producto no ha sido puesto disponible para la venta. Retírelo de su orden por favor.</value>
         <value xml:lang="fr">Vous avez essayé de commander l'article {0} (productId : {1}). Cet article n'a pas encore été mis en vente. S'il vous plaît, enlevez le de votre commande.</value>
-        <value xml:lang="it">Provato ad ordinare il prodotto {0} (Codice prodotto: {1}). Questo prodotto non è stato reso disponibile per la vendita. Perfavore rimuovilo dai tuoi ordini.</value>
+        <value xml:lang="it">Hai provato ad ordinare il prodotto {0} (Codice prodotto: {1}). Questo prodotto non è ancora disponibile per la vendita. Per favore rimuovilo dai tuoi ordini.</value>
         <value xml:lang="nl">Tried to order the Product {0} (productId: {1}). This product has not yet been made available for sale. Please remove from your order.</value>
         <value xml:lang="pt_PT">Tentou encomendar o Produto {0} (Identificação de Produto: {1}). Este produto ainda está indisponível para venda. Por favor, remova-o desta encomenda.</value>
         <value xml:lang="ro">Incercare de comandare a produsului {0} (Cod produs: {1}). Acest produs nu a fost dat disponibil pentru vanzare. Te rugam sa-l stergi din comanda ta.</value>
@@ -10369,7 +10372,7 @@
         <value xml:lang="en">The product {0} with ID {1} is no longer in stock. Please try reducing the quantity or removing the product from this order.</value>
         <value xml:lang="es">El producto {0} con el código {1} no se encuentra en stock. Intente por favor reducir la cantidad pedida o quitar el producto de esta orden.</value>
         <value xml:lang="fr">L'article {0} avec ID {1} n'est plus en stock. Essayez, s'il vous plaît, de réduire la quantité ou d'enlever l'article de cette commande, merci.</value>
-        <value xml:lang="it">Il prodotto {0} con codice {1} non è più in giacenza. Perfavore prova a ridurre la quantità o rimuovi il prodotto da questo ordine.</value>
+        <value xml:lang="it">Il prodotto {0} con codice {1} non è più in giacenza. Per favore prova a ridurre la quantità o rimuovi il prodotto da questo ordine.</value>
         <value xml:lang="nl">The product {0} with ID {1} is no longer in stock. Please try reducing the quantity or removing the product from this bestelling.</value>
         <value xml:lang="pt_PT">O produto {0} identificado como {1} já não se encontra em stock. Por favor tente reduzir a quantidade ou removê-lo desta encomenda.</value>
         <value xml:lang="ro">Produsul {0} cu codul {1} nu mai este in stoc. Te rugam sa reduci cantitatea sau sa stergi produsul de la aceasta comanda.</value>
@@ -10383,7 +10386,7 @@
         <value xml:lang="en">Added product ${productId} to cart.</value>
         <value xml:lang="es">Adición del producto ${productId} al carro.</value>
         <value xml:lang="fr">Ajout de l'article ${productId} au panier.</value>
-        <value xml:lang="it">Aggiunto ${productId} prodotto al carrello.</value>
+        <value xml:lang="it">Aggiunto l'articolo ${productId} al carrello.</value>
         <value xml:lang="nl">Added product ${productId} to cart.</value>
         <value xml:lang="ro">Adaugat ${productId} produs in  cos.</value>
         <value xml:lang="ru">Продукт ${productId} добавлен в корзину.</value>
@@ -10409,7 +10412,7 @@
         <value xml:lang="en">Please choose a shopping list.</value>
         <value xml:lang="es">Por favor, elija una lista de compras.</value>
         <value xml:lang="fr">SVP, choisissez une liste d'achats.</value>
-        <value xml:lang="it">Perfavore scegliere una lista di acquisto.</value>
+        <value xml:lang="it">Scegliere una lista di acquisto, prego.</value>
         <value xml:lang="nl">Please choose a shopping list.</value>
         <value xml:lang="ro">Va rugam alegeti o lista de cumparari.</value>
         <value xml:lang="ru">Пожалуйста выберите список покупок.</value>
@@ -10422,7 +10425,7 @@
         <value xml:lang="en">Error adding item to shopping list.</value>
         <value xml:lang="es">Error agregando ítem a la lista de compras.</value>
         <value xml:lang="fr">Erreur lors de l'ajout de l'article à la liste d'achats.</value>
-        <value xml:lang="it">Errore nell'aggiunta di una riga alla lista di acquisto.</value>
+        <value xml:lang="it">Errore nell'aggiunta di un articolo alla lista di acquisto.</value>
         <value xml:lang="nl">Error adding item to shopping list.</value>
         <value xml:lang="ro">Eroare la adaugarea unei linii la lista de cumparari.</value>
         <value xml:lang="ru">Ошибка добавления позиции в список покупок.</value>
@@ -10435,7 +10438,7 @@
         <value xml:lang="en">Error getting shopping list and items.</value>
         <value xml:lang="es">Error en la obtención de la lista de compra y los artículos.</value>
         <value xml:lang="fr">Erreur lors de l'obtention de la liste d'achat et des articles.</value>
-        <value xml:lang="it">Errore leggendo la lista di acquisto e le righe.</value>
+        <value xml:lang="it">Errore leggendo la lista di acquisto e gli articoli.</value>
         <value xml:lang="nl">Error getting shopping list and items.</value>
         <value xml:lang="ro">Eroare la citirea listei de cumparari si liniile.</value>
         <value xml:lang="ru">Ошибка получения списка покупок и позиций.</value>
@@ -10448,7 +10451,7 @@
         <value xml:lang="en">No items were added.</value>
         <value xml:lang="es">Ningún ítem se añadió.</value>
         <value xml:lang="fr">Aucun article n'a été ajouté.</value>
-        <value xml:lang="it">Nessuna riga è stata aggiunta.</value>
+        <value xml:lang="it">Nessun articolo è stato aggiunto.</value>
         <value xml:lang="nl">No items were added.</value>
         <value xml:lang="ro">Nici-o linie nu a fost adaugata.</value>
         <value xml:lang="ru">Позиции не были добавлены.</value>
@@ -10474,7 +10477,7 @@
         <value xml:lang="en">Please select item(s) to add to the shopping list.</value>
         <value xml:lang="es">Por favor, seleccione ítems para agragar a la lista de compras.</value>
         <value xml:lang="fr">Merci de sélectionner l'article(s) à ajouter à la liste d'achats.</value>
-        <value xml:lang="it">Perfavore selezionare la riga(e) da aggiungere alla lista di acquisto.</value>
+        <value xml:lang="it">Per favore selezionare gli articoli da aggiungere alla lista di acquisto.</value>
         <value xml:lang="nl">Please select item(s) to add to the shopping list.</value>
         <value xml:lang="ro">Va rugam selectionati linia(le) de adaugat la lista de cumparari.</value>
         <value xml:lang="ru">Пожалуйста выберите позицию(и) для добавления в корзину покупок.</value>
@@ -10487,7 +10490,7 @@
         <value xml:lang="en">shoppingListId is a required parameter.</value>
         <value xml:lang="es">El código de la lista de compras es un parámetro requerido.</value>
         <value xml:lang="fr">Une réf. de liste d'achat est requise.</value>
-        <value xml:lang="it">shoppingListId è un parametro richiesto.</value>
+        <value xml:lang="it">E' richiesto il riferimento alla lista di acquisto.</value>
         <value xml:lang="nl">shoppingListId is a required parameter.</value>
         <value xml:lang="ro">shoppingListId este un  parametru cerut.</value>
         <value xml:lang="ru">shoppingListId - обязательный параметр.</value>
