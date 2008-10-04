@@ -1712,6 +1712,7 @@
     <property key="CommonDisplaying">
         <value xml:lang="en">Displaying ${lowCount} - ${highCount} of ${total}</value>
         <value xml:lang="fr">Affichage de ${lowCount} à ${highCount} sur ${total}</value>
+        <value xml:lang="it">Visualizzati da ${lowCount} a ${highCount} su ${total}</value>
     </property>
     <property key="CommonDistance">
         <value xml:lang="ar">مسافة</value>
