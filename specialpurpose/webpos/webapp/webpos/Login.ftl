@@ -53,7 +53,7 @@ under the License.
             <td>
               <select name="posTerminalId" id="posTerminalId">
                 <#list posTerminals as posTerminal>
-                  <option value="${posTerminal.posTerminalId}">${posTerminal.posTerminalId}</option>
+                  <option value="${posTerminal.posTerminalId}">${posTerminal.terminalName}</option>
                 </#list>
               </select>
             </td>
