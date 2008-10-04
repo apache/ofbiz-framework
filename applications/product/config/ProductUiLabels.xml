@@ -12155,7 +12155,7 @@
         <value xml:lang="en">No selectable Features found . Please create some and try again.</value>
         <value xml:lang="es">No se encontraron características seleccionables. Por favor cree algunas e intente de nuevo</value>
         <value xml:lang="fr">Caractéristiques sélectionnées non trouvées. SVP, en créer une et recommencer.</value>
-        <value xml:lang="it">Nessuna Caratteristica selezionabile trovata. Perfavore crearne alcuni e provare dinuovo.</value>
+        <value xml:lang="it">Nessuna caratteristica selezionabile trovata. Crearne qualcuna e riprovare.</value>
         <value xml:lang="ro">Nici-o Caracteristica selectionata gasita. Va rugam creati cateva si apoi reincercati.</value>
         <value xml:lang="ru">Выбираемые особенности не найдены. Пожалуйста, создайте их и попробуйте снова.</value>
         <value xml:lang="th">ไม่พบการเลือกลักษณะ กรุณาสร้างและลองอีกครั้ง</value>
@@ -18525,7 +18525,7 @@
         <value xml:lang="en">variantProductId is required but missing, please enter an id for the new variant product.</value>
         <value xml:lang="es">Se requiere el código del producto variante, pero no se especificó, por favor ingrese un código para el nuevo producto variante.</value>
         <value xml:lang="fr">La réf. de variante d'article est indispensable mais manque. S'il vous plaît entrez une réf. pour la nouvelle variante d'article.</value>
-        <value xml:lang="it">variantProductId è richiesto ma mancante, perfavore inserire un Codice per la nuova variante prodotto.</value>
+        <value xml:lang="it">Il codice della variante prodotto è richiesto ma mancante.</value>
         <value xml:lang="ro">variantProductId este cerut dar lipseste, va rugam introduceti un Cod pentru noua Varianta produs.</value>
         <value xml:lang="ru">Отсутствует необходимый variantProductId, пожалуйста введите код для нового варианта продукта.</value>
         <value xml:lang="th">รหัสการเปลี่ยนแปลงสินค้าต้องการแต่ไม่พบ, กรุณากรอกรหัสสำหรับการเปลี่ยนแปลงสินค้าใหม่.</value>
