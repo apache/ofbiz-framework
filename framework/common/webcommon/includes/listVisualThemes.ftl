@@ -50,8 +50,7 @@ margin: 1em;
           <td>
             <#if screenshots?has_content>
               <#list screenshots as screenshot>
-                <#-- We will want to specify length and width attributes for the img element - so they appear as thumbnails. Not sure what size yet. -->
-                <a href="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>"/></a>
+                <a href="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>"><img src="<@ofbizContentUrl>${screenshot.resourceValue}</@ofbizContentUrl>" width="150"/></a>
               </#list>
            <#else>
               ${uiLabelMap.VisualThemeNoScreenshots}

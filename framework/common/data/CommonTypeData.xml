@@ -114,5 +114,6 @@ under the License.
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_HDR_IMAGE_URL" resourceValue="/images/ofbiz_logo.jpg" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_HDR_TMPLT_LOC" resourceValue="component://common/webcommon/includes/header.ftl" sequenceId="01"/>
     <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_FTR_TMPLT_LOC" resourceValue="component://common/webcommon/includes/footer.ftl" sequenceId="01"/>
+    <VisualThemeResource visualThemeId="DEFAULT" resourceTypeEnumId="VT_SCREENSHOT" resourceValue="/images/default-screenshot.gif" sequenceId="01"/>
 
 </entity-engine-xml>
