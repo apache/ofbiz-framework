@@ -1081,4 +1081,69 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteAgreementWorkEffortAppl?agreementId=${agreementId}&amp;agreementItemSeqId=${agreementItemSeqId}&amp;workEffortId=${workEffortId}"/>
         </field>
     </form>
+
+    <form name="ListWorkEffortFixedAssetAssigns" type="list" target="updateWorkEffortFixedAssetAssign"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="WorkEffortFixedAssetAssign" filter-by-date="true">
+                <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
+        </actions>
+        <field name="workEffortId"><hidden/></field>
+        <field name="fixedAssetId" widget-style="buttontext">
+            <display-entity entity-name="FixedAsset" description="${fixedAssetName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="FA_ASGN_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="availabilityStatusId">
+            <drop-down no-current-selected-key="WEFA_IN_USE">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="WEFA_AVAILABILITY"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="allocatedCost"><text/></field>
+        <field name="comments"><text size="60" maxlength="255"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="EditWorkEffortFixedAssetAssign" default-map-name="workEffortFixedAssetAssign" target="updateWorkEffortFixedAssetAssign" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <alt-target target="createWorkEffortFixedAssetAssign" use-when="workEffortFixedAssetAssign==null"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
+        <field name="fromDate"><date-time/></field>
+        <field name="thruDate"><date-time/></field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="FA_ASGN_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="availabilityStatusId">
+            <drop-down no-current-selected-key="WEFA_IN_USE">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="WEFA_AVAILABILITY"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="allocatedCost"><text/></field>
+        <field name="comments"><text size="60" maxlength="255"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
 </forms>

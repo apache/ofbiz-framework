@@ -59,6 +59,9 @@
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
         <value xml:lang="zh">实际开始日期</value>
     </property>
+    <property key="FormFieldTitle_availabilityStatusId">
+        <value xml:lang="en">Availability</value>
+    </property>
     <property key="FormFieldTitle_cancelDateTime">
         <value xml:lang="en">Cancel Date Time</value>
         <value xml:lang="it">Data/Ora Annullamento</value>
@@ -729,6 +732,9 @@
         <value xml:lang="th">เพิ่มผลที่ได้จากการติดต่องาน</value>
         <value xml:lang="zh">添加人工服务沟通事件</value>
     </property>
+    <property key="PageTitleAddWorkEffortFixedAssetAssign">
+        <value xml:lang="en">Add Work Effort Fixed Asset Assignment</value>
+    </property>
     <property key="PageTitleAddWorkEffortKeyword">
         <value xml:lang="en">Add Work Effort Keyword</value>
         <value xml:lang="it">Aggiungi Chiave Impegno di Lavoro</value>
@@ -1043,6 +1049,9 @@
         <value xml:lang="ro">Lista Sarcina de Lucru Evenimente Comunicatii</value>
         <value xml:lang="th">ผลที่ได้จากการติดต่องาน</value>
         <value xml:lang="zh">人工服务沟通事件</value>
+    </property>
+    <property key="PageTitleListWorkEffortFixedAssetAssigns">
+        <value xml:lang="en">Work Effort Fixed Asset Assignments</value>
     </property>
     <property key="PageTitleListWorkEffortKeyword">
         <value xml:lang="en">Work Effort Keywords</value>

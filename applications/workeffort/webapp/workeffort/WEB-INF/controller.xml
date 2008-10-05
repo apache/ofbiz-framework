@@ -123,6 +123,29 @@ under the License.
         <response name="error" type="view" value="ListWorkEfforts"/>
     </request-map>
 
+    <request-map uri="ListWorkEffortFixedAssetAssigns">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/>
+    </request-map>
+    <request-map uri="createWorkEffortFixedAssetAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortFixedAssetAssign"/>
+        <response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/>
+        <response name="error" type="view" value="ListWorkEffortFixedAssetAssigns"/>
+    </request-map>
+    <request-map uri="updateWorkEffortFixedAssetAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortFixedAssetAssign"/>
+        <response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/>
+        <response name="error" type="view" value="ListWorkEffortFixedAssetAssigns"/>
+    </request-map>
+    <request-map uri="deleteWorkEffortFixedAssetAssign">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeWorkEffortFixedAssetAssign"/>
+        <response name="success" type="view" value="ListWorkEffortFixedAssetAssigns"/>
+        <response name="error" type="view" value="ListWorkEffortFixedAssetAssigns"/>
+    </request-map>
+    
     <request-map uri="ListWorkEffortPartyAssigns"><security https="true" auth="true"/><response name="success" type="view" value="ListWorkEffortPartyAssigns"/></request-map>
     <request-map uri="createWorkEffortPartyAssign">
         <security https="true" auth="true"/>
@@ -641,6 +664,7 @@ under the License.
     <view-map name="EditWorkEffortAssoc" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortAssoc"/>
     <view-map name="AddWorkEffortAssoc" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#AddWorkEffortAssoc"/>
 
+    <view-map name="ListWorkEffortFixedAssetAssigns" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortFixedAssetAssigns"/>
     <view-map name="ListWorkEffortPartyAssigns" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortPartyAssigns"/>
     <view-map name="EditWorkEffortAssignmentRates" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortAssignmentRates"/>
     <view-map name="ListWorkEffortCommEvents" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortCommEvents"/>

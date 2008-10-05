@@ -500,6 +500,14 @@ under the License.
         <field name="fixedAssetId">
             <display-entity entity-name="FixedAsset" description="${fixedAssetName} [${fixedAssetId}]" />
         </field>
+        <field name="availabilityStatusId">
+            <drop-down no-current-selected-key="WEFA_IN_USE">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="WEFA_AVAILABLE"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit"
                     use-when="!&quot;${declarationScreen}&quot;.equals(&quot;Y&quot;)">

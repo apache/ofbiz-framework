@@ -46,6 +46,14 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
+        <field name="availabilityStatusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="WEPA_AVAILABILITY"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="expectationEnumId" title="${uiLabelMap.CommonExpectation}">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" entity-name="Enumeration" key-field-name="enumId">
@@ -86,6 +94,14 @@ under the License.
                 <entity-options description="${description}" entity-name="StatusItem">
                     <entity-constraint name="statusTypeId" operator="equals" value="PRTYASGN_STATUS"/>
                     <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="availabilityStatusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" operator="equals" value="WEPA_AVAILABILITY"/>
+                    <entity-order-by field-name="sequenceId"/>
                 </entity-options>
             </drop-down>
         </field>

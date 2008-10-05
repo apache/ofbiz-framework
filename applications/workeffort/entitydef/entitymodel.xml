@@ -532,6 +532,7 @@ under the License.
       <field name="statusId" type="id-ne"></field>
       <field name="fromDate" type="date-time"></field>
       <field name="thruDate" type="date-time"></field>
+      <field name="availabilityStatusId" type="id"><description>Points to StatusItem value with statusTypeId="WEFA_AVAILABILITY"</description></field>
       <field name="allocatedCost" type="currency-amount"></field>
       <field name="comments" type="comment"></field>
       <prim-key field="workEffortId"/>
@@ -545,6 +546,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="WKEFF_FXDAA_STTS" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
+      </relation>
+      <relation type="one" fk-name="WKEFF_FXDAA_AVAIL" title="Availability" rel-entity-name="StatusItem">
+          <key-map field-name="availabilityStatusId" rel-field-name="statusId"/>
       </relation>
     </entity>
     <entity entity-name="WorkEffortFixedAssetStd"
@@ -700,7 +704,7 @@ under the License.
       <field name="facilityId" type="id"></field>
       <field name="comments" type="comment"></field>
       <field name="mustRsvp" type="indicator"></field>
-      <field name="availabilityStatusId" type="id"><description>Point to StatusItem value with statusTypeId="WEPA_AVAILABILITY"</description></field>
+      <field name="availabilityStatusId" type="id"><description>Points to StatusItem value with statusTypeId="WEPA_AVAILABILITY"</description></field>
       <prim-key field="workEffortId"/>
       <prim-key field="partyId"/>
       <prim-key field="roleTypeId"/>

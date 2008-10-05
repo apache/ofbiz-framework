@@ -98,5 +98,8 @@ under the License.
         <menu-item name="WorkEffortAgreementAppls" title="${uiLabelMap.WorkEffortAgreementAppls}">
             <link target="EditAgreementWorkEffortAppls?workEffortId=${workEffortId}"/>
         </menu-item>
+        <menu-item name="WorkEffortFixedAssetAssigns" title="${uiLabelMap.AccountingFixedAssets}">
+            <link target="ListWorkEffortFixedAssetAssigns?workEffortId=${workEffortId}"/>
+        </menu-item>
     </menu>    
 </menus>
