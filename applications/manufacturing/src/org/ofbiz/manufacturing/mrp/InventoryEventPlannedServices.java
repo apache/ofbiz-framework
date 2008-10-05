@@ -54,7 +54,7 @@ public class InventoryEventPlannedServices {
         try {
             createOrUpdateMrpEvent(parameters, quantity, (String)context.get("facilityId"), (String)context.get("eventName"), false, delegator);
         } catch (GenericEntityException e) {
-            Debug.logError(e,"Error : delegator.findByPrimaryKey(\"MrpEvent\", parameters =)"+parameters, module);
+            Debug.logError(e,"Error : findByPrimaryKey(\"MrpEvent\", parameters =)"+parameters, module);
             return ServiceUtil.returnError("Problem, on database access, for more detail look at the log");
         }
         return ServiceUtil.returnSuccess();
