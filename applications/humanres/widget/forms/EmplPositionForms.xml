@@ -216,14 +216,14 @@ under the License.
         <auto-fields-service service-name="createValidResponsibility"/>        
         <field name="emplPositionTypeId">
             <drop-down allow-empty="false">                
-                <entity-options entity-name="emplPositionType" key-field-name="emplPositionTypeId" description=" ${description}">
+                <entity-options entity-name="EmplPositionType" key-field-name="emplPositionTypeId" description=" ${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>                
             </drop-down>
         </field>
         <field name="responsibilityTypeId">
             <drop-down allow-empty="false">                
-                <entity-options entity-name="responsibilityType" key-field-name="responsibilityTypeId" description=" ${description}">
+                <entity-options entity-name="ResponsibilityType" key-field-name="responsibilityTypeId" description=" ${description}">
                     <entity-order-by field-name="description"/>
                 </entity-options>                
             </drop-down>            

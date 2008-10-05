@@ -189,10 +189,6 @@ under the License.
         <response name="success" type="view" value="EditPerformanceNotes"/>
         <response name="error" type="view" value="EditPerformanceNotes"/>
     </request-map>
-    <request-map uri="findPersonTrainings">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListPersonTrainings"/>
-    </request-map>
     <!-- ================Employment Group==================================== -->      
     <request-map uri="FindEmployments">
         <security https="true" auth="true"/>
@@ -215,7 +211,7 @@ under the License.
     <request-map uri="deleteEmployment">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteEmployment"/>
-        <response name="success" type="view" value="ListEmployments"/>
+        <response name="success" type="view" value="FindEmployments"/>
     </request-map>
     <request-map uri="FindEmploymentApps">
         <security https="true" auth="true"/>
@@ -257,7 +253,7 @@ under the License.
     </request-map>
     <request-map uri="findPartyBenefits">
         <security https="true" auth="true"/>
-        <response name="success" type="view" value="ListPartyBenefits"/>
+        <response name="success" type="view" value="EditPartyBenefits"/>
     </request-map>
     <request-map uri="EditPartyBenefits">
         <security https="true" auth="true"/>        
@@ -530,12 +526,12 @@ under the License.
     <request-map uri="createValidResponsibility">
         <security https="true" auth="true"/>
         <event type="service" invoke="createValidResponsibility"/>
-        <response name="success" type="view" value="EditEmplPositionResponsibility"/>
+        <response name="success" type="view" value="EditValidResponsibility"/>
     </request-map>
     <request-map uri="updateValidResponsibility">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateValidResponsibility"/>
-        <response name="success" type="view" value="EditEmplPositionResponsibility"/>
+        <response name="success" type="view" value="EditValidResponsibility"/>
     </request-map>
     <request-map uri="deleteValidResponsibility">
         <security https="true" auth="true"/>
@@ -851,7 +847,6 @@ under the License.
     
     <view-map name="FindEmployments" type="screen" page="component://humanres/widget/EmploymentScreens.xml#FindEmployments"/>
     <view-map name="EditEmployment" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditEmployment"/>
-    <view-map name="ListPartyBenefits" type="screen" page="component://humanres/widget/EmploymentScreens.xml#ListPartyBenefits"/>
     <view-map name="EditPartyBenefits" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPartyBenefits"/>
     <view-map name="EditPayrollPreferences" type="screen" page="component://humanres/widget/EmploymentScreens.xml#EditPayrollPreferences"/>
     <view-map name="ListPayHistories" type="screen" page="component://humanres/widget/EmploymentScreens.xml#ListPayHistories"/>    
