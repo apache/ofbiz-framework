@@ -79,14 +79,14 @@ public class MrpServices {
             listResult = delegator.findList("MrpEvent", null, null, null, null, false);
             //int numOfRecordsRemoved = delegator.removeByCondition("MrpEvent", null);
         } catch(GenericEntityException e) {
-            Debug.logError(e,"Error : delegator.findList(\"MrpEvent\", null, null, null, null, false)", module);
+            Debug.logError(e,"Error : findList(\"MrpEvent\", null, null, null, null, false)", module);
             return ServiceUtil.returnError("Problem, we can not find all the items of MrpEvent, for more detail look at the log");
         }
         if (listResult != null){
             try{
                 delegator.removeAll(listResult);
             } catch(GenericEntityException e) {
-                Debug.logError(e,"Error : delegator.removeAll(listResult), listResult ="+listResult, module);
+                Debug.logError(e,"Error : removeAll(listResult), listResult ="+listResult, module);
                 return ServiceUtil.returnError("Problem, we can not remove the MrpEvent items, for more detail look at the log");
             }
         }
@@ -151,7 +151,7 @@ public class MrpServices {
         try {
             resultList = delegator.findByAnd("OrderHeaderItemAndShipGroup", parameters, UtilMisc.toList("orderId"));
         } catch(GenericEntityException e) {
-            Debug.logError(e, "Error : delegator.findByAnd(\"OrderItem\", parameters\")", module);
+            Debug.logError(e, "Error : findByAnd(\"OrderItem\", parameters\")", module);
             Debug.logError(e, "Error : parameters = "+parameters,module);
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
         }
@@ -323,7 +323,7 @@ public class MrpServices {
         try {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
         } catch(GenericEntityException e) {
-            Debug.logError(e, "Error : delegator.findByAnd(\"OrderItem\", parameters\")", module);
+            Debug.logError(e, "Error : findByAnd(\"OrderItem\", parameters\")", module);
             Debug.logError(e, "Error : parameters = "+parameters,module);
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
         }
@@ -355,7 +355,7 @@ public class MrpServices {
         try {
             resultList = delegator.findByAnd("WorkEffortAndGoods", parameters);
         } catch(GenericEntityException e) {
-            Debug.logError(e, "Error : delegator.findByAnd(\"OrderItem\", parameters\")", module);
+            Debug.logError(e, "Error : findByAnd(\"OrderItem\", parameters\")", module);
             Debug.logError(e, "Error : parameters = "+parameters,module);
             return ServiceUtil.returnError("Problem, we can not find the order items, for more detail look at the log");
         }
@@ -574,7 +574,7 @@ public class MrpServices {
                     try {
                         InventoryEventPlannedServices.createOrUpdateMrpEvent(parameters, new Double(-1.0 * componentEventQuantity), null, product.get("productId") + ": " + eventDate, false, delegator);
                     } catch (GenericEntityException e) {
-                        Debug.logError("Error : delegator.findByPrimaryKey(\"MrpEvent\", parameters) ="+parameters+"--"+e.getMessage(), module);
+                        Debug.logError("Error : findByPrimaryKey(\"MrpEvent\", parameters) ="+parameters+"--"+e.getMessage(), module);
                         logMrpError(mrpId, node.getProduct().getString("productId"), "Unable to create event (processBomComponent)", delegator);
                     }
                 }
