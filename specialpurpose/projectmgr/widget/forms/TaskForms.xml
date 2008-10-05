@@ -280,8 +280,7 @@
         <field name="fromDate"><hidden/></field>
         <field name="updateButton"><submit/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED" description="${uiLabelMap.CommonRemove}"/></field>
-        <!-- better set the task to complete in the timesheet, not here -->
-        <!--field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field-->
+        <field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED" description="${uiLabelMap.CommonStatustoComplete}"/></field>
     </form>
     <form name="assignTaskToMe" type="single" target="addTaskAssignment"
         header-row-style="header-row" default-table-style="basic-table">
