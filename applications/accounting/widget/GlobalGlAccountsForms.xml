@@ -171,7 +171,7 @@ under the License.
     <form name="ListGlReconciliations" type="list" list-name="glReconciliations" default-entity-name="GlReconciliation"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="glReconciliationId">
-            <hyperlink also-hidden="false" description="${glReconciliationId}" target="viewGlReconciliation?glReconciliationId=${glReconciliationId}&amp;amp;organizationPartyId=${organizationPartyId}&amp;amp;glAccountId=${glAccountId}"/>
+            <hyperlink also-hidden="false" description="${glReconciliationId}" target="EditGlReconciliation?glReconciliationId=${glReconciliationId}&amp;amp;organizationPartyId=${organizationPartyId}&amp;amp;glAccountId=${glAccountId}"/>
         </field>
         <field name="glReconciliationName"><display/></field>
         <field name="description"><display/></field>

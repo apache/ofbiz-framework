@@ -8750,16 +8750,6 @@
         <value xml:lang="it">Lista Transazioni Conto Finanziario</value>
         <value xml:lang="th">List Fin Account Trans</value>
     </property>
-    <property key="PageTitleListFixedAssetCalendar">
-        <value xml:lang="en">List Fixed Asset Calendar</value>
-        <value xml:lang="es">Lista Calendario de Activo Fijo</value>
-        <value xml:lang="fr">Liste des calendriers d'immobilisations</value>
-        <value xml:lang="it">Lista Calendario Cespite</value>
-        <value xml:lang="ro">Lista Calendar Mijloc Fix</value>
-        <value xml:lang="ru">Список календаря ОС</value>
-        <value xml:lang="th">รายการปฏิทินทรัพย์สินไม่หมุนเวียน</value>
-        <value xml:lang="zh">固定资产日历列表</value>
-    </property>
     <property key="PageTitleListFixedAssetChildren">
         <value xml:lang="en">Fixed Asset Children</value>
         <value xml:lang="es">Activo Fijo Hijo</value>

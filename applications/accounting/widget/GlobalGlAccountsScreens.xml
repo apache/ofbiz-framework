@@ -417,7 +417,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonAccountDecorator">
                     <decorator-section name="body">
-                        <include-form name="EditGlobalAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                        <include-form name="EditGlAccount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
