@@ -4005,7 +4005,7 @@
     <property key="PageTitleCatalogManagerMainPage">
         <value xml:lang="en">Catalog Manager Main Page</value>
         <value xml:lang="es">Página principal del Administrador de Catálogo</value>
-        <value xml:lang="fr">Page principale de gestion des articles</value>
+        <value xml:lang="fr">Page d'accueil de la gestion des articles</value>
         <value xml:lang="it">Pagina Principale Gestione Cataloghi</value>
         <value xml:lang="ro">Pagina Principala Gestiune Cataloage</value>
         <value xml:lang="ru">Главная страница менеджера каталога</value>
@@ -5289,7 +5289,7 @@
     <property key="PageTitleMain">
         <value xml:lang="en">Main Page</value>
         <value xml:lang="es">Página Principal</value>
-        <value xml:lang="fr">Page principale</value>
+        <value xml:lang="fr">Page d'accueil</value>
         <value xml:lang="it">Pagina Principale</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="ru">Главная страница</value>
@@ -11132,7 +11132,7 @@
     <property key="ProductMain">
         <value xml:lang="en">Main</value>
         <value xml:lang="es">Principal</value>
-        <value xml:lang="fr">Page principale</value>
+        <value xml:lang="fr">Page d'accueil</value>
         <value xml:lang="it">Pagina Principale</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="ru">Главная</value>

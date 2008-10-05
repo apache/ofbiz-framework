@@ -1173,7 +1173,7 @@
     <property key="PageTitleMain">
         <value xml:lang="en">Main Page</value>
         <value xml:lang="es">Página principal</value>
-        <value xml:lang="fr">Page principale</value>
+        <value xml:lang="fr">Page d'accueil</value>
         <value xml:lang="it">Pagina Principale</value>
         <value xml:lang="nl">Home</value>
         <value xml:lang="ro">Pagina Principala</value>
@@ -3771,7 +3771,7 @@
     <property key="WorkEffortWorkEffortManagerMainPage">
         <value xml:lang="en">Work Effort Manager Main Page</value>
         <value xml:lang="es">Página principal de adminstración de tareas</value>
-        <value xml:lang="fr">Page principale de gestion des tâches</value>
+        <value xml:lang="fr">Page d'accueile de la gestion des tâches</value>
         <value xml:lang="it">Pagina Principale Gestione Impegni di Lavoro</value>
         <value xml:lang="nl">WorkEffort Manager Main Page</value>
         <value xml:lang="ro">Pagina Principala Gestiune Sarcini de Lucru </value>

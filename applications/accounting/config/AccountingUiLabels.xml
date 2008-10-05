@@ -535,7 +535,7 @@
     </property>
     <property key="AccountingAp">
         <value xml:lang="en">Account Payable</value>
-        <value xml:lang="fr">Compte à payer</value>
+        <value xml:lang="fr">Comptes clients</value>
     </property>
     <property key="AccountingApCompanyName">
         <value xml:lang="en">OFBiz: AP Manager</value>
@@ -555,7 +555,7 @@
     </property>
     <property key="AccountingApManagerApplication">
         <value xml:lang="en">Account Payable Manager Application</value>
-        <value xml:lang="fr">Application de compte à payer de directeur</value>
+        <value xml:lang="fr">Application de gestion des comptes clients</value>
     </property>
     <property key="AccountingApplicationSuccess">
         <value xml:lang="en">Applying ${amountApplied?currency(${isoCode})} from payment [${paymentId}] to ${toMessage}</value>
@@ -3627,7 +3627,7 @@
         <value xml:lang="ar">الرئيسية</value>
         <value xml:lang="en">Main</value>
         <value xml:lang="es">Principal</value>
-        <value xml:lang="fr">Menu principal</value>
+        <value xml:lang="fr">Page d'accueil</value>
         <value xml:lang="it">Pagina Principale</value>
         <value xml:lang="nl">Begin</value>
         <value xml:lang="ro">Pagina Principala</value>
@@ -3639,7 +3639,7 @@
         <value xml:lang="ar">الصفحة الرئيسية لمسير المحاسبة</value>
         <value xml:lang="en">Accounting Manager Main Page</value>
         <value xml:lang="es">Página principal del Administrador Contable</value>
-        <value xml:lang="fr">Page principale Gestion comptable</value>
+        <value xml:lang="fr">Page d'accueil de la comptabilité</value>
         <value xml:lang="it">Pagina Principale Gestione Contabilità</value>
         <value xml:lang="nl">Boekhouding begin pagina</value>
         <value xml:lang="pt_BR">Página de Entrada do Gestor de Contas</value>
@@ -8929,7 +8929,7 @@
     <property key="PageTitleMain">
         <value xml:lang="en">Main Page</value>
         <value xml:lang="es">Página principal</value>
-        <value xml:lang="fr">Page principale</value>
+        <value xml:lang="fr">Page d'accueil</value>
         <value xml:lang="it">Pagina Principale</value>
         <value xml:lang="nl">Hoofdpagina</value>
         <value xml:lang="pt_BR">Página de Entrada</value>

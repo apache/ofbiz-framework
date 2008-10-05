@@ -415,7 +415,7 @@
     <property key="MarketingMainPage">
         <value xml:lang="en">Main</value>
         <value xml:lang="es">Principal</value>
-        <value xml:lang="fr">Principale</value>
+        <value xml:lang="fr">Page d'accueil</value>
         <value xml:lang="it">Pagina Principale</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลัก</value>
