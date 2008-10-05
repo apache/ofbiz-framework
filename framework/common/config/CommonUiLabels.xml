@@ -803,6 +803,23 @@
         <value xml:lang="zh_CN">让利</value>
         <value xml:lang="zh">回报</value>
     </property>
+    <property key="CommonBeLogged">
+        <value xml:lang="ar">دخول</value>
+        <value xml:lang="cs">Přihlásit</value>
+        <value xml:lang="de">Anmelden</value>
+        <value xml:lang="en">Login</value>
+        <value xml:lang="es">Login</value>
+        <value xml:lang="fr">vous connecter</value>
+        <value xml:lang="it">Login</value>
+        <value xml:lang="nl">Login</value>
+        <value xml:lang="pt">Login</value>
+        <value xml:lang="pt_PT">Iniciar</value>
+        <value xml:lang="ro">Login</value>
+        <value xml:lang="ru">Вход</value>
+        <value xml:lang="th">เข้าสู่ระบบ</value>
+        <value xml:lang="zh_CN">登录</value>
+        <value xml:lang="zh">登录</value>
+    </property>
     <property key="CommonBut">
         <value xml:lang="ar">إلا</value>
         <value xml:lang="de">aber</value>
