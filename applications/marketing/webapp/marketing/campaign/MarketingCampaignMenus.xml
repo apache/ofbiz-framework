@@ -25,7 +25,7 @@ under the License.
             <link target="/EditMarketingCampaign?marketingCampaignId=${marketingCampaignId}"/>
         </menu-item>
         <menu-item name="MarketingCampaignRole" title="${uiLabelMap.PartyRoles}">
-            <link target="/FindMarketingCampaignRoles?marketingCampaignId=${marketingCampaignId}"/>
+            <link target="/ListMarketingCampaignRoles?marketingCampaignId=${marketingCampaignId}"/>
         </menu-item>
     </menu>
 </menus>
