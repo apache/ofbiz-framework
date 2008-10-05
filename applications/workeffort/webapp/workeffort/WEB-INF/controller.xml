@@ -621,7 +621,6 @@ under the License.
 
     <view-map name="RequestList" type="screen" page="component://workeffort/widget/RequestScreens.xml#RequestList"/>
     
-    <view-map name="activity" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#activity"/>
     <view-map name="mytasks" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#mytasks"/>
 
     <view-map name="UserJobs" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#UserJobs"/>
@@ -636,7 +635,6 @@ under the License.
     <view-map name="FindWorkEffort" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#FindWorkEffort"/>
     <view-map name="EditWorkEffort" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffort"/>
     <view-map name="ListWorkEfforts" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEfforts"/>
-    <view-map name="ListChildWorkEfforts" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListChildWorkEfforts"/>
     <view-map name="ChildWorkEfforts" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ChildWorkEfforts"/>
     <view-map name="AddWorkEffortAndAssoc" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#AddWorkEffortAndAssoc"/>
     <view-map name="EditWorkEffortAndAssoc" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortAndAssoc"/>
