@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -393,7 +393,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="createSurveyResponse"/>
         <response name="success" type="request" value="additem"/>
-        <response name="error" type="view" value="orderentry"/>
+        <response name="error" type="request" value="orderentry"/>
     </request-map>
     <request-map uri="addRequirementsToCart">
         <security https="true" auth="true"/>
@@ -464,8 +464,8 @@ under the License.
     <request-map uri="addItemToShoppingList">
         <security auth="true" https="true"/>
         <event type="service" path="" invoke="createShoppingListItem"/>
-        <response name="success" type="view" value="editShoppingList"/>
-        <response name="error" type="view" value="editShoppingList"/>
+        <response name="success" type="view" value="viewshoppinglists"/>
+        <response name="error" type="view" value="viewshoppinglists"/>
     </request-map>
     <request-map uri="loadCartFromShoppingList">
         <security https="true" auth="true"/>
@@ -1091,7 +1091,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="java" path="org.ofbiz.order.shoppingcart.ShoppingCartEvents" invoke="quickCheckoutOrderWithDefaultOptions"/>
         <response name="success" type="request" value="calcTax"/>
-        <response name="error" type="view" value="orderentry"/>
+        <response name="error" type="request" value="orderentry"/>
     </request-map>
 
     <request-map uri="RequirementsForSupplier">
@@ -1393,7 +1393,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="createOrderHeader"/>
         <response name="success" type="view" value="EditOrderHeader"/>
-        <response name="error" type="view" value="AddOrderHeader"/>
+        <response name="error" type="view" value="EditOrderHeader"/>
     </request-map>
     <request-map uri="updateOrderHeader">
         <security https="true" auth="true"/>
@@ -1542,8 +1542,6 @@ under the License.
     <view-map name="ordercomplete" type="screen" page="component://order/widget/ordermgr/OrderViewScreens.xml#OrderHeaderView"/>
     <view-map name="orderTerm" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#OrderTerms"/>
     <view-map name="setAdditionalParty" type="screen" page="component://order/widget/ordermgr/OrderEntryOrderScreens.xml#SetAdditionalParty"/>
-
-    <view-map name="createPartyForOrder" type="screen" page="component://order/widget/ordermgr/OrderEntryScreens.xml#CreatePartyForOrder"/>
 
     <view-map name="showAllPromotions" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#showAllPromotions"/>
     <view-map name="showPromotionDetails" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#showPromotionDetails"/>
