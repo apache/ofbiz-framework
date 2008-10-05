@@ -45,6 +45,7 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
     
+    <!--  TODO
     <service name="cloneSurvey" auth="true" engine="simple"
             location="org/ofbiz/content/survey/SurveyServices.xml" invoke="cloneSurvey">
         <description>Clone a Survey; NOTE: not yet implemented</description>
@@ -52,6 +53,7 @@ under the License.
         <attribute name="surveyId" type="String" mode="IN"/>
         <attribute name="newSurveyId" type="String" mode="OUT"/>
     </service>
+    -->
 
     <!-- SurveyMultiResp Services -->
     <service name="createSurveyMultiResp" default-entity-name="SurveyMultiResp" auth="true" engine="simple"

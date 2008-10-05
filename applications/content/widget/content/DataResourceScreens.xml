@@ -244,7 +244,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!--screen name="AddDataResource">
+    <screen name="AddDataResource">
         <section>
             <actions>
                 <set field="headerItem" value="DataResource"/>
@@ -258,7 +258,7 @@ under the License.
                 </decorator-screen>
             </widgets>
         </section>
-    </screen-->
+    </screen>
     <screen name="AddDataResourceText">
         <section>
             <actions>

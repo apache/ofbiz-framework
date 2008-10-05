@@ -241,9 +241,11 @@
         <attribute mode="IN" name="dataResourceTypeId" optional="true" type="String"/>
         <attribute mode="IN" name="objectInfo" optional="true" type="String"/>
     </service>
+    <!-- TO BE REMOVED
     <service name="removeFile" engine="simple"
             location="org/ofbiz/content/data/DataServices.xml" invoke="removeFile" auth="true">
         <description>Remove File</description>
         <attribute mode="IN" name="rootDir" optional="true" type="String"/>
     </service>    
+    -->
 </services>
