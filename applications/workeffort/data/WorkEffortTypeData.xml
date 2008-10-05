@@ -119,6 +119,17 @@ under the License.
     <StatusItem description="Busy" sequenceId="02" statusCode="BUSY" statusId="WEPA_AV_BUSY" statusTypeId="WEPA_AVAILABILITY"/>
     <StatusItem description="Away" sequenceId="03" statusCode="AWAY" statusId="WEPA_AV_AWAY" statusTypeId="WEPA_AVAILABILITY"/>
     
+    <!-- Status items for WorkEffortFixedAssetAssign.statusId -->
+    <StatusType description="Fixed Asset Assignment Status" hasTable="N" statusTypeId="FA_ASGN_STATUS"/>
+    <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="FA_ASGN_REQUESTED" statusTypeId="FA_ASGN_STATUS"/>
+    <StatusItem description="Assigned" sequenceId="02" statusCode="ASSIGNED" statusId="FA_ASGN_ASSIGNED" statusTypeId="FA_ASGN_STATUS"/>
+    <StatusItem description="Request Declined" sequenceId="03" statusCode="DECLINED" statusId="FA_ASGN_DECLINED" statusTypeId="FA_ASGN_STATUS"/>
+    
+    <!-- Status items for WorkEffortFixedAssetAssign.availabilityStatusId -->
+    <StatusType description="Work Effort Fixed Asset Availability" hasTable="N" statusTypeId="WEFA_AVAILABILITY"/>
+    <StatusItem description="Available" sequenceId="01" statusCode="AVAILABLE" statusId="WEFA_AVAILABLE" statusTypeId="WEFA_AVAILABILITY"/>
+    <StatusItem description="In Use" sequenceId="02" statusCode="BUSY" statusId="WEFA_IN_USE" statusTypeId="WEFA_AVAILABILITY"/>
+    
     <WorkEffortAssocType description="Breakdown/Detail" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_BREAKDOWN"/>
     <WorkEffortAssocType description="Dependency" hasTable="N" parentTypeId="" workEffortAssocTypeId="WORK_EFF_DEPENDENCY"/>
     <WorkEffortAssocType description="Concurrency" hasTable="N" parentTypeId="WORK_EFF_DEPENDENCY" workEffortAssocTypeId="WORK_EFF_CONCURRENCY"/>

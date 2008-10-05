@@ -452,6 +452,28 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ListWorkEffortFixedAssetAssigns">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortFixedAssetAssigns"/>
+                <set field="labelTitleProperty" from-field="titleProperty"/>
+                <set field="tabButtonItem" value="WorkEffortFixedAssetAssigns"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddWorkEffortFixedAssetAssign" title="${uiLabelMap.PageTitleAddWorkEffortFixedAssetAssign}" collapsible="true">
+                            <include-form name="EditWorkEffortFixedAssetAssign" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListWorkEffortFixedAssetAssigns" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
     <screen name="EditWorkEffortAssignmentRates">
         <section>
             <actions>
