@@ -101,10 +101,6 @@ under the License.
         <security https="true" auth="true" external-view="false"/>
         <response type="view" name="success" value="CloneLead"/>
     </request-map>
-    <request-map uri="viewLead">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="viewLead"/>
-    </request-map>
     <request-map uri="MergeLeads">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="MergeLeads"/>

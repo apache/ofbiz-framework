@@ -154,7 +154,7 @@ under the License.
                 <set field="campaignTabButtonItem" value="MarketingCampaignRole"/>
                 <set field="labelTitleProperty" value="PageTitleEditMarketingCampaignRole"/>
 
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="FindMarketingCampaignRoles"/>
+                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="ListMarketingCampaignRoles"/>
                 <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
                 <set field="partyId" from-field="parameters.partyId"/>
                 <set field="roleTypeId" from-field="parameters.roleTypeId"/>
@@ -218,37 +218,4 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="FindMarketingCampaignRoles">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleFindMarketingCampaignRole"/>
-                <set field="tabButtonItem" value="MarketingCampaignRole"/>
-                <set field="labelTitleProperty" value="PageTitleFindMarketingCampaignRole"/>
-
-                <set field="marketingCampaignId" from-field="parameters.marketingCampaignId"/>
-                <set field="donePage" from-field="parameters.DONE_PAGE" default-value="EditMarketingCampaign?marketingCampaignId=${marketingCampaignId}"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonMarketingCampaignDecorator">
-                    <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.PageTitleFindMarketingCampaignRole}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>
-                                        <container><link  text="${uiLabelMap.MarketingCampaignRoleCreate}" target="/EditMarketingCampaignRole?marketingCampaignId=${marketingCampaignId}&amp;DONE_PAGE=${donePage}" style="buttontext"/></container>
-                                        <include-form name="FindMarketingCampaignRoles" location="component://marketing/webapp/marketing/campaign/MarketingCampaignForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>    
 </screens>

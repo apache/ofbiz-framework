@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -152,7 +152,10 @@ under the License.
         <response name="error" type="view" value="FindMarketingCampaign"/>
     </request-map>
     
-    <request-map uri="EditMarketingCampaignRoles"><security https="true" auth="true"/><response name="success" type="view" value="EditMarketingCampaignRoles"/></request-map>
+    <request-map uri="EditMarketingCampaignRoles">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditMarketingCampaignRoles"/>
+    </request-map>
     <request-map uri="addRoleToMarketingCampaign"><security https="true" auth="true"/>
         <event type="service" path="" invoke="addRoleToMarketingCampaign"/>
         <response name="success" type="view" value="EditMarketingCampaignRoles"/>
@@ -163,8 +166,10 @@ under the License.
         <response name="success" type="view" value="EditMarketingCampaignRoles"/>
         <response name="error" type="view" value="EditMarketingCampaignRoles"/>
     </request-map>
-    <request-map uri="FindMarketingCampaignRoles"><security https="true" auth="true"/><response name="success" type="view" value="FindMarketingCampaignRoles"/></request-map>
-    <request-map uri="ListMarketingCampaignRoles"><security https="true" auth="true"/><response name="success" type="view" value="ListMarketingCampaignRoles"/></request-map>
+    <request-map uri="ListMarketingCampaignRoles">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListMarketingCampaignRoles"/>
+    </request-map>
     <request-map uri="createMarketingCampaignRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="createMarketingCampaignRole"/>
@@ -180,8 +185,8 @@ under the License.
     <request-map uri="removeMarketingCampaignRole">
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteMarketingCampaignRole"/>
-        <response name="success" type="view" value="FindMarketingCampaignRoles"/>
-        <response name="error" type="view" value="FindMarketingCampaignRoles"/>
+        <response name="success" type="view" value="ListMarketingCampaignRoles"/>
+        <response name="error" type="view" value="ListMarketingCampaignRoles"/>
     </request-map>
     
     <!--  SegmentGroup requests -->
@@ -202,8 +207,8 @@ under the License.
    <request-map uri="deleteSegmentGroup">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="deleteSegmentGroup"/>
-        <response name="success" type="view" value="listSegmentGroup"/>
-        <response name="error" type="view" value="listSegmentGroup"/>
+        <response name="success" type="view" value="FindSegmentGroup"/>
+        <response name="error" type="view" value="FindSegmentGroup"/>
     </request-map>
     
     <!--  SegmentGroupClassification requests -->
@@ -335,7 +340,7 @@ under the License.
         <security https="true" auth="true"/>
         <event type="service" invoke="deleteCommunicationEvent"/>
         <response name="success" type="view" value="ListContactListCommEvents"/>
-        <response name="error" type="view" value="ListContactListEvents"/>
+        <response name="error" type="view" value="ListContactListCommEvents"/>
     </request-map>
     
     <!-- Lookup request mappings -->
@@ -344,7 +349,6 @@ under the License.
     <request-map uri="LookupGeo"><security https="true" auth="true"/><response name="success" type="view" value="LookupGeo"/></request-map>
     
     <request-map uri="LookupPartyName"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyName"/></request-map>
-    <request-map uri="LookupRoleType"><security https="true" auth="true"/><response name="success" type="view" value="LookupRoleType"/></request-map>
     <request-map uri="LookupPartyClassificationGroup"><security https="true" auth="true"/><response name="success" type="view" value="LookupPartyClassificationGroup"/></request-map>
     <request-map uri="LookupContactMech"><security https="true" auth="true"/><response name="success" type="view" value="LookupContactMech"/></request-map>
     
@@ -382,7 +386,7 @@ under the License.
 
     <view-map name="FindMarketingCampaign"  type="screen" page="component://marketing/widget/MarketingCampaignScreens.xml#ListMarketingCampaign"/>
     <view-map name="EditMarketingCampaign" type="screen" page="component://marketing/widget/MarketingCampaignScreens.xml#EditMarketingCampaign"/>
-    <view-map name="FindMarketingCampaignRoles"  type="screen" page="component://marketing/widget/MarketingCampaignScreens.xml#ListMarketingCampaignRoles"/>
+    <view-map name="ListMarketingCampaignRoles"  type="screen" page="component://marketing/widget/MarketingCampaignScreens.xml#ListMarketingCampaignRoles"/>
     <view-map name="EditMarketingCampaignRoles" type="screen" page="component://marketing/widget/MarketingCampaignScreens.xml#EditMarketingCampaignRoles"/>
 
     <view-map name="FindSegmentGroup" type="screen" page="component://marketing/widget/SegmentScreens.xml#FindSegmentGroup"/>
