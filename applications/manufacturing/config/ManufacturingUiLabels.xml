@@ -1681,7 +1681,7 @@
         <value xml:lang="de">Produktionsverwaltung: Startseite</value>
         <value xml:lang="en">Manufacturing Manager Main Page</value>
         <value xml:lang="es">Página principal de Producción</value>
-        <value xml:lang="fr">Page principale</value>
+        <value xml:lang="fr">Page d'accueil de la gestion de fabrication</value>
         <value xml:lang="it">Pagina Principale Gestione della Produzione</value>
         <value xml:lang="ro">Pagina Principala Gestiune Productie</value>
         <value xml:lang="th">หน้าหลักของการจัดการการผลิต</value>
@@ -3259,7 +3259,7 @@
         <value xml:lang="de">Startseite</value>
         <value xml:lang="en">Main Page</value>
         <value xml:lang="es">Página principal</value>
-        <value xml:lang="fr">Page principale</value>
+        <value xml:lang="fr">Page d'accueil</value>
         <value xml:lang="it">Pagina Principale</value>
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลัก</value>
