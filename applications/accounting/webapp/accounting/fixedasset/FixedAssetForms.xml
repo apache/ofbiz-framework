@@ -144,7 +144,7 @@ under the License.
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 
-    <!-- list availability/occupation period on a fixed asset -->
+    <!-- TO BE REMOVED 
     <form name="listFixedAssetCalendar" type="list" list-name="weeks" target="updateFixedAssetProductCalendar" default-table-style="calendar-table">
         <field name="productId"><hidden value="${parameters.productId}"/></field>
         <field name="week" title="${uiLabelMap.Common${month}} ${year}" widget-area-style="calendarWeek"><display description="${uiLabelMap.CommonWeek} ${week}"/></field>
@@ -163,7 +163,7 @@ under the License.
         <field name="Sunday" title="${uiLabelMap.CommonEmptyHeader}"><display/></field>
         <field name="SundayData" title="${uiLabelMap.CommonSunday}" widget-style="calendarContent"><display/></field>
     </form>
-    <!-- update the availability on a date basis of a fixed asset -->
+    
     <form name="updateFixedAssetCalendar" type="single"  target="updateFixedAssetCalendar" title="Update the fixed Asset calendar" default-map-name="fixedAssetCalendar"
         header-row-style="header-row" default-table-style="basic-table">        
         <auto-fields-service service-name="updateFixedAssetCalendar" map-name="parameters"/>
@@ -171,6 +171,7 @@ under the License.
         <field name="fixedAssetId"><hidden/></field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    -->
 
     <form name="WorkEffortSummary" type="single" default-map-name="workEffort"
         header-row-style="header-row" default-table-style="basic-table">
