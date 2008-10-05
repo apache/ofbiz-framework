@@ -785,8 +785,11 @@ under the License.
     </request-map>
 
     <request-map uri="ListPartyCommEvents"><security https="true" auth="true"/><response name="success" type="view" value="ListPartyCommEvents"/></request-map>
+    
+    <!-- TODO
     <request-map uri="ListCommCustRequests"><security https="true" auth="true"/><response name="success" type="view" value="ListCommCustRequests"/></request-map>
-
+    -->
+    
     <request-map uri="showclassgroups"><security https="true" auth="true"/><response name="success" type="view" value="FindPartyClassificationGroups"/></request-map>
     <request-map uri="EditPartyClassifications"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyClassifications"/></request-map>
     <request-map uri="EditPartyClassificationGroupParties"><security https="true" auth="true"/><response name="success" type="view" value="EditPartyClassificationGroupParties"/></request-map>
@@ -1128,7 +1131,11 @@ under the License.
     <view-map name="ViewCommunicationEvent" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ViewCommunicationEvent"/>
     <view-map name="UpdateCommPurposes" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#UpdateCommPurposes"/>
     <view-map name="UpdateCommRoles" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#UpdateCommRoles"/>
+    
+    <!-- TODO
     <view-map name="ListCommCustRequests" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListCommCustRequests"/>
+    -->
+    
     <view-map name="ListCommWorkEfforts" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#ListCommWorkEfforts"/>
     <view-map name="AddCommEventWorkEffort" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#AddCommEventWorkEffort"/>
     <view-map name="EditCommEventWorkEffort" type="screen" page="component://party/widget/partymgr/CommunicationScreens.xml#EditCommEventWorkEffort"/>
