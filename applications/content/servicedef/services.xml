@@ -1064,6 +1064,7 @@
         <attribute name="blogContentId" type="String" mode="IN" optional="false"/>
         <attribute name="summaryData" type="String" mode="IN" optional="true"/>
     </service>
+    <!-- TO BE REMOVED
     <service name="updateBlogEntry" engine="simple" transaction-timeout="300" auth="true"
             location="org/ofbiz/content/blog/BlogServices.xml" invoke="updateBlogEntry">
         <description>Creates content records for a blog entry</description>
@@ -1072,6 +1073,7 @@
         <attribute name="blogContentId" type="String" mode="IN" optional="false"/>
         <attribute name="summaryData" type="String" mode="IN" optional="true"/>
     </service>
+    -->
 
     <service name="persistBlogAll" engine="java" location="org.ofbiz.content.blog.BlogServices" invoke="persistBlogAll"
          auth="true"  transaction-timeout="72000">

@@ -1251,6 +1251,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <!-- TO BE REMOVED
     <screen name="ListContentRevisionItemApproval">
         <section>
             <condition>
@@ -1281,6 +1282,7 @@ under the License.
             </widgets>
         </section>
     </screen>
+    -->
     <screen name="EditCompDocContentRole">
         <section>
             <condition>

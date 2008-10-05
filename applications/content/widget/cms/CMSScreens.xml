@@ -121,7 +121,7 @@ under the License.
                             <container style="screenlet-body">
                                 <section>
                                     <widgets>    
-                                        <include-form name="AddContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
+                                        <include-form name="EditContent" location="component://content/webapp/content/cms/CMSForms.xml"/>
                                     </widgets>
                                 </section>
                             </container>
