@@ -57,12 +57,14 @@ under the License.
         <attribute name="timeEntryId" type="String" mode="IN" optional="true"/>        
     </service>
 
+    <!-- TO BE REMOVED
     <service name="updateTaskStatus" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="updateTaskStatus">
         <description>Update task status if required</description>
         <permission-service service-name="projectMgrPermission" main-action="UPDATE"/>
         <attribute name="workEffortId" type="String" mode="IN"/>
     </service>
+    -->
     
     <service name="updateTimeEntryByWorkeffort" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="updateTimeEntryByWorkeffort">

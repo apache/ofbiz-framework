@@ -434,8 +434,8 @@ under the License.
                             <container style="screenlet-header">
                                 <label style="boxhead">${uiLabelMap.HumanResEditPartySkill}</label>
                             </container>
-                            <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>
-                            <include-form name="EditPartySkill" location="component://humanres/widget/forms/PartyAbilityForms.xml"/>    
+                            <include-form name="ListPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>
+                            <include-form name="AddPartySkills" location="component://humanres/widget/forms/PartySkillForms.xml"/>    
                         </container>                        
                     </decorator-section>
                 </decorator-screen>
