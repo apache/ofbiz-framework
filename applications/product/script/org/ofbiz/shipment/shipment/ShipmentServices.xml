@@ -30,7 +30,12 @@ under the License.
         <make-value value-name="newEntity" entity-name="Shipment"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
-        <sequenced-id-to-env sequence-name="Shipment" env-name="newEntity.shipmentId"/>
+        <if-not-empty field="parameters.shipmentId">
+            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <else>        
+            <sequenced-id-to-env sequence-name="Shipment" env-name="newEntity.shipmentId"/>
+        </else>
+        </if-not-empty>
         <field-to-result field-name="newEntity.shipmentId" result-name="shipmentId"/>
 
         <!-- set the created and lastModified info -->
