@@ -131,6 +131,7 @@ under the License.
         <description>Create PicklistItem</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="false"/>
+        <override name="itemStatusId" optional="true"/>
     </service>
     <service name="updatePicklistItem" default-entity-name="PicklistItem" engine="simple"
             location="org/ofbiz/shipment/picklist/PicklistServices.xml" invoke="updatePicklistItem" auth="true">

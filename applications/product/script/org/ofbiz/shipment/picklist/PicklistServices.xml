@@ -701,6 +701,10 @@ under the License.
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
+        <if-empty field="newEntity.itemStatusId">
+            <set value="PICKITEM_PENDING" field="newEntity.itemStatusId"/>
+        </if-empty>
+
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePicklistItem" short-description="Update PicklistItem">
