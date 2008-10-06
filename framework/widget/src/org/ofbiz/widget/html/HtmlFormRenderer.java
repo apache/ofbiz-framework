@@ -2416,6 +2416,85 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         appendWhitespace(writer);
     }
 
+    public void renderSortField(Appendable writer, Map<String, Object> context, ModelFormField modelFormField, String titleText) throws IOException {
+        boolean ajaxEnabled = false;
+        ModelForm modelForm = modelFormField.getModelForm();
+        List<ModelForm.UpdateArea> updateAreas = modelForm.getOnPaginateUpdateAreas();
+        String targetService = modelForm.getPaginateTarget(context);
+        if (this.javaScriptEnabled) {
+            if (UtilValidate.isNotEmpty(updateAreas)) {
+                ajaxEnabled = true;
+            }
+        }
+        if (targetService == null) {
+            targetService = "${targetService}";
+        }
+        if (UtilValidate.isEmpty(targetService) && updateAreas == null) {
+            Debug.logWarning("Cannot sort because TargetService is empty for the form: " + modelForm.getName(), module);
+            return; 
+        }
+
+        String str = (String) context.get("_QBESTRING_");
+        String oldSortField = modelForm.getSortField(context);
+        String sortFieldStyle = modelFormField.getSortFieldStyle();
+        
+        // if the entry-name is defined use this instead of field name
+        String coulumnField = modelFormField.getEntryName();
+        if (UtilValidate.isEmpty(coulumnField)) {
+            coulumnField = modelFormField.getFieldName();
+        }
+
+        // switch beetween asc/desc order
+        String newSortField = coulumnField;
+        if (UtilValidate.isNotEmpty(oldSortField)) {
+            if (oldSortField.equals(coulumnField)) {
+                newSortField = "-" + coulumnField;
+                sortFieldStyle = modelFormField.getSortFieldStyleDesc();
+            } else if (oldSortField.equals("-" + coulumnField)) {
+                newSortField = coulumnField;
+                sortFieldStyle = modelFormField.getSortFieldStyleAsc();
+            }
+        }
+
+        //  strip sortField param from the query string
+        HashSet<String> paramName = new HashSet<String>();
+        paramName.add("sortField");
+        String queryString = UtilHttp.stripNamedParamsFromQueryString(str, paramName);        
+        String urlPath = UtilHttp.removeQueryStringFromTarget(targetService);
+        String prepLinkText = UtilHttp.getQueryStringFromTarget(targetService);
+        if (prepLinkText == null) {
+            prepLinkText = "";
+        }
+        if (prepLinkText.indexOf("?") < 0) {
+            prepLinkText += "?";
+        } else if (!prepLinkText.endsWith("?")) {
+            prepLinkText += "&amp;";
+        }
+        if (!UtilValidate.isEmpty(queryString) && !queryString.equals("null")) {
+            prepLinkText += queryString + "&amp;";
+        }
+        prepLinkText += "sortField" + "=" + newSortField;
+        if (ajaxEnabled) {        
+            prepLinkText = prepLinkText.replace("?", "");
+            prepLinkText = prepLinkText.replace("&amp;", "&");
+        }
+
+        writer.append("<a");
+        if (UtilValidate.isNotEmpty(sortFieldStyle)) {
+            writer.append(" class=\"");
+            writer.append(sortFieldStyle);            
+            writer.append("\"");
+        }
+
+        writer.append(" href=\"");        
+        if (ajaxEnabled) {
+            writer.append("javascript:ajaxUpdateAreas('" + createAjaxParamsFromUpdateAreas(updateAreas, prepLinkText, context) + "')");
+        } else {
+            writer.append(rh.makeLink(this.request, this.response, urlPath + prepLinkText));
+        }
+        writer.append("\">" + titleText + "</a>");
+    }    
+    
     /* (non-Javadoc)
      * @see org.ofbiz.widget.form.FormStringRenderer#renderFileField(java.io.Writer, java.util.Map, org.ofbiz.widget.form.ModelFormField.FileField)
      */
@@ -2679,6 +2758,8 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             	targetType="plain";
             }
             makeHyperlinkString(writer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), titleText, null, null, null);
+        } else if (modelFormField.isSortField()) {
+            renderSortField (writer, context, modelFormField, titleText);        
         } else if (modelFormField.isRowSubmit()) {
             if (UtilValidate.isNotEmpty(titleText)) writer.append(titleText + "<br/>");
             writer.append("<input type=\"checkbox\" name=\"selectAll\" value=\"Y\" onclick=\"javascript:toggleAll(this, '");

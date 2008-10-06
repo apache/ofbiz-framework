@@ -49,15 +49,16 @@ under the License.
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
                 <field-map field-name="inputFields" env-name="exampleCtx"/>
                 <field-map field-name="entityName" value="Example"/>
+                <field-map field-name="orderBy" env-name="parameters.sortField"/>
             </service>
         </actions>
         <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${exampleId}" target="EditExample?exampleId=${exampleId}"/>
         </field>
-        <field name="exampleName" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="exampleName" title="${uiLabelMap.CommonName}" sort-field="true"><display/></field>
         <field name="exampleTypeId" title="${uiLabelMap.CommonType}"><display-entity entity-name="ExampleType"/></field>
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem"/></field>
-        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" sort-field="true"><display/></field>
     </form>
 
     <!-- Typically, this extended form wouldn't be necessary. The parent form (ListExamples) would
