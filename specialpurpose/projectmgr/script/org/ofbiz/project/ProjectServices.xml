@@ -259,8 +259,7 @@
             <iterate entry-name="timeEntry" list-name="timeEntries">
                 <if-compare-field field="timeEntry.workEffortId" to-field="parameters.workEffortId" operator="equals">
                     <if-compare-field field="timeEntry.rateTypeId" to-field="parameters.rateTypeId" operator="equals">
-                        <!-- check if the entry does not contain any hours, then delete -->
-                        <if-empty field="timeEntry.hours">
+                        <if-not-empty field="timeEntry.hours">
                             <remove-value value-name="timeEntry"/> 
                             <else>
                                 <!-- translate the date into the daynumber -->
@@ -278,7 +277,7 @@
                                 <call-simple-method method-name="updateTimeEntry"/>                        
                                 <set field="parameters.hoursDay${dayNumber}" value="-999999"/>
                             </else>
-                        </if-empty>
+                        </if-not-empty>
                     </if-compare-field>
                 </if-compare-field>
             </iterate>
