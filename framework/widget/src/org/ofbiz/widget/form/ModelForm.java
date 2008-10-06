@@ -115,6 +115,9 @@ public class ModelForm extends ModelWidget {
     protected boolean useRowSubmit = false;
     protected FlexibleStringExpander targetWindowExdr;
     protected String defaultRequiredFieldStyle;
+    protected String defaultSortFieldStyle;    
+    protected String defaultSortFieldAscStyle;
+    protected String defaultSortFieldDescStyle;    
     protected String oddRowStyle;
     protected String evenRowStyle;
     protected String defaultTableStyle;
@@ -175,6 +178,11 @@ public class ModelForm extends ModelWidget {
     public static String DEFAULT_PAG_PREV_STYLE = "nav-previous";
     public static String DEFAULT_PAG_NEXT_STYLE = "nav-next";
     public static String DEFAULT_PAG_LAST_STYLE = "nav-last";
+    
+    /** Sort field default styles. */
+    public static String DEFAULT_SORT_FIELD_STYLE = "sort-order";
+    public static String DEFAULT_SORT_FIELD_ASC_STYLE = "sort-order-asc";
+    public static String DEFAULT_SORT_FIELD_DESC_STYLE = "sort-order-desc";
     
     protected List<ModelFormAction> actions;
     protected List<ModelFormAction> rowActions;
@@ -387,6 +395,15 @@ public class ModelForm extends ModelWidget {
         if (this.defaultRequiredFieldStyle == null || formElement.hasAttribute("default-required-field-style")) {
             this.defaultRequiredFieldStyle = formElement.getAttribute("default-required-field-style");
         }
+        if (this.defaultSortFieldStyle == null || formElement.hasAttribute("default-sort-field-style")) {
+            this.defaultSortFieldStyle = formElement.getAttribute("default-sort-field-style");
+        }        
+        if (this.defaultSortFieldAscStyle == null || formElement.hasAttribute("default-sort-field-asc-style")) {
+            this.defaultSortFieldAscStyle = formElement.getAttribute("default-sort-field-asc-style");
+        }
+        if (this.defaultSortFieldDescStyle == null || formElement.hasAttribute("default-sort-field-desc-style")) {
+            this.defaultSortFieldDescStyle = formElement.getAttribute("default-sort-field-desc-style");
+        }        
 
         // pagination settings
         if (this.paginateTarget == null || formElement.hasAttribute("paginate-target")) {
@@ -1794,6 +1811,18 @@ public class ModelForm extends ModelWidget {
     public String getDefaultRequiredFieldStyle() {
         return this.defaultRequiredFieldStyle;
     }
+    
+    public String getDefaultSortFieldStyle() {
+        return (UtilValidate.isEmpty(this.defaultSortFieldStyle) ? DEFAULT_SORT_FIELD_STYLE : this.defaultSortFieldStyle);
+    }
+    
+    public String getDefaultSortFieldAscStyle() {
+        return (UtilValidate.isEmpty(this.defaultSortFieldAscStyle) ? DEFAULT_SORT_FIELD_ASC_STYLE : this.defaultSortFieldAscStyle);
+    }
+    
+    public String getDefaultSortFieldDescStyle() {
+        return (UtilValidate.isEmpty(this.defaultSortFieldDescStyle) ? DEFAULT_SORT_FIELD_DESC_STYLE : this.defaultSortFieldDescStyle);
+    }    
 
 
     /**
@@ -2588,6 +2617,25 @@ public class ModelForm extends ModelWidget {
         }
         return inbetweenList;
     }
+    
+    public String getSortField(Map<String, Object> context) {
+        String field = "sortField";
+        String value = null;
+
+        try {
+            value = (String)context.get(field);
+            if (value == null) {
+                Map parameters = (Map) context.get("parameters");
+                if (parameters != null) {
+                    value = (String)parameters.get(field);
+                }
+            }
+        } catch (Exception e) {
+            Debug.logWarning(e, "Error getting sortField: " + e.toString(), module);
+        }
+        
+        return value;
+    }    
     
     /* Returns the list of ModelForm.UpdateArea objects.
      */

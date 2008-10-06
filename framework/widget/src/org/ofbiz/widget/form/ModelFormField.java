@@ -92,6 +92,9 @@ public class ModelFormField {
     protected String widgetStyle;
     protected String tooltipStyle;
     protected String requiredFieldStyle;
+    protected String sortFieldStyle;
+    protected String sortFieldAscStyle;
+    protected String sortFieldDescStyle;
     protected Integer position = null;
     protected String redWhen;
     protected String event;
@@ -102,6 +105,7 @@ public class ModelFormField {
     protected String idName;
     protected boolean separateColumn = false;
     protected Boolean requiredField = null;
+    protected Boolean sortField = null;
     protected String headerLink;
     protected String headerLinkStyle;
 
@@ -135,6 +139,9 @@ public class ModelFormField {
         this.widgetStyle = fieldElement.getAttribute("widget-style");
         this.tooltipStyle = fieldElement.getAttribute("tooltip-style");
         this.requiredFieldStyle = fieldElement.getAttribute("required-field-style");
+        this.sortFieldStyle = fieldElement.getAttribute("sort-field-style");        
+        this.sortFieldAscStyle = fieldElement.getAttribute("sort-field-asc-style");
+        this.sortFieldDescStyle = fieldElement.getAttribute("sort-field-desc-style");        
         this.redWhen = fieldElement.getAttribute("red-when");
         this.event = fieldElement.getAttribute("event");
         this.setAction(fieldElement.hasAttribute("action")? fieldElement.getAttribute("action"): null);
@@ -144,6 +151,7 @@ public class ModelFormField {
         if (sepColumns != null && sepColumns.equalsIgnoreCase("true"))
             separateColumn = true;
         this.requiredField = fieldElement.hasAttribute("required-field") ? "true".equals(fieldElement.getAttribute("required-field")) : null;
+        this.sortField = fieldElement.hasAttribute("sort-field") ? "true".equals(fieldElement.getAttribute("sort-field")) : null;
         this.headerLink = fieldElement.getAttribute("header-link");
         this.headerLinkStyle = fieldElement.getAttribute("header-link-style");
 
@@ -271,7 +279,8 @@ public class ModelFormField {
             this.tooltip = overrideFormField.tooltip;
         if (overrideFormField.requiredField != null)
             this.requiredField = overrideFormField.requiredField;
-
+        if (overrideFormField.sortField != null)
+            this.sortField = overrideFormField.sortField;
         if (UtilValidate.isNotEmpty(overrideFormField.titleAreaStyle))
             this.titleAreaStyle = overrideFormField.titleAreaStyle;
         if (UtilValidate.isNotEmpty(overrideFormField.widgetAreaStyle))
@@ -1070,6 +1079,27 @@ public class ModelFormField {
             return this.modelForm.getDefaultRequiredFieldStyle();
         }
     }
+        
+    public String getSortFieldStyle() {
+        if (UtilValidate.isNotEmpty(this.sortFieldStyle)) {
+            return this.sortFieldStyle;
+        } 
+        return this.modelForm.getDefaultSortFieldStyle();
+    }
+    
+    public String getSortFieldStyleAsc() {
+        if (UtilValidate.isNotEmpty(this.sortFieldAscStyle)) {
+            return this.sortFieldAscStyle;
+        } 
+        return this.modelForm.getDefaultSortFieldAscStyle();
+    }
+    
+    public String getSortFieldStyleDesc() {
+        if (UtilValidate.isNotEmpty(this.sortFieldDescStyle)) {
+            return this.sortFieldDescStyle;
+        } 
+        return this.modelForm.getDefaultSortFieldDescStyle();
+    }
 
     /**
      * @return
@@ -1376,6 +1406,20 @@ public class ModelFormField {
     public void setRequiredField(boolean required) {
         this.requiredField = required;
     }
+    
+    /**
+     * @return
+     */
+    public boolean isSortField() {
+        return this.sortField != null ? this.sortField.booleanValue() : false;
+    }
+    
+    /**
+     * @param boolean
+     */
+    public void setSortField(boolean sort) {
+        this.sortField = Boolean.valueOf(sort);
+    }    
     
     /**
      * @param ModelForm
