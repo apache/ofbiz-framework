@@ -366,7 +366,7 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
-    <form name="ListRelatedLayouts" default-entity-name="ContentDataResourceViewTo" list-name="entityList" target="" title="" type="list" paginate-target="FindLayout"
+    <form name="ListRelatedLayouts" default-entity-name="ContentDataResourceView" list-name="entityList" target="" title="" type="list" paginate-target="FindLayout"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="contentId" title="Edit" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${contentId}" target="EditLayout?contentId=${contentId}&amp;drDataResourceId=${drDataResourceId}"/>

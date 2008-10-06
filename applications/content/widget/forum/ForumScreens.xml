@@ -264,7 +264,7 @@ under the License.
                                     <container style="screenlet-body">
                                         <section>
                                             <widgets>    
-                                                <include-form name="EditForumThread" location="component://content/widget/forum/ForumForms.xml"/>
+                                                <include-form name="EditForumThreadMessage" location="component://content/widget/forum/ForumForms.xml"/>
                                             </widgets>
                                         </section>
                                     </container>

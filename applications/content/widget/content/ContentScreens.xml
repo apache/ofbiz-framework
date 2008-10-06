@@ -101,25 +101,6 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <!--screen name="AddContent">
-        <section>
-            <actions>
-                <set field="headerItem" value="Content"/>
-                <set field="title" value="CMS Content Edit Page"/>
-                <set field="titleProperty" value="PageTitleAddContent"/>
-                <set field="currentContentMenuItemName" value="AddContent" to-scope="user"/>
-                <set field="tabButtonItem" value="content"/>
-                <set field="titleProperty" value="PageTitleAddContent"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="commonContentDecorator"  location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <include-form name="AddContent" location="component://content/widget/content/ContentForms.xml"/>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen-->
     <screen name="EditContentAssoc">
         <section>
             <actions>
