@@ -258,10 +258,14 @@
         <response name="success" type="view" value="EditProjectTasks"/>
         <response name="error" type="view" value="EditProjectTasks"/>
     </request-map>    
+    
+    <!-- TO BE REMOVED
     <request-map uri="EditTaskAndAssoc">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskAndAssoc"/>
     </request-map>
+    -->
+    
     <request-map uri="createTaskAndAssoc">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/workeffort/workeffort/WorkflowSimpleEvents.xml" invoke="createWorkEffortAndAssoc"/>
@@ -282,6 +286,8 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="MyTasks"/>
     </request-map>
+    
+    <!-- TO BE REMOVED
     <request-map uri="EditTaskList">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskList"/>
@@ -299,6 +305,8 @@
         <response name="success" type="view" value="Dependencies"/>
         <response name="error" type="view" value="Dependencies"/>
     </request-map>
+    -->
+    
     <request-map uri="EditTaskListAndAssoc">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskListAndAssoc"/>
@@ -315,10 +323,14 @@
         <response name="success" type="view" value="Dependencies"/>
         <response name="error" type="view" value="Dependencies"/>
     </request-map>
+    
+    <!-- TO DO
     <request-map uri="ChildTaskWorkEfforts">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ChildTaskWorkEfforts"/>
     </request-map>
+    -->
+    
     <request-map uri="FindPhase">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="FindPhase"/>
@@ -810,14 +822,27 @@
     <view-map name="MyTasks" type="screen" page="component://projectmgr/widget/TaskScreens.xml#MyTasks"/>
     <view-map name="FindTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#FindTask"/>
     <view-map name="EditTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTask"/>
+    
     <view-map name="AddProjectTask" type="screen" page="component://projectmgr/widget/TaskScreens.xml#AddProjectTask"/>
+    
+    <!-- TO DO
     <view-map name="AddTaskAndAssoc" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#AddTaskAndAssoc"/>
     <view-map name="EditTaskAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskAndAssoc"/>
+    -->
+     
     <view-map name="Dependencies" type="screen" page="component://projectmgr/widget/TaskScreens.xml#Dependencies"/>
+    
+    <!-- TO DO
     <view-map name="EditTaskList" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskList"/>
+    -->
+     
     <view-map name="EditTaskPartyAssigns" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskPartyAssigns"/>
     <view-map name="EditTaskListAndAssoc" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskListAndAssoc"/>
+    
+    <!-- TO DO
     <view-map name="ChildTaskWorkEfforts" type="screen" page="component://projectmgr/widget/TaskScreens.xml#ChildTaskWorkEfforts"/>
+    -->
+    
     <view-map name="ListWorkEffortPartyAssigns" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectParties"/> 
     <view-map name="FindPhase" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#FindPhase"/>
     <view-map name="EditProjectSkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectSkills"/>
@@ -832,7 +857,6 @@
     <view-map name="EditTimesheetRoles" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#EditTimesheetRoles"/>
     <view-map name="MyTimesheet" type="screen" page="component://projectmgr/widget/TimeSheetScreens.xml#MyTimesheet"/>
     <view-map name="EditSkillTypes" type="screen" page="component://humanres/widget/GlobalHRSettingScreens.xml#EditSkillTypes"/>
-    <view-map name="EditPartySkills" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartySkills"/>
     <view-map name="EditWorkEffortNotes" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectNotes"/>
     <view-map name="EditTaskNotes" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskNotes"/>
     <view-map name="taskView" type="screen" page="component://projectmgr/widget/TaskScreens.xml#TaskView"/>

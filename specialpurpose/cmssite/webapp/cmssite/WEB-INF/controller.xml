@@ -54,5 +54,6 @@ under the License.
     <!-- End of Request Mappings -->
 
     <!-- View Mappings -->
+    <view-map name="main" type="default"/>
     <!-- End of View Mappings -->
 </site-conf>
