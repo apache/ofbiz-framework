@@ -133,6 +133,7 @@ under the License.
             location="org/ofbiz/shipment/shipment/ShipmentServices.xml" invoke="createShipment" auth="true">
         <description>Create Shipment</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true">
             <exclude field-name="createdDate"/>
             <exclude field-name="createdByUserLogin"/>
