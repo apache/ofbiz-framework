@@ -952,23 +952,17 @@ under the License.
     </request-map>
     <request-map uri="createWebSitePaymentSetting">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWebSitePaymentSetting"/>
         <response name="success" type="view" value="paysetup"/>
-        <response name="error" type="view" value="paysetup"/>
     </request-map>
     <request-map uri="updateWebSitePaymentSetting">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateWebSitePaymentSetting"/>
         <response name="success" type="view" value="paysetup"/>
-        <response name="error" type="view" value="paysetup"/>
     </request-map>
     <request-map uri="removeWebSitePaymentSetting">
         <security https="true" auth="true"/>
-        <event type="service" invoke="removeWebSitePaymentSetting"/>
         <response name="success" type="view" value="paysetup"/>
-        <response name="error" type="view" value="paysetup"/>
     </request-map>
-
+    
     <request-map uri="OrderPurchaseReportOptions"><security https="true" auth="true"/>
         <response name="success" type="view" value="OrderPurchaseReportOptions"/>
     </request-map>
@@ -1403,7 +1397,9 @@ under the License.
     </request-map>
     <request-map uri="deleteOrderHeader">
         <security https="true" auth="true"/>
+        <!-- TO DO
         <event type="service" invoke="deleteOrderHeader"/>
+        -->
         <response name="success" type="view" value="ListOrderHeaders"/>
         <response name="error" type="view" value="ListOrderHeaders"/>
     </request-map>

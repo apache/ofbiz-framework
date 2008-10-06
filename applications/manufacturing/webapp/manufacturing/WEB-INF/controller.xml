@@ -227,7 +227,7 @@ under the License.
     </request-map>
     <request-map uri="RemoveRoutingTask">
         <security https="true" auth="true"/>
-        <event type="service" invoke="removeWorkEffort"/>
+        <event type="service" invoke="deleteWorkEffort"/>
         <response name="success" type="view" value="FindRoutingTask"/>
         <response name="error" type="view" value="FindRoutingTask"/>
     </request-map>

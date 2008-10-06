@@ -394,7 +394,9 @@ under the License.
     </request-map>
     <request-map uri="updateTimesheetRole">
         <security https="true" auth="true"/>
+        <!-- TO DO
         <event type="service" invoke="updateTimesheetRole"/>
+        -->
         <response name="success" type="view" value="EditTimesheetRoles"/>
         <response name="error" type="view" value="EditTimesheetRoles"/>
     </request-map>
