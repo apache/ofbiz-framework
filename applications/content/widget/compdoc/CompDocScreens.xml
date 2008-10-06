@@ -1301,8 +1301,8 @@ under the License.
             <widgets>
                 <decorator-screen name="commonCompDocDecorator" location="component://content/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ListContentRole" location="component://content/webapp/content/content/ContentForms.xml"/>
-                        <include-form name="AddContentRole" location="component://content/webapp/content/content/ContentForms.xml"/>
+                        <include-form name="ListContentRole" location="component://content/widget/content/ContentForms.xml"/>
+                        <include-form name="AddContentRole" location="component://content/widget/content/ContentForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
