@@ -407,7 +407,7 @@ under the License.
         <if-not-empty field="paymentApplication.billingAccountId">
             <field-to-result field-name="paymentApplication.billingAccountId" result-name="billingAccountId"/>
             <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToBillingAccount" field-name="toMessage"/>
-            <entity-one entity-name="BillingAccount">
+            <entity-one entity-name="BillingAccount" value-name="billingAccount">
                 <field-map field-name="billingAccountId" env-name="paymentApplication.billingAccountId"/>
             </entity-one>
             <set field="currencyUomId" from-field="billingAccount.accountCurrencyUomId"/>

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -133,8 +133,10 @@ under the License.
     <request-map uri="main"><security https="false" auth="false"/><response name="success" type="view" value="main"/></request-map>
     <request-map uri="policies"><security https="false" auth="false"/><response name="success" type="view" value="policies"/></request-map>
     
+    <!-- TO BE REMOVED
     <request-map uri="passwordemail"><security https="false" auth="false"/><response name="success" type="view" value="passwordemail"/></request-map>
-
+    -->
+    
     <request-map uri="setSessionLocale">
         <security https="false" auth="false"/>
         <event type="java" path="org.ofbiz.common.CommonEvents" invoke="setSessionLocale"/>
@@ -772,10 +774,13 @@ under the License.
         <response name="error" type="view" value="main"/>
     </request-map>
 
+    <!-- TO BE REMOVED
     <request-map uri="catalog">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="catalog"/>
     </request-map>
+    -->
+    
     <request-map uri="quickadd">
         <security https="false" auth="false"/>
         <response name="success" type="view" value="quickadd"/>
@@ -1369,7 +1374,7 @@ under the License.
     </request-map>
 
 
-    <!-- old forum -->
+    <!-- TO BE REMOVED
     <request-map uri="defaultcontent">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="defaultcontent"/>
@@ -1443,16 +1448,21 @@ under the License.
         <security https="true" auth="false"/>
         <response name="success" type="view" value="viewcontent"/>
     </request-map>
+    -->
+    
+    <!-- TO BE REMOVED
     <request-map uri="mostrecent">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="mostrecent"/>
     </request-map>
-   <request-map uri="publishResponse">
+    <request-map uri="publishResponse">
         <security https="true" auth="true"/>
         <event type="service-multi" invoke="updateContent"/>
         <response name="success" type="view" value="mostrecent"/>
         <response name="error" type="view" value="mostrecent"/>
     </request-map>
+    -->
+    
     <request-map uri="searchContent">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="searchContent"/>
@@ -1845,19 +1855,20 @@ under the License.
     <!-- new -->
     <view-map name="Showforum" type="screen" page="component://ecommerce/widget/ForumScreens.xml#Showforum"/>
     <view-map name="AddForumThread" page="component://ecommerce/widget/ForumScreens.xml#AddForumThread" type="screen"/>
-    <!-- old -->    
+    <view-map name="ViewForumMessage" type="screen" page="component://ecommerce/widget/ForumScreens.xml#ViewForumMessage"/>
+    
+    <!-- TO BE REMOVED    
     <view-map name="showforumarticle" type="screen" page="component://ecommerce/widget/ForumScreens.xml#showforumarticle"/>
     <view-map name="createforumarticle" type="screen" page="component://ecommerce/widget/ForumScreens.xml#createforumarticle"/>
     <view-map name="editforumarticle" type="screen" page="component://ecommerce/widget/ForumScreens.xml#editforumarticle"/>
-    <view-map name="ViewForumMessage" type="screen" page="component://ecommerce/widget/ForumScreens.xml#ViewForumMessage"/>
-
     <view-map name="showforumresponse" type="screen" page="component://ecommerce/widget/ForumScreens.xml#showforumresponse"/>
     <view-map name="createforumresponse" type="screen" page="component://ecommerce/widget/ForumScreens.xml#createforumresponse"/>
     <view-map name="editforuminfo" type="screen" page="component://ecommerce/widget/ForumScreens.xml#editforuminfo"/>
     <view-map name="editaddforumdata" type="screen" page="component://ecommerce/widget/ForumScreens.xml#editaddforumdata"/>
     <view-map name="editaddimage" type="screen" page="component://ecommerce/widget/ForumScreens.xml#editaddimage"/>
-    <!-- Is this used? DEJ20050113 <view-map name="mostrecent" type="screen" page="component://ecommerce/widget/ForumScreens.xml#mostrecent"/> -->
-
+    <view-map name="mostrecent" type="screen" page="component://ecommerce/widget/ForumScreens.xml#mostrecent"/>
+    -->
+    
     <!-- Quote Views -->
     <view-map name="ListQuotes" type="screen" page="component://ecommerce/widget/QuoteScreens.xml#ListQuotes"/>
     <view-map name="ViewQuote" type="screen" page="component://ecommerce/widget/QuoteScreens.xml#ViewQuote"/>
@@ -1871,9 +1882,10 @@ under the License.
     <view-map name="NewArticle" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#NewArticle"/>
     <view-map name="EditArticle" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditArticle"/>
     <view-map name="ViewResponse" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#ViewResponse"/>
-    <view-map name="RespondBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#RespondBlog"/>
-    <view-map name="EditBlogText" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogText"/>
-    <view-map name="EditBlogImage" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogImage"/>
+    <view-map name="RespondBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#AddBlogResponse"/>
+    <view-map name="EditBlogText" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
+    <view-map name="EditBlogImage" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
+    <view-map name="EditBlog" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#EditBlogResponse"/>
     <view-map name="LatestResponses" type="screen" page="component://ecommerce/widget/blog/BlogScreens.xml#LatestResponses"/>
 
     <view-map name="ViewSimpleContent" page="" type="simplecontent"/>

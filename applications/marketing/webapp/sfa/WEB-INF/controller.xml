@@ -107,7 +107,9 @@ under the License.
     </request-map>
     <request-map uri="mergeLeads">
         <security https="true" auth="true"/>
+        <!-- TO DO
         <event type="service" invoke="mergeLeads"/>
+        -->
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="MergeLeads"/>
     </request-map>

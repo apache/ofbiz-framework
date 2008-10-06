@@ -279,7 +279,7 @@ under the License.
             <widgets>
                 <decorator-screen name="SimpleDecorator" location="component://common/widget/CommonScreens.xml">
                     <decorator-section name="body">
-                        <include-form name="ApprovedProductRequirementsByVendorList" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
+                        <include-form name="ApprovedProductRequirementsByVendor" location="component://order/webapp/ordermgr/requirement/RequirementForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

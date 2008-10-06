@@ -164,6 +164,8 @@
             </widgets>
         </section>
     </screen>
+    
+    <!-- TO BE REMOVED
     <screen name="LookupAgreement">
         <section>
             <actions>
@@ -182,6 +184,8 @@
             </widgets>
         </section>
     </screen>
+    -->
+    
     <screen name="LookupAgreementEmploymentAppl">
         <section>
             <actions>
