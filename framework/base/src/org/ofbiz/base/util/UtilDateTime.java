@@ -751,16 +751,16 @@ public class UtilDateTime {
      * Returns a Calendar object initialized to the specified date/time, time zone,
      * and locale.
      *
-     * @param stamp date/time to use
+     * @param date date/time to use
      * @param timeZone
      * @param locale
      * @return Calendar object
      * @see java.util.Calendar
      */
-    public static Calendar toCalendar(Timestamp stamp, TimeZone timeZone, Locale locale) {
+    public static Calendar toCalendar(Date date, TimeZone timeZone, Locale locale) {
         Calendar cal = Calendar.getInstance(timeZone, locale);
-        if (stamp != null) {
-            cal.setTimeInMillis(stamp.getTime());
+        if (date != null) {
+            cal.setTime(date);
         }
         return cal;
     }
