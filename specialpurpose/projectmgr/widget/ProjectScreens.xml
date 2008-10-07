@@ -96,6 +96,7 @@ under the License.
                 <set field="tabButtonItem" value="billing"/>                
                 <set field="labelTitleProperty" value="PageTitleProjectBilling"/>
                 <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ProjectBilling.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonProjectDecorator" location="${parameters.mainDecoratorLocation}">

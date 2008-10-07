@@ -233,6 +233,7 @@ under the License.
         <attribute name="projectId" type="String" mode="IN" optional="false"/>
         <attribute name="partyIdFrom" type="String" mode="IN" optional="true"/>
         <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="thruDate" type="Timestamp" mode="IN" optional="true"/>
         <attribute name="invoiceId" type="String" mode="INOUT" optional="true"/>
         <attribute name="reCreate" type="String" mode="IN" optional="true"/>
     </service>
