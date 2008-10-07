@@ -70,6 +70,23 @@ public class ObjectType {
      * @throws ClassNotFoundException
      */
     public static Class<?> loadClass(String className, ClassLoader loader) throws ClassNotFoundException {
+        // Handle array classes. Details in http://java.sun.com/j2se/1.5.0/docs/guide/jni/spec/types.html#wp16437
+        if (className.endsWith("[]")) {
+            if (Character.isLowerCase(className.charAt(0)) && className.indexOf(".") < 0) {
+               String prefix = className.substring(0, 1).toUpperCase();
+               // long and boolean have other prefix than first letter
+               if (className.startsWith("long")) {
+                   prefix = "J";
+               } else if (className.startsWith("boolean")) {
+                   prefix = "Z";
+               }
+               className = "[" + prefix;
+            } else {
+                Class arrayClass = loadClass(className.replace("[]", ""), loader);
+                className = "[L" + arrayClass.getName().replace("[]", "") + ";";
+            }
+        }
+        
         // small block to speed things up by putting using preloaded classes for common objects, this turns out to help quite a bit...
         Class<?> theClass = CachedClassLoader.globalClassNameClassMap.get(className);
 
