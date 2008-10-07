@@ -1000,7 +1000,7 @@
                 <set-service-fields service-name="addWorkEffortTimeToNewInvoice" map-name="parameters" to-map-name="addTaskToNewInvoice"/>
                 <set field="addTaskToNewInvoice.workEffortId" from-field="task.workEffortId"/>
                 <set field="addTaskToNewInvoice.combineInvoiceItem" value="Y"/>
-                <set field="addTaskToNewInvoice.thrudate" from-field="parameters.thruDate"/>
+                <set field="addTaskToNewInvoice.thruDate" from-field="parameters.thruDate"/>
 	            <call-service service-name="addWorkEffortTimeToNewInvoice" in-map-name="addTaskToNewInvoice">
     	            <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
                 </call-service>
