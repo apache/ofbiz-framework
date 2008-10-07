@@ -561,7 +561,7 @@ public class Start implements Runnable {
             String adminPortStr = getProp(props, "ofbiz.admin.port", "0");
 
             // set the admin key
-            String adminKey = getProp(props, "ofbiz.admin.key", "NA");
+            adminKey = getProp(props, "ofbiz.admin.key", "NA");
 
             // create the host InetAddress
             adminAddress = InetAddress.getByName(serverHost);
