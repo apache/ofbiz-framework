@@ -968,7 +968,6 @@
     </simple-method>
 
     <simple-method method-name="addProjectTimeToNewInvoice" short-description="add all reported time on all completed timesheets from all workefforts for a project">
-
 		<!-- recreate the invoice if still in preparation in order to correct errors. -->
         <if-compare operator="equals" value="Y" field="parameters.reCreate">
 	        <entity-one entity-name="Invoice" value-name="invoice"/>
@@ -977,7 +976,7 @@
             	<check-errors/>
         	</if-empty>
             <if-compare field="invoice.statusId" operator="not-equals" value="INVOICE_IN_PROCESS"> 
-        	    <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
+        	    <add-error><fail-message message="Invoice with ID [${parameters.invoiceId}], has the wrong status, not adding Timesheet Entries to it."/></add-error>
             	<check-errors/>
 			</if-compare>
 			<entity-and list-name="entries" entity-name="TimeEntry">
@@ -992,7 +991,6 @@
         	<remove-by-and entity-name="InvoiceItem" map-name="removeItems"/>
         	<set field="notFirst" value="Y"/><!-- do not create, only add -->
         </if-compare>
-        <log level="always" message="==============invoice items deleted"/>
         <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
             <field-map field-name="projectId" env-name="parameters.projectId"/>
         </entity-and>
@@ -1002,6 +1000,7 @@
                 <set-service-fields service-name="addWorkEffortTimeToNewInvoice" map-name="parameters" to-map-name="addTaskToNewInvoice"/>
                 <set field="addTaskToNewInvoice.workEffortId" from-field="task.workEffortId"/>
                 <set field="addTaskToNewInvoice.combineInvoiceItem" value="Y"/>
+                <set field="addTaskToNewInvoice.thrudate" from-field="parameters.thruDate"/>
 	            <call-service service-name="addWorkEffortTimeToNewInvoice" in-map-name="addTaskToNewInvoice">
     	            <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
                 </call-service>
@@ -1013,7 +1012,6 @@
 	                <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>
                     <set field="addTaskToInvoice.invoiceId" from-field="parameters.invoiceId"/>
                     <set field="addTaskToInvoice.workEffortId" from-field="task.workEffortId"/>
-        <log level="always" message="==============add workeffort iwth data ${addTaskToInvoice}"/>
                     <call-service service-name="addWorkEffortTimeToInvoice" in-map-name="addTaskToInvoice"/>
                 </else>
             </if-empty>
