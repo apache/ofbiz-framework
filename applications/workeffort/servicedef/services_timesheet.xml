@@ -98,6 +98,7 @@ under the License.
         <attribute name="partyId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="OUT" optional="false"/>
         <attribute name="combineInvoiceItem" mode="IN" type="String" optional="true"/>
+        <attribute name="thruDate" mode="IN" type="Timestamp" optional="true"/>
     </service>
     
     <!-- TimesheetRole Services -->
