@@ -83,6 +83,10 @@ if ("Y".equalsIgnoreCase(other)) {
     } 
 }
 
+if (!conversionRate) {
+    conversionRate = 1;
+}
+
 if (invoice) {
     invoiceItems = invoice.getRelatedOrderBy("InvoiceItem", ["invoiceItemSeqId"]);
     invoiceItemsConv = FastList.newInstance();
