@@ -1364,6 +1364,10 @@
         <value xml:lang="th">ผู้จัดการ</value>
         <value xml:lang="zh">经理</value>
     </property>
+    <property key="RoleType.description.MANUFACTURER">
+        <value xml:lang="en">Manufacturer</value>
+        <value xml:lang="fr">Fabricant</value>
+    </property>
     <property key="RoleType.description.ORDER_CLERK">
         <value xml:lang="de">Einkäufer</value>
         <value xml:lang="en">Order Clerk</value>
