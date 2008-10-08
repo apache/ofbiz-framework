@@ -155,6 +155,47 @@ under the License.
     </relation>
   </view-entity>
   
+  <view-entity entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet"
+    package-name="org.ofbiz.workeffort.project"
+    title="WorkEffort for use in project -> phase -> task">
+    <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
+    <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
+    <member-entity entity-alias="WET" entity-name="WorkEffort"/><!-- task -->
+    <member-entity entity-alias="TE" entity-name="TimeEntry"/>
+    <member-entity entity-alias="TS" entity-name="Timesheet"/>
+    <alias-all entity-alias="WET"/>
+    <alias-all entity-alias="TE">
+        <exclude field="workEffortId"/>
+    </alias-all>
+    <alias entity-alias="WEP" field="workEffortId" name="projectId"/>
+    <alias entity-alias="WEP" field="workEffortName" name="projectName"/>
+    <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
+    <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
+    <alias entity-alias="TS" field="statusId" name="timesheetStatusId"/>
+    <alias entity-alias="TS" field="partyId" name="resourcePartyId"/>
+    <view-link entity-alias="WEP" rel-entity-alias="WEPH">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WEPH" rel-entity-alias="WET">
+      <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
+    </view-link>
+    <view-link entity-alias="WET" rel-entity-alias="TE">
+      <key-map field-name="workEffortId"/>
+    </view-link>
+    <view-link entity-alias="TE" rel-entity-alias="TS">
+      <key-map field-name="timesheetId"/>
+    </view-link>
+    <relation type="many" rel-entity-name="WorkEffortSkillStandard">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="many" rel-entity-name="WorkEffortPartyAssignment">
+      <key-map field-name="workEffortId"/>
+    </relation>
+    <relation type="one" rel-entity-name="Invoice">
+      <key-map field-name="invoiceId"/>
+    </relation>
+  </view-entity>
+  
   <view-entity entity-name="TimesheetAndTimeEntry"
     package-name="org.ofbiz.workeffort.project"
     title="Time entry for Timesheets, time entries always have a timesheet and are always for one day only and recording the hours for one person which is defined on the timesheet. A timesheet will always have at least one time entry.">

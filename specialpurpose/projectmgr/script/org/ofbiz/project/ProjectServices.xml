@@ -968,32 +968,47 @@
     </simple-method>
 
     <simple-method method-name="addProjectTimeToNewInvoice" short-description="add all reported time on all completed timesheets from all workefforts for a project">
-		<!-- recreate the invoice if still in preparation in order to correct errors. -->
+        <!-- recreate the invoice if still in preparation in order to correct errors. -->
         <if-compare operator="equals" value="Y" field="parameters.reCreate">
-	        <entity-one entity-name="Invoice" value-name="invoice"/>
-    	    <if-empty field="invoice">
-        	    <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
-            	<check-errors/>
-        	</if-empty>
+            <entity-one entity-name="Invoice" value-name="invoice"/>
+            <if-empty field="invoice">
+                <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
+                <check-errors/>
+            </if-empty>
             <if-compare field="invoice.statusId" operator="not-equals" value="INVOICE_IN_PROCESS"> 
-        	    <add-error><fail-message message="Invoice with ID [${parameters.invoiceId}], has the wrong status, not adding Timesheet Entries to it."/></add-error>
-            	<check-errors/>
-			</if-compare>
-			<entity-and list-name="entries" entity-name="TimeEntry">
-				<field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
-			</entity-and>
-			<iterate list-name="entries" entry-name="timeEntry">			        
-	       		<clear-field field-name="timeEntry.invoiceId"/>
-           		<clear-field field-name="timeEntry.invoiceItemSeqId"/>
-           		<store-value value-name="timeEntry"/>
-        	</iterate>
-        	<set field="removeItems.invoiceId" from-field="parameters.invoiceId"/>
-        	<remove-by-and entity-name="InvoiceItem" map-name="removeItems"/>
-        	<set field="notFirst" value="Y"/><!-- do not create, only add -->
+                <add-error><fail-message message="Invoice with ID [${parameters.invoiceId}], has the wrong status, not adding Timesheet Entries to it."/></add-error>
+                <check-errors/>
+            </if-compare>
+            <entity-and list-name="entries" entity-name="TimeEntry">
+                <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
+            </entity-and>
+            <iterate list-name="entries" entry-name="timeEntry">                    
+                   <clear-field field-name="timeEntry.invoiceId"/>
+                   <clear-field field-name="timeEntry.invoiceItemSeqId"/>
+                   <store-value value-name="timeEntry"/>
+            </iterate>
+            <set field="removeItems.invoiceId" from-field="parameters.invoiceId"/>
+            <remove-by-and entity-name="InvoiceItem" map-name="removeItems"/>
+            <set field="notFirst" value="Y"/><!-- do not create, only add -->
         </if-compare>
-        <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
-            <field-map field-name="projectId" env-name="parameters.projectId"/>
-        </entity-and>
+        <if-empty field="parameters.thruDate">
+            <set field="parameters.thruDate" value="9999-12-31 00:00:00.000" type="Timestamp"/>
+        </if-empty>
+        <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list-name="tasks">
+            <condition-list combine="and">
+                <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId"/>
+                <condition-expr field-name="invoiceId" operator="equals" env-name="null"/>
+                <condition-expr field-name="timesheetStatusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                <condition-expr field-name="fromDate" operator="less" env-name="parameters.thruDate"/>
+            </condition-list>
+            <order-by field-name="workEffortId"/>
+        </entity-condition>
+        <if-empty field="tasks">
+            <add-error>
+                <fail-message message="No timeentry items found"/>
+            </add-error>
+            <check-errors/>
+        </if-empty>
         <iterate entry-name="task" list-name="tasks">
             <if-empty field="notFirst">
                 <!-- first time so create invoice -->
@@ -1001,18 +1016,30 @@
                 <set field="addTaskToNewInvoice.workEffortId" from-field="task.workEffortId"/>
                 <set field="addTaskToNewInvoice.combineInvoiceItem" value="Y"/>
                 <set field="addTaskToNewInvoice.thruDate" from-field="parameters.thruDate"/>
-	            <call-service service-name="addWorkEffortTimeToNewInvoice" in-map-name="addTaskToNewInvoice">
-    	            <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
+                <call-service service-name="addWorkEffortTimeToNewInvoice" in-map-name="addTaskToNewInvoice">
+                    <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
                 </call-service>
                 <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>
-                <set field="notFirst" value="Y"/>
                 <field-to-result field-name="parameters.invoiceId" result-name="invoiceId"/>
+                <set field="notFirst" value="Y"/>
                 <else>
-                    <!-- add to created invoice -->
-	                <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>
-                    <set field="addTaskToInvoice.invoiceId" from-field="parameters.invoiceId"/>
-                    <set field="addTaskToInvoice.workEffortId" from-field="task.workEffortId"/>
-                    <call-service service-name="addWorkEffortTimeToInvoice" in-map-name="addTaskToInvoice"/>
+                    <if>
+                        <condition>
+                            <or>
+                                <if-empty field="oldWorkeffortId"/>
+                                <if-compare-field operator="not-equals" field="oldWorkeffortId" to-field="task.workEffortId"/>
+                            </or>
+                        </condition>
+                        <then>
+                            <!-- add to created invoice -->
+                            <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>
+                            <set field="addTaskToInvoice.invoiceId" from-field="parameters.invoiceId"/>
+                            <set field="addTaskToInvoice.workEffortId" from-field="task.workEffortId"/>
+                            <set field="addTaskToInvoice.thruDate" from-field="parameters.thruDate"/>
+                            <call-service service-name="addWorkEffortTimeToInvoice" in-map-name="addTaskToInvoice"/>
+                        </then>
+                    </if>
+                    <set field="oldWorkeffortId" from-field="task.workEffortId"/>
                 </else>
             </if-empty>
         </iterate>
