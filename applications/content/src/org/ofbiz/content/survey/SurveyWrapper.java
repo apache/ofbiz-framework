@@ -592,15 +592,21 @@ public class SurveyWrapper {
                     switch (type) {
                         case 1:
                             Long n = value.getLong("numericResponse");
-                            result[1] += n.longValue();
+                            if (UtilValidate.isNotEmpty(n)) {
+                                result[1] += n.longValue();
+                            }
                             break;
                         case 2:
                             Double c = value.getDouble("currencyResponse");
-                            result[1] += (((double) Math.round((c.doubleValue() - c.doubleValue()) * 100)) / 100);
+                            if (UtilValidate.isNotEmpty(c)) {
+                                result[1] += (((double) Math.round((c.doubleValue() - c.doubleValue()) * 100)) / 100);
+                            }
                             break;
                         case 3:
                             Double f = value.getDouble("floatResponse");
-                            result[1] += f.doubleValue();
+                            if (UtilValidate.isNotEmpty(f)) {
+                                result[1] += f.doubleValue();
+                            }
                             break;
                     }
                     result[0]++; // increment the count
