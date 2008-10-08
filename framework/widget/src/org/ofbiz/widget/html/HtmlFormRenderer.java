@@ -2439,19 +2439,19 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         String sortFieldStyle = modelFormField.getSortFieldStyle();
         
         // if the entry-name is defined use this instead of field name
-        String coulumnField = modelFormField.getEntryName();
-        if (UtilValidate.isEmpty(coulumnField)) {
-            coulumnField = modelFormField.getFieldName();
+        String columnField = modelFormField.getEntryName();
+        if (UtilValidate.isEmpty(columnField)) {
+            columnField = modelFormField.getFieldName();
         }
 
         // switch beetween asc/desc order
-        String newSortField = coulumnField;
+        String newSortField = columnField;
         if (UtilValidate.isNotEmpty(oldSortField)) {
-            if (oldSortField.equals(coulumnField)) {
-                newSortField = "-" + coulumnField;
+            if (oldSortField.equals(columnField)) {
+                newSortField = "-" + columnField;
                 sortFieldStyle = modelFormField.getSortFieldStyleDesc();
-            } else if (oldSortField.equals("-" + coulumnField)) {
-                newSortField = coulumnField;
+            } else if (oldSortField.equals("-" + columnField)) {
+                newSortField = columnField;
                 sortFieldStyle = modelFormField.getSortFieldStyleAsc();
             }
         }
@@ -2755,7 +2755,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
             targetBuffer.append(fullTarget);
             String targetType = HyperlinkField.DEFAULT_TARGET_TYPE;
             if (UtilValidate.isNotEmpty(targetBuffer.toString()) && targetBuffer.toString().toLowerCase().startsWith("javascript:")) {
-            	targetType="plain";
+                targetType="plain";
             }
             makeHyperlinkString(writer, modelFormField.getHeaderLinkStyle(), targetType, targetBuffer.toString(), titleText, null, null, null);
         } else if (modelFormField.isSortField()) {
