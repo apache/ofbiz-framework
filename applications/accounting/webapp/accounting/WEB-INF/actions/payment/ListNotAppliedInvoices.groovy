@@ -38,7 +38,7 @@ rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
 
 exprList = [EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, payment.partyIdFrom),
             EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, payment.partyIdTo)];
-partyCond = EntityCondition.makeCondition(exprList, EntityOperator.OR);
+partyCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 
 exprList1 = [EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "INVOICE_APPROVED"),
              EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "INVOICE_SEND"),

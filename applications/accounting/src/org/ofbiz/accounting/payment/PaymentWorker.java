@@ -292,7 +292,22 @@ public class PaymentWorker {
         return getPaymentAppliedBd(payment).doubleValue();
     }
 
+    /**
+     * Method to return the total amount of an payment which is applied to a payment
+     * @param payment GenericValue object of the Payment
+     * @return the applied total as BigDecimal in the currency of the payment
+     */
     public static BigDecimal getPaymentAppliedBd(GenericValue payment) {
+    	return getPaymentAppliedBd(payment, false);
+    }
+    
+    /**
+     * Method to return the total amount of an payment which is applied to a payment
+     * @param payment GenericValue object of the Payment
+     * @param false for currency of the payment, true for the actual currency
+     * @return the applied total as BigDecimal in the currency of the payment
+     */
+    public static BigDecimal getPaymentAppliedBd(GenericValue payment, boolean actual) {
         BigDecimal paymentApplied = BigDecimal.ZERO;
         List paymentApplications = null;
         try {
@@ -306,20 +321,20 @@ public class PaymentWorker {
                 Iterator p = paymentApplications.iterator();
                 while (p.hasNext()) {
                     GenericValue paymentApplication = (GenericValue) p.next();
-                       BigDecimal amountApplied = paymentApplication.getBigDecimal("amountApplied");
+                    BigDecimal amountApplied = paymentApplication.getBigDecimal("amountApplied");
                     // check currency invoice and if different convert amount applied for display
-                    if (paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
+                    if (!actual && paymentApplication.get("invoiceId") != null && payment.get("actualCurrencyAmount") != null && payment.get("actualCurrencyUomId") != null) {
                         GenericValue invoice = paymentApplication.getRelatedOne("Invoice");
                         if (payment.getString("actualCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
                                amountApplied = amountApplied.multiply(payment.getBigDecimal("amount")).divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100));
                         }
                     }
-                       paymentApplied = paymentApplied.add(amountApplied).setScale(decimals,rounding);
+                    paymentApplied = paymentApplied.add(amountApplied).setScale(decimals,rounding);
                 }
             }
-           } catch (GenericEntityException e) {
-               Debug.logError(e, "Trouble getting entities", module);            
-           }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Trouble getting entities", module);            
+        }
         return paymentApplied;        
     }
     public static double getPaymentNotApplied(GenericValue payment) {

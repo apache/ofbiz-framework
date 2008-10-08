@@ -24,70 +24,67 @@ import org.ofbiz.base.util.collections.*;
 import org.ofbiz.accounting.invoice.*;
 import org.ofbiz.accounting.payment.*;
 import org.ofbiz.accounting.util.UtilAccounting;
-import java.text.DateFormat;
-import java.math.*;
 import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
-import org.ofbiz.entity.model.*;
-import java.text.NumberFormat;
+import java.math.*;
 
 invoiceId = parameters.invoiceId;
 invoice = delegator.findByPrimaryKey("Invoice", [invoiceId : invoiceId]);
 
 decimals = UtilNumber.getBigDecimalScale("invoice.decimals");
 rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
-locale = context.locale;
 
-paymentsMapList = [];  // to pass back to the screeen list of unapplied payments
+exprList = [EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, invoice.partyIdFrom),
+            EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, invoice.partyId)];
+partyCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
 
-// retrieve payments for the related parties which have not been (fully) applied yet
-payments = null;
-payment = null;
-exprList = [];
-expr = EntityCondition.makeCondition("partyIdTo", EntityOperator.EQUALS, invoice.getString("partyIdFrom"));
-exprList.add(expr); 
-expr = EntityCondition.makeCondition("partyIdFrom", EntityOperator.EQUALS, invoice.getString("partyId"));
-exprList.add(expr); 
+exprList1 = [EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_NOT_PAID"),
+                  EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED"),
+                  EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT")];
+statusCond = EntityCondition.makeCondition(exprList1, EntityOperator.OR);
 
-// only payments with received and sent and not paid
-exprListStatus = [];
-expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_NOT_PAID");
-exprListStatus.add(expr); 
-expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_RECEIVED");
-exprListStatus.add(expr); 
-expr = EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PMNT_SENT");
-exprListStatus.add(expr);
-orCond = EntityCondition.makeCondition(exprListStatus, EntityOperator.OR);
-exprList.add(orCond); 
+currCond = EntityCondition.makeCondition("currencyUomId", EntityOperator.EQUALS, invoice.currencyUomId);
+actualCurrCond = EntityCondition.makeCondition("actualCurrencyUomId", EntityOperator.EQUALS, invoice.currencyUomId);
 
-topCond = EntityCondition.makeCondition(exprList, EntityOperator.AND);
+topCond = EntityCondition.makeCondition([partyCond, statusCond, currCond], EntityOperator.AND);
+topCondActual = EntityCondition.makeCondition([partyCond, statusCond, actualCurrCond], EntityOperator.AND);
 
 payments = delegator.findList("Payment", topCond, null, ["effectiveDate"], null, false);
-if (payments)    {
-    paymentApplications = null;
-    paymentApplication = null;
-    invoiceApplied = InvoiceWorker.getInvoiceAppliedBd(invoice);
-    invoiceAmount = InvoiceWorker.getInvoiceTotalBd(invoice);
-    invoiceToApply = InvoiceWorker.getInvoiceNotApplied(invoice); 
-    payments.each { payment ->
-        if (PaymentWorker.getPaymentNotAppliedBd(payment).signum() == 1) {
-           // put in the map
-           paymentMap = [:];
-           paymentMap.paymentId = payment.paymentId;
-           paymentMap.effectiveDate = payment.effectiveDate; // list as YYYY-MM-DD
-           paymentMap.amount = payment.amount;
-           paymentMap.currencyUomId = payment.currencyUomId;
-           paymentMap.amountApplied = PaymentWorker.getPaymentAppliedBd(payment);
-           paymentToApply = PaymentWorker.getPaymentNotAppliedBd(payment);
-           if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
-                paymentMap.amountToApply = paymentToApply;
-           } else {
-                paymentMap.amountToApply = invoiceToApply;
-           }
-           paymentsMapList.add(paymentMap);
-        }
-    }
-}       
-context.payments = paymentsMapList;
+context.payments = getPayments(payments, false);
+payments = delegator.findList("Payment", topCondActual, null, ["effectiveDate"], null, false);
+context.paymentsActualCurrency = getPayments(payments, true);
+
+List getPayments(List payments, boolean actual) {
+	if (payments)    {
+		paymentList = [];  // to pass back to the screeen list of unapplied payments
+		invoiceApplied = InvoiceWorker.getInvoiceAppliedBd(invoice);
+		invoiceAmount = InvoiceWorker.getInvoiceTotalBd(invoice);
+		invoiceToApply = InvoiceWorker.getInvoiceNotApplied(invoice); 
+		payments.each { payment ->
+			paymentMap = [:];
+            paymentApplied = PaymentWorker.getPaymentAppliedBd(payment, true);
+			if (actual) {
+				paymentMap.amount = payment.actualCurrencyAmount;
+				paymentMap.currencyUomId = payment.actualCurrencyUomId;
+				paymentToApply = payment.getBigDecimal("actualCurrencyAmount").setScale(decimals,rounding).subtract(paymentApplied);
+			} else {
+				paymentMap.amount = payment.amount;
+				paymentMap.currencyUomId = payment.currencyUomId;
+				paymentToApply = payment.getBigDecimal("amount").setScale(decimals,rounding).subtract(paymentApplied);
+			}
+			if (paymentToApply.signum() == 1) {
+				paymentMap.paymentId = payment.paymentId;
+				paymentMap.effectiveDate = payment.effectiveDate;
+				if (paymentToApply.compareTo(invoiceToApply) < 0 ) {
+					paymentMap.amountToApply = paymentToApply;
+				} else {
+					paymentMap.amountToApply = invoiceToApply;
+				}
+				paymentList.add(paymentMap);
+			}
+		}
+		return paymentList;
+	}
+}

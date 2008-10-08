@@ -253,7 +253,10 @@ under the License.
                             <widgets>
                                 <section>
                                     <condition>
-                                        <not><if-empty field-name="invoices"/></not>
+                                        <or>
+                                            <not><if-empty field-name="invoices"/></not>
+                                            <not><if-empty field-name="invoicesOtherCurrency"/></not>
+                                        </or>
                                     </condition>
                                     <widgets>
                                         <screenlet title="${uiLabelMap.AccountingListInvoicesNotYetApplied}">
@@ -261,24 +264,23 @@ under the License.
                                                 <label style="h2" text="${uiLabelMap.CommonFrom} ${partyNameViewTo.groupName}${partyNameViewTo.lastName},${partyNameViewTo.firstName} ${partyNameViewTo.middleName}[${payment.partyIdTo}]"/>
                                                 <label style="h2" text="${uiLabelMap.CommonTo} ${partyNameViewFrom.groupName}${partyNameViewFrom.lastName},${partyNameViewFrom.firstName} ${partyNameViewFrom.middleName} [${payment.partyIdFrom}]"/>
                                             </container>
-                                            <include-form name="listInvoicesNotApplied" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
-                                        </screenlet>
-                                    </widgets>
-                                </section>
-                                <section>
-                                    <condition>
-                                        <not><if-empty field-name="invoicesOtherCurrency"/></not>
-                                    </condition>
-                                    <widgets>
-                                        <screenlet title="${uiLabelMap.AccountingListInvoicesNotYetApplied}">
-                                            <container>
-                                                <label style="h1" text="Othercurrency invoices"/>
-                                            </container>
-                                            <container>
-                                                <label style="h2" text="${uiLabelMap.CommonFrom} ${partyNameViewTo.groupName}${partyNameViewTo.lastName},${partyNameViewTo.firstName} ${partyNameViewTo.middleName}[${payment.partyIdTo}]"/>
-                                                <label style="h2" text="${uiLabelMap.CommonTo} ${partyNameViewFrom.groupName}${partyNameViewFrom.lastName},${partyNameViewFrom.firstName} ${partyNameViewFrom.middleName} [${payment.partyIdFrom}]"/>
-                                            </container>
-                                            <include-form name="listInvoicesNotAppliedOtherCurrency" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                            <section>
+                                                <condition>
+                                                    <not><if-empty field-name="invoices"/></not>
+                                                </condition>
+                                                <widgets>
+                                                    <include-form name="listInvoicesNotApplied" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                                </widgets>
+                                            </section>
+                                            <section>
+                                                <condition>
+                                                    <not><if-empty field-name="invoicesOtherCurrency"/></not>
+                                                </condition>
+                                                <widgets>
+                                                    <label style="h2" text="Othercurrency invoices"/>
+                                                    <include-form name="listInvoicesNotAppliedOtherCurrency" location="component://accounting/webapp/accounting/payment/PaymentForms.xml"/>
+                                                </widgets>
+                                            </section>
                                         </screenlet>
                                     </widgets>
                                 </section>
