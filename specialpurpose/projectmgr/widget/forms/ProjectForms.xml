@@ -521,7 +521,7 @@
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="partyIdFrom" title="${uiLabelMap.WorkEffortTimeBillFromParty}"><lookup target-form-name="LookupPartyName"/></field>
         <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.clientPartyId}"/></field>
-        <field name="thruDate"><text/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
         <field name="invoiceId"><hidden/></field>
         <field name="reCreate" position="1" title="re-create Invoice: ${context.invoiceId}" use-when="context.get(&quot;invoiceId&quot;)!=null">
         	<drop-down no-current-selected-key="N">
