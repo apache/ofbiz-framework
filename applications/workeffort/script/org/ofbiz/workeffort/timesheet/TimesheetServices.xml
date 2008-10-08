@@ -154,7 +154,7 @@ under the License.
                     <or>
                         <and>
                             <not><if-empty field="parameters.thruDate"/></not>
-                            <if-compare-field operator="less" field="timeEntry.fromDate" to-field="parameters.thruDate"></if-compare-field>
+                            <if-compare-field operator="less" field="timeEntry.fromDate" to-field="parameters.thruDate"/>
                         </and>
                         <if-empty field="parameters.thruDate"/>
                     </or>
@@ -164,23 +164,23 @@ under the License.
                     <if-compare field="invoice.statusId" operator="equals" value="INVOICE_IN_PROCESS"> 
                         <!-- only add to invoice if it is not already on an invoice-->
                         <if-empty field="timeEntry.invoiceId">
+                            <set field="getTimeEntryRate.timeEntryId" from-field="timeEntry.timeEntryId"/>
+                            <set field="getTimeEntryRate.currencyUomId" from-field="invoice.currencyUomId"/>
+                            <call-service service-name="getTimeEntryRate" in-map-name="getTimeEntryRate">
+                                <result-to-field result-name="rateAmount"/>
+                            </call-service>
                             <!--  check if the RateTypeId changed or the first time entry record -->
                             <if>
                                 <condition>
                                     <or>
-                                        <if-empty field="oldRateTypeId"/>
+                                        <if-empty field="oldRateAmount"/>
                                         <and>
-                                            <not><if-empty field="oldRateTypeId"/></not>
-                                            <if-compare-field field="timeEntry.rateTypeId" operator="not-equals" to-field="oldRateTypeId"/>
+                                            <not><if-empty field="OldRateAmount"/></not>
+                                            <if-compare-field field="rateAmount" operator="not-equals" to-field="oldRateAmount"/>
                                         </and>
                                     </or>
                                 </condition>
                                 <then>
-                                    <set field="getTimeEntryRate.timeEntryId" from-field="timeEntry.timeEntryId"/>
-                                    <set field="getTimeEntryRate.currencyUomId" from-field="invoice.currencyUomId"/>
-                                    <call-service service-name="getTimeEntryRate" in-map-name="getTimeEntryRate">
-                                        <result-to-field result-name="rateAmount"/>
-                                    </call-service>
                                     <set field="invoiceItemMap.amount" from-field="rateAmount" default-value="0.0" type="Double"/>
                                     <if-compare field="parameters.combineInvoiceItem" operator="equals" value="Y" >
                                         <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
@@ -210,7 +210,7 @@ under the License.
                                     </if-compare>
                                 </else>                
                             </if>
-                            <set field="oldRateTypeId" from-field="timeEntry.rateTypeId"/>
+                            <set field="oldRateAmount" from-field="rateAmount"/>
                             
                             <!-- create an invoiceitem for every time entry -->
                             <if-compare field="parameters.combineInvoiceItem" operator="not-equals" value="Y" >
