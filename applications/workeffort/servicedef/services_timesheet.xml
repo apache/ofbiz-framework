@@ -89,6 +89,7 @@ under the License.
         <attribute name="workEffortId" type="String" mode="IN" optional="false"/>
         <attribute name="invoiceId" type="String" mode="IN" optional="false"/>
         <attribute name="combineInvoiceItem" mode="IN" type="String" optional="true"/>
+        <attribute name="thruDate" mode="IN" type="Timestamp" optional="true"/>
     </service>
     <service name="addWorkEffortTimeToNewInvoice" default-entity-name="Timesheet" engine="simple" auth="true"
         location="org/ofbiz/workeffort/timesheet/TimesheetServices.xml" invoke="addWorkEffortTimeToInvoice">
