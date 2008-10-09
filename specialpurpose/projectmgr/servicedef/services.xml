@@ -204,6 +204,15 @@ under the License.
         <attribute name="projectParties" type="List" mode="OUT" optional="true"/>
     </service>
     
+    <service name="getPartiesByProject" engine="simple"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="getPartiesByProject">
+        <description>Get project information</description>
+        <permission-service service-name="projectMgrPermission" main-action="VIEW"/>        
+        <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="projectParties" type="List" mode="OUT" optional="true"/>
+    </service>
+    
     <service name="getTasksByParties" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getTasksByParties">
         <description>Get project information by party</description>
