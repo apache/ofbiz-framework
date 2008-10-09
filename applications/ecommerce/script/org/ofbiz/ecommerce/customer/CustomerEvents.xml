@@ -1093,7 +1093,7 @@ under the License.
             <field-map field-name="partyId" env-name="carrierPartyId"/>
             <field-map field-name="roleTypeId" value="CARRIER"/>
         </entity-one>
-        <field-to-request field-name="shipmentMethod.shippingDescription" request-name="shippingDescription"/>
+        <field-to-request field-name="shipmentMethod.description" request-name="shippingDescription"/>
 
         <set field="shoppingCart" from-field="parameters.shoppingCart"/>
         <if-empty field="shoppingCart">
