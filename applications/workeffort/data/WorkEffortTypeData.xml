@@ -123,7 +123,7 @@ under the License.
     <StatusType description="Fixed Asset Assignment Status" hasTable="N" statusTypeId="FA_ASGN_STATUS"/>
     <StatusItem description="Requested" sequenceId="01" statusCode="REQUESTED" statusId="FA_ASGN_REQUESTED" statusTypeId="FA_ASGN_STATUS"/>
     <StatusItem description="Assigned" sequenceId="02" statusCode="ASSIGNED" statusId="FA_ASGN_ASSIGNED" statusTypeId="FA_ASGN_STATUS"/>
-    <StatusItem description="Request Declined" sequenceId="03" statusCode="DECLINED" statusId="FA_ASGN_DECLINED" statusTypeId="FA_ASGN_STATUS"/>
+    <StatusItem description="Request Denied" sequenceId="03" statusCode="DENIED" statusId="FA_ASGN_DENIED" statusTypeId="FA_ASGN_STATUS"/>
     
     <!-- Status items for WorkEffortFixedAssetAssign.availabilityStatusId -->
     <StatusType description="Work Effort Fixed Asset Availability" hasTable="N" statusTypeId="WEFA_AVAILABILITY"/>
