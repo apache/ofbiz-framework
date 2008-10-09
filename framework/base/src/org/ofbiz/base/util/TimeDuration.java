@@ -216,6 +216,61 @@ public class TimeDuration implements Serializable {
         return units;
     }
 
+    /** Returns a <code>TimeDuration</code> instance derived from a <code>long</code>
+     * value. This method is intended to be used in tandem with the
+     * <code>toLong</code> method. <p>The years and months portions of the
+     * returned object are based on a Gregorian calendar. <b>Note:</b> this
+     * method should not be used to calculate elapsed time - use the elapsed
+     * time constructor instead.</p>
+     * 
+     * @param millis A millisecond value
+     * @return A <code>TimeDuration</code> instance
+     */
+    public static TimeDuration fromLong(long millis) {
+        TimeDuration duration = new TimeDuration();
+        if (millis == 0) {
+            return duration;
+        }
+        long units = millis / 0x757B12C00L;
+        duration.years = (int) units;
+        millis -= 0x757B12C00L * (long) duration.years;
+        units = millis / 0x9CA41900L;
+        duration.months = (int) units;
+        millis -= 0x9CA41900L * (long) duration.months;
+        units = millis / 86400000;
+        duration.days = (int) units;
+        millis -= 86400000 * (long) duration.days;
+        units = millis / 3600000;
+        duration.hours = (int) units;
+        millis -= 3600000 * (long) duration.hours;
+        units = millis / 60000;
+        duration.minutes = (int) units;
+        millis -= 60000 * (long) duration.minutes;
+        units = millis / 1000;
+        duration.seconds = (int) units;
+        millis -= 1000 * (long) duration.seconds;
+        duration.millis = (int) millis;
+        return duration;
+    }
+
+    /** Returns a <code>long</code> value derived from a <code>TimeDuration</code>
+     * instance. This method is intended to be used in tandem with the
+     * <code>fromLong</code> method. 
+     * 
+     * @param duration
+     * @return
+     */
+    public static long toLong(TimeDuration duration) {
+        return
+        (0x757B12C00L * (long) duration.years) +
+        (0x9CA41900L * (long) duration.months) +
+        (86400000 * (long) duration.days) +
+        (3600000 * (long) duration.hours) +
+        (60000 * (long) duration.minutes) +
+        (1000 * (long) duration.seconds) +
+        duration.millis;
+    }
+
     protected static class NullDuration extends TimeDuration {
         protected NullDuration() {}
         public Calendar addToCalendar(Calendar cal) {
