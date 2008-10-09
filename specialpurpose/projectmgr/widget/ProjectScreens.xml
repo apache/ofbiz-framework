@@ -596,7 +596,7 @@ under the License.
     <screen name="PartiesInfo">
         <section>
             <actions>
-                <service service-name="getProjectsByParties" result-map-name="result">
+                <service service-name="getPartiesByProject" result-map-name="result">
                     <field-map field-name="projectId" env-name="projectId"/>
                 </service>
                 <set field="parties" from-field="result.projectParties"/>

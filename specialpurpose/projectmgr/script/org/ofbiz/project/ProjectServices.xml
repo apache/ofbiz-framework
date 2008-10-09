@@ -661,6 +661,68 @@
         </if-not-empty>
     </simple-method>
     
+    <simple-method method-name="getPartiesByProject" short-description="get Project information" login-required="true">
+        <entity-condition entity-name="ProjectAndPhaseAndTaskParty" list-name="tasks">
+            <condition-list combine="and">
+                <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId" ignore-if-empty="true"/>
+                <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
+            </condition-list>
+            <order-by field-name="projectId"/>
+            <order-by field-name="partyId"/>
+        </entity-condition>
+        <entity-condition entity-name="WorkEffortPartyAssignView" list-name="resources">
+            <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.projectId"/>
+            <order-by field-name="roleTypeId"/>
+        </entity-condition>
+        <if-not-empty field="resources">
+            <if-not-empty field="tasks">
+                <iterate entry-name="resource" list-name="resources">
+                    <iterate entry-name="task" list-name="tasks">
+                        <if>
+                            <condition>
+                                <and>
+                                    <not><if-empty field="projectParty"/></not>
+                                    <if-compare-field field="resource.partyId" to-field="projectParty.partyId" operator="not-equals"/>
+                                </and>
+                            </condition>
+                            <then>
+                                <field-to-list field-name="projectParty" list-name="projectParties"/>
+                                <clear-field field-name="projectParty"/>
+                                <clear-field field-name="highInfo"/>
+                            </then>
+                        </if>
+                        <if-empty field="projectParty">
+                            <set field="projectParty.partyId" from-field="resource.partyId"/>
+                            <entity-one entity-name="PartyNameView" value-name="partyNameView">
+                                <field-map field-name="partyId" env-name="resource.partyId"/>
+                            </entity-one>
+                            <if-not-empty field="partyNameView">
+                                <set field="projectParty.partyName" value="${partyNameView.lastName},${partyNameView.firstName}${partyNameView.groupName}"/>
+                            </if-not-empty>
+                            <set field="projectParty.roleTypeId" from-field="resource.roleTypeId"/>
+                            <set field="projectParty.fromDate" from-field="resource.fromDate"/>
+                            <set field="projectParty.thruDate" from-field="resource.thruDate"/>
+                        </if-empty>
+                        <if-compare-field field="task.partyId" operator="equals" to-field="resource.partyId">
+                            <!-- get the planned/actual hours -->
+                            <set field="lowInfo" from-field="task"/>
+                            <set field="parameters.hoursPartyId" from-field="task.partyId"/>
+                            <call-simple-method method-name="getHours"/>
+                            <set field="projectParty.plannedHours" from-field="highInfo.plannedHours"/>                    
+                            <set field="projectParty.actualHours" from-field="highInfo.actualHours"/>                    
+                        </if-compare-field>
+                    </iterate>
+                </iterate>
+                <if-not-empty field="projectParty">
+                    <field-to-list field-name="projectParty" list-name="projectParties"/>
+                </if-not-empty>
+                <if-not-empty field="projectParties">
+                    <field-to-result field-name="projectParties"/>                                                                                       
+                </if-not-empty>
+            </if-not-empty>
+        </if-not-empty>
+    </simple-method>
+    
     <simple-method method-name="getTasksByParties" short-description="get task information by party member" login-required="true">
         <!-- get the list of tasks optionaly selected for a party -->
         <if-empty field="parameters.partyId">
