@@ -27,74 +27,68 @@ Event.observe(window, 'load', function() {
     var validateShip = new Validation('shippingForm', {immediate: true, onSubmit: false});
     var validateShipOption = new Validation('shippingOptionForm', {immediate: true, onSubmit: false});
     var validateBill = new Validation('billingForm', {immediate: true, onSubmit: false});    
+    
+    // Goto Edit Cart Panel
+    Event.observe($('openCartPanel'), 'click', function() {
+        showEditCartPanel();
+    });
+
+    // Update Shipping Address
+    Event.observe($('editShippingOptions'), 'click', function() {
+        if (validateShip.validate()) {
+            Effect.Fade('editShippingOptions', {duration: 0.0});
+            Effect.Appear('processingShippingOptions', {duration: 0.0});
+            if (createUpdateCustomerAndShippingAddress()){
+                showEditShippingOptionPanel();
+            }
+            Effect.Fade('processingShippingOptions', {duration: 0.0});
+            Effect.Appear('editShippingOptions', {duration: 0.0});               
+        }
+    });
+
+    // Goto Edit Shipping  panel  
     Event.observe($('editShipping'), 'click', function() {
         if (validateCart.validate()) {
-            Effect.Fade('editShipping', {duration: 0.0});
-            // Effect.Appear('processingShipping', {duration: 0.0});
-            displayShippingPanel();
-            isCartStepValidate = true;
+            showEditShippingPanel();
         }
     });
-
-    Event.observe($('openCartPanel'), 'click', function() {
-        displayEditCartPanel();
-    });
-
-    // Shipping
-    Event.observe($('editShippingOptions'), 'click', function() {
-        if (isCartStepValidate) {
-            if (validateShip.validate()) {
-                Effect.Fade('editShippingOptions', {duration: 0.0});
-                Effect.Appear('processingShippingOptions', {duration: 0.0});
-                processShippingAddress();
-                displayShippingOptionPanel();
-                isShipStepValidate = true;
-            }
-        }
-    });
-
+    // Goto Edit Shipping Panel
     Event.observe($('openShippingPanel'), 'click', function() {
-        if (isCartStepValidate) {
-            if (isShipStepValidate) {
-                displayEditShippingPanel();
-            }
-        }
+        showEditShippingPanel();
     });
 
-    // Shipping Options
+    // Set Shipping Method to card and goto Billing step
     Event.observe($('editBilling'), 'click', function() {
-        if (isCartStepValidate && isShipStepValidate) {
-            if (validateShipOption.validate()) {
-                Effect.Fade('editBilling', {duration: 0.0});
-                Effect.Appear('processingBilling', {duration: 0.0});
-                setShippingOption();
-                displayBillingPanel();
-                isShipOptionStepValidate = true;
-            }
+        Effect.Fade('editBilling', {duration: 0.0});
+        Effect.Appear('processingBilling', {duration: 0.0});
+        if (setShippingOption()){
+            showEditBillingPanel();
         }
+        Effect.Fade('processingBilling', {duration: 0.0});            
+        Effect.Appear('editBilling', {duration: 0.0});        
     });
 
     Event.observe($('openShippingOptionPanel'), 'click', function() {
-        if (isCartStepValidate && isShipStepValidate && isShipOptionStepValidate) {
-            displayEditShippingOptionPanel();
+        if (true) {
+            showEditShippingOptionPanel();
         }
     });
 
     // Billing
     Event.observe($('openBillingPanel'), 'click', function() {
-        if (isBillStepValidate) {
-            displayEditBillingPanel();
-        }  
+            showEditBillingPanel();  
     });
 
     Event.observe($('openOrderSubmitPanel'), 'click', function() {
-        if (isCartStepValidate && isShipStepValidate && isShipOptionStepValidate) {
+        if (true) {
             if (validateBill.validate()) {
                 Effect.Fade('openOrderSubmitPanel', {duration: 0.0});
                 Effect.Appear('processingOrderSubmitPanel', {duration: 0.0});
-                processBillingAndPayment();
-                displayOrderSubmitPanel();
-                isBillStepValidate = true;
+                if (processBillingAndPayment()) {
+                    showOrderSubmitPanel()
+                }
+                Effect.Fade('processingOrderSubmitPanel', {duration: 0.0});                    
+                Effect.Appear('openOrderSubmitPanel', {duration: 0.0});
             }
         }
     });
@@ -132,192 +126,102 @@ function getServerError(data) {
     return serverError;    
 }
 
-// Cart
-function displayShippingPanel() {
+// Begin Show/Hide Step panels
 
-    Effect.BlindUp('editCartPanel', {duration: 0.0});
-    Effect.BlindDown('cartSummaryPanel');
-    if($('shippingSummaryPanel').visible()) {
-        Effect.BlindUp('shippingSummaryPanel', {duration: 0.0});
+function hideEditCartPanel() {
+    if ($('editCartPanel').visible() ) {
+        Effect.BlindUp('editCartPanel',{duration: 0.0});
+        Effect.BlindDown('cartSummaryPanel',{duration: 0.0});
     }
-    Effect.BlindDown('editShippingPanel', {duration: 0.0});
-    Effect.Appear('editShippingOptions');
 }
-
-function displayEditShippingPanel() {
-
-    if (!$('editShippingPanel').visible()) {
-    	if ($('shippingSummaryPanel').visible()) {
-            Effect.BlindUp('shippingSummaryPanel', {duration: 0.0});
-    	}
-            Effect.BlindDown('cartSummaryPanel', {duration: 0.0});
-            Effect.BlindDown('editShippingPanel');
-            Effect.Fade('processingShipping', {duration: 0.0});
-            Effect.Appear('editShippingOptions');
-    }
-    if($('editCartPanel').visible()) {
-        Effect.BlindUp('editCartPanel', {duration: 0.0});
-        Effect.Fade('editShipping');
-    }
-    if ($('editShippingOptionPanel').visible()) {
-        Effect.BlindUp('editShippingOptionPanel', {duration: 0.0});
-        Effect.BlindDown('shippingOptionSummaryPanel', {duration: 0.0});
-        Effect.Fade('editBilling')
-    }
+function hideEditShippingPanel() {
+     if ($('editShippingPanel').visible()) {
+         Effect.BlindUp('editShippingPanel', {duration: 0.0});
+         Effect.BlindDown('shippingSummaryPanel', {duration: 0.0});
+     }
+}
+function hideEditShippingOptionPanel() {
+     if ($('editShippingOptionPanel').visible()) {
+         Effect.BlindUp('editShippingOptionPanel', {duration: 0.0});
+         Effect.BlindDown('shippingOptionSummaryPanel', {duration: 0.0});
+     }    
+}
+function hideEditBillingPanel() {
     if ($('editBillingPanel').visible()) {
         Effect.BlindUp('editBillingPanel', {duration: 0.0});
         Effect.BlindDown('billingSummaryPanel', {duration: 0.0});
-        Effect.Fade('openOrderSubmitPanel');
     }
+}
+function hideOrderSubmitPanel() {
     if ($('orderSubmitPanel').visible()) {
         Effect.BlindUp('orderSubmitPanel', {duration: 0.0});
-    }
-}
-
-function displayEditCartPanel() {
-
-    if ($('orderSubmitPanel').visible()) {
-        Effect.BlindUp('orderSubmitPanel', {duration: 0.0});
-    }
-    if ($('editBillingPanel')) {
-        Effect.BlindUp('editBillingPanel', {duration: 0.0});
-        Effect.BlindDown('billingSummaryPanel', {duration: 0.0});
-        Effect.Fade('openOrderSubmitPanel');
-    }
-    if ($('editShippingPanel').visible()) {
-        Effect.BlindUp('editShippingPanel', {duration: 0.0});
-        Effect.BlindDown('shippingSummaryPanel', {duration: 0.0});
-        Effect.Fade('editShippingOptions', {duration: 0.0});
-    }
-    if ($('editShippingOptionPanel').visible()) {  
-        Effect.BlindUp('editShippingOptionPanel', {duration: 0.0});
-        Effect.BlindDown('shippingOptionSummaryPanel', {duration: 0.0});
-        Effect.Fade('editBilling', {duration: 0.0});
-    }
-    if (!$('editCartPanel').visible() ) {
-        Effect.BlindUp('cartSummaryPanel', {duration: 0.0});
-        Effect.BlindDown('editCartPanel');
-        Effect.Appear('editShipping');
-    }
-}
-
-// Shipping
-function displayShippingOptionPanel() {
-    if ($('shippingOptionSummaryPanel').visible()) {
-        Effect.BlindUp('shippingOptionSummaryPanel', {duration: 0.0});
-    }
-    Effect.BlindUp('editShippingPanel', {duration: 0.0});
-    Effect.BlindDown('shippingSummaryPanel', {duration: 0.0});
-    setDataInShippingCompleted();
-    Effect.BlindDown('shippingCompleted', {duration: 0.0});
-    Effect.BlindDown('editShippingOptionPanel', {duration: 0.0});
-    Effect.Fade('processingShippingOptions', {duration: 0.0});
-    Effect.Appear('editBilling', {duration: 0.0});
-}
-
-function displayEditShippingOptionPanel() {
-
-    if ($('editCartPanel').visible()) {
-        Effect.BlindUp('editCartPanel', {duration: 0.0});
-        Effect.BlindDown('cartSummaryPanel', {duration: 0.0});
-        Effect.Fade('editShipping', {duration: 0.0});
-    }
-    if ($('editShippingPanel').visible()) {
-        Effect.BlindUp('editShippingPanel', {duration: 0.0});
-        setDataInShippingCompleted();
-        Effect.BlindDown('shippingCompleted', {duration: 0.0});
-        Effect.BlindDown('shippingSummaryPanel', {duration: 0.0});
-        Effect.Fade('editShippingOptions', {duration: 0.0});
-    }
-    if ($('editBillingPanel')) {
-        Effect.BlindDown('billingSummaryPanel');
-        Effect.BlindUp('editBillingPanel', {duration: 0.0});
-        Effect.Fade('openOrderSubmitPanel', {duration: 0.0});
-    }
-    if ($('orderSubmitPanel').visible()) {
-        Effect.BlindUp('orderSubmitPanel');
-    }
-    if (!$('editShippingOptionPanel').visible() && isShipStepValidate) {
-        if ($('shippingOptionSummaryPanel').visible()) {
-            Effect.BlindUp('shippingOptionSummaryPanel', {duration: 0.0});
-        }
-        Effect.BlindDown('editShippingOptionPanel');
-        Effect.Appear('editBilling');
-        Effect.Fade('processingShippingOptions');
-    }
-}
-
-// Billing
-function displayBillingPanel() {
-    if ($('billingSummaryPanel').visible()) {
-        Effect.BlindUp('billingSummaryPanel', {duration: 0.0});
-    }
-    Effect.BlindUp('editShippingOptionPanel', {duration: 0.0});
-    Effect.BlindDown('shippingOptionSummaryPanel', {duration: 0.0});
-    setDataInShippingOptionCompleted();
-    Effect.BlindDown('shippingOptionCompleted', {duration: 0.0});
-    Effect.BlindDown('editBillingPanel', {duration: 0.0});
-    
-    Effect.Appear('openOrderSubmitPanel', {duration: 0.0});
-    Effect.Fade('processingBilling', {duration: 0.0});
-}
-
-function displayEditBillingPanel() {
-
-    if (!$('editBillingPanel').visible() && isShipOptionStepValidate) {
-        Effect.BlindUp('billingSummaryPanel', {duration: 0.0});
-        Effect.BlindDown('editBillingPanel');
-        Effect.Appear('openOrderSubmitPanel');
-        Effect.Fade('processingOrderSubmitPanel');
-    }
-    if ($('editCartPanel').visible()) {
-        Effect.BlindUp('editCartPanel', {duration: 0.0});
-        Effect.BlindDown('cartSummaryPanel', {duration: 0.0});
-        Effect.Fade('editShipping');
-    }
-    if ($('editShippingPanel').visible()) {
-        Effect.BlindUp('editShippingPanel', {duration: 0.0});
-        Effect.BlindDown('shippingCompleted');
-        Effect.BlindDown('shippingSummaryPanel', {duration: 0.0});
-        Effect.Fade('editShippingOptions');
-    }
-    setDataInShippingOptionCompleted();
-    if ($('editShippingOptionPanel').visible()) {
-        Effect.BlindUp('editShippingOptionPanel', {duration: 0.0});
-        Effect.BlindUp('orderSubmitPanel', {duration: 0.0});
-        Effect.BlindDown('shippingOptionCompleted');
-        Effect.BlindDown('shippingOptionSummaryPanel', {duration: 0.0});
-        Effect.Fade('editBilling');
-    }
-    if ($('orderSubmitPanel')) {
-        Effect.BlindUp('orderSubmitPanel', {duration: 0.0});
-    }
-}
-
-// Order Submit
-function displayOrderSubmitPanel() {
-
-    if (!$('orderSubmitPanel').visible() && isBillStepValidate) {
-        Effect.BlindUp('editBillingPanel', {duration: 0.0});
-        Effect.BlindDown('billingSummaryPanel', {duration: 0.0});
-        setDataInBillingCompleted();
-        Effect.BlindDown('billingCompleted', {duration: 0.0});
-        Effect.BlindDown('orderSubmitPanel', {duration: 0.0});
-        Effect.Fade('processingBilling', {duration: 0.0});
         Effect.Fade('processingOrderButton', {duration: 0.0});
-        Effect.Appear('processOrderButton', {duration: 0.0});
-        Effect.Fade('processingOrderSubmitPanel', {duration: 0.0});
+        
+    }    
+}
+
+function showEditCartPanel() {
+    if (!$('editCartPanel').visible() ) {
+        Effect.BlindUp('cartSummaryPanel',{duration: 0.0});
+        hideEditShippingPanel();
+        hideEditShippingOptionPanel();
+        hideEditBillingPanel();
+        hideOrderSubmitPanel();
+        Effect.BlindDown('editCartPanel',{duration: 0.0});
     }
 }
 
-function processShippingAddress() {
-    createUpdateCustomerAndShippingAddress();
-    if (isShipStepValidate) {
-        getShipOptions();
+function showEditShippingPanel() {
+     if (!$('editShippingPanel').visible()) {
+         Effect.BlindUp('shippingSummaryPanel', {duration: 0.0});
+         hideEditCartPanel();
+         hideEditShippingOptionPanel();
+         hideEditBillingPanel();
+         hideOrderSubmitPanel();
+         Effect.BlindDown('editShippingPanel');
+
+     }
+}
+
+function showEditShippingOptionPanel() {
+     if (!$('editShippingOptionPanel').visible()) {
+         Effect.BlindUp('shippingOptionSummaryPanel', {duration: 0.0});
+         hideEditCartPanel();
+         hideEditShippingPanel()
+         hideEditBillingPanel();
+         hideOrderSubmitPanel();
+         Effect.BlindDown('editShippingOptionPanel', {duration: 0.0});
+     }
+}
+
+function showEditBillingPanel() {
+
+    if (!$('editBillingPanel').visible()) {
+         Effect.BlindUp('billingSummaryPanel', {duration: 0.0});
+         hideEditCartPanel();
+         hideEditShippingPanel();
+         hideEditShippingOptionPanel();
+         hideOrderSubmitPanel();
+         Effect.BlindDown('editBillingPanel', {duration: 0.0});
     }
 }
+
+function showOrderSubmitPanel() {
+    if (!$('orderSubmitPanel').visible()) {
+         hideEditCartPanel();
+         hideEditShippingPanel()
+         hideEditShippingOptionPanel()
+         hideEditBillingPanel();
+         Effect.BlindDown('orderSubmitPanel', {duration: 0.0});               
+    }
+}
+
+// End Show/Hide Step panels
+
 
 function createUpdateCustomerAndShippingAddress() {
+    var result = false;
+    
     new Ajax.Request('createUpdateShippingAddress', {
         asynchronous: false, 
         onSuccess: function(transport) {
@@ -326,25 +230,46 @@ function createUpdateCustomerAndShippingAddress() {
             if (serverError != "") {
                 Effect.Appear('shippingFormServerError');
                 $('shippingFormServerError').update(serverError);
-                isShipStepValidate = false;
                 Effect.Appear('editShippingOptions', {duration: 0.0});
                 Effect.Fade('processingShippingOptions', {duration: 0.0});
             } else {
                 Effect.Fade('shippingFormServerError');
-                isShipStepValidate = true;
                 // Process Shipping data response.
                 $('shipToPartyId').value = data.partyId;
+                console.log("data.partyId " + $('shipToPartyId').value);
                 $('billToPartyId').value = data.partyId;
                 $('shipToContactMechId').value = data.shipToContactMechId;
                 $('shipToPhoneContactMechId').value = data.shipToPhoneContactMechId;
                 $('emailContactMechId').value = data.emailContactMechId;
-                $('completedShippingMethod').update(data.shippingDescription);
+                //$('completedShippingMethod').update(data.shippingDescription);
+                var fullName = $('firstName').value + " " +$('lastName').value;
+                var extension = "";
+                if ($F('shipToExtension')) {
+                    extension = "-" + $F('shipToExtension');
+                }
+                var shippingContactPhoneNumber = $F('shipToCountryCode')+ "-" + $F('shipToAreaCode') 
+                    + "-" + $F('shipToContactNumber') + extension;
+                $('completedShipToAttn').update("Attn: " + fullName);
+                $('completedShippingContactNumber').update(shippingContactPhoneNumber);
+                $('completedEmailAddress').update($('emailAddress').value);
+                $('completedShipToAddress1').update($F('shipToAddress1'));
+                $('completedShipToAddress2').update($('shipToAddress2').value);
+                var shipToGeo = $('shipToCity').value+","+$('shipToStateProvinceGeoId').value +" "+$('shipToCountryGeoId').value+" "+$('shipToPostalCode').value;
+                $('completedShipToGeo').update(shipToGeo);
+                // set shipToContactMechId in Billing form.
+                $('shipToContactMechIdInBillingForm').value = $F('shipToContactMechId');
+                
+                getShipOptions();
+                result = true;
             }
         }, parameters: $('shippingForm').serialize(), requestHeaders: {Accept: 'application/json'}
     });
+    console.log("returning from createUpdateCustomerAndShippingAddress  " + result );
+    return result;
 }
 
 function getShipOptions() {
+    var result = false;
     var shipOptions = null;
     var optionList = [];
     if ($F('shipMethod') == "" || $F('shipMethod') == null) {
@@ -365,70 +290,44 @@ function getShipOptions() {
                         optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc + " </option>");
                     });
                     $('shipMethod').update(optionList);
+                    result = true;
                 }
             }, requestHeaders: {Accept: 'application/json'}
         });
     }
-}
-
-function setDataInShippingCompleted() {
-    var fullName = $('firstName').value + " " +$('lastName').value;
-    var extension = "";
-    if ($F('shipToExtension')) {
-        extension = "-" + $F('shipToExtension');
-    }
-    var shippingContactPhoneNumber = $F('shipToCountryCode')+ "-" + $F('shipToAreaCode') 
-            + "-" + $F('shipToContactNumber') + extension;
-    $('completedShipToAttn').update("Attn: " + fullName);
-    $('completedShippingContactNumber').update(shippingContactPhoneNumber);
-    $('completedEmailAddress').update($('emailAddress').value);
-    $('completedShipToAddress1').update($F('shipToAddress1'));
-    $('completedShipToAddress2').update($('shipToAddress2').value);
-    var shipToGeo = $('shipToCity').value+","+$('shipToStateProvinceGeoId').value +" "+$('shipToCountryGeoId').value+" "+$('shipToPostalCode').value;
-    $('completedShipToGeo').update(shipToGeo);
-    // set shipToContactMechId in Billing form.
-    $('shipToContactMechIdInBillingForm').value = $F('shipToContactMechId');
+    return result;
 }
 
 // Shipping option
-var shipTotal = null;
-var shipMethod = null;
 function setShippingOption() {
+    var result = false;
+    var shipTotal = null;
+    var shipMethod = null;
+    Effect.Fade('shippingOptionFormServerError');
     new Ajax.Request('setShippingOption', {
         asynchronous: false,
         onSuccess: function(transport) {
             var data = transport.responseText.evalJSON(true);
-            shipMethod = data.shippingDescription;
             shipTotal = data.shippingTotal;
             var serverError = getServerError(data);
             if(serverError != "") {
                 Effect.Appear('shippingOptionFormServerError');
                 $('shippingOptionFormServerError').update(serverError);
                 isShipOptionStepValidate = false;
-                Effect.Appear('editBilling', {duration: 0.0});
-                Effect.Fade('processingBilling', {duration: 0.0});
             } else {
-                Effect.Fade('shippingOptionFormServerError');
                 isShipOptionStepValidate = true;
-                $('shippingDescription').value = data.shippingDescription;
-                $('shippingTotal').value = data.shippingTotal;
-                $('cartGrandTotal').value = data.cartGrandTotal;
-                $('totalSalesTax').value = data.totalSalesTax; 
+                $('selectedShipmentOption').update(data.shippingDescription);
+                //$('shippingDescription').value = data.shippingDescription;
+                //$('shippingTotal').value = data.shippingTotal;
+                //$('cartGrandTotal').value = data.cartGrandTotal;
+                //$('totalSalesTax').value = data.totalSalesTax; 
+                result = true;
             }
         }, parameters: $('shippingOptionForm').serialize(), requestHeaders: {Accept: 'application/json'}
     });
     updateCartData();
-}
-
-function setDataInShippingOptionCompleted() {
-    var shipMethodSelected = [];
-    var shipOptions = $A($('shipMethod').options);
-    shipOptions.each( function(shipOption) {
-        if (shipOption.selected) {
-            shipMethodSelected = shipOption.text.split('-');
-        }
-    });
-    $('selectedShipmentOption').update(shipMethodSelected[0]);
+    console.log("Return value in setShippingOption is " + result);
+    return result;
 }
 
 // Billing
@@ -447,6 +346,7 @@ function useShippingAddressForBillingToggle() {
 }
 
 function processBillingAndPayment() {
+    var result = false;
     new Ajax.Request('createUpdateBillingAndPayment', {
         asynchronous: false, 
         onSuccess: function(transport) {
@@ -464,30 +364,31 @@ function processBillingAndPayment() {
                 $('billToContactMechId').value = data.billToContactMechId;
                 $('paymentMethodId').value = data.paymentMethodId;
                 $('billToPhoneContactMechId').value = data.billToPhoneContactMechId;
+                var fullName = $F('firstNameOnCard') + " " +$F('lastNameOnCard');
+                $('completedBillToAttn').update("Attn: " + fullName);
+                var extension = "";
+                if ($F('billToExtension')) {
+                    extension = "-" + $F('billToExtension');
+                }
+                var billToPhoneNumber = $F('billToCountryCode') + "-" + $F('billToAreaCode') + "-" + $F('billToContactNumber') + extension;
+                $('completedBillToPhoneNumber').update(billToPhoneNumber);
+                var cardNumber = "CC#:XXXXXXXXXXXX"+$F('cardNumber').gsub('-','').slice(12,16);
+                $('completedCCNumber').update(cardNumber);
+                var expiryDate = "Expires:"+$F('expMonth')+"/"+$F('expYear');
+                $('completedExpiryDate').update(expiryDate);
+                $('completedBillToAddress1').update($F('billToAddress1'));
+                $('completedBillToAddress2').update($F('billToAddress2'));
+                var billToGeo = $F('billToCity')+","+$F('billToStateProvinceGeoId') +" "+$F('billToCountryGeoId')+" "+$F('billToPostalCode');
+                $('completedBillToGeo').update(billToGeo);
+                $('paymentMethod').update($F('paymentMethodTypeId'));
+                $('billToContactMechIdInShipingForm').value = $F('billToContactMechId');
+                result = true;
             }
         }, parameters: $('billingForm').serialize(), requestHeaders: {Accept: 'application/json'}
     });
-}
-
-function setDataInBillingCompleted() {
-    var fullName = $F('firstNameOnCard') + " " +$F('lastNameOnCard');
-    $('completedBillToAttn').update("Attn: " + fullName);
-    var extension = "";
-    if ($F('billToExtension')) {
-        extension = "-" + $F('billToExtension');
-    }
-    var billToPhoneNumber = $F('billToCountryCode') + "-" + $F('billToAreaCode') + "-" + $F('billToContactNumber') + extension;
-    $('completedBillToPhoneNumber').update(billToPhoneNumber);
-    var cardNumber = "CC#:XXXXXXXXXXXX"+$F('cardNumber').gsub('-','').slice(12,16);
-    $('completedCCNumber').update(cardNumber);
-    var expiryDate = "Expires:"+$F('expMonth')+"/"+$F('expYear');
-    $('completedExpiryDate').update(expiryDate);
-    $('completedBillToAddress1').update($F('billToAddress1'));
-    $('completedBillToAddress2').update($F('billToAddress2'));
-    var billToGeo = $F('billToCity')+","+$F('billToStateProvinceGeoId') +" "+$F('billToCountryGeoId')+" "+$F('billToPostalCode');
-    $('completedBillToGeo').update(billToGeo);
-    $('paymentMethod').update($F('paymentMethodTypeId'));
-    $('billToContactMechIdInShipingForm').value = $F('billToContactMechId');
+    console.log("processBillingAndPayment return value is " + result);
+    return result;
+    
 }
 
 function initCartProcessObservers() {
