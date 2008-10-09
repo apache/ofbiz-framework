@@ -474,7 +474,8 @@
                     <or>
                         <if-compare field="highInfo.currentStatusId" value="PTS_COMPLETED" operator="equals"/>
                         <if-compare field="highInfo.currentStatusId" value="PTS_ON_HOLD" operator="equals"/>
-                        <if-compare field="highInfo.currentStatusId" value="PTS_CANCELLED" operator="equals"/>                    </or>
+                        <if-compare field="highInfo.currentStatusId" value="PTS_CANCELLED" operator="equals"/>                    
+                    </or>
                     <not>
                         <if-empty field="allTaskStatus"/>
                     </not>
@@ -859,17 +860,31 @@
                     <set field="lowInfo.currentStatusId" value="PTS_CREATED_IP"/><!-- task is in progress -->
                 </if-not-empty>
             </if-compare>
-        </if-compare>        
-        
+        </if-compare>    
+            
         <entity-one entity-name="StatusItem" value-name="status">
             <field-map field-name="statusId" env-name="lowInfo.currentStatusId"/>
         </entity-one>
         <if-empty field="highInfo.sequenceId">
             <set field="highInfo.sequenceId" from-field="status.sequenceId"/>
             <else>
-                <if-compare-field field="highInfo.sequenceId" to-field="status.sequenceId" operator="less">
-                    <set field="highInfo.sequenceId" from-field="status.sequenceId"/>
-                </if-compare-field>
+                <if>
+                    <condition>
+                        <and>
+                            <if-compare-field field="highInfo.sequenceId" to-field="status.sequenceId" operator="less"/>
+                            <and>
+                                <if-compare field="highInfo.sequenceId" value="05" operator="not-equals"/>
+                                <if-compare field="status.sequenceId" value="09" operator="not-equals"/>
+                            </and>
+                        </and>
+                    </condition>
+                    <then>
+                        <set field="highInfo.sequenceId" from-field="status.sequenceId"/>
+                    </then>
+                    <else>
+                        <set field="highInfo.sequenceId" value="05"/>
+                    </else>
+                </if>
             </else>
         </if-empty>
         
