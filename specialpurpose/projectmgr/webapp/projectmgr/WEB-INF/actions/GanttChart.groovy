@@ -22,24 +22,71 @@ import java.lang.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.*;
-import org.ofbiz.base.util.*;
 
 projectId = parameters.projectId;
 userLogin = parameters.userLogin;
 
+//project info
+result = dispatcher.runSync("getProject", [projectId : projectId, userLogin : userLogin]);
+project = result.projectInfo;
+if (project && project.startDate) 
+    context.chartStart = project.startDate;
+else
+    context.chartStart = UtilDateTime.nowTimestamp(); // default todays date
+if (project && project.completionDate)         
+    context.chartEnd = project.completionDate;
+else
+    context.chartEnd = UtilDateTime.addDaysToTimestamp(UtilDateTime.nowTimestamp(), 14); // default 14 days long
+
+if (project == null) return;
+
 ganttList = new LinkedList();
 result = dispatcher.runSync("getProjectPhaseList", [userLogin : userLogin , projectId : projectId]);
-phases = result.get("phaseList");
+phases = result.phaseList;
 if (phases){
 	phases.each { phase ->
+		newPhase = phase;
+        if (!newPhase.estimatedStartDate && newPhase.actualStartDate) {
+            newPhase.estimatedStartDate = newPhase.actualStartDate;
+        }
+        if (!newPhase.estimatedStartDate) {
+            newPhase.estimatedStartDate = context.chartStart;
+        }
+        if (!newPhase.estimatedCompletionDate && newPhase.actualCompletionDate) {
+            newPhase.estimatedCompletionDate = newPhase.actualCompletionDateDate;
+        }
+        if (!newPhase.estimatedCompletionDate) {
+            newPhase.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, 3);
+        }
+        newPhase.workEffortTypeId = "PHASE";
+        Debug.log("===start: " + newPhase.estimatedStartDate + "===end: " + newPhase.estimatedCompletionDate);
+		ganttList.add(newPhase);
+		Debug.log("=======" + phase.phaseName + "======" + phase.workEffortTypeId + " phaseId" + phase.phaseId);
 		tasks = delegator.findByAnd("WorkEffort", ["workEffortParentId" : phase.phaseId]);
 		if (tasks){
 			tasks.each { task ->
-				ganttList.add(task);
+	        Debug.log("===name====" + task.workEffortName + "===type===" + task.workEffortTypeId + "===id===" + task.workEffortId);
+	        	resultTaskInfo = dispatcher.runSync("getProjectTask", [userLogin : userLogin , taskId : task.workEffortId]);
+                Debug.log("===restaskinfo " + resultTaskInfo);
+	        	taskInfo = resultTaskInfo.taskInfo;
+	        	Debug.log("===taskinfo " + taskInfo);
+                if (!taskInfo.estimatedStartDate && taskInfo.actualStartDate) {
+                    taskInfo.estimatedStartDate = taskInfo.actualStartDate;
+                }
+                if (!taskInfo.estimatedStartDate) {
+                    taskInfo.estimatedStartDate = newPhase.estimatedStartDate;
+                }
+                if (!taskInfo.estimatedCompletionDate && taskInfo.actualCompletionDate) {
+                    taskInfo.estimatedCompletionDate = taskInfo.actualCompletionDate;
+                }
+                if (!taskInfo.estimatedCompletionDate) {
+                    taskInfo.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, 3);
+                } 
+                taskInfo.workEffortTypeId = "TASK";
+				ganttList.add(taskInfo);
 			}
 		}
 	}
 }
-context.phases = phases;
-context.tasks = ganttList;
+context.phaseTaskList = ganttList;
 

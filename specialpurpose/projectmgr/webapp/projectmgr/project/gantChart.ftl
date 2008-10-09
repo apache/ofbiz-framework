@@ -22,8 +22,9 @@
 <#assign phasesummary2 = 0/>
 <#assign summary2 = 0/>
 <#assign day = 24 * 60 * 60 * 1000/>
-<#if phases?has_content>
-<#list phases as phases>
+<#if phaseTaskList?has_content>
+<#list phaseTaskList as phases>
+<#if phases.workEffortTypeId == "PHASE">
 		<#assign phaseId = phases.phaseId/>	
 		<#assign phasesStart = Static["org.ofbiz.base.util.UtilDateTime"].toCalendar(phases.estimatedStartDate)/>
 		<#assign phasesEnd = Static["org.ofbiz.base.util.UtilDateTime"].toCalendar(phases.estimatedCompletionDate)/>
@@ -57,13 +58,14 @@
 			<img src="/images/busy.gif" height="15px;" width="${phasesummary2}px;">
 		</td>		
 	</tr>
-	</#if>		
-	<#if tasks?has_content>
-	<#list tasks as tasks>	
+    </#if>      
+</#if>
+<#if phases.workEffortTypeId == "TASK">
+    <#assign tasks = phases/>      
 		<#assign phasesId = tasks.workEffortParentId/>
-		<#assign taskId = tasks.workEffortId/>		
-		<#assign taskStart = Static["org.ofbiz.base.util.UtilDateTime"].toCalendar(tasks.estimatedStartDate)/>
-		<#assign taskEnd = Static["org.ofbiz.base.util.UtilDateTime"].toCalendar(tasks.estimatedCompletionDate)/>
+		<#assign taskId = tasks.taskId/>		
+		<#assign taskStart = Static["org.ofbiz.base.util.UtilDateTime"].toCalendar(tasks.estimatedStartDate?if_exists)/>
+		<#assign taskEnd = Static["org.ofbiz.base.util.UtilDateTime"].toCalendar(tasks.estimatedCompletionDate?if_exists)/>
 		<#assign t3 = taskStart.getTime().getTime()/> 
 		<#assign t4 = taskEnd.getTime().getTime()/> 
 		<#assign startMonth = tasks.estimatedStartDate?substring(5,7)?number/>
@@ -79,7 +81,7 @@
 			<#assign spacer2 = 732 - (spacer + summary)/>
 	<tr>
 		<td style="width: 150px; vertical-align: bottom;" >
-			<a href="/projectmgr/control/taskView?workEffortId=${tasks.workEffortId}">${tasks.workEffortName?if_exists}</a>
+			<a href="/projectmgr/control/taskView?workEffortId=${tasks.taskId}">${tasks.taskName?if_exists}</a>
 		</td>
 		<td  colspan="12">
 			<img src="/images/spacer.gif" height="15px;" width="${spacer}px;"><img src="/images/bluebar.gif" height="15px;" width="${summary}px;"><img src="/images/spacer.gif" height="15px;" width="${spacer2}px;">
@@ -96,8 +98,7 @@
 	</tr>
 	</#if>
 	</#if>	
-	</#list>
-	</#if>	
+</#if>  
 </#list>
 </#if>
 </table>
