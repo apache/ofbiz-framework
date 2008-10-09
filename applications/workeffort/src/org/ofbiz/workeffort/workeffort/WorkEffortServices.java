@@ -481,8 +481,9 @@ public class WorkEffortServices {
         if (entityExprList == null) {
             entityExprList = getDefaultWorkEffortExprList(partyIds, facilityId, fixedAssetId, workEffortTypeId);
         }
-        entityExprList.add(EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp));
         entityExprList.add(EntityCondition.makeCondition("estimatedStartDate", EntityOperator.LESS_THAN, endStamp));
+        List<EntityCondition> completionExprList = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.GREATER_THAN_EQUAL_TO, startStamp), EntityCondition.makeCondition("estimatedCompletionDate", EntityOperator.EQUALS, null));
+        entityExprList.add(EntityCondition.makeCondition(completionExprList, EntityJoinOperator.OR));
         if (filterOutCanceledEvents.booleanValue()) {
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"));
         }
@@ -497,23 +498,7 @@ public class WorkEffortServices {
                 } else {
                     tempWorkEfforts = delegator.findList("WorkEffort", ecl, null, UtilMisc.toList("estimatedStartDate"), null, false);
                 }
-
-                // This block needs to be here to filter duplicate workeffort ids when
-                // more than one of the selected party ids is assigned to the WorkEffort
-
-                Set<String> tempWeKeys = FastSet.newInstance();
-                Iterator<GenericValue> tempWorkEffortIter = tempWorkEfforts.iterator();
-                while (tempWorkEffortIter.hasNext()) {
-                    GenericValue tempWorkEffort = tempWorkEffortIter.next();
-                    String tempWorkEffortId = tempWorkEffort.getString("workEffortId");
-                    if (tempWeKeys.contains(tempWorkEffortId)) {
-                        tempWorkEffortIter.remove();
-                    } else {
-                        tempWeKeys.add(tempWorkEffortId);
-                    }
-                }
-
-                validWorkEfforts = UtilMisc.makeListWritable(tempWorkEfforts);
+                validWorkEfforts = WorkEffortWorker.removeDuplicateWorkEfforts(tempWorkEfforts);
             } catch (GenericEntityException e) {
                 Debug.logWarning(e, module);
             }
