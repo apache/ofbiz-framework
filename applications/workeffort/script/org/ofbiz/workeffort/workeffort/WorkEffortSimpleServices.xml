@@ -918,11 +918,12 @@ under the License.
                 if there is no actual start date, default to now (to the current date and time) -->
             <if-empty field="parameters.fromDate">
                 <entity-one entity-name="WorkEffort" value-name="prodRunTask" />
+                <now-timestamp-to-env env-name="newWEFixedAssetAssign.fromDate"/>
+                <if-not-empty field="prodRunTask.estimatedStartDate">                    
+                    <set field="newWEFixedAssetAssign.fromDate" from-field="prodRunTask.estimatedStartDate" />
+                </if-not-empty>
                 <if-not-empty field="prodRunTask.actualStartDate">                    
                     <set field="newWEFixedAssetAssign.fromDate" from-field="prodRunTask.actualStartDate" />
-                <else>
-                    <now-timestamp-to-env env-name="newWEFixedAssetAssign.fromDate"/>
-                </else>
                 </if-not-empty>
             </if-empty>
             <create-value value-name="newWEFixedAssetAssign" />

@@ -1117,11 +1117,14 @@ under the License.
         <field name="allocatedCost"><text/></field>
         <field name="comments"><text size="60" maxlength="255"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortFixedAssetAssign?workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}"/>
+        </field>
     </form>
 
-    <form name="EditWorkEffortFixedAssetAssign" default-map-name="workEffortFixedAssetAssign" target="updateWorkEffortFixedAssetAssign" title="" type="single"
+    <form name="EditWorkEffortFixedAssetAssign" target="createWorkEffortFixedAssetAssign" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target target="createWorkEffortFixedAssetAssign" use-when="workEffortFixedAssetAssign==null"/>
+<!--        <alt-target target="updateWorkEffortFixedAssetAssign" use-when="workEffortFixedAssetAssign!=null"/> -->
         <field name="workEffortId"><hidden/></field>
         <field name="fixedAssetId"><lookup target-form-name="LookupFixedAsset"/></field>
         <field name="fromDate"><date-time/></field>

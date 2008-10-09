@@ -473,7 +473,7 @@ under the License.
             with a work effort (e.g. a production run task)</description>
         <auto-attributes include="pk" mode="IN" optional="false" />
         <auto-attributes include="nonpk" mode="IN" optional="true" />
-        <override name="fromDate" optional="true" />
+        <override name="fromDate" optional="true" mode="IN"/>
     </service>
     <service name="updateWorkEffortFixedAssetAssign" engine="simple" auth="true" 
             default-entity-name="WorkEffortFixedAssetAssign"
