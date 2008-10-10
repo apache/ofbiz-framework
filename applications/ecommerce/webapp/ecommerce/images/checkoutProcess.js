@@ -255,7 +255,6 @@ function createUpdateCustomerAndShippingAddress() {
             }
         }, parameters: $('shippingForm').serialize(), requestHeaders: {Accept: 'application/json'}
     });
-    console.log("returning from createUpdateCustomerAndShippingAddress  " + result );
     return result;
 }
 
