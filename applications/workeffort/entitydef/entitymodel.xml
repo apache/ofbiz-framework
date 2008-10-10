@@ -273,13 +273,13 @@ under the License.
       <field name="totalMoneyAllowed" type="currency-amount"></field>
       <field name="moneyUomId" type="id"></field>
       <field name="specialTerms" type="long-varchar"></field>
-      <field name="timeTransparency" type="numeric"></field>
+      <field name="timeTransparency" type="numeric"><description>Deprecated - use the availabilityStatusId field in the assignment entities instead</description></field>
       <field name="universalId" type="short-varchar"></field>
       <field name="sourceReferenceId" type="id-long"></field>
-      <field name="fixedAssetId" type="id"></field>
+      <field name="fixedAssetId" type="id"><description>Deprecated - use the WorkEffortFixedAssetAssign entity instead</description></field>
       <field name="facilityId" type="id"></field>
       <field name="infoUrl" type="long-varchar"></field>
-      <field name="recurrenceInfoId" type="id"></field>
+      <field name="recurrenceInfoId" type="id"><description>Deprecated - use the tempExprId field instead</description></field>
       <field name="tempExprId" type="id"></field>
       <field name="runtimeDataId" type="id"></field>
       <field name="noteId" type="id"></field>
