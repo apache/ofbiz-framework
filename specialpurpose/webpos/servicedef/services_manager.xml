@@ -55,6 +55,7 @@ under the License.
         <attribute name="type"         type="String" mode="IN" optional="false"/>
         <attribute name="amountInOut"  type="Double" mode="IN" optional="false"/>
         <attribute name="reasonInOut"  type="String" mode="IN" optional="false"/>
+        <attribute name="reasonCommentInOut" type="String" mode="IN" optional="false"/>
     </service>
 
     <service name="modifyPrice" engine="simple" auth="false" 

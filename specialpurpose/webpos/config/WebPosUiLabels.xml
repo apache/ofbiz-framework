@@ -212,20 +212,24 @@
         <value xml:lang="it">Inserire un'importo iniziale cassa valido:</value>
     </property>
     <property key="WebPosManagerPaidInAmount">
-        <value xml:lang="en">Enter amount to paid in and create or choose a reason</value>
-        <value xml:lang="it">Inserire l'importo del pagamento in ingresso o scegli una motivazione</value>
+        <value xml:lang="en">Enter amount to paid in</value>
+        <value xml:lang="it">Inserire l'importo del pagamento in ingresso</value>
     </property>
     <property key="WebPosManagerPaidOutAmount">
-        <value xml:lang="en">Enter amount to withdraw and create or choose a reason</value>
-        <value xml:lang="it">Inserire l'importo del pagamento in uscita o scegli una motivazione</value>
+        <value xml:lang="en">Enter amount to withdraw</value>
+        <value xml:lang="it">Inserire l'importo del pagamento in uscita</value>
     </property>
     <property key="WebPosManagerPaidOutAndIndAmountNotValid">
         <value xml:lang="en">Enter a valid amount</value>
         <value xml:lang="it">Inserire un'importo valido</value>
     </property>
     <property key="WebPosManagerPaidOutAndIndReason">
-        <value xml:lang="en">You have to create or choose a reason</value>
-        <value xml:lang="it">Tu devi creare o scegliere la motivazione</value>
+        <value xml:lang="en">You have to choose a reason</value>
+        <value xml:lang="it">Tu devi scegliere la motivazione</value>
+    </property>
+    <property key="WebPosManagerPaidOutAndIndReasonComment">
+        <value xml:lang="en">You can insert a comment</value>
+        <value xml:lang="it">Tu puoi inserire un commento</value>
     </property>
     <property key="WebPosManagerPaidOutAndInWithoutOpenedTransaction">
         <value xml:lang="en">Cannot Paid Out and In without an opened transaction</value>

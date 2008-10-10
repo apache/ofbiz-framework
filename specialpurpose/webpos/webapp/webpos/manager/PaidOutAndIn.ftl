@@ -44,6 +44,10 @@ under the License.
                 </td>
             </tr>
             <tr>
+			    <td><b>${uiLabelMap.WebPosManagerPaidOutAndIndReasonComment}</b></td>
+			    <td><input type="text" name="reasonCommentInOut" id="reasonCommentInOut" value="${parameters.reasonCommentInOut?default("")}"/></td>
+			</tr>
+            <tr>
                 <td colspan="2"">&nbsp;</td>
             </tr>
             <tr>

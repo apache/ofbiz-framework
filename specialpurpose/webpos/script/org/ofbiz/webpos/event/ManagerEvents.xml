@@ -296,18 +296,15 @@ under the License.
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="true">
                             <make-value value-name="internTx" entity-name="PosTerminalInternTx"/>
-                            <call-object-method obj-field-name="webPosTransaction" method-name="getTerminalLogId" ret-field-name="internTx.posTerminalLogId"/>
-                            <set field="internTx.paidAmount" from-field="parameters.amountInOut"/>
-                            <entity-one entity-name="Enumeration" value-name="enum">
-                                <field-map field-name="enumId" env-name="parameters.reasonInOut"/>
-                            </entity-one>
-                            <set field="internTx.reasonComment" from-field="enum.description"/>
-                            <!--  //  TODO : store the parameter reasonInOut into the enum paid reason id -->
-                            <create-value value-name="internTx"/>
-                            <set from-field="parameters.type" field="paidInOut"/>
-                            <call-object-method obj-field-name="webPosTransaction" method-name="paidInOut">
-                                <field field-name="paidInOut" type="String"/>
-                            </call-object-method>
+						    <call-object-method obj-field-name="webPosTransaction" method-name="getTerminalLogId" ret-field-name="internTx.posTerminalLogId"/>
+						    <set field="internTx.paidAmount" from-field="parameters.amountInOut"/>
+						    <set field="internTx.reasonComment" from-field="parameters.reasonCommentInOut"/>
+						    <set field="internTx.reasonEnumId" from-field="parameters.reasonInOut"/>
+						    <create-value value-name="internTx"/>
+						    <set from-field="parameters.type" field="paidInOut"/>
+						    <call-object-method obj-field-name="webPosTransaction" method-name="paidInOut">
+						        <field field-name="paidInOut" type="String"/>
+						    </call-object-method>
                         <else>
                             <add-error><fail-property resource="WebPosUiLabels" property="WebPosManagerPaidOutAndIndAmountNotValid"/></add-error>
                             <check-errors/>
