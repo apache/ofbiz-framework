@@ -34,20 +34,20 @@ Event.observe(window, 'load', function() {
     });
 
     // Update Shipping Address
-    Event.observe($('editShippingOptions'), 'click', function() {
+    Event.observe($('savePartyAndShippingContact'), 'click', function() {
         if (validateShip.validate()) {
-            Effect.Fade('editShippingOptions', {duration: 0.0});
+            Effect.Fade('savePartyAndShippingContact', {duration: 0.0});
             Effect.Appear('processingShippingOptions', {duration: 0.0});
             if (createUpdateCustomerAndShippingAddress()){
                 showEditShippingOptionPanel();
             }
             Effect.Fade('processingShippingOptions', {duration: 0.0});
-            Effect.Appear('editShippingOptions', {duration: 0.0});               
+            Effect.Appear('savePartyAndShippingContact', {duration: 0.0});               
         }
     });
 
     // Goto Edit Shipping  panel  
-    Event.observe($('editShipping'), 'click', function() {
+    Event.observe($('updateShoppingCart'), 'click', function() {
         if (validateCart.validate()) {
             showEditShippingPanel();
         }
@@ -58,14 +58,14 @@ Event.observe(window, 'load', function() {
     });
 
     // Set Shipping Method to card and goto Billing step
-    Event.observe($('editBilling'), 'click', function() {
-        Effect.Fade('editBilling', {duration: 0.0});
+    Event.observe($('saveShippingMethod'), 'click', function() {
+        Effect.Fade('saveShippingMethod', {duration: 0.0});
         Effect.Appear('processingBilling', {duration: 0.0});
         if (setShippingOption()){
             showEditBillingPanel();
         }
         Effect.Fade('processingBilling', {duration: 0.0});            
-        Effect.Appear('editBilling', {duration: 0.0});        
+        Effect.Appear('saveShippingMethod', {duration: 0.0});        
     });
 
     Event.observe($('openShippingOptionPanel'), 'click', function() {
@@ -79,16 +79,16 @@ Event.observe(window, 'load', function() {
             showEditBillingPanel();  
     });
 
-    Event.observe($('openOrderSubmitPanel'), 'click', function() {
+    Event.observe($('savePaymentAndBillingContact'), 'click', function() {
         if (true) {
             if (validateBill.validate()) {
-                Effect.Fade('openOrderSubmitPanel', {duration: 0.0});
+                Effect.Fade('savePaymentAndBillingContact', {duration: 0.0});
                 Effect.Appear('processingOrderSubmitPanel', {duration: 0.0});
                 if (processBillingAndPayment()) {
-                    showOrderSubmitPanel()
+                    showOrderSubmitPanel();
                 }
                 Effect.Fade('processingOrderSubmitPanel', {duration: 0.0});                    
-                Effect.Appear('openOrderSubmitPanel', {duration: 0.0});
+                Effect.Appear('savePaymentAndBillingContact', {duration: 0.0});
             }
         }
     });
@@ -228,10 +228,7 @@ function createUpdateCustomerAndShippingAddress() {
             var data = transport.responseText.evalJSON(true);
             var serverError = getServerError(data);
             if (serverError != "") {
-                Effect.Appear('shippingFormServerError');
                 $('shippingFormServerError').update(serverError);
-                Effect.Appear('editShippingOptions', {duration: 0.0});
-                Effect.Fade('processingShippingOptions', {duration: 0.0});
             } else {
                 Effect.Fade('shippingFormServerError');
                 // Process Shipping data response.
@@ -356,8 +353,6 @@ function processBillingAndPayment() {
                 Effect.Appear('billingFormServerError');
                 $('billingFormServerError').update(serverError);
                 isBillStepValidate = false;
-                Effect.Appear('openOrderSubmitPanel', {duration: 0.0});
-                Effect.Fade('processingOrderSubmitPanel', {duration: 0.0});                
             } else {
                 Effect.Fade('billingFormServerError');
                 isBillStepValidate = true;
