@@ -89,6 +89,15 @@
     <!-- <InventoryItem facilityId="MyRetailStore" inventoryItemId="9100" inventoryItemTypeId="NON_SERIAL_INV_ITEM" productId="GZ-1001"/>
     <InventoryItemDetail inventoryItemId="9100" inventoryItemDetailSeqId="0001" availableToPromiseDiff="20" quantityOnHandDiff="20"/> -->
     <!-- NOTE: for testing now leaving out GZ-5005 which is the other default product with a button in the POS, should create a new inventory item with negative QOH -->
+
+    <EnumerationType description="Pos Paid Reason In" enumTypeId="POS_PAID_REASON_IN" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Banking during the day" enumCode="BANKING_IN_REASON" enumId="BANKING_IN_REASON" sequenceId="01" enumTypeId="POS_PAID_REASON_IN"/>
+    <Enumeration description="Change added to Till's float" enumCode="CHANGE_IN_REASON" enumId="CHANGE_IN_REASON" sequenceId="02" enumTypeId="POS_PAID_REASON_IN"/>
+    <Enumeration description="Petty Cash Paid into Till" enumCode="CASH_IN_REASON" enumId="CASH_IN_REASON" sequenceId="03" enumTypeId="POS_PAID_REASON_IN"/>
+
+    <EnumerationType description="Pos Paid Reason Out" enumTypeId="POS_PAID_REASON_OUT" hasTable="N" parentTypeId=""/>
+    <Enumeration description="Banking during the day" enumCode="BANKING_OUT_REASON" enumId="BANKING_OUT_REASON" sequenceId="01" enumTypeId="POS_PAID_REASON_OUT"/>
+    <Enumeration description="Petty Cash out" enumCode="CASH_OUT_REASON" enumId="CASH_OUT_REASON" sequenceId="03" enumTypeId="POS_PAID_REASON_OUT"/>
 </entity-engine-xml>
 
 

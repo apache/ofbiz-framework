@@ -103,9 +103,13 @@ under the License.
       <field name="posTerminalLogId" type="id-ne"></field>
       <field name="paidAmount" type="currency-amount"></field>        
       <field name="reasonComment" type="comment"/>
+      <field name="reasonEnumId" type="id"/>
       <prim-key field="posTerminalLogId"/>
       <relation type="one" fk-name="POS_TRA_POS" rel-entity-name="PosTerminalLog">
           <key-map field-name="posTerminalLogId"/>
+      </relation>
+      <relation type="one" fk-name="POS_TRA_PAYENUM" rel-entity-name="Enumeration">
+          <key-map field-name="reasonEnumId" rel-field-name="enumId"/>
       </relation>
     </entity>
 </entitymodel>
