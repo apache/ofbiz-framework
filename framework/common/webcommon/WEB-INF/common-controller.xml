@@ -78,6 +78,12 @@ under the License.
         <response name="success" type="request" value="checkLogin"/>
         <response name="error" type="view" value="main"/>
     </request-map>
+    <request-map uri="forgotPassword">
+        <security https="true" auth="false" />
+        <event type="java" path="org.ofbiz.securityext.login.LoginEvents" invoke="forgotPassword"/>
+        <response name="success" type="view" value="forgotPassword" />
+        <response name="error" type="view" value="forgotPassword" />
+    </request-map>
 
     <!-- Common Mappings used for locales and timezones -->
     <request-map uri="setSessionLocale">
@@ -130,6 +136,7 @@ under the License.
     <view-map name="error" page="/error/error.jsp"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
     <view-map name="requirePasswordChange" type="screen" page="component://common/widget/CommonScreens.xml#requirePasswordChange"/>
+    <view-map name="forgotPassword" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword"/>
     <view-map name="EventMessages" type="screen" page="component://common/widget/CommonScreens.xml#EventMessages"/>
 
     <view-map name="LookupLocales" type="screen" page="component://common/widget/LookupScreens.xml#LookupLocales"/>
