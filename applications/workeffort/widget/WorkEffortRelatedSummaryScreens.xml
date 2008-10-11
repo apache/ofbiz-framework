@@ -34,7 +34,10 @@ under the License.
                 <get-related-one value-name="workEffort" relation-name="WorkEffortPurposeType" to-value-name="workEffortPurposeType"/>
                 <get-related-one value-name="workEffort" relation-name="ScopeEnumeration" to-value-name="scopeEnumeration"/>
                 
-                <entity-and entity-name="WorkEffortPartyAssignView" list-name="relatedPartyAssigns">
+                <entity-and entity-name="WorkEffortPartyAssignView" list-name="partyAssignments">
+                    <field-map field-name="workEffortId"/>
+                </entity-and>
+                <entity-and entity-name="WorkEffortAndFixedAssetAssign" list-name="fixedAssetAssignments" filter-by-date="true">
                     <field-map field-name="workEffortId"/>
                 </entity-and>
                 <entity-and entity-name="WorkEffortCommunicationEventView" list-name="commEvents">
@@ -53,131 +56,147 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
-                                    <label text="${uiLabelMap.WorkEffortWorkEffort}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <label text="${uiLabelMap.CommonName} " style="label"/><label text="${workEffort.workEffortName}"/>
-                                <label text="${uiLabelMap.CommonType} " style="label"/><label text="${workEffortType.description}"/>
-                                <label text="${uiLabelMap.CommonPurpose} " style="label"/><label text="${workEffortPurposeType.description}"/>
-                                <label text="${uiLabelMap.CommonStatus} " style="label"/><label text="${currentStatusItem.description}"/>
-                            </container>
-                            <container style="screenlet-body">
-                                <label text="${uiLabelMap.WorkEffortPercentComplete} " style="label"/><label text="${workEffort.percentComplete}"/>
-                                <label text="${uiLabelMap.CommonPriority} " style="label"/><label text="${workEffort.priority}"/>
-                                <label text="${uiLabelMap.WorkEffortEstimatedStartDate} " style="label"/><label text="${workEffort.estimatedStartDate}"/>
-                                <label text="${uiLabelMap.WorkEffortEstimatedCompletionDate} " style="label"/><label text="${workEffort.estimatedCompletionDate}"/>
-                            </container>
+                        <container style="screenlet-body">
+                            <label text="${uiLabelMap.CommonName} " style="label"/><label text="${workEffort.workEffortName}"/>
+                            <label text="${uiLabelMap.CommonType} " style="label"/><label text="${workEffortType.description}"/>
+                            <label text="${uiLabelMap.CommonPurpose} " style="label"/><label text="${workEffortPurposeType.description}"/>
+                            <label text="${uiLabelMap.CommonStatus} " style="label"/><label text="${currentStatusItem.description}"/>
                         </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
+                        <container style="screenlet-body">
+                            <label text="${uiLabelMap.WorkEffortPercentComplete} " style="label"/><label text="${workEffort.percentComplete}"/>
+                            <label text="${uiLabelMap.CommonPriority} " style="label"/><label text="${workEffort.priority}"/>
+                            <label text="${uiLabelMap.WorkEffortEstimatedStartDate} " style="label"/><label text="${workEffort.estimatedStartDate}"/>
+                            <label text="${uiLabelMap.WorkEffortEstimatedCompletionDate} " style="label"/><label text="${workEffort.estimatedCompletionDate}"/>
+                        </container>
+                        <section>
+                            <condition><not><if-empty field-name="partyAssignments"/></not></condition>
+                            <widgets>
+                                <horizontal-separator/>
+                                <container style="h2">
                                     <label text="${uiLabelMap.PartyPartyAssignmentsDetail}"/>
                                 </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <iterate-section list-name="relatedPartyAssigns" entry-name="partyAssign">
-                                    <section>
-                                        <actions>
-                                            <get-related-one value-name="partyAssign" relation-name="RoleType" to-value-name="partyAssignRoleType" use-cache="true"/>
-                                            <get-related-one value-name="partyAssign" relation-name="StatusItem" to-value-name="partyAssignStatusItem" use-cache="true"/>
-                                            <get-related-one value-name="partyAssign" relation-name="ExpectationEnumeration" to-value-name="partyAssignExpectationEnumeration" use-cache="true"/>
-                                        </actions>
-                                        <widgets>
-                                            <container>
-                                                <link target="/partymgr/control/viewprofile?partyId=${partyAssign.partyId}" url-mode="inter-app" text="${partyAssign.partyId}" style="buttontext"/>
-                                                <label text="${partyAssign.firstName} ${partyAssign.lastName} ${partyAssign.groupName}"/>
-                                                <label text="${uiLabelMap.PartyRoleId} " style="label"/><label text="${partyAssignRoleType.description}"/>
-                                                <label text="${uiLabelMap.CommonStatus} " style="label"/><label text="${partyAssignStatusItem.description}"/>
-                                                <label text="${uiLabelMap.CommonExpectation} " style="label"/><label text="${partyAssignExpectationEnumeration.description}"/>
-                                            </container>
-                                        </widgets>
-                                    </section>
-                                </iterate-section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
+                                <container style="screenlet-body">
+                                    <include-form location="component://workeffort/widget/WorkEffortForms.xml" name="DisplayWorkEffortPartyAssigns"/>
+<!--                                    <iterate-section list-name="partyAssignments" entry-name="partyAssign">
+                                        <section>
+                                            <actions>
+                                                <get-related-one value-name="partyAssign" relation-name="RoleType" to-value-name="partyAssignRoleType" use-cache="true"/>
+                                                <get-related-one value-name="partyAssign" relation-name="StatusItem" to-value-name="partyAssignStatusItem" use-cache="true"/>
+                                                <get-related-one value-name="partyAssign" relation-name="ExpectationEnumeration" to-value-name="partyAssignExpectationEnumeration" use-cache="true"/>
+                                            </actions>
+                                            <widgets>
+                                                <container>
+                                                    <link target="/partymgr/control/viewprofile?partyId=${partyAssign.partyId}" url-mode="inter-app" text="${partyAssign.partyId}" style="buttontext"/>
+                                                    <label text="${partyAssign.firstName} ${partyAssign.lastName} ${partyAssign.groupName}"/>
+                                                    <label text="${uiLabelMap.PartyRoleId} " style="label"/><label text="${partyAssignRoleType.description}"/>
+                                                    <label text="${uiLabelMap.CommonStatus} " style="label"/><label text="${partyAssignStatusItem.description}"/>
+                                                    <label text="${uiLabelMap.CommonExpectation} " style="label"/><label text="${partyAssignExpectationEnumeration.description}"/>
+                                                </container>
+                                            </widgets>
+                                        </section>
+                                    </iterate-section> -->
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition><not><if-empty field-name="fixedAssetAssignments"/></not></condition>
+                            <widgets>
+                                <horizontal-separator/>
+                                <container style="h2">
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortFixedAssetAssigns}"/>
+                                </container>
+                                <container style="screenlet-body">
+                                    <include-form location="component://workeffort/widget/WorkEffortForms.xml" name="DisplayWorkEffortFixedAssetAssigns"/>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition><not><if-empty field-name="commEvents"/></not></condition>
+                            <widgets>
+                                <horizontal-separator/>
+                                <container style="h2">
                                     <label text="${uiLabelMap.WorkEffortCommEvents}"/>
                                 </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <iterate-section list-name="commEvents" entry-name="commEvent">
-                                    <section>
-                                        <widgets>
-                                            <container>
-                                                <link target="/partymgr/control/EditCommunicationEvent?communicationEventId=${commEvent.communicationEventId}" url-mode="inter-app" text="${commEvent.communicationEventId}" style="buttontext"/>
-                                                <label text="${commEvent.subject}"/>
-                                            </container>
-                                        </widgets>
-                                    </section>
-                                </iterate-section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
+                                <container style="screenlet-body">
+                                    <iterate-section list-name="commEvents" entry-name="commEvent">
+                                        <section>
+                                            <widgets>
+                                                <container>
+                                                    <link target="/partymgr/control/EditCommunicationEvent?communicationEventId=${commEvent.communicationEventId}" url-mode="inter-app" text="${commEvent.communicationEventId}" style="buttontext"/>
+                                                    <label text="${commEvent.subject}"/>
+                                                </container>
+                                            </widgets>
+                                        </section>
+                                    </iterate-section>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition><not><if-empty field-name="shoppingLists"/></not></condition>
+                            <widgets>
+                                <horizontal-separator/>
+                                <container style="h2">
                                     <label text="${uiLabelMap.WorkEffortShopLists}"/>
                                 </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <iterate-section list-name="shoppingLists" entry-name="shopList">
-                                    <section>
-                                        <widgets>
-                                            <container>
-                                                <link target="/partymgr/control/editShoppingList?shoppingListId=${shopList.shoppingListId}" url-mode="inter-app" text="${shopList.shoppingListId}" style="buttontext"/>
-                                                <label text="${shopList.listName} ${shopList.description}"/>
-                                            </container>
-                                        </widgets>
-                                    </section>
-                                </iterate-section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
+                                <container style="screenlet-body">
+                                    <iterate-section list-name="shoppingLists" entry-name="shopList">
+                                        <section>
+                                            <widgets>
+                                                <container>
+                                                    <link target="/partymgr/control/editShoppingList?shoppingListId=${shopList.shoppingListId}" url-mode="inter-app" text="${shopList.shoppingListId}" style="buttontext"/>
+                                                    <label text="${shopList.listName} ${shopList.description}"/>
+                                                </container>
+                                            </widgets>
+                                        </section>
+                                    </iterate-section>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition><not><if-empty field-name="quotes"/></not></condition>
+                            <widgets>
+                                <horizontal-separator/>
+                                <container style="h2">
                                     <label text="${uiLabelMap.WorkEffortQuotes}"/>
                                 </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <iterate-section list-name="quotes" entry-name="quote">
-                                    <section>
-                                        <widgets>
-                                            <container>
-                                                <link target="/ordermgr/control/EditQuote?quoteId=${quote.quoteId}" url-mode="inter-app" text="${quote.quoteId}" style="buttontext"/>
-                                                <label text="${quote.quoteName} ${quote.description}"/>
-                                            </container>
-                                        </widgets>
-                                    </section>
-                                </iterate-section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
+                                <container style="screenlet-body">
+                                    <iterate-section list-name="quotes" entry-name="quote">
+                                        <section>
+                                            <widgets>
+                                                <container>
+                                                    <link target="/ordermgr/control/EditQuote?quoteId=${quote.quoteId}" url-mode="inter-app" text="${quote.quoteId}" style="buttontext"/>
+                                                    <label text="${quote.quoteName} ${quote.description}"/>
+                                                </container>
+                                            </widgets>
+                                        </section>
+                                    </iterate-section>
+                                </container>
+                            </widgets>
+                        </section>
+                        <section>
+                            <condition><not><if-empty field-name="quotes"/></not></condition>
+                            <widgets>
+                                <horizontal-separator/>
+                                <container style="h2">
                                     <label text="${uiLabelMap.WorkEffortOrderHeaders}"/>
                                 </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <iterate-section list-name="orderHeaders" entry-name="orderHeader">
-                                    <section>
-                                        <widgets>
-                                            <container>
-                                                <link target="/ordermgr/control/orderview?orderId=${orderHeader.orderId}" url-mode="inter-app" text="${orderHeader.orderId}" style="buttontext"/>
-                                                <label text="${uiLabelMap.CommonType} " style="label"/><label text="${orderHeader.orderTypeDescription}"/>
-                                                <label text="${uiLabelMap.CommonStatus} " style="label"/><label text="${orderHeader.statusItemDescription}"/>
-                                                <label text="${uiLabelMap.CommonTotal} " style="label"/><label text="${orderHeader.grandTotal}"/>
-                                                <label text="${uiLabelMap.CommonDate} " style="label"/><label text="${orderHeader.orderDate}"/>
-                                            </container>
-                                        </widgets>
-                                    </section>
-                                </iterate-section>
-                            </container>
-                        </container>
+                                <container style="screenlet-body">
+                                    <iterate-section list-name="orderHeaders" entry-name="orderHeader">
+                                        <section>
+                                            <widgets>
+                                                <container>
+                                                    <link target="/ordermgr/control/orderview?orderId=${orderHeader.orderId}" url-mode="inter-app" text="${orderHeader.orderId}" style="buttontext"/>
+                                                    <label text="${uiLabelMap.CommonType} " style="label"/><label text="${orderHeader.orderTypeDescription}"/>
+                                                    <label text="${uiLabelMap.CommonStatus} " style="label"/><label text="${orderHeader.statusItemDescription}"/>
+                                                    <label text="${uiLabelMap.CommonTotal} " style="label"/><label text="${orderHeader.grandTotal}"/>
+                                                    <label text="${uiLabelMap.CommonDate} " style="label"/><label text="${orderHeader.orderDate}"/>
+                                                </container>
+                                            </widgets>
+                                        </section>
+                                    </iterate-section>
+                                </container>
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
