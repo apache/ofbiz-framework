@@ -480,6 +480,19 @@ under the License.
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonEdit}" target="EditWorkEffortParty?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}"/>
         </field>
     </form>
+    <form  name="DisplayWorkEffortPartyAssigns" type="list" list-name="partyAssignments"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="partyId" title="${uiLabelMap.PartyParty}">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${lastName} ${groupName}">
+                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="roleTypeId" title="${uiLabelMap.AccountingRoleType}"><display-entity entity-name="RoleType"/></field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="expectationEnumId" title="${uiLabelMap.WorkEffortExpectation}"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
+    </form>
     <form name="EditWorkEffortCommEvent" default-map-name="workEffortCommEvent"  target="updateWorkEffortCommEvent" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <alt-target target="createWorkEffortCommEvent" use-when="communicationEvent==null"/>
@@ -1091,9 +1104,9 @@ under the License.
             </entity-condition>
         </actions>
         <field name="workEffortId"><hidden/></field>
-        <field name="fixedAssetId" widget-style="buttontext">
+        <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAsset}">
             <display-entity entity-name="FixedAsset" description="${fixedAssetName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+                <sub-hyperlink target="/accounting/control/EditFixedAsset?fixedAssetId=${fixedAssetId}" target-type="inter-app" description="${fixedAssetId}" link-style="buttontext"/>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
@@ -1120,6 +1133,21 @@ under the License.
         <field name="deleteLink" title=" " widget-style="buttontext">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortFixedAssetAssign?workEffortId=${workEffortId}&amp;fixedAssetId=${fixedAssetId}&amp;fromDate=${fromDate}"/>
         </field>
+    </form>
+
+    <form name="DisplayWorkEffortFixedAssetAssigns" type="list" list-name="fixedAssetAssignments"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="fixedAssetId" title="${uiLabelMap.AccountingFixedAsset}">
+            <display-entity entity-name="FixedAsset" description="${fixedAssetName}">
+                <sub-hyperlink target="/accounting/control/EditFixedAsset?fixedAssetId=${fixedAssetId}" target-type="inter-app" description="${fixedAssetId}" link-style="buttontext"/>
+            </display-entity>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="thruDate"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="availabilityStatusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="allocatedCost"><display/></field>
+        <field name="comments"><display/></field>
     </form>
 
     <form name="EditWorkEffortFixedAssetAssign" target="createWorkEffortFixedAssetAssign" type="single"
