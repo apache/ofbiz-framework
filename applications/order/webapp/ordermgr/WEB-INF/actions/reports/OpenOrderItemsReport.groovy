@@ -40,10 +40,10 @@ thruOrderDate = parameters.thruOrderDate;
 conditions = [EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId)];
 
 if (fromOrderDate && UtilValidate.isDate(fromOrderDate)){
-    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate));
+    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(fromOrderDate, "Timestamp", null, null)));
 }
 if (thruOrderDate && UtilValidate.isDate(thruOrderDate)){
-    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate));
+    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(thruOrderDate, "Timestamp", null, null)));
 }
 
 if (productStoreId) {
