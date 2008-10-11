@@ -6,9 +6,9 @@
  * to you under the Apache License, Version 2.0 (the
  * "License"); you may not use this file except in compliance
  * with the License.  You may obtain a copy of the License at
- * 
+ *
  * http://www.apache.org/licenses/LICENSE-2.0
- * 
+ *
  * Unless required by applicable law or agreed to in writing,
  * software distributed under the License is distributed on an
  * "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -18,77 +18,59 @@
  *******************************************************************************/
 package org.ofbiz.content.output;
 
-import org.apache.fop.apps.FOPException;
-import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.FopFactory;
-import org.apache.fop.apps.MimeConstants;
-import org.ofbiz.base.util.*;
-import org.ofbiz.base.util.collections.MapStack;
-import org.ofbiz.base.util.string.FlexibleStringExpander;
-import org.ofbiz.entity.GenericDelegator;
-import org.ofbiz.entity.GenericValue;
-import org.ofbiz.service.DispatchContext;
-import org.ofbiz.service.GenericServiceException;
-import org.ofbiz.service.LocalDispatcher;
-import org.ofbiz.service.ServiceUtil;
-import org.ofbiz.webapp.view.ApacheFopWorker;
-import org.ofbiz.widget.fo.FoFormRenderer;
-import org.ofbiz.widget.fo.FoScreenRenderer;
-import org.ofbiz.widget.screen.ScreenRenderer;
-import org.xml.sax.SAXException;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
-import java.io.Reader;
 import java.io.StringReader;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.net.MalformedURLException;
-import java.net.URISyntaxException;
-import java.net.URI;
-import java.net.URL;
-import java.sql.Timestamp;
-import java.util.*;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
 
 import javax.print.Doc;
 import javax.print.DocFlavor;
 import javax.print.DocPrintJob;
-import javax.print.SimpleDoc;
 import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
+import javax.print.SimpleDoc;
 import javax.print.attribute.DocAttribute;
 import javax.print.attribute.DocAttributeSet;
 import javax.print.attribute.HashDocAttributeSet;
 import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.HashPrintServiceAttributeSet;
 import javax.print.attribute.PrintRequestAttribute;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.PrintServiceAttribute;
-import javax.print.attribute.PrintServiceAttributeSet;
-import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.PrinterName;
-import javax.print.attribute.standard.PrinterURI;
 import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Result;
-import javax.xml.transform.Source;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.sax.SAXResult;
 import javax.xml.transform.stream.StreamSource;
 
-import javolution.util.FastList;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.collections.MapStack;
+import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.ServiceUtil;
+import org.ofbiz.webapp.view.ApacheFopWorker;
+import org.ofbiz.widget.fo.FoFormRenderer;
+import org.ofbiz.widget.fo.FoScreenRenderer;
+import org.ofbiz.widget.screen.ScreenRenderer;
+
 import javolution.util.FastMap;
+import org.apache.fop.apps.FOPException;
+import org.apache.fop.apps.Fop;
+import org.apache.fop.apps.MimeConstants;
+import org.xml.sax.SAXException;
+
 
 /**
- * Email Services
+ * Output Services
  */
 public class OutputServices {
 
@@ -96,16 +78,16 @@ public class OutputServices {
 
     protected static final FoScreenRenderer foScreenRenderer = new FoScreenRenderer();
     protected static final FoFormRenderer foFormRenderer = new FoFormRenderer();
-    
+
     public static Map<String, Object> sendPrintFromScreen(DispatchContext dctx, Map<String, ? extends Object> serviceContext) {
-        LocalDispatcher dispatcher = dctx.getDispatcher();
+
         Locale locale = (Locale) serviceContext.get("locale");
         String screenLocation = (String) serviceContext.remove("screenLocation");
         Map screenContext = (Map) serviceContext.remove("screenContext");
         String contentType = (String) serviceContext.remove("contentType");
         String printerContentType = (String) serviceContext.remove("printerContentType");
         String printerName = (String) serviceContext.remove("printerName");
-        
+
         if (UtilValidate.isEmpty(screenContext)) {
             screenContext = FastMap.newInstance();
         }
@@ -118,7 +100,7 @@ public class OutputServices {
         }
 
         try {
-            
+
             MapStack screenContextTmp = MapStack.create();
             screenContextTmp.put("locale", locale);
 
@@ -135,7 +117,7 @@ public class OutputServices {
 
             // create the output stream for the generation
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            
+
             Fop fop = ApacheFopWorker.createFopInstance(baos, MimeConstants.MIME_PDF);
             ApacheFopWorker.transform(src, null, fop);
 
@@ -156,37 +138,27 @@ public class OutputServices {
             }
 
             Doc myDoc = new SimpleDoc(bais, psInFormat, docAttributeSet);
-            PrintServiceAttributeSet psaset = new HashPrintServiceAttributeSet();
-            if (UtilValidate.isNotEmpty(printerName)) {
-                try {
-                    URI printerUri = new URI(printerName);
-                    PrinterURI printerUriObj = new PrinterURI(printerUri);
-                    psaset.add(printerUriObj);
-                } catch (URISyntaxException ue) {
-                    Debug.logWarning(ue, "Invalid URI for printer [" + printerName + "]", module);
-                }
-            }
-            //PrintService[] services = PrintServiceLookup.lookupPrintServices(psInFormat, psaset); // TODO: selecting the printer by URI seems to not work
+
             PrintService[] services = PrintServiceLookup.lookupPrintServices(psInFormat, null);
             PrintService printer = null;
             if (services.length > 0) {
                 if (UtilValidate.isNotEmpty(printerName)) {
                     String sPrinterName = null;
-                    for (int i = 0; i < services.length; i++) {
-                        PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
-                        sPrinterName = ((PrinterName)attr).getValue();
+                    for (PrintService service : services) {
+                        PrintServiceAttribute attr = service.getAttribute(PrinterName.class);
+                        sPrinterName = ((PrinterName) attr).getValue();
                         if (sPrinterName.toLowerCase().indexOf(printerName.toLowerCase()) >= 0) {
-                            printer = services[i];
-                            Debug.logInfo("Printer with name [" + sPrinterName +"] selected", module);
+                            printer = service;
+                            Debug.logInfo("Printer with name [" + sPrinterName + "] selected", module);
                             break;
                         }
                     }
                 }
-                if (UtilValidate.isEmpty(printer)) {
+                if (printer != null) {
                     printer = services[0];
                 }
             }
-            if (UtilValidate.isNotEmpty(printer)) {
+            if (printer != null) {
                 PrintRequestAttributeSet praset = new HashPrintRequestAttributeSet();
                 List printRequestAttributes = (List) serviceContext.remove("printRequestAttributes");
                 if (UtilValidate.isNotEmpty(printRequestAttributes)) {
@@ -229,19 +201,18 @@ public class OutputServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        Map result = ServiceUtil.returnSuccess();
-        return result;
+        return ServiceUtil.returnSuccess();
     }
 
     public static Map<String, Object> createFileFromScreen(DispatchContext dctx, Map<String, ? extends Object> serviceContext) {
-        LocalDispatcher dispatcher = dctx.getDispatcher();
+
         Locale locale = (Locale) serviceContext.get("locale");
         String screenLocation = (String) serviceContext.remove("screenLocation");
         Map screenContext = (Map) serviceContext.remove("screenContext");
         String contentType = (String) serviceContext.remove("contentType");
         String filePath = (String) serviceContext.remove("filePath");
         String fileName = (String) serviceContext.remove("fileName");
-        
+
         if (UtilValidate.isEmpty(screenContext)) {
             screenContext = FastMap.newInstance();
         }
@@ -267,7 +238,7 @@ public class OutputServices {
 
             // create the output stream for the generation
             ByteArrayOutputStream baos = new ByteArrayOutputStream();
-            
+
             Fop fop = ApacheFopWorker.createFopInstance(baos, MimeConstants.MIME_PDF);
             ApacheFopWorker.transform(src, null, fop);
 
@@ -286,7 +257,7 @@ public class OutputServices {
                 filePath = UtilProperties.getPropertyValue("content.properties", "content.output.path", "/output");
             }
             File file = new File(filePath, fileName);
-            
+
             FileOutputStream fos = new FileOutputStream(file);
             fos.write(baos.toByteArray());
             fos.close();
@@ -313,8 +284,7 @@ public class OutputServices {
             return ServiceUtil.returnError(errMsg);
         }
 
-        Map result = ServiceUtil.returnSuccess();
-        return result;
+        return ServiceUtil.returnSuccess();
     }
 
 }
