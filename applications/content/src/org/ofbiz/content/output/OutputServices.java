@@ -62,11 +62,15 @@ import javax.print.SimpleDoc;
 import javax.print.PrintException;
 import javax.print.PrintService;
 import javax.print.PrintServiceLookup;
+import javax.print.attribute.DocAttribute;
+import javax.print.attribute.DocAttributeSet;
+import javax.print.attribute.HashDocAttributeSet;
+import javax.print.attribute.HashPrintRequestAttributeSet;
+import javax.print.attribute.HashPrintServiceAttributeSet;
+import javax.print.attribute.PrintRequestAttribute;
 import javax.print.attribute.PrintRequestAttributeSet;
 import javax.print.attribute.PrintServiceAttribute;
 import javax.print.attribute.PrintServiceAttributeSet;
-import javax.print.attribute.HashPrintRequestAttributeSet;
-import javax.print.attribute.HashPrintServiceAttributeSet;
 import javax.print.attribute.standard.Copies;
 import javax.print.attribute.standard.PrinterName;
 import javax.print.attribute.standard.PrinterURI;
@@ -141,8 +145,17 @@ public class OutputServices {
             // Print is sent
             DocFlavor psInFormat = new DocFlavor.INPUT_STREAM(printerContentType);
             InputStream bais = new ByteArrayInputStream(baos.toByteArray());
-            
-            Doc myDoc = new SimpleDoc(bais, psInFormat, null);
+
+            DocAttributeSet docAttributeSet = new HashDocAttributeSet();
+            List docAttributes = (List) serviceContext.remove("docAttributes");
+            if (UtilValidate.isNotEmpty(docAttributes)) {
+                for (Object da : docAttributes) {
+                    Debug.logInfo("Adding DocAttribute: " + da, module);
+                    docAttributeSet.add((DocAttribute) da);
+                }
+            }
+
+            Doc myDoc = new SimpleDoc(bais, psInFormat, docAttributeSet);
             PrintServiceAttributeSet psaset = new HashPrintServiceAttributeSet();
             if (UtilValidate.isNotEmpty(printerName)) {
                 try {
@@ -175,7 +188,13 @@ public class OutputServices {
             }
             if (UtilValidate.isNotEmpty(printer)) {
                 PrintRequestAttributeSet praset = new HashPrintRequestAttributeSet();
-                praset.add(new Copies(1));
+                List printRequestAttributes = (List) serviceContext.remove("printRequestAttributes");
+                if (UtilValidate.isNotEmpty(printRequestAttributes)) {
+                    for (Object pra : printRequestAttributes) {
+                        Debug.logInfo("Adding PrintRequestAttribute: " + pra, module);
+                        praset.add((PrintRequestAttribute) pra);
+                    }
+                }
                 DocPrintJob job = printer.createPrintJob();
                 job.print(myDoc, praset);
             } else {
