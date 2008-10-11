@@ -95,7 +95,8 @@ public class LoginEvents {
     }
 
     /**
-     * The user forgot his/her password.  This will either call showPasswordHint or emailPassword.
+     * The user forgot his/her password.  This will call showPasswordHint, emailPassword or simply returns "success" in case
+     * no operation has been specified.
      *
      * @param request The HTTPRequest object for the current request
      * @param response The HTTPResponse object for the current request
@@ -104,9 +105,11 @@ public class LoginEvents {
     public static String forgotPassword(HttpServletRequest request, HttpServletResponse response) {
         if ((UtilValidate.isNotEmpty(request.getParameter("GET_PASSWORD_HINT"))) || (UtilValidate.isNotEmpty(request.getParameter("GET_PASSWORD_HINT.x")))) {
             return showPasswordHint(request, response);
-        } else {
+        } else if ((UtilValidate.isNotEmpty(request.getParameter("EMAIL_PASSWORD"))) || (UtilValidate.isNotEmpty(request.getParameter("EMAIL_PASSWORD.x")))) {
             return emailPassword(request, response);
-        }
+        } else {
+            return "success";
+        }    
     }
 
     /** Show the password hint for the userLoginId specified in the request object.
