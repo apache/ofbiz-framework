@@ -138,5 +138,17 @@
     <WorkEffortAssoc workEffortIdFrom="9102" workEffortIdTo="9103" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="9103" workEffortIdTo="9105" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
     <WorkEffortAssoc workEffortIdFrom="9105" workEffortIdTo="9106" workEffortAssocTypeId="WORK_EFF_DEPENDENCY" sequenceNum="0" fromDate="2000-01-01 00:00:00.0"/>
-    
+
+    <!-- Recurring calendar event demo - set up a staff meeting on the first Monday of each month -->
+    <TemporalExpression tempExprId="STAFF_MTG" tempExprTypeId="INTERSECTION"/>
+    <TemporalExpression tempExprId="10AM_TO_11AM" tempExprTypeId="TIME_OF_DAY_RANGE" string1="10:00" string2="11:00"/>
+    <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="1ST_MONDAY_IN_MONTH"/>
+    <TemporalExpressionAssoc fromTempExprId="STAFF_MTG" toTempExprId="10AM_TO_11AM"/>
+    <FixedAsset fixedAssetId="DEMO_PROJECTOR" fixedAssetName="Overhead Projector" fixedAssetTypeId="EQUIPMENT"/>
+    <WorkEffort workEffortId="STAFF_MTG" workEffortTypeId="MEETING" currentStatusId="CAL_TENTATIVE" lastStatusUpdate="2008-01-01 00:00:00.0" scopeEnumId="WES_PUBLIC" workEffortName="Staff Meeting" description="Staff Meeting" tempExprId="STAFF_MTG" estimatedStartDate="2008-01-01 00:00:00.0" estimatedMilliSeconds="3600000"/>
+    <WorkEffortFixedAssetAssign workEffortId="STAFF_MTG" fixedAssetId="DEMO_PROJECTOR" statusId="FA_ASGN_REQUESTED" availabilityStatusId="WEFA_IN_USE" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee1" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_OWNER" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee2" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+    <WorkEffortPartyAssignment workEffortId="STAFF_MTG" partyId="DemoEmployee3" statusId="PRTYASGN_ASSIGNED" roleTypeId="CAL_ATTENDEE" availabilityStatusId="WEPA_AV_BUSY" fromDate="2008-01-01 00:00:00.0"/>
+
 </entity-engine-xml>

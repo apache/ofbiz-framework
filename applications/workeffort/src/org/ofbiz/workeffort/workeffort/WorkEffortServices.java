@@ -36,6 +36,7 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.util.DateRange;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.TimeDuration;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
@@ -531,8 +532,17 @@ public class WorkEffortServices {
                             for (DateRange periodRange : periodRanges) {
                                 if (periodRange.includesDate(occurrence)) {
                                     GenericValue cloneWorkEffort = (GenericValue) workEffort.clone();
-                                    cloneWorkEffort.set("estimatedStartDate", periodRange.startStamp());
-                                    cloneWorkEffort.set("estimatedCompletionDate", periodRange.endStamp());
+                                    Double durationMillis = workEffort.getDouble("estimatedMilliSeconds");
+                                    if (durationMillis != null) {
+                                        TimeDuration duration = TimeDuration.fromLong(durationMillis.longValue());
+                                        Calendar endCal = UtilDateTime.toCalendar(occurrence, timeZone, locale);
+                                        Date endDate = duration.addToCalendar(endCal).getTime();
+                                        cloneWorkEffort.set("estimatedStartDate", new Timestamp(occurrence.getTime()));
+                                        cloneWorkEffort.set("estimatedCompletionDate", new Timestamp(endDate.getTime()));
+                                    } else {
+                                        cloneWorkEffort.set("estimatedStartDate", periodRange.startStamp());
+                                        cloneWorkEffort.set("estimatedCompletionDate", periodRange.endStamp());
+                                    }
                                     inclusions.add(cloneWorkEffort);
                                 }
                             }
