@@ -34,12 +34,12 @@ visitConditionList = [] as LinkedList;
 orderConditionList = [] as LinkedList;
 
 if (fromDateStr && !(fromDateStr.equals(""))) {
-    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDateStr));
-    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDateStr));
+    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(fromDateStr, "Timestamp", null, null)));
+    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(fromDateStr, "Timestamp", null, null)));
 }
 if (thruDateStr && !(thruDateStr.equals(""))) {
-    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDateStr));
-    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDateStr));
+    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(thruDateStr, "Timestamp", null, null)));
+    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(thruDateStr, "Timestamp", null, null)));
 }
 if (marketingCampaignId && !(marketingCampaignId.equals(""))) {
     visitConditionList.add(EntityCondition.makeCondition("marketingCampaignId", EntityOperator.EQUALS, marketingCampaignId));
