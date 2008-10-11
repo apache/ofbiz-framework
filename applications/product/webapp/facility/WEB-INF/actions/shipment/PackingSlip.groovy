@@ -52,11 +52,13 @@ previousShipmentIter = delegator.find("Shipment",
             UtilMisc.toList(
                 EntityCondition.makeCondition("primaryOrderId", EntityOperator.EQUALS, shipment.getString("primaryOrderId")),
                 EntityCondition.makeCondition("shipmentTypeId", EntityOperator.EQUALS, "SALES_SHIPMENT"),
-                EntityCondition.makeCondition("createdDate", EntityOperator.LESS_THAN_EQUAL_TO, shipment.getString("createdDate"))
+                EntityCondition.makeCondition("createdDate", EntityOperator.LESS_THAN_EQUAL_TO, 
+                        ObjectType.simpleTypeConvert(shipment.getString("createdDate"), "Timestamp", null, null))
             ),
         EntityOperator.AND), null, null, null, null);
+
 previousShipmentIter.each { previousShipmentItem ->
-    if (previousShipmentItem.shipmentId.equals(shipment.shipmentId) == false) {
+    if (!previousShipmentItem.shipmentId.equals(shipment.shipmentId)) {
         previousShipmentItems = previousShipmentItem.getRelated("ShipmentItem");
         previousShipmentItems.each { shipmentItem ->
             productId = shipmentItem.productId;
@@ -93,12 +95,12 @@ issuances.each { issuance ->
 }
 
 // for each package, we want to list the quantities and details of each product
-packages = [:]; // note we assume that the package number is simply the index + 1 of this list
+packages = []; // note we assume that the package number is simply the index + 1 of this list
 shipmentPackages.each { shipmentPackage ->
     contents = shipmentPackage.getRelated("ShipmentPackageContent", ['shipmentItemSeqId']);
 
     // each line is one logical Product and the quantities associated with it
-    lines = [:];
+    lines = [];
     contents.each { content ->
         shipmentItem = content.getRelatedOne("ShipmentItem");
         product = shipmentItem.getRelatedOne("Product");
