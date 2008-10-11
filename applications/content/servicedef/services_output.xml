@@ -31,6 +31,8 @@ under the License.
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
         <attribute name="printerContentType" type="String" mode="IN" optional="true"/>
         <attribute name="printerName" type="String" mode="IN" optional="true"/>
+        <attribute name="docAttributes" type="List" mode="IN" optional="true"/>
+        <attribute name="printRequestAttributes" type="List" mode="IN" optional="true"/>
     </service>
 
     <service name="createFileFromScreen" max-retry="0" engine="java"
