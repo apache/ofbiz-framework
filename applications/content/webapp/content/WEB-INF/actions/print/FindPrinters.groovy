@@ -17,17 +17,8 @@
  * under the License.
  */
 
-import javax.print.PrintService
 import javax.print.PrintServiceLookup
-import javax.print.attribute.PrintServiceAttribute
-import javax.print.attribute.standard.PrinterName
 
-printers = [];
-PrintService[] services = PrintServiceLookup.lookupPrintServices(null, null);
-if (services.length > 0) {
-    for (int i = 0; i < services.length; i++) {
-        PrintServiceAttribute attr = services[i].getAttribute(PrinterName.class);
-        printers.add(((PrinterName)attr).getValue());
-    }
-}
-context.printers = printers;
+printServices = PrintServiceLookup.lookupPrintServices(null, null);
+printServiceNames = printServices.collect { it.getName() }
+context.printers = printServiceNames;
