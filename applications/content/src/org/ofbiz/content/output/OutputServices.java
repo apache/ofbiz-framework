@@ -154,7 +154,7 @@ public class OutputServices {
                         }
                     }
                 }
-                if (printer != null) {
+                if (printer == null) {
                     printer = services[0];
                 }
             }
