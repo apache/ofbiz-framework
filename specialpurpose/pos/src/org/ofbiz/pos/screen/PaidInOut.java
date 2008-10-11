@@ -19,28 +19,31 @@
 package org.ofbiz.pos.screen;
 
 import java.util.HashMap;
-import java.util.ResourceBundle;
-import java.util.Enumeration;
 import java.util.Hashtable;
+import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.swing.DefaultComboBoxModel;
 
+import javolution.util.FastList;
 import net.xoetrope.swing.XButton;
+import net.xoetrope.swing.XComboBox;
 import net.xoetrope.swing.XDialog;
 import net.xoetrope.swing.XEdit;
 import net.xoetrope.swing.XLabel;
-import net.xoetrope.swing.XComboBox;
 import net.xoetrope.xui.XPage;
 import net.xoetrope.xui.events.XEventHelper;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.entity.GenericEntityException;
+import org.ofbiz.entity.GenericValue;
 import org.ofbiz.pos.PosTransaction;
 
 
+@SuppressWarnings("serial")
 public class PaidInOut extends XPage {
 
     /**
@@ -53,7 +56,6 @@ public class PaidInOut extends XPage {
     protected XLabel m_amoutLabel = null;
     protected XEdit m_amountEdit = null;
     protected XLabel m_reasonLabel = null;
-    static protected Hashtable m_reasonMap = new Hashtable();
     protected XComboBox m_reasonsCombo = null;
     protected XButton m_cancel = null;
     protected XButton m_ok = null;
@@ -71,7 +73,7 @@ public class PaidInOut extends XPage {
         m_type = type;
     }
 
-    public Map openDlg() {
+    public Map<String, String> openDlg() {
         m_dialog = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/PaidInOut");
         m_amountEdit = (XEdit) m_dialog.findComponent("amountEdit");
         m_reasonsCombo = (XComboBox) m_dialog.findComponent("ReasonsCombo");
@@ -80,33 +82,33 @@ public class PaidInOut extends XPage {
         m_ok = (XButton) m_dialog.findComponent("BtnOk");
         m_amoutLabel = (XLabel) m_dialog.findComponent("amoutLabel");
         m_reasonLabel = (XLabel) m_dialog.findComponent("reasonLabel");
+        Locale locale = Locale.getDefault();
 
         XEventHelper.addMouseHandler(this, m_cancel, "cancel");
         XEventHelper.addMouseHandler(this, m_ok, "verify");
         XEventHelper.addMouseHandler(this, m_amountEdit, "editAmount");
 
         m_comboModel = new DefaultComboBoxModel();
-        ResourceBundle reasons = null;
-        Enumeration reasonsKeys = null;
-
-        if (m_type.equals("IN")) {
-            m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PaidInTitle", Locale.getDefault()));
-            reasons = ResourceBundle.getBundle(m_pos.getScreenLocation() + "/dialog/PaidIn", Locale.getDefault());
-            reasonsKeys = reasons.getKeys();
+        List<GenericValue> posPaidReasons = FastList.newInstance();
+        if (m_type.equals("IN")) { 
+            m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PaidInTitle", locale));
+            try {
+                posPaidReasons = m_trans.getSession().getDelegator().findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "POS_PAID_REASON_IN"));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);
+            }
+        } else { // OUT
+            m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PaidOutTitle", locale));
+            try {
+                posPaidReasons = m_trans.getSession().getDelegator().findByAndCache("Enumeration", UtilMisc.toMap("enumTypeId", "POS_PAID_REASON_OUT"));
+            } catch (GenericEntityException e) {
+                Debug.logError(e, module);            }                
         }
-        else { // OUT
-            m_dialog.setCaption(UtilProperties.getMessage(PosTransaction.resource, "PaidOutTitle", Locale.getDefault()));
-            reasons = ResourceBundle.getBundle(m_pos.getScreenLocation() + "/dialog/PaidOut", Locale.getDefault());
-            reasonsKeys = reasons.getKeys();
-        }
-
-        while (reasonsKeys.hasMoreElements()) {
-            String key = (String)reasonsKeys.nextElement();
-            String val = reasons.getString(key);
-            m_comboModel.addElement(val);
+        for (GenericValue reason : posPaidReasons) {
+            m_comboModel.addElement(reason.get("description", locale));
         }
         m_reasonsCombo.setModel(m_comboModel);
-        m_reasonsCombo.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "CreateOrChooseReasonInOut", Locale.getDefault()));
+        m_reasonsCombo.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "CreateOrChooseReasonInOut", locale));
 
         m_dialog.pack();
         m_reasonsCombo.requestFocusInWindow();
