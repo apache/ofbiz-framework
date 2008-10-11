@@ -362,7 +362,7 @@ public class WorkEffortServices {
         }
         if (UtilValidate.isNotEmpty(fixedAssetId)) {
             entityExprList.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
-            typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"));
+//            typesList.add(EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROD_ORDER_TASK"));
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CREATED"));
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_COMPLETED"));
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PRUN_CLOSED"));
@@ -488,13 +488,16 @@ public class WorkEffortServices {
             entityExprList.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "EVENT_CANCELLED"));
         }
         EntityConditionList<EntityCondition> ecl = EntityCondition.makeCondition(entityExprList);
-        
-        // Use the View Entity
+        List<String> orderByList = UtilMisc.toList("estimatedStartDate");
         if (partyIdsToUse.size() > 0 || UtilValidate.isNotEmpty(facilityId) || UtilValidate.isNotEmpty(fixedAssetId)) {
             try {
                 List<GenericValue> tempWorkEfforts = null;
                 if (UtilValidate.isNotEmpty(partyIds)) {
-                    tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssign", ecl, null, UtilMisc.toList("estimatedStartDate"), null, false));
+                    tempWorkEfforts = EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssign", ecl, null, orderByList, null, false));
+                } else if (UtilValidate.isNotEmpty(fixedAssetId)) {
+                    // Get "old style" work efforts and "new style" work efforts
+                    tempWorkEfforts = delegator.findList("WorkEffort", ecl, null, orderByList, null, false);
+                    tempWorkEfforts.addAll(EntityUtil.filterByDate(delegator.findList("WorkEffortAndFixedAssetAssign", ecl, null, orderByList, null, false)));
                 } else {
                     tempWorkEfforts = delegator.findList("WorkEffort", ecl, null, UtilMisc.toList("estimatedStartDate"), null, false);
                 }
