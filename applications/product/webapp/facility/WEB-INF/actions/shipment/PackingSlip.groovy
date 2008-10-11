@@ -104,13 +104,23 @@ shipmentPackages.each { shipmentPackage ->
     contents.each { content ->
         shipmentItem = content.getRelatedOne("ShipmentItem");
         product = shipmentItem.getRelatedOne("Product");
+        productTypeId = product.get("productTypeId");
 
         line = [:];
         line.product = product;
-        line.quantityInPackage = content.quantity;
-        line.quantityInShipment = quantityInShipmentByProduct.get(product.productId);
-        line.quantityShipped = quantityShippedByProduct.get(product.productId);
         line.quantityRequested = quantityRequestedByProduct.get(product.productId);
+        line.quantityInPackage = content.quantity;
+        if (productTypeId.equals("MARKETING_PKG_PICK") && line.quantityInPackage > line.quantityRequested) {
+            line.quantityInPackage = line.quantityRequested;
+        }
+        line.quantityInShipment = quantityInShipmentByProduct.get(product.productId);
+        if (productTypeId.equals("MARKETING_PKG_PICK") && line.quantityInShipment > line.quantityRequested) {
+            line.quantityInShipment = line.quantityRequested;
+        }
+        line.quantityShipped = quantityShippedByProduct.get(product.productId);
+        if (productTypeId.equals("MARKETING_PKG_PICK") && line.quantityShipped > line.quantityRequested) {
+            line.quantityShipped = line.quantityRequested;
+        }
         lines.add(line);
     }
     packages.add(lines);
