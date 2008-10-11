@@ -445,6 +445,7 @@ public class ManagerEvents {
                 return;
             }
             internTx.set("reasonComment", mapInOut.get("reason"));
+            internTx.set("reasonEnumId", mapInOut.get("reason"));
             try {
                 internTx.create();
             } catch (GenericEntityException e) {

@@ -132,6 +132,26 @@
         <value xml:lang="th">ช่องทางติดต่อ</value>
         <value xml:lang="zh">从属渠道</value>
     </property>
+    <property key="Enumeration.description.BANKING_IN_REASON">
+        <value xml:lang="en">Banking during the day</value>
+        <value xml:lang="fr">Opération banquaire</value>
+    </property>    
+    <property key="Enumeration.description.BANKING_OUT_REASON">
+        <value xml:lang="en">Banking during the day</value>
+        <value xml:lang="fr">Opération banquaire</value>
+    </property>
+    <property key="Enumeration.description.CASH_IN_REASON">
+        <value xml:lang="en">Petty Cash Paid into Till</value>
+        <value xml:lang="fr">Entrée d'espèces dans la caisse</value>
+    </property>    
+    <property key="Enumeration.description.CASH_OUT_REASON">
+        <value xml:lang="en">Petty Cash out</value>
+        <value xml:lang="fr">Sortie d'espèces de la caisse</value>
+    </property>    
+    <property key="Enumeration.description.CHANGE_IN_REASON">
+        <value xml:lang="en">Change added to Till's float</value>
+        <value xml:lang="fr">Monnaie ajoutée à l'encours de caisse</value>
+    </property>    
     <property key="Enumeration.description.CNT_PRV_BRONZE">
         <value xml:lang="en">CNT_PRV_BRONZE</value>
         <value xml:lang="fr">Niveau Bronze</value>

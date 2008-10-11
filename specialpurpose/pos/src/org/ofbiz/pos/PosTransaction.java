@@ -143,6 +143,10 @@ public class PosTransaction implements Serializable {
         trace("transaction created");
     }
 
+    public XuiSession getSession() {
+        return session;
+    }
+
     public String getUserId() {
         return session.getUserId();
     }
