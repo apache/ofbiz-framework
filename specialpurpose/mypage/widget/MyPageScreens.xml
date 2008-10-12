@@ -196,8 +196,8 @@ under the License.
 					<condition-list combine="and">
                         <condition-expr field-name="statusId" operator="not-equals"
                             value="COM_UNKNOWN_PARTY" />
-                        <condition-expr field-name="roleStatusId" operator="not-equals"
-                            value="COM_ROLE_CREATED" />
+                        <condition-expr field-name="statusId" operator="not-equals"
+                            value="COM_PENDING" />
 						<condition-expr field-name="partyId" operator="equals"
 							value="${partyId}" />
                         <condition-expr field-name="roleStatusId"
@@ -220,7 +220,7 @@ under the License.
 			    <entity-condition entity-name="CommunicationEventAndRole" list-name="commEventDraft">
 			        <condition-list combine="and">
 			            <condition-expr field-name="statusId" operator="equals" 
-			                value="COM_READ"/>
+			                value="COM_PENDING"/>
 			            <condition-expr field-name="partyId" operator="equals" 
 			                value="${partyId}"/>			            
 			        </condition-list>

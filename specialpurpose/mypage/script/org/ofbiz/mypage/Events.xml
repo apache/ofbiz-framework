@@ -180,25 +180,10 @@ under the License.
     </simple-method>
     
     <simple-method method-name="checkEnteredEmailExists" short-description="Check Enter Email Exists when click New Email">        
-        <entity-and entity-name="CommunicationEvent" list-name="comEventList">
-            <field-map field-name="statusId" value="COM_PENDING"/>
-            <field-map field-name="partyIdFrom" env-name="userLogin.partyId"/>
-        </entity-and>
-        <if-not-empty field="comEventList">
-            <iterate entry-name="comevent" list-name="comEventList">            
-                <set field="communicationEventId" from-field="comevent.communicationEventId" />  
-                <field-to-request field-name="communicationEventId" request-name="communicationEventId"/>
-            </iterate>
-            <else>
-                <set field="chkExists" value="true"/>
-            </else>
-        </if-not-empty>
-        <if-compare field="chkExists" value="true" operator="equals">
-            <set-service-fields service-name="createCommunicationEvent" map-name="parameters" to-map-name="createCommEvent"/>
+        <set-service-fields service-name="createCommunicationEvent" map-name="parameters" to-map-name="createCommEvent"/>
             <call-service service-name="createCommunicationEvent" in-map-name="createCommEvent">
-                <result-to-request result-name="communicationEventId" request-name="communicationEventId"/>
-            </call-service>
-        </if-compare>                        
+            <result-to-request result-name="communicationEventId" request-name="communicationEventId"/>
+        </call-service>
     </simple-method>
     
     <simple-method method-name="createCommunicationContent" short-description="Upload Content and Create Communication Content Association">
