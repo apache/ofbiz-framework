@@ -23,7 +23,7 @@ import org.ofbiz.webpos.session.WebPosSession;
 import org.ofbiz.webpos.transaction.WebPosTransaction;
 import java.text.SimpleDateFormat;
 
-webPosSession = WebPosEvents.getWebPosSession(request);
+webPosSession = WebPosEvents.getWebPosSession(request, null);
 if (webPosSession) {
     shoppingCart = webPosSession.getCart();
     context.transactionId = webPosSession.getCurrentTransaction().getTransactionId();
@@ -35,6 +35,11 @@ if (webPosSession) {
 } else {
     shoppingCart = null;
 }
+
+context.cashAmount = 0;
+context.checkAmount = 0;
+context.giftAmount = 0;
+context.creditAmount = 0;
 
 // Get the Cart and Prepare Size
 if (shoppingCart) {

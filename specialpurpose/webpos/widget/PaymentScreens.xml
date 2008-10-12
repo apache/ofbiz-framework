@@ -81,6 +81,22 @@ under the License.
         </section>
     </screen>
     
+    <screen name="ClearPayment">
+        <section>
+            <actions>
+                <set field="rightbarScreenName" value="rightbar_payment"/>
+                <set field="titleProperty" value="WebPosPageTitlePayClear"/>
+                <script location="component://webpos/webapp/webpos/WEB-INF/actions/cart/MicroCart.groovy"/>
+            </actions>
+            <widgets>
+                <include-screen name="SearchProducts" location="component://webpos/widget/WebPosScreens.xml"/>
+                <container id="ClearPayment">
+                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/payment/ClearPayment.ftl"/></html></platform-specific>
+                </container>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="PaySetRef">
         <section>
             <actions>

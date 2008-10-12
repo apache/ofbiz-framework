@@ -109,7 +109,9 @@
     
     <request-map uri="main">
         <security https="true" auth="true"/>
+        <event type="java" path="org.ofbiz.webpos.WebPosEvents" invoke="existsWebPosSession"/>
         <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="login"/>
     </request-map>
     
     <request-map uri="Login">
@@ -340,11 +342,17 @@
         <response name="error" type="view" value="AddPaySetRef"/>
     </request-map>
     
-    <request-map uri="PayClear">
+    <request-map uri="AddClearPayment">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="ClearPayment"/>
+        <response name="error" type="view" value="ClearPayment"/>
+    </request-map>
+
+    <request-map uri="ClearPayment">
         <security https="true" auth="true"/>
         <event type="simple" path="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="clearPayment"/>
         <response name="success" type="view" value="Payment"/>
-        <response name="error" type="view" value="Payment"/>
+        <response name="error" type="view" value="ClearPayment"/>
     </request-map>
     
     <request-map uri="PayClearAll">
@@ -392,7 +400,8 @@
     <view-map name="AddPayGiftCard" type="screen" page="component://webpos/widget/PaymentScreens.xml#PayGiftCard"/>
     <view-map name="AddPayCreditCard" type="screen" page="component://webpos/widget/PaymentScreens.xml#PayCreditCard"/>
     <view-map name="AddPaySetRef" type="screen" page="component://webpos/widget/PaymentScreens.xml#PaySetRef"/>
-    
+    <view-map name="ClearPayment" type="screen" page="component://webpos/widget/PaymentScreens.xml#ClearPayment"/>        
+
     <!-- Promo view mappings -->
     <view-map name="AddPromoCode" type="screen" page="component://webpos/widget/PromoScreens.xml#PromoCode"/>
     <!-- End of View Mappings -->

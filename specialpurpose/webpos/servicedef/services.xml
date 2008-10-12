@@ -44,4 +44,9 @@ under the License.
         <description>Login for Web Pos</description>
         <attribute type="String" mode="IN" name="posTerminalId" optional="false"/>
     </service>
+    
+    <service name="existsWebPosSession" engine="java"
+             location="org.ofbiz.webpos.WebPosEvents" invoke="existsWebPosSession">
+        <description>Check if exists a Web Pos Session</description>
+    </service>
 </services>
