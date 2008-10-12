@@ -44,56 +44,53 @@ public class CrossSubdomainSessionValve extends ValveBase {
     }
 
     protected void replaceCookie(Request request, Response response, Cookie cookie) {
-
-        // copy the existing session cookie, but use a different domain
-        Cookie newCookie = new Cookie(cookie.getName(), cookie.getValue());
-        if (cookie.getPath() != null) {
-            newCookie.setPath(cookie.getPath());
-        }
-
+        
+        // copy the existing session cookie, but use a different domain (only if domain is valid)
         String cookieDomain = null;
         cookieDomain = UtilProperties.getPropertyValue("url", "cookie.domain", "");
 
         if (UtilValidate.isEmpty(cookieDomain)) {
-            cookieDomain = getCookieDomain(request);
+            String serverName = request.getServerName();
+            String[] domainArray = serverName.split("\\.");
+            if (domainArray.length > 2) {
+                cookieDomain = "." + domainArray[domainArray.length - 2] + "." + domainArray[domainArray.length - 1];
+            }
         }
+        
 
-        newCookie.setDomain(cookieDomain);
-        newCookie.setMaxAge(cookie.getMaxAge());
-        newCookie.setVersion(cookie.getVersion());
-        if (cookie.getComment() != null) {
-            newCookie.setComment(cookie.getComment());
-        }
-        newCookie.setSecure(cookie.getSecure()); 
+        if (UtilValidate.isNotEmpty(cookieDomain)) {
+            Cookie newCookie = new Cookie(cookie.getName(), cookie.getValue());
+            if (cookie.getPath() != null) {
+                newCookie.setPath(cookie.getPath());
+            }
+            newCookie.setDomain(cookieDomain);
+            newCookie.setMaxAge(cookie.getMaxAge());
+            newCookie.setVersion(cookie.getVersion());
+            if (cookie.getComment() != null) {
+                newCookie.setComment(cookie.getComment());
+            }
+            newCookie.setSecure(cookie.getSecure()); 
 
-        // if the response has already been committed, our replacement strategy will have no effect
-        if (response.isCommitted()) {
-            Debug.logError("CrossSubdomainSessionValve: response was already committed!", module);
-        }
+            // if the response has already been committed, our replacement strategy will have no effect
+            if (response.isCommitted()) {
+                Debug.logError("CrossSubdomainSessionValve: response was already committed!", module);
+            }
 
-        // find the Set-Cookie header for the existing cookie and replace its value with new cookie
-        MimeHeaders mimeHeaders = response.getCoyoteResponse().getMimeHeaders();
-        for (int i = 0, size = mimeHeaders.size(); i < size; i++) {
-            if (mimeHeaders.getName(i).equals("Set-Cookie")) {
-                MessageBytes value = mimeHeaders.getValue(i);
-                if (value.indexOf(cookie.getName()) >= 0) {
-                    StringBuffer buffer = new StringBuffer();
-                    ServerCookie.appendCookieValue(buffer, newCookie.getVersion(), newCookie.getName(), newCookie.getValue(), newCookie.getPath(), 
-                            newCookie.getDomain(), newCookie.getComment(), newCookie.getMaxAge(), newCookie.getSecure());
-                    Debug.logVerbose("CrossSubdomainSessionValve: old Set-Cookie value: " + value.toString(), module);
-                    Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + buffer, module);
-                    value.setString(buffer.toString());
+            // find the Set-Cookie header for the existing cookie and replace its value with new cookie
+            MimeHeaders mimeHeaders = response.getCoyoteResponse().getMimeHeaders();
+            for (int i = 0, size = mimeHeaders.size(); i < size; i++) {
+                if (mimeHeaders.getName(i).equals("Set-Cookie")) {
+                    MessageBytes value = mimeHeaders.getValue(i);
+                    if (value.indexOf(cookie.getName()) >= 0) {
+                        StringBuffer buffer = new StringBuffer();
+                        ServerCookie.appendCookieValue(buffer, newCookie.getVersion(), newCookie.getName(), newCookie.getValue(), newCookie.getPath(), 
+                                newCookie.getDomain(), newCookie.getComment(), newCookie.getMaxAge(), newCookie.getSecure());
+                        Debug.logVerbose("CrossSubdomainSessionValve: old Set-Cookie value: " + value.toString(), module);
+                        Debug.logVerbose("CrossSubdomainSessionValve: new Set-Cookie value: " + buffer, module);
+                        value.setString(buffer.toString());
+                    }
                 }
             }
         }
-    }
-
-    protected String getCookieDomain(Request request) {
-        String cookieDomain = request.getServerName();
-        String[] domainArray = cookieDomain.split("\\.");
-        if (domainArray.length >= 2) {
-            cookieDomain = domainArray[domainArray.length - 2] + "." + domainArray[domainArray.length - 1];
-        }
-        return "." + cookieDomain;
     }
 }
