@@ -69,7 +69,7 @@ under the License.
         <field name="dataResourceId"><hidden/></field>
         <field name="dataResourceName" widget-style="tabletext">
             <display-entity entity-name="DataResource" description="${dataResourceName}" key-field-name="dataResourceId">
-                <sub-hyperlink target="editDataResource?dataResourceId=${dataResourceId}" description="[${dataResourceId}]" link-style="buttontext"/>
+                <sub-hyperlink target="EditDataResource?dataResourceId=${dataResourceId}" description="[${dataResourceId}]" link-style="buttontext"/>
             </display-entity>
         </field>
         <field name="dataResourceTypeId"><display-entity entity-name="DataResourceType" description="${description}"></display-entity></field>

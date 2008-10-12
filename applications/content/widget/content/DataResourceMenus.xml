@@ -87,7 +87,7 @@ under the License.
             <condition>
                 <not><if-empty field-name="currentValue.dataResourceId"/></not>
             </condition>
-            <link target="editDataResource?dataResourceId=${parameters.dataResourceId}"/>
+            <link target="EditDataResource?dataResourceId=${parameters.dataResourceId}"/>
         </menu-item>
         <menu-item name="editElectronicText" title="${uiLabelMap.ContentDataResourceText}" >
             <condition>
@@ -113,7 +113,7 @@ under the License.
             </condition>
             <link target="UploadImage?dataResourceId=${parameters.dataResourceId}"/>
         </menu-item>
-        <menu-item name="editDataResourceAttribute" title="${uiLabelMap.ContentDataResourceAttribute}" >
+        <menu-item name="EditDataResourceAttribute" title="${uiLabelMap.ContentDataResourceAttribute}" >
             <condition>
                 <not><if-empty field-name="currentValue.dataResourceId"/></not>
             </condition>
