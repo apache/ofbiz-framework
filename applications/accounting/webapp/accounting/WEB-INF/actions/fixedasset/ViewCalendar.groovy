@@ -78,15 +78,14 @@ if ("D".equals(viewMode)) {
     globalContext.end = end;
 }
 
-entityExprList = [EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED"),
-    EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "TASK"), EntityCondition.makeCondition("workEffortPurposeTypeId", EntityOperator.EQUALS, "WEPT_MAINTENANCE")];
+entityExprList = [EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "CAL_CANCELLED")];
 fixedAssetId = parameters.fixedAssetId;
 if (fixedAssetId) {
     entityExprList.add(EntityCondition.makeCondition("fixedAssetId", EntityOperator.EQUALS, fixedAssetId));
     globalContext.fixedAssetId = fixedAssetId;
     globalContext.addlParam = "&fixedAssetId=" + fixedAssetId;
 }
-serviceCtx = [userLogin : userLogin, start : getFrom, numPeriods : numPeriods, periodType : periodType];
+serviceCtx = [userLogin : userLogin, start : getFrom, numPeriods : numPeriods, periodType : periodType, fixedAssetId : fixedAssetId];
 serviceCtx.putAll([entityExprList : entityExprList, locale : locale, timeZone : timeZone]);
 result = dispatcher.runSync("getWorkEffortEventsByPeriod", serviceCtx);
 globalContext.periods = result.periods;
