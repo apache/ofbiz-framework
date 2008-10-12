@@ -114,6 +114,9 @@ under the License.
         <section>
             <actions>
                 <set field="headerItem" value="${parameters.donePage}"/>
+                <entity-one entity-name="CommunicationEvent" value-name="commEvent">
+                    <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
+                </entity-one>
                 <script location="component://mypage/webapp/mypage/WEB-INF/actions/GetMyCommunicationEventRole.groovy"/>
             </actions>
             <widgets>

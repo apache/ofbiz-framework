@@ -220,6 +220,49 @@
     <request-map uri="listInvoices">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListInvoices"/>
+    </request-map>    
+    
+    <!-- EMAIL COMMUNICATIONS -->
+    <request-map uri="NewCommunicationEvents">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="EditCommunicationEvent"/>
+    </request-map>
+    
+    <request-map uri="NewCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="simple" path="org/ofbiz/mypage/Events.xml" invoke="checkEnteredEmailExists"/>
+        <response name="success" type="view" value="EditCommunicationEvent"/>
+    </request-map>
+    
+    <request-map uri="addAttachmentEmail">
+        <security https="true" auth="true"/>        
+        <response name="success" type="view" value="addAttachmentEmail"/>
+    </request-map>
+    
+    <request-map uri="addContentToCommEvent">
+        <security https="true" auth="true"/>        
+        <event type="simple" path="org/ofbiz/mypage/Events.xml" invoke="addContentToCommEvent"/>
+        <response name="success" type="request" value="NewCommunicationEvents"/>
+        <response name="error" type="view" value="EditCommunicationEvent"/>
+    </request-map>
+    
+    <request-map uri="uploadAttachFiletoEmail">
+        <security https="true" auth="true"/>        
+        <event type="simple" path="org/ofbiz/mypage/Events.xml" invoke="createCommunicationContent"/>
+        <response name="success" type="request" value="NewCommunicationEvents"/>
+        <response name="error" type="view" value="EditCommunicationEvent"/>
+    </request-map>
+    
+    <request-map uri="removeAttachFile">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="removeCommEventContentAssoc"/>        
+        <response name="success" type="request" value="NewCommunicationEvents"/>
+        <response name="error" type="view" value="EditCommunicationEvent"/>
+    </request-map>
+    
+    <request-map uri="EditCommunicationEvent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCommunicationEvent"/>
     </request-map>
     
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>
@@ -236,4 +279,6 @@
     <view-map name="EditRequest" type="screen" page="component://mypage/widget/MyPageScreens.xml#EditRequest"/>
     <view-map name="ListInvoices" type="screen" page="component://mypage/widget/MyPageScreens.xml#ListInvoices"/>
     <view-map name="custPreferences" type="screen" page="component://mypage/widget/CommonScreens.xml#custPreferences"/>
+    <view-map name="EditCommunicationEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#EditCommunicationEvent"/>
+    <view-map name="addAttachmentEmail" type="screen" page="component://mypage/widget/MyPageScreens.xml#addAttachmentEmail"/>
 </site-conf>

@@ -212,4 +212,76 @@ under the License.
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </form>
 
+    <form name="ListDraftEmails" type="list" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"
+         use-row-submit="true">
+        <actions>
+            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
+                <condition-list combine="and">
+                    <condition-expr env-name="" field-name="statusId" operator="equals" value="COM_READ"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>                        
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="-lastUpdatedStamp"/>
+            </entity-condition>
+        </actions>        
+        <field name="subject">
+            <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION"/>
+        </field>
+        <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+        </field>
+    </form>
+
+    <form name="MyPageNewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+        <actions>
+            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>            
+            <entity-condition entity-name="PartyContactWithPurpose" list-name="emailAddresses">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyId" value="${userLogin.partyId}"/>
+                    <condition-expr field-name="contactFromDate" operator="less-equals" env-name="nowDate"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="contactThruDate" env-name="null"/>
+                        <condition-expr field-name="contactThruDate" operator="greater-equals" env-name="nowDate"/>
+                    </condition-list>
+                    <condition-expr field-name="purposeFromDate" operator="less-equals" env-name="nowDate"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="purposeThruDate" operator="greater-equals" env-name="nowDate"/>
+                        <condition-expr field-name="purposeThruDate" env-name="null"/>
+                    </condition-list>
+                    <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
+                    <condition-expr field-name="contactMechTypeId" operator="equals" value="EMAIL_ADDRESS"/>
+                </condition-list>
+                <order-by field-name="infoString"/>
+            </entity-condition>
+        </actions>
+        <alt-target use-when="communicationEventId!=null" target="updateCommunicationEvent"/>
+        <field name="donePage"><hidden/></field>        
+        <field name="communicationEventId"  use-when="communicationEventId!=null"><hidden/></field> 
+        <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
+        <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
+        <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
+        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
+        <field name="emailAddress" parameter-name="contactMechIdFrom">
+            <drop-down>
+                <list-options list-name="emailAddresses" description="${infoString}" key-name="contactMechId"/>
+            </drop-down>
+        </field>
+        <field name="contactMechIdTo" title="${uiLabelMap.PartyEmailTo}">
+            <lookup target-form-name="LookupPartyEmail"/>
+        </field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
+        <field name="subject"><text size="60"/></field>
+        <field name="fileAttach"><display/></field><field name="fileAttach">
+            <hyperlink target="addAttachmentEmail?communicationEventTypeId=${parameters.communicationEventTypeId}&amp;partyId=${userLogin.partyId}&amp;communicationEventId=${parameters.communicationEventId}" description="Attach File"/>
+        </field>        
+        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20"/></field>
+        <field name="save" title="&amp;nbsp;">
+            <hyperlink also-hidden="true" target-type="plain" description="Save" target="javascript:(document.MyPageNewEmail.statusId.value='COM_READ'),(document.MyPageNewEmail.submit())"/>           
+        </field>
+        <field name="send" title="&amp;nbsp;">
+            <hyperlink also-hidden="true" target-type="plain" description="Send" target="javascript:(document.MyPageNewEmail.submit())"/>
+        </field>
+    </form>
 </forms>
