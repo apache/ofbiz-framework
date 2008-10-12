@@ -217,10 +217,8 @@ under the License.
         <actions>
             <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
                 <condition-list combine="and">
-                    <condition-expr env-name="" field-name="statusId" operator="equals" value="COM_READ"/>
-                    <condition-list combine="or">
-                        <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>                        
-                    </condition-list>
+                    <condition-expr field-name="statusId" operator="equals" value="COM_PENDING"/>
+                    <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>                        
                 </condition-list>
                 <order-by field-name="-lastUpdatedStamp"/>
             </entity-condition>
@@ -278,7 +276,7 @@ under the License.
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20"/></field>
         <field name="save" title="&amp;nbsp;">
-            <hyperlink also-hidden="true" target-type="plain" description="Save" target="javascript:(document.MyPageNewEmail.statusId.value='COM_READ'),(document.MyPageNewEmail.submit())"/>           
+            <hyperlink also-hidden="true" target-type="plain" description="Save" target="javascript:(document.MyPageNewEmail.statusId.value='COM_PENDING'),(document.MyPageNewEmail.submit())"/>           
         </field>
         <field name="send" title="&amp;nbsp;">
             <hyperlink also-hidden="true" target-type="plain" description="Send" target="javascript:(document.MyPageNewEmail.submit())"/>
