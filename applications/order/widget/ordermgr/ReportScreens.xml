@@ -222,8 +222,8 @@ under the License.
                 <set field="headerItem" value="reports"/>
                 <set field="viewSize" value="${parameters.VIEW_SIZE}" default-value="20" type="Integer"/>
                 <set field="viewIndex" value="${parameters.VIEW_INDEX}" default-value="0" type="Integer"/>
-                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>
-                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
+                <set field="fromOrderDate" from-field="parameters.fromOrderDate" type="Timestamp"/>
+                <set field="thruOrderDate" from-field="parameters.thruOrderDate" type="Timestamp"/>
                 <script location="component://order/webapp/ordermgr/WEB-INF/actions/reports/OpenOrderItemsReport.groovy"/>
             </actions>
             <widgets>
