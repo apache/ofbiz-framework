@@ -492,7 +492,7 @@ under the License.
         <field name="contentTypeId"><display-entity entity-name="ContentType" description="${description}"/></field>
         <field name="fromDate"><display/></field>
         <!-- field name="drDataResourceName" widget-style="smallSubmit">
-            <hyperlink also-hidden="false" description="${drDataResourceName} [${drDataResourceId}]" target="/content/control/editDataResource?dataResourceId=${drDataResourceId}" target-type="inter-app"/> 
+            <hyperlink also-hidden="false" description="${drDataResourceName} [${drDataResourceId}]" target="/content/control/EditDataResource?dataResourceId=${drDataResourceId}" target-type="inter-app"/> 
         </field-->
         <field name="drMimeTypeId"><display-entity entity-name="MimeType" description="${description}" key-field-name="mimeTypeId"/></field>
     </form>
