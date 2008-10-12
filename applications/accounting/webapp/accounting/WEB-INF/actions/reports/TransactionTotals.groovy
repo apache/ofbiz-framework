@@ -30,10 +30,10 @@ import javolution.util.FastMap;
 
 exprs = [EntityCondition.makeCondition("organizationPartyId", EntityOperator.EQUALS, organizationPartyId)];
 if (fromDate) {
-    exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(fromDate, "Timestamp", null, null)));
+    exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 }
 if (thruDate) {
-    exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(thruDate, "Timestamp", null, null)));
+    exprs.add(EntityCondition.makeCondition("transactionDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
 }
 
 postedExprs = FastList.newInstance();

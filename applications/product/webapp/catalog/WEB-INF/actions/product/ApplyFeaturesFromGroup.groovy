@@ -25,7 +25,7 @@
 import org.ofbiz.entity.*
 
 productFeatureGroupId = parameters.get("productFeatureGroupId");
-if ((productFeatureGroupId) && !(productFeatureGroupId.equals(""))) {
+if (productFeatureGroupId) {
     productFeatureGroup = delegator.findOne("ProductFeatureGroup", [productFeatureGroupId : productFeatureGroupId], false);
     productFeatures = [];
     productFeatureGroupAppls = productFeatureGroup.getRelated("ProductFeatureGroupAppl", ['sequenceNum']);

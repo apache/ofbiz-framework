@@ -96,6 +96,8 @@ under the License.
                 <set field="titleProperty" value="MarketingTrackingCodeReportTitle"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="fromDate" from-field="requestParameters.fromDate" type="Timestamp"/>
+                <set field="thruDate" from-field="requestParameters.thruDate" type="Timestamp"/>
                 <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/TrackingCodeReport.groovy"/>
             </actions>
             <widgets>
@@ -127,6 +129,8 @@ under the License.
                 <set field="title" value="${uiLabelMap.MarketingTrackingCodeReportTitle}"/>
                 <property-map resource="MarketingUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="fromDate" from-field="requestParameters.fromDate" type="Timestamp"/>
+                <set field="thruDate" from-field="requestParameters.thruDate" type="Timestamp"/>
                 <script location="component://marketing/webapp/marketing/WEB-INF/actions/reports/MarketingCampaignReport.groovy"/>
             </actions>
             <widgets>
