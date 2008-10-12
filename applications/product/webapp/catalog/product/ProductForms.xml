@@ -543,7 +543,7 @@ under the License.
             <display-entity entity-name="DataResourceType" key-field-name="dataResourceTypeId" also-hidden="false" description="${description}"/>
         </field>
         <field name="editDataResource" widget-style="buttontext">
-            <hyperlink target="/content/control/editDataResource?dataResourceId=${dataResourceId}" target-type="inter-app"
+            <hyperlink target="/content/control/EditDataResource?dataResourceId=${dataResourceId}" target-type="inter-app"
                 description="${dataResourceId}" also-hidden="false"/>
         </field>
         <field name="editContent" widget-style="buttontext">

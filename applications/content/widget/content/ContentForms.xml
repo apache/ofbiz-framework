@@ -84,7 +84,7 @@ under the License.
         <field name="dataResourceId" use-when="dataResourceId==null"><display/></field>
         <field name="dataResourceId" use-when="dataResourceId!=null">
                 <display-entity entity-name="DataResource" description="${dataResourceName}">
-                    <sub-hyperlink target="editDataResource?dataResourceId=${dataResourceId}" link-style="buttontext" description="[${dataResourceId}]"/>
+                    <sub-hyperlink target="EditDataResource?dataResourceId=${dataResourceId}" link-style="buttontext" description="[${dataResourceId}]"/>
             </display-entity>
         </field>
         <field name="ownerContentId">
@@ -132,7 +132,7 @@ under the License.
         </field>
         <field name="dataResourceId">
             <lookup target-form-name="LookupDataResource">
-                <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="editDataResource?dataResourceId=${currentValue.dataResourceId}" description="${uiLabelMap.ContentGoToDataResource}"/>
+                <sub-hyperlink use-when="&quot;${currentValue.dataResourceId}&quot;.length()>0" link-style="buttontext" target-type="intra-app" target="EditDataResource?dataResourceId=${currentValue.dataResourceId}" description="${uiLabelMap.ContentGoToDataResource}"/>
             </lookup>
         </field>
         <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>
