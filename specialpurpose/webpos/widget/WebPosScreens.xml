@@ -136,9 +136,16 @@ under the License.
                 <script location="component://webpos/webapp/webpos/WEB-INF/actions/cart/ShowCart.groovy"/>
             </actions>
             <widgets>
-                <container>
-                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/cart/ShowCart.ftl"/></html></platform-specific>
-                </container>
+	            <section>
+		            <condition>
+		                <not><if-empty field-name="shoppingCart"/></not>
+		            </condition>
+		            <widgets>
+		                <container>
+		                    <platform-specific><html><html-template location="component://webpos/webapp/webpos/cart/ShowCart.ftl"/></html></platform-specific>
+		                </container>
+		            </widgets>
+	            </section>
             </widgets>
         </section>
     </screen>

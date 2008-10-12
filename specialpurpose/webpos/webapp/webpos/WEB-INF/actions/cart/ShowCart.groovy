@@ -20,9 +20,11 @@
 import org.ofbiz.webpos.WebPosEvents;
 import org.ofbiz.webpos.session.WebPosSession;
 
-webPosSession = WebPosEvents.getWebPosSession(request);
+webPosSession = WebPosEvents.getWebPosSession(request, null);
 if (webPosSession) {
     shoppingCart = webPosSession.getCart();
+} else {
+    shoppingCart = null;
 }
 
 // Get the Cart and Prepare Size

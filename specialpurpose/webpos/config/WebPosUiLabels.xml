@@ -303,6 +303,10 @@
         <value xml:lang="en">Pay Check</value>
         <value xml:lang="it">Pagamento con Assegno</value>
     </property>
+    <property key="WebPosPageTitlePayClear">
+        <value xml:lang="en">Clear Payment</value>
+        <value xml:lang="it">Rimuovi Pagamento</value>
+    </property>
     <property key="WebPosPageTitlePayGiftCard">
         <value xml:lang="en">Pay Gift Card</value>
         <value xml:lang="it">Pagamento con Carta Regalo</value>

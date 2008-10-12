@@ -46,10 +46,18 @@ under the License.
     </tr>
     <tr>
         <td>
-            <a href="<@ofbizUrl>PayClear?idx=0</@ofbizUrl>" class="posButton">${uiLabelMap.WebPosButtonPayClear}</a>
+            <#if (totalPayments > 0.00)>
+                <a href="<@ofbizUrl>AddClearPayment</@ofbizUrl>" class="posButton">${uiLabelMap.WebPosButtonPayClear}</a>
+            <#else>
+                <span class="disabled">${uiLabelMap.WebPosButtonPayClear}</span>
+            </#if>
         </td>
         <td>
-            <a href="<@ofbizUrl>PayClearAll</@ofbizUrl>" class="posButton">${uiLabelMap.WebPosButtonPayClearAll}</a>
+            <#if (totalPayments > 0.00)>
+                <a href="<@ofbizUrl>PayClearAll</@ofbizUrl>" class="posButton">${uiLabelMap.WebPosButtonPayClearAll}</a>
+            <#else>
+                <span class="disabled">${uiLabelMap.WebPosButtonPayClearAll}</span>
+            </#if>
         </td>
         <td>
             <a href="<@ofbizUrl>main</@ofbizUrl>" class="posButton">${uiLabelMap.WebPosButtonMain}</a>

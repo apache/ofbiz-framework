@@ -37,6 +37,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.CheckOutHelper;
 import org.ofbiz.order.shoppingcart.ShoppingCart;
+import org.ofbiz.order.shoppingcart.ShoppingCart.CartPaymentInfo;
 import org.ofbiz.order.shoppingcart.ShoppingCartItem;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
@@ -301,6 +302,14 @@ public class WebPosTransaction {
     public void clearPayment(String id) {
         Debug.logInfo("removing payment " + id, module);
         getCart().clearPayment(id);
+    }
+    
+    public CartPaymentInfo getPaymentInfo(int index) {
+        return getCart().getPaymentInfo(index);
+    }
+    
+    public String getPaymentMethodTypeId(int index) {
+        return getCart().getPaymentInfo(index).paymentMethodTypeId;
     }
     
     public int checkPaymentMethodType(String paymentMethodTypeId) {

@@ -20,7 +20,7 @@
 import org.ofbiz.webpos.WebPosEvents;
 import org.ofbiz.webpos.session.WebPosSession;
 
-webPosSession = WebPosEvents.getWebPosSession(request);
+webPosSession = WebPosEvents.getWebPosSession(request, null);
 if (webPosSession) {
     context.cart = webPosSession.getCart();
     
@@ -29,4 +29,5 @@ if (webPosSession) {
     }
     
     context.totalDue = webPosSession.getCurrentTransaction().getTotalDue();
+    context.totalPayments = webPosSession.getCurrentTransaction().getPaymentTotal();
 }

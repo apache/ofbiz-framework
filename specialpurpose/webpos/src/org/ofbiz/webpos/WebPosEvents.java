@@ -41,13 +41,27 @@ public class WebPosEvents {
         
         if ("success".equals(responseString)) {
             HttpSession session = request.getSession(true); 
+        	
+            // get the posTerminalId
+            String posTerminalId = (String) request.getParameter("posTerminalId");
+            session.removeAttribute("shoppingCart");
             session.removeAttribute("webPosSession");
-            WebPosEvents.getWebPosSession(request);
+            WebPosEvents.getWebPosSession(request, posTerminalId);
         }
         return responseString;
     }
     
-    public static WebPosSession getWebPosSession(HttpServletRequest request) {
+    public static String existsWebPosSession(HttpServletRequest request, HttpServletResponse response) {
+    	String responseString = "success";
+    	HttpSession session = request.getSession(true);
+    	WebPosSession webPosSession = (WebPosSession) session.getAttribute("webPosSession");
+    	
+    	if (UtilValidate.isEmpty(webPosSession)) {
+    		responseString = "error";
+    	}
+        return responseString;
+    }
+    public static WebPosSession getWebPosSession(HttpServletRequest request, String posTerminalId) {
         HttpSession session = request.getSession(true);
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         WebPosSession webPosSession = (WebPosSession) session.getAttribute("webPosSession");
@@ -71,10 +85,8 @@ public class WebPosEvents {
             if (UtilValidate.isEmpty(cart)) {
                 cart = new ShoppingCart(delegator, productStoreId, request.getLocale(), currencyUomId);
                 session.setAttribute("shoppingCart", cart);
+                
             }
-            
-            // get the posTerminalId
-            String posTerminalId = (String) request.getParameter("posTerminalId");
             
             if (UtilValidate.isNotEmpty(posTerminalId)) {
             	webPosSession = new WebPosSession(posTerminalId, null, userLogin, request.getLocale(), productStoreId, facilityId, currencyUomId, delegator, dispatcher, cart);
@@ -84,19 +96,20 @@ public class WebPosEvents {
         return webPosSession;
     }
 
-    public static void removeWebPosSession(HttpServletRequest request) {
+    public static void removeWebPosSession(HttpServletRequest request, String posTerminalId) {
         HttpSession session = request.getSession(true);        
         session.removeAttribute("shoppingCart");
         session.removeAttribute("webPosSession");
-        getWebPosSession(request);
+        getWebPosSession(request, posTerminalId);
     }
 
     public static String completeSale(HttpServletRequest request, HttpServletResponse response) throws GeneralException {
         HttpSession session = request.getSession(true);
         WebPosSession webPosSession = (WebPosSession) session.getAttribute("webPosSession");
         if (UtilValidate.isNotEmpty(webPosSession)) {
-            webPosSession.getCurrentTransaction().processSale();            
-            removeWebPosSession(request);
+            webPosSession.getCurrentTransaction().processSale();  
+            String posTerminalId = webPosSession.getId();
+            removeWebPosSession(request, posTerminalId);
         }
         return "success";
     }

@@ -21,7 +21,7 @@ import org.ofbiz.webpos.WebPosEvents;
 import org.ofbiz.webpos.session.WebPosSession;
 import org.ofbiz.webpos.transaction.WebPosTransaction;
 
-webPosSession = WebPosEvents.getWebPosSession(request);
+webPosSession = WebPosEvents.getWebPosSession(request, null);
 if (webPosSession) {
     context.shoppingCartSize = webPosSession.getCart().size();
     context.isManagerLoggedIn = webPosSession.isManagerLoggedIn();
