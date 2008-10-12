@@ -296,7 +296,7 @@ public class CatalinaContainer implements Container {
         }
 
         // configure the CrossSubdomainSessionValve
-        boolean enableSessionValve = ContainerConfig.getPropertyValue(engineConfig, "enable-session-valve", false);
+        boolean enableSessionValve = ContainerConfig.getPropertyValue(engineConfig, "enable-cross-subdomain-sessions", false);
         if (enableSessionValve) {
             CrossSubdomainSessionValve sessionValve = new CrossSubdomainSessionValve();
             engine.addValve(sessionValve);
