@@ -182,6 +182,7 @@ under the License.
                 <sub-hyperlink description=" [${communicationEvent.partyIdTo}]" target="/partymgr/control/viewprofile?partyId=${communicationEvent.partyIdTo}" target-type="inter-app"/>
             </display-entity>
         </field>
+        <field name="statusId"><display-entity description="${description}" entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><display type="date"/></field>
         <field name="subject"><display/></field>
         <field name="content" title="${uiLabelMap.CommonContent}"><display/></field>

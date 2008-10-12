@@ -179,4 +179,139 @@ under the License.
         </if-not-empty>
     </simple-method>
     
+    <simple-method method-name="checkEnteredEmailExists" short-description="Check Enter Email Exists when click New Email">        
+        <entity-and entity-name="CommunicationEvent" list-name="comEventList">
+            <field-map field-name="statusId" value="COM_PENDING"/>
+            <field-map field-name="partyIdFrom" env-name="userLogin.partyId"/>
+        </entity-and>
+        <if-not-empty field="comEventList">
+            <iterate entry-name="comevent" list-name="comEventList">            
+                <set field="communicationEventId" from-field="comevent.communicationEventId" />  
+                <field-to-request field-name="communicationEventId" request-name="communicationEventId"/>
+            </iterate>
+            <else>
+                <set field="chkExists" value="true"/>
+            </else>
+        </if-not-empty>
+        <if-compare field="chkExists" value="true" operator="equals">
+            <set-service-fields service-name="createCommunicationEvent" map-name="parameters" to-map-name="createCommEvent"/>
+            <call-service service-name="createCommunicationEvent" in-map-name="createCommEvent">
+                <result-to-request result-name="communicationEventId" request-name="communicationEventId"/>
+            </call-service>
+        </if-compare>                        
+    </simple-method>
+    
+    <simple-method method-name="createCommunicationContent" short-description="Upload Content and Create Communication Content Association">
+        <!-- Call layout to get field -->
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
+            method-name="uploadImageAndParameters" 
+            ret-field-name="formInput">
+            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+            <string value="uploadedFile"/>
+        </call-class-method>
+        <set field="parameters.imageFileName" from-field="formInput.imageFileName"/>
+        
+        <!-- Call bsh get file type --> 
+        <call-bsh><![CDATA[
+            String fileName = parameters.get("imageFileName");
+            String mimeTypeId = fileName.substring(fileName.indexOf(".")+1,fileName.length());
+            parameters.put("mimeType",mimeTypeId);
+            ]]>
+        </call-bsh>
+        
+        <!-- Get mime type from FileExtention -->
+        <set field="fileMap.fileExtensionId" value="${parameters.mimeType}"/>
+        <find-by-primary-key map-name="fileMap" value-name="mimeType" entity-name="FileExtension"/>        
+        
+        <!-- Create Data Resource -->
+        <set-service-fields service-name="createContentFromUploadedFile" map-name="formInput.formInput" to-map-name="data"/>
+        <set field="data.dataResourceTypeId" value="LOCAL_FILE"/>
+        <set field="data.dataTemplateTypeId" value="NONE"/>
+        <set field="data.dataCategoryId" from-field="formInput.formInput.dataCategoryId"/>
+        
+        <set field="data.statusId" from-field="formInput.formInput.statusId"/>
+        <set field="data.dataResourceName" from-field="formInput.imageFileName"/>
+        <set field="data.mimeTypeId" from-field="mimeType.mimeTypeId"/>
+        <set field="data.uploadedFile" from-field="formInput.imageData"/>
+        <set field="data._uploadedFile_fileName" from-field="formInput.imageFileName"/>
+        <set field="data._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
+        <call-service service-name="createDataResource" in-map-name="data">
+            <result-to-field result-name="dataResourceId" field-name="dataResourceId" map-name="parameters"/>
+        </call-service>        
+        <log level="always" message=" DataResource : ${parameters.dataResourceId}"></log>
+        
+        <!-- Create attach upload to data resource -->
+        <set-service-fields service-name="attachUploadToDataResource" map-name="formInput.formInput" to-map-name="attachMap"/>
+        <set field="attachMap.uploadedFile" from-field="formInput.imageData"/>
+        <set field="attachMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
+        <set field="attachMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
+        <set field="attachMap.dataResourceId" from-field="parameters.dataResourceId"/>
+        <set field="attachMap.mimeTypeId" from-field="mimeType.mimeTypeId"/>
+        <call-service service-name="attachUploadToDataResource" in-map-name="attachMap"/>
+        
+        <!-- Create content from dataResource -->
+        <set-service-fields service-name="createContentFromDataResource" map-name="formInput.formInput" to-map-name="contentMap"/>
+        <set field="contentMap.roleTypeId" from-field="formInput.formInput.roleTypeId"/>
+        <set field="contentMap.partyId" from-field="formInput.formInput.partyId"/>
+        <set field="contentMap.contentTypeId" from-field="formInput.formInput.contentTypeId"/>
+        <set field="contentMap.dataResourceId" from-field="parameters.dataResourceId"/>
+        <call-service service-name="createContentFromDataResource" in-map-name="contentMap">
+            <result-to-field result-name="contentId" field-name="contentId" map-name="parameters"/>
+        </call-service>
+        <log level="always" message=" Content : ${parameters.contentId}"></log>
+        
+        <!-- Create party content -->
+        <set-service-fields service-name="createPartyContent" map-name="formInput.formInput" to-map-name="partycontent"/>
+        <set field="partycontent.contentId" from-field="parameters.contentId"/>
+        <set field="partycontent.partyContentTypeId" from-field="formInput.formInput.partyContentTypeId"/>
+        <set field="partycontent.partyId" from-field="formInput.formInput.partyId"/>
+        <call-service service-name="createPartyContent" in-map-name="partycontent"/>
+        
+        <!-- Create communication event and content association -->
+        <set-service-fields service-name="createCommEventContentAssoc" map-name="formInput.formInput" to-map-name="contentAssoc"/>
+        <set field="contentAssoc.contentId" from-field="parameters.contentId"/>
+        <set field="contentAssoc.communicationEventId" from-field="formInput.formInput.communicationEventId"/> 
+        <call-service service-name="createCommEventContentAssoc" in-map-name="contentAssoc">
+            <result-to-field result-name="fromDate" field-name="fromDate"/>
+        </call-service> 
+        
+        <!-- Return to request -->
+        <set field="communicationEventTypeId" from-field="formInput.formInput.communicationEventTypeId"/>
+        <set field="communicationEventId" from-field="formInput.formInput.communicationEventId"/>        
+        <field-to-request field-name="communicationEventId" request-name="communicationEventId"/>
+        <field-to-request field-name="communicationEventTypeId" request-name="communicationEventTypeId"/>        
+        
+    </simple-method>
+    
+    <simple-method method-name="addContentToCommEvent" short-description="Add content to email communication">        
+        <!-- Call layout to get field -->
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
+            method-name="uploadImageAndParameters" 
+            ret-field-name="formInput">
+            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+            <string value="partyId"/>
+        </call-class-method> 
+        
+        <!-- Create party content -->
+        <set-service-fields service-name="createPartyContent" map-name="formInput.formInput" to-map-name="partycontent"/>
+        <set field="partycontent.contentId" from-field="formInput.formInput.contentId"/>
+        <set field="partycontent.partyContentTypeId" from-field="formInput.formInput.partyContentTypeId"/>
+        <set field="partycontent.partyId" from-field="formInput.formInput.partyId"/>        
+        <call-service service-name="createPartyContent" in-map-name="partycontent"/>
+        
+        <!-- Create communication event and content association -->
+        <set-service-fields service-name="createCommEventContentAssoc" map-name="formInput.formInput" to-map-name="contentAssoc"/>
+        <set field="contentAssoc.contentId" from-field="formInput.formInput.contentId"/>
+        <set field="contentAssoc.communicationEventId" from-field="formInput.formInput.communicationEventId"/> 
+        <call-service service-name="createCommEventContentAssoc" in-map-name="contentAssoc">
+            <result-to-field result-name="fromDate" field-name="fromDate"/>
+        </call-service> 
+        
+        <!-- Return to request -->
+        <set field="communicationEventTypeId" from-field="formInput.formInput.communicationEventTypeId"/>
+        <set field="communicationEventId" from-field="formInput.formInput.communicationEventId"/>
+        <field-to-request field-name="communicationEventTypeId" request-name="communicationEventTypeId"/>
+        <field-to-request field-name="communicationEventId" request-name="communicationEventId"/>
+    </simple-method>
+    
 </simple-methods>

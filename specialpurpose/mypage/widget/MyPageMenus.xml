@@ -124,7 +124,7 @@ under the License.
                 <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
             </condition>      
             <link
-                target="EditCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}" />
+                target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
         </menu-item>
         <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
             <condition>
@@ -185,6 +185,12 @@ under the License.
                 </and>
             </condition>
             <link target="setCommunicationEventRoleStatus?communicationEventId=${parameters.communicationEventId}&amp;partyId=${userLogin.partyId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;statusId=COM_ROLE_COMPLETED"/>
+        </menu-item>
+        <menu-item name="send" title="${uiLabelMap.CommonSend}">
+            <condition>
+                <if-compare field-name="commEvent.statusId" operator="equals" value="COM_READ"/>
+            </condition>
+            <link target="updateCommunicationEvent/main?communicationEventId=${parameters.communicationEventId}&amp;statusId=COM_IN_PROGRESS"/>
         </menu-item>
         <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
             <condition>
