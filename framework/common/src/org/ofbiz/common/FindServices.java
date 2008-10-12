@@ -21,7 +21,6 @@ package org.ofbiz.common;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -48,6 +47,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.EntityFunction;
 import org.ofbiz.entity.condition.EntityFieldValue;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.util.EntityFindOptions;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
@@ -208,7 +208,7 @@ public class FindServices {
      * @param normalizedFields     list of field the user have populated  
      * @return a arrayList usable to create an entityCondition
      */
-    public static ArrayList<EntityCondition> createCondition(List<String> keys, HashMap<String, HashMap<String, HashMap<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap) {
+    public static ArrayList<EntityCondition> createCondition(ModelEntity modelEntity, HashMap<String, HashMap<String, HashMap<String, Object>>> normalizedFields, Map<String, Object> queryStringMap, Map<String, List<Object[]>> origValueMap, GenericDelegator delegator, Map<String, ?> context) {
         HashMap<String, HashMap<String, Object>> subMap = null;
         HashMap<String, Object> subMap2 = null;
         EntityOperator fieldOp = null;
@@ -219,7 +219,9 @@ public class FindServices {
         String opString = null;
         String ignoreCase = null;
         int count = 0;
-        for (String fieldName: keys) {
+        List<ModelField> fields = modelEntity.getFieldsUnmodifiable();
+        for (ModelField modelField: fields) {
+            String fieldName = modelField.getName();
             subMap = normalizedFields.get(fieldName);
             if (subMap == null) {
                 continue;
@@ -282,10 +284,11 @@ public class FindServices {
                 fieldOp = EntityOperator.EQUALS;
             }
 
-            if (ignoreCase != null && ignoreCase.equals("Y")) {
+            Object fieldObject = modelEntity.convertFieldValue(modelField, fieldValue, delegator, context);
+            if (ignoreCase != null && ignoreCase.equals("Y") && "java.lang.String".equals(fieldObject.getClass().getName())) {
                 cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) fieldOp, EntityFunction.UPPER(fieldValue.toUpperCase()));
             } else {
-                cond = EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) fieldOp, fieldValue);
+                cond = EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) fieldOp, fieldObject);
             }
             tmpList.add(cond);
             count++;
@@ -328,7 +331,8 @@ public class FindServices {
                 fieldOp = EntityOperator.LESS_THAN;
             }
             // String rhs = fieldValue.toString();
-            cond = EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) fieldOp, fieldValue);
+            fieldObject = modelEntity.convertFieldValue(modelField, fieldValue, delegator, context);
+            cond = EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) fieldOp, fieldObject);
             tmpList.add(cond);
 
             // add to queryStringMap
@@ -412,7 +416,7 @@ public class FindServices {
 
         Map<String, Object> prepareResult = null;
         try {
-            prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy, "inputFields", inputFields, "filterByDate", filterByDate,"filterByDateValue", filterByDateValue, "userLogin", userLogin));
+            prepareResult = dispatcher.runSync("prepareFind", UtilMisc.toMap("entityName", entityName, "orderBy", orderBy, "inputFields", inputFields, "filterByDate", filterByDate,"filterByDateValue", filterByDateValue, "userLogin", userLogin, "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError("Error preparing conditions: " + gse.getMessage());
         }
@@ -421,7 +425,7 @@ public class FindServices {
         
         Map<String, Object> executeResult = null;
         try {
-            executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList, "entityConditionList", exprList, "noConditionFind", noConditionFind));
+            executeResult = dispatcher.runSync("executeFind", UtilMisc.toMap("entityName", entityName, "orderByList", orderByList, "entityConditionList", exprList, "noConditionFind", noConditionFind, "locale", context.get("locale"), "timeZone", context.get("timeZone")));
         } catch (GenericServiceException gse) {
             return ServiceUtil.returnError("Error finding iterator: " + gse.getMessage());
         }
@@ -475,8 +479,7 @@ public class FindServices {
         GenericValue entityValue = delegator.makeValue(entityName, FastMap.newInstance());
 
         ModelEntity modelEntity = entityValue.getModelEntity();
-        List<String> keys = modelEntity.getAllFieldNames();
-        ArrayList<EntityCondition> tmpList = createCondition(keys, normalizedFields, queryStringMap, origValueMap);
+        ArrayList<EntityCondition> tmpList = createCondition(modelEntity, normalizedFields, queryStringMap, origValueMap, delegator, context);
 
         /* the filter by date condition should only be added when there are other conditions or when
          * the user has specified a noConditionFind.  Otherwise, specifying filterByDate will become 
