@@ -32,18 +32,15 @@ import org.ofbiz.base.util.*;
 productStoreId = parameters.productStoreId;
 orderTypeId = parameters.orderTypeId;
 orderStatusId = parameters.orderStatusId;
-fromOrderDate = parameters.fromOrderDate;
-thruOrderDate = parameters.thruOrderDate;
- 
 
 // search by orderTypeId is mandatory
 conditions = [EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId)];
 
-if (fromOrderDate && UtilValidate.isDate(fromOrderDate)){
-    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(fromOrderDate, "Timestamp", null, null)));
+if (fromOrderDate){
+    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromOrderDate));
 }
-if (thruOrderDate && UtilValidate.isDate(thruOrderDate)){
-    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(thruOrderDate, "Timestamp", null, null)));
+if (thruOrderDate){
+    conditions.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruOrderDate));
 }
 
 if (productStoreId) {

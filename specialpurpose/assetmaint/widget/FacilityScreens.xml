@@ -38,7 +38,7 @@
                 <set field="productSupplierId" from-field="parameters.productSupplierId"/>
                 <set field="offsetQOHQty" from-field="parameters.offsetQOHQty"/>
                 <set field="offsetATPQty" from-field="parameters.offsetATPQty"/>
-                <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp"/>
+                <set field="productsSoldThruTimestamp" from-field="parameters.productsSoldThruTimestamp" type="Timestamp"/>
                 <set field="internalName" from-field="parameters.internalName"/>
                 <set field="productId" from-field="parameters.productId"/>
    

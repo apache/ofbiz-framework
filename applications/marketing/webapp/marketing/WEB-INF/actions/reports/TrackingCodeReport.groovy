@@ -25,23 +25,20 @@ import org.ofbiz.entity.condition.EntityConditionList
 import org.ofbiz.marketing.report.ReportHelper
 
 trackingCodeIdStr = request.getParameter("trackingCodeId");
-fromDateStr = request.getParameter("fromDate");
-thruDateStr = request.getParameter("thruDate");
-
 // query for both number of visits and number of orders
 
 visitConditionList = [] as LinkedList;
 orderConditionList = [] as LinkedList;
 
-if (fromDateStr && !(fromDateStr.equals(""))) {
-    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(fromDateStr, "Timestamp", null, null)));
-    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(fromDateStr, "Timestamp", null, null)));
+if (fromDate) {
+    visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
+    orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 }
-if (thruDateStr && !(thruDateStr.equals(""))) {
-     visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(thruDateStr, "Timestamp", null, null)));
-     orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(thruDateStr, "Timestamp", null, null)));
+if (thruDate) {
+     visitConditionList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
+     orderConditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, thruDate));
 }
-if (trackingCodeIdStr && !(trackingCodeIdStr.equals(""))) {
+if (trackingCodeIdSt) {
      visitConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeIdStr));
      orderConditionList.add(EntityCondition.makeCondition("trackingCodeId", EntityOperator.EQUALS, trackingCodeIdStr));
 }

@@ -72,10 +72,10 @@ sbSql.append(" order_item.unit_price * order_item.quantity as purchaseAmount, ")
 
 conditionList = [];
 if (fromDate) {
-    conditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(fromDate, "Timestamp", null, null)));
+    conditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.GREATER_THAN_EQUAL_TO, fromDate));
 }
 if (toDate) {
-    conditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, ObjectType.simpleTypeConvert(toDate, "Timestamp", null, null)));
+    conditionList.add(EntityCondition.makeCondition("orderDate", EntityOperator.LESS_THAN_EQUAL_TO, toDate));
 }
 entityCondition = EntityCondition.makeCondition(conditionList, EntityOperator.AND);
 orderByList = ["orderTypeId", "orderStatus"];

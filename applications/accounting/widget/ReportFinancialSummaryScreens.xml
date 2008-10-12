@@ -531,8 +531,8 @@ under the License.
                 <set field="tabButtonItem" value="OrganizationAccountingReports"/>
                 <set field="tabButtonItem2" value="TransactionTotals"/>
                 <set field="organizationPartyId" from-field="parameters.organizationPartyId"/>
-                <set field="fromDate" from-field="parameters.fromDate"/>
-                <set field="thruDate" from-field="parameters.thruDate"/>
+                <set field="fromDate" from-field="parameters.fromDate" type="Timestamp"/>                
+                <set field="thruDate" from-field="parameters.thruDate" type="Timestamp"/>
                 <script location="component://accounting/webapp/accounting/WEB-INF/actions/reports/TransactionTotals.groovy"/>
             </actions>
             <widgets>
