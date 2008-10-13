@@ -498,7 +498,9 @@
             <return/>
         </if-empty>
         <entity-and entity-name="WorkEffort" list-name="phases">
+            <field-map field-name="workEffortTypeId" value="PHASE"/>
             <field-map field-name="workEffortParentId" env-name="parameters.projectId"/>
+            <order-by field-name="workEffortName"/>
         </entity-and>        
         <if-not-empty field="phases">
         <iterate entry-name="phase" list-name="phases">

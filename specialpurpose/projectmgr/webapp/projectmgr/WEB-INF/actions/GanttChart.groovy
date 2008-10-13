@@ -63,7 +63,7 @@ if (phases){
         }
         newPhase.workEffortTypeId = "PHASE";
 		ganttList.add(newPhase);
-		tasks = delegator.findByAnd("WorkEffort", ["workEffortParentId" : phase.phaseId]);
+		tasks = delegator.findByAnd("WorkEffort", ["workEffortParentId" : phase.phaseId], ["workEffortName"]);
 		if (tasks){
 			tasks.each { task ->
 	        	resultTaskInfo = dispatcher.runSync("getProjectTask", [userLogin : userLogin , taskId : task.workEffortId]);
