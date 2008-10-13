@@ -850,12 +850,13 @@ public class EmailServices {
             commEventMap.put("roleTypeIdTo", "_NA_");
 
             // get the content(type) part
+            Object messageContent = message.getContent();
             if (contentType.startsWith("text")) {
-                commEventMap.put("content", message.getContent());
+                commEventMap.put("content", messageContent);
                 commEventMap.put("contentMimeTypeId", contentType);
-            } else if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
+            } else if (messageContent instanceof Multipart) {
                 contentIndex = "";
-                commEventMap = addMessageBody(commEventMap, (Multipart) message.getContent());
+                commEventMap = addMessageBody(commEventMap, (Multipart) messageContent);
             }
 
             // check for for a reply to communication event (using in-reply-to the parent messageID)
@@ -956,9 +957,9 @@ public class EmailServices {
             result = dispatcher.runSync("createCommunicationEvent", commEventMap);
             communicationEventId = (String)result.get("communicationEventId");
             
-            // store attachments
-            if (contentType.startsWith("multipart") || contentType.startsWith("Multipart")) {
-                int attachmentCount = EmailWorker.addAttachmentsToCommEvent(message, communicationEventId, dispatcher, userLogin);
+            if (messageContent instanceof Multipart) {
+            	Debug.logInfo("===message has attachments=====", module);
+                int attachmentCount = EmailWorker.addAttachmentsToCommEvent((Multipart) messageContent, subject, communicationEventId, dispatcher, userLogin);
                 if (Debug.infoOn()) Debug.logInfo(attachmentCount + " attachments added to CommunicationEvent:" + communicationEventId,module);
             }
             
