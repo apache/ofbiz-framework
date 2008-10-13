@@ -29,7 +29,7 @@ under the License.
     <author>None</author>
     <version>1.0</version>
   <view-entity entity-name="ProjectPartyAndPhase"
-    package-name="org.ofbiz.workeffort.project"
+    package-name="org.ofbiz.specialpurpose.project"
     title="To listr all the phases of project the logged user is part off">
     <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
     <member-entity entity-alias="WEP" entity-name="WorkEffort"/>
@@ -50,7 +50,7 @@ under the License.
     </view-link>
   </view-entity>
   <view-entity entity-name="ProjectPartyAndPhaseAndTask"
-    package-name="org.ofbiz.workeffort.project"
+    package-name="org.ofbiz.specialpurpose.project"
     title="WorkEffort for use in party -> project -> phase -> task">
     <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
     <member-entity entity-alias="WEP" entity-name="WorkEffort"/>
@@ -89,7 +89,7 @@ under the License.
   </view-entity>
   
   <view-entity entity-name="ProjectAndPhaseAndTaskParty"
-    package-name="org.ofbiz.workeffort.project"
+    package-name="org.ofbiz.specialpurpose.project"
     title="WorkEffort for use in party -> project -> phase -> task">
     <member-entity entity-alias="WEP" entity-name="WorkEffort"/>
     <member-entity entity-alias="WEPH" entity-name="WorkEffort"/>
@@ -128,7 +128,7 @@ under the License.
   </view-entity>
   
   <view-entity entity-name="ProjectAndPhaseAndTask"
-    package-name="org.ofbiz.workeffort.project"
+    package-name="org.ofbiz.specialpurpose.project"
     title="WorkEffort for use in project -> phase -> task">
     <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
     <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
@@ -156,7 +156,7 @@ under the License.
   </view-entity>
   
   <view-entity entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet"
-    package-name="org.ofbiz.workeffort.project"
+    package-name="org.ofbiz.specialpurpose.project"
     title="WorkEffort for use in project -> phase -> task">
     <member-entity entity-alias="WEP" entity-name="WorkEffort"/><!--project -->
     <member-entity entity-alias="WEPH" entity-name="WorkEffort"/><!-- phase -->
@@ -197,7 +197,7 @@ under the License.
   </view-entity>
   
   <view-entity entity-name="TimesheetAndTimeEntry"
-    package-name="org.ofbiz.workeffort.project"
+    package-name="org.ofbiz.specialpurpose.project"
     title="Time entry for Timesheets, time entries always have a timesheet and are always for one day only and recording the hours for one person which is defined on the timesheet. A timesheet will always have at least one time entry.">
     <member-entity entity-alias="TS" entity-name="Timesheet"/>
     <member-entity entity-alias="TE" entity-name="TimeEntry"/>

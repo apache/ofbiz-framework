@@ -32,15 +32,15 @@ under the License.
   <!-- ========================================================= -->
   <!-- ======================== Data Model ===================== -->
   <!-- The modules in this file are as follows:                  -->
-  <!--  - org.ofbiz.pos.terminal -->
+  <!--  - org.ofbiz.specialpurpose.pos -->
   <!-- ========================================================= -->
 
 
   <!-- ========================================================= -->
-  <!-- org.ofbiz.pos.terminal -->
+  <!-- org.ofbiz.specialpurpose.pos -->
   <!-- ========================================================= -->
     <entity entity-name="PosTerminal"
-            package-name="org.ofbiz.pos.terminal"
+            package-name="org.ofbiz.specialpurpose.pos"
             title="Pos Terminal">
       <field name="posTerminalId" type="id-ne"></field>
       <field name="facilityId" type="id"></field>
@@ -49,7 +49,7 @@ under the License.
       <prim-key field="posTerminalId"/>
     </entity>
     <entity entity-name="PosTerminalLog"
-            package-name="org.ofbiz.pos.terminal"
+            package-name="org.ofbiz.specialpurpose.pos"
             title="Pos Terminal Log">
       <field name="posTerminalLogId" type="id-ne"></field>
       <field name="posTerminalId" type="id-ne"></field>
@@ -76,7 +76,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PosTerminalState"
-            package-name="org.ofbiz.pos.terminal"
+            package-name="org.ofbiz.specialpurpose.pos"
             title="Pos Terminal State">
       <field name="posTerminalId" type="id-ne"></field>
       <field name="openedDate" type="date-time"></field>
@@ -98,7 +98,7 @@ under the License.
       </relation>
     </entity>
     <entity entity-name="PosTerminalInternTx"
-            package-name="org.ofbiz.pos.terminal"
+            package-name="org.ofbiz.specialpurpose.pos"
             title="Pos Terminal Internal Transaction">
       <field name="posTerminalLogId" type="id-ne"></field>
       <field name="paidAmount" type="currency-amount"></field>        
