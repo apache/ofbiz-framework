@@ -30,10 +30,10 @@ g.setShowComp(0); // Show/Hide % Complete(0/1)
 
 <#list phaseTaskList as t>
     <#if t.workEffortTypeId == "PHASE">
-        g.AddTaskItem(new JSGantt.TaskItem(${t.phaseNr}, '${t.phaseName}', '', '', '#00ff00', ' ', 0, ' ', 0, 1, 0, 1));
+        g.AddTaskItem(new JSGantt.TaskItem(${t.phaseNr}, "${t.phaseName}", "", "", "#00ff00", "", 0, "", 0, 1, 0, 1));
     </#if>
     <#if t.workEffortTypeId == "TASK">
-        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},'${t.taskName}','${t.estimatedStartDate}', '${t.estimatedCompletionDate}','#009900', ' ', 0, ' ', 0, 0, ${t.phaseNr}, 1));
+        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskName}","${t.estimatedStartDate}", "${t.estimatedCompletionDate}","#009900", "", 0, "", 0, 0, ${t.phaseNr}, 1));
     </#if>
 </#list>
 <#--
