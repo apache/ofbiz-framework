@@ -501,6 +501,8 @@ under the License.
             <actions>
                 <set field="titleProperty" value="ProjectMgrGanttChart"/>
                 <set field="tabButtonItem" value="ganttchart"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/jsgantt.js" global="true"/>
+                <set field="layoutSettings.styleSheets[]" value="/images/jsgantt.css" global="true"/>
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/GanttChart.groovy"/>
             </actions>
             <widgets>

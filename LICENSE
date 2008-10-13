@@ -432,6 +432,9 @@ ofbiz/trunk/specialpurpose/pos/lib/looks-2.0.2.jar
 ofbiz/trunk/framework/base/lib/javolution-5.2.3.jar
 ofbiz/trunk/framework/images/webapp/images/dojo/*
 ofbiz/trunk/specialpurpose/ldap/lib/cas-server-core-3.3.jar
+ofbiz/trunk/framework/images/webapp/images/jsgantt.css
+ofbiz/trunk/framework/images/webapp/images/jsgantt.js
+
 =========================================================================
 The BSD License
 
