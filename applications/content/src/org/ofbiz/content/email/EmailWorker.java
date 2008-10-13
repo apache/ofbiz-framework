@@ -46,21 +46,19 @@ public class EmailWorker {
         return fieldValue;
     }
     
-    public static int addAttachmentsToCommEvent(MimeMessage message, String communicationEventId, LocalDispatcher dispatcher, GenericValue userLogin) 
+    public static int addAttachmentsToCommEvent(Multipart messageContent, String subject, String communicationEventId, LocalDispatcher dispatcher, GenericValue userLogin) 
         throws MessagingException, IOException, GenericServiceException {
         Map commEventMap = FastMap.newInstance();
         commEventMap.put("communicationEventId", communicationEventId);
         commEventMap.put("contentTypeId", "DOCUMENT");
         commEventMap.put("mimeTypeId", "text/html");
         commEventMap.put("userLogin", userLogin);
-        String subject = message.getSubject();
         if (subject != null && subject.length() > 80) { 
             subject = subject.substring(0,80); // make sure not too big for database field. (20 characters for filename)
         }
         currentIndex = "";
         attachmentCount = 0;
-        return addMultipartAttachementToComm((Multipart)message.getContent(), commEventMap, subject, dispatcher, userLogin);
-
+        return addMultipartAttachementToComm(messageContent, commEventMap, subject, dispatcher, userLogin);
     }
     private static String currentIndex = "";
     private static int attachmentCount = 0;
@@ -68,29 +66,35 @@ public class EmailWorker {
     throws MessagingException, IOException, GenericServiceException {
         try {
             int multipartCount = multipart.getCount();
+            // Debug.logInfo(currentIndex + "====number of attachments: " + multipartCount, module);
             for (int i=0; i < multipartCount; i++) {
+            	// Debug.logInfo(currentIndex + "====processing attachment: " + i, module);
                 Part part = multipart.getBodyPart(i);
                 String thisContentTypeRaw = part.getContentType();
+                // Debug.logInfo("====thisContentTypeRaw: " + thisContentTypeRaw, module);
                 int idx2 = thisContentTypeRaw.indexOf(";");
                 if (idx2 == -1) idx2 = thisContentTypeRaw.length();
                 String thisContentType = thisContentTypeRaw.substring(0, idx2);
                 String disposition = part.getDisposition();
                 ByteArrayOutputStream baos = new ByteArrayOutputStream();
-
-                if (thisContentType.startsWith("multipart") || thisContentType.startsWith("Multipart")) {
+                if (part instanceof Multipart) {
                     currentIndex = currentIndex.concat("." + i);
-                    return    addMultipartAttachementToComm((Multipart) part.getContent(), commEventMap, subject, dispatcher, userLogin);
+                	// Debug.logInfo("=====attachment contain attachment, index:" + currentIndex, module);
+                    return addMultipartAttachementToComm((Multipart) part.getContent(), commEventMap, subject, dispatcher, userLogin);
                 }
-                
+            	// Debug.logInfo("=====attachment not contains attachment, index:" + currentIndex, module);
+            	// Debug.logInfo("=====check for currentIndex(" + currentIndex  + ") against master contentIndex(" + EmailServices.contentIndex + ")", module);
                 if(currentIndex.concat("." + i).equals(EmailServices.contentIndex)) continue;
 
                 // The first test should not pass, because if it exists, it should be the bodyContentIndex part
-                if (((disposition == null) && (i == 0) && thisContentType.startsWith("text")) 
+                // Debug.logInfo("====check for disposition: " + disposition + " contentType: '" + thisContentType + "' variable i:" + i, module);
+                if ((disposition == null && thisContentType.startsWith("text")) 
                         || ((disposition != null)
                                 && (disposition.equals(Part.ATTACHMENT) || disposition.equals(Part.INLINE))
                                 ) )
                 {
-                    String attFileName = part.getFileName(); 
+                    String attFileName = part.getFileName();
+                    Debug.logInfo("===processing attachment: " + attFileName, module);
                     if (!UtilValidate.isEmpty(attFileName)) { 
                            commEventMap.put("contentName", attFileName); 
                            commEventMap.put("description", subject + "-" + attachmentCount);
