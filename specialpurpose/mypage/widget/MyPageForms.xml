@@ -252,6 +252,7 @@ under the License.
                 </condition-list>
                 <order-by field-name="infoString"/>
             </entity-condition>
+            <set field="communicationEventId" from-field="parameters.communicationEventId"/>
         </actions>
         <alt-target use-when="communicationEventId!=null" target="updateCommunicationEvent"/>
         <field name="donePage"><hidden/></field>        
