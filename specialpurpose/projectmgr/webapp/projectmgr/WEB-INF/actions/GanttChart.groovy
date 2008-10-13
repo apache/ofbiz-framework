@@ -44,8 +44,11 @@ ganttList = new LinkedList();
 result = dispatcher.runSync("getProjectPhaseList", [userLogin : userLogin , projectId : projectId]);
 phases = result.phaseList;
 if (phases){
+	phaseNr = 1;
+    taskNr = 10000;
 	phases.each { phase ->
 		newPhase = phase;
+		newPhase.phaseNr = phaseNr;
         if (!newPhase.estimatedStartDate && newPhase.actualStartDate) {
             newPhase.estimatedStartDate = newPhase.actualStartDate;
         }
@@ -59,17 +62,14 @@ if (phases){
             newPhase.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, 3);
         }
         newPhase.workEffortTypeId = "PHASE";
-        Debug.log("===start: " + newPhase.estimatedStartDate + "===end: " + newPhase.estimatedCompletionDate);
 		ganttList.add(newPhase);
-		Debug.log("=======" + phase.phaseName + "======" + phase.workEffortTypeId + " phaseId" + phase.phaseId);
 		tasks = delegator.findByAnd("WorkEffort", ["workEffortParentId" : phase.phaseId]);
 		if (tasks){
 			tasks.each { task ->
-	        Debug.log("===name====" + task.workEffortName + "===type===" + task.workEffortTypeId + "===id===" + task.workEffortId);
 	        	resultTaskInfo = dispatcher.runSync("getProjectTask", [userLogin : userLogin , taskId : task.workEffortId]);
-                Debug.log("===restaskinfo " + resultTaskInfo);
 	        	taskInfo = resultTaskInfo.taskInfo;
-	        	Debug.log("===taskinfo " + taskInfo);
+                taskInfo.taskNr = taskNr++;
+                taskInfo.phaseNr = phaseNr;
                 if (!taskInfo.estimatedStartDate && taskInfo.actualStartDate) {
                     taskInfo.estimatedStartDate = taskInfo.actualStartDate;
                 }
@@ -81,11 +81,14 @@ if (phases){
                 }
                 if (!taskInfo.estimatedCompletionDate) {
                     taskInfo.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, 3);
-                } 
+                }
+                taskInfo.estimatedStartDate = UtilDateTime.toDateString(taskInfo.estimatedStartDate, "MM/dd/yyyy");
+                taskInfo.estimatedCompletionDate = UtilDateTime.toDateString(taskInfo.estimatedCompletionDate, "MM/dd/yyyy");
                 taskInfo.workEffortTypeId = "TASK";
 				ganttList.add(taskInfo);
 			}
 		}
+		phaseNr++;
 	}
 }
 context.phaseTaskList = ganttList;
