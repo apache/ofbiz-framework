@@ -210,7 +210,7 @@ if (!"mytasks".equals(headerItem)) {
 	//assigned task to party
     tasks.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
     tasks.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_COMPLETED"));
-    tasks.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_CANCELED"));
+    tasks.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_CANCELLED"));
     tasks.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_ON_HOLD"));
     taskCond = EntityCondition.makeCondition(tasks, EntityOperator.AND);
     projectPhaseTaskChecks = delegator.findList("ProjectPartyAndPhaseAndTask", taskCond, null, orderByList, null, false);
