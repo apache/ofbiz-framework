@@ -63,7 +63,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
             	}
             	if (isIpAddress) return;
             }
-            if (domainArray.length > 2 && UtilValidate.isAlphabetic(domainArray[domainArray.length - 1])) {
+            if (domainArray.length > 2) {
                 cookieDomain = "." + domainArray[domainArray.length - 2] + "." + domainArray[domainArray.length - 1];
             }
         }
