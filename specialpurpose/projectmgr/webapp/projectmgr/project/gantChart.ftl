@@ -22,9 +22,9 @@ under the License.
 <script language="javascript">
 var g = new JSGantt.GanttChart('g',document.getElementById('GanttChartDIV'), 'day');
 
-g.setShowRes(0); // Show/Hide Responsible (0/1)
+g.setShowRes(1); // Show/Hide Responsible (0/1)
 g.setShowDur(1); // Show/Hide Duration (0/1)
-g.setShowComp(0); // Show/Hide % Complete(0/1)
+g.setShowComp(1); // Show/Hide % Complete(0/1)
 
 // Parameters             (pID, pName,                  pStart,      pEnd,        pColor,   pLink,          pMile, pRes,  pComp, pGroup, pParent, pOpen)
 
@@ -33,9 +33,10 @@ g.setShowComp(0); // Show/Hide % Complete(0/1)
         g.AddTaskItem(new JSGantt.TaskItem(${t.phaseNr}, "${t.phaseName}", "", "", "#00ff00", "", 0, "", 0, 1, 0, 1));
     </#if>
     <#if t.workEffortTypeId == "TASK">
-        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskName}","${t.estimatedStartDate}", "${t.estimatedCompletionDate}","#009900", "", 0, "", 0, 0, ${t.phaseNr}, 1));
+        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskName}","${t.estimatedStartDate}", "${t.estimatedCompletionDate}","#009900", "${t.url}", 0 , "${t.resource?if_exists}", ${t.completion?if_exists} , 0, ${t.phaseNr}, 1<#if t.preDecessor?exists>, ${t.preDecessor}</#if>));
     </#if>
 </#list>
+
 <#--
      
 TaskItem(pID, pName, pStart, pEnd, pColor, pLink, pMile, pRes, pComp, pGroup, pParent, pOpen, pDepend)
