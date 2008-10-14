@@ -47,7 +47,7 @@ under the License.
         <section>
             <actions>
                 <set field="donePage" value="myTimesheet"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.bsh"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.groovy"/>
             </actions>
             <widgets>
                 <section>
