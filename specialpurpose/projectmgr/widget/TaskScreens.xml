@@ -86,6 +86,7 @@ under the License.
                     <field-map field-name="workEffortId" value="dummy"/>
                 </entity-one>
                 <set field="myTask" value="notNull"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/EditWeekTimesheet.groovy"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonMyTaskDecorator" location="${parameters.mainDecoratorLocation}">
