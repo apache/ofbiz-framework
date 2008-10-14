@@ -120,42 +120,42 @@
     </property>
     <property key="AccountingAcctgTransEntries">
         <value xml:lang="en">Accounting Transactions Entries</value>
-        <value xml:lang="fr">Entrées de transactions de comptabilité</value>
+        <value xml:lang="fr">Entrées de transactions comptables</value>
         <value xml:lang="it">Righe Prime Note</value>
         <value xml:lang="th">รายการบัญชีรายรับ</value>
     </property>
     <property key="AccountingAcctgTranss">
         <value xml:lang="en">Accounting Transactions</value>
-        <value xml:lang="fr">Transactions de comptabilité</value>
+        <value xml:lang="fr">Transactions comptables</value>
         <value xml:lang="it">Prime Note</value>
         <value xml:lang="th">รายการบัญชี</value>
     </property>
     <property key="AccountingActualCurrencyAmount">
         <value xml:lang="en">Actual Currency Amount</value>
-        <value xml:lang="fr">Quantité réelle de devise</value>
+        <value xml:lang="fr">Valeur réelle en devise</value>
         <value xml:lang="it">Attuale Importo in Valuta</value>
         <value xml:lang="ru">Действительная сумма валюты</value>
         <value xml:lang="th">จำนวนเงินที่มีอยู่จริง</value>
     </property>
     <property key="AccountingActualCurrencyUomId">
         <value xml:lang="en">Actual Currency Uom Id</value>
-        <value xml:lang="fr">réf. devise réelle Uom </value>
+        <value xml:lang="fr">réf. UOM de la devise réelle</value>
         <value xml:lang="it">Attuale Udm Valuta</value>
         <value xml:lang="ru">Действительный код валюты</value>
         <value xml:lang="th">รหัสหน่วยวัดจำนวนเงิน</value>
     </property>
     <property key="AccountingAddAgreementWorkEffortAppl">
         <value xml:lang="en">Add Agreement Work Effort Appl</value>
-        <value xml:lang="fr">Ajouter l'agrément de main d'oeuvre APPL</value>
+        <value xml:lang="fr">Ajouter l'accord d'application de tâche</value>
     </property>
     <property key="AccountingAddCategoryGlAccount">
         <value xml:lang="en">Add Category GL Account</value>
-        <value xml:lang="fr">Ajouter le compte de la catégorie GL</value>
+        <value xml:lang="fr">Ajouter la catégorie de compte au GL</value>
         <value xml:lang="th">เพิ่มหมวดหมู่บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddFinAccountTypeGlAccount">
         <value xml:lang="en">Add FinAccount Type Gl Account</value>
-        <value xml:lang="fr">Ajouter le type compte de FinAccount de Gl</value>
+        <value xml:lang="fr">Ajouter le type de compte financier au GL</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddFixedAssetIdent">
@@ -243,12 +243,12 @@
     </property>
     <property key="AccountingAddPartyGlAccount">
         <value xml:lang="en">Add Party Gl Account</value>
-        <value xml:lang="fr">Ajouter le compte de partie Gl</value>
+        <value xml:lang="fr">Ajouter le compte de tiers au GL</value>
         <value xml:lang="th">เพิ่มกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAddTaxAuthorityGlAccount">
         <value xml:lang="en">Add TaxAuthority GL Account</value>
-        <value xml:lang="fr">Ajouter le compte de TaxAuthority GL</value>
+        <value xml:lang="fr">Ajouter le compte de taxe au GL</value>
         <value xml:lang="th">เพิ่มบัญชีประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingAdditionalShippingChargeForShipment">
@@ -318,11 +318,11 @@
     </property>
     <property key="AccountingAgreementInformation">
         <value xml:lang="en">Agreement Information</value>
-        <value xml:lang="fr">Information d'agrément</value>
+        <value xml:lang="fr">Information sur l'accord</value>
     </property>
     <property key="AccountingAgreementIsNotSetForSupplierProducts">
         <value xml:lang="en">Please set a supplier in Agreement.partyIdTo and a currency in the AgreementItem before editing the price list</value>
-        <value xml:lang="fr">Veuillez placer un fournisseur dans Agreement.partyIdTo et une devise dans l'AgreementItem avant d'éditer les listes des prix</value>
+        <value xml:lang="fr">Veuillez placer un fournisseur dans Agreement.partyIdTo et une devise dans l'AgreementItem avant de modifier les tarifs</value>
         <value xml:lang="th">กรุณากำหนดผู้จัดหาสิ่งของในสัญญา ถึงกลุ่มผู้ใช้และเงินในสิ่งของที่ตกลงก่อนแก้ไขรายการราคา
 </value>
     </property>
@@ -439,11 +439,11 @@
     </property>
     <property key="AccountingAgreementWorkEffortApplAlreadyExists">
         <value xml:lang="en">Agreement Work Effort Appl Already Exists</value>
-        <value xml:lang="fr">Main d'oeuvre APPL de l'accord existe déjà</value>
+        <value xml:lang="fr">Cet accord d'application de tâche existe déjà</value>
     </property>
     <property key="AccountingAgreementWorkEffortAppls">
         <value xml:lang="en">Agreement Work Effort Appls</value>
-        <value xml:lang="fr">Accord d'applications main d'oeuvre</value>
+        <value xml:lang="fr">Accord d'applications de tâche</value>
     </property>
     <property key="AccountingAgreements">
         <value xml:lang="ar">إتفاقيات</value>
@@ -535,19 +535,19 @@
     </property>
     <property key="AccountingAp">
         <value xml:lang="en">Account Payable</value>
-        <value xml:lang="fr">Comptes clients</value>
+        <value xml:lang="fr">Compte fournisseur</value>
     </property>
     <property key="AccountingApCompanyName">
         <value xml:lang="en">OFBiz: AP Manager</value>
-        <value xml:lang="fr">OFBiz : Directeur d'AP</value>
+        <value xml:lang="fr">OFBiz : gestion des comptes fourn.</value>
     </property>
     <property key="AccountingApPageTitleFindVendors">
         <value xml:lang="en">Find Vendors</value>
-        <value xml:lang="fr">Rechercher des vendeurs</value>
+        <value xml:lang="fr">Chercher des vendeurs</value>
     </property>
     <property key="AccountingApPageTitleFindVendorResults">
         <value xml:lang="en">Find Vendor Results</value>
-        <value xml:lang="fr">Rechercher les résultats de vendeurs</value>
+        <value xml:lang="fr">Chercher des résultats de vendeurs</value>
     </property>
     <property key="AccountingApPageTitleListVendors">
         <value xml:lang="en">List Vendors</value>
@@ -555,7 +555,7 @@
     </property>
     <property key="AccountingApManagerApplication">
         <value xml:lang="en">Account Payable Manager Application</value>
-        <value xml:lang="fr">Application de gestion des comptes clients</value>
+        <value xml:lang="fr">Application de gestion des comptes fourn.</value>
     </property>
     <property key="AccountingApplicationSuccess">
         <value xml:lang="en">Applying ${amountApplied?currency(${isoCode})} from payment [${paymentId}] to ${toMessage}</value>
@@ -694,15 +694,15 @@
     </property>
     <property key="AccountingArCompanyName">
         <value xml:lang="en">OFBiz: AR Manager</value>
-        <value xml:lang="fr">OFBiz : Directeur AR</value>
+        <value xml:lang="fr">OFBiz : gestion des comptes clients</value>
     </property>
     <property key="AccountingArManagerApplication">
         <value xml:lang="en">Account Receivable Manager Application</value>
-        <value xml:lang="fr">Application de compte à recevoir de directeur </value>
+        <value xml:lang="fr">Application de gestion des comptes clients</value>
     </property>
     <property key="AccountingArPageTitleListReports">
         <value xml:lang="en">List Reports</value>
-        <value xml:lang="fr">Rapports de liste</value>
+        <value xml:lang="fr">Liste des rapports</value>
     </property>
     <property key="AccountingAssets">
         <value xml:lang="ar">الأصول</value>
@@ -730,7 +730,7 @@
     </property>
     <property key="AccountingAssignPurchaseInvoiceToRevenue">
         <value xml:lang="en">Assign Purchase Invoice type to Revenue GL Account Number</value>
-        <value xml:lang="fr">Assigner le type de facture d'achat au numéro de compte du revenu GL</value>
+        <value xml:lang="fr">Assigner le type de facture d'achat au numéro de compte de revenu du GL</value>
         <value xml:lang="th">กำหนดประเภทใบกำกับสินค้าการสั่งซื้อไปยังหมายเลขบัญชีประเภททั่วไป</value>
 
     </property>
@@ -1116,7 +1116,7 @@
     </property>
     <property key="AccountingBothInvoiceIdBillingAccountIdEmptyError">
         <value xml:lang="en">AccountingBothInvoiceIdBillingAccountIdEmptyError</value>
-        <value xml:lang="fr">Comptabilité toutes les deux factures réf. facturation de compte réf. erreur vide</value>
+        <value xml:lang="fr">Les réf. de facture et de compte de facturation sont toutes les 2 vides</value>
         <value xml:lang="th">ผิดพลาดตรงรหัสใบกำกับสินค้าและรหัสบัญชีทั้งคู่เป็นค่าว่าง</value>
     </property>
     <property key="AccountingByAccount">
@@ -1213,7 +1213,7 @@
     </property>
     <property key="AccountingClosedTimePeriods">
         <value xml:lang="en">Closed Time Periods</value>
-        <value xml:lang="fr">Périodes de l'heure exacte</value>
+        <value xml:lang="fr">Périodes de clôture fiscale</value>
         <value xml:lang="it">Periodi Fiscali Chiusi</value>
         <value xml:lang="th">ปิดช่วงเวลา</value>
     </property>
@@ -1299,7 +1299,7 @@
     </property>
     <property key="AccountingCompleteAcctgTransFields">
         <value xml:lang="en">Complete transaction fields</value>
-        <value xml:lang="fr">Accomplir les champs de transaction</value>
+        <value xml:lang="fr">Remplissez les champs de la transaction</value>
         <value xml:lang="it">Completa i campi della transazione</value>
     </property>
     <property key="AccountingCopyAgreement">
@@ -1332,13 +1332,13 @@
     </property>
     <property key="AccountingCreateAcctgTransAndEntries">
         <value xml:lang="en">Quick Create an Accounting Transaction</value>
-        <value xml:lang="fr">Créer vite une transaction de comptabilité</value>
+        <value xml:lang="fr">Créer rapidement une transaction comptable</value>
         <value xml:lang="it">Creazione Veloce Prima Nota</value>
         <value xml:lang="th">สร้างรายการบัญชีอย่างรวดเร็ว</value>
     </property>
     <property key="AccountingCreateAnAccountingTransaction">
         <value xml:lang="en">Create an Accounting Transaction</value>
-        <value xml:lang="fr">Créer une transaction de comptabilité</value>
+        <value xml:lang="fr">Créer une transaction comptable</value>
         <value xml:lang="it">Crea una Prima Nota</value>
         <value xml:lang="th">สร้างรายการบัญชี</value>
     </property>
@@ -1397,7 +1397,7 @@
     </property>
     <property key="AccountingCreateCostComponentCalc">
         <value xml:lang="en">Create New Cost Component Calc</value>
-        <value xml:lang="fr">Créer le nouveau composant CALC de coût</value>
+        <value xml:lang="fr">Créer le nouveau composant de calcul coût</value>
         <value xml:lang="it">Creare Nuovo Calcolo Costo Componente</value>
         <value xml:lang="th">Create New Cost Component Calc</value>
     </property>
@@ -1437,7 +1437,7 @@
     </property>
     <property key="AccountingCreateNewInvoice">
         <value xml:lang="en">AccountingCreateNewInvoice</value>
-        <value xml:lang="fr">La comptabilité crée la nouvelle facture</value>
+        <value xml:lang="fr">Créer une nouvelle facture</value>
         <value xml:lang="th">สร้างใบกำกับสินค้าใหม่</value>
     </property>
     <property key="AccountingCreateNewPurchaseInvoice">
@@ -1468,7 +1468,7 @@
     </property>
     <property key="AccountingCreatePaymentAcctgTrans">
         <value xml:lang="en">Create Payment Accounting Transaction</value>
-        <value xml:lang="fr">Créer la transaction de comptabilité de paiement</value>
+        <value xml:lang="fr">Créer la transaction de paiement</value>
         <value xml:lang="it">Creazione Prima Nota Per Pagamento</value>
         <value xml:lang="th">สร้างรายการบัญชีการชำระเงิน</value>
     </property>
@@ -1500,7 +1500,7 @@
     </property>
     <property key="AccountingCreateSalesAcctgTrans">
         <value xml:lang="en">Create Sales Accounting Transaction</value>
-        <value xml:lang="fr">Créer la transaction de comptabilité des ventes</value>
+        <value xml:lang="fr">Créer la transaction de vente</value>
         <value xml:lang="it">Creazione Prima Nota Per Vendite</value>
         <value xml:lang="th">สร้างบัญชีรายการขาย</value>
     </property>
@@ -1520,22 +1520,22 @@
     </property>
     <property key="AccountingCreditCardBillingAddNotFoundError">
         <value xml:lang="en">Billing Address associated with Credit Card not found.</value>
-        <value xml:lang="fr">L'adresse de facturation s'est associée avec la carte de crédit non trouvée</value>
+        <value xml:lang="fr">Adresse de facturation associée à la carte de crédit non trouvée</value>
         <value xml:lang="th">ไม่พบบัตรเครดิตที่เกี่ยวข้องกับใบแจ้งค่าบริการ</value>
     </property>
     <property key="AccountingCreditCardEmailAddNotFoundError">
         <value xml:lang="en">Bill To Email Address not found.</value>
-        <value xml:lang="fr">Facturation à l'adresse courriel non trouvée</value>
+        <value xml:lang="fr">Adresse courriel de facturation non trouvée</value>
         <value xml:lang="th">ไม่พบใบเสร็จถึงที่อยู่อีเมล</value>
     </property>
     <property key="AccountingCreditCardManualAuthFailedError">
         <value xml:lang="en">Not creating credit card.  Credit card not verified, authentication failed.</value>
-        <value xml:lang="fr">Pas de création carte de crédit.  carte de crédit non vérifiée, l'authentification a échoué.</value>
+        <value xml:lang="fr">Pas de création de carte de crédit,  carte non vérifiée, l'authentification a échoué.</value>
         <value xml:lang="th">ไม่สร้างบัตรเครดิต. บัตรเครดิตไม่ถูกต้อง, เครื่องหมายผิดพลาด</value>
     </property>
     <property key="AccountingCreditCardTypeGlAccount">
         <value xml:lang="en">Credit Card Type GlAccount</value>
-        <value xml:lang="fr">Type carte de crédit compte Gl</value>
+        <value xml:lang="fr">Compte de carte de crédit</value>
         <value xml:lang="th">บัตรเครดิตประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingCustNr">
@@ -1587,12 +1587,12 @@
     </property>
     <property key="AccountingDateAcquiredIsEmpty">
         <value xml:lang="en">Field dateAcquired is empty in FixedAsset data.</value>
-        <value xml:lang="fr">La date de champ acquise est vide dans les données d'immobilisation</value>
+        <value xml:lang="fr">Le champ date acquise est vide dans les données d'immobilisation</value>
         <value xml:lang="th">Field dateAcquired is empty in FixedAsset data.</value>
     </property>
     <property key="AccountingDateFilter">
         <value xml:lang="en">AccountingDateFilter</value>
-        <value xml:lang="fr">Filtre de date de comptabilité</value>
+        <value xml:lang="fr">Filtre de date</value>
         <value xml:lang="th">Date Filter</value>
     </property>
     <property key="AccountingDebitCreditMustEqual">
@@ -1653,7 +1653,7 @@
     </property>
     <property key="AccountingDuplicateAccountingTransaction">
         <value xml:lang="en">Duplicate Accounting Transaction</value>
-        <value xml:lang="fr">Transaction de comptabilité double</value>
+        <value xml:lang="fr">Transaction comptable en double</value>
         <value xml:lang="it">Duplicazione Prima Nota</value>
         <value xml:lang="th">จำลองรายการบัญชี</value>
     </property>
@@ -1696,7 +1696,7 @@
     </property>
     <property key="AccountingEditTaxAuthorityGlAccounts">
         <value xml:lang="en">Edit TaxAuthority GL Accounts</value>
-        <value xml:lang="fr">Éditer les comptes de l'administration fiscale GL</value>
+        <value xml:lang="fr">Éditer les comptes de l'administration fiscale</value>
         <value xml:lang="th">แก้ไขภาษีบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingEffective">
@@ -1869,7 +1869,7 @@
     </property>
     <property key="AccountingExpEndOfLifeIsEmpty">
         <value xml:lang="en">Field expectedEndOfLife is empty in FixedAsset data.</value>
-        <value xml:lang="fr">Mise en place est vide dans les données d'immobilisation</value>
+        <value xml:lang="fr">Le champ "Fin de vie estimée" est vide dans les données d'immobilisation</value>
         <value xml:lang="th">Field expectedEndOfLife is empty in FixedAsset data.</value>
     </property>
     <property key="AccountingExpirationDate">
@@ -1930,7 +1930,7 @@
     </property>
     <property key="AccountingFinAccountTypeGlAccount">
         <value xml:lang="en">FinAccount Type Gl Account</value>
-        <value xml:lang="fr">Type compte financier de compte de Gl</value>
+        <value xml:lang="fr">Compte financier</value>
         <value xml:lang="th">งบกำไรสะสมประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingFinAccounts">
@@ -1997,13 +1997,13 @@
     </property>
     <property key="AccountingFindPurchaseInvoicesByDueDate">
         <value xml:lang="en">Find Purchase Invoices By Due Date</value>
-        <value xml:lang="fr">Rechercher les factures d'achat à échéance</value>
+        <value xml:lang="fr">Chercher les factures d'achat à échéance</value>
         <value xml:lang="it">Ricerca Fatture Acquisto Per Data Scadenza</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้าโดยวันที่</value>
     </property>
     <property key="AccountingFindSalesInvoicesByDueDate">
         <value xml:lang="en">Find Sales Invoices By Due Date</value>
-        <value xml:lang="fr">Rechercher les factures de ventes à échéance</value>
+        <value xml:lang="fr">Chercher les factures de ventes à échéance</value>
         <value xml:lang="it">Ricerca Fatture Vendita Per Data Scadenza</value>
         <value xml:lang="th">ค้นหาใบกำกับสินค้าการขายโดยวันที่</value>
     </property>
@@ -2177,7 +2177,7 @@
     </property>
     <property key="AccountingFixedAssetDepreciation">
         <value xml:lang="en">Depreciation</value>
-        <value xml:lang="fr">Dévalorisation</value>
+        <value xml:lang="fr">Dépréciation</value>
         <value xml:lang="it">Svalutazioni</value>
         <value xml:lang="th">ค่าเสื่อมราคา</value>
     </property>
@@ -2252,7 +2252,7 @@
     </property>
     <property key="AccountingFixedAssetIdentTypeId">
         <value xml:lang="en">AccountingFixedAssetIdentTypeId</value>
-        <value xml:lang="fr">Le type réf. d'immobilisation de comptabilité</value>
+        <value xml:lang="fr">réf. de type d'indent. d'immo.</value>
         <value xml:lang="th">รหัสประเภทการแยกแยะทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="AccountingFixedAssetIdents">
@@ -2672,7 +2672,7 @@
     </property>
     <property key="AccountingGeneralLedger">
         <value xml:lang="en">General Ledger</value>
-        <value xml:lang="fr">Registre de comptabilité général</value>
+        <value xml:lang="fr">Grand Livre (GL)</value>
         <value xml:lang="it">Contabilità Generale</value>
         <value xml:lang="th">บัญชีแยกประเภททั่วไป</value>
     </property>
@@ -2736,7 +2736,7 @@
     </property>
     <property key="AccountingGlAccountTypeDefaults">
         <value xml:lang="en">GL Account Type Defaults</value>
-        <value xml:lang="fr">Type défauts de compte de GL</value>
+        <value xml:lang="fr">Types par défaut de compte du GL</value>
         <value xml:lang="it">Default Tipo Conto Contabilità Generale</value>
         <value xml:lang="th">ค่าเริ่มต้นอัตโนมัติของประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -2772,7 +2772,7 @@
     </property>
     <property key="AccountingGlobalGLSettings">
         <value xml:lang="en">Global GL Settings</value>
-        <value xml:lang="fr">Arrangements globaux de GL</value>
+        <value xml:lang="fr">Configurations globales du GL</value>
         <value xml:lang="it">Configurazione Contabilità Generale</value>
         <value xml:lang="th">การกำหนดบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -2804,7 +2804,7 @@
     </property>
     <property key="AccountingIgnoringAdditionalShipCharges">
         <value xml:lang="en">prorateShipping is not N for productStoreId ${productStoreId}: Additional shipping charges for shipments are ignored</value>
-        <value xml:lang="fr">Partager proportionnellement l'expédition n'est pas N pour le produit StoreId $ {productStoreId} : Des frais d'expédition additionnels pour des expéditions sont ignorés</value>
+        <value xml:lang="fr">L'option "Coût des expéditions au prorata" ne vaut pas N pour le centre de profit ${productStoreId} : les frais d'expédition additionnels sont ignorés</value>
         <value xml:lang="th">prorateShipping is not N for productStoreId ${productStoreId}: Additional shipping charges for shipments are ignored</value>
     </property>
     <property key="AccountingIllegalValuesPassedToCreateInvoiceService">
@@ -3145,7 +3145,7 @@
     </property>
     <property key="AccountingInvoiceItemType">
         <value xml:lang="en">Invoice Item Type</value>
-        <value xml:lang="fr">Type d'article de facture</value>
+        <value xml:lang="fr">Type de ligne de facture</value>
         <value xml:lang="it">Tipo Riga Fattura</value>
         <value xml:lang="th">ประเภทรายการใบกำกับสินค้า</value>
     </property>
@@ -3220,7 +3220,7 @@
     </property>
     <property key="AccountingInvoicePDFOtherCur">
         <value xml:lang="en">PDF other Currency</value>
-        <value xml:lang="fr">Pdf autre devise</value>
+        <value xml:lang="fr">PDF en autre devise</value>
         <value xml:lang="it">PDF Altra Valuta</value>
         <value xml:lang="th">PDF สกุลเงินอื่น ๆ</value>
     </property>
@@ -3415,7 +3415,7 @@
     </property>
     <property key="AccountingInvoiceTimeEntries">
         <value xml:lang="en">Time Entries</value>
-        <value xml:lang="fr">Entrées d'horaire</value>
+        <value xml:lang="fr">Ecritures d'horaire</value>
         <value xml:lang="it">Righe Timbratura</value>
         <value xml:lang="th">ตารางการทำงาน</value>
     </property>
@@ -3545,17 +3545,17 @@
     </property>
     <property key="AccountingListAgreementWorkEffortAppls">
         <value xml:lang="en">List Agreement Work Effort Appls</value>
-        <value xml:lang="fr">Liste d'accord de Appls main d'oeuvre</value>
+        <value xml:lang="fr">Liste des applications d'accord de tâche</value>
     </property>
     <property key="AccountingListInvoiceItemType">
         <value xml:lang="en">Invoice Item Type List</value>
-        <value xml:lang="fr">Type liste d'article de facture</value>
+        <value xml:lang="fr">Liste des types de ligne de facture</value>
         <value xml:lang="it">Lista Tipi Riga Fattura</value>
         <value xml:lang="th">รายการประเภทใบกำกับสินค้า</value>
     </property>
     <property key="AccountingListInvoices">
         <value xml:lang="en">List Invoices</value>
-        <value xml:lang="fr">liste des factures</value>
+        <value xml:lang="fr">Liste des factures</value>
         <value xml:lang="it">Lista Fatture</value>
         <value xml:lang="th">รายการใบกำกับสินค้า</value>
     </property>
@@ -3573,7 +3573,7 @@
     </property>
     <property key="AccountingListPaymentMethodType">
         <value xml:lang="en">Payment Method Type List</value>
-        <value xml:lang="fr">Type de liste de méthode de paiement</value>
+        <value xml:lang="fr">Liste des types de méthode de paiement</value>
         <value xml:lang="it">Lista Tipi Metodo di Pagamento</value>
         <value xml:lang="th">รายการประเภทวิธีการชำระเงิน</value>
     </property>
@@ -3591,11 +3591,11 @@
     </property>
     <property key="AccountingLookupAgreement">
         <value xml:lang="en">Lookup Agreement</value>
-        <value xml:lang="fr">Accord de consultation</value>
+        <value xml:lang="fr">Consulter l'accord</value>
     </property>
     <property key="AccountingLookupAgreementItem">
         <value xml:lang="en">Lookup Agreement Item</value>
-        <value xml:lang="fr">Article d'accord de consultation</value>
+        <value xml:lang="fr">Consulter la ligne d'accord</value>
     </property>
     <property key="AccountingLookupInvoices">
         <value xml:lang="ar">إطلالة على  الفواتير</value>
@@ -3919,14 +3919,14 @@
     </property>
     <property key="AccountingNewPaymentIncoming">
         <value xml:lang="en">New incoming payment</value>
-        <value xml:lang="fr">Nouveau paiement entrant</value>
+        <value xml:lang="fr">Nouveau paiement reçu</value>
         <value xml:lang="it">Nuovo Pagamento in Ingresso</value>
         <value xml:lang="ru">Новый входящий платеж</value>
         <value xml:lang="th">เข้ามาชำระเงินใหม่</value>
     </property>
     <property key="AccountingNewPaymentOutgoing">
         <value xml:lang="en">New outgoing payment</value>
-        <value xml:lang="fr">Nouveau paiement sortant</value>
+        <value xml:lang="fr">Nouveau paiement versé</value>
         <value xml:lang="it">Nuovo Pagamento in Uscita</value>
         <value xml:lang="ru">Новый исходящий платеж</value>
         <value xml:lang="th">ออกจากการชำระเงิน</value>
@@ -4273,7 +4273,7 @@
     </property>
     <property key="AccountingPostedTransactionTotals">
         <value xml:lang="en">Posted Totals</value>
-        <value xml:lang="fr">Totaux signalés</value>
+        <value xml:lang="fr">Totaux comptabilisés</value>
         <value xml:lang="it">Totali Contabilizzati</value>
         <value xml:lang="th">ผลรวมประกาศ</value>
     </property>
@@ -4365,13 +4365,13 @@
     </property>
     <property key="AccountingPartyFixedAssetAssignments">
         <value xml:lang="en">Assignments</value>
-        <value xml:lang="fr">Tâches</value>
+        <value xml:lang="fr">Affectation</value>
         <value xml:lang="it">Assegnazioni</value>
         <value xml:lang="th">การกำหนด</value>
     </property>
     <property key="AccountingPartyGlAccounts">
         <value xml:lang="en">Party Gl Accounts</value>
-        <value xml:lang="fr">Comptes de Gl de partie</value>
+        <value xml:lang="fr">Comptes d'acteur (GL)</value>
         <value xml:lang="th">กลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingPartyIdFrom">
@@ -4435,12 +4435,12 @@
     </property>
     <property key="AccountingPayWithPayPal">
         <value xml:lang="en">Pay With PayPal</value>
-        <value xml:lang="fr">Salaire avec PayPal</value>
+        <value xml:lang="fr">Payer avec PayPal</value>
         <value xml:lang="th">จ่ายโดย PayPal</value>
     </property>
     <property key="AccountingPayWithWorldPay">
         <value xml:lang="en">Pay With WorldPay</value>
-        <value xml:lang="fr">Salaire avec WorldPay</value>
+        <value xml:lang="fr">Payer avec WorldPay</value>
         <value xml:lang="th">จ่ายโดย WorldPay</value>
     </property>
     <property key="AccountingPayment">
@@ -4695,7 +4695,7 @@
     </property>
     <property key="AccountingPaymentMethodId........">
         <value xml:lang="en">AccountingPaymentMethodId........</value>
-        <value xml:lang="fr">Réf. de méthode de paiement de comptabilité ........</value>
+        <value xml:lang="fr">Réf. de méthode de paiement      </value>
         <value xml:lang="ro">No values are passed............???</value>
         <value xml:lang="th">รหัสวิธีการชำระเงิน............???</value>
     </property>
@@ -4753,7 +4753,7 @@
     </property>
     <property key="AccountingPaymentReceiveViaPayPal">
         <value xml:lang="en">Payment receive via PayPal</value>
-        <value xml:lang="fr">Paiement reçu par l'intermédiaire de PayPal</value>
+        <value xml:lang="fr">Paiement reçu par PayPal</value>
         <value xml:lang="it">Pagamento ricevuto da PayPal</value>
         <value xml:lang="th">Payment receive via PayPal</value>
     </property>
@@ -5132,12 +5132,12 @@
     </property>
     <property key="AccountingProductCategoryGlAccount">
         <value xml:lang="en">Product Category Gl Account</value>
-        <value xml:lang="fr">Compte de Gl de catégorie de produit</value>
+        <value xml:lang="fr">Compte de catégorie de produit (GL)</value>
         <value xml:lang="th">หมวดหมู่สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingProductGlAccount">
         <value xml:lang="en">Product GL Accounts</value>
-        <value xml:lang="fr">Comptes du produit GL</value>
+        <value xml:lang="fr">Comptes de produit (GL)</value>
         <value xml:lang="th">สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingProductId">
@@ -5155,7 +5155,7 @@
         <value xml:lang="ar">أسعار السلعة</value>
         <value xml:lang="en">Product Rates</value>
         <value xml:lang="es">Tarífas de producto</value>
-        <value xml:lang="fr">Taux applicables au produit</value>
+        <value xml:lang="fr">Taux applicables aux produits</value>
         <value xml:lang="it">Percentuali Prodotto</value>
         <value xml:lang="ro">Procent Produs</value>
         <value xml:lang="ru">Ставки продукта</value>
@@ -5210,7 +5210,7 @@
     </property>
     <property key="AccountingRevertAccountingTransaction">
         <value xml:lang="en">Revert Accounting Transaction</value>
-        <value xml:lang="fr">Retourner la transaction de comptabilité</value>
+        <value xml:lang="fr">Retourner la transaction comptable</value>
         <value xml:lang="it">Annulla (inverti) Prima Nota</value>
         <value xml:lang="th">กลับสู่รายการทางบัญชี</value>
     </property>
@@ -5942,7 +5942,7 @@
     </property>
     <property key="AcctgFindGlJournalEntry">
         <value xml:lang="en">Find Journal Entry</value>
-        <value xml:lang="fr">Rechercher l'écriture comptable</value>
+        <value xml:lang="fr">Chercher écriture comptable</value>
         <value xml:lang="th">ค้นหาการกรอกข้อมูลบัญชีรายวัน</value>
     </property>
     <property key="AcctgGlAcctLabel">
@@ -8166,7 +8166,7 @@
     </property>
     <property key="PageTitleEditAgreementGeographicalApplic">
         <value xml:lang="en">Edit Agreement Geographical Applic</value>
-        <value xml:lang="fr">Editer applic géographique de l'accord</value>
+        <value xml:lang="fr">Modifier applic géographique de l'accord</value>
         <value xml:lang="it">Aggiorna Contratto Applicazioni Geografiche</value>
         <value xml:lang="ru">Редактировать географические данные договора</value>
         <value xml:lang="th">Edit Agreement Geographical Applic</value>
@@ -8184,28 +8184,28 @@
     </property>
     <property key="PageTitleEditAgreementItemParty">
         <value xml:lang="en">Edit Agreement Item Party</value>
-        <value xml:lang="fr">Editer la partie d'article de l'accord</value>
+        <value xml:lang="fr">Modifier la partie d'article de l'accord</value>
         <value xml:lang="it">Aggiorna Soggetto Riga Contratto </value>
         <value xml:lang="ru">Изменить участника элемента договора</value>
         <value xml:lang="th">แก้ไขสัญญากลุ่มหัวข้อ</value>
     </property>
     <property key="PageTitleEditAgreementItemProduct">
         <value xml:lang="en">Edit Agreement Item Product</value>
-        <value xml:lang="fr">Editer le produit d'article de l'accord</value>
+        <value xml:lang="fr">Modifier le produit d'article de l'accord</value>
         <value xml:lang="it">Aggiorna Prodotto Riga Contratto </value>
         <value xml:lang="ru">Изменить продукт элемента договора</value>
         <value xml:lang="th">แก้ไขสัญญาหัวข้อสินค้า</value>
     </property>
     <property key="PageTitleEditAgreementItemTerm">
         <value xml:lang="en">Edit Agreement Item Term</value>
-        <value xml:lang="fr">Editer le limite d'article de l'accord</value>
+        <value xml:lang="fr">Modifier le limite d'article de l'accord</value>
         <value xml:lang="it">Aggiorna Termini Riga Contratto</value>
         <value xml:lang="ru">Изменить условия элемента договора</value>
         <value xml:lang="th">แก้ไขสัญญาหัวข้อช่วงเวลาที่กำหนด</value>
     </property>
     <property key="PageTitleEditAgreementPromoAppl">
         <value xml:lang="en">Edit Agreement Promo Appl</value>
-        <value xml:lang="fr">Editer une promo Appl de l'accord</value>
+        <value xml:lang="fr">Modifier une promo Appl de l'accord</value>
         <value xml:lang="it">Aggiorna Applicazioni Promozionali Contratto</value>
         <value xml:lang="ru">Изменить акционные предложения договора</value>
         <value xml:lang="th">Edit Agreement Promo Appl</value>
@@ -8223,7 +8223,7 @@
     </property>
     <property key="PageTitleEditAgreementWorkEffortAppls">
         <value xml:lang="en">Edit Agreement Work Effort Appls</value>
-        <value xml:lang="fr">Editer main d'oeuvre Appls de l'accord</value>
+        <value xml:lang="fr">Modifier main d'oeuvre Appls de l'accord</value>
     </property>
     <property key="PageTitleEditBillingAccount">
         <value xml:lang="en">Edit Billing Account</value>
@@ -8251,7 +8251,7 @@
     </property>
     <property key="PageTitleEditBillingAccountOrders">
         <value xml:lang="en">Edit Billing Account Orders</value>
-        <value xml:lang="fr">Editer les ordres du compte de facturation</value>
+        <value xml:lang="fr">Modifier les ordres du compte de facturation</value>
         <value xml:lang="it">Aggiorna Ordini Conto Fatturazione</value>
         <value xml:lang="th">แก้ไขรายการยอดรวมของบัญชี</value>
     </property>
@@ -8514,11 +8514,11 @@
     </property>
     <property key="PageTitleEditTransaction">
         <value xml:lang="en">Edit Transaction</value>
-        <value xml:lang="fr">Editer transaction</value>
+        <value xml:lang="fr">Modifier transaction</value>
     </property>
     <property key="PageTitleEditTransactionEntries">
         <value xml:lang="en">Edit Transaction Entries</value>
-        <value xml:lang="fr">Editer entrées de transaction</value>
+        <value xml:lang="fr">Modifier entrées de transaction</value>
     </property>
     <property key="PageTitleFinAccount">
         <value xml:lang="en">Financial Account</value>
@@ -8552,7 +8552,7 @@
     </property>
     <property key="PageTitleFindAgreementRoles">
         <value xml:lang="en">Find Agreement Roles</value>
-        <value xml:lang="fr">Rechercher les rôles d'accord</value>
+        <value xml:lang="fr">Chercher les rôles d'accord</value>
     </property>
     <property key="PageTitleFindBillingAccount">
         <value xml:lang="en">Find Billing Account(s)</value>
