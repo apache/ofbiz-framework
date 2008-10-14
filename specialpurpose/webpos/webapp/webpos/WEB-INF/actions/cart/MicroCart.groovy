@@ -55,12 +55,16 @@ if (shoppingCart) {
                 }
                 else if ("PERSONAL_CHECK".equals(paymentInfo.paymentMethodTypeId)) {
                     context.checkAmount = (context.checkAmount) ? context.checkAmount + amount : amount;
+                    requestParameters.refNumCheck = paymentInfo.refNum[0];
                 }
                 else if ("GIFT_CARD".equals(paymentInfo.paymentMethodTypeId)) {
                     context.giftAmount = (context.giftAmount) ? context.giftAmount + amount : amount;
+                    requestParameters.refNumGift = paymentInfo.refNum[0];
                 }
                 else if ("CREDIT_CARD".equals(paymentInfo.paymentMethodTypeId)) {
                     context.creditAmount = (context.creditAmount) ? context.creditAmount + amount : amount;
+                    requestParameters.refNumCredit = paymentInfo.refNum[0];
+                    print("paymentInfo "+paymentInfo);
                 }
             }
         }

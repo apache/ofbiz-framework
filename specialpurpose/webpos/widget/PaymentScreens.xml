@@ -102,6 +102,7 @@ under the License.
             <actions>
                 <set field="rightbarScreenName" value="rightbar_payment"/>
                 <set field="titleProperty" value="WebPosPageTitlePaySetRef"/>
+                <script location="component://webpos/webapp/webpos/WEB-INF/actions/cart/MicroCart.groovy"/>
             </actions>
             <widgets>
                 <include-screen name="SearchProducts" location="component://webpos/widget/WebPosScreens.xml"/>

@@ -65,9 +65,9 @@ under the License.
     <service name="setRefNum" engine="simple" auth="false" 
              location="org/ofbiz/webpos/event/PaymentEvents.xml" invoke="setRefNum">
         <description>Set Payment Refernce Number</description>
-        <attribute name="idx" type="String" mode="IN" optional="true"/>
-        <attribute name="refNum" type="String" mode="IN" optional="true"/>
-        <attribute name="authCode" type="String" mode="IN" optional="true"/>
+        <attribute name="refNumCheck"  type="String" mode="IN" optional="true"/>
+        <attribute name="refNumGift"   type="String" mode="IN" optional="true"/>
+        <attribute name="refNumCredit" type="String" mode="IN" optional="true"/>
     </service>
 
     <service name="clearPayment" engine="simple" auth="false" 

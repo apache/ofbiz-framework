@@ -20,6 +20,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.ofbiz.org/dtds/simple-methods.xsd">
     <simple-method method-name="addPromoCode" short-description="Add Promotion Code" login-required="true">
         <if-not-empty field="parameters.confirm">
+            <set field="posTerminalId" value="null"/>
             <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field-name="webPosSession">
                 <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
                 <field field-name="posTerminalId" type="String"/>

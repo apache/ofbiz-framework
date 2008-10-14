@@ -41,7 +41,11 @@ under the License.
             </#if>
         </td>
         <td>
-            <a href="<@ofbizUrl>AddPaySetRef</@ofbizUrl>" class="posButton">${uiLabelMap.WebPosButtonPaySetRef}</a>
+            <#if (totalPayments > 0.00)>
+                <a href="<@ofbizUrl>AddPaySetRef</@ofbizUrl>" class="posButton">${uiLabelMap.WebPosButtonPaySetRef}</a>
+            <#else>
+                <span class="disabled">${uiLabelMap.WebPosButtonPaySetRef}</span>
+            </#if>
         </td>
     </tr>
     <tr>

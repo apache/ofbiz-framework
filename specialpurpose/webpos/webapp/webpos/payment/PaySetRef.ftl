@@ -18,31 +18,46 @@ under the License.
 -->
 
 <div id="panel">
-    <form method="post" action="<@ofbizUrl>PaySetRef</@ofbizUrl>" name="PaySetRefForm">
-        <table border="0">
-            <tr>
-                <td colspan="2"">&nbsp;</td>
-            </tr>
-            <tr>
-                <td><b>${uiLabelMap.WebPosPaymentSetRef}</b></td>
-                <td>
-                    <input type="hidden" name="idx" id="idx" value="0"/>
-                    <input type="text" name="refNum" id="refNum"/>
-                </td>
-                
-            </tr>
-            <tr>
-                <td colspan="2"">&nbsp;</td>
-            </tr>
-            <tr>
-                <td colspan="2" align="center">
-                    <input type="submit" value="${uiLabelMap.CommonConfirm}" name="confirm"/>
-                    <input type="submit" value="${uiLabelMap.CommonCancel}"/>
-                </td>
-            </tr>
-        </table>
-    </form>
+  <form method="post" action="<@ofbizUrl>PaySetRef</@ofbizUrl>" name="PaySetRefForm">
+    <table border="0">
+      <tr>
+        <td>&nbsp;</td>
+        <td>&nbsp;</td>
+        <td><b><u>${uiLabelMap.WebPosPaymentSetRef}</u></b></td>
+      </tr>
+      <#if (checkAmount?default(0) > 0.00)>
+      <tr>
+        <td><b>${(paymentCheck.get("description", locale))?if_exists}</b></td>
+        <td align="right"><@ofbizCurrency amount=checkAmount isoCode=shoppingCart.getCurrency()/></td>
+        <td align="center"><input type="text" name="refNumCheck" id="refNumCheck" value="${requestParameters.refNumCheck?if_exists}"/></td>
+      </tr>
+      </#if>
+      <#if (giftAmount?default(0) > 0.00)>
+      <tr>
+        <td><b>${(paymentGift.get("description", locale))?if_exists}</b></td>
+        <td align="right"><@ofbizCurrency amount=giftAmount isoCode=shoppingCart.getCurrency()/></td>
+        <td align="center"><input type="text" name="refNumGift" id="refNumGift" value="${requestParameters.refNumGift?if_exists}"/></td>
+      </tr>
+      </#if>
+      <#if (creditAmount?default(0) > 0.00)>
+      <tr>
+        <td><b>${(paymentCredit.get("description", locale))?if_exists}</b></td>
+        <td align="right"><@ofbizCurrency amount=creditAmount isoCode=shoppingCart.getCurrency()/></td>
+        <td align="center"><input type="text" name="refNumCredit" id="refNumCredit" value="${requestParameters.refNumCredit?if_exists}"/></td>
+      </tr>
+      </#if>
+      <tr>
+        <td colspan="3">&nbsp;</td>
+      </tr>
+      <tr>
+        <td colspan="3" align="center">
+          <input type="submit" value="${uiLabelMap.CommonConfirm}" name="confirm"/>
+          <input type="submit" value="${uiLabelMap.CommonCancel}"/>
+        </td>
+      </tr>
+    </table>
+  </form>
 </div>
 <script language="javascript" type="text/javascript">
-    document.PaySetRefForm.refNum.focus();
+    document.PaySetRefForm.refNumCheck.focus();
 </script>
