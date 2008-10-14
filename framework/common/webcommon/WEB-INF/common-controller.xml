@@ -132,8 +132,13 @@ under the License.
         <response name="success" type="view" value="LookupVisualThemes" />
     </request-map>
 
+    <request-map uri="main">
+        <response name="success" type="view" value="main"/>
+    </request-map>
+    
     <!-- View Mappings -->
     <view-map name="error" page="/error/error.jsp"/>
+    <view-map name="main" type="none"/>
     <view-map name="login" type="screen" page="component://common/widget/CommonScreens.xml#login"/>
     <view-map name="requirePasswordChange" type="screen" page="component://common/widget/CommonScreens.xml#requirePasswordChange"/>
     <view-map name="forgotPassword" type="screen" page="component://common/widget/CommonScreens.xml#forgotPassword"/>
