@@ -53,7 +53,7 @@
         authDeclinedMessage="There has been a problem with your method of payment. Please try a different method or call customer service."
         authFraudMessage="Your order has been rejected and your account has been disabled due to fraud."
         authErrorMessage="Problem connecting to payment processor."
-        styleSheet="" headerLogo="" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y"/>
+        styleSheet="" headerLogo="/images/ofbiz_logo.jpg" autoApproveInvoice="Y" shipIfCaptureFails="Y" autoApproveOrder="Y"/>
 
     <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_AUTH" paymentService="alwaysApproveWithCaptureCCProcessor"/>
     <ProductStorePaymentSetting productStoreId="9100" paymentMethodTypeId="CREDIT_CARD" paymentServiceTypeEnumId="PRDS_PAY_RELEASE" paymentService="testCCRelease"/>

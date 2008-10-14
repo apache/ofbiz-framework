@@ -425,7 +425,7 @@
     </property>
     <property key="WebPosPaymentSetRef">
         <value xml:lang="en">Set payment reference</value>
-        <value xml:lang="it">Imposta riferimento pagamento</value>
+        <value xml:lang="it">Imposta rif. pagamento</value>
     </property>
     <property key="WebPosPromoCode">
         <value xml:lang="en">Enter Promo Code:</value>
