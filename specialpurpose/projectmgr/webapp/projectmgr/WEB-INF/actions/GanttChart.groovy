@@ -44,11 +44,9 @@ ganttList = new LinkedList();
 result = dispatcher.runSync("getProjectPhaseList", [userLogin : userLogin , projectId : projectId]);
 phases = result.phaseList;
 if (phases){
-	phaseNr = 1;
-    taskNr = 10000;
-	phases.each { phase ->
-		newPhase = phase;
-		newPhase.phaseNr = phaseNr;
+    phases.each { phase ->
+        newPhase = phase;
+        newPhase.phaseNr = phase.phaseId;
         if (!newPhase.estimatedStartDate && newPhase.actualStartDate) {
             newPhase.estimatedStartDate = newPhase.actualStartDate;
         }
@@ -62,14 +60,14 @@ if (phases){
             newPhase.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, 3);
         }
         newPhase.workEffortTypeId = "PHASE";
-		ganttList.add(newPhase);
-		tasks = delegator.findByAnd("WorkEffort", ["workEffortParentId" : phase.phaseId], ["workEffortName"]);
-		if (tasks){
-			tasks.each { task ->
-	        	resultTaskInfo = dispatcher.runSync("getProjectTask", [userLogin : userLogin , taskId : task.workEffortId]);
-	        	taskInfo = resultTaskInfo.taskInfo;
-                taskInfo.taskNr = taskNr++;
-                taskInfo.phaseNr = phaseNr;
+        ganttList.add(newPhase);
+        tasks = delegator.findByAnd("WorkEffort", ["workEffortParentId" : phase.phaseId], ["workEffortName"]);
+        if (tasks){
+            tasks.each { task ->
+                resultTaskInfo = dispatcher.runSync("getProjectTask", [userLogin : userLogin , taskId : task.workEffortId]);
+                taskInfo = resultTaskInfo.taskInfo;
+                taskInfo.taskNr = task.workEffortId;
+                taskInfo.phaseNr = phase.phaseId;
                 if (!taskInfo.estimatedStartDate && taskInfo.actualStartDate) {
                     taskInfo.estimatedStartDate = taskInfo.actualStartDate;
                 }
@@ -85,11 +83,39 @@ if (phases){
                 taskInfo.estimatedStartDate = UtilDateTime.toDateString(taskInfo.estimatedStartDate, "MM/dd/yyyy");
                 taskInfo.estimatedCompletionDate = UtilDateTime.toDateString(taskInfo.estimatedCompletionDate, "MM/dd/yyyy");
                 taskInfo.workEffortTypeId = "TASK";
-				ganttList.add(taskInfo);
-			}
-		}
-		phaseNr++;
-	}
+                if (taskInfo.currentStatusId == "PTS_COMPLETED") {
+                    taskInfo.completion = 100;
+                }else{
+                    taskInfo.completion = 0;
+                }
+                taskInfo.url = "/projectmgr/control/taskView?workEffortId="+task.workEffortId;
+                resultTaskResource = dispatcher.runSync("getTasksByParties", [userLogin : userLogin , workEffortId : task.workEffortId]);
+                taskParties = resultTaskResource.taskParties;
+                resource = "";
+                int i = 0;
+                if (taskParties){
+                    taskParties.each { parties ->
+                        symbol = " ";
+                        partyname = parties.partyName;
+                        name = partyname.substring(partyname.indexOf(",")+1 , partyname.length());
+                        if (i > 0){
+                            symbol = ", ";
+                        }
+                        resource =  resource + symbol + name;
+                        i++;    
+                    }
+                }
+                taskInfo.resource = resource ; 
+                
+                // dependency
+                preTasks = delegator.findByAnd("WorkEffortAssoc", ["workEffortIdTo" : task.workEffortId], ["workEffortIdFrom"]);
+                if (preTasks) {
+                    taskInfo.preDecessor = preTasks[0].workEffortIdFrom;
+                }
+                ganttList.add(taskInfo);
+            }
+        }
+    }
 }
 context.phaseTaskList = ganttList;
 
