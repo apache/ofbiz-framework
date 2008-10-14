@@ -299,10 +299,12 @@
         
         <!-- update the assignment status -->
         <if-compare field="parameters.checkComplete" value="Y" operator="equals">
-            <entity-one entity-name="WorkEffortPartyAssignment" value-name="alreadyAssign"/>
+            <first-from-list entry-name="alreadyAssign" list-name="assigns"/>
             <if-compare field="alreadyAssign.statusId" value="PAS_COMPLETED" operator="not-equals">
                 <set field="parameters.partyId" from-field="timesheet.partyId"/>
                 <set field="parameters.statusId" value="PAS_COMPLETED"/>
+                <set field="parameters.roleTypeId" from-field="alreadyAssign.roleTypeId"/>
+                <set field="parameters.fromDate" from-field="alreadyAssign.fromDate"/>
                 <call-simple-method method-name="updateTaskAssigment"/>
             </if-compare>
         </if-compare>
@@ -574,6 +576,8 @@
         </if-empty>
         <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
             <field-map field-name="projectId" env-name="parameters.projectId"/>
+            <order-by field-name="phaseName"/>
+            <order-by field-name="workEffortName"/>
         </entity-and>        
         <if-not-empty field="tasks">
             <iterate entry-name="lowInfo" list-name="tasks">
