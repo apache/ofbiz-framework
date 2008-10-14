@@ -46,5 +46,10 @@ under the License.
         <event type="service" invoke="deleteTemporalExpressionAssoc"/>
         <response name="success" type="request" value="editTemporalExpression"/>
     </request-map>
-
+    
+    <!-- TO DO -->
+    <request-map uri="editTemporalExpression">
+        <security https="true" auth="true"/>
+        <response name="success" type="none"/>
+    </request-map>
 </site-conf>
