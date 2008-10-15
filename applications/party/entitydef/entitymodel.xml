@@ -2513,6 +2513,7 @@ under the License.
       <member-entity entity-alias="RT" entity-name="RoleType"/>
       <alias entity-alias="PR" name="partyId"/>
       <alias entity-alias="RT" name="roleTypeId"/>
+      <alias entity-alias="RT" name="parentTypeId"/>
       <alias entity-alias="RT" name="description"/>
       <view-link entity-alias="RT" rel-entity-alias="PR">
         <key-map field-name="roleTypeId"/>

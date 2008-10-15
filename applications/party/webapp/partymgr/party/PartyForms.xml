@@ -902,4 +902,30 @@ under the License.
         <field position="1" name="totalToBePaid" title="To be paid to: ${parameters.partyId}"><display/></field>
         <field position="2" name="totalToBeReceived" title="To be received from: ${parameters.partyId}"><display/></field>
     </form>
+    <form name="ViewPartyRoles" type="list" list-name="partyRoles" target="viewroles"
+        default-title-style="tableheadtext" default-widget-style="tabletext" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
+        default-tooltip-style="tabletext">
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}"><display/></field>
+        <field name="description" title="${uiLabelMap.PartyRole}"><display/></field>
+        <field name="parentTypeId"><display-entity entity-name="RoleType" key-field-name="roleTypeId" description="${description}"/></field>
+        <field name="remove"><hyperlink target="deleterole?partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonRemove}"/></field>
+    </form>
+    <form name="AddPartyRole" type="single" title="Add a role to party" target="addrole/viewroles">
+        <field name="partyId"><hidden value="${parameters.partyId}"/></field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
+    </form>
+    <form name="AddRoleType" type="single" title="Add a new roletype" target="createroletype">
+        <field name="roleTypeId" title="${uiLabelMap.PartyRoleTypeId}" required-field="true" entry-name="dummy"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"><text/></field>
+        <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
+    </form>
+    
 </forms>
