@@ -50,30 +50,6 @@ under the License.
         </section>
     </screen>
 
-    <screen name="CommonResourceDecorator">
-        <section>
-            <actions>
-                <set field="headerItem" value="resources"/>                
-            </actions>
-            <widgets>
-                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <section>
-                            <condition>
-                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
-                            </condition>
-                            <widgets>
-                                <decorator-section-include name="body"/>
-                            </widgets>
-                            <fail-widgets>
-                                <label style="h3">${uiLabelMap.ProjectMgrViewPermissionError}</label>
-                            </fail-widgets>
-                        </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
     <screen name="CommonProjectDecorator">
         <section>
             <actions>
@@ -324,7 +300,7 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="CommonListResourceDecorator">
+    <screen name="CommonPartyDecorator">
         <section>
             <actions>
                 <set field="headerItem" value="resources"/>

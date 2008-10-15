@@ -33,7 +33,7 @@ under the License.
                 </entity-and>
             </actions>                                                
             <widgets>  
-                <decorator-screen name="CommonResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddResourcePanel" title="${uiLabelMap.PageTitleAddResource}" collapsible="true">
                             <include-form name="AddResource" location="component://projectmgr/widget/forms/ResourceForms.xml"/>
@@ -54,7 +54,7 @@ under the License.
                 <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListUnBilledHoursResources.bsh"/>
             </actions>                                                
             <widgets>  
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <screenlet title="${uiLabelMap.ProjectMgrUnbilledHours}">
@@ -82,7 +82,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -102,4 +102,58 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="EditPartyRates">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditPartyRates"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="EditPartyRates"/>
+                <set field="labelTitleProperty" value="PageTitleEditPartyRates"/>
+                
+                <set field="partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddPartyRatePanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
+                            <include-form name="AddPartyRate" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListPartyRates" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
+    <screen name="viewroles">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyRole"/>
+                <set field="headerItem" value="find"/>
+                <set field="tabButtonItem" value="viewroles"/>
+                <set field="labelTitleProperty" value="PartyMemberRoles"/>
+                <entity-condition entity-name="RoleTypeAndParty" list-name="partyRoles">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyId" operator="equals" value="${parameters.partyId}"/>
+                        <condition-expr field-name="roleTypeId" operator="not-equals" value="_NA_"/>
+                        <condition-expr field-name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PartyMemberRoles}" navigation-form-name="ViewPartyRoles">
+                            <include-form name="ViewPartyRoles" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PartyAddToRole}">
+                            <include-form name="AddPartyRole" location="component://projectmgr/widget/forms/ResourceForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

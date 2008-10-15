@@ -589,10 +589,6 @@
         <response name="success" type="request-redirect-noparam" value="requestlist"/>
         <response name="error" type="view" value="EditRequest"/>
     </request-map>
-    <request-map uri="viewprofile">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="viewprofile"/>
-    </request-map>
     <request-map uri="listResourcesTask">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="listResourcesTask"/>
@@ -797,6 +793,7 @@
 
     <!-- View Mappings -->
     <view-map name="viewprofile" type="screen" page="component://projectmgr/widget/ResourceScreens.xml#viewprofile"/>
+    <view-map name="viewroles" type="screen" page="component://projectmgr/widget/ResourceScreens.xml#viewroles"/>
     <view-map name="listResourcesTask" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#listResourcesTask"/>
     <view-map name="listResourcesProject" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#listResourcesProject"/>
     <view-map name="EditPartyGroup" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartyGroup"/>
@@ -805,7 +802,7 @@
     <view-map name="showvisits" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#showvisits"/>
     <view-map name="AddPartyNote" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#AddPartyNote"/>
     <view-map name="editcontactmech" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#editcontactmech"/>
-    <view-map name="EditPartyRates" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditPartyRates"/>
+    <view-map name="EditPartyRates" type="screen" page="component://projectmgr/widget/ResourceScreens.xml#EditPartyRates"/>
     
     <view-map name="main" type="screen" page="component://projectmgr/widget/CommonScreens.xml#Main"/>
     <view-map name="ganttChart" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#ganttChart"/>    

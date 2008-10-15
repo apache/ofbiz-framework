@@ -699,6 +699,9 @@
         <value xml:lang="th">รหัสโปรเจค</value>
         <value xml:lang="zh">项目Id</value>
     </property>
+    <property key="ProjectMgrProjects">
+        <value xml:lang="en">Projects</value>
+    </property>
     <property key="ProjectMgrProjectName">
         <value xml:lang="en">Project Name</value>
         <value xml:lang="fr">Nom du projet</value>
