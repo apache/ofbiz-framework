@@ -49,7 +49,7 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
     
     public static final Map<String, Map<String, String>> simpleRoleEntity = UtilMisc.toMap(
         "ORDERMGR", UtilMisc.toMap("name", "OrderRole", "pkey", "orderId"),
-        "FACILITY", UtilMisc.toMap("name", "FacilityRole", "pkey", "facilityId"),
+        "FACILITY", UtilMisc.toMap("name", "FacilityParty", "pkey", "facilityId"),
         "MARKETING", UtilMisc.toMap("name", "MarketingCampaignRole", "pkey", "marketingCampaignId"));    
 
     GenericDelegator delegator = null;
@@ -220,8 +220,8 @@ public class OFBizSecurity extends org.ofbiz.security.Security {
         
         Map<String, String> simpleRoleMap = OFBizSecurity.simpleRoleEntity.get(application);
         if (simpleRoleMap != null && roles != null) {
-            entityName = (String) simpleRoleMap.get("name");
-            String pkey = (String) simpleRoleMap.get("pkey");
+            entityName = simpleRoleMap.get("name");
+            String pkey = simpleRoleMap.get("pkey");
             if (pkey != null) {
                 List<EntityExpr> expressions = new ArrayList<EntityExpr>();
                 for (String role: roles) {
