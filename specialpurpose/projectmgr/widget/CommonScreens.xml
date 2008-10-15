@@ -332,9 +332,12 @@ under the License.
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
-                            <!-- do check for PARTYMGR, _VIEW permission -->
+                            <!-- do check for PROJECTMGR, _VIEW permission -->
                             <condition>
-                                <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
+                                <or>
+                                    <if-has-permission permission="PARTYMGR" action="_ADMIN"/>
+                                    <if-has-permission permission="PROJECTMGR" action="_VIEW"/>
+                                </or>
                             </condition>
                             <widgets>
                                 <section>
