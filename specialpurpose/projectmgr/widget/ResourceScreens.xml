@@ -26,11 +26,14 @@ under the License.
                 <set field="titleProperty" value="PageTitleFindResource"/>
                 <set field="labelTitleProperty" value="ProjectMgrResourceName"/>
                 <set field="workEffortId" from-field="parameters.projectId"/>
-                <entity-and entity-name="PartyRoleAndPartyDetail" list-name="resources">
-                    <field-map field-name="roleTypeId" value="PROJECT_TEAM"/>
+                <entity-condition entity-name="PartyRoleAndPartyDetail" list-name="resources">
+                    <condition-list combine="and">
+                        <condition-expr field-name="roleTypeId" operator="equals" value="PROJECT_TEAM"/>
+                        <condition-expr field-name="statusId" operator="not-equals" value="PARTY_DISABLED"/>
+                    </condition-list>
                     <order-by field-name="lastName"/>
                     <order-by field-name="groupName"/>
-                </entity-and>
+                </entity-condition>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -80,6 +83,13 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>                
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+                <entity-condition entity-name="RoleTypeAndParty" list-name="partyRoles">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyId" operator="equals" value="${parameters.partyId}"/>
+                        <condition-expr field-name="roleTypeId" operator="not-equals" value="_NA_"/>
+                        <condition-expr field-name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
+                    </condition-list>
+                </entity-condition>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
@@ -89,12 +99,20 @@ under the License.
                                 <not><if-empty field-name="party"/></not>
                             </condition>
                             <widgets>
-                                <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="contactsAndAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>                               
+                                <container style="lefthalf">
+                                    <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                    <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                    <include-screen name="contactsAndAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                    <screenlet title="${uiLabelMap.PartyMemberRoles}" navigation-form-name="ViewPartyRoles">
+                                        <include-form name="ViewPartyRoles" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    </screenlet>
+                                </container>
+                                <container style="righthalf">
+                                    <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                    <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                    <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                    <include-screen name="Visits" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                </container>                               
                             </widgets>
                         </section>
                     </decorator-section>

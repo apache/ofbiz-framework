@@ -68,6 +68,7 @@ if (phases){
                 taskInfo = resultTaskInfo.taskInfo;
                 taskInfo.taskNr = task.workEffortId;
                 taskInfo.phaseNr = phase.phaseId;
+                double duration = resultTaskInfo.plannedHours;
                 if (!taskInfo.estimatedStartDate && taskInfo.actualStartDate) {
                     taskInfo.estimatedStartDate = taskInfo.actualStartDate;
                 }
@@ -77,8 +78,10 @@ if (phases){
                 if (!taskInfo.estimatedCompletionDate && taskInfo.actualCompletionDate) {
                     taskInfo.estimatedCompletionDate = taskInfo.actualCompletionDate;
                 }
-                if (!taskInfo.estimatedCompletionDate) {
+                if (!taskInfo.estimatedCompletionDate && !duration) {
                     taskInfo.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, 3);
+                } else if (!taskInfo.estimatedCompletionDate && duration) {
+                    taskInfo.estimatedCompletionDate = UtilDateTime.addDaysToTimestamp(newPhase.estimatedStartDate, duration/8);
                 }
                 taskInfo.estimatedStartDate = UtilDateTime.toDateString(taskInfo.estimatedStartDate, "MM/dd/yyyy");
                 taskInfo.estimatedCompletionDate = UtilDateTime.toDateString(taskInfo.estimatedCompletionDate, "MM/dd/yyyy");

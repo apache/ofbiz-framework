@@ -334,7 +334,7 @@
     <form name="EditWorkEffortPartyAssigns" target="deleteWorkEffortPartyAssign" title="" type="list" paginate-target="ListWorkEffortPartyAssigns"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="WorkEffortPartyAssignView">
+            <entity-condition entity-name="WorkEffortPartyAssignView" filter-by-date="true">
                 <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
                 <order-by field-name="roleTypeId"/>
             </entity-condition>
