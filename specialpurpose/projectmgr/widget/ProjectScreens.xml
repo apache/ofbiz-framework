@@ -712,7 +712,7 @@ under the License.
                 <entity-one entity-name="PartyAndPerson" value-name="person"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="EditPerson" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
@@ -732,7 +732,7 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label text="${uiLabelMap.PageTitleNewPartyNote}" style="h2"/></container>
                         <include-form name="AddPartyNote" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -755,7 +755,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/party/EditContactMech.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <condition>
@@ -810,7 +810,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/FindCommEventContactMechs.groovy"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <widgets>
@@ -874,7 +874,7 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label text="${uiLabelMap.PartyCreateUserLogin}" style="h2"/></container>
                         <include-form name="AddUserLogin" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -894,7 +894,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/ShowVisits.groovy"/>                
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -925,7 +925,7 @@ under the License.
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/visit/VisitDetails.groovy"/>                
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <section>
                             <!-- do check for PARTYMGR, _VIEW permission -->
@@ -960,7 +960,7 @@ under the License.
                 <entity-one entity-name="UserLogin" value-name="editUserLogin"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label text="${uiLabelMap.PartyUserLoginChangePassword}" style="h2"/></container>
                         <include-form name="updatePassword" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
@@ -984,7 +984,7 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId" default-value="${editUserLogin.partyId}"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container><label style="h2" text="${uiLabelMap.PageTitleEditUserLoginSecurityGroups}"/></container>
                         <include-form name="ListUserLoginSecurityGroups" location="component://party/widget/partymgr/SecurityForms.xml"/>
@@ -1009,7 +1009,7 @@ under the License.
                 <entity-one entity-name="PartyAndGroup" value-name="partyGroup"/>
             </actions>
             <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <include-form name="EditPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>

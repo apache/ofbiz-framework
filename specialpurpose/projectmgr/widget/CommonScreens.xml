@@ -100,6 +100,8 @@ under the License.
                 </service>
                 <set field="projectId" from-field="result.projectId"/>
                 <set field="projectName" from-field="result.projectName"/>
+                <set field="phaseId" from-field="result.phaseId"/>
+                <set field="phaseName" from-field="result.phaseName"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -115,7 +117,7 @@ under the License.
                                     </condition>
                                     <widgets>                                        
                                         <include-menu name="TaskTabBar" location="component://projectmgr/widget/Menus.xml"/>
-                                        <label style="h1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] Project: ${projectName}"/>
+                                        <label style="h1" text="${uiLabelMap.ProjectMgrTaskCurrent}: ${workEffort.workEffortName}[${workEffort.workEffortId}] Phase: ${phaseName} Project: ${projectName}"/>
                                         <link style="h1" text="[${projectId}]" target="projectView?projectId=${projectId}"/>
                                     </widgets>                                    
                                 </section>

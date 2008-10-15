@@ -9,6 +9,7 @@
     <Person partyId="DemoEmployee" firstName="Demo" lastName="Employee" />
     <UserLogin userLoginId="DemoEmployee" partyId="DemoEmployee"/>
     <PartyRole partyId="DemoEmployee" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="DemoEmployee" roleTypeId="PROVIDER_ANALYST"/>
     <PartyContactMech partyId="DemoEmployee" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
@@ -20,6 +21,7 @@
     <Person partyId="DemoEmployee1" firstName="Peter" lastName="Manager" />
     <UserLogin userLoginId="DemoEmployee1" partyId="DemoEmployee1"/>
     <PartyRole partyId="DemoEmployee1" roleTypeId="EMPLOYEE"/>
+    <PartyRole partyId="DemoEmployee1" roleTypeId="PROVIDER_MANAGER"/>
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
@@ -30,6 +32,7 @@
     <Party partyId="DemoEmployee2" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoEmployee2" firstName="Jo" lastName="Analist1" />
     <UserLogin userLoginId="DemoEmployee2"  partyId="DemoEmployee2"/>
+    <PartyRole partyId="DemoEmployee2" roleTypeId="PROVIDER_ANALYST"/>
     <PartyRole partyId="DemoEmployee2" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
@@ -41,6 +44,7 @@
     <Party partyId="DemoEmployee3" partyTypeId="PERSON" statusId="PARTY_ENABLED" />
     <Person partyId="DemoEmployee3" firstName="Tom" lastName="Analist2" />
     <UserLogin userLoginId="DemoEmployee3"  partyId="DemoEmployee3"/>
+    <PartyRole partyId="DemoEmployee3" roleTypeId="PROVIDER_ANALYST"/>
     <PartyRole partyId="DemoEmployee3" roleTypeId="EMPLOYEE"/>
     <PartyContactMech partyId="DemoEmployee3" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
     <PartyContactMech partyId="DemoEmployee3" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="EMPLOYEE" />
@@ -53,6 +57,7 @@
     <Person partyId="DemoCustomer1" firstName="ManagerP1" lastName="Customer 1" />
     <UserLogin userLoginId="DemoCustomer1"  partyId="DemoCustomer1"/>
     <PartyRole partyId="DemoCustomer1" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer1" roleTypeId="CLIENT_MANAGER"/>
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer1" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
@@ -64,6 +69,7 @@
     <Person partyId="DemoCustomer2" firstName="ManagerP2" lastName="Customer 2"/>
     <UserLogin userLoginId="DemoCustomer2"  partyId="DemoCustomer2"/>
     <PartyRole partyId="DemoCustomer2" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer2" roleTypeId="CLIENT_MANAGER"/>
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer2" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
@@ -75,6 +81,7 @@
     <Person partyId="DemoCustomer3" firstName="Billing" lastName="Customer 2"/>
     <UserLogin userLoginId="DemoCustomer3"  partyId="DemoCustomer3"/>
     <PartyRole partyId="DemoCustomer3" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="DemoCustomer3" roleTypeId="CLIENT_BILLING"/>
     <PartyContactMech partyId="DemoCustomer3" contactMechId="9020" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer3" contactMechId="9001" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
     <PartyContactMech partyId="DemoCustomer3" contactMechId="9023" fromDate="2000-01-01 10:01:48.933" roleTypeId="CUSTOMER" />
