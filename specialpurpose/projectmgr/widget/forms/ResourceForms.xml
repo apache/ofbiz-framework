@@ -55,4 +55,14 @@
         <field name="roleTypeId"><hidden value="PROJECT_TEAM"/></field>
         <field name="addButton" ><submit/></field>
     </form>
+    <form name="AddPartyRole" extends="AddPartyRole" extends-resource="component://party/webapp/partymgr/party/PartyForms.xml">
+        <field name="roleTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-constraint name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+    </form>
 </forms>

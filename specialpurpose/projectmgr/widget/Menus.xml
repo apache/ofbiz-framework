@@ -367,7 +367,10 @@
         <menu-item name="ResourcesProfile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${partyId}"/>
         </menu-item>
-        <menu-item name="listResourcesProject" title="${uiLabelMap.ProjectMgrProjectId}">
+        <menu-item name="viewroles" title="${uiLabelMap.PartyRoles}">
+            <link target="viewroles?partyId=${partyId}"/>
+        </menu-item>
+        <menu-item name="listResourcesProject" title="${uiLabelMap.ProjectMgrProjects}">
             <link target="listResourcesProject?partyId=${partyId}"></link>
         </menu-item>
         <menu-item name="listResourcesTask"  title="${uiLabelMap.ProjectMgrTaskId}">

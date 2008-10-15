@@ -659,7 +659,7 @@ under the License.
                 <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
             </actions>
             <widgets>               
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddResourceProjectPartyPanel" title="${uiLabelMap.PageTitleAddProject}" collapsible="true">
                             <include-form name="AddResourceProjectParty" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
@@ -687,7 +687,7 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
             </actions>
             <widgets>   
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
+                <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet id="AddResourceTaskPartyPanel" title="${uiLabelMap.PageTitleAddTask}" collapsible="true">
                             <include-form name="AddResourceTaskParty" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
@@ -857,29 +857,6 @@ under the License.
                                 </section>
                             </widgets>
                         </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    
-    <screen name="EditPartyRates">
-        <section>
-            <actions>
-                <set field="titleProperty" value="PageTitleEditPartyRates"/>
-                <set field="headerItem" value="find"/>
-                <set field="tabButtonItem" value="EditPartyRates"/>
-                <set field="labelTitleProperty" value="PageTitleEditPartyRates"/>
-                
-                <set field="partyId" from-field="parameters.partyId"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonListResourceDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                        <screenlet id="AddPartyRatePanel" title="${uiLabelMap.PageTitleEditPartyRates}" collapsible="true">
-                            <include-form name="AddPartyRate" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                        </screenlet>
-                        <include-form name="ListPartyRates" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
