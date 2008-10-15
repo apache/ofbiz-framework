@@ -539,6 +539,7 @@ under the License.
         <response name="success" type="view" value="ListValidResponsibilities"/>               
     </request-map>
     <request-map uri="viewprofile">
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="viewprofile"/>
     </request-map>
     <request-map uri="findSkillTypes">
