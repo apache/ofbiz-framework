@@ -176,6 +176,94 @@
         -->
         
         <field-to-result map-name="parameters" field-name="projectId"/>
+        <!-- find a starting point being either the estimated start date of a project or the earliest actual start date. -->
+        <entity-condition entity-name="ProjectAndPhaseAndTask" list-name="tasks">
+            <condition-expr field-name="actualStartDate" operator="not-equals" env-name="null"/>
+            <order-by field-name="-actualStartDate"/>
+        </entity-condition>
+        <if-not-empty field="tasks">
+            <first-from-list entry-name="task" list-name="tasks"/>
+            <set field="startDate" from-field="task.actualStartDate"/>
+            <set field="taskId" from-field="task.workEffortId"/>
+            <else>
+                <now-date-to-env env-name="generalStartDate"/>
+            </else>
+        </if-not-empty>
+        <log level="always" message="========== generalStartDate: ${generalStartDate}"></log>
+        <while>
+            <condition>
+                <if-empty field="generalStartDate"/>
+            </condition>
+            <then>
+                <entity-and entity-name="WorkEffortAssoc" list-name="assocs">
+                    <field-map field-name="workEffortIdTo" env-name="taskId"/>
+                </entity-and>
+                <if-not-empty field="assocs">
+                    <iterate entry-name="assoc" list-name="assocs">
+                        <clear-field field-name="hours"/>
+                        <set field="getTask.taskId" from-field="assoc.workEffortIdFrom"/>
+                        <call-service service-name="getProjectTask" in-map-name="getTask">
+                            <result-to-field result-name="estimatedHours"/>
+                            <result-to-field result-name="actualHours"/>
+                        </call-service>
+                        <if-not-empty field="estimatedHours">
+                            <if-not-empty field="actualHours">
+                                <if-compare-field field="estimatedHours" operator="greater" to-field="actualHours">
+                                    <set field="hours" from-field="estimatedHours"/>
+                                    <else>
+                                        <set field="hours" from-field="actualHours"/>
+                                    </else>
+                                </if-compare-field>
+                                <else>
+                                    <set field="hours" from-field="estimatedHours"/>
+                                </else>
+                            </if-not-empty>
+                        </if-not-empty>
+                        <if-not-empty field="actualHours">
+                            <set field="hours" from-field="actualHours"/>
+                        </if-not-empty>
+                        <if-empty field="hours">
+                            <set field="hours" value="16" type="Double"/>
+                        </if-empty>
+                        <if-empty field="highestHours">
+                            <set field="highestHours" from-field="hours"/>
+                            <set field="preDesessorId" from-field="assoc.workEffortIdFrom"/>
+                            <else>
+                                <if-compare-field field="highestHours" operator="less" to-field="hours">
+                                    <set field="highestHours" from-field="hours"/>
+                                    <set field="preDesessorId" from-field="assoc.workEffortIdFrom"/>
+                                </if-compare-field>
+                            </else>
+                        </if-empty>
+                    </iterate>
+                    <set field="taskId" from-field="preDesessorId"/>
+                    <calculate field-name="taskDays">
+                        <calcop operator="divide" field-name="higestHours"/>
+                        <number value="8"/>
+                    </calculate>
+                    <calculate field-name="taskDays">
+                        <calcop operator="multiply" field-name="taskDays"/>
+                        <number value="-1"/>
+                    </calculate>
+                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field-name="startDate">
+                        <field field-name="startDate"/>
+                        <field field-name="taskDays"/>
+                    </call-class-method>
+                    <else>
+                        <entity-one entity-name="WorkEffort" value-name="workEffort">
+                            <field-map field-name="workEffortId" env-name="taskId"/>
+                        </entity-one>
+                        <if-not-empty field="workEffortId.parentWorkEffortId">
+                            <set field="taskId" from-field="workEffortId.parentWorkEffortId"/>
+                            <else>
+                                <set field="generalStartDate" from-field="startDate"/>
+                            </else>
+                        </if-not-empty>
+                    </else>
+                </if-not-empty>
+            </then>
+        </while>
+        
         
         <!-- create the tasklist -->
         <entity-one entity-name="WorkEffort" value-name="project">

@@ -45,11 +45,9 @@ public class Various {
     			while (a.hasNext()) {
     				GenericValue assoc = (GenericValue) a.next();
     				GenericValue nextTask = assoc.getRelatedOne("ToWorkEffort");
-    				if (nextTask.getTimestamp("estimatedStartDate").before(task.getTimestamp("estimatedCompletionDate"))) {
-    					nextTask.put("estimatedStartDate", task.getTimestamp("estimatedCompletionDate")); 
-        				nextTask.put("estimatedCompletionDate", calculateCompletionDate(nextTask, task.getTimestamp("estimatedCompletionDate")));
-        				nextTask.store();
-    				}
+  					nextTask.put("estimatedStartDate", task.getTimestamp("estimatedCompletionDate")); 
+       				nextTask.put("estimatedCompletionDate", calculateCompletionDate(nextTask, task.getTimestamp("estimatedCompletionDate")));
+       				nextTask.store();
     				setDatesFollowingTasks(nextTask);
     			}
     		}
