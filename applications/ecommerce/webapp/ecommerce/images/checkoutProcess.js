@@ -31,6 +31,7 @@ Event.observe(window, 'load', function() {
     // Goto Edit Cart Panel
     Event.observe($('openCartPanel'), 'click', function() {
         showEditCartPanel();
+        updateShippingSummary();
     });
 
     // Update Shipping Address
@@ -55,6 +56,7 @@ Event.observe(window, 'load', function() {
     // Goto Edit Shipping Panel
     Event.observe($('openShippingPanel'), 'click', function() {
         showEditShippingPanel();
+        setShippingOption(); 
     });
 
     // Set Shipping Method to card and goto Billing step
@@ -70,6 +72,7 @@ Event.observe(window, 'load', function() {
 
     Event.observe($('openShippingOptionPanel'), 'click', function() {
         showEditShippingOptionPanel();
+        updateBillingSummary();
     });
 
     // Billing
@@ -234,22 +237,7 @@ function createUpdateCustomerAndShippingAddress() {
                 $('shipToPhoneContactMechId').value = data.shipToPhoneContactMechId;
                 $('emailContactMechId').value = data.emailContactMechId;
                 //$('completedShippingMethod').update(data.shippingDescription);
-                var fullName = $('firstName').value + " " +$('lastName').value;
-                var extension = "";
-                if ($F('shipToExtension')) {
-                    extension = "-" + $F('shipToExtension');
-                }
-                var shippingContactPhoneNumber = $F('shipToCountryCode')+ "-" + $F('shipToAreaCode') 
-                    + "-" + $F('shipToContactNumber') + extension;
-                $('completedShipToAttn').update("Attn: " + fullName);
-                $('completedShippingContactNumber').update(shippingContactPhoneNumber);
-                $('completedEmailAddress').update($('emailAddress').value);
-                $('completedShipToAddress1').update($F('shipToAddress1'));
-                $('completedShipToAddress2').update($('shipToAddress2').value);
-                var shipToGeo = $('shipToCity').value+","+$('shipToStateProvinceGeoId').value +" "+$('shipToCountryGeoId').value+" "+$('shipToPostalCode').value;
-                $('completedShipToGeo').update(shipToGeo);
-                // set shipToContactMechId in Billing form.
-                $('shipToContactMechIdInBillingForm').value = $F('shipToContactMechId');
+                updateShippingSummary();
                 getShipOptions();
                 result = true;
             }
@@ -351,24 +339,7 @@ function processBillingAndPayment() {
                 $('billToContactMechId').value = data.billToContactMechId;
                 $('paymentMethodId').value = data.paymentMethodId;
                 $('billToPhoneContactMechId').value = data.billToPhoneContactMechId;
-                var fullName = $F('firstNameOnCard') + " " +$F('lastNameOnCard');
-                $('completedBillToAttn').update("Attn: " + fullName);
-                var extension = "";
-                if ($F('billToExtension')) {
-                    extension = "-" + $F('billToExtension');
-                }
-                var billToPhoneNumber = $F('billToCountryCode') + "-" + $F('billToAreaCode') + "-" + $F('billToContactNumber') + extension;
-                $('completedBillToPhoneNumber').update(billToPhoneNumber);
-                var cardNumber = "CC#:XXXXXXXXXXXX"+$F('cardNumber').gsub('-','').slice(12,16);
-                $('completedCCNumber').update(cardNumber);
-                var expiryDate = "Expires:"+$F('expMonth')+"/"+$F('expYear');
-                $('completedExpiryDate').update(expiryDate);
-                $('completedBillToAddress1').update($F('billToAddress1'));
-                $('completedBillToAddress2').update($F('billToAddress2'));
-                var billToGeo = $F('billToCity')+","+$F('billToStateProvinceGeoId') +" "+$F('billToCountryGeoId')+" "+$F('billToPostalCode');
-                $('completedBillToGeo').update(billToGeo);
-                $('paymentMethod').update($F('paymentMethodTypeId'));
-                $('billToContactMechIdInShipingForm').value = $F('billToContactMechId');
+                updateBillingSummary();
                 result = true;
             }
         }, parameters: $('billingForm').serialize(), requestHeaders: {Accept: 'application/json'}
@@ -527,3 +498,44 @@ function getAssociatedBillingStateList(formName, divId) {
         }
     });
 }
+
+function updateShippingSummary() {
+    var fullName = $('firstName').value + " " +$('lastName').value;
+    var extension = "";
+    if ($F('shipToExtension')) {
+        extension = "-" + $F('shipToExtension');
+        }
+    var shippingContactPhoneNumber = $F('shipToCountryCode')+ "-" + $F('shipToAreaCode') 
+        + "-" + $F('shipToContactNumber') + extension;
+    $('completedShipToAttn').update("Attn: " + fullName);
+    $('completedShippingContactNumber').update(shippingContactPhoneNumber);
+    $('completedEmailAddress').update($('emailAddress').value);
+    $('completedShipToAddress1').update($F('shipToAddress1'));
+    $('completedShipToAddress2').update($('shipToAddress2').value);
+    var shipToGeo = $('shipToCity').value+","+$('shipToStateProvinceGeoId').value +" "+$('shipToCountryGeoId').value+" "+$('shipToPostalCode').value;
+    $('completedShipToGeo').update(shipToGeo);
+    // set shipToContactMechId in Billing form.
+    $('shipToContactMechIdInBillingForm').value = $F('shipToContactMechId');
+}
+
+function updateBillingSummary() {
+	var fullName = $F('firstNameOnCard') + " " +$F('lastNameOnCard');
+    $('completedBillToAttn').update("Attn: " + fullName);
+    var extension = "";
+    if ($F('billToExtension')) {
+        extension = "-" + $F('billToExtension');
+        }
+    var billToPhoneNumber = $F('billToCountryCode') + "-" + $F('billToAreaCode') + "-" + $F('billToContactNumber') + extension;
+    $('completedBillToPhoneNumber').update(billToPhoneNumber);
+    var cardNumber = "CC#:XXXXXXXXXXXX"+$F('cardNumber').gsub('-','').slice(12,16);
+    $('completedCCNumber').update(cardNumber);
+    var expiryDate = "Expires:"+$F('expMonth')+"/"+$F('expYear');
+    $('completedExpiryDate').update(expiryDate);
+    $('completedBillToAddress1').update($F('billToAddress1'));
+    $('completedBillToAddress2').update($F('billToAddress2'));
+    var billToGeo = $F('billToCity')+","+$F('billToStateProvinceGeoId') +" "+$F('billToCountryGeoId')+" "+$F('billToPostalCode');
+    $('completedBillToGeo').update(billToGeo);
+    $('paymentMethod').update($F('paymentMethodTypeId'));
+    $('billToContactMechIdInShipingForm').value = $F('billToContactMechId');
+}
+
