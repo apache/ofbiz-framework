@@ -112,7 +112,7 @@ public class ServerHitBin {
     protected static void countHit(String id, int type, HttpServletRequest request, long startTime, long runningTime, GenericValue userLogin,
         GenericDelegator delegator, boolean isOriginal) {
         if (delegator == null) {
-            throw new IllegalArgumentException("The delgator passed to countHit cannot be null");
+            throw new IllegalArgumentException("The delegator passed to countHit cannot be null");
         }
 
         ServerHitBin bin = null;
@@ -226,7 +226,7 @@ public class ServerHitBin {
     static void countHitSinceStart(String id, int type, long startTime, long runningTime, boolean isOriginal,
         GenericDelegator delegator) {
         if (delegator == null) {
-            throw new IllegalArgumentException("The delgator passed to countHitSinceStart cannot be null");
+            throw new IllegalArgumentException("The delegator passed to countHitSinceStart cannot be null");
         }
 
         ServerHitBin bin = null;
@@ -340,7 +340,7 @@ public class ServerHitBin {
     public ServerHitBin(String id, int type, boolean limitLength, GenericDelegator delegator) {
         super();
         if (delegator == null) {
-            throw new IllegalArgumentException("The delgator passed to countHitSinceStart cannot be null");
+            throw new IllegalArgumentException("The delegator passed to countHitSinceStart cannot be null");
         }
 
         this.id = id;
