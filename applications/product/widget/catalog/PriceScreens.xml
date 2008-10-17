@@ -52,15 +52,30 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindProductPriceRule"/>
                 <set field="headerItem" value="pricerules"/>
-                
-                <script location="component://product/webapp/catalog/WEB-INF/actions/price/FindProductPriceRule.groovy"/>
+                <set field="viewIndex" from-field="parameters.VIEW_INDEX" type="Integer" default-value="0"/>
+                <set field="viewSize" from-field="parameters.VIEW_SIZE" type="Integer" default-value="20"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPriceDecorator">
                     <decorator-section name="body">
-                        <platform-specific>
-                            <html><html-template location="component://product/webapp/catalog/price/FindProductPriceRule.ftl"/></html>
-                        </platform-specific>
+                        <screenlet>
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ProductGlobalPriceRules}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form name="FindProductPriceRules" location="component://product/webapp/catalog/price/PriceForms.xml"/>
+                            </container>
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ProductAddPriceRule}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <include-form location="component://product/webapp/catalog/price/PriceForms.xml" name="AddPriceRules"/>
+                            </container>
+                        </screenlet>    
                     </decorator-section>
                 </decorator-screen>
             </widgets>
