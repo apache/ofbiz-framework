@@ -5865,7 +5865,6 @@
     </property>
     <property key="AccountingVarianceReasonGlAccounts">
         <value xml:lang="en">Variance Reason Gl Accounts</value>
-        <value xml:lang="fr">Raison de désaccord des comptes Gl</value>
         <value xml:lang="fr">Raison de la divergence du Grand Livre général</value>
         <value xml:lang="it">Motivazione Varianza Conti Gl</value>
     </property>
