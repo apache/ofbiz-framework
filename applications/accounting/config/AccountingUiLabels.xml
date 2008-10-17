@@ -146,7 +146,7 @@
     </property>
     <property key="AccountingAddAgreementWorkEffortAppl">
         <value xml:lang="en">Add Agreement Work Effort Appl</value>
-        <value xml:lang="fr">Ajouter l'accord d'application de tâche</value>
+        <value xml:lang="fr">Ajouter une application d'accord commerciaux sur tâche</value>
     </property>
     <property key="AccountingAddCategoryGlAccount">
         <value xml:lang="en">Add Category GL Account</value>
@@ -318,7 +318,7 @@
     </property>
     <property key="AccountingAgreementInformation">
         <value xml:lang="en">Agreement Information</value>
-        <value xml:lang="fr">Information sur l'accord</value>
+        <value xml:lang="fr">Information sur l'accord commercial</value>
     </property>
     <property key="AccountingAgreementIsNotSetForSupplierProducts">
         <value xml:lang="en">Please set a supplier in Agreement.partyIdTo and a currency in the AgreementItem before editing the price list</value>
@@ -399,7 +399,7 @@
     </property>
     <property key="AccountingAgreementRoles">
         <value xml:lang="en">Agreement Roles</value>
-        <value xml:lang="fr">Rôles d'accord</value>
+        <value xml:lang="fr">Rôles d'accords commerciaux</value>
     </property>
     <property key="AccountingAgreementTermId">
         <value xml:lang="ar">رمز بند إتفاق</value>
@@ -439,11 +439,11 @@
     </property>
     <property key="AccountingAgreementWorkEffortApplAlreadyExists">
         <value xml:lang="en">Agreement Work Effort Appl Already Exists</value>
-        <value xml:lang="fr">Cet accord d'application de tâche existe déjà</value>
+        <value xml:lang="fr">Cette application  d'accord commercial de tâche existe déjà</value>
     </property>
     <property key="AccountingAgreementWorkEffortAppls">
         <value xml:lang="en">Agreement Work Effort Appls</value>
-        <value xml:lang="fr">Accord d'applications de tâche</value>
+        <value xml:lang="fr">Applications d'accords commerciaux de service</value>
     </property>
     <property key="AccountingAgreements">
         <value xml:lang="ar">إتفاقيات</value>
@@ -730,7 +730,7 @@
     </property>
     <property key="AccountingAssignPurchaseInvoiceToRevenue">
         <value xml:lang="en">Assign Purchase Invoice type to Revenue GL Account Number</value>
-        <value xml:lang="fr">Assigner le type de facture d'achat au numéro de compte de revenu du GL</value>
+        <value xml:lang="fr">Assigner le type facture d'achat au n° du compte de produit</value>
         <value xml:lang="th">กำหนดประเภทใบกำกับสินค้าการสั่งซื้อไปยังหมายเลขบัญชีประเภททั่วไป</value>
 
     </property>
@@ -1671,7 +1671,7 @@
     </property>
     <property key="AccountingEditAcctRecon">
         <value xml:lang="en">Edit Account Reconciliation</value>
-        <value xml:lang="fr">Éditer la réconciliation de compte</value>
+        <value xml:lang="fr">Modifier la réconciliation de compte</value>
         <value xml:lang="it">Modifica Riconciliazione</value>
         <value xml:lang="th">แก้ไขการเช็คยอดบัญชี</value>
     </property>
@@ -1696,7 +1696,7 @@
     </property>
     <property key="AccountingEditTaxAuthorityGlAccounts">
         <value xml:lang="en">Edit TaxAuthority GL Accounts</value>
-        <value xml:lang="fr">Éditer les comptes de l'administration fiscale</value>
+        <value xml:lang="fr">Modifier les comptes de l'administration fiscale</value>
         <value xml:lang="th">แก้ไขภาษีบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingEffective">
@@ -3545,7 +3545,7 @@
     </property>
     <property key="AccountingListAgreementWorkEffortAppls">
         <value xml:lang="en">List Agreement Work Effort Appls</value>
-        <value xml:lang="fr">Liste des applications d'accord de tâche</value>
+        <value xml:lang="fr">Liste des applications d'accords commerciaux de service</value>
     </property>
     <property key="AccountingListInvoiceItemType">
         <value xml:lang="en">Invoice Item Type List</value>
@@ -3591,11 +3591,11 @@
     </property>
     <property key="AccountingLookupAgreement">
         <value xml:lang="en">Lookup Agreement</value>
-        <value xml:lang="fr">Consulter l'accord</value>
+        <value xml:lang="fr">Consulter l'accord commercial</value>
     </property>
     <property key="AccountingLookupAgreementItem">
         <value xml:lang="en">Lookup Agreement Item</value>
-        <value xml:lang="fr">Consulter la ligne d'accord</value>
+        <value xml:lang="fr">Consulter la ligne d'accord commercial</value>
     </property>
     <property key="AccountingLookupInvoices">
         <value xml:lang="ar">إطلالة على  الفواتير</value>
@@ -3823,7 +3823,7 @@
     </property>
     <property key="AccountingNewAgreementRole">
         <value xml:lang="en">Create New Agreement Role</value>
-        <value xml:lang="fr">Créez le nouveau rôle d'accord</value>
+        <value xml:lang="fr">Créez le nouveau rôle d'accord commercial</value>
     </property>
     <property key="AccountingNewAgreementTerm">
         <value xml:lang="ar">اضافة بند إتفاقية</value>
@@ -5164,12 +5164,12 @@
     </property>
     <property key="AccountingPurchaseInvoiceToRevenue">
         <value xml:lang="en">Purchase Invoice type to Revenue GL Account Number assignment list</value>
-        <value xml:lang="fr">Type de facture achat à la liste de tâche de numéro de compte du revenu GL</value>
+        <value xml:lang="fr">Liste d'affectation du type facture d'achat au n° de compte de produit</value>
         <value xml:lang="th">Purchase Invoice type to Revenue GL Account Number assignment list</value>
     </property>
     <property key="AccountingQuantity">
         <value xml:lang="en">AccountingQuantity</value>
-        <value xml:lang="fr">Quantité de comptabilité</value>
+        <value xml:lang="fr">Quantité</value>
         <value xml:lang="th">จำนวน</value>
     </property>
     <property key="AccountingReceivePayment">
@@ -5210,7 +5210,7 @@
     </property>
     <property key="AccountingRevertAccountingTransaction">
         <value xml:lang="en">Revert Accounting Transaction</value>
-        <value xml:lang="fr">Retourner la transaction comptable</value>
+        <value xml:lang="fr">Reprendre la transaction comptable</value>
         <value xml:lang="it">Annulla (inverti) Prima Nota</value>
         <value xml:lang="th">กลับสู่รายการทางบัญชี</value>
     </property>
@@ -5419,7 +5419,7 @@
     </property>
     <property key="AccountingShowLookupFields">
         <value xml:lang="en">AccountingShowLookupFields</value>
-        <value xml:lang="fr">Champs de comptabilité de consultation d'exposition</value>
+        <value xml:lang="fr">Montrer les champs de consultation</value>
         <value xml:lang="th">แสดงการค้นหาฟิลด์</value>
     </property>
     <property key="AccountingShowPayments">
@@ -5511,12 +5511,12 @@
     </property>
     <property key="AccountingTaxAuthorityGeo">
         <value xml:lang="en">Tax Authority Geo</value>
-        <value xml:lang="fr">Administration fiscale Geo</value>
+        <value xml:lang="fr">Zone géographique de l'administration fiscale</value>
         <value xml:lang="th">โครงสร้างภาษี</value>
     </property>
     <property key="AccountingTaxAuthorityGlAccounts">
         <value xml:lang="en">TaxAuthority GL Accounts </value>
-        <value xml:lang="fr">Comptes de l'administration fiscale GL</value>
+        <value xml:lang="fr">Comptes de l'administration fiscale (GL)</value>
         <value xml:lang="th">ภาษีบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingTaxAuthorityParty">
@@ -5625,12 +5625,12 @@
     </property>
     <property key="AccountingTotalExclTax">
         <value xml:lang="en">Total excl. tax</value>
-        <value xml:lang="fr">Excl total. d'impôt</value>
+        <value xml:lang="fr">Total HT</value>
         <value xml:lang="th">Total excl. tax</value>
     </property>
     <property key="AccountingTransactionHasBeenAlreadyPosted">
         <value xml:lang="en">Transaction has been already posted</value>
-        <value xml:lang="fr">La transaction a été déjà signalée</value>
+        <value xml:lang="fr">Transaction déjà effectuée</value>
     </property>
     <property key="AccountingTransactionTotals">
         <value xml:lang="en">Transaction Totals</value>
@@ -5753,7 +5753,7 @@
     </property>
     <property key="AccountingTroubleCreateInvoicesFromShipmentsService">
         <value xml:lang="en">AccountingTroubleCreateInvoicesFromShipmentsService</value>
-        <value xml:lang="fr">Problème de comptabilité crée des factures de service d'expéditions</value>
+        <value xml:lang="fr">Problème à la création des factures depuis le service d'expédition</value>
         <value xml:lang="th">ปํญหาในการสร้างใบกำกับสินค้าจากบริการการขนส่งสินค้า</value>
     </property>
     <property key="AccountingTroubleGettingShipmentEntity">
@@ -5769,7 +5769,7 @@
     </property>
     <property key="AccountingType">
         <value xml:lang="en">AccountingType</value>
-        <value xml:lang="fr">Type de comptabilité</value>
+        <value xml:lang="fr">Type</value>
         <value xml:lang="th">ประเภท</value>
     </property>
     <property key="AccountingUnableToAuthAdditionalShipCharges">
@@ -5793,7 +5793,7 @@
     </property>
     <property key="AccountingUnPostedTransactionTotals">
         <value xml:lang="en">UnPosted Totals</value>
-        <value xml:lang="fr">Totaux non affichés</value>
+        <value xml:lang="fr">Totaux non comptabilisés</value>
         <value xml:lang="it">Prime Note Non Contabilizzate</value>
         <value xml:lang="th">UnPosted Totals</value>
     </property>
@@ -5850,7 +5850,7 @@
     </property>
     <property key="AccountingUseGiftCardNotOnFile">
         <value xml:lang="en">Use Gift Card Not On File</value>
-        <value xml:lang="fr">Ne pas utiliser la carte cadeau sur le dossier</value>
+        <value xml:lang="fr">L'utilisation de la carte cadeau n'est pas dans le fichier</value>
         <value xml:lang="th">ใช้บัตรของขวัญไม่ได้บนไฟล์</value>
     </property>
     <property key="AccountingValidationPattern">
@@ -5942,7 +5942,7 @@
     </property>
     <property key="AcctgFindGlJournalEntry">
         <value xml:lang="en">Find Journal Entry</value>
-        <value xml:lang="fr">Chercher écriture comptable</value>
+        <value xml:lang="fr">Chercher l'écriture comptable</value>
         <value xml:lang="th">ค้นหาการกรอกข้อมูลบัญชีรายวัน</value>
     </property>
     <property key="AcctgGlAcctLabel">
@@ -5971,7 +5971,7 @@
     </property>
     <property key="AcctgGlJournalEntry">
         <value xml:lang="en">GL Journal</value>
-        <value xml:lang="fr">Journal GL</value>
+        <value xml:lang="fr">Journal du Grand Livre</value>
         <value xml:lang="th">GL Journal</value>
     </property>
     <property key="AcctgGlJrnlDescLabel">
@@ -6189,7 +6189,7 @@
     </property>
     <property key="FormFieldTitle_actualBalance">
         <value xml:lang="en">Actual Balance</value>
-        <value xml:lang="fr">Équilibre réel</value>
+        <value xml:lang="fr">Balance réelle</value>
         <value xml:lang="it">Bilancio Corrente</value>
         <value xml:lang="ru">Фактический остаток</value>
         <value xml:lang="th">ยอดเงินจริง</value>
@@ -6342,7 +6342,7 @@
     </property>
     <property key="FormFieldTitle_availableBalance">
         <value xml:lang="en">Available Balance</value>
-        <value xml:lang="fr">Équilibre disponible</value>
+        <value xml:lang="fr">Balance disponible</value>
         <value xml:lang="it">Bilancio Disponibile</value>
         <value xml:lang="ru">Доступный баланс</value>
         <value xml:lang="th">ยอดเงินที่สามารถใช้ได้</value>
@@ -6432,7 +6432,7 @@
     </property>
     <property key="FormfieldTitle_comments">
         <value xml:lang="en">FormfieldTitle_comments</value>
-        <value xml:lang="fr">Formez le champ Title_comments</value>
+        <value xml:lang="fr">Commentaires</value>
         <value xml:lang="th">ความคิดเห็น</value>
     </property>
     <property key="FormFieldTitle_contactMechId">
@@ -6544,7 +6544,7 @@
     </property>
     <property key="FormFieldTitle_daysOffset">
         <value xml:lang="en">Days Offset</value>
-        <value xml:lang="fr">Jours compensés</value>
+        <value xml:lang="fr">Décalages en jours</value>
         <value xml:lang="it">Giorni di Intervallo</value>
         <value xml:lang="th">กำหนดวันหยุด</value>
     </property>
@@ -6640,7 +6640,7 @@
     </property>
     <property key="FormFieldTitle_entryDate">
         <value xml:lang="en">Entry Date</value>
-        <value xml:lang="fr">Date d'entrée</value>
+        <value xml:lang="fr">Date d'écriture</value>
         <value xml:lang="it">Data Inserimento</value>
         <value xml:lang="ru">Дата ввода</value>
         <value xml:lang="th">วันที่เข้า</value>
@@ -6657,7 +6657,7 @@
     </property>
     <property key="FormFieldTitle_finAccountAuthId">
         <value xml:lang="en">Fin Account Auth Id</value>
-        <value xml:lang="fr">Réf. authentification de compte financier</value>
+        <value xml:lang="fr">Réf. d'autorisation de compte financier</value>
         <value xml:lang="it">Autorizzazione Conto Finanziario</value>
         <value xml:lang="ru">Код автор. фин. счета</value>
         <value xml:lang="th">Fin Account Auth Id</value>
@@ -6685,7 +6685,7 @@
     </property>
     <property key="FormFieldTitle_finAccountPin">
         <value xml:lang="en">Fin Account Pin</value>
-        <value xml:lang="fr">Pin du compte financier</value>
+        <value xml:lang="fr">N° PIN du compte financier</value>
         <value xml:lang="it">Pin Conto Finanziario</value>
         <value xml:lang="ru">ПИН фин. счета</value>
         <value xml:lang="th">Fin Account Pin</value>
@@ -6858,7 +6858,7 @@
     </property>
     <property key="FormFieldTitle_glJournalId">
         <value xml:lang="en">Gl Journal Id</value>
-        <value xml:lang="fr">Réf. journal G1</value>
+        <value xml:lang="fr">Réf. journal du Grand Livre</value>
         <value xml:lang="it">Giornale</value>
         <value xml:lang="th">Gl Journal Id</value>
     </property>
@@ -7184,7 +7184,7 @@
     </property>
     <property key="FormFieldTitle_orderDate">
         <value xml:lang="en">Order Date</value>
-        <value xml:lang="fr">Date d'ordre</value>
+        <value xml:lang="fr">Date de commande</value>
         <value xml:lang="it">Data ordine</value>
         <value xml:lang="th">รายการสั่งซื้อวันที่</value>
     </property>
@@ -7252,7 +7252,7 @@
     </property>
     <property key="FormFieldTitle_ownerPartyId">
         <value xml:lang="en">Owner Party Id</value>
-        <value xml:lang="fr">Réf. partie de propriétaire</value>
+        <value xml:lang="fr">Réf. de l'acteur propriétaire</value>
         <value xml:lang="it">Soggetto Proprietario</value>
         <value xml:lang="ru">Код владельца</value>
         <value xml:lang="th">รหัสกลุ่มผู้เป็นเจ้าของ</value>
@@ -7464,7 +7464,7 @@
     </property>
     <property key="FormFieldTitle_performedByPartyId">
         <value xml:lang="en">Performed By Party Id</value>
-        <value xml:lang="fr">Réf. partie accomplie</value>
+        <value xml:lang="fr">Accompli par l'acteur (Réf.)</value>
         <value xml:lang="it">Eseguito Dal Soggetto</value>
         <value xml:lang="ru">Выполнено участником</value>
         <value xml:lang="th">แสดงโดยรหัสกลุ่มผู้ใช้</value>
@@ -7481,7 +7481,7 @@
     </property>
     <property key="FormFieldTitle_postToGlAccountId">
         <value xml:lang="en">Post To Gl Account Id</value>
-        <value xml:lang="fr">Post To Gl Account Id</value>
+        <value xml:lang="fr">Comptabilisé à la réf. de compte (GL)</value>
         <value xml:lang="it">Contabilizza su Conto Gl</value>
         <value xml:lang="ru">На счет ГК с кодом</value>
         <value xml:lang="th">ประกาศถึงรหัสบัญชีแยกประเภททั่วไป</value>
@@ -7498,7 +7498,7 @@
     </property>
     <property key="FormFieldTitle_postedDate">
         <value xml:lang="en">Posted Date</value>
-        <value xml:lang="fr">Date signalée</value>
+        <value xml:lang="fr">Date de comptabilisation</value>
         <value xml:lang="it">Data Contabilizzazione</value>
         <value xml:lang="th">โพสต์เมื่อวันที่</value>
     </property>
@@ -7641,7 +7641,7 @@
     </property>
     <property key="FormFieldTitle_refundPaymentMethodId">
         <value xml:lang="en">Refund Payment Method Id</value>
-        <value xml:lang="fr">Réf. méthode de paiement de remboursement</value>
+        <value xml:lang="fr">Réf. de méthode de remboursement</value>
         <value xml:lang="it">Metodo di Pagamento Resi</value>
         <value xml:lang="ru">Код способа пополнения</value>
         <value xml:lang="th">รหัสวิธีการชำระเงินคืน</value>
@@ -7658,20 +7658,20 @@
     </property>
     <property key="FormFieldTitle_removeButton">
         <value xml:lang="en">Remove</value>
-        <value xml:lang="fr">Enlever</value>
+        <value xml:lang="fr">Supprimer</value>
         <value xml:lang="it">Rimuovi</value>
         <value xml:lang="th">ลบ</value>
     </property>
     <property key="FormFieldTitle_replenishLevel">
         <value xml:lang="en">Replenish Level</value>
-        <value xml:lang="fr">Reconstituer le niveau</value>
+        <value xml:lang="fr">Niveau de remboursement</value>
         <value xml:lang="it">Livello Rifornimento</value>
         <value xml:lang="ru">Уровень пополнения</value>
         <value xml:lang="th">ระดับการทำให้สมบูรณ์</value>
     </property>
     <property key="FormFieldTitle_replenishPaymentId">
         <value xml:lang="en">Replenish Payment Id</value>
-        <value xml:lang="fr">Réf. reconstituer le paiement</value>
+        <value xml:lang="fr">Réf. de remboursement</value>
         <value xml:lang="it">Pagamento Rifornimento</value>
         <value xml:lang="ru">Код платежа на пополнение</value>
         <value xml:lang="th">รหัสการชำระเงินเสร็จสมบูรณ์</value>
@@ -7688,28 +7688,28 @@
     </property>
     <property key="FormFieldTitle_resultBadCardNumber">
         <value xml:lang="en">Result Bad Card Number</value>
-        <value xml:lang="fr">Mauvais résultat du numéro decarte</value>
+        <value xml:lang="fr">Résultat : n° de carte erroné</value>
         <value xml:lang="it">Risultato Numero Carta Errata</value>
         <value xml:lang="ru">Рез. непр. номер карты</value>
         <value xml:lang="th">เป็นผลให้หมายเลขบัตรเสีย</value>
     </property>
     <property key="FormFieldTitle_resultBadExpire">
         <value xml:lang="en">Result Bad Expire</value>
-        <value xml:lang="fr">mauvais résultat expire</value>
+        <value xml:lang="fr">Résultat : expiration</value>
         <value xml:lang="it">Risultato Errato Scaduto</value>
         <value xml:lang="ru">Результат устарел</value>
         <value xml:lang="th">เป็นผลให้หมดอายุต่ำกว่ามาตรฐาน</value>
     </property>
     <property key="FormFieldTitle_resultDeclined">
         <value xml:lang="en">Result Declined</value>
-        <value xml:lang="fr">Résultat en baisse</value>
+        <value xml:lang="fr">Résultat : refusé</value>
         <value xml:lang="it">Risultato Declinato</value>
         <value xml:lang="ru">Результат отклонен</value>
         <value xml:lang="th">เป็นผลให้ไม่ยอมรับ</value>
     </property>
     <property key="FormFieldTitle_resultNsf">
         <value xml:lang="en">Result Nsf</value>
-        <value xml:lang="fr">Résultat Nsf</value>
+        <value xml:lang="fr">Résultat : fonds insuffisants</value>
         <value xml:lang="it">Risultato Nsf</value>
         <value xml:lang="ru">Результат NSF</value>
         <value xml:lang="th">Result Nsf</value>
@@ -7787,7 +7787,7 @@
     </property>
     <property key="FormFieldTitle_statusId">
         <value xml:lang="en">FormFieldTitle_statusId</value>
-        <value xml:lang="fr">FormFieldTitle_statusId</value>
+        <value xml:lang="fr">Réf. de statut</value>
         <value xml:lang="th">รหัสสถานะ</value>
     </property>
     <property key="FormFieldTitle_subReference">
@@ -7813,7 +7813,7 @@
     </property>
     <property key="FormFieldTitle_taxAuthGeoId">
         <value xml:lang="en">FormFieldTitle_taxAuthGeoId</value>
-        <value xml:lang="fr">FormFieldTitle_taxAuthGeoId</value>
+        <value xml:lang="fr">Réf. de zone d'administration fiscale</value>
         <value xml:lang="th">taxAuthGeoId</value>
     </property>
     <property key="FormFieldTitle_taxAuthorityRateSeqId">
@@ -7888,7 +7888,7 @@
     </property>
     <property key="FormFieldTitle_termTypeId">
         <value xml:lang="en">Term Type Id</value>
-        <value xml:lang="fr">Réf. type de limite</value>
+        <value xml:lang="fr">Réf. de type de terme</value>
         <value xml:lang="it">Tipo Termine di Pagamento</value>
         <value xml:lang="th">รหัสประเภทช่วงเวลาที่กำหนด</value>
     </property>
@@ -7921,7 +7921,7 @@
     </property>
     <property key="FormFieldTitle_timeEntryId">
         <value xml:lang="en">Time Entry Id</value>
-        <value xml:lang="fr">Réf. entrée de temps </value>
+        <value xml:lang="fr">Réf. de date d'écriture</value>
         <value xml:lang="it">Riga Timbratura</value>
         <value xml:lang="th">รหัสตารางการทำงาน</value>
     </property>
@@ -7978,14 +7978,14 @@
     </property>
     <property key="FormFieldTitle_transDescription">
         <value xml:lang="en">Trans Description</value>
-        <value xml:lang="fr">Trans description</value>
+        <value xml:lang="fr">Description de transaction</value>
         <value xml:lang="it">Descrizione Transazione</value>
         <value xml:lang="ru">Опис. провод.</value>
         <value xml:lang="th">ลำดับคำอธิบาย</value>
     </property>
     <property key="FormFieldTitle_transTypeDescription">
         <value xml:lang="en">Trans Type Description</value>
-        <value xml:lang="fr">Type de trans description</value>
+        <value xml:lang="fr">Type de description de transaction</value>
         <value xml:lang="it">Descrizione Tipo Transazione</value>
         <value xml:lang="th">อธิบายประเภทรายการ</value>
     </property>
@@ -8065,7 +8065,7 @@
     </property>
     <property key="OrderSelectAgreementRoles">
         <value xml:lang="en">Select order agreement Roles</value>
-        <value xml:lang="fr">Choisir les rôles d'accord d'ordre</value>
+        <value xml:lang="fr">Choisir les rôles d'accords commerciaux sur commande</value>
     </property>
     <property key="Organization">
         <value xml:lang="ar">المؤسسة</value>
@@ -8081,11 +8081,11 @@
     </property>
     <property key="PageTitleAddAgreementRoles">
         <value xml:lang="en">Add Agreement Roles</value>
-        <value xml:lang="fr">Ajouter rôles d'accord</value>
+        <value xml:lang="fr">Ajouter des rôles d'accords commerciaux</value>
     </property>
     <property key="PageTitleAddBillingAccountRoles">
         <value xml:lang="en">Add Billing Account Roles</value>
-        <value xml:lang="fr">Ajouter les rôles de compte de facturation</value>
+        <value xml:lang="fr">Ajouter les rôles pour le compte de facturation</value>
         <value xml:lang="it">Aggiungi Ruoli Conto Fatturazione</value>
         <value xml:lang="nl">เพิ่มสถานะยอดรวมของบัญชี</value>
     </property>
@@ -8145,11 +8145,11 @@
     </property>
     <property key="PageTitleAddTransactionEntry">
         <value xml:lang="en">Add Transaction Entry</value>
-        <value xml:lang="fr">Ajouter entrée de transaction</value>
+        <value xml:lang="fr">Ajouter une écriture de transaction</value>
     </property>
     <property key="PageTitleCopyAgreement">
         <value xml:lang="en">Copy Agreement</value>
-        <value xml:lang="fr">Convention</value>
+        <value xml:lang="fr">Copie d'accords commerciaux</value>
         <value xml:lang="it">Copia Contratto</value>
         <value xml:lang="th">คัดลอกสัญญา</value>
     </property>
@@ -8166,7 +8166,7 @@
     </property>
     <property key="PageTitleEditAgreementGeographicalApplic">
         <value xml:lang="en">Edit Agreement Geographical Applic</value>
-        <value xml:lang="fr">Modifier applic géographique de l'accord</value>
+        <value xml:lang="fr">Modifier l'application géographique de l'accord commercial</value>
         <value xml:lang="it">Aggiorna Contratto Applicazioni Geografiche</value>
         <value xml:lang="ru">Редактировать географические данные договора</value>
         <value xml:lang="th">Edit Agreement Geographical Applic</value>
@@ -8184,28 +8184,28 @@
     </property>
     <property key="PageTitleEditAgreementItemParty">
         <value xml:lang="en">Edit Agreement Item Party</value>
-        <value xml:lang="fr">Modifier la partie d'article de l'accord</value>
+        <value xml:lang="fr">Modifier la ligne de l'accord commercial pour l'acteur</value>
         <value xml:lang="it">Aggiorna Soggetto Riga Contratto </value>
         <value xml:lang="ru">Изменить участника элемента договора</value>
         <value xml:lang="th">แก้ไขสัญญากลุ่มหัวข้อ</value>
     </property>
     <property key="PageTitleEditAgreementItemProduct">
         <value xml:lang="en">Edit Agreement Item Product</value>
-        <value xml:lang="fr">Modifier le produit d'article de l'accord</value>
+        <value xml:lang="fr">Modifier la ligne de l'accord commercial pour l'article</value>
         <value xml:lang="it">Aggiorna Prodotto Riga Contratto </value>
         <value xml:lang="ru">Изменить продукт элемента договора</value>
         <value xml:lang="th">แก้ไขสัญญาหัวข้อสินค้า</value>
     </property>
     <property key="PageTitleEditAgreementItemTerm">
         <value xml:lang="en">Edit Agreement Item Term</value>
-        <value xml:lang="fr">Modifier le limite d'article de l'accord</value>
+        <value xml:lang="fr">Modifier le terme de la ligne d'accord commercial</value>
         <value xml:lang="it">Aggiorna Termini Riga Contratto</value>
         <value xml:lang="ru">Изменить условия элемента договора</value>
         <value xml:lang="th">แก้ไขสัญญาหัวข้อช่วงเวลาที่กำหนด</value>
     </property>
     <property key="PageTitleEditAgreementPromoAppl">
         <value xml:lang="en">Edit Agreement Promo Appl</value>
-        <value xml:lang="fr">Modifier une promo Appl de l'accord</value>
+        <value xml:lang="fr">Modifier l'application de la promotion d'accord commercial</value>
         <value xml:lang="it">Aggiorna Applicazioni Promozionali Contratto</value>
         <value xml:lang="ru">Изменить акционные предложения договора</value>
         <value xml:lang="th">Edit Agreement Promo Appl</value>
@@ -8223,7 +8223,7 @@
     </property>
     <property key="PageTitleEditAgreementWorkEffortAppls">
         <value xml:lang="en">Edit Agreement Work Effort Appls</value>
-        <value xml:lang="fr">Modifier main d'oeuvre Appls de l'accord</value>
+        <value xml:lang="fr">Modifier les application d'accords commerciaux de service</value>
     </property>
     <property key="PageTitleEditBillingAccount">
         <value xml:lang="en">Edit Billing Account</value>
@@ -8251,7 +8251,7 @@
     </property>
     <property key="PageTitleEditBillingAccountOrders">
         <value xml:lang="en">Edit Billing Account Orders</value>
-        <value xml:lang="fr">Modifier les ordres du compte de facturation</value>
+        <value xml:lang="fr">Modifier le compte de facturation des commandes</value>
         <value xml:lang="it">Aggiorna Ordini Conto Fatturazione</value>
         <value xml:lang="th">แก้ไขรายการยอดรวมของบัญชี</value>
     </property>
@@ -8348,7 +8348,7 @@
     </property>
     <property key="PageTitleEditFixedAssetMaintOrders">
         <value xml:lang="en">Edit Fixed Asset Maint Orders</value>
-        <value xml:lang="fr">Éditer les ordres de toutes immobilisation</value>
+        <value xml:lang="fr">Modifier les commandes de maintenance d'immobilisation</value>
         <value xml:lang="it">Aggiorna Manutenzione Cespite Ordine</value>
         <value xml:lang="th">แก้ไขรายการบำรุงรักษาทรัพย์สินไม่หมุนเวียน</value>
     </property>
@@ -8426,13 +8426,13 @@
     </property>
     <property key="PageTitleEditPartyFixedAssetAssignments">
         <value xml:lang="en">Edit Party Fixed Asset Assignments</value>
-        <value xml:lang="fr">Éditer les tâches d'immobilisation de partie</value>
+        <value xml:lang="fr">Modifier les affectations d'acteur aux immobilisation</value>
         <value xml:lang="it">Aggiorna Assegnamenti Cespiti Soggetto</value>
         <value xml:lang="th">แก้ไขกลุ่มทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="PageTitleEditPartyGlAccounts">
         <value xml:lang="en">Edit Party Gl Accounts</value>
-        <value xml:lang="fr">Éditer les comptes de Gl de partie</value>
+        <value xml:lang="fr">Modifier les comptes de tiers (GL)</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="PageTitleEditPayment">
@@ -8514,11 +8514,11 @@
     </property>
     <property key="PageTitleEditTransaction">
         <value xml:lang="en">Edit Transaction</value>
-        <value xml:lang="fr">Modifier transaction</value>
+        <value xml:lang="fr">Modifier la transaction</value>
     </property>
     <property key="PageTitleEditTransactionEntries">
         <value xml:lang="en">Edit Transaction Entries</value>
-        <value xml:lang="fr">Modifier entrées de transaction</value>
+        <value xml:lang="fr">Modifier les écritures de la transaction</value>
     </property>
     <property key="PageTitleFinAccount">
         <value xml:lang="en">Financial Account</value>
@@ -8535,7 +8535,7 @@
     </property>
     <property key="PageTitleFinancialSummaryReportOptions">
         <value xml:lang="en">Financial Summary Report Options</value>
-        <value xml:lang="fr">Options de rapport de relevé</value>
+        <value xml:lang="fr">Options du rapport de résumé financier</value>
         <value xml:lang="ru">Параметры итогового финансового отчета</value>
         <value xml:lang="th">ตัวเลือกรายงานบัญชีโดยสรุป</value>
     </property>
@@ -8552,7 +8552,7 @@
     </property>
     <property key="PageTitleFindAgreementRoles">
         <value xml:lang="en">Find Agreement Roles</value>
-        <value xml:lang="fr">Chercher les rôles d'accord</value>
+        <value xml:lang="fr">Chercher les rôles d'accords commerciaux</value>
     </property>
     <property key="PageTitleFindBillingAccount">
         <value xml:lang="en">Find Billing Account(s)</value>
@@ -8579,7 +8579,7 @@
     </property>
     <property key="PageTitleFindGlAccount">
         <value xml:lang="en">PageTitleFindGlAccount</value>
-        <value xml:lang="fr">PageTitleFindGlAccount</value>
+        <value xml:lang="fr">Chercher un compte (GL)</value>
         <value xml:lang="th">ค้นหาบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="PageTitleFindGlobalGlAccount">
@@ -8632,7 +8632,7 @@
     </property>
     <property key="PageTitleInventoryIssueSummary">
         <value xml:lang="en">Inventory Issue Summary</value>
-        <value xml:lang="fr">Résumé d'issue d'inventaire</value>
+        <value xml:lang="fr">Résumé des problèmes d'inventaire</value>
         <value xml:lang="ru">Резюме выдачи ТМЦ</value>
         <value xml:lang="th">โดยสรุปการประกาศสินค้าคงเหลือ</value>
     </property>
@@ -8658,34 +8658,34 @@
     </property>
     <property key="PageTitleListAgreement">
         <value xml:lang="en">List Agreement</value>
-        <value xml:lang="fr">Liste d'accord</value>
+        <value xml:lang="fr">Liste des accords commerciaux</value>
         <value xml:lang="it">Lista Contratti</value>
         <value xml:lang="th">รายการสัญญา</value>
     </property>
     <property key="PageTitleListAgreementGeographicalApplic">
         <value xml:lang="en">List Agreement Geographical Applic</value>
-        <value xml:lang="fr">Liste geographique applic de l'accord</value>
+        <value xml:lang="fr">Liste d'application géographique des accords commerciaux</value>
         <value xml:lang="it">Lista Applicazioni Geografiche Contratto</value>
         <value xml:lang="ru">Список географических данных договора</value>
         <value xml:lang="th">List Agreement Geographical Applic</value>
     </property>
     <property key="PageTitleListAgreementItemParties">
         <value xml:lang="en">List Agreement Item Parties</value>
-        <value xml:lang="fr">Liste parties d'article de l'accord</value>
+        <value xml:lang="fr">Liste des lignes des accords commerciaux (acteurs)</value>
         <value xml:lang="it">Lista Soggetti Riga Contratto</value>
         <value xml:lang="ru">Список участников элемента договора</value>
         <value xml:lang="th">รายการสัญญาไอเทมกลุ่มผู้ใช้</value>
     </property>
     <property key="PageTitleListAgreementItemProducts">
         <value xml:lang="en">List Agreement Item Products</value>
-        <value xml:lang="fr">Liste produits d'article de l'accord </value>
+        <value xml:lang="fr">Liste des lignes des accords commerciaux</value>
         <value xml:lang="it">Lista Prodotti Riga Contratto</value>
         <value xml:lang="ru">Список продуктов элемента договора</value>
         <value xml:lang="th">รายการสัญญาไอเทมสินค้า</value>
     </property>
     <property key="PageTitleListAgreementItemTerms">
         <value xml:lang="en">List Agreement Item Terms</value>
-        <value xml:lang="fr">Liste des limites d'article de l'accord</value>
+        <value xml:lang="fr">Liste des termes des lignes des accords commerciaux</value>
         <value xml:lang="it">Lista Termini Riga Contratto</value>
         <value xml:lang="ru">Список условий элемента договора</value>
         <value xml:lang="th">รายการสัญญาไอเทมช่วงเวลาที่กำหนด</value>
@@ -8702,14 +8702,14 @@
     </property>
     <property key="PageTitleListAgreementPromoAppls">
         <value xml:lang="en">List Agreement Promo Appls</value>
-        <value xml:lang="fr">Liste des promos Appls de l'accord</value>
+        <value xml:lang="fr">Liste des applications de promotion d'accords commerciaux</value>
         <value xml:lang="it">Lista Applicazioni Promozionali Contratto</value>
         <value xml:lang="ru">Список акций элемента договора</value>
         <value xml:lang="th">List Agreement Promo Appls</value>
     </property>
     <property key="PageTitleListAgreementRoles">
         <value xml:lang="en">List Agreement Roles</value>
-        <value xml:lang="fr">Liste des rôles de l'accord</value>
+        <value xml:lang="fr">Liste des rôles d'accords commerciaux</value>
     </property>
     <property key="PageTitleListAgreementTerms">
         <value xml:lang="en">List Agreement Terms</value>
@@ -8734,7 +8734,7 @@
     </property>
     <property key="PageTitleListFinAccountAuths">
         <value xml:lang="en">List Fin Account Auths</value>
-        <value xml:lang="fr">Liste d'authentification de compte financier</value>
+        <value xml:lang="fr">Liste des autorisations de compte financier</value>
         <value xml:lang="it">Lista Autorizzazioni Conto Finanziario</value>
         <value xml:lang="th">List Fin Account Auths</value>
     </property>
@@ -8774,7 +8774,7 @@
     </property>
     <property key="PageTitleListFixedAssetMaintOrders">
         <value xml:lang="en">List Fixed Asset Maint Orders</value>
-        <value xml:lang="fr">Liste des ordres de maintenance d'immobilisation</value>
+        <value xml:lang="fr">Liste des commandes de maintenance d'immobilisation</value>
         <value xml:lang="it">Lista Manutenzioni Cespiti Ordini</value>
         <value xml:lang="th">แสดงรายการบำรุงรักษาทรัพย์สินไม่หมุนเวียน</value>
     </property>
@@ -8849,7 +8849,7 @@
     </property>
     <property key="PageTitleListPartyFixedAssetAssignments">
         <value xml:lang="en">List Party Fixed Asset Assignments</value>
-        <value xml:lang="fr">Liste des tâches d'immobilisation de partie</value>
+        <value xml:lang="fr">Liste des affectations d'acteurs aux immobilisations</value>
         <value xml:lang="it">Lista Assegnazioni Soggetto Cespite</value>
         <value xml:lang="th">List Party Fixed Asset Assignments</value>
     </property>
@@ -8941,7 +8941,7 @@
     </property>
     <property key="PageTitlePaymentByMethodSummary">
         <value xml:lang="en">Payments By Method Summary</value>
-        <value xml:lang="fr">paiements par résumé de méthode</value>
+        <value xml:lang="fr">Résumé des paiements par de méthode</value>
         <value xml:lang="ru">Резюме Платежи по способам</value>
         <value xml:lang="th">การชำระเงินโดยสรุป</value>
     </property>
@@ -8957,13 +8957,13 @@
     </property>
     <property key="PageTitleSalesInvoiceByProductCategorySummary">
         <value xml:lang="en">Sales Invoice By Product Category Summary</value>
-        <value xml:lang="fr">Résumé de catégorie de sous-produit de facture de ventes</value>
+        <value xml:lang="fr">Résumé des factures de vente par catégorie de produits</value>
         <value xml:lang="ru">Резюме Расходные накладные по продуктовым категориям</value>
         <value xml:lang="th">ใบเสร็จการขายโดยสรุปหมวดหมู่สินค้า</value>
     </property>
     <property key="PageTitleSalesInvoiceByProductGlAccountSummary">
         <value xml:lang="en">Sales Invoice By Product GL Account Summary</value>
-        <value xml:lang="fr">Résumé de compte du sous-produit GL de facture de ventes</value>
+        <value xml:lang="fr">Résumé des factures de vente par compte de produit</value>
         <value xml:lang="ru">Резюме Расходные накладные по продуктовым счетам</value>
         <value xml:lang="th">ใบเสร็จการขายโดยสรุปสินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -9014,7 +9014,7 @@
     </property>
     <property key="PageTitleViewTransactionEntries">
         <value xml:lang="en">View Transaction Entries</value>
-        <value xml:lang="fr">Voir les entrées de transaction</value>
+        <value xml:lang="fr">Voir les écritures de la transaction</value>
     </property>
     <property key="PartyPartyId">
         <value xml:lang="en">Party ID</value>
@@ -9249,43 +9249,43 @@
     </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed to execute service createPaymentFromPreference</value>
-        <value xml:lang="fr">Pour exécuter le service créer le paiement de la préférence</value>
+        <value xml:lang="fr">Echec à l'exécution du service createPaymentFromPreference</value>
         <value xml:lang="it">Fallita esecuzione del servizio createPaymentFromPreference</value>
         <value xml:lang="th">การดำเนินการผิดพลาด createPaymentFromPreference</value>
     </property>
     <property key="payPalEvents.noValidOrderIdReturned">
         <value xml:lang="en">No valid orderId returned with PayPal Callback.</value>
-        <value xml:lang="fr">Aucune identification valide d'ordre n'est retournée avec le rappel de service de PayPal.</value>
+        <value xml:lang="fr">Aucune réf. valide de commande retournée par l'appel à PayPal.</value>
         <value xml:lang="it">Nessun ordine valido restituito da PayPal.</value>
         <value xml:lang="th">ไม่มีค่ารหัสรายการสั่งซื้อคืนกลับมาด้วยการเรียกกลับของ paypal</value>
     </property>
     <property key="payPalEvents.previousPayPalOrderHasBeenCancelled">
         <value xml:lang="en">Previous PayPal order has been cancelled.</value>
-        <value xml:lang="fr">L'ordre précédent de PayPal a été décommandé.</value>
+        <value xml:lang="fr">La commande PayPal précédente a été annulée.</value>
         <value xml:lang="it">Ordine PayPal precedente è stato annullato.</value>
         <value xml:lang="th">กลับไปยังรายการpaypalที่ถูกยกเลิก</value>
     </property>
     <property key="payPalEvents.problemsConnectingWithPayPal">
         <value xml:lang="en">Problems connecting with PayPal, please contact customer service.</value>
-        <value xml:lang="fr">Les problèmes avec PayPal, svp entrer en contact avec le service clientèle.</value>
+        <value xml:lang="fr">Les problèmes pour se connecter à PayPal, SVP entrez en contact avec le service clientèle.</value>
         <value xml:lang="it">Problemi nella connessione a PayPal, prego contattare il servizio clienti.</value>
         <value xml:lang="th">ปัญหาในการเชิ่อมต่อด้วย paypal , กรุณาติดต่อบริการลูกค้า</value>
     </property>
     <property key="payPalEvents.problemsGettingAuthenticationUser">
         <value xml:lang="en">Problems getting authentication user.</value>
-        <value xml:lang="fr">Problèmes d'obtention d'authentification de l'utilisateur</value>
+        <value xml:lang="fr">Problèmes d'obtention  d'authentification utilisateur</value>
         <value xml:lang="it">Problemi durante autenticazione utente</value>
         <value xml:lang="th">ปัญหาการเรียกใช้สัญลักษณ์ผู้ใช้</value>
     </property>
     <property key="payPalEvents.problemsGettingMerchantConfiguration">
         <value xml:lang="en">Problems getting merchant configuration, please contact customer service.</value>
-        <value xml:lang="fr">Problèmes de la configuration marchande, svp entrer en contact avec le service clientèle.</value>
+        <value xml:lang="fr">Problèmes d'obtention de la configuration du vendeur, svp entrer en contact avec le service clientèle.</value>
         <value xml:lang="it">Problemi leggendo la configurazione del venditore, prego contattare il servizio clienti.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้เกี่ยวกับการติดต่อการค้า , กรุณาติดต่อบริการลูกค้า</value>
     </property>
     <property key="payPalEvents.problemsGettingOrderHeader">
         <value xml:lang="en">Problems getting order header.</value>
-        <value xml:lang="fr">Problèmes d'obtention commande d'en-tête.</value>
+        <value xml:lang="fr">Problèmes d'obtention d'en-tête de commande .</value>
         <value xml:lang="it">Problemi nel ricavare la testata ordine.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้หัวข้อรายการสั่งซื้อ</value>
     </property>
