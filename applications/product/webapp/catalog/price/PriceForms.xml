@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+    <form name="FindProductPriceRules" list-name="listIt" title="" type="list" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="FindProductPriceRules">
+        <actions>
+            <set field="noConditionFind" value="Y"/>
+            <set field="parameters.productPriceRuleId" value=""/>
+            <set field="parameters.ruleName" value=""/>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">      
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="ProductPriceRule"/>
+            </service>
+        </actions>
+        <field name="productPriceRuleId" title="${uiLabelMap.ProductPriceRuleNameId}" widget-style="buttontext">
+            <hyperlink target="EditProductPriceRules?productPriceRuleId=${productPriceRuleId}" description="${ruleName}[${productPriceRuleId}]" />
+        </field>
+        <field name="isSale" title="${uiLabelMap.ProductSaleRule}?"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display/></field>
+        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display/></field>
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="EditProductPriceRules?productPriceRuleId=${productPriceRuleId}" description="${uiLabelMap.CommonEdit}"/>
+        </field>
+    </form>
+    <form name="AddPriceRules" type="single" target="createProductPriceRule">
+        <field name="ruleName" title="${uiLabelMap.ProductName}"><text size="30"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+</forms>
