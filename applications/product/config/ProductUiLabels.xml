@@ -2166,7 +2166,7 @@
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="de">Zuletzt bearbeitet von Benutzeranmeldung</value>
         <value xml:lang="en">Last Modified By User Login</value>
-        <value xml:lang="fr">Modifiée dernièrement par l'utilisateur</value>
+        <value xml:lang="fr">Modifié dernièrement par l'identifiant de connexion</value>
         <value xml:lang="it">Ultima Modifica Dell'Utente</value>
         <value xml:lang="ro">Ultima Modificare a Utilizatorului</value>
         <value xml:lang="ru">Последним изменил пользователь</value>
@@ -3227,7 +3227,7 @@
     <property key="FormFieldTitle_receivedByUserLoginId">
         <value xml:lang="de">Erhalten von Benutzeranmeldung ID</value>
         <value xml:lang="en">Received By User Login Id</value>
-        <value xml:lang="fr">Réf. par login utilisateur</value>
+        <value xml:lang="fr">Reçu par l'identifiant de connexion</value>
         <value xml:lang="it">Ricevuto dall'Utente</value>
         <value xml:lang="th">ได้รับโดยรหัสการลอกอินเข้าสู่ระบบของผู้ใช้</value>
     </property>
@@ -9217,7 +9217,7 @@
         <value xml:lang="de">Erstellt von Benutzeranmeldung</value>
         <value xml:lang="en">Created By User Login</value>
         <value xml:lang="es">Creado por usuario</value>
-        <value xml:lang="fr">Créé par l'utilisateur</value>
+        <value xml:lang="fr">Créé par l'identifiant de connexion</value>
         <value xml:lang="it">Creato Da Utente</value>
         <value xml:lang="ro">Creat De Utilizator </value>
         <value xml:lang="ru">Создан пользователем</value>
@@ -12115,7 +12115,7 @@
         <value xml:lang="de">Zuletzt bearbeitet von Benutzeranmeldung</value>
         <value xml:lang="en">Last Modified By User Login</value>
         <value xml:lang="es">Última modificación hecha por usuario</value>
-        <value xml:lang="fr">Utilisateur de la dernière modification</value>
+        <value xml:lang="fr">Identifiant de connexion de la dernière modification</value>
         <value xml:lang="it">Ultima Modifica Dell'Utente</value>
         <value xml:lang="ro">Ultima Modificare a utilizatorului</value>
         <value xml:lang="ru">Последним изменил</value>

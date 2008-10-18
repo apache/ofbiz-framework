@@ -523,7 +523,7 @@
     <property key="FormFieldTitle_createdByUserLogin">
         <value xml:lang="de">Erstellt von Benutzeranmeldung</value>
         <value xml:lang="en">Created By User Login</value>
-        <value xml:lang="fr">Créé par l'identifiant</value>
+        <value xml:lang="fr">Créé par l'identifiant de connexion</value>
         <value xml:lang="it">Creato Dall'Utente</value>
         <value xml:lang="nl">Aangemaakt door ingelogde gebruiker</value>
         <value xml:lang="ro">Creat De Utilizatorul</value>
@@ -812,7 +812,7 @@
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="de">Wurde zuletzt geändert von der Benutzeranmeldung</value>
         <value xml:lang="en">Last Modified By User Login</value>
-        <value xml:lang="fr">Modifié dernièrement par l'identifiant utilisateur</value>
+        <value xml:lang="fr">Modifié dernièrement par l'identifiant de connexion</value>
         <value xml:lang="it">Ultima Modifica Dell'Utente</value>
         <value xml:lang="nl">Laatste wijziging door gebruiker</value>
         <value xml:lang="ro">Ultima Modificare a utilizatorului</value>
@@ -1997,7 +1997,7 @@
     <property key="OrderCOD">
         <value xml:lang="de">zahlbar bei Lieferung</value>
         <value xml:lang="en">COD</value>
-        <value xml:lang="fr">COD</value>
+        <value xml:lang="fr">Contre remboursement</value>
         <value xml:lang="th">เงินด่วน</value>
     </property>
     <property key="OrderCalculatedOffline">
@@ -9197,7 +9197,7 @@
         <value xml:lang="de">Benutzeranmeldung ID</value>
         <value xml:lang="en">User Login Id</value>
         <value xml:lang="es">Código de usuario</value>
-        <value xml:lang="fr">Réf. login utilisateur</value>
+        <value xml:lang="fr">Réf. d'identifiant de  connexion</value>
         <value xml:lang="th">รหัสการลอกอินเข้าสู่ระบบของผู้ใช้</value>
     </property>
     <property key="product3net">

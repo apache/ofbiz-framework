@@ -1141,7 +1141,7 @@
     <property key="OrderNoUserLoginFoundForUserLoginId">
         <value xml:lang="en">No userLogin found for userLoginId : </value>
         <value xml:lang="es">No se encontró usuario para el código:</value>
-        <value xml:lang="fr">Aucun connexion utilisateur trouvée pour l'identifiant de connexion utilisateur : </value>
+        <value xml:lang="fr">Aucun connexion utilisateur trouvée pour l'identifiant de connexion : </value>
         <value xml:lang="it">Nessun Utente trovato per userLoginId : </value>
         <value xml:lang="ro">Nici-un Utilizator gasit pentru userLoginId : </value>
         <value xml:lang="ru">Не найден userLogin для userLoginId: </value>

@@ -1618,7 +1618,7 @@
         <value xml:lang="de">Benutzeranmeldungen der Sicherheitsgruppe bearbeiten</value>
         <value xml:lang="en">Edit Security Group UserLogins</value>
         <value xml:lang="es">Editar grupo de ususario</value>
-        <value xml:lang="fr">Modifier les utilisateurs du groupe de sécurité</value>
+        <value xml:lang="fr">Modifier les identifiants de connexion du groupe de sécurité</value>
         <value xml:lang="it">Aggiorna Gruppo Sicurezza Utente</value>
         <value xml:lang="nl">Wijzig rechten users</value>
         <value xml:lang="pt_PT">Editar Inícios Dos Utilizadores De Segurança</value>
@@ -1631,7 +1631,7 @@
         <value xml:lang="de">Sicherheitsgruppen zur Benuterzanmeldung bearbeiten</value>
         <value xml:lang="en">Edit UserLogin Security Groups</value>
         <value xml:lang="es">Editar grupos de seguridad</value>
-        <value xml:lang="fr">Modifier les groupes de sécurité de l'utilisateur</value>
+        <value xml:lang="fr">Modifier les groupes de sécurité de l'identifiant de connexion </value>
         <value xml:lang="it">Aggiorna Gruppi Sicurezza Utente</value>
         <value xml:lang="nl">Wijzig groepen gebruiker</value>
         <value xml:lang="ro">Actualizare Grup Siguranta Utilizator</value>
@@ -2173,7 +2173,7 @@
         <value xml:lang="de">Benutzeranmeldung zur Sicherheitsgruppe hinzufügen</value>
         <value xml:lang="en">Add UserLogin to Security Group</value>
         <value xml:lang="es">Añadir usuario a grupo de seguridad</value>
-        <value xml:lang="fr">Ajouter un utilisateur de connexion à ce groupe de sécurité</value>
+        <value xml:lang="fr">Ajouter un identifiant de connexion à ce groupe de sécurité</value>
         <value xml:lang="it">Aggiungi Utente al Gruppo Sicurezza</value>
         <value xml:lang="nl">Voeg gebruikers login naam aan beveiligde groep</value>
         <value xml:lang="pt_PT">Adicionar Início de Utilizador a Este Grupo de Segurança</value>
@@ -3450,7 +3450,7 @@
         <value xml:lang="de">Benutzeranmeldung erstellen</value>
         <value xml:lang="en">Create UserLogin</value>
         <value xml:lang="es">Crear usuario</value>
-        <value xml:lang="fr">Création connexion utilisateur</value>
+        <value xml:lang="fr">Création d'un identifiant de connexion</value>
         <value xml:lang="it">Creare Utente</value>
         <value xml:lang="nl">Nieuwe gebruiker</value>
         <value xml:lang="ro">Creare Utilizator</value>
@@ -4457,7 +4457,7 @@
     <property key="PartyLookupPartyAndUserLoginAndPerson">
         <value xml:lang="de">Akteur und Benutzeranmeldung suchen</value>
         <value xml:lang="en">Lookup PartyAndUserLoginAndPerson</value>
-        <value xml:lang="fr">Consulter l'acteur et son identifiant</value>
+        <value xml:lang="fr">Consulter l'acteur et son identifiant de connexion</value>
         <value xml:lang="it">Ricerca Soggetti Utenti e Persone</value>
         <value xml:lang="nl">Zoek relatie gebruiker en of persoon</value>
         <value xml:lang="ro">Cauta Subiecti Utilizzatori si Persoane</value>
@@ -4523,7 +4523,7 @@
     <property key="PartyLookupUserLoginAndPartyDetails">
         <value xml:lang="de">Benutzeranmeldung und Akteur suchen</value>
         <value xml:lang="en">Lookup UserLoginAndPartyDetails</value>
-        <value xml:lang="fr">Consulter l'identifant et les détails de l'acteur</value>
+        <value xml:lang="fr">Consulter l'identifiant de connexion et les détails de l'acteur</value>
         <value xml:lang="it">Ricerca Soggetti Utenti e Dettagli</value>
         <value xml:lang="ru">Искать подробности имени входа/участника</value>
         <value xml:lang="th">ค้นหาผู้ใช้ระบบและรายละเอียดกลุ่มผู้ใช้</value>
@@ -5205,7 +5205,7 @@
         <value xml:lang="de">Keine Benutzeranmeldung gefunden für diesen Akteur.</value>
         <value xml:lang="en">No UserLogin(s) found for this party.</value>
         <value xml:lang="es">No se encontró usuario para este participante</value>
-        <value xml:lang="fr">Pas d'utilisateur de connexion pour cet acteur</value>
+        <value xml:lang="fr">Pas d'identifiant de connexion pour cet acteur</value>
         <value xml:lang="it">Nessun Utente(i) trovato per questo Soggetto.</value>
         <value xml:lang="nl">No UserLogin(s) found for this party.</value>
         <value xml:lang="pt_PT">Entradas de Utilizadores não encontradas nesta Secção.</value>
@@ -7156,7 +7156,7 @@
     <property key="PartyUserLoginUpdateSecuritySettings">
         <value xml:lang="de">Benutzeranmeldung Sicherheitsberechtigungen aktualisieren</value>
         <value xml:lang="en">Update UserLogin Security Settings</value>
-        <value xml:lang="fr">Mise à jour des paramètres de sécurité pour la connexion</value>
+        <value xml:lang="fr">Mise à jour des paramètres de sécurité pour l'identifiant de connexion</value>
         <value xml:lang="it">Aggiorna Impostazioni Sicurezza Utente Login</value>
         <value xml:lang="ro">Actualizare Setari De Siguranta Utilizator Login</value>
         <value xml:lang="ru">Обновление настроек безопасности пользователя</value>
