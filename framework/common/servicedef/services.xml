@@ -574,7 +574,7 @@ under the License.
 
     <service name="deleteTemporalExpressionAssoc" default-entity-name="TemporalExpressionAssoc" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Temporal Expression Association</description>
-        <permission-service service-name="exampleGenericPermission" main-action="DELETE"/>
+        <permission-service service-name="tempExprPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
