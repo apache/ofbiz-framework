@@ -309,7 +309,7 @@
         <value xml:lang="de">Konnte Passwort nicht ändern, UserLogin mit der ID "${userLoginId}" existiert nicht.</value>
         <value xml:lang="en">Could not change password, UserLogin with ID "${userLoginId}" does not exist.</value>
         <value xml:lang="es">No se pudo cambiar el password. El usuario con Id "${userLoginId}"  no existe</value>
-        <value xml:lang="fr">Impossible de changer le mot de passe, l'utilisateur "${userLoginId}" n'existe pas.</value>
+        <value xml:lang="fr">Impossible de changer le mot de passe, l'identifiant de connexion "${userLoginId}" n'existe pas.</value>
         <value xml:lang="it">Non è possibile cambiare la password, l'utente "${userLoginId}" non esiste.</value>
         <value xml:lang="nl">Could not change password, UserLogin with ID "${userLoginId}" does not exist.</value>
         <value xml:lang="ro">Nu este  posibila schimbarea parolei, Cod Utilizator "${userLoginId}" inexistent.</value>

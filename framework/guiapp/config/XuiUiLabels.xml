@@ -25,7 +25,7 @@
     </property>
     <property key="UserLoginNotValid">
         <value xml:lang="en">UserLogin returned not valid (null)</value>
-        <value xml:lang="fr">UserLogin retourné non valide (null)</value>
+        <value xml:lang="fr">Identifiant de connexion retourné non valide (null)</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้ระบบไม่ถูกต้อง (ค่าว่าง)</value>
     </property>
     <property key="UsernameDoesNotMatchLoggedUser">

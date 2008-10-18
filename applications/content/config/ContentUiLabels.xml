@@ -1107,7 +1107,7 @@
     <property key="FormFieldTitle_createdByUserLogin">
         <value xml:lang="ar">استحدث من طرف المستخدم</value>
         <value xml:lang="en">Created By User Login</value>
-        <value xml:lang="fr">Créé par l'identifiant</value>
+        <value xml:lang="fr">Créé par l'identifiant de connexion</value>
         <value xml:lang="it">Creato Dall'Utente</value>
         <value xml:lang="ro">Creiat De Utilizator</value>
         <value xml:lang="th">สร้างโดยผู้ลงชื่อเข้าใช้ระบบ</value>
@@ -1543,7 +1543,7 @@
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
         <value xml:lang="en">Last Modified By User Login</value>
-        <value xml:lang="fr">Modification en dernier par l'identifiant</value>
+        <value xml:lang="fr">Modification en dernier par l'identifiant de connexion</value>
         <value xml:lang="it">Ultima Modifica Dell'Utente</value>
         <value xml:lang="ro">Ultima Modificare Utilizator</value>
         <value xml:lang="th">ปรับปรุงครั้งสุดท้ายโดยผู้เข้าใช้ระบบ</value>
@@ -2211,7 +2211,7 @@
     </property>
     <property key="ListOwnCreatedTemplates">
         <value xml:lang="en">List own created Templates</value>
-        <value xml:lang="fr">Voir les modèles créés</value>
+        <value xml:lang="fr">Voir vos modèles (créés par vous)</value>
     </property>
     <property key="PageTitleAddAssociation">
         <value xml:lang="ar">إضافة إرتباط</value>
@@ -2874,7 +2874,7 @@
     <property key="PageTitleForumGroupPurposes">
         <value xml:lang="ar">أهداف من أجل مجموعة المنتدى:</value>
         <value xml:lang="en">Purposes for forumgroup:</value>
-        <value xml:lang="fr">Buts pour le groupe de forum</value>
+        <value xml:lang="fr">Buts pour le groupe de forums</value>
         <value xml:lang="it">Funzioni per gruppo forum:</value>
         <value xml:lang="ro">Functii pe grup forum:</value>
         <value xml:lang="th">วัตถุประสงค์สำหรับกลุ่มแสดงความคิดเห็น:</value>
@@ -2883,7 +2883,7 @@
     <property key="PageTitleForumGroupRoles">
         <value xml:lang="ar">أدوار لمجموعة المنتدى:</value>
         <value xml:lang="en">Roles for forumgroup:</value>
-        <value xml:lang="fr">Rôles pour le groupe de forum:</value>
+        <value xml:lang="fr">Rôles pour le groupe de forums : </value>
         <value xml:lang="it">Ruoli per gruppo forum:</value>
         <value xml:lang="ro">Drepturi pe grup forum:</value>
         <value xml:lang="th">สถานะสำหรับแสดงความคิดเห็น:</value>

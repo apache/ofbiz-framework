@@ -141,6 +141,7 @@
     </property>
     <property key="productsExportToGoogle.cannotRetrieveUserLogin">
         <value xml:lang="en">Cannot retrieve User Login</value>
+        <value xml:lang="fr">Impossible de récupérer l'identifiant de connexion</value>        
         <value xml:lang="it">Non è ricavare User Login</value>
         <value xml:lang="th">ไม่สามารถเรียกข้อมูลการลอกอินเข้าสู่ระบบของผู้ใช้คืนมา</value>
     </property>
