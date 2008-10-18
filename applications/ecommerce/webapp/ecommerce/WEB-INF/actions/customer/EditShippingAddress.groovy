@@ -45,6 +45,8 @@ if (userLogin) {
         if (shipToCountryProvinceGeo) {
             context.shipToCountryProvinceGeo =  shipToCountryProvinceGeo.geoName;
         }
+    } else {
+        context.shipToContactMechId = null;
     }
     
 	shipToContactMechList = ContactHelper.getContactMech(party, "PHONE_SHIPPING", "TELECOM_NUMBER", false)
