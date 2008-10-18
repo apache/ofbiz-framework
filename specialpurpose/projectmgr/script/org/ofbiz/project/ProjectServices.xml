@@ -706,6 +706,7 @@
             <condition-list combine="and">
                 <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId" ignore-if-empty="true"/>
                 <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
+                <condition-expr field-name="partyId" operator="not-equals" env-name="null"/>
             </condition-list>
             <order-by field-name="projectId"/>
             <order-by field-name="partyId"/>

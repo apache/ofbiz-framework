@@ -207,42 +207,41 @@ projectPhaseTasks = [];
 dataAdd = [];
 
 if (!"mytasks".equals(headerItem)) {
-	//assigned task to party
-    tasks.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
-    tasks.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_COMPLETED"));
-    tasks.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_CANCELLED"));
-    tasks.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_ON_HOLD"));
-    taskCond = EntityCondition.makeCondition(tasks, EntityOperator.AND);
-    projectPhaseTaskChecks = delegator.findList("ProjectPartyAndPhaseAndTask", taskCond, null, orderByList, null, false);
-    projectPhaseTaskChecks.each { projectPhaseTask ->
-    	taskPaertys = [];
-        taskPaertys.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
-        taskPaertys.add(EntityCondition.makeCondition("workEffortId", EntityOperator.EQUALS, projectPhaseTask.workEffortId));
-        taskPaertys.add(EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "PAS_COMPLETED"));
-        taskPaertyCond = EntityCondition.makeCondition (taskPaertys, EntityOperator.AND);
-        projectPhaseTaskPartys = delegator.findList ("ProjectAndPhaseAndTaskParty", taskPaertyCond, null, orderByList, null, false);
-        projectPhaseTaskPartys.each { check ->
-        	ass = [];
-            ass.add(EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId));
-            ass.add(EntityCondition.makeCondition("workEffortId", EntityOperator.NOT_EQUAL, check.workEffortId));
-            ass.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "PAS_ASSIGNED"));
-            assCond = EntityCondition.makeCondition (ass, EntityOperator.AND);
-            workEffortAssignments = delegator.findList("WorkEffortPartyAssignment", assCond, null, null, null, false);
-            if (workEffortAssignments) {
-                found = false;
-                timeEntries.each { timeEntry ->
-	                if (timeEntry.workEffortId.equals(check.workEffortId)) {
-	                    found = true;
-	                }
-                }
-                if (!found) {
-                    projectPhaseTasks.add(check);
-                }
-            }
-        }
-    }
-}
-else{//Don't assign tasks
+	nowDate = UtilDateTime.nowTimestamp();
+	taskCond = EntityCondition.makeCondition ([EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
+	                                           EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"),
+	                                           EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowDate),
+	                                           EntityCondition.makeCondition ([EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowDate),
+	                                                                           EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)
+	                                                                          ], EntityOperator.OR),
+	                                          ], EntityOperator.AND);
+	    
+	projectList = delegator.findList("WorkEffortAndPartyAssign", taskCond, (HashSet) ["workEffortId"], ["workEffortId"], null, false);
+	projects = [];
+	projectList.each { project ->
+	    projects.add(project.workEffortId);
+	}
+	if (projects) {
+	    taskPartyCond = 
+	        EntityCondition.makeCondition (
+	                [EntityCondition.makeCondition("projectId", EntityOperator.IN, projects),
+	                 EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PTS_CREATED"),
+	                 EntityCondition.makeCondition(
+                             [EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, null),
+                              EntityCondition.makeCondition(
+                            		  [EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
+                                       EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowDate),
+                                       EntityCondition.makeCondition ([EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowDate),
+                                                                       EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)
+                                                                      ], EntityOperator.OR),
+                                      ],EntityOperator.AND),
+                             ],EntityOperator.OR),
+	                ],EntityOperator.AND);
+	    orderByList = ["projectId", "phaseId", "workEffortId"];
+	    HashSet fields = ["workEffortId", "projectName", "phaseName", "workEffortName"];
+	    projectPhaseTasks = delegator.findList ("ProjectAndPhaseAndTaskParty", taskPartyCond, fields, orderByList, null, false);
+	}
+} else {//Don't assign tasks
 	tasksAss = [];
     tasksAss.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_COMPLETED"));
     tasksAss.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_CANCELED"));
