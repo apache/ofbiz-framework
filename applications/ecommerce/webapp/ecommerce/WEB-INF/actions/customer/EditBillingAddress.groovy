@@ -68,7 +68,7 @@ if (userLogin) {
     }
     if (shipToContactMechId) {
         if (billToContactMechId && billToContactMechId.equals(shipToContactMechId)) {
-            context.put("useShippingAddressForBilling", "Y");
+            context.useShippingAddressForBilling = "Y";
         }
     }    
 } 
