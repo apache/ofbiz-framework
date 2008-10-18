@@ -1756,7 +1756,7 @@ under the License.
 
     <request-map uri="updatePartyEmailAddress">
         <security https="true" auth="true"/>
-        <event type="jsonsimple" path="org/ofbiz/ecommerce/customer/CustomerEvents.xml" invoke="createUpdateEmailAddress"/>
+        <event type="jsonservice" invoke="createUpdateEmailAddress"/>
         <response name="success" type="none"/>
         <response name="error" type="none"/>
     </request-map>

@@ -1118,10 +1118,11 @@ under the License.
     <service name="createUpdateEmailAddress" engine="simple" 
         location="component://party/script/org/ofbiz/party/party/PartyServices.xml" invoke="createUpdateEmailAddress" auth="false">
         <description>Create and Update email address</description>
-        <attribute name="partyId" type="String" mode="IN" optional="false"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
         <attribute name="userLogin" type="GenericValue" mode="IN" optional="true"/>
         <attribute name="contactMechPurposeTypeId" type="String" mode="IN" optional="true"/>
-        <attribute name="emailAddress" type="String" mode="IN" optional="false"/>
-        <attribute name="contactMechId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="emailAddress" type="String" mode="INOUT" optional="false"/>
+        <attribute name="contactMechId" type="String" mode="IN" optional="true"/>
+        <attribute name="contactMechId" type="String" mode="OUT" optional="false"/>
     </service>
 </services>
