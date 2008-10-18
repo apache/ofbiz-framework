@@ -142,7 +142,7 @@ function getServerError(data) {
 
 function inPlaceEditEmail(e) {
     if ($('updatedEmailContactMechId')) {
-        var url = 'updatePartyEmailAddress?emailContactMechId='+ $('updatedEmailContactMechId').value;
+        var url = 'updatePartyEmailAddress?contactMechId='+ $('updatedEmailContactMechId').value;
         var errorId = 'serverError_' + $('updatedEmailContactMechId').value;
         var oldEmailAddress = $('updatedEmailAddress').value;
         var editor = new Ajax.InPlaceEditor(e, url, {clickToEditText: 'click here to change your email', paramName: 'emailAddress', htmlResponse: false, updateAfterRequestCall: true,
@@ -156,13 +156,14 @@ function inPlaceEditEmail(e) {
                         $('emailAddress').update(oldEmailAddress);
                     } else {
                         Effect.Fade(errorId);
-                        if (data.emailContactMechId != undefined) {
-                            $('updatedEmailContactMechId').value = data.emailContactMechId;
-                            $('updatedEmailAddress').value = data.emailContactMech.infoString;
+                        if (data.contactMechId != undefined) {
+                            $('updatedEmailContactMechId').value = data.contactMechId;
+                            $('updatedEmailAddress').value = data.emailAddress;
                         } else  {
                             $('emailAddress').update(oldEmailAddress);
                         }
                         inPlaceEditEmail('emailAddress');
+                        $(errorId).id = 'serverError_' + $('updatedEmailContactMechId').value;
                         editor.dispose();
                     }
                 }

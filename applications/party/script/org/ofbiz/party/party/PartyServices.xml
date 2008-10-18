@@ -967,6 +967,7 @@ under the License.
     <simple-method method-name="createUpdateEmailAddress" short-description="Create and update email address" login-required="false">
         <if-empty field="parameters.contactMechId">
             <set-service-fields service-name="createPartyEmailAddress" map-name="parameters" to-map-name="emailAddressContext"/>
+            <set field="emailAddressContext.partyId" from-field="userLogin.partyId"/>
             <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext">
                 <result-to-field result-name="contactMechId" field-name="contactMechId"/>
             </call-service>
@@ -979,6 +980,8 @@ under the License.
             <log level="info" message="Email Contact updated emailContactMechId is ${contactMechId}"></log>
         </else>
         </if-empty>
+        <entity-one entity-name="ContactMech" value-name="contactMech"/>
+        <field-to-result field-name="contactMech.infoString" result-name="emailAddress"/>
         <field-to-result field-name="contactMechId"/>
     </simple-method>
 
