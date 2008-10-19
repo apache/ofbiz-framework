@@ -530,7 +530,7 @@
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <field name="deleteButton" widget-style="smallSubmit"><submit button-type="button"/></field>
-        <field name="complete"><hyperlink description="set to Complete" target="updateTaskPartyAssign?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=CAL_COMPLETED&amp;thruDate=${nowDate}"/></field>
+        <field name="complete"><hyperlink description="set to Complete" target="updateTaskPartyAssign?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED&amp;thruDate=${nowDate}"/></field>
     </form>
     <form name="ListTaskParties" type="list" list-name="taskParties"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
