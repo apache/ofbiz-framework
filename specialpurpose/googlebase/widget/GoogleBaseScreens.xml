@@ -94,8 +94,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="productId"/></not></condition>
+                                    <condition><not><if-empty field-name="product"/></not></condition>
                                     <widgets>
+                                        <include-menu name="ProductTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                         <platform-specific>
                                             <html><html-template location="component://product/webapp/catalog/product/ProductTabBar.ftl"/></html>
                                         </platform-specific>

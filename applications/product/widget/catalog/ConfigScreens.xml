@@ -39,9 +39,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field-name="configItemId"/></not></condition>
                                     <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/catalog/config/ConfigItemTabBar.ftl"/></html>
-                                        </platform-specific>
+                                        <include-menu name="ConfigItemTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                         <container>
                                             <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${configItem.configItemName} [${uiLabelMap.CommonId}:${configItemId}]  ${${extraFunctionName}}</label>
                                         </container>
