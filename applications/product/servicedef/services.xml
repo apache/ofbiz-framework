@@ -1073,7 +1073,9 @@ under the License.
     </service>
     <service name="createSimpleTextContentForProductConfigItem" default-entity-name="ProdConfItemContent" engine="simple"
             location="org/ofbiz/product/config/ProductConfigItemContentServices.xml" invoke="createSimpleTextContentForProductConfigItem" auth="true">
-        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="configItemId" type="String" mode="IN" optional="false"></attribute>
+        <attribute name="contentId" type="String" mode="IN" optional="true"></attribute>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <auto-attributes mode="IN" entity-name="Content" optional="true"/>
         <attribute name="text" type="String" mode="IN" optional="false"/>
