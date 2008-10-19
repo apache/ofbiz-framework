@@ -1350,6 +1350,7 @@ padding: 0.1em;
 /* tab-bar decorator intended to be used at
 the top of the main content area */
 .tab-bar {
+display:table;
 }
 
 .tab-bar ul li {

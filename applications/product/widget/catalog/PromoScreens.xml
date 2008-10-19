@@ -39,9 +39,7 @@ under the License.
                                 <section>
                                     <condition><not><if-empty field-name="productPromoId"/></not></condition>
                                     <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/catalog/promo/PromoTabBar.ftl"/></html>
-                                        </platform-specific>
+                                        <include-menu name="PromoTabBar" location="component://product/widget/catalog/Menus.xml"/>
                     
                                         <container>
                                             <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${productPromo.promoName} [${uiLabelMap.CommonId}:${productPromoId}]  ${${extraFunctionName}}</label>

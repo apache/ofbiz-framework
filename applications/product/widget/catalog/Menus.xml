@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+﻿<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -28,5 +28,258 @@ under the License.
         <menu-item name="configs" title="${uiLabelMap.ProductConfigItems}"><link target="FindProductConfigItems"/></menu-item>
         <menu-item name="Subscription" title="${uiLabelMap.ProductSubscriptions}"><link target="FindSubscription"/></menu-item>
         <menu-item name="shipping" title="${uiLabelMap.ProductShipping}"><link target="ListShipmentMethodTypes"/></menu-item>
+    </menu>
+
+    <menu name="TabBarMenu" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"/>
+
+    <menu name="FeaturesTabBar" extends="TabBarMenu">
+        <menu-item name="FeatureType" title="${uiLabelMap.ProductFeatureType}">
+            <link target="EditFeatureTypes"/>
+        </menu-item>
+        <menu-item name="FeatureCategory" title="${uiLabelMap.ProductFeatureCategory}">
+            <link target="EditFeatureCategories"/>
+        </menu-item>
+        <menu-item name="FeatureGroup" title="${uiLabelMap.ProductFeatureGroup}">
+            <link target="EditFeatureGroups"/>
+        </menu-item>
+        <menu-item name="FeatureInterAction" title="${uiLabelMap.ProductFeatureInteraction}">
+            <link target="EditFeatureInterActions"/>
+        </menu-item>
+    </menu>
+
+    <menu name="ShippingTabBar" extends="TabBarMenu">
+        <menu-item name="ListShipmentMethodTypes" title="${uiLabelMap.ProductShipmentMethodTypes}">
+            <link target="ListShipmentMethodTypes"/>
+        </menu-item>
+        <menu-item name="ListQuantityBreaks" title="${uiLabelMap.ProductQuantityBreaks}">
+            <link target="ListQuantityBreaks"/>
+        </menu-item>
+        <menu-item name="ListCarrierShipmentMethods" title="${uiLabelMap.ProductCarrierShipmentMethods}">
+            <link target="ListCarrierShipmentMethods"/>
+        </menu-item>
+    </menu>
+
+    <menu name="CategoryTabBar" extends="TabBarMenu">
+        <menu-item name="EditCategory" title="${uiLabelMap.ProductCategory}">
+            <link target="EditCategory?productCategoryId=${productCategoryId}"/>
+        </menu-item>
+        <menu-item name="EditCategoryContent" title="${uiLabelMap.ProductCategoryContent}">
+            <link target="EditCategoryContent?productCategoryId=${productCategoryId}"/>
+        </menu-item>
+        <menu-item name="EditCategoryRollup" title="${uiLabelMap.ProductRollup}">
+            <link target="EditCategoryRollup?showProductCategoryId=${productCategoryId}"/>
+        </menu-item>
+        <menu-item name="EditCategoryProducts" title="${uiLabelMap.ProductProducts}">
+            <link target="EditCategoryProducts?productCategoryId=${productCategoryId}"/>
+        </menu-item>
+        <menu-item name="EditCategoryProdCatalogs" title="${uiLabelMap.ProductCatalogs}">
+            <link target="EditCategoryProdCatalogs?productCategoryId=${productCategoryId}"/>
+        </menu-item>
+        <menu-item name="EditCategoryFeatureCats" title="${uiLabelMap.ProductFeatureCats}">
+            <link target="EditCategoryFeatureCats?productCategoryId=${productCategoryId}"/>
+        </menu-item>
+        <menu-item name="EditCategoryParties" title="${uiLabelMap.PartyParties}">
+            <link target="EditCategoryParties?productCategoryId=${productCategoryId}"/>
+        </menu-item>
+        <menu-item name="EditCategoryAttributes" title="${uiLabelMap.ProductAttributes}">
+            <link target="EditCategoryAttributes?productCategoryId=${productCategoryId}"/>
+        </menu-item>
+        <menu-item name="EditProductCategoryLinks" title="${uiLabelMap.ProductCategoryLinks}">
+            <link target="EditProductCategoryLinks?productCategoryId=${productCategoryId}"/>
+        </menu-item>
+    </menu>
+
+    <menu name="ProductStoreTabBar" extends="TabBarMenu">
+        <menu-item name="EditProductStore" title="${uiLabelMap.ProductStore}">
+            <link target="EditProductStore?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStoreRoles" title="${uiLabelMap.PartyRoles}">
+            <link target="EditProductStoreRoles?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStorePromos" title="${uiLabelMap.ProductPromos}">
+            <link target="EditProductStorePromos?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStoreCatalogs" title="${uiLabelMap.ProductCatalogs}">
+            <link target="EditProductStoreCatalogs?productStoreId=${productStoreId}"/>
+        </menu-item>       
+        <menu-item name="EditProductStoreWebSites" title="${uiLabelMap.ProductWebSites}">
+            <link target="EditProductStoreWebSites?viewProductStoreId=${productStoreId}"/>
+        </menu-item>
+        <!-- The tax stuff is in the Tax Authority area of the accounting manager, need to re-do this screen to list current tax entries and link to the accmgr screens
+        <menu-item name="EditProductStoreTaxSetup" title="${uiLabelMap.ProductSalesTax}">
+            <link target="EditProductStoreTaxSetup?productStoreId=${productStoreId}"/>
+        </menu-item>
+        -->
+        <menu-item name="EditProductStoreShipSetup" title="${uiLabelMap.OrderShipping}">
+            <link target="EditProductStoreShipSetup?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStoreShipmentCostEstimates" title="${uiLabelMap.ProductViewEstimates}">
+            <link target="EditProductStoreShipmentCostEstimates?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStorePaySetup" title="${uiLabelMap.AccountingPayments}">
+            <link target="EditProductStorePaySetup?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStoreFinAccountSettings" title="${uiLabelMap.CommonFinAccounts}">
+            <link target="EditProductStoreFinAccountSettings?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStoreEmails" title="${uiLabelMap.CommonEmails}">
+            <link target="EditProductStoreEmails?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStoreSurveys" title="${uiLabelMap.CommonSurveys}">
+            <link target="EditProductStoreSurveys?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStoreKeywordOvrd" title="${uiLabelMap.ProductOverride}">
+            <link target="editProductStoreKeywordOvrd?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="ViewProductStoreSegments" title="${uiLabelMap.ProductSegments}">
+            <link target="ViewProductStoreSegments?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStoreVendorPayments" title="${uiLabelMap.ProductVendorPayments}">
+            <link target="EditProductStoreVendorPayments?productStoreId=${productStoreId}"/>
+        </menu-item>
+        <menu-item name="EditProductStoreVendorShipments" title="${uiLabelMap.ProductVendorShipments}">
+            <link target="EditProductStoreVendorShipments?productStoreId=${productStoreId}"/>
+        </menu-item>
+    </menu>
+
+    <menu name="CatalogTabBar" extends="TabBarMenu">
+        <menu-item name="ProductCatalog" title="${uiLabelMap.ProductCatalog}">
+            <link target="EditProdCatalog?prodCatalogId=${prodCatalogId}"/>
+        </menu-item>
+        <menu-item name="ProductStores" title="${uiLabelMap.ProductStores}">
+            <link target="EditProdCatalogStores?prodCatalogId=${prodCatalogId}"/>
+        </menu-item>
+        <menu-item name="PartyParties" title="${uiLabelMap.PartyParties}">
+            <link target="EditProdCatalogParties?prodCatalogId=${prodCatalogId}"/>
+        </menu-item>
+        <menu-item name="ProductCategories" title="${uiLabelMap.ProductCategories}">
+            <link target="EditProdCatalogCategories?prodCatalogId=${prodCatalogId}"/>
+        </menu-item>
+    </menu>
+
+    <menu name="PromoTabBar" extends="TabBarMenu">
+        <menu-item name="EditProductPromo" title="${uiLabelMap.ProductPromotion}">
+            <link target="EditProductPromo?productPromoId=${productPromoId}"/>
+        </menu-item>
+        <menu-item name="EditProductPromoRules" title="${uiLabelMap.ProductRules}">
+            <link target="EditProductPromoRules?productPromoId=${productPromoId}"/>
+        </menu-item>
+        <menu-item name="EditProductPromoStores" title="${uiLabelMap.ProductStores}">
+            <link target="EditProductPromoStores?productPromoId=${productPromoId}"/>
+        </menu-item>
+        <menu-item name="FindProductPromoCode" title="${uiLabelMap.ProductPromotionCode}">
+            <link target="FindProductPromoCode?productPromoId=${productPromoId}"/>
+        </menu-item>
+    </menu>
+
+    <menu name="ProductTabBar" extends="TabBarMenu">
+        <menu-item name="EditProduct" title="${uiLabelMap.ProductProduct}">
+            <link target="EditProduct?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductPrices" title="${uiLabelMap.ProductPrices}">
+            <link target="EditProductPrices?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductContent" title="${uiLabelMap.ProductContent}">
+            <link target="EditProductContent?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductGeos" title="${uiLabelMap.CommonGeos}">
+            <link target="EditProductGeos?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductGoodIdentifications" title="${uiLabelMap.CommonIds}">
+            <link target="EditProductGoodIdentifications?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductCategories" title="${uiLabelMap.ProductCategories}">
+            <link target="EditProductCategories?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductKeyword" title="${uiLabelMap.ProductKeywords}">
+            <link target="EditProductKeyword?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductAssoc" title="${uiLabelMap.ProductAssociations}">
+            <link target="EditProductAssoc?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="ViewProductManufacturing" title="${uiLabelMap.ProductManufacturing}">
+            <link target="ViewProductManufacturing?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductCosts" title="${uiLabelMap.ProductCosts}">
+            <link target="EditProductCosts?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductAttributes" title="${uiLabelMap.ProductAttributes}">
+            <link target="EditProductAttributes?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductFeatures" title="${uiLabelMap.ProductFeatures}">
+            <link target="EditProductFeatures?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductFacilities" title="${uiLabelMap.ProductFacilities}">
+            <link target="EditProductFacilities?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductFacilityLocations" title="${uiLabelMap.ProductLocations}">
+            <link target="EditProductFacilityLocations?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductInventoryItems" title="${uiLabelMap.ProductInventory}">
+            <link target="EditProductInventoryItems?productId=${productId}&amp;showAllFacilities=Y"/>
+        </menu-item>
+        <menu-item name="EditSupplierProduct" title="${uiLabelMap.ProductSuppliers}">
+            <link target="EditProductSuppliers?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="ViewProductAgreements" title="${uiLabelMap.ProductAgreements}">
+            <link target="ViewProductAgreements?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductGlAccounts" title="${uiLabelMap.ProductAccounts}">
+            <link target="EditProductGlAccounts?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductPaymentMethodTypes" title="${uiLabelMap.ProductPaymentTypes}">
+            <link target="EditProductPaymentMethodTypes?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductMaints" title="${uiLabelMap.ProductMaintenance}">
+            <link target="EditProductMaints?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductMeters" title="${uiLabelMap.ProductMeters}">
+            <link target="EditProductMeters?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductSubscriptionResources" title="${uiLabelMap.ProductSubscriptionResources}">
+            <link target="EditProductSubscriptionResources?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductQuickAdmin" title="${uiLabelMap.ProductQuickAdmin}">
+            <link target="EditProductQuickAdmin?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditVendorProduct" title="${uiLabelMap.PartyVendor}">
+            <link target="EditVendorProduct?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="QuickAddVariants" title="${uiLabelMap.ProductVariants}">
+            <condition>
+                <if-compare field-name="product.isVirtual" operator="equals" value="Y"/>
+            </condition>
+            <link target="QuickAddVariants?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductConfigs" title="${uiLabelMap.ProductConfigs}">
+            <condition>
+                <if-compare field-name="product.productTypeId" operator="equals" value="AGGREGATED"/>
+            </condition>
+            <link target="EditProductConfigs?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductAssetUsage" title="${uiLabelMap.ProductAssetUsage}">
+            <condition>
+                <if-compare field-name="product.productTypeId" operator="equals" value="ASSET_USAGE"/>
+            </condition>
+            <link target="EditProductAssetUsage?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductWorkEfforts" title="${uiLabelMap.WorkEffortWorkEffort}">
+            <link target="EditProductWorkEfforts?productId=${productId}"/>
+        </menu-item>
+        <menu-item name="EditProductParties" title="${uiLabelMap.PartyParties}">
+            <link target="EditProductParties?productId=${productId}"/>
+        </menu-item>
+    </menu>
+
+    <menu name="ConfigItemTabBar" extends="TabBarMenu">
+        <menu-item name="EditProductConfigItem" title="${uiLabelMap.ProductConfigItem}">
+            <link target="EditProductConfigItem?configItemId=${configItemId}"/>
+        </menu-item>
+        <menu-item name="EditProductConfigOptions" title="${uiLabelMap.ProductConfigOptions}">
+            <link target="EditProductConfigOptions?configItemId=${configItemId}"/>
+        </menu-item>
+        <menu-item name="EditProductConfigItemContent" title="${uiLabelMap.ProductContent}">
+            <link target="EditProductConfigItemContent?configItemId=${configItemId}"/>
+        </menu-item>
     </menu>
 </menus>

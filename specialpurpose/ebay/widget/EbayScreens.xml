@@ -59,11 +59,9 @@ under the License.
                             </condition>
                             <widgets>
                                 <section>
-                                    <condition><not><if-empty field-name="productId"/></not></condition>
+                                    <condition><not><if-empty field-name="product"/></not></condition>
                                     <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://product/webapp/catalog/product/ProductTabBar.ftl"/></html>
-                                        </platform-specific>
+                                        <include-menu name="ProductTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                         <container>
                                             <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
                                             <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content"/>
