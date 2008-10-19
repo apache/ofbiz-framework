@@ -1372,13 +1372,20 @@ under the License.
         <response name="success" type="view" value="ViewResponse"/>
         <response name="error" type="view" value="ViewResponse"/>
     </request-map>
-
-
-    <!-- TO BE REMOVED
     <request-map uri="defaultcontent">
         <security https="true" auth="false"/>
         <response name="success" type="view" value="defaultcontent"/>
     </request-map>
+    <request-map uri="showcontenttree">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="showcontenttree"/>
+    </request-map>
+    <request-map uri="viewcontent">
+        <security https="true" auth="false"/>
+        <response name="success" type="view" value="viewcontent"/>
+    </request-map>
+
+    <!-- TO BE REMOVED
     <request-map uri="createforumarticle">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="createforumarticle"/>
@@ -1439,14 +1446,6 @@ under the License.
         <event invoke="persistContentAndAssoc" path="" type="service"/>
         <response name="success" type="view" value="editforumarticle"/>
         <response name="error" type="view" value="editaddforumdata"/>
-    </request-map>
-    <request-map uri="showcontenttree">
-        <security https="true" auth="false"/>
-        <response name="success" type="view" value="showcontenttree"/>
-    </request-map>
-    <request-map uri="viewcontent">
-        <security https="true" auth="false"/>
-        <response name="success" type="view" value="viewcontent"/>
     </request-map>
     -->
     
