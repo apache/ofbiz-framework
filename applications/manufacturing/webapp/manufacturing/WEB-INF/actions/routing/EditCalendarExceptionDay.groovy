@@ -49,6 +49,8 @@ context.listCalendarExceptionDayWrapper = listCalendarExceptionDayWrapper;
 context.addCalendarExceptionDayWrapper = addCalendarExceptionDayWrapper;
 
 exceptionDateStartTime = parameters.exceptionDateStartTime ?: request.getAttribute("exceptionDateStartTime");
+exceptionDateStartTime = ObjectType.simpleTypeConvert(exceptionDateStartTime, "Timestamp", null, null);
+
 if (exceptionDateStartTime) {
     calendarExceptionDay = delegator.findByPrimaryKey("TechDataCalendarExcDay", [calendarId : calendarId , exceptionDateStartTime : exceptionDateStartTime]);
     if (calendarExceptionDay) {
