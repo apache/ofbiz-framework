@@ -246,5 +246,13 @@ under the License.
         <attribute name="invoiceId" type="String" mode="INOUT" optional="true"/>
         <attribute name="reCreate" type="String" mode="IN" optional="true"/>
     </service>
-
+    <service name="addValidationPartiesToTask" engine="simple" auth="true"
+        location="org/ofbiz/project/ProjectServices.xml" invoke="addValidationPartiesToTask">
+        <description>SECA to add either project-testing or -approval parties to a task when a task is set to complete</description>
+        <attribute name="workEffortId" type="String" mode="IN" optional="true"/>
+        <attribute name="partyId" type="String" mode="IN" optional="true"/>
+        <attribute name="roleTypeId" type="String" mode="IN" optional="true"/>
+        <attribute name="statusId" type="String" mode="IN" optional="true"/>
+    </service>
+    
 </services>

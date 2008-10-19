@@ -189,7 +189,6 @@
                 <now-date-to-env env-name="generalStartDate"/>
             </else>
         </if-not-empty>
-        <log level="always" message="========== generalStartDate: ${generalStartDate}"></log>
         <while>
             <condition>
                 <if-empty field="generalStartDate"/>
@@ -385,15 +384,16 @@
             </if-not-empty>
         </loop>
         
-        <!-- update the assignment status -->
+        <!-- update the assignment status if required -->
         <if-compare field="parameters.checkComplete" value="Y" operator="equals">
             <first-from-list entry-name="alreadyAssign" list-name="assigns"/>
             <if-compare field="alreadyAssign.statusId" value="PAS_COMPLETED" operator="not-equals">
-                <set field="parameters.partyId" from-field="timesheet.partyId"/>
-                <set field="parameters.statusId" value="PAS_COMPLETED"/>
-                <set field="parameters.roleTypeId" from-field="alreadyAssign.roleTypeId"/>
-                <set field="parameters.fromDate" from-field="alreadyAssign.fromDate"/>
-                <call-simple-method method-name="updateTaskAssigment"/>
+                <set field="upStat.partyId" from-field="timesheet.partyId"/>
+                <set field="upStat.statusId" value="PAS_COMPLETED"/>
+                <set field="upStat.roleTypeId" from-field="alreadyAssign.roleTypeId"/>
+                <set field="upStat.workEffortId" from-field="parameters.workEffortId"/>
+                <set field="upStat.fromDate" from-field="alreadyAssign.fromDate"/>
+                <call-service service-name="updateTaskAssigment" in-map-name="upStat"/>
             </if-compare>
         </if-compare>
     </simple-method>          
@@ -1198,4 +1198,55 @@
             </if-empty>
         </iterate>
     </simple-method>    
+
+    <simple-method method-name="addValidationPartiesToTask" short-description="SECA to add either project-testing or -approval parties to a task when a task is set to complete">
+        <!-- check if this is the last party which completed his task -->
+        <log level="always" message="============= check workEffort: ${parameters.workEffortId}"/>
+        <entity-condition entity-name="WorkEffortPartyAssignment" list-name="openTasks" filter-by-date="true">
+            <condition-list combine="and">
+                <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId"/>
+                <condition-expr field-name="statusId" operator="not-equals" value="PAS_COMPLETED"/>
+                <condition-expr field-name="partyId" operator="not-equals" env-name="parameters.partyId"/>
+            </condition-list>
+        </entity-condition>  
+        <if-empty field="openTasks">
+            <set field="getProject.taskId" from-field="parameters.workEffortId"/>
+            <call-service service-name="getProjectIdAndNameFromTask" in-map-name="getProject">
+            <result-to-field result-name="projectId"/>
+	        </call-service>
+	        <!-- see who is reponsible for testing/validation in this project -->
+	        <entity-condition entity-name="WorkEffortPartyAssignment" list-name="assigns" filter-by-date="true">
+	            <condition-list combine="and">
+	                <condition-expr field-name="workEffortId" operator="equals" env-name="projectId"/>
+	                <condition-expr field-name="partyId" operator="not-equals" env-name="parameters.partyId"/><!-- should not test/val own work -->
+	                <condition-list combine="or">
+	                    <condition-expr field-name="roleTypeId" operator="equals" value="PROVIDER_VALIDATOR"/>
+	                    <condition-expr field-name="roleTypeId" operator="equals" value="PROVIDER_TESTER"/>
+	                </condition-list>
+	            </condition-list>
+	        </entity-condition>
+	        <if-not-empty field="assigns">
+	            <set field="addAssign.workEffortId" from-field="parameters.workEffortId"/>
+	            <set field="addAssign.statusId" value="PAS_ASSIGNED"/>
+	            <iterate entry-name="assign" list-name="assigns">
+	                <make-value value-name="newAssign" entity-name="WorkEffortPartyAssignment"/>
+	                <set field="newAssign.workEffortId" from-field="parameters.workEffortId"/>
+	                <set field="newAssign.partyId" from-field="assign.partyId"/>
+	                <set field="newAssign.roleTypeId" from-field="assign.roleTypeId"/>
+	                <set field="newAssign.assignedByUserLoginId" value="system"/>
+	                <now-date-to-env env-name="newAssign.fromDate"/>
+	                <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
+	                <create-value value-name="newAssign"/>
+	            </iterate>            
+	            <else>
+	                <log level="info" message="No validation parties defined in this project: no validation parties added...."></log>
+	            </else>
+	        </if-not-empty>
+            <else>
+                <log level="info" message="Not the last party who completes his task: validation parties not added...."></log>
+                <log level="info" message="=====parties not completed: openTasks: ${openTasks}"></log>
+            </else>
+        </if-empty>
+    </simple-method>
+
 </simple-methods>
