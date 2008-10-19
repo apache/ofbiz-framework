@@ -45,14 +45,13 @@ under the License.
     </form>
     <form name="ListCalendarExceptionDay" type="list" target="UpdateCalendarExceptionDay" title="" list-name="calendarExceptionDays"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <auto-fields-service service-name="updateCalendarExceptionDay" map-name="calendarExceptionDay"/>
         <field name="calendarId"><hidden/></field>
         <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field> 
         <field name="exceptionDateStartTime" title="${uiLabelMap.ManufacturingExceptionDateStartTime}"><display/></field>
         <field name="exceptionCapacity" title="${uiLabelMap.ManufacturingCalendarCapacity}" ><display/></field>
         <field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditCalendarExceptionDay?calendarId=${calendarId}&amp;exceptionDateStartTime=${exceptionDateStartTime}"
-                description="${uiLabelMap.CommonSelected}" />
+                description="${uiLabelMap.CommonSelect}" />
         </field> 
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="RemoveCalendarExceptionDay?calendarId=${calendarId}&amp;exceptionDateStartTime=${exceptionDateStartTime}"
@@ -96,7 +95,7 @@ under the License.
         </field>
         <field name="updateLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditCalendarExceptionWeek?calendarId=${calendarExceptionWeek.calendarId}&amp;exceptionDateStart=${calendarExceptionWeek.exceptionDateStart}"
-                description="${uiLabelMap.CommonSelected}" />
+                description="${uiLabelMap.CommonSelect}" />
         </field> 
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="RemoveCalendarExceptionWeek?calendarId=${calendarExceptionWeek.calendarId}&amp;exceptionDateStart=${calendarExceptionWeek.exceptionDateStart}"

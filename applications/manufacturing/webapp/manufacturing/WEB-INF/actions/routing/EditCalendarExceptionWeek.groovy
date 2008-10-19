@@ -19,6 +19,7 @@
 
 
 import org.ofbiz.widget.html.HtmlFormWrapper;
+import org.ofbiz.base.util.*;
 
 if(security.hasEntityPermission("MANUFACTURING", "_VIEW", session)) {
     context.hasPermission = Boolean.TRUE;
@@ -29,10 +30,10 @@ techDataCalendar = [:];
 calendarExceptionWeeks = [];
 
 calendarId = parameters.calendarId ?: request.getAttribute("calendarId");;
-if (calendarId != null) {
+if (calendarId) {
     techDataCalendar = delegator.findByPrimaryKey("TechDataCalendar", [calendarId : calendarId]);
 }
-if (techDataCalendar != null) {
+if (techDataCalendar) {
     calendarExceptionWeeks = techDataCalendar.getRelated("TechDataCalendarExcWeek");
 }
 calendarExceptionWeeksDatas = [];
@@ -52,6 +53,8 @@ context.listCalendarExceptionWeekWrapper = listCalendarExceptionWeekWrapper;
 context.addCalendarExceptionWeekWrapper = addCalendarExceptionWeekWrapper;
 
 exceptionDateStart = parameters.exceptionDateStart ?: request.getAttribute("exceptionDateStart");
+exceptionDateStart = ObjectType.simpleTypeConvert(exceptionDateStart, "Timestamp", null, null);
+
 if (exceptionDateStart) {
     calendarExceptionWeek = delegator.findByPrimaryKey("TechDataCalendarExcWeek", [calendarId : calendarId , exceptionDateStart : exceptionDateStart]);
     if (calendarExceptionWeek) {
