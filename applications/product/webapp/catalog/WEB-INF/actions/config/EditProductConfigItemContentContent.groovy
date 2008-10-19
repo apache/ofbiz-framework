@@ -25,7 +25,6 @@ import org.ofbiz.widget.html.*;
 contentId = request.getParameter("contentId") ?: null;
 
 confItemContentTypeId = request.getParameter("confItemContentTypeId");
-fromDate = request.getParameter("fromDate") ?: null;
 
 description = request.getParameter("description") ?: null;
 
