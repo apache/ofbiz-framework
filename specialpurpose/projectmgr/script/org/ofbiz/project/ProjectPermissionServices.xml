@@ -143,19 +143,10 @@
 
         <!-- TASK -->
         <if-compare field="sec_object" value="TASK" operator="equals">
-            <if-not-empty field="parameters.workEffortParentId">
+            <set field="taskId" from-field="parameters.taskId" default-value="${parameters.workEffortId}"/>
+            <if-empty field="taskId">
                 <set field="phaseId" from-field="parameters.workEffortParentId"/>
-                <else>
-                    <if-not-empty field="parameters.taskId">
-                        <set field="taskId" from-field="parameters.taskId"/>
-                        <else>
-                            <if-not-empty field="parameters.workEffortId">
-                                <set field="taskId" from-field="parameters.workEfortId"/>
-                            </if-not-empty>                    
-                        </else>
-                    </if-not-empty>                    
-                </else>
-            </if-not-empty>
+            </if-empty>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
             <!--call-simple-method method-name="checkProjectMembership"/-->
             <!-- log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription} isMember: ${isMember}"/-->
