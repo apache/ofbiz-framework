@@ -172,7 +172,7 @@ under the License.
     <alias entity-alias="WEPH" field="workEffortId" name="phaseId"/>
     <alias entity-alias="WEPH" field="workEffortName" name="phaseName"/>
     <alias entity-alias="TS" field="statusId" name="timesheetStatusId"/>
-    <alias entity-alias="TS" field="partyId" name="resourcePartyId"/>
+    <alias entity-alias="TS" field="partyId" name="timesheetPartyId"/>
     <view-link entity-alias="WEP" rel-entity-alias="WEPH">
       <key-map field-name="workEffortId" rel-field-name="workEffortParentId"/>
     </view-link>

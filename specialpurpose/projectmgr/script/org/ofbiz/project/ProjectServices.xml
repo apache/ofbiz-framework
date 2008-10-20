@@ -758,48 +758,105 @@
     </simple-method>
     
     <simple-method method-name="getPartiesByProject" short-description="get Project information" login-required="true">
-        <entity-condition entity-name="WorkEffortPartyAssignView" list-name="resources" filter-by-date="true">
-            <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.projectId"/>
+        <!-- list of actual hours by party -->
+        <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list-name="tasks">
+            <condition-list combine="and">
+                <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId" ignore-if-empty="true"/>
+                <condition-expr field-name="timesheetPartyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
+                <condition-expr field-name="timesheetPartyId" operator="not-equals" env-name="null"/>
+            </condition-list>
+            <order-by field-name="projectId"/>
+            <order-by field-name="timesheetPartyId"/>
+        </entity-condition>
+        <if-not-empty field="tasks">
+            <iterate entry-name="task" list-name="tasks">
+                <if>
+                    <condition>
+                        <and>
+                            <not><if-empty field="projectParty"/></not>
+                            <if-compare-field field="projectParty.partyId" operator="not-equals" to-field="task.timesheetPartyId"/>
+                        </and>
+                    </condition>
+                    <then>
+                        <entity-one entity-name="PartyNameView" value-name="partyNameView">
+                            <field-map field-name="partyId" env-name="projectParty.partyId"/>
+                        </entity-one>
+                        <if-not-empty field="partyNameView">
+                            <set field="projectParty.partyName" value="${partyNameView.lastName},${partyNameView.firstName} ${partyNameView.middleName}${partyNameView.groupName}"/>
+                        </if-not-empty>
+                        <entity-and entity-name="WorkEffortPartyAssignment" list-name="resources" filter-by-date="true">
+                            <field-map field-name="workEffortId" env-name="task.projectId"/>
+                            <field-map field-name="partyId" env-name="projectParty.partyId"/>
+                        </entity-and>
+                        <if-not-empty field="resources">
+                            <iterate list-name="resources" entry-name="resource">
+                                <set field="projectParty.roleTypeId" from-field="resource.roleTypeId"/>
+                                <set field="projectParty.fromDate" from-field="resource.fromDate"/>
+                                <set field="projectParty.thruDate" from-field="resource.thruDate"/>
+                            </iterate>
+                        </if-not-empty>                       
+                        <field-to-list field-name="projectParty" list-name="projectParties"/>
+                        <log level="always" message="=====writing party: ${projectParty.partyId} Hours: ${projectParty.actualHours}"></log>
+                        <clear-field field-name="projectParty"/>                        
+                    </then>
+                </if>
+                <set field="projectParty.projectId" from-field="task.projectId"/>
+                <set field="projectParty.partyId" from-field="task.timesheetPartyId"/>
+                <calculate field-name="projectParty.actualHours">
+                    <calcop operator="get" field-name="projectParty.actualHours"/>
+                    <calcop operator="add" field-name="task.hours"/>
+                </calculate>
+            </iterate>
+            <if-not-empty field="projectParty">
+                <entity-one entity-name="PartyNameView" value-name="partyNameView">
+                    <field-map field-name="partyId" env-name="projectParty.partyId"/>
+                </entity-one>
+                <if-not-empty field="partyNameView">
+                    <set field="projectParty.partyName" value="${partyNameView.lastName},${partyNameView.firstName} ${partyNameView.middleName}${partyNameView.groupName}"/>
+                </if-not-empty>
+                <entity-and entity-name="WorkEffortPartyAssignment" list-name="resources" filter-by-date="true">
+                    <field-map field-name="workEffortId" env-name="projectParty.projectId"/>
+                    <field-map field-name="partyId" env-name="projectParty.partyId"/>
+                </entity-and>
+                <if-not-empty field="resources">
+                    <first-from-list entry-name="resource" list-name="resources"/>
+                    <set field="projectParty.roleTypeId" from-field="resource.roleTypeId"/>
+                    <set field="projectParty.fromDate" from-field="resource.fromDate"/>
+                    <set field="projectParty.thruDate" from-field="resource.thruDate"/>
+                </if-not-empty>                       
+                <field-to-list field-name="projectParty" list-name="projectParties"/>
+            </if-not-empty>
+        </if-not-empty>
+        <entity-condition entity-name="WorkEffortPartyAssignment" list-name="resources" filter-by-date="true">
+            <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.projectId" ignore-if-empty="true"/>
             <order-by field-name="roleTypeId"/>
         </entity-condition>
-        <if-not-empty field="resources">
-            <iterate entry-name="resource" list-name="resources">
-                <clear-field field-name="projectParty"/>
-	            <clear-field field-name="highInfo"/>
-	            <set field="projectParty.partyId" from-field="resource.partyId"/>
-	            <entity-one entity-name="PartyNameView" value-name="partyNameView">
-	                <field-map field-name="partyId" env-name="resource.partyId"/>
-	            </entity-one>
-	            <if-not-empty field="partyNameView">
-	                <set field="projectParty.partyName" value="${partyNameView.lastName},${partyNameView.firstName} ${partyNameView.middleName}${partyNameView.groupName}"/>
-	            </if-not-empty>
-	            <set field="projectParty.roleTypeId" from-field="resource.roleTypeId"/>
-	            <set field="projectParty.fromDate" from-field="resource.fromDate"/>
-	            <set field="projectParty.thruDate" from-field="resource.thruDate"/>
-	            <entity-condition entity-name="ProjectAndPhaseAndTaskParty" list-name="tasks">
-	                <condition-list combine="and">
-	                    <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId"/>
-	                    <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId"/>
-	                </condition-list>
-	                <order-by field-name="partyId"/>
-	            </entity-condition>
-	            <if-not-empty field="tasks">
-                    <iterate entry-name="task" list-name="tasks">
-                        <!-- get the planned/actual hours -->
-                        <set field="lowInfo" from-field="task"/>
-                        <set field="parameters.hoursPartyId" from-field="task.partyId"/>
-                        <call-simple-method method-name="getHours"/>
-                        <set field="projectParty.plannedHours" from-field="highInfo.plannedHours"/>                    
-                        <set field="projectParty.actualHours" from-field="highInfo.actualHours"/>                    
-                    </iterate>
+        <!-- now add all project parties who did not yet register time  -->
+        <iterate entry-name="resource" list-name="resources">
+            <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list-name="tasks">
+                <condition-list combine="and">
+                    <condition-expr field-name="projectId" operator="equals" env-name="resource.workEffortId" ignore-if-empty="true"/>
+                    <condition-expr field-name="timesheetPartyId" operator="equals" env-name="resource.partyId"/>
+                </condition-list>
+            </entity-condition>
+            <if-empty field="tasks">
+                <clear-field field-name="projectParty"/>                        
+                <set field="projectParty.partyId" from-field="resource.partyId"/>
+                <entity-one entity-name="PartyNameView" value-name="partyNameView">
+                    <field-map field-name="partyId" env-name="resource.partyId"/>
+                </entity-one>
+                <if-not-empty field="partyNameView">
+                    <set field="projectParty.partyName" value="${partyNameView.lastName},${partyNameView.firstName} ${partyNameView.middleName}${partyNameView.groupName}"/>
                 </if-not-empty>
+                <set field="projectParty.roleTypeId" from-field="resource.roleTypeId"/>
+                <set field="projectParty.fromDate" from-field="resource.fromDate"/>
+                <set field="projectParty.thruDate" from-field="resource.thruDate"/>
                 <field-to-list field-name="projectParty" list-name="projectParties"/>
-            </iterate>
-            <field-to-result field-name="projectParties"/>                                                                                       
-        </if-not-empty>
+            </if-empty>            
+        </iterate>
+        <order-value-list list-name="projectParties" order-by-list-name="partyName"/>
+        <field-to-result field-name="projectParties"/>                                                                                       
     </simple-method>
-
-
 
     <simple-method method-name="getTasksByParties" short-description="get task information by party member" login-required="true">
         <!-- get the list of tasks optionaly selected for a party -->

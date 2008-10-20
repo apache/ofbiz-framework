@@ -310,10 +310,10 @@
         <field name="partyName" title="${uiLabelMap.CommonName}">
             <hyperlink target="viewprofile?partyId=${partyId}" description="${partyName}"/>
         </field>
+        <field name="actualHours"><display/></field>
         <field name="roleTypeId" title="${uiLabelMap.ProjectMgrPartyRoleTypeId}"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
-        <field name="actualHours"><display/></field>
     </form>
     <form name="EditProjectSkills" type="list" target="updateProjectSkillStandard" list-name="workEffortSkillStandardList" paginate-target="EditProjectSkills"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
