@@ -2892,16 +2892,16 @@
     </property>
     <property key="EcommerceSelectedGiftWrap">
         <value xml:lang="en">Selected Gift Wrap</value>
-        <value xml:lang="es">"La evoltura no está permitida para todos los artíclos. Los artículos disponibles han sido seleccionados, la orden permanece sin cambios."</value>
+        <value xml:lang="es">La evoltura no está permitida para todos los artíclos. Los artículos disponibles han sido seleccionados, la orden permanece sin cambios.</value>
         <value xml:lang="fr">Emballage cadeau sélectionné</value>
         <value xml:lang="hi_IN">चुना गया लपेटन सभी सामान के लिये उपलब्ध नहीं है, जो सामान उपलब्ध है वह चुना गया है, बाकी वैसे ही है.</value>
-        <value xml:lang="it">"Selezione Omaggio non disponibile per tutte le righe. Le righe che sono disponibile saranno selezionate, le altre rimarrano invariate."</value>
-        <value xml:lang="ja">"Selected Gift Wrap is not available for all items. The items which are available have been selected, the others remain unchanged."</value>
-        <value xml:lang="nl">"De geselecteerde geschenkverpakking is niet beschikbaar voor alle items. De items die beschikbaar zijn, zijn geselecteerd, de anderen zijn niet veranderd."</value>
-        <value xml:lang="ro">"Selectioneaza Omagiu indisponibil pentru toate liniile. Liniile care sunt disponibile vor fi selectionate, celelalte vor ramane invariate."</value>
-        <value xml:lang="ru">"Выбранная подарочная упаковка не доступна для всех позиций. Выбраны только позиции для которых упаковка доступна."</value>
+        <value xml:lang="it">Selezione Omaggio non disponibile per tutte le righe. Le righe che sono disponibile saranno selezionate, le altre rimarrano invariate.</value>
+        <value xml:lang="ja">Selected Gift Wrap is not available for all items. The items which are available have been selected, the others remain unchanged.</value>
+        <value xml:lang="nl">De geselecteerde geschenkverpakking is niet beschikbaar voor alle items. De items die beschikbaar zijn, zijn geselecteerd, de anderen zijn niet veranderd.</value>
+        <value xml:lang="ro">Selectioneaza Omagiu indisponibil pentru toate liniile. Liniile care sunt disponibile vor fi selectionate, celelalte vor ramane invariate.</value>
+        <value xml:lang="ru">Выбранная подарочная упаковка не доступна для всех позиций. Выбраны только позиции для которых упаковка доступна.</value>
         <value xml:lang="th">เลือกห่อของขวัญ</value>
-        <value xml:lang="zh">"所选的礼品包装无法对全部明细使用。这些选中的明细是可用的，其它没有改变。"</value>
+        <value xml:lang="zh">所选的礼品包装无法对全部明细使用。这些选中的明细是可用的，其它没有改变。</value>
     </property>
     <property key="EcommerceSentDate">
         <value xml:lang="en">Sent Date</value>
