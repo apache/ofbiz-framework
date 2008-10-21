@@ -310,7 +310,7 @@ under the License.
             <condition>
                 <or>
                     <if-compare field="remainingAppliedAmount" operator="greater" value="0.0" type="BigDecimal"/>
-                    <if-compare field="invoiceTotalAmount" operator="equals" value="0.0" type="BigDecimal"/>
+                    <if-compare field="invoiceTotalAmount" operator="less-equals" value="0.0" type="BigDecimal"/>
                     <if-compare-field field="computedTotalAmount" to-field="invoiceTotalAmount" operator="less" type="BigDecimal"/>
                 </or>
             </condition>
