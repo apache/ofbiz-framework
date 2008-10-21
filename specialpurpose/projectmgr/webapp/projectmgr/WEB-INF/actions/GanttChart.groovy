@@ -91,7 +91,11 @@ if (phases){
                 }else{
                     taskInfo.completion = 0;
                 }
-                taskInfo.url = "/projectmgr/control/taskView?workEffortId="+task.workEffortId;
+                if (security.hasEntityPermission("PROJECTMGR", "_READ", session) || security.hasEntityPermission("PROJECTMGR", "_ADMIN", session)) {
+                	taskInfo.url = "/projectmgr/control/taskView?workEffortId="+task.workEffortId;
+                } else {
+                	taskInfo.url = ""; 
+                }
                 resultTaskResource = dispatcher.runSync("getTasksByParties", [userLogin : userLogin , workEffortId : task.workEffortId]);
                 taskParties = resultTaskResource.taskParties;
                 resource = "";

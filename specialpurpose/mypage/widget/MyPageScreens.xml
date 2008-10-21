@@ -680,13 +680,38 @@ under the License.
                                         <screenlet title="${uiLabelMap.PageTitleProjectInformation}">
                                             <include-form name="ProjectInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                                         </screenlet>
-                                        <include-screen name="PhasesInfo" location="component://projectmgr/widget/ProjectScreens.xml"/>
+                                        <section>
+                                            <actions>
+                                                <service service-name="getProjectPhaseList" result-map-name="result">
+                                                    <field-map field-name="projectId" env-name="projectId"/>
+                                                </service>
+                                                <set field="phases" from-field="result.phaseList"/>
+                                            </actions>
+                                            <widgets>                
+                                                <container style="screenlet">
+                                                    <screenlet title="${uiLabelMap.ProjectMgrPhases}">
+                                                        <include-form name="ListPhaseInfo" location="component://mypage/widget/MyPageForms.xml"/>
+                                                    </screenlet>
+                                                </container>               
+                                            </widgets>
+                                        </section>
                                     </container>
                                     <container style="righthalf">
-                                        <include-screen name="TasksInfo" location="component://projectmgr/widget/ProjectScreens.xml"/>
+                                        <section>
+                                            <actions>
+                                                <service service-name="getProjectTaskList" result-map-name="result">
+                                                    <field-map field-name="projectId" env-name="projectId"/>
+                                                </service>
+                                                <set field="tasks" from-field="result.taskList"/>
+                                            </actions>
+                                            <widgets>
+                                                <screenlet title="${uiLabelMap.ProjectMgrTasks}" navigation-form-name="ListTaskInfo">
+                                                    <include-form name="ListTaskInfo" location="component://mypage/widget/MyPageForms.xml"/>
+                                                </screenlet>                
+                                            </widgets>
+                                        </section>
                                     </container>
                                     <container style="clear"/>
-                                    <label text="====${parameters.projectId}"></label>
                                     <screenlet title="${uiLabelMap.PageTitleProjectGanttChart}">
                                         <platform-specific>
                                             <html><html-template location="component://projectmgr/webapp/projectmgr/project/gantChart.ftl"/></html>
