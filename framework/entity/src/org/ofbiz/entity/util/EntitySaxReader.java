@@ -204,7 +204,7 @@ public class EntitySaxReader implements javolution.xml.sax.ContentHandler, Error
             Debug.logWarning("content was null, doing nothing", module);
             return 0;
         }
-        ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes());
+        ByteArrayInputStream bis = new ByteArrayInputStream(content.getBytes("UTF-8"));
 
         return this.parse(bis, "Internal Content");
     }
