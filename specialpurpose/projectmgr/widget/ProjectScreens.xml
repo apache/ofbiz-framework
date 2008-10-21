@@ -553,18 +553,9 @@ under the License.
             </actions>
             <widgets>                
                 <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.ProjectMgrPhases}"/>
-                        </container>
-                    </container>
-                    <container style="screenlet-body">
-                        <section>
-                            <widgets>    
-                                <include-form name="ListPhaseInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                            </widgets>
-                        </section>
-                    </container>
+                    <screenlet title="${uiLabelMap.ProjectMgrPhases}">
+                        <include-form name="ListPhaseInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                    </screenlet>
                 </container>               
             </widgets>
         </section>
