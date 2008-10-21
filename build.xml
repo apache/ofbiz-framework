@@ -174,9 +174,10 @@ under the License.
 
         <mkdir dir="${site.dir}/javadocs"/>
         <javadoc packagenames="org.ofbiz.*"
-                 destdir="${site.dir}/javadocs"
-             maxmemory="256M"
-                 windowtitle="Open for Business - API">
+          destdir="${site.dir}/javadocs"
+          maxmemory="256M"
+          windowtitle="Open for Business - API"
+        	useexternalfile="yes">
       <fileset dir="${basedir}" defaultexcludes="yes">
         <include name="**/*.java"/>
         <exclude name="**/ControlApplet.java"/>
