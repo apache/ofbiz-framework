@@ -28,12 +28,6 @@ import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.entity.util.*;
 import org.ofbiz.entity.condition.*;
 import java.sql.Timestamp;
-import javolution.util.FastList;
-import javolution.util.FastMap;
-
-delegator = parameters.delegator;
-locale = parameters.locale;
-timeZone = parameters.timeZone;
 
 partyId = parameters.partyId;
 if (!partyId) {
@@ -45,13 +39,13 @@ timesheet = null;
 timesheetId = parameters.timesheetId;
 //Debug.logInfo("====editweek: " + partyId + " timesheetId: " + timesheetId +"==========");
 if (timesheetId) {
-        timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : timesheetId]);
-        partyId = timesheet.partyId; // use the party from this timesheet
+    timesheet = delegator.findByPrimaryKey("Timesheet", ["timesheetId" : timesheetId]);
+    partyId = timesheet.partyId; // use the party from this timesheet
     } else { 
         start = UtilDateTime.getWeekStart(UtilDateTime.nowTimestamp());
         timesheets = delegator.findByAnd("Timesheet", ["partyId" : partyId, "fromDate" : start]);
-        if (!UtilValidate.isEmpty(timesheets)) {
-            timesheet = timesheets.get(0);
+        if (timesheets) {
+            timesheet = timesheets[0];
         } else {
             result = dispatcher.runSync("createProjectTimesheet", ["userLogin" : parameters.userLogin, "partyId" : partyId]);
             if (result && result.timesheetId) {
@@ -59,21 +53,20 @@ if (timesheetId) {
             }
         }
 }
-// get the user names
-context.partyNameView = delegator.findByPrimaryKey("PartyNameView",["partyId" : partyId]);
-// get the default rate for this person
-rateTypes = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", ["partyId" : partyId, "defaultRate" : "Y"]));
-if (UtilValidate.isNotEmpty(rateTypes)) {
-    rateType = rateTypes.get(0);
-    context.defaultRateTypeId = rateType.rateTypeId;
-} 
-
 if (!timesheet) return;
 context.timesheet = timesheet;
 context.weekNumber = UtilDateTime.weekNumber(timesheet.fromDate);
 
-entries = new LinkedList(); 
-entry = ["timesheetId" : timesheet.timesheetId, "check" : "true"];
+// get the user names
+context.partyNameView = delegator.findByPrimaryKey("PartyNameView",["partyId" : partyId]);
+// get the default rate for this person
+rateTypes = EntityUtil.filterByDate(delegator.findByAnd("PartyRate", ["partyId" : partyId, "defaultRate" : "Y"]));
+if (rateTypes) {
+    context.defaultRateTypeId = rateTypes[0].rateTypeId;
+} 
+
+entries = []; 
+entry = ["timesheetId" : timesheet.timesheetId];
 taskTotal = 0.00;
 day0Total = 0.00; day1Total=0.00; day2Total=0.00; day3Total=0.00; day4Total=0.00; day5Total=0.00; day6Total=0.00;
 pHours = 0.00;
@@ -82,7 +75,6 @@ lastTimeEntry = null;
 
 // retrieve work effort data when the workeffortId has changed.
 void retrieveWorkEffortData() {
-
         // get the planned number of hours
         entryWorkEffort = lastTimeEntry.getRelatedOne("WorkEffort");
         if (entryWorkEffort) {
@@ -94,11 +86,10 @@ void retrieveWorkEffortData() {
                 }
             }
             entry.plannedHours = pHours;
-            
             // get party assignment data to be able to set the task to complete
             workEffortPartyAssigns = EntityUtil.filterByDate(entryWorkEffort.getRelatedByAnd("WorkEffortPartyAssignment", ["partyId" : partyId]));
-            if (UtilValidate.isNotEmpty(workEffortPartyAssigns)) {
-                workEffortPartyAssign = workEffortPartyAssigns.get(0);
+            if (workEffortPartyAssigns) {
+                workEffortPartyAssign = workEffortPartyAssigns[0];
                 entry.fromDate = workEffortPartyAssign.getTimestamp("fromDate");
                 entry.roleTypeId = workEffortPartyAssign.roleTypeId;
                 if ("PAS_COMPLETED".equals(workEffortPartyAssign.statusId)) {
@@ -121,8 +112,9 @@ void retrieveWorkEffortData() {
         entries.add(entry);
         // start new entry
         taskTotal = 0.00;
-        entry = ["timesheetId" : timesheet.timesheetId, "check" : "true"];
+        entry = ["timesheetId" : timesheet.timesheetId];
 }
+
 timeEntries = timesheet.getRelated("TimeEntry", ["workEffortId", "rateTypeId", "fromDate"]);
 te = timeEntries.iterator();
 while (te.hasNext()) {
@@ -161,13 +153,13 @@ if (timeEntry) {
 // add empty lines if timesheet not completed    
 if (!timesheet.statusId.equals("TIMESHEET_COMPLETED")) {
     for (c=0; c < 3; c++) { // add empty lines 
-        entries.add(["timesheetId" : timesheet.timesheetId,"check" : "false"]);
+        entries.add(["timesheetId" : timesheet.timesheetId]);
     }
 }
 
 // add the totals line if at least one entry
 if (timeEntry) {
-    entry = ["timesheetId" : timesheet.timesheetId, "check" : "true"];
+    entry = ["timesheetId" : timesheet.timesheetId];
     entry."0" = day0Total;
     entry."1" = day1Total;
     entry."2" = day2Total;
@@ -175,17 +167,18 @@ if (timeEntry) {
     entry."4" = day4Total;
     entry."5" = day5Total;
     entry."6" = day6Total;
-    entry."phaseName" = "Totals";
-    entry."workEffortId" = "Totals";
-    entry."total" = day0Total + day1Total + day2Total + day3Total + day4Total + day5Total + day6Total;
+    entry.phaseName = "Totals";
+    entry.workEffortId = "Totals";
+    entry.total = day0Total + day1Total + day2Total + day3Total + day4Total + day5Total + day6Total;
     entries.add(entry);
 }
+Debug.log("=====entries: " + entries);
 context.timeEntries = entries;
 // get all timesheets of this user, including the planned hours
 timesheetsDb = delegator.findByAnd("Timesheet", ["partyId" : partyId], ["fromDate DESC"]);
 timesheets = new LinkedList(); 
 timesheetsDb.each { timesheetDb ->
-    timesheet = FastMap.newInstance();
+    timesheet = [:];
     timesheet.putAll(timesheetDb);
     entries = timesheetDb.getRelated("TimeEntry");
     hours = 0.00;
@@ -199,81 +192,3 @@ timesheetsDb.each { timesheetDb ->
     timesheets.add(timesheet);
 }
 context.timesheets = timesheets;
-
-//add task to Dropdown Lists
-tasks = [];
-orderByList = ["projectName", "phaseName", "workEffortName"];
-projectPhaseTasks = [];
-dataAdd = [];
-
-if (!"mytasks".equals(headerItem)) {
-	nowDate = UtilDateTime.nowTimestamp();
-	taskCond = EntityCondition.makeCondition ([EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
-	                                           EntityCondition.makeCondition("workEffortTypeId", EntityOperator.EQUALS, "PROJECT"),
-	                                           EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowDate),
-	                                           EntityCondition.makeCondition ([EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowDate),
-	                                                                           EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)
-	                                                                          ], EntityOperator.OR),
-	                                          ], EntityOperator.AND);
-	    
-	projectList = delegator.findList("WorkEffortAndPartyAssign", taskCond, (HashSet) ["workEffortId"], ["workEffortId"], null, false);
-	projects = [];
-	projectList.each { project ->
-	    projects.add(project.workEffortId);
-	}
-	if (projects) {
-	    taskPartyCond = 
-	        EntityCondition.makeCondition (
-	                [EntityCondition.makeCondition("projectId", EntityOperator.IN, projects),
-	                 EntityCondition.makeCondition("currentStatusId", EntityOperator.EQUALS, "PTS_CREATED"),
-	                 EntityCondition.makeCondition(
-                             [EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, null),
-                              EntityCondition.makeCondition(
-                            		  [EntityCondition.makeCondition("partyId", EntityOperator.EQUALS, partyId),
-                                       EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowDate),
-                                       EntityCondition.makeCondition ([EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN_EQUAL_TO, nowDate),
-                                                                       EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)
-                                                                      ], EntityOperator.OR),
-                                      ],EntityOperator.AND),
-                             ],EntityOperator.OR),
-	                ],EntityOperator.AND);
-	    orderByList = ["projectId", "phaseId", "workEffortId"];
-	    HashSet fields = ["workEffortId", "projectName", "phaseName", "workEffortName"];
-	    projectPhaseTasks = delegator.findList ("ProjectAndPhaseAndTaskParty", taskPartyCond, fields, orderByList, null, false);
-	}
-} else {//Don't assign tasks
-	tasksAss = [];
-    tasksAss.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_COMPLETED"));
-    tasksAss.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_CANCELED"));
-    tasksAss.add(EntityCondition.makeCondition("currentStatusId", EntityOperator.NOT_EQUAL, "PTS_ON_HOLD"));
-    taskAssCond = EntityCondition.makeCondition(tasks, EntityOperator.AND);
-    projectPhaseTaskChecks = delegator.findList("ProjectAndPhaseAndTask", taskAssCond, null, orderByList, null, false);
-    projectPhaseTaskChecks.each { projectPhaseTaskCheck ->
-        taskNotAs = [];
-        workEffortAssignments = delegator.findList("WorkEffortPartyAssignment", null, null, null, null, false);
-        found = false;
-        workEffortAssignments.each { workEffortAssignment ->
-                if (workEffortAssignment.workEffortId.equals(projectPhaseTaskCheck.workEffortId)) {
-                    found = true;
-                }
-        }
-        if (!found) {
-            dataAdd.add(projectPhaseTaskCheck);
-        }
-    }
-    dataAdd.each { dataCheck ->
-        found = false;
-        //Don't Inprogress tasks
-        timeEntries.each { timeEntryAdd ->
-            if (dataCheck.workEffortId.equals(timeEntryAdd.workEffortId)) {
-                found = true;
-            }
-        }
-        if (!found) {
-            projectPhaseTasks.add(dataCheck);
-        }
-    }
-}
-if (projectPhaseTasks) {//Add task to lists
-    context.projectTaskLists = projectPhaseTasks;
-}

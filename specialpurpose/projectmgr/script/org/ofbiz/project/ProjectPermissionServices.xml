@@ -148,7 +148,8 @@
                 <set field="phaseId" from-field="parameters.workEffortParentId"/>
             </if-empty>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
-            <call-simple-method method-name="checkProjectMembership"></call-simple-method>
+            <!--call-simple-method method-name="checkProjectMembership"/-->
+            <set field="isMember" value="true" type="Boolean"/>
             <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription} isMember: ${isMember}"/-->
             <entity-and list-name="custRequests" entity-name="WorkEffortCustRequestView">
                 <field-map field-name="workEffortId" env-name="taskId"/>
@@ -229,7 +230,7 @@
         
         <!-- TIMESHEET -->
         <if-compare field="sec_object" value="TIMESHEET" operator="equals">
-            <entity-one entity-name="Timesheet" value-name="timesheet"/>
+            <entity-one entity-name="Timesheet" value-name="timesheet" use-cache="true"/>
             <!-- log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} timesheetId: ${timesheet.timesheetId} partyId: ${timesheet.partyId} resourceDescription: ${parameters.resourceDescription}"/-->
             <if>
                 <condition>
@@ -274,11 +275,12 @@
         
         <!-- TIMEENTRY -->
         <if-compare field="sec_object" value="TIMEENTRY" operator="equals">
-            <entity-one entity-name="Timesheet" value-name="timesheet"/>
+            <entity-one entity-name="Timesheet" value-name="timesheet" use-cache="true"/>
             <set field="timesheetId" from-field="timesheet.timesheetId"/>
             <set field="taskId" from-field="parameters.workEffortId"/>
             <set field="partyId" from-field="timesheet.partyId"/>
-            <call-simple-method method-name="checkProjectMembership"/>
+            <!--call-simple-method method-name="checkProjectMembership"/-->
+            <set field="isMember" value="true" type="Boolean"/>
             <!-- log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} timesheetId: ${timesheetId} from partyId: ${partyId} workEffortId: ${parameters.workEffortId} resourceDescription: ${parameters.resourceDescription}"/-->
             <if>
                 <condition>
@@ -337,32 +339,34 @@
     
     <simple-method method-name="checkProjectMembership" short-description="check if a party is member of a project, input either 'taskId', 'phaseId' or 'projectId', returns 'isMember' ">
         <!--log level="always" message="==========object = ${sec_object}, check project membershhip with the following data.. taskId: ${taskId} phaseId: ${phaseId} projectId: ${projectId} party: ${partyId}"></log-->
-        <if-not-empty field="taskId">
-            <entity-one entity-name="WorkEffort" value-name="task">
-                <field-map field-name="workEffortId" env-name="taskId"/>
-            </entity-one>
-            <set field="phaseId" from-field="task.workEffortParentId"/>
-        </if-not-empty>
-        <if-not-empty field="phaseId">
-            <entity-one entity-name="WorkEffort" value-name="phase">
+        <set field="isMember" value="false" type="Boolean"/>
+        <if-empty field="projectId">
+            <if-empty field="phaseId">
+                <if-empty field="taskId">
+                    <return/>
+                    <else>
+                        <entity-one entity-name="WorkEffort" value-name="task" use-cache="true" >
+                            <field-map field-name="workEffortId" env-name="taskId"/>
+                        </entity-one>
+                        <set field="phaseId" from-field="task.workEffortParentId"/>
+                    </else>
+                </if-empty>
+            </if-empty>    
+        </if-empty>
+        <if-empty field="projectId">
+            <entity-one entity-name="WorkEffort" value-name="phase" use-cache="true">
                 <field-map field-name="workEffortId" env-name="phaseId"/>
             </entity-one>
             <set field="projectId" from-field="phase.workEffortParentId"/>
-        </if-not-empty>
+        </if-empty>
         <if-not-empty field="projectId">
-            <entity-and entity-name="WorkEffortPartyAssignment" list-name="projectAssigns" filter-by-date="true">
+            <entity-and entity-name="WorkEffortPartyAssignment" list-name="projectAssigns" filter-by-date="true" use-cache="true">
                 <field-map field-name="workEffortId" env-name="projectId"/>
                 <field-map field-name="partyId" env-name="partyId"/>
             </entity-and>
-            <if-empty field="projectAssigns">
-                <set field="isMember" value="false" type="Boolean"/>
-                <else>
-                    <set field="isMember" value="true" type="Boolean"/>
-                </else>
-            </if-empty>
-            <else>
-                <set field="isMember" value="false" type="Boolean"/>
-            </else>
+            <if-not-empty field="projectAssigns">
+                <set field="isMember" value="true" type="Boolean"/>
+            </if-not-empty>
         </if-not-empty>
     </simple-method>
 </simple-methods>

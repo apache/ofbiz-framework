@@ -24,23 +24,17 @@
         <field name="timesheetId"><hidden/></field>
         <field name="roleTypeId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" use-when="&quot;true&quot;.equals(&quot;${check}&quot;)">
-            <drop-down allow-empty="false" current="selected">
-                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="" >
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName}-${phaseName}-${workEffortName}">
                     <entity-constraint name="workEffortTypeId" operator="not-equals" value="TASK_TEMPLATE"/>
                     <entity-constraint name="partyId" env-name="timesheet.partyId"/>
+                    <entity-constraint name="currentStatusId" value="PTS_CREATED"/>
                     <entity-order-by field-name="projectName"/>
                     <entity-order-by field-name="phaseName"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
-                <option key="${workEffortId}" description="${projectName}-${phaseName}-${workEffortName}"/>
-                <sub-hyperlink target="taskView?workEffortId=${workEffortId}" link-style="buttontext" description="${bsh:workEffortId != void &amp;&amp; !workEffortId.equals(&quot;Totals&quot;) ? workEffortId : &quot;&quot;}"/>
             </drop-down>
-        </field>
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" parameter-name="workEffortId" use-when="&quot;false&quot;.equals(&quot;${check}&quot;)">
-            <drop-down   allow-empty="true" >
-                <list-options list-name="projectTaskLists" key-name="workEffortId" description="${projectName}-${phaseName}-${workEffortName}"/>
-           </drop-down>
         </field>
         <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><check/></field>
         <field name="rateTypeId" title="${uiLabelMap.ProjectMgrRateTypeId}">
