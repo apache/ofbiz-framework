@@ -286,9 +286,15 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" parameter-name="workEffortId">
-            <drop-down   allow-empty="true" >
-                <list-options list-name="projectTaskLists" key-name="workEffortId" description="${projectName}-${phaseName}-${workEffortName}"/>
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}" key-field-name="workEffortId" filter-by-date="true">
+                    <entity-constraint name="partyId" operator="equals" value="${parameters.userLogin.partyId}"/>
+                    <entity-constraint name="currentStatusId" operator="equals" value="PTS_CREATED"/>
+                    <entity-order-by field-name="projectName"/>    
+                    <entity-order-by field-name="phaseName"/>    
+                    <entity-order-by field-name="workEffortName"/>    
+                </entity-options>
            </drop-down>
         </field>
         <field name="roleTypeId">
