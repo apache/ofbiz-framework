@@ -101,9 +101,9 @@
         
         <!-- PHASE -->
         <if-compare field="sec_object" value="PHASE" operator="equals">
-            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.projectId} resourceDescription: ${parameters.resourceDescription}"/-->
             <set field="projectId" from-field="parameters.projectId"/>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
+            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} projectId: ${projectId} resourceDescription: ${parameters.resourceDescription}"/-->
             <call-simple-method method-name="checkProjectMembership"/>
             <if>
                 <condition>
@@ -148,8 +148,8 @@
                 <set field="phaseId" from-field="parameters.workEffortParentId"/>
             </if-empty>
             <set field="partyId" from-field="parameters.userLogin.partyId"/>
-            <!--call-simple-method method-name="checkProjectMembership"/-->
-            <!-- log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription} isMember: ${isMember}"/-->
+            <call-simple-method method-name="checkProjectMembership"></call-simple-method>
+            <!--log level="info" message="======ProjectMGR Security=====  action: ${parameters.mainAction} object: ${sec_object} Id: ${parameters.taskId} PhaseId:  ${parameters.workEffortParentId} resourceDescription: ${parameters.resourceDescription} isMember: ${isMember}"/-->
             <entity-and list-name="custRequests" entity-name="WorkEffortCustRequestView">
                 <field-map field-name="workEffortId" env-name="taskId"/>
             </entity-and>
@@ -278,7 +278,7 @@
             <set field="timesheetId" from-field="timesheet.timesheetId"/>
             <set field="taskId" from-field="parameters.workEffortId"/>
             <set field="partyId" from-field="timesheet.partyId"/>
-            <!-- call-simple-method method-name="checkProjectMembership"/-->
+            <call-simple-method method-name="checkProjectMembership"/>
             <!-- log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} timesheetId: ${timesheetId} from partyId: ${partyId} workEffortId: ${parameters.workEffortId} resourceDescription: ${parameters.resourceDescription}"/-->
             <if>
                 <condition>

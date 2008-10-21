@@ -214,6 +214,10 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="ListInvoices"/>
     </request-map>    
+    <request-map uri="listProjects">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ListProjects"/>
+    </request-map>    
     
     <!-- EMAIL COMMUNICATIONS -->
     <request-map uri="NewCommunicationEvents">
@@ -270,6 +274,7 @@
     <view-map name="ViewRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#ViewRequest"/>
     <view-map name="EditRequest" type="screen" page="component://mypage/widget/MyPageScreens.xml#EditRequest"/>
     <view-map name="ListInvoices" type="screen" page="component://mypage/widget/MyPageScreens.xml#ListInvoices"/>
+    <view-map name="ListProjects" type="screen" page="component://mypage/widget/MyPageScreens.xml#ListProjects"/>
     <view-map name="custPreferences" type="screen" page="component://mypage/widget/CommonScreens.xml#custPreferences"/>
     <view-map name="EditCommunicationEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#EditCommunicationEvent"/>
     <view-map name="addAttachmentEmail" type="screen" page="component://mypage/widget/MyPageScreens.xml#addAttachmentEmail"/>

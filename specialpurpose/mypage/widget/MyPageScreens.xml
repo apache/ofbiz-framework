@@ -498,18 +498,14 @@ under the License.
                 </entity-condition>
             </actions>
             <widgets>
-                <section>
-                    <widgets>
-                        <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
-                            <decorator-section name="body">
-                                <screenlet title="${uiLabelMap.PageTitleListInvoices}" navigation-form-name="ListInvoices">
-                                    <include-form name="ListInvoices"  location="component://mypage/widget/MyPageForms.xml"/>
-                                </screenlet>
-                            </decorator-section>
-                        </decorator-screen>
-                    </widgets>
-                </section>
-            </widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleListInvoices}" navigation-form-name="ListInvoices">
+                            <include-form name="ListInvoices"  location="component://mypage/widget/MyPageForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+           </widgets>
         </section>
     </screen>
     <screen name="CreateCustRequestNotification">
@@ -644,6 +640,71 @@ under the License.
                         <html-template location="component://mypage/webapp/mypage/attachFileList.ftl"/>
                     </html>
                 </platform-specific>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="ListProjects">
+        <section>
+            <actions>
+                <set field="headerItem" value="projects"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/jsgantt.js" global="true"/>
+                <set field="layoutSettings.styleSheets[]" value="/images/jsgantt.css" global="true"/>
+                <entity-condition list-name="projects" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyId" env-name="userLogin.partyId"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="roleTypeId" value="CLIENT_MANAGER"/>
+                            <condition-expr field-name="roleTypeId" value="CLIENT_ANALYST"/>
+                            <condition-expr field-name="roleTypeId" value="CLIENT_BILLING"/>
+                        </condition-list>
+                    </condition-list>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <iterate-section entry-name="project" list-name="projects">
+                            <section>
+                                <actions>
+                                    <set field="projectId" from-field="project.workEffortId"/>
+                                    <set field="parameters.projectId" from-field="project.workEffortId"/>
+                                    <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/GanttChart.groovy"/>
+                                    <service service-name="getProject" result-map-name="result">
+                                        <field-map field-name="projectId" env-name="projectId"/>
+                                    </service>
+                                    <set field="project" from-field="result.projectInfo"/>
+                                </actions>
+                                <widgets>
+                                    <label style="h1" text="${uiLabelMap.ProjectMgrProjectCurrent}: ${project.projectName}[${project.projectId}]"/>
+                                    <container style="lefthalf">
+                                        <screenlet title="${uiLabelMap.PageTitleProjectInformation}">
+                                            <include-form name="ProjectInfo" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                        </screenlet>
+                                        <include-screen name="PhasesInfo" location="component://projectmgr/widget/ProjectScreens.xml"/>
+                                    </container>
+                                    <container style="righthalf">
+                                        <include-screen name="TasksInfo" location="component://projectmgr/widget/ProjectScreens.xml"/>
+                                    </container>
+                                    <container style="clear"/>
+                                    <label text="====${parameters.projectId}"></label>
+                                    <screenlet title="${uiLabelMap.PageTitleProjectGanttChart}">
+                                        <platform-specific>
+                                            <html><html-template location="component://projectmgr/webapp/projectmgr/project/gantChart.ftl"/></html>
+                                        </platform-specific>
+                                    </screenlet>
+                                </widgets>
+                            </section>
+                        </iterate-section>
+                        <section>
+                            <condition>
+                                <if-empty field-name="projects"/>
+                            </condition>
+                            <widgets>
+                                <label style="h2" text="no projects found"></label>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
             </widgets>
         </section>
     </screen>

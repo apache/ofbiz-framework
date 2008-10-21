@@ -47,8 +47,9 @@ under the License.
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PARTYMGR_CME_UPDATE"/>
     
     <SecurityPermission permissionId="MYPAGE_CUSTOMER" description="Use the customer screens in mypage."/>
-    <SecurityGroup description="Customer user of mypage, Limited access to own custRequests" groupId="MYPAGE_CUSTOMER"/>
+    <SecurityGroup description="Customer user of mypage, Limited access to own custRequests, and project" groupId="MYPAGE_CUSTOMER"/>
     <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="PARTYMGR_CME-NOTE_CREATE"/><!-- allow customer to read/write internal notes -->
     <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="MYPAGE_CUSTOMER"/>
     <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="PARTYMGR_CME_UPDATE"/>
+    <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="PROJECTMGR_ROLE_VIEW"/>
 </entity-engine-xml>

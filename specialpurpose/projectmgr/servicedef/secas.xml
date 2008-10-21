@@ -21,12 +21,13 @@ under the License.
 <service-eca xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
         
+    <!-- temporary disabled because it caused a db lock with the checkProjectMembership in projectpermission services -->
         <!-- check if testing or validation of completed tasks in this project is required, if so, assign the responsible party to the task -->
-    <eca service="updateTaskAssigment" event="invoke">
+    <!--eca service="updateTaskAssigment" event="invoke">
         <condition field-name="statusId" operator="equals" value="PAS_COMPLETED"/>
         <condition field-name="roleTypeId" operator="not-equals" value="PROVIDER_TESTER"/>
         <condition field-name="roleTypeId" operator="not-equals" value="PROVIDER_VALIDATOR"/>
         <action service="addValidationPartiesToTask" mode="sync"/>
-    </eca>
+    </eca-->
     
 </service-eca>
