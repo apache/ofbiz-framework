@@ -87,6 +87,15 @@ under the License.
             </condition>
             <link target="listInvoices"/>
         </menu-item>
+        <menu-item name="projects" title="${uiLabelMap.ProjectMgrProjects}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-has-permission permission="MYPAGE_CUSTOMER"/>
+                </and>
+            </condition>
+            <link target="listProjects"/>
+        </menu-item>
         <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
             <condition><not><if-empty field-name="userLogin"/></not></condition>
             <link target="logout"/>
