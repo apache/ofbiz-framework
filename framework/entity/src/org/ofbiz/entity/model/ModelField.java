@@ -42,6 +42,7 @@ public class ModelField extends ModelChild {
     /** boolean which specifies whether or not the Field is a Primary Key */
     protected boolean isPk = false;
     protected boolean encrypt = false;
+    protected boolean isNotNull = false;
     protected boolean isAutoCreatedInternal = false;
     protected boolean enableAuditLog = false;
     
@@ -74,6 +75,7 @@ public class ModelField extends ModelChild {
         this.encrypt = UtilXml.checkBoolean(fieldElement.getAttribute("encrypt"), false);
         this.description = UtilXml.childElementValue(fieldElement, "description");
         this.enableAuditLog = UtilXml.checkBoolean(fieldElement.getAttribute("enable-audit-log"), false);
+        this.isNotNull = UtilXml.checkBoolean(fieldElement.getAttribute("not-null"), false);
 
         NodeList validateList = fieldElement.getElementsByTagName("validate");
 
@@ -132,6 +134,14 @@ public class ModelField extends ModelChild {
 
     public void setIsPk(boolean isPk) {
         this.isPk = isPk;
+    }
+    
+    public boolean getIsNotNull() {
+        return this.isNotNull;
+    }
+
+    public void setIsNotNull(boolean isNotNull) {
+        this.isNotNull = isNotNull;
     }
 
     public boolean getEncrypt() {
@@ -194,6 +204,9 @@ public class ModelField extends ModelChild {
         root.setAttribute("type", this.getType());
         if (this.getEncrypt()) {
             root.setAttribute("encrypt", "true");
+        }
+        if (this.getIsNotNull()) {
+            root.setAttribute("not-null", "true");
         }
 
         Iterator<String> valIter = this.validators.iterator();
