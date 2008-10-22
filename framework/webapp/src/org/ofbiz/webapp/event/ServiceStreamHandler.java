@@ -45,7 +45,7 @@ public class ServiceStreamHandler implements EventHandler {
     protected GenericDelegator delegator;
 
     public void init(ServletContext context) throws EventHandlerException {
-        String delegatorName = context.getInitParameter("delegatorName");
+        String delegatorName = context.getInitParameter("entityDelegatorName");
         this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
     }
