@@ -21,18 +21,23 @@ package org.ofbiz.entity.condition;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javolution.context.ObjectFactory;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.entity.EntityCryptoException;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntity;
+import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.model.ModelEntity;
 import org.ofbiz.entity.model.ModelField;
+import org.ofbiz.entity.model.ModelFieldType;
+import org.ofbiz.entity.model.ModelFieldTypeReader;
 
 /**
  * Encapsulates simple expressions used for specifying queries
@@ -100,7 +105,7 @@ public class EntityExpr extends EntityCondition {
         }
         this.operator = operator;
         this.rhs = rhs;
-
+        
         //Debug.logInfo("new EntityExpr internal field=" + lhs + ", value=" + rhs + ", value type=" + (rhs == null ? "null object" : rhs.getClass().getName()), module);
     }
     
@@ -158,6 +163,9 @@ public class EntityExpr extends EntityCondition {
 
     public String makeWhereString(ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, DatasourceInfo datasourceInfo) {
         // if (Debug.verboseOn()) Debug.logVerbose("makeWhereString for entity " + modelEntity.getEntityName(), module);
+        
+        this.checkRhsType(modelEntity, null);
+
         StringBuilder sql = new StringBuilder();
         operator.addSqlValue(sql, modelEntity, entityConditionParams, true, lhs, rhs, datasourceInfo);
         return sql.toString();
@@ -209,6 +217,55 @@ public class EntityExpr extends EntityCondition {
 
     public void accept(EntityConditionVisitor visitor) {
         visitor.acceptEntityExpr(this);
+    }
+    
+    public void checkRhsType(ModelEntity modelEntity, GenericDelegator delegator) {
+        if (this.rhs == null || modelEntity == null) return;
+
+        Object value = this.rhs;
+        if (this.rhs instanceof EntityFunction) {
+            value = ((EntityFunction) this.rhs).getOriginalValue();
+        }
+        
+        if (value instanceof Collection) {
+            Collection valueCol = (Collection) value;
+            if (valueCol.size() > 0) {
+                value = valueCol.iterator().next();
+            }
+        }
+        
+        if (delegator == null) {
+            // this will be the common case for now as the delegator isn't available where we want to do this
+            // we'll cheat a little here and assume the default delegator
+            delegator = GenericDelegator.getGenericDelegator("default");
+        }
+        
+        String fieldName = null;
+        if (this.lhs instanceof EntityFieldValue) {
+            EntityFieldValue efv = (EntityFieldValue) this.lhs;
+            fieldName = efv.getFieldName();
+        } else {
+            // nothing to check
+            return;
+        }
+        
+        ModelField curField = modelEntity.getField(fieldName);
+        ModelFieldType type = null;
+        try {
+            type = delegator.getEntityFieldType(modelEntity, curField.getType());
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e, module);
+        }
+        if (type == null) {
+            throw new IllegalArgumentException("Type " + curField.getType() + " not found for entity [" + modelEntity.getEntityName() + "]; probably because there is no datasource (helper) setup for the entity group that this entity is in: [" + delegator.getEntityGroupName(modelEntity.getEntityName()) + "]");
+        }
+        
+        // make sure the type matches the field Java type
+        if (!ObjectType.instanceOf(value, type.getJavaType())) {
+            String errMsg = "In entity field [" + modelEntity.getEntityName() + "." + curField.getName() + "] set the value passed in [" + value.getClass().getName() + "] is not compatible with the Java type of the field [" + type.getJavaType() + "]";
+            // eventually we should do this, but for now we'll do a "soft" failure: throw new IllegalArgumentException(errMsg);
+            Debug.logWarning(new Exception("Location of database type error"), "=-=-=-=-=-=-=-=-= DATABASE TYPE ERROR in EntityExpr =-=-=-=-=-=-=-=-= " + errMsg, module);
+        }
     }
 
     public boolean equals(Object obj) {
