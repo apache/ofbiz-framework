@@ -791,15 +791,19 @@
     </property>
     <property key="ProjectMgrErrorRequestNotFound">
         <value xml:lang="en">Customer Request: ${parameters.custRequestId} not found</value>
+        <value xml:lang="fr">Demande client : ${parameters.custRequestId} non trouvée</value>
     </property>
     <property key="ProjectMgrErrorRequestStatusWrong">
         <value xml:lang="en">Customer Request: ${parameters.custRequestId} has the wrong status, should be 'Accepted' but it is ${status.description}</value>
+        <value xml:lang="fr">Demande client : ${parameters.custRequestId} a un statut erroné, devrait être 'Accepté' mais est ${status.description}</value>
     </property>
     <property key="ProjectMgrErrorTaskNotFound">
         <value xml:lang="en">Task: ${parameters.workEffortId} not found</value>
+        <value xml:lang="fr">Tâche : ${parameters.workEffortId} non trouvée</value>
     </property>
     <property key="ProjectMgrErrorTaskStatusWrong">
-        <value xml:lang="en">Task: ${parameters.workEffortId} is not in progress, no request can be added"</value>
+        <value xml:lang="en">Task: ${parameters.workEffortId} is not in progress, no request can be added</value>
+        <value xml:lang="fr">Tâche : ${parameters.workEffortId} n'est pas en cours, aucune demande ne peut être ajoutée</value>
     </property>
     <property key="ProjectMgrPlanHours">
         <value xml:lang="en">Plan Hours</value>
