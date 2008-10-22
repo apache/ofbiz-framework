@@ -28,6 +28,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.model.ModelViewEntity.ComplexAliasMember;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 import org.ofbiz.entity.model.ModelViewEntity.ModelAliasAll;
+import org.ofbiz.entity.model.ModelViewEntity.ModelFilter;
 import org.ofbiz.entity.model.ModelViewEntity.ModelMemberEntity;
 import org.ofbiz.entity.model.ModelViewEntity.ModelViewLink;
 /**
@@ -63,6 +64,9 @@ public class DynamicViewEntity {
     /** List of view links to define how entities are connected (or "joined") */
     protected List<ModelViewLink> viewLinks = new ArrayList<ModelViewLink>();
     
+    /** A List of criteria to filter view data */
+    protected List<ModelFilter> filters = new ArrayList<ModelFilter>();
+
     /** relations defining relationships between this entity and other entities */
     protected List<ModelRelation> relations = new ArrayList<ModelRelation>();
     
@@ -201,6 +205,15 @@ public class DynamicViewEntity {
     
     public void addAllViewLinksToList(List<ModelViewLink> addList) {
         addList.addAll(this.viewLinks);
+    }
+    
+    public void addFilter(String entityAlias, String fieldName, String operator, String value) {
+        ModelFilter modelFilter = new ModelFilter(entityAlias, fieldName, operator, value);
+        this.filters.add(modelFilter);
+    }
+    
+    public void addAllFiltersToList(List<ModelFilter> addList) {
+        addList.addAll(this.filters);
     }
     
     public void addRelation(String type, String title, String relEntityName, List<ModelKeyMap> modelKeyMaps) {

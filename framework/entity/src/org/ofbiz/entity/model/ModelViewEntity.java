@@ -80,6 +80,10 @@ public class ModelViewEntity extends ModelEntity {
 
     protected Map<String, Map<String, ModelConversion>> conversions = FastMap.newInstance();
 
+    /** A List of criteria to filter view data */
+    protected List<ModelFilter> filters = FastList.newInstance();
+
+    
     public ModelViewEntity(ModelReader reader, Element entityElement, UtilTimer utilTimer, ModelInfo def) {
         super(reader, entityElement, def);
 
@@ -116,6 +120,11 @@ public class ModelViewEntity extends ModelEntity {
             this.addViewLink(viewLink);
         }
 
+        for (Element filterElement : UtilXml.childElementList(entityElement, "filter")) {
+            ModelFilter filter = new ModelFilter(filterElement);
+            this.addFilter(filter);
+        }
+
         if (utilTimer != null) utilTimer.timerString("  createModelEntity: before relations");
         this.populateRelated(reader, entityElement);
 
@@ -144,6 +153,9 @@ public class ModelViewEntity extends ModelEntity {
         
         // view-links
         dynamicViewEntity.addAllViewLinksToList(this.viewLinks);
+
+        // filters
+        dynamicViewEntity.addAllFiltersToList(this.filters);
         
         // relations
         dynamicViewEntity.addAllRelationsToList(this.relations);
@@ -271,6 +283,21 @@ public class ModelViewEntity extends ModelEntity {
         return colNameString(Arrays.asList(flds), separator, afterLast, alias);
     }
 
+    /** List of filters to define how entities are filtered when data is showed */
+    public List<ModelFilter> getFilters() {
+        return this.filters;
+    }
+
+    public List<ModelFilter> getFiltersCopy() {
+        List<ModelFilter> newList = FastList.newInstance();
+        newList.addAll(this.filters);
+        return newList;
+    }
+
+    public void addFilter(ModelFilter filter) {
+        this.filters.add(filter);
+    }
+    
     public String colNameString(List<ModelField> flds, String separator, String afterLast, boolean alias) {
         StringBuilder returnString = new StringBuilder();
 
@@ -998,6 +1025,45 @@ public class ModelViewEntity extends ModelEntity {
             List<ModelKeyMap> newList = FastList.newInstance();
             newList.addAll(this.keyMaps);
             return newList;
+        }
+    }
+
+    public static class ModelFilter implements Serializable {
+        protected String entityAlias = "";
+        protected String fieldName = "";
+        protected String operator = "";
+        protected String value = "";
+
+        protected ModelFilter() {}
+
+        public ModelFilter(Element filterElement) {
+            this.entityAlias = UtilXml.checkEmpty(filterElement.getAttribute("entity-alias"));
+            this.fieldName = UtilXml.checkEmpty(filterElement.getAttribute("field-name"));
+            this.operator = UtilXml.checkEmpty(filterElement.getAttribute("operator"));
+            this.value = UtilXml.checkEmpty(filterElement.getAttribute("value"));
+        }
+
+        public ModelFilter(String entityAlias, String fieldName, String operator, String value) {
+            this.entityAlias = entityAlias;
+            this.fieldName = fieldName;
+            this.operator = operator;
+            this.value = value;
+        }
+
+        public String getEntityAlias() {
+            return this.entityAlias;
+        }
+
+        public String getFieldName() {
+            return this.fieldName;
+        }
+
+        public String getOperator() {
+            return this.operator;
+        }
+
+        public String getValue() {
+            return this.value;
         }
     }
 
