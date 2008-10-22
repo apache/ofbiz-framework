@@ -665,12 +665,13 @@
         <field name="estimatedCompletionDate" title="${uiLabelMap.FormFieldTitle_estimatedCompletionDate}"><date-time type="date"/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>                            
-    <form name="CreateCustRequestWorkEffortByExistingTaskForm" type="single" target="createTaskListForms">
-        <field name="custRequestId"><hidden/></field>
+    <form name="CreateCustRequestWorkEffortByExistingTaskForm" type="single" target="acceptRequestAndConnectToTask">
+        <field name="custRequestId"><hidden value="${parameters.custRequestId}"/></field>
         <field name="statusId"><hidden value="CRQ_ACCEPTED"/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="ProjectAndPhaseAndTask" description="${projectName}-${phaseName}-${workEffortName}">
+                    <entity-constraint name="currentStatusId" value="PTS_CREATED"/>
                     <entity-order-by field-name="projectName"/>
                     <entity-order-by field-name="phaseName"/>
                     <entity-order-by field-name="workEffortName"/>

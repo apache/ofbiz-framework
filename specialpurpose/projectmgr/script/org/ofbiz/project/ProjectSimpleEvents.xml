@@ -42,5 +42,30 @@
                 <call-service service-name="assignPartyToWorkEffort" in-map-name="assignParty" />
             </if-not-empty>
         </if-not-empty>    
-    </simple-method>    
+    </simple-method>
+    <simple-method method-name="acceptRequestAndConnectToTask" short-description="Accept a customer request and connect to an existing task">
+        <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+        <if-empty field="workEffort">
+            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorTaskNotFound"/></add-error>
+        </if-empty>
+        <if-compare field="workEffort.currentStatusId" value="PTS_CREATED" operator="not-equals">
+            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorTaskStatusWrong"/></add-error>
+        </if-compare>
+        <entity-one entity-name="CustRequest" value-name="custRequest"/>
+        <if-empty field="custRequest">
+            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorRequestNotFound"/></add-error>
+        </if-empty>
+        <if-compare field="custRequest.statusId" value="CRQ_ACCEPTED" operator="not-equals">
+            <entity-one entity-name="StatusItem" value-name="status">
+                <field-map field-name="statusId" value="custRequest.statusId"/>
+            </entity-one>
+            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorRequestStatusWrong"/></add-error>
+        </if-compare>
+        <check-errors/>
+        <set field="updCust.statusId" value="CRQ_REVIEWED"/>
+        <set field="updCust.custRequestId" from-field="parameters.custRequestId"/>
+        <call-service service-name="updateCustRequest" in-map-name="updCust"/>
+        <set-service-fields service-name="createWorkEffortRequest" map-name="parameters" to-map-name="connectMap"/>
+        <call-service service-name="createWorkEffortRequest" in-map-name="connectMap"/>
+    </simple-method>
 </simple-methods>
