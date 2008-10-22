@@ -54,7 +54,7 @@ public class XmlRpcEventHandler extends XmlRpcHttpServer implements EventHandler
     protected LocalDispatcher dispatcher;
             
     public void init(ServletContext context) throws EventHandlerException {
-        String delegatorName = context.getInitParameter("delegatorName");
+        String delegatorName = context.getInitParameter("entityDelegatorName");
         this.delegator = GenericDelegator.getGenericDelegator(delegatorName);
         this.dispatcher = GenericDispatcher.getLocalDispatcher(dispatcherName, delegator);
         this.setHandlerMapping(new ServiceRpcHandler());        
