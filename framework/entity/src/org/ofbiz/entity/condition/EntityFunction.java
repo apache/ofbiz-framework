@@ -178,10 +178,15 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
     }
 
     public String getCode() {
-        if (codeString == null)
+        if (codeString == null) {
             return "null";
-        else
+        } else {
             return codeString;
+        }
+    }
+    
+    public Object getOriginalValue() {
+        return this.value;
     }
 
     public int getId() {
