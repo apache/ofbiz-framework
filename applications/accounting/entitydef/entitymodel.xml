@@ -615,19 +615,21 @@ under the License.
     <entity entity-name="FixedAsset" package-name="org.ofbiz.accounting.fixedasset" title="Fixed Asset Entity">
         <field name="fixedAssetId" type="id-ne"></field>
         <field name="fixedAssetTypeId" type="id"></field>
-        <field name="parentFixedAssetId" type="id-ne"></field>
+        <field name="parentFixedAssetId" type="id"></field>
         <field name="instanceOfProductId" type="id"></field>
         <field name="classEnumId" type="id"></field>
         <field name="partyId" type="id"></field>
         <field name="roleTypeId" type="id"></field>
-        <field name="uomId" type="id"></field>
         <field name="fixedAssetName" type="name"></field>
+        <field name="acquireOrderId" type="id"></field>
+        <field name="acquireOrderItemSeqId" type="id"></field>
         <field name="dateAcquired" type="date-time"></field>
         <field name="dateLastServiced" type="date-time"></field>
         <field name="dateNextService" type="date-time"></field>
         <field name="expectedEndOfLife" type="date"></field>
         <field name="actualEndOfLife" type="date"></field>
         <field name="productionCapacity" type="floating-point"></field>
+        <field name="uomId" type="id"></field>
         <field name="calendarId" type="id-ne"></field>
         <field name="serialNumber" type="long-varchar"></field>
         <field name="locatedAtFacilityId" type="id"></field>
@@ -661,6 +663,13 @@ under the License.
         <relation type="one-nofk" rel-entity-name="PartyRole">
             <key-map field-name="partyId"/>
             <key-map field-name="roleTypeId"/>
+        </relation>
+        <relation type="one-nofk" fk-name="FIXEDAST_ORDHDR" title="Acquire" rel-entity-name="OrderHeader">
+            <key-map field-name="acquireOrderId" rel-field-name="orderId"/>
+        </relation>
+        <relation type="one" fk-name="FIXEDAST_ORDITM" title="Acquire" rel-entity-name="OrderItem">
+            <key-map field-name="acquireOrderId" rel-field-name="orderId"/>
+            <key-map field-name="acquireOrderItemSeqId" rel-field-name="orderItemSeqId"/>
         </relation>
         <relation type="one" fk-name="FIXEDAST_UOM" rel-entity-name="Uom">
             <key-map field-name="uomId"/>
