@@ -118,7 +118,7 @@ public class GenericDelegator implements DelegatorInterface {
     public static GenericDelegator getGenericDelegator(String delegatorName) {
         if (delegatorName == null) {
             delegatorName = "default";
-            Debug.logWarning("Got a getGenericDelegator call with a null delegatorName, assuming default for the name.", module);
+            Debug.logWarning(new Exception("Location where getting delegator with null name"), "Got a getGenericDelegator call with a null delegatorName, assuming default for the name.", module);
         }
         GenericDelegator delegator = delegatorCache.get(delegatorName);
 
