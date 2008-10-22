@@ -1746,7 +1746,7 @@ public class DatabaseUtil {
                 }
             }
 
-            if (field.getIsPk()) {
+            if (field.getIsNotNull() || field.getIsPk()) { 
                 if (this.datasourceInfo.alwaysUseConstraintKeyword) {
                     sqlBuf.append(" CONSTRAINT NOT NULL, ");
                 } else {
@@ -3247,7 +3247,7 @@ public class DatabaseUtil {
                     sqlBuf.append(this.datasourceInfo.collate);
                 }
 
-                if (field.getIsPk()) {
+                if (field.getIsPk()  || field.getIsNotNull()) {
                     if (this.datasourceInfo.alwaysUseConstraintKeyword) {
                         sqlBuf.append(" CONSTRAINT NOT NULL");
                     } else {

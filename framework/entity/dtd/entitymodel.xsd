@@ -134,7 +134,29 @@ under the License.
             </xs:simpleType>
         </xs:attribute>
         <xs:attribute name="enable-audit-log" default="false">
-            <xs:annotation><xs:documentation>If this is set to true then whenever the value for this field on a record changes the Entity Engine will record the change in the EntityAuditLog entity. Defaults to false.</xs:documentation></xs:annotation>
+            <xs:annotation>
+                <xs:documentation>
+                    If this is set to true then whenever the value for this field on a record changes the Entity Engine will record the change in the EntityAuditLog entity. 
+                    Defaults to false.
+                </xs:documentation>
+            </xs:annotation>
+            <xs:simpleType>
+                <xs:restriction base="xs:token">
+                    <xs:enumeration value="true"/>
+                    <xs:enumeration value="false"/>
+                </xs:restriction>
+            </xs:simpleType>
+        </xs:attribute>
+        <xs:attribute name="not-null" default="false">
+            <xs:annotation>
+                <xs:documentation>
+                    This makes the field NOT NULL on the database (like primary key fields).
+                    It's possible to use an id-ne similiar field type.
+                    But rows can be added from outside of ofbiz (e.g. database manager, third party programm, etc).
+                    This patch uses the ability of a database to set not null constraints. 
+                    Defaults to false.
+                </xs:documentation>
+            </xs:annotation>
             <xs:simpleType>
                 <xs:restriction base="xs:token">
                     <xs:enumeration value="true"/>
