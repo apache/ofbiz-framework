@@ -789,6 +789,18 @@
         <value xml:lang="fr">Total réel</value>
 	    <value xml:lang="zh">实际总时间</value>
     </property>
+    <property key="ProjectMgrErrorRequestNotFound">
+        <value xml:lang="en">Customer Request: ${parameters.custRequestId} not found</value>
+    </property>
+    <property key="ProjectMgrErrorRequestStatusWrong">
+        <value xml:lang="en">Customer Request: ${parameters.custRequestId} has the wrong status, should be 'Accepted' but it is ${status.description}</value>
+    </property>
+    <property key="ProjectMgrErrorTaskNotFound">
+        <value xml:lang="en">Task: ${parameters.workEffortId} not found</value>
+    </property>
+    <property key="ProjectMgrErrorTaskStatusWrong">
+        <value xml:lang="en">Task: ${parameters.workEffortId} is not in progress, no request can be added"</value>
+    </property>
     <property key="ProjectMgrPlanHours">
         <value xml:lang="en">Plan Hours</value>
         <value xml:lang="fr">Heures planifiées</value>

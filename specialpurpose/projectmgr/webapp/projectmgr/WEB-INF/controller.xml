@@ -563,6 +563,12 @@
         <response name="success" type="request" value="taskView"/>
         <response name="error" type="view" value="EditTaskFromRequest"/>
     </request-map>
+    <request-map uri="acceptRequestAndConnectToTask">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="acceptRequestAndConnectToTask" path="org/ofbiz/project/ProjectSimpleEvents.xml"/>
+        <response name="success" type="request" value="taskView"/>
+        <response name="error" type="view" value="EditTaskFromRequest"/>
+    </request-map>
     <request-map uri="newrequest">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditRequest"/>
