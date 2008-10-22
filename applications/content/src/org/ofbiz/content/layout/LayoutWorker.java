@@ -104,4 +104,9 @@ public class LayoutWorker {
         //Debug.logVerbose("in uploadAndStoreImage, results:" + results, "");
         return results;
     }
+
+    public static ByteBuffer returnByteBuffer(Map map) {        
+        ByteBuffer byteBuff = (ByteBuffer)map.get("imageData");
+        return byteBuff;
+    }    
 }
