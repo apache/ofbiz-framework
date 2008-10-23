@@ -22,6 +22,7 @@ Event.observe(window, 'load', function() {
     getCountryList();
     Event.observe('shipToCountryGeo', 'change', function() {
         $('shipToStateProvinceGeo').value = "";
+        $('shipToStateProvinceGeoId').value = "";
     });
 });
 
