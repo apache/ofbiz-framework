@@ -143,7 +143,8 @@ under the License.
         <field name="donePage"><hidden/></field>
         <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
-        <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
+        <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
+        <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
         <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
         <field name="emailAddress" parameter-name="contactMechIdFrom">
             <drop-down>
@@ -154,9 +155,9 @@ under the License.
             <lookup target-form-name="LookupPartyEmail"/>
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
-        <field name="subject"><text size="60"/></field>
+        <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20" default-value="${parameters.content}"/></field>
         <field name="sendButton"><submit button-type="button"/></field>
     </form>
     <form name="ViewEmail" type="single" default-map-name="communicationEvent">
@@ -203,9 +204,9 @@ under the License.
                 <list-options list-name="recentParties" key-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName}"/>
             </drop-down>
         </field>
-        <field name="subject"><text size="60"/></field>
+        <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
         <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="60" rows="10" default-value="${parameters.content}"/></field>
         <field name="sendButton"><submit button-type="button"/></field>
     </form>
     

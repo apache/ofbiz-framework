@@ -224,7 +224,7 @@ under the License.
             </entity-condition>
         </actions>        
         <field name="subject">
-            <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION"/>
+            <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyId=${userLogin.partyId}"/>
         </field>
         <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
@@ -259,7 +259,8 @@ under the License.
         <field name="communicationEventId"  use-when="communicationEventId!=null"><hidden/></field> 
         <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
         <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
-        <field name="parentCommEventId"><hidden value="${parameters.parentCommEventId}"/></field>
+        <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
+        <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
         <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
         <field name="emailAddress" parameter-name="contactMechIdFrom">
             <drop-down>
@@ -270,18 +271,19 @@ under the License.
             <lookup target-form-name="LookupPartyEmail"/>
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
-        <field name="subject"><text size="60"/></field>
+        <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
         <field name="fileAttach"><display/></field><field name="fileAttach">
-            <hyperlink target="addAttachmentEmail?communicationEventTypeId=${parameters.communicationEventTypeId}&amp;partyId=${userLogin.partyId}&amp;communicationEventId=${parameters.communicationEventId}" description="Attach File"/>
-        </field>        
-        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
-        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20"/></field>
-        <field name="save" title="&amp;nbsp;">
-            <hyperlink also-hidden="true" target-type="plain" description="Save" target="javascript:(document.MyPageNewEmail.statusId.value='COM_PENDING'),(document.MyPageNewEmail.submit())"/>           
+            <hyperlink target="addAttachmentEmail?communicationEventTypeId=${parameters.communicationEventTypeId}&amp;partyId=${userLogin.partyId}&amp;communicationEventId=${parameters.communicationEventId}&amp;parentCommEventId=${parameters.parentCommEventId}&amp;originalCommEventId=${parameters.originalCommEventId}" description="Attach File"/>
         </field>
-        <field name="send" title="&amp;nbsp;">
+        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20" default-value="${parameters.content}"/></field>
+        <field name="send" title="&amp;nbsp;" position="1">
             <hyperlink also-hidden="true" target-type="plain" description="Send" target="javascript:(document.MyPageNewEmail.submit())"/>
         </field>
+        <field name="save" title="&amp;nbsp;" position="2">
+            <hyperlink also-hidden="true" target-type="plain" description="Save" target="javascript:(document.MyPageNewEmail.statusId.value='COM_PENDING'),(document.MyPageNewEmail.submit())"/>
+        </field>
+        <field name="dummy" position="320"><hidden/></field>
     </form>
     <form name="ListPhaseInfo" extends="ListPhaseInfo" extends-resource="component://projectmgr/widget/forms/ProjectForms.xml">
         <field name="phase"><display description="${phaseName}"/></field>

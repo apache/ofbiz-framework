@@ -231,6 +231,13 @@
         <response name="success" type="view" value="EditCommunicationEvent"/>
     </request-map>
     
+    <request-map uri="updateCommunicationEvent">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateCommunicationEvent"/>
+        <response name="success" type="view" value="main"/>
+        <response name="error" type="view" value="ViewCommunicationEvent"/>
+    </request-map>
+    
     <request-map uri="addAttachmentEmail">
         <security https="true" auth="true"/>        
         <response name="success" type="view" value="addAttachmentEmail"/>
