@@ -148,7 +148,7 @@ under the License.
                           <input type="hidden" name="cartLineProductId" id="cartLineProductId_${cartLineIndex}" value="${cartLine.getProductId()}">
                           <div>
                             <span>
-                              <input type="text" name="update_${cartLineIndex}" id="qty_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" size="6" class="required validate-number">
+                              <input type="text" name="update${cartLineIndex}" id="qty_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}" size="6" class="required validate-number">
                             </span>
                             <label for="qty_${cartLineIndex}"><span id="advice-required-qty_${cartLineIndex}" style="display:none;" class="errorMessage"> (required)</span></label>
                           </div>
