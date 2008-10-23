@@ -418,7 +418,8 @@ function cartItemQtyChanged(event) {
     var productId = $(productIdElementId).value;
     if (qtyElement.value >= 0 && !isNaN(qtyElement.value)) {
         var itemIndex = getProductLineItemIndex(event, productId);
-        var formValues = $('cartForm').serialize();
+        qtyParam = "update_" + itemIndex +"="+qtyElement.value;
+        var formValues = $('cartForm').serialize() + '&' + qtyParam;
         updateCartData(elementId, formValues, qtyElement.value, itemIndex);
     } else {
         qtyElement.value = "";  
