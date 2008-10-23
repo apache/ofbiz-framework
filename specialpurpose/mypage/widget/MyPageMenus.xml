@@ -184,26 +184,88 @@ under the License.
         </menu-item>
         <menu-item name="myTime" title="myTime"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
     </menu>
-    <menu name="CommSubTabBar" extends="CommSubTabBar" extends-resource="component://party/webapp/partymgr/communication/CommMenus.xml"
-            menu-container-style="button-bar button-style-2">
+    <menu name="CommSubTabBar" menu-container-style="button-bar button-style-2">
+        <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}">
+            <condition>
+                <and>
+                    <if-has-permission permission="PARTYMGR_CME_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+                </and>
+            </condition>
+            <link target="EditCommunicationEvent?donePage=${parameters.donePage}"/>
+        </menu-item>
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
+            <condition>
+                <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+            </condition>
+            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
+        </menu-item>
+        <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <condition>
+                <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+            </condition>
+            <link target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}"/>
+        </menu-item>
+        <menu-item name="reply" title="${uiLabelMap.PartyReply}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                </and>
+            </condition>
+            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING&amp;parentCommEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="forward" title="${uiLabelMap.Forward}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                </and>
+            </condition>
+            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING&amp;originalCommEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
+                </and>
+            </condition>
+            <link target="editRequestFromCommEvent?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
         <menu-item name="close" title="${uiLabelMap.CommonClose}">
             <condition>
                 <and>
                     <not><if-empty field-name="communicationEventRole"/></not>
                     <if-compare field-name="communicationEventRole.statusId" operator="equals" value="COM_ROLE_READ"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
                 </and>
             </condition>
             <link target="setCommunicationEventRoleStatus?communicationEventId=${parameters.communicationEventId}&amp;partyId=${userLogin.partyId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;statusId=COM_ROLE_COMPLETED"/>
         </menu-item>
         <menu-item name="send" title="${uiLabelMap.CommonSend}">
             <condition>
-                <if-compare field-name="commEvent.statusId" operator="equals" value="COM_READ"/>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <if-compare field-name="commEvent.statusId" operator="equals" value="COM_PENDING"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                </and>
             </condition>
             <link target="updateCommunicationEvent/main?communicationEventId=${parameters.communicationEventId}&amp;statusId=COM_IN_PROGRESS"/>
         </menu-item>
         <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
             <condition>
-                <not><if-empty field-name="communicationEventRole"/></not>
+                <and>
+                    <not><if-empty field-name="communicationEventRole"/></not>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
+                </and>
             </condition>
             <link target="RemoveCommunicationEventRole?communicationEventId=${parameters.communicationEventId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;partyId=${userLogin.partyId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
         </menu-item>

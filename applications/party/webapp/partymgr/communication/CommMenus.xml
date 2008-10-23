@@ -89,6 +89,16 @@ under the License.
             </condition>
             <link target="EditCommunicationEvent?parentCommEventId=${parameters.communicationEventId}"/>
         </menu-item>
+        <menu-item name="forward" title="${uiLabelMap.Forward}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                </and>
+            </condition>
+            <link target="EditCommunicationEvent?originalCommEventId=${parameters.communicationEventId}"/>
+        </menu-item>
         <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
             <condition>
                 <and>

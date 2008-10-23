@@ -535,6 +535,7 @@ under the License.
                 <set field="tabButtonItem" value="CommunicationEvent" />
                 <entity-one entity-name="CommunicationEvent" value-name="communicationEvent" />
                 <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventReply.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/communication/PrepCommEventForward.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator"
@@ -552,6 +553,7 @@ under the License.
                             <widgets>
                                 <screenlet id="EditCommunicationEventPanel" title="${uiLabelMap.PartyEditCommunicationEvent}" collapsible="true">
                                     <include-form location="component://mypage/widget/MyPageForms.xml" name="MyPageNewEmail"/>
+                                    <include-screen name="AttachFiletList"/>
                                 </screenlet>
                             </widgets>
                         </section>
@@ -606,7 +608,7 @@ under the License.
                 </entity-condition>
                 <set field="communicationEventId" from-field="parameters.communicationEventId"/>
                 <set field="communicationEventTypeId" from-field="parameters.communicationEventTypeId"/>
-                <set field="partyId" from-field="parameters.partyId"/>                    
+                <set field="partyId" from-field="userLogin.partyId"/>                    
             </actions> 
             <widgets>
                 <decorator-screen name="CommonCommunicationEventDecorator"
@@ -631,7 +633,7 @@ under the License.
                     <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
                 </entity-and>
                 <entity-and entity-name="PartyContent" list-name="partyContent">
-                    <field-map field-name="partyId" env-name="parameters.partyId"/>
+                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
                 </entity-and>
             </actions>
             <widgets>

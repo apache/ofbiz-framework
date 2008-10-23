@@ -44,6 +44,8 @@ under the License.
     <SecurityPermission description="Update communication event, any from/to party." permissionId="PARTYMGR_CME_UPDATE"/>
     <SecurityPermission description="Delete communication event, any from/to party." permissionId="PARTYMGR_CME_DELETE"/>
     <SecurityPermission description="Can create Email communication events for logged-in user." permissionId="PARTYMGR_CME-EMAIL_CREATE"/>
+    <SecurityPermission description="Can update Email communication events for logged-in user." permissionId="PARTYMGR_CME-EMAIL_UPDATE"/>
+    <SecurityPermission description="Can delete Email communication events for logged-in user." permissionId="PARTYMGR_CME-EMAIL_DELETE"/>
     <SecurityPermission description="Can create Internal note communication event for logged-in user." permissionId="PARTYMGR_CME-NOTE_CREATE"/>
 
     <SecurityGroup description="Party Admin group, has all party permissions." groupId="PARTYADMIN"/>
