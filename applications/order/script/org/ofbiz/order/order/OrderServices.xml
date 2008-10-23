@@ -967,7 +967,7 @@ under the License.
                     <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
                         <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
                             <field-map field-name="contactMechId" env-name="shipToAddressCtx.shipToContactMechId"/>
-                            <field-map field-name="partyId" env-name="partyId"/>
+                            <field-map field-name="partyId" env-name="userLogin.partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         </entity-and>
                         <first-from-list list-name="pcmpList" entry-name="pcmp"/>
@@ -975,6 +975,7 @@ under the License.
                             <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         </if-not-empty>
+                        <set field="shipToAddressCtx.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
                             <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
                         </call-service>
@@ -1047,7 +1048,6 @@ under the License.
                 <log level="info" message="Billing address created with contactmechId ${parameters.billToContactMechId}"/>
             <else>
                 <if-compare-field field="parameters.shipToContactMechId" operator="equals" to-field="parameters.billToContactMechId">
-                    <set field="billToAddressCtx.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
                         <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
                     </call-service>
