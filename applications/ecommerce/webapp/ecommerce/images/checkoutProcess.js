@@ -203,6 +203,11 @@ function showEditBillingPanel() {
          hideOrderSubmitPanel();
          Effect.BlindDown('editBillingPanel', {duration: 0.0});
     }
+    if ($F('shipToContactMechId') != $F('billToContactMechId')) {
+        $('useShippingAddressForBilling').checked = false;
+        Effect.BlindDown($('billingAddress'), {duration: 0.3});
+        $('useShippingAddressForBilling').value = "N";
+    }
 }
 
 function showOrderSubmitPanel() {
@@ -315,10 +320,12 @@ function useShippingAddressForBillingToggle() {
         $('billToCity').value = $F('shipToCity');
         $('billToPostalCode').value = $F('shipToPostalCode');
         $('billToCountryGeoId').value = $F('shipToCountryGeoId');
+        $('useShippingAddressForBilling').value = "Y";
         $('billToStateProvinceGeoId').update("<option value = " + $F('shipToStateProvinceGeoId') + " > " + $('shipToStateProvinceGeo').value + " </option>");
         Effect.BlindUp($('billingAddress'), {duration: 0.3});
     } else {
         Effect.BlindDown($('billingAddress'), {duration: 0.3});
+        $('useShippingAddressForBilling').value = "N";
     }
 }
 
