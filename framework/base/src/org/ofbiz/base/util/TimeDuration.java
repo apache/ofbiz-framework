@@ -53,6 +53,9 @@ public class TimeDuration implements Serializable {
         this.days = days;
         this.months = months;
         this.years = years;
+        if (years < 0 || months < 0  || days < 0 || hours < 0 || minutes < 0 || seconds < 0 || millis < 0) {
+            makeNegative();
+        }
     }
 
     /** Elapsed time constructor. The time duration will be computed from the
@@ -132,31 +135,16 @@ public class TimeDuration implements Serializable {
         return cal;
     }
 
-    /** Subtract this time duration to a Calendar instance. Returns the original
-     * Calendar instance.
-     * @param cal
-     * @return <code>cal</code>
-     */
-    public Calendar subtractFromCalendar(Calendar cal) {
-        cal.add(Calendar.MILLISECOND, -this.millis);
-        cal.add(Calendar.SECOND, -this.seconds);
-        cal.add(Calendar.MINUTE, -this.minutes);
-        cal.add(Calendar.HOUR, -this.hours);
-        cal.add(Calendar.DAY_OF_MONTH, -this.days);
-        cal.add(Calendar.MONTH, -this.months);
-        cal.add(Calendar.YEAR, -this.years);
-        return cal;
-    }
-
-    
     protected void set(Calendar cal1, Calendar cal2) {
         // set up Calendar objects
         Calendar calStart = null;
         Calendar calEnd = null;
+        boolean isNegative = false;
         if (cal1.before(cal2)) {
             calStart = (Calendar) cal1.clone();
             calEnd = (Calendar) cal2.clone();
         } else {
+            isNegative = true;
             calStart = (Calendar) cal2.clone();
             calEnd = (Calendar) cal1.clone();
         }
@@ -203,6 +191,9 @@ public class TimeDuration implements Serializable {
         deltaMillis = targetMillis - calStart.getTimeInMillis();
         
         this.millis = (int) deltaMillis;
+        if (isNegative) {
+            makeNegative();
+        }
     }
     
     protected int advanceCalendar(Calendar start, Calendar end, int units, int type) {
@@ -214,6 +205,16 @@ public class TimeDuration implements Serializable {
             }
         }
         return units;
+    }
+
+    protected void makeNegative() {
+        this.millis = Math.min(this.millis, -this.millis);
+        this.seconds = Math.min(this.seconds, -this.seconds);
+        this.minutes = Math.min(this.minutes, -this.minutes);
+        this.hours = Math.min(this.hours, -this.hours);
+        this.days = Math.min(this.days, -this.days);
+        this.months = Math.min(this.months, -this.months);
+        this.years = Math.min(this.years, -this.years);
     }
 
     /** Returns a <code>TimeDuration</code> instance derived from a <code>long</code>
@@ -230,6 +231,11 @@ public class TimeDuration implements Serializable {
         TimeDuration duration = new TimeDuration();
         if (millis == 0) {
             return duration;
+        }
+        boolean isNegative = false;
+        if (millis < 0) {
+            isNegative = true;
+            millis = 0 - millis;
         }
         long units = millis / 0x757B12C00L;
         duration.years = (int) units;
@@ -250,6 +256,9 @@ public class TimeDuration implements Serializable {
         duration.seconds = (int) units;
         millis -= 1000 * (long) duration.seconds;
         duration.millis = (int) millis;
+        if (isNegative) {
+            duration.makeNegative();
+        }
         return duration;
     }
 
