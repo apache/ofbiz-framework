@@ -1067,13 +1067,13 @@ under the License.
                 </else>
                 </if-compare-field>
 
-                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpShipList" filter-by-date="true">
+                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpBillList" filter-by-date="true">
                     <field-map field-name="partyId" env-name="userLogin.partyId"/>
                     <field-map field-name="contactMechId" env-name="parameters.billToContactMechId"/>
                     <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                 </entity-and>
                 <!-- If purpose is not exists then create -->
-                <if-empty field="pcmpShipList">
+                <if-empty field="pcmpBillList">
                     <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
                     <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
 
