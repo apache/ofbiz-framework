@@ -879,6 +879,10 @@
         <value xml:lang="th">หยุดไว้ชั่วคราว</value>
         <value xml:lang="zh">暂停</value>
     </property>
+    <property key="ProjectMgrSetComplete">
+        <value xml:lang="en">Complete</value>
+        <value xml:lang="th">เสร็จสมบูรณ์</value>
+    </property>
     <property key="ProjectMgrSkillStandards">
         <value xml:lang="en">Skill Standards</value>
         <value xml:lang="fr">Compétences standards</value>

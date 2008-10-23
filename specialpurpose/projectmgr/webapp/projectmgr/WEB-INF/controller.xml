@@ -157,6 +157,11 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskPartyAssigns"/>
     </request-map>
+    <request-map uri="setTaskStatusToComplete">
+        <security https="true" auth="true"/>
+        <event type="simple" invoke="setTaskStatusToComplete" path="org/ofbiz/project/ProjectSimpleEvents.xml"/>
+        <response name="success" type="view" value="taskView"/>
+    </request-map>
     <request-map uri="setTaskStatus">
         <security https="true" auth="true"/>
         <event type="service" invoke="updateWorkEffort"/>

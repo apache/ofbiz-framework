@@ -294,12 +294,19 @@
             <condition>
                 <and>
                     <not><if-empty field-name="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
                 </and>
             </condition>
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_ON_HOLD"/>
+        </menu-item>
+        <menu-item name="setcomplete" title="${uiLabelMap.ProjectMgrSetComplete}" >
+            <condition>
+                <and>
+                    <not><if-empty field-name="workEffort"/></not>                    
+                    <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
+                </and>
+            </condition>
+            <link target="setTaskStatusToComplete?workEffortId=${workEffortId}"/>
         </menu-item>
         <menu-item name="release" title="${uiLabelMap.ProjectMgrRelease}" >
             <condition>
@@ -314,8 +321,7 @@
             <condition>
                 <and>
                     <not><if-empty field-name="workEffort"/></not>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELLED"/>
+                    <if-compare field-name="workEffort.currentStatusId" operator="equals" value="PTS_CREATED"/>
                 </and>
             </condition>
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_CANCELLED"/>

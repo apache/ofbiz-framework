@@ -68,4 +68,30 @@
         <set-service-fields service-name="createWorkEffortRequest" map-name="parameters" to-map-name="connectMap"/>
         <call-service service-name="createWorkEffortRequest" in-map-name="connectMap"/>
     </simple-method>
+    <simple-method method-name="setTaskStatusToComplete" short-description="Set the task status to complete, if resources assigned that status will also be set to complete">
+        <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+        <if-empty field="workEffort">
+            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorTaskNotFound"/></add-error>
+        </if-empty>
+        <if-compare field="workEffort.currentStatusId" value="PTS_CREATED" operator="not-equals">
+            <add-error><fail-property resource="uiLabelMap" property="ProjectMgrErrorTaskStatusWrong"/></add-error>
+        </if-compare>
+        <check-errors/>
+        <entity-and entity-name="WorkEffortPartyAssignment" list-name="assigns" filter-by-date="true">
+            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+        </entity-and>
+        <!-- if all assigns are complete the task will be set to complete -->
+        <if-not-empty field="assigns">
+            <iterate entry-name="assign" list-name="assigns">
+                <set-service-fields service-name="updateTaskAssigment" map-name="assign" to-map-name="upd"/>
+                <set field="upd.statusId" value="PAS_COMPLETED"/>
+                <call-service service-name="updateTaskAssigment" in-map-name="upd"/>
+            </iterate>
+            <else>
+                <set-service-fields service-name="updateWorkEffort" map-name="parameters" to-map-name="upd"/>
+                <set field="upd.currentStatusId" value="PTS_COMPLETED"/>
+                <call-service service-name="updateWorkEffort" in-map-name="upd"/>
+            </else>
+        </if-not-empty>
+    </simple-method>
 </simple-methods>
