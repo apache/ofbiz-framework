@@ -494,6 +494,9 @@
     
     <screen name="mytasks">
         <section>
+            <condition>
+                <if-compare-field field-name="parameters.partyId" operator="equals" to-field-name="userLogin.partyId"/>
+            </condition>
             <actions>
                 <service service-name="getWorkEffortAssignedActivities"/>
                 <service service-name="getWorkEffortAssignedActivitiesByRole"/>
