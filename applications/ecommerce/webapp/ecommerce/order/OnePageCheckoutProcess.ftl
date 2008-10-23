@@ -355,11 +355,11 @@ under the License.
                     </div>
                     <div class="form-row">
                       <div class="field-label">
-                        <label for="state">${uiLabelMap.CommonState}*<span id="advice-required-shipToStateProvinceGeo" style="display:none" class="errorMessage"> (required)</span></label>
+                        <label for="state">${uiLabelMap.CommonState}</label>
                       </div>
                       <div> 
                         <div>
-                          <input name="shipToStateProvinceGeo" id="shipToStateProvinceGeo" size="30" class="required" type="text" value="${shipToStateProvinceGeo?if_exists}"/>
+                          <input name="shipToStateProvinceGeo" id="shipToStateProvinceGeo" size="30" type="text" value="${shipToStateProvinceGeo?if_exists}"/>
                           <input name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" type="hidden" value="${shipToStateProvinceGeoId?if_exists}"/>
                           <div id="shipToStates" class="autocomplete" style="display:none"></div> 
                         </div>
@@ -629,10 +629,10 @@ under the License.
                       </div>
                       <div class="form-row">
                         <div class="field-label">
-                           <label for="state">${uiLabelMap.CommonState}*<span id="advice-required-billToStateProvinceGeoId" style="display:none" class="errorMessage"> (required)</span></label>
+                           <label for="state">${uiLabelMap.CommonState}</label>
                         </div>
                         <div> 
-                          <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId" class="required selectBox">
+                          <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId" class="selectBox">
                             <#if billToStateProvinceGeoId?has_content>
                               <option value="${billToStateProvinceGeoId}">${billToStateProvinceGeo}</option>
                             <#else>
