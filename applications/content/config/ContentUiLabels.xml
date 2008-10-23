@@ -20,6 +20,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="ContentAnswer">
         <value xml:lang="ar">الجواب</value>
+        <value xml:lang="de">Antwort</value>
         <value xml:lang="en">answer</value>
         <value xml:lang="es">respuesta</value>
         <value xml:lang="fr">réponse</value>
@@ -30,6 +31,7 @@
     </property>
     <property key="ContentAnswers">
         <value xml:lang="ar">الأجوبة</value>
+        <value xml:lang="de">Antworten</value>
         <value xml:lang="en">answers</value>
         <value xml:lang="es">respuestas</value>
         <value xml:lang="fr">réponses</value>
@@ -40,6 +42,7 @@
     </property>
     <property key="ContentAssoc">
         <value xml:lang="ar">ارتباط المحتوى</value>
+        <value xml:lang="de">Inhalt Zuordnung</value>
         <value xml:lang="en">Content Assoc</value>
         <value xml:lang="es">Asociación de Contenido</value>
         <value xml:lang="fr">Association de contenus</value>
@@ -50,6 +53,7 @@
     </property>
     <property key="ContentAssociation">
         <value xml:lang="ar">إرتباط</value>
+        <value xml:lang="de">Zuordnungen</value>
         <value xml:lang="en">Association</value>
         <value xml:lang="es">Asociación</value>
         <value xml:lang="fr">Association</value>
@@ -60,6 +64,7 @@
     </property>
     <property key="ContentAttribute">
         <value xml:lang="ar">خاصية</value>
+        <value xml:lang="de">Attribute</value>
         <value xml:lang="en">Attribute</value>
         <value xml:lang="es">Atributo</value>
         <value xml:lang="fr">Attribut</value>
@@ -70,6 +75,7 @@
     </property>
     <property key="ContentCMS">
         <value xml:lang="ar">CMS</value>
+        <value xml:lang="de">CMS</value>
         <value xml:lang="en">CMS</value>
         <value xml:lang="es">CMS</value>
         <value xml:lang="fr">CMS</value>
@@ -79,6 +85,7 @@
         <value xml:lang="zh">内容管理系统</value>
     </property>
     <property key="ContentCMSNotExist">
+        <value xml:lang="de">Es gibt keinen Inhalt PUBLISH_POINT (Veröffentlichungsort) für diese Webseite!</value>
         <value xml:lang="en">There is no Content PUBLISH_POINT for this WebSite!</value>
         <value xml:lang="fr">Il n'y a aucun contenu PUBLISH_POINT pour ce site Web !</value>
         <value xml:lang="it">Non c'è nessun Contenuto PUBLISH_POINT per questo Sito Web!</value>
@@ -86,6 +93,7 @@
     </property>
     <property key="ContentCategory">
         <value xml:lang="ar">الفئة</value>
+        <value xml:lang="de">Kategorie</value>
         <value xml:lang="en">Category</value>
         <value xml:lang="es">Categoría</value>
         <value xml:lang="fr">Catégorie</value>
@@ -96,6 +104,7 @@
     </property>
     <property key="ContentCharacterSet">
         <value xml:lang="ar">مجموعة الحروف</value>
+        <value xml:lang="de">Zeichensatz</value>
         <value xml:lang="en">Character Set</value>
         <value xml:lang="es">Set de caracteres</value>
         <value xml:lang="fr">Jeu de caractères</value>
@@ -105,6 +114,7 @@
         <value xml:lang="zh">字符集</value>
     </property>
     <property key="ContentCloneLayout">
+        <value xml:lang="de">Layout duplizieren</value>
         <value xml:lang="en">Clone Layout</value>
         <value xml:lang="fr">Répliquer une mise en page</value>
         <value xml:lang="it">Clona Layout</value>
@@ -112,6 +122,7 @@
     </property>
     <property key="ContentCompDoc">
         <value xml:lang="ar">Composite document</value>
+        <value xml:lang="de">Zusammengesetztes Dokument (CompDoc)</value>
         <value xml:lang="en">CompDoc</value>
         <value xml:lang="es">ComponerDoc</value>
         <value xml:lang="fr">Document composite</value>
@@ -121,54 +132,63 @@
         <value xml:lang="zh">合成文档</value>
     </property>
     <property key="ContentCompDocApprovals">
+        <value xml:lang="de">Genehmigungen</value>
         <value xml:lang="en">Approvals</value>
         <value xml:lang="fr">Approbations</value>
         <value xml:lang="it">Approvazioni</value>
         <value xml:lang="th">อนุญาต</value>
     </property>
     <property key="ContentCompDocApprovalsFor">
+        <value xml:lang="de">Inhalt Genehmigungen für</value>
         <value xml:lang="en">Content Approvals for</value>
         <value xml:lang="fr">Approbations de contenu pour</value>
         <value xml:lang="it">Approvazioni Contenuto</value>
         <value xml:lang="th">หัวข้อความคิดเห็นสำหรับ</value>
     </property>
     <property key="ContentCompDocRev">
+        <value xml:lang="de">Ver.</value>
         <value xml:lang="en">rev.</value>
         <value xml:lang="fr">rev.</value>
         <value xml:lang="it">rev.</value>
         <value xml:lang="th">รายได้</value>
     </property>
     <property key="ContentCompDocRevisionItemEditPage">
+        <value xml:lang="de">Seite zum Bearbeiten Inhalt Version</value>
         <value xml:lang="en">Revision Item Edit Page</value>
         <value xml:lang="fr">Page de modification de révision d'article</value>
         <value xml:lang="it">Riga Revisione Pagina Aggiornamento per Contenuto</value>
         <value xml:lang="th">ปรับปรุงรายการในหน้าแก้ไข</value>
     </property>
     <property key="ContentCompDocRevisionListPageForContent">
+        <value xml:lang="de">Seite mit Liste der Versionen des Inhalts</value>
         <value xml:lang="en">Revision List Page For Content</value>
         <value xml:lang="fr">Page de liste de révision pour le contenu</value>
         <value xml:lang="it">Lista Revisioni Pagina per Contenuto</value>
         <value xml:lang="th">ปรับปรุงหน้ารายการสำหรับหัวข้อ</value>
     </property>
     <property key="ContentCompDocRevisions">
+        <value xml:lang="de">Versionen</value>
         <value xml:lang="en">Revisions</value>
         <value xml:lang="fr">Révisions</value>
         <value xml:lang="it">Revisioni</value>
         <value xml:lang="th">ปรับปรุงใหม่</value>
     </property>
     <property key="ContentCompDocViewInstances">
+        <value xml:lang="de">Instanz Anzeigen</value>
         <value xml:lang="en">View Instances</value>
         <value xml:lang="fr">Exemples de vue</value>
         <value xml:lang="it">Mostra Istanze di CompDoc</value>
         <value xml:lang="th">ดูตัวอย่าง</value>
         </property>
     <property key="ContentCompDocViewTree">
+        <value xml:lang="de">Baum anzeigen</value>
         <value xml:lang="en">View Tree</value>
         <value xml:lang="fr">Voir l'arborescence</value>
         <value xml:lang="it">Mostra Albero</value>
         <value xml:lang="th">แสดงแผนผังรูปต้นไม้</value>
     </property>
     <property key="ContentCompDocViewWaitingApprovals">
+        <value xml:lang="de">Auf Freigabe wartende Genehmigungen zeigen</value>
         <value xml:lang="en">View Waiting Approvals</value>
         <value xml:lang="fr">Voir les approbations en attente</value>
         <value xml:lang="it">Mostra Approvazioni in Attesa</value>
@@ -176,6 +196,7 @@
     </property>
     <property key="ContentCompanyName">
         <value xml:lang="ar">أوفبيز: مسير المحتوى</value>
+        <value xml:lang="de">OFBiz: Inhaltsverwaltung</value>
         <value xml:lang="en">OFBiz: Content Manager</value>
         <value xml:lang="es">OFBiz: Administración de Contenidos</value>
         <value xml:lang="fr">OFBiz: gestion de contenu</value>
@@ -186,6 +207,7 @@
     </property>
     <property key="ContentCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value>
+        <value xml:lang="de">Teil der Open for Business Familie von Open Source Software</value>
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value>
         <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
@@ -196,6 +218,7 @@
     </property>
     <property key="ContentContent">
         <value xml:lang="ar">المحتوى</value>
+        <value xml:lang="de">Inhalt</value>
         <value xml:lang="en">Content</value>
         <value xml:lang="es">Contenido</value>
         <value xml:lang="fr">Contenu</value>
@@ -205,11 +228,13 @@
         <value xml:lang="zh">内容</value>
     </property>
     <property key="ContentContentsAssociatedToDataResource">
+        <value xml:lang="de">Inhaltseinträge zugeordnet zu dieser Datenressource</value>
         <value xml:lang="en">Content Entries Associated to this Data Resource</value>
         <value xml:lang="fr">Elément de contenu associé à cette ressource</value>
     </property>
     <property key="ContentContentManagerApplication">
         <value xml:lang="ar">تطبيق تسيير المحتوى</value>
+        <value xml:lang="de">Inhaltsverwaltung Anwendung</value>
         <value xml:lang="en">Content Manager Application</value>
         <value xml:lang="es">Aplicación de Administración de Contenidos</value>
         <value xml:lang="fr">Application de gestion de contenu</value>
@@ -220,6 +245,7 @@
     </property>
     <property key="ContentContentSetup">
         <value xml:lang="ar">إعداد المحتوى</value>
+        <value xml:lang="de">Inhalt Konfiguration</value>
         <value xml:lang="en">Content Setup</value>
         <value xml:lang="es">Administración de contenido</value>
         <value xml:lang="fr">Configuration du contenu</value>
@@ -229,6 +255,7 @@
         <value xml:lang="zh">内容设置</value>
     </property>
     <property key="ContentCreateFile">
+        <value xml:lang="de">Datei erstellen</value>
         <value xml:lang="en">Create File</value>
         <value xml:lang="fr">Créer le fichier</value>
         <value xml:lang="it">Creare File</value>
@@ -236,6 +263,7 @@
     </property>
     <property key="ContentDataResource">
         <value xml:lang="ar">مورد معلومات</value>
+        <value xml:lang="de">Datenressource</value>
         <value xml:lang="en">DataResource</value>
         <value xml:lang="es">Recurso de datos</value>
         <value xml:lang="fr">Ressource de données</value>
@@ -246,6 +274,7 @@
     </property>
     <property key="ContentDataResourceAttribute">
         <value xml:lang="ar">خاصية</value>
+        <value xml:lang="de">Attribut</value>
         <value xml:lang="en">Attribute</value>
         <value xml:lang="es">Atributo</value>
         <value xml:lang="fr">Attribut</value>
@@ -256,6 +285,7 @@
     </property>
     <property key="ContentDataResourceHtml">
         <value xml:lang="ar">Html</value>
+        <value xml:lang="de">Html</value>
         <value xml:lang="en">Html</value>
         <value xml:lang="es">Html</value>
         <value xml:lang="fr">Html</value>
@@ -266,6 +296,7 @@
     </property>
     <property key="ContentDataResourceImage">
         <value xml:lang="ar">صورة</value>
+        <value xml:lang="de">Bild</value>
         <value xml:lang="en">Image</value>
         <value xml:lang="es">Imágen</value>
         <value xml:lang="fr">Image</value>
@@ -276,6 +307,7 @@
     </property>
     <property key="ContentDataResourceProductFeatures">
         <value xml:lang="ar">سمات المنتوج</value>
+        <value xml:lang="de">Produktmerkmal</value>
         <value xml:lang="en">Product Features</value>
         <value xml:lang="es">Características del Producto</value>
         <value xml:lang="fr">Caractéristiques du produit</value>
@@ -286,6 +318,7 @@
     </property>
     <property key="ContentDataResourceRole">
         <value xml:lang="ar">دور</value>
+        <value xml:lang="de">Rolle</value>
         <value xml:lang="en">Role</value>
         <value xml:lang="es">Tol</value>
         <value xml:lang="fr">Rôle</value>
@@ -296,6 +329,7 @@
     </property>
     <property key="ContentDataResourceText">
         <value xml:lang="ar">نص</value>
+        <value xml:lang="de">Text</value>
         <value xml:lang="en">Text</value>
         <value xml:lang="es">Texto</value>
         <value xml:lang="fr">Texte</value>
@@ -306,6 +340,7 @@
     </property>
     <property key="ContentDataSetup">
         <value xml:lang="ar">إعداد مورد المعلومات</value>
+        <value xml:lang="de">Datenressource Konfiguration</value>
         <value xml:lang="en">DataResource Setup</value>
         <value xml:lang="es">Administración de recurso de datos</value>
         <value xml:lang="fr">Installation d'une ressource de données</value>
@@ -315,6 +350,7 @@
         <value xml:lang="zh">数据资源设置</value>
     </property>
     <property key="ContentDataType">
+        <value xml:lang="de">Datentyp</value>
         <value xml:lang="en">Data Type </value>
         <value xml:lang="fr">Type de données</value>
         <value xml:lang="it">Tipo Dati</value>
@@ -322,6 +358,7 @@
     </property>
     <property key="ContentEditProductStore">
         <value xml:lang="ar">تحرير مخزن المنتوج</value>
+        <value xml:lang="de">Produktladen bearbeiten</value>
         <value xml:lang="en">Edit Product Store</value>
         <value xml:lang="es">Modificar Tienda</value>
         <value xml:lang="fr">Modifier le centre de profit</value>
@@ -332,6 +369,7 @@
     </property>
     <property key="ContentFile">
         <value xml:lang="ar">ملف</value>
+        <value xml:lang="de">Datei</value>
         <value xml:lang="en">File</value>
         <value xml:lang="es">Archivo</value>
         <value xml:lang="fr">Fichier</value>
@@ -342,6 +380,7 @@
     </property>
     <property key="ContentFileExt">
         <value xml:lang="ar">تتمة الملف</value>
+        <value xml:lang="de">Dateierweiterung</value>
         <value xml:lang="en">File Ext</value>
         <value xml:lang="es">Extesión de Archivo</value>
         <value xml:lang="fr">Extension de fichier</value>
@@ -352,6 +391,7 @@
     </property>
     <property key="ContentFilePath">
         <value xml:lang="ar">مسلك الملف</value>
+        <value xml:lang="de">Dateipfad</value>
         <value xml:lang="en">File Path</value>
         <value xml:lang="es">Ruta del archivo</value>
         <value xml:lang="fr">Chemin d'accès au fichier</value>
@@ -362,6 +402,7 @@
     </property>
     <property key="ContentForum">
         <value xml:lang="ar">منتدى</value>
+        <value xml:lang="de">Forum</value>
         <value xml:lang="en">Forum</value>
         <value xml:lang="es">Foro</value>
         <value xml:lang="fr">Forum</value>
@@ -372,6 +413,7 @@
     </property>
     <property key="ContentGoToDataResource">
         <value xml:lang="ar">اذهب إلى مورد المعلومات</value>
+        <value xml:lang="de">Gehe zur Datenressource</value>
         <value xml:lang="en">Go to Data Resource</value>
         <value xml:lang="es">Ir al recurso de información</value>
         <value xml:lang="fr">Aller à la ressource de données</value>
@@ -382,6 +424,7 @@
     </property>
     <property key="ContentHtml">
         <value xml:lang="ar">Html</value>
+        <value xml:lang="de">Html</value>
         <value xml:lang="en">Html</value>
         <value xml:lang="es">Html</value>
         <value xml:lang="fr">HTML</value>
@@ -392,6 +435,7 @@
     </property>
     <property key="ContentImage">
         <value xml:lang="ar">صورة</value>
+        <value xml:lang="de">Bild</value>
         <value xml:lang="en">Image</value>
         <value xml:lang="es">Imágen</value>
         <value xml:lang="fr">Image</value>
@@ -402,6 +446,7 @@
     </property>
     <property key="ContentIndex">
         <value xml:lang="ar">الدليل</value>
+        <value xml:lang="de">Index</value>
         <value xml:lang="en">Index</value>
         <value xml:lang="es">Indice</value>
         <value xml:lang="fr">Index</value>
@@ -412,6 +457,7 @@
     </property>
     <property key="ContentIndexAll">
         <value xml:lang="ar">دلل على كل المحتوى تحت</value>
+        <value xml:lang="de">Alle Inhalte indexieren unter</value>
         <value xml:lang="en">Index All Content Under</value>
         <value xml:lang="es">Indice de todo el contenido</value>
         <value xml:lang="fr">Indexez tout le contenu dessous</value>
@@ -422,6 +468,7 @@
     </property>
     <property key="ContentIndexEnteredIds">
         <value xml:lang="ar">التعاريف المدخلة للدليل</value>
+        <value xml:lang="de">Angegebene IDs indexieren</value>
         <value xml:lang="en">Index Entered Ids</value>
         <value xml:lang="fr">Indexez les réfs. entrées</value>
         <value xml:lang="it">Inserire Codici da Indicizzare</value>
@@ -431,6 +478,7 @@
     </property>
     <property key="ContentLayout">
         <value xml:lang="ar">الوضعية</value>
+        <value xml:lang="de">Layout</value>
         <value xml:lang="en">Layout</value>
         <value xml:lang="fr">Mise en page</value>
         <value xml:lang="it">Layout</value>
@@ -440,6 +488,7 @@
     </property>
     <property key="ContentMain">
         <value xml:lang="ar">الرئيسية</value>
+        <value xml:lang="de">Primärer</value>
         <value xml:lang="en">Main</value>
         <value xml:lang="es">Principal</value>
         <value xml:lang="fr">Page d'accueil</value>
@@ -449,12 +498,14 @@
         <value xml:lang="zh">首页</value>
     </property>
     <property key="ContentMapKey">
+        <value xml:lang="de">Zugriffsschlüssel (MapKey)</value>
         <value xml:lang="en">MapKey</value>
         <value xml:lang="fr">Clef de carte</value>
         <value xml:lang="it">Chiave Mappa</value>
         <value xml:lang="th">แผนที่สำคัญ</value>
     </property>
     <property key="ContentMetaDataPred">
+        <value xml:lang="de">Metadaten Prädikat</value>
         <value xml:lang="ar">MetaData Predicate</value>
         <value xml:lang="en">MetaData Predicate</value>
         <value xml:lang="fr">Attribut de méta-données</value>
@@ -464,6 +515,7 @@
         <value xml:lang="zh">元数据谓词</value>
     </property>
     <property key="ContentMetadata">
+        <value xml:lang="de">Metadaten</value>
         <value xml:lang="ar">Metadata</value>
         <value xml:lang="en">Metadata</value>
         <value xml:lang="fr">Méta-données</value>
@@ -473,10 +525,12 @@
         <value xml:lang="zh">元数据</value>
     </property>
     <property key="ContentMetaTags">
+        <value xml:lang="de">Meta Auszeichnungen (Tags)</value>
         <value xml:lang="en">Meta Tags</value>
         <value xml:lang="fr">Méta-étiquettes</value>
     </property>
     <property key="ContentMimeType">
+        <value xml:lang="de">Mime Typ</value>
         <value xml:lang="ar">Mime Type</value>
         <value xml:lang="en">Mime Type</value>
         <value xml:lang="fr">Type mime</value>
@@ -486,6 +540,7 @@
         <value xml:lang="zh">Mime类型</value>
     </property>
     <property key="ContentMimeTypeHtmlTemplate">
+        <value xml:lang="de">Mime Typ Vorlage</value>
         <value xml:lang="ar">Mime Type Template</value>
         <value xml:lang="en">Mime Type Template</value>
         <value xml:lang="fr">Type modèle Mime</value>
@@ -493,12 +548,14 @@
         <value xml:lang="th">รูปแบบประเภทแบบจำลอง</value>
     </property>
     <property key="ContentNavigate">
+        <value xml:lang="de">Navigieren</value>
         <value xml:lang="en">Navigate</value>
         <value xml:lang="fr">Diriger</value>
         <value xml:lang="th">หาเส้นทาง</value>
     </property>
     <property key="ContentOtherLayout">
         <value xml:lang="ar">الوضعيات الأخرى المستعملة لهذا المحتوى التحتي</value>
+        <value xml:lang="de">Andere Layouts die dieses untergeordneten Inhalt verwenden</value>
         <value xml:lang="en">Other Layouts that use this subcontent</value>
         <value xml:lang="fr">D'autres mise en pages qui emploient ce contenu secondaire</value>
         <value xml:lang="it">Altri Layoutsche usano questo sotto-contenuto</value>
@@ -508,6 +565,7 @@
     </property>
     <property key="ContentPDF">
         <value xml:lang="ar">PDF تعريف محتوى</value>
+        <value xml:lang="de">PDF Inhalt ID</value>
         <value xml:lang="en">PDF Content ID</value>
         <value xml:lang="fr">Réf. contenu PDF</value>
         <value xml:lang="it">Contenuto PDF</value>
@@ -516,6 +574,7 @@
         <value xml:lang="zh">PDF内容标识</value>
     </property>
     <property key="ContentParent">
+        <value xml:lang="de">Übergeordneter Inhalt</value>
         <value xml:lang="en">Parent Content</value>
         <value xml:lang="fr">Contenu de parent</value>
         <value xml:lang="it">Contenuto Padre</value>
@@ -523,6 +582,7 @@
     </property>
     <property key="ContentPaste">
         <value xml:lang="ar">الصق</value>
+        <value xml:lang="de">Einfügen</value>
         <value xml:lang="en">Paste</value>
         <value xml:lang="fr">Coller</value>
         <value xml:lang="it">Incolla</value>
@@ -531,11 +591,13 @@
         <value xml:lang="zh">粘贴</value>
     </property>
     <property key="ContentPathAlias">
+        <value xml:lang="de">Pfad Alias</value>
         <value xml:lang="en">Path Alias</value>
         <value xml:lang="fr">Alias de chemin d'accès</value>
     </property>
     <property key="ContentQueryLine">
         <value xml:lang="ar">أدخل متغيرات المسألة</value>
+        <value xml:lang="de">Geben Sie die Suchparamter an</value>
         <value xml:lang="en">Enter query parameters</value>
         <value xml:lang="fr">Entrez les paramètres de question</value>
         <value xml:lang="it">Inserire parametri ricerca</value>
@@ -544,12 +606,14 @@
         <value xml:lang="zh">输入查询参数</value>
     </property>
     <property key="ContentQuickSubContent">
+        <value xml:lang="de">Rasch untergeordneter Inhalt</value>
         <value xml:lang="en">Quick Sub-Content</value>
         <value xml:lang="fr">Sous-contenu rapide</value>
         <value xml:lang="th">หัวข้อย่อยอย่างรวดเร็ว</value>
     </property>
     <property key="ContentSubContent">
         <value xml:lang="ar">محتوى تحتي</value>
+        <value xml:lang="de">Untergeordneter Inhalt</value>
         <value xml:lang="en">SubContent</value>
         <value xml:lang="fr">Sous-contenu</value>
         <value xml:lang="it">Sotto-Contenuto</value>
@@ -558,42 +622,49 @@
         <value xml:lang="zh">子内容</value>
     </property>
     <property key="ContentResourceLongText">
+        <value xml:lang="de">Ausführlicher Text</value>
         <value xml:lang="en">Long Text</value>
         <value xml:lang="fr">Texte long</value>
         <value xml:lang="it">Testo Lungo</value>
         <value xml:lang="th">ตัวอักษรยาว</value>
     </property>
     <property key="ContentResourceAudio">
+        <value xml:lang="de">Audio</value>
         <value xml:lang="en">Audio</value>
         <value xml:lang="fr">Audio</value>
         <value xml:lang="it">Audio</value>
         <value xml:lang="th">เสียง</value>
     </property>
     <property key="ContentResourceOther">
+        <value xml:lang="de">Andere</value>
         <value xml:lang="en">Other</value>
         <value xml:lang="fr">Autre</value>
         <value xml:lang="it">Altro</value>
         <value xml:lang="th">อื่น ๆ</value>
     </property>
     <property key="ContentResourceVideo">
+        <value xml:lang="de">Video</value>
         <value xml:lang="en">Video</value>
         <value xml:lang="fr">Video</value>
         <value xml:lang="it">Video</value>
         <value xml:lang="th">วิดีโอ</value>
     </property>
     <property key="ContentResourceNone">
+        <value xml:lang="de">Keine (Baum, Kategorie, etc.)</value>
         <value xml:lang="en">None (Tree, Category, etc)</value>
         <value xml:lang="fr">Aucun (arborescence, catégorie, etc.)</value>
         <value xml:lang="it">Nessuno (Albero, Categoria, etc)</value>
         <value xml:lang="th">ไม่มี</value>
     </property>
     <property key="ContentResourceShortText">
+        <value xml:lang="de">Kurzer Text (255 Zeichen)</value>
         <value xml:lang="en">Short Text (255 chars.)</value>
         <value xml:lang="fr">Texte court (255 caract.))</value>
         <value xml:lang="it">Testo Breve (255 carat.)</value>
         <value xml:lang="th">ตัวอักษรสั้น</value>
     </property>
     <property key="ContentResourceUrlResource">
+        <value xml:lang="de">URL Ressource</value>
         <value xml:lang="en">URL Resource</value>
         <value xml:lang="fr">URL de ressource</value>
         <value xml:lang="it">Risorsa URL</value>
@@ -601,6 +672,7 @@
     </property>
     <property key="ContentSubSites">
         <value xml:lang="ar">مواقع فرعية</value>
+        <value xml:lang="de">Untergeordnete Seite</value>
         <value xml:lang="en">Sub Sites</value>
         <value xml:lang="fr">Sites secondaires</value>
         <value xml:lang="it">SottoSiti</value>
@@ -610,6 +682,7 @@
     </property>
     <property key="ContentSurvey">
         <value xml:lang="ar">تصويت</value>
+        <value xml:lang="de">Befragung</value>
         <value xml:lang="en">Survey</value>
         <value xml:lang="es">Encuesta</value>
         <value xml:lang="fr">Sondage</value>
@@ -620,6 +693,7 @@
     </property>
     <property key="ContentTemplate">
         <value xml:lang="ar">نموذج</value>
+        <value xml:lang="de">Vorlage</value>
         <value xml:lang="en">Template</value>
         <value xml:lang="es">Plantilla</value>
         <value xml:lang="fr">Modèle</value>
@@ -630,6 +704,7 @@
     </property>
     <property key="ContentTemplates">
         <value xml:lang="ar">نماذج</value>
+        <value xml:lang="de">Vorlagen</value>
         <value xml:lang="en">Templates</value>
         <value xml:lang="fr">Modèles</value>
         <value xml:lang="it">Templates</value>
@@ -639,6 +714,7 @@
     </property>
     <property key="ContentText">
         <value xml:lang="ar">نص</value>
+        <value xml:lang="de">Text</value>
         <value xml:lang="en">Text</value>
         <value xml:lang="fr">Texte</value>
         <value xml:lang="it">Testo</value>
@@ -648,6 +724,7 @@
     </property>
     <property key="ContentTree">
         <value xml:lang="ar">شجرة</value>
+        <value xml:lang="de">Baum</value>
         <value xml:lang="en">Tree</value>
         <value xml:lang="fr">Arbre</value>
         <value xml:lang="it">Albero</value>
@@ -656,6 +733,7 @@
         <value xml:lang="zh">树</value>
     </property>
     <property key="ContentType">
+        <value xml:lang="de">Inhalt Typ</value>
         <value xml:lang="en">Content Type</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
@@ -663,6 +741,7 @@
     </property>
     <property key="ContentTypeAttr">
         <value xml:lang="ar">نوع الخاصية</value>
+        <value xml:lang="de">Typ Attribute</value>
         <value xml:lang="en">Type Attribute</value>
         <value xml:lang="fr">Type d'attribut</value>
         <value xml:lang="it">Tipo Attributo</value>
@@ -672,6 +751,7 @@
     </property>
     <property key="ContentUpdatePermissionError">
         <value xml:lang="ar">You do not have permission to view this page. ("CONTENTMGR_UPDATE" or "CONTENTMGR_ADMIN" needed)</value>
+        <value xml:lang="de">Sie haben keine Berechtigung diese Seite anzusehen ("CONTENTMGR_UPDATE" oder "CONTENTMGR_ADMIN" benötigt).</value>
         <value xml:lang="en">You do not have permission to view this page. ("CONTENTMGR_UPDATE" or "CONTENTMGR_ADMIN" needed)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de regarder cette page. ("CONTENTMGR_UPDATE" ou "CONTENTMGR_ADMIN" nécessaire)</value>
         <value xml:lang="th">คุณยังไม่ได้รับอนุญาตให้ดูหน้านี้("CONTENTMGR_UPDATE" หรือ "CONTENTMGR_ADMIN" )</value>
@@ -679,6 +759,7 @@
     </property>
     <property key="ContentUrl">
         <value xml:lang="ar">Url</value>
+        <value xml:lang="de">Url</value>
         <value xml:lang="en">Url</value>
         <value xml:lang="fr">URL</value>
         <value xml:lang="it">Url</value>
@@ -688,6 +769,7 @@
     </property>
     <property key="ContentViewPermissionError">
         <value xml:lang="ar">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</value>
+        <value xml:lang="de">Sie haben keine Berechtigung diese Seite anzusehen ("CONTENTMGR_VIEW" oder "CONTENTMGR_ADMIN" benötigt).</value>
         <value xml:lang="en">You do not have permission to view this page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" needed)</value>
         <value xml:lang="fr">Vous n'avez pas l'autorisation de regarder cette page. ("CONTENTMGR_VIEW" or "CONTENTMGR_ADMIN" nécessaire)</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. ("CONTENTMGR_VIEW" o "CONTENTMGR_ADMIN" necessari)</value>
@@ -697,6 +779,7 @@
     </property>
     <property key="ContentWebSite">
         <value xml:lang="ar">موقع الويب</value>
+        <value xml:lang="de">Webseite</value>
         <value xml:lang="en">WebSite</value>
         <value xml:lang="fr">Site Web</value>
         <value xml:lang="it">Sito Web</value>
@@ -705,42 +788,49 @@
         <value xml:lang="zh">网站</value>
     </property>
     <property key="ContentWebSiteAddMenu">
+        <value xml:lang="de">Menü hinzufügen</value>
         <value xml:lang="en">Add Menu</value>
         <value xml:lang="fr">Ajouter un menu</value>
         <value xml:lang="it">Aggiungi Menu</value>
         <value xml:lang="th">เพิ่มเมนู</value>
     </property>
     <property key="ContentWebSiteAddNewMenus">
+        <value xml:lang="de">*Klick mit der rechten Maustaste um neues Menü hinzuzufügen</value>
         <value xml:lang="en">*Right click to add new menus</value>
         <value xml:lang="fr">*Cliquer droit pour ajouter de nouveaux menus</value>
         <value xml:lang="it">*Click destro per aggiungere un nuovo menu</value>
         <value xml:lang="th">คลิกขวาในการเพิ่มเมนูใหม่</value>
     </property>
     <property key="ContentWebSiteAddTree">
+        <value xml:lang="de">Baum hinzufügen</value>
         <value xml:lang="en">Add Tree</value>
         <value xml:lang="fr">AJouter une arborescence</value>
         <value xml:lang="it">Aggiungi Albero</value>
         <value xml:lang="th">เพิ่มแผนผังต้นไม้</value>
     </property>
     <property key="ContentWebSiteAddSubdContent">
+        <value xml:lang="de">*Klick mit der rechten Maustaste um untergeordneten Inhalt hinzuzufügen</value>
         <value xml:lang="en">*Right click to add sub-content</value>
         <value xml:lang="fr">*Cliquer droit pour ajouter un nouveau sous-contenu</value>
         <value xml:lang="it">*Click destro per aggiungere il sotto-contenuto</value>
         <value xml:lang="th">คลิกขวาในการเพิ่มหัวข้อย่อย</value>
     </property>
     <property key="ContentWebSiteAttachedToContent">
+        <value xml:lang="de">Angehängt am Inhalt</value>
         <value xml:lang="en">Attached to Content</value>
         <value xml:lang="fr">Attaché au contenu</value>
         <value xml:lang="it">allegato al Contenuto</value>
         <value xml:lang="th">เชื่อมกับหัวข้อ</value>
     </property>
     <property key="ContentWebSiteContent">
+        <value xml:lang="de">Webseite Inhalt</value>
         <value xml:lang="en">Web Site Content</value>
         <value xml:lang="fr">Contenu du site Web</value>
         <value xml:lang="it">Contenuto Sito Web</value>
         <value xml:lang="th">หัวข้อเว็บไซต์</value>
     </property>
     <property key="ContentWebSiteMenus">
+        <value xml:lang="de">Webseite Menüs</value>
         <value xml:lang="en">Web Site Menus</value>
         <value xml:lang="fr">Menus du site Web</value>
         <value xml:lang="it">Menu Sito Web</value>
@@ -748,6 +838,7 @@
     </property>
     <property key="ContentWebSites">
         <value xml:lang="ar">مواقع الويب</value>
+        <value xml:lang="de">Webseiten</value>
         <value xml:lang="en">WebSites</value>
         <value xml:lang="es">Sitios web</value>
         <value xml:lang="fr">Sites Web</value>
@@ -757,6 +848,7 @@
         <value xml:lang="zh">网站</value>
     </property>
     <property key="FormFieldTitle_acroFormContentId">
+        <value xml:lang="de">AcroForm (PDF) Inhalt ID</value>
         <value xml:lang="ar">AcroForm (PDF) Content ID</value>
         <value xml:lang="en">AcroForm (PDF) Content ID</value>
         <value xml:lang="fr">Réf. de contenu AcroForm (PDF)</value>
@@ -767,6 +859,7 @@
     </property>
     <property key="FormFieldTitle_allowMultiple">
         <value xml:lang="ar">السماح بالتعدد</value>
+        <value xml:lang="de">Mehrere Erlauben</value>
         <value xml:lang="en">Allow Multiple</value>
         <value xml:lang="fr">Permettre la multiplicité</value>
         <value xml:lang="it">Permette Multipli</value>
@@ -776,6 +869,7 @@
     </property>
     <property key="FormFieldTitle_allowProductStoreChange">
         <value xml:lang="ar">السماح بتغيير المتجر</value>
+        <value xml:lang="de">Produktladen wechseln erlauben</value>
         <value xml:lang="en">Allow Product Store Change</value>
         <value xml:lang="fr">Permettre le changement de centre de profit</value>
         <value xml:lang="it">Permetti Cambio Negozio</value>
@@ -785,6 +879,7 @@
     </property>
     <property key="FormFieldTitle_allowUpdate">
         <value xml:lang="ar">السماح بالتحديث</value>
+        <value xml:lang="de">Aktualisierung erlauben</value>
         <value xml:lang="en">Allow Update</value>
         <value xml:lang="fr">Permettre la mise à jour</value>
         <value xml:lang="it">Permette Aggiornamenti</value>
@@ -794,6 +889,7 @@
     </property>
     <property key="FormFieldTitle_amountBase">
         <value xml:lang="ar">قاعدة المبلغ</value>
+        <value xml:lang="de">Basisbetrag</value>
         <value xml:lang="en">Amount Base</value>
         <value xml:lang="fr">Quantité de base</value>
         <value xml:lang="it">Importo Base</value>
@@ -803,6 +899,7 @@
     </property>
     <property key="FormFieldTitle_amountBaseUomId">
         <value xml:lang="ar">تعريف وحدة قياس قاعدة المبلغ</value>
+        <value xml:lang="de">Basisbetrag Einheit ID</value>
         <value xml:lang="en">Amount Base Uom Id</value>
         <value xml:lang="fr">Unité de mesure de qantité de base</value>
         <value xml:lang="it">Udm Importo Base</value>
@@ -812,6 +909,7 @@
     </property>
     <property key="FormFieldTitle_approvalDate">
         <value xml:lang="ar">تاريخ الموافقة</value>
+        <value xml:lang="de">Genehmigungsdatum</value>
         <value xml:lang="en">Approval Date</value>
         <value xml:lang="fr">Date d'approbation</value>
         <value xml:lang="it">Data Approvazione</value>
@@ -821,6 +919,7 @@
     </property>
     <property key="FormFieldTitle_attrName">
         <value xml:lang="ar">اسم الخاصية</value>
+        <value xml:lang="de">Attributnamen</value>
         <value xml:lang="en">Attr Name</value>
         <value xml:lang="fr">Nom d'attribut</value>
         <value xml:lang="it">Nome Attributo</value>
@@ -830,6 +929,7 @@
     </property>
     <property key="FormFieldTitle_attrValue">
         <value xml:lang="ar">قيمة الخاصية</value>
+        <value xml:lang="de">Attributwert</value>
         <value xml:lang="en">Attr Value</value>
         <value xml:lang="fr">Valeur d'attribut</value>
         <value xml:lang="it">Valore Attributo</value>
@@ -839,6 +939,7 @@
     </property>
     <property key="FormFieldTitle_caContentAssocPredicateId">
         <value xml:lang="ar">تعريف توقعة ارتباط المحتوى</value>
+        <value xml:lang="de">Inhalt Zuordnung Prädikat ID</value>
         <value xml:lang="en">Content Assoc Predicate Id</value>
         <value xml:lang="fr">Réf. de prédicat de contenu d'association</value>
         <value xml:lang="it">Predicato Associazione Contenuto</value>
@@ -848,6 +949,7 @@
     </property>
     <property key="FormFieldTitle_caContentAssocTypeId">
         <value xml:lang="ar">تعريف نوع الارتباط</value>
+        <value xml:lang="de">Zuordnungstyp ID</value>
         <value xml:lang="en">Assoc Type Id</value>
         <value xml:lang="fr">Réf. de type d'association</value>
         <value xml:lang="it">Tipo Associazione</value>
@@ -857,6 +959,7 @@
     </property>
     <property key="FormFieldTitle_caContentIdTo">
         <value xml:lang="ar">المحتوى إلى</value>
+        <value xml:lang="de">Inhalt ID zu</value>
         <value xml:lang="en">Content Id To</value>
         <value xml:lang="fr">Réf.de contenu vers</value>
         <value xml:lang="it">Contenuto A</value>
@@ -865,6 +968,7 @@
         <value xml:lang="zh">内容标识到</value>
     </property>
     <property key="FormFieldTitle_caFromDate">
+        <value xml:lang="de">Von Datum und Zeit</value>
         <value xml:lang="en">From Date &amp; Time</value>
         <value xml:lang="fr">Date et heure de début</value>
         <value xml:lang="it">Dalla Data e Ora</value>
@@ -872,6 +976,7 @@
     </property>
     <property key="FormFieldTitle_caMapKey">
         <value xml:lang="ar">مفتاح التوافق</value>
+        <value xml:lang="de">Zugriffsschlüssel</value>
         <value xml:lang="en">Map Key</value>
         <value xml:lang="fr">Clef d'association</value>
         <value xml:lang="it">Chiave Mappa</value>
@@ -881,6 +986,7 @@
     </property>
     <property key="FormFieldTitle_categoryName">
         <value xml:lang="ar">اسم الفئة</value>
+        <value xml:lang="de">Kategorienname</value>
         <value xml:lang="en">Category Name</value>
         <value xml:lang="fr">Nom de catégorie</value>
         <value xml:lang="it">Nome Categoria</value>
@@ -890,6 +996,7 @@
     </property>
     <property key="FormFieldTitle_characterSetId">
         <value xml:lang="ar">تعريف مجموعة الحروف</value>
+        <value xml:lang="de">Zeichensatz ID</value>
         <value xml:lang="en">Character Set Id</value>
         <value xml:lang="fr">Réf. de jeu de caractères</value>
         <value xml:lang="it">Set di Caratteri</value>
@@ -899,6 +1006,7 @@
     </property>
     <property key="FormFieldTitle_childBranchCount">
         <value xml:lang="ar">عدد الفروع</value>
+        <value xml:lang="de">Zähler untergeordnete Verzweigungen</value>
         <value xml:lang="en">Child Branch Count</value>
         <value xml:lang="fr">Compte de branche descendante</value>
         <value xml:lang="it">Conta Rami Figli</value>
@@ -908,6 +1016,7 @@
     </property>
     <property key="FormFieldTitle_childLeafCount">
         <value xml:lang="ar">عدد الأوراق</value>
+        <value xml:lang="de">Zähler untergeordnete Elemente</value>
         <value xml:lang="en">Child Leaf Count</value>
         <value xml:lang="fr">Compte de feuille enfant</value>
         <value xml:lang="it">Conta Foglie Figli</value>
@@ -917,6 +1026,7 @@
     </property>
     <property key="FormFieldTitle_columnTitle">
         <value xml:lang="ar">عنوان العمود</value>
+        <value xml:lang="de">Spalte Titel</value>
         <value xml:lang="en">Column Title</value>
         <value xml:lang="fr">Titre de colonne</value>
         <value xml:lang="it">Titolo Colonna</value>
@@ -926,6 +1036,7 @@
     </property>
     <property key="FormFieldTitle_comments">
         <value xml:lang="ar">تعاليق</value>
+        <value xml:lang="de">Anmerkungen</value>
         <value xml:lang="en">Comments</value>
         <value xml:lang="fr">Commentaires</value>
         <value xml:lang="it">Commenti</value>
@@ -935,6 +1046,7 @@
     </property>
     <property key="FormFieldTitle_committedByPartyId">
         <value xml:lang="ar">مرتكبة من طرف</value>
+        <value xml:lang="de">Eingebracht von Akteur ID</value>
         <value xml:lang="en">Committed By Party Id</value>
         <value xml:lang="fr">Réf. de téléchargement par acteur</value>
         <value xml:lang="it">Registrato Dal Soggetto</value>
@@ -944,6 +1056,7 @@
     </property>
     <property key="FormFieldTitle_contentApprovalId">
         <value xml:lang="ar">تعريف موافقة المحتوى</value>
+        <value xml:lang="de">Inhalt Genehmigung ID</value>
         <value xml:lang="en">Content Approval Id</value>
         <value xml:lang="fr">Réf. de contenu d'approbation</value>
         <value xml:lang="it">Codice Approvazione Contenuto</value>
@@ -953,6 +1066,7 @@
     </property>
     <property key="FormFieldTitle_contentAssocPredicateId">
         <value xml:lang="ar">تعربف توقعة ارتباط المحتوى</value>
+        <value xml:lang="de">Inhalt Zuordnung Prädikat ID</value>
         <value xml:lang="en">Content Assoc Predicate Id</value>
         <value xml:lang="fr">Réf. de prédicat de contenu d'association</value>
         <value xml:lang="it">Predicato Associazione Contenuto</value>
@@ -962,6 +1076,7 @@
     </property>
     <property key="FormFieldTitle_contentAssocTypeId">
         <value xml:lang="ar">تعريف نوع ارتباط المحتوى</value>
+        <value xml:lang="de">Inhalt Zuordnungstyp ID</value>
         <value xml:lang="en">Content Assoc Type Id</value>
         <value xml:lang="fr">Réf. de contenu d'association</value>
         <value xml:lang="it">Tipo Associazione Contenuto</value>
@@ -971,6 +1086,7 @@
     </property>
     <property key="FormFieldTitle_contentId">
         <value xml:lang="ar">تعريف المحتوى</value>
+        <value xml:lang="de">Inhalt ID</value>
         <value xml:lang="en">Content Id</value>
         <value xml:lang="fr">Réf. de contenu</value>
         <value xml:lang="it">Contenuto</value>
@@ -980,6 +1096,7 @@
     </property>
     <property key="FormFieldTitle_contentIdFrom">
         <value xml:lang="ar">محتوى من</value>
+        <value xml:lang="de">Inhalt ID von</value>
         <value xml:lang="en">Content Id From</value>
         <value xml:lang="fr">Réf. de contenu depuis</value>
         <value xml:lang="it">Codice Contenuto A</value>
@@ -989,6 +1106,7 @@
     </property>
     <property key="FormFieldTitle_contentIdTo">
         <value xml:lang="ar">محتوى إلى</value>
+        <value xml:lang="de">Inhalt ID zu</value>
         <value xml:lang="en">Content Id To</value>
         <value xml:lang="fr">Réf. de contenu vers</value>
         <value xml:lang="it">Codice Contenuto A</value>
@@ -998,6 +1116,7 @@
     </property>
     <property key="FormFieldTitle_contentName">
         <value xml:lang="ar">اسم المحتوى</value>
+        <value xml:lang="de">Inhalt Name</value>
         <value xml:lang="en">Content Name</value>
         <value xml:lang="fr">Nom de contenu</value>
         <value xml:lang="it">Nome Contenuto</value>
@@ -1007,6 +1126,7 @@
     </property>
     <property key="FormFieldTitle_contentOperationId">
         <value xml:lang="ar">تعريف عملية المحتوى</value>
+        <value xml:lang="de">Inhalt Handhabung ID</value>
         <value xml:lang="en">Content Operation Id</value>
         <value xml:lang="fr">Réf. d'opération de contenu</value>
         <value xml:lang="it">Operazione Contenuto</value>
@@ -1016,6 +1136,7 @@
     </property>
     <property key="FormFieldTitle_contentPurposeList">
         <value xml:lang="ar">قائمة هدف المحتوى</value>
+        <value xml:lang="de">Liste Inhaltszweck</value>
         <value xml:lang="en">Content Purpose List</value>
         <value xml:lang="fr">Liste de but de contenu</value>
         <value xml:lang="it">Lista Funzione Contenuto</value>
@@ -1025,6 +1146,7 @@
     </property>
     <property key="FormFieldTitle_contentPurposeString">
         <value xml:lang="ar">سلسلة حروف هدف المحتوى</value>
+        <value xml:lang="de">Inhalt Zweck Text</value>
         <value xml:lang="en">Content Purpose String</value>
         <value xml:lang="fr">Chaîne de caractères de but de contenu</value>
         <value xml:lang="it">Stringa Funzione Contenuto</value>
@@ -1034,6 +1156,7 @@
     </property>
     <property key="FormFieldTitle_contentPurposeTypeId">
         <value xml:lang="ar">تعريف نوع هدف المحتوى</value>
+        <value xml:lang="de">Inhalt Zweck Typ ID</value>
         <value xml:lang="en">Content Purpose Type Id</value>
         <value xml:lang="fr">Type de but de contenu</value>
         <value xml:lang="it">Tipo Funzione Contenuto</value>
@@ -1043,6 +1166,7 @@
     </property>
     <property key="FormFieldTitle_contentRevisionSeqId">
         <value xml:lang="ar">تعريف تسلسل مراجعة المحتوى</value>
+        <value xml:lang="de">Inhalt Version Seq. ID</value>
         <value xml:lang="en">Content Revision Seq Id</value>
         <value xml:lang="fr">Réf. séq. de révision de contenu</value>
         <value xml:lang="it">Numero Sequenza Revisione Contenuto</value>
@@ -1052,6 +1176,7 @@
     </property>
     <property key="FormFieldTitle_contentType">
         <value xml:lang="ar">نوع المحتوى</value>
+        <value xml:lang="de">Inhaltstyp</value>
         <value xml:lang="en">Content Type</value>
         <value xml:lang="fr">Type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
@@ -1061,6 +1186,7 @@
     </property>
     <property key="FormFieldTitle_contentTypeId">
         <value xml:lang="ar"> تعريف نوع المحتوى</value>
+        <value xml:lang="de">Inhaltstyp ID</value>
         <value xml:lang="en">Content Type Id</value>
         <value xml:lang="fr">Réf. de type de contenu</value>
         <value xml:lang="it">Tipo Contenuto</value>
@@ -1070,6 +1196,7 @@
     </property>
     <property key="FormFieldTitle_cookieDomain">
         <value xml:lang="ar">مجال الكوكي</value>
+        <value xml:lang="de">Domain Cookie</value>
         <value xml:lang="en">Domain Cookie</value>
         <value xml:lang="fr">Cookie de domaine</value>
         <value xml:lang="it">Dominio Cookie</value>
@@ -1078,18 +1205,21 @@
         <value xml:lang="zh">对域启用Cookie</value>
     </property>
     <property key="FormFieldTitle_coContentId">
+        <value xml:lang="de">Inhalt ID</value>
         <value xml:lang="en">Content Id</value>
         <value xml:lang="fr">Ref. de contenu</value>
         <value xml:lang="it">Contenuto</value>
         <value xml:lang="th">รหัสแหล่งหัวข้อ</value>
     </property>
     <property key="FormFieldTitle_coContentName">
+        <value xml:lang="de">Inhalt Name</value>
         <value xml:lang="en">Content Name</value>
         <value xml:lang="fr">Nom de contenu</value>
         <value xml:lang="it">Nome Conteunto</value>
         <value xml:lang="th">ชื่อหัวข้อ</value>
     </property>
     <property key="FormFieldTitle_coDescription">
+        <value xml:lang="de">Inhalt Beschreibung</value>
         <value xml:lang="en">Content Description</value>
         <value xml:lang="fr">Description de contenu</value>
         <value xml:lang="it">Descrizione Contenuto</value>
@@ -1097,6 +1227,7 @@
     </property>
     <property key="FormFieldTitle_createdBy">
         <value xml:lang="ar">استحدث من طرف</value>
+        <value xml:lang="de">Erstellt von</value>
         <value xml:lang="en">Created By</value>
         <value xml:lang="fr">Créer par</value>
         <value xml:lang="it">Creato Da</value>
@@ -1106,6 +1237,7 @@
     </property>
     <property key="FormFieldTitle_createdByUserLogin">
         <value xml:lang="ar">استحدث من طرف المستخدم</value>
+        <value xml:lang="de">Erstellt von Benutzeranmeldung</value>
         <value xml:lang="en">Created By User Login</value>
         <value xml:lang="fr">Créé par l'identifiant de connexion</value>
         <value xml:lang="it">Creato Dall'Utente</value>
@@ -1115,6 +1247,7 @@
     </property>
     <property key="FormFieldTitle_createdDate">
         <value xml:lang="ar">تاريخ الإستحداث</value>
+        <value xml:lang="de">Erstellungsdatum</value>
         <value xml:lang="en">Created Date</value>
         <value xml:lang="fr">Date de création</value>
         <value xml:lang="it">Data Creazione</value>
@@ -1124,6 +1257,7 @@
     </property>
     <property key="FormFieldTitle_dataCategoryId">
         <value xml:lang="ar">تعريف فئة المعلومات</value>
+        <value xml:lang="de">Datenkategorie ID</value>
         <value xml:lang="en">Data Category Id</value>
         <value xml:lang="fr">Réf. de catégorie de données</value>
         <value xml:lang="it">Categoria Dati</value>
@@ -1133,6 +1267,7 @@
     </property>
     <property key="FormFieldTitle_dataResourceId">
         <value xml:lang="ar">تعريف مورد المعلومات</value>
+        <value xml:lang="de">Datenressource ID</value>
         <value xml:lang="en">Data Resource Id</value>
         <value xml:lang="fr">Réf. de ressource de données</value>
         <value xml:lang="it">Risorsa Dati</value>
@@ -1142,6 +1277,7 @@
     </property>
     <property key="FormFieldTitle_dataResourceName">
         <value xml:lang="ar">اسم مورد المعلومات</value>
+        <value xml:lang="de">Datenressource Namen</value>
         <value xml:lang="en">Data Resource Name</value>
         <value xml:lang="fr">Nom de ressource de données</value>
         <value xml:lang="it">Nome Risorsa Dati</value>
@@ -1151,6 +1287,7 @@
     </property>
     <property key="FormFieldTitle_dataResourceTitle">
         <value xml:lang="ar"> مورد المعلومات</value>
+        <value xml:lang="de">Datenressource</value>
         <value xml:lang="en">Data Resource</value>
         <value xml:lang="fr">Ressource de données</value>
         <value xml:lang="it">Risorsa Dati</value>
@@ -1160,6 +1297,7 @@
     </property>
     <property key="FormFieldTitle_dataResourceTypeId">
         <value xml:lang="ar">تعريف نوع  مورد المعلومات</value>
+        <value xml:lang="de">Datenressource Typ ID</value>
         <value xml:lang="en">Data Resource Type Id</value>
         <value xml:lang="fr">Réf. de type de ressource de données</value>
         <value xml:lang="it">Tipo Risorsa Dati</value>
@@ -1169,6 +1307,7 @@
     </property>
     <property key="FormFieldTitle_dataSourceId">
         <value xml:lang="ar">تعريف مصدر المعلومات</value>
+        <value xml:lang="de">Datenressource ID</value>
         <value xml:lang="en">Data Source Id</value>
         <value xml:lang="fr">Réf. de source de données</value>
         <value xml:lang="it">Risorsa Dati</value>
@@ -1178,6 +1317,7 @@
     </property>
     <property key="FormFieldTitle_dataTemplateTypeId">
         <value xml:lang="ar">تعريف نوع نموذج المعلومات</value>
+        <value xml:lang="de">Datenvorlagetyp ID</value>
         <value xml:lang="en">Data Template Type Id</value>
         <value xml:lang="fr">Réf. de type de modèle de données</value>
         <value xml:lang="it">Tipo Template Dati</value>
@@ -1187,6 +1327,7 @@
     </property>
     <property key="FormFieldTitle_deactivateExisting">
         <value xml:lang="ar">تعطيل الموجود</value>
+        <value xml:lang="de">Bestehendes deaktivieren</value>
         <value xml:lang="en">Deactivate Existing</value>
         <value xml:lang="fr">Désactiver l'existant</value>
         <value xml:lang="it">Disattivazione Esistente</value>
@@ -1196,6 +1337,7 @@
     </property>
     <property key="CommonDescription">
         <value xml:lang="ar">وصف</value>
+        <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
         <value xml:lang="it">Descrizione</value>
         <value xml:lang="ro">Descriere</value>
@@ -1204,6 +1346,7 @@
     </property>
     <property key="FormFieldTitle_displayFailCond">
         <value xml:lang="ar">عرض ظروف الإخفاق</value>
+        <value xml:lang="de">Grund für fehlschlagen anzeigen</value>
         <value xml:lang="en">Display Fail Cond</value>
         <value xml:lang="fr">Afficher condition(s) d'échec</value>
         <value xml:lang="it">Visualizza Condizione Fallita</value>
@@ -1213,6 +1356,7 @@
     </property>
     <property key="FormFieldTitle_drCharacterSetId">
         <value xml:lang="ar">تعريف مجموعة الحروف</value>
+        <value xml:lang="de">Zeichensatz ID</value>
         <value xml:lang="en">Character Set Id</value>
         <value xml:lang="fr">Réf. de jeu de caractères</value>
         <value xml:lang="it">Set di Caratteri</value>
@@ -1222,6 +1366,7 @@
     </property>
     <property key="FormFieldTitle_drDataCategoryId">
         <value xml:lang="ar">فئة المعلومات</value>
+        <value xml:lang="de">Datenkategorie</value>
         <value xml:lang="en">Data Category</value>
         <value xml:lang="fr">Catégorie de données</value>
         <value xml:lang="it">Categoria Dati</value>
@@ -1231,6 +1376,7 @@
     </property>
     <property key="FormFieldTitle_drDataResourceTypeId">
         <value xml:lang="ar">تعريف نوع  مورد المعلومات</value>
+        <value xml:lang="de">Datenressourcentyp ID (dr)</value>
         <value xml:lang="en">Dr Data Resource Type Id</value>
         <value xml:lang="fr">Réf. de type de ressource de données (Dr)</value>
         <value xml:lang="it">Tipo Risorsa Dati</value>
@@ -1240,6 +1386,7 @@
     </property>
     <property key="FormFieldTitle_drDataSourceId">
         <value xml:lang="ar"> مصدر المعلومات</value>
+        <value xml:lang="de">Datenquelle</value>
         <value xml:lang="en">Data Source</value>
         <value xml:lang="fr">Source de données</value>
         <value xml:lang="it">Sorgente Dati</value>
@@ -1249,6 +1396,7 @@
     </property>
     <property key="FormFieldTitle_drDataTemplateTypeId">
         <value xml:lang="ar">تعريف نوع نموذج المعلومات</value>
+        <value xml:lang="de">Datenvorlagetyp ID (Dr)</value>
         <value xml:lang="en">Dr Data Template Type Id</value>
         <value xml:lang="fr">Réf. de type de modèle de données (Dr)</value>
         <value xml:lang="it">Tipo Template Dati</value>
@@ -1258,6 +1406,7 @@
     </property>
     <property key="FormFieldTitle_drLocaleString">
         <value xml:lang="ar">سلسلة حروف محلية</value>
+        <value xml:lang="de">Locale Text</value>
         <value xml:lang="en">Locale String</value>
         <value xml:lang="fr">Langue et région</value>
         <value xml:lang="it">Stringa Locale</value>
@@ -1267,6 +1416,7 @@
     </property>
     <property key="FormFieldTitle_drMimeTypeId">
         <value xml:lang="ar">تعريف نوع  Mime</value>
+        <value xml:lang="de">Mime Typ ID (Dr)</value>
         <value xml:lang="en">Dr Mime Type Id</value>
         <value xml:lang="fr">Réf. de type mime (Dr)</value>
         <value xml:lang="it">Tipo Mime</value>
@@ -1275,6 +1425,7 @@
         <value xml:lang="zh">指定Mime类型标识</value>
     </property>
     <property key="FormFieldTitle_drObjectInfo">
+        <value xml:lang="de">Vorlagedatei</value>
         <value xml:lang="en">Template File</value>
         <value xml:lang="fr">Modèle de fichier</value>
         <value xml:lang="it">File Template</value>
@@ -1282,6 +1433,7 @@
     </property>
     <property key="FormFieldTitle_duration">
         <value xml:lang="ar">المدة</value>
+        <value xml:lang="de">Dauer</value>
         <value xml:lang="en">Duration</value>
         <value xml:lang="fr">Durée</value>
         <value xml:lang="it">Durata</value>
@@ -1291,6 +1443,7 @@
     </property>
     <property key="FormFieldTitle_durationUomId">
         <value xml:lang="ar">تعريف وحدة قياس المدة</value>
+        <value xml:lang="de">Dauer Einheit ID</value>
         <value xml:lang="en">Duration Uom Id</value>
         <value xml:lang="fr">Réf. de durée Uom</value>
         <value xml:lang="it">Udm Durata</value>
@@ -1300,6 +1453,7 @@
     </property>
     <property key="FormFieldTitle_edit">
         <value xml:lang="ar">تحرير</value>
+        <value xml:lang="de">Bearbeiten</value>
         <value xml:lang="en">Edit</value>
         <value xml:lang="fr">Modifier</value>
         <value xml:lang="it">Aggiorna</value>
@@ -1309,6 +1463,7 @@
     </property>
     <property key="FormFieldTitle_enableHttps">
         <value xml:lang="ar">تفعيل Https</value>
+        <value xml:lang="de">HTTPS aktivieren</value>
         <value xml:lang="en">Enable Https</value>
         <value xml:lang="fr">Permettre Https</value>
         <value xml:lang="it">Abilita Https</value>
@@ -1318,6 +1473,7 @@
     </property>
     <property key="FormFieldTitle_fileExtensionId">
         <value xml:lang="ar">تعريف تتمة الملف</value>
+        <value xml:lang="de">Dateierweiterung ID</value>
         <value xml:lang="en">File Extension Id</value>
         <value xml:lang="fr">Réf. d'extension de fichier</value>
         <value xml:lang="it">Estensione File</value>
@@ -1327,6 +1483,7 @@
     </property>
     <property key="FormFieldTitle_forumDescription">
         <value xml:lang="ar">وصف المنتدى</value>
+        <value xml:lang="de">Forum Beschreibung</value>
         <value xml:lang="en">Forum Description</value>
         <value xml:lang="fr">Description de forum</value>
         <value xml:lang="it">Descrizione Forum</value>
@@ -1336,6 +1493,7 @@
     </property>
     <property key="FormFieldTitle_forumGroupDescription">
         <value xml:lang="ar">وصف مجموعة المنتدى</value>
+        <value xml:lang="de">Forumgruppe Beschreibung</value>
         <value xml:lang="en">Forum Group Description</value>
         <value xml:lang="fr">Description de groupe de forum</value>
         <value xml:lang="it">Descrizione Gruppo Forum</value>
@@ -1345,6 +1503,7 @@
     </property>
     <property key="FormFieldTitle_forumGroupName">
         <value xml:lang="ar">إسم مجموعة المنتدى</value>
+        <value xml:lang="de">Forumgruppe Name</value>
         <value xml:lang="en">Forum Group Name</value>
         <value xml:lang="fr">Nom de groupe de forum</value>
         <value xml:lang="it">Nome Gruppo Forum</value>
@@ -1354,6 +1513,7 @@
     </property>
     <property key="FormFieldTitle_forumGroups">
         <value xml:lang="ar">مجموعات المنتدى</value>
+        <value xml:lang="de">Formgruppen</value>
         <value xml:lang="en">Forum Groups</value>
         <value xml:lang="fr">Groupes de forum</value>
         <value xml:lang="it">Gruppi Forum</value>
@@ -1363,6 +1523,7 @@
     </property>
     <property key="FormFieldTitle_forumMessageText">
         <value xml:lang="ar">نص الرسالة</value>
+        <value xml:lang="de">Haupt Meldungstext</value>
         <value xml:lang="en">Message Body text</value>
         <value xml:lang="fr">Corps de texte du message</value>
         <value xml:lang="it">Testo Corpo Messaggio</value>
@@ -1372,6 +1533,7 @@
     </property>
     <property key="FormFieldTitle_forumMessageTitle">
         <value xml:lang="ar">عنوان الرسالة</value>
+        <value xml:lang="de">Meldungstitel</value>
         <value xml:lang="en">Message Title</value>
         <value xml:lang="fr">Titre du message</value>
         <value xml:lang="it">Titolo Messaggio</value>
@@ -1381,6 +1543,7 @@
     </property>
     <property key="FormFieldTitle_forumName">
         <value xml:lang="ar">إسم المنتدى</value>
+        <value xml:lang="de">Forum Name</value>
         <value xml:lang="en">Forum Name</value>
         <value xml:lang="fr">Nom du forum</value>
         <value xml:lang="it">Nome Forum</value>
@@ -1390,6 +1553,7 @@
     </property>
     <property key="FormFieldTitle_forums">
         <value xml:lang="ar">المنتديات</value>
+        <value xml:lang="de">Foren</value>
         <value xml:lang="en">Forums</value>
         <value xml:lang="fr">Forums</value>
         <value xml:lang="it">Forum </value>
@@ -1399,6 +1563,7 @@
     </property>
     <property key="FormFieldTitle_fromDate">
         <value xml:lang="ar">إبتداءا من تاريخ و وقت</value>
+        <value xml:lang="de">Von Datum und Zeit</value>
         <value xml:lang="en">From Date &amp; Time</value>
         <value xml:lang="fr">Date et heure de début</value>
         <value xml:lang="it">Dalla Data e Ora</value>
@@ -1408,6 +1573,7 @@
     </property>
     <property key="FormFieldTitle_generalFeedback">
         <value xml:lang="ar">ردود عامة</value>
+        <value xml:lang="de">Generelles Feedback</value>
         <value xml:lang="en">General Feedback</value>
         <value xml:lang="fr">Remarque générale</value>
         <value xml:lang="it">Ritorno Generale</value>
@@ -1417,6 +1583,7 @@
     </property>
     <property key="FormFieldTitle_hasTable">
         <value xml:lang="ar">يحوز على جدول</value>
+        <value xml:lang="de">Hat Tabelle</value>
         <value xml:lang="en">Has Table</value>
         <value xml:lang="fr">A une table</value>
         <value xml:lang="it">Ha Tabella</value>
@@ -1426,6 +1593,7 @@
     </property>
     <property key="FormFieldTitle_hint">
         <value xml:lang="ar">مساعدة</value>
+        <value xml:lang="de">Hinweis</value>
         <value xml:lang="en">Hint</value>
         <value xml:lang="fr">Indication</value>
         <value xml:lang="it">Suggerimento</value>
@@ -1435,6 +1603,7 @@
     </property>
     <property key="FormFieldTitle_httpHost">
         <value xml:lang="ar"> حاوي Http</value>
+        <value xml:lang="de">HTTP Server</value>
         <value xml:lang="en">Http Host</value>
         <value xml:lang="fr">Centre serveur HTTP</value>
         <value xml:lang="it">Host Http</value>
@@ -1444,6 +1613,7 @@
     </property>
     <property key="FormFieldTitle_httpPort">
         <value xml:lang="ar">بوابة Http</value>
+        <value xml:lang="de">Http Port</value>
         <value xml:lang="en">Http Port</value>
         <value xml:lang="fr">Port HTTP</value>
         <value xml:lang="it">Porta Http</value>
@@ -1452,6 +1622,7 @@
     </property>
     <property key="FormFieldTitle_httpsHost">
         <value xml:lang="ar">Https حاوي</value>
+        <value xml:lang="de">Https Server</value>
         <value xml:lang="en">Https Host</value>
         <value xml:lang="fr">Centre serveur HTTPS</value>
         <value xml:lang="it">Host Https</value>
@@ -1461,6 +1632,7 @@
     </property>
     <property key="FormFieldTitle_httpsPort">
         <value xml:lang="ar">Https بوابة</value>
+        <value xml:lang="de">Https Port</value>
         <value xml:lang="en">Https Port</value>
         <value xml:lang="fr">Port HTTPS</value>
         <value xml:lang="it">Porta Https</value>
@@ -1470,6 +1642,7 @@
     </property>
     <property key="FormFieldTitle_imageData">
         <value xml:lang="ar">صورة المعلومات</value>
+        <value xml:lang="de">Bilddaten</value>
         <value xml:lang="en">Image Data</value>
         <value xml:lang="fr">Données d'image</value>
         <value xml:lang="it">Dati Immagine</value>
@@ -1479,6 +1652,7 @@
     </property>
     <property key="FormFieldTitle_imageDataTitle">
         <value xml:lang="ar">صورة</value>
+        <value xml:lang="de">Bild</value>
         <value xml:lang="en">Image</value>
         <value xml:lang="fr">Image</value>
         <value xml:lang="it">Immagine</value>
@@ -1488,6 +1662,7 @@
     </property>
     <property key="FormFieldTitle_imageFileName">
         <value xml:lang="ar">صورة ايم الملف</value>
+        <value xml:lang="de">Bild Dateiname</value>
         <value xml:lang="en">Image File Name</value>
         <value xml:lang="fr">Nom de fichier image</value>
         <value xml:lang="it">Nome File Immagine</value>
@@ -1497,6 +1672,7 @@
     </property>
     <property key="FormFieldTitle_indexContentIds">
         <value xml:lang="ar">تعاريف المحتوى للتدليل (فرق بين التعاريف بفراغ)</value>
+        <value xml:lang="de">Inhalt IDs zum Indexieren (IDs mit einem Leerzeichen trennen)</value>
         <value xml:lang="en">Content ids to index (separate ids with a space)</value>
         <value xml:lang="fr">Réf. de contenus à indexer (réf. séparées par un espace)</value>
         <value xml:lang="it">Codici Contenuto da indicizzare (separare codici con uno spazio)</value>
@@ -1506,6 +1682,7 @@
     </property>
     <property key="FormFieldTitle_instanceOfContentId">
         <value xml:lang="ar">كينونة لتعريف المحتوى</value>
+        <value xml:lang="de">Instanz von Inhalt ID</value>
         <value xml:lang="en">Instance Of Content Id</value>
         <value xml:lang="fr">Réf. d'exemple de contenu</value>
         <value xml:lang="it">Instanza Del Contenuto</value>
@@ -1515,6 +1692,7 @@
     </property>
     <property key="FormFieldTitle_isAnonymous">
         <value xml:lang="ar">عرف معرف</value>
+        <value xml:lang="de">Ist anonym</value>
         <value xml:lang="en">Is Anonymous</value>
         <value xml:lang="fr">Est anonyme</value>
         <value xml:lang="it">E' Anonimo</value>
@@ -1524,6 +1702,7 @@
     </property>
     <property key="FormFieldTitle_isPublic">
         <value xml:lang="ar">جمهور</value>
+        <value xml:lang="de">Ist öffentlich</value>
         <value xml:lang="en">Is Public</value>
         <value xml:lang="fr">Est public</value>
         <value xml:lang="it">E' Pubblico</value>
@@ -1533,6 +1712,7 @@
     </property>
     <property key="FormFieldTitle_itemContentId">
         <value xml:lang="ar">تعريف محتوى البند</value>
+        <value xml:lang="de">Position Inhalt ID</value>
         <value xml:lang="en">Item Content Id</value>
         <value xml:lang="fr">Réf. de contenu d'article</value>
         <value xml:lang="it">Numero Riga Contenuto</value>
@@ -1542,6 +1722,7 @@
     </property>
     <property key="FormFieldTitle_lastModifiedByUserLogin">
         <value xml:lang="ar">آخر تغيير من طرف المستخدم</value>
+        <value xml:lang="de">Zuletzt geändert von Benutzeranmeldung</value>
         <value xml:lang="en">Last Modified By User Login</value>
         <value xml:lang="fr">Modification en dernier par l'identifiant de connexion</value>
         <value xml:lang="it">Ultima Modifica Dell'Utente</value>
@@ -1551,6 +1732,7 @@
     </property>
     <property key="FormFieldTitle_lastModifiedDate">
         <value xml:lang="ar">تاريخ آخر تغيير</value>
+        <value xml:lang="de">Letztes Bearbeitungsdatum</value>
         <value xml:lang="en">Last Modified Date</value>
         <value xml:lang="fr">Dernière date de modification</value>
         <value xml:lang="it">Data Ultima Modifica</value>
@@ -1560,6 +1742,7 @@
     </property>
     <property key="FormFieldTitle_leftCoordinate">
         <value xml:lang="ar">إحداثيات اليسار</value>
+        <value xml:lang="de">Linke Koordinate</value>
         <value xml:lang="en">Left Coordinate</value>
         <value xml:lang="fr">Coordonnée gauche</value>
         <value xml:lang="it">Coordinata Sinistra</value>
@@ -1569,6 +1752,7 @@
     </property>
     <property key="FormFieldTitle_localeString">
         <value xml:lang="ar">سلسلة حروف محلية</value>
+        <value xml:lang="de">Locale Text</value>
         <value xml:lang="en">Locale String</value>
         <value xml:lang="fr">Langue et région</value>
         <value xml:lang="it">Stringa Locale</value>
@@ -1577,6 +1761,7 @@
         <value xml:lang="zh">语言字符串</value>
     </property>
     <property key="FormFieldTitle_mainAction">
+        <value xml:lang="de">Haupthandlung</value>
         <value xml:lang="en">Main Action</value>
         <value xml:lang="fr">Action principale</value>
         <value xml:lang="it">Azione Principale</value>
@@ -1584,6 +1769,7 @@
     </property>
     <property key="FormFieldTitle_mapKey">
         <value xml:lang="ar">مفتاح التوافق</value>
+        <value xml:lang="de">Zugriff Schlüssel</value>
         <value xml:lang="en">Map Key</value>
         <value xml:lang="fr">Clef d'association</value>
         <value xml:lang="it">Chiave Mappa</value>
@@ -1593,6 +1779,7 @@
     </property>
     <property key="FormFieldTitle_messageList">
         <value xml:lang="ar">قائمة الرسائل</value>
+        <value xml:lang="de">Liste der Meldungen</value>
         <value xml:lang="en">Msgs List</value>
         <value xml:lang="fr">Liste de messages</value>
         <value xml:lang="it">Lista Messaggi</value>
@@ -1602,6 +1789,7 @@
     </property>
     <property key="FormFieldTitle_messageText">
         <value xml:lang="ar">نص الرسالة</value>
+        <value xml:lang="de">Meldungstext</value>
         <value xml:lang="en">Message Text </value>
         <value xml:lang="fr">Texte du message</value>
         <value xml:lang="it">Testo Messaggio</value>
@@ -1611,6 +1799,7 @@
     </property>
     <property key="FormFieldTitle_messageThread">
         <value xml:lang="ar">سلك الرسائل</value>
+        <value xml:lang="de">Meldungsthema</value>
         <value xml:lang="en">Msgs Thread</value>
         <value xml:lang="fr">Fil de discussion des msgs</value>
         <value xml:lang="it">Thread Messaggi</value>
@@ -1620,6 +1809,7 @@
     </property>
     <property key="FormFieldTitle_messageTitle">
         <value xml:lang="ar">عنوان الرسالة</value>
+        <value xml:lang="de">Meldungstitel</value>
         <value xml:lang="en">Message Title</value>
         <value xml:lang="fr">Titre du message</value>
         <value xml:lang="it">Titolo Messaggio</value>
@@ -1629,6 +1819,7 @@
     </property>
     <property key="FormFieldTitle_metaDataPredicateId">
         <value xml:lang="ar">تعريف توقع الميتا معلومات</value>
+        <value xml:lang="de">Metadaten Prädikat ID</value>
         <value xml:lang="en">Meta Data Predicate Id</value>
         <value xml:lang="fr">Réf. de prédicat de méta-données</value>
         <value xml:lang="it">Predicato Meta Data</value>
@@ -1638,6 +1829,7 @@
     </property>
     <property key="FormFieldTitle_metaDataValue">
         <value xml:lang="ar">قيمة الميتا معلومات</value>
+        <value xml:lang="de">Metadaten Wert</value>
         <value xml:lang="en">Meta Data Value</value>
         <value xml:lang="fr">Valeur de méta-données</value>
         <value xml:lang="it">Valore Meta Data</value>
@@ -1647,6 +1839,7 @@
     </property>
     <property key="FormFieldTitle_mimeTypeId">
         <value xml:lang="ar">نعريف نوع المايم</value>
+        <value xml:lang="de">Mimetyp ID</value>
         <value xml:lang="en">Mime Type Id</value>
         <value xml:lang="fr">Type MIME</value>
         <value xml:lang="it">Tipo Mime</value>
@@ -1656,6 +1849,7 @@
     </property>
     <property key="FormFieldTitle_multiRespTitle">
         <value xml:lang="ar">عنوان جواب متعدد</value>
+        <value xml:lang="de">Mehrfachantwort Titel</value>
         <value xml:lang="en">Multi Response Title</value>
         <value xml:lang="fr">Titre multi-réponses</value>
         <value xml:lang="it">Titolo Risposta Multipla</value>
@@ -1665,6 +1859,7 @@
     </property>
     <property key="FormFieldTitle_nbrOfMessages">
         <value xml:lang="ar">عدد الرسائل</value>
+        <value xml:lang="de">Meldungszähler</value>
         <value xml:lang="en">Msg Count</value>
         <value xml:lang="fr">Compte du msg</value>
         <value xml:lang="it">Conta Messaggio</value>
@@ -1674,6 +1869,7 @@
     </property>
     <property key="FormFieldTitle_newDataResourceId">
         <value xml:lang="ar">تعريف مورد معلومات جديد</value>
+        <value xml:lang="de">Neue Datenressource ID</value>
         <value xml:lang="en">New Data Resource Id</value>
         <value xml:lang="fr">Réf. de nouvelle ressource de données</value>
         <value xml:lang="it">Nuovo Codice Risorsa Dati</value>
@@ -1683,6 +1879,7 @@
     </property>
     <property key="FormFieldTitle_objectInfo">
         <value xml:lang="ar">خبر كينونة</value>
+        <value xml:lang="de">Objektinformationen</value>
         <value xml:lang="en">Object Info</value>
         <value xml:lang="fr">Information d'objet</value>
         <value xml:lang="it">Informazione Oggetto</value>
@@ -1692,6 +1889,7 @@
     </property>
     <property key="FormFieldTitle_oldDataResourceId">
         <value xml:lang="ar">تعريف مورد معلومات قديم</value>
+        <value xml:lang="de">Alte Datenressource ID</value>
         <value xml:lang="en">Old Data Resource Id</value>
         <value xml:lang="fr">Réf. d'ancienne ressource de données</value>
         <value xml:lang="it">Vecchio Codice Risorsa Dati</value>
@@ -1701,6 +1899,7 @@
     </property>
     <property key="FormFieldTitle_orderId">
         <value xml:lang="ar">تعريف الترتيب</value>
+        <value xml:lang="de">Auftrag ID</value>
         <value xml:lang="en">Order Id</value>
         <value xml:lang="fr">Réf. de commande</value>
         <value xml:lang="it">Numero Ordine</value>
@@ -1710,6 +1909,7 @@
     </property>
     <property key="FormFieldTitle_orderItemSeqId">
         <value xml:lang="ar">تعريف تسلسل جزء الترتيب</value>
+        <value xml:lang="de">Auftragsposition Seq. ID</value>
         <value xml:lang="en">Order Item Seq Id</value>
         <value xml:lang="fr">Réf. séq. de ligne de cmd</value>
         <value xml:lang="it">Numero Sequenza Riga Ordine</value>
@@ -1719,6 +1919,7 @@
     </property>
     <property key="FormFieldTitle_ownerContentId">
         <value xml:lang="ar">تعريف صاحب المحتوى</value>
+        <value xml:lang="de">Besitzer Inhalt ID</value>
         <value xml:lang="en">Owner Content Id</value>
         <value xml:lang="fr">Réf. de contenu propriétaire</value>
         <value xml:lang="it">Proprietario Contenuto</value>
@@ -1728,6 +1929,7 @@
     </property>
     <property key="FormFieldTitle_pageName">
         <value xml:lang="ar">إسم الصفحة</value>
+        <value xml:lang="de">Seitenname</value>
         <value xml:lang="en">Page Name</value>
         <value xml:lang="fr">Nom de page</value>
         <value xml:lang="it">Nome Pagina</value>
@@ -1737,6 +1939,7 @@
     </property>
     <property key="FormFieldTitle_parentCategoryId">
         <value xml:lang="ar">تعريف فئة الوالد</value>
+        <value xml:lang="de">Übergeordnete Kategorie ID</value>
         <value xml:lang="en">Parent Category Id</value>
         <value xml:lang="fr">Réf. de catégorie parente</value>
         <value xml:lang="it">Categoria Padre</value>
@@ -1746,6 +1949,7 @@
     </property>
     <property key="FormFieldTitle_parentTypeId">
         <value xml:lang="ar">تعريف نوع الوالد</value>
+        <value xml:lang="de">Übergeordneter Typ ID</value>
         <value xml:lang="en">Parent Type Id</value>
         <value xml:lang="fr">Réf. de type parent</value>
         <value xml:lang="it">Tipo Padre</value>
@@ -1755,6 +1959,7 @@
     </property>
     <property key="FormFieldTitle_partyId">
         <value xml:lang="ar">تعريف الطرف</value>
+        <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party Id</value>
         <value xml:lang="fr">Réf. d'acteur</value>
         <value xml:lang="it">Codice Soggetto</value>
@@ -1763,6 +1968,7 @@
         <value xml:lang="zh">会员标识</value>
     </property>
     <property key="FormFieldTitle_pasteContent">
+        <value xml:lang="de">Inhalt einfügen</value>
         <value xml:lang="en">Paste Content</value>
         <value xml:lang="fr">Coller le contenu</value>
         <value xml:lang="it">Incolla Contenuto</value>
@@ -1770,6 +1976,7 @@
     </property>
     <property key="FormFieldTitle_pdfFileNameIn">
         <value xml:lang="ar">اسم ملف Pdf الداخل</value>
+        <value xml:lang="de">PDF Dateiname Eingang</value>
         <value xml:lang="en">Pdf File Name In</value>
         <value xml:lang="fr">Nom de fichier PDF inclus</value>
         <value xml:lang="it">Nome File Pdf Ingresso</value>
@@ -1779,6 +1986,7 @@
     </property>
     <property key="FormFieldTitle_privilegeEnumId">
         <value xml:lang="ar">تعريف تعداد الأفضلية</value>
+        <value xml:lang="de">Privileg Aufzählung ID</value>
         <value xml:lang="en">Privilege Enum Id</value>
         <value xml:lang="fr">Réf. d'énumération de privilège</value>
         <value xml:lang="it">Enumerazione Privilegio</value>
@@ -1788,6 +1996,7 @@
     </property>
     <property key="FormFieldTitle_productFeatureId">
         <value xml:lang="ar">تعريف خاصية المنتوج</value>
+        <value xml:lang="de">Produktmerkmal ID</value>
         <value xml:lang="en">Product Feature Id</value>
         <value xml:lang="fr">Réf. de caractéristique de produit</value>
         <value xml:lang="it">Caratteristica Prodotto</value>
@@ -1797,6 +2006,7 @@
     </property>
     <property key="FormFieldTitle_productStoreId">
         <value xml:lang="ar">تعريف المتجر</value>
+        <value xml:lang="de">Produktladen ID</value>
         <value xml:lang="en">Product Store Id</value>
         <value xml:lang="fr">Réf. de centre de profit</value>
         <value xml:lang="it">Negozio</value>
@@ -1806,6 +2016,7 @@
     </property>
     <property key="FormFieldTitle_purposes">
         <value xml:lang="ar">الأهداف</value>
+        <value xml:lang="de">Zwecke</value>
         <value xml:lang="en">Purposes</value>
         <value xml:lang="fr">Buts</value>
         <value xml:lang="it">Funzioni</value>
@@ -1815,6 +2026,7 @@
     </property>
     <property key="FormFieldTitle_question">
         <value xml:lang="ar">سؤال</value>
+        <value xml:lang="de">Frage</value>
         <value xml:lang="en">Question</value>
         <value xml:lang="fr">Question</value>
         <value xml:lang="it">Domanda</value>
@@ -1824,6 +2036,7 @@
     </property>
     <property key="FormFieldTitle_referenceId">
         <value xml:lang="ar">تعريف المرجع</value>
+        <value xml:lang="de">Referenz ID</value>
         <value xml:lang="en">Reference Id</value>
         <value xml:lang="fr">Réf. de référence</value>
         <value xml:lang="it">Numero Riferimento</value>
@@ -1833,6 +2046,7 @@
     </property>
     <property key="FormFieldTitle_relatedDetailId">
         <value xml:lang="ar">تعريف تفصيل المرجع</value>
+        <value xml:lang="de">Zugehöriges Detail ID</value>
         <value xml:lang="en">Related Detail Id</value>
         <value xml:lang="fr">Réf. de détail lié</value>
         <value xml:lang="it">Dettaglio Relativo</value>
@@ -1841,6 +2055,7 @@
         <value xml:lang="zh">内嵌的细节标识</value>
     </property>
     <property key="FormFieldTitle_replace">
+        <value xml:lang="de">Ersetzen</value>
         <value xml:lang="en">Replace</value>
         <value xml:lang="fr">Remplacer</value>
         <value xml:lang="it">Sostituisci</value>
@@ -1848,6 +2063,7 @@
     </property>
     <property key="FormFieldTitle_reponse">
         <value xml:lang="ar">جواب</value>
+        <value xml:lang="de">Antwort</value>
         <value xml:lang="en">Resp.</value>
         <value xml:lang="fr">Réponse</value>
         <value xml:lang="it">Risp.</value>
@@ -1856,6 +2072,7 @@
         <value xml:lang="zh">回答</value>
     </property>
     <property key="FormFieldTitle_resourceDescription">
+        <value xml:lang="de">Ressourcenbeschreibung</value>
         <value xml:lang="en">Resource Description</value>
         <value xml:lang="fr">Description de ressource</value>
         <value xml:lang="it">Descrizione Risorsa</value>
@@ -1863,6 +2080,7 @@
     </property>
     <property key="FormFieldTitle_responseDate">
         <value xml:lang="ar">تاريخ الجواب</value>
+        <value xml:lang="de">Antwortsdatum</value>
         <value xml:lang="en">Response Date</value>
         <value xml:lang="fr">Date de réponse</value>
         <value xml:lang="it">Data Risposta</value>
@@ -1872,6 +2090,7 @@
     </property>
     <property key="FormFieldTitle_responseService">
         <value xml:lang="ar">خدمة الجواب</value>
+        <value xml:lang="de">Antwortsdienst</value>
         <value xml:lang="en">Response Service</value>
         <value xml:lang="fr">Service de réponse</value>
         <value xml:lang="it">Servizio Risposta</value>
@@ -1881,6 +2100,7 @@
     </property>
     <property key="FormFieldTitle_roleTypeId">
         <value xml:lang="ar">تعريف نوع الدور</value>
+        <value xml:lang="de">Rollentyp ID</value>
         <value xml:lang="en">Role Type Id</value>
         <value xml:lang="fr">Réf. de type de rôle</value>
         <value xml:lang="it">Tipo Ruolo</value>
@@ -1890,6 +2110,7 @@
     </property>
     <property key="FormFieldTitle_roleTypeList">
         <value xml:lang="ar">قائمة نوع الدور</value>
+        <value xml:lang="de">Liste Rollentyp</value>
         <value xml:lang="en">Role Type List</value>
         <value xml:lang="fr">liste de type de rôle</value>
         <value xml:lang="it">Lista Tipo Ruolo</value>
@@ -1899,6 +2120,7 @@
     </property>
     <property key="FormFieldTitle_roles">
         <value xml:lang="ar">الأدوار</value>
+        <value xml:lang="de">Rollen</value>
         <value xml:lang="en">Roles</value>
         <value xml:lang="fr">Rôles</value>
         <value xml:lang="it">Ruoli</value>
@@ -1908,6 +2130,7 @@
     </property>
     <property key="FormFieldTitle_secureContentPrefix">
         <value xml:lang="ar">مقدمة محتوى مؤمن</value>
+        <value xml:lang="de">Prefix sicherer Inhalt</value>
         <value xml:lang="en">Secure Content Prefix</value>
         <value xml:lang="fr">Sécuriser le préfixe de contenu</value>
         <value xml:lang="it">Prefisso Contenuto Sicuro</value>
@@ -1917,6 +2140,7 @@
     </property>
     <property key="FormFieldTitle_select">
         <value xml:lang="ar">إختر</value>
+        <value xml:lang="de">Auswählen</value>
         <value xml:lang="en">Select</value>
         <value xml:lang="fr">Choisir</value>
         <value xml:lang="it">Scegli</value>
@@ -1926,6 +2150,7 @@
     </property>
     <property key="FormFieldTitle_sequenceNum">
         <value xml:lang="ar">رقم التسلسل</value>
+        <value xml:lang="de">Sequenznummer</value>
         <value xml:lang="en">Sequence Num</value>
         <value xml:lang="fr">N° de séquence</value>
         <value xml:lang="it">Numero Sequenza</value>
@@ -1935,6 +2160,7 @@
     </property>
     <property key="FormFieldTitle_serviceName">
         <value xml:lang="ar">إسم الخدمة</value>
+        <value xml:lang="de">Servicenamen</value>
         <value xml:lang="en">Service Name</value>
         <value xml:lang="fr">Nom de service</value>
         <value xml:lang="it">Nome Servizio</value>
@@ -1944,6 +2170,7 @@
     </property>
     <property key="FormFieldTitle_siteName">
         <value xml:lang="ar">إسم الموقع</value>
+        <value xml:lang="de">Webseite Namen</value>
         <value xml:lang="en">Site Name</value>
         <value xml:lang="fr">Nom de site</value>
         <value xml:lang="it">Nome Sito</value>
@@ -1953,6 +2180,7 @@
     </property>
     <property key="FormFieldTitle_skipPermissionCheck">
         <value xml:lang="ar">تجنب توثيق السماح</value>
+        <value xml:lang="de">Berechtigungsprüfung überspringen</value>
         <value xml:lang="en">Skip Permission Check</value>
         <value xml:lang="fr">Sauter le contrôle d'autorisation</value>
         <value xml:lang="it">Salta Controllo Permesso</value>
@@ -1962,6 +2190,7 @@
     </property>
     <property key="FormFieldTitle_standardContentPrefix">
         <value xml:lang="ar">المقدم المعياري للمحتوى</value>
+        <value xml:lang="de">Standart Inhaltspräfix</value>
         <value xml:lang="en">Standard Content Prefix</value>
         <value xml:lang="fr">Préfixe standard de contenu</value>
         <value xml:lang="it">Prefisso Contenuto Standard </value>
@@ -1971,6 +2200,7 @@
     </property>
     <property key="FormFieldTitle_surveyId">
         <value xml:lang="ar">تعريف التصويت</value>
+        <value xml:lang="de">Befragung ID</value>
         <value xml:lang="en">Survey Id</value>
         <value xml:lang="fr">Réf. de sondage</value>
         <value xml:lang="it">Numero Sondaggio</value>
@@ -1980,6 +2210,7 @@
     </property>
     <property key="FormFieldTitle_surveyMultiRespColId">
         <value xml:lang="ar">تعريف عمود متعدد الجواب لتصويت</value>
+        <value xml:lang="de">Befragung Mehrfachantwort Kolonne ID</value>
         <value xml:lang="en">Survey Multi Resp Col Id</value>
         <value xml:lang="fr">Réf. de colonne (sondage multi réponse)</value>
         <value xml:lang="it">Colonna Risposta Multipla Sondaggio</value>
@@ -1989,6 +2220,7 @@
     </property>
     <property key="FormFieldTitle_surveyMultiRespId">
         <value xml:lang="ar">تعريف جواب متعدد لتصويت</value>
+        <value xml:lang="de">Befragung Mehrfachantwort ID</value>
         <value xml:lang="en">Survey Multi Resp Id</value>
         <value xml:lang="fr">Réf. de sondage multi réponse</value>
         <value xml:lang="it">Risposta Multipla Sondaggio</value>
@@ -1998,6 +2230,7 @@
     </property>
     <property key="FormFieldTitle_surveyName">
         <value xml:lang="ar">اسم التصويت</value>
+        <value xml:lang="de">Befragungsnamen</value>
         <value xml:lang="en">Survey Name</value>
         <value xml:lang="fr">Nom du sondage</value>
         <value xml:lang="it">Nome Sondaggio</value>
@@ -2007,6 +2240,7 @@
     </property>
     <property key="FormFieldTitle_surveyPageSeqId">
         <value xml:lang="ar">تعريف تسلسل صفحة تصويت</value>
+        <value xml:lang="de">Befragungsseite Seq. ID</value>
         <value xml:lang="en">Survey Page Seq Id</value>
         <value xml:lang="fr">Réf. séq. de page de sondage</value>
         <value xml:lang="it">Numero Sequenza Pagina Sondaggio</value>
@@ -2016,6 +2250,7 @@
     </property>
     <property key="FormFieldTitle_surveyQuestionCategoryId">
         <value xml:lang="ar">تعريف فئة سؤال تصويت</value>
+        <value xml:lang="de">Befragung Fragenkategorie ID</value>
         <value xml:lang="en">Survey Question Category Id</value>
         <value xml:lang="fr">Réf. de catégorie de question (sondage)</value>
         <value xml:lang="it">Categoria Domanda Sondaggio</value>
@@ -2025,6 +2260,7 @@
     </property>
     <property key="FormFieldTitle_surveyQuestionTypeId">
         <value xml:lang="ar">تعريف نوع سؤال تصويت</value>
+        <value xml:lang="de">Befragung Fragentyp ID</value>
         <value xml:lang="en">Survey Question Type Id</value>
         <value xml:lang="fr">Réf. de type de question (sondage)</value>
         <value xml:lang="it">Tipo Domanda Sondaggio</value>
@@ -2034,6 +2270,7 @@
     </property>
     <property key="FormFieldTitle_surveyResponseId">
         <value xml:lang="ar">تعريف جواب تصويت</value>
+        <value xml:lang="de">Befragung Antwort ID</value>
         <value xml:lang="en">Survey Response Id</value>
         <value xml:lang="fr">Réf. de réponse au sondage</value>
         <value xml:lang="it">Risposta Sondaggio</value>
@@ -2043,6 +2280,7 @@
     </property>
     <property key="FormFieldTitle_targetOperationList">
         <value xml:lang="ar">قائمة عملية الهدف</value>
+        <value xml:lang="de">Liste Verfahren Ziel</value>
         <value xml:lang="en">Target Operation List</value>
         <value xml:lang="fr">Liste d'opération cible</value>
         <value xml:lang="it">Lista Operazione Destinazione</value>
@@ -2052,6 +2290,7 @@
     </property>
     <property key="FormFieldTitle_targetOperationString">
         <value xml:lang="ar">سلسلة حروف عملية الهدف</value>
+        <value xml:lang="de">Ziel Verfahren Text</value>
         <value xml:lang="en">Target Operation String</value>
         <value xml:lang="fr">Chaîne de caractère d'opération cible</value>
         <value xml:lang="it">Stringa Operazione Destinazione</value>
@@ -2061,6 +2300,7 @@
     </property>
     <property key="FormFieldTitle_templateDataResourceId">
         <value xml:lang="ar">تعريف مورد معلومات نموذج</value>
+        <value xml:lang="de">Vorlage Datenressource ID</value>
         <value xml:lang="en">Template Data Resource Id</value>
         <value xml:lang="fr">Réf.  de modèle de ressource de données</value>
         <value xml:lang="it">Template Risorsa Dati</value>
@@ -2069,6 +2309,7 @@
         <value xml:lang="zh">模板数据资源标识</value>
     </property>
     <property key="FormFieldTitle_templateLocation">
+        <value xml:lang="de">Vorlage Standort</value>
         <value xml:lang="en">template Location</value>
         <value xml:lang="fr">Emplacement du modèle</value>
         <value xml:lang="it">Posizione Template</value>
@@ -2076,6 +2317,7 @@
     </property>
     <property key="FormFieldTitle_textData">
         <value xml:lang="ar">نص</value>
+        <value xml:lang="de">Text</value>
         <value xml:lang="en">Text</value>
         <value xml:lang="fr">Texte</value>
         <value xml:lang="it">Testo</value>
@@ -2085,6 +2327,7 @@
     </property>
     <property key="FormFieldTitle_textDataTitle">
         <value xml:lang="ar">نص</value>
+        <value xml:lang="de">Text</value>
         <value xml:lang="en">Text</value>
         <value xml:lang="fr">Texte</value>
         <value xml:lang="it">Testo</value>
@@ -2094,6 +2337,7 @@
     </property>
     <property key="FormFieldTitle_thruDate">
         <value xml:lang="ar">حتى تاريخ و وقت</value>
+        <value xml:lang="de">Bis Datum und Zeit</value>
         <value xml:lang="en">Thru Date &amp; Time</value>
         <value xml:lang="fr">Date et heure de fin</value>
         <value xml:lang="it">Alla Data e Ora</value>
@@ -2103,6 +2347,7 @@
     </property>
     <property key="FormFieldTitle_tree">
         <value xml:lang="ar">شجرة</value>
+        <value xml:lang="de">Baum</value>
         <value xml:lang="en">Tree</value>
         <value xml:lang="fr">Arborescence</value>
         <value xml:lang="it">Albero</value>
@@ -2112,6 +2357,7 @@
     </property>
     <property key="FormFieldTitle_upperCoordinate">
         <value xml:lang="ar">الإحداثيات العليا</value>
+        <value xml:lang="de">Obere Koordinate</value>
         <value xml:lang="en">Upper Coordinate</value>
         <value xml:lang="fr">Coordonnée du dessus</value>
         <value xml:lang="it">Coordinata Superiore</value>
@@ -2120,6 +2366,7 @@
         <value xml:lang="zh">上边坐标</value>
     </property>
     <property key="FormFieldTitle_webSiteContentTypeId">
+        <value xml:lang="de">Webseite Inhaltstyp ID</value>
         <value xml:lang="en">Web Site Content Type Id</value>
         <value xml:lang="fr">Réf. type de contenu de site Web</value>
         <value xml:lang="it">Tipo Contenuto Sito Web</value>
@@ -2127,6 +2374,7 @@
     </property>
     <property key="FormFieldTitle_webSiteId">
         <value xml:lang="ar">تعريف موقع الويب</value>
+        <value xml:lang="de">Webseite ID</value>
         <value xml:lang="en">Web Site Id</value>
         <value xml:lang="fr">Réf. de site web</value>
         <value xml:lang="it">Sito Web</value>
@@ -2136,6 +2384,7 @@
     </property>
     <property key="FormFieldTitle_weightFactor">
         <value xml:lang="ar">عامل الوزن</value>
+        <value xml:lang="de">Gewicht Faktor</value>
         <value xml:lang="en">Weight Factor</value>
         <value xml:lang="fr">Facteur de pondération</value>
         <value xml:lang="it">Fattore Peso</value>
@@ -2145,6 +2394,7 @@
     </property>
     <property key="ForumAddPurposeTo">
         <value xml:lang="ar">إضافة هدف إلى</value>
+        <value xml:lang="de">Zweck hinzufügen zu</value>
         <value xml:lang="en">Add purpose to</value>
         <value xml:lang="fr">Ajouter le but à</value>
         <value xml:lang="it">Aggiungi funzione a</value>
@@ -2153,6 +2403,7 @@
         <value xml:lang="zh">把目的添加到</value>
     </property>
     <property key="ForumAddResponseToMessage">
+        <value xml:lang="de">Antwort hinzufügen zu Meldung</value>
         <value xml:lang="en">Add a response to message</value>
         <value xml:lang="fr">Ajouter une réponse au message</value>
         <value xml:lang="it">Aggiungi una risposta al messaggio</value>
@@ -2160,6 +2411,7 @@
     </property>
     <property key="ForumAddRoleTo">
         <value xml:lang="ar">إضافة  جور إلى</value>
+        <value xml:lang="de">Rolle hinzufügen zu</value>
         <value xml:lang="en">Add role to</value>
         <value xml:lang="fr">Ajoutez le rôle à</value>
         <value xml:lang="it">Aggiungi ruolo a</value>
@@ -2169,6 +2421,7 @@
     </property>
     <property key="ForumAddThreadTo">
         <value xml:lang="ar">إضافة سلك جديد إلى هذا المنتدى</value>
+        <value xml:lang="de">Ein neues Thema zu diesem Forum hinzufügen</value>
         <value xml:lang="en">Add new thread to this Forum</value>
         <value xml:lang="fr">Ajouter un nouveau fil de discussion à ce forum</value>
         <value xml:lang="it">Aggiungi nuovo thread a questo Forum</value>
@@ -2178,6 +2431,7 @@
     </property>
     <property key="ForumAddTo">
         <value xml:lang="ar">إضافة منتدى إلى</value>
+        <value xml:lang="de">Forum hinzufügen zu</value>
         <value xml:lang="en">Add forum to</value>
         <value xml:lang="fr">Ajouter le forum à</value>
         <value xml:lang="it">Aggiungi al forum</value>
@@ -2187,6 +2441,7 @@
     </property>
     <property key="ForumGroupCreate">
         <value xml:lang="ar">إستحداث مجموعة منتدى جديد</value>
+        <value xml:lang="de">Neue Forumsgruppe erstellen</value>
         <value xml:lang="en">Create new forum group</value>
         <value xml:lang="fr">Créer un nouveau groupe de forum</value>
         <value xml:lang="it">Creare nuovo gruppo forum</value>
@@ -2195,26 +2450,31 @@
         <value xml:lang="zh">新建论坛组</value>
     </property>
     <property key="ForumMessage">
+        <value xml:lang="de">Meldung</value>
         <value xml:lang="en">Message</value>
         <value xml:lang="it">Messaggio</value>
         <value xml:lang="th">ข้อความ</value>
     </property>
     <property key="ForumMessages">
+        <value xml:lang="de">Meldungen</value>
         <value xml:lang="en">Messages</value>
         <value xml:lang="it">Messaggi</value>
         <value xml:lang="th">ข้อความ</value>
     </property>
     <property key="ForumThread">
+        <value xml:lang="de">Thema</value>
         <value xml:lang="en">Thread</value>
         <value xml:lang="fr">Fil de discussion</value>
         <value xml:lang="th">Thread</value>
     </property>
     <property key="ListOwnCreatedTemplates">
+        <value xml:lang="de">Liste der selber erstellten Vorlagen</value>
         <value xml:lang="en">List own created Templates</value>
         <value xml:lang="fr">Voir vos modèles (créés par vous)</value>
     </property>
     <property key="PageTitleAddAssociation">
         <value xml:lang="ar">إضافة إرتباط</value>
+        <value xml:lang="de">Eine Zuordnung hinzufügen</value>
         <value xml:lang="en">Add an association</value>
         <value xml:lang="fr">Ajouter une association</value>
         <value xml:lang="it">Aggiungi una associazione</value>
@@ -2224,6 +2484,7 @@
     </property>
     <property key="PageTitleAddAttribute">
         <value xml:lang="ar">إضافة خاصية</value>
+        <value xml:lang="de">Ein Attribut hinzufügen</value>
         <value xml:lang="en">Add an attribute</value>
         <value xml:lang="fr">Ajouter un attribut</value>
         <value xml:lang="it">Aggiungi un'attributo</value>
@@ -2233,6 +2494,7 @@
     </property>
     <property key="PageTitleAddContent">
         <value xml:lang="ar">إضافة محتوى</value>
+        <value xml:lang="de">Inhalt hinzufügen</value>
         <value xml:lang="en">Add Content</value>
         <value xml:lang="fr">Ajouter un contenu</value>
         <value xml:lang="it">Aggiungi Contenuto</value>
@@ -2242,6 +2504,7 @@
     </property>
     <property key="PageTitleAddDataResource">
         <value xml:lang="ar">إضافة مورد معلومات</value>
+        <value xml:lang="de">Datenressource hinzufügen</value>
         <value xml:lang="en">Add DataResource</value>
         <value xml:lang="fr">Ajouter une ressource de données</value>
         <value xml:lang="it">Aggiungi Risorsa Dati</value>
@@ -2251,6 +2514,7 @@
     </property>
     <property key="PageTitleAddDataResourceText">
         <value xml:lang="ar">إضافة نص مورد معلومات</value>
+        <value xml:lang="de">Datenressource Text hinzufügen</value>
         <value xml:lang="en">Add DataResource Text</value>
         <value xml:lang="efr">Ajouter une ressource de données (texte)</value>
         <value xml:lang="it">Aggiungi Testo Risorsa Dati</value>
@@ -2260,6 +2524,7 @@
     </property>
     <property key="PageTitleAddDataResourceUpload">
         <value xml:lang="ar">إضافة شحن علوي لمورد معلومات</value>
+        <value xml:lang="de">Datenressource Upload hinzufügen</value>
         <value xml:lang="en">Add DataResource Upload</value>
         <value xml:lang="fr">Ajouter une ressource de données (téléchargement vers serveur)</value>
         <value xml:lang="it">Aggiungi Caricamento Risorsa Dati</value>
@@ -2269,6 +2534,7 @@
     </property>
     <property key="PageTitleAddDataResourceUrl">
         <value xml:lang="ar">إضافة Url مورد معلومات</value>
+        <value xml:lang="de">Datenressource URL hinzufügen</value>
         <value xml:lang="en">Add DataResource Url</value>
         <value xml:lang="fr">Ajouter une ressource de données (URL)</value>
         <value xml:lang="it">Aggiungi Url Risorsa Dati</value>
@@ -2278,6 +2544,7 @@
     </property>
     <property key="PageTitleAddForumMessage">
         <value xml:lang="ar">إضافة رسالة إلى المنتدى</value>
+        <value xml:lang="de">Meldung zu einem Forum hinzufügen: </value>
         <value xml:lang="en">Add a message to forum: </value>
         <value xml:lang="fr">Ajoutez un message au forum : </value>
         <value xml:lang="it">Aggiungi un messaggio al forum: </value>
@@ -2287,6 +2554,7 @@
     </property>
     <property key="PageTitleAddForumResponse">
         <value xml:lang="ar">إضافة جواب إلى الرسالة:</value>
+        <value xml:lang="de">Antwort zu einer Meldung hinzufügen: </value>
         <value xml:lang="en">Add a response to message: </value>
         <value xml:lang="fr">Ajoutez une réponse au message : </value>
         <value xml:lang="it">Aggiungi una risposta al messaggio: </value>
@@ -2296,6 +2564,7 @@
     </property>
     <property key="PageTitleAddMetaData">
         <value xml:lang="ar">إضافة  ميتا معلومات</value>
+        <value xml:lang="de">Metadaten hinzufügen</value>
         <value xml:lang="en">Add a MetaData</value>
         <value xml:lang="fr">Ajouter une méta-donnée</value>
         <value xml:lang="it">Aggiungi Metadati</value>
@@ -2305,6 +2574,7 @@
     </property>
     <property key="PageTitleAddPurpose">
         <value xml:lang="ar">إضافة هدف</value>
+        <value xml:lang="de">Zweck hinzufügen</value>
         <value xml:lang="en">Add a Purpose</value>
         <value xml:lang="fr">Ajouter un but</value>
         <value xml:lang="it">Aggiungi una Funzione</value>
@@ -2314,6 +2584,7 @@
     </property>
     <property key="PageTitleAddRole">
         <value xml:lang="ar">إضافة دور</value>
+        <value xml:lang="de">Rolle hinzufügen</value>
         <value xml:lang="en">Add a Role</value>
         <value xml:lang="fr">Ajouter un rôle</value>
         <value xml:lang="it">Aggiungi un Ruolo</value>
@@ -2323,12 +2594,14 @@
     </property>
     <property key="PageTitleAddWorkEffortContent">
         <value xml:lang="ar">إضافة محتوى لمجهود عمل</value>
+        <value xml:lang="de">Arbeitseinsatz Inhalt hinzufügen</value>
         <value xml:lang="en">Add workeffort content</value>
         <value xml:lang="fr">Ajoutez un contenu de tâche</value>
         <value xml:lang="th">เพิ่มหัวข้อ workeffort</value>
         <value xml:lang="zh">新建人工服务内容</value>
     </property>
     <property key="PageTitleAutoCreateContentPublishPoints">
+        <value xml:lang="de">Automatisches Erstellen des Veröffentlichungsortes</value>
         <value xml:lang="en">Auto-Create Content Publish Points</value>
         <value xml:lang="fr">Créer automatiquement un contenu de points publiés</value>
         <value xml:lang="it">Creazioni-Automatica Contenuto Punti Pubblicati</value>
@@ -2336,6 +2609,7 @@
     </property>
     <property key="PageTitleCreateSurvey">
         <value xml:lang="ar">إستحداث تصويت</value>
+        <value xml:lang="de">Befragung erstellen</value>
         <value xml:lang="en">Create Survey</value>
         <value xml:lang="fr">Créer un sondage</value>
         <value xml:lang="es">Crear Encuesta</value>
@@ -2345,24 +2619,28 @@
         <value xml:lang="zh">新建调查</value>
     </property>
     <property key="PageTitleCreateInstanceOfThisTemplate">
+        <value xml:lang="de">Eine Instanz dieser Vorlage erstellen</value>
         <value xml:lang="en">Create Instance Of This Template</value>
         <value xml:lang="fr">Créer une instance de ce modèle</value>
         <value xml:lang="it">Creare Istanza per Questo Template</value>
         <value xml:lang="th">สร้างตัวอย่างของ Template นี้</value>
     </property>
     <property key="PageTitleCreateNewRootCompDocTemplate">
+        <value xml:lang="de">Neue Basis CompDoc Vorlage erstellen</value>
         <value xml:lang="en">Create New Root CompDoc Template</value>
         <value xml:lang="fr">Créer un nouveau modèle de racine de document composite</value>
         <value xml:lang="it">Creare Nuovo Template Radice CompDoc</value>
         <value xml:lang="th">สร้างที่มาของ Template เอกสารใหม่</value>
     </property>
     <property key="PageTitleCreateWebSiteContent">
+        <value xml:lang="de">Webseiteninhalt erstellen</value>
         <value xml:lang="en">Create Web Site Content</value>
         <value xml:lang="fr">Créer le contenu du site Web</value>
         <value xml:lang="it">Creare Contenuto Sito Web</value>
         <value xml:lang="th">สร้างหัวข้อเว็บไซต์</value>
     </property>
     <property key="PageTitleCreateWebSiteParties">
+        <value xml:lang="de">Webseite Akteure erstellen</value>
         <value xml:lang="en">Create Web Site Parties</value>
         <value xml:lang="fr">Créer les acteurs du site Web</value>
         <value xml:lang="it">Creare Soggetti Sito Web</value>
@@ -2370,6 +2648,7 @@
     </property>
     <property key="PageTitleEditAssociation">
         <value xml:lang="ar">تحرير إرتباط</value>
+        <value xml:lang="de">Eine Zuordnung bearbeiten</value>
         <value xml:lang="en">Edit an association</value>
         <value xml:lang="fr">Modifier une association</value>
         <value xml:lang="it">Aggiorna una associazione</value>
@@ -2378,18 +2657,21 @@
         <value xml:lang="zh">编辑关联</value>
     </property>
     <property key="PageTitleEditCMSContent">
+        <value xml:lang="de">CMS Inhalt bearbeiten</value>
         <value xml:lang="en">CMS Content Edit</value>
         <value xml:lang="fr">Modifier le contenu CMS</value>
         <value xml:lang="it">Aggiorna Contenuto CMS</value>
         <value xml:lang="th">แก้ไขหัวข้อ CMS</value>
     </property>
     <property key="PageTitleEditCompDocInstance">
+        <value xml:lang="de">CompDoc Instanz bearbeiten</value>
         <value xml:lang="en">Edit CompDoc Instance</value>
         <value xml:lang="fr">Modifier l'instance de document composite</value>
         <value xml:lang="it">Aggiorna Istanza CompDoc</value>
         <value xml:lang="th">แก้ไขตัวอย่างเอกสาร</value>
     </property>
     <property key="PageTitleEditCompDocTemplate">
+        <value xml:lang="de">CompDoc Vorlage bearbeiten</value>
         <value xml:lang="en">Edit CompDoc Template</value>
         <value xml:lang="fr">Modifier le modèle de document composite</value>
         <value xml:lang="it">Aggiorna Template CompDoc</value>
@@ -2397,6 +2679,7 @@
     </property>
     <property key="PageTitleEditContent">
         <value xml:lang="ar">تعرير محتوى</value>
+        <value xml:lang="de">Inhalt bearbeiten</value>
         <value xml:lang="en">Edit Content</value>
         <value xml:lang="fr">Modifier le contenu</value>
         <value xml:lang="es">Modificar Contenido</value>
@@ -2406,6 +2689,7 @@
         <value xml:lang="zh">编辑内容</value>
     </property>
     <property key="PageTitleEditContentApprovalEditPage">
+        <value xml:lang="de">Inhaltsbestätigung Bearbeitenseite bearbeiten</value>
         <value xml:lang="en">Edit Content Approval Edit Page</value>
         <value xml:lang="fr">Modifier le contenu d'approbation de modification de page</value>
         <value xml:lang="it">Pagina per Editare Approvazione Contenuto per</value>
@@ -2413,6 +2697,7 @@
     </property>
     <property key="PageTitleEditContentAssoc">
         <value xml:lang="ar">تعرير إرتباط محتوى</value>
+        <value xml:lang="de">Inhaltszuordnung bearbeiten</value>
         <value xml:lang="en">Edit Content Association</value>
         <value xml:lang="fr">Modifier le contenu d'association</value>
         <value xml:lang="it">Aggiorna Associazione Contenuto</value>
@@ -2422,6 +2707,7 @@
     </property>
     <property key="PageTitleEditContentAssocPredicate">
         <value xml:lang="ar">تعرير توقعة إرتباط محتوى</value>
+        <value xml:lang="de">Inhaltszuordnung Prädikat bearbeiten</value>
         <value xml:lang="en">Edit Content Association Predicate</value>
         <value xml:lang="fr">Modifier le contenu de prédicat d'association</value>
         <value xml:lang="it">Aggiorna Associazione Contenuto Predicato</value>
@@ -2431,6 +2717,7 @@
     </property>
     <property key="PageTitleEditContentAssocType">
         <value xml:lang="ar">تعرير نوع إرتباط محتوى</value>
+        <value xml:lang="de">Inhaltszuordnungstyp bearbeiten</value>
         <value xml:lang="en">Edit Content Association Type</value>
         <value xml:lang="fr">Modifier le type de contenu d'association</value>
         <value xml:lang="it">Aggiorna Tipo Associazione Contenuto</value>
@@ -2439,6 +2726,7 @@
     </property>
     <property key="PageTitleEditContentAttribute">
         <value xml:lang="ar">تعرير خاصبة محتوى</value>
+        <value xml:lang="de">Inhaltsattribut bearbeiten</value>
         <value xml:lang="en">Edit Content Attribute</value>
         <value xml:lang="fr">Modifier l'attribut du contenu</value>
         <value xml:lang="it">Aggiorna Attributo Contenuto</value>
@@ -2448,6 +2736,7 @@
     </property>
     <property key="PageTitleEditContentMetadata">
         <value xml:lang="ar">تعرير ميتا معلومات محتوى</value>
+        <value xml:lang="de">Inhalt Metadaten bearbeiten</value>
         <value xml:lang="en">Edit Content Metadata</value>
         <value xml:lang="fr">Modifier le contenu méta-données</value>
         <value xml:lang="it">Aggiorna Metadata Contenuto</value>
@@ -2457,6 +2746,7 @@
     </property>
     <property key="PageTitleEditContentOperation">
         <value xml:lang="ar">تعرير عملية محتوى</value>
+        <value xml:lang="de">Inhaltsverfahren bearbeiten</value>
         <value xml:lang="en">Edit Content Operation</value>
         <value xml:lang="fr">Modifier l'opération de contenu</value>
         <value xml:lang="it">Aggiorna Operazione Contenuto</value>
@@ -2466,6 +2756,7 @@
     </property>
     <property key="PageTitleEditContentPurpose">
         <value xml:lang="ar">تعرير هدف محتوى</value>
+        <value xml:lang="de">Inhaltszweck bearbeiten</value>
         <value xml:lang="en">Edit Content Purpose</value>
         <value xml:lang="fr">Modifier le but du contenu</value>
         <value xml:lang="it">Aggiorna Funzione Contenuto</value>
@@ -2475,6 +2766,7 @@
     </property>
     <property key="PageTitleEditContentPurposeOperation">
         <value xml:lang="ar">تعرير عملية هدف محتوى</value>
+        <value xml:lang="de">Inhaltszweck Verfahren bearbeiten</value>
         <value xml:lang="en">Edit Content Purpose Operation</value>
         <value xml:lang="fr">Modifier le but d'opération du contenu</value>
         <value xml:lang="it">Aggiorna Funzione Operazione Contenuto</value>
@@ -2484,6 +2776,7 @@
     </property>
     <property key="PageTitleEditContentPurposeType">
         <value xml:lang="ar">تعرير نوع هدف محتوى</value>
+        <value xml:lang="de">Inhalt Zweck Typ bearbeiten</value>
         <value xml:lang="en">Edit Content Purpose Type</value>
         <value xml:lang="fr">Modifier le type de but du contenu</value>
         <value xml:lang="it">Aggiorna Contenuto Tipo Funzione</value>
@@ -2492,6 +2785,7 @@
     </property>
     <property key="PageTitleEditContentRole">
         <value xml:lang="ar">تعرير دور محتوى</value>
+        <value xml:lang="de">Inhaltsrolle bearbeiten</value>
         <value xml:lang="en">Edit Content Role</value>
         <value xml:lang="fr">Modifier le rôle du contenu</value>
         <value xml:lang="it">Aggiorna Ruolo Contenuto</value>
@@ -2501,6 +2795,7 @@
     </property>
     <property key="PageTitleEditContentType">
         <value xml:lang="ar">تعرير نوع محتوى</value>
+        <value xml:lang="de">Inhaltstyp bearbeiten</value>
         <value xml:lang="en">Edit Content Type</value>
         <value xml:lang="fr">Modifier le type du contenu</value>
         <value xml:lang="it">Aggiorna Tipo Contenuto</value>
@@ -2510,6 +2805,7 @@
     </property>
     <property key="PageTitleEditContentTypeAttribute">
         <value xml:lang="ar">تعرير خاصية نوع محتوى</value>
+        <value xml:lang="de">Inhaltstyp Attribut bearbeiten</value>
         <value xml:lang="en">Edit Content Type Attribute</value>
         <value xml:lang="fr">Modifier le le type d'attribut du contenu</value>
         <value xml:lang="it">Aggiorna Attributo Tipo Contenuto</value>
@@ -2518,6 +2814,7 @@
     </property>
     <property key="PageTitleEditContentUserPermissions">
         <value xml:lang="ar">رخصات</value>
+        <value xml:lang="de">Berechtigungen</value>
         <value xml:lang="en">Permissions</value>
         <value xml:lang="fr">Autorisations</value>
         <value xml:lang="it">Permessi</value>
@@ -2527,6 +2824,7 @@
     </property>
     <property key="PageTitleEditContentWorkEffort">
         <value xml:lang="ar">تعرير مجهود عمل محتوى</value>
+        <value xml:lang="de">Inhalt Arbeitseinsatz bearbeiten</value>
         <value xml:lang="en">Edit Content WorkEffort</value>
         <value xml:lang="fr">Modifier le contenu des tâches</value>
         <value xml:lang="it">Aggiorna Contenuto Impegni di Lavoro</value>
@@ -2535,6 +2833,7 @@
     </property>
     <property key="PageTitleEditDataResource">
         <value xml:lang="ar">تعرير مورد معلومات</value>
+        <value xml:lang="de">Datenressource bearbeiten</value>
         <value xml:lang="en">Edit Data Resource</value>
         <value xml:lang="fr">Modifier la ressource de données</value>
         <value xml:lang="it">Aggiorna Risorsa Dati</value>
@@ -2544,6 +2843,7 @@
     </property>
     <property key="PageTitleEditDataResourceAttribute">
         <value xml:lang="ar">تعرير خاصية مورد محتوى</value>
+        <value xml:lang="de">Datenressource Attribut bearbeiten</value>
         <value xml:lang="en">Edit Data Resource Attribute</value>
         <value xml:lang="fr">Modifier l'attribut de ressources de données</value>
         <value xml:lang="it">Aggiorna Attributo Risorsa Dati</value>
@@ -2552,36 +2852,42 @@
         <value xml:lang="zh">编辑数据资源属性</value>
     </property>
     <property key="PageTitleEditDataResourceCategory">
+        <value xml:lang="de">Datenressource Kategorie bearbeiten</value>
         <value xml:lang="en">Edit Data Resource Category</value>
         <value xml:lang="fr">Modifier la catégorie de ressources de données</value>
         <value xml:lang="it">Aggiorna Categoria Risorsa Dati</value>
         <value xml:lang="th">แก้ไขแหล่งที่มาของข้อมูลหมวดหมู่</value>
     </property>
     <property key="PageTitleEditDataResourceCharacterSet">
+        <value xml:lang="de">Zeichensatz bearbeiten</value>
         <value xml:lang="en">Edit Character Set</value>
         <value xml:lang="fr">Modifier le jeu de caractères</value>
         <value xml:lang="it">Aggiorna Set di Caratteri</value>
         <value xml:lang="th">แก้ไขการเซ็ตลักษณะ</value>
     </property>
     <property key="PageTitleEditDataResourceFileExtension">
+        <value xml:lang="de">Dateierweiterung bearbeiten</value>
         <value xml:lang="en">Edit File Extension</value>
         <value xml:lang="fr">Modifier l'extension de fichier</value>
         <value xml:lang="it">Aggiorna Estensione File</value>
         <value xml:lang="th">แก้ไขไฟล์ที่เพิ่ม</value>
     </property>
     <property key="PageTitleEditDataResourceMetaDataPredicate">
+        <value xml:lang="de">Metadaten Prädikat bearbeiten</value>
         <value xml:lang="en">Edit Meta Data Predicate</value>
         <value xml:lang="fr">Modifier le prédicat de méta-données</value>
         <value xml:lang="it">Aggiorna Predicato Meta Data</value>
         <value xml:lang="th">แก้ไขการสรุปข้อมูล</value>
     </property>
     <property key="PageTitleEditDataResourceMimeType">
+        <value xml:lang="de">Mimetyp bearbeiten</value>
         <value xml:lang="en">Edit Mime Type</value>
         <value xml:lang="fr">Modifier le type MIME</value>
         <value xml:lang="it">Aggiorna Tipo Mime</value>
         <value xml:lang="th">แก้ไขประเภทสำเนา</value>
     </property>
     <property key="PageTitleEditDataResourceMimeTypeHtmlTemplate">
+        <value xml:lang="de">Mimetyp Html Vorlage bearbeiten</value>
         <value xml:lang="en">Edit Mime Type Html Template</value>
         <value xml:lang="fr">Modifier le modèle de type de mime HTML</value>
         <value xml:lang="it">Aggiorna Tipo Mime Template Html</value>
@@ -2589,6 +2895,7 @@
     </property>
     <property key="PageTitleEditDataResourceProductFeatures">
         <value xml:lang="ar">تعرير خواص منتوج مورد معلومات</value>
+        <value xml:lang="de">Datenressource Produktmerkmal bearbeiten</value>
         <value xml:lang="en">Edit Data Resource Product Features</value>
         <value xml:lang="fr">Modifier la ressource de données (caractéristiques du produit)</value>
         <value xml:lang="it">Aggiorna Caratteristiche Prodotto Risorsa Dati</value>
@@ -2598,6 +2905,7 @@
     </property>
     <property key="PageTitleEditDataResourceRole">
         <value xml:lang="ar">تعرير دور مورد معلومات</value>
+        <value xml:lang="de">Datenressource Rolle bearbeiten</value>
         <value xml:lang="en">Edit Data Resource Role</value>
         <value xml:lang="fr">Modifier la ressource de données (rôle)</value>
         <value xml:lang="it">Aggiorna Ruolo Risorsa Dati</value>
@@ -2607,6 +2915,7 @@
     </property>
     <property key="PageTitleEditDataResourceText">
         <value xml:lang="ar">تعرير نص مورد معلومات</value>
+        <value xml:lang="de">Datenressource Text bearbeiten</value>
         <value xml:lang="en">Edit Data Resource Text</value>
         <value xml:lang="fr">Modifier la ressource de données (texte)</value>
         <value xml:lang="it">Aggiorna Testo Risorsa Dati</value>
@@ -2616,6 +2925,7 @@
     </property>
     <property key="PageTitleEditDataResourceType">
         <value xml:lang="ar">تعرير نوع مورد معلومات</value>
+        <value xml:lang="de">Datenressourcentyp bearbeiten</value>
         <value xml:lang="en">Edit Data Resource Type</value>
         <value xml:lang="fr">Modifier la ressource de données (type)</value>
         <value xml:lang="it">Aggiorna Tipo Risorsa Dati</value>
@@ -2624,6 +2934,7 @@
         <value xml:lang="zh">编辑数据资源类型</value>
     </property>
     <property key="PageTitleEditDataResourceTypeAttr">
+        <value xml:lang="de">Datenressourcentyp Attribute bearbeiten</value>
         <value xml:lang="en">Edit Data Resource Type Attribute</value>
         <value xml:lang="en">Modifier la ressource de données (type d'attibut)</value>
         <value xml:lang="it">Aggiorna Attributo Tipo Risorsa Dati</value>
@@ -2631,6 +2942,7 @@
     </property>
     <property key="PageTitleEditDataResourceUpload">
         <value xml:lang="ar">Edit Data Resource Upload</value>
+        <value xml:lang="de">Datenressource bearbeiten (hochladen)</value>
         <value xml:lang="en">Edit Data Resource Upload</value>
         <value xml:lang="fr">Modifier la ressource de données (téléchargement vers serveur)</value>
         <value xml:lang="it">Aggiorna Caricamento Risorsa Dati</value>
@@ -2640,6 +2952,7 @@
     </property>
     <property key="PageTitleEditDataResourceUrl">
         <value xml:lang="ar">Edit Data Resource Url</value>
+        <value xml:lang="de">Datenressource URL bearbeiten</value>
         <value xml:lang="en">Edit Data Resource Url</value>
         <value xml:lang="fr">Modifier la ressource de données (URL)</value>
         <value xml:lang="it">Aggiorna Url Risorsa Dati</value>
@@ -2649,6 +2962,7 @@
     </property>
     <property key="PageTitleEditElectronicText">
         <value xml:lang="ar">تعرير نص إلكتروني</value>
+        <value xml:lang="de">Elektronischen Text bearbeiten</value>
         <value xml:lang="en">Edit Electronic Text</value>
         <value xml:lang="fr">Modifier le texte électronique</value>
         <value xml:lang="it">Aggiorna Testo Elettronico</value>
@@ -2658,6 +2972,7 @@
     </property>
     <property key="PageTitleEditForumMessage">
         <value xml:lang="ar">تحرير رسالة</value>
+        <value xml:lang="de">Meldung bearbeiten:</value>
         <value xml:lang="en">Edit message:</value>
         <value xml:lang="fr">Modifier le message : </value>
         <value xml:lang="it">Aggiorna messaggio:</value>
@@ -2667,6 +2982,7 @@
     </property>
     <property key="PageTitleEditHtmlText">
         <value xml:lang="ar">تحرير نص Html</value>
+        <value xml:lang="de">Html-Text bearbeiten</value>
         <value xml:lang="en">Edit Html Text</value>
         <value xml:lang="fr">Modifier le texte HTML</value>
         <value xml:lang="it">Aggiorna Testo Html</value>
@@ -2675,12 +2991,14 @@
         <value xml:lang="zh">编辑Html文本</value>
     </property>
     <property key="PageTitleEditLayout">
+        <value xml:lang="de">Layout bearbeiten</value>
         <value xml:lang="en">Edit Layout</value>
         <value xml:lang="fr">Modifier la mise en page</value>
         <value xml:lang="it">Aggiorna Layout</value>
         <value xml:lang="th">แก้ไข Layout</value>
     </property>
     <property key="PageTitleEditLayoutSubContent">
+        <value xml:lang="de">Layout untergeordneter Inhalt bearbeiten</value>
         <value xml:lang="en">Edit Layout Sub Content</value>
         <value xml:lang="fr">Modifier le sous-contenu de la mise en page</value>
         <value xml:lang="it">Aggiorna Layout Sotto-Contenuto</value>
@@ -2688,6 +3006,7 @@
     </property>
     <property key="PageTitleEditRootCompDoc">
         <value xml:lang="ar">تحرير وثيقة مركبة للجذر</value>
+        <value xml:lang="de">Basis zusammengesetztes Dokument bearbeiten</value>
         <value xml:lang="en">Edit Root Composite Document</value>
         <value xml:lang="fr">Modifier la racine du document composite</value>
         <value xml:lang="es">Modificar Documento compuesto Raíz</value>
@@ -2698,6 +3017,7 @@
     </property>
     <property key="PageTitleEditSurvey">
         <value xml:lang="ar">تحرير تصويت</value>
+        <value xml:lang="de">Befragung bearbeiten</value>
         <value xml:lang="en">Edit survey</value>
         <value xml:lang="fr">Modifier le sondage</value>
         <value xml:lang="es">Modificar Encuesta</value>
@@ -2708,6 +3028,7 @@
     </property>
     <property key="PageTitleEditSurveyMultiResps">
         <value xml:lang="ar">تحرير مجموعات جواب متعدد للتصويت</value>
+        <value xml:lang="de">Befragung Mehrfachantwortgruppen bearbeiten</value>
         <value xml:lang="en">Edit Survey Multi-Response Groups</value>
         <value xml:lang="fr">Modifier les groupes multi-réponses du sondage</value>
         <value xml:lang="es">Modificar Encuesta de grupo de respuestas</value>
@@ -2718,6 +3039,7 @@
     </property>
     <property key="PageTitleEditSurveyPages">
         <value xml:lang="ar">تحرير صفحات التصويت</value>
+        <value xml:lang="de">Befragungsseiten bearbeiten</value>
         <value xml:lang="en">Edit Survey Pages</value>
         <value xml:lang="fr">Modifier les pages du sondage</value>
         <value xml:lang="es">Modificar página de encuestas</value>
@@ -2728,6 +3050,7 @@
     </property>
     <property key="PageTitleEditSurveyQuestions">
         <value xml:lang="ar">تحرير أسئلة التصويت</value>
+        <value xml:lang="de">Befragung Fragen bearbeiten</value>
         <value xml:lang="en">Edit Survey Questions</value>
         <value xml:lang="fr">Modifier les questions du sondage</value>
         <value xml:lang="es">Modificar Preeguntas de Encuesta</value>
@@ -2738,6 +3061,7 @@
     </property>
     <property key="PageTitleEditSurveyResponse">
         <value xml:lang="ar">تحرير جواب التصويت</value>
+        <value xml:lang="de">Befragung Antworten bearbeiten</value>
         <value xml:lang="en">Edit Survey Response</value>
         <value xml:lang="fr">Modifier les réponses du sondage</value>
         <value xml:lang="es">Modificar Respuestas de Encuesta</value>
@@ -2748,6 +3072,7 @@
     </property>
     <property key="PageTitleEditWebSite">
         <value xml:lang="ar">تحرير موقع الويب</value>
+        <value xml:lang="de">Webseite bearbeiten</value>
         <value xml:lang="en">Edit WebSite</value>
         <value xml:lang="fr">Modifier le site web</value>
         <value xml:lang="it">Aggiorna Sito Web</value>
@@ -2756,12 +3081,14 @@
         <value xml:lang="zh">编辑网站</value>
     </property>
     <property key="PageTitleEditWebSiteCMS">
+        <value xml:lang="de">Webseite CMS bearbeiten</value>
         <value xml:lang="en">Edit WebSite CMS</value>
         <value xml:lang="fr">Modifier le site web CMS</value>
         <value xml:lang="it">Aggiorna CMS Sito Web</value>
         <value xml:lang="th">แก้ไข WebSite CMS</value>
     </property>
     <property key="PageTitleEditWebSiteContent">
+        <value xml:lang="de">Webseite Inhalt bearbeiten</value>
         <value xml:lang="en">Edit WebSite Content</value>
         <value xml:lang="fr">Modifier le contenu du site web</value>
         <value xml:lang="it">Aggiorna Contenuto Sito Web</value>
@@ -2769,6 +3096,7 @@
     </property>
     <property key="PageTitleEditWebSiteParties">
         <value xml:lang="ar">تحرير أطراف موقع الويب</value>
+        <value xml:lang="de">Webseite Akteure bearbeiten</value>
         <value xml:lang="en">Edit WebSite Parties</value>
         <value xml:lang="fr">Modifier les acteurs du site web</value>
         <value xml:lang="it">Aggiorna Soggetti Sito Web</value>
@@ -2777,6 +3105,7 @@
         <value xml:lang="zh">编辑网站会员</value>
     </property>
     <property key="PageTitleFindCMSContent">
+        <value xml:lang="de">CMS Inhalt suchen</value>
         <value xml:lang="en">CMS Content Find</value>
         <value xml:lang="fr">Rechercher le contenu CMS</value>
         <value xml:lang="it">Ricerca Contenuto CMS</value>
@@ -2784,6 +3113,7 @@
     </property>
     <property key="PageTitleFindCompDoc">
         <value xml:lang="ar">إيجاد وثيقة مركبة</value>
+        <value xml:lang="de">CompDoc suchen</value>
         <value xml:lang="en">Find CompDoc</value>
         <value xml:lang="fr">Rechercher le document composite</value>
         <value xml:lang="it">Ricerca Composizione Documenti</value>
@@ -2793,6 +3123,7 @@
     </property>
     <property key="PageTitleFindContent">
         <value xml:lang="ar">إيجاد محتوى</value>
+        <value xml:lang="de">Inhalt suchen</value>
         <value xml:lang="en">Search Content</value>
         <value xml:lang="fr">Rechercher le contenu</value>
         <value xml:lang="it">Ricerca Contenuto</value>
@@ -2802,6 +3133,7 @@
     </property>
     <property key="PageTitleFindDataResource">
         <value xml:lang="ar">إيجاد مورد معلومات</value>
+        <value xml:lang="de">Datenressource suchen</value>
         <value xml:lang="en">Find Data Resource</value>
         <value xml:lang="fr">Rechercher la ressource de données</value>
         <value xml:lang="it">Ricerca Risorsa Dati</value>
@@ -2811,6 +3143,7 @@
     </property>
     <property key="PageTitleFindForumGroup">
         <value xml:lang="ar">إدراج مجموعة المنتدى</value>
+        <value xml:lang="de">Liste der Forumsgruppen</value>
         <value xml:lang="en">Forumgroup list</value>
         <value xml:lang="fr">Liste des groupes de forum</value>
         <value xml:lang="it">Lista gruppo Forum</value>
@@ -2820,6 +3153,7 @@
     </property>
     <property key="PageTitleFindForumMessages">
         <value xml:lang="ar">رسائل المنتدى: ${objectName} [${objectId}]</value>
+        <value xml:lang="de">Meldungen für Forum: ${objectName} [${objectId}]</value>
         <value xml:lang="en">Messages for Forum: ${objectName} [${objectId}]</value>
         <value xml:lang="fr">Messages pour le forum : ${objectName} [${objectId}]</value>
         <value xml:lang="it">Mesasggi per forum: ${objectName} [${objectId}]</value>
@@ -2829,6 +3163,7 @@
     </property>
     <property key="PageTitleFindForums">
         <value xml:lang="ar">قائمة المنتدى لمجموعة المنتدى: ${objectName} [${objectId}]</value>
+        <value xml:lang="de">Liste der Foren für Forumsgruppe: ${objectName} [${objectId}]</value>
         <value xml:lang="en">Forum List for Forum Group: ${objectName} [${objectId}]</value>
         <value xml:lang="fr">Liste des forums pour les groupes de forum : ${objectName} [${objectId}]</value>
         <value xml:lang="it">Lista Forum per gruppo forum: ${objectName} [${objectId}]</value>
@@ -2837,6 +3172,7 @@
         <value xml:lang="zh">论坛列表：论坛组</value>
     </property>
     <property key="PageTitleFindLayout">
+        <value xml:lang="de">Layout suchen</value>
         <value xml:lang="en">Find Layout</value>
         <value xml:lang="fr">Rechercher la mise en page</value>
         <value xml:lang="it">Ricerca Layout</value>
@@ -2844,6 +3180,7 @@
     </property>
     <property key="PageTitleFindSurvey">
         <value xml:lang="ar">إيجاد تصويت</value>
+        <value xml:lang="de">Befragung suchen</value>
         <value xml:lang="en">Find Survey</value>
         <value xml:lang="es">Buscar Encuesta</value>
         <value xml:lang="fr">Rechercher le sondage</value>
@@ -2854,6 +3191,7 @@
     </property>
     <property key="PageTitleFindSurveyResponse">
         <value xml:lang="ar">إيجاد جواب التصويت</value>
+        <value xml:lang="de">Befragung Antworten suchen</value>
         <value xml:lang="en">Find Survey Response</value>
         <value xml:lang="es">Buscar Respuesta de Encuestas</value>
         <value xml:lang="fr">Rechercher les réponses du sondage</value>
@@ -2864,6 +3202,7 @@
     </property>
     <property key="PageTitleFindWebSite">
         <value xml:lang="ar">إيجاد موقع الويب</value>
+        <value xml:lang="de">Webseite suchen</value>
         <value xml:lang="en">Find WebSite</value>
         <value xml:lang="fr">Rechercher le site web</value>
         <value xml:lang="it">Ricerca Sito Web</value>
@@ -2873,6 +3212,7 @@
     </property>
     <property key="PageTitleForumGroupPurposes">
         <value xml:lang="ar">أهداف من أجل مجموعة المنتدى:</value>
+        <value xml:lang="de">Zwecke für Forumgruppe:</value>
         <value xml:lang="en">Purposes for forumgroup:</value>
         <value xml:lang="fr">Buts pour le groupe de forums</value>
         <value xml:lang="it">Funzioni per gruppo forum:</value>
@@ -2882,6 +3222,7 @@
     </property>
     <property key="PageTitleForumGroupRoles">
         <value xml:lang="ar">أدوار لمجموعة المنتدى:</value>
+        <value xml:lang="de">Rollen für Forumgruppe:</value>
         <value xml:lang="en">Roles for forumgroup:</value>
         <value xml:lang="fr">Rôles pour le groupe de forums : </value>
         <value xml:lang="it">Ruoli per gruppo forum:</value>
@@ -2891,6 +3232,7 @@
     </property>
     <property key="PageTitleListAssociations">
         <value xml:lang="ar">إدراج الإرتباطات</value>
+        <value xml:lang="de">Liste der Zuordnungen</value>
         <value xml:lang="en">List associations</value>
         <value xml:lang="fr">Liste d'associations</value>
         <value xml:lang="it">Lista associazioni</value>
@@ -2900,6 +3242,7 @@
     </property>
     <property key="PageTitleListContent">
         <value xml:lang="ar">قائمة المحتوى</value>
+        <value xml:lang="de">Inhaltliste</value>
         <value xml:lang="en">Content List</value>
         <value xml:lang="fr">Liste de contenus</value>
         <value xml:lang="it">Lista Contenuti</value>
@@ -2908,6 +3251,7 @@
         <value xml:lang="zh">内容列表</value>
     </property>
     <property key="PageTitleListContentApproval">
+        <value xml:lang="de">Liste der Inhaltsbestätigungen</value>
         <value xml:lang="en">List Content Approval</value>
         <value xml:lang="fr">Liste d'autorisations de contenu</value>
         <value xml:lang="it">Lista Approvazione Contenuto</value>
@@ -2915,6 +3259,7 @@
     </property>
     <property key="PageTitleListDataResource">
         <value xml:lang="ar">قائمة مورد المعلومات</value>
+        <value xml:lang="de">Liste der Datenressourcen</value>
         <value xml:lang="en">Data Resource List</value>
         <value xml:lang="fr">Liste de ressources de données</value>
         <value xml:lang="it">Lista Risorse Dati</value>
@@ -2923,23 +3268,27 @@
         <value xml:lang="zh">数据资源列表</value>
     </property>
     <property key="PageTitleListLayout">
+        <value xml:lang="de">Liste der Layouts</value>
         <value xml:lang="en">List Layout</value>
         <value xml:lang="fr">Liste de mises en page</value>
         <value xml:lang="it">Lista Layout</value>
         <value xml:lang="th">รายการ Layout</value>
     </property>
     <property key="PageTitleListSurveyResponse">
+        <value xml:lang="de">Liste der Antworten Befragung</value>
         <value xml:lang="en">List Survey Response</value>
         <value xml:lang="fr">Liste des réponses au sondage</value>
         <value xml:lang="it">Lista Risposte Sondaggio</value>
         <value xml:lang="th">รายการสำรวจคำตอบ</value>
     </property>
     <property key="PageTitleLookupListLayout">
+        <value xml:lang="de">Liste Layout suchen</value>
         <value xml:lang="en">Lookup List Layout</value>
         <value xml:lang="fr">Recherche de mise en page</value>
         <value xml:lang="it">Ricerca Layout</value>
     </property>
     <property key="PageTitleLookupSubContent">
+        <value xml:lang="de">Untergeordneten Inhalt suchen</value>
         <value xml:lang="en">Lookup Sub Content</value>
         <value xml:lang="fr">Recherche de sous-contenu</value>
         <value xml:lang="it">Ricerca Sotto-Contenuto</value>
@@ -2947,6 +3296,7 @@
     </property>
     <property key="PageTitleListWebSite">
         <value xml:lang="ar">قائمة مواقع الويب</value>
+        <value xml:lang="de">Liste der Webseiten</value>
         <value xml:lang="en">WebSite List</value>
         <value xml:lang="fr">Liste de sites web</value>
         <value xml:lang="it">Lista Siti Web</value>
@@ -2956,6 +3306,7 @@
     </property>
     <property key="PageTitleLookupContent">
         <value xml:lang="ar">البحث عن المحتوى</value>
+        <value xml:lang="de">Inhalt suchen</value>
         <value xml:lang="en">Lookup Content</value>
         <value xml:lang="fr">Recherche de contenu</value>
         <value xml:lang="it">Ricerca Contenuto</value>
@@ -2965,6 +3316,7 @@
     </property>
     <property key="PageTitleLookupDataResource">
         <value xml:lang="ar">البحث عن مورد المعلومات</value>
+        <value xml:lang="de">Datenressource suchen</value>
         <value xml:lang="en">Lookup Data Resource</value>
         <value xml:lang="fr">Recherche de ressource de données</value>
         <value xml:lang="it">Ricerca Risorse Dati</value>
@@ -2974,6 +3326,7 @@
     </property>
     <property key="PageTitleLookupSurvey">
         <value xml:lang="ar">البحث عن التصويت</value>
+        <value xml:lang="de">Befragung suchen</value>
         <value xml:lang="en">Lookup Survey</value>
         <value xml:lang="fr">Recherche de sondage</value>
         <value xml:lang="it">Ricerca Sondaggio</value>
@@ -2983,6 +3336,7 @@
     </property>
     <property key="PageTitleLookupSurveyResponse">
         <value xml:lang="ar">البحث عن جواب التصويت</value>
+        <value xml:lang="de">Befragung Antwort suchen</value>
         <value xml:lang="en">Lookup Survey Response</value>
         <value xml:lang="fr">Recherche de réponse de sondage</value>
         <value xml:lang="it">Ricerca Risposta Sondaggio</value>
@@ -2991,6 +3345,7 @@
         <value xml:lang="zh">查找调查回答</value>
     </property>
     <property key="PageTitleNavigateDataResources">
+        <value xml:lang="de">Durch Datenressourcen navigieren mittels Datenkategorien</value>
         <value xml:lang="en">Navigate Data Resources using Data Categories</value>
         <value xml:lang="fr">Parcourir les ressources de données utilisant des catégories de données</value>
         <value xml:lang="it">Naviga nelle Risorse Dati usando i Dati Categorie</value>
@@ -2998,6 +3353,7 @@
     </property>
     <property key="PageTitleUploadImageDataResource">
         <value xml:lang="ar">إشحن علويا الصورة</value>
+        <value xml:lang="de">Bild hochladen</value>
         <value xml:lang="en">Upload Image</value>
         <value xml:lang="fr">Télécharger une image vers le serveur</value>
         <value xml:lang="it">Carica Immagine</value>
@@ -3007,6 +3363,7 @@
     </property>
     <property key="PageTitleViewSurveyResponses">
         <value xml:lang="ar">مشاهدة أجوبة التصويت</value>
+        <value xml:lang="de">Befragung Antworten anzeigen</value>
         <value xml:lang="en">View Survey Responses</value>
         <value xml:lang="es">Ver Respuesta de Encuestas</value>
         <value xml:lang="fr">Réponses des sondages d'opinion</value>
@@ -3016,18 +3373,21 @@
         <value xml:lang="zh">浏览调查回答</value>
     </property>
     <property key="PageTitleWebSiteContent">
+        <value xml:lang="de">Webseite Inhalt</value>
         <value xml:lang="en">WebSite Content</value>
         <value xml:lang="fr">Contenu de site web</value>
         <value xml:lang="it">Contenuto Sito Web</value>
         <value xml:lang="th">หัวข้อ WebSite</value>
     </property>
     <property key="PageTitleWebSiteCMSNav">
+        <value xml:lang="de">Navigation (Webseite CMS)</value>
         <value xml:lang="en">Web Site CMS Nav</value>
         <value xml:lang="fr">Navigation (site Web CMS)</value>
         <value xml:lang="it">Sito Web CMS Navigazione</value>
         <value xml:lang="th">เว็บไซต์ CMSNav</value>
     </property>
     <property key="PageTitleWebSiteCMSContent">
+        <value xml:lang="de">Inhalt Webseite CMS</value>
         <value xml:lang="en">Web Site CMS Content</value>
         <value xml:lang="fr">Contenu du site Web CMS</value>
         <value xml:lang="it">Sito Web CMS Contenuto</value>
@@ -3035,6 +3395,7 @@
     </property>
     <property key="PartyParties">
         <value xml:lang="ar">الأطراف</value>
+        <value xml:lang="de">Akteure</value>
         <value xml:lang="en">Parties</value>
         <value xml:lang="fr">Acteurs</value>
         <value xml:lang="it">Soggetti</value>
@@ -3044,6 +3405,7 @@
     </property>
     <property key="PartyPartyId">
         <value xml:lang="ar">تعريف الطرف</value>
+        <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party Id</value>
         <value xml:lang="fr">Réf. d'acteur</value>
         <value xml:lang="it">Codice Soggetto</value>
@@ -3053,6 +3415,7 @@
     </property>
     <property key="ProductFeatures">
         <value xml:lang="ar">خواص المنتوج</value>
+        <value xml:lang="de">Produktmerkmal</value>
         <value xml:lang="en">Product Features</value>
         <value xml:lang="fr">Caractéristiques de produit</value>
         <value xml:lang="it">Caratteristiche Prodotto</value>
@@ -3062,6 +3425,7 @@
     </property>
     <property key="SurveryCategory">
         <value xml:lang="ar">فئة</value>
+        <value xml:lang="de">Kategorie</value>
         <value xml:lang="en">Category</value>
         <value xml:lang="fr">Catégorie</value>
         <value xml:lang="it">Categoria</value>
@@ -3071,6 +3435,7 @@
     </property>
     <property key="SurveyAddSurveyMultiResp">
         <value xml:lang="ar">إضافة مجموعة جواب متعدد للتصويت</value>
+        <value xml:lang="de">Befragung Mehrfachantwortgruppe hinzufügen</value>
         <value xml:lang="en">Add Survey Multi-Response Group</value>
         <value xml:lang="es">Añadir Grupo de respuestas a encuesta</value>
         <value xml:lang="fr">Ajouter un groupe multi-réponses au sondage</value>
@@ -3081,6 +3446,7 @@
     </property>
     <property key="SurveyAddSurveyMultiRespColumn">
         <value xml:lang="ar">إضافة عمود جواب متعدد للتصويت</value>
+        <value xml:lang="de">Mehrfachantworten Spalte hinzufügen</value>
         <value xml:lang="en">Add Survey Multi-Resp Column</value>
         <value xml:lang="es">Añadir Columna de Grupo de respuestas</value>
         <value xml:lang="fr">Ajouter une colonne multi-réponses au sondage</value>
@@ -3091,6 +3457,7 @@
     </property>
     <property key="SurveyApplyQuestionFromCategory">
         <value xml:lang="ar">تكبيق الأسئلة من الفئة</value>
+        <value xml:lang="de">Frage(n) anwenden von Kategorie</value>
         <value xml:lang="en">Apply Question(s) From Category</value>
         <value xml:lang="fr">Appliquer les questions à partir de la catégorie</value>
         <value xml:lang="it">Applica Domanda(e) Dalla Categoria</value>
@@ -3100,6 +3467,7 @@
     </property>
     <property key="SurveyBuildRespondeFromPDF">
         <value xml:lang="ar">بناء جواب التصويت من PDF</value>
+        <value xml:lang="de">Befragung Antwort erstellen von PDF</value>
         <value xml:lang="en">Build Survey Response from PDF</value>
         <value xml:lang="fr">Construire une réponse de sondage depuis le PDF</value>
         <value xml:lang="it">Prepare Risposte Sondaggio Dal PDF</value>
@@ -3109,6 +3477,7 @@
     </property>
     <property key="SurveyCreate">
         <value xml:lang="ar">إضافة تصويت</value>
+        <value xml:lang="de">Befragung erstellen</value>
         <value xml:lang="en">Create Survey</value>
         <value xml:lang="es">Crear Encuesta</value>
         <value xml:lang="fr">Créer un sondage</value>
@@ -3119,6 +3488,7 @@
     </property>
     <property key="SurveyCreateQuestion">
         <value xml:lang="ar">إضافة سؤال جديد</value>
+        <value xml:lang="de">Neue Frage erstellen</value>
         <value xml:lang="en">Create New Question</value>
         <value xml:lang="fr">Créer une nouvelle question</value>
         <value xml:lang="it">Creare Nuova Domanda</value>
@@ -3128,6 +3498,7 @@
     </property>
     <property key="SurveyCreateQuestionCategory">
         <value xml:lang="ar">إضافة فئة سؤال</value>
+        <value xml:lang="de">Fragenkategorie erstellen</value>
         <value xml:lang="en">Create Question Category</value>
         <value xml:lang="fr">Créer la catégorie question</value>
         <value xml:lang="it">Creare Categoria Domanda</value>
@@ -3137,6 +3508,7 @@
     </property>
     <property key="SurveyCreateQuestionOption">
         <value xml:lang="ar">إضافة زيادة سؤال</value>
+        <value xml:lang="de">Frage Wahlmöglichkeit erstellen</value>
         <value xml:lang="en">Create Question Option</value>
         <value xml:lang="fr">Créer la question option</value>
         <value xml:lang="it">Creare Opzione Domanda</value>
@@ -3146,6 +3518,7 @@
     </property>
     <property key="SurveyCreateResponse">
         <value xml:lang="ar">إضافة جواب تصويت</value>
+        <value xml:lang="de">Befragung Anwort erstellen</value>
         <value xml:lang="en">Create Survey Response</value>
         <value xml:lang="es">Crear respuesta</value>
         <value xml:lang="fr">Créer la réponse de sondage</value>
@@ -3156,6 +3529,7 @@
     </property>
     <property key="SurveyEditQuestionOption">
         <value xml:lang="ar">تحرير زيادة سؤال</value>
+        <value xml:lang="de">Frage Wahlmöglichkeit bearbeiten</value>
         <value xml:lang="en">Edit Question Option</value>
         <value xml:lang="fr">Modifier la question option</value>
         <value xml:lang="it">Aggiorna Opzione Domanda</value>
@@ -3165,6 +3539,7 @@
     </property>
     <property key="SurveyEditSurveyMultiResp">
         <value xml:lang="ar">تحرير مجموعة جواب متعدد للتصويت</value>
+        <value xml:lang="de">Befragung Mehrfachantwortgruppe bearbeiten</value>
         <value xml:lang="en">Edit Survey Multi-Response Group</value>
         <value xml:lang="es">Modificar grupo multi-respuesta</value>
         <value xml:lang="fr">Modifier le groupe multi-réponses</value>
@@ -3175,6 +3550,7 @@
     </property>
     <property key="SurveyFindResponse">
         <value xml:lang="ar">إيجاد جواب</value>
+        <value xml:lang="de">Antwort suchen</value>
         <value xml:lang="en">Find Response</value>
         <value xml:lang="es">Buscar respuesta</value>
         <value xml:lang="fr">Rechercher la réponse</value>
@@ -3185,6 +3561,7 @@
     </property>
     <property key="SurveyGenerateQuestions">
         <value xml:lang="ar">لإستخراج الأسئلة من إستمارة أكرو PDF</value>
+        <value xml:lang="de">Fragen von AcroForm PDF erstellen</value>
         <value xml:lang="en">Generate Questions from AcroForm PDF</value>
         <value xml:lang="fr">Générer les questions depuis AcroForm PDF</value>
         <value xml:lang="it">Genera Domande da AcroForm PDF</value>
@@ -3194,6 +3571,7 @@
     </property>
     <property key="SurveyMultiResp">
         <value xml:lang="ar">جواب متعدد</value>
+        <value xml:lang="de">Mehrfach-Antwort</value>
         <value xml:lang="en">Multi-Resp</value>
         <value xml:lang="fr">multi-réponses</value>
         <value xml:lang="it">Risposta Multipla</value>
@@ -3203,6 +3581,7 @@
     </property>
     <property key="SurveyMultiRespColumn">
         <value xml:lang="ar">عمود جواب متعدد</value>
+        <value xml:lang="de">Mehrfach-Antwort Spalte</value>
         <value xml:lang="en">Multi-Resp Column</value>
         <value xml:lang="fr">Colonne multi-réponses</value>
         <value xml:lang="it">Colonna Risposta Multipla</value>
@@ -3212,6 +3591,7 @@
     </property>
     <property key="SurveyMultiResps">
         <value xml:lang="ar">أجوبة متعددة</value>
+        <value xml:lang="de">Mehrfach Antworten</value>
         <value xml:lang="en">Multi-Resps</value>
         <value xml:lang="es">Multi-respuesta</value>
         <value xml:lang="fr">Multi-réponses</value>
@@ -3222,6 +3602,7 @@
     </property>
     <property key="SurveyNoQuestions">
         <value xml:lang="ar">لا أسئلة في التصويت, لا يمكن إيجاد أجوية</value>
+        <value xml:lang="de">Keine Fragen in Befragung; keine Antworten können gefunden werden.</value>
         <value xml:lang="en">No questions in survey; no responses can be located.</value>
         <value xml:lang="fr">Aucune question dans le sondage, aucune réponse ne peut être localisée.</value>
         <value xml:lang="it">Nessuna domanda nel sondaggio; nessuna risposta pu&#242; essere localizzata.</value>
@@ -3231,6 +3612,7 @@
     </property>
     <property key="SurveyOption">
         <value xml:lang="ar">إختيار</value>
+        <value xml:lang="de">Auswahl</value>
         <value xml:lang="en">Option</value>
         <value xml:lang="fr">Option</value>
         <value xml:lang="it">Opzione</value>
@@ -3240,6 +3622,7 @@
     </property>
     <property key="SurveyOptions">
         <value xml:lang="ar">إختيارات التصويت</value>
+        <value xml:lang="de">Befragung Auswahl</value>
         <value xml:lang="en">Survey Options</value>
         <value xml:lang="fr">Options du sondage</value>
         <value xml:lang="it">Opzioni Sondaggio</value>
@@ -3249,6 +3632,7 @@
     </property>
     <property key="SurveyQuestion">
         <value xml:lang="ar">سؤال</value>
+        <value xml:lang="de">Frage</value>
         <value xml:lang="en">Question</value>
         <value xml:lang="fr">Question</value>
         <value xml:lang="it">Domanda</value>
@@ -3258,6 +3642,7 @@
     </property>
     <property key="SurveyQuestions">
         <value xml:lang="ar">أسئلة</value>
+        <value xml:lang="de">Fragen</value>
         <value xml:lang="en">Questions</value>
         <value xml:lang="es">Preguntas</value>
         <value xml:lang="fr">Questions</value>
@@ -3268,6 +3653,7 @@
     </property>
     <property key="SurveyResponse">
         <value xml:lang="ar">جواب</value>
+        <value xml:lang="de">Antwort</value>
         <value xml:lang="en">Response</value>
         <value xml:lang="fr">Réponse</value>
         <value xml:lang="it">Risposta</value>
@@ -3277,6 +3663,7 @@
     </property>
     <property key="SurveyResponseSummary">
         <value xml:lang="ar">ماخص الجواب</value>
+        <value xml:lang="de">Antwort Zusammenfassung</value>
         <value xml:lang="en">Response Summary</value>
         <value xml:lang="es">Resumen de respuestas</value>
         <value xml:lang="fr">Résumé de réponse</value>
@@ -3287,6 +3674,7 @@
     </property>
     <property key="SurveyResponses">
         <value xml:lang="ar">أجوية</value>
+        <value xml:lang="de">Antworten</value>
         <value xml:lang="en">Responses</value>
         <value xml:lang="es">Respuestas</value>
         <value xml:lang="fr">Réponses</value>
@@ -3297,6 +3685,7 @@
     </property>
     <property key="SurveySurveyId">
         <value xml:lang="ar">تعريف التصويت</value>
+        <value xml:lang="de">Befragung ID</value>
         <value xml:lang="en">Survey ID</value>
         <value xml:lang="es">Id de Encuesta</value>
         <value xml:lang="fr">Réf. de sondage</value>
@@ -3307,6 +3696,7 @@
     </property>
     <property key="SurveyWithOption">
         <value xml:lang="ar">مع إختيار</value>
+        <value xml:lang="de">Mit Auswahl</value>
         <value xml:lang="en">W/Option</value>
         <value xml:lang="fr">Avec option</value>
         <value xml:lang="it">Con Opzione</value>
@@ -3316,6 +3706,7 @@
     </property>
     <property key="SurveyWithQuestion">
         <value xml:lang="ar">مع سؤال</value>
+        <value xml:lang="de">Mit Frage</value>
         <value xml:lang="en">W/Question</value>
         <value xml:lang="fr">Avec question</value>
         <value xml:lang="it">Con Domanda</value>
