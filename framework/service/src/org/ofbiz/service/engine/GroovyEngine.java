@@ -58,6 +58,7 @@ public final class GroovyEngine extends GenericAsyncEngine {
         }
 
         String location = this.getLocation(modelService);
+        context.put("dctx", dispatcher.getLocalContext(localName));
         
         try {
             Object resultObj = GroovyUtil.runScriptAtLocation(location, context);
