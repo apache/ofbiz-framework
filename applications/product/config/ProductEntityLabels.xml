@@ -1121,9 +1121,9 @@
         <value xml:lang="zh">标准</value>
     </property>
     <property key="ProductFeatureCategory.description.1000">
-        <value xml:lang="en">1000</value>
+        <value xml:lang="en">Hazmat Features</value>
         <value xml:lang="es">Características de Peligroso</value>
-        <value xml:lang="th">1000</value>
+        <value xml:lang="th">Hazmat Features</value>
     </property>
     <property key="ProductFeatureIactnType.description.FEATURE_IACTN_DEPEND">
         <value xml:lang="de">Abhängiges Merkmal</value>
