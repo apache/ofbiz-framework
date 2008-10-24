@@ -904,10 +904,6 @@ public class ModelForm extends ModelWidget {
                     Object obj = iter.next(); 
                     if (obj instanceof ModelForm.Banner) {
                         ((ModelForm.Banner) obj).renderString(writer, context, formStringRenderer);   
-                    } else {
-                        // no need to open and close an empty table, so skip that call
-                        formStringRenderer.renderFieldGroupOpen(writer, context, (FieldGroup) obj);
-                        formStringRenderer.renderFieldGroupClose(writer, context, (FieldGroup) obj);
                     }
                 }
                 if (currentFieldGroup != null && (lastFieldGroup == null || !lastFieldGroupName.equals(currentFieldGroupName))) {
@@ -952,10 +948,6 @@ public class ModelForm extends ModelWidget {
                             Object obj = iter.next(); 
                             if (obj instanceof ModelForm.Banner) {
                                 ((ModelForm.Banner) obj).renderString(writer, context, formStringRenderer);   
-                            } else {
-                                // no need to open and close an empty table, so skip that call
-                                formStringRenderer.renderFieldGroupOpen(writer, context, (FieldGroup) obj);
-                                formStringRenderer.renderFieldGroupClose(writer, context, (FieldGroup) obj);
                             }
                         }
                     }
@@ -2753,6 +2745,9 @@ public class ModelForm extends ModelWidget {
     public static class FieldGroup implements FieldGroupBase {
         public String id;
         public String style;
+        public String title;
+        public boolean collapsible = false;
+        public boolean initiallyCollapsed = false;
         protected ModelForm modelForm;
         protected static int baseSeqNo = 0;
         protected static String baseId = "_G";
@@ -2766,6 +2761,13 @@ public class ModelForm extends ModelWidget {
                     this.setId(lastGroupId);
                 }
                 this.style = sortOrderElement.getAttribute("style");
+                this.title = sortOrderElement.getAttribute("title");
+                this.collapsible = "true".equals(sortOrderElement.getAttribute("collapsible"));
+                this.initiallyCollapsed = "true".equals(sortOrderElement.getAttribute("initially-collapsed"));
+                if (this.initiallyCollapsed) {
+                    this.collapsible = true;
+                }
+                
                 List sortFieldElements = UtilXml.childElementList(sortOrderElement, "sort-field");
                 Iterator sortFieldElementIter = sortFieldElements.iterator();
                 while (sortFieldElementIter.hasNext()) {
@@ -2791,6 +2793,18 @@ public class ModelForm extends ModelWidget {
             return this.style;   
         }
         
+        public String getTitle() {
+            return this.title;   
+        }
+
+        public Boolean collapsible() {
+            return this.collapsible;   
+        }
+
+        public Boolean initiallyCollapsed() {
+            return this.initiallyCollapsed;   
+        }
+
         public void renderStartString(Appendable writer, Map<String, Object> context, FormStringRenderer formStringRenderer) throws IOException {
             formStringRenderer.renderFieldGroupOpen(writer, context, this);
             formStringRenderer.renderFormatSingleWrapperOpen(writer, context, modelForm);

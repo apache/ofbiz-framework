@@ -279,6 +279,109 @@
             <drop-down allow-empty="true"><option key="Y" description="${uiLabelMap.CommonY}"/><option key="N" description="${uiLabelMap.CommonN}"/></drop-down>
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        
+        <sort-order>
+            <field-group>
+                <sort-field name="productStoreId"/>
+                <sort-field name="primaryStoreGroupId"/>
+                <sort-field name="storeName"/>
+                <sort-field name="title"/>
+                <sort-field name="subtitle"/>
+                <sort-field name="companyName"/>
+                <sort-field name="isDemoStore"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonInventory}" collapsible="true">
+                <sort-field name="inventoryFacilityId"/>
+                <sort-field name="oneInventoryFacility"/>
+                <sort-field name="isImmediatelyFulfilled"/>
+                <sort-field name="checkInventory"/>
+                <sort-field name="reserveInventory"/>
+                <sort-field name="requireInventory"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonShoppingCart}" collapsible="true" initially-collapsed="true">
+                <sort-field name="viewCartOnAdd"/>
+                <sort-field name="autoSaveCart"/>
+                <sort-field name="addToCartReplaceUpsell"/>
+                <sort-field name="addToCartRemoveIncompat"/>
+                <sort-field name="showCheckoutGiftOptions"/>
+                <sort-field name="prodSearchExcludeVariants"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonShipping}" collapsible="true" initially-collapsed="true">
+                <sort-field name="prorateShipping"/>
+                <sort-field name="reqShipAddrForDigItems"/>
+                <sort-field name="selectPaymentTypePerItem"/>
+                <sort-field name="shipIfCaptureFails"/>
+                <sort-field name="splitPayPrefPerShpGrp"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonPayments}" collapsible="true" initially-collapsed="true">
+                <sort-field name="payToPartyId"/>
+                <sort-field name="manualAuthIsCapture"/>
+                <sort-field name="retryFailedAuths"/>
+                <sort-field name="daysToCancelNonPay"/>
+                <sort-field name="autoOrderCcTryExp"/>
+                <sort-field name="autoOrderCcTryOtherCards"/>
+                <sort-field name="autoOrderCcTryLaterNsf"/>
+                <sort-field name="autoOrderCcTryLaterMax"/>
+                <sort-field name="storeCreditValidDays"/>
+                <sort-field name="setOwnerUponIssuance"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonOrders}" collapsible="true" initially-collapsed="true">
+                <sort-field name="reserveOrderEnumId"/>
+                <sort-field name="balanceResOnOrderCreation"/>
+                <sort-field name="orderNumberPrefix"/>
+                <sort-field name="defaultSalesChannelEnumId"/>
+                <sort-field name="explodeOrderItems"/>
+                <sort-field name="checkGcBalance"/>
+                <sort-field name="autoInvoiceDigitalItems"/>
+                <sort-field name="autoApproveInvoice"/>
+                <sort-field name="autoApproveOrder"/>
+                <sort-field name="reqReturnInventoryReceive"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonLocalisation}" collapsible="true" initially-collapsed="true">
+                <sort-field name="defaultLocaleString"/>
+                <sort-field name="defaultCurrencyUomId"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonOrdersStatus}" collapsible="true" initially-collapsed="true">
+                <sort-field name="headerApprovedStatus"/>
+                <sort-field name="itemApprovedStatus"/>
+                <sort-field name="digitalItemApprovedStatus"/>
+                <sort-field name="headerDeclinedStatus"/>
+                <sort-field name="itemDeclinedStatus"/>
+                <sort-field name="headerCancelStatus"/>
+                <sort-field name="itemCancelStatus"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonMessages}" collapsible="true" initially-collapsed="true">
+                <sort-field name="authDeclinedMessage"/>
+                <sort-field name="authFraudMessage"/>
+                <sort-field name="authErrorMessage"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonTax}" collapsible="true" initially-collapsed="true">
+                <sort-field name="prorateTaxes"/>
+                <sort-field name="showPricesWithVatTax"/>
+                <sort-field name="showTaxIsExempt"/>
+                <sort-field name="vatTaxAuthGeoId"/>
+                <sort-field name="vatTaxAuthPartyId"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonVisitors}" collapsible="true" initially-collapsed="true">
+                <sort-field name="autoApproveReviews"/>
+                <sort-field name="allowPassword"/>
+                <sort-field name="defaultPassword"/>
+                <sort-field name="usePrimaryEmailUsername"/>
+                <sort-field name="requireCustomerRole"/>
+                <sort-field name="enableAutoSuggestionList"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonVisualTheme}" collapsible="true" initially-collapsed="true">
+                <sort-field name="styleSheet"/>
+                <sort-field name="headerLogo"/>
+                <sort-field name="headerMiddleBackground"/>
+                <sort-field name="headerRightBackground"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonUpload}" collapsible="true" initially-collapsed="true">
+                <sort-field name="enableDigProdUpload"/>
+                <sort-field name="digProdUploadCategoryId"/>
+            </field-group>
+            
+        </sort-order>
     </form>
 
     <form name="ListProductStoreFinAccountSettings" type="list" target="UpdateProductStoreFinAccountSettings" list-name="productStoreFinActSettings"

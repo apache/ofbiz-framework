@@ -1964,3 +1964,33 @@ iframe.ie6_blocker {
 .fieldWithErrors .calendar_date_select {
   border: 2px solid #FF0000;
 }
+
+/* ============================= */
+/* ===== FieldGroup Styles ===== */
+/* ============================= */
+
+.fieldgroup-title-bar {
+border-top: 0.1em solid #DADADA;
+font-size: 1em;
+font-weight: bold;
+padding: 0.1em 0.5em 0.2em 0.5em;
+}
+
+.fieldgroup-title-bar ul .collapsed,
+.fieldgroup-title-bar ul .collapsed:hover {
+background: url(/images/expand.gif) no-repeat center center;
+min-height: 1.1em;
+min-width: 1.1em;
+}
+
+.fieldgroup-title-bar ul .expanded,
+.fieldgroup-title-bar ul .expanded:hover {
+background: url(/images/collapse.gif) no-repeat center center;
+min-height: 1.1em;
+min-width: 1.1em;
+}
+
+.fieldgroup-title-bar td.collapse {
+width: 1.1em;
+cursor: default;
+}
