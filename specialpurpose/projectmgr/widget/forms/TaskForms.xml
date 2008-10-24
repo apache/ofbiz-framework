@@ -284,10 +284,13 @@
     </form>
     <form name="assignTaskToMe" type="single" target="addTaskAssignment"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getPartyRoles.groovy"/>
+        </actions>
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
-            <drop-down allow-empty="false">
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" event="onChange" action="javascript:document.assignTaskToMe.checkPartyRole.value='Y';document.assignTaskToMe.submit();">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}" key-field-name="workEffortId" filter-by-date="true">
                     <entity-constraint name="partyId" operator="equals" value="${parameters.userLogin.partyId}"/>
                     <entity-constraint name="currentStatusId" operator="equals" value="PTS_CREATED"/>
@@ -297,12 +300,10 @@
                 </entity-options>
            </drop-down>
         </field>
+        <field name="checkPartyRole"><hidden value="N"/></field> 
         <field name="roleTypeId">
-            <drop-down>
-                <entity-options entity-name="RoleType" description="${description}">
-                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>        
+            <drop-down current="selected" allow-empty="false">
+                <list-options list-name="roleList" key-name="KEY" description="${VALUE}"/>
             </drop-down>
         </field>
         <field name="addButton"><submit/></field>

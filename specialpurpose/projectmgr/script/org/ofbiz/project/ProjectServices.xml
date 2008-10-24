@@ -55,6 +55,9 @@
     <simple-method method-name="updateTaskAssigment" 
         short-description="Update task to resource assignment, if required create a new one by re-assigment">
         <field-to-result map-name="parameters" field-name="workEffortId"/>
+        <if-compare field="parameters.checkPartyRole" value="Y" operator="equals">
+            <return/>
+        </if-compare>
         <if>
             <!-- check if a change in partyId Or roletypeId: need to delete and create new -->
             <condition>

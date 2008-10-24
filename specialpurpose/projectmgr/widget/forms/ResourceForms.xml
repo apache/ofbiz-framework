@@ -52,7 +52,14 @@
     <form name="AddResource" type="single" target="addResource"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="PartyId" parameter-name="partyId" title="${uiLabelMap.PartyPartyId}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="roleTypeId"><hidden value="PROJECT_TEAM"/></field>
+        <field name="roleTypeId">
+            <drop-down allow-empty="false">
+                <entity-options entity-name="RoleType" description="${description}">
+                    <entity-constraint name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="addButton" ><submit/></field>
     </form>
     <form name="AddPartyRole" extends="AddPartyRole" extends-resource="component://party/webapp/partymgr/party/PartyForms.xml">

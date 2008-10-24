@@ -113,7 +113,7 @@
     </request-map>
     <request-map uri="addResource">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createPartyRole"/>
+        <event type="simple" invoke="addProjectMgrResource" path="org/ofbiz/project/ProjectSimpleEvents.xml"/>
         <response name="success" type="view" value="FindResource"/>
     </request-map>
     <request-map uri="removeResource">

@@ -381,21 +381,30 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field use-when="workEffortId!=projectId" entry-name="xx" name="partyId"><!-- task level -->
-            <drop-down>
-                <entity-options entity-name="WorkEffortPartyAssignView" filter-by-date="true" description="${firstName} ${middleName} ${lastName} ${groupName}">
+        <field name="checkPartyRole"><hidden value="N"/></field>  
+        <field use-when="workEffortId!=projectId" name="partyId" event="onChange" action="javascript:document.AddWorkEffortPartyAssign.checkPartyRole.value='Y';document.AddWorkEffortPartyAssign.submit();"><!-- task level -->
+            <drop-down  allow-empty="true" current="selected">
+                <entity-options entity-name="WorkEffortPartyAssignView"  filter-by-date="true" description="${firstName} ${middleName} ${lastName} ${groupName}">
                     <entity-constraint name="workEffortId" env-name="projectId"/>
+                    <entity-order-by field-name="firstName"/>
                     <entity-order-by field-name="lastName"/>
                     <entity-order-by field-name="groupName"/>
                     <entity-order-by field-name="roleTypeId"/>
                 </entity-options>        
             </drop-down>
         </field>
-        <field entry-name="xx" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+        <field use-when="workEffortId==projectId" entry-name="xx" name="roleTypeId" title="${uiLabelMap.PartyRoleType}"><!-- project level -->
             <drop-down>
                 <entity-options entity-name="RoleType" description="${description}">
                     <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
-                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field entry-name="xx" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+            <drop-down>
+                <entity-options entity-name="PartyRoleDetailAndPartyDetail" description="${description}">
+                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
+                    <entity-constraint name="partyId" env-name="parameters.partyId"/>
                 </entity-options>
             </drop-down>
         </field>
