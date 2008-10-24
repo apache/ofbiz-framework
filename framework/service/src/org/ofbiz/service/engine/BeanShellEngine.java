@@ -18,26 +18,18 @@
  *******************************************************************************/
 package org.ofbiz.service.engine;
 
-import java.net.URL;
 import java.util.Map;
 
 import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
-import org.ofbiz.base.util.HttpClient;
-import org.ofbiz.base.util.HttpClientException;
 import static org.ofbiz.base.util.UtilGenerics.cast;
-import org.ofbiz.base.util.UtilURL;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.ModelService;
 import org.ofbiz.service.ServiceDispatcher;
 import org.ofbiz.service.ServiceUtil;
-
-import bsh.EvalError;
-import bsh.Interpreter;
 
 /**
  * BeanShell Script Service Engine
@@ -67,10 +59,11 @@ public final class BeanShellEngine extends GenericAsyncEngine {
     // Invoke the BeanShell Script.
     private Map<String, Object> serviceInvoker(String localName, ModelService modelService, Map<String, Object> context) throws GenericServiceException {
         if (UtilValidate.isEmpty(modelService.location)) {
-            throw new GenericServiceException("Cannot run Groovy service with empty location");
+            throw new GenericServiceException("Cannot run Beanshell service with empty location");
         }
 
         String location = this.getLocation(modelService);
+        context.put("dctx", dispatcher.getLocalContext(localName));
         
         try {
             Object resultObj = BshUtil.runBshAtLocation(location, context);
