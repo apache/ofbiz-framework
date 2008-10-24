@@ -99,41 +99,20 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <container style="lefthalf">
-                                            <container style="screenlet">
-                                                <container style="screenlet-title-bar">
-                                                    <container style="h3">
-                                                        <label text="${uiLabelMap.ProjectMgrAssignATaskToMe}"/>
-                                                    </container>
-                                                </container>
-                                                <container style="screenlet-body">
-                                                    <include-form name="assignTaskToMe" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                                </container>
-                                            </container>                                                                        
+                                            <screenlet title="${uiLabelMap.ProjectMgrAssignATaskToMe}">
+                                                <include-form name="assignTaskToMe" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </screenlet>
                                         </container>
                                         <container style="righthalf">
-                                            <container style="screenlet">
-                                                <container style="screenlet-title-bar">
-                                                    <container style="h3">
-                                                        <label text="${uiLabelMap.ProjectMgrAddNewTask}"/>
-                                                    </container>
-                                                </container>
-                                                <container style="screenlet-body">
-                                                    <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                                                </container>
-                                            </container>                                                                           
+                                            <screenlet title="${uiLabelMap.ProjectMgrAddNewTask}">
+                                                <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                            </screenlet>
                                         </container>                                                                             
                                     </widgets>
                                     <fail-widgets>
-                                        <container style="screenlet">
-                                            <container style="screenlet-title-bar">
-                                                <container style="h3">
-                                                    <label text="${uiLabelMap.ProjectMgrAssignATaskToMe}"/>
-                                                </container>
-                                            </container>
-                                               <container style="screenlet-body">
-                                                <label style="h3" text="${uiLabelMap.ProjectMgrTaskMember}"></label>
-                                            </container>
-                                        </container>                                                                        
+                                        <screenlet title="${uiLabelMap.ProjectMgrAssignATaskToMe}">
+                                            <label style="h3" text="${uiLabelMap.ProjectMgrTaskMember}"></label>
+                                        </screenlet>
                                     </fail-widgets>
                                 </section>
                             </widgets>                            
