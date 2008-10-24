@@ -2651,28 +2651,76 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
     }
     
     public void renderFieldGroupOpen(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
-        String style = fieldGroup.getStyle(); 
-        String id = fieldGroup.getId(); 
-        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id)) {
-            writer.append("<div");
+        String style = fieldGroup.getStyle();
+        String id = fieldGroup.getId();
+        FlexibleStringExpander titleNotExpanded = FlexibleStringExpander.getInstance(fieldGroup.getTitle());         
+        String title = titleNotExpanded.expandString(context);
+        Boolean collapsed = fieldGroup.initiallyCollapsed();
+        String collapsibleAreaId = fieldGroup.getId() + "_body";
+
+        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id) || UtilValidate.isNotEmpty(title)) {
+
+            writer.append("<div class=\"fieldgroup");
             if (UtilValidate.isNotEmpty(style)) {
-                writer.append(" class=\"");
+                writer.append(" ");
                 writer.append(style);
-                writer.append("\"");
             }
+            writer.append("\"");
             if (UtilValidate.isNotEmpty(id)) {
                 writer.append(" id=\"");
                 writer.append(id);
                 writer.append("\"");
             }
             writer.append(">");
+
+            writer.append("<div class=\"fieldgroup-title-bar\"><table><tr><td class=\"collapse\">");
+
+            if (fieldGroup.collapsible()) {
+                String expandToolTip = null;
+                String collapseToolTip = null;
+                Map<String, Object> uiLabelMap = UtilGenerics.checkMap(context.get("uiLabelMap"));
+                Map<String, Object> paramMap = UtilGenerics.checkMap(context.get("requestParameters"));
+                if (uiLabelMap != null) {
+                    expandToolTip = (String) uiLabelMap.get("CommonExpand");
+                    collapseToolTip = (String) uiLabelMap.get("CommonCollapse");
+                }
+
+                writer.append("<ul><li class=\"");
+                if (collapsed) {
+                    writer.append("collapsed\"><a ");
+                    writer.append("onclick=\"javascript:toggleCollapsiblePanel(this, '" + collapsibleAreaId + "', '" + expandToolTip + "', '" + collapseToolTip + "');\"");
+                } else {
+                    writer.append("expanded\"><a ");
+                    writer.append("onclick=\"javascript:toggleCollapsiblePanel(this, '" + collapsibleAreaId + "', '" + expandToolTip + "', '" + collapseToolTip + "');\"");
+                }
+                writer.append(">&nbsp&nbsp&nbsp</a></li></ul>");
+
+                appendWhitespace(writer);
+            }
+            writer.append("</td><td>");
+
+            if (UtilValidate.isNotEmpty(title)) {
+                writer.append("<div class=\"title\">");
+                writer.append(title);
+                writer.append("</div>");
+            }
+            
+            writer.append("</td></tr></table></div>");
+
+            writer.append("<div id=\"" + collapsibleAreaId + "\" class=\"fieldgroup-body\"");
+            if (fieldGroup.collapsible() && collapsed) {
+                writer.append(" style=\"display: none;\"");
+            }
+            writer.append(">");
         }
     }
      
     public void renderFieldGroupClose(Appendable writer, Map<String, Object> context, ModelForm.FieldGroup fieldGroup) throws IOException {
-        String style = fieldGroup.getStyle(); 
-        String id = fieldGroup.getId(); 
-        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id)) {
+        String style = fieldGroup.getStyle();
+        String id = fieldGroup.getId();
+        String title = fieldGroup.getTitle();
+        if (UtilValidate.isNotEmpty(style) || UtilValidate.isNotEmpty(id) || UtilValidate.isNotEmpty(title)) {
+            writer.append("</div>");
             writer.append("</div>");
         }
     }

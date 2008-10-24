@@ -2945,6 +2945,10 @@
         <value xml:lang="zh_CN">引入日期</value>
         <value xml:lang="zh">介绍日期</value>
     </property>
+    <property key="CommonInventory">
+        <value xml:lang="en">Inventory</value>
+        <value xml:lang="fr">Stockage</value>
+    </property>
     <property key="CommonIsA">
         <value xml:lang="ar">هو</value>
         <value xml:lang="de">ist ein</value>
@@ -3157,6 +3161,10 @@
         <value xml:lang="zh_CN">所有列表</value>
         <value xml:lang="zh">全部列表</value>
     </property>
+    <property key="CommonLocalisation">
+        <value xml:lang="en">Localisation</value>
+        <value xml:lang="fr">Options régionales et linguistiques</value>
+    </property>    
     <property key="CommonLogin">
         <value xml:lang="ar">دخول</value>
         <value xml:lang="cs">Přihlásit</value>
@@ -3393,6 +3401,10 @@
         <value xml:lang="th">ข้อความ</value>
         <value xml:lang="zh_CN">消息</value>
         <value xml:lang="zh">信息</value>
+    </property>
+    <property key="CommonMessages">
+        <value xml:lang="en">Messages</value>
+        <value xml:lang="fr">Messages</value>
     </property>
     <property key="CommonMethod">
         <value xml:lang="ar">طريقة</value>
@@ -4141,6 +4153,10 @@
         <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh">订单</value>
     </property>
+    <property key="CommonOrdersStatus">
+        <value xml:lang="en">Orders Status</value>
+        <value xml:lang="fr">Statuts des commandes</value>
+    </property>
     <property key="CommonOther">
         <value xml:lang="ar">أخرى</value>
         <value xml:lang="de">Andere</value>
@@ -4252,6 +4268,10 @@
         <value xml:lang="fr">SVP, changer cotre mot de passe</value>
         <value xml:lang="th">กรุณาเปลี่ยนรหัสผ่านของคุณ</value>
     </property>
+    <property key="CommonPayments">
+        <value xml:lang="en">Payments</value>
+        <value xml:lang="fr">Paiements</value>
+    </property>    
     <property key="CommonPdf">
         <value xml:lang="en">Pdf</value>
     </property>
@@ -5426,6 +5446,14 @@
         <value xml:lang="zh_CN">显示查找字段</value>
         <value xml:lang="zh">显示查询项</value>
     </property>
+    <property key="CommonShipping">
+        <value xml:lang="en">Shipping</value>
+        <value xml:lang="fr">Expédition</value>
+    </property>    
+    <property key="CommonShoppingCart">
+        <value xml:lang="en">ShoppingCart</value>
+        <value xml:lang="fr">Panier</value>
+    </property>        
     <property key="CommonSince">
         <value xml:lang="ar">منذ</value>
         <value xml:lang="de">Seit</value>
@@ -5625,7 +5653,7 @@
     </property>
     <property key="CommonStatustoComplete">
         <value xml:lang="en">Status to 'complete'</value>
-        <value xml:lang="fr">Mettre statut à terminé</value>
+        <value xml:lang="fr">Mettre le statut à terminé</value>
         <value xml:lang="it">Stato a 'completo'</value>
         <value xml:lang="th">สถานะเป็น 'เสร็จสมบูรณ์'</value>
         <value xml:lang="zh">置状态为完成</value>
@@ -5771,6 +5799,10 @@
         <value xml:lang="zh_CN">符合</value>
         <value xml:lang="zh">记录</value>
     </property>
+    <property key="CommonTax">
+        <value xml:lang="en">Tax</value>
+        <value xml:lang="fr">Taxes (TVA)</value>
+    </property>    
     <property key="CommonTelephoneAbbr">
         <value xml:lang="ar">هاتف</value>
         <value xml:lang="de">Tel</value>
@@ -6301,7 +6333,7 @@
         <value xml:lang="de">Hinaufladen</value>
         <value xml:lang="en">Upload</value>
         <value xml:lang="es">Cargar</value>
-        <value xml:lang="fr">Télécharger vers le serveur</value>
+        <value xml:lang="fr">Téléchargement vers le serveur</value>
         <value xml:lang="it">Carica</value>
         <value xml:lang="nl">Upload</value>
         <value xml:lang="pt">Upload</value>
@@ -6504,6 +6536,14 @@
         <value xml:lang="th">แสดงคำร้อง</value>
         <value xml:lang="zh_CN">查看请求</value>
         <value xml:lang="zh">浏览请求</value>
+    </property>    
+    <property key="CommonVisitors">
+        <value xml:lang="en">Visitors</value>
+        <value xml:lang="fr">Visiteurs</value>
+    </property>
+    <property key="CommonVisualTheme">
+        <value xml:lang="en">Visual Theme</value>
+        <value xml:lang="fr">Charte graphique</value>
     </property>
     <property key="CommonVolume">
         <value xml:lang="ar">الجحم</value>
@@ -7579,7 +7619,7 @@
     </property>
     <property key="VisualThemes">
         <value xml:lang="en">Visual Themes</value>
-        <value xml:lang="fr">Charte graphique</value>
+        <value xml:lang="fr">Charte graphiques</value>
         <value xml:lang="it">Tema grafico</value>
     </property>
     <property key="VisualThemeNoScreenshots">
