@@ -444,7 +444,7 @@ public class ManagerEvents {
                 Debug.logError(pe, module);
                 return;
             }
-            internTx.set("reasonComment", mapInOut.get("reason"));
+            internTx.set("reasonComment", mapInOut.get("reasonComment"));
             internTx.set("reasonEnumId", mapInOut.get("reason"));
             try {
                 internTx.create();
