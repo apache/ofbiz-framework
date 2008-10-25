@@ -367,12 +367,13 @@
     </form>
     <form name="AddWorkEffortPartyAssign" target="createWorkEffortPartyAssign" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
-        <alt-target use-when="workEffortId!=projectId" target="createTaskPartyAssign"/><!-- this used for tasks else for project -->
+        <alt-target use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" target="EditTaskPartyAssigns"/>
+        <alt-target use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null" target="createTaskPartyAssign"/><!-- this used for tasks else for project -->
         <field name="projectId"><hidden/></field>
         <field name="statusId"><hidden value="PRTYASGN_ASSIGNED"/></field>
         <field name="workEffortId"><hidden value="${workEffortId}"/></field>
-        <field use-when="workEffortId==projectId" entry-name="xx" name="partyId"><!-- project level -->
-            <drop-down>
+        <field use-when="workEffortId==projectId" entry-name="xx" name="partyId" event="onChange" action="javascript:document.AddWorkEffortPartyAssign.submit();"><!-- project level -->
+                <drop-down  allow-empty="true" current="selected">
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${middleName} ${lastName} ${groupName}">
                     <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="lastName"/>
@@ -381,8 +382,12 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field name="checkPartyRole"><hidden value="N"/></field>  
-        <field use-when="workEffortId!=projectId" name="partyId" event="onChange" action="javascript:document.AddWorkEffortPartyAssign.checkPartyRole.value='Y';document.AddWorkEffortPartyAssign.submit();"><!-- task level -->
+        <field use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null" name="partyId">
+            <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}[${partyId}]">
+                <sub-hyperlink target="EditTaskPartyAssigns?workEffortId=${workEffortId}" description="${uiLabelMap.CommonChange}"/>        
+            </display-entity>
+        </field>
+        <field use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" name="partyId" event="onChange" action="javascript:document.AddWorkEffortPartyAssign.submit();"><!-- task level -->
             <drop-down  allow-empty="true" current="selected">
                 <entity-options entity-name="WorkEffortPartyAssignView"  filter-by-date="true" description="${firstName} ${middleName} ${lastName} ${groupName}">
                     <entity-constraint name="workEffortId" env-name="projectId"/>
@@ -400,7 +405,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field entry-name="xx" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+        <field use-when="workEffortId!=projectId" entry-name="xx" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
             <drop-down>
                 <entity-options entity-name="PartyRoleDetailAndPartyDetail" description="${description}">
                     <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>

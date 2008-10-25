@@ -44,10 +44,10 @@ under the License.
                                 </actions>
                                 <widgets>
                                     <container style="lefthalf">
+                                        <include-form name="DependenciesBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                         <screenlet id="AddDependenciesBeforePanel" title="${uiLabelMap.PageTitleAddDependencyBefore}" collapsible="true">
                                             <include-form name="AddDependencyBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                         </screenlet>
-                                        <include-form name="DependenciesBefore" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                     </container>
                                 </widgets>
                             </section>
@@ -60,10 +60,10 @@ under the License.
                                 </actions>
                                 <widgets>
                                     <container style="righthalf">
+                                        <include-form name="DependenciesAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                         <screenlet id="AddDependenciesAfterPanel" title="${uiLabelMap.PageTitleAddDependencyAfter}" collapsible="true">
                                             <include-form name="AddDependencyAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                         </screenlet>
-                                        <include-form name="DependenciesAfter" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                     </container>
                                 </widgets>
                             </section>
@@ -274,9 +274,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.${titleProperty}}">
-                            <include-form name="ListTaskSkills" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                        </screenlet>
+                        <include-form name="ListTaskSkills" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         <screenlet title="${uiLabelMap.${titleProperty}}">
                             <include-form name="AddTaskSkill" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         </screenlet>
@@ -296,9 +294,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.${titleProperty}} ${workEffortId}">
-                            <include-form name="ListTimeEntries" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                        </screenlet>
+                        <include-form name="ListTimeEntries" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         <screenlet title="${uiLabelMap.ProjectMgrAddTimeEntry}">
                             <include-form name="createTimeEntry" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         </screenlet>
@@ -370,10 +366,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-form name="EditWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         <screenlet id="AddTaskPartyAssignsPanel" title="${uiLabelMap.PageTitleAddPartyAssign}" collapsible="true">
                             <include-form name="AddWorkEffortPartyAssign" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
                         </screenlet>
-                        <include-form name="EditWorkEffortPartyAssigns" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -392,10 +388,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-form name="ListTaskNotes" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         <screenlet id="AddTaskNotesPanel" title="${uiLabelMap.PageTitleAddTaskNotes}" collapsible="true">
                             <include-form name="AddTaskNote" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                         </screenlet>
-                        <include-form name="ListTaskNotes" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
