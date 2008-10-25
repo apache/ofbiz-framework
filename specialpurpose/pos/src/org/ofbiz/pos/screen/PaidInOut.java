@@ -19,7 +19,6 @@
 package org.ofbiz.pos.screen;
 
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -38,6 +37,7 @@ import net.xoetrope.xui.events.XEventHelper;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.pos.PosTransaction;
@@ -56,7 +56,9 @@ public class PaidInOut extends XPage {
     protected XLabel m_amoutLabel = null;
     protected XEdit m_amountEdit = null;
     protected XLabel m_reasonLabel = null;
-    protected XComboBox m_reasonsCombo = null;
+    protected XComboBox m_reasonCombo = null;
+    protected XLabel m_reasonCommentLabel = null;
+    protected XEdit m_reasonCommentEdit = null;
     protected XButton m_cancel = null;
     protected XButton m_ok = null;
     protected DefaultComboBoxModel m_comboModel = null;
@@ -75,13 +77,17 @@ public class PaidInOut extends XPage {
 
     public Map<String, String> openDlg() {
         m_dialog = (XDialog) pageMgr.loadPage(m_pos.getScreenLocation() + "/dialog/PaidInOut");
+        m_amoutLabel = (XLabel) m_dialog.findComponent("amoutLabel");
         m_amountEdit = (XEdit) m_dialog.findComponent("amountEdit");
-        m_reasonsCombo = (XComboBox) m_dialog.findComponent("ReasonsCombo");
+
+        m_reasonLabel = (XLabel) m_dialog.findComponent("reasonLabel");
+        m_reasonCombo = (XComboBox) m_dialog.findComponent("reasonCombo");
+
+        m_reasonCommentLabel = (XLabel) m_dialog.findComponent("reasonCommentLabel");
+        m_reasonCommentEdit = (XEdit) m_dialog.findComponent("reasonCommentEdit");
 
         m_cancel = (XButton) m_dialog.findComponent("BtnCancel");
         m_ok = (XButton) m_dialog.findComponent("BtnOk");
-        m_amoutLabel = (XLabel) m_dialog.findComponent("amoutLabel");
-        m_reasonLabel = (XLabel) m_dialog.findComponent("reasonLabel");
         Locale locale = Locale.getDefault();
 
         XEventHelper.addMouseHandler(this, m_cancel, "cancel");
@@ -107,17 +113,19 @@ public class PaidInOut extends XPage {
         for (GenericValue reason : posPaidReasons) {
             m_comboModel.addElement(reason.get("description", locale));
         }
-        m_reasonsCombo.setModel(m_comboModel);
-        m_reasonsCombo.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "CreateOrChooseReasonInOut", locale));
+        m_reasonCombo.setModel(m_comboModel);
+        m_reasonCombo.setToolTipText(UtilProperties.getMessage(PosTransaction.resource, "CreateOrChooseReasonInOut", locale));
 
         m_dialog.pack();
-        m_reasonsCombo.requestFocusInWindow();
+        m_reasonCombo.requestFocusInWindow();
         m_dialog.showDialog(this);
         if (cancelled) {
-            return new HashMap();
+            return new HashMap<String, String>();
         } else {
-            return UtilMisc.toMap("amount", m_amountEdit.getText(), "reason", (String) m_reasonsCombo.getSelectedItem());
-        }
+            return UtilMisc.toMap("amount", m_amountEdit.getText(), 
+                    "reason", (String)(posPaidReasons.get(m_reasonCombo.getSelectedIndex())).get("enumId"),        
+                    "reasonComment", (String) m_reasonCommentEdit.getText());        
+            }
     }
 
     public synchronized void cancel() {
@@ -130,8 +138,8 @@ public class PaidInOut extends XPage {
     public synchronized void verify() {
         if (wasMouseClicked()) {
             String amount = m_amountEdit.getText();
-            String reason = (String) m_reasonsCombo.getSelectedItem();
-            if (null != amount && amount.length() > 0 && null != reason && reason.length() > 0 ) {
+            String reason = (String) m_reasonCombo.getSelectedItem();
+            if (UtilValidate.isNotEmpty(amount)&& UtilValidate.isNotEmpty(reason)) {
                 m_dialog.closeDlg();
             }
         }
@@ -151,5 +159,4 @@ public class PaidInOut extends XPage {
         }
         return;
     }
-
 }
