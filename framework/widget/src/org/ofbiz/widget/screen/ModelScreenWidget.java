@@ -1435,6 +1435,7 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         protected FlexibleStringExpander widthExdr;
         protected FlexibleStringExpander heightExdr;
         protected FlexibleStringExpander borderExdr;
+        protected FlexibleStringExpander alt;
         protected String urlMode = "content";
 
         public Image(ModelScreen modelScreen, Element imageElement) {
@@ -1444,8 +1445,9 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             setId(imageElement.getAttribute("id"));
             setStyle(imageElement.getAttribute("style"));
             setWidth(imageElement.getAttribute("width"));
-            setHeight(imageElement.getAttribute("height"));
-            setBorder(UtilFormatOut.checkEmpty(imageElement.getAttribute("border"), "0"));
+            setHeight(imageElement.getAttribute("height"));            
+            setBorder(imageElement.getAttribute("border"));
+            setAlt(imageElement.getAttribute("alt"));
             setUrlMode(UtilFormatOut.checkEmpty(imageElement.getAttribute("url-mode"), "content"));
         }
 
@@ -1483,6 +1485,10 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
             return this.borderExdr.expandString(context);
         }
         
+        public String getAlt(Map<String, Object> context) {
+            return this.alt.expandString(context);
+        }
+                
         public String getUrlMode() {
             return this.urlMode;
         }
@@ -1506,6 +1512,11 @@ public abstract class ModelScreenWidget extends ModelWidget implements Serializa
         public void setBorder(String val) {
             this.borderExdr = FlexibleStringExpander.getInstance(val);
         }
+        public void setAlt(String val) {
+            String altAttr = UtilFormatOut.checkNull(val);
+            this.alt = FlexibleStringExpander.getInstance(altAttr);
+        }
+        
         public void setUrlMode(String val) {
             if (UtilValidate.isEmpty(val)) {
                 this.urlMode = "content";
