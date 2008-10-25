@@ -284,12 +284,14 @@
     </form>
     <form name="assignTaskToMe" type="single" target="addTaskAssignment"
         header-row-style="header-row" default-table-style="basic-table">
-        <actions>
-            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/getPartyRoles.groovy"/>
-        </actions>
+        <alt-target use-when="parameters.get(&quot;workEffortId&quot;)==null" target="MyTasks"/>
         <field name="partyId"><hidden value="${userLogin.partyId}"/></field>
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
-        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" event="onChange" action="javascript:document.assignTaskToMe.checkPartyRole.value='Y';document.assignTaskToMe.submit();">
+        <field name="workEffortId"  title="${uiLabelMap.ProjectMgrTaskName}" use-when="parameters.get(&quot;workEffortId&quot;)!=null">
+            <display-entity entity-name="WorkEffort" description="${workEffortName}[${workEffortId}]">
+                <sub-hyperlink target="MyTasks" description="[${uiLabelMap.CommonChange}]" />
+            </display-entity></field>
+        <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}" event="onChange" action="javascript:document.assignTaskToMe.submit();" use-when="parameters.get(&quot;workEffortId&quot;)==null">
             <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}" key-field-name="workEffortId" filter-by-date="true">
                     <entity-constraint name="partyId" operator="equals" value="${parameters.userLogin.partyId}"/>
@@ -300,10 +302,13 @@
                 </entity-options>
            </drop-down>
         </field>
-        <field name="checkPartyRole"><hidden value="N"/></field> 
         <field name="roleTypeId">
             <drop-down current="selected" allow-empty="false">
-                <list-options list-name="roleList" key-name="KEY" description="${VALUE}"/>
+                <entity-options entity-name="ProjectIdPartyRoleAndTask" description="${description}">
+                    <entity-constraint name="partyId" operator="equals" env-name="userLogin.partyId"/>
+                    <entity-constraint name="taskId" operator="equals" env-name="parameters.workEffortId"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
             </drop-down>
         </field>
         <field name="addButton"><submit/></field>
@@ -383,7 +388,7 @@
         <field name="addButton"><submit/></field>
     </form>
     <form name="ListTaskSkills" type="list" target="updateTaskSkillStandard" list-name="workEffortSkillStandards" paginate-target="EditTaskSkills" separate-columns="true"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}">
             <display-entity entity-name="WorkEffort" description="${workEffortName}">
                 <sub-hyperlink target="EditTask?workEffortId=${workEffortId}" description="${workEffortId}" link-style="buttontext"/>
@@ -408,7 +413,7 @@
         <field name="add" title="${uiLabelMap.CommonAdd}"><submit/></field>
     </form>
     <form name="ListTimeEntries" type="list" list-name="timesheetEntries" target="updateTimeEntry" paginate-target="EditTimeEntries"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="TimeEntry">
                 <condition-expr field-name="workEffortId" env-name="workEffortId"/>

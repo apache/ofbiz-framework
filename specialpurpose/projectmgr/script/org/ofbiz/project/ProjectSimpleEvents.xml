@@ -94,7 +94,7 @@
             </else>
         </if-not-empty>
     </simple-method>
-    <simple-method method-name="addProjectMgrResource" short-description="Set the task status to complete, if resources assigned that status will also be set to complete">
+    <simple-method method-name="addProjectMgrResource" short-description="make parties available in the project manager.">
         <set-service-fields service-name="createPartyRole" map-name="parameters" to-map-name="roleData"/>
         <call-service service-name="createPartyRole" in-map-name="roleData"/>
         <set field="roleData.roleTypeId" value="PROJECT_TEAM"/>
