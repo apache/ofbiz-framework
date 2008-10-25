@@ -26,10 +26,10 @@ import java.io.Reader;
 import java.math.BigDecimal;
 import java.nio.ByteBuffer;
 import java.sql.Blob;
-import java.sql.Clob;
 import java.sql.ResultSet;
 import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Clob;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
@@ -53,7 +53,6 @@ import org.ofbiz.entity.GenericModelException;
 import org.ofbiz.entity.GenericNotImplementedException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityConditionParam;
-import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.condition.OrderByList;
 import org.ofbiz.entity.config.DatasourceInfo;
 import org.ofbiz.entity.datasource.GenericDAO;
@@ -356,45 +355,11 @@ public class SqlJdbcUtil {
                 throw new GenericModelException("The join-style " + joinStyle + " is not supported");
             }
 
-            makeViewFilterWhereClause(modelViewEntity, whereString);
-            
             if (whereString.length() > 0) {
                 return "(" + whereString.toString() + ")";
             }
         }
         return "";
-    }    
-
-    /** Filter a view using this syntax : 
-     * <filter entity-alias="<table_alias>" field-name="<field_name>" operator="<operator:equals, not-equals, like...>" value="<value_to_select>"/> 
-     * */
-    public static void makeViewFilterWhereClause(ModelViewEntity modelViewEntity, StringBuilder whereString) throws GenericEntityException {
-
-        for (ModelViewEntity.ModelFilter filter : modelViewEntity.getFilters()) {            
-            ModelEntity filterEntity = modelViewEntity.getMemberModelEntity(filter.getEntityAlias());
-            if (filterEntity == null) {
-                throw new GenericEntityException("Link entity not found with alias: " + filter.getEntityAlias() + " for entity: " + modelViewEntity.getEntityName());
-            }
-            
-            ModelField filterField = filterEntity.getField(filter.getFieldName());
-            if (filterField == null) {
-                throw new GenericEntityException("The field " + filter.getFieldName() + " does not appear to belong to entity " + modelViewEntity.getEntityName());                
-            }
-            if (whereString.length() > 0) {
-                whereString.append(" AND ");
-            }
-            whereString.append(filter.getEntityAlias());
-            whereString.append(".");
-            whereString.append(filterColName(filterField.getColName()));
-            
-            EntityOperator<?> entityOperator = EntityOperator.lookup(filter.getOperator());
-            if (entityOperator == null) {
-            	throw new GenericEntityException("Operator " + filter.getOperator() + " not supported in filter for entity: " + modelViewEntity.getEntityName());
-            }
-            whereString.append(" ").append(entityOperator.getCode()).append(" ");
-            
-            whereString.append("'" + filter.getValue().replaceAll("'", "''") + "'");
-        }
     }
 
     public static String makeOrderByClause(ModelEntity modelEntity, List<String> orderBy, DatasourceInfo datasourceInfo) throws GenericModelException {

@@ -245,7 +245,6 @@ under the License.
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="alias-all"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="alias"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="view-link"/>
-                <xs:element minOccurs="0" maxOccurs="unbounded" ref="filter"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="relation"/>
             </xs:sequence>
             <xs:attributeGroup ref="attlist.view-entity"/>
@@ -440,26 +439,6 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-    </xs:attributeGroup>
-    <xs:element name="filter">
-        <xs:annotation>
-            <xs:documentation>
-                Allows to filter a view using "entity-alias", "field-name", "operator" and "value"   
-                operator being one of (see EntityOperator.java for more details)
-                {not-in, greater, greaterThanEqualTo, less-equals, equals, or, greater-than, less-than-equal-to, like, in, not-equals,
-                greater-than-equal-to, and, not, lessThanEqualTo, not-equal, lessThan, greater-equals, greaterThan, not-like, less-than,
-                notEqual, between, less}
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.filter"/>
-        </xs:complexType>
-    </xs:element>
-    <xs:attributeGroup name="attlist.filter">
-        <xs:attribute type="xs:string" name="entity-alias" use="required"/>
-        <xs:attribute type="xs:string" name="field-name" use="required"/>
-        <xs:attribute type="xs:string" name="operator" use="required"/>
-        <xs:attribute type="xs:string" name="value" use="required"/>
     </xs:attributeGroup>
 
     <xs:element name="extend-entity">
