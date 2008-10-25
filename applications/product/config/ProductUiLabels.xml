@@ -3721,7 +3721,7 @@
     <property key="FormFieldTitle_standardLeadTimeDays">
         <value xml:lang="de">Standart Durchlaufzeit Tage</value>
         <value xml:lang="en">Standard Lead Time Days</value>
-        <value xml:lang="fr">Jours standards d'attente</value>
+        <value xml:lang="fr">Jours d'attente standards</value>
         <value xml:lang="it">Giorni Standard Termine di Esecuzione</value>
         <value xml:lang="ro">Zile Standard Termen de Executie</value>
         <value xml:lang="ru">Стандартное время жизни запроса в днях</value>
@@ -11467,7 +11467,7 @@
         <value xml:lang="de">Eingang, Operator, Wert</value>
         <value xml:lang="en">Input, Operator Value</value>
         <value xml:lang="es">Entrada, Operador y Valor</value>
-        <value xml:lang="fr">Détail des conditions (sujet, opérateur, valeur)</value>
+        <value xml:lang="fr">Détail des besoins (sujet, opérateur, valeur)</value>
         <value xml:lang="it">Input, Operatore e Valore</value>
         <value xml:lang="ro">Input, Operator si Valoare</value>
         <value xml:lang="ru">Исход. параметр, оператор и значение</value>
@@ -16609,7 +16609,7 @@
         <value xml:lang="de">Zweite Person erhöht die Prozentangabe zum Preis</value>
         <value xml:lang="en">Second person add.price percentage</value>
         <value xml:lang="es">La segunda persona añade un porcentaje al precio</value>
-        <value xml:lang="fr">La seconde personne augmente le pourcentage</value>
+        <value xml:lang="fr">% d'augmentation pour une 2d personne</value>
         <value xml:lang="it">Aggiungi prezzo percentuale Seconda persona</value>
         <value xml:lang="ro">Adauga pret procentual A doua persona</value>
         <value xml:lang="ru">Добавит процент цены если вторая персона</value>
@@ -16632,7 +16632,7 @@
         <value xml:lang="de">N-te Person erhöht die Prozentangabe zum Preis</value>
         <value xml:lang="en">Nth person add.price percentage</value>
         <value xml:lang="es">La N-sima persona añade un porcentaje al precio</value>
-        <value xml:lang="fr">La nième personne augmente le pourcentage</value>
+        <value xml:lang="fr">% d'augmentation pour une nième personne</value>
         <value xml:lang="it">Aggiungi prezzo percentuale N° persona</value>
         <value xml:lang="ro">Adauga pret procentual N-a persoana</value>
         <value xml:lang="ru">Увеличение цены в процентах от N персон</value>
@@ -16730,7 +16730,7 @@
     <property key="ProductReturnCompletelyReceived">
         <value xml:lang="de">Die Retoure wurde komplett erhalten</value>
         <value xml:lang="en">This return is completely received</value>
-        <value xml:lang="fr">Ce retour est toalement achevé</value>
+        <value xml:lang="fr">Ce retour est totalement achevé</value>
         <value xml:lang="it">Questo reso è stato ricevuto completamente</value>
         <value xml:lang="ru">Этот возврат получен полностью</value>
         <value xml:lang="th">ผลตอบแทนนี้ได้รับเรียบร้อย</value>
@@ -17745,7 +17745,7 @@
     <property key="ProductShipmentQuickComplete">
         <value xml:lang="de">Rasches Abschliessen Direktlieferung</value>
         <value xml:lang="en">Quick Complete Drop Shipment</value>
-        <value xml:lang="fr">Rapide livraison complète par un tiers</value>
+        <value xml:lang="fr">Terminer rapidement la livraison par un tiers</value>
         <value xml:lang="it">Quick Complete Drop Shipment</value>
         <value xml:lang="ru">Упрощенное завершение прямой поставки</value>
         <value xml:lang="th">ยกเลิกการขนส่งสำเร็จอย่างรวดเร็ว</value>

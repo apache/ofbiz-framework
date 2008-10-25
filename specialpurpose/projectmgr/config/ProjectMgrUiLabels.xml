@@ -80,7 +80,7 @@
     </property>
     <property key="PageTitleAddSkill">
         <value xml:lang="en">Add Requirement</value>
-        <value xml:lang="fr">Ajouter une condition</value>
+        <value xml:lang="fr">Ajouter un besoin</value>
         <value xml:lang="it">Aggiungi Abilità</value>
         <value xml:lang="th">เพิ่มความต้องการ</value>
         <value xml:lang="zh">增加需求</value>
@@ -157,7 +157,7 @@
     </property>
     <property key="PageTitleEditSkill">
         <value xml:lang="en">Edit Requirement</value>
-        <value xml:lang="fr">Modifier la condition</value>
+        <value xml:lang="fr">Modifier le besoin</value>
         <value xml:lang="it">Aggiorna Abilità</value>
         <value xml:lang="th">แก้ไขความต้องการ</value>
         <value xml:lang="zh">编辑需求</value>
@@ -320,7 +320,7 @@
     </property>
     <property key="PageTitleRequestList">
         <value xml:lang="en">Request List</value>
-        <value xml:lang="fr">Liste de conditions</value>
+        <value xml:lang="fr">Liste de besoins</value>
         <value xml:lang="it">Lista Richiesta</value>
         <value xml:lang="th">รายการคำร้อง</value>
         <value xml:lang="zh">请求列表</value>
@@ -881,6 +881,7 @@
     </property>
     <property key="ProjectMgrSetComplete">
         <value xml:lang="en">Complete</value>
+        <value xml:lang="fr">Achevé</value>
         <value xml:lang="th">เสร็จสมบูรณ์</value>
     </property>
     <property key="ProjectMgrSkillStandards">
@@ -1177,7 +1178,7 @@
     </property>
     <property key="ProjectMgrCheckComplete">
         <value xml:lang="en">Check Complete</value>
-        <value xml:lang="fr">Marquée comme terminée</value>
+        <value xml:lang="fr">Marquée comme terminé</value>
         <value xml:lang="zh">是否完成</value>
     </property>    
     <property key="ReviewedCustomerRequestTaskList">

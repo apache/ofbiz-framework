@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -21,6 +21,7 @@
     <property key="FormFieldTitle_actualCompletionDate">
         <value xml:lang="de">Ist-Fertigstellungs-Datum</value>
         <value xml:lang="en">Actual Completion Date</value>
+        <value xml:lang="fr">Date exacte d'achèvement</value>
         <value xml:lang="it">Data Completamento Attuale</value>
         <value xml:lang="ro">Data Terminare Actuala</value>
         <value xml:lang="th">วันที่ทำเสร็จจริง</value>
@@ -38,29 +39,34 @@
     <property key="FormFieldTitle_allocatedCost">
         <value xml:lang="de">Verrechnete Kosten</value>
         <value xml:lang="en">Allocated Cost</value>
+        <value xml:lang="fr">Coût alloué</value>
         <value xml:lang="it">Costo Allocato</value>
         <value xml:lang="th">ส่วนแบ่งราคา</value>
     </property>
     <property key="FormFieldTitle_authUserLoginId">
         <value xml:lang="en">Auth User Login Id</value>
+        <value xml:lang="fr">Authentification d'identifiant de connexion</value>
         <value xml:lang="it">Utente</value>
         <value xml:lang="th">รับรองรหัสผู้ใช้ระบบ</value>
     </property>
     <property key="FormFieldTitle_calendarWeekId">
         <value xml:lang="de">Kalenderwoche</value>
         <value xml:lang="en">Calendar Week Id</value>
+        <value xml:lang="fr">Réf. du calendrier de la semaine</value>
         <value xml:lang="it">Calendario Settmanale</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
     </property>
     <property key="FormFieldTitle_cancelDateTime">
         <value xml:lang="de">Zeitpunkt des Abbruchs</value>
         <value xml:lang="en">Cancel Date Time</value>
+        <value xml:lang="fr">Date et heure d'annulation</value>
         <value xml:lang="it">Data/Ora di Annullamento</value>
         <value xml:lang="th">ยกเลิกวัน เวลา</value>
     </property>
     <property key="FormFieldTitle_costCustomMethodId">
         <value xml:lang="de">individuelle Kostenmethode</value>
         <value xml:lang="en">Cost Custom Method Id</value>
+        <value xml:lang="fr">Réf. de méthode d'habitude de coût</value>
         <value xml:lang="it">Metodo Costo Personalizzato</value>
         <value xml:lang="ro">Metoda Cost Personalizat</value>
         <value xml:lang="th">รหัสวิธีการคำนวณเงินลูกค้า</value>
@@ -69,6 +75,7 @@
     <property key="FormFieldTitle_costGlAccountTypeId">
         <value xml:lang="de">Kontenart für Kosten</value>
         <value xml:lang="en">Cost Gl Account Type Id</value>
+        <value xml:lang="fr">Réf. de type de compte G1 de coût</value>
         <value xml:lang="it">Tipo Conto Contabilità Generale</value>
         <value xml:lang="ro">Tip Cont Contabil General</value>
         <value xml:lang="th">รหัสประเภทบัญชีค่าใช้จ่าย GI</value>
@@ -77,13 +84,14 @@
     <property key="FormFieldTitle_defaultYearsOffset">
         <value xml:lang="de">Kontenart für Kosten</value>
         <value xml:lang="en">Default Years Offset</value>
+        <value xml:lang="fr">Contrepartie des années de défaut</value>
         <value xml:lang="it">Scostamento Anni Di Default</value>
         <value xml:lang="th">ค่าชดเชยปีที่ผิดสัญญา</value>
     </property>
     <property key="FormFieldTitle_estimatedCompletionDate">
         <value xml:lang="de">Geschätztes Fertigstellungsdatum</value>
         <value xml:lang="en">Estimated Completion Date</value>
-        <value xml:lang="fr">Date de fin prévue</value>
+        <value xml:lang="fr">Date prévue d'achèvement</value>
         <value xml:lang="it">Data Completamento Stimata</value>
         <value xml:lang="ro">Data Terminare Stimata</value>
         <value xml:lang="th">วันที่คาดว่าจะเสร็จ</value>
@@ -92,12 +100,14 @@
     <property key="FormFieldTitle_estimatedDuration">
         <value xml:lang="de">Geschätzte Dauer</value>
         <value xml:lang="en">Estimated Duration</value>
+        <value xml:lang="fr">Durée prévue</value>
         <value xml:lang="it">Durata Stimata</value>
         <value xml:lang="th">ประมาณเวลา</value>
     </property>
     <property key="FormFieldTitle_estimatedMilliSeconds">
         <value xml:lang="de">Geschätzte Millisekunden</value>
         <value xml:lang="en">Estimated Milli Seconds</value>
+        <value xml:lang="fr">Estimation au millième de secondes</value>
         <value xml:lang="it">Milli Secondi Stimati</value>
         <value xml:lang="ro">Milisecunde Stimate</value>
         <value xml:lang="th">ประมาณเป็นพันวินาที</value>
@@ -106,6 +116,7 @@
     <property key="FormFieldTitle_estimatedSetupMillis">
         <value xml:lang="de">Geschätzte Rüstzeit (Millisekunden)</value>
         <value xml:lang="en">Estimated Setup Millis</value>
+        <value xml:lang="fr">Estimation établie au millième de secondes</value>
         <value xml:lang="it">Configurazione Stimata in Milli secondi</value>
         <value xml:lang="ro">Configuratie Stimata in Milisecunde</value>
         <value xml:lang="th">ประมาณการติดตั้ง</value>
@@ -114,7 +125,7 @@
     <property key="FormFieldTitle_estimatedStartDate">
         <value xml:lang="de">Geschätztes Start-Datum</value>
         <value xml:lang="en">Estimated Start Date</value>
-        <value xml:lang="fr">Date de début prévue</value>
+        <value xml:lang="fr">Date de début estimée</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="ro">Data Initiere Stimata</value>
         <value xml:lang="th">ประมาณวันเริ่มต้น</value>
@@ -123,18 +134,21 @@
     <property key="FormFieldTitle_failIfItemsAreNotAvailable">
         <value xml:lang="de">Abbruch falls Komponenten nicht vorhanden</value>
         <value xml:lang="en">Fail If Items Are Not Available</value>
+        <value xml:lang="fr">Echec si les articles ne sont pas disponibles</value>
         <value xml:lang="it">Fallisce se i Prodotti Non Sono Disponibili</value>
         <value xml:lang="th">เกิดความผิดพลาดถ้าไม่มีสินค้าอยู่</value>
     </property>
     <property key="FormFieldTitle_finishDateTime">
         <value xml:lang="de">Fertigstellungszeit</value>
         <value xml:lang="en">Finish Date Time</value>
+        <value xml:lang="fr">Date et heure de fin</value>
         <value xml:lang="it">Data/Ora di Termine</value>
         <value xml:lang="th">วัน เวลาที่เสร็จ</value>
     </property>
     <property key="FormFieldTitle_fixedAssetId">
         <value xml:lang="de">Anlagen-Nr.</value>
         <value xml:lang="en">Fixed Asset Id</value>
+        <value xml:lang="fr">Réf. d'immobilisation</value>
         <value xml:lang="it">Codice Cespite</value>
         <value xml:lang="ro">Cod Mijloc Fix</value>
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
@@ -143,12 +157,14 @@
     <property key="FormFieldTitle_fixedAssetTypeId">
         <value xml:lang="de">Anlagen-Art</value>
         <value xml:lang="en">Fixed Asset Type Id</value>
+        <value xml:lang="fr">Réf. de type d'immobilisation</value>
         <value xml:lang="it">Tipo Cespite</value>
         <value xml:lang="th">รหัสประเภทการเปลี่ยนแปลงทรัพย์สิน</value>
     </property>
     <property key="FormFieldTitle_fixedCost">
         <value xml:lang="de">Fixkosten</value>
         <value xml:lang="en">Fixed Cost</value>
+        <value xml:lang="fr">Coût fixe</value>
         <value xml:lang="it">Costo Fisso</value>
         <value xml:lang="ro">Cost Fix</value>
         <value xml:lang="th">เปลี่ยนแปลงราคา</value>
@@ -157,18 +173,21 @@
     <property key="FormFieldTitle_fridayCapacity">
         <value xml:lang="de">Freitagskapazität</value>
         <value xml:lang="en">Friday Capacity</value>
+        <value xml:lang="fr">Capacité de vendredi</value>
         <value xml:lang="it">Venerdì  Capacità</value>
         <value xml:lang="th">การปฎิบัติหน้าที่ในวันศุกร์</value>
     </property>
     <property key="FormFieldTitle_fridayStartTime">
         <value xml:lang="de">Freitagsstartzeit</value>
         <value xml:lang="en">Friday Start Time</value>
+        <value xml:lang="fr">Heure de départ de vendredi</value>
         <value xml:lang="it">Venerdì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันศุกร์</value>
     </property>
     <property key="FormFieldTitle_issuedQuantity">
         <value xml:lang="de">Ausgegebene Menge</value>
         <value xml:lang="en">Issued Quantity</value>
+        <value xml:lang="fr">Quantité publiée</value>
         <value xml:lang="it">Quantità Prelevata</value>
         <value xml:lang="ro">Cantitate Preluat</value>
         <value xml:lang="th">จำนวน</value>
@@ -177,24 +196,28 @@
     <property key="FormFieldTitle_jobId">
         <value xml:lang="de">Job-Nr.</value>
         <value xml:lang="en">Job Id</value>
+        <value xml:lang="fr">Réf. du job</value>
         <value xml:lang="it">Numero Lavoro</value>
         <value xml:lang="th">รหัสงาน</value>
     </property>
     <property key="FormFieldTitle_jobName">
         <value xml:lang="de">Jobname</value>
         <value xml:lang="en">Job Name</value>
+        <value xml:lang="fr">Nom du job</value>
         <value xml:lang="it">Nome Lavoro</value>
         <value xml:lang="th">ชื่องาน</value>
     </property>
     <property key="FormFieldTitle_manufacturingTask">
         <value xml:lang="de">Arbeitsgang</value>
         <value xml:lang="en">Manufacturing Task</value>
+        <value xml:lang="fr">Tâche de fabrication</value>
         <value xml:lang="it">Operazione</value>
         <value xml:lang="th">การสร้างงาน</value>
     </property>
     <property key="FormFieldTitle_maxRetry">
         <value xml:lang="de">Anzahl Wiederholungsversuche</value>
         <value xml:lang="en">Max Retry</value>
+        <value xml:lang="fr">Tentative maximum</value>
         <value xml:lang="it">Tentativi Massimi</value>
         <value xml:lang="th">ทดสอบใหม่มากสุด
         </value>
@@ -202,18 +225,21 @@
     <property key="FormFieldTitle_mondayCapacity">
         <value xml:lang="de">Montagskapazität</value>
         <value xml:lang="en">Monday Capacity</value>
+        <value xml:lang="fr">Capacité de lundi</value>
         <value xml:lang="it">Lunedì Capacità</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันจันทร์</value>
     </property>
     <property key="FormFieldTitle_mondayStartTime">
         <value xml:lang="de">Montagsstartzeit</value>
         <value xml:lang="en">Monday Start Time</value>
+        <value xml:lang="fr">Heure de départ de lundi</value>
         <value xml:lang="it">Lunedì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันจันทร์</value>
     </property>
     <property key="FormFieldTitle_offsettingGlAccountTypeId">
         <value xml:lang="de">Verechnungskontenart</value>
         <value xml:lang="en">Offsetting Gl Account Type Id</value>
+        <value xml:lang="fr">Réf. de contrepartie du type de compte de Gl </value>
         <value xml:lang="it">Tipo Intervallo Conto Contabilità Generale</value>
         <value xml:lang="ro">Tip Interval Cont Contabil General</value>
         <value xml:lang="th">รหัสประเภทบัญชีค่าชดเชยทั่วไป
@@ -223,6 +249,7 @@
     <property key="FormFieldTitle_perMilliSecond">
         <value xml:lang="de">Pro Millisekunde</value>
         <value xml:lang="en">Per Milli Second</value>
+        <value xml:lang="fr">Par millième de secondes</value>
         <value xml:lang="it">Per Milli Secondi</value>
         <value xml:lang="ro">Pe Milisecunde</value>
         <value xml:lang="th">ต่อพันวินาที                </value>
@@ -231,6 +258,7 @@
     <property key="FormFieldTitle_productFeature">
         <value xml:lang="de">Produkt-Merkmal</value>
         <value xml:lang="en">Product Feature</value>
+        <value xml:lang="fr">Caractéristique du produit</value>
         <value xml:lang="it">Caratteristica Prodotto</value>
         <value xml:lang="ro">Caratteristica Produs</value>
         <value xml:lang="th">ลักษณะสินค้า</value>
@@ -239,6 +267,7 @@
     <property key="FormFieldTitle_productId">
         <value xml:lang="de">Produkt-Nr.</value>
         <value xml:lang="en">Product Id</value>
+        <value xml:lang="fr">Réf. du produit</value>
         <value xml:lang="it">Codice Prodotto</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="th">รหัสสินค้า</value>
@@ -247,6 +276,7 @@
     <property key="FormFieldTitle_productIdFor">
         <value xml:lang="de">Produkt-Nr. für</value>
         <value xml:lang="en">Product Id For</value>
+        <value xml:lang="fr">Réf. du produit pour</value>
         <value xml:lang="it">Codice Prodotto Da</value>
         <value xml:lang="ro">Cod Produs De la</value>
         <value xml:lang="th">รหัสสินค้าสำหรับ</value>
@@ -255,6 +285,7 @@
     <property key="FormFieldTitle_productIdIn">
         <value xml:lang="de">Produkt-Nr. in</value>
         <value xml:lang="en">Product Id In</value>
+        <value xml:lang="fr">Réf. du produit dans</value>
         <value xml:lang="it">Codice Prodotto In</value>
         <value xml:lang="ro">Cod Produs In</value>
         <value xml:lang="th">รหัสสินค้าใน</value>
@@ -262,6 +293,7 @@
     </property>
     <property key="FormFieldTitle_productIdInSubst">
         <value xml:lang="en">Product Id In Subst</value>
+        <value xml:lang="fr">Réf. du prduit dans subst.</value>
         <value xml:lang="it">Codice Prodotto In Sostituzione</value>
         <value xml:lang="ro">Cod Produs In Substitutie</value>
         <value xml:lang="th">รหัสสินค้าในที่มีอยู่จริง</value>
@@ -270,6 +302,7 @@
     <property key="FormFieldTitle_productionRuns">
         <value xml:lang="de">Produktionsauftrag</value>
         <value xml:lang="en">production Runs</value>
+        <value xml:lang="fr">Cadences de production</value>
         <value xml:lang="it">Ordini di Produzione</value>
         <value xml:lang="ro">Comenzi de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
@@ -278,6 +311,7 @@
     <property key="FormFieldTitle_quantityProduced">
         <value xml:lang="de">Produzierte Menge</value>
         <value xml:lang="en">Quantity Produced</value>
+        <value xml:lang="fr">Quantité produite</value>
         <value xml:lang="it">Quantità Prodotta</value>
         <value xml:lang="ro">Cantitate Produsa</value>
         <value xml:lang="th">จำนวนสินค้า</value>
@@ -286,6 +320,7 @@
     <property key="FormFieldTitle_quantityToProduce">
         <value xml:lang="de">Zu produzierende Menge</value>
         <value xml:lang="en">Quantity To Produce</value>
+        <value xml:lang="fr">Quantité à produire</value>
         <value xml:lang="it">Quantità Da Produrre</value>
         <value xml:lang="ro">Cantitate de Produs</value>
         <value xml:lang="th">จำนวนสินค้า</value>
@@ -294,6 +329,7 @@
     <property key="FormFieldTitle_requirementStartDate">
         <value xml:lang="de">Bedarfs-Start-Datum</value>
         <value xml:lang="en">Requirement Start Date</value>
+        <value xml:lang="fr">Date de début de besoin</value>
         <value xml:lang="it">Data Inizio Fabbisogno</value>
         <value xml:lang="ro">Data Initiala Necesar</value>
         <value xml:lang="th">วันที่ต้องการเริ่มต้น</value>
@@ -302,6 +338,7 @@
     <property key="FormFieldTitle_routingId">
         <value xml:lang="de">Arbeitsplan-Nr.</value>
         <value xml:lang="en">routingId</value>
+        <value xml:lang="fr">Réf. de gamme</value>
         <value xml:lang="it">Id Ciclo</value>
         <value xml:lang="ro">Id Ciclu</value>
         <value xml:lang="th">รหัส routing</value>
@@ -310,6 +347,7 @@
     <property key="FormFieldTitle_ruleId">
         <value xml:lang="de">Regel-Nr.</value>
         <value xml:lang="en">Rule Id</value>
+        <value xml:lang="fr">Réf. de réglement</value>
         <value xml:lang="it">Codice Regola</value>
         <value xml:lang="ro">Cod Regula</value>
         <value xml:lang="th">รหัสข้อบังคับ</value>
@@ -318,6 +356,7 @@
     <property key="FormFieldTitle_ruleOperator">
         <value xml:lang="de">Regel-Operator</value>
         <value xml:lang="en">Rule Operator</value>
+        <value xml:lang="fr">Opérateur de réglement</value>
         <value xml:lang="it">Regola Operatore</value>
         <value xml:lang="ro">Regula Operator</value>
         <value xml:lang="th">ผู้ออกกฎระเบียบ</value>
@@ -326,6 +365,7 @@
     <property key="FormFieldTitle_ruleSeqId">
         <value xml:lang="de">Regel-Folgenummer</value>
         <value xml:lang="en">Rule Seq Id</value>
+        <value xml:lang="fr">Réf. de réglement séq.</value>
         <value xml:lang="it">Codice Regola Sequenza</value>
         <value xml:lang="ro">Cod Regula Secventa</value>
         <value xml:lang="th">รหัสลำดับข้อบังคับ</value>
@@ -334,30 +374,35 @@
     <property key="FormFieldTitle_runTime">
         <value xml:lang="de">Laufzeit</value>
         <value xml:lang="en">Run Time</value>
+        <value xml:lang="fr">Temps de réglement</value>
         <value xml:lang="it">Orario di Esecuzione</value>
         <value xml:lang="th">ระยะเวลาดำเนินงาน</value>
     </property>
     <property key="FormFieldTitle_saturdayCapacity">
         <value xml:lang="de">Samstagskapazität</value>
         <value xml:lang="en">Saturday Capacity</value>
+        <value xml:lang="fr">Capacité de samedi</value>
         <value xml:lang="it">Sabato Capacità</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันเสาร์</value>
     </property>
     <property key="FormFieldTitle_saturdayStartTime">
         <value xml:lang="de">Samstagstartzeit</value>
         <value xml:lang="en">Saturday Start Time</value>
+        <value xml:lang="fr">Heure de début de samedi</value>
         <value xml:lang="it">Sabato Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันเสาร์</value>
     </property>
     <property key="FormFieldTitle_secondaryLocationSeqId">
         <value xml:lang="de">Zusätzlicher Lagerort</value>
         <value xml:lang="en">Secondary Location Seq Id</value>
+        <value xml:lang="fr">Endroit secondaire séq. </value>
         <value xml:lang="it">Locazione Secondaria</value>
         <value xml:lang="th">รหัสสถานที่ตั้งที่สอง</value>
     </property>
     <property key="FormFieldTitle_shipmentId">
         <value xml:lang="de">Versand-Nr.</value>
         <value xml:lang="en">Shipment Id</value>
+        <value xml:lang="fr">Réf. d'expédition</value>
         <value xml:lang="it">Numero Spedizione</value>
         <value xml:lang="ro">Numar Expediere</value>
         <value xml:lang="th">รหัสการขนส่ง</value>
@@ -366,36 +411,42 @@
     <property key="FormFieldTitle_startDateTime">
         <value xml:lang="de">Startzeit</value>
         <value xml:lang="en">Start Date Time</value>
+        <value xml:lang="fr">Heure de date de début</value>
         <value xml:lang="it">Data/Ora di Inizio</value>
         <value xml:lang="th">วันเวลาเริ่มต้น</value>
     </property>
     <property key="FormFieldTitle_sundayCapacity">
         <value xml:lang="de">Sonntagskapazität</value>
         <value xml:lang="en">Sunday Capacity</value>
+        <value xml:lang="fr">capacité du dimanche</value>
         <value xml:lang="it">Domenica Capacità</value>
         <value xml:lang="th">การปฏิบัติงานในวันอาทิตย์</value>
     </property>
     <property key="FormFieldTitle_sundayStartTime">
         <value xml:lang="de">Sonntagsstartzeit</value>
         <value xml:lang="en">Sunday Start Time</value>
+        <value xml:lang="fr">Heure de début de dimanche</value>
         <value xml:lang="it">Domenica Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอาทิตย์</value>
     </property>
     <property key="FormFieldTitle_thursdayCapacity">
         <value xml:lang="de">Donnerstagskapazität</value>
         <value xml:lang="en">Thursday Capacity</value>
+        <value xml:lang="fr">Capacité de jeudi</value>
         <value xml:lang="it">Giovedì Capacità</value>
         <value xml:lang="th">การปฏิบัติหน้าที่ในวันพฤหัสบดี</value>
     </property>
     <property key="FormFieldTitle_thursdayStartTime">
         <value xml:lang="de">Donnerstagsstartzeit</value>
         <value xml:lang="en">Thursday Start Time</value>
+        <value xml:lang="fr">Heure de début de jeudi</value>
         <value xml:lang="it">Giovedì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพฤหัสบดี</value>
     </property>
     <property key="FormFieldTitle_totIssuedQuantity">
         <value xml:lang="de">Ausgegebene Menge gesamt</value>
         <value xml:lang="en">Tot Issued Quantity</value>
+        <value xml:lang="fr">Quantité totale prélevée</value>
         <value xml:lang="it">Totale Quantità Prelevata</value>
         <value xml:lang="ro">Total Cantitate Preluata</value>
         <value xml:lang="th">รวมจำนวนประเด็น</value>
@@ -404,6 +455,7 @@
     <property key="FormFieldTitle_totOrderedQuantity">
         <value xml:lang="de">Bestellmenge gesamt</value>
         <value xml:lang="en">Tot Ordered Quantity</value>
+        <value xml:lang="fr">Quantité totale commandée</value>
         <value xml:lang="it">Totale Quantità Ordinata</value>
         <value xml:lang="ro">Total Cantitate Comandata</value>
         <value xml:lang="th">รวมจำนวนที่สั่งซื้อ</value>
@@ -412,6 +464,7 @@
     <property key="FormFieldTitle_totPlannedQuantity">
         <value xml:lang="de">Geplante Menge gesamt</value>
         <value xml:lang="en">Tot Planned Quantity</value>
+        <value xml:lang="fr">Quantité totale planifiée</value>
         <value xml:lang="it">Totale Quantità Pianificata</value>
         <value xml:lang="ro">Total Cantitate Planificata</value>
         <value xml:lang="th">ผลรวมจำนวนที่คาดไว้</value>
@@ -420,18 +473,21 @@
     <property key="FormFieldTitle_tuesdayCapacity">
         <value xml:lang="de">Dienstagskapazität</value>
         <value xml:lang="en">Tuesday Capacity</value>
+        <value xml:lang="fr">Capacité de jeudi</value>
         <value xml:lang="it">Martedì Capacità</value>
         <value xml:lang="th">การปฏิบัติงานในวันอังคาร</value>
     </property>
     <property key="FormFieldTitle_tuesdayStartTime">
         <value xml:lang="de">Dienstagssstartzeit</value>
         <value xml:lang="en">Tuesday Start Time</value>
+        <value xml:lang="fr">Heure de début de jeudi</value>
         <value xml:lang="it">Martedì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันอังคาร</value>
     </property>
     <property key="FormFieldTitle_type">
         <value xml:lang="de">Art</value>
         <value xml:lang="en">Type</value>
+        <value xml:lang="fr">Type</value>
         <value xml:lang="es">Tipo</value>
         <value xml:lang="it">Tipo</value>
         <value xml:lang="ro">Tip</value>
@@ -441,6 +497,7 @@
     <property key="FormFieldTitle_variableCost">
         <value xml:lang="de">Variable Kosten</value>
         <value xml:lang="en">Variable Cost</value>
+        <value xml:lang="fr">Coût variable</value>
         <value xml:lang="it">Costo Variabile</value>
         <value xml:lang="ro">Cost Variabil</value>
         <value xml:lang="th">ราคาเปลี่ยนแปลงได้</value>
@@ -449,18 +506,21 @@
     <property key="FormFieldTitle_wednesdayCapacity">
         <value xml:lang="de">Mittwochskapazität</value>
         <value xml:lang="en">Wednesday Capacity</value>
+        <value xml:lang="fr">capacité de vendredi</value>
         <value xml:lang="it">Mercoledì Capacità</value>
         <value xml:lang="th">กรปฏิบัติงานในวันพุธ</value>
     </property>
     <property key="FormFieldTitle_wednesdayStartTime">
         <value xml:lang="de">Mittwochsstartzeit</value>
         <value xml:lang="en">Wednesday Start Time</value>
+        <value xml:lang="fr">Heure de début de vendredi</value>
         <value xml:lang="it">Mercoledì Tempo Inizio</value>
         <value xml:lang="th">เวลาเริ่มต้นในวันพุธ</value>
     </property>
     <property key="FormFieldTitle_workEffortName">
         <value xml:lang="en">Arbeitseinsatzname</value>
         <value xml:lang="en">Work Effort Name</value>
+        <value xml:lang="fr">Nom de main d'oeuvre</value>
         <value xml:lang="it">Nome Impegno di Lavoro</value>
         <value xml:lang="ro">Nume Sarcina de Lucru</value>
         <value xml:lang="th">ชื่องาน</value>
@@ -470,6 +530,7 @@
         <value xml:lang="de">ATP-Datum</value>
         <value xml:lang="en">ATP Date</value>
         <value xml:lang="es">Fecha ATP</value>
+        <value xml:lang="fr">Date ATP</value>
         <value xml:lang="fr">ATP à date</value>
         <value xml:lang="it">Data ATP</value>
         <value xml:lang="ro">Data ATP</value>
@@ -480,6 +541,7 @@
         <value xml:lang="de">Ist-Fertigstellungs-Datum</value>
         <value xml:lang="en">Completion Date</value>
         <value xml:lang="es">Fecha de fin real</value>
+        <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="fr">Completion Date</value>
         <value xml:lang="it">Data Completamento</value>
         <value xml:lang="ro">Data Completament</value>
@@ -490,6 +552,7 @@
         <value xml:lang="de">Ist-Kosten</value>
         <value xml:lang="en">Actual Costs</value>
         <value xml:lang="es">Costos Reales</value>
+        <value xml:lang="fr">Coûts actuels</value>
         <value xml:lang="it">Costi Attuali</value>
         <value xml:lang="ro">Costuri Actuali</value>
         <value xml:lang="th">ราคาจริง</value>
@@ -499,6 +562,7 @@
         <value xml:lang="de">Ist-Fertigstellungs-Datum/Zeit</value>
         <value xml:lang="en">Actual End Date/Time</value>
         <value xml:lang="es">Fecha/Hora de Fin Real</value>
+        <value xml:lang="fr">Date/heure de fin actuelle</value>
         <value xml:lang="it">Data/Ora Fine Attuale</value>
         <value xml:lang="ro">Data/Ora Sfarsit</value>
         <value xml:lang="th">วัน/เวลา ที่เสร็จจริง</value>
@@ -507,6 +571,7 @@
     <property key="ManufacturingActualMaterials">
         <value xml:lang="de">Ist-Materialien</value>
         <value xml:lang="en">Actual Materials</value>
+        <value xml:lang="fr">Matériels actuels</value>
         <value xml:lang="it">Materiali Attuali</value>
         <value xml:lang="th">ข้อเท็จจริง</value>
     </property>
@@ -514,7 +579,7 @@
         <value xml:lang="de">Ist-Start-Datum</value>
         <value xml:lang="en">Start Date</value>
         <value xml:lang="es">Fecha de inicio real</value>
-        <value xml:lang="fr">Start Date</value>
+        <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Data Inizio</value>
         <value xml:lang="ro">Data Initiala</value>
         <value xml:lang="th">วันที่เริ่มต้น</value>
@@ -524,6 +589,7 @@
         <value xml:lang="de">Ist-Start-Zeit</value>
         <value xml:lang="en">Actual Start Date/Time</value>
         <value xml:lang="es">Fecha/Hora de Inicio Real</value>
+        <value xml:lang="fr">Date/heure de début actuel</value>
         <value xml:lang="it">Data/Ora Inizio Attuale</value>
         <value xml:lang="ro">Data/Ora Initiere</value>
         <value xml:lang="th">วัน/เวลา เริ่มต้นจริง</value>
@@ -543,6 +609,7 @@
         <value xml:lang="de">Anlage zuweisen</value>
         <value xml:lang="en">Assign Fixed Asset</value>
         <value xml:lang="es">Asignar activo fijo</value>
+        <value xml:lang="fr">Assigner l'immobilisation</value>
         <value xml:lang="it">Assegna Cespite</value>
         <value xml:lang="ro">Inregistreaza Mijloc Fix</value>
         <value xml:lang="th">กำหนดสินทรัพย์ไม่หมุนเวียน</value>
@@ -562,7 +629,7 @@
         <value xml:lang="de">Produzierte Menge hinzufügen</value>
         <value xml:lang="en">Add Qty Produced</value>
         <value xml:lang="es">Añadir Cant. Producida</value>
-        <value xml:lang="fr">Add Qty Produced</value>
+        <value xml:lang="fr">Ajouter la quantité produite</value>
         <value xml:lang="it">Aggiungi Quantità Prodotta</value>
         <value xml:lang="ro">Adauga Cantitate Produsa</value>
         <value xml:lang="th">เพิ่มจำนวนสินค้า</value>
@@ -572,7 +639,7 @@
         <value xml:lang="de">Ausschuss-Menge hinzufügen</value>
         <value xml:lang="en">Add Qty Rejected</value>
         <value xml:lang="es">Añadir Cantidad rechazada</value>
-        <value xml:lang="fr">Add Qty Rejected</value>
+        <value xml:lang="fr">Ajouter la quantité rejetée</value>
         <value xml:lang="it">Aggiungi Quantità Scartata</value>
         <value xml:lang="ro">Adauga Cantitate Rebutata</value>
         <value xml:lang="th">เพิ่มจำนวนการปฏิเสธ</value>
@@ -592,7 +659,7 @@
         <value xml:lang="de">Rüstzeit hinzufügen</value>
         <value xml:lang="en">Add Actual Setup Time</value>
         <value xml:lang="es">Añadir Tiempo de configuración</value>
-        <value xml:lang="fr">Add Setup Time</value>
+        <value xml:lang="fr">Ajouter le temps d'installation</value>
         <value xml:lang="it">Aggiungi Tempo Installazione Attuale</value>
         <value xml:lang="ro">Adauga Timp Actual de Instalare</value>
         <value xml:lang="th">เพิ่มการติดตั้งเวลาจริง</value>
@@ -602,7 +669,7 @@
         <value xml:lang="de">Arbeitsgangzeit hinzufügen</value>
         <value xml:lang="en">Add Actual Task Time</value>
         <value xml:lang="es">Añadir Tiempo de Tarea</value>
-        <value xml:lang="fr">Add Task Time</value>
+        <value xml:lang="fr">Ajouter le temps de tâche</value>
         <value xml:lang="it">Aggiungi Tempo Attuale Operazione</value>
         <value xml:lang="ro">Adauga Timp Actual Sarcina</value>
         <value xml:lang="th">เพิ่มเวลาการทำงานจริง</value>
@@ -622,11 +689,13 @@
         <value xml:lang="de">Bedarfe bestätigen</value>
         <value xml:lang="en">Approve Requirements</value>
         <value xml:lang="es">Aprovar Requerimientos</value>
+        <value xml:lang="fr">Approuver les besoins</value>
         <value xml:lang="th">ความต้องการที่ตรงกัน</value>
     </property>
     <property key="ManufacturingAssociatedProductionRuns">
         <value xml:lang="de">Zugehörige Produktionsaufträge</value>
         <value xml:lang="en">Associated Production Runs</value>
+        <value xml:lang="fr">Cadences de production associées</value>
         <value xml:lang="it">Ordini di Produzione Associati</value>
         <value xml:lang="th">สินค้าที่เกี่ยวข้องกัน</value>
     </property>
@@ -644,7 +713,7 @@
         <value xml:lang="de">Stücklistensimulation</value>
         <value xml:lang="en">Bom Simulation</value>
         <value xml:lang="es">Simulación de BOM</value>
-        <value xml:lang="fr">Bom Simulation</value>
+        <value xml:lang="fr">Simulation de Bom.</value>
         <value xml:lang="it">Simulazione Distinta Base</value>
         <value xml:lang="ro">Simulare Lista repere</value>
         <value xml:lang="th">รายการของสินค้าที่เลียนแบบ</value>
@@ -654,7 +723,7 @@
         <value xml:lang="de">Stücklistenart</value>
         <value xml:lang="en">Bom Type</value>
         <value xml:lang="es">Tipo de BOM</value>
-        <value xml:lang="fr">Bom Type</value>
+        <value xml:lang="fr">type de Bom.</value>
         <value xml:lang="it">Tipo Distinta Base</value>
         <value xml:lang="ro">Tip Lista repere</value>
         <value xml:lang="th">ประเภทรายการของสินค้า</value>
@@ -674,7 +743,7 @@
         <value xml:lang="de">Fertigung-Kalender-Kapazität</value>
         <value xml:lang="en">Manufacturing Calendar Capacity</value>
         <value xml:lang="es">Capaidad del calendario</value>
-        <value xml:lang="fr">Durée</value>
+        <value xml:lang="fr">Capacité de calendrier de fabrication</value>
         <value xml:lang="it">Capacità Calendario Produzione</value>
         <value xml:lang="ro">Capacitate Productie Calendar</value>
         <value xml:lang="th">การสร้างปฏิทินการทำงาน</value>
@@ -684,7 +753,7 @@
         <value xml:lang="de">Ausnahme-Datum</value>
         <value xml:lang="en">Exception Day</value>
         <value xml:lang="es">Fecha de excepción</value>
-        <value xml:lang="fr">Exception jour</value>
+        <value xml:lang="fr">Jour d'exception</value>
         <value xml:lang="it">Giorno Speciale</value>
         <value xml:lang="ro">Zi Speciala</value>
         <value xml:lang="th">วันที่ยกเว้น</value>
@@ -694,7 +763,7 @@
         <value xml:lang="de">Ausnahme-Tag existiert schon</value>
         <value xml:lang="en">Manufacturing Calendar Exception  Day Id Already Exist</value>
         <value xml:lang="es">El código de excepción ya existe</value>
-        <value xml:lang="fr">Il n'est pas possible définir deux exceptions le même jour.</value>
+        <value xml:lang="fr">Réf. de jour d'exception de calendrier de fabrication existe déjà</value>
         <value xml:lang="it">Codice Capacità Calendario Produzione già esistente</value>
         <value xml:lang="ro">Cod Capacitate Calendar Productie existenta</value>
         <value xml:lang="th">รหัสวันที่ยกเว้นในปฏิทินการทำงานที่มีอยู่
@@ -715,7 +784,7 @@
         <value xml:lang="de">Ausnahme-Woche</value>
         <value xml:lang="en">Exception Week</value>
         <value xml:lang="es">Semana de excepción</value>
-        <value xml:lang="fr">Exception semaine</value>
+        <value xml:lang="fr">Semaine d'exception</value>
         <value xml:lang="it">Settimana Speciale</value>
         <value xml:lang="ro">Saptamana Speciala</value>
         <value xml:lang="th">สัปดาห์ที่ยกเว้น</value>
@@ -725,7 +794,7 @@
         <value xml:lang="de">Es gibt schon eine Ausnahme-Woche für diesen Kalender</value>
         <value xml:lang="en">Manufacturing Calendar Exception Week Id Already Exist</value>
         <value xml:lang="es">El código ya existe</value>
-        <value xml:lang="fr">Il n'est pas possible définir deux exceptions semaine le même jour.</value>
+        <value xml:lang="fr">La semaine d'exception de calendrier de fabrication existe déjà</value>
         <value xml:lang="it">Codice Calendario Settimanale Produzione Speciale è gia esistente</value>
         <value xml:lang="ro">Cod Calendar Saptamana Productie Speciala deja existent</value>
         <value xml:lang="th">รหัสสัปดาห์ที่ยกเว้นในปฏิทินการทำงานที่มีอยู่
@@ -736,7 +805,7 @@
         <value xml:lang="de">Es gibt noch eine Ausnahme-Woche für diesen Kalender</value>
         <value xml:lang="en">There is still an exception week for this calendar</value>
         <value xml:lang="es">Aún hay una semana excepción para este calendario</value>
-        <value xml:lang="fr">Il existe encore une exception semaine pour ce calendrier</value>
+        <value xml:lang="fr">Il existe encore une semaine d'exception pour ce calendrier</value>
         <value xml:lang="it">Non c'è una settimanale speciale per questo calendario</value>
         <value xml:lang="ro">Nu exista o saptamana speciala la acest calendar</value>
         <value xml:lang="th">มีสัปดาห์ที่ยังคงได้รับการยกเว้นสำหรับปฏิทินนี้</value>
@@ -746,7 +815,7 @@
         <value xml:lang="de">Kalender-Nr.</value>
         <value xml:lang="en">Calendar ID</value>
         <value xml:lang="es">Calendario</value>
-        <value xml:lang="fr">Identifiant calendrier</value>
+        <value xml:lang="fr">Réf. de calendrier</value>
         <value xml:lang="it">Codice Calendario</value>
         <value xml:lang="ro">Cod Calendar</value>
         <value xml:lang="th">รหัสปฏิทิน</value>
@@ -756,7 +825,7 @@
         <value xml:lang="de">Kalender-Nr. schon vorhanden</value>
         <value xml:lang="en">Calendar Id already exist</value>
         <value xml:lang="es">El código ya existe</value>
-        <value xml:lang="fr">L'identifiant du calendrier existe déja</value>
+        <value xml:lang="fr">Réf. de calendrier existe déja</value>
         <value xml:lang="it">Codice Calendario già esistente</value>
         <value xml:lang="ro">Cod Calendar deja existent</value>
         <value xml:lang="th">รหัสปฏิทินที่มีอยู่ล้ว</value>
@@ -766,7 +835,7 @@
         <value xml:lang="de">Sie haben keine Berechtigung diese Seite anzuschauen ("MANUFACTURING_VIEW" oder "MANUFACTURING_ADMIN" wird benötigt)</value>
         <value xml:lang="en">You do not have permission to view this page. ("MANUFACTURING_VIEW" or "MANUFACTURING_ADMIN" needed)</value>
         <value xml:lang="es">Usted no tiene permiso para ver esta página. Necesita los permisos "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN"</value>
-        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un calendrier,  il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un calendrier, il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
         <value xml:lang="it">Tu non sei autorizzato a vedere questa pagina. (permesso "MANUFACTURING_VIEW" o "MANUFACTURING_ADMIN" necessario)</value>
         <value xml:lang="ro">Tu nu esti autorizat sa vezi aceasta pagina. (Ai nevoie de permis "MANUFACTURING_VIEW" sau "MANUFACTURING_ADMIN")</value>
         <value xml:lang="th">คุณไม่ได้รับอนุญาตให้ดูหน้านี้ ("MANUFACTURING_VIEW" หรือ "MANUFACTURING_ADMIN" ที่ต้องการ)</value>
@@ -796,7 +865,7 @@
         <value xml:lang="de">Es gibt noch eine Ausnehme die diese Woche nutzt</value>
         <value xml:lang="en">There is still an exception week which use this week</value>
         <value xml:lang="es">Hay una semana de excepción que usa esta semana</value>
-        <value xml:lang="fr">Il existe encore une exception semaine qui utilise cette semaine</value>
+        <value xml:lang="fr">Il existe encore une semaine d'exception qui utilise cette semaine</value>
         <value xml:lang="it">C'è ancora una settimanale speciale che usa questa settimana</value>
         <value xml:lang="ro">Exista deja o saptamana speciala care foloseste acest calendar</value>
         <value xml:lang="th">ยังคงมีข้อยกเว้นของสัปดาห์ที่ใช้ในสัปดาห์นี้</value>
@@ -806,7 +875,7 @@
         <value xml:lang="de">Kalenderwochen-Nr.</value>
         <value xml:lang="en">Calendar Week ID</value>
         <value xml:lang="es">Semana asociada</value>
-        <value xml:lang="fr">Identifiant de semaine</value>
+        <value xml:lang="fr">Réf. de semaine</value>
         <value xml:lang="it">Codice Calendario Settimanale</value>
         <value xml:lang="ro">Cod Calendar Saptamana</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์</value>
@@ -816,7 +885,7 @@
         <value xml:lang="de">Kalenderwochen-Nr. schon vorhanden</value>
         <value xml:lang="en">CalendarWeekId already exist</value>
         <value xml:lang="es">El código ya existe</value>
-        <value xml:lang="fr">L'identifiant de semaine existe déja</value>
+        <value xml:lang="fr">Réf. de semaine existe déja</value>
         <value xml:lang="it">Codice Calendario Settimanale già esistente</value>
         <value xml:lang="ro">Cod Calendar Saptamana existent </value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์ที่ยังคงใช้อยู่</value>
@@ -826,7 +895,7 @@
         <value xml:lang="de">Kalenderwochen-Nr. nicht vorhanden</value>
         <value xml:lang="en">Calendar Week ID does'nt exist</value>
         <value xml:lang="es">El código de calendario no existe</value>
-        <value xml:lang="fr">Le calendrier indiqué n'existe pas</value>
+        <value xml:lang="fr">Réf. de semaine de calendrier n'existe pas</value>
         <value xml:lang="it">Codice Calendario Settimanale non esiste</value>
         <value xml:lang="ro">Cod Calendar Sptamana nu exista</value>
         <value xml:lang="th">รหัสปฏิทินประจำสัปดาห์ที่ไม่ใช้</value>
@@ -835,6 +904,7 @@
     <property key="ManufacturingCalendarWeeks">
         <value xml:lang="de">Wochen</value>
         <value xml:lang="en">Weeks</value>
+        <value xml:lang="fr">Semaines</value>
         <value xml:lang="it">Calendari Settimanali</value>
         <value xml:lang="th">สัปดาห์</value>
         <value xml:lang="zh">周</value>
@@ -842,6 +912,7 @@
     <property key="ManufacturingCalendars">
         <value xml:lang="de">Kalender</value>
         <value xml:lang="en">Calendars</value>
+        <value xml:lang="fr">Calendriers</value>
         <value xml:lang="it">Calendari</value>
         <value xml:lang="th">ปฏิทิน</value>
         <value xml:lang="zh">日历</value>
@@ -850,6 +921,7 @@
         <value xml:lang="de">Annulliert</value>
         <value xml:lang="en">Cancel</value>
         <value xml:lang="es">Cancelar</value>
+        <value xml:lang="fr">Annulation</value>
         <value xml:lang="it">Annulla</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="th">ยกเลิก</value>
@@ -859,7 +931,7 @@
         <value xml:lang="de">Anmerkungen</value>
         <value xml:lang="en">Comments</value>
         <value xml:lang="es">Comentarios</value>
-        <value xml:lang="fr">Comments</value>
+        <value xml:lang="fr">Commentaires</value>
         <value xml:lang="it">Commenti</value>
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="th">ความคิดเห็น</value>
@@ -878,7 +950,7 @@
     <property key="ManufacturingCompanySubtitle">
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="es">Parte de la familia Open For Business</value>
-        <value xml:lang="fr">un des éléments de la famille Open For Business, logiciels libre de gestion.</value>
+        <value xml:lang="fr">Un des éléments de la famille Open For Business, logiciels libre de gestion</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
         <value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value>
         <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
@@ -888,7 +960,7 @@
         <value xml:lang="de">Abgeschlosen</value>
         <value xml:lang="en">Complete</value>
         <value xml:lang="es">Completo</value>
-        <value xml:lang="fr">Complete</value>
+        <value xml:lang="fr">Complet</value>
         <value xml:lang="it">Completa</value>
         <value xml:lang="ro">Completeaza</value>
         <value xml:lang="th">เสร็จสิ้น</value>
@@ -898,6 +970,7 @@
         <value xml:lang="de">Bestätigen</value>
         <value xml:lang="en">Confirm</value>
         <value xml:lang="es">Confirmar</value>
+        <value xml:lang="fr">Confirmer</value>
         <value xml:lang="it">Conferma</value>
         <value xml:lang="ro">Confirmare</value>
         <value xml:lang="th">ยืนยัน</value>
@@ -917,7 +990,7 @@
         <value xml:lang="de">Stückliste kopieren</value>
         <value xml:lang="en">Copy BOM</value>
         <value xml:lang="es">Copiar BOM</value>
-        <value xml:lang="fr">Copy BOM</value>
+        <value xml:lang="fr">Copier BOM</value>
         <value xml:lang="it">Copia Distinte Base</value>
         <value xml:lang="ro">Copiaza Lista repere </value>
         <value xml:lang="th">คัดลอกรายการของสินค้า</value>
@@ -927,7 +1000,7 @@
         <value xml:lang="de">An Produkt-Nr.</value>
         <value xml:lang="en">To Product Id</value>
         <value xml:lang="es">Código del producto destino</value>
-        <value xml:lang="fr">To Product Id</value>
+        <value xml:lang="fr">Réf. au produit</value>
         <value xml:lang="it">Al Codice Prodotto</value>
         <value xml:lang="ro">La Cod Produs</value>
         <value xml:lang="th">ถึงรหัสสินค้า</value>
@@ -937,6 +1010,7 @@
         <value xml:lang="de">Kosten</value>
         <value xml:lang="en">Costs</value>
         <value xml:lang="es">Costos</value>
+        <value xml:lang="fr">Coûts</value>
         <value xml:lang="it">Costi</value>
         <value xml:lang="ro">Cost</value>
         <value xml:lang="th">ราคา</value>
@@ -956,7 +1030,7 @@
         <value xml:lang="de">Kalenderwoche erstellen</value>
         <value xml:lang="en">Create Calendar Week</value>
         <value xml:lang="es">Crear semana</value>
-        <value xml:lang="fr">Créer une semaine</value>
+        <value xml:lang="fr">Créer un calendier de semaine</value>
         <value xml:lang="it">Creare Calendario Settimanale</value>
         <value xml:lang="ro">Creare Calendar Saptamana</value>
         <value xml:lang="th">สร้างปฏิทินประจำสัปดาห์</value>
@@ -976,6 +1050,7 @@
         <value xml:lang="de">Sicherheits-Fehler: Um diesen Vorgang auszuführen müssen Sie über die Berechtigung MANUFACTURING_CREATE oder MANUFACTURING_ADMIN verfügen</value>
         <value xml:lang="en">Security Error: to run this operation you must have the MANUFACTURING_CREATE or MANUFACTURING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para ejecutar esta operación se requiere tener los permisos MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : Pour aller à cette opération vous devez avoir la permission MANUFACTURING_CREATE or MANUFACTURING_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire questa operazione tu devi avere i permessi MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta: pentru executarea acestei operatii trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error:  ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน
@@ -995,6 +1070,7 @@
     <property key="ManufacturingCuttingList">
         <value xml:lang="de">Schneideliste</value>
         <value xml:lang="en">Cutting List</value>
+        <value xml:lang="fr">Liste de découpage</value>
         <value xml:lang="it">Lista di Montaggio</value>
         <value xml:lang="ro">Lista de Montaj</value>
         <value xml:lang="th">ตัดรายการสินค้า</value>
@@ -1003,6 +1079,7 @@
     <property key="ManufacturingCuttingListReport">
         <value xml:lang="de">Schneidelistebericht</value>
         <value xml:lang="en">Cutting List Report</value>
+        <value xml:lang="fr">Rappport de liste de découpage</value>
         <value xml:lang="it">Stampa Lista di Montaggio</value>
         <value xml:lang="ro">Tipareste Lista de Montaj</value>
         <value xml:lang="th">รายงานการตัดรายการสินค้า</value>
@@ -1012,7 +1089,7 @@
         <value xml:lang="de">Rückmelden</value>
         <value xml:lang="en">Declare</value>
         <value xml:lang="es">Declarar</value>
-        <value xml:lang="fr">Declare</value>
+        <value xml:lang="fr">Déclarer</value>
         <value xml:lang="it">Dichiarazione</value>
         <value xml:lang="ro">Declaratii</value>
         <value xml:lang="th">ยืนยัน</value>
@@ -1022,6 +1099,7 @@
         <value xml:lang="de">Sicherheits-Fehler: Um diesen Vorgang auszuführen müssen Sie über die Berechtigung MANUFACTURING_DELETE oder MANUFACTURING_ADMIN verfügen</value>
         <value xml:lang="en">Security Error: to run this operation you must have the MANUFACTURING_DELETE or MANUFACTURING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para ejecutar esta operación se requiere tener los permisos MANUFACTURING_DELETE o MANUFACTURING_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité: Pour aller à cette opération vous devez avoir la permission MANUFACTURING_DELETE or MANUFACTURING_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire questa operazione tu devi avere i permessi MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare de siguranta: pentru executarea acestei operatii trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_DELETE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -1030,6 +1108,7 @@
     <property key="ManufacturingDeliveryDate">
         <value xml:lang="de">Lieferdatum</value>
         <value xml:lang="en">Delivery date</value>
+        <value xml:lang="fr">Date de livraison</value>
         <value xml:lang="it">Data Consegna</value>
         <value xml:lang="ro">Data Livrarii</value>
         <value xml:lang="th">วันส่งสินค้า</value>
@@ -1039,6 +1118,7 @@
         <value xml:lang="de">Abhängige Produktionsaufträge</value>
         <value xml:lang="en">Dependent Production Runs</value>
         <value xml:lang="es">Corridas de producción dependientes</value>
+        <value xml:lang="fr">Cadences de production dépendantes</value>
         <value xml:lang="it">Dipendenza Ordine di Produzione</value>
         <value xml:lang="ro">Comenzi lansate in Productie?</value>
         <value xml:lang="th">ขึ้นอยู่กับการผลิตสินค้า</value>
@@ -1048,7 +1128,7 @@
         <value xml:lang="de">Die folgenden Zuordnungen könnten Endlosschleifen verursachen:  {0} --> {1}</value>
         <value xml:lang="en">The following association could cause loops: {0} --> {1}</value>
         <value xml:lang="es">La siguiente asociación causa recursión: {0} --> {1}</value>
-        <value xml:lang="fr">The following existing association could cause loops: {0} --> {1}</value>
+        <value xml:lang="fr">L'association existante suivante a pu causer des boucles : {0} --> {1}</value>
         <value xml:lang="it">Le seguenti associazioni esistono utilizzando le cause: {0} --> {1}</value>
         <value xml:lang="ro">Urmatoarele asocieri exista utilizand cauzele: {0} --> {1}</value>
         <value xml:lang="th">ตามการรวมกลุ่มสามารถทำให้เกิดเป็นรอบวงกลมได้</value>
@@ -1058,7 +1138,7 @@
         <value xml:lang="de">Kalender-Ausnahme-Tag für</value>
         <value xml:lang="en">Edit Calendar Exception day for</value>
         <value xml:lang="es">Editar excepción de calendario</value>
-        <value xml:lang="fr">Modification des exceptions de jour du calendrier</value>
+        <value xml:lang="fr">Modifier des exceptions de jour du calendrier</value>
         <value xml:lang="it">Aggiorna Calendario giorni speciali per</value>
         <value xml:lang="ro">Actualizare Calendar zile speciale pentru</value>
         <value xml:lang="th">แก้ไขปฏิทินวันที่ยกเว้นสำหรับ</value>
@@ -1068,7 +1148,7 @@
         <value xml:lang="de">Kalender-Ausnahme-Woche für</value>
         <value xml:lang="en">Edit Calendar Exception week for</value>
         <value xml:lang="es">Editar semana de exceipción</value>
-        <value xml:lang="fr">Modification des exceptions de semaine du calendrier</value>
+        <value xml:lang="fr">Modifier des exceptions de semaine du calendrier</value>
         <value xml:lang="it">Aggiorna Calendario settimane speciali per</value>
         <value xml:lang="ro">Adauga Calendar saptamanal special pentru</value>
         <value xml:lang="th">แก้ไขสัปดาห์ที่ยกเว้นสำหรับ</value>
@@ -1078,7 +1158,7 @@
         <value xml:lang="de">Woche bearbeiten</value>
         <value xml:lang="en">Edit Week</value>
         <value xml:lang="es">Editar semana</value>
-        <value xml:lang="fr">Modification d'une semaine</value>
+        <value xml:lang="fr">Modifier une semaine</value>
         <value xml:lang="it">Aggiorna Calendario Settimanale</value>
         <value xml:lang="ro">Actualizare Saptamana</value>
         <value xml:lang="th">แก้ไขสัปดาห์</value>
@@ -1088,6 +1168,7 @@
         <value xml:lang="de">Kosten-Berechnungs-Einträge bearbeiten</value>
         <value xml:lang="en">Edit Cost Component Calc Entries</value>
         <value xml:lang="es">Editar calculo de costo de componente</value>
+        <value xml:lang="fr">Modifier les entrées composantes du coût calc.</value>
         <value xml:lang="it">Aggiorna Costi Componenti Voci Calcolo</value>
         <value xml:lang="ro">Adauga Cost Componente Date Calcul</value>
         <value xml:lang="th">แก้ไขส่วนประกอบของราคาในตารางการคำนวณ</value>
@@ -1097,7 +1178,7 @@
         <value xml:lang="de">Anlage bearbeiten</value>
         <value xml:lang="en">Edit Fixed Asset</value>
         <value xml:lang="es">Editar máquina</value>
-        <value xml:lang="fr">Modification des machines</value>
+        <value xml:lang="fr">Modifier des machines</value>
         <value xml:lang="it">Aggiorna Macchine</value>
         <value xml:lang="ro">Adauga Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขสินทรัพย์ไม่หมุนเวียน</value>
@@ -1107,7 +1188,7 @@
         <value xml:lang="de">Anlagegruppe bearbeiten</value>
         <value xml:lang="en">Edit Fixed AssetGroup</value>
         <value xml:lang="es">Editar grupo de máquinas</value>
-        <value xml:lang="fr">Modification des groupes de machine</value>
+        <value xml:lang="fr">Modifier des groupes de machine</value>
         <value xml:lang="it">Aggiorna Gruppo Macchine</value>
         <value xml:lang="ro">Actualizare Grup Mijloace Fixe</value>
         <value xml:lang="th">แก้ไขกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -1117,7 +1198,7 @@
         <value xml:lang="de">Stückliste bearbeiten</value>
         <value xml:lang="en">Edit BOM</value>
         <value xml:lang="es">Editar BOM</value>
-        <value xml:lang="fr">Nomenclatures article</value>
+        <value xml:lang="fr">Modifier BOM</value>
         <value xml:lang="it">Aggiorna Distinta Base</value>
         <value xml:lang="ro">Actualizare Lista repere Produs</value>
         <value xml:lang="th">แก้ไขรายการของสินค้า</value>
@@ -1127,7 +1208,7 @@
         <value xml:lang="de">Produktionsauftrag bearbeiten</value>
         <value xml:lang="en">Edit Production Run</value>
         <value xml:lang="es">Editar orden de producción</value>
-        <value xml:lang="fr">Modification O.F.</value>
+        <value xml:lang="fr">Modifier un Ordre de Fabrication</value>
         <value xml:lang="it">Aggiorna Ordine di Produzione</value>
         <value xml:lang="ro">Actualizare Comenzi de Productie</value>
         <value xml:lang="th">แก้ไขการผลิต</value>
@@ -1197,6 +1278,7 @@
         <value xml:lang="de">Fehler: Stückliste nicht vorhanden</value>
         <value xml:lang="en">Error, Bom does not exist</value>
         <value xml:lang="es">ERROR, BOM no existe</value>
+        <value xml:lang="fr">Erreur, Bom n'existe pas</value>
         <value xml:lang="it">Errore, Distinta Base non esiste</value>
         <value xml:lang="ro">Eroare, Lista repere inexistenta</value>
         <value xml:lang="th">Error: ผิดพลาด ! ไม่มีรายการของสินค้าเหลืออยู่</value>
@@ -1226,7 +1308,7 @@
         <value xml:lang="de">Start des Ausnahmedatums</value>
         <value xml:lang="en">Start of Exception Date</value>
         <value xml:lang="es">Inicio de fecha de excepción</value>
-        <value xml:lang="fr">Date de départ de l'exception</value>
+        <value xml:lang="fr">Début de date d'exception</value>
         <value xml:lang="it">Inizio della Data speciale</value>
         <value xml:lang="ro">Data speciala Initiala</value>
         <value xml:lang="th">เริ่มต้นของวันที่ยกเว้น</value>
@@ -1236,7 +1318,7 @@
         <value xml:lang="de">Datum und Zeit des Ausnahmetages</value>
         <value xml:lang="en">Date and Time of exception day</value>
         <value xml:lang="es">Fecha de día de excepción</value>
-        <value xml:lang="fr">Date de l'exception et heure de début</value>
+        <value xml:lang="fr">Date et heure du jour d'exception </value>
         <value xml:lang="it">Data e Ora del giorno speciale</value>
         <value xml:lang="ro">Data si Ora zilei speciale</value>
         <value xml:lang="th">วันและเวลาของวันที่ยกเว้น</value>
@@ -1246,7 +1328,7 @@
         <value xml:lang="de">Auffalten</value>
         <value xml:lang="en">Explosion</value>
         <value xml:lang="es">Explosión</value>
-        <value xml:lang="fr">Développer %explosion%</value>
+        <value xml:lang="fr">Explosion</value>
         <value xml:lang="it">Esplosione</value>
         <value xml:lang="ro">Explozie</value>
         <value xml:lang="th">อย่างกะทันหัน</value>
@@ -1256,7 +1338,7 @@
         <value xml:lang="de">Auffalten (nur für Produktion benötigte Komponenten)</value>
         <value xml:lang="en">Explosion (only for products needing manufacturing)</value>
         <value xml:lang="es">Explosión (solo para productos en producción)</value>
-        <value xml:lang="fr">Explosion (only for products needing manufacturing)</value>
+        <value xml:lang="fr">Explosion (seulement pour des produits ayant besoin de fabrication)</value>
         <value xml:lang="it">Esplosione (solo per prodotti che necessitano produzione)</value>
         <value xml:lang="ro">Explozie (numai pentru produsele din productie)</value>
         <value xml:lang="th">ด่วน (สำหรับสินค้าที่ต้องการผลิตอย่างเดียว)</value>
@@ -1266,7 +1348,7 @@
         <value xml:lang="de">Auffalten (nur erste Ebene)</value>
         <value xml:lang="en">Single Level Explosion</value>
         <value xml:lang="es">Explosión de un nivel</value>
-        <value xml:lang="fr">Single Level Explosion</value>
+        <value xml:lang="fr">Explosion à niveau unique</value>
         <value xml:lang="it">Singolo Livello Esplosione</value>
         <value xml:lang="ro">Singurul Nivel de Exsplozie</value>
         <value xml:lang="th">ใช้ระดับความดังครั้งเดียว</value>
@@ -1276,6 +1358,7 @@
         <value xml:lang="de">Lager nicht vorhanden</value>
         <value xml:lang="en">The facility table does not exist</value>
         <value xml:lang="es">El almacén no existe</value>
+        <value xml:lang="fr">La table de service n'existe pas</value>
         <value xml:lang="it">La tabella stabilimenti non esiste</value>
         <value xml:lang="ro">Fisier Compartimente inexistent</value>
         <value xml:lang="th">ไม่มีตารางคลังสินค้านี้อยู่</value>
@@ -1285,7 +1368,7 @@
         <value xml:lang="de">Stückliste suchen</value>
         <value xml:lang="en">Find Bill Of Materials</value>
         <value xml:lang="es">Buscar BOM</value>
-        <value xml:lang="fr">Recherche nomenclature</value>
+        <value xml:lang="fr">Recherche de nomenclature</value>
         <value xml:lang="it">Ricerca Distinte Base</value>
         <value xml:lang="ro">Cauta Lista repere Produs</value>
         <value xml:lang="th">ค้นหารายการสินค้า</value>
@@ -1295,6 +1378,7 @@
         <value xml:lang="de">Bestand suchen</value>
         <value xml:lang="en">Find Inventory Event Planned</value>
         <value xml:lang="es">Buscar inventario</value>
+        <value xml:lang="fr">Recherche d'inventaire</value>
         <value xml:lang="it">Ricerca Inventario Eventi Pianificato</value>
         <value xml:lang="ro">Cauta Inventar Evenimente Planificate</value>
         <value xml:lang="th">ค้นหาผลของรายการสิ่งของที่ประมาณไว้</value>
@@ -1304,7 +1388,7 @@
         <value xml:lang="de">Teile suchen</value>
         <value xml:lang="en">Find Parts</value>
         <value xml:lang="es">Buscar partes</value>
-        <value xml:lang="fr">Recherche articles</value>
+        <value xml:lang="fr">Recherche d'articles</value>
         <value xml:lang="it">Ricerca Parti</value>
         <value xml:lang="ro">Cauta Parti</value>
         <value xml:lang="th">ค้นหาส่วนประกอบ</value>
@@ -1314,7 +1398,7 @@
         <value xml:lang="de">Produktionsauftrag suchen</value>
         <value xml:lang="en">Find Production Run</value>
         <value xml:lang="es">Buscar órdenes de producción</value>
-        <value xml:lang="fr">Liste Ordre Fabrication</value>
+        <value xml:lang="fr">Recherche d'ordre de fabrication</value>
         <value xml:lang="it">Ricerca Ordine di Produzione</value>
         <value xml:lang="ro">Cauta Comanda de Productie</value>
         <value xml:lang="th">ค้นหาการผลิตสินค้า</value>
@@ -1324,7 +1408,7 @@
         <value xml:lang="de">Arbeitsplan suchen</value>
         <value xml:lang="en">Find Routing</value>
         <value xml:lang="es">Buscar ruta</value>
-        <value xml:lang="fr">Recherche gamme</value>
+        <value xml:lang="fr">Recherche de gamme</value>
         <value xml:lang="it">Ricerca Ciclo</value>
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
@@ -1334,7 +1418,7 @@
         <value xml:lang="de">Arbeitsgang suchen</value>
         <value xml:lang="en">Find Routing Tasks</value>
         <value xml:lang="es">Buscar procesos</value>
-        <value xml:lang="fr">Recherche opérations</value>
+        <value xml:lang="fr">Recherche de tâches de gamme</value>
         <value xml:lang="it">Ricerca Operazioni</value>
         <value xml:lang="ro">Cauta Operatii</value>
         <value xml:lang="th">ค้นหาการทำงาน</value>
@@ -1344,6 +1428,7 @@
         <value xml:lang="de">Das Feld "Verrechnete Kosten" ist falsch formatiert</value>
         <value xml:lang="en">The Allocated Cost field is not formatted correctly</value>
         <value xml:lang="es">El campo Allocated Cost no tiene el formato correcto</value>
+        <value xml:lang="fr">Le champ de coût réparti n'est pas formaté correctement</value>
         <value xml:lang="it">Il campo Costo allocato non è formattato correttamente</value>
         <value xml:lang="ro">Campul Cost alocat nu are un format corect</value>
         <value xml:lang="th">รูปแบบการกำหนดราคาไม่ถูกต้อง</value>
@@ -1353,6 +1438,7 @@
         <value xml:lang="de">Von-Datum fehlt</value>
         <value xml:lang="en">The From date is missing</value>
         <value xml:lang="es">Debe indicar la fecha de inicio</value>
+        <value xml:lang="fr">De la date est absent</value>
         <value xml:lang="it">La data inizio è mancante</value>
         <value xml:lang="ro">Lipseste Data intiala </value>
         <value xml:lang="th">ไม่ได้ใส่จากวันที่</value>
@@ -1362,6 +1448,7 @@
         <value xml:lang="de">Das Feld "Von-Datum" ist falsch formatiert</value>
         <value xml:lang="en">The From Date field is not formatted correctly</value>
         <value xml:lang="es">La fecha de inicio no tiene el formato correcto</value>
+        <value xml:lang="fr">Le champ de la date n'est pas formaté correctement</value>
         <value xml:lang="it">Il campo Data Inizio non è formattata correttamente</value>
         <value xml:lang="ro">Campul Data Initiala nu are un format corect</value>
         <value xml:lang="th">รูปแบบจากวันที่ไม่ถูกต้อง</value>
@@ -1371,6 +1458,7 @@
         <value xml:lang="de">Die Anlage ist nicht vorhanden</value>
         <value xml:lang="en">FixedAsset does not exist</value>
         <value xml:lang="es">Activo fijo no existe</value>
+        <value xml:lang="fr">L'immobilisation n'existe pas</value>
         <value xml:lang="it">Cespite non esiste</value>
         <value xml:lang="ro">Mijloc Fix Inexistent</value>
         <value xml:lang="th">ไม่พบสินทรัพย์ไม่หมุนเวียน</value>
@@ -1380,6 +1468,7 @@
         <value xml:lang="de">Das Feld "Bis-Datum" ist falsch formatiert</value>
         <value xml:lang="en">The Thru Date field is not formatted correctly</value>
         <value xml:lang="es">La fecha de fin no tiene el formato correcto</value>
+        <value xml:lang="fr">Le champ de par la date n'est pas formaté correctement</value>
         <value xml:lang="it">Il campo Data Fine non è formattata correttamente</value>
         <value xml:lang="ro">Campul Data Finala nu are un format corect</value>
         <value xml:lang="th">รูปแบบถึงวันที่ไม่ถูกต้อง</value>
@@ -1388,6 +1477,7 @@
     <property key="ManufacturingFormula">
         <value xml:lang="de">Formel</value>
         <value xml:lang="en">Formula</value>
+        <value xml:lang="fr">Formule</value>
         <value xml:lang="it">Formula</value>
         <value xml:lang="ro">Formula</value>
         <value xml:lang="th">วิธีทำ</value>
@@ -1407,7 +1497,7 @@
         <value xml:lang="de">Zusammenfalten</value>
         <value xml:lang="en">Implosion</value>
         <value xml:lang="es">Implosión</value>
-        <value xml:lang="fr">%Implosion%</value>
+        <value xml:lang="fr">Implosion</value>
         <value xml:lang="it">Implosione</value>
         <value xml:lang="ro">Implozie</value>
         <value xml:lang="th">เสียงดัง</value>
@@ -1427,7 +1517,7 @@
         <value xml:lang="de">Geplantes Bestands-Ereigniss</value>
         <value xml:lang="en">Inventory Event Planned</value>
         <value xml:lang="es">Movimiento de stock planeado</value>
-        <value xml:lang="fr">mouvements de stock planifiés</value>
+        <value xml:lang="fr">Inventaire d'événements planifié</value>
         <value xml:lang="ro">Inventar Eveniment Planificat</value>
         <value xml:lang="th">ประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件</value>
@@ -1436,6 +1526,7 @@
         <value xml:lang="de">Fehler bei der Erstellung des Bestands-Ereigniss</value>
         <value xml:lang="en">Inventory Event Planned Create Error</value>
         <value xml:lang="es">No se pudo crear un movimiento de stock</value>
+        <value xml:lang="fr">Inventaire d'événements planifié créé une erreur</value>
         <value xml:lang="ro">Nu este posibila crearea unui record in InventoryEventPlanned</value>
         <value xml:lang="th">เกิดความผิดพลาดในการสร้างการประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">无法在已计划的库存事件中新建记录</value>
@@ -1444,6 +1535,7 @@
         <value xml:lang="de">Bestands-Ereigniss</value>
         <value xml:lang="en">Inventory Event Planned Not Exist</value>
         <value xml:lang="es">Movimiento de stock no existe</value>
+        <value xml:lang="fr">Inventaire d'événements planifié n'existe pas</value>
         <value xml:lang="ro">InventoryEventPlanned nu exista</value>
         <value xml:lang="th">ไม่มีการประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件不存在</value>
@@ -1452,6 +1544,7 @@
         <value xml:lang="de">Bestands-Ereigniss nicht akrualisiert</value>
         <value xml:lang="en">Inventory Event Planned Not Update</value>
         <value xml:lang="es">Movimiento de stock no puede ser actualizado</value>
+        <value xml:lang="fr">Inventaire d'événements planifié n'est pas mis à jour</value>
         <value xml:lang="ro">InventoryEventPlanned nu poate  fi actualizat</value>
         <value xml:lang="th">ไม่มีการเปลี่ยนแปลงการประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件无法更新</value>
@@ -1460,6 +1553,7 @@
         <value xml:lang="de">Bestands-Ereigniss-Art nicht vorhanden</value>
         <value xml:lang="en">Inventory Event Type does not exist</value>
         <value xml:lang="es">Tipo de movimiento de stock no existe</value>
+        <value xml:lang="fr">La liste d'inventaire d'événements n'existe pas</value>
         <value xml:lang="it">Tipo Inventario Evento non esiste</value>
         <value xml:lang="ro">Tip Inventar Eveniment inexistent</value>
         <value xml:lang="th">ไม่มีประเภทสินค้าคงเหลือ</value>
@@ -1469,6 +1563,7 @@
         <value xml:lang="de">Bestand nicht vorhanden</value>
         <value xml:lang="en">Inventory Item table does not exist</value>
         <value xml:lang="es">Table de inventario no existe</value>
+        <value xml:lang="fr">La table d'inventaire n'existe pas</value>
         <value xml:lang="it">Riga tabella Inventario non esiste</value>
         <value xml:lang="ro">Linie Fisier Inventar Inexistent</value>
         <value xml:lang="th">ไม่มีตารางรายการสินค้าคงเหลือ</value>
@@ -1478,7 +1573,7 @@
         <value xml:lang="de">Bestände</value>
         <value xml:lang="en">Inventory Items</value>
         <value xml:lang="es">Artículos de Inventario</value>
-        <value xml:lang="fr">Inventory Items</value>
+        <value xml:lang="fr">Inventaire d'articles</value>
         <value xml:lang="it">Righe Inventario</value>
         <value xml:lang="ro">Linii Inventar</value>
         <value xml:lang="th">สินค้าคงเหลือ</value>
@@ -1488,7 +1583,7 @@
         <value xml:lang="de">Komponenten ausgeben</value>
         <value xml:lang="en">Issue Components</value>
         <value xml:lang="es">Componentes publicados</value>
-        <value xml:lang="fr">Issue Components</value>
+        <value xml:lang="fr">Composants publiés</value>
         <value xml:lang="it">Preleva i Componenti</value>
         <value xml:lang="ro">Componente cu Probleme</value>
         <value xml:lang="th">ส่วนประกอบของปัญหา</value>
@@ -1497,13 +1592,14 @@
     <property key="ManufacturingIssueAvailableProductionRunTask">
         <value xml:lang="de">Komponenten ausgeben (ATP)</value>
         <value xml:lang="en">Issue Components (ATP)</value>
+        <value xml:lang="fr">Composants publiés (ATP)</value>
         <value xml:lang="it">Preleva i Componenti (ATP)</value>
     </property>
     <property key="ManufacturingIssuedQuantity">
         <value xml:lang="de">Ausgegeben</value>
         <value xml:lang="en">Issued</value>
         <value xml:lang="es">Publicado</value>
-        <value xml:lang="fr">Issued</value>
+        <value xml:lang="fr">Publié</value>
         <value xml:lang="it">Quantità Prelevata</value>
         <value xml:lang="ro">Cantitate Preluata</value>
         <value xml:lang="th">ปัญหา</value>
@@ -1513,7 +1609,7 @@
         <value xml:lang="de">Produktionsaufträge</value>
         <value xml:lang="en">JobShop</value>
         <value xml:lang="es">Producción</value>
-        <value xml:lang="fr">O.Fab</value>
+        <value xml:lang="fr">Atelier de production</value>
         <value xml:lang="it">Ordine di Produzione</value>
         <value xml:lang="ro">Comanda de Productie</value>
         <value xml:lang="th">ที่ทำงาน</value>
@@ -1522,7 +1618,7 @@
     <property key="ManufacturingLLCInit">
         <value xml:lang="en">Init Low Level Codes</value>
         <value xml:lang="es">Iniciar códigos de bajo nivel</value>
-        <value xml:lang="fr">Init Low Level Codes</value>
+        <value xml:lang="fr">Codes de niveau bas initial</value>
         <value xml:lang="it">Codici Basso Livello Iniziale</value>
         <value xml:lang="ro">Cod Initial de nivel inferior</value>
         <value xml:lang="th">รหัสระดับเริ่มต้น</value>
@@ -1542,7 +1638,7 @@
         <value xml:lang="de">Komponenten des Produktionsauftrages anzeigen</value>
         <value xml:lang="en">List Of Production Run Components</value>
         <value xml:lang="es">Lista de componentes de la corrida de produción</value>
-        <value xml:lang="fr">Liste des composants de l'Ordre de Fabrication</value>
+        <value xml:lang="fr">Liste de production de l'ordre de fabrication</value>
         <value xml:lang="it">Lista dei Componenti dell'Ordine di Produzione</value>
         <value xml:lang="th">รายการของการผลิตสินค้า</value>
         <value xml:lang="zh">生产运行组件列表</value>
@@ -1551,6 +1647,7 @@
         <value xml:lang="de">Anlagen des Produktionsauftrages anzeigen</value>
         <value xml:lang="en">List Of Production Run Fixed Assets</value>
         <value xml:lang="es">Lista de activos fijos de la corrida de producción</value>
+        <value xml:lang="fr">Liste de production des cours des immobilisations</value>
         <value xml:lang="it">Lista dei Cespiti Ordine di Produzione</value>
         <value xml:lang="ro">Lista Mijloacelor Fixe pentru Comanda de Productie</value>
         <value xml:lang="th">รายการของการผลิตสินค้าจากสินทรัพย์ไม่ถาวร</value>
@@ -1559,7 +1656,7 @@
     <property key="ManufacturingListOfProductionRunNotes">
         <value xml:lang="en">List Of Production Run Notes</value>
         <value xml:lang="fr">Liste des notes de l'ordre de fabrication</value>
-    </property>    
+    </property>
     <property key="ManufacturingListOfProductionRunRoutingTasks">
         <value xml:lang="de">Arbeitsgänge</value>
         <value xml:lang="en">Tasks</value>
@@ -1574,6 +1671,7 @@
         <value xml:lang="de">Produkte auflisten</value>
         <value xml:lang="en">Deliverable Products</value>
         <value xml:lang="es">Productos Entregables</value>
+        <value xml:lang="fr">Produits livrables</value>
         <value xml:lang="it">Prodotti Consegnabili</value>
         <value xml:lang="ro">Produse Livrabile</value>
         <value xml:lang="th">ส่งสินค้า</value>
@@ -1583,6 +1681,7 @@
         <value xml:lang="de">Arbeitsgänge auflisten</value>
         <value xml:lang="en">List Routings</value>
         <value xml:lang="es">Lista de Rutas</value>
+        <value xml:lang="fr">Liste des gammes</value>
         <value xml:lang="it">Lista Cicli</value>
         <value xml:lang="ro">Lista Cicluri</value>
         <value xml:lang="th">รายการ Routing</value>
@@ -1592,6 +1691,7 @@
         <value xml:lang="de">Fehler beim anzeigen der Stückliste</value>
         <value xml:lang="en">Error while listing the Bill of Material</value>
         <value xml:lang="es">Error al cargar BOM</value>
+        <value xml:lang="fr">Erreur tout en énumérant les nomenclatures</value>
         <value xml:lang="it">Errore durante la lista delle Distinte Base</value>
         <value xml:lang="ro">Eroare in timpul listarii Listei de repere ManufacturingListOfProductionRunComponents=Lista Componentelor Comenzii de Productie</value>
         <value xml:lang="th">เกิดความผิดพลาดขณะที่ลงรายการของสินค้า</value>
@@ -1601,7 +1701,7 @@
         <value xml:lang="de">Anlage</value>
         <value xml:lang="en">Fixed Asset</value>
         <value xml:lang="es">Máquina</value>
-        <value xml:lang="fr">Machine</value>
+        <value xml:lang="fr">Immobilisation</value>
         <value xml:lang="it">Macchine</value>
         <value xml:lang="ro">Mijloace Fixe</value>
         <value xml:lang="th">สินทรัพย์ไม่หมุนเวียน</value>
@@ -1611,7 +1711,7 @@
         <value xml:lang="de">Anlagengruppe</value>
         <value xml:lang="en">Fixed Asset group</value>
         <value xml:lang="es">Grupo de máquinas</value>
-        <value xml:lang="fr">Groupe machines</value>
+        <value xml:lang="fr">Groupe d'immobilisation</value>
         <value xml:lang="it">Gruppo Macchine</value>
         <value xml:lang="ro">Grup Mijloc Fix</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -1621,7 +1721,7 @@
         <value xml:lang="de">Anlagengruppen-Nr.</value>
         <value xml:lang="en">Fixed Asset group ID</value>
         <value xml:lang="es">Grupo de máquinas</value>
-        <value xml:lang="fr">Identifiant du groupe de machine</value>
+        <value xml:lang="fr">Réf. du groupe d'immobilisation</value>
         <value xml:lang="it">Codice Gruppo Macchine</value>
         <value xml:lang="ro">Cod Grup Mijloc Fix</value>
         <value xml:lang="th">รหัสกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -1631,7 +1731,7 @@
         <value xml:lang="de">Anlagengruppen-Nr. existiert schon</value>
         <value xml:lang="en">Fixed Asset Group ID doesn't exist</value>
         <value xml:lang="es">El código de grupo de máquinas ya existe</value>
-        <value xml:lang="fr">L'identifiant du groupe de machine existe déja</value>
+        <value xml:lang="fr">Réf. du groupe d'immobilisation existe déja</value>
         <value xml:lang="it">Codice Gruppo Macchine non esiste</value>
         <value xml:lang="ro">Cod Grup Mijloc Fix inexistent</value>
         <value xml:lang="th">ไม่มีรหัสกลุ่มสินทรัพย์ไม่หมุนเวียนอยู่</value>
@@ -1641,7 +1741,7 @@
         <value xml:lang="de">Sicherheits-Fehler: Um eine Anlagengruppe zu bearbeiten müssen Sie über die Berechtigung MANUFACTURING_CREATE oder MANUFACTURING_ADMIN verfügen</value>
         <value xml:lang="en">Security Error: to work on a Fixed Asset Group you must have the MANUFACTURING_CREATE or MANUFACTURING_ADMIN permission</value>
         <value xml:lang="es">Error:  Para acceder a esta funcionalidad debe contar con los permisos MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un groupe de machine,  il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur un groupe de machine, il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per lavorare sui gruppi Macchine tu devi avere il permesso MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru a avea acces la grupurile de Mijloace Fixe trebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการทำงานบนกลุ่มสินทรัพย์ไม่หมุนเวียนคุณต้องได้รับอนุาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -1651,7 +1751,7 @@
         <value xml:lang="de">Anlagen-Nr.</value>
         <value xml:lang="en">Fixed Asset ID</value>
         <value xml:lang="es">Código de máquina</value>
-        <value xml:lang="fr">Identifiant machine</value>
+        <value xml:lang="fr">Réf. d'immobilisation</value>
         <value xml:lang="it">Codice Macchine</value>
         <value xml:lang="ro">Cod Mijloc Fix</value>
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
@@ -1661,7 +1761,7 @@
         <value xml:lang="de">Anlagen-Nr. existiert schon</value>
         <value xml:lang="en">Fixed Asset Id already exists</value>
         <value xml:lang="es">Código ya existente</value>
-        <value xml:lang="fr">L'identifiant  de la machine existe déja</value>
+        <value xml:lang="fr">Réf. d'immobilisation existe déja</value>
         <value xml:lang="it">Codice Macchine già esistente</value>
         <value xml:lang="ro">Cod Mijloc Fix deja existent</value>
         <value xml:lang="th">รหัสสินทรัพย์ไม่หมุนเวียน</value>
@@ -1671,7 +1771,7 @@
         <value xml:lang="de">Sicherheits-Fehler: Um eine Anlage zu bearbeiten müssen Sie über die Berechtigung MANUFACTURING_CREATE oder MANUFACTURING_ADMIN verfügen</value>
         <value xml:lang="en">Security Error: to work on Fixed Asset you must have the MANUFACTURING_CREATE or MANUFACTURING_ADMIN permission</value>
         <value xml:lang="es">Error:  Para acceder a esta funcionalidad debe contar con los permisos MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
-        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur une machine,  il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
+        <value xml:lang="fr">Erreur sécurité : pour effectuer une opération sur une machine, il faut avoir l'autorisation MANUFACTURING_CREATE ou MANUFACTURING_ADMIN.</value>
         <value xml:lang="it">Errore Sicurezza : per lavorare sulle Macchine tu devi avere il permesso MANUFACTURING_CREATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru a avea acces la Mijloace Fixe drebuie sa ai permisul MANUFACTURING_CREATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ในการทำงานบนสินทรัพย์ไม่หมุนเวียนคุณต้องได้รับอนุาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -1689,10 +1789,8 @@
     </property>
     <property key="ManufacturingMainPageNote">
         <value xml:lang="en">NOTE: This application is currently in development. This page will change.</value>
-        <value xml:lang="es">
-            NOTA:
-            La aplicación aún se encuentra en desarrollo. Es muy probable que la página cambie en las siguientes versiones.</value>
-        <value xml:lang="fr">Aide sur l'application de gestion de production</value>
+        <value xml:lang="es">NOTA: La aplicación aún se encuentra en desarrollo. Es muy probable que la página cambie en las siguientes versiones.</value>
+        <value xml:lang="fr">NOTE : Cette application est actuellement à l'étude. Cette page changera.</value>
         <value xml:lang="it">NOTA: Questa applicazione è attualmente in sviluppo. Questa pagina verrà cambiata.</value>
         <value xml:lang="ro">NOTA: Aceasta aplicatie este in Executie.Aceasta pagina va fi schimbata.</value>
         <value xml:lang="th">NOTE: หมายเหตุ โปรแกรมประยุกต์นี้ได้พัฒนาให้เป็นปัจจุบันแล้ว หน้านี้จึงเปลี่ยนไป</value>
@@ -1702,6 +1800,7 @@
         <value xml:lang="de">Kosten-Berechnungs-Einträge verwalten</value>
         <value xml:lang="en">Manage Cost Component Calc Entries</value>
         <value xml:lang="es">Administrar calculo de costo de componentes</value>
+        <value xml:lang="fr">Contrôler les entrées composantes du coût Calc.</value>
         <value xml:lang="it">Gestione Costi Componenti Voci Calcolo</value>
         <value xml:lang="ro">Gestiune Cost Componente Date Calcul</value>
         <value xml:lang="th">เข้าสู่การจัดการคำนวณราคา</value>
@@ -1721,6 +1820,7 @@
         <value xml:lang="de">Erforderliche Produktionsaufträge</value>
         <value xml:lang="en">Mandatory Production Runs</value>
         <value xml:lang="es">Corridas de producción obligatorias</value>
+        <value xml:lang="fr">Cadences de production obligatoires</value>
         <value xml:lang="it">Cicli Produzione Obbligatori</value>
         <value xml:lang="ro">Cicluri de Productie Obligatorii</value>
         <value xml:lang="th">คำสั่งในการผลิต</value>
@@ -1730,7 +1830,7 @@
         <value xml:lang="de">Fertigungsregeln</value>
         <value xml:lang="en">Manufacturing Rules</value>
         <value xml:lang="es">Reglas de producción</value>
-        <value xml:lang="fr">Configurateur</value>
+        <value xml:lang="fr">Règles de fabrication</value>
         <value xml:lang="it">Regole Produzione</value>
         <value xml:lang="ro">Reguli de Productie</value>
         <value xml:lang="th">ข้อบังคับในการผลิต</value>
@@ -1739,18 +1839,21 @@
     <property key="ManufacturingMaterials">
         <value xml:lang="de">Materialien</value>
         <value xml:lang="en">Materials</value>
+        <value xml:lang="fr">Matériaux</value>
         <value xml:lang="it">Materiali</value>
         <value xml:lang="th">ข้อมูล</value>
     </property>
     <property key="ManufacturingMaterialsNotAvailable">
         <value xml:lang="de">Materialien nicht im Lager vorhanden</value>
         <value xml:lang="en">Materials Not Available in Warehouse</value>
+        <value xml:lang="fr">Matériaux non disponibles dans l'entrepôt</value>
         <value xml:lang="it">Materiali Non Disponibili a Magazzino</value>
         <value xml:lang="th">ไม่มีข้อมูลในคลังสินค้า</value>
     </property>
     <property key="ManufacturingMaterialsRequiredByRunningTask">
         <value xml:lang="de">Materialien werden für aktuellen Arbeitsgang benötigt</value>
         <value xml:lang="en">Materials Required By The Running Task</value>
+        <value xml:lang="fr">Matériaux exigé par la tâche en cours d'exécution</value>
         <value xml:lang="it">Materiali Richiesti dall'Operazione in Esecuzione</value>
         <value xml:lang="th">ข้อมูลที่ต้องการโดยการทำงานอย่างต่อเนื่อง</value>
     </property>
@@ -1767,7 +1870,7 @@
     <property key="ManufacturingMrpInitialisation">
         <value xml:lang="de">MRP-Initialisierung</value>
         <value xml:lang="en">IEP init.</value>
-        <value xml:lang="fr">Init. Mrp</value>
+        <value xml:lang="fr">Init. IEP</value>
         <value xml:lang="it">IEP init.</value>
         <value xml:lang="ro">IEP init.</value>
         <value xml:lang="th">ข้อมูลความต้องการโดยประมาณในเบื้องต้น</value>
@@ -1776,24 +1879,28 @@
     <property key="ManufacturingMrpJobIsRunning">
         <value xml:lang="de">Ein MRP-Lauf ist aktiv</value>
         <value xml:lang="en">An Mrp Job is Running</value>
+        <value xml:lang="fr">Un travail Mrp est en cours</value>
         <value xml:lang="it">Un Lavoro MRP è in esecuzione</value>
         <value xml:lang="th">งานข้อมูลความต้องการโดยประมาณกำลังทำงาน</value>
     </property>
     <property key="ManufacturingMrpJobLastExecuted">
         <value xml:lang="de">Vorheriger MRP-Lauf</value>
         <value xml:lang="en">Last Job</value>
+        <value xml:lang="fr">Dernier travail</value>
         <value xml:lang="it">Ultimo Lavoro</value>
         <value xml:lang="th">งานสุดท้าย</value>
     </property>
     <property key="ManufacturingMrpJobScheduledOrRunning">
         <value xml:lang="de">Geplanter oder aktiver MRP-Lauf</value>
         <value xml:lang="en">Scheduled or running Jobs</value>
+        <value xml:lang="fr">les travaux programmés ou en cours d'exécution</value>
         <value xml:lang="it">Lavori Schedulati o in Esecuzione</value>
         <value xml:lang="th">ทำรายการหรือกำลังทำงาน</value>
     </property>
     <property key="ManufacturingMrpLog">
         <value xml:lang="de">MRP-Log</value>
         <value xml:lang="en">MRP Log</value>
+        <value xml:lang="fr">Log MRP</value>
         <value xml:lang="it">Log MRP</value>
         <value xml:lang="th">บันทึกข้อมูลความต้องการโดยประมาณ</value>
     </property>
@@ -1801,6 +1908,7 @@
         <value xml:lang="de">MRP-Name</value>
         <value xml:lang="en">Mrp Name</value>
         <value xml:lang="es">Nombre de MRP</value>
+        <value xml:lang="fr">Nom Mrp</value>
         <value xml:lang="it">Nome Mrp</value>
         <value xml:lang="ro">Nume Mrp</value>
         <value xml:lang="th">ชื่อข้อมูลความต้องการโดยประมาณ</value>
@@ -1810,7 +1918,7 @@
         <value xml:lang="de">Neuer Kalender</value>
         <value xml:lang="en">New calendar</value>
         <value xml:lang="es">Nuevo calendario</value>
-        <value xml:lang="fr">Créer un nouveau calendrier</value>
+        <value xml:lang="fr">Nouveau calendrier</value>
         <value xml:lang="it">Nuovo calendario</value>
         <value xml:lang="ro">Nou Calendar</value>
         <value xml:lang="th">ปฏิทินใหม่</value>
@@ -1820,7 +1928,7 @@
         <value xml:lang="de">Neue Woche</value>
         <value xml:lang="en">New Week</value>
         <value xml:lang="es">Nueva semana</value>
-        <value xml:lang="fr">Créer une semaine</value>
+        <value xml:lang="fr">Nouvelle semaine</value>
         <value xml:lang="it">Nuova Settimana</value>
         <value xml:lang="ro">Noua Saptamana</value>
         <value xml:lang="th">สัปดาห์ใหม่</value>
@@ -1830,7 +1938,7 @@
         <value xml:lang="de">Neue Anlagen-Gruppe</value>
         <value xml:lang="en">New Fixed Asset group</value>
         <value xml:lang="es">Nuevo grupo de máquina</value>
-        <value xml:lang="fr">Créer un groupe de machine</value>
+        <value xml:lang="fr">Nouveau groupe d'immobilisation</value>
         <value xml:lang="it">Nuovo gruppo Macchine</value>
         <value xml:lang="ro">Nou grup de Mijloace Fixe</value>
         <value xml:lang="th">กลุ่มสินทรัพย์ไม่หมุนเวียนใหม่</value>
@@ -1840,7 +1948,7 @@
         <value xml:lang="de">Neuer Arbeitsplan</value>
         <value xml:lang="en">New Routing</value>
         <value xml:lang="es">Nueva ruta</value>
-        <value xml:lang="fr">Créer une gamme</value>
+        <value xml:lang="fr">Nouvelle gamme</value>
         <value xml:lang="it">Nuovo Ciclo</value>
         <value xml:lang="ro">Nou Ciclu</value>
         <value xml:lang="th">Routing ใหม่</value>
@@ -1850,7 +1958,7 @@
         <value xml:lang="de">Neuer Arbeitsgang</value>
         <value xml:lang="en">New Routing Task</value>
         <value xml:lang="es">Nuevo proceso</value>
-        <value xml:lang="fr">Créer une opération</value>
+        <value xml:lang="fr">Nouvelle tâche de gamme</value>
         <value xml:lang="it">Nuova Operazione</value>
         <value xml:lang="ro">Noua Operatie</value>
         <value xml:lang="th">การทำงานใหม่</value>
@@ -1860,6 +1968,7 @@
         <value xml:lang="de">Produkt hinzufügen</value>
         <value xml:lang="en">Add Deliverable Product</value>
         <value xml:lang="es">Añadir producto entregable</value>
+        <value xml:lang="fr">Ajouter le produit livrable</value>
         <value xml:lang="it">Aggiungi Prodotti Consegnabili</value>
         <value xml:lang="ro">Adauga Produse Livrabile</value>
         <value xml:lang="th">เพิ่มการส่งสินค้า</value>
@@ -1869,7 +1978,7 @@
         <value xml:lang="de">Kalender nicht vorhanden</value>
         <value xml:lang="en">No calendar found</value>
         <value xml:lang="es">No se encontró calendario</value>
-        <value xml:lang="fr">Il n'y a pas de calendrier de défini</value>
+        <value xml:lang="fr">PAs de calendrier trouvé</value>
         <value xml:lang="it">Nessun calendario trovato</value>
         <value xml:lang="ro">Nici-un calendar gasit</value>
         <value xml:lang="th">ไม่พบปฏิทิน</value>
@@ -1878,6 +1987,7 @@
     <property key="ManufacturingNoDataAvailable">
         <value xml:lang="de">Keine Daten vorhanden</value>
         <value xml:lang="en">No Data Available.</value>
+        <value xml:lang="fr">Pas de donnée disponible.</value>
         <value xml:lang="it">Nessun Dato Disponibile.</value>
         <value xml:lang="ro">Nici-o Data Disponibila.</value>
         <value xml:lang="th">ไม่มีข้อมูลที่ใช้ได้</value>
@@ -1887,7 +1997,7 @@
         <value xml:lang="de">Anlagengruppe nicht vorhanden</value>
         <value xml:lang="en">No Fixed Asset group found</value>
         <value xml:lang="es">No se encontro grupo de activos</value>
-        <value xml:lang="fr">Il n'y a pas de groupe de machine de défini</value>
+        <value xml:lang="fr">Pas de groupe d'immobilisation trouvé</value>
         <value xml:lang="it">Nessun Gruppo Macchine trovato</value>
         <value xml:lang="ro">Nici-un Grup de Mijloace Fixe Gasit</value>
         <value xml:lang="th">ไม่พบกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -1897,24 +2007,27 @@
         <value xml:lang="de">Kein Produktionsauftrag ausgewählt</value>
         <value xml:lang="en">No ProductionRun Selected</value>
         <value xml:lang="es">No se seleccionó producto</value>
-        <value xml:lang="fr">Pas d'Ordre de Fabrication sélectionné</value>
+        <value xml:lang="fr">Aucune cadence de production choisie</value>
         <value xml:lang="it">Nessun Ordine di Produzione Selezionato</value>
         <value xml:lang="ro">Nici-o Comanda de Productie Selectionata</value>
         <value xml:lang="th">ไม่มีการเลือกการผลิต</value>
         <value xml:lang="zh">没有选中生产运行</value>
     </property>
     <property key="ManufacturingNote1">
-        <value xml:lang="en">date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is                                                                                                            </value>
+        <value xml:lang="en">date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is</value>
+        <value xml:lang="fr">Date/heure des entrées dénote que l'heure en cours est avant la date ou après la date en cours. Si la date est</value>
         <value xml:lang="it">le voci data/ora indicano che l'orario attuale è prima della Data di Inizio o dopo la Data di Fine. Se la Data di Inizio è</value>
         <value xml:lang="th">เข้าสู่ วัน/เวลา หมายความว่าเวลาจริง ๆ คือ เวลาก่อน จากวันที่ หรือ หลัง ถึงวันที่ ถ้าจากวันที่คือ</value>
     </property>
     <property key="ManufacturingNote2">
         <value xml:lang="en">, association has not started yet; if Thru Date is</value>
+        <value xml:lang="fr">, l'association n'a pas commencé encore; si jusqu'à la date est</value>
         <value xml:lang="it">, associazione non è ancora iniziata; se la Data di Fine è</value>
         <value xml:lang="th">, ยังไม่มีกลุ่มเริ่มต้น; ถ้า ถึงวันคือ</value>
     </property>
     <property key="ManufacturingNote3">
         <value xml:lang="en">, association has expired (<u>and should probably be deleted</u>).</value>
+        <value xml:lang="fr">, l'association a expiré (<u>et devrait être supprimé probablement</u>.</value>
         <value xml:lang="it">, associazione è scaduta (<u>e dovrebbe probabilmente essere cancellata</u>).</value>
         <value xml:lang="th">, มีกลุ่มที่ไม่เข้าร่วม (<u>และควรจะลบ</u>)</value>
     </property>
@@ -1922,7 +2035,7 @@
         <value xml:lang="de">Auftragspositionen</value>
         <value xml:lang="en">Order Items</value>
         <value xml:lang="es">Artículos de la Orden</value>
-        <value xml:lang="fr">Order Items</value>
+        <value xml:lang="fr">Ordre d'articles</value>
         <value xml:lang="it">Righe Ordine</value>
         <value xml:lang="ro">Linie Comanda</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
@@ -1931,6 +2044,7 @@
     <property key="ManufacturingPackageLabelsReport">
         <value xml:lang="de">Etiketten</value>
         <value xml:lang="en">Package Labels Report</value>
+        <value xml:lang="fr">Compte-rendu des étiquettes des paquets</value>
         <value xml:lang="it">Stampa Etichette Pacco</value>
         <value xml:lang="ro">Tipareste Etichete Pachet</value>
         <value xml:lang="th">รายงานการติดฉลากหีบห่อ</value>
@@ -1939,6 +2053,7 @@
     <property key="ManufacturingPrintProductionRun">
         <value xml:lang="de">Produktionsauftrag drucken</value>
         <value xml:lang="en">Manufacturing Print Production Run</value>
+        <value xml:lang="fr">Cadence de production de fabrication d'impression</value>
         <value xml:lang="it">Stampa Ordine di Produzione</value>
         <value xml:lang="ro">Tipareste Comanda Productie</value>
         <value xml:lang="th">พิมพ์การผลิตสินค้า</value>
@@ -1947,6 +2062,7 @@
     <property key="ManufacturingProduceQuantity">
         <value xml:lang="en">Stock in</value>
         <value xml:lang="es">Invetario</value>
+        <value xml:lang="fr">Approvisionnement</value>
         <value xml:lang="it">Quantità in Giacenza</value>
         <value xml:lang="ro">Cantitate Stoc</value>
         <value xml:lang="th">คลังสินค้าใน</value>
@@ -1956,6 +2072,7 @@
         <value xml:lang="de">Produkt-Zuordnung nicht vorhanden</value>
         <value xml:lang="en">ProductAssoc does not exist</value>
         <value xml:lang="es">Asociación inexistente</value>
+        <value xml:lang="fr">L'association de produit n'existe pas</value>
         <value xml:lang="it">Associazione Prodotto inesistente</value>
         <value xml:lang="ro">Asociere Produs inexistenta</value>
         <value xml:lang="th">ไม่มีกลุ่มสินค้าเหลืออยู่</value>
@@ -1975,7 +2092,7 @@
         <value xml:lang="de">Komponenten dieses Produktes</value>
         <value xml:lang="en">Components of this Product</value>
         <value xml:lang="es">Componentes de este producto</value>
-        <value xml:lang="fr">Composant de cet article</value>
+        <value xml:lang="fr">Composants de cet article</value>
         <value xml:lang="it">Componenti di questo Prodotto</value>
         <value xml:lang="ro">Componentele acestui Produs</value>
         <value xml:lang="th">ส่วนประกอบของสินค้านี้</value>
@@ -1985,6 +2102,7 @@
         <value xml:lang="de">Produkt-Lager nicht vorhanden</value>
         <value xml:lang="en">ProductFacility table does not exist</value>
         <value xml:lang="es">Tabla de almacén no existe</value>
+        <value xml:lang="fr">La table de service de produit n'existe pas</value>
         <value xml:lang="it">Tabella Stabilimenti non esiste</value>
         <value xml:lang="ro">Fisier Compartimente inexistent</value>
         <value xml:lang="th">ไม่มีตารางคลังสินค้าที่ยืดหยุ่นอยู่</value>
@@ -2003,6 +2121,7 @@
     <property key="ManufacturingProductId">
         <value xml:lang="de">Produkt-Nr.</value>
         <value xml:lang="en">Product ID</value>
+        <value xml:lang="fr">Réf. du produit</value>
         <value xml:lang="it">Codice Prodotto</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="th">รหัสสินค้า</value>
@@ -2012,7 +2131,7 @@
         <value xml:lang="de">Produkt-Nr. an</value>
         <value xml:lang="en">Product ID To</value>
         <value xml:lang="es">Producto componente</value>
-        <value xml:lang="fr">Ident. article fils</value>
+        <value xml:lang="fr">Réf. d'article</value>
         <value xml:lang="it">Codice Prodotto A</value>
         <value xml:lang="ro">Cod Produs A</value>
         <value xml:lang="th">รหัสสินค้าถึง</value>
@@ -2022,7 +2141,7 @@
         <value xml:lang="de">Produkt-Ebene</value>
         <value xml:lang="en">Product Level</value>
         <value xml:lang="es">Novel de Producción</value>
-        <value xml:lang="fr">code de plus bas niveau</value>
+        <value xml:lang="fr">Code de plus bas niveau</value>
         <value xml:lang="it">Livello Prodotto</value>
         <value xml:lang="ro">Nivel Produs</value>
         <value xml:lang="th">ระดับสินค้า</value>
@@ -2032,6 +2151,7 @@
         <value xml:lang="de">Produkt nicht vorhanden</value>
         <value xml:lang="en">Product does not exist</value>
         <value xml:lang="es">Producto no existente</value>
+        <value xml:lang="fr">Le produit n'existe pas</value>
         <value xml:lang="it">Prodotto inesistente</value>
         <value xml:lang="ro">Produs inexistent</value>
         <value xml:lang="th">ไม่มีสินค้าเหลืออยู่</value>
@@ -2051,6 +2171,7 @@
         <value xml:lang="de">Produkt-Tabelle nicht vorhanden</value>
         <value xml:lang="en">The product Table does not exist</value>
         <value xml:lang="es">La tabla de producto no existe</value>
+        <value xml:lang="fr">La table de produit n'existe pas</value>
         <value xml:lang="it">La tabella prodotti non esiste</value>
         <value xml:lang="ro">Fisierul Produse inexistent</value>
         <value xml:lang="th">ไม่มีตารางสินค้าคงอยู่</value>
@@ -2059,12 +2180,14 @@
     <property key="ManufacturingProductVirtual">
         <value xml:lang="de">Virtuell</value>
         <value xml:lang="en">Virtual</value>
+        <value xml:lang="fr">Virtuel</value>
         <value xml:lang="it">Virtuale</value>
         <value xml:lang="th">โดยทั้งหมด</value>
     </property>
     <property key="ManufacturingProductionRun">
         <value xml:lang="de">Produktionsauftrag</value>
         <value xml:lang="en">Production Run</value>
+        <value xml:lang="fr">Cadence de production</value>
         <value xml:lang="it">Ordine di Produzione</value>
         <value xml:lang="ro">Comanda de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
@@ -2073,6 +2196,7 @@
     <property key="ManufacturingProductionRunActualComponents">
         <value xml:lang="de">Ist-Komponenten des Produktionsauftrages</value>
         <value xml:lang="en">Production Run Actual Components</value>
+        <value xml:lang="fr">Composants réels de cadence de production</value>
         <value xml:lang="it">Componenti Attuali Ordine di Produzione</value>
         <value xml:lang="th">การผลิตสินค้าตามส่วนประกอบที่มีอยู่ในขณะนี้</value>
     </property>
@@ -2080,6 +2204,7 @@
         <value xml:lang="de">Zuordnungen</value>
         <value xml:lang="en">Assocs</value>
         <value xml:lang="es">Asociaciones</value>
+        <value xml:lang="fr">Associations</value>
         <value xml:lang="it">Associazioni</value>
         <value xml:lang="ro">Asociatii </value>
         <value xml:lang="th">กลุ่ม</value>
@@ -2089,7 +2214,7 @@
         <value xml:lang="de">Produktionsauftrag abschließen</value>
         <value xml:lang="en">Close Production Run</value>
         <value xml:lang="es">Cerrar corrida de producción</value>
-        <value xml:lang="fr">Close Production Run</value>
+        <value xml:lang="fr">Cadence de production rapprochée</value>
         <value xml:lang="it">Chiudi Ordine di Produzione</value>
         <value xml:lang="ro">Inchide comanda de Productie</value>
         <value xml:lang="th">ปิดการผลิตสินค้า</value>
@@ -2098,12 +2223,14 @@
     <property key="ManufacturingProductionRunComponents">
         <value xml:lang="de">Komponenten des Produktionsauftrages</value>
         <value xml:lang="en">Production Run Components</value>
+        <value xml:lang="fr">Composants de cadence de production</value>
         <value xml:lang="it">Compomenti Ordine di Produzione</value>
         <value xml:lang="th">ส่วนประกอบของการผลิตสินค้า</value>
     </property>
     <property key="ManufacturingProductionRunCosts">
         <value xml:lang="de">Produktionsauftrags-Kosten</value>
         <value xml:lang="en">Production Run Costs</value>
+        <value xml:lang="fr">Coûts de cadence de production</value>
         <value xml:lang="it">Costi Ordine di Produzione</value>
         <value xml:lang="ro">Costuri Comenzi de Productie</value>
         <value xml:lang="th">ราคาของผลผลิตที่ได้</value>
@@ -2113,7 +2240,7 @@
         <value xml:lang="de">Produktionsauftrag ${productionRunId} erstellt</value>
         <value xml:lang="en">ProductionRun ${productionRunId} created</value>
         <value xml:lang="es">Orden de producción ${productionRunId} creada</value>
-        <value xml:lang="fr">Ordre de fabrication ${productionRunId} créé</value>
+        <value xml:lang="fr">Ordre de fabrication créé ${productionRunId}</value>
         <value xml:lang="it">Ordine di Produzione ${productionRunId} creata</value>
         <value xml:lang="ro">Comanda de Productie ${productionRunId} creata</value>
         <value xml:lang="th">สร้างการผลิต ${productionRunId}</value>
@@ -2122,7 +2249,7 @@
     <property key="ManufacturingProductionRunDeclaration">
         <value xml:lang="en">Production Run Declaration</value>
         <value xml:lang="es">Declaración de orden de producción</value>
-        <value xml:lang="fr">Declaration O.F.</value>
+        <value xml:lang="fr">Déclaration d'ordre de production</value>
         <value xml:lang="it">Dichiarazione Ordine di Produzione</value>
         <value xml:lang="ro">Declaratie Comanda de Productie</value>
         <value xml:lang="th">ยืนยันการผลิต</value>
@@ -2132,6 +2259,7 @@
         <value xml:lang="de">Anlage zuweisen</value>
         <value xml:lang="en">Fixed Asset Assign</value>
         <value xml:lang="es">Asignación de activo fijo</value>
+        <value xml:lang="fr">Assigner une immobilisation </value>
         <value xml:lang="it">Assegna Cespite</value>
         <value xml:lang="ro">Anexeaza Mijloc Fix Cespite</value>
         <value xml:lang="th">กำหนดสินทรัพย์ไม่หมุนเวียน</value>
@@ -2141,6 +2269,7 @@
         <value xml:lang="de">Anlage-Nr. fehlt</value>
         <value xml:lang="en">Fixed Asset Id is missing</value>
         <value xml:lang="es">Debe indicar el activo fijo a asignar</value>
+        <value xml:lang="fr">Réf. d'immobilisation est absente</value>
         <value xml:lang="it">Cespite è mancante</value>
         <value xml:lang="ro">Mijloc Fix Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่สินทรัพย์ไม่หมุนเวียน</value>
@@ -2148,6 +2277,7 @@
     </property>
     <property key="ManufacturingProductionRunFixedAssets">
         <value xml:lang="en">Production Run Fixed Assets</value>
+        <value xml:lang="fr">Cadence de production d'immobilisation</value>
         <value xml:lang="it">Cespite Ordine di Produzione</value>
         <value xml:lang="th">การผลิตสินทรัพย์ไม่หมุนเวียน</value>
     </property>
@@ -2155,7 +2285,7 @@
         <value xml:lang="de">Produktionsauftrags-Nr.</value>
         <value xml:lang="en">Production Run ID</value>
         <value xml:lang="es">Código de orden de producción</value>
-        <value xml:lang="fr">N° O.F.</value>
+        <value xml:lang="fr">Réf. de cadence de production</value>
         <value xml:lang="it">Codice Ordine di Produzione</value>
         <value xml:lang="ro">Cod Comanda de Productie</value>
         <value xml:lang="th">รหัสการผลิต</value>
@@ -2165,7 +2295,7 @@
         <value xml:lang="de">Produktionsauftrags-Name</value>
         <value xml:lang="en">Production Run Name</value>
         <value xml:lang="es">Nombre de orden de producción</value>
-        <value xml:lang="fr">Libéllé Ordre de Fabrication</value>
+        <value xml:lang="fr">Nom de cadence de production</value>
         <value xml:lang="it">Nome Ordine di Produzione</value>
         <value xml:lang="ro">Nume Comanda de Productie</value>
         <value xml:lang="th">ชื่อผลิตผล</value>
@@ -2175,7 +2305,7 @@
         <value xml:lang="de">Aktualisierung des Produktionsauftrages nicht erfolgreich, für weitere Informationen siehe Log</value>
         <value xml:lang="en">Production Run update failed see log for more information</value>
         <value xml:lang="es">No se actualizó la orden de producción. Consulte los logs para más detalle.</value>
-        <value xml:lang="fr">Echec de la mise à jours de l'O.F., pour plus de détail voir les logs</value>
+        <value xml:lang="fr">La mise à jour de cadence de production a échouée. Voir la notation pour plus d'information</value>
         <value xml:lang="it">Aggiornamento Ordine di Produzione fallito, vedere il log per maggiori informazioni</value>
         <value xml:lang="ro">Actualizare Comanda de Productie falita, pentru mai multe informatii vezi log </value>
         <value xml:lang="th">เกิดความผิดพลาดในการเปลี่ยนแปลงการผลิตดูบันทึกสำหรับข้อมูลที่มากมาย</value>
@@ -2184,14 +2314,14 @@
     <property key="ManufacturingProductionRunPrintDocuments">
         <value xml:lang="de">Dokumente für Produktionsauftrage drucken</value>
         <value xml:lang="en">Production Run Print Documents</value>
-        <value xml:lang="fr">Print Manufacturing Documents</value>
+        <value xml:lang="fr">Cadence de production des documents d'impression</value>
         <value xml:lang="th">พิมพ์เอกสารการผลิต</value>
     </property>
     <property key="ManufacturingProductionRunProductComponent">
         <value xml:lang="de">Komponente für Produktionsauftrag</value>
         <value xml:lang="en">Production Run Product Component</value>
         <value xml:lang="es">Componente</value>
-        <value xml:lang="fr">composant de l'O.F.</value>
+        <value xml:lang="fr">Cadence de production de composant</value>
         <value xml:lang="it">Ordine di Produzione Prodotti Componenti</value>
         <value xml:lang="ro">Comanda de Productie Produse Componente</value>
         <value xml:lang="th">ส่วนประกอบของสินค้าในการผลิต</value>
@@ -2201,7 +2331,7 @@
         <value xml:lang="de">Menge für Produktionsauftrag fehlt</value>
         <value xml:lang="en">Production Run Quantity is missing</value>
         <value xml:lang="es">Cantidad faltante</value>
-        <value xml:lang="fr">Le champ quantité de l'orde de fabrication est obligatoire</value>
+        <value xml:lang="fr">Cadence de production de la quantité est absente</value>
         <value xml:lang="it">Ordine di Produzione Quantità è Mancante</value>
         <value xml:lang="ro">Comanda de Productie Lipseste Cantitatea</value>
         <value xml:lang="th">ไม่ได้ใส่จำนวนการผลิต</value>
@@ -2240,12 +2370,14 @@
     <property key="ManufacturingProductionRunStatusChanged">
         <value xml:lang="de">Status des Produktionsauftrages erfolgreich geändert</value>
         <value xml:lang="en">Production Run status changed successfully.</value>
+        <value xml:lang="fr">Statut de cadence de production a changé avec succès.</value>
         <value xml:lang="it">Stato Ordine di Produzione cambiato con successo.</value>
         <value xml:lang="th">ได้เปลี่ยนสถานะการผลิตเรียบร้อยแล้ว</value>
     </property>
     <property key="ManufacturingProductionRunTasks">
         <value xml:lang="de">Arbeitsgänge des Produktionsauftrages</value>
         <value xml:lang="en">Production Run Tasks</value>
+        <value xml:lang="fr">Tâches de cadence de production</value>
         <value xml:lang="it">Operazione Ordine di Produzione</value>
         <value xml:lang="th">งานการผลิต</value>
     </property>
@@ -2282,7 +2414,7 @@
         <value xml:lang="de">Produziert</value>
         <value xml:lang="en">Produced</value>
         <value xml:lang="es">Producido</value>
-        <value xml:lang="fr">Produced</value>
+        <value xml:lang="fr">Produit</value>
         <value xml:lang="it">Quantità Prodotta</value>
         <value xml:lang="ro">Cantitate Produsa</value>
         <value xml:lang="th">สินค้า</value>
@@ -2290,13 +2422,14 @@
     </property>
     <property key="ManufacturingQuantityProducedIsHigherThanQuantityDeclared">
         <value xml:lang="en">Quantity produced cannot be greater than the quantity declared.</value>
+        <value xml:lang="fr">La quantité produite ne peut pas être plus importante que la quantité affichée.</value>
         <value xml:lang="it">La quantità prodotta non puo' essere maggiore della quantita' dichiarata.</value>
     </property>
     <property key="ManufacturingQuantityRejected">
         <value xml:lang="de">Abgelehnt</value>
         <value xml:lang="en">Rejected</value>
         <value xml:lang="es">Rechazado</value>
-        <value xml:lang="fr">Rejected</value>
+        <value xml:lang="fr">Quantité rejetée</value>
         <value xml:lang="it">Quantità Scartata</value>
         <value xml:lang="ro">Cantitate Rebutata</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
@@ -2305,6 +2438,7 @@
     <property key="ManufacturingQuantityRemaining">
         <value xml:lang="de">Austehend</value>
         <value xml:lang="en">Remaining</value>
+        <value xml:lang="fr">Quantité restante</value>
         <value xml:lang="it">Quantità Rimanente</value>
         <value xml:lang="ro">Cantitate Ramasa</value>
         <value xml:lang="th">ยังเหลืออยู่</value>
@@ -2314,7 +2448,7 @@
         <value xml:lang="de">Zu produzierende Menge</value>
         <value xml:lang="en">Qty To Produce</value>
         <value xml:lang="es">Cant. a producir</value>
-        <value xml:lang="fr">Qty To Produce</value>
+        <value xml:lang="fr">Qté à produire</value>
         <value xml:lang="it">Quantità Da Produrre</value>
         <value xml:lang="ro">Cantitate de Produs</value>
         <value xml:lang="th">จำนวนสินค้า</value>
@@ -2324,6 +2458,7 @@
         <value xml:lang="de">Schnelles Schließen</value>
         <value xml:lang="en">Quick Close</value>
         <value xml:lang="es">Cerrado rápido</value>
+        <value xml:lang="fr">Fini vite</value>
         <value xml:lang="it">Chiusura veloce</value>
         <value xml:lang="ro">Inchidere Rapida</value>
         <value xml:lang="th">ปิดอย่างรวดเร็ว</value>
@@ -2332,6 +2467,7 @@
     <property key="ManufacturingQuickComplete">
         <value xml:lang="de">Schneller Abschluß</value>
         <value xml:lang="en">Quick Complete</value>
+        <value xml:lang="fr">Terminer vite</value>
         <value xml:lang="es">Completar rápido</value>
         <value xml:lang="it">Completamento Veloce</value>
         <value xml:lang="ro">Completament Rapid</value>
@@ -2342,6 +2478,7 @@
         <value xml:lang="de">Schnellausführung alle Arbeitsgänge</value>
         <value xml:lang="en">Quick Run All Tasks</value>
         <value xml:lang="es">Ejecutar todas las tareas rápido</value>
+        <value xml:lang="fr">Course rapide de toutes les tâches</value>
         <value xml:lang="it">Esecuzione Veloce Operazioni</value>
         <value xml:lang="ro">Executie Rapida Toate Sarcinile</value>
         <value xml:lang="th">ทำงานทั้งหมดอย่างรวดเร็ว</value>
@@ -2350,12 +2487,14 @@
     <property key="ManufacturingQuickStartAllTasks">
         <value xml:lang="de">Schnellstart alle Arbeitsgänge</value>
         <value xml:lang="en">Quick Start All Tasks</value>
+        <value xml:lang="fr">Début rapide toutes les tâches</value>
         <value xml:lang="it">Avvio Veloce Operazioni</value>
     </property>
     <property key="ManufacturingQuickRunTask">
         <value xml:lang="de">Schnellausführung Arbeitsgang</value>
         <value xml:lang="en">Quick Run Task</value>
         <value xml:lang="es">Ejecutar tarea rápido</value>
+        <value xml:lang="fr">Début rapide de tâche</value>
         <value xml:lang="it">Esecuzione Veloce Operazione</value>
         <value xml:lang="ro">Executie Rapida Sarcini</value>
         <value xml:lang="th">ทำงานอย่างรวดเร็ว</value>
@@ -2375,6 +2514,7 @@
         <value xml:lang="de">Berichte</value>
         <value xml:lang="en">Reports</value>
         <value xml:lang="es">Reportes</value>
+        <value xml:lang="fr">Reports</value>
         <value xml:lang="it">Stampe</value>
         <value xml:lang="ro">Tipareste</value>
         <value xml:lang="th">รายงาน</value>
@@ -2383,24 +2523,25 @@
     <property key="ManufacturingRequirementByDate">
         <value xml:lang="de">Bedarf nach Datum</value>
         <value xml:lang="en">Requirement By Date</value>
-        <value xml:lang="fr">%ManufacturingRequirementByDate%</value>
+        <value xml:lang="fr">Condition de fabrication par date</value>
         <value xml:lang="th">ความต้องการโดยวัน</value>
     </property>
     <property key="ManufacturingRequirementId">
         <value xml:lang="de">Bedarfs-Nr.</value>
         <value xml:lang="en">Requirement Id</value>
-        <value xml:lang="fr">référence de l'ordre proposé</value>
+        <value xml:lang="fr">Réf. de besoin de fabrication</value>
         <value xml:lang="th">รหัสความต้องการ</value>
     </property>
     <property key="ManufacturingRequirementStartDate">
         <value xml:lang="de">Start-Datum Bedarf</value>
         <value xml:lang="en">Requirement Start Date</value>
-        <value xml:lang="fr">%ManufacturingRequirementStartDate%</value>
+        <value xml:lang="fr">Date de début de besoin de fabrication</value>
         <value xml:lang="th">วันเริ่มต้นของความต้องการ</value>
     </property>
     <property key="ManufacturingReturnMaterials">
         <value xml:lang="de">Unverbrauchtes Material zurück ins Lager</value>
         <value xml:lang="en">Return Unused Materials To Warehouse</value>
+        <value xml:lang="fr">Matériaux inutilisés de retour à l'entrepôt</value>
         <value xml:lang="it">Materiali Non Usati Resi al Magazzino</value>
         <value xml:lang="th">แสดงวัสดุที่ยังไม่เคยใช้ในคลังสินค้า</value>
     </property>
@@ -2408,6 +2549,7 @@
         <value xml:lang="de">Zurückgegeben</value>
         <value xml:lang="en">Returned</value>
         <value xml:lang="es">Devuelto</value>
+        <value xml:lang="fr">Retourné</value>
         <value xml:lang="it">Quantità Resa</value>
         <value xml:lang="ro">Cantitate Returnata</value>
         <value xml:lang="th">แสดง</value>
@@ -2427,7 +2569,7 @@
         <value xml:lang="de">Arbeitsplan besitzt keinen Arbeitsgang</value>
         <value xml:lang="en">Routing has no Routing Task</value>
         <value xml:lang="es">La ruta no tiene procesos asociados</value>
-        <value xml:lang="fr">La gamme n'a pas opération</value>
+        <value xml:lang="fr">La gamme n'a pas de tâche de cheminement</value>
         <value xml:lang="it">Il Ciclo non ha Operazioni</value>
         <value xml:lang="ro">Ciclul nu are Operatii</value>
         <value xml:lang="th">ไม่มีการทำงาน</value>
@@ -2437,7 +2579,7 @@
         <value xml:lang="de">Arbeitsplan-Nr.</value>
         <value xml:lang="en">Routing Id</value>
         <value xml:lang="es">Código de ruta</value>
-        <value xml:lang="fr">Réf. gamme</value>
+        <value xml:lang="fr">Réf. de gamme</value>
         <value xml:lang="it">Codice Ciclo</value>
         <value xml:lang="ro">Cod Ciclu</value>
         <value xml:lang="th">รหัส Routing </value>
@@ -2447,7 +2589,7 @@
         <value xml:lang="de">Arbeitsplan-Nr. fehlt</value>
         <value xml:lang="en">RoutingId is missing</value>
         <value xml:lang="es">Falta código de ruta</value>
-        <value xml:lang="fr">Le champ eéf. gamme est vide alors qu'il est obligatoire</value>
+        <value xml:lang="fr">Réf. de gamme manquante</value>
         <value xml:lang="it">Codice Ciclo è mancante</value>
         <value xml:lang="ro">Cod Ciclu lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่ Routing</value>
@@ -2467,7 +2609,7 @@
         <value xml:lang="de">Arbeitsplan-Folgenummer ist falsch</value>
         <value xml:lang="en">The Routing Seq Id format is not correct</value>
         <value xml:lang="es">El formato de secuencias no es correcto</value>
-        <value xml:lang="fr">Le format de numéro de séquence est incorrect</value>
+        <value xml:lang="fr">La réf. séq. de format de la gamme est incorrecte</value>
         <value xml:lang="it">Codice Ciclo Seq formato non è corretto</value>
         <value xml:lang="ro">Cod Ciclu Seq format incorect</value>
         <value xml:lang="th">รูปแบบรหัส Routing ไม่ถูกต้อง</value>
@@ -2477,7 +2619,7 @@
         <value xml:lang="de">Arbeitsplan-Folgenummer fehlt</value>
         <value xml:lang="en">Routing SeqId is Missing</value>
         <value xml:lang="es">Falta secuencia</value>
-        <value xml:lang="fr">Le n° de seq est obligatoire</value>
+        <value xml:lang="fr">Réf. séq. de gamme manquante</value>
         <value xml:lang="it">Codice Ciclo Seq è Mancante</value>
         <value xml:lang="ro">Cod Ciclu Seq Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่รหัสลำดับ Routing</value>
@@ -2487,7 +2629,7 @@
         <value xml:lang="de">Arbeitsgang</value>
         <value xml:lang="en">Routing Task</value>
         <value xml:lang="es">Proceso</value>
-        <value xml:lang="fr">Opération</value>
+        <value xml:lang="fr">Tâche de gamme</value>
         <value xml:lang="it">Operazione</value>
         <value xml:lang="ro">Operatie</value>
         <value xml:lang="th">การทำงาน</value>
@@ -2497,7 +2639,7 @@
         <value xml:lang="de">Arbeitsgang-Zuordnung erfolgreich erstellt</value>
         <value xml:lang="en">Routing Task association creation successfull</value>
         <value xml:lang="es">Creación de asociación de procesos exitosa</value>
-        <value xml:lang="fr">Association de l'opération à la gamme réussie</value>
+        <value xml:lang="fr">L'association de tâche de gamme a réussie</value>
         <value xml:lang="it">Operazione associazione creata con successo</value>
         <value xml:lang="ro">Operatie asociatie creata cu succes</value>
         <value xml:lang="th">สร้างการเชื่อมโยงการทำงานเรียบร้อยแล้ว</value>
@@ -2507,7 +2649,7 @@
         <value xml:lang="de">Arbeitsgang erfolgreich kopiert</value>
         <value xml:lang="en">Routing Task copied Successfully</value>
         <value xml:lang="es">Proceso copiado exitosamente</value>
-        <value xml:lang="fr">Opération copiée avec succés</value>
+        <value xml:lang="fr">Tâche de gamme copiée avec succés</value>
         <value xml:lang="it">Operazione copiata con successo</value>
         <value xml:lang="ro">Operatie copiata cu succes</value>
         <value xml:lang="th">คัดลอกการทำงานเรียบร้อยแล้ว</value>
@@ -2517,6 +2659,7 @@
         <value xml:lang="de">Arbeitsgang.Kosten</value>
         <value xml:lang="en">Routing Task Costs</value>
         <value xml:lang="es">Costo de la tarea</value>
+        <value xml:lang="fr">Coûts de la tâche de gamme</value>
         <value xml:lang="it">Costi Operazione</value>
         <value xml:lang="ro">Costuri Operatii</value>
         <value xml:lang="th">ราคาของการทำงาน</value>
@@ -2526,6 +2669,7 @@
         <value xml:lang="de">Anlagen</value>
         <value xml:lang="en">Fixed Assets</value>
         <value xml:lang="es">Activos fijos</value>
+        <value xml:lang="fr">immobilisations</value>
         <value xml:lang="it">Cespiti</value>
         <value xml:lang="ro">Mijloace Fixe</value>
         <value xml:lang="th">สินทรัพย์ไม่หมุนเวียน</value>
@@ -2535,7 +2679,7 @@
         <value xml:lang="de">Arbeitsgang-Nr.</value>
         <value xml:lang="en">Routing Task Id</value>
         <value xml:lang="es">Código de proceso</value>
-        <value xml:lang="fr">Identifiant opération</value>
+        <value xml:lang="fr">Réf. de tâche de gamme</value>
         <value xml:lang="it">Codice Operazione</value>
         <value xml:lang="ro">Cod Operatie</value>
         <value xml:lang="th">รหัสการทำงาน</value>
@@ -2545,7 +2689,7 @@
         <value xml:lang="de">Arbeitsgang An fehlt</value>
         <value xml:lang="en">Routing Task To is Missing</value>
         <value xml:lang="es">La Tarea no se encuentra</value>
-        <value xml:lang="fr">Le champ opération est obligatoire</value>
+        <value xml:lang="fr">La tâche de gamme est manquante</value>
         <value xml:lang="it">Operazione A è Mancante</value>
         <value xml:lang="ro">Operatia A Lipseste</value>
         <value xml:lang="th">ไม่ได้ใส่การทำงานถึง</value>
@@ -2555,6 +2699,7 @@
         <value xml:lang="de">Arbeitsgänge</value>
         <value xml:lang="en">Routing Tasks</value>
         <value xml:lang="es">Tarea de Ruta</value>
+        <value xml:lang="fr">Tâches de gamme</value>
         <value xml:lang="it">Operazioni</value>
         <value xml:lang="ro">Operatii</value>
         <value xml:lang="th">การทำาน</value>
@@ -2564,6 +2709,7 @@
         <value xml:lang="de">Arbeitspläne</value>
         <value xml:lang="en">Routings</value>
         <value xml:lang="es">Rutas</value>
+        <value xml:lang="fr">Routages</value>
         <value xml:lang="it">Cicli</value>
         <value xml:lang="ro">Cicluri</value>
         <value xml:lang="th">Routing</value>
@@ -2582,6 +2728,7 @@
     <property key="ManufacturingSchedule">
         <value xml:lang="de">Plan</value>
         <value xml:lang="en">Schedule</value>
+        <value xml:lang="fr">Programme</value>
         <value xml:lang="it">Schedula</value>
         <value xml:lang="th">กำหนดการ</value>
     </property>
@@ -2589,7 +2736,7 @@
         <value xml:lang="de">Ausschuß-Faktor in %</value>
         <value xml:lang="en">Scrap Factor %</value>
         <value xml:lang="es">Factor de merma</value>
-        <value xml:lang="fr">Taux de rebut</value>
+        <value xml:lang="fr">Facteur de rebut %</value>
         <value xml:lang="it">Fattore Di Scarto %</value>
         <value xml:lang="ro">Factor De Rebuturi%</value>
         <value xml:lang="th">ชิ้นส่วนประกอบ %</value>
@@ -2598,6 +2745,7 @@
     <property key="ManufacturingShipmentPlanStockReport">
         <value xml:lang="de">Bericht über Bestände für Versand-Plan</value>
         <value xml:lang="en">Shipment Plan Stock Report </value>
+        <value xml:lang="fr">Rapport courant de plan d'expédition</value>
         <value xml:lang="it">Stampa Piano di Spedizione</value>
         <value xml:lang="ro">Tipareste Planul de Expediere</value>
         <value xml:lang="th">รายงานแผนการขนส่งสินค้าทางเรือในคลังสินค้า</value>
@@ -2607,6 +2755,7 @@
         <value xml:lang="de">Versand-Pläne</value>
         <value xml:lang="en">Shipment Plans</value>
         <value xml:lang="es">Planes de Envío</value>
+        <value xml:lang="fr">Plans d'expédition</value>
         <value xml:lang="it">Piani Spedizione</value>
         <value xml:lang="ro">Plan Expedieri</value>
         <value xml:lang="th">แผนการขนส่ง</value>
@@ -2616,7 +2765,7 @@
         <value xml:lang="de">Stückliste anzeigen</value>
         <value xml:lang="en">Show BOM</value>
         <value xml:lang="es">Mostrar BOM</value>
-        <value xml:lang="fr">Show BOM</value>
+        <value xml:lang="fr">Montrer BOM</value>
         <value xml:lang="it">Mostra Distinte Base</value>
         <value xml:lang="ro">Afiseaza Lista repere</value>
         <value xml:lang="th">แสดงรายการของสินค้า</value>
@@ -2636,7 +2785,7 @@
         <value xml:lang="de">Start</value>
         <value xml:lang="en">Start</value>
         <value xml:lang="es">Inicio</value>
-        <value xml:lang="fr">Start</value>
+        <value xml:lang="fr">Début</value>
         <value xml:lang="it">Inizio</value>
         <value xml:lang="ro">Inceput</value>
         <value xml:lang="th">เริ่มต้น</value>
@@ -2655,7 +2804,7 @@
     <property key="ManufacturingSummarizedPartBreakdown">
         <value xml:lang="en">Summarized Breakdown</value>
         <value xml:lang="es">Interrupción resumida</value>
-        <value xml:lang="fr">%Synthése article de rupture%</value>
+        <value xml:lang="fr">Panne récapitulée</value>
         <value xml:lang="it">Esplosione Scalare Sommarizzata</value>
         <value xml:lang="ro">Explozie Scalara Insumata</value>
         <value xml:lang="th">สรุป</value>
@@ -2665,7 +2814,7 @@
         <value xml:lang="de">Ist-Zeit</value>
         <value xml:lang="en">Actual Time</value>
         <value xml:lang="es">Teimpo real</value>
-        <value xml:lang="fr">Actual Time</value>
+        <value xml:lang="fr">Temps réel</value>
         <value xml:lang="it">Tempo Attuale</value>
         <value xml:lang="ro">Timp Actual</value>
         <value xml:lang="th">เวลาจริง</value>
@@ -2675,7 +2824,7 @@
         <value xml:lang="de">Ist-Rüstzeit</value>
         <value xml:lang="en">Actual Setup Time</value>
         <value xml:lang="es">Tiemporeal  de preparación</value>
-        <value xml:lang="fr">Actual Setup Time</value>
+        <value xml:lang="fr">Temps d'installation réel</value>
         <value xml:lang="it">Tempo Attuale Installazione</value>
         <value xml:lang="ro">Timp Actual Instalatie</value>
         <value xml:lang="th">เวลาติดตั้งจริง</value>
@@ -2684,6 +2833,7 @@
     <property key="ManufacturingTaskComponents">
         <value xml:lang="de">Arbeitsgang-Komponenten</value>
         <value xml:lang="en">Task Components</value>
+        <value xml:lang="fr">Composants de tâche</value>
         <value xml:lang="it">Componenti Operazione</value>
         <value xml:lang="th">ส่วนประกอบของงาน</value>
     </property>
@@ -2691,7 +2841,7 @@
         <value xml:lang="de">Geschätzte Ausführungszeit einer Einheit</value>
         <value xml:lang="en">Estimated Unit Run Time</value>
         <value xml:lang="es">Tiempo estimado de corrida</value>
-        <value xml:lang="fr">Temps de production</value>
+        <value xml:lang="fr">Temps prévu d'exécution d'unité</value>
         <value xml:lang="it">Tempo Stimato Esecuzione</value>
         <value xml:lang="ro">Timp Stimat in Executie</value>
         <value xml:lang="th">ประมาณเวลา</value>
@@ -2701,7 +2851,7 @@
         <value xml:lang="de">Geschätzte Rüstzeit</value>
         <value xml:lang="en">Estimated Setup Time</value>
         <value xml:lang="es">Tiempo estimado de preparación</value>
-        <value xml:lang="fr">Temps de préparation</value>
+        <value xml:lang="fr">Temps prévu d'installation </value>
         <value xml:lang="it">Tempo Stimato Configurazione</value>
         <value xml:lang="ro">Timp Stimat Configuratie</value>
         <value xml:lang="th">ประมาณเวลาที่ติดตั้ง</value>
@@ -2710,12 +2860,14 @@
     <property key="ManufacturingTaskEstimatedTotalMilliSeconds">
         <value xml:lang="de">Geschätzte Ausführungszeit</value>
         <value xml:lang="en">Estimated Total Run Time</value>
+        <value xml:lang="fr">Temps prévu d'exécution totale</value>
         <value xml:lang="it">Totale Tempo Stimato Esecuazione</value>
         <value xml:lang="th">ประมาณเวลาทั้งหมด</value>
     </property>
     <property key="ManufacturingTaskFixedAssets">
         <value xml:lang="de">Anlagen für Arbeitsgang</value>
         <value xml:lang="en">Routing Task Fixed Assets</value>
+        <value xml:lang="fr">Tâche de gamme d'immobilisation</value>
         <value xml:lang="it">Cespite Operazione</value>
         <value xml:lang="th">การทำงานของสินทรัพย์ไม่หมุนเวียน</value>
     </property>
@@ -2723,7 +2875,7 @@
         <value xml:lang="de">Arbeitsgang-Nr.</value>
         <value xml:lang="en">Task ID</value>
         <value xml:lang="es">Código de proceso</value>
-        <value xml:lang="fr">Id. opération</value>
+        <value xml:lang="fr">Réf. de tâche</value>
         <value xml:lang="it">Codice Operazione</value>
         <value xml:lang="ro">Cod Sarcina</value>
         <value xml:lang="th">รหัสการทำงาน</value>
@@ -2733,7 +2885,7 @@
         <value xml:lang="de">Arbeitsgang-Name</value>
         <value xml:lang="en">Routing Task Name</value>
         <value xml:lang="es">Nombre del proceso</value>
-        <value xml:lang="fr">Code de l'opération</value>
+        <value xml:lang="fr">Nom de tâche de gamme</value>
         <value xml:lang="it">Nome Operazione</value>
         <value xml:lang="ro">Nume Operatie</value>
         <value xml:lang="th">ชื่อการทำงาน</value>
@@ -2743,7 +2895,7 @@
         <value xml:lang="de">Arbeitsgang-Art</value>
         <value xml:lang="en">Task Type</value>
         <value xml:lang="es">Tipo de proceso</value>
-        <value xml:lang="fr">Type d'opération</value>
+        <value xml:lang="fr">Type de tâche</value>
         <value xml:lang="it">Tipo Operazione</value>
         <value xml:lang="ro">Tip Sarcina</value>
         <value xml:lang="th">ปะเภทงาน</value>
@@ -2752,6 +2904,7 @@
     <property key="ManufacturingTasksReport">
         <value xml:lang="de">Arbeitsgang-Bericht</value>
         <value xml:lang="en">Tasks Report</value>
+        <value xml:lang="fr">Rapport des tâches</value>
         <value xml:lang="it">Stampa Operazioni</value>
         <value xml:lang="ro">Tipareste Sarcini</value>
         <value xml:lang="th">รายงานการทำงาน</value>
@@ -2760,7 +2913,7 @@
     <property key="ManufacturingTechData">
         <value xml:lang="en">Tech. Data</value>
         <value xml:lang="es">Tec. Data</value>
-        <value xml:lang="fr">Donnés de base</value>
+        <value xml:lang="fr">Données tech.</value>
         <value xml:lang="it">Tech. Data</value>
         <value xml:lang="ro">Tech. Data</value>
         <value xml:lang="th">ข้อมูล</value>
@@ -2769,6 +2922,7 @@
     <property key="ManufacturingTechDataCalendarNotExist">
         <value xml:lang="en">TechDataCalendar does not exist</value>
         <value xml:lang="es">El calendario no existe</value>
+        <value xml:lang="fr">Données tech. du calendrier n'existe pas</value>
         <value xml:lang="it">TechDataCalendar non esiste</value>
         <value xml:lang="ro">TechDataCalendar nu exista</value>
         <value xml:lang="th">ไม่มีข้อมูลปฏิทินอยู่</value>
@@ -2777,6 +2931,7 @@
     <property key="ManufacturingTechDataCalendarWeekNotExist">
         <value xml:lang="en">TechDataCalendarWeek does not exist</value>
         <value xml:lang="es">La semana no existe</value>
+        <value xml:lang="fr">Données tech. du calendrier de semaine n'existe pas</value>
         <value xml:lang="it">TechDataCalendarWeek non esiste</value>
         <value xml:lang="ro">TechDataCalendarWeek nu exista</value>
         <value xml:lang="th">ไม่มีข้อมูลปฏิทินของสัปดาห์อยู่</value>
@@ -2785,14 +2940,14 @@
     <property key="ManufacturingTimePeriod">
         <value xml:lang="de">Zeitraum</value>
         <value xml:lang="en">Time Period</value>
-        <value xml:lang="fr">Période de regroupement</value>
+        <value xml:lang="fr">Période de temps</value>
         <value xml:lang="th">ระยะเวลา</value>
     </property>
     <property key="ManufacturingToDate">
         <value xml:lang="de">Bis Datum</value>
         <value xml:lang="en">To Date</value>
         <value xml:lang="es">A la fecha</value>
-        <value xml:lang="fr">To Date</value>
+        <value xml:lang="fr">A ce jour</value>
         <value xml:lang="it">A Data</value>
         <value xml:lang="ro">La Data</value>
         <value xml:lang="th">ข้อมูล</value>
@@ -2801,6 +2956,7 @@
     <property key="ManufacturingTotalQuantity">
         <value xml:lang="de">Gesamtmenge</value>
         <value xml:lang="en">Total Quantity</value>
+        <value xml:lang="fr">Quantité totale</value>
         <value xml:lang="it">Totale Quantità</value>
         <value xml:lang="ro">Total Cantitate</value>
         <value xml:lang="th">จำนวนรวม</value>
@@ -2810,7 +2966,7 @@
         <value xml:lang="de">Zwei Arbeitsgänge mit der gleichen Folgenummer und im gleichen Zeitraum</value>
         <value xml:lang="en">Two routing task with same SeqId and same period</value>
         <value xml:lang="es">Existen dos procesos con la misma secuencia y periodo</value>
-        <value xml:lang="fr">Deux opérations au même numéro de séquence avec chevauchement de date</value>
+        <value xml:lang="fr">Deux tâches de routages avce la même réf. séq. et la même période</value>
         <value xml:lang="it">Due Operazioni con stesso Codice Seq e stesso periodo</value>
         <value xml:lang="ro">Doua Operatii cu acelasi Cod Seq si aceiasi perioda </value>
         <value xml:lang="th">2 งานกับรหัสลำดับที่เหมือนกันและระยะเวลาที่เหมือนกัน</value>
@@ -2840,7 +2996,7 @@
         <value xml:lang="de">Anlagen-Gruppe aktualisieren</value>
         <value xml:lang="en">Update Fixed Asset Group</value>
         <value xml:lang="es">Actualizar grupo de máquinas</value>
-        <value xml:lang="fr">Mise à jour du groupe de machine</value>
+        <value xml:lang="fr">Mise à jour de groupe d'immobilisation</value>
         <value xml:lang="it">Aggiorna Gruppo Macchine</value>
         <value xml:lang="ro">Actualizeaza Grup Mijloace Fixe</value>
         <value xml:lang="th">เปลี่ยนแปลงกลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -2850,6 +3006,7 @@
         <value xml:lang="de">Sicherheits-Fehler: Um diesen Vorgang auszuführen müssen Sie über die Berechtigung MANUFACTURING_UPDATE oder MANUFACTURING_ADMIN verfügen</value>
         <value xml:lang="en">Security Error: to run this operation you must have the MANUFACTURING_UPDATE or MANUFACTURING_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para ejecutar esta operación se requiere tener los permisos MANUFACTURING_UPDATE o MANUFACTURING_ADMIN</value>
+        <value xml:lang="fr">Erreur sécurité: Pour aller à cette opération vous devez avoir la permission MANUFACTURING_UPDATE or MANUFACTURING_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza: per eseguire questa operazione tu devi avere i permessi MANUFACTURING_UPDATE o MANUFACTURING_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta: pentru a executa aceasta operatie trebuie sa ai permisul MANUFACTURING_UPDATE sau MANUFACTURING_ADMIN</value>
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการรันการทำงานคุณต้องได้รับอนุญาตจาก MANUFACTURING_UPDATE หรือ MANUFACTURING_ADMIN ก่อน</value>
@@ -2868,7 +3025,7 @@
     <property key="ManufacturingVisitType">
         <value xml:lang="en">Tree visit Algorithm</value>
         <value xml:lang="es">Algoritmo de búsqueda</value>
-        <value xml:lang="fr">Algorithme de recherche</value>
+        <value xml:lang="fr">Algorithme d'arborescence</value>
         <value xml:lang="it">Algoritmo visita Albero</value>
         <value xml:lang="ro">Algoritm vizita Arbore</value>
         <value xml:lang="th">อัลกอลิทึมแบบต้นไม้</value>
@@ -2877,6 +3034,7 @@
     <property key="ManufacturingWillBeSetToNow">
         <value xml:lang="de">Wird auf die aktuelle Zeit gesetzt falls leer</value>
         <value xml:lang="en">Will be set to now if empty</value>
+        <value xml:lang="fr">Sera placé maintenant si vide</value>
         <value xml:lang="it">Verrà impostato ad oggi se vuoto</value>
         <value xml:lang="ro">Va fi setat acum daca este gol</value>
         <value xml:lang="th">จะต้องเซ็ตก่อนถ้าเป็นค่าว่าง</value>
@@ -2886,6 +3044,7 @@
         <value xml:lang="de">Wird auf die aktuelle Zeit gesetzt falls leer</value>
         <value xml:lang="en">WorkEffortAssoc does not exist</value>
         <value xml:lang="es">La asociación no existe</value>
+        <value xml:lang="fr">Assoc. de main d'oeuvre n'existe pas</value>
         <value xml:lang="it">WorkEffortAssoc non esiste</value>
         <value xml:lang="ro">WorkEffortAssoc nu exista</value>
         <value xml:lang="th">ไม่มีกลุ่มการทำงาน</value>
@@ -2895,6 +3054,7 @@
         <value xml:lang="de">Die ausgewählte Anlage ist schon diesem Arbeitsgang zugeordnet</value>
         <value xml:lang="en">The selected fixed asset is already associated with this production run task</value>
         <value xml:lang="es">El activo fijo seleccionado ya está asociado a esta tarea</value>
+        <value xml:lang="fr">L'immobilisation choisie est déjà associée à cette tâche de cadence de production</value>
         <value xml:lang="it">Il cespite selezionato è già associato con questa operazione dell'ordine di produzione</value>
         <value xml:lang="ro">Mijlocul Fix selectionat este deja asociat la aceasta comanda de productie </value>
         <value xml:lang="th">เลือกกลุ่มสินทรัพย์ไม่หมุนเวียนที่มีอยู่ในกลุ่มงานการผลิตนี้</value>
@@ -2904,6 +3064,7 @@
         <value xml:lang="de">Die ausgewählte Anlagen-Art ist schon diesem Arbeitsgang zugeordnet</value>
         <value xml:lang="en">The selected fixed asset type is already associated with this routing task</value>
         <value xml:lang="es">El tipo de activo fijo seleccionado ya está asociado a esta tarea</value>
+        <value xml:lang="fr">Le type choisi d'immobilisation est déjà associé à cette tâche de cheminement</value>
         <value xml:lang="it">Il tipo cespite selezionato è già associato con questa operazione</value>
         <value xml:lang="ro">Tipul de Mijloc Fix Selectionat este deja asociat la acest traseu </value>
         <value xml:lang="th">เลือกประเภทสินทรัพย์ไม่หมุนเวียนที่มีอยู่ในกลุ่มงานการผลิตนี้</value>
@@ -2911,6 +3072,7 @@
     <property key="ManufacturingWorkEffortGoodStandardNotExist">
         <value xml:lang="en">WorkEffortGoodStandard table does not exist</value>
         <value xml:lang="es">La tabla no existe</value>
+        <value xml:lang="fr">Le tableau de bon niveau de main d'oeuvre n'existe pas</value>
         <value xml:lang="it">Tabella WorkEffortGoodStandard non esiste</value>
         <value xml:lang="ro">Fisierul WorkEffortGoodStandard nu exista</value>
         <value xml:lang="th">ไม่มีตารางงานมาตรฐานดีอยู่</value>
@@ -2919,6 +3081,7 @@
     <property key="ManufacturingWorkEffortIdFromNotExist">
         <value xml:lang="en">workEffortIdFrom does not exist</value>
         <value xml:lang="es">El esfuerzo origen no existe</value>
+        <value xml:lang="fr">Réf. à partir de main d'oeuvre n'existe pas</value>
         <value xml:lang="it">workEffortIdFrom non esiste</value>
         <value xml:lang="ro">workEffortIdFrom nu exista</value>
         <value xml:lang="th">ไม่มีฟอร์มรหัสการทำงานอยู่</value>
@@ -2927,6 +3090,7 @@
     <property key="ManufacturingWorkEffortNotExist">
         <value xml:lang="en">WorkEffort does not exist</value>
         <value xml:lang="es">El esfuerzo no existe</value>
+        <value xml:lang="fr">Main d'oeuvre n'existe pas</value>
         <value xml:lang="it">WorkEffort non esiste</value>
         <value xml:lang="ro">WorkEffort nu exista</value>
         <value xml:lang="th">ไม่มีงานอยู่</value>
@@ -2936,7 +3100,7 @@
         <value xml:lang="de">Versandpläne</value>
         <value xml:lang="en">Shipment Plans</value>
         <value xml:lang="es">Plan de Envío</value>
-        <value xml:lang="fr">Shipment Plans</value>
+        <value xml:lang="fr">Plans d'expédition</value>
         <value xml:lang="it">Piani Spedizioni</value>
         <value xml:lang="ro">Plan Expedieri</value>
         <value xml:lang="th">แผนการขนส่ง</value>
@@ -2946,7 +3110,7 @@
         <value xml:lang="de">Arbeiter</value>
         <value xml:lang="en">Worker</value>
         <value xml:lang="es">Trabajador</value>
-        <value xml:lang="fr">Worker</value>
+        <value xml:lang="fr">Ouvrier</value>
         <value xml:lang="it">Lavoratore</value>
         <value xml:lang="ro">Muncitor</value>
         <value xml:lang="th">ผู้ทำงาน</value>
@@ -2955,6 +3119,7 @@
     <property key="PageTitleAddCalendarExceptionWeek">
         <value xml:lang="de">Kalender-Ausnahme-Woche hinzufügen</value>
         <value xml:lang="en">Add Calendar Exception Week</value>
+        <value xml:lang="fr">Ajouter une exception de semaine du calendrier</value>
         <value xml:lang="it">Aggiungi Eccezione Calendario Settimanale</value>
         <value xml:lang="th">เพิ่มปฏิทินสัปดาห์ที่ยกเว้น</value>
     </property>
@@ -2962,7 +3127,7 @@
         <value xml:lang="de">Kalender bearbeiten</value>
         <value xml:lang="en">Edit Calendar</value>
         <value xml:lang="es">Editar calendario</value>
-        <value xml:lang="fr">Modification d'un calendrier</value>
+        <value xml:lang="fr">Modifier le calendrier</value>
         <value xml:lang="it">Aggiorna Calendario</value>
         <value xml:lang="ro">Actualizare Calendar</value>
         <value xml:lang="th">แก้ไขปฏิทิน</value>
@@ -2972,7 +3137,7 @@
         <value xml:lang="de">Kalender-Ausnahme-Tag bearbeiten</value>
         <value xml:lang="en">Edit Calendar Exception Day</value>
         <value xml:lang="es">Editar día de excepción</value>
-        <value xml:lang="fr">Modification des exceptions de jour d'un calendrier</value>
+        <value xml:lang="fr">Modifier une exception de jour du calendrier</value>
         <value xml:lang="it">Aggiorna Giorno Calendario Speciale</value>
         <value xml:lang="ro">Actualizare Zi Calendar Special</value>
         <value xml:lang="th">แก้ไขปฏิทินที่ยกเว้นวัน</value>
@@ -2982,7 +3147,7 @@
         <value xml:lang="de">Kalender-Ausnahme-Woche bearbeiten</value>
         <value xml:lang="en">Edit Calendar Exception Week</value>
         <value xml:lang="es">Editar semana de excepción</value>
-        <value xml:lang="fr">Modification des exceptions de semaine d'un calendrier</value>
+        <value xml:lang="fr">Modifier une exception de semaine d'un calendrier</value>
         <value xml:lang="it">Aggiorna Calendario Speciale Settimanale</value>
         <value xml:lang="ro">Actualizare Saptamana Calendar Special </value>
         <value xml:lang="th">แก้ไขปฏิทินที่ยกเว้นสัปดาห์</value>
@@ -2992,7 +3157,7 @@
         <value xml:lang="de">Woche bearbeiten</value>
         <value xml:lang="en">Edit Week</value>
         <value xml:lang="es">Editar semana</value>
-        <value xml:lang="fr">Modification d'une semaine</value>
+        <value xml:lang="fr">Modifier une semaine</value>
         <value xml:lang="it">Aggiorna Calendario Settimanale</value>
         <value xml:lang="ro">Actualizare Saptamana</value>
         <value xml:lang="th">แก้ไขสัปดาห์</value>
@@ -3001,6 +3166,7 @@
     <property key="PageTitleEditCostCalcs">
         <value xml:lang="de">Kosten bearbeiten</value>
         <value xml:lang="en">Edit Cost Calcs</value>
+        <value xml:lang="fr">Modifier des calculs de coût</value>
         <value xml:lang="it">Aggiorna Calcoli Costo</value>
         <value xml:lang="ro">Actualizare Calcul Cost</value>
         <value xml:lang="th">แก้ไขการคำนวณราคา</value>
@@ -3029,6 +3195,7 @@
     <property key="PageTitleEditProductBom">
         <value xml:lang="de">Produktionsstückliste bearbeiten</value>
         <value xml:lang="en">Edit Product Bom</value>
+        <value xml:lang="fr">Modifier un produit Bom</value>
         <value xml:lang="it">Aggiorna Distinta Base Prodotto</value>
         <value xml:lang="ro">Actualizare Lista repere Produs</value>
         <value xml:lang="th">แก้ไขสินค้าในรายการของสินค้า</value>
@@ -3038,7 +3205,7 @@
         <value xml:lang="de">Fertigungs-Regeln bearbeiten</value>
         <value xml:lang="en">Product Manufacturing Rules</value>
         <value xml:lang="es">Reglas de producción</value>
-        <value xml:lang="fr">Règles configurateur article</value>
+        <value xml:lang="fr">Règles de fabrication de produit</value>
         <value xml:lang="it">Regole Produzione Prodotto</value>
         <value xml:lang="ro">Reguli de Productie Produs</value>
         <value xml:lang="th">ข้อบังคับของการผลิตสินค้า</value>
@@ -3047,6 +3214,7 @@
     <property key="PageTitleEditRouting">
         <value xml:lang="de">Arbeitsplan bearbeiten</value>
         <value xml:lang="en">Edit Routing</value>
+        <value xml:lang="fr">Modifier la gamme</value>
         <value xml:lang="it">Aggiorna Ciclo</value>
         <value xml:lang="ro">Actualizare Ciclu</value>
         <value xml:lang="th">แก้ไข Routing</value>
@@ -3065,6 +3233,7 @@
     <property key="PageTitleEditRoutingTask">
         <value xml:lang="de">Arbeitsgang bearbeiten</value>
         <value xml:lang="en">Edit Routing Task</value>
+        <value xml:lang="fr">Modifier la tâche de gamme</value>
         <value xml:lang="it">Aggiorna Operazione</value>
         <value xml:lang="ro">Actualizare Operatie</value>
         <value xml:lang="th">แก้ไขการทำงาน</value>
@@ -3083,6 +3252,7 @@
     <property key="PageTitleEditRoutingTaskCosts">
         <value xml:lang="de">Arbeitsgang-Kosten bearbeiten</value>
         <value xml:lang="en">Edit Routing Task Costs</value>
+        <value xml:lang="fr">Modifier les coûts de tâche de gamme</value>
         <value xml:lang="it">Aggiorna Costi Operazione</value>
         <value xml:lang="ro">Actualizare Cost Operatie</value>
         <value xml:lang="th">แก้ไขราคาการทำงาน</value>
@@ -3092,6 +3262,7 @@
         <value xml:lang="de">Arbeitsgang-Anlagen-Zuordnung bearbeiten</value>
         <value xml:lang="en">Edit Routing Task-Fixed Asset Association</value>
         <value xml:lang="es">Editar asociación tarea de ruta-activo fijo</value>
+        <value xml:lang="fr">Modifier l'acheminement d'association charge-fixe des capitaux</value>
         <value xml:lang="it">Legame operazione-cespite</value>
         <value xml:lang="ro">Actualizare Traseu Asociere Sarcina-Mijloc Fix</value>
         <value xml:lang="th">แก้ไขกลุ่มงานสินทรัพย์ไม่หมุนเวียน</value>
@@ -3100,6 +3271,7 @@
     <property key="PageTitleEditRoutingTaskProduct">
         <value xml:lang="de">Arbeitsgang-Produkt bearbeiten</value>
         <value xml:lang="en">Edit Routing Task Product</value>
+        <value xml:lang="fr">Modifier la tâche de gamme du produit</value>
         <value xml:lang="it">Aggiorna Operazione Prodotto</value>
         <value xml:lang="ro">Actualizare Operatie Produs</value>
         <value xml:lang="th">แก้ไขงานของสินค้า</value>
@@ -3109,7 +3281,7 @@
         <value xml:lang="de">Feldsuche</value>
         <value xml:lang="en">Field lookup</value>
         <value xml:lang="es">Campo de búsqueda</value>
-        <value xml:lang="fr">Recherche pour un champ</value>
+        <value xml:lang="fr">Consultation de champ</value>
         <value xml:lang="it">Campo ricerca</value>
         <value xml:lang="ro">Camp de Cautare</value>
         <value xml:lang="th">การค้นหา</value>
@@ -3119,7 +3291,7 @@
         <value xml:lang="de">Kalender suchen</value>
         <value xml:lang="en">Find Calendar</value>
         <value xml:lang="es">Buscar calendario</value>
-        <value xml:lang="fr">Liste des calendriers</value>
+        <value xml:lang="fr">Trouver le calendrier</value>
         <value xml:lang="it">Ricerca Calendario</value>
         <value xml:lang="ro">Cauta Calendar</value>
         <value xml:lang="th">ค้นหาปฏิทิน</value>
@@ -3129,7 +3301,7 @@
         <value xml:lang="de">Geplantes Bestands-Ereigniss suchen</value>
         <value xml:lang="en">Find Inventory Event Planned</value>
         <value xml:lang="es">Buscar plan de stock</value>
-        <value xml:lang="fr">Liste des mouvements de stock planifiés</value>
+        <value xml:lang="fr">Trouver l'inventaire d'actions prévus</value>
         <value xml:lang="it">Ricerca Evento Inventario Pianificato</value>
         <value xml:lang="ro">Cauta Eveniment Inventar Planificat</value>
         <value xml:lang="th">ค้นหาสินค้าคงเหลือ</value>
@@ -3139,7 +3311,7 @@
         <value xml:lang="de">Anlagen-Gruppe suchen</value>
         <value xml:lang="en">Find Fixed Asset Group</value>
         <value xml:lang="es">Buscar grupo de máquinas</value>
-        <value xml:lang="fr">Liste des groupes de machine</value>
+        <value xml:lang="fr">Trouver le groupe d'immobilisations</value>
         <value xml:lang="it">Ricerca Gruppo Macchine</value>
         <value xml:lang="ro">Cauta Grup Mijloace Fixe</value>
         <value xml:lang="th">ค้นหากลุ่มสินทรัพย์ไม่หมุนเวียน</value>
@@ -3148,6 +3320,7 @@
     <property key="PageTitleFindRequirements">
         <value xml:lang="de">Bedarfe suchen</value>
         <value xml:lang="en">Find Requirements</value>
+        <value xml:lang="fr">Trouver les besoins</value>
         <value xml:lang="it">Ricerca Fabbisogni</value>
         <value xml:lang="ro">Cauta Necesar</value>
         <value xml:lang="th">ค้นหาความต้องการ</value>
@@ -3157,7 +3330,7 @@
         <value xml:lang="de">Arbeitsplan suchen</value>
         <value xml:lang="en">Find Routing</value>
         <value xml:lang="es">Buscar ruta</value>
-        <value xml:lang="fr">Recherche des gammes</value>
+        <value xml:lang="fr">Trouver le cheminement</value>
         <value xml:lang="it">Ricerca Ciclo</value>
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
@@ -3176,6 +3349,7 @@
     <property key="PageTitleListRoutingTaskAssoc">
         <value xml:lang="de">Arbeitsgang-Zuordnung suchen</value>
         <value xml:lang="en">List Routing Task Assoc</value>
+        <value xml:lang="fr">Liste d'association des tâches de gamme</value>
         <value xml:lang="it">Lista Associazioni Operazioni</value>
         <value xml:lang="th">รายการกลลุ่มของงาน</value>
     </property>
@@ -3192,6 +3366,7 @@
     <property key="PageTitleListRoutingTaskProducts">
         <value xml:lang="de">Arbeitsgang-Produkt bearbeiten</value>
         <value xml:lang="en">Edit Routing Task Products</value>
+        <value xml:lang="fr">Modifier les tâches de gamme des produits</value>
         <value xml:lang="it">Aggiorna Operazione Prodotti</value>
         <value xml:lang="ro">Actualizare Operatii Produse</value>
         <value xml:lang="th">แก้ไขงานด้านสินค้า</value>
@@ -3200,6 +3375,7 @@
     <property key="PageTitleListRoutingTaskRoutings">
         <value xml:lang="de">Arbeitpläne zum Arbeitsgang bearbeiten</value>
         <value xml:lang="en">Edit Routing Task Routings</value>
+        <value xml:lang="fr">Modifier le cheminement des tâches de gamme</value>
         <value xml:lang="it">Aggiorna Cicli Associati all'Operazione</value>
         <value xml:lang="ro">Actualizare Cicluri Asociate la Operatie</value>
         <value xml:lang="th">แก้ไขเส้นทางการทำงาน</value>
@@ -3219,7 +3395,7 @@
         <value xml:lang="de">Produktsuche</value>
         <value xml:lang="en">Product Lookup</value>
         <value xml:lang="es">Buscar producto</value>
-        <value xml:lang="fr">Zoom article</value>
+        <value xml:lang="fr">Consultation de produit</value>
         <value xml:lang="it">Ricerca Prodotto</value>
         <value xml:lang="ro">Cauta Produs</value>
         <value xml:lang="th">ค้นหาสินค้า</value>
@@ -3229,7 +3405,7 @@
         <value xml:lang="de">Arbeitsplansuche</value>
         <value xml:lang="en">Lookup Routing</value>
         <value xml:lang="es">Buscar ruta</value>
-        <value xml:lang="fr">Zoom gamme</value>
+        <value xml:lang="fr">Consulter la gamme</value>
         <value xml:lang="it">Ricerca Ciclo</value>
         <value xml:lang="ro">Cauta Ciclu</value>
         <value xml:lang="th">ค้นหา Routing</value>
@@ -3239,7 +3415,7 @@
         <value xml:lang="de">Arbeitsgangsuche</value>
         <value xml:lang="en">Lookup RoutingTask</value>
         <value xml:lang="es">Buscar proceso</value>
-        <value xml:lang="fr">Zoom opération de gamme</value>
+        <value xml:lang="fr">Consultation de tâche de gamme</value>
         <value xml:lang="it">Ricerca Operazione</value>
         <value xml:lang="ro">Cauta Operatie</value>
         <value xml:lang="th">ค้นหา Routing ของทำงาน</value>
@@ -3249,7 +3425,7 @@
         <value xml:lang="de">Virtuelle Produkte suchen</value>
         <value xml:lang="en">Lookup Virtual Products</value>
         <value xml:lang="es">Buscar producto virtual</value>
-        <value xml:lang="fr">Zoom articles virtuels</value>
+        <value xml:lang="fr">Consultation de produits virtuels</value>
         <value xml:lang="it">Ricerca Prodotti Virtuali</value>
         <value xml:lang="ro">Cauta Produse Virtuale</value>
         <value xml:lang="th">ค้นหาสินค้าที่มีอยู่จริง</value>
@@ -3264,5 +3440,86 @@
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="th">หน้าหลัก</value>
         <value xml:lang="zh">首页</value>
+    </property>
+    <property key="ProductProduct">
+        <value xml:lang="en">Product</value>
+        <value xml:lang="es">Producto</value>
+        <value xml:lang="fr">Produit</value>
+        <value xml:lang="it">Prodotto</value>
+        <value xml:lang="ro">Produs</value>
+        <value xml:lang="th">สินค้า</value>
+        <value xml:lang="zh">产品</value>
+    </property>
+    <property key="ProductProductId">
+        <value xml:lang="en">Product ID</value>
+        <value xml:lang="es">Código del producto</value>
+        <value xml:lang="fr">Réf. du produit</value>
+        <value xml:lang="it">Codice Prodotto</value>
+        <value xml:lang="ro">Cod Produs</value>
+        <value xml:lang="th">รหัสสินค้า</value>
+        <value xml:lang="zh">产品标识</value>
+    </property>
+    <property key="ProductProductIdFor">
+        <value xml:lang="en">ProductIdFor</value>
+        <value xml:lang="es">Producto componente</value>
+        <value xml:lang="fr">Réf. du produit pour</value>
+        <value xml:lang="it">Codice Prodotto Per</value>
+        <value xml:lang="ro">Cod Produs Pentru</value>
+        <value xml:lang="th">รหัสสินค้าสำหรับ</value>
+        <value xml:lang="zh">产品标识用于</value>
+    </property>
+    <property key="ProductProductIdIn">
+        <value xml:lang="en">Product Id In</value>
+        <value xml:lang="es">Producto a sustituir</value>
+        <value xml:lang="fr">Réf. du produit dans</value>
+        <value xml:lang="it">Codice Prodotto In</value>
+        <value xml:lang="ro">Cod Produs In</value>
+        <value xml:lang="th">รหัสสินค้าใน</value>
+        <value xml:lang="zh">产品标识来自</value>
+    </property>
+    <property key="ProductProductIdInSubst">
+        <value xml:lang="en">Product Id In Subst</value>
+        <value xml:lang="es">Producto substituto</value>
+        <value xml:lang="fr">Réf. du produit dans subst.</value>
+        <value xml:lang="it">Codice Prodotto In Sostituzione</value>
+        <value xml:lang="ro">Cod Produs In Substitutie </value>
+        <value xml:lang="th">รหัสสินค้าในทั้งหมด</value>
+        <value xml:lang="zh">产品标识来自实例</value>
+    </property>
+    <property key="ProductProductIdMissing">
+        <value xml:lang="en">Product ID Missing</value>
+        <value xml:lang="es">Falta el código de producto</value>
+        <value xml:lang="fr">Réf. du produit manquant</value>
+        <value xml:lang="it">Codice Prodotto Mancante</value>
+        <value xml:lang="ro">Cod Produs Lipsa</value>
+        <value xml:lang="th">ไม่ได้ใส่รหัสสินค้า</value>
+        <value xml:lang="zh">缺少产品标识</value>
+    </property>
+    <property key="ProductProductInternalName">
+        <value xml:lang="en">Internal Name</value>
+        <value xml:lang="es">Nombre interno</value>
+        <value xml:lang="fr">Nom interne</value>
+        <value xml:lang="it">Nome Interno</value>
+        <value xml:lang="ro">Nume Intern</value>
+        <value xml:lang="th">ชื่อภายใน</value>
+        <value xml:lang="zh">内部名称</value>
+    </property>
+    <property key="ProductProductName">
+        <value xml:lang="en">Product Name </value>
+        <value xml:lang="es">Producto</value>
+        <value xml:lang="fr">Nom du produit</value>
+        <value xml:lang="it">Nome Prodotto</value>
+        <value xml:lang="ro">Nume Produs</value>
+        <value xml:lang="th">ชื่อสินค้า</value>
+        <value xml:lang="zh">产品名称 </value>
+    </property>
+    <property key="ProductProductType">
+        <value xml:lang="en">Product Type</value>
+        <value xml:lang="es">Tipo de producto</value>
+        <value xml:lang="fr">Type de produit</value>
+        <value xml:lang="it">Tipo Prodotto</value>
+        <value xml:lang="ro">Tip Produs</value>
+        <value xml:lang="th">ประเภทสินค้า</value>
+        <value xml:lang="zh">产品类型</value>
     </property>
 </resource>
