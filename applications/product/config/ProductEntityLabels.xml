@@ -1062,6 +1062,7 @@
     <property key="ProductFeature.description.HAZMAT">
         <value xml:lang="de">Gefahrgut</value>
         <value xml:lang="en">HAZMAT</value>
+        <value xml:lang="en">Substances dangereuses</value>
         <value xml:lang="es">No peligroso</value>
         <value xml:lang="th">HAZMAT</value>
     </property>

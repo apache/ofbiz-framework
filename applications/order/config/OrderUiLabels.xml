@@ -2817,7 +2817,7 @@
         <value xml:lang="de">Bedarf bearbeiten</value>
         <value xml:lang="en">Edit Requirement</value>
         <value xml:lang="es">Editar requerimientos</value>
-        <value xml:lang="fr">Modifier la condition</value>
+        <value xml:lang="fr">Modifier le besoin</value>
         <value xml:lang="th">แก้ไขความต้องการ</value>
     </property>
     <property key="OrderEditShipmentInfo">
@@ -3623,7 +3623,7 @@
         <value xml:lang="de">Verlinkt mit Bedarf</value>
         <value xml:lang="en">Linked to requirement</value>
         <value xml:lang="es">Anexado al requerimiento</value>
-        <value xml:lang="fr">Lien vers une condition</value>
+        <value xml:lang="fr">Lien vers un besoin</value>
         <value xml:lang="it">Link ai fabbisogni</value>
         <value xml:lang="nl">Gelinkt aan aanvraag</value>
         <value xml:lang="ro">Link la Necesar</value>
@@ -5485,7 +5485,7 @@
         <value xml:lang="de">Konditionstyp</value>
         <value xml:lang="en">Term Type</value>
         <value xml:lang="es">Tipo</value>
-        <value xml:lang="fr">Type de condition</value>
+        <value xml:lang="fr">Type de besoin</value>
         <value xml:lang="it">Tipo Termine</value>
         <value xml:lang="nl">Term Type</value>
         <value xml:lang="ro">Tip Termene</value>
@@ -5498,7 +5498,7 @@
         <value xml:lang="de">Kondition Wert</value>
         <value xml:lang="en">Term Value</value>
         <value xml:lang="es">Valor</value>
-        <value xml:lang="fr">Valeur de condition</value>
+        <value xml:lang="fr">Valeur de besoin</value>
         <value xml:lang="it">Valore Termine</value>
         <value xml:lang="nl">Term Value</value>
         <value xml:lang="ro">Valoare Termene</value>
@@ -6017,7 +6017,7 @@
     <property key="OrderProcessingInHoldNote">
         <value xml:lang="de">** Hinweis: Wenn dieser Status das Resultat einer automatischen Aktivität ist, kann eine Anpassung keinen Einfluss haben bis alle nötigen Bedingungen erfüllt sind.</value>
         <value xml:lang="en">** Note: If this state is a result of an automated activity, releasing may not have an effect until all conditions are met.</value>
-        <value xml:lang="fr">** Note : Si cet état est le résultat d'une activité automatisée, le débloquer ne peut avoir d'effet que lorsque toutes les conditions seront remplies</value>
+        <value xml:lang="fr">** Note : Si cet état est le résultat d'une activité automatisée, le débloquer ne peut avoir d'effet que lorsque tous les besoins seront remplis</value>
         <value xml:lang="es">** Nota:si el estado es un resultado de una actividad automática, no se tendrá efecto ahsta que las condiciones sean alcanzadas.</value>
         <value xml:lang="it">** Nota: Se questo stato è un risultato di una attività automatica, il rilascio potrebbe non avere effetto fino a che tutte le condizioni sono rispettate.</value>
         <value xml:lang="nl">** Note: If this state is a result of an automated activity, releasing may not have an effect until all conditions are met.</value>
@@ -6918,7 +6918,7 @@
         <value xml:lang="de">Bedarf Startdatum</value>
         <value xml:lang="en">Manufacturing Requirement Start Date</value>
         <value xml:lang="es">Fecha de inicio</value>
-        <value xml:lang="fr">Date de début de condition de fabrication</value>
+        <value xml:lang="fr">Date de début de besoin de fabrication</value>
         <value xml:lang="it">Data Inizio Fabbisogno Produzione</value>
         <value xml:lang="nl">Manufacturing Requirement Start Date</value>
         <value xml:lang="ro">Data Initiala Necesar Productie</value>
@@ -6968,7 +6968,7 @@
     <property key="OrderRequirementsList">
         <value xml:lang="de">Bedarfsliste</value>
         <value xml:lang="en">Requirement List</value>
-        <value xml:lang="fr">Liste de condition</value>
+        <value xml:lang="fr">Liste de besoins</value>
         <value xml:lang="it">Lista Fabbisogni</value>
         <value xml:lang="ru">Список требований</value>
         <value xml:lang="th">รายการสิ่งที่ต้องการ</value>
@@ -7240,7 +7240,7 @@
     <property key="OrderReturnSelectedItems">
         <value xml:lang="de">Ausgewählte Elemente zurückgeben</value>
         <value xml:lang="en">Return Selected Item(s)</value>
-        <value xml:lang="fr">Retourer les articles sélectionnés</value>
+        <value xml:lang="fr">Retourner les articles sélectionnés</value>
         <value xml:lang="it">Reso per la(e) Riga(e) Selezionate</value>
         <value xml:lang="nl">Return Selected Item(s)</value>
         <value xml:lang="ro">Returnare pentru liniile selectionate</value>
@@ -8735,7 +8735,7 @@
     <property key="PageTitleEditRequirement">
         <value xml:lang="de">Bedarf bearbeiten</value>
         <value xml:lang="en">Edit Requirement</value>
-        <value xml:lang="fr">Modifier une condition</value>
+        <value xml:lang="fr">Modifier un besoin</value>
         <value xml:lang="it">Aggiorna Fabbisogno</value>
         <value xml:lang="nl">Edit Requirement</value>
         <value xml:lang="ro">Actualizeaza Necesarul</value>
@@ -8909,7 +8909,7 @@
     <property key="PageTitleLookupRequirement">
         <value xml:lang="de">Bedarf suchen</value>
         <value xml:lang="en">Lookup Requirement</value>
-        <value xml:lang="fr">Consulter la condition</value>
+        <value xml:lang="fr">Consulter le besoin</value>
         <value xml:lang="it">Ricerca Fabbisogni</value>
         <value xml:lang="nl">Lookup Requirement</value>
         <value xml:lang="ro">Cauta Necesar</value>

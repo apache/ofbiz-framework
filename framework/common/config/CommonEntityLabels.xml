@@ -2152,12 +2152,12 @@
     </property>
     <property key="Enumeration.description.WLK_REPEAT_UNTIL">
         <value xml:lang="en">WLK_REPEAT_UNTIL</value>
-        <value xml:lang="fr">Boucle de répétition "jusqu'à ce que" - continuer jusqu'à ce que la condition d'évaluation soit vérifiée</value>
+        <value xml:lang="fr">Boucle de répétition "jusqu'à ce que" : continuer jusqu'à ce que la condition d'évaluation soit vérifiée</value>
         <value xml:lang="th">WLK_REPEAT_UNTIL</value>
     </property>
     <property key="Enumeration.description.WLK_WHILE">
         <value xml:lang="en">WLK_WHILE</value>
-        <value xml:lang="fr">Boucle de répétition "tant que" - continuer tant que la condition d'évaluation n'est pas vérifiée</value>
+        <value xml:lang="fr">Boucle de répétition "tant que" : continuer tant que la condition d'évaluation n'est pas vérifiée</value>
         <value xml:lang="th">WLK_WHILE</value>
     </property>
     <property key="Enumeration.description.WPM_IN">

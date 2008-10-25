@@ -20,10 +20,12 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="WebPosAdjustments">
         <value xml:lang="en">Adjustments</value>
+        <value xml:lang="fr">Ajustements</value>
         <value xml:lang="it">Aggiustamenti</value>
     </property>
     <property key="WebPosButtonOpenTerminal">
         <value xml:lang="en">OPEN TERMINAL</value>
+        <value xml:lang="fr">OUVRIR le TERMINAL</value>
         <value xml:lang="it">APRI TERMINALE</value>
     </property>
     <property key="WebPosButtonCloseTerminal">

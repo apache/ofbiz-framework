@@ -41,7 +41,7 @@
     <property key="OrderAnUnSupportedProductPromoCondCondition">
         <value xml:lang="en">An un-supported productPromoCond condition was used: ${operatorEnumId}, returning false, ie check failed</value>
         <value xml:lang="es">La condición promocional que ha sido utilizado: ${operatorEnumId} no es soportada, es decir el control falló</value>
-        <value xml:lang="fr">La condition promotionnelle qui a été utilisé : ${operatorEnumId} n'est pas supportée, c'est-à-dire que le contrôle a échoué</value>
+        <value xml:lang="fr">Le besoin promotionnelle qui a été utilisé : ${operatorEnumId} n'est pas supportée, c'est-à-dire que le contrôle a échoué</value>
         <value xml:lang="it">Una condizione productPromoCond non-supportata era usata: ${operatorEnumId},  restituito falso, controllo fallito</value>
         <value xml:lang="ro">O conditie productPromoCond ne-suportata a fost folosita: ${operatorEnumId},  restituit fals, control falit</value>
         <value xml:lang="ru">Использован не поддерживаемое условие productPromoCond: ${operatorEnumId}, возвращается false, проверка не удалась</value>
@@ -1540,7 +1540,7 @@
     <property key="OrderProblemsInvokingTheCompleteAssignmentService">
         <value xml:lang="en">Problems invoking the complete assignment service</value>
         <value xml:lang="es">Problemas invocando el servicio completo de asignación</value>
-        <value xml:lang="fr">Problèmes en invoquant le service de nomination complet</value>
+        <value xml:lang="fr">Problèmes à l'invocation du service d'achèvement d'affectation</value>
         <value xml:lang="it">Problemi nell'esecuzione del servizio completa assegnamento</value>
         <value xml:lang="ro">Probleme in executia serviciului de completarea atribuirii</value>
         <value xml:lang="ru">Проблемы вызова службы завершения назначения</value>
@@ -2181,7 +2181,7 @@
     <property key="OrderTheRequirementIsAlreadyInTheCartNotAdding">
         <value xml:lang="en">The requirement [ ${requirementId} ] is already in the cart, not adding. </value>
         <value xml:lang="es">El requerimiento [ ${requirementId} ] ya está en el carro, no puede ser añadido.</value>
-        <value xml:lang="fr">La condition [ ${requirementId} ] est déjà dans le chariot, ne peut ôtre ajoutée. </value>
+        <value xml:lang="fr">Le besoin [ ${requirementId} ] est déjà dans le chariot, ne peut ôtre ajoutée. </value>
         <value xml:lang="it">Il fabbisogno [ ${requirementId} ] è già stato aggiunto nel carrello, non verrà aggiunto. </value>
         <value xml:lang="ro">Necesarul [ ${requirementId} ] a fost deja adaugat in cos, nu va fi adaugat. </value>
         <value xml:lang="ru">Требование [ ${requirementId} ] уже в корзине, не добавлено. </value>
