@@ -796,6 +796,7 @@ under the License.
         <xs:attribute type="xs:string" name="width"/>
         <xs:attribute type="xs:string" name="height"/>
         <xs:attribute type="xs:string" name="border"/>
+        <xs:attribute type="xs:string" name="alt"/>        
         <xs:attribute name="url-mode" default="content">
             <xs:simpleType>
                 <xs:restriction base="xs:token">

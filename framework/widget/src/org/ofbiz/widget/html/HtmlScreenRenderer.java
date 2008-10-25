@@ -568,6 +568,13 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             writer.append(border);
             writer.append("\"");
         }
+        String alt = image.getAlt(context);
+        if (UtilValidate.isNotEmpty(alt)) {
+            writer.append(" alt=\"");
+            writer.append(alt);
+            writer.append("\"");
+        }
+        
         writer.append(" src=\"");
         String urlMode = image.getUrlMode();
         boolean fullPath = false;
