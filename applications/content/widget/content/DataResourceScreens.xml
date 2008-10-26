@@ -94,7 +94,7 @@ under the License.
                                         </container>
                                     </container>
                                 </container>
-                                <container id="cmsmain" style="nocolumns">
+                                <container id="content-main-section" style="leftonly">                                    
                                     <container id="cmscontent">
                                         <section>
                                             <widgets>    
