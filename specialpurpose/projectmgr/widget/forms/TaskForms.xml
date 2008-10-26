@@ -29,24 +29,17 @@
             </service>
             <set field="statusId" from-field="result.taskInfo.currentStatusId"/>
         </actions>
-        <alt-target use-when="myTask!=void" target="createMyTask"/>
-        <alt-target use-when="task==null" target="createTask"/>
+        <alt-target use-when="myTask!=void &amp;&amp; parameters.get(&quot;workEffortParentId&quot;)!=null" target="createMyTask"/>
+        <alt-target use-when="myTask!=void &amp;&amp; parameters.get(&quot;workEffortParentId&quot;)==null" target="MyTasks"/>
+        <alt-target use-when="myTask==void&amp;&amp;task==null" target="createTask"/>
         <field name="statusId"><hidden value="PAS_ASSIGNED"/></field>
-        <field use-when="myTask!=void" name="partyId"><hidden value="${userLogin.partyId}"/></field>
+        <field name="partyId" use-when="myTask!=void"><hidden value="${userLogin.partyId}"/></field>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
-        <field use-when="task!=null" name="workEffortId" title="${uiLabelMap.ProjectMgrWorkEffortId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="workEffortId" use-when="task!=null" title="${uiLabelMap.ProjectMgrWorkEffortId}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
         <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
-        <field use-when="myTask!=void" name="roleTypeId" title="${uiLabelMap.ProjectMgrMyRoleForThisTask}">
-            <drop-down>
-                <entity-options entity-name="RoleType" description="${description}">
-                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>        
-            </drop-down>
-        </field>
-        <field name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
-            <drop-down allow-empty="false">
+        <field name="workEffortParentId" use-when="myTask==void" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
+            <drop-down allow-empty="true">
                 <entity-options entity-name="WorkEffort" key-field-name="workEffortId" description="${workEffortName}[${workEffortId}]">
                     <entity-constraint name="workEffortTypeId" value="PHASE"/>
                     <entity-constraint name="workEffortParentId" value="${projectId}"/>
@@ -54,8 +47,13 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field use-when="myTask!=void" name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}">
-            <drop-down allow-empty="false">
+        <field name="workEffortParentId" use-when="myTask!=void&amp;&amp;parameters.get(&quot;workEffortParentId&quot;)!=null" title="${uiLabelMap.ProjectMgrTaskPhase}*">
+            <display-entity entity-name="WorkEffort" description="${workEffortName}[${workEffortId}]" key-field-name="workEffortId">
+                <sub-hyperlink target="MyTasks" description="[${uiLabelMap.CommonChange}]"/>
+            </display-entity>
+        </field>
+        <field name="workEffortParentId" use-when="myTask!=void&amp;&amp;parameters.get(&quot;workEffortParentId&quot;)==null" title="${uiLabelMap.ProjectMgrTaskPhase}*" tooltip="${uiLabelMap.CommonRequired}" event="onChange" action="javascript:document.EditTask.submit();">
+                <drop-down allow-empty="true">
                 <entity-options entity-name="ProjectPartyAndPhase" key-field-name="phaseId" description="${projectName} -- ${phaseName}">
                     <entity-constraint name="partyId" env-name="userLogin.partyId"/>
                     <entity-order-by field-name="projectName"/>
@@ -63,14 +61,23 @@
                 </entity-options>        
             </drop-down>
         </field>
-        <field use-when="myTask!=void" name="estimatedHours" title="${uiLabelMap.ProjectMgrEstimatedHours}"><text size="5"/></field>
-        <field use-when="myTask!=void" name="skillTypeId" title="${uiLabelMap.HumanResSkillTypeId}">
+        <field name="roleTypeId" use-when="myTask!=void" title="${uiLabelMap.ProjectMgrMyRoleForThisTask}">
+            <drop-down current="selected" allow-empty="false">
+                    <entity-options entity-name="ProjectIdPartyRoleAndPhase" description="${description}">
+                        <entity-constraint name="partyId" operator="equals" env-name="userLogin.partyId"/>
+                        <entity-constraint name="phaseId" operator="equals" env-name="parameters.workEffortParentId"/>
+                        <entity-order-by field-name="description"/>
+                    </entity-options>
+                </drop-down>
+            </field>
+        <field name="estimatedHours" use-when="myTask!=void" title="${uiLabelMap.ProjectMgrEstimatedHours}"><text size="5"/></field>
+        <field name="skillTypeId" use-when="myTask!=void" title="${uiLabelMap.HumanResSkillTypeId}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="SkillType" description="${description}"/>        
             </drop-down>
         </field>
-        <field use-when="myTask!=null||task==null" name="currentStatusId"><hidden value="PTS_CREATED"/></field>
-        <field use-when="task!=null" name="statusId"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="currentStatusId" use-when="myTask!=null||task==null" ><hidden value="PTS_CREATED"/></field>
+        <field name="statusId" use-when="task!=null"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="priority" title="${uiLabelMap.CommonPriority}">
             <drop-down allow-empty="true" current="selected">
                 <option key="1" description="1 (${uiLabelMap.WorkEffortPriorityHigh})"/> 
