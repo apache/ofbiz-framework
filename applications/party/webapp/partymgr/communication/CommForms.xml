@@ -65,7 +65,7 @@ under the License.
             <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdFrom"/>
         </field>
         <field name="contactMechIdTo" title="${uiLabelMap.PartyToContactMech}" position="2">
-            <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdFrom"/>
+            <lookup target-form-name="LookupPreferredContactMech" target-parameter="partyIdTo"/>
         </field>
                 
         <field name="roleTypeIdFrom">
