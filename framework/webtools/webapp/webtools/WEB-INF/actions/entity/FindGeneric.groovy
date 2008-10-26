@@ -22,6 +22,8 @@ import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.security.Security;
 import org.ofbiz.entity.model.ModelReader;
 import org.ofbiz.entity.model.ModelEntity;
+import org.ofbiz.entity.model.ModelViewEntity;
+import org.ofbiz.entity.model.ModelViewEntity.ModelAlias;
 import org.ofbiz.entity.model.ModelField;
 import org.ofbiz.entity.model.ModelFieldType;
 import org.ofbiz.entity.GenericEntity;
@@ -40,11 +42,26 @@ import java.sql.Date;
 import java.sql.Time;
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 entityName = parameters.entityName;
 
 ModelReader reader = delegator.getModelReader();
 ModelEntity modelEntity = reader.getModelEntity(entityName);
+
+groupByFields = FastList.newInstance();
+functionFields = FastList.newInstance();
+
+if (modelEntity instanceof ModelViewEntity) {    
+    aliases = modelEntity.getAliasesCopy()
+    for (ModelAlias alias : aliases) {
+        if (alias.getGroupBy()) {
+            groupByFields.add(alias.getName());        
+        } else if (alias.getFunction()) {
+            functionFields.add(alias.getName());
+        }
+    }
+}
 
 context.entityName = modelEntity.getEntityName();
 context.plainTableName = modelEntity.getPlainTableName();
@@ -143,7 +160,21 @@ if ("true".equals(find)) {
             EntityFindOptions efo = new EntityFindOptions();
             efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
             EntityListIterator resultEli = null;
-            resultEli = delegator.find(entityName, condition, null, null, null, efo);
+            fieldsToSelect = [];
+            
+            if (groupByFields || functionFields) {
+                fieldsToSelect = FastSet.newInstance();
+
+                for (ModelField groupByField : groupByFields) {
+                    fieldsToSelect.add(groupByField);
+                }
+
+                for (String functionField : functionFields) {
+                    fieldsToSelect.add(functionField)
+                }
+            }
+            
+            resultEli = delegator.find(entityName, condition, null, fieldsToSelect, null, efo);
             resultPartialList = resultEli.getPartialList(lowIndex, highIndex - lowIndex + 1);
             
             arraySize = resultEli.getResultsSizeAfterPartialList();
