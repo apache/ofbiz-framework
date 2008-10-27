@@ -218,7 +218,7 @@
     <request-map uri="createProjectTask">
         <security https="true" auth="true"/>
         <event type="service" invoke="createProjectTask"/>
-        <response name="success" type="view" value="taskView"/>
+        <response name="success" type="request-redirect" value="EditProjectTasks"/>
         <response name="error" type="view" value="AddProjectTask"/>
     </request-map>
     <request-map uri="createProjectPhase">
