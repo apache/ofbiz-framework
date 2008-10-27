@@ -29,7 +29,8 @@ allProjects.each { project ->
 	if (result.projectInfo) {
 		if (!result.projectInfo.currentStatusId.equals("PTS_COMPLETED") && !result.projectInfo.currentStatusId.equals("PTS_CANCELLED")) {
 			resultAssign = delegator.findByAnd("WorkEffortPartyAssignment", ["partyId" : parameters.userLogin.partyId, "workEffortId" : project.workEffortId])
-			if (resultAssign) {
+			if (security.hasEntityPermission("PROJECTMGR", "_ADMIN", session) 
+					|| ((security.hasEntityPermission("PROJECTMGR", "_ROLE_ADMIN", session) || security.hasEntityPermission("PROJECTMGR", "_ROLE_VIEW", session)) && resultAssign)) {
 				projects.add(result.projectInfo);
 			}
 		}
