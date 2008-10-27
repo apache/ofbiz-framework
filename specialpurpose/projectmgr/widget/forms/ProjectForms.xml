@@ -562,4 +562,97 @@
        	</field>
         <field name="submitButton" title="${uiLabelMap.PageTitleAddProjectTimeToNewInvoice}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="ListContents" extends="ListWorkEffortContents" extends-resource="component://workeffort/widget/WorkEffortForms.xml">
+        <field name="contentId" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
+            <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
+                <sub-hyperlink target="EditProjectContents?contentId=${contentId}&amp;projectId=${projectId}&amp;workEffortContentTypeId=${workEffortContentTypeId}" description="${contentId}" link-style="buttontext" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="contentId" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
+            <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
+                <sub-hyperlink target="EditTaskContents?contentId=${contentId}&amp;workEffortId=${workEffortId}&amp;workEffortContentTypeId=${workEffortContentTypeId}" description="${contentId}" link-style="buttontext" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="thruDate"><ignored/></field>
+        <field name="submitButton"><ignored/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;EditProjectContents&quot;)">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteProjectContent?contentId=${contentId}&amp;workEffortId=${workEffortId}&amp;workEffortContentTypeId=${workEffortContentTypeId}&amp;fromDate=${fromDate}"/>
+        </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="headerItem.equals(&quot;EditTaskContents&quot;)">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteTaskContent?contentId=${contentId}&amp;workEffortId=${workEffortId}&amp;workEffortContentTypeId=${workEffortContentTypeId}&amp;fromDate=${fromDate}"/>
+        </field>
+    </form>
+    <form name="UploadWorkEffortContent" type="upload" default-map-name="content"
+        focus-field-name="contentTypeId" header-row-style="header-row" default-table-style="basic-table" target="updateProjectContent">
+        <actions>
+            <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+            <set field="workEffortId" from-field="parameters.workEffortId"/>
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="content.statusId"/>
+            </entity-one>
+            <entity-one entity-name="DataResource" value-name="dataResource" auto-field-map="false">
+                <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+            </entity-one>
+        </actions>
+        
+        <alt-target use-when="content!=null&amp;&amp;headerItem.equals(&quot;EditTaskContents&quot;)" target="updateTaskContent"/>
+        <alt-target use-when="content==null&amp;&amp;headerItem.equals(&quot;EditProjectContents&quot;)" target="createProjectContent"/>
+        <alt-target use-when="content==null&amp;&amp;headerItem.equals(&quot;EditTaskContents&quot;)" target="createTaskContent"/>
+        
+        <field name="workEffortId" map-name="parameters"><hidden/></field>
+        <field name="projectId" map-name="parameters"><hidden/></field>
+        <field use-when="content!=null" name="contentId" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="workEffortContentTypeId">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="WorkEffortContentType" key-field-name="workEffortContentTypeId"/>
+            </drop-down>
+        </field>
+        <!-- note sure if these two are necessray, but they are kind of confusing in this context:
+            <field name="ownerContentId"><lookup target-form-name="LookupContent"/></field>        
+            <field name="dataResourceId"><lookup target-form-name="LookupDataResource"/></field>
+        -->
+        <field name="contentTypeId">
+            <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
+                <entity-options description="${description}" entity-name="ContentType"/>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="content==null">
+            <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="content!=null">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}" no-current-selected-key="CTNT_AVAILABLE">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${content.statusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="mimeTypeId" >
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
+            </drop-down>
+        </field>
+        <field name="dataResourceName" title="${uiLabelMap.CommonUpload}"><file/></field>
+        <field name="dataCategoryId" use-when="dataResource==null">
+            <drop-down allow-empty="false">
+                <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
+            </drop-down>
+        </field>
+        <field name="dataCategoryId" use-when="dataResource!=null">
+            <drop-down allow-empty="false">
+                <entity-options description="${categoryName}" entity-name="DataCategory">
+                    <entity-constraint name="dataCategoryId" value="${dataResource.dataCategoryId}"/>
+                    <entity-order-by field-name="categoryName"/>
+                </entity-options>
+                <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
+            </drop-down>
+        </field>
+        <field name="createButton" use-when="content==null"><submit button-type="button"/></field>
+        <field name="updateButton" use-when="content!=null"><submit button-type="button"/></field>
+    </form>
 </forms>

@@ -100,4 +100,84 @@
         <set field="roleData.roleTypeId" value="PROJECT_TEAM"/>
         <call-service service-name="createPartyRole" in-map-name="roleData"/>
     </simple-method>
+    <!-- create workEffort content -->
+    <simple-method method-name="createWorkEffortContent" short-description="Creates Party Associated Content" login-required="false">
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
+            method-name="uploadImageAndParameters" 
+            ret-field-name="formInput">
+            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+            <string value="dataResourceName"/>
+        </call-class-method>
+        
+        <set-service-fields service-name="createContentFromUploadedFile" map-name="formInput.formInput" to-map-name="inMap"/>
+        <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
+        <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
+        <set field="inMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
+        
+        <call-service service-name="createContentFromUploadedFile" in-map-name="inMap">
+            <result-to-field result-name="contentId" field-name="context.contentId"/>
+        </call-service>
+        
+        <if-empty field="formInput.formInput.workEffortId">
+            <if-not-empty field="formInput.formInput.projectId">
+                <set field="context.workEffortId" from-field="formInput.formInput.projectId"/>
+            </if-not-empty>
+            <else>
+                <set field="context.workEffortId" from-field="formInput.formInput.workEffortId"/>
+            </else>        
+        </if-empty>
+        <set field="context.workEffortContentTypeId" from-field="formInput.formInput.workEffortContentTypeId"/>
+        <now-timestamp-to-env env-name="context.fromDate"/>
+        <call-map-processor in-map-name="context" out-map-name="workEffortContext">
+            <simple-map-processor name="newWorkEffortContent">
+                <process field="workEffortContentTypeId"><copy to-field="workEffortContentTypeId"/></process>
+                <process field="contentId"><copy to-field="contentId"/></process>
+                <process field="workEffortId"><copy to-field="workEffortId"/></process>
+                <process field="fromDate"><copy to-field="fromDate"/></process>
+            </simple-map-processor>
+        </call-map-processor>
+        
+        <call-service service-name="createWorkEffortContent" in-map-name="workEffortContext">
+            <result-to-field result-name="contentId" field-name="contentId"/>
+        </call-service>
+        <!-- set the partyId in the request -->
+        <field-to-request field-name="workEffortId" map-name="context" request-name="workEffortId"/>
+        <field-to-request field-name="projectId" map-name="context" request-name="projectId"/>
+        <field-to-request field-name="contentId" request-name="contentId"/>
+    </simple-method>
+    
+    <!-- Update workEffort content -->
+    <simple-method method-name="updateWorkEffortContent" short-description="Update Party Associated Content" login-required="false">
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
+            method-name="uploadImageAndParameters" 
+            ret-field-name="formInput">
+            <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+            <string value="dataResourceName"/>
+        </call-class-method>
+        <entity-one entity-name="Content" value-name="content">
+            <field-map field-name="contentId" env-name="formInput.formInput.contentId"/>
+        </entity-one>
+        <set-service-fields service-name="updateContentAndUploadedFile" map-name="formInput.formInput" to-map-name="inMap"/>
+        <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
+        <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
+        <set field="inMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
+        <set field="inMap.contentId" from-field="formInput.formInput.contentId"/>
+        <set field="inMap.dataResourceId" from-field="content.dataResourceId"/>
+        <call-service service-name="updateContentAndUploadedFile" in-map-name="inMap">
+            <result-to-field result-name="contentId" field-name="context.contentId"/>
+        </call-service>
+        <if-empty field="formInput.formInput.workEffortId">
+            <if-not-empty field="formInput.formInput.projectId">
+                <set field="workEffortId" from-field="formInput.formInput.projectId"/>
+            </if-not-empty>
+            <else>
+                <set field="workEffortId" from-field="formInput.formInput.workEffortId"/>
+            </else>        
+        </if-empty>
+        
+        <!-- set the partyId in the request -->
+        <field-to-request field-name="workEffortId" request-name="workEffortId"/>
+        <field-to-request field-name="projectId" request-name="projectId"/>
+        <field-to-request field-name="contentId" map-name="context"/>
+    </simple-method>
 </simple-methods>

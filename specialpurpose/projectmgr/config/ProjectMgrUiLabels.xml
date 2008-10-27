@@ -1311,4 +1311,18 @@
         <value xml:lang="en">Can not cancel request, the request is already being implemented.</value>
         <value xml:lang="fr">Impossible d'annuler cette demande, elle est déjà implémentée</value>
     </property>
+    <property key="ProjectMgrContentList">
+        <value xml:lang="en">Project Content List</value>
+    </property>
+    <property key="TaskContentList">
+        <value xml:lang="en">Task Content List</value>
+    </property>
+    <property key="PageTitleAddProjectContent">
+        <value xml:lang="en">Add Project Content</value>
+        <value xml:lang="th">เพิ่มหัวข้อโปรเจ็ค</value>
+    </property>
+    <property key="PageTitleAddTaskContent">
+        <value xml:lang="en">Add Task Content</value>
+        <value xml:lang="th">เพิ่มหัวข้องาน </value>
+    </property>
 </resource>

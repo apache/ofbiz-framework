@@ -490,6 +490,7 @@ under the License.
                            <include-screen name="SubProjectsInfo"/>
                            <include-screen name="PartiesInfo"/>
                            <include-screen name="NoteInfo"/>
+                           <include-screen name="ListProjectContent"/>
                         </container>
                     </decorator-section>
                 </decorator-screen>
@@ -994,6 +995,62 @@ under the License.
                         <include-form name="EditPartyGroup" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditProjectContents">
+        <section>
+            <actions>
+                <property-map resource="ContentUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="PageTitleListContent"/>
+                <set field="tabButtonItem" value="projectContent"/>
+                <set field="headerItem" value="EditProjectContents"/>
+                <set field="contentId" from-field="parameters.contentId"/>
+                <entity-one entity-name="Content" value-name="content"/>
+                <set field="projectId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <set field="workEffortId" from-field="parameters.projectId" default-value="${parameters.workEffortId}"/>
+                <entity-and entity-name="WorkEffortAndContentDataResource" list-name="workEffortAndContentDataResources">
+                    <field-map field-name="workEffortId" env-name="projectId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonProjectDecorator"  location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                            <section>
+                                <condition>
+                                    <or>
+                                        <if-has-permission permission="PROJECTMGR_ROLE_ADMIN"/>
+                                        <if-has-permission permission="PROJECTMGR_ROLE_TASK_CREATE"/>
+                                        <if-has-permission permission="PROJECTMGR_ROLE_UPDATE"/>
+                                    </or>
+                                </condition>
+                                <widgets>
+                                    <screenlet title="${uiLabelMap.ProjectMgrContentList}">
+                                        <container><link target="EditProjectContents?projectId=${projectId}" text="${uiLabelMap.CommonCreateNew}" style="smallSubmit"/></container>
+                                        <include-form name="ListContents" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                    </screenlet>
+                                    <screenlet title="${uiLabelMap.PageTitleAddProjectContent}">
+                                        <include-form name="UploadWorkEffortContent" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                                    </screenlet>
+                                </widgets>
+                                <fail-widgets>
+                                    <include-screen name="ListProjectContent"/>
+                                </fail-widgets>
+                            </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>            
+        </section>
+    </screen>
+    <screen name="ListProjectContent">
+        <section>
+            <actions>
+                <set field="parameters.workEffortId" from-field="parameters.projectId"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.ProjectMgrContentList}">
+                    <include-form name="ListTaskContent" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
