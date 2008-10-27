@@ -108,6 +108,7 @@
         header-row-style="header-row" default-table-style="basic-table">
         <field name="workEffortTypeId"><hidden value="TASK"/></field> 
         <field name="currentStatusId"><hidden value="PTS_CREATED"/></field>
+        <field name="projectId"><hidden value="${parameters.projectId}"/></field>
         <field name="taskName" parameter-name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}*" tooltip="${uiLabelMap.CommonRequired}"><text/></field>
         <field name="taskDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field name="phaseName" use-when="projectId!=void" parameter-name="workEffortParentId" title="${uiLabelMap.ProjectMgrTaskPhase}">
