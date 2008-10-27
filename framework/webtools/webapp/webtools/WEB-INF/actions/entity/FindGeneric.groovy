@@ -160,7 +160,7 @@ if ("true".equals(find)) {
             EntityFindOptions efo = new EntityFindOptions();
             efo.setResultSetType(EntityFindOptions.TYPE_SCROLL_INSENSITIVE);
             EntityListIterator resultEli = null;
-            fieldsToSelect = [];
+            fieldsToSelect = null;
             
             if (groupByFields || functionFields) {
                 fieldsToSelect = FastSet.newInstance();
