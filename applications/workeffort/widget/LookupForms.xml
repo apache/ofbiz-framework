@@ -65,6 +65,7 @@ under the License.
             <drop-down allow-empty="true">
                 <entity-options entity-name="Enumeration" key-field-name="enumId" description="${description}">
                     <entity-constraint name="enumTypeId" value="WORK_EFF_SCOPE"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
