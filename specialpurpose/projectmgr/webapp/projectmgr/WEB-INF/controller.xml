@@ -799,7 +799,46 @@
         <response name="success" type="view" value="EditPartyRates"/>
         <response name="error" type="view" value="EditPartyRates"/>
     </request-map>
-    
+    <!-- Upload Project Content -->
+    <request-map uri="EditProjectContents">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditProjectContents"/>
+    </request-map>
+    <request-map uri="createProjectContent">
+        <security auth="true" https="true"/>
+        <event type="simple" path="org/ofbiz/project/ProjectSimpleEvents.xml" invoke="createWorkEffortContent"/>
+        <response name="success" type="request-redirect" value="EditProjectContents"/>
+    </request-map>
+    <request-map uri="updateProjectContent">
+        <security auth="true" https="true"/>
+        <event type="simple" path="org/ofbiz/project/ProjectSimpleEvents.xml" invoke="updateWorkEffortContent"/>
+        <response name="success" type="view" value="EditProjectContents"/>
+    </request-map>
+    <request-map uri="deleteProjectContent">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteWorkEffortContent"/>
+        <response name="success" type="view" value="EditProjectContents"/>
+    </request-map>
+    <!-- Upload Task Content -->
+    <request-map uri="EditTaskContents">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="EditTaskContents"/>
+    </request-map>
+    <request-map uri="createTaskContent">
+        <security auth="true" https="true"/>
+        <event type="simple" path="org/ofbiz/project/ProjectSimpleEvents.xml" invoke="createWorkEffortContent"/>
+        <response name="success" type="request-redirect" value="EditTaskContents"/>
+    </request-map>
+    <request-map uri="updateTaskContent">
+        <security auth="true" https="true"/>
+        <event type="simple" path="org/ofbiz/project/ProjectSimpleEvents.xml" invoke="updateWorkEffortContent"/>
+        <response name="success" type="view" value="EditTaskContents"/>
+    </request-map>
+    <request-map uri="deleteTaskContent">
+        <security auth="true" https="true"/>
+        <event type="service" invoke="deleteWorkEffortContent"/>
+        <response name="success" type="view" value="EditTaskContents"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -873,5 +912,7 @@
     <view-map name="RequestList" type="screen" page="component://projectmgr/widget/RequestScreens.xml#RequestList"/>
     <view-map name="EditRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#EditRequest"/>
     <view-map name="ViewRequest" type="screen" page="component://projectmgr/widget/RequestScreens.xml#ViewRequest"/>
-    <!-- end of view mappings -->
+    <view-map name="EditProjectContents" type="screen" page="component://projectmgr/widget/ProjectScreens.xml#EditProjectContents"/>
+    <view-map name="EditTaskContents" type="screen" page="component://projectmgr/widget/TaskScreens.xml#EditTaskContents"/>
+    <!-- end of view mappings -->  
 </site-conf>

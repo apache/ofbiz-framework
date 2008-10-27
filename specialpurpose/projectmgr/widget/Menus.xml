@@ -130,6 +130,17 @@
             </condition>
             <link target="ListWorkEffortPartyAssigns?projectId=${projectId}"/>
         </menu-item>
+        <menu-item name="projectContent" title="${uiLabelMap.CommonContent}">
+            <condition>
+                <and>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                </and>
+            </condition>
+            <link target="EditProjectContents?projectId=${projectId}"/>
+        </menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
             <condition>
                 <and>
@@ -278,6 +289,17 @@
                 </and>
             </condition>
             <link target="EditTimeEntries?workEffortId=${workEffortId}"/>
+        </menu-item>
+        <menu-item name="taskContent" title="${uiLabelMap.CommonContent}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="workEffort"/></not>
+                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
+                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
+                    <if-compare field-name="workEffort.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                </and>
+            </condition>
+            <link target="EditTaskContents?workEffortId=${workEffortId}"/>
         </menu-item>
         <menu-item name="notes" title="${uiLabelMap.CommonNotes}">
             <condition>
