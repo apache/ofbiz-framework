@@ -268,7 +268,7 @@ under the License.
             </drop-down>
         </field>
         <field name="contactMechIdTo" title="${uiLabelMap.PartyEmailTo}">
-            <lookup target-form-name="LookupPartyEmail"/>
+            <lookup target-form-name="LookupPartyEmail" default-value="${parameters.contactMechIdTo}"/>
         </field>
         <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
         <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>

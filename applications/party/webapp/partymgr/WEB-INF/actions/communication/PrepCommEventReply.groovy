@@ -18,6 +18,7 @@
  */
 
 import org.ofbiz.base.util.*;
+import org.ofbiz.party.contact.ContactMechWorker;
 
 parentCommEventId = parameters.parentCommEventId;
 
@@ -30,10 +31,22 @@ if (parentCommEventId) {
         parameters.origCommEventId = orgEventId;
 
         parameters.contactMechIdTo = parentEvent.contactMechIdFrom;
+        if (!parameters.contactMechIdTo) {
+            String partyId = parentEvent.partyIdFrom;
+            contactMechList = ContactMechWorker.getPartyContactMechValueMaps(delegator, partyId, false);
+            for (int i=0;i<contactMechList.size();i++) {
+                GenericValue contactMech = (GenericValue) contactMechList.get(i).get("contactMech");
+                String contactMechTypeId = (String) contactMech.getString("contactMechTypeId");
+                if ("EMAIL_ADDRESS" == contactMechTypeId) {
+                    parameters.contactMechIdTo = (String) contactMech.getString("contactMechId");
+                }
+                
+            }
+        }
         parameters.contactMechIdFrom = parentEvent.contactMechIdTo;
 
         parameters.partyIdFrom = userLogin.partyId;
-        parameters.partyIdTo = parentEvent.partyIdFrom;        
+        parameters.partyIdTo = parentEvent.partyIdFrom;
         parameters.statusId = "COM_IN_PROGRESS";
         
         parameters.subject = "RE: " + parentEvent.subject;
