@@ -1313,16 +1313,20 @@
     </property>
     <property key="ProjectMgrContentList">
         <value xml:lang="en">Project Content List</value>
+        <value xml:lang="fr">Liste des contenus du projet</value>
     </property>
     <property key="TaskContentList">
         <value xml:lang="en">Task Content List</value>
+        <value xml:lang="fr">Liste des contenus de la tâche</value>
     </property>
     <property key="PageTitleAddProjectContent">
         <value xml:lang="en">Add Project Content</value>
+        <value xml:lang="fr">Ajouter un contenu au projet</value>
         <value xml:lang="th">เพิ่มหัวข้อโปรเจ็ค</value>
     </property>
     <property key="PageTitleAddTaskContent">
         <value xml:lang="en">Add Task Content</value>
+        <value xml:lang="fr">Ajouter un contenu à la tâche</value>
         <value xml:lang="th">เพิ่มหัวข้องาน </value>
     </property>
 </resource>
