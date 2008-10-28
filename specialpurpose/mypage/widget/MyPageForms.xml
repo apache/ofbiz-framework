@@ -199,7 +199,7 @@ under the License.
             <script location="component://mypage/webapp/mypage/WEB-INF/actions/ConvertInvoiceCurrency.groovy"/>
         </row-actions>
         <field name="invoiceId" widget-style="buttontext">
-            <hyperlink description="${invoiceId}" target="invoice.pdf?invoiceId=${invoiceId}&amp;other=Y"/>
+            <hyperlink description="${invoiceId}" target="invoice.pdf?invoiceId=${invoiceId}"/>
         </field>
         <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
         <field name="invoiceDate"><display/></field>

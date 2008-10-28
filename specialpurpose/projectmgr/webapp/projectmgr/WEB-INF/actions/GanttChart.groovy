@@ -68,7 +68,6 @@ if (phases){
                 taskInfo = resultTaskInfo.taskInfo;
                 taskInfo.taskNr = task.workEffortId;
                 taskInfo.phaseNr = phase.phaseId;
-                Debug.log("=====" + taskInfo.currentStatusId);
                 if (taskInfo.plannedHours && !taskInfo.currentStatusId.equals("PTS_COMPLETED") && taskInfo.plannedHours > taskInfo.actualHours) {
                 	taskInfo.resource = taskInfo.plannedHours + " Hrs";
                 } else {
