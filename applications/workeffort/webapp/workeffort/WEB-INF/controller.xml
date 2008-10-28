@@ -638,6 +638,30 @@ under the License.
         <response name="success" type="view" value="EditAgreementWorkEffortAppls"/>
         <response name="error" type="view" value="EditAgreementWorkEffortAppls"/>
     </request-map>
+
+    <!--WorkEffort Event Reminders -->
+    <request-map uri="createWorkEffortEventReminder">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="createWorkEffortEventReminder"/>
+        <response name="success" type="view" value="ListWorkEffortEventReminders"/>
+        <response name="error" type="view" value="ListWorkEffortEventReminders"/>
+    </request-map>
+    <request-map uri="updateWorkEffortEventReminder">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateWorkEffortEventReminder"/>
+        <response name="success" type="view" value="ListWorkEffortEventReminders"/>
+        <response name="error" type="view" value="ListWorkEffortEventReminders"/>
+    </request-map>
+    <request-map uri="deleteWorkEffortEventReminder">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteWorkEffortEventReminder"/>
+        <response name="success" type="view" value="ListWorkEffortEventReminders"/>
+        <response name="error" type="view" value="ListWorkEffortEventReminders"/>
+    </request-map>
+    <request-map uri="listWorkEffortEventReminders">
+        <security auth="true" https="true"/>
+        <response name="success" type="view" value="ListWorkEffortEventReminders"/>
+    </request-map>
     
     <!-- end of request mappings -->
 
@@ -666,6 +690,7 @@ under the License.
     <view-map name="EditWorkEffortAssoc" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortAssoc"/>
     <view-map name="AddWorkEffortAssoc" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#AddWorkEffortAssoc"/>
 
+    <view-map name="ListWorkEffortEventReminders" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortEventReminders"/>
     <view-map name="ListWorkEffortFixedAssetAssigns" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortFixedAssetAssigns"/>
     <view-map name="ListWorkEffortPartyAssigns" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortPartyAssigns"/>
     <view-map name="EditWorkEffortAssignmentRates" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortAssignmentRates"/>

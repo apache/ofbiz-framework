@@ -73,28 +73,10 @@ under the License.
                             <widgets>
                                 <horizontal-separator/>
                                 <container style="h2">
-                                    <label text="${uiLabelMap.PartyPartyAssignmentsDetail}"/>
+                                    <label text="${uiLabelMap.PageTitleListWorkEffortPartyAssigns}"/>
                                 </container>
                                 <container style="screenlet-body">
                                     <include-form location="component://workeffort/widget/WorkEffortForms.xml" name="DisplayWorkEffortPartyAssigns"/>
-<!--                                    <iterate-section list-name="partyAssignments" entry-name="partyAssign">
-                                        <section>
-                                            <actions>
-                                                <get-related-one value-name="partyAssign" relation-name="RoleType" to-value-name="partyAssignRoleType" use-cache="true"/>
-                                                <get-related-one value-name="partyAssign" relation-name="StatusItem" to-value-name="partyAssignStatusItem" use-cache="true"/>
-                                                <get-related-one value-name="partyAssign" relation-name="ExpectationEnumeration" to-value-name="partyAssignExpectationEnumeration" use-cache="true"/>
-                                            </actions>
-                                            <widgets>
-                                                <container>
-                                                    <link target="/partymgr/control/viewprofile?partyId=${partyAssign.partyId}" url-mode="inter-app" text="${partyAssign.partyId}" style="buttontext"/>
-                                                    <label text="${partyAssign.firstName} ${partyAssign.lastName} ${partyAssign.groupName}"/>
-                                                    <label text="${uiLabelMap.PartyRoleId} " style="label"/><label text="${partyAssignRoleType.description}"/>
-                                                    <label text="${uiLabelMap.CommonStatus} " style="label"/><label text="${partyAssignStatusItem.description}"/>
-                                                    <label text="${uiLabelMap.CommonExpectation} " style="label"/><label text="${partyAssignExpectationEnumeration.description}"/>
-                                                </container>
-                                            </widgets>
-                                        </section>
-                                    </iterate-section> -->
                                 </container>
                             </widgets>
                         </section>
