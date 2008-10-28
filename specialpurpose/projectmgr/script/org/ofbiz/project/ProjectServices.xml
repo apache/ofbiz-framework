@@ -327,7 +327,6 @@
             <set field="parameters.roleTypeId" from-field="projectAssign.roleTypeId"/>
             <set field="parameters.statusId" value="PAS_ASSIGNED"/>
             <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
-            <set field="parameters.fromDate" from-field="newEntity.fromDate"/><!-- need to be able to update status later -->
         </if-empty>
         <check-errors/>
         
@@ -386,6 +385,10 @@
         
         <!-- update the assignment status if required -->
         <if-compare field="parameters.checkComplete" value="Y" operator="equals">
+            <entity-and entity-name="WorkEffortPartyAssignment" list-name="assigns" filter-by-date="true">
+                <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+                <field-map field-name="partyId" env-name="timesheet.partyId"/>
+            </entity-and>
             <first-from-list entry-name="alreadyAssign" list-name="assigns"/>
             <if-compare field="alreadyAssign.statusId" value="PAS_COMPLETED" operator="not-equals">
                 <set field="upStat.partyId" from-field="timesheet.partyId"/>
@@ -425,6 +428,8 @@
         <field-to-result field-name="project.workEffortName" result-name="projectName"/>
         <field-to-result field-name="phase.workEffortId" result-name="phaseId"/>
         <field-to-result field-name="phase.workEffortName" result-name="phaseName"/>
+        <field-to-result field-name="task.workEffortId" result-name="taskId"/>
+        <field-to-result field-name="task.workEffortName" result-name="taskName"/>
     </simple-method>
     
     <simple-method method-name="copyProjectToTemplate" short-description="copy a project to a workeffortType starting with 'template'">
