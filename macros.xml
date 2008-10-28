@@ -52,4 +52,10 @@ under the License.
    -->
   </default-javac>
  </presetdef>
+
+ <scriptdef name="if" language="groovy" src="${ofbiz.home.dir}/framework/base/ant-scripts/if-script.groovy" classpathref="groovy.class.path">
+  <element name="condition" classname="org.apache.tools.ant.taskdefs.condition.And"/>
+  <element name="commands" classname="org.apache.tools.ant.taskdefs.Sequential"/>
+  <element name="else" classname="org.apache.tools.ant.taskdefs.Sequential"/>
+ </scriptdef>
 </project>
