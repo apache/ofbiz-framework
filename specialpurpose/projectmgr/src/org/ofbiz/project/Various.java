@@ -21,6 +21,8 @@ package org.ofbiz.project;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.*;
+import java.lang.*;
+import java.util.TimeZone;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
@@ -58,7 +60,6 @@ public class Various {
     }
     
     public static Timestamp calculateCompletionDate(GenericValue task, Timestamp startDate) {
-
 		Double plannedHours = 0.00;
     	try {
     		// get planned hours
@@ -78,9 +79,19 @@ public class Various {
     		Debug.logError("Could not updte task: " + e.getMessage(), module);
     	}
     	if (plannedHours == 0.00) {
-    		plannedHours = new Double("24.00");
+    		plannedHours = new Double("24.00"); // default length of task is 3 days.
     	}
-    	return UtilDateTime.addDaysToTimestamp(startDate, plannedHours / 8); 
+    	
+    	// only add days which are not saturday(7) or sunday(1)
+    	int days = plannedHours.intValue() / 8;
+    	while (days > 0) {
+    		int dayNumber = UtilDateTime.dayNumber(startDate);
+    		if (dayNumber != 1 && dayNumber != 7) {
+    			days--;
+    		}
+    		startDate = UtilDateTime.addDaysToTimestamp(startDate, 1);
+    	}
+    	return startDate; 
     }
     
     public static double calculateActualHours(GenericDelegator delegator, String timesheetId) {

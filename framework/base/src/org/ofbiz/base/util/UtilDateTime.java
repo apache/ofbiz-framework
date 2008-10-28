@@ -730,6 +730,17 @@ public class UtilDateTime {
     public static int weekNumber(Timestamp input) {
         return weekNumber(input, TimeZone.getDefault(), Locale.getDefault());
     }
+
+    /**
+     * returns a day number in a week for a Timestamp input
+     *
+     * @param input Timestamp date
+     * @return A int containing the day number (sunday = 1, saturday = 7)
+     */
+    public static int dayNumber(Timestamp stamp) {
+        Calendar tempCal = toCalendar(stamp, TimeZone.getDefault(), Locale.getDefault());
+        return tempCal.get(Calendar.DAY_OF_WEEK);
+    }
     
     public static int weekNumber(Timestamp input, int startOfWeek) {
         Calendar calendar = Calendar.getInstance();
