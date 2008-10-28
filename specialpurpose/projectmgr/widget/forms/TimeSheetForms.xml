@@ -21,19 +21,25 @@
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditWeekTimesheet" type="multi" list-name="timeEntries" use-row-submit="true" 
         separate-columns="true" target="update${my}Timesheet" odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
+        </row-actions>
         <field name="timesheetId"><hidden/></field>
         <field name="roleTypeId"><hidden/></field>
         <field name="fromDate"><hidden/></field>
         <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName}-${phaseName}-${workEffortName}">
-                    <entity-constraint name="workEffortTypeId" operator="not-equals" value="TASK_TEMPLATE"/>
+            <drop-down allow-empty="true" current-description="${result.projectName} -- ${result.phaseName} -- ${result.taskName} ${phaseName}">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}">
+                    <entity-constraint name="workEffortTypeId" operator="equals" value="TASK"/>
                     <entity-constraint name="partyId" env-name="timesheet.partyId"/>
                     <entity-constraint name="currentStatusId" value="PTS_CREATED"/>
                     <entity-order-by field-name="projectName"/>
                     <entity-order-by field-name="phaseName"/>
                     <entity-order-by field-name="workEffortName"/>
                 </entity-options>
+                <sub-hyperlink target="taskView?workEffortId=${result.taskId}" description="[${result.taskId}]"/>
             </drop-down>
         </field>
         <field name="checkComplete" title="${uiLabelMap.ProjectMgrCheckComplete}"><check/></field>

@@ -160,12 +160,13 @@ under the License.
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProjectIdAndNameFromTask">
         <description>Get the projectId and Name when a phase or task is provided.</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
-        <attribute name="taskId" type="String" mode="IN" optional="true"/>
+        <attribute name="taskId" type="String" mode="INOUT" optional="true"/>
         <attribute name="phaseId" type="String" mode="IN" optional="true"/>
         <attribute name="projectId" type="String" mode="OUT" optional="true"/>
         <attribute name="projectName" type="String" mode="OUT" optional="true"/>
         <attribute name="phaseId" type="String" mode="OUT" optional="true"/>
         <attribute name="phaseName" type="String" mode="OUT" optional="true"/>
+        <attribute name="taskName" type="String" mode="OUT" optional="true"/>
     </service>
     
     <service name="getProjectPhaseList" engine="simple"
