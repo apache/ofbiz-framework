@@ -62,6 +62,9 @@
         <value xml:lang="th">วันที่เริ่มตามความจริง</value>
         <value xml:lang="zh">实际开始日期</value>
     </property>
+    <property key="FormFieldTitle_allocatedCost">
+        <value xml:lang="en">Allocated Cost</value>
+    </property>
     <property key="FormFieldTitle_availabilityStatusId">
         <value xml:lang="en">Availability</value>
         <value xml:lang="fr">Disponibilité</value>
@@ -821,6 +824,9 @@
         <value xml:lang="en">Add Work Effort Fixed Asset Assignment</value>
         <value xml:lang="fr">Ajouter l'affectation d'unetâche à une immobilisation</value>
     </property>    
+    <property key="PageTitleAddWorkEffortEventReminder">
+        <value xml:lang="en">Add Work Effort Event Reminder</value>
+    </property>
     <property key="PageTitleAddWorkEffortKeyword">
         <value xml:lang="en">Add Work Effort Keyword</value>
         <value xml:lang="fr">Ajouter un mot clé à la tâche</value>
@@ -1178,6 +1184,9 @@
     <property key="PageTitleListWorkEffortFixedAssetAssigns">
         <value xml:lang="en">Work Effort Fixed Asset Assignments</value>
         <value xml:lang="fr">Affectations d'une tâche à une immobilisation</value>        
+    </property>
+    <property key="PageTitleListWorkEffortEventReminders">
+        <value xml:lang="en">Work Effort Event Reminders</value>
     </property>
     <property key="PageTitleListWorkEffortKeyword">
         <value xml:lang="en">Work Effort Keywords</value>
@@ -2548,6 +2557,12 @@
         <value xml:lang="ru">Статус события</value>
         <value xml:lang="th">สถานะเหตุการณ์</value>
         <value xml:lang="zh">事件状态</value>
+    </property>
+    <property key="WorkEffortEventReminder">
+        <value xml:lang="en">Event Reminder</value>
+    </property>
+    <property key="WorkEffortEventReminders">
+        <value xml:lang="en">Event Reminders</value>
     </property>
     <property key="WorkEffortExpectation">
         <value xml:lang="en">Expectation</value>

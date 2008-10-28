@@ -524,6 +524,34 @@ under the License.
         <key-map field-name="deliverableId"/>
       </relation>
     </entity>
+    <entity entity-name="WorkEffortEventReminder"
+            package-name="org.ofbiz.workeffort.workeffort"
+            title="Work Effort Event Reminder Entity">
+      <field name="workEffortId" type="id-ne"></field>
+      <field name="contactMechId" type="id-ne"></field>
+      <field name="sequenceId" type="id-ne"></field>
+      <field name="isPopup" type="indicator"></field>
+      <field name="reminderDateTime" type="date-time"></field>
+      <field name="repeatCount" type="numeric"></field>
+      <field name="repeatInterval" type="numeric">
+          <description>The millisecond interval between reminder repeats</description>
+      </field>
+      <field name="currentCount" type="numeric"></field>
+      <field name="recurrenceOffset" type="numeric">
+          <description>If the work effort is recurring, the millisecond offset from
+          the recurring event that will be used to calculate the reminder date/time</description>
+      </field>
+      <field name="localeId" type="id"></field>
+      <field name="timeZoneId" type="id-long"></field>
+      <prim-key field="workEffortId"/>
+      <prim-key field="sequenceId"/>
+      <relation type="one" fk-name="WE_EVENT_REMIND_WE" rel-entity-name="WorkEffort">
+        <key-map field-name="workEffortId"/>
+      </relation>
+      <relation type="one" fk-name="WE_EVENT_REMIND_CM" rel-entity-name="ContactMech">
+        <key-map field-name="contactMechId"/>
+      </relation>
+    </entity>
     <entity entity-name="WorkEffortFixedAssetAssign"
             package-name="org.ofbiz.workeffort.workeffort"
             title="Work Effort Fixed Asset Assignment Entity">

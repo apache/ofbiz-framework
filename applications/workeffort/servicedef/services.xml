@@ -661,4 +661,28 @@ under the License.
         <description>Delete WorkEffortInventoryProduced</description>        
         <auto-attributes mode="IN" include="pk" optional="false"/>
     </service>
+
+    <!-- WorkEffort Event Reminder Services -->
+    <service name="createWorkEffortEventReminder" default-entity-name="WorkEffortEventReminder" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a WorkEffort Event Reminder</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="CREATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="sequenceId" mode="OUT"/>
+    </service>
+    <service name="updateWorkEffortEventReminder" default-entity-name="WorkEffortEventReminder" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a WorkEffort Event Reminder</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="UPDATE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deleteWorkEffortEventReminder" default-entity-name="WorkEffortEventReminder" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a WorkEffort Event Reminder</description>
+        <permission-service service-name="workEffortGenericPermission" main-action="DELETE"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+    <service name="processWorkEffortEventReminders" engine="java"
+            location="org.ofbiz.workeffort.workeffort.WorkEffortServices" invoke="processWorkEffortEventReminders" auth="true">
+        <description>Process work effort event reminders. This service is run by the job scheduler.</description>
+    </service>
 </services>

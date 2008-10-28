@@ -23,7 +23,6 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -40,6 +39,7 @@ import org.ofbiz.base.util.TimeDuration;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -52,6 +52,7 @@ import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.security.Security;
 import org.ofbiz.service.DispatchContext;
+import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ServiceUtil;
 import org.ofbiz.service.calendar.TemporalExpression;
 import org.ofbiz.service.calendar.TemporalExpressionWorker;
@@ -731,4 +732,159 @@ public class WorkEffortServices {
         return resultMap;
     }
 
+    /** Process work effort event reminders. This service is used by the job scheduler.
+     * @param ctx
+     * @param context
+     * @return
+     */
+    public static Map<String, Object> processWorkEffortEventReminders(DispatchContext ctx, Map<String, ? extends Object> context) {
+        GenericDelegator delegator = ctx.getDelegator();
+        Timestamp now = new Timestamp(System.currentTimeMillis());
+        List<GenericValue> eventReminders = null;
+        try {
+            eventReminders = delegator.findList("WorkEffortEventReminder", EntityCondition.makeCondition(UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("reminderDateTime", EntityOperator.EQUALS, null), EntityCondition.makeCondition("reminderDateTime", EntityOperator.LESS_THAN_EQUAL_TO, now)), EntityOperator.OR), null, null, null, false);
+        } catch (GenericEntityException e) {
+            return ServiceUtil.returnError("Error while retrieving work effort event reminders: " + e);
+        }
+        for (GenericValue reminder : eventReminders) {
+            int repeatCount = reminder.get("repeatCount") == null ? 0 : reminder.getLong("repeatCount").intValue();
+            int currentCount = reminder.get("currentCount") == null ? 0 : reminder.getLong("currentCount").intValue();
+            String isPopup = reminder.getString("isPopup");
+            if ("Y".equals(isPopup)) {
+                if (repeatCount != 0 && repeatCount == currentCount) {
+                    try {
+                        reminder.remove();
+                    } catch (GenericEntityException e) {
+                        Debug.logWarning("Error while removing work effort event reminder: " + e, module);
+                    }
+                }
+                continue;
+            }
+            GenericValue workEffort = null;
+            try {
+                workEffort = reminder.getRelatedOne("WorkEffort");
+            } catch (GenericEntityException e) {
+                Debug.logWarning("Error while getting work effort: " + e, module);
+            }
+            if (workEffort == null) {
+                try {
+                    reminder.remove();
+                } catch (GenericEntityException e) {
+                    Debug.logWarning("Error while removing work effort event reminder: " + e, module);
+                }
+                continue;
+            }
+            Locale locale = reminder.getString("localeId") == null ? Locale.getDefault() : new Locale(reminder.getString("localeId"));
+            TimeZone timeZone = reminder.getString("timeZoneId") == null ? TimeZone.getDefault() : TimeZone.getTimeZone(reminder.getString("timeZoneId"));
+            Map<String, Object> parameters = UtilMisc.toMap("locale", locale, "timeZone", timeZone, "workEffortId", reminder.get("workEffortId"));
+            Calendar cal = UtilDateTime.toCalendar(now, timeZone, locale);
+            Timestamp reminderStamp = reminder.getTimestamp("reminderDateTime");
+            Date eventDateTime = workEffort.getTimestamp("estimatedStartDate");
+            String tempExprId = workEffort.getString("tempExprId");
+            if (UtilValidate.isNotEmpty(tempExprId)) {
+                TemporalExpression temporalExpression = null;
+                try {
+                    temporalExpression = TemporalExpressionWorker.getTemporalExpression(delegator, tempExprId);
+                } catch (GenericEntityException e) {
+                    Debug.logWarning("Error while getting temporal expression, id = " + tempExprId + ": " + e, module);
+                }
+                if (temporalExpression != null) {
+                    eventDateTime = temporalExpression.first(cal).getTime();
+                    Date reminderDateTime = null;
+                    long recurrenceOffset = reminder.get("recurrenceOffset") == null ? 0 : reminder.getLong("recurrenceOffset").longValue();
+                    if (reminderStamp == null) {
+                        if (recurrenceOffset != 0) {
+                            cal.setTime(eventDateTime);
+                            TimeDuration duration = TimeDuration.fromLong(recurrenceOffset);
+                            duration.addToCalendar(cal);
+                            reminderDateTime = cal.getTime();
+                        } else {
+                            reminderDateTime = eventDateTime;
+                        }
+                    } else {
+                        reminderDateTime = new Date(reminderStamp.getTime());
+                    }
+                    if (reminderDateTime.before(now) && reminderStamp != null) {
+                        try {
+                            parameters.put("eventDateTime", new Timestamp(eventDateTime.getTime()));
+                            processEventReminder(ctx, reminder, parameters);
+                            if (repeatCount != 0 && currentCount + 1 >= repeatCount) {
+                                reminder.remove();
+                            } else {
+                                cal.setTime(reminderDateTime);
+                                Date newReminderDateTime = null;
+                                if (recurrenceOffset != 0) {
+                                    TimeDuration duration = TimeDuration.fromLong(-recurrenceOffset);
+                                    duration.addToCalendar(cal);
+                                    cal.setTime(temporalExpression.next(cal).getTime());
+                                    duration = TimeDuration.fromLong(recurrenceOffset);
+                                    duration.addToCalendar(cal);
+                                    newReminderDateTime = cal.getTime();
+                                } else {
+                                    newReminderDateTime = temporalExpression.next(cal).getTime();
+                                }
+                                reminder.set("currentCount", new Long(currentCount + 1));
+                                reminder.set("reminderDateTime", new Timestamp(newReminderDateTime.getTime()));
+                                reminder.store();
+                            }
+                        } catch (GenericEntityException e) {
+                            Debug.logWarning("Error while processing temporal expression reminder, id = " + tempExprId + ": " + e, module);
+                        }
+                    } else if (reminderStamp == null) {
+                        try {
+                            reminder.set("reminderDateTime", new Timestamp(reminderDateTime.getTime()));
+                            reminder.store();
+                        } catch (GenericEntityException e) {
+                            Debug.logWarning("Error while processing temporal expression reminder, id = " + tempExprId + ": " + e, module);
+                        }
+                    }
+                }
+                continue;
+            }
+            if (reminderStamp != null) {
+                Date reminderDateTime = new Date(reminderStamp.getTime());
+                if (reminderDateTime.before(now)) {
+                    try {
+                        parameters.put("eventDateTime", eventDateTime);
+                        processEventReminder(ctx, reminder, parameters);
+                        long repeatInterval = reminder.get("repeatInterval") == null ? 0 : reminder.getLong("repeatInterval").longValue();
+                        if ((repeatCount != 0 && currentCount + 1 >= repeatCount) || repeatInterval == 0) {
+                            reminder.remove();
+                        } else {
+                            cal.setTime(now);
+                            TimeDuration duration = TimeDuration.fromLong(repeatInterval);
+                            duration.addToCalendar(cal);
+                            reminderDateTime = cal.getTime();
+                            reminder.set("currentCount", new Long(currentCount + 1));
+                            reminder.set("reminderDateTime", new Timestamp(reminderDateTime.getTime()));
+                            reminder.store();
+                        }
+                    } catch (GenericEntityException e) {
+                        Debug.logWarning("Error while processing event reminder: " + e, module);
+                    }
+                }
+            }
+        }
+        return ServiceUtil.returnSuccess();
+    }
+
+    protected static void processEventReminder(DispatchContext ctx, GenericValue reminder, Map<String, Object> parameters) throws GenericEntityException {
+        LocalDispatcher dispatcher = ctx.getDispatcher();
+        GenericValue contactMech = reminder.getRelatedOne("ContactMech");
+        if (contactMech != null && "EMAIL_ADDRESS".equals(contactMech.get("contactMechTypeId"))) {
+            String screenLocation = UtilProperties.getPropertyValue("EventReminders", "eventReminders.emailScreenWidgetLocation");
+            String fromAddress = UtilProperties.getPropertyValue("EventReminders", "eventReminders.emailFromAddress");
+            String toAddress = contactMech.getString("infoString");
+            String subject = UtilProperties.getMessage("WorkEffortUiLabels", "WorkEffortEventReminder", (Locale) parameters.get("locale"));
+            Map<String, Object> emailCtx = UtilMisc.toMap("sendFrom", fromAddress, "sendTo", toAddress, "subject", subject, "bodyParameters", parameters, "bodyScreenUri", screenLocation);
+            try {
+                dispatcher.runAsync("sendMailFromScreen", emailCtx);
+            } catch (Exception e) {
+                Debug.logWarning("Error while emailing event reminder - workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId") + ": " + e, module);
+            }
+            return;
+        }
+        // TODO: Other contact mechanism types
+        Debug.logWarning("Invalid event reminder contact mech, workEffortId = " + reminder.get("workEffortId") + ", contactMechId = " + reminder.get("contactMechId"), module);
+    }
 }

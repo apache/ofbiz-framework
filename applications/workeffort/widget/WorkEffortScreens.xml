@@ -865,4 +865,52 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="ListWorkEffortEventReminders">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleListWorkEffortEventReminders"/>
+                <set field="labelTitleProperty" from-field="titleProperty"/>
+                <set field="tabButtonItem" value="WorkEffortEventReminders"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddWorkEffortEventReminder" title="${uiLabelMap.PageTitleAddWorkEffortEventReminder}" collapsible="true">
+                            <include-form name="EditWorkEffortEventReminder" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListWorkEffortEventReminders" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="WorkEffortEventReminderEmail">
+        <section>
+            <actions>
+                <property-map resource="WorkEffortUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="PartyUiLabels" map-name="uiLabelMap" global="true"/>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="workEffortId" from-field="parameters.workEffortId"/>
+                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+                <get-related-one value-name="workEffort" relation-name="WorkEffortType" to-value-name="workEffortType"/>
+                <get-related-one value-name="workEffort" relation-name="CurrentStatusItem" to-value-name="currentStatusItem"/>
+                <get-related-one value-name="workEffort" relation-name="WorkEffortPurposeType" to-value-name="workEffortPurposeType"/>
+                <get-related-one value-name="workEffort" relation-name="ScopeEnumeration" to-value-name="scopeEnumeration"/>
+                <entity-and entity-name="WorkEffortPartyAssignView" list-name="partyAssignments">
+                    <field-map field-name="workEffortId"/>
+                </entity-and>
+                <entity-and entity-name="WorkEffortAndFixedAssetAssign" list-name="fixedAssetAssignments" filter-by-date="true">
+                    <field-map field-name="workEffortId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <platform-specific><html><html-template location="component://workeffort/webapp/workeffort/workeffort/EventReminderEmail.ftl"/></html></platform-specific>
+            </widgets>
+        </section>
+    </screen>
+
 </screens>

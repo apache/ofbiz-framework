@@ -172,14 +172,19 @@ under the License.
     <view-entity entity-name="WorkEffortAndFixedAssetAssign"
             package-name="org.ofbiz.workeffort.workeffort"
             title="Work Effort And Fixed Asset Assignment View Entity">
-      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
       <member-entity entity-alias="WEFAA" entity-name="WorkEffortFixedAssetAssign"/>
+      <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+      <member-entity entity-alias="FA" entity-name="FixedAsset"/>
+      <alias-all entity-alias="WEFAA"/>
       <alias-all entity-alias="WE">
         <exclude field="fixedAssetId"/>
       </alias-all>
-      <alias-all entity-alias="WEFAA"/>
-      <view-link entity-alias="WE" rel-entity-alias="WEFAA">
+      <alias-all entity-alias="FA"/>
+      <view-link entity-alias="WEFAA" rel-entity-alias="WE">
         <key-map field-name="workEffortId"/>
+      </view-link>
+      <view-link entity-alias="WEFAA" rel-entity-alias="FA">
+        <key-map field-name="fixedAssetId"/>
       </view-link>
       <relation type="one-nofk" rel-entity-name="FixedAsset">
         <key-map field-name="fixedAssetId"/>
@@ -475,7 +480,10 @@ under the License.
       <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
       <member-entity entity-alias="PNV" entity-name="PartyNameView"/>
       <alias-all entity-alias="PNV"/>
-      <alias-all entity-alias="WEPA"/>
+      <alias-all entity-alias="WEPA">
+          <exclude field="statusId"/>
+      </alias-all>
+      <alias name="assignmentStatusId" entity-alias="WEPA" field="statusId"/>
       <view-link entity-alias="WEPA" rel-entity-alias="PNV">
         <key-map field-name="partyId"/>
       </view-link>
@@ -504,8 +512,14 @@ under the License.
       <relation type="one-nofk" rel-entity-name="StatusItem">
         <key-map field-name="statusId"/>
       </relation>
+      <relation type="one-nofk" rel-entity-name="StatusItem" title="Assignment">
+        <key-map field-name="assignmentStatusId" rel-field-name="statusId"/>
+      </relation>
       <relation type="one-nofk" title="Expectation" rel-entity-name="Enumeration">
         <key-map field-name="expectationEnumId" rel-field-name="enumId"/>
+      </relation>
+      <relation type="one-nofk" title="DelegateReason" rel-entity-name="Enumeration">
+        <key-map field-name="delegateReasonEnumId" rel-field-name="enumId"/>
       </relation>
     </view-entity>
     <view-entity entity-name="WorkEffortCommunicationEventView"

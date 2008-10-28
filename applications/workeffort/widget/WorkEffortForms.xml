@@ -492,7 +492,7 @@ under the License.
         <field name="roleTypeId" title="${uiLabelMap.AccountingRoleType}"><display-entity entity-name="RoleType"/></field>
         <field name="fromDate"><display/></field>
         <field name="thruDate"><display/></field>
-        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
+        <field name="assignmentStatusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field name="expectationEnumId" title="${uiLabelMap.WorkEffortExpectation}"><display-entity entity-name="Enumeration" key-field-name="enumId"/></field>
     </form>
     <form name="EditWorkEffortCommEvent" default-map-name="workEffortCommEvent"  target="updateWorkEffortCommEvent" title="" type="single"
@@ -1177,6 +1177,40 @@ under the License.
         </field>
         <field name="allocatedCost"><text/></field>
         <field name="comments"><text size="60" maxlength="255"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+
+    <form name="ListWorkEffortEventReminders" type="list" target="updateWorkEffortEventReminder"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="WorkEffortEventReminder">
+                <condition-expr field-name="workEffortId" operator="equals" env-name="workEffortId"/>
+                <order-by field-name="-reminderDateTime"/>
+            </entity-condition>
+        </actions>
+        <field name="workEffortId"><hidden/></field>
+        <field name="sequenceId"><hidden/></field>
+        <field name="contactMechId"><display/></field>
+        <field name="reminderDateTime"><date-time/></field>
+        <field name="repeatCount"><text/></field>
+        <field name="repeatInterval"><text/></field>
+        <field name="recurrenceOffset"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="deleteLink" title=" " widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteWorkEffortEventReminder?workEffortId=${workEffortId}&amp;contactMechId=${contactMechId}&amp;sequenceId=${sequenceId}"/>
+        </field>
+    </form>
+
+    <form name="EditWorkEffortEventReminder" target="createWorkEffortEventReminder" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="workEffortId"><hidden/></field>
+        <field name="localeId"><hidden value="${locale}"/></field>
+        <field name="timeZoneId"><hidden value="${timeZone}"/></field>
+        <field name="contactMechId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><lookup target-form-name="LookupContactMech"/></field>
+        <field name="reminderDateTime"><date-time/></field>
+        <field name="repeatCount"><text/></field>
+        <field name="repeatInterval"><text/></field>
+        <field name="recurrenceOffset"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
 </forms>
