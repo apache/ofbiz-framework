@@ -216,7 +216,7 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                 </and>
             </condition>
-            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING&amp;parentCommEventId=${parameters.communicationEventId}"/>
+            <link target="NewCommunicationEvents?communicationEventTypeId=EMAIL_COMMUNICATION&amp;parentCommEventId=${parameters.communicationEventId}&amp;donePage=${parameters.donePage}"/>
         </menu-item>
         <menu-item name="forward" title="${uiLabelMap.Forward}">
             <condition>
@@ -228,7 +228,7 @@ under the License.
                     <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
                 </and>
             </condition>
-            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING&amp;originalCommEventId=${parameters.communicationEventId}"/>
+            <link target="NewCommunicationEvents?communicationEventTypeId=EMAIL_COMMUNICATION&amp;originalCommEventId=${parameters.communicationEventId}&amp;donePage=${parameters.donePage}"/>
         </menu-item>
         <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
             <condition>

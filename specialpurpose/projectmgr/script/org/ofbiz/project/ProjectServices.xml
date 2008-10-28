@@ -801,7 +801,6 @@
                             </iterate>
                         </if-not-empty>                       
                         <field-to-list field-name="projectParty" list-name="projectParties"/>
-                        <log level="always" message="=====writing party: ${projectParty.partyId} Hours: ${projectParty.actualHours}"></log>
                         <clear-field field-name="projectParty"/>                        
                     </then>
                 </if>
@@ -1263,7 +1262,6 @@
 
     <simple-method method-name="addValidationPartiesToTask" short-description="SECA to add either project-testing or -approval parties to a task when a task is set to complete">
         <!-- check if this is the last party which completed his task -->
-        <log level="always" message="============= check workEffort: ${parameters.workEffortId}"/>
         <entity-condition entity-name="WorkEffortPartyAssignment" list-name="openTasks" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId"/>
@@ -1306,7 +1304,6 @@
 	        </if-not-empty>
             <else>
                 <log level="info" message="Not the last party who completes his task: validation parties not added...."></log>
-                <log level="info" message="=====parties not completed: openTasks: ${openTasks}"></log>
             </else>
         </if-empty>
     </simple-method>

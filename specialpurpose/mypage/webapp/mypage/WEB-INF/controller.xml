@@ -221,13 +221,13 @@
     
     <!-- EMAIL COMMUNICATIONS -->
     <request-map uri="NewCommunicationEvents">
-        <security https="true" auth="true"/>        
+        <security https="true" auth="true"/>
         <response name="success" type="view" value="EditCommunicationEvent"/>
     </request-map>
     
     <request-map uri="NewCommunicationEvent">
         <security https="true" auth="true"/>
-        <event type="simple" path="org/ofbiz/mypage/Events.xml" invoke="checkEnteredEmailExists"/>
+        <event type="service" invoke="createCommunicationEvent"/>
         <response name="success" type="view" value="EditCommunicationEvent"/>
     </request-map>
     

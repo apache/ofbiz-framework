@@ -68,6 +68,12 @@ if (phases){
                 taskInfo = resultTaskInfo.taskInfo;
                 taskInfo.taskNr = task.workEffortId;
                 taskInfo.phaseNr = phase.phaseId;
+                Debug.log("=====" + taskInfo.currentStatusId);
+                if (taskInfo.plannedHours && !taskInfo.currentStatusId.equals("PTS_COMPLETED") && taskInfo.plannedHours > taskInfo.actualHours) {
+                	taskInfo.resource = taskInfo.plannedHours + " Hrs";
+                } else {
+                    taskInfo.resource = taskInfo.actualHours + " Hrs";
+                }
                 double duration = resultTaskInfo.plannedHours;
                 if (!taskInfo.estimatedStartDate && taskInfo.actualStartDate) {
                     taskInfo.estimatedStartDate = taskInfo.actualStartDate;
@@ -96,23 +102,6 @@ if (phases){
                 } else {
                 	taskInfo.url = ""; 
                 }
-                resultTaskResource = dispatcher.runSync("getTasksByParties", [userLogin : userLogin , workEffortId : task.workEffortId]);
-                taskParties = resultTaskResource.taskParties;
-                resource = "";
-                int i = 0;
-                if (taskParties){
-                    taskParties.each { parties ->
-                        symbol = " ";
-                        partyname = parties.partyName;
-                        name = partyname.substring(partyname.indexOf(",")+1 , partyname.length());
-                        if (i > 0){
-                            symbol = ", ";
-                        }
-                        resource =  resource + symbol + name;
-                        i++;    
-                    }
-                }
-                taskInfo.resource = resource ; 
                 
                 // dependency
                 preTasks = delegator.findByAnd("WorkEffortAssoc", ["workEffortIdTo" : task.workEffortId], ["workEffortIdFrom"]);
