@@ -30,6 +30,11 @@ under the License.
   </sequential>
  </macrodef>
 
+ <path id="groovy.class.path">
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/groovy-1.5.6.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/asm-2.2.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/antlr-2.7.6.jar"/>
+ </path>
  <path id="local.class.path"/>
 
  <presetdef name="default-javac">
