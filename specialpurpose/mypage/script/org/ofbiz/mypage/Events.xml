@@ -178,14 +178,7 @@ under the License.
             </else>
         </if-not-empty>
     </simple-method>
-    
-    <simple-method method-name="checkEnteredEmailExists" short-description="Check Enter Email Exists when click New Email">        
-        <set-service-fields service-name="createCommunicationEvent" map-name="parameters" to-map-name="createCommEvent"/>
-            <call-service service-name="createCommunicationEvent" in-map-name="createCommEvent">
-            <result-to-request result-name="communicationEventId" request-name="communicationEventId"/>
-        </call-service>
-    </simple-method>
-    
+
     <simple-method method-name="createCommunicationContent" short-description="Upload Content and Create Communication Content Association">
         <!-- Call layout to get field -->
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
