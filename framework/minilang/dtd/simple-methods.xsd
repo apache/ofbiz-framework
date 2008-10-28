@@ -2565,7 +2565,7 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     Operator to apply to field-name and env-name or value.
-                    If you use the between then the evn-name must point to
+                    If you use the between then the env-name must point to
                     a collection that has two entries in it. With in you may specify several entries.  
                     If you use like, then it's just a single thing, as will all of the other ones;
                     less, greater, less-equals, greater-equals, equals, not equals.                    
