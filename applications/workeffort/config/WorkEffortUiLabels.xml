@@ -1777,7 +1777,7 @@
     <property key="Timesheet">
         <value xml:lang="en">Timesheet</value>
         <value xml:lang="es">Hoja de tiempos</value>
-        <value xml:lang="fr">feuille d'activité</value>
+        <value xml:lang="fr">Feuille d'activité</value>
         <value xml:lang="it">Timbratura</value>
         <value xml:lang="nl">Tijdschema</value>
         <value xml:lang="ro">Pontaj</value>
