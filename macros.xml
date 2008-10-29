@@ -30,6 +30,8 @@ under the License.
   </sequential>
  </macrodef>
 
+ <path id="src-path"/>
+
  <path id="groovy.class.path">
   <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/groovy-1.5.6.jar"/>
   <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/asm-2.2.jar"/>
@@ -42,11 +44,11 @@ under the License.
  </presetdef>
 
  <presetdef name="javac14">
-  <default-javac compiler="javac1.4" target="1.4" source="1.4" encoding="UTF-8"/>
+  <default-javac compiler="javac1.4" target="1.4" source="1.4" encoding="UTF-8" sourcepathref="src-path"/>
  </presetdef>
 
  <presetdef name="javac15">
-  <default-javac compiler="javac1.5" target="1.5" source="1.5" encoding="UTF-8">
+  <default-javac compiler="javac1.5" target="1.5" source="1.5" encoding="UTF-8" sourcepathref="src-path">
    <!--
    <compilerarg value="-Xlint:unchecked"/>
    -->

@@ -19,8 +19,8 @@ under the License.
 
 import org.apache.tools.ant.BuildException
 
-def resolveFile = { name ->
-    return project.resolveFile(project.replaceProperties(name))
+def resolveFile = { name, base ->
+    return project.resolveFile(project.replaceProperties(name), base)
 }
 
 def getAttribute = { name, defaultValue ->
@@ -40,19 +40,35 @@ def uptodate = { left, right ->
 }
 
 def ant = new AntBuilder(self)
-def javacchome = resolveFile('${ofbiz.home.dir}/framework/base/lib/javacc')
+def javacchome = resolveFile('${ofbiz.home.dir}/framework/base/lib/javacc', null)
 def src = getAttribute('src', 'src')
 def dir = getAttribute('dir', null)
 def file = getAttribute('file', null)
-def srcfile = resolveFile("$src/$dir/${file}.jjt")
+def srcfile = resolveFile("$src/$dir/${file}.jjt", null)
+def srcpaths = [
+    jjtree:     resolveFile(getAttribute('gendir', '${build.dir}/gen-src') + '/jjtree/', null),
+    javacc:     resolveFile(getAttribute('gendir', '${build.dir}/gen-src') + '/javacc/', null),
+]
 def dirs = [
-    jjtree:     resolveFile(getAttribute('gendir', '${build.dir}/gen-src') + '/jjtree/' + dir),
-    javacc:     resolveFile(getAttribute('gendir', '${build.dir}/gen-src') + '/javacc/' + dir),
+    jjtree:     resolveFile(dir, srcpaths.jjtree),
+    javacc:     resolveFile(dir, srcpaths.javacc),
 ]
 def gen = [
     jjfile:     new File(dirs.jjtree, project.replaceProperties("${file}.jj")),
     javafile:   new File(dirs.javacc, project.replaceProperties("${file}.java")),
 ]
+def srcpath = project.getReference('src-path')
+def foundpath = [
+    jjtree:     false,
+    javacc:     false,
+]
+srcpath.each {
+    foundpath.jjtree |= it.file == srcpaths.jjtree
+    foundpath.javacc |= it.file == srcpaths.javacc
+}
+if (!foundpath.jjtree) srcpath.append(ant.path{pathelement(location: srcpaths.jjtree)})
+if (!foundpath.javacc) srcpath.append(ant.path{pathelement(location: srcpaths.javacc)})
+
 if (!uptodate(srcfile, gen.jjfile)) {
     ant.delete(dir:dirs.jjtree)
     ant.mkdir(dir:dirs.jjtree)
@@ -71,5 +87,5 @@ if (!uptodate(gen.jjfile, gen.javafile)) {
         javacchome:         javacchome,
         outputdirectory:    dirs.javacc,
     )
-    ant.delete(dir:resolveFile('${build.classes}/' + dir))
+    ant.delete(dir:resolveFile('${build.classes}/' + dir, null))
 }
