@@ -93,7 +93,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         /** @deprecated Use EntityCondition.LENGTH() instead */
         public LENGTH(Object value) { init(value); }
         public void init(Object value) {
-            super.init(FETCHER, ID_LENGTH, "LENGTH", value);
+            super.init(FETCHER, SQLFunction.LENGTH, value);
         }
     };
 
@@ -112,7 +112,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         /** @deprecated Use EntityCondition.TRIM() instead */
         public TRIM(Object value) { init(value); }
         public void init(Object value) {
-            super.init(FETCHER, ID_TRIM, "TRIM", value);
+            super.init(FETCHER, SQLFunction.TRIM, value);
         }
     };
 
@@ -131,7 +131,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         /** @deprecated Use EntityCondition.UPPER() instead */
         public UPPER(Object value) { init(value); }
         public void init(Object value) {
-            super.init(FETCHER, ID_UPPER, "UPPER", value);
+            super.init(FETCHER, SQLFunction.UPPER, value);
         }
     };
 
@@ -150,30 +150,28 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         /** @deprecated Use EntityCondition.LOWER() instead */
         public LOWER(Object value) { init(value); }
         public void init(Object value) {
-            super.init(FETCHER, ID_LOWER, "LOWER", value);
+            super.init(FETCHER, SQLFunction.LOWER, value);
         }
     };
 
-    protected Integer idInt = null;
-    protected String codeString = null;
+    protected SQLFunction function;
     protected EntityConditionValue nested = null;
     protected Object value = null;
     protected Fetcher<T> fetcher = null;
 
     protected EntityFunction() {}
 
-    protected EntityFunction(Fetcher<T> fetcher, int id, String code, EntityConditionValue nested) {
-        this.init(fetcher, id, code, nested);
+    protected EntityFunction(Fetcher<T> fetcher, SQLFunction function, EntityConditionValue nested) {
+        this.init(fetcher, function, nested);
     }
 
-    protected EntityFunction(Fetcher<T> fetcher, int id, String code, Object value) {
-        this.init(fetcher, id, code, value);
+    protected EntityFunction(Fetcher<T> fetcher, SQLFunction function, Object value) {
+        this.init(fetcher, function, value);
     }
 
-    public void init(Fetcher<T> fetcher, int id, String code, Object value) {
+    public void init(Fetcher<T> fetcher, SQLFunction function, Object value) {
         this.fetcher = fetcher;
-        this.idInt = id;
-        this.codeString = code;
+        this.function = function;
         if (value instanceof EntityConditionValue) {
             this.nested = (EntityConditionValue) value;
         } else if (value instanceof String) {
@@ -184,8 +182,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
     }
 
     public void reset() {
-        this.idInt = null;
-        this.codeString = null;
+        this.function = null;
         this.nested = null;
         this.value = null;
         this.fetcher = null;
@@ -193,18 +190,14 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
 
     public EntityConditionValue freeze() {
         if (nested != null) {
-            return new EntityFunction<T>(fetcher, idInt, codeString, nested.freeze()) {};
+            return new EntityFunction<T>(fetcher, function, nested.freeze()) {};
         } else {
-            return new EntityFunction<T>(fetcher, idInt, codeString, value) {};
+            return new EntityFunction<T>(fetcher, function, value) {};
         }
     }
 
     public String getCode() {
-        if (codeString == null) {
-            return "null";
-        } else {
-            return codeString;
-        }
+        return function.name();
     }
 
     public Object getOriginalValue() {
@@ -212,23 +205,23 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
     }
 
     public int getId() {
-        return idInt;
+        return function.ordinal();
     }
 
     public int hashCode() {
-        return codeString.hashCode();
+        return function.hashCode();
     }
 
     public boolean equals(Object obj) {
         if (!(obj instanceof EntityFunction)) return false;
         EntityFunction otherFunc = (EntityFunction) obj;
-        return (this.idInt == otherFunc.idInt &&
+        return (this.function == otherFunc.function &&
             (this.nested != null ? nested.equals(otherFunc.nested) : otherFunc.nested == null) &&
             (this.value != null ? value.equals(otherFunc.value) : otherFunc.value == null));
     }
 
     public void addSqlValue(StringBuilder sql, Map<String, String> tableAliases, ModelEntity modelEntity, List<EntityConditionParam> entityConditionParams, boolean includeTableNamePrefix, DatasourceInfo datasourceinfo) {
-        sql.append(codeString).append('(');
+        sql.append(function.name()).append('(');
         if (nested != null) {
             nested.addSqlValue(sql, tableAliases, modelEntity, entityConditionParams, includeTableNamePrefix, datasourceinfo);
         } else {
