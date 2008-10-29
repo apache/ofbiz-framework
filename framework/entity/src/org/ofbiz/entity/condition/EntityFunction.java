@@ -41,20 +41,42 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         T getValue(Object value);
     }
 
+    public static enum SQLFunction {
+        LENGTH {
+            public EntityFunction.LENGTH createFunction(EntityConditionValue nested) { EntityFunction.LENGTH ef = EntityFunction.LENGTH.lengthFactory.object(); ef.init(nested); return ef;}
+            public EntityFunction.LENGTH createFunction(Object value) { EntityFunction.LENGTH ef = EntityFunction.LENGTH.lengthFactory.object(); ef.init(value); return ef;}
+        },
+        TRIM {
+            public EntityFunction.TRIM createFunction(EntityConditionValue nested) { EntityFunction.TRIM ef = EntityFunction.TRIM.trimFactory.object(); ef.init(nested); return ef;}
+            public EntityFunction.TRIM createFunction(Object value) { EntityFunction.TRIM ef = EntityFunction.TRIM.trimFactory.object(); ef.init(value); return ef;}
+        },
+        UPPER {
+            public EntityFunction.UPPER createFunction(EntityConditionValue nested) { EntityFunction.UPPER ef = EntityFunction.UPPER.upperFactory.object(); ef.init(nested); return ef;}
+            public EntityFunction.UPPER createFunction(Object value) { EntityFunction.UPPER ef = EntityFunction.UPPER.upperFactory.object(); ef.init(value); return ef;}
+        },
+        LOWER {
+            public EntityFunction.LOWER createFunction(EntityConditionValue nested) { EntityFunction.LOWER ef = EntityFunction.LOWER.lowerFactory.object(); ef.init(nested); return ef;}
+            public EntityFunction.LOWER createFunction(Object value) { EntityFunction.LOWER ef = EntityFunction.LOWER.lowerFactory.object(); ef.init(value); return ef;}
+        };
+
+        public abstract <T extends Comparable> EntityFunction<T> createFunction(EntityConditionValue nested);
+        public abstract <T extends Comparable> EntityFunction<T> createFunction(Object value);
+    }
+
     public static final int ID_LENGTH = 1;
     public static final int ID_TRIM = 2;
     public static final int ID_UPPER = 3;
     public static final int ID_LOWER = 4;
 
-    public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) { LENGTH ef = LENGTH.lengthFactory.object(); ef.init(nested); return ef; }
-    public static EntityFunction<Integer> LENGTH(Object value) { LENGTH ef = LENGTH.lengthFactory.object(); ef.init(value); return ef; }
-    public static EntityFunction<String> TRIM(EntityConditionValue nested) { TRIM ef = TRIM.trimFactory.object(); ef.init(nested); return ef; }
-    public static EntityFunction<String> TRIM(Object value) { TRIM ef = TRIM.trimFactory.object(); ef.init(value); return ef; }
-    public static EntityFunction<String> UPPER(EntityConditionValue nested) { UPPER ef = UPPER.upperFactory.object(); ef.init(nested); return ef; }
-    public static EntityFunction<String> UPPER(Object value) { UPPER ef = UPPER.upperFactory.object(); ef.init(value); return ef; }
-    public static EntityFunction<String> UPPER_FIELD(String fieldName) { UPPER ef = UPPER.upperFactory.object(); ef.init(EntityFieldValue.makeFieldValue(fieldName)); return ef; }
-    public static EntityFunction<String> LOWER(EntityConditionValue nested) { LOWER ef = LOWER.lowerFactory.object(); ef.init(nested); return ef; }
-    public static EntityFunction<String> LOWER(Object value) { LOWER ef = LOWER.lowerFactory.object(); ef.init(value); return ef; }
+    public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) { return SQLFunction.LENGTH.createFunction(nested); }
+    public static EntityFunction<Integer> LENGTH(Object value) { return SQLFunction.LENGTH.createFunction(value); }
+    public static EntityFunction<String> TRIM(EntityConditionValue nested) { return SQLFunction.TRIM.createFunction(nested); }
+    public static EntityFunction<String> TRIM(Object value) { return SQLFunction.TRIM.createFunction(value); }
+    public static EntityFunction<String> UPPER(EntityConditionValue nested) { return SQLFunction.UPPER.createFunction(nested); }
+    public static EntityFunction<String> UPPER(Object value) { return SQLFunction.UPPER.createFunction(value); }
+    public static EntityFunction<String> UPPER_FIELD(String fieldName) { return SQLFunction.UPPER.createFunction(EntityFieldValue.makeFieldValue(fieldName)); }
+    public static EntityFunction<String> LOWER(EntityConditionValue nested) { return SQLFunction.LOWER.createFunction(nested); }
+    public static EntityFunction<String> LOWER(Object value) { return SQLFunction.LOWER.createFunction(value); }
 
     public static class LENGTH extends EntityFunction<Integer> {
         public static Fetcher<Integer> FETCHER = new Fetcher<Integer>() {
