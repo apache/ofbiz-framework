@@ -64,6 +64,7 @@
     </property>
     <property key="FormFieldTitle_allocatedCost">
         <value xml:lang="en">Allocated Cost</value>
+        <value xml:lang="fr">Coût alloué</value>
     </property>
     <property key="FormFieldTitle_availabilityStatusId">
         <value xml:lang="en">Availability</value>
@@ -826,6 +827,7 @@
     </property>    
     <property key="PageTitleAddWorkEffortEventReminder">
         <value xml:lang="en">Add Work Effort Event Reminder</value>
+        <value xml:lang="fr">Ajouter un rappel d'évènement de tâche</value>
     </property>
     <property key="PageTitleAddWorkEffortKeyword">
         <value xml:lang="en">Add Work Effort Keyword</value>
@@ -1187,6 +1189,7 @@
     </property>
     <property key="PageTitleListWorkEffortEventReminders">
         <value xml:lang="en">Work Effort Event Reminders</value>
+        <value xml:lang="fr">Rappels d'évènements de tâche</value>
     </property>
     <property key="PageTitleListWorkEffortKeyword">
         <value xml:lang="en">Work Effort Keywords</value>
@@ -2560,9 +2563,11 @@
     </property>
     <property key="WorkEffortEventReminder">
         <value xml:lang="en">Event Reminder</value>
+        <value xml:lang="fr">Evènement de tâche</value>
     </property>
     <property key="WorkEffortEventReminders">
         <value xml:lang="en">Event Reminders</value>
+        <value xml:lang="fr">Evènements de tâche</value>
     </property>
     <property key="WorkEffortExpectation">
         <value xml:lang="en">Expectation</value>
