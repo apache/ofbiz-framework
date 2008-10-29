@@ -223,7 +223,7 @@ public class PartyContentWrapper implements ContentWrapper {
         }
         if (partyContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map<String, GenericValue> inContext = FastMap.newInstance();
+            Map<String, Object> inContext = FastMap.newInstance();
             inContext.put("party", party);
             inContext.put("partyContent", partyContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
@@ -238,7 +238,7 @@ public class PartyContentWrapper implements ContentWrapper {
         if (partyContentList != null) {
             for (GenericValue partyContent: partyContentList) {
                 StringWriter outWriter = new StringWriter();
-                Map<String, GenericValue> inContext = FastMap.newInstance();
+                Map<String, Object> inContext = FastMap.newInstance();
                 inContext.put("party", party);
                 inContext.put("partyContent", partyContent);
                 ContentWorker.renderContentAsText(dispatcher, delegator, partyContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);
