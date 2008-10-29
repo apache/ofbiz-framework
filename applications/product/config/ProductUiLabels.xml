@@ -5233,9 +5233,9 @@
     </property>
     <property key="PageTitleEditProductPromoRules">
         <value xml:lang="de">Produkt Aktionsregeln bearbeiten</value>
-        <value xml:lang="en">Edit Product Promo Rules</value>
+        <value xml:lang="en">Edit Promo Rules</value>
         <value xml:lang="es">Editar Reglas de Promoción de Productos</value>
-        <value xml:lang="fr">Configuration des règles de promotion d'articles</value>
+        <value xml:lang="fr">Configuration des règles de promotion</value>
         <value xml:lang="it">Aggiorna Regole Promozione Prodotto</value>
         <value xml:lang="ro">Actualizeaza Reguli Promotii Produs</value>
         <value xml:lang="ru">Изменить правила акций продукта</value>
