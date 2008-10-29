@@ -39,15 +39,16 @@ def uptodate = { left, right ->
     return uptodateTask.eval()
 }
 
+def basedir = project.baseDir
 def ant = new AntBuilder(self)
-def javacchome = resolveFile('${ofbiz.home.dir}/framework/base/lib/javacc', null)
+def javacchome = resolveFile('${ofbiz.home.dir}/framework/base/lib/javacc', basedir)
 def src = getAttribute('src', 'src')
-def dir = getAttribute('dir', null)
-def file = getAttribute('file', null)
-def srcfile = resolveFile("$src/$dir/${file}.jjt", null)
+def dir = getAttribute('dir', basedir)
+def file = getAttribute('file', basedir)
+def srcfile = resolveFile("$src/$dir/${file}.jjt", basedir)
 def srcpaths = [
-    jjtree:     resolveFile(getAttribute('gendir', '${build.dir}/gen-src') + '/jjtree/', null),
-    javacc:     resolveFile(getAttribute('gendir', '${build.dir}/gen-src') + '/javacc/', null),
+    jjtree:     resolveFile(getAttribute('gendir', '${build.dir}/gen-src') + '/jjtree/', basedir),
+    javacc:     resolveFile(getAttribute('gendir', '${build.dir}/gen-src') + '/javacc/', basedir),
 ]
 def dirs = [
     jjtree:     resolveFile(dir, srcpaths.jjtree),
@@ -87,5 +88,5 @@ if (!uptodate(gen.jjfile, gen.javafile)) {
         javacchome:         javacchome,
         outputdirectory:    dirs.javacc,
     )
-    ant.delete(dir:resolveFile('${build.classes}/' + dir, null))
+    ant.delete(dir:resolveFile('${build.classes}/' + dir, basedir))
 }
