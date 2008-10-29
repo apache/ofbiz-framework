@@ -33,9 +33,11 @@ under the License.
  <path id="src-path"/>
 
  <path id="groovy.class.path">
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/groovy-1.5.6.jar"/>
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/asm-2.2.jar"/>
-  <pathelement location="${ofbiz.home.dir}/framework/base/lib/scripting/antlr-2.7.6.jar"/>
+  <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting/" includes="*.jar"/>
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-apache-bsf-1.7.0.jar"/>
+ </path>
+ <path id="ant.lib.class.path">
+  <pathelement location="${ofbiz.home.dir}/framework/base/lib/ant/ant-nodeps-1.7.0.jar"/>
  </path>
  <path id="local.class.path"/>
 
@@ -55,16 +57,19 @@ under the License.
   </default-javac>
  </presetdef>
 
- <scriptdef name="if" language="groovy" src="${ofbiz.home.dir}/framework/base/ant-scripts/if-script.groovy" classpathref="groovy.class.path">
+ <taskdef name="ofbizscriptdef" classname="org.apache.tools.ant.taskdefs.optional.script.ScriptDef">
+  <classpath refid="ant.lib.class.path"/>
+ </taskdef>
+ <ofbizscriptdef name="if" language="groovy" src="${ofbiz.home.dir}/framework/base/ant-scripts/if-script.groovy" classpathref="groovy.class.path">
   <element name="condition" classname="org.apache.tools.ant.taskdefs.condition.And"/>
   <element name="commands" classname="org.apache.tools.ant.taskdefs.Sequential"/>
   <element name="else" classname="org.apache.tools.ant.taskdefs.Sequential"/>
- </scriptdef>
+ </ofbizscriptdef>
 
- <scriptdef name="ofbiz-jjtree" language="groovy" src="${ofbiz.home.dir}/framework/base/ant-scripts/ofbiz-jjtree.groovy" classpathref="groovy.class.path">
+ <ofbizscriptdef name="ofbiz-jjtree" language="groovy" src="${ofbiz.home.dir}/framework/base/ant-scripts/ofbiz-jjtree.groovy" classpathref="groovy.class.path">
   <attribute name="src"/>
   <attribute name="dir"/>
   <attribute name="file"/>
   <attribute name="gendir"/>
- </scriptdef>
+ </ofbizscriptdef>
 </project>
