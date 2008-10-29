@@ -63,10 +63,10 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         public abstract <T extends Comparable> EntityFunction<T> createFunction(Object value);
     }
 
-    public static final int ID_LENGTH = 1;
-    public static final int ID_TRIM = 2;
-    public static final int ID_UPPER = 3;
-    public static final int ID_LOWER = 4;
+    public static final int ID_LENGTH = SQLFunction.LENGTH.ordinal();
+    public static final int ID_TRIM = SQLFunction.TRIM.ordinal();
+    public static final int ID_UPPER = SQLFunction.UPPER.ordinal();
+    public static final int ID_LOWER = SQLFunction.LOWER.ordinal();
 
     public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) { return SQLFunction.LENGTH.createFunction(nested); }
     public static EntityFunction<Integer> LENGTH(Object value) { return SQLFunction.LENGTH.createFunction(value); }
