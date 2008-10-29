@@ -45,7 +45,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
     public static final int ID_TRIM = 2;
     public static final int ID_UPPER = 3;
     public static final int ID_LOWER = 4;
-    
+
     public static EntityFunction<Integer> LENGTH(EntityConditionValue nested) { LENGTH ef = LENGTH.lengthFactory.object(); ef.init(nested); return ef; }
     public static EntityFunction<Integer> LENGTH(Object value) { LENGTH ef = LENGTH.lengthFactory.object(); ef.init(value); return ef; }
     public static EntityFunction<String> TRIM(EntityConditionValue nested) { TRIM ef = TRIM.trimFactory.object(); ef.init(nested); return ef; }
@@ -90,7 +90,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         /** @deprecated Use EntityCondition.TRIM() instead */
         public TRIM(Object value) { init(value); }
         public void init(Object value) {
-        super.init(FETCHER, ID_TRIM, "TRIM", value);
+            super.init(FETCHER, ID_TRIM, "TRIM", value);
         }
     };
 
@@ -109,7 +109,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         /** @deprecated Use EntityCondition.UPPER() instead */
         public UPPER(Object value) { init(value); }
         public void init(Object value) {
-        super.init(FETCHER, ID_UPPER, "UPPER", value);
+            super.init(FETCHER, ID_UPPER, "UPPER", value);
         }
     };
 
@@ -128,7 +128,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
         /** @deprecated Use EntityCondition.LOWER() instead */
         public LOWER(Object value) { init(value); }
         public void init(Object value) {
-        super.init(FETCHER, ID_LOWER, "LOWER", value);
+            super.init(FETCHER, ID_LOWER, "LOWER", value);
         }
     };
 
@@ -137,17 +137,17 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
     protected EntityConditionValue nested = null;
     protected Object value = null;
     protected Fetcher<T> fetcher = null;
-    
+
     protected EntityFunction() {}
 
     protected EntityFunction(Fetcher<T> fetcher, int id, String code, EntityConditionValue nested) {
-    this.init(fetcher, id, code, nested);
+        this.init(fetcher, id, code, nested);
     }
 
     protected EntityFunction(Fetcher<T> fetcher, int id, String code, Object value) {
-    this.init(fetcher, id, code, value);
+        this.init(fetcher, id, code, value);
     }
-    
+
     public void init(Fetcher<T> fetcher, int id, String code, Object value) {
         this.fetcher = fetcher;
         this.idInt = id;
@@ -160,7 +160,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
             this.value = value;
         }
     }
-    
+
     public void reset() {
         this.idInt = null;
         this.codeString = null;
@@ -184,7 +184,7 @@ public abstract class EntityFunction<T extends Comparable> extends EntityConditi
             return codeString;
         }
     }
-    
+
     public Object getOriginalValue() {
         return this.value;
     }
