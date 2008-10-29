@@ -19,7 +19,7 @@ under the License.
 <#if productPromoId?exists && productPromo?exists>
     <div class="screenlet">
         <div class="screenlet-title-bar">
-            <h3>${uiLabelMap.ProductPromoCodeEmails}</h3>
+            <h3>${uiLabelMap.PageTitleEditProductPromoRules}</h3>
         </div>
         <#-- ======================= Rules ======================== -->
         <div class="screenlet-body">
