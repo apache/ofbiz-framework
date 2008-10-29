@@ -120,7 +120,7 @@ public class RecordIterator {
             nextLineNum++;
             ModelRecord modelRecord = findModelForLine(nextLine, nextLineNum, modelDataFile);
             if (isDelimited) {
-                this.nextRecord = Record.createDelimitedRecord(nextLine, nextLineNum, modelRecord, modelDataFile.delimiter);
+                this.nextRecord = Record.createDelimitedRecord(nextLine, nextLineNum, modelRecord, modelDataFile.delimiter, modelDataFile.textDelimiter);
             } else {
                 this.nextRecord = Record.createRecord(nextLine, nextLineNum, modelRecord);
             }

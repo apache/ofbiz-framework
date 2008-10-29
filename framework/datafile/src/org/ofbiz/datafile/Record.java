@@ -516,7 +516,7 @@ public class Record implements Serializable {
      * @throws DataFileException Exception thown for various errors, generally has a nested exception
      * @return
      */
-    public static Record createDelimitedRecord(String line, int lineNum, ModelRecord modelRecord, char delimiter) throws DataFileException {
+    public static Record createDelimitedRecord(String line, int lineNum, ModelRecord modelRecord, char delimiter, String textDelimiter) throws DataFileException {
         Record record = new Record(modelRecord);
 
         StringTokenizer st = null;
@@ -552,6 +552,9 @@ public class Record implements Serializable {
                 }
             }
             try {
+                if (textDelimiter != null && (strVal.startsWith(textDelimiter) && strVal.endsWith(textDelimiter))) {
+                    strVal = strVal.substring(textDelimiter.length(), strVal.length() - textDelimiter.length());
+                }
                 record.setString(modelField.name, strVal);
             } catch (java.text.ParseException e) {
                 throw new DataFileException("Could not parse field " + modelField.name + ", format string \"" + modelField.format + "\" with value " + strVal +
