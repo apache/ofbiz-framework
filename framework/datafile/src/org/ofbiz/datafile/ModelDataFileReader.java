@@ -202,6 +202,11 @@ public class ModelDataFileReader {
             dataFile.delimiter = tempStr.charAt(0);
         }
 
+        tempStr = UtilXml.checkEmpty(dataFileElement.getAttribute("text-delimiter"));
+        if (tempStr != null && tempStr.length() > 0) {
+            dataFile.textDelimiter = tempStr;
+        }
+
         dataFile.separatorStyle = UtilXml.checkEmpty(dataFileElement.getAttribute("separator-style"));
         dataFile.description = UtilXml.checkEmpty(dataFileElement.getAttribute("description"));
 

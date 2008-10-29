@@ -50,6 +50,9 @@ public class ModelDataFile {
     /** The delimiter used in the file, if delimiter separated fields are used */
     public char delimiter = '|';
 
+    /** The text delimiter, like quots, used in the file, if delimiter separated fields are used */
+    public String textDelimiter = null;
+
     /** The field serparator style, either fixed-length, or delimited */
     public String separatorStyle = "";
 
