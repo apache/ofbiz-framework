@@ -58,4 +58,11 @@ under the License.
   <element name="commands" classname="org.apache.tools.ant.taskdefs.Sequential"/>
   <element name="else" classname="org.apache.tools.ant.taskdefs.Sequential"/>
  </scriptdef>
+
+ <scriptdef name="ofbiz-jjtree" language="groovy" src="${ofbiz.home.dir}/framework/base/ant-scripts/ofbiz-jjtree.groovy" classpathref="groovy.class.path">
+  <attribute name="src"/>
+  <attribute name="dir"/>
+  <attribute name="file"/>
+  <attribute name="gendir"/>
+ </scriptdef>
 </project>
