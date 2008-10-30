@@ -57,6 +57,7 @@ under the License.
   </default-javac>
  </presetdef>
 
+ <!--
  <taskdef name="ofbizscriptdef" classname="org.apache.tools.ant.taskdefs.optional.script.ScriptDef">
   <classpath refid="ant.lib.class.path"/>
  </taskdef>
@@ -72,4 +73,5 @@ under the License.
   <attribute name="file"/>
   <attribute name="gendir"/>
  </ofbizscriptdef>
+ -->
 </project>
