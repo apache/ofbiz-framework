@@ -25,6 +25,6 @@ else
   JAVA=java
 fi
 
-"$JAVA" -jar framework/base/lib/ant-launcher-1.7.0.jar "$*"
+"$JAVA" -jar framework/base/lib/ant-launcher-1.7.0.jar "$@"
 exit 0
 
