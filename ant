@@ -20,11 +20,11 @@
 
 # location of java executable
 if [ -f "$JAVA_HOME/bin/java" ]; then
-  JAVA=$JAVA_HOME/bin/java
+  JAVA="$JAVA_HOME/bin/java"
 else
   JAVA=java
 fi
 
-$JAVA -jar framework/base/lib/ant-launcher-1.7.0.jar $*
+"$JAVA" -jar framework/base/lib/ant-launcher-1.7.0.jar "$*"
 exit 0
 
