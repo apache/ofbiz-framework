@@ -167,5 +167,7 @@ under the License.
 	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-util-2.2.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/scripting/groovy-1.5.6.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/ant/ant-nodeps-1.7.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/ant/ant-apache-bsf-1.7.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
