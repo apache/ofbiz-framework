@@ -39,7 +39,7 @@ if (featureTypes) {
         if (selectedFeatureTypeValue) {
             featureTypeAndValues.selectedFeatureId = selectedFeatureTypeValue;
             selectedFeatureTypeValues.add(selectedFeatureTypeValue);
-            feature = delegator.findOne("ProductFeature", [productFeatureId : selectedFeatureTypeValue]);
+            feature = delegator.findOne("ProductFeature", [productFeatureId : selectedFeatureTypeValue], true);
             productVariantId += feature.getString("idCode") ?: "";
             productFeatureIds += "|" + selectedFeatureTypeValue;
         }
