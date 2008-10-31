@@ -248,7 +248,6 @@ foreach my $pkg (keys(%scripts)) {
 			print(SCRIPT "\t;;\n");
 		}
 		print(SCRIPT "esac\n");
-		print(SCRIPT "db_stop\n");
 		close(SCRIPT);
 	}
 }
