@@ -29,8 +29,7 @@ import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 
 /**
- * Loads resources using dynamically specified resource loader classes
- *
+ * Loads resources using dynamically specified resource loader classes.
  */
 public abstract class ResourceLoader {
     
@@ -172,9 +171,10 @@ public abstract class ResourceLoader {
         this.envName = envName;
     }
 
-    /** Just a utility method to be used in loadResource by the implementing class * @param location
+    /**
+     * Just a utility method to be used in loadResource by the implementing class.
      * @param location
-     * @return
+     * @return the built-up full location
      */
     public String fullLocation(String location) {
         StringBuilder buf = new StringBuilder();

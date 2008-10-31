@@ -138,7 +138,7 @@ public class FreeMarkerWorker {
     
     /**
      * Renders a template contained in a String.
-     * @param templateId A unique ID for this template - used for caching
+     * @param templateLocation A unique ID for this template - used for caching
      * @param templateString The String containing the template
      * @param context The context Map
      * @param outWriter The Writer to render to
@@ -153,8 +153,7 @@ public class FreeMarkerWorker {
     
     /**
      * Renders a template from a Reader.
-     * @param templateId A unique ID for this template - used for caching
-     * @param templateReader The Reader that reads the template
+     * @param templateLocation A unique ID for this template - used for caching
      * @param context The context Map
      * @param outWriter The Writer to render to
      */

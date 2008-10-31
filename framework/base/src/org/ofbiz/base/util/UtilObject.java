@@ -98,7 +98,7 @@ public class UtilObject {
      * the object uses. There is no accurate way to determine the size of an
      * object in memory.</p>
      * @param obj
-     * @return
+     * @return the number of bytes in the serialized object
      */
     public static long getByteCount(Object obj) {
         OutputStreamByteCount osbc = null;

@@ -734,7 +734,7 @@ public class UtilDateTime {
     /**
      * returns a day number in a week for a Timestamp input
      *
-     * @param input Timestamp date
+     * @param stamp Timestamp date
      * @return A int containing the day number (sunday = 1, saturday = 7)
      */
     public static int dayNumber(Timestamp stamp) {

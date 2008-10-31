@@ -402,7 +402,7 @@ public class StringUtil {
     /**
      * Add the number to the string, keeping (padding to min of original length)
      * 
-     * @return
+     * @return the new value
      */
     public static String addToNumberString(String numberString, long addAmount) {
     if (numberString == null) return null;
@@ -459,8 +459,8 @@ public class StringUtil {
     /**
      * Remove/collapse multiple newline characters
      *
-     * @param String string to collapse newlines in
-     * @return String
+     * @param str string to collapse newlines in
+     * @return the converted string
      */
     public static String collapseNewlines(String str) {
         return collapseCharacter(str, '\n');
@@ -469,8 +469,8 @@ public class StringUtil {
     /**
      * Remove/collapse multiple spaces
      *
-     * @param String string to collapse spaces in
-     * @return String
+     * @param str string to collapse spaces in
+     * @return the converted string
      */
     public static String collapseSpaces(String str) {
         return collapseCharacter(str, ' ');
@@ -479,9 +479,9 @@ public class StringUtil {
     /**
      * Remove/collapse multiple characters
      *
-     * @param String string to collapse characters in
-     * @param char character to collapse
-     * @return String
+     * @param str string to collapse characters in
+     * @param c character to collapse
+     * @return the converted string
      */
     public static String collapseCharacter(String str, char c) {
         StringBuffer sb = new StringBuffer();

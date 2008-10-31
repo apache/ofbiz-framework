@@ -523,7 +523,7 @@ public class UtilMisc {
     /**
      * Returns a double from value, where value could either be a Double or a String
      * @param value
-     * @return
+     * @return the converted double
      */
     public static double toDouble(Object value) {
         if (value != null) {

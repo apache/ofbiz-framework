@@ -48,7 +48,7 @@ public class ObjectType {
     public static final String SQL_PACKAGE = "java.sql.";   // We will test both the raw value and this + raw value
 
     /** 
-     * Loads a class with the current thread's context classloader
+     * Loads a class with the current thread's context classloader.
      * @param className The name of the class to load
      * @return The requested class
      * @throws ClassNotFoundException
@@ -63,9 +63,9 @@ public class ObjectType {
     }
 
     /** 
-     * Loads a class with the current thread's context classloader
+     * Loads a class with the current thread's context classloader.
      * @param className The name of the class to load
-     * @param loader The ClassLoader to su
+     * @param loader The ClassLoader to use
      * @return The requested class
      * @throws ClassNotFoundException
      */
@@ -116,7 +116,8 @@ public class ObjectType {
     }
 
     /** 
-     * Returns an instance of the specified class
+     * Returns an instance of the specified class.  This uses the default
+     * no-arg constructor to create the instance.
      * @param className Name of the class to instantiate
      * @return An instance of the named class
      * @throws ClassNotFoundException
@@ -133,10 +134,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if a class properly implements the specified interface
+     * Tests if a class properly implements the specified interface.
      * @param objectClass Class to test
      * @param interfaceName Name of the interface to test against
-     * @return boolean indicating whether interfaceName is an interface of the obj
+     * @return true if interfaceName is an interface of objectClass
      * @throws ClassNotFoundException
      */
     public static boolean interfaceOf(Class<?> objectClass, String interfaceName) throws ClassNotFoundException {
@@ -146,10 +147,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if a class properly implements the specified interface
+     * Tests if a class properly implements the specified interface.
      * @param objectClass Class to test
      * @param interfaceObject to test against
-     * @return boolean indicating whether interfaceObject is an interface of the obj
+     * @return true if interfaceObject is an interface of the objectClass
      */
     public static boolean interfaceOf(Class<?> objectClass, Object interfaceObject) {
         Class<?> interfaceClass = interfaceObject.getClass();
@@ -158,10 +159,10 @@ public class ObjectType {
     }
 
     /**
-     * Returns an instance of the specified class using the constructor matching the specified parameters
+     * Returns an instance of the specified class using the constructor matching the specified parameters.
      * @param className Name of the class to instantiate
      * @param parameters Parameters passed to the constructor
-     * @return An instance of the named class
+     * @return An instance of the className
      * @throws ClassNotFoundException
      * @throws InstantiationException
      * @throws IllegalAccessException
@@ -181,10 +182,10 @@ public class ObjectType {
     }
 
     /**
-     * Tests if an object properly implements the specified interface
+     * Tests if an object properly implements the specified interface.
      * @param obj Object to test
      * @param interfaceName Name of the interface to test against
-     * @return boolean indicating whether interfaceName is an interface of the obj
+     * @return true if interfaceName is an interface of obj
      * @throws ClassNotFoundException
      */
     public static boolean interfaceOf(Object obj, String interfaceName) throws ClassNotFoundException {
@@ -194,10 +195,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if an object properly implements the specified interface
+     * Tests if an object properly implements the specified interface.
      * @param obj Object to test
      * @param interfaceObject to test against
-     * @return boolean indicating whether interfaceObject is an interface of the obj
+     * @return true if interfaceObject is an interface of obj
      */
     public static boolean interfaceOf(Object obj, Object interfaceObject) {
         Class<?> interfaceClass = interfaceObject.getClass();
@@ -206,10 +207,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if an object properly implements the specified interface
+     * Tests if an object properly implements the specified interface.
      * @param obj Object to test
      * @param interfaceClass Class to test against
-     * @return boolean indicating whether interfaceClass is an interface of the obj
+     * @return true if interfaceClass is an interface of obj
      */
     public static boolean interfaceOf(Object obj, Class<?> interfaceClass) {
         Class<?> objectClass = obj.getClass();
@@ -218,10 +219,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if a class properly implements the specified interface
+     * Tests if a class properly implements the specified interface.
      * @param objectClass Class to test
      * @param interfaceClass Class to test against
-     * @return boolean indicating whether interfaceClass is an interface of the obj
+     * @return true if interfaceClass is an interface of objectClass
      */
     public static boolean interfaceOf(Class<?> objectClass, Class<?> interfaceClass) {
         while (objectClass != null) {
@@ -236,10 +237,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if a class is a class of or a sub-class of the parent
+     * Tests if a class is a class of or a sub-class of the parent.
      * @param objectClass Class to test
      * @param parentName Name of the parent class to test against
-     * @return
+     * @return true if objectClass is a class of or a sub-class of the parent
      * @throws ClassNotFoundException
      */
     public static boolean isOrSubOf(Class<?> objectClass, String parentName) throws ClassNotFoundException {
@@ -249,10 +250,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if a class is a class of or a sub-class of the parent
+     * Tests if a class is a class of or a sub-class of the parent.
      * @param objectClass Class to test
      * @param parentObject Object to test against
-     * @return
+     * @return true if objectClass is a class of or a sub-class of the parent
      */
     public static boolean isOrSubOf(Class<?> objectClass, Object parentObject) {
         Class<?> parentClass = parentObject.getClass();
@@ -261,10 +262,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if an object is an instance of or a sub-class of the parent
+     * Tests if an object is an instance of or a sub-class of the parent.
      * @param obj Object to test
      * @param parentName Name of the parent class to test against
-     * @return
+     * @return true if obj is an instance of or a sub-class of the parent
      * @throws ClassNotFoundException
      */
     public static boolean isOrSubOf(Object obj, String parentName) throws ClassNotFoundException {
@@ -274,10 +275,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if an object is an instance of or a sub-class of the parent
+     * Tests if an object is an instance of or a sub-class of the parent.
      * @param obj Object to test
      * @param parentObject Object to test against
-     * @return
+     * @return true if obj is an instance of or a sub-class of the parent
      */
     public static boolean isOrSubOf(Object obj, Object parentObject) {
         Class<?> parentClass = parentObject.getClass();
@@ -286,10 +287,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if an object is an instance of or a sub-class of the parent
+     * Tests if an object is an instance of or a sub-class of the parent.
      * @param obj Object to test
      * @param parentClass Class to test against
-     * @return
+     * @return true if obj is an instance of or a sub-class of the parent
      */
     public static boolean isOrSubOf(Object obj, Class<?> parentClass) {
         Class<?> objectClass = obj.getClass();
@@ -298,10 +299,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if a class is a class of or a sub-class of the parent
+     * Tests if a class is a class of or a sub-class of the parent.
      * @param objectClass Class to test
      * @param parentClass Class to test against
-     * @return
+     * @return true if objectClass is a class of or a sub-class of the parent
      */
     public static boolean isOrSubOf(Class<?> objectClass, Class<?> parentClass) {
         //Debug.logInfo("Checking isOrSubOf for [" + objectClass.getName() + "] and [" + objectClass.getName() + "]", module);
@@ -313,10 +314,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if a class is a class of a sub-class of or properly implements an interface
+     * Tests if a class is a class of a sub-class of or properly implements an interface.
      * @param objectClass Class to test
      * @param typeObject Object to test against
-     * @return
+     * @return true if objectClass is a class of a sub-class of, or properly implements an interface
      */
     public static boolean instanceOf(Class<?> objectClass, Object typeObject) {
         Class<?> typeClass = typeObject.getClass();
@@ -325,20 +326,20 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if a class is a class of a sub-class of or properly implements an interface
+     * Tests if a class is a class of a sub-class of or properly implements an interface.
      * @param objectClass Class to test
      * @param typeName name to test against
-     * @return
+     * @return true if objectClass is a class or a sub-class of, or properly implements an interface
      */
     public static boolean instanceOf(Class<?> objectClass, String typeName) {
         return instanceOf(objectClass, typeName, null);
     }
 
     /** 
-     * Tests if an object is an instance of a sub-class of or properly implements an interface
+     * Tests if an object is an instance of a sub-class of or properly implements an interface.
      * @param obj Object to test
      * @param typeObject Object to test against
-     * @return
+     * @return true if obj is an instance of a sub-class of, or properly implements an interface
      */
     public static boolean instanceOf(Object obj, Object typeObject) {
         Class<?> typeClass = typeObject.getClass();
@@ -347,21 +348,21 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if an object is an instance of a sub-class of or properly implements an interface
+     * Tests if an object is an instance of a sub-class of or properly implements an interface.
      * @param obj Object to test
      * @param typeName name to test against
-     * @return
+     * @return true if obj is an instance of a sub-class of, or properly implements an interface
      */
     public static boolean instanceOf(Object obj, String typeName) {
         return instanceOf(obj, typeName, null);
     }
 
     /** 
-     * Tests if a class is a class of a sub-class of or properly implements an interface
+     * Tests if a class is a class of a sub-class of or properly implements an interface.
      * @param objectClass Class to test
      * @param typeName Object to test against
      * @param loader
-     * @return
+     * @return true if objectClass is a class of a sub-class of, or properly implements an interface
      */
     public static boolean instanceOf(Class<?> objectClass, String typeName, ClassLoader loader) {
         Class<?> infoClass = loadInfoClass(typeName, loader);
@@ -373,11 +374,11 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if an object is an instance of a sub-class of or properly implements an interface
+     * Tests if an object is an instance of a sub-class of or properly implements an interface.
      * @param obj Object to test
      * @param typeName Object to test against
      * @param loader
-     * @return
+     * @return true if obj is an instance of a sub-class of, or properly implements an interface
      */
     public static boolean instanceOf(Object obj, String typeName, ClassLoader loader) {
         Class<?> infoClass = loadInfoClass(typeName, loader);
@@ -418,10 +419,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if an object is an instance of a sub-class of or properly implements an interface
+     * Tests if an object is an instance of a sub-class of or properly implements an interface.
      * @param obj Object to test
      * @param typeClass Class to test against
-     * @return
+     * @return true if obj is an instance of a sub-class of typeClass
      */
     public static boolean instanceOf(Object obj, Class<?> typeClass) {
         if (obj == null) return true;
@@ -430,10 +431,10 @@ public class ObjectType {
     }
 
     /** 
-     * Tests if a class is a class of a sub-class of or properly implements an interface
+     * Tests if a class is a class of a sub-class of or properly implements an interface.
      * @param objectClass Class to test
      * @param typeClass Class to test against
-     * @return
+     * @return true if objectClass is a class or sub-class of, or implements typeClass
      */
     public static boolean instanceOf(Class<?> objectClass, Class<?> typeClass) {
         if (typeClass.isInterface()) {
@@ -448,7 +449,7 @@ public class ObjectType {
     }
 
     /** 
-     * Converts the passed object to the named simple type; supported types
+     * Converts the passed object to the named simple type.  Supported types
      * include: String, Boolean, Double, Float, Long, Integer, Date (java.sql.Date),
      * Time, Timestamp, TimeZone;
      * @param obj Object to convert
@@ -457,7 +458,7 @@ public class ObjectType {
      * @param timeZone Optional (can be null) TimeZone for converting dates and times
      * @param locale Optional (can be null) Locale for formatting and parsing Double, Float, Long, Integer
      * @param noTypeFail Fail (Exception) when no type conversion is available, false will return the primary object
-     * @return
+     * @return the converted value
      * @throws GeneralException
      */
     public static Object simpleTypeConvert(Object obj, String type, String format, TimeZone timeZone, Locale locale, boolean noTypeFail) throws GeneralException {

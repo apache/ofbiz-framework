@@ -267,7 +267,7 @@ public class TimeDuration implements Serializable {
      * <code>fromLong</code> method. 
      * 
      * @param duration
-     * @return
+     * @return the number number of milliseconds in the duration
      */
     public static long toLong(TimeDuration duration) {
         return

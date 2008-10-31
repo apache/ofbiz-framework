@@ -201,7 +201,7 @@ public class FlexibleStringExpander implements Serializable {
     
     /** Protected helper method.
      * @param original
-     * @return
+     * @return a list of parsed string elements
      */
     protected static List<StrElem> getStrElems(String original) {
         if (original == null || original.length() == 0) {
