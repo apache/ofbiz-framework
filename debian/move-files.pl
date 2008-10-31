@@ -84,12 +84,9 @@ sub copylink($$$) {
 	} else {
 		_mkdir($target) || die("c");
 	}
-	_mkdir(basename("$base/usr/share/ofbiz/dist/$file")) || die("d");
-	symlink("$destdir/$file", "$base/usr/share/ofbiz/dist/$file") || die("e");
-
 	my $symlink = "$base/usr/share/ofbiz/$file";
 	_mkdir(basename($symlink));
-	symlink("/usr/share/ofbiz/alternative/$file", $symlink) || die("f: $symlink: $!");
+	symlink("$destdir/$file", $symlink) || die("f: $symlink: $!");
 }
 system('rm', '-rf', 'debian/ofbiz', 'debian/ofbiz-specialpurpose');
 
