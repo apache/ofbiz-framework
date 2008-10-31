@@ -246,8 +246,8 @@ under the License.
                                         <widgets>    
                                             <label style="h3" text="${uiLabelMap.ProjectMgrNoPhasesYet}"/>
                                         </widgets>
-                                        <fail-widgets>    
-                                            <include-form name="AddProjectTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
+                                        <fail-widgets>
+                                            <include-form name="EditTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
                                         </fail-widgets>
                                     </section>
                                 </container>
