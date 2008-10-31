@@ -29,14 +29,6 @@ case "$1" in
 		;;
 esac
 
-case "$1" in
-	(remove|deconfigure)
-		update-alternatives --remove \
-			ofbiz-alternative \
-			/usr/share/ofbiz/dist
-		;;
-esac
-
 #DEBHELPER#
 
 

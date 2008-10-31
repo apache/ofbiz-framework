@@ -178,11 +178,6 @@ case "$1" in
 				adduser --quiet --group --no-create-home --system --home /var/lib/ofbiz ofbiz
 			fi
 		fi
-		update-alternatives --install \
-			/usr/share/ofbiz/alternative \
-			ofbiz-alternative \
-			/usr/share/ofbiz/dist \
-			1000
 		cat << _EOF_ > /etc/ofbiz/debconf.cfg.dpkg-new
 ofbiz_readers='$ofbiz_readers'
 ofbiz_from_email='$ofbiz_from_email'
