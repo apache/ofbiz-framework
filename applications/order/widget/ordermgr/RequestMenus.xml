@@ -35,6 +35,9 @@ under the License.
         <menu-item name="requestitems" title="Request Items" >
             <link target="/requestitems?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
+        <menu-item name="custRequestContent" title="Content">
+            <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
+        </menu-item>
     </menu>
     <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
         <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">

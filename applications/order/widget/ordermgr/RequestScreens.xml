@@ -464,4 +464,27 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="EditCustRequestContent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditRequestContent"/>
+                <set field="tabButtonItem" value="custRequestContent"/>
+                <set field="headerItem" value="request"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-and entity-name="CustRequestContent" list-name="custRequestContents" filter-by-date="true">
+                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                            <screenlet id="AddCustRequestContentsPanel" title="${uiLabelMap.PageTitleAddContent}" collapsible="true">
+                                <include-form name="AddCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
+                                <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

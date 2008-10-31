@@ -1741,6 +1741,21 @@ under the License.
             <key-map field-name="communicationEventId"/>
         </relation>
     </entity>
+    <entity entity-name="CustRequestContent" package-name="org.ofbiz.order.request" title="Customer Request Content Entity">
+      <field name="custRequestId" type="id-ne"></field>
+      <field name="contentId" type="id-ne"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <prim-key field="custRequestId"/>
+      <prim-key field="contentId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="CUSTREQ_CNT_CUSTRQ" rel-entity-name="CustRequest">
+        <key-map field-name="custRequestId"/>
+      </relation>
+      <relation type="one" fk-name="CUSTREQ_CNT_CNT" rel-entity-name="Content">
+        <key-map field-name="contentId"/>
+      </relation>
+    </entity>
     <entity entity-name="CustRequestItem"
             package-name="org.ofbiz.order.request"
             title="Customer Request Item Entity">

@@ -1097,6 +1097,27 @@ under the License.
     <request-map uri="FindRequest"><security https="true" auth="true"/><response name="success" type="view" value="FindRequest"/></request-map>
     <request-map uri="ViewRequest"><security https="true" auth="true"/><response name="success" type="view" value="ViewRequest"/></request-map>
     <request-map uri="EditRequest"><security https="true" auth="true"/><response name="success" type="view" value="EditRequest"/></request-map>
+    
+    <!-- CustRequest Content -->
+    <request-map uri="EditCustRequestContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCustRequestContent"/>
+    </request-map>
+    
+    <request-map uri="createCustRequestContent">
+        <security auth="true" https="true"/>
+        <event invoke="createCustRequestContent" path="" type="service"/>
+        <response name="success" type="request-redirect" value="EditCustRequestContent"/>
+        <response name="error" type="view" value="EditCustRequestContent"/>
+    </request-map>
+    
+    <request-map uri="deleteCustRequestContent">
+        <security auth="true" https="true"/>
+        <event invoke="deleteCustRequestContent" path="" type="service"/>
+        <response name="success" type="request-redirect" value="EditCustRequestContent"/>
+        <response name="error" type="view" value="EditCustRequestContent"/>
+    </request-map>
+    
     <!-- deprecated: use EditRequest instead -->
     <request-map uri="request"><security https="true" auth="true"/><response name="success" type="view" value="EditRequest"/></request-map>
     <request-map uri="createrequest">
@@ -1465,6 +1486,8 @@ under the License.
         <response name="success" type="view" value="LookupProductCategory"/>
     </request-map>
     
+    <request-map uri="LookupContent"><security auth="true" https="true"/><response name="success" type="view" value="LookupContent"/></request-map>
+   
     <!--
         These are just examples of reports developed using JasperReport and not really
         useful reports. In order to run them you'll have to follow the notes in the 
@@ -1601,7 +1624,8 @@ under the License.
     <view-map name="EditRequestItemWorkEfforts" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditRequestItemWorkEfforts"/>
     <view-map name="CreateQuoteAndQuoteItemForRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#CreateQuoteAndQuoteItemForRequest"/>
     <view-map name="EditQuoteItemForRequest" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditQuoteItemForRequest"/>
-
+    <view-map name="EditCustRequestContent" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditCustRequestContent"/>      
+    
     <view-map name="AddQuoteWorkEffort" type="screen" page="component://order/widget/ordermgr/QuoteWorkEffortScreens.xml#AddQuoteWorkEffort"/>
     <view-map name="EditQuoteWorkEffort" type="screen" page="component://order/widget/ordermgr/QuoteWorkEffortScreens.xml#EditQuoteWorkEffort"/>
     <view-map name="ListQuoteWorkEfforts" type="screen" page="component://order/widget/ordermgr/QuoteWorkEffortScreens.xml#ListQuoteWorkEfforts"/>
@@ -1633,6 +1657,7 @@ under the License.
     <view-map name="LookupWorkEffort" type="screen" page="component://workeffort/widget/LookupScreens.xml#LookupWorkEffort"/>
     <view-map name="LookupBulkAddProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddProducts"/>
     <view-map name="LookupBulkAddSupplierProducts" type="screen" page="component://order/widget/ordermgr/OrderEntryCartScreens.xml#LookupBulkAddSupplierProducts"/>
+    <view-map name="LookupContent" page="component://content/widget/content/ContentScreens.xml#LookupContent" type="screen"/>
     <!-- PDFs  -->
     <view-map name="OrderPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#OrderPDF" content-type="application/pdf" encoding="none"/>
     <view-map name="ReturnPDF" type="screenfop" page="component://order/widget/ordermgr/OrderPrintScreens.xml#ReturnPDF" content-type="application/pdf" encoding="none"/>

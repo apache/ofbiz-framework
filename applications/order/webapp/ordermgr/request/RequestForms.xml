@@ -480,5 +480,28 @@ under the License.
         <field name="lastModifiedDate" title="${uiLabelMap.OrderRequestLastModifiedDate}"><display/></field>       
     </form>
     
-    
+    <!--Customer Request Content-->
+    <form name="AddCustRequestContent" target="createCustRequestContent" title="" type="single" default-map-name="dummy"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="createCustRequestContent"/>
+        <field name="custRequestId"><hidden value="${parameters.custRequestId}"/></field>
+        <field name="contentId">
+            <lookup target-form-name="LookupContent"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListCustRequestContent" type="list" target="updateCustRequestContent" list-name="custRequestContents" paginate-target="EditCustRequestContent"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <field name="thruDate"><hidden/></field>
+        <field name="custRequestId"><hidden/></field>        
+        <field name="contentId">
+            <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
+                <sub-hyperlink target="/content/control/editContent?contentId=${contentId}" description="[${contentId}]" link-style="buttontext" target-type="inter-app"/>
+            </display-entity>
+        </field>
+        <field name="fromDate"><display/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteCustRequestContent?custRequestId=${custRequestId}&amp;contentId=${contentId}&amp;fromDate=${fromDate}"/>
+        </field>
+    </form>
 </forms>

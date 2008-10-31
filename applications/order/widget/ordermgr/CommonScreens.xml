@@ -57,6 +57,8 @@ under the License.
     <screen name="CommonRequestDecorator">
         <section>
             <actions>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-one entity-name="CustRequest" value-name="custRequest"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
