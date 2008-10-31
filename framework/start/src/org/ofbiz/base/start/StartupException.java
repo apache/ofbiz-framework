@@ -47,6 +47,7 @@ public class StartupException extends Exception {
     /**
      * Constructs an <code>StartupException</code> with the specified detail message and nested Exception.
      * @param msg the detail message.
+     * @param nested the chained exception.
      */
     public StartupException(String msg, Throwable nested) {
         super(msg);
@@ -55,7 +56,7 @@ public class StartupException extends Exception {
 
     /**
      * Constructs an <code>StartupException</code> with the specified detail message and nested Exception.
-     * @param msg the detail message.
+     * @param nested the chained exception.
      */
     public StartupException(Throwable nested) {
         super();
