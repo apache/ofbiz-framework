@@ -1215,7 +1215,7 @@
         <value xml:lang="de">Benutzeranmeldung ID</value>
         <value xml:lang="de">User Login ID</value>
         <value xml:lang="en">User Login Id</value>
-        <value xml:lang="fr">Utilisateur de connexion</value>
+        <value xml:lang="fr">Identifiant de connexion</value>
         <value xml:lang="it">Utente Login</value>
         <value xml:lang="nl">User Login Id</value>
         <value xml:lang="ro">Utilizator Login</value>
@@ -7121,7 +7121,7 @@
         <value xml:lang="de">Benutzeranmeldung</value>
         <value xml:lang="en">User Login</value>
         <value xml:lang="es">Usuario</value>
-        <value xml:lang="fr">Utilisateur de connexion</value>
+        <value xml:lang="fr">Identifiant de connexion</value>
         <value xml:lang="it">Utente Login</value>
         <value xml:lang="nl">User Login</value>
         <value xml:lang="pt_PT">Início de Secção </value>
@@ -7144,7 +7144,7 @@
         <value xml:lang="de">Benutzeranmeldung ID</value>
         <value xml:lang="en">User Login Id</value>
         <value xml:lang="es">Código de usuario</value>
-        <value xml:lang="fr">Utilisateur de connexion</value>
+        <value xml:lang="fr">Identifiant de connexion</value>
         <value xml:lang="it">Codice Utente Login</value>
         <value xml:lang="nl">User Login Id</value>
         <value xml:lang="pt_PT">Identificação de Início de Secção</value>
@@ -7180,7 +7180,7 @@
         <value xml:lang="de">Benutzeranmeldungen für Sicherheitsgruppe mit der ID</value>
         <value xml:lang="en">UserLogins for SecurityGroup with ID</value>
         <value xml:lang="es">Usuarios para el grupo de seguridad con código</value>
-        <value xml:lang="fr">Utilisateur de connexion pour le groupe de sécurité avec l'ident.</value>
+        <value xml:lang="fr">Identifiant de connexion pour le groupe de sécurité avec la réf.</value>
         <value xml:lang="it">Utenti Logins per Gruppo Sicurezza con Codice</value>
         <value xml:lang="nl">Gebruikers voor rechtengroep met ID</value>
         <value xml:lang="pt_PT">Inícios de Secção para Grupo de Segurança com ID. </value>
