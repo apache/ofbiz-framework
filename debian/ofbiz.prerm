@@ -30,5 +30,6 @@ case "$1" in
 esac
 
 #DEBHELPER#
+db_stop
 
 
