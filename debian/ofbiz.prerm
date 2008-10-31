@@ -25,7 +25,7 @@ dbc_go ofbiz "$@"
 
 case "$1" in
 	(upgrade|remove)
-		find /var/cache/ofbiz -mindepth 1 -maxdepth 1 -print0 | xargs rm -rf
+		find /var/cache/ofbiz -mindepth 1 -maxdepth 1 -print0 | xargs -0 --no-run-if-empty rm -rf
 		;;
 esac
 
