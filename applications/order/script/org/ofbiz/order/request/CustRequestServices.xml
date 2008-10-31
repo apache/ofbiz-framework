@@ -459,5 +459,24 @@ under the License.
                 
         <field-to-result field-name="parameters.custRequestId" result-name="custRequestId"/>
     </simple-method>
+    
+    <!-- Create/Delete   CustRequest Content-->    
+    <simple-method method-name="createCustRequestContent" short-description="Create Customer Request Content">
+        <make-value entity-name="CustRequestContent" value-name="newEntity"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+        </if-empty>
+        <create-value value-name="newEntity"/>
+    </simple-method>
+    <simple-method method-name="deleteCustRequestContent" short-description="Remove a Customer Request Content">
+        <entity-one entity-name="CustRequestContent" value-name="lookedUpValue"/>
+        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <if-empty field="lookedUpValue.thruDate">
+            <now-timestamp-to-env env-name="lookedUpValue.thruDate"/>
+        </if-empty>
+        <store-value value-name="lookedUpValue"/>
+    </simple-method>
 
 </simple-methods>

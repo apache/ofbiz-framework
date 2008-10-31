@@ -175,5 +175,24 @@ under the License.
         <attribute name="custRequestName" mode="IN" type="String" optional="true"/>
         <attribute name="custRequestId" mode="OUT" type="String" optional="false"/>
     </service>
+    
+    <!-- custRequest content services -->
+    <service name="createCustRequestContent" engine="simple"
+        location="org/ofbiz/order/request/CustRequestServices.xml"
+        invoke="createCustRequestContent"
+        default-entity-name="CustRequestContent" auth="true">
+        <description>Create a Customer Request Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false" />
+        <auto-attributes include="nonpk" mode="IN" optional="true" />
+        <override name="fromDate" optional="true" />
+    </service>
+    <service name="deleteCustRequestContent" engine="simple"
+        location="org/ofbiz/order/request/CustRequestServices.xml"
+        invoke="deleteCustRequestContent"
+        default-entity-name="CustRequestContent" auth="true">
+        <description>Update a Customer Request Content</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
 </services>
 
