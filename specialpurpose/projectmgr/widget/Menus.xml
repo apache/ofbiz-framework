@@ -309,8 +309,17 @@
         </menu-item>
     </menu>
     <menu name="TaskSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
-        <menu-item name="new" title="${uiLabelMap.CommonNew}" >
-            <link target="addProjectTask"/>
+        <menu-item name="new" title="${uiLabelMap.CommonNew}">
+            <condition>
+                <or>
+                    <not><if-empty field-name="workEffort"/></not>
+                    <and>
+                        <if-empty field-name="workEffort"/>
+                        <if-compare field-name="tabButtonItem" operator="equals" value="find"/>
+                    </and>
+                </or>
+            </condition>
+            <link target="EditTask"/>
         </menu-item>
         <menu-item name="setonhold" title="${uiLabelMap.ProjectMgrSetOnHold}" >
             <condition>

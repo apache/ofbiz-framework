@@ -160,6 +160,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleFindTask"/>
                 <set field="headerItem" value="task"/>
+                <set field="tabButtonItem" value="find"/>
                 <set field="labelTitleProperty" value="ProjectMgrListTasks"/>
             </actions>                                                
             <widgets>  
@@ -211,25 +212,6 @@ under the License.
                                 </screenlet>
                             </widgets>                            
                         </section>
-                    </decorator-section>
-                </decorator-screen>
-            </widgets>
-        </section>
-    </screen>
-    <screen name="AddProjectTask">
-        <section>
-            <actions>
-                <set field="headerItem" value="task"/>
-                <set field="titleProperty" value="PageTitleEditTask"/>
-                <set field="tabButtonItem" value="edittask"/>                
-                <set field="labelTitleProperty" value="PageTitleEditTaskList"/>
-            </actions>
-            <widgets>
-                <decorator-screen name="CommonTaskDecorator" location="${parameters.mainDecoratorLocation}">
-                    <decorator-section name="body">
-                         <screenlet title="${uiLabelMap.PageTitleEditTask} #${task.workEffortId} ${uiLabelMap.CommonInformation}">
-                             <include-form name="AddProjectTask" location="component://projectmgr/widget/forms/TaskForms.xml"/>
-                         </screenlet>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

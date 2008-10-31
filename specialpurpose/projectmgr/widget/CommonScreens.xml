@@ -94,6 +94,7 @@ under the License.
     <screen name="CommonTaskDecorator">
         <section>
             <actions>
+                <set field="headerItem" value="task"/>
                 <entity-one entity-name="WorkEffort" value-name="workEffort"/>
                 <service service-name="getProjectIdAndNameFromTask" result-map-name="result">
                     <field-map field-name="taskId" env-name="parameters.workEffortId"/>

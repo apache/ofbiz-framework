@@ -149,10 +149,6 @@
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTask"/>
     </request-map>
-    <request-map uri="addProjectTask">
-        <security https="true" auth="true"/>
-        <response name="success" type="view" value="AddProjectTask"/>
-    </request-map>
     <request-map uri="EditTaskPartyAssigns">
         <security https="true" auth="true"/>
         <response name="success" type="view" value="EditTaskPartyAssigns"/>
@@ -214,12 +210,6 @@
         <event type="service" invoke="createProjectTask"/>
         <response name="success" type="view" value="EditProjectTasks"/>
         <response name="error" type="view" value="EditProjectTasks"/>
-    </request-map>
-    <request-map uri="createProjectTask">
-        <security https="true" auth="true"/>
-        <event type="service" invoke="createProjectTask"/>
-        <response name="success" type="request-redirect" value="EditProjectTasks"/>
-        <response name="error" type="view" value="AddProjectTask"/>
     </request-map>
     <request-map uri="createProjectPhase">
         <security https="true" auth="true"/>
