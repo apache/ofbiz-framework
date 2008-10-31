@@ -52,7 +52,7 @@ under the License.
         <mkdir dir="${build.dir}/javadocs"/>
     </target>
 
-     <target name="jar" depends="classes">
+    <target name="jar" depends="classes">
         <jar jarfile="${build.dir}/lib/${name}.jar">
             <fileset dir="${build.dir}/classes"/>
             <fileset dir="${src.dir}">
