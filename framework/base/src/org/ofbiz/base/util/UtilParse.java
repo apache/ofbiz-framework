@@ -33,7 +33,7 @@ public class UtilParse {
      * return nulls for empty strings, as the entity engine can deal with nulls. This will provide blanks
      * in fields where doubles display. Blank meaning null, vs. 0 which means 0
      * @param doubleString
-     * @return
+     * @return a Double for the parsed value
      */
     public static Double parseDoubleForEntity(String doubleString) throws NumberFormatException {
         if (doubleString == null) {

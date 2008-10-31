@@ -43,9 +43,9 @@ public class SecurityConfigUtil {
     protected static Map<String, SecurityInfo> securityInfos = FastMap.newInstance();
 
     /**
-     * Returns the XmlRootElement for the security config
+     * Returns the XmlRootElement for the security config.
      *
-     * @return
+     * @return the root element for the security config
      * @throws GenericConfigException
      */
     public static Element getXmlRootElement() throws GenericConfigException {
@@ -53,9 +53,9 @@ public class SecurityConfigUtil {
     }
 
     /**
-     * Returns the XmlDocument for the security config
+     * Returns the XmlDocument for the security config.
      *
-     * @return
+     * @return the Document descripting the security config
      * @throws GenericConfigException
      */
     public static Document getXmlDocument() throws GenericConfigException {
@@ -71,7 +71,7 @@ public class SecurityConfigUtil {
     }
 
     /**
-     * Initializes the security configuration
+     * Initializes the security configuration.
      *
      * @param rootElement
      * @throws GenericConfigException
@@ -87,10 +87,10 @@ public class SecurityConfigUtil {
     }
 
     /**
-     * Returns the security config for a given name
+     * Returns the security config for a given name.
      *
      * @param name
-     * @return
+     * @return the found SecurityInfo
      */
     public static SecurityConfigUtil.SecurityInfo getSecurityInfo(String name) {
         return securityInfos.get(name);
@@ -104,7 +104,7 @@ public class SecurityConfigUtil {
         public final String className;
 
         /**
-         * Creates a SecurityInfo for a given element
+         * Creates a SecurityInfo for a given element.
          *
          * @param element
          */

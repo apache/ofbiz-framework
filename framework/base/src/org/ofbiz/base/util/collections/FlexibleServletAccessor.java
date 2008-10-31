@@ -100,7 +100,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     /** Based on name get from HttpSession or from List in HttpSession
      * @param session
      * @param expandContext
-     * @return
+     * @return the found value
      */
     public T get(HttpSession session, Map<String, Object> expandContext) {
         AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
@@ -138,7 +138,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     /** Based on name remove from ServletRequest or from List in ServletRequest
      * @param request
      * @param expandContext
-     * @return
+     * @return the removed value
      */
     public T remove(ServletRequest request, Map<String, Object> expandContext) {
         AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
@@ -148,7 +148,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     /** Based on name remove from HttpSession or from List in HttpSession
      * @param session
      * @param expandContext
-     * @return
+     * @return the removed value
      */
     public T remove(HttpSession session, Map<String, Object> expandContext) {
         AttributeAccessor<T> aa = new AttributeAccessor<T>(name, expandContext, this.attributeName, this.fma, this.needsExpand);
@@ -156,7 +156,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     }
     
     /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key * 
-     * @return
+     * @return the hashcode
      */    
     public int hashCode() {
         return this.name.hashCode();
@@ -164,7 +164,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
 
     /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key 
      * @param obj
-     * @return
+     * @return whether this object is equal to the passed object
      */    
     public boolean equals(Object obj) {
         if (obj instanceof FlexibleServletAccessor) {
@@ -183,7 +183,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
     }
 
     /** To be used for a string representation of the accessor, returns the original name. 
-     * @return
+     * @return the name of this accessor
      */    
     public String toString() {
         return this.name;

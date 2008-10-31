@@ -1024,7 +1024,7 @@ public class UtilHttp {
      * 
      * @param prefix
      * @param suffix
-     * @return
+     * @return the composite parameter
      */
     public static String makeCompositeParam(String prefix, String suffix) {
         return prefix + COMPOSITE_DELIMITER + suffix;    
@@ -1114,7 +1114,7 @@ public class UtilHttp {
      * checks, if the current request comes from a searchbot
      * 
      * @param request
-     * @return
+     * @return whether the request is from a web searchbot
      */
     public static boolean checkURLforSpiders(HttpServletRequest request){
         boolean result = false;
@@ -1150,7 +1150,7 @@ public class UtilHttp {
 
     /** Returns true if the user has JavaScript enabled.
      * @param request
-     * @return
+     * @return whether javascript is enabled
      */
     public static boolean isJavaScriptEnabled(HttpServletRequest request) {
         HttpSession session = request.getSession();

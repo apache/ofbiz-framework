@@ -113,7 +113,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
     /** Given the name based information in this accessor, get the value from the passed in Map. 
      *  Supports LocalizedMaps by getting a String or Locale object from the base Map with the key "locale", or by explicit locale parameter.
      * @param base
-     * @return
+     * @return the found value
      */
     public T get(Map<String, ? extends Object> base) {
         return get(base, null);
@@ -124,7 +124,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
      *  Note that the localization functionality is only used when the lowest level sub-map implements the LocalizedMap interface
      * @param base Map to get value from
      * @param locale Optional locale parameter, if null will see if the base Map contains a "locale" key
-     * @return
+     * @return the found value
      */
     public T get(Map<String, ? extends Object> base, Locale locale) {
         if (base == null) {
