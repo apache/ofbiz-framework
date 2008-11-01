@@ -74,6 +74,15 @@ if (phases){
                     taskInfo.resource = taskInfo.actualHours + " Hrs";
                 }
                 double duration = resultTaskInfo.plannedHours;
+                if (taskInfo.currentStatusId == "PTS_COMPLETED") {
+                    taskInfo.completion = 100;
+                }else{
+                	if (taskInfo.actualHours) {
+                		taskInfo.completion = taskInfo.actualHours*100/taskInfo.plannedHours;
+                	} else {
+                		taskInfo.completion = 0;
+                	}
+                }
                 if (!taskInfo.estimatedStartDate && taskInfo.actualStartDate) {
                     taskInfo.estimatedStartDate = taskInfo.actualStartDate;
                 }
@@ -91,11 +100,6 @@ if (phases){
                 taskInfo.estimatedStartDate = UtilDateTime.toDateString(taskInfo.estimatedStartDate, "MM/dd/yyyy");
                 taskInfo.estimatedCompletionDate = UtilDateTime.toDateString(taskInfo.estimatedCompletionDate, "MM/dd/yyyy");
                 taskInfo.workEffortTypeId = "TASK";
-                if (taskInfo.currentStatusId == "PTS_COMPLETED") {
-                    taskInfo.completion = 100;
-                }else{
-                    taskInfo.completion = 0;
-                }
                 if (security.hasEntityPermission("PROJECTMGR", "_READ", session) || security.hasEntityPermission("PROJECTMGR", "_ADMIN", session)) {
                 	taskInfo.url = "/projectmgr/control/taskView?workEffortId="+task.workEffortId;
                 } else {
