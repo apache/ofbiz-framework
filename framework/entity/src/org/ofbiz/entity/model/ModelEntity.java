@@ -1301,7 +1301,7 @@ public class ModelEntity extends ModelInfo implements Comparable<ModelEntity>, S
      * @param value
      * @param delegator
      * @param context
-     * @return
+     * @return the converted value
      */
     public Object convertFieldValue(ModelField modelField, Object value, GenericDelegator delegator, Map<String, ? extends Object> context) {
         if (value == null || value == GenericEntity.NULL_FIELD) {

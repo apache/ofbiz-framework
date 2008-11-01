@@ -107,12 +107,6 @@ public class EntityTypeUtil {
         return descendantTypes;
     }
 
-    /**
-     *  Description of the Method
-     *
-     *@param  catName                       Description of Parameter
-     *@exception  java.rmi.RemoteException  Description of Exception
-     */
     public static boolean isType(GenericValue thisType, GenericValue targetType) {
         if (thisType == null) {
             return false;
