@@ -46,6 +46,7 @@ under the License.
     <SkillType skillTypeId="_NA_" description="Not Applicable"/>
     
     <StatusType description="Project" statusTypeId="PROJECT" hasTable="N" parentTypeId=""/>
+    <StatusType description="Project status" statusTypeId="PROJECT_STATUS" hasTable="N" parentTypeId="PROJECT"/>
     <StatusType description="Project Task" statusTypeId="PROJECT_TASK_STATUS" hasTable="N" parentTypeId="PROJECT"/>
     <StatusType description="Project Assignment" statusTypeId="PROJECT_ASSGN_STATUS" hasTable="N" parentTypeId="PROJECT"/>
 
@@ -66,5 +67,12 @@ under the License.
     <StatusValidChange condition="" statusId="PTS_CREATED" statusIdTo="PTS_ON_HOLD" transitionName="Task On Hold"/>
     <StatusValidChange condition="" statusId="PTS_CREATED" statusIdTo="PTS_CANCELLED" transitionName="Task On Hold"/>
     <StatusValidChange condition="" statusId="PTS_ON_HOLD" statusIdTo="PTS_CREATED" transitionName="Activated"/>
-    
+
+    <!-- status of project and phase is defined by the underlying task status. 
+        however to remove the project from current lists the closed status is introduced -->
+    <StatusItem description="Active" sequenceId="01" statusCode="ACTIVE" statusId="PRJ_ACTIVE" statusTypeId="PROJECT_STATUS"/>
+    <StatusItem description="Closed" sequenceId="09" statusCode="CLOSED" statusId="PRJ_CLOSED" statusTypeId="PROJECT_STATUS"/>
+    <StatusValidChange condition="" statusId="PRJ_ACTIVE" statusIdTo="PRJ_CLOSED" transitionName="Close project"/>
+    <!-- for current installations -->
+    <StatusValidChange condition="" statusId="_NA_" statusIdTo="PRJ_CLOSED" transitionName="Close project"/>
 </entity-engine-xml>
