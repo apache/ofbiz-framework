@@ -48,16 +48,18 @@ under the License.
         <fileset dir="../../framework/widget/build/lib" includes="*.jar"/>
     </path>
 
+    <patternset id="src.exc.set">
+        <exclude name="org/ofbiz/content/report/JREntityListIteratorDataSource.java"/>
+        <exclude name="org/ofbiz/content/report/JRMapCollectionDataSource.java"/>
+        <exclude name="org/ofbiz/content/openoffice/*.java"/>
+    </patternset>
+
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                    -->
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-    	<javac15>
-            <exclude name="org/ofbiz/content/report/JREntityListIteratorDataSource.java"/>
-            <exclude name="org/ofbiz/content/report/JRMapCollectionDataSource.java"/>
-            <exclude name="org/ofbiz/content/openoffice/*.java"/>
-        </javac15>
+        <javac15/>
     </target>
 
     <!-- ================================================================== -->

@@ -39,15 +39,17 @@ under the License.
         <fileset dir="../base/build/lib" includes="*.jar"/>
     </path>
 
+    <patternset id="src.exc.set">
+        <exclude name="org/ofbiz/entity/connection/XaPoolConnectionFactory.java"/>
+        <exclude name="org/ofbiz/entity/connection/TyrexConnectionFactory.java"/>
+    </patternset>
+
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                                                                                                         -->
     <!-- ================================================================== -->
 
     <target name="classes" depends="prepare">
-        <javac15>
-            <exclude name="org/ofbiz/entity/connection/XaPoolConnectionFactory.java"/>
-            <exclude name="org/ofbiz/entity/connection/TyrexConnectionFactory.java"/>
-        </javac15>
+        <javac15/>
     </target>
 
     <!-- ================================================================== -->
