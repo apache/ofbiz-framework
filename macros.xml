@@ -31,6 +31,10 @@ under the License.
  </macrodef>
 
  <path id="src-path"/>
+ <patternset id="src.inc.set">
+  <include name="**/*.java"/>
+ </patternset>
+ <patternset id="src.exc.set"/>
 
  <path id="groovy.class.path">
   <fileset dir="${ofbiz.home.dir}/framework/base/lib/scripting/" includes="*.jar"/>
@@ -42,7 +46,10 @@ under the License.
  <path id="local.class.path"/>
 
  <presetdef name="default-javac">
-  <javac debug="on" deprecation="on" destdir="${build.dir}/classes" srcdir="${src.dir}" classpathref="local.class.path"/>
+  <javac debug="on" deprecation="on" destdir="${build.dir}/classes" srcdir="${src.dir}" classpathref="local.class.path">
+   <patternset refid="src.inc.set"/>
+   <patternset refid="src.exc.set"/>
+  </javac>
  </presetdef>
 
  <presetdef name="javac14">

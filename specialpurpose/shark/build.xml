@@ -44,6 +44,10 @@ under the License.
         <fileset dir="../common/build/lib" includes="*.jar"/>
     </path>
 
+    <patternset id="src.exc.set">
+        <exclude name="org/ofbiz/shark/SharkGuiContainer.java"/>
+    </patternset>
+
     <!-- ================================================================== -->
     <!-- Compilation of the source files                                                                                                                         -->
     <!-- ================================================================== -->
@@ -51,7 +55,6 @@ under the License.
     <target name="classes" depends="prepare">
         <javac15>
             <src path="${src.dir}"/>
-            <exclude name="org/ofbiz/shark/SharkGuiContainer.java"/>
         </javac15>
     </target>
 
