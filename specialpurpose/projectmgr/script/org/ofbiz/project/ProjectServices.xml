@@ -26,6 +26,7 @@
             <set field="parameters.projectId" from-field="parameters.templateId"/>
             <call-simple-method method-name="copyProject"/>
             <else>
+                <set field="parameters.currentStatusId" value="PRJ_ACTIVE"/>       
                 <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
             </else>
         </if-not-empty>
@@ -458,10 +459,9 @@
                 <set field="parameters.workEffortTypeId" value="PROJECT"/>
             </else>            
         </if-not-empty>
-        <set field="parameters.currentStatusId" value="_NA_"/>
+        <set field="parameters.currentStatusId" value="PRJ_ACTIVE"/>
         <clear-field field-name="parameters.workEffortId"/>
         <set field="parameters.workEffortName" from-field="project.workEffortName"/>
-        <set field="parameters.currentStatusId" value="_NA_"/>            
         <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
         <set field="newProjectId" from-field="newEntity.workEffortId"/>
         
