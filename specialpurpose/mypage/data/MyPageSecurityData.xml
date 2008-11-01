@@ -36,7 +36,7 @@ under the License.
     <SecurityGroupPermission groupId="MYPAGE_EMPLOYEE" permissionId="PARTYMGR_VIEW"/>
     <!-- and can create customer request from emails -->
     <SecurityGroupPermission groupId="MYPAGE_EMPLOYEE" permissionId="ORDERMGR_CRQ_CREATE"/>
-    <!-- and can upload content for email -->
+    <!-- and can upload content for email/task/project -->
     <SecurityGroupPermission groupId="MYPAGE_EMPLOYEE" permissionId="CONTENTMGR_ROLE_CREATE"/>
 
     <SecurityPermission permissionId="MYPAGE_EMPL-NOEMAIL" description="Usage of the employee screens in mypage: projectmanager and internal notes."/>
@@ -50,7 +50,9 @@ under the License.
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PARTYMGR_CME-NOTE_CREATE"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PARTYMGR_CME_CREATE"/>
     <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="PARTYMGR_CME_UPDATE"/>
-
+    <!-- and can upload content for task/project -->
+    <SecurityGroupPermission groupId="MYPAGE_EMPL-NOEMAIL" permissionId="CONTENTMGR_ROLE_CREATE"/>
+    
     <SecurityPermission permissionId="MYPAGE_CUSTOMER" description="Use the customer screens in mypage."/>
     <SecurityGroup description="Customer user of mypage, Limited access to own custRequests, and project" groupId="MYPAGE_CUSTOMER"/>
     <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="PARTYMGR_CME-NOTE_CREATE"/><!-- allow customer to read/write internal notes -->
