@@ -1263,7 +1263,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
     }
 
     /** Compares this GenericEntity to the passed object
-     *@param obj Object to compare this to
+     *@param that Object to compare this to
      *@return int representing the result of the comparison (-1,0, or 1)
      */
     public int compareTo(GenericEntity that) {
