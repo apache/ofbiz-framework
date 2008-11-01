@@ -580,6 +580,10 @@
                 <set field="highInfo.currentStatusId" value="PTS_CREATED_IP"/>
             </then>
         </if>
+        <!-- closed overrules everything -->
+        <if-compare field="project.currentStatusId" value="PRJ_CLOSED" operator="equals">
+            <set field="highInfo.currentStatusId" value="PRJ_CLOSED"/>
+        </if-compare>
         
         <call-simple-method method-name="createDates"/>
         

@@ -93,6 +93,7 @@
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="EditProject?projectId=${projectId}"/>
@@ -104,6 +105,7 @@
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="FindPhase?projectId=${projectId}"/>
@@ -115,6 +117,7 @@
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="EditProjectTasks?projectId=${projectId}"/>
@@ -126,6 +129,7 @@
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="ListWorkEffortPartyAssigns?projectId=${projectId}"/>
@@ -137,6 +141,7 @@
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="EditProjectContents?projectId=${projectId}"/>
@@ -145,9 +150,6 @@
             <condition>
                 <and>
                     <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
-                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
                 </and>
             </condition>
             <link target="EditWorkEffortNotes?projectId=${projectId}"/>
@@ -159,6 +161,7 @@
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="ListSubProjects?projectId=${projectId}&amp;subProjects=true"/>
@@ -170,6 +173,7 @@
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_COMPLETED"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_ON_HOLD"/>
                     <if-compare field-name="project.currentStatusId" operator="not-equals" value="PTS_CANCELED"/>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                 </and>
             </condition>
             <link target="projectBilling?projectId=${projectId}"/>
@@ -208,6 +212,7 @@
         <menu-item name="schedule" title="${uiLabelMap.ProjectMgrSchedule}">
             <condition>
                 <and>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
                     <not>
                         <if-empty field-name="project"/>
                     </not>
@@ -226,6 +231,18 @@
                 </and>
             </condition>
             <link target="copyProjectToTemplate?projectId=${projectId}"></link>
+        </menu-item>
+        <menu-item name="close" title="${uiLabelMap.CommonClose}">
+            <condition>
+                <and>
+                    <if-compare field-name="project.currentStatusId" operator="not-equals" value="PRJ_CLOSED"/>
+                    <not>
+                        <if-empty field-name="project"/>
+                    </not>
+                    <if-compare field-name="hasUpdatePermission" operator="equals" value="true"/>
+                </and>
+            </condition>
+            <link target="javascript:confirmActionLink('Are you sure you want to close this project?','updateProject?workEffortId=${parameters.projectId}&amp;currentStatusId=PRJ_CLOSED')" url-mode="plain"/>
         </menu-item>
     </menu>
     <menu name="TaskTabBar" type="simple" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">

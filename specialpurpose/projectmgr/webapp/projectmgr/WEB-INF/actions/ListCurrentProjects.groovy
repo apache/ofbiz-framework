@@ -27,7 +27,7 @@ projects = [];
 allProjects.each { project ->
 	result = dispatcher.runSync("getProject", ["userLogin" : parameters.userLogin, "projectId" : project.workEffortId]);
 	if (result.projectInfo) {
-		if (!result.projectInfo.currentStatusId.equals("PTS_COMPLETED") && !result.projectInfo.currentStatusId.equals("PTS_CANCELLED")) {
+		if (!result.projectInfo.currentStatusId.equals("PTS_COMPLETED") && !result.projectInfo.currentStatusId.equals("PTS_CANCELLED") && !result.projectInfo.currentStatusId.equals("PRJ_CLOSED")) {
 			resultAssign = delegator.findByAnd("WorkEffortPartyAssignment", ["partyId" : parameters.userLogin.partyId, "workEffortId" : project.workEffortId])
 			if (security.hasEntityPermission("PROJECTMGR", "_ADMIN", session) 
 					|| ((security.hasEntityPermission("PROJECTMGR", "_ROLE_ADMIN", session) || security.hasEntityPermission("PROJECTMGR", "_ROLE_VIEW", session)) && resultAssign)) {
