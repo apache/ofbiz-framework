@@ -44,8 +44,7 @@ public class SslAcceleratorValve extends ValveBase {
         return sslAcceleratorPort;
     }
 
-    /** @Override */
-    public void invoke(Request req, Response resp) throws IOException, ServletException {
+    public @Override void invoke(Request req, Response resp) throws IOException, ServletException {
         if (sslAcceleratorPort != null && req.getLocalPort() == sslAcceleratorPort.intValue()) { 
             req.setSecure(true);
         }

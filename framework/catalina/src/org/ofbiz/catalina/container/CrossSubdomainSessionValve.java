@@ -22,8 +22,7 @@ public class CrossSubdomainSessionValve extends ValveBase {
         super();
     }
 
-    /** @Override */
-    public void invoke(Request request, Response response) throws IOException, ServletException { 
+    public @Override void invoke(Request request, Response response) throws IOException, ServletException { 
 
         // this will cause Request.doGetSession to create the session cookie if necessary
         request.getSession(true);
