@@ -261,17 +261,11 @@ public class ModelMenuItem {
     }
 
 
-    /**
-     * @return
-     */
     public ModelMenu getModelMenu() {
         return modelMenu;
     }
 
 
-    /**
-     * @return
-     */
     public String getEntityName() {
         if (UtilValidate.isNotEmpty(this.entityName)) {
             return this.entityName;
@@ -282,9 +276,6 @@ public class ModelMenuItem {
         }
     }
 
-    /**
-     * @return
-     */
     public String getAlign() {
         if (UtilValidate.isNotEmpty(this.align)) {
             return this.align;
@@ -296,16 +287,10 @@ public class ModelMenuItem {
     }
 
 
-    /**
-     * @return
-     */
     public String getName() {
         return name;
     }
 
-    /**
-     * @return
-     */
     public int getPosition() {
         if (this.position == null) {
             return 1;
@@ -314,16 +299,10 @@ public class ModelMenuItem {
         }
     }
 
-    /**
-     * @return
-     */
     public String getTitle(Map<String, Object> context) {
             return title.expandString(context);
     }
 
-    /**
-     * @return
-     */
     public String getTitleStyle() {
         if (UtilValidate.isNotEmpty(this.titleStyle)) {
             return this.titleStyle;
@@ -334,9 +313,6 @@ public class ModelMenuItem {
         }
     }
 
-    /**
-     * @return
-     */
     public String getDisabledTitleStyle() {
         if (UtilValidate.isNotEmpty(this.disabledTitleStyle)) {
             return this.disabledTitleStyle;
@@ -351,9 +327,6 @@ public class ModelMenuItem {
             this.disabledTitleStyle = style;
     }
 
-    /**
-     * @return
-     */
     public String getSelectedStyle() {
         if (UtilValidate.isNotEmpty(this.selectedStyle)) {
             return this.selectedStyle;
@@ -364,9 +337,6 @@ public class ModelMenuItem {
         }
     }
 
-    /**
-     * @return
-     */
     public String getTooltip(Map<String, Object> context) {
         if (tooltip != null && !tooltip.isEmpty()) {
             return tooltip.expandString(context);
@@ -376,9 +346,6 @@ public class ModelMenuItem {
     }
 
 
-    /**
-     * @return
-     */
     public String getWidgetStyle() {
         if (UtilValidate.isNotEmpty(this.widgetStyle)) {
             return this.widgetStyle;
@@ -389,9 +356,6 @@ public class ModelMenuItem {
         }
     }
 
-    /**
-     * @return
-     */
     public String getAlignStyle() {
         if (UtilValidate.isNotEmpty(this.alignStyle)) {
             return this.alignStyle;
@@ -402,9 +366,6 @@ public class ModelMenuItem {
         }
     }
 
-    /**
-     * @return
-     */
     public String getTooltipStyle() {
         if (UtilValidate.isNotEmpty(this.tooltipStyle)) {
             return this.tooltipStyle;
@@ -481,9 +442,6 @@ public class ModelMenuItem {
         this.associatedContentId = FlexibleStringExpander.getInstance(string);
     }
 
-    /**
-     * @return
-     */
     public String getAssociatedContentId(Map<String, Object> context) {
         String retStr = null;
         if (this.associatedContentId != null) {
@@ -503,9 +461,6 @@ public class ModelMenuItem {
         this.cellWidth = string;
     }
 
-    /**
-     * @return
-     */
     public String getCellWidth() {
         if (UtilValidate.isNotEmpty(this.cellWidth )) {
             return this.cellWidth ;
@@ -521,9 +476,6 @@ public class ModelMenuItem {
         this.hideIfSelected = val;
     }
 
-    /**
-     * @return
-     */
     public Boolean getHideIfSelected() {
         if (hideIfSelected != null) {
             return this.hideIfSelected;
@@ -532,9 +484,6 @@ public class ModelMenuItem {
         }
     }
 
-    /**
-     * @return
-     */
     public String getDisableIfEmpty() {
             return this.disableIfEmpty;
     }
@@ -546,9 +495,6 @@ public class ModelMenuItem {
         this.hasPermission = val;
     }
 
-    /**
-     * @return
-     */
     public Boolean getHasPermission() {
         return this.hasPermission;
     }

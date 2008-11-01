@@ -357,80 +357,47 @@ public class ModelMenu extends ModelWidget {
         return this.delegator;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultEntityName() {
         return this.defaultEntityName;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultAlign() {
         return this.defaultAlign;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultAlignStyle() {
         return this.defaultAlignStyle;
     }
 
 
-    /**
-     * @return
-     */
     public String getDefaultTitleStyle() {
         return this.defaultTitleStyle;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultDisabledTitleStyle() {
         return this.defaultDisabledTitleStyle;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultSelectedStyle() {
         return this.defaultSelectedStyle;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultWidgetStyle() {
         return this.defaultWidgetStyle;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultTooltipStyle() {
         return this.defaultTooltipStyle;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultMenuItemName() {
         return this.defaultMenuItemName;
     }
 
-    /**
-     * @return
-     */
     public String getFillStyle() {
         return this.fillStyle;
     }
 
-    /**
-     * @return
-     */
     public String getSelectedMenuItemContextFieldName(Map<String, Object> context) {
         String menuItemName = this.selectedMenuItemContextFieldName.get(context);
         if (UtilValidate.isEmpty(menuItemName)) {
@@ -443,30 +410,18 @@ public class ModelMenu extends ModelWidget {
         return this.name;
     }
 
-    /**
-     * @return
-     */
     public String getId() {
         return this.id;
     }
 
-    /**
-     * @return
-     */
     public String getTitle(Map<String, Object> context) {
         return title.expandString(context);
     }
 
-    /**
-     * @return
-     */
     public String getTooltip() {
         return this.tooltip;
     }
 
-    /**
-     * @return
-     */
     public String getType() {
         return this.type;
     }
@@ -590,15 +545,9 @@ public class ModelMenu extends ModelWidget {
         this.menuContainerStyleExdr = FlexibleStringExpander.getInstance(string);
     }
 
-    /**
-     * @return
-     */
     public String getDefaultAssociatedContentId(Map<String, Object> context) {
         return defaultAssociatedContentId.expandString(context);
     }
-    /**
-     * @return
-     */
     public String getMenuContainerStyle(Map<String, Object> context) {
         return menuContainerStyleExdr.expandString(context);
     }
@@ -610,9 +559,6 @@ public class ModelMenu extends ModelWidget {
         this.defaultPermissionOperation = string;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultPermissionStatusId() {
         return this.defaultPermissionStatusId;
     }
@@ -631,9 +577,6 @@ public class ModelMenu extends ModelWidget {
         this.defaultPrivilegeEnumId = string;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultPrivilegeEnumId() {
         return this.defaultPrivilegeEnumId;
     }
@@ -645,9 +588,6 @@ public class ModelMenu extends ModelWidget {
         this.orientation = string;
     }
 
-    /**
-     * @return
-     */
     public String getOrientation() {
         return this.orientation;
     }
@@ -659,9 +599,6 @@ public class ModelMenu extends ModelWidget {
         this.menuWidth = string;
     }
 
-    /**
-     * @return
-     */
     public String getMenuWidth() {
         return this.menuWidth;
     }
@@ -673,16 +610,10 @@ public class ModelMenu extends ModelWidget {
         this.defaultCellWidth = string;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultCellWidth() {
         return this.defaultCellWidth;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultPermissionOperation() {
         return this.defaultPermissionOperation;
     }
@@ -694,9 +625,6 @@ public class ModelMenu extends ModelWidget {
         this.defaultPermissionEntityAction = string;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultPermissionEntityAction() {
         return this.defaultPermissionEntityAction;
     }
@@ -708,9 +636,6 @@ public class ModelMenu extends ModelWidget {
         this.defaultHideIfSelected = val;
     }
 
-    /**
-     * @return
-     */
     public Boolean getDefaultHideIfSelected() {
         return this.defaultHideIfSelected;
     }
