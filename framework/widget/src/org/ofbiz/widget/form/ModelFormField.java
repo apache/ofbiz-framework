@@ -598,16 +598,10 @@ public class ModelFormField {
         return onClickUpdateAreas;
     }
 
-    /**
-     * @return
-     */
     public FieldInfo getFieldInfo() {
         return fieldInfo;
     }
 
-    /**
-     * @return
-     */
     public ModelForm getModelForm() {
         return modelForm;
     }
@@ -641,9 +635,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getEntityName() {
         if (UtilValidate.isNotEmpty(this.entityName)) {
             return this.entityName;
@@ -652,9 +643,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getEntryName() {
         if (this.entryAcsr != null && !this.entryAcsr.isEmpty()) {
             return this.entryAcsr.getOriginalName();
@@ -811,9 +799,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getName() {
         return name;
     }
@@ -840,9 +825,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public int getPosition() {
         if (this.position == null) {
             return 1;
@@ -851,24 +833,15 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getRedWhen() {
         return redWhen;
     }
 
 
-    /**
-     * @return
-     */
     public String getEvent() {
         return event;
     }
 
-    /**
-     * @return
-     */
     public String getAction(Map<String, Object> context) {
         if (this.action != null && this.action.getOriginal() != null) {
             return action.expandString(context);
@@ -992,9 +965,6 @@ public class ModelFormField {
         return false;
     }
 
-    /**
-     * @return
-     */
     public String getServiceName() {
         if (UtilValidate.isNotEmpty(this.serviceName)) {
             return this.serviceName;
@@ -1003,9 +973,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getTitle(Map<String, Object> context) {
         if (this.title != null && this.title.getOriginal() != null) {
             return title.expandString(context);
@@ -1047,9 +1014,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getTitleAreaStyle() {
         if (UtilValidate.isNotEmpty(this.titleAreaStyle)) {
             return this.titleAreaStyle;
@@ -1058,9 +1022,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getTitleStyle() {
         if (UtilValidate.isNotEmpty(this.titleStyle)) {
             return this.titleStyle;
@@ -1069,9 +1030,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getRequiredFieldStyle() {
         if (UtilValidate.isNotEmpty(this.requiredFieldStyle)) {
             return this.requiredFieldStyle;
@@ -1101,9 +1059,6 @@ public class ModelFormField {
         return this.modelForm.getDefaultSortFieldDescStyle();
     }
 
-    /**
-     * @return
-     */
     public String getTooltip(Map<String, Object> context) {
         if (tooltip != null && !tooltip.isEmpty()) {
             return tooltip.expandString(context);
@@ -1112,9 +1067,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getUseWhen(Map<String, Object> context) {
         if (useWhen != null && !useWhen.isEmpty()) {
             return useWhen.expandString(context);
@@ -1123,16 +1075,10 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getIdName() {
         return idName;
     }
     
-    /**
-     * @return
-     */
     public String getHeaderLink() {
         return headerLink;
     }
@@ -1197,9 +1143,6 @@ public class ModelFormField {
         return true;
     }
 
-    /**
-     * @return
-     */
     public String getWidgetAreaStyle() {
         if (UtilValidate.isNotEmpty(this.widgetAreaStyle)) {
             return this.widgetAreaStyle;
@@ -1208,9 +1151,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getWidgetStyle() {
         if (UtilValidate.isNotEmpty(this.widgetStyle)) {
             return this.widgetStyle;
@@ -1219,9 +1159,6 @@ public class ModelFormField {
         }
     }
 
-    /**
-     * @return
-     */
     public String getTooltipStyle() {
         if (UtilValidate.isNotEmpty(this.tooltipStyle)) {
             return this.tooltipStyle;
@@ -1371,9 +1308,6 @@ public class ModelFormField {
         this.tooltipStyle = string;
     }
 
-    /**
-     * @return
-     */
     public boolean getSeparateColumn() {
         return this.separateColumn;
     }
@@ -1393,9 +1327,6 @@ public class ModelFormField {
     }
     
     
-    /**
-     * @return
-     */
     public boolean getRequiredField() {
         return this.requiredField != null ? this.requiredField : false;
     }
@@ -1407,9 +1338,6 @@ public class ModelFormField {
         this.requiredField = required;
     }
     
-    /**
-     * @return
-     */
     public boolean isSortField() {
         return this.sortField != null ? this.sortField.booleanValue() : false;
     }
@@ -1506,23 +1434,14 @@ public class ModelFormField {
             this.modelFormField = modelFormField;
         }
 
-        /**
-         * @return
-         */
         public ModelFormField getModelFormField() {
             return modelFormField;
         }
 
-        /**
-         * @return
-         */
         public int getFieldType() {
             return fieldType;
         }
 
-        /**
-         * @return
-         */
         public int getFieldSource() {
             return this.fieldSource;
         }
@@ -2118,16 +2037,10 @@ public class ModelFormField {
             formStringRenderer.renderDisplayField(writer, context, this);
         }
 
-        /**
-         * @return
-         */
         public boolean getAlsoHidden() {
             return alsoHidden;
         }
 
-        /**
-         * @return
-         */
         public String getDescription(Map<String, Object> context) {
             String retVal = null;
             if (this.description != null && !this.description.isEmpty()) {
@@ -2231,9 +2144,6 @@ public class ModelFormField {
             }
         }
 
-        /**
-         * @return
-         */
         public String getDescription(Map<String, Object> context) {
             Locale locale = UtilMisc.ensureLocale(context.get("locale"));
             
@@ -2315,16 +2225,10 @@ public class ModelFormField {
             formStringRenderer.renderHyperlinkField(writer, context, this);
         }
 
-        /**
-         * @return
-         */
         public boolean getAlsoHidden() {
             return this.alsoHidden;
         }
 
-        /**
-         * @return
-         */
         public String getTargetType() {
             if (UtilValidate.isNotEmpty(this.targetType)) {
                 return this.targetType;
@@ -2338,16 +2242,10 @@ public class ModelFormField {
             return targetWindow;
         }
         
-        /**
-         * @return
-         */
         public String getDescription(Map<String, Object> context) {
             return this.description.expandString(context);
         }
 
-        /**
-         * @return
-         */
         public String getTarget(Map<String, Object> context) {
             return this.target.expandString(context);
         }
@@ -2398,16 +2296,10 @@ public class ModelFormField {
             this.targetWindowExdr = FlexibleStringExpander.getInstance(element.getAttribute("target-window"));
         }
 
-        /**
-         * @return
-         */
         public String getLinkStyle() {
             return this.linkStyle;
         }
 
-        /**
-         * @return
-         */
         public String getTargetType() {
             if (UtilValidate.isNotEmpty(this.targetType)) {
                 return this.targetType;
@@ -2416,9 +2308,6 @@ public class ModelFormField {
             }
         }
 
-        /**
-         * @return
-         */
         public String getDescription(Map<String, Object> context) {
             if (this.description != null) {
                 return this.description.expandString(context);
@@ -2432,9 +2321,6 @@ public class ModelFormField {
             return targetWindow;
         }
         
-        /**
-         * @return
-         */
         public String getTarget(Map<String, Object> context) {
             if (this.target != null) {
                 return this.target.expandString(context);
@@ -2443,9 +2329,6 @@ public class ModelFormField {
             }
         }
 
-        /**
-         * @return
-         */
         public String getUseWhen(Map<String, Object> context) {
             if (this.useWhen != null) {
                 return this.useWhen.expandString(context);
@@ -2663,23 +2546,14 @@ public class ModelFormField {
             formStringRenderer.renderTextField(writer, context, this);
         }
 
-        /**
-         * @return
-         */
         public Integer getMaxlength() {
             return maxlength;
         }
 
-        /**
-         * @return
-         */
         public int getSize() {
             return size;
         }
         
-        /**
-         * @return
-         */
         public boolean getDisabled() {
             return this.disabled;
         }
@@ -2696,9 +2570,6 @@ public class ModelFormField {
             this.clientAutocompleteField = b;   
         }
 
-        /**
-         * @return
-         */
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
@@ -2787,23 +2658,14 @@ public class ModelFormField {
             formStringRenderer.renderTextareaField(writer, context, this);
         }
 
-        /**
-         * @return
-         */
         public int getCols() {
             return cols;
         }
 
-        /**
-         * @return
-         */
         public int getRows() {
             return rows;
         }
 
-        /**
-         * @return
-         */
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
@@ -2812,23 +2674,14 @@ public class ModelFormField {
             }
         }
 
-        /**
-         * @return
-         */
         public boolean getVisualEditorEnable() {
             return this.visualEditorEnable;
         }
 
-        /**
-         * @return
-         */
         public String getVisualEditorButtons(Map<String, Object> context) {
             return this.visualEditorButtons.expandString(context);
         }
 
-        /**
-         * @return
-         */
         public boolean isReadOnly() {
             return readOnly;
         }
@@ -2906,16 +2759,10 @@ public class ModelFormField {
             formStringRenderer.renderDateTimeField(writer, context, this);
         }
 
-        /**
-         * @return
-         */
         public String getType() {
             return type;
         }
 
-        /**
-         * @return
-         */
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);
@@ -3203,16 +3050,10 @@ public class ModelFormField {
             formStringRenderer.renderSubmitField(writer, context, this);
         }
 
-        /**
-         * @return
-         */
         public String getButtonType() {
             return buttonType;
         }
 
-        /**
-         * @return
-         */
         public String getImageLocation() {
             return imageLocation;
         }
@@ -3571,29 +3412,17 @@ public class ModelFormField {
         public void setSubHyperlink(SubHyperlink newSubHyperlink) {
             this.subHyperlink = newSubHyperlink;
         }
-        /**
-         * @return
-         */
         public Integer getWidth() {
             return width;
         }
-        /**
-         * @return
-         */
         public Integer getHeight() {
             return height;
         }
 
-        /**
-         * @return
-         */
         public int getBorder() {
             return border;
         }
 
-        /**
-         * @return
-         */
         public String getDefaultValue(Map<String, Object> context) {
             if (this.defaultValue != null) {
                 return this.defaultValue.expandString(context);

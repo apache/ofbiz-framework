@@ -1779,16 +1779,10 @@ public class ModelForm extends ModelWidget {
         return this.parentFormLocation;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultEntityName() {
         return this.defaultEntityName;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultMapName() {
         return this.defaultMapName.getOriginalName();
     }
@@ -1797,9 +1791,6 @@ public class ModelForm extends ModelWidget {
         return this.defaultMapName.get(context);
     }
     
-    /**
-     * @return
-     */
     public String getDefaultRequiredFieldStyle() {
         return this.defaultRequiredFieldStyle;
     }
@@ -1817,93 +1808,54 @@ public class ModelForm extends ModelWidget {
     }    
 
 
-    /**
-     * @return
-     */
     public String getDefaultServiceName() {
         return this.defaultServiceName;
     }
 
-    /**
-     * @return
-     */
     public String getFormTitleAreaStyle() {
         return this.formTitleAreaStyle;
     }
 
-    /**
-     * @return
-     */
     public String getFormWidgetAreaStyle() {
         return this.formWidgetAreaStyle;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultTitleAreaStyle() {
         return this.defaultTitleAreaStyle;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultWidgetAreaStyle() {
         return this.defaultWidgetAreaStyle;
     }
 
-    /**
-     * @return
-     */
     public String getOddRowStyle() {
         return this.oddRowStyle;
     }
     
-    /**
-     * @return
-     */
     public String getEvenRowStyle() {
         return this.evenRowStyle;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultTableStyle() {
         return this.defaultTableStyle;
     }
     
-    /**
-     * @return
-     */
     public String getHeaderRowStyle() {
         return this.headerRowStyle;
     }
     
-    /**
-     * @return
-     */
     public String getDefaultTitleStyle() {
         return this.defaultTitleStyle;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultWidgetStyle() {
         return this.defaultWidgetStyle;
     }
 
-    /**
-     * @return
-     */
     public String getDefaultTooltipStyle() {
         return this.defaultTooltipStyle;
     }
 
-    /**
-     * @return
-     */
     public String getItemIndexSeparator() {
         if (UtilValidate.isNotEmpty(this.itemIndexSeparator)) {
             return this.itemIndexSeparator;
@@ -1912,16 +1864,10 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    /**
-     * @return
-     */
     public String getListEntryName() {
         return this.listEntryName;
     }
 
-    /**
-     * @return
-     */
     public String getListName() {
         String lstNm =  this.listName;
         if (UtilValidate.isEmpty(lstNm)) {
@@ -1930,9 +1876,6 @@ public class ModelForm extends ModelWidget {
         return lstNm;
     }
 
-    /**
-     * @return
-     */
     public String getName() {
         return this.name;
     }
@@ -1985,9 +1928,6 @@ public class ModelForm extends ModelWidget {
         return target.expandString(context);
     }
 
-    /**
-     * @return
-     */
     public String getContainerId() {
         // use the name if there is no id
         if (UtilValidate.isNotEmpty(this.containerId)) {
@@ -1997,37 +1937,22 @@ public class ModelForm extends ModelWidget {
         }
     }
 
-    /**
-     * @return
-     */
     public String getContainerStyle() {
         return this.containerStyle;
     }
 
-    /**
-     * @return
-     */
     public String getfocusFieldName() {
         return this.focusFieldName;
     }
 
-    /**
-     * @return
-     */
     public String getTitle() {
         return this.title;
     }
 
-    /**
-     * @return
-     */
     public String getTooltip() {
         return this.tooltip;
     }
 
-    /**
-     * @return
-     */
     public String getType() {
         return this.type;
     }
@@ -2389,9 +2314,6 @@ public class ModelForm extends ModelWidget {
         this.targetWindowExdr = FlexibleStringExpander.getInstance(val);
     }
 
-    /**
-     * @return
-     */
     public boolean getSeparateColumns() {
         return this.separateColumns;
     }

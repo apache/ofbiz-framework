@@ -308,9 +308,6 @@ public class HtmlMenuRenderer extends HtmlWidgetRenderer implements MenuStringRe
         this.userLoginIdAtPermGrant = string;
     }
 
-    /**
-     * @return
-     */
     public String getUserLoginIdAtPermGrant() {
         return this.userLoginIdAtPermGrant;
     }
