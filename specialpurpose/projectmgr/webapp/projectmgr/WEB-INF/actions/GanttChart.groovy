@@ -22,6 +22,7 @@ import java.lang.*;
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.util.*;
+import java.math.*;
 
 projectId = parameters.projectId;
 userLogin = parameters.userLogin;
@@ -78,7 +79,7 @@ if (phases){
                     taskInfo.completion = 100;
                 }else{
                 	if (taskInfo.actualHours) {
-                		taskInfo.completion = taskInfo.actualHours*100/taskInfo.plannedHours;
+                		taskInfo.completion = new BigDecimal(taskInfo.actualHours*100/taskInfo.plannedHours).setScale(0, BigDecimal.ROUND_UP);
                 	} else {
                 		taskInfo.completion = 0;
                 	}
