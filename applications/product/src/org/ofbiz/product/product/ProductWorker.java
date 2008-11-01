@@ -850,30 +850,64 @@ public class ProductWorker {
         return null;
     }
     
-    public static String findProductId(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
-        // first lookup and see if this is the Product PK
-        GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
-        String productId = null;
-
-        if (product == null) {
-            // no product record found; no check good identification
-            Map goodIdLookup = UtilMisc.toMap("idValue", idToFind);
-            if (UtilValidate.isNotEmpty(goodIdentificationTypeId)) {
-                goodIdLookup.put("goodIdentificationTypeId", goodIdentificationTypeId);
-            }
-            List goodIds = delegator.findByAndCache("GoodIdentification", goodIdLookup, UtilMisc.toList("-createdStamp"));
-
-            // sorted by createdStamp; so pull out the most current entry
-            GenericValue lastGoodId = EntityUtil.getFirst(goodIds);
-            if (lastGoodId != null) {
-                productId = lastGoodId.getString("productId");
-            }
-        } else {
-            productId = product.getString("productId");
+    
+    /**
+     * Generic service to find product by id.
+     * By default return the product find by productId 
+     * but you can pass searchProductFirst at false if you want search in goodIdentification before 
+     * or pass searchAllId at true to find all product with this id (product.productId and goodIdentification.idValue) 
+     * @param delegator
+     * @param idToFind
+     * @param goodIdentificationTypeId
+     * @param searchProductFirst
+     * @param searchAllId
+     * @return
+     * @throws GenericEntityException
+     */
+    public static List<GenericValue> findProductsById( GenericDelegator delegator, 
+            String idToFind, String goodIdentificationTypeId,
+            boolean searchProductFirst, boolean searchAllId) throws GenericEntityException {
+        
+        if (Debug.infoOn()) Debug.logInfo("Analyze goodIdentification: entered id = " + idToFind + ", goodIdentificationTypeId = " + goodIdentificationTypeId, module);
+        
+        GenericValue product = null;
+        List<GenericValue> productsFound = null;
+        
+        // 1) look if the idToFind given is a real productId
+        if (searchProductFirst) {
+            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
         }
 
-        if (productId != null) {
-            return productId;
+        if (searchAllId || (searchProductFirst && UtilValidate.isEmpty(product))) {
+            // 2) Retrieve product in GoodIdentification
+            Map<String, String> conditions = UtilMisc.toMap("idValue", idToFind);
+            if (UtilValidate.isNotEmpty(goodIdentificationTypeId)) {
+                conditions.put("goodIdentificationTypeId", goodIdentificationTypeId);
+            }
+            productsFound = delegator.findByAndCache("GoodIdentificationAndProduct", conditions, UtilMisc.toList("productId"));
+        }
+        
+        if (! searchProductFirst) {
+            product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
+        }
+        
+        if (UtilValidate.isNotEmpty(product)){
+            if (UtilValidate.isNotEmpty(productsFound)) productsFound.add(product);
+            else productsFound = UtilMisc.toList(product);
+        }
+        if (Debug.infoOn()) Debug.logInfo("Analyze goodIdentification: found product.productId = " + product + ", and list : " + productsFound, module);                       
+        return productsFound;
+    }
+
+    public static List<GenericValue> findProductsById( GenericDelegator delegator, String idToFind, String goodIdentificationTypeId)
+    throws GenericEntityException {
+        return findProductsById(delegator, idToFind, goodIdentificationTypeId, true, false);
+    }
+    
+    public static String findProductId(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
+        GenericValue product = findProduct(delegator, idToFind, goodIdentificationTypeId);
+        if (UtilValidate.isNotEmpty(product)) {
+            return product.getString("productId");
         } else {
             return null;
         }
@@ -884,53 +918,30 @@ public class ProductWorker {
     }
 
     public static GenericValue findProduct(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
-        // first lookup and see if this is the Product PK
-        GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
-
-        if (product == null) {
-            // no product record found; no check good identification
-            Map goodIdLookup = UtilMisc.toMap("idValue", idToFind);
-            if (UtilValidate.isNotEmpty(goodIdentificationTypeId)) {
-                goodIdLookup.put("goodIdentificationTypeId", goodIdentificationTypeId);
-            }
-            List goodIds = delegator.findByAndCache("GoodIdentification", goodIdLookup, UtilMisc.toList("-createdStamp"));
-
-            // sorted by createdStamp; so pull out the most current entry
-            GenericValue lastGoodId = EntityUtil.getFirst(goodIds);
-            if (lastGoodId != null) {
-                product = lastGoodId.getRelatedOneCache("Product");
-            }
-        }
-
-        if (product != null) {
-            return product;
-        } else {
-            return null;
-        }
+        List<GenericValue> products = findProductsById(delegator, idToFind, goodIdentificationTypeId);
+        GenericValue product = EntityUtil.getFirst(products);
+        return product;
     }
 
-    public static List findProducts(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
-        // first lookup and see if this is the Product PK
-        GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", idToFind));
-        List products = FastList.newInstance();
-        if (product == null) {
-            // no product record found; no check good identification
-            Map goodIdLookup = UtilMisc.toMap("idValue", idToFind);
-            if (UtilValidate.isNotEmpty(goodIdentificationTypeId)) {
-                goodIdLookup.put("goodIdentificationTypeId", goodIdentificationTypeId);
-            }
-            List goodIds = delegator.findByAndCache("GoodIdentification", goodIdLookup, UtilMisc.toList("-createdStamp"));
-
-            // sorted by createdStamp; so pull out the most current entry
-            if (goodIds != null) {
-                Iterator<GenericValue> i = goodIds.iterator();
-                while (i.hasNext()) {
-                    GenericValue v = i.next();
-                    products.add(v.getRelatedOneCache("Product"));
+    public static List<GenericValue> findProducts(GenericDelegator delegator, String idToFind, String goodIdentificationTypeId) throws GenericEntityException {
+        List<GenericValue> productsByIds = findProductsById(delegator, idToFind, goodIdentificationTypeId);
+        List<GenericValue> products = null;
+        if (UtilValidate.isNotEmpty(productsByIds)){
+            for (GenericValue product : productsByIds){
+                GenericValue productToAdd = product;
+                //retreive product GV if the actual genericValue came from viewEntity
+                if (! "Product".equals(product.getEntityName())) {
+                    productToAdd = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", product.get("productId")));
+                }
+                
+                if (UtilValidate.isEmpty(products)) {
+                    products = UtilMisc.toList(productToAdd);
+                }
+                else {
+                    products.add(productToAdd);
                 }
             }            
         }
-
         return products;
     }
 

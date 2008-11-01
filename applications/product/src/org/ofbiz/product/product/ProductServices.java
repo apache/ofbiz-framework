@@ -1101,5 +1101,46 @@ public class ProductServices {
         }
     	   return ServiceUtil.returnSuccess();
     }
+    
+    /**
+     * Finds productId(s) corresponding to a product reference, productId or a GoodIdentification idValue
+     * @param dctx
+     * @param context
+     * @param context.productId use to search with productId or goodIdentification.idValue 
+     * @return a GenericValue with a productId and a List of complementary productId found
+     */
+    public static Map<String, Object> findProductById(DispatchContext ctx, Map<String, Object> context) { 
+        GenericDelegator delegator = ctx.getDelegator();
+        String idToFind = (String) context.get("idToFind");
+        String goodIdentificationTypeId = (String) context.get("goodIdentificationTypeId");
+        String searchProductFirstContext = (String) context.get("searchProductFirst");
+        String searchAllIdContext = (String) context.get("searchAllId");
+        
+        boolean searchProductFirst = UtilValidate.isNotEmpty(searchProductFirstContext) && "N".equals(searchProductFirstContext) ? false : true;
+        boolean searchAllId = UtilValidate.isNotEmpty(searchAllIdContext)&& "Y".equals(searchAllIdContext) ? true : false;
+        
+        GenericValue product = null;
+        List<GenericValue> productsFound = null;
+        try {
+            productsFound = ProductWorker.findProductsById(delegator, idToFind, goodIdentificationTypeId, searchProductFirst, searchAllId);   
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            ServiceUtil.returnError(e.getMessage());
+        }
+                
+        if (UtilValidate.isNotEmpty(productsFound)) {          
+            LinkedList<GenericValue> productsList = new LinkedList<GenericValue>();
+            // gets the first productId of the List
+            product = EntityUtil.getFirst(productsFound);
+            // remove this productId
+            productsFound.remove(0);
+        }
+        
+        Map<String, Object> result = ServiceUtil.returnSuccess();
+        result.put("product", product);
+        result.put("productsList", productsFound);
+                               
+        return result;
+    }
 }
 

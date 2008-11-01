@@ -32,6 +32,7 @@ import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -41,38 +42,18 @@ public class FacilityServices {
 
     public static final String module = FacilityServices.class.getName();
 
-    public static Map findProductsById(DispatchContext dctx, Map context) {
+    public static Map findProductsById(DispatchContext dctx, Map context) {        
         GenericDelegator delegator = dctx.getDelegator();
         String facilityId = (String) context.get("facilityId");
         String idValue = (String) context.get("idValue");
         GenericValue product = null;
-        List productsFound = null;
+        List<GenericValue> productsFound = null;
         
-        GenericValue productItem = null;
-        if (UtilValidate.isNotEmpty(idValue)) {
-            // First lets find the productId from the Sku(s)
-            try {
-                productsFound = delegator.findByAnd("GoodIdentificationAndProduct",
-                   UtilMisc.toMap("idValue", idValue), UtilMisc.toList("productId"));
-            } catch (GenericEntityException e) {
-                Debug.logError(e, module);
-                throw new GeneralRuntimeException(e.getMessage());
-            }
-        }
-
-        // Now do a direct lookup..
-        productItem = null;
         try {
-            productItem = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", idValue));
+            productsFound = ProductWorker.findProductsById(delegator, idValue, null, false, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             throw new GeneralRuntimeException(e.getMessage());
-        }
-        if (productItem != null) {
-            if (productsFound == null) {
-                productsFound = new ArrayList();
-            }
-            productsFound.add(productItem);
         }
 
         // Send back the results

@@ -63,6 +63,7 @@ import org.ofbiz.pos.screen.PosScreen;
 import org.ofbiz.pos.screen.SaveSale;
 import org.ofbiz.product.config.ProductConfigWrapper;
 import org.ofbiz.product.config.ProductConfigWrapper.ConfigOption;
+import org.ofbiz.product.product.ProductWorker;
 import org.ofbiz.product.store.ProductStoreWorker;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
@@ -192,15 +193,7 @@ public class PosTransaction implements Serializable {
     }
 
     public List lookupItem(String sku) throws GeneralException {
-        // first check for the product
-        GenericValue product = session.getDelegator().findByPrimaryKey("Product", UtilMisc.toMap("productId", sku));
-        if (product != null) {
-            return UtilMisc.toList(product);
-        } else {
-            // not found; so we move on to GoodIdentification
-           return session.getDelegator().findByAnd("GoodIdentificationAndProduct",
-                   UtilMisc.toMap("idValue", sku), UtilMisc.toList("productId"));
-        }
+        return ProductWorker.findProductsById( session.getDelegator(), sku, null);
     }
 
     public String getOrderId() {
