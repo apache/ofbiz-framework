@@ -77,7 +77,7 @@ if (phases){
                 double duration = resultTaskInfo.plannedHours;
                 if (taskInfo.currentStatusId == "PTS_COMPLETED") {
                     taskInfo.completion = 100;
-                }else{
+                } else {
                 	if (taskInfo.actualHours) {
                 		taskInfo.completion = new BigDecimal(taskInfo.actualHours*100/taskInfo.plannedHours).setScale(0, BigDecimal.ROUND_UP);
                 	} else {
@@ -107,10 +107,21 @@ if (phases){
                 	taskInfo.url = ""; 
                 }
                 
-                // dependency
+                // dependency can only show one in the ganttchart, so onl show the latest one..
                 preTasks = delegator.findByAnd("WorkEffortAssoc", ["workEffortIdTo" : task.workEffortId], ["workEffortIdFrom"]);
-                if (preTasks) {
-                    taskInfo.preDecessor = preTasks[0].workEffortIdFrom;
+                latestTaskId = "";
+                Timestamp latestDate = null;
+                preTasks.each { preTask ->
+                	wf = preTask.getRelatedOne("FromWorkEffort");
+                	if (wf.estimatedStartDate) {
+                		if (!latestDate || latestDate.before(wf.estimatedStartDate)) {
+                			latestTaskId = wf.workEffortId;
+                			latestDate = wf.estimatedStartDate;
+                		}
+                	}
+                }
+                if (latestDate) {
+                    taskInfo.preDecessor = latestTaskId;
                 }
                 ganttList.add(taskInfo);
             }

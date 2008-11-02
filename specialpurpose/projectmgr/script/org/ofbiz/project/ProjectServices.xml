@@ -177,12 +177,20 @@
         -->
         
         <field-to-result map-name="parameters" field-name="projectId"/>
+        
         <!-- find a starting point being either the estimated start date of a project or the earliest actual start date. -->
         <entity-condition entity-name="ProjectAndPhaseAndTask" list-name="tasks">
             <condition-expr field-name="actualStartDate" operator="not-equals" env-name="null"/>
             <order-by field-name="-actualStartDate"/>
         </entity-condition>
+        
         <if-not-empty field="tasks">
+            <!-- remove all estimated dates -->
+            <iterate entry-name="task" list-name="tasks">
+                <clear-field field-name="task.estimatedStartDate"/>
+                <clear-field field-name="task.estimatedCompletionDate"/>
+            </iterate>
+            
             <first-from-list entry-name="task" list-name="tasks"/>
             <set field="startDate" from-field="task.actualStartDate"/>
             <set field="taskId" from-field="task.workEffortId"/>
