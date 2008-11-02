@@ -30,10 +30,10 @@ g.setShowComp(1); // Show/Hide % Complete(0/1)
 
 <#list phaseTaskList as t>
     <#if t.workEffortTypeId == "PHASE">
-        g.AddTaskItem(new JSGantt.TaskItem(${t.phaseNr}, "${t.phaseName}", "", "", "#00ff00", "", 0, "", 0, 1, 0, 1));
+        g.AddTaskItem(new JSGantt.TaskItem(${t.phaseNr}, "${t.phaseName}", "", "", "00ff00", "", 0, "", 0, 1, 0, 1));
     </#if>
     <#if t.workEffortTypeId == "TASK">
-        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskName}","${t.estimatedStartDate}", "${t.estimatedCompletionDate}","#009900", "${t.url}", 0 , "${t.resource?if_exists}", ${t.completion?if_exists} , 0, ${t.phaseNr}, 1<#if t.preDecessor?exists>, ${t.preDecessor}</#if>));
+        g.AddTaskItem(new JSGantt.TaskItem(${t.taskNr},"${t.taskName}","${t.estimatedStartDate}", "${t.estimatedCompletionDate}","009900", "${t.url}", 0 , "${t.resource?if_exists}", ${t.completion?if_exists} , 0, ${t.phaseNr}, 1<#if t.preDecessor?exists>, ${t.preDecessor}</#if>));
     </#if>
 </#list>
 
@@ -52,6 +52,7 @@ pComp: (required) completion percent
 pGroup: (optional) indicates whether this is a group(parent) - 0=NOT Parent; 1=IS Parent
 pParent: (required) identifies a parent pID, this causes this task to be a child of identified task
 pOpen: UNUSED - in future can be initially set to close folder when chart is first drawn
+pDepend: dependency: need previous task finished.
      
 -->
 g.Draw();   
