@@ -297,6 +297,7 @@
                 <sort-field name="checkInventory"/>
                 <sort-field name="reserveInventory"/>
                 <sort-field name="requireInventory"/>
+                <sort-field name="requirementMethodEnumId"/>                
             </field-group>
             <field-group title="${uiLabelMap.CommonShoppingCart}" collapsible="true" initially-collapsed="true">
                 <sort-field name="viewCartOnAdd"/>
