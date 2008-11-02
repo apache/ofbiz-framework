@@ -132,7 +132,7 @@ public class DispatchContext implements Serializable {
      * @return Map contains any valid values
      * @throws GenericServiceException
      */
-    public Map<String, Object> makeValidContext(String serviceName, String mode, Map<String, Object> context) throws GenericServiceException {        
+    public Map<String, Object> makeValidContext(String serviceName, String mode, Map<String, ? extends Object> context) throws GenericServiceException {        
         ModelService model = this.getModelService(serviceName);
         return makeValidContext(model, mode, context);
         
@@ -147,7 +147,7 @@ public class DispatchContext implements Serializable {
      * @return Map contains any valid values
      * @throws GenericServiceException
      */
-    public Map<String, Object> makeValidContext(ModelService model, String mode, Map<String, Object> context) throws GenericServiceException {
+    public Map<String, Object> makeValidContext(ModelService model, String mode, Map<String, ? extends Object> context) throws GenericServiceException {
         Map<String, Object> newContext;
         
         int modeInt = 0;
