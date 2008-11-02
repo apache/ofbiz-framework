@@ -87,6 +87,16 @@ public class Log extends MethodOperation {
         }
         
         StringBuilder buf = new StringBuilder();
+        buf.append("[");
+        String methodLocation = this.simpleMethod.getFromLocation();
+        int pos = methodLocation.lastIndexOf("/");
+        if (pos != -1) {
+            methodLocation = methodLocation.substring(pos + 1);
+        }
+        buf.append(methodLocation);
+        buf.append("#");
+        buf.append(this.simpleMethod.getMethodName());
+        buf.append("] ");
         
         if (message != null) buf.append(message);
         
