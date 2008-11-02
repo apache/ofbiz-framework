@@ -302,16 +302,21 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.field-group">
-        <xs:attribute type="xs:string" name="title"/>
+        <xs:attribute type="xs:string" name="title">
             <xs:annotation><xs:documentation>A unique name for this fields group.</xs:documentation></xs:annotation>
-        <xs:attribute type="xs:string" name="collapsible"/>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="collapsible">
             <xs:annotation><xs:documentation>Indicate in this fields group is collapsible or not, false by default.</xs:documentation></xs:annotation>
-        <xs:attribute type="xs:string" name="initially-collapsed"/>        
-        <xs:annotation><xs:documentation>Indicate in this fields group is initially collapsed or not, false by default. If set to true implies collapsible even if not set</xs:documentation></xs:annotation>
-        <xs:attribute type="xs:string" name="id"/>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="initially-collapsed">        
+            <xs:annotation><xs:documentation>Indicate in this fields group is initially collapsed or not, false by default. If set to true implies collapsible even if not set</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="id">
             <xs:annotation><xs:documentation>Set an unique CSS identifier to this fields group.</xs:documentation></xs:annotation>
-        <xs:attribute type="xs:string" name="style"/>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="style">
             <xs:annotation><xs:documentation>Set a CSS style to this fields group.</xs:documentation></xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="banner">
         <xs:complexType>
