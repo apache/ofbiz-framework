@@ -59,7 +59,6 @@ under the License.
 	<classpathentry kind="src" path="framework/webtools/src"/>
 	<classpathentry kind="src" path="framework/widget/src"/>
 	<classpathentry kind="src" path="specialpurpose/workflow/src"/>
-	<classpathentry kind="lib" path="framework/base/lib/ant-junit-1.7.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/velocity-1.5.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/DataVision-1.0.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/batik-all-1.6.jar"/>
@@ -90,6 +89,7 @@ under the License.
 	<classpathentry kind="lib" path="framework/geronimo/lib/geronimo-connector-2.1.1.jar"/>
 	<classpathentry kind="lib" path="framework/geronimo/lib/geronimo-transaction-2.1.1.jar"/>
 	<classpathentry kind="lib" path="framework/entity/lib/ofbiz-minerva.jar"/>
+	<classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.3-20080708-r674758.jar"/>	
 	<classpathentry kind="lib" path="framework/base/lib/Tidy.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/mx4j-remote-3.0.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/mx4j-3.0.1.jar"/>
@@ -104,8 +104,8 @@ under the License.
 	<classpathentry kind="lib" path="framework/base/lib/freemarker-2.3.10.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/avalon-framework-4.2.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/avalon-util-exception-1.0.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/ant-launcher-1.7.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/ant-1.7.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/ant-junit-1.7.0.jar"/>	
 	<classpathentry kind="lib" path="framework/base/lib/commons/commons-net-1.4.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-saaj_1.1_spec-1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/j2eespecs/geronimo-qname_1.1_spec-1.0.jar"/>
@@ -126,6 +126,30 @@ under the License.
 	<classpathentry kind="lib" path="framework/base/lib/xml-apis-2.8.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/xercesImpl-2.8.1.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/resolver-2.8.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/javolution-5.2.3.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-vfs-1.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-validator-1.3.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-primitives-1.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-pool-1.3.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-modeler-2.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-logging-1.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-lang-2.3.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-io-1.3.1.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-fileupload-1.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-el-1.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-discovery-0.4.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-digester-1.8.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-collections-3.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-codec-1.3.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-cli-1.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/commons/commons-beanutils-1.7.0.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/scripting/antlr-2.7.6.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-2.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-analysis-2.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-tree-2.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-util-2.2.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/scripting/groovy-1.5.6.jar"/>
+	<classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/json-lib-0.9.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/ezmorph-0.9.1.jar"/>
 	<classpathentry kind="lib" path="specialpurpose/pos/lib/looks-2.0.2.jar"/>
@@ -142,32 +166,5 @@ under the License.
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-common-3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-server-3.0.jar"/>
 	<classpathentry kind="lib" path="framework/webapp/lib/xmlrpc-client-3.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/javolution-5.2.3.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-vfs-1.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-validator-1.3.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-primitives-1.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-pool-1.3.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-modeler-2.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-logging-1.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-lang-2.3.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-io-1.3.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-fileupload-1.2.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-el-1.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-discovery-0.4.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-digester-1.8.jar"/>
-	<classpathentry kind="lib" path="framework/entity/lib/commons-dbcp-1.3-20080708-r674758.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-collections-3.2.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-codec-1.3.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-cli-1.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/commons/commons-beanutils-1.7.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/scripting/antlr-2.7.6.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-2.2.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-analysis-2.2.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-tree-2.2.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/scripting/asm-util-2.2.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/scripting/groovy-1.5.6.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/jpim-0.1.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/ant/ant-nodeps-1.7.0.jar"/>
-	<classpathentry kind="lib" path="framework/base/lib/ant/ant-apache-bsf-1.7.0.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
