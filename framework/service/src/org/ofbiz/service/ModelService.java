@@ -22,6 +22,8 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.AbstractMap;
+import java.util.AbstractSet;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
@@ -73,8 +75,15 @@ import com.ibm.wsdl.extensions.soap.SOAPOperationImpl;
 /**
  * Generic Service Model Class
  */
-public class ModelService extends AbstractMap implements Serializable {
-
+public class ModelService extends AbstractMap<String, Object> implements Serializable {
+    private static final Field[] MODEL_SERVICE_FIELDS;
+    private static final Map<String, Field> MODEL_SERVICE_FIELD_MAP = FastMap.newInstance();
+    static {
+        MODEL_SERVICE_FIELDS = ModelService.class.getFields();
+        for (Field field: MODEL_SERVICE_FIELDS) {
+            MODEL_SERVICE_FIELD_MAP.put(field.getName(), field);
+        }
+    }
     public static final String module = ModelService.class.getName();
 
     public static final String XSD = "http://www.w3.org/2001/XMLSchema";
@@ -220,12 +229,7 @@ public class ModelService extends AbstractMap implements Serializable {
     }
 
     public Object get(Object name) {
-        Field field;
-        try {
-            field = this.getClass().getField(name.toString());
-        } catch (NoSuchFieldException e) {
-            return null;
-        }
+        Field field = MODEL_SERVICE_FIELD_MAP.get(name.toString());
         if (field != null) {
             try {
                 return field.get(this);
@@ -236,11 +240,71 @@ public class ModelService extends AbstractMap implements Serializable {
         return null;
     }
 
-    public Set entrySet() {
-        return null;
+    private final class ModelServiceMapEntry implements Map.Entry<String, Object> {
+        private final Field field;
+
+        protected ModelServiceMapEntry(Field field) {
+            this.field = field;
+        }
+
+        public String getKey() {
+            return field.getName();
+        }
+
+        public Object getValue() {
+            try {
+                return field.get(ModelService.this);
+            } catch (IllegalAccessException e) {
+                return null;
+            }
+        }
+
+        public Object setValue(Object value) {
+            throw new UnsupportedOperationException();
+        }
+
+        public int hashCode() {
+            return field.hashCode() ^ System.identityHashCode(ModelService.this);
+        }
+
+        public boolean equals(Object o) {
+            if (!(o instanceof ModelServiceMapEntry)) return false;
+            ModelServiceMapEntry other = (ModelServiceMapEntry) o;
+            return field.equals(other.field) && ModelService.this == other.getModelService();
+        }
+
+        private ModelService getModelService() {
+            return ModelService.this;
+        }
     }
 
-    public Object put(Object o1, Object o2) {
+    public Set<Map.Entry<String, Object>> entrySet() {
+        return new AbstractSet<Map.Entry<String, Object>>() {
+            public int size() {
+                return MODEL_SERVICE_FIELDS.length;
+            }
+
+            public Iterator<Map.Entry<String, Object>> iterator() {
+                return new Iterator<Map.Entry<String, Object>>() {
+                    private int i = 0;
+
+                    public boolean hasNext() {
+                        return i < MODEL_SERVICE_FIELDS.length;
+                    }
+
+                    public Map.Entry<String, Object> next() {
+                        return new ModelServiceMapEntry(MODEL_SERVICE_FIELDS[i++]);
+                    }
+
+                    public void remove() {
+                        throw new UnsupportedOperationException();
+                    }
+                };
+            }
+        };
+    }
+
+    public Object put(String o1, Object o2) {
         return null;
     }
 
