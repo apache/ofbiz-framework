@@ -818,6 +818,7 @@ public class InvoiceServices {
 
             Map resp = ServiceUtil.returnSuccess();
             resp.put("invoiceId", invoiceId);
+            resp.put("invoiceTypeId", invoiceType);
             return resp;
         } catch (GenericEntityException e) {
             String errMsg = UtilProperties.getMessage(resource,"AccountingEntityDataProblemCreatingInvoiceFromOrderItems",UtilMisc.toMap("reason",e.toString()),locale);
