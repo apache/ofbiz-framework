@@ -85,7 +85,7 @@ under the License.
         <field name="inventoryItemTypeId" title="${uiLabelMap.ProductInventoryItemTypeId}">
             <display-entity entity-name="InventoryItemType"/>
         </field>
-        <field name="statusId"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem"/></field>
         <field name="datetimeReceived"><display/></field>
         <field name="expireDate" title="${uiLabelMap.ProductExpireDate}"><display/></field>
         <field name="productId">
