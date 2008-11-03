@@ -1268,4 +1268,40 @@ under the License.
         </assert>
         <check-errors/>
     </simple-method>
+    <simple-method method-name="changeOwnerUponIssuance" short-description="If product store setOwnerUponIssuance is Y or empty, set the inventory item owner upon issuance.">
+        <entity-one entity-name="ItemIssuance" value-name="itemIssuance"/>
+        <get-related-one value-name="itemIssuance" relation-name="InventoryItem" to-value-name="inventoryItem"/>
+        <if-not-empty field="inventoryItem">
+            <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
+                <get-related-one value-name="itemIssuance" relation-name="OrderHeader" to-value-name="orderHeader"/>
+                <if-not-empty field="orderHeader">
+                    <set field="orderRoleAndMap.orderId" from-field="orderHeader.orderId"/>
+                    <set field="orderRoleAndMap.roleTypeId" value="END_USER_CUSTOMER"/>
+                    <find-by-and entity-name="OrderRole" list-name="orderRoles" map-name="orderRoleAndMap"/>
+                    <first-from-list list-name="orderRoles" entry-name="orderRole"/>
+                    <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
+                        <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+                    </entity-one>
+                    <if>
+                        <condition>
+                            <and>
+                                <not><if-empty field="orderRole"/></not>
+                                <or>
+                                    <if-empty field="productStore"/>
+                                    <if-empty field="productStore.setOwnerUponIssuance"/>
+                                    <if-compare field="productStore.setOwnerUponIssuance" operator="equals" value="Y"/>
+                                </or>
+                            </and>
+                        </condition>
+                        <then>
+                            <set field="updateContext.ownerPartyId" from-field="orderRole.partyId"/>
+                        </then>
+                    </if>
+                </if-not-empty>
+                <set field="updateContext.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
+                <call-service service-name="updateInventoryItem" in-map-name="updateContext"/>
+            </if-compare>
+        </if-not-empty>
+    </simple-method>    
+    
 </simple-methods>

@@ -38,6 +38,11 @@ under the License.
         <condition-field field-name="oldOwnerPartyId" operator="not-equals" to-field-name="ownerPartyId"/>
         <action service="createInventoryItemStatus" mode="sync"/>
     </eca>
+    <eca service="createItemIssuance" event="return"><!-- change the owner after item issuance transactions are created for old owner -->
+        <condition field-name="orderId" operator="is-not-empty"/>
+        <condition field-name="inventoryItemId" operator="is-not-empty"/>    
+        <action service="changeOwnerUponIssuance" mode="sync"/>
+    </eca>    
 
     <!-- inventory transfer -->
     <eca service="createInventoryTransfer" event="invoke">

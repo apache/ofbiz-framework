@@ -70,7 +70,11 @@ under the License.
         <attribute name="oldProductId" mode="OUT" optional="true" type="String"/>
         <attribute name="oldStatusId" mode="OUT" optional="true" type="String"/>
     </service>
-
+    <service name="changeOwnerUponIssuance" engine="simple"  auth="true"
+        location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="changeOwnerUponIssuance">
+        <description>If product store setOwnerUponIssuance is Y or empty, set the inventory item owner upon issuance.</description>
+        <attribute name="itemIssuanceId" type="String" mode="IN" optional="false"/>
+    </service>    
     <service name="createInventoryItemStatus" engine="simple" default-entity-name="InventoryItemStatus"
             location="org/ofbiz/product/inventory/InventoryServices.xml" invoke="createInventoryItemStatus">
         <description>Create an inventory item status record</description>
