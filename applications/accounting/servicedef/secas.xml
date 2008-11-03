@@ -22,6 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/service-eca.xsd">
     <eca service="createInvoiceForOrder" event="return">
         <condition field-name="invoiceId" operator="is-not-empty"/>
+        <condition field-name="invoiceTypeId" operator="equals" value="SALES_INVOICE"/>
         <action service="capturePaymentsByInvoice" mode="sync"/>
     </eca>        
     <eca service="createPaymentApplication" event="commit">
