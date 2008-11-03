@@ -52,9 +52,7 @@ under the License.
                <#if showEmpty || (inventoryItem.inventoryItemTypeId?if_exists == "SERIALIZED_INV_ITEM" && inventoryItem.statusId?if_exists != "INV_DELIVERED")
                               || (inventoryItem.inventoryItemTypeId?if_exists == "NON_SERIAL_INV_ITEM" && ((inventoryItem.availableToPromiseTotal?exists && inventoryItem.availableToPromiseTotal != 0) || (inventoryItem.quantityOnHandTotal?exists && inventoryItem.quantityOnHandTotal != 0)))>
                     <#assign curInventoryItemType = inventoryItem.getRelatedOne("InventoryItemType")>
-                    <#if inventoryItem.inventoryItemTypeId?if_exists == "SERIALIZED_INV_ITEM">
-                        <#assign curStatusItem = inventoryItem.getRelatedOneCache("StatusItem")?if_exists>
-                    </#if>
+                    <#assign curStatusItem = inventoryItem.getRelatedOneCache("StatusItem")?if_exists>
                     <#assign facilityLocation = inventoryItem.getRelatedOne("FacilityLocation")?if_exists>
                     <#assign facilityLocationTypeEnum = (facilityLocation.getRelatedOneCache("TypeEnumeration"))?if_exists>
                     <#if curInventoryItemType?exists>
@@ -63,16 +61,12 @@ under the License.
                             <td>&nbsp;${(curInventoryItemType.get("description",locale))?if_exists}</td>
                             <td>
                                 <div>
-                                    <#if inventoryItem.inventoryItemTypeId?if_exists == "SERIALIZED_INV_ITEM">
-                                        <#if curStatusItem?has_content>
-                                            ${(curStatusItem.get("description",locale))?if_exists}
-                                        <#elseif inventoryItem.statusId?has_content>
-                                            [${inventoryItem.statusId}]
-                                        <#else>
-                                            ${uiLabelMap.CommonNotSet}&nbsp;
-                                        </#if>
+                                    <#if curStatusItem?has_content>
+                                        ${(curStatusItem.get("description",locale))?if_exists}
+                                    <#elseif inventoryItem.statusId?has_content>
+                                        [${inventoryItem.statusId}]
                                     <#else>
-                                        &nbsp;
+                                        ${uiLabelMap.CommonNotSet}&nbsp;
                                     </#if>
                                 </div>
                             </td>
