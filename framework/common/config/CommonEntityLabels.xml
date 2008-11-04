@@ -1582,7 +1582,7 @@
     <property key="Enumeration.description.PRIP_LIST_PRICE">
         <value xml:lang="de">Listenpreis</value>
         <value xml:lang="en">List Price</value>
-        <value xml:lang="fr">Liste des prix</value>
+        <value xml:lang="fr">Prix public</value>
         <value xml:lang="it">Prezzo di Listino</value>
         <value xml:lang="pt">Lista de Preços</value>
         <value xml:lang="ro">Pret de Lista</value>
@@ -1593,7 +1593,7 @@
     <property key="Enumeration.description.PRIP_PARTY_CLASS">
         <value xml:lang="de">Akteur Klassifizierung</value>
         <value xml:lang="en">Party Classification</value>
-        <value xml:lang="fr">Classification des acteurs</value>
+        <value xml:lang="fr">Classification d'acteurs</value>
         <value xml:lang="it">Classificazione Soggetto</value>
         <value xml:lang="pt">Classificação de Participante</value>
         <value xml:lang="ro">Classificare Subiecti</value>
@@ -1604,7 +1604,7 @@
     <property key="Enumeration.description.PRIP_PARTY_GRP_MEM">
         <value xml:lang="de">Akteurgruppe Mitglied</value>
         <value xml:lang="en">Party Group Member</value>
-        <value xml:lang="fr">Membre du groupe Acteurs</value>
+        <value xml:lang="fr">Membre d'un groupe d'acteurs</value>
         <value xml:lang="it">Membro Gruppo Soggetto</value>
         <value xml:lang="pt">Membro de Grupo de Participante</value>
         <value xml:lang="ro">Membru Grup Subiect</value>
@@ -1615,7 +1615,7 @@
     <property key="Enumeration.description.PRIP_PARTY_ID">
         <value xml:lang="de">Akteur</value>
         <value xml:lang="en">Party</value>
-        <value xml:lang="fr">Acteurs</value>
+        <value xml:lang="fr">Acteur</value>
         <value xml:lang="it">Soggetto</value>
         <value xml:lang="pt">Participante</value>
         <value xml:lang="ro">Subiect</value>
@@ -1626,7 +1626,7 @@
     <property key="Enumeration.description.PRIP_PRODUCT_ID">
         <value xml:lang="de">Produkte</value>
         <value xml:lang="en">Product</value>
-        <value xml:lang="fr">Articles</value>
+        <value xml:lang="fr">Article</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="pt">Produto</value>
         <value xml:lang="ro">Produs</value>
@@ -1659,7 +1659,7 @@
     <property key="Enumeration.description.PRIP_PROD_SGRP_ID">
         <value xml:lang="de">Lagergruppe</value>
         <value xml:lang="en">Product Store Group</value>
-        <value xml:lang="fr">Groupe de centre de profit</value>
+        <value xml:lang="fr">Groupe de centres de profit</value>
         <value xml:lang="it">Gruppo Negozio Prodotto</value>
         <value xml:lang="pt">Grupo/Família de Produtos</value>
         <value xml:lang="ro">Grup Magazin Produs</value>
