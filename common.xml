@@ -52,20 +52,27 @@ under the License.
         <mkdir dir="${build.dir}/javadocs"/>
     </target>
 
-    <target name="jar" depends="classes">
+    <available property="_src-available" file="${src.dir}"/>
+    <fileset id="_src-extra-set" dir="." excludes="**"/>
+
+    <target name="_src-available" if="_src-available">
+        <fileset id="_src-extra-set" dir="${src.dir}">
+            <include name="**/*.properties"/>
+            <include name="**/*.xml"/>
+            <include name="**/*.bsh"/>
+            <include name="**/*.logic"/>
+            <include name="**/*.js"/>
+            <include name="**/*.js"/>
+            <include name="**/*.jacl"/>
+            <include name="**/*.py"/>
+            <include name="META-INF/**"/>
+        </fileset>
+    </target>
+
+    <target name="jar" depends="classes,_src-available">
         <jar jarfile="${build.dir}/lib/${name}.jar">
             <fileset dir="${build.dir}/classes"/>
-            <fileset dir="${src.dir}">
-                <include name="**/*.properties"/>
-                <include name="**/*.xml"/>
-                <include name="**/*.bsh"/>
-                <include name="**/*.logic"/>
-                <include name="**/*.js"/>
-                <include name="**/*.js"/>
-                <include name="**/*.jacl"/>
-                <include name="**/*.py"/>
-                <include name="META-INF/**"/>
-            </fileset>
+            <fileset refid="_src-extra-set"/>
             <!-- now add the NOTICE and LICENSE files to allow the jar file to be distributed alone -->
             <zipfileset dir="${ofbiz.home.dir}" prefix="META-INF" includes="NOTICE,LICENSE"/>
         </jar>
