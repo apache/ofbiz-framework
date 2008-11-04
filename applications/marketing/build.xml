@@ -30,7 +30,6 @@ under the License.
     <property name="ofbiz.home.dir" value="../.."/>
 
     <path id="local.class.path">
-        <fileset dir="${lib.dir}" includes="*.jar"/>
         <fileset dir="../../framework/base/lib" includes="*.jar"/>
         <fileset dir="../../framework/base/lib/j2eespecs" includes="*.jar"/>
         <fileset dir="../../framework/base/build/lib" includes="*.jar"/>
