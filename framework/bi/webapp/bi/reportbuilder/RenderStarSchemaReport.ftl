@@ -19,8 +19,9 @@ under the License.
 
 <table cellspacing="0" class="basic-table hover-bar">
     <tr class="header-row">
+    	<#assign firstRecord = records[0]?if_exists/>
         <#list columnNames as columnName>
-        <td>
+        <td<#if firstRecord?exists && firstRecord[columnName]?default("")?is_number> class="align-text"</#if>>
             ${columnName}
         </td>
         </#list>
