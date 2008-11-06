@@ -135,7 +135,7 @@ under the License.
                           <div class="tabletext" align="center">${paymentAddress.city}<#if paymentAddress.stateProvinceGeoId?has_content>, ${paymentAddress.stateProvinceGeoId}</#if> ${paymentAddress.postalCode?if_exists}
                           <div class="tabletext" align="center">${paymentAddress.countryGeoId}</div>                                                                                                                
                           <div class="tabletext" align="center"><hr/></div>
-                          <div class="tabletext" align="center"><b>${uiLabelMap.OrderBeSureToIncludeYourOrderNb}</b></div>
+                          <div class="tabletext" align="center"><b>${uiLabelMap.EcommerceBeSureToIncludeYourOrderNb}</b></div>
                         </#if>                         
                       </td>                  
                     <#else>

@@ -151,7 +151,7 @@ function submitForm(form, mode, value) {
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderAssignItems}</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceAssignItems}</div>
     </div>
     <div class="screenlet-body">
         <table width="100%" cellspacing="0" cellpadding="1" border="0">

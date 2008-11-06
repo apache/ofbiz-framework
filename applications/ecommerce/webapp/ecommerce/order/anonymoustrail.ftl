@@ -17,4 +17,4 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<#if shipAddr?exists><a href="<@ofbizUrl>setShipping</@ofbizUrl>" class="${trailClass.shipAddr}">${uiLabelMap.OrderChangeShippingAddress}</a><#if shipOptions?exists><a href="<@ofbizUrl>setShipOptions</@ofbizUrl>" class="${trailClass.shipOptions}">${uiLabelMap.OrderChangeShippingOptions}</a><#if billing?exists><a href="<@ofbizUrl>setBilling?resetType=Y</@ofbizUrl>" class="${trailClass.paymentType}">${uiLabelMap.OrderChangePaymentInfo}</a></#if></#if></#if>
+<#if shipAddr?exists><a href="<@ofbizUrl>setShipping</@ofbizUrl>" class="${trailClass.shipAddr}">${uiLabelMap.EcommerceChangeShippingAddress}</a><#if shipOptions?exists><a href="<@ofbizUrl>setShipOptions</@ofbizUrl>" class="${trailClass.shipOptions}">${uiLabelMap.EcommerceChangeShippingOptions}</a><#if billing?exists><a href="<@ofbizUrl>setBilling?resetType=Y</@ofbizUrl>" class="${trailClass.paymentType}">${uiLabelMap.EcommerceChangePaymentInfo}</a></#if></#if></#if>

@@ -19,11 +19,6 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <#--
-        <div class="boxlink">
-            <a href="<@ofbizUrl>main</@ofbizUrl>" class="lightbuttontext">[${uiLabelMap.OrderBackHome}]</a>
-        </div>
-        -->
         <div class="boxhead">${uiLabelMap.OrderSalesHistory}</div>
     </div>
     <div class="screenlet-body">

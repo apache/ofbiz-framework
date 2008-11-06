@@ -25,6 +25,7 @@ under the License.
     <screen name="anonymoustrail">
         <section>
             <actions>
+                <property-map resource="EcommerceUiLabels" map-name="uiLabelMap" global="true"/>
                 <script location="component://ecommerce/webapp/ecommerce/WEB-INF/actions/order/AnonymousTrail.groovy"/>
             </actions>
             <widgets>

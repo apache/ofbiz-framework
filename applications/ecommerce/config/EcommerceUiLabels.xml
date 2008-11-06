@@ -1208,6 +1208,31 @@
         <value xml:lang="th">ข้อมูลบทความ</value>
         <value xml:lang="zh">文章信息</value>
     </property>
+    <property key="EcommerceAssignItems">
+        <value xml:lang="en">Assign Items</value>
+        <value xml:lang="es">Asignar ítems</value>
+        <value xml:lang="fr">Affecter les articles</value>
+        <value xml:lang="it">Assegna articoli</value>
+        <value xml:lang="ja">Assign Items</value>
+        <value xml:lang="nl">Wijs items toe</value>
+        <value xml:lang="ro">Atribuie Linii</value>
+        <value xml:lang="ru">Назначить позицию</value>
+        <value xml:lang="th">กำหนดรายการ</value>
+        <value xml:lang="zh">分配明细</value>
+    </property>
+    <property key="EcommerceBeSureToIncludeYourOrderNb">
+        <value xml:lang="en">Be sure to include your order #</value>
+        <value xml:lang="es">Asegurese de incluir la Orden #</value>
+        <value xml:lang="fr">Soyez sûr(e) d'inclure votre n° de commande</value>
+        <value xml:lang="hi_IN">आर्डर सम्मिमित करना न भूलें</value>
+        <value xml:lang="it">Assicurati di specificare il tuo ordine n°</value>
+        <value xml:lang="ja">Be sure to include your order #</value>
+        <value xml:lang="nl">bestellingsnummer niet vergeten?</value>
+        <value xml:lang="ro">Asigurate ca ai inclus comanda ta #</value>
+        <value xml:lang="ru">Убедитесь что указали № заказа</value>
+        <value xml:lang="th">แน่ใจในการรวมรายการสินค้าของคุณ #</value>
+        <value xml:lang="zh">确信包括了你的订单 #</value>
+    </property>
     <property key="EcommerceBronze">
         <value xml:lang="en">Bronze</value>
         <value xml:lang="es">Bronce</value>
@@ -1254,6 +1279,49 @@
         <value xml:lang="ru">Всего в корзине</value>
         <value xml:lang="th">ผลรวมตระกร้า</value>
         <value xml:lang="zh">购物车总计</value>
+    </property>
+    <property key="EcommerceChangePaymentInfo">
+        <value xml:lang="cs">naposledy vybraná položka</value>
+        <value xml:lang="de">Zahlungsinformation ändern</value>
+        <value xml:lang="en">Change Payment Info</value>
+        <value xml:lang="es">Cambiar información de pago</value>
+        <value xml:lang="fr">Changer les informations de paiement</value>
+        <value xml:lang="hi_IN">भुगतान जानकारी बदलें</value>
+        <value xml:lang="it">Cambio informazioni pagamento</value>
+        <value xml:lang="ja">Change Payment Info</value>
+        <value xml:lang="nl">Aanpassen betalingsinformatie</value>
+        <value xml:lang="ro">Schimbare Informatii Plata </value>
+        <value xml:lang="ru">Изменить платежную информацию</value>
+        <value xml:lang="th">เปลี่ยนแปลงข้อมูลการชำระเงิน</value>
+        <value xml:lang="zh">修改支付信息</value>
+    </property>
+    <property key="EcommerceChangeShippingAddress">
+        <value xml:lang="cs">naposledy vybraná položka</value>
+        <value xml:lang="de">Versandadresse ändern</value>
+        <value xml:lang="en">Change Shipping Address</value>
+        <value xml:lang="en_GB">Change Delivery Address</value>
+        <value xml:lang="es">Cambiar Dirección de Envío</value>
+        <value xml:lang="fr">Changer l'adresse de livraison</value>
+        <value xml:lang="hi_IN">माल भेजने का पता बदलें</value>
+        <value xml:lang="it">Cambio indirizzo spedizione</value>
+        <value xml:lang="ja">Change Shipping Address</value>
+        <value xml:lang="nl">Aanpassen verzendadres</value>
+        <value xml:lang="ro">Schimbare Adresa Expediere </value>
+        <value xml:lang="ru">Изменить адрес доставки</value>
+        <value xml:lang="th">เปลี่ยนแปลงที่อยู่ในการส่งของ</value>
+        <value xml:lang="zh">修改货运地址</value>
+    </property>
+    <property key="EcommerceChangeShippingOptions">
+        <value xml:lang="en">Change Shipping Options</value>
+        <value xml:lang="es">Cambie las opciones de envío</value>
+        <value xml:lang="fr">Changez les options d'expédition</value>
+        <value xml:lang="it">Cambio opzioni spedizione</value>
+        <value xml:lang="ja">Change Shipping Options</value>
+        <value xml:lang="nl">Aanpassen verzendopties</value>
+        <value xml:lang="ro">Schimbare Optiuni Expediere </value>
+        <value xml:lang="ru">Изменить параметры доставки</value>
+        <value xml:lang="th">เปลี่ยนแปลงทางเลือกในการส่งของ</value>
+        <value xml:lang="zh">修改货运选项</value>
     </property>
     <property key="EcommerceCheckBalance">
         <value xml:lang="en">Check Balance</value>
@@ -2469,6 +2537,21 @@
         <value xml:lang="en">One Page Checkout</value>
         <value xml:lang="fr">Paiment sur une seule page</value>
         <value xml:lang="fr">Acquisto su pagina singola</value>
+    </property>
+    <property key="EcommerceOrderConfirmation">
+        <value xml:lang="cs">Potvrzení objednávky</value>
+        <value xml:lang="de">Bestellbestätigung</value>
+        <value xml:lang="en">Order Confirmation</value>
+        <value xml:lang="es">Confirmación de Compra</value>
+        <value xml:lang="fr">Confirmation de commande</value>
+        <value xml:lang="it">Conferma ordine</value>
+        <value xml:lang="ja">Order Confirmation</value>
+        <value xml:lang="nl">bestelling Confirmatie</value>
+        <value xml:lang="pt_PT">Confirmação de Encomenda</value>
+        <value xml:lang="ro">Confirma Comanda</value>
+        <value xml:lang="ru">Подтверждение заказа</value>
+        <value xml:lang="th">การยืนยันการสั่งสินค้า</value>
+        <value xml:lang="zh">订单确认</value>
     </property>     
     <property key="EcommerceOrderInLast">
         <value xml:lang="en">order(s) in the last</value>
@@ -3571,34 +3654,6 @@
         <value xml:lang="th">ตามทางเลือก</value>
         <value xml:lang="zh">允许分拆</value>
     </property>
-    <property key="OrderAssignItems">
-        <value xml:lang="en">Assign Items</value>
-        <value xml:lang="es">Asignar ítems</value>
-        <value xml:lang="fr">Affecter les articles</value>
-        <value xml:lang="it">Assegna articoli</value>
-        <value xml:lang="ja">Assign Items</value>
-        <value xml:lang="nl">Wijs items toe</value>
-        <value xml:lang="ro">Atribuie Linii</value>
-        <value xml:lang="ru">Назначить позицию</value>
-        <value xml:lang="th">กำหนดรายการ</value>
-        <value xml:lang="zh">分配明细</value>
-    </property>
-    <property key="OrderBackHome">
-        <value xml:lang="cs">zpět na úvodní stránku</value>
-        <value xml:lang="de">Zurück zur Startseite</value>
-        <value xml:lang="en">Back Home</value>
-        <value xml:lang="es">Volver al Inicio</value>
-        <value xml:lang="fr">Retour au départ</value>
-        <value xml:lang="hi_IN">वापस घर</value>
-        <value xml:lang="it">Torna all'inizio</value>
-        <value xml:lang="ja">Back Home</value>
-        <value xml:lang="nl">Terug startpagina</value>
-        <value xml:lang="pt_PT">Voltar À Entrada</value>
-        <value xml:lang="ro">Intoarcete la Pagina Initiala</value>
-        <value xml:lang="ru">Обратно на главную</value>
-        <value xml:lang="th">กลับสู่หน้าหลัก</value>
-        <value xml:lang="zh">返回首页</value>
-    </property>
     <property key="OrderBacktoShoppingCart">
         <value xml:lang="cs">zpět do košíku</value>
         <value xml:lang="de">Zurück zum Warenkorb</value>
@@ -3615,19 +3670,6 @@
         <value xml:lang="ru">Обратно к корзине покупок</value>
         <value xml:lang="th">กลับสู่หน้าการซื้อสินค้าจากบัตร</value>
         <value xml:lang="zh">返回购物车</value>
-    </property>
-    <property key="OrderBeSureToIncludeYourOrderNb">
-        <value xml:lang="en">Be sure to include your order #</value>
-        <value xml:lang="es">Asegurese de incluir la Orden #</value>
-        <value xml:lang="fr">Soyez sûr(e) d'inclure votre n° de commande</value>
-        <value xml:lang="hi_IN">आर्डर सम्मिमित करना न भूलें</value>
-        <value xml:lang="it">Assicurati di specificare il tuo ordine n°</value>
-        <value xml:lang="ja">Be sure to include your order #</value>
-        <value xml:lang="nl">bestellingsnummer niet vergeten?</value>
-        <value xml:lang="ro">Asigurate ca ai inclus comanda ta #</value>
-        <value xml:lang="ru">Убедитесь что указали № заказа</value>
-        <value xml:lang="th">แน่ใจในการรวมรายการสินค้าของคุณ #</value>
-        <value xml:lang="zh">确信包括了你的订单 #</value>
     </property>
     <property key="OrderBesureIncludeOrder">
         <value xml:lang="cs">Ujistěte se že jste vložili objednávku</value>
@@ -3678,49 +3720,6 @@
         <value xml:lang="th">เงินด่วน</value>
         <value xml:lang="zh">货到付款</value>
     </property>
-    <property key="OrderChangePaymentInfo">
-        <value xml:lang="cs">naposledy vybraná položka</value>
-        <value xml:lang="de">Zahlungsinformation ändern</value>
-        <value xml:lang="en">Change Payment Info</value>
-        <value xml:lang="es">Cambiar información de pago</value>
-        <value xml:lang="fr">Changer les informations de paiement</value>
-        <value xml:lang="hi_IN">भुगतान जानकारी बदलें</value>
-        <value xml:lang="it">Cambio informazioni pagamento</value>
-        <value xml:lang="ja">Change Payment Info</value>
-        <value xml:lang="nl">Aanpassen betalingsinformatie</value>
-        <value xml:lang="ro">Schimbare Informatii Plata </value>
-        <value xml:lang="ru">Изменить платежную информацию</value>
-        <value xml:lang="th">เปลี่ยนแปลงข้อมูลการชำระเงิน</value>
-        <value xml:lang="zh">修改支付信息</value>
-    </property>
-    <property key="OrderChangeShippingAddress">
-        <value xml:lang="cs">naposledy vybraná položka</value>
-        <value xml:lang="de">Versandadresse ändern</value>
-        <value xml:lang="en">Change Shipping Address</value>
-        <value xml:lang="en_GB">Change Delivery Address</value>
-        <value xml:lang="es">Cambiar Dirección de Envío</value>
-        <value xml:lang="fr">Changer l'adresse de livraison</value>
-        <value xml:lang="hi_IN">माल भेजने का पता बदलें</value>
-        <value xml:lang="it">Cambio indirizzo spedizione</value>
-        <value xml:lang="ja">Change Shipping Address</value>
-        <value xml:lang="nl">Aanpassen verzendadres</value>
-        <value xml:lang="ro">Schimbare Adresa Expediere </value>
-        <value xml:lang="ru">Изменить адрес доставки</value>
-        <value xml:lang="th">เปลี่ยนแปลงที่อยู่ในการส่งของ</value>
-        <value xml:lang="zh">修改货运地址</value>
-    </property>
-    <property key="OrderChangeShippingOptions">
-        <value xml:lang="en">Change Shipping Options</value>
-        <value xml:lang="es">Cambie las opciones de envío</value>
-        <value xml:lang="fr">Changez les options d'expédition</value>
-        <value xml:lang="it">Cambio opzioni spedizione</value>
-        <value xml:lang="ja">Change Shipping Options</value>
-        <value xml:lang="nl">Aanpassen verzendopties</value>
-        <value xml:lang="ro">Schimbare Optiuni Expediere </value>
-        <value xml:lang="ru">Изменить параметры доставки</value>
-        <value xml:lang="th">เปลี่ยนแปลงทางเลือกในการส่งของ</value>
-        <value xml:lang="zh">修改货运选项</value>
-    </property>
     <property key="OrderChooseAnotherGift">
         <value xml:lang="en">Choose Another Gift</value>
         <value xml:lang="es">Elija otro relago</value>
@@ -3749,37 +3748,6 @@
         <value xml:lang="ru">Здесь можно добавить дополнительные адреса эл.почты, которые будут использоваться только для текущего заказа. Список разделяйте запятыми</value>
         <value xml:lang="th">คุณสามารถใส่ที่อยู่อีเมล์ได้ที่นี่ เพื่อใช้สำหรับการสั่งสินค้าในปัจจุบัน</value>
         <value xml:lang="zh">你可以在这里添加其它逗号分隔的电子邮件地址，这些电子邮件地址仅用于当前订单</value>
-    </property>
-    <property key="OrderConfirmation">
-        <value xml:lang="cs">Potvrzení objednávky</value>
-        <value xml:lang="de">Bestellbestätigung</value>
-        <value xml:lang="en">Order Confirmation</value>
-        <value xml:lang="es">Confirmación de Compra</value>
-        <value xml:lang="fr">Confirmation de commande</value>
-        <value xml:lang="it">Conferma ordine</value>
-        <value xml:lang="ja">Order Confirmation</value>
-        <value xml:lang="nl">bestelling Confirmatie</value>
-        <value xml:lang="pt_PT">Confirmação de Encomenda</value>
-        <value xml:lang="ro">Confirma Comanda</value>
-        <value xml:lang="ru">Подтверждение заказа</value>
-        <value xml:lang="th">การยืนยันการสั่งสินค้า</value>
-        <value xml:lang="zh">订单确认</value>
-    </property>
-    <property key="OrderContinueShopping">
-        <value xml:lang="cs">Pokračovat v nákupu</value>
-        <value xml:lang="de">Einkauf fortsetzen</value>
-        <value xml:lang="en">Continue Shopping</value>
-        <value xml:lang="es">Continuar Comprando</value>
-        <value xml:lang="fr">Continuer les achats</value>
-        <value xml:lang="hi_IN">ख़रीदारी चालू रखें</value>
-        <value xml:lang="it">Continua acquisto</value>
-        <value xml:lang="ja">Continue Shopping</value>
-        <value xml:lang="nl">Doorgaan met winkelen</value>
-        <value xml:lang="pt_PT">Continuar a Comprar</value>
-        <value xml:lang="ro">Continua sa Cumperi</value>
-        <value xml:lang="ru">Продолжить покупки</value>
-        <value xml:lang="th">ทำการเลือกซื้อสินค้าต่อไป</value>
-        <value xml:lang="zh">继续购物</value>
     </property>
     <property key="OrderContinueToFinalOrderReview">
         <value xml:lang="cs">Dále k závěrečnému přehledu objednávky</value>
