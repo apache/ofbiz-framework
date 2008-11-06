@@ -16,7 +16,7 @@ KIND, either express or implied.  See the License for the
 specific language governing permissions and limitations
 under the License.
 -->
-<h1>${uiLabelMap.OrderConfirmation}</h1>
+<h1>${uiLabelMap.EcommerceOrderConfirmation}</h1>
 <#if !isDemoStore?exists || isDemoStore><p>${uiLabelMap.OrderDemoFrontNote}.</p></#if>
 
 <#if orderHeader?has_content>
@@ -26,10 +26,10 @@ under the License.
   <table border="0" cellpadding="1" width="100%">
    <tr>
       <td colspan="4">
-        <a href="<@ofbizUrl>main</@ofbizUrl>" class="buttontextbig">${uiLabelMap.OrderContinueShopping}</a>
+        <a href="<@ofbizUrl>main</@ofbizUrl>" class="buttontextbig">${uiLabelMap.EcommerceContinueShopping}</a>
       </td>
       <td align="right">
-        <a href="<@ofbizUrl>main</@ofbizUrl>" class="buttontextbig">${uiLabelMap.OrderContinueShopping}</a>
+        <a href="<@ofbizUrl>main</@ofbizUrl>" class="buttontextbig">${uiLabelMap.EcommerceContinueShopping}</a>
       </td>
     </tr>
   </table>
