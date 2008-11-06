@@ -28,15 +28,6 @@ under the License.
     <property name="name" value="ofbiz-base"/>
     
     <!-- ================================================================== -->
-    <!-- Makes sure the needed directory structure is in place              -->
-    <!-- ================================================================== -->
-
-    <target name="prepare" depends="clean-lib">
-        <mkdir dir="${build.dir}/classes/META-INF"/>        
-        <mkdir dir="${build.dir}/lib"/>
-    </target>
-    
-    <!-- ================================================================== -->
     <!-- Compilation of the source files                                    -->
     <!-- ================================================================== -->               
 

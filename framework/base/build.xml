@@ -37,15 +37,6 @@ under the License.
     </path>
     
     <!-- ================================================================== -->
-    <!-- Makes sure the needed directory structure is in place              -->
-    <!-- ================================================================== -->
-
-    <target name="prepare" depends="clean-lib">
-        <mkdir dir="${build.dir}/classes"/>
-        <mkdir dir="${build.dir}/lib"/>
-    </target>
-    
-    <!-- ================================================================== -->
     <!-- Compilation of the source files                                    -->
     <!-- ================================================================== -->               
 
