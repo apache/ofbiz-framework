@@ -537,10 +537,10 @@ public class ModelViewEntity extends ModelEntity {
     }
 
     public List<Map<String, Object>> convert(String fromEntityName, Map<String, Object> data) {
-        Map<String, ModelConversion> foo = conversions.get(fromEntityName);
-        if (foo == null) return null;
+        Map<String, ModelConversion> conversions = this.conversions.get(fromEntityName);
+        if (conversions == null) return null;
         List<Map<String, Object>> values = FastList.newInstance();
-        for (ModelConversion conversion: foo.values()) {
+        for (ModelConversion conversion: conversions.values()) {
             values.add(conversion.convert(data));
         }
         return values;
