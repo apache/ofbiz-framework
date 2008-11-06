@@ -132,6 +132,7 @@ public class ModelForm extends ModelWidget {
     protected List<AutoFieldsService> autoFieldsServices = FastList.newInstance();
     protected List<AutoFieldsEntity> autoFieldsEntities = FastList.newInstance();
     protected List<String> sortOrderFields = FastList.newInstance();
+    protected List<AltRowStyle> altRowStyles = FastList.newInstance();
 
     /** This List will contain one copy of each field for each field name in the order
      * they were encountered in the service, entity, or form definition; field definitions
@@ -291,6 +292,7 @@ public class ModelForm extends ModelWidget {
                 this.defaultViewSize = parent.defaultViewSize;
                 this.onSubmitUpdateAreas = parent.onSubmitUpdateAreas;
                 this.onPaginateUpdateAreas = parent.onPaginateUpdateAreas;
+                this.altRowStyles = parent.altRowStyles;
                 
                 //these are done below in a special way...
                 //this.fieldList = parent.fieldList;
@@ -459,6 +461,12 @@ public class ModelForm extends ModelWidget {
             this.rowCountExdr = FlexibleStringExpander.getInstance(formElement.getAttribute("row-count"));
         }
 
+        //alt-row-styles
+        for (Element altRowStyleElement : UtilXml.childElementList(formElement, "alt-row-style")){
+            AltRowStyle altRowStyle = new AltRowStyle(altRowStyleElement);
+            this.altRowStyles.add(altRowStyle);
+        }
+        
         // alt-target
         List altTargetElements = UtilXml.childElementList(formElement, "alt-target");
         Iterator altTargetElementIter = altTargetElements.iterator();
@@ -2555,6 +2563,46 @@ public class ModelForm extends ModelWidget {
      */
     public List<UpdateArea> getOnSubmitUpdateAreas() {
         return this.onSubmitUpdateAreas;
+    }
+        
+    public static class AltRowStyle {
+        public String useWhen;
+        public String style;
+        public AltRowStyle(Element altRowStyleElement) {
+            this.useWhen = altRowStyleElement.getAttribute("use-when");
+            this.style = altRowStyleElement.getAttribute("style");
+        }
+    }
+    
+    /**
+     * iterate through alt-row-styles list to see if should be used, then add style
+     * @return The style for item row
+     */
+    public String getStyleAltRowStyle(Map<String, Object> context) {
+        String styles = "";
+        try {
+            // use the same Interpreter (ie with the same context setup) for all evals
+            Interpreter bsh = this.getBshInterpreter(context);
+            for (AltRowStyle altRowStyle : this.altRowStyles) {
+                Object retVal = bsh.eval(altRowStyle.useWhen);
+                // retVal should be a Boolean, if not something weird is up...
+                if (retVal instanceof Boolean) {
+                    Boolean boolVal = (Boolean) retVal;
+                    if (boolVal.booleanValue()) {
+                        styles += altRowStyle.style;
+                    }
+                } else {
+                    throw new IllegalArgumentException(
+                        "Return value from style condition eval was not a Boolean: " + retVal.getClass().getName() + " [" + retVal + "] of form " + this.name);
+                }
+            }
+        } catch (EvalError e) {
+            String errmsg = "Error evaluating BeanShell style conditions on form " + this.name;
+            Debug.logError(e, errmsg, module);
+            throw new IllegalArgumentException(errmsg);
+        }
+
+        return styles;
     }
     
     public static class AltTarget {

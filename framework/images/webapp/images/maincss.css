@@ -1451,6 +1451,26 @@ background: #FFFCCF;
 background: #FFF55F;
 }
 
+.basic-table .Validate {
+/*Style use by alt-row-style on list*/
+background: #A0D5F7;
+}
+
+.basic-table .alternate-rowValidate {
+/*Style use by alt-row-style on list*/
+background: #72A8F2;
+}
+
+.basic-table .Warn {
+/*Style use by alt-row-style on list*/
+background: #f55C5C;
+}
+
+.basic-table .alternate-rowWarn {
+/*Style use by alt-row-style on list*/
+background: #FC7455;
+}
+
 .basic-table tr .button-col {
 /* button column style - for the small
 collection of buttons used in lists */

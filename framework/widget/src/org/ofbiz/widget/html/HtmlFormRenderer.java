@@ -1532,20 +1532,39 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         writer.append("  <tr");
         if (itemIndex!=null) {
             
-            if (itemIndex.intValue()%2==0) {
-               String evenRowStyle = modelForm.getEvenRowStyle();
-               if (UtilValidate.isNotEmpty(evenRowStyle)) {
-                   writer.append(" class=\"");
-                   writer.append(evenRowStyle);
-                   writer.append("\"");
+            String altRowStyles = modelForm.getStyleAltRowStyle(context);
+            if (itemIndex.intValue() % 2 == 0) {
+                String evenRowStyle = modelForm.getEvenRowStyle();
+                if (UtilValidate.isNotEmpty(evenRowStyle)) {
+                    writer.append(" class=\"");
+                    writer.append(evenRowStyle);
+                    if (UtilValidate.isNotEmpty(altRowStyles)) {
+                        writer.append(altRowStyles);
+                    }
+                    writer.append("\"");
+                } else {
+                    if (UtilValidate.isNotEmpty(altRowStyles)) {
+                        writer.append(" class=\"");
+                        writer.append(altRowStyles);
+                        writer.append("\"");
+                    }
                 }
             } else {
-                  String oddRowStyle = modelForm.getOddRowStyle();
-                  if (UtilValidate.isNotEmpty(oddRowStyle)) {
-                      writer.append(" class=\"");
-                      writer.append(oddRowStyle);
-                      writer.append("\"");
-                  }
+                String oddRowStyle = modelForm.getOddRowStyle();
+                if (UtilValidate.isNotEmpty(oddRowStyle)) {
+                    writer.append(" class=\"");
+                    writer.append(oddRowStyle);
+                    if (UtilValidate.isNotEmpty(altRowStyles)) {
+                        writer.append(altRowStyles);
+                    }
+                    writer.append("\"");
+                } else {
+                    if (UtilValidate.isNotEmpty(altRowStyles)) {
+                        writer.append(" class=\"");
+                        writer.append(altRowStyles);
+                        writer.append("\"");
+                    }
+                }
             }
         }
         writer.append(">");
