@@ -32,6 +32,7 @@ under the License.
             <xs:sequence>
                 <xs:element minOccurs="0" ref="actions"/>
                 <xs:element minOccurs="0" ref="row-actions"/>
+                <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-row-style"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="alt-target"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="auto-fields-service"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="auto-fields-entity"/>
@@ -233,6 +234,20 @@ under the License.
         <xs:attribute type="xs:string" name="use-when" use="required"/>
         <xs:attribute type="xs:string" name="target"/>
         <xs:attribute type="xs:string" name="target-type"/>
+    </xs:attributeGroup>
+    <xs:element name="alt-row-style">
+        <xs:annotation><xs:documentation>Active a style on a line if the use-when condition is validate</xs:documentation></xs:annotation>            
+        <xs:complexType>
+            <xs:attributeGroup ref="attlist.alt-row-style"/>
+        </xs:complexType>
+    </xs:element>
+    <xs:attributeGroup name="attlist.alt-row-style">
+        <xs:attribute type="xs:string" name="use-when" use="required">
+            <xs:annotation><xs:documentation>Boolean expression tested for active the style on a line.</xs:documentation></xs:annotation>
+        </xs:attribute>
+        <xs:attribute type="xs:string" name="style" use="required">
+            <xs:annotation><xs:documentation>If use-when return true, concat this style to existing style of the line.</xs:documentation></xs:annotation>
+        </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="auto-fields-service">
         <xs:complexType>

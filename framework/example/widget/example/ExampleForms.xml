@@ -52,6 +52,8 @@ under the License.
                 <field-map field-name="orderBy" env-name="parameters.sortField"/>
             </service>
         </actions>
+        <alt-row-style use-when="&quot;EXST_APPROVED&quot;.equals(statusId)" style="Validate"/>
+        <alt-row-style use-when="&quot;EXST_CANCELLED&quot;.equals(statusId)" style="Warn"/>
         <field name="exampleId" title="${uiLabelMap.ExampleExampleId}" widget-style="buttontext">
             <hyperlink also-hidden="false" description="${exampleId}" target="EditExample?exampleId=${exampleId}"/>
         </field>
