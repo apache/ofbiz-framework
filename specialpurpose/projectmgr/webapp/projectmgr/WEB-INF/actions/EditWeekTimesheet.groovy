@@ -172,7 +172,6 @@ if (timeEntry) {
     entry.total = day0Total + day1Total + day2Total + day3Total + day4Total + day5Total + day6Total;
     entries.add(entry);
 }
-Debug.log("=====entries: " + entries);
 context.timeEntries = entries;
 // get all timesheets of this user, including the planned hours
 timesheetsDb = delegator.findByAnd("Timesheet", ["partyId" : partyId], ["fromDate DESC"]);

@@ -76,7 +76,7 @@
         <field name="hours"><display/></field>
         <field name="comments" title="${uiLabelMap.CommonComments}"><display/></field>
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
-            <hyperlink target="${my}StatusToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
+            <hyperlink target="${my}TimeSheetStatusToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
                 description="${bsh:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" also-hidden="false"/>
         </field>
     </form>
@@ -125,7 +125,7 @@
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
         <!--field name="comments" title="${uiLabelMap.CommonComments}"><display/></field-->
         <field name="completeLink" title="${uiLabelMap.CommonStatustoComplete}" widget-style="buttontext">
-            <hyperlink target="TimesheetToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
+            <hyperlink target="TimeSheetStatusToComplete?timesheetId=${timesheetId}&amp;statusId=TIMESHEET_COMPLETED"
                 description="${bsh:statusId.equals(&quot;TIMESHEET_IN_PROCESS&quot;)?complete:&quot;&quot;}" also-hidden="false"/>
         </field>
     </form>
