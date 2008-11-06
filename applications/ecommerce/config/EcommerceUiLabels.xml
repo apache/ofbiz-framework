@@ -3556,20 +3556,6 @@
         <value xml:lang="th">ส่วนลด</value>
         <value xml:lang="zh">调整</value>
     </property>
-    <property key="OrderAdvancePayment">
-        <value xml:lang="cs">Platba předem</value>
-        <value xml:lang="de">Vorkasse</value>
-        <value xml:lang="en">Advance Payment</value>
-        <value xml:lang="es">Pago Anticipado</value>
-        <value xml:lang="fr">Pré-paiement</value>
-        <value xml:lang="it">Anticipo pagamento</value>
-        <value xml:lang="ja">Advance Payment</value>
-        <value xml:lang="nl">Voorschot</value>
-        <value xml:lang="ro">Plata Anticipata</value>
-        <value xml:lang="ru">Авансовая оплата</value>
-        <value xml:lang="th">การชำระเงินล่วงหน้า</value>
-        <value xml:lang="zh">预付款</value>
-    </property>
     <property key="OrderAllowSplit">
         <value xml:lang="cs">Povolení rozdělit</value>
         <value xml:lang="de">Aufteilung genehmigen</value>
@@ -3612,17 +3598,6 @@
         <value xml:lang="ru">Обратно на главную</value>
         <value xml:lang="th">กลับสู่หน้าหลัก</value>
         <value xml:lang="zh">返回首页</value>
-    </property>
-    <property key="OrderBackorderNotification">
-        <value xml:lang="en">Order Backorder Notification</value>
-        <value xml:lang="fr">Avis de commande en attente</value>
-        <value xml:lang="it">Notifica ordine backorder</value>
-        <value xml:lang="ja">Order Backorder Notification</value>
-        <value xml:lang="nl">Uitstaande bestellingsnotificatie</value>
-        <value xml:lang="ro">Notificare Comanda Backorder</value>
-        <value xml:lang="ru">Order Backorder Notification</value>
-        <value xml:lang="th">แจ้งการสั่งซื้อสินค้าที่ไม่สามารถส่งได้</value>
-        <value xml:lang="zh">订单缺货通知</value>
     </property>
     <property key="OrderBacktoShoppingCart">
         <value xml:lang="cs">zpět do košíku</value>
@@ -3686,19 +3661,6 @@
         <value xml:lang="th">ใบเสร็จรับเงินของ</value>
         <value xml:lang="zh">账单等于</value>
     </property>
-    <property key="OrderBoxNumber">
-        <value xml:lang="en">Box #</value>
-        <value xml:lang="fr">N° de boîte</value>
-        <value xml:lang="hi_IN">बक्सा</value>
-        <value xml:lang="it">Scatola n°</value>
-        <value xml:lang="ja">Box #</value>
-        <value xml:lang="nl">Vak #</value>
-        <value xml:lang="ro">Cutie #</value>
-        <value xml:lang="ru">Ящик №</value>
-        <value xml:lang="th">Box #</value>
-        <value xml:lang="th">กล่อง #</value>
-        <value xml:lang="zh">箱子 #</value>
-    </property>
     <property key="OrderCOD">
         <value xml:lang="cs">Platba v hotovosti při doručení (dobírka)</value>
         <value xml:lang="de">Barzahlung bei Lieferung (Nachnahme)</value>
@@ -3715,21 +3677,6 @@
         <value xml:lang="ru">COD</value>
         <value xml:lang="th">เงินด่วน</value>
         <value xml:lang="zh">货到付款</value>
-    </property>
-    <property key="OrderCashPaymentOnPickUp">
-        <value xml:lang="cs">Platba v hotovosti při odběru</value>
-        <value xml:lang="de">Barzahlung bei Abholung</value>
-        <value xml:lang="en">Cash Payment on Pickup</value>
-        <value xml:lang="es">Pago de efectivo en la entrega</value>
-        <value xml:lang="fr">Paiement en espèce à la validation</value>
-        <value xml:lang="hi_IN">सामान लेते समय भुगतान</value>
-        <value xml:lang="it">Pagamento in contanti alla conferma</value>
-        <value xml:lang="ja">Cash Payment on Pickup</value>
-        <value xml:lang="nl">Betaling bij het afhalen</value>
-        <value xml:lang="ro">Plata in Numerar la Livrare</value>
-        <value xml:lang="ru">Оплата наличными при получении</value>
-        <value xml:lang="th">การชำระเงินผ่านเคาร์เตอร์</value>
-        <value xml:lang="zh">提货时付现金</value>
     </property>
     <property key="OrderChangePaymentInfo">
         <value xml:lang="cs">naposledy vybraná položka</value>
