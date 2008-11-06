@@ -31,19 +31,15 @@ under the License.
     <!-- Removes all created files and directories                          -->
     <!-- ================================================================== -->
 
-    <target name="clean" depends="clean-lib">
+    <target name="clean">
         <delete dir="${build.dir}"/>
-    </target>
-    
-    <target name="clean-lib">
-        <delete dir="${build.dir}/lib"/>
     </target>
 
     <!-- ================================================================== -->
     <!-- Makes sure the needed directory structure is in place              -->
     <!-- ================================================================== -->
 
-    <target name="prepare" depends="clean-lib">
+    <target name="prepare">
         <mkdir dir="${build.dir}/classes"/>
         <mkdir dir="${build.dir}/lib"/>
     </target>
