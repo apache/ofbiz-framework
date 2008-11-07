@@ -441,6 +441,10 @@ function updateCartData(elementId, formValues, itemQty, itemIndex) {
             if (data.totalQuantity == 0) {
                 $('emptyCartCheckoutPanel').show();
                 $('checkoutPanel').hide();
+                $('microCartNotEmpty').hide();
+                $('microCartEmpty').show();
+                $('quickCheckoutEnabled').hide();
+                $('quickCheckoutDisabled').show();
             } else {
                 // Used for edit cart
                 $('microCartQuantity').update(data.totalQuantity);
