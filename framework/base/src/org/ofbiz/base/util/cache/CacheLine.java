@@ -43,7 +43,11 @@ public abstract class CacheLine<V> implements Serializable {
     }
 
     public long getSizeInBytes() {
-        return UtilObject.getByteCount(this);
+        try {
+            return UtilObject.getByteCount(this);
+        } catch (Exception e) {
+            return 0;
+        }
     }
 
     public boolean hasExpired() {

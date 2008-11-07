@@ -92,40 +92,21 @@ public class UtilObject {
     }
 
     /** Returns the size of a serializable object. Non-serializable objects
-     * will return zero.<p>It is important to note
+     * will throw an <code>IOException</code>.<p>It is important to note
      * that the returned value is length of the byte stream after the object has
      * been serialized. The returned value does not represent the amount of memory
      * the object uses. There is no accurate way to determine the size of an
      * object in memory.</p>
      * @param obj
      * @return the number of bytes in the serialized object
+     * @throws IOException
      */
-    public static long getByteCount(Object obj) {
-        OutputStreamByteCount osbc = null;
-        ObjectOutputStream oos = null;
-        long objSize = 0;
-        try {
-            osbc = new OutputStreamByteCount();
-            oos = new ObjectOutputStream(osbc);
-            oos.writeObject(obj);
-            objSize = osbc.getByteCount();
-        } catch (IOException e) {
-            // Non-serializable objects will cause this exception, so
-            // logging verbose to cut down on console log size
-            Debug.logVerbose(e, module);
-        }
-        try {
-            if (oos != null) {
-                oos.flush();
-                oos.close();
-            }
-            if (osbc != null) {
-                osbc.close();
-            }
-        } catch (IOException e) {
-            Debug.logError(e, module);
-        }
-        return objSize;
+    public static long getByteCount(Object obj) throws IOException {
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        ObjectOutputStream oos = new ObjectOutputStream(bos);
+        oos.writeObject(obj);
+        oos.flush();
+        return (long) bos.size();
     }
 
     /** Deserialize a byte array back to an object */

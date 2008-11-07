@@ -18,23 +18,10 @@
  *******************************************************************************/
 package org.ofbiz.base.util;
 
-/**
- * <p/>
- * <p>
- * Parses input to strip ignorable characters, deal with nulls, etc.
- * </p>
- * <br/>
- * <br/>
- * Created on Oct 2, 2004 by dustin
- */
+/** @deprecated */
 public class UtilParse {
 
-    /**
-     * return nulls for empty strings, as the entity engine can deal with nulls. This will provide blanks
-     * in fields where doubles display. Blank meaning null, vs. 0 which means 0
-     * @param doubleString
-     * @return a Double for the parsed value
-     */
+    /** @deprecated */
     public static Double parseDoubleForEntity(String doubleString) throws NumberFormatException {
         if (doubleString == null) {
             return null;

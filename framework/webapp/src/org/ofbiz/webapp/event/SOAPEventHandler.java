@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.webapp.event;
 
+import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.Writer;
 import java.io.OutputStream;
@@ -36,7 +37,6 @@ import javolution.util.FastMap;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilXml;
-import org.ofbiz.base.util.StringOutputStream;
 import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
@@ -170,9 +170,7 @@ public class SOAPEventHandler implements EventHandler {
         // log the request message
         if (Debug.verboseOn()) {
             try {
-                StringOutputStream out = new StringOutputStream();
-                msg.writeTo(out);
-                Debug.logInfo("Request Message:\n" + out.toString() + "\n", module);
+                Debug.logInfo("Request Message:\n" + messageToString(msg) + "\n", module);
             } catch (Throwable t) {
             }
         }
@@ -271,9 +269,7 @@ public class SOAPEventHandler implements EventHandler {
         // log the response message
         if (Debug.verboseOn()) {
             try {
-                StringOutputStream out = new StringOutputStream();
-                msg.writeTo(out);
-                Debug.log("Response Message:\n" + out.toString() + "\n", module);
+                Debug.log("Response Message:\n" + messageToString(msg) + "\n", module);
             } catch (Throwable t) {
             }
         }
@@ -332,5 +328,11 @@ public class SOAPEventHandler implements EventHandler {
 
         uri.append(reqInfo);
         return uri.toString();
+    }
+    
+    public static String messageToString(Message msg) throws SOAPException, IOException {
+        ByteArrayOutputStream out = new ByteArrayOutputStream();
+        msg.writeTo(out);
+        return out.toString();
     }
 }

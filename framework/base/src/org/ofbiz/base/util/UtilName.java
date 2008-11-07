@@ -20,14 +20,10 @@ package org.ofbiz.base.util;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-/**
- * UtilName
- *
- */
+/** @deprecated */
 public class UtilName {
 
     public static final String module = UtilName.class.getName();
@@ -44,6 +40,7 @@ public class UtilName {
     protected String name[] = null;
     protected String raw = null;
 
+    /** @deprecated */
     public UtilName(String name, boolean initial) {
         this.middleIsInitial = initial;
         this.raw = name;
@@ -61,6 +58,7 @@ public class UtilName {
         this.name = goodElements.toArray(new String[goodElements.size()]);
     }
 
+    /** @deprecated */
     public UtilName(String name) {
         this(name, false);
     }
