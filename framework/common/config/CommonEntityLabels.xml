@@ -1111,13 +1111,21 @@
     <property key="Enumeration.description.PPIP_ORST_HIST">
         <value xml:lang="de">Bestellung Zwischentotal X in den letzten Y Monaten</value>
         <value xml:lang="en">Order sub-total X in last Y Months</value>
-        <value xml:lang="fr">Sous-total X de commande dans les Y derniers mois</value>
+        <value xml:lang="fr">Sous-total X commandé dans les Y derniers mois</value>
         <value xml:lang="it">Sub-totale Ordine X negli ultimi Y Mesi</value>
         <value xml:lang="pt">Sub-total da Encomenda X nos últimos Y Meses</value>
         <value xml:lang="ro">Sub-total Comenzi X ultime Y Luni</value>
         <value xml:lang="ru">Сумма заказов X за последние Y месяцев</value>
         <value xml:lang="th">ผลรวมย่อยรายการ X  ในสุดท้าย Y เดือน</value>
         <value xml:lang="zh">订单小计 X 在过去 Y 个月里</value>
+    </property>
+    <property key="Enumeration.description.PPIP_ORST_LAST_YEAR">
+        <value xml:lang="en">Order sub-total X last year</value>
+        <value xml:lang="fr">Sous-total X commandé l'année dernière</value>
+    </property>
+    <property key="Enumeration.description.PPIP_ORST_YEAR">
+        <value xml:lang="en">Order sub-total X since beginning of current year</value>
+        <value xml:lang="fr">Sous-total X commandé depuis le début de l'année</value>
     </property>
     <property key="Enumeration.description.PPIP_PARTY_CLASS">
         <value xml:lang="de">Akteur Klassifizierung</value>
@@ -1836,6 +1844,7 @@
     <property key="Enumeration.description.PROMO_PROD_SPPRC">
         <value xml:lang="de">Produkt zum [Spezial Aktions] Preis</value>
         <value xml:lang="en">Product for [Special Promo] Price</value>
+        <value xml:lang="fr">Un article au prix [spécial promo]</value>
         <value xml:lang="it">Prodotto per [Promozione Speciale] Prezzo</value>
         <value xml:lang="pt">Produto para [Promo Especial] Preço</value>
         <value xml:lang="ro">Produs pentru [Promovare Speciala] Pret</value>

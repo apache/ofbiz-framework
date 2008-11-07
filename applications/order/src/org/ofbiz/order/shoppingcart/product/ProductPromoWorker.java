@@ -21,6 +21,7 @@ package org.ofbiz.order.shoppingcart.product;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -45,8 +46,6 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.condition.EntityCondition;
-import org.ofbiz.entity.condition.EntityConditionList;
-import org.ofbiz.entity.condition.EntityExpr;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.order.shoppingcart.CartItemModifyException;
@@ -1028,6 +1027,72 @@ public class ProductPromoWorker {
                     } else {
                         Double orderSubTotal = (Double) result.get("totalSubRemainingAmount");
                         if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.", module);
+                        compareBase = new Integer(orderSubTotal.compareTo(Double.valueOf(condValue)));
+                    }
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.", module);
+                    return false;
+                }
+            } else {
+                return false;
+            }
+        } else if ("PPIP_ORST_YEAR".equals(inputParamEnumId)) {
+            // description="Order sub-total X since beginning of current year"
+            if (partyId != null && userLogin != null) {
+                // call the getOrderedSummaryInformation service to get the sub-total
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(nowTimestamp);
+                int monthsToInclude = calendar.get(Calendar.MONTH) + 1;                
+                Map serviceIn = UtilMisc.toMap("partyId", partyId, 
+                        "roleTypeId", "PLACING_CUSTOMER", 
+                        "orderTypeId", "SALES_ORDER", 
+                        "statusId", "ORDER_COMPLETED", 
+                        "monthsToInclude", new Integer(monthsToInclude), 
+                        "userLogin", userLogin);
+                try {
+                    Map result = dispatcher.runSync("getOrderedSummaryInformation", serviceIn);
+                    if (ServiceUtil.isError(result)) {
+                        Debug.logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result), module);
+                        return false;
+                    } else {
+                        Double orderSubTotal = (Double) result.get("totalSubRemainingAmount");
+                        if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for the last " + monthsToInclude + " months.", module);
+                        compareBase = new Integer(orderSubTotal.compareTo(Double.valueOf(condValue)));
+                    }
+                } catch (GenericServiceException e) {
+                    Debug.logError(e, "Error getting order history sub-total in the getOrderedSummaryInformation service, evaluating condition to false.", module);
+                    return false;
+                }
+            }
+        } else if ("PPIP_ORST_LAST_YEAR".equals(inputParamEnumId)) {
+            // description="Order sub-total X since beginning of last year"
+            if (partyId != null && userLogin != null) {
+                // call the getOrderedSummaryInformation service to get the sub-total
+                
+                Calendar calendar = Calendar.getInstance();
+                calendar.setTime(nowTimestamp);
+                int lastYear = calendar.get(Calendar.YEAR) - 1;               
+                Calendar fromDateCalendar = Calendar.getInstance();
+                fromDateCalendar.set(lastYear, 0, 0, 0, 0);
+                Timestamp fromDate = new Timestamp(fromDateCalendar.getTime().getTime());  
+                Calendar thruDateCalendar = Calendar.getInstance();
+                thruDateCalendar.set(lastYear, 12, 0, 0, 0);
+                Timestamp thruDate = new Timestamp(thruDateCalendar.getTime().getTime());  
+                Map serviceIn = UtilMisc.toMap("partyId", partyId, 
+                        "roleTypeId", "PLACING_CUSTOMER", 
+                        "orderTypeId", "SALES_ORDER", 
+                        "statusId", "ORDER_COMPLETED", 
+                        "fromDate", fromDate, 
+                        "thruDate", thruDate, 
+                        "userLogin", userLogin);
+                try {
+                    Map result = dispatcher.runSync("getOrderedSummaryInformation", serviceIn);
+                    if (ServiceUtil.isError(result)) {
+                        Debug.logError("Error calling getOrderedSummaryInformation service for the PPIP_ORST_LAST_YEAR ProductPromo condition input value: " + ServiceUtil.getErrorMessage(result), module);
+                        return false;
+                    } else {
+                        Double orderSubTotal = (Double) result.get("totalSubRemainingAmount");
+                        if (Debug.verboseOn()) Debug.logVerbose("Doing order history sub-total compare: orderSubTotal=" + orderSubTotal + ", for last year.", module);
                         compareBase = new Integer(orderSubTotal.compareTo(Double.valueOf(condValue)));
                     }
                 } catch (GenericServiceException e) {
