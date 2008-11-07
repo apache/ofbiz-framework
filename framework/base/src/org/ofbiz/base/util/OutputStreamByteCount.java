@@ -22,10 +22,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 
+/** @deprecated */
 public class OutputStreamByteCount extends OutputStream {
 
     protected long byteCount = 0;
 
+    /** @deprecated */
     public OutputStreamByteCount() {
         super();
     }

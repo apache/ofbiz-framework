@@ -22,9 +22,7 @@ package org.ofbiz.base.util;
 import java.io.OutputStream;
 import java.io.IOException;
 
-/**
- * StringOutputStream
- */
+/** @deprecated */
 public class StringOutputStream extends OutputStream {
 
     protected StringBuffer buffer = new StringBuffer();
