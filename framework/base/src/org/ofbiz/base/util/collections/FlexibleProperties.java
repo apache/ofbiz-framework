@@ -32,7 +32,7 @@ import org.ofbiz.base.util.Debug;
 
 /**
  * Simple Class for flexibly working with properties files
- *
+ * @deprecated Use java.util.Properties
  */
 public class FlexibleProperties extends Properties implements Serializable {
 

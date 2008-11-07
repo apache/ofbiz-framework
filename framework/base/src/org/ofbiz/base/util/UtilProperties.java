@@ -41,7 +41,6 @@ import javolution.util.FastSet;
 
 import org.ofbiz.base.location.FlexibleLocation;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.base.util.collections.FlexibleProperties;
 import org.ofbiz.base.util.collections.ResourceBundleMapWrapper;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.w3c.dom.Document;
@@ -66,12 +65,12 @@ public class UtilProperties implements java.io.Serializable {
     /** An instance of the generic cache for storing the non-locale-specific properties.
      *  Each FlexibleProperties instance is keyed by the resource String.
      */
-    protected static UtilCache<String, FlexibleProperties> resourceCache = new UtilCache<String, FlexibleProperties>("properties.UtilPropertiesResourceCache");
+    protected static UtilCache<String, Properties> resourceCache = new UtilCache<String, Properties>("properties.UtilPropertiesResourceCache");
 
     /** An instance of the generic cache for storing the non-locale-specific properties.
      *  Each FlexibleProperties instance is keyed by the file's URL.
      */
-    protected static UtilCache<String, FlexibleProperties> urlCache = new UtilCache<String, FlexibleProperties>("properties.UtilPropertiesUrlCache");
+    protected static UtilCache<String, Properties> urlCache = new UtilCache<String, Properties>("properties.UtilPropertiesUrlCache");
 
     public static final Locale LOCALE_ROOT = new Locale("", "", "");
 
@@ -164,14 +163,14 @@ public class UtilProperties implements java.io.Serializable {
             return null;
         }
         String cacheKey = resource.replace(".properties", "");
-        FlexibleProperties properties = resourceCache.get(cacheKey);
+        Properties properties = resourceCache.get(cacheKey);
         if (properties == null) {
             try {
                 URL url = UtilURL.fromResource(resource);
 
                 if (url == null)
                     return null;
-                properties = FlexibleProperties.makeFlexibleProperties(url);
+                properties = getProperties(url);
                 resourceCache.put(cacheKey, properties);
             } catch (MissingResourceException e) {
                 Debug.log(e.getMessage(), module);
@@ -189,15 +188,16 @@ public class UtilProperties implements java.io.Serializable {
      * @return The properties file
      */
     public static Properties getProperties(URL url) {
-        if (url == null)
+        if (url == null) {
             return null;
-        FlexibleProperties properties = urlCache.get(url.toString());
-
+        }
+        Properties properties = urlCache.get(url.toString());
         if (properties == null) {
             try {
-                properties = FlexibleProperties.makeFlexibleProperties(url);
+                properties = new Properties();
+                properties.load(url.openStream());
                 urlCache.put(url.toString(), properties);
-            } catch (MissingResourceException e) {
+            } catch (Exception e) {
                 Debug.log(e.getMessage(), module);
             }
         }
