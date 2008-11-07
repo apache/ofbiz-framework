@@ -29,7 +29,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
-import org.ofbiz.base.util.collections.FlexibleProperties;
+import org.ofbiz.base.util.UtilProperties;
 
 import org.apache.velocity.Template;
 import org.apache.velocity.VelocityContext;
@@ -65,18 +65,13 @@ public class VelocityViewHandler implements ViewHandler {
             ve.setProperty("runtime.log.logsystem.log4j.category", module);
 
             Properties props = null;
-            URL propsURL = null;
-
             try {
-                propsURL = context.getResource("/WEB-INF/velocity.properties");
+                props = UtilProperties.getProperties(context.getResource("/WEB-INF/velocity.properties"));
+                Debug.logInfo("[VelocityViewHandler.init] : Loaded /WEB-INF/velocity.properties", module);
             } catch (MalformedURLException e) {
                 Debug.logError(e, module);
             }
-
-            if (propsURL != null) {
-                props = new FlexibleProperties(propsURL);
-                Debug.logWarning("[VelocityViewHandler.init] : Loaded /WEB-INF/velocity.properties", module);
-            } else {
+            if (props == null) {
                 props = new Properties();
                 Debug.logWarning("[VelocityViewHandler.init] : Cannot load /WEB-INF/velocity.properties. " +
                     "Using default properties.", module);
