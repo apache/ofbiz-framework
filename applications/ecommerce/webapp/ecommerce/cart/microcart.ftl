@@ -41,8 +41,11 @@ under the License.
       <#if (shoppingCartSize > 0)>
           <span id="quickCheckoutEnabled"><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>">[${uiLabelMap.OrderCheckoutQuick}]</a></span>
           <span id="quickCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.OrderCheckoutQuick}]</span>
+          <span id="onePageCheckoutEnabled"><a href="<@ofbizUrl>onePageCheckout</@ofbizUrl>">[${uiLabelMap.EcommerceOnePageCheckout}]</a></span>
+          <span id="onePageCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.EcommerceOnePageCheckout}]</span>
       <#else>
           <span class="disabled">[${uiLabelMap.OrderCheckoutQuick}]</span>
+          <span class="disabled">[${uiLabelMap.EcommerceOnePageCheckout}]</span>
       </#if>
       &nbsp;&nbsp;
     </div>
