@@ -276,7 +276,7 @@
     <DataResource dataResourceId="DRPROMO-001DESCFR" dataResourceTypeId="ELECTRONIC_TEXT" localeString="fr"/>   
     <DataResource dataResourceId="DRPROMO-001DESCEN" dataResourceTypeId="ELECTRONIC_TEXT" localeString="en"/>    
     
-    <ElectronicText dataResourceId="DRPROMO-001DESCFR" textData="Produits de démonstration"/>
+    <ElectronicText dataResourceId="DRPROMO-001DESCFR" textData="Articles de démonstration"/>
     <ElectronicText dataResourceId="DRPROMO-001DESCEN" textData="Featured products"/>
     
     <Content contentId="CPROMO-001DESCFR" contentTypeId="DOCUMENT" dataResourceId="DRPROMO-001DESCFR" description="DESCRIPTION FR Articles de démonstration" localeString="fr" />

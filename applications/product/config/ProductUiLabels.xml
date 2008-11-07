@@ -3807,7 +3807,7 @@
     <property key="FormFieldTitle_supplierPrefOrderId">
         <value xml:lang="de">Lieferant präferierte Auftragsnummer ID</value>
         <value xml:lang="en">Supplier Pref Order Id</value>
-        <value xml:lang="fr">Réf. de commande de fournisseur préféré</value>
+        <value xml:lang="fr">Réf. de fournisseur préféré</value>
         <value xml:lang="it">Preferenze Fornitore Numero Ordine</value>
         <value xml:lang="ro">Preferinte Furnizor Numar Comanda</value>
         <value xml:lang="ru">Пред код заказа поставщика</value>

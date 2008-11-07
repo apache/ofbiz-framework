@@ -1803,6 +1803,7 @@
     <property key="ProductPriceType.description.SPECIAL_PROMO_PRICE">
         <value xml:lang="de">Sonderaktionspreis</value>
         <value xml:lang="en">Special Promo Price</value>
+        <value xml:lang="en">Prix spécial promo</value>
         <value xml:lang="it">Prezzo Promozionale Speciale</value>
         <value xml:lang="ro">Pret Promotional Special</value>
         <value xml:lang="ru">Специальная цена</value>
