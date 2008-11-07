@@ -63,12 +63,12 @@ public class UtilProperties implements java.io.Serializable {
     public static final String module = UtilProperties.class.getName();
 
     /** An instance of the generic cache for storing the non-locale-specific properties.
-     *  Each FlexibleProperties instance is keyed by the resource String.
+     *  Each Properties instance is keyed by the resource String.
      */
     protected static UtilCache<String, Properties> resourceCache = new UtilCache<String, Properties>("properties.UtilPropertiesResourceCache");
 
     /** An instance of the generic cache for storing the non-locale-specific properties.
-     *  Each FlexibleProperties instance is keyed by the file's URL.
+     *  Each Properties instance is keyed by the file's URL.
      */
     protected static UtilCache<String, Properties> urlCache = new UtilCache<String, Properties>("properties.UtilPropertiesUrlCache");
 
