@@ -160,10 +160,11 @@ public class UtilProperties implements java.io.Serializable {
      * @return The properties file
      */
     public static Properties getProperties(String resource) {
-        if (resource == null || resource.length() <= 0)
+        if (resource == null || resource.length() <= 0) {
             return null;
-        FlexibleProperties properties = resourceCache.get(resource);
-
+        }
+        String cacheKey = resource.replace(".properties", "");
+        FlexibleProperties properties = resourceCache.get(cacheKey);
         if (properties == null) {
             try {
                 URL url = UtilURL.fromResource(resource);
@@ -171,7 +172,7 @@ public class UtilProperties implements java.io.Serializable {
                 if (url == null)
                     return null;
                 properties = FlexibleProperties.makeFlexibleProperties(url);
-                resourceCache.put(resource, properties);
+                resourceCache.put(cacheKey, properties);
             } catch (MissingResourceException e) {
                 Debug.log(e.getMessage(), module);
             }
