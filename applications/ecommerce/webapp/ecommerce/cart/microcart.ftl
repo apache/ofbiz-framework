@@ -25,9 +25,12 @@ under the License.
 <div id="microcart">
     <div>
         <#if (shoppingCartSize > 0)>
-            ${uiLabelMap.EcommerceCartHas} <span id="microCartQuantity">${shoppingCart.getTotalQuantity()}</span>
-            <#if shoppingCart.getTotalQuantity() == 1>${uiLabelMap.OrderItem}<#else/>${uiLabelMap.OrderItems}</#if>,
-            <span id="microCartTotal"><@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/></span>
+            <span id="microCartNotEmpty">
+                ${uiLabelMap.EcommerceCartHas} <span id="microCartQuantity">${shoppingCart.getTotalQuantity()}</span>
+                <#if shoppingCart.getTotalQuantity() == 1>${uiLabelMap.OrderItem}<#else/>${uiLabelMap.OrderItems}</#if>,
+                <span id="microCartTotal"><@ofbizCurrency amount=shoppingCart.getGrandTotal() isoCode=shoppingCart.getCurrency()/></span>
+            </span>
+            <span id="microCartEmpty" style="display:none">${uiLabelMap.OrderShoppingCartEmpty}</span>
         <#else>
             ${uiLabelMap.OrderShoppingCartEmpty}
         </#if>
@@ -36,7 +39,8 @@ under the License.
     <div>
       <a href="<@ofbizUrl>view/showcart</@ofbizUrl>">[${uiLabelMap.OrderViewCart}]</a>
       <#if (shoppingCartSize > 0)>
-          <a href="<@ofbizUrl>quickcheckout</@ofbizUrl>">[${uiLabelMap.OrderCheckoutQuick}]</a>
+          <span id="quickCheckoutEnabled"><a href="<@ofbizUrl>quickcheckout</@ofbizUrl>">[${uiLabelMap.OrderCheckoutQuick}]</a></span>
+          <span id="quickCheckoutDisabled" style="display:none" class="disabled">[${uiLabelMap.OrderCheckoutQuick}]</span>
       <#else>
           <span class="disabled">[${uiLabelMap.OrderCheckoutQuick}]</span>
       </#if>
