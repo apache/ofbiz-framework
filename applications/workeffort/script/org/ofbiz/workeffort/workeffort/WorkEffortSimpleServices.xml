@@ -68,7 +68,7 @@ under the License.
             <create-value value-name="workFullfillment"/>
         </if-not-empty>
 
-        <!-- attach to a customer request if passed and copy attached docs if customer request has communication events with attachments -->
+        <!-- attach to a customer request if passed and copy attached docs -->
         <if-not-empty field="parameters.custRequestId">
             <!-- check status of customer request if valid -->
             <entity-one entity-name="CustRequest" value-name="lookedUpValue"/>
@@ -87,19 +87,14 @@ under the License.
             <set field="updCustReq.custRequestId" from-field="parameters.custRequestId"/>
             <set field="updCustReq.statusId" value="CRQ_REVIEWED"/>
             <call-service service-name="setCustRequestStatus" in-map-name="updCustReq"/>
-            <entity-and list-name="custRequestCommEvents" entity-name="CustRequestCommEvent">
+            <entity-and list-name="custRequestContents" entity-name="CustRequestContent">
                 <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
             </entity-and>
-            <iterate entry-name="custRequestCommEvent" list-name="custRequestCommEvents">
-                <get-related-one value-name="custRequestCommEvent" relation-name="CommunicationEvent" to-value-name="communicationEvent"/>
-                <get-related relation-name="CommEventContentAssoc" value-name="communicationEvent" list-name="allCommEventContents"/>
-                <filter-list-by-date list-name="allCommEventContents" to-list-name="commEventContents"/>            
-                <iterate entry-name="commEventContent" list-name="commEventContents">
-                    <set field="newWorkEffortContent.workEffortId" from-field="newEntity.workEffortId"/>
-                    <set field="newWorkEffortContent.contentId" from-field="commEventContent.contentId"/>
-                    <set field="newWorkEffortContent.workEffortContentTypeId" value="SUPPORTING_MEDIA"/>
-                    <call-service service-name="createWorkEffortContent" in-map-name="newWorkEffortContent"/>
-                </iterate>
+            <iterate entry-name="custRequestContent" list-name="custRequestContents">
+                <set field="newWorkEffortContent.workEffortId" from-field="newEntity.workEffortId"/>
+                <set field="newWorkEffortContent.contentId" from-field="custRequestContent.contentId"/>
+                <set field="newWorkEffortContent.workEffortContentTypeId" value="SUPPORTING_MEDIA"/>
+                <call-service service-name="createWorkEffortContent" in-map-name="newWorkEffortContent"/>
             </iterate>
         </if-not-empty>
     </simple-method>
