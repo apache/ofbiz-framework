@@ -481,26 +481,77 @@ under the License.
     </form>
     
     <!--Customer Request Content-->
-    <form name="AddCustRequestContent" target="createCustRequestContent" title="" type="single" default-map-name="dummy"
-        header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createCustRequestContent"/>
-        <field name="custRequestId"><hidden value="${parameters.custRequestId}"/></field>
+    <form name="AddCustRequestContent" type="upload" default-map-name="content" 
+        focus-field-name="contentId" header-row-style="header-row" default-table-style="basic-table" target="createCustRequestContent?custRequestId=${parameters.custRequestId}">
+        <actions>
+            <set field="custRequestId" from-field="parameters.custRequestId"/>
+            <entity-one entity-name="StatusItem" value-name="currentStatus" auto-field-map="false">
+                <field-map field-name="statusId" env-name="content.statusId"/>
+            </entity-one>
+            <entity-one entity-name="DataResource" value-name="dataResource" auto-field-map="false">
+                <field-map field-name="dataResourceId" env-name="content.dataResourceId"/>
+            </entity-one>
+        </actions>
+        <field name="custRequestId" map-name="parameters"><hidden/></field>
         <field name="contentId">
             <lookup target-form-name="LookupContent"/>
         </field>
-        <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="contentTypeId">
+            <drop-down allow-empty="false" no-current-selected-key="DOCUMENT">
+                <entity-options description="${description}" entity-name="ContentType"/>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="content==null">
+            <drop-down allow-empty="false" no-current-selected-key="CTNT_AVAILABLE">
+                <entity-options description="${description}" entity-name="StatusItem" key-field-name="statusId">
+                    <entity-constraint name="statusTypeId" value="CONTENT_STATUS"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId" use-when="content!=null">
+            <drop-down allow-empty="false" current-description="${currentStatus.description}" no-current-selected-key="CTNT_AVAILABLE">
+                <entity-options entity-name="StatusValidChangeToDetail" key-field-name="statusIdTo" description="${transitionName} (${description})">
+                    <entity-constraint name="statusId" value="${content.statusId}"/>
+                    <entity-order-by field-name="sequenceId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="mimeTypeId" >
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="MimeType" key-field-name="mimeTypeId"/>
+            </drop-down>
+        </field>
+        <field name="dataResourceName" title="${uiLabelMap.CommonUpload}*"><file/></field>
+        <field name="dataCategoryId" use-when="dataResource==null">
+            <drop-down allow-empty="false">
+                <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
+            </drop-down>
+        </field>
+        <field name="dataCategoryId" use-when="dataResource!=null"  parameter-name="dataCategoryId">
+            <drop-down allow-empty="false">
+                <entity-options description="${categoryName}" entity-name="DataCategory">
+                    <entity-constraint name="dataCategoryId" value="${dataResource.dataCategoryId}"/>
+                    <entity-order-by field-name="categoryName"/>
+                </entity-options>
+                <entity-options description="${categoryName}" entity-name="DataCategory" key-field-name="dataCategoryId"/>
+            </drop-down>
+        </field>
+        <field name="createButton"><submit button-type="button"/></field>
     </form>
-    <form name="ListCustRequestContent" type="list" target="updateCustRequestContent" list-name="custRequestContents" paginate-target="EditCustRequestContent"
-        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+    <form name="ListCustRequestContent" type="list" list-name="custRequestContents"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <alt-target use-when="tabButtonItem.equals(&quot;EditCustRequestContent&quot;)" target="EditCustRequestContent"/>
+        <alt-target use-when="tabButtonItem.equals(&quot;ViewRequest&quot;)" target="ViewRequest"/>
         <field name="thruDate"><hidden/></field>
         <field name="custRequestId"><hidden/></field>        
         <field name="contentId">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
-                <sub-hyperlink target="/content/control/editContent?contentId=${contentId}" description="[${contentId}]" link-style="buttontext" target-type="inter-app"/>
+                <sub-hyperlink target="/content/control/ViewSimpleContent?contentId=${contentId}" description="[${contentId}]" link-style="buttontext" target-type="inter-app"/>
             </display-entity>
         </field>
         <field name="fromDate"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="tabButtonItem.equals(&quot;EditCustRequestContent&quot;)">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteCustRequestContent?custRequestId=${custRequestId}&amp;contentId=${contentId}&amp;fromDate=${fromDate}"/>
         </field>
     </form>
