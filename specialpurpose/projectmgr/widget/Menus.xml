@@ -374,6 +374,9 @@
             </condition>
             <link target="setTaskStatus?workEffortId=${workEffortId}&amp;currentStatusId=PTS_CANCELLED"/>
         </menu-item>
+        <menu-item name="custRequestContent" title="Content">
+            <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
+        </menu-item>
     </menu>
     <menu name="TimesheetTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
         <menu-item name="findtimesheet" title="${uiLabelMap.CommonFind}">
@@ -453,6 +456,16 @@
                 </and>
             </condition>
             <link target="EditRequest?custRequestId=${parameters.custRequestId}"/>
+        </menu-item>
+        <menu-item name="custRequestContent" title="Content">
+            <condition>
+                <and>
+                    <not><if-empty field-name="custRequest"/></not>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
     </menu>
     <menu name="TimesheetBar">

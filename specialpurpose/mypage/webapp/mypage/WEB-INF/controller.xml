@@ -269,6 +269,26 @@
         <response name="success" type="view" value="EditCommunicationEvent"/>
     </request-map>
     
+    <!-- CustRequest Content -->
+    <request-map uri="EditCustRequestContent">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="EditCustRequestContent"/>
+    </request-map>
+    
+    <request-map uri="createCustRequestContent">
+        <security auth="true" https="true"/>
+        <event path="org/ofbiz/order/request/CustRequestEvents.xml" type="simple"  invoke="createCustRequestContent"/>
+        <response name="success" type="request-redirect" value="EditCustRequestContent"/>
+        <response name="error" type="view" value="EditCustRequestContent"/>
+    </request-map>
+    
+    <request-map uri="deleteCustRequestContent">
+        <security auth="true" https="true"/>
+        <event invoke="deleteCustRequestContent" type="service"/>
+        <response name="success" type="request-redirect" value="EditCustRequestContent"/>
+        <response name="error" type="view" value="EditCustRequestContent"/>
+    </request-map>
+    
     <view-map name="main" type="screen" page="component://mypage/widget/CommonScreens.xml#main"/>
     <view-map name="preferences" type="screen" page="component://mypage/widget/CommonScreens.xml#preferences"/>
     <view-map name="myTasks" type="screen" page="component://mypage/widget/CommonScreens.xml#MyTasks"/>
@@ -285,4 +305,6 @@
     <view-map name="custPreferences" type="screen" page="component://mypage/widget/CommonScreens.xml#custPreferences"/>
     <view-map name="EditCommunicationEvent" type="screen" page="component://mypage/widget/MyPageScreens.xml#EditCommunicationEvent"/>
     <view-map name="addAttachmentEmail" type="screen" page="component://mypage/widget/MyPageScreens.xml#addAttachmentEmail"/>
+    <view-map name="EditCustRequestContent" type="screen" page="component://order/widget/ordermgr/RequestScreens.xml#EditCustRequestContent"/>      
+    
 </site-conf>

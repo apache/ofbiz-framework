@@ -460,14 +460,17 @@ under the License.
         <field-to-result field-name="parameters.custRequestId" result-name="custRequestId"/>
     </simple-method>
     
-    <!-- Create/Delete   CustRequest Content-->    
-    <simple-method method-name="createCustRequestContent" short-description="Create Customer Request Content">
+    <!-- Create/Delete  CustRequest Content -->    
+    <simple-method method-name="createCustRequestContent" short-description="Create Work Effort Content">
         <make-value entity-name="CustRequestContent" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
+        
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteCustRequestContent" short-description="Remove a Customer Request Content">

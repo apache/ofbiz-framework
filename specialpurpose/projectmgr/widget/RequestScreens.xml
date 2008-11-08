@@ -99,6 +99,9 @@ under the License.
                     <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
                     <order-by  field-name="custRequestItemSeqId"/>
                 </entity-and>
+                <entity-and entity-name="CustRequestContent" list-name="custRequestContents" filter-by-date="true">
+                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
@@ -126,6 +129,9 @@ under the License.
                             </screenlet>
                             <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequestWorkEfforts">
                                 <include-form name="ViewRequestWorkEfforts" location="component://projectmgr/widget/forms/RequestForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ListCustRequestContent">
+                                <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
                         </container>
                     </decorator-section>

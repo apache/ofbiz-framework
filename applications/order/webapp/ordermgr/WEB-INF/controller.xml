@@ -1106,14 +1106,14 @@ under the License.
     
     <request-map uri="createCustRequestContent">
         <security auth="true" https="true"/>
-        <event invoke="createCustRequestContent" path="" type="service"/>
+        <event path="org/ofbiz/order/request/CustRequestEvents.xml" type="simple"  invoke="createCustRequestContent"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"/>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
     
     <request-map uri="deleteCustRequestContent">
         <security auth="true" https="true"/>
-        <event invoke="deleteCustRequestContent" path="" type="service"/>
+        <event invoke="deleteCustRequestContent" type="service"/>
         <response name="success" type="request-redirect" value="EditCustRequestContent"/>
         <response name="error" type="view" value="EditCustRequestContent"/>
     </request-map>
