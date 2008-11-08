@@ -45,7 +45,7 @@
                         </entity-one>
                         <set field="setUserPref.userLoginId" from-field="userLogin.userLoginId"/>
                         <set field="setUserPref.userLogin" from-field="userLogin"/>
-                        <set field="setUserPref.userPrefGroupId" value="MyPage"/>
+                        <set field="setUserPref.userPrefGroupTypeId" value="MyPage"/>
                         <call-service service-name="setUserPreferenceGroup" in-map-name="setUserPref" include-user-login="false"/>
                     </if-empty>
                     <!-- if customer want to send email notification when customer request completed then send email-->

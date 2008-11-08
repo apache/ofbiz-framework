@@ -499,7 +499,7 @@ under the License.
       </description>
       <field name="userLoginId" type="id-vlong-ne"></field>
       <field name="userPrefTypeId" type="id-ne"><description>A unique identifier for this preference</description></field>
-      <field name="userPrefGroupId" type="id-long"><description>Used to assemble groups of preferences</description></field>
+      <field name="userPrefGroupTypeId" type="id-long"><description>Used to assemble groups of preferences</description></field>
       <field name="userPrefValue" type="value"><description>Contains the value of this preference</description></field>
       <field name="userPrefDataType" type="id-long"><description>The java data type of this preference (empty = java.lang.String)</description></field>
       <prim-key field="userLoginId"/>
@@ -512,9 +512,9 @@ under the License.
       <description>The UserPrefGroupType entity contains one entry per preference
           group type.
       </description>
-      <field name="userPrefGroupId" type="id-long-ne"></field>
+      <field name="userPrefGroupTypeId" type="id-long-ne"></field>
       <field name="description" type="description"></field>
-      <prim-key field="userPrefGroupId"/>
+      <prim-key field="userPrefGroupTypeId"/>
     </entity>
 
     <!-- ============================ -->

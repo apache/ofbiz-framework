@@ -21,13 +21,13 @@ under the License.
 
     <WorkEffortType description="Company Events" hasTable="N" parentTypeId="EVENT" workEffortTypeId="COMPANY_EVENT"/>
     
-    <UserPrefGroupType userPrefGroupId="MyPage" description="User settings of the MyPage component"/>
-    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myTasks" userPrefValue="Y"/> 
-    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myTimesheet" userPrefValue="Y"/> 
-    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myCommunications" userPrefValue="Y"/> 
-    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="otherCommunications" userPrefValue="Y"/> 
-    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="myCompanyComms" userPrefValue="Y"/> 
-    <UserPreference userLoginId="_NA_" userPrefGroupId="MyPage" userPrefTypeId="sendCustRequestEmail" userPrefValue="Y"/>
+    <UserPrefGroupType userPrefGroupTypeId="MyPage" description="User settings of the MyPage component"/>
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPage" userPrefTypeId="myTasks" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPage" userPrefTypeId="myTimesheet" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPage" userPrefTypeId="myCommunications" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPage" userPrefTypeId="otherCommunications" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPage" userPrefTypeId="myCompanyComms" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPage" userPrefTypeId="sendCustRequestEmail" userPrefValue="Y"/>
     
     <RoleType description="Email Administrator" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMAIL_ADMIN"/>
 

@@ -55,7 +55,7 @@ under the License.
                     <condition><not><if-empty field-name="userLogin"/></not></condition>
                     <actions>
                         <service service-name="getUserPreferenceGroup" result-map-name="preferences">
-                            <field-map field-name="userPrefGroupId" value="MyPage" />
+                            <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                         </service>
                     </actions>
                     <widgets/>
@@ -199,7 +199,7 @@ under the License.
             <actions>
                 <service service-name="getUserPreferenceGroup"
                     result-map-name="preferences">
-                    <field-map field-name="userPrefGroupId" value="MyPage" />
+                    <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                 </service>
                 <!--  check if there are any customer requests for this user -->
                 <entity-condition list-name="custRequests" entity-name="CustReqAndTypeAndPartyRel">
@@ -328,7 +328,7 @@ under the License.
                     <order-by field-name="-datetimeStarted" />
                 </entity-condition>
                 <service service-name="getUserPreferenceGroup" result-map-name="preferences">
-                    <field-map field-name="userPrefGroupId" value="MyPage" />
+                    <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                 </service>
             </actions>
             <widgets>
@@ -384,7 +384,7 @@ under the License.
                 <set field="headerItem" value="preferences"/>
                                 <service service-name="getUserPreferenceGroup"
                     result-map-name="preferences">
-                    <field-map field-name="userPrefGroupId" value="MyPage" />
+                    <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                 </service>
             </actions>
             <widgets>
@@ -497,7 +497,7 @@ under the License.
                 <set field="headerItem" value="custPreferences"/>
                 <service service-name="getUserPreferenceGroup"
                         result-map-name="preferences">
-                        <field-map field-name="userPrefGroupId" value="MyPage" />
+                        <field-map field-name="userPrefGroupTypeId" value="MyPage" />
                     </service>
             </actions>
             <widgets>

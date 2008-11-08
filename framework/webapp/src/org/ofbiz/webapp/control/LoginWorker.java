@@ -393,7 +393,7 @@ public class LoginWorker {
                 javaScriptEnabled = "Y";
             }
             try {
-                result = dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupId", "GLOBAL_PREFS", "userPrefValue", javaScriptEnabled, "userLogin", userLogin));
+                result = dispatcher.runSync("setUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupTypeId", "GLOBAL_PREFS", "userPrefValue", javaScriptEnabled, "userLogin", userLogin));
             } catch (GenericServiceException e) {
                 Debug.logError(e, "Error setting user preference", module);
             }
@@ -437,7 +437,7 @@ public class LoginWorker {
         String javaScriptEnabled = null;
         try {
             LocalDispatcher dispatcher = (LocalDispatcher) request.getAttribute("dispatcher");
-            Map<String, Object> result = dispatcher.runSync("getUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupId", "GLOBAL_PREFS", "userLogin", userLogin));
+            Map<String, Object> result = dispatcher.runSync("getUserPreference", UtilMisc.toMap("userPrefTypeId", "javaScriptEnabled", "userPrefGroupTypeId", "GLOBAL_PREFS", "userLogin", userLogin));
             javaScriptEnabled = (String) result.get("userPrefValue");
         } catch (GenericServiceException e) {
             Debug.logError(e, "Error getting user preference", module);
