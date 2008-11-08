@@ -121,7 +121,7 @@ under the License.
                 <set field="layoutSettings.javaScripts[]" value="/images/calendar_date_select.js" global="true"/>
                 <set field="layoutSettings.commonHeaderImageLinkUrl" from-field="layoutSettings.commonHeaderImageLinkUrl" default-value="main" global="true"/>
                 <service service-name="getUserPreferenceGroup">
-                    <field-map field-name="userPrefGroupId" value="GLOBAL_PREFERENCES"/>
+                    <field-map field-name="userPrefGroupTypeId" value="GLOBAL_PREFERENCES"/>
                 </service>
                 <set field="userPreferences" from-field="userPrefMap" global="true"/>
                 <set field="visualThemeId" from-field="userPreferences.VISUAL_THEME" default-value="DEFAULT" global="true"/>

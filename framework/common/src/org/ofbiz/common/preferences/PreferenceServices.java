@@ -41,7 +41,7 @@ import org.ofbiz.service.ServiceUtil;
  * User preference services.<p>User preferences are stored as key-value pairs.
  * <p>User preferences can be grouped - so that multiple preference pairs can be
  * handled at once. Preference groups also allow a single userPrefTypeId to be
- * used more than once - with each occurence having a unique userPrefGroupId.</p>
+ * used more than once - with each occurence having a unique userPrefGroupTypeId.</p>
  * <p>User preference values are stored as Strings, so the easiest and most
  * efficient way to handle user preference values is to keep them as strings.
  * This class handles any data conversion needed.</p>
@@ -73,9 +73,9 @@ public class PreferenceServices {
         }
         String userLoginId = PreferenceWorker.getUserLoginId(context, true);
         Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefTypeId", userPrefTypeId);
-        String userPrefGroupId = (String) context.get("userPrefGroupId");
-        if (UtilValidate.isNotEmpty(userPrefGroupId)) {
-            fieldMap.put("userPrefGroupId", userPrefGroupId);
+        String userPrefGroupTypeId = (String) context.get("userPrefGroupTypeId");
+        if (UtilValidate.isNotEmpty(userPrefGroupTypeId)) {
+            fieldMap.put("userPrefGroupTypeId", userPrefGroupTypeId);
         }
 
         Map<String, Object> userPrefMap = null;
@@ -106,7 +106,7 @@ public class PreferenceServices {
 
     /**
      * Retrieves a group of user preferences from persistent storage. Call with
-     * userPrefGroupId and optional userLoginId. If userLoginId isn't
+     * userPrefGroupTypeId and optional userLoginId. If userLoginId isn't
      * specified, then the currently logged-in user's userLoginId will be
      * used. The retrieved preferences group is contained in the <b>userPrefMap</b> element.
      * @param ctx The DispatchContext that this service is operating in.
@@ -120,15 +120,15 @@ public class PreferenceServices {
         }
         GenericDelegator delegator = ctx.getDelegator();
 
-        String userPrefGroupId = (String) context.get("userPrefGroupId");
-        if (UtilValidate.isEmpty(userPrefGroupId)) {
+        String userPrefGroupTypeId = (String) context.get("userPrefGroupTypeId");
+        if (UtilValidate.isEmpty(userPrefGroupTypeId)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "getPreference.invalidArgument", locale));
         }
         String userLoginId = PreferenceWorker.getUserLoginId(context, true);
 
         Map<String, Object> userPrefMap = null;
         try {
-            Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", "_NA_", "userPrefGroupId", userPrefGroupId);
+            Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", "_NA_", "userPrefGroupTypeId", userPrefGroupTypeId);
             userPrefMap = PreferenceWorker.createUserPrefMap(delegator.findByAnd("UserPreference", fieldMap));
             fieldMap.put("userLoginId", userLoginId);
             userPrefMap.putAll(PreferenceWorker.createUserPrefMap(delegator.findByAnd("UserPreference", fieldMap)));
@@ -147,7 +147,7 @@ public class PreferenceServices {
 
     /**
      * Stores a single user preference in persistent storage. Call with
-     * userPrefTypeId, userPrefGroupId, userPrefValue and optional userLoginId.
+     * userPrefTypeId, userPrefGroupTypeId, userPrefValue and optional userLoginId.
      * If userLoginId isn't specified, then the currently logged-in user's
      * userLoginId will be used.
      * @param ctx The DispatchContext that this service is operating in.
@@ -164,14 +164,14 @@ public class PreferenceServices {
         if (UtilValidate.isEmpty(userLoginId) || UtilValidate.isEmpty(userPrefTypeId) || userPrefValue == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "setPreference.invalidArgument", locale));
         }
-        String userPrefGroupId = (String) context.get("userPrefGroupId");
+        String userPrefGroupTypeId = (String) context.get("userPrefGroupTypeId");
         String userPrefDataType = (String) context.get("userPrefDataType");
 
         try {
             if (UtilValidate.isNotEmpty(userPrefDataType)) {
                 userPrefValue = ObjectType.simpleTypeConvert(userPrefValue, userPrefDataType, null, null, false);
             }
-            GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, userPrefTypeId, userPrefGroupId, userPrefValue));
+            GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, userPrefTypeId, userPrefGroupTypeId, userPrefValue));
             delegator.createOrStore(rec);
         } catch (GenericEntityException e) {
             Debug.logWarning(e.getMessage(), module);
@@ -186,7 +186,7 @@ public class PreferenceServices {
 
     /**
      * Stores a user preference group in persistent storage. Call with
-     * userPrefMap, userPrefGroupId and optional userLoginId. If userLoginId
+     * userPrefMap, userPrefGroupTypeId and optional userLoginId. If userLoginId
      * isn't specified, then the currently logged-in user's userLoginId will be
      * used.
      * @param ctx The DispatchContext that this service is operating in.
@@ -199,15 +199,15 @@ public class PreferenceServices {
 
         String userLoginId = PreferenceWorker.getUserLoginId(context, false);
         Map<String, Object> userPrefMap = checkMap(context.get("userPrefMap"), String.class, Object.class);
-        String userPrefGroupId = (String) context.get("userPrefGroupId");
-        if (UtilValidate.isEmpty(userLoginId) || UtilValidate.isEmpty(userPrefGroupId) || userPrefMap == null) {
+        String userPrefGroupTypeId = (String) context.get("userPrefGroupTypeId");
+        if (UtilValidate.isEmpty(userLoginId) || UtilValidate.isEmpty(userPrefGroupTypeId) || userPrefMap == null) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "setPreference.invalidArgument", locale));
         }
 
         try {
             for (Iterator i = userPrefMap.entrySet().iterator(); i.hasNext();) {
                 Map.Entry mapEntry = (Map.Entry) i.next();
-                GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, (String) mapEntry.getKey(), userPrefGroupId, (String) mapEntry.getValue()));
+                GenericValue rec = delegator.makeValidValue("UserPreference", PreferenceWorker.toFieldMap(userLoginId, (String) mapEntry.getKey(), userPrefGroupTypeId, (String) mapEntry.getValue()));
                 delegator.createOrStore(rec);
             }
         } catch (GenericEntityException e) {
@@ -223,7 +223,7 @@ public class PreferenceServices {
 
     /**
      * Copies a user preference group. Call with
-     * fromUserLoginId, userPrefGroupId and optional userLoginId. If userLoginId
+     * fromUserLoginId, userPrefGroupTypeId and optional userLoginId. If userLoginId
      * isn't specified, then the currently logged-in user's userLoginId will be
      * used.
      * @param ctx The DispatchContext that this service is operating in.
@@ -236,13 +236,13 @@ public class PreferenceServices {
 
         String userLoginId = PreferenceWorker.getUserLoginId(context, false);
         String fromUserLoginId = (String) context.get("fromUserLoginId");
-        String userPrefGroupId = (String) context.get("userPrefGroupId");
-        if (UtilValidate.isEmpty(userLoginId) || UtilValidate.isEmpty(userPrefGroupId) || UtilValidate.isEmpty(fromUserLoginId)) {
+        String userPrefGroupTypeId = (String) context.get("userPrefGroupTypeId");
+        if (UtilValidate.isEmpty(userLoginId) || UtilValidate.isEmpty(userPrefGroupTypeId) || UtilValidate.isEmpty(fromUserLoginId)) {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource, "copyPreference.invalidArgument", locale));
         }
 
         try {
-            Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", fromUserLoginId, "userPrefGroupId", userPrefGroupId);
+            Map<String, String> fieldMap = UtilMisc.toMap("userLoginId", fromUserLoginId, "userPrefGroupTypeId", userPrefGroupTypeId);
             List<GenericValue> resultList = delegator.findByAnd("UserPreference", fieldMap);
             if (resultList != null) {
                 for (GenericValue preference: resultList) {

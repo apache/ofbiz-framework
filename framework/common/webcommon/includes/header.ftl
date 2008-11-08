@@ -113,7 +113,7 @@ under the License.
         </li>
         <li>${nowTimestamp?datetime?string.short}</li>
         <li class="control-area">
-          <p class="collapsed"><a href="setUserPreference?userPrefGroupId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=N">&nbsp;&nbsp;</a></p>
+          <p class="collapsed"><a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=N">&nbsp;&nbsp;</a></p>
         </li>
       <#else>
         <#if layoutSettings.headerImageUrl?exists>
@@ -130,7 +130,7 @@ under the License.
           <#if userLogin?exists>
             <p class="expanded">
               <a href="<@ofbizUrl>LookupVisualThemes</@ofbizUrl>" class="buttontext">${uiLabelMap.VisualThemes}</a>
-              <a href="setUserPreference?userPrefGroupId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a>
+              <a href="setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=COMPACT_HEADER&amp;userPrefValue=Y">&nbsp;&nbsp;</a>
             </p>
           </#if>
           <p>

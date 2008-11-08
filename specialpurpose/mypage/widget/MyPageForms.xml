@@ -81,7 +81,7 @@ under the License.
     </form>
 
     <form name="preferences" type="single" target="updatePreferences" default-map-name="preferences.userPrefMap">
-        <field name="userPrefGroupId"><hidden value="MyPage"/></field>
+        <field name="userPrefGroupTypeId"><hidden value="MyPage"/></field>
         <field name="myCommunications"><check/></field>
         <field name="otherCommunications"><check/></field>
         <field name="myCompanyComms"><check/></field>
@@ -91,7 +91,7 @@ under the License.
     </form>
     
     <form name="custPreferences" type="single" target="updateCustPreferences" default-map-name="preferences.userPrefMap">
-        <field name="userPrefGroupId"><hidden value="MyPage"/></field>
+        <field name="userPrefGroupTypeId"><hidden value="MyPage"/></field>
         <field name="sendCustRequestEmail" title="Send Email To Every Customer Request Change"><check/></field>
         <field name="updateButton"><submit/></field>
     </form>

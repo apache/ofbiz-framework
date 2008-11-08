@@ -41,8 +41,8 @@ margin: 1em;
         <tr<#if visualTheme.visualThemeId == visualThemeId> class="selected"</#if>>
           <td>
             <#-- Not too sure about displaying the theme ID - it might confuse the users -->
-            <#-- <a href="<@ofbizUrl>updateVisualTheme?userPrefGroupId=GLOBAL_PREFERENCES&amp;userPrefTypeId=VISUAL_THEME&amp;userPrefValue=${visualTheme.visualThemeId}</@ofbizUrl>">${visualTheme.description} [${visualTheme.visualThemeId}]</a> -->
-            <a href="<@ofbizUrl>setUserPreference?userPrefGroupId=GLOBAL_PREFERENCES&amp;userPrefTypeId=VISUAL_THEME&amp;userPrefValue=${visualTheme.visualThemeId}</@ofbizUrl>">${visualTheme.description}</a>
+            <#-- <a href="<@ofbizUrl>updateVisualTheme?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=VISUAL_THEME&amp;userPrefValue=${visualTheme.visualThemeId}</@ofbizUrl>">${visualTheme.description} [${visualTheme.visualThemeId}]</a> -->
+            <a href="<@ofbizUrl>setUserPreference?userPrefGroupTypeId=GLOBAL_PREFERENCES&amp;userPrefTypeId=VISUAL_THEME&amp;userPrefValue=${visualTheme.visualThemeId}</@ofbizUrl>">${visualTheme.description}</a>
           </td>
           <td>
             <#if visualTheme.visualThemeId == visualThemeId>${uiLabelMap.VisualThemeSelected}<#else>&nbsp;</#if>

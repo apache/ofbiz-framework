@@ -241,15 +241,15 @@ public class PreferenceWorker {
      * Creates a field Map to be used in GenericValue create or store methods.
      * @param userLoginId The user's login ID
      * @param userPrefTypeId The preference ID
-     * @param userPrefGroupId The preference group ID (may be null or empty)
+     * @param userPrefGroupTypeId The preference group ID (may be null or empty)
      * @param userPrefValue The preference value (will be converted to java.lang.String data type)
      * @throws GeneralException
      * @return field map
      */
-    public static Map<String, Object> toFieldMap(String userLoginId, String userPrefTypeId, String userPrefGroupId, Object userPrefValue) throws GeneralException {
+    public static Map<String, Object> toFieldMap(String userLoginId, String userPrefTypeId, String userPrefGroupTypeId, Object userPrefValue) throws GeneralException {
         Map<String, Object> fieldMap = UtilMisc.toMap("userLoginId", userLoginId, "userPrefTypeId", userPrefTypeId, "userPrefValue", ObjectType.simpleTypeConvert(userPrefValue, "String", null, null, false));
-        if (UtilValidate.isNotEmpty(userPrefGroupId)) {
-            fieldMap.put("userPrefGroupId", userPrefGroupId);
+        if (UtilValidate.isNotEmpty(userPrefGroupTypeId)) {
+            fieldMap.put("userPrefGroupTypeId", userPrefGroupTypeId);
         }
         String valueDataType = userPrefValue.getClass().getName();
         if (!"java.lang.String".equals(valueDataType)) {
