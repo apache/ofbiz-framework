@@ -451,6 +451,16 @@ under the License.
             <set field="newItem.story" from-field="parameters.content"/>
             <call-service service-name="createCustRequestItem" in-map-name="newItem"/>
         </if-not-empty>
+        
+        <!-- copy attachements/content -->
+        <entity-and entity-name="CommEventContentAssoc" list-name="custRequestContents">
+            <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
+        </entity-and>
+        <iterate entry-name="custRequestContent" list-name="custRequestContents">
+            <set field="reqContent.custRequestId" from-field="parameters.custRequestId"/>
+            <set field="reqContent.contentId" from-field="custRequestContent.contentId"/>
+            <call-service service-name="createCustRequestContent" in-map-name="reqContent"/>
+        </iterate>
 
         <!-- update status from communication event -->
         <set-service-fields service-name="setCommunicationEventStatus" map-name="parameters" to-map-name="updStat"/>
