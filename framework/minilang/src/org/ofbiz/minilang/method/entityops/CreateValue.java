@@ -45,11 +45,14 @@ public class CreateValue extends MethodOperation {
     
     ContextAccessor<GenericValue> valueAcsr;
     String doCacheClearStr;
+    boolean testDuplicate;
+    boolean createOrStore;
 
     public CreateValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
+        createOrStore = "true".equals(element.getAttribute("or-store"));
     }
 
     public boolean exec(MethodContext methodContext) {
@@ -68,10 +71,14 @@ public class CreateValue extends MethodOperation {
             }
             return false;
         }
-
         try {
-            methodContext.getDelegator().create(value, doCacheClear);
+            if (createOrStore = true){
+                methodContext.getDelegator().createOrStore(value, doCacheClear);
+            } else {
+                methodContext.getDelegator().create(value, doCacheClear);
+            }
         } catch (GenericEntityException e) {
+            
             Debug.logError(e, module);
             String errMsg = "ERROR: Could not complete the " + simpleMethod.getShortDescription() + " process [problem creating the " + valueAcsr + " value: " + e.getMessage() + "]";
             if (methodContext.getMethodType() == MethodContext.EVENT) {
