@@ -1789,7 +1789,7 @@
     <property key="Enumeration.description.PROMO_ORDER_AMOUNT">
         <value xml:lang="de">Auftrag Betrag Netto</value>
         <value xml:lang="en">Order Amount Flat</value>
-        <value xml:lang="fr">Montant de commande simple</value>
+        <value xml:lang="fr">Montant de commande</value>
         <value xml:lang="it">Importo Fisso Ordine</value>
         <value xml:lang="pt">Quantia de Encomenda</value>
         <value xml:lang="ro">Valoare Fixa Comanda</value>
