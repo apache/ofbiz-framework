@@ -2770,7 +2770,7 @@
     <property key="WorkEffortMaxAmount">
         <value xml:lang="en">Max Amount</value>
         <value xml:lang="es">Monto máximo</value>
-        <value xml:lang="fr">Montant maximum</value>
+        <value xml:lang="fr">Quantité maximum</value>
         <value xml:lang="it">Importo Massimo</value>
         <value xml:lang="nl">Max Amount</value>
         <value xml:lang="ro">Valoare Maxima</value>

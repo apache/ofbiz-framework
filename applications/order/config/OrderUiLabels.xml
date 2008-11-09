@@ -2163,7 +2163,7 @@
         <value xml:lang="de">Betrag wählen</value>
         <value xml:lang="en">Choose Amount</value>
         <value xml:lang="es">Elija cantidad</value>
-        <value xml:lang="fr">Choisir le montant</value>
+        <value xml:lang="fr">Choisir la quantité</value>
         <value xml:lang="hi_IN">कुल जमा चुनाव</value>
         <value xml:lang="it">Scegli Importo</value>
         <value xml:lang="ja">数量を選択</value>
@@ -9502,6 +9502,7 @@
     </property>
     <property key="cart.addToCart.enterAmountBeforeAddingToCart">
         <value xml:lang="en">Enter Amount Before Adding to Cart</value>
+        <value xml:lang="fr">Entrez une quantité avant d'ajouter au panier</value>
     </property>
     <property key="cart.addToCart.enterBookingInforamtionBeforeAddingToCart">
         <value xml:lang="de">Reservationsinformationen erfassen vor dem Hinzufügen zum Warenkorb</value>
@@ -9568,6 +9569,7 @@
     </property>
     <property key="cart.amount_not_positive_number">
         <value xml:lang="en">Amount must be a positive number</value>
+        <value xml:lang="en">La quantité doit être un nombre positif</value>
     </property>    
     <property key="cart.category_not_specified_to_add_from">
         <value xml:lang="de">Keine Kategorie angegeben, aus der hinzugefügt werden kann.</value>
@@ -9987,7 +9989,7 @@
         <value xml:lang="de">Problem bei der Mengenerfassung</value>
         <value xml:lang="en">Problems parsing amount.</value>
         <value xml:lang="es">Problemas en el análisis del monto.</value>
-        <value xml:lang="fr">Problèmes lors de l'analyse du montant.</value>
+        <value xml:lang="fr">Problème lors de la saisie de la quantité.</value>
         <value xml:lang="it">Problema parsing importo.</value>
         <value xml:lang="nl">Problems parsing amount.</value>
         <value xml:lang="ro">Problema parsing valoare.</value>
