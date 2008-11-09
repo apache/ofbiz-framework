@@ -836,6 +836,19 @@ public class ProductWorker {
 
         return false;
     }
+    
+    public static boolean isAmountRequired(GenericDelegator delegator, String productI) {
+        try {
+            GenericValue product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productI));
+            if (product != null) {
+                return "Y".equals(product.getString("requireAmount"));
+            }
+        } catch (GenericEntityException e) {
+            Debug.logWarning(e.getMessage(), module);
+        }
+
+        return false;
+    }    
 
     public static String getProductTypeId(GenericDelegator delegator, String productI) {
         try {

@@ -9500,6 +9500,9 @@
         <value xml:lang="fr">Configurer l'article avant de l'ajouter au panier</value>
         <value xml:lang="th">สร้างสินค้าก่อนที่จะเพิ่มลงตระกร้า</value>
     </property>
+    <property key="cart.addToCart.enterAmountBeforeAddingToCart">
+        <value xml:lang="en">Enter Amount Before Adding to Cart</value>
+    </property>
     <property key="cart.addToCart.enterBookingInforamtionBeforeAddingToCart">
         <value xml:lang="de">Reservationsinformationen erfassen vor dem Hinzufügen zum Warenkorb</value>
         <value xml:lang="en">Enter Booking Information Before Adding to Cart</value>
@@ -9563,6 +9566,9 @@
         <value xml:lang="zh_CN">没有指定的协议被加入</value>
         <value xml:lang="zh">没有指定要添加进来的合同。</value>
     </property>
+    <property key="cart.amount_not_positive_number">
+        <value xml:lang="en">Amount must be a positive number</value>
+    </property>    
     <property key="cart.category_not_specified_to_add_from">
         <value xml:lang="de">Keine Kategorie angegeben, aus der hinzugefügt werden kann.</value>
         <value xml:lang="en">No category specified to add from.</value>

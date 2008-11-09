@@ -137,7 +137,9 @@ public class ShoppingCartHelper {
 
         // amount sanity check
         if (amount != null && amount.doubleValue() < 0) {
-            amount = null;
+            String errMsg = UtilProperties.getMessage(resource, "cart.amount_not_positive_number", this.cart.getLocale());
+            result = ServiceUtil.returnError(errMsg);
+            return result;
         }
 
         // check desiredDeliveryDate syntax and remove if empty
@@ -708,14 +710,28 @@ public class ShoppingCartHelper {
                                 quantString += " 00:00:00.000";
                             item.setShipAfterDate(Timestamp.valueOf(quantString));
                         }
+                    } else if (parameterName.startsWith("amount")) {
+                        if (item != null && quantString.length() > 0) {
+                            double amount = nf.parse(quantString).doubleValue();
+                            if (amount <= 0 ) {
+                                String errMsg = UtilProperties.getMessage(resource, "cart.amount_not_positive_number", this.cart.getLocale());
+                                errorMsgs.add(errMsg);
+                                result = ServiceUtil.returnError(errorMsgs);
+                                return result;
+                            }
+                            item.setSelectedAmount(amount);
+                        }
                     } else if (parameterName.startsWith("itemType")) {
                         if (item != null && quantString.length() > 0) {
                             item.setItemType(quantString);
-                        }
+                        }                      
                     } else {
                         quantity = nf.parse(quantString).doubleValue();
                         if (quantity < 0) {
-                            throw new CartItemModifyException("Quantity must be a positive number.");
+                            String errMsg = UtilProperties.getMessage(resource, "cart.quantity_not_positive_number", this.cart.getLocale());
+                            errorMsgs.add(errMsg);
+                            result = ServiceUtil.returnError(errorMsgs);
+                            return result;
                         }
                     }
 

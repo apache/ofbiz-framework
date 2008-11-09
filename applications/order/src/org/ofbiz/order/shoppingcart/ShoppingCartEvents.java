@@ -411,7 +411,14 @@ public class ShoppingCartEvents {
                 amount = null;
             }
         }
-
+        
+        // check for required amount
+        if ((ProductWorker.isAmountRequired(delegator, productId)) && (amount == null || amount.doubleValue() == 0.0)) {
+            request.setAttribute("product_id", productId);
+            request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.enterAmountBeforeAddingToCart",locale));
+            return "product";
+        }
+                
         // get the ship before date (handles both yyyy-mm-dd input and full timestamp)
         shipBeforeDateStr = (String) paramMap.remove("shipBeforeDate");
         if (shipBeforeDateStr != null && shipBeforeDateStr.length() > 0) {

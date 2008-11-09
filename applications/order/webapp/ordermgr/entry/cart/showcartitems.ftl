@@ -104,7 +104,7 @@ under the License.
                        <#list cartLine.getAttribute("surveyResponses") as surveyResponseId>
                         <a href="/content/control/ViewSurveyResponses?surveyResponseId=${surveyResponseId}&externalLoginKey=${externalLoginKey}" class="buttontext" style="font-size: xx-small;">${surveyResponseId}</a> 
                        </#list>
-                    </#if>
+                    </#if>                    
                 </div>
             </td></tr>
             <#if cartLine.getRequirementId()?has_content>
@@ -235,14 +235,22 @@ under the License.
                 <#else>
                     <input size="6" type="text" name="update_${cartLineIndex}" value="${cartLine.getQuantity()?string.number}"/>
                 </#if>
-              </div>
+                <#if (cartLine.getSelectedAmount() > 0) >                  
+                  <br/><b>${uiLabelMap.OrderAmount}:</b><br/><input size="6" type="text" name="amount_${cartLineIndex}" value="${cartLine.getSelectedAmount()?string.number}"/>                  
+                </#if>                  
+              </div>                 
             </td>
             <td nowrap align="right">
               <div>
                 <#if cartLine.getIsPromo() || (shoppingCart.getOrderType() == "SALES_ORDER" && !security.hasEntityPermission("ORDERMGR", "_SALES_PRICEMOD", session))>
                   <@ofbizCurrency amount=cartLine.getDisplayPrice() isoCode=currencyUomId/>
                 <#else>
-                  <input size="6" type="text" name="price_${cartLineIndex}" value="${cartLine.getBasePrice()}"/>
+                    <#if (cartLine.getSelectedAmount() > 0) >
+                        <#assign price = cartLine.getBasePrice() / cartLine.getSelectedAmount()>                                                         
+                    <#else>
+                        <#assign price = cartLine.getBasePrice()>                           
+                    </#if>                     
+                    <input size="6" type="text" name="price_${cartLineIndex}" value="${price}"/>
                 </#if>
               </div>
             </td>
