@@ -68,7 +68,8 @@ try {
 if (queryLine || siteId) {
     Query query = null;
     if (queryLine) {
-        query = QueryParser.parse(queryLine, "content", analyzer);
+        queryParser = new QueryParser("content", analyzer);
+        query = queryParser.parse(queryLine);
         combQuery.add(query, true, false);
     }
     Debug.logInfo("in search, combQuery(0):" + combQuery, "");

@@ -71,7 +71,8 @@ combQuery.add(termQuery, BooleanClause.Occur.MUST);
 //Debug.logInfo("in search, combQuery(1):" + combQuery, "");
 if (queryLine && analyzer) {
     Query query = null;
-    query = QueryParser.parse(queryLine, "content", analyzer);
+    queryParser = new QueryParser("content", analyzer);
+    query = queryParser.parse(queryLine);
     combQuery.add(query, true, false);
 }
 
