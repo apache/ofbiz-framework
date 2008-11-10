@@ -65,21 +65,6 @@ under the License.
         <action service="sendOrderCompleteNotification" mode="async" persist="true"/>
     </eca>
 
-    <!-- eBay interface -->
-    <!-- if the order has been imported from eBay, set the order status in eBay to completed -->
-    <eca service="changeOrderStatus" event="commit" run-on-error="false">
-        <condition field-name="orderTypeId" operator="equals" value="SALES_ORDER"/>
-        <!--
-        These fields are not currently available in this context (i.e. they are not returned by
-        the changeOrderStatus service; for now the conditions are checked in the service
-        <condition field-name="salesChannelEnumId" operator="equals" value="EBAY_SALES_CHANNEL"/>
-        <condition field-name="externalId" operator="is-not-empty"/>
-        -->
-        <condition field-name="statusId" operator="equals" value="ORDER_COMPLETED"/>
-        <condition-field field-name="statusId" operator="not-equals" to-field-name="oldStatusId"/>
-        <action service="setEbayOrderToComplete" mode="sync"/>
-    </eca>
-
     <!-- DISABLED FOR NOW
     <eca service="changeOrderStatus" event="commit" run-on-error="false">
         <condition field-name="statusId" operator="equals" value="ORDER_PROCESSING"/>
