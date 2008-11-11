@@ -19,6 +19,8 @@
 package org.ofbiz.accounting.thirdparty.gosoftware;
 
 import java.io.IOException;
+import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
@@ -26,9 +28,6 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.ObjectType;
-
-import org.apache.commons.collections.MapIterator;
-import org.apache.commons.collections.map.LinkedMap;
 
 
 public class RitaApi {
@@ -93,19 +92,19 @@ public class RitaApi {
     protected static final int MODE_IN = 10;
 
     // instance variables
-    protected LinkedMap document = null;
+    protected LinkedHashMap document = null;
     protected String host = null;
     protected boolean ssl = false;
     protected int port = 0;
     protected int mode = 0;
 
     public RitaApi(Map document) {
-        this.document = new LinkedMap(document);
+        this.document = new LinkedHashMap(document);
         this.mode = MODE_OUT;
     }
 
     public RitaApi() {
-        this.document = new LinkedMap();
+        this.document = new LinkedHashMap();
         this.mode = MODE_IN;
     }
 
@@ -151,10 +150,11 @@ public class RitaApi {
 
     public String toString() {
         StringBuffer buf = new StringBuffer();
-        MapIterator i = document.mapIterator();
+        Iterator i = document.entrySet().iterator();
         while (i.hasNext()) {
-            String name = (String) i.next();
-            String value = (String) i.getValue();
+            Map.Entry entry = (Map.Entry) i.next();
+            String name = (String) entry.getKey();
+            String value = (String) entry.getValue();
             buf.append(name);
             buf.append(" ");
             buf.append(value);
@@ -198,7 +198,7 @@ public class RitaApi {
             ps.flush();
 
             // the output map
-            LinkedMap docMap = new LinkedMap();
+            LinkedHashMap docMap = new LinkedHashMap();
             String line;
 
             // read the response
@@ -226,7 +226,7 @@ public class RitaApi {
             br.close();
             */
 
-            LinkedMap docMap = new LinkedMap();            
+            LinkedHashMap docMap = new LinkedHashMap();            
             String resp = null;
             try {
                 resp = http.post(stream);

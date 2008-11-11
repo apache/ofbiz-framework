@@ -20,7 +20,6 @@ package org.ofbiz.order.shoppingcart;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import org.apache.commons.collections.map.LinkedMap;
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -4195,7 +4194,7 @@ public class ShoppingCart implements Serializable {
     }
 
     public static class CartShipInfo implements Serializable {
-        public LinkedMap shipItemInfo = new LinkedMap();
+        public LinkedHashMap shipItemInfo = new LinkedHashMap();
         public List shipTaxAdj = new LinkedList();
         public String orderTypeId = null;
         private String internalContactMechId = null;
