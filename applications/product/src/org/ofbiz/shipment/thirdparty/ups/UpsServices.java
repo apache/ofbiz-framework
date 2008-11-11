@@ -497,7 +497,7 @@ public class UpsServices {
                     BigDecimal packageValue = (BigDecimal) getPackageValueResult.get("packageValue");
                     
                     // Convert the value of the COD surcharge to the shipment currency, if necessary
-                    Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", codSurchargeCurrencyUomId, "uomIdTo", currencyCode, "originalValue", new Double(codSurchargePackageAmount.doubleValue())));
+                    Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", codSurchargeCurrencyUomId, "uomIdTo", currencyCode, "originalValue", Double.valueOf(codSurchargePackageAmount.doubleValue())));
                     if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
                     if (convertUomResult.containsKey("convertedValue")) {
                         codSurchargePackageAmount = new BigDecimal(((Double) convertUomResult.get("convertedValue")).doubleValue()).setScale(decimals, rounding);
@@ -1652,11 +1652,11 @@ public class UpsServices {
                     for (long x = 0; x < pieces; x++) {
                         if(itemInfo.get("inShippingBox") != null &&  ((String) itemInfo.get("inShippingBox")).equalsIgnoreCase("Y")) {
                             Map newPackage = FastMap.newInstance();
-                            newPackage.put(productId, new Double(partialQty));
+                            newPackage.put(productId, Double.valueOf(partialQty));
                             packages.add(newPackage);
                         } else if (weight >= maxWeight) {
                             Map newPackage = FastMap.newInstance();
-                            newPackage.put(productId, new Double(partialQty));
+                            newPackage.put(productId, Double.valueOf(partialQty));
                             packages.add(newPackage);
                         } else if (totalWeight > 0) {
                             // create the first package
@@ -1674,14 +1674,14 @@ public class UpsServices {
                                     if (packageWeight <= maxWeight) {
                                         Double qtyD = (Double) packageMap.get(productId);
                                         double qty = qtyD == null ? 0 : qtyD.doubleValue();
-                                        packageMap.put(productId, new Double(qty + partialQty));
+                                        packageMap.put(productId, Double.valueOf(qty + partialQty));
                                         addedToPackage = true;
                                     }
                                 }
                             }
                             if (!addedToPackage) {
                                 Map packageMap = FastMap.newInstance();
-                                packageMap.put(productId, new Double(partialQty));
+                                packageMap.put(productId, Double.valueOf(partialQty));
                                 packages.add(packageMap);
                             }
                         }
@@ -1753,7 +1753,7 @@ public class UpsServices {
                     Element totalCharges = UtilXml.firstChildElement(element, "TotalCharges");
                     String totalString = UtilXml.childElementValue(totalCharges, "MonetaryValue");
 
-                    rateMap.put(serviceCode, new Double(totalString));
+                    rateMap.put(serviceCode, Double.valueOf(totalString));
                     if (firstRate == null) {
                         firstRate = (Double) rateMap.get(serviceCode);
                     }
@@ -1930,13 +1930,13 @@ public class UpsServices {
         }
 
         if (shippableTotal == null) {
-            shippableTotal = new Double(0.00);
+            shippableTotal = Double.valueOf(0.00);
         }
         if (shippableQuantity == null) {
-            shippableQuantity = new Double(0.00);
+            shippableQuantity = Double.valueOf(0.00);
         }
         if (shippableWeight == null) {
-            shippableWeight = new Double(0.00);
+            shippableWeight = Double.valueOf(0.00);
         }
         if (serviceConfigProps == null) {
             serviceConfigProps = "shipment.properties";

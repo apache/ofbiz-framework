@@ -126,7 +126,7 @@ public class PackingSessionLine implements java.io.Serializable {
 
     protected void issueItemToShipment(String shipmentId, String picklistBinId, GenericValue userLogin, Double quantity, LocalDispatcher dispatcher) throws GeneralException {
         if (quantity == null) {
-            quantity = new Double(this.getQuantity());
+            quantity = Double.valueOf(this.getQuantity());
         }
 
         Map issueMap = FastMap.newInstance();
@@ -191,7 +191,7 @@ public class PackingSessionLine implements java.io.Serializable {
         Map packageMap = FastMap.newInstance();
         packageMap.put("shipmentId", shipmentId);
         packageMap.put("shipmentItemSeqId", this.getShipmentItemSeqId());
-        packageMap.put("quantity", new Double(this.getQuantity()));
+        packageMap.put("quantity", Double.valueOf(this.getQuantity()));
         packageMap.put("shipmentPackageSeqId", shipmentPackageSeqId);
         packageMap.put("userLogin", userLogin);
         Map packageResp = dispatcher.runSync("addShipmentContentToPackage", packageMap);

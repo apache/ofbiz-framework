@@ -78,7 +78,7 @@ public class StockMovesTest extends TestCase {
         ppsmCtx.put("facilityId", "WebStoreWarehouse");
         ppsmCtx.put("locationSeqId","TLTLTLUL01" );
         ppsmCtx.put("targetLocationSeqId", "TLTLTLLL01");
-        ppsmCtx.put("quantityMoved", new Double(5));
+        ppsmCtx.put("quantityMoved", Double.valueOf(5));
         ppsmCtx.put("userLogin", userLogin);
         Map respMap3 = dispatcher.runSync("processPhysicalStockMove", ppsmCtx);
     }

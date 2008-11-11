@@ -322,7 +322,7 @@ public class ProductSearchEvents {
                     pfa.create();
                     numAdded++;
                 }
-                Map messageMap = UtilMisc.toMap("numAdded", new Integer(numAdded), "productFeatureId", productFeatureId);
+                Map messageMap = UtilMisc.toMap("numAdded", Integer.valueOf(numAdded), "productFeatureId", productFeatureId);
                 String eventMsg = UtilProperties.getMessage(resource, "productSearchEvents.added_param_features", messageMap, locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", eventMsg);
                 eli.close();
@@ -372,7 +372,7 @@ public class ProductSearchEvents {
                     String productId = searchResultView.getString("mainProductId");
                     numRemoved += delegator.removeByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId, "productFeatureId", productFeatureId));
                 }
-                Map messageMap = UtilMisc.toMap("numRemoved", new Integer(numRemoved), "productFeatureId", productFeatureId);
+                Map messageMap = UtilMisc.toMap("numRemoved", Integer.valueOf(numRemoved), "productFeatureId", productFeatureId);
                 String eventMsg = UtilProperties.getMessage(resource, "productSearchEvents.removed_param_features", messageMap, locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", eventMsg);
                 eli.close();

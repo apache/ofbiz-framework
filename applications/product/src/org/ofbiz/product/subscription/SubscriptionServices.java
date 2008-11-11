@@ -170,7 +170,7 @@ public class SubscriptionServices {
         String productId = (String) context.get("productId");
         Integer qty = (Integer) context.get("quantity");
         if (qty == null) {
-            qty = new Integer(1);
+            qty = Integer.valueOf(1);
         }
         
         Timestamp orderCreatedDate = (Timestamp) context.get("orderCreatedDate");
@@ -193,9 +193,9 @@ public class SubscriptionServices {
                 GenericValue productSubscriptionResource = (GenericValue) productSubscriptionResourceIter.next();
 
                 Long useTime = (Long) productSubscriptionResource.get("useTime");
-                Integer newUseTime = new Integer(0);
+                Integer newUseTime = Integer.valueOf(0);
                 if (useTime != null) {
-                    newUseTime = new Integer(useTime.intValue() * qty.intValue());
+                    newUseTime = Integer.valueOf(useTime.intValue() * qty.intValue());
                 }
                 context.put("useTime", newUseTime);
                 context.put("useTimeUomId", productSubscriptionResource.get("useTimeUomId"));
@@ -261,7 +261,7 @@ public class SubscriptionServices {
                     context.put("orderId", orderId);
                     context.put("orderItemSeqId", orderItem.get("orderItemSeqId"));
                     context.put("inventoryItemId", orderItem.get("fromInventoryItemId"));
-                    context.put("quantity", new Integer(qty.intValue()));
+                    context.put("quantity", Integer.valueOf(qty.intValue()));
                     Map ctx = dctx.getModelService("processExtendSubscriptionByProduct").makeValid(context, ModelService.IN_PARAM);
                     Map thisResult = dispatcher.runSync("processExtendSubscriptionByProduct", ctx);
                     if (ServiceUtil.isError(thisResult)) {

@@ -102,15 +102,15 @@ public class InventoryServices {
                 // NOTE: atp should always be <= qoh, so if xfer < atp, then xfer < qoh, so no need to check/handle that
                 // however, if atp < qoh && atp == xferQty, then we still need to split; oh, but no need to check atp == xferQty in the second part because if it isn't greater and isn't less, then it is equal
                 if (xferQty.doubleValue() < atp.doubleValue() || atp.doubleValue() < qoh.doubleValue()) {
-                    Double negXferQty = new Double(-xferQty.doubleValue());
+                    Double negXferQty = Double.valueOf(-xferQty.doubleValue());
                     // NOTE: new inventory items should always be created calling the
                     //       createInventoryItem service because in this way we are sure
                     //       that all the relevant fields are filled with default values.
                     //       However, the code here should work fine because all the values
                     //       for the new inventory item are inerited from the existing item.
                     newItem = GenericValue.create(inventoryItem);
-                    newItem.set("availableToPromiseTotal", new Double(0));
-                    newItem.set("quantityOnHandTotal", new Double(0));
+                    newItem.set("availableToPromiseTotal", Double.valueOf(0));
+                    newItem.set("quantityOnHandTotal", Double.valueOf(0));
                     
                     delegator.createSetNextSeqId(newItem);
                     
@@ -152,7 +152,7 @@ public class InventoryServices {
                 inventoryItemToClear.refresh();
                 double atp = inventoryItemToClear.get("availableToPromiseTotal") == null ? 0 : inventoryItemToClear.getDouble("availableToPromiseTotal").doubleValue();
                 if (atp != 0) {
-                    Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", new Double(-atp), 
+                    Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", Double.valueOf(-atp), 
                             "inventoryItemId", inventoryItemToClear.get("inventoryItemId"), "userLogin", userLogin);
                     try {
                         Map result = dctx.getDispatcher().runSync("createInventoryItemDetail", createDetailMap);
@@ -216,7 +216,7 @@ public class InventoryServices {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
             double atp = inventoryItem.get("availableToPromiseTotal") == null ? 0 : inventoryItem.getDouble("availableToPromiseTotal").doubleValue();
             double qoh = inventoryItem.get("quantityOnHandTotal") == null ? 0 : inventoryItem.getDouble("quantityOnHandTotal").doubleValue();
-            Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", new Double(qoh - atp), 
+            Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", Double.valueOf(qoh - atp), 
                     "inventoryItemId", inventoryItem.get("inventoryItemId"), "userLogin", userLogin);
             try {
                 Map result = dctx.getDispatcher().runSync("createInventoryItemDetail", createDetailMap);
@@ -306,7 +306,7 @@ public class InventoryServices {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
             double atp = inventoryItem.get("availableToPromiseTotal") == null ? 0 : inventoryItem.getDouble("availableToPromiseTotal").doubleValue();
             double qoh = inventoryItem.get("quantityOnHandTotal") == null ? 0 : inventoryItem.getDouble("quantityOnHandTotal").doubleValue();
-            Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", new Double(qoh - atp), 
+            Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", Double.valueOf(qoh - atp), 
                                                  "inventoryItemId", inventoryItem.get("inventoryItemId"),
                                                  "userLogin", userLogin);
             try {
@@ -360,7 +360,7 @@ public class InventoryServices {
         // find all inventory items w/ a negative ATP
         List inventoryItems = null;
         try {
-            EntityExpr ee = EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, new Double(0));
+            EntityExpr ee = EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, Double.valueOf(0));
             inventoryItems = delegator.findList("InventoryItem", ee, null, null, null, false);
         } catch (GenericEntityException e) {
             Debug.logError(e, "Trouble getting inventory items", module);
@@ -649,8 +649,8 @@ public class InventoryServices {
         String facilityId = (String)context.get("facilityId");
         String statusId = (String)context.get("statusId");
         
-        Double availableToPromiseTotal = new Double(0);
-        Double quantityOnHandTotal = new Double(0);
+        Double availableToPromiseTotal = Double.valueOf(0);
+        Double quantityOnHandTotal = Double.valueOf(0);
         
         if (UtilValidate.isNotEmpty(productAssocList)) {
            // minimum QOH and ATP encountered
@@ -666,7 +666,7 @@ public class InventoryServices {
                // if there is no quantity for the associated product in ProductAssoc entity, default it to 1.0
                if (assocQuantity == null) {
                    Debug.logWarning("ProductAssoc from [" + productAssoc.getString("productId") + "] to [" + productAssoc.getString("productIdTo") + "] has no quantity, assuming 1.0", module);
-                   assocQuantity = new Double(1.0);
+                   assocQuantity = Double.valueOf(1.0);
                }
                
                // figure out the inventory available for this associated product
@@ -704,8 +704,8 @@ public class InventoryServices {
                }
            }
           // the final QOH and ATP quantities are the minimum of all the products 
-          quantityOnHandTotal = new Double(minQuantityOnHandTotal);
-          availableToPromiseTotal = new Double(minAvailableToPromiseTotal);
+          quantityOnHandTotal = Double.valueOf(minQuantityOnHandTotal);
+          availableToPromiseTotal = Double.valueOf(minAvailableToPromiseTotal);
         }
         
         Map result = ServiceUtil.returnSuccess();
@@ -794,10 +794,10 @@ public class InventoryServices {
                 }
             }
 
-            atpMap.put(productId, new Double(atp));
-            qohMap.put(productId, new Double(qoh));
-            mktgPkgAtpMap.put(productId, new Double(mktgPkgAtp));
-            mktgPkgQohMap.put(productId, new Double(mktgPkgQoh));
+            atpMap.put(productId, Double.valueOf(atp));
+            qohMap.put(productId, Double.valueOf(qoh));
+            mktgPkgAtpMap.put(productId, Double.valueOf(mktgPkgAtp));
+            mktgPkgQohMap.put(productId, Double.valueOf(mktgPkgQoh));
         }
 
         results.put("availableToPromiseMap", atpMap);
@@ -847,7 +847,7 @@ public class InventoryServices {
         // filter for quantities
         int minimumStockInt = 0;
         if (minimumStock != null) {
-            minimumStockInt = new Double(minimumStock).intValue();
+            minimumStockInt = Double.valueOf(minimumStock).intValue();
         }
 
         int quantityOnHandTotalInt = 0;
@@ -865,10 +865,10 @@ public class InventoryServices {
         double quantityOnOrder = InventoryWorker.getOutstandingPurchasedQuantity(productId, delegator);
         result.put("totalQuantityOnHand", resultOutput.get("quantityOnHandTotal").toString());
         result.put("totalAvailableToPromise", resultOutput.get("availableToPromiseTotal").toString());
-        result.put("quantityOnOrder", new Double(quantityOnOrder));
+        result.put("quantityOnOrder", Double.valueOf(quantityOnOrder));
     
-        result.put("offsetQOHQtyAvailable", new Integer(offsetQOHQtyAvailable));
-        result.put("offsetATPQtyAvailable", new Integer(offsetATPQtyAvailable));
+        result.put("offsetQOHQtyAvailable", Integer.valueOf(offsetQOHQtyAvailable));
+        result.put("offsetATPQtyAvailable", Integer.valueOf(offsetATPQtyAvailable));
     
         List productPrices = null;
         try {
@@ -903,9 +903,9 @@ public class InventoryServices {
             salesUsageViewEntity.addMemberEntity("OH", "OrderHeader");
             salesUsageViewEntity.addMemberEntity("ItIss", "ItemIssuance");
             salesUsageViewEntity.addMemberEntity("InvIt", "InventoryItem");
-            salesUsageViewEntity.addViewLink("OI", "OH", new Boolean(false), ModelKeyMap.makeKeyMapList("orderId"));
-            salesUsageViewEntity.addViewLink("OI", "ItIss", new Boolean(false), ModelKeyMap.makeKeyMapList("orderId", "orderId", "orderItemSeqId", "orderItemSeqId"));
-            salesUsageViewEntity.addViewLink("ItIss", "InvIt", new Boolean(false), ModelKeyMap.makeKeyMapList("inventoryItemId"));
+            salesUsageViewEntity.addViewLink("OI", "OH", Boolean.valueOf(false), ModelKeyMap.makeKeyMapList("orderId"));
+            salesUsageViewEntity.addViewLink("OI", "ItIss", Boolean.valueOf(false), ModelKeyMap.makeKeyMapList("orderId", "orderId", "orderItemSeqId", "orderItemSeqId"));
+            salesUsageViewEntity.addViewLink("ItIss", "InvIt", Boolean.valueOf(false), ModelKeyMap.makeKeyMapList("inventoryItemId"));
             salesUsageViewEntity.addAlias("OI", "productId");
             salesUsageViewEntity.addAlias("OH", "statusId");
             salesUsageViewEntity.addAlias("OH", "orderTypeId");
@@ -918,8 +918,8 @@ public class InventoryServices {
             productionUsageViewEntity.addMemberEntity("WEIA", "WorkEffortInventoryAssign");
             productionUsageViewEntity.addMemberEntity("WE", "WorkEffort");
             productionUsageViewEntity.addMemberEntity("II", "InventoryItem");
-            productionUsageViewEntity.addViewLink("WEIA", "WE", new Boolean(false), ModelKeyMap.makeKeyMapList("workEffortId"));
-            productionUsageViewEntity.addViewLink("WEIA", "II", new Boolean(false), ModelKeyMap.makeKeyMapList("inventoryItemId"));
+            productionUsageViewEntity.addViewLink("WEIA", "WE", Boolean.valueOf(false), ModelKeyMap.makeKeyMapList("workEffortId"));
+            productionUsageViewEntity.addViewLink("WEIA", "II", Boolean.valueOf(false), ModelKeyMap.makeKeyMapList("inventoryItemId"));
             productionUsageViewEntity.addAlias("WEIA", "quantity");
             productionUsageViewEntity.addAlias("WE", "actualCompletionDate");
             productionUsageViewEntity.addAlias("WE", "workEffortTypeId");
@@ -1004,7 +1004,7 @@ public class InventoryServices {
                 e.printStackTrace();
             }
     
-            result.put("usageQuantity", new Double((salesUsageQuantity + productionUsageQuantity)));
+            result.put("usageQuantity", Double.valueOf((salesUsageQuantity + productionUsageQuantity)));
 
         }
         return result;

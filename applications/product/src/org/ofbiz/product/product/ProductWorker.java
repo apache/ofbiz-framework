@@ -683,7 +683,7 @@ public class ProductWorker {
 
         // null check
         if (productEntityRating == null) {
-            productEntityRating = new Double(0);
+            productEntityRating = Double.valueOf(0);
         }
         if (entityFieldType == null) {
             entityFieldType = new String();

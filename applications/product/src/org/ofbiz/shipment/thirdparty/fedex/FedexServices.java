@@ -783,7 +783,7 @@ public class FedexServices {
                             packageWeight = Double.valueOf(UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value"));
                         } catch (NumberFormatException ne) {
                             Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value), assuming 1.0" + weightUomId , module);
-                            packageWeight = new Double(1.0);
+                            packageWeight = Double.valueOf(1.0);
                         }
                     }
                     

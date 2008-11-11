@@ -94,7 +94,7 @@ public class KeywordIndex {
         } catch (Exception e) {
             Debug.logWarning("Could not parse weight number: " + e.toString(), module);
         }
-        keywords.put(product.getString("productId").toLowerCase(), new Long(pidWeight));
+        keywords.put(product.getString("productId").toLowerCase(), Long.valueOf(pidWeight));
 
         // Product fields - default is 0 if not found in the properties file
         if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Product.productName", "0"))) {

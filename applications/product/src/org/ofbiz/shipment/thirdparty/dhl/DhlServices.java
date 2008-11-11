@@ -207,7 +207,7 @@ public class DhlServices {
             String tmpValue = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value");
             if (tmpValue != null) {
                 try {
-                    shippableWeight = new Double(tmpValue);
+                    shippableWeight = Double.valueOf(tmpValue);
                 } catch (Exception e) {
                     return ServiceUtil.returnError("Cannot get DHL Estimate: Default shippable weight not configured (shipment.default.weight.value)");
                 }
@@ -217,12 +217,12 @@ public class DhlServices {
         // TODO: if a weight UOM is passed in, use convertUom service to convert it here
         if (shippableWeight.doubleValue() < 1.0) {
             Debug.logWarning("DHL Estimate: Weight is less than 1 lb, submitting DHL minimum of 1 lb for estimate.", module);
-            shippableWeight = new Double(1.0);
+            shippableWeight = Double.valueOf(1.0);
         }
         if ((dhlShipmentDetailCode.equals("G") && shippableWeight.doubleValue() > 999) || (shippableWeight.doubleValue() > 150)) {
             return ServiceUtil.returnError("Cannot get DHL Estimate: Shippable weight cannot be greater than 999 lbs for ground or 150 lbs for all other services.");
         }
-        String weight = (new Integer((int) shippableWeight.longValue())).toString();
+        String weight = (Integer.valueOf((int) shippableWeight.longValue())).toString();
 
         // create AccessRequest XML doc using FreeMarker template
         String templateName = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.template.dhl.rate.estimate");
@@ -363,7 +363,7 @@ public class DhlServices {
                 chargeList.add(charge);
             }
         }
-        Double shippingEstimateAmount = new Double(responseTotalChargeEstimate);
+        Double shippingEstimateAmount = Double.valueOf(responseTotalChargeEstimate);
         dhlRateCodeMap.put("dateGenerated", dateGenerated);
         dhlRateCodeMap.put("serviceLevelCommitment",
                 responseServiceLevelCommitmentDescription);
@@ -642,7 +642,7 @@ public class DhlServices {
                         packageWeight = Double.valueOf(UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.default.weight.value"));
                     } catch (NumberFormatException ne) {
                         Debug.logWarning("Default shippable weight not configured (shipment.default.weight.value)", module);
-                        packageWeight = new Double(1.0);
+                        packageWeight = Double.valueOf(1.0);
                     }
                 }
                 // convert weight
@@ -654,7 +654,7 @@ public class DhlServices {
                 results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", DHL_WEIGHT_UOM_ID, "originalValue", packageWeight));
                 if ((results == null) || (results.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_ERROR)) || (results.get("convertedValue") == null)) {
                     Debug.logWarning("Unable to convert weights for shipmentId " + shipmentId , module);
-                    packageWeight = new Double(1.0);
+                    packageWeight = Double.valueOf(1.0);
                 } else {
                     packageWeight = (Double) results.get("convertedValue");
                 }

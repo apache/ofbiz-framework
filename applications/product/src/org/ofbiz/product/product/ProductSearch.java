@@ -242,7 +242,7 @@ public class ProductSearch {
             double totalSeconds = ((double)endMillis - (double)startMillis)/1000.0;
 
             // store info about results in the database, attached to the user's visitId, if specified
-            this.saveSearchResultInfo(new Long(productIds.size()), new Double(totalSeconds));
+            this.saveSearchResultInfo(Long.valueOf(productIds.size()), Double.valueOf(totalSeconds));
 
             return productIds;
         }
@@ -669,7 +669,7 @@ public class ProductSearch {
                 resultSortOrder.setSortOrder(this);
             }
 
-            dynamicViewEntity.addAlias("PROD", "mainProductId", "productId", null, null, new Boolean(productIdGroupBy), null);
+            dynamicViewEntity.addAlias("PROD", "mainProductId", "productId", null, null, Boolean.valueOf(productIdGroupBy), null);
             EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
             EntityFindOptions efo = new EntityFindOptions();
             efo.setDistinct(true);
@@ -735,7 +735,7 @@ public class ProductSearch {
                     if (this.resultOffset != null) {
                         failTotal = this.resultOffset.intValue() - 1;
                     }
-                    this.totalResults = new Integer(failTotal);
+                    this.totalResults = Integer.valueOf(failTotal);
                     return productIds;
                 }
 
@@ -779,7 +779,7 @@ public class ProductSearch {
                     // we weren't at the end, so go to the end and get the index
                     //Debug.logInfo("Getting totalResults from ending index - before last() currentIndex=" + eli.currentIndex(), module);
                     if (eli.last()) {
-                        this.totalResults = new Integer(eli.currentIndex());
+                        this.totalResults = Integer.valueOf(eli.currentIndex());
                         //Debug.logInfo("Getting totalResults from ending index - after last() currentIndex=" + eli.currentIndex(), module);
                     }
                 }
@@ -788,7 +788,7 @@ public class ProductSearch {
                     if (this.resultOffset != null) {
                         total += (this.resultOffset.intValue() - 1);
                     }
-                    this.totalResults = new Integer(total);
+                    this.totalResults = Integer.valueOf(total);
                 }
 
                 Debug.logInfo("Got search values, numRetreived=" + numRetreived + ", totalResults=" + totalResults + ", maxResults=" + maxResults + ", resultOffset=" + resultOffset + ", duplicatesFound(in the current results)=" + duplicatesFound, module);
@@ -2162,7 +2162,7 @@ public class ProductSearch {
             }
         }
 
-        dynamicViewEntity.addAlias("PROD", "productId", null, null, null, new Boolean(productIdGroupBy), null);
+        dynamicViewEntity.addAlias("PROD", "productId", null, null, null, Boolean.valueOf(productIdGroupBy), null);
         EntityCondition whereCondition = EntityCondition.makeCondition(entityConditionList, EntityOperator.AND);
         EntityFindOptions efo = new EntityFindOptions();
         efo.setDistinct(true);
