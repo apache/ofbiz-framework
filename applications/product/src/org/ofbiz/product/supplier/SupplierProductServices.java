@@ -29,6 +29,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -54,8 +55,8 @@ public class SupplierProductServices {
      * Result: a List of SupplierProduct entities for productId,
      *         filtered by date and optionally by partyId, ordered with lowest price first
      */
-    public static Map getSuppliersForProduct(DispatchContext dctx, Map context) {
-        Map results = FastMap.newInstance();
+    public static Map<String, Object> getSuppliersForProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> results = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         
         GenericValue product = null;
@@ -71,7 +72,7 @@ public class SupplierProductServices {
                 results.put("supplierProducts",null);
                 return results;
             }
-            List supplierProducts = product.getRelatedCache("SupplierProduct");
+            List<GenericValue> supplierProducts = product.getRelatedCache("SupplierProduct");
             
             // if there were no related SupplierProduct entities and the item is a variant, then get the SupplierProducts of the virtual parent product
             if (supplierProducts.size() == 0 && product.getString("isVariant") != null && product.getString("isVariant").equals("Y")) {
@@ -126,23 +127,23 @@ public class SupplierProductServices {
      * Service will convert each feature in the Collection, changing their idCode and description based on the
      * SupplierProduct entity for that supplier party and feature, and return it as convertedProductFeatures
      */
-    public static Map convertFeaturesForSupplier(DispatchContext dctx, Map context) {
-        Map results = FastMap.newInstance();
+    public static Map<String, Object> convertFeaturesForSupplier(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> results = FastMap.newInstance();
         String partyId = (String) context.get("partyId");
-        Collection features = (Collection) context.get("productFeatures");
+        Collection<GenericValue> features = UtilGenerics.checkList(context.get("productFeatures"));
 
         try {
             if (partyId != null && UtilValidate.isNotEmpty(features)) {
                 // loop through all the features, find the related SupplierProductFeature for the given partyId, and
                 // substitue description and idCode
-                for (Iterator fI = features.iterator(); fI.hasNext(); ) {
-                    GenericValue nextFeature = (GenericValue) fI.next();
-                    List supplierFeatures = EntityUtil.filterByAnd(nextFeature.getRelated("SupplierProductFeature"),
+                for (Iterator<GenericValue> fI = features.iterator(); fI.hasNext(); ) {
+                    GenericValue nextFeature = fI.next();
+                    List<GenericValue> supplierFeatures = EntityUtil.filterByAnd(nextFeature.getRelated("SupplierProductFeature"),
                                                                    UtilMisc.toMap("partyId", partyId));
                     GenericValue supplierFeature = null;
 
                     if ((supplierFeatures != null) && (supplierFeatures.size() > 0)) {
-                        supplierFeature = (GenericValue) supplierFeatures.get(0);
+                        supplierFeature = supplierFeatures.get(0);
                         if (supplierFeature.get("description") != null) {
                             nextFeature.put("description", supplierFeature.get("description"));
                         }

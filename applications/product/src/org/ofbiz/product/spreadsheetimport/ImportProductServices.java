@@ -57,13 +57,13 @@ public class ImportProductServices {
      * @param context
      * @return
      */
-    public static Map productImportFromSpreadsheet(DispatchContext dctx, Map context) {
+    public static Map<String, Object> productImportFromSpreadsheet(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
-        Map responseMsgs = FastMap.newInstance();
+        Map<String, Object> responseMsgs = FastMap.newInstance();
         // System.getProperty("user.dir") returns the path upto ofbiz home
         // directory
         String path = System.getProperty("user.dir") + "/spreadsheet";
-        List fileItems = FastList.newInstance();
+        List<File> fileItems = FastList.newInstance();
 
         if (path != null && path.length() > 0) {
             File importDir = new File(path);
@@ -92,9 +92,9 @@ public class ImportProductServices {
 
         for (int i = 0; i < fileItems.size(); i++) {
             // read all xls file and create workbook one by one.
-            File item = (File) fileItems.get(i);
-            List products = FastList.newInstance();
-            List inventoryItems = FastList.newInstance();
+            File item = fileItems.get(i);
+            List<Map<String, Object>> products = FastList.newInstance();
+            List<Map<String, Object>> inventoryItems = FastList.newInstance();
             POIFSFileSystem fs = null;
             HSSFWorkbook wb = null;
             try {
@@ -146,8 +146,8 @@ public class ImportProductServices {
             // create and store values in "Product" and "InventoryItem" entity
             // in database
             for (int j = 0; j < products.size(); j++) {
-                GenericValue productGV = delegator.makeValue("Product", (Map) products.get(j));
-                GenericValue inventoryItemGV = delegator.makeValue("InventoryItem", (Map) inventoryItems.get(j));
+                GenericValue productGV = delegator.makeValue("Product", products.get(j));
+                GenericValue inventoryItemGV = delegator.makeValue("InventoryItem", inventoryItems.get(j));
                 if (!ImportProductHelper.checkProductExists(productGV.getString("productId"), delegator)) {
                     try {
                         delegator.create(productGV);

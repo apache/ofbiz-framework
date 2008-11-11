@@ -56,31 +56,31 @@ public class ParametricSearch {
      * ProductCategory -> ProductFeatureCategoryAppl -> ProductFeatureCategory -> ProductFeature.
      * Returns a Map of Lists of ProductFeature GenericValue objects organized by productFeatureTypeId. 
      */
-    public static Map makeCategoryFeatureLists(String productCategoryId, GenericDelegator delegator) {
+    public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, GenericDelegator delegator) {
         return makeCategoryFeatureLists(productCategoryId, delegator, DEFAULT_PER_TYPE_MAX_SIZE);
     }
     
-    public static Map makeCategoryFeatureLists(String productCategoryId, GenericDelegator delegator, int perTypeMaxSize) {
-        Map productFeaturesByTypeMap = FastMap.newInstance();
+    public static Map<String, List<GenericValue>> makeCategoryFeatureLists(String productCategoryId, GenericDelegator delegator, int perTypeMaxSize) {
+        Map<String, Map<String, GenericValue>> productFeaturesByTypeMap = FastMap.newInstance();
         try {
-            List productFeatureCategoryAppls = delegator.findByAndCache("ProductFeatureCategoryAppl", UtilMisc.toMap("productCategoryId", productCategoryId));
+            List<GenericValue> productFeatureCategoryAppls = delegator.findByAndCache("ProductFeatureCategoryAppl", UtilMisc.toMap("productCategoryId", productCategoryId));
             productFeatureCategoryAppls = EntityUtil.filterByDate(productFeatureCategoryAppls, true);
             if (productFeatureCategoryAppls != null) { 
-                Iterator pfcasIter = productFeatureCategoryAppls.iterator();
+                Iterator<GenericValue> pfcasIter = productFeatureCategoryAppls.iterator();
                 while (pfcasIter.hasNext()) {
-                    GenericValue productFeatureCategoryAppl = (GenericValue) pfcasIter.next();
-                    List productFeatures = delegator.findByAndCache("ProductFeature", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryAppl.get("productFeatureCategoryId")));
-                    Iterator pfsIter = productFeatures.iterator();
+                    GenericValue productFeatureCategoryAppl = pfcasIter.next();
+                    List<GenericValue> productFeatures = delegator.findByAndCache("ProductFeature", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryAppl.get("productFeatureCategoryId")));
+                    Iterator<GenericValue> pfsIter = productFeatures.iterator();
                     while (pfsIter.hasNext()) {
-                        GenericValue productFeature = (GenericValue) pfsIter.next();
+                        GenericValue productFeature = pfsIter.next();
                         String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
-                        Map featuresByType = (Map) productFeaturesByTypeMap.get(productFeatureTypeId);
+                        Map<String, GenericValue> featuresByType = productFeaturesByTypeMap.get(productFeatureTypeId);
                         if (featuresByType == null) {
                             featuresByType = FastMap.newInstance();
                             productFeaturesByTypeMap.put(productFeatureTypeId, featuresByType);
                         }
                         if (featuresByType.size() < perTypeMaxSize) {
-                            featuresByType.put(productFeature.get("productFeatureId"), productFeature);
+                            featuresByType.put(productFeature.getString("productFeatureId"), productFeature);
                         }
                     }
                 }
@@ -90,26 +90,26 @@ public class ParametricSearch {
         }
            
         try {
-            List productFeatureCatGrpAppls = delegator.findByAndCache("ProductFeatureCatGrpAppl", UtilMisc.toMap("productCategoryId", productCategoryId));
+            List<GenericValue> productFeatureCatGrpAppls = delegator.findByAndCache("ProductFeatureCatGrpAppl", UtilMisc.toMap("productCategoryId", productCategoryId));
             productFeatureCatGrpAppls = EntityUtil.filterByDate(productFeatureCatGrpAppls, true);
             if (productFeatureCatGrpAppls != null) { 
-                Iterator pfcgasIter = productFeatureCatGrpAppls.iterator();
+                Iterator<GenericValue> pfcgasIter = productFeatureCatGrpAppls.iterator();
                 while (pfcgasIter.hasNext()) {
-                    GenericValue productFeatureCatGrpAppl = (GenericValue) pfcgasIter.next();
-                    List productFeatureGroupAppls = delegator.findByAndCache("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureCatGrpAppl.get("productFeatureGroupId")));
-                    Iterator pfgaasIter = productFeatureGroupAppls.iterator();
+                    GenericValue productFeatureCatGrpAppl = pfcgasIter.next();
+                    List<GenericValue> productFeatureGroupAppls = delegator.findByAndCache("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureCatGrpAppl.get("productFeatureGroupId")));
+                    Iterator<GenericValue> pfgaasIter = productFeatureGroupAppls.iterator();
                     while (pfgaasIter.hasNext()) {
-                        GenericValue productFeatureGroupAppl = (GenericValue) pfgaasIter.next();
+                        GenericValue productFeatureGroupAppl = pfgaasIter.next();
                         GenericValue productFeature = delegator.findByPrimaryKeyCache("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureGroupAppl.get("productFeatureId")));
                         
                         String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
-                        Map featuresByType = (Map) productFeaturesByTypeMap.get(productFeatureTypeId);
+                        Map<String, GenericValue> featuresByType = productFeaturesByTypeMap.get(productFeatureTypeId);
                         if (featuresByType == null) {
                             featuresByType = FastMap.newInstance();
                             productFeaturesByTypeMap.put(productFeatureTypeId, featuresByType);
                         }
                         if (featuresByType.size() < perTypeMaxSize) {
-                            featuresByType.put(productFeature.get("productFeatureId"), productFeature);
+                            featuresByType.put(productFeature.getString("productFeatureId"), productFeature);
                         }
                     }
                 }
@@ -119,28 +119,29 @@ public class ParametricSearch {
         }
            
         // now before returning, order the features in each list by description
-        Iterator productFeatureTypeEntries = productFeaturesByTypeMap.entrySet().iterator();
+        Map<String, List<GenericValue>> productFeaturesByTypeMapSorted = FastMap.newInstance();
+        Iterator<Map.Entry<String, Map<String, GenericValue>>> productFeatureTypeEntries = productFeaturesByTypeMap.entrySet().iterator();
         while (productFeatureTypeEntries.hasNext()) {
-            Map.Entry entry = (Map.Entry) productFeatureTypeEntries.next();
-            List sortedFeatures = EntityUtil.orderBy(((Map) entry.getValue()).values(), UtilMisc.toList("description"));
-            productFeaturesByTypeMap.put(entry.getKey(), sortedFeatures);
+            Map.Entry<String, Map<String, GenericValue>> entry = productFeatureTypeEntries.next();
+            List<GenericValue> sortedFeatures = EntityUtil.orderBy(entry.getValue().values(), UtilMisc.toList("description"));
+            productFeaturesByTypeMapSorted.put(entry.getKey(), sortedFeatures);
         }
         
-        return productFeaturesByTypeMap;
+        return productFeaturesByTypeMapSorted;
     }
     
-    public static Map getAllFeaturesByType(GenericDelegator delegator) {
+    public static Map<String, List<GenericValue>> getAllFeaturesByType(GenericDelegator delegator) {
         return getAllFeaturesByType(delegator, DEFAULT_PER_TYPE_MAX_SIZE);
     }
-    public static Map getAllFeaturesByType(GenericDelegator delegator, int perTypeMaxSize) {
-        Map productFeaturesByTypeMap = FastMap.newInstance();
+    public static Map<String, List<GenericValue>> getAllFeaturesByType(GenericDelegator delegator, int perTypeMaxSize) {
+        Map<String, List<GenericValue>> productFeaturesByTypeMap = FastMap.newInstance();
         try {
-            Set typesWithOverflowMessages = FastSet.newInstance();
+            Set<String> typesWithOverflowMessages = FastSet.newInstance();
             EntityListIterator productFeatureEli = delegator.find("ProductFeature", null, null, null, UtilMisc.toList("description"), null);
             GenericValue productFeature = null;
-            while ((productFeature = (GenericValue) productFeatureEli.next()) != null) {
+            while ((productFeature = productFeatureEli.next()) != null) {
                 String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
-                List featuresByType = (List) productFeaturesByTypeMap.get(productFeatureTypeId);
+                List<GenericValue> featuresByType = productFeaturesByTypeMap.get(productFeatureTypeId);
                 if (featuresByType == null) {
                     featuresByType = FastList.newInstance();
                     productFeaturesByTypeMap.put(productFeatureTypeId, featuresByType);
@@ -161,19 +162,20 @@ public class ParametricSearch {
         return productFeaturesByTypeMap;
     }
     
-    public static Map makeFeatureIdByTypeMap(ServletRequest request) {
-        Map parameters = UtilHttp.getParameterMap((HttpServletRequest) request);
+    public static Map<String, String> makeFeatureIdByTypeMap(ServletRequest request) {
+        Map<String, Object> parameters = UtilHttp.getParameterMap((HttpServletRequest) request);
         return makeFeatureIdByTypeMap(parameters);
     }
     
     /** Handles parameters coming in prefixed with "pft_" where the text in the key following the prefix is a productFeatureTypeId and the value is a productFeatureId; meant to be used with drop-downs and such */
-    public static Map makeFeatureIdByTypeMap(Map parameters) {
-        Map featureIdByType = FastMap.newInstance();
+    public static Map<String, String> makeFeatureIdByTypeMap(Map<String, Object> parameters) {
+        Map<String, String> featureIdByType = FastMap.newInstance();
         if (parameters == null) return featureIdByType;
         
-        Iterator parameterNameIter = parameters.keySet().iterator();
+
+        Iterator<String> parameterNameIter = parameters.keySet().iterator();
         while (parameterNameIter.hasNext()) {
-            String parameterName = (String) parameterNameIter.next();
+            String parameterName = parameterNameIter.next();
             if (parameterName.startsWith("pft_")) {
                 String productFeatureTypeId = parameterName.substring(4);
                 String productFeatureId = (String) parameters.get(parameterName);
@@ -187,13 +189,13 @@ public class ParametricSearch {
     }
     
     /** Handles parameters coming in prefixed with "SEARCH_FEAT" where the parameter value is a productFeatureId; meant to be used with text entry boxes or check-boxes and such */
-    public static List makeFeatureIdListFromPrefixed(Map parameters) {
-        List featureIdList = FastList.newInstance();
+    public static List<String> makeFeatureIdListFromPrefixed(Map<String, Object> parameters) {
+        List<String> featureIdList = FastList.newInstance();
         if (parameters == null) return featureIdList;
         
-        Iterator parameterNameIter = parameters.keySet().iterator();
+        Iterator<String> parameterNameIter = parameters.keySet().iterator();
         while (parameterNameIter.hasNext()) {
-            String parameterName = (String) parameterNameIter.next();
+            String parameterName = parameterNameIter.next();
             if (parameterName.startsWith("SEARCH_FEAT")) {
                 String productFeatureId = (String) parameters.get(parameterName);
                 if (productFeatureId != null && productFeatureId.length() > 0) {
@@ -205,23 +207,23 @@ public class ParametricSearch {
         return featureIdList;
     }
     
-    public static String makeFeatureIdByTypeString(Map featureIdByType) {
+    public static String makeFeatureIdByTypeString(Map<String, String> featureIdByType) {
         if (featureIdByType == null || featureIdByType.size() == 0) {
             return "";
         }
         
         StringBuilder outSb = new StringBuilder();
-        Iterator fbtIter = featureIdByType.entrySet().iterator();
+        Iterator<Map.Entry<String, String>> fbtIter = featureIdByType.entrySet().iterator();
         while (fbtIter.hasNext()) {
-            Map.Entry entry = (Map.Entry) fbtIter.next();
-            String productFeatureTypeId = (String) entry.getKey();
-            String productFeatureId = (String) entry.getValue();
+            Map.Entry<String, String> entry = fbtIter.next();
+            if (outSb.length() > 0) {
+                outSb.append('&');
+            }
+            String productFeatureTypeId = entry.getKey();
+            String productFeatureId = entry.getValue();
             outSb.append(productFeatureTypeId);
             outSb.append('=');
             outSb.append(productFeatureId);
-            if (fbtIter.hasNext()) {
-                outSb.append('&');
-            }
         }
         
         return outSb.toString();
@@ -232,13 +234,13 @@ public class ParametricSearch {
      *  where the parameter value is a productFeatureCategoryId; 
      *  meant to be used with text entry boxes or check-boxes and such 
      **/
-    public static List makeProductFeatureCategoryIdListFromPrefixed(Map parameters) {
-        List prodFeatureCategoryIdList = FastList.newInstance();
+    public static List<String> makeProductFeatureCategoryIdListFromPrefixed(Map<String, Object> parameters) {
+        List<String> prodFeatureCategoryIdList = FastList.newInstance();
         if (parameters == null) return prodFeatureCategoryIdList;
         
-        Iterator parameterNameIter = parameters.keySet().iterator();
+        Iterator<String> parameterNameIter = parameters.keySet().iterator();
         while (parameterNameIter.hasNext()) {
-            String parameterName = (String) parameterNameIter.next();
+            String parameterName = parameterNameIter.next();
             if (parameterName.startsWith("SEARCH_PROD_FEAT_CAT")) {
                 String productFeatureCategoryId = (String) parameters.get(parameterName);
                 if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {

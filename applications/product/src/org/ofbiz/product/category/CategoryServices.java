@@ -28,6 +28,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -52,11 +53,11 @@ public class CategoryServices {
     
     public static final String module = CategoryServices.class.getName();
 
-    public static Map getCategoryMembers(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getCategoryMembers(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String categoryId = (String) context.get("categoryId");
         GenericValue productCategory = null;
-        List members = null;
+        List<GenericValue> members = null;
 
         try {
             productCategory = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", categoryId));
@@ -67,13 +68,13 @@ public class CategoryServices {
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
         }
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("category", productCategory);
         result.put("categoryMembers", members);
         return result;
     }
 
-    public static Map getPreviousNextProducts(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getPreviousNextProducts(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String categoryId = (String) context.get("categoryId");
         String productId = (String) context.get("productId");
@@ -84,12 +85,12 @@ public class CategoryServices {
             return ServiceUtil.returnError("Both Index and ProductID cannot be null.");
         }
 
-        List orderByFields = (List) context.get("orderByFields");
+        List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
         if (orderByFields == null) orderByFields = FastList.newInstance();
         String entityName = getCategoryFindEntityName(delegator, orderByFields);
 
         GenericValue productCategory;
-        List productCategoryMembers;
+        List<GenericValue> productCategoryMembers;
         try {
             productCategory = delegator.findByPrimaryKeyCache("ProductCategory", UtilMisc.toMap("productCategoryId", categoryId));
             productCategoryMembers = delegator.findByAndCache(entityName, UtilMisc.toMap("productCategoryId", categoryId), orderByFields);
@@ -104,9 +105,9 @@ public class CategoryServices {
         
 
         if (productId != null && index == null) {
-            Iterator i = productCategoryMembers.iterator();
+            Iterator<GenericValue> i = productCategoryMembers.iterator();
             while (i.hasNext()) {
-                GenericValue v = (GenericValue) i.next();
+                GenericValue v = i.next();
                 if (v.getString("productId").equals(productId)) {
                     index = Integer.valueOf(productCategoryMembers.indexOf(v));
                 }
@@ -118,31 +119,31 @@ public class CategoryServices {
             return ServiceUtil.returnSuccess("Product not found in the current category.");
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("category", productCategory);
 
         String previous = null;
         String next = null;
 
         if (index.intValue() - 1 >= 0 && index.intValue() - 1 < productCategoryMembers.size()) {
-            previous = ((GenericValue) productCategoryMembers.get(index.intValue() - 1)).getString("productId");
+            previous = productCategoryMembers.get(index.intValue() - 1).getString("productId");
             result.put("previousProductId", previous);
         } else {
-            previous = ((GenericValue) productCategoryMembers.get(productCategoryMembers.size() - 1)).getString("productId");
+            previous = productCategoryMembers.get(productCategoryMembers.size() - 1).getString("productId");
             result.put("previousProductId", previous);
         }
 
         if (index.intValue() + 1 < productCategoryMembers.size()) {
-            next = ((GenericValue) productCategoryMembers.get(index.intValue() + 1)).getString("productId");
+            next = productCategoryMembers.get(index.intValue() + 1).getString("productId");
             result.put("nextProductId", next);
         } else {
-            next = ((GenericValue) productCategoryMembers.get(0)).getString("productId");
+            next = productCategoryMembers.get(0).getString("productId");
             result.put("nextProductId", next);
         }
         return result;
     }
     
-    private static String getCategoryFindEntityName(GenericDelegator delegator, List orderByFields) {
+    private static String getCategoryFindEntityName(GenericDelegator delegator, List<String> orderByFields) {
         // allow orderByFields to contain fields from the Product entity, if there are such fields
         String entityName = "ProductCategoryMember";
         if (orderByFields == null) {
@@ -155,10 +156,9 @@ public class CategoryServices {
         
         ModelEntity productModel = delegator.getModelEntity("Product");
         ModelEntity productCategoryMemberModel = delegator.getModelEntity("ProductCategoryMember");
-        Iterator orderByFieldIter = orderByFields.iterator();
+        Iterator<String> orderByFieldIter = orderByFields.iterator();
         while (orderByFieldIter.hasNext()) {
-            String orderByField = (String) orderByFieldIter.next();
-            
+            String orderByField = orderByFieldIter.next();
             // Get the real field name from the order by field removing ascending/descending order
             if (UtilValidate.isNotEmpty(orderByField)) {
                 int startPos = 0, endPos = orderByField.length();
@@ -191,13 +191,13 @@ public class CategoryServices {
         return entityName;
     }
 
-    public static Map getProductCategoryAndLimitedMembers(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getProductCategoryAndLimitedMembers(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String productCategoryId = (String) context.get("productCategoryId");
         boolean limitView = ((Boolean) context.get("limitView")).booleanValue();
         int defaultViewSize = ((Integer) context.get("defaultViewSize")).intValue();
         
-        List orderByFields = (List) context.get("orderByFields");
+        List<String> orderByFields = UtilGenerics.checkList(context.get("orderByFields"));
         if (orderByFields == null) orderByFields = FastList.newInstance();
         String entityName = getCategoryFindEntityName(delegator, orderByFields);
         
@@ -252,7 +252,7 @@ public class CategoryServices {
             highIndex = 0;
         }
         
-        List productCategoryMembers = null;
+        List<GenericValue> productCategoryMembers = null;
         if (productCategory != null) {
             try {
                 if (useCacheForMembers) {
@@ -281,7 +281,8 @@ public class CategoryServices {
                         highIndex = listSize;
                     }
                 } else {
-                    List mainCondList = UtilMisc.toList(EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, productCategory.getString("productCategoryId")));
+                    List<EntityCondition> mainCondList = FastList.newInstance();
+                    mainCondList.add(EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, productCategory.getString("productCategoryId")));
                     if (activeOnly) {
                         mainCondList.add(EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN_EQUAL_TO, nowTimestamp));
                         mainCondList.add(EntityCondition.makeCondition(EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("thruDate", EntityOperator.GREATER_THAN, nowTimestamp)));
@@ -302,7 +303,7 @@ public class CategoryServices {
                             int chunkSize = 0;
                             listSize = 0;
 
-                            while ((nextValue = (GenericValue) pli.next()) != null) {
+                            while ((nextValue = pli.next()) != null) {
                                 String productId = nextValue.getString("productId");
                                 if (CategoryWorker.isProductInCategory(delegator, productId, viewProductCategoryId)) {
                                     if (listSize + 1 >= lowIndex && chunkSize < viewSize) {
@@ -348,7 +349,7 @@ public class CategoryServices {
             }
         }
 
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         result.put("viewIndex", Integer.valueOf(viewIndex));
         result.put("viewSize", Integer.valueOf(viewSize));
         result.put("lowIndex", Integer.valueOf(lowIndex));

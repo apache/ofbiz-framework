@@ -47,9 +47,9 @@ public class InventoryWorker {
      * @param delegator
      * @return
      */
-    public static List getOutstandingPurchaseOrders(String productId, GenericDelegator delegator) {
+    public static List<GenericValue> getOutstandingPurchaseOrders(String productId, GenericDelegator delegator) {
         try {
-            List purchaseOrderConditions = UtilMisc.toList(EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
+            List<EntityCondition> purchaseOrderConditions = UtilMisc.<EntityCondition>toList(EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                     EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_CANCELLED"),
                     EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
                     EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_COMPLETED"),
@@ -57,7 +57,7 @@ public class InventoryWorker {
                     EntityCondition.makeCondition("itemStatusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
             purchaseOrderConditions.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "PURCHASE_ORDER"));
             purchaseOrderConditions.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId));
-            List purchaseOrders = delegator.findList("OrderHeaderAndItems", EntityCondition.makeCondition(purchaseOrderConditions, EntityOperator.AND), 
+            List<GenericValue> purchaseOrders = delegator.findList("OrderHeaderAndItems", EntityCondition.makeCondition(purchaseOrderConditions, EntityOperator.AND), 
                     null, UtilMisc.toList("estimatedDeliveryDate DESC", "orderDate"), null, false);
             return purchaseOrders;
         } catch (GenericEntityException ex) {
@@ -74,12 +74,12 @@ public class InventoryWorker {
      */
     public static double getOutstandingPurchasedQuantity(String productId, GenericDelegator delegator) {
         double qty = 0.0;
-        List purchaseOrders = getOutstandingPurchaseOrders(productId, delegator);
+        List<GenericValue> purchaseOrders = getOutstandingPurchaseOrders(productId, delegator);
         if (UtilValidate.isEmpty(purchaseOrders)) {
             return qty;
         } else {
-            for (Iterator pOi = purchaseOrders.iterator(); pOi.hasNext();) {
-                GenericValue nextOrder = (GenericValue) pOi.next();
+            for (Iterator<GenericValue> pOi = purchaseOrders.iterator(); pOi.hasNext();) {
+                GenericValue nextOrder = pOi.next();
                 if (nextOrder.get("quantity") != null) {
                     double itemQuantity = nextOrder.getDouble("quantity").doubleValue();
                     double cancelQuantity = 0.0;
@@ -106,9 +106,9 @@ public class InventoryWorker {
      * @param   delegator   The delegator to use
      * @return  Map of productIds to quantities outstanding.
      */
-    public static Map getOutstandingProductQuantities(Collection productIds, String orderTypeId, GenericDelegator delegator) {
-        Set fieldsToSelect = UtilMisc.toSet("productId", "quantityOpen");
-        List condList = UtilMisc.toList(
+    public static Map<String, Double> getOutstandingProductQuantities(Collection<String> productIds, String orderTypeId, GenericDelegator delegator) {
+        Set<String> fieldsToSelect = UtilMisc.toSet("productId", "quantityOpen");
+        List<EntityCondition> condList = UtilMisc.<EntityCondition>toList(
                 EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, orderTypeId),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_COMPLETED"),
                 EntityCondition.makeCondition("orderStatusId", EntityOperator.NOT_EQUAL, "ORDER_REJECTED"),
@@ -122,11 +122,11 @@ public class InventoryWorker {
         condList.add(EntityCondition.makeCondition("orderItemStatusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"));
         EntityConditionList conditions = EntityCondition.makeCondition(condList, EntityOperator.AND);
 
-        Map results = FastMap.newInstance();
+        Map<String, Double> results = FastMap.newInstance();
         try {
-            List orderedProducts = delegator.findList("OrderItemQuantityReportGroupByProduct", conditions, fieldsToSelect, null, null, false);
-            for (Iterator iter = orderedProducts.iterator(); iter.hasNext(); ) {
-                GenericValue value = (GenericValue) iter.next();
+            List<GenericValue> orderedProducts = delegator.findList("OrderItemQuantityReportGroupByProduct", conditions, fieldsToSelect, null, null, false);
+            for (Iterator<GenericValue> iter = orderedProducts.iterator(); iter.hasNext(); ) {
+                GenericValue value = iter.next();
                 results.put(value.getString("productId"), value.getDouble("quantityOpen"));
             }
         } catch (GenericEntityException e) {
@@ -136,12 +136,12 @@ public class InventoryWorker {
     }
 
     /** As above, but for sales orders */
-    public static Map getOutstandingProductQuantitiesForSalesOrders(Collection productIds, GenericDelegator delegator) {
+    public static Map<String, Double> getOutstandingProductQuantitiesForSalesOrders(Collection<String> productIds, GenericDelegator delegator) {
         return getOutstandingProductQuantities(productIds, "SALES_ORDER", delegator);
     }
 
     /** As above, but for purhcase orders */
-    public static Map getOutstandingProductQuantitiesForPurchaseOrders(Collection productIds, GenericDelegator delegator) {
+    public static Map<String, Double> getOutstandingProductQuantitiesForPurchaseOrders(Collection<String> productIds, GenericDelegator delegator) {
         return getOutstandingProductQuantities(productIds, "PURCHASE_ORDER", delegator);
     }
 }    

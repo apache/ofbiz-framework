@@ -48,7 +48,7 @@ public class PromoServices {
 
     public final static String module = PromoServices.class.getName();
 
-    public static Map createProductPromoCodeSet(DispatchContext dctx, Map context) {
+    public static Map<String, Object> createProductPromoCodeSet(DispatchContext dctx, Map<String, ? extends Object> context) {
         //GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Long quantity = (Long) context.get("quantity");
@@ -59,7 +59,7 @@ public class PromoServices {
 
         StringBuilder bankOfNumbers = new StringBuilder();
         for (long i = 0; i < quantity.longValue(); i++) {
-            Map createProductPromoCodeMap = null;
+            Map<String, Object> createProductPromoCodeMap = null;
             try {
                 createProductPromoCodeMap = dispatcher.runSync("createProductPromoCode", dctx.makeValidContext("createProductPromoCode", "IN", context));
             } catch (GenericServiceException err) {
@@ -76,12 +76,12 @@ public class PromoServices {
         return ServiceUtil.returnSuccess(bankOfNumbers.toString());
     }
 
-    public static Map purgeOldStoreAutoPromos(DispatchContext dctx, Map context) {
+    public static Map<String, Object> purgeOldStoreAutoPromos(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String productStoreId = (String) context.get("productStoreId");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         
-        List condList = FastList.newInstance();
+        List<EntityCondition> condList = FastList.newInstance();
         if (UtilValidate.isEmpty(productStoreId)) {
             condList.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
         }
@@ -93,7 +93,7 @@ public class PromoServices {
         try {
             EntityListIterator eli = delegator.find("ProductStorePromoAndAppl", cond, null, null, null, null);
             GenericValue productStorePromoAndAppl = null;
-            while ((productStorePromoAndAppl = (GenericValue) eli.next()) != null) {
+            while ((productStorePromoAndAppl = eli.next()) != null) {
                 GenericValue productStorePromo = delegator.makeValue("ProductStorePromoAppl");
                 productStorePromo.setAllFields(productStorePromoAndAppl, true, null, null);
                 productStorePromo.remove();
@@ -108,7 +108,7 @@ public class PromoServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map importPromoCodesFromFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> importPromoCodesFromFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         // check the uploaded file
@@ -127,11 +127,11 @@ public class PromoServices {
         }
 
         // make a temp context for invocations
-        Map invokeCtx = promoModel.makeValid(context, ModelService.IN_PARAM);
+        Map<String, Object> invokeCtx = promoModel.makeValid(context, ModelService.IN_PARAM);
 
         // read the bytes into a reader
         BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper)));
-        List errors = FastList.newInstance();
+        List<Object> errors = FastList.newInstance();
         int lines = 0;
         String line;
 
@@ -142,10 +142,10 @@ public class PromoServices {
                 if (line.length() > 0 && !line.startsWith("#")) {
                     if (line.length() > 0 && line.length() <= 20) {
                         // valid promo code
-                        Map inContext = FastMap.newInstance();
+                        Map<String, Object> inContext = FastMap.newInstance();
                         inContext.putAll(invokeCtx);
                         inContext.put("productPromoCodeId", line);
-                        Map result = dispatcher.runSync("createProductPromoCode", inContext);
+                        Map<String, Object> result = dispatcher.runSync("createProductPromoCode", inContext);
                         if (result != null && ServiceUtil.isError(result)) {
                             errors.add(line + ": " + ServiceUtil.getErrorMessage(result));
                         }
@@ -180,7 +180,7 @@ public class PromoServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map importPromoCodeEmailsFromFile(DispatchContext dctx, Map context) {
+    public static Map<String, Object> importPromoCodeEmailsFromFile(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         String productPromoCodeId = (String) context.get("productPromoCodeId");
@@ -193,7 +193,7 @@ public class PromoServices {
 
         // read the bytes into a reader
         BufferedReader reader = new BufferedReader(new StringReader(new String(wrapper)));
-        List errors = FastList.newInstance();
+        List<Object> errors = FastList.newInstance();
         int lines = 0;
         String line;
 
@@ -203,7 +203,7 @@ public class PromoServices {
                 if (line.length() > 0 && !line.startsWith("#")) {
                     if (UtilValidate.isEmail(line)) {
                         // valid email address
-                        Map result = dispatcher.runSync("createProductPromoCodeEmail", UtilMisc.<String, Object>toMap("productPromoCodeId",
+                        Map<String, Object> result = dispatcher.runSync("createProductPromoCodeEmail", UtilMisc.<String, Object>toMap("productPromoCodeId",
                                 productPromoCodeId, "emailAddress", line, "userLogin", userLogin));
                         if (result != null && ServiceUtil.isError(result)) {
                             errors.add(line + ": " + ServiceUtil.getErrorMessage(result));
