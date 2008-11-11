@@ -939,7 +939,7 @@ public class PriceServices {
 
             // check all conditions
             boolean allTrue = true;
-            StringBuffer condsDescription = new StringBuffer();
+            StringBuilder condsDescription = new StringBuilder();
             List productPriceConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
             Iterator productPriceCondsIter = UtilMisc.toIterator(productPriceConds);
 
@@ -1069,7 +1069,7 @@ public class PriceServices {
                     }
 
                     // add a orderItemPriceInfo element too, without orderId or orderItemId
-                    StringBuffer priceInfoDescription = new StringBuffer();
+                    StringBuilder priceInfoDescription = new StringBuilder();
 
                     priceInfoDescription.append(condsDescription.toString());
                     priceInfoDescription.append("[type:");
@@ -1372,7 +1372,7 @@ public class PriceServices {
                         validPriceFound = true;
                     }
                     // add a orderItemPriceInfo element too, without orderId or orderItemId
-                    StringBuffer priceInfoDescription = new StringBuffer();
+                    StringBuilder priceInfoDescription = new StringBuilder();
                     priceInfoDescription.append("SupplierProduct ");
                     priceInfoDescription.append("[minimumOrderQuantity:");
                     priceInfoDescription.append("" + productSupplier.getDouble("minimumOrderQuantity").doubleValue());

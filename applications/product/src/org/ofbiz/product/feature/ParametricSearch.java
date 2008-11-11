@@ -210,7 +210,7 @@ public class ParametricSearch {
             return "";
         }
         
-        StringBuffer outSb = new StringBuffer();
+        StringBuilder outSb = new StringBuilder();
         Iterator fbtIter = featureIdByType.entrySet().iterator();
         while (fbtIter.hasNext()) {
             Map.Entry entry = (Map.Entry) fbtIter.next();

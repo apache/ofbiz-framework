@@ -760,7 +760,7 @@ public class ProductSearch {
                     }
                     
                     /*
-                    StringBuffer lineMsg = new StringBuffer("Got search result line: ");
+                    StringBuilder lineMsg = new StringBuilder("Got search result line: ");
                     Iterator fieldsToSelectIter = fieldsToSelect.iterator();
                     while (fieldsToSelectIter.hasNext()) {
                         String fieldName = (String) fieldsToSelectIter.next();
@@ -900,7 +900,7 @@ public class ProductSearch {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProdCatalog information for constraint pretty print", module);
             }
-            StringBuffer ppBuf = new StringBuffer();            
+            StringBuilder ppBuf = new StringBuilder();            
             ppBuf.append(UtilProperties.getMessage(resource, "ProductCatalog", locale)+": ");
             if (prodCatalog != null) {                
                 ppBuf.append(prodCatalog.getString("catalogName"));
@@ -977,7 +977,7 @@ public class ProductSearch {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductCategory information for constraint pretty print", module);
             }
-            StringBuffer ppBuf = new StringBuffer();            
+            StringBuilder ppBuf = new StringBuilder();            
             ppBuf.append(UtilProperties.getMessage(resource, "ProductCategory", locale)+": ");
             if (productCategory != null) {
                 String catInfo = CategoryContentWrapper.getProductCategoryContentAsText(productCategory, "CATEGORY_NAME", locale, null);
@@ -1059,7 +1059,7 @@ public class ProductSearch {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeature and Type information for constraint pretty print", module);
             }
-            StringBuffer ppBuf = new StringBuffer();
+            StringBuilder ppBuf = new StringBuilder();
             if (productFeatureType == null) {                                
                 ppBuf.append(UtilProperties.getMessage(resource, "ProductFeature", locale)+": ");
                 ppBuf.append("[" + this.productFeatureId + "]");
@@ -1136,7 +1136,7 @@ public class ProductSearch {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeatureCategory and Type information for constraint pretty print", module);
             }
-            StringBuffer ppBuf = new StringBuffer();
+            StringBuilder ppBuf = new StringBuilder();
             if (productFeatureCategory != null) {                                
                 ppBuf.append(UtilProperties.getMessage(resource, "ProductFeatureCategory", locale)+": ");
                 if(productFeatureCategory.get("description") != null) {
@@ -1213,7 +1213,7 @@ public class ProductSearch {
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeatureGroup and Type information for constraint pretty print", module);
             }
-            StringBuffer ppBuf = new StringBuffer();
+            StringBuilder ppBuf = new StringBuilder();
             if (productFeatureGroup != null) {
                 ppBuf.append(UtilProperties.getMessage(resource, "ProductFeatureGroup", locale) + ": ");
                 if(productFeatureGroup.get("description") != null) {
@@ -1281,7 +1281,7 @@ public class ProductSearch {
             }
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
-            StringBuffer featureIdInfo = new StringBuffer();
+            StringBuilder featureIdInfo = new StringBuilder();
             Iterator featureIdIter = this.productFeatureIdSet.iterator();
             while (featureIdIter.hasNext()) {
                 String featureId = (String) featureIdIter.next();
@@ -1295,7 +1295,7 @@ public class ProductSearch {
         }
 
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
-            StringBuffer infoOut = new StringBuffer();
+            StringBuilder infoOut = new StringBuilder();
             try {
                 Iterator featureIdIter = this.productFeatureIdSet.iterator();
                 while (featureIdIter.hasNext()) {
@@ -1429,7 +1429,7 @@ public class ProductSearch {
 
         /** pretty print for log messages and even UI stuff */
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
-            StringBuffer ppBuf = new StringBuffer();
+            StringBuilder ppBuf = new StringBuilder();
             ppBuf.append(UtilProperties.getMessage(resource, "ProductKeywords", locale) + ": \"");
             ppBuf.append(this.keywordsString + "\", " + UtilProperties.getMessage(resource, "ProductKeywordWhere", locale) + " ");
             ppBuf.append(isAnd ? UtilProperties.getMessage(resource, "ProductKeywordAllWordsMatch", locale) : UtilProperties.getMessage(resource, "ProductKeywordAnyWordMatches", locale));            
@@ -1552,7 +1552,7 @@ public class ProductSearch {
         }
 
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
-            StringBuffer buff = new StringBuffer();
+            StringBuilder buff = new StringBuilder();
             buff.append("Product Store Mandatory Price Constraint: ");
             buff.append("Product Store Group ["+productStoreGroupId+"], ");
             buff.append("Product Price Type ["+productPriceTypeId+"], ");
@@ -1626,7 +1626,7 @@ public class ProductSearch {
                 // dummy constraint, no values
                 return null;
             }
-            StringBuffer msgBuf = new StringBuffer();
+            StringBuilder msgBuf = new StringBuilder();
             msgBuf.append(UtilProperties.getMessage(resource, "ListPriceRange", locale));
             msgBuf.append(": ");
             
@@ -1834,7 +1834,7 @@ public class ProductSearch {
                 return null;
             }
             
-            StringBuffer msgBuf = new StringBuffer();
+            StringBuilder msgBuf = new StringBuilder();
             
             if (UtilValidate.isNotEmpty(include) && include == Boolean.FALSE) {
                 msgBuf.append(UtilProperties.getMessage(resourceCommon, "CommonExclude", locale));

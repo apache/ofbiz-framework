@@ -603,7 +603,7 @@ allCatIter = allCategories.iterator();
 while (allCatIter.hasNext()) {
    cat = allCatIter.next();
    if (UtilValidate.isEmpty(cat.getString("description"))) {
-       StringBuffer description = new StringBuffer(cat.getString("longDescription").toLowerCase());
+       StringBuilder description = new StringBuilder(cat.getString("longDescription").toLowerCase());
        description.setCharAt(0, Character.toUpperCase(description.charAt(0)));
        for (int i=0; i<description.length() - 1; i++) {
            if (description.charAt(i) == ' ') {
