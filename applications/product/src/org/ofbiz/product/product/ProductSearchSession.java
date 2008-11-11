@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -269,9 +268,7 @@ public class ProductSearchSession {
             if (productSearchConstraintList == null) {
                 return constraintStrings;
             }
-            Iterator<ProductSearchConstraint> productSearchConstraintIter = productSearchConstraintList.iterator();
-            while (productSearchConstraintIter.hasNext()) {
-                ProductSearchConstraint productSearchConstraint = productSearchConstraintIter.next();
+            for (ProductSearchConstraint productSearchConstraint: productSearchConstraintList) {
                 if (productSearchConstraint == null) continue;
                 String constraintString = productSearchConstraint.prettyPrintConstraint(delegator, detailed, locale);
                 if (UtilValidate.isNotEmpty(constraintString)) {
@@ -374,9 +371,7 @@ public class ProductSearchSession {
             Set<String> keywords = FastSet.newInstance();
             List<ProductSearchConstraint> constraintList = ProductSearchOptions.getConstraintList(session);
             if (constraintList != null) {
-                Iterator<ProductSearchConstraint> constraintIter = constraintList.iterator();
-                while (constraintIter.hasNext()) {
-                    ProductSearchConstraint constraint = constraintIter.next();
+                for (ProductSearchConstraint constraint: constraintList) {
                     if (constraint instanceof KeywordConstraint) {
                         KeywordConstraint keywordConstraint = (KeywordConstraint) constraint;
                         Set<String> keywordSet = keywordConstraint.makeFullKeywordSet(delegator);
@@ -395,9 +390,7 @@ public class ProductSearchSession {
                 }
 
                 if (UtilValidate.isNotEmpty(productStoreKeywordOvrdList)) {
-                    Iterator<GenericValue> productStoreKeywordOvrdIter = productStoreKeywordOvrdList.iterator();
-                    while (productStoreKeywordOvrdIter.hasNext()) {
-                        GenericValue productStoreKeywordOvrd = productStoreKeywordOvrdIter.next();
+                    for (GenericValue productStoreKeywordOvrd: productStoreKeywordOvrdList) {
                         String ovrdKeyword = productStoreKeywordOvrd.getString("keyword");
                         if (keywords.contains(ovrdKeyword)) {
                             String targetTypeEnumId = productStoreKeywordOvrd.getString("targetTypeEnumId");
@@ -478,9 +471,7 @@ public class ProductSearchSession {
         if (featureIds == null || featureIds.size() == 0) {
             return;
         }
-        Iterator<String> featureIdIter = featureIds.iterator();
-        while (featureIdIter.hasNext()) {
-            String productFeatureId = featureIdIter.next();
+        for (String productFeatureId: featureIds) {
             searchAddConstraint(new FeatureConstraint(productFeatureId, exclude), session);
         }
     }
@@ -612,9 +603,7 @@ public class ProductSearchSession {
             }
         }
 
-        Iterator<String> parameterNameIter = parameters.keySet().iterator();
-        while (parameterNameIter.hasNext()) {
-            String parameterName = parameterNameIter.next();
+        for (String parameterName: parameters.keySet()) {
             if (parameterName.startsWith("SEARCH_FEAT") && !parameterName.startsWith("SEARCH_FEAT_EXC")) {
                 String productFeatureId = (String) parameters.get(parameterName);
                 if (productFeatureId != null && productFeatureId.length() > 0) {
@@ -893,8 +882,7 @@ public class ProductSearchSession {
                     pli = delegator.find("ProductCategoryMember", EntityCondition.makeCondition(addOnTopProdCondList, EntityOperator.AND), null, UtilMisc.toSet("productId", "sequenceNum"), UtilMisc.toList("sequenceNum"), findOpts);
                     addOnTopProductCategoryMembers = pli.getPartialList(lowIndex, viewSize);
                     addOnTopListSize = addOnTopProductCategoryMembers.size();
-                    for (int i = 0; i < addOnTopProductCategoryMembers.size(); i++) {
-                        GenericValue alwaysAddProductCategoryMember = addOnTopProductCategoryMembers.get(i);
+                    for (GenericValue alwaysAddProductCategoryMember: addOnTopProductCategoryMembers) {
                         productIds.add(alwaysAddProductCategoryMember.getString("productId"));
                     }
                     // attempt to get the full size
@@ -974,16 +962,13 @@ public class ProductSearchSession {
         StringBuilder searchParamString = new StringBuilder();
 
         List<ProductSearchConstraint> constraintList = productSearchOptions.getConstraintList();
-        Iterator<ProductSearchConstraint> constraintIter = constraintList.iterator();
-
         int categoriesCount = 0;
         int featuresCount = 0;
         int featureCategoriesCount = 0;
         int featureGroupsCount = 0;
         int keywordsCount = 0;
         boolean isNotFirst = false;
-        while (constraintIter.hasNext()) {
-            ProductSearchConstraint psc = constraintIter.next();
+        for (ProductSearchConstraint psc: constraintList) {
             if (psc instanceof ProductSearch.CategoryConstraint) {
                 ProductSearch.CategoryConstraint cc = (ProductSearch.CategoryConstraint) psc;
                 categoriesCount++;

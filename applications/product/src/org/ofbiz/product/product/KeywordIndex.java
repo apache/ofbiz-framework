@@ -21,7 +21,6 @@ package org.ofbiz.product.product;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -118,9 +117,8 @@ public class KeywordIndex {
             !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0")) ||
             !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0"))) {
             // get strings from attributes and features
-            Iterator<GenericValue> productFeatureAndAppls = UtilMisc.toIterator(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId)));
-            while (productFeatureAndAppls != null && productFeatureAndAppls.hasNext()) {
-                GenericValue productFeatureAndAppl = productFeatureAndAppls.next();
+            List<GenericValue> productFeatureAndAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId));
+            for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
                 addWeightedKeywordSourceString(productFeatureAndAppl, "description", strings);
                 addWeightedKeywordSourceString(productFeatureAndAppl, "abbrev", strings);
                 addWeightedKeywordSourceString(productFeatureAndAppl, "idCode", strings);
@@ -130,9 +128,8 @@ public class KeywordIndex {
         // ProductAttribute
         if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0")) ||
                 !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0"))) {
-            Iterator<GenericValue> productAttributes = UtilMisc.toIterator(delegator.findByAnd("ProductAttribute", UtilMisc.toMap("productId", productId)));
-            while (productAttributes != null && productAttributes.hasNext()) {
-                GenericValue productAttribute = productAttributes.next();
+            List<GenericValue> productAttributes = delegator.findByAnd("ProductAttribute", UtilMisc.toMap("productId", productId));
+            for (GenericValue productAttribute: productAttributes) {
                 addWeightedKeywordSourceString(productAttribute, "attrName", strings);
                 addWeightedKeywordSourceString(productAttribute, "attrValue", strings);
             }
@@ -140,9 +137,8 @@ public class KeywordIndex {
 
         // GoodIdentification
         if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.GoodIdentification.idValue", "0"))) {
-            Iterator<GenericValue> goodIdentifications = UtilMisc.toIterator(delegator.findByAnd("GoodIdentification", UtilMisc.toMap("productId", productId)));
-            while (goodIdentifications != null && goodIdentifications.hasNext()) {
-                GenericValue goodIdentification = goodIdentifications.next();
+            List<GenericValue> goodIdentifications = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("productId", productId));
+            for (GenericValue goodIdentification: goodIdentifications) {
                 addWeightedKeywordSourceString(goodIdentification, "idValue", strings);
             }
         }
@@ -152,9 +148,7 @@ public class KeywordIndex {
             if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"))) {
                 List<GenericValue> variantProductAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
                 variantProductAssocs = EntityUtil.filterByDate(variantProductAssocs);
-                Iterator<GenericValue> variantProductAssocsIt = variantProductAssocs.iterator();
-                while (variantProductAssocsIt.hasNext()) {
-                    GenericValue variantProductAssoc = variantProductAssocsIt.next();
+                for (GenericValue variantProductAssoc: variantProductAssocs) {
                     int weight = 1;
                     try {
                         weight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"));
@@ -169,11 +163,7 @@ public class KeywordIndex {
         }
         
         String productContentTypes = UtilProperties.getPropertyValue("prodsearch", "index.include.ProductContentTypes");
-        List<String> productContentTypeList = Arrays.asList(productContentTypes.split(","));
-        Iterator<String> productContentTypeIter = productContentTypeList.iterator();
-        while (productContentTypeIter.hasNext()) {
-            String productContentTypeId = productContentTypeIter.next();
-
+        for (String productContentTypeId: productContentTypes.split(",")) {
             int weight = 1;
             try {
                 // this is defaulting to a weight of 1 because you specified you wanted to index this type
@@ -183,32 +173,24 @@ public class KeywordIndex {
             }
             
             List<GenericValue> productContentAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), null);
-            Iterator<GenericValue> productContentAndInfoIter = productContentAndInfos.iterator();
-            while (productContentAndInfoIter.hasNext()) {
-                GenericValue productContentAndInfo = productContentAndInfoIter.next();
+            for (GenericValue productContentAndInfo: productContentAndInfos) {
                 addWeightedDataResourceString(productContentAndInfo, weight, strings, delegator, product);
                 
                 List<GenericValue> alternateViews = productContentAndInfo.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
                 alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
-                Iterator<GenericValue> alternateViewIter = alternateViews.iterator();
-                while (alternateViewIter.hasNext()) {
-                    GenericValue thisView = alternateViewIter.next();
+                for (GenericValue thisView: alternateViews) {
                     addWeightedDataResourceString(thisView, weight, strings, delegator, product);
                 }
             }
         }
         
-        Iterator<String> strIter = strings.iterator();
-        while (strIter.hasNext()) {
-            String str = strIter.next();
+        for (String str: strings) {
             // call process keywords method here
             KeywordSearchUtil.processKeywordsForIndex(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet);
         }
 
         List<GenericValue> toBeStored = FastList.newInstance();
-        Iterator<Map.Entry<String, Long>> kiter = keywords.entrySet().iterator();
-        while (kiter.hasNext()) {
-            Map.Entry<String, Long> entry = kiter.next();
+        for (Map.Entry<String, Long> entry: keywords.entrySet()) {
             GenericValue productKeyword = delegator.makeValue("ProductKeyword", UtilMisc.toMap("productId", product.getString("productId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
             toBeStored.add(productKeyword);
         }

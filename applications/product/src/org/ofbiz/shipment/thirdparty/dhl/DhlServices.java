@@ -20,7 +20,6 @@ package org.ofbiz.shipment.thirdparty.dhl;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -344,10 +343,9 @@ public class DhlServices {
 
         List<Map<String, String>> chargeList = FastList.newInstance();
         if (UtilValidate.isNotEmpty(chargeNodeList)) {
-            for (int i = 0; chargeNodeList.size() > i; i++) {
+            for (Element responseChargeElement: chargeNodeList) {
                 Map<String, String> charge = FastMap.newInstance();
 
-                Element responseChargeElement = chargeNodeList.get(i);
                 Element responseChargeTypeElement = UtilXml.firstChildElement(
                         responseChargeElement, "Type");
 
@@ -612,9 +610,7 @@ public class DhlServices {
             String width = null;
             String height = null;
             Double packageWeight = null;
-            Iterator<GenericValue> shipmentPackageRouteSegIter = shipmentPackageRouteSegs.iterator();
-            while (shipmentPackageRouteSegIter.hasNext()) {
-                GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegIter.next();
+            for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegs) {
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
                 List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "DHL"), null);
@@ -845,9 +841,7 @@ public class DhlServices {
     private static double getWeight(List<Map<String, Object>> shippableItemInfo) {
         double totalWeight = 0;
         if (shippableItemInfo != null) {
-            Iterator<Map<String, Object>> sii = shippableItemInfo.iterator();
-            while (sii.hasNext()) {
-                Map<String, Object> itemInfo = sii.next();
+            for (Map<String, Object> itemInfo: shippableItemInfo) {
                 double weight = ((Double) itemInfo.get("weight")).doubleValue();
                 totalWeight = totalWeight + weight;
             }
@@ -888,10 +882,8 @@ public class DhlServices {
                 "Faults");
         List<? extends Element> faultElements = UtilXml.childElementList(faultsElement, "Fault");
         if (UtilValidate.isNotEmpty(faultElements)) {
-            Iterator<? extends Element> errorElementIter = faultElements.iterator();
-            while (errorElementIter.hasNext()) {
+            for (Element errorElement: faultElements) {
                 StringBuilder errorMessageBuf = new StringBuilder();
-                Element errorElement = errorElementIter.next();
 
                 String errorCode = UtilXml.childElementValue(errorElement,
                         "Code");

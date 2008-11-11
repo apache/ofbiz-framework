@@ -20,7 +20,6 @@ package org.ofbiz.product.inventory;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -375,9 +374,7 @@ public class InventoryServices {
         
         Debug.log("OOS Inventory Items: " + inventoryItems.size(), module);
         
-        Iterator<GenericValue> itemsIter = inventoryItems.iterator();
-        while (itemsIter.hasNext()) {
-            GenericValue inventoryItem = itemsIter.next();
+        for (GenericValue inventoryItem: inventoryItems) {
             // get the incomming shipment information for the item
             List<GenericValue> shipmentAndItems = null;
             try {
@@ -414,9 +411,7 @@ public class InventoryServices {
             double availableBeforeReserved = inventoryItem.getDouble("availableToPromiseTotal").doubleValue();
             
             // go through all the reservations in order
-            Iterator<GenericValue> ri = reservations.iterator();
-            while (ri.hasNext()) {
-                GenericValue reservation = ri.next();
+            for (GenericValue reservation: reservations) {
                 String orderId = reservation.getString("orderId");
                 String orderItemSeqId = reservation.getString("orderItemSeqId");
                 Timestamp promisedDate = reservation.getTimestamp("promisedDatetime");
@@ -436,9 +431,7 @@ public class InventoryServices {
                 // find the next possible ship date
                 Timestamp nextShipDate = null;
                 double availableAtTime = 0.00;
-                Iterator<GenericValue> si = shipmentAndItems.iterator();
-                while (si.hasNext()) {
-                    GenericValue shipmentItem = si.next();
+                for (GenericValue shipmentItem: shipmentAndItems) {
                     availableAtTime += shipmentItem.getDouble("quantity").doubleValue();
                     if (availableAtTime >= availableBeforeReserved) {
                         nextShipDate = shipmentItem.getTimestamp("estimatedArrivalDate");
@@ -519,11 +512,9 @@ public class InventoryServices {
                
         // all items to cancel will also be in the notify list so start with that
         List<String> ordersToNotify = FastList.newInstance();
-        Set<String> orderSet = ordersToUpdate.keySet();
-        Iterator<String> orderIter = orderSet.iterator();
-        while (orderIter.hasNext()) {
-            String orderId = orderIter.next();
-            Map<String, Timestamp> backOrderedItems = ordersToUpdate.get(orderId);
+        for (Map.Entry<String, Map<String, Timestamp>> entry: ordersToUpdate.entrySet()) {
+            String orderId = entry.getKey();
+            Map<String, Timestamp> backOrderedItems = entry.getValue();
             Map<String, Timestamp> cancelItems = ordersToCancel.get(orderId);
             boolean cancelAll = false;
             Timestamp cancelAllTime = null;
@@ -536,9 +527,7 @@ public class InventoryServices {
                 Debug.logError(e, "Cannot get OrderItemShipGroups from orderId" + orderId, module);
             }
             
-            Iterator<GenericValue> orderItemShipGroupsIter = orderItemShipGroups.iterator();
-            while (orderItemShipGroupsIter.hasNext()) {
-                GenericValue orderItemShipGroup = orderItemShipGroupsIter.next();
+            for (GenericValue orderItemShipGroup: orderItemShipGroups) {
                 List<GenericValue> orderItems = FastList.newInstance();
                 List<GenericValue> orderItemShipGroupAssoc = null;
                 try {                    
@@ -549,9 +538,7 @@ public class InventoryServices {
                                         "orderId",
                                         orderId));
                     
-                    Iterator<GenericValue> assocIter = orderItemShipGroupAssoc.iterator();
-                    while (assocIter.hasNext()) {
-                        GenericValue assoc = assocIter.next();
+                    for (GenericValue assoc: orderItemShipGroupAssoc) {
                         GenericValue orderItem = assoc.getRelatedOne("OrderItem");
                         if (orderItem != null) {
                             orderItems.add(orderItem);
@@ -582,9 +569,7 @@ public class InventoryServices {
                 
                 if (orderItems != null) {            
                     List<GenericValue> toBeStored = FastList.newInstance();
-                    Iterator<GenericValue> orderItemsIter = orderItems.iterator();
-                    while (orderItemsIter.hasNext()) {
-                        GenericValue orderItem = orderItemsIter.next();
+                    for (GenericValue orderItem: orderItems) {
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
                         Timestamp shipDate = (Timestamp) backOrderedItems.get(orderItemSeqId);
                         Timestamp cancelDate = (Timestamp) cancelItems.get(orderItemSeqId);
@@ -624,10 +609,7 @@ public class InventoryServices {
         }
         
         // send off a notification for each order        
-        Iterator<String> orderNotifyIter = ordersToNotify.iterator();
-        while (orderNotifyIter.hasNext()) {                       
-            String orderId = orderNotifyIter.next();                                  
-            
+        for (String orderId: ordersToNotify) {
             try {
                 dispatcher.runAsync("sendOrderBackorderNotification", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
             } catch (GenericServiceException e) {
@@ -658,8 +640,7 @@ public class InventoryServices {
            double minAvailableToPromiseTotal = Double.MAX_VALUE;
            
            // loop through each associated product.  
-           for (int i = 0; productAssocList.size() > i; i++) {
-               GenericValue productAssoc = productAssocList.get(i);
+           for (GenericValue productAssoc: productAssocList) {
                String productIdTo = productAssoc.getString("productIdTo");
                Double assocQuantity = productAssoc.getDouble("quantity");
                
@@ -739,9 +720,7 @@ public class InventoryServices {
         }
 
         // loop through all the order items
-        Iterator<GenericValue> iter = orderItems.iterator();
-        while (iter.hasNext()) {
-            GenericValue orderItem = iter.next();
+        for (GenericValue orderItem: orderItems) {
             String productId = orderItem.getString("productId");
 
             if ((productId == null) || productId.equals("")) continue;
@@ -758,11 +737,9 @@ public class InventoryServices {
             double qoh = 0.0;
             double mktgPkgAtp = 0.0;
             double mktgPkgQoh = 0.0;
-            Iterator<GenericValue> facilityIter = facilities.iterator();
 
             // loop through all the facilities
-            while (facilityIter.hasNext()) {
-                GenericValue facility = facilityIter.next();
+            for (GenericValue facility: facilities) {
                 Map<String, Object> invResult = null;
                 Map<String, Object> mktgPkgInvResult = null;
 
@@ -877,10 +854,8 @@ public class InventoryServices {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Iterator<GenericValue> pricesIt = productPrices.iterator();
         //change this for product price
-        while (pricesIt.hasNext()) {
-            GenericValue onePrice = pricesIt.next();
+        for (GenericValue onePrice: productPrices) {
             if(onePrice.getString("productPriceTypeId").equals("DEFAULT_PRICE")){ //defaultPrice
                 result.put("defultPrice", onePrice.getDouble("price"));
             }else if(onePrice.getString("productPriceTypeId").equals("WHOLESALE_PRICE")){//

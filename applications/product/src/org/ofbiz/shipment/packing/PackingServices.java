@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.shipment.packing;
 
-import java.util.Iterator;
 import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
@@ -96,9 +95,7 @@ public class PackingServices {
         Map<String, String> wgtInfo = UtilGenerics.checkMap(context.get("wgtInfo"));
 
         if (selInfo != null) {
-            Iterator<String> i = selInfo.keySet().iterator();
-            while (i.hasNext()) {
-                String rowKey = i.next();
+            for (String rowKey: selInfo.keySet()) {
                 String orderItemSeqId = iteInfo.get(rowKey);
                 String prdStr = prdInfo.get(rowKey);
                 if (UtilValidate.isEmpty(prdStr)) {
@@ -281,10 +278,9 @@ public class PackingServices {
     public static double setSessionPackageWeights(PackingSession session, Map<String, String> packageWeights) {
         double shippableWeight = 0;
         if (! UtilValidate.isEmpty(packageWeights)) {
-            Iterator<String> pwit = packageWeights.keySet().iterator();
-            while (pwit.hasNext()) {
-                String packageSeqId = pwit.next();
-                String packageWeightStr = packageWeights.get(packageSeqId);
+            for (Map.Entry<String, String> entry: packageWeights.entrySet()) {
+                String packageSeqId = entry.getKey();
+                String packageWeightStr = entry.getValue();
                 if (UtilValidate.isNotEmpty(packageWeightStr)) {
                     double packageWeight = UtilMisc.toDouble(packageWeights.get(packageSeqId));
                     session.setPackageWeight(Integer.parseInt(packageSeqId), Double.valueOf(packageWeight));

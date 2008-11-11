@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.product.feature;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -66,13 +65,9 @@ public class ParametricSearch {
             List<GenericValue> productFeatureCategoryAppls = delegator.findByAndCache("ProductFeatureCategoryAppl", UtilMisc.toMap("productCategoryId", productCategoryId));
             productFeatureCategoryAppls = EntityUtil.filterByDate(productFeatureCategoryAppls, true);
             if (productFeatureCategoryAppls != null) { 
-                Iterator<GenericValue> pfcasIter = productFeatureCategoryAppls.iterator();
-                while (pfcasIter.hasNext()) {
-                    GenericValue productFeatureCategoryAppl = pfcasIter.next();
+                for (GenericValue productFeatureCategoryAppl: productFeatureCategoryAppls) {
                     List<GenericValue> productFeatures = delegator.findByAndCache("ProductFeature", UtilMisc.toMap("productFeatureCategoryId", productFeatureCategoryAppl.get("productFeatureCategoryId")));
-                    Iterator<GenericValue> pfsIter = productFeatures.iterator();
-                    while (pfsIter.hasNext()) {
-                        GenericValue productFeature = pfsIter.next();
+                    for (GenericValue productFeature: productFeatures) {
                         String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
                         Map<String, GenericValue> featuresByType = productFeaturesByTypeMap.get(productFeatureTypeId);
                         if (featuresByType == null) {
@@ -93,13 +88,9 @@ public class ParametricSearch {
             List<GenericValue> productFeatureCatGrpAppls = delegator.findByAndCache("ProductFeatureCatGrpAppl", UtilMisc.toMap("productCategoryId", productCategoryId));
             productFeatureCatGrpAppls = EntityUtil.filterByDate(productFeatureCatGrpAppls, true);
             if (productFeatureCatGrpAppls != null) { 
-                Iterator<GenericValue> pfcgasIter = productFeatureCatGrpAppls.iterator();
-                while (pfcgasIter.hasNext()) {
-                    GenericValue productFeatureCatGrpAppl = pfcgasIter.next();
+                for (GenericValue productFeatureCatGrpAppl: productFeatureCatGrpAppls) {
                     List<GenericValue> productFeatureGroupAppls = delegator.findByAndCache("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", productFeatureCatGrpAppl.get("productFeatureGroupId")));
-                    Iterator<GenericValue> pfgaasIter = productFeatureGroupAppls.iterator();
-                    while (pfgaasIter.hasNext()) {
-                        GenericValue productFeatureGroupAppl = pfgaasIter.next();
+                    for (GenericValue productFeatureGroupAppl: productFeatureGroupAppls) {
                         GenericValue productFeature = delegator.findByPrimaryKeyCache("ProductFeature", UtilMisc.toMap("productFeatureId", productFeatureGroupAppl.get("productFeatureId")));
                         
                         String productFeatureTypeId = productFeature.getString("productFeatureTypeId");
@@ -120,9 +111,7 @@ public class ParametricSearch {
            
         // now before returning, order the features in each list by description
         Map<String, List<GenericValue>> productFeaturesByTypeMapSorted = FastMap.newInstance();
-        Iterator<Map.Entry<String, Map<String, GenericValue>>> productFeatureTypeEntries = productFeaturesByTypeMap.entrySet().iterator();
-        while (productFeatureTypeEntries.hasNext()) {
-            Map.Entry<String, Map<String, GenericValue>> entry = productFeatureTypeEntries.next();
+        for (Map.Entry<String, Map<String, GenericValue>> entry: productFeaturesByTypeMap.entrySet()) {
             List<GenericValue> sortedFeatures = EntityUtil.orderBy(entry.getValue().values(), UtilMisc.toList("description"));
             productFeaturesByTypeMapSorted.put(entry.getKey(), sortedFeatures);
         }
@@ -173,12 +162,11 @@ public class ParametricSearch {
         if (parameters == null) return featureIdByType;
         
 
-        Iterator<String> parameterNameIter = parameters.keySet().iterator();
-        while (parameterNameIter.hasNext()) {
-            String parameterName = parameterNameIter.next();
+        for (Map.Entry<String, Object> entry: parameters.entrySet()) {
+            String parameterName = entry.getKey();
             if (parameterName.startsWith("pft_")) {
                 String productFeatureTypeId = parameterName.substring(4);
-                String productFeatureId = (String) parameters.get(parameterName);
+                String productFeatureId = (String) entry.getValue();
                 if (productFeatureId != null && productFeatureId.length() > 0) {
                     featureIdByType.put(productFeatureTypeId, productFeatureId);
                 }
@@ -193,11 +181,10 @@ public class ParametricSearch {
         List<String> featureIdList = FastList.newInstance();
         if (parameters == null) return featureIdList;
         
-        Iterator<String> parameterNameIter = parameters.keySet().iterator();
-        while (parameterNameIter.hasNext()) {
-            String parameterName = parameterNameIter.next();
+        for (Map.Entry<String, Object> entry: parameters.entrySet()) {
+            String parameterName = entry.getKey();
             if (parameterName.startsWith("SEARCH_FEAT")) {
-                String productFeatureId = (String) parameters.get(parameterName);
+                String productFeatureId = (String) entry.getValue();
                 if (productFeatureId != null && productFeatureId.length() > 0) {
                     featureIdList.add(productFeatureId);
                 }
@@ -213,9 +200,7 @@ public class ParametricSearch {
         }
         
         StringBuilder outSb = new StringBuilder();
-        Iterator<Map.Entry<String, String>> fbtIter = featureIdByType.entrySet().iterator();
-        while (fbtIter.hasNext()) {
-            Map.Entry<String, String> entry = fbtIter.next();
+        for (Map.Entry<String, String> entry: featureIdByType.entrySet()) {
             if (outSb.length() > 0) {
                 outSb.append('&');
             }
@@ -238,11 +223,10 @@ public class ParametricSearch {
         List<String> prodFeatureCategoryIdList = FastList.newInstance();
         if (parameters == null) return prodFeatureCategoryIdList;
         
-        Iterator<String> parameterNameIter = parameters.keySet().iterator();
-        while (parameterNameIter.hasNext()) {
-            String parameterName = parameterNameIter.next();
+        for (Map.Entry<String, Object> entry: parameters.entrySet()) {
+            String parameterName = entry.getKey();
             if (parameterName.startsWith("SEARCH_PROD_FEAT_CAT")) {
-                String productFeatureCategoryId = (String) parameters.get(parameterName);
+                String productFeatureCategoryId = (String) entry.getValue();
                 if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {
                    prodFeatureCategoryIdList.add(productFeatureCategoryId);
                 }

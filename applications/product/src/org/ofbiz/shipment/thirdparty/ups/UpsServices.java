@@ -76,9 +76,7 @@ public class UpsServices {
         unitsUpsToOfbiz.put("LBS", "WT_lb");
         unitsUpsToOfbiz.put("KGS", "WT_kg");
         
-        Iterator<Map.Entry<String, String>> unitsUpsToOfbizIter = unitsUpsToOfbiz.entrySet().iterator();
-        while (unitsUpsToOfbizIter.hasNext()) {
-            Map.Entry<String, String> entry = unitsUpsToOfbizIter.next();
+        for (Map.Entry<String, String> entry: unitsUpsToOfbiz.entrySet()) {
             unitsOfbizToUps.put(entry.getValue(), entry.getKey());
         }
     }
@@ -190,21 +188,17 @@ public class UpsServices {
             
             List<GenericValue> itemIssuances = shipment.getRelated("ItemIssuance");
             Set<String> orderIdSet = new TreeSet<String>();
-            Iterator<GenericValue> itemIssuanceIter = itemIssuances.iterator();
-            while (itemIssuanceIter.hasNext()) {
-                GenericValue itemIssuance = itemIssuanceIter.next();
+            for (GenericValue itemIssuance: itemIssuances) {
                 orderIdSet.add(itemIssuance.getString("orderId"));
             }
             String ordersDescription = "";
             if (orderIdSet.size() > 1) {
                 StringBuilder odBuf = new StringBuilder("Orders ");
-                Iterator<String> orderIdIter = orderIdSet.iterator();
-                while (orderIdIter.hasNext()) {
-                    String orderId = orderIdIter.next();
-                    odBuf.append(orderId);
-                    if (orderIdIter.hasNext()) {
+                for (String orderId: orderIdSet) {
+                    if (odBuf.length() > 0) {
                         odBuf.append(", ");
                     }
+                    odBuf.append(orderId);
                 }
                 ordersDescription = odBuf.toString();
             } else if (orderIdSet.size() > 0) {
@@ -964,9 +958,7 @@ public class UpsServices {
             // now process the PackageResults elements
             List<? extends Element> packageResultsElements = UtilXml.childElementList(shipmentResultsElement, "PackageResults");
             Iterator<GenericValue> shipmentPackageRouteSegIter = shipmentPackageRouteSegs.iterator();
-            Iterator<? extends Element> packageResultsElementIter = packageResultsElements.iterator();
-            while (packageResultsElementIter.hasNext()) {
-                Element packageResultsElement = packageResultsElementIter.next();
+            for (Element packageResultsElement: packageResultsElements) {
                     
                 String trackingNumber = UtilXml.childElementValue(packageResultsElement, "TrackingNumber");
 
@@ -1437,9 +1429,7 @@ public class UpsServices {
             String shipmentIdentificationNumber = UtilXml.childElementValue(shipmentElement, "ShipmentIdentificationNumber");
                 
             List<? extends Element> packageElements = UtilXml.childElementList(shipmentElement, "Package");
-            Iterator<? extends Element> packageElementIter = packageElements.iterator();
-            while (packageElementIter.hasNext()) {
-                Element packageElement = packageElementIter.next();
+            for (Element packageElement: packageElements) {
             }
 /*
         <Package>
@@ -1562,9 +1552,7 @@ public class UpsServices {
     private static void splitEstimatePackages(Document requestDoc, Element shipmentElement, List<Map<String, Object>> shippableItemInfo, double maxWeight, double minWeight) {
         List<Map<String, Double>> packages = getPackageSplit(shippableItemInfo, maxWeight);
         if (UtilValidate.isNotEmpty(packages)) {
-            Iterator<Map<String, Double>> i = packages.iterator();
-            while (i.hasNext()) {
-                Map<String, Double> packageMap = i.next();
+            for (Map<String, Double> packageMap: packages) {
                 addPackageElement(requestDoc, shipmentElement, shippableItemInfo, packageMap, minWeight);
             }
         } else {
@@ -1630,9 +1618,7 @@ public class UpsServices {
         List<Map<String, Double>> packages = FastList.newInstance();
 
         if (shippableItemInfo != null) {
-            Iterator<Map<String, Object>> sii = shippableItemInfo.iterator();
-            while (sii.hasNext()) {
-                Map<String, Object> itemInfo = sii.next();
+            for (Map<String, Object> itemInfo: shippableItemInfo) {
                 long pieces = ((Long) itemInfo.get("piecesIncluded")).longValue();
                 double totalQuantity = ((Double) itemInfo.get("quantity")).doubleValue();
                 double totalWeight = ((Double) itemInfo.get("weight")).doubleValue();
@@ -1664,9 +1650,8 @@ public class UpsServices {
                             // package loop
                             int packageSize = packages.size();
                             boolean addedToPackage = false;
-                            for (int pi = 0; pi < packageSize; pi++) {
+                            for (Map<String, Double> packageMap: packages) {
                                 if (!addedToPackage) {
-                                    Map<String, Double> packageMap = packages.get(pi);
                                     double packageWeight = calcPackageWeight(packageMap, shippableItemInfo, weight);
                                     if (packageWeight <= maxWeight) {
                                         Double qtyD = (Double) packageMap.get(productId);
@@ -1691,12 +1676,11 @@ public class UpsServices {
 
     private static double calcPackageWeight(Map<String, Double> packageMap, List<Map<String, Object>> shippableItemInfo, double additionalWeight) {
         double totalWeight = 0.00;
-        Iterator<String> i = packageMap.keySet().iterator();
-        while (i.hasNext()) {
-            String productId = i.next();
+        for (Map.Entry<String, Double> entry: packageMap.entrySet()) {
+            String productId = entry.getKey();
             Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
             double productWeight = ((Double) productInfo.get("weight")).doubleValue();
-            double quantity = packageMap.get(productId).doubleValue();
+            double quantity = entry.getValue().doubleValue();
             totalWeight += (productWeight * quantity);
         }
         return totalWeight + additionalWeight;
@@ -1704,9 +1688,7 @@ public class UpsServices {
 
     private static Map<String, Object> getProductItemInfo(List<Map<String, Object>> shippableItemInfo, String productId) {
         if (shippableItemInfo != null) {
-            Iterator<Map<String, Object>> i = shippableItemInfo.iterator();
-            while (i.hasNext()) {
-                Map<String, Object> testMap = i.next();
+            for (Map<String, Object> testMap: shippableItemInfo) {
                 String id = (String) testMap.get("productId");
                 if (productId.equals(id)) {
                     return testMap;
@@ -1738,10 +1720,7 @@ public class UpsServices {
             if (rates == null || rates.size() == 0) {
                 return ServiceUtil.returnError("No rates available at this time");
             } else {
-                Iterator<? extends Element> i = rates.iterator();
-                while (i.hasNext()) {
-                    Element element = i.next();
-
+                for (Element element: rates) {
                     // get service
                     Element service = UtilXml.firstChildElement(element, "Service");
                     String serviceCode = UtilXml.childElementValue(service, "Code");
@@ -1784,10 +1763,8 @@ public class UpsServices {
 
     public static void handleErrors(Element responseElement, List<Object> errorList) {
         List<? extends Element> errorElements = UtilXml.childElementList(responseElement, "Error");
-        Iterator<? extends Element> errorElementIter = errorElements.iterator();
-        while (errorElementIter.hasNext()) {
+        for (Element errorElement: errorElements) {
             StringBuilder errorMessageBuf = new StringBuilder();
-            Element errorElement = errorElementIter.next();
 
             String errorSeverity = UtilXml.childElementValue(errorElement, "ErrorSeverity");
             String errorCode = UtilXml.childElementValue(errorElement, "ErrorCode");
@@ -1809,9 +1786,7 @@ public class UpsServices {
             }
 
             List<? extends Element> errorLocationElements = UtilXml.childElementList(errorElement, "ErrorLocation");
-            Iterator<? extends Element> errorLocationElementIter = errorLocationElements.iterator();
-            while (errorLocationElementIter.hasNext()) {
-                Element errorLocationElement = errorLocationElementIter.next();
+            for (Element errorLocationElement: errorLocationElements) {
                 String errorLocationElementName = UtilXml.childElementValue(errorLocationElement, "ErrorLocationElementName");
                 String errorLocationAttributeName = UtilXml.childElementValue(errorLocationElement, "ErrorLocationAttributeName");
 
@@ -1826,9 +1801,7 @@ public class UpsServices {
                 }
 
                 List<? extends Element> errorDigestElements = UtilXml.childElementList(errorLocationElement, "ErrorDigest");
-                Iterator<? extends Element> errorDigestElementIter = errorDigestElements.iterator();
-                while (errorDigestElementIter.hasNext()) {
-                    Element errorDigestElement = errorDigestElementIter.next();
+                for (Element errorDigestElement: errorDigestElements) {
                     errorMessageBuf.append(" full text: [");
                     errorMessageBuf.append(UtilXml.elementValue(errorDigestElement));
                     errorMessageBuf.append("]");
@@ -2053,9 +2026,7 @@ public class UpsServices {
                         
             splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight, minWeight);
         } else {
-            Iterator<Double> i = packageWeights.iterator();
-            while (i.hasNext()) {
-                Double packageWeight = i.next();
+            for (Double packageWeight: packageWeights) {
                 addPackageElement(rateRequestDoc,  shipmentElement, packageWeight);
             }
         }
@@ -2228,10 +2199,7 @@ public class UpsServices {
             List<? extends Element> avResultList = UtilXml.childElementList(avResponseElement, "AddressValidationResult");
             // TODO: return error if there are no matches?
             if (UtilValidate.isNotEmpty(avResultList)) {
-                Iterator<? extends Element> i = avResultList.iterator();
-                while (i.hasNext()) {
-                    Element avResultElement = i.next();
-
+                for (Element avResultElement: avResultList) {
                     Map<String, String> match = FastMap.newInstance();
 
                     match.put("Rank", UtilXml.childElementValue(avResultElement, "Rank"));

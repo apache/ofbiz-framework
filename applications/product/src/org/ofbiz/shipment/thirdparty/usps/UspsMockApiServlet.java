@@ -22,7 +22,6 @@ package org.ofbiz.shipment.thirdparty.usps;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -95,9 +94,7 @@ public class UspsMockApiServlet extends HttpServlet {
         if (UtilValidate.isNotEmpty(packageElementList)) {
 
             Document responseDocument = UtilXml.makeEmptyXmlDocument("RateResponse");
-            for (Iterator<? extends Element> i = packageElementList.iterator(); i.hasNext();) {
-                Element packageElement = i.next();
-
+            for (Element packageElement: packageElementList) {
                 Element responsePackageElement =
                         UtilXml.addChildElement(responseDocument.getDocumentElement(), "Package", responseDocument);
                 responsePackageElement.setAttribute("ID", packageElement.getAttribute("ID"));

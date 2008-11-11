@@ -20,7 +20,6 @@
 package org.ofbiz.product.inventory;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -78,8 +77,7 @@ public class InventoryWorker {
         if (UtilValidate.isEmpty(purchaseOrders)) {
             return qty;
         } else {
-            for (Iterator<GenericValue> pOi = purchaseOrders.iterator(); pOi.hasNext();) {
-                GenericValue nextOrder = pOi.next();
+            for (GenericValue nextOrder: purchaseOrders) {
                 if (nextOrder.get("quantity") != null) {
                     double itemQuantity = nextOrder.getDouble("quantity").doubleValue();
                     double cancelQuantity = 0.0;
@@ -125,8 +123,7 @@ public class InventoryWorker {
         Map<String, Double> results = FastMap.newInstance();
         try {
             List<GenericValue> orderedProducts = delegator.findList("OrderItemQuantityReportGroupByProduct", conditions, fieldsToSelect, null, null, false);
-            for (Iterator<GenericValue> iter = orderedProducts.iterator(); iter.hasNext(); ) {
-                GenericValue value = iter.next();
+            for (GenericValue value: orderedProducts) {
                 results.put(value.getString("productId"), value.getDouble("quantityOpen"));
             }
         } catch (GenericEntityException e) {

@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.product.config;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -106,10 +105,10 @@ public class ProductConfigWorker {
                 }
                 continue;
             }
-            for (int h = 0; h < opts.length; h++) {
+            for (String opt: opts) {
                 int cnt = -1;
                 try {
-                    cnt = Integer.parseInt(opts[h]);
+                    cnt = Integer.parseInt(opt);
                     String comments = null;
                     ProductConfigWrapper.ConfigItem question = (ProductConfigWrapper.ConfigItem) configWrapper.getQuestions().get(k);
                     if (question.isSingleChoice()) {
@@ -186,18 +185,15 @@ public class ProductConfigWorker {
         List<ConfigItem> questions = configWrapper.getQuestions();
         List<GenericValue> configsToCheck = FastList.newInstance();
         int selectedOptionSize = 0;
-        for (int i = 0; i < questions.size(); i++) {
+        for (ConfigItem ci: questions) {
             String configItemId = null;
             Long sequenceNum = null;
             List<ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();        
-            ConfigItem ci = questions.get(i);
             List<ConfigOption> options = ci.getOptions();
             if (ci.isStandard()) {
                 selectedOptions.addAll(options);
             } else {
-                Iterator<ConfigOption> availOptions = options.iterator();
-                while (availOptions.hasNext()) {
-                    ConfigOption oneOption = availOptions.next();
+                for (ConfigOption oneOption: options) {
                     if (oneOption.isSelected()) {
                         selectedOptions.add(oneOption);
                     }
@@ -210,12 +206,8 @@ public class ProductConfigWorker {
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
                 try {
                     List<GenericValue> configs = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configItemId",configItemId,"sequenceNum", sequenceNum));
-                    Iterator<GenericValue> configIt = configs.iterator();
-                    while (configIt.hasNext()) {
-                        GenericValue productConfigConfig = configIt.next();
-                        Iterator<ConfigOption> selOpIt = selectedOptions.iterator();
-                        while (selOpIt.hasNext()) {
-                            ConfigOption oneOption = selOpIt.next();
+                    for (GenericValue productConfigConfig: configs) {
+                        for (ConfigOption oneOption: selectedOptions) {
                             String configOptionId = oneOption.configOption.getString("configOptionId");                            
                             if (productConfigConfig.getString("configOptionId").equals(configOptionId)) {
                                 String comments = oneOption.getComments() != null ? oneOption.getComments() : "";
@@ -233,9 +225,7 @@ public class ProductConfigWorker {
             }  
         }
         if (UtilValidate.isNotEmpty(configsToCheck)) {
-            Iterator<GenericValue> ctci = configsToCheck.iterator();
-            while (ctci.hasNext()) {
-                GenericValue productConfigConfig =  ctci.next();
+            for (GenericValue productConfigConfig: configsToCheck) {
                 String tempConfigId = productConfigConfig.getString("configId");
                 try {
                     List<GenericValue> tempResult = delegator.findByAnd("ProductConfigConfig", UtilMisc.toMap("configId",tempConfigId));
@@ -244,18 +234,15 @@ public class ProductConfigWorker {
                         if (UtilValidate.isNotEmpty(configOptionProductOptions)) {
                             
                             //  check for variant product equality
-                            for (int i = 0; i < questions.size(); i++) {
+                            for (ConfigItem ci: questions) {
                                 String configItemId = null;
                                 Long sequenceNum = null;
                                 List<ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();        
-                                ConfigItem ci = questions.get(i);
                                 List<ConfigOption> options = ci.getOptions();
                                 if (ci.isStandard()) {
                                     selectedOptions.addAll(options);
                                 } else {
-                                    Iterator<ConfigOption> availOptions = options.iterator();
-                                    while (availOptions.hasNext()) {
-                                        ConfigOption oneOption = availOptions.next();
+                                    for (ConfigOption oneOption: options) {
                                         if (oneOption.isSelected()) {
                                             selectedOptions.add(oneOption);
                                         }
@@ -313,18 +300,15 @@ public class ProductConfigWorker {
         
         //Current configuration is not found in ProductConfigConfig entity. So lets store this one
         boolean nextId = true;
-        for (int i = 0; i < questions.size(); i++) {
+        for (ConfigItem ci: questions) {
             String configItemId = null;
             Long sequenceNum = null;
             List<ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();        
-            ConfigItem ci = questions.get(i);
             List<ConfigOption> options = ci.getOptions();
            if (ci.isStandard()) {
                 selectedOptions.addAll(options);
             } else {
-                Iterator<ConfigOption> availOptions = options.iterator();
-                while (availOptions.hasNext()) {
-                    ConfigOption oneOption = availOptions.next();
+                for (ConfigOption oneOption: options) {
                     if (oneOption.isSelected()) {
                         selectedOptions.add(oneOption);
                     }
@@ -339,10 +323,8 @@ public class ProductConfigWorker {
                 }
                 configItemId = ci.getConfigItemAssoc().getString("configItemId");
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
-                Iterator<ConfigOption> selOpIt = selectedOptions.iterator();
-                while (selOpIt.hasNext()) {
+                for (ConfigOption oneOption: selectedOptions) {
                     List<GenericValue> toBeStored = FastList.newInstance();
-                    ConfigOption oneOption = selOpIt.next();
                     String configOptionId = oneOption.configOption.getString("configOptionId");
                     String description = oneOption.getComments();
                     GenericValue productConfigConfig = delegator.makeValue("ProductConfigConfig");
@@ -355,8 +337,7 @@ public class ProductConfigWorker {
 
                     if (oneOption.hasVirtualComponent()) {                        
                         List<GenericValue> components = oneOption.getComponents(); 
-                        for (int j = 0; j < components.size(); j++) {       
-                            GenericValue component = (GenericValue)components.get(j);
+                        for (GenericValue component: components) {
                             if (oneOption.isVirtualComponent(component)) {
                                 String componentOption = (String)oneOption.componentOptions.get(component.getString("productId"));                                
                                 GenericValue configOptionProductOption = delegator.makeValue("ConfigOptionProductOption");

@@ -81,18 +81,13 @@ public class ProductServices {
         // All the variants for this products are retrieved
         Map<String, Object> resVariants = prodFindAllVariants(dctx, context);
         List<GenericValue> variants = UtilGenerics.checkList(resVariants.get("assocProducts"));
-        GenericValue oneVariant = null;
-        Iterator<GenericValue> variantsIt = variants.iterator();
-        while (variantsIt.hasNext()) {
-            oneVariant = variantsIt.next();
+        for (GenericValue oneVariant: variants) {
             // For every variant, all the standard features are retrieved
             Map<String, String> feaContext = FastMap.newInstance();
             feaContext.put("productId", oneVariant.getString("productIdTo"));
             feaContext.put("type", "STANDARD_FEATURE");
             Map<String, Object> resFeatures = prodGetFeatures(dctx, feaContext);
             List<GenericValue> features = UtilGenerics.checkList(resFeatures.get("productFeatures"));
-            Iterator<GenericValue> featuresIt = features.iterator();
-            GenericValue oneFeature = null;
             boolean variantFound = true;
             // The variant is discarded if at least one of its standard features 
             // has the same type of one of the selected features but a different feature id.
@@ -102,8 +97,7 @@ public class ProductServices {
             // Variant2: (COLOR, Black), (SIZE, Small) --> ok
             // Variant3: (COLOR, Black), (SIZE, Small), (IMAGE, SkyLine) --> ok
             // Variant4: (COLOR, Black), (IMAGE, SkyLine) --> ok
-            while (featuresIt.hasNext()) {
-                oneFeature = featuresIt.next();
+            for (GenericValue oneFeature: features) {
                 if (selectedFeatures.containsKey(oneFeature.getString("productFeatureTypeId"))) {
                     if (!selectedFeatures.containsValue(oneFeature.getString("productFeatureId"))) {
                         variantFound = false;
@@ -156,9 +150,8 @@ public class ProductServices {
             Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE");
             List<String> order = UtilMisc.toList("sequenceNum", "productFeatureTypeId");
             List<GenericValue> features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
-            Iterator<GenericValue> i = features.iterator();
-            while (i.hasNext()) {
-                featureSet.add(i.next().getString("productFeatureTypeId"));
+            for (GenericValue v: features) {
+                featureSet.add(v.getString("productFeatureTypeId"));
             }
             //if (Debug.infoOn()) Debug.logInfo("" + featureSet, module);
         } catch (GenericEntityException e) {
@@ -205,10 +198,9 @@ public class ProductServices {
             return ServiceUtil.returnSuccess();
         }
         List<String> items = FastList.newInstance();
-        Iterator<GenericValue> i = variants.iterator();
 
-        while (i.hasNext()) {
-            String productIdTo = i.next().getString("productIdTo");
+        for (GenericValue variant: variants) {
+            String productIdTo = variant.getString("productIdTo");
 
             // first check to see if intro and discontinue dates are within range
             GenericValue productTo = null;
@@ -282,10 +274,7 @@ public class ProductServices {
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,"productservices.empty_list_of_selectable_features_found", locale));
         }
         Map<String, List<String>> features = FastMap.newInstance();
-        Iterator<GenericValue> sFIt = selectableFeatures.iterator();
-
-        while (sFIt.hasNext()) {
-            GenericValue v = sFIt.next();
+        for (GenericValue v: selectableFeatures) {
             String featureType = v.getString("productFeatureTypeId");
             String feature = v.getString("description");
 
@@ -520,13 +509,10 @@ public class ProductServices {
         }
 
         // loop through items and make the lists
-        Iterator<String> itemIterator = items.iterator();
-
-        while (itemIterator.hasNext()) {
+        for (String thisItem: items) {
             // -------------------------------
             // Gather the necessary data
             // -------------------------------
-            String thisItem = itemIterator.next();
 
             if (Debug.verboseOn()) Debug.logVerbose("ThisItem: " + thisItem, module);
             List<GenericValue> features = null;
@@ -545,10 +531,7 @@ public class ProductServices {
             if (Debug.verboseOn()) Debug.logVerbose("Features: " + features, module);
 
             // -------------------------------
-            Iterator<GenericValue> featuresIterator = features.iterator();
-
-            while (featuresIterator.hasNext()) {
-                GenericValue item = featuresIterator.next();
+            for (GenericValue item: features) {
                 String itemKey = item.getString("description");
 
                 if (tempGroup.containsKey(itemKey)) {
@@ -572,11 +555,7 @@ public class ProductServices {
             throw new IllegalArgumentException("Cannot build feature tree: orderFeatureList is null for orderKey=" + orderKey);
         }
 
-        Iterator<String> featureListIt = orderFeatureList.iterator();
-
-        while (featureListIt.hasNext()) {
-            String featureStr = featureListIt.next();
-
+        for (String featureStr: orderFeatureList) {
             if (tempGroup.containsKey(featureStr))
                 group.put(featureStr, tempGroup.get(featureStr));
         }
@@ -594,9 +573,7 @@ public class ProductServices {
         }
 
         // loop through the keysets and get the sub-groups
-        Iterator<String> groupIterator = group.keySet().iterator();
-        while (groupIterator.hasNext()) {
-            String key = groupIterator.next();
+        for (String key: group.keySet()) {
             List<String> itemList = UtilGenerics.checkList(group.get(key));
 
             if (UtilValidate.isNotEmpty(itemList)) {
@@ -614,10 +591,7 @@ public class ProductServices {
     private static Map<String, GenericValue> makeVariantSample(GenericDelegator delegator, Map<String, List<String>> featureList, List<String> items, String feature) {
         Map<String, GenericValue> tempSample = FastMap.newInstance();
         Map<String, GenericValue> sample = new LinkedHashMap<String, GenericValue>();
-        Iterator<String> itemIt = items.iterator();
-
-        while (itemIt.hasNext()) {
-            String productId = itemIt.next();
+        for (String productId: items) {
             List<GenericValue> features = null;
 
             try {
@@ -631,11 +605,7 @@ public class ProductServices {
             } catch (GenericEntityException e) {
                 throw new IllegalStateException("Problem reading relation: " + e.getMessage());
             }
-            Iterator<GenericValue> featureIt = features.iterator();
-
-            while (featureIt.hasNext()) {
-                GenericValue featureAppl = featureIt.next();
-
+            for (GenericValue featureAppl: features) {
                 try {
                     GenericValue product = delegator.findByPrimaryKeyCache("Product",
                             UtilMisc.toMap("productId", productId));
@@ -649,11 +619,7 @@ public class ProductServices {
 
         // Sort the sample based on the feature list.
         List<String> features = featureList.get(feature);
-        Iterator<String> fi = features.iterator();
-
-        while (fi.hasNext()) {
-            String f = fi.next();
-
+        for (String f: features) {
             if (tempSample.containsKey(f))
                 sample.put(f, tempSample.get(f));
         }
@@ -801,9 +767,7 @@ public class ProductServices {
             //note: should support both direct productIds and GoodIdentification entries (what to do if more than one GoodID? Add all?
 
             Map<String, GenericValue> variantProductsById = FastMap.newInstance();
-            Iterator<String> variantProductIdIter = prelimVariantProductIds.iterator();
-            while (variantProductIdIter.hasNext()) {
-                String variantProductId = variantProductIdIter.next();
+            for (String variantProductId: prelimVariantProductIds) {
                 if (UtilValidate.isEmpty(variantProductId)) {
                     // not sure why this happens, but seems to from time to time with the split method
                     continue;
@@ -825,9 +789,7 @@ public class ProductServices {
                         Debug.logWarning("Warning creating a virtual with variants: the ID [" + variantProductId + "] was not a productId and resulted in [" + goodIdentificationList.size() + "] GoodIdentification records: " + goodIdentificationList, module);
                     }
                     
-                    Iterator<GenericValue> goodIdentificationIter = goodIdentificationList.iterator();
-                    while (goodIdentificationIter.hasNext()) {
-                        GenericValue goodIdentification = goodIdentificationIter.next();
+                    for (GenericValue goodIdentification: goodIdentificationList) {
                         GenericValue giProduct = goodIdentification.getRelatedOne("Product");
                         if (giProduct != null) {
                             variantProductsById.put(giProduct.getString("productId"), giProduct);
@@ -845,12 +807,8 @@ public class ProductServices {
             productFeatureIds.add(productFeatureIdTwo);
             productFeatureIds.add(productFeatureIdThree);
             
-            Iterator<String> featureProductIdIter = featureProductIds.iterator();
-            while (featureProductIdIter.hasNext()) {
-                Iterator<String> productFeatureIdIter = productFeatureIds.iterator();
-                String featureProductId = featureProductIdIter.next();
-                while (productFeatureIdIter.hasNext()) {
-                    String productFeatureId = productFeatureIdIter.next();
+            for (String featureProductId: featureProductIds) {
+                for (String productFeatureId: productFeatureIds) {
                     if (UtilValidate.isNotEmpty(productFeatureId)) {
                         GenericValue productFeatureAppl = delegator.makeValue("ProductFeatureAppl", 
                                 UtilMisc.toMap("productId", featureProductId, "productFeatureId", productFeatureId,
@@ -860,10 +818,8 @@ public class ProductServices {
                 }
             }
             
-            Iterator<GenericValue> variantProductIter = variantProductsById.values().iterator();
-            while (variantProductIter.hasNext()) {
+            for (GenericValue variantProduct: variantProductsById.values()) {
                 // for each variant product set: isVirtual=N, isVariant=Y, introductionDate=now
-                GenericValue variantProduct = variantProductIter.next();
                 variantProduct.set("isVirtual", "N");
                 variantProduct.set("isVariant", "Y");
                 variantProduct.set("introductionDate", nowTimestamp);

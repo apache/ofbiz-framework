@@ -20,7 +20,6 @@ package org.ofbiz.product.subscription;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -188,9 +187,7 @@ public class SubscriptionServices {
                 return ServiceUtil.returnError(msg); 
             }
 
-            Iterator<GenericValue> productSubscriptionResourceIter = productSubscriptionResourceList.iterator();
-            while (productSubscriptionResourceIter.hasNext()) {
-                GenericValue productSubscriptionResource = productSubscriptionResourceIter.next();
+            for (GenericValue productSubscriptionResource: productSubscriptionResourceList) {
                 Long useTime = productSubscriptionResource.getLong("useTime");
                 Integer newUseTime = Integer.valueOf(0);
                 if (useTime != null) {
@@ -246,9 +243,7 @@ public class SubscriptionServices {
             Timestamp orderCreatedDate = (Timestamp) orderHeader.get("orderDate");
             subContext.put("orderCreatedDate", orderCreatedDate);
             List<GenericValue> orderItemList = orderHeader.getRelated("OrderItem");
-            Iterator<GenericValue> orderItemIter = orderItemList.iterator();
-            while (orderItemIter.hasNext()) {
-                GenericValue orderItem = orderItemIter.next();   
+            for (GenericValue orderItem: orderItemList) {
                 Double qty = orderItem.getDouble("quantity");
                 String productId = orderItem.getString("productId");
                 if (UtilValidate.isEmpty(productId)) {

@@ -20,7 +20,6 @@ package org.ofbiz.shipment.picklist;
 
 import java.util.Map;
 import java.util.List;
-import java.util.Iterator;
 
 import javolution.util.FastList;
 
@@ -61,9 +60,7 @@ public class PickListServices {
                 conditionList2.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
 
                 // build the expression list from the IDs
-                Iterator<String> i = orderIdList.iterator();
-                while (i.hasNext()) {
-                    String orderId = i.next();
+                for (String orderId: orderIdList) {
                     conditionList1.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
                 }
 
@@ -101,9 +98,7 @@ public class PickListServices {
         }
 
         if (!UtilValidate.isEmpty(items)) {
-            Iterator<GenericValue> i = items.iterator();
-            while (i.hasNext()) {
-                GenericValue v = i.next();
+            for (GenericValue v: items) {
                 String itemStatus = v.getString("itemStatusId");
                 if (itemStatus != null) {
                     if (!"PICKITEM_COMPLETED".equals(itemStatus)) {

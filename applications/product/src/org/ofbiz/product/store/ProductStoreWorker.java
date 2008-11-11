@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.product.store;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -225,10 +224,7 @@ public class ProductStoreWorker {
         List<GenericValue> returnShippingMethods = UtilMisc.makeListWritable(shippingMethods);
 
         if (shippingMethods != null) {
-            Iterator<GenericValue> i = shippingMethods.iterator();
-            while (i.hasNext()) {
-                GenericValue method = i.next();
-                //Debug.logInfo("Checking Shipping Method : " + method.getString("shipmentMethodTypeId"), module);
+            for (GenericValue method: shippingMethods) {
 
                 // test min/max weight first
                 Double minWeight = method.getDouble("minWeight");
@@ -265,9 +261,7 @@ public class ProductStoreWorker {
                     boolean allMatch = false;
                     if (itemSizes != null) {
                         allMatch = true;
-                        Iterator<Double> isi = itemSizes.iterator();
-                        while (isi.hasNext()) {
-                            Double size = isi.next();
+                        for (Double size: itemSizes) {
                             if (size.doubleValue() < minSize.doubleValue()) {
                                 allMatch = false;
                             }
@@ -283,9 +277,7 @@ public class ProductStoreWorker {
                     boolean allMatch = false;
                     if (itemSizes != null) {
                         allMatch = true;
-                        Iterator<Double> isi = itemSizes.iterator();
-                        while (isi.hasNext()) {
-                            Double size = isi.next();
+                        for (Double size: itemSizes) {
                             if (size.doubleValue() > maxSize.doubleValue()) {
                                 allMatch = false;
                             }
@@ -384,9 +376,7 @@ public class ProductStoreWorker {
                     }
                     if (includedFeatures != null) {
                         boolean foundOne = false;
-                        Iterator<GenericValue> ifet = includedFeatures.iterator();
-                        while (ifet.hasNext()) {
-                            GenericValue appl = ifet.next();
+                        for (GenericValue appl: includedFeatures) {
                             if (featureIdMap.containsKey(appl.getString("productFeatureId"))) {
                                 foundOne = true;
                                 break;
@@ -407,9 +397,7 @@ public class ProductStoreWorker {
                         Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + excludeFeatures, module);
                     }
                     if (excludedFeatures != null) {
-                        Iterator<GenericValue> ifet = excludedFeatures.iterator();
-                        while (ifet.hasNext()) {
-                            GenericValue appl = ifet.next();
+                        for (GenericValue appl: excludedFeatures) {
                             if (featureIdMap.containsKey(appl.getString("productFeatureId"))) {
                                 returnShippingMethods.remove(method);
                                 //Debug.logInfo("Removed shipping method due to an exluded feature being found : " + appl.getString("productFeatureId"), module);
@@ -483,9 +471,7 @@ public class ProductStoreWorker {
          Debug.log("getSurvey for product " + productId,module);
         // limit by product
         if (!UtilValidate.isEmpty(productId) && !UtilValidate.isEmpty(storeSurveys)) {
-            Iterator<GenericValue> ssi = storeSurveys.iterator();
-            while (ssi.hasNext()) {
-                GenericValue surveyAppl = ssi.next();
+            for (GenericValue surveyAppl: storeSurveys) {
                 GenericValue product = null;
                 String virtualProductId = null;
 
@@ -520,9 +506,7 @@ public class ProductStoreWorker {
                         Debug.logError(e, "Unable to get ProductCategoryMemebr records for survey application : " + surveyAppl, module);
                     }
                     if (categoryMembers != null) {
-                        Iterator<GenericValue> cmi = categoryMembers.iterator();
-                        while (cmi.hasNext()) {
-                            GenericValue member = cmi.next();
+                        for (GenericValue member: categoryMembers) {
                             if (productId != null && productId.equals(member.getString("productId"))) {
                                 surveys.add(surveyAppl);
                                 break;
@@ -700,12 +684,8 @@ public class ProductStoreWorker {
             }
 
             if (UtilValidate.isNotEmpty(productFacilities)) {
-                Iterator<GenericValue> pfIter = productFacilities.iterator();
-
-                while (pfIter.hasNext()) {
+                for (GenericValue pfValue: productFacilities) {
                     try {
-                        GenericValue pfValue = pfIter.next();
-
                         isInventoryAvailable = ProductWorker.isProductInventoryAvailableByFacility(productConfig, pfValue.getString("facilityId"), quantity, dispatcher);
                         if (isInventoryAvailable == true) {
                             return isInventoryAvailable;

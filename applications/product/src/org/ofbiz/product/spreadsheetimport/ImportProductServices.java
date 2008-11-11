@@ -90,9 +90,8 @@ public class ImportProductServices {
             return responseMsgs;
         }
 
-        for (int i = 0; i < fileItems.size(); i++) {
+        for (File item: fileItems) {
             // read all xls file and create workbook one by one.
-            File item = fileItems.get(i);
             List<Map<String, Object>> products = FastList.newInstance();
             List<Map<String, Object>> inventoryItems = FastList.newInstance();
             POIFSFileSystem fs = null;

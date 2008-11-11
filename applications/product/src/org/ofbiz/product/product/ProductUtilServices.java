@@ -19,7 +19,6 @@
 package org.ofbiz.product.product;
 
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -87,9 +86,7 @@ public class ProductUtilServices {
                 List<GenericValue> passocList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", virtualProductId, "productIdTo", productOne.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"));
                 passocList = EntityUtil.filterByDate(passocList);
                 if (passocList.size() > 0) {
-                    Iterator<GenericValue> passocIter = passocList.iterator();
-                    while (passocIter.hasNext()) {
-                        GenericValue passoc = passocIter.next();
+                    for (GenericValue passoc: passocList) {
                         passoc.set("thruDate", nowTimestamp);
                         passoc.store();
                     }
@@ -152,9 +149,7 @@ public class ProductUtilServices {
                 String productId = product.getString("productId");
                 List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productId", productId));
                 if (productCategoryMemberList.size() > 0) {
-                    Iterator<GenericValue> productCategoryMemberIter = productCategoryMemberList.iterator();
-                    while (productCategoryMemberIter.hasNext()) {
-                        GenericValue productCategoryMember = productCategoryMemberIter.next();
+                    for (GenericValue productCategoryMember: productCategoryMemberList) {
                         // coded this way rather than a removeByAnd so it can be easily changed...
                         productCategoryMember.remove();
                     }
@@ -204,9 +199,7 @@ public class ProductUtilServices {
                 if (productCategoryMemberList.size() > 1) {
                     // remove all except the first...
                     productCategoryMemberList.remove(0);
-                    Iterator<GenericValue> productCategoryMemberIter = productCategoryMemberList.iterator();
-                    while (productCategoryMemberIter.hasNext()) {
-                        GenericValue productCategoryMember = productCategoryMemberIter.next();
+                    for (GenericValue productCategoryMember: productCategoryMemberList) {
                         productCategoryMember.remove();
                     }
                     numSoFar++;
@@ -264,11 +257,8 @@ public class ProductUtilServices {
             Debug.logInfo("Found " + valueList.size() + " virtual products with one variant to turn into a stand alone product.", module);
 
             int numWithOneOnly = 0;
-            Iterator<GenericValue> valueIter = valueList.iterator();
-            while (valueIter.hasNext()) {
+            for (GenericValue value: valueList) {
                 // has only one variant period, is it valid? should already be discontinued if not
-                GenericValue value = valueIter.next();
-
                 String productId = value.getString("productId");
                 List<GenericValue> paList = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
                 paList = EntityUtil.filterByDate(paList);
@@ -302,9 +292,7 @@ public class ProductUtilServices {
             Debug.logInfo("Found " + valueMultiList.size() + " virtual products with one VALID variant to pull the variant from to make a stand alone product.", module);
 
             int numWithOneValid = 0;
-            Iterator<GenericValue> valueMultiIter = valueMultiList.iterator();
-            while (valueMultiIter.hasNext()) {
-                GenericValue value = valueMultiIter.next();
+            for (GenericValue value: valueMultiList) {
                 // has only one valid variant
                 String productId = value.getString("productId");
 
@@ -456,9 +444,7 @@ public class ProductUtilServices {
 
     protected static void duplicateRelated(GenericValue product, String title, String relatedEntityName, String productIdField, String variantProductId, Timestamp nowTimestamp, boolean removeOld, GenericDelegator delegator, boolean test) throws GenericEntityException {
         List<GenericValue> relatedList = EntityUtil.filterByDate(product.getRelated(title + relatedEntityName), nowTimestamp);
-        Iterator<GenericValue> relatedIter = relatedList.iterator();
-        while (relatedIter.hasNext()) {
-            GenericValue relatedValue = relatedIter.next();
+        for (GenericValue relatedValue: relatedList) {
             GenericValue newRelatedValue = (GenericValue) relatedValue.clone();
             newRelatedValue.set(productIdField, variantProductId);
 
@@ -669,9 +655,7 @@ while (allCatIter.hasNext()) {
         // do sub-categories first so all feature groups will be in place
         List<GenericValue> subCategoryList = delegator.findByAnd("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", productCategoryId));
         if (doSubCategories) {
-            Iterator<GenericValue> subCategoryIter = subCategoryList.iterator();
-            while (subCategoryIter.hasNext()) {
-                GenericValue productCategoryRollup = subCategoryIter.next();
+            for (GenericValue productCategoryRollup: subCategoryList) {
                 attachProductFeaturesToCategory(productCategoryRollup.getString("productCategoryId"), productFeatureTypeIdsToInclude, productFeatureTypeIdsToExclude, delegator, true, nowTimestamp);
             }
         }
@@ -679,9 +663,7 @@ while (allCatIter.hasNext()) {
         // now get all features for this category and make associated feature groups
         Map<String, Set<String>> productFeatureIdByTypeIdSetMap = FastMap.newInstance();
         List<GenericValue> productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId));
-        Iterator<GenericValue> productCategoryMemberIter = productCategoryMemberList.iterator();
-        while (productCategoryMemberIter.hasNext()) {
-            GenericValue productCategoryMember = productCategoryMemberIter.next();
+        for (GenericValue productCategoryMember: productCategoryMemberList) {
             String productId = productCategoryMember.getString("productId");
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("productId", EntityOperator.EQUALS, productId),
@@ -709,9 +691,7 @@ while (allCatIter.hasNext()) {
             productFeatureAndApplEli.close();
         }
 
-        Iterator<Map.Entry<String, Set<String>>> productFeatureIdByTypeIdSetIter = productFeatureIdByTypeIdSetMap.entrySet().iterator();
-        while (productFeatureIdByTypeIdSetIter.hasNext()) {
-            Map.Entry<String, Set<String>> entry = productFeatureIdByTypeIdSetIter.next();
+        for (Map.Entry<String, Set<String>> entry: productFeatureIdByTypeIdSetMap.entrySet()) {
             String productFeatureTypeId = entry.getKey();
             Set<String> productFeatureIdSet = entry.getValue();
 
@@ -733,9 +713,7 @@ while (allCatIter.hasNext()) {
             }
 
             // now put all of the features in the group, if there is not already a valid feature placement there...
-            Iterator<String> productFeatureIdIter = productFeatureIdSet.iterator();
-            while (productFeatureIdIter.hasNext()) {
-                String productFeatureId = productFeatureIdIter.next();
+            for (String productFeatureId: productFeatureIdSet) {
                 EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                         EntityCondition.makeCondition("productFeatureId", EntityOperator.EQUALS, productFeatureId),
                         EntityCondition.makeCondition("productFeatureGroupId", EntityOperator.EQUALS, productFeatureGroupId),
@@ -751,9 +729,7 @@ while (allCatIter.hasNext()) {
         }
 
         // now get all feature groups associated with sub-categories and associate them with this category
-        Iterator<GenericValue> subCategoryIter = subCategoryList.iterator();
-        while (subCategoryIter.hasNext()) {
-            GenericValue productCategoryRollup = subCategoryIter.next();
+        for (GenericValue productCategoryRollup: subCategoryList) {
             String subProductCategoryId = productCategoryRollup.getString("productCategoryId");
             EntityCondition condition = EntityCondition.makeCondition(UtilMisc.toList(
                     EntityCondition.makeCondition("productCategoryId", EntityOperator.EQUALS, subProductCategoryId),

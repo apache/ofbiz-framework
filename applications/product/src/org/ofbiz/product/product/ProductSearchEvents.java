@@ -19,7 +19,6 @@
 package org.ofbiz.product.product;
 
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -151,9 +150,7 @@ public class ProductSearchEvents {
                    List<GenericValue> pcmList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId ));
 
                    //set those thrudate to that specificed maybe remove then add new one
-                   Iterator<GenericValue> pcmListIter=pcmList.iterator();
-                   while (pcmListIter.hasNext()) {
-                       GenericValue pcm = pcmListIter.next();
+                   for (GenericValue pcm: pcmList) {
                        if (pcm.get("thruDate") == null) {
                            pcm.set("thruDate", thruDate);
                            pcm.store();

@@ -19,7 +19,6 @@
 package org.ofbiz.product.catalog;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -67,9 +66,7 @@ public class CatalogWorker {
             Debug.logError(e, "Error looking up all catalogs", module);
         }
         if (catalogs != null) {
-            Iterator<GenericValue> i = catalogs.iterator();
-            while (i.hasNext()) {
-                GenericValue c = i.next();
+            for (GenericValue c: catalogs) {
                 catalogIds.add(c.getString("prodCatalogId"));
             }
         }
@@ -189,9 +186,7 @@ public class CatalogWorker {
         if (storeCatalogs != null) allCatalogLinks.addAll(storeCatalogs);
         
         if (allCatalogLinks.size() > 0) {
-            Iterator<GenericValue> aclIter = allCatalogLinks.iterator();
-            while (aclIter.hasNext()) {
-                GenericValue catalogLink = aclIter.next();
+            for (GenericValue catalogLink: allCatalogLinks) {
                 categoryIds.add(catalogLink.getString("prodCatalogId"));
             }
         }
@@ -382,11 +377,7 @@ public class CatalogWorker {
         Collection<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD");
 
         if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
-            Iterator<GenericValue> pccIter = prodCatalogCategories.iterator();
-
-            while (pccIter.hasNext()) {
-                GenericValue prodCatalogCategory = pccIter.next();
-
+            for (GenericValue prodCatalogCategory: prodCatalogCategories) {
                 categoryIds.add(prodCatalogCategory.getString("productCategoryId"));
             }
         }

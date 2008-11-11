@@ -281,10 +281,8 @@ public class ShipmentServices {
         }
         // Get the possible estimates.
         List<GenericValue> estimateList = FastList.newInstance();
-        Iterator<GenericValue> i = estimates.iterator();
 
-        while (i.hasNext()) {
-            GenericValue thisEstimate = i.next();
+        for (GenericValue thisEstimate: estimates) {
             String toGeo = thisEstimate.getString("geoIdTo");
             if(UtilValidate.isNotEmpty(toGeo) && shipAddress ==null){
                 // This estimate requires shipping address details. We don't have it so we cannot use this estimate.
@@ -385,10 +383,7 @@ public class ShipmentServices {
         List<Double> shippableItemSizes = FastList.newInstance();
         Map<String, Double> shippableFeatureMap = FastMap.newInstance();
         if (shippableItemInfo != null) {
-            Iterator<Map<String, Object>> sii = shippableItemInfo.iterator();
-            while (sii.hasNext()) {
-                Map<String, Object> itemMap = sii.next();
-
+            for (Map<String, Object> itemMap: shippableItemInfo) {
                 // add the item sizes
                 Double itemSize = (Double) itemMap.get("size");
                 if (itemSize != null) {
@@ -399,9 +394,7 @@ public class ShipmentServices {
                 Double quantity = (Double) itemMap.get("quantity");
                 Set<String> featureSet = UtilGenerics.checkSet(itemMap.get("featureSet"));
                 if (UtilValidate.isNotEmpty(featureSet)) {
-                    Iterator<String> fi = featureSet.iterator();
-                    while (fi.hasNext()) {
-                        String featureId = fi.next();
+                    for (String featureId: featureSet) {
                         Double featureQuantity = shippableFeatureMap.get(featureId);
                         if (featureQuantity == null) {
                             featureQuantity = Double.valueOf(0.00);
@@ -428,9 +421,7 @@ public class ShipmentServices {
             TreeMap<Integer, GenericValue> estimatePriority = new TreeMap<Integer, GenericValue>();
             //int estimatePriority[] = new int[estimateList.size()];
 
-            for (int x = 0; x < estimateList.size(); x++) {
-                GenericValue currentEstimate = estimateList.get(x);
-
+            for (GenericValue currentEstimate: estimateList) {
                 int prioritySum = 0;
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("partyId")))
                     prioritySum += PRIORITY_PARTY;
@@ -511,10 +502,9 @@ public class ShipmentServices {
         }
 
         if (featureGroupId != null && featureGroupId.length() > 0 && shippableFeatureMap != null) {
-            Iterator<String> fii = shippableFeatureMap.keySet().iterator();
-            while (fii.hasNext()) {
-                String featureId = fii.next();
-                Double quantity = shippableFeatureMap.get(featureId);
+            for (Map.Entry<String, Double> entry: shippableFeatureMap.entrySet()) {
+                String featureId = entry.getKey();
+                Double quantity = entry.getValue();
                 GenericValue appl = null;
                 Map<String, String> fields = UtilMisc.toMap("productFeatureGroupId", featureGroupId, "productFeatureId", featureId);
                 try {
@@ -537,9 +527,7 @@ public class ShipmentServices {
         Double sizePrice = estimate.getDouble("oversizePrice");
         if (sizeUnit != null && sizeUnit.doubleValue() > 0) {
             if (shippableItemSizes != null) {
-                Iterator<Double> isi = shippableItemSizes.iterator();
-                while (isi.hasNext()) {
-                    Double size = isi.next();
+                for (Double size: shippableItemSizes) {
                     if (size != null && size.doubleValue() >= sizeUnit.doubleValue()) {
                         sizeSurcharge += sizePrice.doubleValue();
                     }
@@ -646,9 +634,7 @@ public class ShipmentServices {
             toStore.add(stageShip);
 
 
-            Iterator<GenericValue> p = packages.iterator();
-            while (p.hasNext()) {
-                GenericValue shipmentPkg = p.next();
+            for (GenericValue shipmentPkg: packages) {
                 GenericValue stagePkg = delegator.makeValue("OdbcPackageOut");               
                 stagePkg.set("shipmentId", shipmentPkg.get("shipmentId"));
                 stagePkg.set("shipmentPackageSeqId", shipmentPkg.get("shipmentPackageSeqId"));
@@ -796,10 +782,9 @@ public class ShipmentServices {
         }
 
         // update the status of each shipment
-        Iterator<String> i = shipmentMap.keySet().iterator();
-        while (i.hasNext()) {
-            String shipmentId = i.next();
-            String voidInd = shipmentMap.get(shipmentId);
+        for (Map.Entry<String, String> entry: shipmentMap.entrySet()) {
+            String shipmentId = entry.getKey();
+            String voidInd = entry.getValue();
             Map<String, Object> shipCtx = FastMap.newInstance();
             shipCtx.put("shipmentId", shipmentId);
             if ("Y".equals(voidInd)) {
@@ -878,9 +863,7 @@ public class ShipmentServices {
 
             // store the quanitity of each product shipped in a hashmap keyed to productId
             Map<String, Double> shippedCountMap = FastMap.newInstance();
-            Iterator<GenericValue> iter = shipmentAndItems.iterator();
-            while (iter.hasNext()) {
-                GenericValue item = iter.next();
+            for (GenericValue item: shipmentAndItems) {
                 double shippedQuantity = item.getDouble("quantity").doubleValue();
                 Double quantity = shippedCountMap.get(item.getString("productId"));
                 quantity = Double.valueOf(quantity == null ? shippedQuantity : shippedQuantity + quantity.doubleValue());
@@ -889,9 +872,7 @@ public class ShipmentServices {
 
             // store the quanitity of each product received in a hashmap keyed to productId
             Map<String, Double> receivedCountMap = FastMap.newInstance();
-            iter = shipmentReceipts.iterator();
-            while (iter.hasNext()) {
-                GenericValue item = iter.next();
+            for (GenericValue item: shipmentAndItems) {
                 double receivedQuantity = item.getDouble("quantityAccepted").doubleValue();
                 Double quantity = receivedCountMap.get(item.getString("productId"));
                 quantity = Double.valueOf(quantity == null ? receivedQuantity : receivedQuantity + quantity.doubleValue());
@@ -1034,9 +1015,7 @@ public class ShipmentServices {
             }
             
             List<GenericValue> packageContents = delegator.findByAnd("PackedQtyVsOrderItemQuantity", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId));
-            Iterator<GenericValue> packageContentsIt = packageContents.iterator();
-            while (packageContentsIt.hasNext()) {
-                GenericValue packageContent = packageContentsIt.next();
+            for (GenericValue packageContent: packageContents) {
                 String orderId = packageContent.getString("orderId");
                 String orderItemSeqId = packageContent.getString("orderItemSeqId");
             

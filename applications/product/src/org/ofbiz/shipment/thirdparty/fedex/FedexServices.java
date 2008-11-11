@@ -23,7 +23,6 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -686,10 +685,7 @@ public class FedexServices {
             }
 
             // Loop through Shipment segments (NOTE: only one supported, loop is here for future refactoring reference)
-            Iterator<GenericValue> shipmentPackageRouteSegIter = shipmentPackageRouteSegs.iterator();
-            while (shipmentPackageRouteSegIter.hasNext()) {
-
-                GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegIter.next();
+            for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegs) {
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
 
