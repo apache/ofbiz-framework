@@ -553,7 +553,7 @@ public class PackingSession implements java.io.Serializable {
             return packageSeq;
         }
         
-        List currentLines = new ArrayList(this.packLines);
+        List currentLines = UtilMisc.makeListWritable(this.packLines);
         Iterator i = currentLines.iterator();
         while (i.hasNext()) {
             PackingSessionLine line = (PackingSessionLine) i.next();
@@ -915,7 +915,7 @@ public class PackingSession implements java.io.Serializable {
                 packageSeqIds.add(new Integer(line.getPackageSeq()));
             }
         }
-        return new ArrayList(packageSeqIds);
+        return UtilMisc.makeListWritable(packageSeqIds);
     }
     
     public void setPackageWeight(int packageSeqId, Double packageWeight) {

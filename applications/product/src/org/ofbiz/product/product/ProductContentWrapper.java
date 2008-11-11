@@ -21,12 +21,13 @@ package org.ofbiz.product.product;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -179,7 +180,7 @@ public class ProductContentWrapper implements ContentWrapper {
         GenericValue productContent = EntityUtil.getFirst(productContentList);
         if (productContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map inContext = new HashMap();
+            Map inContext = FastMap.newInstance();
             inContext.put("product", product);
             inContext.put("productContent", productContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, productContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);

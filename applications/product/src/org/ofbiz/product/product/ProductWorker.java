@@ -18,11 +18,8 @@
  *******************************************************************************/
 package org.ofbiz.product.product;
 
-import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -43,6 +40,7 @@ import org.ofbiz.service.GenericServiceException;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.service.ModelService;
 import javolution.util.FastList;
+import javolution.util.FastMap;
 import javolution.util.FastSet;
 
 /**
@@ -344,7 +342,7 @@ public class ProductWorker {
      */
     public static Set getVariantDistinguishingFeatures(GenericValue variantProduct) throws GenericEntityException {
         if (variantProduct == null) {
-            return new HashSet();
+            return FastSet.newInstance();
         }
         if (!"Y".equals(variantProduct.getString("isVariant"))) {
             throw new IllegalArgumentException("Cannot get distinguishing features for a product that is not a variant (ie isVariant!=Y).");
@@ -353,7 +351,7 @@ public class ProductWorker {
         String virtualProductId = getVariantVirtualId(variantProduct);
         
         // find all selectable features on the virtual product that are also standard features on the variant
-        Set distFeatures = new HashSet();
+        Set distFeatures = FastSet.newInstance();
         
         List variantDistinguishingFeatures = delegator.findByAndCache("ProductFeatureAndAppl", UtilMisc.toMap("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "DISTINGUISHING_FEAT"));
         // Debug.logInfo("Found variantDistinguishingFeatures: " + variantDistinguishingFeatures, module);
@@ -370,7 +368,7 @@ public class ProductWorker {
         // Debug.logInfo("Found virtualSelectableFeatures: " + virtualSelectableFeatures, module);
 
         Iterator virtualSelectableFeatureIter = UtilMisc.toIterator(EntityUtil.filterByDate(virtualSelectableFeatures));
-        Set virtualSelectableFeatureIds = new HashSet();
+        Set virtualSelectableFeatureIds = FastSet.newInstance();
         while (virtualSelectableFeatureIter != null && virtualSelectableFeatureIter.hasNext()) {
             GenericValue virtualSelectableFeature = (GenericValue) virtualSelectableFeatureIter.next();
             virtualSelectableFeatureIds.add(virtualSelectableFeature.get("productFeatureId"));
@@ -461,7 +459,7 @@ public class ProductWorker {
         if (product == null) {
             return null;
         }
-        List features = new ArrayList();
+        List features = FastList.newInstance();
         try {
             if (product != null) {
                 List productAppls;
@@ -507,7 +505,7 @@ public class ProductWorker {
         if (product == null) {
             return null;
         }
-        List <List<Map<String,String>>> featureTypeFeatures = new ArrayList<List<Map<String,String>>>();
+        List <List<Map<String,String>>> featureTypeFeatures = FastList.newInstance();
         try {
             if (product != null) {
                 GenericDelegator delegator = product.getDelegator();
@@ -517,14 +515,14 @@ public class ProductWorker {
                 List featuresSorted = (List) UtilMisc.sortMaps(features, order);
                 Iterator it = (Iterator) featuresSorted.iterator();
                 String oldType = null;
-                List<Map<String,String>> featureList = new LinkedList<Map<String,String>>();
+                List<Map<String,String>> featureList = FastList.newInstance();
                 while(it.hasNext()) {
                     GenericValue productFeatureAppl = (GenericValue) it.next();
                     if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
                     	// use first entry for type and description
                         if (oldType != null) {
                             featureTypeFeatures.add(featureList);
-                            featureList =  new LinkedList<Map<String,String>>();
+                            featureList =  FastList.newInstance();
                             } 
                         GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", 
                         		productFeatureAppl.getString("productFeatureTypeId")));
@@ -578,7 +576,7 @@ public class ProductWorker {
                 String featureType = appl.getString("productFeatureTypeId");
                 List features = (List) featureMap.get(featureType);
                 if (features == null) {
-                    features = new LinkedList();
+                    features = FastList.newInstance();
                 }
                 features.add(appl);
                 featureMap.put(featureType, features);
@@ -619,7 +617,7 @@ public class ProductWorker {
     }    
     
     public static List filterOrderAdjustments(List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
-        List newOrderAdjustmentsList = new LinkedList();
+        List newOrderAdjustmentsList = FastList.newInstance();
 
         if (UtilValidate.isNotEmpty(adjustments)) {
             Iterator adjIt = adjustments.iterator();
@@ -757,7 +755,7 @@ public class ProductWorker {
         if (product == null) {
             return null;
         }
-        List categories = new ArrayList();
+        List categories = FastList.newInstance();
         try {
             List categoryMembers = product.getRelated("ProductCategoryMember");
             categoryMembers = EntityUtil.filterByDate(categoryMembers);

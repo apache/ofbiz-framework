@@ -23,14 +23,15 @@ import java.io.IOException;
 import java.io.StringWriter;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
@@ -136,7 +137,7 @@ public class FedexServices {
     */
     public static Map fedexSubscriptionRequest( DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
-        List errorList = new ArrayList();
+        List errorList = FastList.newInstance();
 
         Boolean replaceMeterNumber = (Boolean) context.get("replaceMeterNumber");
 
@@ -150,7 +151,7 @@ public class FedexServices {
         String companyPartyId = (String) context.get("companyPartyId");
         String contactPartyName = (String) context.get("contactPartyName");
 
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
 
         String accountNumber = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.fedex.access.accountNbr");
         if (UtilValidate.isEmpty(accountNumber)) {
@@ -190,7 +191,7 @@ public class FedexServices {
             partyContactDetails = EntityUtil.filterByDate(partyContactDetails, UtilDateTime.nowTimestamp(), "purposeFromDate", "purposeThruDate", true);
 
             // Get the first valid postal address (address1, city, postalCode and countryGeoId are required by Fedex)
-            List postalAddressConditions = new ArrayList();
+            List postalAddressConditions = FastList.newInstance();
             postalAddressConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "POSTAL_ADDRESS"));
             postalAddressConditions.add(EntityCondition.makeCondition("address1", EntityOperator.NOT_EQUAL, null));
             postalAddressConditions.add(EntityCondition.makeCondition("address1", EntityOperator.NOT_EQUAL, ""));
@@ -228,7 +229,7 @@ public class FedexServices {
             }
 
             // Get the first valid primary phone number (required by Fedex)
-            List phoneNumberConditions = new ArrayList();
+            List phoneNumberConditions = FastList.newInstance();
             phoneNumberConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "TELECOM_NUMBER"));
             phoneNumberConditions.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_PHONE"));
             phoneNumberConditions.add(EntityCondition.makeCondition("areaCode", EntityOperator.NOT_EQUAL, null));
@@ -250,7 +251,7 @@ public class FedexServices {
             phoneNumber = phoneNumber.replaceAll("[^+\\d]", "");
 
             // Get the first valid fax number
-            List faxNumberConditions = new ArrayList();
+            List faxNumberConditions = FastList.newInstance();
             faxNumberConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "TELECOM_NUMBER"));
             faxNumberConditions.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "FAX_NUMBER"));
             faxNumberConditions.add(EntityCondition.makeCondition("areaCode", EntityOperator.NOT_EQUAL, null));
@@ -269,7 +270,7 @@ public class FedexServices {
             }
 
             // Get the first valid email address
-            List emailConditions = new ArrayList();
+            List emailConditions = FastList.newInstance();
             emailConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "EMAIL_ADDRESS"));
             emailConditions.add(EntityCondition.makeCondition("infoString", EntityOperator.NOT_EQUAL, null));
             emailConditions.add(EntityCondition.makeCondition("infoString", EntityOperator.NOT_EQUAL, ""));
@@ -286,7 +287,7 @@ public class FedexServices {
             }
             
             // Populate the Freemarker context
-            Map subscriptionRequestContext = new HashMap();
+            Map subscriptionRequestContext = FastMap.newInstance();
             subscriptionRequestContext.put("AccountNumber", accountNumber);
             subscriptionRequestContext.put("PersonName", contactPartyName);
             subscriptionRequestContext.put("CompanyName", companyName);
@@ -430,7 +431,7 @@ public class FedexServices {
         
         try {
 
-            Map shipRequestContext = new HashMap();
+            Map shipRequestContext = FastMap.newInstance();
 
             // Get the shipment and the shipmentRouteSegment
             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
@@ -865,7 +866,7 @@ public class FedexServices {
      * @throws GenericEntityException
      */
     public static Map handleFedexShipReply(String fDXShipReplyString, GenericValue shipmentRouteSegment, List shipmentPackageRouteSegs) throws GenericEntityException {
-        List errorList = new ArrayList();
+        List errorList = FastList.newInstance();
         GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegs.get(0);
 
         Document fdxShipReplyDocument = null;

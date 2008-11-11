@@ -21,7 +21,8 @@ package org.ofbiz.shipment.picklist;
 import java.util.Map;
 import java.util.List;
 import java.util.Iterator;
-import java.util.ArrayList;
+
+import javolution.util.FastList;
 
 import org.ofbiz.service.DispatchContext;
 import org.ofbiz.service.ServiceUtil;
@@ -51,8 +52,8 @@ public class PickListServices {
         if (orderHeaderList == null) {
             // convert the ID list to headers
             if (orderIdList != null) {
-                List conditionList1 = new ArrayList();
-                List conditionList2 = new ArrayList();
+                List conditionList1 = FastList.newInstance();
+                List conditionList2 = FastList.newInstance();
 
                 // we are only concerned about approved sales orders
                 conditionList2.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));

@@ -19,8 +19,6 @@
 package org.ofbiz.product.product;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -29,6 +27,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -217,7 +218,7 @@ public class ProductSearchEvents {
                }
 
                GenericValue searchResultView = null;
-               List searchResultList = new ArrayList();
+               List searchResultList = FastList.newInstance();
                int numAdded = 0;
                while ((searchResultView = (GenericValue) eli.next()) != null) {
                    String productId = searchResultView.getString("mainProductId");
@@ -402,7 +403,7 @@ public class ProductSearchEvents {
     public static String searchExportProductList(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         String errMsg = null;
-        List productExportList = new ArrayList();
+        List productExportList = FastList.newInstance();
 
         try {
             boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
@@ -416,7 +417,7 @@ public class ProductSearchEvents {
 
                 GenericValue searchResultView = null;
                 while ((searchResultView = (GenericValue) eli.next()) != null) {
-                    Map productMap = new HashMap();
+                    Map productMap = FastMap.newInstance();
                     String productId = searchResultView.getString("mainProductId");
                     productMap.put("productId", productId);
                     

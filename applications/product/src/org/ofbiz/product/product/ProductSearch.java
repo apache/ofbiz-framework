@@ -2052,8 +2052,8 @@ public class ProductSearch {
 
         // make view-entity & EntityCondition
         int index = 1;
-        List entityConditionList = new LinkedList();
-        List orderByList = new LinkedList();
+        List entityConditionList = new FastList.newInstance();
+        List orderByList = new FastList.newInstance();
         List fieldsToSelect = UtilMisc.toList("productId");
         DynamicViewEntity dynamicViewEntity = new DynamicViewEntity();
         dynamicViewEntity.addMemberEntity("PROD", "Product");
@@ -2065,9 +2065,9 @@ public class ProductSearch {
             List productCategoryIdList = null;
             if (includeSubCategories) {
                 // find all sub-categories recursively, make a Set of productCategoryId
-                Set productCategoryIdSet = new HashSet();
+                Set productCategoryIdSet = Fast.newInstance();
                 getAllSubCategoryIds(productCategoryId, productCategoryIdSet, delegator, nowTimestamp);
-                productCategoryIdList = new ArrayList(productCategoryIdSet);
+                productCategoryIdList = UtilMisc.makeListWritable(productCategoryIdSet);
             } else {
                 productCategoryIdList = UtilMisc.toList(productCategoryId);
             }
@@ -2128,7 +2128,7 @@ public class ProductSearch {
                 dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
                 orderByList.add("-totalRelevancy");
                 fieldsToSelect.add("totalRelevancy");
-                List keywordOrList = new LinkedList();
+                List keywordOrList = new FastList.newInstance();
                 Iterator keywordIter = keywordList.iterator();
                 while (keywordIter.hasNext()) {
                     String keyword = (String) keywordIter.next();
@@ -2175,8 +2175,8 @@ public class ProductSearch {
             return null;
         }
 
-        ArrayList productIds = new ArrayList(100);
-        Set productIdSet = new HashSet();
+        ArrayList productIds = FastList.newInstance();
+        Set productIdSet = Fast.newInstance();
         GenericValue searchResult = null;
         while ((searchResult = (GenericValue) eli.next()) != null) {
             String productId = searchResult.getString("productId");

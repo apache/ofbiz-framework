@@ -20,15 +20,15 @@ package org.ofbiz.shipment.thirdparty.dhl;
 
 import java.io.IOException;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Base64;
 import org.ofbiz.base.util.Debug;
@@ -230,7 +230,7 @@ public class DhlServices {
             return ServiceUtil.returnError("Cannot get DHL Estimate: DHL Rate template not configured (shipment.template.dhl.rate.estimate");
         }
         StringWriter outWriter = new StringWriter();
-        Map inContext = new HashMap();
+        Map inContext = FastMap.newInstance();
         inContext.put("action", "RateEstimate");
         inContext.put("userid", userid);
         inContext.put("password", password);
@@ -297,8 +297,8 @@ public class DhlServices {
      * Parses an XML document from DHL to get the rate estimate
      */
     public static Map handleDhlRateResponse(Document rateResponseDocument) {
-        List errorList = new LinkedList();
-        Map dhlRateCodeMap = new HashMap();
+        List errorList = FastList.newInstance();
+        Map dhlRateCodeMap = FastMap.newInstance();
         // process RateResponse
         Element rateResponseElement = rateResponseDocument.getDocumentElement();
         DhlServices.handleErrors(rateResponseElement, errorList);
@@ -341,10 +341,10 @@ public class DhlServices {
         List chargeNodeList = UtilXml.childElementList(responseChargesElement,
                 "Charge");
 
-        List chargeList = new ArrayList();
+        List chargeList = FastList.newInstance();
         if (UtilValidate.isNotEmpty(chargeNodeList)) {
             for (int i = 0; chargeNodeList.size() > i; i++) {
-                Map charge = new HashMap();
+                Map charge = FastMap.newInstance();
 
                 Element responseChargeElement = (Element) chargeNodeList.get(i);
                 Element responseChargeTypeElement = UtilXml.firstChildElement(
@@ -381,7 +381,7 @@ public class DhlServices {
      */
     public static Map dhlRegisterInquire(DispatchContext dctx, Map context) {
 
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         String postalCode = (String) context.get("postalCode");
         String accountNbr = UtilProperties.getPropertyValue("shipment",
                 "shipment.dhl.access.accountNbr");
@@ -457,7 +457,7 @@ public class DhlServices {
      */
     public static Map handleDhlRegisterResponse(
             Document registerResponseDocument) {
-        List errorList = new LinkedList();
+        List errorList = FastList.newInstance();
         // process RegisterResponse
         Element registerResponseElement = registerResponseDocument
             .getDocumentElement();
@@ -502,7 +502,7 @@ public class DhlServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         String shipmentConfirmResponseString = null;        
         try {
             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
@@ -705,7 +705,7 @@ public class DhlServices {
                 return ServiceUtil.returnError("Cannot get DHL Estimate: DHL Rate template not configured (shipment.template.dhl.rate.estimate");
             }
             StringWriter outWriter = new StringWriter();
-            Map inContext = new HashMap();
+            Map inContext = FastMap.newInstance();
             inContext.put("action", "GenerateLabel");
             inContext.put("userid", userid);
             inContext.put("password", password);
@@ -776,7 +776,7 @@ public class DhlServices {
     // NOTE: Must VOID shipments on errors
     public static Map handleDhlShipmentConfirmResponse(String rateResponseString, GenericValue shipmentRouteSegment, 
             List shipmentPackageRouteSegs) throws GenericEntityException {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegs.get(0);
         
         // TODO: figure out how to handle validation on return XML, which can be mangled

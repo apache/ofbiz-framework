@@ -21,6 +21,7 @@ package org.ofbiz.shipment.shipment;
 import java.util.*;
 import java.math.BigDecimal;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.*;
@@ -52,9 +53,9 @@ public class ShipmentServices {
     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);    
 
     public static Map createShipmentEstimate(DispatchContext dctx, Map context) {
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
-        List storeAll = new ArrayList();
+        List storeAll = FastList.newInstance();
 
         String productStoreShipMethId = (String)context.get("productStoreShipMethId");
 
@@ -279,7 +280,7 @@ public class ShipmentServices {
             shipAddress.set("postalCodeGeoId", shippingPostalCode);
         }
         // Get the possible estimates.
-        ArrayList estimateList = new ArrayList();
+        List estimateList = FastList.newInstance();
         Iterator i = estimates.iterator();
 
         while (i.hasNext()) {
@@ -381,8 +382,8 @@ public class ShipmentServices {
         }
 
         // make the shippable item size/feature objects
-        List shippableItemSizes = new LinkedList();
-        Map shippableFeatureMap = new HashMap();
+        List shippableItemSizes = FastList.newInstance();
+        Map shippableFeatureMap = FastMap.newInstance();
         if (shippableItemInfo != null) {
             Iterator sii = shippableItemInfo.iterator();
             while (sii.hasNext()) {
@@ -618,7 +619,7 @@ public class ShipmentServices {
             GenericValue routeSeg = EntityUtil.getFirst(routeSegs);
 
             // to store list
-            List toStore = new ArrayList();
+            List toStore = FastList.newInstance();
 
             String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");
             String orderId = shipment.getString("primaryOrderId");
@@ -876,7 +877,7 @@ public class ShipmentServices {
             if (shipmentAndItems.size() == 0) return ServiceUtil.returnSuccess();
 
             // store the quanitity of each product shipped in a hashmap keyed to productId
-            Map shippedCountMap = new HashMap();
+            Map shippedCountMap = FastMap.newInstance();
             Iterator iter = shipmentAndItems.iterator();
             while (iter.hasNext()) {
                 GenericValue item = (GenericValue) iter.next();
@@ -887,7 +888,7 @@ public class ShipmentServices {
             }
 
             // store the quanitity of each product received in a hashmap keyed to productId
-            Map receivedCountMap = new HashMap();
+            Map receivedCountMap = FastMap.newInstance();
             iter = shipmentReceipts.iterator();
             while (iter.hasNext()) {
                 GenericValue item = (GenericValue) iter.next();

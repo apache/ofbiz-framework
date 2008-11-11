@@ -20,7 +20,6 @@ package org.ofbiz.product.category;
 
 import java.util.Collection;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -91,7 +90,7 @@ public class CategoryWorker {
 
     public static void getCategoriesWithNoParent(ServletRequest request, String attributeName) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
-        Collection results = new LinkedList();
+        Collection results = FastList.newInstance();
 
         try {
             Collection allCategories = delegator.findList("ProductCategory", null, null, null, null, false);

@@ -20,14 +20,14 @@ package org.ofbiz.product.product;
 
 import java.io.IOException;
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
@@ -86,7 +86,7 @@ public class KeywordIndex {
         Set stemSet = KeywordSearchUtil.getStemSet();
         
         Map keywords = new TreeMap();
-        List strings = new ArrayList(50);
+        List strings = FastList.newInstance();
 
         int pidWeight = 1;
         try {
@@ -205,7 +205,7 @@ public class KeywordIndex {
             KeywordSearchUtil.processKeywordsForIndex(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet);
         }
 
-        List toBeStored = new LinkedList();
+        List toBeStored = FastList.newInstance();
         Iterator kiter = keywords.entrySet().iterator();
         while (kiter.hasNext()) {
             Map.Entry entry = (Map.Entry) kiter.next();

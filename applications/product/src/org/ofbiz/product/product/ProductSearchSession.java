@@ -22,8 +22,6 @@ import java.io.IOException;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -36,6 +34,8 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -370,7 +370,7 @@ public class ProductSearchSession {
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
         if (productStoreId != null) {
             // get a Set of all keywords in the search, if there are any...
-            Set keywords = new HashSet();
+            Set keywords = FastSet.newInstance();
             List constraintList = ProductSearchOptions.getConstraintList(session);
             if (constraintList != null) {
                 Iterator constraintIter = constraintList.iterator();
@@ -950,7 +950,7 @@ public class ProductSearchSession {
         String searchSortOrderString = searchGetSortOrderString(false, request);
 
         // ========== populate the result Map
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
 
         result.put("productIds", productIds);
         result.put("viewIndex", new Integer(viewIndex));

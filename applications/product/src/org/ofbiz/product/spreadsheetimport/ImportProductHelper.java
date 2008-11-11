@@ -19,8 +19,9 @@
 
 package org.ofbiz.product.spreadsheetimport;
 
-import java.util.HashMap;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -34,7 +35,7 @@ public class ImportProductHelper {
 
     // prepare the product map
     public static Map prepareProduct(String productId) {
-        Map fields = new HashMap();
+        Map fields = FastMap.newInstance();
         fields.put("productId", productId);
         fields.put("productTypeId", "FINISHED_GOOD");
         fields.put("internalName", "Product_" + productId);
@@ -46,7 +47,7 @@ public class ImportProductHelper {
     // prepare the inventoryItem map
     public static Map prepareInventoryItem(String productId,
             double quantityOnHand, String inventoryItemId) {
-        Map fields = new HashMap();
+        Map fields = FastMap.newInstance();
         fields.put("inventoryItemId", inventoryItemId);
         fields.put("inventoryItemTypeId", "NON_SERIAL_INV_ITEM");
         fields.put("productId", productId);

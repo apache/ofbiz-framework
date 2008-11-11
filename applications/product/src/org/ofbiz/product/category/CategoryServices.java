@@ -19,12 +19,12 @@
 package org.ofbiz.product.category;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -348,7 +348,7 @@ public class CategoryServices {
             }
         }
 
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         result.put("viewIndex", new Integer(viewIndex));
         result.put("viewSize", new Integer(viewSize));
         result.put("lowIndex", new Integer(lowIndex));

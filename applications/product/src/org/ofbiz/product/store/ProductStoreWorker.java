@@ -18,9 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.product.store;
 
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -29,6 +27,7 @@ import javax.servlet.ServletRequest;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
@@ -212,7 +211,7 @@ public class ProductStoreWorker {
 
     public static List getAvailableStoreShippingMethods(GenericDelegator delegator, String productStoreId, GenericValue shippingAddress, List itemSizes, Map featureIdMap, double weight, double orderTotal) {
         if (featureIdMap == null) {
-            featureIdMap = new HashMap();
+            featureIdMap = FastMap.newInstance();
         }
         List shippingMethods = null;
         try {
@@ -223,7 +222,7 @@ public class ProductStoreWorker {
         }
 
         // clone the list for concurrent modification
-        List returnShippingMethods = new LinkedList(shippingMethods);
+        List returnShippingMethods = UtilMisc.makeListWritable(shippingMethods);
 
         if (shippingMethods != null) {
             Iterator i = shippingMethods.iterator();
@@ -464,7 +463,7 @@ public class ProductStoreWorker {
     }
 
     public static List getSurveys(GenericDelegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId, String parentProductId) {
-        List surveys = new LinkedList();
+        List surveys = FastList.newInstance();
         List storeSurveys = null;
         try {
             storeSurveys = delegator.findByAndCache("ProductStoreSurveyAppl", UtilMisc.toMap("productStoreId", productStoreId, "surveyApplTypeId", surveyApplTypeId), UtilMisc.toList("sequenceNum"));
