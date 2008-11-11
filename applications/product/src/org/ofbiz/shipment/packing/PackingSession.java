@@ -178,10 +178,9 @@ public class PackingSession implements java.io.Serializable {
             }
 
             if (qtyRemain == 0) {
-                Iterator<GenericValue> x = toCreateMap.keySet().iterator();
-                while (x.hasNext()) {
-                    GenericValue res = x.next();
-                    Double qty = toCreateMap.get(res);
+                for (Map.Entry<GenericValue, Double> entry: toCreateMap.entrySet()) {
+                    GenericValue res = entry.getKey();
+                    Double qty = entry.getValue();
                     this.createPackLineItem(2, res, orderId, orderItemSeqId, shipGroupSeqId, productId, qty.doubleValue(), weight, packageSeqId);
                 }
             } else {
@@ -202,10 +201,7 @@ public class PackingSession implements java.io.Serializable {
     }
 
     public PackingSessionLine findLine(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
-        List<PackingSessionLine> lines = this.getLines();
-        Iterator<PackingSessionLine> i = lines.iterator();
-        while (i.hasNext()) {
-            PackingSessionLine line = i.next();
+        for (PackingSessionLine line: this.getLines()) {
             if (orderId.equals(line.getOrderId()) &&
                     orderItemSeqId.equals(line.getOrderItemSeqId()) &&
                     shipGroupSeqId.equals(line.getShipGroupSeqId()) &&
@@ -255,19 +251,14 @@ public class PackingSession implements java.io.Serializable {
 
         String orderItemSeqId = null;
         if (orderItems != null) {
-            Iterator<GenericValue> i = orderItems.iterator();
-            while (i.hasNext()) {
-                GenericValue item = i.next();
-
+            for (GenericValue item: orderItems) {
                 // get the reservations for the item
                 Map<String, Object> invLookup = FastMap.newInstance();
                 invLookup.put("orderId", orderId);
                 invLookup.put("orderItemSeqId", item.getString("orderItemSeqId"));
                 invLookup.put("shipGroupSeqId", shipGroupSeqId);
                 List<GenericValue> reservations = this.getDelegator().findByAnd("OrderItemShipGrpInvRes", invLookup);
-                Iterator<GenericValue> resIter = reservations.iterator();
-                while (resIter.hasNext()) {
-                    GenericValue res = resIter.next();
+                for (GenericValue res: reservations) {
                     Double qty = res.getDouble("quantity");
                     if (quantity <= qty.doubleValue()) {
                         orderItemSeqId = item.getString("orderItemSeqId");
@@ -314,9 +305,7 @@ public class PackingSession implements java.io.Serializable {
     }
 
     public void addItemInfo(List<GenericValue> infos) {
-        Iterator<GenericValue> i = infos.iterator();
-        while (i.hasNext()) {
-            GenericValue v = i.next();
+        for (GenericValue v: infos) {
             ItemDisplay newItem = new ItemDisplay(v);
             int currentIdx = itemInfos.indexOf(newItem);
             if (currentIdx != -1) {
@@ -362,10 +351,7 @@ public class PackingSession implements java.io.Serializable {
 
     public double getPackedQuantity(String orderId, String orderItemSeqId, String shipGroupSeqId, String productId, String inventoryItemId, int packageSeq) {
         double total = 0.0;
-        List<PackingSessionLine> lines = this.getLines();
-        Iterator<PackingSessionLine> i = lines.iterator();
-        while (i.hasNext()) {
-            PackingSessionLine line = i.next();
+        for (PackingSessionLine line: this.getLines()) {
             if (orderId.equals(line.getOrderId()) && orderItemSeqId.equals(line.getOrderItemSeqId()) &&
                     shipGroupSeqId.equals(line.getShipGroupSeqId()) && productId.equals(line.getProductId())) {
                 if (inventoryItemId == null || inventoryItemId.equals(line.getInventoryItemId())) {
@@ -389,10 +375,7 @@ public class PackingSession implements java.io.Serializable {
 
         double total = 0.0;
         if (productId != null ) {
-            List<PackingSessionLine> lines = this.getLines();
-            Iterator<PackingSessionLine> i = lines.iterator();
-            while (i.hasNext()) {
-                PackingSessionLine line = i.next();
+            for (PackingSessionLine line: this.getLines()) {
                 if (productId.equals(line.getProductId())) {
                     if (packageSeq == -1 || packageSeq == line.getPackageSeq()) {
                         total += line.getQuantity();
@@ -405,10 +388,7 @@ public class PackingSession implements java.io.Serializable {
 
     public double getPackedQuantity(int packageSeq) {
         double total = 0.0;
-        List<PackingSessionLine> lines = this.getLines();
-        Iterator<PackingSessionLine> i = lines.iterator();
-        while (i.hasNext()) {
-            PackingSessionLine line = i.next();
+        for (PackingSessionLine line: this.getLines()) {
             if (packageSeq == -1 || packageSeq == line.getPackageSeq()) {
                 total += line.getQuantity();
             }
@@ -440,9 +420,7 @@ public class PackingSession implements java.io.Serializable {
         double shipped = 0.0;
         List<GenericValue> issues = this.getItemIssuances(orderId, orderItemSeqId, shipGroupSeqId);
         if (issues != null) {
-            Iterator<GenericValue> i = issues.iterator();
-            while (i.hasNext()) {
-                GenericValue v = i.next();
+            for (GenericValue v: issues) {
                 Double qty = v.getDouble("quantity");
                 if (qty == null) qty = Double.valueOf(0);
                 shipped += qty.doubleValue();
@@ -457,9 +435,7 @@ public class PackingSession implements java.io.Serializable {
         List<GenericValue> issues = this.getItemIssuances(orderId, orderItemSeqId, shipGroupSeqId);
 
         if (issues != null) {
-            Iterator<GenericValue> i = issues.iterator();
-            while (i.hasNext()) {
-                GenericValue v = i.next();
+            for (GenericValue v: issues) {
                 shipmentIds.add(v.getString("shipmentId"));
             }
         }
@@ -555,9 +531,7 @@ public class PackingSession implements java.io.Serializable {
         }
         
         List<PackingSessionLine> currentLines = UtilMisc.makeListWritable(this.packLines);
-        Iterator<PackingSessionLine> i = currentLines.iterator();
-        while (i.hasNext()) {
-            PackingSessionLine line = i.next();
+        for (PackingSessionLine line: currentLines) {
             if (line.getPackageSeq() == packageSeq) {
                 this.clearLine(line);
             }
@@ -623,9 +597,7 @@ public class PackingSession implements java.io.Serializable {
 
     protected void checkReservations(boolean ignore) throws GeneralException {
         List<String> errors = FastList.newInstance();        
-        Iterator<PackingSessionLine> i = this.getLines().iterator();
-        while (i.hasNext()) {
-            PackingSessionLine line = i.next();
+        for (PackingSessionLine line: this.getLines()) {
             double reservedQty =  this.getCurrentReservedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
             double packedQty = this.getPackedQuantity(line.getOrderId(), line.getOrderItemSeqId(), line.getShipGroupSeqId(), line.getProductId());
 
@@ -646,9 +618,7 @@ public class PackingSession implements java.io.Serializable {
     protected void checkEmptyLines() throws GeneralException {
         List<PackingSessionLine> lines = FastList.newInstance();
         lines.addAll(this.getLines());
-        Iterator<PackingSessionLine> i = lines.iterator();
-        while (i.hasNext()) {
-            PackingSessionLine l = i.next();
+        for (PackingSessionLine l: lines) {
             if (l.getQuantity() == 0) {
                 this.packLines.remove(l);
             }
@@ -657,9 +627,7 @@ public class PackingSession implements java.io.Serializable {
 
     protected void runEvents(int eventCode) {
         if (this.packEvents.size() > 0) {
-            Iterator<PackingEvent> i = this.packEvents.iterator();
-            while (i.hasNext()) {
-                PackingEvent event = i.next();
+            for (PackingEvent event: this.packEvents) {
                 event.runEvent(this, eventCode);
             }
         }
@@ -711,10 +679,7 @@ public class PackingSession implements java.io.Serializable {
 
     protected void issueItemsToShipment() throws GeneralException {
         List<PackingSessionLine> processedLines = FastList.newInstance();
-        List<PackingSessionLine> lines = this.getLines();
-        Iterator<PackingSessionLine> i = lines.iterator();
-        while (i.hasNext()) {
-            PackingSessionLine line = i.next();
+        for (PackingSessionLine line: this.getLines()) {
             if (this.checkLine(processedLines, line)) {
                 double totalPacked = this.getPackedQuantity(line.getOrderId(),  line.getOrderItemSeqId(),
                         line.getShipGroupSeqId(), line.getProductId(), line.getInventoryItemId(), -1);
@@ -726,9 +691,7 @@ public class PackingSession implements java.io.Serializable {
     }
 
     protected boolean checkLine(List<PackingSessionLine> processedLines, PackingSessionLine line) {
-        Iterator<PackingSessionLine> i = processedLines.iterator();
-        while (i.hasNext()) {
-            PackingSessionLine l = i.next();
+        for (PackingSessionLine l: processedLines) {
             if (line.isSameItem(l)) {
                 line.setShipmentItemSeqId(l.getShipmentItemSeqId());
                 return false;
@@ -758,10 +721,7 @@ public class PackingSession implements java.io.Serializable {
     }
 
     protected void applyItemsToPackages() throws GeneralException {
-        List<PackingSessionLine> lines = this.getLines();
-        Iterator<PackingSessionLine> i = lines.iterator();
-        while (i.hasNext()) {
-            PackingSessionLine line = i.next();
+        for (PackingSessionLine line: this.getLines()) {
             line.applyLineToPackage(shipmentId, userLogin, getDispatcher());
         }
     }
@@ -771,9 +731,7 @@ public class PackingSession implements java.io.Serializable {
         if (shipmentWeight.doubleValue() <= 0) return;
         List<GenericValue> shipmentRouteSegments = getDelegator().findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", this.getShipmentId()));
         if (! UtilValidate.isEmpty(shipmentRouteSegments)) {
-            Iterator<GenericValue> srit = shipmentRouteSegments.iterator();
-            while (srit.hasNext()) {
-                GenericValue shipmentRouteSegment = srit.next();
+            for (GenericValue shipmentRouteSegment: shipmentRouteSegments) {
                 shipmentRouteSegment.set("billingWeight", shipmentWeight);
                 shipmentRouteSegment.set("billingWeightUomId", getWeightUomId());
             }
@@ -860,9 +818,7 @@ public class PackingSession implements java.io.Serializable {
     
             if (UtilValidate.isEmpty(shippableItemInfo)) {
                 shippableItemInfo = FastList.newInstance();
-                Iterator<PackingSessionLine> lit = getLines().iterator();
-                while (lit.hasNext()) {
-                    PackingSessionLine line = lit.next();
+                for (PackingSessionLine line: getLines()) {
                     List<GenericValue> oiasgas = getDelegator().findByAnd("OrderItemAndShipGroupAssoc", UtilMisc.toMap("orderId", line.getOrderId(), "orderItemSeqId", line.getOrderItemSeqId(), "shipGroupSeqId", line.getShipGroupSeqId()));
                     shippableItemInfo.addAll(oiasgas);
                 }
@@ -910,9 +866,7 @@ public class PackingSession implements java.io.Serializable {
     public List<Integer> getPackageSeqIds() {
         Set<Integer> packageSeqIds = new TreeSet<Integer>();
         if (! UtilValidate.isEmpty(this.getLines())) {
-            Iterator<PackingSessionLine> lit = this.getLines().iterator();
-            while (lit.hasNext()) {
-                PackingSessionLine line = lit.next();
+            for (PackingSessionLine line: this.getLines()) {
                 packageSeqIds.add(Integer.valueOf(line.getPackageSeq()));
             }
         }

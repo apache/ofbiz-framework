@@ -201,8 +201,7 @@ public class UspsServices {
         }
 
         double estimateAmount = 0.00;
-        for (Iterator<? extends Element> i = rates.iterator(); i.hasNext();) {
-            Element packageElement = i.next();
+        for (Element packageElement: rates) {
             try {
                 Element postageElement = UtilXml.firstChildElement(packageElement, "Postage");
                 double packageAmount = Double.parseDouble(UtilXml.childElementValue(postageElement, "Rate"));
@@ -222,9 +221,7 @@ public class UspsServices {
         List<Map<String, Double>> packages = FastList.newInstance();
 
         if (shippableItemInfo != null) {
-            Iterator<Map<String, Object>> sii = shippableItemInfo.iterator();
-            while (sii.hasNext()) {
-                Map<String, Object> itemInfo = sii.next();
+            for (Map<String, Object> itemInfo: shippableItemInfo) {
                 long pieces = ((Long) itemInfo.get("piecesIncluded")).longValue();
                 double totalQuantity = ((Double) itemInfo.get("quantity")).doubleValue();
                 double totalWeight = ((Double) itemInfo.get("weight")).doubleValue();
@@ -250,11 +247,9 @@ public class UspsServices {
                             }
 
                             // package loop
-                            int packageSize = packages.size();
                             boolean addedToPackage = false;
-                            for (int pi = 0; pi < packageSize; pi++) {
+                            for (Map<String, Double> packageMap: packages) {
                                 if (!addedToPackage) {
-                                    Map<String, Double> packageMap = packages.get(pi);
                                     double packageWeight = calcPackageWeight(dctx, packageMap, shippableItemInfo, weight);
                                     if (packageWeight <= maxWeight) {
                                         Double qtyD = (Double) packageMap.get(productId);
@@ -287,12 +282,11 @@ public class UspsServices {
             defaultWeightUomId = "WT_oz";
         }
         
-        Iterator<String> i = packageMap.keySet().iterator();
-        while (i.hasNext()) {
-            String productId = i.next();
+        for (Map.Entry<String, Double> entry: packageMap.entrySet()) {
+            String productId = entry.getKey();
             Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
             double productWeight = ((Double) productInfo.get("weight")).doubleValue();
-            double quantity = packageMap.get(productId).doubleValue();
+            double quantity = entry.getValue().doubleValue();
 
             // DLK - I'm not sure if this line is working. shipment_package seems to leave this value null so???
             String weightUomId = (String) productInfo.get("weight_uom_id");
@@ -329,9 +323,7 @@ public class UspsServices {
     // lifted from UpsServices with no changes - 2004.09.06 JFE
     private static Map<String, Object> getProductItemInfo(List<Map<String, Object>> shippableItemInfo, String productId) {
         if (shippableItemInfo != null) {
-            Iterator<Map<String, Object>> i = shippableItemInfo.iterator();
-            while (i.hasNext()) {
-                Map<String, Object> testMap = i.next();
+            for (Map<String, Object> testMap: shippableItemInfo) {
                 String id = (String) testMap.get("productId");
                 if (productId.equals(id)) {
                     return testMap;
@@ -389,8 +381,8 @@ public class UspsServices {
         List<? extends Element> detailElementList = UtilXml.childElementList(trackInfoElement, "TrackDetail");
         if (UtilValidate.isNotEmpty(detailElementList)) {
             List<String> trackingDetailList = FastList.newInstance();
-            for (Iterator<? extends Element> iter = detailElementList.iterator(); iter.hasNext();) {
-                trackingDetailList.add(UtilXml.elementValue(iter.next()));
+            for (Element detailElement: detailElementList) {
+                trackingDetailList.add(UtilXml.elementValue(detailElement));
             }
             result.put("trackingDetailList", trackingDetailList);
         }
@@ -1141,8 +1133,7 @@ public class UspsServices {
                 return ServiceUtil.returnError("No packages found for ShipmentRouteSegment " + srsKeyString);
             }
 
-            for (Iterator<GenericValue> i = shipmentPackageRouteSegList.iterator(); i.hasNext();) {
-
+            for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegList) {
                 Document requestDocument = createUspsRequestDocument("DeliveryConfirmationV2.0Request");
                 Element requestElement = requestDocument.getDocumentElement();
 
@@ -1179,7 +1170,6 @@ public class UspsServices {
                 UtilXml.addChildElementValue(requestElement, "ToZip5", destinationAddress.getString("postalCode"), requestDocument);
                 UtilXml.addChildElement(requestElement, "ToZip4", requestDocument);
 
-                GenericValue shipmentPackageRouteSeg = i.next();
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
                 String spKeyString = "[" + shipmentPackage.getString("shipmentId") + "," +
                         shipmentPackage.getString("shipmentPackageSeqId") + "]";
@@ -1279,9 +1269,7 @@ public class UspsServices {
             List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
                     UtilMisc.toList("+shipmentPackageSeqId"));
 
-            for (Iterator<GenericValue> i = shipmentPackageRouteSegList.iterator(); i.hasNext();) {
-                GenericValue shipmentPackageRouteSeg = i.next();
-
+            for (GenericValue shipmentPackageRouteSeg: shipmentPackageRouteSegList) {
                 byte[] labelImageBytes = shipmentPackageRouteSeg.getBytes("labelImage");
 
                 String outFileName = "UspsLabelImage" + shipmentRouteSegment.getString("shipmentId") + "_" +

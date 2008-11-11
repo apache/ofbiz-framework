@@ -21,7 +21,6 @@ package org.ofbiz.product.price;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
@@ -367,12 +366,10 @@ public class PriceServices {
                 //use the cache to find the variant with the lowest default price
                 try {
                     List<GenericValue> variantAssocList = EntityUtil.filterByDate(delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productId", product.get("productId"), "productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("-fromDate")));
-                    Iterator<GenericValue> variantAssocIter = variantAssocList.iterator();
                     double minDefaultPrice = Double.MAX_VALUE;
                     List<GenericValue> variantProductPrices = null;
                     String variantProductId = null;
-                    while (variantAssocIter.hasNext()) {
-                        GenericValue variantAssoc = variantAssocIter.next();
+                    for (GenericValue variantAssoc: variantAssocList) {
                         String curVariantProductId = variantAssoc.getString("productIdTo");
                         List<GenericValue> curVariantPriceList = EntityUtil.filterByDate(delegator.findByAndCache("ProductPrice", UtilMisc.toMap("productId", curVariantProductId), UtilMisc.toList("-fromDate")), nowTimestamp);
                         List<GenericValue> tempDefaultPriceList = EntityUtil.filterByAnd(curVariantPriceList, UtilMisc.toMap("productPriceTypeId", "DEFAULT_PRICE"));
@@ -568,17 +565,13 @@ public class PriceServices {
                     // split into list with quantity conditions and list without, then iterate through each quantity cond one
                     quantityProductPriceRules = FastList.newInstance();
                     nonQuantityProductPriceRules = FastList.newInstance();
-                    Iterator<GenericValue> productPriceRulesIter = allProductPriceRules.iterator();
-                    while (productPriceRulesIter.hasNext()) {
-                        GenericValue productPriceRule = productPriceRulesIter.next();
+                    for (GenericValue productPriceRule: allProductPriceRules) {
                         List<GenericValue> productPriceCondList = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("productPriceRuleId", productPriceRule.get("productPriceRuleId")));
                         
                         boolean foundQuantityInputParam = false;
                         // only consider a rule if all conditions except the quantity condition are true
                         boolean allExceptQuantTrue = true;
-                        Iterator<GenericValue> productPriceCondIter = productPriceCondList.iterator();
-                        while (productPriceCondIter.hasNext()) {
-                            GenericValue productPriceCond = productPriceCondIter.next();
+                        for (GenericValue productPriceCond: productPriceCondList) {
                             if ("PRIP_QUANTITY".equals(productPriceCond.getString("inputParamEnumId"))) {
                                 foundQuantityInputParam = true;
                             } else {
@@ -601,10 +594,7 @@ public class PriceServices {
                     
                     // if findAllQuantityPrices then iterate through quantityProductPriceRules
                     // foreach create an entry in the out list and eval that rule and all nonQuantityProductPriceRules rather than a single rule
-                    Iterator<GenericValue> quantityProductPriceRuleIter = quantityProductPriceRules.iterator();
-                    while (quantityProductPriceRuleIter.hasNext()) {
-                        GenericValue quantityProductPriceRule = quantityProductPriceRuleIter.next();
-
+                    for (GenericValue quantityProductPriceRule: quantityProductPriceRules) {
                         List<GenericValue> ruleListToUse = FastList.newInstance();
                         ruleListToUse.add(quantityProductPriceRule);
                         ruleListToUse.addAll(nonQuantityProductPriceRules);
@@ -741,9 +731,7 @@ public class PriceServices {
             // note that we always want to put the category, quantity, etc ones that find all rules with these conditions in separate cache lists so that they can be easily cleared
             Collection<GenericValue> productCategoryIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_CAT_ID"));
             if (UtilValidate.isNotEmpty(productCategoryIdConds)) {
-                Iterator<GenericValue> productCategoryIdCondsIter = productCategoryIdConds.iterator();
-                while (productCategoryIdCondsIter.hasNext()) {
-                    GenericValue productCategoryIdCond = productCategoryIdCondsIter.next();
+                for (GenericValue productCategoryIdCond: productCategoryIdConds) {
                     productPriceRuleIds.add(productCategoryIdCond.getString("productPriceRuleId"));
                 }
             }
@@ -751,9 +739,7 @@ public class PriceServices {
             // by productFeatureId
             Collection<GenericValue> productFeatureIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_FEAT_ID"));
             if (UtilValidate.isNotEmpty(productFeatureIdConds)) {
-                Iterator<GenericValue> productFeatureIdCondsIter = productFeatureIdConds.iterator();
-                while (productFeatureIdCondsIter.hasNext()) {
-                    GenericValue productFeatureIdCond = productFeatureIdCondsIter.next();
+                for (GenericValue productFeatureIdCond: productFeatureIdConds) {
                     productPriceRuleIds.add(productFeatureIdCond.getString("productPriceRuleId"));
                 }
             }
@@ -763,9 +749,7 @@ public class PriceServices {
             // but, no we'll do it the other way, any that have a quantity will always get compared
             Collection<GenericValue> quantityConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_QUANTITY"));
             if (UtilValidate.isNotEmpty(quantityConds)) {
-                Iterator<GenericValue> quantityCondsIter = quantityConds.iterator();
-                while (quantityCondsIter.hasNext()) {
-                    GenericValue quantityCond = quantityCondsIter.next();
+                for (GenericValue quantityCond: quantityConds) {
                     productPriceRuleIds.add(quantityCond.getString("productPriceRuleId"));
                 }
             }
@@ -773,9 +757,7 @@ public class PriceServices {
             // by roleTypeId
             Collection<GenericValue> roleTypeIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_ROLE_TYPE"));
             if (UtilValidate.isNotEmpty(roleTypeIdConds)) {
-                Iterator<GenericValue> roleTypeIdCondsIter = roleTypeIdConds.iterator();
-                while (roleTypeIdCondsIter.hasNext()) {
-                    GenericValue roleTypeIdCond = roleTypeIdCondsIter.next();
+                for (GenericValue roleTypeIdCond: roleTypeIdConds) {
                     productPriceRuleIds.add(roleTypeIdCond.getString("productPriceRuleId"));
                 }
             }
@@ -787,9 +769,7 @@ public class PriceServices {
             // by listPrice
             Collection<GenericValue> listPriceConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_LIST_PRICE"));
             if (UtilValidate.isNotEmpty(listPriceConds)) {
-                Iterator<GenericValue> listPriceCondsIter = listPriceConds.iterator();
-                while (listPriceCondsIter.hasNext()) {
-                    GenericValue listPriceCond = listPriceCondsIter.next();
+                for (GenericValue listPriceCond: listPriceConds) {
                     productPriceRuleIds.add(listPriceCond.getString("productPriceRuleId"));
                 }
             }
@@ -799,9 +779,7 @@ public class PriceServices {
             // by productId
             Collection<GenericValue> productIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", productId));
             if (UtilValidate.isNotEmpty(productIdConds)) {
-                Iterator<GenericValue> productIdCondsIter = productIdConds.iterator();
-                while (productIdCondsIter.hasNext()) {
-                    GenericValue productIdCond = productIdCondsIter.next();
+                for (GenericValue productIdCond: productIdConds) {
                     productPriceRuleIds.add(productIdCond.getString("productPriceRuleId"));
                 }
             }
@@ -810,9 +788,7 @@ public class PriceServices {
             if (virtualProductId != null) {
                 Collection<GenericValue> virtualProductIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PRODUCT_ID", "condValue", virtualProductId));
                 if (UtilValidate.isNotEmpty(virtualProductIdConds)) {
-                    Iterator<GenericValue> virtualProductIdCondsIter = virtualProductIdConds.iterator();
-                    while (virtualProductIdCondsIter.hasNext()) {
-                        GenericValue virtualProductIdCond = virtualProductIdCondsIter.next();
+                    for (GenericValue virtualProductIdCond: virtualProductIdConds) {
                         productPriceRuleIds.add(virtualProductIdCond.getString("productPriceRuleId"));
                     }
                 }
@@ -822,9 +798,7 @@ public class PriceServices {
             if (UtilValidate.isNotEmpty(prodCatalogId)) {
                 Collection<GenericValue> prodCatalogIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_CLG_ID", "condValue", prodCatalogId));
                 if (UtilValidate.isNotEmpty(prodCatalogIdConds)) {
-                    Iterator<GenericValue> prodCatalogIdCondsIter = prodCatalogIdConds.iterator();
-                    while (prodCatalogIdCondsIter.hasNext()) {
-                        GenericValue prodCatalogIdCond = prodCatalogIdCondsIter.next();
+                    for (GenericValue prodCatalogIdCond: prodCatalogIdConds) {
                         productPriceRuleIds.add(prodCatalogIdCond.getString("productPriceRuleId"));
                     }
                 }
@@ -834,9 +808,7 @@ public class PriceServices {
             if (UtilValidate.isNotEmpty(productStoreGroupId)) {
                 Collection<GenericValue> storeGroupConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PROD_SGRP_ID", "condValue", productStoreGroupId));
                 if (UtilValidate.isNotEmpty(storeGroupConds)) {
-                    Iterator<GenericValue> storeGroupCondsIter = storeGroupConds.iterator();
-                    while (storeGroupCondsIter.hasNext()) {
-                        GenericValue storeGroupCond = storeGroupCondsIter.next();
+                    for (GenericValue storeGroupCond: storeGroupConds) {
                         productPriceRuleIds.add(storeGroupCond.getString("productPriceRuleId"));
                     }
                 }
@@ -846,9 +818,7 @@ public class PriceServices {
             if (UtilValidate.isNotEmpty(webSiteId)) {
                 Collection<GenericValue> webSiteIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_WEBSITE_ID", "condValue", webSiteId));
                 if (UtilValidate.isNotEmpty(webSiteIdConds)) {
-                    Iterator<GenericValue> webSiteIdCondsIter = webSiteIdConds.iterator();
-                    while (webSiteIdCondsIter.hasNext()) {
-                        GenericValue webSiteIdCond = webSiteIdCondsIter.next();
+                    for (GenericValue webSiteIdCond: webSiteIdConds) {
                         productPriceRuleIds.add(webSiteIdCond.getString("productPriceRuleId"));
                     }
                 }
@@ -858,9 +828,7 @@ public class PriceServices {
             if (UtilValidate.isNotEmpty(partyId)) {
                 Collection<GenericValue> partyIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_PARTY_ID", "condValue", partyId));
                 if (UtilValidate.isNotEmpty(partyIdConds)) {
-                    Iterator<GenericValue> partyIdCondsIter = partyIdConds.iterator();
-                    while (partyIdCondsIter.hasNext()) {
-                        GenericValue partyIdCond = partyIdCondsIter.next();
+                    for (GenericValue partyIdCond: partyIdConds) {
                         productPriceRuleIds.add(partyIdCond.getString("productPriceRuleId"));
                     }
                 }
@@ -869,17 +837,13 @@ public class PriceServices {
             // by currencyUomId
             Collection<GenericValue> currencyUomIdConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("inputParamEnumId", "PRIP_CURRENCY_UOMID", "condValue", currencyUomId));
             if (UtilValidate.isNotEmpty(currencyUomIdConds)) {
-                Iterator<GenericValue> currencyUomIdCondsIter = currencyUomIdConds.iterator();
-                while (currencyUomIdCondsIter.hasNext()) {
-                    GenericValue currencyUomIdCond = currencyUomIdCondsIter.next();
+                for (GenericValue currencyUomIdCond: currencyUomIdConds) {
                     productPriceRuleIds.add(currencyUomIdCond.getString("productPriceRuleId"));
                 }
             }
 
             productPriceRules = FastList.newInstance();
-            Iterator<String> productPriceRuleIdsIter = productPriceRuleIds.iterator();
-            while (productPriceRuleIdsIter.hasNext()) {
-                String productPriceRuleId = productPriceRuleIdsIter.next();
+            for (String productPriceRuleId: productPriceRuleIds) {
                 GenericValue productPriceRule = delegator.findByPrimaryKeyCache("ProductPriceRule", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
                 if (productPriceRule == null) continue;
                 productPriceRules.add(productPriceRule);
@@ -920,9 +884,7 @@ public class PriceServices {
         // calculate running sum based on listPrice and rules found
         double price = listPrice;
         
-        Iterator<GenericValue> productPriceRulesIter = productPriceRules.iterator();
-        while (productPriceRulesIter.hasNext()) {
-            GenericValue productPriceRule = productPriceRulesIter.next();
+        for (GenericValue productPriceRule: productPriceRules) {
             String productPriceRuleId = productPriceRule.getString("productPriceRuleId");
 
             // check from/thru dates
@@ -942,10 +904,7 @@ public class PriceServices {
             boolean allTrue = true;
             StringBuilder condsDescription = new StringBuilder();
             List<GenericValue> productPriceConds = delegator.findByAndCache("ProductPriceCond", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
-            Iterator<GenericValue> productPriceCondsIter = UtilMisc.toIterator(productPriceConds);
-
-            while (productPriceCondsIter != null && productPriceCondsIter.hasNext()) {
-                GenericValue productPriceCond = productPriceCondsIter.next();
+            for (GenericValue productPriceCond: productPriceConds) {
 
                 totalConds++;
 
@@ -987,10 +946,7 @@ public class PriceServices {
                 }
 
                 Collection<GenericValue> productPriceActions = delegator.findByAndCache("ProductPriceAction", UtilMisc.toMap("productPriceRuleId", productPriceRuleId));
-                Iterator<GenericValue> productPriceActionsIter = UtilMisc.toIterator(productPriceActions);
-
-                while (productPriceActionsIter != null && productPriceActionsIter.hasNext()) {
-                    GenericValue productPriceAction = productPriceActionsIter.next();
+                for (GenericValue productPriceAction: productPriceActions) {
 
                     totalActions++;
 
@@ -1110,9 +1066,7 @@ public class PriceServices {
         if (Debug.verboseOn()) {
             Debug.logVerbose("Unchecked Calculated price: " + price, module);
             Debug.logVerbose("PriceInfo:", module);
-            Iterator<GenericValue> orderItemPriceInfosIter = orderItemPriceInfos.iterator();
-            while (orderItemPriceInfosIter.hasNext()) {
-                GenericValue orderItemPriceInfo = orderItemPriceInfosIter.next();
+            for (GenericValue orderItemPriceInfo: orderItemPriceInfos) {
                 Debug.logVerbose(" --- " + orderItemPriceInfo.toString(), module);
             }
         }
@@ -1365,8 +1319,7 @@ public class PriceServices {
                 return ServiceUtil.returnError(gse.getMessage());
             }
             if (productSuppliers != null) {
-                for (int i = 0; i < productSuppliers.size(); i++) {
-                    GenericValue productSupplier = productSuppliers.get(i);
+                for (GenericValue productSupplier: productSuppliers) {
                     if (!validPriceFound) {
                         price = ((Double)productSupplier.get("lastPrice")).doubleValue();
                         validPriceFound = true;

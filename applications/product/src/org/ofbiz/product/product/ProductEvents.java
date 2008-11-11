@@ -538,10 +538,8 @@ public class ProductEvents {
         List<GenericValue> typeUomProductFeatureAndApplList = EntityUtil.filterByAnd(currentProductFeatureAndAppls, UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "uomId", uomId));
 
         // go through each; need to remove? do it now
-        Iterator<GenericValue> typeUomProductFeatureAndApplIter = typeUomProductFeatureAndApplList.iterator();
         boolean foundOneEqual = false;
-        while (typeUomProductFeatureAndApplIter.hasNext()) {
-            GenericValue typeUomProductFeatureAndAppl = typeUomProductFeatureAndApplIter.next();
+        for (GenericValue typeUomProductFeatureAndAppl: typeUomProductFeatureAndApplList) {
             if ((numberSpecified != null) && (numberSpecified.equals(typeUomProductFeatureAndAppl.getDouble("numberSpecified")))) {
                 foundOneEqual = true;
             } else {
@@ -773,23 +771,17 @@ public class ProductEvents {
             List<GenericValue> variantAssocs = product.getRelatedByAnd("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
             variantAssocs = EntityUtil.filterByDate(variantAssocs);
             List<GenericValue> variants = EntityUtil.getRelated("AssocProduct", variantAssocs);
-            Iterator<GenericValue> variantIter = variants.iterator();
-            while (variantIter.hasNext()) {
-                GenericValue variant = variantIter.next();
+            for (GenericValue variant: variants) {
                 // get the selectable features for the variant
                 List<GenericValue> productFeatureAndAppls = variant.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "productFeatureApplTypeId", "STANDARD_FEATURE"), null);
-                Iterator<GenericValue> productFeatureAndApplIter = productFeatureAndAppls.iterator();
-                while (productFeatureAndApplIter.hasNext()) {
-                    GenericValue productFeatureAndAppl = productFeatureAndApplIter.next();
+                for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
                     GenericPK productFeatureApplPK = delegator.makePK("ProductFeatureAppl");
                     productFeatureApplPK.setPKFields(productFeatureAndAppl);
                     delegator.removeByPrimaryKey(productFeatureApplPK);
                 }
             }
             List<GenericValue> productFeatureAndAppls = product.getRelated("ProductFeatureAndAppl", UtilMisc.toMap("productFeatureTypeId", productFeatureTypeId, "productFeatureApplTypeId", "SELECTABLE_FEATURE"), null);
-            Iterator<GenericValue> productFeatureAndApplIter = productFeatureAndAppls.iterator();
-            while (productFeatureAndApplIter.hasNext()) {
-                GenericValue productFeatureAndAppl = productFeatureAndApplIter.next();
+            for (GenericValue productFeatureAndAppl: productFeatureAndAppls) {
                 GenericPK productFeatureApplPK = delegator.makePK("ProductFeatureAppl");
                 productFeatureApplPK.setPKFields(productFeatureAndAppl);
                 delegator.removeByPrimaryKey(productFeatureApplPK);
@@ -832,17 +824,17 @@ public class ProductEvents {
         if ((fromDate == null) || (fromDate.trim().length() == 0)) {
             fromDate = UtilDateTime.nowTimestamp().toString();
         }
-        String[] categoryId = request.getParameterValues("categoryId");
-        if (categoryId != null) {
-            for (int i = 0; i < categoryId.length; i++) {
+        String[] categoryIds = request.getParameterValues("categoryId");
+        if (categoryIds != null) {
+            for (String categoryId: categoryIds) {
                 try {
                     List<GenericValue> catMembs = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap(
-                            "productCategoryId", categoryId[i],
+                            "productCategoryId", categoryId,
                             "productId", productId));
                     catMembs = EntityUtil.filterByDate(catMembs);
                     if (catMembs.size() == 0) {
                         delegator.create("ProductCategoryMember",
-                                UtilMisc.toMap("productCategoryId", categoryId[i], "productId", productId, "fromDate", fromDate));
+                                UtilMisc.toMap("productCategoryId", categoryId, "productId", productId, "fromDate", fromDate));
                     }
                 } catch (GenericEntityException e) {
                     String errMsg = "Error adding to category: " + e.toString();
@@ -893,17 +885,17 @@ public class ProductEvents {
         String[] productFeatureIdArray = request.getParameterValues("productFeatureId");
         if (productFeatureIdArray != null && productFeatureIdArray.length > 0) {
             try {
-                for (int i = 0; i < productFeatureIdArray.length; i++) {
-                    if (!productFeatureIdArray[i].equals("~~any~~")) {
+                for (String productFeatureId: productFeatureIdArray) {
+                    if (!productFeatureId.equals("~~any~~")) {
                         List<GenericValue> featureAppls = delegator.findByAnd("ProductFeatureAppl",
                                 UtilMisc.toMap("productId", productId,
-                                        "productFeatureId", productFeatureIdArray[i],
+                                        "productFeatureId", productFeatureId,
                                         "productFeatureApplTypeId", productFeatureApplTypeId));
                         if (featureAppls.size() == 0) {
                             // no existing application for this
                             delegator.create("ProductFeatureAppl",
                                     UtilMisc.toMap("productId", productId,
-                                        "productFeatureId", productFeatureIdArray[i],
+                                        "productFeatureId", productFeatureId,
                                         "productFeatureApplTypeId", productFeatureApplTypeId,
                                         "fromDate", fromDate));
                         }

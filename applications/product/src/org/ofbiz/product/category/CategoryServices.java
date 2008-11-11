@@ -19,7 +19,6 @@
 package org.ofbiz.product.category;
 
 import java.sql.Timestamp;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -105,9 +104,7 @@ public class CategoryServices {
         
 
         if (productId != null && index == null) {
-            Iterator<GenericValue> i = productCategoryMembers.iterator();
-            while (i.hasNext()) {
-                GenericValue v = i.next();
+            for (GenericValue v: productCategoryMembers) {
                 if (v.getString("productId").equals(productId)) {
                     index = Integer.valueOf(productCategoryMembers.indexOf(v));
                 }
@@ -156,9 +153,7 @@ public class CategoryServices {
         
         ModelEntity productModel = delegator.getModelEntity("Product");
         ModelEntity productCategoryMemberModel = delegator.getModelEntity("ProductCategoryMember");
-        Iterator<String> orderByFieldIter = orderByFields.iterator();
-        while (orderByFieldIter.hasNext()) {
-            String orderByField = orderByFieldIter.next();
+        for (String orderByField: orderByFields) {
             // Get the real field name from the order by field removing ascending/descending order
             if (UtilValidate.isNotEmpty(orderByField)) {
                 int startPos = 0, endPos = orderByField.length();

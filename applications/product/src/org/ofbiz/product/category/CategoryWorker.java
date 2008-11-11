@@ -19,7 +19,6 @@
 package org.ofbiz.product.category;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -98,10 +97,7 @@ public class CategoryWorker {
 
             if (allCategories == null)
                 return;
-            Iterator<GenericValue> aciter = allCategories.iterator();
-
-            while (aciter.hasNext()) {
-                GenericValue curCat = aciter.next();
+            for (GenericValue curCat: allCategories) {
                 Collection<GenericValue> parentCats = curCat.getRelatedCache("CurrentProductCategoryRollup");
 
                 if (parentCats == null || parentCats.size() <= 0)
@@ -181,10 +177,7 @@ public class CategoryWorker {
         }
         if (UtilValidate.isNotEmpty(rollups)) {
             // Debug.log("Rollup size: " + rollups.size(), module);
-            Iterator<GenericValue> ri = rollups.iterator();
-
-            while (ri.hasNext()) {
-                GenericValue parent = ri.next();
+            for (GenericValue parent: rollups) {
                 // Debug.log("Adding child of: " + parent.getString("parentProductCategoryId"), module);
                 GenericValue cv = null;
 
@@ -414,9 +407,7 @@ public class CategoryWorker {
             List<GenericValue> productAssocs = ProductWorker.getVariantVirtualAssocs(product);
             //this does take into account that a product could be a variant of multiple products, but this shouldn't ever really happen...
             if (UtilValidate.isNotEmpty(productAssocs)) {
-                Iterator<GenericValue> pasIter = productAssocs.iterator();
-                while (pasIter.hasNext()) {
-                    GenericValue productAssoc = pasIter.next();
+                for (GenericValue productAssoc: productAssocs) {
                     if (isProductInCategory(delegator, productAssoc.getString("productId"), productCategoryId)) {
                         return true;
                     }
@@ -439,9 +430,7 @@ public class CategoryWorker {
         if (productCategoryId == null) return newList;
         if (valueObjects == null) return null;
         
-        Iterator<GenericValue> valIter = valueObjects.iterator();
-        while (valIter.hasNext()) {
-            GenericValue curValue = valIter.next();
+        for (GenericValue curValue: valueObjects) {
             String productId = curValue.getString(productIdFieldName);
             if (isProductInCategory(delegator, productId, productCategoryId)) {
                 newList.add(curValue);
@@ -454,9 +443,7 @@ public class CategoryWorker {
         if (catContentWrappers == null || categoryList == null) {
             return;
         }
-        Iterator<GenericValue> catIterator = categoryList.iterator();
-        while (catIterator.hasNext()) {
-            GenericValue cat = catIterator.next();
+        for (GenericValue cat: categoryList) {
             String productCategoryId = (String) cat.get("productCategoryId");
             
             if (catContentWrappers.containsKey(productCategoryId)) {

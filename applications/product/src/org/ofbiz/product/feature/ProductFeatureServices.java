@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.product.feature;
 
-import java.util.Iterator;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -99,9 +98,7 @@ public class ProductFeatureServices {
                 
             List<String> featureTypes = FastList.newInstance();
             Map<String, List<GenericValue>> featuresByType = new LinkedHashMap<String, List<GenericValue>>();
-            GenericValue feature = null;
-            for (Iterator<GenericValue> featuresIter = allFeatures.iterator(); featuresIter.hasNext(); ) {
-                feature = featuresIter.next();
+            for (GenericValue feature: allFeatures) {
                 String featureType = feature.getString("productFeatureTypeId");
                 if (!featureTypes.contains(featureType)) {
                     featureTypes.add(featureType);
@@ -143,15 +140,11 @@ public class ProductFeatureServices {
              * it qualifies and add it to the list of existingVariantProductIds.
              */
             List<GenericValue> productAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT")));
-            Iterator<GenericValue> productAssocIter = productAssocs.iterator();
-            while (productAssocIter.hasNext()) {
-                GenericEntity productAssoc = productAssocIter.next();
+            for (GenericValue productAssoc: productAssocs) {
 
                 //for each associated product, if it has all standard features, display it's productId
                 boolean hasAllFeatures = true;
-                Iterator<String> curProductFeatureAndApplIter = curProductFeatureAndAppls.iterator();
-                while (curProductFeatureAndApplIter.hasNext()) {
-                    String productFeatureAndAppl = curProductFeatureAndApplIter.next();
+                for (String productFeatureAndAppl: curProductFeatureAndAppls) {
                     Map<String, String> findByMap = UtilMisc.toMap("productId", productAssoc.getString("productIdTo"), 
                             "productFeatureId", productFeatureAndAppl,
                             "productFeatureApplTypeId", "STANDARD_FEATURE");
@@ -208,9 +201,9 @@ public class ProductFeatureServices {
             List<Map<String, Object>> oldCombinations = FastList.newInstance();
             
             // loop through each feature type
-            for (Iterator<String> fi = features.keySet().iterator(); fi.hasNext(); ) {
-                String currentFeatureType = fi.next();
-                List<GenericValue> currentFeatures = features.get(currentFeatureType);
+            for (Map.Entry<String, List<GenericValue>> entry: features.entrySet()) {
+                String currentFeatureType = entry.getKey();
+                List<GenericValue> currentFeatures = entry.getValue();
                 
                 List<Map<String, Object>> newCombinations = FastList.newInstance();
                 List<Map<String, Object>> combinations;
@@ -227,8 +220,7 @@ public class ProductFeatureServices {
                 // of the next variant.  just a matter of whether we're starting with an
                 // existing list of features and id code or from scratch.
                 if (combinations.size()==0) {
-                    for (Iterator<GenericValue> cFi = currentFeatures.iterator(); cFi.hasNext(); ) {
-                        GenericValue currentFeature = cFi.next();
+                    for (GenericValue currentFeature: currentFeatures) {
                         if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
                             Map<String, Object> newCombination = FastMap.newInstance();
                             List<GenericValue> newFeatures = FastList.newInstance();
@@ -246,10 +238,8 @@ public class ProductFeatureServices {
                         }
                     }
                 } else {
-                    for (Iterator<Map<String, Object>> comboIt = combinations.iterator(); comboIt.hasNext(); ) {
-                        Map<String, Object> combination = comboIt.next();
-                        for (Iterator<GenericValue> cFi = currentFeatures.iterator(); cFi.hasNext(); ) {
-                            GenericValue currentFeature = cFi.next();
+                    for (Map<String, Object> combination: combinations) {
+                        for (GenericValue currentFeature: currentFeatures) {
                             if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
                                 Map<String, Object> newCombination = FastMap.newInstance();
                                 // .clone() is important, or you'll keep adding to the same List for all the variants
@@ -280,8 +270,7 @@ public class ProductFeatureServices {
             defaultVariantProductIds.add(productId);
             
             // now figure out which of these combinations already have productIds associated with them
-            for (Iterator<Map<String, Object>> fCi = oldCombinations.iterator(); fCi.hasNext(); ) {
-                Map<String, Object> combination = fCi.next();
+            for (Map<String, Object> combination: oldCombinations) {
                 // Verify if the default code is already used, if so add a numeric suffix
                 if (defaultVariantProductIds.contains((String) combination.get("defaultVariantProductId"))) {
                     combination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + (defaultCodeCounter < 10? "0" + defaultCodeCounter: "" + defaultCodeCounter));
@@ -326,15 +315,13 @@ public class ProductFeatureServices {
         if ((memberProducts != null) && (memberProducts.size() > 0)) {
             // construct a Map of productFeatureTypeId -> productFeatureId from the productFeatures List
             Map<String, String> featuresByType = FastMap.newInstance();
-            for (Iterator<GenericValue> pFi = productFeatures.iterator(); pFi.hasNext(); ) {
-                GenericValue nextFeature = pFi.next();
+            for (GenericValue nextFeature: productFeatures) {
                 featuresByType.put(nextFeature.getString("productFeatureTypeId"), nextFeature.getString("productFeatureId"));
             }
 
             List<GenericValue> products = FastList.newInstance();  // final list of variant products  
-            for (Iterator<GenericValue> mPi = memberProducts.iterator(); mPi.hasNext(); ) {
+            for (GenericValue memberProduct: memberProducts) {
                 // find variants for each member product of the category
-                GenericValue memberProduct = mPi.next();
 
                 try {
                     result = dispatcher.runSync("getProductVariant", UtilMisc.toMap("productId", memberProduct.getString("productId"), "selectedFeatures", featuresByType));

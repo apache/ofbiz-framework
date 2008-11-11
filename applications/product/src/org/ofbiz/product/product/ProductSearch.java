@@ -92,9 +92,7 @@ public class ProductSearch {
         }
 
         if (UtilValidate.isNotEmpty(featureIdSet)) {
-            Iterator<String> featureIdIter = featureIdSet.iterator();
-            while (featureIdIter.hasNext()) {
-                String productFeatureId = featureIdIter.next();
+            for (String productFeatureId: featureIdSet) {
                 productSearchConstraintList.add(new FeatureConstraint(productFeatureId, null));
             }
         }
@@ -125,11 +123,7 @@ public class ProductSearch {
         // now find all sub-categories, filtered by effective dates, and call this routine for them
         try {
             List<GenericValue> productCategoryRollupList = delegator.findByAndCache("ProductCategoryRollup", UtilMisc.toMap("parentProductCategoryId", productCategoryId));
-
-            Iterator<GenericValue> productCategoryRollupIter = productCategoryRollupList.iterator();
-            while (productCategoryRollupIter.hasNext()) {
-                GenericValue productCategoryRollup = productCategoryRollupIter.next();
-
+            for (GenericValue productCategoryRollup: productCategoryRollupList) {
                 String subProductCategoryId = productCategoryRollup.getString("productCategoryId");
                 if (productCategoryIdSet.contains(subProductCategoryId)) {
                     // if this category has already been traversed, no use doing it again; this will also avoid infinite loops
@@ -202,9 +196,7 @@ public class ProductSearch {
 
         public void addProductSearchConstraints(List<ProductSearchConstraint> productSearchConstraintList) {
             // Go through the constraints and add them in
-            Iterator<ProductSearchConstraint> productSearchConstraintIter = productSearchConstraintList.iterator();
-            while (productSearchConstraintIter.hasNext()) {
-                ProductSearchConstraint constraint = productSearchConstraintIter.next();
+            for (ProductSearchConstraint constraint: productSearchConstraintList) {
                 constraint.addConstraint(this);
             }
         }
@@ -283,10 +275,7 @@ public class ProductSearch {
             if (andKeywordFixedSet.size() > 0) {
                 // add up the relevancyWeight fields from all keyword member entities for a total to sort by
 
-                Iterator<String> keywordIter = andKeywordFixedSet.iterator();
-                while (keywordIter.hasNext()) {
-                    String keyword = keywordIter.next();
-
+                for (String keyword: andKeywordFixedSet) {
                     // make index based values and increment
                     String entityAlias = "PK" + index;
                     String prefix = "pk" + index;
@@ -312,9 +301,7 @@ public class ProductSearch {
                 }
             }
             if (keywordFixedOrSetAndList.size() > 0) {
-                Iterator<Set<String>> keywordFixedOrSetAndIter = keywordFixedOrSetAndList.iterator();
-                while (keywordFixedOrSetAndIter.hasNext()) {
-                    Set<String> keywordFixedOrSet = keywordFixedOrSetAndIter.next();
+                for (Set<String> keywordFixedOrSet: keywordFixedOrSetAndList) {
                     // make index based values and increment
                     String entityAlias = "PK" + index;
                     String prefix = "pk" + index;
@@ -324,9 +311,7 @@ public class ProductSearch {
                     dynamicViewEntity.addAlias(entityAlias, prefix + "Keyword", "keyword", null, null, null, null);
                     dynamicViewEntity.addViewLink("PROD", entityAlias, Boolean.FALSE, ModelKeyMap.makeKeyMapList("productId"));
                     List<EntityCondition> keywordOrList = FastList.newInstance();
-                    Iterator<String> keywordIter = keywordFixedOrSet.iterator();
-                    while (keywordIter.hasNext()) {
-                        String keyword = keywordIter.next();
+                    for (String keyword: keywordFixedOrSet) {
                         keywordOrList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
                     }
                     entityConditionList.add(EntityCondition.makeCondition(keywordOrList, EntityOperator.OR));
@@ -368,9 +353,7 @@ public class ProductSearch {
             EntityCondition topCond = null;
             
             if (includeCategoryIds.size() > 0) {
-                Iterator<String> includeCategoryIdIter = includeCategoryIds.iterator();
-                while (includeCategoryIdIter.hasNext()) {
-                    String includeCategoryId = includeCategoryIdIter.next();
+                for (String includeCategoryId: includeCategoryIds) {
                     String categoryPrefix = "pcm" + this.index;
                     String entityAlias = "PCM" + this.index;
                     this.index++;
@@ -386,9 +369,7 @@ public class ProductSearch {
                 }
             }
             if (includeFeatureIds.size() > 0) {
-                Iterator<String> includeFeatureIdIter = includeFeatureIds.iterator();
-                while (includeFeatureIdIter.hasNext()) {
-                    String includeFeatureId = includeFeatureIdIter.next();
+                for (String includeFeatureId: includeFeatureIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
                     this.index++;
@@ -404,9 +385,7 @@ public class ProductSearch {
                 }
             }
             if (includeFeatureCategoryIds.size() > 0) {
-                Iterator<String> includeFeatureCategoryIdIter = includeFeatureCategoryIds.iterator();
-                while (includeFeatureCategoryIdIter.hasNext()) {
-                    String includeFeatureCategoryId = includeFeatureCategoryIdIter.next();
+                for (String includeFeatureCategoryId: includeFeatureCategoryIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
                     String otherFeaturePrefix = "pfe" + this.index;
@@ -426,9 +405,7 @@ public class ProductSearch {
                 }
             }
             if (includeFeatureGroupIds.size() > 0) {
-                Iterator<String> includeFeatureGroupIdIter = includeFeatureGroupIds.iterator();
-                while (includeFeatureGroupIdIter.hasNext()) {
-                    String includeFeatureGroupId = includeFeatureGroupIdIter.next();
+                for (String includeFeatureGroupId: includeFeatureGroupIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
                     String otherFeaturePrefix = "pfga" + this.index;
@@ -516,9 +493,7 @@ public class ProductSearch {
                 alwIncCondList.add(EntityCondition.makeCondition(featurePrefix + "ProductFeatureId", EntityOperator.IN, alwaysIncludeFeatureIds)); 
             }
             if (alwaysIncludeFeatureCategoryIds.size() > 0) {
-                Iterator<String> alwaysIncludeFeatureCategoryIdIter = alwaysIncludeFeatureCategoryIds.iterator();
-                while (alwaysIncludeFeatureCategoryIdIter.hasNext()) {
-                    String alwaysIncludeFeatureCategoryId = alwaysIncludeFeatureCategoryIdIter.next();
+                for (String alwaysIncludeFeatureCategoryId: alwaysIncludeFeatureCategoryIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
                     String otherFeaturePrefix = "pfe" + this.index;
@@ -538,9 +513,7 @@ public class ProductSearch {
                 }
             }
             if (alwaysIncludeFeatureGroupIds.size() > 0) {
-                Iterator<String> alwaysIncludeFeatureGroupIdIter = alwaysIncludeFeatureGroupIds.iterator();
-                while (alwaysIncludeFeatureGroupIdIter.hasNext()) {
-                    String alwaysIncludeFeatureGroupId = alwaysIncludeFeatureGroupIdIter.next();
+                for (String alwaysIncludeFeatureGroupId: alwaysIncludeFeatureGroupIds) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
                     String otherFeaturePrefix = "pfga" + this.index;
@@ -566,9 +539,7 @@ public class ProductSearch {
 
             // handle includeFeatureIdOrSetAndList and alwaysIncludeFeatureIdOrSetAndList
             if (includeFeatureIdOrSetAndList.size() > 0) {
-                Iterator<Set<String>> includeFeatureIdOrSetAndIter = includeFeatureIdOrSetAndList.iterator();
-                while (includeFeatureIdOrSetAndIter.hasNext()) {
-                    Set<String> includeFeatureIdOrSet = includeFeatureIdOrSetAndIter.next();
+                for (Set<String> includeFeatureIdOrSet: includeFeatureIdOrSetAndList) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
                     this.index++;
@@ -584,9 +555,7 @@ public class ProductSearch {
                 }
             }
             if (alwaysIncludeFeatureIdOrSetAndList.size() > 0) {
-                Iterator<Set<String>> alwaysIncludeFeatureIdOrSetAndIter = alwaysIncludeFeatureIdOrSetAndList.iterator();
-                while (alwaysIncludeFeatureIdOrSetAndIter.hasNext()) {
-                    Set<String> alwaysIncludeFeatureIdOrSet = alwaysIncludeFeatureIdOrSetAndIter.next();
+                for (Set<String> alwaysIncludeFeatureIdOrSet: alwaysIncludeFeatureIdOrSetAndList) {
                     String featurePrefix = "pfa" + this.index;
                     String entityAlias = "PFA" + this.index;
                     this.index++;
@@ -604,9 +573,7 @@ public class ProductSearch {
 
             // handle includeCategoryIdOrSetAndList and alwaysIncludeCategoryIdOrSetAndList
             if (includeCategoryIdOrSetAndList.size() > 0) {
-                Iterator<Set<String>> includeCategoryIdOrSetAndIter = includeCategoryIdOrSetAndList.iterator();
-                while (includeCategoryIdOrSetAndIter.hasNext()) {
-                    Set<String> includeCategoryIdOrSet = includeCategoryIdOrSetAndIter.next();
+                for (Set<String> includeCategoryIdOrSet: includeCategoryIdOrSetAndList) {
                     String categoryPrefix = "pcm" + this.index;
                     String entityAlias = "PCM" + this.index;
                     this.index++;
@@ -622,9 +589,7 @@ public class ProductSearch {
                 }
             }
             if (alwaysIncludeCategoryIdOrSetAndList.size() > 0) {
-                Iterator<Set<String>> alwaysIncludeCategoryIdOrSetAndIter = alwaysIncludeCategoryIdOrSetAndList.iterator();
-                while (alwaysIncludeCategoryIdOrSetAndIter.hasNext()) {
-                    Set<String> alwaysIncludeCategoryIdOrSet = alwaysIncludeCategoryIdOrSetAndIter.next();
+                for (Set<String> alwaysIncludeCategoryIdOrSet: alwaysIncludeCategoryIdOrSetAndList) {
                     String categoryPrefix = "pcm" + this.index;
                     String entityAlias = "PCM" + this.index;
                     this.index++;
@@ -762,9 +727,7 @@ public class ProductSearch {
                     
                     /*
                     StringBuilder lineMsg = new StringBuilder("Got search result line: ");
-                    Iterator<String> fieldsToSelectIter = fieldsToSelect.iterator();
-                    while (fieldsToSelectIter.hasNext()) {
-                        String fieldName = fieldsToSelectIter.next();
+                    for (String fieldName: fieldsToSelect) {
                         lineMsg.append(fieldName);
                         lineMsg.append("=");
                         lineMsg.append(searchResult.get(fieldName));
@@ -823,10 +786,8 @@ public class ProductSearch {
                     productSearchResult.set("searchDate", nowTimestamp);
                     productSearchResult.create();
 
-                    Iterator<GenericValue> productSearchConstraintIter = productSearchConstraintList.iterator();
                     int seqId = 1;
-                    while (productSearchConstraintIter.hasNext()) {
-                        GenericValue productSearchConstraint = productSearchConstraintIter.next();
+                    for (GenericValue productSearchConstraint: productSearchConstraintList) {
                         productSearchConstraint.set("productSearchResultId", productSearchResultId);
                         productSearchConstraint.set("constraintSeqId", Integer.toString(seqId));
                         productSearchConstraint.create();
@@ -870,9 +831,7 @@ public class ProductSearch {
                  
         public void addConstraint(ProductSearchContext productSearchContext) {           
             List<String> productCategoryIds = FastList.newInstance();
-            Iterator<GenericValue> itCat = productCategories.iterator();
-            while (itCat.hasNext()) {
-                GenericValue category = itCat.next();
+            for (GenericValue category: productCategories) {
                 productCategoryIds.add(category.getString("productCategoryId"));
             }                       
                
@@ -1283,13 +1242,11 @@ public class ProductSearch {
 
             // add in productSearchConstraint, don't worry about the productSearchResultId or constraintSeqId, those will be fill in later
             StringBuilder featureIdInfo = new StringBuilder();
-            Iterator<String> featureIdIter = this.productFeatureIdSet.iterator();
-            while (featureIdIter.hasNext()) {
-                String featureId = featureIdIter.next();
-                featureIdInfo.append(featureId);
-                if (featureIdIter.hasNext()) {
+            for (String featureId: this.productFeatureIdSet) {
+                if (featureIdInfo.length() > 0) {
                     featureIdInfo.append(",");
                 }
+                featureIdInfo.append(featureId);
             }
             
             productSearchContext.productSearchConstraintList.add(productSearchContext.getDelegator().makeValue("ProductSearchConstraint", UtilMisc.toMap("constraintName", constraintName, "infoString", featureIdInfo.toString())));
@@ -1298,9 +1255,10 @@ public class ProductSearch {
         public String prettyPrintConstraint(GenericDelegator delegator, boolean detailed, Locale locale) {
             StringBuilder infoOut = new StringBuilder();
             try {
-                Iterator<String> featureIdIter = this.productFeatureIdSet.iterator();
-                while (featureIdIter.hasNext()) {
-                    String featureId = featureIdIter.next();
+                for (String featureId: this.productFeatureIdSet) {
+                    if (infoOut.length() > 0) {
+                        infoOut.append(", ");
+                    }
                     GenericValue productFeature = delegator.findByPrimaryKeyCache("ProductFeature", UtilMisc.toMap("productFeatureId", featureId));
                     GenericValue productFeatureType = productFeature == null ? null : productFeature.getRelatedOneCache("ProductFeatureType");
                     if (productFeatureType == null) {
@@ -1317,9 +1275,6 @@ public class ProductSearch {
                         infoOut.append(productFeature.getString("description"));
                     }
                     
-                    if (featureIdIter.hasNext()) {
-                        infoOut.append(", ");
-                    }
                 }
             } catch (GenericEntityException e) {
                 Debug.logError(e, "Error finding ProductFeature and Type information for constraint pretty print", module);
@@ -1373,9 +1328,7 @@ public class ProductSearch {
             Set<String> fullKeywordSet = new TreeSet<String>();
 
             // expand the keyword list according to the thesaurus and create a new set of keywords
-            Iterator<String> keywordIter = keywordSet.iterator();
-            while (keywordIter.hasNext()) {
-                String keyword = keywordIter.next();
+            for (String keyword: keywordSet) {
                 Set<String> expandedSet = new TreeSet<String>();
                 boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, delegator);
                 fullKeywordSet.addAll(expandedSet);
@@ -1399,9 +1352,7 @@ public class ProductSearch {
                 Set<String> keywordSet = KeywordSearchUtil.makeKeywordSet(this.keywordsString, null, true);
 
                 // expand the keyword list according to the thesaurus and create a new set of keywords
-                Iterator<String> keywordIter = keywordSet.iterator();
-                while (keywordIter.hasNext()) {
-                    String keyword = keywordIter.next();
+                for (String keyword: keywordSet) {
                     Set<String> expandedSet = new TreeSet<String>();
                     boolean replaceEntered = KeywordSearchUtil.expandKeywordForSearch(keyword, expandedSet, productSearchContext.getDelegator());
                     if (!replaceEntered) {
@@ -2097,10 +2048,7 @@ public class ProductSearch {
                 // add up the relevancyWeight fields from all keyword member entities for a total to sort by
                 ComplexAlias complexAlias = new ComplexAlias("+");
 
-                Iterator<String> keywordIter = keywordList.iterator();
-                while (keywordIter.hasNext()) {
-                    String keyword = keywordIter.next();
-
+                for (String keyword: keywordList) {
                     // make index based values and increment
                     String entityAlias = "PK" + index;
                     String prefix = "pk" + index;
@@ -2130,9 +2078,7 @@ public class ProductSearch {
                 orderByList.add("-totalRelevancy");
                 fieldsToSelect.add("totalRelevancy");
                 List<EntityCondition> keywordOrList = new FastList.newInstance();
-                Iterator<String> keywordIter = keywordList.iterator();
-                while (keywordIter.hasNext()) {
-                    String keyword = keywordIter.next();
+                for (String keyword: keywordList) {
                     keywordOrList.add(EntityCondition.makeCondition(prefix + "Keyword", EntityOperator.LIKE, keyword));
                 }
                 entityConditionList.add(EntityCondition.makeCondition(keywordOrList, EntityOperator.OR));
@@ -2143,9 +2089,7 @@ public class ProductSearch {
 
         // Features
         if (UtilValidate.isNotEmpty(featureIdSet)) {
-            Iterator<String> featureIdIter = featureIdSet.iterator();
-            while (featureIdIter.hasNext()) {
-                String productFeatureId = featureIdIter.next();
+            for (String productFeatureID: featureIdSet) {
                 // make index based values and increment
                 String entityAlias = "PFA" + index;
                 String prefix = "pfa" + index;

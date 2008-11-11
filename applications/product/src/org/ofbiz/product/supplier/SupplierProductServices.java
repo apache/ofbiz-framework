@@ -20,7 +20,6 @@
 package org.ofbiz.product.supplier;
 
 import java.util.Collection;
-import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
@@ -136,8 +135,7 @@ public class SupplierProductServices {
             if (partyId != null && UtilValidate.isNotEmpty(features)) {
                 // loop through all the features, find the related SupplierProductFeature for the given partyId, and
                 // substitue description and idCode
-                for (Iterator<GenericValue> fI = features.iterator(); fI.hasNext(); ) {
-                    GenericValue nextFeature = fI.next();
+                for (GenericValue nextFeature: features) {
                     List<GenericValue> supplierFeatures = EntityUtil.filterByAnd(nextFeature.getRelated("SupplierProductFeature"),
                                                                    UtilMisc.toMap("partyId", partyId));
                     GenericValue supplierFeature = null;
