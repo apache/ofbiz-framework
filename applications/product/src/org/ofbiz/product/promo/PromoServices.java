@@ -38,7 +38,6 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.StringReader;
 import java.sql.Timestamp;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -82,7 +81,7 @@ public class PromoServices {
         String productStoreId = (String) context.get("productStoreId");
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         
-        List condList = new LinkedList();
+        List condList = FastList.newInstance();
         if (UtilValidate.isEmpty(productStoreId)) {
             condList.add(EntityCondition.makeCondition("productStoreId", EntityOperator.EQUALS, productStoreId));
         }

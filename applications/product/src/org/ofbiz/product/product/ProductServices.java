@@ -28,6 +28,7 @@ import java.util.*;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -74,7 +75,7 @@ public class ProductServices {
         Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
         Map selectedFeatures = (Map) context.get("selectedFeatures");
-        ArrayList products = new ArrayList();
+        List products = FastList.newInstance();
         // All the variants for this products are retrieved
         Map resVariants = prodFindAllVariants(dctx, context);
         List variants = (List)resVariants.get("assocProducts");
@@ -83,7 +84,7 @@ public class ProductServices {
         while (variantsIt.hasNext()) {
             // For every variant, all the standard features are retrieved
             oneVariant = (GenericValue)variantsIt.next();
-            Map feaContext = new HashMap();
+            Map feaContext = FastMap.newInstance();
             feaContext.put("productId", oneVariant.get("productIdTo"));
             feaContext.put("type", "STANDARD_FEATURE");
             Map resFeatures = prodGetFeatures(dctx, feaContext);
@@ -188,20 +189,20 @@ public class ProductServices {
 
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map result = new HashMap();
-        List featureOrder = new LinkedList((Collection) context.get("featureOrder"));
+        Map result = FastMap.newInstance();
+        List featureOrder = UtilMisc.makeListWritable((Collection) context.get("featureOrder"));
 
         if (featureOrder == null || featureOrder.size() == 0) {
             return ServiceUtil.returnError("Empty list of features passed");
         }
 
         Collection variants = (Collection) prodFindAllVariants(dctx, context).get("assocProducts");
-        List virtualVariant = new ArrayList();
+        List virtualVariant = FastList.newInstance();
 
         if (variants == null || variants.size() == 0) {
             return ServiceUtil.returnSuccess();
         }
-        List items = new ArrayList();
+        List items = FastList.newInstance();
         Iterator i = variants.iterator();
 
         while (i.hasNext()) {
@@ -278,7 +279,7 @@ public class ProductServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,"productservices.empty_list_of_selectable_features_found", locale));
         }
-        Map features = new HashMap();
+        Map features = FastMap.newInstance();
         Iterator sFIt = selectableFeatures.iterator();
 
         while (sFIt.hasNext()) {
@@ -287,7 +288,7 @@ public class ProductServices {
             String feature = v.getString("description");
 
             if (!features.containsKey(featureType)) {
-                List featureList = new LinkedList();
+                List featureList = FastList.newInstance();
                 featureList.add(feature);
                 features.put(featureType, featureList);
             } else {
@@ -334,7 +335,7 @@ public class ProductServices {
         // * String type           -- Type of feature (STANDARD_FEATURE, SELECTABLE_FEATURE)
         // * String distinct       -- Distinct feature (SIZE, COLOR)
         GenericDelegator delegator = dctx.getDelegator();
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         String productId = (String) context.get("productId");
         String distinct = (String) context.get("distinct");
         String type = (String) context.get("type");
@@ -366,7 +367,7 @@ public class ProductServices {
     public static Map prodFindProduct(DispatchContext dctx, Map context) {
         // * String productId      -- Product ID to find
         GenericDelegator delegator = dctx.getDelegator();
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         String productId = (String) context.get("productId");
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
@@ -416,7 +417,7 @@ public class ProductServices {
         // * String productId      -- Current Product ID
         // * String type           -- Type of association (ie PRODUCT_UPGRADE, PRODUCT_COMPLEMENT, PRODUCT_VARIANT)
         GenericDelegator delegator = dctx.getDelegator();
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         String productId = (String) context.get("productId");
         String productIdTo = (String) context.get("productIdTo");
         String type = (String) context.get("type");
@@ -500,8 +501,8 @@ public class ProductServices {
     // Builds a product feature tree
     private static Map makeGroup(GenericDelegator delegator, Map featureList, List items, List order, int index)
         throws IllegalArgumentException, IllegalStateException {
-        //List featureKey = new ArrayList();
-        Map tempGroup = new HashMap();
+        //List featureKey = FastList.newInstance();
+        Map tempGroup = FastMap.newInstance();
         Map group = new LinkedHashMap();
         String orderKey = (String) order.get(index);
 
@@ -609,7 +610,7 @@ public class ProductServices {
 
     // builds a variant sample (a single sku for a featureType)
     private static Map makeVariantSample(GenericDelegator delegator, Map featureList, List items, String feature) {
-        Map tempSample = new HashMap();
+        Map tempSample = FastMap.newInstance();
         Map sample = new LinkedHashMap();
         Iterator itemIt = items.iterator();
 
@@ -660,7 +661,7 @@ public class ProductServices {
 
     public static Map quickAddVariant(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         Locale locale = (Locale) context.get("locale");
         String errMsg=null;
         String productId = (String) context.get("productId");
@@ -790,14 +791,14 @@ public class ProductServices {
             
             // separate variantProductIdsBag into a Set of variantProductIds
             //note: can be comma, tab, or white-space delimited
-            Set prelimVariantProductIds = new HashSet();
+            Set prelimVariantProductIds = FastSet.newInstance();
             List splitIds = Arrays.asList(variantProductIdsBag.split("[,\\p{Space}]"));
             Debug.logInfo("Variants: bag=" + variantProductIdsBag, module);
             Debug.logInfo("Variants: split=" + splitIds, module);
             prelimVariantProductIds.addAll(splitIds);
             //note: should support both direct productIds and GoodIdentification entries (what to do if more than one GoodID? Add all?
 
-            Map variantProductsById = new HashMap();
+            Map variantProductsById = FastMap.newInstance();
             Iterator variantProductIdIter = prelimVariantProductIds.iterator();
             while (variantProductIdIter.hasNext()) {
                 String variantProductId = (String) variantProductIdIter.next();
@@ -834,10 +835,10 @@ public class ProductServices {
             }
 
             // Attach productFeatureIdOne, Two, Three to the new virtual and all variant products as a standard feature
-            Set featureProductIds = new HashSet();
+            Set featureProductIds = FastSet.newInstance();
             featureProductIds.add(productId);
             featureProductIds.addAll(variantProductsById.keySet());
-            Set productFeatureIds = new HashSet();
+            Set productFeatureIds = FastSet.newInstance();
             productFeatureIds.add(productFeatureIdOne);
             productFeatureIds.add(productFeatureIdTwo);
             productFeatureIds.add(productFeatureIdThree);
@@ -1129,7 +1130,7 @@ public class ProductServices {
         }
                 
         if (UtilValidate.isNotEmpty(productsFound)) {          
-            LinkedList<GenericValue> productsList = new LinkedList<GenericValue>();
+            List<GenericValue> productsList = FastList.newInstance();
             // gets the first productId of the List
             product = EntityUtil.getFirst(productsFound);
             // remove this productId

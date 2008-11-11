@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.product.feature;
 
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -29,6 +28,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -135,7 +135,7 @@ public class ParametricSearch {
     public static Map getAllFeaturesByType(GenericDelegator delegator, int perTypeMaxSize) {
         Map productFeaturesByTypeMap = FastMap.newInstance();
         try {
-            Set typesWithOverflowMessages = new HashSet();
+            Set typesWithOverflowMessages = FastSet.newInstance();
             EntityListIterator productFeatureEli = delegator.find("ProductFeature", null, null, null, UtilMisc.toList("description"), null);
             GenericValue productFeature = null;
             while ((productFeature = (GenericValue) productFeatureEli.next()) != null) {

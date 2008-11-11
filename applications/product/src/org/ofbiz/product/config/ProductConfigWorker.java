@@ -18,14 +18,14 @@
  *******************************************************************************/
 package org.ofbiz.product.config;
 
-import java.util.ArrayList;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
 import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
+
+import javolution.util.FastList;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilHttp;
@@ -138,7 +138,7 @@ public class ProductConfigWorker {
                                     if (ProductWorker.isVirtual((GenericDelegator)request.getAttribute("delegator"), selectedProdcutId)) {
                                         if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod((GenericDelegator)request.getAttribute("delegator"), selectedProdcutId))) {
                                             // get the selected features
-                                            List <String> selectedFeatures = new LinkedList<String>();
+                                            List <String> selectedFeatures = FastList.newInstance();
                                             Enumeration paramNames = request.getParameterNames();
                                             while(paramNames.hasMoreElements()) {
                                                 String paramName = (String)paramNames.nextElement();
@@ -184,12 +184,12 @@ public class ProductConfigWorker {
         if (configWrapper == null || (!configWrapper.isCompleted()))  return;
         String configId = null;
         List questions = configWrapper.getQuestions();
-        List configsToCheck = new LinkedList();
+        List configsToCheck = FastList.newInstance();
         int selectedOptionSize = 0;
         for (int i = 0; i < questions.size(); i++) {
             String configItemId = null;
             Long sequenceNum = null;
-            List <ProductConfigWrapper.ConfigOption> selectedOptions = new ArrayList <ProductConfigWrapper.ConfigOption>();        
+            List <ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();        
             ConfigItem ci = (ConfigItem)questions.get(i);
             List options = ci.getOptions();
             if (ci.isStandard()) {
@@ -247,7 +247,7 @@ public class ProductConfigWorker {
                             for (int i = 0; i < questions.size(); i++) {
                                 String configItemId = null;
                                 Long sequenceNum = null;
-                                List <ProductConfigWrapper.ConfigOption> selectedOptions = new ArrayList <ProductConfigWrapper.ConfigOption>();        
+                                List <ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();        
                                 ConfigItem ci = (ConfigItem)questions.get(i);
                                 List options = ci.getOptions();
                                 if (ci.isStandard()) {
@@ -316,7 +316,7 @@ public class ProductConfigWorker {
         for (int i = 0; i < questions.size(); i++) {
             String configItemId = null;
             Long sequenceNum = null;
-            List <ProductConfigWrapper.ConfigOption> selectedOptions = new ArrayList <ProductConfigWrapper.ConfigOption>();        
+            List <ProductConfigWrapper.ConfigOption> selectedOptions = FastList.newInstance();        
             ConfigItem ci = (ConfigItem)questions.get(i);
             List options = ci.getOptions();
            if (ci.isStandard()) {
@@ -341,7 +341,7 @@ public class ProductConfigWorker {
                 sequenceNum = ci.getConfigItemAssoc().getLong("sequenceNum");
                 Iterator selOpIt = selectedOptions.iterator();
                 while (selOpIt.hasNext()) {
-                    List toBeStored = new LinkedList();
+                    List toBeStored = FastList.newInstance();
                     ConfigOption oneOption = (ConfigOption)selOpIt.next();
                     String configOptionId = oneOption.configOption.getString("configOptionId");
                     String description = oneOption.getComments();

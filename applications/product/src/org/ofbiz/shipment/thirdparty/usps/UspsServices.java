@@ -30,6 +30,7 @@ import java.util.*;
 import javax.xml.parsers.ParserConfigurationException;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.*;
 import org.ofbiz.entity.GenericDelegator;
@@ -239,13 +240,13 @@ public class UspsServices {
                     double partialQty = pieces > 1 ? 1.000 / pieces : 1;
                     for (long x = 0; x < pieces; x++) {
                         if (weight >= maxWeight) {
-                            Map newPackage = new HashMap();
+                            Map newPackage = FastMap.newInstance();
                             newPackage.put(productId, new Double(partialQty));
                             packages.add(newPackage);
                         } else if (totalWeight > 0) {
                             // create the first package
                             if (packages.size() == 0) {
-                                packages.add(new HashMap());
+                                packages.add(FastMap.newInstance());
                             }
 
                             // package loop
@@ -264,7 +265,7 @@ public class UspsServices {
                                 }
                             }
                             if (!addedToPackage) {
-                                Map packageMap = new HashMap();
+                                Map packageMap = FastMap.newInstance();
                                 packageMap.put(productId, new Double(partialQty));
                                 packages.add(packageMap);
                             }
@@ -304,7 +305,7 @@ public class UspsServices {
             }
             if (!"WT_lb".equals(weightUomId)) {
                 // attempt a conversion to pounds
-                Map result = new HashMap();
+                Map result = FastMap.newInstance();
                 try {
                     result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", new Double(productWeight)));
                 } catch (GenericServiceException ex) {
@@ -387,7 +388,7 @@ public class UspsServices {
 
         List detailElementList = UtilXml.childElementList(trackInfoElement, "TrackDetail");
         if (UtilValidate.isNotEmpty(detailElementList)) {
-            List trackingDetailList = new ArrayList();
+            List trackingDetailList = FastList.newInstance();
             for (Iterator iter = detailElementList.iterator(); iter.hasNext();) {
                 trackingDetailList.add(UtilXml.elementValue((Element) iter.next()));
             }
@@ -914,7 +915,7 @@ public class UspsServices {
                 }
                 if (!"WT_lb".equals(weightUomId)) {
                     // attempt a conversion to pounds
-                    Map result = new HashMap();
+                    Map result = FastMap.newInstance();
                     try {
                         result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", new Double(weight)));
                     } catch (GenericServiceException ex) {

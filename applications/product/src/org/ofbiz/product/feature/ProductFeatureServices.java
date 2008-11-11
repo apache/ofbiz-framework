@@ -18,13 +18,13 @@
  *******************************************************************************/
 package org.ofbiz.product.feature;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.LinkedHashMap;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilMisc;
@@ -58,7 +58,7 @@ public class ProductFeatureServices {
      * The optional productFeatureApplTypeId causes results to be filtered by this parameter--only used in conjunction with productId.
      */
     public static Map getProductFeaturesByType(DispatchContext dctx, Map context) {
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
 
         /* because we might need to search either for product features or for product features of a product, the search code has to be generic.
@@ -94,7 +94,7 @@ public class ProductFeatureServices {
             if (entityToSearch.equals("ProductFeatureAndAppl") && productFeatureApplTypeId != null)
                 allFeatures = EntityUtil.filterByAnd(allFeatures, UtilMisc.toMap("productFeatureApplTypeId", productFeatureApplTypeId));
                 
-            List featureTypes = new ArrayList();  // or LinkedList?
+            List featureTypes = FastList.newInstance();  // or LinkedList?
             Map featuresByType = new LinkedHashMap();
             GenericValue feature = null;
             for (Iterator featuresIter = allFeatures.iterator(); featuresIter.hasNext(); ) {
@@ -104,7 +104,7 @@ public class ProductFeatureServices {
                     featureTypes.add(featureType);
                 }
                 if (!featuresByType.containsKey(featureType)) {
-                    featuresByType.put(featureType, new ArrayList());
+                    featuresByType.put(featureType, FastList.newInstance());
                 }
                 List features = (List)featuresByType.get(featureType);
                 features.add(feature);
@@ -125,12 +125,12 @@ public class ProductFeatureServices {
      * Result: variantProductIds: a List of productIds of variants with those features
      */
     public static Map getAllExistingVariants(DispatchContext dctx, Map context) {
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
 
         String productId = (String) context.get("productId");
         List curProductFeatureAndAppls = (List) context.get("productFeatureAppls");
-        List existingVariantProductIds = new ArrayList();
+        List existingVariantProductIds = FastList.newInstance();
         
         try {
             /*
@@ -184,14 +184,14 @@ public class ProductFeatureServices {
      * {defaultVariantProductId: id of this variant; curProductFeatureAndAppls: features applied to this variant; existingVariantProductIds: List of productIds which are already variants with these features }
      */
     public static Map getVariantCombinations(DispatchContext dctx, Map context) {
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         
         String productId = (String) context.get("productId");
         
         try {
             Map featuresResults = dispatcher.runSync("getProductFeaturesByType", UtilMisc.toMap("productId", productId));
-            Map features = new HashMap();
+            Map features = FastMap.newInstance();
             
             if (featuresResults.get(ModelService.RESPONSE_MESSAGE).equals(ModelService.RESPOND_SUCCESS)) {
                 features = (Map) featuresResults.get("productFeaturesByType");
@@ -201,21 +201,21 @@ public class ProductFeatureServices {
             
             // need to keep 2 lists, oldCombinations and newCombinations, and keep swapping them after each looping.  Otherwise, you'll get a
             // concurrent modification exception
-            List oldCombinations = new LinkedList();
+            List oldCombinations = FastList.newInstance();
             
             // loop through each feature type
             for (Iterator fi = features.keySet().iterator(); fi.hasNext(); ) {
                 String currentFeatureType = (String) fi.next();
                 List currentFeatures = (List) features.get(currentFeatureType);
                 
-                List newCombinations = new LinkedList();
+                List newCombinations = FastList.newInstance();
                 List combinations;
                 
                 // start with either existing combinations or from scratch
                 if (oldCombinations.size() > 0) {
                     combinations = oldCombinations;
                 } else {
-                    combinations = new LinkedList();
+                    combinations = FastList.newInstance();
                 }
                 
                 // in both cases, use each feature of current feature type's idCode and
@@ -226,9 +226,9 @@ public class ProductFeatureServices {
                     for (Iterator cFi = currentFeatures.iterator(); cFi.hasNext(); ) {
                         GenericEntity currentFeature = (GenericEntity) cFi.next();
                         if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
-                            Map newCombination = new HashMap();
-                            List newFeatures = new LinkedList();
-                            List newFeatureIds = new LinkedList();
+                            Map newCombination = FastMap.newInstance();
+                            List newFeatures = FastList.newInstance();
+                            List newFeatureIds = FastList.newInstance();
                             if (currentFeature.getString("idCode") != null) {
                                 newCombination.put("defaultVariantProductId", productId + currentFeature.getString("idCode"));
                             } else {
@@ -247,11 +247,11 @@ public class ProductFeatureServices {
                         for (Iterator cFi = currentFeatures.iterator(); cFi.hasNext(); ) {
                             GenericEntity currentFeature = (GenericEntity) cFi.next();
                             if (currentFeature.getString("productFeatureApplTypeId").equals("SELECTABLE_FEATURE")) {
-                                Map newCombination = new HashMap();
+                                Map newCombination = FastMap.newInstance();
                                 // .clone() is important, or you'll keep adding to the same List for all the variants
                                 // have to cast twice: once from get() and once from clone()
-                                List newFeatures = ((List) ((LinkedList) combination.get("curProductFeatureAndAppls")).clone());
-                                List newFeatureIds = ((List) ((LinkedList) combination.get("curProductFeatureIds")).clone());
+                                List newFeatures = UtilMisc.makeListWritable((List) combination.get("curProductFeatureAndAppls"));
+                                List newFeatureIds = UtilMisc.makeListWritable((List) combination.get("curProductFeatureIds"));
                                 if (currentFeature.getString("idCode") != null) {
                                     newCombination.put("defaultVariantProductId", combination.get("defaultVariantProductId") + currentFeature.getString("idCode"));
                                 } else {
@@ -272,7 +272,7 @@ public class ProductFeatureServices {
             }
             
             int defaultCodeCounter = 1;
-            HashMap defaultVariantProductIds = new HashMap(); // this map will contain the codes already used (as keys)
+            Map defaultVariantProductIds = FastMap.newInstance(); // this map will contain the codes already used (as keys)
             defaultVariantProductIds.put(productId, null);
             
             // now figure out which of these combinations already have productIds associated with them
@@ -303,14 +303,14 @@ public class ProductFeatureServices {
      * Result: products (a List of Product GenericValues)
      */
     public static Map getCategoryVariantProducts(DispatchContext dctx, Map context) {
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         LocalDispatcher dispatcher = dctx.getDispatcher();
 
         List productFeatures = (List) context.get("productFeatures");
         String productCategoryId = (String) context.get("productCategoryId");
 
         // get all the product members of the product category
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         try {
             result = dispatcher.runSync("getProductCategoryMembers", UtilMisc.toMap("categoryId", productCategoryId));
         } catch (GenericServiceException ex) {
@@ -321,13 +321,13 @@ public class ProductFeatureServices {
         List memberProducts = (List) result.get("categoryMembers");
         if ((memberProducts != null) && (memberProducts.size() > 0)) {
             // construct a Map of productFeatureTypeId -> productFeatureId from the productFeatures List
-            Map featuresByType = new HashMap();
+            Map featuresByType = FastMap.newInstance();
             for (Iterator pFi = productFeatures.iterator(); pFi.hasNext(); ) {
                 GenericValue nextFeature = (GenericValue) pFi.next();
                 featuresByType.put(nextFeature.getString("productFeatureTypeId"), nextFeature.getString("productFeatureId"));
             }
 
-            List products = new ArrayList();  // final list of variant products  
+            List products = FastList.newInstance();  // final list of variant products  
             for (Iterator mPi = memberProducts.iterator(); mPi.hasNext(); ) {
                 // find variants for each member product of the category
                 GenericValue memberProduct = (GenericValue) mPi.next();

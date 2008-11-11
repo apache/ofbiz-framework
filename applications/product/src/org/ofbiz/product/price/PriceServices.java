@@ -21,9 +21,7 @@ package org.ofbiz.product.price;
 import java.math.BigDecimal;
 import java.sql.Timestamp;
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeSet;
@@ -88,7 +86,7 @@ public class PriceServices {
 
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
         GenericValue product = (GenericValue) context.get("product");
@@ -892,7 +890,7 @@ public class PriceServices {
             // productPriceRules = delegator.findByOr("ProductPriceRule", pprExprs);
 
             productPriceRules = delegator.findList("ProductPriceRule", null, null, null, null, true);
-            if (productPriceRules == null) productPriceRules = new LinkedList();
+            if (productPriceRules == null) productPriceRules = FastList.newInstance();
         }
         
         return productPriceRules;
@@ -1335,9 +1333,9 @@ public class PriceServices {
     public static Map calculatePurchasePrice(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map result = new HashMap();
+        Map result = FastMap.newInstance();
 
-        List orderItemPriceInfos = new LinkedList();
+        List orderItemPriceInfos = FastList.newInstance();
         boolean validPriceFound = false;
         double price = 0.0;
 

@@ -22,10 +22,11 @@ package org.ofbiz.product.spreadsheetimport;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFRow;
@@ -58,11 +59,11 @@ public class ImportProductServices {
      */
     public static Map productImportFromSpreadsheet(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
-        Map responseMsgs = new HashMap();
+        Map responseMsgs = FastMap.newInstance();
         // System.getProperty("user.dir") returns the path upto ofbiz home
         // directory
         String path = System.getProperty("user.dir") + "/spreadsheet";
-        List fileItems = new ArrayList();
+        List fileItems = FastList.newInstance();
 
         if (path != null && path.length() > 0) {
             File importDir = new File(path);
@@ -92,8 +93,8 @@ public class ImportProductServices {
         for (int i = 0; i < fileItems.size(); i++) {
             // read all xls file and create workbook one by one.
             File item = (File) fileItems.get(i);
-            List products = new ArrayList();
-            List inventoryItems = new ArrayList();
+            List products = FastList.newInstance();
+            List inventoryItems = FastList.newInstance();
             POIFSFileSystem fs = null;
             HSSFWorkbook wb = null;
             try {

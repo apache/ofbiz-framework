@@ -19,15 +19,14 @@
 package org.ofbiz.product.inventory;
 
 import java.sql.Timestamp;
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -355,8 +354,8 @@ public class InventoryServices {
         }
         */
         
-        Map ordersToUpdate = new HashMap();
-        Map ordersToCancel = new HashMap();       
+        Map ordersToUpdate = FastMap.newInstance();
+        Map ordersToCancel = FastMap.newInstance();       
         
         // find all inventory items w/ a negative ATP
         List inventoryItems = null;
@@ -469,7 +468,7 @@ public class InventoryServices {
                         Debug.log("We won't ship on time, getting notification info", module);
                         Map notifyItems = (Map) ordersToUpdate.get(orderId);
                         if (notifyItems == null) {
-                            notifyItems = new HashMap();
+                            notifyItems = FastMap.newInstance();
                         }
                         notifyItems.put(orderItemSeqId, nextShipDate);
                         ordersToUpdate.put(orderId, notifyItems);
@@ -497,7 +496,7 @@ public class InventoryServices {
                             Debug.log("Flagging the item to auto-cancel", module);
                             Map cancelItems = (Map) ordersToCancel.get(orderId);
                             if (cancelItems == null) {
-                                cancelItems = new HashMap();
+                                cancelItems = FastMap.newInstance();
                             }
                             cancelItems.put(orderItemSeqId, farPastPromised);
                             ordersToCancel.put(orderId, cancelItems);
@@ -519,7 +518,7 @@ public class InventoryServices {
         }
                
         // all items to cancel will also be in the notify list so start with that
-        List ordersToNotify = new ArrayList();
+        List ordersToNotify = FastList.newInstance();
         Set orderSet = ordersToUpdate.keySet();
         Iterator orderIter = orderSet.iterator();
         while (orderIter.hasNext()) {
@@ -578,11 +577,11 @@ public class InventoryServices {
                 
                 // if there are none to cancel just create an empty map
                 if (cancelItems == null) {
-                    cancelItems = new HashMap();
+                    cancelItems = FastMap.newInstance();
                 }
                 
                 if (orderItems != null) {            
-                    List toBeStored = new ArrayList();
+                    List toBeStored = FastList.newInstance();
                     Iterator orderItemsIter = orderItems.iterator();
                     while (orderItemsIter.hasNext()) {
                         GenericValue orderItem = (GenericValue) orderItemsIter.next();
@@ -721,10 +720,10 @@ public class InventoryServices {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         List orderItems = (List) context.get("orderItems");
         String facilityId = (String) context.get("facilityId");
-        Map atpMap = new HashMap();
-        Map qohMap = new HashMap();
-        Map mktgPkgAtpMap = new HashMap();
-        Map mktgPkgQohMap = new HashMap();
+        Map atpMap = FastMap.newInstance();
+        Map qohMap = FastMap.newInstance();
+        Map mktgPkgAtpMap = FastMap.newInstance();
+        Map mktgPkgQohMap = FastMap.newInstance();
         Map results = ServiceUtil.returnSuccess();
 
         // get a list of all available facilities for looping
@@ -818,8 +817,8 @@ public class InventoryServices {
         String minimumStock = (String)context.get("minimumStock");
         String statusId = (String)context.get("statusId");
 
-        Map result = new HashMap();
-        Map resultOutput = new HashMap();
+        Map result = FastMap.newInstance();
+        Map resultOutput = FastMap.newInstance();
 
         Map contextInput = UtilMisc.toMap("productId", productId, "facilityId", facilityId, "statusId", statusId);
         GenericValue product = null;

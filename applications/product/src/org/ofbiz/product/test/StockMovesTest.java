@@ -27,9 +27,9 @@ import org.ofbiz.service.GenericDispatcher;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.base.util.UtilMisc;
 
-import java.util.ArrayList;
 import java.util.Map;
 import java.util.List;
+import javolution.util.FastList;
 import javolution.util.FastMap;
 
 /**
@@ -57,7 +57,7 @@ public class StockMovesTest extends TestCase {
     public void testStockMoves() throws Exception {
         Map fsmnCtx = FastMap.newInstance();
         Map stockMoveHandled = null;
-        List warningList = new ArrayList();
+        List warningList = FastList.newInstance();
         
         fsmnCtx.put("facilityId", "WebStoreWarehouse");
         fsmnCtx.put("userLogin", userLogin);

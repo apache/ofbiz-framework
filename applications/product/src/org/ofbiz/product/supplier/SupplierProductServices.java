@@ -20,10 +20,12 @@
 package org.ofbiz.product.supplier;
 
 import java.util.Collection;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastList;
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -53,7 +55,7 @@ public class SupplierProductServices {
      *         filtered by date and optionally by partyId, ordered with lowest price first
      */
     public static Map getSuppliersForProduct(DispatchContext dctx, Map context) {
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         
         GenericValue product = null;
@@ -125,7 +127,7 @@ public class SupplierProductServices {
      * SupplierProduct entity for that supplier party and feature, and return it as convertedProductFeatures
      */
     public static Map convertFeaturesForSupplier(DispatchContext dctx, Map context) {
-        Map results = new HashMap();
+        Map results = FastMap.newInstance();
         String partyId = (String) context.get("partyId");
         Collection features = (Collection) context.get("productFeatures");
 

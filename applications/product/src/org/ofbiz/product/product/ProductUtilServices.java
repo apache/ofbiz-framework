@@ -19,13 +19,14 @@
 package org.ofbiz.product.product;
 
 import java.sql.Timestamp;
-import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 import java.util.Locale;
+
+import javolution.util.FastMap;
+import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.StringUtil;
@@ -629,7 +630,7 @@ while (allCatIter.hasNext()) {
         boolean doSubCategories = !"N".equals(doSubCategoriesStr);
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
 
-        Set productFeatureTypeIdsToExclude = new HashSet();
+        Set productFeatureTypeIdsToExclude = FastSet.newInstance();
         String excludeProp = UtilProperties.getPropertyValue("prodsearch", "attach.feature.type.exclude");
         if (UtilValidate.isNotEmpty(excludeProp)) {
             List typeList = StringUtil.split(excludeProp, ",");
@@ -641,7 +642,7 @@ while (allCatIter.hasNext()) {
         if (UtilValidate.isNotEmpty(includeProp)) {
             List typeList = StringUtil.split(includeProp, ",");
             if (typeList.size() > 0) {
-                productFeatureTypeIdsToInclude = new HashSet(typeList);
+                productFeatureTypeIdsToInclude = UtilMisc.makeSetWritable(typeList);
             }
         }
 
@@ -676,7 +677,7 @@ while (allCatIter.hasNext()) {
         }
 
         // now get all features for this category and make associated feature groups
-        Map productFeatureIdByTypeIdSetMap = new HashMap();
+        Map productFeatureIdByTypeIdSetMap = FastMap.newInstance();
         List productCategoryMemberList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId));
         Iterator productCategoryMemberIter = productCategoryMemberList.iterator();
         while (productCategoryMemberIter.hasNext()) {
@@ -700,7 +701,7 @@ while (allCatIter.hasNext()) {
                 }
                 Set productFeatureIdSet = (Set) productFeatureIdByTypeIdSetMap.get(productFeatureTypeId);
                 if (productFeatureIdSet == null) {
-                    productFeatureIdSet = new HashSet();
+                    productFeatureIdSet = FastSet.newInstance();
                     productFeatureIdByTypeIdSetMap.put(productFeatureTypeId, productFeatureIdSet);
                 }
                 productFeatureIdSet.add(productFeatureId);

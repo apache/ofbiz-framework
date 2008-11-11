@@ -20,10 +20,11 @@ package org.ofbiz.product.subscription;
 
 import java.sql.Timestamp;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
+
+import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
@@ -136,7 +137,7 @@ public class SubscriptionServices {
                     return ServiceUtil.returnError("Error processing subscription update with ID [" + updateSubscriptionMap.get("subscriptionId") + "]", null, null, updateSubscriptionResult);
                 }
             } else {
-                Map createPartyRoleMap = new HashMap();
+                Map createPartyRoleMap = FastMap.newInstance();
                 if (UtilValidate.isNotEmpty(roleTypeId)) {
                     createPartyRoleMap.put("partyId", partyId);
                     createPartyRoleMap.put("roleTypeId", roleTypeId);
