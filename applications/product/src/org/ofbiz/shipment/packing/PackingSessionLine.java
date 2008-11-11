@@ -129,7 +129,7 @@ public class PackingSessionLine implements java.io.Serializable {
             quantity = Double.valueOf(this.getQuantity());
         }
 
-        Map issueMap = FastMap.newInstance();
+        Map<String, Object> issueMap = FastMap.newInstance();
         issueMap.put("shipmentId", shipmentId);
         issueMap.put("orderId", this.getOrderId());
         issueMap.put("orderItemSeqId", this.getOrderItemSeqId());
@@ -138,7 +138,7 @@ public class PackingSessionLine implements java.io.Serializable {
         issueMap.put("quantity", quantity);
         issueMap.put("userLogin", userLogin);
 
-        Map issueResp = dispatcher.runSync("issueOrderItemShipGrpInvResToShipment", issueMap);
+        Map<String, Object> issueResp = dispatcher.runSync("issueOrderItemShipGrpInvResToShipment", issueMap);
         if (ServiceUtil.isError(issueResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(issueResp));
         }
@@ -154,7 +154,7 @@ public class PackingSessionLine implements java.io.Serializable {
             // find the pick list item
             Debug.log("Looking up picklist item for bin ID #" + picklistBinId, module);
             GenericDelegator delegator = dispatcher.getDelegator();
-            Map itemLookup = FastMap.newInstance();
+            Map<String, Object> itemLookup = FastMap.newInstance();
             itemLookup.put("picklistBinId", picklistBinId);
             itemLookup.put("orderId", this.getOrderId());
             itemLookup.put("orderItemSeqId", this.getOrderItemSeqId());
@@ -172,7 +172,7 @@ public class PackingSessionLine implements java.io.Serializable {
                 }
                 itemLookup.put("userLogin", userLogin);
 
-                Map itemUpdateResp = dispatcher.runSync("updatePicklistItem", itemLookup);
+                Map<String, Object> itemUpdateResp = dispatcher.runSync("updatePicklistItem", itemLookup);
                 if (ServiceUtil.isError(itemUpdateResp)) {
                     throw new GeneralException(ServiceUtil.getErrorMessage(issueResp));
                 }
@@ -188,13 +188,13 @@ public class PackingSessionLine implements java.io.Serializable {
         // assign item to package
         String shipmentPackageSeqId = UtilFormatOut.formatPaddedNumber(this.getPackageSeq(), 5);
 
-        Map packageMap = FastMap.newInstance();
+        Map<String, Object> packageMap = FastMap.newInstance();
         packageMap.put("shipmentId", shipmentId);
         packageMap.put("shipmentItemSeqId", this.getShipmentItemSeqId());
         packageMap.put("quantity", Double.valueOf(this.getQuantity()));
         packageMap.put("shipmentPackageSeqId", shipmentPackageSeqId);
         packageMap.put("userLogin", userLogin);
-        Map packageResp = dispatcher.runSync("addShipmentContentToPackage", packageMap);
+        Map<String, Object> packageResp = dispatcher.runSync("addShipmentContentToPackage", packageMap);
 
         if (ServiceUtil.isError(packageResp)) {
             throw new GeneralException(ServiceUtil.getErrorMessage(packageResp));

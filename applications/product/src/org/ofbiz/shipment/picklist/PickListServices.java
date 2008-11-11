@@ -34,6 +34,7 @@ import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.UtilValidate;
@@ -42,27 +43,27 @@ public class PickListServices {
 
     public static final String module = PickListServices.class.getName();
 
-    public static Map convertOrderIdListToHeaders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> convertOrderIdListToHeaders(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
-        List orderHeaderList = (List) context.get("orderHeaderList");
-        List orderIdList = (List) context.get("orderIdList");
+        List<GenericValue> orderHeaderList = UtilGenerics.checkList(context.get("orderHeaderList"));
+        List<String> orderIdList = UtilGenerics.checkList(context.get("orderIdList"));
 
         // we don't want to process if there is already a header list
         if (orderHeaderList == null) {
             // convert the ID list to headers
             if (orderIdList != null) {
-                List conditionList1 = FastList.newInstance();
-                List conditionList2 = FastList.newInstance();
+                List<EntityCondition> conditionList1 = FastList.newInstance();
+                List<EntityCondition> conditionList2 = FastList.newInstance();
 
                 // we are only concerned about approved sales orders
                 conditionList2.add(EntityCondition.makeCondition("statusId", EntityOperator.EQUALS, "ORDER_APPROVED"));
                 conditionList2.add(EntityCondition.makeCondition("orderTypeId", EntityOperator.EQUALS, "SALES_ORDER"));
 
                 // build the expression list from the IDs
-                Iterator i = orderIdList.iterator();
+                Iterator<String> i = orderIdList.iterator();
                 while (i.hasNext()) {
-                    String orderId = (String) i.next();
+                    String orderId = i.next();
                     conditionList1.add(EntityCondition.makeCondition("orderId", EntityOperator.EQUALS, orderId));
                 }
 
@@ -84,14 +85,14 @@ public class PickListServices {
             }
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("orderHeaderList", orderHeaderList);
         return result;
     }
 
     public static boolean isBinComplete(GenericDelegator delegator, String picklistBinId) throws GeneralException {
         // lookup the items in the bin
-        List items;
+        List<GenericValue> items;
         try {
             items = delegator.findByAnd("PicklistItem", UtilMisc.toMap("picklistBinId", picklistBinId));
         } catch (GenericEntityException e) {
@@ -100,9 +101,9 @@ public class PickListServices {
         }
 
         if (!UtilValidate.isEmpty(items)) {
-            Iterator i = items.iterator();
+            Iterator<GenericValue> i = items.iterator();
             while (i.hasNext()) {
-                GenericValue v = (GenericValue) i.next();
+                GenericValue v = i.next();
                 String itemStatus = v.getString("itemStatusId");
                 if (itemStatus != null) {
                     if (!"PICKITEM_COMPLETED".equals(itemStatus)) {

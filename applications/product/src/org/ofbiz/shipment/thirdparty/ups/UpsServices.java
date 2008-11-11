@@ -41,6 +41,7 @@ import org.ofbiz.base.util.GeneralException;
 import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
 import org.ofbiz.base.util.UtilProperties;
@@ -69,23 +70,23 @@ public class UpsServices {
     
     public final static String module = UpsServices.class.getName();
     
-    public static Map unitsUpsToOfbiz = FastMap.newInstance();
-    public static Map unitsOfbizToUps = FastMap.newInstance();
+    public static Map<String, String> unitsUpsToOfbiz = FastMap.newInstance();
+    public static Map<String, String> unitsOfbizToUps = FastMap.newInstance();
     static {
         unitsUpsToOfbiz.put("LBS", "WT_lb");
         unitsUpsToOfbiz.put("KGS", "WT_kg");
         
-        Iterator unitsUpsToOfbizIter = unitsUpsToOfbiz.entrySet().iterator();
+        Iterator<Map.Entry<String, String>> unitsUpsToOfbizIter = unitsUpsToOfbiz.entrySet().iterator();
         while (unitsUpsToOfbizIter.hasNext()) {
-            Map.Entry entry = (Map.Entry) unitsUpsToOfbizIter.next();
+            Map.Entry<String, String> entry = unitsUpsToOfbizIter.next();
             unitsOfbizToUps.put(entry.getValue(), entry.getKey());
         }
     }
     public static final int decimals = UtilNumber.getBigDecimalScale("order.decimals");
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
 
-    public static Map upsShipmentConfirm(DispatchContext dctx, Map context) {
-        Map result = FastMap.newInstance();
+    public static Map<String, Object> upsShipmentConfirm(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -176,30 +177,30 @@ public class UpsServices {
                 return ServiceUtil.returnError("DestCountryGeo not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
 
-            Map findCarrierShipmentMethodMap = UtilMisc.toMap("partyId", shipmentRouteSegment.get("carrierPartyId"), "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentRouteSegment.get("shipmentMethodTypeId"));
+            Map<String, Object> findCarrierShipmentMethodMap = UtilMisc.toMap("partyId", shipmentRouteSegment.get("carrierPartyId"), "roleTypeId", "CARRIER", "shipmentMethodTypeId", shipmentRouteSegment.get("shipmentMethodTypeId"));
             GenericValue carrierShipmentMethod = delegator.findByPrimaryKey("CarrierShipmentMethod", findCarrierShipmentMethodMap);
             if (carrierShipmentMethod == null) {
                 return ServiceUtil.returnError("CarrierShipmentMethod not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId + "; partyId is " + shipmentRouteSegment.get("carrierPartyId") + " and shipmentMethodTypeId is " + shipmentRouteSegment.get("shipmentMethodTypeId"));
             }
 
-            List shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
             if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
             
-            List itemIssuances = shipment.getRelated("ItemIssuance");
-            Set orderIdSet = new TreeSet();
-            Iterator itemIssuanceIter = itemIssuances.iterator();
+            List<GenericValue> itemIssuances = shipment.getRelated("ItemIssuance");
+            Set<String> orderIdSet = new TreeSet<String>();
+            Iterator<GenericValue> itemIssuanceIter = itemIssuances.iterator();
             while (itemIssuanceIter.hasNext()) {
-                GenericValue itemIssuance = (GenericValue) itemIssuanceIter.next();
-                orderIdSet.add(itemIssuance.get("orderId"));
+                GenericValue itemIssuance = itemIssuanceIter.next();
+                orderIdSet.add(itemIssuance.getString("orderId"));
             }
             String ordersDescription = "";
             if (orderIdSet.size() > 1) {
                 StringBuilder odBuf = new StringBuilder("Orders ");
-                Iterator orderIdIter = orderIdSet.iterator();
+                Iterator<String> orderIdIter = orderIdSet.iterator();
                 while (orderIdIter.hasNext()) {
-                    String orderId = (String) orderIdIter.next();
+                    String orderId = orderIdIter.next();
                     odBuf.append(orderId);
                     if (orderIdIter.hasNext()) {
                         odBuf.append(", ");
@@ -207,7 +208,7 @@ public class UpsServices {
                 }
                 ordersDescription = odBuf.toString();
             } else if (orderIdSet.size() > 0) {
-                ordersDescription = "Order " + (String) orderIdSet.iterator().next();
+                ordersDescription = "Order " + orderIdSet.iterator().next();
             }
             
             // COD Support
@@ -217,8 +218,8 @@ public class UpsServices {
             if (allowCOD) {
 
                 // Get the paymentMethodTypeIds of all the orderPaymentPreferences involved with the shipment
-                List opps = delegator.findList("OrderPaymentPreference", EntityCondition.makeCondition("orderId", EntityOperator.IN, orderIdSet), null, null, null, false);
-                List paymentMethodTypeIds = EntityUtil.getFieldListFromEntityList(opps, "paymentMethodTypeId", true);
+                List<GenericValue> opps = delegator.findList("OrderPaymentPreference", EntityCondition.makeCondition("orderId", EntityOperator.IN, orderIdSet), null, null, null, false);
+                List<String> paymentMethodTypeIds = EntityUtil.getFieldListFromEntityList(opps, "paymentMethodTypeId", true);
                 
                 if (paymentMethodTypeIds.size() > 1 || ! paymentMethodTypeIds.contains("EXT_COD")) {
                     allowCOD = false;
@@ -402,15 +403,15 @@ public class UpsServices {
             UtilXml.addChildElementValue(serviceElement, "Code", carrierShipmentMethod.getString("carrierServiceCode"), shipmentConfirmRequestDoc);
 
             // Child of Shipment: Package
-            ListIterator shipmentPackageRouteSegIter = shipmentPackageRouteSegs.listIterator();
+            ListIterator<GenericValue> shipmentPackageRouteSegIter = shipmentPackageRouteSegs.listIterator();
             while (shipmentPackageRouteSegIter.hasNext()) {
-                GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegIter.next();
+                GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegIter.next();
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
-                List carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "UPS"), null);
+                List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "UPS"), null);
                 GenericValue carrierShipmentBoxType = null;
                 if (carrierShipmentBoxTypes.size() > 0) {
-                    carrierShipmentBoxType = (GenericValue) carrierShipmentBoxTypes.get(0); 
+                    carrierShipmentBoxType = carrierShipmentBoxTypes.get(0); 
                 }
                  
                 Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", shipmentConfirmRequestDoc);
@@ -441,7 +442,7 @@ public class UpsServices {
                 
                 Element packageWeightElement = UtilXml.addChildElement(packageElement, "PackageWeight", shipmentConfirmRequestDoc);
                 Element packageWeightUnitOfMeasurementElement = UtilXml.addChildElement(packageElement, "UnitOfMeasurement", shipmentConfirmRequestDoc);
-                String weightUomUps = (String) unitsOfbizToUps.get(shipmentPackage.get("weightUomId"));
+                String weightUomUps = unitsOfbizToUps.get(shipmentPackage.get("weightUomId"));
                 if (weightUomUps != null) {
                     UtilXml.addChildElementValue(packageWeightUnitOfMeasurementElement, "Code", weightUomUps, shipmentConfirmRequestDoc);
                 } else {
@@ -492,12 +493,12 @@ public class UpsServices {
                     UtilXml.addChildElementValue(codAmountElement, "CurrencyCode", currencyCode, shipmentConfirmRequestDoc);
 
                     // Get the value of the package by going back to the orderItems
-                    Map getPackageValueResult = dispatcher.runSync("getShipmentPackageValueFromOrders", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackage.get("shipmentPackageSeqId"), "currencyUomId", currencyCode, "userLogin", userLogin, "locale", locale));
+                    Map<String, Object> getPackageValueResult = dispatcher.runSync("getShipmentPackageValueFromOrders", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackage.get("shipmentPackageSeqId"), "currencyUomId", currencyCode, "userLogin", userLogin, "locale", locale));
                     if (ServiceUtil.isError(getPackageValueResult)) return getPackageValueResult;
                     BigDecimal packageValue = (BigDecimal) getPackageValueResult.get("packageValue");
                     
                     // Convert the value of the COD surcharge to the shipment currency, if necessary
-                    Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", codSurchargeCurrencyUomId, "uomIdTo", currencyCode, "originalValue", Double.valueOf(codSurchargePackageAmount.doubleValue())));
+                    Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", codSurchargeCurrencyUomId, "uomIdTo", currencyCode, "originalValue", Double.valueOf(codSurchargePackageAmount.doubleValue())));
                     if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
                     if (convertUomResult.containsKey("convertedValue")) {
                         codSurchargePackageAmount = new BigDecimal(((Double) convertUomResult.get("convertedValue")).doubleValue()).setScale(decimals, rounding);
@@ -606,7 +607,7 @@ public class UpsServices {
         }
     }
 
-    public static Map handleUpsShipmentConfirmResponse(Document shipmentConfirmResponseDocument, GenericValue shipmentRouteSegment) throws GenericEntityException {
+    public static Map<String, Object> handleUpsShipmentConfirmResponse(Document shipmentConfirmResponseDocument, GenericValue shipmentRouteSegment) throws GenericEntityException {
         // process ShipmentConfirmResponse, update data as needed
         Element shipmentConfirmResponseElement = shipmentConfirmResponseDocument.getDocumentElement();
             
@@ -618,7 +619,7 @@ public class UpsServices {
 
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
         String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
-        List errorList = FastList.newInstance();
+        List<Object> errorList = FastList.newInstance();
         UpsServices.handleErrors(responseElement, errorList);
 
         if ("1".equals(responseStatusCode)) {
@@ -700,10 +701,9 @@ public class UpsServices {
             if (errorList.size() > 0) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(", but the following occurred: ");
-                Iterator errorListIter = errorList.iterator();
+                Iterator<Object> errorListIter = errorList.iterator();
                 while (errorListIter.hasNext()) {
-                    String errorMsg = (String) errorListIter.next();
-                    successString.append(errorMsg);
+                    successString.append(errorListIter.next());
                     if (errorListIter.hasNext()) {
                         successString.append(", ");
                     }
@@ -716,8 +716,8 @@ public class UpsServices {
         }
     }
     
-    public static Map upsShipmentAccept(DispatchContext dctx, Map context) {
-        Map result = FastMap.newInstance();
+    public static Map<String, Object> upsShipmentAccept(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
@@ -747,7 +747,7 @@ public class UpsServices {
                 return ServiceUtil.returnError("ERROR: The Carrier Service Status for ShipmentRouteSegment " + shipmentRouteSegmentId + " of Shipment " + shipmentId + ", is [" + shipmentRouteSegment.getString("carrierServiceStatusId") + "], but must be [SHRSCS_CONFIRMED] to perform the UPS Shipment Accept operation.");
             }
             
-            List shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
             if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
@@ -857,7 +857,7 @@ public class UpsServices {
         }
     }
     
-    public static Map handleUpsShipmentAcceptResponse(Document shipmentAcceptResponseDocument, GenericValue shipmentRouteSegment, List shipmentPackageRouteSegs) throws GenericEntityException {
+    public static Map<String, Object> handleUpsShipmentAcceptResponse(Document shipmentAcceptResponseDocument, GenericValue shipmentRouteSegment, List<GenericValue> shipmentPackageRouteSegs) throws GenericEntityException {
         boolean shipmentUpsSaveCertificationInfo = "true".equals(UtilProperties.getPropertyValue("shipment", "shipment.ups.save.certification.info"));
         String shipmentUpsSaveCertificationPath = UtilProperties.getPropertyValue("shipment", "shipment.ups.save.certification.path");
         File shipmentUpsSaveCertificationFile = null;
@@ -879,7 +879,7 @@ public class UpsServices {
 
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
         String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
-        List errorList = FastList.newInstance();
+        List<Object> errorList = FastList.newInstance();
         UpsServices.handleErrors(responseElement, errorList);
 
         if ("1".equals(responseStatusCode)) {
@@ -962,11 +962,11 @@ public class UpsServices {
             shipmentRouteSegment.store();
                 
             // now process the PackageResults elements
-            List packageResultsElements = UtilXml.childElementList(shipmentResultsElement, "PackageResults");
-            Iterator packageResultsElementIter = packageResultsElements.iterator();
-            Iterator shipmentPackageRouteSegIter = shipmentPackageRouteSegs.iterator();
+            List<? extends Element> packageResultsElements = UtilXml.childElementList(shipmentResultsElement, "PackageResults");
+            Iterator<GenericValue> shipmentPackageRouteSegIter = shipmentPackageRouteSegs.iterator();
+            Iterator<? extends Element> packageResultsElementIter = packageResultsElements.iterator();
             while (packageResultsElementIter.hasNext()) {
-                Element packageResultsElement = (Element) packageResultsElementIter.next();
+                Element packageResultsElement = packageResultsElementIter.next();
                     
                 String trackingNumber = UtilXml.childElementValue(packageResultsElement, "TrackingNumber");
 
@@ -990,7 +990,7 @@ public class UpsServices {
                 }
                     
                 //NOTE: I guess they come back in the same order we sent them, so we'll get the packages in order and off we go...
-                GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegIter.next();
+                GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegIter.next();
                 shipmentPackageRouteSeg.set("trackingCode", trackingNumber);
                 shipmentPackageRouteSeg.set("boxNumber", "");
                 shipmentPackageRouteSeg.set("currencyUomId", packageServiceOptionsCurrencyCode);
@@ -1067,10 +1067,9 @@ public class UpsServices {
             if (errorList.size() > 0) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(", but the following occurred: ");
-                Iterator errorListIter = errorList.iterator();
+                Iterator<Object> errorListIter = errorList.iterator();
                 while (errorListIter.hasNext()) {
-                    String errorMsg = (String) errorListIter.next();
-                    successString.append(errorMsg);
+                    successString.append(errorListIter.next());
                     if (errorListIter.hasNext()) {
                         successString.append(", ");
                     }
@@ -1083,8 +1082,8 @@ public class UpsServices {
         }
     }
     
-    public static Map upsVoidShipment(DispatchContext dctx, Map context) {
-        Map result = FastMap.newInstance();
+    public static Map<String, Object> upsVoidShipment(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
@@ -1219,7 +1218,7 @@ public class UpsServices {
         }
     }
 
-    public static Map handleUpsVoidShipmentResponse(Document voidShipmentResponseDocument, GenericValue shipmentRouteSegment) throws GenericEntityException {
+    public static Map<String, Object> handleUpsVoidShipmentResponse(Document voidShipmentResponseDocument, GenericValue shipmentRouteSegment) throws GenericEntityException {
         // process VoidShipmentResponse, update data as needed
         Element voidShipmentResponseElement = voidShipmentResponseDocument.getDocumentElement();
             
@@ -1231,7 +1230,7 @@ public class UpsServices {
 
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
         String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
-        List errorList = FastList.newInstance();
+        List<Object> errorList = FastList.newInstance();
         UpsServices.handleErrors(responseElement, errorList);
 
         // handle other response elements
@@ -1255,10 +1254,9 @@ public class UpsServices {
             if (errorList.size() > 0) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(", but the following occurred: ");
-                Iterator errorListIter = errorList.iterator();
+                Iterator<Object> errorListIter = errorList.iterator();
                 while (errorListIter.hasNext()) {
-                    String errorMsg = (String) errorListIter.next();
-                    successString.append(errorMsg);
+                    successString.append(errorListIter.next());
                     if (errorListIter.hasNext()) {
                         successString.append(", ");
                     }
@@ -1271,8 +1269,8 @@ public class UpsServices {
         }
     }
     
-    public static Map upsTrackShipment(DispatchContext dctx, Map context) {
-        Map result = FastMap.newInstance();
+    public static Map<String, Object> upsTrackShipment(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
@@ -1302,7 +1300,7 @@ public class UpsServices {
                 return ServiceUtil.returnError("ERROR: The Carrier Service Status for ShipmentRouteSegment " + shipmentRouteSegmentId + " of Shipment " + shipmentId + ", is [" + shipmentRouteSegment.getString("carrierServiceStatusId") + "], but must be [SHRSCS_ACCEPTED] to perform the UPS Track Shipment operation.");
             }
             
-            List shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
             if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
@@ -1410,7 +1408,7 @@ public class UpsServices {
         }
     }
 
-    public static Map handleUpsTrackShipmentResponse(Document trackResponseDocument, GenericValue shipmentRouteSegment, List shipmentPackageRouteSegs) throws GenericEntityException {
+    public static Map<String, Object> handleUpsTrackShipmentResponse(Document trackResponseDocument, GenericValue shipmentRouteSegment, List shipmentPackageRouteSegs) throws GenericEntityException {
         // process TrackResponse, update data as needed
         Element trackResponseElement = trackResponseDocument.getDocumentElement();
             
@@ -1422,7 +1420,7 @@ public class UpsServices {
 
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
         String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
-        List errorList = FastList.newInstance();
+        List<Object> errorList = FastList.newInstance();
         UpsServices.handleErrors(responseElement, errorList);
 
         if ("1".equals(responseStatusCode)) {
@@ -1438,10 +1436,10 @@ public class UpsServices {
 
             String shipmentIdentificationNumber = UtilXml.childElementValue(shipmentElement, "ShipmentIdentificationNumber");
                 
-            List packageElements = UtilXml.childElementList(shipmentElement, "Package");
-            Iterator packageElementIter = packageElements.iterator();
+            List<? extends Element> packageElements = UtilXml.childElementList(shipmentElement, "Package");
+            Iterator<? extends Element> packageElementIter = packageElements.iterator();
             while (packageElementIter.hasNext()) {
-                Element packageElement = (Element) packageElementIter.next();
+                Element packageElement = packageElementIter.next();
             }
 /*
         <Package>
@@ -1485,10 +1483,9 @@ public class UpsServices {
             if (errorList.size() > 0) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(", but the following occurred: ");
-                Iterator errorListIter = errorList.iterator();
+                Iterator<Object> errorListIter = errorList.iterator();
                 while (errorListIter.hasNext()) {
-                    String errorMsg = (String) errorListIter.next();
-                    successString.append(errorMsg);
+                    successString.append(errorListIter.next());
                     if (errorListIter.hasNext()) {
                         successString.append(", ");
                     }
@@ -1501,7 +1498,7 @@ public class UpsServices {
         }
     }
 
-    public static Map upsRateInquire(DispatchContext dctx, Map context) {
+    public static Map<String, Object> upsRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         // prepare the data
         String shippingContactMechId = (String) context.get("shippingContactMechId");
@@ -1540,7 +1537,7 @@ public class UpsServices {
         if (UtilValidate.isEmpty(destCountryGeo)) {
             return ServiceUtil.returnError("Destination CountryGeo not found for ship-to address");
         }
-        Map cxt = UtilMisc.toMap("serviceConfigProps", context.get("serviceConfigProps"), "upsRateInquireMode", context.get("upsRateInquireMode"),
+        Map<String, Object> cxt = UtilMisc.toMap("serviceConfigProps", context.get("serviceConfigProps"), "upsRateInquireMode", context.get("upsRateInquireMode"),
                 "productStoreId", context.get("productStoreId"), "carrierRoleTypeId", context.get("carrierRoleTypeId"));
         cxt.put("carrierPartyId", context.get("carrierPartyId"));
         cxt.put("shipmentMethodTypeId", context.get("shipmentMethodTypeId"));
@@ -1562,12 +1559,12 @@ public class UpsServices {
         }
     }
 
-    private static void splitEstimatePackages(Document requestDoc, Element shipmentElement, List shippableItemInfo, double maxWeight, double minWeight) {
-        List packages = getPackageSplit(shippableItemInfo, maxWeight);
+    private static void splitEstimatePackages(Document requestDoc, Element shipmentElement, List<Map<String, Object>> shippableItemInfo, double maxWeight, double minWeight) {
+        List<Map<String, Double>> packages = getPackageSplit(shippableItemInfo, maxWeight);
         if (UtilValidate.isNotEmpty(packages)) {
-            Iterator i = packages.iterator();
+            Iterator<Map<String, Double>> i = packages.iterator();
             while (i.hasNext()) {
-                Map packageMap = (Map) i.next();
+                Map<String, Double> packageMap = i.next();
                 addPackageElement(requestDoc, shipmentElement, shippableItemInfo, packageMap, minWeight);
             }
         } else {
@@ -1588,7 +1585,7 @@ public class UpsServices {
         }
     }
 
-    private static void addPackageElement(Document requestDoc, Element shipmentElement, List shippableItemInfo, Map packageMap, double minWeight) {
+    private static void addPackageElement(Document requestDoc, Element shipmentElement, List<Map<String, Object>> shippableItemInfo, Map<String, Double> packageMap, double minWeight) {
         double packageWeight = checkForDefaultPackageWeight(calcPackageWeight(packageMap, shippableItemInfo, 0),minWeight);
         Element packageElement = UtilXml.addChildElement(shipmentElement, "Package", requestDoc);
         Element packagingTypeElement = UtilXml.addChildElement(packageElement, "PackagingType", requestDoc);
@@ -1599,9 +1596,9 @@ public class UpsServices {
         UtilXml.addChildElementValue(packageWeightElement, "Weight", Double.toString(packageWeight), requestDoc);
         //If product is in shippable Package then it we should have one product per packagemap
         if (packageMap.size() ==1) {
-            Iterator i = packageMap.keySet().iterator();
-            String productId = (String) i.next();
-            Map productInfo = getProductItemInfo(shippableItemInfo, productId);
+            Iterator<String> i = packageMap.keySet().iterator();
+            String productId = i.next();
+            Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
             if(productInfo.get("inShippingBox") != null &&  ((String) productInfo.get("inShippingBox")).equalsIgnoreCase("Y")
                     && productInfo.get("shippingDepth") !=null && productInfo.get("shippingWidth") !=null && productInfo.get("shippingHeight") !=null ) {
                 Element dimensionsElement = UtilXml.addChildElement(packageElement, "Dimensions", requestDoc);
@@ -1628,14 +1625,14 @@ public class UpsServices {
         return (weight > 0 && weight > minWeight ? weight : minWeight);
     }
     
-    private static List getPackageSplit(List shippableItemInfo, double maxWeight) {
+    private static List<Map<String, Double>> getPackageSplit(List<Map<String, Object>> shippableItemInfo, double maxWeight) {
         // create the package list w/ the first package
-        List packages = FastList.newInstance();
+        List<Map<String, Double>> packages = FastList.newInstance();
 
         if (shippableItemInfo != null) {
-            Iterator sii = shippableItemInfo.iterator();
+            Iterator<Map<String, Object>> sii = shippableItemInfo.iterator();
             while (sii.hasNext()) {
-                Map itemInfo = (Map) sii.next();
+                Map<String, Object> itemInfo = sii.next();
                 long pieces = ((Long) itemInfo.get("piecesIncluded")).longValue();
                 double totalQuantity = ((Double) itemInfo.get("quantity")).doubleValue();
                 double totalWeight = ((Double) itemInfo.get("weight")).doubleValue();
@@ -1651,17 +1648,17 @@ public class UpsServices {
                     double partialQty = pieces > 1 ? 1.000 / pieces : 1;
                     for (long x = 0; x < pieces; x++) {
                         if(itemInfo.get("inShippingBox") != null &&  ((String) itemInfo.get("inShippingBox")).equalsIgnoreCase("Y")) {
-                            Map newPackage = FastMap.newInstance();
+                            Map<String, Double> newPackage = FastMap.newInstance();
                             newPackage.put(productId, Double.valueOf(partialQty));
                             packages.add(newPackage);
                         } else if (weight >= maxWeight) {
-                            Map newPackage = FastMap.newInstance();
+                            Map<String, Double> newPackage = FastMap.newInstance();
                             newPackage.put(productId, Double.valueOf(partialQty));
                             packages.add(newPackage);
                         } else if (totalWeight > 0) {
                             // create the first package
                             if (packages.size() == 0) {
-                                packages.add(FastMap.newInstance());
+                                packages.add(FastMap.<String, Double>newInstance());
                             }
 
                             // package loop
@@ -1669,7 +1666,7 @@ public class UpsServices {
                             boolean addedToPackage = false;
                             for (int pi = 0; pi < packageSize; pi++) {
                                 if (!addedToPackage) {
-                                    Map packageMap = (Map) packages.get(pi);
+                                    Map<String, Double> packageMap = packages.get(pi);
                                     double packageWeight = calcPackageWeight(packageMap, shippableItemInfo, weight);
                                     if (packageWeight <= maxWeight) {
                                         Double qtyD = (Double) packageMap.get(productId);
@@ -1680,7 +1677,7 @@ public class UpsServices {
                                 }
                             }
                             if (!addedToPackage) {
-                                Map packageMap = FastMap.newInstance();
+                                Map<String, Double> packageMap = FastMap.newInstance();
                                 packageMap.put(productId, Double.valueOf(partialQty));
                                 packages.add(packageMap);
                             }
@@ -1692,24 +1689,24 @@ public class UpsServices {
         return packages;
     }
 
-    private static double calcPackageWeight(Map packageMap, List shippableItemInfo, double additionalWeight) {
+    private static double calcPackageWeight(Map<String, Double> packageMap, List<Map<String, Object>> shippableItemInfo, double additionalWeight) {
         double totalWeight = 0.00;
-        Iterator i = packageMap.keySet().iterator();
+        Iterator<String> i = packageMap.keySet().iterator();
         while (i.hasNext()) {
-            String productId = (String) i.next();
-            Map productInfo = getProductItemInfo(shippableItemInfo, productId);
+            String productId = i.next();
+            Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
             double productWeight = ((Double) productInfo.get("weight")).doubleValue();
-            double quantity = ((Double) packageMap.get(productId)).doubleValue();
+            double quantity = packageMap.get(productId).doubleValue();
             totalWeight += (productWeight * quantity);
         }
         return totalWeight + additionalWeight;
     }
 
-    private static Map getProductItemInfo(List shippableItemInfo, String productId) {
+    private static Map<String, Object> getProductItemInfo(List<Map<String, Object>> shippableItemInfo, String productId) {
         if (shippableItemInfo != null) {
-            Iterator i = shippableItemInfo.iterator();
+            Iterator<Map<String, Object>> i = shippableItemInfo.iterator();
             while (i.hasNext()) {
-                Map testMap = (Map) i.next();
+                Map<String, Object> testMap = i.next();
                 String id = (String) testMap.get("productId");
                 if (productId.equals(id)) {
                     return testMap;
@@ -1719,7 +1716,7 @@ public class UpsServices {
         return null;
     }
 
-    public static Map handleUpsRateInquireResponse(Document rateResponseDocument) {
+    public static Map<String, Object> handleUpsRateInquireResponse(Document rateResponseDocument) {
         // process TrackResponse, update data as needed
         Element rateResponseElement = rateResponseDocument.getDocumentElement();
 
@@ -1731,19 +1728,19 @@ public class UpsServices {
 
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
         String responseStatusDescription = UtilXml.childElementValue(responseElement, "ResponseStatusDescription");
-        List errorList = FastList.newInstance();
+        List<Object> errorList = FastList.newInstance();
         UpsServices.handleErrors(responseElement, errorList);
 
         if ("1".equals(responseStatusCode)) {
-            List rates = UtilXml.childElementList(rateResponseElement, "RatedShipment");
-            Map rateMap = FastMap.newInstance();
+            List<? extends Element> rates = UtilXml.childElementList(rateResponseElement, "RatedShipment");
+            Map<String, Double> rateMap = FastMap.newInstance();
             Double firstRate = null;
             if (rates == null || rates.size() == 0) {
                 return ServiceUtil.returnError("No rates available at this time");
             } else {
-                Iterator i = rates.iterator();
+                Iterator<? extends Element> i = rates.iterator();
                 while (i.hasNext()) {
-                    Element element = (Element) i.next();
+                    Element element = i.next();
 
                     // get service
                     Element service = UtilXml.firstChildElement(element, "Service");
@@ -1755,14 +1752,14 @@ public class UpsServices {
 
                     rateMap.put(serviceCode, Double.valueOf(totalString));
                     if (firstRate == null) {
-                        firstRate = (Double) rateMap.get(serviceCode);
+                        firstRate = rateMap.get(serviceCode);
                     }
                 }
             }
 
             Debug.log("UPS Rate Map : " + rateMap, module);
 
-            Map resp = ServiceUtil.returnSuccess();
+            Map<String, Object> resp = ServiceUtil.returnSuccess();
             resp.put("upsRateCodeMap", rateMap);
             resp.put("shippingEstimateAmount", firstRate);
             return resp;
@@ -1785,12 +1782,12 @@ public class UpsServices {
         return accessRequestDocument;
     }
 
-    public static void handleErrors(Element responseElement, List errorList) {
-        List errorElements = UtilXml.childElementList(responseElement, "Error");
-        Iterator errorElementIter = errorElements.iterator();
+    public static void handleErrors(Element responseElement, List<Object> errorList) {
+        List<? extends Element> errorElements = UtilXml.childElementList(responseElement, "Error");
+        Iterator<? extends Element> errorElementIter = errorElements.iterator();
         while (errorElementIter.hasNext()) {
             StringBuilder errorMessageBuf = new StringBuilder();
-            Element errorElement = (Element) errorElementIter.next();
+            Element errorElement = errorElementIter.next();
 
             String errorSeverity = UtilXml.childElementValue(errorElement, "ErrorSeverity");
             String errorCode = UtilXml.childElementValue(errorElement, "ErrorCode");
@@ -1811,10 +1808,10 @@ public class UpsServices {
                 errorMessageBuf.append(". ");
             }
 
-            List errorLocationElements = UtilXml.childElementList(errorElement, "ErrorLocation");
-            Iterator errorLocationElementIter = errorLocationElements.iterator();
+            List<? extends Element> errorLocationElements = UtilXml.childElementList(errorElement, "ErrorLocation");
+            Iterator<? extends Element> errorLocationElementIter = errorLocationElements.iterator();
             while (errorLocationElementIter.hasNext()) {
-                Element errorLocationElement = (Element) errorLocationElementIter.next();
+                Element errorLocationElement = errorLocationElementIter.next();
                 String errorLocationElementName = UtilXml.childElementValue(errorLocationElement, "ErrorLocationElementName");
                 String errorLocationAttributeName = UtilXml.childElementValue(errorLocationElement, "ErrorLocationAttributeName");
 
@@ -1828,10 +1825,10 @@ public class UpsServices {
                     errorMessageBuf.append("]");
                 }
 
-                List errorDigestElements = UtilXml.childElementList(errorLocationElement, "ErrorDigest");
-                Iterator errorDigestElementIter = errorDigestElements.iterator();
+                List<? extends Element> errorDigestElements = UtilXml.childElementList(errorLocationElement, "ErrorDigest");
+                Iterator<? extends Element> errorDigestElementIter = errorDigestElements.iterator();
                 while (errorDigestElementIter.hasNext()) {
-                    Element errorDigestElement = (Element) errorDigestElementIter.next();
+                    Element errorDigestElement = errorDigestElementIter.next();
                     errorMessageBuf.append(" full text: [");
                     errorMessageBuf.append(UtilXml.elementValue(errorDigestElement));
                     errorMessageBuf.append("]");
@@ -1903,7 +1900,7 @@ public class UpsServices {
         return response;
     }
     
-    public static Map upsRateInquireByPostalCode(DispatchContext dctx, Map context) {
+    public static Map<String, Object> upsRateInquireByPostalCode(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
         
@@ -1917,8 +1914,8 @@ public class UpsServices {
        // String shippingContactMechId = (String) context.get("shippingContactMechId");
         String shippingPostalCode = (String) context.get("shippingPostalCode");
         String shippingCountryCode = (String) context.get("shippingCountryCode");
-        List packageWeights = (List) context.get("packageWeights");
-        List shippableItemInfo = (List) context.get("shippableItemInfo");
+        List<Double> packageWeights = UtilGenerics.checkList(context.get("packageWeights"));
+        List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
         Double shippableTotal = (Double) context.get("shippableTotal");
         Double shippableQuantity = (Double) context.get("shippableQuantity");
         Double shippableWeight = (Double) context.get("shippableWeight");
@@ -2056,9 +2053,9 @@ public class UpsServices {
                         
             splitEstimatePackages(rateRequestDoc, shipmentElement, shippableItemInfo, maxWeight, minWeight);
         } else {
-            Iterator i = packageWeights.iterator();
+            Iterator<Double> i = packageWeights.iterator();
             while (i.hasNext()) {
-                Double packageWeight = (Double) i.next();
+                Double packageWeight = i.next();
                 addPackageElement(rateRequestDoc,  shipmentElement, packageWeight);
             }
         }
@@ -2122,7 +2119,7 @@ public class UpsServices {
     
     }
 
-    public static Map upsAddressValidation(DispatchContext dctx, Map context) {
+    public static Map<String, Object> upsAddressValidation(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         String city = (String) context.get("city");
         String stateProvinceGeoId = (String) context.get("stateProvinceGeoId");
@@ -2216,26 +2213,26 @@ public class UpsServices {
 
     }
 
-    public static Map handleUpsAddressValidationResponse(Document rateResponseDocument) {
+    public static Map<String, Object> handleUpsAddressValidationResponse(Document rateResponseDocument) {
 
         Element avResponseElement = rateResponseDocument.getDocumentElement();
         Element responseElement = UtilXml.firstChildElement(avResponseElement, "Response");
         String responseStatusCode = UtilXml.childElementValue(responseElement, "ResponseStatusCode");
 
-        List errorList = FastList.newInstance();
+        List<Object> errorList = FastList.newInstance();
         UpsServices.handleErrors(responseElement, errorList);
 
         if ("1".equals(responseStatusCode)) {
-            List matches = FastList.newInstance();
+            List<Map<String, String>> matches = FastList.newInstance();
 
-            List avResultList = UtilXml.childElementList(avResponseElement, "AddressValidationResult");
+            List<? extends Element> avResultList = UtilXml.childElementList(avResponseElement, "AddressValidationResult");
             // TODO: return error if there are no matches?
             if (UtilValidate.isNotEmpty(avResultList)) {
-                Iterator i = avResultList.iterator();
+                Iterator<? extends Element> i = avResultList.iterator();
                 while (i.hasNext()) {
-                    Element avResultElement = (Element) i.next();
+                    Element avResultElement = i.next();
 
-                    Map match = FastMap.newInstance();
+                    Map<String, String> match = FastMap.newInstance();
 
                     match.put("Rank", UtilXml.childElementValue(avResultElement, "Rank"));
                     match.put("Quality", UtilXml.childElementValue(avResultElement, "Quality"));
@@ -2251,7 +2248,7 @@ public class UpsServices {
                 }
             }
 
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("matches", matches);
             return result;
         } else {

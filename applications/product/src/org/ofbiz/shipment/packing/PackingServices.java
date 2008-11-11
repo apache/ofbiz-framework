@@ -23,6 +23,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.service.DispatchContext;
@@ -32,7 +33,7 @@ public class PackingServices {
 
     public static final String module = PackingServices.class.getName();
 
-    public static Map addPackLine(DispatchContext dctx, Map context) {
+    public static Map<String, Object> addPackLine(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
         String orderId = (String) context.get("orderId");
@@ -70,7 +71,7 @@ public class PackingServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map packBulk(DispatchContext dctx, Map context) {
+    public static Map<String, Object> packBulk(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
         String orderId = (String) context.get("orderId");
         String shipGroupSeqId = (String) context.get("shipGroupSeqId");
@@ -87,28 +88,28 @@ public class PackingServices {
         String pickerPartyId = (String) context.get("pickerPartyId");
         session.setPickerPartyId(pickerPartyId);
 
-        Map selInfo = (Map) context.get("selInfo");
-        Map iteInfo = (Map) context.get("iteInfo");
-        Map prdInfo = (Map) context.get("prdInfo");
-        Map qtyInfo = (Map) context.get("qtyInfo");
-        Map pkgInfo = (Map) context.get("pkgInfo");
-        Map wgtInfo = (Map) context.get("wgtInfo");
+        Map<String, ?> selInfo = UtilGenerics.checkMap(context.get("selInfo"));
+        Map<String, String> iteInfo = UtilGenerics.checkMap(context.get("iteInfo"));
+        Map<String, String> prdInfo = UtilGenerics.checkMap(context.get("prdInfo"));
+        Map<String, String> qtyInfo = UtilGenerics.checkMap(context.get("qtyInfo"));
+        Map<String, String> pkgInfo = UtilGenerics.checkMap(context.get("pkgInfo"));
+        Map<String, String> wgtInfo = UtilGenerics.checkMap(context.get("wgtInfo"));
 
         if (selInfo != null) {
-            Iterator i = selInfo.keySet().iterator();
+            Iterator<String> i = selInfo.keySet().iterator();
             while (i.hasNext()) {
-                String rowKey = (String) i.next();
-                String orderItemSeqId = (String) iteInfo.get(rowKey);
-                String prdStr = (String) prdInfo.get(rowKey);
+                String rowKey = i.next();
+                String orderItemSeqId = iteInfo.get(rowKey);
+                String prdStr = prdInfo.get(rowKey);
                 if (UtilValidate.isEmpty(prdStr)) {
                     // set the productId to null if empty
                     prdStr = null;
                 }
 
                 // base package/quantity/weight strings
-                String pkgStr = (String) pkgInfo.get(rowKey);
-                String qtyStr = (String) qtyInfo.get(rowKey);
-                String wgtStr = (String) wgtInfo.get(rowKey);
+                String pkgStr = pkgInfo.get(rowKey);
+                String qtyStr = qtyInfo.get(rowKey);
+                String wgtStr = wgtInfo.get(rowKey);
 
                 Debug.log("Item: " + orderItemSeqId + " / Product: " + prdStr + " / Quantity: " + qtyStr + " /  Package: " + pkgStr + " / Weight: " + wgtStr, module);
 
@@ -172,23 +173,23 @@ public class PackingServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map incrementPackageSeq(DispatchContext dctx, Map context) {
+    public static Map<String, Object> incrementPackageSeq(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
         int nextSeq = session.nextPackageSeq();
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("nextPackageSeq", Integer.valueOf(nextSeq));
         return result;
     }
 
-    public static Map clearLastPackage(DispatchContext dctx, Map context) {
+    public static Map<String, Object> clearLastPackage(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
         int nextSeq = session.clearLastPackage();
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("nextPackageSeq", Integer.valueOf(nextSeq));
         return result;
     }
 
-    public static Map clearPackLine(DispatchContext dctx, Map context) {
+    public static Map<String, Object> clearPackLine(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
         String orderId = (String) context.get("orderId");
         String orderItemSeqId = (String) context.get("orderItemSeqId");
@@ -210,16 +211,16 @@ public class PackingServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map clearPackAll(DispatchContext dctx, Map context) {
+    public static Map<String, Object> clearPackAll(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
         session.clearAllLines();
 
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map calcPackSessionAdditionalShippingCharge(DispatchContext dctx, Map context) {
+    public static Map<String, Object> calcPackSessionAdditionalShippingCharge(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
-        Map packageWeights = (Map) context.get("packageWeights");
+        Map<String, String> packageWeights = UtilGenerics.checkMap(context.get("packageWeights"));
         String weightUomId = (String) context.get("weightUomId");
         String shippingContactMechId = (String) context.get("shippingContactMechId");
         String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
@@ -232,20 +233,20 @@ public class PackingServices {
         session.setAdditionalShippingCharge(estimatedShipCost);
         session.setWeightUomId(weightUomId);
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("additionalShippingCharge", estimatedShipCost);
         return result;
     }
 
 
-    public static Map completePack(DispatchContext dctx, Map context) {
+    public static Map<String, Object> completePack(DispatchContext dctx, Map<String, ? extends Object> context) {
         PackingSession session = (PackingSession) context.get("packingSession");
 
         // set the instructions -- will clear out previous if now null
         String instructions = (String) context.get("handlingInstructions");
         String pickerPartyId = (String) context.get("pickerPartyId");
         Double additionalShippingCharge = (Double) context.get("additionalShippingCharge");
-        Map packageWeights = (Map) context.get("packageWeights");
+        Map<String, String> packageWeights = UtilGenerics.checkMap(context.get("packageWeights"));
         String weightUomId = (String) context.get("weightUomId");
         session.setHandlingInstructions(instructions);
         session.setPickerPartyId(pickerPartyId);
@@ -266,7 +267,7 @@ public class PackingServices {
             return ServiceUtil.returnError(e.getMessage(), e.getMessageList());
         }
 
-        Map resp;
+        Map<String, Object> resp;
         if ("EMPTY".equals(shipmentId)) {
             resp = ServiceUtil.returnError("No items currently set to be shipped. Cannot complete!");
         } else {
@@ -277,13 +278,13 @@ public class PackingServices {
         return resp;
     }
 
-    public static double setSessionPackageWeights(PackingSession session, Map packageWeights) {
+    public static double setSessionPackageWeights(PackingSession session, Map<String, String> packageWeights) {
         double shippableWeight = 0;
         if (! UtilValidate.isEmpty(packageWeights)) {
-            Iterator pwit = packageWeights.keySet().iterator();
+            Iterator<String> pwit = packageWeights.keySet().iterator();
             while (pwit.hasNext()) {
-                String packageSeqId = (String) pwit.next();
-                String packageWeightStr = (String) packageWeights.get(packageSeqId);
+                String packageSeqId = pwit.next();
+                String packageWeightStr = packageWeights.get(packageSeqId);
                 if (UtilValidate.isNotEmpty(packageWeightStr)) {
                     double packageWeight = UtilMisc.toDouble(packageWeights.get(packageSeqId));
                     session.setPackageWeight(Integer.parseInt(packageSeqId), Double.valueOf(packageWeight));

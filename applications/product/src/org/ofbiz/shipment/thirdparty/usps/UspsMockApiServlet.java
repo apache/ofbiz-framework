@@ -91,12 +91,12 @@ public class UspsMockApiServlet extends HttpServlet {
             return;
         }
 
-        List packageElementList = UtilXml.childElementList(requestDocument.getDocumentElement(), "Package");
+        List<? extends Element> packageElementList = UtilXml.childElementList(requestDocument.getDocumentElement(), "Package");
         if (UtilValidate.isNotEmpty(packageElementList)) {
 
             Document responseDocument = UtilXml.makeEmptyXmlDocument("RateResponse");
-            for (Iterator i = packageElementList.iterator(); i.hasNext();) {
-                Element packageElement = (Element) i.next();
+            for (Iterator<? extends Element> i = packageElementList.iterator(); i.hasNext();) {
+                Element packageElement = i.next();
 
                 Element responsePackageElement =
                         UtilXml.addChildElement(responseDocument.getDocumentElement(), "Package", responseDocument);

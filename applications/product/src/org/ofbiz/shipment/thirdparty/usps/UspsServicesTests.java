@@ -26,6 +26,7 @@ import javolution.util.FastMap;
 
 import junit.framework.TestCase;
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.service.GenericDispatcher;
@@ -65,7 +66,7 @@ public class UspsServicesTests extends TestCase {
     public void testUspsTrackConfirm() throws Exception {
 
         // run the service
-        Map result = dispatcher.runSync("uspsTrackConfirm", UtilMisc.toMap("trackingId", "EJ958083578US"));
+        Map<String, Object> result = dispatcher.runSync("uspsTrackConfirm", UtilMisc.toMap("trackingId", "EJ958083578US"));
 
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -77,7 +78,7 @@ public class UspsServicesTests extends TestCase {
         assertEquals("trackingSummary is correct",
                 "Your item was delivered at 8:10 am on June 1 in Wilmington DE 19801.", trackingSummary);
 
-        List trackingDetailList = (List) result.get("trackingDetailList");
+        List<String> trackingDetailList = UtilGenerics.checkList(result.get("trackingDetailList"));
         assertEquals("trackingDetailList has 3 elements", 3, trackingDetailList.size());
 
         Debug.log("[testUspsTrackConfirm] trackingDetailList[0]: " + trackingDetailList.get(0), module);
@@ -96,7 +97,7 @@ public class UspsServicesTests extends TestCase {
     public void testUspsAddressValidation() throws Exception {
 
         // run the service
-        Map result = dispatcher.runSync("uspsAddressValidation",
+        Map<String, Object> result = dispatcher.runSync("uspsAddressValidation",
                 UtilMisc.toMap("address1", "6406 Ivy Lane", "city", "Greenbelt", "state", "MD"));
 
         // verify the results
@@ -128,7 +129,7 @@ public class UspsServicesTests extends TestCase {
     public void testUspsCityStateLookup() throws Exception {
 
         // run the service
-        Map result = dispatcher.runSync("uspsCityStateLookup", UtilMisc.toMap("zip5", "90210"));
+        Map<String, Object> result = dispatcher.runSync("uspsCityStateLookup", UtilMisc.toMap("zip5", "90210"));
 
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -147,7 +148,7 @@ public class UspsServicesTests extends TestCase {
     public void testUspsPriorityMailStandard() throws Exception {
 
         // run the service
-        Map result = dispatcher.runSync("uspsPriorityMailStandard", UtilMisc.toMap("originZip", "4", "destinationZip", "4"));
+        Map<String, Object> result = dispatcher.runSync("uspsPriorityMailStandard", UtilMisc.toMap("originZip", "4", "destinationZip", "4"));
 
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -162,7 +163,7 @@ public class UspsServicesTests extends TestCase {
     public void testUspsPackageServicesStandard() throws Exception {
 
         // run the service
-        Map result = dispatcher.runSync("uspsPackageServicesStandard", UtilMisc.toMap("originZip", "4", "destinationZip", "4"));
+        Map<String, Object> result = dispatcher.runSync("uspsPackageServicesStandard", UtilMisc.toMap("originZip", "4", "destinationZip", "4"));
 
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);
@@ -177,7 +178,7 @@ public class UspsServicesTests extends TestCase {
     public void testUspsDomesticRate() throws Exception {
 
         // prepare the context
-        Map context = FastMap.newInstance();
+        Map<String, Object> context = FastMap.newInstance();
 
         context.put("service", "Priority");
         context.put("originZip", "20770");
@@ -189,7 +190,7 @@ public class UspsServicesTests extends TestCase {
         context.put("machinable", "False");
 
         // run the service
-        Map result = dispatcher.runSync("uspsDomesticRate", context);
+        Map<String, Object> result = dispatcher.runSync("uspsDomesticRate", context);
 
         // verify the results
         String responseMessage = (String) result.get(ModelService.RESPONSE_MESSAGE);

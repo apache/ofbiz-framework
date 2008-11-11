@@ -52,10 +52,10 @@ public class ShipmentServices {
     public static final int rounding = UtilNumber.getBigDecimalRoundingMode("order.rounding");
     public static final BigDecimal ZERO = BigDecimal.ZERO.setScale(decimals, rounding);    
 
-    public static Map createShipmentEstimate(DispatchContext dctx, Map context) {
-        Map result = FastMap.newInstance();
+    public static Map<String, Object> createShipmentEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> result = FastMap.newInstance();
         GenericDelegator delegator = dctx.getDelegator();
-        List storeAll = FastList.newInstance();
+        List<GenericValue> storeAll = FastList.newInstance();
 
         String productStoreShipMethId = (String)context.get("productStoreShipMethId");
 
@@ -124,7 +124,7 @@ public class ShipmentServices {
         return result;
     }
 
-    public static Map removeShipmentEstimate(DispatchContext dctx, Map context) {
+    public static Map<String, Object> removeShipmentEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String shipmentCostEstimateId = (String) context.get("shipmentCostEstimateId");
 
@@ -161,7 +161,7 @@ public class ShipmentServices {
         return ServiceUtil.returnSuccess();
     }
 
-    private static boolean applyQuantityBreak(Map context, Map result, List storeAll, GenericDelegator delegator,
+    private static boolean applyQuantityBreak(Map context, Map<String, Object> result, List<GenericValue> storeAll, GenericDelegator delegator,
                                               GenericValue estimate, String prefix, String breakType, String breakTypeString) {
         Double min = (Double) context.get(prefix + "min");
         Double max = (Double) context.get(prefix + "max");
@@ -203,7 +203,7 @@ public class ShipmentServices {
     }
 
     // ShippingEstimate Calc Service
-    public static Map calcShipmentCostEstimate(DispatchContext dctx, Map context) {
+    public static Map<String, Object> calcShipmentCostEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
 
         // prepare the data
@@ -215,7 +215,7 @@ public class ShipmentServices {
         String shippingPostalCode = (String) context.get("shippingPostalCode");
         String shippingCountryCode = (String) context.get("shippingCountryCode");
 
-        List shippableItemInfo = (List) context.get("shippableItemInfo");
+        List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
         //Map shippableFeatureMap = (Map) context.get("shippableFeatureMap");
         //List shippableItemSizes = (List) context.get("shippableItemSizes");
 
@@ -238,10 +238,10 @@ public class ShipmentServices {
         }
 
         // get the ShipmentCostEstimate(s)
-        Map estFields = UtilMisc.toMap("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
+        Map<String, String> estFields = UtilMisc.toMap("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
                 "carrierPartyId", carrierPartyId, "carrierRoleTypeId", carrierRoleTypeId);
 
-        Collection estimates = null;
+        Collection<GenericValue> estimates = null;
         try {
             estimates = delegator.findByAnd("ShipmentCostEstimate", estFields);
         } catch (GenericEntityException e) {
@@ -254,7 +254,7 @@ public class ShipmentServices {
                 Debug.logWarning("No shipping estimates found; the shipping amount returned is 0!", module);
             }
 
-            Map respNow = ServiceUtil.returnSuccess();
+            Map<String, Object> respNow = ServiceUtil.returnSuccess();
             respNow.put("shippingEstimateAmount", Double.valueOf(0.00));
             return respNow;
         }
@@ -280,17 +280,17 @@ public class ShipmentServices {
             shipAddress.set("postalCodeGeoId", shippingPostalCode);
         }
         // Get the possible estimates.
-        List estimateList = FastList.newInstance();
-        Iterator i = estimates.iterator();
+        List<GenericValue> estimateList = FastList.newInstance();
+        Iterator<GenericValue> i = estimates.iterator();
 
         while (i.hasNext()) {
-            GenericValue thisEstimate = (GenericValue) i.next();
+            GenericValue thisEstimate = i.next();
             String toGeo = thisEstimate.getString("geoIdTo");
             if(UtilValidate.isNotEmpty(toGeo) && shipAddress ==null){
                 // This estimate requires shipping address details. We don't have it so we cannot use this estimate.
                 continue;
             }
-            List toGeoList = GeoWorker.expandGeoGroup(toGeo, delegator);
+            List<GenericValue> toGeoList = GeoWorker.expandGeoGroup(toGeo, delegator);
             // Make sure we have a valid GEOID.
             if (toGeoList == null || toGeoList.size() == 0 ||
                     GeoWorker.containsGeo(toGeoList, shipAddress.getString("countryGeoId"), delegator) ||
@@ -382,12 +382,12 @@ public class ShipmentServices {
         }
 
         // make the shippable item size/feature objects
-        List shippableItemSizes = FastList.newInstance();
-        Map shippableFeatureMap = FastMap.newInstance();
+        List<Double> shippableItemSizes = FastList.newInstance();
+        Map<String, Double> shippableFeatureMap = FastMap.newInstance();
         if (shippableItemInfo != null) {
-            Iterator sii = shippableItemInfo.iterator();
+            Iterator<Map<String, Object>> sii = shippableItemInfo.iterator();
             while (sii.hasNext()) {
-                Map itemMap = (Map) sii.next();
+                Map<String, Object> itemMap = sii.next();
 
                 // add the item sizes
                 Double itemSize = (Double) itemMap.get("size");
@@ -397,12 +397,12 @@ public class ShipmentServices {
 
                 // add the feature quantities
                 Double quantity = (Double) itemMap.get("quantity");
-                Set featureSet = (Set) itemMap.get("featureSet");
+                Set<String> featureSet = UtilGenerics.checkSet(itemMap.get("featureSet"));
                 if (UtilValidate.isNotEmpty(featureSet)) {
-                    Iterator fi = featureSet.iterator();
+                    Iterator<String> fi = featureSet.iterator();
                     while (fi.hasNext()) {
-                        String featureId = (String) fi.next();
-                        Double featureQuantity = (Double) shippableFeatureMap.get(featureId);
+                        String featureId = fi.next();
+                        Double featureQuantity = shippableFeatureMap.get(featureId);
                         if (featureQuantity == null) {
                             featureQuantity = Double.valueOf(0.00);
                         }
@@ -425,11 +425,11 @@ public class ShipmentServices {
         int estimateIndex = 0;
 
         if (estimateList.size() > 1) {
-            TreeMap estimatePriority = new TreeMap();
+            TreeMap<Integer, GenericValue> estimatePriority = new TreeMap<Integer, GenericValue>();
             //int estimatePriority[] = new int[estimateList.size()];
 
             for (int x = 0; x < estimateList.size(); x++) {
-                GenericValue currentEstimate = (GenericValue) estimateList.get(x);
+                GenericValue currentEstimate = estimateList.get(x);
 
                 int prioritySum = 0;
                 if (UtilValidate.isNotEmpty(currentEstimate.getString("partyId")))
@@ -455,7 +455,7 @@ public class ShipmentServices {
         }
 
         // Grab the estimate and work with it.
-        GenericValue estimate = (GenericValue) estimateList.get(estimateIndex);
+        GenericValue estimate = estimateList.get(estimateIndex);
 
         //Debug.log("[ShippingEvents.getShipEstimate] Working with estimate [" + estimateIndex + "]: " + estimate, module);
 
@@ -511,14 +511,14 @@ public class ShipmentServices {
         }
 
         if (featureGroupId != null && featureGroupId.length() > 0 && shippableFeatureMap != null) {
-            Iterator fii = shippableFeatureMap.keySet().iterator();
+            Iterator<String> fii = shippableFeatureMap.keySet().iterator();
             while (fii.hasNext()) {
-                String featureId = (String) fii.next();
-                Double quantity = (Double) shippableFeatureMap.get(featureId);
+                String featureId = fii.next();
+                Double quantity = shippableFeatureMap.get(featureId);
                 GenericValue appl = null;
-                Map fields = UtilMisc.toMap("productFeatureGroupId", featureGroupId, "productFeatureId", featureId);
+                Map<String, String> fields = UtilMisc.toMap("productFeatureGroupId", featureGroupId, "productFeatureId", featureId);
                 try {
-                    List appls = delegator.findByAndCache("ProductFeatureGroupAppl", fields);
+                    List<GenericValue> appls = delegator.findByAndCache("ProductFeatureGroupAppl", fields);
                     appls = EntityUtil.filterByDate(appls);
                     appl = EntityUtil.getFirst(appls);
                 } catch (GenericEntityException e) {
@@ -537,9 +537,9 @@ public class ShipmentServices {
         Double sizePrice = estimate.getDouble("oversizePrice");
         if (sizeUnit != null && sizeUnit.doubleValue() > 0) {
             if (shippableItemSizes != null) {
-                Iterator isi = shippableItemSizes.iterator();
+                Iterator<Double> isi = shippableItemSizes.iterator();
                 while (isi.hasNext()) {
-                    Double size = (Double) isi.next();
+                    Double size = isi.next();
                     if (size != null && size.doubleValue() >= sizeUnit.doubleValue()) {
                         sizeSurcharge += sizePrice.doubleValue();
                     }
@@ -562,12 +562,12 @@ public class ShipmentServices {
         double shippingTotal = subTotal + ((subTotal + initialEstimateAmt.doubleValue()) * (shippingPricePercent / 100));
 
         // prepare the return result
-        Map responseResult = ServiceUtil.returnSuccess();
+        Map<String, Object> responseResult = ServiceUtil.returnSuccess();
         responseResult.put("shippingEstimateAmount", Double.valueOf(shippingTotal));
         return responseResult;
     }
 
-    public static Map fillShipmentStagingTables(DispatchContext dctx, Map context) {
+    public static Map<String, Object> fillShipmentStagingTables(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String shipmentId = (String) context.get("shipmentId");
 
@@ -597,7 +597,7 @@ public class ShipmentServices {
                 return ServiceUtil.returnError("No address found for shipment!");
             }
 
-            List packages = null;
+            List<GenericValue> packages = null;
             try {
                 packages = shipment.getRelated("ShipmentPackage") ;
             } catch (GenericEntityException e) {
@@ -609,7 +609,7 @@ public class ShipmentServices {
                 return ServiceUtil.returnError("No packages are available for shipping!");
             }
 
-            List routeSegs = null;
+            List<GenericValue> routeSegs = null;
             try {
                 routeSegs = shipment.getRelated("ShipmentRouteSegment");
             } catch (GenericEntityException e) {
@@ -619,7 +619,7 @@ public class ShipmentServices {
             GenericValue routeSeg = EntityUtil.getFirst(routeSegs);
 
             // to store list
-            List toStore = FastList.newInstance();
+            List<GenericValue> toStore = FastList.newInstance();
 
             String shipGroupSeqId = shipment.getString("primaryShipGroupSeqId");
             String orderId = shipment.getString("primaryOrderId");
@@ -646,9 +646,9 @@ public class ShipmentServices {
             toStore.add(stageShip);
 
 
-            Iterator p = packages.iterator();
+            Iterator<GenericValue> p = packages.iterator();
             while (p.hasNext()) {
-                GenericValue shipmentPkg = (GenericValue) p.next();
+                GenericValue shipmentPkg = p.next();
                 GenericValue stagePkg = delegator.makeValue("OdbcPackageOut");               
                 stagePkg.set("shipmentId", shipmentPkg.get("shipmentId"));
                 stagePkg.set("shipmentPackageSeqId", shipmentPkg.get("shipmentPackageSeqId"));
@@ -672,19 +672,19 @@ public class ShipmentServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map updateShipmentsFromStaging(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updateShipmentsFromStaging(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
 
-        List orderBy = UtilMisc.toList("shipmentId", "shipmentPackageSeqId", "voidIndicator");
-        Map shipmentMap = FastMap.newInstance();
+        List<String> orderBy = UtilMisc.toList("shipmentId", "shipmentPackageSeqId", "voidIndicator");
+        Map<String, String> shipmentMap = FastMap.newInstance();
 
         EntityListIterator eli = null;
         try {
             eli = delegator.find("OdbcPackageIn", null, null, null, orderBy, null);
             GenericValue pkgInfo;
-            while ((pkgInfo = (GenericValue) eli.next()) != null) {
+            while ((pkgInfo = eli.next()) != null) {
                 String packageSeqId = pkgInfo.getString("shipmentPackageSeqId");
                 String shipmentId = pkgInfo.getString("shipmentId");
 
@@ -725,7 +725,7 @@ public class ShipmentServices {
                         }
                     }
 
-                    Map pkgCtx = FastMap.newInstance();
+                    Map<String, Object> pkgCtx = FastMap.newInstance();
                     pkgCtx.put("shipmentId", shipmentId);
                     pkgCtx.put("shipmentPackageSeqId", packageSeqId);
 
@@ -779,7 +779,7 @@ public class ShipmentServices {
                         Debug.logError(e, module);
                         return ServiceUtil.returnError(e.getMessage());
                     }
-                    shipmentMap.put(shipmentId, pkgInfo.get("voidIndicator"));
+                    shipmentMap.put(shipmentId, pkgInfo.getString("voidIndicator"));
                 }
             }
         } catch (GenericEntityException e) {
@@ -796,11 +796,11 @@ public class ShipmentServices {
         }
 
         // update the status of each shipment
-        Iterator i = shipmentMap.keySet().iterator();
+        Iterator<String> i = shipmentMap.keySet().iterator();
         while (i.hasNext()) {
-            String shipmentId = (String) i.next();
-            String voidInd = (String) shipmentMap.get(shipmentId);
-            Map shipCtx = FastMap.newInstance();
+            String shipmentId = i.next();
+            String voidInd = shipmentMap.get(shipmentId);
+            Map<String, Object> shipCtx = FastMap.newInstance();
             shipCtx.put("shipmentId", shipmentId);
             if ("Y".equals(voidInd)) {
                 shipCtx.put("statusId", "SHIPMENT_CANCELLED");
@@ -808,7 +808,7 @@ public class ShipmentServices {
                 shipCtx.put("statusId", "SHIPMENT_SHIPPED");
             }
             shipCtx.put("userLogin", userLogin);
-            Map shipResp = null;
+            Map<String, Object> shipResp = null;
             try {
                 shipResp = dispatcher.runSync("updateShipment", shipCtx);
             } catch (GenericServiceException e) {
@@ -820,7 +820,7 @@ public class ShipmentServices {
             }
 
             // remove the shipment info
-            Map clearResp = null;
+            Map<String, Object> clearResp = null;
             try {
                 clearResp = dispatcher.runSync("clearShipmentStaging", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "userLogin", userLogin));
             } catch (GenericServiceException e) {
@@ -835,7 +835,7 @@ public class ShipmentServices {
         return ServiceUtil.returnSuccess();
     }
 
-    public static Map clearShipmentStagingInfo(DispatchContext dctx, Map context) {
+    public static Map<String, Object> clearShipmentStagingInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String shipmentId = (String) context.get("shipmentId");
         try {
@@ -856,44 +856,44 @@ public class ShipmentServices {
      * products shipped (from ShipmentAndItem) and matching them with the 
      * products received (from ShipmentReceipt).
      */
-    public static Map updatePurchaseShipmentFromReceipt(DispatchContext dctx, Map context) {
+    public static Map<String, Object> updatePurchaseShipmentFromReceipt(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String shipmentId = (String) context.get("shipmentId");
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         try {
 
-            List shipmentReceipts = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("shipmentId", shipmentId));
+            List<GenericValue> shipmentReceipts = delegator.findByAnd("ShipmentReceipt", UtilMisc.toMap("shipmentId", shipmentId));
             if (shipmentReceipts.size() == 0) return ServiceUtil.returnSuccess();
 
             // If there are shipment receipts, the shipment must have been shipped, so set the shipment status to PURCH_SHIP_SHIPPED if it's only PURCH_SHIP_CREATED
             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
             if ((! UtilValidate.isEmpty(shipment)) && "PURCH_SHIP_CREATED".equals(shipment.getString("statusId"))) {
-                Map updateShipmentMap = dispatcher.runSync("updateShipment", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED", "userLogin", userLogin));
+                Map<String, Object> updateShipmentMap = dispatcher.runSync("updateShipment", UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED", "userLogin", userLogin));
                 if (ServiceUtil.isError(updateShipmentMap)) return updateShipmentMap;
             }
             
-            List shipmentAndItems = delegator.findByAnd("ShipmentAndItem", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED"));
+            List<GenericValue> shipmentAndItems = delegator.findByAnd("ShipmentAndItem", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED"));
             if (shipmentAndItems.size() == 0) return ServiceUtil.returnSuccess();
 
             // store the quanitity of each product shipped in a hashmap keyed to productId
-            Map shippedCountMap = FastMap.newInstance();
-            Iterator iter = shipmentAndItems.iterator();
+            Map<String, Double> shippedCountMap = FastMap.newInstance();
+            Iterator<GenericValue> iter = shipmentAndItems.iterator();
             while (iter.hasNext()) {
-                GenericValue item = (GenericValue) iter.next();
+                GenericValue item = iter.next();
                 double shippedQuantity = item.getDouble("quantity").doubleValue();
-                Double quantity = (Double) shippedCountMap.get(item.getString("productId"));
+                Double quantity = shippedCountMap.get(item.getString("productId"));
                 quantity = Double.valueOf(quantity == null ? shippedQuantity : shippedQuantity + quantity.doubleValue());
                 shippedCountMap.put(item.getString("productId"), quantity);
             }
 
             // store the quanitity of each product received in a hashmap keyed to productId
-            Map receivedCountMap = FastMap.newInstance();
+            Map<String, Double> receivedCountMap = FastMap.newInstance();
             iter = shipmentReceipts.iterator();
             while (iter.hasNext()) {
-                GenericValue item = (GenericValue) iter.next();
+                GenericValue item = iter.next();
                 double receivedQuantity = item.getDouble("quantityAccepted").doubleValue();
-                Double quantity = (Double) receivedCountMap.get(item.getString("productId"));
+                Double quantity = receivedCountMap.get(item.getString("productId"));
                 quantity = Double.valueOf(quantity == null ? receivedQuantity : receivedQuantity + quantity.doubleValue());
                 receivedCountMap.put(item.getString("productId"), quantity);
             }
@@ -915,7 +915,7 @@ public class ShipmentServices {
         return ServiceUtil.returnSuccess("Intentional error at end to keep from committing.");
     }
 
-    public static Map duplicateShipmentRouteSegment(DispatchContext dctx, Map context) {
+    public static Map<String, Object> duplicateShipmentRouteSegment(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -923,7 +923,7 @@ public class ShipmentServices {
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
     
-        Map results = ServiceUtil.returnSuccess();
+        Map<String, Object> results = ServiceUtil.returnSuccess();
 
         try {
             GenericValue shipmentRouteSeg = delegator.findByPrimaryKey("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
@@ -931,7 +931,7 @@ public class ShipmentServices {
                 return ServiceUtil.returnError("Shipment Route Segment not found for shipment [" + shipmentId + "] route segment [" + shipmentRouteSegmentId + "]");
             }
 
-            Map params = UtilMisc.toMap("shipmentId", shipmentId, "carrierPartyId", shipmentRouteSeg.getString("carrierPartyId"), "shipmentMethodTypeId", shipmentRouteSeg.getString("shipmentMethodTypeId"),
+            Map<String, Object> params = UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "carrierPartyId", shipmentRouteSeg.getString("carrierPartyId"), "shipmentMethodTypeId", shipmentRouteSeg.getString("shipmentMethodTypeId"),
                     "originFacilityId", shipmentRouteSeg.getString("originFacilityId"), "originContactMechId", shipmentRouteSeg.getString("originContactMechId"),
                     "originTelecomNumberId", shipmentRouteSeg.getString("originTelecomNumberId"));
             params.put("destFacilityId", shipmentRouteSeg.getString("destFacilityId"));
@@ -941,7 +941,7 @@ public class ShipmentServices {
             params.put("billingWeightUomId", shipmentRouteSeg.get("billingWeightUomId"));
             params.put("userLogin", userLogin);
 
-            Map tmpResult = dispatcher.runSync("createShipmentRouteSegment", params);
+            Map<String, Object> tmpResult = dispatcher.runSync("createShipmentRouteSegment", params);
             if (ServiceUtil.isError(tmpResult)) {
                 return tmpResult;
             } else {
@@ -957,7 +957,7 @@ public class ShipmentServices {
     /**
      * Service to call a ShipmentRouteSegment.carrierPartyId's confirm shipment method asynchronously
      */
-    public static Map quickScheduleShipmentRouteSegment(DispatchContext dctx, Map context) {
+    public static Map<String, Object> quickScheduleShipmentRouteSegment(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -980,7 +980,7 @@ public class ShipmentServices {
         // TODO: This may not need to be done asynchronously.  The reason it's done that way right now is that calling it synchronously means that
         // if we can't confirm a single shipment, then all shipment route segments in a multi-form are rolled back.
         try {
-            Map input = UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "userLogin", userLogin);
+            Map<String, String> input = UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId, "userLogin", userLogin);
             // for DHL, we just need to confirm the shipment to get the label.  Other carriers may have more elaborate requirements.
             if (carrierPartyId.equals("DHL")) {
                 dispatcher.runAsync("dhlShipmentConfirm", input);
@@ -1003,7 +1003,7 @@ public class ShipmentServices {
      * @param context Map
      * @return Map
      */
-    public static Map getShipmentPackageValueFromOrders(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getShipmentPackageValueFromOrders(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1033,15 +1033,15 @@ public class ShipmentServices {
                 return ServiceUtil.returnError(errorMessage);
             }
             
-            List packageContents = delegator.findByAnd("PackedQtyVsOrderItemQuantity", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId));
-            Iterator packageContentsIt = packageContents.iterator();
+            List<GenericValue> packageContents = delegator.findByAnd("PackedQtyVsOrderItemQuantity", UtilMisc.toMap("shipmentId", shipmentId, "shipmentPackageSeqId", shipmentPackageSeqId));
+            Iterator<GenericValue> packageContentsIt = packageContents.iterator();
             while (packageContentsIt.hasNext()) {
-                GenericValue packageContent = (GenericValue) packageContentsIt.next();
+                GenericValue packageContent = packageContentsIt.next();
                 String orderId = packageContent.getString("orderId");
                 String orderItemSeqId = packageContent.getString("orderItemSeqId");
             
                 // Get the value of the orderItem by calling the getOrderItemInvoicedAmountAndQuantity service
-                Map getOrderItemValueResult = dispatcher.runSync("getOrderItemInvoicedAmountAndQuantity", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", userLogin, "locale", locale));
+                Map<String, Object> getOrderItemValueResult = dispatcher.runSync("getOrderItemInvoicedAmountAndQuantity", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId, "userLogin", userLogin, "locale", locale));
                 if (ServiceUtil.isError(getOrderItemValueResult)) return getOrderItemValueResult;
                 BigDecimal invoicedAmount = (BigDecimal) getOrderItemValueResult.get("invoicedAmount");
                 BigDecimal invoicedQuantity = (BigDecimal) getOrderItemValueResult.get("invoicedQuantity");
@@ -1055,7 +1055,7 @@ public class ShipmentServices {
             
                 // Convert the value to the shipment currency, if necessary
                 GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader");
-                Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", Double.valueOf(packageContentValue.doubleValue())));
+                Map<String, Object> convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", Double.valueOf(packageContentValue.doubleValue())));
                 if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
                 if (convertUomResult.containsKey("convertedValue")) {
                     packageContentValue = new BigDecimal(((Double) convertUomResult.get("convertedValue")).doubleValue()).setScale(decimals, rounding);
@@ -1072,12 +1072,12 @@ public class ShipmentServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(e.getMessage());
         }
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("packageValue", packageTotalValue);
         return result;
     }
     
-    public static Map sendShipmentCompleteNotification(DispatchContext dctx, Map context) {
+    public static Map<String, Object> sendShipmentCompleteNotification(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -1086,7 +1086,7 @@ public class ShipmentServices {
         String screenUri = (String) context.get("screenUri");
 
         // prepare the shipment information
-        Map sendMap = FastMap.newInstance();
+        Map<String, Object> sendMap = FastMap.newInstance();
         GenericValue shipment = null ;
         GenericValue orderHeader = null;
         try {
@@ -1136,7 +1136,7 @@ public class ShipmentServices {
         uiLabelMap.addBottomResourceBundle("OrderUiLabels");
         uiLabelMap.addBottomResourceBundle("CommonUiLabels");
                 
-        Map bodyParameters = UtilMisc.toMap("partyId", partyId, "shipmentId", shipmentId, "orderId", shipment.getString("primaryOrderId"), "userLogin", userLogin, "uiLabelMap", uiLabelMap, "locale", locale);
+        Map<String, Object> bodyParameters = UtilMisc.<String, Object>toMap("partyId", partyId, "shipmentId", shipmentId, "orderId", shipment.getString("primaryOrderId"), "userLogin", userLogin, "uiLabelMap", uiLabelMap, "locale", locale);
         sendMap.put("bodyParameters", bodyParameters);
         sendMap.put("userLogin",userLogin);
                 
@@ -1156,7 +1156,7 @@ public class ShipmentServices {
             sendMap.put("sendTo", emailString);
         }
         // send the notification
-        Map sendResp = null;
+        Map<String, Object> sendResp = null;
         try {
             sendResp = dispatcher.runSync("sendMailFromScreen", sendMap);
         } catch (Exception e) {

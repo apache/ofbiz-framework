@@ -59,7 +59,7 @@ public class UspsServices {
     public final static String module = UspsServices.class.getName();
     public final static String errorResource = "ProductErrorUiLabels";
 
-    public static Map uspsRateInquire(DispatchContext dctx, Map context) {
+    public static Map<String, Object> uspsRateInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -138,12 +138,12 @@ public class UspsServices {
             maxWeight = 70;
         }
 
-        List shippableItemInfo = (List) context.get("shippableItemInfo");
-        List packages = getPackageSplit(dctx, shippableItemInfo, maxWeight);
+        List<Map<String, Object>> shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
+        List<Map<String, Double>> packages = getPackageSplit(dctx, shippableItemInfo, maxWeight);
         boolean isOnePackage = packages.size() == 1; // use shippableWeight if there's only one package
         // TODO: Up to 25 packages can be included per request - handle more than 25
-        for (ListIterator li = packages.listIterator(); li.hasNext();) {
-            Map packageMap = (Map) li.next();
+        for (ListIterator<Map<String, Double>> li = packages.listIterator(); li.hasNext();) {
+            Map<String, Double> packageMap = li.next();
 
             double packageWeight = isOnePackage ? shippableWeight.doubleValue() : calcPackageWeight(dctx, packageMap, shippableItemInfo, 0);
             if (packageWeight == 0) {
@@ -195,14 +195,14 @@ public class UspsServices {
             return ServiceUtil.returnError("No rate available at this time");
         }
         
-        List rates = UtilXml.childElementList(responseDocument.getDocumentElement(), "Package");
+        List<? extends Element> rates = UtilXml.childElementList(responseDocument.getDocumentElement(), "Package");
         if (UtilValidate.isEmpty(rates)) {
             return ServiceUtil.returnError("No rate available at this time");
         }
 
         double estimateAmount = 0.00;
-        for (Iterator i = rates.iterator(); i.hasNext();) {
-            Element packageElement = (Element) i.next();
+        for (Iterator<? extends Element> i = rates.iterator(); i.hasNext();) {
+            Element packageElement = i.next();
             try {
                 Element postageElement = UtilXml.firstChildElement(packageElement, "Postage");
                 double packageAmount = Double.parseDouble(UtilXml.childElementValue(postageElement, "Rate"));
@@ -212,19 +212,19 @@ public class UspsServices {
             }
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shippingEstimateAmount", Double.valueOf(estimateAmount));
         return result;
     }
 
-    private static List getPackageSplit(DispatchContext dctx, List shippableItemInfo, double maxWeight) {
+    private static List<Map<String, Double>> getPackageSplit(DispatchContext dctx, List<Map<String, Object>> shippableItemInfo, double maxWeight) {
         // create the package list w/ the first pacakge
-        List packages = FastList.newInstance();
+        List<Map<String, Double>> packages = FastList.newInstance();
 
         if (shippableItemInfo != null) {
-            Iterator sii = shippableItemInfo.iterator();
+            Iterator<Map<String, Object>> sii = shippableItemInfo.iterator();
             while (sii.hasNext()) {
-                Map itemInfo = (Map) sii.next();
+                Map<String, Object> itemInfo = sii.next();
                 long pieces = ((Long) itemInfo.get("piecesIncluded")).longValue();
                 double totalQuantity = ((Double) itemInfo.get("quantity")).doubleValue();
                 double totalWeight = ((Double) itemInfo.get("weight")).doubleValue();
@@ -240,13 +240,13 @@ public class UspsServices {
                     double partialQty = pieces > 1 ? 1.000 / pieces : 1;
                     for (long x = 0; x < pieces; x++) {
                         if (weight >= maxWeight) {
-                            Map newPackage = FastMap.newInstance();
+                            Map<String, Double> newPackage = FastMap.newInstance();
                             newPackage.put(productId, Double.valueOf(partialQty));
                             packages.add(newPackage);
                         } else if (totalWeight > 0) {
                             // create the first package
                             if (packages.size() == 0) {
-                                packages.add(FastMap.newInstance());
+                                packages.add(FastMap.<String, Double>newInstance());
                             }
 
                             // package loop
@@ -254,7 +254,7 @@ public class UspsServices {
                             boolean addedToPackage = false;
                             for (int pi = 0; pi < packageSize; pi++) {
                                 if (!addedToPackage) {
-                                    Map packageMap = (Map) packages.get(pi);
+                                    Map<String, Double> packageMap = packages.get(pi);
                                     double packageWeight = calcPackageWeight(dctx, packageMap, shippableItemInfo, weight);
                                     if (packageWeight <= maxWeight) {
                                         Double qtyD = (Double) packageMap.get(productId);
@@ -265,7 +265,7 @@ public class UspsServices {
                                 }
                             }
                             if (!addedToPackage) {
-                                Map packageMap = FastMap.newInstance();
+                                Map<String, Double> packageMap = FastMap.newInstance();
                                 packageMap.put(productId, Double.valueOf(partialQty));
                                 packages.add(packageMap);
                             }
@@ -277,7 +277,7 @@ public class UspsServices {
         return packages;
     }
 
-    private static double calcPackageWeight(DispatchContext dctx, Map packageMap, List shippableItemInfo, double additionalWeight) {
+    private static double calcPackageWeight(DispatchContext dctx, Map<String, Double> packageMap, List<Map<String, Object>> shippableItemInfo, double additionalWeight) {
 
         LocalDispatcher dispatcher = dctx.getDispatcher();
         double totalWeight = 0.00;
@@ -287,12 +287,12 @@ public class UspsServices {
             defaultWeightUomId = "WT_oz";
         }
         
-        Iterator i = packageMap.keySet().iterator();
+        Iterator<String> i = packageMap.keySet().iterator();
         while (i.hasNext()) {
-            String productId = (String) i.next();
-            Map productInfo = getProductItemInfo(shippableItemInfo, productId);
+            String productId = i.next();
+            Map<String, Object> productInfo = getProductItemInfo(shippableItemInfo, productId);
             double productWeight = ((Double) productInfo.get("weight")).doubleValue();
-            double quantity = ((Double) packageMap.get(productId)).doubleValue();
+            double quantity = packageMap.get(productId).doubleValue();
 
             // DLK - I'm not sure if this line is working. shipment_package seems to leave this value null so???
             String weightUomId = (String) productInfo.get("weight_uom_id");
@@ -305,7 +305,7 @@ public class UspsServices {
             }
             if (!"WT_lb".equals(weightUomId)) {
                 // attempt a conversion to pounds
-                Map result = FastMap.newInstance();
+                Map<String, Object> result = FastMap.newInstance();
                 try {
                     result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", Double.valueOf(productWeight)));
                 } catch (GenericServiceException ex) {
@@ -327,11 +327,11 @@ public class UspsServices {
     }
 
     // lifted from UpsServices with no changes - 2004.09.06 JFE
-    private static Map getProductItemInfo(List shippableItemInfo, String productId) {
+    private static Map<String, Object> getProductItemInfo(List<Map<String, Object>> shippableItemInfo, String productId) {
         if (shippableItemInfo != null) {
-            Iterator i = shippableItemInfo.iterator();
+            Iterator<Map<String, Object>> i = shippableItemInfo.iterator();
             while (i.hasNext()) {
-                Map testMap = (Map) i.next();
+                Map<String, Object> testMap = i.next();
                 String id = (String) testMap.get("productId");
                 if (productId.equals(id)) {
                     return testMap;
@@ -362,7 +362,7 @@ public class UspsServices {
 
     */
 
-    public static Map uspsTrackConfirm(DispatchContext dctx, Map context) {
+    public static Map<String, Object> uspsTrackConfirm(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         Document requestDocument = createUspsRequestDocument("TrackRequest");
 
@@ -382,15 +382,15 @@ public class UspsServices {
             return ServiceUtil.returnError("Incomplete response from USPS Tracking service: no TrackInfo element found");
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
 
         result.put("trackingSummary", UtilXml.childElementValue(trackInfoElement, "TrackSummary"));
 
-        List detailElementList = UtilXml.childElementList(trackInfoElement, "TrackDetail");
+        List<? extends Element> detailElementList = UtilXml.childElementList(trackInfoElement, "TrackDetail");
         if (UtilValidate.isNotEmpty(detailElementList)) {
-            List trackingDetailList = FastList.newInstance();
-            for (Iterator iter = detailElementList.iterator(); iter.hasNext();) {
-                trackingDetailList.add(UtilXml.elementValue((Element) iter.next()));
+            List<String> trackingDetailList = FastList.newInstance();
+            for (Iterator<? extends Element> iter = detailElementList.iterator(); iter.hasNext();) {
+                trackingDetailList.add(UtilXml.elementValue(iter.next()));
             }
             result.put("trackingDetailList", trackingDetailList);
         }
@@ -432,7 +432,7 @@ public class UspsServices {
 
     */
 
-    public static Map uspsAddressValidation(DispatchContext dctx, Map context) {
+    public static Map<String, Object> uspsAddressValidation(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         String state = (String) context.get("state");
         String city = (String) context.get("city");
@@ -481,7 +481,7 @@ public class UspsServices {
                     UtilXml.childElementValue(respErrorElement, "Description"));
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
 
         // Note: a FirmName element is not returned if empty
         String firmName = UtilXml.childElementValue(respAddressElement, "FirmName");
@@ -531,7 +531,7 @@ public class UspsServices {
 
     */
 
-    public static Map uspsCityStateLookup(DispatchContext dctx, Map context) {
+    public static Map<String, Object> uspsCityStateLookup(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         Document requestDocument = createUspsRequestDocument("CityStateLookupRequest");
 
@@ -561,7 +561,7 @@ public class UspsServices {
             return ServiceUtil.returnFailure(UtilXml.childElementValue(respErrorElement, "Description"));
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
 
         String city = UtilXml.childElementValue(respAddressElement, "City");
         if (UtilValidate.isEmpty(city)) {
@@ -619,17 +619,19 @@ public class UspsServices {
 
     */
 
-    public static Map uspsPriorityMailStandard(DispatchContext dctx, Map context) {
-        context.put("serviceType", "PriorityMail");
-        return uspsServiceStandards(dctx, context);
+    public static Map<String, Object> uspsPriorityMailStandard(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
+        subContext.put("serviceType", "PriorityMail");
+        return uspsServiceStandards(dctx, subContext);
     }
 
-    public static Map uspsPackageServicesStandard(DispatchContext dctx, Map context) {
-        context.put("serviceType", "StandardB");
-        return uspsServiceStandards(dctx, context);
+    public static Map<String, Object> uspsPackageServicesStandard(DispatchContext dctx, Map<String, ? extends Object> context) {
+        Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
+        subContext.put("serviceType", "StandardB");
+        return uspsServiceStandards(dctx, subContext);
     }
 
-    private static Map uspsServiceStandards(DispatchContext dctx, Map context) {
+    private static Map<String, Object> uspsServiceStandards(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         String type = (String) context.get("serviceType");
         if (!type.matches("PriorityMail|StandardB")) {
@@ -652,7 +654,7 @@ public class UspsServices {
                     e.getMessage());
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
 
         String days = UtilXml.childElementValue(responseDocument.getDocumentElement(), "Days");
         if (UtilValidate.isEmpty(days)) {
@@ -711,7 +713,7 @@ public class UspsServices {
 
     */
 
-    public static Map uspsDomesticRate(DispatchContext dctx, Map context) {
+    public static Map<String, Object> uspsDomesticRate(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         Document requestDocument = createUspsRequestDocument("RateRequest");
 
@@ -761,7 +763,7 @@ public class UspsServices {
                     UtilXml.childElementValue(respErrorElement, "Description"));
         }
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
 
         String zone = UtilXml.childElementValue(respPackageElement, "Zone");
         if (UtilValidate.isEmpty(zone)) {
@@ -792,7 +794,7 @@ public class UspsServices {
 
     /* --- ShipmentRouteSegment services --------------------------------------------------------------------------- */
 
-    public static Map uspsUpdateShipmentRateInfo(DispatchContext dctx, Map context) {
+    public static Map<String, Object> uspsUpdateShipmentRateInfo(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
@@ -861,7 +863,7 @@ public class UspsServices {
             }
 
             // get the packages for this shipment route segment
-            List shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
                     UtilMisc.toList("+shipmentPackageSeqId"));
             if (UtilValidate.isEmpty(shipmentPackageRouteSegList)) {
                 return ServiceUtil.returnError("No packages found for ShipmentRouteSegment " + srsKeyString);
@@ -874,9 +876,9 @@ public class UspsServices {
             String carrierRestrictionDesc = null;
 
             // send a new request for each package
-            for (Iterator i = shipmentPackageRouteSegList.iterator(); i.hasNext();) {
+            for (Iterator<GenericValue> i = shipmentPackageRouteSegList.iterator(); i.hasNext();) {
 
-                GenericValue shipmentPackageRouteSeg = (GenericValue) i.next();
+                GenericValue shipmentPackageRouteSeg = i.next();
                 String sprsKeyString = "[" + shipmentPackageRouteSeg.getString("shipmentId") + "," +
                         shipmentPackageRouteSeg.getString("shipmentPackageSeqId") + "," +
                         shipmentPackageRouteSeg.getString("shipmentRouteSegmentId") + "]";
@@ -915,7 +917,7 @@ public class UspsServices {
                 }
                 if (!"WT_lb".equals(weightUomId)) {
                     // attempt a conversion to pounds
-                    Map result = FastMap.newInstance();
+                    Map<String, Object> result = FastMap.newInstance();
                     try {
                         result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", Double.valueOf(weight)));
                     } catch (GenericServiceException ex) {
@@ -940,12 +942,12 @@ public class UspsServices {
 
                 // Container element
                 GenericValue carrierShipmentBoxType = null;
-                List carrierShipmentBoxTypes = null;
+                List<GenericValue> carrierShipmentBoxTypes = null;
                 carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType",
                         UtilMisc.toMap("partyId", "USPS"), null);
 
                 if (carrierShipmentBoxTypes.size() > 0) {
-                    carrierShipmentBoxType = (GenericValue) carrierShipmentBoxTypes.get(0);
+                    carrierShipmentBoxType = carrierShipmentBoxTypes.get(0);
                 }
 
                 if (carrierShipmentBoxType != null &&
@@ -1068,7 +1070,7 @@ public class UspsServices {
 
     */
 
-    public static Map uspsDeliveryConfirmation(DispatchContext dctx, Map context) {
+    public static Map<String, Object> uspsDeliveryConfirmation(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -1133,13 +1135,13 @@ public class UspsServices {
             }
 
             // get the packages for this shipment route segment
-            List shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
                     UtilMisc.toList("+shipmentPackageSeqId"));
             if (UtilValidate.isEmpty(shipmentPackageRouteSegList)) {
                 return ServiceUtil.returnError("No packages found for ShipmentRouteSegment " + srsKeyString);
             }
 
-            for (Iterator i = shipmentPackageRouteSegList.iterator(); i.hasNext();) {
+            for (Iterator<GenericValue> i = shipmentPackageRouteSegList.iterator(); i.hasNext();) {
 
                 Document requestDocument = createUspsRequestDocument("DeliveryConfirmationV2.0Request");
                 Element requestElement = requestDocument.getDocumentElement();
@@ -1177,7 +1179,7 @@ public class UspsServices {
                 UtilXml.addChildElementValue(requestElement, "ToZip5", destinationAddress.getString("postalCode"), requestDocument);
                 UtilXml.addChildElement(requestElement, "ToZip4", requestDocument);
 
-                GenericValue shipmentPackageRouteSeg = (GenericValue) i.next();
+                GenericValue shipmentPackageRouteSeg = i.next();
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
                 String spKeyString = "[" + shipmentPackage.getString("shipmentId") + "," +
                         shipmentPackage.getString("shipmentPackageSeqId") + "]";
@@ -1262,7 +1264,7 @@ public class UspsServices {
     /* ------------------------------------------------------------------------------------------------------------- */
 
     // testing utility service - remove this
-    public static Map uspsDumpShipmentLabelImages(DispatchContext dctx, Map context) {
+    public static Map<String, Object> uspsDumpShipmentLabelImages(DispatchContext dctx, Map<String, ? extends Object> context) {
 
         GenericDelegator delegator = dctx.getDelegator();
 
@@ -1274,11 +1276,11 @@ public class UspsServices {
             GenericValue shipmentRouteSegment = delegator.findByPrimaryKey("ShipmentRouteSegment",
                     UtilMisc.toMap("shipmentId", shipmentId, "shipmentRouteSegmentId", shipmentRouteSegmentId));
 
-            List shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
+            List<GenericValue> shipmentPackageRouteSegList = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null,
                     UtilMisc.toList("+shipmentPackageSeqId"));
 
-            for (Iterator i = shipmentPackageRouteSegList.iterator(); i.hasNext();) {
-                GenericValue shipmentPackageRouteSeg = (GenericValue) i.next();
+            for (Iterator<GenericValue> i = shipmentPackageRouteSegList.iterator(); i.hasNext();) {
+                GenericValue shipmentPackageRouteSeg = i.next();
 
                 byte[] labelImageBytes = shipmentPackageRouteSeg.getBytes("labelImage");
 
