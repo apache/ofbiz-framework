@@ -225,16 +225,16 @@ public class ShipmentServices {
         Double initialEstimateAmt = (Double) context.get("initialEstimateAmt");
 
         if (shippableTotal == null) {
-            shippableTotal = new Double(0.00);
+            shippableTotal = Double.valueOf(0.00);
         }
         if (shippableQuantity == null) {
-            shippableQuantity = new Double(0.00);
+            shippableQuantity = Double.valueOf(0.00);
         }
         if (shippableWeight == null) {
-            shippableWeight = new Double(0.00);
+            shippableWeight = Double.valueOf(0.00);
         }
         if (initialEstimateAmt == null) {
-            initialEstimateAmt = new Double(0.00);
+            initialEstimateAmt = Double.valueOf(0.00);
         }
 
         // get the ShipmentCostEstimate(s)
@@ -255,7 +255,7 @@ public class ShipmentServices {
             }
 
             Map respNow = ServiceUtil.returnSuccess();
-            respNow.put("shippingEstimateAmount", new Double(0.00));
+            respNow.put("shippingEstimateAmount", Double.valueOf(0.00));
             return respNow;
         }
 
@@ -404,9 +404,9 @@ public class ShipmentServices {
                         String featureId = (String) fi.next();
                         Double featureQuantity = (Double) shippableFeatureMap.get(featureId);
                         if (featureQuantity == null) {
-                            featureQuantity = new Double(0.00);
+                            featureQuantity = Double.valueOf(0.00);
                         }
-                        featureQuantity = new Double(featureQuantity.doubleValue() + quantity.doubleValue());
+                        featureQuantity = Double.valueOf(featureQuantity.doubleValue() + quantity.doubleValue());
                         shippableFeatureMap.put(featureId, featureQuantity);
                     }
                 }
@@ -446,7 +446,7 @@ public class ShipmentServices {
                     prioritySum += PRIORITY_PRICE;
 
                 // there will be only one of each priority; latest will replace
-                estimatePriority.put(new Integer(prioritySum), currentEstimate);
+                estimatePriority.put(Integer.valueOf(prioritySum), currentEstimate);
             }
 
             // locate the highest priority estimate; or the latest entered
@@ -504,10 +504,10 @@ public class ShipmentServices {
         Double featurePercent = estimate.getDouble("featurePercent");
         Double featurePrice = estimate.getDouble("featurePrice");
         if (featurePercent == null) {
-            featurePercent = new Double(0);
+            featurePercent = Double.valueOf(0);
         }
         if (featurePrice == null) {
-            featurePrice = new Double(0.00);
+            featurePrice = Double.valueOf(0.00);
         }
 
         if (featureGroupId != null && featureGroupId.length() > 0 && shippableFeatureMap != null) {
@@ -563,7 +563,7 @@ public class ShipmentServices {
 
         // prepare the return result
         Map responseResult = ServiceUtil.returnSuccess();
-        responseResult.put("shippingEstimateAmount", new Double(shippingTotal));
+        responseResult.put("shippingEstimateAmount", Double.valueOf(shippingTotal));
         return responseResult;
     }
 
@@ -641,7 +641,7 @@ public class ShipmentServices {
             stageShip.set("postalCodeExt", address.get("postalCodeExt"));
             stageShip.set("countryGeoId", address.get("countryGeoId"));
             stageShip.set("stateProvinceGeoId", address.get("stateProvinceGeoId"));
-            stageShip.set("numberOfPackages", new Long(packages.size()));
+            stageShip.set("numberOfPackages", Long.valueOf(packages.size()));
             stageShip.set("handlingInstructions", shipment.get("handlingInstructions"));
             toStore.add(stageShip);
 
@@ -883,7 +883,7 @@ public class ShipmentServices {
                 GenericValue item = (GenericValue) iter.next();
                 double shippedQuantity = item.getDouble("quantity").doubleValue();
                 Double quantity = (Double) shippedCountMap.get(item.getString("productId"));
-                quantity = new Double(quantity == null ? shippedQuantity : shippedQuantity + quantity.doubleValue());
+                quantity = Double.valueOf(quantity == null ? shippedQuantity : shippedQuantity + quantity.doubleValue());
                 shippedCountMap.put(item.getString("productId"), quantity);
             }
 
@@ -894,7 +894,7 @@ public class ShipmentServices {
                 GenericValue item = (GenericValue) iter.next();
                 double receivedQuantity = item.getDouble("quantityAccepted").doubleValue();
                 Double quantity = (Double) receivedCountMap.get(item.getString("productId"));
-                quantity = new Double(quantity == null ? receivedQuantity : receivedQuantity + quantity.doubleValue());
+                quantity = Double.valueOf(quantity == null ? receivedQuantity : receivedQuantity + quantity.doubleValue());
                 receivedCountMap.put(item.getString("productId"), quantity);
             }
 
@@ -1055,7 +1055,7 @@ public class ShipmentServices {
             
                 // Convert the value to the shipment currency, if necessary
                 GenericValue orderHeader = packageContent.getRelatedOne("OrderHeader");
-                Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", new Double(packageContentValue.doubleValue())));
+                Map convertUomResult = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", orderHeader.getString("currencyUom"), "uomIdTo", currencyUomId, "originalValue", Double.valueOf(packageContentValue.doubleValue())));
                 if (ServiceUtil.isError(convertUomResult)) return convertUomResult;
                 if (convertUomResult.containsKey("convertedValue")) {
                     packageContentValue = new BigDecimal(((Double) convertUomResult.get("convertedValue")).doubleValue()).setScale(decimals, rounding);

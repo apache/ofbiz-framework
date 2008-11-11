@@ -195,7 +195,7 @@ public class ProductUtilServices {
                     EntityCondition.makeCondition("fromDate", EntityOperator.LESS_THAN, nowTimestamp),
                     EntityCondition.makeCondition("thruDate", EntityOperator.EQUALS, null)
                     ), EntityOperator.AND);
-            EntityCondition havingCond = EntityCondition.makeCondition("productIdCount", EntityOperator.GREATER_THAN, new Long(1));
+            EntityCondition havingCond = EntityCondition.makeCondition("productIdCount", EntityOperator.GREATER_THAN, Long.valueOf(1));
             EntityListIterator eli = delegator.findListIteratorByCondition(dve, condition, havingCond, UtilMisc.toList("productId", "productCategoryId", "productIdCount"), null, null);
             GenericValue pcm = null;
             int numSoFar = 0;
@@ -256,7 +256,7 @@ public class ProductUtilServices {
                     EntityCondition.makeCondition("productAssocTypeId", EntityOperator.EQUALS, "PRODUCT_VARIANT"),
                     EntityCondition.makeCondition(EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.EQUALS, null), EntityOperator.OR, EntityCondition.makeCondition("salesDiscontinuationDate", EntityOperator.GREATER_THAN, nowTimestamp))
                     ), EntityOperator.AND);
-            EntityCondition havingCond = EntityCondition.makeCondition("productIdToCount", EntityOperator.EQUALS, new Long(1));
+            EntityCondition havingCond = EntityCondition.makeCondition("productIdToCount", EntityOperator.EQUALS, Long.valueOf(1));
             EntityListIterator eliOne = delegator.findListIteratorByCondition(dve, condition, havingCond, UtilMisc.toList("productId", "productIdToCount"), null, null);
             List valueList = eliOne.getCompleteList();
             eliOne.close();

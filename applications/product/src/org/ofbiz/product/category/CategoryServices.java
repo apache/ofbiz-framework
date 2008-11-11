@@ -108,7 +108,7 @@ public class CategoryServices {
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
                 if (v.getString("productId").equals(productId)) {
-                    index = new Integer(productCategoryMembers.indexOf(v));
+                    index = Integer.valueOf(productCategoryMembers.indexOf(v));
                 }
             }
         }
@@ -349,11 +349,11 @@ public class CategoryServices {
         }
 
         Map result = FastMap.newInstance();
-        result.put("viewIndex", new Integer(viewIndex));
-        result.put("viewSize", new Integer(viewSize));
-        result.put("lowIndex", new Integer(lowIndex));
-        result.put("highIndex", new Integer(highIndex));
-        result.put("listSize", new Integer(listSize));
+        result.put("viewIndex", Integer.valueOf(viewIndex));
+        result.put("viewSize", Integer.valueOf(viewSize));
+        result.put("lowIndex", Integer.valueOf(lowIndex));
+        result.put("highIndex", Integer.valueOf(highIndex));
+        result.put("listSize", Integer.valueOf(listSize));
         if (productCategory != null) result.put("productCategory", productCategory);
         if (productCategoryMembers != null) result.put("productCategoryMembers", productCategoryMembers);
         return result;

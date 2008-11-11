@@ -163,7 +163,7 @@ public class PackingSession implements java.io.Serializable {
                 switch (thisCheck) {
                     case 2:
                         Debug.log("Packing check returned '2' - new pack line will be created!", module);
-                        toCreateMap.put(res, new Double(thisQty));
+                        toCreateMap.put(res, Double.valueOf(thisQty));
                         qtyRemain -= thisQty;
                         break;
                     case 1:
@@ -234,7 +234,7 @@ public class PackingSession implements java.io.Serializable {
         }
 
         // Add the line weight to the package weight
-        if (weight > 0) this.addToPackageWeight(packageSeqId, new Double(weight));
+        if (weight > 0) this.addToPackageWeight(packageSeqId, Double.valueOf(weight));
         
         // update the package sequence
         if (packageSeqId > packageSeq) {
@@ -426,7 +426,7 @@ public class PackingSession implements java.io.Serializable {
                     "orderItemSeqId", orderItemSeqId, "shipGroupSeqId", shipGroupSeqId, "inventoryProductId", productId)));
             Double reservedDbl = res.getDouble("totQuantityAvailable");
             if (reservedDbl == null) {
-                reservedDbl = new Double(-1);
+                reservedDbl = Double.valueOf(-1);
             }
             reserved = reservedDbl.doubleValue();
         } catch (GenericEntityException e) {
@@ -443,7 +443,7 @@ public class PackingSession implements java.io.Serializable {
             while (i.hasNext()) {
                 GenericValue v = (GenericValue) i.next();
                 Double qty = v.getDouble("quantity");
-                if (qty == null) qty = new Double(0);
+                if (qty == null) qty = Double.valueOf(0);
                 shipped += qty.doubleValue();
             }
         }
@@ -718,7 +718,7 @@ public class PackingSession implements java.io.Serializable {
                 double totalPacked = this.getPackedQuantity(line.getOrderId(),  line.getOrderItemSeqId(),
                         line.getShipGroupSeqId(), line.getProductId(), line.getInventoryItemId(), -1);
 
-                line.issueItemToShipment(shipmentId, picklistBinId, userLogin, new Double(totalPacked), getDispatcher());
+                line.issueItemToShipment(shipmentId, picklistBinId, userLogin, Double.valueOf(totalPacked), getDispatcher());
                 processedLines.add(line);
             }
         }
@@ -766,7 +766,7 @@ public class PackingSession implements java.io.Serializable {
     }
 
     protected void updateShipmentRouteSegments() throws GeneralException {
-        Double shipmentWeight = new Double(getTotalWeight());
+        Double shipmentWeight = Double.valueOf(getTotalWeight());
         if (shipmentWeight.doubleValue() <= 0) return;
         List shipmentRouteSegments = getDelegator().findByAnd("ShipmentRouteSegment", UtilMisc.toMap("shipmentId", this.getShipmentId()));
         if (! UtilValidate.isEmpty(shipmentRouteSegments)) {
@@ -869,17 +869,17 @@ public class PackingSession implements java.io.Serializable {
             serviceContext.put("shippableItemInfo", shippableItemInfo);
 
             if (UtilValidate.isEmpty(shippableWeight)) {
-                shippableWeight = new Double(getTotalWeight());
+                shippableWeight = Double.valueOf(getTotalWeight());
             }
             serviceContext.put("shippableWeight", shippableWeight);
 
             if (UtilValidate.isEmpty(shippableQuantity)) {
-                shippableQuantity = new Double(getPackedQuantity(-1));
+                shippableQuantity = Double.valueOf(getPackedQuantity(-1));
             }
             serviceContext.put("shippableQuantity", shippableQuantity);
 
             if (UtilValidate.isEmpty(shippableTotal)) {
-                shippableTotal = new Double(0);
+                shippableTotal = Double.valueOf(0);
             }
             serviceContext.put("shippableTotal", shippableTotal);
     
@@ -912,7 +912,7 @@ public class PackingSession implements java.io.Serializable {
             Iterator lit = this.getLines().iterator();
             while (lit.hasNext()) {
                 PackingSessionLine line = (PackingSessionLine) lit.next();
-                packageSeqIds.add(new Integer(line.getPackageSeq()));
+                packageSeqIds.add(Integer.valueOf(line.getPackageSeq()));
             }
         }
         return UtilMisc.makeListWritable(packageSeqIds);
@@ -920,16 +920,16 @@ public class PackingSession implements java.io.Serializable {
     
     public void setPackageWeight(int packageSeqId, Double packageWeight) {
         if (UtilValidate.isEmpty(packageWeight)) {
-            packageWeights.remove(new Integer(packageSeqId));
+            packageWeights.remove(Integer.valueOf(packageSeqId));
         } else {
-            packageWeights.put(new Integer(packageSeqId), packageWeight);
+            packageWeights.put(Integer.valueOf(packageSeqId), packageWeight);
         }
     }
     
     public Double getPackageWeight(int packageSeqId) {
         if (this.packageWeights == null) return null;
         Double packageWeight = null;
-        Object p = packageWeights.get(new Integer(packageSeqId));
+        Object p = packageWeights.get(Integer.valueOf(packageSeqId));
         if (p != null) {
             packageWeight = (Double) p;
         }
@@ -939,7 +939,7 @@ public class PackingSession implements java.io.Serializable {
     public void addToPackageWeight(int packageSeqId, Double weight) {
         if (UtilValidate.isEmpty(weight)) return;
         Double packageWeight = getPackageWeight(packageSeqId);
-        Double newPackageWeight = UtilValidate.isEmpty(packageWeight) ? weight : new Double(weight.doubleValue() + packageWeight.doubleValue());
+        Double newPackageWeight = UtilValidate.isEmpty(packageWeight) ? weight : Double.valueOf(weight.doubleValue() + packageWeight.doubleValue());
         setPackageWeight(packageSeqId, newPackageWeight);
     }
 

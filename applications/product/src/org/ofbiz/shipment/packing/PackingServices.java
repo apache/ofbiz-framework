@@ -50,14 +50,14 @@ public class PackingServices {
         session.setPickerPartyId(pickerPartyId);
 
         if (quantity == null) {
-            quantity = new Double(1);
+            quantity = Double.valueOf(1);
         }
 
         Debug.log("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] Pack input [" + productId + "] @ [" + quantity + "] packageSeq [" + packageSeq + "] weight [" + weight +"]", module);
         
         if (weight == null) {
             Debug.logWarning("OrderId [" + orderId + "] ship group [" + shipGroupSeqId + "] product [" + productId + "] being packed without a weight, assuming 0", module); 
-            weight = new Double(0.0);
+            weight = Double.valueOf(0.0);
         }
 
         try {
@@ -176,7 +176,7 @@ public class PackingServices {
         PackingSession session = (PackingSession) context.get("packingSession");
         int nextSeq = session.nextPackageSeq();
         Map result = ServiceUtil.returnSuccess();
-        result.put("nextPackageSeq", new Integer(nextSeq));
+        result.put("nextPackageSeq", Integer.valueOf(nextSeq));
         return result;
     }
 
@@ -184,7 +184,7 @@ public class PackingServices {
         PackingSession session = (PackingSession) context.get("packingSession");
         int nextSeq = session.clearLastPackage();
         Map result = ServiceUtil.returnSuccess();
-        result.put("nextPackageSeq", new Integer(nextSeq));
+        result.put("nextPackageSeq", Integer.valueOf(nextSeq));
         return result;
     }
 
@@ -228,7 +228,7 @@ public class PackingServices {
         String productStoreId = (String) context.get("productStoreId");
         
         double shippableWeight = setSessionPackageWeights(session, packageWeights);
-        Double estimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, productStoreId, null, null, new Double(shippableWeight), null);
+        Double estimatedShipCost = session.getShipmentCostEstimate(shippingContactMechId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId, productStoreId, null, null, Double.valueOf(shippableWeight), null);
         session.setAdditionalShippingCharge(estimatedShipCost);
         session.setWeightUomId(weightUomId);
 
@@ -286,7 +286,7 @@ public class PackingServices {
                 String packageWeightStr = (String) packageWeights.get(packageSeqId);
                 if (UtilValidate.isNotEmpty(packageWeightStr)) {
                     double packageWeight = UtilMisc.toDouble(packageWeights.get(packageSeqId));
-                    session.setPackageWeight(Integer.parseInt(packageSeqId), new Double(packageWeight));
+                    session.setPackageWeight(Integer.parseInt(packageSeqId), Double.valueOf(packageWeight));
                     shippableWeight += packageWeight;
                 } else {
                     session.setPackageWeight(Integer.parseInt(packageSeqId), null);

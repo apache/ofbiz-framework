@@ -249,7 +249,7 @@ public class ProductServices {
 
             // next check inventory for each item: if inventory is not required or is available
             try {
-                Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", new Double(1.0)));
+                Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", Double.valueOf(1.0)));
                 if (ServiceUtil.isError(invReqResult)) {
                     return ServiceUtil.returnError("Error calling the isStoreInventoryRequired when building the variant product tree.", null, null, invReqResult);
                 } else if ("Y".equals((String) invReqResult.get("availableOrNotRequired"))) {

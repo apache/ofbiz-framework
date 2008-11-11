@@ -168,7 +168,7 @@ public class ProductSearchSession {
             } catch (Exception e) {
                 Debug.logError(e, "Error in formatting of VIEW_INDEX [" + viewIndexStr + "], setting to 20", module);
                 if (this.viewIndex == null) {
-                    this.setViewIndex(new Integer(20));
+                    this.setViewIndex(Integer.valueOf(20));
                 }
             }
         }
@@ -200,7 +200,7 @@ public class ProductSearchSession {
             } catch (Exception e) {
                 Debug.logError(e, "Error in formatting of VIEW_SIZE [" + viewSizeStr + "], setting to 20", module);
                 if (this.viewSize == null) {
-                    this.setViewSize(new Integer(20));
+                    this.setViewSize(Integer.valueOf(20));
                 }
             }
         }
@@ -233,7 +233,7 @@ public class ProductSearchSession {
          */
         public void setPreviousViewSize(Integer previousViewSize) {
             if (previousViewSize == null) {
-                this.previousViewSize = new Integer(20);
+                this.previousViewSize = Integer.valueOf(20);
             } else {
                 this.previousViewSize = previousViewSize;
             }
@@ -552,7 +552,7 @@ public class ProductSearchSession {
             String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID");
             String searchSubCategories = (String) parameters.get("SEARCH_SUB_CATEGORIES");
             String searchCategoryExc = (String) parameters.get("SEARCH_CATEGORY_EXC");
-            Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
+            Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchCategoryExc));
             searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories), exclude), session);
             constraintsChanged = true;
         }
@@ -562,7 +562,7 @@ public class ProductSearchSession {
                 String searchCategoryId = (String) parameters.get("SEARCH_CATEGORY_ID" + catNum);
                 String searchSubCategories = (String) parameters.get("SEARCH_SUB_CATEGORIES" + catNum);
                 String searchCategoryExc = (String) parameters.get("SEARCH_CATEGORY_EXC" + catNum);
-                Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
+                Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchCategoryExc));
                 searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories), exclude), session);
                 constraintsChanged = true;
             }
@@ -574,7 +574,7 @@ public class ProductSearchSession {
                 String searchCategoryId = (String) parameters.get("S_CAT" + catNum);
                 String searchSubCategories = (String) parameters.get("S_CSB" + catNum);
                 String searchCategoryExc = (String) parameters.get("S_CEX" + catNum);
-                Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
+                Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchCategoryExc));
                 searchAddConstraint(new ProductSearch.CategoryConstraint(searchCategoryId, !"N".equals(searchSubCategories), exclude), session);
                 constraintsChanged = true;
             }
@@ -619,7 +619,7 @@ public class ProductSearchSession {
                 if (productFeatureId != null && productFeatureId.length() > 0) {
                     String paramNameExt = parameterName.substring("SEARCH_FEAT".length());
                     String searchCategoryExc = (String) parameters.get("SEARCH_FEAT_EXC" + paramNameExt);
-                    Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
+                    Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchCategoryExc));
                     //Debug.logInfo("parameterName=" + parameterName + ", paramNameExt=" + paramNameExt + ", searchCategoryExc=" + searchCategoryExc + ", exclude=" + exclude, module);
                     searchAddConstraint(new ProductSearch.FeatureConstraint(productFeatureId, exclude), session);
                     constraintsChanged = true;
@@ -631,7 +631,7 @@ public class ProductSearchSession {
                 if (productFeatureId != null && productFeatureId.length() > 0) {
                     String paramNameExt = parameterName.substring("S_PFI".length());
                     String searchCategoryExc = (String) parameters.get("S_PFX" + paramNameExt);
-                    Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : new Boolean(!"N".equals(searchCategoryExc));
+                    Boolean exclude = UtilValidate.isEmpty(searchCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchCategoryExc));
                     //Debug.logInfo("parameterName=" + parameterName + ", paramNameExt=" + paramNameExt + ", searchCategoryExc=" + searchCategoryExc + ", exclude=" + exclude, module);
                     searchAddConstraint(new ProductSearch.FeatureConstraint(productFeatureId, exclude), session);
                     constraintsChanged = true;
@@ -644,7 +644,7 @@ public class ProductSearchSession {
                 if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {
                     String paramNameExt = parameterName.substring("SEARCH_PROD_FEAT_CAT".length());
                     String searchProdFeatureCategoryExc = (String) parameters.get("SEARCH_PROD_FEAT_CAT_EXC" + paramNameExt);
-                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureCategoryExc) ? null : new Boolean(!"N".equals(searchProdFeatureCategoryExc));
+                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchProdFeatureCategoryExc));
                     searchAddConstraint(new ProductSearch.FeatureCategoryConstraint(productFeatureCategoryId, exclude), session);
                     constraintsChanged = true;
                 }
@@ -655,7 +655,7 @@ public class ProductSearchSession {
                 if (productFeatureCategoryId != null && productFeatureCategoryId.length() > 0) {
                     String paramNameExt = parameterName.substring("S_FCI".length());
                     String searchProdFeatureCategoryExc = (String) parameters.get("S_FCX" + paramNameExt);
-                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureCategoryExc) ? null : new Boolean(!"N".equals(searchProdFeatureCategoryExc));
+                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureCategoryExc) ? null : Boolean.valueOf(!"N".equals(searchProdFeatureCategoryExc));
                     searchAddConstraint(new ProductSearch.FeatureCategoryConstraint(productFeatureCategoryId, exclude), session);
                     constraintsChanged = true;
                 }
@@ -667,7 +667,7 @@ public class ProductSearchSession {
                 if (productFeatureGroupId != null && productFeatureGroupId.length() > 0) {
                     String paramNameExt = parameterName.substring("SEARCH_PROD_FEAT_GRP".length());
                     String searchProdFeatureGroupExc = (String) parameters.get("SEARCH_PROD_FEAT_GRP_EXC" + paramNameExt);
-                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureGroupExc) ? null : new Boolean(!"N".equals(searchProdFeatureGroupExc));
+                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureGroupExc) ? null : Boolean.valueOf(!"N".equals(searchProdFeatureGroupExc));
                     searchAddConstraint(new ProductSearch.FeatureGroupConstraint(productFeatureGroupId, exclude), session);
                     constraintsChanged = true;
                 }
@@ -678,7 +678,7 @@ public class ProductSearchSession {
                 if (productFeatureGroupId != null && productFeatureGroupId.length() > 0) {
                     String paramNameExt = parameterName.substring("S_FGI".length());
                     String searchProdFeatureGroupExc = (String) parameters.get("S_FGX" + paramNameExt);
-                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureGroupExc) ? null : new Boolean(!"N".equals(searchProdFeatureGroupExc));
+                    Boolean exclude = UtilValidate.isEmpty(searchProdFeatureGroupExc) ? null : Boolean.valueOf(!"N".equals(searchProdFeatureGroupExc));
                     searchAddConstraint(new ProductSearch.FeatureGroupConstraint(productFeatureGroupId, exclude), session);
                     constraintsChanged = true;
                 }
@@ -919,8 +919,8 @@ public class ProductSearchSession {
                 resultOffsetInt = 1;
             }
             int maxResultsInt = viewSize - addOnTopListSize;
-            Integer resultOffset = new Integer(resultOffsetInt);
-            Integer maxResults = new Integer(maxResultsInt);
+            Integer resultOffset = Integer.valueOf(resultOffsetInt);
+            Integer maxResults = Integer.valueOf(maxResultsInt);
 
             ResultSortOrder resultSortOrder = ProductSearchOptions.getResultSortOrder(request);
 
@@ -953,11 +953,11 @@ public class ProductSearchSession {
         Map result = FastMap.newInstance();
 
         result.put("productIds", productIds);
-        result.put("viewIndex", new Integer(viewIndex));
-        result.put("viewSize", new Integer(viewSize));
-        result.put("listSize", new Integer(listSize));
-        result.put("lowIndex", new Integer(lowIndex));
-        result.put("highIndex", new Integer(highIndex));
+        result.put("viewIndex", Integer.valueOf(viewIndex));
+        result.put("viewSize", Integer.valueOf(viewSize));
+        result.put("listSize", Integer.valueOf(listSize));
+        result.put("lowIndex", Integer.valueOf(lowIndex));
+        result.put("highIndex", Integer.valueOf(highIndex));
         result.put("paging", paging);
         result.put("previousViewSize", previousViewSize);
         result.put("searchConstraintStrings", searchConstraintStrings);

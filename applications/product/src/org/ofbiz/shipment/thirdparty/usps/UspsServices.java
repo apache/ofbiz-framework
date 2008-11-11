@@ -213,7 +213,7 @@ public class UspsServices {
         }
 
         Map result = ServiceUtil.returnSuccess();
-        result.put("shippingEstimateAmount", new Double(estimateAmount));
+        result.put("shippingEstimateAmount", Double.valueOf(estimateAmount));
         return result;
     }
 
@@ -241,7 +241,7 @@ public class UspsServices {
                     for (long x = 0; x < pieces; x++) {
                         if (weight >= maxWeight) {
                             Map newPackage = FastMap.newInstance();
-                            newPackage.put(productId, new Double(partialQty));
+                            newPackage.put(productId, Double.valueOf(partialQty));
                             packages.add(newPackage);
                         } else if (totalWeight > 0) {
                             // create the first package
@@ -259,14 +259,14 @@ public class UspsServices {
                                     if (packageWeight <= maxWeight) {
                                         Double qtyD = (Double) packageMap.get(productId);
                                         double qty = qtyD == null ? 0 : qtyD.doubleValue();
-                                        packageMap.put(productId, new Double(qty + partialQty));
+                                        packageMap.put(productId, Double.valueOf(qty + partialQty));
                                         addedToPackage = true;
                                     }
                                 }
                             }
                             if (!addedToPackage) {
                                 Map packageMap = FastMap.newInstance();
-                                packageMap.put(productId, new Double(partialQty));
+                                packageMap.put(productId, Double.valueOf(partialQty));
                                 packages.add(packageMap);
                             }
                         }
@@ -307,7 +307,7 @@ public class UspsServices {
                 // attempt a conversion to pounds
                 Map result = FastMap.newInstance();
                 try {
-                    result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", new Double(productWeight)));
+                    result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", Double.valueOf(productWeight)));
                 } catch (GenericServiceException ex) {
                     Debug.logError(ex, module);
                 }
@@ -917,7 +917,7 @@ public class UspsServices {
                     // attempt a conversion to pounds
                     Map result = FastMap.newInstance();
                     try {
-                        result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", new Double(weight)));
+                        result = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", weightUomId, "uomIdTo", "WT_lb", "originalValue", Double.valueOf(weight)));
                     } catch (GenericServiceException ex) {
                         return ServiceUtil.returnError(ex.getMessage());
                     }

@@ -53,8 +53,8 @@ public class ImportProductHelper {
         fields.put("productId", productId);
         fields.put("ownerPartyId", "Company");
         fields.put("facilityId", "WebStoreWarehouse");
-        fields.put("quantityOnHandTotal", new Double(quantityOnHand));
-        fields.put("availableToPromiseTotal", new Double(quantityOnHand));
+        fields.put("quantityOnHandTotal", Double.valueOf(quantityOnHand));
+        fields.put("availableToPromiseTotal", Double.valueOf(quantityOnHand));
         return fields;
     }
 
