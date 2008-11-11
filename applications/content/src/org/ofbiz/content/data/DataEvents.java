@@ -21,7 +21,6 @@ package org.ofbiz.content.data;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.InputStream;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -317,7 +316,7 @@ public class DataEvents {
         GenericValue dataResource = delegator.makeValue("DataResource");
         dataResource.setPKFields(paramMap);
         dataResource.setNonPKFields(paramMap);
-        Map serviceInMap = new HashMap(dataResource); 
+        Map serviceInMap = UtilMisc.makeMapWritable(dataResource); 
         serviceInMap.put("userLogin", userLogin);
         String mode = (String)paramMap.get("mode");
         Locale locale = UtilHttp.getLocale(request);
