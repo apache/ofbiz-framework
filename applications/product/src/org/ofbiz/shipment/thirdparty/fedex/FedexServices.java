@@ -135,9 +135,9 @@ public class FedexServices {
     /*
     * Register a Fedex account for shipping by obtaining the meter number
     */
-    public static Map fedexSubscriptionRequest( DispatchContext dctx, Map context) {
+    public static Map<String, Object> fedexSubscriptionRequest( DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
-        List errorList = FastList.newInstance();
+        List<Object> errorList = FastList.newInstance();
 
         Boolean replaceMeterNumber = (Boolean) context.get("replaceMeterNumber");
 
@@ -151,7 +151,7 @@ public class FedexServices {
         String companyPartyId = (String) context.get("companyPartyId");
         String contactPartyName = (String) context.get("contactPartyName");
 
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
 
         String accountNumber = UtilProperties.getPropertyValue(shipmentPropertiesFile, "shipment.fedex.access.accountNbr");
         if (UtilValidate.isEmpty(accountNumber)) {
@@ -186,12 +186,12 @@ public class FedexServices {
             }
 
             // Get the contact information for the company
-            List partyContactDetails = delegator.findByAnd("PartyContactDetailByPurpose", UtilMisc.toMap("partyId", companyPartyId));
+            List<GenericValue> partyContactDetails = delegator.findByAnd("PartyContactDetailByPurpose", UtilMisc.toMap("partyId", companyPartyId));
             partyContactDetails = EntityUtil.filterByDate(partyContactDetails);
             partyContactDetails = EntityUtil.filterByDate(partyContactDetails, UtilDateTime.nowTimestamp(), "purposeFromDate", "purposeThruDate", true);
 
             // Get the first valid postal address (address1, city, postalCode and countryGeoId are required by Fedex)
-            List postalAddressConditions = FastList.newInstance();
+            List<EntityCondition> postalAddressConditions = FastList.newInstance();
             postalAddressConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "POSTAL_ADDRESS"));
             postalAddressConditions.add(EntityCondition.makeCondition("address1", EntityOperator.NOT_EQUAL, null));
             postalAddressConditions.add(EntityCondition.makeCondition("address1", EntityOperator.NOT_EQUAL, ""));
@@ -201,7 +201,7 @@ public class FedexServices {
             postalAddressConditions.add(EntityCondition.makeCondition("postalCode", EntityOperator.NOT_EQUAL, ""));
             postalAddressConditions.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, null));
             postalAddressConditions.add(EntityCondition.makeCondition("countryGeoId", EntityOperator.NOT_EQUAL, ""));
-            List postalAddresses = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(postalAddressConditions, EntityOperator.AND));
+            List<GenericValue> postalAddresses = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(postalAddressConditions, EntityOperator.AND));
 
             // Fedex requires USA or Canada addresses to have a state/province ID, so filter out the ones without
             postalAddressConditions.clear();
@@ -229,14 +229,14 @@ public class FedexServices {
             }
 
             // Get the first valid primary phone number (required by Fedex)
-            List phoneNumberConditions = FastList.newInstance();
+            List<EntityCondition> phoneNumberConditions = FastList.newInstance();
             phoneNumberConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "TELECOM_NUMBER"));
             phoneNumberConditions.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "PRIMARY_PHONE"));
             phoneNumberConditions.add(EntityCondition.makeCondition("areaCode", EntityOperator.NOT_EQUAL, null));
             phoneNumberConditions.add(EntityCondition.makeCondition("areaCode", EntityOperator.NOT_EQUAL, ""));
             phoneNumberConditions.add(EntityCondition.makeCondition("contactNumber", EntityOperator.NOT_EQUAL, null));
             phoneNumberConditions.add(EntityCondition.makeCondition("contactNumber", EntityOperator.NOT_EQUAL, ""));
-            List phoneNumbers = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(phoneNumberConditions, EntityOperator.AND));
+            List<GenericValue> phoneNumbers = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(phoneNumberConditions, EntityOperator.AND));
             GenericValue phoneNumberValue = EntityUtil.getFirst(phoneNumbers);
             if (UtilValidate.isEmpty(phoneNumberValue)) {
                 String errorMessage = "Party with partyId " + companyPartyId + " does not have a current, fully populated primary phone number";
@@ -251,14 +251,14 @@ public class FedexServices {
             phoneNumber = phoneNumber.replaceAll("[^+\\d]", "");
 
             // Get the first valid fax number
-            List faxNumberConditions = FastList.newInstance();
+            List<EntityCondition> faxNumberConditions = FastList.newInstance();
             faxNumberConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "TELECOM_NUMBER"));
             faxNumberConditions.add(EntityCondition.makeCondition("contactMechPurposeTypeId", EntityOperator.EQUALS, "FAX_NUMBER"));
             faxNumberConditions.add(EntityCondition.makeCondition("areaCode", EntityOperator.NOT_EQUAL, null));
             faxNumberConditions.add(EntityCondition.makeCondition("areaCode", EntityOperator.NOT_EQUAL, ""));
             faxNumberConditions.add(EntityCondition.makeCondition("contactNumber", EntityOperator.NOT_EQUAL, null));
             faxNumberConditions.add(EntityCondition.makeCondition("contactNumber", EntityOperator.NOT_EQUAL, ""));
-            List faxNumbers = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(faxNumberConditions, EntityOperator.AND));
+            List<GenericValue> faxNumbers = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(faxNumberConditions, EntityOperator.AND));
             GenericValue faxNumberValue = EntityUtil.getFirst(faxNumbers);
             if(! UtilValidate.isEmpty(faxNumberValue)) {
                 faxNumber = faxNumberValue.getString("areaCode") + faxNumberValue.getString("contactNumber");
@@ -270,11 +270,11 @@ public class FedexServices {
             }
 
             // Get the first valid email address
-            List emailConditions = FastList.newInstance();
+            List<EntityCondition> emailConditions = FastList.newInstance();
             emailConditions.add(EntityCondition.makeCondition("contactMechTypeId", EntityOperator.EQUALS, "EMAIL_ADDRESS"));
             emailConditions.add(EntityCondition.makeCondition("infoString", EntityOperator.NOT_EQUAL, null));
             emailConditions.add(EntityCondition.makeCondition("infoString", EntityOperator.NOT_EQUAL, ""));
-            List emailAddresses = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(emailConditions, EntityOperator.AND));
+            List<GenericValue> emailAddresses = EntityUtil.filterByCondition(partyContactDetails, EntityCondition.makeCondition(emailConditions, EntityOperator.AND));
             GenericValue emailAddressValue = EntityUtil.getFirst(emailAddresses);
             if(! UtilValidate.isEmpty(emailAddressValue)) {
                 emailAddress = emailAddressValue.getString("infoString");
@@ -287,7 +287,7 @@ public class FedexServices {
             }
             
             // Populate the Freemarker context
-            Map subscriptionRequestContext = FastMap.newInstance();
+            Map<String, Object> subscriptionRequestContext = FastMap.newInstance();
             subscriptionRequestContext.put("AccountNumber", accountNumber);
             subscriptionRequestContext.put("PersonName", contactPartyName);
             subscriptionRequestContext.put("CompanyName", companyName);
@@ -371,12 +371,12 @@ public class FedexServices {
      * 
      * Send a FDXShipRequest via the Ship Manager Direct API
      */
-    public static Map fedexShipRequest( DispatchContext dctx, Map context) {
+    public static Map<String, Object> fedexShipRequest( DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");        
         Locale locale = (Locale) context.get("locale");        
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
@@ -431,7 +431,7 @@ public class FedexServices {
         
         try {
 
-            Map shipRequestContext = FastMap.newInstance();
+            Map<String, Object> shipRequestContext = FastMap.newInstance();
 
             // Get the shipment and the shipmentRouteSegment
             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
@@ -606,7 +606,7 @@ public class FedexServices {
                 }
             }
             
-            List shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", UtilMisc.toList("+shipmentPackageSeqId"));
             if (UtilValidate.isEmpty(shipmentPackageRouteSegs)) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
@@ -673,7 +673,7 @@ public class FedexServices {
                 
                 // Convert the weight if necessary
                 if (! billingWeightUomId.equals(weightUomId)) {
-                    Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", billingWeightUomId, "uomIdTo", weightUomId, "originalValue", billingWeight));
+                    Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", billingWeightUomId, "uomIdTo", weightUomId, "originalValue", billingWeight));
                     if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                         Debug.logWarning("Unable to convert billing weights for shipmentId " + shipmentId , module);
     
@@ -686,10 +686,10 @@ public class FedexServices {
             }
 
             // Loop through Shipment segments (NOTE: only one supported, loop is here for future refactoring reference)
-            Iterator shipmentPackageRouteSegIter = shipmentPackageRouteSegs.iterator();
+            Iterator<GenericValue> shipmentPackageRouteSegIter = shipmentPackageRouteSegs.iterator();
             while (shipmentPackageRouteSegIter.hasNext()) {
 
-                GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegIter.next();
+                GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegIter.next();
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
 
@@ -735,7 +735,7 @@ public class FedexServices {
                     }
                     if (dimensionsLength != null && dimensionsLength.doubleValue() > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
-                            Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsLength));
+                            Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsLength));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                                 Debug.logWarning("Unable to convert length for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
                                 dimensionsLength = null;
@@ -747,7 +747,7 @@ public class FedexServices {
                     }
                     if (dimensionsWidth != null && dimensionsWidth.doubleValue() > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
-                            Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsWidth));
+                            Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsWidth));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                                 Debug.logWarning("Unable to convert width for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
                                 dimensionsWidth = null;
@@ -759,7 +759,7 @@ public class FedexServices {
                     }
                     if (dimensionsHeight != null && dimensionsHeight.doubleValue() > 0) {
                         if (! boxDimensionsUomId.equals(dimensionsUomId)) {
-                            Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsHeight));
+                            Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", boxDimensionsUomId, "uomIdTo", dimensionsUomId, "originalValue", dimensionsHeight));
                             if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                                 Debug.logWarning("Unable to convert height for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId , module);
                                 dimensionsHeight = null;
@@ -794,7 +794,7 @@ public class FedexServices {
                         packageWeightUomId = weightUomId;
                     }
                     if (! packageWeightUomId.equals(weightUomId)) {
-                        Map results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", packageWeightUomId, "uomIdTo", weightUomId, "originalValue", packageWeight));
+                        Map<String, Object> results = dispatcher.runSync("convertUom", UtilMisc.<String, Object>toMap("uomId", packageWeightUomId, "uomIdTo", weightUomId, "originalValue", packageWeight));
                         if (ServiceUtil.isError(results) || (results.get("convertedValue") == null)) {
                             ServiceUtil.returnError("Unable to convert weight for package " + shipmentPackage.getString("shipmentPackageSeqId") + " of shipmentRouteSegment " + shipmentRouteSegmentId + " of shipment " + shipmentId);
                         } else {
@@ -865,9 +865,9 @@ public class FedexServices {
      * @param shipmentPackageRouteSegs
      * @throws GenericEntityException
      */
-    public static Map handleFedexShipReply(String fDXShipReplyString, GenericValue shipmentRouteSegment, List shipmentPackageRouteSegs) throws GenericEntityException {
-        List errorList = FastList.newInstance();
-        GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegs.get(0);
+    public static Map<String, Object> handleFedexShipReply(String fDXShipReplyString, GenericValue shipmentRouteSegment, List<GenericValue> shipmentPackageRouteSegs) throws GenericEntityException {
+        List<Object> errorList = FastList.newInstance();
+        GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegs.get(0);
 
         Document fdxShipReplyDocument = null;
         try {
@@ -933,7 +933,7 @@ public class FedexServices {
 
     }
         
-    public static void handleErrors(Element rootElement, List errorList) {
+    public static void handleErrors(Element rootElement, List<Object> errorList) {
         Element errorElement = null;
         if ("Error".equalsIgnoreCase(rootElement.getNodeName())) {
             errorElement = rootElement;

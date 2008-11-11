@@ -97,7 +97,7 @@ public class ShipmentEvents {
         String orderId = request.getParameter("orderId");
         if (UtilValidate.isNotEmpty(shipmentId) && "Y".equals(forceShipmentReceived)) {
             try {
-                Map inputMap = UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_RECEIVED");
+                Map<String, Object> inputMap = UtilMisc.<String, Object>toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_RECEIVED");
                 inputMap.put("userLogin", userLogin);
                 dispatcher.runSync("updateShipment", inputMap);
             } catch (GenericServiceException gse) {

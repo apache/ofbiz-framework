@@ -37,6 +37,7 @@ import org.ofbiz.base.util.HttpClient;
 import org.ofbiz.base.util.HttpClientException;
 import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -145,7 +146,7 @@ public class DhlServices {
      * Service to obtain a rate estimate from DHL for a shipment. Notes: Only one package per shipment currently supported by DHL ShipIT.
      * If this service returns a null shippingEstimateAmount, then the shipment has not been processed
      */
-    public static Map dhlRateEstimate(DispatchContext dctx, Map context) {
+    public static Map<String, Object> dhlRateEstimate(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");
@@ -156,13 +157,13 @@ public class DhlServices {
         String carrierPartyId = (String) context.get("carrierPartyId");
         String shipmentMethodTypeId = (String) context.get("shipmentMethodTypeId");
         String shippingContactMechId = (String) context.get("shippingContactMechId");
-        List shippableItemInfo = (List) context.get("shippableItemInfo");
+        List shippableItemInfo = UtilGenerics.checkList(context.get("shippableItemInfo"));
         Double shippableTotal = (Double) context.get("shippableTotal");
         Double shippableQuantity = (Double) context.get("shippableQuantity");
         Double shippableWeight = (Double) context.get("shippableWeight");
         
         if (shipmentMethodTypeId.equals("NO_SHIPPING")) {
-            Map result = ServiceUtil.returnSuccess();
+            Map<String, Object> result = ServiceUtil.returnSuccess();
             result.put("shippingEstimateAmount", null);
             return result;
         }
@@ -230,7 +231,7 @@ public class DhlServices {
             return ServiceUtil.returnError("Cannot get DHL Estimate: DHL Rate template not configured (shipment.template.dhl.rate.estimate");
         }
         StringWriter outWriter = new StringWriter();
-        Map inContext = FastMap.newInstance();
+        Map<String, Object> inContext = FastMap.newInstance();
         inContext.put("action", "RateEstimate");
         inContext.put("userid", userid);
         inContext.put("password", password);
@@ -296,9 +297,9 @@ public class DhlServices {
     /*
      * Parses an XML document from DHL to get the rate estimate
      */
-    public static Map handleDhlRateResponse(Document rateResponseDocument) {
-        List errorList = FastList.newInstance();
-        Map dhlRateCodeMap = FastMap.newInstance();
+    public static Map<String, Object> handleDhlRateResponse(Document rateResponseDocument) {
+        List<Object> errorList = FastList.newInstance();
+        Map<String, Object> dhlRateCodeMap = FastMap.newInstance();
         // process RateResponse
         Element rateResponseElement = rateResponseDocument.getDocumentElement();
         DhlServices.handleErrors(rateResponseElement, errorList);
@@ -338,15 +339,15 @@ public class DhlServices {
                 responseRateEstimateElement, "TotalChargeEstimate");
         Element responseChargesElement = UtilXml.firstChildElement(
                 responseRateEstimateElement, "Charges");
-        List chargeNodeList = UtilXml.childElementList(responseChargesElement,
+        List<? extends Element> chargeNodeList = UtilXml.childElementList(responseChargesElement,
                 "Charge");
 
-        List chargeList = FastList.newInstance();
+        List<Map<String, String>> chargeList = FastList.newInstance();
         if (UtilValidate.isNotEmpty(chargeNodeList)) {
             for (int i = 0; chargeNodeList.size() > i; i++) {
-                Map charge = FastMap.newInstance();
+                Map<String, String> charge = FastMap.newInstance();
 
-                Element responseChargeElement = (Element) chargeNodeList.get(i);
+                Element responseChargeElement = chargeNodeList.get(i);
                 Element responseChargeTypeElement = UtilXml.firstChildElement(
                         responseChargeElement, "Type");
 
@@ -370,7 +371,7 @@ public class DhlServices {
         dhlRateCodeMap.put("totalChargeEstimate", responseTotalChargeEstimate);
         dhlRateCodeMap.put("chargeList", chargeList);
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shippingEstimateAmount", shippingEstimateAmount);
         result.put("dhlRateCodeMap", dhlRateCodeMap);
         return result;
@@ -379,9 +380,9 @@ public class DhlServices {
     /*
      * Register a DHL account for shipping by obtaining the DHL shipping key
      */
-    public static Map dhlRegisterInquire(DispatchContext dctx, Map context) {
+    public static Map<String, Object> dhlRegisterInquire(DispatchContext dctx, Map<String, ? extends Object> context) {
 
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         String postalCode = (String) context.get("postalCode");
         String accountNbr = UtilProperties.getPropertyValue("shipment",
                 "shipment.dhl.access.accountNbr");
@@ -455,9 +456,9 @@ public class DhlServices {
     /*
      * Parse response from DHL registration request to get shipping key
      */
-    public static Map handleDhlRegisterResponse(
+    public static Map<String, Object> handleDhlRegisterResponse(
             Document registerResponseDocument) {
-        List errorList = FastList.newInstance();
+        List<Object> errorList = FastList.newInstance();
         // process RegisterResponse
         Element registerResponseElement = registerResponseDocument
             .getDocumentElement();
@@ -485,7 +486,7 @@ public class DhlServices {
         String responsePostalCode = UtilXml.childElementValue(responseElement,
                 "PostalCode");
 
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("shippingKey", responseShippingKey);
         return result;
     }
@@ -494,7 +495,7 @@ public class DhlServices {
      * Pass a shipment request to DHL via ShipIT and get a tracking number and a label back, among other things
      */
 
-    public static Map dhlShipmentConfirm(DispatchContext dctx, Map context) {
+    public static Map<String, Object> dhlShipmentConfirm(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Locale locale = (Locale) context.get("locale");        
@@ -502,7 +503,7 @@ public class DhlServices {
         GenericValue userLogin = (GenericValue) context.get("userLogin");
         String shipmentId = (String) context.get("shipmentId");
         String shipmentRouteSegmentId = (String) context.get("shipmentRouteSegmentId");
-        Map result = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
         String shipmentConfirmResponseString = null;        
         try {
             GenericValue shipment = delegator.findByPrimaryKey("Shipment", UtilMisc.toMap("shipmentId", shipmentId));
@@ -566,7 +567,7 @@ public class DhlServices {
             }
 
             String recipientEmail = null;
-            Map results = dispatcher.runSync("getPartyEmail", UtilMisc.toMap("partyId", shipment.get("partyIdTo"), "userLogin", userLogin));
+            Map<String, Object> results = dispatcher.runSync("getPartyEmail", UtilMisc.toMap("partyId", shipment.get("partyIdTo"), "userLogin", userLogin));
             if (results.get("emailAddress") != null) {
                 recipientEmail = (String) results.get("emailAddress");
             }
@@ -577,7 +578,7 @@ public class DhlServices {
                 return ServiceUtil.returnError("DestCountryGeo not found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
 
-            List shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
+            List<GenericValue> shipmentPackageRouteSegs = shipmentRouteSegment.getRelated("ShipmentPackageRouteSeg", null, UtilMisc.toList("+shipmentPackageSeqId"));
             if (shipmentPackageRouteSegs == null || shipmentPackageRouteSegs.size() == 0) {
                 return ServiceUtil.returnError("No ShipmentPackageRouteSegs (ie No Packages) found for ShipmentRouteSegment with shipmentId " + shipmentId + " and shipmentRouteSegmentId " + shipmentRouteSegmentId);
             }
@@ -611,15 +612,15 @@ public class DhlServices {
             String width = null;
             String height = null;
             Double packageWeight = null;
-            Iterator shipmentPackageRouteSegIter = shipmentPackageRouteSegs.iterator();
+            Iterator<GenericValue> shipmentPackageRouteSegIter = shipmentPackageRouteSegs.iterator();
             while (shipmentPackageRouteSegIter.hasNext()) {
-                GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegIter.next();
+                GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegIter.next();
                 GenericValue shipmentPackage = shipmentPackageRouteSeg.getRelatedOne("ShipmentPackage");
                 GenericValue shipmentBoxType = shipmentPackage.getRelatedOne("ShipmentBoxType");
-                List carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "DHL"), null);
+                List<GenericValue> carrierShipmentBoxTypes = shipmentPackage.getRelated("CarrierShipmentBoxType", UtilMisc.toMap("partyId", "DHL"), null);
                 GenericValue carrierShipmentBoxType = null;
                 if (carrierShipmentBoxTypes.size() > 0) {
-                    carrierShipmentBoxType = (GenericValue) carrierShipmentBoxTypes.get(0); 
+                    carrierShipmentBoxType = carrierShipmentBoxTypes.get(0); 
                 }
                  
                 // TODO: determine what default UoM is (assuming inches) - there should be a defaultDimensionUomId in Facility
@@ -705,7 +706,7 @@ public class DhlServices {
                 return ServiceUtil.returnError("Cannot get DHL Estimate: DHL Rate template not configured (shipment.template.dhl.rate.estimate");
             }
             StringWriter outWriter = new StringWriter();
-            Map inContext = FastMap.newInstance();
+            Map<String, Object> inContext = FastMap.newInstance();
             inContext.put("action", "GenerateLabel");
             inContext.put("userid", userid);
             inContext.put("password", password);
@@ -774,10 +775,10 @@ public class DhlServices {
     }
 
     // NOTE: Must VOID shipments on errors
-    public static Map handleDhlShipmentConfirmResponse(String rateResponseString, GenericValue shipmentRouteSegment, 
-            List shipmentPackageRouteSegs) throws GenericEntityException {
-        Map result = FastMap.newInstance();
-        GenericValue shipmentPackageRouteSeg = (GenericValue) shipmentPackageRouteSegs.get(0);
+    public static Map<String, Object> handleDhlShipmentConfirmResponse(String rateResponseString, GenericValue shipmentRouteSegment, 
+            List<GenericValue> shipmentPackageRouteSegs) throws GenericEntityException {
+        Map<String, Object> result = FastMap.newInstance();
+        GenericValue shipmentPackageRouteSeg = shipmentPackageRouteSegs.get(0);
         
         // TODO: figure out how to handle validation on return XML, which can be mangled
         // Ideas: try again right away, let user try again, etc.
@@ -841,12 +842,12 @@ public class DhlServices {
         return ServiceUtil.returnSuccess("DHL Shipment Confirmed.");
     }
 
-    private static double getWeight(List shippableItemInfo) {
+    private static double getWeight(List<Map<String, Object>> shippableItemInfo) {
         double totalWeight = 0;
         if (shippableItemInfo != null) {
-            Iterator sii = shippableItemInfo.iterator();
+            Iterator<Map<String, Object>> sii = shippableItemInfo.iterator();
             while (sii.hasNext()) {
-                Map itemInfo = (Map) sii.next();
+                Map<String, Object> itemInfo = sii.next();
                 double weight = ((Double) itemInfo.get("weight")).doubleValue();
                 totalWeight = totalWeight + weight;
             }
@@ -882,15 +883,15 @@ public class DhlServices {
         return eCommerceRequestDocument;
     }
 
-    public static void handleErrors(Element responseElement, List errorList) {
+    public static void handleErrors(Element responseElement, List<Object> errorList) {
         Element faultsElement = UtilXml.firstChildElement(responseElement,
                 "Faults");
-        List faultElements = UtilXml.childElementList(faultsElement, "Fault");
+        List<? extends Element> faultElements = UtilXml.childElementList(faultsElement, "Fault");
         if (UtilValidate.isNotEmpty(faultElements)) {
-            Iterator errorElementIter = faultElements.iterator();
+            Iterator<? extends Element> errorElementIter = faultElements.iterator();
             while (errorElementIter.hasNext()) {
                 StringBuilder errorMessageBuf = new StringBuilder();
-                Element errorElement = (Element) errorElementIter.next();
+                Element errorElement = errorElementIter.next();
 
                 String errorCode = UtilXml.childElementValue(errorElement,
                         "Code");
