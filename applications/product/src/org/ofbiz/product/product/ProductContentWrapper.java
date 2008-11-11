@@ -53,7 +53,7 @@ public class ProductContentWrapper implements ContentWrapper {
     public static final String module = ProductContentWrapper.class.getName();
     public static final String SEPARATOR = "::";    // cache key separator
     
-    public static UtilCache productContentCache = new UtilCache("product.content.rendered", true);
+    public static UtilCache<String, String> productContentCache = new UtilCache<String, String>("product.content.rendered", true);
     
     public static ProductContentWrapper makeProductContentWrapper(GenericValue product, HttpServletRequest request) {
         return new ProductContentWrapper(product, request);
@@ -107,7 +107,7 @@ public class ProductContentWrapper implements ContentWrapper {
         String cacheKey = productContentTypeId + SEPARATOR + locale + SEPARATOR + mimeTypeId + SEPARATOR + product.get("productId");
         try {
             if (productContentCache.get(cacheKey) != null) {
-                return (String) productContentCache.get(cacheKey);
+                return productContentCache.get(cacheKey);
             }
             
             Writer outWriter = new StringWriter();
@@ -175,12 +175,12 @@ public class ProductContentWrapper implements ContentWrapper {
             }
         }
         
-        List productContentList = delegator.findByAndCache("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), UtilMisc.toList("-fromDate"));
+        List<GenericValue> productContentList = delegator.findByAndCache("ProductContent", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), UtilMisc.toList("-fromDate"));
         productContentList = EntityUtil.filterByDate(productContentList);
         GenericValue productContent = EntityUtil.getFirst(productContentList);
         if (productContent != null) {
             // when rendering the product content, always include the Product and ProductContent records that this comes from
-            Map inContext = FastMap.newInstance();
+            Map<String, Object> inContext = FastMap.newInstance();
             inContext.put("product", product);
             inContext.put("productContent", productContent);
             ContentWorker.renderContentAsText(dispatcher, delegator, productContent.getString("contentId"), outWriter, inContext, locale, mimeTypeId, false);

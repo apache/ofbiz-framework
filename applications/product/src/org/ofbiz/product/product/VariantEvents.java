@@ -73,7 +73,7 @@ public class VariantEvents {
         try {
             featureTypeSize = Integer.parseInt(featureTypeSizeStr);
         } catch (NumberFormatException e) {
-            Map messageMap = UtilMisc.toMap("featureTypeSizeStr", featureTypeSizeStr);
+            Map<String, String> messageMap = UtilMisc.toMap("featureTypeSizeStr", featureTypeSizeStr);
             errMsg = UtilProperties.getMessage(resource,"variantevents.featureTypeSize_not_number", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -86,7 +86,7 @@ public class VariantEvents {
                 // read the product, duplicate it with the given id
                 GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
                 if (product == null) {
-                    Map messageMap = UtilMisc.toMap("productId", productId);
+                    Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
                     errMsg = UtilProperties.getMessage(resource,"variantevents.product_not_found_with_ID", messageMap, UtilHttp.getLocale(request));
                     TransactionUtil.rollback(beganTransacton, errMsg, null);
                     request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -123,7 +123,7 @@ public class VariantEvents {
                 for (int i = 0; i < featureTypeSize; i++) {
                     String productFeatureId = request.getParameter("feature_" + i);
                     if (productFeatureId == null) {
-                        Map messageMap = UtilMisc.toMap("i", Integer.toString(i));
+                        Map<String, String> messageMap = UtilMisc.toMap("i", Integer.toString(i));
                         errMsg = UtilProperties.getMessage(resource,"variantevents.productFeatureId_for_feature_type_number_not_found", messageMap, UtilHttp.getLocale(request));
                         TransactionUtil.rollback(beganTransacton, errMsg, null);
                         request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -146,7 +146,7 @@ public class VariantEvents {
 
                 TransactionUtil.commit(beganTransacton);
             } catch (GenericEntityException e) {
-                Map messageMap = UtilMisc.toMap("errMessage", e.toString());
+                Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
                 errMsg = UtilProperties.getMessage(resource,"variantevents.entity_error_quick_add_variant_data", messageMap, UtilHttp.getLocale(request));
                 TransactionUtil.rollback(beganTransacton, errMsg, null);
                 Debug.logError(e, "Entity error creating quick add variant data", module);
@@ -155,13 +155,13 @@ public class VariantEvents {
             }
         } catch (GenericTransactionException e) {
             Debug.logError(e, "Transaction error creating quick add variant data", module);
-            Map messageMap = UtilMisc.toMap("errMessage", e.toString());
+            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resource,"variantevents.transaction_error_quick_add_variant_data", messageMap, UtilHttp.getLocale(request));
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
         }
 
-        Map messageMap = UtilMisc.toMap("variantProductId", variantProductId);
+        Map<String, String> messageMap = UtilMisc.toMap("variantProductId", variantProductId);
         String sucMsg = UtilProperties.getMessage(resource,"variantevents.successfully_created_variant_product_with_id", messageMap, UtilHttp.getLocale(request));
         request.setAttribute("_EVENT_MESSAGE_", sucMsg);
         return "success";
