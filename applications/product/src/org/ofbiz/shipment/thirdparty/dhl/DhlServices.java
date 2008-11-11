@@ -814,7 +814,7 @@ public class DhlServices {
         
         // TODO: this is a temporary hack to replace the newlines so that Base64 likes the input This is NOT platform independent
         int size = encodedImageString.length();
-        StringBuffer sb = new StringBuffer();
+        StringBuilder sb = new StringBuilder();
         for (int i = 0; i < size; i++) {
             if (encodedImageString.charAt(i) == '\n')
                 continue;
@@ -889,7 +889,7 @@ public class DhlServices {
         if (UtilValidate.isNotEmpty(faultElements)) {
             Iterator errorElementIter = faultElements.iterator();
             while (errorElementIter.hasNext()) {
-                StringBuffer errorMessageBuf = new StringBuffer();
+                StringBuilder errorMessageBuf = new StringBuilder();
                 Element errorElement = (Element) errorElementIter.next();
 
                 String errorCode = UtilXml.childElementValue(errorElement,

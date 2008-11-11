@@ -57,7 +57,7 @@ public class PromoServices {
         //GenericValue promoItem = null;
         //GenericValue newItem = null;
 
-        StringBuffer bankOfNumbers = new StringBuffer();
+        StringBuilder bankOfNumbers = new StringBuilder();
         for (long i = 0; i < quantity.longValue(); i++) {
             Map createProductPromoCodeMap = null;
             try {

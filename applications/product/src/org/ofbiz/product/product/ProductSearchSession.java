@@ -970,7 +970,7 @@ public class ProductSearchSession {
         return makeSearchParametersString(getProductSearchOptions(session));
     }
     public static String makeSearchParametersString(ProductSearchOptions productSearchOptions) {
-        StringBuffer searchParamString = new StringBuffer();
+        StringBuilder searchParamString = new StringBuilder();
 
         List constraintList = productSearchOptions.getConstraintList();
         Iterator constraintIter = constraintList.iterator();

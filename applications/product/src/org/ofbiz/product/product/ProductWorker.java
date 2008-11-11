@@ -403,7 +403,7 @@ public class ProductWorker {
                     if (UtilValidate.isNotEmpty(distFeatures)) {
                         // Debug.logInfo("Found distinguishing features: " + distFeatures, module);
                         
-                        StringBuffer nameBuf = new StringBuffer();
+                        StringBuilder nameBuf = new StringBuilder();
                         Iterator distFeatIter = distFeatures.iterator();
                         while (distFeatIter.hasNext()) {
                             GenericValue productFeature = (GenericValue) distFeatIter.next();

@@ -196,7 +196,7 @@ public class UpsServices {
             }
             String ordersDescription = "";
             if (orderIdSet.size() > 1) {
-                StringBuffer odBuf = new StringBuffer("Orders ");
+                StringBuilder odBuf = new StringBuilder("Orders ");
                 Iterator orderIdIter = orderIdSet.iterator();
                 while (orderIdIter.hasNext()) {
                     String orderId = (String) orderIdIter.next();
@@ -535,7 +535,7 @@ public class UpsServices {
             // connect to UPS server, send AccessRequest to auth
             // send ShipmentConfirmRequest String
             // get ShipmentConfirmResponse String back
-            StringBuffer xmlString = new StringBuffer();
+            StringBuilder xmlString = new StringBuilder();
             // TODO: note that we may have to append <?xml version="1.0"?> before each string
             xmlString.append(accessRequestString);
             xmlString.append(shipmentConfirmRequestString);
@@ -696,7 +696,7 @@ public class UpsServices {
                 
             // -=-=-=- Okay, now done with that, just return any extra info...
             
-            StringBuffer successString = new StringBuffer("The UPS ShipmentConfirm succeeded");
+            StringBuilder successString = new StringBuilder("The UPS ShipmentConfirm succeeded");
             if (errorList.size() > 0) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(", but the following occurred: ");
@@ -796,7 +796,7 @@ public class UpsServices {
             // connect to UPS server, send AccessRequest to auth
             // send ShipmentConfirmRequest String
             // get ShipmentConfirmResponse String back
-            StringBuffer xmlString = new StringBuffer();
+            StringBuilder xmlString = new StringBuilder();
             // TODO: note that we may have to append <?xml version="1.0"?> before each string
             xmlString.append(accessRequestString);
             xmlString.append(shipmentAcceptRequestString);
@@ -1063,7 +1063,7 @@ public class UpsServices {
             }
                 
             // -=-=-=- Okay, now done with that, just return any extra info...
-            StringBuffer successString = new StringBuffer("The UPS ShipmentAccept succeeded");
+            StringBuilder successString = new StringBuilder("The UPS ShipmentAccept succeeded");
             if (errorList.size() > 0) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(", but the following occurred: ");
@@ -1158,7 +1158,7 @@ public class UpsServices {
             // connect to UPS server, send AccessRequest to auth
             // send ShipmentConfirmRequest String
             // get ShipmentConfirmResponse String back
-            StringBuffer xmlString = new StringBuffer();
+            StringBuilder xmlString = new StringBuilder();
             // TODO: note that we may have to append <?xml version="1.0"?> before each string
             xmlString.append(accessRequestString);
             xmlString.append(voidShipmentRequestString);
@@ -1251,7 +1251,7 @@ public class UpsServices {
             shipmentRouteSegment.store();
             
             // -=-=-=- Okay, now done with that, just return any extra info...
-            StringBuffer successString = new StringBuffer("The UPS VoidShipment succeeded; the StatusType is: [" + statusTypeCode + ":" + statusTypeDescription + "], the StatusCode is: [" + statusCodeCode + ":" + statusCodeDescription + "]");
+            StringBuilder successString = new StringBuilder("The UPS VoidShipment succeeded; the StatusType is: [" + statusTypeCode + ":" + statusTypeDescription + "], the StatusCode is: [" + statusCodeCode + ":" + statusCodeDescription + "]");
             if (errorList.size() > 0) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(", but the following occurred: ");
@@ -1349,7 +1349,7 @@ public class UpsServices {
             // connect to UPS server, send AccessRequest to auth
             // send ShipmentConfirmRequest String
             // get ShipmentConfirmResponse String back
-            StringBuffer xmlString = new StringBuffer();
+            StringBuilder xmlString = new StringBuilder();
             // TODO: note that we may have to append <?xml version="1.0"?> before each string
             xmlString.append(accessRequestString);
             xmlString.append(trackRequestString);
@@ -1481,7 +1481,7 @@ public class UpsServices {
 
 
             // -=-=-=- Okay, now done with that, just return any extra info...
-            StringBuffer successString = new StringBuffer("The UPS TrackShipment succeeded");
+            StringBuilder successString = new StringBuilder("The UPS TrackShipment succeeded");
             if (errorList.size() > 0) {
                 // this shouldn't happen much, but handle it anyway
                 successString.append(", but the following occurred: ");
@@ -1789,7 +1789,7 @@ public class UpsServices {
         List errorElements = UtilXml.childElementList(responseElement, "Error");
         Iterator errorElementIter = errorElements.iterator();
         while (errorElementIter.hasNext()) {
-            StringBuffer errorMessageBuf = new StringBuffer();
+            StringBuilder errorMessageBuf = new StringBuilder();
             Element errorElement = (Element) errorElementIter.next();
 
             String errorSeverity = UtilXml.childElementValue(errorElement, "ErrorSeverity");
@@ -2087,7 +2087,7 @@ public class UpsServices {
         }
 
         // prepare the access/inquire request string
-        StringBuffer xmlString = new StringBuffer();
+        StringBuilder xmlString = new StringBuilder();
         xmlString.append(accessRequestString);
         xmlString.append(rateRequestString);
         if (Debug.verboseOn()) Debug.logVerbose(xmlString.toString(), module);       
@@ -2178,7 +2178,7 @@ public class UpsServices {
         }
 
         // prepare the request string
-        StringBuffer xmlString = new StringBuffer();
+        StringBuilder xmlString = new StringBuilder();
         xmlString.append(accessRequestString);
         xmlString.append(avRequestString);
         Debug.logInfo(xmlString.toString(), module);
