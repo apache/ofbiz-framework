@@ -48,7 +48,7 @@ public class SubscriptionServices {
 
     public static final String module = SubscriptionServices.class.getName();
 
-    public static Map processExtendSubscription(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map<String, Object> processExtendSubscription(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
@@ -65,14 +65,14 @@ public class SubscriptionServices {
         
         GenericValue lastSubscription = null;
         try {
-            Map subscriptionFindMap = UtilMisc.toMap("partyId", partyId, "subscriptionResourceId", subscriptionResourceId);
+            Map<String, String> subscriptionFindMap = UtilMisc.toMap("partyId", partyId, "subscriptionResourceId", subscriptionResourceId);
             // if this subscription is attached to something the customer owns, filter by that too
             if (UtilValidate.isNotEmpty(inventoryItemId)) subscriptionFindMap.put("inventoryItemId", inventoryItemId);
-            List subscriptionList = delegator.findByAnd("Subscription", subscriptionFindMap);
+            List<GenericValue> subscriptionList = delegator.findByAnd("Subscription", subscriptionFindMap);
             // DEJ20070718 DON'T filter by date, we want to consider all subscriptions: List listFiltered = EntityUtil.filterByDate(subscriptionList, true);
-            List listOrdered = EntityUtil.orderBy(subscriptionList, UtilMisc.toList("-fromDate"));
+            List<GenericValue> listOrdered = EntityUtil.orderBy(subscriptionList, UtilMisc.toList("-fromDate"));
             if (listOrdered.size() > 0) {
-                lastSubscription = (GenericValue) listOrdered.get(0);
+                lastSubscription = listOrdered.get(0);
             }
         } catch (GenericEntityException e) {
             return ServiceUtil.returnError(e.toString());
@@ -125,32 +125,32 @@ public class SubscriptionServices {
         thruDate = new Timestamp(calendar.getTimeInMillis());
         newSubscription.set("thruDate", thruDate);
         
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         try {
             if (lastSubscription != null && !alwaysCreateNewRecord) {
-                Map updateSubscriptionMap = dctx.getModelService("updateSubscription").makeValid(newSubscription, ModelService.IN_PARAM);
+                Map<String, Object> updateSubscriptionMap = dctx.getModelService("updateSubscription").makeValid(newSubscription, ModelService.IN_PARAM);
                 updateSubscriptionMap.put("userLogin", delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system")));
 
-                Map updateSubscriptionResult = dispatcher.runSync("updateSubscription", updateSubscriptionMap);
+                Map<String, Object> updateSubscriptionResult = dispatcher.runSync("updateSubscription", updateSubscriptionMap);
                 result.put("subscriptionId", updateSubscriptionMap.get("subscriptionId"));
                 if (ServiceUtil.isError(updateSubscriptionResult)) {
                     return ServiceUtil.returnError("Error processing subscription update with ID [" + updateSubscriptionMap.get("subscriptionId") + "]", null, null, updateSubscriptionResult);
                 }
             } else {
-                Map createPartyRoleMap = FastMap.newInstance();
+                Map<String, Object> createPartyRoleMap = FastMap.newInstance();
                 if (UtilValidate.isNotEmpty(roleTypeId)) {
                     createPartyRoleMap.put("partyId", partyId);
                     createPartyRoleMap.put("roleTypeId", roleTypeId);
                     createPartyRoleMap.put("userLogin", userLogin);
-                    Map createPartyRoleResult = dispatcher.runSync("createPartyRole", createPartyRoleMap);
+                    Map<String, Object> createPartyRoleResult = dispatcher.runSync("createPartyRole", createPartyRoleMap);
                     if (ServiceUtil.isError(createPartyRoleResult)) {
                         return ServiceUtil.returnError("Error creating new PartyRole while processing subscription update with resource ID [" + subscriptionResourceId + "]", null, null, createPartyRoleResult);
                     }
                 }
-                Map createSubscriptionMap = dctx.getModelService("createSubscription").makeValid(newSubscription, ModelService.IN_PARAM);
+                Map<String, Object> createSubscriptionMap = dctx.getModelService("createSubscription").makeValid(newSubscription, ModelService.IN_PARAM);
                 createSubscriptionMap.put("userLogin", delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system")));
 
-                Map createSubscriptionResult = dispatcher.runSync("createSubscription", createSubscriptionMap);
+                Map<String, Object> createSubscriptionResult = dispatcher.runSync("createSubscription", createSubscriptionMap);
                 if (ServiceUtil.isError(createSubscriptionResult)) {
                     return ServiceUtil.returnError("Error creating subscription while processing with resource ID [" + subscriptionResourceId + "]", null, null, createSubscriptionResult);
                 }
@@ -164,7 +164,7 @@ public class SubscriptionServices {
         return result;
     }
     
-    public static Map processExtendSubscriptionByProduct(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map<String, Object> processExtendSubscriptionByProduct(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         String productId = (String) context.get("productId");
@@ -178,7 +178,7 @@ public class SubscriptionServices {
             orderCreatedDate = UtilDateTime.nowTimestamp();   
         }
         try {
-            List productSubscriptionResourceList = delegator.findByAndCache("ProductSubscriptionResource", UtilMisc.toMap("productId", productId));
+            List<GenericValue> productSubscriptionResourceList = delegator.findByAndCache("ProductSubscriptionResource", UtilMisc.toMap("productId", productId));
             productSubscriptionResourceList = EntityUtil.filterByDate(productSubscriptionResourceList, orderCreatedDate, null, null, true);
             productSubscriptionResourceList = EntityUtil.filterByDate(productSubscriptionResourceList, orderCreatedDate, "purchaseFromDate", "purchaseThruDate", true);
 
@@ -188,25 +188,25 @@ public class SubscriptionServices {
                 return ServiceUtil.returnError(msg); 
             }
 
-            Iterator productSubscriptionResourceIter = productSubscriptionResourceList.iterator();
+            Iterator<GenericValue> productSubscriptionResourceIter = productSubscriptionResourceList.iterator();
             while (productSubscriptionResourceIter.hasNext()) {
-                GenericValue productSubscriptionResource = (GenericValue) productSubscriptionResourceIter.next();
-
-                Long useTime = (Long) productSubscriptionResource.get("useTime");
+                GenericValue productSubscriptionResource = productSubscriptionResourceIter.next();
+                Long useTime = productSubscriptionResource.getLong("useTime");
                 Integer newUseTime = Integer.valueOf(0);
                 if (useTime != null) {
                     newUseTime = Integer.valueOf(useTime.intValue() * qty.intValue());
                 }
-                context.put("useTime", newUseTime);
-                context.put("useTimeUomId", productSubscriptionResource.get("useTimeUomId"));
-                context.put("useRoleTypeId", productSubscriptionResource.get("useRoleTypeId"));
-                context.put("subscriptionResourceId", productSubscriptionResource.get("subscriptionResourceId"));
-                context.put("automaticExtend", productSubscriptionResource.get("automaticExtend"));
-                context.put("canclAutmExtTime", productSubscriptionResource.get("canclAutmExtTime"));
-                context.put("canclAutmExtTimeUomId", productSubscriptionResource.get("canclAutmExtTimeUomId"));
+                Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
+                subContext.put("useTime", newUseTime);
+                subContext.put("useTimeUomId", productSubscriptionResource.get("useTimeUomId"));
+                subContext.put("useRoleTypeId", productSubscriptionResource.get("useRoleTypeId"));
+                subContext.put("subscriptionResourceId", productSubscriptionResource.get("subscriptionResourceId"));
+                subContext.put("automaticExtend", productSubscriptionResource.get("automaticExtend"));
+                subContext.put("canclAutmExtTime", productSubscriptionResource.get("canclAutmExtTime"));
+                subContext.put("canclAutmExtTimeUomId", productSubscriptionResource.get("canclAutmExtTimeUomId"));
                 
-                Map ctx = dctx.getModelService("processExtendSubscription").makeValid(context, ModelService.IN_PARAM);
-                Map processExtendSubscriptionResult = dispatcher.runSync("processExtendSubscription", ctx);
+                Map<String, Object> ctx = dctx.getModelService("processExtendSubscription").makeValid(subContext, ModelService.IN_PARAM);
+                Map<String, Object> processExtendSubscriptionResult = dispatcher.runSync("processExtendSubscription", ctx);
                 if (ServiceUtil.isError(processExtendSubscriptionResult)) {
                     return ServiceUtil.returnError("Error processing subscriptions for Product with ID [" + productId + "]", null, null, processExtendSubscriptionResult);
                 }
@@ -219,20 +219,21 @@ public class SubscriptionServices {
         return ServiceUtil.returnSuccess();
     }
     
-    public static Map processExtendSubscriptionByOrder(DispatchContext dctx, Map context) throws GenericServiceException{
+    public static Map<String, Object> processExtendSubscriptionByOrder(DispatchContext dctx, Map<String, ? extends Object> context) throws GenericServiceException{
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
+        Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
         String orderId = (String) context.get("orderId");
         
         Debug.logInfo("In processExtendSubscriptionByOrder service with orderId: " + orderId, module);
         
         GenericValue orderHeader = null;
         try {
-            List orderRoleList = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER"));
+            List<GenericValue> orderRoleList = delegator.findByAnd("OrderRole", UtilMisc.toMap("orderId", orderId, "roleTypeId", "END_USER_CUSTOMER"));
             if (orderRoleList.size() > 0 ) {
-                GenericValue orderRole = (GenericValue)orderRoleList.get(0);
+                GenericValue orderRole = orderRoleList.get(0);
                 String partyId = (String) orderRole.get("partyId");
-                context.put("partyId", partyId);
+                subContext.put("partyId", partyId);
             } else {
                 String msg = "No OrderRole found for orderId:" + orderId;
                 return ServiceUtil.returnFailure(msg); 
@@ -243,27 +244,27 @@ public class SubscriptionServices {
                 return ServiceUtil.returnError(msg); 
             }
             Timestamp orderCreatedDate = (Timestamp) orderHeader.get("orderDate");
-            context.put("orderCreatedDate", orderCreatedDate);
-            List orderItemList = orderHeader.getRelated("OrderItem");
-            Iterator orderItemIter = orderItemList.iterator();
+            subContext.put("orderCreatedDate", orderCreatedDate);
+            List<GenericValue> orderItemList = orderHeader.getRelated("OrderItem");
+            Iterator<GenericValue> orderItemIter = orderItemList.iterator();
             while (orderItemIter.hasNext()) {
-                GenericValue orderItem = (GenericValue)orderItemIter.next();   
-                Double qty = (Double) orderItem.get("quantity");
-                String productId = (String) orderItem.get("productId");
+                GenericValue orderItem = orderItemIter.next();   
+                Double qty = orderItem.getDouble("quantity");
+                String productId = orderItem.getString("productId");
                 if (UtilValidate.isEmpty(productId)) {
                     continue;
                 }
-                List productSubscriptionResourceList = delegator.findByAndCache("ProductSubscriptionResource", UtilMisc.toMap("productId", productId));
-                List productSubscriptionResourceListFiltered = EntityUtil.filterByDate(productSubscriptionResourceList, true);
+                List<GenericValue> productSubscriptionResourceList = delegator.findByAndCache("ProductSubscriptionResource", UtilMisc.toMap("productId", productId));
+                List<GenericValue> productSubscriptionResourceListFiltered = EntityUtil.filterByDate(productSubscriptionResourceList, true);
                 if (productSubscriptionResourceListFiltered.size() > 0) {
-                    context.put("subscriptionTypeId", "PRODUCT_SUBSCR");
-                    context.put("productId", productId);
-                    context.put("orderId", orderId);
-                    context.put("orderItemSeqId", orderItem.get("orderItemSeqId"));
-                    context.put("inventoryItemId", orderItem.get("fromInventoryItemId"));
-                    context.put("quantity", Integer.valueOf(qty.intValue()));
-                    Map ctx = dctx.getModelService("processExtendSubscriptionByProduct").makeValid(context, ModelService.IN_PARAM);
-                    Map thisResult = dispatcher.runSync("processExtendSubscriptionByProduct", ctx);
+                    subContext.put("subscriptionTypeId", "PRODUCT_SUBSCR");
+                    subContext.put("productId", productId);
+                    subContext.put("orderId", orderId);
+                    subContext.put("orderItemSeqId", orderItem.get("orderItemSeqId"));
+                    subContext.put("inventoryItemId", orderItem.get("fromInventoryItemId"));
+                    subContext.put("quantity", Integer.valueOf(qty.intValue()));
+                    Map<String, Object> ctx = dctx.getModelService("processExtendSubscriptionByProduct").makeValid(subContext, ModelService.IN_PARAM);
+                    Map<String, Object> thisResult = dispatcher.runSync("processExtendSubscriptionByProduct", ctx);
                     if (ServiceUtil.isError(thisResult)) {
                         return ServiceUtil.returnError("Error processing subscriptions for Order with ID [" + orderId + "]", null, null, thisResult);
                     }

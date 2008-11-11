@@ -34,8 +34,8 @@ public class ImportProductHelper {
     static String module = ImportProductHelper.class.getName();
 
     // prepare the product map
-    public static Map prepareProduct(String productId) {
-        Map fields = FastMap.newInstance();
+    public static Map<String, Object> prepareProduct(String productId) {
+        Map<String, Object> fields = FastMap.newInstance();
         fields.put("productId", productId);
         fields.put("productTypeId", "FINISHED_GOOD");
         fields.put("internalName", "Product_" + productId);
@@ -45,9 +45,9 @@ public class ImportProductHelper {
     }
 
     // prepare the inventoryItem map
-    public static Map prepareInventoryItem(String productId,
+    public static Map<String, Object> prepareInventoryItem(String productId,
             double quantityOnHand, String inventoryItemId) {
-        Map fields = FastMap.newInstance();
+        Map<String, Object> fields = FastMap.newInstance();
         fields.put("inventoryItemId", inventoryItemId);
         fields.put("inventoryItemTypeId", "NON_SERIAL_INV_ITEM");
         fields.put("productId", productId);

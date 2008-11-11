@@ -55,13 +55,13 @@ public class StockMovesTest extends TestCase {
     }
     
     public void testStockMoves() throws Exception {
-        Map fsmnCtx = FastMap.newInstance();
+        Map<String, Object> fsmnCtx = FastMap.newInstance();
         Map stockMoveHandled = null;
         List warningList = FastList.newInstance();
         
         fsmnCtx.put("facilityId", "WebStoreWarehouse");
         fsmnCtx.put("userLogin", userLogin);
-        Map respMap1 = dispatcher.runSync("findStockMovesNeeded", fsmnCtx);
+        Map<String, Object> respMap1 = dispatcher.runSync("findStockMovesNeeded", fsmnCtx);
         stockMoveHandled = (Map) respMap1.get("stockMoveHandled");
         warningList = (List) respMap1.get("warningMessageList");
         assertNull(warningList);
@@ -69,17 +69,17 @@ public class StockMovesTest extends TestCase {
         if (stockMoveHandled != null) {
             fsmnCtx.put("stockMoveHandled", stockMoveHandled);
         }
-        Map respMap2 = dispatcher.runSync("findStockMovesRecommended", fsmnCtx);
+        Map<String, Object> respMap2 = dispatcher.runSync("findStockMovesRecommended", fsmnCtx);
         warningList = (List) respMap2.get("warningMessageList");
         assertNull(warningList);
         
-        Map ppsmCtx = FastMap.newInstance();
+        Map<String, Object> ppsmCtx = FastMap.newInstance();
         ppsmCtx.put("productId", "GZ-2644");
         ppsmCtx.put("facilityId", "WebStoreWarehouse");
         ppsmCtx.put("locationSeqId","TLTLTLUL01" );
         ppsmCtx.put("targetLocationSeqId", "TLTLTLLL01");
         ppsmCtx.put("quantityMoved", Double.valueOf(5));
         ppsmCtx.put("userLogin", userLogin);
-        Map respMap3 = dispatcher.runSync("processPhysicalStockMove", ppsmCtx);
+        Map<String, Object> respMap3 = dispatcher.runSync("processPhysicalStockMove", ppsmCtx);
     }
 }    

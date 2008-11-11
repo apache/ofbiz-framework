@@ -57,9 +57,9 @@ public class CatalogWorker {
         return WebSiteWorker.getWebSite(request);
     }
 
-    public static List getAllCatalogIds(ServletRequest request) {        
-        List catalogIds = FastList.newInstance();
-        List catalogs = null;
+    public static List<String> getAllCatalogIds(ServletRequest request) {        
+        List<String> catalogIds = FastList.newInstance();
+        List<GenericValue> catalogs = null;
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         try {
             catalogs = delegator.findList("ProdCatalog", null, null, UtilMisc.toList("catalogName"), null, false);
@@ -67,22 +67,22 @@ public class CatalogWorker {
             Debug.logError(e, "Error looking up all catalogs", module);
         }
         if (catalogs != null) {
-            Iterator i = catalogs.iterator();
+            Iterator<GenericValue> i = catalogs.iterator();
             while (i.hasNext()) {
-                GenericValue c = (GenericValue) i.next();
+                GenericValue c = i.next();
                 catalogIds.add(c.getString("prodCatalogId"));
             }
         }
         return catalogIds;
     }
     
-    public static List getStoreCatalogs(ServletRequest request) {
+    public static List<GenericValue> getStoreCatalogs(ServletRequest request) {
         String productStoreId = ProductStoreWorker.getProductStoreId(request);
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         return getStoreCatalogs(delegator, productStoreId);
     }
 
-    public static List getStoreCatalogs(GenericDelegator delegator, String productStoreId) {
+    public static List<GenericValue> getStoreCatalogs(GenericDelegator delegator, String productStoreId) {
         try {
             return EntityUtil.filterByDate(delegator.findByAndCache("ProductStoreCatalog", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNum", "prodCatalogId")), true);
         } catch (GenericEntityException e) {
@@ -91,7 +91,7 @@ public class CatalogWorker {
         return null;
     }
 
-    public static List getPartyCatalogs(ServletRequest request) {
+    public static List<GenericValue> getPartyCatalogs(ServletRequest request) {
         HttpSession session = ((HttpServletRequest) request).getSession();
         GenericValue userLogin = (GenericValue) session.getAttribute("userLogin");
         if (userLogin == null) userLogin = (GenericValue) session.getAttribute("autoUserLogin");
@@ -102,7 +102,7 @@ public class CatalogWorker {
         return getPartyCatalogs(delegator, partyId);
     }
 
-    public static List getPartyCatalogs(GenericDelegator delegator, String partyId) {
+    public static List<GenericValue> getPartyCatalogs(GenericDelegator delegator, String partyId) {
         if (delegator == null || partyId == null) {
             return null;
         }
@@ -115,14 +115,14 @@ public class CatalogWorker {
         return null;
     }
     
-    public static List getProdCatalogCategories(ServletRequest request, String prodCatalogId, String prodCatalogCategoryTypeId) {
+    public static List<GenericValue> getProdCatalogCategories(ServletRequest request, String prodCatalogId, String prodCatalogCategoryTypeId) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         return getProdCatalogCategories(delegator, prodCatalogId, prodCatalogCategoryTypeId);
     }
 
-    public static List getProdCatalogCategories(GenericDelegator delegator, String prodCatalogId, String prodCatalogCategoryTypeId) {
+    public static List<GenericValue> getProdCatalogCategories(GenericDelegator delegator, String prodCatalogId, String prodCatalogCategoryTypeId) {
         try {
-            List prodCatalogCategories = EntityUtil.filterByDate(delegator.findByAndCache("ProdCatalogCategory",
+            List<GenericValue> prodCatalogCategories = EntityUtil.filterByDate(delegator.findByAndCache("ProdCatalogCategory",
                         UtilMisc.toMap("prodCatalogId", prodCatalogId),
                         UtilMisc.toList("sequenceNum", "productCategoryId")), true);
 
@@ -145,7 +145,7 @@ public class CatalogWorker {
      */
     public static String getCurrentCatalogId(ServletRequest request) {
         HttpSession session = ((HttpServletRequest) request).getSession();
-        Map requestParameters = UtilHttp.getParameterMap((HttpServletRequest) request);
+        Map<String, Object> requestParameters = UtilHttp.getParameterMap((HttpServletRequest) request);
         String prodCatalogId = null;
         boolean fromSession = false;
 
@@ -158,40 +158,40 @@ public class CatalogWorker {
         }
         // get it from the database
         if (prodCatalogId == null) {
-            List catalogIds = getCatalogIdsAvailable(request);
-            if (catalogIds != null && catalogIds.size() > 0) prodCatalogId = (String) catalogIds.get(0);
+            List<String> catalogIds = getCatalogIdsAvailable(request);
+            if (catalogIds != null && catalogIds.size() > 0) prodCatalogId = catalogIds.get(0);
         }
 
         if (!fromSession) {
             if (Debug.verboseOn()) Debug.logVerbose("[CatalogWorker.getCurrentCatalogId] Setting new catalog name: " + prodCatalogId, module);
             session.setAttribute("CURRENT_CATALOG_ID", prodCatalogId);
-            CategoryWorker.setTrail(request, FastList.newInstance());
+            CategoryWorker.setTrail(request, FastList.<String>newInstance());
         }
         return prodCatalogId;
     }
     
-    public static List getCatalogIdsAvailable(ServletRequest request) {
-        List partyCatalogs = getPartyCatalogs(request);
-        List storeCatalogs = getStoreCatalogs(request);
+    public static List<String> getCatalogIdsAvailable(ServletRequest request) {
+        List<GenericValue> partyCatalogs = getPartyCatalogs(request);
+        List<GenericValue> storeCatalogs = getStoreCatalogs(request);
         return getCatalogIdsAvailable(partyCatalogs, storeCatalogs);
     }
 
-    public static List getCatalogIdsAvailable(GenericDelegator delegator, String productStoreId, String partyId) {
-        List storeCatalogs = getStoreCatalogs(delegator, productStoreId);
-        List partyCatalogs = getPartyCatalogs(delegator, partyId);
+    public static List<String> getCatalogIdsAvailable(GenericDelegator delegator, String productStoreId, String partyId) {
+        List<GenericValue> storeCatalogs = getStoreCatalogs(delegator, productStoreId);
+        List<GenericValue> partyCatalogs = getPartyCatalogs(delegator, partyId);
         return getCatalogIdsAvailable(partyCatalogs, storeCatalogs);
     }
     
-    public static List getCatalogIdsAvailable(List partyCatalogs, List storeCatalogs) {
-        List categoryIds = FastList.newInstance();
-        List allCatalogLinks = FastList.newInstance();
+    public static List<String> getCatalogIdsAvailable(List<GenericValue> partyCatalogs, List<GenericValue> storeCatalogs) {
+        List<String> categoryIds = FastList.newInstance();
+        List<GenericValue> allCatalogLinks = FastList.newInstance();
         if (partyCatalogs != null) allCatalogLinks.addAll(partyCatalogs);
         if (storeCatalogs != null) allCatalogLinks.addAll(storeCatalogs);
         
         if (allCatalogLinks.size() > 0) {
-            Iterator aclIter = allCatalogLinks.iterator();
+            Iterator<GenericValue> aclIter = allCatalogLinks.iterator();
             while (aclIter.hasNext()) {
-                GenericValue catalogLink = (GenericValue) aclIter.next();
+                GenericValue catalogLink = aclIter.next();
                 categoryIds.add(catalogLink.getString("prodCatalogId"));
             }
         }
@@ -260,7 +260,7 @@ public class CatalogWorker {
     public static String getCatalogTopCategoryId(ServletRequest request, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
-        List prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_BROWSE_ROOT");
+        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_BROWSE_ROOT");
 
         if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
@@ -281,7 +281,7 @@ public class CatalogWorker {
     public static String getCatalogSearchCategoryId(GenericDelegator delegator, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
-        List prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_SEARCH");
+        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_SEARCH");
         if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
             return prodCatalogCategory.getString("productCategoryId");
@@ -293,7 +293,7 @@ public class CatalogWorker {
     public static String getCatalogViewAllowCategoryId(GenericDelegator delegator, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
-        List prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_VIEW_ALLW");
+        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_VIEW_ALLW");
         if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
             return prodCatalogCategory.getString("productCategoryId");
@@ -305,7 +305,7 @@ public class CatalogWorker {
     public static String getCatalogPurchaseAllowCategoryId(GenericDelegator delegator, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
-        List prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_PURCH_ALLW");
+        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(delegator, prodCatalogId, "PCCT_PURCH_ALLW");
         if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
             return prodCatalogCategory.getString("productCategoryId");
@@ -321,7 +321,7 @@ public class CatalogWorker {
     public static String getCatalogPromotionsCategoryId(ServletRequest request, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
-        List prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_PROMOTIONS");
+        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_PROMOTIONS");
 
         if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
@@ -359,7 +359,7 @@ public class CatalogWorker {
     public static String getCatalogQuickaddCategoryPrimary(ServletRequest request, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
-        List prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD");
+        List<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD");
 
         if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
             GenericValue prodCatalogCategory = EntityUtil.getFirst(prodCatalogCategories);
@@ -370,22 +370,22 @@ public class CatalogWorker {
         }
     }
           
-    public static Collection getCatalogQuickaddCategories(ServletRequest request) {
+    public static Collection<String> getCatalogQuickaddCategories(ServletRequest request) {
         return getCatalogQuickaddCategories(request, getCurrentCatalogId(request));
     }
                 
-    public static Collection getCatalogQuickaddCategories(ServletRequest request, String prodCatalogId) {
+    public static Collection<String> getCatalogQuickaddCategories(ServletRequest request, String prodCatalogId) {
         if (prodCatalogId == null || prodCatalogId.length() <= 0) return null;
 
-        Collection categoryIds = FastList.newInstance();
+        Collection<String> categoryIds = FastList.newInstance();
 
-        Collection prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD");
+        Collection<GenericValue> prodCatalogCategories = getProdCatalogCategories(request, prodCatalogId, "PCCT_QUICK_ADD");
 
         if (UtilValidate.isNotEmpty(prodCatalogCategories)) {
-            Iterator pccIter = prodCatalogCategories.iterator();
+            Iterator<GenericValue> pccIter = prodCatalogCategories.iterator();
 
             while (pccIter.hasNext()) {
-                GenericValue prodCatalogCategory = (GenericValue) pccIter.next();
+                GenericValue prodCatalogCategory = pccIter.next();
 
                 categoryIds.add(prodCatalogCategory.getString("productCategoryId"));
             }

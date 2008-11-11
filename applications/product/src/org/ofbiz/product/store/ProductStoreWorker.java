@@ -166,7 +166,7 @@ public class ProductStoreWorker {
         if (anyServiceType) {
             if (storePayment == null) {
                 try {
-                    List storePayments = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId));
+                    List<GenericValue> storePayments = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStoreId, "paymentMethodTypeId", paymentMethodTypeId));
                     storePayment = EntityUtil.getFirst(storePayments);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problems looking up store payment settings", module);
@@ -175,7 +175,7 @@ public class ProductStoreWorker {
 
             if (storePayment == null) {
                 try {
-                    List storePayments = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStoreId));
+                    List<GenericValue> storePayments = delegator.findByAnd("ProductStorePaymentSetting", UtilMisc.toMap("productStoreId", productStoreId));
                     storePayment = EntityUtil.getFirst(storePayments);
                 } catch (GenericEntityException e) {
                     Debug.logError(e, "Problems looking up store payment settings", module);
@@ -186,13 +186,13 @@ public class ProductStoreWorker {
         return storePayment;
     }
 
-    public static List getProductStoreShipmentMethods(GenericDelegator delegator, String productStoreId,
+    public static List<GenericValue> getProductStoreShipmentMethods(GenericDelegator delegator, String productStoreId,
                                                              String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId) {
         // check for an external service call
-        Map storeFields = UtilMisc.toMap("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
+        Map<String, String> storeFields = UtilMisc.toMap("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
                 "partyId", carrierPartyId, "roleTypeId", carrierRoleTypeId);
 
-        List storeShipMethods = null;
+        List<GenericValue> storeShipMethods = null;
         try {
             storeShipMethods = delegator.findByAndCache("ProductStoreShipmentMeth", storeFields);
         } catch (GenericEntityException e) {
@@ -209,11 +209,11 @@ public class ProductStoreWorker {
         return EntityUtil.getFirst(getProductStoreShipmentMethods(delegator, productStoreId, shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId));
     }
 
-    public static List getAvailableStoreShippingMethods(GenericDelegator delegator, String productStoreId, GenericValue shippingAddress, List itemSizes, Map featureIdMap, double weight, double orderTotal) {
+    public static List<GenericValue> getAvailableStoreShippingMethods(GenericDelegator delegator, String productStoreId, GenericValue shippingAddress, List<Double> itemSizes, Map<String, Double> featureIdMap, double weight, double orderTotal) {
         if (featureIdMap == null) {
             featureIdMap = FastMap.newInstance();
         }
-        List shippingMethods = null;
+        List<GenericValue> shippingMethods = null;
         try {
             shippingMethods = delegator.findByAndCache("ProductStoreShipmentMethView", UtilMisc.toMap("productStoreId", productStoreId), UtilMisc.toList("sequenceNumber"));
         } catch (GenericEntityException e) {
@@ -222,12 +222,12 @@ public class ProductStoreWorker {
         }
 
         // clone the list for concurrent modification
-        List returnShippingMethods = UtilMisc.makeListWritable(shippingMethods);
+        List<GenericValue> returnShippingMethods = UtilMisc.makeListWritable(shippingMethods);
 
         if (shippingMethods != null) {
-            Iterator i = shippingMethods.iterator();
+            Iterator<GenericValue> i = shippingMethods.iterator();
             while (i.hasNext()) {
-                GenericValue method = (GenericValue) i.next();
+                GenericValue method = i.next();
                 //Debug.logInfo("Checking Shipping Method : " + method.getString("shipmentMethodTypeId"), module);
 
                 // test min/max weight first
@@ -265,9 +265,9 @@ public class ProductStoreWorker {
                     boolean allMatch = false;
                     if (itemSizes != null) {
                         allMatch = true;
-                        Iterator isi = itemSizes.iterator();
+                        Iterator<Double> isi = itemSizes.iterator();
                         while (isi.hasNext()) {
-                            Double size = (Double) isi.next();
+                            Double size = isi.next();
                             if (size.doubleValue() < minSize.doubleValue()) {
                                 allMatch = false;
                             }
@@ -283,9 +283,9 @@ public class ProductStoreWorker {
                     boolean allMatch = false;
                     if (itemSizes != null) {
                         allMatch = true;
-                        Iterator isi = itemSizes.iterator();
+                        Iterator<Double> isi = itemSizes.iterator();
                         while (isi.hasNext()) {
-                            Double size = (Double) isi.next();
+                            Double size = isi.next();
                             if (size.doubleValue() > maxSize.doubleValue()) {
                                 allMatch = false;
                             }
@@ -350,7 +350,7 @@ public class ProductStoreWorker {
                     }
                 }
                 if (includeGeoId != null && includeGeoId.length() > 0) {
-                    List includeGeoGroup = GeoWorker.expandGeoGroup(includeGeoId, delegator);
+                    List<GenericValue> includeGeoGroup = GeoWorker.expandGeoGroup(includeGeoId, delegator);
                     if (!GeoWorker.containsGeo(includeGeoGroup, shippingAddress.getString("countryGeoId"), delegator) &&
                             !GeoWorker.containsGeo(includeGeoGroup, shippingAddress.getString("stateProvinceGeoId"), delegator) &&
                             !GeoWorker.containsGeo(includeGeoGroup, shippingAddress.getString("postalCodeGeoId"), delegator)) {
@@ -361,7 +361,7 @@ public class ProductStoreWorker {
                     }
                 }
                 if (excludeGeoId != null && excludeGeoId.length() > 0) {
-                    List excludeGeoGroup = GeoWorker.expandGeoGroup(excludeGeoId, delegator);
+                    List<GenericValue> excludeGeoGroup = GeoWorker.expandGeoGroup(excludeGeoId, delegator);
                     if (GeoWorker.containsGeo(excludeGeoGroup, shippingAddress.getString("countryGeoId"), delegator) ||
                             GeoWorker.containsGeo(excludeGeoGroup, shippingAddress.getString("stateProvinceGeoId"), delegator) ||
                             GeoWorker.containsGeo(excludeGeoGroup, shippingAddress.getString("postalCodeGeoId"), delegator)) {
@@ -376,7 +376,7 @@ public class ProductStoreWorker {
                 String includeFeatures = method.getString("includeFeatureGroup");
                 String excludeFeatures = method.getString("excludeFeatureGroup");
                 if (includeFeatures != null && includeFeatures.length() > 0) {
-                    List includedFeatures = null;
+                    List<GenericValue> includedFeatures = null;
                     try {
                         includedFeatures = delegator.findByAndCache("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", includeFeatures));
                     } catch (GenericEntityException e) {
@@ -384,9 +384,9 @@ public class ProductStoreWorker {
                     }
                     if (includedFeatures != null) {
                         boolean foundOne = false;
-                        Iterator ifet = includedFeatures.iterator();
+                        Iterator<GenericValue> ifet = includedFeatures.iterator();
                         while (ifet.hasNext()) {
-                            GenericValue appl = (GenericValue) ifet.next();
+                            GenericValue appl = ifet.next();
                             if (featureIdMap.containsKey(appl.getString("productFeatureId"))) {
                                 foundOne = true;
                                 break;
@@ -400,16 +400,16 @@ public class ProductStoreWorker {
                     }
                 }
                 if (excludeFeatures != null && excludeFeatures.length() > 0) {
-                    List excludedFeatures = null;
+                    List<GenericValue> excludedFeatures = null;
                     try {
                         excludedFeatures = delegator.findByAndCache("ProductFeatureGroupAppl", UtilMisc.toMap("productFeatureGroupId", excludeFeatures));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to lookup ProductFeatureGroupAppl records for group : " + excludeFeatures, module);
                     }
                     if (excludedFeatures != null) {
-                        Iterator ifet = excludedFeatures.iterator();
+                        Iterator<GenericValue> ifet = excludedFeatures.iterator();
                         while (ifet.hasNext()) {
-                            GenericValue appl = (GenericValue) ifet.next();
+                            GenericValue appl = ifet.next();
                             if (featureIdMap.containsKey(appl.getString("productFeatureId"))) {
                                 returnShippingMethods.remove(method);
                                 //Debug.logInfo("Removed shipping method due to an exluded feature being found : " + appl.getString("productFeatureId"), module);
@@ -437,34 +437,34 @@ public class ProductStoreWorker {
         }
 
         String partyId = userLogin != null ? userLogin.getString("partyId") : null;
-        Map passThruFields = UtilHttp.getParameterMap(((HttpServletRequest)request));
+        Map<String, Object> passThruFields = UtilHttp.getParameterMap(((HttpServletRequest)request));
 
         return getRandomSurveyWrapper(productStore.getDelegator(), productStore.getString("productStoreId"), groupName, partyId, passThruFields);
     }
 
-    public static ProductStoreSurveyWrapper getRandomSurveyWrapper(GenericDelegator delegator, String productStoreId, String groupName, String partyId, Map passThruFields) {
-        List randomSurveys = getSurveys(delegator, productStoreId, groupName, null, "RANDOM_POLL", null);
+    public static ProductStoreSurveyWrapper getRandomSurveyWrapper(GenericDelegator delegator, String productStoreId, String groupName, String partyId, Map<String, Object> passThruFields) {
+        List<GenericValue> randomSurveys = getSurveys(delegator, productStoreId, groupName, null, "RANDOM_POLL", null);
         if (!UtilValidate.isEmpty(randomSurveys)) {
             Random rand = new Random();
             int index = rand.nextInt(randomSurveys.size());
-            GenericValue appl = (GenericValue) randomSurveys.get(index);
+            GenericValue appl = randomSurveys.get(index);
             return new ProductStoreSurveyWrapper(appl, partyId, passThruFields);
         } else {
             return null;
         }
     }
 
-    public static List getProductSurveys(GenericDelegator delegator, String productStoreId, String productId, String surveyApplTypeId) {
+    public static List<GenericValue> getProductSurveys(GenericDelegator delegator, String productStoreId, String productId, String surveyApplTypeId) {
         return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId, null);
     }
 
-    public static List getProductSurveys(GenericDelegator delegator, String productStoreId, String productId, String surveyApplTypeId, String parentProductId) {
+    public static List<GenericValue> getProductSurveys(GenericDelegator delegator, String productStoreId, String productId, String surveyApplTypeId, String parentProductId) {
         return getSurveys(delegator, productStoreId, null, productId, surveyApplTypeId,parentProductId);
     }
 
-    public static List getSurveys(GenericDelegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId, String parentProductId) {
-        List surveys = FastList.newInstance();
-        List storeSurveys = null;
+    public static List<GenericValue> getSurveys(GenericDelegator delegator, String productStoreId, String groupName, String productId, String surveyApplTypeId, String parentProductId) {
+        List<GenericValue> surveys = FastList.newInstance();
+        List<GenericValue> storeSurveys = null;
         try {
             storeSurveys = delegator.findByAndCache("ProductStoreSurveyAppl", UtilMisc.toMap("productStoreId", productStoreId, "surveyApplTypeId", surveyApplTypeId), UtilMisc.toList("sequenceNum"));
         } catch (GenericEntityException e) {
@@ -483,9 +483,9 @@ public class ProductStoreWorker {
          Debug.log("getSurvey for product " + productId,module);
         // limit by product
         if (!UtilValidate.isEmpty(productId) && !UtilValidate.isEmpty(storeSurveys)) {
-            Iterator ssi = storeSurveys.iterator();
+            Iterator<GenericValue> ssi = storeSurveys.iterator();
             while (ssi.hasNext()) {
-                GenericValue surveyAppl = (GenericValue) ssi.next();
+                GenericValue surveyAppl = ssi.next();
                 GenericValue product = null;
                 String virtualProductId = null;
 
@@ -513,16 +513,16 @@ public class ProductStoreWorker {
                         surveys.add(surveyAppl);
                     }
                 } else if (surveyAppl.get("productCategoryId") != null) {
-                    List categoryMembers = null;
+                    List<GenericValue> categoryMembers = null;
                     try {
                         categoryMembers = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", surveyAppl.get("productCategoryId")));
                     } catch (GenericEntityException e) {
                         Debug.logError(e, "Unable to get ProductCategoryMemebr records for survey application : " + surveyAppl, module);
                     }
                     if (categoryMembers != null) {
-                        Iterator cmi = categoryMembers.iterator();
+                        Iterator<GenericValue> cmi = categoryMembers.iterator();
                         while (cmi.hasNext()) {
-                            GenericValue member = (GenericValue) cmi.next();
+                            GenericValue member = cmi.next();
                             if (productId != null && productId.equals(member.getString("productId"))) {
                                 surveys.add(surveyAppl);
                                 break;
@@ -559,7 +559,7 @@ public class ProductStoreWorker {
             return -1;
         }
 
-        List surveyResponse = null;
+        List<GenericValue> surveyResponse = null;
         try {
             surveyResponse = delegator.findByAnd("SurveyResponse", UtilMisc.toMap("surveyId", surveyId, "partyId", partyId));
         } catch (GenericEntityException e) {
@@ -611,7 +611,7 @@ public class ProductStoreWorker {
         try {
             Boolean requiredOkay = null;
             if (wantRequired != null) {
-                Map invReqResult = dispatcher.runSync("isStoreInventoryRequired", UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product, "productStore", productStore));
+                Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryRequired", UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product, "productStore", productStore));
                 if (ServiceUtil.isError(invReqResult)) {
                     Debug.logError("Error calling isStoreInventoryRequired service, result is: " + invReqResult, module);
                     return false;
@@ -621,7 +621,7 @@ public class ProductStoreWorker {
 
             Boolean availableOkay = null;
             if (wantAvailable != null) {
-                Map invAvailResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product, "productStore", productStore, "quantity", quantity));
+                Map<String, Object> invAvailResult = dispatcher.runSync("isStoreInventoryAvailable", UtilMisc.toMap("productStoreId", productStoreId, "productId", product.get("productId"), "product", product, "productStore", productStore, "quantity", quantity));
                 if (ServiceUtil.isError(invAvailResult)) {
                     Debug.logError("Error calling isStoreInventoryAvailable service, result is: " + invAvailResult, module);
                     return false;
@@ -690,7 +690,7 @@ public class ProductStoreWorker {
 
         } else {
             GenericValue product = productConfig.getProduct();
-            List productFacilities = null;
+            List<GenericValue> productFacilities = null;
 
             try {
                 productFacilities = delegator.getRelatedCache("ProductFacility", product);
@@ -700,11 +700,11 @@ public class ProductStoreWorker {
             }
 
             if (UtilValidate.isNotEmpty(productFacilities)) {
-                Iterator pfIter = productFacilities.iterator();
+                Iterator<GenericValue> pfIter = productFacilities.iterator();
 
                 while (pfIter.hasNext()) {
                     try {
-                        GenericValue pfValue = (GenericValue) pfIter.next();
+                        GenericValue pfValue = pfIter.next();
 
                         isInventoryAvailable = ProductWorker.isProductInventoryAvailableByFacility(productConfig, pfValue.getString("facilityId"), quantity, dispatcher);
                         if (isInventoryAvailable == true) {
@@ -720,7 +720,7 @@ public class ProductStoreWorker {
         }
     }
 
-    protected static Map defaultProductStoreEmailScreenLocation = FastMap.newInstance();
+    protected static Map<String, String> defaultProductStoreEmailScreenLocation = FastMap.newInstance();
 
     static {
         defaultProductStoreEmailScreenLocation.put("PRDS_ODR_CONFIRM", "component://ecommerce/widget/EmailOrderScreens.xml#OrderConfirmNotice");
@@ -747,6 +747,6 @@ public class ProductStoreWorker {
     }
 
     public static String getDefaultProductStoreEmailScreenLocation(String emailType) {
-        return (String) defaultProductStoreEmailScreenLocation.get(emailType);
+        return defaultProductStoreEmailScreenLocation.get(emailType);
     }
 }

@@ -30,6 +30,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
@@ -54,7 +55,7 @@ public class InventoryServices {
     
     public final static String module = InventoryServices.class.getName();
     
-    public static Map prepareInventoryTransfer(DispatchContext dctx, Map context) {
+    public static Map<String, Object> prepareInventoryTransfer(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String inventoryItemId = (String) context.get("inventoryItemId");
         Double xferQty = (Double) context.get("xferQty");   
@@ -73,7 +74,7 @@ public class InventoryServices {
         }
 
         try {
-            Map results = ServiceUtil.returnSuccess();
+            Map<String, Object> results = ServiceUtil.returnSuccess();
             
             String inventoryType = inventoryItem.getString("inventoryItemTypeId");
             if (inventoryType.equals("NON_SERIAL_INV_ITEM")) {
@@ -117,17 +118,17 @@ public class InventoryServices {
                     results.put("inventoryItemId", newItem.get("inventoryItemId"));
     
                     // TODO: how do we get this here: "inventoryTransferId", inventoryTransferId
-                    Map createNewDetailMap = UtilMisc.toMap("availableToPromiseDiff", xferQty, "quantityOnHandDiff", xferQty,
+                    Map<String, Object> createNewDetailMap = UtilMisc.toMap("availableToPromiseDiff", xferQty, "quantityOnHandDiff", xferQty,
                             "inventoryItemId", newItem.get("inventoryItemId"), "userLogin", userLogin);
-                    Map createUpdateDetailMap = UtilMisc.toMap("availableToPromiseDiff", negXferQty, "quantityOnHandDiff", negXferQty,
+                    Map<String, Object> createUpdateDetailMap = UtilMisc.toMap("availableToPromiseDiff", negXferQty, "quantityOnHandDiff", negXferQty,
                             "inventoryItemId", inventoryItem.get("inventoryItemId"), "userLogin", userLogin);
                     
                     try {
-                        Map resultNew = dctx.getDispatcher().runSync("createInventoryItemDetail", createNewDetailMap);
+                        Map<String, Object> resultNew = dctx.getDispatcher().runSync("createInventoryItemDetail", createNewDetailMap);
                         if (ServiceUtil.isError(resultNew)) {
                             return ServiceUtil.returnError("Inventory Item Detail create problem in prepare inventory transfer", null, null, resultNew);
                         }
-                        Map resultUpdate = dctx.getDispatcher().runSync("createInventoryItemDetail", createUpdateDetailMap);
+                        Map<String, Object> resultUpdate = dctx.getDispatcher().runSync("createInventoryItemDetail", createUpdateDetailMap);
                         if (ServiceUtil.isError(resultNew)) {
                             return ServiceUtil.returnError("Inventory Item Detail create problem in prepare inventory transfer", null, null, resultUpdate);
                         }
@@ -152,10 +153,10 @@ public class InventoryServices {
                 inventoryItemToClear.refresh();
                 double atp = inventoryItemToClear.get("availableToPromiseTotal") == null ? 0 : inventoryItemToClear.getDouble("availableToPromiseTotal").doubleValue();
                 if (atp != 0) {
-                    Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", Double.valueOf(-atp), 
+                    Map<String, Object> createDetailMap = UtilMisc.toMap("availableToPromiseDiff", Double.valueOf(-atp), 
                             "inventoryItemId", inventoryItemToClear.get("inventoryItemId"), "userLogin", userLogin);
                     try {
-                        Map result = dctx.getDispatcher().runSync("createInventoryItemDetail", createDetailMap);
+                        Map<String, Object> result = dctx.getDispatcher().runSync("createInventoryItemDetail", createDetailMap);
                         if (ServiceUtil.isError(result)) {
                             return ServiceUtil.returnError("Inventory Item Detail create problem in complete inventory transfer", null, null, result);
                         }
@@ -184,7 +185,7 @@ public class InventoryServices {
         }                                                                                                   
     }
     
-    public static Map completeInventoryTransfer(DispatchContext dctx, Map context) {
+    public static Map<String, Object> completeInventoryTransfer(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String inventoryTransferId = (String) context.get("inventoryTransferId");
         GenericValue inventoryTransfer = null;
@@ -216,10 +217,10 @@ public class InventoryServices {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
             double atp = inventoryItem.get("availableToPromiseTotal") == null ? 0 : inventoryItem.getDouble("availableToPromiseTotal").doubleValue();
             double qoh = inventoryItem.get("quantityOnHandTotal") == null ? 0 : inventoryItem.getDouble("quantityOnHandTotal").doubleValue();
-            Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", Double.valueOf(qoh - atp), 
+            Map<String, Object> createDetailMap = UtilMisc.toMap("availableToPromiseDiff", Double.valueOf(qoh - atp), 
                     "inventoryItemId", inventoryItem.get("inventoryItemId"), "userLogin", userLogin);
             try {
-                Map result = dctx.getDispatcher().runSync("createInventoryItemDetail", createDetailMap);
+                Map<String, Object> result = dctx.getDispatcher().runSync("createInventoryItemDetail", createDetailMap);
                 if (ServiceUtil.isError(result)) {
                     return ServiceUtil.returnError("Inventory Item Detail create problem in complete inventory transfer", null, null, result);
                 }
@@ -234,7 +235,7 @@ public class InventoryServices {
         }
 
         // set the fields on the item
-        Map updateInventoryItemMap = UtilMisc.toMap("inventoryItemId", inventoryItem.getString("inventoryItemId"),
+        Map<String, Object> updateInventoryItemMap = UtilMisc.toMap("inventoryItemId", inventoryItem.getString("inventoryItemId"),
                                                     "facilityId", inventoryTransfer.get("facilityIdTo"),
                                                     "containerId", inventoryTransfer.get("containerIdTo"),
                                                     "locationSeqId", inventoryTransfer.get("locationSeqIdTo"),
@@ -256,7 +257,7 @@ public class InventoryServices {
             }
         }
         try {
-            Map result = dctx.getDispatcher().runSync("updateInventoryItem", updateInventoryItemMap);
+            Map<String, Object> result = dctx.getDispatcher().runSync("updateInventoryItem", updateInventoryItemMap);
             if (ServiceUtil.isError(result)) {
                 return ServiceUtil.returnError("Inventory item store problem", null, null, result);
             }
@@ -277,7 +278,7 @@ public class InventoryServices {
         return ServiceUtil.returnSuccess();
     }    
     
-    public static Map cancelInventoryTransfer(DispatchContext dctx, Map context) {
+    public static Map<String, Object> cancelInventoryTransfer(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         String inventoryTransferId = (String) context.get("inventoryTransferId");
         GenericValue inventoryTransfer = null;
@@ -306,11 +307,11 @@ public class InventoryServices {
             // add an adjusting InventoryItemDetail so set ATP back to QOH: ATP = ATP + (QOH - ATP), diff = QOH - ATP
             double atp = inventoryItem.get("availableToPromiseTotal") == null ? 0 : inventoryItem.getDouble("availableToPromiseTotal").doubleValue();
             double qoh = inventoryItem.get("quantityOnHandTotal") == null ? 0 : inventoryItem.getDouble("quantityOnHandTotal").doubleValue();
-            Map createDetailMap = UtilMisc.toMap("availableToPromiseDiff", Double.valueOf(qoh - atp), 
+            Map<String, Object> createDetailMap = UtilMisc.toMap("availableToPromiseDiff", Double.valueOf(qoh - atp), 
                                                  "inventoryItemId", inventoryItem.get("inventoryItemId"),
                                                  "userLogin", userLogin);
             try {
-                Map result = dctx.getDispatcher().runSync("createInventoryItemDetail", createDetailMap);
+                Map<String, Object> result = dctx.getDispatcher().runSync("createInventoryItemDetail", createDetailMap);
                 if (ServiceUtil.isError(result)) {
                     return ServiceUtil.returnError("Inventory Item Detail create problem in cancel inventory transfer", null, null, result);
                 }
@@ -341,7 +342,7 @@ public class InventoryServices {
     }
 
     /** In spite of the generic name this does the very specific task of checking availability of all back-ordered items and sends notices, etc */
-    public static Map checkInventoryAvailability(DispatchContext dctx, Map context) {
+    public static Map<String, Object> checkInventoryAvailability(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericValue userLogin = (GenericValue) context.get("userLogin");        
@@ -354,11 +355,11 @@ public class InventoryServices {
         }
         */
         
-        Map ordersToUpdate = FastMap.newInstance();
-        Map ordersToCancel = FastMap.newInstance();       
+        Map<String, Map<String, Timestamp>> ordersToUpdate = FastMap.newInstance();
+        Map<String, Map<String, Timestamp>> ordersToCancel = FastMap.newInstance();       
         
         // find all inventory items w/ a negative ATP
-        List inventoryItems = null;
+        List<GenericValue> inventoryItems = null;
         try {
             EntityExpr ee = EntityCondition.makeCondition("availableToPromiseTotal", EntityOperator.LESS_THAN, Double.valueOf(0));
             inventoryItems = delegator.findList("InventoryItem", ee, null, null, null, false);
@@ -374,12 +375,11 @@ public class InventoryServices {
         
         Debug.log("OOS Inventory Items: " + inventoryItems.size(), module);
         
-        Iterator itemsIter = inventoryItems.iterator();
+        Iterator<GenericValue> itemsIter = inventoryItems.iterator();
         while (itemsIter.hasNext()) {
-            GenericValue inventoryItem = (GenericValue) itemsIter.next();
-            
+            GenericValue inventoryItem = itemsIter.next();
             // get the incomming shipment information for the item
-            List shipmentAndItems = null;
+            List<GenericValue> shipmentAndItems = null;
             try {
                 List<EntityExpr> exprs = FastList.newInstance();
                 exprs.add(EntityCondition.makeCondition("productId", EntityOperator.EQUALS, inventoryItem.get("productId")));
@@ -395,7 +395,7 @@ public class InventoryServices {
             }
             
             // get the reservations in order of newest first
-            List reservations = null;
+            List<GenericValue> reservations = null;
             try {
                 reservations = inventoryItem.getRelated("OrderItemShipGrpInvRes", null, UtilMisc.toList("-reservedDatetime"));
             } catch (GenericEntityException e) {
@@ -414,9 +414,9 @@ public class InventoryServices {
             double availableBeforeReserved = inventoryItem.getDouble("availableToPromiseTotal").doubleValue();
             
             // go through all the reservations in order
-            Iterator ri = reservations.iterator();
+            Iterator<GenericValue> ri = reservations.iterator();
             while (ri.hasNext()) {
-                GenericValue reservation = (GenericValue) ri.next();
+                GenericValue reservation = ri.next();
                 String orderId = reservation.getString("orderId");
                 String orderItemSeqId = reservation.getString("orderItemSeqId");
                 Timestamp promisedDate = reservation.getTimestamp("promisedDatetime");
@@ -436,9 +436,9 @@ public class InventoryServices {
                 // find the next possible ship date
                 Timestamp nextShipDate = null;
                 double availableAtTime = 0.00;
-                Iterator si = shipmentAndItems.iterator();
+                Iterator<GenericValue> si = shipmentAndItems.iterator();
                 while (si.hasNext()) {
-                    GenericValue shipmentItem = (GenericValue) si.next();
+                    GenericValue shipmentItem = si.next();
                     availableAtTime += shipmentItem.getDouble("quantity").doubleValue();
                     if (availableAtTime >= availableBeforeReserved) {
                         nextShipDate = shipmentItem.getTimestamp("estimatedArrivalDate");
@@ -466,7 +466,7 @@ public class InventoryServices {
                     } else {                    
                         // we cannot ship by the promised date; need to notify the customer
                         Debug.log("We won't ship on time, getting notification info", module);
-                        Map notifyItems = (Map) ordersToUpdate.get(orderId);
+                        Map<String, Timestamp> notifyItems = ordersToUpdate.get(orderId);
                         if (notifyItems == null) {
                             notifyItems = FastMap.newInstance();
                         }
@@ -494,7 +494,7 @@ public class InventoryServices {
                         if (needToCancel) {                        
                             // queue the item to be cancelled
                             Debug.log("Flagging the item to auto-cancel", module);
-                            Map cancelItems = (Map) ordersToCancel.get(orderId);
+                            Map<String, Timestamp> cancelItems = ordersToCancel.get(orderId);
                             if (cancelItems == null) {
                                 cancelItems = FastMap.newInstance();
                             }
@@ -518,17 +518,17 @@ public class InventoryServices {
         }
                
         // all items to cancel will also be in the notify list so start with that
-        List ordersToNotify = FastList.newInstance();
-        Set orderSet = ordersToUpdate.keySet();
-        Iterator orderIter = orderSet.iterator();
+        List<String> ordersToNotify = FastList.newInstance();
+        Set<String> orderSet = ordersToUpdate.keySet();
+        Iterator<String> orderIter = orderSet.iterator();
         while (orderIter.hasNext()) {
-            String orderId = (String) orderIter.next();
-            Map backOrderedItems = (Map) ordersToUpdate.get(orderId);
-            Map cancelItems = (Map) ordersToCancel.get(orderId);
+            String orderId = orderIter.next();
+            Map<String, Timestamp> backOrderedItems = ordersToUpdate.get(orderId);
+            Map<String, Timestamp> cancelItems = ordersToCancel.get(orderId);
             boolean cancelAll = false;
             Timestamp cancelAllTime = null;
             
-            List orderItemShipGroups = null;
+            List<GenericValue> orderItemShipGroups = null;
             try {
                 orderItemShipGroups= delegator.findByAnd("OrderItemShipGroup",
                         UtilMisc.toMap("orderId", orderId));
@@ -536,11 +536,11 @@ public class InventoryServices {
                 Debug.logError(e, "Cannot get OrderItemShipGroups from orderId" + orderId, module);
             }
             
-            Iterator orderItemShipGroupsIter = orderItemShipGroups.iterator();
+            Iterator<GenericValue> orderItemShipGroupsIter = orderItemShipGroups.iterator();
             while (orderItemShipGroupsIter.hasNext()) {
-                GenericValue orderItemShipGroup = (GenericValue)orderItemShipGroupsIter.next();
-                List orderItems = new java.util.Vector();
-                List orderItemShipGroupAssoc = null;
+                GenericValue orderItemShipGroup = orderItemShipGroupsIter.next();
+                List<GenericValue> orderItems = FastList.newInstance();
+                List<GenericValue> orderItemShipGroupAssoc = null;
                 try {                    
                     orderItemShipGroupAssoc =
                         delegator.findByAnd("OrderItemShipGroupAssoc",
@@ -549,9 +549,9 @@ public class InventoryServices {
                                         "orderId",
                                         orderId));
                     
-                    Iterator assocIter = orderItemShipGroupAssoc.iterator();
+                    Iterator<GenericValue> assocIter = orderItemShipGroupAssoc.iterator();
                     while (assocIter.hasNext()) {
-                        GenericValue assoc = (GenericValue)assocIter.next();
+                        GenericValue assoc = assocIter.next();
                         GenericValue orderItem = assoc.getRelatedOne("OrderItem");
                         if (orderItem != null) {
                             orderItems.add(orderItem);
@@ -581,10 +581,10 @@ public class InventoryServices {
                 }
                 
                 if (orderItems != null) {            
-                    List toBeStored = FastList.newInstance();
-                    Iterator orderItemsIter = orderItems.iterator();
+                    List<GenericValue> toBeStored = FastList.newInstance();
+                    Iterator<GenericValue> orderItemsIter = orderItems.iterator();
                     while (orderItemsIter.hasNext()) {
-                        GenericValue orderItem = (GenericValue) orderItemsIter.next();
+                        GenericValue orderItem = orderItemsIter.next();
                         String orderItemSeqId = orderItem.getString("orderItemSeqId");
                         Timestamp shipDate = (Timestamp) backOrderedItems.get(orderItemSeqId);
                         Timestamp cancelDate = (Timestamp) cancelItems.get(orderItemSeqId);
@@ -624,9 +624,9 @@ public class InventoryServices {
         }
         
         // send off a notification for each order        
-        Iterator orderNotifyIter = ordersToNotify.iterator();
+        Iterator<String> orderNotifyIter = ordersToNotify.iterator();
         while (orderNotifyIter.hasNext()) {                       
-            String orderId = (String) orderNotifyIter.next();                                  
+            String orderId = orderNotifyIter.next();                                  
             
             try {
                 dispatcher.runAsync("sendOrderBackorderNotification", UtilMisc.<String, Object>toMap("orderId", orderId, "userLogin", userLogin));
@@ -643,9 +643,9 @@ public class InventoryServices {
      * Get Inventory Available for a Product based on the list of associated products.  The final ATP and QOH will
      * be the minimum of all the associated products' inventory divided by their ProductAssoc.quantity 
      * */
-    public static Map getProductInventoryAvailableFromAssocProducts(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getProductInventoryAvailableFromAssocProducts(DispatchContext dctx, Map<String, ? extends Object> context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        List productAssocList = (List) context.get("assocProducts");
+        List<GenericValue> productAssocList = UtilGenerics.checkList(context.get("assocProducts"));
         String facilityId = (String)context.get("facilityId");
         String statusId = (String)context.get("statusId");
         
@@ -659,7 +659,7 @@ public class InventoryServices {
            
            // loop through each associated product.  
            for (int i = 0; productAssocList.size() > i; i++) {
-               GenericValue productAssoc = (GenericValue) productAssocList.get(i);
+               GenericValue productAssoc = productAssocList.get(i);
                String productIdTo = productAssoc.getString("productIdTo");
                Double assocQuantity = productAssoc.getDouble("quantity");
                
@@ -670,9 +670,9 @@ public class InventoryServices {
                }
                
                // figure out the inventory available for this associated product
-               Map resultOutput = null;
+               Map<String, Object> resultOutput = null;
                try {
-                   Map inputMap = UtilMisc.toMap("productId", productIdTo, "statusId", statusId);
+                   Map<String, String> inputMap = UtilMisc.toMap("productId", productIdTo, "statusId", statusId);
                    if (facilityId != null) {
                        inputMap.put("facilityId", facilityId);
                        resultOutput = dispatcher.runSync("getInventoryAvailableByFacility", inputMap);
@@ -708,26 +708,26 @@ public class InventoryServices {
           availableToPromiseTotal = Double.valueOf(minAvailableToPromiseTotal);
         }
         
-        Map result = ServiceUtil.returnSuccess();
+        Map<String, Object> result = ServiceUtil.returnSuccess();
         result.put("availableToPromiseTotal", availableToPromiseTotal);
         result.put("quantityOnHandTotal", quantityOnHandTotal);
         return result;
     }
 
 
-    public static Map getProductInventorySummaryForItems(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getProductInventorySummaryForItems(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        List orderItems = (List) context.get("orderItems");
+        List<GenericValue> orderItems = UtilGenerics.checkList(context.get("orderItems"));
         String facilityId = (String) context.get("facilityId");
-        Map atpMap = FastMap.newInstance();
-        Map qohMap = FastMap.newInstance();
-        Map mktgPkgAtpMap = FastMap.newInstance();
-        Map mktgPkgQohMap = FastMap.newInstance();
-        Map results = ServiceUtil.returnSuccess();
+        Map<String, Double> atpMap = FastMap.newInstance();
+        Map<String, Double> qohMap = FastMap.newInstance();
+        Map<String, Double> mktgPkgAtpMap = FastMap.newInstance();
+        Map<String, Double> mktgPkgQohMap = FastMap.newInstance();
+        Map<String, Object> results = ServiceUtil.returnSuccess();
 
         // get a list of all available facilities for looping
-        List facilities = null;
+        List<GenericValue> facilities = null;
         try {
             if (facilityId != null) {
                 facilities = delegator.findByAnd("Facility", UtilMisc.toMap("facilityId", facilityId)); 
@@ -739,9 +739,9 @@ public class InventoryServices {
         }
 
         // loop through all the order items
-        Iterator iter = orderItems.iterator();
+        Iterator<GenericValue> iter = orderItems.iterator();
         while (iter.hasNext()) {
-            GenericValue orderItem = (GenericValue) iter.next();
+            GenericValue orderItem = iter.next();
             String productId = orderItem.getString("productId");
 
             if ((productId == null) || productId.equals("")) continue;
@@ -758,13 +758,13 @@ public class InventoryServices {
             double qoh = 0.0;
             double mktgPkgAtp = 0.0;
             double mktgPkgQoh = 0.0;
-            Iterator facilityIter = facilities.iterator();
+            Iterator<GenericValue> facilityIter = facilities.iterator();
 
             // loop through all the facilities
             while (facilityIter.hasNext()) {
-                GenericValue facility = (GenericValue) facilityIter.next();
-                Map invResult = null;
-                Map mktgPkgInvResult = null;
+                GenericValue facility = facilityIter.next();
+                Map<String, Object> invResult = null;
+                Map<String, Object> mktgPkgInvResult = null;
 
                 // get both the real ATP/QOH available and the quantities available from marketing packages
                 try {
@@ -808,7 +808,7 @@ public class InventoryServices {
     }
     
 
-    public static Map getProductInventoryAndFacilitySummary(DispatchContext dctx, Map context) {
+    public static Map<String, Object> getProductInventoryAndFacilitySummary(DispatchContext dctx, Map<String, ? extends Object> context) {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Timestamp checkTime = (Timestamp)context.get("checkTime");
@@ -817,10 +817,10 @@ public class InventoryServices {
         String minimumStock = (String)context.get("minimumStock");
         String statusId = (String)context.get("statusId");
 
-        Map result = FastMap.newInstance();
-        Map resultOutput = FastMap.newInstance();
+        Map<String, Object> result = FastMap.newInstance();
+        Map<String, Object> resultOutput = FastMap.newInstance();
 
-        Map contextInput = UtilMisc.toMap("productId", productId, "facilityId", facilityId, "statusId", statusId);
+        Map<String, String> contextInput = UtilMisc.toMap("productId", productId, "facilityId", facilityId, "statusId", statusId);
         GenericValue product = null;
         try {
             product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
@@ -870,17 +870,17 @@ public class InventoryServices {
         result.put("offsetQOHQtyAvailable", Integer.valueOf(offsetQOHQtyAvailable));
         result.put("offsetATPQtyAvailable", Integer.valueOf(offsetATPQtyAvailable));
     
-        List productPrices = null;
+        List<GenericValue> productPrices = null;
         try {
-            productPrices = (List)delegator.findByAndCache("ProductPrice", UtilMisc.toMap("productId",productId), UtilMisc.toList("-fromDate"));
+            productPrices = delegator.findByAndCache("ProductPrice", UtilMisc.toMap("productId",productId), UtilMisc.toList("-fromDate"));
         } catch (GenericEntityException e) {
             // TODO Auto-generated catch block
             e.printStackTrace();
         }
-        Iterator pricesIt = productPrices.iterator();
+        Iterator<GenericValue> pricesIt = productPrices.iterator();
         //change this for product price
         while (pricesIt.hasNext()) {
-            GenericValue onePrice = (GenericValue)pricesIt.next();
+            GenericValue onePrice = pricesIt.next();
             if(onePrice.getString("productPriceTypeId").equals("DEFAULT_PRICE")){ //defaultPrice
                 result.put("defultPrice", onePrice.getDouble("price"));
             }else if(onePrice.getString("productPriceTypeId").equals("WHOLESALE_PRICE")){//
@@ -951,7 +951,7 @@ public class InventoryServices {
             // Sum the sales usage quantities found
             double salesUsageQuantity = 0;
             GenericValue salesUsageItem = null;
-            while((salesUsageItem = (GenericValue) salesUsageIt.next()) != null) {
+            while((salesUsageItem = salesUsageIt.next()) != null) {
                 if (salesUsageItem.get("quantity") != null) {
                     try {
                         salesUsageQuantity += salesUsageItem.getDouble("quantity").doubleValue();
@@ -988,7 +988,7 @@ public class InventoryServices {
             // Sum the production usage quantities found
             double productionUsageQuantity = 0;
             GenericValue productionUsageItem = null;
-            while((productionUsageItem = (GenericValue) productionUsageIt.next()) != null) {
+            while((productionUsageItem = productionUsageIt.next()) != null) {
                 if (productionUsageItem.get("quantity") != null) {
                     try {
                         productionUsageQuantity += productionUsageItem.getDouble("quantity").doubleValue();
