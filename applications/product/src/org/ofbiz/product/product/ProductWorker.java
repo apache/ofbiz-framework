@@ -87,24 +87,24 @@ public class ProductWorker {
     private static boolean isAllowedToAddress(GenericValue product, GenericValue postalAddress, String productGeoPrefix) {
         if (UtilValidate.isNotEmpty(product) && UtilValidate.isNotEmpty(postalAddress)) {
             GenericDelegator delegator = product.getDelegator();
-            List productGeos = null;
+            List<GenericValue> productGeos = null;
             try {
                 productGeos = product.getRelated("ProductGeo");
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
             }
-            List excludeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "EXCLUDE"));
-            List includeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "INCLUDE"));
+            List<GenericValue> excludeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "EXCLUDE"));
+            List<GenericValue> includeGeos = EntityUtil.filterByAnd(productGeos, UtilMisc.toMap("productGeoEnumId", productGeoPrefix + "INCLUDE"));
             if (UtilValidate.isEmpty(excludeGeos) && UtilValidate.isEmpty(includeGeos)) {
                 // If no GEOs are configured the default is TRUE
                 return true;
             }
-            Iterator productGeosIt = null;
+            Iterator<GenericValue> productGeosIt = null;
             // exclusion
             productGeosIt = excludeGeos.iterator();
             while (productGeosIt.hasNext()) {
-                GenericValue productGeo = (GenericValue)productGeosIt.next();
-                List excludeGeoGroup = GeoWorker.expandGeoGroup(productGeo.getString("geoId"), delegator);
+                GenericValue productGeo = productGeosIt.next();
+                List<GenericValue> excludeGeoGroup = GeoWorker.expandGeoGroup(productGeo.getString("geoId"), delegator);
                 if (GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("countryGeoId"), delegator) ||
                       GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("stateProvinceGeoId"), delegator) ||
                       GeoWorker.containsGeo(excludeGeoGroup, postalAddress.getString("postalCodeGeoId"), delegator)) {
@@ -118,8 +118,8 @@ public class ProductWorker {
             // inclusion
             productGeosIt = includeGeos.iterator();
             while (productGeosIt.hasNext()) {
-                GenericValue productGeo = (GenericValue)productGeosIt.next();
-                List includeGeoGroup = GeoWorker.expandGeoGroup(productGeo.getString("geoId"), delegator);
+                GenericValue productGeo = productGeosIt.next();
+                List<GenericValue> includeGeoGroup = GeoWorker.expandGeoGroup(productGeo.getString("geoId"), delegator);
                 if (GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("countryGeoId"), delegator) ||
                       GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("stateProvinceGeoId"), delegator) ||
                       GeoWorker.containsGeo(includeGeoGroup, postalAddress.getString("postalCodeGeoId"), delegator)) {
@@ -187,11 +187,11 @@ public class ProductWorker {
     }
 
     public static String getAggregatedInstanceId(GenericDelegator delegator, String  aggregatedProductId, String configId) throws GenericEntityException {
-        List productAssocs = getAggregatedAssocs(delegator, aggregatedProductId);
+        List<GenericValue> productAssocs = getAggregatedAssocs(delegator, aggregatedProductId);
         if (UtilValidate.isNotEmpty(productAssocs) && UtilValidate.isNotEmpty(configId)) {
-            Iterator pai = productAssocs.iterator();
+            Iterator<GenericValue> pai = productAssocs.iterator();
             while (pai.hasNext()) {
-                GenericValue productAssoc = (GenericValue) pai.next();
+                GenericValue productAssoc = pai.next();
                 GenericValue product = productAssoc.getRelatedOne("AssocProduct");
                 if (configId.equals(product.getString("configId"))) {
                     return productAssoc.getString("productIdTo");
@@ -201,11 +201,11 @@ public class ProductWorker {
         return null;
     }
     
-    public static List getAggregatedAssocs(GenericDelegator delegator, String  aggregatedProductId) throws GenericEntityException {
+    public static List<GenericValue> getAggregatedAssocs(GenericDelegator delegator, String  aggregatedProductId) throws GenericEntityException {
         GenericValue aggregatedProduct = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", aggregatedProductId));
         
         if (UtilValidate.isNotEmpty(aggregatedProduct) && "AGGREGATED".equals(aggregatedProduct.getString("productTypeId"))) {
-            List productAssocs = EntityUtil.filterByDate(aggregatedProduct.getRelatedByAnd("MainProductAssoc", 
+            List<GenericValue> productAssocs = EntityUtil.filterByDate(aggregatedProduct.getRelatedByAnd("MainProductAssoc", 
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_CONF")));
             return productAssocs;
         }
@@ -213,7 +213,7 @@ public class ProductWorker {
     }
     
     public static String getVariantVirtualId(GenericValue variantProduct) throws GenericEntityException {
-        List productAssocs = getVariantVirtualAssocs(variantProduct);
+        List<GenericValue> productAssocs = getVariantVirtualAssocs(variantProduct);
         if (productAssocs == null) {
             return null;
         }
@@ -225,9 +225,9 @@ public class ProductWorker {
         }
     }
 
-    public static List getVariantVirtualAssocs(GenericValue variantProduct) throws GenericEntityException {
+    public static List<GenericValue> getVariantVirtualAssocs(GenericValue variantProduct) throws GenericEntityException {
         if (variantProduct != null && "Y".equals(variantProduct.getString("isVariant"))) {
-            List productAssocs = EntityUtil.filterByDate(variantProduct.getRelatedByAndCache("AssocProductAssoc", 
+            List<GenericValue> productAssocs = EntityUtil.filterByDate(variantProduct.getRelatedByAndCache("AssocProductAssoc", 
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT")));
             return productAssocs;
         }
@@ -242,7 +242,7 @@ public class ProductWorker {
         Double availableToPromise = null;
 
         try {
-            Map result = dispatcher.runSync("getInventoryAvailableByFacility",
+            Map<String, Object> result = dispatcher.runSync("getInventoryAvailableByFacility",
                                             UtilMisc.toMap("productId", productId, "facilityId", inventoryFacilityId));
 
             availableToPromise = (Double) result.get("availableToPromiseTotal");
@@ -272,14 +272,14 @@ public class ProductWorker {
      **/
     public static boolean isProductInventoryAvailableByFacility(ProductConfigWrapper productConfig, String inventoryFacilityId, double quantity, LocalDispatcher dispatcher) throws GenericServiceException {
         boolean available = true;
-        List options = productConfig.getSelectedOptions();
-        Iterator optionsIt = options.iterator();
+        List<ConfigOption> options = productConfig.getSelectedOptions();
+        Iterator<ConfigOption> optionsIt = options.iterator();
         while (optionsIt.hasNext()) {
-            ConfigOption ci = (ConfigOption)optionsIt.next();
-            List products = ci.getComponents();
-            Iterator productsIt = products.iterator();
+            ConfigOption ci = optionsIt.next();
+            List<GenericValue> products = ci.getComponents();
+            Iterator<GenericValue> productsIt = products.iterator();
             while (productsIt.hasNext()) {
-                GenericValue product = (GenericValue)productsIt.next();
+                GenericValue product = productsIt.next();
                 String productId = product.getString("productId");
                 Double cmpQuantity = product.getDouble("quantity");
                 double neededQty = 1.0;
@@ -305,16 +305,16 @@ public class ProductWorker {
             return;
 
         try {
-            List upgradeProducts = product.getRelatedByAndCache("MainProductAssoc",
+            List<GenericValue> upgradeProducts = product.getRelatedByAndCache("MainProductAssoc",
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_UPGRADE"));
 
-            List complementProducts = product.getRelatedByAndCache("MainProductAssoc",
+            List<GenericValue> complementProducts = product.getRelatedByAndCache("MainProductAssoc",
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_COMPLEMENT"));
 
-            List obsolescenceProducts = product.getRelatedByAndCache("AssocProductAssoc",
+            List<GenericValue> obsolescenceProducts = product.getRelatedByAndCache("AssocProductAssoc",
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_OBSOLESCENCE"));
 
-            List obsoleteByProducts = product.getRelatedByAndCache("MainProductAssoc",
+            List<GenericValue> obsoleteByProducts = product.getRelatedByAndCache("MainProductAssoc",
                     UtilMisc.toMap("productAssocTypeId", "PRODUCT_OBSOLESCENCE"));
 
             // since ProductAssoc records have a fromDate and thruDate, we can filter by now so that only assocs in the date range are included
@@ -340,7 +340,7 @@ public class ProductWorker {
      * Gets ProductFeature GenericValue for all distinguishing features of a variant product. 
      * Distinguishing means all features that are selectable on the corresponding virtual product and standard on the variant plus all DISTINGUISHING_FEAT assoc type features on the variant. 
      */
-    public static Set getVariantDistinguishingFeatures(GenericValue variantProduct) throws GenericEntityException {
+    public static Set<GenericValue> getVariantDistinguishingFeatures(GenericValue variantProduct) throws GenericEntityException {
         if (variantProduct == null) {
             return FastSet.newInstance();
         }
@@ -351,35 +351,35 @@ public class ProductWorker {
         String virtualProductId = getVariantVirtualId(variantProduct);
         
         // find all selectable features on the virtual product that are also standard features on the variant
-        Set distFeatures = FastSet.newInstance();
+        Set<GenericValue> distFeatures = FastSet.newInstance();
         
-        List variantDistinguishingFeatures = delegator.findByAndCache("ProductFeatureAndAppl", UtilMisc.toMap("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "DISTINGUISHING_FEAT"));
+        List<GenericValue> variantDistinguishingFeatures = delegator.findByAndCache("ProductFeatureAndAppl", UtilMisc.toMap("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "DISTINGUISHING_FEAT"));
         // Debug.logInfo("Found variantDistinguishingFeatures: " + variantDistinguishingFeatures, module);
 
-        Iterator variantDistinguishingFeatureIter = UtilMisc.toIterator(EntityUtil.filterByDate(variantDistinguishingFeatures));
+        Iterator<GenericValue> variantDistinguishingFeatureIter = UtilMisc.toIterator(EntityUtil.filterByDate(variantDistinguishingFeatures));
         while (variantDistinguishingFeatureIter != null && variantDistinguishingFeatureIter.hasNext()) {
-            GenericValue variantDistinguishingFeature = (GenericValue) variantDistinguishingFeatureIter.next();
+            GenericValue variantDistinguishingFeature = variantDistinguishingFeatureIter.next();
             GenericValue dummyFeature = delegator.makeValue("ProductFeature");
             dummyFeature.setAllFields(variantDistinguishingFeature, true, null, null);
             distFeatures.add(dummyFeature);
         }
 
-        List virtualSelectableFeatures = delegator.findByAndCache("ProductFeatureAndAppl", UtilMisc.toMap("productId", virtualProductId, "productFeatureApplTypeId", "SELECTABLE_FEATURE"));
+        List<GenericValue> virtualSelectableFeatures = delegator.findByAndCache("ProductFeatureAndAppl", UtilMisc.toMap("productId", virtualProductId, "productFeatureApplTypeId", "SELECTABLE_FEATURE"));
         // Debug.logInfo("Found virtualSelectableFeatures: " + virtualSelectableFeatures, module);
 
-        Iterator virtualSelectableFeatureIter = UtilMisc.toIterator(EntityUtil.filterByDate(virtualSelectableFeatures));
-        Set virtualSelectableFeatureIds = FastSet.newInstance();
+        Iterator<GenericValue> virtualSelectableFeatureIter = UtilMisc.toIterator(EntityUtil.filterByDate(virtualSelectableFeatures));
+        Set<String> virtualSelectableFeatureIds = FastSet.newInstance();
         while (virtualSelectableFeatureIter != null && virtualSelectableFeatureIter.hasNext()) {
-            GenericValue virtualSelectableFeature = (GenericValue) virtualSelectableFeatureIter.next();
-            virtualSelectableFeatureIds.add(virtualSelectableFeature.get("productFeatureId"));
+            GenericValue virtualSelectableFeature = virtualSelectableFeatureIter.next();
+            virtualSelectableFeatureIds.add(virtualSelectableFeature.getString("productFeatureId"));
         }
         
-        List variantStandardFeatures = delegator.findByAndCache("ProductFeatureAndAppl", UtilMisc.toMap("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "STANDARD_FEATURE"));
+        List<GenericValue> variantStandardFeatures = delegator.findByAndCache("ProductFeatureAndAppl", UtilMisc.toMap("productId", variantProduct.get("productId"), "productFeatureApplTypeId", "STANDARD_FEATURE"));
         // Debug.logInfo("Found variantStandardFeatures: " + variantStandardFeatures, module);
 
-        Iterator variantStandardFeatureIter = UtilMisc.toIterator(EntityUtil.filterByDate(variantStandardFeatures));
+        Iterator<GenericValue> variantStandardFeatureIter = UtilMisc.toIterator(EntityUtil.filterByDate(variantStandardFeatures));
         while (variantStandardFeatureIter != null && variantStandardFeatureIter.hasNext()) {
-            GenericValue variantStandardFeature = (GenericValue) variantStandardFeatureIter.next();
+            GenericValue variantStandardFeature = variantStandardFeatureIter.next();
             if (virtualSelectableFeatureIds.contains(variantStandardFeature.get("productFeatureId"))) {
                 GenericValue dummyFeature = delegator.makeValue("ProductFeature");
                 dummyFeature.setAllFields(variantStandardFeature, true, null, null);
@@ -399,14 +399,14 @@ public class ProductWorker {
             GenericValue alternativeOptionProduct = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", alternativeOptionProductId));
             if (alternativeOptionProduct != null) {
                 if ("Y".equals(alternativeOptionProduct.getString("isVariant"))) {
-                    Set distFeatures = getVariantDistinguishingFeatures(alternativeOptionProduct);
+                    Set<GenericValue> distFeatures = getVariantDistinguishingFeatures(alternativeOptionProduct);
                     if (UtilValidate.isNotEmpty(distFeatures)) {
                         // Debug.logInfo("Found distinguishing features: " + distFeatures, module);
                         
                         StringBuilder nameBuf = new StringBuilder();
-                        Iterator distFeatIter = distFeatures.iterator();
+                        Iterator<GenericValue> distFeatIter = distFeatures.iterator();
                         while (distFeatIter.hasNext()) {
-                            GenericValue productFeature = (GenericValue) distFeatIter.next();
+                            GenericValue productFeature = distFeatIter.next();
                             GenericValue productFeatureType = productFeature.getRelatedOneCache("ProductFeatureType");
                             if (productFeatureType != null) {
                                 nameBuf.append(productFeatureType.get("description", locale));
@@ -442,7 +442,7 @@ public class ProductWorker {
      * @param productFeatureApplTypeId - if null, returns ALL productFeatures, regardless of applType
      * @return List
      */
-    public static List getProductFeaturesByApplTypeId(GenericDelegator delegator, String productId, String productFeatureApplTypeId) {
+    public static List<GenericValue> getProductFeaturesByApplTypeId(GenericDelegator delegator, String productId, String productFeatureApplTypeId) {
         if (productId == null) {
             return null;
         }
@@ -455,14 +455,14 @@ public class ProductWorker {
         return null;
     }
 
-    public static List getProductFeaturesByApplTypeId(GenericValue product, String productFeatureApplTypeId) {
+    public static List<GenericValue> getProductFeaturesByApplTypeId(GenericValue product, String productFeatureApplTypeId) {
         if (product == null) {
             return null;
         }
-        List features = FastList.newInstance();
+        List<GenericValue> features = FastList.newInstance();
         try {
             if (product != null) {
-                List productAppls;
+                List<GenericValue> productAppls;
                 if (productFeatureApplTypeId == null) {
                     productAppls = product.getRelated("ProductFeatureAppl");
                 } else {
@@ -470,7 +470,7 @@ public class ProductWorker {
                             UtilMisc.toMap("productFeatureApplTypeId", productFeatureApplTypeId));
                 }
                 for (int i = 0; i < productAppls.size(); i++) {
-                    GenericValue productAppl = (GenericValue)productAppls.get(i);
+                    GenericValue productAppl = productAppls.get(i);
                     features.add(productAppl.getRelatedOne("ProductFeature"));
                 }
                 features = EntityUtil.orderBy(features, UtilMisc.toList("description"));
@@ -511,18 +511,18 @@ public class ProductWorker {
                 GenericDelegator delegator = product.getDelegator();
                 Map<String,String> fields = UtilMisc.toMap("productId", product.getString("productId"), "productFeatureApplTypeId", "SELECTABLE_FEATURE");
                 List<String> order = UtilMisc.toList("productFeatureTypeId", "sequenceNum");
-                List features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
-                List featuresSorted = (List) UtilMisc.sortMaps(features, order);
-                Iterator it = (Iterator) featuresSorted.iterator();
+                List<GenericValue> features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
+                List<GenericValue> featuresSorted = EntityUtil.orderBy(features, order);
+                Iterator<GenericValue> it = featuresSorted.iterator();
                 String oldType = null;
                 List<Map<String,String>> featureList = FastList.newInstance();
                 while(it.hasNext()) {
-                    GenericValue productFeatureAppl = (GenericValue) it.next();
+                    GenericValue productFeatureAppl = it.next();
                     if (oldType == null || !oldType.equals(productFeatureAppl.getString("productFeatureTypeId"))) {
                     	// use first entry for type and description
                         if (oldType != null) {
                             featureTypeFeatures.add(featureList);
-                            featureList =  FastList.newInstance();
+                            featureList = FastList.newInstance();
                             } 
                         GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", 
                         		productFeatureAppl.getString("productFeatureTypeId")));
@@ -531,13 +531,13 @@ public class ProductWorker {
                         oldType = productFeatureAppl.getString("productFeatureTypeId");
                     }
                     // fill other entries with featureId, description and default price and currency
-                    Map <String,String> featureData = UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"));
+                    Map<String,String> featureData = UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"));
                     if (UtilValidate.isNotEmpty(productFeatureAppl.get("description"))) {
                 		featureData.put("description", productFeatureAppl.getString("description"));
                     } else {
                     	featureData.put("description", productFeatureAppl.getString("productFeatureId"));
                     }
-                    List <GenericValue> productFeaturePrices = EntityUtil.filterByDate(delegator.findByAnd("ProductFeaturePrice", 
+                    List<GenericValue> productFeaturePrices = EntityUtil.filterByDate(delegator.findByAnd("ProductFeaturePrice", 
                     		UtilMisc.toMap("productFeatureId", productFeatureAppl.getString("productFeatureId"), "productPriceTypeId", "DEFAULT_PRICE")));
                     if (UtilValidate.isNotEmpty(productFeaturePrices)) {
                     	GenericValue productFeaturePrice = productFeaturePrices.get(0);
@@ -559,10 +559,10 @@ public class ProductWorker {
         return featureTypeFeatures;
     }
 
-    public static Map getOptionalProductFeatures(GenericDelegator delegator, String productId) {
-        Map featureMap = new LinkedHashMap();
+    public static Map<String, List<GenericValue>> getOptionalProductFeatures(GenericDelegator delegator, String productId) {
+        Map<String, List<GenericValue>> featureMap = new LinkedHashMap<String, List<GenericValue>>();
 
-        List productFeatureAppls = null;
+        List<GenericValue> productFeatureAppls = null;
         try {
             productFeatureAppls = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "OPTIONAL_FEATURE"), UtilMisc.toList("productFeatureTypeId", "sequenceNum"));
         } catch (GenericEntityException e) {
@@ -570,11 +570,11 @@ public class ProductWorker {
         }
 
         if (productFeatureAppls != null) {
-            Iterator i = productFeatureAppls.iterator();
+            Iterator<GenericValue> i = productFeatureAppls.iterator();
             while (i.hasNext()) {
-                GenericValue appl = (GenericValue) i.next();
+                GenericValue appl = i.next();
                 String featureType = appl.getString("productFeatureTypeId");
-                List features = (List) featureMap.get(featureType);
+                List<GenericValue> features = featureMap.get(featureType);
                 if (features == null) {
                     features = FastList.newInstance();
                 }
@@ -588,15 +588,15 @@ public class ProductWorker {
 
     // product calc methods
     
-    public static double calcOrderAdjustments(List orderHeaderAdjustments, double subTotal, boolean includeOther, boolean includeTax, boolean includeShipping) {
+    public static double calcOrderAdjustments(List<GenericValue> orderHeaderAdjustments, double subTotal, boolean includeOther, boolean includeTax, boolean includeShipping) {
         double adjTotal = 0.0;
 
         if (UtilValidate.isNotEmpty(orderHeaderAdjustments)) {
-            List filteredAdjs = filterOrderAdjustments(orderHeaderAdjustments, includeOther, includeTax, includeShipping, false, false);
-            Iterator adjIt = filteredAdjs.iterator();
+            List<GenericValue> filteredAdjs = filterOrderAdjustments(orderHeaderAdjustments, includeOther, includeTax, includeShipping, false, false);
+            Iterator<GenericValue> adjIt = filteredAdjs.iterator();
 
             while (adjIt.hasNext()) {
-                GenericValue orderAdjustment = (GenericValue) adjIt.next();
+                GenericValue orderAdjustment = adjIt.next();
 
                 adjTotal += calcOrderAdjustment(orderAdjustment, subTotal);
             }
@@ -616,14 +616,14 @@ public class ProductWorker {
         return adjustment;
     }    
     
-    public static List filterOrderAdjustments(List adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
-        List newOrderAdjustmentsList = FastList.newInstance();
+    public static List<GenericValue> filterOrderAdjustments(List<GenericValue> adjustments, boolean includeOther, boolean includeTax, boolean includeShipping, boolean forTax, boolean forShipping) {
+        List<GenericValue> newOrderAdjustmentsList = FastList.newInstance();
 
         if (UtilValidate.isNotEmpty(adjustments)) {
-            Iterator adjIt = adjustments.iterator();
+            Iterator<GenericValue> adjIt = adjustments.iterator();
 
             while (adjIt.hasNext()) {
-                GenericValue orderAdjustment = (GenericValue) adjIt.next();
+                GenericValue orderAdjustment = adjIt.next();
 
                 boolean includeAdjustment = false;
 
@@ -671,7 +671,7 @@ public class ProductWorker {
         return getAverageProductRating(product, null, productStoreId);
     }
 
-    public static double getAverageProductRating(GenericValue product, List reviews, String productStoreId) {
+    public static double getAverageProductRating(GenericValue product, List<GenericValue> reviews, String productStoreId) {
         if (product == null) {
             Debug.logWarning("Invalid product entity passed; unable to obtain valid product rating", module);
             return 0.00;
@@ -686,14 +686,14 @@ public class ProductWorker {
             productEntityRating = Double.valueOf(0);
         }
         if (entityFieldType == null) {
-            entityFieldType = new String();
+            entityFieldType = "";
         }
 
         if ("PRDR_FLAT".equals(entityFieldType)) {
             productRating = productEntityRating.doubleValue();
         } else {
             // get the product rating from the ProductReview entity; limit by product store if ID is passed
-            Map reviewByAnd = UtilMisc.toMap("statusId", "PRR_APPROVED");
+            Map<String, String> reviewByAnd = UtilMisc.toMap("statusId", "PRR_APPROVED");
             if (productStoreId != null) {
                 reviewByAnd.put("productStoreId", productStoreId);
             }
@@ -711,9 +711,9 @@ public class ProductWorker {
             double ratingTally = 0;
             double numRatings = 0;
             if (reviews != null) {
-                Iterator i = reviews.iterator();
+                Iterator<GenericValue> i = reviews.iterator();
                 while (i.hasNext()) {
-                    GenericValue productReview = (GenericValue) i.next();
+                    GenericValue productReview = i.next();
                     Double rating = productReview.getDouble("productRating");
                     if (rating != null) {
                         ratingTally += rating.doubleValue();
@@ -741,7 +741,7 @@ public class ProductWorker {
         return productRating;
     }
 
-    public static List getCurrentProductCategories(GenericDelegator delegator, String productId) {
+    public static List<GenericValue> getCurrentProductCategories(GenericDelegator delegator, String productId) {
         GenericValue product = null;
         try {
             product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
@@ -751,13 +751,13 @@ public class ProductWorker {
         return getCurrentProductCategories(delegator, product);
     }
 
-    public static List getCurrentProductCategories(GenericDelegator delegator, GenericValue product) {
+    public static List<GenericValue> getCurrentProductCategories(GenericDelegator delegator, GenericValue product) {
         if (product == null) {
             return null;
         }
-        List categories = FastList.newInstance();
+        List<GenericValue> categories = FastList.newInstance();
         try {
-            List categoryMembers = product.getRelated("ProductCategoryMember");
+            List<GenericValue> categoryMembers = product.getRelated("ProductCategoryMember");
             categoryMembers = EntityUtil.filterByDate(categoryMembers);
             categories = EntityUtil.getRelated("ProductCategory", categoryMembers);
         } catch (GenericEntityException e) {
@@ -774,7 +774,7 @@ public class ProductWorker {
         }
 
         try {
-            List virtualProductAssocs = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("-fromDate"));
+            List<GenericValue> virtualProductAssocs = delegator.findByAndCache("ProductAssoc", UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_VARIANT"), UtilMisc.toList("-fromDate"));
             virtualProductAssocs = EntityUtil.filterByDate(virtualProductAssocs);
             if (UtilValidate.isEmpty(virtualProductAssocs)) {
                 //okay, not a variant, try a UNIQUE_ITEM
@@ -956,7 +956,7 @@ public class ProductWorker {
         return products;
     }
 
-    public static List findProducts(GenericDelegator delegator, String idToFind) throws GenericEntityException {
+    public static List<GenericValue> findProducts(GenericDelegator delegator, String idToFind) throws GenericEntityException {
         return findProducts(delegator, idToFind, null);
     }
 
@@ -989,31 +989,31 @@ public class ProductWorker {
         return false;
     }
     
-    public static Set getRefurbishedProductIdSet(String productId, GenericDelegator delegator) throws GenericEntityException {
-        Set productIdSet = FastSet.newInstance();
+    public static Set<String> getRefurbishedProductIdSet(String productId, GenericDelegator delegator) throws GenericEntityException {
+        Set<String> productIdSet = FastSet.newInstance();
 
         // find associated refurb items, we want serial number for main item or any refurb items too
-        List refubProductAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", 
+        List<GenericValue> refubProductAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", 
                 UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_REFURB")));
-        Iterator refubProductAssocIter = refubProductAssocs.iterator();
+        Iterator<GenericValue> refubProductAssocIter = refubProductAssocs.iterator();
         while (refubProductAssocIter.hasNext()) {
-            GenericValue refubProductAssoc = (GenericValue) refubProductAssocIter.next();
-            productIdSet.add(refubProductAssoc.get("productIdTo"));
+            GenericValue refubProductAssoc = refubProductAssocIter.next();
+            productIdSet.add(refubProductAssoc.getString("productIdTo"));
         }
         
         // see if this is a refurb productId to, and find product(s) it is a refurb of
-        List refubProductToAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", 
+        List<GenericValue> refubProductToAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", 
                 UtilMisc.toMap("productIdTo", productId, "productAssocTypeId", "PRODUCT_REFURB")));
-        Iterator refubProductToAssocIter = refubProductToAssocs.iterator();
+        Iterator<GenericValue> refubProductToAssocIter = refubProductToAssocs.iterator();
         while (refubProductToAssocIter.hasNext()) {
-            GenericValue refubProductToAssoc = (GenericValue) refubProductToAssocIter.next();
-            productIdSet.add(refubProductToAssoc.get("productId"));
+            GenericValue refubProductToAssoc = refubProductToAssocIter.next();
+            productIdSet.add(refubProductToAssoc.getString("productId"));
         }
         
         return productIdSet;
     }
     
-    public static String getVariantFromFeatureTree(String productId, List selectedFeatures, GenericDelegator delegator) {
+    public static String getVariantFromFeatureTree(String productId, List<String> selectedFeatures, GenericDelegator delegator) {
         
         //  all method code moved here from ShoppingCartEvents.addToCart event
         String variantProductId = null;
@@ -1078,15 +1078,15 @@ public class ProductWorker {
             }
             // find variant
             // Debug.log("=====try to find variant for product: " + productId + " and features: " + selectedFeatures);
-            List  <GenericValue> productAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId","PRODUCT_VARIANT")));
+            List<GenericValue> productAssocs = EntityUtil.filterByDate(delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId","PRODUCT_VARIANT")));
             Iterator <GenericValue> assocIter = productAssocs.iterator();
             boolean productFound = false;
 nextProd:       while(assocIter.hasNext()) {
-                GenericValue productAssoc = (GenericValue) assocIter.next();
+                GenericValue productAssoc = assocIter.next();
                 Iterator <String> fIter = selectedFeatures.iterator();
                 while (fIter.hasNext()) {
-                    String featureId = (String) fIter.next();
-                    List <GenericValue> pAppls = delegator.findByAndCache("ProductFeatureAppl", UtilMisc.toMap("productId", productAssoc.getString("productIdTo"), "productFeatureId", featureId, "productFeatureApplTypeId","STANDARD_FEATURE"));
+                    String featureId = fIter.next();
+                    List<GenericValue> pAppls = delegator.findByAndCache("ProductFeatureAppl", UtilMisc.toMap("productId", productAssoc.getString("productIdTo"), "productFeatureId", featureId, "productFeatureApplTypeId","STANDARD_FEATURE"));
                     if (UtilValidate.isEmpty(pAppls)) {
                         continue nextProd;
                     }
@@ -1121,7 +1121,7 @@ nextProd:       while(assocIter.hasNext()) {
                     productFeatureAppl.create();
                 }
                 //add standard features too
-                List <GenericValue> stdFeaturesAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE")));
+                List<GenericValue> stdFeaturesAppls = EntityUtil.filterByDate(delegator.findByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "STANDARD_FEATURE")));
                 Iterator <GenericValue> stdFeatureIter = stdFeaturesAppls.iterator();               
                 while (stdFeatureIter.hasNext()) {
                     GenericValue stdFeaturesAppl = stdFeatureIter.next();
@@ -1132,7 +1132,7 @@ nextProd:       while(assocIter.hasNext()) {
                  *  take the default price from the vitual product, go to the productfeature table and retrieve all the prices for the difFerent features
                  *  add these to the price of the virtual product, store the result as the default price on the variant you created.
                  */
-                List <GenericValue> productPrices = EntityUtil.filterByDate(delegator.findByAnd("ProductPrice", UtilMisc.toMap("productId", productId)));
+                List<GenericValue> productPrices = EntityUtil.filterByDate(delegator.findByAnd("ProductPrice", UtilMisc.toMap("productId", productId)));
                 Iterator <GenericValue> ppIter = productPrices.iterator();
                 while (ppIter.hasNext()) {
                     GenericValue productPrice = ppIter.next();
@@ -1160,7 +1160,7 @@ nextProd:       while(assocIter.hasNext()) {
                 Debug.log("set the productId to: " + product.getString("productId"));
                 
                 // copy the supplier
-                List <GenericValue> supplierProducts = delegator.findByAndCache("SupplierProduct", UtilMisc.toMap("productId", productId));
+                List<GenericValue> supplierProducts = delegator.findByAndCache("SupplierProduct", UtilMisc.toMap("productId", productId));
                 Iterator <GenericValue> SPite = supplierProducts.iterator();
                 while (SPite.hasNext()) {
                     GenericValue supplierProduct = SPite.next();
@@ -1169,7 +1169,7 @@ nextProd:       while(assocIter.hasNext()) {
                 }
                 
                 // copy the content
-                List <GenericValue> productContents = delegator.findByAndCache("ProductContent", UtilMisc.toMap("productId", productId));
+                List<GenericValue> productContents = delegator.findByAndCache("ProductContent", UtilMisc.toMap("productId", productId));
                 Iterator <GenericValue> productContentsTte = productContents.iterator();
                 while (productContentsTte.hasNext()) {
                     GenericValue productContent = productContentsTte.next();

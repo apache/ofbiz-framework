@@ -83,16 +83,16 @@ public class ProductSearchEvents {
 
                 int numRemoved = 0;
                 GenericValue searchResultView = null;
-                while ((searchResultView = (GenericValue) eli.next()) != null) {
+                while ((searchResultView = eli.next()) != null) {
                     String productId = searchResultView.getString("mainProductId");
                     numRemoved += delegator.removeByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId )) ;
                 }
                 eli.close();
-                Map messageMap = UtilMisc.toMap("numRemoved", Integer.toString(numRemoved));
+                Map<String, String> messageMap = UtilMisc.toMap("numRemoved", Integer.toString(numRemoved));
                 errMsg = UtilProperties.getMessage(resource,"productsearchevents.removed_x_items", messageMap, UtilHttp.getLocale(request));
                 request.setAttribute("_EVENT_MESSAGE_", errMsg);
             } catch (GenericEntityException e) {
-                Map messageMap = UtilMisc.toMap("errSearchResult", e.toString());
+                Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
                 errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
                 Debug.logError(e, errMsg, module);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -102,7 +102,7 @@ public class ProductSearchEvents {
                 TransactionUtil.commit(beganTransaction);
             }
         } catch (GenericTransactionException e) {
-            Map messageMap = UtilMisc.toMap("errSearchResult", e.toString());
+            Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
             errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
             Debug.logError(e, errMsg, module);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -126,7 +126,7 @@ public class ProductSearchEvents {
        try {
            thruDate = Timestamp.valueOf(thruDateStr);
        } catch (RuntimeException e) {
-           Map messageMap = UtilMisc.toMap("errDateFormat", e.toString());
+           Map<String, String> messageMap = UtilMisc.toMap("errDateFormat", e.toString());
            errMsg = UtilProperties.getMessage(resource,"productsearchevents.thruDate_not_formatted_properly", messageMap, UtilHttp.getLocale(request));
            Debug.logError(e, errMsg, module);
            request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -145,15 +145,15 @@ public class ProductSearchEvents {
 
                GenericValue searchResultView = null;
                int numExpired=0;
-               while ((searchResultView = (GenericValue) eli.next()) != null) {
+               while ((searchResultView = eli.next()) != null) {
                    String productId = searchResultView.getString("mainProductId");
                    //get all tuples that match product and category
-                   List pcmList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId ));
+                   List<GenericValue> pcmList = delegator.findByAnd("ProductCategoryMember", UtilMisc.toMap("productCategoryId", productCategoryId, "productId", productId ));
 
                    //set those thrudate to that specificed maybe remove then add new one
-                   Iterator pcmListIter=pcmList.iterator();
+                   Iterator<GenericValue> pcmListIter=pcmList.iterator();
                    while (pcmListIter.hasNext()) {
-                       GenericValue pcm = (GenericValue) pcmListIter.next();
+                       GenericValue pcm = pcmListIter.next();
                        if (pcm.get("thruDate") == null) {
                            pcm.set("thruDate", thruDate);
                            pcm.store();
@@ -161,12 +161,12 @@ public class ProductSearchEvents {
                        }
                    }
                }
-               Map messageMap = UtilMisc.toMap("numExpired", Integer.toString(numExpired));
+               Map<String, String> messageMap = UtilMisc.toMap("numExpired", Integer.toString(numExpired));
                errMsg = UtilProperties.getMessage(resource,"productsearchevents.expired_x_items", messageMap, UtilHttp.getLocale(request));
                request.setAttribute("_EVENT_MESSAGE_", errMsg);
                eli.close();
            } catch (GenericEntityException e) {
-               Map messageMap = UtilMisc.toMap("errSearchResult", e.toString());
+               Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
                errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
                Debug.logError(e, errMsg, module);
                request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -176,7 +176,7 @@ public class ProductSearchEvents {
                TransactionUtil.commit(beganTransaction);
            }
        } catch (GenericTransactionException e) {
-           Map messageMap = UtilMisc.toMap("errSearchResult", e.toString());
+           Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
            errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
            Debug.logError(e, errMsg, module);
            request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -201,7 +201,7 @@ public class ProductSearchEvents {
        try {
            fromDate = Timestamp.valueOf(fromDateStr);
         } catch (RuntimeException e) {
-           Map messageMap = UtilMisc.toMap("errDateFormat", e.toString());
+           Map<String, String> messageMap = UtilMisc.toMap("errDateFormat", e.toString());
            errMsg = UtilProperties.getMessage(resource,"productsearchevents.fromDate_not_formatted_properly", messageMap, UtilHttp.getLocale(request));
            request.setAttribute("_ERROR_MESSAGE_", errMsg);
             return "error";
@@ -231,12 +231,12 @@ public class ProductSearchEvents {
 
                    numAdded++;
                }
-               Map messageMap = UtilMisc.toMap("numAdded", Integer.toString(numAdded));
+               Map<String, String> messageMap = UtilMisc.toMap("numAdded", Integer.toString(numAdded));
                errMsg = UtilProperties.getMessage(resource,"productsearchevents.added_x_product_category_members", messageMap, UtilHttp.getLocale(request));
                request.setAttribute("_EVENT_MESSAGE_", errMsg);
                eli.close();
            } catch (GenericEntityException e) {
-               Map messageMap = UtilMisc.toMap("errSearchResult", e.toString());
+               Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
                errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
                Debug.logError(e, errMsg, module);
                request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -246,7 +246,7 @@ public class ProductSearchEvents {
                TransactionUtil.commit(beganTransaction);
            }
        } catch (GenericTransactionException e) {
-           Map messageMap = UtilMisc.toMap("errSearchResult", e.toString());
+           Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
            errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
            Debug.logError(e, errMsg, module);
            request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -322,7 +322,7 @@ public class ProductSearchEvents {
                     pfa.create();
                     numAdded++;
                 }
-                Map messageMap = UtilMisc.toMap("numAdded", Integer.valueOf(numAdded), "productFeatureId", productFeatureId);
+                Map<String, String> messageMap = UtilMisc.toMap("numAdded", Integer.valueOf(numAdded), "productFeatureId", productFeatureId);
                 String eventMsg = UtilProperties.getMessage(resource, "productSearchEvents.added_param_features", messageMap, locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", eventMsg);
                 eli.close();
@@ -372,7 +372,7 @@ public class ProductSearchEvents {
                     String productId = searchResultView.getString("mainProductId");
                     numRemoved += delegator.removeByAnd("ProductFeatureAppl", UtilMisc.toMap("productId", productId, "productFeatureId", productFeatureId));
                 }
-                Map messageMap = UtilMisc.toMap("numRemoved", Integer.valueOf(numRemoved), "productFeatureId", productFeatureId);
+                Map<String, String> messageMap = UtilMisc.toMap("numRemoved", Integer.valueOf(numRemoved), "productFeatureId", productFeatureId);
                 String eventMsg = UtilProperties.getMessage(resource, "productSearchEvents.removed_param_features", messageMap, locale) + ".";
                 request.setAttribute("_EVENT_MESSAGE_", eventMsg);
                 eli.close();
@@ -403,7 +403,7 @@ public class ProductSearchEvents {
     public static String searchExportProductList(HttpServletRequest request, HttpServletResponse response) {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         String errMsg = null;
-        List productExportList = FastList.newInstance();
+        List<Map<String, Object>> productExportList = FastList.newInstance();
 
         try {
             boolean beganTransaction = TransactionUtil.begin(DEFAULT_TX_TIMEOUT);
@@ -416,26 +416,26 @@ public class ProductSearchEvents {
                 }
 
                 GenericValue searchResultView = null;
-                while ((searchResultView = (GenericValue) eli.next()) != null) {
-                    Map productMap = FastMap.newInstance();
+                while ((searchResultView = eli.next()) != null) {
+                    Map<String, Object> productMap = FastMap.newInstance();
                     String productId = searchResultView.getString("mainProductId");
                     productMap.put("productId", productId);
                     
-                    List productFeaturesCustomRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureTypeId", "HAZMAT") );
-                    List productFeaturesCustom = EntityUtil.filterByDate(productFeaturesCustomRaw);
+                    List<GenericValue> productFeaturesCustomRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId, "productFeatureTypeId", "HAZMAT") );
+                    List<GenericValue> productFeaturesCustom = EntityUtil.filterByDate(productFeaturesCustomRaw);
                     productMap.put("productFeatureCustom", EntityUtil.getFirst(productFeaturesCustom));
                     
-                    List productCategoriesRaw = delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productId", productId));
-                    List productCategories = EntityUtil.filterByDate(productCategoriesRaw);
+                    List<GenericValue> productCategoriesRaw = delegator.findByAnd("ProductCategoryAndMember", UtilMisc.toMap("productId", productId));
+                    List<GenericValue> productCategories = EntityUtil.filterByDate(productCategoriesRaw);
                     productMap.put("productCategories", productCategories);
-                    List productFeaturesRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId) );
-                    List productFeatures = EntityUtil.filterByDate(productFeaturesRaw);
+                    List<GenericValue> productFeaturesRaw = delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId) );
+                    List<GenericValue> productFeatures = EntityUtil.filterByDate(productFeaturesRaw);
                     productMap.put("productFeatures", productFeatures);
                     productExportList.add(productMap);
                 }
                 eli.close();
             } catch (GenericEntityException e) {
-                Map messageMap = UtilMisc.toMap("errSearchResult", e.toString());
+                Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
                 errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
                 Debug.logError(e, errMsg, module);
                 request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -445,7 +445,7 @@ public class ProductSearchEvents {
                 TransactionUtil.commit(beganTransaction);
             }
         } catch (GenericTransactionException e) {
-            Map messageMap = UtilMisc.toMap("errSearchResult", e.toString());
+            Map<String, String> messageMap = UtilMisc.toMap("errSearchResult", e.toString());
             errMsg = UtilProperties.getMessage(resource,"productsearchevents.error_getting_search_results", messageMap, UtilHttp.getLocale(request));
             Debug.logError(e, errMsg, module);
             request.setAttribute("_ERROR_MESSAGE_", errMsg);
@@ -461,7 +461,7 @@ public class ProductSearchEvents {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         String visitId = VisitHandler.getVisitId(session);
 
-        List productSearchConstraintList = ProductSearchSession.ProductSearchOptions.getConstraintList(session);
+        List<ProductSearch.ProductSearchConstraint> productSearchConstraintList = ProductSearchSession.ProductSearchOptions.getConstraintList(session);
         // if no constraints, don't do a search...
         if (UtilValidate.isNotEmpty(productSearchConstraintList)) {
             ResultSortOrder resultSortOrder = ProductSearchSession.ProductSearchOptions.getResultSortOrder(request);

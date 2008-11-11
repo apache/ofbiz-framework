@@ -83,10 +83,10 @@ public class KeywordIndex {
         String stopWordBagOr = KeywordSearchUtil.getStopWordBagOr();
         String stopWordBagAnd = KeywordSearchUtil.getStopWordBagAnd();
         boolean removeStems = KeywordSearchUtil.getRemoveStems();
-        Set stemSet = KeywordSearchUtil.getStemSet();
+        Set<String> stemSet = KeywordSearchUtil.getStemSet();
         
-        Map keywords = new TreeMap();
-        List strings = FastList.newInstance();
+        Map<String, Long> keywords = new TreeMap<String, Long>();
+        List<String> strings = FastList.newInstance();
 
         int pidWeight = 1;
         try {
@@ -118,9 +118,9 @@ public class KeywordIndex {
             !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.abbrev", "0")) ||
             !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductFeatureAndAppl.idCode", "0"))) {
             // get strings from attributes and features
-            Iterator productFeatureAndAppls = UtilMisc.toIterator(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId)));
+            Iterator<GenericValue> productFeatureAndAppls = UtilMisc.toIterator(delegator.findByAnd("ProductFeatureAndAppl", UtilMisc.toMap("productId", productId)));
             while (productFeatureAndAppls != null && productFeatureAndAppls.hasNext()) {
-                GenericValue productFeatureAndAppl = (GenericValue) productFeatureAndAppls.next();
+                GenericValue productFeatureAndAppl = productFeatureAndAppls.next();
                 addWeightedKeywordSourceString(productFeatureAndAppl, "description", strings);
                 addWeightedKeywordSourceString(productFeatureAndAppl, "abbrev", strings);
                 addWeightedKeywordSourceString(productFeatureAndAppl, "idCode", strings);
@@ -130,9 +130,9 @@ public class KeywordIndex {
         // ProductAttribute
         if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrName", "0")) ||
                 !"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.ProductAttribute.attrValue", "0"))) {
-            Iterator productAttributes = UtilMisc.toIterator(delegator.findByAnd("ProductAttribute", UtilMisc.toMap("productId", productId)));
+            Iterator<GenericValue> productAttributes = UtilMisc.toIterator(delegator.findByAnd("ProductAttribute", UtilMisc.toMap("productId", productId)));
             while (productAttributes != null && productAttributes.hasNext()) {
-                GenericValue productAttribute = (GenericValue) productAttributes.next();
+                GenericValue productAttribute = productAttributes.next();
                 addWeightedKeywordSourceString(productAttribute, "attrName", strings);
                 addWeightedKeywordSourceString(productAttribute, "attrValue", strings);
             }
@@ -140,9 +140,9 @@ public class KeywordIndex {
 
         // GoodIdentification
         if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.GoodIdentification.idValue", "0"))) {
-            Iterator goodIdentifications = UtilMisc.toIterator(delegator.findByAnd("GoodIdentification", UtilMisc.toMap("productId", productId)));
+            Iterator<GenericValue> goodIdentifications = UtilMisc.toIterator(delegator.findByAnd("GoodIdentification", UtilMisc.toMap("productId", productId)));
             while (goodIdentifications != null && goodIdentifications.hasNext()) {
-                GenericValue goodIdentification = (GenericValue) goodIdentifications.next();
+                GenericValue goodIdentification = goodIdentifications.next();
                 addWeightedKeywordSourceString(goodIdentification, "idValue", strings);
             }
         }
@@ -150,11 +150,11 @@ public class KeywordIndex {
         // Variant Product IDs
         if ("Y".equals(product.getString("isVirtual"))) {
             if (!"0".equals(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"))) {
-                List variantProductAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
+                List<GenericValue> variantProductAssocs = delegator.findByAnd("ProductAssoc", UtilMisc.toMap("productId", productId, "productAssocTypeId", "PRODUCT_VARIANT"));
                 variantProductAssocs = EntityUtil.filterByDate(variantProductAssocs);
-                Iterator variantProductAssocsIt = variantProductAssocs.iterator();
+                Iterator<GenericValue> variantProductAssocsIt = variantProductAssocs.iterator();
                 while (variantProductAssocsIt.hasNext()) {
-                    GenericValue variantProductAssoc = (GenericValue) variantProductAssocsIt.next();
+                    GenericValue variantProductAssoc = variantProductAssocsIt.next();
                     int weight = 1;
                     try {
                         weight = Integer.parseInt(UtilProperties.getPropertyValue("prodsearch", "index.weight.Variant.Product.productId", "0"));
@@ -169,10 +169,10 @@ public class KeywordIndex {
         }
         
         String productContentTypes = UtilProperties.getPropertyValue("prodsearch", "index.include.ProductContentTypes");
-        List productContentTypeList = Arrays.asList(productContentTypes.split(","));
-        Iterator productContentTypeIter = productContentTypeList.iterator();
+        List<String> productContentTypeList = Arrays.asList(productContentTypes.split(","));
+        Iterator<String> productContentTypeIter = productContentTypeList.iterator();
         while (productContentTypeIter.hasNext()) {
-            String productContentTypeId = (String) productContentTypeIter.next();
+            String productContentTypeId = productContentTypeIter.next();
 
             int weight = 1;
             try {
@@ -182,33 +182,33 @@ public class KeywordIndex {
                 Debug.logWarning("Could not parse weight number: " + e.toString(), module);
             }
             
-            List productContentAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), null);
-            Iterator productContentAndInfoIter = productContentAndInfos.iterator();
+            List<GenericValue> productContentAndInfos = delegator.findByAnd("ProductContentAndInfo", UtilMisc.toMap("productId", productId, "productContentTypeId", productContentTypeId), null);
+            Iterator<GenericValue> productContentAndInfoIter = productContentAndInfos.iterator();
             while (productContentAndInfoIter.hasNext()) {
-                GenericValue productContentAndInfo = (GenericValue) productContentAndInfoIter.next();
+                GenericValue productContentAndInfo = productContentAndInfoIter.next();
                 addWeightedDataResourceString(productContentAndInfo, weight, strings, delegator, product);
                 
-                List alternateViews = productContentAndInfo.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
+                List<GenericValue> alternateViews = productContentAndInfo.getRelated("ContentAssocDataResourceViewTo", UtilMisc.toMap("caContentAssocTypeId", "ALTERNATE_LOCALE"), UtilMisc.toList("-caFromDate"));
                 alternateViews = EntityUtil.filterByDate(alternateViews, UtilDateTime.nowTimestamp(), "caFromDate", "caThruDate", true);
-                Iterator alternateViewIter = alternateViews.iterator();
+                Iterator<GenericValue> alternateViewIter = alternateViews.iterator();
                 while (alternateViewIter.hasNext()) {
-                    GenericValue thisView = (GenericValue) alternateViewIter.next();
+                    GenericValue thisView = alternateViewIter.next();
                     addWeightedDataResourceString(thisView, weight, strings, delegator, product);
                 }
             }
         }
         
-        Iterator strIter = strings.iterator();
+        Iterator<String> strIter = strings.iterator();
         while (strIter.hasNext()) {
-            String str = (String) strIter.next();
+            String str = strIter.next();
             // call process keywords method here
             KeywordSearchUtil.processKeywordsForIndex(str, keywords, separators, stopWordBagAnd, stopWordBagOr, removeStems, stemSet);
         }
 
-        List toBeStored = FastList.newInstance();
-        Iterator kiter = keywords.entrySet().iterator();
+        List<GenericValue> toBeStored = FastList.newInstance();
+        Iterator<Map.Entry<String, Long>> kiter = keywords.entrySet().iterator();
         while (kiter.hasNext()) {
-            Map.Entry entry = (Map.Entry) kiter.next();
+            Map.Entry<String, Long> entry = kiter.next();
             GenericValue productKeyword = delegator.makeValue("ProductKeyword", UtilMisc.toMap("productId", product.getString("productId"), "keyword", entry.getKey(), "relevancyWeight", entry.getValue()));
             toBeStored.add(productKeyword);
         }
@@ -224,8 +224,8 @@ public class KeywordIndex {
         }
     }
     
-    public static void addWeightedDataResourceString(GenericValue drView, int weight, List strings, GenericDelegator delegator, GenericValue product) {
-        Map drContext = UtilMisc.toMap("product", product);
+    public static void addWeightedDataResourceString(GenericValue drView, int weight, List<String> strings, GenericDelegator delegator, GenericValue product) {
+        Map<String, GenericValue> drContext = UtilMisc.toMap("product", product);
         try {
             String contentText = DataResourceWorker.renderDataResourceAsText(delegator, drView.getString("dataResourceId"), drContext, null, null, false);
             for (int i = 0; i < weight; i++) {
@@ -238,7 +238,7 @@ public class KeywordIndex {
         }
     }
 
-    public static void addWeightedKeywordSourceString(GenericValue value, String fieldName, List strings) {
+    public static void addWeightedKeywordSourceString(GenericValue value, String fieldName, List<String> strings) {
         if (value.getString(fieldName) != null) {
             int weight = 1;
 
