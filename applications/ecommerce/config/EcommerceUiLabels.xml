@@ -1502,6 +1502,33 @@
         <value xml:lang="en">Default Addresses</value>
         <value xml:lang="fr">Adresses par défaut</value>
     </property>
+    <property key="EcommerceDefaultShipmentMethod">
+        <value xml:lang="de">Standard Versandmethode</value>
+        <value xml:lang="en">Default Shipment Method</value>
+        <value xml:lang="es">Método de envío por defecto</value>
+        <value xml:lang="fr">Méthode d'expédition par défaut</value>
+        <value xml:lang="it">Metodo di spedizione di default</value>
+        <value xml:lang="ja">Default Shipment Method</value>
+        <value xml:lang="nl">Default verzendmethode</value>
+        <value xml:lang="ro">Metoda de Expediere de Default</value>
+        <value xml:lang="ru">Обычный метод доставки</value>
+        <value xml:lang="th">วิธีการขนส่ง</value>
+        <value xml:lang="zh">缺省货运方法</value>
+    </property>
+    <property key="EcommerceDefaultShipmentMethodMsg">
+        <value xml:lang="de">Bitte wählen Sie Ihre Standard Lieferadresse; danach wählen Sie eine Standard Versandmethode.</value>
+        <value xml:lang="en">Please select your default shipping address; then select a default shipping method.</value>
+        <value xml:lang="es">Favor seleccionar su dirección por defecto; luego seleccionar el método de envío por defecto</value>
+        <value xml:lang="fr">Veuillez choisir votre adresse d'expédition par défaut. Choisissez alors une méthode d'expédition par défaut.</value>
+        <value xml:lang="hi_IN">स्थयी पता चुनें माल भेजने के लिए</value>
+        <value xml:lang="it">Per favore seleziona il tuo indirizzo di spedizione predefinito; quindi seleziona il metodo di spedizione predefinito.</value>
+        <value xml:lang="ja">Please select your default shipping address; then select a default shipping method.</value>
+        <value xml:lang="nl">Selekteer uw default verzendadres en daarna uw default verzendopties</value>
+        <value xml:lang="ro">Te rugam sa selectionezi adresa ta de expediere de default; selectioneaza apoi o metoda de expediere de default.</value>
+        <value xml:lang="ru">Пожалуйста выберите ваш обычный адрес доставки; затем выберите обычные способ доставки.</value>
+        <value xml:lang="th">กรุณาเลือกที่อยู่ในการขนส่ง; จากนั้นเลือกวิธีการขนส่ง</value>
+        <value xml:lang="zh">请选择你的缺省货运地址；然后选择一个缺省的货运方法。</value>
+    </property>
     <property key="EcommerceDigitalAddFromMyFiles">
         <value xml:lang="de">Digitales hinzufügen von Meine Dateien</value>
         <value xml:lang="en">Digital Add From My Files</value>
@@ -1633,6 +1660,20 @@
         <value xml:lang="ru">Введите параметры запроса</value>
         <value xml:lang="th">เข้าไปดูคำถาม</value>
         <value xml:lang="zh">输入查询参数</value>
+    </property>
+    <property key="EcommerceEstimateNextOrderDate">
+        <value xml:lang="de">Nächstes Auftragsdatum schätzen</value>
+        <value xml:lang="en">Estimate Next Order Date</value>
+        <value xml:lang="es">Fecha siguiente de orden estimada</value>
+        <value xml:lang="fr">Date estimée de la prochaine commande</value>
+        <value xml:lang="hi_IN">अगला आर्डर तिथी</value>
+        <value xml:lang="it">Data stimata del prossimo ordine</value>
+        <value xml:lang="ja">Estimate Next Order Date</value>
+        <value xml:lang="nl">Geschatte datum voor the volgende bestelling</value>
+        <value xml:lang="ro">Stimeza Urmatoarea Data a Comenzii </value>
+        <value xml:lang="ru">Оценочная дата следующего заказа</value>
+        <value xml:lang="th">วันที่ที่คาดว่าจะทำรายการครั้งต่อไป</value>
+        <value xml:lang="zh">预计下一个订单日期</value>
     </property>
     <property key="EcommerceEvery3rd">
         <value xml:lang="de">Jeder Dritte</value>
@@ -2677,7 +2718,23 @@
         <value xml:lang="ru">Подтверждение заказа</value>
         <value xml:lang="th">การยืนยันการสั่งสินค้า</value>
         <value xml:lang="zh">订单确认</value>
-    </property>     
+    </property>
+    <property key="EcommerceOrderHistory">
+        <value xml:lang="cs">Statistika objednávek</value>
+        <value xml:lang="de">Bestellhistorie</value>
+        <value xml:lang="en">Order History</value>
+        <value xml:lang="es">Historial de Compras</value>
+        <value xml:lang="fr">Historique des commandes</value>
+        <value xml:lang="hi_IN">आर्डर इतिहास</value>
+        <value xml:lang="it">Storia ordini</value>
+        <value xml:lang="ja">注文履歴</value>
+        <value xml:lang="nl">Order Historie</value>
+        <value xml:lang="pt_PT">Histórico De Encomendas</value>
+        <value xml:lang="ro">Istoric Comenzi </value>
+        <value xml:lang="ru">История заказа</value>
+        <value xml:lang="th">ข้อมูลรายการที่สั่งซื้อ</value>
+        <value xml:lang="zh">订单历史记录</value>
+    </property>
     <property key="EcommerceOrderInLast">
         <value xml:lang="de">Aufträge in den letzten</value>
         <value xml:lang="en">order(s) in the last</value>
@@ -3954,33 +4011,6 @@
         <value xml:lang="th">ดูรายการสั่งซื้อในหน้าสุดท้ายต่อไป</value>
         <value xml:lang="zh">继续以便结束订单浏览</value>
     </property>
-    <property key="OrderDefaultShipmentMethod">
-        <value xml:lang="de">Standard Versandmethode</value>
-        <value xml:lang="en">Default Shipment Method</value>
-        <value xml:lang="es">Método de envío por defecto</value>
-        <value xml:lang="fr">Méthode d'expédition par défaut</value>
-        <value xml:lang="it">Metodo di spedizione di default</value>
-        <value xml:lang="ja">Default Shipment Method</value>
-        <value xml:lang="nl">Default verzendmethode</value>
-        <value xml:lang="ro">Metoda de Expediere de Default</value>
-        <value xml:lang="ru">Обычный метод доставки</value>
-        <value xml:lang="th">วิธีการขนส่ง</value>
-        <value xml:lang="zh">缺省货运方法</value>
-    </property>
-    <property key="OrderDefaultShipmentMethodMsg">
-        <value xml:lang="de">Bitte wählen Sie Ihre Standard Lieferadresse; danach wählen Sie eine Standard Versandmethode.</value>
-        <value xml:lang="en">Please select your default shipping address; then select a default shipping method.</value>
-        <value xml:lang="es">Favor seleccionar su dirección por defecto; luego seleccionar el método de envío por defecto</value>
-        <value xml:lang="fr">Veuillez choisir votre adresse d'expédition par défaut. Choisissez alors une méthode d'expédition par défaut.</value>
-        <value xml:lang="hi_IN">स्थयी पता चुनें माल भेजने के लिए</value>
-        <value xml:lang="it">Per favore seleziona il tuo indirizzo di spedizione predefinito; quindi seleziona il metodo di spedizione predefinito.</value>
-        <value xml:lang="ja">Please select your default shipping address; then select a default shipping method.</value>
-        <value xml:lang="nl">Selekteer uw default verzendadres en daarna uw default verzendopties</value>
-        <value xml:lang="ro">Te rugam sa selectionezi adresa ta de expediere de default; selectioneaza apoi o metoda de expediere de default.</value>
-        <value xml:lang="ru">Пожалуйста выберите ваш обычный адрес доставки; затем выберите обычные способ доставки.</value>
-        <value xml:lang="th">กรุณาเลือกที่อยู่ในการขนส่ง; จากนั้นเลือกวิธีการขนส่ง</value>
-        <value xml:lang="zh">请选择你的缺省货运地址；然后选择一个缺省的货运方法。</value>
-    </property>
     <property key="OrderDemoFrontNote">
         <value xml:lang="de">ANMERKUNG: Dies ist eine DEMO Version.  Hier getätigte Bestellungen werden NICHT in Rechnung gestellt und NICHT realisiert.</value>
         <value xml:lang="en">NOTE: This is a DEMO store-front.  Orders placed here will NOT be billed, and will NOT be fulfilled</value>
@@ -4146,20 +4176,6 @@
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่มีข้อมูลในบัตร, กรุณาเริ่มใหม่</value>
         <value xml:lang="zh">错误：购物车是空的，请重新开始</value>
     </property>
-    <property key="OrderEstimateNextOrderDate">
-        <value xml:lang="de">Nächstes Auftragsdatum schätzen</value>
-        <value xml:lang="en">Estimate Next Order Date</value>
-        <value xml:lang="es">Fecha siguiente de orden estimada</value>
-        <value xml:lang="fr">Date estimée de la prochaine commande</value>
-        <value xml:lang="hi_IN">अगला आर्डर तिथी</value>
-        <value xml:lang="it">Data stimata del prossimo ordine</value>
-        <value xml:lang="ja">Estimate Next Order Date</value>
-        <value xml:lang="nl">Geschatte datum voor the volgende bestelling</value>
-        <value xml:lang="ro">Stimeza Urmatoarea Data a Comenzii </value>
-        <value xml:lang="ru">Оценочная дата следующего заказа</value>
-        <value xml:lang="th">วันที่ที่คาดว่าจะทำรายการครั้งต่อไป</value>
-        <value xml:lang="zh">预计下一个订单日期</value>
-    </property>
     <property key="OrderFinalCheckoutReview">
         <value xml:lang="cs">Záverečný přehled objednávky</value>
         <value xml:lang="de">Abschließende Bestellüberprüfung</value>
@@ -4241,23 +4257,6 @@
         <value xml:lang="th">ผลรวมทั้งหมด</value>
         <value xml:lang="zh">总计</value>
     </property>
-    <property key="OrderHistory">
-        <value xml:lang="cs">Statistika objednávek</value>
-        <value xml:lang="de">Bestellhistorie</value>
-        <value xml:lang="en">Order History</value>
-        <value xml:lang="es">Historial de Compras</value>
-        <value xml:lang="fr">Historique des commandes</value>
-        <value xml:lang="hi_IN">आर्डर इतिहास</value>
-        <value xml:lang="it">Storia ordini</value>
-        <value xml:lang="ja">注文履歴</value>
-        <value xml:lang="nl">Order Historie</value>
-        <value xml:lang="pt_PT">Histórico De Encomendas</value>
-        <value xml:lang="ro">Istoric Comenzi </value>
-        <value xml:lang="ru">История заказа</value>
-        <value xml:lang="th">ข้อมูลรายการที่สั่งซื้อ
-        </value>
-        <value xml:lang="zh">订单历史记录</value>
-    </property>
     <property key="OrderHowShallWeShipIt">
         <value xml:lang="cs">Jak to máme poslat</value>
         <value xml:lang="de">Wie sollen wir es versenden</value>
@@ -4318,37 +4317,8 @@
         <value xml:lang="pt_PT">Instruções</value>
         <value xml:lang="ro">Instructiuni</value>
         <value xml:lang="ru">Инструкции</value>
-        <value xml:lang="th">คำแนะนำ
-        </value>
+        <value xml:lang="th">คำแนะนำ</value>
         <value xml:lang="zh">指南</value>
-    </property>
-    <property key="OrderInvoice">
-        <value xml:lang="cs">Faktura</value>
-        <value xml:lang="de">Rechnung</value>
-        <value xml:lang="en">Invoice</value>
-        <value xml:lang="es">Factura</value>
-        <value xml:lang="fr">Facture</value>
-        <value xml:lang="it">Fattura</value>
-        <value xml:lang="ja">Invoice</value>
-        <value xml:lang="nl">Factuur</value>
-        <value xml:lang="ro">Factura</value>
-        <value xml:lang="ru">Счет</value>
-        <value xml:lang="th">ใบรายการของที่สั่งซื้อ</value>
-        <value xml:lang="zh">发票</value>
-    </property>
-    <property key="OrderIsGift">
-        <value xml:lang="de">Ist ein Geschenk</value>
-        <value xml:lang="en">Is Gift</value>
-        <value xml:lang="es">es Regalo</value>
-        <value xml:lang="fr">C'est un cadeau</value>
-        <value xml:lang="hi_IN">उपहार है</value>
-        <value xml:lang="it">E' omaggio</value>
-        <value xml:lang="ja">Is Gift</value>
-        <value xml:lang="nl">Het is een geschenk</value>
-        <value xml:lang="ro">Este Omagiu</value>
-        <value xml:lang="ru">это подарок</value>
-        <value xml:lang="th">ของขวัญใช่หรือไม่</value>
-        <value xml:lang="zh">是礼品</value>
     </property>
     <property key="OrderIsThisGift">
         <value xml:lang="cs">Je to dárek</value>
@@ -4380,6 +4350,7 @@
         <value xml:lang="th">กลุ่มสินค้า</value>
         <value xml:lang="zh">明细组</value>
     </property>
+>>>>>>> .r713525
     <property key="OrderLastOrderedDate">
         <value xml:lang="de">Zuletzt bestellt am</value>
         <value xml:lang="en">Last Ordered Date</value>
@@ -4426,19 +4397,6 @@
         <value xml:lang="ru">Mail Check/Money Order</value>
         <value xml:lang="th">ตรวจสอบอีเมล์/การสั่งจ่ายเงิน</value>
         <value xml:lang="zh">汇款单</value>
-    </property>
-    <property key="OrderMoveQty">
-        <value xml:lang="de">Menge zum Verschieben</value>
-        <value xml:lang="en">Move Qty</value>
-        <value xml:lang="es">Mover Cant.</value>
-        <value xml:lang="fr">Changement de Qté</value>
-        <value xml:lang="it">Muovi Qnt</value>
-        <value xml:lang="ja">Move Qty</value>
-        <value xml:lang="nl">Verplaats hoeveelheid</value>
-        <value xml:lang="ro">Misca Cant</value>
-        <value xml:lang="ru">Переместить количество</value>
-        <value xml:lang="th">เปลี่ยนจำนวน</value>
-        <value xml:lang="zh">送货数量</value>
     </property>
     <property key="OrderNOTEMultipleShipmentsExist">
         <value xml:lang="de">Anmerkung: Mehrere Lieferungen vorhanden, verwenden Sie Lieferung aufteilen.</value>
@@ -4523,34 +4481,6 @@
         <value xml:lang="th">ไม่พบรายการสำหรับการสั่งซื้อ
         </value>
         <value xml:lang="zh">没有找到订单中可退货明细</value>
-    </property>
-    <property key="OrderNoShipGroupsDefined">
-        <value xml:lang="de">Keine Versandgruppen definiert</value>
-        <value xml:lang="en">No ship groups defined</value>
-        <value xml:lang="es">No se han definido grupos de envñio</value>
-        <value xml:lang="fr">Aucun groupe d'expédition défini</value>
-        <value xml:lang="hi_IN">कोई माल भेजने योग्य संग्रह नही</value>
-        <value xml:lang="it">Nessun gruppo spedizione definito</value>
-        <value xml:lang="ja">No ship groups defined</value>
-        <value xml:lang="nl">Geen verzendpaketten gedefinieerd</value>
-        <value xml:lang="ro">Nici-un grup expediere definit</value>
-        <value xml:lang="ru">Группы поставки не определены</value>
-        <value xml:lang="th">ไม่มีการกำหนดวิธีการขนส่ง</value>
-        <value xml:lang="zh">没有定义送货组</value>
-    </property>
-    <property key="OrderNotAGift">
-        <value xml:lang="de">Kein Geschenk</value>
-        <value xml:lang="en">Not A Gift</value>
-        <value xml:lang="es">No es un regalo</value>
-        <value xml:lang="fr">Ce n'est pas un cadeau</value>
-        <value xml:lang="hi_IN">उपहार नही है</value>
-        <value xml:lang="it">Non è un omaggio</value>
-        <value xml:lang="ja">Not A Gift</value>
-        <value xml:lang="nl">Geen geschenk</value>
-        <value xml:lang="ro">Nu este un Omagiu</value>
-        <value xml:lang="ru">Не подарок</value>
-        <value xml:lang="th">ไม่ใช่ของขวัญ</value>
-        <value xml:lang="zh">不是礼品</value>
     </property>
     <property key="OrderNotYetOrdered">
         <value xml:lang="cs">Ještě neobjednáno</value>
@@ -5026,32 +4956,6 @@
         </value>
         <value xml:lang="zh">请从地址中选择一个</value>
     </property>
-    <property key="OrderSelectShippingAddress">
-        <value xml:lang="de">Lieferadresse auswählen</value>
-        <value xml:lang="en">Select Shipping Address</value>
-        <value xml:lang="es">Seleccionar dirección de envío</value>
-        <value xml:lang="fr">Sélectionner une adresse de livraison</value>
-        <value xml:lang="hi_IN">माल भेजने का पता कहिए</value>
-        <value xml:lang="it">Seleziona indirizzo spedizione</value>
-        <value xml:lang="ja">Select Shipping Address</value>
-        <value xml:lang="nl">Selecteer een verzendadres</value>
-        <value xml:lang="ru">Выберите адрес доставки</value>
-        <value xml:lang="th">เลือกที่อยู่ในการจัดส่ง</value>
-        <value xml:lang="zh">选择送货地址</value>
-    </property>
-    <property key="OrderSelectShippingMethod">
-        <value xml:lang="de">Versandmethode auswählen</value>
-        <value xml:lang="en">Select Shipping Method</value>
-        <value xml:lang="es">Seleccionar método de envñio</value>
-        <value xml:lang="fr">Sélectionner une méthode de livraison</value>
-        <value xml:lang="hi_IN">माल भेजने का तरीका कहिए</value>
-        <value xml:lang="it">Seleziona metodo spedizione</value>
-        <value xml:lang="ja">Select Shipping Method</value>
-        <value xml:lang="nl">Select verzend methode</value>
-        <value xml:lang="ru">Выберите способ доставки</value>
-        <value xml:lang="th">เลือกวิธีการขนส่ง</value>
-        <value xml:lang="zh">选择送货方法</value>
-    </property>
     <property key="OrderSendMeThisEveryMonth">
         <value xml:lang="de">Senden Sie mir dies jeden Monat</value>
         <value xml:lang="en">Send me this every month</value>
@@ -5101,34 +5005,6 @@
         <value xml:lang="th">ส่งของทั้งหมดมาครั้งเดียวหรือที่มีอยู่
         </value>
         <value xml:lang="zh">一次全部送到，或者“送有现货的”</value>
-    </property>
-    <property key="OrderShipAllItemsTogether">
-        <value xml:lang="de">Alle Positionen zusammen versenden</value>
-        <value xml:lang="en">Ship All Items Together</value>
-        <value xml:lang="es">Enviar todo junto</value>
-        <value xml:lang="fr">Envoyer tous les articles en même temps</value>
-        <value xml:lang="hi_IN">सारा माल साथ भेजें</value>
-        <value xml:lang="it">Spedisci tutte gli articoli insieme</value>
-        <value xml:lang="ja">Ship All Items Together</value>
-        <value xml:lang="nl">Vezend alles samen</value>
-        <value xml:lang="ro">Expediaza Toate liniile Impreuna </value>
-        <value xml:lang="ru">Поставлять все позиции вместе</value>
-        <value xml:lang="th">ส่งของทั้งหมดมาพร้อมกัน</value>
-        <value xml:lang="zh">把全部明细一起送到</value>
-    </property>
-    <property key="OrderShipItemsWhenAvailable">
-        <value xml:lang="de">Positionen versenden sobald verfügbar</value>
-        <value xml:lang="en">Ship Items When Available</value>
-        <value xml:lang="es">Enviar cuando disponible</value>
-        <value xml:lang="fr">Envoyer dès que l'article est disponible</value>
-        <value xml:lang="hi_IN">सारा माल साथ भेजें जब उपलब्ध हो</value>
-        <value xml:lang="it">Spedisci articoli quando disponibili</value>
-        <value xml:lang="ja">Ship Items When Available</value>
-        <value xml:lang="nl">Verzend wanneer het beschikbaar komt</value>
-        <value xml:lang="ro">Expediaza Liniile cand devin Disponibile</value>
-        <value xml:lang="ru">Поставлять позиции по мере доступности</value>
-        <value xml:lang="th">ส่งของมาเมื่อมีสินค้า</value>
-        <value xml:lang="zh">有货时送到</value>
     </property>
     <property key="OrderShipTo">
         <value xml:lang="de">Liefern an</value>
@@ -5437,20 +5313,6 @@
         <value xml:lang="ru">Куда мы должны доставить</value>
         <value xml:lang="th">เราจะจัดส่งได้ที่ไหน</value>
         <value xml:lang="zh">送货到哪里</value>
-    </property>
-    <property key="OrderYesIsAGift">
-        <value xml:lang="de">Ja, ist ein Geschenk</value>
-        <value xml:lang="en">Yes, Is A Gift</value>
-        <value xml:lang="es">Si, es un regalo</value>
-        <value xml:lang="fr">Oui, c'est un cadeau</value>
-        <value xml:lang="hi_IN">हाँ, यह उपहार है</value>
-        <value xml:lang="it">Si, è un omaggio</value>
-        <value xml:lang="ja">Yes, Is A Gift</value>
-        <value xml:lang="nl">Inderdaad, het is een geschenk</value>
-        <value xml:lang="ro">Da, Este un Omagiu</value>
-        <value xml:lang="ru">Да, это подарок</value>
-        <value xml:lang="th">ใช่, นี่คือของขวัญ</value>
-        <value xml:lang="zh">是一个礼品</value>
     </property>
     <property key="PageTitleAddContent">
         <value xml:lang="de">Inhalt hinzufügen</value>

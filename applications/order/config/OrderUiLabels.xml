@@ -3391,6 +3391,20 @@
         <value xml:lang="th">เป็นโปรโมชั่นของสิ่งนี้ใช่หรือไม่</value>
         <value xml:lang="zh">是促销品</value>
     </property>
+    <property key="OrderIsGift">
+        <value xml:lang="de">Ist ein Geschenk</value>
+        <value xml:lang="en">Is Gift</value>
+        <value xml:lang="es">es Regalo</value>
+        <value xml:lang="fr">C'est un cadeau</value>
+        <value xml:lang="hi_IN">उपहार है</value>
+        <value xml:lang="it">E' omaggio</value>
+        <value xml:lang="ja">Is Gift</value>
+        <value xml:lang="nl">Het is een geschenk</value>
+        <value xml:lang="ro">Este Omagiu</value>
+        <value xml:lang="ru">это подарок</value>
+        <value xml:lang="th">ของขวัญใช่หรือไม่</value>
+        <value xml:lang="zh">是礼品</value>
+    </property>
     <property key="OrderIsThisGift">
         <value xml:lang="de">Soll dies ein Geschenk sein?</value>
         <value xml:lang="en">Is This a Gift?</value>
@@ -3519,6 +3533,19 @@
         <value xml:lang="th">กลับไปยังรายการรายการ</value>
         <value xml:lang="zh_CN">Items Backordered</value>
         <value xml:lang="zh">列入缺货通知单的明细</value>
+    </property>
+    <property key="OrderItemGroups">
+        <value xml:lang="en">Item Groups</value>
+        <value xml:lang="es">Grupo de Artículos</value>
+        <value xml:lang="fr">Groupes d'articles</value>
+        <value xml:lang="hi_IN">सामान संग्रह</value>
+        <value xml:lang="it">Gruppi di articoli</value>
+        <value xml:lang="ja">Item Groups</value>
+        <value xml:lang="nl">Item Groepering</value>
+        <value xml:lang="ro">Grupuri Linie</value>
+        <value xml:lang="ru">Группы позиций</value>
+        <value xml:lang="th">กลุ่มสินค้า</value>
+        <value xml:lang="zh">明细组</value>
     </property>
     <property key="OrderItemsOrdered">
         <value xml:lang="de">Bestellte Elemente</value>
@@ -3758,6 +3785,19 @@
         <value xml:lang="ru">В выпадающем списке доступны варианты</value>
         <value xml:lang="th">ตัวเลือกมากมายที่สามารถใช้ได้ในดรอบดาวน์</value>
         <value xml:lang="zh">在下拉框中更多可用的选项</value>
+    </property>
+    <property key="OrderMoveQty">
+        <value xml:lang="de">Menge zum Verschieben</value>
+        <value xml:lang="en">Move Qty</value>
+        <value xml:lang="es">Mover Cant.</value>
+        <value xml:lang="fr">Changement de Qté</value>
+        <value xml:lang="it">Muovi Qnt</value>
+        <value xml:lang="ja">Move Qty</value>
+        <value xml:lang="nl">Verplaats hoeveelheid</value>
+        <value xml:lang="ro">Misca Cant</value>
+        <value xml:lang="ru">Переместить количество</value>
+        <value xml:lang="th">เปลี่ยนจำนวน</value>
+        <value xml:lang="zh">送货数量</value>
     </property>
     <property key="OrderNbrPersons">
         <value xml:lang="de">Personen</value>
@@ -4096,6 +4136,20 @@
         <value xml:lang="th">ไม่มีรายการสั่งซื้อสินค้าที่ระบุ</value>
         <value xml:lang="zh">没有指定购物订单</value>
     </property>
+    <property key="OrderNoShipGroupsDefined">
+        <value xml:lang="de">Keine Versandgruppen definiert</value>
+        <value xml:lang="en">No ship groups defined</value>
+        <value xml:lang="es">No se han definido grupos de envñio</value>
+        <value xml:lang="fr">Aucun groupe d'expédition défini</value>
+        <value xml:lang="hi_IN">कोई माल भेजने योग्य संग्रह नही</value>
+        <value xml:lang="it">Nessun gruppo spedizione definito</value>
+        <value xml:lang="ja">No ship groups defined</value>
+        <value xml:lang="nl">Geen verzendpaketten gedefinieerd</value>
+        <value xml:lang="ro">Nici-un grup expediere definit</value>
+        <value xml:lang="ru">Группы поставки не определены</value>
+        <value xml:lang="th">ไม่มีการกำหนดวิธีการขนส่ง</value>
+        <value xml:lang="zh">没有定义送货组</value>
+    </property>
     <property key="OrderNoQuoteFound">
         <value xml:lang="de">Keine Offerte gefunden.</value>
         <value xml:lang="en">No Quote Found.</value>
@@ -4169,6 +4223,20 @@
         <value xml:lang="th">การร้องขอของลูกค้านี้ไม่มีบทบาทที่เกี่ยวข้อง</value>
         <value xml:lang="zh_CN">此客户请求没有与其关联的角色</value>
         <value xml:lang="zh">没有与这个客户请求关联的角色</value>
+    </property>
+    <property key="OrderNotAGift">
+        <value xml:lang="de">Kein Geschenk</value>
+        <value xml:lang="en">Not A Gift</value>
+        <value xml:lang="es">No es un regalo</value>
+        <value xml:lang="fr">Ce n'est pas un cadeau</value>
+        <value xml:lang="hi_IN">उपहार नही है</value>
+        <value xml:lang="it">Non è un omaggio</value>
+        <value xml:lang="ja">Not A Gift</value>
+        <value xml:lang="nl">Geen geschenk</value>
+        <value xml:lang="ro">Nu este un Omagiu</value>
+        <value xml:lang="ru">Не подарок</value>
+        <value xml:lang="th">ไม่ใช่ของขวัญ</value>
+        <value xml:lang="zh">不是礼品</value>
     </property>
     <property key="OrderNothingToDoHere">
         <value xml:lang="de">Nichts zu tun hier.</value>
@@ -7508,6 +7576,32 @@
         <value xml:lang="zh_CN">选择与这个订单关联的组织类型</value>
         <value xml:lang="zh">选择要关联到订单的会员类型</value>
     </property>
+    <property key="OrderSelectShippingAddress">
+        <value xml:lang="de">Lieferadresse auswählen</value>
+        <value xml:lang="en">Select Shipping Address</value>
+        <value xml:lang="es">Seleccionar dirección de envío</value>
+        <value xml:lang="fr">Sélectionner une adresse de livraison</value>
+        <value xml:lang="hi_IN">माल भेजने का पता कहिए</value>
+        <value xml:lang="it">Seleziona indirizzo spedizione</value>
+        <value xml:lang="ja">Select Shipping Address</value>
+        <value xml:lang="nl">Selecteer een verzendadres</value>
+        <value xml:lang="ru">Выберите адрес доставки</value>
+        <value xml:lang="th">เลือกที่อยู่ในการจัดส่ง</value>
+        <value xml:lang="zh">选择送货地址</value>
+    </property>
+    <property key="OrderSelectShippingMethod">
+        <value xml:lang="de">Versandmethode auswählen</value>
+        <value xml:lang="en">Select Shipping Method</value>
+        <value xml:lang="es">Seleccionar método de envñio</value>
+        <value xml:lang="fr">Sélectionner une méthode de livraison</value>
+        <value xml:lang="hi_IN">माल भेजने का तरीका कहिए</value>
+        <value xml:lang="it">Seleziona metodo spedizione</value>
+        <value xml:lang="ja">Select Shipping Method</value>
+        <value xml:lang="nl">Select verzend methode</value>
+        <value xml:lang="ru">Выберите способ доставки</value>
+        <value xml:lang="th">เลือกวิธีการขนส่ง</value>
+        <value xml:lang="zh">选择送货方法</value>
+    </property>
     <property key="OrderSelectVariant">
         <value xml:lang="de">Variante auswählen</value>
         <value xml:lang="en">Select Variant</value>
@@ -7661,6 +7755,20 @@
         <value xml:lang="fr">Expédier tout d'un coup, ou "comme disponible"</value>
         <value xml:lang="th">การขนส่งทั้งหมดหนึ่งครั้ง หรือเท่าที่จะหาได้</value>
     </property>
+    <property key="OrderShipAllItemsTogether">
+        <value xml:lang="de">Alle Positionen zusammen versenden</value>
+        <value xml:lang="en">Ship All Items Together</value>
+        <value xml:lang="es">Enviar todo junto</value>
+        <value xml:lang="fr">Envoyer tous les articles en même temps</value>
+        <value xml:lang="hi_IN">सारा माल साथ भेजें</value>
+        <value xml:lang="it">Spedisci tutte gli articoli insieme</value>
+        <value xml:lang="ja">Ship All Items Together</value>
+        <value xml:lang="nl">Vezend alles samen</value>
+        <value xml:lang="ro">Expediaza Toate liniile Impreuna </value>
+        <value xml:lang="ru">Поставлять все позиции вместе</value>
+        <value xml:lang="th">ส่งของทั้งหมดมาพร้อมกัน</value>
+        <value xml:lang="zh">把全部明细一起送到</value>
+    </property>
     <property key="OrderShipBeforeDate">
         <value xml:lang="de">Versand vor Datum</value>
         <value xml:lang="en">Ship Before Date</value>
@@ -7720,6 +7828,20 @@
         <value xml:lang="ru">Группа поставки</value>
         <value xml:lang="th">กลุ่มการขนส่ง</value>
         <value xml:lang="zh">货运组</value>
+    </property>
+    <property key="OrderShipItemsWhenAvailable">
+        <value xml:lang="de">Positionen versenden sobald verfügbar</value>
+        <value xml:lang="en">Ship Items When Available</value>
+        <value xml:lang="es">Enviar cuando disponible</value>
+        <value xml:lang="fr">Envoyer dès que l'article est disponible</value>
+        <value xml:lang="hi_IN">सारा माल साथ भेजें जब उपलब्ध हो</value>
+        <value xml:lang="it">Spedisci articoli quando disponibili</value>
+        <value xml:lang="ja">Ship Items When Available</value>
+        <value xml:lang="nl">Verzend wanneer het beschikbaar komt</value>
+        <value xml:lang="ro">Expediaza Liniile cand devin Disponibile</value>
+        <value xml:lang="ru">Поставлять позиции по мере доступности</value>
+        <value xml:lang="th">ส่งของมาเมื่อมีสินค้า</value>
+        <value xml:lang="zh">有货时送到</value>
     </property>
     <property key="OrderShipRequest">
         <value xml:lang="de">Versandanfrage</value>
@@ -8613,6 +8735,20 @@
         <value xml:lang="th">ขั้นตอนการทำงาน</value>
         <value xml:lang="zh_CN">工作流</value>
         <value xml:lang="zh">工作流</value>
+    </property>
+    <property key="OrderYesIsAGift">
+        <value xml:lang="de">Ja, ist ein Geschenk</value>
+        <value xml:lang="en">Yes, Is A Gift</value>
+        <value xml:lang="es">Si, es un regalo</value>
+        <value xml:lang="fr">Oui, c'est un cadeau</value>
+        <value xml:lang="hi_IN">हाँ, यह उपहार है</value>
+        <value xml:lang="it">Si, è un omaggio</value>
+        <value xml:lang="ja">Yes, Is A Gift</value>
+        <value xml:lang="nl">Inderdaad, het is een geschenk</value>
+        <value xml:lang="ro">Da, Este un Omagiu</value>
+        <value xml:lang="ru">Да, это подарок</value>
+        <value xml:lang="th">ใช่, นี่คือของขวัญ</value>
+        <value xml:lang="zh">是一个礼品</value>
     </property>
     <property key="OrderYouMust">
         <value xml:lang="cs">Musíte</value>
