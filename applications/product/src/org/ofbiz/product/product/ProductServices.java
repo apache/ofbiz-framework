@@ -28,11 +28,9 @@ import java.util.*;
 
 import javolution.util.FastList;
 import javolution.util.FastMap;
-import javolution.util.FastSet;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
-import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -60,34 +58,38 @@ public class ProductServices {
     /**
      * Creates a Collection of product entities which are variant products from the specified product ID.
      */
-    public static Map<String, Object> prodFindAllVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map prodFindAllVariants(DispatchContext dctx, Map context) {
         // * String productId      -- Parent (virtual) product ID
-        Map<String, Object> subContext = UtilMisc.makeMapWritable(context);
-        subContext.put("type", "PRODUCT_VARIANT");
-        return prodFindAssociatedByType(dctx, subContext);
+        context.put("type", "PRODUCT_VARIANT");
+        return prodFindAssociatedByType(dctx, context);
     }
 
     /**
      * Finds a specific product or products which contain the selected features.
      */
-    public static Map<String, Object> prodFindSelectedVariant(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map prodFindSelectedVariant(DispatchContext dctx, Map context) {
         // * String productId      -- Parent (virtual) product ID
         // * Map selectedFeatures  -- Selected features
         GenericDelegator delegator = dctx.getDelegator();
         Locale locale = (Locale) context.get("locale");
         String productId = (String) context.get("productId");
-        Map selectedFeatures = UtilGenerics.checkMap(context.get("selectedFeatures"));
-        List<GenericValue> products = FastList.newInstance();
+        Map selectedFeatures = (Map) context.get("selectedFeatures");
+        ArrayList products = new ArrayList();
         // All the variants for this products are retrieved
-        Map<String, Object> resVariants = prodFindAllVariants(dctx, context);
-        List<GenericValue> variants = UtilGenerics.checkList(resVariants.get("assocProducts"));
-        for (GenericValue oneVariant: variants) {
+        Map resVariants = prodFindAllVariants(dctx, context);
+        List variants = (List)resVariants.get("assocProducts");
+        GenericValue oneVariant = null;
+        Iterator variantsIt = variants.iterator();
+        while (variantsIt.hasNext()) {
             // For every variant, all the standard features are retrieved
-            Map<String, String> feaContext = FastMap.newInstance();
-            feaContext.put("productId", oneVariant.getString("productIdTo"));
+            oneVariant = (GenericValue)variantsIt.next();
+            Map feaContext = new HashMap();
+            feaContext.put("productId", oneVariant.get("productIdTo"));
             feaContext.put("type", "STANDARD_FEATURE");
-            Map<String, Object> resFeatures = prodGetFeatures(dctx, feaContext);
-            List<GenericValue> features = UtilGenerics.checkList(resFeatures.get("productFeatures"));
+            Map resFeatures = prodGetFeatures(dctx, feaContext);
+            List features = (List)resFeatures.get("productFeatures");
+            Iterator featuresIt = features.iterator();
+            GenericValue oneFeature = null;
             boolean variantFound = true;
             // The variant is discarded if at least one of its standard features 
             // has the same type of one of the selected features but a different feature id.
@@ -97,7 +99,8 @@ public class ProductServices {
             // Variant2: (COLOR, Black), (SIZE, Small) --> ok
             // Variant3: (COLOR, Black), (SIZE, Small), (IMAGE, SkyLine) --> ok
             // Variant4: (COLOR, Black), (IMAGE, SkyLine) --> ok
-            for (GenericValue oneFeature: features) {
+            while (featuresIt.hasNext()) {
+                oneFeature = (GenericValue)featuresIt.next();
                 if (selectedFeatures.containsKey(oneFeature.getString("productFeatureTypeId"))) {
                     if (!selectedFeatures.containsValue(oneFeature.getString("productFeatureId"))) {
                         variantFound = false;
@@ -109,7 +112,7 @@ public class ProductServices {
                 try {
                     products.add(delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", oneVariant.getString("productIdTo"))));
                 } catch (GenericEntityException e) {
-                    Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
+                    Map messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
                     String errMsg = UtilProperties.getMessage(resource,"productservices.problem_reading_product_features_errors", messageMap, locale);
                     Debug.logError(e, errMsg, module);
                     return ServiceUtil.returnError(errMsg);
@@ -117,7 +120,7 @@ public class ProductServices {
             }
         }
 
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         result.put("products", products);
         return result;
     }
@@ -125,7 +128,7 @@ public class ProductServices {
     /**
      * Finds product variants based on a product ID and a distinct feature.
      */
-    public static Map<String, Object> prodFindDistinctVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map prodFindDistinctVariants(DispatchContext dctx, Map context) {
         // * String productId      -- Parent (virtual) product ID
         // * String feature        -- Distinct feature name
         GenericDelegator delegator = dctx.getDelegator();
@@ -138,24 +141,25 @@ public class ProductServices {
     /**
      * Finds a Set of feature types in sequence.
      */
-    public static Map<String, Object> prodFindFeatureTypes(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map prodFindFeatureTypes(DispatchContext dctx, Map context) {
         // * String productId      -- Product ID to look up feature types
         GenericDelegator delegator = dctx.getDelegator();
         String productId = (String) context.get("productId");
         Locale locale = (Locale) context.get("locale");
         String errMsg=null;
-        Set<String> featureSet = new LinkedHashSet<String>();
+        Set featureSet = new LinkedHashSet();
 
         try {
-            Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE");
-            List<String> order = UtilMisc.toList("sequenceNum", "productFeatureTypeId");
-            List<GenericValue> features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
-            for (GenericValue v: features) {
-                featureSet.add(v.getString("productFeatureTypeId"));
+            Map fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE");
+            List order = UtilMisc.toList("sequenceNum", "productFeatureTypeId");
+            List features = delegator.findByAndCache("ProductFeatureAndAppl", fields, order);
+            Iterator i = features.iterator();
+            while (i.hasNext()) {
+                featureSet.add(((GenericValue) i.next()).getString("productFeatureTypeId"));
             }
             //if (Debug.infoOn()) Debug.logInfo("" + featureSet, module);
         } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
+            Map messageMap = UtilMisc.toMap("errProductFeatures", e.toString());
             errMsg = UtilProperties.getMessage(resource,"productservices.problem_reading_product_features_errors", messageMap, locale);
             Debug.logError(e, errMsg, module);
             return ServiceUtil.returnError(errMsg);
@@ -167,7 +171,7 @@ public class ProductServices {
             Debug.logWarning(errMsg + " for product " + productId, module);
             //return ServiceUtil.returnError(errMsg);
         }
-        Map<String, Object> result = ServiceUtil.returnSuccess();
+        Map result = ServiceUtil.returnSuccess();
         result.put("featureSet", featureSet);
         return result;
     }
@@ -175,7 +179,7 @@ public class ProductServices {
     /**
      * Builds a variant feature tree.
      */
-    public static Map<String, Object> prodMakeFeatureTree(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map prodMakeFeatureTree(DispatchContext dctx, Map context) {
         // * String productId      -- Parent (virtual) product ID
         // * List featureOrder     -- Order of features
         // * String productStoreId -- Product Store ID for Inventory
@@ -184,23 +188,24 @@ public class ProductServices {
 
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
-        Map<String, Object> result = FastMap.newInstance();
-        List<String> featureOrder = UtilMisc.makeListWritable(UtilGenerics.<String>checkList(context.get("featureOrder")));
+        Map result = new HashMap();
+        List featureOrder = new LinkedList((Collection) context.get("featureOrder"));
 
         if (featureOrder == null || featureOrder.size() == 0) {
             return ServiceUtil.returnError("Empty list of features passed");
         }
 
-        List<GenericValue> variants = UtilGenerics.checkList(prodFindAllVariants(dctx, context).get("assocProducts"));
-        List<String> virtualVariant = FastList.newInstance();
+        Collection variants = (Collection) prodFindAllVariants(dctx, context).get("assocProducts");
+        List virtualVariant = new ArrayList();
 
         if (variants == null || variants.size() == 0) {
             return ServiceUtil.returnSuccess();
         }
-        List<String> items = FastList.newInstance();
+        List items = new ArrayList();
+        Iterator i = variants.iterator();
 
-        for (GenericValue variant: variants) {
-            String productIdTo = variant.getString("productIdTo");
+        while (i.hasNext()) {
+            String productIdTo = (String) ((GenericValue) i.next()).get("productIdTo");
 
             // first check to see if intro and discontinue dates are within range
             GenericValue productTo = null;
@@ -209,7 +214,7 @@ public class ProductServices {
                 productTo = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productIdTo));
             } catch (GenericEntityException e) {
                 Debug.logError(e, module);
-                Map<String, String> messageMap = UtilMisc.toMap("productIdTo", productIdTo, "errMessage", e.toString());
+                Map messageMap = UtilMisc.toMap("productIdTo", productIdTo, "errMessage", e.toString());
                 return ServiceUtil.returnError(UtilProperties.getMessage(resource, "productservices.error_finding_associated_variant_with_ID_error", messageMap, locale));
             }
             if (productTo == null) {
@@ -243,7 +248,7 @@ public class ProductServices {
 
             // next check inventory for each item: if inventory is not required or is available
             try {
-                Map<String, Object> invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", Double.valueOf(1.0)));
+                Map invReqResult = dispatcher.runSync("isStoreInventoryAvailableOrNotRequired", UtilMisc.<String, Object>toMap("productStoreId", productStoreId, "productId", productIdTo, "quantity", new Double(1.0)));
                 if (ServiceUtil.isError(invReqResult)) {
                     return ServiceUtil.returnError("Error calling the isStoreInventoryRequired when building the variant product tree.", null, null, invReqResult);
                 } else if ("Y".equals((String) invReqResult.get("availableOrNotRequired"))) {
@@ -262,10 +267,10 @@ public class ProductServices {
         String productId = (String) context.get("productId");
 
         // Make the selectable feature list
-        List<GenericValue> selectableFeatures = null;
+        List selectableFeatures = null;
         try {
-            Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE");
-            List<String> sort = UtilMisc.toList("sequenceNum");
+            Map fields = UtilMisc.toMap("productId", productId, "productFeatureApplTypeId", "SELECTABLE_FEATURE");
+            List sort = UtilMisc.toList("sequenceNum");
 
             selectableFeatures = delegator.findByAndCache("ProductFeatureAndAppl", fields, sort);
             selectableFeatures = EntityUtil.filterByDate(selectableFeatures, true);
@@ -273,17 +278,20 @@ public class ProductServices {
             Debug.logError(e, module);
             return ServiceUtil.returnError(UtilProperties.getMessage(resource,"productservices.empty_list_of_selectable_features_found", locale));
         }
-        Map<String, List<String>> features = FastMap.newInstance();
-        for (GenericValue v: selectableFeatures) {
+        Map features = new HashMap();
+        Iterator sFIt = selectableFeatures.iterator();
+
+        while (sFIt.hasNext()) {
+            GenericValue v = (GenericValue) sFIt.next();
             String featureType = v.getString("productFeatureTypeId");
             String feature = v.getString("description");
 
             if (!features.containsKey(featureType)) {
-                List<String> featureList = FastList.newInstance();
+                List featureList = new LinkedList();
                 featureList.add(feature);
                 features.put(featureType, featureList);
             } else {
-                List<String> featureList = features.get(featureType);
+                List featureList = (LinkedList) features.get(featureType);
                 featureList.add(feature);
                 features.put(featureType, featureList);
             }
@@ -305,9 +313,9 @@ public class ProductServices {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         }
 
-        Map<String, GenericValue> sample = null;
+        Map sample = null;
         try {
-            sample = makeVariantSample(dctx.getDelegator(), features, items, featureOrder.get(0));
+            sample = makeVariantSample(dctx.getDelegator(), features, items, (String) featureOrder.get(0));
         } catch (Exception e) {
             return ServiceUtil.returnError(e.getMessage());
         }
@@ -321,22 +329,22 @@ public class ProductServices {
     /**
      * Gets the product features of a product.
      */
-    public static Map<String, Object> prodGetFeatures(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map prodGetFeatures(DispatchContext dctx, Map context) {
         // * String productId      -- Product ID to fond
         // * String type           -- Type of feature (STANDARD_FEATURE, SELECTABLE_FEATURE)
         // * String distinct       -- Distinct feature (SIZE, COLOR)
         GenericDelegator delegator = dctx.getDelegator();
-        Map<String, Object> result = FastMap.newInstance();
+        Map result = new HashMap();
         String productId = (String) context.get("productId");
         String distinct = (String) context.get("distinct");
         String type = (String) context.get("type");
         Locale locale = (Locale) context.get("locale");
         String errMsg=null;
-        List<GenericValue> features = null;
+        Collection features = null;
 
         try {
-            Map<String, String> fields = UtilMisc.toMap("productId", productId);
-            List<String> order = UtilMisc.toList("sequenceNum", "productFeatureTypeId");
+            Map fields = UtilMisc.toMap("productId", productId);
+            List order = UtilMisc.toList("sequenceNum", "productFeatureTypeId");
 
             if (distinct != null) fields.put("productFeatureTypeId", distinct);
             if (type != null) fields.put("productFeatureApplTypeId", type);
@@ -344,7 +352,7 @@ public class ProductServices {
             result.put("productFeatures", features);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
+            Map messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resource,"productservices.problem_reading_product_feature_entity", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -355,10 +363,10 @@ public class ProductServices {
     /**
      * Finds a product by product ID.
      */
-    public static Map<String, Object> prodFindProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map prodFindProduct(DispatchContext dctx, Map context) {
         // * String productId      -- Product ID to find
         GenericDelegator delegator = dctx.getDelegator();
-        Map<String, Object> result = FastMap.newInstance();
+        Map result = new HashMap();
         String productId = (String) context.get("productId");
         Locale locale = (Locale) context.get("locale");
         String errMsg = null;
@@ -375,13 +383,13 @@ public class ProductServices {
             GenericValue mainProduct = product;
 
             if (product.get("isVariant") != null && product.getString("isVariant").equalsIgnoreCase("Y")) {
-                List<GenericValue> c = product.getRelatedByAndCache("AssocProductAssoc",
+                List c = product.getRelatedByAndCache("AssocProductAssoc",
                         UtilMisc.toMap("productAssocTypeId", "PRODUCT_VARIANT"));
                 //if (Debug.infoOn()) Debug.logInfo("Found related: " + c, module);
                 c = EntityUtil.filterByDate(c);
                 //if (Debug.infoOn()) Debug.logInfo("Found Filtered related: " + c, module);
                 if (c.size() > 0) {
-                    GenericValue asV = c.iterator().next();
+                    GenericValue asV = (GenericValue) c.iterator().next();
 
                     //if (Debug.infoOn()) Debug.logInfo("ASV: " + asV, module);
                     mainProduct = asV.getRelatedOneCache("MainProduct");
@@ -392,7 +400,7 @@ public class ProductServices {
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
             e.printStackTrace();
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"productservices.problems_reading_product_entity", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -404,11 +412,11 @@ public class ProductServices {
     /**
      * Finds associated products by product ID and association ID.
      */
-    public static Map<String, Object> prodFindAssociatedByType(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map prodFindAssociatedByType(DispatchContext dctx, Map context) {
         // * String productId      -- Current Product ID
         // * String type           -- Type of association (ie PRODUCT_UPGRADE, PRODUCT_COMPLEMENT, PRODUCT_VARIANT)
         GenericDelegator delegator = dctx.getDelegator();
-        Map<String, Object> result = FastMap.newInstance();
+        Map result = new HashMap();
         String productId = (String) context.get("productId");
         String productIdTo = (String) context.get("productIdTo");
         String type = (String) context.get("type");
@@ -439,7 +447,7 @@ public class ProductServices {
         try {
             product = delegator.findByPrimaryKeyCache("Product", UtilMisc.toMap("productId", productId));
         } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"productservices.productservices.problems_reading_product_entity", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -454,7 +462,7 @@ public class ProductServices {
         }
 
         try {
-            List<GenericValue> productAssocs = null;
+            List productAssocs = null;
 
             if (productIdTo == null) {
                 productAssocs = product.getRelatedCache("MainProductAssoc", UtilMisc.toMap("productAssocTypeId", type), UtilMisc.toList("sequenceNum"));
@@ -479,7 +487,7 @@ public class ProductServices {
             result.put("assocProducts", productAssocs);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_SUCCESS);
         } catch (GenericEntityException e) {
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.getMessage());
+            Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
             errMsg = UtilProperties.getMessage(resource,"productservices.problems_product_association_relation_error", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -490,11 +498,11 @@ public class ProductServices {
     }
 
     // Builds a product feature tree
-    private static Map<String, Object> makeGroup(GenericDelegator delegator, Map<String, List<String>> featureList, List<String> items, List<String> order, int index)
+    private static Map makeGroup(GenericDelegator delegator, Map featureList, List items, List order, int index)
         throws IllegalArgumentException, IllegalStateException {
-        //List featureKey = FastList.newInstance();
-        Map<String, List<String>> tempGroup = FastMap.newInstance();
-        Map<String, Object> group = new LinkedHashMap<String, Object>();
+        //List featureKey = new ArrayList();
+        Map tempGroup = new HashMap();
+        Map group = new LinkedHashMap();
         String orderKey = (String) order.get(index);
 
         if (featureList == null) {
@@ -509,18 +517,21 @@ public class ProductServices {
         }
 
         // loop through items and make the lists
-        for (String thisItem: items) {
+        Iterator itemIterator = items.iterator();
+
+        while (itemIterator.hasNext()) {
             // -------------------------------
             // Gather the necessary data
             // -------------------------------
+            String thisItem = (String) itemIterator.next();
 
             if (Debug.verboseOn()) Debug.logVerbose("ThisItem: " + thisItem, module);
-            List<GenericValue> features = null;
+            List features = null;
 
             try {
-                Map<String, String> fields = UtilMisc.toMap("productId", thisItem, "productFeatureTypeId", orderKey,
+                Map fields = UtilMisc.toMap("productId", thisItem, "productFeatureTypeId", orderKey,
                         "productFeatureApplTypeId", "STANDARD_FEATURE");
-                List<String> sort = UtilMisc.toList("sequenceNum");
+                List sort = UtilMisc.toList("sequenceNum");
 
                 // get the features and filter out expired dates
                 features = delegator.findByAndCache("ProductFeatureAndAppl", fields, sort);
@@ -531,16 +542,19 @@ public class ProductServices {
             if (Debug.verboseOn()) Debug.logVerbose("Features: " + features, module);
 
             // -------------------------------
-            for (GenericValue item: features) {
-                String itemKey = item.getString("description");
+            Iterator featuresIterator = features.iterator();
+
+            while (featuresIterator.hasNext()) {
+                GenericValue item = (GenericValue) featuresIterator.next();
+                Object itemKey = item.get("description");
 
                 if (tempGroup.containsKey(itemKey)) {
-                    List<String> itemList = tempGroup.get(itemKey);
+                    List itemList = (List) tempGroup.get(itemKey);
 
                     if (!itemList.contains(thisItem))
                         itemList.add(thisItem);
                 } else {
-                    List<String> itemList = UtilMisc.toList(thisItem);
+                    List itemList = UtilMisc.toList(thisItem);
 
                     tempGroup.put(itemKey, itemList);
                 }
@@ -549,13 +563,17 @@ public class ProductServices {
         if (Debug.verboseOn()) Debug.logVerbose("TempGroup: " + tempGroup, module);
 
         // Loop through the feature list and order the keys in the tempGroup
-        List<String> orderFeatureList = featureList.get(orderKey);
+        List orderFeatureList = (List) featureList.get(orderKey);
 
         if (orderFeatureList == null) {
             throw new IllegalArgumentException("Cannot build feature tree: orderFeatureList is null for orderKey=" + orderKey);
         }
 
-        for (String featureStr: orderFeatureList) {
+        Iterator featureListIt = orderFeatureList.iterator();
+
+        while (featureListIt.hasNext()) {
+            String featureStr = (String) featureListIt.next();
+
             if (tempGroup.containsKey(featureStr))
                 group.put(featureStr, tempGroup.get(featureStr));
         }
@@ -573,11 +591,13 @@ public class ProductServices {
         }
 
         // loop through the keysets and get the sub-groups
-        for (String key: group.keySet()) {
-            List<String> itemList = UtilGenerics.checkList(group.get(key));
+        Iterator groupIterator = group.keySet().iterator();
+        while (groupIterator.hasNext()) {
+            Object key = groupIterator.next();
+            List itemList = (List) group.get(key);
 
             if (UtilValidate.isNotEmpty(itemList)) {
-                Map<String, Object> subGroup = makeGroup(delegator, featureList, itemList, order, index + 1);
+                Map subGroup = makeGroup(delegator, featureList, itemList, order, index + 1);
                 group.put(key, subGroup);
             } else {
                 // do nothing, ie put nothing in the Map
@@ -588,16 +608,19 @@ public class ProductServices {
     }
 
     // builds a variant sample (a single sku for a featureType)
-    private static Map<String, GenericValue> makeVariantSample(GenericDelegator delegator, Map<String, List<String>> featureList, List<String> items, String feature) {
-        Map<String, GenericValue> tempSample = FastMap.newInstance();
-        Map<String, GenericValue> sample = new LinkedHashMap<String, GenericValue>();
-        for (String productId: items) {
-            List<GenericValue> features = null;
+    private static Map makeVariantSample(GenericDelegator delegator, Map featureList, List items, String feature) {
+        Map tempSample = new HashMap();
+        Map sample = new LinkedHashMap();
+        Iterator itemIt = items.iterator();
+
+        while (itemIt.hasNext()) {
+            String productId = (String) itemIt.next();
+            List features = null;
 
             try {
-                Map<String, String> fields = UtilMisc.toMap("productId", productId, "productFeatureTypeId", feature,
+                Map fields = UtilMisc.toMap("productId", productId, "productFeatureTypeId", feature,
                         "productFeatureApplTypeId", "STANDARD_FEATURE");
-                List<String> sort = UtilMisc.toList("sequenceNum", "description");
+                List sort = UtilMisc.toList("sequenceNum", "description");
 
                 // get the features and filter out expired dates
                 features = delegator.findByAndCache("ProductFeatureAndAppl", fields, sort);
@@ -605,7 +628,11 @@ public class ProductServices {
             } catch (GenericEntityException e) {
                 throw new IllegalStateException("Problem reading relation: " + e.getMessage());
             }
-            for (GenericValue featureAppl: features) {
+            Iterator featureIt = features.iterator();
+
+            while (featureIt.hasNext()) {
+                GenericValue featureAppl = (GenericValue) featureIt.next();
+
                 try {
                     GenericValue product = delegator.findByPrimaryKeyCache("Product",
                             UtilMisc.toMap("productId", productId));
@@ -618,8 +645,12 @@ public class ProductServices {
         }
 
         // Sort the sample based on the feature list.
-        List<String> features = featureList.get(feature);
-        for (String f: features) {
+        List features = (LinkedList) featureList.get(feature);
+        Iterator fi = features.iterator();
+
+        while (fi.hasNext()) {
+            String f = (String) fi.next();
+
             if (tempSample.containsKey(f))
                 sample.put(f, tempSample.get(f));
         }
@@ -627,9 +658,9 @@ public class ProductServices {
         return sample;
     }
 
-    public static Map<String, Object> quickAddVariant(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map quickAddVariant(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
-        Map<String, Object> result = FastMap.newInstance();
+        Map result = new HashMap();
         Locale locale = (Locale) context.get("locale");
         String errMsg=null;
         String productId = (String) context.get("productId");
@@ -641,7 +672,7 @@ public class ProductServices {
             // read the product, duplicate it with the given id
             GenericValue product = delegator.findByPrimaryKey("Product", UtilMisc.toMap("productId", productId));
             if (product == null) {
-                Map<String, String> messageMap = UtilMisc.toMap("productId", productId);
+                Map messageMap = UtilMisc.toMap("productId", productId);
                 errMsg = UtilProperties.getMessage(resource,"productservices.product_not_found_with_ID", messageMap, locale);
                 result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
                 result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -676,7 +707,7 @@ public class ProductServices {
                                                                            "productFeatureApplTypeId", "STANDARD_FEATURE"));
             }
             // add an association from productId to variantProductId of the PRODUCT_VARIANT
-            Map<String, Object> productAssocMap = UtilMisc.toMap("productId", productId, "productIdTo", variantProductId,
+            Map productAssocMap = UtilMisc.toMap("productId", productId, "productIdTo", variantProductId,
                                                  "productAssocTypeId", "PRODUCT_VARIANT",
                                                  "fromDate", UtilDateTime.nowTimestamp());
             if (prodAssocSeqNum != null) {
@@ -706,7 +737,7 @@ public class ProductServices {
             
         } catch (GenericEntityException e) {
             Debug.logError(e, "Entity error creating quick add variant data", module);
-            Map<String, String> messageMap = UtilMisc.toMap("errMessage", e.toString());
+            Map messageMap = UtilMisc.toMap("errMessage", e.toString());
             errMsg = UtilProperties.getMessage(resource,"productservices.entity_error_quick_add_variant_data", messageMap, locale);
             result.put(ModelService.RESPONSE_MESSAGE, ModelService.RESPOND_ERROR);
             result.put(ModelService.ERROR_MESSAGE, errMsg);
@@ -720,7 +751,7 @@ public class ProductServices {
      * This will create a virtual product and return its ID, and associate all of the variants with it.
      * It will not put the selectable features on the virtual or standard features on the variant. 
      */
-    public static Map<String, Object> quickCreateVirtualWithVariants(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map quickCreateVirtualWithVariants(DispatchContext dctx, Map context) {
         GenericDelegator delegator = dctx.getDelegator();
         Timestamp nowTimestamp = UtilDateTime.nowTimestamp();
         
@@ -730,7 +761,7 @@ public class ProductServices {
         String productFeatureIdTwo = (String) context.get("productFeatureIdTwo");
         String productFeatureIdThree = (String) context.get("productFeatureIdThree");
 
-        Map<String, Object> successResult = ServiceUtil.returnSuccess();
+        Map successResult = ServiceUtil.returnSuccess();
         
         try {
             // Generate new virtual productId, prefix with "VP", put in successResult
@@ -759,15 +790,17 @@ public class ProductServices {
             
             // separate variantProductIdsBag into a Set of variantProductIds
             //note: can be comma, tab, or white-space delimited
-            Set<String> prelimVariantProductIds = FastSet.newInstance();
-            List<String> splitIds = Arrays.asList(variantProductIdsBag.split("[,\\p{Space}]"));
+            Set prelimVariantProductIds = new HashSet();
+            List splitIds = Arrays.asList(variantProductIdsBag.split("[,\\p{Space}]"));
             Debug.logInfo("Variants: bag=" + variantProductIdsBag, module);
             Debug.logInfo("Variants: split=" + splitIds, module);
             prelimVariantProductIds.addAll(splitIds);
             //note: should support both direct productIds and GoodIdentification entries (what to do if more than one GoodID? Add all?
 
-            Map<String, GenericValue> variantProductsById = FastMap.newInstance();
-            for (String variantProductId: prelimVariantProductIds) {
+            Map variantProductsById = new HashMap();
+            Iterator variantProductIdIter = prelimVariantProductIds.iterator();
+            while (variantProductIdIter.hasNext()) {
+                String variantProductId = (String) variantProductIdIter.next();
                 if (UtilValidate.isEmpty(variantProductId)) {
                     // not sure why this happens, but seems to from time to time with the split method
                     continue;
@@ -778,7 +811,7 @@ public class ProductServices {
                     variantProductsById.put(variantProductId, variantProduct);
                 } else {
                     // is a GoodIdentification.idValue?
-                    List<GenericValue> goodIdentificationList = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("idValue", variantProductId));
+                    List goodIdentificationList = delegator.findByAnd("GoodIdentification", UtilMisc.toMap("idValue", variantProductId));
                     if (goodIdentificationList == null || goodIdentificationList.size() == 0) {
                         // whoops, nothing found... return error
                         return ServiceUtil.returnError("Error creating a virtual with variants: the ID [" + variantProductId + "] is not a valid Product.productId or a GoodIdentification.idValue");
@@ -789,26 +822,32 @@ public class ProductServices {
                         Debug.logWarning("Warning creating a virtual with variants: the ID [" + variantProductId + "] was not a productId and resulted in [" + goodIdentificationList.size() + "] GoodIdentification records: " + goodIdentificationList, module);
                     }
                     
-                    for (GenericValue goodIdentification: goodIdentificationList) {
+                    Iterator goodIdentificationIter = goodIdentificationList.iterator();
+                    while (goodIdentificationIter.hasNext()) {
+                        GenericValue goodIdentification = (GenericValue) goodIdentificationIter.next();
                         GenericValue giProduct = goodIdentification.getRelatedOne("Product");
                         if (giProduct != null) {
-                            variantProductsById.put(giProduct.getString("productId"), giProduct);
+                            variantProductsById.put(giProduct.get("productId"), giProduct);
                         }
                     }
                 }
             }
 
             // Attach productFeatureIdOne, Two, Three to the new virtual and all variant products as a standard feature
-            Set<String> featureProductIds = FastSet.newInstance();
+            Set featureProductIds = new HashSet();
             featureProductIds.add(productId);
             featureProductIds.addAll(variantProductsById.keySet());
-            Set<String> productFeatureIds = FastSet.newInstance();
+            Set productFeatureIds = new HashSet();
             productFeatureIds.add(productFeatureIdOne);
             productFeatureIds.add(productFeatureIdTwo);
             productFeatureIds.add(productFeatureIdThree);
             
-            for (String featureProductId: featureProductIds) {
-                for (String productFeatureId: productFeatureIds) {
+            Iterator featureProductIdIter = featureProductIds.iterator();
+            while (featureProductIdIter.hasNext()) {
+                Iterator productFeatureIdIter = productFeatureIds.iterator();
+                String featureProductId = (String) featureProductIdIter.next();
+                while (productFeatureIdIter.hasNext()) {
+                    String productFeatureId = (String) productFeatureIdIter.next();
                     if (UtilValidate.isNotEmpty(productFeatureId)) {
                         GenericValue productFeatureAppl = delegator.makeValue("ProductFeatureAppl", 
                                 UtilMisc.toMap("productId", featureProductId, "productFeatureId", productFeatureId,
@@ -818,8 +857,10 @@ public class ProductServices {
                 }
             }
             
-            for (GenericValue variantProduct: variantProductsById.values()) {
+            Iterator variantProductIter = variantProductsById.values().iterator();
+            while (variantProductIter.hasNext()) {
                 // for each variant product set: isVirtual=N, isVariant=Y, introductionDate=now
+                GenericValue variantProduct = (GenericValue) variantProductIter.next();
                 variantProduct.set("isVirtual", "N");
                 variantProduct.set("isVariant", "Y");
                 variantProduct.set("introductionDate", nowTimestamp);
@@ -839,7 +880,7 @@ public class ProductServices {
         return successResult;
     }
 
-    public static Map<String, Object> updateProductIfAvailableFromShipment(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map updateProductIfAvailableFromShipment(DispatchContext dctx, Map context) {
         if ("Y".equals(UtilProperties.getPropertyValue("catalog.properties", "reactivate.product.from.receipt", "N"))) {
             LocalDispatcher dispatcher = dctx.getDispatcher();
             GenericDelegator delegator = dctx.getDelegator();
@@ -867,7 +908,7 @@ public class ProductServices {
                 if (product != null) {
                     Timestamp salesDiscontinuationDate = product.getTimestamp("salesDiscontinuationDate");
                     if (salesDiscontinuationDate != null && salesDiscontinuationDate.before(UtilDateTime.nowTimestamp())) {
-                        Map<String, Object> invRes = null;
+                        Map invRes = null;
                         try {
                             invRes = dispatcher.runSync("getProductInventoryAvailable", UtilMisc.<String, Object>toMap("productId", productId, "userLogin", userLogin));
                         } catch (GenericServiceException e) {
@@ -903,7 +944,7 @@ public class ProductServices {
         return ServiceUtil.returnSuccess();
     }
     
-    public static Map<String, Object> addAdditionalViewForProduct(DispatchContext dctx, Map<String, ? extends Object> context) {
+    public static Map addAdditionalViewForProduct(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();
         GenericDelegator delegator = dctx.getDelegator();
         GenericValue userLogin = (GenericValue) context.get("userLogin");
@@ -926,7 +967,7 @@ public class ProductServices {
                 filenameToUse = fileLocation.substring(fileLocation.lastIndexOf("/") + 1);
             }
             
-            List<GenericValue> fileExtension = FastList.newInstance();
+            List fileExtension = FastList.newInstance();
             try {
                 fileExtension = delegator.findByAnd("FileExtension", UtilMisc.toMap("mimeTypeId", (String) context.get("_uploadedFile_contentType")));
             } catch (GenericEntityException e) {
@@ -958,12 +999,12 @@ public class ProductServices {
             if (UtilValidate.isNotEmpty(imageUrl) && imageUrl.length() > 0) {
                 String contentId = (String) context.get("contentId");
                 
-                Map<String, Object> dataResourceCtx = FastMap.newInstance();
+                Map dataResourceCtx = FastMap.newInstance();
                 dataResourceCtx.put("objectInfo", imageUrl);
                 dataResourceCtx.put("dataResourceName", (String) context.get("_uploadedFile_fileName"));
                 dataResourceCtx.put("userLogin", userLogin);
                 
-                Map<String, Object> productContentCtx = FastMap.newInstance();
+                Map productContentCtx = FastMap.newInstance();
                 productContentCtx.put("productId", productId);
                 productContentCtx.put("productContentTypeId", productContentTypeId);
                 productContentCtx.put("fromDate", (Timestamp) context.get("fromDate"));
@@ -991,14 +1032,14 @@ public class ProductServices {
                         if (dataResource != null) {
                             dataResourceCtx.put("dataResourceId", dataResource.getString("dataResourceId"));
                             try {
-                                dispatcher.runSync("updateDataResource", dataResourceCtx);
+                                Map dataResourceResult = dispatcher.runSync("updateDataResource", dataResourceCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 ServiceUtil.returnError(e.getMessage());
                             }
                         } else {
                             dataResourceCtx.put("dataResourceTypeId", "URL_RESOURCE");
-                            Map<String, Object> dataResourceResult = FastMap.newInstance();
+                            Map dataResourceResult = FastMap.newInstance();
                             try {
                                 dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
                             } catch (GenericServiceException e) {
@@ -1006,12 +1047,12 @@ public class ProductServices {
                                 ServiceUtil.returnError(e.getMessage());
                             }
                             
-                            Map<String, Object> contentCtx = FastMap.newInstance();
+                            Map contentCtx = FastMap.newInstance();
                             contentCtx.put("contentId", contentId);
                             contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
                             contentCtx.put("userLogin", userLogin);
                             try {
-                                dispatcher.runSync("updateContent", contentCtx);
+                                Map contentResult = dispatcher.runSync("updateContent", contentCtx);
                             } catch (GenericServiceException e) {
                                 Debug.logError(e, module);
                                 ServiceUtil.returnError(e.getMessage());
@@ -1020,7 +1061,7 @@ public class ProductServices {
                             
                         productContentCtx.put("contentId", contentId);
                         try {
-                            Map<String, Object> productContentResult = dispatcher.runSync("updateProductContent", productContentCtx);
+                            Map productContentResult = dispatcher.runSync("updateProductContent", productContentCtx);
                         } catch (GenericServiceException e) {
                             Debug.logError(e, module);
                             ServiceUtil.returnError(e.getMessage());
@@ -1028,7 +1069,7 @@ public class ProductServices {
                     }
                 } else {
                     dataResourceCtx.put("dataResourceTypeId", "URL_RESOURCE");
-                    Map<String, Object> dataResourceResult = FastMap.newInstance();
+                    Map dataResourceResult = FastMap.newInstance();
                     try {
                         dataResourceResult = dispatcher.runSync("createDataResource", dataResourceCtx);
                     } catch (GenericServiceException e) {
@@ -1036,11 +1077,11 @@ public class ProductServices {
                         ServiceUtil.returnError(e.getMessage());
                     }
 
-                    Map<String, Object> contentCtx = FastMap.newInstance();
+                    Map contentCtx = FastMap.newInstance();
                     contentCtx.put("contentTypeId", "DOCUMENT");
                     contentCtx.put("dataResourceId", dataResourceResult.get("dataResourceId"));
                     contentCtx.put("userLogin", userLogin);
-                    Map<String, Object> contentResult = FastMap.newInstance();
+                    Map contentResult = FastMap.newInstance();
                     try {
                         contentResult = dispatcher.runSync("createContent", contentCtx);
                     } catch (GenericServiceException e) {
@@ -1050,7 +1091,7 @@ public class ProductServices {
                     
                     productContentCtx.put("contentId", contentResult.get("contentId"));
                     try {
-                        Map<String, Object> productContentResult = dispatcher.runSync("createProductContent", productContentCtx);
+                        Map productContentResult = dispatcher.runSync("createProductContent", productContentCtx);
                     } catch (GenericServiceException e) {
                         Debug.logError(e, module);
                         ServiceUtil.returnError(e.getMessage());
@@ -1088,7 +1129,7 @@ public class ProductServices {
         }
                 
         if (UtilValidate.isNotEmpty(productsFound)) {          
-            List<GenericValue> productsList = FastList.newInstance();
+            LinkedList<GenericValue> productsList = new LinkedList<GenericValue>();
             // gets the first productId of the List
             product = EntityUtil.getFirst(productsFound);
             // remove this productId
