@@ -123,7 +123,7 @@ function submitForm(form, mode, value) {
                     <div>
                       <select name="isGift" class="selectBox">
                         <#assign isGiftStr = cart.getIsGift(groupIdx)?default("")>
-                        <option value="">${uiLabelMap.OrderIsGift}?</option>
+                        <option value="">${uiLabelMap.OrderIsGift} ?</option>
                         <option value="false" <#if isGiftStr == "N">selected</#if>>${uiLabelMap.OrderNotAGift}</option>
                         <option value="true" <#if isGiftStr == "Y">selected</#if>>${uiLabelMap.OrderYesIsAGift}</option>
                       </select>

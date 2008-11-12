@@ -379,7 +379,7 @@ under the License.
         <div class="boxlink">
             <#if profiledefs?has_content && profiledefs.defaultShipAddr?has_content && carrierShipMethods?has_content><a href="javascript:document.setdefaultshipmeth.submit();" class="submenutextright">${uiLabelMap.EcommerceSetDefault}</a></#if>
         </div>
-        <div class="boxhead">&nbsp;${uiLabelMap.OrderDefaultShipmentMethod}</div>
+        <div class="boxhead">&nbsp;${uiLabelMap.EcommerceDefaultShipmentMethod}</div>
     </div>
     <div class="screenlet-body">
         <table width="100%" border="0" cellpadding="1">
@@ -395,7 +395,7 @@ under the License.
               </tr>
             </#list>
           <#else>
-            <div class="tabletext">${uiLabelMap.OrderDefaultShipmentMethodMsg}</div>
+            <div class="tabletext">${uiLabelMap.EcommerceDefaultShipmentMethodMsg}</div>
           </#if>
         </table>
     </div>
