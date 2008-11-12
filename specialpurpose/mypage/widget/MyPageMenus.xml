@@ -47,6 +47,10 @@ under the License.
                 <and>
                     <not><if-empty field-name="userLogin"/></not>
                     <if-compare field-name="preferences.userPrefMap.otherCommunications" operator="not-equals" value="Y"/>
+                    <or>
+                        <if-has-permission permission="MYPAGE_EMPLOYEE"/>
+                        <if-has-permission permission="MYPAGE_EMPL-NOEMAIL"/>
+                    </or>
                 </and>
             </condition>
             <link target="otherCommunications?donePage=otherCommunications"/>
@@ -56,6 +60,10 @@ under the License.
                 <and>
                     <not><if-empty field-name="userLogin"/></not>
                     <if-compare field-name="preferences.userPrefMap.myCompanyComms" operator="not-equals" value="Y"/>
+                    <or>
+                        <if-has-permission permission="MYPAGE_EMPLOYEE"/>
+                        <if-has-permission permission="MYPAGE_EMPL-NOEMAIL"/>
+                    </or>
                 </and>
             </condition>
             <link target="myCompanyComms"/>
@@ -65,6 +73,10 @@ under the License.
                 <and>
                     <not><if-empty field-name="userLogin"/></not>
                     <if-compare field-name="preferences.userPrefMap.myTimesheet" operator="not-equals" value="Y"/>
+                    <or>
+                        <if-has-permission permission="MYPAGE_EMPLOYEE"/>
+                        <if-has-permission permission="MYPAGE_EMPL-NOEMAIL"/>
+                    </or>
                 </and>
             </condition>
             <link target="myTimesheet?donePage=myTimeSheet"/>
@@ -74,6 +86,10 @@ under the License.
                 <and>
                     <not><if-empty field-name="userLogin"/></not>
                     <if-compare field-name="preferences.userPrefMap.myTasks" operator="not-equals" value="Y"/>
+                    <or>
+                        <if-has-permission permission="MYPAGE_EMPLOYEE"/>
+                        <if-has-permission permission="MYPAGE_EMPL-NOEMAIL"/>
+                    </or>
                 </and>
             </condition>
             <link target="myTasks?donePage=myTasks"/>
