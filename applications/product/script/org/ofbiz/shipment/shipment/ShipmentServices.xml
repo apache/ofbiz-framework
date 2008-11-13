@@ -557,12 +557,8 @@ under the License.
         <!-- TODO: maybe we should add a new entity for OrderItemShipGroup ContactMechs? -->
         <if-not-empty field="orderItemShipGroup">
             <if-compare field="orderHeader.orderTypeId" operator="equals" value="SALES_ORDER">
-                <if-empty field="shipment.destinationContactMechId">
-                    <set from-field="orderItemShipGroup.contactMechId" field="shipment.destinationContactMechId"/>
-                </if-empty>
-                <if-empty field="shipment.destinationTelecomNumberId">
-                    <set from-field="orderItemShipGroup.telecomContactMechId" field="shipment.destinationTelecomNumberId"/>
-                </if-empty>
+                <set from-field="orderItemShipGroup.contactMechId" field="shipment.destinationContactMechId"/>
+                <set from-field="orderItemShipGroup.telecomContactMechId" field="shipment.destinationTelecomNumberId"/>
             </if-compare>
         </if-not-empty>
 
