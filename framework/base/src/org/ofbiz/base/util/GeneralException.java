@@ -39,7 +39,6 @@ public class GeneralException extends Exception {
         throw (GeneralException) new GeneralException(message).initCause(t);
     }
 
-    Throwable nested = null;
     List<String> messages = null;
 
     /**
@@ -63,8 +62,7 @@ public class GeneralException extends Exception {
      * @param nested the nested exception.
      */
     public GeneralException(String msg, Throwable nested) {
-        super(msg);
-        this.nested = nested;
+        super(msg, nested);
     }
 
     /**
@@ -72,8 +70,7 @@ public class GeneralException extends Exception {
      * @param nested the nested exception.
      */
     public GeneralException(Throwable nested) {
-        super();
-        this.nested = nested;
+        super(nested);
     }
 
     /**
@@ -93,8 +90,7 @@ public class GeneralException extends Exception {
      * @param nested the nexted exception
      */
     public GeneralException(String msg, List<String> messages, Throwable nested) {
-        super(msg);
-        this.nested = nested;
+        super(msg, nested);
         this.messages = messages;
     }
 
@@ -104,8 +100,7 @@ public class GeneralException extends Exception {
      * @param nested the nested exception.
      */
     public GeneralException(List<String> messages, Throwable nested) {
-        super();
-        this.nested = nested;
+        super(nested);
         this.messages = messages;
     }
 
@@ -116,6 +111,7 @@ public class GeneralException extends Exception {
 
     /** Returns the detail message, including the message from the nested exception if there is one. */
     public String getMessage() {
+        Throwable nested = getCause();
         if (nested != null) {
             if (super.getMessage() == null) {
                 return nested.getMessage();
@@ -138,6 +134,7 @@ public class GeneralException extends Exception {
 
     /** Returns the nested exception if there is one, null if there is not. */
     public Throwable getNested() {
+        Throwable nested = getCause();
         if (nested == null) {
             return this;
         }
@@ -147,19 +144,16 @@ public class GeneralException extends Exception {
     /** Prints the composite message to System.err. */
     public void printStackTrace() {
         super.printStackTrace();
-        if (nested != null) nested.printStackTrace();
     }
 
     /** Prints the composite message and the embedded stack trace to the specified stream ps. */
     public void printStackTrace(PrintStream ps) {
         super.printStackTrace(ps);
-        if (nested != null) nested.printStackTrace(ps);
     }
 
     /** Prints the composite message and the embedded stack trace to the specified print writer pw. */
     public void printStackTrace(PrintWriter pw) {
         super.printStackTrace(pw);
-        if (nested != null) nested.printStackTrace(pw);
     }
 }
 
