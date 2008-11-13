@@ -20,19 +20,24 @@ package org.ofbiz.service.calendar;
 
 import java.io.Serializable;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Date;
 import java.util.Set;
 import java.util.TreeSet;
 import org.ofbiz.base.util.Debug;
 
-/** A collection of TemporalExpression classes. */
+/** A collection of TemporalExpression classes.
+ * <p>For the most part, these classes are immutable - with the exception
+ * of the <code>id</code> field. The basic idea is to construct an expression
+ * tree in memory, and then query it.</p>
+ */
 @SuppressWarnings("serial")
 public class TemporalExpressions implements Serializable {
     public static final String module = TemporalExpressions.class.getName();
     public static final TemporalExpression NullExpression = new Null();
 
     /** This class represents a null expression. */
-    protected static class Null extends TemporalExpression {
+    public static class Null extends TemporalExpression {
         public Calendar first(Calendar cal) {
             return null;
         }
@@ -42,14 +47,15 @@ public class TemporalExpressions implements Serializable {
         public Calendar next(Calendar cal) {
             return null;
         }
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
     }
 
     /** This class represents a mathematical union of all of its
      * member expressions. */
     public static class Union extends TemporalExpression {
-        protected Set<TemporalExpression> expressionSet = null;
-
-        protected Union() {}
+        protected final Set<TemporalExpression> expressionSet;
 
         public Union(Set<TemporalExpression> expressionSet) {
             if (expressionSet == null) {
@@ -114,6 +120,10 @@ public class TemporalExpressions implements Serializable {
             return null;
         }
 
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
         public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
             Set<Date> rawSet = new TreeSet<Date>();
             Set<Date> finalSet = new TreeSet<Date>();
@@ -130,6 +140,14 @@ public class TemporalExpressions implements Serializable {
             return finalSet;
         }
 
+        /** Returns the member expression <code>Set</code>. The
+         * returned set is unmodifiable.
+         * @return The member expression <code>Set</code>
+         */
+        public Set<TemporalExpression> getExpressionSet() {
+            return Collections.unmodifiableSet(this.expressionSet);
+        }
+
         protected boolean containsExpression(TemporalExpression expression) {
             for (TemporalExpression setItem : this.expressionSet) {
                 if (setItem.containsExpression(expression)) {
@@ -143,9 +161,7 @@ public class TemporalExpressions implements Serializable {
     /** This class represents a mathematical intersection of all of its
      * member expressions. */
     public static class Intersection extends TemporalExpression {
-        protected Set<TemporalExpression> expressionSet = null;
-
-        protected Intersection() {}
+        protected final Set<TemporalExpression> expressionSet;
 
         public Intersection(Set<TemporalExpression> expressionSet) {
             if (expressionSet == null) {
@@ -220,6 +236,10 @@ public class TemporalExpressions implements Serializable {
             }
         }
 
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
         public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
             Set<Date> finalSet = new TreeSet<Date>();
             Set<Date> rawSet = new TreeSet<Date>();
@@ -243,6 +263,14 @@ public class TemporalExpressions implements Serializable {
             return finalSet;
         }
 
+        /** Returns the member expression <code>Set</code>. The
+         * returned set is unmodifiable.
+         * @return The member expression <code>Set</code>
+         */
+        public Set<TemporalExpression> getExpressionSet() {
+            return Collections.unmodifiableSet(this.expressionSet);
+        }
+
         protected boolean containsExpression(TemporalExpression expression) {
             for (TemporalExpression setItem : this.expressionSet) {
                 if (setItem.containsExpression(expression)) {
@@ -255,8 +283,8 @@ public class TemporalExpressions implements Serializable {
 
     /** This class represents a difference of two temporal expressions. */
     public static class Difference extends TemporalExpression {
-        protected TemporalExpression included = null;
-        protected TemporalExpression excluded = null;
+        protected final TemporalExpression included;
+        protected final TemporalExpression excluded;
 
         public Difference(TemporalExpression included, TemporalExpression excluded) {
             if (included == null) {
@@ -311,6 +339,10 @@ public class TemporalExpressions implements Serializable {
             return next;
         }
 
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
         public Set<Date> getRange(org.ofbiz.base.util.DateRange range, Calendar cal) {
             Set<Date> finalSet = new TreeSet<Date>();
             Set<Date> rawSet = this.included.getRange(range, cal);
@@ -324,6 +356,20 @@ public class TemporalExpressions implements Serializable {
             return finalSet;
         }
 
+        /** Returns the excluded expression.
+         * @return The excluded <code>TemporalExpression</code>
+         */
+        public TemporalExpression getExcluded() {
+            return this.excluded;
+        }
+
+        /** Returns the included expression.
+         * @return The included <code>TemporalExpression</code>
+         */
+        public TemporalExpression getIncluded() {
+            return this.included;
+        }
+
         protected boolean containsExpression(TemporalExpression expression) {
             return this.included.containsExpression(expression) || this.excluded.containsExpression(expression);
         }
@@ -331,7 +377,7 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a range of dates. */
     public static class DateRange extends TemporalExpression {
-        protected org.ofbiz.base.util.DateRange range = null;
+        protected final org.ofbiz.base.util.DateRange range;
 
         public DateRange(Date start, Date end) {
             this.sequence = 1000;
@@ -366,18 +412,29 @@ public class TemporalExpressions implements Serializable {
         public Calendar next(Calendar cal) {
             return includesDate(cal) ? cal : null;
         }
+
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        /** Returns the contained <code>org.ofbiz.base.util.DateRange</code>.
+         * @return The contained <code>org.ofbiz.base.util.DateRange</code>
+         */
+        public org.ofbiz.base.util.DateRange getDateRange() {
+            return this.range;
+        }
     }
 
     /** A temporal expression that represents a time of day range. */
     public static class TimeOfDayRange extends TemporalExpression {
-        protected String startStr = null;
-        protected String endStr = null;
-        protected int startSecs = 0;
-        protected int startMins = 0;
-        protected int startHrs = 0;
-        protected int endSecs = 0;
-        protected int endMins = 0;
-        protected int endHrs = 0;
+        protected final String startStr;
+        protected final String endStr;
+        protected final int startSecs;
+        protected final int startMins;
+        protected final int startHrs;
+        protected final int endSecs;
+        protected final int endMins;
+        protected final int endHrs;
         
         /**
          * @param start A time String in the form of hh:mm:ss (24 hr clock)
@@ -392,7 +449,26 @@ public class TemporalExpressions implements Serializable {
             }
             this.startStr = start;
             this.endStr = end;
-            init();
+            String strArray[] = this.startStr.split(":");
+            if (strArray.length == 0 || strArray.length > 3) {
+                throw new IllegalArgumentException("Invalid start time argument");
+            }
+            this.startHrs = Integer.valueOf(strArray[0]);
+            this.startMins = strArray.length > 1 ? Integer.valueOf(strArray[1]) : 0;
+            this.startSecs = strArray.length > 2 ? Integer.valueOf(strArray[2]) : 0;
+            if (this.startHrs > 23 || this.startMins > 59 || this.startSecs > 59) {
+                throw new IllegalArgumentException("Invalid start time argument");
+            }
+            strArray = this.endStr.split(":");
+            if (strArray.length == 0 || strArray.length > 3) {
+                throw new IllegalArgumentException("Invalid end time argument");
+            }
+            this.endHrs = Integer.valueOf(strArray[0]);
+            this.endMins = strArray.length > 1 ? Integer.valueOf(strArray[1]) : 0;
+            this.endSecs = strArray.length > 2 ? Integer.valueOf(strArray[2]) : 0;
+            if (this.endHrs > 23 || this.endMins > 59 || this.endSecs > 59) {
+                throw new IllegalArgumentException("Invalid end time argument");
+            }
             this.sequence = 600;
             this.subSequence = (this.startHrs * 4000) + (this.startMins * 60) + this.startSecs;
             if (Debug.verboseOn()) {
@@ -434,35 +510,32 @@ public class TemporalExpressions implements Serializable {
             return first(cal);
         }
 
-        protected void init() {
-            String strArray[] = this.startStr.split(":");
-            if (strArray.length == 0 || strArray.length > 3) {
-                throw new IllegalArgumentException("Invalid time argument");
-            }
-            this.startHrs = Integer.valueOf(strArray[0]);
-            if (strArray.length > 1) {
-                this.startMins = Integer.valueOf(strArray[1]);
-            }
-            if (strArray.length > 2) {
-                this.startSecs = Integer.valueOf(strArray[2]);
-            }
-            if (this.startHrs > 23 || this.startMins > 59 || this.startSecs > 59) {
-                throw new IllegalArgumentException("Invalid time argument");
-            }
-            strArray = this.endStr.split(":");
-            if (strArray.length == 0 || strArray.length > 3) {
-                throw new IllegalArgumentException("Invalid time argument");
-            }
-            this.endHrs = Integer.valueOf(strArray[0]);
-            if (strArray.length > 1) {
-                this.endMins = Integer.valueOf(strArray[1]);
-            }
-            if (strArray.length > 2) {
-                this.endSecs = Integer.valueOf(strArray[2]);
-            }
-            if (this.endHrs > 23 || this.endMins > 59 || this.endSecs > 59) {
-                throw new IllegalArgumentException("Invalid time argument");
-            }
+        public int getEndHours() {
+            return this.endHrs;
+        }
+
+        public int getEndMins() {
+            return this.endMins;
+        }
+
+        public int getEndSecs() {
+            return this.endSecs;
+        }
+
+        public int getStartHours() {
+            return this.startHrs;
+        }
+
+        public int getStartMins() {
+            return this.startMins;
+        }
+
+        public int getStartSecs() {
+            return this.startSecs;
+        }
+
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
         }
 
         protected Calendar advanceCalendar(Calendar cal, int hrs, int mins, int secs) {
@@ -497,8 +570,8 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a day of week range. */
     public static class DayOfWeekRange extends TemporalExpression {
-        protected int start;
-        protected int end;
+        protected final int start;
+        protected final int end;
         
         /**
          * @param start An integer in the range of <code>Calendar.SUNDAY</code>
@@ -571,12 +644,30 @@ public class TemporalExpressions implements Serializable {
             }
             return setStartOfDay(next);
         }
+
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        /** Returns the starting day of this range.
+         * @return The starting day of this range
+         */
+        public int getStartDay() {
+            return this.start;
+        }
+
+        /** Returns the ending day of this range.
+         * @return The ending day of this range
+         */
+        public int getEndDay() {
+            return this.end;
+        }
     }
 
     /** A temporal expression that represents a month range. */
     public static class MonthRange extends TemporalExpression {
-        protected int start;
-        protected int end;
+        protected final int start;
+        protected final int end;
         
         /**
          * @param start An integer in the range of <code>Calendar.JANUARY</code>
@@ -651,12 +742,30 @@ public class TemporalExpressions implements Serializable {
             }
             return next;
         }
+
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        /** Returns the starting month of this range.
+         * @return The starting month of this range
+         */
+        public int getStartMonth() {
+            return this.start;
+        }
+
+        /** Returns the ending month of this range.
+         * @return The ending month of this range
+         */
+        public int getEndMonth() {
+            return this.end;
+        }
     }
 
     /** A temporal expression that represents a day of month range. */
     public static class DayOfMonthRange extends TemporalExpression {
-        protected int start;
-        protected int end;
+        protected final int start;
+        protected final int end;
         
         /**
          * @param start An integer in the range of 1 to 31
@@ -714,12 +823,30 @@ public class TemporalExpressions implements Serializable {
             }
             return next;
         }
+
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        /** Returns the starting day of this range.
+         * @return The starting day of this range
+         */
+        public int getStartDay() {
+            return this.start;
+        }
+
+        /** Returns the ending day of this range.
+         * @return The ending day of this range
+         */
+        public int getEndDay() {
+            return this.end;
+        }
     }
 
     /** A temporal expression that represents a day in the month. */
     public static class DayInMonth extends TemporalExpression {
-        protected int dayOfWeek;
-        protected int occurrence;
+        protected final int dayOfWeek;
+        protected final int occurrence;
         
         /**
          * @param dayOfWeek An integer in the range of <code>Calendar.SUNDAY</code>
@@ -794,6 +921,24 @@ public class TemporalExpressions implements Serializable {
             return next;
         }
 
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        /** Returns the day of week in this expression.
+         * @return The day of week in this expression
+         */
+        public int getDayOfWeek() {
+            return this.dayOfWeek;
+        }
+
+        /** Returns the occurrence in this expression.
+         * @return The occurrence in this expression
+         */
+        public int getOccurrence() {
+            return this.occurrence;
+        }
+
         protected Calendar alignDayOfWeek(Calendar cal) {
             cal.set(Calendar.DAY_OF_MONTH, 1);
             if (this.occurrence > 0) {
@@ -815,9 +960,9 @@ public class TemporalExpressions implements Serializable {
 
     /** A temporal expression that represents a frequency. */
     public static class Frequency extends TemporalExpression {
-        protected Date start;
-        protected int freqType;
-        protected int freqCount;
+        protected final Date start;
+        protected final int freqType;
+        protected final int freqCount;
         
         /**
          * @param start Starting date, defaults to current system time
@@ -883,6 +1028,31 @@ public class TemporalExpressions implements Serializable {
                 next.add(this.freqType, this.freqCount);
             }
             return next;
+        }
+
+        public void accept(TemporalExpressionVisitor visitor) {
+            visitor.visit(this);
+        }
+
+        /** Returns the start date of this expression.
+         * @return The start date of this expression
+         */
+        public Date getStartDate() {
+            return (Date) this.start.clone();
+        }
+
+        /** Returns the frequency type of this expression.
+         * @return The frequency type of this expression
+         */
+        public int getFreqType() {
+            return this.freqType;
+        }
+
+        /** Returns the frequency count of this expression.
+         * @return The frequency count of this expression
+         */
+        public int getFreqCount() {
+            return this.freqCount;
         }
 
         protected Calendar prepareCal(Calendar cal) {

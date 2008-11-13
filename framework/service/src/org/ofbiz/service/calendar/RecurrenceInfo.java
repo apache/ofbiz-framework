@@ -371,5 +371,6 @@ public class RecurrenceInfo {
             next.setTimeInMillis(result);
             return next;
         }
+        public void accept(TemporalExpressionVisitor visitor) {}
     }
 }
