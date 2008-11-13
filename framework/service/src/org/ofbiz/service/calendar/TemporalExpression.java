@@ -37,6 +37,10 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
      * on correct ordering. Expressions are evaluated from lowest value
      * to highest value. */
     protected int subSequence = Integer.MAX_VALUE;
+
+    /** A unique ID for this expression. This field is intended to be used by
+     * persistence classes. */
+    protected String id = null;
     
     /** Returns true if this expression includes the specified date.
      * @param cal A date to evaluate
@@ -62,6 +66,11 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
      * or <code>null</code> if no matching date is found
      */
     public abstract Calendar next(Calendar cal);
+
+    /** Handles a <code>TemporalExpressionVisitor</code> visit.
+     * @param visitor
+     */
+    public abstract void accept(TemporalExpressionVisitor visitor);
 
     public int compareTo(TemporalExpression obj) {
         if (this.equals(obj)) {
@@ -94,6 +103,20 @@ public abstract class TemporalExpression implements Serializable, Comparable<Tem
             }
         }
         return set;
+    }
+
+    /** Returns this expression's ID.
+     * @return Expression ID String
+     */
+    public String getId() {
+        return this.id;
+    }
+
+    /** Sets this expression's ID.
+     * @param id Expression ID String
+     */
+    public void setId(String id) {
+        this.id = id;
     }
 
     protected boolean containsExpression(TemporalExpression expression) {

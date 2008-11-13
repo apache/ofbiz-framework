@@ -50,7 +50,7 @@ public class TemporalExpressionWorker {
     /** Get a <code>TemporalExpression</code> from persistent storage.
      * @param delegator
      * @param tempExprId
-     * @return
+     * @return A <code>TemporalExpression</code> instance based on <code>tempExprId</code>
      * @throws GenericEntityException
      */
     public static TemporalExpression getTemporalExpression(GenericDelegator delegator, String tempExprId) throws GenericEntityException {
@@ -69,7 +69,7 @@ public class TemporalExpressionWorker {
      * avoid endless loops.</p>
      * @param delegator
      * @param exprValue
-     * @return
+     * @return A <code>TemporalExpression</code> instance based on <code>exprValue</code>
      * @throws GenericEntityException
      */
     public static TemporalExpression makeTemporalExpression(GenericDelegator delegator, GenericValue exprValue) throws GenericEntityException {

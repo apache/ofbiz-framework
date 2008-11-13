@@ -153,10 +153,10 @@ under the License.
     <TemporalExpressionAssoc fromTempExprId="GOVT_WORK_SCHED" toTempExprId="MON_TO_FRI" exprAssocType="INCLUDE"/>
     <TemporalExpressionAssoc fromTempExprId="GOVT_WORK_SCHED" toTempExprId="US_FED_HOLIDAYS" exprAssocType="EXCLUDE"/>
 
-    <!-- An 8am-5pm Mon-Fri expression that excludes US federal holidays -->
+    <!-- An 8am Mon-Fri expression that excludes US federal holidays -->
     <TemporalExpression tempExprId="DAILY_GRIND" tempExprTypeId="INTERSECTION"/>
-    <TemporalExpression tempExprId="8AM_TO_5PM" tempExprTypeId="TIME_OF_DAY_RANGE" string1="08:00" string2="17:00"/>
-    <TemporalExpressionAssoc fromTempExprId="DAILY_GRIND" toTempExprId="8AM_TO_5PM"/>
+    <TemporalExpression tempExprId="8AM" tempExprTypeId="TIME_OF_DAY_RANGE" string1="08:00" string2="08:00"/>
+    <TemporalExpressionAssoc fromTempExprId="DAILY_GRIND" toTempExprId="8AM"/>
     <TemporalExpressionAssoc fromTempExprId="DAILY_GRIND" toTempExprId="GOVT_WORK_SCHED"/>
 
     <!-- An every-other-Monday at 5pm expression -->
