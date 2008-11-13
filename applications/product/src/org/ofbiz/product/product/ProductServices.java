@@ -185,7 +185,7 @@ public class ProductServices {
         GenericDelegator delegator = dctx.getDelegator();
         LocalDispatcher dispatcher = dctx.getDispatcher();
         Map<String, Object> result = FastMap.newInstance();
-        List<String> featureOrder = UtilMisc.makeListWritable(UtilGenerics.<String>checkList(context.get("featureOrder")));
+        List<String> featureOrder = UtilMisc.makeListWritable(UtilGenerics.<String>checkCollection(context.get("featureOrder")));
 
         if (featureOrder == null || featureOrder.size() == 0) {
             return ServiceUtil.returnError("Empty list of features passed");
