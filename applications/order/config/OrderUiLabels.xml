@@ -2148,7 +2148,7 @@
     <property key="OrderCheckoutQuick">
         <value xml:lang="en">Quick Checkout</value>
         <value xml:lang="es">Ir a compras rápido</value>
-        <value xml:lang="fr">Payement rapide</value>
+        <value xml:lang="fr">Paiement rapide</value>
         <value xml:lang="hi_IN">जल्द छोड़ें</value>
         <value xml:lang="it">Chiusura veloce</value>
         <value xml:lang="ja">クイックチェックアウト</value>
