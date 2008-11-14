@@ -758,7 +758,8 @@ public class CheckOutHelper {
 
         int shipGroups = this.cart.getShipGroupSize();
         for (int i = 0; i < shipGroups; i++) {
-            Map serviceContext = this.makeTaxContext(i, shipAddress);
+            Map shoppingCartItemIndexMap = new HashMap();
+            Map serviceContext = this.makeTaxContext(i, shipAddress, shoppingCartItemIndexMap);
             // pass in BigDecimal values instead of Double
             List taxReturn = this.getTaxAdjustments(dispatcher, "calcTax", serviceContext);
 
@@ -771,7 +772,7 @@ public class CheckOutHelper {
             if (itemAdj != null) {
                 for (int x = 0; x < itemAdj.size(); x++) {
                     List adjs = (List) itemAdj.get(x);
-                    ShoppingCartItem item = (ShoppingCartItem) csi.shipItemInfo.get(x);
+                    ShoppingCartItem item = (ShoppingCartItem) shoppingCartItemIndexMap.get(Integer.valueOf(x));
                     if (adjs == null) {
                         adjs = new LinkedList();
                     }
@@ -786,7 +787,7 @@ public class CheckOutHelper {
         }
     }
 
-    private Map makeTaxContext(int shipGroup, GenericValue shipAddress) throws GeneralException {
+    private Map makeTaxContext(int shipGroup, GenericValue shipAddress, Map shoppingCartItemIndexMap) throws GeneralException {
         String productStoreId = cart.getProductStoreId();
         String billToPartyId = cart.getBillToCustomerPartyId();
         ShoppingCart.CartShipInfo csi = cart.getShipInfo(shipGroup);
@@ -799,8 +800,9 @@ public class CheckOutHelper {
 
         // Debug.logInfo("====== makeTaxContext passed in shipAddress=" + shipAddress, module);
         
+        Iterator it = csi.shipItemInfo.keySet().iterator();
         for (int i = 0; i < totalItems; i++) {
-            ShoppingCartItem cartItem = (ShoppingCartItem) csi.shipItemInfo.get(i);
+            ShoppingCartItem cartItem = (ShoppingCartItem) it.next();
             ShoppingCart.CartShipInfo.CartShipItemInfo itemInfo = csi.getShipItemInfo(cartItem);
             
             //Debug.logInfo("In makeTaxContext for item [" + i + "] in ship group [" + shipGroup + "] got cartItem: " + cartItem, module);
@@ -810,6 +812,7 @@ public class CheckOutHelper {
             amount.add(i, new BigDecimal(cartItem.getItemSubTotal(itemInfo.quantity)));
             price.add(i, new BigDecimal(cartItem.getBasePrice()));
             shipAmt.add(i, BigDecimal.ZERO); // no per item shipping yet
+            shoppingCartItemIndexMap.put(Integer.valueOf(i), cartItem);
         }
         
         //add promotion adjustments
