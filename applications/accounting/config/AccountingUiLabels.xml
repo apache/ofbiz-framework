@@ -7146,7 +7146,7 @@
     <property key="FormFieldTitle_minItemPrice">
         <value xml:lang="en">Min Item Price</value>
         <value xml:lang="es">Precio mínimo de elemento</value>
-        <value xml:lang="fr">Prix minimum article</value>
+        <value xml:lang="fr">Prix minimum de l'article</value>
         <value xml:lang="it">Prezzo Minimo Riga</value>
         <value xml:lang="ro">Pret Minim Linie</value>
         <value xml:lang="ru">Мин. цена поз.</value>
@@ -7156,7 +7156,7 @@
     <property key="FormFieldTitle_minPurchase">
         <value xml:lang="en">Min Purchase</value>
         <value xml:lang="es">Compra mínima</value>
-        <value xml:lang="fr">Quantité minimum</value>
+        <value xml:lang="fr">Montant minimum</value>
         <value xml:lang="it">Acquisto Minimo</value>
         <value xml:lang="ro">Cumarare Minima</value>
         <value xml:lang="ru">Мин. закупка</value>
@@ -7165,7 +7165,7 @@
     </property>
     <property key="FormFieldTitle_minQuantity">
         <value xml:lang="en">Min Quantity </value>
-        <value xml:lang="fr">Quantité minimum </value>
+        <value xml:lang="fr">Quantité minimum</value>
         <value xml:lang="it">Quantità Minima</value>
         <value xml:lang="ru">Мин. кол-во</value>
         <value xml:lang="th">จำนวนน้อยสุด</value>
