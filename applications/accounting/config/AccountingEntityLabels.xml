@@ -1278,7 +1278,7 @@
     </property>
     <property key="InvoiceItemType.description.CRT_SALES_TAX_ADJ">
         <value xml:lang="en">Return Sales Tax</value>
-        <value xml:lang="fr">Retour de taxe de vente</value>
+        <value xml:lang="fr">Remboursement de TVA</value>
         <value xml:lang="it">Reso Tasse Vendita</value>
         <value xml:lang="ro">Returnare Taxe Vanzari</value>
         <value xml:lang="ru">Возврат налогов с продаж</value>
@@ -1566,7 +1566,7 @@
     </property>
     <property key="InvoiceItemType.description.ITM_SALES_TAX">
         <value xml:lang="en">Invoice Item Sales Tax</value>
-        <value xml:lang="fr">Taxe de vente sur ligne de facturation</value>
+        <value xml:lang="fr">Ligne de TVA</value>
         <value xml:lang="it">Fattura Riga Tasse Vendita</value>
         <value xml:lang="ro">Factura Linie Taxe Vanzare</value>
         <value xml:lang="ru">Налог с продаж по позиции накладной</value>
@@ -1845,7 +1845,7 @@
     </property>
     <property key="InvoiceItemType.description.PITM_SALES_TAX">
         <value xml:lang="en">Invoice Item Sales Tax</value>
-        <value xml:lang="fr">Taxe de vente sur ligne de facturation</value>
+        <value xml:lang="fr">ligne de TVA</value>
         <value xml:lang="it">Fattura Riga Tasse Vendita</value>
         <value xml:lang="ro">Factura Linie Taxe Vanzari</value>
         <value xml:lang="ru">Налог с продаж по позиции накладной</value>
