@@ -100,7 +100,6 @@ under the License.
             <li id="header-bar-logout"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
         <#else/>
             <li id="header-bar-login"><a href="<@ofbizUrl>${checkLoginUrl}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
-            <li id="header-bar-login"><a href="<@ofbizUrl>newcustomer</@ofbizUrl>">${uiLabelMap.AccountingNewAccount}</a></li>
         </#if>
         <li id="header-bar-contactus"><a href="<@ofbizUrl>contactus</@ofbizUrl>">${uiLabelMap.CommonContactUs}</a></li>
         <li id="header-bar-main"><a href="<@ofbizUrl>main</@ofbizUrl>">${uiLabelMap.CommonMain}</a></li>
