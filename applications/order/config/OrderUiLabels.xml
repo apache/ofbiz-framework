@@ -1249,7 +1249,7 @@
     <property key="FormFieldTitle_salesTaxAmount">
         <value xml:lang="de">Verkaufssteuern Betrag</value>
         <value xml:lang="en">Sales Tax Amount</value>
-        <value xml:lang="fr">Montant de la taxe de vente</value>
+        <value xml:lang="fr">Montant de la TVA</value>
         <value xml:lang="th">จำนวนภาษีการขาย</value>
     </property>
     <property key="FormFieldTitle_selectedAmount">

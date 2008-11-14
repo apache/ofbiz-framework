@@ -634,7 +634,7 @@
         <value xml:lang="de">Verkaufssteuer</value>
         <value xml:lang="en">SALES_TAX</value>
         <value xml:lang="es">Impuesto de ventas</value>
-        <value xml:lang="fr">Taxe de vente (TVA)</value>
+        <value xml:lang="fr">TVA</value>
         <value xml:lang="th">ภาษีการขาย</value>
     </property>
     <property key="TaxAuthorityRateType.description.USE_TAX">
