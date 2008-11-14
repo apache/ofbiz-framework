@@ -17,16 +17,16 @@
  * under the License.
  *******************************************************************************/
 
-//package org.ofbiz.pos.screen;
+package org.ofbiz.pos.screen;
 //
 //import javax.swing.SwingUtilities;
 //import java.awt.Component;
 //import net.xoetrope.swing.XEdit;
-//import net.xoetrope.swing.XDialog;
+import net.xoetrope.swing.XDialog;
 //
 //import org.ofbiz.base.util.Debug;
 //
-//public class XFocusDialog extends XDialog {
+public class XFocusDialog extends XDialog {
 //    
 //    protected XEdit m_focused = null;
 //
@@ -61,4 +61,4 @@
 //        Debug.logInfo( "isFocusable in setM_focused :" + focused.isFocusable(), "======================================" );                            
 //        this.m_focused = focused;
 //    }
-//}
+}
