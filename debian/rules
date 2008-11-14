@@ -53,10 +53,12 @@ clean: clean-debian
 
 build: debian/stamps/build-ofbiz debian/EncryptPassword.class
 build-ofbiz: debian/stamps/build-ofbiz
+binary-indep: debian/stamps/build-ofbiz
 debian/stamps/build-ofbiz:
 	ant
 	@mkdir -p $(@D) && touch $@
 
+binary-indep: debian/EncryptPassword.class
 debian/EncryptPassword.class: %.class: %.java
 debian/EncryptPassword.class: debian/stamps/build-ofbiz
 	$(JAVAC) -classpath framework/base/build/lib/ofbiz-base.jar:framework/common/build/lib/ofbiz-common.jar -d $(@D) $*.java
