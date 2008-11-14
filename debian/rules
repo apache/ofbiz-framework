@@ -45,18 +45,20 @@ merge:
 clean-debian:
 	dh_clean
 	rm -f debian/EncryptPassword.class
-	rm -rf runtime/catalina/work
+	rm -rf runtime/catalina/work debian/stamps
 
 clean: clean-debian
 	ant clean-all
 	debconf-updatepo
 
-build: build-ofbiz debian/EncryptPassword.class
-build-ofbiz:
+build: debian/stamps/build-ofbiz debian/EncryptPassword.class
+build-ofbiz: debian/stamps/build-ofbiz
+debian/stamps/build-ofbiz:
 	ant
+	@mkdir -p $(@D) && touch $@
 
 debian/EncryptPassword.class: %.class: %.java
-debian/EncryptPassword.class: build-ofbiz
+debian/EncryptPassword.class: debian/stamps/build-ofbiz
 	$(JAVAC) -classpath framework/base/build/lib/ofbiz-base.jar:framework/common/build/lib/ofbiz-common.jar -d $(@D) $*.java
 
 
