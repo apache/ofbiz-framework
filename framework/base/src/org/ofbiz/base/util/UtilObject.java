@@ -106,7 +106,9 @@ public class UtilObject {
         ObjectOutputStream oos = new ObjectOutputStream(bos);
         oos.writeObject(obj);
         oos.flush();
-        return (long) bos.size();
+        long size = (long) bos.size();
+        bos.close();
+        return size;
     }
 
     /** Deserialize a byte array back to an object */
