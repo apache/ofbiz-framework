@@ -774,19 +774,17 @@ public class InvoiceServices {
                 currentPayments.addAll(payments);
             }
             if (currentPayments.size() > 0) {
-                // apply these payments to the invoice; only if they haven't already been applied
+                // apply these payments to the invoice if they have any remaining amount to apply
                 Iterator cpi = currentPayments.iterator();
                 while (cpi.hasNext()) {
                     GenericValue payment = (GenericValue) cpi.next();
-                    List currentApplications = null;
-                    currentApplications = payment.getRelated("PaymentApplication");
-                    if (currentApplications == null || currentApplications.size() == 0) {
-                        // no applications; okay to apply
+                    BigDecimal notApplied = PaymentWorker.getPaymentNotAppliedBd(payment);
+                    if (notApplied.signum() > 0) {
                         Map appl = new HashMap();
                         appl.put("paymentId", payment.get("paymentId"));
                         appl.put("invoiceId", invoiceId);
                         appl.put("billingAccountId", billingAccountId);
-                        appl.put("amountApplied", payment.get("amount"));
+                        appl.put("amountApplied", new Double(notApplied.doubleValue()));
                         appl.put("userLogin", userLogin);
                         Map createPayApplResult = dispatcher.runSync("createPaymentApplication", appl); 
                         if (ServiceUtil.isError(createPayApplResult)) {
