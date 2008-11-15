@@ -4011,117 +4011,6 @@
         </value>
         <value xml:lang="zh">完成订单通知</value>
     </property>
-    <property key="OrderGift">
-        <value xml:lang="cs">Dárek</value>
-        <value xml:lang="de">Geschenk</value>
-        <value xml:lang="en">Gift</value>
-        <value xml:lang="es">Regalo</value>
-        <value xml:lang="fr">Cadeau</value>
-        <value xml:lang="hi_IN">उपहार</value>
-        <value xml:lang="it">Omaggio</value>
-        <value xml:lang="ja">Gift</value>
-        <value xml:lang="nl">Geschenk</value>
-        <value xml:lang="pt_PT">Presente</value>
-        <value xml:lang="ro">Omagiu</value>
-        <value xml:lang="ru">Подарок</value>
-        <value xml:lang="th">ของขวัญ</value>
-        <value xml:lang="zh">礼品</value>
-    </property>
-    <property key="OrderGiftMessage">
-        <value xml:lang="cs">Informace o dárku</value>
-        <value xml:lang="de">Geschenk Information</value>
-        <value xml:lang="en">Gift Message</value>
-        <value xml:lang="es">Mensaje Del Regalo</value>
-        <value xml:lang="fr">Message associé au cadeau</value>
-        <value xml:lang="hi_IN">उपहार सूचना</value>
-        <value xml:lang="it">Messaggio per omaggio</value>
-        <value xml:lang="ja">Gift Message</value>
-        <value xml:lang="nl">Geschenk bericht</value>
-        <value xml:lang="pt_PT">Mensagem no Presente</value>
-        <value xml:lang="ro">Mesaj Omagiu</value>
-        <value xml:lang="ru">Подарочное сообщение(?)</value>
-        <value xml:lang="th">ข้อความของขวัญ</value>
-        <value xml:lang="zh">礼品消息</value>
-    </property>
-    <property key="OrderGrandTotal">
-        <value xml:lang="cs">Celková částka</value>
-        <value xml:lang="de">Gesamtsumme</value>
-        <value xml:lang="en">Grand Total</value>
-        <value xml:lang="es">Importe Total</value>
-        <value xml:lang="fr">Total général</value>
-        <value xml:lang="hi_IN">कुल मूल्य</value>
-        <value xml:lang="it">Totale generale</value>
-        <value xml:lang="ja">Grand Total</value>
-        <value xml:lang="nl">Algeheel totaal</value>
-        <value xml:lang="pt_PT">Total</value>
-        <value xml:lang="ro">Total General</value>
-        <value xml:lang="ru">Grand Total</value>
-        <value xml:lang="th">ผลรวมทั้งหมด</value>
-        <value xml:lang="zh">总计</value>
-    </property>
-    <property key="OrderHowShallWeShipIt">
-        <value xml:lang="cs">Jak to máme poslat</value>
-        <value xml:lang="de">Wie sollen wir es versenden</value>
-        <value xml:lang="en">How shall we ship it</value>
-        <value xml:lang="en_GB">Please select a delivery option</value>
-        <value xml:lang="es">Cómo lo enviamos</value>
-        <value xml:lang="fr">Comment devons-nous l'envoyer</value>
-        <value xml:lang="hi_IN">माल कैसे भेजें</value>
-        <value xml:lang="it">Come verrà spedito</value>
-        <value xml:lang="ja">How shall we ship it</value>
-        <value xml:lang="nl">Hoe zullen we versturen</value>
-        <value xml:lang="pt_PT">Como Deseja o Envio</value>
-        <value xml:lang="ro">Cum va fi expediat </value>
-        <value xml:lang="ru">Как мы должны доставить</value>
-        <value xml:lang="th">ให้เราจัดการขนส่งด้วยวิธีใด</value>
-        <value xml:lang="zh">如何送货</value>
-    </property>
-    <property key="OrderHowShallYouPay">
-        <value xml:lang="cs">Jak si přejete platit</value>
-        <value xml:lang="de">Wie möchten Sie zahlen</value>
-        <value xml:lang="en">How shall you pay</value>
-        <value xml:lang="es">Cómo usted pagará</value>
-        <value xml:lang="fr">Comment payerez-vous</value>
-        <value xml:lang="hi_IN">आप भुगतान कैसे करेन्गे</value>
-        <value xml:lang="it">Come verrà pagato</value>
-        <value xml:lang="ja">How shall you pay</value>
-        <value xml:lang="nl">Hoe wil u betalen</value>
-        <value xml:lang="pt_PT">Como Deseja Pagar</value>
-        <value xml:lang="ro">Cum va fi platit </value>
-        <value xml:lang="ru">Как вы собираетесь оплачивать</value>
-        <value xml:lang="th">คุณจะชำระเงินด้วยวิธีใด</value>
-        <value xml:lang="zh">如何支付</value>
-    </property>
-    <property key="OrderInformationAboutYou">
-        <value xml:lang="de">Informationen zu Ihnen</value>
-        <value xml:lang="en">Information about you</value>
-        <value xml:lang="es">Información acerca de usted</value>
-        <value xml:lang="fr">Information à votre sujet</value>
-        <value xml:lang="hi_IN">आपके बारे मे सूचना</value>
-        <value xml:lang="it">Informazione su </value>
-        <value xml:lang="ja">Information about you</value>
-        <value xml:lang="nl">Informatie over U</value>
-        <value xml:lang="ro">Informatie pentru </value>
-        <value xml:lang="ru">Информация о вас</value>
-        <value xml:lang="th">ข้อมูลเกี่ยวกับคุณ</value>
-        <value xml:lang="zh">有关你的信息</value>
-    </property>
-    <property key="OrderIsThisGift">
-        <value xml:lang="cs">Je to dárek</value>
-        <value xml:lang="de">Ist das ein Geschenk</value>
-        <value xml:lang="en">Is This a Gift</value>
-        <value xml:lang="es">Es esto un regalo</value>
-        <value xml:lang="fr">Est-ce un cadeau</value>
-        <value xml:lang="hi_IN">क्या यह उपहार है</value>
-        <value xml:lang="it">E' un omaggio</value>
-        <value xml:lang="ja">Is This a Gift</value>
-        <value xml:lang="nl">Is het een geschenk</value>
-        <value xml:lang="pt_PT">É Um Presente</value>
-        <value xml:lang="ro">Acesta este un Omagiu</value>
-        <value xml:lang="ru">Это подарок</value>
-        <value xml:lang="th">นี่คือของขวัญใช่หรือไม่</value>
-        <value xml:lang="zh">这是礼品吗</value>
-    </property>
     <property key="OrderItemGroups">
         <value xml:lang="de">Artikelgruppen</value>
         <value xml:lang="en">Item Groups</value>
@@ -4136,7 +4025,6 @@
         <value xml:lang="th">กลุ่มสินค้า</value>
         <value xml:lang="zh">明细组</value>
     </property>
->>>>>>> .r713525
     <property key="OrderLastOrderedDate">
         <value xml:lang="de">Zuletzt bestellt am</value>
         <value xml:lang="en">Last Ordered Date</value>
