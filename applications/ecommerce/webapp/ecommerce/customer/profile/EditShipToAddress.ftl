@@ -52,29 +52,29 @@ under the License.
       </span>
     </div>
     <div class="form-row">
-      <label>${uiLabelMap.PartyState}*</label>
-      <span>
-        <select name="stateProvinceGeoId" id="shipToStateProvinceGeoId" class="left required" style="width: 70%">
-          <#if shipToStateProvinceGeoId?exists>
-            <option value='${shipToStateProvinceGeoId?if_exists}'>${shipToStateProvinceGeo?default(shipToStateProvinceGeoId?if_exists)}</option>
-          </#if>
-          <option value="">${uiLabelMap.PartyNoState}</option>
-          ${screens.render("component://common/widget/CommonScreens.xml#states")}
-        </select>
-        <span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span>
-      </span>
-    </div>
-    <div class="form-row">
       <label>${uiLabelMap.PartyCountry}*</label>
       <span>
         <select name="countryGeoId" id="shipToCountryGeoId" class="left required" style="width: 70%">
-          <#if shipToCountryGeoId?exists>
-            <option value='${shipToCountryGeoId?if_exists}'>${shipToCountryProvinceGeo?default(shipToCountryGeoId?if_exists)}</option>
+          <#if shipToCountryGeoId??>
+            <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryProvinceGeoId!)}</option>
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
         <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(required)</span>
       </span>
+    </div>
+    <div id="shipToStates" class="form-row">
+      <label>${uiLabelMap.PartyState}*<span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label>
+      <span>
+        <select name="stateProvinceGeoId" id="shipToStateProvinceGeoId" style="width: 70%">
+          <#if shipToStateProvinceGeoId?has_content>
+            <option value='${shipToStateProvinceGeoId!}'>${shipToStateProvinceGeo!(shipToStateProvinceGeoId!)}</option>
+          <#else>
+            <option value="_NA_">${uiLabelMap.PartyNoState}</option>
+          </#if>
+          
+        </select>
+      </span> 
     </div>
     <#if shipToTelecomNumber?has_content>
       <div class="form-row">

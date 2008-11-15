@@ -90,26 +90,25 @@ under the License.
         <div><input type="text" name="shipToPostalCode" id="shipToPostalCode" class="required" value="${parameters.shipToPostalCode?if_exists}" maxlength="10"/></div>
       </div> 
       <div class="form-row">
-        <div class="field-label"><label for="shipToStateProvinceGeoId">${uiLabelMap.CommonState}* <span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
-        <div>
-          <select name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" class='selectBox'>
-            <#if parameters.shipToStateProvinceGeoId?exists>
-              <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", parameters.shipToStateProvinceGeoId), true)>
-              <option value='${parameters.shipToStateProvinceGeoId}'>${geo.geoName?default(parameters.shipToStateProvinceGeoId)}</option>
-            </#if>
-            ${screens.render("component://common/widget/CommonScreens.xml#states")}
-          </select>
-        </div>
-      </div>  
-      <div class="form-row">
         <div class="field-label"><label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}* <span id="advice-required-shipToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
         <div>
-          <select name="shipToCountryGeoId" id="shipToCountryGeoId" class='selectBox'>
-            <#if parameters.shipToCountryGeoId?exists>
-              <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", parameters.shipToCountryGeoId), true)>
-              <option value='${parameters.shipToCountryGeoId}'>${geo.geoName?default(parameters.shipToCountryGeoId)}</option>
+          <select name="shipToCountryGeoId" id="shipToCountryGeoId">
+            <#if shipToCountryGeoId??>
+              <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryProvinceGeoId!)}</option>
             </#if>
             ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+          </select>
+        </div>
+      </div>
+      <div id='shipToStates' class="form-row">
+        <div class="field-label"><label for="state">${uiLabelMap.CommonState}*<span id="advice-required-shipToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
+        <div>
+          <select id="shipToStateProvinceGeoId" name="shipToStateProvinceGeoId">
+            <#if shipToStateProvinceGeoId?has_content>
+              <option value='${shipToStateProvinceGeoId!}'>${shipToStateProvinceGeo!(shipToStateProvinceGeoId!)}</option>
+            <#else>
+               <option value="_NA_">${uiLabelMap.PartyNoState}</option>
+            </#if>
           </select>
         </div>
       </div>  
@@ -153,29 +152,28 @@ under the License.
           <div><input type="text" name="billToPostalCode" id="billToPostalCode" class="required" value="${parameters.billToPostalCode?if_exists}" maxlength="10"/></div>
         </div> 
         <div class="form-row">
-          <div class="field-label"><label for="billToStateProvinceGeoId">${uiLabelMap.CommonState}* <span id="advice-required-billToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
-          <div>
-            <select name="billToStateProvinceGeoId" id="billToStateProvinceGeoId" class="selectBox required">
-              <#if parameters.billToStateProvinceGeoId?exists>
-                <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", parameters.billToStateProvinceGeoId), true)>
-                <option value='${parameters.billToStateProvinceGeoId}'>${geo.geoName?default(parameters.billToStateProvinceGeoId)}</option>
-              </#if>
-              ${screens.render("component://common/widget/CommonScreens.xml#states")}
-            </select>
-          </div>
+        <div class="field-label"><label for="billToCountryGeoId">${uiLabelMap.PartyCountry}* <span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
+        <div>
+          <select name="billToCountryGeoId" id="billToCountryGeoId" class='required selectBox'>
+            <#if billToCountryGeoId??>
+              <option value='${billToCountryGeoId!}'>${billToCountryProvinceGeo!(billToCountryGeoId!)}</option>
+            </#if>
+            ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+          </select>
         </div>
-        <div class="form-row">
-          <div class="field-label"><label for="billToCountryGeoId">${uiLabelMap.PartyCountry}* <span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
-          <div>
-            <select name="billToCountryGeoId" id="billToCountryGeoId" class="selectBox required">
-              <#if parameters.billToCountryGeoId?exists>
-                <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", parameters.billToCountryGeoId), true)>
-                <option value='${parameters.billToCountryGeoId}'>${geo.geoName?default(parameters.billToCountryGeoId)}</option>
-              </#if>
-              ${screens.render("component://common/widget/CommonScreens.xml#countries")}
-            </select>
-          </div>
+      </div>
+      <div id='billToStates' class="form-row">
+        <div class="field-label"><label for="state">${uiLabelMap.CommonState}*<span id="advice-required-billToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label></div>
+        <div>
+          <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId">
+            <#if billToStateProvinceGeoId?has_content>
+              <option value='${billToStateProvinceGeoId!}'>${billToStateProvinceGeo!(billToStateProvinceGeoId!)}</option>
+            <#else>
+              <option value="_NA_">${uiLabelMap.PartyNoState}</option>
+            </#if>
+          </select>
         </div>
+      </div>
         <div class="form-row">
           <div class="field-label">
             <label>${uiLabelMap.PartyPhoneNumber}*</label>

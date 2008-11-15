@@ -19,11 +19,8 @@
 
 Event.observe(window, 'load', function() {
     // Autocompleter for shipping panel
-    getCountryList();
-    Event.observe('shipToCountryGeo', 'change', function() {
-        $('shipToStateProvinceGeo').value = "";
-        $('shipToStateProvinceGeoId').value = "";
-    });
+    // Preventing getCountryList() from calling and not removed all autocompleter functions so that we can reuse in future.
+    //getCountryList();
 });
 
 function getCountryList() {
@@ -49,10 +46,10 @@ function callCountryAutocompleter(transport) {
 
 function setKeyAsParameterAndGetStateList(text, li) {
     countryHiddenTarget.value = li.id;
-    getAssociatedStateList();
+    getAssociatedStateListForAutoComplete();
 }
 
-function getAssociatedStateList() {
+function getAssociatedStateListForAutoComplete() {
     stateTargetField = $('shipToStateProvinceGeo');
     stateDivToPopulate = $('shipToStates');
     stateHiddenTarget = $('shipToStateProvinceGeoId');
@@ -71,9 +68,57 @@ function callStateAutocompleter(transport) {
         var stateName = state.split(': ');
         geos.set(stateName[1], stateName[0]);
     });
+    if (stateList.size() <= 1) {
+        $('shipToStateProvinceGeo').value = "No States/Provinces exists";
+        $('shipToStateProvinceGeoId').value = "_NA_";
+        Effect.Fade('shipStates', {duration: 0.0});
+        Effect.Fade('advice-required-shipToStateProvinceGeo', {duration: 0.0});
+        Event.stopObserving($('shipToStateProvinceGeo'), 'blur');
+    } else {
+        $('shipToStateProvinceGeo').value = "";
+        $('shipToStateProvinceGeoId').value = "";
+        Effect.Appear('shipStates', {duration: 0.0});
+        Event.observe($('shipToStateProvinceGeo'), 'blur', function() {
+            if ($('shipToStateProvinceGeo').value == "") {
+                Effect.Appear('advice-required-shipToStateProvinceGeo', {duration: 0.0});
+            }
+        });
+    }
     new Autocompleter.Local(stateTargetField, stateDivToPopulate, $H(geos), { partialSearch: false, afterUpdateElement: setKeyAsParameter });
 }
 
 function setKeyAsParameter(text, li) {
     stateHiddenTarget.value = li.id;
+}
+
+//Generic function for fetching country's associated state list. 
+function getAssociatedStateList(countryId, stateId, errorId, divId) {
+    var optionList = [];
+    new Ajax.Request("getAssociatedStateList", {
+        asynchronous: false,
+        parameters: {countryGeoId:$F(countryId)},
+        onSuccess: function(transport) {
+            var data = transport.responseText.evalJSON(true);
+            stateList = data.stateList;
+            stateList.each(function(state) {
+                geoValues = state.split(': ');
+                optionList.push("<option value = "+geoValues[1]+" >"+geoValues[0]+"</option>");
+            });
+            $(stateId).update(optionList);
+            if (stateList.size() == 1) {
+                if ($(divId).visible() || $(errorId).visible()) {
+                    Effect.Fade(divId, {duration: 0.0});
+                    Effect.Fade(errorId, {duration: 0.0});
+                    Event.stopObserving(stateId, 'blur');
+                }
+            } else {
+                Effect.Appear(divId, {duration: 0.0});
+                Event.observe(stateId, 'blur', function() {
+                    if ($F(stateId) == "") {
+                        Effect.Appear(errorId, {duration: 0.0});
+                    }
+                });
+            }   
+        }
+    });
 }

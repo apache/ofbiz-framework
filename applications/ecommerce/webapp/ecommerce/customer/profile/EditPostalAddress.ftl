@@ -53,30 +53,31 @@ under the License.
       </span>
     </div>
     <div class="form-row">
-      <label>${uiLabelMap.PartyState}*</label>
-      <span>
-        <select name="stateProvinceGeoId" id="stateProvinceGeoId_${contactMech.contactMechId}" class="left required" style="width: 70%">
-          <#if postalAddress.stateProvinceGeoId?exists>
-            <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.stateProvinceGeoId), true)>
-            <option value='${postalAddress.stateProvinceGeoId}'>${geo.geoName?default(postalAddress.stateProvinceGeoId)}</option>
-          </#if>
-          <option value="">${uiLabelMap.PartyNoState}</option>
-          ${screens.render("component://common/widget/CommonScreens.xml#states")}
-        </select>
-        <span id="advice-required-stateProvinceGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
-      </span>
-    </div>
-    <div class="form-row">
       <label>${uiLabelMap.PartyCountry}*</label>
       <span>
         <select name="countryGeoId" id="countryGeoId_${contactMech.contactMechId}" class="left required" style="width: 70%">
-          <#if postalAddress.countryGeoId?exists>
+          <#if postalAddress.countryGeoId??>
             <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.countryGeoId), true)>
-            <option value='${postalAddress.countryGeoId}'>${geo.geoName?default(postalAddress.countryGeoId)}</option>
+            <option value="${postalAddress.countryGeoId}">${geo.geoName!(postalAddress.countryGeoId)}</option>
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
         <span id="advice-required-countryGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
+      </span>
+    </div>
+    <div id="states_${contactMech.contactMechId}" class="form-row">
+      <label>${uiLabelMap.PartyState}*</label>
+      <span>
+        <select name="stateProvinceGeoId" id="stateProvinceGeoId_${contactMech.contactMechId}" style="width: 70%">
+          <#if postalAddress.stateProvinceGeoId??>
+            <#assign geo = delegator.findOne("Geo", Static["org.ofbiz.base.util.UtilMisc"].toMap("geoId", postalAddress.stateProvinceGeoId), true)>
+            <option value="${postalAddress.stateProvinceGeoId}">${geo.geoName!(postalAddress.stateProvinceGeoId)}</option>
+          <#else>
+            <option value="_NA_">${uiLabelMap.PartyNoState}</option>
+          </#if>
+          ${screens.render("component://common/widget/CommonScreens.xml#states")}
+        </select>
+        <span id="advice-required-stateProvinceGeoId_${contactMech.contactMechId}" style="display: none" class="errorMessage">(required)</span>
       </span>
     </div>
     <div class="form-row">
