@@ -674,7 +674,7 @@ under the License.
     </request-map>
     <request-map uri="updateEmplPositionType">
         <security https="true" auth="true"/>
-        <event type="service-multi" invoke="updateEmplPositionType"/>
+        <event type="service" invoke="updateEmplPositionType"/>
         <response name="success" type="view" value="EditEmplPositionTypes"/>
     </request-map>
     <request-map uri="EditEmplPositionTypeRates">

@@ -637,8 +637,9 @@ under the License.
              location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplPositionTypeRate" auth="true">
         <description>Create Valid EmplPositionTypeRate</description>
         <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
-        <auto-attributes mode="INOUT" include="pk" optional="true"/>
+        <auto-attributes mode="INOUT" include="pk" optional="false"/>
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <override name="fromDate" optional="true"/>
     </service>
     
     <service name="updateEmplPositionTypeRate" engine="simple" default-entity-name="EmplPositionTypeRate"
