@@ -861,7 +861,7 @@ public class ShipmentServices {
             List<GenericValue> shipmentAndItems = delegator.findByAnd("ShipmentAndItem", UtilMisc.toMap("shipmentId", shipmentId, "statusId", "PURCH_SHIP_SHIPPED"));
             if (shipmentAndItems.size() == 0) return ServiceUtil.returnSuccess();
 
-            // store the quanitity of each product shipped in a hashmap keyed to productId
+            // store the quantity of each product shipped in a hashmap keyed to productId
             Map<String, Double> shippedCountMap = FastMap.newInstance();
             for (GenericValue item: shipmentAndItems) {
                 double shippedQuantity = item.getDouble("quantity").doubleValue();
@@ -870,9 +870,9 @@ public class ShipmentServices {
                 shippedCountMap.put(item.getString("productId"), quantity);
             }
 
-            // store the quanitity of each product received in a hashmap keyed to productId
+            // store the quantity of each product received in a hashmap keyed to productId
             Map<String, Double> receivedCountMap = FastMap.newInstance();
-            for (GenericValue item: shipmentAndItems) {
+            for (GenericValue item: shipmentReceipts) {
                 double receivedQuantity = item.getDouble("quantityAccepted").doubleValue();
                 Double quantity = receivedCountMap.get(item.getString("productId"));
                 quantity = Double.valueOf(quantity == null ? receivedQuantity : receivedQuantity + quantity.doubleValue());
