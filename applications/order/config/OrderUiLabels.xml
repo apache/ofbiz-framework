@@ -2351,10 +2351,19 @@
         <value xml:lang="zh">包含缺货通知单</value>
     </property>
     <property key="OrderContinueToFinalOrderReview">
-        <value xml:lang="de">Weiter zur abschliessenden Auftragsüberprüfung</value>
+        <value xml:lang="cs">Dále k závěrečnému přehledu objednávky</value>
+        <value xml:lang="de">Weiter zur abschließenden Bestellüberprüfung</value>
         <value xml:lang="en">Continue to Final Order Review</value>
+        <value xml:lang="es">Pasar a la Revisión Final de la Compra</value>
         <value xml:lang="fr">Continuer vers la vérification finale de la commande</value>
-        <value xml:lang="th">เริ่มตรวจสอบรายการสุดท้ายใหม่</value>
+        <value xml:lang="it">Passa alla revisione finale ordine</value>
+        <value xml:lang="ja">Continue to Final Order Review</value>
+        <value xml:lang="nl">Doorgaan naar het bestellingenoverzicht</value>
+        <value xml:lang="pt_PT">Continuar para a Revisão Final da Encomenda</value>
+        <value xml:lang="ro">Continua Revizia Comenzii Finale</value>
+        <value xml:lang="ru">Перейти к финальному обзору заказа</value>
+        <value xml:lang="th">ดูรายการสั่งซื้อในหน้าสุดท้ายต่อไป</value>
+        <value xml:lang="zh">继续以便结束订单浏览</value>
     </property>
     <property key="OrderCopyCustRequestItem">
         <value xml:lang="de">Anfrageelement kopieren</value>
@@ -2724,6 +2733,21 @@
         <value xml:lang="fr">Information du plan de livraison</value>
         <value xml:lang="th">ข้อมูลตารางเวลาการส่ง</value>
     </property>
+    <property key="OrderDemoFrontNote">
+        <value xml:lang="de">ANMERKUNG: Dies ist eine DEMO Version.  Hier getätigte Bestellungen werden NICHT in Rechnung gestellt und NICHT realisiert.</value>
+        <value xml:lang="en">NOTE: This is a DEMO store-front.  Orders placed here will NOT be billed, and will NOT be fulfilled</value>
+        <value xml:lang="es">NOTA: Esto es una DEMO.  Las compras hechas aquí no serán facturadas, y no serán satisfechas</value>
+        <value xml:lang="fr">NOTE : Ceci est une DEMONSTRATION d'un  logiciel de commerce électronique, Les commandes saisies ne seront NI facturées NI expédiées</value>
+        <value xml:lang="hi_IN">नोट: यह एअ डेमो साइट है</value>
+        <value xml:lang="it">NOTA: Questo è un sito DIMOSTRATIVO. Gli ordini immessi NON saranno fatturati, e NON saranno evasi</value>
+        <value xml:lang="ja">NOTE: This is a DEMO store-front.  Orders placed here will NOT be billed, and will NOT be fulfilled</value>
+        <value xml:lang="nl">OPMERKING: dit is een demonstratiewinkel. bestellingen die hier worden ingegeven worden niet uitgevoerd en worden niet gefactureerd.</value>
+        <value xml:lang="pt_PT">NOTA: Isto é uma loja DEMONSTRAÇÃO. As encomendas colocadas aqui não serão processadas nem cobradas</value>
+        <value xml:lang="ro">NOTA: Acesta este un un DEMO store-front. Comenzile aflate aici NU vor fi facturate, si NU vor fi satisfacute</value>
+        <value xml:lang="ru">ПРИМЕЧАНИЕ: Это демонстрационная система заказов.  Размещенные заказы не обрабатываются и не доставляются</value>
+        <value xml:lang="th">Note: หมายเหตุ นี่คือตัวอย่าง เมื่อทำรายการที่นี่จะไม่มีใบเสร็จการชำระเงินและไม่มีการทำรายการที่เสร็จสิ้นสมบูรณ์</value>
+        <value xml:lang="zh">注意：这是一个演示店铺前台。这里下的订单不会被记入账单，并且不会被执行</value>
+    </property>
     <property key="OrderDesiredDeliveryDate">
         <value xml:lang="de">Gewünschtes Lieferdatum</value>
         <value xml:lang="en">Desired Delivery Date</value>
@@ -2738,17 +2762,36 @@
         <value xml:lang="zh">期望交付日期</value>
     </property>
     <property key="OrderDestination">
+        <value xml:lang="cs">Dodací adresa</value>
         <value xml:lang="de">Bestimmungsort</value>
         <value xml:lang="en">Destination</value>
         <value xml:lang="es">Destino</value>
         <value xml:lang="fr">Destination</value>
+        <value xml:lang="hi_IN">गण्त्वय</value>
         <value xml:lang="it">Destinazione</value>
+        <value xml:lang="ja">Destination</value>
         <value xml:lang="nl">Afstand</value>
+        <value xml:lang="pt_PT">Destino</value>
         <value xml:lang="ro">Destinatie</value>
         <value xml:lang="ru">Пункт назначения</value>
         <value xml:lang="th">จุดหมายปลายทาง</value>
-        <value xml:lang="zh_CN">目的地</value>
         <value xml:lang="zh">目的地</value>
+    </property>
+    <property key="OrderDistributor">
+        <value xml:lang="cs">Dodavatel</value>
+        <value xml:lang="de">Lieferant</value>
+        <value xml:lang="en">Distributor</value>
+        <value xml:lang="es">Distribuidor</value>
+        <value xml:lang="fr">Distributeur</value>
+        <value xml:lang="hi_IN">माल सप्लाई कर्ता</value>
+        <value xml:lang="it">Distributore</value>
+        <value xml:lang="ja">Distributor</value>
+        <value xml:lang="nl">Distributeur</value>
+        <value xml:lang="pt_PT">Distribuidor</value>
+        <value xml:lang="ro">Distributor</value>
+        <value xml:lang="ru">Дистрибутор</value>
+        <value xml:lang="th">ผู้ส่ง</value>
+        <value xml:lang="zh">分配者</value>
     </property>
     <property key="OrderDoNotHaveEnoughProducts">
         <value xml:lang="de">Nicht genügend vorhanden (Sie haben ${requestedQuantity}) vom Produkt ${productName} (Produkt ID: ${productId}) angegeben, Produkt nicht zum Warenkorb hinzugefügt. Reduzieren Sie die Menge oder nehmen Sie Kontakt mit dem Kundendienst auf.</value>
@@ -2828,11 +2871,105 @@
         <value xml:lang="th">แก้ไขข้อมูลการส่งสินค้า</value>
         <value xml:lang="zh">编辑货运信息</value>
     </property>
+    <property key="OrderEmailAccepted">
+        <value xml:lang="de">wurde angenommen. <br/>Ihr Auftrag wird verarbeitet und Sie werden eine E-Mail Benachrichtigung erhalten sobald Positionen versendet werden.<br/><br/>Besten Dank für Ihren Auftrag.</value>
+        <value xml:lang="en">has been accepted. <br/>Your order will be processed, and you will receive an email notification once the item(s) have shipped.<br/><br/>Thank you for your order!<br/></value>
+        <value xml:lang="es">Ha sido aceptado. <br/>Su orden ha sido procesada, recibirá un correo al enviarsele los artículo(s).<br/><br/>Gracias por su preferenciar!<br/></value>
+        <value xml:lang="fr">A été acceptée.<br/>Votre commande sera traitée, et vous recevrez un courriel de confirmation une fois l(es)'articles(s) expédié(s).<br/><br/>Merci pour votre confiance !<br/></value>
+        <value xml:lang="hi_IN">चुना गया है <br/> आपके आर्डर पर विचार कर आपको माल भेजने के बाद इमेल से सूचित किया जाएगा <br/> आपके आर्डर के लिए धन्यवाद</value>
+        <value xml:lang="it">è stato accettato. <br/>Il tuo ordine sarà processato, e riceverai un notifica email appena gli articoli saranno spediti.<br/><br/>Grazie per averci preferito!<br/></value>
+        <value xml:lang="ja">has been accepted. <br/>Your order will be processed, and you will receive an email notification once the item(s) have shipped.<br/><br/>Thank you for your order!<br/></value>
+        <value xml:lang="nl">is geaccepteerd. <br/>Uw bestelling zal worden uitgevoerd en U zal een email bericht ontvangen wanneer de bestelling is verstuurd.<br/><br/>Wij danken u voor uw bestelling!<br/></value>
+        <value xml:lang="ro">A fost acceptat. <br/>Comanda ta va fi procesata, si vei primi o nota email dupa ce Linia(ile) au fost expediate.<br/><br/>Iti Multumim pentru comenzile tale!<br/></value>
+        <value xml:lang="ru">подтвержден. <br/>Ваш заказ будет обработан и вы получите уведомление по электронной почте как только произойдет отгрузка.<br/><br/>Спасибо за ваш заказ!<br/></value>
+        <value xml:lang="th">ยอมรับ. <br/>รายการสั่งซื้อของคุณกำลังอยู่ในช่วงดำเนินการ, และคุณจะได้รับอีเมล์แจ้งการทำรายการสำหรับการขนส่ง<br/><br/>ขอบคุณสำหรับการทำรายการสั่งซื้อ!<br/></value>
+        <value xml:lang="zh">已被接受。<br/>你的订单会被处理，一旦发货，你就会收到一封电子邮件通知。<br/><br/>谢谢你的惠顾！<br/></value>
+    </property>
+    <property key="OrderEmailCustomerService">
+        <value xml:lang="de">Kundendienst</value>
+        <value xml:lang="en">Customer Service</value>
+        <value xml:lang="es">Servicio al cliente</value>
+        <value xml:lang="fr">Service clientèle</value>
+        <value xml:lang="hi_IN">ग्राहक सेवा</value>
+        <value xml:lang="it">Servizio clienti</value>
+        <value xml:lang="ja">カスタマサービス</value>
+        <value xml:lang="nl">Klantenservice</value>
+        <value xml:lang="ro">Serviciu Subiect </value>
+        <value xml:lang="ru">Поддержка пользователей</value>
+        <value xml:lang="th">บริการลูกค้า</value>
+        <value xml:lang="zh">客户服务</value>
+    </property>
+    <property key="OrderEmailPaymentOK">
+        <value xml:lang="de">Dieses E-Mail informiert Sie über die Zahlung für den Auftrag #</value>
+        <value xml:lang="en">This email is to inform you that your payment for order #</value>
+        <value xml:lang="es">El presente correo confirma el pago de la orden #</value>
+        <value xml:lang="fr">Ce courriel pour vous informer que votre paiement pour la commande n°</value>
+        <value xml:lang="hi_IN">इस इमेल से आपको सूचित किया जाता है कि आर्डर का भुगतान #</value>
+        <value xml:lang="it">Questa email è per informarti che per il tuo pagamento ordine n°</value>
+        <value xml:lang="ja">This email is to inform you that your payment for order #</value>
+        <value xml:lang="nl">Deze email is gestuurd om U vertellen dat de betaling voor bestelling #</value>
+        <value xml:lang="ro">Acest email este pentru a te informa  ca plata comenzii #</value>
+        <value xml:lang="ru">Это сообщение информирует вас что оплата заказа №</value>
+        <value xml:lang="th">อีเมล์นี้แจ้งให้ทราบการชำระเงินจากการสั่งซื้อสินค้าของคุณ</value>
+        <value xml:lang="zh">本电子邮件是通知你你支付的订单 #</value>
+    </property>
+    <property key="OrderEmailProblemCancelledNotProcessed">
+        <value xml:lang="de">Zu diesem Zeitpunkt wurde Ihr Auftrag abgebrochen und wird nicht weiterverarbeitet. Bitte nehmen Sie mit dem Kundendienst Kontakt auf wenn Sie dazu Fragen haben.</value>
+        <value xml:lang="en">At this time your order has been cancelled and will not be processed. Please contact customer service if you have any questions.</value>
+        <value xml:lang="es">Su orden ha sido cancelada y no será procesada. Favor de contactar a servicio al cliente en caso tener dudas</value>
+        <value xml:lang="fr">Votre commande a été annulé et ne sera pas traité. S'il vous plaît contactez le service client si vous avez des questions.</value>
+        <value xml:lang="hi_IN">इस समय आपका आर्डर ख़ारीज किया जाता है, किसी प्रश्न के लिए ग्राहक सेवा से संपर्क किजीये</value>
+        <value xml:lang="it">Il tuo ordine è stato annullato e non sarà processato. Per favore contatta l'assistenza clienti per qualsiasi informazione.</value>
+        <value xml:lang="ja">At this time your order has been cancelled and will not be processed. Please contact customer service if you have any questions.</value>
+        <value xml:lang="nl">Uw bestelling is geannuleerd en zal niet worden uitgevoerd. Stel U in verbinding met de klantenservice als u vragen hebt.</value>
+        <value xml:lang="ro">In acest moment comanda ta a fost stearsa si nu va fi procesata. Te rugam contacteaza Serviciul Clienti pentru orice nelamurire.</value>
+        <value xml:lang="ru">В данный момент ваш заказ отклонен и не будет обработан. Если у вас есть вопросы, пожалуйста, свяжитесь со службой поддержки пользователей.</value>
+        <value xml:lang="th">ขณะนี้การทำรายการสั่งซื้อของคุณได้ถูกยกเลิกและจะไม่มีการดำเนินการ กรุณาติดต่อฝ่ายบริการลูกค้าหากคุณมีข้อสงสัย</value>
+        <value xml:lang="zh">现在你的订单已经被取消了，并且不会被处理。如有任何疑问，请与客户服务联系。</value>
+    </property>
+    <property key="OrderEmailProblemWithYourPaymentMethod">
+        <value xml:lang="de">Dieses E-Mail informiert Sie über Probleme bei der Bezahlung für den Auftrag #</value>
+        <value xml:lang="en">This email is to inform you there was a problem with your payment method for order #</value>
+        <value xml:lang="es">Este correo le informa que ocurrio un problema con su método de pado para la orden #</value>
+        <value xml:lang="fr">Ce courriel pour vous informer qu'il y a eu un problème avec votre méthode de paiement pour la commande n°</value>
+        <value xml:lang="hi_IN">इस इमेल से यह सूचित किया जाता है कि आपके आर्डर भुगतान मे समस्या है</value>
+        <value xml:lang="it">Questa email è per informarti se c'è un problema con il tuo metodo di pagamento per l'ordine n°</value>
+        <value xml:lang="ja">This email is to inform you there was a problem with your payment method for order #</value>
+        <value xml:lang="nl">Deze email is U gestuurd om U ter informeren dat er een probleem was met uw betaling voor de bestelling #</value>
+        <value xml:lang="ro">Acest email este pentru a te informa ca  sunt probleme cu metoda ta de plata a comenzii #</value>
+        <value xml:lang="ru">Это сообщение информирует вас о наличии проблем с указанным вами способом оплаты по заказу №</value>
+        <value xml:lang="th">อีเมล์นี้แจ้งให้ทราบปัญหาเกี่ยวกับวิธีการชำระเงินในการสั่งซื้อสินค้าของคุณ</value>
+        <value xml:lang="zh">本电子邮件是通知你，你的支付方法出现问题，订单 #</value>
+    </property>
     <property key="OrderEmailSentToFollowingAddresses">
-        <value xml:lang="de">Ihr Auftrag wird an die folgende E-Mail Adresse übermittelt</value>
+        <value xml:lang="cs">Vaše objednávka bude zaslána na následující e-mailovou adresu</value>
+        <value xml:lang="de">Ihre Bestellung wird zu folgender Email-Adresse gesendet</value>
         <value xml:lang="en">Your order will be sent to the following email addresses</value>
-        <value xml:lang="fr">Votre commande sera envoyé aux adresses e-mail suivantes</value>
-        <value xml:lang="th">รายการสั่งซื้อสินค้าของคุณจะส่งตามที่อยู่อีเมล</value>
+        <value xml:lang="es">Su orden será enviada a las siguientes direcciones de email</value>
+        <value xml:lang="fr">Votre commande sera envoyée à l'adresse courriel suivante</value>
+        <value xml:lang="hi_IN">आपका आर्डर इस इमेल पर भेजा जाएगा</value>
+        <value xml:lang="it">Il tuo ordine sarà spedito ai seguenti indirizzi email</value>
+        <value xml:lang="ja">Your order will be sent to the following email addresses</value>
+        <value xml:lang="nl">Uw bestelling zal naar het volgende email adres worden gestuurd.</value>
+        <value xml:lang="pt_PT">A Nota de Encomenda será enviada para o(s) seguinte(s) endereço(s) de E-mail</value>
+        <value xml:lang="ro">Comanda ta va fi expediata la urmatoarele adrese email</value>
+        <value xml:lang="ru">Ваш заказ будет отослан на следующие адреса эл.почты</value>
+        <value xml:lang="th">รายการสั่งซื้อสินค้าของคุณจะถูกส่งไปตามที่อยู่ของอีเมล์</value>
+        <value xml:lang="zh">你的订单会被发送到下列电子邮件地址</value>
+    </property>
+    <property key="OrderEmailSorry">
+        <value xml:lang="de">Achtung, es gab einen Fehler beim Verarbeiten des E-Mails. Bitte nehmen Sie Kontakt mit dem Kundendienst auf für Informationen zu Ihrem Auftrag #</value>
+        <value xml:lang="en">Sorry, there was a problem with this email, please contact customer service for information regarding your order #</value>
+        <value xml:lang="es">Disculpe, hay problemas con este corre, favor de contactar a servicio al cliente para mayór información respescto a su orden #</value>
+        <value xml:lang="fr">Désolé, il y a eu un problème avec ce courriel, svp entrez en contact avec le service clientèle pour toute information concernant votre commande n°</value>
+        <value xml:lang="hi_IN">माफ किजीये, इस इमेल मे समस्या है, ग्राहक सेवा से संपर्क किजीये अपने आर्डर के बारे मे</value>
+        <value xml:lang="it">Spiacente, si è verificato un problema con questa email, per favore contatta l'assistenza clienti per informazioni rigurdanti il tuo ordine n°</value>
+        <value xml:lang="ja">Sorry, there was a problem with this email, please contact customer service for information regarding your order #</value>
+        <value xml:lang="nl">Sorry, er was een probleem met deze email, stel U in verbinding met de klantenservice voor informatie over uw bestelling # </value>
+        <value xml:lang="ro">Cerem Scuze, sunt probleme cu acest email, va rugam contactati serviciul Subiecti pentru informatii referitoare la comanda ta #</value>
+        <value xml:lang="ru">Извините, в случае проблем с этим сообщением, пожалуйста свяжитесь со службой технической поддержки для получения информации по заказу №</value>
+        <value xml:lang="th">ขอโทษค่ะ,มีปัญหาเกี่ยวกับอีเมล์นี้,กรุณาติดต่อฝ่ายบริการลูกค้าสำหรับข้อมูลในการสั่งซื้อสินค้าของคุณ #</value>
+        <value xml:lang="zh">对不起，这个电子邮件地址有问题，请与客户服务联系了解详细信息，订单 #</value>
     </property>
     <property key="OrderEnteredPromoCodes">
         <value xml:lang="de">Eingegebene Aktionscodes</value>
@@ -2892,6 +3029,23 @@
         <value xml:lang="es">Por favor, seleccione un cliente</value>
         <value xml:lang="fr">SVP : sélectionnez un client</value>
         <value xml:lang="th">Error : ผิดพลาด ! การเลือกลูกค้า</value>
+    </property>
+    <property key="OrderErrorShoppingCartEmpty">
+        <value xml:lang="cs">Chyba: Košík je prázdný, prosíme zkuste to znovu</value>
+        <value xml:lang="de">FEHLER: Der Warenkorb ist leer, bitte beginnen Sie erneut.</value>
+        <value xml:lang="en">ERROR: Shopping cart empty, please start over</value>
+        <value xml:lang="en_GB">ERROR: Shopping basket empty, please start over</value>
+        <value xml:lang="es">ERROR: Carro de Compra vacío, comience por favor encima</value>
+        <value xml:lang="fr">ERREUR : Le panier d'achat est vide,</value>
+        <value xml:lang="hi_IN">गडबड: ख़रीदारी टोकरी ख़ाली है, दुबारा शुरू किजीये</value>
+        <value xml:lang="it">ERRORE: Il carrello è vuoto</value>
+        <value xml:lang="ja">ERROR: Shopping cart empty, please start over</value>
+        <value xml:lang="nl">FOUT: winkelwagen is leeg, begin opnieuw alstublieft</value>
+        <value xml:lang="pt_PT">ERRO:Cesto de compras vazio, por favor recomece.</value>
+        <value xml:lang="ro">EROARE: Carte de Cumparare este goala, Te rugam sa mai incearci</value>
+        <value xml:lang="ru">ОШИБКА: Корзина покупок пуста, пожалуйста, начните с начала</value>
+        <value xml:lang="th">ERROR: ผิดพลาด ! ไม่มีข้อมูลในบัตร, กรุณาเริ่มใหม่</value>
+        <value xml:lang="zh">错误：购物车是空的，请重新开始</value>
     </property>
     <property key="OrderEstimatedReadyDate">
         <value xml:lang="de">Geschätztes Fertigstellungsdatum</value>
@@ -3012,6 +3166,24 @@
         <value xml:lang="ru">полученные частично</value>
         <value xml:lang="th">ได้รับบางส่วน</value>
         <value xml:lang="zh">部分收到货</value>
+    </property>
+    <property key="OrderFinalCheckoutReview">
+        <value xml:lang="cs">Záverečný přehled objednávky</value>
+        <value xml:lang="de">Abschließende Bestellüberprüfung</value>
+        <value xml:lang="en">Final Checkout Review</value>
+        <value xml:lang="en_GB">Final checkout review</value>
+        <value xml:lang="es">Revisión Final De la Comprobación</value>
+        <value xml:lang="fr">Vérification finale</value>
+        <value xml:lang="hi_IN">आख़री चेक आउट जान्च</value>
+        <value xml:lang="it">Revisione finale ordine</value>
+        <value xml:lang="ja">Final Checkout Review</value>
+        <value xml:lang="nl">Laatste bestellingsoverzicht</value>
+        <value xml:lang="pt_PT">Revisão Final Do Pagamento</value>
+        <value xml:lang="ro">Revizie Checkout Final</value>
+        <value xml:lang="ru">Финальный просмотр подтверждения заказа</value>
+        <value xml:lang="th">ออกจากการทำรายการครั้งสุดท้าย
+        </value>
+        <value xml:lang="zh">完成结账浏览</value>
     </property>
     <property key="OrderFinalizeOrder">
         <value xml:lang="de">Aufragserfassung abschließen</value>
@@ -3312,6 +3484,22 @@
         <value xml:lang="th">กรอกข้อมูลรายการสั่งซื้อสินค้าย่างรวดเร็ว</value>
         <value xml:lang="zh_CN">快速输入采购订单</value>
         <value xml:lang="zh">购物订单快速入口</value>
+    </property>
+    <property key="OrderInstructions">
+        <value xml:lang="cs">Poznámky-připomínky-pokyny</value>
+        <value xml:lang="de">Anweisungen</value>
+        <value xml:lang="en">Instructions</value>
+        <value xml:lang="es">Instrucciones</value>
+        <value xml:lang="fr">Instructions</value>
+        <value xml:lang="hi_IN">कैसे करें</value>
+        <value xml:lang="it">Instruzioni</value>
+        <value xml:lang="ja">Instructions</value>
+        <value xml:lang="nl">Aanwijzingen</value>
+        <value xml:lang="pt_PT">Instruções</value>
+        <value xml:lang="ro">Instructiuni</value>
+        <value xml:lang="ru">Инструкции</value>
+        <value xml:lang="th">คำแนะนำ</value>
+        <value xml:lang="zh">指南</value>
     </property>
     <property key="OrderInternalCode">
         <value xml:lang="de">Interner Code</value>
@@ -3799,6 +3987,19 @@
         <value xml:lang="th">เปลี่ยนจำนวน</value>
         <value xml:lang="zh">送货数量</value>
     </property>
+    <property key="OrderNbr">
+        <value xml:lang="de">Nr.</value>
+        <value xml:lang="en">#</value>
+        <value xml:lang="es">#</value>
+        <value xml:lang="fr">N°</value>
+        <value xml:lang="it">N°</value>
+        <value xml:lang="ja">#</value>
+        <value xml:lang="nl">#</value>
+        <value xml:lang="ro">#</value>
+        <value xml:lang="ru">№</value>
+        <value xml:lang="th">#</value>
+        <value xml:lang="zh">#</value>
+    </property>
     <property key="OrderNbrPersons">
         <value xml:lang="de">Personen</value>
         <value xml:lang="en">Nbr Persons</value>
@@ -3989,6 +4190,20 @@
         <value xml:lang="th">รายการสั่งซื้อใหม่</value>
         <value xml:lang="zh">新建购物清单</value>
     </property>
+    <property key="OrderNoAddressesAvailable">
+        <value xml:lang="de">Keine Adressen verfügbar</value>
+        <value xml:lang="en">No Addresses Available</value>
+        <value xml:lang="es">No se dispone de direcciones</value>
+        <value xml:lang="fr">Aucune adresse disponible</value>
+        <value xml:lang="hi_IN">पता उपलब्ध नही</value>
+        <value xml:lang="it">Nessun indirizzo disponibile</value>
+        <value xml:lang="ja">No Addresses Available</value>
+        <value xml:lang="nl">Geen adressen beschikbaar</value>
+        <value xml:lang="ro">Nici-o Adresa Disponibila</value>
+        <value xml:lang="ru">Нет доступных адресов</value>
+        <value xml:lang="th">ไม่สามารถติดต่อที่อยู่นี้ได้</value>
+        <value xml:lang="zh">没有有效地址</value>
+    </property>
     <property key="OrderNoChannel">
         <value xml:lang="de">Kein Kanal</value>
         <value xml:lang="en">No Channel</value>
@@ -4135,6 +4350,19 @@
         <value xml:lang="ru">Не указаны закупочные заказы</value>
         <value xml:lang="th">ไม่มีรายการสั่งซื้อสินค้าที่ระบุ</value>
         <value xml:lang="zh">没有指定购物订单</value>
+    </property>
+    <property key="OrderNOTEMultipleShipmentsExist">
+        <value xml:lang="de">Anmerkung: Mehrere Lieferungen vorhanden, verwenden Sie Lieferung aufteilen.</value>
+        <value xml:lang="en">NOTE: Multiple shipments exist, use Split Shipment.</value>
+        <value xml:lang="es">NOTA: existen múltiples envíos, use partir envíos</value>
+        <value xml:lang="fr">NOTE : Il y a des expéditions multiples, séparer les envois.</value>
+        <value xml:lang="it">NOTA: Esistono spedizioni multiple, suddividere la spedizione.</value>
+        <value xml:lang="ja">NOTE: Multiple shipments exist, use Split Shipment.</value>
+        <value xml:lang="nl">OPM.: meerdere verzendingen bestaan, gebruikt gesplitste verzending</value>
+        <value xml:lang="ro">NOTA: Exista expedieri multiple, folositi  Divizie Expediere.</value>
+        <value xml:lang="ru">ПРИМЕЧАНИЕ: Существуют несколько поставок, используйте Разделить поставку.</value>
+        <value xml:lang="th">NOTE: หมายเหตุ วิธีการชำระเงินมีหลายวิธี, สามารถแยกวิธีการชำระเงินได้</value>
+        <value xml:lang="zh">注意：存在多个货运，使用分拆货运。</value>
     </property>
     <property key="OrderNoShipGroupsDefined">
         <value xml:lang="de">Keine Versandgruppen definiert</value>
@@ -4459,6 +4687,20 @@
         <value xml:lang="ru">На продажу</value>
         <value xml:lang="th">ขาย</value>
         <value xml:lang="zh">销售中</value>
+    </property>
+    <property key="OrderOptions">
+        <value xml:lang="de">Bestelloptionen</value>
+        <value xml:lang="en">Order options</value>
+        <value xml:lang="es">Opciones de Orden</value>
+        <value xml:lang="fr">Options de commande</value>
+        <value xml:lang="hi_IN">आर्डर प्रकार</value>
+        <value xml:lang="it">Opzioni ordine</value>
+        <value xml:lang="ja">Order options</value>
+        <value xml:lang="nl">Bestellingopties</value>
+        <value xml:lang="ro">Optiuni Comanda </value>
+        <value xml:lang="ru">Параметры заказа</value>
+        <value xml:lang="th">ลักษณะการสั่งซื้อ</value>
+        <value xml:lang="zh">订单选项</value>
     </property>
     <property key="OrderOrder">
         <value xml:lang="de">Auftrag</value>
@@ -8021,6 +8263,19 @@
         <value xml:lang="fr">Fractionner en expéditions multiples</value>
         <value xml:lang="th">การขนส่งสินค้าแบ่งออกเป็นหลายทาง</value>
     </property>
+    <property key="OrderSplitShipment">
+        <value xml:lang="de">Lieferung aufteilen</value>
+        <value xml:lang="en">Split Shipment</value>
+        <value xml:lang="es">Partir envío</value>
+        <value xml:lang="fr">Répartir l'expédition</value>
+        <value xml:lang="it">Dividi spedizione</value>
+        <value xml:lang="ja">Split Shipment</value>
+        <value xml:lang="nl">Verzending opsplitsen</value>
+        <value xml:lang="ro">Divizeaza Expedierea </value>
+        <value xml:lang="ru">Разделить поставку</value>
+        <value xml:lang="th">การแยกการขนส่งสินค้า</value>
+        <value xml:lang="zh">分拆送货</value>
+    </property>
     <property key="OrderSplittingPreference">
         <value xml:lang="de">Bevorzugte Aufteilung</value>
         <value xml:lang="en">Splitting Preference</value>
@@ -8144,6 +8399,38 @@
         <value xml:lang="es">Horas posibles de recibir productos</value>
         <value xml:lang="fr">Les heures d'ouverture pour recevoir des articles sont</value>
         <value xml:lang="th">ชั่วโมงที่เปิดรับสินค้าคือ</value>
+    </property>
+    <property key="OrderThisIsGift">
+        <value xml:lang="cs">Tato objednávka je dárek</value>
+        <value xml:lang="de">Diese Bestellung ist ein GESCHENK</value>
+        <value xml:lang="en">This order is a gift</value>
+        <value xml:lang="es">Esta compra es un regalo</value>
+        <value xml:lang="fr">Cette commande est un cadeau</value>
+        <value xml:lang="hi_IN">यह आर्डर उपहार है</value>
+        <value xml:lang="it">Questo ordine è un omaggio</value>
+        <value xml:lang="ja">This order is a gift</value>
+        <value xml:lang="nl">Deze bestelling is een geschenk</value>
+        <value xml:lang="pt_PT">Esta encomenda é um presente</value>
+        <value xml:lang="ro">Aceasta comanda este un omagiu</value>
+        <value xml:lang="ru">Этот заказ - подарок</value>
+        <value xml:lang="th">รายการสั่งซื้อนี้เป็นของขวัญ</value>
+        <value xml:lang="zh">本订单是个礼品</value>
+    </property>
+    <property key="OrderThisIsNotGift">
+        <value xml:lang="cs">Tato objednávka není dárek</value>
+        <value xml:lang="de">Diese Bestellung ist kein Geschenk</value>
+        <value xml:lang="en">This order is not a gift</value>
+        <value xml:lang="es">Esta compra no es un regalo</value>
+        <value xml:lang="fr">Cette commande n'est pas un cadeau</value>
+        <value xml:lang="hi_IN">यह आर्डर उपहार नही है</value>
+        <value xml:lang="it">Questo ordine non è un omaggio</value>
+        <value xml:lang="ja">This order is not a gift</value>
+        <value xml:lang="nl">Deze bestalling is geen geschenk</value>
+        <value xml:lang="pt_PT">Esta encomenda não é um presente</value>
+        <value xml:lang="ro">Aceasta comanda nu este un omagiu</value>
+        <value xml:lang="ru">Этот заказ - не подарок</value>
+        <value xml:lang="th">รายการสั่งซื้อนี้ไม่ใช่ของขวัญ</value>
+        <value xml:lang="zh">本订单不是礼品</value>
     </property>
     <property key="OrderThisOrderGift">
         <value xml:lang="de">Dieser Auftrag ist ein GESCHENK</value>

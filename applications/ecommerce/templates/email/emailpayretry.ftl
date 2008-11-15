@@ -19,8 +19,8 @@ under the License.
 
 <BR>
 <#if orderHeader.statusId == "ORDER_REJECTED">
-	${uiLabelMap.OrderProblemWithYourPaymentMethod} ${orderHeader.orderId}.<br/>
-	${uiLabelMap.OrderProblemCancelledNotProcessed}<br/>
+	${uiLabelMap.OrderEmailProblemWithYourPaymentMethod} ${orderHeader.orderId}.<br/>
+	${uiLabelMap.OrderEmailProblemCancelledNotProcessed}<br/>
 <#elseif orderHeader.statusId == "ORDER_APPROVED">
 	${uiLabelMap.OrderEmailPaymentOK} ${orderHeader.orderId} ${uiLabelMap.OrderEmailAccepted}
 <#else>
