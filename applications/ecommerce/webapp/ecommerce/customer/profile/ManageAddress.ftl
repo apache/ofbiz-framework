@@ -58,21 +58,27 @@ under the License.
           </div>
         </div>
         <div class="form-row">
-          ${uiLabelMap.PartyState}*
-          <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(required)</span>
-          <div class="form-field">
-            <select name="stateProvinceGeoId" id="stateProvinceGeoId" class="required" style="width: 70%">
-              <option value="">${uiLabelMap.PartyNoState}</option>
-              ${screens.render("component://common/widget/CommonScreens.xml#states")}
-            </select>
-          </div>
-        </div>
-        <div class="form-row">
           ${uiLabelMap.PartyCountry}*
           <span id="advice-required-countryGeoId" style="display: none" class="errorMessage">(required)</span>
           <div class="form-field">
             <select name="countryGeoId" id="countryGeoId" class="required" style="width: 70%">
+              <#if countryGeoId??>
+                <option value="${countryGeoId}">${countryGeoId}</option>
+              </#if>
               ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+            </select>
+          </div>
+        </div>
+        <div id="states" class="form-row">
+          ${uiLabelMap.PartyState}*
+          <span id="advice-required-stateProvinceGeoId" style="display: none" class="errorMessage">(required)</span>
+          <div class="form-field">
+            <select name="stateProvinceGeoId" id="stateProvinceGeoId" style="width: 70%">
+              <#if stateProvinceGeoId?has_content>
+                <option value="${stateProvinceGeoId}">${stateProvinceGeoId}</option>
+              <#else>
+                <option value="_NA_">${uiLabelMap.PartyNoState}</option>
+              </#if>  
             </select>
           </div>
         </div>
@@ -106,10 +112,12 @@ under the License.
       <#if billToContactMechId?exists>
         ${billToAddress1?if_exists}<br/>
         <#if billToAddress2?has_content>${billToAddress2?if_exists}<br/></#if>
-        ${billToCity?if_exists},
-        ${billToStateProvinceGeoId?if_exists}
-        ${billToPostalCode?if_exists}<br/>
-        ${billToCountryGeoId?if_exists}<br/>
+        <#if billToStateProvinceGeoId?has_content && billToStateProvinceGeoId != "_NA_">
+          ${billToStateProvinceGeoId}
+        </#if>
+          ${billToCity?if_exists},
+          ${billToPostalCode?if_exists}<br/>
+          ${billToCountryGeoId?if_exists}<br/>
         <#if billToTelecomNumber?has_content>
           ${billToTelecomNumber.countryCode?if_exists}-
           ${billToTelecomNumber.areaCode?if_exists}-
@@ -133,10 +141,12 @@ under the License.
       <#if shipToContactMechId?exists>
         ${shipToAddress1?if_exists}<br/>
         <#if shipToAddress2?has_content>${shipToAddress2?if_exists}<br/></#if>
-        ${shipToCity?if_exists},
-        ${shipToStateProvinceGeoId?if_exists}
-        ${shipToPostalCode?if_exists}<br/>
-        ${shipToCountryGeoId?if_exists}<br/>
+        <#if shipToStateProvinceGeoId?has_content && shipToStateProvinceGeoId != "_NA_">
+          ${shipToStateProvinceGeoId}
+        </#if>
+          ${shipToCity?if_exists},
+          ${shipToPostalCode?if_exists}<br/>
+          ${shipToCountryGeoId?if_exists}<br/>
         <#if shipToTelecomNumber?has_content>
           ${shipToTelecomNumber.countryCode?if_exists}-
           ${shipToTelecomNumber.areaCode?if_exists}-
@@ -171,10 +181,10 @@ under the License.
           <#assign partyContactMech = partyContactMechValueMap.partyContactMech?if_exists>
           <#if !(partyContactMechValueMap.partyContactMechPurposes?has_content)>
             <#assign postalAddressFlag = "Y">
+            <#assign postalAddress = partyContactMechValueMap.postalAddress?if_exists>
             <div id="displayEditAddressForm_${contactMech.contactMechId}" class="popup" style="display: none;">
               <#include "EditPostalAddress.ftl"/>
             </div>
-            <#assign postalAddress = partyContactMechValueMap.postalAddress?if_exists>
             <#if postalAddress?exists>
               <div class="form-row">
                 <div class="form-label"></div>
@@ -183,7 +193,9 @@ under the License.
                     ${postalAddress.address1}<br/>
                     <#if postalAddress.address2?has_content>${postalAddress.address2}<br/></#if>
                     ${postalAddress.city}
-                    <#if postalAddress.stateProvinceGeoId?has_content>,&nbsp;${postalAddress.stateProvinceGeoId}</#if>
+                    <#if postalAddress.stateProvinceGeoId?has_content && postalAddress.stateProvinceGeoId != "_NA_">
+                      ${postalAddress.stateProvinceGeoId}
+                    </#if>
                     &nbsp;${postalAddress.postalCode?if_exists}
                     <#if postalAddress.countryGeoId?has_content><br/>${postalAddress.countryGeoId}</#if>
                     <#if (!postalAddress.countryGeoId?has_content || postalAddress.countryGeoId?if_exists = "USA")>
@@ -199,7 +211,7 @@ under the License.
               </div>
               <div class="form-row">
                 <span>
-                  <a id="update_${contactMech.contactMechId}" href="javascript:void(0)" class="buttontext popup_link">${uiLabelMap.CommonEdit}</a>&nbsp;
+                  <a id="update_${contactMech.contactMechId}" href="javascript:void(0)" class="buttontext popup_link" onclick="showState('${contactMech.contactMechId}')">${uiLabelMap.CommonEdit}</a>&nbsp;
                   <a href="<@ofbizUrl>deletePostalAddress?contactMechId=${contactMech.contactMechId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>&nbsp;&nbsp;
                 </span>
               </div>

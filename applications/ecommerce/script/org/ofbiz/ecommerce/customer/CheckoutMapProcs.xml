@@ -105,6 +105,9 @@ under the License.
         </process>
         <process field="shipToStateProvinceGeoId">
             <copy to-field="stateProvinceGeoId"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyStateMissingError"/>
+            </not-empty>
         </process>
         <process field="shipToPostalCode">
             <copy to-field="postalCode"/>
@@ -147,6 +150,9 @@ under the License.
         </process>
         <process field="billToStateProvinceGeoId">
             <copy to-field="stateProvinceGeoId"/>
+            <not-empty>
+                <fail-property resource="EcommerceUiLabels" property="PartyStateMissingError"/>
+            </not-empty>
         </process>
         <process field="billToPostalCode">
             <copy to-field="postalCode"/>

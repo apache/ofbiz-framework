@@ -346,23 +346,27 @@ under the License.
                         <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}<span class="requiredLabel">*<span id="advice-required-shipToCountryGeo" style="display:none" class="errorMessage"> (required)</span></label>
                       </div>
                       <div>
-                        <div>
-                          <input name="shipToCountryGeo" id="shipToCountryGeo" size="30" class="required" type="text" value="${shipToCountryProvinceGeo?if_exists}"/>
-                          <input name="countryGeoId" id="shipToCountryGeoId" type="hidden" value="${shipToCountryGeoId?if_exists}"/>
-                          <div id="shipToCountries" class="autocomplete" style="display:none"></div> 
-                        </div>
+                        <select name="countryGeoId" id="shipToCountryGeoId" class="required selectBox">
+                          <#if shipToCountryGeoId??>
+                            <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryProvinceGeoId!)}</option>
+                          </#if>
+                          ${screens.render("component://common/widget/CommonScreens.xml#countries")}
+                        </select>
                       </div>
                     </div>
-                    <div class="form-row">
+                    <div id="shipToStates" class="form-row">
                       <div class="field-label">
-                        <label for="state">${uiLabelMap.CommonState}</label>
+                        <label for="state">${uiLabelMap.CommonState}*<span id="advice-required-shipToStateProvinceGeoId" style="display:none" class="errorMessage">(required)</span></label>
                       </div>
                       <div> 
-                        <div>
-                          <input name="shipToStateProvinceGeo" id="shipToStateProvinceGeo" size="30" type="text" value="${shipToStateProvinceGeo?if_exists}"/>
-                          <input name="shipToStateProvinceGeoId" id="shipToStateProvinceGeoId" type="hidden" value="${shipToStateProvinceGeoId?if_exists}"/>
-                          <div id="shipToStates" class="autocomplete" style="display:none"></div> 
-                        </div>
+                        <select id="shipToStateProvinceGeoId" name="shipToStateProvinceGeoId">
+                          <#if shipToStateProvinceGeoId?has_content>
+                            <option value='${shipToStateProvinceGeoId!}'>${shipToStateProvinceGeo!(shipToStateProvinceGeoId!)}</option>
+                          <#else>
+                            <option value="_NA_">${uiLabelMap.PartyNoState}</option>
+                          </#if>
+                          ${screens.render("component://common/widget/CommonScreens.xml#states")}
+                        </select>
                       </div> 
                     </div>
                   </td>
@@ -619,25 +623,26 @@ under the License.
                           <label for="billToCountryGeoId">${uiLabelMap.PartyCountry}*<span id="advice-required-billToCountryGeoId" style="display:none" class="errorMessage"> (required)</span></label>
                         </div>
                         <div>
-                          <select name="countryGeoId" id="billToCountryGeoId" class="required selectBox">
-                            <#if billToCountryGeoId?exists>
-                              <option value="${billToCountryGeoId}">${billToCountryProvinceGeo}</option>
+                          <select name="countryGeoId" id="billToCountryGeoId">
+                            <#if billToCountryGeoId??>
+                              <option value='${billToCountryGeoId!}'>${billToCountryProvinceGeo!(billToCountryGeoId!)}</option>
                             </#if>
                             ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                           </select>
                         </div>
                       </div>
-                      <div class="form-row">
+                      <div id="billToStates" class="form-row">
                         <div class="field-label">
-                           <label for="state">${uiLabelMap.CommonState}</label>
+                          <label for="state">${uiLabelMap.CommonState}*<span id="advice-required-billToStateProvinceGeoId" style="display:none" class="errorMessage"> (required)</span></label>
                         </div>
-                        <div> 
-                          <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId" class="selectBox">
+                        <div>  
+                          <select id="billToStateProvinceGeoId" name="billToStateProvinceGeoId">
                             <#if billToStateProvinceGeoId?has_content>
-                              <option value="${billToStateProvinceGeoId}">${billToStateProvinceGeo}</option>
+                              <option value='${billToStateProvinceGeoId!}'>${billToStateProvinceGeo!(billToStateProvinceGeoId!)}</option>
                             <#else>
-                              <option value="">${uiLabelMap.PartyNoState}</option>
+                              <option value="_NA_">${uiLabelMap.PartyNoState}</option>
                             </#if>
+                             ${screens.render("component://common/widget/CommonScreens.xml#states")}
                           </select>
                         </div>
                       </div>

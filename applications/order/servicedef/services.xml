@@ -857,7 +857,7 @@ under the License.
         <attribute name="shipToAddress1" mode="IN" type="String" optional="false"/>
         <attribute name="shipToAddress2" mode="IN" type="String" optional="true"/>
         <attribute name="shipToCity" mode="IN" type="String" optional="false"/>
-        <attribute name="shipToStateProvinceGeoId" mode="IN" type="String" optional="true"/>
+        <attribute name="shipToStateProvinceGeoId" mode="IN" type="String" optional="false"/>
         <attribute name="shipToPostalCode" mode="IN" type="String" optional="false"/>
         <attribute name="shipToCountryGeoId" mode="IN" type="String" optional="false"/>
         <attribute name="shipToContactMechId" mode="IN" type="String" optional="true"/>
@@ -879,7 +879,7 @@ under the License.
         <attribute name="billToAddress1" mode="IN" type="String" optional="false"/>
         <attribute name="billToAddress2" mode="IN" type="String" optional="true"/>
         <attribute name="billToCity" mode="IN" type="String" optional="false"/>
-        <attribute name="billToStateProvinceGeoId" mode="IN" type="String" optional="true"/>
+        <attribute name="billToStateProvinceGeoId" mode="IN" type="String" optional="false"/>
         <attribute name="billToPostalCode" mode="IN" type="String" optional="false"/>
         <attribute name="billToCountryGeoId" mode="IN" type="String" optional="false"/>
         <attribute name="shipToContactMechId" mode="IN" type="String" optional="true"/>

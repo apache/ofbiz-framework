@@ -920,7 +920,7 @@ under the License.
             <field-to-list list-name="stateList" field-name="stateName"/>
         </iterate>
         <if-empty field="stateList">
-            <set field="noOption" value="No States/Provinces exists"/>
+            <set field="noOption" value="No States/Provinces exist: _NA_"/>
             <field-to-list list-name="stateList" field-name="noOption"/>
         </if-empty>
         <field-to-result field-name="stateList"/>

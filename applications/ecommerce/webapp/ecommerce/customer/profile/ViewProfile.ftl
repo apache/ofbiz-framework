@@ -48,10 +48,12 @@ under the License.
           <#if shipToContactMechId?exists>
             ${shipToAddress1?if_exists}<br/>
             <#if shipToAddress2?has_content>${shipToAddress2?if_exists}<br/></#if>
-            ${shipToCity?if_exists},
-            ${shipToStateProvinceGeoId?if_exists}
-            ${shipToPostalCode?if_exists}<br/>
-            ${shipToCountryGeoId?if_exists}<br/>
+            <#if shipToStateProvinceGeoId?has_content && shipToStateProvinceGeoId != "_NA_">
+              ${shipToStateProvinceGeoId}
+            </#if>
+              ${shipToCity?if_exists},
+              ${shipToPostalCode?if_exists}<br/>
+              ${shipToCountryGeoId?if_exists}<br/>
             <#if shipToTelecomNumber?has_content>
               ${shipToTelecomNumber.countryCode?if_exists}-
               ${shipToTelecomNumber.areaCode?if_exists}-
@@ -70,10 +72,12 @@ under the License.
           <#if billToContactMechId?exists>
             ${billToAddress1?if_exists}<br/>
             <#if billToAddress2?has_content>${billToAddress2?if_exists}<br/></#if>
-            ${billToCity?if_exists},
-            ${billToStateProvinceGeoId?if_exists}
-            ${billToPostalCode?if_exists}<br/>
-            ${billToCountryGeoId?if_exists}<br/>
+            <#if billToStateProvinceGeoId?has_content && billToStateProvinceGeoId != "_NA_">
+              ${billToStateProvinceGeoId}
+            </#if>
+              ${billToCity?if_exists},
+              ${billToPostalCode?if_exists}<br/>
+              ${billToCountryGeoId?if_exists}<br/>
             <#if billToTelecomNumber?has_content>
               ${billToTelecomNumber.countryCode?if_exists}-
               ${billToTelecomNumber.areaCode?if_exists}-

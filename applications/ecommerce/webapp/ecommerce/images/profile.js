@@ -8,6 +8,16 @@ Event.observe(window, 'load', function() {
         Event.observe($('emailAddress'), 'change', setUserNameFromEmail);
         Event.observe('useShippingAddressForBilling', 'click', useShippingAddressAsBillingToggle);
         Event.observe($('submitNewUserForm'), 'click', submitValidNewUser);
+        // Get associate states for Shipping Information
+        Event.observe($('shipToCountryGeoId'), 'change', function(){
+            getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
+        });
+        // Get associate states for Billing Information
+        Event.observe($('billToCountryGeoId'), 'change', function() {
+            getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
+        });
+        getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
+        getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
     }
     if ($('editUserForm')) {
         validateEditUser = new Validation('editUserForm', {immediate: true, onSubmit: false});
@@ -46,6 +56,31 @@ Event.observe(window, 'load', function() {
         Event.observe($('billToContactNumber'), 'blur', function() {
             validatePhoneNumber('billToPhoneRequired', 'billToContactNumber', 'billToCountryCode', 'billToAreaCode');
         });
+    }
+    if ($('createPostalAddressForm')) {
+        // Get associate states for Postal Address Information
+        Event.observe($('countryGeoId'), 'change', function() {
+            getAssociatedStateList('countryGeoId', 'stateProvinceGeoId', 'advice-required-stateProvinceGeoId', 'states');
+        });
+        getAssociatedStateList('countryGeoId', 'stateProvinceGeoId', 'advice-required-stateProvinceGeoId', 'states');
+    }
+    if ($('editBillToPostalAddress')) {
+        // Get associate states for Billing Information
+        Event.observe($('billToCountryGeoId'), 'change', function() {
+            getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
+        });
+        if($('billToStateProvinceGeoId').value == "_NA_"){
+            getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates'); 	
+        }
+    }
+    if ($('editShipToPostalAddress')) {
+        // Get associate states for Shipping Information
+        Event.observe($('shipToCountryGeoId'), 'change', function(){
+            getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
+        });
+        if($('shipToStateProvinceGeoId').value == "_NA_"){
+            getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
+        }
     }
 });
 
@@ -96,6 +131,7 @@ function useShippingAddressAsBillingToggle() {
         $('billToAddress2').value = $F('shipToAddress2');
         $('billToCity').value = $F('shipToCity');
         $('billToCountryGeoId').value = $F('shipToCountryGeoId');
+        getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
         $('billToStateProvinceGeoId').value = $F('shipToStateProvinceGeoId');
         $('billToPostalCode').value = $F('shipToPostalCode');
         
@@ -325,6 +361,7 @@ function copyShipToBillAddress() {
     });
     Event.observe($('shipToCountryGeoId'), 'change', function() {
         $('billToCountryGeoId').value = $F('shipToCountryGeoId')
+        getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
     });
     Event.observe($('shipToPostalCode'), 'change', function() {
         $('billToPostalCode').value = $F('shipToPostalCode')
@@ -349,4 +386,16 @@ function addValidations() {
     Validation.add('validate-passwordVerify', "", {
         equalToField : 'password'
     });
+}
+
+function showState(id) {
+    if ($('editPostalAddress_'+id)) {
+        // Get associate states for Postal Address Information
+        Event.observe($('countryGeoId_'+id), 'change', function() {
+            getAssociatedStateList('countryGeoId_'+id, 'stateProvinceGeoId_'+id, 'advice-required-stateProvinceGeoId_'+id, 'states_'+id);
+        });
+        if($('stateProvinceGeoId_'+id).value == "_NA_"){
+            getAssociatedStateList('countryGeoId_'+id, 'stateProvinceGeoId_'+id, 'advice-required-stateProvinceGeoId_'+id, 'states_'+id);    	
+        }
+    }
 }

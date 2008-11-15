@@ -52,28 +52,28 @@ under the License.
       </span>
     </div>
     <div class="form-row">
-      <label>${uiLabelMap.PartyState}*</label>
-      <span>
-        <select name="stateProvinceGeoId" id="billToStateProvinceGeoId" class="left required" style="width: 70%">
-          <#if billToStateProvinceGeoId?exists>
-            <option value='${billToStateProvinceGeoId?if_exists}'>${billToStateProvinceGeo?default(billToStateProvinceGeoId?if_exists)}</option>
-          </#if>
-          <option value="">${uiLabelMap.PartyNoState}</option>
-          ${screens.render("component://common/widget/CommonScreens.xml#states")}
-        </select>
-        <span id="advice-required-billToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span>
-      </span>
-    </div>
-    <div class="form-row">
       <label>${uiLabelMap.PartyCountry}*</label>
       <span>
         <select name="countryGeoId" id="billToCountryGeoId" class="left required" style="width: 70%">
-          <#if billToCountryGeoId?exists>
-            <option value='${billToCountryGeoId?if_exists}'>${billToCountryProvinceGeo?default(billToCountryGeoId?if_exists)}</option>
+          <#if billToCountryGeoId??>
+            <option value='${billToCountryGeoId!}'>${billToCountryProvinceGeo!(billToCountryGeoId!)}</option>
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
         <span id="advice-required-billToCountryGeoId" style="display: none" class="errorMessage">(required)</span>
+      </span>
+    </div>
+    <div id="billToStates" class="form-row">
+      <label>${uiLabelMap.PartyState}*<span id="advice-required-billToStateProvinceGeoId" style="display: none" class="errorMessage">(required)</span></label>
+      <span>
+        <select name="stateProvinceGeoId" id="billToStateProvinceGeoId" style="width: 70%">
+          <#if billToStateProvinceGeoId?has_content>
+            <option value='${billToStateProvinceGeoId!}'>${billToStateProvinceGeo!(billToStateProvinceGeoId!)}</option>
+          <#else>
+            <option value="_NA_">${uiLabelMap.PartyNoState}</option>
+          </#if>
+          ${screens.render("component://common/widget/CommonScreens.xml#states")}
+        </select>
       </span>
     </div>
     <#if billToTelecomNumber?has_content>
