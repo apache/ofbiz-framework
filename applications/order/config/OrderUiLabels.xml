@@ -2355,7 +2355,7 @@
         <value xml:lang="de">Weiter zur abschließenden Bestellüberprüfung</value>
         <value xml:lang="en">Continue to Final Order Review</value>
         <value xml:lang="es">Pasar a la Revisión Final de la Compra</value>
-        <value xml:lang="fr">Continuer vers la vérification finale de la commande</value>
+        <value xml:lang="fr">Passer à la vérification finale de la commande</value>
         <value xml:lang="it">Passa alla revisione finale ordine</value>
         <value xml:lang="ja">Continue to Final Order Review</value>
         <value xml:lang="nl">Doorgaan naar het bestellingenoverzicht</value>
@@ -2946,7 +2946,7 @@
         <value xml:lang="de">Ihre Bestellung wird zu folgender Email-Adresse gesendet</value>
         <value xml:lang="en">Your order will be sent to the following email addresses</value>
         <value xml:lang="es">Su orden será enviada a las siguientes direcciones de email</value>
-        <value xml:lang="fr">Votre commande sera envoyée à l'adresse courriel suivante</value>
+        <value xml:lang="fr">Votre commande sera envoyée aux adresses courriels suivantes</value>
         <value xml:lang="hi_IN">आपका आर्डर इस इमेल पर भेजा जाएगा</value>
         <value xml:lang="it">Il tuo ordine sarà spedito ai seguenti indirizzi email</value>
         <value xml:lang="ja">Your order will be sent to the following email addresses</value>
