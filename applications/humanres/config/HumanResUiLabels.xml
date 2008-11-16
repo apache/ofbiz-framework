@@ -567,6 +567,9 @@
     <property key="HumanResFindEmplPosition">
         <value xml:lang="en">Find Employee Position</value>
     </property>
+    <property key="HumanResFindEmployment">
+        <value xml:lang="en">Find Employment</value>
+    </property>
     <property key="HumanResFindEmploymentApp">
         <value xml:lang="en">Find Employment Application</value>
     </property>
@@ -776,6 +779,19 @@
     <property key="HumanResEmplPositionTypeRate">
         <value xml:lang="en">Position Type Rate</value>
     </property>
+    <property key="HumanResEmploymentPartyIdFrom">
+        <value xml:lang="en">Internal Organization</value>
+        <value xml:lang="it">Codice Soggetto Da</value>
+        <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
+    </property>
+    <property key="HumanResEmploymentPartyIdFromToolTip">
+        <value xml:lang="en">Internal Organization Employee works in</value>
+    </property>
+    <property key="HumanResEmployeePartyIdTo">
+        <value xml:lang="en">Employee Party Id</value>
+        <value xml:lang="it">Codice Soggetto A</value>
+        <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
+    </property>
     <property key="HumanResNewPartySkill">
         <value xml:lang="en">New Party Skill</value>
         <value xml:lang="it">Nuova Abilità Soggetto</value>
@@ -824,16 +840,6 @@
         <value xml:lang="en">Party Benifit</value>
         <value xml:lang="it">Benifit Soggetto</value>
         <value xml:lang="th">กลุ่มผลประโยชน์</value>
-    </property>
-    <property key="HumanResPartyIdFrom">
-        <value xml:lang="en">Party Id From</value>
-        <value xml:lang="it">Codice Soggetto Da</value>
-        <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
-    </property>
-    <property key="HumanResPartyIdTo">
-        <value xml:lang="en">Party Id To</value>
-        <value xml:lang="it">Codice Soggetto A</value>
-        <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="HumanResPartyQualification">
         <value xml:lang="en">Qualifications</value>

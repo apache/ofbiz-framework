@@ -341,6 +341,18 @@ under the License.
         <key-map field-name="partyIdFrom" rel-field-name="agreementId"/>
       </relation>
     </entity>
+    <view-entity entity-name="EmploymentAndPerson"
+        package-name="org.ofbiz.humanres.employment"
+        title="Employment and Person Entity">
+        <member-entity entity-alias="EMPLMNT" entity-name="Employment"/>
+        <member-entity entity-alias="PERS" entity-name="Person"/>
+        <alias-all entity-alias="EMPLMNT"/>
+        <alias-all entity-alias="PERS"/>
+        <view-link entity-alias="EMPLMNT" rel-entity-alias="PERS">
+            <key-map field-name="partyIdTo" rel-field-name="partyId"/>
+        </view-link>
+    </view-entity>
+    
     <entity entity-name="EmploymentApp"
             package-name="org.ofbiz.humanres.employment"
             title="Employment Application Entity">
