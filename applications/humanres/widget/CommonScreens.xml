@@ -46,6 +46,56 @@ under the License.
             </widgets>
         </section>
     </screen>
+
+    <screen name="Main">
+        <section>
+            <widgets>
+                <decorator-screen name="main-decorator">
+                    <decorator-section name="body">
+                        <section>
+                            <widgets>
+                                <container style="lefthalf">
+                                    <include-screen name="OrgTree"/>
+                                </container>
+                            </widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+
+    <screen name="OrgTree">
+        <section>
+            <actions>
+                <set field="partyId" value="Company"/>
+            </actions>
+            <widgets>
+                <screenlet title="${uiLabelMap.Company}">
+                    <section>
+                        <widgets>
+                            <include-tree name="OrgTree" location="component://humanres/widget/PartyTrees.xml"/>
+                        </widgets>
+                    </section>
+                </screenlet>
+            </widgets>
+        </section>
+    </screen>    
+    <screen name="PartyGroupTreeLine">
+        <section>
+            <widgets> 
+                <label text="${partyAndGroup.groupName}" style="tabletext"/>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="PartyPersonTreeLine">
+        <section>
+            <widgets> 
+                <label text="${partyAndPerson.firstName} ${partyAndPerson.lastName}" style="tabletext"/>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="CommonEmplPositionDecorator">
         <section>
             <actions>

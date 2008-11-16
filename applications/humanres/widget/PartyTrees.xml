@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+<trees xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-tree.xsd">
+
+    <tree name="OrgTree" root-node-name="node-root" entity-name="PartyAndGroup" open-depth="1"> 
+        <node name="node-root" entity-name="PartyAndGroup" render-style="expand-collapse">
+            <entity-one entity-name="PartyAndGroup" value-name="partyAndGroup"/>
+            <include-screen name="PartyGroupTreeLine" location="component://humanres/widget/CommonScreens.xml"/>
+            <sub-node node-name="internalOrg-list">
+                <entity-condition entity-name="PartyRelationship" filter-by-date="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="partyId"/>
+                        <condition-expr field-name="partyRelationshipTypeId" operator="equals" value="GROUP_ROLLUP"/> 
+                    </condition-list>
+                </entity-condition>
+            </sub-node>
+        </node>
+        <node name="internalOrg-list" entry-name="partyRelationship" entity-name="PartyRelationship" join-field-name="partyIdTo" render-style="expand-collapse">
+            <entity-one entity-name="PartyAndGroup" value-name="partyAndGroup">
+                <field-map field-name="partyId" env-name="partyRelationship.partyIdTo"/>
+            </entity-one>
+            <include-screen name="PartyGroupTreeLine" location="component://humanres/widget/CommonScreens.xml"/>
+            <sub-node node-name="employee-list">
+                <entity-condition entity-name="Employment" filter-by-date="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="partyIdFrom" operator="equals" env-name="partyRelationship.partyIdTo"/>
+                        <condition-expr field-name="roleTypeIdTo" operator="equals" value="EMPLOYEE"/> 
+                    </condition-list>
+                </entity-condition>
+            </sub-node>
+        </node>
+        <node name="employee-list" entry-name="employment" entity-name="Employment" join-field-name="partyIdTo" render-style="simple">
+            <entity-one entity-name="PartyAndPerson" value-name="partyAndPerson">
+                <field-map field-name="partyId" env-name="employment.partyIdTo"/>
+            </entity-one>
+            <include-screen name="PartyPersonTreeLine" location="component://humanres/widget/CommonScreens.xml"/>
+        </node>
+    </tree>
+</trees>
