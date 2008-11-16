@@ -95,19 +95,26 @@
         <auto-fields-service service-name="createEmployment" default-field-type="hidden"/>  
         <field name="roleTypeIdFrom"><hidden value="INTERNAL_ORGANIZATIO"/></field>
         <field name="roleTypeIdTo"><hidden value="EMPLOYEE"/></field>        
-        <field name="partyIdFrom" use-when="employment==null" title="${uiLabelMap.HumanResPartyIdFrom}" tooltip="${uiLabelMap.CommonRequired}">
+        <field name="partyIdFrom" use-when="employment==null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" tooltip="${uiLabelMap.CommonRequired}">
             <drop-down allow-empty="false">
                 <entity-options entity-name="PartyRole" description="${partyId}" key-field-name="partyId">
                     <entity-constraint name="roleTypeId" operator="equals" value="INTERNAL_ORGANIZATIO"/>
                 </entity-options>
             </drop-down>            
         </field>
-        <field name="partyIdFrom" use-when="employment!=null" title="${uiLabelMap.HumanResPartyIdFrom}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field name="partyIdTo" use-when="employment==null" title="${uiLabelMap.HumanResPartyIdTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="partyIdTo" use-when="employment!=null" title="${uiLabelMap.HumanResPartyIdTo}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field name="fromDate" use-when="employment==null" title="${uiLabelMap.CommonDate}" tooltip="${uiLabelMap.CommonRequired}"><date-time/></field>
-        <field name="fromDate" use-when="employment!=null" title="${uiLabelMap.CommonDate}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
-        <field name="terminationReasonId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationReasonId}"><lookup target-form-name="LookupTerminationReason"/></field>
+        <field name="partyIdFrom" use-when="employment!=null" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="partyIdTo" use-when="employment==null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" tooltip="${uiLabelMap.CommonRequired}"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyIdTo" use-when="employment!=null" title="${uiLabelMap.HumanResEmployeePartyIdTo}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="fromDate" use-when="employment==null" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonRequired}"><date-time/></field>
+        <field name="fromDate" use-when="employment!=null" title="${uiLabelMap.CommonFromDate}" tooltip="${uiLabelMap.CommonNotModifRecreat}"><display/></field>
+        <field name="thruDate" use-when="employment!=null" title="${uiLabelMap.CommonThruDate}"><date-time/></field>
+        <field name="terminationReasonId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationReasonId}">
+            <drop-down allow-empty="true" no-current-selected-key="------">
+                <entity-options description="${description}" key-field-name="terminationReasonId" entity-name="TerminationReason">                    
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="terminationTypeId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationTypeId}">
             <drop-down allow-empty="true" no-current-selected-key="------">
                 <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">                    
