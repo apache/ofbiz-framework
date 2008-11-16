@@ -47,7 +47,7 @@
         <field name="noConditionFind"><hidden value="Y"/></field>    
         <field name="searchButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="ListEmployments" type="list" paginate-target="FindEmployments" default-entity-name="EmploymentAndPerson" list-name="listIt" separate-columns="true"
+    <form name="ListEmploymentsPerson" type="list" paginate-target="FindEmployments" default-entity-name="EmploymentAndPerson" list-name="listIt" separate-columns="true"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
             <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
@@ -61,6 +61,26 @@
         </field>
         <field name="firstName"><display></display></field>
         <field name="lastName"><display></display></field>
+        <field name="fromDate"><display also-hidden="true"/></field>
+        <field name="thruDate"><display/></field>
+        <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>
+        <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}"><display/></field>
+        <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="EditEmployment?partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;fromDate=${fromDate}&amp;roleTypeIdTo=${roleTypeIdTo}" description="${uiLabelMap.CommonEdit}"/>
+        </field>
+    </form>
+    <form name="ListEmployments" type="list" paginate-target="FindEmployments" default-entity-name="EmploymentAndPerson" list-name="listIt" separate-columns="true"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="employmentCtx"/>
+                <field-map field-name="entityName" value="Employment"/>
+            </service>
+        </actions>
+        <field name="partyIdFrom" title="${uiLabelMap.HumanResEmploymentPartyIdFrom}"><display></display></field>
+        <field name="partyIdTo" title="${uiLabelMap.HumanResEmployeePartyIdTo}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${partyIdTo}" target="viewprofile?partyId=${partyIdTo}"/>
+        </field>
         <field name="fromDate"><display also-hidden="true"/></field>
         <field name="thruDate"><display/></field>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>

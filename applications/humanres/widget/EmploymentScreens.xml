@@ -49,7 +49,7 @@
                                 <include-form name="FindEmployments" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                             </decorator-section>
                             <decorator-section name="search-results">
-                                <include-form name="ListEmployments" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                                <include-form name="ListEmploymentsPerson" location="component://humanres/widget/forms/EmploymentForms.xml"/>
                             </decorator-section>
                         </decorator-screen>
                     </decorator-section>
