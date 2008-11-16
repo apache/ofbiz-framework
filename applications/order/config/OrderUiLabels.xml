@@ -1740,15 +1740,18 @@
         <value xml:lang="zh">调整类型</value>
     </property>
     <property key="OrderAdjustments">
+        <value xml:lang="cs">Úpravy</value>
         <value xml:lang="de">Anpassungen</value>
         <value xml:lang="en">Adjustments</value>
         <value xml:lang="es">Ajustes</value>
         <value xml:lang="fr">Ajustements</value>
         <value xml:lang="it">Aggiustamenti</value>
+        <value xml:lang="ja">Adjustments</value>
         <value xml:lang="nl">Correcties</value>
+        <value xml:lang="pt_PT">Ajustes</value>
         <value xml:lang="ro">Modificari</value>
-        <value xml:lang="ru">Коррект.</value>
-        <value xml:lang="th">การปรับปรุง</value>
+        <value xml:lang="ru">Настройки</value>
+        <value xml:lang="th">ส่วนลด</value>
         <value xml:lang="zh_CN">调整</value>
         <value xml:lang="zh">调整</value>
     </property>
@@ -1764,17 +1767,20 @@
         <value xml:lang="zh">订单代理人</value>
     </property>
     <property key="OrderAllowSplit">
+        <value xml:lang="cs">Povolení rozdělit</value>
         <value xml:lang="de">Aufteilung gestatten</value>
         <value xml:lang="en">Allow Split</value>
-        <value xml:lang="es">Aceptar orden parcial</value>
-        <value xml:lang="fr">Permettre le fractionnement</value>
-        <value xml:lang="it">Permessa la Divisione</value>
-        <value xml:lang="nl">Mogelijheid om te order te splitsen</value>
-        <value xml:lang="ro">Permisa Divizarea</value>
-        <value xml:lang="ru">Можно разделить</value>
-        <value xml:lang="th">แบ่งแยก</value>
+        <value xml:lang="es">Permitir fraccionar</value>
+        <value xml:lang="fr">Accepter le fractionnement</value>
+        <value xml:lang="it">Permettere la suddivisione</value>
+        <value xml:lang="ja">Allow Split</value>
+        <value xml:lang="nl">Opsplitsen toegestaan</value>
+        <value xml:lang="pt_PT">Permitir Separação</value>
+        <value xml:lang="ro">Permite Diviziune </value>
+        <value xml:lang="ru">Можно разделять</value>
+        <value xml:lang="th">ตามทางเลือก</value>
         <value xml:lang="zh_CN">允许拆分</value>
-        <value xml:lang="zh">允许拆分</value>
+        <value xml:lang="zh">允许分拆</value>
     </property>
     <property key="OrderAlwaysList">
         <value xml:lang="en">Always List</value>
@@ -1963,29 +1969,54 @@
         <value xml:lang="zh">缺货通知单</value>
     </property>
     <property key="OrderBacktoShoppingCart">
+        <value xml:lang="cs">zpět do košíku</value>
         <value xml:lang="de">Zurück zum Warenkorb</value>
         <value xml:lang="en">Back to Shopping Cart</value>
-        <value xml:lang="fr">Retour au panier</value>
-        <value xml:lang="th">กลับไปยังบัตรซื้อสินค้า</value>
+        <value xml:lang="en_GB">Back to Shopping basket</value>
+        <value xml:lang="es">Volver al Carro de Compra</value>
+        <value xml:lang="fr">Retour au panier d'achat</value>
+        <value xml:lang="hi_IN">ख़रीदारी टोकरी पर वापस जाऐं</value>
+        <value xml:lang="it">Torna al carrello</value>
+        <value xml:lang="ja">Back to Shopping Cart</value>
+        <value xml:lang="nl">Terug naar de winkelwagen</value>
+        <value xml:lang="pt_PT">Voltar Ao Cesto De Compras</value>
+        <value xml:lang="ro">Intoarcete la Cosul de Cumparaturi </value>
+        <value xml:lang="ru">Обратно к корзине покупок</value>
+        <value xml:lang="th">กลับสู่หน้าการซื้อสินค้าจากบัตร</value>
+        <value xml:lang="zh">返回购物车</value>
     </property>
-    <property key="OrderBeSureIncludeOrder">
-        <value xml:lang="de">Vergewissern Sie sich, Ihre Bestellung einzufügen</value>
+    <property key="OrderBesureIncludeOrder">
+        <value xml:lang="cs">Ujistěte se že jste vložili objednávku</value>
+        <value xml:lang="de">Seien Sie sicher, Ihre Bestellung einzufügen</value>
         <value xml:lang="en">Be sure to include your order</value>
-        <value xml:lang="es">Asegúrese de incluir su orden</value>
-        <value xml:lang="fr">Soyez sûr d'inclure votre commande</value>
-        <value xml:lang="it">Devi essere sicuro di includere il tuo ordine</value>
-        <value xml:lang="nl">Weet zeker dat je deze bestelling toevoegd</value>
-        <value xml:lang="ro">Trebuie sa fii sigur de includerea comenzii tale OrderCancelAllItems = Sterge toate Liniile</value>
-        <value xml:lang="ru">Убедитесь что включили свой заказ</value>
-        <value xml:lang="th">แน่ใจว่าจะรวมรายการสั่งซื้อสินค้าของคุณ</value>
+        <value xml:lang="es">Asegúrese de incluir su compra</value>
+        <value xml:lang="fr">Soyer sûr(e) d'inclure votre n° de commande</value>
+        <value xml:lang="hi_IN">आर्डर सम्मिमित करना न भूलें #</value>
+        <value xml:lang="it">Assicurati di specificare il n° del tuo ordine</value>
+        <value xml:lang="ja">Be sure to include your order</value>
+        <value xml:lang="nl">bestelling bijgesloten?</value>
+        <value xml:lang="pt_PT">Certifique-se que incluiu o número da sua encomenda</value>
+        <value xml:lang="ro">Asigurate ca ai inclus Comanda ta </value>
+        <value xml:lang="ru">Убедитесь что указали свой заказ</value>
+        <value xml:lang="th">แน่ใจในการรวมรายการสินค้าของคุณ</value>
         <value xml:lang="zh_CN">确保包含你的订单</value>
-        <value xml:lang="zh">请确认包括了你的订单</value>
+        <value xml:lang="zh">确信包括了你的订单</value>
     </property>
     <property key="OrderBillUpTo">
-        <value xml:lang="de">Rechnung bis zu</value>
+        <value xml:lang="cs">Faktura na</value>
+        <value xml:lang="de">Abbuchung bis</value>
         <value xml:lang="en">Bill Up To</value>
-        <value xml:lang="fr">Facturer jusqu'à</value>
-        <value xml:lang="th">Bill Up To</value>
+        <value xml:lang="es">Cuenta Hasta</value>
+        <value xml:lang="fr">Facturé à</value>
+        <value xml:lang="hi_IN">यहां तक का मुल्य</value>
+        <value xml:lang="it">Fatturare a</value>
+        <value xml:lang="ja">Bill Up To</value>
+        <value xml:lang="nl">Factuurwaarde maximaal tot:</value>
+        <value xml:lang="pt_PT">Cobrança Até</value>
+        <value xml:lang="ro">Facturare A</value>
+        <value xml:lang="ru">Счет до</value>
+        <value xml:lang="th">ใบเสร็จรับเงินของ</value>
+        <value xml:lang="zh">账单等于</value>
     </property>
     <property key="OrderBillingAddress">
         <value xml:lang="de">Rechnungsadresse</value>
@@ -1995,10 +2026,21 @@
         <value xml:lang="th">ที่อยู่ใบเสร็จรับเงิน</value>
     </property>
     <property key="OrderCOD">
-        <value xml:lang="de">zahlbar bei Lieferung</value>
+        <value xml:lang="cs">Platba v hotovosti při doručení (dobírka)</value>
+        <value xml:lang="de">Barzahlung bei Lieferung (Nachnahme)</value>
         <value xml:lang="en">COD</value>
+        <value xml:lang="en_GB">Cash or cheque on delivery</value>
+        <value xml:lang="es">COD</value>
         <value xml:lang="fr">Contre remboursement</value>
+        <value xml:lang="hi_IN">सामान मिलने पर नकद या चेक</value>
+        <value xml:lang="it">Contrassegno</value>
+        <value xml:lang="ja">COD</value>
+        <value xml:lang="nl">Betaling bij aflevering</value>
+        <value xml:lang="pt_PT">COD</value>
+        <value xml:lang="ro">Numar de Livrare </value>
+        <value xml:lang="ru">COD</value>
         <value xml:lang="th">เงินด่วน</value>
+        <value xml:lang="zh">货到付款</value>
     </property>
     <property key="OrderCalculatedOffline">
         <value xml:lang="en">Calculated Offline</value>
@@ -2173,6 +2215,20 @@
         <value xml:lang="th">เลือกจำนวน</value>
         <value xml:lang="zh">选择金额</value>
     </property>
+    <property key="OrderChooseAnotherGift">
+        <value xml:lang="de">Ein anderes Geschenk wählen</value>
+        <value xml:lang="en">Choose Another Gift</value>
+        <value xml:lang="es">Elija otro relago</value>
+        <value xml:lang="fr">Choisissez un autre cadeau</value>
+        <value xml:lang="hi_IN">दूसरा उपहार चुनें</value>
+        <value xml:lang="it">Scegli altro omaggio</value>
+        <value xml:lang="ja">Choose Another Gift</value>
+        <value xml:lang="nl">Kies een ander geschenk</value>
+        <value xml:lang="ro">Alege Alt Omagiu</value>
+        <value xml:lang="ru">Выберите другой подарок</value>
+        <value xml:lang="th">เลือกของขวัญชนิดอื่น</value>
+        <value xml:lang="zh">选择其它礼品</value>
+    </property>
     <property key="OrderChooseVariations">
         <value xml:lang="cs">Výběr varianty</value>
         <value xml:lang="de">Variante auswählen</value>
@@ -2254,10 +2310,20 @@
         <value xml:lang="zh">(注意：在你离开本站点后，你的历史记录会被自动清除。)</value>
     </property>
     <property key="OrderCommaSeperatedEmailAddresses">
-        <value xml:lang="de">Sie können ein mit Komma abgetrennte Liste von E-Mail Adressen erfassen die nur für diese Bestellung verwendet werden</value>
+        <value xml:lang="cs">Můžete přidat další e-mailové adresy (oddělené čárkou), které mohou být použity pouze při vyřizování současné objednávky</value>
+        <value xml:lang="de">Sie können hier andere, durch Komma getrennte Email Adressen hinzufügen. Sie werden nur für die diese Bestellung verwendet.</value>
         <value xml:lang="en">You may add other comma separated email addresses here that will be used only for the current order</value>
-        <value xml:lang="fr">Vous pouvez ajouter d'autres adresses e-mail séparées par des virgules. Elles seront utilisées seulement pour cette commande.</value>
-        <value xml:lang="th">คุณอาจจะเพิ่มคอมมาเพื่อแยกอีเมลที่นี่นั่นจะใช้สำหรับการสั่งสินค้าในปัจจุบัน</value>
+        <value xml:lang="es">Usted puede agregar otras direcciones de email separadas por coma aquí que serán utilizadas solamente para la compra actual</value>
+        <value xml:lang="fr">Vous pouvez ajouter d'autre adresses courriel (séparées par des virgules) qui seront utilisées seulement pour cette commande.</value>
+        <value xml:lang="hi_IN">कोमा (,) के अलग करके आप अपना एक से ज्यादा ईमेल पता डाल सकते हैं, जिस तरह से आपने डाला है उस तरह से उपयोग होगा</value>
+        <value xml:lang="it">Puoi aggiungere altri indirizzi email separati da virgola qui, saranno usati solamente per l'ordine attuale</value>
+        <value xml:lang="ja">You may add other comma separated email addresses here that will be used only for the current order</value>
+        <value xml:lang="nl">U mag een aantal email adressen hier toevoegen gescheiden door een comma die alleen voor de huidige bestelling worden gebruikt</value>
+        <value xml:lang="pt_PT">Você pode adicionar outros endereços de e-mail, separados por vírgulas, utilizados apenas para esta encomenda</value>
+        <value xml:lang="ro">Tu poti sa adaugi aici alte adrese email separate de virgula, care vor fi uzate numai pentru comanda actuala</value>
+        <value xml:lang="ru">Здесь можно добавить дополнительные адреса эл.почты, которые будут использоваться только для текущего заказа. Список разделяйте запятыми</value>
+        <value xml:lang="th">คุณสามารถใส่ที่อยู่อีเมล์ได้ที่นี่ เพื่อใช้สำหรับการสั่งสินค้าในปัจจุบัน</value>
+        <value xml:lang="zh">你可以在这里添加其它逗号分隔的电子邮件地址，这些电子邮件地址仅用于当前订单</value>
     </property>
     <property key="OrderCompanyName">
         <value xml:lang="de">OFBiz: Auftragsverwaltung</value>
@@ -3697,6 +3763,20 @@
         <value xml:lang="th">รายการ</value>
         <value xml:lang="zh">明细</value>
     </property>
+    <property key="OrderItemGroups">
+        <value xml:lang="de">Artikelgruppen</value>
+        <value xml:lang="en">Item Groups</value>
+        <value xml:lang="es">Grupo de Artículos</value>
+        <value xml:lang="fr">Groupes d'articles</value>
+        <value xml:lang="hi_IN">सामान संग्रह</value>
+        <value xml:lang="it">Gruppi di articoli</value>
+        <value xml:lang="ja">Item Groups</value>
+        <value xml:lang="nl">Item Groepering</value>
+        <value xml:lang="ro">Grupuri Linie</value>
+        <value xml:lang="ru">Группы позиций</value>
+        <value xml:lang="th">กลุ่มสินค้า</value>
+        <value xml:lang="zh">明细组</value>
+    </property>
     <property key="OrderItemN">
         <value xml:lang="de">Elementnr.</value>
         <value xml:lang="en">Item #</value>
@@ -3836,6 +3916,20 @@
         <value xml:lang="th">อำนาจการควบคุม</value>
         <value xml:lang="zh_CN">权限</value>
         <value xml:lang="zh">管辖权</value>
+    </property>
+    <property key="OrderLastOrderedDate">
+        <value xml:lang="de">Zuletzt bestellt am</value>
+        <value xml:lang="en">Last Ordered Date</value>
+        <value xml:lang="es">Última fecha de Orden</value>
+        <value xml:lang="fr">Date de la dernière commande</value>
+        <value xml:lang="hi_IN">आख़री आर्डर तिथी</value>
+        <value xml:lang="it">Data ultimo ordine</value>
+        <value xml:lang="ja">Last Ordered Date</value>
+        <value xml:lang="nl">Vorige besteldatum</value>
+        <value xml:lang="ro">Data Ultimei Comenzi </value>
+        <value xml:lang="ru">Дата последнего заказа</value>
+        <value xml:lang="th">วันที่สั่งซื้อสินค้าครั้งสุดท้าย</value>
+        <value xml:lang="zh">上次订货日期</value>
     </property>
     <property key="OrderLastSearches">
         <value xml:lang="cs">Poslední hledání</value>
@@ -4008,10 +4102,38 @@
         <value xml:lang="zh_CN">人工促销</value>
         <value xml:lang="zh">手工促销</value>
     </property>
+    <property key="OrderMethod">
+        <value xml:lang="cs">Způsob</value>
+        <value xml:lang="de">Methode</value>
+        <value xml:lang="en">Method</value>
+        <value xml:lang="es">Método</value>
+        <value xml:lang="fr">Méthode</value>
+        <value xml:lang="hi_IN">तरीका</value>
+        <value xml:lang="it">Metodo</value>
+        <value xml:lang="ja">Method</value>
+        <value xml:lang="nl">Methode</value>
+        <value xml:lang="pt_PT">Método</value>
+        <value xml:lang="ro">Metoda</value>
+        <value xml:lang="ru">Метод</value>
+        <value xml:lang="th">วิธีการ</value>
+        <value xml:lang="zh">方法</value>
+    </property>
     <property key="OrderMoneyOrder">
+        <value xml:lang="cs">Poštovní složenka/Platební příkaz</value>
+        <value xml:lang="de">Postscheck/Zahlungsanweisung</value>
         <value xml:lang="en">Mail Check/Money Order</value>
+        <value xml:lang="en_GB">Mail Cheque or Account</value>
+        <value xml:lang="es">Giro Postal</value>
         <value xml:lang="fr">Chèque par la poste/Mandat</value>
-        <value xml:lang="th">จดหมายตรวจสอบรายการการเงิน</value>
+        <value xml:lang="hi_IN">चेक/ मेल आर्डर</value>
+        <value xml:lang="it">Vaglia postale/Bonifico bancario</value>
+        <value xml:lang="ja">Mail Check/Money Order</value>
+        <value xml:lang="nl">Post Check/geld Order</value>
+        <value xml:lang="pt_PT">Cobrança Postal</value>
+        <value xml:lang="ro">Controleaza Mail/Comanda Monetar</value>
+        <value xml:lang="ru">Mail Check/Money Order</value>
+        <value xml:lang="th">ตรวจสอบอีเมล์/การสั่งจ่ายเงิน</value>
+        <value xml:lang="zh">汇款单</value>
     </property>
     <property key="OrderMoreOptionsAvailable">
         <value xml:lang="de">Mehr Optionen in der Auswahlliste</value>
@@ -4317,16 +4439,19 @@
         <value xml:lang="zh">这个订单没有调整。</value>
     </property>
     <property key="OrderNoOrderFound">
-        <value xml:lang="de">Kein Auftrag gefunden</value>
-        <value xml:lang="en">No Order Found with ID</value>
-        <value xml:lang="es">Ninguna orden fue encontrada</value>
-        <value xml:lang="fr">Aucune commande trouvée avec la réf.</value>
-        <value xml:lang="it">Nessun Ordine Trovato</value>
-        <value xml:lang="nl">Geen bestellingen gevonden</value>
+        <value xml:lang="cs">Nenalezena žádná objednávka</value>
+        <value xml:lang="de">Keine Bestellungen gefunden</value>
+        <value xml:lang="en">No Orders Found</value>
+        <value xml:lang="es">No se han encontrado Compras</value>
+        <value xml:lang="fr">Aucune commande trouvée</value>
+        <value xml:lang="hi_IN">कोई आर्डर नही मिला</value>
+        <value xml:lang="it">Nessun ordine trovato</value>
+        <value xml:lang="ja">No Orders Found</value>
+        <value xml:lang="nl">Gene orders gevonden</value>
+        <value xml:lang="pt_PT">Não Foram Encontradas Encomendas</value>
         <value xml:lang="ro">Nici-o Comanda Gasita</value>
-        <value xml:lang="ru">Заказы не найдены</value>
-        <value xml:lang="th">ไม่พบรหัสรายการสั่งซื้อสินค้านี้</value>
-        <value xml:lang="zh_CN">没有找到订单</value>
+        <value xml:lang="ru">Заказов не найдено</value>
+        <value xml:lang="th">ไม่พบรายการสั่งซื้อ</value>
         <value xml:lang="zh">没有找到订单</value>
     </property>
     <property key="OrderNoOrderFoundForParty">
@@ -4429,15 +4554,15 @@
         <value xml:lang="zh">没有定义送货组</value>
     </property>
     <property key="OrderNoQuoteFound">
-        <value xml:lang="de">Keine Offerte gefunden.</value>
-        <value xml:lang="en">No Quote Found.</value>
+        <value xml:lang="de">Keine Angebote gefunden</value>
+        <value xml:lang="en">No Quotes Found</value>
         <value xml:lang="fr">Aucun devis trouvé</value>
-        <value xml:lang="it">Nessun preventivo trovato.</value>
-        <value xml:lang="nl">Geen offerte gevonden.</value>
-        <value xml:lang="ro">Nici-o Oferta gasita.</value>
-        <value xml:lang="ru">Предложения не найдены.</value>
-        <value xml:lang="th">ไม่พบคำร้อง</value>
-        <value xml:lang="zh">没有找到询价。</value>
+        <value xml:lang="hi_IN">कोई कोट नही मिला</value>
+        <value xml:lang="it">Nessun preventivo trovato</value>
+        <value xml:lang="ro">Nici-o Oferta Gasita </value>
+        <value xml:lang="ru">Коммерческих предложений нет</value>
+        <value xml:lang="th">ไม่พบการแจ้งราคา</value>
+        <value xml:lang="zh">没有找到询价</value>
     </property>
     <property key="OrderNoRequestFound">
         <value xml:lang="de">Keine Anfrage gefunden</value>
@@ -4451,6 +4576,23 @@
         <value xml:lang="th">ไม่พบการร้องขอ</value>
         <value xml:lang="zh_CN">没有找到请求</value>
         <value xml:lang="zh">没有找到请求</value>
+    </property>
+    <property key="OrderNoReturnableItems">
+        <value xml:lang="cs">Nebyly nalezeny žádné  vratné položky Vaší objednávky</value>
+        <value xml:lang="de">Es wurden keine rückgabepflichtigen Artikel der Bestellung gefunden</value>
+        <value xml:lang="en">No returnable items found for order</value>
+        <value xml:lang="es">No se han encontrado artículos retornables para comprar</value>
+        <value xml:lang="fr">Pas d'article retournable pour cette commande</value>
+        <value xml:lang="hi_IN">आर्डर मे कोई सामान वापस करने योग्य नही</value>
+        <value xml:lang="it">Nessuna riga reso trovata per l'ordine</value>
+        <value xml:lang="ja">No returnable items found for order</value>
+        <value xml:lang="nl">Geen  retourzendingen gevonden voor order</value>
+        <value xml:lang="pt_PT">Não foram encontrados itens restituíveis para encomenda</value>
+        <value xml:lang="ro">Nici-o linie returnare gasita pentru comanda</value>
+        <value xml:lang="ru">Для заказа нет возвращаемых позиций</value>
+        <value xml:lang="th">ไม่พบรายการสำหรับการสั่งซื้อ
+        </value>
+        <value xml:lang="zh">没有找到订单中可退货明细</value>
     </property>
     <property key="OrderNoReturnFound">
         <value xml:lang="de">Keine Retouren gefunden</value>
@@ -4592,6 +4734,22 @@
         <value xml:lang="ru">Еще не известен</value>
         <value xml:lang="th">ไม่รู้</value>
         <value xml:lang="zh">仍然未知</value>
+    </property>
+    <property key="OrderNotYetOrdered">
+        <value xml:lang="cs">Ještě neobjednáno</value>
+        <value xml:lang="de">Noch nicht bestellt</value>
+        <value xml:lang="en">Not Yet Ordered</value>
+        <value xml:lang="es">No comprado todavía</value>
+        <value xml:lang="fr">Pas encore commandé</value>
+        <value xml:lang="hi_IN">अभी आर्डर नही हुआ</value>
+        <value xml:lang="it">Non ancora ordinato</value>
+        <value xml:lang="ja">Not Yet Ordered</value>
+        <value xml:lang="nl">Nog niet besteld</value>
+        <value xml:lang="pt_PT">Não foi ainda encomendado</value>
+        <value xml:lang="ro">Nu Este inca Comandat </value>
+        <value xml:lang="ru">Еще не заказано</value>
+        <value xml:lang="th">การสั่งซื้อไม่สมบูรณ์</value>
+        <value xml:lang="zh">还没有订货</value>
     </property>
     <property key="OrderNote">
         <value xml:lang="de">Anmerkung</value>
@@ -4753,15 +4911,19 @@
         <value xml:lang="zh">订单选项</value>
     </property>
     <property key="OrderOrder">
-        <value xml:lang="de">Auftrag</value>
+        <value xml:lang="cs">Objednávka</value>
+        <value xml:lang="de">Bestellung</value>
         <value xml:lang="en">Order</value>
-        <value xml:lang="es">Orden</value>
+        <value xml:lang="es">Ordenar</value>
         <value xml:lang="fr">Commande</value>
+        <value xml:lang="hi_IN">आर्डर</value>
         <value xml:lang="it">Ordine</value>
-        <value xml:lang="nl">Bestellingen</value>
+        <value xml:lang="ja">Order</value>
+        <value xml:lang="nl">Bestelling</value>
+        <value xml:lang="pt_PT">Encomenda</value>
         <value xml:lang="ro">Comanda</value>
         <value xml:lang="ru">Заказ</value>
-        <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
+        <value xml:lang="th">การสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh">订单</value>
     </property>
@@ -4796,6 +4958,8 @@
         <value xml:lang="en">Order Confirmation</value>
         <value xml:lang="es">Confirmación de la orden</value>
         <value xml:lang="fr">Confirmation de la commande</value>
+        <value xml:lang="hi_IN">आर्डर स्वीकृत</value>
+        <value xml:lang="ja">Order Confirmation</value>
         <value xml:lang="it">Conferma Ordine</value>
         <value xml:lang="nl">Bestelling Confirmation</value>
         <value xml:lang="ro">Confirma Comanda</value>
@@ -4982,12 +5146,16 @@
         <value xml:lang="zh">明细类型</value>
     </property>
     <property key="OrderOrderItems">
+        <value xml:lang="cs">Položky objednávky</value>
         <value xml:lang="de">Auftragsposition</value>
         <value xml:lang="en">Order Items</value>
         <value xml:lang="es">Ítems de la orden</value>
         <value xml:lang="fr">Lignes de commande</value>
-        <value xml:lang="it">Righe Ordine</value>
+        <value xml:lang="hi_IN">माल आर्डर किजीये</value>
+        <value xml:lang="it">Articoli ordinati</value>
+        <value xml:lang="ja">Order Items</value>
         <value xml:lang="nl">Bestelling Items</value>
+        <value xml:lang="pt_PT">Itens da Encomenda</value>
         <value xml:lang="ro">Linii Comanda</value>
         <value xml:lang="ru">Позиции заказа</value>
         <value xml:lang="th">รายการรายการสั่งซื้อสินค้า</value>
@@ -6101,6 +6269,20 @@
         <value xml:lang="th">เลือกสถานะสำหรับกลุ่มผู้ใช้</value>
         <value xml:lang="zh">为会员选择角色</value>
     </property>
+    <property key="OrderPayBy">
+        <value xml:lang="de">Bezahlen mit</value>
+        <value xml:lang="en">Pay By</value>
+        <value xml:lang="es">Pagado por</value>
+        <value xml:lang="fr">Payer avec</value>
+        <value xml:lang="hi_IN">भुगतान कैसे करें</value>
+        <value xml:lang="it">Pagato da</value>
+        <value xml:lang="ja">Pay By</value>
+        <value xml:lang="nl">Betaal via</value>
+        <value xml:lang="ro">Platit de </value>
+        <value xml:lang="ru">Платить</value>
+        <value xml:lang="th">จ่ายโดย</value>
+        <value xml:lang="zh">支付方法</value>
+    </property>
     <property key="OrderPayMethodType">
         <value xml:lang="de">Zahlungsmethodentyp</value>
         <value xml:lang="en">Pay Method Type</value>
@@ -6298,17 +6480,54 @@
         <value xml:lang="zh">已拒绝的数量</value>
     </property>
     <property key="OrderPleaseShipItemsBecomeAvailable">
-        <value xml:lang="de">Elemente liefern, sobald sie verfügbar werden (kann zusätzliche Lieferkosten verursachen)</value>
+        <value xml:lang="cs">Prosím zašlete položky které jsem objednal tak, jak jsou dostupné (i za cenu dodatečných dopr. nákladů)</value>
+        <value xml:lang="de">Bitte versenden Sie die Artikel, die ich bestellt habe, sobald sie verfügbar sind (Sie dürfen zusätzliche Versandkosten erheben).</value>
         <value xml:lang="en">Please ship items I ordered as they become available (you may incur additional shipping charges)</value>
-        <value xml:lang="fr">S'il vous plaît expédier les articles que j'ai commandé dès qu'ils deviennent disponibles (vous pouvez ajouter les charges d'expédition supplémentaires)</value>
-        <value xml:lang="th">Please ship items I ordered as they become available (you may incur additional shipping charges)</value>
+        <value xml:lang="en_GB">Please send items I ordered as they become available (you may incur additional delivery charges)</value>
+        <value xml:lang="es">Envíe por favor los artículos que pedí cuando estén disponibles (usted puede incurrir en cargas adicionales del envío)</value>
+        <value xml:lang="fr">Envoyez moi les articles commandés dés qu'ils seront disponible (j'ai noté qu'il pourrait y avoir des frais d'expéditions complémentaires)</value>
+        <value xml:lang="hi_IN">माल उपलब्ध होते ही भेजें (आपको कुछ अलग से भुगतान करना पड सकता है)</value>
+        <value xml:lang="it">Per favore spedire gli articoli che ho ordinato appena divengono disponibili (potresti incorrere a spese di spedizione aggiuntive)</value>
+        <value xml:lang="ja">Please ship items I ordered as they become available (you may incur additional shipping charges)</value>
+        <value xml:lang="nl">Stuur de bestellingsitems toe wanneer ze beschikbaar komen(U mag extra verzendkosten in rekening brengen)</value>
+        <value xml:lang="pt_PT">Por favor, envie os itens encomendados assim que estejam disponíveis (poderá incorrer em despesas adicionais de envio)</value>
+        <value xml:lang="ro">Va rugam expediati-mi liniile comandate in momentul in care devin disponibile (s-ar putea sa ai cheltuieli de expediere suplimentare)</value>
+        <value xml:lang="ru">Пожалуйста, поставляйте заказанные мной позиции по мере их доступности (вы можете учитывать дополнительные затраты на доставку)</value>
+        <value xml:lang="th">กรุณาส่งสินค้ามาตามรายการที่สั่งตามที่มีสินค้าอยู่(คุณอาจจะต้องเสียค่าใช้จ่ายในการขนส่งเพิ่มขึ้น)</value>
+        <value xml:lang="zh">一旦有货，请把我订的物品运送给我 (你可能需要支付运费)</value>
     </property>
     <property key="OrderPleaseWaitUntilBeforeShipping">
-        <value xml:lang="de">Vor Versand warten bis alle Elemente verfügbar sind</value>
+        <value xml:lang="cs">Prosím počkejte s odesláním, dokud není celká zásilka připravena</value>
+        <value xml:lang="de">Bitte warten Sie bis die Bestellung insgesamt versandfertig ist</value>
         <value xml:lang="en">Please wait until the entire order is ready before shipping</value>
-        <value xml:lang="fr">SVP, attendre que la commande soit entièrement prête avant d'expédier</value>
-        <value xml:lang="it">Per favore aspettare fino a quando l'intero ordine è pronto per la spedizione.</value>
-        <value xml:lang="th">กรุณารอจนกระทั่งการกรอกข้อมูลเรียบร้อยก่อนการขนส่งสินค้า</value>
+        <value xml:lang="en_GB">Please wait until the entire order is ready before delivering</value>
+        <value xml:lang="es">Espere por favor hasta que la compra entera esté lista antes de enviar</value>
+        <value xml:lang="fr">Attendez que la commande soit complète avant d'expédier</value>
+        <value xml:lang="hi_IN">कृपया इन्तजार किजीये माल उपलब्ध होते ही भेजा जाएगा</value>
+        <value xml:lang="it">Per favore aspettare fino a quando l'intero ordine è pronto prima di spedirlo</value>
+        <value xml:lang="ja">Please wait until the entire order is ready before shipping</value>
+        <value xml:lang="nl">Wacht tot de gehele order beschikbaar is voor verzending</value>
+        <value xml:lang="pt_PT">Por favor, aguarde até a totalidade da encomenda estar pronta antes de a enviar</value>
+        <value xml:lang="ro">Va rugam sa asteptati pana cand intreaga comanda este prompta de expediere. </value>
+        <value xml:lang="ru">Пожалуйста, отправляйте после готовности всех позиций заказа</value>
+        <value xml:lang="th">กรุณารอจนกว่ารายการสินค้าที่สั่งซื้อจะมีครบสมบูรณ์ก่อนที่จะมีการขนส่งสินค้า</value>
+        <value xml:lang="zh">在送货前，请等待整个订单准备就绪</value>
+    </property>
+    <property key="OrderPoNumber">
+        <value xml:lang="cs">Číslo objednávky zákazníka</value>
+        <value xml:lang="de">Kundenauftragsnummer</value>
+        <value xml:lang="en">PO Number</value>
+        <value xml:lang="es">Apdo Correos</value>
+        <value xml:lang="fr">N° de commmande d'achat</value>
+        <value xml:lang="hi_IN">PO नम्बर</value>
+        <value xml:lang="it">N° ordine acquisto</value>
+        <value xml:lang="ja">PO Number</value>
+        <value xml:lang="nl">Aankoopbetalingsnummer</value>
+        <value xml:lang="pt_PT">Codigo Postal</value>
+        <value xml:lang="ro">Numar Comanda Cumparare </value>
+        <value xml:lang="ru">Индекс</value>
+        <value xml:lang="th">เลขที่ PO </value>
+        <value xml:lang="zh">购物订单编号</value>
     </property>
     <property key="OrderPrepareOrder">
         <value xml:lang="de">Auftrag vorbereiten</value>
@@ -6536,6 +6755,13 @@
         <value xml:lang="th">โปรโมชั่นสินค้าในหมวดหมู่</value>
         <value xml:lang="zh">本促销包括这些分类中的全部产品</value>
     </property>
+    <property key="OrderPurchaseHistory">
+        <value xml:lang="de">Auftragsarchiv für Aufträge die Ihnen zugesendet wurden</value>
+        <value xml:lang="en">Order history for orders send to you</value>
+        <value xml:lang="fr">Historique des commandes qui vous ont été envoyées</value>
+        <value xml:lang="it">Storia ordini inviati a te</value>
+        <value xml:lang="th">ข้อมูลการสั่งซื้อสินค้าสำหรับส่งให้คุณ</value>
+    </property>
     <property key="OrderPurchaseOrder">
         <value xml:lang="de">Beschaffungsauftrag</value>
         <value xml:lang="en">Purchase Order</value>
@@ -6548,6 +6774,22 @@
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">采购订单</value>
         <value xml:lang="zh">购物订单</value>
+    </property>
+    <property key="OrderPurchaseOrderNumber">
+        <value xml:lang="cs">Číslo objednávky zákazníka</value>
+        <value xml:lang="de">Kundenauftragsnummer</value>
+        <value xml:lang="en">Purchase Order Number</value>
+        <value xml:lang="es">Número De Orden De Compra</value>
+        <value xml:lang="fr">N° de commande</value>
+        <value xml:lang="hi_IN">ख़रीदारी आर्डर नम्बर</value>
+        <value xml:lang="it">N° ordine acquisto</value>
+        <value xml:lang="ja">Purchase Order Number</value>
+        <value xml:lang="nl">Aankoopbestallingnummer</value>
+        <value xml:lang="pt_PT">Número de Nota de Encomenda</value>
+        <value xml:lang="ro">Numar Comanda Cumparare </value>
+        <value xml:lang="ru">Номер заказа закупки</value>
+        <value xml:lang="th">เลขที่การสั่งซื้อสินค้า</value>
+        <value xml:lang="zh">购物订单编号</value>
     </property>
     <property key="OrderPurchaseReportOptions">
         <value xml:lang="de">Beschaffungsauftrag Bericht Optionen</value>
@@ -6579,19 +6821,61 @@
         <value xml:lang="th">จำนวน</value>
         <value xml:lang="zh">数量</value>
     </property>
+    <property key="OrderQtyCanceled">
+        <value xml:lang="cs">Stornované množství</value>
+        <value xml:lang="de">annulierte Menge</value>
+        <value xml:lang="en">Qty Cancelled</value>
+        <value xml:lang="es">Cant. Cancelada</value>
+        <value xml:lang="fr">Qté annulée</value>
+        <value xml:lang="hi_IN">कुल सामान ख़ारिज</value>
+        <value xml:lang="it">Qnt annullata</value>
+        <value xml:lang="ja">Qty Cancelled</value>
+        <value xml:lang="nl">Aantal geannuleerd</value>
+        <value xml:lang="pt_PT">Quantidade Cancelada</value>
+        <value xml:lang="ro">Cant Stearsa</value>
+        <value xml:lang="ru">Количество отклонено</value>
+        <value xml:lang="th">ยกเลิกจำนวนการสั่งซื้อ</value>
+        <value xml:lang="zh">已取消数量</value>
+    </property>
+    <property key="OrderQtyOrdered">
+        <value xml:lang="cs">Objednané množství</value>
+        <value xml:lang="de">bestellte Menge</value>
+        <value xml:lang="en">Qty Ordered</value>
+        <value xml:lang="es">Cant. Ordenada</value>
+        <value xml:lang="fr">Qté commandée</value>
+        <value xml:lang="hi_IN">कुल सामान आर्डर</value>
+        <value xml:lang="it">Qnt ordinata</value>
+        <value xml:lang="ja">Qty Ordered</value>
+        <value xml:lang="nl">Aantal besteld</value>
+        <value xml:lang="pt_PT">Quantidade Encomendada</value>
+        <value xml:lang="ro">Cant Comandata</value>
+        <value xml:lang="ru">Заказаное количество</value>
+        <value xml:lang="th">จำนวนการสั่งซื้อสินค้า</value>
+        <value xml:lang="zh">已下订单数量</value>
+    </property>
     <property key="OrderQtyPicked">
-        <value xml:lang="de">Menge komissioniert</value>
+        <value xml:lang="de">Menge ausgewählt</value>
         <value xml:lang="en">Qty Picked</value>
-        <value xml:lang="fr">Qté prélevée</value>
-        <value xml:lang="it">Qnt Prelevata</value>
-        <value xml:lang="th">จำนวนที่คัดสรร</value>
+        <value xml:lang="fr">Qté choisie</value>
+        <value xml:lang="it">Qnt scelta</value>
+        <value xml:lang="ru">Отобр. кол.</value>
+        <value xml:lang="th">จำนวนที่เลือก</value>
     </property>
     <property key="OrderQtyShipped">
-        <value xml:lang="de">Menge versandt</value>
+        <value xml:lang="cs">Expedované množství</value>
+        <value xml:lang="de">versandte Menge</value>
         <value xml:lang="en">Qty Shipped</value>
+        <value xml:lang="es">Cant. Enviada</value>
         <value xml:lang="fr">Qté expédiée</value>
-        <value xml:lang="it">Qnt Spedita</value>
+        <value xml:lang="hi_IN">कुल सामान भेजने योग्य</value>
+        <value xml:lang="it">Qnt spedita</value>
+        <value xml:lang="ja">Qty Shipped</value>
+        <value xml:lang="nl">Aantal verzonden</value>
+        <value xml:lang="pt_PT">Quantidade Enviada</value>
+        <value xml:lang="ro">Cant Expediata</value>
+        <value xml:lang="ru">Отгруженное количество</value>
         <value xml:lang="th">จำนวนการขนส่ง</value>
+        <value xml:lang="zh">已送货数量</value>
     </property>
     <property key="OrderQuantity">
         <value xml:lang="de">Menge</value>
@@ -6751,6 +7035,17 @@
         <value xml:lang="zh_CN">快速运送整个订单</value>
         <value xml:lang="zh">快速运送整个订单</value>
     </property>
+    <property key="OrderQuote">
+        <value xml:lang="de">Angebot</value>
+        <value xml:lang="en">Quote</value>
+        <value xml:lang="fr">Devis</value>
+        <value xml:lang="hi_IN">कोट</value>
+        <value xml:lang="it">Preventivo</value>
+        <value xml:lang="ro">Preventiv</value>
+        <value xml:lang="ru">Коммерческое предложение</value>
+        <value xml:lang="th">อ้างอิง</value>
+        <value xml:lang="zh">询价</value>
+    </property>
     <property key="OrderRanking">
         <value xml:lang="cs">Pořadí</value>
         <value xml:lang="de">Rangfolge</value>
@@ -6793,6 +7088,22 @@
         <value xml:lang="ru">Рейтинги</value>
         <value xml:lang="th">อัตรา</value>
         <value xml:lang="zh">评级</value>
+    </property>
+    <property key="OrderReason">
+        <value xml:lang="cs">Důvod</value>
+        <value xml:lang="de">Grund</value>
+        <value xml:lang="en">Reason</value>
+        <value xml:lang="es">Razón</value>
+        <value xml:lang="fr">Motif</value>
+        <value xml:lang="hi_IN">कारण</value>
+        <value xml:lang="it">Motivazione</value>
+        <value xml:lang="ja">Reason</value>
+        <value xml:lang="nl">Reden</value>
+        <value xml:lang="pt_PT">Motivo</value>
+        <value xml:lang="ro">Motivatie</value>
+        <value xml:lang="ru">Причина</value>
+        <value xml:lang="th">เหตุผล</value>
+        <value xml:lang="zh">原因</value>
     </property>
     <property key="OrderReAuthService">
         <value xml:lang="en">Re Auth Service</value>
@@ -6884,6 +7195,86 @@
         <value xml:lang="es">Servicio de reembolso</value>
         <value xml:lang="fr">Service de remboursement</value>
         <value xml:lang="th">บริการคืนเงินให้</value>
+    </property>
+    <property key="OrderRequestReturn">
+        <value xml:lang="cs">požadováno vrácení</value>
+        <value xml:lang="de">Rückgabe erwünscht</value>
+        <value xml:lang="en">Request Return</value>
+        <value xml:lang="es">Devolución Solicitada</value>
+        <value xml:lang="fr">Demande de retour</value>
+        <value xml:lang="hi_IN">आग्रह वापस</value>
+        <value xml:lang="it">Motivazione restituzione</value>
+        <value xml:lang="ja">Request Return</value>
+        <value xml:lang="nl">Verzoek retour</value>
+        <value xml:lang="pt_PT">Requerer Devolução</value>
+        <value xml:lang="ro">Motivatie Returnare</value>
+        <value xml:lang="ru">Возврат запроса</value>
+        <value xml:lang="th">แสดงคำร้อง</value>
+        <value xml:lang="zh">请求退货</value>
+    </property>
+    <property key="OrderRequestedResponse">
+        <value xml:lang="cs">požadovaná odpověď</value>
+        <value xml:lang="de">gewünschte Antwort</value>
+        <value xml:lang="en">Requested Response</value>
+        <value xml:lang="es">Respuesta Solicitada</value>
+        <value xml:lang="fr">Réponse demandée</value>
+        <value xml:lang="hi_IN">आग्रह किया उत्तर</value>
+        <value xml:lang="it">Risposta richiesta</value>
+        <value xml:lang="ja">Requested Response</value>
+        <value xml:lang="nl">Verzoek om antwoord</value>
+        <value xml:lang="pt_PT">Requerer Resposta</value>
+        <value xml:lang="ro">Cerere Raspuns</value>
+        <value xml:lang="ru">Запрошенный ответ</value>
+        <value xml:lang="th">คำตอบของคำร้อง</value>
+        <value xml:lang="zh">请求的回答</value>
+    </property>
+    <property key="OrderReturnItems">
+        <value xml:lang="cs">vrátit položku</value>
+        <value xml:lang="de">Artikel zurückgeben</value>
+        <value xml:lang="en">Return Items</value>
+        <value xml:lang="es">Devolución de Artículos</value>
+        <value xml:lang="fr">Renvoyer les articles</value>
+        <value xml:lang="hi_IN">वापस सामान</value>
+        <value xml:lang="it">Restituire articoli</value>
+        <value xml:lang="ja">Return Items</value>
+        <value xml:lang="nl">Retourgoederen</value>
+        <value xml:lang="pt_PT">Devolver Itens</value>
+        <value xml:lang="ro">Linii Returnari </value>
+        <value xml:lang="ru">Возврат позиций</value>
+        <value xml:lang="th">แสดงรายการ</value>
+        <value xml:lang="zh">退货明细</value>
+    </property>
+    <property key="OrderReturnItemsFromOrder">
+        <value xml:lang="cs">vrátit položku objednávky</value>
+        <value xml:lang="de">Artikel der Bestellung zurückgeben</value>
+        <value xml:lang="en">Return Item(s) From Order</value>
+        <value xml:lang="es">Devolución de Artículo(s) de Compra</value>
+        <value xml:lang="fr">Renvoyer les articles de la commande</value>
+        <value xml:lang="hi_IN">आर्डर से वापस सामान</value>
+        <value xml:lang="it">Restituire gli articoli dell'ordine</value>
+        <value xml:lang="ja">Return Item(s) From Order</value>
+        <value xml:lang="nl">Retourgoederen vande bestelling</value>
+        <value xml:lang="pt_PT">Devolver Itens da Encomenda</value>
+        <value xml:lang="ro">Linie(ii) Returnate de la Comanda </value>
+        <value xml:lang="ru">Возврат позиции(й) заказа</value>
+        <value xml:lang="th">แสดงรายการจากการสั่งซื้อ</value>
+        <value xml:lang="zh">来自订单的退货明细</value>
+    </property>
+    <property key="OrderReturnSelectedItems">
+        <value xml:lang="cs">vrátit vybranou položku</value>
+        <value xml:lang="de">ausgewählte Artikel zurückgeben</value>
+        <value xml:lang="en">Return Selected Item(s)</value>
+        <value xml:lang="es">Devolución del Articulo Seleccionado</value>
+        <value xml:lang="fr">Renvoyer les articles sélectionnés</value>
+        <value xml:lang="hi_IN">चुना सामान वापस</value>
+        <value xml:lang="it">Restituire gli articoli selezionati</value>
+        <value xml:lang="ja">Return Selected Item(s)</value>
+        <value xml:lang="nl">Retourneer de Geselecteerde item(s)</value>
+        <value xml:lang="pt_PT">Devolver Item(ns) Seleccionados</value>
+        <value xml:lang="ro">Linie(ii) Returnare Selectionate</value>
+        <value xml:lang="ru">Возврат выбранной позиции(й)</value>
+        <value xml:lang="th">แสดงการเลือกรายการ</value>
+        <value xml:lang="zh">对所选明细退货</value>
     </property>
     <property key="OrderRejectOrder">
         <value xml:lang="de">Auftrag ablehnen</value>
@@ -7019,8 +7410,7 @@
         <value xml:lang="en">Thru Date<br/>(Order Date&lt;)</value>
         <value xml:lang="fr">à la date<br/>(date de commande&lt;)</value>
         <value xml:lang="it">Fino alla Data<br/>(Data Ordine&lt;)</value>
-        <value xml:lang="th">ถึงวันที่<br/>(รายการสั่งซื้อสินค้าวันที่&lt;)
-</value>
+        <value xml:lang="th">ถึงวันที่<br/>(รายการสั่งซื้อสินค้าวันที่&lt;)</value>
     </property>
     <property key="OrderReports">
         <value xml:lang="de">Auftrag Berichte</value>
@@ -7743,6 +8133,13 @@
         <value xml:lang="zh_CN">销售渠道</value>
         <value xml:lang="zh">销售渠道</value>
     </property>
+    <property key="OrderSalesHistory">
+        <value xml:lang="de">Auftragsarchiv für die von Ihnen erfassten Aufträge</value>
+        <value xml:lang="en">Order history for orders entered by you</value>
+        <value xml:lang="fr">Historique des commandes que vous avez passées</value>
+        <value xml:lang="it">Storia ordini inseriti da te</value>
+        <value xml:lang="th">ข้อมูลการสั่งซื้อจากการสั่งซื้อโดยคุณ</value>
+    </property>
     <property key="OrderSalesOrder">
         <value xml:lang="de">Kundenauftrag</value>
         <value xml:lang="en">Sales Order</value>
@@ -7756,13 +8153,18 @@
         <value xml:lang="zh_CN">销售订单</value>
         <value xml:lang="zh">销售订单</value>
     </property>
-    <property key="OrderSalesTax">
+    <property key="OrderSalesTax"> <!-- Maybe something  is to be done here to differentiate Sales Tax and VAT, seems OK so far... -->
+        <value xml:lang="cs">DPH</value>
         <value xml:lang="de">Mehrwertsteuer</value>
         <value xml:lang="en">Sales Tax</value>
+        <value xml:lang="en_GB">VAT</value>
         <value xml:lang="es">I.G.V.</value>
         <value xml:lang="fr">TVA</value>
-        <value xml:lang="it">Tassa Vendita</value>
-        <value xml:lang="nl">Sales Tax</value>
+        <value xml:lang="hi_IN">बिक्री कर</value>
+        <value xml:lang="it">Tasse vendita</value>
+        <value xml:lang="ja">Sales Tax</value>
+        <value xml:lang="nl">BTW</value>
+        <value xml:lang="pt_PT">Imposto de Venda</value>
         <value xml:lang="ro">Taxa Vanzare </value>
         <value xml:lang="ru">Налог</value>
         <value xml:lang="th">ภาษีการขาย</value>
@@ -7830,6 +8232,34 @@
         <value xml:lang="zh_CN">为这个订单选择协议</value>
         <value xml:lang="zh">为这个订单选择一个合同</value>
     </property>
+    <property key="OrderSelectAddressFirst">
+        <value xml:lang="de">Zuerst Adresse wählen</value>
+        <value xml:lang="en">Select Address First</value>
+        <value xml:lang="es">Seleccione la dirección primero</value>
+        <value xml:lang="fr">Sélectionner l'adresse d'abord</value>
+        <value xml:lang="hi_IN">पहले पता चुनें</value>
+        <value xml:lang="it">Seleziona l'indirizzo prima</value>
+        <value xml:lang="ja">Select Address First</value>
+        <value xml:lang="nl">Selecteer het verzendadres eerst</value>
+        <value xml:lang="ro">Selectioneaza Prima Adresa </value>
+        <value xml:lang="ru">Выберите сначала адрес</value>
+        <value xml:lang="th">เลือกที่อยู่แรก</value>
+        <value xml:lang="zh">先选择地址</value>
+    </property>
+    <property key="OrderSelectAShippingAddress">
+        <value xml:lang="de">Wählen Sie eine Lieferadresse</value>
+        <value xml:lang="en">Select A Shipping Address</value>
+        <value xml:lang="es">Seleccione una dirección de envío</value>
+        <value xml:lang="fr">Sélectionner une adresse d'expédition</value>
+        <value xml:lang="hi_IN">माल भेजने वाला पता दिजीये</value>
+        <value xml:lang="it">Seleziona un indirizzo di spedizione</value>
+        <value xml:lang="ja">Select A Shipping Address</value>
+        <value xml:lang="nl">Selecteer een verzendadres</value>
+        <value xml:lang="ro">Selectioneaza o Adresa Expediere</value>
+        <value xml:lang="ru">Выберите адрес поставки</value>
+        <value xml:lang="th">เลือกที่อยู่ในการขนส่ง</value>
+        <value xml:lang="zh">选择一个送货地址</value>
+    </property>
     <property key="OrderSelectCurrency">
         <value xml:lang="de">Oder bestimmen Sie eine Währung für diesen Auftrag</value>
         <value xml:lang="en">Set a currency for this order</value>
@@ -7855,6 +8285,20 @@
         <value xml:lang="th">หรือกำหนดเงินสำหรับรายการสั่งซื้อสินค้านี้</value>
         <value xml:lang="zh">或者为这个订单设置币种</value>
     </property>
+    <property key="OrderSelectPaymentMethod">
+        <value xml:lang="de">Zahlungsmethode wählen</value>
+        <value xml:lang="en">Select Payment Method</value>
+        <value xml:lang="es">Seleccionar método de pago</value>
+        <value xml:lang="fr">Sélectionner un moyen de paiement</value>
+        <value xml:lang="hi_IN">भुगतान विधी चुनें</value>
+        <value xml:lang="it">Seleziona metodo pagamento</value>
+        <value xml:lang="ja">Select Payment Method</value>
+        <value xml:lang="nl">Selecteer de manier van betalen</value>
+        <value xml:lang="ro">Selectioneaza Metoda de Plata </value>
+        <value xml:lang="ru">Выберите способ оплаты</value>
+        <value xml:lang="th">เลือกวิธีการขนส่ง</value>
+        <value xml:lang="zh">选择支付方法</value>
+    </property>
     <property key="OrderSelectPartyToOrder">
         <value xml:lang="de">Wählen Sie einen Akteurtyp aus, um ihn dem Auftrag zuzuordnen</value>
         <value xml:lang="en">Select type of party to associate to order</value>
@@ -7867,6 +8311,22 @@
         <value xml:lang="th">เลือกประเภทของกลุ่มผู้ใช้ที่เกี่ยวข้องถึงรายการสั่งซื้อสินค้า</value>
         <value xml:lang="zh_CN">选择与这个订单关联的组织类型</value>
         <value xml:lang="zh">选择要关联到订单的会员类型</value>
+    </property>
+    <property key="OrderSelectShipFromAddress">
+        <value xml:lang="cs">Prosíme vyberte si jednu dodací adresu z</value>
+        <value xml:lang="de">Bitte wählen Sie eine Versandadresse aus</value>
+        <value xml:lang="en">Please select a ship from address</value>
+        <value xml:lang="en_GB">Please select a deliver from address</value>
+        <value xml:lang="es">Seleccione por favor una dirección de envío</value>
+        <value xml:lang="fr">Sélectionner l'adresse d'expédition</value>
+        <value xml:lang="it">Per favore seleziona un indirizzo di spedizione</value>
+        <value xml:lang="ja">Please select a ship from address</value>
+        <value xml:lang="nl">Selecteer het adres waarvandaan verstuurd zal worden</value>
+        <value xml:lang="pt_PT">Por favor, seleccione o envio a partir da morada</value>
+        <value xml:lang="ro">Te rog selectioneaza o expediere la adresa OrderSelectShippingAddress=Selectioneaza Adresa de Expediere OrderSelectShippingMethod=Selectioneaza Metoda de Expediere</value>
+        <value xml:lang="ru">Пожалуйста выберите поставку с адреса</value>
+        <value xml:lang="th">เลือกการขนส่งจากที่อยู่</value>
+        <value xml:lang="zh">请从地址中选择一个</value>
     </property>
     <property key="OrderSelectShippingAddress">
         <value xml:lang="de">Lieferadresse auswählen</value>
@@ -8016,6 +8476,36 @@
         <value xml:lang="zh_CN">发送电子邮件</value>
         <value xml:lang="zh">发送电子邮件</value>
     </property>
+    <property key="OrderSendMeThisEveryMonth">
+        <value xml:lang="de">Senden Sie mir dies jeden Monat</value>
+        <value xml:lang="en">Send me this every month</value>
+        <value xml:lang="es">Enviarme esto todos los meses</value>
+        <value xml:lang="fr">Envoyez-moi ceci tous les mois</value>
+        <value xml:lang="hi_IN">यह मुझे हर महिने दिजीये</value>
+        <value xml:lang="it">Inviami questo ogni mese</value>
+        <value xml:lang="ja">Send me this every month</value>
+        <value xml:lang="nl">Stuur me dit elke maand</value>
+        <value xml:lang="ro">Trimite-mi aceasta in fiecare luna </value>
+        <value xml:lang="ru">Отсылать мне это каждый месяц</value>
+        <value xml:lang="th">ส่งมาให้ฉันทุก ๆ เดือน</value>
+        <value xml:lang="zh">把这个每月发送给我</value>
+    </property>
+    <property key="OrderSendPaymentTo">
+        <value xml:lang="cs">Prosíme zašlete platbu na</value>
+        <value xml:lang="de">Bitte senden Sie die Bezahlung an</value>
+        <value xml:lang="en">Please Send Payment To</value>
+        <value xml:lang="es">Por favor Envíe El Pago A</value>
+        <value xml:lang="fr">Envoyer le paiement à</value>
+        <value xml:lang="hi_IN">भुगतान इसे दें</value>
+        <value xml:lang="it">Prego inviare pagamento a</value>
+        <value xml:lang="ja">Please Send Payment To</value>
+        <value xml:lang="nl">Stuur de betaling naar:</value>
+        <value xml:lang="pt_PT">Por Favor, Envie Pagamento Para</value>
+        <value xml:lang="ro">Va rog trimite-ti Plata La</value>
+        <value xml:lang="ru">Пожалуйста отсылайте платеж на</value>
+        <value xml:lang="th">กรุณาส่งการชำระเงินถึง</value>
+        <value xml:lang="zh">请把支付发送到</value>
+    </property>
     <property key="OrderShipAfterDate">
         <value xml:lang="de">Versand nach Datum</value>
         <value xml:lang="en">Ship After Date</value>
@@ -8060,6 +8550,23 @@
         <value xml:lang="ru">Поставлять все позиции вместе</value>
         <value xml:lang="th">ส่งของทั้งหมดมาพร้อมกัน</value>
         <value xml:lang="zh">把全部明细一起送到</value>
+    </property>
+    <property key="OrderShipAllAtOnce">
+        <value xml:lang="cs">Všechno zaslat najednou nebo "až bude k dispozici"</value>
+        <value xml:lang="de">Alles auf einmal versenden oder 'sowie verfügbar'</value>
+        <value xml:lang="en">Ship all at once, or 'as available'</value>
+        <value xml:lang="en_GB">Deliver all at once, or 'as available'</value>
+        <value xml:lang="es">Envíe de una vez, o 'cuando esté disponible'</value>
+        <value xml:lang="fr">Envoyer la commande complète, ou dès que disponible</value>
+        <value xml:lang="hi_IN">सारा माल जैसे उपलब्ध हो वैसे भेजें</value>
+        <value xml:lang="it">Spedisci tutti in una volta, o 'quando disponibile'</value>
+        <value xml:lang="ja">Ship all at once, or 'as available'</value>
+        <value xml:lang="nl">Verzend alles samen, of wanneer het beschikbaar komt</value>
+        <value xml:lang="pt_PT">Envio de conjunto em simultâneo, ou conforme as existências em stock</value>
+        <value xml:lang="ro">Expediaza toate odata, sau cand devin disponibile</value>
+        <value xml:lang="ru">Поставка всего сразу, или 'по мере доступности'</value>
+        <value xml:lang="th">ส่งของทั้งหมดมาครั้งเดียวหรือที่มีอยู่</value>
+        <value xml:lang="zh">一次全部送到，或者“送有现货的”</value>
     </property>
     <property key="OrderShipBeforeDate">
         <value xml:lang="de">Versand vor Datum</value>
@@ -8147,6 +8654,20 @@
         <value xml:lang="th">การร้องขอการขนส่ง</value>
         <value xml:lang="zh">货运请求</value>
     </property>
+    <property key="OrderShipTo">
+        <value xml:lang="de">Liefern an</value>
+        <value xml:lang="en">Ship To</value>
+        <value xml:lang="es">Enviar a</value>
+        <value xml:lang="fr">Expédier à</value>
+        <value xml:lang="hi_IN">माल यहां भेजें</value>
+        <value xml:lang="it">Spedire a</value>
+        <value xml:lang="ja">Ship To</value>
+        <value xml:lang="nl">Verzend naar</value>
+        <value xml:lang="ro">Expediaza La</value>
+        <value xml:lang="ru">Доставки до</value>
+        <value xml:lang="th">ส่งถึง</value>
+        <value xml:lang="zh">送货到</value>
+    </property>
     <property key="OrderShipToAnotherParty">
         <value xml:lang="de">Versand an anderen Akteur</value>
         <value xml:lang="en">Ship to Another Party</value>
@@ -8166,6 +8687,20 @@
         <value xml:lang="fr">Destinataire</value>
         <value xml:lang="it">Spedire al Soggetto</value>
         <value xml:lang="th">การขนส่งถึงกลุ่มผู้ใช้</value>
+    </property>
+    <property key="OrderShipVia">
+        <value xml:lang="de">Liefern via</value>
+        <value xml:lang="en">Ship Via</value>
+        <value xml:lang="es">Vía de envío</value>
+        <value xml:lang="fr">Expédier via</value>
+        <value xml:lang="hi_IN">इस से माल भेजें</value>
+        <value xml:lang="it">Spedire per</value>
+        <value xml:lang="ja">Ship Via</value>
+        <value xml:lang="nl">Verzend via</value>
+        <value xml:lang="ro">Expediaza Pentru</value>
+        <value xml:lang="ru">Доставка через</value>
+        <value xml:lang="th">ส่งทาง</value>
+        <value xml:lang="zh">送货经过</value>
     </property>
     <property key="OrderShipmentInformation">
         <value xml:lang="de">Versandinformation</value>
@@ -8193,12 +8728,55 @@
         <value xml:lang="fr">Expéditeur</value>
         <value xml:lang="th">บริษัทขนส่ง</value>
     </property>
+    <property key="OrderShippingAddress">
+        <value xml:lang="cs">Dodací adresa</value>
+        <value xml:lang="de">Versandadresse</value>
+        <value xml:lang="en">Shipping Address</value>
+        <value xml:lang="en_GB">Delivery Address</value>
+        <value xml:lang="es">Dirección de Envío</value>
+        <value xml:lang="fr">Adresse de livraison</value>
+        <value xml:lang="hi_IN">माल भेजने का पता</value>
+        <value xml:lang="it">Indirizzo spedizione</value>
+        <value xml:lang="ja">Shipping Address</value>
+        <value xml:lang="nl">Verzend adres</value>
+        <value xml:lang="ro">Adresa Expediere </value>
+        <value xml:lang="ru">Адрес доставки</value>
+        <value xml:lang="th">ที่อยู่ที่จัดส่ง</value>
+        <value xml:lang="zh">送货地址</value>
+    </property>
+    <property key="OrderShippingAndHandling">
+        <value xml:lang="cs">Expedice a proces</value>
+        <value xml:lang="de">Versandkosten</value>
+        <value xml:lang="en">Shipping and Handling</value>
+        <value xml:lang="en_GB">Post and packing</value>
+        <value xml:lang="es">Envío y Dirección</value>
+        <value xml:lang="fr">Frais de port et d'emballage</value>
+        <value xml:lang="hi_IN">माल ठीक से भेजने का</value>
+        <value xml:lang="it">Spedizione ed imballaggio</value>
+        <value xml:lang="ja">Shipping and Handling</value>
+        <value xml:lang="nl">Verzending en behandeling</value>
+        <value xml:lang="pt_PT">Envio e Manuseio</value>
+        <value xml:lang="ro">Expediere si Ambalaj</value>
+        <value xml:lang="ru">Поставка и обработка</value>
+        <value xml:lang="th">การขนส่งและการจัดการ</value>
+        <value xml:lang="zh">送货和处理</value>
+    </property>
     <property key="OrderShippingInformation">
-        <value xml:lang="de">Versandinformationen</value>
+        <value xml:lang="cs">Informace o expedici</value>
+        <value xml:lang="de">Versandinformation</value>
         <value xml:lang="en">Shipping Information</value>
+        <value xml:lang="en_GB">Delivery Information</value>
+        <value xml:lang="es">Información y envío</value>
         <value xml:lang="fr">Informations sur l'expédition</value>
+        <value xml:lang="hi_IN">माल भेजने का विवरण</value>
         <value xml:lang="it">Spedizione</value>
-        <value xml:lang="th">ข้อมูลการขนส่งสินค้า</value>
+        <value xml:lang="ja">Shipping Information</value>
+        <value xml:lang="nl">Verzend informatie</value>
+        <value xml:lang="pt_PT">Informação de Envio</value>
+        <value xml:lang="ro">Expedietre</value>
+        <value xml:lang="ru">Информация по доставке</value>
+        <value xml:lang="th">ข้อมูลการขนส่ง</value>
+        <value xml:lang="zh">送货信息</value>
     </property>
     <property key="OrderShippmentDateHope">
         <value xml:lang="de">Erhofftes Versanddatum</value>
@@ -8286,10 +8864,20 @@
         <value xml:lang="th">Skids Pallets</value>
     </property>
     <property key="OrderSpecialInstructions">
+        <value xml:lang="cs">Zvláštní pokyny</value>
         <value xml:lang="de">Spezielle Instruktionen</value>
         <value xml:lang="en">Special Instructions</value>
+        <value xml:lang="es">Instrucciones Especiales</value>
         <value xml:lang="fr">Instructions spéciales</value>
+        <value xml:lang="hi_IN">ख़ास सूचना</value>
+        <value xml:lang="it">Istruzioni speciali</value>
+        <value xml:lang="ja">Special Instructions</value>
+        <value xml:lang="nl">Speciale instructies</value>
+        <value xml:lang="pt_PT">Instruções Especiais</value>
+        <value xml:lang="ro">Instructiuni Speciale</value>
+        <value xml:lang="ru">Специальные инструкции</value>
         <value xml:lang="th">คำแนะนำพิเศษ</value>
+        <value xml:lang="zh">特别说明</value>
     </property>
     <property key="OrderSpecialOffers">
         <value xml:lang="cs">Zvláštní nabídka</value>
@@ -8307,11 +8895,35 @@
         <value xml:lang="th">ข้อเสนอพิเศษ</value>
         <value xml:lang="zh">特别提供</value>
     </property>
+    <property key="OrderSpecifiedNotFound">
+        <value xml:lang="cs">Uvedená objednávka nebyla nalezena, zkuste to prosíme ještě jednou</value>
+        <value xml:lang="de">Die angegebene Bestellung wurde nicht gefunden, bitte versuchen Sie es erneut</value>
+        <value xml:lang="en">The specified order was not found, please try again</value>
+        <value xml:lang="es">La orden espefificada no se encontró, por favor inténtelo de nuevo</value>
+        <value xml:lang="fr">La commande spécifiée n'existe pas, réessayez</value>
+        <value xml:lang="hi_IN">आपका आर्डर नही मिला, दुबारा कोशिश करें</value>
+        <value xml:lang="it">L'ordine specificato non è stato trovato, riprovare prego</value>
+        <value xml:lang="ja">The specified order was not found, please try again</value>
+        <value xml:lang="nl">De gespecificeerde bestalling was niet gevonden, probeer het opnieuw</value>
+        <value xml:lang="pt_PT">A encomenda especificada não foi encontrada, por favor tente de novo</value>
+        <value xml:lang="ro">Comanda specificata nu a fost gasita, te rugam sa mai incerci</value>
+        <value xml:lang="ru">Указанный заказ не найден, попробуйте еще раз</value>
+        <value xml:lang="th">ไม่พบรายการสั่งซื้อสินค้า, กรุณาทำอีกครั้ง</value>
+        <value xml:lang="zh">没有找到指定的订单，请重试</value>
+    </property>
     <property key="OrderSplitIntoMultipleShipments">
         <value xml:lang="de">In mehrere Lieferungen aufteilen</value>
         <value xml:lang="en">Split Into Multiple Shipments</value>
+        <value xml:lang="es">Partir en múltiples envíos</value>
         <value xml:lang="fr">Fractionner en expéditions multiples</value>
-        <value xml:lang="th">การขนส่งสินค้าแบ่งออกเป็นหลายทาง</value>
+        <value xml:lang="hi_IN">अलग अलग भेजें</value>
+        <value xml:lang="it">Suddividi in spedizioni multiple</value>
+        <value xml:lang="ja">Split Into Multiple Shipments</value>
+        <value xml:lang="nl">Splits in meerdere verzendingen op</value>
+        <value xml:lang="ro">Divizeaza In Expedieri Multiple</value>
+        <value xml:lang="ru">Разделить на несколько доставок</value>
+        <value xml:lang="th">แบ่งการขนส่งได้หลายวิธี</value>
+        <value xml:lang="zh">分拆为多个送货</value>
     </property>
     <property key="OrderSplitShipment">
         <value xml:lang="de">Lieferung aufteilen</value>
@@ -8327,17 +8939,20 @@
         <value xml:lang="zh">分拆送货</value>
     </property>
     <property key="OrderSplittingPreference">
-        <value xml:lang="de">Bevorzugte Aufteilung</value>
+        <value xml:lang="cs">Preference rozdělení</value>
+        <value xml:lang="de">Aufteilungspräferenz</value>
         <value xml:lang="en">Splitting Preference</value>
-        <value xml:lang="es">Elección de entrega</value>
-        <value xml:lang="fr">Choix de fractionnement</value>
+        <value xml:lang="es">Preferencia de fraccionamiento</value>
+        <value xml:lang="fr">Préférence de fractionnement</value>
         <value xml:lang="it">Preferenze di divisione</value>
-        <value xml:lang="nl">Splitting Preference</value>
-        <value xml:lang="ro">Preferinte de Diviziune</value>
-        <value xml:lang="ru">Предпочтения разделения</value>
-        <value xml:lang="th">สิทธิพิเศษซึ่งแบ่งออกเป็น</value>
+        <value xml:lang="ja">Splitting Preference</value>
+        <value xml:lang="nl">opsplitsvoorkeuren</value>
+        <value xml:lang="pt_PT">Preferências de Separação</value>
+        <value xml:lang="ro">Preferinte de Divizare </value>
+        <value xml:lang="ru">Предпочтения по разделению</value>
+        <value xml:lang="th">สิทธิพิเศษอื่น ๆ </value>
         <value xml:lang="zh_CN">拆分偏好</value>
-        <value xml:lang="zh">拆分的优先选择</value>
+        <value xml:lang="zh">分拆优先条件</value>
     </property>
     <property key="OrderStartDateTime">
         <value xml:lang="de">Startdatum/-zeit</value>
@@ -8390,6 +9005,38 @@
         <value xml:lang="th">วางแผนกรณีที่สะสม</value>
         <value xml:lang="zh_CN">仓库事件已计划</value>
         <value xml:lang="zh">已计划的库存事件</value>
+    </property>
+    <property key="OrderSubmitOrder">
+        <value xml:lang="cs">Odeslat objednávku</value>
+        <value xml:lang="de">Bestellung absenden</value>
+        <value xml:lang="en">Submit Order</value>
+        <value xml:lang="es">Registrar Orden</value>
+        <value xml:lang="fr">Soumettre la commande</value>
+        <value xml:lang="hi_IN">आर्डर जमा करें</value>
+        <value xml:lang="it">Invia ordine</value>
+        <value xml:lang="ja">Submit Order</value>
+        <value xml:lang="nl">Plaats bestelling</value>
+        <value xml:lang="pt_PT">Registar Encomenda</value>
+        <value xml:lang="ro">Trimite Comanda </value>
+        <value xml:lang="ru">Отправить заказ</value>
+        <value xml:lang="th">ยืนยันการสั่งสินค้า</value>
+        <value xml:lang="zh">提交订单</value>
+    </property>
+    <property key="OrderSubmittingOrder">
+        <value xml:lang="cs">Zpracovávám objednávku, prosím čekejte</value>
+        <value xml:lang="de">Bitte warten Sie, der Auftrag wird verarbeitet...</value>
+        <value xml:lang="en">Please Wait, Processing Order...</value>
+        <value xml:lang="es">Por favor Espere, Procesando la Compra...</value>
+        <value xml:lang="fr">Attendez SVP, commande en cours de traitement...</value>
+        <value xml:lang="hi_IN">कृपया इन्तजार करें, आपके आर्डर पर काम चालू है</value>
+        <value xml:lang="it">Attendere prego, elaborazione ordine...</value>
+        <value xml:lang="ja">Please Wait, Processing Order...</value>
+        <value xml:lang="nl">Een moment, we verwerken uw bestelling..</value>
+        <value xml:lang="pt_PT">Please Wait, Processing Order...</value>
+        <value xml:lang="ro">Asteapta te rog, Elaborare Comanda...</value>
+        <value xml:lang="ru">Пожалуйста ожидайте, заказ обрабатывается...</value>
+        <value xml:lang="th">กรุณารอสักครู่, กำลังดำเนินการในการสั่งซื้อสินค้า...</value>
+        <value xml:lang="zh">请稍候，正在处理订单...</value>
     </property>
     <property key="OrderSubTotal">
         <value xml:lang="de">Zwischensumme</value>
@@ -8590,6 +9237,20 @@
         <value xml:lang="zh_CN">其他调整总计</value>
         <value xml:lang="zh">其它订单调整合计</value>
     </property>
+    <property key="OrderTotalQty">
+        <value xml:lang="de">Total Menge</value>
+        <value xml:lang="en">Total Qty</value>
+        <value xml:lang="es">Cant. Total</value>
+        <value xml:lang="fr">Qté totale</value>
+        <value xml:lang="hi_IN">पूरी मात्रा</value>
+        <value xml:lang="it">Totale Qnt</value>
+        <value xml:lang="ja">Total Qty</value>
+        <value xml:lang="nl">TotaalAantal</value>
+        <value xml:lang="ro">Total Cant</value>
+        <value xml:lang="ru">Общее количество</value>
+        <value xml:lang="th">จำนวนรวม</value>
+        <value xml:lang="zh">全部数量</value>
+    </property>
     <property key="OrderTotalQuantityAccepted">
         <value xml:lang="de">Total Menge angenommen</value>
         <value xml:lang="en">Total quantity accepted</value>
@@ -8702,17 +9363,21 @@
         <value xml:lang="zh">跟踪码</value>
     </property>
     <property key="OrderTrackingNumber">
-        <value xml:lang="de">Sendungsverfolgungsnummer</value>
+        <value xml:lang="cs">Referenční číslo</value>
+        <value xml:lang="de">Überwachungsnummer</value>
         <value xml:lang="en">Tracking Number</value>
-        <value xml:lang="es">Número de seguimiento</value>
+        <value xml:lang="es">Numero de seguimiento</value>
         <value xml:lang="fr">N° de suivi</value>
-        <value xml:lang="it">Numero Tracciatura</value>
-        <value xml:lang="nl">Tracking Number</value>
+        <value xml:lang="hi_IN">ट्रैक नम्बर</value>
+        <value xml:lang="it">Numero tracciatura</value>
+        <value xml:lang="ja">Tracking Number</value>
+        <value xml:lang="nl">Volgnummer</value>
+        <value xml:lang="pt_PT">Número de Procura</value>
         <value xml:lang="ro">Numar Traseu</value>
-        <value xml:lang="ru">Трэкинг номер</value>
-        <value xml:lang="th">Tracking Number</value>
+        <value xml:lang="ru">Номер для отслеживания</value>
+        <value xml:lang="th">หมายเลขที่เหมือนกัน</value>
         <value xml:lang="zh_CN">追踪号</value>
-        <value xml:lang="zh">跟踪数字</value>
+        <value xml:lang="zh">追踪号码</value>
     </property>
     <property key="OrderUnitList">
         <value xml:lang="de">Einheit / Liste</value>
@@ -8766,10 +9431,20 @@
         <value xml:lang="zh">为计划的</value>
     </property>
     <property key="OrderUpdateEmailAddress">
-        <value xml:lang="de">Aktualisieren können Sie diese in Ihrem</value>
+        <value xml:lang="cs">Můžete aktualizovat na</value>
+        <value xml:lang="de">Sie können dies aktualisieren in</value>
         <value xml:lang="en">Your may update these in your</value>
-        <value xml:lang="fr">Vous pouvez mettre à jour ceux-ci dans vôtre</value>
-        <value xml:lang="th">คุณอาจจะอัพเดทสิ่งเหล่านี้ในของคุณ</value>
+        <value xml:lang="es">Puede actualizarlo en su</value>
+        <value xml:lang="fr">Vous pouvez mettre à jour celle-ci dans votre</value>
+        <value xml:lang="hi_IN">आप इनको अपडेट कर सकते हैं</value>
+        <value xml:lang="it">Puoi cambiarli accedendo al tuo</value>
+        <value xml:lang="ja">Your may update these in your</value>
+        <value xml:lang="nl">U kan deze aanpassen in uw</value>
+        <value xml:lang="pt_PT">Você pode actualizar isto no seu</value>
+        <value xml:lang="ro">Tu ai putea actualiza acesta in al tau</value>
+        <value xml:lang="ru">Вы можете обновить их в вашем</value>
+        <value xml:lang="th">คุณอาจจะเปลี่ยนแปลงได้ใน</value>
+        <value xml:lang="zh">你可以更新这些在你的</value>
     </property>
     <property key="OrderUpdateItems">
         <value xml:lang="de">Elemente aktualisieren</value>
@@ -8783,6 +9458,21 @@
         <value xml:lang="th">อัพเดทรายการ</value>
         <value xml:lang="zh_CN">更新项目</value>
         <value xml:lang="zh">更新明细</value>
+    </property>
+    <property key="OrderUseDefault">
+        <value xml:lang="cs">Upozornění pro uživatele: jiný způsob zaslání není možný</value>
+        <value xml:lang="de">Voreinstellung: Keine andere Versandmethode verfügbar</value>
+        <value xml:lang="en">Use Default: No other shipping methods available</value>
+        <value xml:lang="es">Utilizar el predeterminado: Ningún otro métodos de envío disponible</value>
+        <value xml:lang="fr">Utiliser le défaut : Pas d'autre méthode d'expédition disponible.</value>
+        <value xml:lang="it">Usare default: nessun altro metodo di spedizione disponibile</value>
+        <value xml:lang="ja">Use Default: No other shipping methods available</value>
+        <value xml:lang="nl">Gebruik standaard: Geen andere verzendmethoden beschikbaar</value>
+        <value xml:lang="pt_PT">Use Default: Sem outros modos de envio disponíveis</value>
+        <value xml:lang="ro">Usare Default: Nici-o alta metoda de expediere disponibila</value>
+        <value xml:lang="ru">Использовать по умолчанию: Нет доступных других способов доставки</value>
+        <value xml:lang="th">Use Default: ไม่มีวิธีการขนส่งที่เป็นไปได้</value>
+        <value xml:lang="zh">使用缺省值：没有其它可用的送货方法</value>
     </property>
     <property key="OrderUseDefaultComment">
         <value xml:lang="de">Als voreingestellten Kommentar für den nächsten Eintrag verwenden.</value>
@@ -8843,8 +9533,15 @@
     <property key="OrderVerifyConfiguration">
         <value xml:lang="de">Konfiguration überprüfen</value>
         <value xml:lang="en">Verify Configuration</value>
+        <value xml:lang="es">Verificar configuración</value>
         <value xml:lang="fr">Vérifier la configuration</value>
-        <value xml:lang="th">ตรวจสอบโครงร่างภายนอก</value>
+        <value xml:lang="it">Verifica la configurazione</value>
+        <value xml:lang="ja">Verify Configuration</value>
+        <value xml:lang="nl">configuartie nakijken</value>
+        <value xml:lang="ro">Verifica Configurarea </value>
+        <value xml:lang="ru">Сравнить конфигурацию</value>
+        <value xml:lang="th">ตรวจสอบองค์ประกอบ</value>
+        <value xml:lang="zh">验证设置</value>
     </property>
     <property key="OrderViewAllPromotions">
         <value xml:lang="cs">Přehled všech akcí</value>
@@ -9044,10 +9741,21 @@
         <value xml:lang="th">หน่วยวัดน้ำหนัก</value>
     </property>
     <property key="OrderWhereShallWeShipIt">
+        <value xml:lang="cs">Kam Vám máme zásilku zaslat</value>
         <value xml:lang="de">Wohin sollen wir es versenden</value>
         <value xml:lang="en">Where shall we ship it</value>
-        <value xml:lang="fr">Où expédier cela ?</value>
-        <value xml:lang="th">เราจะทำารขนส่งมันได้ที่ไหน</value>
+        <value xml:lang="en_GB">Where shall we deliver it</value>
+        <value xml:lang="es">Dónde lo enviamos</value>
+        <value xml:lang="fr">Où devons-nous l'expédier</value>
+        <value xml:lang="hi_IN">माल कहाँ भेजें</value>
+        <value xml:lang="it">Dove vuoi spedire </value>
+        <value xml:lang="ja">Where shall we ship it</value>
+        <value xml:lang="nl">Waarheen zullen we het sturen?</value>
+        <value xml:lang="pt_PT">Onde vamos enviá-lo(a)</value>
+        <value xml:lang="ro">Unde vrei sa expediezi </value>
+        <value xml:lang="ru">Куда мы должны доставить</value>
+        <value xml:lang="th">เราจะจัดส่งได้ที่ไหน</value>
+        <value xml:lang="zh">送货到哪里</value>
     </property>
     <property key="OrderWithPromoCode">
         <value xml:lang="de">Mit Aktionscode</value>
