@@ -23,7 +23,7 @@
     <screen name="FindEmployments">
         <section>
             <actions>
-                <set field="titleProperty" value="FindEmployment"/>
+                <set field="titleProperty" value="HumanResFindEmployment"/>
                 <set field="headerItem" value="Employment"/>
                 <set field="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
                 <set field="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
