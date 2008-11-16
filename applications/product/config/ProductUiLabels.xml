@@ -33,7 +33,7 @@
         <value xml:lang="de">Anlage</value>
         <value xml:lang="en">Fixed Asset</value>
         <value xml:lang="es">Activo Fijo</value>
-        <value xml:lang="fr">Immobilisation fixe</value>
+        <value xml:lang="fr">immobilisation</value>
         <value xml:lang="it">Cespite</value>
         <value xml:lang="ro">Mijloace Fixe</value>
         <value xml:lang="ru">Объект основных фондов</value>
@@ -44,7 +44,7 @@
         <value xml:lang="de">Anlage ID</value>
         <value xml:lang="en">Asset Id</value>
         <value xml:lang="es">Código de Activo</value>
-        <value xml:lang="fr">Réf. immobilisation fixe</value>
+        <value xml:lang="fr">Réf. immobilisation</value>
         <value xml:lang="it">Codice Cespite</value>
         <value xml:lang="ro">Cod Mijloace Fixe</value>
         <value xml:lang="ru">Код ОС</value>
@@ -55,7 +55,7 @@
         <value xml:lang="de">Link zu Anlage hinzufügen</value>
         <value xml:lang="en">Add link to Fixed Asset</value>
         <value xml:lang="es">Añadir enlace a Activo Fijo</value>
-        <value xml:lang="fr">Ajoutez un lien vers immobilisation fixe</value>
+        <value xml:lang="fr">Ajoutez un lien vers immobilisation</value>
         <value xml:lang="it">Nuovo cespite</value>
         <value xml:lang="ro">Nou Mijloc Fix</value>
         <value xml:lang="ru">Добавить ссылку к ОС</value>
@@ -66,7 +66,7 @@
         <value xml:lang="de">Einen Link zu einer Anlage hinzufügen</value>
         <value xml:lang="en">Add a link to a fixed Asset</value>
         <value xml:lang="es">Añadir un enlace a un Activo Fijo</value>
-        <value xml:lang="fr">Ajoutez un lien vers une immobilisation fixe</value>
+        <value xml:lang="fr">Ajoutez un lien vers une immobilisation</value>
         <value xml:lang="it">Aggiungi un link al cespite</value>
         <value xml:lang="ro">Adauga un link la Mijlocul Fix</value>
         <value xml:lang="ru">Добавить ссылку к ОС</value>
@@ -88,7 +88,7 @@
         <value xml:lang="de">Link zu einer Anlage aktualisieren</value>
         <value xml:lang="en">Update a link to a fixed Asset</value>
         <value xml:lang="es">Actualizar un enlace a un activo fijo</value>
-        <value xml:lang="fr">Mettre à jour un lien vers une immobilisation fixe</value>
+        <value xml:lang="fr">Mettre à jour un lien vers une immobilisation</value>
         <value xml:lang="it">Aggiorna un link ad un Cespite</value>
         <value xml:lang="ro">Actualizeaza un link la un Mijloc Fix</value>
         <value xml:lang="ru">Обновить ссылку к ОС</value>
@@ -99,7 +99,7 @@
         <value xml:lang="de">Anlagen</value>
         <value xml:lang="en">Fixed Assets</value>
         <value xml:lang="es">Activos Fijos</value>
-        <value xml:lang="fr">Mettre à jour un lien à une immobilisation fixe</value>
+        <value xml:lang="fr">Immobilisations</value>
         <value xml:lang="it">Cespiti</value>
         <value xml:lang="ro">Mijloace Fixe</value>
         <value xml:lang="ru">Основные средства</value>
@@ -2754,7 +2754,7 @@
     <property key="FormFieldTitle_priceBreakId">
         <value xml:lang="de">Preissprung ID</value>
         <value xml:lang="en">Price Break Id</value>
-        <value xml:lang="fr">Réf. de prix promo</value>
+        <value xml:lang="fr">Réf. de rupture par prix</value>
         <value xml:lang="it">Intervalli Prezzo</value>
         <value xml:lang="ru">Код ценового порога</value>
         <value xml:lang="th">รหัสราคาที่เปิดเผย</value>
@@ -9625,12 +9625,12 @@
         <value xml:lang="zh">用新标识复制/删除已选的</value>
     </property>
     <property key="ProductEach">
-        <value xml:lang="de">Jedes Produkt</value>
-        <value xml:lang="en">Each Product</value>
-        <value xml:lang="fr">Chaque article</value>
-        <value xml:lang="it">Ogni Prodotto</value>
-        <value xml:lang="ro">Orice Produs</value>
-        <value xml:lang="ru">Каждый продукт</value>
+        <value xml:lang="de">jedes Produkt</value>
+        <value xml:lang="en">each Product</value>
+        <value xml:lang="fr">pour chaque article dont</value>
+        <value xml:lang="it">ogni Prodotto</value>
+        <value xml:lang="ro">orice Produs</value>
+        <value xml:lang="ru">kаждый продукт</value>
         <value xml:lang="th">สินค้าแต่ละ</value>
         <value xml:lang="zh">每个产品</value>
     </property>
@@ -10639,7 +10639,7 @@
     <property key="ProductFeatureMessage">
         <value xml:lang="de">Untenstehende Zuschläge werden hinzugefügt pro Produkt * pro Merkmal</value>
         <value xml:lang="en">Below surcharge(s) will be added per-product * per-feature</value>
-        <value xml:lang="fr">En dessous une surtaxe sera ajoutée par article et par caractéristique</value>
+        <value xml:lang="fr">Les suppléments ci-dessous peuvent être ajoutés cumulativement par article * par caractéristique</value>
         <value xml:lang="it">Sotto ricarico(i) saranno aggiunti per-prodotto * per-caratteristica</value>
         <value xml:lang="ro">Sub incarcare va fi adaugata pe-produs * pentru -caracteristica</value>
         <value xml:lang="ru">доплата(ы)ниже будут добавлены на-продукт * на-особенность</value>
@@ -10835,7 +10835,7 @@
         <value xml:lang="de">Prozentangabe Pauschal Basis</value>
         <value xml:lang="en">Flat Base Percent</value>
         <value xml:lang="es">Porcentaje general base</value>
-        <value xml:lang="fr">Pourcentage unique de base</value>
+        <value xml:lang="fr">Pourcentage du total commande</value>
         <value xml:lang="it">Percentuale Base Fissa</value>
         <value xml:lang="ro">Procent Baza Plata</value>
         <value xml:lang="ru">Базовый процент</value>
@@ -10846,7 +10846,7 @@
         <value xml:lang="de">Pauschalpreis Basis</value>
         <value xml:lang="en">Flat Base Price</value>
         <value xml:lang="es">Precio general base</value>
-        <value xml:lang="fr">Prix unique de base</value>
+        <value xml:lang="fr">Coût fixe</value>
         <value xml:lang="it">Prezzo Base Fisso</value>
         <value xml:lang="ro">Pret Baza Plata</value>
         <value xml:lang="ru">Базовая цена</value>
@@ -10857,7 +10857,7 @@
         <value xml:lang="de">Pauschalpreis Position</value>
         <value xml:lang="en">Flat Item Price</value>
         <value xml:lang="es">Precio general del Artículo</value>
-        <value xml:lang="fr">Prix unique de l'article</value>
+        <value xml:lang="fr">Coût fixe par article</value>
         <value xml:lang="it">Prezzo Prodotto Fisso</value>
         <value xml:lang="ro">Pret Produs Plat</value>
         <value xml:lang="ru">Цена позиции</value>
@@ -10867,10 +10867,15 @@
     <property key="ProductFlatShippingPercent">
         <value xml:lang="de">Prozentangabe Versand Pauschal</value>
         <value xml:lang="en">Flat Shipping Percent</value>
+        <value xml:lang="fr">Pourcentage du coût d'expédition</value>
         <value xml:lang="it">Percentuale Fissa Spedizione</value>
         <value xml:lang="ru">Процент от поставки</value>
         <value xml:lang="th">เปอร์เซ็นต์การขนส่งพื้นฐาน</value>
     </property>
+    <property key="ProductFlatTitle">
+        <value xml:lang="en">Flat charges</value>
+        <value xml:lang="fr">Frais fixes</value>
+    </property>    
     <property key="ProductFromGeo">
         <value xml:lang="de">Von Geo</value>
         <value xml:lang="en">From Geo</value>
@@ -12585,7 +12590,7 @@
     <property key="ProductMaxWt">
         <value xml:lang="de">Maximum Gewicht</value>
         <value xml:lang="en">Max Wt</value>
-        <value xml:lang="fr">Poids total</value>
+        <value xml:lang="fr">Poids maxi</value>
         <value xml:lang="it">Peso Massimo</value>
         <value xml:lang="ro">GRMax </value>
         <value xml:lang="ru">Макс Вс</value>
@@ -12677,7 +12682,7 @@
         <value xml:lang="de">0 min -> bis zum max; 0 max -> vom Minimum aufwärts</value>
         <value xml:lang="en">0 min -> up to max; 0 max -> from min and up</value>
         <value xml:lang="es">0 mínimo -> hasta máximo; 0 máximo -> de mínimo a más</value>
-        <value xml:lang="fr">0 min -> jusqu'au max; 0 max -> à partir du min et jusqu'à</value>
+        <value xml:lang="fr">0 comme mini -> jusqu'à la valeur maxi; 0 comme maxi -> à partir du mini</value>
         <value xml:lang="it">0 min -> fino al massimo; 0 max -> da min e sù</value>
         <value xml:lang="ro">0 min -> pana la maxim; 0 max -> de la min si sù</value>
         <value xml:lang="ru">0 мин -> до макс; 0 макс -> от мин и выше</value>
@@ -12717,7 +12722,7 @@
     <property key="ProductMinQt">
         <value xml:lang="de">Mindestmenge</value>
         <value xml:lang="en">Min Qt</value>
-        <value xml:lang="fr">Qté Mini</value>
+        <value xml:lang="fr">Qantité Mini</value>
         <value xml:lang="it">Qnt Minima</value>
         <value xml:lang="ru">Мин кол</value>
         <value xml:lang="th">Min Qt</value>
@@ -13919,6 +13924,10 @@
         <value xml:lang="th">Nt. Wt.</value>
         <value xml:lang="zh">净重</value>
     </property>
+    <property key="ProductNumber">
+        <value xml:lang="en">number</value>
+        <value xml:lang="fr">nombre</value>
+    </property>
     <property key="ProductNumberQuantity">
         <value xml:lang="de">Nummer / Menge</value>
         <value xml:lang="en">Number / Quantity</value>
@@ -14154,7 +14163,7 @@
     <property key="ProductOrderTotal">
         <value xml:lang="de">Auftragstotal</value>
         <value xml:lang="en">orderTotal</value>
-        <value xml:lang="fr">Total de la commande</value>
+        <value xml:lang="fr">total de la commande</value>
         <value xml:lang="it">Totale Ordine</value>
         <value xml:lang="ro">Total Comanda</value>
         <value xml:lang="ru">Итоги заказа</value>
@@ -14329,27 +14338,35 @@
     <property key="ProductOversize">
         <value xml:lang="de">Übergrösse</value>
         <value xml:lang="en">oversize</value>
-        <value xml:lang="fr">Au-delà des limites</value>
+        <value xml:lang="fr">au-delà des limites</value>
         <value xml:lang="it">oltre misura</value>
         <value xml:lang="ro">Peste masura</value>
         <value xml:lang="ru">негабарит</value>
         <value xml:lang="th">ขนาดมากกว่า</value>
         <value xml:lang="zh">超大</value>
     </property>
+    <property key="ProductOversizeNumber">
+        <value xml:lang="en">number of product(s) in oversize</value>
+        <value xml:lang="fr">nombre d'article(s) au-delà des limites</value>
+    </property>
     <property key="ProductOversizeSurcharge">
         <value xml:lang="de">Zuschlag Übergrösse</value>
         <value xml:lang="en">Oversize Surcharge</value>
-        <value xml:lang="fr">Surtaxe de dépassement de limite</value>
+        <value xml:lang="fr">Supplément pour dépassement de taille</value>
         <value xml:lang="it">Sovraccarico oltre misura</value>
         <value xml:lang="ro">Supraincarcare peste masura</value>
         <value xml:lang="ru">Доплата за негабарит</value>
         <value xml:lang="th">บรรทุกเกินขนาด</value>
         <value xml:lang="zh">超大附加费</value>
     </property>
+    <property key="ProductOversizeTitle">
+        <value xml:lang="en">Oversize surcharge</value>
+        <value xml:lang="fr">Supplément pour dépassement de taille</value>
+    </property>
     <property key="ProductOversizeUnit">
         <value xml:lang="de">Einheit Übergrösse</value>
         <value xml:lang="en">Oversize Unit</value>
-        <value xml:lang="fr">Unité au-delà des limites</value>
+        <value xml:lang="fr">Nombre fixant la limite</value>
         <value xml:lang="it">Unità oltre misura</value>
         <value xml:lang="ro">Unitate peste masura </value>
         <value xml:lang="ru">Негабарит. место</value>
@@ -14928,6 +14945,10 @@
         <value xml:lang="th">ข้อกำหนดราคา</value>
         <value xml:lang="zh">价格规则</value>
     </property>
+    <property key="ProductPriceTitle1">
+        <value xml:lang="en">Price charge</value>
+        <value xml:lang="fr">Frais lié au prix</value>
+    </property>        
     <property key="ProductPriceType">
         <value xml:lang="de">Preistyp</value>
         <value xml:lang="en">Price Type</value>
@@ -15172,13 +15193,17 @@
         <value xml:lang="de">Produktmerkmal Instandhaltung</value>
         <value xml:lang="en">Product Feature Maintenance</value>
         <value xml:lang="es">Mantenimiento de características de producto</value>
-        <value xml:lang="fr">Maintien de caractéristique de produits</value>
+        <value xml:lang="fr">Maintenance de caractéristique de produits</value>
         <value xml:lang="it">Manutenzione Caratteristica Prodotto</value>
         <value xml:lang="ro">Intretinere Caracteristica Produs</value>
         <value xml:lang="ru">Поддержка особенностей продукта</value>
         <value xml:lang="th">การรักษาสภาพลักษณะสินค้า</value>
         <value xml:lang="zh">产品特征维护</value>
     </property>
+    <property key="ProductFeatureTitle">
+        <value xml:lang="en">Features group charges</value>
+        <value xml:lang="fr">Frais par groupe de caractéristiques</value>
+    </property>    
     <property key="ProductProductHeight">
         <value xml:lang="de">Produkt Höhe</value>
         <value xml:lang="en">Product Height</value>
@@ -16006,6 +16031,10 @@
         <value xml:lang="th">จำนวนการขนส่ง</value>
         <value xml:lang="zh">已送货的数量</value>
     </property>
+    <property key="ProductQuantityTitle1">
+        <value xml:lang="en">Quantity charge</value>
+        <value xml:lang="fr">Frais lié à la quantité</value>
+    </property>        
     <property key="ProductQuantityToBin">
         <value xml:lang="de">Menge zu Behälter</value>
         <value xml:lang="en">Quantity To Bin</value>
@@ -17511,7 +17540,7 @@
     <property key="ProductShipamount">
         <value xml:lang="de">lieferbetrag</value>
         <value xml:lang="en">shipamount</value>
-        <value xml:lang="fr">Montant envoyé</value>
+        <value xml:lang="fr">montant de l'expédition</value>
         <value xml:lang="it">importo spedizione</value>
         <value xml:lang="ro">Valoare expediere</value>
         <value xml:lang="ru">поставка</value>
@@ -17522,7 +17551,7 @@
         <value xml:lang="de">lieferbetrag=lieferbetrag + (auftragsTotal * prozent)</value>
         <value xml:lang="en">shipamount=shipamount + (orderTotal * percent)</value>
         <value xml:lang="es">monto de envío = monto de envío + (total de la orden * porcentaje)</value>
-        <value xml:lang="fr">montant de l'expédition= montant expédition + (total commande *pourcentage)</value>
+        <value xml:lang="fr">montant de l'expédition = montant de l'expédition + (total commande * pourcentage)</value>
         <value xml:lang="it">importo spedizione=importo spedizione + (Totale Ordine * percentuale)</value>
         <value xml:lang="ro">Valoare Expediere=Valoare Expediere + (Total Comanda * procent)</value>
         <value xml:lang="ru">поставка=поставка + (сумма заказа * процент)</value>
@@ -17533,7 +17562,7 @@
         <value xml:lang="de">lieferbetrag=lieferbetrag + preis</value>
         <value xml:lang="en">shipamount=shipamount + price</value>
         <value xml:lang="es">monto del envío = monto del envío + precio</value>
-        <value xml:lang="fr">montant de l'expédition= montant expédition + prix</value>
+        <value xml:lang="fr">montant de l'expédition= montant de l'expédition + coût fixe</value>
         <value xml:lang="it">importo spedizione=importo spedizione + prezzo</value>
         <value xml:lang="ro">Valoare Expediere=Valoare Expediere + pret</value>
         <value xml:lang="ru">поставка=поставка + цена</value>
@@ -17543,7 +17572,7 @@
     <property key="ProductShipamountShippingTotalPercent">
         <value xml:lang="de">lieferbetrag=lieferbetrag + (lieferbetrag * prozent)</value>
         <value xml:lang="en">shipamount=shipamount + (shipamount * percent)</value>
-        <value xml:lang="fr">montant de l'expédition = montant de l'expédition + (montant de l'expédition * prix)</value>
+        <value xml:lang="fr">montant de l'expédition = montant de l'expédition + (montant de l'expédition * pourcentage)</value>
         <value xml:lang="it">importo spedizione=importo spedizione + (importo spedizione * percentuale)</value>
         <value xml:lang="ru">поставка=поставка + (поставка * процент)</value>
         <value xml:lang="th">จำนวนการขนส่ง=จำนวนการขนส่ง + (จำนวนการขนส่ง * เปอร์เซ็นต์)</value>
@@ -17552,7 +17581,7 @@
         <value xml:lang="de">lieferbetrag=lieferbetrag + (totalMenge * preis)</value>
         <value xml:lang="en">shipamount=shipamount + (totalQuantity * price)</value>
         <value xml:lang="es">monto del envío = monto del envío + (cantidad total * precio)</value>
-        <value xml:lang="fr">montant de l'expédition = montant expédition + (total quantité * prix)</value>
+        <value xml:lang="fr">montant de l'expédition = montant de l'expédition + (quantité totale * coût fixe)</value>
         <value xml:lang="it">importo spedizione=importo spedizione + (Totale Ordine * prezzo)</value>
         <value xml:lang="ro">Valoare Expediere=Valoare expediere + (Total Comanda * pret)</value>
         <value xml:lang="ru">поставка=поставка + (общее количество * цена)</value>
@@ -18552,7 +18581,7 @@
     <property key="ProductSurcharge">
         <value xml:lang="de">Zuschlag</value>
         <value xml:lang="en">surcharge</value>
-        <value xml:lang="fr">surtaxe</value>
+        <value xml:lang="fr">supplément</value>
         <value xml:lang="it">ricarico</value>
         <value xml:lang="ro">ReIncarcare</value>
         <value xml:lang="ru">доплата</value>
@@ -18894,7 +18923,7 @@
     <property key="ProductTotalFeaturesApplied">
         <value xml:lang="de">Total Merkmal(e) angewendet</value>
         <value xml:lang="en">total feature(s) applied</value>
-        <value xml:lang="fr">Caractéristique(s) appliquées en tout</value>
+        <value xml:lang="fr">nb de caract. appliquées</value>
         <value xml:lang="it">totale caratteristica(e) applicate</value>
         <value xml:lang="ro">total caracteristici(e) aplicate</value>
         <value xml:lang="ru">всего применено особенностей</value>
@@ -19591,6 +19620,10 @@
         <value xml:lang="ru">Весовой порог</value>
         <value xml:lang="th">รหัสน้ำหนักที่เปิดเผย</value>
     </property>
+    <property key="ProductWeightTitle1">
+        <value xml:lang="en">Weight charge</value>
+        <value xml:lang="fr">Frais lié au poids</value>
+    </property>    
     <property key="ProductWeightUnit">
         <value xml:lang="de">Gewicht Einheit</value>
         <value xml:lang="en">Weight Unit</value>

@@ -700,22 +700,18 @@
         <field name="partyId"><text/></field>
         <field name="roleTypeId"><text/></field>
         
-        <field name="FlatTitle" title=" " title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="flatPercent" title="${uiLabelMap.ProductFlatBasePercent}" tooltip="${uiLabelMap.ProductShipamountOrderTotalPercent}"><text/></field>
         <field name="flatPrice" title="${uiLabelMap.ProductFlatBasePrice}" tooltip="${uiLabelMap.ProductShipamountPrice}"><text/></field>
         <field name="flatItemPrice" title="${uiLabelMap.ProductFlatItemPrice}" tooltip="${uiLabelMap.ProductShipamountTotalQuantityPrice}"><text/></field>
         <field name="shippingPricePercent" title="${uiLabelMap.ProductFlatShippingPercent}" tooltip="${uiLabelMap.ProductShipamountShippingTotalPercent}"><text/></field>
         
-        <field name="FeatureTitle" title=" " title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="productFeatureGroupId" title="${uiLabelMap.ProductFeatureGroup}" tooltip="${uiLabelMap.ProductFeatureMessage}"><text/></field>
         <field name="featurePercent" title="${uiLabelMap.ProductFeaturePerFeaturePercent}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + ((${uiLabelMap.ProductOrderTotal} * ${uiLabelMap.ProductPercent}) * ${uiLabelMap.ProductTotalFeaturesApplied})"><text/></field>
         <field name="featurePrice" title="${uiLabelMap.ProductFeaturePerFeaturePrice}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + (${uiLabelMap.ProductPrice} * ${uiLabelMap.ProductTotalFeaturesApplied})"><text/></field>
 
-        <field name="OversizeTitle" title=" " title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="oversizeUnit" title="${uiLabelMap.ProductOversizeUnit}" tooltip="${uiLabelMap.ProductEach} ((${uiLabelMap.ProductHeight} * 2) + (${uiLabelMap.ProductWidth} * 2) + ${uiLabelMap.ProductDept}) >= ${uiLabelMap.CommonThis} ${uiLabelMap.ProductAmount}"><text/></field>
-        <field name="oversizePrice" title="${uiLabelMap.ProductOversizeSurcharge}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + (# ${uiLabelMap.ProductOversize} ${uiLabelMap.ProductProducts} * ${uiLabelMap.ProductSurcharge})"><text/></field>
+        <field name="oversizeUnit" title="${uiLabelMap.ProductOversizeUnit}" tooltip="${uiLabelMap.ProductEach} ((${uiLabelMap.ProductHeight} * 2) + (${uiLabelMap.ProductWidth} * 2) + ${uiLabelMap.ProductDept}) >= ${uiLabelMap.CommonThis} ${uiLabelMap.ProductNumber}"><text/></field>
+        <field name="oversizePrice" title="${uiLabelMap.ProductOversizeSurcharge}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + (${uiLabelMap.ProductOversizeNumber} * ${uiLabelMap.ProductSurcharge})"><text/></field>
         
-        <field name="WeightTitle1" title="${uiLabelMap.ProductWeight}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="WeightTitle2" title=" " tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="wmin" title="${uiLabelMap.ProductMinWt}"><text/></field>
         <field name="wmax" title="${uiLabelMap.ProductMaxWt}"><text/></field>
@@ -738,7 +734,6 @@
         </field>
         <field name="wprice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><text/></field>
         
-        <field name="QuantityTitle1" title="${uiLabelMap.ProductQuantity}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="QuantityTitle2" title=" " tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="qmin" title="${uiLabelMap.ProductMinQt}"><text/></field>
         <field name="qmax" title="${uiLabelMap.ProductMaxQt}"><text/></field>
@@ -760,7 +755,6 @@
         </field>
         <field name="qprice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><text/></field>
         
-        <field name="PriceTitle1" title="${uiLabelMap.ProductPrice}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="PriceTitle2" title=" " tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="pmin" title="${uiLabelMap.ProductMinPr}"><text/></field>
         <field name="pmax" title="${uiLabelMap.ProductMaxPr}"><text/></field>
@@ -782,6 +776,56 @@
         </field>
         <field name="pprice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><text/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        
+        <sort-order>
+            <field-group>
+                <sort-field name="productStoreId"/>
+                <sort-field name="productStoreShipMethId"/>
+                <sort-field name="fromGeo"/>
+                <sort-field name="toGeo"/>
+                <sort-field name="partyId"/>
+                <sort-field name="roleTypeId"/>
+            </field-group>
+            <field-group title="${uiLabelMap.ProductFlatTitle}" collapsible="true">
+                <sort-field name="flatPercent"/>
+                <sort-field name="flatPrice"/>
+                <sort-field name="flatItemPrice"/>
+                <sort-field name="shippingPricePercent"/>                
+            </field-group>    
+            <field-group title="${uiLabelMap.ProductFeatureTitle}" collapsible="true" initially-collapsed="true">
+                <sort-field name="productFeatureGroupId"/>
+                <sort-field name="featurePercent"/>
+                <sort-field name="featurePrice"/>
+            </field-group>
+            <field-group title="${uiLabelMap.ProductOversizeTitle}" collapsible="true" initially-collapsed="true">
+                <sort-field name="oversizeUnit"/>
+                <sort-field name="oversizePrice"/>
+            </field-group>
+            <field-group title="${uiLabelMap.ProductWeightTitle1}" collapsible="true" initially-collapsed="true">
+                <sort-field name="WeightTitle2"/>
+                <sort-field name="wmin"/>
+                <sort-field name="wmax"/>
+                <sort-field name="weightBreakId"/>
+                <sort-field name="wuom"/>
+                <sort-field name="wprice"/>
+            </field-group>
+            <field-group title="${uiLabelMap.ProductQuantityTitle1}" collapsible="true" initially-collapsed="true">
+                <sort-field name="QuantityTitle2"/>
+                <sort-field name="qmin"/>
+                <sort-field name="qmax"/>
+                <sort-field name="quantityBreakId"/>
+                <sort-field name="quom"/>
+                <sort-field name="qprice"/>
+            </field-group>
+            <field-group title="${uiLabelMap.ProductPriceTitle1}" collapsible="true" initially-collapsed="true">
+                <sort-field name="PriceTitle2"/>
+                <sort-field name="pmin"/>
+                <sort-field name="pmax"/>
+                <sort-field name="priceBreakId"/>
+                <sort-field name="puom"/>
+                <sort-field name="pprice"/>
+            </field-group>
+        </sort-order>
     </form>
     <form name="ViewShipmentCostEstimate" type="single" title="" default-map-name="estimate"
         header-row-style="header-row" default-table-style="basic-table">
@@ -799,22 +843,22 @@
         <field name="partyId"><display/></field>
         <field name="roleTypeId"><display/></field>
         
-        <field name="FlatTitle" title=" " title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="FlatTitle" title="${uiLabelMap.ProductFlatTitle}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="orderPricePercent" title="${uiLabelMap.ProductFlatBasePercent}" tooltip="${uiLabelMap.ProductShipamountOrderTotalPercent}"><display/></field>
         <field name="orderFlatPrice" title="${uiLabelMap.ProductFlatBasePrice}" tooltip="${uiLabelMap.ProductShipamountPrice}"><display/></field>
         <field name="orderItemFlatPrice" title="${uiLabelMap.ProductFlatItemPrice}" tooltip="${uiLabelMap.ProductShipamountTotalQuantityPrice}"><display/></field>
         <field name="shippingPricePercent" title="${uiLabelMap.ProductFlatShippingPercent}" tooltip="${uiLabelMap.ProductShipamountShippingTotalPercent}"><display/></field>
         
-        <field name="FeatureTitle" title=" " title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="FeatureTitle" title="${uiLabelMap.ProductFeatureTitle}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="productFeatureGroupId" title="${uiLabelMap.ProductFeatureGroup}" tooltip="${uiLabelMap.ProductFeatureMessage}"><display/></field>
         <field name="featurePercent" title="${uiLabelMap.ProductFeaturePerFeaturePercent}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + ((${uiLabelMap.ProductOrderTotal} * ${uiLabelMap.ProductPercent}) * ${uiLabelMap.ProductTotalFeaturesApplied})"><display/></field>
         <field name="featurePrice" title="${uiLabelMap.ProductFeaturePerFeaturePrice}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + (${uiLabelMap.ProductPrice} * ${uiLabelMap.ProductTotalFeaturesApplied})"><display/></field>
 
-        <field name="OversizeTitle" title=" " title-area-style="group-label"><display description=" " also-hidden="false"/></field>
-        <field name="oversizeUnit" title="${uiLabelMap.ProductOversizeUnit}" tooltip="${uiLabelMap.ProductEach} ((${uiLabelMap.ProductHeight} * 2) + (${uiLabelMap.ProductWidth} * 2) + ${uiLabelMap.ProductDept}) >= ${uiLabelMap.CommonThis} ${uiLabelMap.ProductAmount}"><display/></field>
-        <field name="oversizePrice" title="${uiLabelMap.ProductOversizeSurcharge}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + (# ${uiLabelMap.ProductOversize} ${uiLabelMap.ProductProducts} * ${uiLabelMap.ProductSurcharge})"><display/></field>
+        <field name="OversizeTitle" title="${uiLabelMap.ProductOversizeTitle}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="oversizeUnit" title="${uiLabelMap.ProductOversizeUnit}" tooltip="${uiLabelMap.ProductEach} ((${uiLabelMap.ProductHeight} * 2) + (${uiLabelMap.ProductWidth} * 2) + ${uiLabelMap.ProductDept}) >= ${uiLabelMap.CommonThis} ${uiLabelMap.ProductNumber}"><display/></field>
+        <field name="oversizePrice" title="${uiLabelMap.ProductOversizeSurcharge}" tooltip="${uiLabelMap.ProductShipamount} : ${uiLabelMap.ProductShipamount} + (${uiLabelMap.ProductNumber} ${uiLabelMap.ProductOversize} ${uiLabelMap.ProductProducts} * ${uiLabelMap.ProductSurcharge})"><display/></field>
         
-        <field name="WeightTitle1" title="${uiLabelMap.ProductWeight}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="WeightTitle1" title="${uiLabelMap.ProductWeightTitle1}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="WeightTitle2" title=" " tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="weightBreakId">
             <display-entity entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity}"/>
@@ -824,7 +868,7 @@
         </field>
         <field name="weightUnitPrice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><display/></field>
         
-        <field name="QuantityTitle1" title="${uiLabelMap.ProductQuantity}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="QuantityTitle1" title="${uiLabelMap.ProductQuantityTitle1}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="QuantityTitle2" title=" " tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="quantityBreakId">
             <display-entity entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity}"/>
@@ -834,7 +878,7 @@
         </field>
         <field name="quantityUnitPrice" title="${uiLabelMap.ProductPerUnitPrice}" tooltip="${uiLabelMap.ProductOnlyAppliesWithinSpan}"><display/></field>
         
-        <field name="PriceTitle1" title="${uiLabelMap.ProductPrice}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
+        <field name="PriceTitle1" title="${uiLabelMap.ProductPriceTitle1}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="PriceTitle2" title=" " tooltip="${uiLabelMap.ProductMinMax}" title-area-style="group-label"><display description=" " also-hidden="false"/></field>
         <field name="priceBreakId">
             <display-entity entity-name="QuantityBreak" key-field-name="quantityBreakId" description="${fromQuantity} - ${thruQuantity}"/>
