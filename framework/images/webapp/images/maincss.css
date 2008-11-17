@@ -2013,3 +2013,77 @@ min-width: 1.1em;
 width: 1.1em;
 cursor: default;
 }
+
+/* == Portlet configuration screenlet == */
+
+.portlet-config {
+  background-color:#D4D0C8;
+  border: 2px solid #D4D0C8;
+  margin-bottom: 5px;
+}
+
+.portlet-config-title-bar .title {
+color: #555555;
+font-size: 1.2em;
+float: left;
+}
+
+.portlet-config-title-bar ul {
+display: inline; /* IE Fix */
+}
+
+.portlet-config-title-bar ul li {
+float: right;
+font-size: 1em;
+font-weight: bold;
+padding: 0.1em 0.5em 0.2em 0.5em;
+}
+
+.portlet-config-title-bar ul li.move-up {
+background: url(/images/arrow-single-up-green.png) no-repeat center center;
+}
+.portlet-config-title-bar ul li.move-down {
+background: url(/images/arrow-single-down-green.png) no-repeat center center;
+}
+.portlet-config-title-bar ul li.move-left {
+background: url(/images/arrow-single-left-green.png) no-repeat center center;
+}
+.portlet-config-title-bar ul li.move-right {
+background: url(/images/arrow-single-right-green.png) no-repeat center center;
+}
+.portlet-config-title-bar ul li.move-top {
+background: url(/images/arrow-end-up-green.png) no-repeat center center;
+}
+.portlet-config-title-bar ul li.move-bottom {
+background: url(/images/arrow-end-down-green.png) no-repeat center center;
+}
+.portlet-config-title-bar ul li.remove {
+background: url(/images/mini-trash.png) no-repeat center center;
+}
+.portlet-config-title-bar ul li.edit {
+background: url(/images/mini-edit.png) no-repeat center center;
+}
+
+
+/* == Portal Manager Toolbar == */
+
+#manage-portal-toolbar {
+background-color:#D4D0C8;
+margin-bottom: 0.5em;
+}
+
+#manage-portal-toolbar ul li {
+float: left;
+padding: 0.1em 0.5em 0.2em 0.5em;
+}
+
+#manage-portal-toolbar #config-on-off,
+#manage-portal-toolbar #manage-portal-page,
+#manage-portal-toolbar #add-portlet {
+float: right;
+}
+
+#manage-portal-toolbar #portal-page-name {
+font-size: 1.5em;
+font-weight: bold;
+}

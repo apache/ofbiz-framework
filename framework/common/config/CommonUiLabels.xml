@@ -150,6 +150,10 @@
         <value xml:lang="zh_CN">添加一个</value>
         <value xml:lang="zh">新建</value>
     </property>
+    <property key="CommonAddAPortlet">
+        <value xml:lang="en">Add A Portlet...</value>
+        <value xml:lang="it">Aggiungi un portlet...</value>
+    </property>
     <property key="CommonAddDefault">
         <value xml:lang="ar">إضافة القيم الإفتراضية</value>
         <value xml:lang="cs">Přidat standard</value>
@@ -1194,6 +1198,10 @@
         <value xml:lang="th">โครงร่างภายนอก</value>
         <value xml:lang="zh_CN">配置</value>
         <value xml:lang="zh">配置</value>
+    </property>
+    <property key="CommonConfigure">
+        <value xml:lang="en">Configure:</value>
+        <value xml:lang="it">Configura:</value>
     </property>
     <property key="CommonConfirm">
         <value xml:lang="ar">تأكيد</value>
@@ -3530,6 +3538,34 @@
         <value xml:lang="zh_CN">更多</value>
         <value xml:lang="zh">更多</value>
     </property>
+    <property key="CommonMovePortletBottom">
+        <value xml:lang="en">Move Portlet at the Bottom</value>
+        <value xml:lang="it">Sposta il portlet in fondo</value>
+    </property>
+    <property key="CommonMovePortletDown">
+        <value xml:lang="en">Move Portlet Down</value>
+        <value xml:lang="it">Sposta il portlet in basso</value>
+    </property>
+    <property key="CommonMovePortletLeft">
+        <value xml:lang="en">Move Portlet Left</value>
+        <value xml:lang="it">Sposta il portlet a sinistra</value>
+    </property>
+    <property key="CommonMovePortletRight">
+        <value xml:lang="en">Move Portlet Right</value>
+        <value xml:lang="it">Sposta il portlet a destra</value>
+    </property>
+    <property key="CommonMovePortletTop">
+        <value xml:lang="en">Move Portlet at the Top</value>
+        <value xml:lang="it">Sposta il portlet in cima</value>
+    </property>
+    <property key="CommonMovePortletUp">
+        <value xml:lang="en">Move Portlet Up</value>
+        <value xml:lang="it">Sposta il portlet in alto</value>
+    </property>
+    <property key="CommonMoveToPortalPage">
+        <value xml:lang="en">Move to Portal Page...</value>
+        <value xml:lang="it">Sposta nella pagina...</value>
+    </property>
     <property key="CommonMyStatus">
         <value xml:lang="ar">حالتي</value>
         <value xml:lang="de">Mein Status</value>
@@ -4849,6 +4885,10 @@
         <value xml:lang="zh_CN">删除过期的</value>
         <value xml:lang="zh">删除过期的</value>
     </property>
+    <property key="CommonRemovePortlet">
+        <value xml:lang="en">Remove Portlet</value>
+        <value xml:lang="it">Rimuovi il portlet</value>
+    </property>
     <property key="CommonReports">
         <value xml:lang="ar">تقارير</value>
         <value xml:lang="de">Berichte</value>
@@ -5195,6 +5235,14 @@
         <value xml:lang="th">เลือกอันเดียว</value>
         <value xml:lang="zh_CN">选择一个</value>
         <value xml:lang="zh">选择一个</value>
+    </property>
+    <property key="CommonSelectPortalPage">
+        <value xml:lang="en">Select Portal Page...</value>
+        <value xml:lang="it">Seleziona pagina...</value>
+    </property>
+    <property key="CommonManagePortalPages">
+        <value xml:lang="en">Manage Portal Pages...</value>
+        <value xml:lang="it">Gestione pagine...</value>
     </property>
     <property key="CommonSelected">
         <value xml:lang="ar">مختارة</value>
