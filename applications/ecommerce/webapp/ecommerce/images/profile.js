@@ -359,10 +359,7 @@ function copyShipToBillAddress() {
     Event.observe($('shipToStateProvinceGeoId'), 'change', function() {
         $('billToStateProvinceGeoId').value = $F('shipToStateProvinceGeoId')
     });
-    Event.observe($('shipToCountryGeoId'), 'change', function() {
-        $('billToCountryGeoId').value = $F('shipToCountryGeoId')
-        getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
-    });
+    Event.observe($('shipToCountryGeoId'), 'change', copyShipToCountryToBillToCountry);
     Event.observe($('shipToPostalCode'), 'change', function() {
         $('billToPostalCode').value = $F('shipToPostalCode')
     });
@@ -373,7 +370,7 @@ function stopObservingShipToBillAddress() {
     Event.stopObserving($('shipToAddress2'), 'change', "");
     Event.stopObserving($('shipToCity'), 'change', "");
     Event.stopObserving($('shipToStateProvinceGeoId'), 'change', "");
-    Event.stopObserving($('shipToCountryGeoId'), 'change', "");
+    Event.stopObserving($('shipToCountryGeoId'), 'change', copyShipToCountryToBillToCountry);
     Event.stopObserving($('shipToPostalCode'), 'change', "");
 }
 
@@ -398,4 +395,9 @@ function showState(id) {
             getAssociatedStateList('countryGeoId_'+id, 'stateProvinceGeoId_'+id, 'advice-required-stateProvinceGeoId_'+id, 'states_'+id);    	
         }
     }
+}
+
+function copyShipToCountryToBillToCountry(){
+    $('billToCountryGeoId').value = $F('shipToCountryGeoId');
+    getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');	
 }

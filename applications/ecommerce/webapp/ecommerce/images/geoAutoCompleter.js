@@ -105,7 +105,7 @@ function getAssociatedStateList(countryId, stateId, errorId, divId) {
                 optionList.push("<option value = "+geoValues[1]+" >"+geoValues[0]+"</option>");
             });
             $(stateId).update(optionList);
-            if (stateList.size() == 1) {
+            if (stateList.size() <= 1) {
                 if ($(divId).visible() || $(errorId).visible()) {
                     Effect.Fade(divId, {duration: 0.0});
                     Effect.Fade(errorId, {duration: 0.0});

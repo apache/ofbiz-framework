@@ -346,9 +346,9 @@ under the License.
                         <label for="shipToCountryGeoId">${uiLabelMap.PartyCountry}<span class="requiredLabel">*<span id="advice-required-shipToCountryGeo" style="display:none" class="errorMessage"> (required)</span></label>
                       </div>
                       <div>
-                        <select name="countryGeoId" id="shipToCountryGeoId" class="required selectBox">
+                        <select name="countryGeoId" id="shipToCountryGeoId">
                           <#if shipToCountryGeoId??>
-                            <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryProvinceGeoId!)}</option>
+                            <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryGeoId!)}</option>
                           </#if>
                           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
                         </select>
