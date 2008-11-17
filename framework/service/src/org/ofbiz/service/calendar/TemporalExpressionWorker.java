@@ -18,6 +18,7 @@
  *******************************************************************************/
 package org.ofbiz.service.calendar;
 
+import java.util.Calendar;
 import java.util.List;
 import java.util.Set;
 import java.util.TreeSet;
@@ -96,7 +97,17 @@ public class TemporalExpressionWorker {
         } else if (MonthRange.equals(tempExprTypeId)) {
             return new TemporalExpressions.MonthRange(exprValue.getLong("integer1").intValue(), exprValue.getLong("integer2").intValue());
         } else if (TimeOfDayRange.equals(tempExprTypeId)) {
-            return new TemporalExpressions.TimeOfDayRange(exprValue.getString("string1"), exprValue.getString("string2"));
+            int interval = Calendar.HOUR_OF_DAY;
+            int count = 1;
+            Long longObj = exprValue.getLong("integer1");
+            if (longObj != null) {
+                interval = longObj.intValue();
+            }
+            longObj = exprValue.getLong("integer2");
+            if (longObj != null) {
+                count = longObj.intValue();
+            }
+            return new TemporalExpressions.TimeOfDayRange(exprValue.getString("string1"), exprValue.getString("string2"), interval, count);
         } else if (Union.equals(tempExprTypeId)) {
             return new TemporalExpressions.Union(getChildExpressions(delegator, tempExprId));
         }

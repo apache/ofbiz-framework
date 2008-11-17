@@ -171,7 +171,7 @@ under the License.
         tempExprTypeId       integer1       integer2        date1  date2  string1    string2
         ==================== ============== =============== ====== ====== ========== ========
         DATE_RANGE                                          start  end
-        TIME_OF_DAY_RANGE                                                 start [1]  end [1]
+        TIME_OF_DAY_RANGE    interval [9]   count [7]                     start [1]  end [1]
         DAY_OF_WEEK_RANGE    start [2]      end [2]
         MONTH_RANGE          start [3]      end [3]
         DAY_OF_MONTH_RANGE   start [4]      end [4]
@@ -186,6 +186,7 @@ under the License.
         [6] Second = 13, Minute = 12, Hour = 11, Day = 5, Month = 2, Year = 1
         [7] Positive integer, zero excluded
         [8] If null, defaults to system date when the expression was retrieved from storage.
+        [9] Second = 13, Minute = 12, Hour = 11 (default)
     -->
     
 </entity-engine-xml>
