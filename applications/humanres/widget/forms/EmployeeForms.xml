@@ -66,4 +66,158 @@
         <field name="emailAddress" title="${uiLabelMap.CommonEmail}"><text size="50" maxlength="60"/></field>
         <field name="submitButton" title="${uiLabelMap.CommonSave}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
+    <form name="AddEmployeeSkills" type="single" target="createEmployeeSkill" default-map-name="partySkill">
+        <field name="partyId"><hidden/></field>
+        <field name="skillTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down>
+                <entity-options description="${description}" entity-name="SkillType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>        
+        <field name="yearsExperience"><text/></field>
+        <field name="rating"><text/></field>
+        <field name="skillLevel"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+    </form>
+    <form name="ListEmployeeSkills" type="list" list-name="listIt" use-row-submit="true" separate-columns="true" target="updateEmployeeSkill" paginate-target="findPartySkills"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="PartySkill">
+                <condition-expr field-name="partyId" env-name="partyId"/>
+                <order-by field-name="skillTypeId"/>
+            </entity-condition>
+        </actions>
+        <auto-fields-service default-field-type="hidden" service-name="updatePartySkill"/>        
+        <field name="skillTypeId">
+            <display-entity entity-name="SkillType" description="${description}"/>
+        </field>
+        <field name="yearsExperience"><text/></field>
+        <field name="rating"><text/></field>
+        <field name="skillLevel"><text/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmployeeSkill?skillTypeId=${skillTypeId}&amp;&amp;partyId=${partyId}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+    </form>      
+    <form name="AddEmployeeQualification" type="single" target="createEmployeeQualification">
+        <auto-fields-service service-name="createPartyQual"/>
+        <field name="partyId"><hidden/></field>
+        <field name="partyQualTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="partyQualTypeId" entity-name="PartyQualType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="verifStatusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
+    </form>
+    <form name="ListEmployeeQualification" type="list" list-name="listIt" use-row-submit="true" separate-columns="true" target="updateEmployeeQualification" paginate-target="FindPartyQuals"
+            odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="PartyQual">
+                <condition-expr field-name="partyId" env-name="partyId"/>
+                <order-by field-name="fromDate"/>
+            </entity-condition>
+        </actions>        
+        <auto-fields-service service-name="updatePartyQual"/>        
+        <field name="partyId"><hidden/></field>
+        <field name="partyQualTypeId"><display-entity entity-name="PartyQualType" description="${description}"/></field>
+        <field name="fromDate"><display/></field>
+        <field name="qualificationDesc"><text/></field>
+        <field name="title"><text/></field>
+        <field name="statusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PARTY_INV_STATUS"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="verifStatusId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="statusId" entity-name="StatusItem">
+                    <entity-constraint name="statusTypeId" operator="equals" value="PARTYQUAL_VERIFY"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmployeeQualification?partyId=${partyId}&amp;partyQualTypeId=${partyQualTypeId}&amp;fromDate=${fromDate}" also-hidden="false" description="${uiLabelMap.CommonDelete}"/>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+    </form>
+    <form name="AddEmployeeTraining" type="single" target="createEmployeeTraining">
+        <field name="partyId"><hidden/></field>
+        <field name="trainingClassTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down allow-empty="false">
+                <entity-options description="${description}" entity-name="TrainingClassType">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-time type="timestamp"/></field>
+        <field name="thruDate"><date-time type="timestamp"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListEmployeeTrainings" type="list" list-name="listIt" separate-columns="true" target="updateEmployeeTraining" paginate-target="FindPersonTrainings"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="PersonTraining">
+                <condition-expr field-name="partyId" env-name="partyId"/>
+                <order-by field-name="fromDate"/>
+            </entity-condition>
+        </actions>        
+        <auto-fields-service default-field-type="display" service-name="updatePersonTraining"/>
+        <field name="partyId"><hidden/></field>
+        <field name="trainingClassTypeId"><display-entity description="${description}" entity-name="TrainingClassType"/></field>
+        <field name="thruDate"><date-time type="timestamp"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
+            <hyperlink target="deleteEmployeeTraining?partyId=${partyId}&amp;trainingClassTypeId=${trainingClassTypeId}&amp;fromDate=${fromDate}" also-hidden="false" description="${uiLabelMap.CommonDelete}"/>
+        </field>
+    </form>
+    <form name="AddEmplLeave" type="single" target="createEmplLeave">
+        <auto-fields-service service-name="createEmplLeave"/>
+        <field name="partyId"><hidden/></field>
+        <field name="leaveTypeId">
+            <drop-down allow-empty="true">
+                <entity-options description="${description}" key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    <form name="ListEmplLeaves" type="list" list-name="listIt" separate-columns="true" target="updateEmplLeave" paginate-target="FindEmplLeaves"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="EmplLeave">
+                <condition-expr field-name="partyId" env-name="partyId"/>
+                <order-by field-name="fromDate"/>
+            </entity-condition>
+        </actions>        
+        <auto-fields-service service-name="updateEmplLeave"/>
+        <field name="partyId"><hidden/></field>
+        <field name="leaveTypeId"><display-entity description="${description}" entity-name="EmplLeaveType"/></field>
+        <field name="fromDate"><display/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>  
+    </form>
+    
 </forms>
+    

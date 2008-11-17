@@ -25,6 +25,10 @@ under the License.
     <simple-method method-name="createPartyQual" short-description="Create a Party Qualification">
         <make-value entity-name="PartyQual" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <if-empty field="newEntity.fromDate">
+            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
+        </if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <field-to-result field-name="newEntity.partyId" result-name="partyId"/>
         <field-to-result field-name="newEntity.partyQualTypeId" result-name="partyQualTypeId"/>

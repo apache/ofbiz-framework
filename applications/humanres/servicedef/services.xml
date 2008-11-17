@@ -32,7 +32,7 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
         <override name="partyId" optional="false"/>
         <override name="partyQualTypeId" optional="false"/>
-        <override name="fromDate" optional="false"/>
+        <override name="fromDate" optional="true"/>
     </service>
     
     <service name="updatePartyQual" engine="simple" default-entity-name="PartyQual"
