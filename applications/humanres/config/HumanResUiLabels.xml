@@ -501,7 +501,7 @@
     <property key="HumanResEditUnemploymentClaim">
         <value xml:lang="en">Unemployment Claims</value>
     </property>
-    <property key="HumanResEmployee">
+    <property key="HumanResEmployees">
         <value xml:lang="en">Employees</value>
     </property>
     <property key="HumanResEmplLeaveType">
@@ -962,6 +962,9 @@
         <value xml:lang="ro">Nu se poate crea entitatea educatie, lipsesc parametric.</value>
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , ต้องการตัวแปรที่หายไป</value>
         <value xml:lang="zh">无法创建教育记录，缺少所需的参数</value>
+    </property>
+    <property key="HumanResSkills">
+        <value xml:lang="en">Skills</value>
     </property>
     <property key="HumanResSkillType">
         <value xml:lang="en">Skill Types</value>

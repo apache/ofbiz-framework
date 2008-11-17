@@ -24,7 +24,7 @@ under the License.
         <section>                        
             <actions>
                 <set field="titleProperty" value="${uiLabelMap.CommonFind} ${uiLabelMap.HumanResEmployee}"/>
-                <set field="headerItem" value="Employee"/>
+                <set field="headerItem" value="Employees"/>
             </actions>            
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -59,7 +59,7 @@ under the License.
         <section>                        
             <actions>
                 <set field="titleProperty" value="PartyCreateNewEmployee"/>
-                <set field="headerItem" value="Employee"/>
+                <set field="headerItem" value="Employees"/>
                 <property-to-field field="defaultCountryGeoId" resource="general" property="country.geo.id.default" default="USA"/>
             </actions>            
             <widgets>
@@ -77,4 +77,218 @@ under the License.
             </widgets>            
         </section>
     </screen>
+    <screen name="EmployeeProfile">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleViewPartyProfile"/>
+                <set field="tabButtonItem" value="EmployeeProfile"/>
+                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/prototype.js" global="true"/>                
+                <set field="layoutSettings.javaScripts[]" value="/images/prototypejs/control.progress_bar.js" global="true"/>                
+                <set field="layoutSettings.styleSheets[]" value="/images/prototypejs/progress_bar.css" global="true"/>
+                <set field="layoutSettings.javaScripts[]" value="/partymgr/js/PartyProfileContent.js" global="true"/>    
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="party"/></not>
+                            </condition>
+                            <widgets>
+                                <section>
+                                    <condition>
+                                        <if-compare field-name="showOld" operator="equals" value="true" type="Boolean"/>
+                                    </condition>
+                                    <widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="viewprofile?partyId=${party.partyId}" text="${uiLabelMap.PartyHideOld}"/>
+                                        </container>
+                                    </widgets>
+                                    <fail-widgets>
+                                        <container style="button-bar button-style-2">
+                                            <link target="viewprofile?partyId=${party.partyId}&amp;SHOW_OLD=true" text="${uiLabelMap.PartyShowOld}"/>
+                                        </container>
+                                    </fail-widgets>
+                                </section>
+                                <section>
+                                    <widgets>
+                                        <container style="profile-left">
+                                            <include-screen name="Party" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Contact" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="contactsAndAccounts" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="LoyaltyPoints" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                        <container style="profile-right">
+                                            <include-screen name="UserLogin" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Attributes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Subscriptions" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Content" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                            <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
+                                        </container>
+                                    </widgets>
+                                </section>
+                            </widgets>
+                            <fail-widgets>
+                                <container>
+                                    <label style="h3">${uiLabelMap.PartyNoPartyFoundWithPartyId}: ${parameters.partyId}</label>
+                                </container>
+                            </fail-widgets>
+                        </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditEmployeeSkills">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResViewPartySkill"/>
+                <set field="tabButtonItem" value="EditEmployeeSkills"/>    
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="skillTypeId" from-field="parameters.skillTypeId"/>
+                <set field="partySkillsCtx.partyId" from-field="parameters.partyId"/>
+                <set field="parameters.insideEmployee" value="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListEmployeeSkills" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                        <screenlet id="AddPartySkillPanel" title="${uiLabelMap.HumanResAddPartySkill}" collapsible="true">
+                            <include-form name="AddEmployeeSkills" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                        </screenlet>
+                     </decorator-section>
+                 </decorator-screen>
+            </widgets>
+        </section> 
+    </screen>
+    <screen name="EditEmployeeQuals">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResViewPartyQual"/>
+                <set field="headerItem" value="Employee"/>
+                <set field="tabButtonItem" value="EditEmployeeQuals"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="partyQualCtx.partyId" from-field="parameters.partyId"/>
+                <set field="parameters.insideEmployee" value="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListEmployeeQualification" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                        <screenlet id="AddPartyQualPanel" title="${uiLabelMap.HumanResAddPartyQual}" collapsible="true">
+                            <include-form name="AddEmployeeQualification" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditEmployeeTrainings">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResViewPersonTraining"/>
+                <set field="tabButtonItem" value="EditEmployeeTrainings"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="trainingClassTypeId" from-field="parameters.trainingClassTypeId"/>
+                <set field="personTrainingsCtx.partyId" from-field="parameters.partyId"/>
+                <set field="parameters.insideEmployee" value="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListEmployeeTrainings" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                        <screenlet id="AddPersonTrainingPanel" title="${uiLabelMap.HumanResAddPersonTraining}" collapsible="true">
+                            <include-form name="AddEmployeeTraining" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditEmployeeEmploymentApps">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResViewEmploymentApp"/>
+                <set field="tabButtonItem" value="EditEmployeeEmploymentApps"/>
+                <set field="referredByPartyId" from-field="parameters.partyId"/>
+                <set field="employmentAppCtx.applicationId" from-field="parameters.applicationId"/>
+                <set field="parameters.insideEmployee" value="true"/> 
+            </actions>
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListEmploymentApps" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>
+                        <screenlet id="AddEmploymentAppPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResEmploymentApp}" collapsible="true">
+                            <include-form name="AddEmploymentApp" location="component://humanres/widget/forms/EmploymentAppForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen> 
+    <screen name="EditEmployeeResumes">
+        <section>            
+            <actions>
+                <set field="headerItem" value="PartyResume"></set>
+                <set field="tabButtonItem" value="EditEmployeeResumes"/>
+                <set field="resumeId" from-field="parameters.resumeId"/>
+                <set field="partyId" from-field="parameters.partyId" />
+                <entity-one entity-name="PartyResume" value-name="partyResume" />
+            </actions>            
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListPartyResumes" location="component://humanres/widget/forms/PartyResumeForms.xml"/>
+                        <screenlet id="AddEmploymentAppPanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResEditPartyResume}" collapsible="true">
+                            <include-form name="EditPartyResume" location="component://humanres/widget/forms/PartyResumeForms.xml" />
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>                              
+        </section>
+    </screen>
+    <screen name="EditEmployeePerformanceNotes">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResEditPerfNote"/>
+                <set field="tabButtonItem" value="EditEmployeePerformanceNotes"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListPerformanceNotes" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                        <screenlet id="AddPerformanceNotePanel" title="${uiLabelMap.HumanResAddPerfNote}" collapsible="true">
+                            <include-form name="AddPerformanceNote" location="component://humanres/widget/forms/EmploymentForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditEmployeeLeaves">
+        <section>
+            <actions>
+                <set field="titleProperty" value="HumanResEditEmplLeave"/>
+                <set field="tabButtonItem" value="EditEmployeeLeaves"/>
+                <set field="partyId" from-field="parameters.partyId"/>
+                <set field="emplLeaveCtx.partyId" from-field="parameters.partyId"/>
+                <set field="parameters.insideEmployee" value="true"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="EmployeeDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <include-form name="ListEmplLeaves" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                        <screenlet id="AddEmplLeavePanel" title="${uiLabelMap.HumanResAddEmplLeave}" collapsible="true">
+                            <include-form name="AddEmplLeave" location="component://humanres/widget/forms/EmployeeForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>    
 </screens>

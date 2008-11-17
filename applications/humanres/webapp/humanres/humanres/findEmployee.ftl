@@ -176,7 +176,7 @@ under the License.
             <#list partyList as partyRow>
             <#assign partyType = partyRow.getRelatedOne("PartyType")?if_exists>
             <tr valign="middle"<#if alt_row> class="alternate-row"</#if>>
-                <td><a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${partyRow.partyId}</a></td>
+                <td><a href="<@ofbizUrl>EmployeeProfile?partyId=${partyRow.partyId}</@ofbizUrl>">${partyRow.partyId}</a></td>
                 <td><#if partyRow.containsKey("userLoginId")>
                         ${partyRow.userLoginId?default("N/A")}
                     <#else>
@@ -217,7 +217,7 @@ under the License.
                 </#if>
                 <td><#if partyType.description?exists>${partyType.get("description", locale)}<#else>???</#if></td>
                 <td class="button-col align-float">
-                    <a href="<@ofbizUrl>viewprofile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
+                    <a href="<@ofbizUrl>EmployeeProfile?partyId=${partyRow.partyId}</@ofbizUrl>">${uiLabelMap.CommonDetails}</a>
                 </td>
             </tr>
           <#-- toggle the row color -->
