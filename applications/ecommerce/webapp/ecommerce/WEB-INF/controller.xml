@@ -165,28 +165,28 @@ under the License.
 
     <request-map uri="createEmptyShoppingList">
         <security auth="true" https="false"/>
-        <event type="service" path="" invoke="createShoppingList"/>
+        <event type="service" invoke="createShoppingList"/>
         <response name="success" type="view" value="editShoppingList"/>
         <response name="error" type="view" value="editShoppingList"/>
     </request-map>
 
     <request-map uri="createShoppingListFromOrder">
         <security auth="true" https="false"/>
-        <event type="service" path="" invoke="makeShoppingListFromOrder"/>
+        <event type="service" invoke="makeShoppingListFromOrder"/>
         <response name="success" type="view" value="editShoppingList"/>
         <response name="error" type="view" value="orderstatus"/>
     </request-map>
 
     <request-map uri="updateShoppingList">
         <security auth="true" https="false"/>
-        <event type="service" path="" invoke="updateShoppingList"/>
+        <event type="service" invoke="updateShoppingList"/>
         <response name="success" type="view" value="editShoppingList"/>
         <response name="error" type="view" value="editShoppingList"/>
     </request-map>
 
     <request-map uri="addItemToShoppingList">
         <security auth="true" https="false"/>
-        <event type="service" path="" invoke="createShoppingListItem"/>
+        <event type="service" invoke="createShoppingListItem"/>
         <response name="success" type="view" value="editShoppingList"/>
         <response name="error" type="view" value="editShoppingList"/>
     </request-map>
@@ -207,14 +207,14 @@ under the License.
 
     <request-map uri="updateShoppingListItem">
         <security auth="true" https="false"/>
-        <event type="service" path="" invoke="updateShoppingListItem"/>
+        <event type="service" invoke="updateShoppingListItem"/>
         <response name="success" type="view" value="editShoppingList"/>
         <response name="error" type="view" value="editShoppingList"/>
     </request-map>
 
     <request-map uri="removeFromShoppingList">
         <security auth="true" https="false"/>
-        <event type="service" path="" invoke="removeShoppingListItem"/>
+        <event type="service" invoke="removeShoppingListItem"/>
         <response name="success" type="view" value="editShoppingList"/>
         <response name="error" type="view" value="editShoppingList"/>
     </request-map>
@@ -380,44 +380,44 @@ under the License.
 
     <request-map uri="enterCreditCardAndBillingAddress">
         <security https="true" auth="false"/>
-        <event type="service" path="" invoke="createCreditCardAndAddress"/>
+        <event type="service" invoke="createCreditCardAndAddress"/>
         <response name="success" type="request" value="processPaymentSettings"/>
         <response name="error" type="view" value="paymentinformation"/>
     </request-map>
     <request-map uri="enterCreditCard">
         <security https="true" auth="false"/>
-        <event type="service" path="" invoke="createCreditCard"/>
+        <event type="service" invoke="createCreditCard"/>
         <response name="success" type="request" value="processPaymentSettings"/>
         <response name="error" type="view" value="paymentinformation"/>
     </request-map>
     <request-map uri="changeCreditCardAndBillingAddress">
         <security https="true" auth="false"/>
-        <event type="service" path="" invoke="updateCreditCardAndAddress"/>
+        <event type="service" invoke="updateCreditCardAndAddress"/>
         <response name="success" type="request" value="processPaymentSettings"/>
         <response name="error" type="view" value="paymentinformation"/>
     </request-map>
     <request-map uri="enterEftAccountAndBillingAddress">
         <security https="true" auth="false"/>
-        <event type="service" path="" invoke="createEftAccountAndAddress"/>
+        <event type="service" invoke="createEftAccountAndAddress"/>
         <response name="success" type="request" value="processPaymentSettings"/>
         <response name="error" type="view" value="paymentinformation"/>
     </request-map>
     <request-map uri="enterEftAccount">
         <security https="true" auth="false"/>
-        <event type="service" path="" invoke="createEftAccount"/>
+        <event type="service" invoke="createEftAccount"/>
         <response name="success" type="request" value="processPaymentSettings"/>
         <response name="error" type="view" value="paymentinformation"/>
     </request-map>
     <request-map uri="changeEftAccountAndBillingAddress">
         <security https="true" auth="false"/>
-        <event type="service" path="" invoke="updateEftAccountAndAddress"/>
+        <event type="service" invoke="updateEftAccountAndAddress"/>
         <response name="success" type="request" value="processPaymentSettings"/>
         <response name="error" type="view" value="paymentinformation"/>
     </request-map>
 
     <request-map uri="processPaymentSettings">
        <security https="true" auth="false"/>
-       <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>        
+       <event type="bsf" invoke="org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>        
        <response name="success" type="request" value="reviewOrder"/>
        <response name="error" type="view" value="paymentinformation"/>
    </request-map>
@@ -496,42 +496,42 @@ under the License.
     
     <request-map uri="quickAnonEnterCreditCard">
         <security https="true" auth="false"/>
-        <event type="service" path="" invoke="createCreditCard"/>
+        <event type="service" invoke="createCreditCard"/>
         <response name="success" type="request" value="quickAnonAddCreditCardToCart"/>
         <response name="error" type="view" value="quickAnonCcInfo"/>
     </request-map>
     
     <request-map uri="quickAnonAddCreditCardToCart">
        <security https="true" auth="false"/>
-       <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>        
+       <event type="bsf" invoke="org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>        
        <response name="success" type="view" value="quickAnonCcInfo"/>
        <response name="error" type="view" value="quickAnonCcInfo"/>
    </request-map>
     
    <request-map uri="quickAnonEnterEftAccount">
         <security https="true" auth="false"/>
-        <event type="service" path="" invoke="createEftAccount"/>
+        <event type="service" invoke="createEftAccount"/>
         <response name="success" type="request" value="quickAnonAddEftAccountToCart"/>
         <response name="error" type="view" value="quickAnonEftInfo"/>
    </request-map>
     
    <request-map uri="quickAnonAddEftAccountToCart">
        <security https="true" auth="false"/>
-       <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>        
+       <event type="bsf" invoke="org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>        
        <response name="success" type="view" value="quickAnonEftInfo"/>
        <response name="error" type="view" value="quickAnonEftInfo"/>
    </request-map>
     
    <request-map uri="quickAnonEnterExtOffline">
         <security https="true" auth="false"/>
-        <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>        
+        <event type="bsf" invoke="org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>        
         <response name="success" type="view" value="quickAnonOrderReview"/>
         <response name="error" type="view" value="quickAnonOrderReview"/>
    </request-map>
     
    <request-map uri="quickAnonAddGiftCardToCart">
        <security https="true" auth="false"/>
-       <event type="bsf" path="" invoke="org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>        
+       <event type="bsf" invoke="org/ofbiz/ecommerce/order/ProcessPaymentSettings.groovy"/>        
        <response name="success" type="request" value="quickAnonGcInfo"/>
        <response name="error" type="view" value="quickAnonGcInfo"/>
    </request-map>
@@ -921,19 +921,19 @@ under the License.
 
     <request-map uri="createCustomerTaxAuthInfo">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createCustomerTaxAuthInfo"/>
+        <event type="service" invoke="createCustomerTaxAuthInfo"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
     <request-map uri="updateCustomerTaxAuthInfo">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updatePartyTaxAuthInfo"/>
+        <event type="service" invoke="updatePartyTaxAuthInfo"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
     <request-map uri="deleteCustomerTaxAuthInfo">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="deletePartyTaxAuthInfo"/>
+        <event type="service" invoke="deletePartyTaxAuthInfo"/>
         <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="viewprofile"/>
     </request-map>
@@ -1085,13 +1085,13 @@ under the License.
     </request-map>
     <request-map uri="createPerson">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="createPerson"/>
+        <event type="service" invoke="createPerson"/>
         <response name="success" type="view" value="editperson"/>
         <response name="error" type="view" value="editperson"/>
     </request-map>
     <request-map uri="updatePerson">
         <security https="true" auth="true"/>
-        <event type="service" path="" invoke="updatePerson"/>
+        <event type="service" invoke="updatePerson"/>
         <response name="success" type="view" value="editperson"/>
         <response name="error" type="view" value="editperson"/>
     </request-map>
@@ -1267,14 +1267,14 @@ under the License.
     </request-map>
     <request-map uri="createForumMessage">
         <security https="true" auth="true"/>
-        <event invoke="createArticleContent" type="service"/>
+        <event type="service" invoke="createArticleContent"/>
         <response name="success" type="view" value="Showforum"/>
         <response name="error" type="view" value="AddForumThread"/>
     </request-map>
     
     <request-map uri="updateForumMessage">
         <security https="true" auth="true"/>
-        <event invoke="persistContentAndAssoc" type="service"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
         <response name="success" type="view" value="Showforum"/>
         <response name="error" type="view" value="AddForumThread"/>
     </request-map>
@@ -1341,21 +1341,21 @@ under the License.
 
     <request-map uri="persistBlogSummary">
         <security https="false" auth="true"/>
-        <event type="service" path="" invoke="persistContentAndAssoc"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
         <response name="success" type="view" value="EditBlog"/>
         <response name="error" type="view" value="EditBlog"/>
     </request-map>
 
     <request-map uri="persistBlogText">
         <security https="false" auth="true"/>
-        <event type="service" path="" invoke="persistContentAndAssoc"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
         <response name="success" type="view" value="EditBlog"/>
         <response name="error" type="view" value="EditBlog"/>
     </request-map>
 
     <request-map uri="persistBlogImage">
         <security https="false" auth="true"/>
-        <event type="service" path="" invoke="persistContentAndAssoc"/>
+        <event type="service" invoke="persistContentAndAssoc"/>
         <response name="success" type="view" value="EditBlog"/>
         <response name="error" type="view" value="EditBlog"/>
     </request-map>
@@ -1437,13 +1437,13 @@ under the License.
 
     <request-map uri="uploadResponse">
         <security https="true" auth="true"/>
-        <event invoke="persistContentAndAssoc" path="" type="service"/>
+        <event invoke="persistContentAndAssoc" type="service"/>
         <response name="success" type="view" value="showforumresponse"/>
         <response name="error" type="view" value="createforumresponse"/>
     </request-map>
     <request-map uri="persistContent">
         <security auth="true" https="true"/>
-        <event invoke="persistContentAndAssoc" path="" type="service"/>
+        <event invoke="persistContentAndAssoc" type="service"/>
         <response name="success" type="view" value="editforumarticle"/>
         <response name="error" type="view" value="editaddforumdata"/>
     </request-map>
