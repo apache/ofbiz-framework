@@ -813,6 +813,7 @@ margin: 0.5em 0 0.5em 0;
 }
 
 .hidden {
+height: 0;
 visibility: hidden;
 }
 
