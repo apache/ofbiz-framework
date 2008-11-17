@@ -557,25 +557,75 @@ under the License.
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-
     <service name="updateTemporalExpression" default-entity-name="TemporalExpression" engine="entity-auto" invoke="update" auth="true">
         <description>Update a Temporal Expression</description>
         <permission-service service-name="tempExprPermissionCheck" main-action="UPDATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-
     <service name="createTemporalExpressionAssoc" default-entity-name="TemporalExpressionAssoc" engine="entity-auto" invoke="create" auth="true">
         <description>Create a Temporal Expression Association</description>
         <permission-service service-name="tempExprPermissionCheck" main-action="CREATE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-
     <service name="deleteTemporalExpressionAssoc" default-entity-name="TemporalExpressionAssoc" engine="entity-auto" invoke="delete" auth="true">
         <description>Delete a Temporal Expression Association</description>
         <permission-service service-name="tempExprPermissionCheck" main-action="DELETE"/>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
+    <!-- Portal Page Portlet services -->
+    <service name="createPortalPagePortlet" default-entity-name="PortalPagePortlet" engine="simple" auth="true"
+        location="org/ofbiz/common/PortalPageServices.xml" invoke="createPortalPagePortlet">
+        <description>Add a registered PortalPortlet to a PortalPage</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="portletSeqId" mode="OUT" optional="true"/>
+    </service>
+    <service name="updatePortalPagePortlet" default-entity-name="PortalPagePortlet" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a PortalPortlet</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deletePortalPagePortlet" default-entity-name="PortalPagePortlet" engine="entity-auto" invoke="delete" auth="true">
+        <description>Delete a PortalPortlet from a PortalPage</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+    </service>
+
+    <service name="movePortletToPortalPage" default-entity-name="PortalPagePortlet" engine="simple" auth="true"
+        location="org/ofbiz/common/PortalPageServices.xml" invoke="movePortletToPortalPage">
+        <description>Move a PortalPortlet from the actual portalPage to a different one</description>
+        <attribute name="portalPageId" type="String" mode="IN" optional="false"/>
+        <attribute name="portalPortletId" type="String" mode="IN" optional="false"/>
+        <attribute name="portletSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="newPortalPageId" type="String" mode="IN" optional="false"/>
+    </service>
+
+    <!-- Portal Page services -->
+    <service name="createPortalPage" default-entity-name="PortalPage" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Portal Page</description>
+        <auto-attributes include="pk" mode="OUT" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="updatePortalPage" default-entity-name="PortalPage" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Portal Page</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- PortletAttribute services -->
+    <service name="createPortletAttribute" default-entity-name="PortletAttribute" engine="entity-auto" invoke="create" auth="true">
+        <description>Create a new Portlet Attribute</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="getPortletAttributes" engine="simple" auth="true"
+        location="org/ofbiz/common/PortalPageServices.xml" invoke="getPortletAttributes">
+        <description>Get all attributes of a Portlet</description>
+        <attribute name="portalPageId" type="String" mode="IN" optional="false"/>
+        <attribute name="portalPortletId" type="String" mode="IN" optional="false"/>
+        <attribute name="portletSeqId" type="String" mode="IN" optional="false"/>
+        <attribute name="attributeMap" type="Map" mode="OUT" optional="true"/>
+    </service>
 </services>

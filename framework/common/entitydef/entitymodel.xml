@@ -550,4 +550,82 @@ under the License.
       </relation>
     </entity>
 
+    <!-- ============================ -->
+    <!-- org.ofbiz.common.portal -->
+    <!-- ============================ -->
+
+    <entity entity-name="PortalPortlet" package-name="org.ofbiz.common.portal" title="Defines a Portlet to be used in Portals">
+        <field name="portalPortletId" type="id-ne"></field>
+        <field name="portletName" type="name"></field>
+        <field name="screenName" type="long-varchar"></field>
+        <field name="screenLocation" type="long-varchar"></field>
+        <field name="editFormName" type="long-varchar"></field>
+        <field name="editFormLocation" type="long-varchar"></field>
+        <field name="description" type="description"></field>
+        <field name="screenshot" type="url"></field>
+        <prim-key field="portalPortletId"/>
+    </entity>
+    <entity entity-name="PortalPage" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
+        <field name="portalPageId" type="id-ne"></field>
+        <field name="portalName" type="name"></field>
+        <field name="description" type="description"></field>
+        <field name="ownerUserLoginId" type="id"></field>
+        <field name="sequenceNum" type="numeric"></field>
+        <prim-key field="portalPageId"/>
+    </entity>
+    <entity entity-name="PortalPageColumn" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
+        <field name="portalPageId" type="id-ne"></field>
+        <field name="columnSeqId" type="id-ne"></field>
+        <field name="columnWidthPixels" type="numeric"></field>
+        <field name="columnWidthPercentage" type="numeric"></field>
+        <prim-key field="portalPageId"/>
+        <prim-key field="columnSeqId"/>
+        <relation type="one" fk-name="PRTL_PGCOL_PAGE" rel-entity-name="PortalPage">
+            <key-map field-name="portalPageId"/>
+        </relation>
+    </entity>
+    <entity entity-name="PortalPagePortlet" package-name="org.ofbiz.common.portal" title="Defines Portlets included into Portal Pages">
+        <field name="portalPageId" type="id-ne"></field>
+        <field name="portalPortletId" type="id-ne"></field>
+        <field name="portletSeqId" type="id-ne"><description>Identify the portalPortlet instance in case more copy of the same portalPortlet are present in the same portalPage</description></field>
+        <field name="columnSeqId" type="id-ne"></field>
+        <field name="sequenceNum" type="numeric"></field>
+        <prim-key field="portalPageId"/>
+        <prim-key field="portalPortletId"/>
+        <prim-key field="portletSeqId"/>
+        <relation type="one" fk-name="PRTL_PGPTLT_PAGE" rel-entity-name="PortalPage">
+            <key-map field-name="portalPageId"/>
+        </relation>
+        <relation type="one" fk-name="PRTL_PGPTLT_PTLT" rel-entity-name="PortalPortlet">
+            <key-map field-name="portalPortletId"/>
+        </relation>
+        <relation type="one-nofk" rel-entity-name="PortalPageColumn">
+            <key-map field-name="portalPageId"/>
+            <key-map field-name="columnSeqId"/>
+        </relation>
+    </entity>
+    <view-entity entity-name="PortalPagePortletView" package-name="org.ofbiz.common.portal" title="View entity to have all Portal and Portlet information">
+        <member-entity entity-alias="PPGPTLT" entity-name="PortalPagePortlet"/>
+        <member-entity entity-alias="PTLT" entity-name="PortalPortlet"/>
+        <alias-all entity-alias="PPGPTLT"/>
+        <alias-all entity-alias="PTLT"/>
+        <view-link entity-alias="PPGPTLT" rel-entity-alias="PTLT">
+            <key-map field-name="portalPortletId"/>
+        </view-link>
+    </view-entity>
+    <entity entity-name="PortletAttribute" package-name="org.ofbiz.common.portal" title="Product Attribute Entity">
+        <field name="portalPageId" type="id-ne"></field>
+        <field name="portalPortletId" type="id-ne"></field>
+        <field name="portletSeqId" type="id-ne"></field>
+        <field name="attrName" type="id-long-ne"></field>
+        <field name="attrValue" type="value"></field>
+        <field name="attrType" type="value"></field>
+        <prim-key field="portalPageId"/>
+        <prim-key field="portalPortletId"/>
+        <prim-key field="portletSeqId"/>
+        <prim-key field="attrName"/>
+        <relation type="one" fk-name="PTLT_ATTR_PTLT" rel-entity-name="PortalPortlet">
+            <key-map field-name="portalPortletId"/>
+        </relation>
+    </entity>
 </entitymodel>

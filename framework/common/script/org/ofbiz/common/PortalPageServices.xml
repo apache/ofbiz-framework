@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
+
+    <simple-method method-name="movePortletToPortalPage" short-description="Moves a PortalPortlet from the actual portalPage to a different one">
+        <entity-one entity-name="PortalPagePortlet" value-name="oldEntity" auto-field-map="true"/>
+        <check-errors/>
+
+        <make-value value-name="newEntity" entity-name="PortalPagePortlet"/>
+        <set field="newEntity.portalPortletId" from-field="parameters.portalPortletId"/>
+        <set field="newEntity.portalPageId" from-field="parameters.newPortalPageId"/>
+        <set field="newEntity.columnNum" value="1"/>
+        <make-next-seq-id value-name="newEntity" seq-field-name="portletSeqId"/>
+
+        <create-value value-name="newEntity"/>
+        <check-errors/>
+
+        <remove-value value-name="oldEntity"/>
+        <check-errors/>
+    </simple-method>
+
+    <simple-method method-name="createPortalPagePortlet" short-description="Add a registered PortalPortlet to a PortalPage">
+        <make-value entity-name="PortalPagePortlet" value-name="newEntity"/>
+        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <make-next-seq-id value-name="newEntity" seq-field-name="portletSeqId"/>
+        <field-to-result field-name="newEntity.portletSeqId" result-name="portletSeqId"/>
+        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <create-value value-name="newEntity"/>  
+    </simple-method>
+    
+    <simple-method method-name="getPortletAttributes" short-description="Get all attributes of a Portlet" login-required="true">
+        <entity-and entity-name="PortletAttribute" list-name="attributeList">
+            <field-map field-name="portalPageId" env-name="parameters.portalPageId"/>
+            <field-map field-name="portalPortletId" env-name="parameters.portalPortletId"/>
+            <field-map field-name="portletSeqId" env-name="parameters.portletSeqId"/>
+        </entity-and>
+        <iterate list-name="attributeList" entry-name="attributeRecord">
+            <set field="attributeMap.${attributeRecord.attrName}" from-field="attributeRecord.attrValue"/>
+        </iterate>
+        <field-to-result field-name="attributeMap" result-name="attributeMap"/>
+    </simple-method>
+    
+</simple-methods>

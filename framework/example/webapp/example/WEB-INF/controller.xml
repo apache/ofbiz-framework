@@ -24,7 +24,8 @@ under the License.
          can be found in the following xml file. A component can override the
          elements found in the common-controller.xml file. -->
     <include location="component://common/webcommon/WEB-INF/common-controller.xml"/>    
-
+    <include location="component://common/webcommon/WEB-INF/portal-controller.xml"/>    
+    
     <description>Example Component Site Configuration File</description>
     <owner>Copyright 2001-2008 The Apache Software Foundation</owner>
 

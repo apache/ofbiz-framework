@@ -26,6 +26,8 @@ under the License.
         <menu-item name="ExampleFeature" title="${uiLabelMap.ExampleFeature}"><link target="FindExampleFeature"/></menu-item>
         <menu-item name="FormWidgetExamples" title="${uiLabelMap.ExampleFormWidgetExamples}"><link target="FormWidgetExamples"/></menu-item>
         <menu-item name="AjaxExample" title="Ajax Examples"><link target="authview/findExampleAjax"/></menu-item>
+        <!-- Right Side Items -->
+        <menu-item name="Dashboard" title="Dashboard" align-style="opposed"><link target="dashboard"/></menu-item>
     </menu>
 
     <menu name="EditExample" default-selected-style="selected" type="simple"
