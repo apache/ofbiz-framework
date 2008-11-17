@@ -3003,6 +3003,9 @@
         <value xml:lang="th">ย้อนกลับ</value>
         <value xml:lang="zh">重新操作</value>
     </property>
+    <property key="EcommerceRegister">
+        <value xml:lang="en">Register</value>
+    </property>
     <property key="EcommerceRemoveSelected">
         <value xml:lang="cs">Zrušit výběr</value>
         <value xml:lang="de">Ausgewählte Artikel entfernen</value>
