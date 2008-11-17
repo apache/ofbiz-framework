@@ -94,7 +94,7 @@ under the License.
         <div>
           <select name="shipToCountryGeoId" id="shipToCountryGeoId">
             <#if shipToCountryGeoId??>
-              <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryProvinceGeoId!)}</option>
+              <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryGeoId!)}</option>
             </#if>
             ${screens.render("component://common/widget/CommonScreens.xml#countries")}
           </select>

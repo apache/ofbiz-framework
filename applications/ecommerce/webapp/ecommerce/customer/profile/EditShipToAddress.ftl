@@ -56,7 +56,7 @@ under the License.
       <span>
         <select name="countryGeoId" id="shipToCountryGeoId" class="left required" style="width: 70%">
           <#if shipToCountryGeoId??>
-            <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryProvinceGeoId!)}</option>
+            <option value="${shipToCountryGeoId!}">${shipToCountryProvinceGeo!(shipToCountryGeoId!)}</option>
           </#if>
           ${screens.render("component://common/widget/CommonScreens.xml#countries")}
         </select>
