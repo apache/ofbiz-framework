@@ -21,8 +21,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">      
 
-    <menu name="RequestTabBar"  default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"
-        menu-container-style="button-bar tab-bar">
+    <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewRequest" title="Overview" >
             <link target="ViewRequest?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
@@ -39,6 +38,7 @@ under the License.
             <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
     </menu>
+
     <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
         <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">
             <link target="request"/>
@@ -48,8 +48,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="editrequestitemmenu" default-selected-style="selected" type="simple"
-        menu-container-style="button-bar tab-bar">
+    <menu name="editrequestitemmenu" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="requestitem">
             <link id="requestitem" target="requestitem?custRequestId=${custRequest.custRequestId}&amp;custRequestItemSeqId=${custRequestItem.custRequestItemSeqId}"/>
         </menu-item>

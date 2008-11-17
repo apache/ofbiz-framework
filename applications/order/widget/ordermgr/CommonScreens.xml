@@ -43,7 +43,8 @@ under the License.
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
                 <set field="activeApp" value="ordermgr" global="true"/>
-                <set field="appheaderTemplate" value="component://order/webapp/ordermgr/includes/appheader.ftl" global="true"/>
+                <set field="applicationMenuName" value="OrderAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://order/widget/ordermgr/Menus.xml" global="true"/>
 
                 <!-- globally parametrize the link to a customer's detail information, to help with cases when such details are accessed via external application. -->
                 <set field="customerDetailLink" value="/partymgr/control/viewprofile?partyId=" global="true"/>
@@ -96,9 +97,14 @@ under the License.
                                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/quote/QuoteTabBar.ftl"/></html>
-                                </platform-specific>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="quote"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
+                                    </widgets>
+                                </section>
                                 <container>
                                     <label style="h1">[${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
                                 </container>
@@ -127,9 +133,14 @@ under the License.
                                 <if-has-permission permission="ORDERMGR" action="_QUOTE_PRICE"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/quote/QuoteTabBar.ftl"/></html>
-                                </platform-specific>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="quote"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="QuoteTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
+                                    </widgets>
+                                </section>
                                 <container>
                                     <label style="h1">[${uiLabelMap.CommonId}:${quote.quoteId}] ${quote.description}</label>
                                 </container>
