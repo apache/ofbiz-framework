@@ -31,9 +31,12 @@ under the License.
                                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/requirement/RequirementTabBar.ftl"/></html>
-                                </platform-specific>
+                                <section>
+                                    <condition><not><if-empty field-name="requirement"/></not></condition>
+                                    <widgets>
+                                        <include-menu name="RequirementTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
+                                    </widgets>
+                                </section>
                                 <container>
                                     <label style="h1">${uiLabelMap.OrderRequirement} [${requirementId}]</label>
                                 </container>
@@ -61,9 +64,7 @@ under the License.
                                 <if-has-permission permission="ORDERMGR" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://order/webapp/ordermgr/requirement/RequirementsTabBar.ftl"/></html>
-                                </platform-specific>
+                                <include-menu name="RequirementsTabBar" location="component://order/widget/ordermgr/Menus.xml"/>
                                 <container>
                                     <link target="EditRequirement" text="${uiLabelMap.OrderNewRequirement}" style="buttontext"/>
                                 </container>
