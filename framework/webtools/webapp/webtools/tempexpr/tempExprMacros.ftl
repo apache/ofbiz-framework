@@ -129,7 +129,7 @@ your template file:
   </tr>
 </#macro>
 
-<#macro TimeOfDayRange fromTime="" toTime="">
+<#macro TimeOfDayRange fromTime="" toTime="" freqType=11 freqValue=1>
   <tr>
     <td class="label">${uiLabelMap.CommonFrom}</td>
     <td><input type="text" name="string1" value="${fromTime}" maxlength="8" size="8"/><span class="tooltip">${uiLabelMap.TemporalExpressionTimeFormat}</span></td>
@@ -137,5 +137,19 @@ your template file:
   <tr>
     <td class="label">${uiLabelMap.CommonTo}</td>
     <td><input type="text" name="string2" value="${toTime}" maxlength="8" size="8"/><span class="tooltip">${uiLabelMap.TemporalExpressionTimeFormat}</span></td>
+  </tr>
+  <tr>
+    <td class="label">${uiLabelMap.TemporalExpressionFreqType}</td>
+    <td>
+      <select name="integer1">
+        <option value="13"<#if freqType == 13> selected="selected"</#if>>${uiLabelMap.CommonSecond}</option>
+        <option value="12"<#if freqType == 12> selected="selected"</#if>>${uiLabelMap.CommonMinute}</option>
+        <option value="11"<#if freqType == 11> selected="selected"</#if>>${uiLabelMap.CommonHour}</option>
+      </select>
+    </td>
+  </tr>
+  <tr>
+    <td class="label">${uiLabelMap.TemporalExpressionFreqCount}</td>
+    <td><input type="text" name="integer2" value="${freqValue}" maxlength="8" size="8"/></td>
   </tr>
 </#macro>

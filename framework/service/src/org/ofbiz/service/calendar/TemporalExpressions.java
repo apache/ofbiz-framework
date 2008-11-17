@@ -429,6 +429,8 @@ public class TemporalExpressions implements Serializable {
     public static class TimeOfDayRange extends TemporalExpression {
         protected final String startStr;
         protected final String endStr;
+        protected final int interval;
+        protected final int count;
         protected final int startSecs;
         protected final int startMins;
         protected final int startHrs;
@@ -439,16 +441,27 @@ public class TemporalExpressions implements Serializable {
         /**
          * @param start A time String in the form of hh:mm:ss (24 hr clock)
          * @param end A time String in the form of hh:mm:ss (24 hr clock)
+         * @param interval The range interval - must be one of <code>
+         * Calendar.SECOND Calendar.MINUTE Calendar.HOUR_OF_DAY</code>
+         * @param count The interval count - must be greater than zero
          */
-        public TimeOfDayRange(String start, String end) {
+        public TimeOfDayRange(String start, String end, int interval, int count) {
             if (start == null || start.length() == 0) {
                 throw new IllegalArgumentException("start argument cannot be null or empty");
             }
             if (end == null || end.length() == 0) {
                 throw new IllegalArgumentException("end argument cannot be null or empty");
             }
+            if (interval != Calendar.SECOND && interval != Calendar.MINUTE && interval != Calendar.HOUR_OF_DAY) {
+                throw new IllegalArgumentException("invalid interval argument");
+            }
+            if (count < 1) {
+                throw new IllegalArgumentException("invalid count argument");
+            }
             this.startStr = start;
             this.endStr = end;
+            this.interval = interval;
+            this.count = count;
             String strArray[] = this.startStr.split(":");
             if (strArray.length == 0 || strArray.length > 3) {
                 throw new IllegalArgumentException("Invalid start time argument");
@@ -488,14 +501,19 @@ public class TemporalExpressions implements Serializable {
         }
 
         public String toString() {
-            return super.toString() + ", start = " + this.startStr + ", end = " + this.endStr;
+            return super.toString() + ", start = " + this.startStr + ", end = " + this.endStr
+            + ", interval = " + this.interval + ", count = " + this.count;
         }
 
         public boolean includesDate(Calendar cal) {
             long millis = cal.getTimeInMillis();
             Calendar startCal = setStart(cal);
+            Calendar endCal = setEnd(startCal);
+            if (endCal.before(startCal)) {
+                endCal.add(Calendar.DAY_OF_MONTH, 1);
+            }
             long startMillis = startCal.getTimeInMillis();
-            long endMillis = setEnd(startCal).getTimeInMillis();
+            long endMillis = endCal.getTimeInMillis();
             return millis >= startMillis && millis <= endMillis;
         }
 
@@ -503,11 +521,24 @@ public class TemporalExpressions implements Serializable {
             if (includesDate(cal)) {
                 return cal;
             }
-            return setStart(cal);
+            return next(cal);
         }
 
         public Calendar next(Calendar cal) {
-            return first(cal);
+            Calendar next = (Calendar) cal.clone();
+            next.add(this.interval, this.count);
+            if (!includesDate(next)) {
+                Calendar last = next;
+                next = setStart(next);
+                if (next.before(last)) {
+                    next.add(Calendar.DAY_OF_MONTH, 1);
+                }
+            }
+            return next;
+        }
+
+        public int getCount() {
+            return this.count;
         }
 
         public int getEndHours() {
@@ -520,6 +551,10 @@ public class TemporalExpressions implements Serializable {
 
         public int getEndSecs() {
             return this.endSecs;
+        }
+
+        public int getInterval() {
+            return this.interval;
         }
 
         public int getStartHours() {
@@ -538,33 +573,21 @@ public class TemporalExpressions implements Serializable {
             visitor.visit(this);
         }
 
-        protected Calendar advanceCalendar(Calendar cal, int hrs, int mins, int secs) {
-            Calendar advance = (Calendar) cal.clone();
-            advance.set(Calendar.MILLISECOND, 0);
-            int adjust = secs - advance.get(Calendar.SECOND);
-            if (adjust < 0) {
-                adjust += 60;
-            }
-            advance.add(Calendar.SECOND, adjust);
-            adjust = mins - advance.get(Calendar.MINUTE);
-            if (adjust < 0) {
-                adjust += 60;
-            }
-            advance.add(Calendar.MINUTE, adjust);
-            adjust = hrs - advance.get(Calendar.HOUR_OF_DAY);
-            if (adjust < 0) {
-                adjust += 24;
-            }
-            advance.add(Calendar.HOUR_OF_DAY, adjust);
-            return advance;
+        protected Calendar setCalendar(Calendar cal, int hrs, int mins, int secs) {
+            Calendar newCal = (Calendar) cal.clone();
+            newCal.set(Calendar.MILLISECOND, 0);
+            newCal.set(Calendar.SECOND, secs);
+            newCal.set(Calendar.MINUTE, mins);
+            newCal.set(Calendar.HOUR_OF_DAY, hrs);
+            return newCal;
         }
 
         protected Calendar setStart(Calendar cal) {
-            return advanceCalendar(cal, this.startHrs, this.startMins, this.startSecs);
+            return setCalendar(cal, this.startHrs, this.startMins, this.startSecs);
         }
 
         protected Calendar setEnd(Calendar cal) {
-            return advanceCalendar(cal, this.endHrs, this.endMins, this.endSecs);
+            return setCalendar(cal, this.endHrs, this.endMins, this.endSecs);
         }
     }
 
