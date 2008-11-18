@@ -7,7 +7,7 @@ syntax: regexp
 ^runtime/(catalina/work|logs/test-results)/.*$
 ^debian/(EncryptPassword.class|files)$
 ^debian/stamps/.*$
-^debian/ofbiz(|-specialpurpose)/.*
-^debian/ofbiz(|-specialpurpose)\.debhelper\.log$
-^debian/ofbiz(|-specialpurpose)\.(pre|post)(inst|rm)\.debhelper$
-^debian/ofbiz(|-specialpurpose)\.substvars$
+^debian/ofbiz(|-(framework|applications|specialpurpose))/.*
+^debian/ofbiz(|-(framework|applications|specialpurpose))\.debhelper\.log$
+^debian/ofbiz(|-(framework|applications|specialpurpose))\.(pre|post)(inst|rm)\.debhelper$
+^debian/ofbiz(|-(framework|applications|specialpurpose))\.substvars$
