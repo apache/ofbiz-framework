@@ -3553,7 +3553,7 @@
     <property key="EcommerceToOrderCreateCustRequestFromCart">
         <value xml:lang="de">um einen Auftrag zu erstellen machen Sie eine Anfrage über den Warenkorb</value>
         <value xml:lang="en">To Order Create CustRequest From Cart</value>
-        <value xml:lang="es">Para crear un pedido de cotización</value>
+        <value xml:lang="es">Para pedir genere una petición desde el carro de compra</value>
         <value xml:lang="fr">pour créer une commande faites une demande depuis le panier</value>
         <value xml:lang="hi_IN">कोट उत्पन्न करने के लिए आग्रह</value>
         <value xml:lang="it">Per creare una richesta di preventivo per il carrello</value>

@@ -173,7 +173,7 @@
     </property>
     <property key="WorkEffortPurposeType.description.WEPT_PRODUCTION_RUN">
         <value xml:lang="en">Production Run</value>
-        <value xml:lang="es">Corrida de producción</value>
+        <value xml:lang="es">Orden de producción</value>
         <value xml:lang="it">Ciclo Produzione</value>
         <value xml:lang="ro">Ciclu Productie</value>
         <value xml:lang="ru">Производственный прогон</value>

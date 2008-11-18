@@ -108,6 +108,18 @@
         <value xml:lang="ru">Группа 'Демо администратор', содержит все права на просмотр.</value>
         <value xml:lang="th">ตัวอย่างกลุ่มผู้ดูแลระบบ, มีการอนุญาตการแสดงทั้งหมด</value>
     </property>
+    <property key="SecurityGroup.description.SECURITYADMIN">
+        <value xml:lang="en">Security Admin group, has all permissions to modify security settings in party manager.</value>
+        <value xml:lang="es">Grupo de administradores de seguridad, tiene todos los permisos para modificar ajustes de seguridad en el gestor de participantes.</value>
+    </property>
+    <property key="SecurityGroup.description.CONTENT_USER">
+        <value xml:lang="en">Content user group; all limited content permissions.</value>
+        <value xml:lang="es">Grupo de usuarios de contenidos; todos los permisos de contenido limitados</value>
+    </property>
+    <property key="SecurityGroup.description.WORKEFFORT_USER">
+        <value xml:lang="en">WorkEffort user group; all limited workeffort permissions.</value>
+        <value xml:lang="es">Grupo de usuarios de esfuerzos de trabajo; todos los permisos de esfuerzo de trabajo limitados</value>
+    </property>
     <property key="SecurityPermission description.ENTITY_SYNC_ADMIN">
         <value xml:lang="en">Use the Entity Sync Admin pages.</value>
         <value xml:lang="es">Usar las páginas de Administración de Sincronización de Entidad.</value>

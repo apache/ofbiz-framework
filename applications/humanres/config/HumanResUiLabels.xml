@@ -503,6 +503,7 @@
     </property>
     <property key="HumanResEmployees">
         <value xml:lang="en">Employees</value>
+        <value xml:lang="es">Empleados</value>
     </property>
     <property key="HumanResEmplLeaveType">
         <value xml:lang="en">Employee Leave Type</value>
@@ -552,6 +553,7 @@
     </property>
     <property key="HumanResEmploymentApp">
         <value xml:lang="en">Employment Applications</value>
+        <value xml:lang="es">Aplicaciones de Empleo</value>
         <value xml:lang="fr">Demandes d'emploi</value>
         <value xml:lang="it">Applicazione Impiegato</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจ้างงาน</value>
@@ -846,6 +848,7 @@
     </property>
     <property key="HumanResPartyResume">
         <value xml:lang="en">Resumes</value>
+        <value xml:lang="es">Resúmenes</value>
         <value xml:lang="fr">CV</value>
     </property>
     <property key="HumanResPartyReview">
@@ -998,6 +1001,7 @@
     </property>
     <property key="HumanResTraining">
         <value xml:lang="en">Trainings</value>
+        <value xml:lang="es">Entrenamiento</value>
         <value xml:lang="fr">Formation</value>
     </property>
     <property key="HumanResViewPermissionError">

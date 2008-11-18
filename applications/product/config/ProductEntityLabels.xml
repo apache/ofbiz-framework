@@ -21,6 +21,7 @@
     <property key="CostComponentType.description.ACTUAL_LABOR_COST">
         <value xml:lang="de">Effektive Arbeitskosten</value>
         <value xml:lang="en">Actual Labor Cost</value>
+        <value xml:lang="es">Coste de mano de obra actual</value>
         <value xml:lang="it">Costo Attuale Manodopera</value>
         <value xml:lang="ro">Cost Actual Manopera</value>
         <value xml:lang="ru">Действительные трудозатраты</value>
@@ -30,6 +31,7 @@
     <property key="CostComponentType.description.ACTUAL_MAT_COST">
         <value xml:lang="de">Effektive Materialkosten</value>
         <value xml:lang="en">Actual Materials Cost</value>
+        <value xml:lang="es">Coste de material actual</value>
         <value xml:lang="it">Costo Attuale Materiali</value>
         <value xml:lang="ro">Cost Actual Materiale</value>
         <value xml:lang="ru">Действительная стоимость материалов</value>
@@ -39,6 +41,7 @@
     <property key="CostComponentType.description.ACTUAL_OTHER_COST">
         <value xml:lang="de">Effektive andere Kosten</value>
         <value xml:lang="en">Actual Other Cost</value>
+        <value xml:lang="es">Otro coste actual</value>
         <value xml:lang="it">Altro Costo Attuale</value>
         <value xml:lang="ro">Alt Cost Actual</value>
         <value xml:lang="ru">Другие действительные затраты</value>
@@ -48,6 +51,7 @@
     <property key="CostComponentType.description.ACTUAL_ROUTE_COST">
         <value xml:lang="de">Effektive Wegkosten (Anlageverwendung)</value>
         <value xml:lang="en">Actual Route (fixed asset usage) Cost</value>
+        <value xml:lang="es">Coste de ruta actual (uso de activo fijo)</value>
         <value xml:lang="it">Costo Attuale Itinerario (uso cespiti)</value>
         <value xml:lang="ro">Cost Actual Itinerariu (folosire mijloace fixe)</value>
         <value xml:lang="ru">Действительная стоимость передачи (использование ОФ)</value>
@@ -57,6 +61,7 @@
     <property key="CostComponentType.description.ESTIMATED_LABOR_COST">
         <value xml:lang="de">Geschätzte Arbeitskosten</value>
         <value xml:lang="en">ESTIMATED_LABOR_COST</value>
+        <value xml:lang="es">Coste estimado de mano de obra</value>
         <value xml:lang="es">Labor estimada</value>
         <value xml:lang="th">ต้นทุนแรงงานโดยประมาณ</value>
     </property>
@@ -69,12 +74,13 @@
     <property key="CostComponentType.description.ESTIMATED_OTHER_COST">
         <value xml:lang="de">Geschätzte andere Kosten</value>
         <value xml:lang="en">ESTIMATED_OTHER_COST</value>
-        <value xml:lang="es">Otros estimados</value>
+        <value xml:lang="es">Otros costes estimados</value>
         <value xml:lang="th">ต้นทุนอื่น ๆ โดยประมาณ</value>
     </property>
     <property key="CostComponentType.description.EST_STD_LABOR_COST">
         <value xml:lang="de">Geschätzte Standard-Arbeitskosten</value>
         <value xml:lang="en">Estimated Standard Labor Cost</value>
+        <value xml:lang="es">Coste estimado estándar de mano de obra</value>
         <value xml:lang="fr">Travail estimé</value>
         <value xml:lang="it">Costo Standard Manodopera Stimata</value>
         <value xml:lang="ro">Cost Standard Manopera Stimata</value>
@@ -85,6 +91,7 @@
     <property key="CostComponentType.description.EST_STD_MAT_COST">
         <value xml:lang="de">Geschätzte Standard-Materialkosten</value>
         <value xml:lang="en">Estimated Standard Materials Cost</value>
+        <value xml:lang="es">Coste estimado estándar de materiales</value>
         <value xml:lang="fr">Matériels estimés</value>
         <value xml:lang="it">Costo Standard Materiali Stimati</value>
         <value xml:lang="ro">Cost Standard Materiale Stimate</value>
@@ -95,6 +102,7 @@
     <property key="CostComponentType.description.EST_STD_OTHER_COST">
         <value xml:lang="de">Geschätzte Standard andere Kosten</value>
         <value xml:lang="en">Estimated Standard Other Cost</value>
+        <value xml:lang="es">Otro coste estimado estándar</value>
         <value xml:lang="fr">Autre estimation</value>
         <value xml:lang="it">Altro Costo Standard Stimato</value>
         <value xml:lang="ro">Alt Cost Standard Stimat</value>
@@ -105,6 +113,7 @@
     <property key="CostComponentType.description.EST_STD_ROUTE_COST">
         <value xml:lang="de">Geschätzte Wegkosten (Anlageverwendung)</value>
         <value xml:lang="en">Estimated Standard Route (fixed asset usage) Cost</value>
+        <value xml:lang="es">Coste estimado estándar de ruta (uso de activo fijo)</value>
         <value xml:lang="fr">Estimated Standard Route (fixed asset usage) Cost</value>
         <value xml:lang="it">Costo Standard Itinerario Stiamto (uso cespiti)</value>
         <value xml:lang="ro">Cost Standard Itinerariu Stimat (folosire mijloace fixe)</value>
@@ -115,6 +124,7 @@
     <property key="CostComponentType.description.LABOR_COST">
         <value xml:lang="de">Arbeitskosten</value>
         <value xml:lang="en">Labor Cost</value>
+        <value xml:lang="es">Coste de mano de obra</value>
         <value xml:lang="it">Costo Manodopera</value>
         <value xml:lang="ro">Cost Manopera</value>
         <value xml:lang="ru">Трудозатраты</value>
@@ -124,6 +134,7 @@
     <property key="CostComponentType.description.MAT_COST">
         <value xml:lang="de">Materialkosten</value>
         <value xml:lang="en">Materials Cost</value>
+        <value xml:lang="es">Coste de material</value>
         <value xml:lang="it">Costo Materiali</value>
         <value xml:lang="ro">Cost Materiale</value>
         <value xml:lang="ru">Стоимость материалов</value>
@@ -133,6 +144,7 @@
     <property key="CostComponentType.description.OTHER_COST">
         <value xml:lang="de">Andere Kosten</value>
         <value xml:lang="en">Other Cost</value>
+        <value xml:lang="es">Otro coste</value>
         <value xml:lang="it">Altro Costo</value>
         <value xml:lang="ro">Alte Costuri</value>
         <value xml:lang="ru">Другие затраты</value>
@@ -142,6 +154,7 @@
     <property key="CostComponentType.description.ROUTE_COST">
         <value xml:lang="de">Wegkosten (Anlageverwendung)</value>
         <value xml:lang="en">Route (fixed asset usage) Cost</value>
+        <value xml:lang="es">Coste de ruta (uso de activo fijo)</value>
         <value xml:lang="it">Costo Itinerario (uso cespiti)</value>
         <value xml:lang="ro">Cost Itinerariu (folosire mijloace fixe)</value>
         <value xml:lang="ru">Стоимость передачи (использование ОФ)</value>
@@ -151,6 +164,7 @@
     <property key="FacilityGroupType.description.MGMT_STRUCTURE">
         <value xml:lang="de">Verwaltungsstruktur</value>
         <value xml:lang="en">Management Structure</value>
+        <value xml:lang="es">Estructura de gestión</value>
         <value xml:lang="fr">Management Structure</value>
         <value xml:lang="it">Gestione Struttura</value>
         <value xml:lang="ro">Gestiune Structura</value>
@@ -161,6 +175,7 @@
     <property key="FacilityGroupType.description.PRICING_GROUP">
         <value xml:lang="de">Preisgruppe</value>
         <value xml:lang="en">Pricing Group</value>
+        <value xml:lang="es">Grupo de precio</value>
         <value xml:lang="fr">Groupe de prix</value>
         <value xml:lang="it">Gruppo Prezzo</value>
         <value xml:lang="ro">Grup Pret</value>
@@ -171,6 +186,7 @@
     <property key="FacilityType.description.BUILDING">
         <value xml:lang="de">Gebäude</value>
         <value xml:lang="en">Building</value>
+        <value xml:lang="es">Inmueble</value>
         <value xml:lang="fr">Immeuble</value>
         <value xml:lang="it">Palazzo</value>
         <value xml:lang="ro">Bloc</value>
@@ -181,6 +197,7 @@
     <property key="FacilityType.description.CALL_CENTER">
         <value xml:lang="de">Callcenter</value>
         <value xml:lang="en">Call Center</value>
+        <value xml:lang="es">Call Center</value>
         <value xml:lang="fr">Centre d'appel</value>
         <value xml:lang="it">Call Center</value>
         <value xml:lang="ro">Call Center</value>
@@ -191,6 +208,7 @@
     <property key="FacilityType.description.FLOOR">
         <value xml:lang="de">Stockwerk</value>
         <value xml:lang="en">Floor</value>
+        <value xml:lang="es">Planta</value>
         <value xml:lang="fr">Étage</value>
         <value xml:lang="it">Piano</value>
         <value xml:lang="ro">Etaj</value>
@@ -201,6 +219,7 @@
     <property key="FacilityType.description.OFFICE">
         <value xml:lang="de">Büro</value>
         <value xml:lang="en">Office</value>
+        <value xml:lang="es">Oficina</value>
         <value xml:lang="fr">Bureau</value>
         <value xml:lang="it">Ufficio</value>
         <value xml:lang="ro">Uficiu</value>
@@ -211,6 +230,7 @@
     <property key="FacilityType.description.PLANT">
         <value xml:lang="de">Fabrik</value>
         <value xml:lang="en">Plant</value>
+        <value xml:lang="es">Fábrica</value>
         <value xml:lang="fr">Usine</value>
         <value xml:lang="it">Fabbrica</value>
         <value xml:lang="ro">Fabrica</value>
@@ -221,6 +241,7 @@
     <property key="FacilityType.description.RETAIL_STORE">
         <value xml:lang="de">Einzelhandelsgeschäft</value>
         <value xml:lang="en">Retail Store</value>
+        <value xml:lang="es">Tienda de venta al por menor</value>
         <value xml:lang="fr">Magasin de vente</value>
         <value xml:lang="it">Negozio al Dettagio</value>
         <value xml:lang="ro">Magazin la Detaliu</value>
@@ -231,6 +252,7 @@
     <property key="FacilityType.description.ROOM">
         <value xml:lang="de">Raum</value>
         <value xml:lang="en">Room</value>
+        <value xml:lang="es">Habitación</value>
         <value xml:lang="fr">Salle</value>
         <value xml:lang="it">Stanza</value>
         <value xml:lang="ro">Camera</value>
@@ -241,6 +263,7 @@
     <property key="FacilityType.description.WAREHOUSE">
         <value xml:lang="de">Warenlager</value>
         <value xml:lang="en">Warehouse</value>
+        <value xml:lang="es">Almacén</value>
         <value xml:lang="fr">Entrepôt</value>
         <value xml:lang="it">Magazzino</value>
         <value xml:lang="ro">Magazin</value>
@@ -251,6 +274,7 @@
     <property key="GoodIdentificationType.description.ISBN">
         <value xml:lang="de">ISBN</value>
         <value xml:lang="en">ISBN</value>
+        <value xml:lang="es">ISBN</value>
         <value xml:lang="fr">ISBN</value>
         <value xml:lang="it">ISBN</value>
         <value xml:lang="ro">ISBN</value>
@@ -261,6 +285,7 @@
     <property key="GoodIdentificationType.description.MANUFACTURER_ID_NO">
         <value xml:lang="de">Hersteller (Modell) Nummer</value>
         <value xml:lang="en">Manufacturer (Model) Number</value>
+        <value xml:lang="es">Número de modelo del fabricante</value>
         <value xml:lang="fr">N° du fabricant</value>
         <value xml:lang="it">Numero (Modello) Produttore</value>
         <value xml:lang="ro">Numar (Model) Productor</value>
@@ -271,6 +296,7 @@
     <property key="GoodIdentificationType.description.MODEL_YEAR">
         <value xml:lang="de">Modelljahr</value>
         <value xml:lang="en">Model Year</value>
+        <value xml:lang="es">Año del modelo</value>
         <value xml:lang="fr">Année modèle</value>
         <value xml:lang="it">Anno Modello</value>
         <value xml:lang="ro">An Model</value>
@@ -281,6 +307,7 @@
     <property key="GoodIdentificationType.description.OTHER_ID">
         <value xml:lang="de">Andere</value>
         <value xml:lang="en">Other</value>
+        <value xml:lang="es">Otro</value>
         <value xml:lang="fr">Autre</value>
         <value xml:lang="it">Altro</value>
         <value xml:lang="ro">Alte</value>
@@ -291,6 +318,7 @@
     <property key="GoodIdentificationType.description.SKU">
         <value xml:lang="de">Artikelnummer (SKU - Stock Keeping Unit)</value>
         <value xml:lang="en">SKU</value>
+        <value xml:lang="es">Código único producto</value>
         <value xml:lang="fr">SKU</value>
         <value xml:lang="it">Codice Univoco Prodotto</value>
         <value xml:lang="ro">Cod Univoc Produs</value>
@@ -302,6 +330,7 @@
         <value xml:lang="de">Barcode UPCA</value>
         <value xml:lang="en">UPCA</value>
         <value xml:lang="fr">UPCA</value>
+        <value xml:lang="es">Código de barra UPCA</value>
         <value xml:lang="it">Codice a Barre UPCA</value>
         <value xml:lang="ro">Cod Bare UPCA</value>
         <value xml:lang="ru">UPCA</value>
@@ -312,6 +341,7 @@
         <value xml:lang="de">Barcode UPCE</value>
         <value xml:lang="en">UPCE</value>
         <value xml:lang="fr">UPCE</value>
+        <value xml:lang="es">Código de barra UPCE</value>
         <value xml:lang="it">Codice a Barre UPCE</value>
         <value xml:lang="ro">Cod Bare UPCE</value>
         <value xml:lang="ru">UPCE</value>
@@ -321,6 +351,7 @@
     <property key="InventoryItemType.description.NON_SERIAL_INV_ITEM">
         <value xml:lang="de">ohne Seriennummern</value>
         <value xml:lang="en">Non-Serialized</value>
+        <value xml:lang="es">Sin número de serie</value>
         <value xml:lang="fr">Pas en série</value>
         <value xml:lang="it">Non-Serializzato</value>
         <value xml:lang="ro">Ne-Serializat</value>
@@ -331,6 +362,7 @@
     <property key="InventoryItemType.description.SERIALIZED_INV_ITEM">
         <value xml:lang="de">mit Seriennummern</value>
         <value xml:lang="en">Serialized</value>
+        <value xml:lang="es">Con número de serie</value>
         <value xml:lang="fr">En série</value>
         <value xml:lang="it">Serializzato</value>
         <value xml:lang="ro">Serializat</value>
@@ -502,7 +534,7 @@
     <property key="ProductAssocType.description.ENGINEER_COMPONENT">
         <value xml:lang="de">Stückliste Engineering</value>
         <value xml:lang="en">Engineering Bill of Materials</value>
-        <value xml:lang="es">BOM de ingeniería</value>
+        <value xml:lang="es">Lista de materiales de ingeniería</value>
         <value xml:lang="fr">Nomenclatures d'étude</value>
         <value xml:lang="it">Distinta Base Ingegnerizzata</value>
         <value xml:lang="ro">Lista repere Inginerizata</value>
@@ -513,7 +545,7 @@
     <property key="ProductAssocType.description.MANUF_COMPONENT">
         <value xml:lang="de">Stückliste Produktion</value>
         <value xml:lang="en">Manufacturing Bill of Materials</value>
-        <value xml:lang="es">BOM de manufactura</value>
+        <value xml:lang="es">Lista de materiales de fabricación</value>
         <value xml:lang="fr">Nomenclatures de fabrication</value>
         <value xml:lang="it">Distinta Base Produzione</value>
         <value xml:lang="ro">Lista repere Productie</value>
@@ -544,6 +576,7 @@
     <property key="ProductAssocType.description.PRODUCT_ACCESSORY">
         <value xml:lang="de">Zubehör</value>
         <value xml:lang="en">Accessory</value>
+        <value xml:lang="es">Accesorio</value>
         <value xml:lang="it">Accessori</value>
         <value xml:lang="ru">Аксессуар</value>
         <value xml:lang="th">ส่วนประกอบ</value>
@@ -551,6 +584,7 @@
     <property key="ProductAssocType.description.PRODUCT_AUTORO">
         <value xml:lang="de">Automatische Neubestellung (benötigt Wiederholungsinfo ID)</value>
         <value xml:lang="en">Auto Reorder (needs recurrenceInfoId)</value>
+        <value xml:lang="es">Volver a pedir automáticamente (requiere ID de recurrencia)</value>
         <value xml:lang="it">Riordino Automatico</value>
         <value xml:lang="th">การสั่งซื้ออัตโนมัติ (ต้องการรหัสข้อมูลการเกิดขึ้นอีกครั้ง)</value>
     </property>
@@ -612,6 +646,7 @@
     <property key="ProductAssocType.description.PRODUCT_REFURB">
         <value xml:lang="de">Verbesserter Ersatz</value>
         <value xml:lang="en">Refurbished Equivalent</value>
+        <value xml:lang="es">Equivalente renovado</value>
         <value xml:lang="it">Equivalente Rinnovato</value>
         <value xml:lang="ru">Замененный эквивалент</value>
         <value xml:lang="th">เท่ากับทำใหม่</value>
@@ -619,6 +654,7 @@
     <property key="ProductAssocType.description.PRODUCT_REPAIR_SRV">
         <value xml:lang="de">Reparaturdienstleistung</value>
         <value xml:lang="en">Repair Service</value>
+        <value xml:lang="es">Servicio de reparación</value>
         <value xml:lang="it">Servizio Riparazioni</value>
         <value xml:lang="ru">Услуги ремонта</value>
         <value xml:lang="th">บริการซ่อมแซม</value>
@@ -681,6 +717,7 @@
     <property key="ProductCategoryContentType.description.CATEGORY_IMAGE_URL">
         <value xml:lang="de">Kategorie Bild URL</value>
         <value xml:lang="en">Category Image URL</value>
+        <value xml:lang="es">URL de imagen de la categoría</value>
         <value xml:lang="it">URL Immagine Categoria</value>
         <value xml:lang="ro">URL Imagine Categorie</value>
         <value xml:lang="ru">URL изображения категории</value>
@@ -690,6 +727,7 @@
     <property key="ProductCategoryContentType.description.CATEGORY_NAME">
         <value xml:lang="de">Kategorie Name</value>
         <value xml:lang="en">Category Name</value>
+        <value xml:lang="es">Nombre de categoría</value>
         <value xml:lang="it">Nome Categoria</value>
         <value xml:lang="ro">Nume Categorie</value>
         <value xml:lang="ru">Имя категории</value>
@@ -709,6 +747,7 @@
     <property key="ProductCategoryContentType.description.FOOTER">
         <value xml:lang="de">Fusszeile</value>
         <value xml:lang="en">Footer</value>
+        <value xml:lang="es">Pie de página</value>
         <value xml:lang="it">Intestazione Fine Pagina</value>
         <value xml:lang="ro">Intestare Sfarsit Pagina</value>
         <value xml:lang="ru">Нижняя часть страницы</value>
@@ -849,6 +888,7 @@
     <property key="ProductContentType.description.DETAIL_IMAGE_ALT">
         <value xml:lang="de">Bild Alt Text - Details</value>
         <value xml:lang="en">Image Alt Text - Detail    </value>
+        <value xml:lang="es">Texto alternativo para la imagen - Detalle    </value>
         <value xml:lang="it">Immagine Testo Alternativo - Dettaglio    </value>
         <value xml:lang="ru">Альтер. текст изображения - детальное    </value>
         <value xml:lang="th">ข้อความตัวเลือกรูปภาพ - รายละเอียด    </value>
@@ -933,6 +973,7 @@
     <property key="ProductContentType.description.LARGE_IMAGE_ALT">
         <value xml:lang="de">Bild Alt Text - Lang</value>
         <value xml:lang="en">Image Alt Text - Large</value>
+        <value xml:lang="es">Texto alternativo de la imagen - grande</value>
         <value xml:lang="it">Immagine Testo Alternativo - Grande</value>
         <value xml:lang="ru">Альтер. текст изображения - большое</value>
         <value xml:lang="th">ทางเลือกข้อความรูปภาพ - ขนาดใหญ่</value>
@@ -962,6 +1003,7 @@
     <property key="ProductContentType.description.MEDIUM_IMAGE_ALT">
         <value xml:lang="de">Bild Alt Text - Mittel</value>
         <value xml:lang="en">Image Alt Text - Medium</value>
+        <value xml:lang="es">Texto alternativo de la imagen - mediana</value>
         <value xml:lang="it">Immagine Testo Alternativo - Media</value>
         <value xml:lang="ru">Альтер. текст изображения - среднее</value>
         <value xml:lang="th">ทางเลือกข้อความรูปภาพ - ขนาดกลาง</value>
@@ -991,6 +1033,7 @@
     <property key="ProductContentType.description.PRICE_DETAIL_TEXT">
         <value xml:lang="de">Preisdetail Text</value>
         <value xml:lang="en">Price Detail Text</value>
+        <value xml:lang="es">Texto detallado de precio</value>
         <value xml:lang="it">Testo Dettaglio Prezzo</value>
         <value xml:lang="ro">Test Detaliu Pret</value>
         <value xml:lang="ru">Детали цены</value>
@@ -1011,6 +1054,7 @@
     <property key="ProductContentType.description.SMALL_IMAGE_ALT">
         <value xml:lang="de">Bild Alt Text - Klein</value>
         <value xml:lang="en">Image Alt Text - Small</value>
+        <value xml:lang="es">Texto alternativo de imagen - pequeña</value>
         <value xml:lang="it">Immagine Testo Alternativo - Piccola</value>
         <value xml:lang="ru">Альтер. текст изображения - маленькое</value>
         <value xml:lang="th">ทางเลือกข้อความรูปภาพ - เล็ก</value>
@@ -1061,9 +1105,8 @@
     </property>
     <property key="ProductFeature.description.HAZMAT">
         <value xml:lang="de">Gefahrgut</value>
-        <value xml:lang="en">HAZMAT</value>
         <value xml:lang="en">Substances dangereuses</value>
-        <value xml:lang="es">No peligroso</value>
+        <value xml:lang="es">Material peligroso</value>
         <value xml:lang="th">HAZMAT</value>
     </property>
     <property key="ProductFeatureApplType.description.DISTINGUISHING_FEAT">
@@ -1123,7 +1166,7 @@
     </property>
     <property key="ProductFeatureCategory.description.1000">
         <value xml:lang="en">Hazmat Features</value>
-        <value xml:lang="es">Características de Peligroso</value>
+        <value xml:lang="es">1000</value>
         <value xml:lang="th">Hazmat Features</value>
     </property>
     <property key="ProductFeatureIactnType.description.FEATURE_IACTN_DEPEND">
@@ -1154,7 +1197,7 @@
     <property key="ProductFeatureType.description.AMOUNT">
         <value xml:lang="de">Betrag</value>
         <value xml:lang="en">Amount</value>
-        <value xml:lang="es">Monto</value>
+        <value xml:lang="es">Cantidad</value>
         <value xml:lang="fr">Quantité</value>
         <value xml:lang="it">Importo</value>
         <value xml:lang="ro">Valoare</value>
@@ -1231,6 +1274,7 @@
     <property key="ProductFeatureType.description.EQUIP_CLASS">
         <value xml:lang="de">Ausrüstungsklasse</value>
         <value xml:lang="en">Equipment Class</value>
+        <value xml:lang="es">Clase de equipo</value>
         <value xml:lang="fr">Classe d'équipement</value>
         <value xml:lang="it">Classe Apparecchiatura</value>
         <value xml:lang="ro">Clasa Aparatura</value>
@@ -1307,6 +1351,7 @@
     <property key="ProductFeatureType.description.MODEL_YEAR">
         <value xml:lang="de">Modelljahr</value>
         <value xml:lang="en">Model Year</value>
+        <value xml:lang="es">Año de modelo</value>
         <value xml:lang="fr">Année modèle</value>
         <value xml:lang="it">Anno Modello</value>
         <value xml:lang="ro">Anno Model</value>
@@ -1438,6 +1483,7 @@
     <property key="ProductFeatureType.description.YEAR_MADE">
         <value xml:lang="de">Herstellungsjahr</value>
         <value xml:lang="en">Year Made</value>
+        <value xml:lang="es">Año de fabricación</value>
         <value xml:lang="fr">Année de construction</value>
         <value xml:lang="it">Anno Fabbricazione</value>
         <value xml:lang="ro">An Fabricatie</value>
@@ -1466,6 +1512,7 @@
     <property key="ProductMaintType.description.OIL_CHANGE">
         <value xml:lang="de">Ölwechsel</value>
         <value xml:lang="en">Oil Change</value>
+        <value xml:lang="es">Cambio de aceite</value>
         <value xml:lang="fr">Changer l'huile</value>
         <value xml:lang="it">Cambio Olio</value>
         <value xml:lang="ro">Schimb Ulei</value>
@@ -1476,6 +1523,7 @@
     <property key="ProductMaintType.description.REFUEL">
         <value xml:lang="de">Auftanken</value>
         <value xml:lang="en">Re-Fuel</value>
+        <value xml:lang="es">Rellenado</value>
         <value xml:lang="fr">Refaire le plein</value>
         <value xml:lang="it">Rifornimento</value>
         <value xml:lang="ro">Reforniment</value>
@@ -1486,6 +1534,7 @@
     <property key="ProductMaintType.description.REPLACE_BATTERY">
         <value xml:lang="de">Batterie ersetzen</value>
         <value xml:lang="en">Replace Battery</value>
+        <value xml:lang="es">Reemplazar batería</value>
         <value xml:lang="fr">Remplacer Batteries</value>
         <value xml:lang="it">Sostituazione Batteria</value>
         <value xml:lang="ro">Substitutie Baterie</value>
@@ -1496,6 +1545,7 @@
     <property key="ProductMaintType.description.SERP_BELT">
         <value xml:lang="de">Keilriemen Ersatz</value>
         <value xml:lang="en">Serpentine Belt Replacement</value>
+        <value xml:lang="es">Cambio de correa</value>
         <value xml:lang="fr">Serpentine Belt Replacement</value>
         <value xml:lang="it">Sostituzione Cinghia di Distribuzione</value>
         <value xml:lang="ro">Substitutie Curea de Distributie</value>
@@ -1506,6 +1556,7 @@
     <property key="ProductMaintType.description.VEHICLE_MAINT">
         <value xml:lang="de">Fahrzeug Instandhaltung</value>
         <value xml:lang="en">Vehicle Maintenance</value>
+        <value xml:lang="es">Mantenimiento de vehículo</value>
         <value xml:lang="fr">Révision du véhicule</value>
         <value xml:lang="it">Manutenzione Veicolo</value>
         <value xml:lang="ro">Intretinere Vehicol</value>
@@ -1516,6 +1567,7 @@
     <property key="ProductMaintType.description.WASH">
         <value xml:lang="de">Reinigen</value>
         <value xml:lang="en">Wash</value>
+        <value xml:lang="es">Lavado</value>
         <value xml:lang="fr">Laver</value>
         <value xml:lang="it">Lavaggio</value>
         <value xml:lang="ro">Curatire</value>
@@ -1526,6 +1578,7 @@
     <property key="ProductMeterType.description.COPY_COUNT">
         <value xml:lang="de">Kopierzähler</value>
         <value xml:lang="en">Copy Count Meter</value>
+        <value xml:lang="es">Contador de copias</value>
         <value xml:lang="fr">Copy Count Meter</value>
         <value xml:lang="it">Copia Conta Metri</value>
         <value xml:lang="ro">Copiaza Conta Metri</value>
@@ -1536,6 +1589,7 @@
     <property key="ProductMeterType.description.DISTANCE">
         <value xml:lang="de">Distanzzähler</value>
         <value xml:lang="en">Distance Meter</value>
+        <value xml:lang="es">Medidor de distancia</value>
         <value xml:lang="fr">Distance Meter</value>
         <value xml:lang="it">Contatore Distanza</value>
         <value xml:lang="ro">Contor Distanta</value>
@@ -1546,6 +1600,7 @@
     <property key="ProductMeterType.description.MOTOR_TIME">
         <value xml:lang="de">Motorstunden Zähler</value>
         <value xml:lang="en">Motor Time Meter</value>
+        <value xml:lang="es">Medidor de tiempo de motor</value>
         <value xml:lang="fr">Motor Time Meter</value>
         <value xml:lang="it">Contatore Tempo Motore</value>
         <value xml:lang="ro">Contator Timp Motor</value>
@@ -1556,6 +1611,7 @@
     <property key="ProductMeterType.description.SPEEDOMETER">
         <value xml:lang="de">Geschwindigkeitsmesser</value>
         <value xml:lang="en">Speedometer</value>
+        <value xml:lang="es">Velocímetro</value>
         <value xml:lang="fr">Speedometer</value>
         <value xml:lang="it">Misuratore della Velocità</value>
         <value xml:lang="ro">Masurator de Viteza</value>
@@ -1566,6 +1622,7 @@
     <property key="ProductMeterType.description.TACHOMETER">
         <value xml:lang="de">Tachometer</value>
         <value xml:lang="en">Tachometer</value>
+        <value xml:lang="es">Tacómetro</value>
         <value xml:lang="fr">Tachometer</value>
         <value xml:lang="it">Tachimetro</value>
         <value xml:lang="ro">Tachimetru</value>
@@ -1576,6 +1633,7 @@
     <property key="ProductMeterType.description.USE_COUNT">
         <value xml:lang="de">Verwendungszähler</value>
         <value xml:lang="en">Use Count Meter</value>
+        <value xml:lang="es">Contador de usos</value>
         <value xml:lang="fr">Use Count Meter</value>
         <value xml:lang="it">Usa Conta Metri</value>
         <value xml:lang="ro">Foloseste Conta Metri</value>
@@ -1597,7 +1655,7 @@
     <property key="ProductPriceActionType.description.PRICE_FOL">
         <value xml:lang="de">Pauschalbetrag ändern</value>       
         <value xml:lang="en">Flat Amount Modify</value>
-        <value xml:lang="es">Modificar de precio</value>
+        <value xml:lang="es">Modificación de precio</value>
         <value xml:lang="fr">Modification du prix</value>
         <value xml:lang="it">Modifica Importo Fisso</value>
         <value xml:lang="ro">Modifica Valoarea Fixa</value>
@@ -1619,7 +1677,7 @@
     <property key="ProductPriceActionType.description.PRICE_POAC">
         <value xml:lang="de">Prozent von Durchschnittskosten</value>
         <value xml:lang="en">Percent Of Average Cost</value>
-        <value xml:lang="es">Porcentaje del prcio promedio</value>
+        <value xml:lang="es">Porcentaje del precio promedio</value>
         <value xml:lang="fr">Pourcentage du coût moyen</value>
         <value xml:lang="it">Percentuale Del Costo Medio</value>
         <value xml:lang="ro">Procent din Costul Mediu</value>
@@ -1663,7 +1721,7 @@
     <property key="ProductPriceActionType.description.PRICE_WFLAT">
         <value xml:lang="de">Grosshandelspreis übersteuern</value>
         <value xml:lang="en">Wholesale Amount Override</value>
-        <value xml:lang="es">Reemplazo del monto de toda la venta</value>
+        <value xml:lang="es">Reemplazo de la cantidad de venta</value>
         <value xml:lang="fr">Wholesale Amount Override</value>
         <value xml:lang="it">Sostituzione Importo all'Ingrosso</value>
         <value xml:lang="ro">Substitutie Valoare la Intrare</value>
@@ -1674,6 +1732,7 @@
     <property key="ProductPricePurpose.description.COMPONENT_PRICE">
         <value xml:lang="de">Komponentenpreis</value>
         <value xml:lang="en">Component Price</value>
+        <value xml:lang="es">Precio de componente</value>
         <value xml:lang="fr">Prix du composant</value>
         <value xml:lang="it">Prezzo Componente</value>
         <value xml:lang="ro">Pret Componente</value>
@@ -1684,6 +1743,7 @@
     <property key="ProductPricePurpose.description.PURCHASE">
         <value xml:lang="de">Einkauf/Initial</value>
         <value xml:lang="en">Purchase/Initial</value>
+        <value xml:lang="es">Compra/Inicial</value>
         <value xml:lang="fr">Achat/Initial</value>
         <value xml:lang="it">Acquisto/Iniziale</value>
         <value xml:lang="ro">Cumparare/Initiala</value>
@@ -1694,6 +1754,7 @@
     <property key="ProductPricePurpose.description.RECURRING_CHARGE">
         <value xml:lang="de">Wiederkehrende Kosten</value>
         <value xml:lang="en">Recurring Charge</value>
+        <value xml:lang="es">Cargo recurrente</value>
         <value xml:lang="fr">Charge/coût récurrent</value>
         <value xml:lang="it">Ricarico Periodico</value>
         <value xml:lang="ro">Incarcare Periodica</value>
@@ -1704,6 +1765,7 @@
     <property key="ProductPricePurpose.description.USAGE_CHARGE">
         <value xml:lang="de">Benützungsgebühr</value>
         <value xml:lang="en">Usage Charge</value>
+        <value xml:lang="es">Cargo de uso</value>
         <value xml:lang="fr">Charge/coût d'usage</value>
         <value xml:lang="it">Usa Ricarico</value>
         <value xml:lang="ro">Foloseste Incarcare</value>
@@ -1714,7 +1776,7 @@
     <property key="ProductPriceType.description.AVERAGE_COST">
         <value xml:lang="de">Durchschnittskosten</value>
         <value xml:lang="en">Average Cost</value>
-        <value xml:lang="es">Costo promedio</value>
+        <value xml:lang="es">Coste promedio</value>
         <value xml:lang="fr">Coût moyen</value>
         <value xml:lang="it">Costo Medio</value>
         <value xml:lang="ro">Cost Mediu</value>
@@ -1915,6 +1977,7 @@
     <property key="ProductType.description.MARKETING_PKG_AUTO">
         <value xml:lang="de">Marketingpaket</value>
         <value xml:lang="en">Marketing Package</value>
+        <value xml:lang="es">Paquete de marketing</value>
         <value xml:lang="it">Pacco di Vendita</value>
         <value xml:lang="ru">Маркетинговый пакет</value>
         <value xml:lang="th">แพคเกจการตลาด</value>
@@ -1922,6 +1985,7 @@
     <property key="ProductType.description.MARKETING_PKG_PICK">
         <value xml:lang="de">Marketingpaket: Zusammensetzung wählen</value>
         <value xml:lang="en">Marketing Package: Pick Assembly</value>
+        <value xml:lang="es">Paquete de marketing: ensamblado durante recogida en almacén</value>
         <value xml:lang="it">Pacco di Vendita: Assemblato durante il Prelievo</value>
         <value xml:lang="th">แพคเกจการตลาด: การเลือกการรวมกลุ่ม</value>
     </property>
@@ -2158,6 +2222,7 @@
     <property key="SubscriptionType.description.NEWSGROUP_SUBSCR">
         <value xml:lang="de">Newsgruppe</value>
         <value xml:lang="en">Newsgroup</value>
+        <value xml:lang="es">Grupo de noticias</value>
         <value xml:lang="it">Notiziario</value>
         <value xml:lang="ro">Notitiar</value>
         <value xml:lang="ru">Новости</value>
@@ -2177,6 +2242,7 @@
     <property key="SubscriptionType.description.PRODUCT_INFO_SUBSCR">
         <value xml:lang="de">Produktinformationen</value>
         <value xml:lang="en">Product Info</value>
+        <value xml:lang="es">Información de producto</value>
         <value xml:lang="it">Informazioni Prodotto</value>
         <value xml:lang="ro">Informatii Produs</value>
         <value xml:lang="ru">Информация о продукте</value>
@@ -2186,6 +2252,7 @@
     <property key="SubscriptionType.description.PRODUCT_SUBSCR">
         <value xml:lang="de">Produkt</value>
         <value xml:lang="en">Product</value>
+        <value xml:lang="es">Producto</value>
         <value xml:lang="it">Prodotto</value>
         <value xml:lang="ru">Продукт</value>
         <value xml:lang="th">สินค้า</value>
@@ -2193,6 +2260,7 @@
     <property key="VarianceReason.description.VAR_DAMAGED">
         <value xml:lang="de">Beschädigt</value>
         <value xml:lang="en">Damaged</value>
+        <value xml:lang="es">Dañado</value>
         <value xml:lang="fr">Endommagé</value>
         <value xml:lang="it">Danneggiato</value>
         <value xml:lang="ro">Stricat</value>
@@ -2203,6 +2271,7 @@
     <property key="VarianceReason.description.VAR_FOUND">
         <value xml:lang="de">Gefunden</value>
         <value xml:lang="en">Found</value>
+        <value xml:lang="es">Encontrado</value>
         <value xml:lang="fr">Trouvé</value>
         <value xml:lang="it">Trovato</value>
         <value xml:lang="ro">Gasit</value>
@@ -2213,6 +2282,7 @@
     <property key="VarianceReason.description.VAR_INTEGR">
         <value xml:lang="de">Integration</value>
         <value xml:lang="en">Integration</value>
+        <value xml:lang="es">Integración</value>
         <value xml:lang="fr">Intégré</value>
         <value xml:lang="it">Integrazione</value>
         <value xml:lang="ro">Integrare</value>
@@ -2223,6 +2293,7 @@
     <property key="VarianceReason.description.VAR_LOST">
         <value xml:lang="de">Verloren</value>
         <value xml:lang="en">Lost</value>
+        <value xml:lang="es">Perdido</value>
         <value xml:lang="fr">Perdu</value>
         <value xml:lang="it">Perso</value>
         <value xml:lang="ro">Pierdut</value>
@@ -2233,6 +2304,7 @@
     <property key="VarianceReason.description.VAR_SAMPLE">
         <value xml:lang="de">Muster</value>
         <value xml:lang="en">Sample (Giveaway)</value>
+        <value xml:lang="es">Muestra (regalada)</value>
         <value xml:lang="fr">Échantillon</value>
         <value xml:lang="it">Campione (Dato via)</value>
         <value xml:lang="ro">Esantion (Introdu Strada)</value>
@@ -2243,6 +2315,7 @@
     <property key="VarianceReason.description.VAR_STOLEN">
         <value xml:lang="de">Gestohlen</value>
         <value xml:lang="en">Stolen</value>
+        <value xml:lang="es">Robado</value>
         <value xml:lang="fr">Volé</value>
         <value xml:lang="it">Rubato</value>
         <value xml:lang="ro">Furat</value>

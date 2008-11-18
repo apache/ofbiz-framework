@@ -20,6 +20,7 @@
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountAnnualRevenue">
         <value xml:lang="en">Annual Revenue</value>
+        <value xml:lang="es">Ingresos anuales</value>
     </property>
     <property key="AccountInformation">
         <value xml:lang="en">Account Information</value>
@@ -29,6 +30,7 @@
     </property>
     <property key="AccountTickerSymbol">
         <value xml:lang="en">Ticker Symbol</value>
+        <value xml:lang="es">Símbolo ticker</value>
     </property>
     <property key="ContactList">
         <value xml:lang="en">Contact List</value>
@@ -348,7 +350,7 @@
     </property>
     <property key="MarketingCampaignReportTitle">
         <value xml:lang="en">Marketing Campaign Report</value>
-        <value xml:lang="es">Reporte de campañas de marketing</value>
+        <value xml:lang="es">Informe de campañas de marketing</value>
         <value xml:lang="it">Stampe Campagne di Vendita</value>
         <value xml:lang="ro">Tiparire Campanie de Vanzare</value>
         <value xml:lang="th">รายงานการวางแผนทางการตลาด</value>
@@ -408,6 +410,7 @@
     </property>
     <property key="MarketingNoOfEmployees">
         <value xml:lang="en">No of Employees</value>
+        <value xml:lang="es">Nº Empleados</value>
     </property>
     <property key="MarketingFindAccounts">
         <value xml:lang="en">Find SFA Accounts</value>
@@ -462,7 +465,7 @@
     </property>
     <property key="MarketingReports">
         <value xml:lang="en">Reports</value>
-        <value xml:lang="es">Reportes</value>
+        <value xml:lang="es">Informes</value>
         <value xml:lang="it">Stampe</value>
         <value xml:lang="ro">Tiparire</value>
         <value xml:lang="th">รายงาน</value>
@@ -475,7 +478,7 @@
     </property>
     <property key="MarketingTrackingCodeReportTitle">
         <value xml:lang="en">Tracking Code Report</value>
-        <value xml:lang="es">Reporte de seguimientos</value>
+        <value xml:lang="es">Informe de seguimientos</value>
         <value xml:lang="it">Stampe Codice Tracciatura</value>
         <value xml:lang="ro">Tiparire Cod Traseu</value>
         <value xml:lang="th">รหัส Tracking</value>
@@ -539,21 +542,26 @@
     </property>
     <property key="PageTitleCreateAccount">
         <value xml:lang="en">Create New Account</value>
+        <value xml:lang="es">Crear nueva cuenta</value>
     </property>
     <property key="PageTitleCreateContact">
         <value xml:lang="en">Create New Contact</value>
+        <value xml:lang="es">Crear nuevo contacto</value>
     </property>
     <property key="PageTitleCreateContactFromVCard">
         <value xml:lang="en">Create contact from vCard</value>
     </property>
     <property key="PageTitleCreateLead">
         <value xml:lang="en">Create New Lead</value>
+        <value xml:lang="es">Crear nuevo lead</value>
     </property>
     <property key="PageTitleCreateLeadFromVCard">
         <value xml:lang="en">Create Lead from vCard</value>
+        <value xml:lang="es">Crear nuevo lead desde vCard</value>
     </property>  
     <property key="PageTitleEditAccount">
         <value xml:lang="en">Edit Account</value>
+        <value xml:lang="es">Editar cuenta</value>
     </property>
     <property key="PageTitleEditContactList">
         <value xml:lang="en">Edit Contact List</value>
@@ -1142,27 +1150,34 @@
     </property>    
     <property key="SfaAutoCreateLeadByImportingVCard">
         <value xml:lang="en">Automatically create a new lead by importing a vCard</value>
+        <value xml:lang="es">Crear nuevo lead automaticamente importando vCard</value>
     </property>  
     <property key="SfaAccountName">
         <value xml:lang="en">Account Name</value>
+        <value xml:lang="es">Nombre de cuenta</value>
     </property>
     <property key="SfaCampaigns">
         <value xml:lang="en">Campaigns</value>
+        <value xml:lang="es">Campañas</value>
     </property>
     <property key="SfaCloneLead">
         <value xml:lang="en">Clone Lead</value>
+        <value xml:lang="es">Clonar lead</value>
     </property>
     <property key="SfaCloseDate">
         <value xml:lang="en">Close Date</value>
+        <value xml:lang="es">Fecha de cierre</value>
     </property>
     <property key="SfaCompanyName">
         <value xml:lang="en">OFBiz: SFA Manager</value>
+        <value xml:lang="es">Gestor de fuerzas de ventas</value>
     </property>
     <property key="SfaCanNotMergeSameContact">
         <value xml:lang="en">Failed to merge contacts. You have selected same contact to merge.</value>
     </property>  
     <property key="SfaCanNotMergeSameLeads">
         <value xml:lang="en">Failed to merge Leads. You have selected same Lead to merge.</value>
+        <value xml:lang="es">No se ha podido unir leads. Ha seleccionado el mismo lead.</value>
     </property>    
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
@@ -1175,9 +1190,11 @@
     </property>
     <property key="SfaConvertLead">
         <value xml:lang="en">Convert Lead</value>
+        <value xml:lang="es">Convertir lead</value>
     </property>
     <property key="SfaCreateContactForLead">
         <value xml:lang="en">Create contact for lead</value>
+        <value xml:lang="es">Crear contacto para lead</value>
     </property>
     <property key="SfaCreateContactFromVCard">
         <value xml:lang="en">Create from vCard</value>
@@ -1202,21 +1219,27 @@
     </property>
     <property key="SfaFindLeads">
         <value xml:lang="en">Find Leads</value>
+        <value xml:lang="es">Buscar leads</value>
     </property>
     <property key="SfaFindOpportunities">
         <value xml:lang="en">Find Opportunities</value>
+        <value xml:lang="es">Buscar oportunidades</value>
     </property>
     <property key="SfaFindResults">
         <value xml:lang="en">Find Results</value>
+        <value xml:lang="es">Buscar resultados</value>
     </property>
     <property key="SfaFirstContact">
         <value xml:lang="en">First Contact</value>
+        <value xml:lang="es">Primer contacto</value>
     </property>    
     <property key="SfaForecasts">
         <value xml:lang="en">Forecast</value>
+        <value xml:lang="es">Previsión</value>
     </property>
     <property key="SfaImportLead">
         <value xml:lang="en">Import Lead</value>
+        <value xml:lang="es">Importar lead</value>
     </property>    
     <property key="SfaInitialAccount">
         <value xml:lang="en">Initial Account</value>
