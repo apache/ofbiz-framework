@@ -28,6 +28,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -89,29 +90,31 @@ public class FreeMarkerWorker {
         } catch (TemplateException e) {
             Debug.logError("Unable to set date/time and number formats in FreeMarker: " + e, module);
         }
-        // Load framework transforms first.
         // Transforms properties file set up as key=transform name, property=transform class name
-        Properties props = UtilProperties.getProperties(FRAMEWORK_TRANSFORMS);
-        if (props == null || props.isEmpty()) {
-            Debug.logError("Unable to locate properties file " + FRAMEWORK_TRANSFORMS, module);
-        } else {
-            loadTransforms(props);
+        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+        Enumeration<URL> resources;
+        try {
+            resources = loader.getResources("freemarkerTransforms.properties");
+        } catch (IOException e) {
+            Debug.logError(e, "Could not load list of freemarkerTransforms.properties", module);
+            throw (InternalError) new InternalError(e.getMessage()).initCause(e);
         }
-
-        // Load application transforms next.
-        props = UtilProperties.getProperties(APPLICATION_TRANSFORMS);
-        if (props == null || props.isEmpty()) {
-            Debug.logWarning("Unable to locate properties file " + APPLICATION_TRANSFORMS + ". If you are using only the OFBiz framework, then this warning can be ignored.", module);
-        } else {
-            loadTransforms(props);
+        while (resources.hasMoreElements()) {
+            URL propertyURL = resources.nextElement();
+            Debug.logInfo("loading properties: " + propertyURL, module);
+            Properties props = UtilProperties.getProperties(propertyURL);
+            if (props == null || props.isEmpty()) {
+                Debug.logError("Unable to locate properties file " + propertyURL, module);
+            } else {
+                loadTransforms(loader, props);
+            }
         }
     }
     
     /**
      * Protected helper method.
      */
-    protected static void loadTransforms(Properties props) {
-        ClassLoader loader = Thread.currentThread().getContextClassLoader();
+    protected static void loadTransforms(ClassLoader loader, Properties props) {
         for (Iterator<Object> i = props.keySet().iterator(); i.hasNext();) {
             String key = (String)i.next();
             String className = props.getProperty(key);
