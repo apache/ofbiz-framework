@@ -8,8 +8,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: ofbiz 684389\n"
 "Report-Msgid-Bugs-To: ofbiz@packages.debian.org\n"
-"POT-Creation-Date: 2008-08-09 22:53-0500\n"
-"PO-Revision-Date: 2008-08-09 23:03-0500\n"
+"POT-Creation-Date: 2008-11-18 10:54-0600\n"
+"PO-Revision-Date: 2008-11-18 10:54-0600\n"
 "Last-Translator: Adam Heath <doogie@brainfood.com>\n"
 "Language-Team: English <en@li.org>\n"
 "MIME-Version: 1.0\n"
@@ -18,89 +18,77 @@ msgstr ""
 
 #. Type: password
 #. Description
-#: ../ofbiz.templates:1001
+#: ../ofbiz-framework.templates:1001
 msgid "Enter the password for ofbiz admin accounts:"
 msgstr ""
 
 #. Type: password
 #. Description
-#: ../ofbiz.templates:2001
-msgid "Password confirmation:"
-msgstr ""
-
-#. Type: multiselect
-#. Description
-#: ../ofbiz.templates:3001
-msgid "Which additional data readers should be imported:"
-msgstr ""
-
-#. Type: string
-#. Description
-#: ../ofbiz.templates:4001
-msgid "Email from address:"
-msgstr ""
-
-#. Type: string
-#. Description
-#: ../ofbiz.templates:4001
+#: ../ofbiz-framework.templates:1001
 msgid ""
-"Various parts of ofbiz can be configured to send email.  This specifies what "
-"the from address should be."
+"If this is the first time installing ofbiz, you can leave this blank, and "
+"the default of 'ofbiz' will be choosen."
 msgstr ""
 
 #. Type: password
 #. Description
-#: ../ofbiz.templates:5001
+#: ../ofbiz-framework.templates:2001
+msgid "Password confirmation:"
+msgstr ""
+
+#. Type: password
+#. Description
+#: ../ofbiz-framework.templates:3001
 msgid "for internal use"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../ofbiz.templates:6001
+#: ../ofbiz-framework.templates:4001
 msgid "passwords do not match"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../ofbiz.templates:6001
+#: ../ofbiz-framework.templates:4001
 msgid "The passwords you have entered do not match."
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../ofbiz.templates:7001
+#: ../ofbiz-framework.templates:5001
 msgid "empty password is not allowed"
 msgstr ""
 
 #. Type: note
 #. Description
-#: ../ofbiz.templates:7001
+#: ../ofbiz-framework.templates:5001
 msgid "The password you have entered is empty.  This is not allowed."
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../ofbiz.templates:8001
+#: ../ofbiz-framework.templates:6001
 msgid "Admin port for status queries:"
 msgstr ""
 
 #. Type: string
 #. Description
-#: ../ofbiz.templates:8001
+#: ../ofbiz-framework.templates:6001
 msgid ""
 "This is the port used to communicate with a running ofbiz instance, to see "
 "if it is starting, running, or stopping."
 msgstr ""
 
-#. Type: boolean
+#. Type: multiselect
 #. Description
-#: ../ofbiz.templates:9001
-msgid "Important example data?"
+#: ../ofbiz-framework.templates:7001
+msgid "Important additional data?"
 msgstr ""
 
-#. Type: boolean
+#. Type: multiselect
 #. Description
-#: ../ofbiz.templates:9001
+#: ../ofbiz-framework.templates:7001
 msgid ""
 "OfBiz comes with lots of example data, showing products/categories/users "
 "etc.  If this is your first time working with ofbiz, you may want to import "
@@ -109,12 +97,12 @@ msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../ofbiz.templates:10001
+#: ../ofbiz-framework.templates:8001
 msgid "Reimport data?"
 msgstr ""
 
 #. Type: boolean
 #. Description
-#: ../ofbiz.templates:10001
+#: ../ofbiz-framework.templates:8001
 msgid "Whether data should be reimported on upgrade."
 msgstr ""
