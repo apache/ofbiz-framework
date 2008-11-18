@@ -75,9 +75,6 @@ public class FreeMarkerWorker {
     public static UtilCache<String, Template> cachedTemplates = new UtilCache<String, Template>("template.ftl.general", 0, 0, false);
     protected static Configuration defaultOfbizConfig = new Configuration();
 
-    public static final String FRAMEWORK_TRANSFORMS = "frameworkTransforms";
-    public static final String APPLICATION_TRANSFORMS = "applicationTransforms";
-
     static {
         BeansWrapper wrapper = BeansWrapper.getDefaultInstance();
         defaultOfbizConfig.setObjectWrapper(wrapper);
