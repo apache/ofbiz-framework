@@ -42,33 +42,33 @@ if (userLogin) {
         if (billToCountryProvinceGeo) {
             context.billToCountryProvinceGeo = billToCountryProvinceGeo.geoName;
         }
+        
+        creditCards = []; 
+        paymentMethod = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PaymentMethod", EntityCondition.makeCondition([partyId : party.partyId]), null, ["fromDate"], null, false)));
+        if (paymentMethod) {
+            creditCard = paymentMethod.getRelatedOne("CreditCard");
+            if (creditCard) {
+                context.paymentMethodTypeId = "CREDIT_CARD";
+                context.cardNumber = creditCard.cardNumber;
+                context.paymentMethodId = creditCard.paymentMethodId;
+                context.firstNameOnCard = creditCard.firstNameOnCard;
+                context.lastNameOnCard = creditCard.lastNameOnCard;
+                context.expMonth = (creditCard.expireDate).substring(0, 2);
+                context.expYear = (creditCard.expireDate).substring(3);
+           } 
+        }
+        if (shipToContactMechId) {
+            if (billToContactMechId && billToContactMechId.equals(shipToContactMechId)) {
+                context.useShippingAddressForBilling = "Y";
+            }
+        }
     }
     
-	billToContactMechList = ContactHelper.getContactMech(party, "PHONE_BILLING", "TELECOM_NUMBER", false)
-	if (billToContactMechList) {
+    billToContactMechList = ContactHelper.getContactMech(party, "PHONE_BILLING", "TELECOM_NUMBER", false)
+    if (billToContactMechList) {
         billToTelecomNumber = (EntityUtil.getFirst(billToContactMechList)).getRelatedOne("TelecomNumber");
         pcm = EntityUtil.getFirst(billToTelecomNumber.getRelated("PartyContactMech"));
         context.billToTelecomNumber = billToTelecomNumber;
         context.billToExtension = pcm.extension;
     }
-    
-    creditCards = []; 
-    paymentMethod = EntityUtil.getFirst(EntityUtil.filterByDate(delegator.findList("PaymentMethod", EntityCondition.makeCondition([partyId : party.partyId]), null, ["fromDate"], null, false)));
-    if (paymentMethod) {
-        creditCard = paymentMethod.getRelatedOne("CreditCard");
-        if (creditCard) {
-            context.paymentMethodTypeId = "CREDIT_CARD";
-            context.cardNumber = creditCard.cardNumber;
-            context.paymentMethodId = creditCard.paymentMethodId;
-            context.firstNameOnCard = creditCard.firstNameOnCard;
-            context.lastNameOnCard = creditCard.lastNameOnCard;
-            context.expMonth = (creditCard.expireDate).substring(0, 2);
-            context.expYear = (creditCard.expireDate).substring(3);
-       } 
-    }
-    if (shipToContactMechId) {
-        if (billToContactMechId && billToContactMechId.equals(shipToContactMechId)) {
-            context.useShippingAddressForBilling = "Y";
-        }
-    }    
 } 
