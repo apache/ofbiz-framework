@@ -667,7 +667,7 @@ public class PartyServices {
                 for (GenericValue pacm: c) {
                     GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", pacm.get("partyId"), "partyTypeId", pacm.get("partyTypeId")));
 
-                    parties.add(UtilMisc.toMap("party", party));
+                    parties.add(UtilMisc.<String, GenericValue>toMap("party", party));
                 }
             }
         } catch (GenericEntityException e) {
@@ -703,7 +703,7 @@ public class PartyServices {
                 for (GenericValue pacm: c) {
                     GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", pacm.get("partyId"), "partyTypeId", pacm.get("partyTypeId")));
 
-                    parties.add(UtilMisc.toMap("party", party));
+                    parties.add(UtilMisc.<String, GenericValue>toMap("party", party));
                 }
             }
         } catch (GenericEntityException e) {
@@ -743,7 +743,7 @@ public class PartyServices {
                 for (GenericValue ul: ulc) {
                     GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", ul.get("partyId"), "partyTypeId", ul.get("partyTypeId")));
 
-                    parties.add(UtilMisc.toMap("party", party));
+                    parties.add(UtilMisc.<String, GenericValue>toMap("party", party));
                 }
             }
         } catch (GenericEntityException e) {
@@ -793,7 +793,7 @@ public class PartyServices {
                 for (GenericValue person: pc) {
                     GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", person.get("partyId"), "partyTypeId", "PERSON"));
 
-                    parties.add(UtilMisc.toMap("person", person, "party", party));
+                    parties.add(UtilMisc.<String, GenericValue>toMap("person", person, "party", party));
                 }
             }
         } catch (GenericEntityException e) {
@@ -833,7 +833,7 @@ public class PartyServices {
                 for (GenericValue group: pc) {
                     GenericValue party = delegator.makeValue("Party", UtilMisc.toMap("partyId", group.get("partyId"), "partyTypeId", "PARTY_GROUP"));
 
-                    parties.add(UtilMisc.toMap("partyGroup", group, "party", party));
+                    parties.add(UtilMisc.<String, GenericValue>toMap("partyGroup", group, "party", party));
                 }
             }
         } catch (GenericEntityException e) {

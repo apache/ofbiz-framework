@@ -503,7 +503,7 @@ public class ProductWorker {
                             } 
                         GenericValue productFeatureType = delegator.findByPrimaryKey("ProductFeatureType", UtilMisc.toMap("productFeatureTypeId", 
                         		productFeatureAppl.getString("productFeatureTypeId")));
-                        featureList.add(UtilMisc.toMap("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId"), 
+                        featureList.add(UtilMisc.<String, String>toMap("productFeatureTypeId", productFeatureAppl.getString("productFeatureTypeId"), 
                                                         "description", productFeatureType.getString("description")));  
                         oldType = productFeatureAppl.getString("productFeatureTypeId");
                     }
