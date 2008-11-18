@@ -420,21 +420,22 @@ The JDOM License
 =========================================================================
 The following libraries distributed with Apache OFBiz are licensed under the 
 BSD License:
-ofbiz/trunk/framework/base/lib/javacc/javacc-4.1.jar
-ofbiz/trunk/framework/base/lib/httpunit.jar
 ofbiz/trunk/framework/base/lib/freemarker-2.3.10.jar
+ofbiz/trunk/framework/base/lib/httpunit.jar
+ofbiz/trunk/framework/base/lib/ical4j-1.0-beta5.jar
+ofbiz/trunk/framework/base/lib/javacc/javacc-4.1.jar
+ofbiz/trunk/framework/base/lib/javolution-5.2.3.jar
 ofbiz/trunk/framework/base/lib/junitperf.jar
 ofbiz/trunk/framework/base/lib/scripting/antlr-2.7.6.jar
 ofbiz/trunk/framework/base/lib/scripting/asm-2.2.jar
 ofbiz/trunk/framework/base/lib/scripting/asm-analysis-2.2.jar
 ofbiz/trunk/framework/base/lib/scripting/asm-tree-2.2.jar
 ofbiz/trunk/framework/base/lib/scripting/asm-util-2.2.jar
-ofbiz/trunk/specialpurpose/pos/lib/looks-2.0.2.jar
-ofbiz/trunk/framework/base/lib/javolution-5.2.3.jar
-ofbiz/trunk/framework/images/webapp/images/dojo/*
-ofbiz/trunk/specialpurpose/ldap/lib/cas-server-core-3.3.jar
 ofbiz/trunk/framework/images/webapp/images/jsgantt.css
 ofbiz/trunk/framework/images/webapp/images/jsgantt.js
+ofbiz/trunk/framework/images/webapp/images/dojo/*
+ofbiz/trunk/specialpurpose/ldap/lib/cas-server-core-3.3.jar
+ofbiz/trunk/specialpurpose/pos/lib/looks-2.0.2.jar
 
 =========================================================================
 The BSD License
