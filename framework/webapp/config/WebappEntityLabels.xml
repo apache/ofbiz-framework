@@ -41,7 +41,7 @@
     <property key="ServerHitType.description.REQUEST">
         <value xml:lang="de">Request</value>
         <value xml:lang="en">Request</value>
-        <value xml:lang="es">Pedido</value>
+        <value xml:lang="es">Petición</value>
         <value xml:lang="it">Richiesta</value>
         <value xml:lang="ro">Cerere</value>
         <value xml:lang="ru">Запрос</value>

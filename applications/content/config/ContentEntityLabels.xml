@@ -1717,7 +1717,7 @@
     <property key="ServerHitType.description.REQUEST">
         <value xml:lang="de">Anfrage</value>
         <value xml:lang="en">REQUEST</value>
-        <value xml:lang="es">Pedido</value>
+        <value xml:lang="es">Petición</value>
         <value xml:lang="th">คำร้อง</value>
     </property>
     <property key="ServerHitType.description.SERVICE">

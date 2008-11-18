@@ -2027,6 +2027,7 @@
     </property>
     <property key="AccountingFinAccounts">
         <value xml:lang="en">Financial Accounts</value>
+        <value xml:lang="es">Cuentas financieras</value>
         <value xml:lang="fr">Comptes financiers</value>
         <value xml:lang="it">Conti Finanziari</value>
         <value xml:lang="nl">Financiele rekeningen</value>
@@ -5395,7 +5396,7 @@
     <property key="AccountingReports">
         <value xml:lang="ar">تقارير</value>
         <value xml:lang="en">Reports</value>
-        <value xml:lang="es">Reportes</value>
+        <value xml:lang="es">Informes</value>
         <value xml:lang="fr">Rapports</value>
         <value xml:lang="it">Stampe</value>
         <value xml:lang="nl">Raporten</value>
@@ -5748,7 +5749,7 @@
     <property key="AccountingTaxSummary">
         <value xml:lang="ar">تقرير ملخص الضريبة</value>
         <value xml:lang="en">Tax Summary Report</value>
-        <value xml:lang="es">Reporte resumido de impuestos</value>
+        <value xml:lang="es">Informe resumido de impuestos</value>
         <value xml:lang="fr">Rapport fiscal résumé</value>
         <value xml:lang="it">Stampa Sommario Tasse</value>
         <value xml:lang="nl">Belastingaangifte</value>
@@ -6605,7 +6606,7 @@
         <value xml:lang="en">Available Balance</value>
         <value xml:lang="fr">Balance disponible</value>
         <value xml:lang="it">Bilancio Disponibile</value>
-		<value xml:lang="nl">Beschikbaar saldo</value>
+        <value xml:lang="nl">Beschikbaar saldo</value>
         <value xml:lang="ru">Доступный баланс</value>
         <value xml:lang="th">ยอดเงินที่สามารถใช้ได้</value>
     </property>

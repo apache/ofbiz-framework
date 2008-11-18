@@ -55,6 +55,7 @@
     </property>
     <property key="FormFieldTitle_actualStartDate">
         <value xml:lang="en">Actual Start Date</value>
+        <value xml:lang="es">Fecha de comienzo real</value>
         <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Data Inizio Attuale</value>
         <value xml:lang="nl">Actual Start Date</value>
@@ -192,6 +193,7 @@
     </property>
     <property key="FormFieldTitle_estimatedStartDate">
         <value xml:lang="en">Estimated Start Date</value>
+        <value xml:lang="es">Fecha de comienzo estimada</value>
         <value xml:lang="fr">Date de début estimée</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="nl">Verwachtte start datum</value>
@@ -486,6 +488,7 @@
     </property>
     <property key="FormFieldTitle_requirementStartDate">
         <value xml:lang="en">Requirement Start Date</value>
+        <value xml:lang="es">Fecha de comienzo del requisito</value>
         <value xml:lang="fr">Date de début de besoin</value>
         <value xml:lang="it">Data Inizio Fabbisogno</value>
         <value xml:lang="nl">Aanvraag start datum</value>
@@ -585,6 +588,7 @@
     </property>
     <property key="FormFieldTitle_startDateTime">
         <value xml:lang="en">Start Date Time</value>
+        <value xml:lang="es">Fecha/hora de comienzo</value>
         <value xml:lang="fr">Date-heure de début</value>
         <value xml:lang="it">Data/Ora Inizio</value>
         <value xml:lang="th">เริ่มวันเวลา</value>
@@ -678,6 +682,7 @@
     </property>
     <property key="FormFieldTitle_workEffortId">
         <value xml:lang="en">Work Effort Id</value>
+        <value xml:lang="es">Código del esfuerzo de trabajo</value>
         <value xml:lang="fr">Réf. de tâche</value>
         <value xml:lang="it">Numero Impegno di Lavoro</value>
         <value xml:lang="nl">Activiteit Id</value>
@@ -687,6 +692,7 @@
     </property>
     <property key="FormFieldTitle_workEffortIdFrom">
         <value xml:lang="en">Work Effort Id From</value>
+        <value xml:lang="es">Código del esfuerzo de trabajo desde</value>
         <value xml:lang="fr">Réf. de tâche depuis</value>
         <value xml:lang="it">Impegno di Lavoro Da</value>
         <value xml:lang="nl">Actie Id van</value>
@@ -696,6 +702,7 @@
     </property>
     <property key="FormFieldTitle_workEffortIdTo">
         <value xml:lang="en">Work Effort Id To</value>
+        <value xml:lang="es">Código del esfuerzo de trabajo para</value>
         <value xml:lang="fr">Réf. de tâche à</value>
         <value xml:lang="it">Impegno di Lavoro A</value>
         <value xml:lang="nl">Activiteit Id To</value>
@@ -705,6 +712,7 @@
     </property>
     <property key="FormFieldTitle_workEffortName">
         <value xml:lang="en">Work Effort Name</value>
+        <value xml:lang="es">Nombre del esfuerzo de trabajo</value>
         <value xml:lang="fr">Nom de la tâche</value>
         <value xml:lang="it">Nome Impegno di Lavoro</value>
         <value xml:lang="nl">Actie naam</value>
@@ -714,6 +722,7 @@
     </property>
     <property key="FormFieldTitle_workEffortParentId">
         <value xml:lang="en">Work Effort Parent Id</value>
+        <value xml:lang="es">Código del esfuerzo de trabajo precursor</value>
         <value xml:lang="fr">Réf. de tâche parente</value>
         <value xml:lang="it">Codice Padre Impegno di Lavoro</value>
         <value xml:lang="nl">Activiteit Parent Id</value>
@@ -884,7 +893,7 @@
     </property>
     <property key="PageTitleAddWorkEffortRequest">
         <value xml:lang="en">Add Work Effort Request</value>
-        <value xml:lang="es">Añadir pedido a esfuerzo de trabajo</value>
+        <value xml:lang="es">Añadir petición a esfuerzo de trabajo</value>
         <value xml:lang="fr">Ajouter une demande à la tâche</value>
         <value xml:lang="it">Aggiungi Impegno di Lavoro Richiesta</value>
         <value xml:lang="nl">Add Activiteit Request</value>
@@ -894,7 +903,7 @@
     </property>
     <property key="PageTitleAddWorkEffortRequestItem">
         <value xml:lang="en">Add Work Effort RequestItem</value>
-        <value xml:lang="es">Añadir ítem al pedido</value>
+        <value xml:lang="es">Añadir ítem de petición</value>
         <value xml:lang="fr">Ajouter une ligne de demande à la tâche</value>
         <value xml:lang="it">Aggiungi Impegno di Lavoro Riga Richiesta</value>
         <value xml:lang="nl">Add Activiteit RequestItem</value>
@@ -1115,7 +1124,7 @@
     </property>
     <property key="PageTitleEditWorkEffortRequest">
         <value xml:lang="en">Edit Work Effort Request</value>
-        <value xml:lang="es">Editar pedido de esfuerzo de trabajo</value>
+        <value xml:lang="es">Editar petición de esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier la demande de tâche</value>
         <value xml:lang="it">Aggiorna Impegno di Lavoro Richiesta</value>
         <value xml:lang="nl">Edit Activiteit Request</value>
@@ -1125,7 +1134,7 @@
     </property>
     <property key="PageTitleEditWorkEffortRequestItem">
         <value xml:lang="en">Edit Work Effort RequestItem</value>
-        <value xml:lang="es">Editar ítem de pedido de esfuerzo de trabajo</value>
+        <value xml:lang="es">Editar ítem de petición de esfuerzo de trabajo</value>
         <value xml:lang="fr">Modifier la ligne de demande de tâche</value>
         <value xml:lang="it">Aggiorna Impegno di Lavoro Righe Richieste</value>
         <value xml:lang="nl">Edit Activiteit RequestItem</value>
@@ -1237,7 +1246,7 @@
     </property>
     <property key="PageTitleListWorkEffortRequests">
         <value xml:lang="en">Work Effort Requests</value>
-        <value xml:lang="es">Pedidos</value>
+        <value xml:lang="es">Peticiones</value>
         <value xml:lang="fr">Demandes de la tâche</value>
         <value xml:lang="it">Lista Impegno di Lavoro Richieste</value>
         <value xml:lang="nl">Activiteit Requests</value>
@@ -2323,6 +2332,7 @@
     </property>
     <property key="WorkEffortCompletionDate">
         <value xml:lang="en">Completion date</value>
+        <value xml:lang="es">Fecha de terminación</value>
         <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="th">สำเร็จวันที่</value>
     </property>
@@ -2510,6 +2520,7 @@
     </property>
     <property key="WorkEffortEstimatedStartDate">
         <value xml:lang="en">Estimated Start Date</value>
+        <value xml:lang="es">Fecha de comienzo estimada</value>
         <value xml:lang="fr">Date estimée de début</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="nl">Estimated Start Date</value>
@@ -2831,7 +2842,7 @@
     </property>
     <property key="WorkEffortMyRequestList">
         <value xml:lang="en">My Request List</value>
-        <value xml:lang="es">Mi lista de pedidos</value>
+        <value xml:lang="es">Mi lista de peticiones</value>
         <value xml:lang="fr">Ma liste de demandes</value>
         <value xml:lang="it">Mia Lista Richieste</value>
         <value xml:lang="nl">My Request List</value>
@@ -3041,7 +3052,7 @@
     </property>
     <property key="WorkEffortNoRequestFound">
         <value xml:lang="en">No Request Found</value>
-        <value xml:lang="es">No se encontraron pedidos</value>
+        <value xml:lang="es">No se encontraron peticiones</value>
         <value xml:lang="fr">Aucune demande trouvée</value>
         <value xml:lang="it">Nessun Richiesta Trovata</value>
         <value xml:lang="nl">No Request Found</value>
@@ -3443,7 +3454,7 @@
     </property>
     <property key="WorkEffortRequestItems">
         <value xml:lang="en">Request Items</value>
-        <value xml:lang="es">Ítems de pedido</value>
+        <value xml:lang="es">Ítems de petición</value>
         <value xml:lang="fr">Lignes de demande</value>
         <value xml:lang="it">Righe Richiesta</value>
         <value xml:lang="nl">Request Items</value>
@@ -3453,7 +3464,7 @@
     </property>
     <property key="WorkEffortRequestList">
         <value xml:lang="en">Request List</value>
-        <value xml:lang="es">Lista de pedidos</value>
+        <value xml:lang="es">Lista de peticiones</value>
         <value xml:lang="fr">Liste de demandes</value>
         <value xml:lang="it">Lista Richiesta</value>
         <value xml:lang="nl">Request List</value>
@@ -3464,7 +3475,7 @@
     </property>
     <property key="WorkEffortRequestManager">
         <value xml:lang="en">Request Manager</value>
-        <value xml:lang="es">Adminstración de pedidos</value>
+        <value xml:lang="es">Adminstración de peticiones</value>
         <value xml:lang="fr">Administrateur de la requête</value>
         <value xml:lang="it">Gestore Richiesta</value>
         <value xml:lang="nl">Request Manager</value>
@@ -3475,7 +3486,7 @@
     </property>
     <property key="WorkEffortRequestName">
         <value xml:lang="en">Request Name</value>
-        <value xml:lang="es">Nombre del pedido</value>
+        <value xml:lang="es">Nombre de la petición</value>
         <value xml:lang="fr">Nom de requête</value>
         <value xml:lang="it">Nome Richiesta</value>
         <value xml:lang="nl">Request Name</value>
@@ -3491,7 +3502,7 @@
     </property>
     <property key="WorkEffortRequestTaker">
         <value xml:lang="en">Request Taker</value>
-        <value xml:lang="es">Encargado del pedido</value>
+        <value xml:lang="es">Encargado de la petición</value>
         <value xml:lang="fr">Destinataire de la demande</value>
         <value xml:lang="it">Proprietario Richiesta</value>
         <value xml:lang="nl">Request Taker</value>
@@ -3511,7 +3522,7 @@
     </property>
     <property key="WorkEffortRequests">
         <value xml:lang="en">Requests</value>
-        <value xml:lang="es">Pedidos</value>
+        <value xml:lang="es">Peticiones</value>
         <value xml:lang="fr">Demandes</value>
         <value xml:lang="it">Richieste</value>
         <value xml:lang="nl">Requests</value>
@@ -3533,7 +3544,7 @@
     </property>
     <property key="WorkEffortRequiredByDate">
         <value xml:lang="en">Required By Date</value>
-        <value xml:lang="es">Fecha del pedido</value>
+        <value xml:lang="es">Se necesita hasta fecha</value>
         <value xml:lang="fr">Demandés par date</value>
         <value xml:lang="it">Data Richiesta Da</value>
         <value xml:lang="nl">Required By Date</value>
@@ -3599,7 +3610,7 @@
     </property>
     <property key="WorkEffortRequirementsForRequestItem">
         <value xml:lang="en">Requirements For Request Item</value>
-        <value xml:lang="es">Requerimientos para ítem de pedido</value>
+        <value xml:lang="es">Requisitos para ítem de petición</value>
         <value xml:lang="fr">Besoins pour la ligne de demande</value>
         <value xml:lang="it">Fabbisogno Per Riga Richiesta</value>
         <value xml:lang="nl">Requirements For Request Item</value>
@@ -3731,6 +3742,7 @@
     </property>
     <property key="WorkEffortStartDate">
         <value xml:lang="en">Start Date</value>
+        <value xml:lang="es">Fecha de comienzo</value>
         <value xml:lang="fr">Date de début</value>
         <value xml:lang="th">เริ่มวันที่</value>
     </property>
