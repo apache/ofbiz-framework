@@ -221,7 +221,7 @@ under the License.
                       <#assign pmBillingAddress = eftAccount.getRelatedOne("PostalAddress")>
                       <tr>
                         <td align="right" valign="top" width="15%">
-                          <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingEftAccount}</b></div>
+                          <div class="tabletext">&nbsp;<b>${uiLabelMap.AccountingEFTAccount}</b></div>
                         </td>
                         <td width="5">&nbsp;</td>
                         <td valign="top" width="80%">

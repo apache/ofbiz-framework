@@ -403,7 +403,7 @@ function submitForm(form, mode, value) {
                           <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if shoppingCart.isPaymentSelected(paymentMethod.paymentMethodId)>checked="checked"</#if>/>
                         </td>
                         <td width="50%">
-                          <span>EFT:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}</span>
+                          <span>${uiLabelMap.AccountingEFTAccount}:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}</span>
                           <a href="javascript:submitForm(document.checkoutInfoForm, 'EE', '${paymentMethod.paymentMethodId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
                           <#if paymentMethod.description?has_content><br/><span>(${paymentMethod.description})</span></#if>
                         </td>
@@ -487,7 +487,7 @@ function submitForm(form, mode, value) {
                   </tr>
                   <tr>
                     <td width="1%">
-                      <div>${uiLabelMap.CommonNumber}</div>
+                      <div>${uiLabelMap.AccountingNumber}</div>
                     </td>
                     <td width="50%">
                       <input type="text" size="15" name="giftCardNumber" value="${(requestParameters.giftCardNumber)?if_exists}" onFocus="document.checkoutInfoForm.addGiftCard.checked=true;"/>

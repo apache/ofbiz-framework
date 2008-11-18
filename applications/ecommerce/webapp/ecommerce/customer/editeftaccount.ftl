@@ -18,7 +18,7 @@ under the License.
 -->
 
 <#if canNotView>
-  <p><h3>${uiLabelMap.AccountingEftNotBelongToYou}.</h3></p>
+  <p><h3>${uiLabelMap.AccountingEFTNotBelongToYou}.</h3></p>
 &nbsp;<a href="<@ofbizUrl>authview/${donePage}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonBack}</a>
 <#else>
     <#if !eftAccount?exists>

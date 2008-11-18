@@ -76,7 +76,7 @@ function submitForm(form, mode, value) {
                   <a href="javascript:submitForm(document.checkoutInfoForm, 'NC', '');" class="buttontext">${uiLabelMap.AccountingCreditCard}</a>
                 </#if>
                 <#if productStorePaymentMethodTypeIdMap.EFT_ACCOUNT?exists>
-                  <a href="javascript:submitForm(document.checkoutInfoForm, 'NE', '');" class="buttontext">${uiLabelMap.AccountingEftAccount}</a>
+                  <a href="javascript:submitForm(document.checkoutInfoForm, 'NE', '');" class="buttontext">${uiLabelMap.AccountingEFTAccount}</a>
                 </#if>
               </td></tr>
               <tr><td colspan="3"><hr/></td></tr>
@@ -204,7 +204,7 @@ function submitForm(form, mode, value) {
                       <input type="radio" name="checkOutPaymentId" value="${paymentMethod.paymentMethodId}" <#if paymentMethod.paymentMethodId == checkOutPaymentId>checked</#if>>
                     </td>
                     <td width="1%" nowrap>
-                      <span class="tabletext">EFT:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}
+                      <span class="tabletext">${uiLabelMap.AccountingEFTAccount}:&nbsp;${eftAccount.bankName?if_exists}: ${eftAccount.accountNumber?if_exists}
                         <#if paymentMethod.description?has_content>(${paymentMethod.description})</#if>
                       </span>
                       <a href="javascript:submitForm(document.checkoutInfoForm, 'EE', '${paymentMethod.paymentMethodId}');" class="buttontext">${uiLabelMap.CommonUpdate}</a>
