@@ -4617,14 +4617,19 @@
     </property>
     <property key="AccountingNoBillingAccount">
         <value xml:lang="ar">لا حساب فوترة</value>
+        <value xml:lang="cs">Žádný fakturační účet</value>
+        <value xml:lang="de">Kein Rechnungskonto</value>
         <value xml:lang="en">No Billing Account</value>
-        <value xml:lang="es">No Cuenta de Facturación</value>
-        <value xml:lang="fr">Aucun compte de facturation</value>
-        <value xml:lang="it">Nessun Conto Fatturazione</value>
-        <value xml:lang="nl">Geen factuurrekening</value>
-        <value xml:lang="ro">Nici un Cont de Facturare</value>
-        <value xml:lang="ru">Нет кредитного счета</value>
-        <value xml:lang="th">ไม่มียอดรวมของบัญชี</value>
+        <value xml:lang="es">No hay cuenta de facturación</value>
+        <value xml:lang="fr">Pas de compte de facturation</value>
+        <value xml:lang="hi_IN">कोई भुगतान ख़ाता नही</value>
+        <value xml:lang="ja">No Billing Account</value>
+        <value xml:lang="it">Nessun conto fatturazione</value>
+        <value xml:lang="nl">Geen factuur rekening</value>
+        <value xml:lang="pt_PT">Sem Conta para Pagamento</value>
+        <value xml:lang="ro">Nici-un Cont Facturatie</value>
+        <value xml:lang="ru">Нет платежной учетной записи</value>
+        <value xml:lang="th">ไม่มียอดคงเหลือในบัญชี</value>
         <value xml:lang="zh">没有账单账户</value>
     </property>
     <property key="AccountingNoBillingAccountFound">
@@ -4740,16 +4745,33 @@
         <value xml:lang="th">ไม่มีการสั่งรายการถึงใบเสร็จรับเงิน ไม่สามารถสร้างใบเสร็จรับเงินได้</value>
         <value xml:lang="zh">没有定单明细到发票，无法创建发票。</value>
     </property>
+    <property key="AccountingNoPaymentMethodInformation">
+        <value xml:lang="cs">Neuvedena žádná informace o způsobu platby</value>
+        <value xml:lang="de">Keine Information zur Zahlungsmethode hinterlegt</value>
+        <value xml:lang="en">No payment method information on file</value>
+        <value xml:lang="es">No hay información de pago</value>
+        <value xml:lang="fr">Pas d'information sur le moyen de paiement</value>
+        <value xml:lang="hi_IN">भुगतान जानकारी उपलब्ध नहीं है फाइल में</value>
+        <value xml:lang="it">Nessuna informazione sul metodo di pagamento</value>
+        <value xml:lang="ja">No payment method information on file</value>
+        <value xml:lang="nl">Geen betalingsmethode beschikbaar</value>
+        <value xml:lang="pt_PT">Sem informação sobre o modo de pagamento em arquivo</value>
+        <value xml:lang="ro">Nici-o informatie despre metoda de  plata din fisier</value>
+        <value xml:lang="ru">В файле отсутствует информация о методе платежа</value>
+        <value xml:lang="th">ไม่มีข้อมูลการจ่ายเงินบนเอกสาร</value>
+        <value xml:lang="zh">没有存档的支付方法信息</value>
+    </property>
     <property key="AccountingNoPaymentMethods">
         <value xml:lang="ar">لا طريقة للتسديد موجودة على الملف</value>
-        <value xml:lang="en">There are no payment methods on file.</value>
-        <value xml:lang="es">No existen metodos de pago en archivo.</value>
-        <value xml:lang="fr">Il n'y a aucune méthode de paiement enregistrée.</value>
+        <value xml:lang="de">Es sind keine Zahlungsmethoden hinterlegt</value>
+        <value xml:lang="en">No Payment Methods</value>
+        <value xml:lang="es">No hay métodos de pago relacionados</value>
+        <value xml:lang="fr">Aucune méthode depaiement</value>
         <value xml:lang="it">Non ci sono metodi di pagamento sul file.</value>
         <value xml:lang="nl">Geen betalingsmethoden bekend</value>
         <value xml:lang="ro">Nu esista metode de plata in fisier.</value>
         <value xml:lang="ru">В файле отсутствуют способы платежа.</value>
-        <value xml:lang="th">ไม่มีวิธีการชำระเงินบนไฟล์</value>
+        <value xml:lang="th">ไม่มีวิธีการชำระเงิน์</value>
         <value xml:lang="zh">文件没有支付方法。</value>
     </property>
     <property key="AccountingNoPaymentsApplicationsfound">
@@ -4829,14 +4851,18 @@
     </property>
     <property key="AccountingOfflinePayment">
         <value xml:lang="ar">تسديد غير مباشر</value>
+        <value xml:lang="cs">Platba off-line</value>
+        <value xml:lang="de">Offline Bezahlung</value>
         <value xml:lang="en">Offline Payment</value>
-        <value xml:lang="es">Pago fuera de linea</value>
-        <value xml:lang="fr">Paiement différé</value>
-        <value xml:lang="it">Pagamento Offline</value>
-        <value xml:lang="nl">offline betaling</value>
+        <value xml:lang="es">Pago fuera de línea</value>
+        <value xml:lang="fr">Paiement hors connexion</value>
+        <value xml:lang="ja">Offline Payment</value>
+        <value xml:lang="it">Pagamento offline</value>
+        <value xml:lang="nl">Offline betalen</value>
+        <value xml:lang="pt_PT">Pagamento Tradicional</value>
         <value xml:lang="ro">Plata Offline</value>
         <value xml:lang="ru">Офлайновый платеж</value>
-        <value xml:lang="th">ไม่สามารถติดต่อการชำระเงินได้</value>
+        <value xml:lang="th">ไม่สามารถเชื่อมต่อกับระบบการจ่ายเงินได้</value>
         <value xml:lang="zh">离线支付</value>
     </property>
     <property key="AccountingOpenPayments">
@@ -4928,6 +4954,36 @@
         <value xml:lang="ru">Основной счет доходов</value>
         <value xml:lang="th">ยกเลิกรายได้บัญชีแยกประเภททั่วไป</value>
         <value xml:lang="zh">覆盖收入总账账户标识</value>
+    </property>
+    <property key="AccountingPIN">
+        <value xml:lang="cs">PIN</value>
+        <value xml:lang="de">PIN</value>
+        <value xml:lang="en">PIN</value>
+        <value xml:lang="es">PIN</value>
+        <value xml:lang="fr">PIN</value>
+        <value xml:lang="hi_IN">पिन</value>
+        <value xml:lang="it">PIN</value>
+        <value xml:lang="ja">PIN</value>
+        <value xml:lang="nl">PIN</value>
+        <value xml:lang="ro">PIN</value>
+        <value xml:lang="ru">ПИН</value>
+        <value xml:lang="th">รหัสส่วนตัว</value>
+        <value xml:lang="zh">密码</value>
+    </property>
+    <property key="AccountingPINNumber">
+        <value xml:lang="cs">PIN</value>
+        <value xml:lang="de">PIN Nummer</value>
+        <value xml:lang="en">PIN Number</value>
+        <value xml:lang="es">Número PIN</value>
+        <value xml:lang="fr">N° PIN</value>
+        <value xml:lang="hi_IN">पिन नम्बर</value>
+        <value xml:lang="it">Numero PIN</value>
+        <value xml:lang="ja">PIN Number</value>
+        <value xml:lang="nl">PIN Nummer</value>
+        <value xml:lang="ro">Numero PIN</value>
+        <value xml:lang="ru">ПИН код</value>
+        <value xml:lang="th">รหัสส่วนตัว</value>
+        <value xml:lang="zh">密码数字</value>
     </property>
     <property key="AccountingPostedTransactionTotals">
         <value xml:lang="en">Posted Totals</value>
@@ -5096,17 +5152,84 @@
         <value xml:lang="th">รายการสถานะกลุ่มผู้ใช้</value>
         <value xml:lang="zh">会员角色列表</value>
     </property>
+    <property key="AccountingPayment">
+        <value xml:lang="de">Bezahlung</value>
+        <value xml:lang="en">Payment</value>
+        <value xml:lang="es">Pago</value>
+        <value xml:lang="fr">Paiement</value>
+        <value xml:lang="it">Pagamento</value>
+        <value xml:lang="th">การชำระเงิน</value>
+    </property>
+    <property key="AccountingPaymentAlreadyReceived">
+        <value xml:lang="de">Bezahlung bereits erhalten</value>
+        <value xml:lang="en">Payment Already Received</value>
+        <value xml:lang="es">El pago ya fue recibido</value>
+        <value xml:lang="fr">Paiement déjà reçu</value>
+        <value xml:lang="it">Pagamento già ricevuto</value>
+        <value xml:lang="th">ได้รับการชำระเงินแล้ว</value>
+    </property>
+    <property key="AccountingPaymentInformation">
+        <value xml:lang="ar">معلومات التسديد</value>
+        <value xml:lang="cs">Informace o platbě</value>
+        <value xml:lang="de">Zahlungsinformation</value>
+        <value xml:lang="en">Payment Information</value>
+        <value xml:lang="es">Información de pago</value>
+        <value xml:lang="fr">Information sur le paiement</value>
+        <value xml:lang="hi_IN">भुगतान जानकारी</value>
+        <value xml:lang="it">Informazione Pagamento</value>
+        <value xml:lang="ja">Payment Information</value>
+        <value xml:lang="nl">Betalingsinformatie</value>
+        <value xml:lang="pt_PT">Informação Sobre o Pagamento</value>
+        <value xml:lang="ro">Plata</value>
+        <value xml:lang="ru">Платежная информация</value>
+        <value xml:lang="th">ข้อมูลการชำระเงิน</value>
+        <value xml:lang="zh">支付信息</value>
+    </property>
+    <property key="AccountingPayOnlyWithBillingAccount">
+        <value xml:lang="de">Bezahlung nur mit Rechnungskonto</value>
+        <value xml:lang="en">Pay only with Billing Account</value>
+        <value xml:lang="es">Pagar solo con cuentas de facturación</value>
+        <value xml:lang="fr">Payez uniquement avec un n° de facture</value>
+        <value xml:lang="hi_IN">भुगतान ख़ाता से भुगतान करें</value>
+        <value xml:lang="it">Pagare solo con conto di fatturazione</value>
+        <value xml:lang="ja">Pay only with Billing Account</value>
+        <value xml:lang="nl">Betaal alleen met factuur rekening</value>
+        <value xml:lang="pt_PT">Pagar apenas com Conta para Pagamento</value>
+        <value xml:lang="ro">Plateste numai cu Contul Facturare </value>
+        <value xml:lang="ru">Платить только с платежной учетной записью</value>
+        <value xml:lang="th">ชำระเงินผ่านทางยอดบัญชี</value>
+        <value xml:lang="zh">仅用账单账户支付</value>
+    </property>
     <property key="AccountingPayWithPayPal">
+        <value xml:lang="cs">Platba prostřednictvím PayPal</value>
+        <value xml:lang="de">Bezahlung mit PayPal</value>
         <value xml:lang="en">Pay With PayPal</value>
-        <value xml:lang="fr">Payer avec PayPal</value>
-        <value xml:lang="nl">Betaal via PayPal</value>
-        <value xml:lang="th">จ่ายโดย PayPal</value>
+        <value xml:lang="es">Pagar con PayPal</value>
+        <value xml:lang="fr">Paiement avec PayPal</value>
+        <value xml:lang="hi_IN">पेपाल से भुगतान करें</value>
+        <value xml:lang="it">Paga con PayPal</value>
+        <value xml:lang="ja">Pay With PayPal</value>
+        <value xml:lang="nl">Betaal met PayPal</value>
+        <value xml:lang="pt_PT">Pagar Com Paypal</value>
+        <value xml:lang="ro">Plateste cu PayPal</value>
+        <value xml:lang="ru">Платить через PayPal</value>
+        <value xml:lang="th">ชำระเงินผ่าน paypal</value>
+        <value xml:lang="zh">用贝宝支付</value>
     </property>
     <property key="AccountingPayWithWorldPay">
+        <value xml:lang="de">Bezahlung mit WorldPay</value>
         <value xml:lang="en">Pay With WorldPay</value>
-        <value xml:lang="fr">Payer avec WorldPay</value>
-        <value xml:lang="nl">Betaal via WorldPay</value>
-        <value xml:lang="th">จ่ายโดย WorldPay</value>
+        <value xml:lang="es">Pagar con WorldPay</value>
+        <value xml:lang="fr">Paiement avec WorldPay</value>
+        <value xml:lang="hi_IN">WorldPay से भुगतान करें</value>
+        <value xml:lang="it">Paga con WorldPay</value>
+        <value xml:lang="ja">Pay With WorldPay</value>
+        <value xml:lang="nl">Betaal met WorldPay</value>
+        <value xml:lang="pt_PT">Pagar Com WorldPay</value>
+        <value xml:lang="ro">Plateste Cu WorldPay</value>
+        <value xml:lang="ru">Платить через WorldPay</value>
+        <value xml:lang="th">ชำระเงินผ่าน WorldPay</value>
+        <value xml:lang="zh">用WorldPay支付</value>
     </property>
     <property key="AccountingPayment">
         <value xml:lang="ar">تسديد</value>
@@ -5326,18 +5449,6 @@
         <value xml:lang="th">รหัสการชำระเงินนำไปใช้ได้</value>
         <value xml:lang="zh">要使用的支付编号</value>
     </property>
-    <property key="AccountingPaymentInformation">
-        <value xml:lang="ar">معلومات التسديد</value>
-        <value xml:lang="en">Payment Information</value>
-        <value xml:lang="es">Información Pago</value>
-        <value xml:lang="fr">Données du paiement</value>
-        <value xml:lang="it">Informazione Pagamento</value>
-        <value xml:lang="nl">Betaalinformatie</value>
-        <value xml:lang="ro">Informatie Plata</value>
-        <value xml:lang="ru">Информация платежа</value>
-        <value xml:lang="th">ข้อมูลการชำระเงิน</value>
-        <value xml:lang="zh">支付信息</value>
-    </property>
     <property key="AccountingPaymentLessRequested">
         <value xml:lang="en">Payment [${paymentId}] has  ${paymentApplyAvailable?currency(${isoCode})} to apply but ${amountApplied?currency(${isoCode})} is requested</value>
         <value xml:lang="es">Pago [${paymentId}] tiene ${paymentApplyAvailable?currency(${isoCode})} para aplicar pero ${amountApplied?currency(${isoCode})} es requerido</value>
@@ -5376,6 +5487,22 @@
         <value xml:lang="th">สำหรับรหัสวิธีการชำระเงินหรือรหัสประเภทวิธีการชำระเงินไม่มีค่าผ่าน อย่างน้อยที่สุดค่ารหัสวิธีการชำระเงินต้องผ่าน</value>
         <value xml:lang="zh">没有给paymentMethodId或paymentMethodTypeId传递参数。至少应给paymentMethodId传参。</value>
     </property>
+    <property key="AccountingPaymentMethodInformation">
+        <value xml:lang="cs">Informace o způsobu platby</value>
+        <value xml:lang="de">Informationen zur Zahlungsmethode</value>
+        <value xml:lang="en">Payment Method Information</value>
+        <value xml:lang="es">Información de método de pago</value>
+        <value xml:lang="fr">Information sur la méthode de paiement</value>
+        <value xml:lang="hi_IN">भुगतान विधी जानकारी</value>
+        <value xml:lang="it">Metodo di pagamento</value>
+        <value xml:lang="ja">Payment Method Information</value>
+        <value xml:lang="nl">Betalingsmethode Informatie</value>
+        <value xml:lang="pt_PT">Informação Sobre o Modo de Pagamento</value>
+        <value xml:lang="ro">Metoda de Plata</value>
+        <value xml:lang="ru">Информация о методе платежа</value>
+        <value xml:lang="th">ข้อมูลวิธีการชำระเงิน</value>
+        <value xml:lang="zh">支付方法信息</value>
+    </property>
     <property key="AccountingPaymentMethodType">
         <value xml:lang="ar">نوع طريقة التسديد</value>
         <value xml:lang="en">Payment Method Type</value>
@@ -5387,6 +5514,11 @@
         <value xml:lang="ru">Тип способа платежа</value>
         <value xml:lang="th">ประเภทวิธีการชำระเงิน</value>
         <value xml:lang="zh">支付方法类型</value>
+    </property>
+    <property key="AccountingPaymentMethodTypeNotHandled">
+        <value xml:lang="en">Payment method not handled paymentMethodTypeId :</value>
+        <value xml:lang="it">Metodo di pagamento non trattato :</value>
+        <value xml:lang="th">วิธีการชำระเงินโดยไม่มีประเภทการชำระเงิน :</value>
     </property>
     <property key="AccountingPaymentNotEnough">
         <value xml:lang="en">Payment [${paymentId}] has an amount (${paymentApplyAvailable?currency(${isoCode})} to apply and the  ${amountApplied?currency(${isoCode})} requested is too much</value>
@@ -5550,10 +5682,20 @@
         <value xml:lang="zh">支付类型</value>
     </property>
     <property key="AccountingPaymentVia">
+        <value xml:lang="cs">Platba prostřednictvím</value>
+        <value xml:lang="de">Bezahlung per</value>
         <value xml:lang="en">Payment Via</value>
-        <value xml:lang="fr">Paiement par l'intermédiaire de</value>
-        <value xml:lang="nl">Betaling via</value>
-        <value xml:lang="th">โดยทางการชำระเงิน</value>
+        <value xml:lang="es">Vía de pago</value>
+        <value xml:lang="fr">Paiement Via</value>
+        <value xml:lang="hi_IN">भुगतान मार्ग</value>
+        <value xml:lang="it">Con pagamento</value>
+        <value xml:lang="ja">Payment Via</value>
+        <value xml:lang="nl">Betaling Via</value>
+        <value xml:lang="pt_PT">Pagamento Via</value>
+        <value xml:lang="ro">Plata via?</value>
+        <value xml:lang="ru">Платеж через</value>
+        <value xml:lang="th">วิธีการชำระเงิน</value>
+        <value xml:lang="zh">支付通过</value>
     </property>
     <property key="AccountingPayments">
         <value xml:lang="ar">التسديدات</value>
@@ -5642,15 +5784,30 @@
     </property>
     <property key="AccountingPleaseSendPaymentTo">
         <value xml:lang="ar">شطرا لإرسل التسديد إلى</value>
+        <value xml:lang="de">Bitte senden Sie die Bezahlung an</value>
         <value xml:lang="en">Please Send Payment To</value>
-        <value xml:lang="es">Favor de enviar pago a</value>
-        <value xml:lang="fr">Merci d'envoyer le paiement à</value>
+        <value xml:lang="es">Por favor, envíe el pago a:</value>
+        <value xml:lang="fr">SVP, envoyer votre paiement à</value>
         <value xml:lang="it">Prego inviare pagamento a:</value>
         <value xml:lang="nl">Stuur betaling naar</value>
         <value xml:lang="ro">Te rog Trimite Plata la:</value>
         <value xml:lang="ru">Пожалуйста, направляйте платеж на</value>
         <value xml:lang="th">กรุณาส่งการชำระเงินถึง</value>
         <value xml:lang="zh">请把支付发送到</value>
+    </property>
+    <property key="AccountingPhysicalCard">
+        <value xml:lang="de">Physikalische Karte</value>
+        <value xml:lang="en">Physical Card</value>
+        <value xml:lang="es">Tarjeta física</value>
+        <value xml:lang="fr">Carte réelle</value>
+        <value xml:lang="hi_IN">भौतिक कार्ड</value>
+        <value xml:lang="it">Carta fisica</value>
+        <value xml:lang="ja">Physical Card</value>
+        <value xml:lang="nl">Fysieke Kaart</value>
+        <value xml:lang="ro">Carte Fizica</value>
+        <value xml:lang="ru">Реальная карта</value>
+        <value xml:lang="th">ลักษณะบัตร</value>
+        <value xml:lang="zh">实物卡</value>
     </property>
     <property key="AccountingPostTransaction">
         <value xml:lang="ar">إرسل العملية</value>
@@ -5677,14 +5834,15 @@
         <value xml:lang="zh">团体财务的优先选择</value>
     </property>
     <property key="AccountingPrefixCard">
-        <value xml:lang="en">Prefix on Card</value>
+        <value xml:lang="de">Prefix auf der Karte</value>
+        <value xml:lang="en">Prefix Card</value>
         <value xml:lang="es">Prefijo en tarjeta</value>
-        <value xml:lang="fr">Préfixe sur la carte</value>
-        <value xml:lang="it">Prefisso sulla Carta</value>
+        <value xml:lang="fr">Préfixe de la carte</value>
+        <value xml:lang="it">Prefisso sulla carta</value>
         <value xml:lang="nl">Prefix op de kaart</value>
         <value xml:lang="ro">Prefix  Carte</value>
         <value xml:lang="ru">Префикс для карты</value>
-        <value xml:lang="th">คำนำหน้าบนบัตร</value>
+        <value xml:lang="th">คำนำหน้าบัตร</value>
         <value xml:lang="zh">卡上前缀</value>
     </property>
     <property key="AccountingPrintAsCheck">
@@ -5856,6 +6014,7 @@
     </property>
     <property key="AccountingReceivePayment">
         <value xml:lang="ar">تسلم التسديد</value>
+        <value xml:lang="de">Zahlung erhalten</value>
         <value xml:lang="en">Receive Payment</value>
         <value xml:lang="es">Pago Recibido</value>
         <value xml:lang="fr">Recevoir un paiement</value>
@@ -5933,15 +6092,20 @@
     </property>
     <property key="AccountingRoutingNumber">
         <value xml:lang="ar">رقم التمرير</value>
+        <value xml:lang="cs">Kód banky</value>
+        <value xml:lang="de">Bankleitzahl</value>
         <value xml:lang="en">Routing Number</value>
-        <value xml:lang="es">Número de ruteo</value>
-        <value xml:lang="fr">Numéro de routage</value>
-        <value xml:lang="it">Numero Rotta</value>
-        <value xml:lang="nl">Routingnummer</value>
-        <value xml:lang="ro">Nr.Traseu</value>
+        <value xml:lang="es">Ruta</value>
+        <value xml:lang="fr">N° de transfert</value>
+        <value xml:lang="hi_IN">Routing नम्बर</value>
+        <value xml:lang="it">Numero percorso</value>
+        <value xml:lang="ja">Routing Number</value>
+        <value xml:lang="nl">Routing Nummer</value>
+        <value xml:lang="pt_PT">Número de Distribuição</value>
+        <value xml:lang="ro">Numar Parcurs</value>
         <value xml:lang="ru">Номер маршрута</value>
-        <value xml:lang="th">Routing Number</value>
-        <value xml:lang="zh">转账号码</value>
+        <value xml:lang="th">หมายเลข Routing</value>
+        <value xml:lang="zh">路由号码</value>
     </property>
     <property key="AccountingSalesInvoiceToRevenue">
         <value xml:lang="en">Sales Invoice type to Revenue GL Account Number assignment list</value>
@@ -6129,6 +6293,48 @@
         <value xml:lang="th">แสดงการชำระเงิน</value>
         <value xml:lang="zh">显示支付</value>
     </property>
+    <property key="AccountingSingleUseCreditCard">
+        <value xml:lang="de">Einwegkreditkarte</value>
+        <value xml:lang="en">Single Use Credit Card</value>
+        <value xml:lang="es">Tarjeta de crédito de solo uso</value>
+        <value xml:lang="fr">Usage unique de la carte de crédit</value>
+        <value xml:lang="hi_IN">एक बार योग्य जमा कार्ड</value>
+        <value xml:lang="it">Carta di credito monouso</value>
+        <value xml:lang="ja">Single Use Credit Card</value>
+        <value xml:lang="nl">Krediet kaart voor eenmalig gebruik</value>
+        <value xml:lang="ro">Carte Credit de unica folosinta</value>
+        <value xml:lang="ru">Разовая кредитная карта</value>
+        <value xml:lang="th">บัตรเครดิตใช้ครั้งเดียว</value>
+        <value xml:lang="zh">单独使用信用卡</value>
+    </property>
+    <property key="AccountingSingleUseEFTAccount">
+        <value xml:lang="de">Einwegkonto für elektronischen Zahlungsverkehr</value>
+        <value xml:lang="en">Single Use EFT Account</value>
+        <value xml:lang="es">Cuenta EFT de solo uso</value>
+        <value xml:lang="fr">Usage unique d'un compte de virement électronique</value>
+        <value xml:lang="hi_IN">एक बार योग्य EFT ख़ाता</value>
+        <value xml:lang="it">Conto EFT monouso</value>
+        <value xml:lang="ja">Single Use EFT Account</value>
+        <value xml:lang="nl">Bankrekening voor eenmalig gebruik</value>
+        <value xml:lang="ro">Cont EFT de unica folosinta</value>
+        <value xml:lang="ru">Текущий счет для разового использования</value>
+        <value xml:lang="th">บัญชีธนาคารใช้ครั้งเดียว</value>
+        <value xml:lang="zh">单独使用电子资金转账账户</value>
+    </property>
+    <property key="AccountingSingleUseGiftCard">
+        <value xml:lang="de">Einweggutschein</value>
+        <value xml:lang="en">Single Use Gift Card</value>
+        <value xml:lang="es">Certificado de regalo de solo uso</value>
+        <value xml:lang="fr">Usage unique d'une carte cadeau</value>
+        <value xml:lang="hi_IN">एक बार योग्य उपहार कार्ड</value>
+        <value xml:lang="it">Carta omaggio monouso</value>
+        <value xml:lang="ja">Single Use Gift Card</value>
+        <value xml:lang="nl">Tegoedbon voor eenmalig gebruik</value>
+        <value xml:lang="ro">Carte Omagiu de unica folosinta</value>
+        <value xml:lang="ru">Разовая дисконтная карта</value>
+        <value xml:lang="th">บัตรของขวัญใช้ครั้งเดียว</value>
+        <value xml:lang="zh">单独使用礼品卡</value>
+    </property>
     <property key="AccountingSpecifyInvoiceToPaymentBillingAccountTaxGeoId">
         <value xml:lang="en">Specify either Invoice or toPayment or billing account or taxGeoId....</value>
         <value xml:lang="es">Especificar cualquiera: factura o  paraPago o cuenta de facturación o IdAreaFiscal....</value>
@@ -6141,10 +6347,18 @@
         <value xml:lang="zh">需要指定发票、到支付、账单账户或税务地理标识...</value>
     </property>
     <property key="AccountingSplitPayment">
+        <value xml:lang="de">Rechnungsbetrag aufteilen</value>
         <value xml:lang="en">Split Payment</value>
-        <value xml:lang="fr">Paiement fractionné</value>
-        <value xml:lang="nl">Splits betaling</value>
-        <value xml:lang="th">แยกการชำระเงิน</value>
+        <value xml:lang="es">Dividir pago</value>
+        <value xml:lang="fr">Séparer le paiement</value>
+        <value xml:lang="hi_IN">फूट भुगतान</value>
+        <value xml:lang="it">Suddividi il pagamento</value>
+        <value xml:lang="ja">Split Payment</value>
+        <value xml:lang="nl">Opsplitsen betalingen</value>
+        <value xml:lang="ro">Divizeaza Plata</value>
+        <value xml:lang="ru">Разделить оплату</value>
+        <value xml:lang="th">การแยกชำระเงิน</value>
+        <value xml:lang="zh">分解支付</value>
     </property>
     <property key="AccountingStatus">
         <value xml:lang="ar">الوضعية المحاسبية</value>
@@ -6566,11 +6780,35 @@
         <value xml:lang="th">Security Error : To Update a Payment you must either be the to or from party or have the PAY_INFO_UPDATE or PAY_INFO_ADMIN permissions.</value>
         <value xml:lang="zh">安全错误：要更新支付，你必须是支付方或接收方会员，或者具有PAY_INFO_UPDATE或PAY_INFO_ADMIN权限。</value>
     </property>
+    <property key="AccountingUseAccount">
+        <value xml:lang="cs">Použít účet</value>
+        <value xml:lang="de">Konto benutzen</value>
+        <value xml:lang="en">Use Account</value>
+        <value xml:lang="es">Usar cuenta</value>
+        <value xml:lang="fr">Compte utilisé</value>
+        <value xml:lang="hi_IN">ख़ाता इस्तमाल</value>
+        <value xml:lang="it">Usa conto</value>
+        <value xml:lang="ja">Use Account</value>
+        <value xml:lang="nl">Gebruik rekening</value>
+        <value xml:lang="pt_PT">Conta em Uso</value>
+        <value xml:lang="ro">Foloseste Cont</value>
+        <value xml:lang="ru">Использовать учетную запись</value>
+        <value xml:lang="th">ใช้บัญชี</value>
+        <value xml:lang="zh">使用账户</value>
+    </property>
     <property key="AccountingUseGiftCardNotOnFile">
+        <value xml:lang="de">Gutscheinnutzung nicht hinterlegt</value>
         <value xml:lang="en">Use Gift Card Not On File</value>
-        <value xml:lang="fr">L'utilisation de la carte cadeau n'est pas dans le fichier</value>
-        <value xml:lang="nl">Gebruik tegoedbon Not On File</value>
-        <value xml:lang="th">ใช้บัตรของขวัญไม่ได้บนไฟล์</value>
+        <value xml:lang="es">Usar otro certificado de regalo</value>
+        <value xml:lang="fr">La carte cadeau utilisée n'existe pas</value>
+        <value xml:lang="hi_IN">उपहार कार्ड फाइल में नहीं</value>
+        <value xml:lang="ja">Use Gift Card Not On File</value>
+        <value xml:lang="it">La carta omaggio utilizzata non esiste</value>
+        <value xml:lang="nl">Gebruik een niet bekende tegoedbon</value>
+        <value xml:lang="ro">Foloseste Carte Omagiu Nu din Fisier</value>
+        <value xml:lang="ru">Использованной дисконтной карты нет в файле</value>
+        <value xml:lang="th">ใช้บัตรของขวัญ</value>
+        <value xml:lang="zh">使用礼品卡不存档</value>
     </property>
     <property key="AccountingValidationPattern">
         <value xml:lang="en">Use regular expression validation pattern</value>
@@ -6609,11 +6847,33 @@
         <value xml:lang="th">คุณไม่ได้รบอนุญาตให้เข้าชมหน้านี้ ("ACCOUNTING_VIEW" หรือ "ACCOUNTING_ADMIN" ต้องการ)</value>
         <value xml:lang="zh">你没有浏览这个页面的权限。(需要是"ACCOUNTING_VIEW"或"ACCOUNTING_ADMIN")</value>
     </property>
+     <property key="AccountingVirtualCard">
+        <value xml:lang="de">Virtuelle Karte</value>
+        <value xml:lang="en">Virtual Card</value>
+        <value xml:lang="es">Tarjeta virtual</value>
+        <value xml:lang="fr">Carte virtuelle</value>
+        <value xml:lang="hi_IN">आभासी कार्ड</value>
+        <value xml:lang="it">Carta virtuale</value>
+        <value xml:lang="ja">Virtual Card</value>
+        <value xml:lang="nl">Virtuele Kaart</value>
+        <value xml:lang="ro">Carte Virtuala</value>
+        <value xml:lang="ru">Виртуальная карта</value>
+        <value xml:lang="th">บัตรเสมือนจริง(Virtual Card)</value>
+        <value xml:lang="zh">虚拟卡</value>
+    </property>
     <property key="AccountingVisaMastercardAmexDiscover">
+        <value xml:lang="de">Kreditkarte: Visa/Mastercard/Amex/Discover</value>
         <value xml:lang="en">Credit Card: Visa/Mastercard/Amex/Discover</value>
-        <value xml:lang="fr">Carte de crédit : Visa/Mastercard/Amex/Discover</value>
-        <value xml:lang="nl">Kredietkaart: Visa/Mastercard/Amex/Discover</value>
-        <value xml:lang="th">บัตรเครดิต: Visa/Mastercard/Amex/Discover</value>
+        <value xml:lang="es">Tarjeta de crédito: Visa/Mastercard/Amex/Discover</value>
+        <value xml:lang="fr">Carte de crédit: Visa/Mastercard/Amex/Discover</value>
+        <value xml:lang="hi_IN">जमा कार्ड: Visa/Mastercard/Amex/Discover</value>
+        <value xml:lang="it">Carta di credito: Visa/Mastercard/Amex/Discover</value>
+        <value xml:lang="ja">Credit Card: Visa/Mastercard/Amex/Discover</value>
+        <value xml:lang="nl">Krediet Kaart: Visa/Mastercard/Amex/Discover</value>
+        <value xml:lang="ro">Carte Credit: Visa/Mastercard/Amex/Discover</value>
+        <value xml:lang="ru">Кредитная карта: Visa/Mastercard/Amex/Discover</value>
+        <value xml:lang="th">บัตรเครดิต: วีซ่า/มาสเตอร์การ์ด/Amex/ค้นหา</value>
+        <value xml:lang="zh">信用卡：Visa/Mastercard/Amex/Discover</value>
     </property>
     <property key="AccountingtaxAuthGeoId">
         <value xml:lang="en">Tax Auth Geo ID</value>
