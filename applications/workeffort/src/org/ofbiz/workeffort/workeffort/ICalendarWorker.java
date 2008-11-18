@@ -82,11 +82,12 @@ public class ICalendarWorker {
         EntityCondition workEffortCond = EntityCondition.makeCondition(conditionList);
         for (GenericValue partyValue : relatedParties) {
             variableExpr.init("partyId", EntityOperator.EQUALS, partyValue.get("partyId"));
-            workEfforts.addAll(delegator.findList("WorkEffortAndPartyAssign", workEffortCond, null, null, null, false));
+            workEfforts.addAll(EntityUtil.filterByDate(delegator.findList("WorkEffortAndPartyAssign", workEffortCond, null, null, null, false)));
         }
         for (GenericValue fixedAssetValue : relatedFixedAssets) {
             variableExpr.init("fixedAssetId", EntityOperator.EQUALS, fixedAssetValue.get("fixedAssetId"));
-            workEfforts.addAll(delegator.findList("WorkEffortAndPartyAssign", workEffortCond, null, null, null, false));
+            workEfforts.addAll(delegator.findList("WorkEffort", workEffortCond, null, null, null, false));
+            workEfforts.addAll(EntityUtil.filterByDate(delegator.findList("WorkEffortAndFixedAssetAssign", workEffortCond, null, null, null, false)));
         }
         workEfforts.addAll(EntityUtil.filterByDate(delegator.findList("WorkEffortAssocToView", EntityCondition.makeCondition("workEffortIdFrom", EntityOperator.EQUALS, workEffortId), null, null, null, false)));
         return WorkEffortWorker.removeDuplicateWorkEfforts(workEfforts);
