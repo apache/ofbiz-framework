@@ -101,7 +101,8 @@ while (<FIND>) {
 	next if (m,(^|.*/)build\.xml$,);
 	#print("1\n");
 	next if (m,^$appDirsRe/[^/]+/(build/classes|src|testdef)/.*,);
-	next if (m,^framework/(catalina/work|data/derby|logs)/.*,);
+	next if (m,^runtime/(catalina/work|data/derby|logs)/.*,);
+	next if (m,^\.hg(|/.*),);
 	#print("2\n");
 	my $type = undef;
 	if ($_ eq 'framework/entity/config/entityengine.xml') {
@@ -166,12 +167,14 @@ while (<FIND>) {
 	my $pkg;
 	if (m,^specialpurpose/.*,) {
 		$pkg = 'ofbiz-specialpurpose';
+	} elsif (m,^applications/.*,) {
+		$pkg = 'ofbiz-applications';
 	} else {
-		$pkg = 'ofbiz';
+		$pkg = 'ofbiz-framework';
 	}
 	my $base = 'debian/' . $pkg;
 	my $file = $_;
-	print(STDERR "$type: $file\n") if ($file =~ m/.*runtime.*/);
+	print(STDERR "$type: $file\n") if ($file =~ m/^.*runtime.*/);
 	if ($type eq 'code') {
 		my $target = "$base/usr/share/ofbiz/$file";
 		#print("Copying ($file) ($target)\n");
@@ -229,10 +232,10 @@ my $postinst = <<_EOF_;
 			configure_ofbiz
 		fi
 _EOF_
-push(@{$scripts{'ofbiz'}->{'postinst'}->{'configure'}}, $postinst);
+push(@{$scripts{'ofbiz-framework'}->{'postinst'}->{'configure'}}, $postinst);
 foreach my $pkg (keys(%scripts)) {
 	foreach my $script (keys(%{$scripts{$pkg}})) {
-		open(SCRIPT, ">> debian/ofbiz.$script.debhelper");
+		open(SCRIPT, ">> debian/$pkg.$script.debhelper");
 		print(SCRIPT "case \"\$1\" in\n");
 		my $segments = $scripts{$pkg}->{$script};
 		foreach my $arg (keys(%$segments)) {
