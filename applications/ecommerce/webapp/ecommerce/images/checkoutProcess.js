@@ -108,8 +108,16 @@ Event.observe(window, 'load', function() {
         Event.observe($('shipToCountryGeoId'), 'change', function(){
             getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
         });
-        if($('shipToStateProvinceGeoId').value == "_NA_"){
+        if ($('userLoginId')) {
+            var stateValue = $('shipToStateProvinceGeoId').value;
             getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
+            $('shipToStateProvinceGeoId').value = stateValue;
+            stateValue = $('billToStateProvinceGeoId').value;
+            getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
+            $('billToStateProvinceGeoId').value = stateValue;
+        } else {
+            getAssociatedStateList('shipToCountryGeoId', 'shipToStateProvinceGeoId', 'advice-required-shipToStateProvinceGeoId', 'shipToStates');
+            getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
         }
     }
     if ($('billingForm')) {
@@ -117,9 +125,6 @@ Event.observe(window, 'load', function() {
         Event.observe($('billToCountryGeoId'), 'change', function() {
             getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates');
         });
-        if($('billToStateProvinceGeoId').value == "_NA_"){
-            getAssociatedStateList('billToCountryGeoId', 'billToStateProvinceGeoId', 'advice-required-billToStateProvinceGeoId', 'billToStates'); 	
-        }
     }
 });
 
