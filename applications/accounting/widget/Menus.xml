@@ -576,10 +576,112 @@ under the License.
             <link target="editInvoiceItemType"/>
         </menu-item>    
     </menu>
-    <menu name="AgreementTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected">
-        <menu-item name="createNewAgreement" title="${uiLabelMap.AccountingNewAgreement}">
-            <link target="EditAgreement"/>
+
+    <menu name="AgreementTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="AgreementMain" title="${uiLabelMap.AccountingAgreement}">
+            <link target="EditAgreement?agreementId=${agreement.agreementId}"/>
+        </menu-item>
+        <menu-item name="AgreementTerms" title="${uiLabelMap.AccountingAgreementTerms}">
+            <link target="EditAgreementTerms?agreementId=${agreement.agreementId}"/>
+        </menu-item>
+        <menu-item name="AgreementItems" title="${uiLabelMap.AccountingAgreementItems}">
+            <link target="ListAgreementItems?agreementId=${agreement.agreementId}"/>
+        </menu-item>
+        <menu-item name="AgreementWorkEffortAppls" title="${uiLabelMap.AccountingAgreementWorkEffortAppls}">
+            <link target="EditAgreementWorkEffortAppls?agreementId=${agreement.agreementId}"/>
+        </menu-item>
+        <menu-item name="AgreementRoles" title="${uiLabelMap.AccountingAgreementRoles}">
+            <link target="EditAgreementRoles?agreementId=${agreement.agreementId}"/>
         </menu-item>
     </menu>
 
+    <menu name="AgreementItemTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="buttonBarItem">
+        <menu-item name="EditAgreementItem" title="${uiLabelMap.AccountingAgreementItem}">
+            <link target="EditAgreementItem?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+        </menu-item>
+        <menu-item name="ListAgreementPromoAppls" title="${uiLabelMap.AccountingAgreementPromoAppls}">
+            <link target="ListAgreementPromoAppls?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+        </menu-item>
+        <menu-item name="ListAgreementItemTerms" title="${uiLabelMap.AccountingAgreementItemTerms}">
+            <link target="ListAgreementItemTerms?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+        </menu-item>
+
+        <menu-item name="ListAgreementItemSupplierProducts" title="${uiLabelMap.ProductProducts}">
+            <condition>
+                <if-compare field-name="agreement.agreementTypeId" operator="equals" value="PURCHASE_AGREEMENT"/>
+            </condition>
+            <link target="ListAgreementItemSupplierProducts?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+        </menu-item>
+
+        <menu-item name="ListAgreementItemProducts" title="${uiLabelMap.ProductProducts}">
+            <condition>
+                <if-compare field-name="agreement.agreementTypeId" operator="not-equals" value="PURCHASE_AGREEMENT"/>
+            </condition>
+            <link target="ListAgreementItemProducts?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+        </menu-item>
+
+        <menu-item name="ListAgreementItemParties" title="${uiLabelMap.Party}">
+            <link target="ListAgreementItemParties?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+        </menu-item>
+        <menu-item name="ListAgreementGeographicalApplic" title="${uiLabelMap.CommonGeo}">
+            <link target="ListAgreementGeographicalApplic?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
+        </menu-item>
+    </menu>
+
+    <menu name="BillingAccountTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="EditBillingAccount" title="${uiLabelMap.AccountingAccount}">
+            <link target="EditBillingAccount?billingAccountId=${billingAccount.billingAccountId}"/>
+        </menu-item>
+        <menu-item name="EditBillingAccountRoles" title="${uiLabelMap.PartyRoles}">
+            <link target="EditBillingAccountRoles?billingAccountId=${billingAccount.billingAccountId}"/>
+        </menu-item>
+        <menu-item name="EditBillingAccountTerms" title="${uiLabelMap.PartyTerms}">
+            <link target="EditBillingAccountTerms?billingAccountId=${billingAccount.billingAccountId}"/>
+        </menu-item>
+        <menu-item name="BillingAccountInvoices" title="${uiLabelMap.AccountingInvoices}">
+            <link target="BillingAccountInvoices?billingAccountId=${billingAccount.billingAccountId}"/>
+        </menu-item>
+        <menu-item name="BillingAccountPayments" title="${uiLabelMap.AccountingPayments}">
+            <link target="BillingAccountPayments?billingAccountId=${billingAccount.billingAccountId}"/>
+        </menu-item>
+        <menu-item name="BillingAccountOrders" title="${uiLabelMap.AccountingOrders}">
+            <link target="BillingAccountOrders?billingAccountId=${billingAccount.billingAccountId}"/>
+        </menu-item>
+    </menu>
+
+    <menu name="GlAccountTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="FindGlobalGlAccount" title="${uiLabelMap.AcctgChartOfAcctsTabMenu}">
+            <link target="FindGlobalGlAccount"/>
+        </menu-item>
+        <menu-item name="GlAccountNavigate" title="${uiLabelMap.AcctgNavigateAccts}">
+            <link target="GlAccountNavigate"/>
+        </menu-item>
+        <menu-item name="AssignGlAccount" title="${uiLabelMap.AcctgAssignGlAccount}">
+            <link target="AssignGlAccount"/>
+        </menu-item>
+    </menu>
+
+    <menu name="GlSettingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="tabButtonItem2">
+        <menu-item name="GlAccountNavigate" title="${uiLabelMap.AcctgNavigateAccts}">
+            <link target="GlAccountNavigate"/>
+        </menu-item>
+        <menu-item name="AssignGlAccount" title="${uiLabelMap.AcctgAssignGlAccount}">
+            <link target="AssignGlAccount"/>
+        </menu-item>
+    </menu>
+
+    <menu name="TransactionsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="authorizetransactiontab" title="${uiLabelMap.AccountingAuthorize}">
+            <link target="AuthorizeTransaction"/>
+        </menu-item>
+        <menu-item name="capturetransactiontab" title="${uiLabelMap.AccountingCapture}">
+            <link target="CaptureTransaction"/>
+        </menu-item>
+        <menu-item name="gatewayresponsestab" title="${uiLabelMap.AccountingGatewayResponses}">
+            <link target="FindGatewayResponses"/>
+        </menu-item>
+        <menu-item name="manualtransactiontab" title="${uiLabelMap.AccountingManualTransaction}">
+            <link target="ManualTransaction"/>
+        </menu-item>
+    </menu>
 </menus>

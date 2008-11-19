@@ -33,9 +33,7 @@ under the License.
                     <decorator-section name="body">
                         <section>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://accounting/webapp/accounting/transaction/TransactionsTabBar.ftl"/></html>
-                                </platform-specific>
+                                <include-menu name="TransactionsTabBar" location="component://accounting/widget/Menus.xml"/>
             
                                 <container>
                                     <label style="h1">${uiLabelMap.${labelTitleProperty}}</label>
