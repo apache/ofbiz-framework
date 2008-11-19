@@ -19,7 +19,7 @@ under the License.
 
 <div class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.RequestHistory}</div>
+        <div class="boxhead">${uiLabelMap.EcommerceRequestHistory}</div>
     </div>
     <div class="screenlet-body">
         <table width="100%" cellpadding="1" cellspacing="0" border="0">

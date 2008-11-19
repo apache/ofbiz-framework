@@ -220,7 +220,7 @@ under the License.
               <table>
                 <tbody>
                   <tr>
-                    <td valign="top" width="10%">Ship To:</td>
+                    <td valign="top" width="10%">${uiLabelMap.OrderShipTo}:</td>
                     <td valign="top" width="30%">
                       <div>
                         <div id="completedShipToAttn"></div>
@@ -228,7 +228,7 @@ under the License.
                         <div id="completedEmailAddress"></div>
                       </div>
                     </td>
-                    <td width="10%" valign="top">Location:</td>
+                    <td width="10%" valign="top">${uiLabelMap.EcommerceLocation}:</td>
                     <td width="50%" valign="top">
                       <div>    
                         <div id="completedShipToAddress1"></div>
@@ -433,7 +433,7 @@ under the License.
               <table width="35%" align="center">
                 <tbody>
                   <tr>
-                    <td valign="top" width="5%">Bill To:</td>
+                    <td valign="top" width="5%">${uiLabelMap.OrderBillUpTo}:</td>
                     <td valign="top" width="20%">
                       <div>
                         <div id="completedBillToAttn"></div>
@@ -442,7 +442,7 @@ under the License.
                         <div id="completedExpiryDate"></div>
                       </div>
                     </td>
-                    <td valign="top" width="5%">Location:</td>
+                    <td valign="top" width="5%">${uiLabelMap.EcommerceLocation}:</td>
                     <td valign="top" width="50%">
                       <div>    
                         <div id="completedBillToAddress1"></div>
@@ -452,7 +452,7 @@ under the License.
                     </td>
                   </tr>
                   <tr>
-                    <td valign="top">Payment Method:</td>
+                    <td valign="top">${uiLabelMap.AccountingPaymentMethodId}:</td>
                     <td valign="top"><div><div id="paymentMethod"></div></div></td>
                   </tr>
                 </tbody>

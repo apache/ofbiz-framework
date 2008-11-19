@@ -34,9 +34,9 @@ under the License.
                 <td><div class="tabletext">${communicationEvent.subject?default("")}</div></td>
                 <td><div class="tabletext">${communicationEvent.entryDate}</div></td>
                 <td align="right">
-                  <a href="<@ofbizUrl>readmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.EcommerceRead}]</a>
+                  <a href="<@ofbizUrl>readmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="buttontext">${uiLabelMap.EcommerceRead}</a>
                   <#if isSentMessage>
-                    <a href="<@ofbizUrl>newmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="buttontext">[${uiLabelMap.PartyReply}]</a>
+                    <a href="<@ofbizUrl>newmessage?communicationEventId=${communicationEvent.communicationEventId}</@ofbizUrl>" class="buttontext">${uiLabelMap.PartyReply}</a>
                   </#if>
                 </td>
               </tr>

@@ -32,7 +32,7 @@ under the License.
 
 <div id="factoids" class="screenlet">
     <div class="screenlet-header">
-        <div class="boxhead">${uiLabelMap.Factoids}</div>
+        <div class="boxhead">${uiLabelMap.EcommerceFactoids}</div>
     </div>
     <div class="screenlet-body">
         <#assign count_1=0/>

@@ -27,7 +27,7 @@ under the License.
   
        <fo:table-header>
            <fo:table-row>
-               <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.ProductProduct}</fo:block></fo:table-cell>
+               <fo:table-cell><fo:block font-weight="bold">${uiLabelMap.OrderProduct}</fo:block></fo:table-cell>
                <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderQuantity}</fo:block></fo:table-cell>
                <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderUnitList}</fo:block></fo:table-cell>
                <fo:table-cell text-align="center"><fo:block font-weight="bold">${uiLabelMap.OrderSubTotal}</fo:block></fo:table-cell>

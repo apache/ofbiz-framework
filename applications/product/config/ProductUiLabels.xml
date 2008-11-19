@@ -4578,13 +4578,13 @@
         <value xml:lang="th">คุณไม่ต้องมีการอนุญาตในการดำเนินการ ${methodShortDescription}. ("CATALOG${securityAction}" หรือ "CATALOG_ADMIN" needed)</value>
         <value xml:lang="zh">你没有权限运行 ${methodShortDescription}。(需要"CATALOG${securityAction}" 或 "CATALOG_ADMIN")</value>
     </property>
-    <property key="ListPriceRange">
-        <value xml:lang="de">Bereich Listenpreis</value>
+    <property key="ProductListPriceRange">
+        <value xml:lang="de">Listenpreis Bereich</value>
         <value xml:lang="en">List Price Range</value>
         <value xml:lang="es">Listar rango de precios</value>
-        <value xml:lang="fr">Fourchette de prix</value>
-        <value xml:lang="it">Intervallo Prezzo di Listino</value>
-        <value xml:lang="ru">Диапазон прейскурантных цен</value>
+        <value xml:lang="fr">Liste de fourchette de prix</value>
+        <value xml:lang="it">Range prezzo di listino</value>
+        <value xml:lang="ru">Диапазон цен</value>
         <value xml:lang="th">อัตรารายการราคา</value>
     </property>
     <property key="NoProductSpecifiedForUomConversion">

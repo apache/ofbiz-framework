@@ -463,6 +463,7 @@
     <property key="EcommerceClickHereToEdit">
         <value xml:lang="de">Hier klicken um zu Bearbeiten</value>
         <value xml:lang="en">Click here to edit</value>
+        <value xml:lang="it">Clicca qui per aggiornare</value>
         <value xml:lang="fr">Cliquez-ici pour modifier</value>
     </property>
     <property key="EcommerceCompleted">
@@ -540,6 +541,7 @@
     <property key="EcommerceContinueToStep">
         <value xml:lang="de">Fortfahren mit Schritt</value>
         <value xml:lang="en">Continue to step</value>
+        <value xml:lang="it">Continua al passo</value>
         <value xml:lang="fr">Continuer (prochaine étape)</value>
     </property>
     <property key="EcommerceDataResourceId">
@@ -704,6 +706,7 @@
     <property key="EcommerceEnterPromoCode">
         <value xml:lang="de">Aktionscode angeben</value>
         <value xml:lang="en">Enter Promo Code</value>
+        <value xml:lang="it">Inserire codice promozione</value>
         <value xml:lang="fr">Saisissez votre code de promotion</value>
     </property>        
     <property key="EcommerceEnterQueryParameters">
@@ -817,6 +820,17 @@
         <value xml:lang="ru">Безналоговая сумма</value>
         <value xml:lang="th">จำนวนตัวอย่าง</value>
         <value xml:lang="zh">被免除的金额</value>
+    </property>
+    <property key="EcommerceFactoids">
+        <value xml:lang="cs">Věděli jste ?</value>
+        <value xml:lang="de">Wussten Sie schon?</value>
+        <value xml:lang="en">Did you know?</value>
+        <value xml:lang="fr">Le saviez-vous ?</value>
+        <value xml:lang="it">Sapevi che...?</value>
+        <value xml:lang="ro">Factoids</value>
+        <value xml:lang="ru">Факты</value>
+        <value xml:lang="th">คุณทราบหรือไม่ ?</value>
+        <value xml:lang="zh">你知道吗？</value>
     </property>
     <property key="EcommerceFileManager">
         <value xml:lang="de">Dateiverwaltung</value>
@@ -1318,6 +1332,10 @@
         <value xml:lang="ru">ПРИМЕЧАНИЕ: В процессе подписки на список рассылки вы получите сообщение с проверочным кодом и ссылкой на страницу подтверждения. В качестве альтернативы, вы можете ввести этот код здесь.</value>
         <value xml:lang="th">รายการข้อสังเกต</value>
         <value xml:lang="zh">注意：当你注册一个电子邮件联系列表，你会收到一个带有验证码和一个链接的电子邮件以便验证你的电子邮件有效。作为那个链接的替代方式，你可以在这里输入你的验证码。</value>
+    </property>
+    <property key="EcommerceLocation">
+        <value xml:lang="en">Location</value>
+        <value xml:lang="it">Luogo</value>
     </property>
     <property key="EcommerceLoggedToPost">
         <value xml:lang="de">(Sie müssen angemeldet sein um Nachrichten zu schreiben)</value>
@@ -2064,6 +2082,7 @@
     </property>
     <property key="EcommerceRegister">
         <value xml:lang="en">Register</value>
+        <value xml:lang="it">Registrati</value>
     </property>
     <property key="EcommerceRemoveSelected">
         <value xml:lang="cs">Zrušit výběr</value>
@@ -2460,6 +2479,7 @@
     <property key="EcommerceStep">
         <value xml:lang="de">Schritt</value>
         <value xml:lang="en">Step</value>
+        <value xml:lang="it">Passo</value>
         <value xml:lang="fr">Etape</value>
     </property>
     <property key="EcommerceSubject">
@@ -2912,25 +2932,6 @@
         <value xml:lang="ru">Ваша корзина пустая</value>
         <value xml:lang="th">ไม่มีการซื้อสินค้าลงตะกร้าของคุณ</value>
         <value xml:lang="zh">你的购物车是空的</value>
-    </property>
-    <property key="Factoids">
-        <value xml:lang="cs">Věděli jste ?</value>
-        <value xml:lang="de">Wussten Sie schon?</value>
-        <value xml:lang="en">Did you know?</value>
-        <value xml:lang="fr">Le saviez-vous ?</value>
-        <value xml:lang="it">Sapevi che...?</value>
-        <value xml:lang="ro">Factoids</value>
-        <value xml:lang="ru">Факты</value>
-        <value xml:lang="th">คุณทราบหรือไม่ ?</value>
-        <value xml:lang="zh">你知道吗？</value>
-    </property>
-    <property key="ListPriceRange">
-        <value xml:lang="de">Listenpreis Bereich</value>
-        <value xml:lang="en">List Price Range</value>
-        <value xml:lang="fr">Liste de fourchette de prix</value>
-        <value xml:lang="it">Range prezzo di listino</value>
-        <value xml:lang="ru">Диапазон цен</value>
-        <value xml:lang="th">ราคา</value>
     </property>
     <property key="PageTitleAddContent">
         <value xml:lang="de">Inhalt hinzufügen</value>
@@ -6528,7 +6529,7 @@
         <value xml:lang="th">ผลการค้นหาของคุณ</value>
         <value xml:lang="zh">你搜索</value>
     </property>
-    <property key="QuoteHistory">
+    <property key="EcommerceQuoteHistory">
         <value xml:lang="de">Angebot Historie</value>
         <value xml:lang="en">Quote History</value>
         <value xml:lang="fr">Historique des devis</value>
@@ -6539,7 +6540,7 @@
         <value xml:lang="th">ข้อมูลอ้างอิง</value>
         <value xml:lang="zh">询价历史记录</value>
     </property>
-    <property key="RequestHistory">
+    <property key="EcommerceRequestHistory">
         <value xml:lang="de">Anfrage Historie</value>
         <value xml:lang="en">Request History</value>
         <value xml:lang="fr">Historique des demandes</value>
@@ -6550,7 +6551,7 @@
         <value xml:lang="th">ข้อมูลคำร้อง</value>
         <value xml:lang="zh">请求历史记录</value>
     </property>
-    <property key="ShipmentItems">
+    <property key="EcommerceShipmentItems">
         <value xml:lang="de">Lieferpositionen</value>
         <value xml:lang="en">Shipment Items</value>
         <value xml:lang="fr">Articles en expédition</value>
