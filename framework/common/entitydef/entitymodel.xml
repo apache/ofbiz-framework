@@ -563,6 +563,7 @@ under the License.
         <field name="editFormLocation" type="long-varchar"></field>
         <field name="description" type="description"></field>
         <field name="screenshot" type="url"></field>
+        <field name="securityServiceName" type="long-varchar"><description>The service named here is used to see if current user can see the portlet on the list of available portlets; the screen that the portlet calls should also call this service to check permission and not render; the service named here must implement the "permissionInterface" service just like services used for service permissions</description></field>
         <prim-key field="portalPortletId"/>
     </entity>
     <entity entity-name="PortalPage" package-name="org.ofbiz.common.portal" title="Defines a Portal Page">
