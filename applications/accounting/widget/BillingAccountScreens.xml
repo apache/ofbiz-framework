@@ -31,9 +31,14 @@ under the License.
                                 <if-has-permission permission="ACCOUNTING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://accounting/webapp/accounting/billingaccount/BillingAccountTabBar.ftl"/></html>
-                                </platform-specific>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="billingAccount"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="BillingAccountTabBar" location="component://accounting/widget/Menus.xml"/>
+                                    </widgets>
+                                </section>
 
                                 <decorator-section-include name="body"/>
 

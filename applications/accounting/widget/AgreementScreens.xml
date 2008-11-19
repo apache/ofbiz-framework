@@ -38,9 +38,15 @@ under the License.
                                         <not><if-empty field-name="agreement"/></not>
                                     </condition>
                                     <widgets>
-                                        <platform-specific>
-                                            <html><html-template location="component://accounting/webapp/accounting/agreement/AgreementTabBar.ftl"/></html>
-                                        </platform-specific>
+                                        <include-menu name="AgreementTabBar" location="component://accounting/widget/Menus.xml"/>
+                                        <section>
+                                            <condition>
+                                                <not><if-empty field-name="agreementItem"/></not>
+                                            </condition>
+                                            <widgets>
+                                                <include-menu name="AgreementItemTabBar" location="component://accounting/widget/Menus.xml"/>
+                                            </widgets>
+                                        </section>
                                         <container>
                                             <label style="h1">${agreement.description} [${agreement.agreementId}] </label>
                                         </container>
