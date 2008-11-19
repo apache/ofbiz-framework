@@ -960,7 +960,7 @@
         <value xml:lang="de">Teilbetrag bis</value>
         <value xml:lang="en">Bill Up To</value>
         <value xml:lang="es">Facturar hasta</value>
-        <value xml:lang="fr">Factures jusqu'à</value>
+        <value xml:lang="fr">Facturer jusqu'à</value>
         <value xml:lang="it">Fatturare A</value>
         <value xml:lang="nl">factuurmaximum</value>
         <value xml:lang="ro">Faturare -Up To</value>
@@ -1097,7 +1097,7 @@
         <value xml:lang="de">Nur über Rechnungskonto zahlen</value>
         <value xml:lang="en">Billing Account Only</value>
         <value xml:lang="es">Sólo pagar a la cuenta de facturación</value>
-        <value xml:lang="fr">Seulement compte de facturation</value>
+        <value xml:lang="fr">Ne payer qu'avec le compte de facturation</value>
         <value xml:lang="it">Solo Conto Fatturazione</value>
         <value xml:lang="nl">Betaal alleen op rekening</value>
         <value xml:lang="ro">Platit numai prin Contul de Facturare</value>
@@ -1462,7 +1462,7 @@
         <value xml:lang="de">Firmenname des Kontos</value>
         <value xml:lang="en">Company Name on Account</value>
         <value xml:lang="es">Nombre de compañia en cuenta</value>
-        <value xml:lang="fr">Nom du compte de l'entreprise</value>
+        <value xml:lang="fr">Nom de l'entreprise sur le compte </value>
         <value xml:lang="it">Nome conto azienda</value>
         <value xml:lang="nl">Bedrijfsnaam op de rekening</value>
         <value xml:lang="ro">Nume Firma inscrisa pe Cont</value>
@@ -1475,7 +1475,7 @@
         <value xml:lang="de">Firmenname auf Karte</value>
         <value xml:lang="en">Company Name Card</value>
         <value xml:lang="es">Nombre de compañía de la tarjeta</value>
-        <value xml:lang="fr">Nom de la carte de l'entreprise</value>
+        <value xml:lang="fr">Nom de l'entreprise sur la carte</value>
         <value xml:lang="it">Nome azienda sulla Carta</value>
         <value xml:lang="nl">Bedrijfsnaam op de kaart</value>
         <value xml:lang="ro">Nume Firma inscrisa pe Carte</value>
@@ -2447,7 +2447,7 @@
         <value xml:lang="de">Vorname auf Karte</value>
         <value xml:lang="en">First Name Card</value>
         <value xml:lang="es">Primer nombre en tarjeta</value>
-        <value xml:lang="fr">Nom sur la carte</value>
+        <value xml:lang="fr">Prénom sur la carte</value>
         <value xml:lang="it">Nome sulla Carta</value>
         <value xml:lang="nl">Voornaam op de kaart</value>
         <value xml:lang="ro">Prenume inscris pe Carte</value>
@@ -4075,7 +4075,7 @@
         <value xml:lang="de">Nachname auf Karte</value>
         <value xml:lang="en">Last Name Card</value>
         <value xml:lang="es">Apellido en tarjeta</value>
-        <value xml:lang="fr">Prénom sur la carte</value>
+        <value xml:lang="fr">Nom sur la carte</value>
         <value xml:lang="it">Cognome sulla Carta</value>
         <value xml:lang="nl">Achternaam op de kaart</value>
         <value xml:lang="ro">Numele Inscris pe Carte</value>
