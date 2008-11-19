@@ -40,7 +40,7 @@ under the License.
     </table>
     <br/>
     <div class="screenlet-header">  
-      <div class="boxhead"><b>${uiLabelMap.ShipmentItems}</b></div>
+      <div class="boxhead"><b>${uiLabelMap.EcommerceShipmentItems}</b></div>
     </div>   
     <div class="screenlet-body">
       <table width="100%" border="0" cellpadding="0">

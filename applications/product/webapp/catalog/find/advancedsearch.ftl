@@ -167,7 +167,7 @@ under the License.
         </tr>
         <tr>
           <td class="label" align="right" valign="top">
-            ${uiLabelMap.ListPriceRange}:
+            ${uiLabelMap.ProductListPriceRange}:
           </td>
           <td valign="middle">
             <div>
