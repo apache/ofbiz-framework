@@ -72,7 +72,6 @@ under the License.
           <#else>
             <option value="_NA_">${uiLabelMap.PartyNoState}</option>
           </#if>
-          ${screens.render("component://common/widget/CommonScreens.xml#states")}
         </select>
       </span>
     </div>

@@ -255,6 +255,7 @@ under the License.
               <#if userLogin?exists>
                 <input type="hidden" name="keepAddressBook" value="Y"/>
                 <input type="hidden" name="setDefaultShipping" value="Y"/>
+                <input type="hidden" name="userLoginId" id="userLoginId" value="${userLogin.userLoginId!}"/>
                 <#assign productStoreId = Static["org.ofbiz.product.store.ProductStoreWorker"].getProductStoreId(request)/>
                 <input type="hidden" name="productStoreId" value="${productStoreId?if_exists}"/>
               <#else>
@@ -642,7 +643,6 @@ under the License.
                             <#else>
                               <option value="_NA_">${uiLabelMap.PartyNoState}</option>
                             </#if>
-                             ${screens.render("component://common/widget/CommonScreens.xml#states")}
                           </select>
                         </div>
                       </div>

@@ -72,7 +72,6 @@ under the License.
           <#else>
             <option value="_NA_">${uiLabelMap.PartyNoState}</option>
           </#if>
-          
         </select>
       </span> 
     </div>
