@@ -1994,7 +1994,7 @@
     </property>
     <property key="PaymentMethodType.description.EXT_BILLACT">
         <value xml:lang="en">Billing Account</value>
-        <value xml:lang="fr">Effet de commerce</value>
+        <value xml:lang="fr">Compte de facturation</value>
         <value xml:lang="it">Conto Fatturazione</value>
         <value xml:lang="nl">Factuur</value>
         <value xml:lang="ro">Cont Facturari </value>
