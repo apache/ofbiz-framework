@@ -2483,7 +2483,7 @@
         <value xml:lang="de">Arbeitsgänge des Produktionsauftrages</value>
         <value xml:lang="en">Production Run Tasks</value>
         <value xml:lang="es">Tareas de Orden de Producción</value>
-        <value xml:lang="fr">Tâches de l'ordre de fabrication</value>
+        <value xml:lang="fr">Opérations de l'ordre de fabrication</value>
         <value xml:lang="it">Operazione Ordine di Produzione</value>
         <value xml:lang="th">งานการผลิต</value>
     </property>
@@ -2753,7 +2753,7 @@
         <value xml:lang="de">Arbeitsgang</value>
         <value xml:lang="en">Routing Task</value>
         <value xml:lang="es">Tarea</value>
-        <value xml:lang="fr">Tâche de gamme</value>
+        <value xml:lang="fr">Opération</value>
         <value xml:lang="it">Operazione</value>
         <value xml:lang="ro">Operatie</value>
         <value xml:lang="th">การทำงาน</value>
@@ -2773,7 +2773,7 @@
         <value xml:lang="de">Arbeitsgang erfolgreich kopiert</value>
         <value xml:lang="en">Routing Task copied Successfully</value>
         <value xml:lang="es">Tarea copiada exitosamente</value>
-        <value xml:lang="fr">Tâche de gamme copiée avec succés</value>
+        <value xml:lang="fr">Opération copiée avec succés</value>
         <value xml:lang="it">Operazione copiata con successo</value>
         <value xml:lang="ro">Operatie copiata cu succes</value>
         <value xml:lang="th">คัดลอกการทำงานเรียบร้อยแล้ว</value>
