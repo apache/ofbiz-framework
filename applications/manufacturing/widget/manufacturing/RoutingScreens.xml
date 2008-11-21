@@ -38,9 +38,14 @@ under the License.
                                 <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://manufacturing/webapp/manufacturing/routing/RoutingTabBar.ftl"/></html>
-                                </platform-specific>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="routing"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="RoutingTabBar" location="component://manufacturing/widget/manufacturing/Menus.xml"/>
+                                    </widgets>
+                                </section>
                                 <container>
                                     <label style="h1">[${uiLabelMap.CommonId} ${routing.workEffortId}] ${routing.workEffortName}</label>
                                 </container>
@@ -70,9 +75,14 @@ under the License.
                                 <if-has-permission permission="MANUFACTURING" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://manufacturing/webapp/manufacturing/routing/RoutingTaskTabBar.ftl"/></html>
-                                </platform-specific>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="routing"/></not>
+                                    </condition>
+                                    <widgets>
+                                        <include-menu name="RoutingTaskTabBar" location="component://manufacturing/widget/manufacturing/Menus.xml"/>
+                                    </widgets>
+                                </section>
                                 <container>
                                     <label style="h1">[${uiLabelMap.CommonId} ${routingTask.workEffortId}] ${routingTask.workEffortName}</label>
                                 </container>
