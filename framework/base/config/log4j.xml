@@ -146,11 +146,11 @@
         <priority value="warn"/>
     </category>
 
-    <!-- log minerva to the special log -->
+    <!-- log minerva to the special log >
     <category name="org.ofbiz.minerva">
         <priority value="warn"/>
         <appender-ref ref="minerva-log"/>
-    </category>
+    </category-->
 
     <!-- geronimo transaction logging -->
     <category name="org.apache.geronimo.transaction">
