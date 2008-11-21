@@ -6445,6 +6445,10 @@
         <value xml:lang="th">กลุ่มภาษี</value>
         <value xml:lang="zh">税务机关会员</value>
     </property>
+    <property key="AccountingTaxAuthorityRateProductUseThisProductCategory">
+        <value xml:lang="en">At least one Product Rate uses this Category</value>
+        <value xml:lang="fr">Au moins un taux applicable aux produits utilise cette catégorie</value>
+    </property>    
     <property key="AccountingTaxSummary">
         <value xml:lang="ar">تقرير ملخص الضريبة</value>
         <value xml:lang="en">Tax Summary Report</value>
