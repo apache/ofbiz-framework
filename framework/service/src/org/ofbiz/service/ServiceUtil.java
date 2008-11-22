@@ -38,6 +38,8 @@ import org.ofbiz.service.config.ServiceConfigUtil;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.transaction.Transaction;
+
+import java.io.File;
 import java.sql.Timestamp;
 import java.util.*;
 
@@ -420,7 +422,14 @@ public class ServiceUtil {
                         boolean beganTx2 = false;
                         try {
                             beganTx2 = TransactionUtil.begin();
+                            String logLocation = job.getString("logLocation");
+                            
                             job.remove();
+                            
+                            if (logLocation != null) {
+                                File logfile = new File(job.getString("logLocation"));
+                                logfile.delete();
+                            }
                             runtimeToDelete.add(runtimeId);
                         } catch (GenericEntityException e) {
                             Debug.logInfo("Cannot remove job data for ID: " + jobId, module);

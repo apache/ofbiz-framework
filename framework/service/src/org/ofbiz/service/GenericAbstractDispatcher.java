@@ -59,8 +59,18 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
      * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.lang.String, java.lang.String, java.util.Map, long, int, int, int, long, int)
      */
     public void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws GenericServiceException {
+        schedule(jobName, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry, false);
+    }
+    public void schedule(String jobName, String poolName, String serviceName, long startTime, int frequency, int interval, int count, long endTime, int maxRetry, Object... context) throws GenericServiceException {
+        schedule(jobName, poolName, serviceName, ServiceUtil.makeContext(context), startTime, frequency, interval, count, endTime, maxRetry);
+    }
+    
+    /**
+     * @see org.ofbiz.service.LocalDispatcher#schedule(java.lang.String, java.lang.String, java.lang.String, java.util.Map, long, int, int, int, long, int, boolean)
+     */
+    public void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry, boolean ownLogfile) throws GenericServiceException {
         try {
-            getJobManager().schedule(jobName, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry);
+            getJobManager().schedule(jobName, poolName, serviceName, context, startTime, frequency, interval, count, endTime, maxRetry, ownLogfile);
                 
             if (Debug.verboseOn()) {
                 Debug.logVerbose("[LocalDispatcher.schedule] : Current time : " + (new Date()).getTime(), module);
@@ -70,15 +80,16 @@ public abstract class GenericAbstractDispatcher implements LocalDispatcher {
                 Debug.logVerbose("[LocalDispatcher.schedule] : Count        : " + count, module);
                 Debug.logVerbose("[LocalDispatcher.schedule] : EndTime      : " + endTime, module);
                 Debug.logVerbose("[LocalDispatcher.schedule] : MazRetry     : " + maxRetry, module);
+                Debug.logVerbose("[LocalDispatcher.schedule] : OwnLogfile     : " + ownLogfile, module);
             }
             
         } catch (JobManagerException e) {
             throw new GenericServiceException(e.getMessage(), e);
         }
     }
-
-    public void schedule(String jobName, String poolName, String serviceName, long startTime, int frequency, int interval, int count, long endTime, int maxRetry, Object... context) throws GenericServiceException {
-        schedule(jobName, poolName, serviceName, ServiceUtil.makeContext(context), startTime, frequency, interval, count, endTime, maxRetry);
+    
+    public void schedule(String jobName, String poolName, String serviceName, long startTime, int frequency, int interval, int count, long endTime, int maxRetry, boolean ownLogfile, Object... context) throws GenericServiceException {
+        schedule(jobName, poolName, serviceName, ServiceUtil.makeContext(context), startTime, frequency, interval, count, endTime, maxRetry, ownLogfile);
     }
 
     /**

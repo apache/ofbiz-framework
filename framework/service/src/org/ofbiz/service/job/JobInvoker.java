@@ -19,6 +19,7 @@
 package org.ofbiz.service.job;
 
 import java.util.Date;
+import java.util.Random;
 
 import org.ofbiz.service.config.ServiceConfigUtil;
 import org.ofbiz.base.util.Debug;
@@ -60,11 +61,11 @@ public class JobInvoker implements Runnable {
 
         // service dispatcher delegator name (for thread name)
         String delegatorName = jp.getManager().getDelegator().getDelegatorName();
-
+        
         // get a new thread
-        this.thread = new Thread(this);
+        this.thread = new Thread(new ThreadGroup("JobInvoker" + this.hashCode()), this);
         this.name = delegatorName + "-invoker-" + this.thread.getName();
-
+        
         this.thread.setDaemon(false);
         this.thread.setName(this.name);
 

@@ -64,6 +64,8 @@ under the License.
         <field name="startDateTime" type="date-time"></field>
         <field name="finishDateTime" type="date-time"></field>
         <field name="cancelDateTime" type="date-time"></field>
+        <field name="ownLogfile" type="indicator"></field>
+        <field name="logLocation" type="long-varchar"></field>
         <prim-key field="jobId"/>
         <relation type="one" fk-name="JOB_SNDBX_RECINFO" rel-entity-name="RecurrenceInfo">
             <key-map field-name="recurrenceInfoId"/>
