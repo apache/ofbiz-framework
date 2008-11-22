@@ -39,6 +39,7 @@ under the License.
         <attribute name="contentType" type="String" mode="INOUT" optional="true"/>
         <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="messageId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="emailType" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="sendMail" engine="java"
             location="org.ofbiz.content.email.EmailServices" invoke="sendMail">
@@ -49,6 +50,7 @@ under the License.
         <attribute name="communicationEventId" type="String" mode="INOUT" optional="true"/>
         <override name="contentType" mode="INOUT"/>
         <override name="subject" mode="INOUT" optional="false"/>
+        <override name="emailType" type="String" mode="INOUT" optional="true"/>
     </service>
     <service name="sendMailMultiPart" engine="java"
             location="org.ofbiz.content.email.EmailServices" invoke="sendMail">
@@ -114,6 +116,7 @@ under the License.
         <attribute name="subject" type="String" mode="IN" optional="false"/>
         <attribute name="body" type="String" mode="IN" optional="false"/>
         <attribute name="contentType" type="String" mode="IN" optional="true"/>
+        <attribute name="emailType" type="String" mode="IN" optional="true"/>
     </service>
     <service name="storeIncomingEmail" engine="java"
             location="org.ofbiz.content.email.EmailServices" invoke="storeIncomingEmail" auth="true">
