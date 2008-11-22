@@ -28,6 +28,7 @@ import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.FileUtil;
 import org.ofbiz.base.util.GeneralRuntimeException;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
@@ -310,7 +311,7 @@ public class JobManager {
      *@param endTime The time in milliseconds the service should expire
      */
     public void schedule(String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime) throws JobManagerException {
-        schedule(null, null, serviceName, context, startTime, frequency, interval, count, endTime, -1);
+        schedule(null, null, serviceName, context, startTime, frequency, interval, count, endTime, -1, false);
     }
 
     /**
@@ -324,9 +325,10 @@ public class JobManager {
      *@param interval The interval of the frequency recurrence
      *@param count The number of times to repeat
      *@param endTime The time in milliseconds the service should expire
+     *@param ownLogfile Indicator whether this job uses it's own logfile
      *@param maxRetry The max number of retries on failure (-1 for no max)
      */
-    public void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws JobManagerException {
+    public void schedule(String jobName, String poolName, String serviceName, Map<String, ? extends Object> context, long startTime, int frequency, int interval, int count, long endTime, int maxRetry, boolean ownLogfile) throws JobManagerException {
         if (delegator == null) {
             Debug.logWarning("No delegator referenced; cannot schedule job.", module);
             return;
@@ -348,7 +350,7 @@ public class JobManager {
         }
 
         // schedule the job
-        schedule(jobName, poolName, serviceName, dataId, startTime, frequency, interval, count, endTime, maxRetry);
+        schedule(jobName, poolName, serviceName, dataId, startTime, frequency, interval, count, endTime, maxRetry, ownLogfile);
     }
 
     /**
@@ -359,7 +361,7 @@ public class JobManager {
      *@param startTime The time in milliseconds the service should run
      */
     public void schedule(String poolName, String serviceName, String dataId, long startTime) throws JobManagerException {
-        schedule(null, poolName, serviceName, dataId, startTime, -1, 0, 1, 0, -1);
+        schedule(null, poolName, serviceName, dataId, startTime, -1, 0, 1, 0, -1, false);
     }
 
     /**
@@ -374,8 +376,9 @@ public class JobManager {
      *@param count The number of times to repeat
      *@param endTime The time in milliseconds the service should expire
      *@param maxRetry The max number of retries on failure (-1 for no max)
+     *@param ownLogfile Indicator whether this job uses it's own logfile
      */
-    public void schedule(String jobName, String poolName, String serviceName, String dataId, long startTime, int frequency, int interval, int count, long endTime, int maxRetry) throws JobManagerException {
+    public void schedule(String jobName, String poolName, String serviceName, String dataId, long startTime, int frequency, int interval, int count, long endTime, int maxRetry, boolean ownLogfile) throws JobManagerException {
         if (delegator == null) {
             Debug.logWarning("No delegator referenced; cannot schedule job.", module);
             return;
@@ -411,6 +414,12 @@ public class JobManager {
 
         // set the max retry
         jFields.put("maxRetry", Long.valueOf(maxRetry));
+        
+        if (ownLogfile) {
+            jFields.put("ownLogfile", "Y");
+        } else {
+            jFields.put("ownLogfile", "N");
+        }
 
         // create the value and store
         GenericValue jobV;

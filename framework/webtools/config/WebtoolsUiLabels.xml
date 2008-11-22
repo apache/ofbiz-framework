@@ -1204,6 +1204,10 @@
         <value xml:lang="th">รายชื่องาน</value>
         <value xml:lang="zh">任务列表</value>
     </property>
+    <property key="WebtoolsJobLog">
+        <value xml:lang="en">Logfile</value>
+        <value xml:lang="de">Logdatei</value>
+    </property>
     <property key="WebtoolsLHSMapName">
         <value xml:lang="en">LHS map name</value>
         <value xml:lang="it">Nome mappa LHS</value>
@@ -1743,6 +1747,10 @@
         <value xml:lang="ro">Directory de Iesire </value>
         <value xml:lang="th">Output Directory</value>
         <value xml:lang="zh">输出目录</value>
+    </property>
+    <property key="WebtoolsOwnLogfile">
+        <value xml:lang="en">Use seperate logfile</value>
+        <value xml:lang="de">Eigene Logdatei</value>
     </property>
     <property key="WebtoolsParameterName">
         <value xml:lang="en">Parameter Name</value>

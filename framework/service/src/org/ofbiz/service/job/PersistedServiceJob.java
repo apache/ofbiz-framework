@@ -174,6 +174,24 @@ public class PersistedServiceJob extends GenericServiceJob {
             throw new RuntimeException(e.getMessage());
         }
         if (Debug.infoOn()) Debug.logInfo(this.toString() + "[" + getJobId() + "] -- Next runtime: " + new Date(nextRecurrence), module);
+    
+        //set the location of the logfile if this was desired
+        if ("Y".equals(job.get("ownLogfile"))) {
+            String logLocation = System.getProperty("ofbiz.log.dir", "runtime/logs") + "/"
+            + getServiceName()
+            + "_"
+            + UtilDateTime.getTimestamp(System.currentTimeMillis())
+                    .toString().trim().replace(" ", "_") + ".html";
+            this.setLogLocation(logLocation);
+            job.set("logLocation", logLocation);
+            try {
+                job.store();
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "Cannot update the job [" + getJobId() + "] sandbox", module);
+            }
+        }
+        
+    
     }
 
     private void createRecurrence(GenericValue job, long next) throws GenericEntityException {

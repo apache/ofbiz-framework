@@ -19,6 +19,13 @@
 
 import org.ofbiz.base.util.FileUtil;
 
+if (parameters.jobId!=null) {
+    value = delegator.findByPrimaryKey("JobSandbox", [jobId:parameters.jobId]);
+    if (value.getString("logLocation") != null) {
+        context.logFileName = value.getString("logLocation");
+        logFileName = value.getString("logLocation");
+    }
+}
 sb = null;
 try {
     sb = FileUtil.readTextFile(logFileName, true);
