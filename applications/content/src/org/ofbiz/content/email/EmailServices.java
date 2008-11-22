@@ -19,14 +19,59 @@
 package org.ofbiz.content.email;
 
 
+import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.security.Security;
+import java.sql.Timestamp;
+import java.util.Date;
+import java.util.Enumeration;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.Properties;
+import java.util.Set;
+import java.util.TreeSet;
+
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.mail.Address;
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Multipart;
+import javax.mail.Part;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.stream.StreamSource;
+
 import javolution.util.FastList;
 import javolution.util.FastMap;
 
 import org.apache.fop.apps.FOPException;
 import org.apache.fop.apps.Fop;
-import org.apache.fop.apps.FopFactory;
 import org.apache.fop.apps.MimeConstants;
-import org.ofbiz.base.util.*;
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.HttpClient;
+import org.ofbiz.base.util.HttpClientException;
+import org.ofbiz.base.util.StringUtil;
+import org.ofbiz.base.util.UtilDateTime;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.collections.MapStack;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericDelegator;
@@ -43,24 +88,6 @@ import org.ofbiz.widget.fo.FoScreenRenderer;
 import org.ofbiz.widget.html.HtmlScreenRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 import org.xml.sax.SAXException;
-
-import javax.activation.DataHandler;
-import javax.activation.DataSource;
-import javax.mail.*;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
-import javax.mail.internet.MimeMultipart;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.*;
-import javax.xml.transform.sax.SAXResult;
-import javax.xml.transform.stream.StreamSource;
-import java.io.*;
-import java.net.MalformedURLException;
-import java.net.URL;
-import java.sql.Timestamp;
-import java.util.*;
-import java.security.Security;
 
 /**
  * Email Services
@@ -501,6 +528,7 @@ public class EmailServices {
         String partyId = (String) serviceContext.get("partyId");
         String communicationEventId = (String) serviceContext.get("communicationEventId");
         String contentType = (String) serviceContext.get("contentType");
+        String emailType = (String) serviceContext.get("emailType");        
         
         // only create a new communication event if the email is not already associated with one
         if (communicationEventId == null) {
@@ -517,8 +545,12 @@ public class EmailServices {
             commEventMap.put("content", body);
             commEventMap.put("userLogin", userLogin);
             commEventMap.put("contentMimeTypeId", contentType);
+            String runService = "createCommunicationEvent";
+            if (emailType.equals("PARTY_REGIS_CONFIRM")) {
+                runService = "createCommunicationEventWithoutPermission"; // used to create a new Customer, Prospect or Employee  
+            }
             try {
-                dispatcher.runSync("createCommunicationEvent", commEventMap);
+                dispatcher.runSync(runService, commEventMap);
             } catch (Exception e) {
                 Debug.logError(e, "Cannot store email as communication event", module);
                 return ServiceUtil.returnError("Cannot store email as communication event; see logs");

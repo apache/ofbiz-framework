@@ -844,6 +844,7 @@ under the License.
             <set field="emailParams.contentType" from-field="storeEmail.contentType"/>
             <set field="emailParams.bodyScreenUri" from-field="storeEmail.bodyScreenLocation"/>
             <set field="emailParams.webSiteId" from-field="webSite.webSiteId"/>
+            <set field="emailParams.emailType" from-field="parameters.emailType"/>
             <call-service service-name="sendMailFromScreen" in-map-name="emailParams"/>
         </if-not-empty>
     </simple-method>   
