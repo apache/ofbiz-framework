@@ -1221,7 +1221,7 @@
     <property key="SfaCompanyName">
         <value xml:lang="en">OFBiz: SFA Manager</value>
         <value xml:lang="es">Gestor de fuerzas de ventas</value>
-        <value xml:lang="fr">OFBiz: Directeur des ventes</value>
+        <value xml:lang="fr">OFBiz: gestion des ventes</value>
     </property>
     <property key="SfaCanNotMergeSameContact">
         <value xml:lang="en">Failed to merge contacts. You have selected same contact to merge.</value>
