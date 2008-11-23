@@ -459,7 +459,7 @@
     </property>
     <property key="MarketingManagerWelcome">
         <value xml:lang="en">Welcome to the Marketing Manager!</value>
-        <value xml:lang="fr">Bienvenue au directeur du marketing !</value>
+        <value xml:lang="fr">Bienvenue dans l'application de gestion du marketing !</value>
         <value xml:lang="it">Benvenuto nell'Applicazione Gestione Vendite!</value>
         <value xml:lang="th">ยินดีต้อนรับสู่การจัดการทางการตลาด</value>
     </property>
@@ -1342,7 +1342,7 @@
     </property>
     <property key="SfaManagerWelcome">
         <value xml:lang="en">Welcome to the Sales Force Automation Manager Application. This is an application in progress so not completed yet.&lt;br/&gt;&lt;br/&gt;A &lt;a href=&quot;http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf&quot; target=blank&gt;design document&lt;/a&gt; and &lt;a href=&quot;https://issues.apache.org/jira/browse/OFBIZ-1640&quot; target=blank&gt;Jira documents&lt;/a&gt; are available.</value>
-        <value xml:lang="fr">Bienvenue à l'application de gestion des ventes. Cette application est en cours de développement .&lt;br/&gt;&lt;br/&gt;A &lt;a href=&quot;http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf&quot; target=blank&gt;design document&lt;/a&gt; and &lt;a href=&quot;https://issues.apache.org/jira/browse/OFBIZ-1640&quot; target=blank&gt;Jira documents&lt;/a&gt; sont disponibles</value>
+        <value xml:lang="fr">Bienvenue dans l'application de gestion des ventes. Cette application est en cours de développement .&lt;br/&gt;&lt;br/&gt;Un &lt;a href=&quot;http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf&quot; target=blank&gt;document d'analyse détaillée&lt;/a&gt; et &lt;a href=&quot;https://issues.apache.org/jira/browse/OFBIZ-1640&quot; target=blank&gt;un document de gestion de projet Jira&lt;/a&gt; sont disponibles</value>
     </property>
     <property key="SfaMergeContacts">
         <value xml:lang="en">Merge Contacts</value>
