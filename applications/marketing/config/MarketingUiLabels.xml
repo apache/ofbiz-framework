@@ -7,9 +7,9 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-
+    
     http://www.apache.org/licenses/LICENSE-2.0
-
+    
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
@@ -593,9 +593,8 @@
     <property key="PageTitleCreateLeadFromVCard">
         <value xml:lang="en">Create Lead from vCard</value>
         <value xml:lang="es">Crear nuevo lead desde vCard</value>
-    </property>  
         <value xml:lang="fr">Créer un prospect depuis la vCard</value>
-    </property>
+    </property>  
     <property key="PageTitleEditAccount">
         <value xml:lang="en">Edit Account</value>
         <value xml:lang="es">Editar cuenta</value>
@@ -732,8 +731,7 @@
         <value xml:lang="fr">Rechercher l'évènement de communication de la liste de contact</value>
         <value xml:lang="it">Ricerca Lista Contatto Eventi Comunicazione</value>
         <value xml:lang="ro">Cauta Lista Contact Eveniment Comunicare</value>
-        <value xml:lang="th">ค้นหารายการผลการติดต่อ
-        </value>
+        <value xml:lang="th">ค้นหารายการผลการติดต่อ</value>
         <value xml:lang="zh">查找联系列表沟通事件</value>
     </property>
     <property key="PageTitleFindContactListCommEvents">
@@ -1198,9 +1196,8 @@
     <property key="SfaAutoCreateLeadByImportingVCard">
         <value xml:lang="en">Automatically create a new lead by importing a vCard</value>
         <value xml:lang="es">Crear nuevo lead automaticamente importando vCard</value>
-    </property>  
         <value xml:lang="fr">Créez automatiquement un nouveau prospect par import d'une vCard</value>
-    </property>
+    </property>  
     <property key="SfaAccountName">
         <value xml:lang="en">Account Name</value>
         <value xml:lang="es">Nombre de cuenta</value>
@@ -1233,9 +1230,8 @@
     <property key="SfaCanNotMergeSameLeads">
         <value xml:lang="en">Failed to merge Leads. You have selected same Lead to merge.</value>
         <value xml:lang="es">No se ha podido unir leads. Ha seleccionado el mismo lead.</value>
-    </property>    
         <value xml:lang="fr">Echec à la fusion des prospects. Vous avez choisi le même prospect pour fusionner</value>
-    </property>
+    </property>    
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
         <value xml:lang="fr">Concurrents &amp; Associés</value>
@@ -1304,7 +1300,6 @@
     <property key="SfaFirstContact">
         <value xml:lang="en">First Contact</value>
         <value xml:lang="es">Primer contacto</value>
-    </property>    
         <value xml:lang="fr">Premier contact</value>
     </property>
     <property key="SfaForecasts">
@@ -1315,9 +1310,8 @@
     <property key="SfaImportLead">
         <value xml:lang="en">Import Lead</value>
         <value xml:lang="es">Importar lead</value>
-    </property>    
         <value xml:lang="fr">Importer le prospect</value>
-    </property>
+    </property>    
     <property key="SfaInitialAccount">
         <value xml:lang="en">Initial Account</value>
         <value xml:lang="fr">Compte initial</value>
