@@ -2470,7 +2470,7 @@
     <property key="ListOwnCreatedTemplates">
         <value xml:lang="de">Liste der selber erstellten Vorlagen</value>
         <value xml:lang="en">List own created Templates</value>
-        <value xml:lang="fr">Voir vos modèles (créés par vous)</value>
+        <value xml:lang="fr">Voir vos propres modèles</value>
     </property>
     <property key="PageTitleAddAssociation">
         <value xml:lang="ar">إضافة إرتباط</value>
