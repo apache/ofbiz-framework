@@ -33,7 +33,7 @@ artifactInfo = null;
 if ("search".equals(parameters.findType)) {
     artifactInfoSet = aif.getAllArtifactInfosByNamePartial(name, type);
     if (artifactInfoSet.size() == 1) {
-        artifactInfo = artifactInfoSet[0];
+        artifactInfo = artifactInfoSet.head();
         context.artifactInfo = artifactInfo;
     } else {
         context.artifactInfoSet = new TreeSet(artifactInfoSet);
