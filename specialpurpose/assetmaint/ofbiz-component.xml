@@ -48,4 +48,12 @@
         base-permission="ASSETMAINT"
         mount-point="/assetmaint"
         app-bar-display="true"/>
+        
+    <webapp name="ismgr"
+        title="IS Mgr"
+        server="default-server"
+        location="webapp/ismgr"
+        base-permission="OFBTOOLS,ASSETMAINT"
+        mount-point="/ismgr"/>
+        
 </ofbiz-component>
