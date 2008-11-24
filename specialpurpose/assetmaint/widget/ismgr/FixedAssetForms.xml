@@ -62,7 +62,7 @@ under the License.
         
         <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
-    <form name="EditComputerSoftware" type="single" target="updateComputerSoftwareware" title="" default-map-name="fixedAsset">
+    <form name="EditComputerSoftware" type="single" target="updateComputerSoftware" title="" default-map-name="fixedAsset">
         <alt-target use-when="fixedAsset==null" target="createComputerSoftware"/>
         <auto-fields-service service-name="updateFixedAsset" map-name="fixedAsset"/>
  
