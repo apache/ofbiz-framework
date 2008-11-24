@@ -51,7 +51,8 @@
         
     <webapp name="ismgr"
         title="IS Mgr"
-        server="default-server"
+        server="default-server" 
+        app-bar-display="false"
         location="webapp/ismgr"
         base-permission="OFBTOOLS,ASSETMAINT"
         mount-point="/ismgr"/>
