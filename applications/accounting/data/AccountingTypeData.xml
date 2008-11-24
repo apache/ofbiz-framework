@@ -127,6 +127,8 @@ under the License.
     <FixedAssetType description="Property" fixedAssetTypeId="PROPERTY" hasTable="N" parentTypeId=""/>
     <FixedAssetType description="Vehicle" fixedAssetTypeId="VEHICLE" hasTable="N" parentTypeId=""/>
     <FixedAssetType description="Real Estate" fixedAssetTypeId="REAL_ESTATE" hasTable="N" parentTypeId=""/>
+    <FixedAssetType description="Computer Software" fixedAssetTypeId="COMPUTER_SOFTWARE" hasTable="N" parentTypeId=""/>
+    <FixedAssetType description="Computer Hardware" fixedAssetTypeId="COMPUTER_HARDWARE" hasTable="N" parentTypeId=""/>
 
     <EnumerationType description="Fixed Asset Class" enumTypeId="FXAST_CLASS" hasTable="N" parentTypeId=""/>
     <Enumeration description="Boat" enumCode="BOAT" enumId="FAC_BOAT" sequenceId="01" enumTypeId="FXAST_CLASS"/>
