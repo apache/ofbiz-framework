@@ -23,7 +23,7 @@
         <value xml:lang="de">Buchhaltung</value>
         <value xml:lang="en">Accounting</value>
         <value xml:lang="es">Contabilidad</value>
-        <value xml:lang="fr">Compt. générale</value>
+        <value xml:lang="fr">Cpt. générale</value>
         <value xml:lang="it">Contabilità</value>
         <value xml:lang="nl">Boekhouding</value>
         <value xml:lang="pt">Contabilidade</value>
@@ -36,17 +36,17 @@
     <property key="AP">
         <value xml:lang="en">AP</value>
         <value xml:lang="es">CC.P.</value>
-        <value xml:lang="fr">Compt. fourn.</value>
+        <value xml:lang="fr">Cpt. fourn.</value>
     </property>
     <property key="AR">
         <value xml:lang="en">AR</value>
         <value xml:lang="es">CC.C.</value>
-        <value xml:lang="fr">Compt. clients</value>
+        <value xml:lang="fr">Cpt. clients</value>
     </property>
     <property key="AssetMaint">
         <value xml:lang="en">Asset Maint</value>
         <value xml:lang="es">Manten. Activos</value>
-        <value xml:lang="fr">Maint. immob.</value>
+        <value xml:lang="fr">Maint. immo.</value>
         <value xml:lang="it">Gestione Cespiti</value>
         <value xml:lang="th">การรักษาทรัพย์สิน</value>
     </property>
@@ -79,6 +79,10 @@
         <value xml:lang="zh_CN">目录</value>
         <value xml:lang="zh">目录</value>
     </property>
+    <property key="IS Mgr">
+        <value xml:lang="en">IS Mgr</value>
+        <value xml:lang="fr">Parc info.</value>
+    </property>    
     <property key="CommonAccepted">
         <value xml:lang="ar">مقبول</value>
         <value xml:lang="de">Angenommen</value>

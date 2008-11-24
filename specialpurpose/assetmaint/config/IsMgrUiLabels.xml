@@ -21,43 +21,56 @@
 
     <property key="IsMgrApplication">
         <value xml:lang="en">Information Systems Management Application</value>
+        <value xml:lang="fr">Gestion du parc informatique</value>
     </property>
     <property key="IsMgrCompanyName">
         <value xml:lang="en">OFBiz: Is Manager</value>
+        <value xml:lang="fr">OFBiz: application de gestion du parc informatique</value>
     </property>
     <property key="IsMgrCompanySubtitle">
         <value xml:lang="en">Information Systems Department</value>
+        <value xml:lang="fr">Département du système d'information</value>
     </property>
     
     <property key="IsMgrComputerHardware">
         <value xml:lang="en">Hardware</value>
+        <value xml:lang="fr">Matériel informatique</value>
     </property>
     <property key="IsMgrComputerSoftware">
         <value xml:lang="en">Software</value>
+        <value xml:lang="fr">Logiciels</value>
     </property>
     
     <property key="IsMgrNewComputerHardware">
         <value xml:lang="en">New Hardware</value>
+        <value xml:lang="fr">Nouveau matériel informatique</value>
     </property>
     <property key="IsMgrNewComputerSoftware">
         <value xml:lang="en">New Software</value>
+        <value xml:lang="fr">Nouveau logiciel</value>
     </property>
     <property key="IsMgrHardwareAccessories">
         <value xml:lang="en">Accessories</value>
+        <value xml:lang="fr">Accessoires</value>
     </property>
     <property key="IsMgrInstalledSoftware">
         <value xml:lang="en">Installed Software</value>
+        <value xml:lang="fr">Logiciels installés</value>
     </property>
     <property key="IsMgrFindComputerHardware">
         <value xml:lang="en">Find Hardware</value>
+        <value xml:lang="fr">Rechercher du matériel informatique</value>
     </property>
     <property key="IsMgrFindComputerSoftware">
         <value xml:lang="en">Find Software</value>
+        <value xml:lang="fr">Rechercher du logiciel</value>
     </property>
     <property key="PageTitleEditComputerHardware">
         <value xml:lang="en">Edit Hardware</value>
+        <value xml:lang="fr">Modifier le matériel informatique</value>
     </property>
     <property key="PageTitleEditComputerSoftware">
         <value xml:lang="en">Edit Software</value>
+        <value xml:lang="fr">Modifier le logiciel</value>
     </property>
 </resource>    
