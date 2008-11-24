@@ -144,7 +144,18 @@ under the License.
     <Enumeration description="Mobile" enumCode="MOBILE" enumId="FAC_MOBILE" sequenceId="01" enumTypeId="FXAST_CLASS"/><!-- perhaps a more descriptive name? not sure what this refers to though... -->
     <Enumeration description="Tanker" enumCode="TANKER" enumId="FAC_TANKER" sequenceId="01" enumTypeId="FXAST_CLASS"/>
     <Enumeration description="Reel Stand" enumCode="REEL_STAND" enumId="FAC_REEL_STAND" sequenceId="01" enumTypeId="FXAST_CLASS"/>
+
+    <EnumerationType description="Computer Hardware" enumTypeId="FXAST_COMPU_HARDWARE" hasTable="N" parentTypeId="FXAST_CLASS"/>
+    <Enumeration description="Desktop" enumCode="DESKTOP" enumId="FAC_DESKTOP" sequenceId="01" enumTypeId="FXAST_COMPU_HARDWARE"/>
+    <Enumeration description="Laptop" enumCode="LAPTOP" enumId="FAC_LAPTOP" sequenceId="01" enumTypeId="FXAST_COMPU_HARDWARE"/>
+    <Enumeration description="Monitor" enumCode="MONITOR" enumId="FAC_MONITOR" sequenceId="01" enumTypeId="FXAST_COMPU_HARDWARE"/>
     
+    <EnumerationType description="Computer Software" enumTypeId="FXAST_COMPU_SOFTWARE" hasTable="N" parentTypeId="FXAST_CLASS"/>
+    <Enumeration description="Programming Software" enumCode="PRG_SOFTWARE" enumId="FAC_PRG_SOFTWARE" sequenceId="01" enumTypeId="FXAST_COMPU_SOFTWARE"/>
+    <Enumeration description="System Software" enumCode="SYS_SOFTWARE" enumId="FAC_SYS_SOFTWARE" sequenceId="01" enumTypeId="FXAST_COMPU_SOFTWARE"/>
+    <Enumeration description="Application Software" enumCode="APP_SOFTWARE" enumId="FAC_APP_SOFTWARE" sequenceId="01" enumTypeId="FXAST_COMPU_SOFTWARE"/>
+    <Enumeration description="Utility Software" enumCode="UTIL_SOFTWARE" enumId="FAC_UTIL_SOFTWARE" sequenceId="01" enumTypeId="FXAST_COMPU_SOFTWARE"/>
+
     <FixedAssetIdentType description="Mfg Serial Number" fixedAssetIdentTypeId="MFG_SERIAL"/>
     <FixedAssetIdentType description="Vendor Tracking/Inventory Number" fixedAssetIdentTypeId="TRACKING_VENDOR"/>
     <FixedAssetIdentType description="Internal Tracking Label Number" fixedAssetIdentTypeId="TRACKING_LABEL"/>
