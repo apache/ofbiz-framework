@@ -692,6 +692,7 @@ public class EmailServices {
                 }
                 String thisContentType = thisContentTypeRaw.substring(0, idx2);
                 if (thisContentType == null || thisContentType.equals("")) thisContentType = "text/html";
+                thisContentType = thisContentType.toLowerCase();
                 String disposition = part.getDisposition();
 
                 if (thisContentType.startsWith("multipart") || thisContentType.startsWith("Multipart")) {
@@ -777,6 +778,7 @@ public class EmailServices {
             if (idx == -1) idx = contentTypeRaw.length();
             contentType = contentTypeRaw.substring(0, idx);
             if (contentType == null || contentType.equals("")) contentType = "text/html";
+            contentType = contentType.toLowerCase();
             Address[] addressesFrom = message.getFrom();
             Address[] addressesTo = message.getRecipients(MimeMessage.RecipientType.TO);
             Address[] addressesCC = message.getRecipients(MimeMessage.RecipientType.CC);
