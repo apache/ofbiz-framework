@@ -96,7 +96,7 @@ under the License.
         <field name="lastModifiedDate"><display/></field>
     </form>
     <form name="ListRequestItems" type="list" use-row-submit="true"  title="" list-name="custRequestItems"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="requestitems">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="RequestItems">
         <auto-fields-entity entity-name="CustRequestItem" default-field-type="display"/>
         <field name="sequenceNum"></field>
         <field name="custRequestId"><hidden/></field>
@@ -389,7 +389,7 @@ under the License.
         </field>
     </form>
 
-    <form name="ListRequestParty" type="list" use-row-submit="true" title="" list-name="custRequestParties" target="updateCustRequestParty" 
+    <form name="ListRequestRoles" type="list" use-row-submit="true" title="" list-name="custRequestParties" target="updateCustRequestParty" 
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar" paginate-target="RequestRoles">
         <auto-fields-entity entity-name="CustRequestParty" default-field-type="display"/>
         <field name="custRequestId"><hidden/></field>
@@ -539,19 +539,17 @@ under the License.
         </field>
         <field name="createButton"><submit button-type="button"/></field>
     </form>
-    <form name="ListCustRequestContent" type="list" list-name="custRequestContents"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <alt-target use-when="tabButtonItem.equals(&quot;EditCustRequestContent&quot;)" target="EditCustRequestContent"/>
-        <alt-target use-when="tabButtonItem.equals(&quot;ViewRequest&quot;)" target="ViewRequest"/>
-        <field name="thruDate"><hidden/></field>
-        <field name="custRequestId"><hidden/></field>        
+    <form name="ListCustRequestContent" type="list" list-name="custRequstAndContents"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" paginate-target="EditCustRequestContent">
+        <field name="custRequestId"><hidden/></field>
         <field name="contentId">
             <display-entity entity-name="Content" key-field-name="contentId" description="${contentName}" also-hidden="true">
                 <sub-hyperlink target="/content/control/ViewSimpleContent?contentId=${contentId}" description="[${contentId}]" link-style="buttontext" target-type="inter-app"/>
             </display-entity>
         </field>
+        <field name="mimeTypeId"><display/></field>
         <field name="fromDate"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="tabButtonItem.equals(&quot;EditCustRequestContent&quot;)">
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" use-when="tabButtonItem.equals(&quot;custRequestContent&quot;)">
             <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deleteCustRequestContent?custRequestId=${custRequestId}&amp;contentId=${contentId}&amp;fromDate=${fromDate}"/>
         </field>
     </form>

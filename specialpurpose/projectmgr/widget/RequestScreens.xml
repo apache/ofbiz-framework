@@ -102,6 +102,9 @@ under the License.
                 <entity-and entity-name="CustRequestContent" list-name="custRequestContents" filter-by-date="true">
                     <field-map field-name="custRequestId" env-name="custRequestId"/>
                 </entity-and>
+                <entity-and entity-name="CustRequestAndContent" list-name="custRequestAndContents">
+                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
@@ -131,6 +134,7 @@ under the License.
                                 <include-form name="ViewRequestWorkEfforts" location="component://projectmgr/widget/forms/RequestForms.xml"/>
                             </screenlet>
                             <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ListCustRequestContent">
+                                <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}" text="New Content"/>
                                 <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
                         </container>
