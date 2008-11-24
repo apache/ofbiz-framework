@@ -43,23 +43,41 @@
             </then>
         </if>
         <check-errors/>
-
-        <!-- Create content from Existing content or new upload file -->
+        <!-- Create new content form upload file / set content from Existing content -->
         <if-empty field="formInput.formInput.contentId">
-            <set-service-fields service-name="createContentFromUploadedFile"
-                map-name="formInput.formInput" to-map-name="inMap"/>
-            <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
-            <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
-            <set field="inMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
-            <call-service service-name="createContentFromUploadedFile" in-map-name="inMap">
-                <result-to-field result-name="contentId" field-name="context.contentId"/>
-            </call-service>
+                <if>
+                    <condition>
+                        <or>
+                            <!-- Compaire MimeType between upload file and selected MimeType -->
+                            <if-compare-field field="formInput.uploadMimeType" operator="equals" to-field="formInput.formInput.mimeTypeId"/>
+                            <if-compare field="formInput.formInput.mimeTypeId" operator="equals"  value="application/octet-stream" />
+                            <if-compare field="formInput.formInput.mimeTypeId" operator="equals"  value=""/>
+                        </or>
+                    </condition>
+                    <then>
+                        <!-- Create new content from upload file -->
+                        <set-service-fields service-name="createContentFromUploadedFile"
+                            map-name="formInput.formInput" to-map-name="inMap"/>
+                        <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
+                        <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
+                        <set field="inMap._uploadedFile_contentType" from-field="formInput.uploadMimeType"/>
+                        <call-service service-name="createContentFromUploadedFile" in-map-name="inMap">
+                            <result-to-field result-name="contentId" field-name="context.contentId"/>
+                        </call-service>
+                    </then>
+                    <else>
+                        <add-error>
+                            <fail-message message="Upload file type not match your selected."/>
+                        </add-error>
+                    </else>
+                </if>
+                <check-errors/>
             <else>
+                <!--set content from Existing content-->
                 <set field="context.contentId" from-field="formInput.formInput.contentId"/>
             </else>
         </if-empty>
         <set field="context.custRequestId" from-field="formInput.formInput.custRequestId"/>
-
         <call-map-processor in-map-name="context" out-map-name="custRequestContext">
             <simple-map-processor name="newCustRequestContent">
                 <process field="contentId">

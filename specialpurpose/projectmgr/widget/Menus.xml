@@ -487,5 +487,15 @@
             </condition>
             <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
         </menu-item>
+        <menu-item name="addContent" title="Add content">
+            <condition>
+                <and>
+                    <not><if-empty field-name="custRequest"/></not>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
+        </menu-item>
     </menu>
 </menus>

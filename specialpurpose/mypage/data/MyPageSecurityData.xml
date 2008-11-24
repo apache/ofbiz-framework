@@ -59,4 +59,5 @@ under the License.
     <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="MYPAGE_CUSTOMER"/>
     <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="PARTYMGR_CME_UPDATE"/>
     <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="PROJECTMGR_ROLE_VIEW"/>
+    <SecurityGroupPermission groupId="MYPAGE_CUSTOMER" permissionId="CONTENTMGR_ROLE_CREATE"/>
 </entity-engine-xml>

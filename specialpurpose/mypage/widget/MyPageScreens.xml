@@ -416,14 +416,17 @@ under the License.
                 <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
                     <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
                 </entity-and>
+                <entity-and entity-name="CustRequestAndContent" list-name="custRequestAndContents">
+                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                </entity-and>                
             </actions>
             <widgets>
                 <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <container style="lefthalf">
-			                <platform-specific>
-			                    <html><html-template location="component://order/webapp/ordermgr/request/requestInfo.ftl"/></html>
-			                </platform-specific>
+                            <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
+                                <include-form name="requestInfo" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
+                            </screenlet>
                             <screenlet title="${uiLabelMap.PageTitleRequestItems}">
                                 <include-form name="OverviewRequestItems" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
@@ -443,6 +446,9 @@ under the License.
                             </screenlet>
                             <screenlet title="${uiLabelMap.WorkEffortWorkEfforts}" navigation-form-name="ViewRequestWorkEfforts">
                                 <include-form name="ViewRequestWorkEfforts" location="component://mypage/widget/MyPageForms.xml"/>
+                            </screenlet>
+                            <screenlet title="${uiLabelMap.CommonContent}" navigation-form-name="ListCustRequestContent">
+                                <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
                         </container>
                     </decorator-section>
@@ -730,6 +736,34 @@ under the License.
                                 <label style="h2" text="no projects found"></label>
                             </widgets>
                         </section>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="EditCustRequestContent">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleEditRequestContent"/>
+                <set field="tabButtonItem" value="custRequestContent"/>
+                <set field="headerItem" value="request"/>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-one entity-name="Content" value-name="content"/>
+                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+                <entity-and entity-name="CustRequestContent" list-name="custRequestContents" filter-by-date="true">
+                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                </entity-and>
+                <entity-and entity-name="CustRequestAndContent" list-name="custRequestAndContents">
+                    <field-map field-name="custRequestId" env-name="custRequestId"/>
+                </entity-and>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonRequestDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddCustRequestContentsPanel" title="${uiLabelMap.PageTitleAddContent}" collapsible="true">
+                            <include-form name="AddCustRequestContent" location="component://mypage/widget/RequestForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListCustRequestContent" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

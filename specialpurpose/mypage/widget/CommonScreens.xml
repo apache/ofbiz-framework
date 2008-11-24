@@ -480,12 +480,26 @@ under the License.
     </screen>
     <screen name="CommonRequestDecorator">
         <section>
-            <actions/>
+            <actions>
+                <set field="custRequestId" from-field="parameters.custRequestId"/>
+                <entity-one entity-name="CustRequest" value-name="custRequest"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <include-menu name="RequestSubTabBar" location="component://projectmgr/widget/Menus.xml"/>
-                      <decorator-section-include name="body"/>
+                        <section>
+                            <condition>
+                                <not><if-empty field-name="custRequest"/></not>
+                            </condition>
+                            <widgets>
+                                <include-menu location="component://mypage/widget/MyPageMenus.xml" name="RequestTabBar"/>
+                            </widgets>
+                        </section>
+                        <include-menu name="RequestSubTabBar" location="component://mypage/widget/MyPageMenus.xml"/>
+                        <container>
+                            <label style="h1">[${uiLabelMap.CommonId}:${custRequest.custRequestId}] ${custRequest.custRequestName}</label>
+                        </container>
+                        <decorator-section-include name="body"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
