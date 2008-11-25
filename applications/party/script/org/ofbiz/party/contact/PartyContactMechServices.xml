@@ -293,6 +293,14 @@ under the License.
         <set field="input.entityName" value="PartyAndContactMech"/>
         <set field="input.filterByDate" value="Y"/>
         <set field="input.inputFields.infoString" from-field="parameters.address"/>
+        <if-empty map-name="parameters" field-name="caseInsensitive">
+            <call-bsh><![CDATA[
+                String caseInsensitiveEmail = org.ofbiz.base.util.UtilProperties.getPropertyValue("general.properties", "mail.address.caseInsensitive", "N");
+                parameters.put("caseInsensitive", caseInsensitiveEmail);
+            ]]></call-bsh>
+        </if-empty>
+        <set field="input.inputFields.infoString_ic" from-field="parameters.caseInsensitive"/>
+        <log level="info" message="findPartyFromEmailAddress with case insensitive search: ${parameters.caseInsensitive}"/>
         
         <if-empty field="parameters.fromDate">
             <now-timestamp-to-env env-name="input.filterByDateValue"/>
