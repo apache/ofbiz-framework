@@ -57,7 +57,7 @@ previousShipmentIter = delegator.find("Shipment",
             ),
         EntityOperator.AND), null, null, null, null);
 
-previousShipmentIter.each { previousShipmentItem ->
+while (previousShipmentItem = previousShipmentIter.next()) {
     if (!previousShipmentItem.shipmentId.equals(shipment.shipmentId)) {
         previousShipmentItems = previousShipmentItem.getRelated("ShipmentItem");
         previousShipmentItems.each { shipmentItem ->
