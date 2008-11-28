@@ -83,6 +83,7 @@ under the License.
                 <condition-list combine="and">
                     <condition-expr field-name="uomId" env-name="parameters.uomId"/>
                     <condition-expr field-name="uomIdTo" env-name="parameters.uomIdTo"/>
+                    <condition-expr field-name="purposeEnumId" operator="equals" env-name="parameters.purposeEnumId" ignore-if-empty="true"/>
                     <condition-expr field-name="fromDate" operator="less-equals" env-name="asOfDate"/>
                     <condition-list combine="or">
                         <condition-expr field-name="thruDate" operator="greater-equals" env-name="asOfDate"/>
@@ -93,6 +94,25 @@ under the License.
                 <order-by field-name="-fromDate"/>
             </entity-condition>
             <first-from-list list-name="uomConversions" entry-name="uomConversion"/>
+            
+            <!-- if no conversion found with specified purpose, try w/o purpose -->
+            <if-empty field="uomConversion">
+                <if-not-empty field="parameters.purposeEnumId">
+                    <entity-condition entity-name="UomConversionDated" list-name="uomConversions" use-cache="true">
+                        <condition-list combine="and">
+                            <condition-expr field-name="uomId" env-name="parameters.uomId"/>
+                            <condition-expr field-name="uomIdTo" env-name="parameters.uomIdTo"/>
+                            <condition-expr field-name="fromDate" operator="less-equals" env-name="asOfDate"/>
+                            <condition-list combine="or">
+                                <condition-expr field-name="thruDate" operator="greater-equals" env-name="asOfDate"/>
+                                <condition-expr field-name="thruDate" operator="equals" env-name="nullField"/>
+                            </condition-list>
+                        </condition-list>
+                        <order-by field-name="-fromDate"/>
+                    </entity-condition>
+                    <first-from-list list-name="uomConversions" entry-name="uomConversion"/>
+                </if-not-empty>
+            </if-empty>
         </if-empty>
         <log level="verbose" message="using conversion factor=${uomConversion.conversionFactor}"/>
     

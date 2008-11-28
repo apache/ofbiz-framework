@@ -458,6 +458,7 @@ under the License.
       <field name="customMethodId" type="id-ne"></field>
       <field name="decimalScale" type="numeric"></field>
       <field name="roundingMode" type="id"></field>
+      <field name="purposeEnumId" type="id"></field>
       <prim-key field="uomId"/>
       <prim-key field="uomIdTo"/>
       <prim-key field="fromDate"/>
@@ -469,6 +470,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="UOMD_CUSTOM_METHOD" title="uomCustomMethod" rel-entity-name="CustomMethod">
         <key-map field-name="customMethodId" rel-field-name="customMethodId"/>
+      </relation>
+      <relation type="one" fk-name="UOMD_PURPOSE_ENUM" title="Purpose" rel-entity-name="Enumeration">
+        <key-map field-name="purposeEnumId" rel-field-name="enumId"/>
       </relation>
     </entity>
     <entity entity-name="UomType"
