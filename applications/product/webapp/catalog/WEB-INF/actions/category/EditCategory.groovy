@@ -36,7 +36,7 @@ context.primaryParentCategory = primaryParentCategory;
 
 // make the image file formats
 imageFilenameFormat = UtilProperties.getPropertyValue("catalog", "image.filename.format");
-imageServerPath = UtilProperties.getPropertyValue("catalog", "image.server.path");
+imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
 imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
 context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;

@@ -35,6 +35,7 @@ import org.ofbiz.base.util.StringUtil;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
 import org.ofbiz.service.DispatchContext;
@@ -236,7 +237,7 @@ public class IcsPaymentServices {
         String logFile = UtilProperties.getPropertyValue(configString, "payment.cybersource.log.file");
         String logDir = UtilProperties.getPropertyValue(configString, "payment.cybersource.log.dir");
 
-        String keysPath = UtilProperties.getPropertyValue(configString, "payment.cybersource.keysDir");
+        String keysPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue(configString, "payment.cybersource.keysDir"), context);
         String keysFile = UtilProperties.getPropertyValue(configString, "payment.cybersource.keysFile");
 
         // some property checking
