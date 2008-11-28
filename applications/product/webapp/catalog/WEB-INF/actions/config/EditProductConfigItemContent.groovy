@@ -24,7 +24,7 @@ import org.ofbiz.widget.html.*
 
 // make the image file formats
 imageFilenameFormat = "configitems/${configItemId}";
-imageServerPath = UtilProperties.getPropertyValue("catalog", "image.server.path");
+imageServerPath = FlexibleStringExpander.expandString(UtilProperties.getPropertyValue("catalog", "image.server.path"), context);
 imageUrlPrefix = UtilProperties.getPropertyValue("catalog", "image.url.prefix");
 context.imageFilenameFormat = imageFilenameFormat;
 context.imageServerPath = imageServerPath;
