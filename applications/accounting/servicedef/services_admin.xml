@@ -70,6 +70,7 @@ under the License.
         <attribute type="String" mode="IN" name="uomId" optional="false"/>
         <attribute type="String" mode="IN" name="uomIdTo" optional="false"/>
         <attribute type="Double" mode="IN" name="conversionFactor" optional="false"/>
+        <attribute type="String" mode="IN" name="purposeEnumId" optional="true"/>
         <attribute type="Timestamp" mode="IN" name="asOfTimestamp" optional="true"/>
     </service>
 

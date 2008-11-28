@@ -112,10 +112,13 @@ under the License.
         </if-empty>
         
         <!-- find the existing exchange rates for this currency pair -->
-        <entity-and entity-name="UomConversionDated" list-name="uomConversions" filter-by-date="true">
-            <field-map env-name="parameters.uomId" field-name="uomId"/>
-            <field-map env-name="parameters.uomIdTo" field-name="uomIdTo"/>
-        </entity-and>
+        <entity-condition entity-name="UomConversionDated" list-name="uomConversions" filter-by-date="true">
+            <condition-list>
+                <condition-expr field-name="uomId" operator="equals" env-name="parameters.uomId" />
+                <condition-expr field-name="uomIdTo" operator="equals" env-name="parameters.uomIdTo" />
+                <condition-expr field-name="purposeEnumId" operator="equals" env-name="parameters.purposeEnumId" ignore-if-empty="true"/>
+            </condition-list>
+        </entity-condition>
         
         <!-- expire all of them -->
         <iterate list-name="uomConversions" entry-name="uomConversion">

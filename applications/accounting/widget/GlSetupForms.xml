@@ -307,6 +307,7 @@ under the License.
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <field name="uomId" title="${uiLabelMap.CommonFrom} ${uiLabelMap.CommonCurrency}"><display/></field>
         <field name="uomIdTo" title="${uiLabelMap.CommonTo} ${uiLabelMap.CommonCurrency}"><display/></field>
+        <field name="purposeEnumId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="Enumeration" key-field-name="enumId" description="${description}"/></field>
         <field name="conversionFactor"><display/></field>
         <field name="fromDate" title="${uiLabelMap.CommonFrom}"><display/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThru}"><display/></field>
@@ -328,6 +329,14 @@ under the License.
                 <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
                     <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
                     <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="purposeEnumId" title="${uiLabelMap.CommonPurpose}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="Enumeration" description="${description}" key-field-name="enumId"> 
+                    <entity-constraint name="enumTypeId" operator="equals" value="CONVERSION_PURPOSE"/>
+                    <entity-order-by field-name="sequenceId"/> 
                 </entity-options>
             </drop-down>
         </field>
