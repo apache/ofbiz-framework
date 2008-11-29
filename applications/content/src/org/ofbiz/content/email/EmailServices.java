@@ -546,7 +546,7 @@ public class EmailServices {
             commEventMap.put("userLogin", userLogin);
             commEventMap.put("contentMimeTypeId", contentType);
             String runService = "createCommunicationEvent";
-            if (emailType.equals("PARTY_REGIS_CONFIRM")) {
+            if ("PARTY_REGIS_CONFIRM".equals(emailType)) {
                 runService = "createCommunicationEventWithoutPermission"; // used to create a new Customer, Prospect or Employee  
             }
             try {
