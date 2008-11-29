@@ -7265,15 +7265,15 @@
         <value xml:lang="ar">تاريخ الفاعلية</value>
         <value xml:lang="de">Effektives Datum</value>
         <value xml:lang="en">Effective Date</value>
-        <value xml:lang="es">Fecha efectiva</value>
+        <value xml:lang="es">Fecha efectiva</value>          <!--value xml:lang="es">Fecha efectivo</value-->
         <value xml:lang="fr">Date d'effet</value>
         <value xml:lang="it">Data Effettiva</value>
-        <value xml:lang="nl">Effectieve Datum</value>
+        <value xml:lang="nl">Effectieve Datum</value>        <!--value xml:lang="nl">Werkelijke datum</value-->        
         <value xml:lang="pt">Data Efectiva</value>
         <value xml:lang="ro">Data Efectiva</value>
-        <value xml:lang="ru">Дата вступления в силу</value>
-        <value xml:lang="th">วันที่มีผล</value>
-        <value xml:lang="zh">有效日期</value>
+        <value xml:lang="ru">Дата вступления в силу</value>   <!--value xml:lang="ru">Дата вст. в силу</value-->
+        <value xml:lang="th">วันที่มีผล</value>                    <!--value xml:lang="th">วันที่มีประสิทธิภาพ</value-->
+        <value xml:lang="zh">有效日期</value>                  <!--value xml:lang="zh">生效日期</value-->
     </property>
     <property key="FormFieldTitle_fromDate">
         <value xml:lang="ar">تاريخ البدء</value>
