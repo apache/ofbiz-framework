@@ -1004,7 +1004,7 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="h1" text="Financial History"/></container>
+                        <container><label style="h1" text="${uiLabelMap.FinancialHistory}"/></container>
                         <screenlet title="${uiLabelMap.InvoicesPayments}" navigation-form-name="Invoices">
                             <include-form name="partyFinancialHistoryInvoices" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                         </screenlet>

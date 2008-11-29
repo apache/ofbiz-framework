@@ -806,7 +806,7 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         default-tooltip-style="tabletext" target="updateCategoryProductMember">
         <field name="invoiceId"><hidden/></field>
-        <field name="invoiceId" title="invoiceId">
+        <field name="invoiceId">
             <display-entity entity-name="Invoice" description=" ">
                 <sub-hyperlink target="/accounting/control/invoiceOverview?invoiceId=${invoiceId}" description="[${invoiceId}]" target-type="inter-app"/>
             </display-entity>
@@ -817,7 +817,7 @@ under the License.
         <field name="totInvoiceApplied" widget-area-style="tabletextright"><display/></field>
         <field name="applied" widget-area-style="tabletextright"><display/></field>  
         <field name="paymentId"><hidden/></field>
-        <field name="paymentId" title="PaymentId">
+        <field name="paymentId">
             <display-entity entity-name="Payment" description=" ">
                 <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
             </display-entity>
@@ -830,7 +830,7 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         default-tooltip-style="tabletext" target="updateCategoryProductMember">
         <field name="paymentId"><hidden/></field>
-        <field name="paymentId" title="PaymentId">
+        <field name="paymentId">
             <display-entity entity-name="Payment" description=" ">
                 <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
             </display-entity>
@@ -847,7 +847,7 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="tabletext" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         default-tooltip-style="tabletext" target="updateCategoryProductMember">
         <field name="invoiceId"><hidden/></field>
-        <field name="invoiceId" title="invoiceId">
+        <field name="invoiceId">
             <display-entity entity-name="Invoice" description=" ">
                 <sub-hyperlink target="/accounting/control/invoiceOverview?invoiceId=${invoiceId}" description="[${invoiceId}]" target-type="inter-app"/>
             </display-entity>
@@ -864,7 +864,7 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="tabletext" 
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar"
         default-tooltip-style="tabletext" target="updateCategoryProductMember">
-        <field name="paymentId" title="PaymentId" >
+        <field name="paymentId">
             <display-entity entity-name="Payment" description=" ">
                 <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
             </display-entity>
@@ -881,7 +881,7 @@ under the License.
         default-title-style="tableheadtext" default-widget-style="tabletext"
         default-tooltip-style="tabletext" target="updateCategoryProductMember">
         <field name="paymentId"><hidden/></field>
-        <field name="paymentId" title="PaymentId">
+        <field name="paymentId">
             <display-entity entity-name="Payment" description=" ">
                 <sub-hyperlink target="/accounting/control/paymentOverview?paymentId=${paymentId}" description="[${paymentId}]" target-type="inter-app"/>
             </display-entity>
@@ -899,8 +899,8 @@ under the License.
         <field position="2" name="totalPaymentsOut"><display/></field>
         <field position="1" name="totalInvoiceNotApplied"><display/></field>
         <field position="2" name="totalPaymentNotApplied"><display/></field>
-        <field position="1" name="totalToBePaid" title="To be paid to: ${parameters.partyId}"><display/></field>
-        <field position="2" name="totalToBeReceived" title="To be received from: ${parameters.partyId}"><display/></field>
+        <field position="1" name="totalToBePaid" title="${uiLabelMap.PartyToBePaidTo} ${parameters.partyId}"><display/></field>
+        <field position="2" name="totalToBeReceived" title="${uiLabelMap.PartyToBeReceivedFrom} ${parameters.partyId}"><display/></field>
     </form>
     <form name="ViewPartyRoles" type="list" list-name="partyRoles" target="viewroles"
         default-title-style="tableheadtext" default-widget-style="tabletext" 

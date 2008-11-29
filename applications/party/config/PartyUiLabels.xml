@@ -209,15 +209,15 @@
         <value xml:lang="fr">Courriel depuis un acteur inconnu</value>
         <value xml:lang="nl">E-mail van een onbekende relatie of contact</value>
     </property>
-    <property key="FormFieldTitle_annualRevenue">
-        <value xml:lang="en">Annual revenue</value>
-        <value xml:lang="es">Ingresos anuales</value>
-    </property>
     <property key="FinancialHistory">
         <value xml:lang="en">Fin. History</value>
         <value xml:lang="es">Histórico financiero</value>
         <value xml:lang="fr">Historique financier</value>
         <value xml:lang="nl">Fin. historie</value>
+    </property>
+    <property key="FormFieldTitle_annualRevenue">
+        <value xml:lang="en">Annual revenue</value>
+        <value xml:lang="es">Ingresos anuales</value>
     </property>
     <property key="FormFieldTitle_attrName">
         <value xml:lang="de">Attribut Name</value>
@@ -1346,6 +1346,30 @@
         <value xml:lang="nl">T.a.v.</value>
         <value xml:lang="th">ถึงชื่อ</value>
     </property>
+    <property key="FormFieldTitle_totalInvoiceNotApplied">
+        <value xml:lang="en">Total Invoice Not Applied</value>
+        <value xml:lang="fr">Total des factures non allouées</value>
+    </property>
+    <property key="FormFieldTitle_totalPaymentsIn">
+        <value xml:lang="en">Total Payments In</value>
+        <value xml:lang="fr">Total des paiements reçus</value>
+    </property>
+    <property key="FormFieldTitle_totalPaymentsOut">
+        <value xml:lang="en">Total Payments Out</value>
+        <value xml:lang="fr">Total des paiements dus</value>
+    </property>
+    <property key="FormFieldTitle_totalPaymentNotApplied">
+        <value xml:lang="en">Total Payment Not Applied</value>
+        <value xml:lang="fr">Total des paiements non alloués</value>
+    </property>    
+    <property key="FormFieldTitle_totalPurchaseInvoice">
+        <value xml:lang="en">Total Purchase Invoice</value>
+        <value xml:lang="fr">Total des factures d'achat</value>
+    </property>
+    <property key="FormFieldTitle_totalSalesInvoice">
+        <value xml:lang="en">Total Sales Invoice</value>
+        <value xml:lang="fr">Total des factures de vente</value>
+    </property>    
     <property key="FormFieldTitle_totalYearsWorkExperience">
         <value xml:lang="de">Total Jahre Arbeitserfahrung</value>
         <value xml:lang="en">Total Years Work Experience</value>
@@ -7315,7 +7339,15 @@
         <value xml:lang="ru">Время</value>
         <value xml:lang="th">เวลา</value>
         <value xml:lang="zh">时间</value>
+    </property>    
+    <property key="PartyToBePaidTo">
+        <value xml:lang="en">To be paid to:</value>
+        <value xml:lang="fr">A payer à :</value>        
     </property>
+    <property key="PartyToBeReceivedFrom">
+        <value xml:lang="en">To be received from:</value>
+        <value xml:lang="fr">A recevoir de :</value>        
+    </property>    
     <property key="PartyToCart">
         <value xml:lang="de">Zum Warenkorb</value>
         <value xml:lang="en">To Cart</value>
@@ -7376,6 +7408,10 @@
         <value xml:lang="ru">Итого</value>
         <value xml:lang="th">ผลรวม</value>
         <value xml:lang="zh">合计</value>
+    </property>
+    <property key="PartyTotal">
+        <value xml:lang="en">Total</value>
+        <value xml:lang="fr">Total</value>
     </property>
     <property key="PartyTotalYearsWorkNotValidNumber">
         <value xml:lang="de">Anzahl Jahre Arbeitserfahrung ist keine gültige Zahl</value>

@@ -7983,6 +7983,10 @@
         <value xml:lang="th">รหัสสินค้าคงหลือ</value>
         <value xml:lang="zh">库存明细标识</value>
     </property>
+    <property key="FormFieldTitle_invoiceAmount">
+        <value xml:lang="en">Invoice Amount</value>
+        <value xml:lang="fr">Montant</value>
+    </property>
     <property key="FormFieldTitle_invoiceDate">
         <value xml:lang="ar">تاريخ الفاتورة</value>
         <value xml:lang="en">Invoice Date</value>
@@ -8053,6 +8057,10 @@
         <value xml:lang="th">ข้อความใบกำกับสิค้า</value>
         <value xml:lang="zh">发票信息</value>
     </property>
+    <property key="FormFieldTitle_invoiceNotApplied">
+        <value xml:lang="en">Not Applied</value>
+        <value xml:lang="fr">Non alloué</value>
+    </property>        
     <property key="FormFieldTitle_invoiceProcessing">
         <value xml:lang="ar">تعيين لكامل الفاتورة</value>
         <value xml:lang="en">Assign to Whole invoice</value>
@@ -8257,6 +8265,10 @@
         <value xml:lang="th">ชื่อ</value>
         <value xml:lang="zh">名称</value>
     </property>
+    <property key="FormFieldTitle_notApplied">
+        <value xml:lang="en">Not Applied</value>
+        <value xml:lang="fr">Non alloué</value>
+    </property>    
     <property key="FormFieldTitle_orderDate">
         <value xml:lang="en">Order Date</value>
         <value xml:lang="fr">Date de commande</value>
@@ -9110,6 +9122,10 @@
         <value xml:lang="th">ผลรวม</value>
         <value xml:lang="zh">合计</value>
     </property>
+    <property key="FormFieldTitle_totInvoiceApplied">
+        <value xml:lang="en">Tot Invoice Applied</value>
+        <value xml:lang="fr">Total alloué</value>
+    </property>        
     <property key="FormFieldTitle_transCodeEnumId">
         <value xml:lang="en">Trans Code Enum Id</value>
         <value xml:lang="es">Id Enum Código de Trans</value>
