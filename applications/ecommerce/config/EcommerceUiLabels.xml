@@ -2082,6 +2082,7 @@
     </property>
     <property key="EcommerceRegister">
         <value xml:lang="en">Register</value>
+        <value xml:lang="en">S'enregistrer</value>
         <value xml:lang="it">Registrati</value>
     </property>
     <property key="EcommerceRemoveSelected">
