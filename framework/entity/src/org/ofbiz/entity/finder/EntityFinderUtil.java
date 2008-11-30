@@ -199,8 +199,9 @@ public class EntityFinderUtil {
                 throw new IllegalArgumentException("Could not find an entity operator for the name: " + operatorName);
             }
 
-            // If IN operator, see if value is a literal list and split it
-            if (operator == EntityOperator.IN && value instanceof String) {
+            // If IN or BETWEEN operator, see if value is a literal list and split it
+            if ((operator == EntityOperator.IN || operator == EntityOperator.BETWEEN)
+                    && value instanceof String) {
                 String delim = null;
                 if (((String)value).indexOf("|") >= 0) {
                     delim = "|";   
@@ -211,9 +212,10 @@ public class EntityFinderUtil {
                     value = StringUtil.split((String)value, delim);   
                 }
             }
-            
-            // don't convert the field to the desired type if this is an IN operator and we have a Collection
-            if (!(operator == EntityOperator.IN && value instanceof Collection)) {
+                        
+            // don't convert the field to the desired type if this is an IN or BETWEEN operator and we have a Collection
+            if (!((operator == EntityOperator.IN || operator == EntityOperator.BETWEEN) 
+                    && value instanceof Collection)) {
                 // now to a type conversion for the target fieldName
                 value = modelEntity.convertFieldValue(modelEntity.getField(fieldName), value, delegator, context);
             }
