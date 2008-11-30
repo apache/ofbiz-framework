@@ -129,7 +129,7 @@ public abstract class EntityOperator<T> extends EntityConditionBase {
     static { register( "greaterThanEqualTo", GREATER_THAN_EQUAL_TO ); }
     public static final EntityComparisonOperator IN = new EntityComparisonOperator(ID_IN, "IN") {
         public boolean compare(Comparable lhs, Object rhs) { return EntityComparisonOperator.compareIn(lhs, rhs); }
-        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs) { appendRHSList(entityConditionParams, sb, field, rhs); }
+        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static { register( "in", IN ); }
     public static final EntityComparisonOperator BETWEEN = new EntityComparisonOperator(ID_BETWEEN, "BETWEEN") {
@@ -153,7 +153,7 @@ public abstract class EntityOperator<T> extends EntityConditionBase {
     static { register( "not-like", NOT_LIKE); }
     public static final EntityComparisonOperator NOT_IN = new EntityComparisonOperator(ID_NOT_IN, "NOT IN") {
         public boolean compare(Comparable lhs, Object rhs) { return !EntityComparisonOperator.compareIn(lhs, rhs); }
-        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs) { appendRHSList(entityConditionParams, sb, field, rhs); }
+        protected void makeRHSWhereStringValue(ModelEntity entity, List<EntityConditionParam> entityConditionParams, StringBuilder sb, ModelField field, Object rhs, DatasourceInfo datasourceInfo) { appendRHSList(entityConditionParams, sb, field, rhs); }
     };
     static { register( "not-in", NOT_IN ); }
 
