@@ -363,6 +363,12 @@ public class FlexibleStringExpander implements Serializable {
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
             Object obj = this.fma.get(context, locale);
+            if (obj == null) {
+                String key = fma.getOriginalName();
+                if (key.startsWith("env.")) {
+                    obj = System.getProperty(key.substring(4));
+                }
+            }
             if (obj != null) {
                 try {
                     buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
