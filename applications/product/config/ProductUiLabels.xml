@@ -13728,7 +13728,7 @@
         <value xml:lang="de">Neue Einrichtung</value>
         <value xml:lang="en">New Facility</value>
         <value xml:lang="es">Nuevo almacén</value>
-        <value xml:lang="fr">Nouveau Stock</value>
+        <value xml:lang="fr">Nouveau lieu de stockage</value>
         <value xml:lang="it">Nuova Stabilimento</value>
         <value xml:lang="ro">Nou Compartiment</value>
         <value xml:lang="ru">Новый объект</value>
@@ -14055,7 +14055,7 @@
         <value xml:lang="de">Kein Lager</value>
         <value xml:lang="en">no Facility</value>
         <value xml:lang="es">No almacén</value>
-        <value xml:lang="fr">Pas de lieu de stockage</value>
+        <value xml:lang="fr">Aucun lieu de stockage</value>
         <value xml:lang="it">nessuna Stabilimento</value>
         <value xml:lang="ro">Nici-un Compartiment</value>
         <value xml:lang="ru">объектов нет</value>
@@ -14077,7 +14077,7 @@
         <value xml:lang="de">Kein Bestand gefunden für die Kommissionierung</value>
         <value xml:lang="en">No Inventory found to pick</value>
         <value xml:lang="es">No se encontró inventario para recoger</value>
-        <value xml:lang="fr">Pas de ligne de stock trouvé à préparer</value>
+        <value xml:lang="fr">Aucune ligne de stock trouvée à préparer</value>
         <value xml:lang="it">Nessun Inventario trovato da prelevare</value>
         <value xml:lang="ro">Nici-un Inventar gasit de preluat</value>
         <value xml:lang="ru">ТМЦ для сортировки не найдены</value>
@@ -14187,7 +14187,7 @@
         <value xml:lang="de">Keine Aufträge gefunden die zur Kommissionierung bereitstehen oder die Lagerbewegungen benötigen.</value>
         <value xml:lang="en">No orders found that are ready to pick or that need stock moves</value>
         <value xml:lang="es">No se encontraron pedidos listos para realizar recogida o que necesiten movimientos de stock</value>
-        <value xml:lang="fr">Pas de commande trouvée pouvant être préparée ou ayant besoin de mouvement de stock</value>
+        <value xml:lang="fr">Aucune commande trouvée pouvant être préparée ou ayant besoin de mouvement de stock</value>
         <value xml:lang="it">Nessun ordine trovato pronto da prelevare o che hanno bisogno di spostamenti di giacenza</value>
         <value xml:lang="ro">Nici-o comanda gasita gata de preluare sau care are nevoie de miscari in stoc</value>
         <value xml:lang="ru">Не найдены заказы готовых для сортировки или для которых необходимы складские перемещения</value>
@@ -14308,7 +14308,7 @@
         <value xml:lang="de">Zurzeit keine Lagerbewegungen nötig</value>
         <value xml:lang="en">No Stock moves needed right now</value>
         <value xml:lang="es">No se necesitan movimientos de productos</value>
-        <value xml:lang="fr">Pas de mouvement de stock nécessaire actuellement</value>
+        <value xml:lang="fr">Aucun mouvement de stock nécessaire actuellement</value>
         <value xml:lang="it">Nessun spostamento di giacenza è necessario adesso</value>
         <value xml:lang="ro">Acum nu este necesara nici-o miscare de stoc</value>
         <value xml:lang="ru">Нет необходимых прямо сейчас складских перемещений</value>
@@ -14330,7 +14330,7 @@
         <value xml:lang="de">Standort kann nicht erstellt werden ohne Einrichtung ID</value>
         <value xml:lang="en">Cannot create location without FacilityId</value>
         <value xml:lang="es">No se puede crear una ubicación sin un código de almacén</value>
-        <value xml:lang="fr">Ne peut pas créer un emplacement sans une référence de stock</value>
+        <value xml:lang="fr">Impossible créer un emplacement sans une référence de stock</value>
         <value xml:lang="it">Non è possibile creare posizioni senza Codice Stabilimento</value>
         <value xml:lang="ro">Nu este posibila crearea pozitiilor fara Cod Compartiment</value>
         <value xml:lang="ru">Невозможно создать местонахождения без кода объекта</value>
@@ -14341,7 +14341,7 @@
         <value xml:lang="de">Bestandesposition nicht gefunden mit der ID</value>
         <value xml:lang="en">Could not find inventoryItem with ID</value>
         <value xml:lang="es">No se pudo encontrar artículo de inventario con código</value>
-        <value xml:lang="fr">Ligne de stock non trouvée avec cette référence</value>
+        <value xml:lang="fr">Ligne de stock avec cette référence inconnue</value>
         <value xml:lang="it">Non è stata trovata riga inventario con Codice</value>
         <value xml:lang="ro">Nu a fost gasita linia inventar cu Codul</value>
         <value xml:lang="ru">Невозможно найти ТМЦ с кодом</value>
@@ -19059,7 +19059,7 @@
         <value xml:lang="de">Lagerbewegungen</value>
         <value xml:lang="en">Stock Moves</value>
         <value xml:lang="es">Movimientos de stock</value>
-        <value xml:lang="fr">Mouvements de stocks</value>
+        <value xml:lang="fr">Mouvements de stock</value>
         <value xml:lang="it">Spostare Giacenza</value>
         <value xml:lang="ro">Miscare Stoc</value>
         <value xml:lang="ru">Складское перемещение</value>
