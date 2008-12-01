@@ -4206,7 +4206,7 @@
         <value xml:lang="de">Lieferant Produkt ID</value>
         <value xml:lang="en">Supplier Product Id</value>
         <value xml:lang="es">Código de producto del proveedor</value>
-        <value xml:lang="fr">Réf. du fournisseur de l'article</value>
+        <value xml:lang="fr">Réf. de l'article chez le fournisseur </value>
         <value xml:lang="it">Codice Prodotto Fornitore</value>
         <value xml:lang="ro">Cod Produs Furnizor </value>
         <value xml:lang="ru">Код продукта у поставщика</value>
