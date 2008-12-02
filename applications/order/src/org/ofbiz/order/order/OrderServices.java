@@ -3125,6 +3125,7 @@ public class OrderServices {
         }
         return ServiceUtil.returnSuccess();
     }
+    
     /** Service to invoice service items from order*/
     public static Map invoiceServiceItems(DispatchContext dctx, Map context){
         GenericDelegator delegator = dctx.getDelegator();
@@ -3143,7 +3144,7 @@ public class OrderServices {
         }
 
         // get all the items for the order
-        List orderItems = null;
+        List<GenericValue> orderItems = null;
         if (orderHeader != null) {
             try {
                 orderItems = orderHeader.getRelated("OrderItem");
@@ -3154,12 +3155,10 @@ public class OrderServices {
         }
 
         // find any service items
-        List serviceItems = new ArrayList();
-        Map serviceProducts = new HashMap();
-        if (orderItems != null && orderItems.size() > 0) {
-            Iterator i = orderItems.iterator();
-            while (i.hasNext()) {
-                GenericValue item = (GenericValue) i.next();
+        List<GenericValue> serviceItems = FastList.newInstance();
+        Map<GenericValue, GenericValue> serviceProducts = FastMap.newInstance();
+        if (UtilValidate.isNotEmpty(orderItems)) {
+            for(GenericValue item : orderItems) {
                 GenericValue product = null;
                 try {
                     product = item.getRelatedOne("Product");
@@ -3182,7 +3181,7 @@ public class OrderServices {
                             // we only invoice APPROVED items
                             if ("ITEM_APPROVED".equals(item.getString("statusId"))) {
                                 serviceItems.add(item);
-                                serviceProducts.put(item,product);
+                                serviceProducts.put(item, product);
                             }
                         }
                     }
@@ -3191,18 +3190,16 @@ public class OrderServices {
         }
 
         // now process the service items
-        if (serviceItems.size() > 0) {
-
-
+        if (UtilValidate.isNotEmpty(serviceItems)) {
             // single list with all invoice items
-            List itemsToInvoice = FastList.newInstance();
+            List<GenericValue> itemsToInvoice = FastList.newInstance();
             itemsToInvoice.addAll(serviceItems);
 
             // do something tricky here: run as a different user that can actually create an invoice, post transaction, etc
-            Map invoiceResult = null;
+            Map<String, Object> invoiceResult = null;
             try {
                 GenericValue permUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
-                Map invoiceContext = UtilMisc.toMap("orderId", orderId, "billItems", itemsToInvoice, "userLogin", permUserLogin);
+                Map<String, Object> invoiceContext = UtilMisc.toMap("orderId", orderId, "billItems", itemsToInvoice, "userLogin", permUserLogin);
                 invoiceResult = dispatcher.runSync("createInvoiceForOrder", invoiceContext);
             } catch (GenericEntityException e) {
                 Debug.logError(e, "ERROR: Unable to invoice service items", module);
@@ -3216,10 +3213,8 @@ public class OrderServices {
             }
 
             // update the status of service goods to COMPLETED;
-            Iterator dii = itemsToInvoice.iterator();
-            while (dii.hasNext()) {
+            for(GenericValue item : itemsToInvoice) {
                 GenericValue productType = null;
-                GenericValue item = (GenericValue) dii.next();
                 GenericValue product = (GenericValue) serviceProducts.get(item);
                 boolean markComplete = false;
                 if(product != null){
@@ -3237,7 +3232,7 @@ public class OrderServices {
                 }
 
                 if (markComplete) {
-                    Map statusCtx = new HashMap();
+                    Map<String, Object> statusCtx = FastMap.newInstance();
                     statusCtx.put("orderId", item.getString("orderId"));
                     statusCtx.put("orderItemSeqId", item.getString("orderItemSeqId"));
                     statusCtx.put("statusId", "ITEM_COMPLETED");
