@@ -3125,6 +3125,134 @@ public class OrderServices {
         }
         return ServiceUtil.returnSuccess();
     }
+    /** Service to invoice service items from order*/
+    public static Map invoiceServiceItems(DispatchContext dctx, Map context){
+        GenericDelegator delegator = dctx.getDelegator();
+        LocalDispatcher dispatcher = dctx.getDispatcher();
+        GenericValue userLogin = (GenericValue) context.get("userLogin");
+        String orderId = (String) context.get("orderId");
+        Locale locale = (Locale) context.get("locale");
+
+        // need the order header
+        GenericValue orderHeader = null;
+        try {
+            orderHeader = delegator.findByPrimaryKey("OrderHeader", UtilMisc.toMap("orderId", orderId));
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "ERROR: Unable to get OrderHeader for orderId : " + orderId, module);
+            return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetOrderHeaderForOrderId", UtilMisc.toMap("orderId",orderId), locale));
+        }
+
+        // get all the items for the order
+        List orderItems = null;
+        if (orderHeader != null) {
+            try {
+                orderItems = orderHeader.getRelated("OrderItem");
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "ERROR: Unable to get OrderItem list for orderId : " + orderId, module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderErrorUnableToGetOrderItemListForOrderId", UtilMisc.toMap("orderId",orderId), locale));
+            }
+        }
+
+        // find any service items
+        List serviceItems = new ArrayList();
+        Map serviceProducts = new HashMap();
+        if (orderItems != null && orderItems.size() > 0) {
+            Iterator i = orderItems.iterator();
+            while (i.hasNext()) {
+                GenericValue item = (GenericValue) i.next();
+                GenericValue product = null;
+                try {
+                    product = item.getRelatedOne("Product");
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, "ERROR: Unable to get Product from OrderItem", module);
+                }
+                if (product != null) {
+                    GenericValue productType = null;
+                    try {
+                        productType = product.getRelatedOne("ProductType");
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, "ERROR: Unable to get ProductType from Product", module);
+                    }
+
+                    if (productType != null) {
+                        String productTypeId = productType.getString("productTypeId");
+
+                        // check for service goods
+                        if (productTypeId != null && "SERVICE".equalsIgnoreCase(productTypeId)) {
+                            // we only invoice APPROVED items
+                            if ("ITEM_APPROVED".equals(item.getString("statusId"))) {
+                                serviceItems.add(item);
+                                serviceProducts.put(item,product);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        // now process the service items
+        if (serviceItems.size() > 0) {
+
+
+            // single list with all invoice items
+            List itemsToInvoice = FastList.newInstance();
+            itemsToInvoice.addAll(serviceItems);
+
+            // do something tricky here: run as a different user that can actually create an invoice, post transaction, etc
+            Map invoiceResult = null;
+            try {
+                GenericValue permUserLogin = delegator.findByPrimaryKey("UserLogin", UtilMisc.toMap("userLoginId", "system"));
+                Map invoiceContext = UtilMisc.toMap("orderId", orderId, "billItems", itemsToInvoice, "userLogin", permUserLogin);
+                invoiceResult = dispatcher.runSync("createInvoiceForOrder", invoiceContext);
+            } catch (GenericEntityException e) {
+                Debug.logError(e, "ERROR: Unable to invoice service items", module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemWithInvoiceCreationServiceItems", locale));
+            } catch (GenericServiceException e) {
+                Debug.logError(e, "ERROR: Unable to invoice service items", module);
+                return ServiceUtil.returnError(UtilProperties.getMessage(resource_error,"OrderProblemWithInvoiceCreationServiceItems", locale));
+            }
+            if (ModelService.RESPOND_ERROR.equals(invoiceResult.get(ModelService.RESPONSE_MESSAGE))) {
+                return ServiceUtil.returnError((String) invoiceResult.get(ModelService.ERROR_MESSAGE));
+            }
+
+            // update the status of service goods to COMPLETED;
+            Iterator dii = itemsToInvoice.iterator();
+            while (dii.hasNext()) {
+                GenericValue productType = null;
+                GenericValue item = (GenericValue) dii.next();
+                GenericValue product = (GenericValue) serviceProducts.get(item);
+                boolean markComplete = false;
+                if(product != null){
+                    try {
+                        productType = product.getRelatedOne("ProductType");
+                    } catch (GenericEntityException e) {
+                        Debug.logError(e, "ERROR: Unable to get ProductType from Product", module);
+                    }                    
+                    if (item != null && productType != null) {
+                        String productTypeId = productType.getString("productTypeId");
+                        if (productTypeId != null && "SERVICE".equalsIgnoreCase(productTypeId)) {
+                            markComplete = true;
+                        }
+                    }
+                }
+
+                if (markComplete) {
+                    Map statusCtx = new HashMap();
+                    statusCtx.put("orderId", item.getString("orderId"));
+                    statusCtx.put("orderItemSeqId", item.getString("orderItemSeqId"));
+                    statusCtx.put("statusId", "ITEM_COMPLETED");
+                    statusCtx.put("userLogin", userLogin);
+                    try {
+                        dispatcher.runSyncIgnore("changeOrderItemStatus", statusCtx);
+                    } catch (GenericServiceException e) {
+                        Debug.logError(e, "ERROR: Problem setting the status to COMPLETED : " + item, module);
+                    }
+                }
+            }
+        }
+
+        return ServiceUtil.returnSuccess();
+    }
 
     public static Map addItemToApprovedOrder(DispatchContext dctx, Map context) {
         LocalDispatcher dispatcher = dctx.getDispatcher();

@@ -279,6 +279,14 @@ under the License.
     <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1000" productAssocTypeId="PRODUCT_COMPONENT" quantity="1" fromDate="2007-01-01 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1001" productAssocTypeId="PRODUCT_COMPONENT" quantity="2" fromDate="2007-01-01 12:00:00.0"/>
     <ProductAssoc productId="GZ-BASKET-PICK" productIdTo="GZ-1004" productAssocTypeId="PRODUCT_COMPONENT" quantity="3" fromDate="2007-01-01 12:00:00.0"/>
+
+    <!-- test for service product type-->
+    <ProductCategory productCategoryId="SERV-001" productCategoryTypeId="CATALOG_CATEGORY"/>
+    <ProductCategoryRollup fromDate="2008-12-02 12:00:00.0" parentProductCategoryId="CATALOG1" productCategoryId="SERV-001"/>
+    <Product productId="SV-1000" productTypeId="SERVICE" primaryProductCategoryId="SERV-001" productName="Service product" internalName="Service type product" description="Service type product for demonstration use" taxable="Y" chargeShipping="N" autoCreateKeywords="Y" isVirtual="N" isVariant="N" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin" lastModifiedDate="2008-12-02 12:00:00.0" lastModifiedByUserLogin="admin"/>
+    <ProductPrice productId="SV-1000" productPricePurposeId="PURCHASE" productPriceTypeId="DEFAULT_PRICE" currencyUomId="USD" productStoreGroupId="_NA_" fromDate="2008-12-02 12:00:00.0" price="1000" createdDate="2008-12-02 12:00:00.0" createdByUserLogin="admin"/>
+    <ProductCategoryMember productCategoryId="SERV-001" productId="SV-1000" fromDate="2008-12-02 12:00:00.0"/>
+    <ProductCategoryMember productCategoryId="CATALOG1_SEARCH" productId="SV-1000" fromDate="2008-12-02 12:00:00.0"/>
     
     <ProductFeatureCategory productFeatureCategoryId="8000" description="License Features"/>
     <ProductFeatureCategoryAppl productFeatureCategoryId="8000" productCategoryId="CATALOG1_SEARCH" fromDate="2001-05-13 12:00:00.0"/>
