@@ -1102,7 +1102,7 @@
         <value xml:lang="de">Container ID</value>
         <value xml:lang="en">Container Id</value>
         <value xml:lang="es">Código de contenedor</value>
-        <value xml:lang="fr">Réf. de conteneur</value>
+        <value xml:lang="fr">Réf. de contenant</value>
         <value xml:lang="it">Codice Container</value>
         <value xml:lang="th">รหัสบรรจุภัณฑ์</value>
     </property>
@@ -7996,7 +7996,7 @@
         <value xml:lang="de">UND Container</value>
         <value xml:lang="en">AND container</value>
         <value xml:lang="es">Y contenedor</value>
-        <value xml:lang="fr">Et emplacement</value>
+        <value xml:lang="fr">Et contenant</value>
         <value xml:lang="it">E recipiente</value>
         <value xml:lang="ro">Si recipient</value>
         <value xml:lang="ru">И контейнер</value>
@@ -10860,7 +10860,7 @@
         <value xml:lang="de">Einrichtung / Container</value>
         <value xml:lang="en">Facility / Container</value>
         <value xml:lang="es">Almacén / Contenedor</value>
-        <value xml:lang="fr">Lieu de stockage / Conteneur</value>
+        <value xml:lang="fr">Lieu de stockage / Contenant</value>
         <value xml:lang="it">Stabilimento / Contenitore</value>
         <value xml:lang="ro">Compartiment / Contenitor</value>
         <value xml:lang="ru">Объект / Контейнер</value>
@@ -10871,7 +10871,7 @@
         <value xml:lang="de">Einrichtung oder Container ID</value>
         <value xml:lang="en">Facility or Container ID</value>
         <value xml:lang="es">Almacén o Código del contenedor</value>
-        <value xml:lang="fr">Lieu de stockage ou ref. de conteneur</value>
+        <value xml:lang="fr">Lieu de stockage ou réf. de contenant</value>
         <value xml:lang="it">Stabilimento o Codice Contenitore</value>
         <value xml:lang="ro">Compartiment sau Cod Contenitor</value>
         <value xml:lang="ru">Объект или код контейнера</value>
@@ -14822,7 +14822,7 @@
         <value xml:lang="de">ODER geben Sie die Container ID an</value>
         <value xml:lang="en">OR enter a Container ID</value>
         <value xml:lang="es">O ingrese un código de contenedor</value>
-        <value xml:lang="fr">OU entrer une référence de container</value>
+        <value xml:lang="fr">OU entrer une référence de contenant</value>
         <value xml:lang="it">O inserisci un Codice Contenitore</value>
         <value xml:lang="ro">Sau introduceti un Cod Contenitor</value>
         <value xml:lang="ru">ИЛИ введите код контейнера</value>
@@ -19703,7 +19703,7 @@
     <property key="ProductToFacilityContainer">
         <value xml:lang="en">To Facility / Container</value>
         <value xml:lang="es">Almacén destino / Contenedor</value>
-        <value xml:lang="fr">Vers le lieu de stockage / Conteneur</value>
+        <value xml:lang="fr">Vers le lieu de stockage / Contenant</value>
         <value xml:lang="it">Alla Stabilimento / Contenitore</value>
         <value xml:lang="ro">La Compartimentul / Contenitor</value>
         <value xml:lang="ru">В склад/контейнер</value>
