@@ -440,7 +440,11 @@ under the License.
        <auto-attributes entity-name="ProductContent" include="pk" mode="IN" optional="false"/>
        <attribute name="orderItem" type="GenericValue" mode="IN" optional="false"/>
    </service>
-
+    <service name="invoiceServiceItems" engine="java"
+            location="org.ofbiz.order.order.OrderServices" invoke="invoiceServiceItems" auth="true">
+        <description>Check an order for service items and invoice the items</description>
+        <attribute name="orderId" type="String" mode="IN"/>
+    </service>
     <!-- Order View Services -->
     <service name="getOrderedSummaryInformation" engine="simple"
             location="org/ofbiz/order/order/OrderServices.xml" invoke="getOrderedSummaryInformation">
