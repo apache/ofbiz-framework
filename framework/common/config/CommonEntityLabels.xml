@@ -1471,7 +1471,7 @@
     <property key="Enumeration.description.PRDS_PAY_EXTERNAL">
         <value xml:lang="de">Zahlung extern (Kein Dienst)</value>
         <value xml:lang="en">External Payment (No Service)</value>
-        <value xml:lang="fr">Paiment externe (autre mode)</value>
+        <value xml:lang="fr">Paiment externe (aucun service)</value>
         <value xml:lang="it">Pagamento Esterno (Nessun Servizio)</value>
         <value xml:lang="pt">Pagamaneto Externo (Sem Serviço)</value>
         <value xml:lang="ro">Plata Externa (Nici-un Serviciu)</value>
