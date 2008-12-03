@@ -104,7 +104,7 @@
     <TaxAuthorityGlAccount taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" organizationPartyId="Company" glAccountId="224000"/>
     <TaxAuthorityCategory taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" productCategoryId="20111"/> <!-- Micro Widgets, a category to be used to test categorized rates -->
     <!-- taxAuthorityRateSeqId left blank to be auto-sequenced during the EE XML import -->
-    <TaxAuthorityRateProduct taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9100"
+    <TaxAuthorityRateProduct taxAuthorityRateSeqId="9006" taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9100"
         productCategoryId="" titleTransferEnumId="" minItemPrice="25.00" minPurchase="0.00" taxShipping="N" taxPercentage="1" taxPromotions="N"
         fromDate="2008-12-03 00:00:00.001" thruDate="" description="1% OFB _NA_ Tax"/>
     
