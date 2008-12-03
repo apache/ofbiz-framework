@@ -98,6 +98,16 @@
     <EnumerationType description="Pos Paid Reason Out" enumTypeId="POS_PAID_REASON_OUT" hasTable="N" parentTypeId=""/>
     <Enumeration description="Banking during the day" enumCode="BANKING_OUT_REASON" enumId="BANKING_OUT_REASON" sequenceId="01" enumTypeId="POS_PAID_REASON_OUT"/>
     <Enumeration description="Petty Cash out" enumCode="CASH_OUT_REASON" enumId="CASH_OUT_REASON" sequenceId="03" enumTypeId="POS_PAID_REASON_OUT"/>
+    
+    <!-- _NA_ TaxAuthority defs -->        
+    <TaxAuthority taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" includeTaxInPrice="N"/>
+    <TaxAuthorityGlAccount taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" organizationPartyId="Company" glAccountId="224000"/>
+    <TaxAuthorityCategory taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" productCategoryId="20111"/> <!-- Micro Widgets, a category to be used to test categorized rates -->
+    <!-- taxAuthorityRateSeqId left blank to be auto-sequenced during the EE XML import -->
+    <TaxAuthorityRateProduct taxAuthGeoId="_NA_" taxAuthPartyId="_NA_" taxAuthorityRateTypeId="SALES_TAX" productStoreId="9100"
+        productCategoryId="" titleTransferEnumId="" minItemPrice="25.00" minPurchase="0.00" taxShipping="N" taxPercentage="1" taxPromotions="N"
+        fromDate="2008-12-03 00:00:00.001" thruDate="" description="1% OFB _NA_ Tax"/>
+    
 </entity-engine-xml>
 
 
