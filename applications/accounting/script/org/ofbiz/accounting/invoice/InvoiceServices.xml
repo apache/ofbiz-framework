@@ -495,10 +495,9 @@ under the License.
                         <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
                     </entity-and>
                     <iterate entry-name="entry" list-name="entries">
-                        <remove-value value-name="entry"/>
                         <clear-field field-name="entry.invoiceId"/>                        
                         <clear-field field-name="entry.invoiceItemSeqId"/>
-                        <create-value value-name="entry"/>
+                        <store-value value-name="entry"/>
                     </iterate>
                 </if-compare>
             </else>
