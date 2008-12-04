@@ -36,7 +36,21 @@ under the License.
     <field-type-def type="id" sql-type="VARCHAR2(20)" java-type="String"></field-type-def>
     <field-type-def type="id-long" sql-type="VARCHAR2(60)" java-type="String"></field-type-def>
     <field-type-def type="id-vlong" sql-type="VARCHAR2(255)" java-type="String"></field-type-def>
-
+    
+    <!-- we had a customer using Oracle 11g with the following error after running any service in webtools.
+        Service dispatcher threw an exceptionResult set was empty for entity: 
+        [GenericEntity:RuntimeData][runtimeDataId,10205(java.lang.String)] (Result set was empty for entity: 
+        [GenericEntity:RuntimeData][runtimeDataId,10205(java.lang.String)]) (Result set was empty for entity: 
+        [GenericEntity:RuntimeData][runtimeDataId,10205(java.lang.String)] (Result set was empty for entity: 
+        [GenericEntity:RuntimeData][runtimeDataId,10205(java.lang.String)]))
+        
+        adding the fieldtype
+        <field-type-def type="long" sql-type="LONG" java-type="String"><validate method="isNotEmpty" /></field-type-def>
+        and changing the fieldtype in RunTimeData:
+        <field name="runtimeInfo" type="long"></field>
+        cured the problem.
+        (HB)
+    -->
     <field-type-def type="indicator" sql-type="CHAR(1)" java-type="String"></field-type-def>
     <field-type-def type="very-short" sql-type="VARCHAR2(10)" java-type="String"></field-type-def>
     <field-type-def type="short-varchar" sql-type="VARCHAR2(60)" java-type="String"></field-type-def>
