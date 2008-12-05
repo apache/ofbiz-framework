@@ -92,7 +92,7 @@ under the License.
                     <order-by field-name="${orderByString}"/>
                 </entity-condition>
                 <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
-                    <if-compare field="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_PICKLOC">
+                    <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
                         <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                         <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-name="inventoryItem"/>
                         <call-simple-method method-name="reserveForInventoryItemInline"/>
@@ -112,7 +112,7 @@ under the License.
                         <order-by field-name="${orderByString}"/>
                     </entity-condition>
                     <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
-                        <if-compare field="inventoryItemAndLocation.locationTypeEnumId" operator="equals" value="FLT_BULK">
+                        <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
                             <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                             <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-name="inventoryItem"/>
                             <call-simple-method method-name="reserveForInventoryItemInline"/>
@@ -133,9 +133,17 @@ under the License.
                         <order-by field-name="${orderByString}"/>
                     </entity-condition>
                     <iterate entry-name="inventoryItem" list-name="inventoryItems">
-                        <if-empty field="inventoryItem.locationSeqId">
-                            <call-simple-method method-name="reserveForInventoryItemInline"/>
-                        </if-empty>
+                        <if>
+                            <condition>
+                                <and>
+                                    <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double"/>
+                                    <if-empty field="inventoryItem.locationSeqId"/>
+                                </and>
+                            </condition>
+                            <then>
+                                <call-simple-method method-name="reserveForInventoryItemInline"/>
+                            </then>
+                        </if>
                     </iterate>
                 </if-compare>
 
@@ -370,25 +378,6 @@ under the License.
     <simple-method method-name="reserveForInventoryItemInline" short-description="Does a reservation for one InventoryItem, meant to be called in-line">
         <!-- only do something with this inventoryItem if there is more inventory to reserve -->  
         <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
-            <!-- get the promiseDatetime -->
-            <get-related-one value-name="inventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
-            <set field="daysToShip" from-field="productFacility.daysToShip"/>
-            <if-empty field="daysToShip">
-                <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
-                <if-not-empty field="facility.defaultDaysToShip">
-                    <set field="daysToShip" from-field="facility.defaultDaysToShip" type="Long"/>
-                    <else>
-                        <set field="daysToShip" value="30" type="Long"/>
-                    </else>
-                </if-not-empty>
-            </if-empty>
-            <call-bsh><![CDATA[
-            java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
-            java.util.Calendar cal = java.util.Calendar.getInstance();
-            cal.setTimeInMillis(orderDate.getTime());
-            cal.add(java.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
-            return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
-            ]]></call-bsh>
 
             <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
                 <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">
@@ -397,6 +386,7 @@ under the License.
                     <store-value value-name="inventoryItem"/>
 
                     <!-- store OrderItemShipGrpInvRes record -->
+                    <call-simple-method method-name="getPromisedDateTime"/>
                     <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
                     <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
                     <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
@@ -445,6 +435,7 @@ under the License.
                         <clear-field field-name="createDetailMap"/>
                         
                         <!-- create OrderItemShipGrpInvRes record -->
+                        <call-simple-method method-name="getPromisedDateTime"/>
                         <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
                         <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
                         <set from-field="parameters.shipGroupSeqId" field="reserveOisgirMap.shipGroupSeqId"/>
@@ -471,6 +462,26 @@ under the License.
                 <set from-field="inventoryItem" field="lastNonSerInventoryItem"/>
             </if-compare>
         </if-compare>
+    </simple-method>
+    
+    <simple-method method-name="getPromisedDateTime" short-description="Get Inventory Promised Date/Time">
+        <!-- get the promiseDatetime -->
+        <get-related-one value-name="inventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
+        <set field="daysToShip" from-field="productFacility.daysToShip"/>
+        <if-empty field="daysToShip">
+            <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
+            <set field="daysToShip" from-field="facility.defaultDaysToShip" type="Long"/>
+        </if-empty>
+        <if-empty field="daysToShip">
+            <set field="daysToShip" value="30" type="Long"/>
+        </if-empty>
+        <call-bsh><![CDATA[
+        java.sql.Timestamp orderDate = orderHeader.getTimestamp("orderDate");
+        java.util.Calendar cal = java.util.Calendar.getInstance();
+        cal.setTimeInMillis(orderDate.getTime());
+        cal.add(java.util.Calendar.DAY_OF_YEAR, daysToShip.intValue());
+        return org.ofbiz.base.util.UtilMisc.toMap("promisedDatetime", new java.sql.Timestamp(cal.getTimeInMillis()));
+        ]]></call-bsh>
     </simple-method>
 
     <simple-method method-name="reserveOrderItemInventory" short-description="Reserve Order Item Inventory">
