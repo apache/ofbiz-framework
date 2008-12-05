@@ -1606,6 +1606,29 @@ under the License.
   <!-- org.ofbiz.product.inventory -->
   <!-- ========================================================= -->
 
+    <view-entity entity-name="BalanceInventoryItemsView"
+            package-name="org.ofbiz.product.inventory"
+            title="Balance Inventory Items View Entity">
+      <member-entity entity-alias="INV" entity-name="InventoryItem"/>
+      <member-entity entity-alias="RES" entity-name="OrderItemShipGrpInvRes"/>
+      <alias entity-alias="INV" name="inventoryItemId"/>
+      <alias entity-alias="INV" name="productId"/>
+      <alias entity-alias="INV" name="facilityId"/>
+      <alias entity-alias="INV" name="inventoryItemTypeId"/>
+      <alias entity-alias="INV" name="availableToPromiseTotal"/>
+      <alias entity-alias="INV" name="quantityOnHandTotal"/>
+      <alias entity-alias="RES" name="orderId"/>
+      <alias entity-alias="RES" name="shipGroupSeqId"/>
+      <alias entity-alias="RES" name="orderItemSeqId"/>
+      <alias entity-alias="RES" name="quantity"/>
+      <alias entity-alias="RES" name="quantityNotAvailable"/>
+      <alias entity-alias="RES" name="reserveOrderEnumId"/>
+      <alias entity-alias="RES" name="reservedDatetime"/>
+      <alias entity-alias="RES" name="sequenceId"/>
+      <view-link entity-alias="INV" rel-entity-alias="RES">
+        <key-map field-name="inventoryItemId"/>
+      </view-link>
+    </view-entity>
     <entity entity-name="InventoryItem"
             package-name="org.ofbiz.product.inventory"
             title="Inventory Item Entity">
