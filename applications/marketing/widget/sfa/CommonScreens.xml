@@ -72,10 +72,10 @@ under the License.
         <section>
             <widgets>
                 <container style="left">
-                    <screenlet title="${uiLabelMap.SfaQuickAddContact}">
+                    <screenlet id ="SfaQuickAddContactPanel" title="${uiLabelMap.SfaQuickAddContact}" collapsible="true">
                         <include-form name="QuickAddContact" location="component://marketing/widget/sfa/forms/ContactForms.xml"/>    
                     </screenlet>
-                    <screenlet title="${uiLabelMap.SfaQuickAddLead}">
+                    <screenlet id= "SfaQuickAddLeadPanel" title="${uiLabelMap.SfaQuickAddLead}" collapsible="true">
                         <include-form name="QuickAddLead" location="component://marketing/widget/sfa/forms/LeadForms.xml"/>
                     </screenlet>
                 </container>
