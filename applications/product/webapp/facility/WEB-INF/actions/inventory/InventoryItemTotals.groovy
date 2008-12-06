@@ -40,7 +40,7 @@ if (action) {
         resultMap = [:];
         beganTransaction = TransactionUtil.begin();
         invItemListItr = delegator.find("InventoryItem", conditionList, null, null, ['productId'], null);
-        invItemListItr.each { inventoryItem ->
+        while ((inventoryItem = invItemListItr.next()) != null) {
             productId = inventoryItem.productId;
             product = delegator.findOne("Product", [productId : productId], false);
             productFacility = delegator.findOne("ProductFacility", [productId : productId, facilityId : facilityId], false);

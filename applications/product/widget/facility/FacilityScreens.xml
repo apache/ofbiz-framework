@@ -365,7 +365,7 @@ under the License.
                                     <link target="ViewFacilityInventoryByProductExport?${searchParameterString}" text="${uiLabelMap.CommonExport}" style="buttontext"/>
                                     <link target="InventoryItemTotals?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemTotals}" style="buttontext"/>
                                     <link target="InventoryItemGrandTotals?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemGrandTotals}" style="buttontext"/>
-                                    <link target="InventoryItemTotalsExport.csv?action=Y" text="${uiLabelMap.ProductInventoryItemTotalsExport}" style="buttontext"/>
+                                    <link target="InventoryItemTotalsExport.csv?facilityId=${facilityId}&amp;action=Y" text="${uiLabelMap.ProductInventoryItemTotalsExport}" style="buttontext"/>
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
