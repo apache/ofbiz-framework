@@ -98,6 +98,7 @@ under the License.
 	<classpathentry kind="lib" path="framework/base/lib/log4j-1.2.15.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/junitperf.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/junit.jar"/>
+    <classpathentry kind="lib" path="framework/base/lib/juel-2.1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jdbm-1.0.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/jakarta-regexp-1.5.jar"/>
 	<classpathentry kind="lib" path="framework/base/lib/icu4j-3_6.jar"/>
