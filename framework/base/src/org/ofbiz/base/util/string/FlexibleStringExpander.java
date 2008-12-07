@@ -36,20 +36,21 @@ import org.ofbiz.base.util.UtilMisc;
 
 import bsh.EvalError;
 
-/** Expands string values within a Map context supporting the ${} syntax for
- * variable placeholders and the "." (dot) and "[]" (square-brace) syntax
- * elements for accessing Map entries and List elements in the context.
- * It Also supports the execution of bsh files by using the 'bsh:' prefix.
+/** Expands String values that contain Unified Expression Language syntax.
+ * Also supports the execution of bsh scripts by using the 'bsh:' prefix.
  * Further it is possible to control the output by specifying the suffix
  * '?currency(XXX)' to format the output according the current locale
- * and specified (XXX) currency
+ * and specified (XXX) currency.<p>This class extends the UEL by allowing
+ * nested expressions.</p>
  */
 @SuppressWarnings("serial")
 public class FlexibleStringExpander implements Serializable {
     
     public static final String module = FlexibleStringExpander.class.getName();
-    protected static UtilCache<String, FlexibleStringExpander> exprCache = new UtilCache<String, FlexibleStringExpander>("flexibleStringExpander.ExpressionCache");
-    protected static FlexibleStringExpander nullExpr = new FlexibleStringExpander(null);
+    public static final String openBracket = "${";
+    public static final String closeBracket = "}";
+    protected static final UtilCache<String, FlexibleStringExpander> exprCache = new UtilCache<String, FlexibleStringExpander>("flexibleStringExpander.ExpressionCache");
+    protected static final FlexibleStringExpander nullExpr = new FlexibleStringExpander(null);
     protected String orig;
     protected List<StrElem> strElems = null;
     protected int hint = 20;
@@ -61,7 +62,7 @@ public class FlexibleStringExpander implements Serializable {
     public FlexibleStringExpander(String original) {
         // TODO: Change this to protected, remove @deprecated javadoc comment
         this.orig = original;
-        if (original != null && original.contains("${")) {
+        if (original != null && original.contains(openBracket)) {
             this.strElems = getStrElems(original);
             if (original.length() > this.hint) {
                 this.hint = original.length();
@@ -146,7 +147,7 @@ public class FlexibleStringExpander implements Serializable {
             return nullExpr;
         }
         // Remove the next three lines to cache all expressions
-        if (!original.contains("${")) {
+        if (!original.contains(openBracket)) {
             return new FlexibleStringExpander(original);
         }
         FlexibleStringExpander fse = exprCache.get(original);
@@ -192,7 +193,7 @@ public class FlexibleStringExpander implements Serializable {
      * @return The original String expanded by replacing varaible place holders.
      */
     public static String expandString(String original, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-        if (context == null || original == null || !original.contains("${")) {
+        if (context == null || original == null || !original.contains(openBracket)) {
             return original;
         }
         FlexibleStringExpander fse = FlexibleStringExpander.getInstance(original);
@@ -209,7 +210,7 @@ public class FlexibleStringExpander implements Serializable {
         }
         int origLen = original.length();
         ArrayList<StrElem> strElems = new ArrayList<StrElem>();
-        int start = original.indexOf("${");
+        int start = original.indexOf(openBracket);
         if (start == -1) {
             strElems.add(new ConstElem(original));
             strElems.trimToSize();
@@ -218,7 +219,7 @@ public class FlexibleStringExpander implements Serializable {
         int currentInd = 0;
         int end = -1;
         while (start != -1) {
-            end = original.indexOf("}", start);
+            end = original.indexOf(closeBracket, start);
             if (end == -1) {
                 Debug.logWarning("Found a ${ without a closing } (curly-brace) in the String: " + original, module);
                 break;
@@ -231,10 +232,10 @@ public class FlexibleStringExpander implements Serializable {
             if (original.indexOf("bsh:", start + 2) == start + 2) {
                 strElems.add(new BshElem(original.substring(start + 6, end)));
             } else {
-                int ptr = original.indexOf("${", start + 2);
+                int ptr = original.indexOf(openBracket, start + 2);
                 while (ptr != -1 && end != -1 && ptr < end) {
-                    end = original.indexOf("}", end + 1);
-                    ptr = original.indexOf("${", ptr + 2);
+                    end = original.indexOf(closeBracket, end + 1);
+                    ptr = original.indexOf(openBracket, ptr + 2);
                 }
                 if (end == -1) {
                     end = origLen;
@@ -243,7 +244,7 @@ public class FlexibleStringExpander implements Serializable {
                 // Evaluation sequence is important - do not change it
                 if (expression.contains("?currency(")) {
                     strElems.add(new CurrElem(expression));
-                } else if (expression.contains("${")){
+                } else if (expression.contains(openBracket)){
                     strElems.add(new NestedVarElem(expression));
                 } else {
                     strElems.add(new VarElem(expression));
@@ -254,7 +255,7 @@ public class FlexibleStringExpander implements Serializable {
             if (currentInd > origLen) {
                 currentInd = origLen;
             }
-            start = original.indexOf("${", currentInd);
+            start = original.indexOf(openBracket, currentInd);
         }
         // append the rest of the original string, ie after the last variable
         if (currentInd < origLen) {
@@ -344,8 +345,7 @@ public class FlexibleStringExpander implements Serializable {
                     this.hint = expr.length();
                 }
             }
-            FlexibleMapAccessor<Object> fma = new FlexibleMapAccessor<Object>(expr.toString());
-            Object obj = fma.get(context, locale);
+            Object obj = UelUtil.evaluate(context, openBracket + expr.toString() + closeBracket);
             if (obj != null) {
                 try {
                     buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
@@ -357,16 +357,15 @@ public class FlexibleStringExpander implements Serializable {
     }
 
     protected static class VarElem implements StrElem {
-        protected FlexibleMapAccessor<Object> fma = null;
+        protected String original = null;
         protected VarElem(String original) {
-            this.fma = new FlexibleMapAccessor<Object>(original);
+            this.original = original;
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            Object obj = this.fma.get(context, locale);
+            Object obj = UelUtil.evaluate(context, openBracket + this.original + closeBracket);
             if (obj == null) {
-                String key = fma.getOriginalName();
-                if (key.startsWith("env.")) {
-                    obj = System.getProperty(key.substring(4));
+                if (this.original.startsWith("env.")) {
+                    obj = System.getProperty(this.original.substring(4));
                 }
             }
             if (obj != null) {

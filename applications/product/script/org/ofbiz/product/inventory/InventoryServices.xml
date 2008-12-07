@@ -775,7 +775,7 @@ under the License.
                             <field-to-list field-name="item" list-name="reservations"/>
                         </else>
                     </if>
-                    <set field="reserveQtyAccum" value="${bsh:reserveQtyAccum + item.getDouble(&quot;quantity&quot;);}" type="Double"/>
+                    <set field="reserveQtyAccum" value="${reserveQtyAccum + item.quantity}" type="Double"/>
                 </if-empty>
                 </then>
             </if>
