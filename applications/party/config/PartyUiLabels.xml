@@ -7780,7 +7780,8 @@
         <value xml:lang="zh">访问标识 / 会话标识</value>
     </property>
     <property key="PartyVisitId">
-        <value xml:lang="en">Besuchs Id</value>
+        <value xml:lang="de">Besuchs Id</value>
+        <value xml:lang="en">Visit Id</value>
         <value xml:lang="es">Código de visita</value>
         <value xml:lang="fr">Ident. connexion</value>
         <value xml:lang="it">Numero Visita</value>
