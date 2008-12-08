@@ -24,8 +24,6 @@ import javax.el.*;
 
 import javolution.util.FastMap;
 
-import org.ofbiz.base.util.Debug;
-
 /** Implements the Unified Expression Language (JSR-245). */
 public class UelUtil {
     
@@ -46,24 +44,18 @@ public class UelUtil {
      * @param context Evaluation context (variables)
      * @param expression UEL expression
      * @return Result object
+     * @throws Various <code>javax.el.*</code> exceptions
      */
     public static Object evaluate(Map<String, ? extends Object> context, String expression) {
-        Object obj = null;
-        try {
-            ELContext elContext = new BasicContext(context);
-            ValueExpression ve = exprFactory.createValueExpression(elContext, expression, Object.class);
-            obj = ve.getValue(elContext);
-        } catch (Exception e) {
-            Debug.logVerbose("Error evaluating expression: " + e, module);
-        }
-        return obj;
+        ELContext elContext = new BasicContext(context);
+        ValueExpression ve = exprFactory.createValueExpression(elContext, expression, Object.class);
+        return ve.getValue(elContext);
     }
 
     protected static class BasicContext extends ELContext {
-        protected VariableMapper variables = null;
-        protected BasicContext() {}
+        protected final VariableMapper variableMapper;
         public BasicContext(Map<String, ? extends Object> context) {
-            this.variables = new Variables(context);
+            this.variableMapper = new BasicVariableMapper(context, this);
         }
         public ELResolver getELResolver() {
             return defaultResolver;
@@ -72,22 +64,24 @@ public class UelUtil {
             return functionMapper;
         }
         public VariableMapper getVariableMapper() {
-            return this.variables;
+            return this.variableMapper;
         }
-        protected class Variables extends VariableMapper {
-            protected Map<String, Object> context = FastMap.newInstance();
-            protected Variables(Map<String, ? extends Object> context) {
-                this.context.putAll(context);
+        protected class BasicVariableMapper extends VariableMapper {
+            protected ELContext elContext;
+            protected Map<String, Object> variables = FastMap.newInstance();
+            protected BasicVariableMapper(Map<String, ? extends Object> context, ELContext parentContext) {
+                this.variables.putAll(context);
+                this.elContext = parentContext;
             }
             public ValueExpression resolveVariable(String variable) {
-                Object obj = this.context.get(variable);
+                Object obj = this.variables.get(variable);
                 if (obj != null) {
                     return new BasicValueExpression(obj);
                 }
                 return null;
             }
             public ValueExpression setVariable(String variable, ValueExpression expression) {
-                return new BasicValueExpression(this.context.put(variable, expression.getValue(null)));
+                return new BasicValueExpression(this.variables.put(variable, expression.getValue(this.elContext)));
             }
         }
         @SuppressWarnings("serial")
