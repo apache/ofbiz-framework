@@ -29,7 +29,6 @@ import org.ofbiz.base.util.BshUtil;
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.ObjectType;
 import org.ofbiz.base.util.cache.UtilCache;
-import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilFormatOut;
 import org.ofbiz.base.util.UtilMisc;
@@ -280,7 +279,7 @@ public class FlexibleStringExpander implements Serializable {
     }
     
     protected static class BshElem implements StrElem {
-        String str;
+        protected String str;
         protected BshElem(String scriptlet) {
             this.str = scriptlet;
         }
@@ -305,20 +304,23 @@ public class FlexibleStringExpander implements Serializable {
     }
 
     protected static class CurrElem implements StrElem {
-        String str;
+        protected String valueStr;
         protected FlexibleStringExpander codeExpr = null;
         protected CurrElem(String original) {
             int currencyPos = original.indexOf("?currency(");
-            int closeBracket = original.indexOf(")", currencyPos+10);
-            this.codeExpr = FlexibleStringExpander.getInstance(original.substring(currencyPos+10, closeBracket));
-            this.str = original.substring(0, currencyPos);
+            int closeParen = original.indexOf(")", currencyPos + 10);
+            this.codeExpr = FlexibleStringExpander.getInstance(original.substring(currencyPos + 10, closeParen));
+            this.valueStr = openBracket + original.substring(0, currencyPos) + closeBracket;
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            FlexibleMapAccessor<Object> fma = new FlexibleMapAccessor<Object>(this.str);
-            Object obj = fma.get(context, locale);
-            if (obj != null) {
-                String currencyCode = this.codeExpr.expandString(context, timeZone, locale);
-                buffer.append(UtilFormatOut.formatCurrency(Double.valueOf(obj.toString()), currencyCode, locale));
+            try {
+                Object obj = UelUtil.evaluate(context, this.valueStr);
+                if (obj != null) {
+                    String currencyCode = this.codeExpr.expandString(context, timeZone, locale);
+                    buffer.append(UtilFormatOut.formatCurrency(Double.valueOf(obj.toString()), currencyCode, locale));
+                }
+            } catch (Exception e) {
+                Debug.logVerbose("Error evaluating expression: " + e, module);
             }
         }
     }
@@ -345,35 +347,37 @@ public class FlexibleStringExpander implements Serializable {
                     this.hint = expr.length();
                 }
             }
-            Object obj = UelUtil.evaluate(context, openBracket + expr.toString() + closeBracket);
-            if (obj != null) {
-                try {
-                    buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
-                } catch (Exception e) {
-                    buffer.append(obj);
+            try {
+                Object obj = UelUtil.evaluate(context, openBracket + expr.toString() + closeBracket);
+                if (obj != null) {
+                    buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, false));
                 }
+            } catch (Exception e) {
+                Debug.logVerbose("Error evaluating expression: " + e, module);
             }
         }
     }
 
     protected static class VarElem implements StrElem {
         protected String original = null;
+        protected String bracketedOriginal = null;
         protected VarElem(String original) {
             this.original = original;
+            this.bracketedOriginal = openBracket + original + closeBracket;
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
-            Object obj = UelUtil.evaluate(context, openBracket + this.original + closeBracket);
-            if (obj == null) {
-                if (this.original.startsWith("env.")) {
-                    obj = System.getProperty(this.original.substring(4));
+            try {
+                Object obj = UelUtil.evaluate(context, this.bracketedOriginal);
+                if (obj == null) {
+                    if (this.original.startsWith("env.")) {
+                        obj = System.getProperty(this.original.substring(4));
+                    }
                 }
-            }
-            if (obj != null) {
-                try {
-                    buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, true));
-                } catch (Exception e) {
-                    buffer.append(obj);
+                if (obj != null) {
+                    buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, false));
                 }
+            } catch (Exception e) {
+                Debug.logVerbose("Error evaluating expression: " + e, module);
             }
         }
     }
