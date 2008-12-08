@@ -24,9 +24,12 @@ import javax.el.*;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.Debug;
+
 /** Implements the Unified Expression Language (JSR-245). */
 public class UelUtil {
     
+    protected static final String module = UelUtil.class.getName();
     public static final FunctionMapper functionMapper = new Functions();
     protected static final ExpressionFactory exprFactory = new de.odysseus.el.ExpressionFactoryImpl();
     protected static final ELResolver defaultResolver = new CompositeELResolver() {
@@ -45,12 +48,14 @@ public class UelUtil {
      * @return Result object
      */
     public static Object evaluate(Map<String, ? extends Object> context, String expression) {
-        ELContext elContext = new BasicContext(context);
-        ValueExpression ve = exprFactory.createValueExpression(elContext, expression, Object.class);
         Object obj = null;
         try {
+            ELContext elContext = new BasicContext(context);
+            ValueExpression ve = exprFactory.createValueExpression(elContext, expression, Object.class);
             obj = ve.getValue(elContext);
-        } catch (Exception e) {}
+        } catch (Exception e) {
+            Debug.logVerbose("Error evaluating expression: " + e, module);
+        }
         return obj;
     }
 
