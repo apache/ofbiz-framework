@@ -6184,7 +6184,7 @@
     </property>
     <property key="AccountingSetup">
         <value xml:lang="en">Setup</value>
-        <value xml:lang="fr">Installation</value>
+        <value xml:lang="fr">Configuration</value>
         <value xml:lang="nl">Configuratie</value>
         <value xml:lang="th">ติดตั้ง</value>
     </property>
