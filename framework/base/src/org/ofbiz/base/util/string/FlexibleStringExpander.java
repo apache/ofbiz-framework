@@ -376,6 +376,7 @@ public class FlexibleStringExpander implements Serializable {
             }
             if (obj == null) {
                 if (this.original.startsWith("env.")) {
+                    Debug.logWarning("${env...} expression syntax deprecated, use ${sys:getProperty(String)} instead", module);
                     obj = System.getProperty(this.original.substring(4));
                 }
             }
