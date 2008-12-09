@@ -22,27 +22,30 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="main-decorator">
-        <!-- The main-decorator screen 'wraps' or 'decorates' all of the screens in the
-            Example component. It is also decorated - by the GlobalDecorator screen. -->
         <section>
             <actions>
-                <!-- base/top/most specific map first, then more common map added for shared labels.
-                    Setting things up this way enables a component to redefine the more common
-                    UI labels. -->
+                <!-- base/top/specific map first, then more common map added for shared labels --> 
                 <property-map resource="ExampleUiLabels" map-name="uiLabelMap" global="true"/>
                 <property-map resource="CommonUiLabels" map-name="uiLabelMap" global="true"/>
-                <!-- The layoutSettings field is a Map that is used to pass variables and layout
-                    information to the GlobalDecorator and any templates that it uses. -->
+                
                 <set field="layoutSettings.companyName" from-field="uiLabelMap.ExampleCompanyName" global="true"/>
                 <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ExampleCompanySubtitle" global="true"/>
                 <!-- layoutSettings.headerImageUrl can be used to specify an application specific logo; if not set,
-                     then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
+                    then the global layoutSettings.commonHeaderImageUrl (specified in GlobalDecorator) will be used. -->
                 <!--<set field="layoutSettings.headerImageUrl" value="/images/ofbiz_logo.jpg" global="true"/>-->
+                
                 <!-- <set field="layoutSettings.headerMiddleBackgroundUrl" value="" global="true"/> -->
                 <!-- <set field="layoutSettings.headerRightBackgroundUrl" value="" global="true"/> -->
+                <!-- TODO: Use transform to specify component URI -->
+                <set field="layoutSettings.companyName" from-field="uiLabelMap.ExampleCompanyName" global="true"/>
+                <set field="layoutSettings.companySubtitle" from-field="uiLabelMap.ExampleCompanySubtitle" global="true"/>
                 <set field="activeApp" value="example" global="true"/>
-                <set field="applicationMenuName" value="ExampleAppBar" global="true"/>
-                <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/>
+                <!--set field="applicationMenuName" value="ExampleAppBar" global="true"/>
+                <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/-->
+                <set field="appheaderTemplate" value="component://common/webcommon/portal/appheader.ftl"/>                
+                <entity-and entity-name="PortalPage" list-name="pages">
+                    <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
+                </entity-and>
             </actions>
             <widgets>
                 <include-screen name="GlobalDecorator" location="component://common/widget/CommonScreens.xml"/>
@@ -175,19 +178,7 @@ under the License.
             the user. -->
         <section>
             <widgets>
-                <decorator-screen name="main-decorator">
-                    <decorator-section name="body">
-                        <screenlet title="${uiLabelMap.ExampleMainPage}">
-                            <section>
-                                <condition><if-empty field-name="userLogin"/></condition>
-                                <widgets>
-                                    <container><label text="${uiLabelMap.ExampleMessage}"/></container>
-                                </widgets>
-                            </section>
-                            <label text="${uiLabelMap.ExampleWelcome}"/>
-                        </screenlet>
-                    </decorator-section>
-                </decorator-screen>
+                 <include-screen name="FindExample" location="component://example/widget/example/ExampleScreens.xml"/>
             </widgets>
         </section>
     </screen>

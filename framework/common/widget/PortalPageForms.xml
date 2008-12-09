@@ -32,7 +32,7 @@ under the License.
         </actions>
         
         <field name="portalPageId" title="${uiLabelMap.CommonId}" sort-field="true">
-            <hyperlink description="${portalPageId}" target="dashboard?portalPageId=${portalPageId}"/>
+            <hyperlink description="${portalPageId}" target="dashboard?portalPageId=${portalPageId}&amp;configurePortalPage=true"/>
         </field>
         <field name="portalName" title="${uiLabelMap.CommonName}" id-name="portalName" widget-style="tabletext" sort-field="true">
             <display>
@@ -50,15 +50,17 @@ under the License.
                 </in-place-editor>
             </display>
         </field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;ownerUserLoginId=${userLogin.userLoginId}" description="${uiLabelMap.CommonDelete}"/>
+        </field>
     </form>
     
     <form name="NewPortalPage" type="single" target="createPortalPage" title="" default-map-name="PortalPagemap">
         <actions>
             <set from-field="userLogin.userLoginId" field="ownerUserLoginId"/>
-        </actions>
-    
+        </actions>    
         <auto-fields-service service-name="createPortalPage"/>
-        <field name="ownerUserLoginId" >
+        <field name="ownerUserLoginId">
             <hidden/>
         </field>
         <field name="sequenceNum">
