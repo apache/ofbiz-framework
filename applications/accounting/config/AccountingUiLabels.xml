@@ -3144,7 +3144,7 @@
     </property>
     <property key="AccountingGeneralLedger">
         <value xml:lang="en">General Ledger</value>
-        <value xml:lang="fr">Grand Livre (GL)</value>
+        <value xml:lang="fr">Grand Livre</value>
         <value xml:lang="it">Contabilità Generale</value>
         <value xml:lang="nl">Grootboek</value>
         <value xml:lang="th">บัญชีแยกประเภททั่วไป</value>
@@ -5089,7 +5089,7 @@
     </property>
     <property key="AccountingPartyGlAccounts">
         <value xml:lang="en">Party Gl Accounts</value>
-        <value xml:lang="fr">Comptes d'acteur (GL)</value>
+        <value xml:lang="fr">Comptes de tiers</value>
         <value xml:lang="nl">GB-rekeningen relatie</value>
         <value xml:lang="th">กลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
@@ -5967,13 +5967,13 @@
     </property>
     <property key="AccountingProductCategoryGlAccount">
         <value xml:lang="en">Product Category Gl Account</value>
-        <value xml:lang="fr">Compte de catégorie de produit (GL)</value>
+        <value xml:lang="fr">Compte de catégorie de produit</value>
         <value xml:lang="nl">GB-rekening Productcategorie</value>
         <value xml:lang="th">หมวดหมู่สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingProductGlAccount">
         <value xml:lang="en">Product GL Accounts</value>
-        <value xml:lang="fr">Comptes de produit (GL)</value>
+        <value xml:lang="fr">Comptes de produit</value>
         <value xml:lang="nl">GB-rekeningen Product</value>
         <value xml:lang="th">สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -6429,7 +6429,7 @@
     </property>
     <property key="AccountingTaxAuthorityGlAccounts">
         <value xml:lang="en">TaxAuthority GL Accounts </value>
-        <value xml:lang="fr">Comptes de l'administration fiscale (GL)</value>
+        <value xml:lang="fr">Comptes de l'administration fiscale</value>
         <value xml:lang="nl">GB-rekeningen belastinginstantie(s)</value>
         <value xml:lang="th">ภาษีบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -8587,7 +8587,7 @@
     </property>
     <property key="FormFieldTitle_postToGlAccountId">
         <value xml:lang="en">Post To Gl Account Id</value>
-        <value xml:lang="fr">Comptabilisé à la réf. de compte (GL)</value>
+        <value xml:lang="fr">Comptabilisé à la réf. de compte</value>
         <value xml:lang="it">Contabilizza su Conto Gl</value>
         <value xml:lang="en">Boeken op GB-rekening</value>
         <value xml:lang="ru">На счет ГК с кодом</value>
@@ -9617,7 +9617,7 @@
     </property>
     <property key="PageTitleEditPartyGlAccounts">
         <value xml:lang="en">Edit Party Gl Accounts</value>
-        <value xml:lang="fr">Modifier les comptes de tiers (GL)</value>
+        <value xml:lang="fr">Modifier les comptes de tiers</value>
         <value xml:lang="nl">Gb-rekeningen relatie aanpassen</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
@@ -9772,7 +9772,7 @@
     </property>
     <property key="PageTitleFindGlAccount">
         <value xml:lang="en">PageTitleFindGlAccount</value>
-        <value xml:lang="fr">Chercher un compte (GL)</value>
+        <value xml:lang="fr">Chercher un compte</value>
         <value xml:lang="nl">Vind GB-rekening(en)</value>
         <value xml:lang="th">ค้นหาบัญชีแยกประเภททั่วไป</value>
     </property>
