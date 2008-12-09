@@ -82,11 +82,11 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="EditSubscription" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
-                                        <container style="h1"><label>${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} ${subscription.description} [${subscriptionId}]</label></container>
+                                        <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${subscription.description} [${subscriptionId}]</label></container>
                                         <container style="button-bar"><link target="EditSubscription" text="${uiLabelMap.ProductNewSubscription}" style="buttontext"/></container>
                                     </widgets>
                                     <fail-widgets>
-                                        <container style="h1"><label>${uiLabelMap.${titleProperty}}</label></container>
+                                        <container style="h1"><label>${uiLabelMap[titleProperty]}</label></container>
                                     </fail-widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
@@ -202,14 +202,14 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <include-menu name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionMenus.xml"/>
-                                        <container style="h1"><label>${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} "${subscriptionResource.description}" [${subscriptionResourceId}]</label></container>
+                                        <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} "${subscriptionResource.description}" [${subscriptionResourceId}]</label></container>
                                         <container style="button-bar">
                                             <link target="EditSubscriptionResource" text="${uiLabelMap.ProductNewSubscriptionResource}" style="buttontext"/>
                                             <link target="FindSubscription?subscriptionResourceId=${subscriptionResourceId}" text="${uiLabelMap.ProductFindResourceSubscriptions}" style="buttontext"/>
                                         </container>
                                     </widgets>
                                     <fail-widgets>
-                                        <container style="h1"><label>${uiLabelMap.${titleProperty}}</label></container>
+                                        <container style="h1"><label>${uiLabelMap[titleProperty]}</label></container>
                                     </fail-widgets>
                                 </section>
                                 <decorator-section-include name="body"/>

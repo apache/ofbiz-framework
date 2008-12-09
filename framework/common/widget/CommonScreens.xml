@@ -389,7 +389,7 @@ under the License.
                     </widgets>
                     <fail-widgets>
                         <container style="h1">
-                            <label text="${uiLabelMap.${titleProperty}}"/>
+                            <label text="${uiLabelMap[titleProperty]}"/>
                         </container>
                     </fail-widgets>
                 </section>
@@ -423,7 +423,7 @@ under the License.
             <actions>
                 <set field="titleProperty" value="PageTitleHelp"></set>
                 <property-map resource="CommonHelpUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="helpText" value="${uiLabelMap.${parameters.topic}}" default-value="${uiLabelMap.HelpNotFound}"/>
+                <set field="helpText" value="${uiLabelMap[parameters.topic]}" default-value="${uiLabelMap.HelpNotFound}"/>
             </actions>
             <widgets>
                 <decorator-screen name="SimpleDecorator">

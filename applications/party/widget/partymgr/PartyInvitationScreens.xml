@@ -43,7 +43,7 @@ under the License.
                                     <widgets>
                                         <include-menu name="PartyInvitationTabBar" location="component://party/widget/partymgr/PartyMenus.xml"/>
                                         <container style="button-bar"><link target="editPartyInvitation" text="${uiLabelMap.PartyInvitationNewPartyInvitation}" style="buttontext"/></container>
-                                        <container style="button-bar"><label style="h1">${uiLabelMap.${titleProperty}}</label><label style="h2"> ${uiLabelMap.CommonFor} "${partyInvitation.partyIdFrom}" [${partyInvitationId}]</label></container>
+                                        <container style="button-bar"><label style="h1">${uiLabelMap[titleProperty]}</label><label style="h2"> ${uiLabelMap.CommonFor} "${partyInvitation.partyIdFrom}" [${partyInvitationId}]</label></container>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>
@@ -74,7 +74,7 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
-                                            <label text="${uiLabelMap.${titleProperty}}"/>
+                                            <label text="${uiLabelMap[titleProperty]}"/>
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
@@ -99,7 +99,7 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
-                                            <label text="${uiLabelMap.${titleProperty}}"/>
+                                            <label text="${uiLabelMap[titleProperty]}"/>
                                         </container>
                                     </container>
                                     <container style="screenlet-body">
@@ -135,7 +135,7 @@ under the License.
                                 <container style="screenlet">
                                     <container style="screenlet-title-bar">
                                         <container style="h3">
-                                            <label text="${uiLabelMap.${titleProperty}}"/>
+                                            <label text="${uiLabelMap[titleProperty]}"/>
                                         </container>
                                     </container>
                                     <container style="screenlet-body">

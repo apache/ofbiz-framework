@@ -35,7 +35,7 @@ under the License.
                                 <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="h1"><label>${uiLabelMap.${titleProperty}}</label></container>
+                                <container style="h1"><label>${uiLabelMap[titleProperty]}</label></container>
                                 <container style="screenlet-body">
                                     <container style="button-bar"><label style="h2">Date/Time fields</label></container>
                                     <container style="screenlet-body">

@@ -26,7 +26,7 @@ under the License.
             <actions>
                 <set field="headerItem" value="tempexpr"/>
                 <property-map resource="TemporalExpressionUiLabels" map-name="uiLabelMap" global="true"/>
-                <set field="title" value="${uiLabelMap.${titleProperty}}" global="true"/>
+                <set field="title" value="${uiLabelMap[titleProperty]}" global="true"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">

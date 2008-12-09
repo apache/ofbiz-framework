@@ -92,7 +92,7 @@ under the License.
                                         <not><if-empty field-name="example"/></not>
                                     </condition>
                                     <widgets>
-                                        <container style="h1"><label>${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} ${example.exampleName} [${exampleId}]</label></container>
+                                        <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${example.exampleName} [${exampleId}]</label></container>
                                         <container style="button-bar">
                                             <link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/>
                                             <link target="ExampleReportHtml?exampleId=${exampleId}" text="${uiLabelMap.CommonPrinterFriendly}" style="buttontext"/>
@@ -150,7 +150,7 @@ under the License.
                                     </condition>
                                     <widgets>
                                         <container style="h1">
-                                            <label>${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} ${exampleFeature.description} [${exampleFeatureId}]</label>
+                                            <label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${exampleFeature.description} [${exampleFeatureId}]</label>
                                         </container>
                                         <container style="button-bar">
                                             <link target="EditExampleFeature" text="${uiLabelMap.ExampleNewExampleFeature}" style="buttontext"/>

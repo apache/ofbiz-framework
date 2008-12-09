@@ -147,7 +147,7 @@ under the License.
                             </condition>
                             <widgets>
                                 <container>
-                                    <label style="h1" text="${uiLabelMap.${labelTitleProperty}} [${groupId}]"/>
+                                    <label style="h1" text="${uiLabelMap[labelTitleProperty]} [${groupId}]"/>
                                 </container>
                                 <container style="button-bar">
                                     <link target="EditSecurityGroup" style="smallSubmit" text="${uiLabelMap.PartyNewSecurityGroup}"/>

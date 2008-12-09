@@ -38,7 +38,7 @@ under the License.
             
                                 <container>
                                     <!-- label style="h1">List Accounts</label -->
-                                    <label style="h1">${uiLabelMap.${labelTitleProperty}}</label>
+                                    <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
                                 </container>
                                 
                                 <!-- Now call the SimpleScreen form -->
@@ -74,7 +74,7 @@ under the License.
                                 <include-menu name="GlAccountTabBar" location="component://accounting/widget/Menus.xml"/>
             
                                 <container>
-                                    <label style="h1">${uiLabelMap.${labelTitleProperty}} ${product.internalName} [${uiLabelMap.CommonId}:${productId}]</label>
+                                    <label style="h1">${uiLabelMap[labelTitleProperty]} ${product.internalName} [${uiLabelMap.CommonId}:${productId}]</label>
                                 </container>
                                 
                                 <decorator-section-include name="body"/>
@@ -340,7 +340,7 @@ under the License.
                        <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.${labelTitleProperty}}"/>
+                                    <label text="${uiLabelMap[labelTitleProperty]}"/>
                                 </container>
                             </container>
                             <container style="screenlet-body">
