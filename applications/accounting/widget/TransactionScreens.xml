@@ -36,7 +36,7 @@ under the License.
                                 <include-menu name="TransactionsTabBar" location="component://accounting/widget/Menus.xml"/>
             
                                 <container>
-                                    <label style="h1">${uiLabelMap.${labelTitleProperty}}</label>
+                                    <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
                                 </container>
                                 
                                 <!-- Now call the SimpleScreen form -->

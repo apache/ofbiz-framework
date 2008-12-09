@@ -41,7 +41,7 @@ under the License.
                                     <widgets>
                                         <include-menu name="CategoryTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                         <container>
-                                            <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${productCategory.description} [${uiLabelMap.CommonId}:${productCategoryId}]  ${${extraFunctionName}}</label>
+                                            <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productCategory.description} [${uiLabelMap.CommonId}:${productCategoryId}]  ${${extraFunctionName}}</label>
                                         </container>
                                         
                                         <container>

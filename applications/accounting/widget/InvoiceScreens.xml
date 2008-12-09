@@ -42,7 +42,7 @@ under the License.
                                     <widgets>
                                         <include-menu name="InvoiceTabBar" location="component://accounting/widget/Menus.xml"/>
                                         <include-menu name="InvoiceSubTabBar" location="component://accounting/widget/Menus.xml"/>
-                                        <label style="h1" text="${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${invoice.description} [${invoiceId}]  ${${extraFunctionName}}"/>
+                                        <label style="h1" text="${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${invoice.description} [${invoiceId}]  ${${extraFunctionName}}"/>
                                     </widgets>
                                 </section>
                                 <decorator-section-include name="body"/>

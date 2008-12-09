@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 Licensed to the Apache Software Foundation (ASF) under one
 or more contributor license agreements.  See the NOTICE file
@@ -73,7 +73,7 @@ under the License.
                                     <widgets>
                                         <include-menu name="ProductTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                         <container>
-                                            <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
+                                            <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${product.internalName} [${uiLabelMap.CommonId}:${productId}]  ${${extraFunctionName}}</label>
                                             <image src="${product.smallImageUrl}" height="40" width="40" url-mode="content"/>
                                         </container>
 
@@ -161,7 +161,7 @@ under the License.
                                         <include-menu name="ProductStoreTabBar" location="component://product/widget/catalog/Menus.xml"/>
 
                                         <container>
-                                            <label style="h1">${uiLabelMap.${labelTitleProperty}} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]  ${${extraFunctionName}}</label>
+                                            <label style="h1">${uiLabelMap[labelTitleProperty]} ${uiLabelMap.CommonFor}: ${productStore.storeName} [${uiLabelMap.CommonId}:${productStoreId}]  ${${extraFunctionName}}</label>
                                         </container>
                                         <container>
                                             <link target="EditProductStore" text="${uiLabelMap.ProductNewProductStore}" style="buttontext"/>
@@ -201,7 +201,7 @@ under the License.
                                 <include-menu name="ShippingTabBar" location="component://product/widget/catalog/Menus.xml"/>
                                 <!--<include-menu name="EditSubscriptionResource" location="component://product/widget/catalog/SubscriptionMenus.xml"/>-->
                                 <container>
-                                    <label style="h1">${uiLabelMap.${labelTitleProperty}}</label>
+                                    <label style="h1">${uiLabelMap[labelTitleProperty]}</label>
                                 </container>
                                 <decorator-section-include name="body"/>
                             </widgets>

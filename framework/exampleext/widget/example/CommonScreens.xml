@@ -66,7 +66,7 @@ under the License.
                                         <not><if-empty field-name="example"/></not>
                                     </condition>
                                     <widgets>
-                                        <container style="h1"><label>${uiLabelMap.${titleProperty}} ${uiLabelMap.CommonFor} ${example.exampleName} [${exampleId}]</label></container>
+                                        <container style="h1"><label>${uiLabelMap[titleProperty]} ${uiLabelMap.CommonFor} ${example.exampleName} [${exampleId}]</label></container>
                                         <container style="button-bar"><link target="EditExample" text="${uiLabelMap.ExampleNewExample}" style="buttontext"/></container>
                                     </widgets>
                                 </section>

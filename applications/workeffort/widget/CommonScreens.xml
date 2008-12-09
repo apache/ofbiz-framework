@@ -74,7 +74,7 @@ under the License.
                                     <widgets>
                                         <include-menu name="WorkEffortTabBar" location="component://workeffort/widget/WorkEffortMenus.xml"/>
                                         <container style="h1">
-                                            <label>${uiLabelMap.${titleProperty}} - ${workEffort.workEffortName} [${workEffortId}]</label>
+                                            <label>${uiLabelMap[titleProperty]} - ${workEffort.workEffortName} [${workEffortId}]</label>
                                         </container>
                                     </widgets>
                                 </section>

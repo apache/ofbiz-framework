@@ -37,7 +37,7 @@ under the License.
                                 <if-has-permission permission="EXAMPLE" action="_VIEW"/>
                             </condition>
                             <widgets>
-                                <container style="h1"><label>${uiLabelMap.${titleProperty}}</label></container>
+                                <container style="h1"><label>${uiLabelMap[titleProperty]}</label></container>
                                 <section>
                                     <condition>
                                         <if-compare field-name="javaScriptEnabled" value="true" operator="equals"/>
