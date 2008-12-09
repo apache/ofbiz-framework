@@ -50,8 +50,8 @@ public class FlexibleStringExpander implements Serializable {
     public static final String closeBracket = "}";
     protected static final UtilCache<String, FlexibleStringExpander> exprCache = new UtilCache<String, FlexibleStringExpander>("flexibleStringExpander.ExpressionCache");
     protected static final FlexibleStringExpander nullExpr = new FlexibleStringExpander(null);
-    protected String orig;
-    protected List<StrElem> strElems = null;
+    protected final String orig;
+    protected final List<StrElem> strElems;
     protected int hint = 20;
 
     /**
@@ -66,6 +66,8 @@ public class FlexibleStringExpander implements Serializable {
             if (original.length() > this.hint) {
                 this.hint = original.length();
             }
+        } else {
+            this.strElems = null;
         }
     }
     
@@ -269,7 +271,7 @@ public class FlexibleStringExpander implements Serializable {
     }
     
     protected static class ConstElem implements StrElem {
-        protected String str;
+        protected final String str;
         protected ConstElem(String value) {
             this.str = value.intern();
         }
@@ -279,7 +281,7 @@ public class FlexibleStringExpander implements Serializable {
     }
     
     protected static class BshElem implements StrElem {
-        protected String str;
+        protected final String str;
         protected BshElem(String scriptlet) {
             this.str = scriptlet;
         }
@@ -304,8 +306,8 @@ public class FlexibleStringExpander implements Serializable {
     }
 
     protected static class CurrElem implements StrElem {
-        protected String valueStr;
-        protected FlexibleStringExpander codeExpr = null;
+        protected final String valueStr;
+        protected final FlexibleStringExpander codeExpr;
         protected CurrElem(String original) {
             int currencyPos = original.indexOf("?currency(");
             int closeParen = original.indexOf(")", currencyPos + 10);
@@ -326,7 +328,7 @@ public class FlexibleStringExpander implements Serializable {
     }
         
     protected static class NestedVarElem implements StrElem {
-        protected List<StrElem> strElems = null;
+        protected final List<StrElem> strElems;
         protected int hint = 20;
         protected NestedVarElem(String original) {
             this.strElems = getStrElems(original);
@@ -359,8 +361,8 @@ public class FlexibleStringExpander implements Serializable {
     }
 
     protected static class VarElem implements StrElem {
-        protected String original = null;
-        protected String bracketedOriginal = null;
+        protected final String original;
+        protected final String bracketedOriginal;
         protected VarElem(String original) {
             this.original = original;
             this.bracketedOriginal = openBracket + original + closeBracket;
