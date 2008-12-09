@@ -148,5 +148,35 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    
+    <screen name="DisplayExamplePage">
+        <section>
+            <actions>
+                <set field="portalPageId" from-field="parameters.portalPageId" default-value="DEFAULT"/>
+                <set field="headerItem" from-field="portalPageId"/>
+                <entity-one entity-name="PortalPage" value-name="currentPortalPage"/>                
+               
+                <entity-condition entity-name="PortalPage" list-name="portalPageList">
+                    <condition-expr field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
+                </entity-condition>
+                <set field="portalPages[]" from-field="selectedPortalPage"/>
+                
+                <entity-condition entity-name="PortalPageColumn" list-name="portalPageColumnList">
+                    <condition-expr field-name="portalPageId" env-name="portalPageId"/>
+                    <order-by field-name="columnSeqId"/>
+                </entity-condition>
+                <entity-condition entity-name="PortalPagePortletView" list-name="portalPagePortletViewList">
+                    <condition-expr field-name="portalPageId" env-name="portalPageId"/>
+                    <order-by field-name="sequenceNum"/>
+                </entity-condition>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <platform-specific><html><html-template location="component://common/webcommon/portal/portalPage.ftl"/></html></platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>   
 </screens>

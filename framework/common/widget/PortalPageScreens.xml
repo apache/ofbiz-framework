@@ -25,12 +25,12 @@ under the License.
         <section>
             <actions>
                 <set field="portalPageId" from-field="parameters.portalPageId" default-value="DEFAULT"/>
-                <entity-one entity-name="PortalPage" value-name="currentPortalPage"/>
+                <entity-one entity-name="PortalPage" value-name="currentPortalPage"/>                
                 
                 <entity-condition entity-name="PortalPage" list-name="portalPageList">
                     <condition-expr field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
                 </entity-condition>
-                <set field="portalPages[]" from-field="selectedPortalPage"/>
+                <set field="portalPages" from-field="portalPageList"/>
                 
                 <entity-condition entity-name="PortalPageColumn" list-name="portalPageColumnList">
                     <condition-expr field-name="portalPageId" env-name="portalPageId"/>
@@ -46,6 +46,8 @@ under the License.
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
+                        <include-form name="ListPortalPages" location="component://common/widget/PortalPageForms.xml"/>
+                        <include-form name="NewPortalPage" location="component://common/widget/PortalPageForms.xml"/>
                         <platform-specific><html><html-template location="component://common/webcommon/portal/portalPage.ftl"/></html></platform-specific>
                     </decorator-section>
                 </decorator-screen>

@@ -2080,11 +2080,16 @@ padding: 0.1em 0.5em 0.2em 0.5em;
 
 #manage-portal-toolbar #config-on-off,
 #manage-portal-toolbar #manage-portal-page,
-#manage-portal-toolbar #add-portlet {
+#manage-portal-toolbar #add-column {
 float: right;
 }
 
 #manage-portal-toolbar #portal-page-name {
 font-size: 1.5em;
 font-weight: bold;
+}
+
+.manage-portal-column-toolbar #add-portlet,
+.manage-portal-column-toolbar #delete-column {
+float: right;
 }

@@ -588,7 +588,8 @@ under the License.
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
     </service>
-    <service name="deletePortalPagePortlet" default-entity-name="PortalPagePortlet" engine="entity-auto" invoke="delete" auth="true">
+    <service name="deletePortalPagePortlet" default-entity-name="PortalPagePortlet" engine="simple" auth="true"
+        location="org/ofbiz/common/PortalPageServices.xml" invoke="deletePortalPagePortlet">
         <description>Delete a PortalPortlet from a PortalPage</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
@@ -603,7 +604,8 @@ under the License.
     </service>
 
     <!-- Portal Page services -->
-    <service name="createPortalPage" default-entity-name="PortalPage" engine="entity-auto" invoke="create" auth="true">
+    <service name="createPortalPage" default-entity-name="PortalPage" engine="simple" auth="true"
+        location="org/ofbiz/common/PortalPageServices.xml" invoke="createPortalPage">
         <description>Create a new Portal Page</description>
         <auto-attributes include="pk" mode="OUT" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
@@ -612,6 +614,26 @@ under the License.
         <description>Update a Portal Page</description>
         <auto-attributes include="pk" mode="IN" optional="false"/>
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+    <service name="deletePortalPage" default-entity-name="PortalPage" engine="simple" auth="true"
+        location="org/ofbiz/common/PortalPageServices.xml" invoke="deletePortalPage">
+        <description>Delete a Portal Page</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
+
+    <!-- PortalPageColumn services -->
+    <service name="addPortalPageColumn" default-entity-name="PortalPageColumn" engine="simple" auth="true"
+        location="org/ofbiz/common/PortalPageServices.xml" invoke="addPortalPageColumn">
+        <description>Add a new Column to a PortalPage</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <override name="columnSeqId" mode="OUT" optional="true"/>
+    </service>
+    <service name="deletePortalPageColumn" default-entity-name="PortalPageColumn" engine="simple" auth="true"
+        location="org/ofbiz/common/PortalPageServices.xml" invoke="deletePortalPageColumn">
+        <description>Delete a Column from a PortalPage</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
     </service>
 
     <!-- PortletAttribute services -->

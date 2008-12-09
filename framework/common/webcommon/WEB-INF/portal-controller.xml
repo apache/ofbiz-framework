@@ -77,11 +77,29 @@ under the License.
         <response name="success" type="request" value="ManagePortalPages"/>
         <response name="error" type="request" value="ManagePortalPages"/>
     </request-map>
+    <request-map uri="deletePortalPage">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePortalPage"/>
+        <response name="success" type="request" value="ManagePortalPages"/>
+        <response name="error" type="request" value="ManagePortalPages"/>
+    </request-map>
     <request-map uri="setPortalPortletAttributes">
         <security https="true" auth="true"/>
         <event type="simple" invoke="setPortalPortletAttributes" path="org/ofbiz/common/PortalPageMethods.xml"/>
         <response name="success" type="request" value="EditPortlet"/>
         <response name="error" type="request" value="EditPortlet"/>
+    </request-map>
+    <request-map uri="addPortalPageColumn">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="addPortalPageColumn"/>
+        <response name="success" type="request" value="dashboard"/>
+        <response name="error" type="request" value="dashboard"/>
+    </request-map>
+    <request-map uri="deletePortalPageColumn">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deletePortalPageColumn"/>
+        <response name="success" type="request" value="dashboard"/>
+        <response name="error" type="request" value="dashboard"/>
     </request-map>
 
     <!-- View Mappings -->

@@ -159,6 +159,10 @@
         <value xml:lang="zh_CN">添加一个</value>
         <value xml:lang="zh">新建</value>
     </property>
+    <property key="CommonAddColumn">
+        <value xml:lang="en">Add Column</value>
+        <value xml:lang="it">Aggiungi una colonna</value>
+    </property>
     <property key="CommonAddAPortlet">
         <value xml:lang="en">Add A Portlet...</value>
         <value xml:lang="it">Aggiungi un portlet...</value>
@@ -3814,7 +3818,7 @@
         <value xml:lang="ro">Nici-o informatie contact in Fisier</value>
         <value xml:lang="ru">Контактной информации по файлу не найдено</value>
         <value xml:lang="th">ไม่มีข้อมูลการติดต่อบนไฟล์</value>
-        <value xml:lang="zh_CN">文件里没有联系信息</value>
+        <value xml:lang="zh_CN">文件里没有联系信息</value>
         <value xml:lang="zh">无联系信息</value>
     </property>
     <property key="CommonNoContains">

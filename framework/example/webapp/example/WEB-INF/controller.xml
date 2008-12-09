@@ -170,10 +170,12 @@ under the License.
 
     <request-map uri="ListExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="ListExampleFormOnly"/></request-map>
     <request-map uri="CreateExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="CreateExampleFormOnly"/></request-map>
+    <request-map uri="dashboardExample"><security https="true" auth="false"/><response name="success" type="view" value="dashboardExample"/></request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
     <view-map name="main" type="screen" page="component://example/widget/example/CommonScreens.xml#main"/>
+    <view-map name="dashboardExample" type="screen" page="component://example/widget/example/ExampleScreens.xml#DisplayExamplePage"/>
     <view-map name="help" type="screen" page="component://example/widget/example/ExampleScreens.xml#help"/>
 
     <view-map name="FindExample" type="screen" page="component://example/widget/example/ExampleScreens.xml#FindExample"/>

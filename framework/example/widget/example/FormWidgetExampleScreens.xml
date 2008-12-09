@@ -24,7 +24,7 @@ under the License.
     <screen name="FormWidgetExamples">
         <section>
             <actions>
-                <set field="headerItem" value="FormWidgetExamples"/>
+                <set field="headerItem" value="Form Widget Examples"/>
                 <set field="titleProperty" value="PageTitleFormWidgetExamples"/>
             </actions>
             <widgets>

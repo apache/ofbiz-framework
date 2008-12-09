@@ -27,35 +27,9 @@ under the License.
       </li>
     </#if>
 
-    <#if (portalPages.size() > 1)>
-      <li id="portal-page-select">
-        <select name="selectPortal" onchange="window.location=this[this.selectedIndex].value;">
-          <option>${uiLabelMap.CommonSelectPortalPage}</option>
-          <#list portalPages as portalPage>
-            <#if (currentPortalPage.portalPageId != portalPage.portalPageId)>
-              <option value="<@ofbizUrl>dashboard?portalPageId=${portalPage.portalPageId}</@ofbizUrl>">${portalPage.portalName}</option>
-            </#if>
-          </#list>                          
-        </select>
-      </li>
-    </#if>
-    
-    <li id="manage-portal-page">
-      <a href="<@ofbizUrl>ManagePortalPages?portalPageId=${currentPortalPage.portalPageId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonManagePortalPages}</a>
-    </li>
-
-    <li id="config-on-off">
-     ${uiLabelMap.CommonConfigure}
-     <#if configurePortalPage?has_content>
-         ON | <a href="<@ofbizUrl>dashboard?portalPageId=${currentPortalPage.portalPageId}</@ofbizUrl>" class="buttontext">OFF</a>
-     <#else>
-         <a href="<@ofbizUrl>dashboard?portalPageId=${currentPortalPage.portalPageId}&configurePortalPage=true</@ofbizUrl>" class="buttontext">ON</a> | OFF
-     </#if>
-    </li>
-
     <#if configurePortalPage?has_content>
-      <li id="add-portlet">
-        <a href="<@ofbizUrl>AddPortlet?portalPageId=${currentPortalPage.portalPageId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonAddAPortlet}</a>
+      <li id="add-column">
+        <a href="<@ofbizUrl>addPortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&configurePortalPage=true</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonAddColumn}</a>
       </li>
     </#if>
 
@@ -64,6 +38,25 @@ under the License.
 </div>
 
 <table width="100%">
+  <#if configurePortalPage?has_content>
+    <tr>
+      <#list portalPageColumnList?if_exists as portalPageColumn>
+        <td class="manage-portal-column-toolbar">
+          <ul>
+            <li id="delete-column">
+              <a href="<@ofbizUrl>deletePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&configurePortalPage=true</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
+            </li>
+            <li id="add-portlet">
+              <a href="<@ofbizUrl>AddPortlet?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonAddAPortlet}</a>
+            </li>
+          </ul>
+        </td>
+        <#if portalPageColumn_has_next>
+          <td width="5px">&nbsp;</td>
+        </#if>
+      </#list>
+    </tr>
+  </#if>
   <tr>
     <#list portalPageColumnList?if_exists as portalPageColumn>
       <td style="vertical-align: top;"<#if portalPageColumn.columnWidthPixels?has_content> width="${portalPageColumn.columnWidthPixels}"</#if>>
