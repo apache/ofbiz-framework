@@ -161,10 +161,12 @@
     </property>
     <property key="CommonAddColumn">
         <value xml:lang="en">Add Column</value>
+        <value xml:lang="fr">Ajouter une colonne</value>
         <value xml:lang="it">Aggiungi una colonna</value>
     </property>
     <property key="CommonAddAPortlet">
         <value xml:lang="en">Add A Portlet...</value>
+        <value xml:lang="fr">Ajouter un portlet...</value>
         <value xml:lang="it">Aggiungi un portlet...</value>
     </property>
     <property key="CommonAddDefault">
