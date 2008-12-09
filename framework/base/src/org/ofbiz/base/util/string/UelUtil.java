@@ -18,7 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.base.util.string;
 
-import java.lang.reflect.Method;
 import java.util.Map;
 import javax.el.*;
 
@@ -27,8 +26,6 @@ import javolution.util.FastMap;
 /** Implements the Unified Expression Language (JSR-245). */
 public class UelUtil {
     
-    protected static final String module = UelUtil.class.getName();
-    public static final FunctionMapper functionMapper = new Functions();
     protected static final ExpressionFactory exprFactory = new de.odysseus.el.ExpressionFactoryImpl();
     protected static final ELResolver defaultResolver = new CompositeELResolver() {
         {
@@ -61,14 +58,14 @@ public class UelUtil {
             return defaultResolver;
         }
         public FunctionMapper getFunctionMapper() {
-            return functionMapper;
+            return UelFunctions.getFunctionMapper();
         }
         public VariableMapper getVariableMapper() {
             return this.variableMapper;
         }
         protected class BasicVariableMapper extends VariableMapper {
-            protected ELContext elContext;
-            protected Map<String, Object> variables = FastMap.newInstance();
+            protected final ELContext elContext;
+            protected final Map<String, Object> variables = FastMap.newInstance();
             protected BasicVariableMapper(Map<String, ? extends Object> context, ELContext parentContext) {
                 this.variables.putAll(context);
                 this.elContext = parentContext;
@@ -130,17 +127,4 @@ public class UelUtil {
             }
         }
     }
-
-    protected static class Functions extends FunctionMapper {
-        protected Map<String, Method> functionMap = FastMap.newInstance();
-        public void setFunction(String prefix, String localName, Method method) {
-            synchronized(this) {
-                functionMap.put(prefix + ":" + localName, method);
-            }
-        }
-        public Method resolveFunction(String prefix, String localName) {
-            return functionMap.get(prefix + ":" + localName);
-        }
-    }
-
 }
