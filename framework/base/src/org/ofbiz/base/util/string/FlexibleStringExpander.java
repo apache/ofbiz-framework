@@ -368,18 +368,21 @@ public class FlexibleStringExpander implements Serializable {
             this.bracketedOriginal = openBracket + original + closeBracket;
         }
         public void append(StringBuilder buffer, Map<String, ? extends Object> context, TimeZone timeZone, Locale locale) {
+            Object obj = null;
             try {
-                Object obj = UelUtil.evaluate(context, this.bracketedOriginal);
-                if (obj == null) {
-                    if (this.original.startsWith("env.")) {
-                        obj = System.getProperty(this.original.substring(4));
-                    }
-                }
-                if (obj != null) {
-                    buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, false));
-                }
+                obj = UelUtil.evaluate(context, this.bracketedOriginal);
             } catch (Exception e) {
                 Debug.logVerbose("Error evaluating expression: " + e, module);
+            }
+            if (obj == null) {
+                if (this.original.startsWith("env.")) {
+                    obj = System.getProperty(this.original.substring(4));
+                }
+            }
+            if (obj != null) {
+                try {
+                    buffer.append((String) ObjectType.simpleTypeConvert(obj, "String", null, timeZone, locale, false));
+                } catch (Exception e) {}
             }
         }
     }
