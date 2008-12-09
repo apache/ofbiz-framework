@@ -25,22 +25,80 @@ import javax.el.*;
 
 import javolution.util.FastMap;
 
+import org.ofbiz.base.util.Debug;
+
 /** Implements Unified Expression Language functions.
- * <p>Built-in functions are divided into two prefixes - <code>math</code>
- *  and <code>util</code>.</p><p>The <code>math</code> prefix maps to
- *  the <code>java.lang.Math</code> class. Overloaded <code>java.lang.Math</code>
- *  methods have their parameter data types appended to the UEL function name
- *  - so <code>java.lang.Math.max(double a, double b)</code>
- *  becomes <code>${math:maxDouble(a, b)}</code>.</p><p>The
- *  <code>util</code> prefix contains miscellaneous utility functions:<br/>
- *  <ul>
- *    <li><code>${util:size(Object)}</code> returns the size of Maps,
- *    Collections, and Strings. Invalid Object types return -1.</li>
- *  </ul>
- *  </p>
+ * <p>Built-in functions are divided into a number of
+ * namespace prefixes:</p>
+ * <table border="1">
+ * <tr><td colspan="2"><b><code>math:</code> maps to <code>java.lang.Math</code></b></td></tr>
+ * <tr><td><code>math:absDouble(double)</code></td><td>Returns the absolute value of a <code>double</code> value.</td></tr>
+ * <tr><td><code>math:absFloat(float)</code></td><td>Returns the absolute value of a <code>float</code> value.</td></tr>
+ * <tr><td><code>math:absInt(int)</code></td><td>Returns the absolute value of an <code>int</code> value.</td></tr>
+ * <tr><td><code>math:absLong(long)</code></td><td>Returns the absolute value of a <code>long</code> value.</td></tr>
+ * <tr><td><code>math:acos(double)</code></td><td>Returns the arc cosine of an angle, in the range of 0.0 through <i>pi</i>.</td></tr>
+ * <tr><td><code>math:asin(double)</code></td><td>Returns the arc sine of an angle, in the range of -<i>pi</i>/2 through <i>pi</i>/2.</td></tr>
+ * <tr><td><code>math:atan(double)</code></td><td>Returns the arc tangent of an angle, in the range of -<i>pi</i>/2 through <i>pi</i>/2.</td></tr>
+ * <tr><td><code>math:atan2(double, double)</code></td><td>Converts rectangular coordinates (<code>x</code>,&nbsp;<code>y</code>) to polar (r,&nbsp;<i>theta</i>).</td></tr>
+ * <tr><td><code>math:cbrt(double)</code></td><td>Returns the cube root of a <code>double</code> value.</td></tr>
+ * <tr><td><code>math:ceil(double)</code></td><td>Returns the smallest (closest to negative infinity) <code>double</code> value that is greater than or equal to the argument and is equal to a mathematical integer.</td></tr>
+ * <tr><td><code>math:cos(double)</code></td><td>Returns the trigonometric cosine of an angle.</td></tr>
+ * <tr><td><code>math:cosh(double)</code></td><td>Returns the hyperbolic cosine of a <code>double</code> value.</td></tr>
+ * <tr><td><code>math:exp(double)</code></td><td>Returns Euler's number <i>e</i> raised to the power of a <code>double</code> value.</td></tr>
+ * <tr><td><code>math:expm1(double)</code></td><td>Returns <i>e</i><sup>x</sup>&nbsp;-1.</td></tr>
+ * <tr><td><code>math:floor(double)</code></td><td>Returns the largest (closest to positive infinity) <code>double</code> value that is less than or equal to the argument and is equal to a mathematical integer.</td></tr>
+ * <tr><td><code>math:hypot(double, double)</code></td><td>Returns sqrt(<i>x</i><sup>2</sup>&nbsp;+<i>y</i><sup>2</sup>) without intermediate overflow or underflow.</td></tr>
+ * <tr><td><code>math:IEEEremainder(double, double)</code></td><td>Computes the remainder operation on two arguments as prescribed by the IEEE 754 standard.</td></tr>
+ * <tr><td><code>math:log(double)</code></td><td>Returns the natural logarithm (base <i>e</i>) of a <code>double</code> value.</td></tr>
+ * <tr><td><code>math:log10(double)</code></td><td>Returns the base 10 logarithm of a <code>double</code> value.</td></tr>
+ * <tr><td><code>math:log1p(double)</code></td><td>Returns the natural logarithm of the sum of the argument and 1.</td></tr>
+ * <tr><td><code>math:maxDouble(double, double)</code></td><td>Returns the greater of two <code>double</code> values.</td></tr>
+ * <tr><td><code>math:maxFloat(float, float)</code></td><td>Returns the greater of two <code>float</code> values.</td></tr>
+ * <tr><td><code>math:maxInt(int, int)</code></td><td>Returns the greater of two <code>int</code> values.</td></tr>
+ * <tr><td><code>math:maxLong(long, long)</code></td><td>Returns the greater of two <code>long</code> values.</td></tr>
+ * <tr><td><code>math:minDouble(double, double)</code></td><td>Returns the smaller of two <code>double</code> values.</td></tr>
+ * <tr><td><code>math:minFloat(float, float)</code></td><td>Returns the smaller of two <code>float</code> values.</td></tr>
+ * <tr><td><code>math:minInt(int, int)</code></td><td>Returns the smaller of two <code>int</code> values.</td></tr>
+ * <tr><td><code>math:minLong(long, long)</code></td><td>Returns the smaller of two <code>long</code> values.</td></tr>
+ * <tr><td><code>math:pow(double, double)</code></td><td>Returns the value of the first argument raised to the power of the second argument.</td></tr>
+ * <tr><td><code>math:random()</code></td><td>Returns a <code>double</code> value with a positive sign, greater than or equal to <code>0.0</code> and less than <code>1.0</code>.</td></tr>
+ * <tr><td><code>math:rint(double)</code></td><td>Returns the <code>double</code> value that is closest in value to the argument and is equal to a mathematical integer.</td></tr>
+ * <tr><td><code>math:roundDouble(double)</code></td><td>Returns the closest <code>long</code> to the argument.</td></tr>
+ * <tr><td><code>math:roundFloat(float)</code></td><td>Returns the closest <code>int</code> to the argument.</td></tr>
+ * <tr><td><code>math:signumDouble(double)</code></td><td>Returns the signum function of the argument; zero if the argument is zero, 1.0 if the argument is greater than zero, -1.0 if the argument is less than zero.</td></tr>
+ * <tr><td><code>math:signumFloat(float)</code></td><td>Returns the signum function of the argument; zero if the argument is zero, 1.0f if the argument is greater than zero, -1.0f if the argument is less than zero.</td></tr>
+ * <tr><td><code>math:sin(double)</code></td><td>Returns the trigonometric sine of an angle.</td></tr>
+ * <tr><td><code>math:sinh(double)</code></td><td>Returns the hyperbolic sine of a <code>double</code> value.</td></tr>
+ * <tr><td><code>math:sqrt(double)</code></td><td>Returns the correctly rounded positive square root of a <code>double</code> value.</td></tr>
+ * <tr><td><code>math:tan(double)</code></td><td>Returns the trigonometric tangent of an angle.</td></tr>
+ * <tr><td><code>math:tanh(double)</code></td><td>Returns the hyperbolic tangent of a <code>double</code> value.</td></tr>
+ * <tr><td><code>math:toDegrees(double)</code></td><td>Converts an angle measured in radians to an approximately equivalent angle measured in degrees.</td></tr>
+ * <tr><td><code>math:toRadians(double)</code></td><td>Converts an angle measured in degrees to an approximately equivalent angle measured in radians.</td></tr>
+ * <tr><td><code>math:ulpDouble(double)</code></td><td>Returns the size of an ulp (units in the last place) of the argument.</td></tr>
+ * <tr><td><code>math:ulpFloat(float)</code></td><td>Returns the size of an ulp (units in the last place) of the argument.</td></tr>
+ * <tr><td colspan="2"><b><code>str:</code> maps to <code>java.lang.String</code></b></td></tr>
+ * <tr><td><code>str:endsWith(String, String)</code></td><td>Returns <code>true</code> if this string ends with the specified suffix.</td></tr>
+ * <tr><td><code>str:indexOf(String, String)</code></td><td>Returns the index within this string of the first occurrence of the specified substring.</td></tr>
+ * <tr><td><code>str:lastIndexOf(String, String)</code></td><td>Returns the index within this string of the last occurrence of the specified character.</td></tr>
+ * <tr><td><code>str:length(String)</code></td><td>Returns the length of this string.</td></tr>
+ * <tr><td><code>str:replace(String, String, String)</code></td><td>Replaces each substring of this string that matches the literal target sequence with the specified literal replacement sequence.</td></tr>
+ * <tr><td><code>str:replaceAll(String, String, String)</code></td><td>Replaces each substring of this string that matches the given regular expression with the given replacement.</td></tr>
+ * <tr><td><code>str:replaceFirst(String, String, String)</code></td><td>Replaces the first substring of this string that matches the given regular expression with the given replacement.</td></tr>
+ * <tr><td><code>str:startsWith(String, String)</code></td><td>Returns <code>true</code> if this string starts with the specified prefix.</td></tr>
+ * <tr><td><code>str:endstring(String, int)</code></td><td>Returns a new string that is a substring of this string. The substring begins with the character at the specified index and extends to the end of this string.</td></tr>
+ * <tr><td><code>str:substring(String, int, int)</code></td><td>Returns a new string that is a substring of this string. The substring begins at the specified beginIndex and extends to the character at index endIndex - 1. Thus the length of the substring is endIndex-beginIndex.</td></tr>
+ * <tr><td><code>str:trim(String)</code></td><td>Returns a copy of the string, with leading and trailing whitespace omitted.</td></tr>
+ * <tr><td colspan="2"><b><code>sys:</code> maps to <code>java.lang.System</code></b></td></tr>
+ * <tr><td><code>sys:getenv(String)</code></td><td>Gets the value of the specified environment variable.</td></tr>
+ * <tr><td><code>sys:getProperty(String)</code></td><td>Gets the system property indicated by the specified key.</td></tr>
+ * <tr><td colspan="2"><b><code>util:</code> contains miscellaneous utility functions</b></td></tr>
+ * <tr><td><code>util:size(Object)</code></td><td>Returns the size of Maps,
+ *    Collections, and Strings. Invalid Object types return -1.</td></tr>
+ * </table>
  */
 public class UelFunctions {
 
+    public static final String module = UelFunctions.class.getName();
     protected static final FunctionMapper functionMapper = new Functions();
 
     /** Returns a <code>FunctionMapper</code> instance.
@@ -54,54 +112,68 @@ public class UelFunctions {
         protected final Map<String, Method> functionMap = FastMap.newInstance();
         public Functions() {
             try {
-                setFunction("math", "absDouble", Math.class.getMethod("abs", double.class));
-                setFunction("math", "absFloat", Math.class.getMethod("abs", float.class));
-                setFunction("math", "absInt", Math.class.getMethod("abs", int.class));
-                setFunction("math", "absLong", Math.class.getMethod("abs", long.class));
-                setFunction("math", "acos", Math.class.getMethod("abs", double.class));
-                setFunction("math", "asin", Math.class.getMethod("asin", double.class));
-                setFunction("math", "atan", Math.class.getMethod("atan", double.class));
-                setFunction("math", "atan2", Math.class.getMethod("max", double.class, double.class));
-                setFunction("math", "cbrt", Math.class.getMethod("cbrt", double.class));
-                setFunction("math", "ceil", Math.class.getMethod("ceil", double.class));
-                setFunction("math", "cos", Math.class.getMethod("cos", double.class));
-                setFunction("math", "cosh", Math.class.getMethod("cosh", double.class));
-                setFunction("math", "exp", Math.class.getMethod("exp", double.class));
-                setFunction("math", "expm1", Math.class.getMethod("expm1", double.class));
-                setFunction("math", "floor", Math.class.getMethod("floor", double.class));
-                setFunction("math", "hypot", Math.class.getMethod("hypot", double.class, double.class));
-                setFunction("math", "IEEEremainder", Math.class.getMethod("IEEEremainder", double.class, double.class));
-                setFunction("math", "log", Math.class.getMethod("log", double.class));
-                setFunction("math", "log10", Math.class.getMethod("log10", double.class));
-                setFunction("math", "log1p", Math.class.getMethod("log1p", double.class));
-                setFunction("math", "maxDouble", Math.class.getMethod("max", double.class, double.class));
-                setFunction("math", "maxFloat", Math.class.getMethod("max", float.class, float.class));
-                setFunction("math", "maxInt", Math.class.getMethod("max", int.class, int.class));
-                setFunction("math", "maxLong", Math.class.getMethod("max", long.class, long.class));
-                setFunction("math", "minDouble", Math.class.getMethod("min", double.class, double.class));
-                setFunction("math", "minFloat", Math.class.getMethod("min", float.class, float.class));
-                setFunction("math", "minInt", Math.class.getMethod("min", int.class, int.class));
-                setFunction("math", "minLong", Math.class.getMethod("min", long.class, long.class));
-                setFunction("math", "pow", Math.class.getMethod("pow", double.class, double.class));
-                setFunction("math", "random", Math.class.getMethod("random"));
-                setFunction("math", "rint", Math.class.getMethod("rint", double.class));
-                setFunction("math", "roundDouble", Math.class.getMethod("round", double.class));
-                setFunction("math", "roundFloat", Math.class.getMethod("round", float.class));
-                setFunction("math", "signumDouble", Math.class.getMethod("signum", double.class));
-                setFunction("math", "signumFloat", Math.class.getMethod("signum", float.class));
-                setFunction("math", "sin", Math.class.getMethod("sin", double.class));
-                setFunction("math", "sinh", Math.class.getMethod("sinh", double.class));
-                setFunction("math", "sqrt", Math.class.getMethod("sqrt", double.class));
-                setFunction("math", "tan", Math.class.getMethod("tan", double.class));
-                setFunction("math", "tanh", Math.class.getMethod("tanh", double.class));
-                setFunction("math", "toDegrees", Math.class.getMethod("toDegrees", double.class));
-                setFunction("math", "toRadians", Math.class.getMethod("toRadians", double.class));
-                setFunction("math", "ulpDouble", Math.class.getMethod("ulp", double.class));
-                setFunction("math", "ulpFloat", Math.class.getMethod("ulp", float.class));
-                setFunction("util", "size", UelFunctions.class.getMethod("getSize", Object.class));
+                this.functionMap.put("math:absDouble", Math.class.getMethod("abs", double.class));
+                this.functionMap.put("math:absFloat", Math.class.getMethod("abs", float.class));
+                this.functionMap.put("math:absInt", Math.class.getMethod("abs", int.class));
+                this.functionMap.put("math:absLong", Math.class.getMethod("abs", long.class));
+                this.functionMap.put("math:acos", Math.class.getMethod("abs", double.class));
+                this.functionMap.put("math:asin", Math.class.getMethod("asin", double.class));
+                this.functionMap.put("math:atan", Math.class.getMethod("atan", double.class));
+                this.functionMap.put("math:atan2", Math.class.getMethod("max", double.class, double.class));
+                this.functionMap.put("math:cbrt", Math.class.getMethod("cbrt", double.class));
+                this.functionMap.put("math:ceil", Math.class.getMethod("ceil", double.class));
+                this.functionMap.put("math:cos", Math.class.getMethod("cos", double.class));
+                this.functionMap.put("math:cosh", Math.class.getMethod("cosh", double.class));
+                this.functionMap.put("math:exp", Math.class.getMethod("exp", double.class));
+                this.functionMap.put("math:expm1", Math.class.getMethod("expm1", double.class));
+                this.functionMap.put("math:floor", Math.class.getMethod("floor", double.class));
+                this.functionMap.put("math:hypot", Math.class.getMethod("hypot", double.class, double.class));
+                this.functionMap.put("math:IEEEremainder", Math.class.getMethod("IEEEremainder", double.class, double.class));
+                this.functionMap.put("math:log", Math.class.getMethod("log", double.class));
+                this.functionMap.put("math:log10", Math.class.getMethod("log10", double.class));
+                this.functionMap.put("math:log1p", Math.class.getMethod("log1p", double.class));
+                this.functionMap.put("math:maxDouble", Math.class.getMethod("max", double.class, double.class));
+                this.functionMap.put("math:maxFloat", Math.class.getMethod("max", float.class, float.class));
+                this.functionMap.put("math:maxInt", Math.class.getMethod("max", int.class, int.class));
+                this.functionMap.put("math:maxLong", Math.class.getMethod("max", long.class, long.class));
+                this.functionMap.put("math:minDouble", Math.class.getMethod("min", double.class, double.class));
+                this.functionMap.put("math:minFloat", Math.class.getMethod("min", float.class, float.class));
+                this.functionMap.put("math:minInt", Math.class.getMethod("min", int.class, int.class));
+                this.functionMap.put("math:minLong", Math.class.getMethod("min", long.class, long.class));
+                this.functionMap.put("math:pow", Math.class.getMethod("pow", double.class, double.class));
+                this.functionMap.put("math:random", Math.class.getMethod("random"));
+                this.functionMap.put("math:rint", Math.class.getMethod("rint", double.class));
+                this.functionMap.put("math:roundDouble", Math.class.getMethod("round", double.class));
+                this.functionMap.put("math:roundFloat", Math.class.getMethod("round", float.class));
+                this.functionMap.put("math:signumDouble", Math.class.getMethod("signum", double.class));
+                this.functionMap.put("math:signumFloat", Math.class.getMethod("signum", float.class));
+                this.functionMap.put("math:sin", Math.class.getMethod("sin", double.class));
+                this.functionMap.put("math:sinh", Math.class.getMethod("sinh", double.class));
+                this.functionMap.put("math:sqrt", Math.class.getMethod("sqrt", double.class));
+                this.functionMap.put("math:tan", Math.class.getMethod("tan", double.class));
+                this.functionMap.put("math:tanh", Math.class.getMethod("tanh", double.class));
+                this.functionMap.put("math:toDegrees", Math.class.getMethod("toDegrees", double.class));
+                this.functionMap.put("math:toRadians", Math.class.getMethod("toRadians", double.class));
+                this.functionMap.put("math:ulpDouble", Math.class.getMethod("ulp", double.class));
+                this.functionMap.put("math:ulpFloat", Math.class.getMethod("ulp", float.class));
+                this.functionMap.put("str:endsWith", UelFunctions.class.getMethod("endsWith", String.class, String.class));
+                this.functionMap.put("str:indexOf", UelFunctions.class.getMethod("indexOf", String.class, String.class));
+                this.functionMap.put("str:lastIndexOf", UelFunctions.class.getMethod("lastIndexOf", String.class, String.class));
+                this.functionMap.put("str:length", UelFunctions.class.getMethod("length", String.class));
+                this.functionMap.put("str:replace", UelFunctions.class.getMethod("replace", String.class, String.class, String.class));
+                this.functionMap.put("str:replaceAll", UelFunctions.class.getMethod("replaceAll", String.class, String.class, String.class));
+                this.functionMap.put("str:replaceFirst", UelFunctions.class.getMethod("replaceFirst", String.class, String.class, String.class));
+                this.functionMap.put("str:startsWith", UelFunctions.class.getMethod("startsWith", String.class, String.class));
+                this.functionMap.put("str:endstring", UelFunctions.class.getMethod("endString", String.class, int.class));
+                this.functionMap.put("str:substring", UelFunctions.class.getMethod("subString", String.class, int.class, int.class));
+                this.functionMap.put("str:trim", UelFunctions.class.getMethod("trim", String.class));
+                this.functionMap.put("sys:getenv", UelFunctions.class.getMethod("sysGetEnv", String.class));
+                this.functionMap.put("sys:getProperty", UelFunctions.class.getMethod("sysGetProp", String.class));
+                this.functionMap.put("util:size", UelFunctions.class.getMethod("getSize", Object.class));
             } catch (Exception e) {
-                
+                Debug.logWarning("Error while initializing UelFunctions.Functions instance: " + e, module);
             }
+            Debug.logVerbose("UelFunctions.Functions loaded " + this.functionMap.size() + " functions", module);
         }
         public void setFunction(String prefix, String localName, Method method) {
             synchronized(this) {
@@ -129,4 +201,96 @@ public class UelFunctions {
         } catch (Exception e) {}
         return -1;
     }
+
+    public static boolean endsWith(String str1, String str2) {
+        try {
+            return str1.endsWith(str2);
+        } catch (Exception e) {}
+        return false;
+    }
+
+    public static int indexOf(String str1, String str2) {
+        try {
+            return str1.indexOf(str2);
+        } catch (Exception e) {}
+        return -1;
+    }
+
+    public static int lastIndexOf(String str1, String str2) {
+        try {
+            return str1.lastIndexOf(str2);
+        } catch (Exception e) {}
+        return -1;
+    }
+
+    public static int length(String str1) {
+        try {
+            return str1.length();
+        } catch (Exception e) {}
+        return -1;
+    }
+
+    public static String replace(String str1, String str2, String str3) {
+        try {
+            return str1.replace(str2, str3);
+        } catch (Exception e) {}
+        return null;
+    }
+
+    public static String replaceAll(String str1, String str2, String str3) {
+        try {
+            return str1.replaceAll(str2, str3);
+        } catch (Exception e) {}
+        return null;
+    }
+
+    public static String replaceFirst(String str1, String str2, String str3) {
+        try {
+            return str1.replaceFirst(str2, str3);
+        } catch (Exception e) {}
+        return null;
+    }
+
+    public static boolean startsWith(String str1, String str2) {
+        try {
+            return str1.startsWith(str2);
+        } catch (Exception e) {}
+        return false;
+    }
+
+    public static String endString(String str, int index) {
+        try {
+            return str.substring(index);
+        } catch (Exception e) {}
+        return null;
+    }
+
+    public static String subString(String str, int beginIndex, int endIndex) {
+        try {
+            return str.substring(beginIndex, endIndex);
+        } catch (Exception e) {}
+        return null;
+    }
+
+    public static String trim(String str) {
+        try {
+            return str.trim();
+        } catch (Exception e) {}
+        return null;
+    }
+
+    public static String sysGetEnv(String str) {
+        try {
+            return System.getenv(str);
+        } catch (Exception e) {}
+        return null;
+    }
+
+    public static String sysGetProp(String str) {
+        try {
+            return System.getProperty(str);
+        } catch (Exception e) {}
+        return null;
+    }
+
 }
