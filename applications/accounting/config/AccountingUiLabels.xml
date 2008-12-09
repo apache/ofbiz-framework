@@ -3144,7 +3144,7 @@
     </property>
     <property key="AccountingGeneralLedger">
         <value xml:lang="en">General Ledger</value>
-        <value xml:lang="fr">Grand Livre</value>
+        <value xml:lang="fr">Grand Livre (GL)</value>
         <value xml:lang="it">Contabilità Generale</value>
         <value xml:lang="nl">Grootboek</value>
         <value xml:lang="th">บัญชีแยกประเภททั่วไป</value>
