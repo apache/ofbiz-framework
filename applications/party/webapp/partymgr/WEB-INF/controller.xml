@@ -396,13 +396,13 @@ under the License.
     <request-map uri="createPartyAttribute">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="createPartyAttribute"/>
-        <response name="success" type="view" value="EditPartyAttribute"/>
+        <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="EditPartyAttribute"/>
     </request-map>
     <request-map uri="updatePartyAttribute">
         <security https="true" auth="true"/>
         <event type="service" path="" invoke="updatePartyAttribute"/>
-        <response name="success" type="view" value="EditPartyAttribute"/>
+        <response name="success" type="view" value="viewprofile"/>
         <response name="error" type="view" value="EditPartyAttribute"/>
     </request-map>
     <request-map uri="removePartyAttribute">

@@ -21,6 +21,7 @@ package org.ofbiz.widget.screen;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
@@ -33,6 +34,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilHttp;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
@@ -114,6 +117,8 @@ public class IterateSectionWidget extends ModelScreenWidget {
             Debug.logError("Object not list or map type", module);
             return;
         }
+        this.incrementPaginatorNumber(context);
+        int startPageNumber = this.getPaginatorNumber(context);
         getListLimits(context, theList);
         int rowCount = 0;
         Iterator iter = theList.iterator();
@@ -140,19 +145,31 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 section.renderWidgetString(writer, contextMs, screenStringRenderer);
             }
         }
+
         if ((itemIndex + 1) < highIndex) {
             setHighIndex(itemIndex + 1);
         }
         setActualPageSize(highIndex - lowIndex);
         if (paginate) {
             try {
+                Integer lastPageNumber = null;
+                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext")); 
+                if (globalCtx != null) {
+                    lastPageNumber = (Integer)globalCtx.get("PAGINATOR_NUMBER");
+                    globalCtx.put("PAGINATOR_NUMBER", Integer.valueOf(startPageNumber));
+                }  
+                
                 renderNextPrev(writer, context);   
+
+                if (globalCtx != null) {
+                    globalCtx.put("PAGINATOR_NUMBER", lastPageNumber);
+                }
             } catch(IOException e) {
                 Debug.logError(e, module);   
                 throw new RuntimeException(e.getMessage());
             }
         }
-
+ 
     }
     /*
      * @return
@@ -230,8 +247,10 @@ public class IterateSectionWidget extends ModelScreenWidget {
        if (paginate) {
             try {
                 Map params = (Map)context.get("parameters");
-                String viewIndexString = (String) params.get("VIEW_INDEX");
+                String viewIndexString = (String) params.get("VIEW_INDEX" + "_" + getPaginatorNumber(context));
+                String viewSizeString = (String) params.get("VIEW_SIZE" + "_" + getPaginatorNumber(context));
                 viewIndex = Integer.parseInt(viewIndexString);
+                viewSize = Integer.parseInt(viewSizeString);
             } catch (Exception e) {
                 try {
                     viewIndex = ((Integer) context.get("viewIndex")).intValue();
@@ -240,16 +259,9 @@ public class IterateSectionWidget extends ModelScreenWidget {
                 }
             }
             context.put("viewIndex", Integer.valueOf(this.viewIndex));
-    
-            try {
-                viewSize = ((Integer) context.get("viewSize")).intValue();
-            } catch (Exception e) {
-                //viewSize = DEFAULT_PAGE_SIZE;
-            }
+
             lowIndex = viewIndex * viewSize;
             highIndex = (viewIndex + 1) * viewSize;
-    
-    
         } else {
             viewIndex = 0;
             viewSize = DEFAULT_PAGE_SIZE;
@@ -264,6 +276,19 @@ public class IterateSectionWidget extends ModelScreenWidget {
         if (targetService == null) {
             targetService = "${targetService}";
         }
+        
+        Map<String, Object> inputFields = UtilGenerics.checkMap(context.get("requestParameters"));
+        Map<String, Object> queryStringMap = UtilGenerics.toMap(context.get("queryStringMap"));
+        if (UtilValidate.isNotEmpty(queryStringMap)) {
+            inputFields.putAll(queryStringMap);
+        }
+ 
+        String queryString = UtilHttp.urlEncodeArgs(inputFields);
+        int paginatorNumber = this.getPaginatorNumber(context);
+        queryString = UtilHttp.stripViewParamsFromQueryString(queryString, "" + paginatorNumber);
+       
+        
+       
         
         if (UtilValidate.isEmpty(targetService)) {
             Debug.logWarning("TargetService is empty.", module);   
@@ -331,7 +356,10 @@ public class IterateSectionWidget extends ModelScreenWidget {
             if (linkText.indexOf("?") < 0)  linkText.append("?");
             else linkText.append("&amp;");
             //if (queryString != null && !queryString.equals("null")) linkText += queryString + "&";
-            linkText.append("VIEW_SIZE=").append(viewSize).append("&amp;VIEW_INDEX=").append(viewIndex - 1).append("\"");
+            if (UtilValidate.isNotEmpty(queryString)) {
+                linkText.append(queryString).append("&amp;");
+            }
+            linkText.append("VIEW_SIZE_"+ paginatorNumber + "=").append(viewSize).append("&amp;VIEW_INDEX_" + paginatorNumber + "=").append(viewIndex - 1).append("\"");
 
             // make the link
             writer.append(rh.makeLink(request, response, linkText.toString(), false, false, false));           
@@ -349,7 +377,10 @@ public class IterateSectionWidget extends ModelScreenWidget {
             StringBuilder linkText = new StringBuilder(targetService);
             if (linkText.indexOf("?") < 0)  linkText.append("?");
             else linkText.append("&amp;");
-            linkText.append("VIEW_SIZE=").append(viewSize).append("&amp;VIEW_INDEX=").append(viewIndex + 1).append("\"");
+            if (UtilValidate.isNotEmpty(queryString)) {
+                linkText.append(queryString).append("&amp;");
+            }            
+            linkText.append("VIEW_SIZE_" + paginatorNumber + "=").append(viewSize).append("&amp;VIEW_INDEX_" + paginatorNumber + "=").append(viewIndex + 1).append("\"");
 
             // make the link
             writer.append(rh.makeLink(request, response, linkText.toString(), false, false, false));

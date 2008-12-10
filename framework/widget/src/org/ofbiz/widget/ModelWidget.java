@@ -112,4 +112,27 @@ public class ModelWidget implements Serializable {
         }
         return result;
     }
+
+    public int getPaginatorNumber(Map<String, Object> context) {
+        int paginator_number = 0; 
+        Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));      
+        if (globalCtx != null) {
+            Integer paginateNumberInt= (Integer)globalCtx.get("PAGINATOR_NUMBER");
+            if (paginateNumberInt == null) {    
+                paginateNumberInt = Integer.valueOf(0);
+                globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
+            }
+            paginator_number = paginateNumberInt.intValue();
+        }    
+        return paginator_number;
+    }      
+    
+    public void incrementPaginatorNumber(Map<String, Object> context) {    
+        Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+        if (globalCtx != null) {
+            Integer paginateNumberInt = Integer.valueOf(getPaginatorNumber(context) + 1);
+            globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
+        }     
+    }
+    
 }

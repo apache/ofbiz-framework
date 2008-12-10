@@ -270,7 +270,7 @@
                                 <label style="h3" text="${uiLabelMap.PageTitleFinancialAccountSummary}"/>
                             </container>
                             <container style="screenlet-body">
-                                <iterate-section entry-name="ownedFinAccount"  paginate="true" paginate-target="viewprofile?partyId=${parameters.partyId}" view-size="3"  list-name="ownedFinAccountList">
+                                <iterate-section entry-name="ownedFinAccount"  paginate="true" paginate-target="viewprofile" view-size="3"  list-name="ownedFinAccountList">
                                     <section>
                                         <actions>
                                             <entity-condition entity-name="FinAccountTrans" list-name="ownedFinAccountTransList">

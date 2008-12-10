@@ -612,7 +612,8 @@ under the License.
     </form>
     
     <form name="ListCarrierAccounts" type="list" target="updatePartyCarrierAccount"
-        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" 
+        paginate="true"  view-size="3" paginate-target="viewprofile" paginate-target-anchor="ListCarrierAccounts">
         <actions>
             <entity-condition entity-name="PartyCarrierAccount" list-name="carrierAccounts" filter-by-date="true">
                 <condition-expr field-name="partyId" env-name="parameters.partyId"></condition-expr>
