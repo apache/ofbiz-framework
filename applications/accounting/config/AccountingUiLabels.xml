@@ -30,8 +30,8 @@
         <value xml:lang="nl">Bankrekening: AHC/Electronic Check </value>
         <value xml:lang="ro">Cont EFT : AHC/Cecuri Electronice</value>
         <value xml:lang="ru">Текущий счет</value>
-        <value xml:lang="zh">电子资金转账账户：金融机构委员会/电子支票</value>
         <value xml:lang="th">บัญชีธนาคาร: AHC/ตรวจสอบระบบอิเล็กทรอนิกส์</value>
+        <value xml:lang="zh">电子资金转账账户：金融机构委员会/电子支票</value>
     </property>
     <property key="AccountingAccount">
         <value xml:lang="ar">حساب</value>
@@ -135,36 +135,36 @@
     <property key="AccountingAcctRecon">
         <value xml:lang="en">Account Reconciliation</value>
         <value xml:lang="fr">Réconciliation</value>
-        <value xml:lang="nl">Afstemming rekening</value>
         <value xml:lang="it">Riconciliazione</value>
+        <value xml:lang="nl">Afstemming rekening</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctRecons">
         <value xml:lang="en">Account Reconciliations</value>
         <value xml:lang="fr">Réconciliations</value>
-        <value xml:lang="nl">Afstemmingen</value>
         <value xml:lang="it">Riconciliazioni</value>
+        <value xml:lang="nl">Afstemmingen</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctgTransEntries">
         <value xml:lang="en">Accounting Transactions Entries</value>
         <value xml:lang="fr">Entrées de transactions comptables</value>
-        <value xml:lang="nl">Ingaves Boekhoudtransacties</value>
         <value xml:lang="it">Righe Prime Note</value>
+        <value xml:lang="nl">Ingaves Boekhoudtransacties</value>
         <value xml:lang="th">รายการบัญชีรายรับ</value>
     </property>
     <property key="AccountingAcctgTranss">
         <value xml:lang="en">Accounting Transactions</value>
         <value xml:lang="fr">Transactions comptables</value>
-        <value xml:lang="nl">Boekhoudtransacties</value>
         <value xml:lang="it">Prime Note</value>
+        <value xml:lang="nl">Boekhoudtransacties</value>
         <value xml:lang="th">รายการบัญชี</value>
     </property>
     <property key="AccountingActualCurrencyAmount">
         <value xml:lang="en">Actual Currency Amount</value>
         <value xml:lang="fr">Valeur réelle en devise</value>
-        <value xml:lang="nl">Hoeveelheid werkelijke valuta</value>
         <value xml:lang="it">Attuale Importo in Valuta</value>
+        <value xml:lang="nl">Hoeveelheid werkelijke valuta</value>
         <value xml:lang="ru">Действительная сумма валюты</value>
         <value xml:lang="th">จำนวนเงินที่มีอยู่จริง</value>
     </property>
@@ -574,7 +574,7 @@
         <value xml:lang="th">จำนวนที่ประยุกต์ไม่ได้</value>
         <value xml:lang="zh">未付金额</value>
     </property>
-     <property key="AccountingAmountToUse">
+    <property key="AccountingAmountToUse">
         <value xml:lang="de">Betrag zur Verwendung</value>
         <value xml:lang="en">Amount To Use</value>
         <value xml:lang="es">Monto a usar</value>
@@ -2653,8 +2653,8 @@
         <value xml:lang="es">Agencia de Gobierno</value>
         <value xml:lang="fr">Agence gouvernementale</value>
         <value xml:lang="it">Agenzia Governativa</value>
-        <value xml:lang="ro">Agentia Governativa</value>
         <value xml:lang="nl">Agent overheid</value>
+        <value xml:lang="ro">Agentia Governativa</value>
         <value xml:lang="ru">Государственное учреждение</value>
         <value xml:lang="th">ตัวแทนรัฐบาล</value>
         <value xml:lang="zh">政府机构</value>
@@ -3294,8 +3294,8 @@
     <property key="AccountingGlAccountTypeDefaults">
         <value xml:lang="en">GL Account Type Defaults</value>
         <value xml:lang="fr">Types par défaut de compte du GL</value>
-        <value xml:lang="nl">Standaardwaarden GB-rekeningtype</value>
         <value xml:lang="it">Default Tipo Conto Contabilità Generale</value>
+        <value xml:lang="nl">Standaardwaarden GB-rekeningtype</value>
         <value xml:lang="th">ค่าเริ่มต้นอัตโนมัติของประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingGlAccounts">
@@ -5053,8 +5053,8 @@
     <property key="AccountingPartyAccountsSummary">
         <value xml:lang="en">Accounts Summary</value>
         <value xml:lang="fr">Résumé des comptes</value>
-        <value xml:lang="nl">Samenvatting rekeningen</value>
         <value xml:lang="it">Sommario Conti</value>
+        <value xml:lang="nl">Samenvatting rekeningen</value>
     </property>
     <property key="AccountingPartyBilledFrom">
         <value xml:lang="ar">مفوترة من طرف</value>
@@ -5904,8 +5904,8 @@
     <property key="AccountingProblemGettingOrderPaymentPreferences">
         <value xml:lang="en">Problem getting OrderPaymentPreference records</value>
         <value xml:lang="fr">Erreur en recherchant les préférences de paiement associées à la commande</value>
-        <value xml:lang="ru">Проблема получения записей OrderPaymentPreference</value>
         <value xml:lang="nl">Probleem met het ophalen van OrderPaymentPreference records</value>
+        <value xml:lang="ru">Проблема получения записей OrderPaymentPreference</value>
         <value xml:lang="th">Problem getting OrderPaymentPreference records</value>
         <value xml:lang="zh">获得定单支付优先方法记录时出错</value>
     </property>
@@ -5934,8 +5934,8 @@
     <property key="AccountingProblemStoringOrderAdjustments">
         <value xml:lang="en">Problem storing OrderAdjustments: ${orderAdjustments}</value>
         <value xml:lang="fr">Erreur en essayant d'enregistrer les ajustements de commande: ${orderAdjustments}</value>
-        <value xml:lang="ru">Проблема сохранения OrderAdjustments: ${orderAdjustments}</value>
         <value xml:lang="nl">Probleem met het opslaan van orderaanpassing(en): ${orderAdjustments}</value>
+        <value xml:lang="ru">Проблема сохранения OrderAdjustments: ${orderAdjustments}</value>
         <value xml:lang="th">ปัญหาในการเก็บข้อมูลรายการส่วนลด: ${orderAdjustments}</value>
         <value xml:lang="zh">存储定单调整时出错：${orderAdjustments}</value>
     </property>
@@ -5980,8 +5980,8 @@
         <value xml:lang="es">Tarífas de producto</value>
         <value xml:lang="fr">Taux applicables aux produits</value>
         <value xml:lang="it">Percentuali Prodotto</value>
-        <value xml:lang="ro">Procent Produs</value>
         <value xml:lang="nl">Productprijzen</value>
+        <value xml:lang="ro">Procent Produs</value>
         <value xml:lang="ru">Ставки продукта</value>
         <value xml:lang="th">ราคาสินค้า</value>
         <value xml:lang="zh">产品税率</value>
@@ -6837,7 +6837,7 @@
         <value xml:lang="th">คุณไม่ได้รบอนุญาตให้เข้าชมหน้านี้ ("ACCOUNTING_VIEW" หรือ "ACCOUNTING_ADMIN" ต้องการ)</value>
         <value xml:lang="zh">你没有浏览这个页面的权限。(需要是"ACCOUNTING_VIEW"或"ACCOUNTING_ADMIN")</value>
     </property>
-     <property key="AccountingVirtualCard">
+    <property key="AccountingVirtualCard">
         <value xml:lang="de">Virtuelle Karte</value>
         <value xml:lang="en">Virtual Card</value>
         <value xml:lang="es">Tarjeta virtual</value>
@@ -8948,8 +8948,8 @@
         <value xml:lang="es">Id Secuencia Tarifa de Autoridad Fiscal</value>
         <value xml:lang="fr">Séquence de taux de taxation</value>
         <value xml:lang="it">Numero Sequenza Percentuale Autorità Tasse</value>
-        <value xml:lang="ro">Nr.Secventa Procent Taxa Autoritate</value>
         <value xml:lang="nl">Koersvolgnummer belastinginstantie</value>
+        <value xml:lang="ro">Nr.Secventa Procent Taxa Autoritate</value>
         <value xml:lang="ru">Код налог. ставки</value>
         <value xml:lang="th">รหัสรายการอัตราภาษี</value>
         <value xml:lang="zh">税务机关税率序号</value>
@@ -9417,8 +9417,8 @@
     <property key="PageTitleEditBillingAccountOrders">
         <value xml:lang="en">Edit Billing Account Orders</value>
         <value xml:lang="fr">Modifier le compte de facturation des commandes</value>
-        <value xml:lang="nl">Orders factuurrekening aanpassen</value>
         <value xml:lang="it">Aggiorna Ordini Conto Fatturazione</value>
+        <value xml:lang="nl">Orders factuurrekening aanpassen</value>
         <value xml:lang="th">แก้ไขรายการยอดรวมของบัญชี</value>
     </property>
     <property key="PageTitleEditBillingAccountPayments">
@@ -9937,8 +9937,8 @@
     <property key="PageTitleListFinAccountRoles">
         <value xml:lang="en">List Fin Account Roles</value>
         <value xml:lang="fr">Liste des rôles de compte financier</value>
-        <value xml:lang="nl">Toon rollen financiële rekeningen</value>
         <value xml:lang="it">Lista Ruoli Conto Finanziario</value>
+        <value xml:lang="nl">Toon rollen financiële rekeningen</value>
         <value xml:lang="th">รายการสถานะบัญชี</value>
     </property>
     <property key="PageTitleListFinAccountTrans">
@@ -10539,8 +10539,8 @@
     <property key="ru">
         <value xml:lang="en">Russian</value>
         <value xml:lang="fr">Russe</value>
-        <value xml:lang="ru">Русский</value>
         <value xml:lang="nl">Russisch</value>
+        <value xml:lang="ru">Русский</value>
         <value xml:lang="th">รัสเซีย</value>
     </property>
 </resource>
