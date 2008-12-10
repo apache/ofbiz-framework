@@ -526,7 +526,9 @@ under the License.
     <VarianceReason varianceReasonId="VAR_DAMAGED" description="Damaged"/>
     <VarianceReason varianceReasonId="VAR_INTEGR" description="Integration"/>
     <VarianceReason varianceReasonId="VAR_SAMPLE" description="Sample (Giveaway)"/>
-
+    <VarianceReason varianceReasonId="VAR_MISSHIP_ORDERED" description="Mis-shipped Item Ordered (+)"/>
+    <VarianceReason varianceReasonId="VAR_MISSHIP_SHIPPED" description="Mis-shipped Item Shipped (-)"/>
+    
     <!-- Supplier preference order for SupplierProduct entries -->
     <SupplierPrefOrder supplierPrefOrderId="10_MAIN_SUPPL" description="Main Supplier"/>
     <SupplierPrefOrder supplierPrefOrderId="90_ALT_SUPPL" description="Alternative Supplier"/>

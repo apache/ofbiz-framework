@@ -70,7 +70,7 @@ under the License.
         <#if security.hasEntityPermission("ORDERMGR", "_RETURN", session) && orderHeader.statusId == "ORDER_COMPLETED">
           <#if returnableItems?has_content>
             <li><a href="<@ofbizUrl>quickRefundOrder?orderId=${orderId}&amp;receiveReturn=true&amp;returnHeaderTypeId=${returnHeaderTypeId}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderQuickRefundEntireOrder}</a></li>
-            <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}&amp;needsInventoryReceive=${needsInventoryReceive?default("Y")}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
+            <li><a href="<@ofbizUrl>quickreturn?orderId=${orderId}&amp;party_id=${partyId?if_exists}&amp;returnHeaderTypeId=${returnHeaderTypeId}&amp;needsInventoryReceive=${needsInventoryReceive?default("N")}</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderCreateReturn}</a></li>
           </#if>  
         </#if>
 
