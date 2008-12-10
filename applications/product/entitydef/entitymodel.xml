@@ -3487,7 +3487,7 @@ under the License.
       <field name="autoApproveOrder" type="indicator"><description>If N, orders will not be automatically approved when payment is authorized.</description></field>
       <field name="shipIfCaptureFails" type="indicator"><description>If N, the captureOrderPayments will cause a service error if credit card capture fails.</description></field>
       <field name="setOwnerUponIssuance" type="indicator"><description>If Y or empty, set the inventory item owner upon issuance.</description></field>
-      <field name="reqReturnInventoryReceive" type="indicator"><description>This is the default value for the ReturnHeader.needsInventoryReceive field.</description></field>
+      <field name="reqReturnInventoryReceive" type="indicator"><description>Default N. This is the default value for the ReturnHeader.needsInventoryReceive field. If set to Y return will automatically go to the Received status when Accepted instead of waiting for actual receipt of the return.</description></field>
       <field name="addToCartRemoveIncompat" type="indicator"><description>Default N. If Y then on add to cart remove all products in cart with a ProductAssoc record related to or from the product and with the PRODUCT_INCOMPATABLE type.</description></field>
       <field name="addToCartReplaceUpsell" type="indicator"><description>Default N. If Y then on add to cart remove all products in cart with a ProductAssoc record related from the product and with the PRODUCT_UPGRADE type.</description></field>
       <field name="splitPayPrefPerShpGrp" type="indicator"><description>Default N. If Y then before the order is stored the OrderPaymentPreference record will be split, one for each OrderItemShipGroup.</description></field>

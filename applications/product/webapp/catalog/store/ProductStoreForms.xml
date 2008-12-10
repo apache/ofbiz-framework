@@ -295,9 +295,11 @@
                 <sort-field name="oneInventoryFacility"/>
                 <sort-field name="isImmediatelyFulfilled"/>
                 <sort-field name="checkInventory"/>
-                <sort-field name="reserveInventory"/>
                 <sort-field name="requireInventory"/>
                 <sort-field name="requirementMethodEnumId"/>                
+                <sort-field name="reserveInventory"/>
+                <sort-field name="reserveOrderEnumId"/>
+                <sort-field name="balanceResOnOrderCreation"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonShoppingCart}" collapsible="true" initially-collapsed="true">
                 <sort-field name="viewCartOnAdd"/>
@@ -327,8 +329,6 @@
                 <sort-field name="setOwnerUponIssuance"/>
             </field-group>
             <field-group title="${uiLabelMap.CommonOrders}" collapsible="true" initially-collapsed="true">
-                <sort-field name="reserveOrderEnumId"/>
-                <sort-field name="balanceResOnOrderCreation"/>
                 <sort-field name="orderNumberPrefix"/>
                 <sort-field name="defaultSalesChannelEnumId"/>
                 <sort-field name="explodeOrderItems"/>

@@ -21,19 +21,14 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
-
-    <!-- create PartyRole -->
     <simple-method method-name="createPartyRole" short-description="Create Party Role">
-        <make-value value-name="partyRolePK" entity-name="PartyRole"/>
-        <set-pk-fields value-name="partyRolePK" map-name="parameters"/>
-        <find-by-primary-key entity-name="PartyRole" map-name="partyRolePK" value-name="partyRole"/>
+        <entity-one entity-name="PartyRole" value-name="partyRole"/>
         <if-empty field="partyRole">
-            <make-value entity-name="PartyRole" map-name="partyRolePK" value-name="partyRole"/>
-            <create-value value-name="partyRole"/>
+            <make-value entity-name="PartyRole" value-name="newEntity"/>
+            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+            <create-value value-name="newEntity"/>  
         </if-empty>
-        <check-errors/>
     </simple-method>
-
     <simple-method method-name="deletePartyRole" short-description="Delete a  PartyRole">
         <entity-one entity-name="PartyRole" value-name="partyRole"/>
         <remove-value value-name="partyRole"/>

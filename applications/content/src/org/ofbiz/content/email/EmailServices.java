@@ -992,7 +992,7 @@ public class EmailServices {
             communicationEventId = (String)result.get("communicationEventId");
             
             if (messageContent instanceof Multipart) {
-            	Debug.logInfo("===message has attachments=====", module);
+                Debug.logInfo("===message has attachments=====", module);
                 int attachmentCount = EmailWorker.addAttachmentsToCommEvent((Multipart) messageContent, subject, communicationEventId, dispatcher, userLogin);
                 if (Debug.infoOn()) Debug.logInfo(attachmentCount + " attachments added to CommunicationEvent:" + communicationEventId,module);
             }
@@ -1022,33 +1022,28 @@ public class EmailServices {
     }
     
     private static void createCommEventRoles(GenericValue userLogin, GenericDelegator delegator, LocalDispatcher dispatcher, String communicationEventId, List parties, String roleTypeId) {
-    	// It's not clear what the "role" of this communication event should be, so we'll just put _NA_
-    	// check and see if this role was already created and ignore if true
-    	try {
-    		Iterator it = parties.iterator();
-    		while (it.hasNext()) {
-    			Map result = (Map) it.next();
-    			String partyId = (String) result.get("partyId");
-    			GenericValue commEventRole = delegator.findByPrimaryKey("CommunicationEventRole", 
-    					UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", roleTypeId));
-    			if (commEventRole == null) {
-    				// Check if the role exists for the partyId. If not, then first associate that role with the partyId
-    				GenericValue partyRole = delegator.findByPrimaryKey("PartyRole", UtilMisc.toMap("partyId", partyId, "roleTypeId", roleTypeId));
-    				if (partyRole == null) {
-    					dispatcher.runSync("createPartyRole", UtilMisc.<String, Object>toMap("partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin));
-    				}
-    				Map input = UtilMisc.toMap("communicationEventId", communicationEventId, 
-    						"partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin, 
-    						"contactMechId", (String) result.get("contactMechId"),
-    						"statusId", "COM_ROLE_CREATED");
-    				dispatcher.runSync("createCommunicationEventRole", input);
-    			}
-    		}
-    	} catch (GenericServiceException e) {
-    		Debug.logError(e, module);
-    	} catch (Exception e) {
-    		Debug.logError(e, module);
-    	}
+        // It's not clear what the "role" of this communication event should be, so we'll just put _NA_
+        // check and see if this role was already created and ignore if true
+        try {
+            Iterator it = parties.iterator();
+            while (it.hasNext()) {
+                Map result = (Map) it.next();
+                String partyId = (String) result.get("partyId");
+                GenericValue commEventRole = delegator.findByPrimaryKey("CommunicationEventRole", 
+                        UtilMisc.toMap("communicationEventId", communicationEventId, "partyId", partyId, "roleTypeId", roleTypeId));
+                if (commEventRole == null) {
+                    Map input = UtilMisc.toMap("communicationEventId", communicationEventId, 
+                            "partyId", partyId, "roleTypeId", roleTypeId, "userLogin", userLogin, 
+                            "contactMechId", (String) result.get("contactMechId"),
+                            "statusId", "COM_ROLE_CREATED");
+                    dispatcher.runSync("createCommunicationEventRole", input);
+                }
+            }
+        } catch (GenericServiceException e) {
+            Debug.logError(e, module);
+        } catch (Exception e) {
+            Debug.logError(e, module);
+        }
     }
 
 }

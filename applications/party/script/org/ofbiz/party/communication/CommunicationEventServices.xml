@@ -279,6 +279,7 @@ under the License.
             <set-service-fields service-name="createPartyRole" map-name="parameters" to-map-name="partyRole"/>
             <set field="partyRole.userLogin" from-field="sysUserLogin"/>
             <call-service service-name="createPartyRole" in-map-name="partyRole" include-user-login="false"/>
+            
             <make-value value-name="newEntity" entity-name="CommunicationEventRole" />
             <set-pk-fields map-name="parameters" value-name="newEntity" />
             <set-nonpk-fields map-name="parameters" value-name="newEntity" />

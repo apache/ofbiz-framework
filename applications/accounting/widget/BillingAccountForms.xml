@@ -55,7 +55,7 @@ under the License.
             <entity-condition entity-name="Invoice" list-name="billingAccountInvoices">
                 <condition-list>
                     <condition-expr field-name="billingAccountId" env-name="billingAccountId"/>
-                    <condition-expr field-name="statusId" env-name="parameters.statusId"/>
+                    <condition-expr field-name="statusId" env-name="parameters.statusId" ignore-if-empty="true"/>
                 </condition-list>
             </entity-condition>
         </actions>
