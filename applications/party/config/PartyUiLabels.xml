@@ -204,7 +204,6 @@
     <property key="EmailfromUnknownParties">
         <value xml:lang="de">E-Mail von unbekanntem Akteur</value>
         <value xml:lang="en">Email from unknown parties</value>
-        <value xml:lang="es">Correo electrónico de participante desconocido</value>
         <value xml:lang="es">Correo electrónico de participantes desconocidos</value>
         <value xml:lang="fr">Courriel depuis un acteur inconnu</value>
         <value xml:lang="nl">E-mail van een onbekende relatie of contact</value>
@@ -559,7 +558,6 @@
         <value xml:lang="en">Email Address</value>
         <value xml:lang="es">Correo electrónico</value>
         <value xml:lang="fr">Adresse courriel</value>
-        <value xml:lang="en">E-mailadres</value>
         <value xml:lang="it">Indirizzo Email</value>
         <value xml:lang="th">ที่อยู่อีเมล์</value>
     </property>
@@ -934,7 +932,6 @@
         <value xml:lang="zh">兴趣代码</value>
     </property>
     <property key="FormFieldTitle_organizationName">
-        <value xml:lang="de">Organisationsname</value>
         <value xml:lang="de">Organisation Name</value>
         <value xml:lang="en">Organization Name</value>
         <value xml:lang="es">Nombre de la organización</value>
@@ -1391,7 +1388,6 @@
     </property>
     <property key="FormFieldTitle_userLoginId">
         <value xml:lang="de">Benutzeranmeldung ID</value>
-        <value xml:lang="de">User Login ID</value>
         <value xml:lang="en">User Login Id</value>
         <value xml:lang="es">Código de usuario para conexión</value>
         <value xml:lang="fr">Identifiant de connexion</value>
@@ -2748,7 +2744,7 @@
         <value xml:lang="es">Emisores de certificados</value>
         <value xml:lang="fr">Émetteurs de certificat</value>
         <value xml:lang="it">Fornitori di Certificati</value>
-        <value xml:lang="fr">Certificaat-uitgever</value>
+        <value xml:lang="nl">Certificaat-uitgever</value>
         <value xml:lang="ru">Эмитенты сертификата</value>
         <value xml:lang="th">ประเด็น</value>
     </property>
@@ -5089,7 +5085,6 @@
         <value xml:lang="de">Initiale zweiter Vorname</value>
         <value xml:lang="en">Middle Initial</value>
         <value xml:lang="es">Inicial del segundo nombre</value>
-        <value xml:lang="es">Inicial</value>
         <value xml:lang="fr">Initiale</value>
         <value xml:lang="it">Iniziale Centrale</value>
         <value xml:lang="nl">Voorletters</value>
@@ -6489,7 +6484,7 @@
         <value xml:lang="zh">关系</value>
     </property>
     <property key="PartyRemoveAttributePermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um createPartyAttribute auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
+        <value xml:lang="de">Sicherheitsfehler: um createPartyAttribute auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run createPartyAttribute you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité: pour exécuter createPartyAttribute vous devez avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN</value>
@@ -6501,7 +6496,7 @@
         <value xml:lang="zh">安全错误: 要运行 createPartyAttribute，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemoveCommunicationEventPurposePermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um removeCommunicationEventPurpose auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
+        <value xml:lang="de">Sicherheitsfehler: um removeCommunicationEventPurpose auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeCommunicationEventPurpose you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer l'objet d'un appel il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6514,7 +6509,7 @@
         <value xml:lang="zh">安全错误: 要运行 removeCommunicationEventPurpose，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemoveCommunicationEventRolePermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um removeCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
+        <value xml:lang="de">Sicherheitsfehler: um removeCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeCommunicationEventRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer le rôle d'une communication il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6526,7 +6521,7 @@
         <value xml:lang="zh">安全错误: 要运行 removeCommunicationEventRole，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemovePartyClassificationGroupPermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um deletePartyClassificationGroup auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
+        <value xml:lang="de">Sicherheitsfehler: um deletePartyClassificationGroup auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePartyClassificationGroup you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer un groupe de classification d'acteurs, il faut avoir l'autorisation PARTYMGR_DELETE ou</value>
@@ -6538,7 +6533,7 @@
         <value xml:lang="zh">安全错误: 要运行 deletePartyClassificationGroup，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemovePartyClassificationPermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um deletePartyClassification auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
+        <value xml:lang="de">Sicherheitsfehler: um deletePartyClassification auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePartyClassification you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer une classification d'acteur il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6550,7 +6545,7 @@
         <value xml:lang="zh">安全错误: 要运行 deletePartyClassification，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemovePartyRelationshipPermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um removePartyRelationship auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
+        <value xml:lang="de">Sicherheitsfehler: um removePartyRelationship auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removePartyRelationship you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer une relation inter-acteurs il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6562,7 +6557,7 @@
         <value xml:lang="zh">安全错误: 要运行 removePartyRelationship，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemovePostalAddressBoundaryPermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um deletePostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
+        <value xml:lang="de">Sicherheitsfehler: um deletePostalAddressBoundary auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run deletePostalAddressBoundary you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer une adresse postale frontière il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6574,7 +6569,7 @@
         <value xml:lang="zh">安全错误: 要运行 deletePostalAddressBoundary，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyRemoveWebSiteRolePermissionError">
-        <value xml:lang="en">Sicherheitsfehler: um removeWebSiteRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
+        <value xml:lang="de">Sicherheitsfehler: um removeWebSiteRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>
         <value xml:lang="en">Security Error: to run removeWebSiteRole you must have the PARTYMGR_DELETE or PARTYMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para acceder a esta funcionalidad debe contar con los permisos PARTYMGR_DELETE o PARTYMGR_ADMIN</value>
         <value xml:lang="fr">Erreur sécurité : pour supprimer un rôle de site web il faut avoir avoir l'autorisation PARTYMGR_DELETE ou PARTYMGR_ADMIN.</value>
@@ -6880,7 +6875,7 @@
         <value xml:lang="es">Seleccione rol</value>
         <value xml:lang="fr">Sélectionner le rôle</value>
         <value xml:lang="it">Seleziona Ruolo</value>
-        <value xml:lang="en">Selecteer rol</value>
+        <value xml:lang="nl">Selecteer rol</value>
         <value xml:lang="ru">Выбрать роль</value>
         <value xml:lang="th">เลือกสถานะ</value>
     </property>
@@ -7409,10 +7404,6 @@
         <value xml:lang="th">ผลรวม</value>
         <value xml:lang="zh">合计</value>
     </property>
-    <property key="PartyTotal">
-        <value xml:lang="en">Total</value>
-        <value xml:lang="fr">Total</value>
-    </property>
     <property key="PartyTotalYearsWorkNotValidNumber">
         <value xml:lang="de">Anzahl Jahre Arbeitserfahrung ist keine gültige Zahl</value>
         <value xml:lang="en">Total Years Work Experience is not a valid number</value>
@@ -7612,7 +7603,7 @@
         <value xml:lang="en">Update UserLogin Security Settings</value>
         <value xml:lang="fr">Mise à jour des paramètres de sécurité pour l'identifiant de connexion</value>
         <value xml:lang="it">Aggiorna Impostazioni Sicurezza Utente Login</value>
-        <value xml:lang="en">UserLogin Security Settings wijzigen</value>
+        <value xml:lang="nl">UserLogin Security Settings wijzigen</value>
         <value xml:lang="ro">Actualizare Setari De Siguranta Utilizator Login</value>
         <value xml:lang="ru">Обновление настроек безопасности пользователя</value>
         <value xml:lang="th">เปลี่ยนแปลงการตั้งค่าความปลอดภัยของผู้เข้าใช้ระบบ</value>

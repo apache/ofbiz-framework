@@ -3654,7 +3654,6 @@
         <value xml:lang="de">Benötigt E-Mail Adresse oder Akteur</value>
         <value xml:lang="en">Require Email Or Party</value>
         <value xml:lang="es">Exigir correo electrónico o participante</value>
-        <value xml:lang="fr">Nécessite email ou groupe</value>
         <value xml:lang="fr">Email ou acteur requis</value>
         <value xml:lang="it">Richiesta Email O Soggetto</value>
         <value xml:lang="ro">Cerere Email sau Subiect</value>
@@ -17503,14 +17502,13 @@
     <property key="ProductReserveInventoryFromFacility">
         <value xml:lang="de">Bestand von Einrichtung reservieren</value>
         <value xml:lang="en">Reserve inventory from facility</value>
-        <value xml:lang="en">Réserver depuis le stock d'un lieu de stockage</value>
+        <value xml:lang="fr">Réserver depuis le stock d'un lieu de stockage</value>
     </property>
     <property key="ProductReserveInventory">
         <value xml:lang="de">Bestand reservieren</value>
         <value xml:lang="en">Reserve inventory</value>
         <value xml:lang="es">Reserva de inventario</value>
         <value xml:lang="fr">Réservation de stock</value>
-        <value xml:lang="fr">Stock de réserve</value>
         <value xml:lang="it">Inventario Riservato</value>
         <value xml:lang="ro">Inventar Rezervat</value>
         <value xml:lang="ru">Резерв</value>
