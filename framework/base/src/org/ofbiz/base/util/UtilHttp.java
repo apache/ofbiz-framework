@@ -919,11 +919,18 @@ public class UtilHttp {
     }
 
     public static String stripViewParamsFromQueryString(String queryString) {
+        return stripViewParamsFromQueryString(queryString, null);
+    }
+    
+    public static String stripViewParamsFromQueryString(String queryString, String paginatorNumber) {
         Set<String> paramNames = new HashSet<String>();
-        paramNames.add("VIEW_INDEX");
-        paramNames.add("VIEW_SIZE");
-        paramNames.add("viewIndex");
-        paramNames.add("viewSize");
+        if (UtilValidate.isNotEmpty(paginatorNumber)) {
+            paginatorNumber = "_" + paginatorNumber;
+        }
+        paramNames.add("VIEW_INDEX" + paginatorNumber);
+        paramNames.add("VIEW_SIZE" + paginatorNumber);
+        paramNames.add("viewIndex" + paginatorNumber);
+        paramNames.add("viewSize" + paginatorNumber);
         return stripNamedParamsFromQueryString(queryString, paramNames);
     }
     

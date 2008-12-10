@@ -2245,6 +2245,7 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
 
         // get the parametrized pagination index and size fields
+        int paginatorNumber = modelForm.getPaginatorNumber(context);
         String viewIndexParam = modelForm.getPaginateIndexField(context);
         String viewSizeParam = modelForm.getPaginateSizeField(context);
 
@@ -2272,13 +2273,13 @@ public class HtmlFormRenderer extends HtmlWidgetRenderer implements FormStringRe
         }
 
         // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"
-        if (viewIndexParam.equals("viewIndex")) viewIndexParam = "VIEW_INDEX";
-        if (viewSizeParam.equals("viewSize")) viewSizeParam = "VIEW_SIZE";
+        if (viewIndexParam.equals("viewIndex" + "_" + paginatorNumber)) viewIndexParam = "VIEW_INDEX" + "_" + paginatorNumber;
+        if (viewSizeParam.equals("viewSize" + "_" + paginatorNumber)) viewSizeParam = "VIEW_SIZE" + "_" + paginatorNumber;
 
         String str = (String) context.get("_QBESTRING_");
 
         // strip legacy viewIndex/viewSize params from the query string
-        String queryString = UtilHttp.stripViewParamsFromQueryString(str);
+        String queryString = UtilHttp.stripViewParamsFromQueryString(str, "" + paginatorNumber);
 
         // strip parametrized index/size params from the query string
         HashSet<String> paramNames = new HashSet<String>();

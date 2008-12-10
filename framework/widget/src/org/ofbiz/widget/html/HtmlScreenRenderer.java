@@ -246,6 +246,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
 
         // get the parametrized pagination index and size fields
+        int paginatoNumber = modelForm.getPaginatorNumber(context);
         String viewIndexParam = modelForm.getPaginateIndexField(context);
         String viewSizeParam = modelForm.getPaginateSizeField(context);
 
@@ -271,8 +272,8 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
 
         // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"
-        if (viewIndexParam.equals("viewIndex")) viewIndexParam = "VIEW_INDEX";
-        if (viewSizeParam.equals("viewSize")) viewSizeParam = "VIEW_SIZE";
+        if (viewIndexParam.equals("viewIndex" + "_" + paginatoNumber)) viewIndexParam = "VIEW_INDEX" + "_" + paginatoNumber;
+        if (viewSizeParam.equals("viewSize" + "_" + paginatoNumber)) viewSizeParam = "VIEW_SIZE" + "_" + paginatoNumber;
 
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
@@ -284,7 +285,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
         String queryString = UtilHttp.urlEncodeArgs(inputFields);
         // strip legacy viewIndex/viewSize params from the query string
-        queryString = UtilHttp.stripViewParamsFromQueryString(queryString);
+        queryString = UtilHttp.stripViewParamsFromQueryString(queryString, "" + paginatoNumber);
         // strip parametrized index/size params from the query string
         HashSet<String> paramNames = new HashSet<String>();
         paramNames.add(viewIndexParam);

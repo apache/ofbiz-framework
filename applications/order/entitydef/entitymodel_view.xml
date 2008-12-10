@@ -1348,6 +1348,7 @@ under the License.
       <member-entity entity-alias="SI" entity-name="StatusItem"/>
       <alias-all entity-alias="QWE"/>
       <alias-all entity-alias="WE"/>
+      <!--alias name="statusId" field="statusId" entity-alias="SI"/-->      
       <alias name="statusItemDescription" field="description" entity-alias="SI"/>
       <view-link entity-alias="QWE" rel-entity-alias="WE">
         <key-map field-name="workEffortId"/>
@@ -1360,6 +1361,9 @@ under the License.
       </relation>
       <relation type="one-nofk" rel-entity-name="Quote">
         <key-map field-name="quoteId"/>
+      </relation>
+      <relation type="one-nofk" rel-entity-name="StatusItem">
+        <key-map field-name="statusId"/>
       </relation>
     </view-entity>
     <view-entity entity-name="RequirementAndRole"

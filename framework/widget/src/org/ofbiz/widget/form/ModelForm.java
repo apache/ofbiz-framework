@@ -1306,6 +1306,9 @@ public class ModelForm extends ModelWidget {
     }
 
     public void preparePager(Map<String, Object> context) {
+        
+        //  increment the paginator
+        this.incrementPaginatorNumber(context);
         this.rowCount = 0;
         String lookupName = this.getListName();
         if (UtilValidate.isEmpty(lookupName)) {
@@ -2185,6 +2188,8 @@ public class ModelForm extends ModelWidget {
         if (UtilValidate.isEmpty(field)) {
             field = DEFAULT_PAG_INDEX_FIELD;
         }
+        //  append the paginator number
+        field = field + "_" + getPaginatorNumber(context);
         return field;
     }
 
@@ -2199,7 +2204,7 @@ public class ModelForm extends ModelWidget {
             // try parameters.VIEW_INDEX as that is an old OFBiz convention
             Map parameters = (Map) context.get("parameters");
             if (parameters != null) {
-                value = parameters.get("VIEW_INDEX");
+                value = parameters.get("VIEW_INDEX" + "_" + getPaginatorNumber(context));
                 
                 if (value == null) {
                     value = parameters.get(field);
@@ -2224,6 +2229,8 @@ public class ModelForm extends ModelWidget {
         if (UtilValidate.isEmpty(field)) {
             field = DEFAULT_PAG_SIZE_FIELD;
         }
+        //  append the paginator number
+        field = field + "_" + getPaginatorNumber(context);
         return field;
     }
 
@@ -2238,7 +2245,7 @@ public class ModelForm extends ModelWidget {
                 // try parameters.VIEW_SIZE as that is an old OFBiz convention
                 Map parameters = (Map) context.get("parameters");
                 if (parameters != null) {
-                    value = parameters.get("VIEW_SIZE");
+                    value = parameters.get("VIEW_SIZE" + "_" + getPaginatorNumber(context));
 
                     if (value == null) {
                         value = parameters.get(field);
