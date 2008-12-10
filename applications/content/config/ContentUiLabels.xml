@@ -2516,7 +2516,7 @@
         <value xml:lang="ar">إضافة نص مورد معلومات</value>
         <value xml:lang="de">Datenressource Text hinzufügen</value>
         <value xml:lang="en">Add DataResource Text</value>
-        <value xml:lang="efr">Ajouter une ressource de données (texte)</value>
+        <value xml:lang="fr">Ajouter une ressource de données (texte)</value>
         <value xml:lang="it">Aggiungi Testo Risorsa Dati</value>
         <value xml:lang="ro">Adauga Text Resurse Date</value>
         <value xml:lang="th">เพิ่มแหล่งที่มาของข้อมูลเป็นตัวอักษร</value>
@@ -2936,7 +2936,7 @@
     <property key="PageTitleEditDataResourceTypeAttr">
         <value xml:lang="de">Datenressourcentyp Attribute bearbeiten</value>
         <value xml:lang="en">Edit Data Resource Type Attribute</value>
-        <value xml:lang="en">Modifier la ressource de données (type d'attibut)</value>
+        <value xml:lang="fr">Modifier la ressource de données (type d'attibut)</value>
         <value xml:lang="it">Aggiorna Attributo Tipo Risorsa Dati</value>
         <value xml:lang="th">แก้ไขข้อมูลแหล่งที่มาของประเภทคุณสมบัติ</value>
     </property>

@@ -62,7 +62,6 @@
         <value xml:lang="de">Geschätzte Arbeitskosten</value>
         <value xml:lang="en">ESTIMATED_LABOR_COST</value>
         <value xml:lang="es">Coste estimado de mano de obra</value>
-        <value xml:lang="es">Labor estimada</value>
         <value xml:lang="th">ต้นทุนแรงงานโดยประมาณ</value>
     </property>
     <property key="CostComponentType.description.ESTIMATED_MATERIALS_">
@@ -1865,7 +1864,7 @@
     <property key="ProductPriceType.description.SPECIAL_PROMO_PRICE">
         <value xml:lang="de">Sonderaktionspreis</value>
         <value xml:lang="en">Special Promo Price</value>
-        <value xml:lang="en">Prix spécial promo</value>
+        <value xml:lang="fr">Prix spécial promo</value>
         <value xml:lang="it">Prezzo Promozionale Speciale</value>
         <value xml:lang="ro">Pret Promotional Special</value>
         <value xml:lang="ru">Специальная цена</value>

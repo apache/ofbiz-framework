@@ -69,7 +69,7 @@
         <value xml:lang="zh">图像({b})或类型(${imageType})为null或为空</value>
     </property>
     <property key="dataResourceWorker.image_or_field_null">
-        <value xml:lang="en">imageFi(${imageFi}) oder idFieldValue(${idFieldValue}) ist null</value>
+        <value xml:lang="de">imageFi(${imageFi}) oder idFieldValue(${idFieldValue}) ist null</value>
         <value xml:lang="en">imageFi(${imageFi}) or idFieldValue(${idFieldValue}) is null</value>
         <value xml:lang="es">Imagen(${imageFi}) or Campo(${idFieldValue}) son nulos</value>
         <value xml:lang="fr">imageFi (${imageFi}) ou idFieldValue (${idFieldValue}) est invalide</value>

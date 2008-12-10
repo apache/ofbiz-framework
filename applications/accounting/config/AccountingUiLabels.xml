@@ -30,8 +30,8 @@
         <value xml:lang="nl">Bankrekening: AHC/Electronic Check </value>
         <value xml:lang="ro">Cont EFT : AHC/Cecuri Electronice</value>
         <value xml:lang="ru">Текущий счет</value>
-        <value xml:lang="th">บัญชีธนาคาร: AHC/ตรวจสอบระบบอิเล็กทรอนิกส์</value>
         <value xml:lang="zh">电子资金转账账户：金融机构委员会/电子支票</value>
+        <value xml:lang="th">บัญชีธนาคาร: AHC/ตรวจสอบระบบอิเล็กทรอนิกส์</value>
     </property>
     <property key="AccountingAccount">
         <value xml:lang="ar">حساب</value>
@@ -126,8 +126,8 @@
         <value xml:lang="es">cuentas</value>
         <value xml:lang="fr">Comptes</value>
         <value xml:lang="it">Conti</value>
-        <value xml:lang="nl">Rekeningen</value>
         <value xml:lang="ro">Conturi</value>
+        <value xml:lang="nl">Rekeningen</value>
         <value xml:lang="ru">Счета</value>
         <value xml:lang="th">บัญชี</value>
         <value xml:lang="zh">账户</value>
@@ -135,36 +135,36 @@
     <property key="AccountingAcctRecon">
         <value xml:lang="en">Account Reconciliation</value>
         <value xml:lang="fr">Réconciliation</value>
-        <value xml:lang="it">Riconciliazione</value>
         <value xml:lang="nl">Afstemming rekening</value>
+        <value xml:lang="it">Riconciliazione</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctRecons">
         <value xml:lang="en">Account Reconciliations</value>
         <value xml:lang="fr">Réconciliations</value>
-        <value xml:lang="it">Riconciliazioni</value>
         <value xml:lang="nl">Afstemmingen</value>
+        <value xml:lang="it">Riconciliazioni</value>
         <value xml:lang="th">การเช็คยอดบัญชี</value>
     </property>
     <property key="AccountingAcctgTransEntries">
         <value xml:lang="en">Accounting Transactions Entries</value>
         <value xml:lang="fr">Entrées de transactions comptables</value>
-        <value xml:lang="it">Righe Prime Note</value>
         <value xml:lang="nl">Ingaves Boekhoudtransacties</value>
+        <value xml:lang="it">Righe Prime Note</value>
         <value xml:lang="th">รายการบัญชีรายรับ</value>
     </property>
     <property key="AccountingAcctgTranss">
         <value xml:lang="en">Accounting Transactions</value>
         <value xml:lang="fr">Transactions comptables</value>
-        <value xml:lang="it">Prime Note</value>
         <value xml:lang="nl">Boekhoudtransacties</value>
+        <value xml:lang="it">Prime Note</value>
         <value xml:lang="th">รายการบัญชี</value>
     </property>
     <property key="AccountingActualCurrencyAmount">
         <value xml:lang="en">Actual Currency Amount</value>
         <value xml:lang="fr">Valeur réelle en devise</value>
-        <value xml:lang="it">Attuale Importo in Valuta</value>
         <value xml:lang="nl">Hoeveelheid werkelijke valuta</value>
+        <value xml:lang="it">Attuale Importo in Valuta</value>
         <value xml:lang="ru">Действительная сумма валюты</value>
         <value xml:lang="th">จำนวนเงินที่มีอยู่จริง</value>
     </property>
@@ -574,7 +574,7 @@
         <value xml:lang="th">จำนวนที่ประยุกต์ไม่ได้</value>
         <value xml:lang="zh">未付金额</value>
     </property>
-    <property key="AccountingAmountToUse">
+     <property key="AccountingAmountToUse">
         <value xml:lang="de">Betrag zur Verwendung</value>
         <value xml:lang="en">Amount To Use</value>
         <value xml:lang="es">Monto a usar</value>
@@ -837,6 +837,7 @@
         <value xml:lang="fr">Assigner le type facture d'achat au n° du compte de produit</value>
         <value xml:lang="nl">wijs inkoopfactuurtype toe aan GB-rekeningnr</value>
         <value xml:lang="th">กำหนดประเภทใบกำกับสินค้าการสั่งซื้อไปยังหมายเลขบัญชีประเภททั่วไป</value>
+
     </property>
     <property key="AccountingAssignSalesInvoiceToRevenue">
         <value xml:lang="ar">تعيين نوع فاتورة البيع إلى رقم حساب العائدات</value>
@@ -986,8 +987,8 @@
         <value xml:lang="en">Billing Account</value>
         <value xml:lang="es">Cta facturación</value>
         <value xml:lang="fr">Compte de facturation</value>
-        <value xml:lang="it">Conto Fatturazione</value>
         <value xml:lang="ja">請求先アカウント</value>
+        <value xml:lang="it">Conto Fatturazione</value>
         <value xml:lang="nl">Faktuur rekening</value>
         <value xml:lang="pt_PT">Conta para Pagamento</value>
         <value xml:lang="ro">Cont Facturare</value>
@@ -1319,8 +1320,8 @@
         <value xml:lang="es">Número de tarjeta</value>
         <value xml:lang="fr">N° de carte</value>
         <value xml:lang="hi_IN">कार्ड नम्बर</value>
-        <value xml:lang="it">Numero di carta</value>
         <value xml:lang="ja">カード番号</value>
+        <value xml:lang="it">Numero di carta</value>
         <value xml:lang="nl">Kaart nummer</value>
         <value xml:lang="pt_PT">Número do Cartão</value>
         <value xml:lang="ro">Numarul Cartii</value>
@@ -1763,8 +1764,8 @@
         <value xml:lang="es">Tarjeta de crédito</value>
         <value xml:lang="fr">Carte de crédit</value>
         <value xml:lang="hi_IN">कार्ड</value>
-        <value xml:lang="it">Carta di credito</value>
         <value xml:lang="ja">クレジットカード</value>
+        <value xml:lang="it">Carta di credito</value>
         <value xml:lang="nl">Krediet Kaart</value>
         <value xml:lang="pt_BR">Cartão de Crédito</value>
         <value xml:lang="pt_PT">Cartão de Crédito</value>
@@ -2011,8 +2012,8 @@
         <value xml:lang="es">Cuenta bancaria</value>
         <value xml:lang="fr">Compte de virement électronique</value>
         <value xml:lang="hi_IN">EFT खाता</value>
-        <value xml:lang="it">Conto EFT</value>
         <value xml:lang="ja">EFT Account</value>
+        <value xml:lang="it">Conto EFT</value>
         <value xml:lang="nl">Bank rekening</value>
         <value xml:lang="pt_PT">Conta EFT</value>
         <value xml:lang="ro">Cont EFT</value>
@@ -2136,8 +2137,8 @@
         <value xml:lang="es">Ingrese su número real y virtual de la tarjeta y su número pin para ingresar a su cuenta</value>
         <value xml:lang="fr">Entrez vos n° (réel et virtuel) de carte et code pour vous lier à votre compte</value>
         <value xml:lang="hi_IN">अपने ख़ाते मे जाने के लिये पिन नम्बर,</value>
-        <value xml:lang="it">Inserisci la tua carta fisica e virtuale e il numero pin per collegarlo al tuo conto</value>
         <value xml:lang="ja">Enter your physical and virtual card and pin number to link your account</value>
+        <value xml:lang="it">Inserisci la tua carta fisica e virtuale e il numero pin per collegarlo al tuo conto</value>
         <value xml:lang="nl">Voer uw kaart en pin nummer in om uw rekening te valideren</value>
         <value xml:lang="ro">Introdu cartea ta fizica si virtuala si numarul de pin pentru a te cupla cu contul tau.</value>
         <value xml:lang="ru">Введите вашу реальную или виртуальную карту и ПИН код для подключения к своей учетной записи</value>
@@ -2150,8 +2151,8 @@
         <value xml:lang="es">Ingrese el número de tarjeta y PIN para verificar su balance</value>
         <value xml:lang="fr">Entrez votre n° de carte cadeau et votre code pour vérifier le solde</value>
         <value xml:lang="hi_IN">रकम जानने के लिये पिन और उपहार कार्ड नम्बर दिजीये</value>
-        <value xml:lang="it">Inserisici il numero della carta omaggio ed il PIN per controllarne il bilancio</value>
         <value xml:lang="ja">Enter your gift card number and PIN to check the balance</value>
+        <value xml:lang="it">Inserisici il numero della carta omaggio ed il PIN per controllarne il bilancio</value>
         <value xml:lang="nl">Voer uw tegoedbon- en pin nummer in om het saldo op te vragen</value>
         <value xml:lang="ro">Introdu numarul cartii de omagiu, numarul Pin pentru a controla bilantul</value>
         <value xml:lang="ru">Введите номер дисконтной карты и ПИН для проверки баланса</value>
@@ -2298,8 +2299,8 @@
         <value xml:lang="es">Fecha de expiración</value>
         <value xml:lang="fr">Date d'expiration</value>
         <value xml:lang="hi_IN">खत्म होने कि तिथी</value>
-        <value xml:lang="it">Data scadenza</value>
         <value xml:lang="ja">有効期限</value>
+        <value xml:lang="it">Data scadenza</value>
         <value xml:lang="nl">Geldigheids datum</value>
         <value xml:lang="pt_PT">Validade do Cartão</value>
         <value xml:lang="ro">Data Expirata</value>
@@ -2652,8 +2653,8 @@
         <value xml:lang="es">Agencia de Gobierno</value>
         <value xml:lang="fr">Agence gouvernementale</value>
         <value xml:lang="it">Agenzia Governativa</value>
-        <value xml:lang="nl">Agent overheid</value>
         <value xml:lang="ro">Agentia Governativa</value>
+        <value xml:lang="nl">Agent overheid</value>
         <value xml:lang="ru">Государственное учреждение</value>
         <value xml:lang="th">ตัวแทนรัฐบาล</value>
         <value xml:lang="zh">政府机构</value>
@@ -3293,8 +3294,8 @@
     <property key="AccountingGlAccountTypeDefaults">
         <value xml:lang="en">GL Account Type Defaults</value>
         <value xml:lang="fr">Types par défaut de compte du GL</value>
-        <value xml:lang="it">Default Tipo Conto Contabilità Generale</value>
         <value xml:lang="nl">Standaardwaarden GB-rekeningtype</value>
+        <value xml:lang="it">Default Tipo Conto Contabilità Generale</value>
         <value xml:lang="th">ค่าเริ่มต้นอัตโนมัติของประเภทบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingGlAccounts">
@@ -4622,8 +4623,8 @@
         <value xml:lang="es">No hay cuenta de facturación</value>
         <value xml:lang="fr">Pas de compte de facturation</value>
         <value xml:lang="hi_IN">कोई भुगतान ख़ाता नही</value>
-        <value xml:lang="it">Nessun conto fatturazione</value>
         <value xml:lang="ja">No Billing Account</value>
+        <value xml:lang="it">Nessun conto fatturazione</value>
         <value xml:lang="nl">Geen factuur rekening</value>
         <value xml:lang="pt_PT">Sem Conta para Pagamento</value>
         <value xml:lang="ro">Nici-un Cont Facturatie</value>
@@ -4855,8 +4856,8 @@
         <value xml:lang="en">Offline Payment</value>
         <value xml:lang="es">Pago fuera de línea</value>
         <value xml:lang="fr">Paiement hors connexion</value>
-        <value xml:lang="it">Pagamento offline</value>
         <value xml:lang="ja">Offline Payment</value>
+        <value xml:lang="it">Pagamento offline</value>
         <value xml:lang="nl">Offline betalen</value>
         <value xml:lang="pt_PT">Pagamento Tradicional</value>
         <value xml:lang="ro">Plata Offline</value>
@@ -5052,8 +5053,8 @@
     <property key="AccountingPartyAccountsSummary">
         <value xml:lang="en">Accounts Summary</value>
         <value xml:lang="fr">Résumé des comptes</value>
-        <value xml:lang="it">Sommario Conti</value>
         <value xml:lang="nl">Samenvatting rekeningen</value>
+        <value xml:lang="it">Sommario Conti</value>
     </property>
     <property key="AccountingPartyBilledFrom">
         <value xml:lang="ar">مفوترة من طرف</value>
@@ -5088,7 +5089,7 @@
     </property>
     <property key="AccountingPartyGlAccounts">
         <value xml:lang="en">Party Gl Accounts</value>
-        <value xml:lang="fr">Comptes de tiers</value>
+        <value xml:lang="fr">Comptes d'acteur (GL)</value>
         <value xml:lang="nl">GB-rekeningen relatie</value>
         <value xml:lang="th">กลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
@@ -5152,20 +5153,32 @@
         <value xml:lang="zh">会员角色列表</value>
     </property>
     <property key="AccountingPayment">
+        <value xml:lang="ar">تسديد</value>
         <value xml:lang="de">Bezahlung</value>
         <value xml:lang="en">Payment</value>
         <value xml:lang="es">Pago</value>
         <value xml:lang="fr">Paiement</value>
         <value xml:lang="it">Pagamento</value>
+        <value xml:lang="nl">Betaling</value>
+        <value xml:lang="pt_BR">Pagamento</value>
+        <value xml:lang="pt_PT">Pagamento</value>
+        <value xml:lang="ro">Plata</value>
+        <value xml:lang="ru">платеж</value>
         <value xml:lang="th">การชำระเงิน</value>
+        <value xml:lang="zh">支付</value>
     </property>
     <property key="AccountingPaymentAlreadyReceived">
+        <value xml:lang="ar">تسديد مستلم مسبقا</value>
         <value xml:lang="de">Bezahlung bereits erhalten</value>
         <value xml:lang="en">Payment Already Received</value>
         <value xml:lang="es">El pago ya fue recibido</value>
         <value xml:lang="fr">Paiement déjà reçu</value>
         <value xml:lang="it">Pagamento già ricevuto</value>
+        <value xml:lang="nl">Betaling reeds ontvangen</value>
+        <value xml:lang="ro">Plata incasata</value>
+        <value xml:lang="ru">Платеж уже получен</value>
         <value xml:lang="th">ได้รับการชำระเงินแล้ว</value>
+        <value xml:lang="zh">已收到支付</value>
     </property>
     <property key="AccountingPaymentInformation">
         <value xml:lang="ar">معلومات التسديد</value>
@@ -5230,20 +5243,6 @@
         <value xml:lang="th">ชำระเงินผ่าน WorldPay</value>
         <value xml:lang="zh">用WorldPay支付</value>
     </property>
-    <property key="AccountingPayment">
-        <value xml:lang="ar">تسديد</value>
-        <value xml:lang="en">Payment</value>
-        <value xml:lang="es">Pago</value>
-        <value xml:lang="fr">Paiement</value>
-        <value xml:lang="it">Pagamento</value>
-        <value xml:lang="nl">Betaling</value>
-        <value xml:lang="pt_BR">Pagamento</value>
-        <value xml:lang="pt_PT">Pagamento</value>
-        <value xml:lang="ro">Plata</value>
-        <value xml:lang="ru">платеж</value>
-        <value xml:lang="th">การชำระเงิน</value>
-        <value xml:lang="zh">支付</value>
-    </property>
     <property key="AccountingPaymentAlreadyApplied">
         <value xml:lang="en">Payment [${paymentId}] is already fully applied</value>
         <value xml:lang="es">Pago [${paymentId}] esta completamente aplicado</value>
@@ -5254,18 +5253,6 @@
         <value xml:lang="ru">Платеж [${paymentId}] уже полностью применен</value>
         <value xml:lang="th">การชำระเงิน [${paymentId}] นำไปใช้ได้เต็มที่</value>
         <value xml:lang="zh">支付[${paymentId}]已完整应用</value>
-    </property>
-    <property key="AccountingPaymentAlreadyReceived">
-        <value xml:lang="ar">تسديد مستلم مسبقا</value>
-        <value xml:lang="en">Payment already received</value>
-        <value xml:lang="es">Pago recibido</value>
-        <value xml:lang="fr">Paiement déjà reçu</value>
-        <value xml:lang="it">Pagamento già ricevuto</value>
-        <value xml:lang="nl">Betaling reeds ontvangen</value>
-        <value xml:lang="ro">Plata incasata</value>
-        <value xml:lang="ru">Платеж уже получен</value>
-        <value xml:lang="th">ได้รับการชำระเงินเรียบร้อยแล้ว</value>
-        <value xml:lang="zh">已收到支付</value>
     </property>
     <property key="AccountingPaymentApplRemoved">
         <value xml:lang="en">PaymentID [${paymentApplication.paymentId}] with amount ${paymentApplication.amountApplied?currency(${currencyUomId})} removed from</value>
@@ -5473,7 +5460,7 @@
     <property key="AccountingPaymentMethodId........">
         <value xml:lang="en">AccountingPaymentMethodId........</value>
         <value xml:lang="fr">Réf. de méthode de paiement      </value>
-        <value xml:lang="nln">AccountingPaymentMethodId........</value>
+        <value xml:lang="nl">AccountingPaymentMethodId........</value>
         <value xml:lang="ro">No values are passed............???</value>
         <value xml:lang="th">รหัสวิธีการชำระเงิน............???</value>
     </property>
@@ -5917,8 +5904,8 @@
     <property key="AccountingProblemGettingOrderPaymentPreferences">
         <value xml:lang="en">Problem getting OrderPaymentPreference records</value>
         <value xml:lang="fr">Erreur en recherchant les préférences de paiement associées à la commande</value>
-        <value xml:lang="nl">Probleem met het ophalen van OrderPaymentPreference records</value>
         <value xml:lang="ru">Проблема получения записей OrderPaymentPreference</value>
+        <value xml:lang="nl">Probleem met het ophalen van OrderPaymentPreference records</value>
         <value xml:lang="th">Problem getting OrderPaymentPreference records</value>
         <value xml:lang="zh">获得定单支付优先方法记录时出错</value>
     </property>
@@ -5947,8 +5934,8 @@
     <property key="AccountingProblemStoringOrderAdjustments">
         <value xml:lang="en">Problem storing OrderAdjustments: ${orderAdjustments}</value>
         <value xml:lang="fr">Erreur en essayant d'enregistrer les ajustements de commande: ${orderAdjustments}</value>
-        <value xml:lang="nl">Probleem met het opslaan van orderaanpassing(en): ${orderAdjustments}</value>
         <value xml:lang="ru">Проблема сохранения OrderAdjustments: ${orderAdjustments}</value>
+        <value xml:lang="nl">Probleem met het opslaan van orderaanpassing(en): ${orderAdjustments}</value>
         <value xml:lang="th">ปัญหาในการเก็บข้อมูลรายการส่วนลด: ${orderAdjustments}</value>
         <value xml:lang="zh">存储定单调整时出错：${orderAdjustments}</value>
     </property>
@@ -5966,13 +5953,13 @@
     </property>
     <property key="AccountingProductCategoryGlAccount">
         <value xml:lang="en">Product Category Gl Account</value>
-        <value xml:lang="fr">Compte de catégorie de produit</value>
+        <value xml:lang="fr">Compte de catégorie de produit (GL)</value>
         <value xml:lang="nl">GB-rekening Productcategorie</value>
         <value xml:lang="th">หมวดหมู่สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingProductGlAccount">
         <value xml:lang="en">Product GL Accounts</value>
-        <value xml:lang="fr">Comptes de produit</value>
+        <value xml:lang="fr">Comptes de produit (GL)</value>
         <value xml:lang="nl">GB-rekeningen Product</value>
         <value xml:lang="th">สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -5993,8 +5980,8 @@
         <value xml:lang="es">Tarífas de producto</value>
         <value xml:lang="fr">Taux applicables aux produits</value>
         <value xml:lang="it">Percentuali Prodotto</value>
-        <value xml:lang="nl">Productprijzen</value>
         <value xml:lang="ro">Procent Produs</value>
+        <value xml:lang="nl">Productprijzen</value>
         <value xml:lang="ru">Ставки продукта</value>
         <value xml:lang="th">ราคาสินค้า</value>
         <value xml:lang="zh">产品税率</value>
@@ -6183,7 +6170,7 @@
     </property>
     <property key="AccountingSetup">
         <value xml:lang="en">Setup</value>
-        <value xml:lang="fr">Configuration</value>
+        <value xml:lang="fr">Installation</value>
         <value xml:lang="nl">Configuratie</value>
         <value xml:lang="th">ติดตั้ง</value>
     </property>
@@ -6428,7 +6415,7 @@
     </property>
     <property key="AccountingTaxAuthorityGlAccounts">
         <value xml:lang="en">TaxAuthority GL Accounts </value>
-        <value xml:lang="fr">Comptes de l'administration fiscale</value>
+        <value xml:lang="fr">Comptes de l'administration fiscale (GL)</value>
         <value xml:lang="nl">GB-rekeningen belastinginstantie(s)</value>
         <value xml:lang="th">ภาษีบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -6447,7 +6434,7 @@
     <property key="AccountingTaxAuthorityRateProductUseThisProductCategory">
         <value xml:lang="en">At least one Product Rate uses this Category</value>
         <value xml:lang="fr">Au moins un taux applicable aux produits utilise cette catégorie</value>
-    </property>
+    </property>    
     <property key="AccountingTaxSummary">
         <value xml:lang="ar">تقرير ملخص الضريبة</value>
         <value xml:lang="en">Tax Summary Report</value>
@@ -6805,8 +6792,8 @@
         <value xml:lang="es">Usar otro certificado de regalo</value>
         <value xml:lang="fr">La carte cadeau utilisée n'existe pas</value>
         <value xml:lang="hi_IN">उपहार कार्ड फाइल में नहीं</value>
-        <value xml:lang="it">La carta omaggio utilizzata non esiste</value>
         <value xml:lang="ja">Use Gift Card Not On File</value>
+        <value xml:lang="it">La carta omaggio utilizzata non esiste</value>
         <value xml:lang="nl">Gebruik een niet bekende tegoedbon</value>
         <value xml:lang="ro">Foloseste Carte Omagiu Nu din Fisier</value>
         <value xml:lang="ru">Использованной дисконтной карты нет в файле</value>
@@ -6850,7 +6837,7 @@
         <value xml:lang="th">คุณไม่ได้รบอนุญาตให้เข้าชมหน้านี้ ("ACCOUNTING_VIEW" หรือ "ACCOUNTING_ADMIN" ต้องการ)</value>
         <value xml:lang="zh">你没有浏览这个页面的权限。(需要是"ACCOUNTING_VIEW"或"ACCOUNTING_ADMIN")</value>
     </property>
-    <property key="AccountingVirtualCard">
+     <property key="AccountingVirtualCard">
         <value xml:lang="de">Virtuelle Karte</value>
         <value xml:lang="en">Virtual Card</value>
         <value xml:lang="es">Tarjeta virtual</value>
@@ -7886,8 +7873,8 @@
         <value xml:lang="en">Gl Account Type Id</value>
         <value xml:lang="es">Id Tipo Cuenta LM</value>
         <value xml:lang="fr">Type du compte comptable</value>
-        <value xml:lang="it">Tipo Conto Gl</value>
         <value xml:lang="nl">ID type GB-rekening</value>
+        <value xml:lang="it">Tipo Conto Gl</value>
         <value xml:lang="ro">Tip Cont Gl</value>
         <value xml:lang="ru">Код типа счета ГК</value>
         <value xml:lang="th">รหัสประเภทบัญชีแยกประเภททั่วไป</value>
@@ -7908,8 +7895,8 @@
     <property key="FormFieldTitle_glJournalId">
         <value xml:lang="en">Gl Journal Id</value>
         <value xml:lang="fr">Réf. journal du Grand Livre</value>
-        <value xml:lang="it">Giornale</value>
         <value xml:lang="nl">ID GB-journaal</value>
+        <value xml:lang="it">Giornale</value>
         <value xml:lang="th">Gl Journal Id</value>
     </property>
     <property key="FormFieldTitle_glResourceTypeId">
@@ -8059,7 +8046,7 @@
     <property key="FormFieldTitle_invoiceNotApplied">
         <value xml:lang="en">Not Applied</value>
         <value xml:lang="fr">Non alloué</value>
-    </property>
+    </property>        
     <property key="FormFieldTitle_invoiceProcessing">
         <value xml:lang="ar">تعيين لكامل الفاتورة</value>
         <value xml:lang="en">Assign to Whole invoice</value>
@@ -8267,7 +8254,7 @@
     <property key="FormFieldTitle_notApplied">
         <value xml:lang="en">Not Applied</value>
         <value xml:lang="fr">Non alloué</value>
-    </property>
+    </property>    
     <property key="FormFieldTitle_orderDate">
         <value xml:lang="en">Order Date</value>
         <value xml:lang="fr">Date de commande</value>
@@ -8586,7 +8573,7 @@
     </property>
     <property key="FormFieldTitle_postToGlAccountId">
         <value xml:lang="en">Post To Gl Account Id</value>
-        <value xml:lang="fr">Comptabilisé à la réf. de compte</value>
+        <value xml:lang="fr">Comptabilisé à la réf. de compte (GL)</value>
         <value xml:lang="it">Contabilizza su Conto Gl</value>
         <value xml:lang="nl">Boeken op GB-rekening</value>
         <value xml:lang="ru">На счет ГК с кодом</value>
@@ -8961,8 +8948,8 @@
         <value xml:lang="es">Id Secuencia Tarifa de Autoridad Fiscal</value>
         <value xml:lang="fr">Séquence de taux de taxation</value>
         <value xml:lang="it">Numero Sequenza Percentuale Autorità Tasse</value>
-        <value xml:lang="nl">Koersvolgnummer belastinginstantie</value>
         <value xml:lang="ro">Nr.Secventa Procent Taxa Autoritate</value>
+        <value xml:lang="nl">Koersvolgnummer belastinginstantie</value>
         <value xml:lang="ru">Код налог. ставки</value>
         <value xml:lang="th">รหัสรายการอัตราภาษี</value>
         <value xml:lang="zh">税务机关税率序号</value>
@@ -9073,8 +9060,8 @@
     <property key="FormFieldTitle_timeEntryId">
         <value xml:lang="en">Time Entry Id</value>
         <value xml:lang="fr">Réf. de date d'écriture</value>
-        <value xml:lang="it">Riga Timbratura</value>
         <value xml:lang="nl">ID tijdregistratie</value>
+        <value xml:lang="it">Riga Timbratura</value>
         <value xml:lang="th">รหัสตารางการทำงาน</value>
     </property>
     <property key="FormFieldTitle_toPaymentId">
@@ -9124,7 +9111,7 @@
     <property key="FormFieldTitle_totInvoiceApplied">
         <value xml:lang="en">Tot Invoice Applied</value>
         <value xml:lang="fr">Total alloué</value>
-    </property>
+    </property>        
     <property key="FormFieldTitle_transCodeEnumId">
         <value xml:lang="en">Trans Code Enum Id</value>
         <value xml:lang="es">Id Enum Código de Trans</value>
@@ -9430,8 +9417,8 @@
     <property key="PageTitleEditBillingAccountOrders">
         <value xml:lang="en">Edit Billing Account Orders</value>
         <value xml:lang="fr">Modifier le compte de facturation des commandes</value>
-        <value xml:lang="it">Aggiorna Ordini Conto Fatturazione</value>
         <value xml:lang="nl">Orders factuurrekening aanpassen</value>
+        <value xml:lang="it">Aggiorna Ordini Conto Fatturazione</value>
         <value xml:lang="th">แก้ไขรายการยอดรวมของบัญชี</value>
     </property>
     <property key="PageTitleEditBillingAccountPayments">
@@ -9616,7 +9603,7 @@
     </property>
     <property key="PageTitleEditPartyGlAccounts">
         <value xml:lang="en">Edit Party Gl Accounts</value>
-        <value xml:lang="fr">Modifier les comptes de tiers</value>
+        <value xml:lang="fr">Modifier les comptes de tiers (GL)</value>
         <value xml:lang="nl">Gb-rekeningen relatie aanpassen</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
@@ -9771,7 +9758,7 @@
     </property>
     <property key="PageTitleFindGlAccount">
         <value xml:lang="en">PageTitleFindGlAccount</value>
-        <value xml:lang="fr">Chercher un compte</value>
+        <value xml:lang="fr">Chercher un compte (GL)</value>
         <value xml:lang="nl">Vind GB-rekening(en)</value>
         <value xml:lang="th">ค้นหาบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -9950,8 +9937,8 @@
     <property key="PageTitleListFinAccountRoles">
         <value xml:lang="en">List Fin Account Roles</value>
         <value xml:lang="fr">Liste des rôles de compte financier</value>
-        <value xml:lang="it">Lista Ruoli Conto Finanziario</value>
         <value xml:lang="nl">Toon rollen financiële rekeningen</value>
+        <value xml:lang="it">Lista Ruoli Conto Finanziario</value>
         <value xml:lang="th">รายการสถานะบัญชี</value>
     </property>
     <property key="PageTitleListFinAccountTrans">
@@ -10018,8 +10005,8 @@
     <property key="PageTitleListFixedAssetRegistrations">
         <value xml:lang="en">List Fixed Asset Registrations</value>
         <value xml:lang="fr">Liste des enregistrements d'immobilisation</value>
-        <value xml:lang="it">Lista Registrazioni Cespiti</value>
         <value xml:lang="nl">Toon registraties vaste activa</value>
+        <value xml:lang="it">Lista Registrazioni Cespiti</value>
         <value xml:lang="th">รายการลงทะเบียนทรัพย์สินไม่หมุนเวียน</value>
     </property>
     <property key="PageTitleListFixedAssetStdCosts">
@@ -10431,8 +10418,8 @@
     </property>
     <property key="es">
         <value xml:lang="en">Spanish</value>
-        <value xml:lang="es">Español</value>
         <value xml:lang="fr">Espagnol</value>
+        <value xml:lang="es">Español</value>
         <value xml:lang="nl">Spaans</value>
         <value xml:lang="ru">Испанский</value>
         <value xml:lang="th">สเปน</value>
@@ -10552,8 +10539,8 @@
     <property key="ru">
         <value xml:lang="en">Russian</value>
         <value xml:lang="fr">Russe</value>
-        <value xml:lang="nl">Russisch</value>
         <value xml:lang="ru">Русский</value>
+        <value xml:lang="nl">Russisch</value>
         <value xml:lang="th">รัสเซีย</value>
     </property>
 </resource>
