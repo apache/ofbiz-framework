@@ -234,11 +234,6 @@
         <value xml:lang="fr">Saisir un montant valide pour les autres moyens de paiements :</value>
         <value xml:lang="it">Inserire un'importo con altri pagamenti valido:</value>
     </property>
-    <property key="WebPosManagerModifyPriceSku">
-        <value xml:lang="en">Enter sku</value>
-        <value xml:lang="fr">Saisir l'unité de stock</value>
-        <value xml:lang="it">Inserire il codice prodotto</value>
-    </property>
     <property key="WebPosManagerModifyPriceNewPrice">
         <value xml:lang="en">Enter new price</value>
         <value xml:lang="fr">Saisir le nouveau prix</value>
