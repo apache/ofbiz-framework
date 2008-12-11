@@ -581,7 +581,7 @@
         <value xml:lang="th">เวลาเริ่มต้นในวันพุธ</value>
     </property>
     <property key="FormFieldTitle_workEffortName">
-        <value xml:lang="en">Arbeitseinsatzname</value>
+        <value xml:lang="de">Arbeitseinsatzname</value>
         <value xml:lang="en">Work Effort Name</value>
         <value xml:lang="es">Nombre del esfuerzo de trabajo</value>
         <value xml:lang="fr">Nom d'opération</value>
