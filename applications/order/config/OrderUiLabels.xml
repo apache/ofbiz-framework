@@ -1815,7 +1815,6 @@
         <value xml:lang="en">Auth Service</value>
         <value xml:lang="es">Servicio de autentificación</value>
         <value xml:lang="fr">Service d'authentification</value>
-        <value xml:lang="es">Servicio de autentificación</value>
         <value xml:lang="th">ให้บริการ</value>
     </property>
     <property key="OrderAutoAssign">
@@ -2030,7 +2029,6 @@
         <value xml:lang="en">Service capture</value>
         <value xml:lang="es">Servicio de captura de pedido</value>
         <value xml:lang="fr">Service de prélèvement</value>
-        <value xml:lang="es">Servicio de captura</value>
         <value xml:lang="th">ให้ความสนใจบริการ</value>
     </property>
     <property key="OrderCardSecurityCode">
@@ -2095,7 +2093,6 @@
         <value xml:lang="en">Cartons</value>
         <value xml:lang="es">Cajas</value>
         <value xml:lang="fr">Cartons</value>
-        <value xml:lang="es">Paquete</value>
         <value xml:lang="th">บรรจุลงกล่อง</value>
     </property>
     <property key="OrderCheckout">
@@ -2641,7 +2638,6 @@
         <value xml:lang="en">Cubic Measurement</value>
         <value xml:lang="es">Medida de volumen</value>
         <value xml:lang="fr">Mesure cubique</value>
-        <value xml:lang="es">Unidad de volumen</value>
         <value xml:lang="th">ปริมาตรลูกบาศก์</value>
     </property>
     <property key="OrderCurrentStatus">
@@ -2662,7 +2658,6 @@
         <value xml:lang="en">Customer</value>
         <value xml:lang="es">Cliente</value>
         <value xml:lang="fr">Client</value>
-        <value xml:lang="es">Cliente</value>
         <value xml:lang="th">ลูกค้า</value>
     </property>
     <property key="OrderCustomerPo">
@@ -3076,7 +3071,6 @@
     <property key="OrderExcludeCategories">
         <value xml:lang="de">Kategorien ausschliessen</value>
         <value xml:lang="en">Exclude Categories</value>
-        <value xml:lang="en">unless they are in these categories:</value>
         <value xml:lang="es">Excluir categorías</value>
         <value xml:lang="fr">Catégories à exclure</value>
         <value xml:lang="hi_IN">जो न हो इन श्रेणी में</value>
@@ -3318,7 +3312,6 @@
         <value xml:lang="en">From Monday To Tuesday</value>
         <value xml:lang="es">De lunes a martes</value>
         <value xml:lang="fr">De lundi à mardi</value>
-        <value xml:lang="es">de lunes a jueves</value>
         <value xml:lang="th">จากวันจันทร์ถึงวันอังคาร</value>
     </property>
     <property key="OrderGift">
@@ -3469,7 +3462,6 @@
     </property>
     <property key="OrderImage">
         <value xml:lang="en">Image</value>
-        <value xml:lang="es">Imagen</value>
         <value xml:lang="es">Imagen</value>
         <value xml:lang="fr">Image</value>
         <value xml:lang="it">Immagine</value>
@@ -3814,19 +3806,6 @@
         <value xml:lang="th">กลับไปยังรายการรายการ</value>
         <value xml:lang="zh_CN">Items Backordered</value>
         <value xml:lang="zh">列入缺货通知单的明细</value>
-    </property>
-    <property key="OrderItemGroups">
-        <value xml:lang="en">Item Groups</value>
-        <value xml:lang="es">Grupo de Artículos</value>
-        <value xml:lang="fr">Groupes d'articles</value>
-        <value xml:lang="hi_IN">सामान संग्रह</value>
-        <value xml:lang="it">Gruppi di articoli</value>
-        <value xml:lang="ja">Item Groups</value>
-        <value xml:lang="nl">Item Groepering</value>
-        <value xml:lang="ro">Grupuri Linie</value>
-        <value xml:lang="ru">Группы позиций</value>
-        <value xml:lang="th">กลุ่มสินค้า</value>
-        <value xml:lang="zh">明细组</value>
     </property>
     <property key="OrderItemsOrdered">
         <value xml:lang="de">Bestellte Elemente</value>
@@ -4461,7 +4440,6 @@
         <value xml:lang="en">No Purchase Order Specified</value>
         <value xml:lang="es">Pedido de compra no especificado</value>
         <value xml:lang="fr">Aucune commande d'achat spécifiée</value>
-        <value xml:lang="es">Ningún pedido de compra especificado</value>
         <value xml:lang="th">ไม่มีรายการสั่งซื้อสินค้าที่ระบุ</value>
     </property>
     <property key="OrderNoPurchasePaymentMethod">
@@ -5286,7 +5264,6 @@
         <value xml:lang="de">Offertanpassungstyp ID</value>
         <value xml:lang="en">Quote Adjustment Type Id</value>
         <value xml:lang="es">Código del ajuste</value>
-        <value xml:lang="es">Tipo de ajuste</value>
         <value xml:lang="fr">Réf. de type d'ajustement de devis</value>
         <value xml:lang="th">รหัสประเภทการปรับเปลี่ยนคำร้อง</value>
     </property>
@@ -5869,7 +5846,6 @@
         <value xml:lang="en">Quote Work Effort Id</value>
         <value xml:lang="es">Código Esfuerzo de trabajo del presupuesto</value>
         <value xml:lang="fr">Réf. d'activité de devis</value>
-        <value xml:lang="es">Código de esfuerzo de trabajo</value>
         <value xml:lang="fr">Réf. de la tâche du devis</value>
         <value xml:lang="it">Preventivo Impegno di Lavoro</value>
         <value xml:lang="nl">Offerte Activiteit Id</value>
@@ -6597,7 +6573,6 @@
         <value xml:lang="en">** Note: If this state is a result of an automated activity, releasing may not have an effect until all conditions are met.</value>
         <value xml:lang="es">** Nota: Si este estado es el resultado de una actividad automática, los cambios no tendrán efecto hasta que todas las condiciones se cumplan.</value>
         <value xml:lang="fr">** Note : Si cet état est le résultat d'une activité automatisée, le débloquer ne peut avoir d'effet que lorsque tous les besoins seront remplis</value>
-        <value xml:lang="es">** Nota:si el estado es un resultado de una actividad automática, no se tendrá efecto ahsta que las condiciones sean alcanzadas.</value>
         <value xml:lang="it">** Nota: Se questo stato è un risultato di una attività automatica, il rilascio potrebbe non avere effetto fino a che tutte le condizioni sono rispettate.</value>
         <value xml:lang="nl">** Note: If this state is a result of an automated activity, releasing may not have an effect until all conditions are met.</value>
         <value xml:lang="ro">** Nota: Daca  aceasta stare este un rezultat al unei  activitati automatice, eliberarea sar putea sa nu aibe efect pana ce toate conditiile nu sunt respectate.</value>
@@ -7252,6 +7227,7 @@
         <value xml:lang="ro">Linii Returnari </value>
         <value xml:lang="ru">Возврат позиций</value>
         <value xml:lang="th">แสดงรายการ</value>
+        <value xml:lang="zh_CN">退货项目</value>
         <value xml:lang="zh">退货明细</value>
     </property>
     <property key="OrderReturnItemsFromOrder">
@@ -7909,19 +7885,6 @@
         <value xml:lang="th">สถานะสินค้าคงเหลือ</value>
         <value xml:lang="zh">库存状态</value>
     </property>
-    <property key="OrderReturnItems">
-        <value xml:lang="de">Retourenpositionen</value>
-        <value xml:lang="en">Return Items</value>
-        <value xml:lang="es">Ítems devueltos</value>
-        <value xml:lang="fr">Articles retournés</value>
-        <value xml:lang="it">Righe Reso</value>
-        <value xml:lang="nl">Return Items</value>
-        <value xml:lang="ro">Linii Returnare</value>
-        <value xml:lang="ru">Возвращаемые позиции</value>
-        <value xml:lang="th">กลับคืนสู่รายการ</value>
-        <value xml:lang="zh_CN">退货项目</value>
-        <value xml:lang="zh">退货明细</value>
-    </property>
     <property key="OrderReturnLoadItems">
         <value xml:lang="de">Elemente ab Auftrag für Retoure verwenden</value>
         <value xml:lang="en">Load order items for return</value>
@@ -8040,18 +8003,6 @@
         <value xml:lang="ru">Ответ</value>
         <value xml:lang="th">คำตอบ</value>
         <value xml:lang="zh">回答</value>
-    </property>
-    <property key="OrderReturnSelectedItems">
-        <value xml:lang="de">Ausgewählte Elemente zurückgeben</value>
-        <value xml:lang="en">Return Selected Item(s)</value>
-        <value xml:lang="es">Devolver ítems seleccionados</value>
-        <value xml:lang="fr">Retourner les articles sélectionnés</value>
-        <value xml:lang="it">Reso per la(e) Riga(e) Selezionate</value>
-        <value xml:lang="nl">Return Selected Item(s)</value>
-        <value xml:lang="ro">Returnare pentru liniile selectionate</value>
-        <value xml:lang="ru">Возврат выбранных позиций</value>
-        <value xml:lang="th">กลับสู่การเลือกรายการ</value>
-        <value xml:lang="zh">把所选的明细退货</value>
     </property>
     <property key="OrderReturnShipFromAddress">
         <value xml:lang="de">Bitte wählen Sie eine 'Versand von' Adresse aus</value>
@@ -8595,13 +8546,6 @@
         <value xml:lang="ru">Обычное значение поставки после</value>
         <value xml:lang="th">เลือกการขนส่งอัตโนมัติหลังวันที่</value>
         <value xml:lang="zh">缺省最早送货日期</value>
-    </property>
-    <property key="OrderShipAllAtOnce">
-        <value xml:lang="de">Alles auf einmal versenden oder sobald verfügbar</value>
-        <value xml:lang="en">Ship all at once, or 'as available'</value>
-        <value xml:lang="es">Enviar todos juntos o según disponibilidad</value>
-        <value xml:lang="fr">Expédier tout d'un coup, ou "comme disponible"</value>
-        <value xml:lang="th">การขนส่งทั้งหมดหนึ่งครั้ง หรือเท่าที่จะหาได้</value>
     </property>
     <property key="OrderShipAllItemsTogether">
         <value xml:lang="de">Alle Positionen zusammen versenden</value>
@@ -9806,7 +9750,6 @@
         <value xml:lang="en">WebSite</value>
         <value xml:lang="es">Sitio web</value>
         <value xml:lang="fr">Site web</value>
-        <value xml:lang="es">Web Site</value>
         <value xml:lang="th">เว็บไซต์</value>
     </property>
     <property key="OrderWeightMeasurement">
@@ -10873,7 +10816,7 @@
     </property>
     <property key="cart.amount_not_positive_number">
         <value xml:lang="en">Amount must be a positive number</value>
-        <value xml:lang="en">La quantité doit être un nombre positif</value>
+        <value xml:lang="fr">La quantité doit être un nombre positif</value>
     </property>    
     <property key="cart.category_not_specified_to_add_from">
         <value xml:lang="de">Keine Kategorie angegeben, aus der hinzugefügt werden kann.</value>
@@ -11618,7 +11561,6 @@
         <value xml:lang="de">Das Produkt mit der Nummer ${productId} konnte nicht gefunden werden.</value>
         <value xml:lang="en">Product not found, not adding to cart. [productId: ${productId}]</value>
         <value xml:lang="es">El producto no se ha encontrado, no se añade al carro. [código: ${productId}]</value>
-        <value xml:lang="es">Producto no encontrado, no agregado al carro [Código de producto: ${productId}]</value>
         <value xml:lang="fr">Article non trouvé, pas d'ajout dans le panier. [réf. : ${productId}]</value>
         <value xml:lang="it">Prodotto non trovato, non verrà aggiunto al carrello. [prodotto: ${productId}]</value>
         <value xml:lang="nl">Product not found, not adding to cart. [productId: ${productId}]</value>

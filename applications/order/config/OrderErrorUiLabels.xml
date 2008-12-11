@@ -442,9 +442,8 @@
     </property>
     <property key="OrderErrorCannotHaveUomWithoutDefaultUom">
         <value xml:lang="en">Error:  Cannot  Have  Uom  Without  Default  Uom</value>
-        <value xml:lang="es">Error: No se puede tener unidad de medida sin una por defecto</value>
-        <value xml:lang="fr">Erreur : impossible d'avoir une unité de mesure sans valeur par défaut</value>
         <value xml:lang="es">Error: No puede tener una unidad de medida si el ítem no tiene una unidad de medida por defecto</value>
+        <value xml:lang="fr">Erreur : impossible d'avoir une unité de mesure sans valeur par défaut</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด !  ไม่สามารถมีหน่วยวัดโดยไม่มีค่าเริ่มต้นของหน่วยวัด</value>
     </property>
     <property key="OrderErrorCannotResetOrderTotals">
