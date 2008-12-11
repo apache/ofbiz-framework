@@ -25,6 +25,9 @@ under the License.
         <menu-item name="viewprofile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${partyId}"/>
         </menu-item>
+        <menu-item name="preferences" title="${uiLabelMap.CommonPreferences}">
+            <link target="Preferences?partyId=${partyId}"/>
+        </menu-item>
         <menu-item name="viewroles" title="${uiLabelMap.PartyRoles}">
             <link target="viewroles?partyId=${partyId}"/>
         </menu-item>

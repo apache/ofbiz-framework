@@ -1088,7 +1088,19 @@ under the License.
          <security https="true" auth="true"/>
          <response name="success" type="view" value="PartyFinancialHistory"/>
          <response name="error" type="view" value="viewprofile"/>
-    </request-map>  
+    </request-map>
+    
+    <!-- preferences -->
+    <request-map uri="Preferences">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="Preferences"/>
+    </request-map>
+    <request-map uri="updatePreference">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="setUserPreference"/>
+        <response name="success" type="view" value="Preferences"/>
+        <response name="error" type="view" value="Preferences"/>
+    </request-map>
     <!-- end of request mappings -->
         
     <!-- View Mappings -->
@@ -1201,5 +1213,6 @@ under the License.
     <view-map name="EditPartyResumes" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#EditPartyResumes"/>
     <view-map name="EditEmploymentApps" type="screen" page="component://humanres/widget/EmploymentAppScreens.xml#EditEmploymentApps"/>
     <view-map name="PartyFinancialHistory" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#PartyFinancialHistory"/>
+    <view-map name="Preferences" type="screen" page="component://party/widget/partymgr/PartyScreens.xml#Preferences"/>
     <!-- end of view mappings -->
 </site-conf>

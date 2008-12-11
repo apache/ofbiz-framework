@@ -928,5 +928,28 @@ under the License.
         <field name="description" title="${uiLabelMap.CommonDescription}" required-field="true"><text/></field>
         <field name="save" title="${uiLabelMap.CommonSave}"><submit/></field>
     </form>
-    
+    <form name="ListPreference" type="list" target="updatePreference?partyId=${partyId}" list-name="userPreferences" 
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar" separate-columns="true" use-row-submit="true" >
+        <row-actions>
+            <service service-name="getUserPreference" result-map-name="values">
+                <field-map field-name="userPrefTypeId" env-name="enumId"/>
+            </service>
+            <set field="partyId" from-field="values.userPrefValue"/>
+            <set field="visualThemeId" from-field="values.userPrefValue"/>
+        </row-actions>
+        <field name="enumId" parameter-name="userPrefTypeId"><hidden value="${enumId}"/></field>
+        <field name="enumTypeId" parameter-name="userPrefGroupTypeId"><hidden value="${enumTypeId}"/></field>
+        <field name="description" title="${uiLabelMap.CommonName}"><display/></field>
+        <field name="partyId" title="${uiLabelMap.CommonValue}" use-when="enumId.equals(&quot;ORGANIZATION_PARTY&quot;)" parameter-name="userPrefValue" >
+            <drop-down current="selected">
+                <entity-options entity-name="PartyAcctgAndName" description="${firstName} ${lastName} ${groupName}"/>
+            </drop-down>
+        </field>
+        <field name="visualThemeId" title="${uiLabelMap.CommonEmptyHeader}" use-when="enumId.equals(&quot;VISUAL_THEME&quot;)" parameter-name="userPrefValue">
+            <drop-down current="selected">
+                <entity-options entity-name="VisualTheme" description="${description}"/>
+            </drop-down>
+        </field>
+        <field name="submit" title="${uiLabelMap.CommonUpdate}"><submit/></field>
+    </form>
 </forms>

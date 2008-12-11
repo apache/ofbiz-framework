@@ -2627,4 +2627,20 @@ under the License.
             <key-map field-name="partyId"/>
         </relation>
     </extend-entity>
+    <view-entity entity-name="PartyAcctgAndName"
+        package-name="org.ofbiz.party.party"
+        title="PartyAcctgPreference and PartyNameView Entity">
+      <member-entity entity-alias="PTYACCPREF" entity-name="PartyAcctgPreference"/>
+      <member-entity entity-alias="PTYNVIEW" entity-name="PartyNameView"/>
+      <alias entity-alias="PTYACCPREF"  name="partyId" />
+      <alias entity-alias="PTYNVIEW"  name="firstName"/>
+      <alias entity-alias="PTYNVIEW"  name="middleName"/>
+      <alias entity-alias="PTYNVIEW"  name="lastName"/>
+      <alias entity-alias="PTYNVIEW"  name="groupName"/>
+      <alias entity-alias="PTYNVIEW"  name="partyTypeId"/>
+      <alias entity-alias="PTYNVIEW"  name="description"/>
+      <view-link entity-alias="PTYACCPREF" rel-entity-alias="PTYNVIEW">
+        <key-map field-name="partyId"/>
+      </view-link>
+    </view-entity>
 </entitymodel>
