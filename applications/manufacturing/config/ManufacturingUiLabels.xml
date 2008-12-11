@@ -65,7 +65,6 @@
         <value xml:lang="de">Zeitpunkt des Abbruchs</value>
         <value xml:lang="en">Cancel Date Time</value>
         <value xml:lang="es">Fecha y hora de cancelación</value>
-        <value xml:lang="it">Data/Ora di Annullamento</value>
         <value xml:lang="fr">Date et heure d'annulation</value>
         <value xml:lang="it">Data/Ora di Annullamento</value>
         <value xml:lang="th">ยกเลิกวัน เวลา</value>
@@ -548,7 +547,6 @@
         <value xml:lang="en">Type</value>
         <value xml:lang="es">Tipo</value>
         <value xml:lang="fr">Type</value>
-        <value xml:lang="es">Tipo</value>
         <value xml:lang="it">Tipo</value>
         <value xml:lang="ro">Tip</value>
         <value xml:lang="th">ประเภท</value>
@@ -989,7 +987,6 @@
         <value xml:lang="de">Annulliert</value>
         <value xml:lang="en">Cancel</value>
         <value xml:lang="es">Cancelar</value>
-        <value xml:lang="it">Annulla</value>
         <value xml:lang="fr">Annulation</value>
         <value xml:lang="it">Annulla</value>
         <value xml:lang="ro">Sterge</value>
@@ -1664,13 +1661,9 @@
         <value xml:lang="zh">交付部件</value>
     </property>
     <property key="ManufacturingIssueAvailableProductionRunTask">
-        <value xml:lang="en">Issue Components (ATP)</value>
-        <value xml:lang="es">Emitir componentes (ATP)</value>
-        <value xml:lang="it">Preleva i Componenti (ATP)</value>
-    </property>
-    <property key="ManufacturingIssueAvailableProductionRunTask">
         <value xml:lang="de">Komponenten ausgeben (ATP)</value>
         <value xml:lang="en">Issue Components (ATP)</value>
+        <value xml:lang="es">Emitir componentes (ATP)</value>
         <value xml:lang="fr">Composants publiés (ATP)</value>
         <value xml:lang="it">Preleva i Componenti (ATP)</value>
     </property>
@@ -1870,7 +1863,6 @@
         <value xml:lang="en">NOTE: This application is currently in development. This page will change.</value>
         <value xml:lang="es">NOTA: La aplicación aún se encuentra en desarrollo. Es muy probable que la página cambie en las siguientes versiones.</value>
         <value xml:lang="fr">Aide sur l'application de gestion de production</value>
-        <value xml:lang="es">NOTA: La aplicación aún se encuentra en desarrollo. Es muy probable que la página cambie en las siguientes versiones.</value>
         <value xml:lang="fr">NOTE : Cette application est actuellement à l'étude. Cette page changera.</value>
         <value xml:lang="it">NOTA: Questa applicazione è attualmente in sviluppo. Questa pagina verrà cambiata.</value>
         <value xml:lang="ro">NOTA: Aceasta aplicatie este in Executie.Aceasta pagina va fi schimbata.</value>
@@ -2156,7 +2148,6 @@
     </property>
     <property key="ManufacturingProduceQuantity">
         <value xml:lang="en">Stock in</value>
-        <value xml:lang="es">A stock</value>
         <value xml:lang="es">Invetario</value>
         <value xml:lang="fr">Stock</value>
         <value xml:lang="it">Quantità in Giacenza</value>
@@ -2529,10 +2520,6 @@
     <property key="ManufacturingQuantityProducedIsHigherThanQuantityDeclared">
         <value xml:lang="en">Quantity produced cannot be greater than the quantity declared.</value>
         <value xml:lang="es">La cantidad producido no debe ser mayor que la declarada.</value>
-        <value xml:lang="it">La quantità prodotta non puo' essere maggiore della quantita' dichiarata.</value>
-    </property>
-    <property key="ManufacturingQuantityProducedIsHigherThanQuantityDeclared">
-        <value xml:lang="en">Quantity produced cannot be greater than the quantity declared.</value>
         <value xml:lang="fr">La quantité produite ne peut pas être plus importante que la quantité affichée.</value>
         <value xml:lang="it">La quantità prodotta non puo' essere maggiore della quantita' dichiarata.</value>
     </property>
@@ -2570,7 +2557,6 @@
         <value xml:lang="de">Schnelles Schließen</value>
         <value xml:lang="en">Quick Close</value>
         <value xml:lang="es">Cerrado rápido</value>
-        <value xml:lang="it">Chiusura veloce</value>
         <value xml:lang="fr">Fermer rapidement</value>
         <value xml:lang="it">Chiusura veloce</value>
         <value xml:lang="ro">Inchidere Rapida</value>
@@ -2598,13 +2584,9 @@
         <value xml:lang="zh">快速运行全部任务</value>
     </property>
     <property key="ManufacturingQuickStartAllTasks">
-        <value xml:lang="en">Quick Start All Tasks</value>
-        <value xml:lang="es">Empezar todas las tareas rápido</value>
-        <value xml:lang="it">Avvio Veloce Operazioni</value>
-    </property>
-    <property key="ManufacturingQuickStartAllTasks">
         <value xml:lang="de">Schnellstart alle Arbeitsgänge</value>
         <value xml:lang="en">Quick Start All Tasks</value>
+        <value xml:lang="es">Empezar todas las tareas rápido</value>
         <value xml:lang="fr">Démarrer rapidement toutes les opérations</value>
         <value xml:lang="it">Avvio Veloce Operazioni</value>
     </property>
@@ -2657,7 +2639,6 @@
         <value xml:lang="de">Start-Datum Bedarf</value>
         <value xml:lang="en">Requirement Start Date</value>
         <value xml:lang="es">Fecha de comienzo del requisito</value>
-        <value xml:lang="fr">%ManufacturingRequirementStartDate%</value>
         <value xml:lang="fr">Date de début de besoin de fabrication</value>
         <value xml:lang="th">วันเริ่มต้นของความต้องการ</value>
     </property>
@@ -3443,7 +3424,6 @@
         <value xml:lang="en">Find Inventory Event Planned</value>
         <value xml:lang="es">Buscar eventos de plan de stock</value>
         <value xml:lang="fr">Liste des mouvements de stock planifiés</value>
-        <value xml:lang="es">Buscar plan de stock</value>
         <value xml:lang="fr">Recherche de mouvements de stock planifiés</value>
         <value xml:lang="it">Ricerca Evento Inventario Pianificato</value>
         <value xml:lang="ro">Cauta Eveniment Inventar Planificat</value>
@@ -3491,14 +3471,9 @@
         <value xml:lang="zh">查找 - 编辑规程任务</value>
     </property>
     <property key="PageTitleListRoutingTaskAssoc">
-        <value xml:lang="en">List Routing Task Assoc</value>
-        <value xml:lang="es">Listar asociaciones de tareas</value>
-        <value xml:lang="it">Lista Associazioni Operazioni</value>
-        <value xml:lang="th">รายการกลลุ่มของงาน</value>
-    </property>
-    <property key="PageTitleListRoutingTaskAssoc">
         <value xml:lang="de">Arbeitsgang-Zuordnung suchen</value>
         <value xml:lang="en">List Routing Task Assoc</value>
+        <value xml:lang="es">Listar asociaciones de tareas</value>
         <value xml:lang="fr">Liste d'association des opérations de gamme</value>
         <value xml:lang="it">Lista Associazioni Operazioni</value>
         <value xml:lang="th">รายการกลลุ่มของงาน</value>
