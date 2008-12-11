@@ -95,10 +95,10 @@ under the License.
                 <entity-and list-name="commEvents" entity-name="CommunicationEventAndCustRequest">
                     <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
                 </entity-and>
-                <entity-and list-name="notes" entity-name="CustRequestItemNoteView">
-                    <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
-                    <order-by  field-name="custRequestItemSeqId"/>
-                </entity-and>
+                <entity-condition entity-name="CustRequestItemNoteView" list-name="custRequestItemNoteViews">
+                    <condition-expr field-name="custRequestId" operator="equals" env-name="parameters.custRequestId"/>
+                    <order-by  field-name="-noteDateTime"/>
+                </entity-condition>
                 <entity-and entity-name="CustRequestContent" list-name="custRequestContents" filter-by-date="true">
                     <field-map field-name="custRequestId" env-name="custRequestId"/>
                 </entity-and>
@@ -113,12 +113,9 @@ under the License.
                             <screenlet title="${uiLabelMap.OrderRequest} ${custRequest.custRequestId} ${uiLabelMap.CommonInformation}">
                                 <include-form name="requestInfo" location="component://order/webapp/ordermgr/request/RequestForms.xml"/>
                             </screenlet>
-                            <screenlet title="${uiLabelMap.PageTitleRequestItems}">
-                                <include-form name="OverviewRequestItems" location="component://projectmgr/widget/forms/RequestForms.xml"/>
-                            </screenlet>
-                            <screenlet title="${uiLabelMap.PageTitleRequestItemNotes}">
-                                <include-form name="ListRequestItemNotes" location="component://projectmgr/widget/forms/RequestForms.xml"/>
-                            </screenlet>
+                            <platform-specific>
+                                <html><html-template location="component://projectmgr/webapp/projectmgr/request/overViewRequestItems.ftl"/></html>
+                            </platform-specific>
                         </container>
                         <container style="righthalf">                           
                             <platform-specific>
