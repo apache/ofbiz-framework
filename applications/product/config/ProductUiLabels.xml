@@ -3654,7 +3654,7 @@
         <value xml:lang="de">Benötigt E-Mail Adresse oder Akteur</value>
         <value xml:lang="en">Require Email Or Party</value>
         <value xml:lang="es">Exigir correo electrónico o participante</value>
-        <value xml:lang="fr">Email ou acteur requis</value>
+        <value xml:lang="fr">Courriel ou acteur requis</value>
         <value xml:lang="it">Richiesta Email O Soggetto</value>
         <value xml:lang="ro">Cerere Email sau Subiect</value>
         <value xml:lang="ru">Требуется эл.почта или участник</value>
@@ -4415,7 +4415,7 @@
         <value xml:lang="de">Verwende Haupt E-Mail Benutzername</value>
         <value xml:lang="en">Use Primary Email Username</value>
         <value xml:lang="es">Usar nombre del email primario</value>
-        <value xml:lang="fr">Utiliser le nom de l'email principal</value>
+        <value xml:lang="fr">Utiliser le nom du courriel principal</value>
         <value xml:lang="it">Usa Nome Utente Primario Email</value>
         <value xml:lang="ro">Foloseste Nume Utilizator Primar Email</value>
         <value xml:lang="ru">Использовать как имя пользователя основной еmail</value>
@@ -20052,7 +20052,7 @@
         <value xml:lang="de">E-mail Inhalt aktualisieren für Produkt</value>
         <value xml:lang="en">Update Email Content for Product</value>
         <value xml:lang="es">Actualizar Contenido de email para producto</value>
-        <value xml:lang="fr">Mettre à jour le contenu de l'email de l'article</value>
+        <value xml:lang="fr">Mettre à jour le contenu du courriel de l'article</value>
         <value xml:lang="it">Aggiorna Conutenuto Email per Prodotto</value>
         <value xml:lang="ro">Actualizeaza Continutul Email pentru Produs</value>
         <value xml:lang="ru">Обновить для продукта Отправить контент по эл. почте</value>
