@@ -2111,7 +2111,7 @@
         <value xml:lang="ar">رسالة البريد الإلكتروني مع الفاتورة المعلقة: ${parameters.invoiceId} مبرمجة للإرسال ...</value>
         <value xml:lang="en">Email message with attached invoice: ${parameters.invoiceId} scheduled to be sent....</value>
         <value xml:lang="es">Mensaje de correo electrónico con factura adjunta: ${parameters.invoiceId} programado para ser enviado....</value>
-        <value xml:lang="fr">Email avec facture en pièce jointe: ${parameters.invoiceId} prêt à être envoyé....</value>
+        <value xml:lang="fr">Courriel avec facture en pièce jointe: ${parameters.invoiceId} prêt à être envoyé....</value>
         <value xml:lang="it">Messaggio Email con fattura allegata: ${parameters.invoiceId} schedulata per essere inviata....</value>
         <value xml:lang="nl">E-mailbericht met de bijgevoegde factuur [${parameters.invoiceId}] is ingeplanned om te verzenden</value>
         <value xml:lang="ro">Mesaj Email cu Factura anexata: ${parameters.invoiceId} impaginata  pentru a putea fi expediata....</value>
@@ -5089,7 +5089,7 @@
     </property>
     <property key="AccountingPartyGlAccounts">
         <value xml:lang="en">Party Gl Accounts</value>
-        <value xml:lang="fr">Comptes d'acteur (GL)</value>
+        <value xml:lang="fr">Comptes de tiers</value>
         <value xml:lang="nl">GB-rekeningen relatie</value>
         <value xml:lang="th">กลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
@@ -5953,13 +5953,13 @@
     </property>
     <property key="AccountingProductCategoryGlAccount">
         <value xml:lang="en">Product Category Gl Account</value>
-        <value xml:lang="fr">Compte de catégorie de produit (GL)</value>
+        <value xml:lang="fr">Compte de catégorie de produit</value>
         <value xml:lang="nl">GB-rekening Productcategorie</value>
         <value xml:lang="th">หมวดหมู่สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
     <property key="AccountingProductGlAccount">
         <value xml:lang="en">Product GL Accounts</value>
-        <value xml:lang="fr">Comptes de produit (GL)</value>
+        <value xml:lang="fr">Comptes de produit</value>
         <value xml:lang="nl">GB-rekeningen Product</value>
         <value xml:lang="th">สินค้าบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -6170,7 +6170,7 @@
     </property>
     <property key="AccountingSetup">
         <value xml:lang="en">Setup</value>
-        <value xml:lang="fr">Installation</value>
+        <value xml:lang="fr">Configuration</value>
         <value xml:lang="nl">Configuratie</value>
         <value xml:lang="th">ติดตั้ง</value>
     </property>
@@ -6415,7 +6415,7 @@
     </property>
     <property key="AccountingTaxAuthorityGlAccounts">
         <value xml:lang="en">TaxAuthority GL Accounts </value>
-        <value xml:lang="fr">Comptes de l'administration fiscale (GL)</value>
+        <value xml:lang="fr">Comptes de l'administration fiscale</value>
         <value xml:lang="nl">GB-rekeningen belastinginstantie(s)</value>
         <value xml:lang="th">ภาษีบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -7373,7 +7373,7 @@
         <value xml:lang="ar">نص البريد الإلكتروني</value>
         <value xml:lang="en">Email Body</value>
         <value xml:lang="es">Cuerpo del correo eletrónico</value>
-        <value xml:lang="fr">Corps de l'email</value>
+        <value xml:lang="fr">Corps du courriel</value>
         <value xml:lang="it">Corpo Email</value>
         <value xml:lang="nl">Tekst e-mail</value>
         <value xml:lang="ro">Corp Email</value>
@@ -7619,7 +7619,7 @@
         <value xml:lang="ar">نسخ عنوان البريد الإلكتروني</value>
         <value xml:lang="en">Copy Emailadress</value>
         <value xml:lang="es">Copia de dirección de correo electrónico</value>
-        <value xml:lang="fr">Adresse email en copie</value>
+        <value xml:lang="fr">Adresse courriel en copie</value>
         <value xml:lang="it">Copia indirizzo Email</value>
         <value xml:lang="nl">Kopieer e-mailadres</value>
         <value xml:lang="ro">Copie adresa Email</value>
@@ -7631,7 +7631,7 @@
         <value xml:lang="ar">من عنوان البريد الإلكتروني</value>
         <value xml:lang="en">From Emailadress</value>
         <value xml:lang="es">Dirección de correo electrónico de origen</value>
-        <value xml:lang="fr">Adresse email expéditeur</value>
+        <value xml:lang="fr">Adresse courriel expéditeur</value>
         <value xml:lang="it">Da indirizzo Email</value>
         <value xml:lang="nl">Van e-mailadres</value>
         <value xml:lang="ro">De la adresa Email</value>
@@ -7643,7 +7643,7 @@
         <value xml:lang="ar">إلى عنوان البريد الإلكتروني</value>
         <value xml:lang="en">To Emailadress</value>
         <value xml:lang="es">Dirección de correo electrónico destino</value>
-        <value xml:lang="fr">Adresse email destinataire</value>
+        <value xml:lang="fr">Adresse courriel destinataire</value>
         <value xml:lang="it">All'indirizzo Email</value>
         <value xml:lang="nl">Naar e-mailadres</value>
         <value xml:lang="ro">la adresa</value>
@@ -8573,7 +8573,7 @@
     </property>
     <property key="FormFieldTitle_postToGlAccountId">
         <value xml:lang="en">Post To Gl Account Id</value>
-        <value xml:lang="fr">Comptabilisé à la réf. de compte (GL)</value>
+        <value xml:lang="fr">Comptabilisé à la réf. de compte</value>
         <value xml:lang="it">Contabilizza su Conto Gl</value>
         <value xml:lang="nl">Boeken op GB-rekening</value>
         <value xml:lang="ru">На счет ГК с кодом</value>
@@ -9603,7 +9603,7 @@
     </property>
     <property key="PageTitleEditPartyGlAccounts">
         <value xml:lang="en">Edit Party Gl Accounts</value>
-        <value xml:lang="fr">Modifier les comptes de tiers (GL)</value>
+        <value xml:lang="fr">Modifier les comptes de tiers</value>
         <value xml:lang="nl">Gb-rekeningen relatie aanpassen</value>
         <value xml:lang="th">แก้ไขกลุ่มผู้ใช้บัญชีแยกประเภททั่วไป</value>
     </property>
@@ -9758,7 +9758,7 @@
     </property>
     <property key="PageTitleFindGlAccount">
         <value xml:lang="en">PageTitleFindGlAccount</value>
-        <value xml:lang="fr">Chercher un compte (GL)</value>
+        <value xml:lang="fr">Chercher un compte</value>
         <value xml:lang="nl">Vind GB-rekening(en)</value>
         <value xml:lang="th">ค้นหาบัญชีแยกประเภททั่วไป</value>
     </property>
@@ -10184,7 +10184,7 @@
     <property key="PageTitleSendInvoicePerEmail">
         <value xml:lang="en">Send Invoice per email</value>
         <value xml:lang="es">Envíar factura por correo electrónico</value>
-        <value xml:lang="fr">Envoyer la facture par email</value>
+        <value xml:lang="fr">Envoyer la facture par courriel</value>
         <value xml:lang="it">Invia Fattura per email</value>
         <value xml:lang="nl">factuur per e-mail zenden</value>
         <value xml:lang="ro">Expediaza Factura prin e-mail</value>

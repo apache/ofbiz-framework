@@ -2626,7 +2626,7 @@
     <property key="EcommerceThisEmailIsInResponseToYourRequestToHave">
         <value xml:lang="de">Dieses E-Mail ist eine Antwort auf Ihre Anfrage zu </value>
         <value xml:lang="en">This email is in response to your request to have</value>
-        <value xml:lang="fr">Cette email vous ait envoyé suite à votre demande d'obtenir</value>
+        <value xml:lang="fr">Ce courriel en réponse à votre demande d'obtenir</value>
         <value xml:lang="it">Questa email ti è stata inviata in seguito alla tua richiesta.</value>
         <value xml:lang="th">คำร้องของคุณมีการตอบในอีเมลนี้</value>
     </property>
