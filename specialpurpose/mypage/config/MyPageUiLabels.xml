@@ -76,11 +76,11 @@
     </property>
     <property key="MyCompletedCustomerRequests">
         <value xml:lang="en">My Completed Customer Requests</value>
-        <value xml:lang="en">Mes demandes de clients terminées</value>
+        <value xml:lang="fr">Mes demandes de clients terminées</value>
     </property>
     <property key="MyOpenCustomerRequests">
         <value xml:lang="en">My Open Customer Requests</value>
-        <value xml:lang="en">Mes demandes de clients en-cours</value>
+        <value xml:lang="fr">Mes demandes de clients en-cours</value>
     </property>
     <property key="MyPageNoAccess1">
         <value xml:lang="en">No Access priviledges has been setup.</value>
