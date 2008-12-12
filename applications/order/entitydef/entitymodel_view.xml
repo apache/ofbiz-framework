@@ -747,7 +747,7 @@ under the License.
     <view-entity entity-name="OrderItemShipGrpInvResAndItemLocation"
             package-name="org.ofbiz.order.order"
             never-cache="true"
-            title="Order Item Inventory Reservation and Inventory Item View Entity">
+            title="Order Item Inventory Reservation and Inventory Item and FacilityLocation View Entity">
       <member-entity entity-alias="OISGIR" entity-name="OrderItemShipGrpInvRes"/>
       <member-entity entity-alias="OI" entity-name="OrderItem"/>
       <member-entity entity-alias="II" entity-name="InventoryItem"/>
