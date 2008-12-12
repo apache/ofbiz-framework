@@ -161,7 +161,7 @@ under the License.
     <view-entity entity-name="UserLoginAndSecurityGroup"
           package-name="org.ofbiz.security.securitygroup"
           never-cache="true"
-          title="Order Item Inventory Reservation and Inventory Item View Entity">
+          title="UserLogin And SecurityGroup View Entity">
       <member-entity entity-alias="ULSG" entity-name="UserLoginSecurityGroup"/>
       <member-entity entity-alias="UL" entity-name="UserLogin"/>
       <alias-all entity-alias="ULSG"/>
