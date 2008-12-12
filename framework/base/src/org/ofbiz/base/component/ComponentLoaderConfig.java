@@ -52,7 +52,7 @@ public class ComponentLoaderConfig {
     public static List<ComponentDef> getRootComponents(String configFile) throws ComponentException {
         if (componentsToLoad == null) {
             synchronized (ComponentLoaderConfig.class) {
-                if (componentsToLoad ==  null) {
+                if (componentsToLoad == null) {
                     if (configFile == null) {
                         configFile = COMPONENT_LOAD_XML_FILENAME;
                     }

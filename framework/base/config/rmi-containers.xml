@@ -32,7 +32,7 @@ under the License.
     </container>
     
     <!-- RMI Service Dispatcher -->
-        <container name="rmi-dispatcher" class="org.ofbiz.service.rmi.RmiServiceContainer">
+    <container name="rmi-dispatcher" class="org.ofbiz.service.rmi.RmiServiceContainer">
         <property name="bound-name" value="RMIDispatcher"/>
         <property name="bound-host" value="127.0.0.1"/>
         <property name="bound-port" value="1099"/>
