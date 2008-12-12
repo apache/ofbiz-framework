@@ -84,7 +84,7 @@
     </property>
     <property key="MyPageNoAccess1">
         <value xml:lang="en">No Access priviledges has been setup.</value>
-        <value xml:lang="fr">Aucun accès provolégié n'a été paramétré.</value>
+        <value xml:lang="fr">Aucun accès privilégié n'a été paramétré.</value>
     </property>
     <property key="MyPageNoAccess2">
         <value xml:lang="en">You do not have access to any functions in the MyPage subsystem, please contact your system admin</value>
