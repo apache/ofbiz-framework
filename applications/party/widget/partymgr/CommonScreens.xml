@@ -134,9 +134,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <platform-specific>
-                                    <html><html-template location="component://party/webapp/partymgr/security/SecurityGroupTabBar.ftl"/></html>
-                                </platform-specific>
+                                <include-menu name="SecurityGroupTabBar" location="component://party/widget/Menus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
