@@ -593,7 +593,6 @@
         <value xml:lang="en">ATP Date</value>
         <value xml:lang="es">Fecha ATP</value>
         <value xml:lang="fr">Date ATP</value>
-        <value xml:lang="fr">ATP à date</value>
         <value xml:lang="it">Data ATP</value>
         <value xml:lang="ro">Data ATP</value>
         <value xml:lang="th">วัน ATP</value>
@@ -604,7 +603,6 @@
         <value xml:lang="en">Completion Date</value>
         <value xml:lang="es">Fecha de fin real</value>
         <value xml:lang="fr">Date d'achèvement</value>
-        <value xml:lang="fr">Completion Date</value>
         <value xml:lang="it">Data Completamento</value>
         <value xml:lang="ro">Data Completament</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>
@@ -1587,8 +1585,7 @@
         <value xml:lang="de">Geplantes Bestands-Ereigniss</value>
         <value xml:lang="en">Inventory Event Planned</value>
         <value xml:lang="es">Movimiento de stock planeado</value>
-        <value xml:lang="fr">mouvements de stock planifiés</value>
-        <value xml:lang="fr">Inventaire d'événements planifié</value>
+        <value xml:lang="fr">Mouvements de stock planifiés</value>
         <value xml:lang="ro">Inventar Eveniment Planificat</value>
         <value xml:lang="th">ประมาณสินค้าคงเหลือ</value>
         <value xml:lang="zh">已计划的库存事件</value>
@@ -1862,7 +1859,6 @@
     <property key="ManufacturingMainPageNote">
         <value xml:lang="en">NOTE: This application is currently in development. This page will change.</value>
         <value xml:lang="es">NOTA: La aplicación aún se encuentra en desarrollo. Es muy probable que la página cambie en las siguientes versiones.</value>
-        <value xml:lang="fr">Aide sur l'application de gestion de production</value>
         <value xml:lang="fr">NOTE : Cette application est actuellement à l'étude. Cette page changera.</value>
         <value xml:lang="it">NOTA: Questa applicazione è attualmente in sviluppo. Questa pagina verrà cambiata.</value>
         <value xml:lang="ro">NOTA: Aceasta aplicatie este in Executie.Aceasta pagina va fi schimbata.</value>
@@ -1947,8 +1943,7 @@
         <value xml:lang="de">MRP-Initialisierung</value>
         <value xml:lang="en">IEP init.</value>
         <value xml:lang="es">Inic. MRP</value>
-        <value xml:lang="fr">Init. Mrp</value>
-        <value xml:lang="fr">Init. IEP</value>
+        <value xml:lang="fr">Init. MRP</value>
         <value xml:lang="it">IEP init.</value>
         <value xml:lang="ro">IEP init.</value>
         <value xml:lang="th">ข้อมูลความต้องการโดยประมาณในเบื้องต้น</value>
@@ -2631,7 +2626,6 @@
         <value xml:lang="de">Bedarfs-Nr.</value>
         <value xml:lang="en">Requirement Id</value>
         <value xml:lang="es">Código de requisito</value>
-        <value xml:lang="fr">référence de l'ordre proposé</value>
         <value xml:lang="fr">Réf. de besoin de fabrication</value>
         <value xml:lang="th">รหัสความต้องการ</value>
     </property>
@@ -3052,7 +3046,6 @@
         <value xml:lang="de">Zeitraum</value>
         <value xml:lang="en">Time Period</value>
         <value xml:lang="es">Intervalo de tiempo</value>
-        <value xml:lang="fr">Période de regroupement</value>
         <value xml:lang="fr">Période de temps</value>
         <value xml:lang="th">ระยะเวลา</value>
     </property>
@@ -3423,7 +3416,6 @@
         <value xml:lang="de">Geplantes Bestands-Ereigniss suchen</value>
         <value xml:lang="en">Find Inventory Event Planned</value>
         <value xml:lang="es">Buscar eventos de plan de stock</value>
-        <value xml:lang="fr">Liste des mouvements de stock planifiés</value>
         <value xml:lang="fr">Recherche de mouvements de stock planifiés</value>
         <value xml:lang="it">Ricerca Evento Inventario Pianificato</value>
         <value xml:lang="ro">Cauta Eveniment Inventar Planificat</value>
