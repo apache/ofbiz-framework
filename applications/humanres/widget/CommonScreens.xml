@@ -314,7 +314,7 @@ under the License.
                                 </and>
                             </condition>
                             <widgets>
-                                <include-menu name="ProfileTabBar" location="component://humanres/widget/Menus.xml"/>
+                                <include-menu name="EmployeeProfileTabBar" location="component://humanres/widget/Menus.xml"/>
                             </widgets>
                         </section>
                     </decorator-section>
