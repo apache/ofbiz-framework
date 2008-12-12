@@ -508,33 +508,100 @@ public class UtilMisc {
         theSet.add(element);
     }
     
-    public static long toLong(Object value) {
-        if (value != null) {
-            // FIXME: Handle java.lang.Number?
-            if (value instanceof Long) {
-                return ((Long) value).longValue();
-            } else if (value instanceof String) {
-                return Long.parseLong((String) value);
-            }
-        }
-        return 0;
+    /** Converts an <code>Object</code> to a <code>double</code>. Returns
+     * zero if conversion is not possible.
+     * @param obj Object to convert
+     * @return double value
+     */
+    public static double toDouble(Object obj) {
+        Double result = toDoubleObject(obj);
+        return result == null ? 0.0 : result.doubleValue();
     }
 
-    /**
-     * Returns a double from value, where value could either be a Double or a String
-     * @param value
-     * @return the converted double
+    /** Converts an <code>Object</code> to a <code>Double</code>. Returns
+     * <code>null</code> if conversion is not possible.
+     * @param obj Object to convert
+     * @return Double
      */
-    public static double toDouble(Object value) {
-        if (value != null) {
-            // FIXME: Handle java.lang.Number?
-            if (value instanceof Double) {
-                return ((Double) value).doubleValue();
-            } else if (value instanceof String) {
-                return Double.parseDouble((String) value);
-            }
+    public static Double toDoubleObject(Object obj) {
+        if (obj == null) {
+            return null;
         }
-        return 0.0;
+        if (obj instanceof Double) {
+            return (Double) obj;
+        }
+        if (obj instanceof Number) {
+            return new Double(((Number)obj).doubleValue());
+        }
+        Double result = null;
+        try {
+            result = Double.parseDouble(obj.toString());
+        } catch (Exception e) {}
+        return result;
+    }
+
+    /** Converts an <code>Object</code> to an <code>int</code>. Returns
+     * zero if conversion is not possible.
+     * @param obj Object to convert
+     * @return int value
+     */
+    public static int toInteger(Object obj) {
+        Integer result = toIntegerObject(obj);
+        return result == null ? 0 : result.intValue();
+    }
+
+    /** Converts an <code>Object</code> to an <code>Integer</code>. Returns
+     * <code>null</code> if conversion is not possible.
+     * @param obj Object to convert
+     * @return Integer
+     */
+    public static Integer toIntegerObject(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof Integer) {
+            return (Integer) obj;
+        }
+        if (obj instanceof Number) {
+            return new Integer(((Number)obj).intValue());
+        }
+        Integer result = null;
+        try {
+            result = Integer.parseInt(obj.toString());
+        } catch (Exception e) {}
+        return result;
+    }
+
+    /** Converts an <code>Object</code> to a <code>long</code>. Returns
+     * zero if conversion is not possible.
+     * @param obj Object to convert
+     * @return long value
+     */
+    public static long toLong(Object obj) {
+        Long result = toLongObject(obj);
+        return result == null ? 0 : result.longValue();
+    }
+
+    /** Converts an <code>Object</code> to a <code>Long</code>. Returns
+     * <code>null</code> if conversion is not possible.
+     * @param obj Object to convert
+     * @return Long
+     */
+    public static Long toLongObject(Object obj) {
+        if (obj == null) {
+            return null;
+        }
+        if (obj instanceof Long) {
+            return (Long) obj;
+        }
+        if (obj instanceof Number) {
+            return new Long(((Number)obj).longValue());
+        }
+        Long result = null;
+        try {
+            result = Long.parseLong(obj.toString());
+        } catch (Exception e) {}
+        return result;
     }
 
     /**
