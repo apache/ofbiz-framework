@@ -175,6 +175,24 @@ under the License.
         </field>
         <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field> 
         <field name="submitButton" title="${uiLabelMap.CommonLookup}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        
+        <sort-order>
+            <field-group>
+                <sort-field name="productCategoryId"/>
+                <sort-field name="categoryName"/>
+            </field-group>
+            <field-group title="${uiLabelMap.ProductAdvancedSearch}" collapsible="true" initially-collapsed="true">
+                <sort-field name="productCategoryTypeId"/>
+                <sort-field name="primaryParentCategoryId"/>
+                <sort-field name="description"/>
+                <sort-field name="longDescription"/>
+                <sort-field name="showInSelect"/>
+                <sort-field name="categoryImageUrl"/>
+                <sort-field name="linkOneImageUrl"/>
+                <sort-field name="linkTwoImageUrl"/>
+                <sort-field name="detailScreen"/>
+            </field-group>
+        </sort-order>
     </form>
     <form name="listLookupProductCategory" list-name="listIt" title="" type="list"
         paginate-target="LookupProductCategory" odd-row-style="alternate-row" default-table-style="basic-table" view-size="20">
