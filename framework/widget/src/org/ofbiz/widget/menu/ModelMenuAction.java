@@ -132,7 +132,7 @@ public abstract class ModelMenuAction {
             this.type = setElement.getAttribute("type");
             this.toScope = setElement.getAttribute("to-scope");
             this.fromScope = setElement.getAttribute("from-scope");
-            if (!this.fromField.isEmpty() && this.valueExdr != null) {
+            if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
                 throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a screen widget");
             }
         }
@@ -151,7 +151,7 @@ public abstract class ModelMenuAction {
                     HttpSession session = (HttpSession)context.get("session");
                     newValue = session.getAttribute(newKey);
                     if (Debug.verboseOn()) Debug.logVerbose("In user getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-                } else if (this.valueExdr != null) {
+                } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
                 }
                 
@@ -163,7 +163,7 @@ public abstract class ModelMenuAction {
                     ServletContext servletContext = (ServletContext)context.get("application");
                     newValue = servletContext.getAttribute(newKey);
                     if (Debug.verboseOn()) Debug.logVerbose("In application getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-                } else if (this.valueExdr != null) {
+                } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
                 }
                 
@@ -171,7 +171,7 @@ public abstract class ModelMenuAction {
                 if (!this.fromField.isEmpty()) {
                     newValue = this.fromField.get(context);
                     if (Debug.verboseOn()) Debug.logVerbose("In screen getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-                } else if (this.valueExdr != null) {
+                } else if (!this.valueExdr.isEmpty()) {
                     newValue = this.valueExdr.expandString(context);
                 }
             }

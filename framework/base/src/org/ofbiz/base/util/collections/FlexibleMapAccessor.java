@@ -37,7 +37,7 @@ import org.ofbiz.base.util.string.UelUtil;
  * accessing sub-map values and the "[]" (square bracket) syntax for accessing
  * list elements. See individual Map operations for more information.
  */
-@SuppressWarnings("serial")
+@SuppressWarnings({ "serial", "deprecation" })
 public class FlexibleMapAccessor<T> implements Serializable {
     public static final String module = FlexibleMapAccessor.class.getName();
     protected static final String openBracket = "${";
@@ -51,8 +51,8 @@ public class FlexibleMapAccessor<T> implements Serializable {
     protected final ExpressionNode node;
     protected boolean isAscending = true;
 
+    /** @deprecated Use getInstance(String original) instead */
     public FlexibleMapAccessor(String name) {
-        // TODO: Change this to protected
         this.original = name;
         if (name != null && name.length() > 0) {
             if (name.charAt(0) == '-') {

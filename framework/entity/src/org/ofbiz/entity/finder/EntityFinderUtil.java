@@ -74,17 +74,17 @@ public class EntityFinderUtil {
                 String value = fieldMapElement.getAttribute("value");
                 if (UtilValidate.isEmpty(fieldName)) {
                     // no fieldName, use envName for both
-                    fieldMap.put(new FlexibleMapAccessor<Object>(envName), new FlexibleMapAccessor<Object>(envName));
+                    fieldMap.put(FlexibleMapAccessor.getInstance(envName), FlexibleMapAccessor.getInstance(envName));
                 } else {
                     if (UtilValidate.isNotEmpty(value)) {
-                        fieldMap.put(new FlexibleMapAccessor<Object>(fieldName), FlexibleStringExpander.getInstance(value));
+                        fieldMap.put(FlexibleMapAccessor.getInstance(fieldName), FlexibleStringExpander.getInstance(value));
                     } else {
                         // at this point we have a fieldName and no value, do we have a envName?
                         if (UtilValidate.isNotEmpty(envName)) {
-                            fieldMap.put(new FlexibleMapAccessor<Object>(fieldName), new FlexibleMapAccessor<Object>(envName));
+                            fieldMap.put(FlexibleMapAccessor.getInstance(fieldName), FlexibleMapAccessor.getInstance(envName));
                         } else {
                             // no envName, use fieldName for both
-                            fieldMap.put(new FlexibleMapAccessor<Object>(fieldName), new FlexibleMapAccessor<Object>(fieldName));
+                            fieldMap.put(FlexibleMapAccessor.getInstance(fieldName), FlexibleMapAccessor.getInstance(fieldName));
                         }
                     }
                 }
@@ -167,7 +167,7 @@ public class EntityFinderUtil {
             }
 
             this.operatorExdr = FlexibleStringExpander.getInstance(UtilFormatOut.checkEmpty(conditionExprElement.getAttribute("operator"), "equals"));
-            this.envNameAcsr = new FlexibleMapAccessor<Object>(conditionExprElement.getAttribute("env-name"));
+            this.envNameAcsr = FlexibleMapAccessor.getInstance(conditionExprElement.getAttribute("env-name"));
             this.valueExdr = FlexibleStringExpander.getInstance(conditionExprElement.getAttribute("value"));
             this.ignoreIfNull = "true".equals(conditionExprElement.getAttribute("ignore-if-null"));
             this.ignoreIfEmpty = "true".equals(conditionExprElement.getAttribute("ignore-if-empty"));
@@ -309,10 +309,10 @@ public class EntityFinderUtil {
         protected FlexibleMapAccessor<Object> fieldNameAcsr;
         
         public ConditionObject(Element conditionExprElement) {
-            this.fieldNameAcsr = new FlexibleMapAccessor<Object>(conditionExprElement.getAttribute("field-name"));
+            this.fieldNameAcsr = FlexibleMapAccessor.getInstance(conditionExprElement.getAttribute("field-name"));
             if (this.fieldNameAcsr.isEmpty()) {
                 // no "field-name"? try "name"
-                this.fieldNameAcsr = new FlexibleMapAccessor<Object>(conditionExprElement.getAttribute("name"));
+                this.fieldNameAcsr = FlexibleMapAccessor.getInstance(conditionExprElement.getAttribute("name"));
             }
         }
         

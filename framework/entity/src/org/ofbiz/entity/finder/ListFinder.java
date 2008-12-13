@@ -78,7 +78,7 @@ public abstract class ListFinder extends Finder {
         this.filterByDateStrExdr = FlexibleStringExpander.getInstance(element.getAttribute("filter-by-date"));
         this.distinctStrExdr = FlexibleStringExpander.getInstance(element.getAttribute("distinct"));
         this.delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
-        this.listAcsr = new FlexibleMapAccessor<Object>(element.getAttribute("list-name"));
+        this.listAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("list-name"));
         this.resultSetTypeExdr = FlexibleStringExpander.getInstance(element.getAttribute("result-set-type"));
 
         // process select-field
