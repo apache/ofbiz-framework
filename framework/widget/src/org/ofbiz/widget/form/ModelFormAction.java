@@ -113,12 +113,12 @@ public abstract class ModelFormAction {
         public SetField(ModelForm modelForm, Element setElement) {
             super (modelForm, setElement);
             this.field = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
-            this.fromField = UtilValidate.isNotEmpty(setElement.getAttribute("from-field")) ? new FlexibleMapAccessor<String>(setElement.getAttribute("from-field")) : null;
-            this.valueExdr = UtilValidate.isNotEmpty(setElement.getAttribute("value")) ? FlexibleStringExpander.getInstance(setElement.getAttribute("value")) : null;
+            this.fromField = FlexibleMapAccessor.getInstance(setElement.getAttribute("from-field"));
+            this.valueExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("value"));
             this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default-value"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
             this.type = setElement.getAttribute("type");
-            if (this.fromField != null && this.valueExdr != null) {
+            if (!this.fromField.isEmpty() && !this.valueExdr.isEmpty()) {
                 throw new IllegalArgumentException("Cannot specify a from-field [" + setElement.getAttribute("from-field") + "] and a value [" + setElement.getAttribute("value") + "] on the set action in a screen widget");
             }
         }
@@ -129,10 +129,10 @@ public abstract class ModelFormAction {
             boolean global = "true".equals(globalStr);
             
             Object newValue = null;
-            if (this.fromField != null) {
+            if (!this.fromField.isEmpty()) {
                 newValue = this.fromField.get(context);
                 if (Debug.verboseOn()) Debug.logVerbose("In screen getting value for field from [" + this.fromField.getOriginalName() + "]: " + newValue, module);
-            } else if (this.valueExdr != null) {
+            } else if (!this.valueExdr.isEmpty()) {
                 newValue = this.valueExdr.expandString(context);
             }
 
