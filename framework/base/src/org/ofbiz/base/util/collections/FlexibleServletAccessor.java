@@ -59,7 +59,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
         if (name == null || name.length() == 0) {
             empty = true;
             needsExpand = false;
-            fma = new FlexibleMapAccessor<T>(name);
+            fma = FlexibleMapAccessor.getInstance(name);
             attributeName = name;
         } else {
             empty = false;
@@ -72,7 +72,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
                 int dotIndex = name.indexOf('.');
                 if (dotIndex != -1) {
                     attributeName = name.substring(0, dotIndex);
-                    fma = new FlexibleMapAccessor<T>(name.substring(dotIndex+1));
+                    fma = FlexibleMapAccessor.getInstance(name.substring(dotIndex+1));
                 } else {
                     attributeName = name;
                     fma = null;
@@ -209,7 +209,7 @@ public class FlexibleServletAccessor<T> implements Serializable {
                 int dotIndex = name.indexOf('.');
                 if (dotIndex != -1) {
                     attributeName = name.substring(0, dotIndex);
-                    fma = new FlexibleMapAccessor<T>(name.substring(dotIndex+1));
+                    fma = FlexibleMapAccessor.getInstance(name.substring(dotIndex+1));
                 } else {
                     attributeName = name;
                     fma = null;
