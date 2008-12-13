@@ -112,7 +112,7 @@ public abstract class ModelFormAction {
         
         public SetField(ModelForm modelForm, Element setElement) {
             super (modelForm, setElement);
-            this.field = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
+            this.field = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
             this.fromField = UtilValidate.isNotEmpty(setElement.getAttribute("from-field")) ? new FlexibleMapAccessor<String>(setElement.getAttribute("from-field")) : null;
             this.valueExdr = UtilValidate.isNotEmpty(setElement.getAttribute("value")) ? FlexibleStringExpander.getInstance(setElement.getAttribute("value")) : null;
             this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default-value"));
@@ -177,7 +177,7 @@ public abstract class ModelFormAction {
         public PropertyMap(ModelForm modelForm, Element setElement) {
             super (modelForm, setElement);
             this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
-            this.mapNameAcsr = new FlexibleMapAccessor<Map<String, Object>>(setElement.getAttribute("map-name"));
+            this.mapNameAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("map-name"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
@@ -214,10 +214,10 @@ public abstract class ModelFormAction {
             super (modelForm, setElement);
             this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
             this.propertyExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("property"));
-            this.fieldAcsr = new FlexibleMapAccessor<String>(setElement.getAttribute("field"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
             this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default"));
             noLocale = "true".equals(setElement.getAttribute("no-locale"));
-            this.argListAcsr = new FlexibleMapAccessor<List<Object>>(setElement.getAttribute("arg-list-name"));
+            this.argListAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("arg-list-name"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
@@ -297,7 +297,7 @@ public abstract class ModelFormAction {
         public Service(ModelForm modelForm, Element serviceElement) {
             super (modelForm, serviceElement);
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
-            this.resultMapNameAcsr = UtilValidate.isNotEmpty(serviceElement.getAttribute("result-map-name")) ? new FlexibleMapAccessor<Map<String, Object>>(serviceElement.getAttribute("result-map-name")) : null;
+            this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map-name"));
             this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
             if (UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-name"))) {
                 if (UtilValidate.isEmpty(serviceElement.getAttribute("result-map-list-iterator-name"))) {
@@ -340,7 +340,7 @@ public abstract class ModelFormAction {
                 
                 Map<String, Object> result = this.modelForm.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
                 
-                if (this.resultMapNameAcsr != null) {
+                if (!this.resultMapNameAcsr.isEmpty()) {
                     this.resultMapNameAcsr.put(context, result);
                     String queryString = (String)result.get("queryString");
                     context.put("queryString", queryString);

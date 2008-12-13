@@ -235,7 +235,7 @@ public class ModelTreeCondition {
         
         public IfValidateMethod(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.methodExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("method"));
             this.classExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("class"));
         }
@@ -297,7 +297,7 @@ public class ModelTreeCondition {
         
         public IfCompare(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.valueExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("value"));
             
             this.operator = condElement.getAttribute("operator");
@@ -346,8 +346,8 @@ public class ModelTreeCondition {
         
         public IfCompareField(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
-            this.toFieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("to-field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
+            this.toFieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("to-field-name"));
             
             this.operator = condElement.getAttribute("operator");
             this.type = condElement.getAttribute("type");
@@ -394,7 +394,7 @@ public class ModelTreeCondition {
         
         public IfRegexp(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
             this.exprExdr = FlexibleStringExpander.getInstance(condElement.getAttribute("expr"));
         }
         
@@ -428,7 +428,7 @@ public class ModelTreeCondition {
         
         public IfEmpty(ModelTree modelTree, Element condElement) {
             super (modelTree, condElement);
-            this.fieldAcsr = new FlexibleMapAccessor<Object>(condElement.getAttribute("field-name"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(condElement.getAttribute("field-name"));
         }
         
         public boolean eval(Map<String, Object> context) {
