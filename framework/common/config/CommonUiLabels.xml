@@ -7887,7 +7887,7 @@
     <property key="ar">
         <value xml:lang="ar">عربية</value>
         <value xml:lang="de">Arabisch</value>
-        <value xml:lang="fr">arabe</value>
+        <value xml:lang="fr">Arabe</value>
         <value xml:lang="en">Arabic</value>
         <value xml:lang="es">Árabe</value>
         <value xml:lang="th">Arabic</value>
@@ -7897,7 +7897,7 @@
         <value xml:lang="de">Bulgarisch</value>
         <value xml:lang="en">Bulgarian</value>
         <value xml:lang="es">Búlgaro</value>
-        <value xml:lang="fr">bulgare</value>
+        <value xml:lang="fr">Bulgare</value>
         <value xml:lang="it">Bulgaro</value>
         <value xml:lang="nl">Bulgarisch</value>
         <value xml:lang="pt">Bulgarian</value>
@@ -7912,7 +7912,7 @@
         <value xml:lang="de">Tschechisch</value>
         <value xml:lang="en">Czeck</value>
         <value xml:lang="es">Checo</value>
-        <value xml:lang="fr">tchèque</value>
+        <value xml:lang="fr">Tchèque</value>
         <value xml:lang="it">Ceco</value>
         <value xml:lang="nl">Czeck</value>
         <value xml:lang="pt">Czeck</value>
@@ -7926,7 +7926,7 @@
         <value xml:lang="de">Deutsch</value>
         <value xml:lang="en">German</value>
         <value xml:lang="es">Alemán</value>
-        <value xml:lang="fr">allemand</value>
+        <value xml:lang="fr">Allemand</value>
         <value xml:lang="it">Tedesco</value>
         <value xml:lang="nl">Duits</value>
         <value xml:lang="pt">German</value>
@@ -7941,7 +7941,7 @@
         <value xml:lang="de">Englisch</value>
         <value xml:lang="en">English</value>
         <value xml:lang="es">Inglés</value>
-        <value xml:lang="fr">anglais</value>
+        <value xml:lang="fr">Anglais</value>
         <value xml:lang="it">Inglese</value>
         <value xml:lang="nl">Engels</value>
         <value xml:lang="pt">English</value>
@@ -7956,7 +7956,7 @@
         <value xml:lang="de">Britisch</value>
         <value xml:lang="en">British English</value>
         <value xml:lang="es">Inglés británico</value>
-        <value xml:lang="fr">anglais (GB)</value>
+        <value xml:lang="fr">Anglais (GB)</value>
         <value xml:lang="it">Inglese Britannico</value>
         <value xml:lang="nl">Brits Engels</value>
         <value xml:lang="pt">British English</value>
@@ -7971,7 +7971,7 @@
         <value xml:lang="de">Spanisch</value>
         <value xml:lang="en">Spanish</value>
         <value xml:lang="es">Español</value>
-        <value xml:lang="fr">espagnol</value>
+        <value xml:lang="fr">Espagnol</value>
         <value xml:lang="it">Spagnolo</value>
         <value xml:lang="nl">Spaans</value>
         <value xml:lang="pt">Spanish</value>
@@ -7986,7 +7986,7 @@
         <value xml:lang="de">Französisch</value>
         <value xml:lang="en">French</value>
         <value xml:lang="es">Francés</value>
-        <value xml:lang="fr">français</value>
+        <value xml:lang="fr">Français</value>
         <value xml:lang="it">Francese</value>
         <value xml:lang="nl">Frans</value>
         <value xml:lang="pt">French</value>
@@ -8001,7 +8001,7 @@
         <value xml:lang="de">Griechisch</value>
         <value xml:lang="en">Greek</value>
         <value xml:lang="es">Griego</value>
-        <value xml:lang="fr">grec</value>
+        <value xml:lang="fr">Grec</value>
         <value xml:lang="it">Greco</value>
         <value xml:lang="nl">Grieks</value>
         <value xml:lang="pt">Greek</value>
@@ -8015,7 +8015,7 @@
         <value xml:lang="ar">إيطالية</value>
         <value xml:lang="de">Italienisch</value>
         <value xml:lang="en">Italian</value>
-        <value xml:lang="fr">italien</value>
+        <value xml:lang="fr">Italien</value>
         <value xml:lang="it">Italiano</value>
         <value xml:lang="pt">Italian</value>
         <value xml:lang="ro">Italiana</value>
@@ -8028,7 +8028,7 @@
         <value xml:lang="de">Niederländisch</value>
         <value xml:lang="en">Nederlands</value>
         <value xml:lang="es">Holandés</value>
-        <value xml:lang="fr">hollandais</value>
+        <value xml:lang="fr">Hollandais</value>
         <value xml:lang="it">Olandese</value>
         <value xml:lang="nl">Nederlands</value>
         <value xml:lang="pt">Nederlands</value>
@@ -8042,7 +8042,7 @@
         <value xml:lang="de">Portugiesisch</value>
         <value xml:lang="en">Portuguese</value>
         <value xml:lang="es">Portugués</value>
-        <value xml:lang="fr">portugais</value>
+        <value xml:lang="fr">Portugais</value>
         <value xml:lang="it">Portoghese</value>
         <value xml:lang="nl">Portugese</value>
         <value xml:lang="pt">Portuguese</value>
@@ -8057,7 +8057,7 @@
         <value xml:lang="de">Portugiesisch (Brasilien)</value>
         <value xml:lang="en">Portuguese Brazil</value>
         <value xml:lang="es">Portugués (Brasil)</value>
-        <value xml:lang="fr">portugais (Brésil)</value>
+        <value xml:lang="fr">Portugais (Brésil)</value>
         <value xml:lang="it">Portoghese Braziliano</value>
         <value xml:lang="nl">Portugese Brazil</value>
         <value xml:lang="pt">Portuguese Brazil</value>
@@ -8072,7 +8072,7 @@
         <value xml:lang="de">Portugiesisch (Portugal)</value>
         <value xml:lang="en">Portuguese Portugal</value>
         <value xml:lang="es">Portugués (Portugal)</value>
-        <value xml:lang="fr">portugais (Portugal)</value>
+        <value xml:lang="fr">Portugais (Portugal)</value>
         <value xml:lang="it">Portoghese Portogallo</value>
         <value xml:lang="nl">Portugese Portugal</value>
         <value xml:lang="pt">Portuguese Portugal</value>
@@ -8086,7 +8086,7 @@
         <value xml:lang="de">Russisch</value>
         <value xml:lang="en">Russian</value>
         <value xml:lang="es">Ruso</value>
-        <value xml:lang="fr">russe</value>
+        <value xml:lang="fr">Russe</value>
         <value xml:lang="ru">Русский</value>
         <value xml:lang="th">รัสเซัย</value>
     </property>
@@ -8094,7 +8094,7 @@
         <value xml:lang="de">Chinesisch</value>
         <value xml:lang="en">Chinese</value>
         <value xml:lang="es">Chino</value>
-        <value xml:lang="fr">chinois</value>
+        <value xml:lang="fr">Chinois</value>
         <value xml:lang="it">Cinese</value>
         <value xml:lang="nl">Chinees</value>
         <value xml:lang="pt">Chinese</value>
