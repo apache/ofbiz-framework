@@ -124,7 +124,7 @@ public abstract class ModelMenuAction {
         
         public SetField(ModelMenu modelMenu, Element setElement) {
             super (modelMenu, setElement);
-            this.field = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
+            this.field = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
             this.fromField = UtilValidate.isNotEmpty(setElement.getAttribute("from-field")) ? new FlexibleMapAccessor<Object>(setElement.getAttribute("from-field")) : null;
             this.valueExdr = UtilValidate.isNotEmpty(setElement.getAttribute("value")) ? FlexibleStringExpander.getInstance(setElement.getAttribute("value")) : null;
             this.defaultExdr = UtilValidate.isNotEmpty(setElement.getAttribute("default-value")) ? FlexibleStringExpander.getInstance(setElement.getAttribute("default-value")) : null;
@@ -237,7 +237,7 @@ public abstract class ModelMenuAction {
         public PropertyMap(ModelMenu modelMenu, Element setElement) {
             super (modelMenu, setElement);
             this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
-            this.mapNameAcsr = new FlexibleMapAccessor<Map<String, Object>>(setElement.getAttribute("map-name"));
+            this.mapNameAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("map-name"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
@@ -274,10 +274,10 @@ public abstract class ModelMenuAction {
             super (modelMenu, setElement);
             this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
             this.propertyExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("property"));
-            this.fieldAcsr = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
             this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default"));
             noLocale = "true".equals(setElement.getAttribute("no-locale"));
-            this.argListAcsr = new FlexibleMapAccessor<List<? extends Object>>(setElement.getAttribute("arg-list-name"));
+            this.argListAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("arg-list-name"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
@@ -354,7 +354,7 @@ public abstract class ModelMenuAction {
         public Service(ModelMenu modelMenu, Element serviceElement) {
             super (modelMenu, serviceElement);
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
-            this.resultMapNameAcsr = UtilValidate.isNotEmpty(serviceElement.getAttribute("result-map-name")) ? new FlexibleMapAccessor<Map<String, Object>>(serviceElement.getAttribute("result-map-name")) : null;
+            this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map-name"));
             this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
             
             List<? extends Element> fieldMapElementList = UtilXml.childElementList(serviceElement, "field-map");
@@ -363,8 +363,8 @@ public abstract class ModelMenuAction {
                 for (Element fieldMapElement: fieldMapElementList) {
                     // set the env-name for each field-name, noting that if no field-name is specified it defaults to the env-name
                     this.fieldMap.put(
-                            new FlexibleMapAccessor<Object>(UtilFormatOut.checkEmpty(fieldMapElement.getAttribute("field-name"), fieldMapElement.getAttribute("env-name"))), 
-                            new FlexibleMapAccessor<Object>(fieldMapElement.getAttribute("env-name")));
+                            FlexibleMapAccessor.getInstance(UtilFormatOut.checkEmpty(fieldMapElement.getAttribute("field-name"), fieldMapElement.getAttribute("env-name"))), 
+                            FlexibleMapAccessor.getInstance(fieldMapElement.getAttribute("env-name")));
                 }
             }
         }
@@ -396,7 +396,7 @@ public abstract class ModelMenuAction {
                 
                 Map<String, Object> result = this.modelMenu.getDispacher().runSync(serviceNameExpanded, serviceContext);
                 
-                if (this.resultMapNameAcsr != null) {
+                if (!this.resultMapNameAcsr.isEmpty()) {
                     this.resultMapNameAcsr.put(context, result);
                 } else {
                     context.putAll(result);

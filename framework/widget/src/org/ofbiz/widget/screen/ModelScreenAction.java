@@ -136,8 +136,8 @@ public abstract class ModelScreenAction implements Serializable {
         
         public SetField(ModelScreen modelScreen, Element setElement) {
             super (modelScreen, setElement);
-            this.field = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
-            this.fromField = new FlexibleMapAccessor<Object>(setElement.getAttribute("from-field"));
+            this.field = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
+            this.fromField = FlexibleMapAccessor.getInstance(setElement.getAttribute("from-field"));
             this.valueExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("value"));
             this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default-value"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
@@ -286,7 +286,7 @@ public abstract class ModelScreenAction implements Serializable {
         public PropertyMap(ModelScreen modelScreen, Element setElement) {
             super (modelScreen, setElement);
             this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
-            this.mapNameAcsr = new FlexibleMapAccessor<ResourceBundleMapWrapper>(setElement.getAttribute("map-name"));
+            this.mapNameAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("map-name"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
@@ -337,10 +337,10 @@ public abstract class ModelScreenAction implements Serializable {
             super (modelScreen, setElement);
             this.resourceExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("resource"));
             this.propertyExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("property"));
-            this.fieldAcsr = new FlexibleMapAccessor<Object>(setElement.getAttribute("field"));
+            this.fieldAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("field"));
             this.defaultExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("default"));
-            noLocale = "true".equals(setElement.getAttribute("no-locale"));
-            this.argListAcsr = new FlexibleMapAccessor<List<? extends Object>>(setElement.getAttribute("arg-list-name"));
+            this.noLocale = "true".equals(setElement.getAttribute("no-locale"));
+            this.argListAcsr = FlexibleMapAccessor.getInstance(setElement.getAttribute("arg-list-name"));
             this.globalExdr = FlexibleStringExpander.getInstance(setElement.getAttribute("global"));
         }
         
@@ -430,7 +430,7 @@ public abstract class ModelScreenAction implements Serializable {
         public Service(ModelScreen modelScreen, Element serviceElement) {
             super (modelScreen, serviceElement);
             this.serviceNameExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("service-name"));
-            this.resultMapNameAcsr = UtilValidate.isNotEmpty(serviceElement.getAttribute("result-map-name")) ? new FlexibleMapAccessor<Map<String, Object>>(serviceElement.getAttribute("result-map-name")) : null;
+            this.resultMapNameAcsr = FlexibleMapAccessor.getInstance(serviceElement.getAttribute("result-map-name"));
             this.autoFieldMapExdr = FlexibleStringExpander.getInstance(serviceElement.getAttribute("auto-field-map"));
             this.fieldMap = EntityFinderUtil.makeFieldMap(serviceElement);
         }
@@ -456,7 +456,7 @@ public abstract class ModelScreenAction implements Serializable {
                     combinedMap.putAll(context);
                     serviceContext = dc.makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, combinedMap);
                 } else if (UtilValidate.isNotEmpty(autoFieldMapString) && !"false".equals(autoFieldMapString)) {
-                    FlexibleMapAccessor<Object> fieldFma = new FlexibleMapAccessor<Object>(autoFieldMapString);
+                    FlexibleMapAccessor<Object> fieldFma = FlexibleMapAccessor.getInstance(autoFieldMapString);
                     Map<String, Object> autoFieldMap = UtilGenerics.toMap(fieldFma.get(context));
                     if (autoFieldMap != null) {
                         serviceContext = this.modelScreen.getDispatcher(context).getDispatchContext().makeValidContext(serviceNameExpanded, ModelService.IN_PARAM, autoFieldMap);
@@ -472,7 +472,7 @@ public abstract class ModelScreenAction implements Serializable {
                 
                 Map<String, Object> result = this.modelScreen.getDispatcher(context).runSync(serviceNameExpanded, serviceContext);
                 
-                if (this.resultMapNameAcsr != null) {
+                if (!this.resultMapNameAcsr.isEmpty()) {
                     this.resultMapNameAcsr.put(context, result);
                     String queryString = (String)result.get("queryString");
                     context.put("queryString", queryString);
@@ -565,8 +565,8 @@ public abstract class ModelScreenAction implements Serializable {
         
         public GetRelatedOne(ModelScreen modelScreen, Element getRelatedOneElement) {
             super (modelScreen, getRelatedOneElement);
-            this.valueNameAcsr = new FlexibleMapAccessor<Object>(getRelatedOneElement.getAttribute("value-name"));
-            this.toValueNameAcsr = new FlexibleMapAccessor<Object>(getRelatedOneElement.getAttribute("to-value-name"));
+            this.valueNameAcsr = FlexibleMapAccessor.getInstance(getRelatedOneElement.getAttribute("value-name"));
+            this.toValueNameAcsr = FlexibleMapAccessor.getInstance(getRelatedOneElement.getAttribute("to-value-name"));
             this.relationName = getRelatedOneElement.getAttribute("relation-name");
             this.useCache = "true".equals(getRelatedOneElement.getAttribute("use-cache"));
         }
@@ -609,11 +609,11 @@ public abstract class ModelScreenAction implements Serializable {
         
         public GetRelated(ModelScreen modelScreen, Element getRelatedElement) {
             super (modelScreen, getRelatedElement);
-            this.valueNameAcsr = new FlexibleMapAccessor<Object>(getRelatedElement.getAttribute("value-name"));
-            this.listNameAcsr = new FlexibleMapAccessor<List<GenericValue>>(getRelatedElement.getAttribute("list-name"));
+            this.valueNameAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("value-name"));
+            this.listNameAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("list-name"));
             this.relationName = getRelatedElement.getAttribute("relation-name");
-            this.mapAcsr = new FlexibleMapAccessor<Map<String, Object>>(getRelatedElement.getAttribute("map-name"));
-            this.orderByListAcsr = new FlexibleMapAccessor<List<String>>(getRelatedElement.getAttribute("order-by-list-name"));
+            this.mapAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("map-name"));
+            this.orderByListAcsr = FlexibleMapAccessor.getInstance(getRelatedElement.getAttribute("order-by-list-name"));
             this.useCache = "true".equals(getRelatedElement.getAttribute("use-cache"));
         }
 

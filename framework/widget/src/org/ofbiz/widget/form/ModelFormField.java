@@ -1185,7 +1185,7 @@ public class ModelFormField {
      * @param string
      */
     public void setEntryName(String string) {
-        entryAcsr = new FlexibleMapAccessor<Object>(string);
+        entryAcsr = FlexibleMapAccessor.getInstance(string);
     }
 
     /**
@@ -1199,7 +1199,7 @@ public class ModelFormField {
      * @param string
      */
     public void setMapName(String string) {
-        this.mapAcsr = new FlexibleMapAccessor<Map<String, ? extends Object>>(string);
+        this.mapAcsr = FlexibleMapAccessor.getInstance(string);
     }
 
     /**
@@ -1594,17 +1594,17 @@ public class ModelFormField {
         protected FlexibleStringExpander description;
 
         public ListOptions(String listName, String listEntryName, String keyName, String description, FieldInfo fieldInfo) {
-            this.listAcsr = new FlexibleMapAccessor<List<? extends Object>>(listName);
+            this.listAcsr = FlexibleMapAccessor.getInstance(listName);
             this.listEntryName = listEntryName;
-            this.keyAcsr = new FlexibleMapAccessor<String>(keyName);
+            this.keyAcsr = FlexibleMapAccessor.getInstance(keyName);
             this.description = FlexibleStringExpander.getInstance(description);
             this.fieldInfo = fieldInfo;
         }
 
         public ListOptions(Element optionElement, FieldInfo fieldInfo) {
             this.listEntryName = optionElement.getAttribute("list-entry-name");
-            this.keyAcsr = new FlexibleMapAccessor<String>(optionElement.getAttribute("key-name"));
-            this.listAcsr = new FlexibleMapAccessor<List<? extends Object>>(optionElement.getAttribute("list-name"));
+            this.keyAcsr = FlexibleMapAccessor.getInstance(optionElement.getAttribute("key-name"));
+            this.listAcsr = FlexibleMapAccessor.getInstance(optionElement.getAttribute("list-name"));
             this.listEntryName = optionElement.getAttribute("list-entry-name");
             this.description = FlexibleStringExpander.getInstance(optionElement.getAttribute("description"));
             this.fieldInfo = fieldInfo;

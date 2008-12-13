@@ -222,7 +222,7 @@ public class ModelMenu extends ModelWidget {
         if (this.defaultDisabledTitleStyle == null || menuElement.hasAttribute("default-disabled-title-style"))
             this.defaultDisabledTitleStyle = menuElement.getAttribute("default-disabled-title-style");
         if (this.selectedMenuItemContextFieldName == null || menuElement.hasAttribute("selected-menuitem-context-field-name"))
-            this.selectedMenuItemContextFieldName = new FlexibleMapAccessor<String>(menuElement.getAttribute("selected-menuitem-context-field-name"));
+            this.selectedMenuItemContextFieldName = FlexibleMapAccessor.getInstance(menuElement.getAttribute("selected-menuitem-context-field-name"));
         if (this.menuContainerStyleExdr == null || menuElement.hasAttribute("menu-container-style"))
             this.setMenuContainerStyle(menuElement.getAttribute("menu-container-style"));
         if (this.defaultAlign == null || menuElement.hasAttribute("default-align"))

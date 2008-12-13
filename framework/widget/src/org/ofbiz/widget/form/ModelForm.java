@@ -1996,7 +1996,7 @@ public class ModelForm extends ModelWidget {
      * @param string
      */
     public void setDefaultMapName(String string) {
-        this.defaultMapName = new FlexibleMapAccessor<Map<String, ? extends Object>>(string);
+        this.defaultMapName = FlexibleMapAccessor.getInstance(string);
     }
 
     /**
