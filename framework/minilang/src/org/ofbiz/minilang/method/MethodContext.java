@@ -180,7 +180,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
      */
     public <T> T getEnv(String key) {
         String ekey = this.expandString(key);
-        FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(ekey);
+        FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(ekey);
         return this.getEnv(fma);
     }
     public <T> T getEnv(FlexibleMapAccessor<T> fma) {
@@ -201,7 +201,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
      */
     public <T> void putEnv(String key, T value) {
         String ekey = this.expandString(key);
-        FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(ekey);
+        FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(ekey);
         this.putEnv(fma, value);
     }
     public <T> void putEnv(FlexibleMapAccessor<T> fma, T value) {
@@ -225,7 +225,7 @@ public class MethodContext implements Iterable<Map.Entry<String, Object>> {
      */
     public <T> T removeEnv(String key) {
         String ekey = this.expandString(key);
-        FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(ekey);
+        FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(ekey);
         return this.removeEnv(fma);
     }
     public <T> T removeEnv(FlexibleMapAccessor<T> fma) {

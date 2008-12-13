@@ -62,7 +62,7 @@ public class EntityCount extends MethodOperation {
         super(element, simpleMethod);
         this.entityNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
         this.delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
-        this.countAcsr = new FlexibleMapAccessor<Long>(element.getAttribute("count-name"));
+        this.countAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("count-name"));
         
         // process condition-expr | condition-list
         Element conditionExprElement = UtilXml.firstChildElement(element, "condition-expr");

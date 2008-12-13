@@ -52,7 +52,7 @@ public class ContextAccessor<T> {
         if (name == null || name.length() == 0) {
             empty = true;
             needsExpand = false;
-            fma = new FlexibleMapAccessor<T>(name);
+            fma = FlexibleMapAccessor.getInstance(name);
         } else {
             empty = false;
             int openPos = name.indexOf("${");
@@ -60,7 +60,7 @@ public class ContextAccessor<T> {
                 fma = null;
                 needsExpand = true;
             } else {
-                fma = new FlexibleMapAccessor<T>(name);
+                fma = FlexibleMapAccessor.getInstance(name);
                 needsExpand = false;
             }
         }
@@ -105,7 +105,7 @@ public class ContextAccessor<T> {
     /** Based on name get from Map or from List in Map */
     public T get(Map<String, ? extends Object> theMap, MethodContext methodContext) {
         if (this.needsExpand) {
-            FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(methodContext.expandString(name));
+            FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(methodContext.expandString(name));
             return fma.get(theMap);
         } else {
             return fma.get(theMap);
@@ -120,7 +120,7 @@ public class ContextAccessor<T> {
      */
     public void put(Map<String, Object> theMap, T value, MethodContext methodContext) {
         if (this.needsExpand) {
-            FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(methodContext.expandString(name));
+            FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(methodContext.expandString(name));
             fma.put(theMap, value);
         } else {
             fma.put(theMap, value);
@@ -130,7 +130,7 @@ public class ContextAccessor<T> {
     /** Based on name remove from Map or from List in Map */
     public T remove(Map<String, ? extends Object> theMap, MethodContext methodContext) {
         if (this.needsExpand) {
-            FlexibleMapAccessor<T> fma = new FlexibleMapAccessor<T>(methodContext.expandString(name));
+            FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(methodContext.expandString(name));
             return fma.remove(theMap);
         } else {
             return fma.remove(theMap);
