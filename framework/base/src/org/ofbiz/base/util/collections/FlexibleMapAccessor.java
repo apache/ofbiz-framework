@@ -68,7 +68,9 @@ public class FlexibleMapAccessor<T> implements Serializable {
         bracketedOriginal = bracketedOriginal.replace("[+", "[");
         this.bracketedOriginal = bracketedOriginal;
         this.node = parseExpression(name);
-//        Debug.logInfo("node = " + this.node, module);
+        if (Debug.verboseOn()) {
+          Debug.logVerbose("FlexibleMapAccessor created, original = " + this.original + ", node = " + this.node, module);
+        }
     }
     
     /** Returns a FlexibleMapAccessor instance.
@@ -164,7 +166,6 @@ public class FlexibleMapAccessor<T> implements Serializable {
         if (this.isEmpty()) {
             return null;
         }
-        Debug.logInfo("Removing element = " + this.original, module);
         return UtilGenerics.<T>cast(this.node.remove(base, UtilGenerics.<Map<String, Object>>cast(base)));
     }
     
