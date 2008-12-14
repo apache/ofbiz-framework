@@ -1100,4 +1100,49 @@ public class UtilDateTime {
         String tzId = gmtOffset > 0 ? "Etc/GMT+" : "Etc/GMT";
         return TimeZone.getTimeZone(tzId + gmtOffset);
     }
+
+    public static int getSecond(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        return cal.get(Calendar.SECOND);
+    }
+
+    public static int getMinute(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        return cal.get(Calendar.MINUTE);
+    }
+
+    public static int getHour(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        return cal.get(Calendar.HOUR_OF_DAY);
+    }
+
+    public static int getDayOfWeek(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        return cal.get(Calendar.DAY_OF_WEEK);
+    }
+
+    public static int getDayOfMonth(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        return cal.get(Calendar.DAY_OF_MONTH);
+    }
+
+    public static int getDayOfYear(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        return cal.get(Calendar.DAY_OF_YEAR);
+    }
+
+    public static int getWeek(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        return cal.get(Calendar.WEEK_OF_YEAR);
+    }
+
+    public static int getMonth(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        return cal.get(Calendar.MONTH);
+    }
+
+    public static int getYear(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        Calendar cal = UtilDateTime.toCalendar(stamp, timeZone, locale);
+        return cal.get(Calendar.YEAR);
+    }
 }
