@@ -180,7 +180,7 @@ public class AgreementServices {
         } catch (GenericEntityException e) {
             Debug.logWarning(e, module);
             Map messageMap = UtilMisc.toMap("errMessage", e.getMessage());
-            errMsg = UtilProperties.getMessage(resource, "AccountingDataSourceError", messageMap, locale);
+            errMsg = UtilProperties.getMessage("CommonUiLabels", "CommonDatabaseProblem", messageMap, locale);
             return ServiceUtil.returnError(errMsg);
         }
         return UtilMisc.toMap(

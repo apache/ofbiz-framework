@@ -1885,18 +1885,6 @@
         <value xml:lang="th">การแลกเปลี่ยนข้อมูล</value>
         <value xml:lang="zh">数据交换</value>
     </property>
-    <property key="AccountingDataSourceError">
-        <value xml:lang="ar">خطأ مصدر معلومات</value>
-        <value xml:lang="en">Data source error</value>
-        <value xml:lang="es">Error de origen de datos</value>
-        <value xml:lang="fr">Erreur - source de données</value>
-        <value xml:lang="it">Errore Sorgente Dati</value>
-        <value xml:lang="nl">Fout databron</value>
-        <value xml:lang="ro">Eroare Resurse Date</value>
-        <value xml:lang="ru">Ошибка источника данных</value>
-        <value xml:lang="th">แหล่งข้อมูลผิดพลาด</value>
-        <value xml:lang="zh">数据源错误</value>
-    </property>
     <property key="AccountingDateAcquiredIsEmpty">
         <value xml:lang="en">Field dateAcquired is empty in FixedAsset data.</value>
         <value xml:lang="fr">Le champ date acquise est vide dans les données d'immobilisation</value>
