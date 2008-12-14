@@ -78,7 +78,7 @@ under the License.
         <field name="description"><display/></field>
         <field name="partyIdFrom"><display description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/></field>
         <field name="partyIdTo" parameter-name="partyId"><display description="${partyNameResultTo.fullName} [${partyId}]"/></field>
-        <field name="invoiceDate"><display description="${bsh:invoiceDate.toString().substring(0,10)}"/></field>
+        <field name="invoiceDate"><display description="${date:dateStr(invoiceDate)}"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
     </form>

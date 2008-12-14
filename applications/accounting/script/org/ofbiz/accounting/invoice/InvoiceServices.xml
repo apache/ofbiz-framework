@@ -93,13 +93,9 @@ under the License.
                     </if-empty>
                     <store-value value-name="partyAcctgPreference"/>
 
-                    <!-- get the current year string for prefix, etc; simple 4 digit year date string -->
-                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="toDateString" ret-field-name="curYearString">
-                        <field field-name="partyAcctgPreference.lastInvoiceRestartDate" type="java.util.Date"/>
-                        <string value="yyyy"/>
-                    </call-class-method>
-
-                    <set value="${curYearString}-${partyAcctgPreference.lastInvoiceNumber}" field="invoiceIdTemp"/>
+                    <!-- get the current year string for prefix, etc; simple 4 digit year date string (using system defaults) -->
+                    <set field="curYearString" value="${str:toString(date:year(partyAcctgPreference.lastInvoiceRestartDate, util:defaultTimeZone(), util:defaultLocale()))}"/>
+                    <set field="invoiceIdTemp" value="${curYearString}-${str:toString(partyAcctgPreference.lastInvoiceNumber)}"/>
                 </then>
             </else-if>
             <else>
@@ -118,8 +114,7 @@ under the License.
         </if>
 
         <!-- use invoiceIdTemp along with the invoiceIdPrefix to create the real ID -->
-        <!-- The ${bsh:invoiceIdTemp.toString();} bypasses localization of Long->String conversion -->
-        <set field="invoiceId" value="${partyAcctgPreference.invoiceIdPrefix}${bsh:invoiceIdTemp.toString();}"/>
+        <set field="invoiceId" value="${partyAcctgPreference.invoiceIdPrefix}${str:toString(invoiceIdTemp)}"/>
         <field-to-result field-name="invoiceId" result-name="invoiceId"/>
     </simple-method>
 

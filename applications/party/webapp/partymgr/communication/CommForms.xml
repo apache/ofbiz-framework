@@ -640,7 +640,7 @@ under the License.
 				target="ViewCommunicationEvent?communicationEventId=${communicationEventId}" />
 		</field>
 		<field name="entryDate">
-			<display description="${bsh:entryDate.toString().substring(0,16)}" />
+			<display description="${date:dateTimeStr(entryDate, timeZone, locale)}" />
 		</field>
 		<field name="note" widget-area-style="fieldWidth200">
 			<display />
