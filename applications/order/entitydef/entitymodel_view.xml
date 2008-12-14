@@ -1363,7 +1363,7 @@ under the License.
         <key-map field-name="quoteId"/>
       </relation>
       <relation type="one-nofk" rel-entity-name="StatusItem">
-        <key-map field-name="statusId"/>
+        <key-map field-name="currentStatusId" rel-field-name="statusId"/>
       </relation>
     </view-entity>
     <view-entity entity-name="RequirementAndRole"
