@@ -20,17 +20,39 @@ package org.ofbiz.base.util.string;
 
 import java.lang.reflect.Method;
 import java.util.Collection;
+import java.util.Locale;
 import java.util.Map;
+import java.util.TimeZone;
+import java.sql.Timestamp;
 import javax.el.*;
 
 import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilDateTime;
 
 /** Implements Unified Expression Language functions.
  * <p>Built-in functions are divided into a number of
  * namespace prefixes:</p>
  * <table border="1">
+ * <tr><td colspan="2"><b><code>date:</code> contains miscellaneous date/time functions</b></td></tr>
+ * <tr><td><code>date:second(Timestamp, TimeZone, Locale)</code></td><td>Returns the second value of <code>Timestamp</code> (0 - 59).</td></tr>
+ * <tr><td><code>date:minute(Timestamp, TimeZone, Locale)</code></td><td>Returns the minute value of <code>Timestamp</code> (0 - 59).</td></tr>
+ * <tr><td><code>date:hour(Timestamp, TimeZone, Locale)</code></td><td>Returns the hour value of <code>Timestamp</code> (0 - 23).</td></tr>
+ * <tr><td><code>date:dayOfMonth(Timestamp, TimeZone, Locale)</code></td><td>Returns the day of month value of <code>Timestamp</code> (1 - 31).</td></tr>
+ * <tr><td><code>date:dayOfWeek(Timestamp, TimeZone, Locale)</code></td><td>Returns the day of week value of <code>Timestamp</code> (Sunday = 1, Saturday = 7).</td></tr>
+ * <tr><td><code>date:dayOfYear(Timestamp, TimeZone, Locale)</code></td><td>Returns the day of year value of <code>Timestamp</code>.</td></tr>
+ * <tr><td><code>date:week(Timestamp, TimeZone, Locale)</code></td><td>Returns the week value of <code>Timestamp</code>.</td></tr>
+ * <tr><td><code>date:month(Timestamp, TimeZone, Locale)</code></td><td>Returns the month value of <code>Timestamp</code> (January = 0, December = 11).</td></tr>
+ * <tr><td><code>date:year(Timestamp, TimeZone, Locale)</code></td><td>Returns the year value of <code>Timestamp</code>.</td></tr>
+ * <tr><td><code>date:dayStart(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to start of day.</td></tr>
+ * <tr><td><code>date:dayEnd(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to end of day.</td></tr>
+ * <tr><td><code>date:weekStart(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to start of week.</td></tr>
+ * <tr><td><code>date:weekEnd(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to end of week.</td></tr>
+ * <tr><td><code>date:monthStart(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to start of month.</td></tr>
+ * <tr><td><code>date:monthEnd(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to end of month.</td></tr>
+ * <tr><td><code>date:yearStart(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to start of year.</td></tr>
+ * <tr><td><code>date:yearEnd(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to end of year.</td></tr>
  * <tr><td colspan="2"><b><code>math:</code> maps to <code>java.lang.Math</code></b></td></tr>
  * <tr><td><code>math:absDouble(double)</code></td><td>Returns the absolute value of a <code>double</code> value.</td></tr>
  * <tr><td><code>math:absFloat(float)</code></td><td>Returns the absolute value of a <code>float</code> value.</td></tr>
@@ -87,13 +109,16 @@ import org.ofbiz.base.util.Debug;
  * <tr><td><code>str:startsWith(String, String)</code></td><td>Returns <code>true</code> if this string starts with the specified prefix.</td></tr>
  * <tr><td><code>str:endstring(String, int)</code></td><td>Returns a new string that is a substring of this string. The substring begins with the character at the specified index and extends to the end of this string.</td></tr>
  * <tr><td><code>str:substring(String, int, int)</code></td><td>Returns a new string that is a substring of this string. The substring begins at the specified beginIndex and extends to the character at index endIndex - 1. Thus the length of the substring is endIndex-beginIndex.</td></tr>
+ * <tr><td><code>str:toString(Object)</code></td><td>Converts <code>Object</code> to a <code>String</code> - bypassing localization.</td></tr>
  * <tr><td><code>str:trim(String)</code></td><td>Returns a copy of the string, with leading and trailing whitespace omitted.</td></tr>
  * <tr><td colspan="2"><b><code>sys:</code> maps to <code>java.lang.System</code></b></td></tr>
  * <tr><td><code>sys:getenv(String)</code></td><td>Gets the value of the specified environment variable.</td></tr>
  * <tr><td><code>sys:getProperty(String)</code></td><td>Gets the system property indicated by the specified key.</td></tr>
  * <tr><td colspan="2"><b><code>util:</code> contains miscellaneous utility functions</b></td></tr>
- * <tr><td><code>util:size(Object)</code></td><td>Returns the size of Maps,
- *    Collections, and Strings. Invalid Object types return -1.</td></tr>
+ * <tr><td><code>util:defaultLocale()</code></td><td>Returns the default <code>Locale</code>.</td></tr>
+ * <tr><td><code>util:defaultTimeZone()</code></td><td>Returns the default <code>TimeZone</code>.</td></tr>
+ * <tr><td><code>util:size(Object)</code></td><td>Returns the size of <code>Maps</code>,
+ * <code>Collections</code>, and <code>Strings</code>. Invalid <code>Object</code> types return -1.</td></tr>
  * </table>
  */
 public class UelFunctions {
@@ -112,6 +137,23 @@ public class UelFunctions {
         protected final Map<String, Method> functionMap = FastMap.newInstance();
         public Functions() {
             try {
+                this.functionMap.put("date:second", UtilDateTime.class.getMethod("getSecond", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:minute", UtilDateTime.class.getMethod("getMinute", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:hour", UtilDateTime.class.getMethod("getHour", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:dayOfMonth", UtilDateTime.class.getMethod("getDayOfMonth", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:dayOfWeek", UtilDateTime.class.getMethod("getDayOfWeek", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:dayOfYear", UtilDateTime.class.getMethod("getDayOfYear", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:week", UtilDateTime.class.getMethod("getWeek", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:month", UtilDateTime.class.getMethod("getMonth", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:year", UtilDateTime.class.getMethod("getYear", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:dayStart", UtilDateTime.class.getMethod("getDayStart", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:dayEnd", UtilDateTime.class.getMethod("getDayEnd", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:weekStart", UtilDateTime.class.getMethod("getWeekStart", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:weekEnd", UtilDateTime.class.getMethod("getWeekEnd", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:monthStart", UtilDateTime.class.getMethod("getMonthStart", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:monthEnd", UtilDateTime.class.getMethod("getMonthEnd", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:yearStart", UtilDateTime.class.getMethod("getYearStart", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:yearEnd", UtilDateTime.class.getMethod("getYearEnd", Timestamp.class, TimeZone.class, Locale.class));
                 this.functionMap.put("math:absDouble", Math.class.getMethod("abs", double.class));
                 this.functionMap.put("math:absFloat", Math.class.getMethod("abs", float.class));
                 this.functionMap.put("math:absInt", Math.class.getMethod("abs", int.class));
@@ -166,10 +208,13 @@ public class UelFunctions {
                 this.functionMap.put("str:startsWith", UelFunctions.class.getMethod("startsWith", String.class, String.class));
                 this.functionMap.put("str:endstring", UelFunctions.class.getMethod("endString", String.class, int.class));
                 this.functionMap.put("str:substring", UelFunctions.class.getMethod("subString", String.class, int.class, int.class));
+                this.functionMap.put("str:toString", UelFunctions.class.getMethod("toString", Object.class));
                 this.functionMap.put("str:trim", UelFunctions.class.getMethod("trim", String.class));
                 this.functionMap.put("sys:getenv", UelFunctions.class.getMethod("sysGetEnv", String.class));
                 this.functionMap.put("sys:getProperty", UelFunctions.class.getMethod("sysGetProp", String.class));
                 this.functionMap.put("util:size", UelFunctions.class.getMethod("getSize", Object.class));
+                this.functionMap.put("util:defaultLocale", Locale.class.getMethod("getDefault"));
+                this.functionMap.put("util:defaultTimeZone", TimeZone.class.getMethod("getDefault"));
             } catch (Exception e) {
                 Debug.logWarning("Error while initializing UelFunctions.Functions instance: " + e, module);
             }
@@ -279,6 +324,10 @@ public class UelFunctions {
         return null;
     }
 
+    public static String toString(Object obj) {
+        return obj.toString();
+    }
+
     public static String sysGetEnv(String str) {
         try {
             return System.getenv(str);
@@ -292,5 +341,4 @@ public class UelFunctions {
         } catch (Exception e) {}
         return null;
     }
-
 }
