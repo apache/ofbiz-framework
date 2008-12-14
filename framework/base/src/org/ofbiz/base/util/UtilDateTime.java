@@ -1003,7 +1003,7 @@ public class UtilDateTime {
     public static DateFormat toTimeFormat(String timeFormat, TimeZone tz, Locale locale) {
         DateFormat df = null;
         if (timeFormat == null) {
-            df = DateFormat.getDateInstance(DateFormat.MEDIUM, locale);
+            df = DateFormat.getTimeInstance(DateFormat.MEDIUM, locale);
         } else {
             df = new SimpleDateFormat(timeFormat);
         }

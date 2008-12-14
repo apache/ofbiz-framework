@@ -19,6 +19,7 @@
 package org.ofbiz.base.util.string;
 
 import java.lang.reflect.Method;
+import java.text.DateFormat;
 import java.util.Collection;
 import java.util.Locale;
 import java.util.Map;
@@ -53,6 +54,9 @@ import org.ofbiz.base.util.UtilDateTime;
  * <tr><td><code>date:monthEnd(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to end of month.</td></tr>
  * <tr><td><code>date:yearStart(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to start of year.</td></tr>
  * <tr><td><code>date:yearEnd(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> set to end of year.</td></tr>
+ * <tr><td><code>date:dateStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a date <code>String</code> (yyyy-mm-dd).</td></tr>
+ * <tr><td><code>date:dateTimeStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a date-time <code>String</code> (yyyy-mm-dd hh:mm).</td></tr>
+ * <tr><td><code>date:timeStr(Timestamp, TimeZone, Locale)</code></td><td>Returns <code>Timestamp</code> as a time <code>String</code> (hh:mm).</td></tr>
  * <tr><td colspan="2"><b><code>math:</code> maps to <code>java.lang.Math</code></b></td></tr>
  * <tr><td><code>math:absDouble(double)</code></td><td>Returns the absolute value of a <code>double</code> value.</td></tr>
  * <tr><td><code>math:absFloat(float)</code></td><td>Returns the absolute value of a <code>float</code> value.</td></tr>
@@ -154,6 +158,9 @@ public class UelFunctions {
                 this.functionMap.put("date:monthEnd", UtilDateTime.class.getMethod("getMonthEnd", Timestamp.class, TimeZone.class, Locale.class));
                 this.functionMap.put("date:yearStart", UtilDateTime.class.getMethod("getYearStart", Timestamp.class, TimeZone.class, Locale.class));
                 this.functionMap.put("date:yearEnd", UtilDateTime.class.getMethod("getYearEnd", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:dateStr", UelFunctions.class.getMethod("dateString", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:dateTimeStr", UelFunctions.class.getMethod("dateTimeString", Timestamp.class, TimeZone.class, Locale.class));
+                this.functionMap.put("date:timeStr", UelFunctions.class.getMethod("timeString", Timestamp.class, TimeZone.class, Locale.class));
                 this.functionMap.put("math:absDouble", Math.class.getMethod("abs", double.class));
                 this.functionMap.put("math:absFloat", Math.class.getMethod("abs", float.class));
                 this.functionMap.put("math:absInt", Math.class.getMethod("abs", int.class));
@@ -228,6 +235,24 @@ public class UelFunctions {
         public Method resolveFunction(String prefix, String localName) {
             return functionMap.get(prefix + ":" + localName);
         }
+    }
+
+    public static String dateString(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        DateFormat dateFormat = UtilDateTime.toDateFormat(UtilDateTime.DATE_FORMAT, timeZone, locale);
+        dateFormat.setTimeZone(timeZone);
+        return dateFormat.format(stamp);
+    }
+
+    public static String dateTimeString(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        DateFormat dateFormat = UtilDateTime.toDateTimeFormat("yyyy-MM-dd HH:mm", timeZone, locale);
+        dateFormat.setTimeZone(timeZone);
+        return dateFormat.format(stamp);
+    }
+
+    public static String timeString(Timestamp stamp, TimeZone timeZone, Locale locale) {
+        DateFormat dateFormat = UtilDateTime.toTimeFormat(UtilDateTime.TIME_FORMAT, timeZone, locale);
+        dateFormat.setTimeZone(timeZone);
+        return dateFormat.format(stamp);
     }
 
     @SuppressWarnings("unchecked")
