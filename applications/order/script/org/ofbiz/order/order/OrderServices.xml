@@ -513,8 +513,7 @@ under the License.
         </if-not-empty>
         
         <!-- use orderIdTemp along with the orderIdPrefix to create the real ID -->
-        <!-- The ${bsh:orderIdTemp.toString();} bypasses localization of Long->String conversion -->
-        <set field="orderId" value="${productStore.orderNumberPrefix}${partyAcctgPreference.orderIdPrefix}${bsh:orderIdTemp.toString();}"/>
+        <set field="orderId" value="${productStore.orderNumberPrefix}${partyAcctgPreference.orderIdPrefix}${str:toString(orderIdTemp)}"/>
         <field-to-result field-name="orderId" result-name="orderId"/>
     </simple-method>
     

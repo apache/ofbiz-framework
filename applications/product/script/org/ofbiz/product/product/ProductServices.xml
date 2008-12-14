@@ -436,11 +436,7 @@ under the License.
             <set from-field="parameters.quantity" field="productCalculatedInfo.totalQuantityOrdered"/>
             <create-value value-name="productCalculatedInfo"/>
         <else>
-            <calculate field-name="productCalculatedInfo.totalQuantityOrdered" type="Double">
-                <calcop field-name="productCalculatedInfo.totalQuantityOrdered" operator="add">
-                    <calcop field-name="parameters.quantity" operator="get"></calcop>
-                </calcop>
-            </calculate>
+            <set field="productCalculatedInfo.totalQuantityOrdered" value="${productCalculatedInfo.totalQuantityOrdered + parameters.quantity}"/>
             <store-value value-name="productCalculatedInfo"/>
         </else>
         </if-empty>
