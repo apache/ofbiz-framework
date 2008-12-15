@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -7,17 +8,16 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_actualCompletionDate">
         <value xml:lang="de">Ist-Fertigstellungs-Datum</value>
         <value xml:lang="en">Actual Completion Date</value>
@@ -2092,8 +2092,8 @@
     </property>
     <property key="ManufacturingNote1">
         <value xml:lang="en">date/time entries denote that the current time is before the From Date or after the Thru Date. If the From Date is</value>
-        <value xml:lang="fr">Les lignes date/heure indiquent que l'heure en cours est avant la date ou après la date en cours. Si la date est </value>
         <value xml:lang="es">entradas fecha/hora indican que la hora actual es antes de la fecha de o hasta. Si la fecha desde es</value>
+        <value xml:lang="fr">Les lignes date/heure indiquent que l'heure en cours est avant la date ou après la date en cours. Si la date est </value>
         <value xml:lang="it">le voci data/ora indicano che l'orario attuale è prima della Data di Inizio o dopo la Data di Fine. Se la Data di Inizio è</value>
         <value xml:lang="th">เข้าสู่ วัน/เวลา หมายความว่าเวลาจริง ๆ คือ เวลาก่อน จากวันที่ หรือ หลัง ถึงวันที่ ถ้าจากวันที่คือ</value>
     </property>
@@ -2561,8 +2561,8 @@
     <property key="ManufacturingQuickComplete">
         <value xml:lang="de">Schneller Abschluß</value>
         <value xml:lang="en">Quick Complete</value>
-        <value xml:lang="fr">Terminer rapidement</value>
         <value xml:lang="es">Completar rápido</value>
+        <value xml:lang="fr">Terminer rapidement</value>
         <value xml:lang="it">Completamento Veloce</value>
         <value xml:lang="ro">Completament Rapid</value>
         <value xml:lang="th">เสร็จสิ้นอย่างรวดเร็ว</value>

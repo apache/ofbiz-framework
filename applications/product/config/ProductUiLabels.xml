@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
-    or more contributor license agreements. See the NOTICE file
+    or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
-    regarding copyright ownership. The ASF licenses this file
+    regarding copyright ownership.  The ASF licenses this file
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
-    with the License. You may obtain a copy of the License at
+    with the License.  You may obtain a copy of the License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-    KIND, either express or implied. See the License for the
+    KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountingBillingAcc">
         <value xml:lang="de">Rechnungskonto</value>
         <value xml:lang="en">Billing Accounts</value>
@@ -1228,7 +1228,7 @@
         <value xml:lang="zh">成本组成 类型标识</value>
     </property>
     <property key="FormFieldTitle_costComponentTypePrefix">
-        <value xml:lang="de">Kostenkomponente Typ Präfix</value>    
+        <value xml:lang="de">Kostenkomponente Typ Präfix</value>
         <value xml:lang="en">Cost Component Type Prefix</value>
         <value xml:lang="es">Prefijo de tipo del componente de coste</value>
         <value xml:lang="fr">Préfixe de type de coût de composant</value>
@@ -2316,7 +2316,7 @@
         <value xml:lang="zh">明细评论</value>
     </property>
     <property key="FormFieldTitle_itemDeclinedStatus">
-        <value xml:lang="de">Position abgelehnt Status</value>    
+        <value xml:lang="de">Position abgelehnt Status</value>
         <value xml:lang="en">Item Declined Status</value>
         <value xml:lang="es">Ítem rechazado</value>
         <value xml:lang="fr">Ligne en statut refusé</value>
@@ -2406,7 +2406,7 @@
         <value xml:lang="th">รหัสระดับ</value>
     </property>
     <property key="FormFieldTitle_linkInfo">
-        <value xml:lang="de">Link Info</value>    
+        <value xml:lang="de">Link Info</value>
         <value xml:lang="en">Link Info</value>
         <value xml:lang="es">Enlace info</value>
         <value xml:lang="fr">Lien d'information</value>
@@ -2415,7 +2415,7 @@
         <value xml:lang="th">ข้อมูลการเชื่อมต่อ</value>
     </property>
     <property key="FormFieldTitle_linkOneImageUrl">
-        <value xml:lang="de">Link Eins Bild URL</value>    
+        <value xml:lang="de">Link Eins Bild URL</value>
         <value xml:lang="en">Link One Image Url</value>
         <value xml:lang="es">Url imagen enlace primero</value>
         <value xml:lang="fr">Url primaire de lien image</value>
@@ -2426,7 +2426,7 @@
         <value xml:lang="zh">链接一个图像网址</value>
     </property>
     <property key="FormFieldTitle_linkSeqId">
-        <value xml:lang="de">Link Seq. ID</value>    
+        <value xml:lang="de">Link Seq. ID</value>
         <value xml:lang="en">Link Seq Id</value>
         <value xml:lang="es">Nº sec. enlace</value>
         <value xml:lang="fr">Réf. séq. de lien</value>
@@ -2435,7 +2435,7 @@
         <value xml:lang="th">รหัสรายการเชื่อมต่อ</value>
     </property>
     <property key="FormFieldTitle_linkTwoImageUrl">
-        <value xml:lang="de">Link Zwei Bild URL</value>    
+        <value xml:lang="de">Link Zwei Bild URL</value>
         <value xml:lang="en">Link Two Image Url</value>
         <value xml:lang="es">Url imagen enlace segundo</value>
         <value xml:lang="fr">Url secondaire de lien image</value>
@@ -2446,7 +2446,7 @@
         <value xml:lang="zh">链接两个图像网址</value>
     </property>
     <property key="FormFieldTitle_localeString">
-        <value xml:lang="de">Locale String</value>    
+        <value xml:lang="de">Locale String</value>
         <value xml:lang="en">Locale String</value>
         <value xml:lang="es">Cadena Locale</value>
         <value xml:lang="fr">Chaîne de caractère régionalisée</value>
@@ -2457,7 +2457,7 @@
         <value xml:lang="zh">本地语言字符串</value>
     </property>
     <property key="FormFieldTitle_locationSeqId">
-        <value xml:lang="de">Standort Seq. ID</value>    
+        <value xml:lang="de">Standort Seq. ID</value>
         <value xml:lang="en">Location Seq Id</value>
         <value xml:lang="es">Nº sec. ubicación</value>
         <value xml:lang="fr">Réf. séq. d'emplacement</value>
@@ -2474,7 +2474,7 @@
         <value xml:lang="th">ถึงรหัสรายการที่ตั้ง</value>
     </property>
     <property key="FormFieldTitle_locationTypeEnumId">
-        <value xml:lang="de">Standorttyp Aufzählung ID</value>    
+        <value xml:lang="de">Standorttyp Aufzählung ID</value>
         <value xml:lang="en">Location Type Enum Id</value>
         <value xml:lang="es">Tipo de ubicación</value>
         <value xml:lang="fr">Réf. de type d'emplacement</value>
@@ -2532,7 +2532,7 @@
         <value xml:lang="th">คู่มือการใช้เท่านั้น</value>
     </property>
     <property key="FormFieldTitle_manufacturerPartyId">
-        <value xml:lang="de">Hersteller Akteur ID</value>    
+        <value xml:lang="de">Hersteller Akteur ID</value>
         <value xml:lang="en">Manufacturer Party Id</value>
         <value xml:lang="es">Código de participante del fabricante</value>
         <value xml:lang="fr">Réf. de fabricant</value>
@@ -2543,7 +2543,7 @@
         <value xml:lang="zh">制造商会员标识</value>
     </property>
     <property key="FormFieldTitle_maxLifeTime">
-        <value xml:lang="de">Maximale Lebensdauer</value>    
+        <value xml:lang="de">Maximale Lebensdauer</value>
         <value xml:lang="en">Max Life Time</value>
         <value xml:lang="es">Tiempo de vida máximo</value>
         <value xml:lang="fr">Durée de vie maxi</value>
@@ -2552,7 +2552,7 @@
         <value xml:lang="th">อายุการใช้งานมาก</value>
     </property>
     <property key="FormFieldTitle_maxLifeTimeUomId">
-        <value xml:lang="de">Maximale Lebensdauer Zeiteinheit ID</value>    
+        <value xml:lang="de">Maximale Lebensdauer Zeiteinheit ID</value>
         <value xml:lang="en">Max Life Time Uom Id</value>
         <value xml:lang="es">UDM tiempo de vida máximo</value>
         <value xml:lang="fr">Unité de temps disponible</value>
@@ -2679,7 +2679,7 @@
         <value xml:lang="th">คลังสินค้ามีจำนวนน้อยที่สุด</value>
     </property>
     <property key="FormFieldTitle_monthsInPastLimit">
-        <value xml:lang="de">Monate in letzter Limite</value>    
+        <value xml:lang="de">Monate in letzter Limite</value>
         <value xml:lang="en">Months In Past Limit</value>
         <value xml:lang="es">Límite meses pasados</value>
         <value xml:lang="fr">Limite en mois passés</value>
@@ -2706,7 +2706,7 @@
         <value xml:lang="th">รหัสประเภทความต้องการ</value>
     </property>
     <property key="FormFieldTitle_numberSpecified">
-        <value xml:lang="de">Angegebene Nummer</value>    
+        <value xml:lang="de">Angegebene Nummer</value>
         <value xml:lang="en">Number Specified</value>
         <value xml:lang="es">Número especificado</value>
         <value xml:lang="fr">Nombre spécifié</value>
@@ -2717,7 +2717,7 @@
         <value xml:lang="zh">指定的编号</value>
     </property>
     <property key="FormFieldTitle_objectInfo">
-        <value xml:lang="de">Informationen zum Objekt</value>    
+        <value xml:lang="de">Informationen zum Objekt</value>
         <value xml:lang="en">Object Info</value>
         <value xml:lang="es">Información del objeto</value>
         <value xml:lang="fr">Information sur l'objet</value>
@@ -2728,7 +2728,7 @@
         <value xml:lang="zh">物体信息</value>
     </property>
     <property key="FormFieldTitle_oldPickStartDate">
-        <value xml:lang="de">Altes Kommissionierungs-Startdatum</value>    
+        <value xml:lang="de">Altes Kommissionierungs-Startdatum</value>
         <value xml:lang="en">Old Pick Start Date</value>
         <value xml:lang="es">Antigua fecha de recogida</value>
         <value xml:lang="fr">Ancienne date de départ du prélèvement</value>
@@ -2859,7 +2859,7 @@
         <value xml:lang="th">ยกเลิกรหัสกลุ่มองค์กร</value>
     </property>
     <property key="FormFieldTitle_oversizePrice">
-        <value xml:lang="de">Übergrösse Preis</value>    
+        <value xml:lang="de">Übergrösse Preis</value>
         <value xml:lang="en">Oversize Price</value>
         <value xml:lang="es">Precio tamaño superior</value>
         <value xml:lang="fr">Prix hors norme</value>
@@ -2868,7 +2868,7 @@
         <value xml:lang="th">ราคามากกว่าปกติ</value>
     </property>
     <property key="FormFieldTitle_oversizeUnit">
-        <value xml:lang="de">Übergrösse Stück</value>    
+        <value xml:lang="de">Übergrösse Stück</value>
         <value xml:lang="en">Oversize Unit</value>
         <value xml:lang="es">Unidad tamaño superior</value>
         <value xml:lang="fr">Unité hors norme</value>
@@ -2877,7 +2877,7 @@
         <value xml:lang="th">หน่วยมากกว่าปกติ</value>
     </property>
     <property key="FormFieldTitle_ownerContentId">
-        <value xml:lang="de">Besitzer Inhalt ID</value>    
+        <value xml:lang="de">Besitzer Inhalt ID</value>
         <value xml:lang="en">Owner Content Id</value>
         <value xml:lang="es">Código del propietario</value>
         <value xml:lang="fr">Réf. de propriétaire de contenu</value>
@@ -2888,13 +2888,13 @@
         <value xml:lang="zh">拥有者内容标识</value>
     </property>
     <property key="FormFieldTitle_parentFacilityId">
-        <value xml:lang="de">Übergeordnete Einrichtung ID</value>    
+        <value xml:lang="de">Übergeordnete Einrichtung ID</value>
         <value xml:lang="en">Parent Facility Id</value>
         <value xml:lang="es">Código Almacén precursor</value>
         <value xml:lang="fr">Lieu de stockage parent</value>
     </property>
     <property key="FormFieldTitle_parentFacilityGroupId">
-        <value xml:lang="de">Übergeordnete Einrichtungsgruppe ID</value>    
+        <value xml:lang="de">Übergeordnete Einrichtungsgruppe ID</value>
         <value xml:lang="en">Parent Facility Group Id</value>
         <value xml:lang="es">Código Grupo almacén precursor</value>
         <value xml:lang="fr">Réf. de groupe de lieux de stockage parent</value>
@@ -2902,7 +2902,7 @@
         <value xml:lang="th">รหัสกลุ่มคลังสินค้า</value>
     </property>
     <property key="FormFieldTitle_parentTypeId">
-        <value xml:lang="de">Übergeordnetes Element Typ ID</value>    
+        <value xml:lang="de">Übergeordnetes Element Typ ID</value>
         <value xml:lang="en">Parent Type Id</value>
         <value xml:lang="es">Código Tipo precursor</value>
         <value xml:lang="fr">Réf. de type parent</value>
@@ -3029,7 +3029,7 @@
         <value xml:lang="th">รหัสราคาที่เปิดเผย</value>
     </property>
     <property key="FormFieldTitle_priceUnitPrice">
-        <value xml:lang="de">Preis Stückpreis</value>    
+        <value xml:lang="de">Preis Stückpreis</value>
         <value xml:lang="en">Price Unit Price</value>
         <value xml:lang="es">Precio fijo unidad</value>
         <value xml:lang="fr">Prix par unité</value>
@@ -3038,7 +3038,7 @@
         <value xml:lang="th">ราคาต่อหน่วย</value>
     </property>
     <property key="FormFieldTitle_primaryParentCategoryId">
-        <value xml:lang="de">Primäre übergeordnete Kategorie ID</value>    
+        <value xml:lang="de">Primäre übergeordnete Kategorie ID</value>
         <value xml:lang="en">Primary Parent Category Id</value>
         <value xml:lang="es">Código Categoría primaria</value>
         <value xml:lang="fr">Réf. de première catégorie parente</value>
@@ -3049,7 +3049,7 @@
         <value xml:lang="zh">主要上级分类标识</value>
     </property>
     <property key="FormFieldTitle_primaryParentGroupId">
-        <value xml:lang="de">Primäre übergeordnete Gruppen ID</value>    
+        <value xml:lang="de">Primäre übergeordnete Gruppen ID</value>
         <value xml:lang="en">Primary Parent Group Id</value>
         <value xml:lang="es">Código Grupo precursor</value>
         <value xml:lang="fr">Réf. groupe parent primaire</value>
@@ -3057,7 +3057,7 @@
         <value xml:lang="th">รหัสกลุ่มพื้นฐาน</value>
     </property>
     <property key="FormFieldTitle_primaryProductCategoryId">
-        <value xml:lang="de">Primäre Produktkategorie ID</value>    
+        <value xml:lang="de">Primäre Produktkategorie ID</value>
         <value xml:lang="en">Primary Product Category Id</value>
         <value xml:lang="es">Código Categoría de producto primaria</value>
         <value xml:lang="fr">Réf. de première catégorie d'article</value>
@@ -3068,7 +3068,7 @@
         <value xml:lang="zh">主要产品分类标识</value>
     </property>
     <property key="FormFieldTitle_primaryStoreGroupId">
-        <value xml:lang="de">Primäre Laden ID</value>    
+        <value xml:lang="de">Primäre Laden ID</value>
         <value xml:lang="en">Primary Store Group Id</value>
         <value xml:lang="es">Código Tienda primaria</value>
         <value xml:lang="fr">Réf. de Groupe de centre de profit</value>
@@ -3090,7 +3090,7 @@
         <value xml:lang="zh">特权枚举标识</value>
     </property>
     <property key="FormFieldTitle_prodCatContentTypeId">
-        <value xml:lang="de">Produktkategorie Inhalt Typ ID</value>    
+        <value xml:lang="de">Produktkategorie Inhalt Typ ID</value>
         <value xml:lang="en">Prod Cat Content Type Id</value>
         <value xml:lang="es">Código Tipo de contenido catálogo de productos</value>
         <value xml:lang="fr">Réf. de type de catégorie de contenu de produit</value>
@@ -3152,7 +3152,7 @@
         <value xml:lang="zh">产品分类类型标识</value>
     </property>
     <property key="FormFieldTitle_productConfigItemType">
-        <value xml:lang="de">Produkt Konfigurationsposition Typ</value>    
+        <value xml:lang="de">Produkt Konfigurationsposition Typ</value>
         <value xml:lang="en">ProductConfigItemType</value>
         <value xml:lang="es">Tipo de ítem de configuración de producto</value>
         <value xml:lang="fr">Type de configuration d'article</value>
@@ -3276,7 +3276,7 @@
         <value xml:lang="zh">产品价格目的标识</value>
     </property>
     <property key="FormFieldTitle_productPromoActionSeqId">
-        <value xml:lang="de">Produktaktion Vorgehen Seq. ID </value>    
+        <value xml:lang="de">Produktaktion Vorgehen Seq. ID </value>
         <value xml:lang="en">Product Promo Action Seq Id</value>
         <value xml:lang="es">Código Acción de promoción de producto</value>
         <value xml:lang="fr">Réf. séq. d'action de promotion</value>
@@ -3287,7 +3287,7 @@
         <value xml:lang="zh">产品促销行动顺序标识</value>
     </property>
     <property key="FormFieldTitle_productPromoCodeId">
-        <value xml:lang="de">Produktaktion Code ID</value>    
+        <value xml:lang="de">Produktaktion Code ID</value>
         <value xml:lang="en">Product Promo Code Id</value>
         <value xml:lang="es">Código Identificador de promocion de producto</value>
         <value xml:lang="fr">Réf. de code de promotion produit</value>
@@ -3320,7 +3320,7 @@
         <value xml:lang="zh">产品促销规则标识</value>
     </property>
     <property key="FormFieldTitle_productStoreGroupId">
-        <value xml:lang="de">Produkt Ladengruppe ID</value>    
+        <value xml:lang="de">Produkt Ladengruppe ID</value>
         <value xml:lang="en">Product Store Group Id</value>
         <value xml:lang="es">Código Grupo de tiendas</value>
         <value xml:lang="fr">Réf. de groupe de centre de profit</value>
@@ -3328,7 +3328,7 @@
         <value xml:lang="th">รหัสกลุ่มคลังสินค้า</value>
     </property>
     <property key="FormFieldTitle_productStoreId">
-        <value xml:lang="de">Produkt Laden ID</value>    
+        <value xml:lang="de">Produkt Laden ID</value>
         <value xml:lang="en">Product Store Id</value>
         <value xml:lang="es">Código de tienda</value>
         <value xml:lang="fr">Réf. de centre de profit</value>
@@ -3339,7 +3339,7 @@
         <value xml:lang="zh">产品店铺标识</value>
     </property>
     <property key="FormFieldTitle_productStoreShipMethId">
-        <value xml:lang="de">Produkt Läden Versandmethode ID</value>    
+        <value xml:lang="de">Produkt Läden Versandmethode ID</value>
         <value xml:lang="en">Product Store Ship Meth Id</value>
         <value xml:lang="es">Código Método de envío de tienda</value>
         <value xml:lang="fr">Réf. de méthode d'expédition</value>
@@ -3570,7 +3570,7 @@
         <value xml:lang="th">Relevancy Weight</value>
     </property>
     <property key="FormFieldTitle_reorderQuantity">
-        <value xml:lang="de">Wiederbestellung Menge</value>    
+        <value xml:lang="de">Wiederbestellung Menge</value>
         <value xml:lang="en">Reorder Quantity</value>
         <value xml:lang="es">Cantidad para repetición de pedido</value>
         <value xml:lang="fr">Commander à nouveau la quantité</value>
@@ -3579,7 +3579,7 @@
         <value xml:lang="th">จำนวนการสั่งสินค้าอีกครั้ง</value>
     </property>
     <property key="FormFieldTitle_repeatCount">
-        <value xml:lang="de">Wiederholungszähler</value>    
+        <value xml:lang="de">Wiederholungszähler</value>
         <value xml:lang="en">Repeat Count</value>
         <value xml:lang="es">Contador de repeticiones</value>
         <value xml:lang="fr">Répétition de compte</value>
@@ -3606,7 +3606,7 @@
         <value xml:lang="th">ได้รับสินค้าคงเหลือคืนจากรายการ</value>
     </property>
     <property key="FormFieldTitle_reqShipAddrForDigItem">
-        <value xml:lang="de">Benötigt Lieferadresse für digitales Produkt</value>    
+        <value xml:lang="de">Benötigt Lieferadresse für digitales Produkt</value>
         <value xml:lang="en">Req Ship Addr For Dig Item</value>
         <value xml:lang="es">Artículos digitales requieren dirección de envío</value>
         <value xml:lang="fr">Req. d'adresse d'expédition d'article numérique</value>
@@ -3615,7 +3615,7 @@
         <value xml:lang="th">ต</value>
     </property>
     <property key="FormFieldTitle_reqShipAddrForDigItems">
-        <value xml:lang="de">Benötigt Lieferadresse für digitale Produkte</value>    
+        <value xml:lang="de">Benötigt Lieferadresse für digitale Produkte</value>
         <value xml:lang="en">Req Ship Addr For Dig Items</value>
         <value xml:lang="es">Se requiere dirección para artículos digitales</value>
         <value xml:lang="fr">Articles numériques : destination requise</value>
@@ -3662,7 +3662,7 @@
         <value xml:lang="zh">需要电子邮件或会员</value>
     </property>
     <property key="FormFieldTitle_requireInventory">
-        <value xml:lang="de">Benötigt Lagerbestand</value>    
+        <value xml:lang="de">Benötigt Lagerbestand</value>
         <value xml:lang="en">Require Inventory</value>
         <value xml:lang="es">Exigir existencias en stock</value>
         <value xml:lang="fr">Nécessite une présence en stock</value>
@@ -3715,7 +3715,7 @@
         <value xml:lang="zh">预订订单枚举标识</value>
     </property>
     <property key="FormFieldTitle_reservedDatetime">
-        <value xml:lang="de">Datum/Zeit reserviert</value>    
+        <value xml:lang="de">Datum/Zeit reserviert</value>
         <value xml:lang="en">Reserved Date Time</value>
         <value xml:lang="es">Fecha/hora reserva</value>
         <value xml:lang="fr">Date/Heure réservée</value>
@@ -3723,7 +3723,7 @@
         <value xml:lang="th">วันเวลาการจอง</value>
     </property>
     <property key="FormFieldTitle_responseRequiredDate">
-        <value xml:lang="de">Antwort benötigt Datum</value>    
+        <value xml:lang="de">Antwort benötigt Datum</value>
         <value xml:lang="en">Response Required Date</value>
         <value xml:lang="es">Fecha exigida para respuesta</value>
         <value xml:lang="fr">Date requise de la réponse</value>
@@ -3734,7 +3734,7 @@
         <value xml:lang="zh">回答需要的日期</value>
     </property>
     <property key="FormFieldTitle_responseService">
-        <value xml:lang="de">Antwortdienst</value>    
+        <value xml:lang="de">Antwortdienst</value>
         <value xml:lang="en">Response Service</value>
         <value xml:lang="es">Servicio de respuesta</value>
         <value xml:lang="fr">Service de réponse</value>
@@ -3745,7 +3745,7 @@
         <value xml:lang="zh">回答服务</value>
     </property>
     <property key="FormFieldTitle_retryFailedAuths">
-        <value xml:lang="de">Misslungene Abbuchung für Zahlungen erneut versuchen</value>    
+        <value xml:lang="de">Misslungene Abbuchung für Zahlungen erneut versuchen</value>
         <value xml:lang="en">Retry Failed Auths</value>
         <value xml:lang="es">Volver a intentar autorización fallada</value>
         <value xml:lang="fr">Retenter les autorisations de paiement ayant échoué</value>
@@ -3822,7 +3822,7 @@
         <value xml:lang="zh">搜索变型</value>
     </property>
     <property key="FormFieldTitle_sectionId">
-        <value xml:lang="de">Abschnitt ID</value>    
+        <value xml:lang="de">Abschnitt ID</value>
         <value xml:lang="en">Section Id</value>
         <value xml:lang="es">Código sección</value>
         <value xml:lang="fr">Réf. de section</value>
@@ -3830,7 +3830,7 @@
         <value xml:lang="th">รหัสกลุ่ม</value>
     </property>
     <property key="FormFieldTitle_secureContentPrefix">
-        <value xml:lang="de">Sicherer Inhalt Präfix</value>    
+        <value xml:lang="de">Sicherer Inhalt Präfix</value>
         <value xml:lang="en">Secure Content Prefix</value>
         <value xml:lang="es">Prefijo contenido seguro</value>
         <value xml:lang="fr">Préfixe de contenu sécurisé</value>
@@ -3841,7 +3841,7 @@
         <value xml:lang="zh">安全内容前缀</value>
     </property>
     <property key="FormFieldTitle_selectPaymentTypePerItem">
-        <value xml:lang="de">Zahlungsart pro Position auswählen</value>    
+        <value xml:lang="de">Zahlungsart pro Position auswählen</value>
         <value xml:lang="en">Select Payment Type Per Item</value>
         <value xml:lang="es">Seleccionar tipo de pago por ítem</value>
         <value xml:lang="fr">Choisir le type de paiement par article</value>
@@ -3863,7 +3863,7 @@
         <value xml:lang="zh">已选金额</value>
     </property>
     <property key="FormFieldTitle_sendDate">
-        <value xml:lang="de">Übermittlungsdatum</value>    
+        <value xml:lang="de">Übermittlungsdatum</value>
         <value xml:lang="en">Send Date</value>
         <value xml:lang="es">Fecha de envío</value>
         <value xml:lang="fr">Date d'envoi</value>
@@ -3929,7 +3929,7 @@
         <value xml:lang="th">ตั้งค่าผู้เป็นเจ้าของในเวลาตีพิมพ์</value>
     </property>
     <property key="FormFieldTitle_shipGroupSeqId">
-        <value xml:lang="de">Versandgruppe Seq. ID</value>    
+        <value xml:lang="de">Versandgruppe Seq. ID</value>
         <value xml:lang="en">Ship Group Seq Id</value>
         <value xml:lang="es">Código grupo de envío</value>
         <value xml:lang="fr">Réf. séq. de groupe d'expédition</value>
@@ -3937,7 +3937,7 @@
         <value xml:lang="th">รหัสรายการกลุ่มการขนส่ง</value>
     </property>
     <property key="FormFieldTitle_shipIfCaptureFails">
-        <value xml:lang="de">Versenden falls Zahlung fehlschlägt</value>    
+        <value xml:lang="de">Versenden falls Zahlung fehlschlägt</value>
         <value xml:lang="en">Ship If Capture Fails</value>
         <value xml:lang="es">Enviar si falla pago</value>
         <value xml:lang="fr">Expédier même si le prélèvement échoue</value>
@@ -4003,7 +4003,7 @@
         <value xml:lang="th">เปอร์เซ็นต์ราคาการขนส่งสินค้า</value>
     </property>
     <property key="FormFieldTitle_showCheckoutGiftOptions">
-        <value xml:lang="de">Einstellungen zu Geschenken anzeigen</value>    
+        <value xml:lang="de">Einstellungen zu Geschenken anzeigen</value>
         <value xml:lang="en">Show Checkout Gift Options</value>
         <value xml:lang="es">Mostrar opciones de regalo al checkout</value>
         <value xml:lang="fr">Montrer les options de cadeaux</value>
@@ -4014,7 +4014,7 @@
         <value xml:lang="zh">显示校验礼品选项</value>
     </property>
     <property key="FormFieldTitle_showInSelect">
-        <value xml:lang="de">Anzeigen bei der Auswahl</value>    
+        <value xml:lang="de">Anzeigen bei der Auswahl</value>
         <value xml:lang="en">Show In Select</value>
         <value xml:lang="es">Mostrar en selección</value>
         <value xml:lang="fr">Montrer dans la sélection</value>
@@ -4025,7 +4025,7 @@
         <value xml:lang="zh">在选择中显示</value>
     </property>
     <property key="FormFieldTitle_showPricesWithVatTax">
-        <value xml:lang="de">Preise inkl. MWST anzeigen</value>    
+        <value xml:lang="de">Preise inkl. MWST anzeigen</value>
         <value xml:lang="en">Show prices with VAT tax included</value>
         <value xml:lang="es">Mostrar precios IVA incluido</value>
         <value xml:lang="fr">Montrer les prix avec la TVA incluse (TTC)</value>
@@ -4036,7 +4036,7 @@
         <value xml:lang="zh">显示含增值税价格</value>
     </property>
     <property key="FormFieldTitle_showTaxIsExempt">
-        <value xml:lang="de">Steuerbefreiungen anzeigen</value>    
+        <value xml:lang="de">Steuerbefreiungen anzeigen</value>
         <value xml:lang="en">Show Tax Is Exempt</value>
         <value xml:lang="es">Mostrar exento de impuesto</value>
         <value xml:lang="fr">Afficher les exemptions de taxes</value>
@@ -4047,7 +4047,7 @@
         <value xml:lang="zh">显示免除的税</value>
     </property>
     <property key="FormFieldTitle_siteName">
-        <value xml:lang="de">Name der Seite anzeigen</value>    
+        <value xml:lang="de">Name der Seite anzeigen</value>
         <value xml:lang="en">Site Name</value>
         <value xml:lang="es">Nombre del sitio</value>
         <value xml:lang="fr">Nom du site</value>
@@ -4085,7 +4085,7 @@
         <value xml:lang="th">Split Pay Pref Per Shp Grp</value>
     </property>
     <property key="FormFieldTitle_standardContentPrefix">
-        <value xml:lang="de">Standart Inhalt Präfix</value>    
+        <value xml:lang="de">Standart Inhalt Präfix</value>
         <value xml:lang="en">Standard Content Prefix</value>
         <value xml:lang="es">Prefijo de contenido estándar</value>
         <value xml:lang="fr">Préfixe de contenu std</value>
@@ -4118,7 +4118,7 @@
         <value xml:lang="zh">店铺信用有效天数</value>
     </property>
     <property key="FormFieldTitle_storeName">
-        <value xml:lang="de">Laden Name</value>    
+        <value xml:lang="de">Laden Name</value>
         <value xml:lang="en">Store Name</value>
         <value xml:lang="es">Nombre de tienda</value>
         <value xml:lang="fr">Nom du centre de profit</value>
@@ -4129,7 +4129,7 @@
         <value xml:lang="zh">店铺名称</value>
     </property>
     <property key="FormFieldTitle_styleSheet">
-        <value xml:lang="de">Stylesheet</value>    
+        <value xml:lang="de">Stylesheet</value>
         <value xml:lang="en">styleSheet</value>
         <value xml:lang="es">hoja de estilos</value>
         <value xml:lang="fr">Feuille de style</value>
@@ -4147,7 +4147,7 @@
         <value xml:lang="zh">提交标题</value>
     </property>
     <property key="FormFieldTitle_subscriptionId">
-        <value xml:lang="de">Abonnement ID</value>    
+        <value xml:lang="de">Abonnement ID</value>
         <value xml:lang="en">Subscription Id</value>
         <value xml:lang="es">Nº de suscripción</value>
         <value xml:lang="fr">Réf. de l'abonnement</value>
@@ -4158,7 +4158,7 @@
         <value xml:lang="zh">订阅标识</value>
     </property>
     <property key="FormFieldTitle_subscriptionResourceId">
-        <value xml:lang="de">Abonnement Ressource ID</value>    
+        <value xml:lang="de">Abonnement Ressource ID</value>
         <value xml:lang="en">Subscription Resource Id</value>
         <value xml:lang="es">Cödigo Fuente de suscripción</value>
         <value xml:lang="fr">Réf. de ressource d'abonnement</value>
@@ -7127,7 +7127,7 @@
         <value xml:lang="en">Add Items From Inventory</value>
         <value xml:lang="es">Añadir ítems del inventario</value>
         <value xml:lang="fr">Ajouter un article depuis le stock</value>
-    </property>        
+    </property>
     <property key="ProductAbbrev">
         <value xml:lang="de">Abkürzung</value>
         <value xml:lang="en">Abbrev</value>
@@ -8360,7 +8360,7 @@
         <value xml:lang="zh">有效</value>
     </property>
     <property key="ProductAvailableFromDate">
-        <value xml:lang="de">Verfügbar vom Datum</value> 
+        <value xml:lang="de">Verfügbar vom Datum</value>
         <value xml:lang="en">Available from date</value>
         <value xml:lang="es">Disponible desde la fecha</value>
         <value xml:lang="fr">Disponible depuis la date</value>
@@ -9841,7 +9841,7 @@
         <value xml:lang="en">New Web Site</value>
         <value xml:lang="es">Nuevo sitio web</value>
         <value xml:lang="fr">Nouveau site web</value>
-    </property>    
+    </property>
     <property key="ProductCrossSell">
         <value xml:lang="de">Sie könnten auch diese Interessant finden:</value>
         <value xml:lang="en">You might be interested in these as well:</value>
@@ -11418,8 +11418,8 @@
         <value xml:lang="de">Abonnemente suchen nach Ressource</value>
         <value xml:lang="en">Find Subscriptions for Resource</value>
         <value xml:lang="es">Buscar suscripciones para recurso</value>
-        <value xml:lang="it">Ricerca Abbonamenti per Risorsa</value>
         <value xml:lang="fr">Rechercher les abonnements pour la ressource</value>
+        <value xml:lang="it">Ricerca Abbonamenti per Risorsa</value>
         <value xml:lang="ro">Cauta Abonamente pe Resurse </value>
         <value xml:lang="ru">Найти подписки для ресурса</value>
         <value xml:lang="th">ค้นหาการสั่งซื้อสำหรับแหล่งข้อมูล</value>
@@ -11514,7 +11514,7 @@
     <property key="ProductFlatTitle">
         <value xml:lang="en">Flat charges</value>
         <value xml:lang="fr">Frais fixes</value>
-    </property>    
+    </property>
     <property key="ProductFromGeo">
         <value xml:lang="de">Von Geo</value>
         <value xml:lang="en">From Geo</value>
@@ -11908,7 +11908,7 @@
         <value xml:lang="zh">标识序号</value>
     </property>
     <property key="ProductIdType">
-        <value xml:lang="de">ID Typ</value>        
+        <value xml:lang="de">ID Typ</value>
         <value xml:lang="en">ID Type</value>
         <value xml:lang="es">Tipo de Código</value>
         <value xml:lang="fr">Type de référence</value>
@@ -12506,7 +12506,7 @@
         <value xml:lang="en">Issue Inventory Item(s) to Shipment</value>
         <value xml:lang="es">Emitir ítem(s) de inventario para el envío</value>
         <value xml:lang="fr">Prélevé un(des) article(s) du stock pour l'(es) expédier</value>
-    </property>        
+    </property>
     <property key="ProductIssuedQuantity">
         <value xml:lang="de">Ausgegebene Menge</value>
         <value xml:lang="en">Issued Quantity</value>
@@ -12544,8 +12544,8 @@
         <value xml:lang="de">Position ATP</value>
         <value xml:lang="en">Item ATP</value>
         <value xml:lang="es">Ítem disponible para reservar (ATP)</value>
-        <value xml:lang="it">Riga ATP</value>
         <value xml:lang="fr">Quantité disponible (ATP)</value>
+        <value xml:lang="it">Riga ATP</value>
         <value xml:lang="ru">Позиция ATP</value>
         <value xml:lang="th">รายการ ATP</value>
         <value xml:lang="zh">承诺有效的明细</value>
@@ -13043,7 +13043,7 @@
         <value xml:lang="en">Lookup Inventory(s)</value>
         <value xml:lang="es">Consultar inventario</value>
         <value xml:lang="fr">Consulter le stock</value>
-    </property>        
+    </property>
     <property key="ProductLookupShipment">
         <value xml:lang="de">Lieferung(en) suchen</value>
         <value xml:lang="en">Lookup Shipment(s)</value>
@@ -13257,7 +13257,7 @@
         <value xml:lang="zh">最大合计</value>
     </property>
     <property key="ProductMaxTotalMessage">
-        <value xml:lang="de">Wird nur angezeigt falls der Preis kleiner oder gleich diesem Wert ist</value> 
+        <value xml:lang="de">Wird nur angezeigt falls der Preis kleiner oder gleich diesem Wert ist</value>
         <value xml:lang="en">Displays only if total price is equal/less than this value</value>
         <value xml:lang="es">Se muestra sólo si el precio total es igual o menor que este valor</value>
         <value xml:lang="fr">Montré seulement si le prix total est plus petit ou égal à cette valeur</value>
@@ -13431,7 +13431,6 @@
         <value xml:lang="en">Min Qt</value>
         <value xml:lang="es">Cantidad mín.</value>
         <value xml:lang="fr">Qantité Mini</value>
-
         <value xml:lang="it">Qnt Minima</value>
         <value xml:lang="ru">Мин кол</value>
         <value xml:lang="th">Min Qt</value>
@@ -15704,7 +15703,7 @@
     <property key="ProductPriceTitle1">
         <value xml:lang="en">Price charge</value>
         <value xml:lang="fr">Frais lié au prix</value>
-    </property>        
+    </property>
     <property key="ProductPriceType">
         <value xml:lang="de">Preistyp</value>
         <value xml:lang="en">Price Type</value>
@@ -15776,7 +15775,7 @@
         <value xml:lang="en">Primary Return ID</value>
         <value xml:lang="es">Código principal devolución</value>
         <value xml:lang="fr">Réf. de retour principale</value>
-    </property>        
+    </property>
     <property key="ProductPrimaryShipGroupSeqId">
         <value xml:lang="de">Primäre Liefergruppe Seq. ID</value>
         <value xml:lang="en">Primary Ship Group Seq Id</value>
@@ -15963,7 +15962,7 @@
     <property key="ProductFeatureTitle">
         <value xml:lang="en">Features group charges</value>
         <value xml:lang="fr">Frais par groupe de caractéristiques</value>
-    </property>    
+    </property>
     <property key="ProductProductHeight">
         <value xml:lang="de">Produkt Höhe</value>
         <value xml:lang="en">Product Height</value>
@@ -16815,7 +16814,7 @@
     <property key="ProductQuantityTitle1">
         <value xml:lang="en">Quantity charge</value>
         <value xml:lang="fr">Frais lié à la quantité</value>
-    </property>        
+    </property>
     <property key="ProductQuantityToBin">
         <value xml:lang="de">Menge zu Behälter</value>
         <value xml:lang="en">Quantity To Bin</value>
@@ -16905,7 +16904,7 @@
         <value xml:lang="zh">从变型快速创建虚拟产品</value>
     </property>
     <property key="ProductQuickShipOrder">
-        <value xml:lang="de">Rasches versenden Auftrag</value>        
+        <value xml:lang="de">Rasches versenden Auftrag</value>
         <value xml:lang="en">Quick Ship Order:</value>
         <value xml:lang="es">Enviar rápido pedido:</value>
         <value xml:lang="fr">Expédition express</value>
@@ -20524,7 +20523,7 @@
     <property key="ProductWeightTitle1">
         <value xml:lang="en">Weight charge</value>
         <value xml:lang="fr">Frais lié au poids</value>
-    </property>    
+    </property>
     <property key="ProductWeightUnit">
         <value xml:lang="de">Gewicht Einheit</value>
         <value xml:lang="en">Weight Unit</value>

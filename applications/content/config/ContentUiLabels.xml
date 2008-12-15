@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -16,8 +17,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="ContentAnswer">
         <value xml:lang="ar">الجواب</value>
         <value xml:lang="de">Antwort</value>
@@ -179,7 +179,7 @@
         <value xml:lang="fr">Exemples de vue</value>
         <value xml:lang="it">Mostra Istanze di CompDoc</value>
         <value xml:lang="th">ดูตัวอย่าง</value>
-        </property>
+    </property>
     <property key="ContentCompDocViewTree">
         <value xml:lang="de">Baum anzeigen</value>
         <value xml:lang="en">View Tree</value>
@@ -505,8 +505,8 @@
         <value xml:lang="th">แผนที่สำคัญ</value>
     </property>
     <property key="ContentMetaDataPred">
-        <value xml:lang="de">Metadaten Prädikat</value>
         <value xml:lang="ar">MetaData Predicate</value>
+        <value xml:lang="de">Metadaten Prädikat</value>
         <value xml:lang="en">MetaData Predicate</value>
         <value xml:lang="fr">Attribut de méta-données</value>
         <value xml:lang="it">Predicato MetaData</value>
@@ -515,8 +515,8 @@
         <value xml:lang="zh">元数据谓词</value>
     </property>
     <property key="ContentMetadata">
-        <value xml:lang="de">Metadaten</value>
         <value xml:lang="ar">Metadata</value>
+        <value xml:lang="de">Metadaten</value>
         <value xml:lang="en">Metadata</value>
         <value xml:lang="fr">Méta-données</value>
         <value xml:lang="it">Metadati</value>
@@ -530,8 +530,8 @@
         <value xml:lang="fr">Méta-étiquettes</value>
     </property>
     <property key="ContentMimeType">
-        <value xml:lang="de">Mime Typ</value>
         <value xml:lang="ar">Mime Type</value>
+        <value xml:lang="de">Mime Typ</value>
         <value xml:lang="en">Mime Type</value>
         <value xml:lang="fr">Type mime</value>
         <value xml:lang="it">Tipo Mime</value>
@@ -540,8 +540,8 @@
         <value xml:lang="zh">Mime类型</value>
     </property>
     <property key="ContentMimeTypeHtmlTemplate">
-        <value xml:lang="de">Mime Typ Vorlage</value>
         <value xml:lang="ar">Mime Type Template</value>
+        <value xml:lang="de">Mime Typ Vorlage</value>
         <value xml:lang="en">Mime Type Template</value>
         <value xml:lang="fr">Type modèle Mime</value>
         <value xml:lang="it">Tipo Mime Template</value>
@@ -848,8 +848,8 @@
         <value xml:lang="zh">网站</value>
     </property>
     <property key="FormFieldTitle_acroFormContentId">
-        <value xml:lang="de">AcroForm (PDF) Inhalt ID</value>
         <value xml:lang="ar">AcroForm (PDF) Content ID</value>
+        <value xml:lang="de">AcroForm (PDF) Inhalt ID</value>
         <value xml:lang="en">AcroForm (PDF) Content ID</value>
         <value xml:lang="fr">Réf. de contenu AcroForm (PDF)</value>
         <value xml:lang="it">Contenuto AcroForm (PDF)</value>
@@ -2611,8 +2611,8 @@
         <value xml:lang="ar">إستحداث تصويت</value>
         <value xml:lang="de">Befragung erstellen</value>
         <value xml:lang="en">Create Survey</value>
-        <value xml:lang="fr">Créer un sondage</value>
         <value xml:lang="es">Crear Encuesta</value>
+        <value xml:lang="fr">Créer un sondage</value>
         <value xml:lang="it">Creare Sondaggio</value>
         <value xml:lang="ro">Creare Sondaj</value>
         <value xml:lang="th">สร้างการสำรวจ</value>
@@ -2681,8 +2681,8 @@
         <value xml:lang="ar">تعرير محتوى</value>
         <value xml:lang="de">Inhalt bearbeiten</value>
         <value xml:lang="en">Edit Content</value>
-        <value xml:lang="fr">Modifier le contenu</value>
         <value xml:lang="es">Modificar Contenido</value>
+        <value xml:lang="fr">Modifier le contenu</value>
         <value xml:lang="it">Aggiorna Contenuto</value>
         <value xml:lang="ro">Actualizeaza Continutul</value>
         <value xml:lang="th">แก้ไขหัวข้อ</value>
@@ -3008,8 +3008,8 @@
         <value xml:lang="ar">تحرير وثيقة مركبة للجذر</value>
         <value xml:lang="de">Basis zusammengesetztes Dokument bearbeiten</value>
         <value xml:lang="en">Edit Root Composite Document</value>
-        <value xml:lang="fr">Modifier la racine du document composite</value>
         <value xml:lang="es">Modificar Documento compuesto Raíz</value>
+        <value xml:lang="fr">Modifier la racine du document composite</value>
         <value xml:lang="it">Aggiorna Radice Documento Composito</value>
         <value xml:lang="ro">Actualizeaza Radacina Document Compus</value>
         <value xml:lang="th">แก้ไขส่วนประกอบของเอกสาร</value>
@@ -3019,8 +3019,8 @@
         <value xml:lang="ar">تحرير تصويت</value>
         <value xml:lang="de">Befragung bearbeiten</value>
         <value xml:lang="en">Edit survey</value>
-        <value xml:lang="fr">Modifier le sondage</value>
         <value xml:lang="es">Modificar Encuesta</value>
+        <value xml:lang="fr">Modifier le sondage</value>
         <value xml:lang="it">Aggiorna Sondaggio</value>
         <value xml:lang="ro">Aggiorna Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจ</value>
@@ -3030,8 +3030,8 @@
         <value xml:lang="ar">تحرير مجموعات جواب متعدد للتصويت</value>
         <value xml:lang="de">Befragung Mehrfachantwortgruppen bearbeiten</value>
         <value xml:lang="en">Edit Survey Multi-Response Groups</value>
-        <value xml:lang="fr">Modifier les groupes multi-réponses du sondage</value>
         <value xml:lang="es">Modificar Encuesta de grupo de respuestas</value>
+        <value xml:lang="fr">Modifier les groupes multi-réponses du sondage</value>
         <value xml:lang="it">Aggiorna Risposte Multiple Gruppo Sondaggio</value>
         <value xml:lang="ro">Adauga Raspunsuri Multiple Grup Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจกลุ่มคำตอบหลาย ๆ คำตอบ</value>
@@ -3041,8 +3041,8 @@
         <value xml:lang="ar">تحرير صفحات التصويت</value>
         <value xml:lang="de">Befragungsseiten bearbeiten</value>
         <value xml:lang="en">Edit Survey Pages</value>
-        <value xml:lang="fr">Modifier les pages du sondage</value>
         <value xml:lang="es">Modificar página de encuestas</value>
+        <value xml:lang="fr">Modifier les pages du sondage</value>
         <value xml:lang="it">Aggiorna Pagine Sondaggio</value>
         <value xml:lang="ro">AActualizeaza Pagina Sondaj</value>
         <value xml:lang="th">แก้ไขหน้าการสำรวจ</value>
@@ -3052,8 +3052,8 @@
         <value xml:lang="ar">تحرير أسئلة التصويت</value>
         <value xml:lang="de">Befragung Fragen bearbeiten</value>
         <value xml:lang="en">Edit Survey Questions</value>
-        <value xml:lang="fr">Modifier les questions du sondage</value>
         <value xml:lang="es">Modificar Preeguntas de Encuesta</value>
+        <value xml:lang="fr">Modifier les questions du sondage</value>
         <value xml:lang="it">Aggiorna Domande Sondaggio</value>
         <value xml:lang="ro">Actualizeaza Intrebari Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจคำถาม</value>
@@ -3063,8 +3063,8 @@
         <value xml:lang="ar">تحرير جواب التصويت</value>
         <value xml:lang="de">Befragung Antworten bearbeiten</value>
         <value xml:lang="en">Edit Survey Response</value>
-        <value xml:lang="fr">Modifier les réponses du sondage</value>
         <value xml:lang="es">Modificar Respuestas de Encuesta</value>
+        <value xml:lang="fr">Modifier les réponses du sondage</value>
         <value xml:lang="it">Aggiorna Risposta Sondaggio</value>
         <value xml:lang="ro">Adauga Raspuns Sondaj</value>
         <value xml:lang="th">แก้ไขการสำรวจคำตอบ</value>
@@ -3605,7 +3605,7 @@
         <value xml:lang="de">Keine Fragen in Befragung; keine Antworten können gefunden werden.</value>
         <value xml:lang="en">No questions in survey; no responses can be located.</value>
         <value xml:lang="fr">Aucune question dans le sondage, aucune réponse ne peut être localisée.</value>
-        <value xml:lang="it">Nessuna domanda nel sondaggio; nessuna risposta pu&#242; essere localizzata.</value>
+        <value xml:lang="it">Nessuna domanda nel sondaggio; nessuna risposta può essere localizzata.</value>
         <value xml:lang="ro">Nici-o intrebare in sondaj; nu poate fi localizat nici-un raspuns.</value>
         <value xml:lang="th">ไม่มีคำถามในการสำรวจ;ไม่สามารถสร้างคำตอบได้</value>
         <value xml:lang="zh">调查中没有问题；无法定位回答。</value>

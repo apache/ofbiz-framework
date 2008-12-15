@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -7,17 +8,16 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="PageTitleAddProjectTimeToNewInvoice">
         <value xml:lang="en">Add all reported/approved task time to a new invoice</value>
         <value xml:lang="fr">Ajouter tout le temps de la tâche rapporté/approuvé à une nouvelle facture/</value>
@@ -52,8 +52,8 @@
     </property>
     <property key="PageTitleAddPhase">
         <value xml:lang="en">Add Phase</value>
-        <value xml:lang="it">Aggiungi Fase</value>
         <value xml:lang="fr">Ajouter une phase</value>
+        <value xml:lang="it">Aggiungi Fase</value>
         <value xml:lang="th">เพิ่มขั้นตอนการทำงาน</value>
         <value xml:lang="zh">增加项目阶段</value>
     </property>
@@ -747,47 +747,47 @@
     <property key="ProjectMgrRateTypeId">
         <value xml:lang="en">Rate Type Id</value>
         <value xml:lang="fr">Réf. du type de taux</value>
-	    <value xml:lang="zh">计算方式Id</value>
+        <value xml:lang="zh">计算方式Id</value>
     </property>
     <property key="ProjectMgrSun">
         <value xml:lang="en">Sun</value>
         <value xml:lang="fr">dim</value>
-	    <value xml:lang="zh">周日</value>
+        <value xml:lang="zh">周日</value>
     </property>
     <property key="ProjectMgrMon">
         <value xml:lang="en">Mon</value>
         <value xml:lang="fr">lun</value>
-	    <value xml:lang="zh">周一</value>
+        <value xml:lang="zh">周一</value>
     </property>
     <property key="ProjectMgrTue">
         <value xml:lang="en">Tue</value>
         <value xml:lang="fr">mar</value>
-	    <value xml:lang="zh">周二</value>
+        <value xml:lang="zh">周二</value>
     </property>
     <property key="ProjectMgrWen">
         <value xml:lang="en">Wen</value>
         <value xml:lang="fr">mer</value>
-	    <value xml:lang="zh">周三</value>
+        <value xml:lang="zh">周三</value>
     </property>
     <property key="ProjectMgrThu">
         <value xml:lang="en">Thu</value>
         <value xml:lang="fr">jeu</value>
-	    <value xml:lang="zh">周四</value>
+        <value xml:lang="zh">周四</value>
     </property>
     <property key="ProjectMgrFri">
         <value xml:lang="en">Fri</value>
         <value xml:lang="fr">ven</value>
-	    <value xml:lang="zh">周五</value>
+        <value xml:lang="zh">周五</value>
     </property>
     <property key="ProjectMgrSat">
         <value xml:lang="en">Sat</value>
         <value xml:lang="fr">sam</value>
-	    <value xml:lang="zh">周六</value>
+        <value xml:lang="zh">周六</value>
     </property>
     <property key="ProjectMgrActualTotal">
         <value xml:lang="en">Act Total</value>
         <value xml:lang="fr">Total réel</value>
-	    <value xml:lang="zh">实际总时间</value>
+        <value xml:lang="zh">实际总时间</value>
     </property>
     <property key="ProjectMgrErrorRequestNotFound">
         <value xml:lang="en">Customer Request: ${parameters.custRequestId} not found</value>
@@ -808,27 +808,27 @@
     <property key="ProjectMgrPlanHours">
         <value xml:lang="en">Plan Hours</value>
         <value xml:lang="fr">Heures planifiées</value>
-	    <value xml:lang="zh">计划时间</value>
+        <value xml:lang="zh">计划时间</value>
     </property>
     <property key="ProjectMgrWeekNumber">
         <value xml:lang="en">Week Number</value>
         <value xml:lang="fr">N° de semaine</value>
-	    <value xml:lang="zh">周数</value>
+        <value xml:lang="zh">周数</value>
     </property>
     <property key="ProjectMgrWeek">
         <value xml:lang="en">Week</value>
         <value xml:lang="fr">Semaine</value>
-	    <value xml:lang="zh">周</value>
+        <value xml:lang="zh">周</value>
     </property>
     <property key="ProjectMgrSelectedDate">
         <value xml:lang="en">Select Date</value>
         <value xml:lang="fr">Choisir la date</value>
-	    <value xml:lang="zh">选择日期</value>
+        <value xml:lang="zh">选择日期</value>
     </property>
     <property key="ProjectMgrRowSubmit">
         <value xml:lang="en">Row Submit</value>
         <value xml:lang="fr">Soumettre la ligne</value>
-	    <value xml:lang="zh">选择提交行</value>
+        <value xml:lang="zh">选择提交行</value>
     </property>
     <property key="ProjectMgrRelease">
         <value xml:lang="en">Release</value>
@@ -1180,7 +1180,7 @@
         <value xml:lang="en">Check Complete</value>
         <value xml:lang="fr">Marquée comme terminé</value>
         <value xml:lang="zh">是否完成</value>
-    </property>    
+    </property>
     <property key="ReviewedCustomerRequestTaskList">
         <value xml:lang="en">Reviewed but not completed Customer Request list with task assigned'</value>
         <value xml:lang="fr">Liste des demandes client vérifiée mais incomplète et ayant une tâche affectée</value>
@@ -1194,12 +1194,12 @@
         <value xml:lang="en">From Party Id</value>
         <value xml:lang="fr">Depuis l'acteur de réf.</value>
         <value xml:lang="zh">来自会员</value>
-    </property> 
+    </property>
     <property key="FormFieldTitle_actualHours">
         <value xml:lang="en">Actual Hours</value>
         <value xml:lang="fr">Heures réelles</value>
         <value xml:lang="zh">实际工时</value>
-    </property> 
+    </property>
     <property key="FormFieldTitle_plannedHours">
         <value xml:lang="en">Planned Hours</value>
         <value xml:lang="fr">Heures planifiées</value>
@@ -1214,19 +1214,19 @@
         <value xml:lang="en">Complete</value>
         <value xml:lang="fr">Terminé</value>
         <value xml:lang="zh">完成</value>
-    </property>     
+    </property>
     <property key="ProjectMgrAddTimeEntry">
         <value xml:lang="en">Add Time Entry</value>
         <value xml:lang="fr">Ajouter une échéance</value>
         <value xml:lang="it">Aggiungi Voce Tempo</value>
         <value xml:lang="th">เพิ่มตารางเวลา</value>
         <value xml:lang="zh">增加时间条目</value>
-    </property>  
+    </property>
     <property key="ProjectMgrPrivateOrPublic">
         <value xml:lang="en">Private/Public</value>
         <value xml:lang="fr">Privé/Public</value>
         <value xml:lang="zh">私人/公开</value>
-    </property>  
+    </property>
     <property key="FormFieldTitle_isPrintable">
         <value xml:lang="en">is Printable</value>
         <value xml:lang="fr">est imprimable</value>

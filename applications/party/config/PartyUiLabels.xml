@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -16,8 +17,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountingBillingAccount">
         <value xml:lang="de">Rechnungskonto</value>
         <value xml:lang="en">Billing Account</value>
@@ -287,8 +287,8 @@
         <value xml:lang="en">Contach Mech Detail</value>
         <value xml:lang="es">Detalles de mec. de contacto</value>
         <value xml:lang="fr">Détail des coordonées</value>
-        <value xml:lang="nl">Details contactmech</value>
         <value xml:lang="it">Dettagli Contatto</value>
+        <value xml:lang="nl">Details contactmech</value>
         <value xml:lang="th">รายละเอียดในการติดต่อ</value>
     </property>
     <property key="FormFieldTitle_commonName">
@@ -378,8 +378,8 @@
         <value xml:lang="en">Contact Mech Id</value>
         <value xml:lang="es">Código Mecanismo de contacto</value>
         <value xml:lang="fr">Réf. des coordonées</value>
-        <value xml:lang="nl">ID contactmech</value>
         <value xml:lang="it">Contatto</value>
+        <value xml:lang="nl">ID contactmech</value>
         <value xml:lang="th">รหัสการติดต่อการทำงาน</value>
     </property>
     <property key="FormFieldTitle_contactMechTypeId">
@@ -684,8 +684,8 @@
         <value xml:lang="en">Info String</value>
         <value xml:lang="es">Cadena de caracteres de información</value>
         <value xml:lang="fr">Chaîne de car. d'information</value>
-        <value xml:lang="nl">Infostring</value>
         <value xml:lang="it">Informazioni</value>
+        <value xml:lang="nl">Infostring</value>
         <value xml:lang="th">ลำดับข้อมูล</value>
     </property>
     <property key="FormFieldTitle_isExempt">
@@ -1358,7 +1358,7 @@
     <property key="FormFieldTitle_totalPaymentNotApplied">
         <value xml:lang="en">Total Payment Not Applied</value>
         <value xml:lang="fr">Total des paiements non alloués</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_totalPurchaseInvoice">
         <value xml:lang="en">Total Purchase Invoice</value>
         <value xml:lang="fr">Total des factures d'achat</value>
@@ -1366,7 +1366,7 @@
     <property key="FormFieldTitle_totalSalesInvoice">
         <value xml:lang="en">Total Sales Invoice</value>
         <value xml:lang="fr">Total des factures de vente</value>
-    </property>    
+    </property>
     <property key="FormFieldTitle_totalYearsWorkExperience">
         <value xml:lang="de">Total Jahre Arbeitserfahrung</value>
         <value xml:lang="en">Total Years Work Experience</value>
@@ -1403,8 +1403,8 @@
         <value xml:lang="en">View Content</value>
         <value xml:lang="es">Ver contenido</value>
         <value xml:lang="fr">Afficher le contenu</value>
-        <value xml:lang="it">Mostra Contenuto</value>
         <value xml:lang="in">Content bekijken</value>
+        <value xml:lang="it">Mostra Contenuto</value>
         <value xml:lang="ru">Просмотреть контент</value>
         <value xml:lang="th">แสดงหัวข้อ</value>
     </property>
@@ -2086,7 +2086,7 @@
         <value xml:lang="fr">Afficher l'information d'événement de communication</value>
         <value xml:lang="nl">Info communicatie-actie bekijken</value>
     </property>
-   <property key="PageTitleViewCommPurposes">
+    <property key="PageTitleViewCommPurposes">
         <value xml:lang="de">Kommunikation Zweck anzeigen</value>
         <value xml:lang="en">View Communication Purposes</value>
         <value xml:lang="es">Ver propósitos de comunicación</value>
@@ -3721,8 +3721,8 @@
     </property>
     <property key="PartyCreateRequestFromCommEvent">
         <value xml:lang="de">Kundenanfrage aus Kommunikationsereignis erstellen</value>
-        <value xml:lang="es">Crear petición de cliente a partir del evento de comunicación</value>
         <value xml:lang="en">Create CustReq from CommEvent</value>
+        <value xml:lang="es">Crear petición de cliente a partir del evento de comunicación</value>
         <value xml:lang="fr">Créer une demande d'événement de comm.</value>
         <value xml:lang="nl">Klantverzoek vanaf comm.-actie aanmaken</value>
     </property>
@@ -4171,8 +4171,8 @@
         <value xml:lang="en">Find Party Invitations</value>
         <value xml:lang="es">Buscar invitación de participante</value>
         <value xml:lang="fr">Rechercher les invitations de l'acteur</value>
-        <value xml:lang="nl">Uitnodiging(en) relatie vinden</value>
         <value xml:lang="it">Ricerca Inviti Soggetto</value>
+        <value xml:lang="nl">Uitnodiging(en) relatie vinden</value>
         <value xml:lang="th">ค้นหาการเชิญชวนของกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyFirstName">
@@ -6155,8 +6155,8 @@
     <property key="PartyPersonalTitle">
         <value xml:lang="de">Titel</value>
         <value xml:lang="en">Personal Title</value>
-        <value xml:lang="fr">Fonction</value>
         <value xml:lang="es">Título</value>
+        <value xml:lang="fr">Fonction</value>
         <value xml:lang="it">Titolo Personale</value>
         <value xml:lang="nl">Persoonlijke titel</value>
         <value xml:lang="ro">Titlu Personal</value>
@@ -6959,8 +6959,8 @@
         <value xml:lang="en">Shipper Account</value>
         <value xml:lang="es">Cuenta de envío</value>
         <value xml:lang="fr">Compte d'expéditeur</value>
-        <value xml:lang="nl">Account transporteur</value>
         <value xml:lang="it">Conto Corriere </value>
+        <value xml:lang="nl">Account transporteur</value>
         <value xml:lang="th">บัญชีการส่งของ</value>
     </property>
     <property key="PartyShoppingListDetail">
@@ -7334,15 +7334,15 @@
         <value xml:lang="ru">Время</value>
         <value xml:lang="th">เวลา</value>
         <value xml:lang="zh">时间</value>
-    </property>    
+    </property>
     <property key="PartyToBePaidTo">
         <value xml:lang="en">To be paid to:</value>
-        <value xml:lang="fr">A payer à :</value>        
+        <value xml:lang="fr">A payer à :</value>
     </property>
     <property key="PartyToBeReceivedFrom">
         <value xml:lang="en">To be received from:</value>
-        <value xml:lang="fr">A recevoir de :</value>        
-    </property>    
+        <value xml:lang="fr">A recevoir de :</value>
+    </property>
     <property key="PartyToCart">
         <value xml:lang="de">Zum Warenkorb</value>
         <value xml:lang="en">To Cart</value>
@@ -8138,8 +8138,8 @@
     </property>
     <property key="contactmechservices.could_not_delete_contact_info_read">
         <value xml:lang="de">Kontaktinformationen können nicht gelöscht werden (Lesefehler): ${errMessage}</value>
-        <value xml:lang="es">Las informaciones de contacto no se pueden borrar (error de lectura): ${errMessage}</value>
         <value xml:lang="en">Could not delete contact info (read failure): ${errMessage}.</value>
+        <value xml:lang="es">Las informaciones de contacto no se pueden borrar (error de lectura): ${errMessage}</value>
         <value xml:lang="fr">Ne peut pas supprimer l'information de contact (erreur de lecture): ${errMessage}.</value>
         <value xml:lang="it">Non cancellare informazioni contatto (lettura fallita): ${errMessage}.</value>
         <value xml:lang="nl">Fout: Could not delete contact info (read failure): ${errMessage}.</value>

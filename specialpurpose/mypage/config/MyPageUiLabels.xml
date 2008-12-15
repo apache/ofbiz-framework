@@ -69,7 +69,7 @@
     <property key="MyPageNewMessage">
         <value xml:lang="en">New Message</value>
         <value xml:lang="fr">Nouveau message</value>
-    </property>    
+    </property>
     <property key="MyInformation">
         <value xml:lang="en">My Information</value>
         <value xml:lang="fr">Mes informations </value>
@@ -128,18 +128,18 @@
     </property>
     <property key="TaskPlanStartDate">
         <value xml:lang="en">Task Plan Start</value>
-        <value xml:lang="fr">Départ prévu de la tâche</value>        
+        <value xml:lang="fr">Départ prévu de la tâche</value>
     </property>
     <property key="TaskPlanEndDate">
         <value xml:lang="en">Task Plan End</value>
-        <value xml:lang="fr">Fin prévue de la tâche</value>        
+        <value xml:lang="fr">Fin prévue de la tâche</value>
     </property>
     <property key="TaskActStartDate">
         <value xml:lang="en">Task Act Start</value>
-        <value xml:lang="fr">Départ réel de de la tâche</value>                
+        <value xml:lang="fr">Départ réel de de la tâche</value>
     </property>
     <property key="TaskActEndDate">
         <value xml:lang="en">Task Act End</value>
-        <value xml:lang="fr">Fin réelle de de la tâche</value>                
+        <value xml:lang="fr">Fin réelle de de la tâche</value>
     </property>
 </resource>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -7,17 +8,16 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="MrpEventType.description.MANUF_ORDER_RECP">
         <value xml:lang="en">Manufacturing Order receipt</value>
         <value xml:lang="es">Recibo de Orden de Producción</value>
@@ -144,6 +144,6 @@
         <value xml:lang="it">8 ore/giorno, attualmente il Processo di Ri-Ordine converte il giorno a mms con 8h/giorno</value>
         <value xml:lang="ro">8 ore/zi, in prezent Procesul de Re-Ordinare converteste ziua in mms cu  8h/zi" mondayStartTime="08:30:00"</value>
         <value xml:lang="th">8 ชั่วโมง/วัน, ขณะนี้รายการสั่งซื้อกำลังประมวลผลในการเปลี่ยนวันไปเป็น mms ด้วย 8 ชั่วโมง/วัน</value>
-        <value xml:lang="zh">8小时/天，目前重新排订单过程会把天按8小时/天转换为百万毫秒" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/></value>
+        <value xml:lang="zh">8小时/天，目前重新排订单过程会把天按8小时/天转换为百万毫秒" mondayStartTime="08:30:00" mondayCapacity="2.88E7" tuesdayStartTime="08:30:00" tuesdayCapacity="2.88E7" wednesdayStartTime="08:30:00" wednesdayCapacity="2.88E7" thursdayStartTime="08:30:00" thursdayCapacity="2.88E7" fridayStartTime="08:30:00" fridayCapacity="2.88E7"/&gt;</value>
     </property>
 </resource>

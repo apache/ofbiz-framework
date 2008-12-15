@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -16,8 +17,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_actualCompletionDate">
         <value xml:lang="en">Actual Completion Date</value>
         <value xml:lang="fr">Véritable date d'achèvement</value>
@@ -833,7 +833,7 @@
     <property key="PageTitleAddWorkEffortFixedAssetAssign">
         <value xml:lang="en">Add Work Effort Fixed Asset Assignment</value>
         <value xml:lang="fr">Ajouter l'affectation d'unetâche à une immobilisation</value>
-    </property>    
+    </property>
     <property key="PageTitleAddWorkEffortEventReminder">
         <value xml:lang="en">Add Work Effort Event Reminder</value>
         <value xml:lang="fr">Ajouter un rappel d'évènement de tâche</value>
@@ -1194,7 +1194,7 @@
     </property>
     <property key="PageTitleListWorkEffortFixedAssetAssigns">
         <value xml:lang="en">Work Effort Fixed Asset Assignments</value>
-        <value xml:lang="fr">Affectations d'une tâche à une immobilisation</value>        
+        <value xml:lang="fr">Affectations d'une tâche à une immobilisation</value>
     </property>
     <property key="PageTitleListWorkEffortEventReminders">
         <value xml:lang="en">Work Effort Event Reminders</value>
@@ -1836,8 +1836,8 @@
     </property>
     <property key="TimesheetQuickTimeEntry">
         <value xml:lang="en">Quick Time Entry</value>
-        <value xml:lang="it">Inserimento Veloce Ore</value>
         <value xml:lang="fr">Entrée rapide d'une ligne d'activité</value>
+        <value xml:lang="it">Inserimento Veloce Ore</value>
         <value xml:lang="nl">Snel een tijd invoeren</value>
         <value xml:lang="ro">Introducere Rapida Ore</value>
         <value xml:lang="th">กรอกข้อมูลเวลาอย่างรวดเร็ว</value>
@@ -1913,8 +1913,8 @@
     </property>
     <property key="WorkEffort">
         <value xml:lang="en">WorkEffort</value>
-        <value xml:lang="fr">Tâche</value>
         <value xml:lang="es">Esfuerzo de trabajo</value>
+        <value xml:lang="fr">Tâche</value>
         <value xml:lang="th">งาน</value>
     </property>
     <property key="WorkEffortAcceptAssignment">
@@ -3144,8 +3144,8 @@
     </property>
     <property key="WorkEffortOrderHeaders">
         <value xml:lang="en">Orders</value>
-        <value xml:lang="fr">Commandes</value>
         <value xml:lang="es">Órdenes</value>
+        <value xml:lang="fr">Commandes</value>
         <value xml:lang="it">Ordini</value>
         <value xml:lang="nl">Orders</value>
         <value xml:lang="ro">Comenzi</value>
