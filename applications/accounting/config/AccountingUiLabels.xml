@@ -8724,6 +8724,10 @@
         <value xml:lang="th">รหัสสถานะการพิสูจน์ยอด</value>
         <value xml:lang="zh">调解状态标识</value>
     </property>
+    <property key="FormFieldTitle_recurrenceInfoId">
+        <value xml:lang="en">Recurrence Info Id</value>
+        <value xml:lang="fr">Réf. de fréquence d'envoi (recurrenceInfoId)</value>
+    </property>
     <property key="FormFieldTitle_referenceNum">
         <value xml:lang="en">Reference Num</value>
         <value xml:lang="es">Número de referencia</value>
