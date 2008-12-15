@@ -77,18 +77,6 @@ under the License.
     <SecurityGroupPermission groupId="VIEWADMIN" permissionId="SHIPRATE_VIEW"/>
     <SecurityGroupPermission groupId="BIZADMIN" permissionId="SHIPRATE_ADMIN"/>
     
-    <!-- Tax Rate security -->
-    <SecurityPermission description="View operations in the Tax Rate Editor." permissionId="TAXRATE_VIEW"/>
-    <SecurityPermission description="Create operations in the Tax Rate Editor." permissionId="TAXRATE_CREATE"/>
-    <SecurityPermission description="Delete operations in the Tax Rate Editor." permissionId="TAXRATE_DELETE"/>
-    <SecurityPermission description="ALL operations in the Tax Rate Editor." permissionId="TAXRATE_ADMIN"/>
-    <SecurityGroupPermission groupId="FULLADMIN" permissionId="TAXRATE_ADMIN"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="TAXRATE_CREATE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="TAXRATE_DELETE"/>
-    <SecurityGroupPermission groupId="FLEXADMIN" permissionId="TAXRATE_VIEW"/>
-    <SecurityGroupPermission groupId="VIEWADMIN" permissionId="TAXRATE_VIEW"/>
-    <SecurityGroupPermission groupId="BIZADMIN" permissionId="TAXRATE_ADMIN"/>
-    
     <!-- Facility Manager security -->
     <SecurityPermission description="View operations in the Facility Manager." permissionId="FACILITY_VIEW"/>
     <SecurityPermission description="Create operations in the Facility Manager." permissionId="FACILITY_CREATE"/>
