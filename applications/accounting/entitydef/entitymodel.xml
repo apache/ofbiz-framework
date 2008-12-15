@@ -1076,6 +1076,7 @@ under the License.
       <field name="referenceNumber" type="short-varchar"></field> <!-- used to record things like the vendor's invoice number -->
       <field name="description" type="description"></field>
       <field name="currencyUomId" type="id"></field>
+      <field name="recurrenceInfoId" type="id"></field>
       <prim-key field="invoiceId"/>
       <relation type="one" fk-name="INVOICE_INVTYP" rel-entity-name="InvoiceType">
         <key-map field-name="invoiceTypeId"/>
@@ -1107,6 +1108,9 @@ under the License.
       </relation>
       <relation type="one" fk-name="INVOICE_CUOM" title="Currency" rel-entity-name="Uom">
         <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="INVOICE_RECINFO" rel-entity-name="RecurrenceInfo">
+        <key-map field-name="recurrenceInfoId"/>
       </relation>
     </entity>
     <entity entity-name="InvoiceAttribute"
