@@ -154,7 +154,7 @@ under the License.
                 </section>
                 <platform-specific><html><html-template location="component://common/webcommon/includes/messages.ftl"/></html></platform-specific>
                 <container style="contentarea">
-                    <!-- may be used by sight disabled persons to skip diretly to content area-->
+                    <!-- may be used by sight disabled persons to skip directly to content area-->
                     <decorator-section-include name="pre-body"/>
                     <!-- Please don't change the column-container id : it's referenced to allow skipping navigation-->
                     <container id="column-container"> 

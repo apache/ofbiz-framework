@@ -43,7 +43,7 @@
                         <section>
                             <condition>
                                 <if-has-permission permission="PARTYMGR" action="_GRP_UPDATE"/>
-                               </condition>
+                            </condition>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PartyPersonalInformation}" navigation-menu-name="personUpdate" id="PartyPersonalInformationPanel">
                                            <include-menu name="personUpdate" location="component://party/widget/partymgr/PartyMenus.xml"/>

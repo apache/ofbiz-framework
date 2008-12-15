@@ -577,8 +577,8 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
     public static void renderDataResourceAsText(GenericDelegator delegator, String dataResourceId, Appendable out,
             Map templateContext, Locale locale, String targetMimeTypeId, boolean cache) throws GeneralException, IOException {
         if (dataResourceId == null) {
-                throw new GeneralException("Cannot lookup data resource with for a null dataResourceId");
-            }
+            throw new GeneralException("Cannot lookup data resource with for a null dataResourceId");
+        }
         if (templateContext == null) {
             templateContext = FastMap.newInstance();
         }
@@ -635,9 +635,8 @@ public class DataResourceWorker  implements org.ofbiz.widget.DataResourceWorkerI
         // no template; or template is NONE; render the data
         if (UtilValidate.isEmpty(dataTemplateTypeId) || "NONE".equals(dataTemplateTypeId)) {
             DataResourceWorker.writeDataResourceText(dataResource, targetMimeTypeId, locale, templateContext, delegator, out, true);
-
-        // a template is defined; render the template first
         } else {
+            // a template is defined; render the template first
             templateContext.put("mimeTypeId", targetMimeTypeId);
 
             // FTL template
