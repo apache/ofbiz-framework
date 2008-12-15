@@ -551,4 +551,29 @@ under the License.
         <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
         <store-value value-name="lookedUpValue"/>
    </simple-method>
+
+   <simple-method method-name="autoGenerateInvoiceFromExistingInvoice" short-description="Scheduled service to generate Invoice from an existing Invoice">
+       <entity-and entity-name="Invoice" list-name="invoices">
+            <field-map field-name="recurrenceInfoId" env-name="parameters.recurrenceInfoId"/>
+       </entity-and>
+       <iterate list-name="invoices" entry-name="invoice">
+           <set-service-fields service-name="copyInvoice" map-name="invoice" to-map-name="copyInvoiceCtx"/>
+           <set field="copyInvoiceCtx.invoiceIdToCopyFrom" from-field="invoice.invoiceId"/>
+           <call-service service-name="copyInvoice" in-map-name="copyInvoiceCtx">
+               <result-to-field result-name="invoiceId" field-name="invoiceId"/>
+           </call-service>
+           <set-service-fields service-name="updateInvoice" map-name="invoice" to-map-name="updateInvoiceCtx"/>
+           <set field="updateInvoiceCtx.invoiceId" from-field="invoiceId"/>
+           <if-compare field-name="updateInvoiceCtx.invoiceTypeId" operator="equals" value="SALES_INV_TEMPLATE">
+               <set field="updateInvoiceCtx.invoiceTypeId" value="SALES_INVOICE"/>
+           </if-compare>
+           <if-compare field-name="updateInvoiceCtx.invoiceTypeId" operator="equals" value="PUR_INV_TEMPLATE">
+               <set field="updateInvoiceCtx.invoiceTypeId" value="PURCHASE_INVOICE"/>
+           </if-compare>
+           <clear-field field-name="invoice"/>
+           <clear-field field-name="invoiceIdToCopyFrom" map-name="parameters"/>
+           <clear-field field-name="recurrenceInfoId" map-name="updateInvoiceCtx"/>
+           <call-service service-name="updateInvoice" in-map-name="updateInvoiceCtx"/>
+       </iterate>
+   </simple-method>
 </simple-methods>
