@@ -29,8 +29,8 @@ under the License.
               <set field="hidebottomlinks" value="Y"/>
           </actions>
           <widgets>
-                <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/minicart.ftl"/></html></platform-specific>
-            </widgets>
+              <platform-specific><html><html-template location="component://order/webapp/ordermgr/entry/cart/minicart.ftl"/></html></platform-specific>
+          </widgets>
         </section>
     </screen>
 

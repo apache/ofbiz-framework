@@ -261,7 +261,7 @@ under the License.
     </form>
     <form name="EditDataResourceText" target="updateDataResourceText" title="" type="single" extends="DataResourceMaster"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="dataResourceId"><display/></field>
+        <field name="dataResourceId"><hidden/></field>
         <field name="dataResourceTypeId"><hidden value="ELECTRONIC_TEXT"/></field>
         <field name="dataResourceTypeIdDisplay" title="Type Id" field-name="dataResourceTypeId">
             <display description="ELECTRONIC_TEXT" also-hidden="false"/>
@@ -271,7 +271,7 @@ under the License.
     </form>
     <form name="EditDataResourceUpload" target="updateDataResourceUpload" title="" type="single" extends="DataResourceMaster"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="dataResourceId"><display/></field>
+        <field name="dataResourceId"><hidden/></field>
         <field name="dataResourceTypeId"><hidden value="IMAGE_OBJECT"/></field>
         <field name="dataResourceTypeIdDisplay" title="Type Id" field-name="dataResourceTypeId">
             <display description="IMAGE_OBJECT" also-hidden="false"/>
