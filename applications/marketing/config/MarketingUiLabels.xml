@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -7,17 +8,16 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountAnnualRevenue">
         <value xml:lang="en">Annual Revenue</value>
         <value xml:lang="es">Ingresos anuales</value>
@@ -278,8 +278,8 @@
     </property>
     <property key="FormFieldTitle_contactMechId">
         <value xml:lang="en">Contact Mech Id</value>
-        <value xml:lang="fr">Réf. des coordonnées</value>
         <value xml:lang="es">Contacto</value>
+        <value xml:lang="fr">Réf. des coordonnées</value>
         <value xml:lang="it">Contatto</value>
         <value xml:lang="ro">Contact</value>
         <value xml:lang="th">รหัสวิธีการติดต่อ</value>
@@ -594,7 +594,7 @@
         <value xml:lang="en">Create Lead from vCard</value>
         <value xml:lang="es">Crear nuevo lead desde vCard</value>
         <value xml:lang="fr">Créer un prospect depuis la vCard</value>
-    </property>  
+    </property>
     <property key="PageTitleEditAccount">
         <value xml:lang="en">Edit Account</value>
         <value xml:lang="es">Editar cuenta</value>
@@ -929,8 +929,8 @@
     </property>
     <property key="PageTitleLookupGeo">
         <value xml:lang="en">Lookup Geo</value>
-        <value xml:lang="it">Ricerca Geografia</value>
         <value xml:lang="fr">Consulter la zone géographique</value>
+        <value xml:lang="it">Ricerca Geografia</value>
         <value xml:lang="ro">Cauta Geografia</value>
         <value xml:lang="th">ค้นหาข้อมูลโครงสร้าง</value>
         <value xml:lang="zh">查找地理</value>
@@ -1197,7 +1197,7 @@
         <value xml:lang="en">Automatically create a new lead by importing a vCard</value>
         <value xml:lang="es">Crear nuevo lead automaticamente importando vCard</value>
         <value xml:lang="fr">Créez automatiquement un nouveau prospect par import d'une vCard</value>
-    </property>  
+    </property>
     <property key="SfaAccountName">
         <value xml:lang="en">Account Name</value>
         <value xml:lang="es">Nombre de cuenta</value>
@@ -1231,7 +1231,7 @@
         <value xml:lang="en">Failed to merge Leads. You have selected same Lead to merge.</value>
         <value xml:lang="es">No se ha podido unir leads. Ha seleccionado el mismo lead.</value>
         <value xml:lang="fr">Echec à la fusion des prospects. Vous avez choisi le même prospect pour fusionner</value>
-    </property>    
+    </property>
     <property key="SfaCompetitors">
         <value xml:lang="en">Competitors &amp; Partners </value>
         <value xml:lang="fr">Concurrents &amp; Associés</value>
@@ -1311,7 +1311,7 @@
         <value xml:lang="en">Import Lead</value>
         <value xml:lang="es">Importar lead</value>
         <value xml:lang="fr">Importer le prospect</value>
-    </property>    
+    </property>
     <property key="SfaInitialAccount">
         <value xml:lang="en">Initial Account</value>
         <value xml:lang="fr">Compte initial</value>
@@ -1341,8 +1341,8 @@
         <value xml:lang="fr">Application de gestion des ventes</value>
     </property>
     <property key="SfaManagerWelcome">
-        <value xml:lang="en">Welcome to the Sales Force Automation Manager Application. This is an application in progress so not completed yet.&lt;br/&gt;&lt;br/&gt;A &lt;a href=&quot;http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf&quot; target=blank&gt;design document&lt;/a&gt; and &lt;a href=&quot;https://issues.apache.org/jira/browse/OFBIZ-1640&quot; target=blank&gt;Jira documents&lt;/a&gt; are available.</value>
-        <value xml:lang="fr">Bienvenue dans l'application de gestion des ventes. Cette application est en cours de développement .&lt;br/&gt;&lt;br/&gt;Un &lt;a href=&quot;http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf&quot; target=blank&gt;document d'analyse détaillée&lt;/a&gt; et &lt;a href=&quot;https://issues.apache.org/jira/browse/OFBIZ-1640&quot; target=blank&gt;un document de gestion de projet Jira&lt;/a&gt; sont disponibles</value>
+        <value xml:lang="en">Welcome to the Sales Force Automation Manager Application. This is an application in progress so not completed yet.&lt;br/&gt;&lt;br/&gt;A &lt;a href="http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf" target=blank&gt;design document&lt;/a&gt; and &lt;a href="https://issues.apache.org/jira/browse/OFBIZ-1640" target=blank&gt;Jira documents&lt;/a&gt; are available.</value>
+        <value xml:lang="fr">Bienvenue dans l'application de gestion des ventes. Cette application est en cours de développement .&lt;br/&gt;&lt;br/&gt;Un &lt;a href="http://docs.ofbiz.org/download/attachments/4008/IfCrmPlanEstimate.pdf" target=blank&gt;document d'analyse détaillée&lt;/a&gt; et &lt;a href="https://issues.apache.org/jira/browse/OFBIZ-1640" target=blank&gt;un document de gestion de projet Jira&lt;/a&gt; sont disponibles</value>
     </property>
     <property key="SfaMergeContacts">
         <value xml:lang="en">Merge Contacts</value>
@@ -1410,8 +1410,8 @@
     </property>
     <property key="SfaUploadVCard">
         <value xml:lang="en">Upload vCard</value>
-        <value xml:lang="fr">Téléchargement de la vCard vers le serveur</value>        
-    </property>    
+        <value xml:lang="fr">Téléchargement de la vCard vers le serveur</value>
+    </property>
     <property key="Tracking">
         <value xml:lang="en">Tracking</value>
         <value xml:lang="es">Seguimiento</value>

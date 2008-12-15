@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -16,8 +17,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="CostComponentType.description.ACTUAL_LABOR_COST">
         <value xml:lang="de">Effektive Arbeitskosten</value>
         <value xml:lang="en">Actual Labor Cost</value>
@@ -328,8 +328,8 @@
     <property key="GoodIdentificationType.description.UPCA">
         <value xml:lang="de">Barcode UPCA</value>
         <value xml:lang="en">UPCA</value>
-        <value xml:lang="fr">UPCA</value>
         <value xml:lang="es">Código de barra UPCA</value>
+        <value xml:lang="fr">UPCA</value>
         <value xml:lang="it">Codice a Barre UPCA</value>
         <value xml:lang="ro">Cod Bare UPCA</value>
         <value xml:lang="ru">UPCA</value>
@@ -339,8 +339,8 @@
     <property key="GoodIdentificationType.description.UPCE">
         <value xml:lang="de">Barcode UPCE</value>
         <value xml:lang="en">UPCE</value>
-        <value xml:lang="fr">UPCE</value>
         <value xml:lang="es">Código de barra UPCE</value>
+        <value xml:lang="fr">UPCE</value>
         <value xml:lang="it">Codice a Barre UPCE</value>
         <value xml:lang="ro">Cod Bare UPCE</value>
         <value xml:lang="ru">UPCE</value>
@@ -587,7 +587,7 @@
         <value xml:lang="it">Riordino Automatico</value>
         <value xml:lang="th">การสั่งซื้ออัตโนมัติ (ต้องการรหัสข้อมูลการเกิดขึ้นอีกครั้ง)</value>
     </property>
-    <property key="ProductAssocType.description.PRODUCT_COMPLEMENT">       
+    <property key="ProductAssocType.description.PRODUCT_COMPLEMENT">
         <value xml:lang="de">Zusatz oder Ergänzende (Cross-Sell)</value>
         <value xml:lang="en">Complementary or Cross-Sell</value>
         <value xml:lang="es">Complementario o cruzados</value>
@@ -1652,7 +1652,7 @@
         <value xml:lang="zh">替代固定金额</value>
     </property>
     <property key="ProductPriceActionType.description.PRICE_FOL">
-        <value xml:lang="de">Pauschalbetrag ändern</value>       
+        <value xml:lang="de">Pauschalbetrag ändern</value>
         <value xml:lang="en">Flat Amount Modify</value>
         <value xml:lang="es">Modificación de precio</value>
         <value xml:lang="fr">Modification du prix</value>
@@ -2189,7 +2189,7 @@
         <value xml:lang="zh">购物送货</value>
     </property>
     <property key="ShipmentType.description.SALES_RETURN">
-        <value xml:lang="de">Verkauf Retoure</value> 
+        <value xml:lang="de">Verkauf Retoure</value>
         <value xml:lang="en">Sales Return</value>
         <value xml:lang="es">Devolución de ventas</value>
         <value xml:lang="it">Reso di Vendita</value>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -16,9 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-   <property key="CommonDigitalProductUpload">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <property key="CommonDigitalProductUpload">
         <value xml:lang="de">Digitales Produkt hochladen</value>
         <value xml:lang="en">Digital Product Upload</value>
         <value xml:lang="es">carga de productos digitales</value>
@@ -452,8 +452,8 @@
         <value xml:lang="es">Listas de compras hijas</value>
         <value xml:lang="fr">Liste d'achats associée</value>
         <value xml:lang="it">Lista d'acquisto figlia</value>
-        <value xml:lang="nl">subBoodschappenlijst</value>
         <value xml:lang="ja">Child Shopping Lists</value>
+        <value xml:lang="nl">subBoodschappenlijst</value>
         <value xml:lang="pt_PT">Listas de Compras Derivadas</value>
         <value xml:lang="ro">Liste Fice Cumparari </value>
         <value xml:lang="ru">Подчиненный список покупок</value>
@@ -463,8 +463,8 @@
     <property key="EcommerceClickHereToEdit">
         <value xml:lang="de">Hier klicken um zu Bearbeiten</value>
         <value xml:lang="en">Click here to edit</value>
-        <value xml:lang="it">Clicca qui per aggiornare</value>
         <value xml:lang="fr">Cliquez-ici pour modifier</value>
+        <value xml:lang="it">Clicca qui per aggiornare</value>
     </property>
     <property key="EcommerceCompleted">
         <value xml:lang="de">Abgeschlossen</value>
@@ -513,8 +513,8 @@
         <value xml:lang="en">Content Name</value>
         <value xml:lang="es">Nombre del contenido</value>
         <value xml:lang="fr">Nom du contenu</value>
-        <value xml:lang="it">Nome contenuto</value>
         <value xml:lang="hi_IN">अंतर्वस्तु अंश नाम</value>
+        <value xml:lang="it">Nome contenuto</value>
         <value xml:lang="ja">Content Name</value>
         <value xml:lang="nl">Content naam</value>
         <value xml:lang="ro">Nume Continut</value>
@@ -541,8 +541,8 @@
     <property key="EcommerceContinueToStep">
         <value xml:lang="de">Fortfahren mit Schritt</value>
         <value xml:lang="en">Continue to step</value>
-        <value xml:lang="it">Continua al passo</value>
         <value xml:lang="fr">Continuer (prochaine étape)</value>
+        <value xml:lang="it">Continua al passo</value>
     </property>
     <property key="EcommerceDataResourceId">
         <value xml:lang="de">Datenressource ID</value>
@@ -660,7 +660,7 @@
     </property>
     <property key="EcommerceEditProfile">
         <value xml:lang="de">Profil bearbeiten</value>
-        <value xml:lang="en">Edit Profile</value>        
+        <value xml:lang="en">Edit Profile</value>
     </property>
     <property key="EcommerceEmptyBody">
         <value xml:lang="de">Leerer Meldungstext</value>
@@ -668,8 +668,8 @@
         <value xml:lang="es">Contenido vacío</value>
         <value xml:lang="fr">Corps du message vide</value>
         <value xml:lang="hi_IN">ख़ाली शरीर</value>
-        <value xml:lang="ja">Empty Body</value>
         <value xml:lang="it">Corpo messaggio vuoto</value>
+        <value xml:lang="ja">Empty Body</value>
         <value xml:lang="nl">Geen inhoud</value>
         <value xml:lang="ro">Corp Gol</value>
         <value xml:lang="ru">Пусто</value>
@@ -697,18 +697,18 @@
         <value xml:lang="de">Ihr neues Passwort ist : </value>
         <value xml:lang="en">Your new password is :- </value>
         <value xml:lang="fr">Votre nouveau mot de passe est : </value>
-    </property>        
+    </property>
     <property key="EcommerceNewPasswordMssgEncryptionOff">
         <value xml:lang="de">Ihr Passwort ist: </value>
         <value xml:lang="en">Your password is :- </value>
         <value xml:lang="fr">Votre mot de passe est : </value>
-    </property>        
+    </property>
     <property key="EcommerceEnterPromoCode">
         <value xml:lang="de">Aktionscode angeben</value>
         <value xml:lang="en">Enter Promo Code</value>
-        <value xml:lang="it">Inserire codice promozione</value>
         <value xml:lang="fr">Saisissez votre code de promotion</value>
-    </property>        
+        <value xml:lang="it">Inserire codice promozione</value>
+    </property>
     <property key="EcommerceEnterQueryParameters">
         <value xml:lang="de">Abfrageparameter angeben</value>
         <value xml:lang="en">Enter Query Parameters</value>
@@ -785,8 +785,8 @@
         <value xml:lang="es">Todos los días</value>
         <value xml:lang="fr">Chaque jour</value>
         <value xml:lang="hi_IN">हर</value>
-        <value xml:lang="ja">Every</value>
         <value xml:lang="it">Ogni giorno</value>
+        <value xml:lang="ja">Every</value>
         <value xml:lang="nl">Elke</value>
         <value xml:lang="ro">In fiecare zi</value>
         <value xml:lang="ru">Каждый</value>
@@ -964,10 +964,10 @@
         <value xml:lang="fr">Carte cadeau rechargée</value>
         <value xml:lang="hi_IN">को लोड किया जा चुका है.</value>
         <value xml:lang="it">Carta regalo ricaricata.</value>
+        <value xml:lang="ja">has been reloaded.</value>
         <value xml:lang="nl">is heropgewaardeerd</value>
         <value xml:lang="ro">a fost reincarcata.</value>
         <value xml:lang="ru">перезагружена.</value>
-        <value xml:lang="ja">has been reloaded.</value>
         <value xml:lang="th">ใส่บัตรของขวัญเพิ่ม</value>
         <value xml:lang="zh">已经充值了。</value>
     </property>
@@ -989,7 +989,7 @@
         <value xml:lang="cs">Jdi na seznam</value>
         <value xml:lang="de">Zur Liste</value>
         <value xml:lang="en">GoToList</value>
-         <value xml:lang="es">Ir a la lista</value>
+        <value xml:lang="es">Ir a la lista</value>
         <value xml:lang="fr">Aller à la liste</value>
         <value xml:lang="hi_IN">सुची पर जाऐं</value>
         <value xml:lang="it">Vai alla lista</value>
@@ -1195,10 +1195,10 @@
         <value xml:lang="fr">Dernier contenu visité</value>
         <value xml:lang="hi_IN">अतिंम अंतर्वस्तु अंश</value>
         <value xml:lang="it">Ultimo contenuto</value>
+        <value xml:lang="ja">Last Content</value>
         <value xml:lang="nl">Laatste Inhoud</value>
         <value xml:lang="ro">Ultimul  Continut</value>
         <value xml:lang="ru">Последнее содержимое</value>
-        <value xml:lang="ja">Last Content</value>
         <value xml:lang="th">หัวข้อสุดท้าย</value>
         <value xml:lang="zh">最近浏览的内容</value>
     </property>
@@ -1382,9 +1382,9 @@
         <value xml:lang="de">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
         <value xml:lang="en">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
         <value xml:lang="fr">http://www.pagesjaunes.fr/trouverunnom/RecherchePagesBlanches.do</value>
-        <value xml:lang="hi_IN">http://www.whitepages.com/find_person_results.pl?fid=a<!--&s_n=${addressNum}&s_a=${addressOther}&c=${postalAddress.city?if_exists}&s=${postalAddress.stateProvinceGeoId?if_exists}&x=29&y=18--></value>
+        <value xml:lang="hi_IN">http://www.whitepages.com/find_person_results.pl?fid=a</value>
         <value xml:lang="it">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
-        <value xml:lang="ja">http://www.whitepages.com/find_person_results.pl?fid=a<!--&s_n=${addressNum}&s_a=${addressOther}&c=${postalAddress.city?if_exists}&s=${postalAddress.stateProvinceGeoId?if_exists}&x=29&y=18--></value>
+        <value xml:lang="ja">http://www.whitepages.com/find_person_results.pl?fid=a</value>
         <value xml:lang="nl">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
         <value xml:lang="ro">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
         <value xml:lang="ru">http://www.whitepages.com/find_person_results.pl?fid=a s_n=${addressNum} s_a=${addressOther} c=${postalAddress.city?if_exists} s=${postalAddress.stateProvinceGeoId?if_exists} x=29 y=18</value>
@@ -2038,7 +2038,7 @@
         <value xml:lang="ru">Читать</value>
         <value xml:lang="th">อ่าน</value>
         <value xml:lang="zh">读取</value>
-    </property>    
+    </property>
     <property key="EcommerceReadMessage">
         <value xml:lang="de">Meldungen lesen</value>
         <value xml:lang="en">Read Message</value>
@@ -2381,8 +2381,8 @@
         <value xml:lang="nl">Boodschappenlijst herbestel info</value>
         <value xml:lang="ro">Info Re-Comanda Lista Cumparare</value>
         <value xml:lang="ru">Информация для повторного заказа по списку покупок</value>
-        <value xml:lang="zh">购物列表再订货信息</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้าใหม่</value>
+        <value xml:lang="zh">购物列表再订货信息</value>
     </property>
     <property key="EcommerceShoppingLists">
         <value xml:lang="cs">Nákupní seznamy</value>
@@ -2480,8 +2480,8 @@
     <property key="EcommerceStep">
         <value xml:lang="de">Schritt</value>
         <value xml:lang="en">Step</value>
-        <value xml:lang="it">Passo</value>
         <value xml:lang="fr">Etape</value>
+        <value xml:lang="it">Passo</value>
     </property>
     <property key="EcommerceSubject">
         <value xml:lang="de">Thema</value>
@@ -2749,13 +2749,13 @@
         <value xml:lang="en_GB">of Variation to basket</value>
         <value xml:lang="es">de variación al carro</value>
         <value xml:lang="fr">Option au panier</value>
+        <value xml:lang="hi_IN">अन्तर को टोकरी में</value>
         <value xml:lang="it">di variante di carrello</value>
         <value xml:lang="ja">of Variation To Cart</value>
         <value xml:lang="nl">van de variant naar de winkelwagen</value>
         <value xml:lang="pt_PT">Alternativa Para o Cesto</value>
         <value xml:lang="ro">de Variante De Cos</value>
         <value xml:lang="ru">вариант в корзину</value>
-        <value xml:lang="hi_IN">अन्तर को टोकरी में</value>
         <value xml:lang="th">เปลี่ยนแปลงสู่ตะกร้า</value>
         <value xml:lang="zh">的选择到购物车</value>
     </property>
@@ -6568,8 +6568,8 @@
         <value xml:lang="th">บัลแกเรีย</value>
     </property>
     <property key="cz">
-        <value xml:lang="de">Tschechisch</value>
         <value xml:lang="cs">Česky</value>
+        <value xml:lang="de">Tschechisch</value>
         <value xml:lang="en">Czeck</value>
         <value xml:lang="fr">Tchèque</value>
         <value xml:lang="th">Czeck</value>

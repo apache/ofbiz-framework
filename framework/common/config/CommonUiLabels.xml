@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -16,8 +17,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="Accounting">
         <value xml:lang="ar">المحاسبة</value>
         <value xml:lang="de">Buchhaltung</value>
@@ -30,8 +30,8 @@
         <value xml:lang="ro">Contabilitate</value>
         <value xml:lang="ru">Бухгалтерия</value>
         <value xml:lang="th">บัญชี</value>
-        <value xml:lang="zh_CN">会计</value>
         <value xml:lang="zh">财务</value>
+        <value xml:lang="zh_CN">会计</value>
     </property>
     <property key="AP">
         <value xml:lang="en">AP</value>
@@ -76,13 +76,13 @@
         <value xml:lang="ro">Cataloage</value>
         <value xml:lang="ru">Каталог</value>
         <value xml:lang="th">หมวดหมู่</value>
-        <value xml:lang="zh_CN">目录</value>
         <value xml:lang="zh">目录</value>
+        <value xml:lang="zh_CN">目录</value>
     </property>
     <property key="IS Mgr">
         <value xml:lang="en">IS Mgr</value>
         <value xml:lang="fr">Parc info.</value>
-    </property>    
+    </property>
     <property key="CommonAccepted">
         <value xml:lang="ar">مقبول</value>
         <value xml:lang="de">Angenommen</value>
@@ -95,8 +95,8 @@
         <value xml:lang="ro">Acceptat</value>
         <value xml:lang="ru">Принято</value>
         <value xml:lang="th">ยอมรับ</value>
-        <value xml:lang="zh_CN">接受</value>
         <value xml:lang="zh">已接受</value>
+        <value xml:lang="zh_CN">接受</value>
     </property>
     <property key="CommonActiveInactive">
         <value xml:lang="ar">فعال و غير فعال</value>
@@ -110,8 +110,8 @@
         <value xml:lang="ro">Activ si Pasiv</value>
         <value xml:lang="ru">Активные и неактивные</value>
         <value xml:lang="th">ปฏิบัติงานอยู่ และ ไม่มีการใช้งาน</value>
-        <value xml:lang="zh_CN">不在用</value>
         <value xml:lang="zh">有效的和无效的</value>
+        <value xml:lang="zh_CN">不在用</value>
     </property>
     <property key="CommonActiveOnly">
         <value xml:lang="ar">فعال فقط</value>
@@ -125,8 +125,8 @@
         <value xml:lang="ro">Numai Activ</value>
         <value xml:lang="ru">Только активные</value>
         <value xml:lang="th">ใช้งานเท่านั้น</value>
-        <value xml:lang="zh_CN">在用</value>
         <value xml:lang="zh">仅有效</value>
+        <value xml:lang="zh_CN">在用</value>
     </property>
     <property key="CommonAdd">
         <value xml:lang="ar">إضافة</value>
@@ -141,8 +141,8 @@
         <value xml:lang="ro">Adauga</value>
         <value xml:lang="ru">Добавить</value>
         <value xml:lang="th">เพิ่ม</value>
-        <value xml:lang="zh_CN">添加</value>
         <value xml:lang="zh">新建</value>
+        <value xml:lang="zh_CN">添加</value>
     </property>
     <property key="CommonAddA">
         <value xml:lang="ar">إضافة</value>
@@ -156,8 +156,8 @@
         <value xml:lang="ro">Adauga un</value>
         <value xml:lang="ru">Добавить </value>
         <value xml:lang="th">เพิ่ม</value>
-        <value xml:lang="zh_CN">添加一个</value>
         <value xml:lang="zh">新建</value>
+        <value xml:lang="zh_CN">添加一个</value>
     </property>
     <property key="CommonAddColumn">
         <value xml:lang="en">Add Column</value>
@@ -183,8 +183,8 @@
         <value xml:lang="ro">Adauga Default</value>
         <value xml:lang="ru">Добавить по умолчанию</value>
         <value xml:lang="th">เพิ่มค่าเริ่มต้น</value>
-        <value xml:lang="zh_CN">添加默认</value>
         <value xml:lang="zh">新建缺省</value>
+        <value xml:lang="zh_CN">添加默认</value>
     </property>
     <property key="CommonAddId">
         <value xml:lang="ar">إضافة الدليل</value>
@@ -198,8 +198,8 @@
         <value xml:lang="ro">Adauga Cod</value>
         <value xml:lang="ru">Добавить ID</value>
         <value xml:lang="th">เพิ่มรหัส</value>
-        <value xml:lang="zh_CN">添加标识</value>
         <value xml:lang="zh">新建ID</value>
+        <value xml:lang="zh_CN">添加标识</value>
     </property>
     <property key="CommonAddNew">
         <value xml:lang="ar">إضافة الجديد</value>
@@ -213,8 +213,8 @@
         <value xml:lang="ro">Adauga Nou</value>
         <value xml:lang="ru">Добавить новый</value>
         <value xml:lang="th">เพิ่มใหม่</value>
-        <value xml:lang="zh_CN">添加新的</value>
         <value xml:lang="zh">新建</value>
+        <value xml:lang="zh_CN">添加新的</value>
     </property>
     <property key="CommonAddProblem">
         <value xml:lang="ar">مشكل أثناء الإضافة</value>
@@ -228,8 +228,8 @@
         <value xml:lang="ro">Adauga Problema</value>
         <value xml:lang="ru">Добавить задачу</value>
         <value xml:lang="th">เพิ่มปัญหา</value>
-        <value xml:lang="zh_CN">添加问题</value>
         <value xml:lang="zh">新建问题</value>
+        <value xml:lang="zh_CN">添加问题</value>
     </property>
     <property key="CommonAddress1">
         <value xml:lang="ar">عنوان 1</value>
@@ -243,8 +243,8 @@
         <value xml:lang="ro">Adresa 1</value>
         <value xml:lang="ru">Адрес 1</value>
         <value xml:lang="th">ที่อยู่ที่ 1</value>
-        <value xml:lang="zh_CN">地址 1</value>
         <value xml:lang="zh">地址一</value>
+        <value xml:lang="zh_CN">地址 1</value>
     </property>
     <property key="CommonAddress2">
         <value xml:lang="ar">عنوان 2</value>
@@ -258,8 +258,8 @@
         <value xml:lang="ro">Adresa 2</value>
         <value xml:lang="ru">Адрес 2</value>
         <value xml:lang="th">ที่อยู่ที่ 2</value>
-        <value xml:lang="zh_CN">地址 2</value>
         <value xml:lang="zh">地址二</value>
+        <value xml:lang="zh_CN">地址 2</value>
     </property>
     <property key="CommonAddressLine">
         <value xml:lang="ar">عنوان</value>
@@ -273,8 +273,8 @@
         <value xml:lang="ro">Linie Adresa</value>
         <value xml:lang="ru">Строка адреса</value>
         <value xml:lang="th">ที่อยู่</value>
-        <value xml:lang="zh_CN">地址栏</value>
         <value xml:lang="zh">地址线</value>
+        <value xml:lang="zh_CN">地址栏</value>
     </property>
     <property key="CommonAddresses">
         <value xml:lang="ar">عناوين</value>
@@ -288,8 +288,8 @@
         <value xml:lang="ro">Adrese</value>
         <value xml:lang="ru">Адреса</value>
         <value xml:lang="th">ที่อยู่</value>
-        <value xml:lang="zh_CN">地址</value>
         <value xml:lang="zh">地址</value>
+        <value xml:lang="zh_CN">地址</value>
     </property>
     <property key="CommonAll">
         <value xml:lang="ar">الكل</value>
@@ -305,8 +305,8 @@
         <value xml:lang="ro">Toate</value>
         <value xml:lang="ru">Все</value>
         <value xml:lang="th">ทั้งหมด</value>
-        <value xml:lang="zh_CN">所有</value>
         <value xml:lang="zh">全部</value>
+        <value xml:lang="zh_CN">所有</value>
     </property>
     <property key="CommonAllDay">
         <value xml:lang="ar">كل اليوم</value>
@@ -320,8 +320,8 @@
         <value xml:lang="ro">Toate Zilele</value>
         <value xml:lang="ru">Весь день</value>
         <value xml:lang="th">วันทั้งหมด</value>
-        <value xml:lang="zh_CN">所有日期</value>
         <value xml:lang="zh">全部日期</value>
+        <value xml:lang="zh_CN">所有日期</value>
     </property>
     <property key="CommonAllMethods">
         <value xml:lang="ar">كل الطرق</value>
@@ -335,8 +335,8 @@
         <value xml:lang="ro">Toate modalitatile</value>
         <value xml:lang="ru">Все методы</value>
         <value xml:lang="th">วิธีทั้งหมด</value>
-        <value xml:lang="zh_CN">所有方法</value>
         <value xml:lang="zh">全部方法</value>
+        <value xml:lang="zh_CN">所有方法</value>
     </property>
     <property key="CommonAllWeek">
         <value xml:lang="ar">كل الأسبوع</value>
@@ -350,8 +350,8 @@
         <value xml:lang="ro">Toate Saptamanile</value>
         <value xml:lang="ru">Вся неделя</value>
         <value xml:lang="th">สัปดาห์ทั้งหมด</value>
-        <value xml:lang="zh_CN">所有星期</value>
         <value xml:lang="zh">全部周</value>
+        <value xml:lang="zh_CN">所有星期</value>
     </property>
     <property key="CommonAllowSolicitation">
         <value xml:lang="ar">السماح بالإستدعاءات</value>
@@ -365,8 +365,8 @@
         <value xml:lang="ro">(permiti solecitare?)</value>
         <value xml:lang="ru">(допустимы обращения?)</value>
         <value xml:lang="th">(ยอมรับการร้องขอหรือไม่)</value>
-        <value xml:lang="zh_CN">(可以联络)</value>
         <value xml:lang="zh">（允许提示？）</value>
+        <value xml:lang="zh_CN">(可以联络)</value>
     </property>
     <property key="CommonAlwaysInclude">
         <value xml:lang="de">Immer berücksichtigen</value>
@@ -390,8 +390,8 @@
         <value xml:lang="ro">Valoare</value>
         <value xml:lang="ru">Сумма</value>
         <value xml:lang="th">จำนวน</value>
-        <value xml:lang="zh_CN">数量</value>
         <value xml:lang="zh">金额</value>
+        <value xml:lang="zh_CN">数量</value>
     </property>
     <property key="CommonAnd">
         <value xml:lang="ar">و</value>
@@ -406,8 +406,8 @@
         <value xml:lang="ro">si</value>
         <value xml:lang="ru">и</value>
         <value xml:lang="th">และ</value>
-        <value xml:lang="zh_CN">和</value>
         <value xml:lang="zh">且</value>
+        <value xml:lang="zh_CN">和</value>
     </property>
     <property key="CommonAny">
         <value xml:lang="ar">أي</value>
@@ -422,8 +422,8 @@
         <value xml:lang="ro">Orice</value>
         <value xml:lang="ru">Любой</value>
         <value xml:lang="th">ทุก ๆ อัน</value>
-        <value xml:lang="zh_CN">任何</value>
         <value xml:lang="zh">任何</value>
+        <value xml:lang="zh_CN">任何</value>
     </property>
     <property key="CommonAnyOrderStatus">
         <value xml:lang="ar">كل وضع للطلبيات</value>
@@ -437,8 +437,8 @@
         <value xml:lang="ro">Orice Stadiu Comanda</value>
         <value xml:lang="ru">Любой статус заказа</value>
         <value xml:lang="th">ทุก ๆ สถานะรายการสั่งซื้อ</value>
-        <value xml:lang="zh_CN">任意订单状态</value>
         <value xml:lang="zh">任何订单状态</value>
+        <value xml:lang="zh_CN">任意订单状态</value>
     </property>
     <property key="CommonAnyOrderType">
         <value xml:lang="ar">أي نوع للطلبيات</value>
@@ -452,8 +452,8 @@
         <value xml:lang="ro">Orice Tip de Comanda</value>
         <value xml:lang="ru">Любой тип заказа</value>
         <value xml:lang="th">ทุก ๆ ประเภทรายการสั่งซื้อ</value>
-        <value xml:lang="zh_CN">任意订单类型</value>
         <value xml:lang="zh">任何订单类型</value>
+        <value xml:lang="zh_CN">任意订单类型</value>
     </property>
     <property key="CommonAnyReturnStatus">
         <value xml:lang="ar">أي وضع للرجوع</value>
@@ -467,8 +467,8 @@
         <value xml:lang="ro">Orice Stadiu Returnare</value>
         <value xml:lang="ru">Любой статус возврата</value>
         <value xml:lang="th">ทุก ๆ การคืนสถานะ</value>
-        <value xml:lang="zh_CN">任意退货状态</value>
         <value xml:lang="zh">任何退货类型</value>
+        <value xml:lang="zh_CN">任意退货状态</value>
     </property>
     <property key="CommonAnyRoleType">
         <value xml:lang="ar">أي نوع للدور</value>
@@ -482,8 +482,8 @@
         <value xml:lang="ro">Orice Tip Rol</value>
         <value xml:lang="ru">Любой тип роли</value>
         <value xml:lang="th">ทุก ๆ ประเภทสถานะ</value>
-        <value xml:lang="zh_CN">任意角色类型</value>
         <value xml:lang="zh">任何角色类型</value>
+        <value xml:lang="zh_CN">任意角色类型</value>
     </property>
     <property key="CommonAnySalesChannel">
         <value xml:lang="ar">أي قناة</value>
@@ -496,8 +496,8 @@
         <value xml:lang="ro">Orice Canal</value>
         <value xml:lang="ru">Любой канал</value>
         <value xml:lang="th">ทุก ๆ ช่องทาง</value>
-        <value xml:lang="zh_CN">任意渠道</value>
         <value xml:lang="zh">任何渠道</value>
+        <value xml:lang="zh_CN">任意渠道</value>
     </property>
     <property key="CommonAnyStateProvince">
         <value xml:lang="en">Any State/Province</value>
@@ -515,8 +515,8 @@
         <value xml:lang="ro">Orice Magazin</value>
         <value xml:lang="ru">Любое хранилище</value>
         <value xml:lang="th">ทุก ๆ คลังสินค้า</value>
-        <value xml:lang="zh_CN">任意商店</value>
         <value xml:lang="zh">任何店铺</value>
+        <value xml:lang="zh_CN">任意商店</value>
     </property>
     <property key="CommonAnyWebSite">
         <value xml:lang="ar">أي موقع ويب</value>
@@ -530,8 +530,8 @@
         <value xml:lang="ro">Orice Sit Web</value>
         <value xml:lang="ru">Любой Web-сайт</value>
         <value xml:lang="th">ทุก ๆ เว็บไซต์</value>
-        <value xml:lang="zh_CN">任意网站</value>
         <value xml:lang="zh">任何网站</value>
+        <value xml:lang="zh_CN">任意网站</value>
     </property>
     <property key="CommonApply">
         <value xml:lang="ar">تطبيق</value>
@@ -545,8 +545,8 @@
         <value xml:lang="ro">Aplica</value>
         <value xml:lang="ru">Применить</value>
         <value xml:lang="th">ประยุกต์ใช้</value>
-        <value xml:lang="zh_CN">应用</value>
         <value xml:lang="zh">应用</value>
+        <value xml:lang="zh_CN">应用</value>
     </property>
     <property key="CommonApproved">
         <value xml:lang="ar">مسند</value>
@@ -560,8 +560,8 @@
         <value xml:lang="ro">Aprobat</value>
         <value xml:lang="ru">Утвержденные</value>
         <value xml:lang="th">อนุมัติ</value>
-        <value xml:lang="zh_CN">已批准</value>
         <value xml:lang="zh">已批准</value>
+        <value xml:lang="zh_CN">已批准</value>
     </property>
     <property key="CommonApril">
         <value xml:lang="ar">أفريل</value>
@@ -575,8 +575,8 @@
         <value xml:lang="ro">Aprilie</value>
         <value xml:lang="ru">Апрель</value>
         <value xml:lang="th">เมษายน</value>
-        <value xml:lang="zh_CN">四月</value>
         <value xml:lang="zh">四月</value>
+        <value xml:lang="zh_CN">四月</value>
     </property>
     <property key="CommonArea">
         <value xml:lang="ar">مساحة</value>
@@ -590,8 +590,8 @@
         <value xml:lang="ro">Domeniu</value>
         <value xml:lang="ru">Местность/Город</value>
         <value xml:lang="th">พื้นที่</value>
-        <value xml:lang="zh_CN">区域</value>
         <value xml:lang="zh">地区</value>
+        <value xml:lang="zh_CN">区域</value>
     </property>
     <property key="CommonAreaCode">
         <value xml:lang="ar">رمز المساحة</value>
@@ -605,8 +605,8 @@
         <value xml:lang="ro">Cod Domeniu</value>
         <value xml:lang="ru">Тлф код города</value>
         <value xml:lang="th">รหัสพื้นที่</value>
-        <value xml:lang="zh_CN">区域代码</value>
         <value xml:lang="zh">地区编码</value>
+        <value xml:lang="zh_CN">区域代码</value>
     </property>
     <property key="CommonAssociate">
         <value xml:lang="ar">شريك</value>
@@ -619,8 +619,8 @@
         <value xml:lang="pt">Associar</value>
         <value xml:lang="ro">Asociere</value>
         <value xml:lang="th">รวมกลุ่ม</value>
-        <value xml:lang="zh_CN">关联</value>
         <value xml:lang="zh">联系</value>
+        <value xml:lang="zh_CN">关联</value>
     </property>
     <property key="CommonAssocs">
         <value xml:lang="ar">شركاء</value>
@@ -634,8 +634,8 @@
         <value xml:lang="ro">Asociatii</value>
         <value xml:lang="ru">Ассоциации</value>
         <value xml:lang="th">รวมกลุ่ม</value>
-        <value xml:lang="zh_CN">关联</value>
         <value xml:lang="zh">联系</value>
+        <value xml:lang="zh_CN">关联</value>
     </property>
     <property key="CommonAt">
         <value xml:lang="ar">في</value>
@@ -649,8 +649,8 @@
         <value xml:lang="ro">La</value>
         <value xml:lang="ru">в </value>
         <value xml:lang="th">ที่</value>
-        <value xml:lang="zh_CN">在</value>
         <value xml:lang="zh">时间</value>
+        <value xml:lang="zh_CN">在</value>
     </property>
     <property key="CommonAttentionName">
         <value xml:lang="ar">اسم الاهتمام</value>
@@ -664,8 +664,8 @@
         <value xml:lang="ro">Atentie De</value>
         <value xml:lang="ru">Имя</value>
         <value xml:lang="th">ชื่อการพิจารณา</value>
-        <value xml:lang="zh_CN">关注名称</value>
         <value xml:lang="zh">收件人名称</value>
+        <value xml:lang="zh_CN">关注名称</value>
     </property>
     <property key="CommonAttn">
         <value xml:lang="ar">المرسل إليه</value>
@@ -679,8 +679,8 @@
         <value xml:lang="ro">Att.</value>
         <value xml:lang="ru">Вниманию: </value>
         <value xml:lang="th">การพิจารณา</value>
-        <value xml:lang="zh_CN">注</value>
         <value xml:lang="zh">至</value>
+        <value xml:lang="zh_CN">注</value>
     </property>
     <property key="CommonAugust">
         <value xml:lang="ar">أوت</value>
@@ -694,8 +694,8 @@
         <value xml:lang="ro">August</value>
         <value xml:lang="ru">Август</value>
         <value xml:lang="th">สิงหาคม</value>
-        <value xml:lang="zh_CN">八月</value>
         <value xml:lang="zh">八月</value>
+        <value xml:lang="zh_CN">八月</value>
     </property>
     <property key="CommonAutoAssignedId">
         <value xml:lang="en">Unique ID - auto-assigned if blank</value>
@@ -715,8 +715,8 @@
         <value xml:lang="ro">Disponibil</value>
         <value xml:lang="ru">Доступно</value>
         <value xml:lang="th">ใช้ประโยชน์ได้</value>
-        <value xml:lang="zh_CN">可用的</value>
         <value xml:lang="zh">可用</value>
+        <value xml:lang="zh_CN">可用的</value>
     </property>
     <property key="CommonAverage">
         <value xml:lang="ar">متوسط</value>
@@ -730,8 +730,8 @@
         <value xml:lang="ro">Media</value>
         <value xml:lang="ru">В среднем</value>
         <value xml:lang="th">ค่าเฉลี่ย</value>
-        <value xml:lang="zh_CN">平均</value>
         <value xml:lang="zh">平均</value>
+        <value xml:lang="zh_CN">平均</value>
     </property>
     <property key="CommonBack">
         <value xml:lang="ar">عودة</value>
@@ -747,8 +747,8 @@
         <value xml:lang="ro">Inapoi</value>
         <value xml:lang="ru">Назад</value>
         <value xml:lang="th">กลับ</value>
-        <value xml:lang="zh_CN">返回</value>
         <value xml:lang="zh">后退</value>
+        <value xml:lang="zh_CN">返回</value>
     </property>
     <property key="CommonBackTo">
         <value xml:lang="ar">العودة إلى</value>
@@ -762,8 +762,8 @@
         <value xml:lang="ro">Inapoi La</value>
         <value xml:lang="ru">Назад</value>
         <value xml:lang="th">กลับไปยัง</value>
-        <value xml:lang="zh_CN">返回至</value>
         <value xml:lang="zh">后退到</value>
+        <value xml:lang="zh_CN">返回至</value>
     </property>
     <property key="CommonBackToList">
         <value xml:lang="ar">العودة إلى القائمة</value>
@@ -777,8 +777,8 @@
         <value xml:lang="ro">Inapoi La Lista</value>
         <value xml:lang="ru">Назад к списку</value>
         <value xml:lang="th">กลับไปยังรายการ</value>
-        <value xml:lang="zh_CN">返回列表</value>
         <value xml:lang="zh">后退到列表</value>
+        <value xml:lang="zh_CN">返回列表</value>
     </property>
     <property key="CommonBackToOptions">
         <value xml:lang="ar">العودة إاى الإختيارات</value>
@@ -793,8 +793,8 @@
         <value xml:lang="ro">Inapoi La Optiuni</value>
         <value xml:lang="ru">Назад к опциям</value>
         <value xml:lang="th">กลับไปยังตัวเลือก</value>
-        <value xml:lang="zh_CN">返回至选项</value>
         <value xml:lang="zh">后退到选项</value>
+        <value xml:lang="zh_CN">返回至选项</value>
     </property>
     <property key="CommonBankAccntNrAbbr">
         <value xml:lang="ar">رقم الحساب</value>
@@ -823,8 +823,8 @@
         <value xml:lang="ro">Beneficiu</value>
         <value xml:lang="ru">Выгода</value>
         <value xml:lang="th">ผลประโยชน์</value>
-        <value xml:lang="zh_CN">让利</value>
         <value xml:lang="zh">回报</value>
+        <value xml:lang="zh_CN">让利</value>
     </property>
     <property key="CommonBeLogged">
         <value xml:lang="ar">دخول</value>
@@ -840,8 +840,8 @@
         <value xml:lang="ro">Login</value>
         <value xml:lang="ru">Вход</value>
         <value xml:lang="th">เข้าสู่ระบบ</value>
-        <value xml:lang="zh_CN">登录</value>
         <value xml:lang="zh">登录</value>
+        <value xml:lang="zh_CN">登录</value>
     </property>
     <property key="CommonBut">
         <value xml:lang="ar">إلا</value>
@@ -855,8 +855,8 @@
         <value xml:lang="ro">dar</value>
         <value xml:lang="ru">но</value>
         <value xml:lang="th">แต่</value>
-        <value xml:lang="zh_CN">但是</value>
         <value xml:lang="zh">而非</value>
+        <value xml:lang="zh_CN">但是</value>
     </property>
     <property key="CommonBy">
         <value xml:lang="ar">من</value>
@@ -870,8 +870,8 @@
         <value xml:lang="pt">Por</value>
         <value xml:lang="ro">De la </value>
         <value xml:lang="th">โดย</value>
-        <value xml:lang="zh_CN">被</value>
         <value xml:lang="zh">作者</value>
+        <value xml:lang="zh_CN">被</value>
     </property>
     <property key="CommonCancel">
         <value xml:lang="ar">إلغاء</value>
@@ -886,8 +886,8 @@
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Отменить</value>
         <value xml:lang="th">ยกเลิก</value>
-        <value xml:lang="zh_CN">取消</value>
         <value xml:lang="zh">取消</value>
+        <value xml:lang="zh_CN">取消</value>
     </property>
     <property key="CommonCancelAll">
         <value xml:lang="ar">إلغاء الكل</value>
@@ -901,8 +901,8 @@
         <value xml:lang="ro">Sterge Tot</value>
         <value xml:lang="ru">Отменить все</value>
         <value xml:lang="th">ยกเลิกทั้งหมด</value>
-        <value xml:lang="zh_CN">取消所有</value>
         <value xml:lang="zh">取消全部</value>
+        <value xml:lang="zh_CN">取消所有</value>
     </property>
     <property key="CommonCancelDone">
         <value xml:lang="ar">إلغاء/تمام</value>
@@ -916,8 +916,8 @@
         <value xml:lang="ro">Sterge/Executa</value>
         <value xml:lang="ru">Отменить/Выполнить</value>
         <value xml:lang="th">ยกเลิกเรียบร้อยแล้ว</value>
-        <value xml:lang="zh_CN">取消/完成</value>
         <value xml:lang="zh">取消/完成</value>
+        <value xml:lang="zh_CN">取消/完成</value>
     </property>
     <property key="CommonCancelled">
         <value xml:lang="ar">ملغى</value>
@@ -931,8 +931,8 @@
         <value xml:lang="ro">Sters</value>
         <value xml:lang="ru">Отмененные</value>
         <value xml:lang="th">ยกเลิก</value>
-        <value xml:lang="zh_CN">已取消</value>
         <value xml:lang="zh">已取消</value>
+        <value xml:lang="zh_CN">已取消</value>
     </property>
     <property key="CommonCannotBeFound">
         <value xml:lang="en">Could not be found</value>
@@ -951,8 +951,8 @@
         <value xml:lang="ro">Schimbare</value>
         <value xml:lang="ru">Изменить</value>
         <value xml:lang="th">เปลี่ยนแปลง</value>
-        <value xml:lang="zh_CN">改变</value>
         <value xml:lang="zh">修改</value>
+        <value xml:lang="zh_CN">改变</value>
     </property>
     <property key="CommonChart">
         <value xml:lang="ar">رسوم بيانية</value>
@@ -966,8 +966,8 @@
         <value xml:lang="ro">Grafice</value>
         <value xml:lang="ru">Диаграммы</value>
         <value xml:lang="th">แผนภูมิ</value>
-        <value xml:lang="zh_CN">图表</value>
         <value xml:lang="zh">图表</value>
+        <value xml:lang="zh_CN">图表</value>
     </property>
     <property key="CommonChecked">
         <value xml:lang="ar">مفحص</value>
@@ -981,8 +981,8 @@
         <value xml:lang="ro">Controlat</value>
         <value xml:lang="ru">Проверено</value>
         <value xml:lang="th">ตรวจสอบ</value>
-        <value xml:lang="zh_CN">选中的</value>
         <value xml:lang="zh">已检查</value>
+        <value xml:lang="zh_CN">选中的</value>
     </property>
     <property key="CommonChecking">
         <value xml:lang="ar">فحص</value>
@@ -998,8 +998,8 @@
         <value xml:lang="ro">Controleaza</value>
         <value xml:lang="ru">Проверка</value>
         <value xml:lang="th">กำลังตรวจสอบ</value>
-        <value xml:lang="zh_CN">检查中</value>
         <value xml:lang="zh">正在检查</value>
+        <value xml:lang="zh_CN">检查中</value>
     </property>
     <property key="CommonCheckoutAnonymous">
         <value xml:lang="ar">الفحص دون الدخول</value>
@@ -1015,8 +1015,8 @@
         <value xml:lang="ro">Checkout fara Login</value>
         <value xml:lang="ru">Анонимная проверка (без логина)</value>
         <value xml:lang="th">การแจ้งออกโดยปราศจากการลอกอินเข้าสู่ระบบ</value>
-        <value xml:lang="zh_CN">匿名结帐</value>
         <value xml:lang="zh">直接结账而不登录</value>
+        <value xml:lang="zh_CN">匿名结帐</value>
     </property>
     <property key="CommonCheckoutAnonymousMsg">
         <value xml:lang="ar">يمكنكم التفحص دون استحداث حساب</value>
@@ -1032,8 +1032,8 @@
         <value xml:lang="ro">Tu poti sa faci checkout fara sa creezi un utilizator</value>
         <value xml:lang="ru">Вы можете выполнить проверку без создания учетной записи</value>
         <value xml:lang="th">คุณอาจจะแจ้งออกโดยปราศจากการสร้างบัญชี</value>
-        <value xml:lang="zh_CN">你可以不用建立帐户就结帐</value>
         <value xml:lang="zh">你可以直接结账而不需要创建一个账户</value>
+        <value xml:lang="zh_CN">你可以不用建立帐户就结帐</value>
     </property>
     <property key="CommonChooseLanguage">
         <value xml:lang="ar">اختر اللغة</value>
@@ -1049,8 +1049,8 @@
         <value xml:lang="ro">Alege Limba</value>
         <value xml:lang="ru">Выбрать язык</value>
         <value xml:lang="th">เลือกภาษา</value>
-        <value xml:lang="zh_CN">选择语言</value>
         <value xml:lang="zh">选择语言</value>
+        <value xml:lang="zh_CN">选择语言</value>
     </property>
     <property key="CommonCity">
         <value xml:lang="ar">المدينة</value>
@@ -1064,8 +1064,8 @@
         <value xml:lang="ro">Oras</value>
         <value xml:lang="ru">Город</value>
         <value xml:lang="th">เมือง</value>
-        <value xml:lang="zh_CN">城市</value>
         <value xml:lang="zh">城市</value>
+        <value xml:lang="zh_CN">城市</value>
     </property>
     <property key="CommonClear">
         <value xml:lang="ar">محو</value>
@@ -1080,8 +1080,8 @@
         <value xml:lang="ro">Azereaza</value>
         <value xml:lang="ru">Очистить</value>
         <value xml:lang="th">เคลียร์</value>
-        <value xml:lang="zh_CN">清除</value>
         <value xml:lang="zh">清除</value>
+        <value xml:lang="zh_CN">清除</value>
     </property>
     <property key="CommonClearAll">
         <value xml:lang="de">Alles leeren</value>
@@ -1106,8 +1106,8 @@
         <value xml:lang="ro">Clickeaza Aici</value>
         <value xml:lang="ru">Щелкните мышью здесь</value>
         <value xml:lang="th">คลิกที่นี่</value>
-        <value xml:lang="zh_CN">点击这里</value>
         <value xml:lang="zh">点击这里</value>
+        <value xml:lang="zh_CN">点击这里</value>
     </property>
     <property key="CommonClose">
         <value xml:lang="ar">غلق</value>
@@ -1121,8 +1121,8 @@
         <value xml:lang="ro">Inchide</value>
         <value xml:lang="ru">Закрыть</value>
         <value xml:lang="th">ปิด</value>
-        <value xml:lang="zh_CN">关闭</value>
         <value xml:lang="zh">关闭</value>
+        <value xml:lang="zh_CN">关闭</value>
     </property>
     <property key="CommonCloseTab">
         <value xml:lang="ar">-</value>
@@ -1136,8 +1136,8 @@
         <value xml:lang="ro">-</value>
         <value xml:lang="ru">-</value>
         <value xml:lang="th">-</value>
-        <value xml:lang="zh_CN">关</value>
         <value xml:lang="zh">-</value>
+        <value xml:lang="zh_CN">关</value>
     </property>
     <property key="CommonCollapse">
         <value xml:lang="en">Collapse</value>
@@ -1156,8 +1156,8 @@
         <value xml:lang="ro">Soseste!</value>
         <value xml:lang="ru">Скоро ожидается!</value>
         <value xml:lang="th">เร็ว ๆ นี้ !</value>
-        <value xml:lang="zh_CN">即将推出!</value>
         <value xml:lang="zh">即将推出！</value>
+        <value xml:lang="zh_CN">即将推出!</value>
     </property>
     <property key="CommonComment">
         <value xml:lang="ar">تعليق</value>
@@ -1172,8 +1172,8 @@
         <value xml:lang="ro">Comentariu</value>
         <value xml:lang="ru">Комментарий</value>
         <value xml:lang="th">ความคิดเห็น</value>
-        <value xml:lang="zh_CN">评论</value>
         <value xml:lang="zh">评论</value>
+        <value xml:lang="zh_CN">评论</value>
     </property>
     <property key="CommonComments">
         <value xml:lang="ar">تعاليق</value>
@@ -1188,8 +1188,8 @@
         <value xml:lang="ro">Comentarii</value>
         <value xml:lang="ru">Комментарии</value>
         <value xml:lang="th">ความคิดเห็น</value>
-        <value xml:lang="zh_CN">评论</value>
         <value xml:lang="zh">评论</value>
+        <value xml:lang="zh_CN">评论</value>
     </property>
     <property key="CommonCompleted">
         <value xml:lang="ar">تمت</value>
@@ -1203,8 +1203,8 @@
         <value xml:lang="ro">Completat</value>
         <value xml:lang="ru">Завершенные</value>
         <value xml:lang="th">เสร็จสมบูรณ์</value>
-        <value xml:lang="zh_CN">已完成</value>
         <value xml:lang="zh">已完成</value>
+        <value xml:lang="zh_CN">已完成</value>
     </property>
     <property key="CommonConfiguration">
         <value xml:lang="ar">ترتيب</value>
@@ -1218,8 +1218,8 @@
         <value xml:lang="ro">Configuratie</value>
         <value xml:lang="ru">Конфигурация</value>
         <value xml:lang="th">โครงร่างภายนอก</value>
-        <value xml:lang="zh_CN">配置</value>
         <value xml:lang="zh">配置</value>
+        <value xml:lang="zh_CN">配置</value>
     </property>
     <property key="CommonConfigure">
         <value xml:lang="en">Configure:</value>
@@ -1250,8 +1250,8 @@
         <value xml:lang="ro">Contact</value>
         <value xml:lang="ru">Код вида конт-та</value>
         <value xml:lang="th">รหัสวิธีการติดต่อ</value>
-        <value xml:lang="zh_CN">联系方式标识</value>
         <value xml:lang="zh">联系方法标识</value>
+        <value xml:lang="zh_CN">联系方式标识</value>
     </property>
     <property key="CommonContactPurpose">
         <value xml:lang="ar">هدف الصلة</value>
@@ -1265,8 +1265,8 @@
         <value xml:lang="ro">Functie Contact</value>
         <value xml:lang="ru">Цель контакта</value>
         <value xml:lang="th">ติดต่อเป้าหมาย</value>
-        <value xml:lang="zh_CN">联系目的</value>
         <value xml:lang="zh">联系目的</value>
+        <value xml:lang="zh_CN">联系目的</value>
     </property>
     <property key="CommonContactUs">
         <value xml:lang="ar">اتصل بنا</value>
@@ -1280,8 +1280,8 @@
         <value xml:lang="ro">Contacteazane</value>
         <value xml:lang="ru">Написать нам</value>
         <value xml:lang="th">ติดต่อเรา</value>
-        <value xml:lang="zh_CN">联系我们</value>
         <value xml:lang="zh">联系我们</value>
+        <value xml:lang="zh_CN">联系我们</value>
     </property>
     <property key="CommonContacts">
         <value xml:lang="ar">وصلات</value>
@@ -1295,8 +1295,8 @@
         <value xml:lang="ro">Contacte</value>
         <value xml:lang="ru">Контакты    </value>
         <value xml:lang="th">ติดต่อ</value>
-        <value xml:lang="zh_CN">联系</value>
         <value xml:lang="zh">联系</value>
+        <value xml:lang="zh_CN">联系</value>
     </property>
     <property key="CommonContent">
         <value xml:lang="ar">محتوى</value>
@@ -1310,8 +1310,8 @@
         <value xml:lang="ro">Continut</value>
         <value xml:lang="ru">Содержание</value>
         <value xml:lang="th">หัวข้อ</value>
-        <value xml:lang="zh_CN">内容</value>
         <value xml:lang="zh">内容</value>
+        <value xml:lang="zh_CN">内容</value>
     </property>
     <property key="CommonContinue">
         <value xml:lang="ar">أكمل</value>
@@ -1326,8 +1326,8 @@
         <value xml:lang="ro">Continua</value>
         <value xml:lang="ru">Продолжить</value>
         <value xml:lang="th">เริ่มใหม่</value>
-        <value xml:lang="zh_CN">继续</value>
         <value xml:lang="zh">继续</value>
+        <value xml:lang="zh_CN">继续</value>
     </property>
     <property key="CommonCopy">
         <value xml:lang="ar">نسخ</value>
@@ -1341,8 +1341,8 @@
         <value xml:lang="ro">Copiaza</value>
         <value xml:lang="ru">Копировать</value>
         <value xml:lang="th">คัดลอก</value>
-        <value xml:lang="zh_CN">复制</value>
         <value xml:lang="zh">复制</value>
+        <value xml:lang="zh_CN">复制</value>
     </property>
     <property key="CommonCouldBeUsedAs">
         <value xml:lang="ar">يحتمل استعمالها ك</value>
@@ -1357,8 +1357,8 @@
         <value xml:lang="ro">Poate fi Folosit de </value>
         <value xml:lang="ru">Может использоваться как </value>
         <value xml:lang="th">สามารถใช้เหมือน</value>
-        <value xml:lang="zh_CN">可被用于</value>
         <value xml:lang="zh">能够作为</value>
+        <value xml:lang="zh_CN">可被用于</value>
     </property>
     <property key="CommonCouldBeUsedFor">
         <value xml:lang="ar">يحتمل استعمالها ل</value>
@@ -1385,8 +1385,8 @@
         <value xml:lang="ro">Tara</value>
         <value xml:lang="ru">Страна</value>
         <value xml:lang="th">ประเทศ</value>
-        <value xml:lang="zh_CN">国家</value>
         <value xml:lang="zh">国家</value>
+        <value xml:lang="zh_CN">国家</value>
     </property>
     <property key="CommonCounty">
         <value xml:lang="ar">ولاية</value>
@@ -1400,8 +1400,8 @@
         <value xml:lang="ro">Sector</value>
         <value xml:lang="ru">Округ</value>
         <value xml:lang="th">เขตปกครอง</value>
-        <value xml:lang="zh_CN">县</value>
         <value xml:lang="zh">县</value>
+        <value xml:lang="zh_CN">县</value>
     </property>
     <property key="CommonCountyCity">
         <value xml:lang="ar">ولاية-مدينة</value>
@@ -1415,8 +1415,8 @@
         <value xml:lang="ro">Sector-Oras</value>
         <value xml:lang="ru">Админ. центр округа</value>
         <value xml:lang="th">เขตเมือง</value>
-        <value xml:lang="zh_CN">县市</value>
         <value xml:lang="zh">县城</value>
+        <value xml:lang="zh_CN">县市</value>
     </property>
     <property key="CommonCreate">
         <value xml:lang="ar">استحداث</value>
@@ -1431,8 +1431,8 @@
         <value xml:lang="ro">Creare</value>
         <value xml:lang="ru">Создать</value>
         <value xml:lang="th">สร้าง</value>
-        <value xml:lang="zh_CN">创建</value>
         <value xml:lang="zh">新建</value>
+        <value xml:lang="zh_CN">创建</value>
     </property>
     <property key="CommonCreateNew">
         <value xml:lang="ar">استحداث جديد</value>
@@ -1447,8 +1447,8 @@
         <value xml:lang="ro">Creare Nou</value>
         <value xml:lang="ru">Создать новый</value>
         <value xml:lang="th">สร้างใหม่</value>
-        <value xml:lang="zh_CN">创建新的</value>
         <value xml:lang="zh">新建</value>
+        <value xml:lang="zh_CN">创建新的</value>
     </property>
     <property key="CommonCreated">
         <value xml:lang="ar">استحدث</value>
@@ -1462,8 +1462,8 @@
         <value xml:lang="ro">Creat</value>
         <value xml:lang="ru">Созданные</value>
         <value xml:lang="th">สร้าง</value>
-        <value xml:lang="zh_CN">已创建</value>
         <value xml:lang="zh">已创建</value>
+        <value xml:lang="zh_CN">已创建</value>
     </property>
     <property key="CommonCreatedBy">
         <value xml:lang="de">Angelegt von</value>
@@ -1476,8 +1476,8 @@
         <value xml:lang="ro">Creat De</value>
         <value xml:lang="ru">Кем создано</value>
         <value xml:lang="th">สร้างโดย</value>
-        <value xml:lang="zh_CN">创建者</value>
         <value xml:lang="zh">创建者 </value>
+        <value xml:lang="zh_CN">创建者</value>
     </property>
     <property key="CommonCredit">
         <value xml:lang="ar">قرض</value>
@@ -1491,8 +1491,8 @@
         <value xml:lang="ro">Credit</value>
         <value xml:lang="ru">Кредит</value>
         <value xml:lang="th">เครดิต</value>
-        <value xml:lang="zh_CN">贷方</value>
         <value xml:lang="zh">信用</value>
+        <value xml:lang="zh_CN">贷方</value>
     </property>
     <property key="CommonCurrency">
         <value xml:lang="ar">عملة</value>
@@ -1506,8 +1506,8 @@
         <value xml:lang="ro">Valuta</value>
         <value xml:lang="ru">Валюта</value>
         <value xml:lang="th">สกุลเงิน</value>
-        <value xml:lang="zh_CN">货币</value>
         <value xml:lang="zh">币种</value>
+        <value xml:lang="zh_CN">货币</value>
     </property>
     <property key="CommonCurrent">
         <value xml:lang="ar">جاري</value>
@@ -1521,8 +1521,8 @@
         <value xml:lang="ro">Actual</value>
         <value xml:lang="ru">Текущий</value>
         <value xml:lang="th">ใช้กันในปัจจุบัน</value>
-        <value xml:lang="zh_CN">当前</value>
         <value xml:lang="zh">当前</value>
+        <value xml:lang="zh_CN">当前</value>
     </property>
     <property key="CommonCurrentPassword">
         <value xml:lang="de">Aktuelles Passwort</value>
@@ -1556,8 +1556,8 @@
         <value xml:lang="ro">Probleme Database</value>
         <value xml:lang="ru">Проблемы в базе данных</value>
         <value xml:lang="th">ปัญหาฐานข้อมูล</value>
-        <value xml:lang="zh_CN">数据库问题</value>
         <value xml:lang="zh">数据库错误</value>
+        <value xml:lang="zh_CN">数据库问题</value>
     </property>
     <property key="CommonDate">
         <value xml:lang="ar">تاريخ</value>
@@ -1572,8 +1572,8 @@
         <value xml:lang="ro">Data</value>
         <value xml:lang="ru">Дата</value>
         <value xml:lang="th">วันที่</value>
-        <value xml:lang="zh_CN">日期</value>
         <value xml:lang="zh">日期</value>
+        <value xml:lang="zh_CN">日期</value>
     </property>
     <property key="CommonDateFilter">
         <value xml:lang="ar">مصفي التاريخ</value>
@@ -1587,8 +1587,8 @@
         <value xml:lang="ro">Filtru Data</value>
         <value xml:lang="ru">Фильтр по дате</value>
         <value xml:lang="th">Date Filter</value>
-        <value xml:lang="zh_CN">日期过滤器</value>
         <value xml:lang="zh">日期过滤</value>
+        <value xml:lang="zh_CN">日期过滤器</value>
     </property>
     <property key="CommonDay">
         <value xml:lang="ar">يوم</value>
@@ -1602,8 +1602,8 @@
         <value xml:lang="ro">Zi</value>
         <value xml:lang="ru">День</value>
         <value xml:lang="th">วัน</value>
-        <value xml:lang="zh_CN">天</value>
         <value xml:lang="zh">日</value>
+        <value xml:lang="zh_CN">天</value>
     </property>
     <property key="CommonDays">
         <value xml:lang="ar">أيام</value>
@@ -1618,8 +1618,8 @@
         <value xml:lang="ro">Zile</value>
         <value xml:lang="ru">Дни</value>
         <value xml:lang="th">วัน</value>
-        <value xml:lang="zh_CN">天数</value>
         <value xml:lang="zh">日</value>
+        <value xml:lang="zh_CN">天数</value>
     </property>
     <property key="CommonDebit">
         <value xml:lang="ar">دين</value>
@@ -1633,8 +1633,8 @@
         <value xml:lang="ro">Debit</value>
         <value xml:lang="ru">Дебет</value>
         <value xml:lang="th">เดบิต</value>
-        <value xml:lang="zh_CN">借方</value>
         <value xml:lang="zh">借方</value>
+        <value xml:lang="zh_CN">借方</value>
     </property>
     <property key="CommonDecember">
         <value xml:lang="ar">ديسمبر</value>
@@ -1648,8 +1648,8 @@
         <value xml:lang="ro">Decembrie</value>
         <value xml:lang="ru">декабрь</value>
         <value xml:lang="th">ธันวาคม</value>
-        <value xml:lang="zh_CN">十二月</value>
         <value xml:lang="zh">十二月</value>
+        <value xml:lang="zh_CN">十二月</value>
     </property>
     <property key="CommonDelete">
         <value xml:lang="ar">حذف</value>
@@ -1665,8 +1665,8 @@
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Удалить</value>
         <value xml:lang="th">ลบ</value>
-        <value xml:lang="zh_CN">删除</value>
         <value xml:lang="zh">删除</value>
+        <value xml:lang="zh_CN">删除</value>
     </property>
     <property key="CommonDeleteAll">
         <value xml:lang="ar">حذف الكل</value>
@@ -1680,8 +1680,8 @@
         <value xml:lang="ro">Sterge Tot</value>
         <value xml:lang="ru">Удалить все</value>
         <value xml:lang="th">ลบทั้งหมด</value>
-        <value xml:lang="zh_CN">删除所有</value>
         <value xml:lang="zh">删除全部</value>
+        <value xml:lang="zh_CN">删除所有</value>
     </property>
     <property key="CommonDepth">
         <value xml:lang="ar">عمق</value>
@@ -1695,8 +1695,8 @@
         <value xml:lang="ro">Adancime</value>
         <value xml:lang="ru">Глубина</value>
         <value xml:lang="th">ความลึก</value>
-        <value xml:lang="zh_CN">深度</value>
         <value xml:lang="zh">深度</value>
+        <value xml:lang="zh_CN">深度</value>
     </property>
     <property key="CommonDescription">
         <value xml:lang="ar">وصف</value>
@@ -1711,8 +1711,8 @@
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="ru">Описание</value>
         <value xml:lang="th">คำอธิบาย</value>
-        <value xml:lang="zh_CN">描述</value>
         <value xml:lang="zh">描述</value>
+        <value xml:lang="zh_CN">描述</value>
     </property>
     <property key="CommonDetail">
         <value xml:lang="ar">تفصيل</value>
@@ -1726,8 +1726,8 @@
         <value xml:lang="ro">Detaliu</value>
         <value xml:lang="ru">Подробности</value>
         <value xml:lang="th">รายละเอียด</value>
-        <value xml:lang="zh_CN">详细</value>
         <value xml:lang="zh">详细</value>
+        <value xml:lang="zh_CN">详细</value>
     </property>
     <property key="CommonDetails">
         <value xml:lang="ar">تفاصيل</value>
@@ -1742,8 +1742,8 @@
         <value xml:lang="ro">Detalii</value>
         <value xml:lang="ru">Подробности</value>
         <value xml:lang="th">รายละเอียด</value>
-        <value xml:lang="zh_CN">细节</value>
         <value xml:lang="zh">详细</value>
+        <value xml:lang="zh_CN">细节</value>
     </property>
     <property key="CommonDisabled">
         <value xml:lang="ar">غير شغال</value>
@@ -1757,8 +1757,8 @@
         <value xml:lang="ro">Dizabilitat</value>
         <value xml:lang="ru">Недоступно</value>
         <value xml:lang="th">ไม่สามารถใช้ได้</value>
-        <value xml:lang="zh_CN">禁用</value>
         <value xml:lang="zh">无效</value>
+        <value xml:lang="zh_CN">禁用</value>
     </property>
     <property key="CommonDisplaying">
         <value xml:lang="en">Displaying ${lowCount} - ${highCount} of ${total}</value>
@@ -1790,8 +1790,8 @@
         <value xml:lang="ro">Dubleaza</value>
         <value xml:lang="ru">Дублировать</value>
         <value xml:lang="th">จำลอง</value>
-        <value xml:lang="zh_CN">副本</value>
         <value xml:lang="zh">重复</value>
+        <value xml:lang="zh_CN">副本</value>
     </property>
     <property key="CommonEdit">
         <value xml:lang="ar">تحرير</value>
@@ -1806,8 +1806,8 @@
         <value xml:lang="ro">Actualizare</value>
         <value xml:lang="ru">Редактировать</value>
         <value xml:lang="th">แก้ไข</value>
-        <value xml:lang="zh_CN">编辑</value>
         <value xml:lang="zh">编辑</value>
+        <value xml:lang="zh_CN">编辑</value>
     </property>
     <property key="CommonElementsFound">
         <value xml:lang="ar">عناصر وجدت</value>
@@ -1821,8 +1821,8 @@
         <value xml:lang="ro">Elemente Gasite</value>
         <value xml:lang="ru">элементов найдено</value>
         <value xml:lang="th">พบจำนวนเล็กน้อย</value>
-        <value xml:lang="zh_CN">没找到</value>
         <value xml:lang="zh">元素找到了</value>
+        <value xml:lang="zh_CN">没找到</value>
     </property>
     <property key="CommonEmail">
         <value xml:lang="ar">البريد الإلكتروني</value>
@@ -1850,8 +1850,8 @@
         <value xml:lang="ro">Parola Email</value>
         <value xml:lang="ru">Пароль эл.почты</value>
         <value xml:lang="th">รหัสผ่านอีเมล</value>
-        <value xml:lang="zh_CN">电子邮件密码</value>
         <value xml:lang="zh">电子邮件密码</value>
+        <value xml:lang="zh_CN">电子邮件密码</value>
     </property>
     <property key="CommonEmailTo">
         <value xml:lang="ar">بريد الإلكتروني إلى</value>
@@ -1866,8 +1866,8 @@
         <value xml:lang="ro">Email la</value>
         <value xml:lang="ru">Кому</value>
         <value xml:lang="th">อีเมลถึง</value>
-        <value xml:lang="zh_CN">发送至</value>
         <value xml:lang="zh">发送电子邮件到</value>
+        <value xml:lang="zh_CN">发送至</value>
     </property>
     <property key="CommonEmailType">
         <value xml:lang="ar">نوع البريد الإلكتروني</value>
@@ -1881,8 +1881,8 @@
         <value xml:lang="ro">Tip Email</value>
         <value xml:lang="ru">Тип эл.почты</value>
         <value xml:lang="th">ประเภทอีเมล</value>
-        <value xml:lang="zh_CN">邮件类型</value>
         <value xml:lang="zh">电子邮件类型</value>
+        <value xml:lang="zh_CN">邮件类型</value>
     </property>
     <property key="CommonEmails">
         <value xml:lang="ar">البريد الإلكتروني</value>
@@ -1920,8 +1920,8 @@
         <value xml:lang="ro">Abilitat</value>
         <value xml:lang="ru">Доступно</value>
         <value xml:lang="th">สามารถ</value>
-        <value xml:lang="zh_CN">启用</value>
         <value xml:lang="zh">有效</value>
+        <value xml:lang="zh_CN">启用</value>
     </property>
     <property key="CommonEndDate">
         <value xml:lang="ar">تاريخ النهاية</value>
@@ -1935,8 +1935,8 @@
         <value xml:lang="ro">Data Sfarsit</value>
         <value xml:lang="ru">Дата окончания</value>
         <value xml:lang="th">วันสุดท้าย</value>
-        <value xml:lang="zh_CN">结束日期</value>
         <value xml:lang="zh">结束日期</value>
+        <value xml:lang="zh_CN">结束日期</value>
     </property>
     <property key="CommonEndDateTime">
         <value xml:lang="ar">تاريخ/وقت النهاية</value>
@@ -1950,8 +1950,8 @@
         <value xml:lang="ro">Data/Ora Sfarsit</value>
         <value xml:lang="ru">Дата/время окончания</value>
         <value xml:lang="th">วัน/เวลาสุดท้าย</value>
-        <value xml:lang="zh_CN">结束日期/时间</value>
         <value xml:lang="zh">结束日期/时间</value>
+        <value xml:lang="zh_CN">结束日期/时间</value>
     </property>
     <property key="CommonEntityChildren">
         <value xml:lang="ar">الفروع</value>
@@ -1976,8 +1976,8 @@
         <value xml:lang="ro">Date Intrari</value>
         <value xml:lang="ru">Позиции</value>
         <value xml:lang="th">การกรอกข้อมูล</value>
-        <value xml:lang="zh_CN">条目</value>
         <value xml:lang="zh">记录</value>
+        <value xml:lang="zh_CN">条目</value>
     </property>
     <property key="CommonEntry">
         <value xml:lang="ar">مدخول</value>
@@ -1991,8 +1991,8 @@
         <value xml:lang="ro">Data Intrare</value>
         <value xml:lang="ru">№ п/п</value>
         <value xml:lang="th">การกรอกข้อมูล</value>
-        <value xml:lang="zh_CN">条目</value>
         <value xml:lang="zh">记录</value>
+        <value xml:lang="zh_CN">条目</value>
     </property>
     <property key="CommonErrorMessage1">
         <value xml:lang="ar">الحقول الإلزامية التالية وجدت فارغة</value>
@@ -2038,7 +2038,7 @@
         <value xml:lang="en">Error: status change from [${lookedUpValue.statusId}] to [${parameters.statusId}] is not allowed.</value>
         <value xml:lang="es">Error: cambiar estado de [${lookedUpValue.statusId}] a [${parameters.statusId}] no está permitido</value>
         <value xml:lang="fr">Erreur le changement de status depuis [${lookedUpValue.statusId}] vers [${parameters.statusId}] n'est pas autorisé.</value>
-        <value xml:lang="it">Errore: stato cambiato da [${lookedUpValue.statusId}] a [${parameters.statusId}] non &#232; permesso</value>
+        <value xml:lang="it">Errore: stato cambiato da [${lookedUpValue.statusId}] a [${parameters.statusId}] non è permesso</value>
         <value xml:lang="ro">Eroare: stato schimbat de la [${lookedUpValue.statusId}] la [${parameters.statusId}] nu este permis</value>
         <value xml:lang="ru">Ошибка: изменение статуса с [${lookedUpValue.statusId}] на [${parameters.statusId}] запрещено.</value>
         <value xml:lang="th">Error: ข้อผิดพลาด ! ไม่อนุญาติเปลี่ยนสถานะจาก [${lookedUpValue.statusId}] เป็น [${parameters.statusId}]</value>
@@ -2060,8 +2060,8 @@
         <value xml:lang="ro">Data Eveniment</value>
         <value xml:lang="ru">Дата события</value>
         <value xml:lang="th">เหตุการณ์วันที่</value>
-        <value xml:lang="zh_CN">事件日期</value>
         <value xml:lang="zh">事件日期</value>
+        <value xml:lang="zh_CN">事件日期</value>
     </property>
     <property key="CommonExpand">
         <value xml:lang="de">Erweitern</value>
@@ -2092,8 +2092,8 @@
         <value xml:lang="ro">Aspectativa</value>
         <value xml:lang="ru">Вероятность</value>
         <value xml:lang="th">สิ่งที่คาดหวัง</value>
-        <value xml:lang="zh_CN">期望</value>
         <value xml:lang="zh">意外</value>
+        <value xml:lang="zh_CN">期望</value>
     </property>
     <property key="CommonExpire">
         <value xml:lang="ar">نهاية الصلاحية</value>
@@ -2109,8 +2109,8 @@
         <value xml:lang="ro">Expira</value>
         <value xml:lang="ru">Прекратить</value>
         <value xml:lang="th">หมดเขต</value>
-        <value xml:lang="zh_CN">过期</value>
         <value xml:lang="zh">过期</value>
+        <value xml:lang="zh_CN">过期</value>
     </property>
     <property key="CommonExpireAll">
         <value xml:lang="ar">نهاية الصلاحية للكل</value>
@@ -2125,8 +2125,8 @@
         <value xml:lang="ro">Expira Totul</value>
         <value xml:lang="ru">Прекратить все</value>
         <value xml:lang="th">หมดเขตทั้งหมด</value>
-        <value xml:lang="zh_CN">全部过期</value>
         <value xml:lang="zh">全部过期</value>
+        <value xml:lang="zh_CN">全部过期</value>
     </property>
     <property key="CommonExpireDate">
         <value xml:lang="ar">تاريخ نهاية الصلاحية</value>
@@ -2140,8 +2140,8 @@
         <value xml:lang="ro">Data Expirarii</value>
         <value xml:lang="ru">Дата прекращения</value>
         <value xml:lang="th">วันหมดเขต</value>
-        <value xml:lang="zh_CN">过期日期</value>
         <value xml:lang="zh">过期日期</value>
+        <value xml:lang="zh_CN">过期日期</value>
     </property>
     <property key="CommonExpires">
         <value xml:lang="ar">تتنتهى صلاحيته</value>
@@ -2156,8 +2156,8 @@
         <value xml:lang="ro">Expirari</value>
         <value xml:lang="ru">Прекращается</value>
         <value xml:lang="th">หมดเขต</value>
-        <value xml:lang="zh_CN">过期</value>
         <value xml:lang="zh">过期</value>
+        <value xml:lang="zh_CN">过期</value>
     </property>
     <property key="CommonExport">
         <value xml:lang="ar">تصدير</value>
@@ -2184,8 +2184,8 @@
         <value xml:lang="ro">ext.</value>
         <value xml:lang="ru">доб.</value>
         <value xml:lang="th">ext</value>
-        <value xml:lang="zh_CN">分机</value>
         <value xml:lang="zh">ext</value>
+        <value xml:lang="zh_CN">分机</value>
     </property>
     <property key="CommonFalse">
         <value xml:lang="ar">خطأ</value>
@@ -2212,8 +2212,8 @@
         <value xml:lang="ro">Februarie</value>
         <value xml:lang="ru">Февраль</value>
         <value xml:lang="th">กุมภาพันธ์</value>
-        <value xml:lang="zh_CN">二月</value>
         <value xml:lang="zh">二月</value>
+        <value xml:lang="zh_CN">二月</value>
     </property>
     <property key="CommonFemale">
         <value xml:lang="ar">أنثى</value>
@@ -2245,8 +2245,8 @@
         <value xml:lang="ro">Sunt Cerute Campurile marcate cu (*).</value>
         <value xml:lang="ru">Необходимо заполнить поля, отмеченные знаком (*)</value>
         <value xml:lang="th">ต้องการเครื่องหมายฟิลด์ด้วย (*)</value>
-        <value xml:lang="zh_CN">被标注了(*) 的字段是必须的</value>
         <value xml:lang="zh">必须填写带*标志的域。</value>
+        <value xml:lang="zh_CN">被标注了(*) 的字段是必须的</value>
     </property>
     <property key="CommonFilter">
         <value xml:lang="ar">مصفاة</value>
@@ -2296,8 +2296,8 @@
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="ru">Найти</value>
         <value xml:lang="th">ค้นหา</value>
-        <value xml:lang="zh_CN">查找</value>
         <value xml:lang="zh">查找</value>
+        <value xml:lang="zh_CN">查找</value>
     </property>
     <property key="CommonFindAll">
         <value xml:lang="ar">إيجاد الكل</value>
@@ -2311,8 +2311,8 @@
         <value xml:lang="ro">Cauta Totul</value>
         <value xml:lang="ru">Найти все</value>
         <value xml:lang="th">ค้นหาทั้งหมด</value>
-        <value xml:lang="zh_CN">查找所有</value>
         <value xml:lang="zh">查找全部</value>
+        <value xml:lang="zh_CN">查找所有</value>
     </property>
     <property key="CommonFinishDate">
         <value xml:lang="ar">تاريخ/وقت النهاية</value>
@@ -2326,14 +2326,14 @@
         <value xml:lang="ro">Data/Ora Sfarsit</value>
         <value xml:lang="ru">Дата/время окончания</value>
         <value xml:lang="th">เสร็จสิ้น วันที่/เวลา</value>
-        <value xml:lang="zh_CN">完成日期/时间</value>
         <value xml:lang="zh">完成日期/时间</value>
+        <value xml:lang="zh_CN">完成日期/时间</value>
     </property>
     <property key="CommonFirst">
         <value xml:lang="de">Erster</value>
         <value xml:lang="en">First</value>
-        <value xml:lang="it">Primo</value>
         <value xml:lang="fr">Premier</value>
+        <value xml:lang="it">Primo</value>
         <value xml:lang="th">อันดับแรก</value>
     </property>
     <property key="CommonFollowingErrorsOccurred">
@@ -2348,8 +2348,8 @@
         <value xml:lang="ro">Au aparut urmatoarele Erori</value>
         <value xml:lang="ru">Имеются следующие ошибки</value>
         <value xml:lang="th">ผิดพลาดตามที่เกิดขึ้น</value>
-        <value xml:lang="zh_CN">发生了下面的错误</value>
         <value xml:lang="zh">发生下列错误</value>
+        <value xml:lang="zh_CN">发生了下面的错误</value>
     </property>
     <property key="CommonFollowingOccurred">
         <value xml:lang="ar">التالي حدث</value>
@@ -2363,8 +2363,8 @@
         <value xml:lang="ro">S-au intamplat urmatoarele</value>
         <value xml:lang="ru">Отмечено следующее</value>
         <value xml:lang="th">ตามที่เกิดขึ้น</value>
-        <value xml:lang="zh_CN">发生了下面</value>
         <value xml:lang="zh">发生下列情况</value>
+        <value xml:lang="zh_CN">发生了下面</value>
     </property>
     <property key="CommonFor">
         <value xml:lang="ar">ل</value>
@@ -2378,8 +2378,8 @@
         <value xml:lang="ro">Pentru</value>
         <value xml:lang="ru">для</value>
         <value xml:lang="th">สำหรับ</value>
-        <value xml:lang="zh_CN">为</value>
         <value xml:lang="zh">对于</value>
+        <value xml:lang="zh_CN">为</value>
     </property>
     <property key="CommonForgotYourPassword">
         <value xml:lang="ar">نسيت كلمة السر</value>
@@ -2395,8 +2395,8 @@
         <value xml:lang="ro">Parola Uitata</value>
         <value xml:lang="ru">Забыли пароль</value>
         <value xml:lang="th">ลืมรหัสผ่านของคุณ</value>
-        <value xml:lang="zh_CN">忘记密码</value>
         <value xml:lang="zh">忘记密码</value>
+        <value xml:lang="zh_CN">忘记密码</value>
     </property>
     <property key="CommonFormatDate">
         <value xml:lang="ar">النمط: ي ي-ش ش-ع ع ع ع</value>
@@ -2420,8 +2420,8 @@
         <value xml:lang="ro">Unul dintre campurile de date nu este corect, formatul trebbie sa fie AAAA-ll-zz HH:mm:ss</value>
         <value xml:lang="ru">Одно из полей в дате указано неверно, требуемый формат ГГГГ-мм-дд ЧЧ:мм:сс</value>
         <value xml:lang="th">ฟิลด์วันที่หนึ่งไม่ถูกต้อง  รูปแบบต้องเป็น yyyy-MM-dd HH:mm:ss.SSS</value>
-        <value xml:lang="zh_CN">有一项日期字段不正确, 格式必须是AAAA-mm-jj HH:mm:ss</value>
         <value xml:lang="zh">日期格式不对，格式必须是yyyy-MM-dd HH:mm:ss.SSS</value>
+        <value xml:lang="zh_CN">有一项日期字段不正确, 格式必须是AAAA-mm-jj HH:mm:ss</value>
     </property>
     <property key="CommonFormatDateTime">
         <value xml:lang="ar">النمط: ي ي-ش ش-ع ع ع ع  س س:د د:ث ث</value>
@@ -2435,8 +2435,8 @@
         <value xml:lang="ro">AAAA-LL-ZZ hh:mm:ss</value>
         <value xml:lang="ru">ГГГГ-мм-дд ЧЧ:мм:сс</value>
         <value xml:lang="th">รูปแบบ : yyyy-MM-dd HH:mm:ss.SSS</value>
-        <value xml:lang="zh_CN">年-月-日 时:分:秒</value>
         <value xml:lang="zh">格式: yyyy-MM-dd HH:mm:ss.SSS</value>
+        <value xml:lang="zh_CN">年-月-日 时:分:秒</value>
     </property>
     <property key="CommonFormatTime">
         <value xml:lang="ar">النمط: س س:د د:ث ث</value>
@@ -2460,8 +2460,8 @@
         <value xml:lang="ro">Gasit</value>
         <value xml:lang="ru">Найдено</value>
         <value xml:lang="th">พบ</value>
-        <value xml:lang="zh_CN">找到</value>
         <value xml:lang="zh">找到了</value>
+        <value xml:lang="zh_CN">找到</value>
     </property>
     <property key="CommonFrameAlert1">
         <value xml:lang="ar">إطار الإنذار</value>
@@ -2497,8 +2497,8 @@
         <value xml:lang="ro">Vineri</value>
         <value xml:lang="ru">Пятница</value>
         <value xml:lang="th">วันศุกร์</value>
-        <value xml:lang="zh_CN">星期五</value>
         <value xml:lang="zh">星期五</value>
+        <value xml:lang="zh_CN">星期五</value>
     </property>
     <property key="CommonFrom">
         <value xml:lang="ar">من</value>
@@ -2513,8 +2513,8 @@
         <value xml:lang="ro">De la</value>
         <value xml:lang="ru">От</value>
         <value xml:lang="th">จาก</value>
-        <value xml:lang="zh_CN">从</value>
         <value xml:lang="zh">起价</value>
+        <value xml:lang="zh_CN">从</value>
     </property>
     <property key="CommonFromAddress">
         <value xml:lang="ar">من العنوان</value>
@@ -2528,8 +2528,8 @@
         <value xml:lang="ro">De la Adresa</value>
         <value xml:lang="ru">С адреса</value>
         <value xml:lang="th">จากที่อยู่</value>
-        <value xml:lang="zh_CN">起始地址</value>
         <value xml:lang="zh">自地址</value>
+        <value xml:lang="zh_CN">起始地址</value>
     </property>
     <property key="CommonFromDate">
         <value xml:lang="ar">تاريخ البدء</value>
@@ -2544,8 +2544,8 @@
         <value xml:lang="ro">De la Data</value>
         <value xml:lang="ru">С даты</value>
         <value xml:lang="th">จากวันที่</value>
-        <value xml:lang="zh_CN">起始日期</value>
         <value xml:lang="zh">开始日期</value>
+        <value xml:lang="zh_CN">起始日期</value>
     </property>
     <property key="CommonFromDateMissing">
         <value xml:lang="ar">تاريخ البدء ناقص</value>
@@ -2555,13 +2555,13 @@
         <value xml:lang="fr">Date de début absente</value>
         <value xml:lang="it">Dalla Data è mancante</value>
         <value xml:lang="nl">Vanaf datum mist</value>
-        <value xml:lang="ro">De la Data Lipsa</value>
         <value xml:lang="pt">Data Origem em falta</value>
         <value xml:lang="pt_PT">A Partir De em falta</value>
+        <value xml:lang="ro">De la Data Lipsa</value>
         <value xml:lang="ru">'С даты' отсутствует</value>
         <value xml:lang="th">จากวันที่ซึ่งหาไม่พบ</value>
-        <value xml:lang="zh_CN">起始日期丢失</value>
         <value xml:lang="zh">开始日期没有找到</value>
+        <value xml:lang="zh_CN">起始日期丢失</value>
     </property>
     <property key="CommonFromDateNotValidDateTime">
         <value xml:lang="ar">تاريخ البدء غير صالح</value>
@@ -2576,8 +2576,8 @@
         <value xml:lang="ro">De la Data-nu este o Data-Ora valida.</value>
         <value xml:lang="ru">В поле 'С даты' указаны некорректные дата/время.</value>
         <value xml:lang="th">จากวันที่ที่ไม่เป็นวันและเวลา</value>
-        <value xml:lang="zh_CN">起始日期不是有效日期</value>
         <value xml:lang="zh">开始日期不是有效的日期和时间。</value>
+        <value xml:lang="zh_CN">起始日期不是有效日期</value>
     </property>
     <property key="CommonFromDateThruDate">
         <value xml:lang="ar">تاريخ البدء/تاريخ النهاية</value>
@@ -2592,8 +2592,8 @@
         <value xml:lang="ro">De la Data / La Data</value>
         <value xml:lang="ru">'С даты' / 'По дату'</value>
         <value xml:lang="th">จากวันที่ / ถึงวันที่</value>
-        <value xml:lang="zh_CN">起始日期 / 终止日期</value>
         <value xml:lang="zh">开始日期/结束日期</value>
+        <value xml:lang="zh_CN">起始日期 / 终止日期</value>
     </property>
     <property key="CommonFromDateTime">
         <value xml:lang="ar">تاريخ  و وقت البدء</value>
@@ -2607,8 +2607,8 @@
         <value xml:lang="ro">De la Data si Ora</value>
         <value xml:lang="ru">С (дата, время)</value>
         <value xml:lang="th">จากวันที่ เวลา</value>
-        <value xml:lang="zh_CN">起始日期和时间</value>
         <value xml:lang="zh">开始日期  时间</value>
+        <value xml:lang="zh_CN">起始日期和时间</value>
     </property>
     <property key="CommonGenericPermissionError">
         <value xml:lang="de">Sicherheitsfehler: Um ${resourceDescription} auszuführen, müssen Sie eine der folgenden Berechtigungen besitzen: ${primaryPermission}_${mainAction}, ${primaryPermission}_ADMIN${altPermissionList}</value>
@@ -2653,8 +2653,8 @@
         <value xml:lang="ro">Obtii Sugeriment Parola</value>
         <value xml:lang="ru">Получить подсказку по паролю</value>
         <value xml:lang="th">ดึงค่ารหัสผ่านที่ซ่อนอยู่</value>
-        <value xml:lang="zh_CN">取得密码提示</value>
         <value xml:lang="zh">得到密码提示</value>
+        <value xml:lang="zh_CN">取得密码提示</value>
     </property>
     <property key="CommonGlobal">
         <value xml:lang="ar">إجمالي</value>
@@ -2695,8 +2695,8 @@
         <value xml:lang="ro">Inapoi</value>
         <value xml:lang="ru">Вернуться</value>
         <value xml:lang="th">กลับไป</value>
-        <value xml:lang="zh_CN">返回</value>
         <value xml:lang="zh">回退</value>
+        <value xml:lang="zh_CN">返回</value>
     </property>
     <property key="CommonGotoPage">
         <value xml:lang="de">Gehe zu Seite</value>
@@ -2723,8 +2723,8 @@
         <value xml:lang="ro">Intoarcete la Parinte</value>
         <value xml:lang="ru">Вернуться на родительский уровень</value>
         <value xml:lang="th">กลับไปยังกลุ่ม</value>
-        <value xml:lang="zh_CN">返回父结点</value>
         <value xml:lang="zh">回退到上一级</value>
+        <value xml:lang="zh_CN">返回父结点</value>
     </property>
     <property key="CommonGroup">
         <value xml:lang="ar">مجموعة</value>
@@ -2738,8 +2738,8 @@
         <value xml:lang="ro">Grup</value>
         <value xml:lang="ru">Группа</value>
         <value xml:lang="th">กลุ่ม</value>
-        <value xml:lang="zh_CN">组</value>
         <value xml:lang="zh">组</value>
+        <value xml:lang="zh_CN">组</value>
     </property>
     <property key="CommonHeight">
         <value xml:lang="ar">ارتفاع</value>
@@ -2753,8 +2753,8 @@
         <value xml:lang="ro">Inaltime</value>
         <value xml:lang="ru">Высота</value>
         <value xml:lang="th">ความสูง</value>
-        <value xml:lang="zh_CN">高度</value>
         <value xml:lang="zh">高度</value>
+        <value xml:lang="zh_CN">高度</value>
     </property>
     <property key="CommonHeld">
         <value xml:lang="ar">محجوز</value>
@@ -2772,8 +2772,8 @@
         <value xml:lang="en">Help</value>
         <value xml:lang="es">Ayuda</value>
         <value xml:lang="fr">Aide</value>
-        <value xml:lang="zh_CN">帮助</value>
         <value xml:lang="zh">帮助</value>
+        <value xml:lang="zh_CN">帮助</value>
     </property>
     <property key="CommonHideFields">
         <value xml:lang="ar">اخفاء الحقول</value>
@@ -2787,8 +2787,8 @@
         <value xml:lang="ro">Ascunde Campuri</value>
         <value xml:lang="ru">Скрыть поля</value>
         <value xml:lang="th">ซ่อนฟิลด์</value>
-        <value xml:lang="zh_CN">隐藏字段</value>
         <value xml:lang="zh">隐藏域</value>
+        <value xml:lang="zh_CN">隐藏字段</value>
     </property>
     <property key="CommonHour">
         <value xml:lang="ar">ساعة</value>
@@ -2802,8 +2802,8 @@
         <value xml:lang="ro">Ora</value>
         <value xml:lang="ru">Час</value>
         <value xml:lang="th">ชั่วโมง</value>
-        <value xml:lang="zh_CN">小时</value>
         <value xml:lang="zh">小时</value>
+        <value xml:lang="zh_CN">小时</value>
     </property>
     <property key="CommonHourly">
         <value xml:lang="ar">ساعي</value>
@@ -2830,8 +2830,8 @@
         <value xml:lang="ro">Id</value>
         <value xml:lang="ru">Код</value>
         <value xml:lang="th">รหัส</value>
-        <value xml:lang="zh_CN">标识</value>
         <value xml:lang="zh">ID</value>
+        <value xml:lang="zh_CN">标识</value>
     </property>
     <property key="CommonIdAlreadyExist">
         <value xml:lang="ar">دليل موجود</value>
@@ -2845,8 +2845,8 @@
         <value xml:lang="ro">Id deja Existent</value>
         <value xml:lang="ru">Такой код уже существует</value>
         <value xml:lang="th">รหัสมีอยู่แล้ว</value>
-        <value xml:lang="zh_CN">标识已经存在</value>
         <value xml:lang="zh">Id已存在</value>
+        <value xml:lang="zh_CN">标识已经存在</value>
     </property>
     <property key="CommonIdCode">
         <value xml:lang="ar">رمز الدليل</value>
@@ -2860,8 +2860,8 @@
         <value xml:lang="ro">Cod Id</value>
         <value xml:lang="ru">Код</value>
         <value xml:lang="th">รหัสโค้ด</value>
-        <value xml:lang="zh_CN">标识编码</value>
         <value xml:lang="zh">ID代码</value>
+        <value xml:lang="zh_CN">标识编码</value>
     </property>
     <property key="CommonIdentifier">
         <value xml:lang="ar">الدليل</value>
@@ -2875,8 +2875,8 @@
         <value xml:lang="ro">Identificator</value>
         <value xml:lang="ru">Идентификатор</value>
         <value xml:lang="th">แสดงตัว</value>
-        <value xml:lang="zh_CN">标识</value>
         <value xml:lang="zh">标识</value>
+        <value xml:lang="zh_CN">标识</value>
     </property>
     <property key="CommonIds">
         <value xml:lang="ar">دلائل</value>
@@ -2889,8 +2889,8 @@
         <value xml:lang="pt">IDs</value>
         <value xml:lang="ro">Id Coduri</value>
         <value xml:lang="th">รหัส</value>
-        <value xml:lang="zh_CN">标识</value>
         <value xml:lang="zh">ID</value>
+        <value xml:lang="zh_CN">标识</value>
     </property>
     <property key="CommonIn">
         <value xml:lang="ar">داخل</value>
@@ -2904,8 +2904,8 @@
         <value xml:lang="ro">In</value>
         <value xml:lang="ru">в</value>
         <value xml:lang="th">ใน</value>
-        <value xml:lang="zh_CN">在</value>
         <value xml:lang="zh">在</value>
+        <value xml:lang="zh_CN">在</value>
     </property>
     <property key="CommonInThe">
         <value xml:lang="ar">داخل ال</value>
@@ -2920,15 +2920,15 @@
         <value xml:lang="ro">In</value>
         <value xml:lang="ru">в</value>
         <value xml:lang="th">ใน</value>
-        <value xml:lang="zh_CN">在</value>
         <value xml:lang="zh">在</value>
+        <value xml:lang="zh_CN">在</value>
     </property>
     <property key="CommonInclude">
         <value xml:lang="de">Einbeziehen</value>
         <value xml:lang="en">Include</value>
         <value xml:lang="es">Incluir</value>
-        <value xml:lang="it">Includi</value>
         <value xml:lang="fr">Inclure</value>
+        <value xml:lang="it">Includi</value>
         <value xml:lang="pt">Incluir</value>
         <value xml:lang="ru">Включить</value>
         <value xml:lang="th">รวมกัน</value>
@@ -2946,8 +2946,8 @@
         <value xml:lang="ro">Informatie</value>
         <value xml:lang="ru">Информация</value>
         <value xml:lang="th">ข้อมูล</value>
-        <value xml:lang="zh_CN">信息</value>
         <value xml:lang="zh">信息</value>
+        <value xml:lang="zh_CN">信息</value>
     </property>
     <property key="CommonInput">
         <value xml:lang="ar">داخل</value>
@@ -2961,8 +2961,8 @@
         <value xml:lang="ro">Input</value>
         <value xml:lang="ru">Ввод</value>
         <value xml:lang="th">ป้อนข้อมูล</value>
-        <value xml:lang="zh_CN">输入</value>
         <value xml:lang="zh">输入</value>
+        <value xml:lang="zh_CN">输入</value>
     </property>
     <property key="CommonInsert">
         <value xml:lang="de">Einfügen</value>
@@ -2991,8 +2991,8 @@
         <value xml:lang="ro">In</value>
         <value xml:lang="ru">в</value>
         <value xml:lang="th">เกี่ยวกับ</value>
-        <value xml:lang="zh_CN">进入</value>
         <value xml:lang="zh">到</value>
+        <value xml:lang="zh_CN">进入</value>
     </property>
     <property key="CommonIntroductionDate">
         <value xml:lang="ar">تاريخ الإدخال</value>
@@ -3006,8 +3006,8 @@
         <value xml:lang="ro">Data Introductie</value>
         <value xml:lang="ru">Дата интродукции</value>
         <value xml:lang="th">วันที่แนะนำตัว</value>
-        <value xml:lang="zh_CN">引入日期</value>
         <value xml:lang="zh">介绍日期</value>
+        <value xml:lang="zh_CN">引入日期</value>
     </property>
     <property key="CommonInventory">
         <value xml:lang="en">Inventory</value>
@@ -3051,8 +3051,8 @@
         <value xml:lang="ro">Linie</value>
         <value xml:lang="ru">Пункт</value>
         <value xml:lang="th">ไอเทม</value>
-        <value xml:lang="zh_CN">东西</value>
         <value xml:lang="zh">明细</value>
+        <value xml:lang="zh_CN">东西</value>
     </property>
     <property key="CommonItems">
         <value xml:lang="ar">أسطر</value>
@@ -3066,8 +3066,8 @@
         <value xml:lang="ro">Linii</value>
         <value xml:lang="ru">Пункты</value>
         <value xml:lang="th">ไอเทม</value>
-        <value xml:lang="zh_CN">东西</value>
         <value xml:lang="zh">明细</value>
+        <value xml:lang="zh_CN">东西</value>
     </property>
     <property key="CommonJanuary">
         <value xml:lang="ar">جانفي</value>
@@ -3081,8 +3081,8 @@
         <value xml:lang="ro">Ianuarie</value>
         <value xml:lang="ru">Январь</value>
         <value xml:lang="th">มกราคม</value>
-        <value xml:lang="zh_CN">一月</value>
         <value xml:lang="zh">一月</value>
+        <value xml:lang="zh_CN">一月</value>
     </property>
     <property key="CommonJuly">
         <value xml:lang="ar">جويلية</value>
@@ -3096,8 +3096,8 @@
         <value xml:lang="ro">Iulie</value>
         <value xml:lang="ru">Июль</value>
         <value xml:lang="th">กรกฎาคม</value>
-        <value xml:lang="zh_CN">七月</value>
         <value xml:lang="zh">七月</value>
+        <value xml:lang="zh_CN">七月</value>
     </property>
     <property key="CommonJune">
         <value xml:lang="ar">جوان</value>
@@ -3111,8 +3111,8 @@
         <value xml:lang="ro">Iunie</value>
         <value xml:lang="ru">Июнь</value>
         <value xml:lang="th">มิถุนายน</value>
-        <value xml:lang="zh_CN">六月</value>
         <value xml:lang="zh">六月</value>
+        <value xml:lang="zh_CN">六月</value>
     </property>
     <property key="CommonLanguageTitle">
         <value xml:lang="ar">اللغة</value>
@@ -3128,8 +3128,8 @@
         <value xml:lang="ro">Limba</value>
         <value xml:lang="ru">Язык</value>
         <value xml:lang="th">ภาษา</value>
-        <value xml:lang="zh_CN">语言</value>
         <value xml:lang="zh">语言</value>
+        <value xml:lang="zh_CN">语言</value>
     </property>
     <property key="CommonLarge">
         <value xml:lang="ar">عريض</value>
@@ -3143,8 +3143,8 @@
         <value xml:lang="ro">Mare</value>
         <value xml:lang="ru">Большой</value>
         <value xml:lang="th">ใหญ่</value>
-        <value xml:lang="zh_CN">大</value>
         <value xml:lang="zh">大</value>
+        <value xml:lang="zh_CN">大</value>
     </property>
     <property key="CommonLast">
         <value xml:lang="de">Letzter</value>
@@ -3166,8 +3166,8 @@
         <value xml:lang="ro">Ultima Actualizare</value>
         <value xml:lang="ru">Последний раз обновлено</value>
         <value xml:lang="th">เปลี่ยนแปลงครั้งสุดท้าย</value>
-        <value xml:lang="zh_CN">最后更新</value>
         <value xml:lang="zh">最后更新</value>
+        <value xml:lang="zh_CN">最后更新</value>
     </property>
     <property key="CommonLine">
         <value xml:lang="ar">سطر</value>
@@ -3181,8 +3181,8 @@
         <value xml:lang="ro">Linie</value>
         <value xml:lang="ru">Строка</value>
         <value xml:lang="th">โครงร่าง</value>
-        <value xml:lang="zh_CN">线</value>
         <value xml:lang="zh">行</value>
+        <value xml:lang="zh_CN">线</value>
     </property>
     <property key="CommonLink">
         <value xml:lang="ar">رابط</value>
@@ -3211,8 +3211,8 @@
         <value xml:lang="ro">Lista</value>
         <value xml:lang="ru">Список</value>
         <value xml:lang="th">รายการ</value>
-        <value xml:lang="zh_CN">列表</value>
         <value xml:lang="zh">列表</value>
+        <value xml:lang="zh_CN">列表</value>
     </property>
     <property key="CommonListAll">
         <value xml:lang="ar">إدراج الكل</value>
@@ -3226,14 +3226,14 @@
         <value xml:lang="ro">Lista Toate</value>
         <value xml:lang="ru">Перечислить все</value>
         <value xml:lang="th">รายการทั้งหมด</value>
-        <value xml:lang="zh_CN">所有列表</value>
         <value xml:lang="zh">全部列表</value>
+        <value xml:lang="zh_CN">所有列表</value>
     </property>
     <property key="CommonLocalisation">
         <value xml:lang="en">Localisation</value>
         <value xml:lang="es">Opciones locales</value>
         <value xml:lang="fr">Options régionales et linguistiques</value>
-    </property>    
+    </property>
     <property key="CommonLogin">
         <value xml:lang="ar">دخول</value>
         <value xml:lang="cs">Přihlásit</value>
@@ -3248,8 +3248,8 @@
         <value xml:lang="ro">Login</value>
         <value xml:lang="ru">Вход</value>
         <value xml:lang="th">เข้าสู่ระบบ</value>
-        <value xml:lang="zh_CN">登录</value>
         <value xml:lang="zh">登录</value>
+        <value xml:lang="zh_CN">登录</value>
     </property>
     <property key="CommonLoginHere">
         <value xml:lang="ar">أدخل من هنا</value>
@@ -3265,8 +3265,8 @@
         <value xml:lang="ro">Intra aici</value>
         <value xml:lang="ru">Войти здесь</value>
         <value xml:lang="th">เข้าสู่ระบบที่นี่</value>
-        <value xml:lang="zh_CN">在这里登录</value>
         <value xml:lang="zh">在这里登录</value>
+        <value xml:lang="zh_CN">在这里登录</value>
     </property>
     <property key="CommonLogout">
         <value xml:lang="ar">خروج</value>
@@ -3282,8 +3282,8 @@
         <value xml:lang="ro">Iesire</value>
         <value xml:lang="ru">Выход</value>
         <value xml:lang="th">ออกจากระบบ</value>
-        <value xml:lang="zh_CN">注销</value>
         <value xml:lang="zh">退出</value>
+        <value xml:lang="zh_CN">注销</value>
     </property>
     <property key="CommonLookup">
         <value xml:lang="ar">البحث</value>
@@ -3298,8 +3298,8 @@
         <value xml:lang="ro">Cauta</value>
         <value xml:lang="ru">Просмотр</value>
         <value xml:lang="th">ค้นหา</value>
-        <value xml:lang="zh_CN">查找</value>
         <value xml:lang="zh">查找</value>
+        <value xml:lang="zh_CN">查找</value>
     </property>
     <property key="CommonMain">
         <value xml:lang="ar">الرئيسية</value>
@@ -3315,8 +3315,8 @@
         <value xml:lang="ro">Pagina Principala</value>
         <value xml:lang="ru">Главная</value>
         <value xml:lang="th">หน้าหลัก</value>
-        <value xml:lang="zh_CN">主菜单</value>
         <value xml:lang="zh">首页</value>
+        <value xml:lang="zh_CN">主菜单</value>
     </property>
     <property key="CommonMale">
         <value xml:lang="ar">ذكر</value>
@@ -3343,8 +3343,8 @@
         <value xml:lang="ro">Manager</value>
         <value xml:lang="ru">Менеджер</value>
         <value xml:lang="th">การจัดการ</value>
-        <value xml:lang="zh_CN">经理</value>
         <value xml:lang="zh">管理</value>
+        <value xml:lang="zh_CN">经理</value>
     </property>
     <property key="CommonMany">
         <value xml:lang="ar">عدة</value>
@@ -3358,8 +3358,8 @@
         <value xml:lang="ro">Multi</value>
         <value xml:lang="ru">Много</value>
         <value xml:lang="th">มากมาย</value>
-        <value xml:lang="zh_CN">多</value>
         <value xml:lang="zh">许多</value>
+        <value xml:lang="zh_CN">多</value>
     </property>
     <property key="CommonMarch">
         <value xml:lang="ar">مارس</value>
@@ -3373,12 +3373,11 @@
         <value xml:lang="ro">Martie</value>
         <value xml:lang="ru">Март</value>
         <value xml:lang="th">มีนาคม</value>
-        <value xml:lang="zh_CN">三月</value>
         <value xml:lang="zh">三月</value>
+        <value xml:lang="zh_CN">三月</value>
     </property>
     <property key="CommonMatched">
         <value xml:lang="ar">مماثل</value>
-        <value xml:lang="de">Gefunden</value>
         <value xml:lang="cs">Shoda</value>
         <value xml:lang="de">Passend</value>
         <value xml:lang="en">Matched</value>
@@ -3391,8 +3390,8 @@
         <value xml:lang="ro">Control</value>
         <value xml:lang="ru">Совпало</value>
         <value xml:lang="th">ตรงกัน</value>
-        <value xml:lang="zh_CN">匹配的</value>
         <value xml:lang="zh">匹配</value>
+        <value xml:lang="zh_CN">匹配的</value>
     </property>
     <property key="CommonMay">
         <value xml:lang="ar">ماي</value>
@@ -3406,8 +3405,8 @@
         <value xml:lang="ro">Mai</value>
         <value xml:lang="ru">Май</value>
         <value xml:lang="th">พฤษภาคม</value>
-        <value xml:lang="zh_CN">五月</value>
         <value xml:lang="zh">五月</value>
+        <value xml:lang="zh_CN">五月</value>
     </property>
     <property key="CommonMayCreate">
         <value xml:lang="ar">استحداث</value>
@@ -3422,8 +3421,8 @@
         <value xml:lang="ro">Creare</value>
         <value xml:lang="ru">Создать</value>
         <value xml:lang="th">สร้าง</value>
-        <value xml:lang="zh_CN">建立</value>
         <value xml:lang="zh">新建</value>
+        <value xml:lang="zh_CN">建立</value>
     </property>
     <property key="CommonMayCreateNewAccountHere">
         <value xml:lang="ar">يمكن استحداث حساب جديد هنا</value>
@@ -3439,8 +3438,8 @@
         <value xml:lang="ro">Tu poti crea un nou utilizatornte CommonMedium=Mediu</value>
         <value xml:lang="ru">Здесь Вы можете создать новую учетную запись</value>
         <value xml:lang="th">คุณต้องสร้างบัญชีใหม่ที่นี่</value>
-        <value xml:lang="zh_CN">你可以在这里建立新的帐户</value>
         <value xml:lang="zh">你可以在这里新建账户</value>
+        <value xml:lang="zh_CN">你可以在这里建立新的帐户</value>
     </property>
     <property key="CommonMedium">
         <value xml:lang="ar">وسيط</value>
@@ -3453,8 +3452,8 @@
         <value xml:lang="pt">Médio</value>
         <value xml:lang="ru">Средний</value>
         <value xml:lang="th">กลาง</value>
-        <value xml:lang="zh_CN">中等</value>
         <value xml:lang="zh">中</value>
+        <value xml:lang="zh_CN">中等</value>
     </property>
     <property key="CommonMessage">
         <value xml:lang="ar">رسالة</value>
@@ -3469,8 +3468,8 @@
         <value xml:lang="ro">Mesaj</value>
         <value xml:lang="ru">Сообщение</value>
         <value xml:lang="th">ข้อความ</value>
-        <value xml:lang="zh_CN">消息</value>
         <value xml:lang="zh">信息</value>
+        <value xml:lang="zh_CN">消息</value>
     </property>
     <property key="CommonMessages">
         <value xml:lang="en">Messages</value>
@@ -3489,8 +3488,8 @@
         <value xml:lang="ro">Modalitate</value>
         <value xml:lang="ru">Метод</value>
         <value xml:lang="th">วิธี</value>
-        <value xml:lang="zh_CN">方法</value>
         <value xml:lang="zh">方法</value>
+        <value xml:lang="zh_CN">方法</value>
     </property>
     <property key="CommonMinute">
         <value xml:lang="ar">بدقة</value>
@@ -3530,8 +3529,8 @@
         <value xml:lang="ro">Modifica</value>
         <value xml:lang="ru">Изменить</value>
         <value xml:lang="th">เปลี่ยนแปลง</value>
-        <value xml:lang="zh_CN">修改</value>
         <value xml:lang="zh">修改</value>
+        <value xml:lang="zh_CN">修改</value>
     </property>
     <property key="CommonMonday">
         <value xml:lang="ar">الإثنين</value>
@@ -3545,8 +3544,8 @@
         <value xml:lang="ro">Luni</value>
         <value xml:lang="ru">Понедельник</value>
         <value xml:lang="th">วันจันทร์</value>
-        <value xml:lang="zh_CN">星期一</value>
         <value xml:lang="zh">星期一</value>
+        <value xml:lang="zh_CN">星期一</value>
     </property>
     <property key="CommonMonth">
         <value xml:lang="ar">شهر</value>
@@ -3560,8 +3559,8 @@
         <value xml:lang="ro">Luna</value>
         <value xml:lang="ru">Месяц</value>
         <value xml:lang="th">เดือน</value>
-        <value xml:lang="zh_CN">月份</value>
         <value xml:lang="zh">月</value>
+        <value xml:lang="zh_CN">月份</value>
     </property>
     <property key="CommonMonthly">
         <value xml:lang="ar">شهريا</value>
@@ -3602,8 +3601,8 @@
         <value xml:lang="ro">Succesive</value>
         <value xml:lang="ru">Еще</value>
         <value xml:lang="th">มากกว่า</value>
-        <value xml:lang="zh_CN">更多</value>
         <value xml:lang="zh">更多</value>
+        <value xml:lang="zh_CN">更多</value>
     </property>
     <property key="CommonMovePortletBottom">
         <value xml:lang="en">Move Portlet at the Bottom</value>
@@ -3645,8 +3644,8 @@
         <value xml:lang="ro">Statutul Meu</value>
         <value xml:lang="ru">Мой статус</value>
         <value xml:lang="th">สถานะของฉัน</value>
-        <value xml:lang="zh_CN">我的状态</value>
         <value xml:lang="zh">月统计</value>
+        <value xml:lang="zh_CN">我的状态</value>
     </property>
     <property key="CommonN">
         <value xml:lang="ar">ل</value>
@@ -3660,8 +3659,8 @@
         <value xml:lang="ro">N</value>
         <value xml:lang="ru">Н</value>
         <value xml:lang="th">N</value>
-        <value xml:lang="zh_CN">N</value>
         <value xml:lang="zh">否</value>
+        <value xml:lang="zh_CN">N</value>
     </property>
     <property key="CommonNA">
         <value xml:lang="ar">غ.م</value>
@@ -3676,8 +3675,8 @@
         <value xml:lang="ro">Nu este disponibil</value>
         <value xml:lang="ru">Недоступно</value>
         <value xml:lang="th">N/A</value>
-        <value xml:lang="zh_CN">N/A</value>
         <value xml:lang="zh">无效</value>
+        <value xml:lang="zh_CN">N/A</value>
     </property>
     <property key="CommonName">
         <value xml:lang="ar">إسم</value>
@@ -3691,8 +3690,8 @@
         <value xml:lang="ro">Nume</value>
         <value xml:lang="ru">Имя</value>
         <value xml:lang="th">ชื่อ</value>
-        <value xml:lang="zh_CN">名称</value>
         <value xml:lang="zh">名称</value>
+        <value xml:lang="zh_CN">名称</value>
     </property>
     <property key="CommonNew">
         <value xml:lang="ar">جديد</value>
@@ -3706,8 +3705,8 @@
         <value xml:lang="ro">Nou</value>
         <value xml:lang="ru">Новый</value>
         <value xml:lang="th">ใหม่</value>
-        <value xml:lang="zh_CN">新建</value>
         <value xml:lang="zh">新建</value>
+        <value xml:lang="zh_CN">新建</value>
     </property>
     <property key="CommonNewPassword">
         <value xml:lang="de">Neues Passwort</value>
@@ -3735,8 +3734,8 @@
         <value xml:lang="ro">Noua Selectie</value>
         <value xml:lang="ru">Новое выделение</value>
         <value xml:lang="th">การคัดเลือกใหม่</value>
-        <value xml:lang="zh_CN">新选择</value>
         <value xml:lang="zh">新建选择</value>
+        <value xml:lang="zh_CN">新选择</value>
     </property>
     <property key="CommonNewUser">
         <value xml:lang="ar">مستخدم جديد</value>
@@ -3751,8 +3750,8 @@
         <value xml:lang="ro">Nou Utilizator</value>
         <value xml:lang="ru">Новый пользователь</value>
         <value xml:lang="th">ผู้ใช้ใหม่</value>
-        <value xml:lang="zh_CN">新用户</value>
         <value xml:lang="zh">新建用户</value>
+        <value xml:lang="zh_CN">新用户</value>
     </property>
     <property key="CommonNext">
         <value xml:lang="ar">التالي</value>
@@ -3768,8 +3767,8 @@
         <value xml:lang="ro">Succesiv(a)</value>
         <value xml:lang="ru">Следующая</value>
         <value xml:lang="th">ต่อไป</value>
-        <value xml:lang="zh_CN">后</value>
         <value xml:lang="zh">下一步</value>
+        <value xml:lang="zh_CN">后</value>
     </property>
     <property key="CommonNo">
         <value xml:lang="ar">لا</value>
@@ -3784,8 +3783,8 @@
         <value xml:lang="ro">Nu exista</value>
         <value xml:lang="ru">Нет</value>
         <value xml:lang="th">ไม่</value>
-        <value xml:lang="zh_CN">不</value>
         <value xml:lang="zh">否</value>
+        <value xml:lang="zh_CN">不</value>
     </property>
     <property key="CommonNoAddress">
         <value xml:lang="ar">لا عنوان</value>
@@ -3799,8 +3798,8 @@
         <value xml:lang="ro">Nici-o Adresa</value>
         <value xml:lang="ru">Нет адреса</value>
         <value xml:lang="th">ไม่มีที่อยู่</value>
-        <value xml:lang="zh_CN">没有地址</value>
         <value xml:lang="zh">无地址</value>
+        <value xml:lang="zh_CN">没有地址</value>
     </property>
     <property key="CommonNoAccess">
         <value xml:lang="en">No Access to this function, contact your system administrator if you feel this is an error</value>
@@ -3819,8 +3818,8 @@
         <value xml:lang="ro">Nici-o informatie contact in Fisier</value>
         <value xml:lang="ru">Контактной информации по файлу не найдено</value>
         <value xml:lang="th">ไม่มีข้อมูลการติดต่อบนไฟล์</value>
-        <value xml:lang="zh_CN">文件里没有联系信息</value>
         <value xml:lang="zh">无联系信息</value>
+        <value xml:lang="zh_CN">文件里没有联系信息</value>
     </property>
     <property key="CommonNoContains">
         <value xml:lang="ar">لا محتوى</value>
@@ -3834,8 +3833,8 @@
         <value xml:lang="ro">Nu Contine</value>
         <value xml:lang="ru">Нет содержимого</value>
         <value xml:lang="th">ไม่จำกัด</value>
-        <value xml:lang="zh_CN">不包含</value>
         <value xml:lang="zh">不包含</value>
+        <value xml:lang="zh_CN">不包含</value>
     </property>
     <property key="CommonNoElementFound">
         <value xml:lang="ar">لا عنصر موجود</value>
@@ -3849,8 +3848,8 @@
         <value xml:lang="ro">Nici un element gasit</value>
         <value xml:lang="ru">Ни одного элемента не найдено</value>
         <value xml:lang="th">ไม่พบส่วนประกอบ</value>
-        <value xml:lang="zh_CN">没有元素找到</value>
         <value xml:lang="zh">没有发现元素</value>
+        <value xml:lang="zh_CN">没有元素找到</value>
     </property>
     <property key="CommonNoParent">
         <value xml:lang="ar">لا والد</value>
@@ -3864,8 +3863,8 @@
         <value xml:lang="ro">Nici-un Parinte</value>
         <value xml:lang="ru">Отсутствует родительский уровень</value>
         <value xml:lang="th">กำพร้า</value>
-        <value xml:lang="zh_CN">没有父结点</value>
         <value xml:lang="zh">没有上一级</value>
+        <value xml:lang="zh_CN">没有父结点</value>
     </property>
     <property key="CommonNoPostalAddress">
         <value xml:lang="ar">لا عنوان بريدي</value>
@@ -3889,8 +3888,8 @@
         <value xml:lang="ro">Nici-o Tema Actuala cere atentia ta.</value>
         <value xml:lang="ru">Сейчас ни одно из заданий не требуют Вашего внимания.</value>
         <value xml:lang="th">ตอนนี้ยังไม่มีงานที่คุณสนใจ</value>
-        <value xml:lang="zh_CN">当前没有任务，需要你的关注。</value>
         <value xml:lang="zh">现在没有任务需要处理。</value>
+        <value xml:lang="zh_CN">当前没有任务，需要你的关注。</value>
     </property>
     <property key="CommonNone">
         <value xml:lang="ar">لا شيئ</value>
@@ -3904,8 +3903,8 @@
         <value xml:lang="ro">Nici-unul</value>
         <value xml:lang="ru">Ни один</value>
         <value xml:lang="th">ไม่มี</value>
-        <value xml:lang="zh_CN">无</value>
         <value xml:lang="zh">无</value>
+        <value xml:lang="zh_CN">无</value>
     </property>
     <property key="CommonNot">
         <value xml:lang="ar">لا</value>
@@ -3920,8 +3919,8 @@
         <value xml:lang="ro">Nu</value>
         <value xml:lang="ru">нет</value>
         <value xml:lang="th">ไม่</value>
-        <value xml:lang="zh_CN">不是</value>
         <value xml:lang="zh">不是</value>
+        <value xml:lang="zh_CN">不是</value>
     </property>
     <property key="CommonNotModifRecreat">
         <value xml:lang="de">kann nur mit Neuanlage geändert werden</value>
@@ -3934,8 +3933,8 @@
         <value xml:lang="ro">Nu este posibila o modificare fara re-creare</value>
         <value xml:lang="ru">невозможно изменить, не создав заново</value>
         <value xml:lang="th">ไม่สามารถเปลี่ยนแปลงโดยไม่มีการสร้างใหม่</value>
-        <value xml:lang="zh_CN">不可以改变，除非重新创建</value>
         <value xml:lang="zh">无法修改，除非重新创建</value>
+        <value xml:lang="zh_CN">不可以改变，除非重新创建</value>
     </property>
     <property key="CommonNotSet">
         <value xml:lang="de">Nicht gesetzt</value>
@@ -3948,8 +3947,8 @@
         <value xml:lang="ro">Ne Setat</value>
         <value xml:lang="ru">Не установлено</value>
         <value xml:lang="th">ไม่ได้เซท</value>
-        <value xml:lang="zh_CN">没有设定</value>
         <value xml:lang="zh">没有设置</value>
+        <value xml:lang="zh_CN">没有设定</value>
     </property>
     <property key="CommonNotShown">
         <value xml:lang="ar">لم يعرض</value>
@@ -3963,8 +3962,8 @@
         <value xml:lang="ro">Ne Afisat</value>
         <value xml:lang="ru">Не показано</value>
         <value xml:lang="th">ไม่แสดง</value>
-        <value xml:lang="zh_CN">没有显示</value>
         <value xml:lang="zh">无法显示</value>
+        <value xml:lang="zh_CN">没有显示</value>
     </property>
     <property key="CommonNotYetImplemented">
         <value xml:lang="ar">لم يركب بعد</value>
@@ -3978,8 +3977,8 @@
         <value xml:lang="ro">Nu este inca implementat</value>
         <value xml:lang="ru">Еще не реализовано</value>
         <value xml:lang="th">ยังไม่สำเร็จ</value>
-        <value xml:lang="zh_CN">还没有实现</value>
         <value xml:lang="zh">没有实现</value>
+        <value xml:lang="zh_CN">还没有实现</value>
     </property>
     <property key="CommonNotYou">
         <value xml:lang="ar">ليس أنت</value>
@@ -3994,8 +3993,8 @@
         <value xml:lang="ro">Nu Esti Tu</value>
         <value xml:lang="ru">Не Вы</value>
         <value xml:lang="th">ไม่ใช่คุณ</value>
-        <value xml:lang="zh_CN">不是你</value>
         <value xml:lang="zh">如果不是你</value>
+        <value xml:lang="zh_CN">不是你</value>
     </property>
     <property key="CommonNote">
         <value xml:lang="ar">مذكرة</value>
@@ -4009,8 +4008,8 @@
         <value xml:lang="ro">Nota</value>
         <value xml:lang="ru">Заметка</value>
         <value xml:lang="th">Note : หมายเหตุ</value>
-        <value xml:lang="zh_CN">注释</value>
         <value xml:lang="zh">便笺</value>
+        <value xml:lang="zh_CN">注释</value>
     </property>
     <property key="CommonNotes">
         <value xml:lang="ar">مذكرات</value>
@@ -4024,8 +4023,8 @@
         <value xml:lang="ro">Note</value>
         <value xml:lang="ru">Заметки</value>
         <value xml:lang="th">Note : หมายเหตุ</value>
-        <value xml:lang="zh_CN">注释</value>
         <value xml:lang="zh">便笺</value>
+        <value xml:lang="zh_CN">注释</value>
     </property>
     <property key="CommonNovember">
         <value xml:lang="ar">نوفمبر</value>
@@ -4039,8 +4038,8 @@
         <value xml:lang="ro">Noiembrie</value>
         <value xml:lang="ru">Ноябрь</value>
         <value xml:lang="th">พฤศจิกายน</value>
-        <value xml:lang="zh_CN">十一月</value>
         <value xml:lang="zh">十一月</value>
+        <value xml:lang="zh_CN">十一月</value>
     </property>
     <property key="CommonNow">
         <value xml:lang="ar">الآن</value>
@@ -4054,8 +4053,8 @@
         <value xml:lang="ro">Acum</value>
         <value xml:lang="ru">Сейчас</value>
         <value xml:lang="th">ตอนนี้</value>
-        <value xml:lang="zh_CN">现在</value>
         <value xml:lang="zh">现在</value>
+        <value xml:lang="zh_CN">现在</value>
     </property>
     <property key="CommonNbr">
         <value xml:lang="de">Nr</value>
@@ -4076,7 +4075,7 @@
         <value xml:lang="es">Número</value>
         <value xml:lang="fr">N°</value>
         <value xml:lang="th">หมายเลข</value>
-    </property>    
+    </property>
     <property key="CommonOctober">
         <value xml:lang="ar">أكتوبر</value>
         <value xml:lang="de">Oktober</value>
@@ -4089,8 +4088,8 @@
         <value xml:lang="ro">Octombrie</value>
         <value xml:lang="ru">Октябрь</value>
         <value xml:lang="th">ตุลาคม</value>
-        <value xml:lang="zh_CN">十月</value>
         <value xml:lang="zh">十月</value>
+        <value xml:lang="zh_CN">十月</value>
     </property>
     <property key="CommonOf">
         <value xml:lang="ar">من</value>
@@ -4104,8 +4103,8 @@
         <value xml:lang="ro">de</value>
         <value xml:lang="ru">из </value>
         <value xml:lang="th">ของ</value>
-        <value xml:lang="zh_CN">的</value>
         <value xml:lang="zh">共</value>
+        <value xml:lang="zh_CN">的</value>
     </property>
     <property key="CommonOn">
         <value xml:lang="ar">على</value>
@@ -4120,8 +4119,8 @@
         <value xml:lang="ro">Pe </value>
         <value xml:lang="ru">В</value>
         <value xml:lang="th">บน</value>
-        <value xml:lang="zh_CN">在</value>
         <value xml:lang="zh">在</value>
+        <value xml:lang="zh_CN">在</value>
     </property>
     <property key="CommonOnly">
         <value xml:lang="ar">سوى</value>
@@ -4156,8 +4155,8 @@
         <value xml:lang="ro">Deschide intr-o Fereastra Noua</value>
         <value xml:lang="ru">Открыть новое окно</value>
         <value xml:lang="th">เปิดหน้าต่างใหม่</value>
-        <value xml:lang="zh_CN">打开新的窗口</value>
         <value xml:lang="zh">在新窗口中打开</value>
+        <value xml:lang="zh_CN">打开新的窗口</value>
     </property>
     <property key="CommonOpenPageNewWindow">
         <value xml:lang="ar">فتح صفحة نافذة جديدة</value>
@@ -4171,8 +4170,8 @@
         <value xml:lang="ro">Deschide pagina intr-o noua fereastra</value>
         <value xml:lang="ru">Открыть страницу в новом окне</value>
         <value xml:lang="th">เปิดเพจในหน้าต่างใหม่</value>
-        <value xml:lang="zh_CN">在新窗口打开页面</value>
         <value xml:lang="zh">在新窗口中打开页面</value>
+        <value xml:lang="zh_CN">在新窗口打开页面</value>
     </property>
     <property key="CommonOpenTab">
         <value xml:lang="ar">+</value>
@@ -4185,8 +4184,8 @@
         <value xml:lang="pt">+</value>
         <value xml:lang="ro">+</value>
         <value xml:lang="th">+</value>
-        <value xml:lang="zh_CN">开</value>
         <value xml:lang="zh">+</value>
+        <value xml:lang="zh_CN">开</value>
     </property>
     <property key="CommonOptions">
         <value xml:lang="ar">اختيارات</value>
@@ -4200,8 +4199,8 @@
         <value xml:lang="ro">Optiuni</value>
         <value xml:lang="ru">Опции</value>
         <value xml:lang="th">ตัวเลือก</value>
-        <value xml:lang="zh_CN">选项</value>
         <value xml:lang="zh">选项</value>
+        <value xml:lang="zh_CN">选项</value>
     </property>
     <property key="CommonOr">
         <value xml:lang="ar">أو</value>
@@ -4215,8 +4214,8 @@
         <value xml:lang="ro">O</value>
         <value xml:lang="ru">ИЛИ</value>
         <value xml:lang="th">หรือ</value>
-        <value xml:lang="zh_CN">或者</value>
         <value xml:lang="zh">或者</value>
+        <value xml:lang="zh_CN">或者</value>
     </property>
     <property key="CommonOrder">
         <value xml:lang="ar">طلبية</value>
@@ -4230,8 +4229,8 @@
         <value xml:lang="ro">Comanda</value>
         <value xml:lang="ru">Заказ</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
-        <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh">订单</value>
+        <value xml:lang="zh_CN">订单</value>
     </property>
     <property key="CommonOrderBy">
         <value xml:lang="ar">ترتيب حسب</value>
@@ -4245,8 +4244,8 @@
         <value xml:lang="ro">Comandat de la</value>
         <value xml:lang="ru">Сортировка</value>
         <value xml:lang="th">ลำดับโดย</value>
-        <value xml:lang="zh_CN">按排序</value>
         <value xml:lang="zh">订单属于</value>
+        <value xml:lang="zh_CN">按排序</value>
     </property>
     <property key="CommonOrders">
         <value xml:lang="ar">طلبيات</value>
@@ -4260,8 +4259,8 @@
         <value xml:lang="ro">Comenzi</value>
         <value xml:lang="ru">Заказы</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
-        <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh">订单</value>
+        <value xml:lang="zh_CN">订单</value>
     </property>
     <property key="CommonOrdersStatus">
         <value xml:lang="en">Orders Status</value>
@@ -4292,8 +4291,8 @@
         <value xml:lang="ro">(suprapune deasupra amandoua selectiunile)</value>
         <value xml:lang="ru">(перекрывает одно из уже сделанных выделений)</value>
         <value xml:lang="th">(ยกเลิกการเลือกแต่ละอัน)</value>
-        <value xml:lang="zh_CN">(覆盖上面的选择)</value>
         <value xml:lang="zh">(覆盖上述选择中的任何一个。)</value>
+        <value xml:lang="zh_CN">(覆盖上面的选择)</value>
     </property>
     <property key="CommonOverview">
         <value xml:lang="de">Überblick</value>
@@ -4313,8 +4312,8 @@
         <value xml:lang="ro">Pagina</value>
         <value xml:lang="ru">Страница</value>
         <value xml:lang="th">หน้า</value>
-        <value xml:lang="zh_CN">页</value>
         <value xml:lang="zh">页</value>
+        <value xml:lang="zh_CN">页</value>
     </property>
     <property key="CommonPagingOff">
         <value xml:lang="de">Blättern aus</value>
@@ -4350,8 +4349,8 @@
         <value xml:lang="ro">Cod Subiect</value>
         <value xml:lang="ru">ID участника</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh_CN">团体标识</value>
         <value xml:lang="zh">会员标识</value>
+        <value xml:lang="zh_CN">团体标识</value>
     </property>
     <property key="CommonPartySkills">
         <value xml:lang="en">Party Skills</value>
@@ -4375,8 +4374,8 @@
         <value xml:lang="ro">Parola</value>
         <value xml:lang="ru">Пароль</value>
         <value xml:lang="th">รหัสผ่าน</value>
-        <value xml:lang="zh_CN">密码</value>
         <value xml:lang="zh">密码</value>
+        <value xml:lang="zh_CN">密码</value>
     </property>
     <property key="CommonPasswordChange">
         <value xml:lang="de">Bitte ändern Sie Ihr Passwort</value>
@@ -4388,7 +4387,7 @@
     <property key="CommonPayments">
         <value xml:lang="en">Payments</value>
         <value xml:lang="fr">Paiements</value>
-    </property>    
+    </property>
     <property key="CommonPdf">
         <value xml:lang="en">Pdf</value>
         <value xml:lang="es">Pdf</value>
@@ -4405,8 +4404,8 @@
         <value xml:lang="ro">Executa</value>
         <value xml:lang="ru">Выполнить</value>
         <value xml:lang="th">ปฏิบัติ</value>
-        <value xml:lang="zh_CN">执行</value>
         <value xml:lang="zh">执行</value>
+        <value xml:lang="zh_CN">执行</value>
     </property>
     <property key="CommonPermissionError">
         <value xml:lang="ar">خطأ في الرخصة</value>
@@ -4420,11 +4419,11 @@
         <value xml:lang="ro">Eroare Permis</value>
         <value xml:lang="ru">Ошибка разрешения</value>
         <value xml:lang="th">ผิดพลาดการอนุญาต</value>
-        <value xml:lang="zh_CN">许可检查错误</value>
         <value xml:lang="zh">权限错误</value>
+        <value xml:lang="zh_CN">许可检查错误</value>
     </property>
     <property key="CommonPermissionErrorMessage">
-        <value xml:lang="en">Sicherheitsfehler: Um ${resourceDescription} auszuführen müssen Sie eine der folgenden Berechtigungen besitzen:   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
+        <value xml:lang="de">Sicherheitsfehler: Um ${resourceDescription} auszuführen müssen Sie eine der folgenden Berechtigungen besitzen:   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
         <value xml:lang="en">Error  Security: To run ${resourceDescription}  you must have the one of the following permissions:   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar ${resourceDescription} debe disponer de alguno de estos permisos EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
         <value xml:lang="fr">Erreur de sécurité : pour exécuter ${resourceDescription} vous devez avoir les autorisations suivantes :   EXAMPLE_${mainAction} EXAMPLE_ADMIN</value>
@@ -4469,8 +4468,8 @@
         <value xml:lang="ro">Persoana</value>
         <value xml:lang="ru">Личность</value>
         <value xml:lang="th">บุคคล</value>
-        <value xml:lang="zh_CN">人</value>
         <value xml:lang="zh">人员</value>
+        <value xml:lang="zh_CN">人</value>
     </property>
     <property key="CommonPostedBy">
         <value xml:lang="ar">مرسلة من</value>
@@ -4516,8 +4515,8 @@
         <value xml:lang="ro">Preparat</value>
         <value xml:lang="ru">Подготовлен</value>
         <value xml:lang="th">จัดเตรียม</value>
-        <value xml:lang="zh_CN">做好准备的</value>
         <value xml:lang="zh">准备</value>
+        <value xml:lang="zh_CN">做好准备的</value>
     </property>
     <property key="CommonPrevious">
         <value xml:lang="ar">سابق</value>
@@ -4532,8 +4531,8 @@
         <value xml:lang="ro">Precedent(a)</value>
         <value xml:lang="ru">Предыдущая</value>
         <value xml:lang="th">ก่อนหน้านี้</value>
-        <value xml:lang="zh_CN">前</value>
         <value xml:lang="zh">上一个</value>
+        <value xml:lang="zh_CN">前</value>
     </property>
     <property key="CommonPrint">
         <value xml:lang="ar">نسخ</value>
@@ -4565,8 +4564,8 @@
         <value xml:lang="ro">Prioritate</value>
         <value xml:lang="ru">Приоритет</value>
         <value xml:lang="th">สิทธิพิเศษ</value>
-        <value xml:lang="zh_CN">优先权</value>
         <value xml:lang="zh">优先</value>
+        <value xml:lang="zh_CN">优先权</value>
     </property>
     <property key="CommonProcessing">
         <value xml:lang="ar">ظرف الإنجاز</value>
@@ -4580,8 +4579,8 @@
         <value xml:lang="ro">In Executie</value>
         <value xml:lang="ru">В работе</value>
         <value xml:lang="th">กำลังประมวลผล</value>
-        <value xml:lang="zh_CN">处理中</value>
         <value xml:lang="zh">处理中</value>
+        <value xml:lang="zh_CN">处理中</value>
     </property>
     <property key="CommonProfile">
         <value xml:lang="ar">خصائص</value>
@@ -4596,8 +4595,8 @@
         <value xml:lang="ro">Profil</value>
         <value xml:lang="ru">Профиль</value>
         <value xml:lang="th">ประวัติโดยย่อ</value>
-        <value xml:lang="zh_CN">设定</value>
         <value xml:lang="zh">简介</value>
+        <value xml:lang="zh_CN">设定</value>
     </property>
     <property key="CommonProsPrep">
         <value xml:lang="ar">في ظرف الإعداد</value>
@@ -4611,8 +4610,8 @@
         <value xml:lang="ro">Preluare in curs</value>
         <value xml:lang="ru">В процессе сортировки</value>
         <value xml:lang="th">การคัดสรรการดำเนินการ</value>
-        <value xml:lang="zh_CN">出库进行中</value>
         <value xml:lang="zh">分拣进行中</value>
+        <value xml:lang="zh_CN">出库进行中</value>
     </property>
     <property key="CommonProsReci">
         <value xml:lang="ar">في ظرف الإستقبال</value>
@@ -4626,8 +4625,8 @@
         <value xml:lang="ro">Recepite in curs</value>
         <value xml:lang="ru">В процессе получения</value>
         <value xml:lang="th">ตำเนินการต่อไป</value>
-        <value xml:lang="zh_CN">接收进行中</value>
         <value xml:lang="zh">接收进行中</value>
+        <value xml:lang="zh_CN">接收进行中</value>
     </property>
     <property key="CommonProvince">
         <value xml:lang="ar">الضاحية</value>
@@ -4641,8 +4640,8 @@
         <value xml:lang="ro">Provincia</value>
         <value xml:lang="ru">Провинция</value>
         <value xml:lang="th">จังหวัด</value>
-        <value xml:lang="zh_CN">省</value>
         <value xml:lang="zh">省</value>
+        <value xml:lang="zh_CN">省</value>
     </property>
     <property key="CommonPublish">
         <value xml:lang="ar">نشر</value>
@@ -4656,8 +4655,8 @@
         <value xml:lang="ro">Publica</value>
         <value xml:lang="ru">Публиковать</value>
         <value xml:lang="th">ประกาศ</value>
-        <value xml:lang="zh_CN">发布</value>
         <value xml:lang="zh">发布</value>
+        <value xml:lang="zh_CN">发布</value>
     </property>
     <property key="CommonPurpose">
         <value xml:lang="ar">هدف</value>
@@ -4671,8 +4670,8 @@
         <value xml:lang="ro">Functie</value>
         <value xml:lang="ru">Назначение</value>
         <value xml:lang="th">เป้าหมาย</value>
-        <value xml:lang="zh_CN">目的</value>
         <value xml:lang="zh">目的</value>
+        <value xml:lang="zh_CN">目的</value>
     </property>
     <property key="CommonQty">
         <value xml:lang="ar">كمية</value>
@@ -4701,8 +4700,8 @@
         <value xml:lang="ro">Calificator</value>
         <value xml:lang="ru">Спецификатор</value>
         <value xml:lang="th">ผู้มีคุณสมบัติเหมาะ</value>
-        <value xml:lang="zh_CN">合格的人</value>
         <value xml:lang="zh">符合下列条件的物品：</value>
+        <value xml:lang="zh_CN">合格的人</value>
     </property>
     <property key="CommonQuantity">
         <value xml:lang="ar">كمية</value>
@@ -4717,8 +4716,8 @@
         <value xml:lang="ro">Cantitate</value>
         <value xml:lang="ru">Количество</value>
         <value xml:lang="th">จำนวน</value>
-        <value xml:lang="zh_CN">数量</value>
         <value xml:lang="zh">数量</value>
+        <value xml:lang="zh_CN">数量</value>
     </property>
     <property key="CommonQuarter">
         <value xml:lang="ar">ثلاثية</value>
@@ -4732,8 +4731,8 @@
         <value xml:lang="ro">Trimestru</value>
         <value xml:lang="ru">Квартал</value>
         <value xml:lang="th">ส่วนหนึ่ง</value>
-        <value xml:lang="zh_CN">季</value>
         <value xml:lang="zh">季度</value>
+        <value xml:lang="zh_CN">季</value>
     </property>
     <property key="CommonQuery">
         <value xml:lang="ar">عملية بحث</value>
@@ -4762,8 +4761,8 @@
         <value xml:lang="ro">Adaugare Rapida</value>
         <value xml:lang="ru">Быстрое добавление</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็ว</value>
-        <value xml:lang="zh_CN">快速添加</value>
         <value xml:lang="zh">快速添加</value>
+        <value xml:lang="zh_CN">快速添加</value>
     </property>
     <property key="CommonQuickAddList">
         <value xml:lang="ar">إضافة سريعة لقائمة المشتريات</value>
@@ -4778,8 +4777,8 @@
         <value xml:lang="ro">Adaugare Rapida la Lista de Cumparari</value>
         <value xml:lang="ru">Быстрое добавление в список покупок</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็วในรายการซื้อของ</value>
-        <value xml:lang="zh_CN">快速添加到购物列表</value>
         <value xml:lang="zh">快速添加到购物列表</value>
+        <value xml:lang="zh_CN">快速添加到购物列表</value>
     </property>
     <property key="CommonRate">
         <value xml:lang="ar">النسبة</value>
@@ -4792,8 +4791,8 @@
         <value xml:lang="ro">Procent</value>
         <value xml:lang="ru">Курс</value>
         <value xml:lang="th">อัตรา</value>
-        <value xml:lang="zh_CN">等级</value>
         <value xml:lang="zh">评价</value>
+        <value xml:lang="zh_CN">等级</value>
     </property>
     <property key="CommonRates">
         <value xml:lang="ar">نسبات</value>
@@ -4806,8 +4805,8 @@
         <value xml:lang="ro">Procente</value>
         <value xml:lang="ru">Курсы</value>
         <value xml:lang="th">อัตรา</value>
-        <value xml:lang="zh_CN">费用</value>
         <value xml:lang="zh">评价</value>
+        <value xml:lang="zh_CN">费用</value>
     </property>
     <property key="CommonReady">
         <value xml:lang="ar">جاهز</value>
@@ -4821,14 +4820,14 @@
         <value xml:lang="ro">Promta</value>
         <value xml:lang="ru">Готов</value>
         <value xml:lang="th">พร้อม</value>
-        <value xml:lang="zh_CN">准备好的</value>
         <value xml:lang="zh">就绪</value>
+        <value xml:lang="zh_CN">准备好的</value>
     </property>
     <property key="CommonReason">
         <value xml:lang="de">Grund</value>
         <value xml:lang="en">Reason</value>
         <value xml:lang="es">Razón</value>
-        <value xml:lang="fr">Motif</value>        
+        <value xml:lang="fr">Motif</value>
     </property>
     <property key="CommonReceive">
         <value xml:lang="ar">استقبال</value>
@@ -4842,8 +4841,8 @@
         <value xml:lang="ro">Primesti</value>
         <value xml:lang="ru">Получить</value>
         <value xml:lang="th">ยอมรับ</value>
-        <value xml:lang="zh_CN">接收</value>
         <value xml:lang="zh">接收</value>
+        <value xml:lang="zh_CN">接收</value>
     </property>
     <property key="CommonReceived">
         <value xml:lang="ar">مستلم</value>
@@ -4857,8 +4856,8 @@
         <value xml:lang="ro">Primit</value>
         <value xml:lang="ru">Получено</value>
         <value xml:lang="th">ยอมรับ</value>
-        <value xml:lang="zh_CN">接收到的</value>
         <value xml:lang="zh">已接收</value>
+        <value xml:lang="zh_CN">接收到的</value>
     </property>
     <property key="CommonRed">
         <value xml:lang="ar">أحمر</value>
@@ -4872,8 +4871,8 @@
         <value xml:lang="ro">Rosu</value>
         <value xml:lang="ru">Красный</value>
         <value xml:lang="th">สีแดง</value>
-        <value xml:lang="zh_CN">红色</value>
         <value xml:lang="zh">红色</value>
+        <value xml:lang="zh_CN">红色</value>
     </property>
     <property key="CommonRefine">
         <value xml:lang="ar">تصفية</value>
@@ -4887,8 +4886,8 @@
         <value xml:lang="ro">Rafineaza</value>
         <value xml:lang="ru">Уточнить</value>
         <value xml:lang="th">ปรับปรุง</value>
-        <value xml:lang="zh_CN">精炼</value>
         <value xml:lang="zh">提炼</value>
+        <value xml:lang="zh_CN">精炼</value>
     </property>
     <property key="CommonRefresh">
         <value xml:lang="ar">تحديث</value>
@@ -4902,8 +4901,8 @@
         <value xml:lang="ro">Reimprospateaza</value>
         <value xml:lang="ru">Обновить</value>
         <value xml:lang="th">รีเฟรช</value>
-        <value xml:lang="zh_CN">刷新</value>
         <value xml:lang="zh">刷新</value>
+        <value xml:lang="zh_CN">刷新</value>
     </property>
     <property key="CommonRegistered">
         <value xml:lang="ar">مستخدم مسجل</value>
@@ -4919,8 +4918,8 @@
         <value xml:lang="ro">Utilizator Registrat</value>
         <value xml:lang="ru">Зарегистрированный пользователь</value>
         <value xml:lang="th">ลงทะเบียนผู้ใช้</value>
-        <value xml:lang="zh_CN">注册用户</value>
         <value xml:lang="zh">已登记用户</value>
+        <value xml:lang="zh_CN">注册用户</value>
     </property>
     <property key="CommonRejected">
         <value xml:lang="ar">مرفوض</value>
@@ -4934,13 +4933,13 @@
         <value xml:lang="ro">Refuzat</value>
         <value xml:lang="ru">Отклоненные</value>
         <value xml:lang="th">ไม่ยอมรับ</value>
-        <value xml:lang="zh_CN">拒绝</value>
         <value xml:lang="zh">已拒绝</value>
+        <value xml:lang="zh_CN">拒绝</value>
     </property>
     <property key="CommonReleaseVersion">
         <value xml:lang="en">Release Version</value>
-        <value xml:lang="en">Version officiellement distribuée</value>
         <value xml:lang="es">Versión oficial</value>
+        <value xml:lang="fr">Version officiellement distribuée</value>
         <value xml:lang="pt">1.0.0-Preview</value>
         <value xml:lang="th">เวอร์ชันใหม่</value>
     </property>
@@ -4962,8 +4961,8 @@
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Удалить</value>
         <value xml:lang="th">ลบ</value>
-        <value xml:lang="zh_CN">删除</value>
         <value xml:lang="zh">删除</value>
+        <value xml:lang="zh_CN">删除</value>
     </property>
     <property key="CommonRemoveExpired">
         <value xml:lang="ar">نزع منتهى الصلاحية</value>
@@ -4977,8 +4976,8 @@
         <value xml:lang="ro">Sterge Expirari</value>
         <value xml:lang="ru">Удалить просроченные</value>
         <value xml:lang="th">ย้ายวันหมดเขต</value>
-        <value xml:lang="zh_CN">删除过期的</value>
         <value xml:lang="zh">删除过期的</value>
+        <value xml:lang="zh_CN">删除过期的</value>
     </property>
     <property key="CommonRemovePortlet">
         <value xml:lang="en">Remove Portlet</value>
@@ -4996,8 +4995,8 @@
         <value xml:lang="ro">Tiparire</value>
         <value xml:lang="ru">Отчет</value>
         <value xml:lang="th">รายงาน</value>
-        <value xml:lang="zh_CN">报告</value>
         <value xml:lang="zh">报告</value>
+        <value xml:lang="zh_CN">报告</value>
     </property>
     <property key="CommonRequired">
         <value xml:lang="ar">إلزامي</value>
@@ -5011,8 +5010,8 @@
         <value xml:lang="ro">Cerut</value>
         <value xml:lang="ru">Требуется</value>
         <value xml:lang="th">ต้องการ</value>
-        <value xml:lang="zh_CN">必须的</value>
         <value xml:lang="zh">必须的</value>
+        <value xml:lang="zh_CN">必须的</value>
     </property>
     <property key="CommonRequiredFieldsFoundEmpty">
         <value xml:lang="ar">الحقول الإلزامية التالية وجدت فارغة</value>
@@ -5026,8 +5025,8 @@
         <value xml:lang="ro">Urmatoarele camauri Cerute au fost gasite goale </value>
         <value xml:lang="ru">Следующие обязательные поля были обнаружены пустыми</value>
         <value xml:lang="th">ตามฟิลด์ที่ต้องการซึ่งพบว่ามันว่าง</value>
-        <value xml:lang="zh_CN">下面的必填字段发现是空的</value>
         <value xml:lang="zh">下列必填项是空的</value>
+        <value xml:lang="zh_CN">下面的必填字段发现是空的</value>
     </property>
     <property key="CommonReset">
         <value xml:lang="ar">إعادة الوضعية</value>
@@ -5042,8 +5041,8 @@
         <value xml:lang="ro">Azereaz</value>
         <value xml:lang="ru">Переустановить</value>
         <value xml:lang="th">ตั้งใหม่</value>
-        <value xml:lang="zh_CN">重置</value>
         <value xml:lang="zh">重新设置</value>
+        <value xml:lang="zh_CN">重置</value>
     </property>
     <property key="CommonResultLookup">
         <value xml:lang="ar">نتيجة البحث</value>
@@ -5057,8 +5056,8 @@
         <value xml:lang="ro">Rezultatul Cautarii</value>
         <value xml:lang="ru">Результаты выборки</value>
         <value xml:lang="th">ผลลัพธ์ของการค้นหา</value>
-        <value xml:lang="zh_CN">查找结果</value>
         <value xml:lang="zh">查询结果</value>
+        <value xml:lang="zh_CN">查找结果</value>
     </property>
     <property key="CommonReturn">
         <value xml:lang="ar">العودة</value>
@@ -5072,8 +5071,8 @@
         <value xml:lang="ro">Returnare</value>
         <value xml:lang="ru">Вернуться</value>
         <value xml:lang="th">ย้อนกลับ</value>
-        <value xml:lang="zh_CN">退货</value>
         <value xml:lang="zh">退货</value>
+        <value xml:lang="zh_CN">退货</value>
     </property>
     <property key="CommonReturnStatus">
         <value xml:lang="de">Status Retoure</value>
@@ -5086,8 +5085,8 @@
         <value xml:lang="ro">Stadiu Returnare</value>
         <value xml:lang="ru">Статус возврата</value>
         <value xml:lang="th">คืนสถานะ</value>
-        <value xml:lang="zh_CN">退货状态</value>
         <value xml:lang="zh">退货状态</value>
+        <value xml:lang="zh_CN">退货状态</value>
     </property>
     <property key="CommonReview">
         <value xml:lang="ar">المراجعة</value>
@@ -5103,8 +5102,8 @@
         <value xml:lang="ro">Recenzie</value>
         <value xml:lang="ru">Просмотреть</value>
         <value xml:lang="th">ตรวจสอบ</value>
-        <value xml:lang="zh_CN">评论</value>
         <value xml:lang="zh">浏览</value>
+        <value xml:lang="zh_CN">评论</value>
     </property>
     <property key="CommonRouting">
         <value xml:lang="ar">تمرير</value>
@@ -5140,8 +5139,8 @@
         <value xml:lang="ro">Executa</value>
         <value xml:lang="ru">Выполнить</value>
         <value xml:lang="th">ดำเนินการ</value>
-        <value xml:lang="zh_CN">运行</value>
         <value xml:lang="zh">运行</value>
+        <value xml:lang="zh_CN">运行</value>
     </property>
     <property key="CommonSaturday">
         <value xml:lang="ar">السبت</value>
@@ -5155,8 +5154,8 @@
         <value xml:lang="ro">Sambata</value>
         <value xml:lang="ru">Суббота</value>
         <value xml:lang="th">วันเสาร์</value>
-        <value xml:lang="zh_CN">星期六</value>
         <value xml:lang="zh">星期六</value>
+        <value xml:lang="zh_CN">星期六</value>
     </property>
     <property key="CommonSave">
         <value xml:lang="ar">حفظ</value>
@@ -5171,8 +5170,8 @@
         <value xml:lang="ro">Salveaza</value>
         <value xml:lang="ru">Сохранить</value>
         <value xml:lang="th">บันทึก</value>
-        <value xml:lang="zh_CN">保存</value>
         <value xml:lang="zh">保存</value>
+        <value xml:lang="zh_CN">保存</value>
     </property>
     <property key="CommonSavings">
         <value xml:lang="ar">محفوظات</value>
@@ -5186,8 +5185,8 @@
         <value xml:lang="ro">Economii</value>
         <value xml:lang="ru">Сбережения</value>
         <value xml:lang="th">กำลังบันทึก</value>
-        <value xml:lang="zh_CN">储蓄</value>
         <value xml:lang="zh">节省</value>
+        <value xml:lang="zh_CN">储蓄</value>
     </property>
     <property key="CommonSearch">
         <value xml:lang="ar">البحث</value>
@@ -5201,8 +5200,8 @@
         <value xml:lang="ro">Cautare</value>
         <value xml:lang="ru">Поиск</value>
         <value xml:lang="th">ค้นหา</value>
-        <value xml:lang="zh_CN">搜索</value>
         <value xml:lang="zh">搜索</value>
+        <value xml:lang="zh_CN">搜索</value>
     </property>
     <property key="CommonSearchOptions">
         <value xml:lang="de">Suchoptionen</value>
@@ -5232,11 +5231,10 @@
         <value xml:lang="ro">Cauta Resultate pentru</value>
         <value xml:lang="ru">Поиск результатов по</value>
         <value xml:lang="th">ค้นหาผลลัพธ์สำหรับ</value>
-        <value xml:lang="zh_CN">搜索结果</value>
         <value xml:lang="zh">搜索</value>
+        <value xml:lang="zh_CN">搜索结果</value>
     </property>
     <property key="CommonSecond">
-        <!-- The time measurement, not the ordinal -->
         <value xml:lang="ar">ثانيا</value>
         <value xml:lang="de">Zweiter</value>
         <value xml:lang="en">Second</value>
@@ -5273,8 +5271,8 @@
         <value xml:lang="ro">Siguranta</value>
         <value xml:lang="ru">Безопасность</value>
         <value xml:lang="th">ความปลอดภัย</value>
-        <value xml:lang="zh_CN">安全</value>
         <value xml:lang="zh">安全</value>
+        <value xml:lang="zh_CN">安全</value>
     </property>
     <property key="CommonSelect">
         <value xml:lang="ar">إختر</value>
@@ -5288,8 +5286,8 @@
         <value xml:lang="ro">Selectioneaza</value>
         <value xml:lang="ru">Выбрать</value>
         <value xml:lang="th">เลือก</value>
-        <value xml:lang="zh_CN">选择</value>
         <value xml:lang="zh">选择</value>
+        <value xml:lang="zh_CN">选择</value>
     </property>
     <property key="CommonSelectAll">
         <value xml:lang="ar">إختر الكل</value>
@@ -5304,8 +5302,8 @@
         <value xml:lang="ro">Selectioneaza Totul</value>
         <value xml:lang="ru">Выбрать все</value>
         <value xml:lang="th">เลือกทั้งหมด</value>
-        <value xml:lang="zh_CN">全部选择</value>
         <value xml:lang="zh">选择全部</value>
+        <value xml:lang="zh_CN">全部选择</value>
     </property>
     <property key="CommonSelectAny">
         <value xml:lang="ar">إختر أي من</value>
@@ -5319,8 +5317,8 @@
         <value xml:lang="ro">Orice</value>
         <value xml:lang="ru">Любой</value>
         <value xml:lang="th">เลือกบางอัน</value>
-        <value xml:lang="zh_CN">任何</value>
         <value xml:lang="zh">任何</value>
+        <value xml:lang="zh_CN">任何</value>
     </property>
     <property key="CommonSelectOne">
         <value xml:lang="ar">إختر واحد</value>
@@ -5334,8 +5332,8 @@
         <value xml:lang="ro">Selectioneaza Unul</value>
         <value xml:lang="ru">Выбрать 1</value>
         <value xml:lang="th">เลือกอันเดียว</value>
-        <value xml:lang="zh_CN">选择一个</value>
         <value xml:lang="zh">选择一个</value>
+        <value xml:lang="zh_CN">选择一个</value>
     </property>
     <property key="CommonSelectPortalPage">
         <value xml:lang="en">Select Portal Page...</value>
@@ -5357,8 +5355,8 @@
         <value xml:lang="ro">Selectionat</value>
         <value xml:lang="ru">выделенный</value>
         <value xml:lang="th">เลือก</value>
-        <value xml:lang="zh_CN">已选择</value>
         <value xml:lang="zh">选择</value>
+        <value xml:lang="zh_CN">已选择</value>
     </property>
     <property key="CommonSelection">
         <value xml:lang="ar">إختيار</value>
@@ -5372,8 +5370,8 @@
         <value xml:lang="ro">Selectioneaza</value>
         <value xml:lang="ru">Выделение</value>
         <value xml:lang="th">การเลือก</value>
-        <value xml:lang="zh_CN">选择</value>
         <value xml:lang="zh">选择</value>
+        <value xml:lang="zh_CN">选择</value>
     </property>
     <property key="CommonSend">
         <value xml:lang="ar">ارسال</value>
@@ -5388,8 +5386,8 @@
         <value xml:lang="ro">Trimite</value>
         <value xml:lang="ru">Отправить</value>
         <value xml:lang="th">ส่ง</value>
-        <value xml:lang="zh_CN">发送</value>
         <value xml:lang="zh">发送</value>
+        <value xml:lang="zh_CN">发送</value>
     </property>
     <property key="CommonSendDate">
         <value xml:lang="ar">تاريخ الإرسال</value>
@@ -5403,8 +5401,8 @@
         <value xml:lang="ro">Data Trimiterii</value>
         <value xml:lang="ru">Дата отправки</value>
         <value xml:lang="th">ส่งวันที่</value>
-        <value xml:lang="zh_CN">发送日期</value>
         <value xml:lang="zh">发送日期</value>
+        <value xml:lang="zh_CN">发送日期</value>
     </property>
     <property key="CommonSendEmail">
         <value xml:lang="ar">إرسال البريد الإلكتروني</value>
@@ -5418,8 +5416,8 @@
         <value xml:lang="ro">Trimis email</value>
         <value xml:lang="ru">отправить email</value>
         <value xml:lang="th">ส่งอีเมล</value>
-        <value xml:lang="zh_CN">发送电子邮件</value>
         <value xml:lang="zh">发送电子邮件</value>
+        <value xml:lang="zh_CN">发送电子邮件</value>
     </property>
     <property key="CommonSendPerEmail">
         <value xml:lang="ar">إرسال عبر البريد الإلكتروني</value>
@@ -5459,8 +5457,8 @@
         <value xml:lang="ro">Trimis</value>
         <value xml:lang="ru">Отправлено</value>
         <value xml:lang="th">ส่ง</value>
-        <value xml:lang="zh_CN">发送了</value>
         <value xml:lang="zh">已发送</value>
+        <value xml:lang="zh_CN">发送了</value>
     </property>
     <property key="CommonSeptember">
         <value xml:lang="ar">سبتمبر</value>
@@ -5474,8 +5472,8 @@
         <value xml:lang="ro">Septembrie</value>
         <value xml:lang="ru">Сентябрь</value>
         <value xml:lang="th">กันยายน</value>
-        <value xml:lang="zh_CN">九月</value>
         <value xml:lang="zh">九月</value>
+        <value xml:lang="zh_CN">九月</value>
     </property>
     <property key="CommonSequence">
         <value xml:lang="ar">تسلسل</value>
@@ -5489,8 +5487,8 @@
         <value xml:lang="ro">Secventa</value>
         <value xml:lang="ru">Очередность</value>
         <value xml:lang="th">รายการ</value>
-        <value xml:lang="zh_CN">序列</value>
         <value xml:lang="zh">序号</value>
+        <value xml:lang="zh_CN">序列</value>
     </property>
     <property key="CommonSequenceNum">
         <value xml:lang="ar">رقم التسلسل</value>
@@ -5504,8 +5502,8 @@
         <value xml:lang="ro">Num. Secventa</value>
         <value xml:lang="ru">Номер по порядку</value>
         <value xml:lang="th">หมายเลขรายการ</value>
-        <value xml:lang="zh_CN">序列编号</value>
         <value xml:lang="zh">序号数字</value>
+        <value xml:lang="zh_CN">序列编号</value>
     </property>
     <property key="CommonSet">
         <value xml:lang="ar">وضع</value>
@@ -5519,8 +5517,8 @@
         <value xml:lang="ro">Setare</value>
         <value xml:lang="ru">Установить</value>
         <value xml:lang="th">กำหนด</value>
-        <value xml:lang="zh_CN">赋值</value>
         <value xml:lang="zh">设置</value>
+        <value xml:lang="zh_CN">赋值</value>
     </property>
     <property key="CommonSetNowEmpty">
         <value xml:lang="ar">(سيوضع اليوم إذا كان فارغا)</value>
@@ -5534,8 +5532,8 @@
         <value xml:lang="ro">(Va fi setat acum daca e gol)</value>
         <value xml:lang="ru">(Если пусто, будет установлено на текущий момент)</value>
         <value xml:lang="th">(จะส่งตอนนี้ถ้าว่าง)</value>
-        <value xml:lang="zh_CN">(如果为空就按当前日期赋值)</value>
         <value xml:lang="zh">(如果空，将设置为当前时间)</value>
+        <value xml:lang="zh_CN">(如果为空就按当前日期赋值)</value>
     </property>
     <property key="CommonShow">
         <value xml:lang="ar">عرض</value>
@@ -5549,8 +5547,8 @@
         <value xml:lang="ro">Afiseaza</value>
         <value xml:lang="ru">Показать</value>
         <value xml:lang="th">แสดง</value>
-        <value xml:lang="zh_CN">显示</value>
         <value xml:lang="zh">显示</value>
+        <value xml:lang="zh_CN">显示</value>
     </property>
     <property key="CommonShowAll">
         <value xml:lang="ar">عرض الكل</value>
@@ -5564,8 +5562,8 @@
         <value xml:lang="ro">Afiseaza Tot</value>
         <value xml:lang="ru">Показать все</value>
         <value xml:lang="th">แสดงทั้งหมด</value>
-        <value xml:lang="zh_CN">显示所有</value>
         <value xml:lang="zh">显示全部</value>
+        <value xml:lang="zh_CN">显示所有</value>
     </property>
     <property key="CommonShowAllRecords">
         <value xml:lang="ar">عرض كل التسجيلات</value>
@@ -5579,8 +5577,8 @@
         <value xml:lang="ro">Afiseaza toate recordurile</value>
         <value xml:lang="ru">Показать все записи</value>
         <value xml:lang="th">แสดงเรคคอร์ดทั้งหมด</value>
-        <value xml:lang="zh_CN">显示所有记录</value>
         <value xml:lang="zh">显示全部记录</value>
+        <value xml:lang="zh_CN">显示所有记录</value>
     </property>
     <property key="CommonShowLookupFields">
         <value xml:lang="ar">عرض حقول البحث السريع</value>
@@ -5594,17 +5592,17 @@
         <value xml:lang="ro">Afiseaza Campurile de Cautare</value>
         <value xml:lang="ru">Показать поля просмотра</value>
         <value xml:lang="th">แสดงฟิลด์ที่ค้นหา</value>
-        <value xml:lang="zh_CN">显示查找字段</value>
         <value xml:lang="zh">显示查询项</value>
+        <value xml:lang="zh_CN">显示查找字段</value>
     </property>
     <property key="CommonShipping">
         <value xml:lang="en">Shipping</value>
         <value xml:lang="fr">Expédition</value>
-    </property>    
+    </property>
     <property key="CommonShoppingCart">
         <value xml:lang="en">ShoppingCart</value>
         <value xml:lang="fr">Panier</value>
-    </property>        
+    </property>
     <property key="CommonSince">
         <value xml:lang="ar">منذ</value>
         <value xml:lang="de">Seit</value>
@@ -5617,15 +5615,15 @@
         <value xml:lang="ro">Pana la A</value>
         <value xml:lang="ru">С</value>
         <value xml:lang="th">ตั้งแต่</value>
-        <value xml:lang="zh_CN">自从</value>
         <value xml:lang="zh">自从</value>
+        <value xml:lang="zh_CN">自从</value>
     </property>
     <property key="CommonSkipNavigation">
         <value xml:lang="de">Navigation auslassen</value>
         <value xml:lang="en">Skip navigation</value>
         <value xml:lang="es">Omitir navegación</value>
         <value xml:lang="fr">Sauter la navigation</value>
-    </property>    
+    </property>
     <property key="CommonSmall">
         <value xml:lang="ar">صغير</value>
         <value xml:lang="de">Klein</value>
@@ -5638,13 +5636,13 @@
         <value xml:lang="ro">Mica</value>
         <value xml:lang="ru">Небольшой</value>
         <value xml:lang="th">เล็ก</value>
-        <value xml:lang="zh_CN">小</value>
         <value xml:lang="zh">小</value>
+        <value xml:lang="zh_CN">小</value>
     </property>
     <property key="CommonSorryYouCannotSend">
         <value xml:lang="ar">للأسف, لا يمكنكم إرسال هذه الصفحة إاى صديق. إختر بدل ذلك من نوع أو سلعة</value>
-        <value xml:lang="de">Leider können Sie diese Seite nicht weiterempfehlen. Wählen Sie bitte aus einer Kategorie oder einem Artikel.</value>
         <value xml:lang="cs">Litujeme, ale tuto stránku nemůžete odeslat příteli. Prosíme vyberte si jinou v náhledu produktů či kategorií.</value>
+        <value xml:lang="de">Leider können Sie diese Seite nicht weiterempfehlen. Wählen Sie bitte aus einer Kategorie oder einem Artikel.</value>
         <value xml:lang="en">Sorry, you cannot send this page to a friend.  Select rather from a category or an item</value>
         <value xml:lang="es">Lo siento, no puede enviar esta página a un amigo. Seleccione a partir de una categoría o un ítem.</value>
         <value xml:lang="fr">Désolé, vous ne pouvez envoyer cette page à un ami. Sélectionnez plutôt à partir d'un catégorie ou d'un article</value>
@@ -5654,8 +5652,8 @@
         <value xml:lang="ro">Imi pare rau, nu este posibila trimiterea acestei pagini la un prieten.  Selectioneaza dintr-o categorie o linie</value>
         <value xml:lang="ru">Вы не можете отправить эту страницу данному адресату. Выберите из предлагаемых категорий и позиций</value>
         <value xml:lang="th">ขอโทษค่ะ , คุณไม่สามารถส่งหน้านี้ให้เพื่อน. เลือกครั้งต่อไปจากหมวดหมู่หรือไอเทม</value>
-        <value xml:lang="zh_CN">对不起, 你不能将这页发给你的朋友.  选择一个分类或项目</value>
         <value xml:lang="zh">对不起，你没有把这个页面发送给朋友。请从目录或明细中选择</value>
+        <value xml:lang="zh_CN">对不起, 你不能将这页发给你的朋友.  选择一个分类或项目</value>
     </property>
     <property key="CommonSortOrder">
         <value xml:lang="ar">ترتيب التصفيف</value>
@@ -5695,8 +5693,8 @@
         <value xml:lang="ro">Specificat</value>
         <value xml:lang="ru">Указанный</value>
         <value xml:lang="th">เฉพาะเจาะจง</value>
-        <value xml:lang="zh_CN">指定的</value>
         <value xml:lang="zh">指定</value>
+        <value xml:lang="zh_CN">指定的</value>
     </property>
     <property key="CommonStartDate">
         <value xml:lang="ar">تاريخ البدء</value>
@@ -5711,8 +5709,8 @@
         <value xml:lang="ro">Data Initieri</value>
         <value xml:lang="ru">Дата начала</value>
         <value xml:lang="th">เริ่มวันที่</value>
-        <value xml:lang="zh_CN">起始日期</value>
         <value xml:lang="zh">开始日期</value>
+        <value xml:lang="zh_CN">起始日期</value>
     </property>
     <property key="CommonStartDateTime">
         <value xml:lang="ar">تاريخ/وقت البدء</value>
@@ -5726,8 +5724,8 @@
         <value xml:lang="ro">Data/Ora Start</value>
         <value xml:lang="ru">Дата/время начала</value>
         <value xml:lang="th">เริ่มวันที่/เวลา</value>
-        <value xml:lang="zh_CN">起始日期和时间</value>
         <value xml:lang="zh">开始日期/时间</value>
+        <value xml:lang="zh_CN">起始日期和时间</value>
     </property>
     <property key="CommonState">
         <value xml:lang="ar">دولة</value>
@@ -5741,8 +5739,8 @@
         <value xml:lang="ro">Stat</value>
         <value xml:lang="ru">Область</value>
         <value xml:lang="th">รัฐ</value>
-        <value xml:lang="zh_CN">州</value>
         <value xml:lang="zh">州</value>
+        <value xml:lang="zh_CN">州</value>
     </property>
     <property key="CommonStateProvince">
         <value xml:lang="ar">دولة/ولاية</value>
@@ -5756,8 +5754,8 @@
         <value xml:lang="ro">Stat/Provincie</value>
         <value xml:lang="ru">Область/Край</value>
         <value xml:lang="th">รัฐ/จังหวัด</value>
-        <value xml:lang="zh_CN">州/省</value>
         <value xml:lang="zh">州/省</value>
+        <value xml:lang="zh_CN">州/省</value>
     </property>
     <property key="CommonStats">
         <value xml:lang="ar">إحصائيات</value>
@@ -5771,8 +5769,8 @@
         <value xml:lang="ro">Statistici</value>
         <value xml:lang="ru">Статистика</value>
         <value xml:lang="th">สถิติ</value>
-        <value xml:lang="zh_CN">统计</value>
         <value xml:lang="zh">统计</value>
+        <value xml:lang="zh_CN">统计</value>
     </property>
     <property key="CommonStatus">
         <value xml:lang="ar">وضعية</value>
@@ -5787,8 +5785,8 @@
         <value xml:lang="ro">Statut</value>
         <value xml:lang="ru">Статус</value>
         <value xml:lang="th">สถานะ</value>
-        <value xml:lang="zh_CN">状态</value>
         <value xml:lang="zh">状态</value>
+        <value xml:lang="zh_CN">状态</value>
     </property>
     <property key="CommonStatusHistory">
         <value xml:lang="ar">سوابق الوضعيات</value>
@@ -5802,8 +5800,8 @@
         <value xml:lang="ro">Istoric State</value>
         <value xml:lang="ru">История изменений статуса</value>
         <value xml:lang="th">สถานะข้อมูล</value>
-        <value xml:lang="zh_CN">状态历史</value>
         <value xml:lang="zh">状态历史记录</value>
+        <value xml:lang="zh_CN">状态历史</value>
     </property>
     <property key="CommonStatustoComplete">
         <value xml:lang="en">Status to 'complete'</value>
@@ -5825,8 +5823,8 @@
         <value xml:lang="ro">Sub Titlu</value>
         <value xml:lang="ru">Подзаголовок</value>
         <value xml:lang="th">หัวข้อย่อย</value>
-        <value xml:lang="zh_CN">子标题</value>
         <value xml:lang="zh">子项</value>
+        <value xml:lang="zh_CN">子标题</value>
     </property>
     <property key="CommonSubTotal">
         <value xml:lang="ar">المجموع الأولي</value>
@@ -5841,8 +5839,8 @@
         <value xml:lang="ro">Sub Total</value>
         <value xml:lang="ru">Всего</value>
         <value xml:lang="th">ผลรวมทั้งหมด</value>
-        <value xml:lang="zh_CN">小计</value>
         <value xml:lang="zh">小计</value>
+        <value xml:lang="zh_CN">小计</value>
     </property>
     <property key="CommonSubmit">
         <value xml:lang="ar">إرسال</value>
@@ -5857,8 +5855,8 @@
         <value xml:lang="ro">Trimite</value>
         <value xml:lang="ru">Отправить</value>
         <value xml:lang="th">ยอมรับ</value>
-        <value xml:lang="zh_CN">提交</value>
         <value xml:lang="zh">提交</value>
+        <value xml:lang="zh_CN">提交</value>
     </property>
     <property key="CommonSubmitted">
         <value xml:lang="ar">مرسل</value>
@@ -5872,8 +5870,8 @@
         <value xml:lang="ro">Subordinat</value>
         <value xml:lang="ru">Предоставлено</value>
         <value xml:lang="th">ยอมรับ</value>
-        <value xml:lang="zh_CN">已提交</value>
         <value xml:lang="zh">已提交</value>
+        <value xml:lang="zh_CN">已提交</value>
     </property>
     <property key="CommonSubtotal">
         <value xml:lang="ar">المجموع الأولي</value>
@@ -5887,8 +5885,8 @@
         <value xml:lang="ro">Subtotal</value>
         <value xml:lang="ru">Сумма</value>
         <value xml:lang="th">ยอดรวมของส่วนหนึ่ง</value>
-        <value xml:lang="zh_CN">小计</value>
         <value xml:lang="zh">小计</value>
+        <value xml:lang="zh_CN">小计</value>
     </property>
     <property key="CommonSummary">
         <value xml:lang="de">Zusammenfassung</value>
@@ -5908,8 +5906,8 @@
         <value xml:lang="ro">Duminica</value>
         <value xml:lang="ru">Суббота</value>
         <value xml:lang="th">วันอาทิตย์</value>
-        <value xml:lang="zh_CN">星期天</value>
         <value xml:lang="zh">星期日</value>
+        <value xml:lang="zh_CN">星期天</value>
     </property>
     <property key="CommonSwitchAllTableViewOff">
         <value xml:lang="ar">منظر عادي</value>
@@ -5923,8 +5921,8 @@
         <value xml:lang="ro">Simplu vue</value>
         <value xml:lang="ru">Постоые</value>
         <value xml:lang="th">แสดงปกติ</value>
-        <value xml:lang="zh_CN">关所有表</value>
         <value xml:lang="zh">简单值</value>
+        <value xml:lang="zh_CN">关所有表</value>
     </property>
     <property key="CommonSwitchAllTableViewOn">
         <value xml:lang="ar">منظر موسع</value>
@@ -5938,8 +5936,8 @@
         <value xml:lang="ro">Larg vue</value>
         <value xml:lang="ru">Большие</value>
         <value xml:lang="th">แสดงขนาดใหญ่</value>
-        <value xml:lang="zh_CN">开所有表</value>
         <value xml:lang="zh">大数值</value>
+        <value xml:lang="zh_CN">开所有表</value>
     </property>
     <property key="CommonTally">
         <value xml:lang="ar">مراقب</value>
@@ -5952,14 +5950,14 @@
         <value xml:lang="ro">Calculatie</value>
         <value xml:lang="ru">Этикетка</value>
         <value xml:lang="th">ตรงกัน</value>
-        <value xml:lang="zh_CN">符合</value>
         <value xml:lang="zh">记录</value>
+        <value xml:lang="zh_CN">符合</value>
     </property>
     <property key="CommonTax">
         <value xml:lang="en">Tax</value>
         <value xml:lang="es">Impuestos</value>
         <value xml:lang="fr">Taxes (TVA)</value>
-    </property>    
+    </property>
     <property key="CommonTelephoneAbbr">
         <value xml:lang="ar">هاتف</value>
         <value xml:lang="de">Tel</value>
@@ -5987,8 +5985,8 @@
         <value xml:lang="ro">Spune-i unui Prieten</value>
         <value xml:lang="ru">Сообщить знакомому</value>
         <value xml:lang="th">แนะนำเพื่อน</value>
-        <value xml:lang="zh_CN">告诉朋友</value>
         <value xml:lang="zh">告诉朋友</value>
+        <value xml:lang="zh_CN">告诉朋友</value>
     </property>
     <property key="CommonTest">
         <value xml:lang="ar">إختبار</value>
@@ -6003,8 +6001,8 @@
         <value xml:lang="ro">Test</value>
         <value xml:lang="ru">Тест</value>
         <value xml:lang="th">ทดสอบ</value>
-        <value xml:lang="zh_CN">测试</value>
         <value xml:lang="zh">测试</value>
+        <value xml:lang="zh_CN">测试</value>
     </property>
     <property key="CommonText">
         <value xml:lang="ar">نص</value>
@@ -6018,8 +6016,8 @@
         <value xml:lang="ro">Text</value>
         <value xml:lang="ru">Текст</value>
         <value xml:lang="th">ข้อความ</value>
-        <value xml:lang="zh_CN">文本</value>
         <value xml:lang="zh">文本</value>
+        <value xml:lang="zh_CN">文本</value>
     </property>
     <property key="CommonThe">
         <value xml:lang="de">Der</value>
@@ -6047,8 +6045,8 @@
         <value xml:lang="ro">Proiectul Open For Business</value>
         <value xml:lang="ru">Проект 'Open For Business'</value>
         <value xml:lang="th">เปิดโปรเจคธุรกิจ</value>
-        <value xml:lang="zh_CN">The Open For Business Project</value>
         <value xml:lang="zh">OFBiz项目</value>
+        <value xml:lang="zh_CN">The Open For Business Project</value>
     </property>
     <property key="CommonThis">
         <value xml:lang="ar">هطا</value>
@@ -6062,8 +6060,8 @@
         <value xml:lang="ro">Aceasta</value>
         <value xml:lang="ru">Этот</value>
         <value xml:lang="th">นี้</value>
-        <value xml:lang="zh_CN">这个</value>
         <value xml:lang="zh">这个</value>
+        <value xml:lang="zh_CN">这个</value>
     </property>
     <property key="CommonThru">
         <value xml:lang="ar">حتى</value>
@@ -6077,8 +6075,8 @@
         <value xml:lang="ro">Pina la </value>
         <value xml:lang="ru">До</value>
         <value xml:lang="th">ถึง</value>
-        <value xml:lang="zh_CN">终止</value>
         <value xml:lang="zh">截止</value>
+        <value xml:lang="zh_CN">终止</value>
     </property>
     <property key="CommonThruDate">
         <value xml:lang="ar">التاريخ النهائي</value>
@@ -6093,8 +6091,8 @@
         <value xml:lang="ro">Pana la Data</value>
         <value xml:lang="ru">По дату</value>
         <value xml:lang="th">ถึงวันที่</value>
-        <value xml:lang="zh_CN">终止日期</value>
         <value xml:lang="zh">截止日期</value>
+        <value xml:lang="zh_CN">终止日期</value>
     </property>
     <property key="CommonThruDateTime">
         <value xml:lang="ar">التاريخ/الوقت النهائي</value>
@@ -6108,8 +6106,8 @@
         <value xml:lang="ro">Pana la Data si Ora</value>
         <value xml:lang="ru">По дату  время</value>
         <value xml:lang="th">ถึงวันที่ เวลา</value>
-        <value xml:lang="zh_CN">终止日期和时间</value>
         <value xml:lang="zh">截止日期  时间</value>
+        <value xml:lang="zh_CN">终止日期和时间</value>
     </property>
     <property key="CommonThursday">
         <value xml:lang="ar">الخميس</value>
@@ -6123,8 +6121,8 @@
         <value xml:lang="ro">Joi</value>
         <value xml:lang="ru">Четверг</value>
         <value xml:lang="th">วันพฤหัสบดี</value>
-        <value xml:lang="zh_CN">星期四</value>
         <value xml:lang="zh">星期四</value>
+        <value xml:lang="zh_CN">星期四</value>
     </property>
     <property key="CommonTime">
         <value xml:lang="ar">الوقت</value>
@@ -6138,8 +6136,8 @@
         <value xml:lang="ro">Ora</value>
         <value xml:lang="ru">Время</value>
         <value xml:lang="th">เวลา</value>
-        <value xml:lang="zh_CN">时间</value>
         <value xml:lang="zh">时间</value>
+        <value xml:lang="zh_CN">时间</value>
     </property>
     <property key="CommonTimeZone">
         <value xml:lang="de">Zeitzone</value>
@@ -6161,8 +6159,8 @@
         <value xml:lang="ro">Titlu</value>
         <value xml:lang="ru">Должность</value>
         <value xml:lang="th">หัวข้อ</value>
-        <value xml:lang="zh_CN">头衔</value>
         <value xml:lang="zh">标题</value>
+        <value xml:lang="zh_CN">头衔</value>
     </property>
     <property key="CommonTitleDr">
         <value xml:lang="ar">دكتور</value>
@@ -6176,8 +6174,8 @@
         <value xml:lang="ro">Dr.</value>
         <value xml:lang="ru">Д-р</value>
         <value xml:lang="th">ดอกเตอร์</value>
-        <value xml:lang="zh_CN">博士</value>
         <value xml:lang="zh">尊敬的</value>
+        <value xml:lang="zh_CN">博士</value>
     </property>
     <property key="CommonTitleMr">
         <value xml:lang="ar">سيد</value>
@@ -6191,8 +6189,8 @@
         <value xml:lang="ro">Dl.</value>
         <value xml:lang="ru">Г-н</value>
         <value xml:lang="th">นาย</value>
-        <value xml:lang="zh_CN">先生</value>
         <value xml:lang="zh">尊敬的</value>
+        <value xml:lang="zh_CN">先生</value>
     </property>
     <property key="CommonTitleMrs">
         <value xml:lang="ar">سيدة</value>
@@ -6206,8 +6204,8 @@
         <value xml:lang="ro">D.ra.</value>
         <value xml:lang="ru">Г-жа</value>
         <value xml:lang="th">นาง</value>
-        <value xml:lang="zh_CN">夫人</value>
         <value xml:lang="zh">尊敬的</value>
+        <value xml:lang="zh_CN">夫人</value>
     </property>
     <property key="CommonTitleMs">
         <value xml:lang="ar">آنسة</value>
@@ -6221,8 +6219,8 @@
         <value xml:lang="ro">D.na.</value>
         <value xml:lang="ru">н/и</value>
         <value xml:lang="th">นางสาว</value>
-        <value xml:lang="zh_CN">女士</value>
         <value xml:lang="zh">尊敬的</value>
+        <value xml:lang="zh_CN">女士</value>
     </property>
     <property key="CommonTo">
         <value xml:lang="ar">إلى</value>
@@ -6237,8 +6235,8 @@
         <value xml:lang="ro">La</value>
         <value xml:lang="ru">Кому</value>
         <value xml:lang="th">ถึง</value>
-        <value xml:lang="zh_CN">至</value>
         <value xml:lang="zh">致</value>
+        <value xml:lang="zh_CN">至</value>
     </property>
     <property key="CommonToName">
         <value xml:lang="ar">إلى المسمى</value>
@@ -6252,8 +6250,8 @@
         <value xml:lang="ro">La Nume</value>
         <value xml:lang="ru">Адресат</value>
         <value xml:lang="th">ถึงชื่อ</value>
-        <value xml:lang="zh_CN">至</value>
         <value xml:lang="zh">发给</value>
+        <value xml:lang="zh_CN">至</value>
     </property>
     <property key="CommonToday">
         <value xml:lang="ar">اليوم</value>
@@ -6267,8 +6265,8 @@
         <value xml:lang="ro">Astazi</value>
         <value xml:lang="ru">Сегодня</value>
         <value xml:lang="th">วันนี้</value>
-        <value xml:lang="zh_CN">今天</value>
         <value xml:lang="zh">今天</value>
+        <value xml:lang="zh_CN">今天</value>
     </property>
     <property key="CommonToggle">
         <value xml:lang="ar">التأرجح</value>
@@ -6282,8 +6280,8 @@
         <value xml:lang="ro">Blocare</value>
         <value xml:lang="ru">Сменить</value>
         <value xml:lang="th">toggle</value>
-        <value xml:lang="zh_CN">切换</value>
         <value xml:lang="zh">变换</value>
+        <value xml:lang="zh_CN">切换</value>
     </property>
     <property key="CommonTotal">
         <value xml:lang="ar">المجموع</value>
@@ -6297,8 +6295,8 @@
         <value xml:lang="ro">Total</value>
         <value xml:lang="ru">Всего</value>
         <value xml:lang="th">ผลรวม</value>
-        <value xml:lang="zh_CN">总共</value>
         <value xml:lang="zh">合计</value>
+        <value xml:lang="zh_CN">总共</value>
     </property>
     <property key="CommonTotalValue">
         <value xml:lang="ar">القيمة الإجمالية</value>
@@ -6337,8 +6335,8 @@
         <value xml:lang="ro">Marti</value>
         <value xml:lang="ru">Вторник</value>
         <value xml:lang="th">วันอังคาร</value>
-        <value xml:lang="zh_CN">星期二</value>
         <value xml:lang="zh">星期二</value>
+        <value xml:lang="zh_CN">星期二</value>
     </property>
     <property key="CommonType">
         <value xml:lang="ar">النوع</value>
@@ -6352,8 +6350,8 @@
         <value xml:lang="ro">Tip</value>
         <value xml:lang="ru">Тип</value>
         <value xml:lang="th">ประเภท</value>
-        <value xml:lang="zh_CN">类型</value>
         <value xml:lang="zh">类型</value>
+        <value xml:lang="zh_CN">类型</value>
     </property>
     <property key="CommonUnitPrice">
         <value xml:lang="ar">سعر الوحدة</value>
@@ -6367,8 +6365,8 @@
         <value xml:lang="ro">Prez Unitar</value>
         <value xml:lang="ru">Цена за ед.</value>
         <value xml:lang="th">ราคาต่อหน่วย</value>
-        <value xml:lang="zh_CN">单价</value>
         <value xml:lang="zh">单价</value>
+        <value xml:lang="zh_CN">单价</value>
     </property>
     <property key="CommonUntil">
         <value xml:lang="ar">حتى</value>
@@ -6382,8 +6380,8 @@
         <value xml:lang="ro">Pana la</value>
         <value xml:lang="ru">До</value>
         <value xml:lang="th">ระหว่าง</value>
-        <value xml:lang="zh_CN">直到</value>
         <value xml:lang="zh">直至</value>
+        <value xml:lang="zh_CN">直到</value>
     </property>
     <property key="CommonUom">
         <value xml:lang="ar">وحدة القياس</value>
@@ -6396,8 +6394,8 @@
         <value xml:lang="pt">UOM</value>
         <value xml:lang="ro">UdM</value>
         <value xml:lang="th">หน่วยวัด</value>
-        <value xml:lang="zh_CN">单位</value>
         <value xml:lang="zh">货币单位</value>
+        <value xml:lang="zh_CN">单位</value>
     </property>
     <property key="CommonUomAbbreviation">
         <value xml:lang="ar">مختصر</value>
@@ -6411,8 +6409,8 @@
         <value xml:lang="ro">Abreviativ</value>
         <value xml:lang="ru">Аббревиатура</value>
         <value xml:lang="th">อักษรย่อ</value>
-        <value xml:lang="zh_CN">缩写</value>
         <value xml:lang="zh">缩写</value>
+        <value xml:lang="zh_CN">缩写</value>
     </property>
     <property key="CommonUomUomId">
         <value xml:lang="ar">دليل وحدة القياس</value>
@@ -6426,8 +6424,8 @@
         <value xml:lang="ro">Cod UdM</value>
         <value xml:lang="ru">UOM ID</value>
         <value xml:lang="th">รหัสหน่วยวัด</value>
-        <value xml:lang="zh_CN">单位标识</value>
         <value xml:lang="zh">货币单位标识</value>
+        <value xml:lang="zh_CN">单位标识</value>
     </property>
     <property key="CommonUpdate">
         <value xml:lang="ar">تحديث</value>
@@ -6442,8 +6440,8 @@
         <value xml:lang="ro">Actualizeaza</value>
         <value xml:lang="ru">Обновить</value>
         <value xml:lang="th">อัพเดท</value>
-        <value xml:lang="zh_CN">更新</value>
         <value xml:lang="zh">更新</value>
+        <value xml:lang="zh_CN">更新</value>
     </property>
     <property key="CommonUpdateLink">
         <value xml:lang="ar">ربطة التحديث</value>
@@ -6457,8 +6455,8 @@
         <value xml:lang="ro">Actualizeaza link</value>
         <value xml:lang="ru">Обновить связь</value>
         <value xml:lang="th">อัพเดทลิงค์</value>
-        <value xml:lang="zh_CN">更新链接</value>
         <value xml:lang="zh">更新链接</value>
+        <value xml:lang="zh_CN">更新链接</value>
     </property>
     <property key="CommonUpdated">
         <value xml:lang="ar">محدثة</value>
@@ -6473,8 +6471,8 @@
         <value xml:lang="ro">Actualizat</value>
         <value xml:lang="ru">Обновлено</value>
         <value xml:lang="th">อัพเดท</value>
-        <value xml:lang="zh_CN">已更新</value>
         <value xml:lang="zh">已更新</value>
+        <value xml:lang="zh_CN">已更新</value>
     </property>
     <property key="CommonUpdatedEffectiveThru">
         <value xml:lang="ar">تحديث فعال حتى</value>
@@ -6488,8 +6486,8 @@
         <value xml:lang="ro">Actualizare Efectiva Pana la</value>
         <value xml:lang="ru">Эффективно обновлено по</value>
         <value xml:lang="th">อัพเดทถึงมีผล</value>
-        <value xml:lang="zh_CN">更新的有效终止</value>
         <value xml:lang="zh">更新有效截止</value>
+        <value xml:lang="zh_CN">更新的有效终止</value>
     </property>
     <property key="CommonUpload">
         <value xml:lang="ar">الشحن الفوقي</value>
@@ -6503,8 +6501,8 @@
         <value xml:lang="ro">Incarca</value>
         <value xml:lang="ru">Загрузить</value>
         <value xml:lang="th">อัพโหลด</value>
-        <value xml:lang="zh_CN">上传</value>
         <value xml:lang="zh">上传</value>
+        <value xml:lang="zh_CN">上传</value>
     </property>
     <property key="CommonUsed">
         <value xml:lang="ar">مستعمل</value>
@@ -6519,8 +6517,8 @@
         <value xml:lang="ro">Usat</value>
         <value xml:lang="ru">Используется</value>
         <value xml:lang="th">ใช้</value>
-        <value xml:lang="zh_CN">已使用</value>
         <value xml:lang="zh">已使用</value>
+        <value xml:lang="zh_CN">已使用</value>
     </property>
     <property key="CommonUsedAs">
         <value xml:lang="ar">مستعمل ك</value>
@@ -6535,8 +6533,8 @@
         <value xml:lang="ro">Usat ca</value>
         <value xml:lang="ru">Используется как</value>
         <value xml:lang="th">ใช้เหมือน</value>
-        <value xml:lang="zh_CN">用作</value>
         <value xml:lang="zh">是作为</value>
+        <value xml:lang="zh_CN">用作</value>
     </property>
     <property key="CommonUserAutoEntered">
         <value xml:lang="ar">محرر من مستخدم/آليا</value>
@@ -6578,8 +6576,8 @@
         <value xml:lang="ro">Nume utilizator</value>
         <value xml:lang="ru">Имя пользователя</value>
         <value xml:lang="th">ชื่อผู้เข้าใช้</value>
-        <value xml:lang="zh_CN">用户名</value>
         <value xml:lang="zh">用户名</value>
+        <value xml:lang="zh_CN">用户名</value>
     </property>
     <property key="CommonValidFromDate">
         <value xml:lang="ar">صالح من تاريخ</value>
@@ -6593,8 +6591,8 @@
         <value xml:lang="ro">Valabil De la Data</value>
         <value xml:lang="ru">Действительно с даты</value>
         <value xml:lang="th">มีผลจากวันที่</value>
-        <value xml:lang="zh_CN">有效的起始日期</value>
         <value xml:lang="zh">验证开始日期</value>
+        <value xml:lang="zh_CN">有效的起始日期</value>
     </property>
     <property key="CommonValidThruDate">
         <value xml:lang="ar">ضالح حتى تاريخ</value>
@@ -6608,8 +6606,8 @@
         <value xml:lang="ro">Valabil Pana la Data</value>
         <value xml:lang="ru">Действительно по дату</value>
         <value xml:lang="th">มีผลถึงวันที่</value>
-        <value xml:lang="zh_CN">有效的终止日期</value>
         <value xml:lang="zh">验证截止日期</value>
+        <value xml:lang="zh_CN">有效的终止日期</value>
     </property>
     <property key="CommonValidate">
         <value xml:lang="ar">الموافقة</value>
@@ -6623,8 +6621,8 @@
         <value xml:lang="ro">Validare</value>
         <value xml:lang="ru">Проверить достоверность</value>
         <value xml:lang="th">มีผลวันที่</value>
-        <value xml:lang="zh_CN">验证</value>
         <value xml:lang="zh">验证</value>
+        <value xml:lang="zh_CN">验证</value>
     </property>
     <property key="CommonValidityProblem">
         <value xml:lang="ar">مشكل موافقة</value>
@@ -6638,8 +6636,8 @@
         <value xml:lang="ro">Problema Validitate</value>
         <value xml:lang="ru">Проблемы проверки достоверности</value>
         <value xml:lang="th">ปัญหาความถูกต้อง</value>
-        <value xml:lang="zh_CN">有效性问题</value>
         <value xml:lang="zh">验证错误</value>
+        <value xml:lang="zh_CN">有效性问题</value>
     </property>
     <property key="CommonValue">
         <value xml:lang="ar">قيمة</value>
@@ -6653,8 +6651,8 @@
         <value xml:lang="ro">Valoare</value>
         <value xml:lang="ru">Величина</value>
         <value xml:lang="th">ค่า</value>
-        <value xml:lang="zh_CN">值</value>
         <value xml:lang="zh">数值</value>
+        <value xml:lang="zh_CN">值</value>
     </property>
     <property key="CommonView">
         <value xml:lang="ar">مشهد</value>
@@ -6669,8 +6667,8 @@
         <value xml:lang="ro">Afiseaza</value>
         <value xml:lang="ru">Просмотреть</value>
         <value xml:lang="th">แสดง</value>
-        <value xml:lang="zh_CN">查看</value>
         <value xml:lang="zh">浏览</value>
+        <value xml:lang="zh_CN">查看</value>
     </property>
     <property key="CommonViewCalendar">
         <value xml:lang="ar">مشاهدة الرزمانة</value>
@@ -6684,8 +6682,8 @@
         <value xml:lang="ro">Afiseaza Calendar</value>
         <value xml:lang="ru">Просмотреть календарь</value>
         <value xml:lang="th">แสดงปฏิทิน</value>
-        <value xml:lang="zh_CN">查看日历</value>
         <value xml:lang="zh">浏览日历</value>
+        <value xml:lang="zh_CN">查看日历</value>
     </property>
     <property key="CommonViewRequest">
         <value xml:lang="ar">مشاهدة المطلب</value>
@@ -6699,9 +6697,9 @@
         <value xml:lang="ro">Afiseaza Cerere</value>
         <value xml:lang="ru">Просмотреть запрос</value>
         <value xml:lang="th">แสดงคำร้อง</value>
-        <value xml:lang="zh_CN">查看请求</value>
         <value xml:lang="zh">浏览请求</value>
-    </property>    
+        <value xml:lang="zh_CN">查看请求</value>
+    </property>
     <property key="CommonVisitors">
         <value xml:lang="en">Visitors</value>
         <value xml:lang="es">Visitantes</value>
@@ -6724,8 +6722,8 @@
         <value xml:lang="ro">Volum</value>
         <value xml:lang="ru">Объем</value>
         <value xml:lang="th">ปริมาณ</value>
-        <value xml:lang="zh_CN">容量</value>
         <value xml:lang="zh">数量</value>
+        <value xml:lang="zh_CN">容量</value>
     </property>
     <property key="CommonWebsite">
         <value xml:lang="ar">موقع الويب</value>
@@ -6753,8 +6751,8 @@
         <value xml:lang="ro">Miercuri</value>
         <value xml:lang="ru">Пятница</value>
         <value xml:lang="th">วันพุธ</value>
-        <value xml:lang="zh_CN">星期三</value>
         <value xml:lang="zh">星期三</value>
+        <value xml:lang="zh_CN">星期三</value>
     </property>
     <property key="CommonWeek">
         <value xml:lang="ar">الاسبوع</value>
@@ -6768,8 +6766,8 @@
         <value xml:lang="ro">Saptamana</value>
         <value xml:lang="ru">Неделя</value>
         <value xml:lang="th">สัปดาห์</value>
-        <value xml:lang="zh_CN">星期</value>
         <value xml:lang="zh">星期</value>
+        <value xml:lang="zh_CN">星期</value>
     </property>
     <property key="CommonWeekly">
         <value xml:lang="ar">أسبوعيا</value>
@@ -6796,8 +6794,8 @@
         <value xml:lang="ro">Greutate</value>
         <value xml:lang="ru">Вес</value>
         <value xml:lang="th">น้ำหนัก</value>
-        <value xml:lang="zh_CN">重量</value>
         <value xml:lang="zh">重量</value>
+        <value xml:lang="zh_CN">重量</value>
     </property>
     <property key="CommonWelcome">
         <value xml:lang="ar">مرحبا</value>
@@ -6813,8 +6811,8 @@
         <value xml:lang="ro">Bun Venit</value>
         <value xml:lang="ru">Добро пожаловать</value>
         <value xml:lang="th">ยินดีต้อนรับ</value>
-        <value xml:lang="zh_CN">欢迎</value>
         <value xml:lang="zh">欢迎</value>
+        <value xml:lang="zh_CN">欢迎</value>
     </property>
     <property key="CommonWhere">
         <value xml:lang="ar">أين</value>
@@ -6829,8 +6827,8 @@
         <value xml:lang="ro">Unde</value>
         <value xml:lang="ru">Где</value>
         <value xml:lang="th">ที่ไหน</value>
-        <value xml:lang="zh_CN">哪里</value>
         <value xml:lang="zh">哪里</value>
+        <value xml:lang="zh_CN">哪里</value>
     </property>
     <property key="CommonWidth">
         <value xml:lang="ar">العرض</value>
@@ -6844,8 +6842,8 @@
         <value xml:lang="ro">Latime</value>
         <value xml:lang="ru">Ширина</value>
         <value xml:lang="th">ความกว้าง</value>
-        <value xml:lang="zh_CN">宽度</value>
         <value xml:lang="zh">宽度</value>
+        <value xml:lang="zh_CN">宽度</value>
     </property>
     <property key="CommonWorkflowActivityUser">
         <value xml:lang="ar">مهام سيرورة العمل المعينة للمستخدم</value>
@@ -6859,8 +6857,8 @@
         <value xml:lang="ro">Activitati Sarcini de lucru Atribuite Utilizatorului.</value>
         <value xml:lang="ru">Работы, задания и документы, назначенные пользователю</value>
         <value xml:lang="th">กิจกรรมขั้นตอนการทำงานที่มอบหมายให้ผู้ใช้</value>
-        <value xml:lang="zh_CN">工作流活动分派给用户</value>
         <value xml:lang="zh">为用户指定了工作流活动</value>
+        <value xml:lang="zh_CN">工作流活动分派给用户</value>
     </property>
     <property key="CommonWorkflowActivityUserRole">
         <value xml:lang="ar">مهام سيرورة العمل المعينة لدور المستخدم</value>
@@ -6874,8 +6872,8 @@
         <value xml:lang="ro">Activitati Sarcini de Lucru Atribuite Rolului utilizator</value>
         <value xml:lang="ru">Работы, задания и документы, назначенные роли пользователя</value>
         <value xml:lang="th">กิจกรรมขั้นตอนการทำงานที่มอบหมายให้สถานะของผู้ใช้</value>
-        <value xml:lang="zh_CN">工作流活动分派给用户角色</value>
         <value xml:lang="zh">为用户角色指定了工作流角色</value>
+        <value xml:lang="zh_CN">工作流活动分派给用户角色</value>
     </property>
     <property key="CommonY">
         <value xml:lang="ar">ن</value>
@@ -6890,8 +6888,8 @@
         <value xml:lang="ro">D</value>
         <value xml:lang="ru">Д</value>
         <value xml:lang="th">ปี</value>
-        <value xml:lang="zh_CN">是</value>
         <value xml:lang="zh">是</value>
+        <value xml:lang="zh_CN">是</value>
     </property>
     <property key="CommonYear">
         <value xml:lang="ar">السنة</value>
@@ -6905,8 +6903,8 @@
         <value xml:lang="ro">An</value>
         <value xml:lang="ru">Год</value>
         <value xml:lang="th">ปี</value>
-        <value xml:lang="zh_CN">年</value>
         <value xml:lang="zh">年</value>
+        <value xml:lang="zh_CN">年</value>
     </property>
     <property key="CommonYearly">
         <value xml:lang="ar">سنويا</value>
@@ -6934,8 +6932,8 @@
         <value xml:lang="ro">Da</value>
         <value xml:lang="ru">Да</value>
         <value xml:lang="th">ใช่</value>
-        <value xml:lang="zh_CN">是</value>
         <value xml:lang="zh">是</value>
+        <value xml:lang="zh_CN">是</value>
     </property>
     <property key="CommonYouremail">
         <value xml:lang="ar">بريدك الإلكتروني</value>
@@ -6950,8 +6948,8 @@
         <value xml:lang="ro">Email-ul Tau</value>
         <value xml:lang="ru">Ваш email</value>
         <value xml:lang="th">อีเมลของคุณ</value>
-        <value xml:lang="zh_CN">电子邮件</value>
         <value xml:lang="zh">你的邮件地址</value>
+        <value xml:lang="zh_CN">电子邮件</value>
     </property>
     <property key="CommonZipPostalCode">
         <value xml:lang="ar">الرمز البريدي</value>
@@ -6965,8 +6963,8 @@
         <value xml:lang="ro">C.P.</value>
         <value xml:lang="ru">Почтовый индекс</value>
         <value xml:lang="th">รหัสไปรษณีย์</value>
-        <value xml:lang="zh_CN">邮编</value>
         <value xml:lang="zh">Zip/邮政编码</value>
+        <value xml:lang="zh_CN">邮编</value>
     </property>
     <property key="Content">
         <value xml:lang="ar">المحتوى</value>
@@ -6980,8 +6978,8 @@
         <value xml:lang="ro">Continut</value>
         <value xml:lang="ru">Содержание</value>
         <value xml:lang="th">หัวข้อ</value>
-        <value xml:lang="zh_CN">内容</value>
         <value xml:lang="zh">内容</value>
+        <value xml:lang="zh_CN">内容</value>
     </property>
     <property key="DataSource">
         <value xml:lang="ar">مصدر المعلومات</value>
@@ -6995,8 +6993,8 @@
         <value xml:lang="ro">Sursa Date</value>
         <value xml:lang="ru">Источник данных</value>
         <value xml:lang="th">แหล่งข้อมูล</value>
-        <value xml:lang="zh_CN">数据源</value>
         <value xml:lang="zh">数据源</value>
+        <value xml:lang="zh_CN">数据源</value>
     </property>
     <property key="DataSourceCreate">
         <value xml:lang="ar">استحداث مصدر معلومات</value>
@@ -7010,8 +7008,8 @@
         <value xml:lang="ro">Creare Sursa Date</value>
         <value xml:lang="ru">Создать источник данных</value>
         <value xml:lang="th">สร้างแหล่งข้อมูล</value>
-        <value xml:lang="zh_CN">建立数据源</value>
         <value xml:lang="zh">新建数据源</value>
+        <value xml:lang="zh_CN">建立数据源</value>
     </property>
     <property key="DataSourceDataSourceId">
         <value xml:lang="ar">دليل مصدر المعلومات</value>
@@ -7025,8 +7023,8 @@
         <value xml:lang="ro">Cod Sursa Date</value>
         <value xml:lang="ru">Код источника данных</value>
         <value xml:lang="th">รหัสแหล่งข้อมูล</value>
-        <value xml:lang="zh_CN">数据源标识</value>
         <value xml:lang="zh">数据源标识</value>
+        <value xml:lang="zh_CN">数据源标识</value>
     </property>
     <property key="DataSourceDataSourceTypeId">
         <value xml:lang="ar">دليل نوع مصدر المعلومات</value>
@@ -7040,8 +7038,8 @@
         <value xml:lang="ro">Tip Sursa Date</value>
         <value xml:lang="ru">Код типа источника данных</value>
         <value xml:lang="th">รหัสประเภทแหล่งข้อมูล</value>
-        <value xml:lang="zh_CN">数据源类型标识</value>
         <value xml:lang="zh">数据源类型标识</value>
+        <value xml:lang="zh_CN">数据源类型标识</value>
     </property>
     <property key="DataSourceNoDataSourceFoundWithId">
         <value xml:lang="ar">لا مصدر معلومات موجود مع الدليل</value>
@@ -7055,8 +7053,8 @@
         <value xml:lang="ro">Nici-o sursa Date cu codul Id Gasita </value>
         <value xml:lang="ru">Источник данных не найден. Код</value>
         <value xml:lang="th">ไม่พบแหล่งข้อมูลด้วยรหัสนี้</value>
-        <value xml:lang="zh_CN">用标识没有找到数据源</value>
         <value xml:lang="zh">没有找到数据源</value>
+        <value xml:lang="zh_CN">用标识没有找到数据源</value>
     </property>
     <property key="DataSourceType">
         <value xml:lang="ar">نوع مصدر المعلومات</value>
@@ -7070,8 +7068,8 @@
         <value xml:lang="ro">Tip Sursa Date</value>
         <value xml:lang="ru">Тип источника данных</value>
         <value xml:lang="th">ประเภทแหล่งข้อมูล</value>
-        <value xml:lang="zh_CN">数据源类型</value>
         <value xml:lang="zh">数据源类型</value>
+        <value xml:lang="zh_CN">数据源类型</value>
     </property>
     <property key="DataSourceTypeCreate">
         <value xml:lang="ar">استحداث نوع مصدر معلومات</value>
@@ -7085,8 +7083,8 @@
         <value xml:lang="ro">Creare Tip Sursa Date</value>
         <value xml:lang="ru">Создать тип источника данных</value>
         <value xml:lang="th">สร้างประเภทแหล่งข้อมูล</value>
-        <value xml:lang="zh_CN">建立数据源类型</value>
         <value xml:lang="zh">新建数据源类型</value>
+        <value xml:lang="zh_CN">建立数据源类型</value>
     </property>
     <property key="Ebay">
         <value xml:lang="de">eBay</value>
@@ -7128,8 +7126,8 @@
         <value xml:lang="ro">Compartimente</value>
         <value xml:lang="ru">Объект</value>
         <value xml:lang="th">คลังสินค้า</value>
-        <value xml:lang="zh_CN">设备</value>
         <value xml:lang="zh">场所</value>
+        <value xml:lang="zh_CN">设备</value>
     </property>
     <property key="Factoids">
         <value xml:lang="ar">أتعرف؟</value>
@@ -7143,8 +7141,8 @@
         <value xml:lang="ro">Il Cunosti?</value>
         <value xml:lang="ru">Знаете ли Вы?</value>
         <value xml:lang="th">คุณทราบหรือไม่ ?</value>
-        <value xml:lang="zh_CN">你知道吗？</value>
         <value xml:lang="zh">你知道吗？</value>
+        <value xml:lang="zh_CN">你知道吗？</value>
     </property>
     <property key="Financials">
         <value xml:lang="ar">المالية</value>
@@ -7340,8 +7338,8 @@
         <value xml:lang="en">Remove</value>
         <value xml:lang="es">Suprimir</value>
         <value xml:lang="fr">Retirer</value>
-        <value xml:lang="nl">Verwijderen</value>
         <value xml:lang="it">Rimuovi</value>
+        <value xml:lang="nl">Verwijderen</value>
         <value xml:lang="pt">Remover</value>
         <value xml:lang="ro">Sterge</value>
         <value xml:lang="ru">Удалить</value>
@@ -7503,7 +7501,7 @@
         <value xml:lang="en">Human Resource Application</value>
         <value xml:lang="es">Aplicación de RR.HH.</value>
         <value xml:lang="fr">Application de gestion des ressources humaines</value>
-    </property>    
+    </property>
     <property key="HandheldFacility">
         <value xml:lang="de">Lagerverwaltung mit PDA</value>
         <value xml:lang="en">Handheld Facility</value>
@@ -7524,8 +7522,8 @@
         <value xml:lang="ro">Productie</value>
         <value xml:lang="ru">Производство</value>
         <value xml:lang="th">การผลิต</value>
-        <value xml:lang="zh_CN">制造</value>
         <value xml:lang="zh">生产</value>
+        <value xml:lang="zh_CN">制造</value>
     </property>
     <property key="MyPage">
         <value xml:lang="de">Meine Seite</value>
@@ -7545,8 +7543,8 @@
         <value xml:lang="ro">Vanzari</value>
         <value xml:lang="ru">Маркетинг</value>
         <value xml:lang="th">การตลาด</value>
-        <value xml:lang="zh_CN">推销</value>
         <value xml:lang="zh">市场宣传</value>
+        <value xml:lang="zh_CN">推销</value>
     </property>
     <property key="MostRecentlyViewed">
         <value xml:lang="ar">شوهدت حديثا</value>
@@ -7560,8 +7558,8 @@
         <value xml:lang="ro">Vazuti de Curand</value>
         <value xml:lang="ru">Просмотрено недавно</value>
         <value xml:lang="th">แสดงเมื่อไม่นานมานี้</value>
-        <value xml:lang="zh_CN">最近浏览</value>
         <value xml:lang="zh">最近浏览</value>
+        <value xml:lang="zh_CN">最近浏览</value>
     </property>
     <property key="NoCustomMethodName">
         <value xml:lang="ar"> اسم طريقة تحويل وحدات القياس عير موجود</value>
@@ -7587,8 +7585,8 @@
         <value xml:lang="pt">Relação de Conversão UOM Não Encontrada</value>
         <value xml:lang="ro">Relatie Conversiune UdM Negasita</value>
         <value xml:lang="th">UOM ไม่พบการเปลี่ยนแปลงความสัมพันธ์</value>
-        <value xml:lang="zh_CN">单位转化关系没有找到</value>
         <value xml:lang="zh">没有找到货币转换关系</value>
+        <value xml:lang="zh_CN">单位转化关系没有找到</value>
     </property>
     <property key="Oagis">
         <value xml:lang="de">Oagis</value>
@@ -7609,8 +7607,8 @@
         <value xml:lang="ro">Comenzi</value>
         <value xml:lang="ru">Заказ</value>
         <value xml:lang="th">รายการสั่งซื้อสินค้า</value>
-        <value xml:lang="zh_CN">订单</value>
         <value xml:lang="zh">订单</value>
+        <value xml:lang="zh_CN">订单</value>
     </property>
     <property key="PageTitleAddDataSource">
         <value xml:lang="ar">إضافة مصدر المعلومات جديد</value>
@@ -7624,8 +7622,8 @@
         <value xml:lang="ro">Adauga Noua Sursa Date</value>
         <value xml:lang="ru">Добавить новый источник данных</value>
         <value xml:lang="th">เพิ่มแหล่งข้อมูลใหม่</value>
-        <value xml:lang="zh_CN">增加新数据源</value>
         <value xml:lang="zh">新建数据源</value>
+        <value xml:lang="zh_CN">增加新数据源</value>
     </property>
     <property key="PageTitleAddDataSourceType">
         <value xml:lang="ar">اضافة نوع مصدر المعلومات جديد</value>
@@ -7639,8 +7637,8 @@
         <value xml:lang="ro">Adauga Noul Tip Sursa Date</value>
         <value xml:lang="ru">Добавить новый тип источника данных</value>
         <value xml:lang="th">เพิ่มประเภทแหล่งข้อมูลใหม่</value>
-        <value xml:lang="zh_CN">增加新数据源类型</value>
         <value xml:lang="zh">新建数据源类型</value>
+        <value xml:lang="zh_CN">增加新数据源类型</value>
     </property>
     <property key="PageTitleEditDataSource">
         <value xml:lang="ar">تحرير مصدر المعلومات</value>
@@ -7654,8 +7652,8 @@
         <value xml:lang="ro">Actualizeaza Sursa Date</value>
         <value xml:lang="ru">Изменить источник данных</value>
         <value xml:lang="th">แก้ไขแหล่งข้อมูล</value>
-        <value xml:lang="zh_CN">编辑数据源</value>
         <value xml:lang="zh">编辑数据源</value>
+        <value xml:lang="zh_CN">编辑数据源</value>
     </property>
     <property key="PageTitleEditDataSourceType">
         <value xml:lang="ar">تحرير نوع مصدر المعلومات</value>
@@ -7669,8 +7667,8 @@
         <value xml:lang="ro">Actualizeaza Tip Sursa Date</value>
         <value xml:lang="ru">Изменить тип источника данных</value>
         <value xml:lang="th">แก้ไขประเภทแหล่งข้อมูล</value>
-        <value xml:lang="zh_CN">编辑数据源类型</value>
         <value xml:lang="zh">编辑数据源类型</value>
+        <value xml:lang="zh_CN">编辑数据源类型</value>
     </property>
     <property key="PageTitleListDataSource">
         <value xml:lang="ar">قائمة مصادر المعلومات</value>
@@ -7684,8 +7682,8 @@
         <value xml:lang="ro">Lista Surse Date</value>
         <value xml:lang="ru">Перечень источников данных</value>
         <value xml:lang="th">รายการแหล่งข้อมูล</value>
-        <value xml:lang="zh_CN">数据源列表</value>
         <value xml:lang="zh">数据源列表</value>
+        <value xml:lang="zh_CN">数据源列表</value>
     </property>
     <property key="PageTitleListDataSourceType">
         <value xml:lang="ar">قائمة أنواع مصدر المعلومات</value>
@@ -7699,8 +7697,8 @@
         <value xml:lang="ro">Lista Tipuri Surse Date</value>
         <value xml:lang="ru">Перечень типов источников данных</value>
         <value xml:lang="th">รายการประเภทแหล่งข้อมูล</value>
-        <value xml:lang="zh_CN">数据源类型列表</value>
         <value xml:lang="zh">数据源类型列表</value>
+        <value xml:lang="zh_CN">数据源类型列表</value>
     </property>
     <property key="Party">
         <value xml:lang="ar">طرف</value>
@@ -7714,8 +7712,8 @@
         <value xml:lang="ro">Subiecti</value>
         <value xml:lang="ru">Участник</value>
         <value xml:lang="th">กลุ่มผู้ใช้</value>
-        <value xml:lang="zh_CN">团体</value>
         <value xml:lang="zh">会员</value>
+        <value xml:lang="zh_CN">团体</value>
     </property>
     <property key="PartyContactMechID">
         <value xml:lang="ar">دليل ميكانيزمة الصلة</value>
@@ -7729,8 +7727,8 @@
         <value xml:lang="ro">Contact</value>
         <value xml:lang="ru">Код способа контактов</value>
         <value xml:lang="th">รหัสวิธีการติดต่อ</value>
-        <value xml:lang="zh_CN">联络机制标识</value>
         <value xml:lang="zh">联系方法标识</value>
+        <value xml:lang="zh_CN">联络机制标识</value>
     </property>
     <property key="PartyContactPurpose">
         <value xml:lang="ar">هدف الصلة</value>
@@ -7744,8 +7742,8 @@
         <value xml:lang="ro">Functie Contact</value>
         <value xml:lang="ru">Цель контакта</value>
         <value xml:lang="th">เป้าหมายการติดต่อ</value>
-        <value xml:lang="zh_CN">联络目的</value>
         <value xml:lang="zh">联系目的</value>
+        <value xml:lang="zh_CN">联络目的</value>
     </property>
     <property key="PartyPartyID">
         <value xml:lang="ar">دليل الصلة</value>
@@ -7759,8 +7757,8 @@
         <value xml:lang="ro">Cod Subiect</value>
         <value xml:lang="ru">Код участника</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh_CN">团体标识</value>
         <value xml:lang="zh">会员标识</value>
+        <value xml:lang="zh_CN">团体标识</value>
     </property>
     <property key="Project">
         <value xml:lang="de">Projekt</value>
@@ -7866,8 +7864,8 @@
         <value xml:lang="pt">FerramentasWeb</value>
         <value xml:lang="ro">Instrumente Web</value>
         <value xml:lang="th">เว็บทูล</value>
-        <value xml:lang="zh_CN">Web管理工具</value>
         <value xml:lang="zh">Web工具</value>
+        <value xml:lang="zh_CN">Web管理工具</value>
     </property>
     <property key="WorkEffort">
         <value xml:lang="ar">مجهود العمل</value>
@@ -7880,15 +7878,15 @@
         <value xml:lang="pt">Mão-De-Obra</value>
         <value xml:lang="ro">Sarcini de Lucru</value>
         <value xml:lang="th">ความพยายามในการทำงาน</value>
-        <value xml:lang="zh_CN">工作计划</value>
         <value xml:lang="zh">人工服务</value>
+        <value xml:lang="zh_CN">工作计划</value>
     </property>
     <property key="ar">
         <value xml:lang="ar">عربية</value>
         <value xml:lang="de">Arabisch</value>
-        <value xml:lang="fr">Arabe</value>
         <value xml:lang="en">Arabic</value>
         <value xml:lang="es">Árabe</value>
+        <value xml:lang="fr">Arabe</value>
         <value xml:lang="th">Arabic</value>
     </property>
     <property key="bu">
@@ -7903,8 +7901,8 @@
         <value xml:lang="ro">Bulgara</value>
         <value xml:lang="ru">Болгарский</value>
         <value xml:lang="th">บัลแกเรีย</value>
-        <value xml:lang="zh_CN">保加利亚语</value>
         <value xml:lang="zh">保加利亚语</value>
+        <value xml:lang="zh_CN">保加利亚语</value>
     </property>
     <property key="cz">
         <value xml:lang="ar">تشيكية</value>
@@ -7917,8 +7915,8 @@
         <value xml:lang="pt">Czeck</value>
         <value xml:lang="ro">Ceha</value>
         <value xml:lang="ru">Чешский</value>
-        <value xml:lang="zh_CN">捷克斯洛伐克语</value>
         <value xml:lang="zh">捷克语</value>
+        <value xml:lang="zh_CN">捷克斯洛伐克语</value>
     </property>
     <property key="de">
         <value xml:lang="ar">ألمانية</value>
@@ -7932,8 +7930,8 @@
         <value xml:lang="ro">Germana</value>
         <value xml:lang="ru">Немецкий</value>
         <value xml:lang="th">เยอรมัน</value>
-        <value xml:lang="zh_CN">德语</value>
         <value xml:lang="zh">德语</value>
+        <value xml:lang="zh_CN">德语</value>
     </property>
     <property key="en">
         <value xml:lang="ar">إنجليزية</value>
@@ -7947,8 +7945,8 @@
         <value xml:lang="ro">Engleza</value>
         <value xml:lang="ru">Английский</value>
         <value xml:lang="th">อังกฤษ</value>
-        <value xml:lang="zh_CN">英语</value>
         <value xml:lang="zh">英语</value>
+        <value xml:lang="zh_CN">英语</value>
     </property>
     <property key="en_GB">
         <value xml:lang="ar">إنجليزية بريطانيا</value>
@@ -7962,8 +7960,8 @@
         <value xml:lang="ro">Engleza Britanica</value>
         <value xml:lang="ru">Британский английский</value>
         <value xml:lang="th">British English</value>
-        <value xml:lang="zh_CN">英国英语</value>
         <value xml:lang="zh">英国英语</value>
+        <value xml:lang="zh_CN">英国英语</value>
     </property>
     <property key="es">
         <value xml:lang="ar">إسبانية</value>
@@ -7977,8 +7975,8 @@
         <value xml:lang="ro">Spaniola</value>
         <value xml:lang="ru">Испанский</value>
         <value xml:lang="th">สเปน</value>
-        <value xml:lang="zh_CN">西班牙语</value>
         <value xml:lang="zh">西班牙语</value>
+        <value xml:lang="zh_CN">西班牙语</value>
     </property>
     <property key="fr">
         <value xml:lang="ar">فرنسية</value>
@@ -7992,8 +7990,8 @@
         <value xml:lang="ro">Franceze</value>
         <value xml:lang="ru">Французкий</value>
         <value xml:lang="th">ฝรั่งเศส</value>
-        <value xml:lang="zh_CN">法语</value>
         <value xml:lang="zh">法语</value>
+        <value xml:lang="zh_CN">法语</value>
     </property>
     <property key="gr">
         <value xml:lang="ar">يونانية</value>
@@ -8007,8 +8005,8 @@
         <value xml:lang="ro">Greaca</value>
         <value xml:lang="ru">Греческий</value>
         <value xml:lang="th">กรีก</value>
-        <value xml:lang="zh_CN">希腊语</value>
         <value xml:lang="zh">希腊语</value>
+        <value xml:lang="zh_CN">希腊语</value>
     </property>
     <property key="it">
         <value xml:lang="ar">إيطالية</value>
@@ -8048,8 +8046,8 @@
         <value xml:lang="ro">Portugheza</value>
         <value xml:lang="ru">Португальский</value>
         <value xml:lang="th">โปรตุเกส</value>
-        <value xml:lang="zh_CN">葡萄牙语</value>
         <value xml:lang="zh">葡萄牙语</value>
+        <value xml:lang="zh_CN">葡萄牙语</value>
     </property>
     <property key="pt_BR">
         <value xml:lang="ar">برتغالية برازيل</value>
@@ -8063,8 +8061,8 @@
         <value xml:lang="ro">Portugheza Braziliana</value>
         <value xml:lang="ru">Бразильский португальский</value>
         <value xml:lang="th">โปรตุเกส บราซิล</value>
-        <value xml:lang="zh_CN">葡萄牙语 巴西</value>
         <value xml:lang="zh">巴西葡萄牙语</value>
+        <value xml:lang="zh_CN">葡萄牙语 巴西</value>
     </property>
     <property key="pt_PT">
         <value xml:lang="ar">برتغالية البرتغال</value>
@@ -8078,8 +8076,8 @@
         <value xml:lang="ro">Portugheza Portugalia</value>
         <value xml:lang="ru">Португальский</value>
         <value xml:lang="th">โปรตุเกส</value>
-        <value xml:lang="zh_CN">葡萄牙语 葡萄牙</value>
         <value xml:lang="zh">葡萄牙语</value>
+        <value xml:lang="zh_CN">葡萄牙语 葡萄牙</value>
     </property>
     <property key="ru">
         <value xml:lang="de">Russisch</value>
@@ -8100,7 +8098,7 @@
         <value xml:lang="ro">Chineza</value>
         <value xml:lang="ru">Китайский</value>
         <value xml:lang="th">จีน</value>
-        <value xml:lang="zh_CN">中文</value>
         <value xml:lang="zh">中文</value>
+        <value xml:lang="zh_CN">中文</value>
     </property>
 </resource>

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -16,8 +17,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="WebPosAdjustments">
         <value xml:lang="en">Adjustments</value>
         <value xml:lang="fr">Ajustements</value>
@@ -158,7 +158,6 @@
         <value xml:lang="fr">Choisir la caisse</value>
         <value xml:lang="it">Scegli Terminale</value>
     </property>
-
     <property key="WebPosCompleteSale">
         <value xml:lang="en">Press Finish To Complete Sale</value>
         <value xml:lang="fr">Choisir Finaliser pour terminer la vente</value>

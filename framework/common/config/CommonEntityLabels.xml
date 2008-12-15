@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -16,8 +17,7 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="CustomMethod.description.6000">
         <value xml:lang="de">Beispiel Formel für Aufgabe (qty * estimatedMilliSeconds * 10)</value>
         <value xml:lang="en">Example task formula (qty * estimatedMilliSeconds * 10)</value>
@@ -122,7 +122,7 @@
         <value xml:lang="zh">口耳相传</value>
     </property>
     <property key="Enumeration.description.AFFIL_SALES_CHANNEL">
-        <value xml:lang="de">Verkaufskanal: Mitglieder</value>        
+        <value xml:lang="de">Verkaufskanal: Mitglieder</value>
         <value xml:lang="en">Affiliate Channel</value>
         <value xml:lang="fr">Canal de vente : affilié</value>
         <value xml:lang="it">Canale Affiliato</value>
@@ -135,7 +135,7 @@
     <property key="Enumeration.description.BANKING_IN_REASON">
         <value xml:lang="en">Banking during the day</value>
         <value xml:lang="fr">Opération banquaire</value>
-    </property>    
+    </property>
     <property key="Enumeration.description.BANKING_OUT_REASON">
         <value xml:lang="en">Banking during the day</value>
         <value xml:lang="fr">Opération banquaire</value>
@@ -143,15 +143,15 @@
     <property key="Enumeration.description.CASH_IN_REASON">
         <value xml:lang="en">Petty Cash Paid into Till</value>
         <value xml:lang="fr">Entrée d'espèces dans la caisse</value>
-    </property>    
+    </property>
     <property key="Enumeration.description.CASH_OUT_REASON">
         <value xml:lang="en">Petty Cash out</value>
         <value xml:lang="fr">Sortie d'espèces de la caisse</value>
-    </property>    
+    </property>
     <property key="Enumeration.description.CHANGE_IN_REASON">
         <value xml:lang="en">Change added to Till's float</value>
         <value xml:lang="fr">Monnaie ajoutée à l'encours de caisse</value>
-    </property>    
+    </property>
     <property key="Enumeration.description.CNT_PRV_BRONZE">
         <value xml:lang="en">CNT_PRV_BRONZE</value>
         <value xml:lang="fr">Niveau Bronze</value>
@@ -592,7 +592,7 @@
         <value xml:lang="zh">绝对网址</value>
     </property>
     <property key="Enumeration.description.KOTT_OFBURL">
-        <value xml:lang="de">OFBiz URL</value>        
+        <value xml:lang="de">OFBiz URL</value>
         <value xml:lang="en">OFBiz URL</value>
         <value xml:lang="fr">URL (lien internet) au sein d'OFBiz</value>
         <value xml:lang="it">URL OFBiz</value>
@@ -1869,7 +1869,7 @@
         <value xml:lang="zh">强制序号 (对每个组织没有间隔)</value>
     </property>
     <property key="Enumeration.description.QTESQ_STANDARD">
-        <value xml:lang="de">Standart (effizienter, kann Lücken aufweisen, pro System</value>        
+        <value xml:lang="de">Standart (effizienter, kann Lücken aufweisen, pro System</value>
         <value xml:lang="en">Standard (faster, may have gaps, per system)</value>
         <value xml:lang="es">Estándar (más rápido, puede tener huecos, por sistema)</value>
         <value xml:lang="it">Normale (più veloce, potrebbe esserci pause, per il sistema)</value>
@@ -2119,7 +2119,7 @@
         <value xml:lang="zh">需要参与</value>
     </property>
     <property key="Enumeration.description.WEE_REQUIRE">
-        <value xml:lang="de">Beteiligung benötigt</value>        
+        <value xml:lang="de">Beteiligung benötigt</value>
         <value xml:lang="en">Involvement Required</value>
         <value xml:lang="es">Requiere actuación</value>
         <value xml:lang="fr">Participation requise</value>
@@ -2131,7 +2131,7 @@
         <value xml:lang="zh">必须的参与</value>
     </property>
     <property key="Enumeration.description.WES_CONFIDENTIAL">
-        <value xml:lang="de">Sehr eingeschränkter, vertraulicher Zugriff</value>        
+        <value xml:lang="de">Sehr eingeschränkter, vertraulicher Zugriff</value>
         <value xml:lang="en">Very restricted, confidential access</value>
         <value xml:lang="es">Muy restringido, acceso confidencial</value>
         <value xml:lang="fr">Accès très restreint et confidentiel</value>
@@ -2143,7 +2143,7 @@
         <value xml:lang="zh">极度受限，秘密访问</value>
     </property>
     <property key="Enumeration.description.WES_PRIVATE">
-        <value xml:lang="de">Eingeschränkter, privater Zugriff</value>        
+        <value xml:lang="de">Eingeschränkter, privater Zugriff</value>
         <value xml:lang="en">Restricted, private access</value>
         <value xml:lang="es">Restringido, acceso privado</value>
         <value xml:lang="fr">Accès restreint et privé</value>
@@ -2155,7 +2155,7 @@
         <value xml:lang="zh">受限制，私人访问</value>
     </property>
     <property key="Enumeration.description.WES_PUBLIC">
-        <value xml:lang="de">Generell, öffentlicher Zugriff</value>        
+        <value xml:lang="de">Generell, öffentlicher Zugriff</value>
         <value xml:lang="en">General, public access</value>
         <value xml:lang="es">General, acceso público</value>
         <value xml:lang="fr">Général, accès public</value>
@@ -2304,7 +2304,7 @@
         <value xml:lang="th">ขั้นตอน</value>
     </property>
     <property key="Enumeration.description._00_">
-        <value xml:lang="de">Nicht anwendbar</value>        
+        <value xml:lang="de">Nicht anwendbar</value>
         <value xml:lang="en">Not Applicable</value>
         <value xml:lang="es">No aplicable</value>
         <value xml:lang="fr">Non applicable</value>
@@ -2317,7 +2317,7 @@
         <value xml:lang="zh">不可用</value>
     </property>
     <property key="Enumeration.description._NA_">
-        <value xml:lang="de">Nicht anwendbar</value>        
+        <value xml:lang="de">Nicht anwendbar</value>
         <value xml:lang="en">Not Applicable</value>
         <value xml:lang="es">No aplicable</value>
         <value xml:lang="fr">Non applicable</value>
@@ -2330,7 +2330,7 @@
         <value xml:lang="zh">不可用</value>
     </property>
     <property key="EnumerationType.description.COGS_METHODS">
-        <value xml:lang="de">Methode COGS (Kosten der verkauften Waren)</value>        
+        <value xml:lang="de">Methode COGS (Kosten der verkauften Waren)</value>
         <value xml:lang="en">COGS Methods</value>
         <value xml:lang="es">Métodos de coste de artículos vendidos</value>
         <value xml:lang="it">Metodi COGS</value>
@@ -2374,7 +2374,7 @@
         <value xml:lang="zh">发票序号方法</value>
     </property>
     <property key="EnumerationType.description.INV_RES_ORDER">
-        <value xml:lang="de">Lagerreservation Auftrag</value>        
+        <value xml:lang="de">Lagerreservation Auftrag</value>
         <value xml:lang="en">Inventory Reservation Order</value>
         <value xml:lang="es">Orden de reserva de inventario</value>
         <value xml:lang="fr">Inventaire des ordres de réservation</value>
@@ -2409,7 +2409,7 @@
         <value xml:lang="zh">分类词汇关系类型</value>
     </property>
     <property key="EnumerationType.description.ORDER_SALES_CHANNEL">
-        <value xml:lang="de">Verkaufskanal: Aufträge</value>        
+        <value xml:lang="de">Verkaufskanal: Aufträge</value>
         <value xml:lang="en">Order Sales Channel</value>
         <value xml:lang="es">Canal de pedido de venta</value>
         <value xml:lang="it">Canale di Vendita</value>
@@ -2420,7 +2420,7 @@
         <value xml:lang="zh">定单销售渠道</value>
     </property>
     <property key="EnumerationType.description.ORDER_SEQMD">
-        <value xml:lang="de">Aufträge Folgenummer Modus</value>        
+        <value xml:lang="de">Aufträge Folgenummer Modus</value>
         <value xml:lang="en">Order Sequence Mode</value>
         <value xml:lang="es">Modo de secuencia de pedido</value>
         <value xml:lang="it">Modo Sequenza Ordine</value>
@@ -2496,7 +2496,7 @@
         <value xml:lang="zh">产品价格输入参数</value>
     </property>
     <property key="EnumerationType.description.PROD_PROMO_ACTION">
-        <value xml:lang="de">Produktaktion Aktion</value>        
+        <value xml:lang="de">Produktaktion Aktion</value>
         <value xml:lang="en">Product Promotion Action</value>
         <value xml:lang="es">Acción de promoción de producto</value>
         <value xml:lang="it">Azione Promozione Prodotto</value>
@@ -2615,7 +2615,7 @@
         <value xml:lang="zh">人工服务范畴分类</value>
     </property>
     <property key="EnumerationType.description._NA_">
-        <value xml:lang="de">Nicht anwendbar</value>        
+        <value xml:lang="de">Nicht anwendbar</value>
         <value xml:lang="en">Not Applicable</value>
         <value xml:lang="es">No aplicable</value>
         <value xml:lang="it">Non Applicabile</value>
@@ -2673,7 +2673,7 @@
         <value xml:lang="zh">安圭拉</value>
     </property>
     <property key="Geo.geoName.ALB">
-        <value xml:lang="de">Albanien</value>        
+        <value xml:lang="de">Albanien</value>
         <value xml:lang="en">Albania</value>
         <value xml:lang="it">Albania</value>
         <value xml:lang="pt">Albania</value>
@@ -2683,7 +2683,7 @@
         <value xml:lang="zh">阿尔巴尼亚</value>
     </property>
     <property key="Geo.geoName.AND">
-        <value xml:lang="de">Andorra</value>        
+        <value xml:lang="de">Andorra</value>
         <value xml:lang="en">Andorra</value>
         <value xml:lang="it">Andorra</value>
         <value xml:lang="pt">Andorra</value>
@@ -2713,7 +2713,7 @@
         <value xml:lang="zh">阿联酋</value>
     </property>
     <property key="Geo.geoName.ARG">
-        <value xml:lang="de">Argentinien</value>        
+        <value xml:lang="de">Argentinien</value>
         <value xml:lang="en">Argentina</value>
         <value xml:lang="it">Argentina</value>
         <value xml:lang="pt">Argentina</value>
@@ -5959,8 +5959,8 @@
         <value xml:lang="zh">正在递送</value>
     </property>
     <property key="StatusItem.description.INV_BEING_TRANS_PRM">
-        <value xml:lang="en">Being Transfered (Promised)</value>
         <value xml:lang="de">Wird übertragen (Reserviert)</value>
+        <value xml:lang="en">Being Transfered (Promised)</value>
         <value xml:lang="es">Siendo transferido (reservado)</value>
         <value xml:lang="fr">En cours de transfert (réservé)</value>
         <value xml:lang="it">In Trasferimento (Promessa)</value>
@@ -8070,7 +8070,6 @@
         <value xml:lang="de">Anfrage annullieren</value>
         <value xml:lang="en">Cancel Request</value>
         <value xml:lang="es">Cancelar petición</value>
-        <value xml:lang="es">Cancelar petición</value>
         <value xml:lang="it">Richiesta Cancellata</value>
         <value xml:lang="pt">Cancelar Pedido</value>
         <value xml:lang="ro">Cerere Stearsa</value>
@@ -9471,7 +9470,7 @@
         <value xml:lang="zh">拒绝请求</value>
     </property>
     <property key="StatusValidChange.transitionName.RETURN_ACCEPTED.RETURN_CANCELLED">
-        <value xml:lang="de">Angenommene Rücklieferung annullieren</value>        
+        <value xml:lang="de">Angenommene Rücklieferung annullieren</value>
         <value xml:lang="en">Accepted Return Cancelled</value>
         <value xml:lang="es">Devolución aceptada cancelada</value>
         <value xml:lang="it">Accettata Reso Cancellato</value>
@@ -10518,8 +10517,7 @@
         <value xml:lang="de">Franc Djibouti</value>
         <value xml:lang="en">Djibouti Franc</value>
         <value xml:lang="it">Franco Djibouti</value>
-        <value xml:lang="nl">
-</value>
+        <value xml:lang="nl"></value>
         <value xml:lang="pt">Djibouti Franc</value>
         <value xml:lang="ro">Franc Djibouti</value>
         <value xml:lang="ru">Франк Джибути</value>

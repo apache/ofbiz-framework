@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
+
     Licensed to the Apache Software Foundation (ASF) under one
     or more contributor license agreements.  See the NOTICE file
     distributed with this work for additional information
@@ -7,17 +8,16 @@
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
     with the License.  You may obtain a copy of the License at
-    
+
     http://www.apache.org/licenses/LICENSE-2.0
-    
+
     Unless required by applicable law or agreed to in writing,
     software distributed under the License is distributed on an
     "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
--->
-<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+--><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="coreEvents.delegator_not_passed">
         <value xml:lang="de">Benötigter Parameter 'delegator' fehlt.</value>
         <value xml:lang="en">Required parameter 'delegator' not passed.</value>
@@ -132,7 +132,7 @@
         <value xml:lang="zh">你必须指定一个 'SERVICE_NAME' (其它参数包括： SERVICE_TIME, SERVICE_FREQUENCY, SERVICE_INTERVAL, SERVICE_COUNT)</value>
     </property>
     <property key="coreEvents.must_specify_service_name">
-        <value xml:lang="de">Sie müssen einen Servicenamen 'SERVICE_NAME' und optional einen Modus angeben (sync oder async, standardmässig auf sync)</value>        
+        <value xml:lang="de">Sie müssen einen Servicenamen 'SERVICE_NAME' und optional einen Modus angeben (sync oder async, standardmässig auf sync)</value>
         <value xml:lang="en">You must specify a 'serviceName', and optionally a 'mode' (sync or async, defaults to sync)</value>
         <value xml:lang="es">Debe especificar un nombre de servicio y opcionalmente el modo (síncrono o asíncrono, Síncrono por defecto)</value>
         <value xml:lang="fr">Vous devez spécifier un 'service Name', et optionnellement un mode (sync ou async, standard: sync)</value>
@@ -174,7 +174,7 @@
         </value>
     </property>
     <property key="coreEvents.not_authorized_to_call">
-        <value xml:lang="en">Sie sind nicht berechtigt, diesen 'non-exported' Service aufzurufen. Sie müssen sich am System anmelden und die Sicherheitsberechtigung SERVICE_INVOKE_ANY besitzen.</value>        
+        <value xml:lang="de">Sie sind nicht berechtigt, diesen 'non-exported' Service aufzurufen. Sie müssen sich am System anmelden und die Sicherheitsberechtigung SERVICE_INVOKE_ANY besitzen.</value>
         <value xml:lang="en">You are not authorized to call this non-exported service, you must be logged in and have the SERVICE_INVOKE_ANY permission</value>
         <value xml:lang="es">Usten no está autorizada a invocar a este servicio, para lo cual debe contar con el permiso: SERVICE_INVOKE_ANY</value>
         <value xml:lang="fr">Vous n'êtes pas autorisé à appeler ce sercie non exporté, vous devez  être connecté et avoir l'autorisation du SERVICE_INVOKE_ANY.</value>
