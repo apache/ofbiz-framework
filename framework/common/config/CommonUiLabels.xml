@@ -1896,8 +1896,8 @@
         <value xml:lang="ro">Email-uri</value>
         <value xml:lang="ru">Сообщения</value>
         <value xml:lang="th">อีเมล</value>
-        <value xml:lang="zh_CN">电子邮件</value>
         <value xml:lang="zh">电子邮件</value>
+        <value xml:lang="zh_CN">电子邮件</value>
     </property>
     <property key="CommonEmptyHeader">
         <value xml:lang="de"> </value>
