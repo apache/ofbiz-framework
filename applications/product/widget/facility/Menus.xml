@@ -21,8 +21,8 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
-    <menu name="FacilityTabBar" default-menu-item-name="EditFacility" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="FacilityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditFacility">
         <menu-item name="EditFacility" title="${uiLabelMap.ProductFacility}">
             <link target="EditFacility?facilityId=${facilityId}"/>
         </menu-item>
@@ -84,7 +84,8 @@ under the License.
             <link target="FindShipment?originFacilityId=${facilityId}&amp;lookupFlag=Y"/>
         </menu-item>
     </menu>
-    <menu name="InventoryItemLabelsTabBar" default-menu-item-name="FindInventoryItemLabels">
+    <menu name="InventoryItemLabelsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="FindInventoryItemLabels">
         <menu-item name="FindInventoryItemLabels" title="${uiLabelMap.ProductInventoryItemLabels}">
             <link target="FindInventoryItemLabels"/>
         </menu-item>
@@ -92,7 +93,8 @@ under the License.
             <link target="EditInventoryItemLabelTypes"/>
         </menu-item>
     </menu>
-    <menu name="InventoryItemLabelTabBar" default-menu-item-name="EditInventoryItemLabel" selected-menuitem-context-field-name="subTabButtonItem">
+    <menu name="InventoryItemLabelTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditInventoryItemLabel" selected-menuitem-context-field-name="subTabButtonItem">
         <menu-item name="EditInventoryItemLabel" title="${uiLabelMap.ProductInventoryItemLabel}">
             <link target="EditInventoryItemLabel?inventoryItemLabelId=${inventoryItemLabelId}"/>
         </menu-item>
@@ -100,8 +102,8 @@ under the License.
             <link target="EditInventoryItemLabelAppls?inventoryItemLabelId=${inventoryItemLabelId}"/>
         </menu-item>
     </menu>
-    <menu name="InventoryItemTabBar" default-menu-item-name="EditInventoryItem" selected-menuitem-context-field-name="subTabButtonItem"
-        menu-container-style="button-bar tab-bar" default-selected-style="selected">
+    <menu name="InventoryItemTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditInventoryItem" selected-menuitem-context-field-name="subTabButtonItem">
         <menu-item name="EditInventoryItem" title="${uiLabelMap.ProductInventoryItem}">
             <link target="EditInventoryItem?inventoryItemId=${inventoryItemId}&amp;facilityId=${facilityId}"/>
         </menu-item>

@@ -200,7 +200,8 @@ under the License.
         </menu-item>
         <menu-item name="myTime" title="${uiLabelMap.TimesheetMyTime}"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
     </menu>
-    <menu name="CommSubTabBar" menu-container-style="button-bar button-style-2">
+    <menu name="CommSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
         <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}">
             <condition>
                 <and>
@@ -294,7 +295,8 @@ under the License.
             <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
         </menu-item>
     </menu>
-    <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
+    <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
         <menu-item name="cancelledRequest" title="Cancel request" >
             <condition>
                 <and>
