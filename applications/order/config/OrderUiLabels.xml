@@ -8158,8 +8158,8 @@
         <value xml:lang="ro">Comanda Vanzare </value>
         <value xml:lang="ru">Заказ на продажу</value>
         <value xml:lang="th">รายการขาย</value>
-        <value xml:lang="zh_CN">销售订单</value>
         <value xml:lang="zh">销售订单</value>
+        <value xml:lang="zh_CN">销售订单</value>
     </property>
     <property key="OrderSalesTax"> <!-- Maybe something  is to be done here to differentiate Sales Tax and VAT, seems OK so far... -->
         <value xml:lang="cs">DPH</value>
