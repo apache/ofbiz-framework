@@ -54,8 +54,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="LoggingTabBar" type="simple" menu-container-style="button-bar tab-bar"
-        default-selected-style="selected" selected-menuitem-context-field-name="logMenuItem">
+    <menu name="LoggingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="logMenuItem">
         <menu-item name="viewLog" title="${uiLabelMap.WebtoolsViewLog}">
             <link target="LogView"/>
         </menu-item>
@@ -64,8 +64,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="TempExprTabBar" type="simple" menu-container-style="button-bar tab-bar"
-        default-selected-style="selected" selected-menuitem-context-field-name="tabMenuItem">
+    <menu name="TempExprTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="tabMenuItem">
         <menu-item name="findExpression" title="${uiLabelMap.CommonFind}">
             <link target="findTemporalExpression"/>
         </menu-item>

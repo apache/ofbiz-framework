@@ -46,7 +46,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
+    <menu name="RequestSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2 no-clear">
         <menu-item name="newRequest" title="${uiLabelMap.OrderNewRequest}">
             <link target="request"/>
         </menu-item>

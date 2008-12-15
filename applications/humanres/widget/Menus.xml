@@ -108,8 +108,8 @@
         </menu-item>
     </menu>
     
-    <menu name="EmployeeProfileTabBar" default-menu-item-name="EditEmployeeSkills" default-selected-style="selected"
-        type="simple" menu-container-style="button-bar tab-bar" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="EmployeeProfileTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditEmployeeSkills">
         <menu-item name="EmployeeProfile" title="${uiLabelMap.PartyProfile}">
             <link target="EmployeeProfile?partyId=${partyId}"/>
         </menu-item>
@@ -137,8 +137,8 @@
         </menu-item>
     </menu>
     
-    <menu name="EmplPositionTypeTabBar" default-menu-item-name="EditEmplPositionType" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem2">
+    <menu name="EmplPositionTypeTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditEmplPositionType" selected-menuitem-context-field-name="tabButtonItem2">
         <menu-item name="EditEmplPositionType" title="${uiLabelMap.HumanResEmplPositionType}">
             <link target="EditEmplPositionTypes?emplPositionTypeId=${emplPositionTypeId}"/>
         </menu-item>

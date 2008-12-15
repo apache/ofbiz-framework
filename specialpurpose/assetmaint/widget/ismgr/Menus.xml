@@ -28,7 +28,8 @@ under the License.
     </menu>
 
 
-    <menu name="FixedAssetSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">
+    <menu name="FixedAssetSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
         <menu-item name="createNewComputerHardware" title="${uiLabelMap.IsMgrNewComputerHardware}" >
             <condition>
                 <and>
@@ -47,8 +48,8 @@ under the License.
         </menu-item>
     </menu>
         
-    <menu name="ComputerHardwareTabBar" default-menu-item-name="EditComputerHardware" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="ComputerHardwareTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditComputerHardware">
         <!-- Tab Bar customized for Fixed Assets of type Computer Hardware  -->
         <menu-item name="EditComputerHardware" title="${uiLabelMap.IsMgrComputerHardware}">
             <link target="EditComputerHardware?fixedAssetId=${fixedAssetId}"/>

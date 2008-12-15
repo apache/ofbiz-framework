@@ -30,9 +30,7 @@ under the License.
         <menu-item name="shipping" title="${uiLabelMap.ProductShipping}"><link target="ListShipmentMethodTypes"/></menu-item>
     </menu>
 
-    <menu name="TabBarMenu" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"/>
-
-    <menu name="FeaturesTabBar" extends="TabBarMenu">
+    <menu name="FeaturesTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="FeatureType" title="${uiLabelMap.ProductFeatureType}">
             <link target="EditFeatureTypes"/>
         </menu-item>
@@ -47,7 +45,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="ShippingTabBar" extends="TabBarMenu">
+    <menu name="ShippingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ListShipmentMethodTypes" title="${uiLabelMap.ProductShipmentMethodTypes}">
             <link target="ListShipmentMethodTypes"/>
         </menu-item>
@@ -59,7 +57,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="CategoryTabBar" extends="TabBarMenu">
+    <menu name="CategoryTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditCategory" title="${uiLabelMap.ProductCategory}">
             <link target="EditCategory?productCategoryId=${productCategoryId}"/>
         </menu-item>
@@ -89,7 +87,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="ProductStoreTabBar" extends="TabBarMenu">
+    <menu name="ProductStoreTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditProductStore" title="${uiLabelMap.ProductStore}">
             <link target="EditProductStore?productStoreId=${productStoreId}"/>
         </menu-item>
@@ -142,7 +140,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="CatalogTabBar" extends="TabBarMenu">
+    <menu name="CatalogTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ProductCatalog" title="${uiLabelMap.ProductCatalog}">
             <link target="EditProdCatalog?prodCatalogId=${prodCatalogId}"/>
         </menu-item>
@@ -157,7 +155,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="PromoTabBar" extends="TabBarMenu">
+    <menu name="PromoTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditProductPromo" title="${uiLabelMap.ProductPromotion}">
             <link target="EditProductPromo?productPromoId=${productPromoId}"/>
         </menu-item>
@@ -172,7 +170,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="ProductTabBar" extends="TabBarMenu">
+    <menu name="ProductTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditProduct" title="${uiLabelMap.ProductProduct}">
             <link target="EditProduct?productId=${productId}"/>
         </menu-item>
@@ -271,7 +269,7 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="ConfigItemTabBar" extends="TabBarMenu">
+    <menu name="ConfigItemTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditProductConfigItem" title="${uiLabelMap.ProductConfigItem}">
             <link target="EditProductConfigItem?configItemId=${configItemId}"/>
         </menu-item>

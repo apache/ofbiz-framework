@@ -21,7 +21,7 @@ under the License.
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
  xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
     
-    <menu name="InvoiceTabBar" menu-container-style="button-bar tab-bar" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"> 
+    <menu name="InvoiceTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="invoiceOverview" title="${uiLabelMap.AccountingInvoiceOverview}">
             <condition>
                 <not><if-empty field-name="invoice.invoiceId"/></not>
@@ -245,10 +245,9 @@ under the License.
             </condition>
             <link target="copyInvoiceToTemplate?invoiceId=${invoice.invoiceId}&amp;invoiceTypeId=${invoice.invoiceTypeId}"/>
         </menu-item>
-
     </menu>
 
-    <menu name="PaymentTabBar"  menu-container-style="button-bar tab-bar" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem">  
+    <menu name="PaymentTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="find" title="${uiLabelMap.CommonFind}" >
             <condition>
                 <if-compare field-name="tabButtonItem" operator="not-equals" value="find"/>
@@ -290,7 +289,8 @@ under the License.
         </menu-item>
     </menu>  
           
-    <menu name="PaymentSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected"> 
+    <menu name="PaymentSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2">
         <actions>
             <set field="isDisbursement" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.isDisbursement(payment)}"/>
         </actions> 
@@ -352,8 +352,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="FixedAssetMaintTabBar" selected-menuitem-context-field-name="tabButtonItemFixedAssetMaint" default-menu-item-name="EditFixedAssetMaint"
-        menu-container-style="button-bar tab-bar" type="simple">
+    <menu name="FixedAssetMaintTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="tabButtonItemFixedAssetMaint" default-menu-item-name="EditFixedAssetMaint">
         <menu-item name="EditFixedAssetMaint" title="${uiLabelMap.AccountingFixedAssetMaint}">
             <link target="EditFixedAssetMaint?fixedAssetId=${fixedAssetMaint.fixedAssetId}&amp;maintHistSeqId=${fixedAssetMaint.maintHistSeqId}"/>
         </menu-item>
@@ -365,8 +365,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="FixedAssetTabBar" default-menu-item-name="EditFixedAsset" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="FixedAssetTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditFixedAsset">
         <menu-item name="EditFixedAsset" title="${uiLabelMap.AccountingFixedAsset}">
             <link target="EditFixedAsset?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
@@ -402,8 +402,8 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="FixedAssetCalendarTabBar" selected-menuitem-context-field-name="parameters.viewMode"
-         type="simple" default-selected-style="selected" menu-container-style="button-bar tab-bar">
+    <menu name="FixedAssetCalendarTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="parameters.viewMode">
         <menu-item name="D" title="${uiLabelMap.CommonDay}">
             <link target="day?fixedAssetId=${fixedAssetId}"/>
         </menu-item>
@@ -415,8 +415,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="FinAccountTabBar" default-menu-item-name="EditFinAccount" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">  
+    <menu name="FinAccountTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="EditFinAccount">
         <menu-item name="EditFinAccount" title="${uiLabelMap.AccountingFinAccount}">
             <link target="EditFinAccount?finAccountId=${finAccountId}"/>
         </menu-item>
@@ -431,8 +431,8 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="PartyTopTabBar" selected-menuitem-context-field-name="tabButtonItemTop" default-menu-item-name="PartyAccountsSummary" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple">
+    <menu name="PartyTopTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="tabButtonItemTop" default-menu-item-name="PartyAccountsSummary">
         <menu-item name="Admin" title="${uiLabelMap.AccountingSetup}">
             <condition>
                 <if-service-permission service-name="acctgPrefPermissionCheck" main-action="UPDATE"/>
@@ -446,8 +446,8 @@ under the License.
             <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
-    <menu name="OrganizationAccountingTabBar" default-menu-item-name="PartyAccountsSummary" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="OrganizationAccountingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="PartyAccountsSummary">
         <menu-item name="PartyAccountsSummary" title="${uiLabelMap.AcctgPartyGlJournalSummary}">
             <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
@@ -470,8 +470,8 @@ under the License.
             <link target="listChecksToPrint?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
-    <menu name="OrganizationAccountingReportsTabBar" selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="TrialBalance" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple">
+    <menu name="OrganizationAccountingReportsTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="TrialBalance">
         <menu-item name="TrialBalance" title="${uiLabelMap.AccountingTrialBalance}">
             <link target="TrialBalance?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
@@ -488,8 +488,8 @@ under the License.
             <link target="TransactionTotals?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
-    <menu name="PartyAdminTabBar" default-menu-item-name="PartyAcctgPreference" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple" selected-menuitem-context-field-name="tabButtonItem">  
+    <menu name="PartyAdminTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="PartyAcctgPreference">
         <menu-item name="PartyAcctgPreference" title="${uiLabelMap.AccountingPreference}">
             <link target="PartyAcctgPreference?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
@@ -512,8 +512,8 @@ under the License.
             <link target="viewFXConversions?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
-    <menu name="PartyAdminAssignTabBar" selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple">
+    <menu name="PartyAdminAssignTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice">
         <menu-item name="GlAccountTypeDefaults" title="${uiLabelMap.AccountingGlAccountTypeDefaults}">
             <link target="GlAccountTypeDefaults?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
@@ -551,8 +551,8 @@ under the License.
             <link target="editPartyGlAccounts?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
     </menu>
-    <menu name="PartyAccountingChecksTabBar" selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice" default-selected-style="selected"
-        menu-container-style="button-bar tab-bar" type="simple">  
+    <menu name="PartyAccountingChecksTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="tabButtonItem2" default-menu-item-name="GlAccountSalInvoice">
         <menu-item name="PrintChecksTabButton" title="${uiLabelMap.AccountingPrintChecks}">
             <link target="listChecksToPrint?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
@@ -561,8 +561,8 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="GlobalGLSettingMenus" selected-menuitem-context-field-name="tabButtonItem" default-menu-item-name="chartofaccounts" 
-        menu-container-style="button-bar tab-bar" default-selected-style="selected">
+    <menu name="GlobalGLSettingMenus" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          default-menu-item-name="chartofaccounts">
         <menu-item name="Chartofaccounts" title="${uiLabelMap.AccountingChartOfAcctsMenu}">
             <link target="FindGlobalGlAccount"/>
         </menu-item>        
@@ -595,7 +595,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="AgreementItemTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="buttonBarItem">
+    <menu name="AgreementItemTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="buttonBarItem">
         <menu-item name="EditAgreementItem" title="${uiLabelMap.AccountingAgreementItem}">
             <link target="EditAgreementItem?agreementId=${agreementItem.agreementId}&amp;agreementItemSeqId=${agreementItem.agreementItemSeqId}"/>
         </menu-item>
@@ -661,7 +662,8 @@ under the License.
         </menu-item>
     </menu>
 
-    <menu name="GlSettingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml" selected-menuitem-context-field-name="tabButtonItem2">
+    <menu name="GlSettingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          selected-menuitem-context-field-name="tabButtonItem2">
         <menu-item name="GlAccountNavigate" title="${uiLabelMap.AcctgNavigateAccts}">
             <link target="GlAccountNavigate?trail=null"/>
         </menu-item>

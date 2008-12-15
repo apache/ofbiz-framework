@@ -29,7 +29,7 @@ under the License.
         <menu-item name="Opportunities" title="${uiLabelMap.SfaOpportunities}"><link target="FindOpportunity"/></menu-item>
     </menu>
     
-    <menu name="OpportunityTabBar" type="simple" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="OpportunityTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="ViewOpportunity" title="${uiLabelMap.SfaOpportunitySummary}">
             <link target="ViewOpportunity?salesOpportunityId=${parameters.salesOpportunityId}"/>
         </menu-item>
@@ -38,18 +38,19 @@ under the License.
         </menu-item>
     </menu>
     
-    <menu name="AccountTabBar" type="simple" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">  
+    <menu name="AccountTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${parameters.partyId}"/>
         </menu-item>
     </menu>    
-    <menu name="AccountSubTabBar" menu-container-style="button-bar button-style-2 no-clear" default-selected-style="selected">  
+    <menu name="AccountSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2 no-clear">
         <menu-item name="NewAccounts" title="${uiLabelMap.PageTitleCreateAccount}">
             <link target="NewAccounts"/>
         </menu-item>
     </menu>    
     
-    <menu name="LeadTabBar" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" type="simple" selected-menuitem-context-field-name="tabButtonItem"> 
+    <menu name="LeadTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${parameters.partyId}&amp;partyGroupId=${parameters.partyGroupId}"/>
         </menu-item>
@@ -64,7 +65,8 @@ under the License.
         </menu-item>      
     </menu>
     
-    <menu name="LeadSubTabBar" menu-container-style="button-bar button-style-2 no-clear" default-selected-style="selected">
+    <menu name="LeadSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2 no-clear">
         <menu-item name="CreateLead" title="${uiLabelMap.CommonCreateNew}">
             <link target="CreateLead"/>
         </menu-item>
@@ -73,7 +75,7 @@ under the License.
         </menu-item>
     </menu>    
 
-    <menu name="ContactTabBar" type="simple" menu-container-style="button-bar tab-bar no-clear" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem"> 
+    <menu name="ContactTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="profile" title="${uiLabelMap.PartyProfile}">
             <link target="viewprofile?partyId=${parameters.partyId}"/>
         </menu-item>
@@ -81,7 +83,8 @@ under the License.
             <link target="MergeContacts"/>
         </menu-item>
     </menu>    
-    <menu name="ContactSubTabBar" menu-container-style="button-bar button-style-2 no-clear" default-selected-style="selected">  
+    <menu name="ContactSubTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"
+          menu-container-style="button-bar button-style-2 no-clear">
         <menu-item name="CreateContact" title="${uiLabelMap.CommonCreateNew}">
             <link target="CreateContact"/>
         </menu-item>
@@ -89,8 +92,7 @@ under the License.
             <link target="CreateContactFromVCard"/>
         </menu-item>
     </menu>    
-    <menu name="SalesForecastTabBar" default-selected-style="selected" type="simple"
-            menu-container-style="button-bar tab-bar no-clear" selected-menuitem-context-field-name="tabButtonItem">
+    <menu name="SalesForecastTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
         <menu-item name="EditSalesForecast" title="${uiLabelMap.SfaSalesForecast}">
             <link target="EditSalesForecast?salesForecastId=${parameters.salesForecastId}"/>
         </menu-item>
