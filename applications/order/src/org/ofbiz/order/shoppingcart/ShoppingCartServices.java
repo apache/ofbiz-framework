@@ -227,6 +227,22 @@ public class ShoppingCartServices {
             cart.setOrderPartyId(endUserParty.getString("partyId"));
         }
 
+        // load order attributes
+        List<GenericValue> orderAttributesList = null;
+        try {
+            orderAttributesList = delegator.findByAnd("OrderAttribute", UtilMisc.toMap("orderId", orderId));
+            if (UtilValidate.isNotEmpty(orderAttributesList)) {
+                for (GenericValue orderAttr : orderAttributesList) {
+                    String name = orderAttr.getString("attrName");
+                    String value = orderAttr.getString("attrValue");
+                    cart.setOrderAttribute(name, value);
+                }
+            }
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+            return ServiceUtil.returnError(e.getMessage());
+        }
+
         // load the payment infos
         List orderPaymentPrefs = null;
         try {
@@ -402,6 +418,22 @@ public class ShoppingCartServices {
                 cartItem.setShoppingList(item.getString("shoppingListId"), item.getString("shoppingListItemSeqId"));
                 cartItem.setIsModifiedPrice("Y".equals(item.getString("isModifiedPrice")));
                 
+                // load order item attributes
+                List<GenericValue> orderItemAttributesList = null;
+                try {
+                    orderItemAttributesList = delegator.findByAnd("OrderItemAttribute", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                    if (UtilValidate.isNotEmpty(orderAttributesList)) {
+                        for(GenericValue orderItemAttr : orderItemAttributesList) {
+                            String name = orderItemAttr.getString("attrName");
+                            String value = orderItemAttr.getString("attrValue");
+                            cartItem.setOrderItemAttribute(name, value);
+                        }
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+
                 // set the PO number on the cart
                 cart.setPoNumber(item.getString("correspondingPoId"));
 
