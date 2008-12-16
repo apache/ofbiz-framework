@@ -28,7 +28,7 @@ under the License.
       <li<#if selected = "routingTask"> class="selected"</#if>><a href="<@ofbizUrl>FindRoutingTask</@ofbizUrl>">${uiLabelMap.ManufacturingRoutingTask}</a></li>
       <li<#if selected = "calendar"> class="selected"</#if>><a href="<@ofbizUrl>FindCalendar</@ofbizUrl>">${uiLabelMap.ManufacturingCalendar}</a></li>
       <li<#if selected = "costs"> class="selected"</#if>><a href="<@ofbizUrl>EditCostCalcs</@ofbizUrl>">${uiLabelMap.ManufacturingCostCalcs}</a></li>
-      <li<#if selected = "bom"> class="selected"</#if>><a href="<@ofbizUrl>BomSimulation</@ofbizUrl>">${uiLabelMap.ManufacturingBillOfMaterials}</a></li>
+      <li<#if selected = "bom"> class="selected"</#if>><a href="<@ofbizUrl>FindBom</@ofbizUrl>">${uiLabelMap.ManufacturingBillOfMaterials}</a></li>
       <li<#if selected = "mrp"> class="selected"</#if>><a href="<@ofbizUrl>FindInventoryEventPlan</@ofbizUrl>">${uiLabelMap.ManufacturingMrp}</a></li>
       <li<#if selected = "ShipmentPlans"> class="selected"</#if>><a href="<@ofbizUrl>WorkWithShipmentPlans</@ofbizUrl>">${uiLabelMap.ManufacturingShipmentPlans}</a></li>
       <li<#if selected = "ManufacturingReports"> class="selected"</#if>><a href="<@ofbizUrl>ManufacturingReports</@ofbizUrl>">${uiLabelMap.ManufacturingReports}</a></li>
