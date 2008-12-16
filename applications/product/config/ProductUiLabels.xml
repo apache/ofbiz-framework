@@ -2220,7 +2220,7 @@
         <value xml:lang="th">รหัสประเภทฉลากสินค้าคงเหลือ</value>
     </property>
     <property key="FormFieldTitle_inventoryTransferId">
-        <value xml:lang="de">Bestandestransfer ID</value>
+        <value xml:lang="de">Bestandstransfer ID</value>
         <value xml:lang="en">Inventory Transfer Id</value>
         <value xml:lang="es">Código Transferencia de inventario</value>
         <value xml:lang="fr">Réf. de transfert d'inventaire</value>
@@ -3598,7 +3598,7 @@
         <value xml:lang="th">ประเภทรายงาน</value>
     </property>
     <property key="FormFieldTitle_reqReturnInventoryReceive">
-        <value xml:lang="de">Die Retoure verursacht eine Bestandesanpassung</value>
+        <value xml:lang="de">Die Retoure verursacht eine Bestandsanpassung</value>
         <value xml:lang="en">Req Return Inventory Receive</value>
         <value xml:lang="es">Las devoluciones requieren un ajuste de stock</value>
         <value xml:lang="fr">Les retours nécessitent un ajustement de stock</value>
@@ -4717,7 +4717,7 @@
         <value xml:lang="fr">Ajouter un prix de caractéristique</value>
     </property>
     <property key="PageTitleAddInventoryItemLabelAppls">
-        <value xml:lang="de">Bestandesposition Etikettenanwendung hinzufügen</value>
+        <value xml:lang="de">Bestandsposition Etikettenanwendung hinzufügen</value>
         <value xml:lang="en">Add Inventory Item Label Appls</value>
         <value xml:lang="es">Añadir aplicación de etiqueta de ítem de inventario</value>
         <value xml:lang="fr">Ajouter une étiquette de ligne de stock applicable</value>
@@ -4725,7 +4725,7 @@
         <value xml:lang="th">Add Inventory Item Label Appls</value>
     </property>
     <property key="PageTitleAddInventoryItemLabelTypes">
-        <value xml:lang="de">Bestandesposition Etikettentypen hinzufügen</value>
+        <value xml:lang="de">Bestandsposition Etikettentypen hinzufügen</value>
         <value xml:lang="en">Add Inventory Item Label Types</value>
         <value xml:lang="es">Añadir tipo de etiqueta de ítem de inventario</value>
         <value xml:lang="fr">Ajouter un type d'étiquette de ligne de stock</value>
@@ -5258,7 +5258,7 @@
         <value xml:lang="zh">编辑场所组</value>
     </property>
     <property key="PageTitleEditFacilityInventoryItems">
-        <value xml:lang="de">Einrichtung Bestandespositionen für ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="de">Einrichtung Bestandspositionen für ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="en">Edit Facility Inventory Items for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Editar Artículos del Inventario de un Almacén</value>
         <value xml:lang="fr">Modification des lignes de stocks pour ${facility.facilityName} [${facility.facilityId}]</value>
@@ -5372,7 +5372,7 @@
         <value xml:lang="zh">编辑库存明细</value>
     </property>
     <property key="PageTitleEditInventoryItemLabelAppls">
-        <value xml:lang="de">Bestandesposition Etikettenanwendung bearbeiten</value>
+        <value xml:lang="de">Bestandsposition Etikettenanwendung bearbeiten</value>
         <value xml:lang="en">Edit Inventory Item Label Appls</value>
         <value xml:lang="es">Editar aplicaciones de etiquetas de ítem de inventario</value>
         <value xml:lang="fr">Modifier l'étiquette d'article d'inventaire applicable</value>
@@ -5380,12 +5380,12 @@
         <value xml:lang="th">Edit Inventory Item Label Appls</value>
     </property>
     <property key="PageTitleEditInventoryItemLabels">
-        <value xml:lang="de">Bestandesposition Etiketten bearbeiten</value>
+        <value xml:lang="de">Bestandsposition Etiketten bearbeiten</value>
         <value xml:lang="en">Edit Inventory Item Labels</value>
         <value xml:lang="es">Editar etiquetas de ítems de inventario</value>
     </property>
     <property key="PageTitleEditInventoryItemLabelTypes">
-        <value xml:lang="de">Bestandespositione Etikettentypen bearbeiten</value>
+        <value xml:lang="de">Bestandspositione Etikettentypen bearbeiten</value>
         <value xml:lang="en">Edit Inventory Item Label Types</value>
         <value xml:lang="es">Editar tipos de etiquetas de ítems de inventario</value>
         <value xml:lang="fr">Modifier les types d'étiquette d'article d'inventaire</value>
@@ -6168,7 +6168,7 @@
         <value xml:lang="zh">查找场所转让</value>
     </property>
     <property key="PageTitleFindInventoryItemLabels">
-        <value xml:lang="de">Bestandesposition Etiketten suchen</value>
+        <value xml:lang="de">Bestandsposition Etiketten suchen</value>
         <value xml:lang="en">Find Inventory Item Labels</value>
         <value xml:lang="es">Buscar etiquetas de ítems</value>
         <value xml:lang="fr">Rechercher les étiquettes de lignes de stock</value>
@@ -6242,7 +6242,7 @@
         <value xml:lang="zh">查找订阅资源</value>
     </property>
     <property key="PageTitleInventoryItemGrandTotals">
-        <value xml:lang="de">Bestandesposition Gesamttotale für ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="de">Bestandsposition Gesamttotale für ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="en">Inventory Item Grand Totals for ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Totales sobre ítem para ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="fr">Total général des lignes de stock pour ${facility.facilityName} [${facility.facilityId}]</value>
@@ -6569,7 +6569,7 @@
         <value xml:lang="zh">快速添加产品变型</value>
     </property>
     <property key="PageTitleSearchInventoryItems">
-        <value xml:lang="de">Bestandespositionen suchen</value>
+        <value xml:lang="de">Bestandspositionen suchen</value>
         <value xml:lang="en">Search Inventory Items</value>
         <value xml:lang="es">Buscar Artículos de Inventario</value>
         <value xml:lang="fr">Rechercher les lignes d'inventaire</value>
@@ -6580,7 +6580,7 @@
         <value xml:lang="zh">搜索库存明细</value>
     </property>
     <property key="PageTitleSearchInventoryItemsByLabels">
-        <value xml:lang="de">Bestandespositionen suchen nach Etikette</value>
+        <value xml:lang="de">Bestandspositionen suchen nach Etikette</value>
         <value xml:lang="en">Search Inventory Items By Labels</value>
         <value xml:lang="es">Buscar inventario por etiquetas</value>
         <value xml:lang="fr">Rechercher les lignes d'inventaire par étiquettes</value>
@@ -6599,7 +6599,7 @@
         <value xml:lang="zh">搜索结果</value>
     </property>
     <property key="PageTitleTransferInventoryItem">
-        <value xml:lang="de">Bestandespositionen transferieren von ${facility.facilityName} [${facility.facilityId}]</value>
+        <value xml:lang="de">Bestandspositionen transferieren von ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="en">Transfer Inventory Item From ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="es">Transferir Artículo de Inventario desde ${facility.facilityName} [${facility.facilityId}]</value>
         <value xml:lang="fr">Transfert de stock depuis ${facility.facilityName} [${facility.facilityId}]</value>
@@ -6621,7 +6621,7 @@
         <value xml:lang="zh">浏览场所联系方式</value>
     </property>
     <property key="PageTitleViewFacilityInventoryItemsDetails">
-        <value xml:lang="de">Bestandespositionen Details anzeigen</value>
+        <value xml:lang="de">Bestandspositionen Details anzeigen</value>
         <value xml:lang="en">View Facility Inventory Items Details</value>
         <value xml:lang="es">Ver detalles de ítem de inventario</value>
         <value xml:lang="fr">Voir le détail des lignes de stock</value>
@@ -8571,7 +8571,7 @@
         <value xml:lang="th">โดยวันที่</value>
     </property>
     <property key="ProductByInventoryItem">
-        <value xml:lang="de">Nach Bestandesposition</value>
+        <value xml:lang="de">Nach Bestandsposition</value>
         <value xml:lang="en">By Inventory Item</value>
         <value xml:lang="es">Por ítem de inventario</value>
         <value xml:lang="fr">Par lignes de stock</value>
@@ -9597,7 +9597,7 @@
         <value xml:lang="zh">新建特征</value>
     </property>
     <property key="ProductCreateNewInventoryItemFacility">
-        <value xml:lang="de">Neue Bestandesposition erstellen für diese Einrichtung</value>
+        <value xml:lang="de">Neue Bestandsposition erstellen für diese Einrichtung</value>
         <value xml:lang="en">Create New Inventory Item for this Facility</value>
         <value xml:lang="es">Crear nuevo Inventario de Artículos para este Almacén</value>
         <value xml:lang="fr">Créer une ligne de stock pour ce lieu de stockage</value>
@@ -9609,7 +9609,7 @@
         <value xml:lang="zh">为这个场所新建库存明细</value>
     </property>
     <property key="ProductCreateNewInventoryItemProduct">
-        <value xml:lang="de">Neue Bestandesposition erstellen für dieses Produkt</value>
+        <value xml:lang="de">Neue Bestandsposition erstellen für dieses Produkt</value>
         <value xml:lang="en">Create New Inventory Item for this Product</value>
         <value xml:lang="es">Crear nuevo Inventario de Artículos para este Producto</value>
         <value xml:lang="fr">Créer une ligne de stock pour cet article</value>
@@ -10353,7 +10353,7 @@
         <value xml:lang="zh">编辑特征：特征分类</value>
     </property>
     <property key="ProductEditInventoryItemWithId">
-        <value xml:lang="de">Bestandesposition bearbeiten mit der ID</value>
+        <value xml:lang="de">Bestandsposition bearbeiten mit der ID</value>
         <value xml:lang="en">Edit Inventory Item with ID</value>
         <value xml:lang="es">Editar Artículo de Inventario con Código</value>
         <value xml:lang="fr">Modification de la ligne de stock de réf:</value>
@@ -10752,7 +10752,7 @@
         <value xml:lang="zh">排除变型</value>
     </property>
     <property key="ProductExistingInventoryItem">
-        <value xml:lang="de">Bestehende Bestandesposition</value>
+        <value xml:lang="de">Bestehende Bestandsposition</value>
         <value xml:lang="en">Existing Inventory Item</value>
         <value xml:lang="es">Inventario de artículos existentes</value>
         <value xml:lang="fr">Lignes de stock existantes</value>
@@ -10889,7 +10889,7 @@
         <value xml:lang="zh">你没有权限浏览本页面。 (需要"FACILITY_CREATE"或 "FACILITY_ADMIN")</value>
     </property>
     <property key="ProductFacilityDefaultInventoryItemType">
-        <value xml:lang="de">Standard Bestandesposition Typ</value>
+        <value xml:lang="de">Standard Bestandsposition Typ</value>
         <value xml:lang="en">Default Inventory Item Type</value>
         <value xml:lang="es">Tipo de Inventario de Artículos por defecto</value>
         <value xml:lang="fr">Type d'inventaire par défaut</value>
@@ -12118,7 +12118,7 @@
         <value xml:lang="zh">运进</value>
     </property>
     <property key="ProductInitialInventoryItemStatus">
-        <value xml:lang="de">Initiale Bestandesposition Status</value>
+        <value xml:lang="de">Initiale Bestandsposition Status</value>
         <value xml:lang="en">Initial Inventory Item Status</value>
         <value xml:lang="es">Estado inicial de Artículos de Inventario</value>
         <value xml:lang="fr">Statut initial de la ligne de stock</value>
@@ -12226,7 +12226,7 @@
         <value xml:lang="zh">库存场所</value>
     </property>
     <property key="ProductInventoryItem">
-        <value xml:lang="de">Bestandesposition</value>
+        <value xml:lang="de">Bestandsposition</value>
         <value xml:lang="en">Inventory Item</value>
         <value xml:lang="es">Artículo de Inventario</value>
         <value xml:lang="fr">Ligne de stock</value>
@@ -12237,7 +12237,7 @@
         <value xml:lang="zh">库存明细</value>
     </property>
     <property key="ProductInventoryItemGrandTotals">
-        <value xml:lang="de">Bestandesposition Haupttotal</value>
+        <value xml:lang="de">Bestandsposition Haupttotal</value>
         <value xml:lang="en">Inventory Item Grand Totals</value>
         <value xml:lang="es">Inventario general de ítems</value>
         <value xml:lang="fr">Total général des lignes de stock</value>
@@ -12245,7 +12245,7 @@
         <value xml:lang="th">ผลรวมรายการสินค้าคงเหลือดีเยี่ยม</value>
     </property>
     <property key="ProductInventoryItemId">
-        <value xml:lang="de">Bestandesposition ID</value>
+        <value xml:lang="de">Bestandsposition ID</value>
         <value xml:lang="en">Inventory Item Id</value>
         <value xml:lang="es">Código de artículo de inventario</value>
         <value xml:lang="fr">Réf. de ligne de stock</value>
@@ -12256,7 +12256,7 @@
         <value xml:lang="zh">库存明细标识</value>
     </property>
     <property key="ProductInventoryItemLabel">
-        <value xml:lang="de">Bestandesposition Etikette</value>
+        <value xml:lang="de">Bestandsposition Etikette</value>
         <value xml:lang="en">Inventory Item Label</value>
         <value xml:lang="es">Etiqueta de ítem de inventario</value>
         <value xml:lang="fr">Etiquette de ligne de stock</value>
@@ -12280,7 +12280,7 @@
         <value xml:lang="th">แบ่งเป็นประเภท</value>
     </property>
     <property key="ProductInventoryItemLabels">
-        <value xml:lang="de">Bestandesposition Etiketten</value>
+        <value xml:lang="de">Bestandsposition Etiketten</value>
         <value xml:lang="en">Inventory Item Labels</value>
         <value xml:lang="es">Etiquetas de ítem de inventario</value>
         <value xml:lang="fr">Etiquettes de ligne de stock</value>
@@ -12288,7 +12288,7 @@
         <value xml:lang="th">แบ่งเป็นประเภทรายการสินค้าคงเหลือ</value>
     </property>
     <property key="ProductInventoryItemReservations">
-        <value xml:lang="de">Bestandesposition Reservationen</value>
+        <value xml:lang="de">Bestandsposition Reservationen</value>
         <value xml:lang="en">Inventory Item Reservations</value>
         <value xml:lang="es">Reservas de ítems de inventario</value>
         <value xml:lang="fr">Réservations de ligne de stock</value>
@@ -12297,7 +12297,7 @@
         <value xml:lang="th">การจองรายการสินค้าคงเหลือ</value>
     </property>
     <property key="ProductInventoryItemTotals">
-        <value xml:lang="de">Bestandesposition Total</value>
+        <value xml:lang="de">Bestandsposition Total</value>
         <value xml:lang="en">Inventory Item Totals</value>
         <value xml:lang="es">Totales de ítems de inventario</value>
         <value xml:lang="fr">Totaux de la ligne de stock</value>
@@ -12305,7 +12305,7 @@
         <value xml:lang="th">ผลรวมรายการสินค้าคงเหลือ</value>
     </property>
     <property key="ProductInventoryItemTotalsExport">
-        <value xml:lang="de">Bestandesposition Total exportieren</value>
+        <value xml:lang="de">Bestandsposition Total exportieren</value>
         <value xml:lang="en">Export Inventory Item Totals</value>
         <value xml:lang="es">Exportar totales de ítems de inventario</value>
         <value xml:lang="fr">Exporter les totaux de la ligne de stock</value>
@@ -12314,7 +12314,7 @@
         </value>
     </property>
     <property key="ProductInventoryItemType">
-        <value xml:lang="de">Bestandesposition Typ</value>
+        <value xml:lang="de">Bestandsposition Typ</value>
         <value xml:lang="en">Inventory Item Type</value>
         <value xml:lang="es">Tipo de artículo de inventario</value>
         <value xml:lang="fr">Type de ligne de stock</value>
@@ -12325,7 +12325,7 @@
         <value xml:lang="zh">库存明细类型</value>
     </property>
     <property key="ProductInventoryItemTypeId">
-        <value xml:lang="de">Bestandesposition Typ ID</value>
+        <value xml:lang="de">Bestandsposition Typ ID</value>
         <value xml:lang="en">InventoryItem Type ID</value>
         <value xml:lang="es">Código Tipo de Stock</value>
         <value xml:lang="fr">Réf. de type ligne de stock</value>
@@ -12336,7 +12336,7 @@
         <value xml:lang="zh">库存明细类型标识</value>
     </property>
     <property key="ProductInventoryItems">
-        <value xml:lang="de">Bestandespositionen</value>
+        <value xml:lang="de">Bestandspositionen</value>
         <value xml:lang="en">Inventory Items</value>
         <value xml:lang="es">Ítems de inventario</value>
         <value xml:lang="fr">Lignes de stock</value>
@@ -12347,7 +12347,7 @@
         <value xml:lang="zh">库存明细</value>
     </property>
     <property key="ProductInventoryItemsDetails">
-        <value xml:lang="de">Bestandespositionen Details</value>
+        <value xml:lang="de">Bestandspositionen Details</value>
         <value xml:lang="en">Inventory Items Details</value>
         <value xml:lang="es">Detalles de ítems de inventario</value>
         <value xml:lang="fr">Détails des lignes de stock</value>
@@ -12355,7 +12355,7 @@
         <value xml:lang="th">รายละเอียดรายการสินค้าคงเหลือ</value>
     </property>
     <property key="ProductInventoryItemsDetailsFor">
-        <value xml:lang="de">Bestandespositionen Details für</value>
+        <value xml:lang="de">Bestandspositionen Details für</value>
         <value xml:lang="en">Inventory Items Details for</value>
         <value xml:lang="es">Detallas de ítems de inventario para</value>
         <value xml:lang="fr">Détails des lignes de stock pour</value>
@@ -12363,7 +12363,7 @@
         <value xml:lang="th">สำหรับรายละเอียดรายการสินค้าคงเหลือ</value>
     </property>
     <property key="ProductInventoryItemsFor">
-        <value xml:lang="de">Bestandespositionen für</value>
+        <value xml:lang="de">Bestandspositionen für</value>
         <value xml:lang="en">Inventory Items for</value>
         <value xml:lang="es">Artículo de inventario para</value>
         <value xml:lang="fr">Lignes de stock pour</value>
@@ -12374,7 +12374,7 @@
         <value xml:lang="zh">库存明细用于</value>
     </property>
     <property key="ProductInventoryItemsToPick">
-        <value xml:lang="de">Bestandespositionen zum Kommissionieren</value>
+        <value xml:lang="de">Bestandspositionen zum Kommissionieren</value>
         <value xml:lang="en">Inventory Items to Pick</value>
         <value xml:lang="es">Artículos de inventario a recoger</value>
         <value xml:lang="fr">Lignes de stock à préparer</value>
@@ -12385,7 +12385,7 @@
         <value xml:lang="zh">要分拣的库存明细</value>
     </property>
     <property key="ProductInventoryMessage">
-        <value xml:lang="de">Bestandesmeldung</value>
+        <value xml:lang="de">Bestandsmeldung</value>
         <value xml:lang="en">Inventory Message</value>
         <value xml:lang="es">Mensaje si un artículo no está en stock</value>
         <value xml:lang="fr">Message si l'article n'est pas en stock</value>
@@ -12403,7 +12403,7 @@
         <value xml:lang="th">ไม่นำมาใช้</value>
     </property>
     <property key="ProductInventoryReceive">
-        <value xml:lang="de">Bestandeseingang</value>
+        <value xml:lang="de">Bestandseingang</value>
         <value xml:lang="en">Receive Inventory</value>
         <value xml:lang="es">Recepción de stock</value>
         <value xml:lang="fr">Réception de stock</value>
@@ -12436,7 +12436,7 @@
         <value xml:lang="zh">库存概述</value>
     </property>
     <property key="ProductInventoryTransfer">
-        <value xml:lang="de">Bestandestransfer</value>
+        <value xml:lang="de">Bestandstransfer</value>
         <value xml:lang="en">Inventory Transfer</value>
         <value xml:lang="es">Transferencia</value>
         <value xml:lang="fr">Transfert de stock</value>
@@ -12447,7 +12447,7 @@
         <value xml:lang="zh">库存转运</value>
     </property>
     <property key="ProductInventoryTransfersFor">
-        <value xml:lang="de">Bestandestransfer für</value>
+        <value xml:lang="de">Bestandstransfer für</value>
         <value xml:lang="en">Inventory Transfers for</value>
         <value xml:lang="es">Transferencias de inventario</value>
         <value xml:lang="fr">Transfert du stock pour</value>
@@ -12458,7 +12458,7 @@
         <value xml:lang="zh">库存转运用于</value>
     </property>
     <property key="ProductInventoryXfers">
-        <value xml:lang="de">Bestandestransfers</value>
+        <value xml:lang="de">Bestandstransfers</value>
         <value xml:lang="en">Inventory Xfers</value>
         <value xml:lang="es">Transferencia de inventario</value>
         <value xml:lang="fr">Transfert de stock</value>
@@ -12502,7 +12502,7 @@
         <value xml:lang="zh">全部交付</value>
     </property>
     <property key="ProductIssueInventoryItemsToShipment">
-        <value xml:lang="de">Bestandesposition(en) zu Lieferung ausgeben</value>
+        <value xml:lang="de">Bestandsposition(en) zu Lieferung ausgeben</value>
         <value xml:lang="en">Issue Inventory Item(s) to Shipment</value>
         <value xml:lang="es">Emitir ítem(s) de inventario para el envío</value>
         <value xml:lang="fr">Prélevé un(des) article(s) du stock pour l'(es) expédier</value>
@@ -13772,7 +13772,7 @@
         <value xml:lang="zh">新建组</value>
     </property>
     <property key="ProductNewInventoryItem">
-        <value xml:lang="de">Neue Bestandesposition</value>
+        <value xml:lang="de">Neue Bestandsposition</value>
         <value xml:lang="en">New Inventory Item</value>
         <value xml:lang="es">Nuevo artículo</value>
         <value xml:lang="fr">Nouvelle ligne de stock</value>
@@ -14336,7 +14336,7 @@
         <value xml:lang="zh">没有场所标识，无法创建位置</value>
     </property>
     <property key="ProductNotFindInventoryItemWithId">
-        <value xml:lang="de">Bestandesposition nicht gefunden mit der ID</value>
+        <value xml:lang="de">Bestandsposition nicht gefunden mit der ID</value>
         <value xml:lang="en">Could not find inventoryItem with ID</value>
         <value xml:lang="es">No se pudo encontrar artículo de inventario con código</value>
         <value xml:lang="fr">Ligne de stock avec cette référence inconnue</value>
@@ -14391,7 +14391,7 @@
         <value xml:lang="zh">无法修改，除非重新创建场所组</value>
     </property>
     <property key="ProductNotModificationRecrationInventoryItem">
-        <value xml:lang="de">Kann nicht geändert werden ohne die Bestandesposition neu zu erstellen.</value>
+        <value xml:lang="de">Kann nicht geändert werden ohne die Bestandsposition neu zu erstellen.</value>
         <value xml:lang="en">This cannot be changed without re-creating the inventoryItem</value>
         <value xml:lang="es">No se puede cambiar esto sin volver a crear el inventario</value>
         <value xml:lang="fr">Ceci ne peut être changé sans recréer la ligne de stock</value>
@@ -15379,7 +15379,7 @@
         <value xml:lang="zh">物理库存</value>
     </property>
     <property key="ProductPhysicalInventoryVariance">
-        <value xml:lang="de">(Kann geändert werden durch eine physikalische Bestandesänderung unten)</value>
+        <value xml:lang="de">(Kann geändert werden durch eine physikalische Bestandsänderung unten)</value>
         <value xml:lang="en">(This can be changed by doing a physical inventory variance below)</value>
         <value xml:lang="es">(Esto se puede cambiar modificando el inventario físico abajo)</value>
         <value xml:lang="fr">(Cela peut être changer à la suite d'un inventaire physique)</value>
@@ -15390,7 +15390,7 @@
         <value xml:lang="zh">(这可以通过做下面的物理库存变量来修改)</value>
     </property>
     <property key="ProductPhysicalInventoryVariances">
-        <value xml:lang="de">Physikalische Bestandesänderung</value>
+        <value xml:lang="de">Physikalische Bestandsänderung</value>
         <value xml:lang="en">Physical Inventory Variances</value>
         <value xml:lang="es">Variaciones físicas de inventario</value>
         <value xml:lang="fr">Variations d'inventaire physique</value>
