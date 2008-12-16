@@ -1080,6 +1080,10 @@
         <value xml:lang="th">ราคา</value>
         <value xml:lang="zh">费用</value>
     </property>
+    <property key="ManufacturingCreateBom">
+        <value xml:lang="en">Create Bom</value>
+        <value xml:lang="th">สร้างรายการสินค้า</value>
+    </property>
     <property key="ManufacturingCreateCalendar">
         <value xml:lang="de">Kalender erstellen</value>
         <value xml:lang="en">Create calendar</value>
@@ -1120,6 +1124,10 @@
         <value xml:lang="th">Security Error:  ในการรันการทำงานนี้คุณต้องได้รับอนุญาตจาก MANUFACTURING_CREATE หรือ MANUFACTURING_ADMIN ก่อน
         </value>
         <value xml:lang="zh">安全错误：要执行这个操作，你必须有MANUFACTURING_CREATE或MANUFACTURING_ADMIN权限</value>
+    </property>
+    <property key="ManufacturingCreateProductBom">
+        <value xml:lang="en">Create Bill Of Material</value>
+        <value xml:lang="th">สร้างรายการสินค้า</value>
     </property>
     <property key="ManufacturingCreateProductionRun">
         <value xml:lang="de">Produktionsauftrag erstellen</value>
@@ -3401,6 +3409,10 @@
         <value xml:lang="ro">Camp de Cautare</value>
         <value xml:lang="th">การค้นหา</value>
         <value xml:lang="zh">查找域</value>
+    </property>
+    <property key="PageTitleFindBom">
+        <value xml:lang="en">Find Bill Of Materials</value>
+        <value xml:lang="th">ค้นหารายการสินค้า</value>
     </property>
     <property key="PageTitleFindCalendar">
         <value xml:lang="de">Kalender suchen</value>

@@ -54,7 +54,6 @@ under the License.
                 <set field="tabButtonItem" value="EditProductBom"/>
                 <!--<set field="labelTitleProperty" value="ProductProductBom"/>-->
                 <set field="headerItem" value="bom"/>
-    
                 <set field="productId" from-field="parameters.productId"/>
                 <entity-one entity-name="Product" value-name="product"/>
                 <script location="component://manufacturing/webapp/manufacturing/WEB-INF/actions/bom/EditProductBom.groovy"/>
@@ -101,7 +100,7 @@ under the License.
         <section>
             <actions>
                 <set field="titleProperty" value="ManufacturingBomSimulation"/>
-                <set field="tabButtonItem" value="findBom"/>
+                <set field="tabButtonItem" value="bomSimulation"/>
                 <set field="headerItem" value="bom"/>
 
                 <set field="bomType" from-field="parameters.bomType"/>
@@ -140,6 +139,57 @@ under the License.
                         <platform-specific>
                             <html><html-template location="component://manufacturing/webapp/manufacturing/bom/BomSimulation.ftl"/></html>
                         </platform-specific>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="FindBom">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PageTitleFindProductBom"/>
+                <set field="tabButtonItem" value="findBom"/>
+                <set field="labelTitleProperty" value="findBom"/>
+                <set field="headerItem" value="bom"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="CommonBomDecorator">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.PageTitleFindBom}">
+                            <link target="CreateProductBom" text="${uiLabelMap.ManufacturingCreateBom}" style="buttontext"/>
+                            <include-form name="findBom" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                        </screenlet>
+                        <screenlet title="${uiLabelMap.PageTitleFindBom}">
+                            <include-form name="ListBom" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                        </screenlet>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    <screen name="CreateProductBom">
+        <section>
+            <actions>
+                <set field="titleProperty" value="ManufacturingCreateProductBom"/>
+                <set field="headerItem" value="bom"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <container style="screenlet">
+                            <container style="screenlet-title-bar">
+                                <container style="h3">
+                                    <label text="${uiLabelMap.ManufacturingCreateProductBom}"/>
+                                </container>
+                            </container>
+                            <container style="screenlet-body">
+                                <section>
+                                    <widgets>                                        
+                                        <include-form name="CreateProductBom" location="component://manufacturing/webapp/manufacturing/bom/BomForms.xml"/>
+                                    </widgets>
+                                </section>
+                            </container>
+                        </container>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

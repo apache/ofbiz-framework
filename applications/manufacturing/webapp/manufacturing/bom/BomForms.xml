@@ -123,4 +123,53 @@ under the License.
             <submit button-type="button"/>
         </field>
     </form>
+    <form name="findBom" type="single" target="FindBom" title="">
+        <field name="productId"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productIdTo"><lookup target-form-name="LookupProduct"/></field>
+        <field name="productAssocTypeId"  title="${uiLabelMap.ManufacturingBomType}">
+            <drop-down allow-empty="true">
+                <option key="MANUF_COMPONENT" description="Manufacturing Bill of Materials"/>
+                <option key="ENGINEER_COMPONENT" description="Engineering Bill of Materials"/>
+            </drop-down>
+        </field>
+        <field name="fromDate"><date-find/></field>
+        <field name="noConditionFind"><hidden value="Y"/><!-- if this isn't there then with all fields empty no query will be done --></field>
+        <field name="submit" title="${uiLabelMap.CommonFind}"><submit/></field>
+    </form>
+    <form name="ListBom"  type="list" list-name="listIt" odd-row-style="alternate-row" default-table-style="basic-table hover-bar"  paginate-target="FindBom">
+        <actions>
+            <service service-name="performFind" result-map-name="result" result-map-list-name="listIt">
+                <field-map field-name="inputFields" env-name="parameters"/>
+                <field-map field-name="entityName" value="ProductAssoc"/>
+                <field-map field-name="orderBy" value="productId"/>
+            </service>
+        </actions>
+        <field name="productId" title="${uiLabelMap.ProductProductId}">
+            <hyperlink target="EditProductBom?productId=${productId}&amp;productAssocTypeId=${productAssocTypeId}" description="${productId}"/>
+        </field>
+        <field name="productIdTo" title="${uiLabelMap.ProductProductIdTo}">
+            <hyperlink target="EditProductBom?productId=${productIdTo}&amp;productAssocTypeId=${productAssocTypeId}" description="${productIdTo}"/>            
+        </field>
+        <field name="productAssocTypeId" title="${uiLabelMap.ManufacturingBomType}">
+            <display-entity entity-name="ProductAssocType" key-field-name="productAssocTypeId" description="${description}"/>
+        </field>
+        <field name="quantity" title="${uiLabelMap.CommonQuantity}"><display/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
+    </form>
+    <form name="CreateProductBom" target="createProductBom" title="" type="single"
+        header-row-style="header-row" default-table-style="basic-table">
+        <field name="productId" title="${uiLabelMap.ProductProductId}"><lookup target-form-name="LookupProduct" size="16"/></field>
+        <field name="productIdTo" title="${uiLabelMap.ProductProductIdTo}"><lookup target-form-name="LookupProduct" size="16"/></field>
+        <field name="productAssocTypeId" title="${uiLabelMap.ManufacturingBomType}">
+            <drop-down>
+                <option key="MANUF_COMPONENT" description="Manufacturing Bill of Materials"/>
+                <option key="ENGINEER_COMPONENT" description="Engineering Bill of Materials"/>
+            </drop-down>
+        </field>
+        <field name="quantity" title="${uiLabelMap.ManufacturingQuantity}"><text size="6"/></field>
+        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><date-time/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonSubmit}">
+            <submit button-type="button"/>
+        </field>
+    </form>
 </forms>
