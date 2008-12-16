@@ -4717,4 +4717,14 @@ public class ShoppingCart implements Serializable {
         // DEJ20050518 we should not call clear because it kills the auto-save shopping list and is unnecessary given that when this object is GC'ed it will cause everything it points to that isn't referenced anywhere else to be GC'ed too: this.clear();
         super.finalize();
     }
+
+    public Map getOrderAttributes()
+    {
+        return orderAttributes;
+    }
+
+    public void setOrderAttributes(Map orderAttributes)
+    {
+        this.orderAttributes = orderAttributes;
+    }
 }
