@@ -189,6 +189,9 @@ public class ShoppingCartServices {
         cart.setOrderType(orderTypeId);
         cart.setChannelType(orderHeader.getString("salesChannelEnumId"));
         cart.setInternalCode(orderHeader.getString("internalCode"));
+        cart.setOrderDate(orderHeader.getTimestamp("orderDate"));
+        cart.setOrderId(orderHeader.getString("orderId"));
+        cart.setOrderName(orderHeader.getString("orderName"));
 
         try {
             cart.setUserLogin(userLogin, dispatcher);

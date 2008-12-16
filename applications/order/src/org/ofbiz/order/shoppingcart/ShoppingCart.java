@@ -4718,13 +4718,11 @@ public class ShoppingCart implements Serializable {
         super.finalize();
     }
 
-    public Map getOrderAttributes()
-    {
+    public Map getOrderAttributes() {
         return orderAttributes;
     }
 
-    public void setOrderAttributes(Map orderAttributes)
-    {
+    public void setOrderAttributes(Map orderAttributes) {
         this.orderAttributes = orderAttributes;
     }
 }
