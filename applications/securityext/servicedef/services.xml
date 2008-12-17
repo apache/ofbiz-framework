@@ -80,7 +80,30 @@ under the License.
         <attribute name="groupId" type="String" mode="IN" optional="false"/>
         <attribute name="fromDate" type="Timestamp" mode="IN" optional="false"/>
     </service>
-
+    
+    <!-- ProtectedView to SecurityGroup services -->
+    <service name="addProtectedViewToSecurityGroup" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="addProtectedViewToSecurityGroup" auth="true">
+        <description>Add a ProtectedView to a SecurityGroup</description>
+        <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="maxHits" type="Integer" mode="IN" optional="false"/> 
+        <attribute name="maxHitsDuration" type="Long" mode="IN" optional="false"/> 
+        <attribute name="tarpitDuration" type="Long" mode="IN" optional="false"/>             
+    </service>
+    <service name="updateProtectedViewToSecurityGroup" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="updateProtectedViewToSecurityGroup" auth="true">
+        <description>Update a ProtectedView to SecurityGroup Appl</description>
+        <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+        <attribute name="maxHits" type="Integer" mode="IN" optional="false"/> 
+        <attribute name="maxHitsDuration" type="Long" mode="IN" optional="false"/> 
+        <attribute name="tarpitDuration" type="Long" mode="IN" optional="false"/>     
+    </service>
+    <service name="removeProtectedViewFromSecurityGroup" engine="simple" location="org/ofbiz/securityext/securitygroup/SecurityGroupServices.xml" invoke="removeProtectedViewFromSecurityGroup" auth="true">
+        <description>Remove a ProtectedView from a SecurityGroup</description>
+        <attribute name="viewNameId" type="String" mode="IN" optional="false"/>
+        <attribute name="groupId" type="String" mode="IN" optional="false"/>
+    </service>
+    
     <!-- certificate services -->
     <service name="importIssuerProvision" engine="java" auth="true"
             location="org.ofbiz.securityext.cert.CertificateServices" invoke="importIssuerCertificate">

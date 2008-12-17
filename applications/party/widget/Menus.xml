@@ -32,5 +32,8 @@ under the License.
         <menu-item name="EditSecurityGroupUserLogins" title="${uiLabelMap.PartyUserLogins}">
             <link target="EditSecurityGroupUserLogins?groupId=${groupId}"/>
         </menu-item>
+        <menu-item name="EditSecurityGroupProtectedViews" title="${uiLabelMap.PartyProtectedViews}">
+            <link target="EditSecurityGroupProtectedViews?groupId=${groupId}"/>
+        </menu-item>
     </menu>
 </menus>

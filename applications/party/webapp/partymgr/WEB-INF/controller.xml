@@ -465,7 +465,26 @@ under the License.
         <response name="success" type="view" value="EditUserLoginSecurityGroups"/>
         <response name="error" type="view" value="EditUserLoginSecurityGroups"/>
     </request-map>
-
+    <request-map uri="EditSecurityGroupProtectedViews"><security https="true" auth="true"/><response name="success" type="view" value="EditSecurityGroupProtectedViews"/></request-map>
+    <request-map uri="addProtectedViewToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="addProtectedViewToSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupProtectedViews"/>
+        <response name="error" type="view" value="EditSecurityGroupProtectedViews"/>
+    </request-map>
+    <request-map uri="updateProtectedViewToSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="updateProtectedViewToSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupProtectedViews"/>
+        <response name="error" type="view" value="EditSecurityGroupProtectedViews"/>
+    </request-map>
+    <request-map uri="removeProtectedViewFromSecurityGroup">
+        <security https="true" auth="true"/>
+        <event type="service" path="" invoke="removeProtectedViewFromSecurityGroup"/>
+        <response name="success" type="view" value="EditSecurityGroupProtectedViews"/>
+        <response name="error" type="view" value="EditSecurityGroupProtectedViews"/>
+    </request-map>
+    
     <request-map uri="createnewlogin"><security https="true" auth="true"/><response name="success" type="view" value="createnewlogin"/></request-map>
     <request-map uri="createUserLogin">
         <security https="true" auth="true"/>
@@ -1170,7 +1189,8 @@ under the License.
     <view-map name="EditSecurityGroup" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroup"/>
     <view-map name="EditSecurityGroupPermissions" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroupPermissions"/>
     <view-map name="EditSecurityGroupUserLogins" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroupUserLogins"/>
-
+    <view-map name="EditSecurityGroupProtectedViews" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditSecurityGroupProtectedViews"/>
+    
     <view-map name="CertIssuerProvisions" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#EditX509IssuerProvisions"/>
     <view-map name="ViewCertificate" type="screen" page="component://party/widget/partymgr/SecurityScreens.xml#ViewCertificate"/>
 

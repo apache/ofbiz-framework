@@ -2144,6 +2144,10 @@
         <value xml:lang="th">แสดงประวัติของกลุ่มผู้ใช้</value>
         <value xml:lang="zh">浏览会员档案</value>
     </property>
+    <property key="PartyProtectedViewsForSecurityGroup">
+        <value xml:lang="en">Protected Views For SecurityGroup</value>
+        <value xml:lang="fr">Vues protégées pour le groupe de sécurité</value>
+    </property>    
     <property key="PageTitleViewPartyRole">
         <value xml:lang="de">Akteur Rollen anzeigen</value>
         <value xml:lang="en">View Party Roles</value>
@@ -2345,6 +2349,10 @@
         <value xml:lang="th">เพิ่มสินค้าในรายการ</value>
         <value xml:lang="zh">把产品添加到列表</value>
     </property>
+    <property key="PartyAddProtectedViewToSecurityGroup">
+        <value xml:lang="en">Add a Protected View to SecurityGroup</value>
+        <value xml:lang="fr">Ajouter une vue protégée à ce groupe de sécurité</value>
+    </property>    
     <property key="PartyAddPurpose">
         <value xml:lang="de">Zweck hinzufügen</value>
         <value xml:lang="en">Add Purpose</value>
@@ -5030,6 +5038,14 @@
         <value xml:lang="th">เป็นม่าย</value>
         <value xml:lang="zh">丧偶</value>
     </property>
+    <property key="PartyMaxHit">
+        <value xml:lang="en">Maximum number of visits</value>
+        <value xml:lang="fr">Nombre maximum de visites</value>
+    </property>    
+    <property key="PartyMaxHitDuration">
+        <value xml:lang="en">Duration during which the visits are considered (in seconds)</value>
+        <value xml:lang="fr">Durée pendant laquelle les visites sont considérées (en secondes)</value>
+    </property>        
     <property key="PartyMechPurposeTypeNotFound">
         <value xml:lang="de">Zweck Typ nicht gefunden mit der ID</value>
         <value xml:lang="en">Purpose Type not found with ID</value>
@@ -6320,6 +6336,10 @@
         <value xml:lang="ru">Профиль</value>
         <value xml:lang="th">ประวัติส่วนตัว</value>
         <value xml:lang="zh">简介</value>
+    </property>    
+    <property key="PartyProtectedViews">
+        <value xml:lang="en">Protected Views</value>
+        <value xml:lang="fr">Vues protégées</value>
     </property>
     <property key="PartyProveinceInCanadaMissing">
         <value xml:lang="de">Provinz fehlt und wird benötigt für eine Adresse in Kanada.</value>
@@ -7165,6 +7185,10 @@
         <value xml:lang="th">ผู้จัดหา</value>
         <value xml:lang="zh">供货商</value>
     </property>
+    <property key="PartyTarpitDuration"> 
+        <value xml:lang="en">Duration during which the view will not be accessible (in seconds)</value>
+        <value xml:lang="fr">Durée pendant laquelle la vue ne sera plus accessible (en secondes)</value>
+    </property>    
     <property key="PartyTaxAddInfo">
         <value xml:lang="de">Steuerangaben hinzufügen</value>
         <value xml:lang="en">Add Tax Info</value>
@@ -7731,6 +7755,10 @@
         <value xml:lang="ru">Ошибка доступа: для запуска getPostalAddressBoundary у вас должны быть права PARTY_VIEW или PARTY_ADMIN</value>
         <value xml:lang="th">Security Error: ในการรับค่ารหัสไปรษณีย์ คุณต้องได้รับอนุญาตจาก PARTY_VIEW หรือ PARTY_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误: 要运行 getPostalAddressBoundary，你必须具有 PARTY_VIEW 或 PARTY_ADMIN 权限</value>
+    </property>
+    <property key="PartyViewName">
+        <value xml:lang="en">View Name</value>
+        <value xml:lang="fr">Nom de la vue</value>
     </property>
     <property key="PartyViewSegmentRoles">
         <value xml:lang="de">Akteur Segment Rolle anzeigen</value>

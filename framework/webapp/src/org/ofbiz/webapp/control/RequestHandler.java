@@ -49,6 +49,7 @@ import javolution.util.FastMap;
 /**
  * RequestHandler - Request Processor Object
  */
+@SuppressWarnings("serial")
 public class RequestHandler implements Serializable {
 
     public static final String module = RequestHandler.class.getName();
@@ -105,6 +106,8 @@ public class RequestHandler implements Serializable {
                 request.setAttribute("targetRequestUri", "/" + requestUri);
             }
         }
+
+        String eventReturnString = null;
 
         // Check for chained request.
         if (chain != null) {
@@ -217,7 +220,17 @@ public class RequestHandler implements Serializable {
                     try {
                         String returnString = this.runEvent(request, response, eType, ePath, eMeth);
                         if (returnString != null && !returnString.equalsIgnoreCase("success")) {
-                            throw new EventHandlerException("Pre-Processor event did not return 'success'.");
+                            if (!returnString.contains(":_protect_:")) {
+                                throw new EventHandlerException("Pre-Processor event did not return 'success'.");
+                            } else { // protect the view normally rendered and redirect to error response view 
+                                returnString = returnString.replace(":_protect_:", "");
+                                request.setAttribute("_ERROR_MESSAGE_", returnString);
+                                eventReturnString = "protect";
+                                // check to see if there is an "protect" response, if so it's ok else show the default_error_response_view
+                                if (null == requestManager.getRequestAttribute(requestUri, "protect")) {
+                                    nextView = UtilProperties.getPropertyValue("security.properties", "default.error.response.view");
+                                }                
+                            }
                         } else if (returnString == null) {
                             nextView = "none:";
                         }
@@ -238,7 +251,6 @@ public class RequestHandler implements Serializable {
         if (Debug.infoOn()) Debug.logInfo("[Processing Request]: " + requestUri + " sessionId=" + UtilHttp.getSessionId(request), module);
         request.setAttribute("thisRequestUri", requestUri); // store the actual request URI
         
-        String eventReturnString = null;
 
         // Perform security check.
         if (requestManager.requiresAuth(requestUri)) {
@@ -295,7 +307,7 @@ public class RequestHandler implements Serializable {
                         String errMsg = UtilProperties.getMessage(RequestHandler.err_resource, "requestHandler.error_call_event", locale);
                         request.setAttribute("_ERROR_MESSAGE_", errMsg + ": " + e.toString());
                     } else {
-                        throw new RequestHandlerException("Error calling event and no error repsonse was specified", e);
+                        throw new RequestHandlerException("Error calling event and no error response was specified", e);
                     }
                 }
             }
@@ -524,6 +536,7 @@ public class RequestHandler implements Serializable {
         return nextPage;
     }
 
+    @SuppressWarnings("unchecked")
     private void callRedirect(String url, HttpServletResponse resp, HttpServletRequest req) throws RequestHandlerException {
         if (Debug.infoOn()) Debug.logInfo("[Sending redirect]: " + url + " sessionId=" + UtilHttp.getSessionId(req), module);
         // set the attributes in the session so we can access it.
@@ -908,5 +921,5 @@ public class RequestHandler implements Serializable {
         } else {
             return false;
         }
-    }
+    }    
 }

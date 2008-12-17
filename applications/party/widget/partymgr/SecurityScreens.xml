@@ -181,7 +181,29 @@ under the License.
             </widgets>
         </section>
     </screen>
-
+    <screen name="EditSecurityGroupProtectedViews">
+        <section>
+            <actions>
+                <set field="titleProperty" value="PartyAddProtectedViewToSecurityGroup"/>
+                <set field="tabButtonItem" value="EditSecurityGroupProtectedViews"/>
+                <set field="labelTitleProperty" value="PartyProtectedViewsForSecurityGroup"/>
+                
+                <set field="groupId" from-field="parameters.groupId"/>
+                <entity-one entity-name="SecurityGroup" value-name="securityGroup"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="SecurityGroupDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet id="AddSecurityGroupProtectedViewsPanel" title="${uiLabelMap.PartyAddProtectedViewToSecurityGroup}" collapsible="true">
+                            <include-form name="AddSecurityGroupProtectedView" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListSecurityGroupProtectedViews" location="component://party/widget/partymgr/SecurityForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
+    
     <screen name="EditX509IssuerProvisions">
         <section>
             <actions>
