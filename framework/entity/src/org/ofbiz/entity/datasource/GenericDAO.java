@@ -1069,7 +1069,10 @@ public class GenericDAO {
 
         String sql = "DELETE FROM " + modelEntity.getTableName(this.datasourceInfo);
 
-        sql += " WHERE " + condition.makeWhereString(modelEntity, null, this.datasourceInfo);
+        String whereCondition = condition.makeWhereString(modelEntity, null, this.datasourceInfo);
+        if (UtilValidate.isNotEmpty(whereCondition)) {
+            sql += " WHERE " + whereCondition;
+        }
 
         try {
             sqlP.prepareStatement(sql);
