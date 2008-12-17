@@ -289,7 +289,11 @@ function getShipOptions() {
                     isShipStepValidate = true;
                     shipOptions = data.shippingOptions;
                     shipOptions.each( function(shipOption) {
-                        optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc + " </option>");
+                        if (shipOption.productStoreShipMethId){
+                            optionList.push("<option value = " + shipOption.shippingMethod + ":" + shipOption.productStoreShipMethId + " > " + shipOption.shippingDesc  + " </option>");
+                        } else {
+                            optionList.push("<option value = " + shipOption.shippingMethod + " > " + shipOption.shippingDesc  + " </option>");    
+                        }
                     });
                     $('shipMethod').update(optionList);
                     result = true;

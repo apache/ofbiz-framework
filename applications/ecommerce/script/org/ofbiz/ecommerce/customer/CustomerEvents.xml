@@ -1066,6 +1066,9 @@ under the License.
             </if-compare-field>
             <set field="shippingOptionMap.shippingMethod" from-field="shippingMethod"/>
             <set field="shippingOptionMap.shippingDesc" from-field="shippingDesc"/>
+            <if-not-empty field="carrierShipmentMethod.productStoreShipMethId">
+                <set field="shippingOptionMap.productStoreShipMethId" from-field="carrierShipmentMethod.productStoreShipMethId"/>
+            </if-not-empty>
             <field-to-list field-name="shippingOptionMap" list-name="shippingOptions"/>
             <clear-field field-name="shippingOptionMap"/>
         </iterate>
@@ -1078,15 +1081,23 @@ under the License.
             shippingMethod = parameters.get("shipMethod");
             if(shippingMethod != null) {
                 shipmentMethodTypeId = shippingMethod.substring(0, shippingMethod.indexOf("@"));
-                carrierPartyId = shippingMethod.substring(shippingMethod.indexOf("@")+1);
+                if (shippingMethod.indexOf(":") != -1) {
+                    carrierPartyId = shippingMethod.substring(shippingMethod.indexOf("@")+1, shippingMethod.indexOf(":"));
+                    productStoreShipMethId =  shippingMethod.substring(shippingMethod.indexOf(":")+1);
+                    parameters.put("productStoreShipMethId", productStoreShipMethId);
+                } else {
+                    carrierPartyId = shippingMethod.substring(shippingMethod.indexOf("@")+1);
+                }
                 parameters.put("shipmentMethodTypeId", shipmentMethodTypeId);
                 parameters.put("carrierPartyId", carrierPartyId);
             }
         ]]></call-bsh>
         <set field="shipmentMethodTypeId" from-field="parameters.shipmentMethodTypeId"/>
         <set field="carrierPartyId" from-field="parameters.carrierPartyId"/>
+        <set field="productStoreShipMethId" from-field="parameters.productStoreShipMethId"/>
         <log level="info" message=" shipmentMethodTypeId is ${shipmentMethodTypeId} "/>
         <log level="info" message=" carrierPartyId is ${carrierPartyId}"/>
+        <log level="info" message=" productStoreShipMethId is ${productStoreShipMethId}"/>
         
         <entity-one entity-name="CarrierAndShipmentMethod" value-name="shipmentMethod">
             <field-map field-name="shipmentMethodTypeId" env-name="shipmentMethodTypeId"/>
@@ -1104,6 +1115,9 @@ under the License.
         </call-object-method>
         <call-object-method obj-field-name="shoppingCart" method-name="setCarrierPartyId">
             <field field-name="carrierPartyId"/>
+        </call-object-method>
+        <call-object-method obj-field-name="shoppingCart" method-name="setProductStoreShipMethId">
+            <field field-name="productStoreShipMethId"/>
         </call-object-method>
         <call-object-method  obj-field-name="shoppingCart" method-name="getCurrency" ret-field-name="isoCode"/>
         <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
