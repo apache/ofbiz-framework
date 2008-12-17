@@ -97,10 +97,11 @@ public class ShippingEvents {
 
         String shipmentMethodTypeId = cart.getShipmentMethodTypeId(groupNo);
         String carrierPartyId = cart.getCarrierPartyId(groupNo);
+        String productStoreShipMethId = cart.getProductStoreShipMethId();
 
         return getShipGroupEstimate(dispatcher, delegator, cart.getOrderType(), shipmentMethodTypeId, carrierPartyId, null,
                 cart.getShippingContactMechId(groupNo), cart.getProductStoreId(), cart.getSupplierPartyId(groupNo), cart.getShippableItemInfo(groupNo),
-                cart.getShippableWeight(groupNo), cart.getShippableQuantity(groupNo), cart.getShippableTotal(groupNo), cart.getPartyId());
+                cart.getShippableWeight(groupNo), cart.getShippableQuantity(groupNo), cart.getShippableTotal(groupNo), cart.getPartyId(), productStoreShipMethId);
     }
 
     public static Map getShipEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, OrderReadHelper orh, String shipGroupSeqId) {
@@ -116,6 +117,7 @@ public class ShippingEvents {
         String carrierRoleTypeId = shipGroup.getString("carrierRoleTypeId");
         String carrierPartyId = shipGroup.getString("carrierPartyId");
         String supplierPartyId = shipGroup.getString("supplierPartyId");
+        String productStoreShipMethId = shipGroup.getString("productStoreShipMethId");
 
         GenericValue shipAddr = orh.getShippingAddress(shipGroupSeqId);
         if (shipAddr == null) {
@@ -130,23 +132,23 @@ public class ShippingEvents {
         }
         return getShipGroupEstimate(dispatcher, delegator, orh.getOrderTypeId(), shipmentMethodTypeId, carrierPartyId, carrierRoleTypeId,
                 contactMechId, orh.getProductStoreId(), supplierPartyId, orh.getShippableItemInfo(shipGroupSeqId), orh.getShippableWeight(shipGroupSeqId).doubleValue(),
-                orh.getShippableQuantity(shipGroupSeqId).doubleValue(), orh.getShippableTotal(shipGroupSeqId).doubleValue(), partyId);
+                orh.getShippableQuantity(shipGroupSeqId).doubleValue(), orh.getShippableTotal(shipGroupSeqId).doubleValue(), partyId, productStoreShipMethId);
     }
 
     // version with no support for using the supplier's address as the origin
     public static Map getShipGroupEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, String orderTypeId,
             String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
             String productStoreId, List itemInfo, double shippableWeight, double shippableQuantity,
-            double shippableTotal, String partyId) {
+            double shippableTotal, String partyId, String productStoreShipMethId) {
         return getShipGroupEstimate(dispatcher, delegator, orderTypeId, shipmentMethodTypeId, carrierPartyId,
                 carrierRoleTypeId, shippingContactMechId, productStoreId, null, itemInfo,
-                shippableWeight, shippableQuantity, shippableTotal, partyId);
+                shippableWeight, shippableQuantity, shippableTotal, partyId,productStoreShipMethId);
     }
 
     public static Map getShipGroupEstimate(LocalDispatcher dispatcher, GenericDelegator delegator, String orderTypeId,
             String shipmentMethodTypeId, String carrierPartyId, String carrierRoleTypeId, String shippingContactMechId,
             String productStoreId, String supplierPartyId, List itemInfo, double shippableWeight, double shippableQuantity,
-            double shippableTotal, String partyId) {
+            double shippableTotal, String partyId, String productStoreShipMethId) {
         String standardMessage = "A problem occurred calculating shipping. Fees will be calculated offline.";
         List errorMessageList = new ArrayList();
 
@@ -217,6 +219,7 @@ public class ShippingEvents {
         serviceFields.put("shippingContactMechId", shippingContactMechId);
         serviceFields.put("shippingOriginContactMechId", shippingOriginContactMechId);
         serviceFields.put("partyId", partyId);
+        serviceFields.put("productStoreShipMethId", productStoreShipMethId);
 
         // call the external shipping service
         try {

@@ -77,6 +77,7 @@ public class ShoppingCart implements Serializable {
     private String quoteId = null;
     private String workEffortId = null;
     private long nextItemSeq = 1;
+    private String productStoreShipMethId = null;
 
     private String defaultItemDeliveryDate = null;
     private String defaultItemComment = null;
@@ -2307,6 +2308,14 @@ public class ShoppingCart implements Serializable {
 
     public String getCarrierPartyId() {
         return this.getCarrierPartyId(0);
+    }
+
+    public String getProductStoreShipMethId() {
+        return productStoreShipMethId;
+    }   
+
+    public void setProductStoreShipMethId(String productStoreShipMethId) {
+        this.productStoreShipMethId = productStoreShipMethId;
     }
 
     public void setShipGroupFacilityId(int idx, String facilityId) {

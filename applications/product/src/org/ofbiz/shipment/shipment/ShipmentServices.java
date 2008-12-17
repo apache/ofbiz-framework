@@ -30,6 +30,8 @@ import org.ofbiz.common.geo.GeoWorker;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
 import org.ofbiz.entity.GenericValue;
+import org.ofbiz.entity.condition.EntityCondition;
+import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityListIterator;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.DispatchContext;
@@ -207,6 +209,7 @@ public class ShipmentServices {
         GenericDelegator delegator = dctx.getDelegator();
 
         // prepare the data
+        String productStoreShipMethId = (String) context.get("productStoreShipMethId");
         String productStoreId = (String) context.get("productStoreId");
         String carrierRoleTypeId = (String) context.get("carrierRoleTypeId");
         String carrierPartyId = (String) context.get("carrierPartyId");
@@ -240,10 +243,17 @@ public class ShipmentServices {
         // get the ShipmentCostEstimate(s)
         Map<String, String> estFields = UtilMisc.toMap("productStoreId", productStoreId, "shipmentMethodTypeId", shipmentMethodTypeId,
                 "carrierPartyId", carrierPartyId, "carrierRoleTypeId", carrierRoleTypeId);
-
+        EntityCondition estFieldsCond = EntityCondition.makeCondition(estFields, EntityOperator.AND); 
+        
+        if (UtilValidate.isNotEmpty(productStoreShipMethId)) {
+            // if the productStoreShipMethId field is passed, then also get estimates that have the field set
+            List<EntityCondition> condList = UtilMisc.toList(EntityCondition.makeCondition("productStoreShipMethId", EntityOperator.EQUALS, productStoreShipMethId), estFieldsCond);
+            estFieldsCond = EntityCondition.makeCondition(condList, EntityOperator.OR);
+        } 
+        
         Collection<GenericValue> estimates = null;
         try {
-            estimates = delegator.findByAnd("ShipmentCostEstimate", estFields);
+            estimates = delegator.findList("ShipmentCostEstimate", estFieldsCond, null, null, null, true);
         } catch (GenericEntityException e) {
             Debug.logError(e, module);
             return ServiceUtil.returnError("Unable to locate estimates from database");

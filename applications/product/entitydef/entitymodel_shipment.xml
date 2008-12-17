@@ -731,9 +731,10 @@ under the License.
             package-name="org.ofbiz.shipment.shipment"
             title="Shipment Cost Estimate Entity">
       <field name="shipmentCostEstimateId" type="id-ne"></field>
-      <field name="shipmentMethodTypeId" type="id-ne"></field>
-      <field name="carrierPartyId" type="id-ne"></field>
-      <field name="carrierRoleTypeId" type="id-ne"></field>
+      <field name="shipmentMethodTypeId" type="id"></field>
+      <field name="carrierPartyId" type="id"></field>
+      <field name="carrierRoleTypeId" type="id"></field>
+      <field name="productStoreShipMethId" type="id"></field>
       <field name="productStoreId" type="id"></field>
       <field name="partyId" type="id"></field>
       <field name="roleTypeId" type="id"></field>

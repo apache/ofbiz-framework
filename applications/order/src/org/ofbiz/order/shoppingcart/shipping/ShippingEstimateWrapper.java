@@ -93,11 +93,12 @@ public class ShippingEstimateWrapper {
                 String shippingMethodTypeId = shipMethod.getString("shipmentMethodTypeId");
                 String carrierRoleTypeId = shipMethod.getString("roleTypeId");
                 String carrierPartyId = shipMethod.getString("partyId");
+                String productStoreShipMethId = shipMethod.getString("productStoreShipMethId");
                 String shippingCmId = shippingAddress != null ? shippingAddress.getString("contactMechId") : null;
 
                 Map estimateMap = ShippingEvents.getShipGroupEstimate(dispatcher, delegator, "SALES_ORDER",
                         shippingMethodTypeId, carrierPartyId, carrierRoleTypeId, shippingCmId, productStoreId,
-                        supplierPartyId, shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId);
+                        supplierPartyId, shippableItemInfo, shippableWeight, shippableQuantity, shippableTotal, partyId, productStoreShipMethId);
 
                 if (!ServiceUtil.isError(estimateMap)) {
                     Double shippingTotal = (Double) estimateMap.get("shippingTotal");
