@@ -169,6 +169,7 @@
     <property key="coreEvents.no_fields_in_session">
         <value xml:lang="de">Keine 'previous fields' auf der Session gefunden</value>
         <value xml:lang="en">No previous fields found in session</value>
+        <value xml:lang="fr">Aucun champ précédent appartenant à la session</value>
         <value xml:lang="ru">Предыдущие поля в сессии не найдены</value>
         <value xml:lang="th">ไม่พบข้อมูลก่อนหน้านี้ใน session
         </value>
@@ -289,6 +290,14 @@
         <value xml:lang="ru">Имя пользователя пустое, введите повторно.</value>
         <value xml:lang="th">ชื่อผู้ใช้เป็นค่าว่าง กรุณากรอกอีกครั้ง</value>
         <value xml:lang="zh">用户名是空的，请重新输入。</value>
+    </property>
+    <property key="protectedviewevents.blocked_message">
+        <value xml:lang="en">This is the blocked message (to be adapted).</value>
+        <value xml:lang="fr">Ceci est le message de bloquage (à adapter).</value>
+    </property>
+    <property key="protectedviewevents.tarpitted_message">
+        <value xml:lang="en">This is the tarpitted message (to be adapted).</value>
+        <value xml:lang="fr">Ceci est le message d'engluage (à adapter).</value>
     </property>
     <property key="requestHandler.error_call_event">
         <value xml:lang="de">Fehler beim Aufruf eines Events</value>

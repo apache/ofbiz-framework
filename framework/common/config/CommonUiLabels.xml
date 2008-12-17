@@ -826,6 +826,10 @@
         <value xml:lang="zh">回报</value>
         <value xml:lang="zh_CN">让利</value>
     </property>
+    <property key="CommonViewBlocked">
+        <value xml:lang="en">Access to this view has been blocked.</value>
+        <value xml:lang="fr">L'accès à cette page a été bloqué.</value>
+    </property>
     <property key="CommonBeLogged">
         <value xml:lang="ar">دخول</value>
         <value xml:lang="cs">Přihlásit</value>
@@ -7639,6 +7643,10 @@
         <value xml:lang="th">เพิ่มประเภทแหล่งข้อมูลใหม่</value>
         <value xml:lang="zh">新建数据源类型</value>
         <value xml:lang="zh_CN">增加新数据源类型</value>
+    </property>
+    <property key="PageTitleViewBlocked">
+        <value xml:lang="en">View Blocked</value>
+        <value xml:lang="en">Page bloquée</value>
     </property>
     <property key="PageTitleEditDataSource">
         <value xml:lang="ar">تحرير مصدر المعلومات</value>

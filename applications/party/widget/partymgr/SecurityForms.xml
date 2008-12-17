@@ -154,7 +154,38 @@ under the License.
         </field>
         <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
     </form>
-
+    
+    <!-- SecurityGroupProtectedViews -->    
+    <form name="ListSecurityGroupProtectedViews" type="list" list-name="securityGroupProtectedViewsList" target="updateProtectedViewToSecurityGroup"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="ProtectedView">
+                <condition-expr field-name="groupId" env-name="groupId"/>
+                <order-by field-name="viewNameId"/>
+            </entity-condition>
+        </actions>
+        <field name="groupId"><hidden/></field>
+        <field name="viewNameId" title="${uiLabelMap.PartyViewName}"><display/></field>
+        <field name="maxHits" title="${uiLabelMap.PartyMaxHit}"><text/></field>
+        <field name="maxHitsDuration" title="${uiLabelMap.PartyMaxHitDuration}"><text/></field>
+        <field name="tarpitDuration" title="${uiLabelMap.PartyTarpitDuration}"><text/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
+        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
+            <hyperlink description="${uiLabelMap.CommonRemove}" target="removeProtectedViewFromSecurityGroup?groupId=${groupId}&amp;viewNameId=${viewNameId}" also-hidden="false"/>
+        </field>
+    </form>
+    
+    <form name="AddSecurityGroupProtectedView" type="single" target="addProtectedViewToSecurityGroup"
+        header-row-style="header-row" default-table-style="basic-table">
+        <auto-fields-service service-name="addProtectedViewToSecurityGroup"/>
+        <field name="groupId"><hidden/></field>
+        <field name="viewNameId" title="${uiLabelMap.PartyViewName}"><text size="60" maxlength="60"/></field>
+        <field name="maxHits" title="${uiLabelMap.PartyMaxHit}"><text size="20" maxlength="20"/></field>
+        <field name="maxHitsDuration" title="${uiLabelMap.PartyMaxHitDuration}"><text size="20" maxlength="20"/></field>
+        <field name="tarpitDuration" title="${uiLabelMap.PartyTarpitDuration}"><text size="20" maxlength="20"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonAdd}"><submit button-type="button"/></field>
+    </form>
+                
     <form name="CertIssuerList" type="list" list-name="issuerProvisions"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
