@@ -199,10 +199,15 @@ public class FlexibleMapAccessor<T> implements Serializable {
             return null;
         }
         String str = original;
-        // TODO: Make this smarter - expressions could contain periods
         int end = original.indexOf(".");
         if (end != -1) {
-            str = original.substring(0, end);
+            int openBrace = original.indexOf("[");
+            if (openBrace != -1 && openBrace < end) {
+                end = original.indexOf(']', openBrace);
+                str = original.substring(0, end + 1);
+            } else {
+                str = original.substring(0, end);
+            }
         }
         ExpressionNode node = null;
         if (str.contains("[")) {
