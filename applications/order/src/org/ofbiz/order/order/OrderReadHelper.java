@@ -235,6 +235,11 @@ public class OrderReadHelper {
             if (chargedToPaymentPref.compareTo(ZERO) == 1) {
                 // key of the resulting map is paymentMethodId or paymentMethodTypeId if the paymentMethodId is not available
                 String paymentMethodKey = paymentPref.getString("paymentMethodId") != null ? paymentPref.getString("paymentMethodId") : paymentPref.getString("paymentMethodTypeId");
+                if(paymentMethodAmounts.containsKey(paymentMethodKey)){
+                    Double value = (Double)paymentMethodAmounts.get(paymentMethodKey);
+                    if(value != null)
+                        chargedToPaymentPref = chargedToPaymentPref.add(new BigDecimal(value.doubleValue()));
+                }
                 paymentMethodAmounts.put(paymentMethodKey, new Double(chargedToPaymentPref.setScale(scale, rounding).doubleValue()));
             }
         }
