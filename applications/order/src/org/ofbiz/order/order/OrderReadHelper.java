@@ -1383,7 +1383,7 @@ public class OrderReadHelper {
         return EntityUtil.filterByAnd(getOrderItemAndShipGroupAssoc(), exprs);
     }
 
-    public List getValidOrderItems() {
+    public List<GenericValue> getValidOrderItems() {
         List exprs = UtilMisc.toList(
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_CANCELLED"),
                 EntityCondition.makeCondition("statusId", EntityOperator.NOT_EQUAL, "ITEM_REJECTED"));
@@ -1630,7 +1630,7 @@ public class OrderReadHelper {
         return EntityUtil.filterByAnd(this.orderItemPriceInfos, UtilMisc.toMap("orderItemSeqId", orderItemSeqId));
     }
 
-    public List getOrderItemShipGroupAssocs(GenericValue orderItem) {
+    public List<GenericValue> getOrderItemShipGroupAssocs(GenericValue orderItem) {
         if (orderItem == null) return null;
         try {
             return orderHeader.getDelegator().findByAnd("OrderItemShipGroupAssoc",
