@@ -264,7 +264,7 @@ public class EntityExpr extends EntityCondition {
         if (!ObjectType.instanceOf(value, type.getJavaType())) {
             String errMsg = "In entity field [" + modelEntity.getEntityName() + "." + curField.getName() + "] set the value passed in [" + value.getClass().getName() + "] is not compatible with the Java type of the field [" + type.getJavaType() + "]";
             // eventually we should do this, but for now we'll do a "soft" failure: throw new IllegalArgumentException(errMsg);
-            Debug.logWarning(new Exception("Location of database type error"), "=-=-=-=-=-=-=-=-= DATABASE TYPE ERROR in EntityExpr =-=-=-=-=-=-=-=-= " + errMsg, module);
+            Debug.logWarning(new Exception("Location of database type warning"), "=-=-=-=-=-=-=-=-= Database type warning in EntityExpr =-=-=-=-=-=-=-=-= " + errMsg, module);
         }
     }
 
