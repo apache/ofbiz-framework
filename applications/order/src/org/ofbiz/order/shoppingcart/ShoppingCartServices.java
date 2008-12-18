@@ -434,6 +434,22 @@ public class ShoppingCartServices {
                     return ServiceUtil.returnError(e.getMessage());
                 }
 
+                // load order item contact mechs
+                List<GenericValue> orderItemContactMechList = null;
+                try {
+                    orderItemContactMechList = delegator.findByAnd("OrderItemContactMech", UtilMisc.toMap("orderId", orderId, "orderItemSeqId", orderItemSeqId));
+                    if (UtilValidate.isNotEmpty(orderAttributesList)) {
+                        for (GenericValue orderItemAttr : orderItemContactMechList) {
+                            String contactMechPurposeTypeId = orderItemAttr.getString("contactMechPurposeTypeId");
+                            String contactMechId = orderItemAttr.getString("contactMechId");
+                            cartItem.addContactMech(contactMechPurposeTypeId, contactMechId);
+                        }
+                    }
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                    return ServiceUtil.returnError(e.getMessage());
+                }
+
                 // set the PO number on the cart
                 cart.setPoNumber(item.getString("correspondingPoId"));
 
@@ -462,6 +478,9 @@ public class ShoppingCartServices {
                     cart.setGiftMessage(g, sg.getString("giftMessage"));
                     cart.setShippingContactMechId(g, sg.getString("contactMechId"));
                     cart.setShippingInstructions(g, sg.getString("shippingInstructions"));
+                    cart.setShipGroupFacilityId(g, sg.getString("facilityId"));
+                    cart.setShipGroupVendorPartyId(g, sg.getString("vendorPartyId"));
+                    cart.setShipGroupSeqId(g, sg.getString("shipGroupSeqId"));
                     cart.setItemShipGroupQty(itemIndex, shipGroupQty.doubleValue(), g);
                 }
             }
