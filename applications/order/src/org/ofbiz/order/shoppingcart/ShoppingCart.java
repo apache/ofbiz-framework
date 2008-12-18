@@ -2328,6 +2328,26 @@ public class ShoppingCart implements Serializable {
         return csi.facilityId;
     }
 
+    public void setShipGroupVendorPartyId(int idx, String vendorPartyId) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        csi.vendorPartyId = vendorPartyId;
+    }
+
+    public String getShipGroupVendorPartyId(int idx) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        return csi.vendorPartyId;
+    }
+
+    public void setShipGroupSeqId(int idx, String shipGroupSeqId) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        csi.shipGroupSeqId = shipGroupSeqId;
+    }
+    
+    public String getShipGroupSeqId(int idx) {
+        CartShipInfo csi = this.getShipInfo(idx);
+        return csi.shipGroupSeqId;
+    }
+
     public void setOrderAdditionalEmails(String orderAdditionalEmails) {
         this.orderAdditionalEmails = orderAdditionalEmails;
     }
