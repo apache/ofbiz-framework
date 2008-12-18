@@ -410,7 +410,7 @@ public class GenericEntity extends Observable implements Map<String, Object>, Lo
                 if (!ObjectType.instanceOf(value, type.getJavaType())) {
                     String errMsg = "In entity field [" + this.getEntityName() + "." + name + "] set the value passed in [" + value.getClass().getName() + "] is not compatible with the Java type of the field [" + type.getJavaType() + "]";
                     // eventually we should do this, but for now we'll do a "soft" failure: throw new IllegalArgumentException(errMsg);
-                    Debug.logWarning(new Exception("Location of database type error"), "=-=-=-=-=-=-=-=-= DATABASE TYPE error IN GenericEntity.set =-=-=-=-=-=-=-=-= " + errMsg, module);
+                    Debug.logWarning(new Exception("Location of database type warning"), "=-=-=-=-=-=-=-=-= Database type warning GenericEntity.set =-=-=-=-=-=-=-=-= " + errMsg, module);
                 }
             }
             Object old = fields.put(name, value);
