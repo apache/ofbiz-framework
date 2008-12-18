@@ -159,7 +159,7 @@ under the License.
             <set from-field="nowTimestamp" field="lookedUpValue.lastModifiedDate"/>
             <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
             <if-not-empty field="lookedUpValue.revisionNumber">
-                <set field="lookedUpValue.revisionNumber" value="${lookedUpValue.revisionNumber + 1}"/>
+                <set field="lookedUpValue.revisionNumber" value="${lookedUpValue.revisionNumber + 1}" type="Long"/>
             <else>
                 <set field="lookedUpValue.revisionNumber" value="1" type="Long"/>
             </else>

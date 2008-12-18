@@ -426,7 +426,7 @@ under the License.
     </simple-method>
     <simple-method method-name="countProductQuantityOrdered" short-description="Count Product Quantity Ordered" login-required="true">
         <if-empty field="parameters.quantity">
-            <calculate field-name="parameters.quantity" type="Double"><number value="1"/></calculate>
+            <calculate field-name="parameters.quantity" type="BigDecimal"><number value="1"/></calculate>
         </if-empty>
         <entity-one entity-name="ProductCalculatedInfo" value-name="productCalculatedInfo"/>
         <if-empty field="productCalculatedInfo">
@@ -436,7 +436,7 @@ under the License.
             <set from-field="parameters.quantity" field="productCalculatedInfo.totalQuantityOrdered"/>
             <create-value value-name="productCalculatedInfo"/>
         <else>
-            <set field="productCalculatedInfo.totalQuantityOrdered" value="${productCalculatedInfo.totalQuantityOrdered + parameters.quantity}" type="Double"/>
+            <set field="productCalculatedInfo.totalQuantityOrdered" value="${productCalculatedInfo.totalQuantityOrdered + parameters.quantity}"  type="BigDecimal"/>
             <store-value value-name="productCalculatedInfo"/>
         </else>
         </if-empty>
