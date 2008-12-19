@@ -357,7 +357,7 @@ under the License.
                     <set field="maxIntervalQty" from-field="maintValue.intervalQuantity" type="Double"/>
                 </if-compare-field>
             </iterate>
-            <set field="nextIntervalQty" value="${util:maxIntervalQty + productMaintValue.getDouble(&quot;intervalQuantity&quot;)}" type="BigDecimal"/>
+            <set field="nextIntervalQty" value="${bsh:maxIntervalQty + productMaintValue.getDouble(&quot;intervalQuantity&quot;)}" type="BigDecimal"/>
             <if-compare-field field="nextIntervalQty" operator="less-equals" to-field="meterValue.meterValue" type="Double">
                 <set field="maintDue" value="false"/>
                 <if-compare field="repeatCount" operator="greater" value="0" type="Long">
