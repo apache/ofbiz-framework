@@ -55,6 +55,15 @@ under the License.
                                     <include-form name="DropDownFieldsExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
                                 </container>
                                 <container style="screenlet-body">
+                                    <container style="button-bar"><label style="h2">Fields groups</label></container>
+                                    <container style="screenlet-body">
+                                        <label style="h3">Source Code</label>
+                                        <label> - see the form definition with name &quot;FieldGroupExampleForm&quot; in the file: </label>
+                                        <link target="http://svn.apache.org/repos/asf/ofbiz/trunk/framework/example/widget/example/FormWidgetExampleForms.xml" url-mode="plain" target-window="svnPage" text="framework/example/widget/example/FormWidgetExampleForms.xml" style="buttontext"/>
+                                        <include-form name="FieldGroupExampleForm" location="component://example/widget/example/FormWidgetExampleForms.xml"/>
+                                    </container>
+                                </container>
+                                <container style="screenlet-body">
                                     <container style="button-bar"><label style="h2">Print button</label></container>
                                     <container style="screenlet-body">
                                         <label>${uiLabelMap.ExampleFopFonts}</label>
