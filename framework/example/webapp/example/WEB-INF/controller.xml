@@ -171,6 +171,11 @@ under the License.
     <request-map uri="ListExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="ListExampleFormOnly"/></request-map>
     <request-map uri="CreateExampleFormOnly"><security https="true" auth="false"/><response name="success" type="view" value="CreateExampleFormOnly"/></request-map>
     <request-map uri="dashboardExample"><security https="true" auth="false"/><response name="success" type="view" value="dashboardExample"/></request-map>
+   
+    <request-map uri="printExampleFOPFonts">
+      <security https="true" auth="true"/>
+      <response name="success" type="view" value="printExampleFOPFonts"/>
+    </request-map>
     <!-- end of request mappings -->
 
     <!-- View Mappings -->
@@ -196,6 +201,6 @@ under the License.
     <view-map name="findExampleAjax" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#AjaxExample"/>
     <view-map name="ListExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#ListExampleFormOnly"/>
     <view-map name="CreateExampleFormOnly" type="screen" page="component://example/widget/example/ExampleAjaxScreens.xml#CreateExampleFormOnly"/>
-    
+    <view-map name="printExampleFOPFonts" type="screenfop" page="component://example/widget/example/FormWidgetExampleScreens.xml#printExampleFOPFonts" content-type="application/pdf"  encoding="none"/>
     <!-- end of view mappings -->
 </site-conf>

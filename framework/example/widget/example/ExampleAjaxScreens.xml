@@ -25,7 +25,7 @@ under the License.
         <section>
             <actions>
                 <set field="layoutSettings.styleSheets[+0]" value="/images/prototypejs/scriptaculouscontrols.css" global="true"/>
-                <set field="headerItem" value="Ajax Examples"/>
+                <set field="headerItem" value="ExampleAjaxExamples"/>
                 <set field="titleProperty" value="PageTitleFindExample"/>
                 <set field="exampleCtx" from-field="parameters"/>
             </actions>
