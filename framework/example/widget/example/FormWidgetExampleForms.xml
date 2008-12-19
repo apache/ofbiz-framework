@@ -219,5 +219,10 @@ under the License.
             </drop-down>
         </field>
     </form>
-
+    
+    <!-- Simple form to print a FOP PDF file with the  fonts available in OFBiz Project -->
+    <form name="FOPFontsExampleForm" type="single" target="printExampleFOPFonts">
+            <field name="printButton" widget-style="smallSubmit"><submit button-type="button"/></field>
+    </form>
+    
 </forms>
