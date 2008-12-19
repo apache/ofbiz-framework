@@ -225,4 +225,36 @@ under the License.
             <field name="printButton" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     
+    <form name="FieldGroupExampleForm" type="single" title="">
+        <field name="Field1"><text/></field>
+        <field name="Field2"><text/></field>
+        <field name="Field3"><text/></field>
+        <field name="Field4"><text/></field>
+        <field name="Field5"><text/></field>
+        <field name="Field6"><text/></field>
+        <field name="Field7"><text/></field>
+        <field name="Field8"><text/></field>
+        <field name="Field9"><text/></field>
+        <field name="Field10"><text/></field>
+
+        <sort-order>
+            <field-group title="Group 1" collapsible="true" initially-collapsed="true">
+                <sort-field name="Field1"/>
+                <sort-field name="Field2"/>
+                <sort-field name="Field3"/>
+                <sort-field name="Field4"/>
+                <sort-field name="Field5"/>
+            </field-group>
+
+            <field-group title="Group 2" collapsible="true">
+                <sort-field name="Field6"/>
+                <sort-field name="Field7"/>
+                <sort-field name="Field8"/>
+                <sort-field name="Field9"/>
+                <sort-field name="Field10"/>
+            </field-group>
+        </sort-order>
+
+    </form>
+
 </forms>
