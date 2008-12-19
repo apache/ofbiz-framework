@@ -316,8 +316,8 @@ under the License.
                 <set field="labelTitleProperty" value="PageTitlePaymentOverview"/>
                 <set field="paymentId" from-field="parameters.paymentId"/>
                 <entity-one entity-name="Payment" value-name="payment"/>
-                <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentAppliedBd(payment).toString()}"/>
-                <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(payment).toString()}"/>
+                <set field="appliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentAppliedBd(payment).toString()}" type="BigDecimal"/>
+                <set field="notAppliedAmount" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(payment).toString()}" type="BigDecimal"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPaymentDecorator" location="${parameters.mainDecoratorLocation}">

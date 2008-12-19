@@ -83,8 +83,8 @@ under the License.
             <set field="showCredit" value="${bsh:(postedBalance &gt;= 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isCreditAccount(glAccount)) || (postedBalance &lt; 0 &amp;&amp; org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount))}" type="Boolean"/>
             <set field="absolutePostedBalance" value="${bsh:(postedBalance &gt;= 0? postedBalance: (-1)*postedBalance)}" type="BigDecimal"/>
             <set field="showTotals" value="${bsh:(isLastRow != null &amp;&amp; isLastRow==true)}" type="Boolean"/>
-            <set field="debitTotal" from-field="parameters.debitTotal" type="Double"/>
-            <set field="creditTotal" from-field="parameters.creditTotal" type="Double"/>
+            <set field="debitTotal" from-field="parameters.debitTotal" type="BigDecimal"/>
+            <set field="creditTotal" from-field="parameters.creditTotal" type="BigDecimal"/>
             <set field="parameters.debitTotal" value="${bsh:(showDebit? (debitTotal + absolutePostedBalance): (debitTotal))}" type="BigDecimal"/>
             <set field="parameters.creditTotal" value="${bsh:(showCredit? (creditTotal + absolutePostedBalance): (creditTotal))}" type="BigDecimal"/>
         </row-actions>
