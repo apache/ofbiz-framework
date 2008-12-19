@@ -23,7 +23,7 @@ under the License.
 
     <form name="DateTimeFieldsExampleForm" type="single" title="">
         <actions>
-            <set field="exampleDateField" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowTimestamp();}" type="Timestamp"/>
+            <set field="exampleDateField" value="${date:nowTimestamp()}" type="Timestamp"/>
         </actions>
         <!-- ***************** -->
         <!-- ***   field1  *** -->
