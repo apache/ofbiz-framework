@@ -54,6 +54,8 @@
    // pOpen: UNUSED - in future can be initially set to close folder when chart is first drawn
 
 
+   // ******* 1024,768 replaced by 1024,768 by JLR ******* 
+
 
 var JSGantt; if (!JSGantt) JSGantt = {};
 
@@ -523,6 +525,10 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
 
       var vNumUnits  = 0;
 
+      var pWidth  = 1024;    // added by JLR
+
+      var pHeight  = 768;    // added by JLR
+
 
 
       var gr = new Graphics('rightside');
@@ -964,7 +970,7 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
 
               vLeftTable += 
 
-                '<span onclick=JSGantt.taskLink("' + vTaskList[i].getLink() + '",300,200); style="cursor:pointer"> ' + vTaskList[i].getName() + '</span></NOBR></TD>' ;
+                '<span onclick=JSGantt.taskLink("' + vTaskList[i].getLink() + '",1024,768); style="cursor:pointer"> ' + vTaskList[i].getName() + '</span></NOBR></TD>' ; 
 
               if(vShowRes ==1) vLeftTable += '  <TD class=gname style="WIDTH: 60px; HEIGHT: 20px; TEXT-ALIGN: center; BORDER-TOP: #efefef 1px solid; FONT-SIZE: 12px; BORDER-LEFT: #efefef 1px solid;" align=center><NOBR>' + vTaskList[i].getResource() + '</NOBR></TD>' ;
 
@@ -1307,7 +1313,7 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
 
                    '<div id=bardiv_' + vID + ' style="position:absolute; top:0px; left:' + Math.ceil((vTaskLeft * (vDayWidth) + 1)) + 'px; height: 16px; width:12px; overflow:hidden;">' +
 
-                   '<div id=taskbar_' + vID + ' title="' + vTaskList[i].getName() + ': ' + vDateRowStr + '" style="height: 16px; width:12px; overflow:hidden; cursor: pointer;" onclick=JSGantt.taskLink("' + vTaskList[i].getLink() + '",300,200);>';
+                   '<div id=taskbar_' + vID + ' title="' + vTaskList[i].getName() + ': ' + vDateRowStr + '" style="height: 16px; width:12px; overflow:hidden; cursor: pointer;" onclick=JSGantt.taskLink("' + vTaskList[i].getLink() + '",1024,768);>';
 
 
 
@@ -1362,7 +1368,7 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
 
                       'margin-left:1px; margin-right:1px; filter: alpha(opacity=80); opacity:0.8; width:' + vTaskList[i].getCompStr() + '; ' + 
 
-                      'cursor: pointer;" onclick=JSGantt.taskLink("' + vTaskList[i].getLink() + '",300,200);></div></div>' +
+                      'cursor: pointer;" onclick=JSGantt.taskLink("' + vTaskList[i].getLink() + '",1024,768);></div></div>' +
 
                    '<div style="Z-INDEX: -4; float:left; background-color:#000000; height:4px; overflow: hidden; width:1px;"></div>' +
 
@@ -1394,7 +1400,7 @@ JSGantt.GanttChart =  function(pGanttVar, pDiv, pFormat)
 
                    '<div id=taskbar_' + vID + ' title="' + vTaskList[i].getName() + ': ' + vDateRowStr + '" class=gtask style="background-color:#' + vTaskList[i].getColor() +'; height: 13px; width:' + Math.ceil((vTaskRight) * (vDayWidth) - 1) + 'px; cursor: pointer;" ' +
 
-                     'onclick=JSGantt.taskLink("' + vTaskList[i].getLink() + '",300,200);>' +
+                     'onclick=JSGantt.taskLink("' + vTaskList[i].getLink() + '",1024,768);>' +
 
                    '<div class=gcomplete style="Z-INDEX: -4; float:left; background-color:black; height:5px; overflow: auto; margin-top:4px; filter: alpha(opacity=40); opacity:0.4; width:' + vTaskList[i].getCompStr() + '; overflow:hidden"></div></div></div>' ;
 
