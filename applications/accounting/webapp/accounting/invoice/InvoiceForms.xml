@@ -65,8 +65,8 @@ under the License.
                 <field-map field-name="compareDate" env-name="invoiceDate"/>
                 <field-map field-name="lastNameFirst" value="Y"/>
             </service>
-            <set field="amountToApply" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId));}"/>
-            <set field="total" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId));}"/>
+            <set field="amountToApply" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(delegator,invoiceId));}" type="BigDecimal"/>
+            <set field="total" value="${bsh:return(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotal(delegator,invoiceId));}" type="BigDecimal"/>
         </row-actions>
         
         <field name="invoiceId" widget-style="buttontext">
@@ -88,7 +88,7 @@ under the License.
         <actions>
             <set field="total" value="${bsh:
                 import java.text.NumberFormat;
-                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(invoice)));}"/>
+                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceTotalBd(invoice)));}" type="BigDecimal"/>
             <service service-name="getPartyNameForDate" result-map-name="partyNameResultFrom">
                 <field-map field-name="partyId" env-name="invoice.partyIdFrom"/>
                 <field-map field-name="compareDate" env-name="invoice.invoiceDate"/>
@@ -123,7 +123,7 @@ under the License.
                 import java.text.NumberFormat;
                 if(quantity==null) quantity = 1;
                 if(amount==null) amount = 0;
-                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(quantity*amount));}"/>
+                return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(quantity*amount));}" type="BigDecimal"/>
         </row-actions>
         <auto-fields-entity entity-name="InvoiceItem" default-field-type="display"/>
         <field name="invoiceId"><hidden/></field>
@@ -295,7 +295,7 @@ under the License.
            <set field="total" value="${bsh:
                import java.text.NumberFormat;
                if(quantity==null||quantity==0) quantity = 1;
-               return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(quantity*amount));}"/>
+               return(NumberFormat.getNumberInstance(context.get(&quot;locale&quot;)).format(quantity*amount));}" type="BigDecimal"/>
        </row-actions>
        <field name="invoiceId"><hidden/></field>
        <field name="invoiceItemSeqId" widget-style="buttontext"><hyperlink target="listInvoiceItems?invoiceId=${invoiceId}&amp;invoiceItemSeqId=${invoiceItemSeqId}" description="${invoiceItemSeqId}"/></field>

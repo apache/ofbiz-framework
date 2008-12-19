@@ -57,7 +57,7 @@ under the License.
             </service>
         </actions>
         <row-actions>
-            <set field="amountToApply" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(delegator,paymentId);}"/>
+            <set field="amountToApply" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(delegator,paymentId);}" type="BigDecimal"/>
         </row-actions>
         <field name="paymentId" widget-style="buttontext">
             <hyperlink description="${paymentId}" target="paymentOverview?paymentId=${paymentId}"/>
@@ -402,7 +402,7 @@ under the License.
             </entity-condition>
         </actions>
         <row-actions>
-            <set field="amountApplied" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentAppliedAmount(delegator, paymentApplicationId);}"/>
+            <set field="amountApplied" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentAppliedAmount(delegator, paymentApplicationId);}" type="BigDecimal"/>
         </row-actions>
         <auto-fields-entity entity-name="PaymentApplication" default-field-type="display"/>
         <field name="paymentApplicationId"><hidden/></field>
