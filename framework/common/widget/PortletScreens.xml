@@ -24,7 +24,7 @@ under the License.
     <screen name="welcomePortlet">
         <section>
             <widgets>
-                <label text="Welcome to the OFBiz dashboard"/>
+                <label text="${uiLabelMap.CommonWelcomeToTheOFBizDashboard}"/>
             </widgets>
         </section>
     </screen>
