@@ -1548,6 +1548,10 @@
         <value xml:lang="th">ทุกวัน</value>
         <value xml:lang="zh">每天</value>
     </property>
+    <property key="CommonDashboard">
+        <value xml:lang="en">Dashboard</value>
+        <value xml:lang="fr">Tableau de bord</value>
+    </property>    
     <property key="CommonDatabaseProblem">
         <value xml:lang="ar">مشكلة قاعدة بيانات</value>
         <value xml:lang="de">Datenbankproblem</value>
@@ -6818,6 +6822,10 @@
         <value xml:lang="zh">欢迎</value>
         <value xml:lang="zh_CN">欢迎</value>
     </property>
+    <property key="CommonWelcomeToTheOFBizDashboard">
+        <value xml:lang="en">Welcome to the OFBiz dashboard</value>
+        <value xml:lang="fr">Bienvenue au tableau de bord d'OFBiz</value>
+    </property>    
     <property key="CommonWhere">
         <value xml:lang="ar">أين</value>
         <value xml:lang="cs">Kde</value>
