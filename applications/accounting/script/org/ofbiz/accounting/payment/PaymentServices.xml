@@ -145,7 +145,7 @@ under the License.
             <entity-one entity-name="Invoice" value-name="invoice"/>
 
             <!-- get the amount that has not been applied yet for the invoice (outstanding amount) -->
-            <set field="notApplied" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice).doubleValue()}" type="BigDecimal"/>
+            <set field="notApplied" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice).doubleValue()}" type="Double"/>
 
             <!-- if the amount to apply goes over the outstanding amount, then use the notApplied amount and log a warning -->
             <if-compare-field field="paymentAppl.amountApplied" to-field="notApplied" operator="greater" type="Double">
@@ -186,7 +186,7 @@ under the License.
                     
                     <!-- check if the payment fully applied when set to confirmed-->
                     <if-compare field="parameters.statusId" operator="equals" value="PMNT_CONFIRMED">
-                        <set field="notYetApplied" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(payment)}" type="BigDecimal"/>
+                        <set field="notYetApplied" value="${bsh:org.ofbiz.accounting.payment.PaymentWorker.getPaymentNotAppliedBd(payment)}"/>
                         <if-compare field="notYetApplied" operator="greater" value="0.00">
                             <add-error><fail-property resource="AccountingUiLabels" property="AccountingPSNotConfirmedNotFullyApplied"/></add-error>
                             <log level="error" message="Cannot change from ${payment.statusId} to ${parameters.statusId}, payment not fully applied: ${notYetapplied}"/>
