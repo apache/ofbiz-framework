@@ -31,7 +31,7 @@ under the License.
         </#list>
         <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
         <#--li class="opposed"><a href="http://docs.ofbiz.org/display/OFBENDUSER/My+Page?decorator=printable" target="_blank">${uiLabelMap.CommonHelp}</a></li>-->
-        <li class="opposed"><a href="<@ofbizUrl>ManagePortalPages</@ofbizUrl>">${uiLabelMap.CommonDashboard}</a></li>
+        <li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?originalPortalPageId=${originalPortalPageId}</@ofbizUrl>">${uiLabelMap.CommonDashboard}</a></li>
     <#else>
         <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
     </#if>

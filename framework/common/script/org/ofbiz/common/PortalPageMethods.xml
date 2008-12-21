@@ -70,4 +70,69 @@ under the License.
             </iterate-map>
         </if-not-empty>
     </simple-method>
+    
+    <!--Create simple-method of copyOriginalPage-->
+    <simple-method method-name="copyOriginalPage" short-description="">
+        <set field="mainPortalPageId" value="MAINMYPORTAL"/>
+        <entity-and entity-name="PortalPage" list-name="getMainPage">
+            <field-map field-name="originalPortalPageId" env-name="mainPortalPageId"/>
+            <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
+        </entity-and>
+        <if-empty field="getMainPage">
+        <set field="portalPageId" from-field="parameters.portalPageId"/>
+            <if-compare field="portalPageId" value="MYPORTAL" operator="equals">
+                <entity-and entity-name="PortalPage" use-cache="true" list-name="getNA">
+                    <field-map field-name="ownerUserLoginId" value="_NA_"/>
+                </entity-and>
+                <first-from-list entry-name="getNA" list-name="getNA"/>
+                <make-value entity-name="PortalPage" value-name="getPortalPageAll" map-name="test"/>
+                <set field="test.portalName" from-field="getNA.portalName"/>
+                <set field="test.description" from-field="getNA.description"/>
+                <set field="test.ownerUserLoginId" from-field="userLogin.userLoginId"/>
+                <set field="test.originalPortalPageId" value="MAINMYPORTAL"/>
+                <set-pk-fields map-name="test" value-name="getPortalPageAll"/>
+                <make-next-seq-id value-name="getPortalPageAll" seq-field-name="portalPageId"/>
+                <set-nonpk-fields map-name="test" value-name="getPortalPageAll"/>
+                <create-value value-name="getPortalPageAll"/>
+                <set field="portalPageId" from-field="getPortalPageAll.portalPageId"/>
+                <field-to-request field-name="portalPageId" request-name="portalPageId"/>
+                
+                <entity-and entity-name="PortalPageColumn" use-cache="true"
+                    list-name="portalPageColumnList">
+                    <field-map field-name="portalPageId" env-name="getNA.portalPageId"/>
+                </entity-and>
+                <iterate entry-name="portalPageColumnList" list-name="portalPageColumnList">
+                    <make-value entity-name="PortalPageColumn" value-name="PortalPageColumn"
+                        map-name="column"/>
+                    <set field="column.portalPageId" from-field="getPortalPageAll.portalPageId"/>
+                    <set field="column.columnSeqId" from-field="portalPageColumnList.columnSeqId"/>
+                    <set-pk-fields map-name="column" value-name="PortalPageColumn"/>
+                    <set-nonpk-fields map-name="column" value-name="PortalPageColumn"/>
+                    <create-value value-name="PortalPageColumn"/>
+                    
+                    <entity-and entity-name="PortalPagePortlet" use-cache="true"
+                        list-name="PortalPagePortlet">
+                        <field-map field-name="portalPageId" env-name="getNA.portalPageId"/>
+                        <field-map field-name="columnSeqId" env-name="PortalPageColumn.columnSeqId"
+                        />
+                    </entity-and>
+                    <iterate entry-name="PortalPagePortlet" list-name="PortalPagePortlet">
+                        <make-value entity-name="PortalPagePortlet" value-name="PortletView"
+                            map-name="portlet"/>
+                        <set field="portlet.portalPageId" from-field="PortalPageColumn.portalPageId"/>
+                        <set field="portlet.portalPortletId"
+                            from-field="PortalPagePortlet.portalPortletId"/>
+                        <set field="portlet.columnSeqId" from-field="PortalPageColumn.columnSeqId"/>
+                        <set field="portlet.portletSeqId"
+                            from-field="PortalPagePortlet.portletSeqId"/>
+                        <set field="portlet.sequenceNum" from-field="PortalPagePortlet.sequenceNum"/>
+                        
+                        <set-pk-fields map-name="portlet" value-name="PortletView"/>
+                        <set-nonpk-fields map-name="portlet" value-name="PortletView"/>
+                        <create-value value-name="PortletView"/>
+                    </iterate>
+                </iterate>
+            </if-compare>
+        </if-empty>
+    </simple-method>    
 </simple-methods>

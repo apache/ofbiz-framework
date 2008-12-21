@@ -42,9 +42,12 @@ under the License.
                 <set field="activeApp" value="example" global="true"/>
                 <!--set field="applicationMenuName" value="ExampleAppBar" global="true"/>
                 <set field="applicationMenuLocation" value="component://example/widget/example/ExampleMenus.xml" global="true"/-->
+                <set field="originalPortalPageId" value="EXAMPLE"/>
                 <set field="appheaderTemplate" value="component://common/webcommon/portal/appheader.ftl"/>                
                 <entity-and entity-name="PortalPage" list-name="pages">
+                    <field-map field-name="originalPortalPageId" env-name="originalPortalPageId"/>
                     <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
+                    <order-by field-name="createdStamp"/>
                 </entity-and>
             </actions>
             <widgets>

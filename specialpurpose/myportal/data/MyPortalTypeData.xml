@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+    
+    http://www.apache.org/licenses/LICENSE-2.0
+    
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+-->
+<entity-engine-xml>
+    
+    <WorkEffortType description="Company Events" hasTable="N" parentTypeId="EVENT" workEffortTypeId="COMPANY_EVENT"/>
+    
+    <UserPrefGroupType userPrefGroupTypeId="MyPortal" description="User settings of the MyPortal component"/>
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPortal" userPrefTypeId="myTasks" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPortal" userPrefTypeId="myTimesheet" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPortal" userPrefTypeId="myCommunications" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPortal" userPrefTypeId="otherCommunications" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPortal" userPrefTypeId="myCompanyComms" userPrefValue="Y"/> 
+    <UserPreference userLoginId="_NA_" userPrefGroupTypeId="MyPortal" userPrefTypeId="sendCustRequestEmail" userPrefValue="Y"/>
+    
+    <RoleType description="Email Administrator" hasTable="N" parentTypeId="PERSON_ROLE" roleTypeId="EMAIL_ADMIN"/>
+    
+    <!-- ProductStoreEmailSetting for send auto email to customer when CustRequest completed -->
+    <Enumeration description="Customer Request Created" enumCode="CUST_CREATED" enumId="PRDS_CUST_CREATED" sequenceId="17" enumTypeId="PRDS_EMAIL"/>
+    <Enumeration description="Customer Request Completed" enumCode="CUST_COMPLETE" enumId="PRDS_CUST_CONFIRM" sequenceId="18" enumTypeId="PRDS_EMAIL"/>
+    
+    <!-- PortalPortlet Demo Data -->
+    <PortalPage portalPageId="MYPORTAL" portalName="Main" description="The default OFBiz portal page" ownerUserLoginId="_NA_" originalPortalPageId="_NA_"/>
+    <PortalPageColumn portalPageId="MYPORTAL" columnSeqId="01" />
+    <PortalPageColumn portalPageId="MYPORTAL" columnSeqId="02" />
+    
+    <PortalPortlet portalPortletId="Attributes" portletName="Attributes" screenName="Attributes" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Attributes in myportal from party" />
+    <PortalPortlet portalPortletId="AvsSettings" portletName="Avs Settings" screenName="AvsSettings" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Avs Settings in myportal from party" />
+    <PortalPortlet portalPortletId="Cart" portletName="Cart" screenName="Cart" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Cart in myportal from party" />
+    <PortalPortlet portalPortletId="Content" portletName="Content" screenName="Content" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Content in myportal from party" />
+    <PortalPortlet portalPortletId="FinAccounts" portletName="Fin Accounts" screenName="FinAccounts" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Fin Accounts in myportal from party" />
+    <PortalPortlet portalPortletId="LoyaltyPoints" portletName="Loyalty Points" screenName="LoyaltyPoints" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Loyalty Points in myportal from party" />
+    <PortalPortlet portalPortletId="MYTASKSPARTY" portletName="My Tasks From Party" screenName="mytasksParty" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks in myportal from party" />
+    <PortalPortlet portalPortletId="Notes" portletName="Notes" screenName="Notes" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Notes in myportal from party" />
+    <PortalPortlet portalPortletId="PaymentMethods" portletName="Payment Methods" screenName="PaymentMethods" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="PaymentMethods in myportal from party" />
+    <PortalPortlet portalPortletId="SerializedInventory" portletName="Serialized Inventory" screenName="SerializedInventory" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Serialized Inventory in myportal from party"/>
+    <PortalPortlet portalPortletId="ShipperAccount" portletName="Shipper Account" screenName="ShipperAccount" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Shipper Account in myportal from party" />
+    <PortalPortlet portalPortletId="Subscriptions" portletName="Subscriptions" screenName="Subscriptions" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Subscriptions in myportal from party" />
+    <PortalPortlet portalPortletId="UserLogin" portletName="User Login" screenName="UserLogin" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="User Login in myportal from party"/>
+    <PortalPortlet portalPortletId="ViewInternalOrg" portletName="View Internal Org" screenName="ViewInternalOrg" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="View Internal Org in myportal from party" />
+    <PortalPortlet portalPortletId="Visits" portletName="Visits" screenName="Visits" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Visits in myportal from party" />
+    <PortalPortlet portalPortletId="contact" portletName="Contact" screenName="Contact" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="contact in myportal from party" />
+    <PortalPortlet portalPortletId="contactsAndAccounts" portletName="Contacts and Accounts" screenName="contactsAndAccounts" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Contacts and Accounts in myportal from party" />
+    <PortalPortlet portalPortletId="listrequestlist" portletName="List Request List" screenName="ListRequestList" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="List Request List From My Page" />
+    <PortalPortlet portalPortletId="mycommunications" portletName="My Communications" screenName="MyCommunications" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Communications From My Page" />
+    <PortalPortlet portalPortletId="mycompanycomms" portletName="My Company Comms" screenName="MyCompanyComms" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Company Comms From My Page" />
+    <PortalPortlet portalPortletId="mytasks" portletName="My Tasks" screenName="MyTasks" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Tasks From My Page" />
+    <PortalPortlet portalPortletId="mytimesheet" portletName="My Timesheet" screenName="MyTimesheet" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="My Timesheet From My Page" />
+    <PortalPortlet portalPortletId="otherCommunications" portletName="Other Communications" screenName="OtherCommunications" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="Other Communications From My Page" />
+    <PortalPortlet portalPortletId="party" portletName="Party" screenName="Party" screenLocation="component://myportal/widget/MyPortalScreens.xml" description="profile in myportal from party" />    
+    
+    <PortalPagePortlet portalPageId="MYPORTAL" portalPortletId="listrequestlist" portletSeqId="00001" columnSeqId="01" sequenceNum="-2" />
+    <PortalPagePortlet portalPageId="MYPORTAL" portalPortletId="mycommunications" portletSeqId="00001" columnSeqId="02" sequenceNum="-1" />
+    <PortalPagePortlet portalPageId="MYPORTAL" portalPortletId="mycompanycomms" portletSeqId="00001" columnSeqId="02" sequenceNum="0" />
+    <PortalPagePortlet portalPageId="MYPORTAL" portalPortletId="mytasks" portletSeqId="00001" columnSeqId="01" sequenceNum="0" />
+    <PortalPagePortlet portalPageId="MYPORTAL" portalPortletId="otherCommunications" portletSeqId="00001" columnSeqId="01" />
+</entity-engine-xml>

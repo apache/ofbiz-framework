@@ -45,7 +45,7 @@ margin: 1em;
               <tr>
                 <td>
                   <div class="h2">
-                    <a href="<@ofbizUrl>createPortalPagePortlet?portalPortletId=${portalPortlet.portalPortletId}&amp;portalPageId=${parameters.portalPageId}&amp;columnSeqId=${parameters.columnSeqId}&amp;configurePortalPage=true</@ofbizUrl>">${portalPortlet.portletName}</a>
+                    <a href="<@ofbizUrl>createPortalPagePortlet?portalPortletId=${portalPortlet.portalPortletId}&amp;portalPageId=${parameters.portalPageId}&amp;columnSeqId=${parameters.columnSeqId}&amp;configurePortalPage=true&amp;originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">${portalPortlet.portletName}</a>
                   </div>
                   <div class="tabletext">
                     ${portalPortlet.description}
