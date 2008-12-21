@@ -7654,7 +7654,7 @@
     </property>
     <property key="PageTitleViewBlocked">
         <value xml:lang="en">View Blocked</value>
-        <value xml:lang="en">Page bloquée</value>
+        <value xml:lang="fr">Page bloquée</value>
     </property>
     <property key="PageTitleEditDataSource">
         <value xml:lang="ar">تحرير مصدر المعلومات</value>

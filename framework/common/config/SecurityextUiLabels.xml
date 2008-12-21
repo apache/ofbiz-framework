@@ -31,7 +31,7 @@
         <value xml:lang="zh">访问密码时出错：${errorMessage}。</value>
     </property>
     <property key="loginevents.error_accessing_password_change_history">
-        <value xml:lang="en">Fehler beim Zugriff auf das Passwort-Änderungsprotokoll: ${errorMessage}.</value>
+        <value xml:lang="de">Fehler beim Zugriff auf das Passwort-Änderungsprotokoll: ${errorMessage}.</value>
         <value xml:lang="en">Error accessing password change history: ${errorMessage}.</value>
         <value xml:lang="fr">Erreur lors de l'accès à l'historique des mots de passe : ${errorMessage}.</value>
         <value xml:lang="it">Errore di accesso alla storia dei cambi password: ${errorMessage}.</value>
@@ -166,7 +166,6 @@
     </property>
     <property key="loginevents.unable_to_login_this_application">
         <value xml:lang="de">Anmeldung bei der Anwendung nicht erfolgreich</value>
-        <value xml:lang="de"><b>Unable to login in to this application.</b></value>
         <value xml:lang="en">unable to login this application</value>
         <value xml:lang="es">No puedo conectarse a esta aplicación (faltan permisos)</value>
         <value xml:lang="fr"><b>Impossible de se connecter à cette application.</b></value>
