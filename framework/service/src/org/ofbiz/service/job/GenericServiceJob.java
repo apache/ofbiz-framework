@@ -38,9 +38,7 @@ public class GenericServiceJob extends AbstractJob {
 
     private String service = null;
     private Map<String, Object> context = null;
-    
-    private String logLocation = null;
-        
+
     public GenericServiceJob(DispatchContext dctx, String jobId, String jobName, String service, Map<String, Object> context, GenericRequester req) {
         super(jobId, jobName);
         this.dctx = dctx;
@@ -63,18 +61,12 @@ public class GenericServiceJob extends AbstractJob {
      */
     public void exec() throws InvalidJobException {
         init();
-        String appenderName = module;
+
         // no transaction is necessary since runSync handles this
         try {
             // get the dispatcher and invoke the service via runSync -- will run all ECAs
             LocalDispatcher dispatcher = dctx.getDispatcher();
-            
-            if (this.logLocation != null) {
-                Debug
-                .registerCurrentThreadGroupLogger(this.logLocation,
-                        appenderName);
-            }
-            Map result = dispatcher.runSync(getServiceName(), getContext());
+            Map<String, Object> result = dispatcher.runSync(getServiceName(), getContext());
 
             // check for a failure
             boolean isError = ModelService.RESPOND_ERROR.equals(result.get(ModelService.RESPONSE_MESSAGE));
@@ -95,8 +87,6 @@ public class GenericServiceJob extends AbstractJob {
 
             // call the failed method
             this.failed(t);
-        }finally{
-            Debug.unregisterCurrentThreadGroupLogger(appenderName);
         }
 
         // call the finish method
@@ -141,13 +131,5 @@ public class GenericServiceJob extends AbstractJob {
      */
     protected String getServiceName() throws InvalidJobException {
         return service;
-    }
-    
-    /**
-     * Sets the logfile name
-     * @param logLocation
-     */
-    protected void setLogLocation(String logLocation) {
-        this.logLocation = logLocation;
-    }
+    }        
 }
