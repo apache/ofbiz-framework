@@ -18,9 +18,6 @@
  *******************************************************************************/
 package org.ofbiz.minilang.method.callops;
 
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
@@ -141,7 +138,9 @@ public class CallService extends MethodOperation {
 
                 rtfDef.resultName = resultToFieldElement.getAttribute("result-name");
                 rtfDef.mapAcsr = new ContextAccessor<Map<String, Object>>(resultToFieldElement.getAttribute("map-name"));
-                rtfDef.fieldAcsr = new ContextAccessor<Object>(resultToFieldElement.getAttribute("field-name"), rtfDef.resultName);
+                String field = resultToFieldElement.getAttribute("field");
+                if (UtilValidate.isEmpty(field)) field = resultToFieldElement.getAttribute("field-name"); 
+                rtfDef.fieldAcsr = new ContextAccessor<Object>(field, rtfDef.resultName);
 
                 resultToField.add(rtfDef);
             }

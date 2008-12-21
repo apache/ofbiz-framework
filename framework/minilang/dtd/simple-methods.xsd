@@ -114,19 +114,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.field">
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the field to put value in.    
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the related map.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="field" use="required">
+            <xs:annotation><xs:documentation>Name of the field to put value in.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="type">
             <xs:annotation>
@@ -453,25 +442,13 @@ under the License.
     </xs:element>
     <xs:attributeGroup name="attlist.set-service-fields">
         <xs:attribute type="xs:string" name="service-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the service from which take all the incoming files, or all incoming attributes.
-                </xs:documentation>
-            </xs:annotation>
+            <xs:annotation><xs:documentation>Name of the service to get all the incoming attributes (parameters) from.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Incoming map to copy fields from.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="map" use="required">
+            <xs:annotation><xs:documentation>Incoming map to copy fields from.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="to-map-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Map to copy to fields to.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="to-map" use="required">
+            <xs:annotation><xs:documentation>Map to copy to fields to.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="error-list-name" default="error_list">
             <xs:annotation>
@@ -717,23 +694,12 @@ under the License.
             <xs:annotation>
                 <xs:documentation>
                     Name of the result. May be used for the field-name. If you don't specify a field-name,
-                    that's the name of the variable that will be created in the current context for the value of that result.
+                    this will be name of the variable that will be created in the current context for the value of that result.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    Optionnal map name.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name">
-            <xs:annotation>
-                <xs:documentation>
-                    Optionnal field name.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="field">
+            <xs:annotation><xs:documentation>Optional name of target field. If empty will default to result-name.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="result-to-request">
@@ -962,18 +928,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.call-object-method">
-        <xs:attribute type="xs:string" name="obj-field-name" use="required">
+        <xs:attribute type="xs:string" name="obj-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the field the object is in that has the method to be called.
-                </xs:documentation>
-            </xs:annotation>            
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="obj-map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map the field of the object is in that has the method to be called. 
-                    If this is not specified the environment will be used to find the field in.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
@@ -984,19 +942,11 @@ under the License.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
-        <xs:attribute type="xs:string" name="ret-field-name">
+        <xs:attribute type="xs:string" name="ret-field">
             <xs:annotation>
                 <xs:documentation>
                     The name of the field to put the result in. 
                     If not specified any return value will be ignored. 
-                </xs:documentation>
-            </xs:annotation>            
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="ret-map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map the field of the return value is in. 
-                    If not specified but the field name is then the environment will be used to find the field in.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
@@ -1050,18 +1000,10 @@ under the License.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
-        <xs:attribute type="xs:string" name="ret-field-name">
+        <xs:attribute type="xs:string" name="ret-field">
             <xs:annotation>
                 <xs:documentation>
                     The name of the field to put the result in. If not specified any return value will be ignored.
-                </xs:documentation>
-            </xs:annotation>            
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="ret-map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map the field of the return value is in. 
-                    If not specified but the field name is then the environment will be used to find the field in.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
@@ -1069,8 +1011,7 @@ under the License.
     <xs:element name="create-object" substitutionGroup="CallOperations">
         <xs:annotation>
             <xs:documentation>
-                Creates an object of the given class and if the field-name is specified saves it in that field. 
-                
+                Creates an object of the given class and if the field attribute is specified saves it in that field. 
                 The string and field sub-elements are passed to the constructor method as arguments in the order they are specified.  
                 If the sub-elements do not match the constructor method arguments an error will be returned.
             </xs:documentation>
@@ -1105,21 +1046,13 @@ under the License.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name">
+        <xs:attribute type="xs:string" name="field">
             <xs:annotation>
                 <xs:documentation>
                     The name of a field to put the new object in.   
                     If not specified the object will be created but ignored after that. 
                 </xs:documentation>
             </xs:annotation>            
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map the field will go in. 
-                    If not specified the field will be put in the environment. 
-                </xs:documentation>
-             </xs:annotation>            
         </xs:attribute>
     </xs:attributeGroup>
     <!-- Operations to copy map fields in the current env to context specific containers -->
@@ -1130,33 +1063,17 @@ under the License.
                 The field-to-request tag copies a field from a map to the specified servlet request attribute.                
                 The tag is only used when the simple-method is called as an event, it is ignored otherwise.                
             </xs:documentation>
-        </xs:annotation>                            
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.field-to-request"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.field-to-request">
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment. 
-                    If not specified the field-name will be used to get the field from the method environment.
-                </xs:documentation>
-            </xs:annotation>                                
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name (key) of the map field to use.
-                </xs:documentation>
-            </xs:annotation>            
+        <xs:attribute type="xs:string" name="field" use="required">
+            <xs:annotation><xs:documentation>The context name of the field to use.</xs:documentation></xs:annotation>            
         </xs:attribute>
         <xs:attribute type="xs:string" name="request-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the request attribute to use. Defaults to the field-name.
-                </xs:documentation>
-            </xs:annotation>            
+            <xs:annotation><xs:documentation>The name of the request attribute to use. Defaults to the value of field attribute.</xs:documentation></xs:annotation>            
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="field-to-session" substitutionGroup="EventOperations">
@@ -1165,33 +1082,17 @@ under the License.
                 The field-to-session tag copies a field from a map to the specified servlet session attribute.                
                 The tag is only used when the simple-method is called as an event, it is ignored otherwise.                
             </xs:documentation>
-        </xs:annotation>        
+        </xs:annotation>
         <xs:complexType>
             <xs:attributeGroup ref="attlist.field-to-session"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.field-to-session">
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment. 
-                    If not specified the field-name will be used to get the field from the method environment.                    
-                </xs:documentation>
-            </xs:annotation>            
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name (key) of the map field to use.
-                </xs:documentation>
-            </xs:annotation>            
+        <xs:attribute type="xs:string" name="field" use="required">
+            <xs:annotation><xs:documentation>The context name of the field to use.</xs:documentation></xs:annotation>            
         </xs:attribute>
         <xs:attribute type="xs:string" name="session-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the session attribute to use. Defaults to the field-name.
-                </xs:documentation>
-            </xs:annotation>
+            <xs:annotation><xs:documentation>The name of the session attribute to use. Defaults to the value of field attribute.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="request-to-field" substitutionGroup="EventOperations">
@@ -1206,20 +1107,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.request-to-field">
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment.
-                    If not specified the field-name will be used to set the field in the method environment.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name (key) of the map field to use.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="field" use="required">
+            <xs:annotation><xs:documentation>The context name of the field to use.</xs:documentation></xs:annotation>            
         </xs:attribute>
         <xs:attribute type="xs:string" name="default">
             <xs:annotation>
@@ -1230,12 +1119,7 @@ under the License.
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="request-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the request attribute to use. 
-                    Defaults to the field-name.
-                </xs:documentation>
-            </xs:annotation>
+            <xs:annotation><xs:documentation>The name of the request attribute to use. Defaults to the value of the field attribute.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="request-parameters-to-list" substitutionGroup="EventOperations">
@@ -1278,20 +1162,8 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.session-to-field">
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment. 
-                    If not specified the field-name will be used to set the field in the method environment.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name (key) of the map field to use.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="field" use="required">
+            <xs:annotation><xs:documentation>The name (key) of the map field to use.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="default">
             <xs:annotation>
@@ -1304,7 +1176,7 @@ under the License.
         <xs:attribute type="xs:string" name="session-name">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the session attribute to use. Defaults to the field-name.
+                    The name of the session attribute to use. Defaults to the value of field attribute.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -1331,11 +1203,7 @@ under the License.
             </xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="property" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The property whose value will be put in the field.
-                </xs:documentation>
-            </xs:annotation>
+            <xs:annotation><xs:documentation>The property whose value will be put in the field.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="default">
             <xs:annotation>
@@ -1345,19 +1213,11 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name (key) of the field to use. 
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="field" use="required">
+            <xs:annotation><xs:documentation>The name (key) of the field to use.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="session-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the session attribute to use. Defaults to the field-name.
-                </xs:documentation>
-            </xs:annotation>
+            <xs:annotation><xs:documentation>The name of the session attribute to use. Defaults to the value of field attribute</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <!-- Service specific operations -->
@@ -1373,27 +1233,11 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.field-to-result">
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment. 
-                    If not specified the field-name will be used to get the field from the method environment.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name (key) of the map field to use.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="field" use="required">
+            <xs:annotation><xs:documentation>The name (key) of the map field to use.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute type="xs:string" name="result-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the request attribute to use. Defaults to the field-name.
-                </xs:documentation>
-            </xs:annotation>
+            <xs:annotation><xs:documentation>The name of the result Map name/key to use. Defaults to the value of field attribute.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <!-- Environment specific operations -->
@@ -1408,14 +1252,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.map-to-map">
-        <xs:attribute type="xs:string" name="map-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment the fields will come from.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="map" use="required">
+            <xs:annotation><xs:documentation>The name of the map in the method environment the fields will come from.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="to-map-name">
+        <xs:attribute type="xs:string" name="to-map">
             <xs:annotation>
                 <xs:documentation>
                     The name of the map in the method environment the fields will go to. 
@@ -1425,85 +1265,40 @@ under the License.
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="field-to-list" substitutionGroup="EnvOperations">
-        <xs:annotation>
-            <xs:documentation>
-                The field-to-list tag appends a field to the specified list.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.field-to-list"/>
-        </xs:complexType>
+        <xs:annotation><xs:documentation>The field-to-list tag appends a field to the specified list.</xs:documentation></xs:annotation>
+        <xs:complexType><xs:attributeGroup ref="attlist.field-to-list"/></xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.field-to-list">
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment. 
-                    If not specified the field-name will be used to get the field from the method environment.
-                </xs:documentation>
-            </xs:annotation>            
+        <xs:attribute type="xs:string" name="field" use="required">
+            <xs:annotation><xs:documentation>The name (key) of the map field to use.</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name (key) of the map field to use.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="list-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the list in the method environment that the object will be appended to.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="list" use="required">
+            <xs:annotation><xs:documentation>The name of the list in the method environment that the object will be appended to.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="list-to-list" substitutionGroup="EnvOperations">
-        <xs:annotation>
-            <xs:documentation>
-                Copy a list to another list.
-            </xs:documentation>
-        </xs:annotation>
-        <xs:complexType>
-            <xs:attributeGroup ref="attlist.list-to-list"/>
-        </xs:complexType>
+        <xs:annotation><xs:documentation>Copy a list to another list.</xs:documentation></xs:annotation>
+        <xs:complexType><xs:attributeGroup ref="attlist.list-to-list"/></xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.list-to-list">
-        <xs:attribute type="xs:string" name="list-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the list to copy from
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="list" use="required">
+            <xs:annotation><xs:documentation>Name of the list to copy from</xs:documentation></xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="to-list-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the list to copy to.
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="to-list" use="required">
+            <xs:annotation><xs:documentation>Name of the list to copy to.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="order-map-list" substitutionGroup="EnvOperations">
-        <xs:annotation>
-            <xs:documentation>
-                Sort a list : ordered by fields names given in order-by attribute.
-            </xs:documentation>
+        <xs:annotation><xs:documentation>Sort a List containing Maps: order by fields names given in order-by sub-element.</xs:documentation>
         </xs:annotation>
         <xs:complexType>
-            <xs:sequence>
-                <xs:element maxOccurs="unbounded" ref="order-by"/>
-            </xs:sequence>
+            <xs:sequence><xs:element maxOccurs="unbounded" ref="order-by"/></xs:sequence>
             <xs:attributeGroup ref="attlist.order-map-list"/>
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.order-map-list">
-        <xs:attribute type="xs:string" name="list-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    Name of the list ordered by fields names given in order-by attribute. 
-                </xs:documentation>
-            </xs:annotation>
+        <xs:attribute type="xs:string" name="list" use="required">
+            <xs:annotation><xs:documentation>Name of the list to be sorted.</xs:documentation></xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
     <xs:element name="set" substitutionGroup="EnvOperations">
@@ -2318,18 +2113,10 @@ under the License.
             <xs:sequence>
                 <xs:element maxOccurs="unbounded" ref="field-map"/>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="select-field">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Specify fields to select, otherwise all fields will be selected.                             
-                        </xs:documentation>
-                    </xs:annotation>
+                    <xs:annotation><xs:documentation>Specify fields to select, otherwise all fields will be selected.</xs:documentation></xs:annotation>
                 </xs:element>
                 <xs:element minOccurs="0" maxOccurs="unbounded" ref="order-by">
-                    <xs:annotation>
-                        <xs:documentation>
-                            Defines fields to order list by.                             
-                        </xs:documentation>
-                    </xs:annotation>
+                    <xs:annotation><xs:documentation>Defines fields to order list by.</xs:documentation></xs:annotation>
                 </xs:element>
                 <xs:choice minOccurs="0">
                     <xs:element ref="limit-range"/>                    

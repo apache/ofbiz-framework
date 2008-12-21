@@ -50,9 +50,10 @@ public class FieldToSession extends MethodOperation {
 
     public FieldToSession(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
+        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
-        sessionAcsr = new FlexibleServletAccessor<Object>(element.getAttribute("session-name"), element.getAttribute("field-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
+        sessionAcsr = new FlexibleServletAccessor<Object>(element.getAttribute("session-name"), fieldAcsr.toString());
     }
 
     public boolean exec(MethodContext methodContext) {

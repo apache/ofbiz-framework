@@ -49,9 +49,10 @@ public class FieldToList extends MethodOperation {
 
     public FieldToList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
+        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
-        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list-name"));
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
+        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list"), element.getAttribute("list-name"));
     }
 
     public boolean exec(MethodContext methodContext) {

@@ -51,10 +51,11 @@ public class OrderMapList extends MethodOperation {
 
     public OrderMapList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<List<Map<Object, Object>>>(element.getAttribute("list-name"));
+        listAcsr = new ContextAccessor<List<Map<Object, Object>>>(element.getAttribute("list"), element.getAttribute("list-name"));
         
         for (Element orderByElement: UtilXml.childElementList(element, "order-by")) {
-            FlexibleMapAccessor<String> fma = FlexibleMapAccessor.getInstance(orderByElement.getAttribute("field-name"));
+            FlexibleMapAccessor<String> fma = FlexibleMapAccessor.getInstance(UtilValidate.isNotEmpty(orderByElement.getAttribute("field")) ? 
+            	    orderByElement.getAttribute("field") : orderByElement.getAttribute("field-name"));
             this.orderByAcsrList.add(fma);
         }
 

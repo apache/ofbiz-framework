@@ -48,8 +48,8 @@ public class MapToMap extends MethodOperation {
 
     public MapToMap(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
-        toMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("to-map-name"));
+        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
+        toMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("to-map"), element.getAttribute("to-map-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
