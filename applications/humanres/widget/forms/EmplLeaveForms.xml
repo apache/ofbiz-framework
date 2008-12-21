@@ -58,7 +58,7 @@
         <alt-target use-when="insideEmployee != null" target="createEmplLeaveExt"/>
         <auto-fields-service service-name="createEmplLeave"/>
         <field name="partyId" use-when="emplLeaveCtx!=null"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.PartyPartyId}" use-when="emplLeaveCtx==null"><lookup target-form-name="LookupPartyName"/></field>
+        <field name="partyId" use-when="emplLeaveCtx==null"><lookup target-form-name="LookupPartyName"/></field>
         <field name="leaveTypeId">
             <drop-down allow-empty="true">
                 <entity-options description="${description}" key-field-name="leaveTypeId" entity-name="EmplLeaveType"/>
