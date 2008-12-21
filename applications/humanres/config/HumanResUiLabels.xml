@@ -210,6 +210,10 @@
         <value xml:lang="it">Giustificazione</value>
         <value xml:lang="th">การให้เหตุผล</value>
     </property>
+    <property key="FormFieldTitle_leaveTypeId">
+        <value xml:lang="en">Leave Type Id</value>
+        <value xml:lang="fr">Réf. de type de congé</value>
+    </property>    
     <property key="FormFieldTitle_managerPartyId">
         <value xml:lang="en">Manager Party Id</value>
         <value xml:lang="fr">Réf. de directeur</value>
@@ -324,6 +328,14 @@
         <value xml:lang="it">Funzione</value>
         <value xml:lang="th">จุดมุ่งหมาย</value>
     </property>
+    <property key="FormFieldTitle_qualificationDesc">
+        <value xml:lang="en">Qualification Desc</value>
+        <value xml:lang="fr">Description de la qualification</value>
+    </property>    
+    <property key="FormFieldTitle_partyQualTypeId">
+        <value xml:lang="en">Party Qual Type Id</value>
+        <value xml:lang="fr">Réf. de type de qualification</value>
+    </property>        
     <property key="FormFieldTitle_rating">
         <value xml:lang="en">Rating</value>
         <value xml:lang="fr">Cote</value>
@@ -342,6 +354,19 @@
         <value xml:lang="it">Tipo Responsibilità</value>
         <value xml:lang="th">รหัสประเภทหน้าที่</value>
     </property>
+    FormFieldTitle_
+    <property key="FormFieldTitle_resumeDate">
+        <value xml:lang="en">Resume Date</value>
+        <value xml:lang="fr">Date de CV</value>
+    </property>    
+    <property key="FormFieldTitle_resumeId">
+        <value xml:lang="en">Resume Id</value>
+        <value xml:lang="fr">Réf. de CV</value>
+    </property>    
+    <property key="FormFieldTitle_resumeText">
+        <value xml:lang="en">Resume Text</value>
+        <value xml:lang="fr">Texte de CV</value>
+    </property>    
     <property key="FormFieldTitle_roleTypeIdFrom">
         <value xml:lang="en">Role Type Id From</value>
         <value xml:lang="fr">Réf. de type de rôle depuis</value>
@@ -372,6 +397,13 @@
         <value xml:lang="it">Livello Abilità</value>
         <value xml:lang="th">ระดับทักษะ</value>
     </property>
+    <property key="FormFieldTitle_skillTypeId">
+        <value xml:lang="en">Skill Type Id</value>
+        <value xml:lang="fr">Réf. de compétence</value>
+        <value xml:lang="it">Codice Tipo Abilità</value>
+        <value xml:lang="th">รหัสประเภททักษะ</value>
+        <value xml:lang="zh">技能类型Id</value>
+    </property>
     <property key="FormFieldTitle_startedUsingDate">
         <value xml:lang="en">Started Using Date</value>
         <value xml:lang="fr">Débutant depuis</value>
@@ -396,6 +428,14 @@
         <value xml:lang="it">Motivazione Licenziamento</value>
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
     </property>
+    <property key="FormFieldTitle_title">
+        <value xml:lang="en">Title</value>
+        <value xml:lang="fr">Titre</value>
+    </property>
+    <property key="FormFieldTitle_trainingClassTypeId">
+        <value xml:lang="en">Training Class Type Id</value>
+        <value xml:lang="fr">Réf. de type de formation</value>
+    </property>    
     <property key="FormFieldTitle_unemploymentClaimDate">
         <value xml:lang="en">Unemployment Claim Date</value>
         <value xml:lang="fr">Date de demande du chômage </value>
@@ -414,6 +454,10 @@
         <value xml:lang="it">Anni di Esperienza</value>
         <value xml:lang="th">ประสบการณ์(ปี)</value>
     </property>
+    <property key="FormFieldTitle_verifStatusId">
+        <value xml:lang="en">Verif Status Id</value>
+        <value xml:lang="fr">Réf. de vérification de statut</value>
+    </property>    
     <property key="HumanResAddEmplLeave">
         <value xml:lang="en">Add Employee Leave</value>
         <value xml:lang="fr">Ajouter le congé</value>
@@ -532,7 +576,7 @@
     </property>
     <property key="HumanResNewEmployee">
         <value xml:lang="en">New Employee</value>
-        <value xml:lang="fr">Nouveau employé</value>
+        <value xml:lang="fr">Nouvel employé</value>
     </property>
     <property key="HumanResEmplPositionReportingStruct">
         <value xml:lang="en">Reporting Structure</value>
@@ -576,7 +620,7 @@
     </property>
     <property key="HumanResEditPartyReview">
         <value xml:lang="en">Party Reviews</value>
-        <value xml:lang="fr">Examens</value>
+        <value xml:lang="fr">Evaluations</value>
     </property>
     <property key="HumanResEditPartySkill">
         <value xml:lang="en">Edit party Skill</value>
@@ -609,6 +653,11 @@
     <property key="HumanResEditUnemploymentClaim">
         <value xml:lang="en">Unemployment Claims</value>
         <value xml:lang="fr">Demandes de chômage</value>
+    </property>
+    <property key="HumanResEmployee">
+        <value xml:lang="en">an employee</value>
+        <value xml:lang="es">un empleado</value>
+        <value xml:lang="fr">un employé</value>
     </property>
     <property key="HumanResEmployees">
         <value xml:lang="en">Employees</value>
@@ -718,7 +767,7 @@
     </property>
     <property key="HumanResFindPerfReview">
         <value xml:lang="en">Find Performance Review</value>
-        <value xml:lang="fr">Rechercher l'examen de performance</value>
+        <value xml:lang="fr">Rechercher l'évaluation de performance</value>
     </property>
     <property key="HumanResFindPersonTraining">
         <value xml:lang="en">Find Person Training</value>
@@ -903,6 +952,10 @@
         <value xml:lang="it">Nuova Applicazione Impiegato</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจ้างงานใหม่</value>
     </property>
+    <property key="HumanResNewLeave">
+        <value xml:lang="en">New Leave</value>
+        <value xml:lang="fr">Nouveau congé</value>
+    </property>
     <property key="HumanResNewPartyBenefit">
         <value xml:lang="en">New Party Benefit</value>
         <value xml:lang="fr">Nouvel d'avantage d'acteur</value>
@@ -923,13 +976,13 @@
     </property>
     <property key="HumanResNewPartyReview">
         <value xml:lang="en">New PerfReview</value>
-        <value xml:lang="fr">Nouvel examen de performances</value>
+        <value xml:lang="fr">Nouvelle évaluation de performances</value>
         <value xml:lang="it">Nuova Rassegna Prestazioni</value>
         <value xml:lang="th">การตรวจสอบสิทธิพิเศษใหม่</value>
     </property>
     <property key="HumanResNewPartyReviewEdit">
         <value xml:lang="en">Create/Update PerfReview</value>
-        <value xml:lang="fr">Création/Màj d'un examen de performances</value>
+        <value xml:lang="fr">Création/Màj d'une évaluation de performances</value>
         <value xml:lang="it">Crea/Aggiorna Rassegna Prestazioni</value>
         <value xml:lang="th">สร้าง/แก้ไข การตรวจสอบสิทธิพิเศษ</value>
     </property>
@@ -963,14 +1016,17 @@
     </property>
     <property key="HumanResEmploymentPartyIdFrom">
         <value xml:lang="en">Internal Organization</value>
+        <value xml:lang="fr">Organisation interne</value>
         <value xml:lang="it">Codice Soggetto Da</value>
         <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="HumanResEmploymentPartyIdFromToolTip">
         <value xml:lang="en">Internal Organization Employee works in</value>
+        <value xml:lang="fr">Organisation interne où l'employé travaille</value>
     </property>
     <property key="HumanResEmployeePartyIdTo">
         <value xml:lang="en">Employee Party Id</value>
+        <value xml:lang="fr">Réf. d'acteur de l'employé</value>
         <value xml:lang="it">Codice Soggetto A</value>
         <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
     </property>
@@ -1056,7 +1112,7 @@
     </property>
     <property key="HumanResPartyReview">
         <value xml:lang="en">Party Review</value>
-        <value xml:lang="fr">Examen de l'acteur</value>
+        <value xml:lang="fr">évaluation de l'acteur</value>
         <value xml:lang="it">Rassegna Soggetto</value>
         <value xml:lang="th">การตรวจสอบกลุ่มผู้ใช้</value>
     </property>
@@ -1193,6 +1249,7 @@
     </property>
     <property key="HumanResSkills">
         <value xml:lang="en">Skills</value>
+        <value xml:lang="fr">Compétences</value>
     </property>
     <property key="HumanResSkillType">
         <value xml:lang="en">Skill Types</value>
@@ -1305,13 +1362,13 @@
     </property>
     <property key="PageTitleListPartyReview">
         <value xml:lang="en">List PerfReview</value>
-        <value xml:lang="fr">Liste des examens de performances</value>
+        <value xml:lang="fr">Liste des évaluations de performances</value>
         <value xml:lang="it">Lista Rassegna Prestazioni</value>
         <value xml:lang="th">รายการตรวจสอบสิทธิพิเศษ</value>
     </property>
     <property key="PageTitleListPartyReviewItems">
         <value xml:lang="en">List PerfReviewItem</value>
-        <value xml:lang="fr">Liste d'article d'examens de performances</value>
+        <value xml:lang="fr">Liste d'article d'évaluations de performances</value>
         <value xml:lang="it">Lista Riga Rassegna Prestazioni</value>
         <value xml:lang="th">รายการรายการตรวจสอบสิทธิพิเศษ</value>
     </property>
