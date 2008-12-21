@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
+    <menu name="MyPageAppBar" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="My Personal Page" menu-container-style="button-bar tab-bar">
+        <menu-item name="main" title="${uiLabelMap.CommonMain}">
+            <condition>
+                <not><if-empty field-name="userLogin"/></not>
+            </condition>
+            <link target="main?donePage=main"/>
+        </menu-item>
+        <menu-item name="viewprofile" title="${uiLabelMap.MyProfile}">
+            <condition>
+                <not><if-empty field-name="userLogin"/></not>
+            </condition>
+            <link target="viewprofile?partyId=${userLogin.partyId}"/>
+        </menu-item>
+        <menu-item name="myCommunications" title="${uiLabelMap.MyCommunications}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-compare field-name="preferences.userPrefMap.myCommunications" operator="not-equals" value="Y"/>
+                </and>
+            </condition>
+            <link target="myCommunications?donePage=myCommunications"/>
+        </menu-item>
+        <menu-item name="otherCommunications" title="${uiLabelMap.OtherCommunications}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-compare field-name="preferences.userPrefMap.otherCommunications" operator="not-equals" value="Y"/>
+                    <or>
+                        <if-has-permission permission="MYPAGE_EMPLOYEE"/>
+                        <if-has-permission permission="MYPAGE_EMPL-NOEMAIL"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="otherCommunications?donePage=otherCommunications"/>
+        </menu-item>
+        <menu-item name="myCompanyComms" title="${uiLabelMap.MyCompanyComms}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-compare field-name="preferences.userPrefMap.myCompanyComms" operator="not-equals" value="Y"/>
+                    <or>
+                        <if-has-permission permission="MYPAGE_EMPLOYEE"/>
+                        <if-has-permission permission="MYPAGE_EMPL-NOEMAIL"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="myCompanyComms"/>
+        </menu-item>
+        <menu-item name="myTimesheet" title="${uiLabelMap.myTimesheet}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-compare field-name="preferences.userPrefMap.myTimesheet" operator="not-equals" value="Y"/>
+                    <or>
+                        <if-has-permission permission="MYPAGE_EMPLOYEE"/>
+                        <if-has-permission permission="MYPAGE_EMPL-NOEMAIL"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="myTimesheet?donePage=myTimeSheet"/>
+        </menu-item>
+        <menu-item name="myTasks" title="${uiLabelMap.myTasks}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-compare field-name="preferences.userPrefMap.myTasks" operator="not-equals" value="Y"/>
+                    <or>
+                        <if-has-permission permission="MYPAGE_EMPLOYEE"/>
+                        <if-has-permission permission="MYPAGE_EMPL-NOEMAIL"/>
+                    </or>
+                </and>
+            </condition>
+            <link target="myTasks?donePage=myTasks"/>
+        </menu-item>
+        <menu-item name="invoices" title="${uiLabelMap.AccountingInvoicesMenu}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-has-permission permission="MYPAGE_CUSTOMER"/>
+                </and>
+            </condition>
+            <link target="listInvoices"/>
+        </menu-item>
+        <menu-item name="projects" title="${uiLabelMap.ProjectMgrProjects}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="userLogin"/></not>
+                    <if-has-permission permission="MYPAGE_CUSTOMER"/>
+                </and>
+            </condition>
+            <link target="listProjects"/>
+        </menu-item>
+        <menu-item name="Logout" title="${uiLabelMap.CommonLogout}" align-style="opposed">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="logout"/>
+        </menu-item>
+        <menu-item name="Login" title="${uiLabelMap.CommonLogin}" align-style="opposed">
+            <condition><if-empty field-name="userLogin"/></condition>
+            <link target="${checkLoginUrl}"/>
+        </menu-item>
+        <menu-item name="help" title="${uiLabelMap.CommonHelp}" align-style="opposed">
+            <condition><not><if-empty field-name="userLogin"/></not></condition>
+            <link target="http://docs.ofbiz.org/display/OFBENDUSER/My+Page?decorator=printable" url-mode="plain" target-window="new"/>
+        </menu-item>
+        <menu-item name="preferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
+            <condition>
+                <if-has-permission permission="MYPAGE_EMPLOYEE"/>
+            </condition>
+            <link target="preferences"/>
+        </menu-item>
+        <menu-item name="custPreferences" title="${uiLabelMap.CommonPreferences}" align-style="opposed">
+            <condition>
+                <if-has-permission permission="MYPAGE_CUSTOMER"/>
+            </condition>
+            <link target="custPreferences"/>
+        </menu-item>
+    </menu>    
+    
+    <menu name="MyCompanyCommsMenu">
+        <menu-item name="newEvent" title="${uiLabelMap.WorkEffortNewEvent}">
+            <link target="newEvent?donePage=${parameters.donePage}"/>
+        </menu-item>
+    </menu>
+    <menu name="communicationsMenu">
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
+            <condition>
+                <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+            </condition>      
+            <link
+                target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
+        </menu-item>
+        <menu-item name="newNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <condition>
+                <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+            </condition>      
+            <link
+                target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}" />
+        </menu-item>
+        <menu-item name="openEvents" title="${uiLabelMap.OpenEvents}">
+            <condition>
+                <if-compare field-name="parameters.all" operator="equals" value="true" />
+            </condition>
+            <link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;all=false" />
+        </menu-item>
+        <menu-item name="allOtherEvents" title="${uiLabelMap.AllEvents}">
+            <condition>
+                <or>
+                    <if-compare field-name="parameters.all" operator="equals" value="false" />
+                    <if-empty field-name="parameters.all"/>
+                </or>
+            </condition>
+            <link target="${parameters.donePage}?donePage=${parameters.donePage}&amp;all=true" />
+        </menu-item>
+    </menu>    
+    
+    <menu name="MyTasksMenu" type="simple" menu-container-style="button-bar button-style-2" default-selected-style="selected" selected-menuitem-context-field-name="tabButtonItem">
+        <menu-item name="myTasks" title="myTasks"><link target="/projectmgr/control/MyTasks" url-mode="inter-app"/></menu-item>
+    </menu>
+    
+    <menu name="MyTimesheetMenu">
+        <menu-item name="setToComplete" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <and>
+                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                    <if-compare field-name="headerItem" operator="equals" value="main"/>
+                </and>
+            </condition>
+            <link target="statusToComplete?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+        </menu-item>
+        <menu-item name="setToCompleteKey" title="${uiLabelMap.CommonStatustoComplete}">
+            <condition>
+                <and>
+                    <if-compare field-name="timesheet.statusId" operator="equals" value="TIMESHEET_IN_PROCESS"/>
+                    <if-compare field-name="headerItem" operator="not-equals" value="main"/>
+                </and>
+            </condition>
+            <link target="statusToCompleteKey?timesheetId=${timesheet.timesheetId}&amp;statusId=TIMESHEET_COMPLETED"/>
+        </menu-item>
+        <menu-item name="myTime" title="myTime"><link target="/projectmgr/control/MyTimesheet" url-mode="inter-app"/></menu-item>
+    </menu>
+    <menu name="CommSubTabBar" menu-container-style="button-bar button-style-2">
+        <menu-item name="new" title="${uiLabelMap.PartyNewCommunication}">
+            <condition>
+                <and>
+                    <if-has-permission permission="PARTYMGR_CME_CREATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+                </and>
+            </condition>
+            <link target="EditCommunicationEvent?donePage=${parameters.donePage}"/>
+        </menu-item>
+        <menu-item name="newEmail" title="${uiLabelMap.PartyNewEmail}">
+            <condition>
+                <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+            </condition>
+            <link target="NewCommunicationEvent?communicationEventTypeId=EMAIL_COMMUNICATION&amp;donePage=${parameters.donePage}&amp;partyIdFrom=${userLogin.partyId}&amp;statusId=COM_PENDING"/>
+        </menu-item>
+        <menu-item name="newInternalNote" title="${uiLabelMap.PartyNewInternalNote}">
+            <condition>
+                <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+            </condition>
+            <link target="EditCommunicationEvent?communicationEventTypeId=COMMENT_NOTE&amp;donePage=${parameters.donePage}"/>
+        </menu-item>
+        <menu-item name="reply" title="${uiLabelMap.PartyReply}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                </and>
+            </condition>
+            <link target="NewCommunicationEvents?communicationEventTypeId=EMAIL_COMMUNICATION&amp;parentCommEventId=${parameters.communicationEventId}&amp;donePage=${parameters.donePage}"/>
+        </menu-item>
+        <menu-item name="forward" title="${uiLabelMap.Forward}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <if-compare field-name="communicationEvent.partyIdFrom" operator="not-equals" value="${userLogin.partyId}"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                    <if-has-permission permission="PARTYMGR_CME-NOTE_CREATE"/>
+                </and>
+            </condition>
+            <link target="NewCommunicationEvents?communicationEventTypeId=EMAIL_COMMUNICATION&amp;originalCommEventId=${parameters.communicationEventId}&amp;donePage=${parameters.donePage}"/>
+        </menu-item>
+        <menu-item name="createRequestFromCommEvent" title="${uiLabelMap.PartyCreateRequestFromCommEvent}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <not><if-empty field-name="communicationEvent.partyIdFrom"/></not>
+                    <if-has-permission permission="ORDERMGR_CRQ_CREATE"/>
+                </and>
+            </condition>
+            <link target="editRequestFromCommEvent?communicationEventId=${parameters.communicationEventId}"/>
+        </menu-item>
+        <menu-item name="close" title="${uiLabelMap.CommonClose}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="communicationEventRole"/></not>
+                    <if-compare field-name="communicationEventRole.statusId" operator="equals" value="COM_ROLE_READ"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
+                </and>
+            </condition>
+            <link target="setCommunicationEventRoleStatus?communicationEventId=${parameters.communicationEventId}&amp;partyId=${userLogin.partyId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;statusId=COM_ROLE_COMPLETED"/>
+        </menu-item>
+        <menu-item name="send" title="${uiLabelMap.CommonSend}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="parameters.communicationEventId"/></not>
+                    <if-compare field-name="commEvent.statusId" operator="equals" value="COM_PENDING"/>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_UPDATE"/>
+                </and>
+            </condition>
+            <link target="updateCommunicationEvent/main?communicationEventId=${parameters.communicationEventId}&amp;statusId=COM_IN_PROGRESS"/>
+        </menu-item>
+        <menu-item name="delete" title="${uiLabelMap.CommonDelete}">
+            <condition>
+                <and>
+                    <not><if-empty field-name="communicationEventRole"/></not>
+                    <if-has-permission permission="PARTYMGR_CME-EMAIL_DELETE"/>
+                </and>
+            </condition>
+            <link target="RemoveCommunicationEventRole?communicationEventId=${parameters.communicationEventId}&amp;roleTypeId=${communicationEventRole.roleTypeId}&amp;partyId=${userLogin.partyId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y"/>
+        </menu-item>
+    </menu>
+    <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">
+        <menu-item name="ViewRequest" title="Overview" >
+            <link target="ViewRequest?custRequestId=${custRequest.custRequestId}"/>
+        </menu-item>
+        <menu-item name="custRequestContent" title="Content">
+            <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
+        </menu-item>
+    </menu>
+    <menu name="RequestSubTabBar" type="simple" menu-container-style="button-bar button-style-2">
+        <menu-item name="cancelledRequest" title="Cancel request" >
+            <condition>
+                <and>
+                    <not><if-empty field-name="custRequest"/></not>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="setCustRequestStatus?custRequestId=${custRequestId}&amp;statusId=CRQ_CANCELLED"/>
+        </menu-item>
+        <menu-item name="addContent" title="Add content">
+            <condition>
+                <and>
+                    <not><if-empty field-name="custRequest"/></not>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_CANCELLED"/>
+                    <if-compare field-name="custRequest.statusId" operator="not-equals" value="CRQ_COMPLETED"/>
+                </and>
+            </condition>
+            <link target="EditCustRequestContent?custRequestId=${custRequest.custRequestId}"/>
+        </menu-item>
+    </menu>
+</menus>

@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<forms xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
+
+    <form name="MyTasks" extends="MyTasks" extends-resource="component://projectmgr/widget/forms/TaskForms.xml">
+        <field name="donePage"><hidden value="${parameters.donePage}"/></field>
+        <field name="workEffortName" title="${uiLabelMap.ProjectMgrTaskName}" widget-style="buttontext">
+            <hyperlink also-hidden="false" description="${workEffortName}" target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK"/>
+        </field>
+        <field name="projectName" title="${uiLabelMap.ProjectMgrProjectName}"><hyperlink target="/projectmgr/control/projectView?projectId=${resultProject.projectId}"  target-type="inter-app" target-window="_BLANK" description="${resultProject.projectName}"/></field>
+        <field name="roleTypeId" parameter-name="newRoleTypeId" title="${uiLabelMap.PartyRole}"><hidden value="${roleTypeId}"/></field>
+        <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_ENDED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.CommonRemove}"/></field>
+        <!-- better set to complete on the timesheet -->
+        <!-- field name="toComplete" title="${uiLabelMap.CommonStatustoComplete}"><hyperlink target="updateTaskAssigment?workEffortId=${workEffortId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;fromDate=${fromDate}&amp;statusId=PAS_COMPLETED&amp;donePage=${parameters.donePage}" description="${uiLabelMap.CommonStatustoComplete}"/></field-->
+    </form>
+    
+    <form name="EditWeekTimesheet" extends="EditWeekTimesheet" extends-resource="component://projectmgr/widget/forms/TimeSheetForms.xml">
+            <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTimesheetKey"/>        
+            <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}">
+                    <entity-constraint name="workEffortTypeId" operator="not-equals" value="TASK_TEMPLATE"/>
+                    <entity-constraint name="partyId" env-name="timesheet.partyId"/>
+                    <entity-order-by field-name="projectName"/>
+                    <entity-order-by field-name="phaseName"/>
+                    <entity-order-by field-name="workEffortName"/>
+                </entity-options>
+                <sub-hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK" link-style="buttontext" description="${bsh:workEffortId != void &amp;&amp; !workEffortId.equals(&quot;Totals&quot;) ? workEffortId : &quot;&quot;}"/>
+            </drop-down>
+        </field>
+        <field name="updateButton"><submit/></field>
+    </form>
+
+    <form name="MyCompanyComms" type="list" list-name="events" target="deleteEvent" paginate-target="FindTask"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
+            <entity-condition entity-name="WorkEffort">
+                <condition-list combine="and">
+                    <condition-expr field-name="workEffortTypeId" operator="equals" value="COMPANY_EVENT"/>
+                    <condition-expr field-name="actualStartDate" operator="greater-equals" env-name="nowDate"/>
+                </condition-list>
+                <order-by field-name="actualStartDate"/>
+            </entity-condition>
+        </actions>
+        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="deleteEventKey"/>
+        <field name="workEffortId"><hidden/></field>
+        <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><display/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><display/></field>
+        <field name="actualStartDate" title="Date"><display type="date"/></field>
+        <field name="delete"><submit button-type="text-link"/></field>
+    </form>
+    
+    <form name="newEvent" type="single" target="createEvent">
+        <field name="donePage"><hidden/></field>
+        <field name="workEffortTypeId"><hidden value="COMPANY_EVENT"/></field>
+        <field name="currentStatusId"><hidden value="_NA_"/></field>
+        <field name="workEffortName" title="${uiLabelMap.WorkEffortEventName}"><text/></field>
+        <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
+        <field name="actualStartDate"><date-time type="date"/></field>
+        <field name="add"><submit/></field>
+    </form>
+
+    <form name="preferences" type="single" target="updatePreferences" default-map-name="preferences.userPrefMap">
+        <field name="userPrefGroupTypeId"><hidden value="MyPage"/></field>
+        <field name="myCommunications"><check/></field>
+        <field name="otherCommunications"><check/></field>
+        <field name="myCompanyComms"><check/></field>
+        <field name="myTasks"><check/></field>
+        <field name="myTimesheet"><check/></field>
+        <field name="updateButton"><submit/></field>
+    </form>
+    
+    <form name="custPreferences" type="single" target="updateCustPreferences" default-map-name="preferences.userPrefMap">
+        <field name="userPrefGroupTypeId"><hidden value="MyPage"/></field>
+        <field name="sendCustRequestEmail" title="Send Email To Every Customer Request Change"><check/></field>
+        <field name="updateButton"><submit/></field>
+    </form>
+    
+    <form name="ListPartyCommEvents" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" type="list">
+        <row-actions>
+            <set field="toComplete" value="${bsh:&quot;COM_ROLE_READ&quot;.equals(roleStatusId)?&quot;->Complete&quot;:&quot;&quot;}"/>
+        </row-actions>
+        <field name="donePage"><hidden/></field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field> 
+        <field name="removeLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="RemoveCommunicationEventRole?partyId=${partyId}&amp;communicationEventId=${communicationEventId}&amp;roleTypeId=${roleTypeId}&amp;deleteCommEventIfLast=Y&amp;delContentDataResource=Y&amp;donePage=${parameters.donePage}"/>
+        </field>
+        <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <hyperlink description="${subject} " target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;donePage=${parameters.donePage}"/>
+        </field>
+        <field name="statusId" entry-name="roleStatusId" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <display-entity entity-name="StatusItem" description="${description}">
+                <sub-hyperlink description="${uiLabelMap.${toComplete}}" target="setCommunicationEventRoleStatus?communicationEventId=${communicationEventId}&amp;partyId=${partyId}&amp;roleTypeId=${roleTypeId}&amp;statusId=COM_ROLE_COMPLETED&amp;donePage=${parameters.donePage}&amp;VIEW_SIZE=${parameters.VIEWSIZE}&amp;VIEW_INDEX=${parameters.VIEW_INDEX}"/>
+            </display-entity>
+        </field>
+        <field name="createdStamp" entry-name="entryDate"/>
+    </form>
+    <form name="ListMyUnknownPartyEmails" type="multi"
+        extends="ListMyUnknownPartyEmails" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml" use-row-submit="true">
+        <field name="donePage"><hidden/></field>
+        <field name="subject" widget-style="buttontext" widget-area-style="fieldWidth300">
+            <hyperlink description="${subject}" target="ViewCommunicationEvent?communicationEventId=${communicationEventId}&amp;donePage=${parameters.donePage}"/>
+        </field>
+        <field name="_rowSubmit" title="S">
+            <check />
+        </field>
+        <field name="deleteSelectedButton" widget-style="smallSubmit">
+            <submit />
+        </field>
+    </form>
+    <form name="ViewRequestWorkEfforts" extends="ViewRequestWorkEfforts" extends-resource="component://order/webapp/ordermgr/request/RequestForms.xml">
+        <field name="workEffortId">
+            <hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" description="${workEffortName} [${workEffortId}]" target-type="inter-app"/>
+        </field>
+    </form>
+    <form name="ListCustRequests" type="list"  list-name="custRequests" odd-row-style="alternate-row" default-table-style="basic-table hover-bar" target="updateRequest">
+        <row-actions>
+            <service service-name="getProjectTask" result-map-name="taskResult">
+                <field-map field-name="taskId" env-name="workEffortId"/>
+            </service>
+        </row-actions>
+        <field name="custRequestId"><hidden/></field>
+        <field name="custRequestName"><hyperlink description="${custRequestName} [${custRequestId}]" target="ViewRequest?custRequestId=${custRequestId}"/></field>
+        <field name="custRequestDate" title="Date"><display type="date"/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="priority">
+            <drop-down allow-empty="true">
+                <option key="9"/>
+                <option key="8"/>
+                <option key="7"/>
+                <option key="6"/>
+                <option key="5"/>
+                <option key="4"/>
+                <option key="3"/>
+                <option key="2"/>
+                <option key="1"/>
+            </drop-down>
+        </field>
+        <field name="updateButton" widget-style="smallSubmit"><submit /></field>
+        <field name="currentStatusId" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskStatus}"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
+        <field name="estimatedStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskPlanStartDate}"><display type="date"/></field>
+        <field name="estimatedCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskPlanEndDate}"><display type="date"/></field>
+        <field name="actualStartDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskActStartDate}"><display type="date"/></field>
+        <field name="actualCompletionDate" map-name="taskResult.taskInfo" title="${uiLabelMap.TaskActEndDate}"><display type="date"/></field>
+        <field name="plannedHours" map-name="taskResult.taskInfo"><display/></field>
+        <field name="actualHours" map-name="taskResult.taskInfo"><display/></field>
+    </form>
+    <form name="ListCustRequestsCompleted" extends="ListCustRequests" list-name="custRequestsCompleted">
+        <field name="priority"><display/></field>
+        <field name="updateButton"><ignored/></field>
+    </form>
+
+    <form name="ListOtherCompanyRequests" extends="ListCustRequestsCompleted" list-name="companyCustRequests">
+        <field name="fromPartyId">
+            <display-entity entity-name="PartyNameView" key-field-name="partyId" description="${firstName} ${middleName} ${lastName} ${groupName} [${fromPartyId}])"/>
+        </field>
+    </form>
+
+    <form name="EditCustRequest" extends="EditCustRequest" extends-resource="component://projectmgr/widget/forms/RequestForms.xml">
+        <field name="fromPartyId" title="${uiLabelMap.OrderRequestingParty}"><hidden value="${userLogin.partyId}"/></field>
+        <field name="custRequestDate"><ignored/></field>
+        <field name="childWorkEffortId"><ignored/></field>
+        <field name="partyId"><ignored/></field>
+    </form>
+
+    <form name="ListInvoices" type="list" separate-columns="true" paginate-target="listInvoices" list-name="invoices"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <service service-name="getPartyNameForDate" result-map-name="partyNameResultFrom">
+                <field-map field-name="partyId" env-name="partyIdFrom"/>
+                <field-map field-name="compareDate" env-name="invoiceDate"/>
+                <field-map field-name="lastNameFirst" value="Y"/>
+            </service>
+            <service service-name="getPartyNameForDate" result-map-name="partyNameResultTo">
+                <field-map field-name="partyId" env-name="partyId"/>
+                <field-map field-name="compareDate" env-name="invoiceDate"/>
+                <field-map field-name="lastNameFirst" value="Y"/>
+            </service>
+            <script location="component://mypage/webapp/mypage/WEB-INF/actions/ConvertInvoiceCurrency.groovy"/>
+        </row-actions>
+        <field name="invoiceId" widget-style="buttontext">
+            <hyperlink description="${invoiceId}" target="invoice.pdf?invoiceId=${invoiceId}"/>
+        </field>
+        <field name="invoiceTypeId"><display-entity entity-name="InvoiceType" description="${description}"/></field>
+        <field name="invoiceDate"><display/></field>
+        <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
+        <field name="description"><display/></field>
+        <field name="partyIdFrom"><display description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/></field>
+        <field name="partyIdTo" parameter-name="partyId"><display description="${partyNameResultTo.fullName} [${partyId}]"/></field>
+        <field name="invoiceDate"><display description="${bsh:invoiceDate.toString().substring(0,10)}"/></field>
+        <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+        <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
+    </form>
+
+    <form name="ListDraftEmails" type="list" extends="ListCommEvents" extends-resource="component://party/webapp/partymgr/communication/CommForms.xml"
+         use-row-submit="true">
+        <actions>
+            <entity-condition entity-name="CommunicationEvent" list-name="commEvents">
+                <condition-list combine="and">
+                    <condition-expr field-name="statusId" operator="equals" value="COM_PENDING"/>
+                    <condition-expr field-name="partyIdFrom" operator="equals" value="${partyId}"/>                        
+                </condition-list>
+                <order-by field-name="-lastUpdatedStamp"/>
+            </entity-condition>
+        </actions>        
+        <field name="subject">
+            <hyperlink description="${subject}" target="EditCommunicationEvent?communicationEventId=${communicationEventId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;partyId=${userLogin.partyId}"/>
+        </field>
+        <field name="removeLink" title="${uiLabelMap.CommonDelete}" widget-style="smallSubmit">
+            <hyperlink also-hidden="false" description="${uiLabelMap.CommonDelete}" target="deletePartyCommunicationEvent?partyId=${partyId}&amp;communicationEventId=${communicationEventId}"/>
+        </field>
+    </form>
+
+    <form name="MyPageNewEmail" type="single" target="createCommunicationEvent" default-map-name="communicationEvent">
+        <actions>
+            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>            
+            <entity-condition entity-name="PartyContactWithPurpose" list-name="emailAddresses">
+                <condition-list combine="and">
+                    <condition-expr field-name="partyId" value="${userLogin.partyId}"/>
+                    <condition-expr field-name="contactFromDate" operator="less-equals" env-name="nowDate"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="contactThruDate" env-name="null"/>
+                        <condition-expr field-name="contactThruDate" operator="greater-equals" env-name="nowDate"/>
+                    </condition-list>
+                    <condition-expr field-name="purposeFromDate" operator="less-equals" env-name="nowDate"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="purposeThruDate" operator="greater-equals" env-name="nowDate"/>
+                        <condition-expr field-name="purposeThruDate" env-name="null"/>
+                    </condition-list>
+                    <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
+                    <condition-expr field-name="contactMechTypeId" operator="equals" value="EMAIL_ADDRESS"/>
+                </condition-list>
+                <order-by field-name="infoString"/>
+            </entity-condition>
+            <set field="communicationEventId" from-field="parameters.communicationEventId"/>
+        </actions>
+        <alt-target use-when="communicationEventId!=null" target="updateCommunicationEvent"/>
+        <field name="donePage"><hidden/></field>        
+        <field name="communicationEventId"  use-when="communicationEventId!=null"><hidden/></field> 
+        <field name="communicationEventTypeId"><hidden value="AUTO_EMAIL_COMM"/></field>
+        <field name="statusId"><hidden value="COM_IN_PROGRESS"/></field>
+        <field name="parentCommEventId" use-when="parentCommEventId != null"><hidden value="${parameters.parentCommEventId}"/></field>
+        <field name="parentCommEventId" use-when="originalCommEventId != null"><hidden value="${parameters.originalCommEventId}"/></field>
+        <field name="partyIdFrom"><hidden value="${userLogin.partyId}"/></field>
+        <field name="emailAddress" parameter-name="contactMechIdFrom">
+            <drop-down>
+                <list-options list-name="emailAddresses" description="${infoString}" key-name="contactMechId"/>
+            </drop-down>
+        </field>
+        <field name="contactMechIdTo" title="${uiLabelMap.PartyEmailTo}">
+            <lookup target-form-name="LookupPartyEmail" default-value="${parameters.contactMechIdTo}"/>
+        </field>
+        <field name="datetimeStarted" title="${uiLabelMap.CommonSendDate}"><date-time/></field>
+        <field name="subject"><text size="60" default-value="${parameters.subject}"/></field>
+        <field name="fileAttach"><display/></field><field name="fileAttach">
+            <hyperlink target="addAttachmentEmail?communicationEventTypeId=${parameters.communicationEventTypeId}&amp;partyId=${userLogin.partyId}&amp;communicationEventId=${parameters.communicationEventId}" description="Attach File"/>
+        </field>
+        <field name="contentMimeTypeId"><hidden value="text/plain"/></field>
+        <field name="content" title="${uiLabelMap.CommonContent}"><textarea cols="80" rows="20" default-value="${parameters.content}"/></field>
+        <field name="send" title="&amp;nbsp;" position="1">
+            <hyperlink also-hidden="true" target-type="plain" description="Send" target="javascript:(document.MyPageNewEmail.submit())"/>
+        </field>
+        <field name="save" title="&amp;nbsp;" position="2">
+            <hyperlink also-hidden="true" target-type="plain" description="Save" target="javascript:(document.MyPageNewEmail.statusId.value='COM_PENDING'),(document.MyPageNewEmail.submit())"/>
+        </field>
+        <field name="dummy" position="320"><hidden/></field>
+    </form>
+    <form name="ListPhaseInfo" extends="ListPhaseInfo" extends-resource="component://projectmgr/widget/forms/ProjectForms.xml">
+        <field name="phase"><display description="${phaseName}"/></field>
+    </form>
+    <form name="ListTaskInfo" extends="ListTaskInfo" extends-resource="component://projectmgr/widget/forms/ProjectForms.xml">
+        <field name="task"><display description="${workEffortName}"/></field>
+    </form>
+    
+</forms>

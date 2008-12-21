@@ -575,6 +575,7 @@ under the License.
         <field name="portalName" type="name"></field>
         <field name="description" type="description"></field>
         <field name="ownerUserLoginId" type="id"></field>
+        <field name="originalPortalPageId" type="id"></field>
         <field name="sequenceNum" type="numeric"></field>
         <prim-key field="portalPageId"/>
     </entity>

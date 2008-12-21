@@ -18,30 +18,33 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
+<screens xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-screen.xsd">
 
     <screen name="dashboard">
         <section>
             <actions>
-                <set field="portalPageId" from-field="parameters.portalPageId" default-value="DEFAULT"/>
-                <entity-one entity-name="PortalPage" value-name="currentPortalPage"/>                
-                
-                <entity-condition entity-name="PortalPage" list-name="portalPageList">
-                    <condition-expr field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
-                </entity-condition>
-                <set field="portalPages" from-field="portalPageList"/>
-                
+                <set field="portalPageId" from-field="parameters.portalPageId"/>
+                <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
+                <set field="headerItem" from-field="portalPageId"/>
+                <set field="configurePortalPage" from-field="parameters.configurePortalPage"/>
+                <entity-one entity-name="PortalPage" value-name="currentPortalPage"/>    
+                <set field="portalPages[]" from-field="currentPortalPage"/>                
                 <entity-condition entity-name="PortalPageColumn" list-name="portalPageColumnList">
                     <condition-expr field-name="portalPageId" env-name="portalPageId"/>
                     <order-by field-name="columnSeqId"/>
-                </entity-condition>
+                </entity-condition>               
                 <entity-condition entity-name="PortalPagePortletView" list-name="portalPagePortletViewList">
                     <condition-expr field-name="portalPageId" env-name="portalPageId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-condition>
-                
-                <set field="configurePortalPage" from-field="parameters.configurePortalPage"/>
+                <!--My Profile From Party-->
+                <set field="titleProperty" value="PageTitleViewPartyProfile"/>
+                <set field="tabButtonItem" value="viewprofile"/>
+                <set field="labelTitleProperty" value="PartyTaxAuthInfos"/>
+                <set field="parameters.partyId" from-field="userLogin.userLoginId"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/ViewProfile.groovy"/>
+                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/GetUserLoginPrimaryEmail.groovy"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -57,6 +60,9 @@ under the License.
 
     <screen name="ManagePortalPages">
         <section>
+            <actions>
+                <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
+            </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
@@ -71,6 +77,7 @@ under the License.
     <screen name="AddPortlet">
         <section>
             <actions>
+                <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
                 <entity-condition entity-name="PortalPortlet" list-name="portalPortlets"/>
             </actions>
             <widgets>
@@ -82,10 +89,11 @@ under the License.
             </widgets>
         </section>
     </screen>
-    
+
     <screen name="EditPortlet">
         <section>
             <actions>
+                <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
                 <entity-one entity-name="PortalPortlet" value-name="portalPortlet"/>
             </actions>
             <widgets>

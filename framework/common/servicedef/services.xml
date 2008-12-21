@@ -650,4 +650,12 @@ under the License.
         <attribute name="portletSeqId" type="String" mode="IN" optional="false"/>
         <attribute name="attributeMap" type="Map" mode="OUT" optional="true"/>
     </service>
+    
+    <!-- GetListPreferences services -->
+    <service name="getListPreferences" engine="simple" auth="true"
+        location="org/ofbiz/common/PortalPageServices.xml" invoke="getListPreferences">
+        <description>GetListPreferences</description>
+        <attribute name="originalPortalPageId" type="String" mode="IN" optional="false"/>
+        <attribute name="listIt" type="List" mode="OUT" optional="true"/>
+    </service>
 </services>

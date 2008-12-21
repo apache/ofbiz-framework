@@ -20,7 +20,7 @@ under the License.
 
 <entity-engine-xml>
     <!-- PortalPortlet Demo Data -->
-    <PortalPage portalPageId="DEFAULT" portalName="Default home Portal Page" description="The default OFBiz portal page" ownerUserLoginId="admin"/>
+    <PortalPage portalPageId="DEFAULT" portalName="Default home Portal Page" description="The default OFBiz portal page" ownerUserLoginId="admin" originalPortalPageId="EXAMPLE"/>
     <PortalPageColumn portalPageId="DEFAULT" columnSeqId="01" columnWidthPixels="200"/>
     <PortalPageColumn portalPageId="DEFAULT" columnSeqId="02"/><!-- no width in pixels or percent, use the rest of the space available -->
     
