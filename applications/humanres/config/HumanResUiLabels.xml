@@ -20,545 +20,654 @@
 --><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="FormFieldTitle_accountNumber">
         <value xml:lang="en">Account Number</value>
+        <value xml:lang="fr">N° de compte</value>
         <value xml:lang="it">Numero Conto</value>
         <value xml:lang="th">หมายเลขบัญชี</value>
     </property>
     <property key="FormFieldTitle_actualEmployerPaidPercent">
         <value xml:lang="en">Actual Employer Paid Percent</value>
+        <value xml:lang="fr">Pourcentage payé par l'employeur actuel</value>
         <value xml:lang="it">Percentuale Pagata Attualmente all'Impiegato</value>
         <value xml:lang="th">เปอร์เซ็นต์ที่ผู้ว่าจ้างจ่ายจริง</value>
     </property>
     <property key="FormFieldTitle_actualFromDate">
         <value xml:lang="en">Actual From Date</value>
+        <value xml:lang="fr">Date réelle de début</value>
         <value xml:lang="it">Data Inizio Attuale</value>
         <value xml:lang="th">จากวันตามความเป็นจริง</value>
     </property>
     <property key="FormFieldTitle_actualThruDate">
         <value xml:lang="en">Actual Thru Date</value>
+        <value xml:lang="fr">Date réelle de fin</value>
         <value xml:lang="it">Data Fine Attuale</value>
         <value xml:lang="th">ถึงวันตามความเป็นจริง</value>
     </property>
     <property key="FormFieldTitle_amount">
         <value xml:lang="en">Amount</value>
+        <value xml:lang="fr">Montant</value>
         <value xml:lang="it">Importo</value>
         <value xml:lang="th">จำนวน</value>
     </property>
     <property key="FormFieldTitle_applicationDate">
         <value xml:lang="en">Application Date</value>
+        <value xml:lang="fr">Date de demande d'emploi</value>
         <value xml:lang="it">Data Applicazione</value>
         <value xml:lang="th">โปรแกรมประยุกต์วันที่</value>
     </property>
     <property key="FormFieldTitle_applicationId">
         <value xml:lang="en">Application Id</value>
+        <value xml:lang="fr">Réf. de demande d'emploi</value>
         <value xml:lang="it">Numero Applicazione</value>
         <value xml:lang="th">รหัสโปรแกรมประยุกต์</value>
     </property>
     <property key="FormFieldTitle_applyingPartyId">
         <value xml:lang="en">Applying Party Id</value>
+        <value xml:lang="fr">Réf. d'acteur en demande</value>
         <value xml:lang="it">Soggetto Applicato</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="FormFieldTitle_availableTime">
         <value xml:lang="en">Available Time</value>
+        <value xml:lang="fr">Temps disponible</value>
         <value xml:lang="it">Tempo Disponibile</value>
         <value xml:lang="th">เวลาที่มีอยู่</value>
     </property>
     <property key="FormFieldTitle_bankName">
         <value xml:lang="en">Bank Name</value>
+        <value xml:lang="fr">Nom de la banque</value>
         <value xml:lang="it">Nome Banca</value>
         <value xml:lang="th">ชื่อธนาคาร</value>
     </property>
     <property key="FormFieldTitle_benefitTypeId">
         <value xml:lang="en">Benefit Type Id</value>
+        <value xml:lang="fr">Type d'avantage</value>
         <value xml:lang="it">Codice Tipo Benefit</value>
         <value xml:lang="th">รหัสประเภทผลประโยชน์</value>
     </property>
     <property key="FormFieldTitle_budgetId">
         <value xml:lang="en">Budget Id</value>
+        <value xml:lang="fr">Réf. de budget</value>
         <value xml:lang="it">Codice Budget</value>
         <value xml:lang="th">รหัสงบประมาณ</value>
     </property>
     <property key="FormFieldTitle_budgetItemSeqId">
         <value xml:lang="en">Budget Item Seq Id</value>
+        <value xml:lang="fr">Réf. séq. de ligne budgétaire</value>
         <value xml:lang="it">Numero Seq. Riga Budget</value>
         <value xml:lang="th">รหัสรายการงบประมาณ</value>
     </property>
     <property key="FormFieldTitle_budgetItemTypeId">
         <value xml:lang="en">Budget Item Type Id</value>
+        <value xml:lang="fr">Type de ligne budgétaire</value>
         <value xml:lang="it">Tipo Budget Riga</value>
         <value xml:lang="th">รหัสประเภทรายการงบประมาณ</value>
     </property>
     <property key="FormFieldTitle_budgetTypeId">
         <value xml:lang="en">Budget Type Id</value>
+        <value xml:lang="fr">Réf. de budget type</value>
         <value xml:lang="it">Tipo Budget</value>
         <value xml:lang="th">รหัสประเภทงบประมาณ</value>
     </property>
     <property key="FormFieldTitle_comments">
         <value xml:lang="en">Comments</value>
+        <value xml:lang="fr">Commentaires</value>
         <value xml:lang="it">Commenti</value>
         <value xml:lang="th">ความคิดเห็น</value>
     </property>
     <property key="FormFieldTitle_cost">
         <value xml:lang="en">Cost</value>
+        <value xml:lang="fr">Coût</value>
         <value xml:lang="it">Costo</value>
         <value xml:lang="th">ราคา</value>
     </property>
     <property key="FormFieldTitle_customTimePeriodId">
         <value xml:lang="en">Custom Time Period Id</value>
+        <value xml:lang="fr">Réf. de période de temps adaptée</value>
         <value xml:lang="it">Periodo di Tempo Personalizzato</value>
         <value xml:lang="th">รหัสช่วงเวลาที่ทำตามคำสั่ง</value>
     </property>
     <property key="FormFieldTitle_dateModified">
         <value xml:lang="en">Date Modified</value>
+        <value xml:lang="fr">Date modifiée</value>
         <value xml:lang="it">Data Modifica</value>
         <value xml:lang="th">วันที่ปรับปรุง</value>
     </property>
     <property key="FormFieldTitle_deductionTypeId">
         <value xml:lang="en">Deduction Type Id</value>
+        <value xml:lang="fr">Réf. dy type de déduction</value>
         <value xml:lang="it">Tipo Deduzione</value>
         <value xml:lang="th">รหัสประเภทการหักลบ</value>
     </property>
     <property key="FormFieldTitle_emplPositionId">
         <value xml:lang="en">Empl Position Id</value>
+        <value xml:lang="fr">Réf. de la position de l'employé</value>
         <value xml:lang="it">Posizione Impiegato</value>
         <value xml:lang="th">รหัสตำแหน่งพนักงาน</value>
     </property>
     <property key="FormFieldTitle_emplPositionIdManagedBy">
         <value xml:lang="en">Empl Position Id Managed By</value>
+        <value xml:lang="fr">Réf. de la position de l'employé contrôlé par</value>
         <value xml:lang="it">Codice Posizione Impiegato Gestita Da</value>
         <value xml:lang="th">โดยการจัดการรหัสตำแหน่งพนักงาน</value>
     </property>
     <property key="FormFieldTitle_emplPositionTypeId">
         <value xml:lang="en">Empl Position Type Id</value>
+        <value xml:lang="fr">Réf. du type de position l'employé</value>
         <value xml:lang="it">Tipo Posizione Impiegato</value>
         <value xml:lang="th">รหัสประเภทตำแหน่งพนักงาน</value>
     </property>
     <property key="FormFieldTitle_employeePartyId">
         <value xml:lang="en">Employee Party Id</value>
+        <value xml:lang="fr">Réf. de l'employé </value>
         <value xml:lang="it">Soggetto Impiegato</value>
         <value xml:lang="th">รหัสกลุ่มพนักงาน</value>
     </property>
     <property key="FormFieldTitle_employeeRoleTypeId">
         <value xml:lang="en">Employee Role Type Id</value>
+        <value xml:lang="fr">Type de rôle de 'employé </value>
         <value xml:lang="it">Tipo Ruolo Impiegato</value>
         <value xml:lang="th">รหัสประเภทสถานะพนักงาน</value>
     </property>
     <property key="FormFieldTitle_employmentAppSourceTypeId">
         <value xml:lang="en">Employment App Source Type Id</value>
+        <value xml:lang="fr">Réf. de type d'origine de demande d'emploi </value>
         <value xml:lang="it">Tipo Origine Applicazione Impiegato</value>
         <value xml:lang="th">รหัสประเภทแหล่งที่มาการจ้างงาน</value>
     </property>
     <property key="FormFieldTitle_estimatedFromDate">
         <value xml:lang="en">Estimated From Date</value>
+        <value xml:lang="fr">Date de début estimée</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="th">จากประมาณวันที่</value>
     </property>
     <property key="FormFieldTitle_estimatedThruDate">
         <value xml:lang="en">Estimated Thru Date</value>
+        <value xml:lang="fr">Date de fin estimée</value>
         <value xml:lang="it">Data Fine Stimata</value>
         <value xml:lang="th">ถึงประมาณวันที่</value>
     </property>
     <property key="FormFieldTitle_exemptFlag">
         <value xml:lang="en">Exempt Flag</value>
+        <value xml:lang="fr">Balise d'exemption </value>
         <value xml:lang="it">Flag Esenzione</value>
         <value xml:lang="th">Exempt Flag</value>
     </property>
     <property key="FormFieldTitle_flatAmount">
         <value xml:lang="en">Flat Amount</value>
+        <value xml:lang="fr">Montant fixe</value>
         <value xml:lang="it">Importo Fisso</value>
         <value xml:lang="th">จำนวนระดับ</value>
     </property>
     <property key="FormFieldTitle_fulltimeFlag">
         <value xml:lang="en">Fulltime Flag</value>
+        <value xml:lang="fr">Balise de plein temps</value>
         <value xml:lang="it">Flag Tempo Pieno</value>
         <value xml:lang="th">เครื่องหมายเต็มเวลา</value>
     </property>
     <property key="FormFieldTitle_justification">
         <value xml:lang="en">Justification</value>
+        <value xml:lang="fr">Justification</value>
         <value xml:lang="it">Giustificazione</value>
         <value xml:lang="th">การให้เหตุผล</value>
     </property>
     <property key="FormFieldTitle_managerPartyId">
         <value xml:lang="en">Manager Party Id</value>
+        <value xml:lang="fr">Réf. de directeur</value>
         <value xml:lang="it">Manager</value>
         <value xml:lang="th">การจัดการรหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="FormFieldTitle_managerRoleTypeId">
         <value xml:lang="en">Manager Role Type Id</value>
+        <value xml:lang="fr">Réf. de type de rôle directeur</value>
         <value xml:lang="it">Tipo Ruolo Manager</value>
         <value xml:lang="th">การจัดการประเภทสถานะ</value>
     </property>
     <property key="FormFieldTitle_partyId">
         <value xml:lang="en">Party Id</value>
+        <value xml:lang="fr">Réf. d'acteur</value>
         <value xml:lang="it">Soggetto</value>
         <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="FormFieldTitle_partyIdFrom">
         <value xml:lang="en">Party Id From</value>
+        <value xml:lang="fr">Réf. d'acteur depuis</value>
         <value xml:lang="it">Codice Soggetto Da</value>
         <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="FormFieldTitle_partyIdTo">
         <value xml:lang="en">Party Id To</value>
+        <value xml:lang="fr">Réf. d'acteur vers</value>
         <value xml:lang="it">Codice Soggetto A</value>
         <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="FormFieldTitle_payGradeId">
         <value xml:lang="en">Pay Grade Id</value>
+        <value xml:lang="fr">Réf. de catégorie de salaire</value>
         <value xml:lang="it">Grado Paga</value>
         <value xml:lang="th">รหัสระดับการจ่าย</value>
     </property>
     <property key="FormFieldTitle_payGradeName">
         <value xml:lang="en">Pay Grade Name</value>
+        <value xml:lang="fr">Nom de catégorie de salaire</value>
         <value xml:lang="it">Nome Grado Paga</value>
         <value xml:lang="th">ชื่อระดับการจ่าย</value>
     </property>
     <property key="FormFieldTitle_payHistoryFromDate">
         <value xml:lang="en">Pay History From Date</value>
+        <value xml:lang="fr">Date de début</value>
         <value xml:lang="it">Storia Data Pagamento Da</value>
         <value xml:lang="th">จ่ายข้อมูลจากวันที่</value>
     </property>
     <property key="FormFieldTitle_payHistoryPartyIdFrom">
         <value xml:lang="en">Pay History Party Id From</value>
+        <value xml:lang="fr">Réf. d'acteur depuis</value>
         <value xml:lang="it">Storia Soggetto Pagamento Da</value>
         <value xml:lang="th">จ่ายรหัสกลุ่มข้อมูลจาก</value>
     </property>
     <property key="FormFieldTitle_payHistoryPartyIdTo">
         <value xml:lang="en">Pay History Party Id To</value>
+        <value xml:lang="fr">Réf. d'acteur vers</value>
         <value xml:lang="it">Storia Soggetto Pagamento A</value>
         <value xml:lang="th">จ่ายรหัสกลุ่มข้อมูลถึง</value>
     </property>
     <property key="FormFieldTitle_payHistoryRoleTypeIdFrom">
         <value xml:lang="en">Pay History Role Type Id From</value>
+        <value xml:lang="fr">Réf. de type de rôle depuis</value>
         <value xml:lang="it">Storia Tipo Ruolo Pagamento Da</value>
         <value xml:lang="th">จ่ายรหัสประเภทสถานะข้อมูลจาก</value>
     </property>
     <property key="FormFieldTitle_payHistoryRoleTypeIdTo">
         <value xml:lang="en">Pay History Role Type Id To</value>
+        <value xml:lang="fr">Réf. de type de rôle vers</value>
         <value xml:lang="it">Storia Tipo Ruolo Pagamento A</value>
         <value xml:lang="th">จ่ายรหัสประเภทสถานะข้อมูลถึง</value>
     </property>
     <property key="FormFieldTitle_paymentId">
         <value xml:lang="en">Payment Id</value>
+        <value xml:lang="fr">Réf. de paiement</value>
         <value xml:lang="it">Pagamento</value>
         <value xml:lang="th">รหัสการชำรเงิน</value>
     </property>
     <property key="FormFieldTitle_paymentMethodTypeId">
         <value xml:lang="en">Payment Method Type Id</value>
+        <value xml:lang="fr">Réf. de type de méthode de paiement</value>
         <value xml:lang="it">Tipo Metodo di Pagamento</value>
         <value xml:lang="th">รหัสประเภทวิธีการชำระเงิน</value>
     </property>
     <property key="FormFieldTitle_percentage">
         <value xml:lang="en">Percentage</value>
+        <value xml:lang="fr">Pourcentage</value>
         <value xml:lang="it">Percentuale</value>
         <value xml:lang="th">อัตราร้อยละ</value>
     </property>
     <property key="FormFieldTitle_perfReviewId">
         <value xml:lang="en">Perf Review Id</value>
+        <value xml:lang="fr">Réf. d'évaluation des performances</value>
         <value xml:lang="it">Rassegna Prestazioni</value>
         <value xml:lang="th">Perf Review Id</value>
     </property>
     <property key="FormFieldTitle_periodTypeId">
         <value xml:lang="en">Period Type Id</value>
+        <value xml:lang="fr">Réf. de type de période</value>
         <value xml:lang="it">Codice Tipo Periodo</value>
         <value xml:lang="th">รหัสประเภทช่วงเวลา</value>
     </property>
     <property key="FormFieldTitle_primaryFlag">
         <value xml:lang="en">Primary Flag</value>
+        <value xml:lang="fr">Balise primaire</value>
         <value xml:lang="it">Flag Primario</value>
         <value xml:lang="th">เครื่องหมายเเรก</value>
     </property>
     <property key="FormFieldTitle_purpose">
         <value xml:lang="en">Purpose</value>
+        <value xml:lang="fr">But</value>
         <value xml:lang="it">Funzione</value>
         <value xml:lang="th">จุดมุ่งหมาย</value>
     </property>
     <property key="FormFieldTitle_rating">
         <value xml:lang="en">Rating</value>
+        <value xml:lang="fr">Cote</value>
         <value xml:lang="it">Tasso</value>
         <value xml:lang="th">การประเมิน</value>
     </property>
     <property key="FormFieldTitle_referredByPartyId">
         <value xml:lang="en">Referred By Party Id</value>
+        <value xml:lang="fr">Envoyé par l'acteur</value>
         <value xml:lang="it">Riferito Dal Soggetto</value>
         <value xml:lang="th">อ้างอิงโดยรหัสกลุ่มผู้ใช้</value>
     </property>
     <property key="FormFieldTitle_responsibilityTypeId">
         <value xml:lang="en">Responsibility Type Id</value>
+        <value xml:lang="fr">Réf. de type de responsabilité</value>
         <value xml:lang="it">Tipo Responsibilità</value>
         <value xml:lang="th">รหัสประเภทหน้าที่</value>
     </property>
     <property key="FormFieldTitle_roleTypeIdFrom">
         <value xml:lang="en">Role Type Id From</value>
+        <value xml:lang="fr">Réf. de type de rôle depuis</value>
         <value xml:lang="it">Tipo Ruolo Da</value>
         <value xml:lang="th">จากรหัสประเภทสถานะ</value>
     </property>
     <property key="FormFieldTitle_roleTypeIdTo">
         <value xml:lang="en">Role Type Id To</value>
+        <value xml:lang="fr">Réf. de type de rôle vers</value>
         <value xml:lang="it">Tipo Ruolo A</value>
         <value xml:lang="th">ถึงรหัสประเภทสถานะ</value>
     </property>
     <property key="FormFieldTitle_routingNumber">
         <value xml:lang="en">Routing Number</value>
+        <value xml:lang="fr">N° de routage</value>
         <value xml:lang="it">Numero Routing</value>
         <value xml:lang="th">หมายเลข Routing</value>
     </property>
     <property key="FormFieldTitle_salaryFlag">
         <value xml:lang="en">Salary Flag</value>
+        <value xml:lang="fr">Balise de salaire</value>
         <value xml:lang="it">Flag Salario</value>
         <value xml:lang="th">เครื่องหมายเงินเดือน</value>
     </property>
     <property key="FormFieldTitle_skillLevel">
         <value xml:lang="en">Skill Level</value>
+        <value xml:lang="fr">Niveau de compétence</value>
         <value xml:lang="it">Livello Abilità</value>
         <value xml:lang="th">ระดับทักษะ</value>
     </property>
     <property key="FormFieldTitle_startedUsingDate">
         <value xml:lang="en">Started Using Date</value>
+        <value xml:lang="fr">Débutant depuis</value>
         <value xml:lang="it">Data di Inizio Usata</value>
         <value xml:lang="th">เริ่มใช้วันที่</value>
     </property>
     <property key="FormFieldTitle_statusId">
         <value xml:lang="en">Status Id</value>
+        <value xml:lang="fr">Réf. de statut</value>
         <value xml:lang="it">Stato</value>
         <value xml:lang="th">รหัสสถานะ</value>
     </property>
     <property key="FormFieldTitle_temporaryFlag">
         <value xml:lang="en">Temporary Flag</value>
+        <value xml:lang="fr">Balise temporaire</value>
         <value xml:lang="it">Flag Temporaneo</value>
         <value xml:lang="th">เครื่องหมายชั่วคราว</value>
     </property>
     <property key="FormFieldTitle_terminationReasonId">
         <value xml:lang="en">Termination Reason Id</value>
+        <value xml:lang="fr">Réf. de raison de la fin de contrat</value>
         <value xml:lang="it">Motivazione Licenziamento</value>
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
     </property>
     <property key="FormFieldTitle_unemploymentClaimDate">
         <value xml:lang="en">Unemployment Claim Date</value>
+        <value xml:lang="fr">Date de demande du chômage </value>
         <value xml:lang="it">Data Reclamo Disoccupazione</value>
         <value xml:lang="th">จำนวนผู้ว่างงานเรียกร้องวันที่</value>
     </property>
     <property key="FormFieldTitle_unemploymentClaimId">
         <value xml:lang="en">Unemployment Claim Id</value>
+        <value xml:lang="fr">Réf. de date de demande du chômage</value>
         <value xml:lang="it">Reclamo Disoccupazione</value>
         <value xml:lang="th">รหัสจำนวนผู้ว่างงานเรียกร้อง</value>
     </property>
     <property key="FormFieldTitle_yearsExperience">
         <value xml:lang="en">Years Experience</value>
+        <value xml:lang="fr">Années d'expérience</value>
         <value xml:lang="it">Anni di Esperienza</value>
         <value xml:lang="th">ประสบการณ์(ปี)</value>
     </property>
     <property key="HumanResAddEmplLeave">
         <value xml:lang="en">Add Employee Leave</value>
+        <value xml:lang="fr">Ajouter le congé</value>
     </property>
     <property key="HumanResAddEmplLeaveType">
         <value xml:lang="en">Add EmplLeave Types</value>
+        <value xml:lang="fr">Ajoutez les types de congé</value>
     </property>
     <property key="HumanResAddEmplPositionFulfillment">
         <value xml:lang="en">Add Position Fulfillment</value>
+        <value xml:lang="fr">Ajouter l'acquisition de position</value>
     </property>
     <property key="HumanResAddEmplPositionResponsibility">
         <value xml:lang="en">Add Position Responsibility</value>
+        <value xml:lang="fr">Ajouter la responsabilité de la position</value>
     </property>
     <property key="HumanResAddPayrollPreference">
         <value xml:lang="en">Add Payroll Preference</value>
+        <value xml:lang="fr">Ajouter la préférence de registre du personnel</value>
     </property>
     <property key="HumanResAddPartyBenefit">
         <value xml:lang="en">Add Party Benefit</value>
+        <value xml:lang="fr">Ajouter l'avantage</value>
     </property>
     <property key="HumanResAddPartyQual">
         <value xml:lang="en">Add Party Qualification</value>
+        <value xml:lang="fr">Ajouter la qualification</value>
     </property>
     <property key="HumanResAddPerfNote">
         <value xml:lang="en">Add Performance Note</value>
+        <value xml:lang="fr">Ajouter la note de performance</value>
     </property>
     <property key="HumanResAddPerfReviewItems">
         <value xml:lang="en">Add PerfReview Items</value>
+        <value xml:lang="fr">Ajouter des lignes d'évaluation de performance</value>
     </property>
     <property key="HumanResAddPartySkill">
         <value xml:lang="en">Add Party Skill</value>
+        <value xml:lang="fr">Ajoutez la compétence</value>
     </property>
     <property key="HumanResAddPersonTraining">
         <value xml:lang="en">Add Person Training</value>
+        <value xml:lang="fr">Ajouter la formation de la personne</value>
     </property>
     <property key="HumanResAddReportedToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [Reported To ${parameters.emplPositionId}]</value>
+        <value xml:lang="fr">Ajouter le compte-rendu de position [en rapport avec $ {parameters.emplPositionId}</value>
     </property>
     <property key="HumanResAddReportsToEmplPositionReportingStruct">
         <value xml:lang="en">Add Empl Position Reporting Struct [${parameters.emplPositionId} Reports To]</value>
+        <value xml:lang="fr">Ajouter le compte-rendu de position [${parameters.emplPositionId} qui se rapporte à]</value>
     </property>
     <property key="HumanResAddSalaryStep">
         <value xml:lang="en">Add Salary Step</value>
+        <value xml:lang="fr">Ajouter l'augmentation de salaire</value>
     </property>
     <property key="HumanResAddTerminationReason">
         <value xml:lang="en">Add Termination Reason</value>
+        <value xml:lang="fr">Ajouter la raison de la fin de contrat</value>
     </property>
     <property key="HumanResAddUnemploymentClaim">
         <value xml:lang="en">Add Unemployment Claim</value>
+        <value xml:lang="fr">Ajouter la demande de chômage</value>
     </property>
     <property key="HumanResAddValidResponsibility">
         <value xml:lang="en">Add Valid Responsibility</value>
+        <value xml:lang="fr">Ajouter une responsabilité valable</value>
     </property>
     <property key="HumanResApplicationId">
         <value xml:lang="en">Application Id</value>
+        <value xml:lang="fr">Réf. de demande d'emploi</value>
         <value xml:lang="it">Codice Applicazione</value>
         <value xml:lang="th">รหัสโปรแกรมประยุกต์</value>
     </property>
     <property key="HumanResAgreementEmploymentAppl">
         <value xml:lang="en">Agreement Employment Appl</value>
+        <value xml:lang="fr">Application d'accord d'emploi</value>
     </property>
     <property key="HumanResBudgetID">
         <value xml:lang="en">Budget ID</value>
+        <value xml:lang="fr">Réf. de budget</value>
         <value xml:lang="it">Codice Budget</value>
         <value xml:lang="th">รหัสงบประมาณ</value>
     </property>
     <property key="HumanResBudgetItemSeqId">
         <value xml:lang="en">Budget Item Id</value>
+        <value xml:lang="fr">Réf. de ligne budgétaire</value>
         <value xml:lang="it">Riga Budget</value>
         <value xml:lang="th">รหัสรายการงบประมาณ</value>
     </property>
     <property key="HumanResCompanyName">
         <value xml:lang="en">OFBiz: HumanRes Manager</value>
+        <value xml:lang="fr">OFBiz : gestion de ressources humaines</value>
         <value xml:lang="it">OFBiz: Gestione Risorse Umane</value>
         <value xml:lang="th">OFBiz: การจัดการบุคคล</value>
     </property>
     <property key="HumanResCompanySubtitle">
-        <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value><!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
-        <value xml:lang="de">Teil der Open For Business Familie von Open Source Software</value>
         <value xml:lang="en">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="es">Parte de la familia de software Open For Business de código abierto</value><!--value xml:lang="es">Parte de la familia "Open for Bussiness" de Software Libre</value-->
-        <value xml:lang="fr">Un module de la famille Open For Business, logiciel libre de gestion d'entreprise.</value>
+        <value xml:lang="fr">Partie de l'ouverture pour la famille d'affaires du logiciel libre</value>
         <value xml:lang="it">Part of the Open For Business Family of Open Source Software</value>
-        <value xml:lang="nl">Deel van de Open For Business-suite van Open Source Software</value><!--value xml:lang="nl">Onderdeel van de Open For Business'-suite</value-->
-        <value xml:lang="pt_BR">Parte da família OfBiz de software de fonte aberta</value>
-        <value xml:lang="pt_PT">Parte da família OfBiz de software de fonte aberta</value><!--value xml:lang="pt_PT">Parte do Software de Fonte Aberta para Grupos Abertos Para o Negócio</value-->
-        <value xml:lang="ro">Partea de Deschidere Pentru Afaceri Familiale din Open Source Software</value><!--value xml:lang="ro">Parte accesibila pentru Business Family of Open Source Software</value--><!--value xml:lang="ro">Parte din Open for Business Family of Open Source Software</value-->
-        <value xml:lang="ru">Входит в состав семейства Open For Business</value><!--value xml:lang="ru">Часть семейства ПО Open For Business</value--><!--value xml:lang="ru">Часть семейства "Open For Business Family" программных продуктов Open Source </value-->
-        <value xml:lang="th">ส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value><!--value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value-->
-        <value xml:lang="zh">开源软件OFBiz家族的一部分</value><!--value xml:lang="zh">开源软件OFBiz的组成部分</value--><!--value xml:lang="zh">开源软件OFBiz的组成部分</value-->
-        <value xml:lang="zh_CN">OFBiz的一部分</value>
+        <value xml:lang="th">เป็นส่วนหนึ่งของธุรกิจแบบครอบครัวที่เป็นซอฟต์แวร์โอเพนซอส</value>
     </property>
     <property key="HumanResEmplLeave">
         <value xml:lang="en">Leave</value>
+        <value xml:lang="fr">Congé</value>
     </property>
     <property key="HumanResEditEmplPosition">
         <value xml:lang="en">Edit Employee Position</value>
+        <value xml:lang="fr">Modifier la position de l'employé</value>
     </property>
     <property key="HumanResEditEmplPositionReportingStruct">
         <value xml:lang="en">Edit EmplPosition Reporting Structure</value>
+        <value xml:lang="fr">Modifier la structure du rapport de position des employés</value>
         <value xml:lang="it">Aggiorna Struttura Stampa Posizione Impiegati</value>
         <value xml:lang="th">แก้ไขโครงสร้างรายงานตำแหน่งพนักงาน</value>
     </property>
     <property key="HumanResNewEmployee">
         <value xml:lang="en">New Employee</value>
+        <value xml:lang="fr">Nouveau employé</value>
     </property>
     <property key="HumanResEmplPositionReportingStruct">
         <value xml:lang="en">Reporting Structure</value>
+        <value xml:lang="fr">Structure de rapport</value>
     </property>
     <property key="HumanResEmplPositionResponsibilities">
         <value xml:lang="en">Responsibilities</value>
+        <value xml:lang="fr">Responsabilités</value>
     </property>
     <property key="HumanResEditAgreementEmploymentAppl">
         <value xml:lang="en">Edit Agreement Employment Appl</value>
+        <value xml:lang="fr">Modifier l'accord d'application d'emploi</value>
     </property>
     <property key="HumanResEditEmployment">
         <value xml:lang="en">Edit Employment</value>
+        <value xml:lang="fr">Modifier l'emploi</value>
         <value xml:lang="it">Aggiorna Impiegato</value>
         <value xml:lang="th">แก้ไขการจ้างงาน</value>
     </property>
     <property key="HumanResEditEmploymentApp">
         <value xml:lang="en">Edit Employment Application</value>
+        <value xml:lang="fr">Modifier la demande d'emploi</value>
         <value xml:lang="it">Aggiorna Applicazione Impiego</value>
         <value xml:lang="th">แก้ไขโปรแกรมประยุกต์ใช้การจ้างงาน</value>
     </property>
     <property key="HumanResEditPartyBenefit">
         <value xml:lang="en">Party Benefits</value>
+        <value xml:lang="fr">Avantages</value>
     </property>
     <property key="HumanResEditPartyQual">
         <value xml:lang="en">Edit party Qualification</value>
+        <value xml:lang="fr">Modifier la qualification de l'acteur</value>
         <value xml:lang="it">Aggiorna Qualifica Soggetto</value>
         <value xml:lang="th">แก้ไขกลุ่มคุณสมบัติ</value>
     </property>
     <property key="HumanResEditPartyResume">
         <value xml:lang="en">Edit Party Resume</value>
+        <value xml:lang="fr">Modifier le CV de l'acteur</value>
         <value xml:lang="it">Aggiorna Riassunto Soggetto</value>
         <value xml:lang="th">แก้ไขประวัติย่อ</value>
     </property>
     <property key="HumanResEditPartyReview">
         <value xml:lang="en">Party Reviews</value>
+        <value xml:lang="fr">Examens</value>
     </property>
     <property key="HumanResEditPartySkill">
         <value xml:lang="en">Edit party Skill</value>
+        <value xml:lang="fr">Modifier les compétences de l'acteur</value>
         <value xml:lang="it">Aggiorna Abilità Soggetto</value>
         <value xml:lang="th">แก้ไขกลุ่มทักษะ</value>
     </property>
     <property key="HumanResEditPayGrade">
         <value xml:lang="en">Edit Pay Grade</value>
+        <value xml:lang="fr">Modifier l'échelon de salaire</value>
     </property>
     <property key="HumanResEditPayHistory">
         <value xml:lang="en">Pay Histories</value>
+        <value xml:lang="fr">Historique de salaire</value>
     </property>
     <property key="HumanResEditPayrollPreference">
         <value xml:lang="en">Payroll Preferences</value>
+        <value xml:lang="fr">Préférences de registre du personnel</value>
     </property>
     <property key="HumanResEditPerfReviewItems">
         <value xml:lang="en">PerfReview Items</value>
+        <value xml:lang="fr">Lignes d'évaluation des performances</value>
     </property>
     <property key="HumanResEditSalaryStep">
         <value xml:lang="en">Salary Steps</value>
+        <value xml:lang="fr">Augmentations de salaire</value>
         <value xml:lang="it">Aggiorna Passi Salario</value>
         <value xml:lang="th">แก้ไขขั้นเงินเดือน</value>
     </property>
     <property key="HumanResEditUnemploymentClaim">
         <value xml:lang="en">Unemployment Claims</value>
+        <value xml:lang="fr">Demandes de chômage</value>
     </property>
     <property key="HumanResEmployees">
         <value xml:lang="en">Employees</value>
         <value xml:lang="es">Empleados</value>
+        <value xml:lang="fr">Employés</value>
     </property>
     <property key="HumanResEmplLeaveType">
         <value xml:lang="en">Employee Leave Type</value>
+        <value xml:lang="fr">Type de congé des employés</value>
     </property>
     <property key="HumanResEmplPositionId">
         <value xml:lang="en">Employee Position Id</value>
+        <value xml:lang="fr">Réf. de position des employés</value>
         <value xml:lang="it">Codice Posizione Impiegato</value>
         <value xml:lang="th">รหัสตำแหน่งพนักงาน</value>
     </property>
     <property key="HumanResEmplPositionIdManagedBy">
         <value xml:lang="en">EmplPosition Id ManagedBy</value>
+        <value xml:lang="fr">Réf. de position "dirigée par"</value>
         <value xml:lang="it">Codice Posizione Impiegato Gestita Da</value>
         <value xml:lang="th">การจัดการโดยรหัสตำแหน่งพนักงาน</value>
     </property>
     <property key="HumanResEmplPositionIdReportingFrom">
         <value xml:lang="en">EmplPosition Id ReportingFrom</value>
+        <value xml:lang="fr">Réf. de position "rapportant depuis"</value>
         <value xml:lang="it">Codice Posizione Impiegato Stampato A</value>
         <value xml:lang="th">รายงานจากรหัสตำแหน่งพนักงาน</value>
     </property>
     <property key="HumanResEmplPositionIdReportingTo">
         <value xml:lang="en">EmplPosition Id ReportingTo</value>
+        <value xml:lang="fr">Réf. de position "rapportant à"</value>
         <value xml:lang="it">Codice Posizione Impiegato Stampato Da</value>
         <value xml:lang="th">ถึงรายงานรหัสตำแหน่งพนักงาน</value>
     </property>
     <property key="HumanResEmplPostitionIdReportingToAndEmplPositionIdManagedByMustBeDiff">
         <value xml:lang="en">emplPositionIdReportingTo and emplPositionIdManagedBy must be different</value>
+        <value xml:lang="fr">Les positions "rapportant à" et "dirigée par" doivent être différentes</value>
     </property>
     <property key="HumanResEmployeePosition">
         <value xml:lang="en">Employee Positions</value>
+        <value xml:lang="fr">Positions d'employé</value>
         <value xml:lang="it">Posizione Impiegato</value>
         <value xml:lang="th">ตำแหน่งพนักงาน</value>
     </property>
     <property key="HumanResEmployeePositionId">
         <value xml:lang="en">EmployeePosition Id</value>
+        <value xml:lang="fr">Réf. de position d'employé</value>
         <value xml:lang="it">Codice Posizione Impiegato</value>
         <value xml:lang="th">รหัสตำแหน่งพนักงาน</value>
     </property>
     <property key="HumanResEmployeePositionTypeId">
         <value xml:lang="en">EmployeePosition Type Id</value>
+        <value xml:lang="fr">Réf. de type de position d'employé</value>
         <value xml:lang="it">Codice Tipo Posizione Impiegato</value>
         <value xml:lang="th">รหัสประเภทตำแหน่งพนักงาน</value>
     </property>
     <property key="HumanResEmployment">
         <value xml:lang="en">Employments</value>
+        <value xml:lang="fr">Emplois</value>
         <value xml:lang="it">Impiegato</value>
         <value xml:lang="th">การจ้างงาน</value>
     </property>
@@ -571,226 +680,286 @@
     </property>
     <property key="HumanResEstimatedFromDate">
         <value xml:lang="en">Estimated FromDate</value>
+        <value xml:lang="fr">Date de début prévue</value>
         <value xml:lang="it">Data Inizio Stimata</value>
         <value xml:lang="th">จากประมาณวันที่</value>
     </property>
     <property key="HumanResFindEmplLeave">
         <value xml:lang="en">Find Employee Leave</value>
+        <value xml:lang="fr">Rechercher un congé de l'employé</value>
     </property>
     <property key="HumanResFindEmplPosition">
         <value xml:lang="en">Find Employee Position</value>
+        <value xml:lang="fr">Rechercher la position de l'employé</value>
     </property>
     <property key="HumanResFindEmployment">
         <value xml:lang="en">Find Employment</value>
+        <value xml:lang="fr">Rechercher un emploi</value>
     </property>
     <property key="HumanResFindEmploymentApp">
         <value xml:lang="en">Find Employment Application</value>
+        <value xml:lang="fr">Rechercher la demande d'emploi</value>
     </property>
     <property key="HumanResFindPartyQual">
         <value xml:lang="en">Find Party Qualification</value>
+        <value xml:lang="fr">Rechercher la qualification de l'acteur</value>
     </property>
     <property key="HumanResFindPartyResume">
         <value xml:lang="en">Find Party Resume</value>
+        <value xml:lang="fr">Rechercher le CV de l'acteur</value>
     </property>
     <property key="HumanResFindPartySkill">
         <value xml:lang="en">Find Party Skills</value>
+        <value xml:lang="fr">Rechercher les compétences de l'acteur</value>
     </property>
     <property key="HumanResFindPayGrade">
         <value xml:lang="en">Find Pay Grade</value>
+        <value xml:lang="fr">Rechercher l'échelon de salaire</value>
     </property>
     <property key="HumanResFindPerfReview">
         <value xml:lang="en">Find Performance Review</value>
+        <value xml:lang="fr">Rechercher l'examen de performance</value>
     </property>
     <property key="HumanResFindPersonTraining">
         <value xml:lang="en">Find Person Training</value>
+        <value xml:lang="fr">Rechercher la formation de la personne</value>
     </property>
     <property key="HumanResGlobalHRSettings">
         <value xml:lang="en">Global HR Settings</value>
+        <value xml:lang="fr">Configuration globales des ressources humaines</value>
     </property>
     <property key="HumanResListEmployments">
         <value xml:lang="en">List Employment</value>
+        <value xml:lang="fr">Liste d'emplois</value>
         <value xml:lang="it">Lista Impiegato</value>
         <value xml:lang="th">รายการการจ้างงาน</value>
     </property>
     <property key="HumanResListPartyBenefits">
         <value xml:lang="en">List Party Benefits</value>
+        <value xml:lang="fr">Liste d'avantages de l'acteur</value>
         <value xml:lang="it">Lista Benefits Soggetto </value>
         <value xml:lang="th">รายการกลุ่มผลประโยชน์</value>
     </property>
     <property key="HumanResListPayHistories">
         <value xml:lang="en">List Pay Histories</value>
+        <value xml:lang="fr">Liste d'historique de salaires</value>
         <value xml:lang="it">Lista Storia Paghe</value>
         <value xml:lang="th">รายการจ่ายข้อมูล</value>
     </property>
     <property key="HumanResListPayrollPreferences">
         <value xml:lang="en">List Payroll Preferences</value>
+        <value xml:lang="fr">Liste des préférences de registre du personnel</value>
         <value xml:lang="it">Lista Preferenze Paghe</value>
         <value xml:lang="th">รายการอ้างอิงเงินเดือน</value>
     </property>
     <property key="HumanResListSkillTypes">
         <value xml:lang="en">List Skill Types</value>
+        <value xml:lang="fr">Liste de types de compétence</value>
         <value xml:lang="th">รายการประเภททักษะ</value>
     </property>
     <property key="HumanResListValidResponsibility">
         <value xml:lang="en">List Valid Responsibility</value>
+        <value xml:lang="fr">Liste de responsabilité valide</value>
         <value xml:lang="it">Lista Validità Responsibilità</value>
         <value xml:lang="th">รายการหน้าที่รับผิดชอบ</value>
     </property>
     <property key="HumanResLookupBudgetByName">
         <value xml:lang="en">Lookup Budget by Name</value>
+        <value xml:lang="fr">Consultation de budget par nom</value>
         <value xml:lang="it">Ricerca Budget per Nome</value>
         <value xml:lang="th">ค้นหางบประมาณโดยชื่อ</value>
     </property>
     <property key="HumanResLookupBudgetItemByName">
         <value xml:lang="en">Lookup Budget Item by Name</value>
+        <value xml:lang="fr">Consultation de ligne budgétaire par nom</value>
         <value xml:lang="it">Ricerca Riga Budget per Nome</value>
         <value xml:lang="th">ค้นหารายการงบประมาณโดยชื่อ</value>
     </property>
     <property key="HumanResLookupEmploymentApp">
         <value xml:lang="en">Lookup EmploymentApp</value>
+        <value xml:lang="fr">Consultation des demandes d'emploi</value>
     </property>
     <property key="HumanResLookupApplicationId">
         <value xml:lang="en">Lookup ApplicationId</value>
+        <value xml:lang="fr">Consultation de réf. d'application</value>
     </property>
     <property key="HumanResLookupEmplPositionByName">
         <value xml:lang="en">Lookup EmplPosition by Name</value>
+        <value xml:lang="fr">Consultation des positions par nom</value>
         <value xml:lang="it">Ricerca Posizione Impiegato per Nome</value>
         <value xml:lang="th">ค้นหาตำแหน่งพนักงานโดยชื่อ</value>
     </property>
     <property key="HumanResLookupPartyResume">
         <value xml:lang="en">Lookup PartyResume</value>
+        <value xml:lang="fr">Consultation de CV</value>
     </property>
     <property key="HumanResLookupResumeId">
         <value xml:lang="en">Lookup ResumeId</value>
+        <value xml:lang="fr">Consultation de réf. de CV</value>
     </property>
     <property key="HumanResLookupPayGrade">
         <value xml:lang="en">Lookup PayGrade</value>
+        <value xml:lang="fr">Consultation de catégorie de salaire</value>
         <value xml:lang="it">Ricerca Grado Paga</value>
         <value xml:lang="th">ค้นหาการจ่ายข้อมูล</value>
     </property>
     <property key="HumanResLookupPayGradeId">
         <value xml:lang="en">Lookup PayGrade Id</value>
+        <value xml:lang="fr">Consultation de réf. de catégorie de salaire</value>
         <value xml:lang="it">Ricerca Codice Grado Paga</value>
         <value xml:lang="th">ค้นหารหัสการจ่ายข้อมูล</value>
     </property>
     <property key="HumanResLookupPayRollPreference">
         <value xml:lang="en">Lookup PayRollPreference</value>
+        <value xml:lang="fr">Consultation de préférence de registre du personnel</value>
     </property>
     <property key="HumanResLookupPayrollPreferenceSeqId">
         <value xml:lang="en">Lookup PayrollPreferenceSeqId</value>
+        <value xml:lang="fr">Consultation de préférence séq. de registre du personnel</value>
     </property>
     <property key="HumanResLookupPerfReview">
         <value xml:lang="en">Lookup PerfReview</value>
+        <value xml:lang="fr">Consultation d'évaluation de performance</value>
     </property>
     <property key="HumanResLookupPerfReviewId">
         <value xml:lang="en">Lookup PerfReviewId</value>
+        <value xml:lang="fr">Consultation de réf. d'évaluation de performance</value>
     </property>
     <property key="HumanResLookupSalaryStepSeqId">
         <value xml:lang="en">Lookup Salary StepSeq Id</value>
+        <value xml:lang="fr">Réf. de consultation des augmentations de salaire</value>
         <value xml:lang="it">Ricerca Sequenza Passo Salario</value>
         <value xml:lang="th">ค้นหารหัสรายการขั้นเงินเดือน</value>
     </property>
     <property key="HumanResLookupTerminationReason">
         <value xml:lang="en">Lookup Termination Reason</value>
+        <value xml:lang="fr">Consultation de raison de fin de contrat</value>
         <value xml:lang="it">Ricerca Motivazioni Licenziamento</value>
         <value xml:lang="th">ค้นหาขอบเขตเหตุผล</value>
     </property>
     <property key="HumanResLookupUnemploymentClaim">
         <value xml:lang="en">Lookup UnemploymentClaim</value>
+        <value xml:lang="fr">Consultation des demandes de chômage</value>
     </property>
     <property key="HumanResLookupUnemploymentClaimId">
         <value xml:lang="en">Lookup UnemploymentClaimId</value>
+        <value xml:lang="fr">Réf. de consultation de demande du chômage</value>
     </property>
     <property key="HumanResLookupAgreement">
         <value xml:lang="en">Lookup Agreement</value>
+        <value xml:lang="fr">Consultation d'accord</value>
     </property>
     <property key="HumanResLookupAgreementId">
         <value xml:lang="en">Lookup AgreementId</value>
+        <value xml:lang="fr">Réf. de consultation d'accord</value>
     </property>
     <property key="HumanResLookupAgreementEmploymentAppl">
         <value xml:lang="en">Lookup AgreementEmploymentAppl</value>
+        <value xml:lang="fr">Consultation d'accord sur demande d'emploi</value>
     </property>
     <property key="HumanResLookupAgreementItemSeqId">
         <value xml:lang="en">Lookup AgreementItemSeqId</value>
+        <value xml:lang="fr">Réf. de consultation de ligne séq. d'accord</value>
     </property>
     <property key="HumanResManagerApplication">
         <value xml:lang="en">HumanRes Manager Application</value>
+        <value xml:lang="fr">Application de gestion des ressources humaines</value>
         <value xml:lang="it">Applicazione Gestione Risorse Umane</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจัดการบุคคล</value>
     </property>
     <property key="HumanResNewEmplPosition">
         <value xml:lang="en">New Employee Position</value>
+        <value xml:lang="fr">Nouvelle position d'employé</value>
         <value xml:lang="it">Nuova Posizione Impiegato</value>
         <value xml:lang="th">ตำแหน่งพนักงานใหม่</value>
     </property>
     <property key="HumanResNewEmplPositionFulfillment">
         <value xml:lang="en">New Employee Position Fulfillment</value>
+        <value xml:lang="fr">Nouveau pourvoiement de position d'employé</value>
         <value xml:lang="it">Nuova Posizione Impiegato Adempimento</value>
         <value xml:lang="th">ตำแหน่งพนักงานที่ปฏิบัติภารกิจใหม่</value>
     </property>
     <property key="HumanResNewEmplPositionReportingStruct">
         <value xml:lang="en">New EmplPositionReportingStruct</value>
+        <value xml:lang="fr">Nouvelle Structure de rapport de position d'emploi</value>
         <value xml:lang="it">Nuova Posizione Impiegato Struttura Stampa</value>
         <value xml:lang="th">รายงานโครงสร้างตำแหน่งพนักงานใหม่</value>
     </property>
     <property key="HumanResNewEmplPositionResponsibility">
         <value xml:lang="en">New EmplPosition Responsibility</value>
+        <value xml:lang="fr">Nouvelle responsabilité de position d'emploi</value>
         <value xml:lang="it">Nuova Posizione Responsabilità Impiegato</value>
         <value xml:lang="th">ตำแหน่งหน้าที่รับผิดชอบพนักงานใหม่</value>
     </property>
     <property key="HumanResNewEmployment">
         <value xml:lang="en">New Employment</value>
+        <value xml:lang="fr">Nouvel emploi</value>
         <value xml:lang="it">Nuovo Impiegato</value>
         <value xml:lang="th">การจ้างงานใหม่</value>
     </property>
     <property key="HumanResNewEmploymentApp">
         <value xml:lang="en">New Employment Application</value>
+        <value xml:lang="fr">Nouvelle demande d'emploi</value>
         <value xml:lang="it">Nuova Applicazione Impiegato</value>
         <value xml:lang="th">โปรแกรมประยุกต์ใช้การจ้างงานใหม่</value>
     </property>
     <property key="HumanResNewPartyBenefit">
         <value xml:lang="en">New Party Benefit</value>
+        <value xml:lang="fr">Nouvel d'avantage d'acteur</value>
         <value xml:lang="it">Nuovo Benefit Soggetto</value>
         <value xml:lang="th">กลุ่มผลประโยชน์ใหม่</value>
     </property>
     <property key="HumanResNewPartyQual">
         <value xml:lang="en">New Party Qualification</value>
+        <value xml:lang="fr">Nouvelle qualification d'acteur</value>
         <value xml:lang="it">Nuova Qualifica Soggetto</value>
         <value xml:lang="th">กลุ่มคุณสมบัติใหม่</value>
     </property>
     <property key="HumanResNewPartyResume">
         <value xml:lang="en">New Party Resume</value>
+        <value xml:lang="fr">Nouveau CV d'acteur</value>
         <value xml:lang="it">Nuovo Riassunto Soggetto</value>
         <value xml:lang="th">กลุ่มประวัติย่อใหม่</value>
     </property>
     <property key="HumanResNewPartyReview">
         <value xml:lang="en">New PerfReview</value>
+        <value xml:lang="fr">Nouvel examen de performances</value>
         <value xml:lang="it">Nuova Rassegna Prestazioni</value>
         <value xml:lang="th">การตรวจสอบสิทธิพิเศษใหม่</value>
     </property>
     <property key="HumanResNewPartyReviewEdit">
         <value xml:lang="en">Create/Update PerfReview</value>
+        <value xml:lang="fr">Création/Màj d'un examen de performances</value>
         <value xml:lang="it">Crea/Aggiorna Rassegna Prestazioni</value>
         <value xml:lang="th">สร้าง/แก้ไข การตรวจสอบสิทธิพิเศษ</value>
     </property>
     <property key="HumanResNewPartyReviewItem">
         <value xml:lang="en">New PerfReviewItem</value>
+        <value xml:lang="fr">Nouvelle ligne d'évaluation de performances</value>
         <value xml:lang="it">Nuova Riga Rassegna Prestazioni</value>
         <value xml:lang="th">รายการการตวจสอบสิทธิพิเศษใหม่</value>
     </property>
     <property key="HumanResNewPartyReviewItemEdit">
         <value xml:lang="en">Create/Update PerfReviewItem</value>
+        <value xml:lang="fr">Création/Màj d'une ligne d'évaluation de performances</value>
         <value xml:lang="it">Crea/Aggiorna Riga Rassegna Prestazioni</value>
         <value xml:lang="th">สร้าง/แก้ไข รายการการตรวจสอบสิทธิพิเศษ</value>
     </property>
+    <property key="HumanResPartySkills">
+        <value xml:lang="en">Party Skills</value>
+        <value xml:lang="fr">Qualifications de l'acteur</value>
+    </property>
     <property key="HumanResEditEmplPositionType">
         <value xml:lang="en">Edit Position Types</value>
+        <value xml:lang="fr">Modifier les types de position</value>
     </property>
     <property key="HumanResEmplPositionType">
         <value xml:lang="en">Position Types</value>
+        <value xml:lang="fr">Types de position</value>
     </property>
     <property key="HumanResEmplPositionTypeRate">
         <value xml:lang="en">Position Type Rate</value>
+        <value xml:lang="fr">Taux par type de position</value>
     </property>
     <property key="HumanResEmploymentPartyIdFrom">
         <value xml:lang="en">Internal Organization</value>
@@ -807,55 +976,78 @@
     </property>
     <property key="HumanResNewPartySkill">
         <value xml:lang="en">New Party Skill</value>
+        <value xml:lang="fr">Nouvelle compétence de l'acteur</value>
         <value xml:lang="it">Nuova Abilità Soggetto</value>
         <value xml:lang="th">กลุ่มทักษะใหม่</value>
     </property>
     <property key="HumanResNewPayGrade">
         <value xml:lang="en">New Pay Grade</value>
+        <value xml:lang="fr">Nouvel échelon de salaire</value>
         <value xml:lang="it">Nuovo Grado Paga</value>
         <value xml:lang="th">ระดับการจ่ายใหม่</value>
     </property>
     <property key="HumanResNewPayHistory">
         <value xml:lang="en">New Pay History</value>
+        <value xml:lang="fr">Nouvel historique de salaire</value>
         <value xml:lang="it">Nuovo Storia Paghe</value>
         <value xml:lang="th">การจ่ายข้อมูลใหม่</value>
     </property>
     <property key="HumanResNewPayrollPreferences">
         <value xml:lang="en">New Payroll Preferences</value>
+        <value xml:lang="fr">Nouvelles préférences de registre du personnel</value>
         <value xml:lang="it">Nuove Preferenze Paghe</value>
         <value xml:lang="th">เงินเดือนสิทธิพิเศษใหม่</value>
     </property>
     <property key="HumanResNewPersonTraining">
         <value xml:lang="en">New Person Training</value>
+        <value xml:lang="fr">Nouvelle formation</value>
     </property>
     <property key="HumanResNewSalaryStep">
         <value xml:lang="en">New Salary Step</value>
+        <value xml:lang="fr">Nouvelle augmentation de salaire</value>
         <value xml:lang="it">Nuovo Passo Salario</value>
         <value xml:lang="th">ขั้นเงินเดือนใหม่</value>
     </property>
     <property key="HumanResNewSkillType">
         <value xml:lang="en">New Skill Type</value>
+        <value xml:lang="fr">Nouveau type de compétence</value>
         <value xml:lang="it">Nuovo Tipo Abilità</value>
         <value xml:lang="th">ประเภททักษะใหม่</value>
         <value xml:lang="zh">新技能类别</value>
     </property>
     <property key="HumanResNewTerminationReason">
         <value xml:lang="en">New Termination Reason</value>
+        <value xml:lang="fr">Nouvelle raison de fin de contrat</value>
         <value xml:lang="it">Nuova Motivazione Licenziamento</value>
         <value xml:lang="th">ขอบเขตเหตุผลใหม่</value>
     </property>
     <property key="HumanResNewUnemploymentClaim">
         <value xml:lang="en">New Unemployment Claim</value>
+        <value xml:lang="fr">Nouvelle demande de chômage</value>
         <value xml:lang="it">Nuovo Reclamo Disoccupazione</value>
         <value xml:lang="th">จำนวนผู้ว่างงานเรียกร้องใหม่</value>
     </property>
     <property key="HumanResPartyBenifit">
         <value xml:lang="en">Party Benifit</value>
+        <value xml:lang="fr">Avantage de l'acteur</value>
         <value xml:lang="it">Benifit Soggetto</value>
         <value xml:lang="th">กลุ่มผลประโยชน์</value>
     </property>
+    <property key="HumanResPartyIdFrom">
+        <value xml:lang="en">Party Id From</value>
+        <value xml:lang="fr">Réf. de l'acteur de</value>
+        <value xml:lang="it">Codice Soggetto Da</value>
+        <value xml:lang="th">จากรหัสกลุ่มผู้ใช้</value>
+    </property>
+    <property key="HumanResPartyIdTo">
+        <value xml:lang="en">Party Id To</value>
+        <value xml:lang="fr">Réf. de l'acteur à</value>
+        <value xml:lang="it">Codice Soggetto A</value>
+        <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
+    </property>
     <property key="HumanResPartyQualification">
         <value xml:lang="en">Qualifications</value>
+        <value xml:lang="fr">Qualifications</value>
     </property>
     <property key="HumanResPartyResume">
         <value xml:lang="en">Resumes</value>
@@ -864,74 +1056,91 @@
     </property>
     <property key="HumanResPartyReview">
         <value xml:lang="en">Party Review</value>
+        <value xml:lang="fr">Examen de l'acteur</value>
         <value xml:lang="it">Rassegna Soggetto</value>
         <value xml:lang="th">การตรวจสอบกลุ่มผู้ใช้</value>
     </property>
     <property key="HumanResPayGrade">
         <value xml:lang="en">Pay Grades</value>
+        <value xml:lang="fr">Echelon de salaire</value>
         <value xml:lang="it">Grado Paga</value>
         <value xml:lang="th">ระดับการจ่าย</value>
     </property>
     <property key="HumanResPayGradeID">
         <value xml:lang="en">Pay GradeID</value>
+        <value xml:lang="fr">Réf. d'échelon de salaire</value>
         <value xml:lang="it">Codice Grado Paga</value>
         <value xml:lang="th">รหัสระดับการจ่าย</value>
     </property>
     <property key="HumanResPayHistories">
         <value xml:lang="en">Pay Histories</value>
+        <value xml:lang="fr">Historiques des salaires</value>
         <value xml:lang="it">Storia Paghe</value>
         <value xml:lang="th">การจ่ายข้อมูล</value>
     </property>
     <property key="HumanResPayHistory">
         <value xml:lang="en">Pay History</value>
+        <value xml:lang="fr">Historique de salaire</value>
         <value xml:lang="it">Storia Paga</value>
         <value xml:lang="th">การจ่ายข้อมูล</value>
     </property>
-    <property key="HumanResPayRollPerferences">
-        <value xml:lang="en">PayRoll Perferences</value>
+    <property key="HumanResPayRollPreferences">
+        <value xml:lang="en">PayRoll Preferences</value>
+        <value xml:lang="fr">Préférences de registre du personnel</value>
         <value xml:lang="it">Preferenze Paghe</value>
         <value xml:lang="th">เงินเดือนสิทธิพิเศษ</value>
     </property>
     <property key="HumanResPayrollPreferenceSeqId">
         <value xml:lang="en">Payroll Preference SequenceId</value>
+        <value xml:lang="fr">Réf. séq. de préférence de registre du personnel</value>
         <value xml:lang="it">Sequenza Preferenze Paghe</value>
         <value xml:lang="th">รหัสรายการเงินเดือนสิทธิพิเศษ</value>
     </property>
     <property key="HumanResPerfNote">
         <value xml:lang="en">Performance Note</value>
+        <value xml:lang="fr">Note de performance</value>
     </property>
     <property key="HumanResPerfReview">
         <value xml:lang="en">Performance Review</value>
+        <value xml:lang="fr">Évaluation des performances</value>
     </property>
     <property key="HumanResPositionFulfillments">
         <value xml:lang="en">Fulfillments</value>
+        <value xml:lang="fr">"Pourvoiements"</value>
         <value xml:lang="it">Adempimento</value>
     </property>
     <property key="HumanResReportedTo">
         <value xml:lang="en">ReportedTo</value>
+        <value xml:lang="fr">Rapporté à</value>
     </property>
     <property key="HumanResReportsTo">
         <value xml:lang="en">ReportsTo</value>
+        <value xml:lang="fr">Rapports à</value>
     </property>
     <property key="HumanResResponsibilityType">
         <value xml:lang="en">Responsibility Types</value>
+        <value xml:lang="fr">Types de responsabilité</value>
     </property>
     <property key="HumanResResponsibilityTypeId">
         <value xml:lang="en">Responsibility TypeId</value>
+        <value xml:lang="fr">Réf. de type de responsabilité</value>
         <value xml:lang="it">Tipo Responsabilità</value>
         <value xml:lang="th">รหัสประเภทหน้าที่ที่ต้องรับผิดชอบ</value>
     </property>
     <property key="HumanResResumeId">
         <value xml:lang="en">Resume Id</value>
+        <value xml:lang="fr">Réf. de CV</value>
     </property>
     <property key="HumanResSalaryStepSeqId">
         <value xml:lang="en">Salary Step Sequence Id</value>
+        <value xml:lang="fr">Réf. séq. d'augmentation de salaire</value>
         <value xml:lang="it">Sequenza Passo Salario</value>
         <value xml:lang="th">รหัสรายการขั้นเงินเดือน</value>
     </property>
     <property key="HumanResServices.PartyQualFailureAlreadyExists">
         <value xml:lang="en">Could not create education entry, it already exists</value>
         <value xml:lang="es">No se pudo crear la entidad educación, dado que ya existe</value>
+        <value xml:lang="fr">Impossible de créer l'entrée d'éducation, elle existe déjà</value>
         <value xml:lang="it">Non è possibile creare voce educazione, questo è già esistente</value>
         <value xml:lang="ro">Nu se poate crea entitatea educatie, pentru ca deja exista</value>
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , มันมีอยู่แล้ว</value>
@@ -940,6 +1149,7 @@
     <property key="HumanResServices.PartyQualFailureDataSource">
         <value xml:lang="en">Could not create education entry, data source error</value>
         <value xml:lang="es">No se pudo crear la entidad educación, error de base de datos</value>
+        <value xml:lang="fr">Impossible de créer l'entrée d'éducation, erreur de base de données</value>
         <value xml:lang="it">Non è possibile creare voce educazione, errore sorgente dati</value>
         <value xml:lang="ro">Nu se poate crea entitatea educatie,eroare de baza de date</value>
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , แหล่งข้อมูลผิดพลาด</value>
@@ -948,6 +1158,7 @@
     <property key="HumanResServices.PartyQualFailureIDCreation">
         <value xml:lang="en">Could not create education entry, ID creation failed</value>
         <value xml:lang="es">No se pudo crear la entidad educación, la creación del id fallo</value>
+        <value xml:lang="fr">Impossible de créer l'entrée d'éducation, la création d'identifiant a échoué</value>
         <value xml:lang="it">Non è possibile creare voce educazione, creazione ID fallita</value>
         <value xml:lang="ro">Nu se poate crea entitatea educatie, creaie Id Falita</value>
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , การสร้างรหัสล้มเหลว</value>
@@ -956,6 +1167,7 @@
     <property key="HumanResServices.PartyQualFailureIDStartsDigit">
         <value xml:lang="en">Could not create education entry, ID starts with digit</value>
         <value xml:lang="es">No se pudo crear la entidad educación, el id empieza con un digito</value>
+        <value xml:lang="fr">Impossible de créer l'entrée d'éducation, l'identifiant commence par un chiffre</value>
         <value xml:lang="it">Non è possibile creare voce educazione, ID inizia con un numero</value>
         <value xml:lang="ro">Nu se poate crea entitatea educatie, Id starts with digit</value>
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , รหัสเริ่มต้นด้วยตัวเลข</value>
@@ -964,6 +1176,7 @@
     <property key="HumanResServices.PartyQualFailureInputEntities">
         <value xml:lang="en">Could not create education entry, one or more input entity does not exist</value>
         <value xml:lang="es">No se pudo crear la entidad educación, uno o más entidades asociadas no existen</value>
+        <value xml:lang="fr">Impossible de créer l'entrée d'éducation, une ou plusieurs entrée d'entités n'existent pas</value>
         <value xml:lang="it">Non è possibile creare voce educazione, uno o più entità non esistono</value>
         <value xml:lang="ro">Nu se poate crea entitatea educatie,unul sau mai multi parametri nu exista</value>
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , ไม่มีค่าที่กรอกลงไป</value>
@@ -972,6 +1185,7 @@
     <property key="HumanResServices.PartyQualFailureMissingParam">
         <value xml:lang="en">Could not create education entry, required parameters missing</value>
         <value xml:lang="es">No se pudo crear la entidad educación, faltan parametros</value>
+        <value xml:lang="fr">Impossible de créer l'entrée d'éducation, il manque des paramètres</value>
         <value xml:lang="it">Non è possibile creare voce educazione, parametro richiesto mancante</value>
         <value xml:lang="ro">Nu se poate crea entitatea educatie, lipsesc parametric.</value>
         <value xml:lang="th">ไม่สามารถสร้างการกรอกข้อมูลการศึกษา  , ต้องการตัวแปรที่หายไป</value>
@@ -982,6 +1196,7 @@
     </property>
     <property key="HumanResSkillType">
         <value xml:lang="en">Skill Types</value>
+        <value xml:lang="fr">Types de compétence</value>
         <value xml:lang="it">Tipo Abilità</value>
         <value xml:lang="th">ประเภททักษะ</value>
     </property>
@@ -994,19 +1209,23 @@
     </property>
     <property key="HumanResTerminationReason">
         <value xml:lang="en">Termination Reasons</value>
+        <value xml:lang="fr">Raisons de fin de contrat</value>
         <value xml:lang="it">Motivazione Licenziamento</value>
         <value xml:lang="th">ขอบเขตเหตุผล</value>
     </property>
     <property key="HumanResTerminationReasonId">
         <value xml:lang="en">Termination Reason Id</value>
+        <value xml:lang="fr">Réf. des raisons de fin de contrat</value>
         <value xml:lang="it">Codice Motivazione Licenziamento</value>
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
     </property>
     <property key="HumanResTerminationTypes">
         <value xml:lang="en">Termination Types</value>
+        <value xml:lang="fr">Types de fin de contrat</value>
     </property>
     <property key="HumanResTerminationTypeId">
         <value xml:lang="en">Termination Type Id</value>
+        <value xml:lang="fr">Réf. de types de fin de contrat</value>
         <value xml:lang="it">Tipo Licenziamento</value>
         <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
     </property>
@@ -1017,79 +1236,95 @@
     </property>
     <property key="HumanResViewPermissionError">
         <value xml:lang="en">View Permission Error</value>
+        <value xml:lang="fr">Erreur d'autorisation de visualisation</value>
         <value xml:lang="it">Errore Permesso di Visualizzazione</value>
         <value xml:lang="th">แสดงการอนุญาติผิดพลาด</value>
     </property>
     <property key="PageTitleEditEmplPosition">
         <value xml:lang="en">Edit Empl Position</value>
+        <value xml:lang="fr">Modifier la position d'emploi</value>
         <value xml:lang="it">Aggiorna Posizione Impiegato</value>
         <value xml:lang="th">แก้ไขตำแหน่งพนักงาน</value>
     </property>
     <property key="PageTitleEditPartyReview">
         <value xml:lang="en">Edit PerfReview</value>
+        <value xml:lang="fr">Modifier l'évaluation des performances</value>
         <value xml:lang="it">Aggiorna Rassegna Prestazioni</value>
         <value xml:lang="th">แก้ไขการตรวจสอบสิทธิพิเศษ</value>
     </property>
     <property key="PageTitleEditPartyReviewItem">
-        <value xml:lang="en">=Edit PerrfReviewItem</value>
+        <value xml:lang="en">Edit PerfReviewItem</value>
+        <value xml:lang="fr">Modifier la ligne d'évaluation de performances</value>
         <value xml:lang="it">Aggiorna Riga Rassegna Prestazioni</value>
         <value xml:lang="th">=แก้ไขรายการการตรวจสอบสิทธิพิเศษ</value>
     </property>
     <property key="PageTitleEditResponsibilityType">
         <value xml:lang="en">Edit Responsibility Type</value>
+        <value xml:lang="fr">Modifier le type de responsabilité</value>
     </property>
     <property key="PageTitleEditSkillType">
         <value xml:lang="en">Edit Skill Type</value>
+        <value xml:lang="fr">Modifier le type de compétence</value>
         <value xml:lang="it">Aggiorna Tipo Abilità</value>
         <value xml:lang="th">แก้ไขประเภททักษะ</value>
         <value xml:lang="zh">编辑技能类别</value>
     </property>
     <property key="PageTitleEditValidResponsibility">
         <value xml:lang="en">Edit ValidResponsibility</value>
+        <value xml:lang="fr">Modifier la validité de responsabilité</value>
         <value xml:lang="it">Aggiorna Validità Responsibilità</value>
         <value xml:lang="th">แก้ไขหน้าที่รับผิดชอบ</value>
     </property>
     <property key="PageTitleFindResponsibilityType">
         <value xml:lang="en">Find Responsibility Type</value>
+        <value xml:lang="fr">Rechercher le type de responsabilité</value>
     </property>
     <property key="PageTitleListEmplPosition">
         <value xml:lang="en">List EmplPosition</value>
+        <value xml:lang="fr">Liste de positions</value>
         <value xml:lang="it">Lista Posizione Impiegato</value>
         <value xml:lang="th">รายการตำแหน่งพนักงาน</value>
     </property>
     <property key="PageTitleListEmplPositionFulfillments">
         <value xml:lang="en">List EmplPosition Fulfillments</value>
+        <value xml:lang="fr">Liste des "pourvoiements" de position</value>
         <value xml:lang="it">Lista Posizione Impiegato Adempimenti</value>
         <value xml:lang="th">รายการตำแหน่งพนักงานที่ปฏิบัติภารกิจ</value>
     </property>
     <property key="PageTitleListEmplPositionReportingStructs">
         <value xml:lang="en">List EmplPosition Reporting Structs</value>
+        <value xml:lang="fr">Liste des structures de rapport de position d'emploi</value>
         <value xml:lang="it">Lista Posizione Impiegato Struttura Stampe</value>
         <value xml:lang="th">แสดงรายงานโครงสร้างตำแหน่งพนักงาน</value>
     </property>
     <property key="PageTitleListEmplPositionResponsibilities">
         <value xml:lang="en">List EmplPosition Responsibilities</value>
+        <value xml:lang="fr">Liste des responsabilités de position d'emploi</value>
         <value xml:lang="it">Lista Posizione Responsabilità Impiegato</value>
         <value xml:lang="th">รายการตำแหน่งพนักงานที่มีหน้าที่รับผิดชอบ</value>
     </property>
     <property key="PageTitleListPartyReview">
         <value xml:lang="en">List PerfReview</value>
+        <value xml:lang="fr">Liste des examens de performances</value>
         <value xml:lang="it">Lista Rassegna Prestazioni</value>
         <value xml:lang="th">รายการตรวจสอบสิทธิพิเศษ</value>
     </property>
     <property key="PageTitleListPartyReviewItems">
         <value xml:lang="en">List PerfReviewItem</value>
+        <value xml:lang="fr">Liste d'article d'examens de performances</value>
         <value xml:lang="it">Lista Riga Rassegna Prestazioni</value>
         <value xml:lang="th">รายการรายการตรวจสอบสิทธิพิเศษ</value>
     </property>
     <property key="PageTitleListSkillTypes">
         <value xml:lang="en">List Skill Types</value>
+        <value xml:lang="fr">Liste de types de compétence</value>
         <value xml:lang="it">Lista Tipi Abilità</value>
         <value xml:lang="th">รายการประเภททักษะ</value>
         <value xml:lang="zh">技能类型列表</value>
     </property>
     <property key="PageTitleListValidResponsibilities">
         <value xml:lang="en">List ValidResponsibilities</value>
+        <value xml:lang="fr">Liste de validité des responsabilités</value>
         <value xml:lang="it">Lista Validità Responsibilità</value>
         <value xml:lang="th">รายการหน้าที่รับผิดชอบ</value>
     </property>
