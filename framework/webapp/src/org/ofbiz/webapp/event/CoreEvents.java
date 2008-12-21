@@ -216,11 +216,6 @@ public class CoreEvents {
         String serviceIntr = (String) params.remove("SERVICE_INTERVAL");
         String serviceCnt = (String) params.remove("SERVICE_COUNT");
         String retryCnt = (String) params.remove("SERVICE_MAXRETRY");
-        
-        boolean ownLogfile = false;
-        if ("Y".equals(params.get("OWN_LOGFILE"))) {
-            ownLogfile = true;
-        }
 
         // the frequency map
         Map<String, Integer> freqMap = FastMap.newInstance();
@@ -414,7 +409,7 @@ public class CoreEvents {
             if(null!=request.getParameter("_RUN_SYNC_") && request.getParameter("_RUN_SYNC_").equals("Y")){
                 syncServiceResult = dispatcher.runSync(serviceName, serviceContext);
             }else{
-                dispatcher.schedule(jobName, poolName, serviceName, serviceContext, startTime, frequency, interval, count, endTime, maxRetry, ownLogfile);
+                dispatcher.schedule(jobName, poolName, serviceName, serviceContext, startTime, frequency, interval, count, endTime, maxRetry);
             }
         } catch (GenericServiceException e) {
             String errMsg = UtilProperties.getMessage(CoreEvents.err_resource, "coreEvents.service_dispatcher_exception", locale);

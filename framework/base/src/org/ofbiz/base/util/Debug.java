@@ -25,7 +25,6 @@ import java.text.DateFormat;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Vector;
 
 import org.apache.avalon.util.exception.ExceptionHelper;
 import org.apache.log4j.Level;
@@ -71,8 +70,6 @@ public final class Debug {
     protected static final boolean useLevelOnCache = true;
     
     protected static Logger root = Logger.getRootLogger();
-    
-    private static Map<String, Vector<Appender>> activeThreadGroupLoggerMap = new HashMap<String, Vector<Appender>>();
 
     static {
         levelStringMap.put("verbose", Debug.VERBOSE);
@@ -131,108 +128,6 @@ public final class Debug {
             return root;
         }
     }
-    
-    /**
-     * Checks if a logger exists and if it is in activeThreadGroupLoggerMap
-     * @param threadGroupId a thread group id
-     * @return
-     */
-    private static boolean hasActiveThreadLogger(String threadGroupId) {
-        //used so entries are not doubled in rootAppenders
-        Logger threadGroupLogger = org.apache.log4j.LogManager
-                .exists(threadGroupId);
-        return threadGroupLogger != null
-                && (activeThreadGroupLoggerMap.get(threadGroupId) != null && activeThreadGroupLoggerMap
-                        .get(threadGroupId).size() > 0);
-    }
-
-    private static Appender getAppender(String threadGroupId,
-            String appenderName) {
-        Vector<Appender> appenders = activeThreadGroupLoggerMap
-                .get(threadGroupId);
-        if (appenders != null) {
-            for (Appender appender : appenders) {
-                if (appender != null && appender.getName().equals(appenderName)) {
-                    return appender;
-                }
-            }
-        }
-        return null;
-    }
-
-    private static void addAppenderToThreadGroupMap(String threadGroupId,
-            Appender appender) {
-        Vector<Appender> appenders = activeThreadGroupLoggerMap.get(threadGroupId);
-        if (appenders == null) {
-            appenders = new Vector<Appender>();
-        }
-        appenders.add(appender);
-        activeThreadGroupLoggerMap.put(threadGroupId, appenders);
-    }
-
-    private static void removeAppenderFromThreadGroupMap(String threadGroupId,
-            Appender appender) {
-        Vector<Appender> appenders = activeThreadGroupLoggerMap.get(threadGroupId);
-        if (appenders != null && appenders.contains(appender)) {
-            appenders.remove(appender);
-            activeThreadGroupLoggerMap.put(threadGroupId, appenders);
-        }
-    }
-
-    private static String currentThreadGroupId() {
-        return "" + Thread.currentThread().getThreadGroup().hashCode();
-    }
-
-    public static void registerCurrentThreadGroupLogger(String logFile, String appenderName) {
-        String pattern = "<div class=%p>%d (%t) [%24F:%-3L:%-5p]%x %m </div>%n";
-        registerThreadAppender(getNewFileAppender(appenderName,
-                logFile, 0, 0, pattern));
-    }
-
-    public static void registerThreadAppender(Appender appender) {
-        String threadGroupId = currentThreadGroupId();
-        
-        if (threadGroupId != null && threadGroupId.length() > 0) {
-            Logger theLogger = getLogger(threadGroupId);
-            if (theLogger != null) {
-                theLogger.setAdditivity(false);
-                theLogger.addAppender(appender);
-                addAppenderToThreadGroupMap(threadGroupId, appender);
-            }
-        }
-    }
-
-    public static void unregisterCurrentThreadGroupLogger(String appenderName) {
-        String threadGroupId = currentThreadGroupId();
-        Appender foundAppender = getAppender(threadGroupId, appenderName);
-        unregisterThreadAppender(foundAppender);
-    }
-
-    public static void unregisterThreadAppender(Appender appender) {
-        String threadGroupId = currentThreadGroupId();
-        if (threadGroupId != null && threadGroupId.length() > 0
-                && appender != null) {
-            Logger theLogger = getLogger(threadGroupId);
-            theLogger.removeAppender(appender);
-            removeAppenderFromThreadGroupMap(threadGroupId, appender);
-        }
-    }
-
-    /**
-     * Thread-specific logging
-     */
-    private static void logThreadGroup(int level, Throwable t, String msg, String module, 
-            String callingClass) {
-        String threadGroupId = currentThreadGroupId();
-        if (hasActiveThreadLogger(threadGroupId)) {
-            Logger grplogger = getLogger(threadGroupId + "." + module);
-            if (SYS_DEBUG != null) {
-                grplogger.setLevel(Level.DEBUG);
-            }
-            grplogger.log(callingClass, levelObjs[level], msg, t);
-        }
-    }
-    
 
     /** Gets an Integer representing the level number from a String representing the level name; will return null if not found */
     public static Integer getLevelFromString(String levelName) {
@@ -269,7 +164,6 @@ public final class Debug {
                     logger.setLevel(Level.DEBUG);
                 }
                 logger.log(callingClass, levelObjs[level], msg, t);
-                logThreadGroup(level, t, msg, module, callingClass);
             } else {
                 StringBuilder prefixBuf = new StringBuilder();
 
