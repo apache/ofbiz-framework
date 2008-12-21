@@ -37,8 +37,10 @@ public class FieldObject<T> extends MethodObject<T> {
 
     public FieldObject(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        fieldAcsr = new ContextAccessor<T>(element.getAttribute("field-name"));
+        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
+        fieldAcsr = new ContextAccessor<T>(element.getAttribute("field"), element.getAttribute("field-name"));
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        
         type = element.getAttribute("type");
         if (UtilValidate.isEmpty(type)) {
             type = "String";

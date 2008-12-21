@@ -48,12 +48,11 @@ public class ListToList extends MethodOperation {
 
     public ListToList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list-name"));
-        toListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("to-list-name"));
+        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list"), element.getAttribute("list-name"));
+        toListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("to-list"), element.getAttribute("to-list-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
-
         List<Object> fromList = listAcsr.get(methodContext);
         List<Object> toList = toListAcsr.get(methodContext);
 

@@ -56,7 +56,9 @@ public class CreateObject extends MethodOperation {
     public CreateObject(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         className = element.getAttribute("class-name");
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        
+        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
         
         List<? extends Element> parameterElements = UtilXml.childElementList(element);

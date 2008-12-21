@@ -57,7 +57,8 @@ public class CallClassMethod extends MethodOperation {
         super(element, simpleMethod);
         className = element.getAttribute("class-name");
         methodName = element.getAttribute("method-name");
-        retFieldAcsr = new ContextAccessor<Object>(element.getAttribute("ret-field-name"));
+        // the schema for this element now just has the "ret-field" attribute, though the old "ret-field-name" and "ret-map-name" pair is still supported
+        retFieldAcsr = new ContextAccessor<Object>(element.getAttribute("ret-field"), element.getAttribute("ret-field-name"));
         retMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("ret-map-name"));
         
         List<? extends Element> parameterElements = UtilXml.childElementList(element);

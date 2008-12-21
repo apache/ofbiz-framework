@@ -64,8 +64,8 @@ public class SetServiceFields extends MethodOperation {
     public SetServiceFields(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         serviceName = element.getAttribute("service-name");
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        toMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("to-map-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
+        toMapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("to-map"), element.getAttribute("to-map-name"));
         errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
     }
 
