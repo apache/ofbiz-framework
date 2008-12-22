@@ -383,6 +383,10 @@ public class Record implements Serializable {
         for (ModelField modelField: modelRecord.fields) {
             String data = this.getFixedString(modelField.name);
 
+            if (isDelimited && null != modelDataFile.textDelimiter) {
+                lineBuf.append(modelDataFile.textDelimiter);
+            }
+
             // if field is null (not set) then assume we want to pad the field
             char PAD_CHAR = ' ';
 
@@ -407,9 +411,19 @@ public class Record implements Serializable {
                         modelField.name + "\" of record \"" + modelRecord.name + "\" data is: \"" + data + "\"");
 
             lineBuf.append(data);
-            if (isDelimited)
+            if (isDelimited) {
+                if (null != modelDataFile.textDelimiter) {
+                    lineBuf.append(modelDataFile.textDelimiter);
+                }
                 lineBuf.append(modelDataFile.delimiter);
+            }
         }
+
+        if (isDelimited) {
+            // just remove the last delimiter to finish clean, otherwise shows as extra column
+            lineBuf.setLength(lineBuf.length() - 1);
+        }
+
         if ((isFixedRecord || isFixedLength) && modelDataFile.recordLength > 0 && lineBuf.length() != modelDataFile.recordLength)
             throw new DataFileException("Got record length " + lineBuf.length() + " but expected record length is " + modelDataFile.recordLength +
                     " for record \"" + modelRecord.name + "\" data line is: \"" + lineBuf + "\"");
