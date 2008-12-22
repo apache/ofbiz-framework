@@ -96,6 +96,12 @@ under the License.
         <response name="success" type="request" value="dashboard"/>
         <response name="error" type="request" value="dashboard"/>
     </request-map>
+    <request-map uri="updatePortalPageColumn">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updatePortalPageColumn"/>
+        <response name="success" type="request" value="dashboard"/>
+        <response name="error" type="request" value="dashboard"/>
+    </request-map>
     <request-map uri="deletePortalPageColumn">
         <security https="true" auth="true"/>
         <event type="service" invoke="deletePortalPageColumn"/>
