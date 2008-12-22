@@ -19,7 +19,7 @@
     under the License.
 --><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AcctgTransType.description.AMORTIZATION">
-        <value xml:lang="en">Amorization</value>
+        <value xml:lang="en">Amortization</value>
         <value xml:lang="fr">Amortissements</value>
         <value xml:lang="it">Ammortamento</value>
         <value xml:lang="ro">Amortizare</value>
@@ -29,7 +29,7 @@
     </property>
     <property key="AcctgTransType.description.CAPITALIZATION">
         <value xml:lang="en">Capitalization</value>
-        <value xml:lang="fr">Immobilisations</value>
+        <value xml:lang="fr">Capitalisations</value>
         <value xml:lang="it">Capitalizzazioni</value>
         <value xml:lang="ro">Capitalizare</value>
         <value xml:lang="ru">Капитализация</value>
@@ -65,6 +65,7 @@
     </property>
     <property key="AcctgTransType.description.DISBURSEMENT">
         <value xml:lang="en">Disbursement</value>
+        <value xml:lang="fr">Débours</value>
         <value xml:lang="th">การชำระเงิน</value>
     </property>
     <property key="AcctgTransType.description.DISBURSEMENT_ACCTG_T">
@@ -96,7 +97,7 @@
     </property>
     <property key="AcctgTransType.description.INVENTORY_RETURN">
         <value xml:lang="en">Inventory from Return</value>
-        <value xml:lang="fr">Retours en inventaire</value>
+        <value xml:lang="fr">Inventaire des retours</value>
         <value xml:lang="it">Inventario dal Reso</value>
         <value xml:lang="ro">Inventarul Returnarilor</value>
         <value xml:lang="ru">Возврат ТМЦ</value>
@@ -132,6 +133,7 @@
     </property>
     <property key="AcctgTransType.description.OTHER_INTERNAL">
         <value xml:lang="en">Other Internal</value>
+        <value xml:lang="fr">Autre interne</value>
         <value xml:lang="th">ภายในอื่น ๆ</value>
     </property>
     <property key="AcctgTransType.description.OTHER_INTERNAL_ACCTG">
@@ -172,6 +174,7 @@
     </property>
     <property key="AcctgTransType.description.RECEIPT">
         <value xml:lang="en">Receipt</value>
+        <value xml:lang="fr">Reçu</value>
         <value xml:lang="th">ใบเสร็จรับเงิน</value>
     </property>
     <property key="AcctgTransType.description.RECEIPT_ACCTG_TRANS">
@@ -185,6 +188,7 @@
     </property>
     <property key="AcctgTransType.description.SALES">
         <value xml:lang="en">Sales</value>
+        <value xml:lang="fr">Ventes</value>
         <value xml:lang="th">การขาย</value>
     </property>
     <property key="AcctgTransType.description.SALES_ACCTG_TRANS">
@@ -207,54 +211,63 @@
     </property>
     <property key="FinAccountTransType.description.ADJUSTMENT">
         <value xml:lang="en">Adjustment</value>
+        <value xml:lang="fr">Ajustement</value>
         <value xml:lang="it">Aggiustamento</value>
         <value xml:lang="ru">Поправка</value>
         <value xml:lang="th">การปรับปรุงรายการ</value>
     </property>
     <property key="FinAccountTransType.description.DEPOSIT">
         <value xml:lang="en">Deposit</value>
+        <value xml:lang="fr">Dépôt</value>
         <value xml:lang="it">Deposito</value>
         <value xml:lang="ru">Взнос</value>
         <value xml:lang="th">เงินมัดจำ</value>
     </property>
     <property key="FinAccountTransType.description.WITHDRAWAL">
         <value xml:lang="en">Withdraw</value>
+        <value xml:lang="fr">Retrait</value>
         <value xml:lang="it">Prelievo</value>
         <value xml:lang="ru">Отмена</value>
         <value xml:lang="th">ถอน</value>
     </property>
     <property key="FinAccountType.description.BANK_ACCOUNT">
         <value xml:lang="en">Bank Account</value>
+        <value xml:lang="fr">Compte bancaire</value>
         <value xml:lang="it">Conto Bancario</value>
         <value xml:lang="ru">Банковский счет</value>
         <value xml:lang="th">บัญชีธนาคาร</value>
     </property>
     <property key="FinAccountType.description.DEPOSIT_ACCOUNT">
         <value xml:lang="en">Deposit Account</value>
+        <value xml:lang="fr">Dépôt sur compte</value>
         <value xml:lang="it">Conto Deposito</value>
         <value xml:lang="ru">Депозитный счет</value>
         <value xml:lang="th">บัญชีเงินฝากประจำ</value>
     </property>
     <property key="FinAccountType.description.GIFTCERT_ACCOUNT">
         <value xml:lang="en">Gift Certificate</value>
+        <value xml:lang="fr">Chèque cadeau</value>
         <value xml:lang="it">Certificato Omaggio</value>
         <value xml:lang="ru">Подарочный сертификат</value>
         <value xml:lang="th">ของขวัญที่มีใบรับรอง</value>
     </property>
     <property key="FinAccountType.description.INVESTMENT_ACCOUNT">
         <value xml:lang="en">Investment Account</value>
+        <value xml:lang="fr">Compte d'investissement</value>
         <value xml:lang="it">Conto Investimento</value>
         <value xml:lang="ru">Инвестиционный счет</value>
         <value xml:lang="th">บัญชีเงินลงทุน</value>
     </property>
     <property key="FinAccountType.description.REPLENISH_ACCOUNT">
         <value xml:lang="en">Replenish Account</value>
+        <value xml:lang="fr">Renflouer le compte</value>
         <value xml:lang="it">Conto Rifornimento</value>
         <value xml:lang="ru">Пополняемый счет</value>
         <value xml:lang="th">เติมบัญชี</value>
     </property>
     <property key="FinAccountType.description.SVCCRED_ACCOUNT">
         <value xml:lang="en">Service Credit Account</value>
+        <value xml:lang="fr">Compte de service crédit</value>
         <value xml:lang="it">Conto Servizio Credito</value>
         <value xml:lang="ru">Сервисный кредитный счет</value>
         <value xml:lang="th">บริการเครดิตบัญชี</value>
@@ -396,7 +409,7 @@
     </property>
     <property key="FixedAssetType.description.PROPERTY">
         <value xml:lang="en">Property</value>
-        <value xml:lang="fr">Immobilier</value>
+        <value xml:lang="fr">Propriété</value>
         <value xml:lang="it">Proprietà</value>
         <value xml:lang="ro">Proprietati</value>
         <value xml:lang="ru">Имущество</value>
@@ -405,7 +418,7 @@
     </property>
     <property key="FixedAssetType.description.REAL_ESTATE">
         <value xml:lang="en">Real Estate</value>
-        <value xml:lang="fr">Propriété foncière</value>
+        <value xml:lang="fr">Bien immobilier</value>
         <value xml:lang="it">Immobiliare</value>
         <value xml:lang="ro">Imobile</value>
         <value xml:lang="ru">Недвижимость</value>
@@ -423,7 +436,7 @@
     </property>
     <property key="GlAccountClass.description.ACCUM_AMORTIZATION">
         <value xml:lang="en">Accumulated Amortization</value>
-        <value xml:lang="fr">Amortissements cumulés</value>
+        <value xml:lang="fr">Amortissement cumulé</value>
         <value xml:lang="it">Fondo Ammortamento Beni Intangibili</value>
         <value xml:lang="ro">Amortizare Acumulata</value>
         <value xml:lang="ru">Аккумулированная амортизация</value>
@@ -432,7 +445,7 @@
     </property>
     <property key="GlAccountClass.description.ACCUM_DEPRECIATION">
         <value xml:lang="en">Accumulated Depreciation</value>
-        <value xml:lang="fr">Dépréciations cumulées</value>
+        <value xml:lang="fr">Dépréciation cumulée</value>
         <value xml:lang="it">Fondo Ammortamento Beni Tangibili</value>
         <value xml:lang="ro">Devalorizare Acumulata</value>
         <value xml:lang="ru">Аккумулированный износ</value>
@@ -441,7 +454,7 @@
     </property>
     <property key="GlAccountClass.description.AMORTIZATION">
         <value xml:lang="en">Amortization</value>
-        <value xml:lang="fr">Amortissements</value>
+        <value xml:lang="fr">Amortissement</value>
         <value xml:lang="it">Ammortamento Beni Intangibili</value>
         <value xml:lang="ro">Amortizari</value>
         <value xml:lang="ru">Амортизация</value>
@@ -459,7 +472,7 @@
     </property>
     <property key="GlAccountClass.description.CASH_EQUIVALENT">
         <value xml:lang="en">Cash and Equivalent</value>
-        <value xml:lang="fr">Caisse et équivalents</value>
+        <value xml:lang="fr">Caisse et équivalent</value>
         <value xml:lang="it">Cassa e Banca</value>
         <value xml:lang="ro">Casa si Echivalente</value>
         <value xml:lang="ru">Наличные и их эквивалент</value>
@@ -468,7 +481,7 @@
     </property>
     <property key="GlAccountClass.description.CASH_EXPENSE">
         <value xml:lang="en">Cash Expense</value>
-        <value xml:lang="fr">Décaissements</value>
+        <value xml:lang="fr">Décaissement</value>
         <value xml:lang="it">Spese Di Cassa</value>
         <value xml:lang="ro">Cheltuieli Casa</value>
         <value xml:lang="ru">Денежные расходы</value>
@@ -477,7 +490,7 @@
     </property>
     <property key="GlAccountClass.description.CASH_INCOME">
         <value xml:lang="en">Cash Income</value>
-        <value xml:lang="fr">Encaissements</value>
+        <value xml:lang="fr">Encaissement</value>
         <value xml:lang="it">Ricavi di Cassa</value>
         <value xml:lang="ro">Venituri din Casa</value>
         <value xml:lang="ru">Денежный доходы</value>
@@ -684,7 +697,7 @@
     </property>
     <property key="GlAccountClass.description.RETURN_OF_CAPITAL">
         <value xml:lang="en">Return of Capital</value>
-        <value xml:lang="fr">Revenus du capital</value>
+        <value xml:lang="fr">Revenu du capital</value>
         <value xml:lang="it">Ritorno di Capitale</value>
         <value xml:lang="ro">Inapoiere de Capital</value>
         <value xml:lang="ru">Возврат на капитал</value>
@@ -693,7 +706,7 @@
     </property>
     <property key="GlAccountClass.description.REVENUE">
         <value xml:lang="en">Revenue</value>
-        <value xml:lang="fr">Revenus</value>
+        <value xml:lang="fr">Revenu</value>
         <value xml:lang="it">Ricavi</value>
         <value xml:lang="ro">Profit</value>
         <value xml:lang="ru">Доход</value>
@@ -711,7 +724,7 @@
     </property>
     <property key="GlAccountType.description.ACCOUNTS_PAYABLE">
         <value xml:lang="en">Accounts Payable</value>
-        <value xml:lang="fr">Fournisseurs et comptes rattachés</value>
+        <value xml:lang="fr">Comptes fournisseurs</value>
         <value xml:lang="it">Conti Pagamenti</value>
         <value xml:lang="ro">Conturi Plati</value>
         <value xml:lang="ru">Счет кредиторов</value>
@@ -720,7 +733,7 @@
     </property>
     <property key="GlAccountType.description.ACCOUNTS_RECEIVABLE">
         <value xml:lang="en">Accounts Receivable</value>
-        <value xml:lang="fr">Clients et comptes rattachés</value>
+        <value xml:lang="fr">Comptes clients</value>
         <value xml:lang="it">Crediti a Breve</value>
         <value xml:lang="ro">Credite pe termen scurt</value>
         <value xml:lang="ru">Счет дебиторов</value>
@@ -729,7 +742,7 @@
     </property>
     <property key="GlAccountType.description.BALANCE_ACCOUNT">
         <value xml:lang="en">Balance</value>
-        <value xml:lang="fr">Comptes de régularisation</value>
+        <value xml:lang="fr">Solde du compte</value>
         <value xml:lang="it">Bilancio</value>
         <value xml:lang="ro">Balanta</value>
         <value xml:lang="ru">Баланс</value>
@@ -747,7 +760,7 @@
     </property>
     <property key="GlAccountType.description.COGS_ACCOUNT">
         <value xml:lang="en">Cost of Goods Sold</value>
-        <value xml:lang="fr">Variation des stocks</value>
+        <value xml:lang="fr">Coût des marchandises vendues</value>
         <value xml:lang="it">Costo delle Merci Vendute </value>
         <value xml:lang="ro">Costul Marfurilor Vandute </value>
         <value xml:lang="ru">Стоимость проданных товаров</value>
@@ -774,7 +787,7 @@
     </property>
     <property key="GlAccountType.description.CURRENT_ASSET">
         <value xml:lang="en">Current Asset</value>
-        <value xml:lang="fr">Actif courants</value>
+        <value xml:lang="fr">Actif courant</value>
         <value xml:lang="it">Bene Attuale</value>
         <value xml:lang="ro">Mijloc Curent</value>
         <value xml:lang="ru">Текущие активы</value>
@@ -792,7 +805,7 @@
     </property>
     <property key="GlAccountType.description.CUSTOMER_ACCOUNT">
         <value xml:lang="en">Customer</value>
-        <value xml:lang="fr">Comptes clients</value>
+        <value xml:lang="fr">Client</value>
         <value xml:lang="it">Cliente</value>
         <value xml:lang="ro">Client</value>
         <value xml:lang="ru">Заказчик</value>
@@ -819,7 +832,7 @@
     </property>
     <property key="GlAccountType.description.CUSTOMER_GC_DEPOSIT">
         <value xml:lang="en">Customer Gift Certificate Balances</value>
-        <value xml:lang="fr">Clients - Bons d'achats</value>
+        <value xml:lang="fr">Soldes de chèque cadeau du client</value>
         <value xml:lang="it">Bilanci Certificato Omaggio Cliente</value>
         <value xml:lang="ro">Balante Certificat Omagiu Client</value>
         <value xml:lang="ru">Балансы подарочных сертификатов заказчиков</value>
@@ -846,7 +859,7 @@
     </property>
     <property key="GlAccountType.description.INVENTORY_ACCOUNT">
         <value xml:lang="en">Inventory</value>
-        <value xml:lang="fr">Stocks</value>
+        <value xml:lang="fr">Stock</value>
         <value xml:lang="it">Inventario</value>
         <value xml:lang="ro">Inventar</value>
         <value xml:lang="ru">ТМЦ</value>
@@ -1909,6 +1922,7 @@
     </property>
     <property key="InvoiceType.description.INTEREST_INVOICE">
         <value xml:lang="en">Interest</value>
+        <value xml:lang="fr">Intérêt</value>
         <value xml:lang="it">Interessi</value>
         <value xml:lang="ru">Процентный доход</value>
         <value xml:lang="th">ดอกเบี้ย</value>
@@ -1934,7 +1948,7 @@
         <value xml:lang="zh">销售发票</value>
     </property>
     <property key="PaymentMethodType.description.CASH">
-        <value xml:lang="en">Cash    </value>
+        <value xml:lang="en">Cash</value>
         <value xml:lang="fr">Espèces</value>
         <value xml:lang="it">Contanti</value>
         <value xml:lang="ro">In Numerar</value>
@@ -2014,6 +2028,7 @@
     </property>
     <property key="PaymentMethodType.description.EXT_EBAY">
         <value xml:lang="en">eBay</value>
+        <value xml:lang="fr">eBay</value>
         <value xml:lang="it">eBay</value>
         <value xml:lang="th">อีเบย์</value>
     </property>
@@ -2089,6 +2104,7 @@
     </property>
     <property key="PaymentType.description.COMMISSION_PAYMENT">
         <value xml:lang="en">Commission Payment</value>
+        <value xml:lang="fr">Paiement de commission</value>
         <value xml:lang="it">Pagamento Provvigioni</value>
         <value xml:lang="ru">Комиссионный платеж</value>
         <value xml:lang="th">การชำระเงินค่านายหน้า</value>
@@ -2162,6 +2178,7 @@
     </property>
     <property key="PaymentType.description.INTEREST_RECEIPT">
         <value xml:lang="en">Interest Receipt</value>
+        <value xml:lang="fr">Reçu d'intérêt</value>
         <value xml:lang="it">Ricevuta Interessi</value>
         <value xml:lang="ru">Процентный доход</value>
         <value xml:lang="th">ใบเสร็จรับเงินดอกเบี้ย</value>
@@ -2187,12 +2204,14 @@
     </property>
     <property key="PaymentType.description.POS_PAID_IN">
         <value xml:lang="en">POS Paid In</value>
+        <value xml:lang="fr">Reçu en caisse</value>
         <value xml:lang="it">Pagamento POS Ingresso</value>
         <value xml:lang="ru">Вход. оплата POS</value>
         <value xml:lang="th">ชำระ ณ จุดขาย</value>
     </property>
     <property key="PaymentType.description.POS_PAID_OUT">
         <value xml:lang="en">POS Paid Out</value>
+        <value xml:lang="fr">Sortie de caisse</value>
         <value xml:lang="it">Pagamento POS Uscita</value>
         <value xml:lang="ru">Исход. оплата POS</value>
         <value xml:lang="th">ชำระนอกจุดขาย</value>
