@@ -28,12 +28,11 @@ under the License.
   			<br class="clear"/>
 		</div>
     </#if>
-
 <table width="100%">
   <#if configurePortalPage?has_content>
     <tr> 
       <#list portalPageColumnList?if_exists as portalPageColumn>
-        <td class="manage-portal-column-toolbar">
+        <td class="manage-portal-column-toolbar" style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
           <ul>
             <li id="delete-column">
               <a href="<@ofbizUrl>deletePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
@@ -41,17 +40,32 @@ under the License.
             <li id="add-portlet">
               <a href="<@ofbizUrl>AddPortlet?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonAddAPortlet}</a>
             </li>
+            <li id="column-width">
+              <select name="setColWidth" onchange="window.location=this.value;">
+                <option value="">${uiLabelMap.CommonSetColumnWidth}</option>
+                <option <#if portalPageColumn.columnWidthPercentage?default(0) == 10> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=10&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">10%</option>
+                <option <#if portalPageColumn.columnWidthPercentage?default(0) == 20> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=20&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">20%</option>
+                <option <#if portalPageColumn.columnWidthPercentage?default(0) == 30> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=30&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">30%</option>
+                <option <#if portalPageColumn.columnWidthPercentage?default(0) == 40> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=40&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">40%</option>
+                <option <#if portalPageColumn.columnWidthPercentage?default(0) == 50> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=50&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">50%</option>
+                <option <#if portalPageColumn.columnWidthPercentage?default(0) == 60> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=60&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">60%</option>
+                <option <#if portalPageColumn.columnWidthPercentage?default(0) == 70> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=70&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">70%</option>
+                <option <#if portalPageColumn.columnWidthPercentage?default(0) == 80> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=80&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">80%</option>
+                <option <#if portalPageColumn.columnWidthPercentage?default(0) == 90> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=90&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">90%</option>
+                <option <#if portalPageColumn.columnWidthPercentage?default(0) == 100> selected</#if> value="<@ofbizUrl>updatePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&columnWidthPercentage=100&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}</@ofbizUrl>">100%</option>
+              </select>
+            </li>
           </ul>
         </td>
         <#if portalPageColumn_has_next>
-          <td width="5px">&nbsp;</td>
+          <td>&nbsp;</td>
         </#if>
       </#list>
     </tr>
   </#if>
   <tr>
     <#list portalPageColumnList?if_exists as portalPageColumn>
-      <td style="vertical-align: top;"<#if portalPageColumn.columnWidthPixels?has_content> width="${portalPageColumn.columnWidthPixels}"</#if>>
+      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
       <#assign firstInColumn = true/>
       <#list portalPagePortletViewList as portlet>
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
@@ -124,7 +138,7 @@ under the License.
         </#if>
       </#list>
       <#if portalPageColumn_has_next>
-        <td width="5px">&nbsp;</td>
+        <td>&nbsp;</td>
       </#if>
     </#list>
   </tr>

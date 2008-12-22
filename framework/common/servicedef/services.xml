@@ -630,6 +630,11 @@ under the License.
         <auto-attributes include="nonpk" mode="IN" optional="true"/>
         <override name="columnSeqId" mode="OUT" optional="true"/>
     </service>
+    <service name="updatePortalPageColumn" default-entity-name="PortalPageColumn" engine="entity-auto" invoke="update" auth="true">
+        <description>Update a Portal Page Column</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+    </service>
     <service name="deletePortalPageColumn" default-entity-name="PortalPageColumn" engine="simple" auth="true"
         location="org/ofbiz/common/PortalPageServices.xml" invoke="deletePortalPageColumn">
         <description>Delete a Column from a PortalPage</description>

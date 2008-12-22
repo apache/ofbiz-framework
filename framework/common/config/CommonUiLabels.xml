@@ -5528,6 +5528,10 @@
         <value xml:lang="zh">设置</value>
         <value xml:lang="zh_CN">赋值</value>
     </property>
+    <property key="CommonSetColumnWidth">
+        <value xml:lang="en">Set Column Width...</value>
+        <value xml:lang="it">Larghezza colonna...</value>
+    </property>
     <property key="CommonSetNowEmpty">
         <value xml:lang="ar">(سيوضع اليوم إذا كان فارغا)</value>
         <value xml:lang="de">(Wird auf 'jetzt' gesetzt, falls leer)</value>

@@ -2090,6 +2090,7 @@ font-weight: bold;
 }
 
 .manage-portal-column-toolbar #add-portlet,
-.manage-portal-column-toolbar #delete-column {
+.manage-portal-column-toolbar #delete-column,
+.manage-portal-column-toolbar #column-width {
 float: right;
 }
