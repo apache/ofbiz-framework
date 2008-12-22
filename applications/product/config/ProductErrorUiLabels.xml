@@ -37,6 +37,7 @@
     <property key="ProductUspsAddressValidationStateAndCityOrZipRqd">
         <value xml:lang="de">USPS Adressverifikation benötigt Postleitzahl oder Ort/Staat</value>
         <value xml:lang="en">USPS address validation requires either zip5 or city and state</value>
+        <value xml:lang="fr">La validation de l'adresse USPS demande l'un ou l'autre : zip5 ou ville et état</value>
         <value xml:lang="th">USPS ต้องการที่อยู่ ถ้าไม่ รหัสไปรษณีย์ หรือ เมือง และ รัฐ</value>
     </property>
     <property key="ProductFeatureTypeIdMustContainsLettersAndDigits">

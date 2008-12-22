@@ -22,7 +22,7 @@
         <value xml:lang="de">Stunden</value>
         <value xml:lang="en">hours</value>
         <value xml:lang="es">horas</value>
-        <value xml:lang="fr">heures</value>
+        <value xml:lang="fr">Heures</value>
         <value xml:lang="pt">horas</value>
         <value xml:lang="ru">часы</value>
         <value xml:lang="th">ชั่วโมง</value>
@@ -32,7 +32,7 @@
         <value xml:lang="de">Stunde</value>
         <value xml:lang="en">hour</value>
         <value xml:lang="es">hora</value>
-        <value xml:lang="fr">heure</value>
+        <value xml:lang="fr">Heure</value>
         <value xml:lang="pt">hora</value>
         <value xml:lang="ru">час</value>
         <value xml:lang="th">ชั่วโมง</value>
@@ -42,7 +42,7 @@
         <value xml:lang="de">Millisekunden</value>
         <value xml:lang="en">millliseconds</value>
         <value xml:lang="es">milisegundos</value>
-        <value xml:lang="fr">milllisecondes</value>
+        <value xml:lang="fr">Milllisecondes</value>
         <value xml:lang="pt">milisegundos</value>
         <value xml:lang="ru">миллисекунды</value>
         <value xml:lang="th">หนึ่งในพันของหนึ่งวินาที</value>
@@ -52,7 +52,7 @@
         <value xml:lang="de">Millisekunde</value>
         <value xml:lang="en">milllisecond</value>
         <value xml:lang="es">milisegundo</value>
-        <value xml:lang="fr">millliseconde</value>
+        <value xml:lang="fr">Millliseconde</value>
         <value xml:lang="pt">milisegundo</value>
         <value xml:lang="ru">миллисекунда</value>
         <value xml:lang="th">หนึ่งในพันของหนึ่งวินาที</value>
@@ -62,7 +62,7 @@
         <value xml:lang="de">Minuten</value>
         <value xml:lang="en">minutes</value>
         <value xml:lang="es">minutos</value>
-        <value xml:lang="fr">minutes</value>
+        <value xml:lang="fr">Minutes</value>
         <value xml:lang="pt">minutos</value>
         <value xml:lang="ru">минуты</value>
         <value xml:lang="th">นาที</value>
@@ -72,7 +72,7 @@
         <value xml:lang="de">Minute</value>
         <value xml:lang="en">minute</value>
         <value xml:lang="es">minuto</value>
-        <value xml:lang="fr">minute</value>
+        <value xml:lang="fr">Minute</value>
         <value xml:lang="pt">minuto</value>
         <value xml:lang="ru">минута</value>
         <value xml:lang="th">นาที</value>
@@ -82,7 +82,7 @@
         <value xml:lang="de">Sekunden</value>
         <value xml:lang="en">seconds</value>
         <value xml:lang="es">segundos</value>
-        <value xml:lang="fr">secondes</value>
+        <value xml:lang="fr">Secondes</value>
         <value xml:lang="pt">segundos</value>
         <value xml:lang="ru">секунды</value>
         <value xml:lang="th">วินาที</value>
@@ -102,7 +102,7 @@
         <value xml:lang="de">Wochen</value>
         <value xml:lang="en">weeks</value>
         <value xml:lang="es">semanas</value>
-        <value xml:lang="fr">semaines</value>
+        <value xml:lang="fr">Semaines</value>
         <value xml:lang="pt">semanas</value>
         <value xml:lang="ru">недели</value>
         <value xml:lang="th">สัปดาห์</value>
@@ -112,7 +112,7 @@
         <value xml:lang="de">Woche</value>
         <value xml:lang="en">week</value>
         <value xml:lang="es">semana</value>
-        <value xml:lang="fr">semaine</value>
+        <value xml:lang="fr">Semaine</value>
         <value xml:lang="pt">semana</value>
         <value xml:lang="ru">неделя</value>
         <value xml:lang="th">สัปดาห์</value>

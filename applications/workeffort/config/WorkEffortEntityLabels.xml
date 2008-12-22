@@ -20,6 +20,7 @@
 --><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="RateType.description.DISCOUNTED">
         <value xml:lang="en">Discounted Hourly Rate</value>
+        <value xml:lang="fr">Taux horaire escompté</value>
         <value xml:lang="it">Percentuale Oraria Scontata</value>
         <value xml:lang="ro">Procent Orar Redus</value>
         <value xml:lang="ru">Сниженные почасовые ставки</value>
@@ -28,6 +29,7 @@
     </property>
     <property key="RateType.description.OVERTIME">
         <value xml:lang="en">Overtime Hourly Rate</value>
+        <value xml:lang="fr">Taux horaire des heures supplémentaires</value>
         <value xml:lang="it">Percentuale Oraria Straordinaria</value>
         <value xml:lang="ro">Procent Orar Straordinar</value>
         <value xml:lang="ru">Почасовые ставки при переработке</value>
@@ -36,6 +38,7 @@
     </property>
     <property key="RateType.description.STANDARD">
         <value xml:lang="en">Standard Hourly Rate</value>
+        <value xml:lang="fr">Taux horaire standard</value>
         <value xml:lang="it">Percentuale Oraria Standard</value>
         <value xml:lang="ro">Procent Orar Standard</value>
         <value xml:lang="ru">Стандартные почасовые ставки</value>
@@ -44,6 +47,7 @@
     </property>
     <property key="WorkEffortAssocType.description.ROUTING_COMPONENT">
         <value xml:lang="en">Routing and Routing Task Association</value>
+        <value xml:lang="fr">Routage et association de tâche de routage</value>
         <value xml:lang="ru">Связи между маршрутизацией и задачами маршрутизации</value>
         <value xml:lang="th">Routing และ Routing กลุ่มภารกิจ</value>
         <value xml:lang="zh">路线与路线任务关联</value>
@@ -51,6 +55,7 @@
     <property key="WorkEffortAssocType.description.WORK_EFF_BREAKDOWN">
         <value xml:lang="en">Breakdown/Detail</value>
         <value xml:lang="es">Descomposición de esfuerzo de trabajo</value>
+        <value xml:lang="fr">Détail/Ventilation</value>
         <value xml:lang="it">Interruzione/Dettaglio</value>
         <value xml:lang="ro">Intrerupere/Detaliu</value>
         <value xml:lang="ru">Поломка/Подробно</value>
@@ -60,6 +65,7 @@
     <property key="WorkEffortAssocType.description.WORK_EFF_CONCURRENCY">
         <value xml:lang="en">Concurrency</value>
         <value xml:lang="es">Concurrencia de esfuerzo de trabajo</value>
+        <value xml:lang="fr">Simultanéité</value>
         <value xml:lang="it">Concorrenza</value>
         <value xml:lang="ro">Concurenta</value>
         <value xml:lang="ru">Конкуренция</value>
@@ -69,6 +75,7 @@
     <property key="WorkEffortAssocType.description.WORK_EFF_DEPENDENCY">
         <value xml:lang="en">Dependency</value>
         <value xml:lang="es">Dependencia de esfuerzo de trabajo</value>
+        <value xml:lang="fr">Dépendance</value>
         <value xml:lang="it">Dipendenza</value>
         <value xml:lang="ro">Dependenta</value>
         <value xml:lang="ru">Зависимость</value>
@@ -78,11 +85,13 @@
     <property key="WorkEffortAssocType.description.WORK_EFF_PHASE">
         <value xml:lang="en">Phase</value>
         <value xml:lang="es">Fase de proyecto de esfuerzo de trabajo</value>
+        <value xml:lang="fr">Phase</value>
         <value xml:lang="th">ขั้นตอน</value>
     </property>
     <property key="WorkEffortAssocType.description.WORK_EFF_PRECEDENCY">
         <value xml:lang="en">Precedency</value>
         <value xml:lang="es">Precedencia de esfuerzo de trabajo</value>
+        <value xml:lang="fr">Priorité</value>
         <value xml:lang="it">Precedenza</value>
         <value xml:lang="ro">Precedenta</value>
         <value xml:lang="ru">Преимущество</value>
@@ -92,11 +101,13 @@
     <property key="WorkEffortAssocType.description.WORK_EFF_TASK">
         <value xml:lang="en">Task</value>
         <value xml:lang="es">Tarea de fase de esfuerzo de trabajo</value>
+        <value xml:lang="fr">Tâche</value>
         <value xml:lang="th">ภารกิจ</value>
     </property>
     <property key="WorkEffortAssocType.description.WORK_EFF_TEMPLATE">
         <value xml:lang="en">Template of</value>
         <value xml:lang="it">Template di</value>
+        <value xml:lang="fr">Gabarit de</value>
         <value xml:lang="ro">Template de</value>
         <value xml:lang="ru">Шаблон</value>
         <value xml:lang="th">ของเทมเพลต</value>
@@ -105,6 +116,7 @@
     <property key="WorkEffortPurposeType.description.ROU_ASSEMBLING">
         <value xml:lang="en">Assembling</value>
         <value xml:lang="it">Assemblaggio</value>
+        <value xml:lang="fr">Assemblage</value>
         <value xml:lang="ro">Asamblare</value>
         <value xml:lang="ru">Монтаж</value>
         <value xml:lang="th">การรวมกลุ่ม</value>
@@ -112,6 +124,7 @@
     </property>
     <property key="WorkEffortPurposeType.description.ROU_MANUFACTURING">
         <value xml:lang="en">Manufacturing</value>
+        <value xml:lang="fr">Fabrication</value>
         <value xml:lang="it">Produzione</value>
         <value xml:lang="ro">Productie</value>
         <value xml:lang="ru">Производство</value>
@@ -120,6 +133,7 @@
     </property>
     <property key="WorkEffortPurposeType.description.ROU_SUBCONTRACTING">
         <value xml:lang="en">Sub-contracting</value>
+        <value xml:lang="fr">Sous-contractant</value>
         <value xml:lang="it">Sotto-contratto</value>
         <value xml:lang="ro">Sub-contract</value>
         <value xml:lang="ru">Субподряд</value>
@@ -129,6 +143,7 @@
     <property key="WorkEffortPurposeType.description.WEPT_DEPLOYMENT">
         <value xml:lang="en">Deployment</value>
         <value xml:lang="es">Despliegue</value>
+        <value xml:lang="fr">Déploiement</value>
         <value xml:lang="it">Distribuzione</value>
         <value xml:lang="ro">Distributie</value>
         <value xml:lang="ru">Развертывание</value>
@@ -138,6 +153,7 @@
     <property key="WorkEffortPurposeType.description.WEPT_DEVELOPMENT">
         <value xml:lang="en">Development</value>
         <value xml:lang="es">Desarrollo</value>
+        <value xml:lang="fr">Développement</value>
         <value xml:lang="it">Sviluppo</value>
         <value xml:lang="ro">Dezvoltare</value>
         <value xml:lang="ru">Совершенствование</value>
@@ -147,6 +163,7 @@
     <property key="WorkEffortPurposeType.description.WEPT_MAINTENANCE">
         <value xml:lang="en">Maintenance</value>
         <value xml:lang="es">Mantenimiento</value>
+        <value xml:lang="fr">Maintenance</value>
         <value xml:lang="it">Manutenzione</value>
         <value xml:lang="ro">Intretinere</value>
         <value xml:lang="ru">Обслуживание</value>
@@ -156,6 +173,7 @@
     <property key="WorkEffortPurposeType.description.WEPT_MEETING">
         <value xml:lang="en">Meeting</value>
         <value xml:lang="es">Reunión</value>
+        <value xml:lang="fr">Réunion</value>
         <value xml:lang="it">Incontro</value>
         <value xml:lang="ro">Intalnire</value>
         <value xml:lang="ru">Встреча</value>
@@ -165,6 +183,7 @@
     <property key="WorkEffortPurposeType.description.WEPT_PHASE">
         <value xml:lang="en">Phase</value>
         <value xml:lang="es">Fase</value>
+        <value xml:lang="fr">Phase</value>
         <value xml:lang="it">Fase</value>
         <value xml:lang="ro">Faze</value>
         <value xml:lang="ru">Этап</value>
@@ -174,6 +193,7 @@
     <property key="WorkEffortPurposeType.description.WEPT_PRODUCTION_RUN">
         <value xml:lang="en">Production Run</value>
         <value xml:lang="es">Orden de producción</value>
+        <value xml:lang="fr">Ordre de fabrication</value>
         <value xml:lang="it">Ciclo Produzione</value>
         <value xml:lang="ro">Ciclu Productie</value>
         <value xml:lang="ru">Производственный прогон</value>
@@ -183,6 +203,7 @@
     <property key="WorkEffortPurposeType.description.WEPT_PROJECT">
         <value xml:lang="en">Project</value>
         <value xml:lang="es">Proyecto</value>
+        <value xml:lang="fr">Projet</value>
         <value xml:lang="it">Progetto</value>
         <value xml:lang="ro">Proiect</value>
         <value xml:lang="ru">Проект</value>
@@ -192,6 +213,7 @@
     <property key="WorkEffortPurposeType.description.WEPT_RESEARCH">
         <value xml:lang="en">Research</value>
         <value xml:lang="es">Investigación</value>
+        <value xml:lang="fr">Recherche</value>
         <value xml:lang="it">Ricerca</value>
         <value xml:lang="ro">Cautare</value>
         <value xml:lang="ru">Исследование</value>
@@ -201,6 +223,7 @@
     <property key="WorkEffortPurposeType.description.WEPT_SUPPORT">
         <value xml:lang="en">Support</value>
         <value xml:lang="es">Soporte</value>
+        <value xml:lang="fr">Support</value>
         <value xml:lang="it">Supporto</value>
         <value xml:lang="ro">Suport</value>
         <value xml:lang="ru">Поддержка</value>
@@ -210,6 +233,7 @@
     <property key="WorkEffortPurposeType.description.WEPT_TASK_EMAIL">
         <value xml:lang="en">Email</value>
         <value xml:lang="es">E-mail</value>
+        <value xml:lang="fr">Courriel</value>
         <value xml:lang="it">Email</value>
         <value xml:lang="ro">Email</value>
         <value xml:lang="ru">Эл. почта</value>
@@ -218,6 +242,7 @@
     </property>
     <property key="WorkEffortPurposeType.description.WEPT_TASK_PHONE_CALL">
         <value xml:lang="en">Phone Call</value>
+        <value xml:lang="fr">Appel téléphonique</value>
         <value xml:lang="it">Chiamata Telefonica</value>
         <value xml:lang="ro">Chemare Telefonica</value>
         <value xml:lang="ru">Телефонный звонок</value>
@@ -227,6 +252,7 @@
     <property key="WorkEffortType.description.ACTIVITY">
         <value xml:lang="en">Workflow Activity</value>
         <value xml:lang="es">Actividad</value>
+        <value xml:lang="fr">Activité</value>
         <value xml:lang="it">Attività Impegno di Lavoro</value>
         <value xml:lang="ro">Activitati Sarcini de Lucru</value>
         <value xml:lang="ru">Действие Workflow</value>
@@ -235,6 +261,7 @@
     </property>
     <property key="WorkEffortType.description.ASSET_USAGE">
         <value xml:lang="en">Fixed Asset Usage (rental)</value>
+        <value xml:lang="fr">Utilisation d'immobilisation (location)</value>
         <value xml:lang="it">Uso Cespite (noleggio)</value>
         <value xml:lang="ro">Folosire Mijloc Fix (inchiriat)</value>
         <value xml:lang="ru">Использование ОС (аренда)</value>
@@ -244,6 +271,7 @@
     <property key="WorkEffortType.description.AVAILABLE">
         <value xml:lang="en">Available</value>
         <value xml:lang="es">Disponible</value>
+        <value xml:lang="fr">Disponible</value>
         <value xml:lang="it">Disponibile</value>
         <value xml:lang="ro">Disponibil</value>
         <value xml:lang="ru">Доступный</value>
@@ -253,6 +281,7 @@
     <property key="WorkEffortType.description.EVENT">
         <value xml:lang="en">Event</value>
         <value xml:lang="es">Evento</value>
+        <value xml:lang="fr">Evènement</value>
         <value xml:lang="it">Evento</value>
         <value xml:lang="ro">Eveniment</value>
         <value xml:lang="ru">Событие</value>
@@ -262,6 +291,7 @@
     <property key="WorkEffortType.description.PHASE">
         <value xml:lang="en">Project Phase</value>
         <value xml:lang="es">Fase</value>
+        <value xml:lang="fr">Phase de projet</value>
         <value xml:lang="it">Fase Progetto</value>
         <value xml:lang="ro">Faze Proiect</value>
         <value xml:lang="ru">Этап проекта</value>
@@ -270,6 +300,7 @@
     </property>
     <property key="WorkEffortType.description.PROD_ORDER_HEADER">
         <value xml:lang="en">Production Run Header</value>
+        <value xml:lang="fr">En-tête d'ordre de fabrication</value>
         <value xml:lang="it">Testata Cliclo Produzione</value>
         <value xml:lang="ro">Antet Cliclu Productie</value>
         <value xml:lang="ru">Заголовок произв. прогона</value>
@@ -278,6 +309,7 @@
     </property>
     <property key="WorkEffortType.description.PROD_ORDER_TASK">
         <value xml:lang="en">Production Run Task</value>
+        <value xml:lang="fr">Tâche d'ordre de fabrication</value>
         <value xml:lang="it">Compito Ciclo Produzione</value>
         <value xml:lang="ro">Tema Ciclu Productie</value>
         <value xml:lang="ru">Задача произв. прогона</value>
@@ -287,6 +319,7 @@
     <property key="WorkEffortType.description.PROGRAM">
         <value xml:lang="en">Program</value>
         <value xml:lang="es">Programa</value>
+        <value xml:lang="fr">Programme</value>
         <value xml:lang="it">Programma</value>
         <value xml:lang="ro">Program</value>
         <value xml:lang="ru">Программа</value>
@@ -296,6 +329,7 @@
     <property key="WorkEffortType.description.PROJECT">
         <value xml:lang="en">Project</value>
         <value xml:lang="es">Proyecto</value>
+        <value xml:lang="fr">Projet</value>
         <value xml:lang="it">Progetto</value>
         <value xml:lang="ro">Proiect</value>
         <value xml:lang="ru">Проект</value>
@@ -304,6 +338,7 @@
     </property>
     <property key="WorkEffortType.description.ROUTING">
         <value xml:lang="en">Routing</value>
+        <value xml:lang="fr">Routage</value>
         <value xml:lang="it">Rotta</value>
         <value xml:lang="ro">Ruta</value>
         <value xml:lang="ru">Маршрутизация</value>
@@ -312,6 +347,7 @@
     </property>
     <property key="WorkEffortType.description.ROU_TASK">
         <value xml:lang="en">Routing Task</value>
+        <value xml:lang="fr">Tâche de routage</value>
         <value xml:lang="it">Compito Rotta</value>
         <value xml:lang="ro">Tema Ruta</value>
         <value xml:lang="ru">Задача маршрутизации</value>
@@ -321,6 +357,7 @@
     <property key="WorkEffortType.description.TASK">
         <value xml:lang="en">Task</value>
         <value xml:lang="es">Tarea</value>
+        <value xml:lang="fr">Tâche</value>
         <value xml:lang="it">Compito</value>
         <value xml:lang="ro">Tema</value>
         <value xml:lang="ru">Задача</value>
@@ -330,6 +367,7 @@
     <property key="WorkEffortType.description.WORK_FLOW">
         <value xml:lang="en">Workflow Process</value>
         <value xml:lang="es">Flujo de trabajo</value>
+        <value xml:lang="fr">Processus de flux de travail</value>
         <value xml:lang="it">Processo Impegno di Lavoro</value>
         <value xml:lang="ro">Proces Sarcini de Lucru</value>
         <value xml:lang="ru">Процесс Workflow</value>
@@ -339,31 +377,37 @@
     <property key="WorkflowParticipantType.description.HUMAN">
         <value xml:lang="en">HUMAN</value>
         <value xml:lang="es">Interacción humana con el sistema a través de una aplicación</value>
+        <value xml:lang="fr">Humain</value>
         <value xml:lang="th">เกี่ยวกับคน</value>
     </property>
     <property key="WorkflowParticipantType.description.ORGANIZATIONAL_UNIT">
         <value xml:lang="en">ORGANIZATIONAL_UNIT</value>
         <value xml:lang="es">Departamento u otra unidad en una organización</value>
+        <value xml:lang="fr">Unité d'organisation</value>
         <value xml:lang="th">เกี่ยวกับองค์กร</value>
     </property>
     <property key="WorkflowParticipantType.description.RESOURCE">
         <value xml:lang="en">RESOURCE</value>
         <value xml:lang="es">Un agente específico de recurso</value>
+        <value xml:lang="fr">Ressource</value>
         <value xml:lang="th">แหล่งข้อมูล</value>
     </property>
     <property key="WorkflowParticipantType.description.RESOURCE_SET">
         <value xml:lang="en">RESOURCE_SET</value>
         <value xml:lang="es">Un conjunto de recursos</value>
+        <value xml:lang="fr">Ensemble de ressources</value>
         <value xml:lang="th">ตั้งแหล่งข้อมูล</value>
     </property>
     <property key="WorkflowParticipantType.description.ROLE">
         <value xml:lang="en">ROLE</value>
         <value xml:lang="es">Especifica un rol que se puede asociar a un grupo de personas</value>
+        <value xml:lang="fr">Rôle</value>
         <value xml:lang="th">สถานะ</value>
     </property>
     <property key="WorkflowParticipantType.description.SYSTEM">
         <value xml:lang="en">SYSTEM</value>
         <value xml:lang="es">Un agente automático</value>
+        <value xml:lang="fr">Système</value>
         <value xml:lang="th">ระบบ</value>
     </property>
 </resource>
