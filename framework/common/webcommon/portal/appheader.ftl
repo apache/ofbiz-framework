@@ -25,13 +25,24 @@ under the License.
         <li <#if selected = "${uiLabelMap.ExampleExample}"> class="selected"</#if>><a href="<@ofbizUrl>FindExample?portalPageId=${uiLabelMap.ExampleExample}</@ofbizUrl>">${uiLabelMap.ExampleExample}</a></li>
         <li <#if selected = "${uiLabelMap.ExampleFeature}"> class="selected"</#if>><a href="<@ofbizUrl>FindExampleFeature?portalPageId=${uiLabelMap.ExampleFeature}</@ofbizUrl>">${uiLabelMap.ExampleFeature}</a></li>
         <li <#if selected = "${uiLabelMap.ExampleFormWidgetExamples}"> class="selected"</#if>><a href="<@ofbizUrl>FormWidgetExamples?portalPageId=${uiLabelMap.ExampleFormWidgetExamples}</@ofbizUrl>">${uiLabelMap.ExampleFormWidgetExamples}</a></li>
-        <li <#if selected = "${uiLabelMap.ExampleAjaxExamples}"> class="selected"</#if>><a href="<@ofbizUrl>authview/findExampleAjax?portalPageId=${uiLabelMap.ExampleAjaxExamples}</@ofbizUrl>">${uiLabelMap.ExampleAjaxExamples}</a></li>
-        <#list pages as page>
-            <li<#if selected = "${page.portalPageId}"> class="selected"</#if>><a href="<@ofbizUrl>dashboardExample?portalPageId=${page.portalPageId}</@ofbizUrl>">${page.portalName}</a></li>
-        </#list>
+        <li <#if selected = "${uiLabelMap.ExampleAjaxExamples}"> class="selected"</#if>><a href="<@ofbizUrl>authview/findExampleAjax?portalPageId=${uiLabelMap.ExampleAjaxExamples}</@ofbizUrl>">${uiLabelMap.ExampleAjaxExamples}</a></li>        
+        <#if getMainPage?has_content>
+    	    <#list getMainPage as page>
+           		<li<#if selected = "${page.portalPageId}"> class="selected"</#if>><a href="<@ofbizUrl>dashboardExample?portalPageId=${page.portalPageId}</@ofbizUrl>">${page.portalName}</a></li>
+        	</#list>
+    		<#else>
+    			<#list getNA as page>
+           			<li<#if selected = "${page.portalPageId}"> class="selected"</#if>><a href="<@ofbizUrl>dashboardExample?portalPageId=${page.portalPageId}</@ofbizUrl>">${page.portalName}</a></li>
+        		</#list>
+    	</#if>    		  	
+        <#if pages?has_content>
+        	<#list pages as page>
+            	<li<#if selected = "${page.portalPageId}"> class="selected"</#if>><a href="<@ofbizUrl>dashboardExample?portalPageId=${page.portalPageId}</@ofbizUrl>">${page.portalName}</a></li>
+        	</#list>
+        </#if>
         <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
         <#--li class="opposed"><a href="http://docs.ofbiz.org/display/OFBENDUSER/My+Page?decorator=printable" target="_blank">${uiLabelMap.CommonHelp}</a></li>-->
-        <li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?originalPortalPageId=${originalPortalPageId}</@ofbizUrl>">${uiLabelMap.CommonDashboard}</a></li>
+        <li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?originalPortalPageId=${originalPortalPageId}&amp;mainPortalPageId=MAINEXAMPLE</@ofbizUrl>">${uiLabelMap.CommonDashboard}</a></li>
     <#else>
         <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
     </#if>

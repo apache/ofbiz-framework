@@ -661,6 +661,7 @@ under the License.
         location="org/ofbiz/common/PortalPageServices.xml" invoke="getListPreferences">
         <description>GetListPreferences</description>
         <attribute name="originalPortalPageId" type="String" mode="IN" optional="false"/>
+        <attribute name="mainPortalPageId" type="String" mode="IN" optional="false"/>
         <attribute name="listIt" type="List" mode="OUT" optional="true"/>
     </service>
 </services>

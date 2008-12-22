@@ -27,11 +27,12 @@ under the License.
             <set field="sortField" from-field="parameters.sortField" default-value="createdStamp"/>
             <service service-name="getListPreferences"  result-map-name="listIt" result-map-list-name="listIt">
                 <field-map field-name="originalPortalPageId" env-name="parameters.originalPortalPageId"/>
+                <field-map field-name="mainPortalPageId" env-name="parameters.mainPortalPageId"/>
             </service>
         </actions>
         
         <field name="portalPageId" title="${uiLabelMap.CommonId}" sort-field="true">
-            <hyperlink description="${portalPageId}" target="dashboard?portalPageId=${portalPageId}&amp;configurePortalPage=true&amp;originalPortalPageId=${parameters.originalPortalPageId}"/>
+            <hyperlink description="${portalPageId}" target="dashboard?portalPageId=${portalPageId}&amp;configurePortalPage=true&amp;originalPortalPageId=${parameters.originalPortalPageId}&amp;ownerUserLoginId=${ownerUserLoginId}&amp;mainPortalPageId=${parameters.mainPortalPageId}"/>
         </field>
         <field name="portalName" title="${uiLabelMap.CommonName}" id-name="portalName" widget-style="tabletext" sort-field="true">
             <display>
@@ -50,7 +51,7 @@ under the License.
             </display>
         </field>
         <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext" >
-            <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;originalPortalPageId=${parameters.originalPortalPageId}" description="${uiLabelMap.CommonDelete}"/>
+            <hyperlink target="deletePortalPage?portalPageId=${portalPageId}&amp;originalPortalPageId=${parameters.originalPortalPageId}&amp;mainPortalPageId=${parameters.mainPortalPageId}" description="${uiLabelMap.CommonDelete}"/>
         </field>
     </form>
     

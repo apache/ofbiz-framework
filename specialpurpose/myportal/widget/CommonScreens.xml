@@ -57,6 +57,7 @@ under the License.
                 </entity-and>
                 <entity-and entity-name="PortalPage" list-name="getNA">
                     <field-map field-name="ownerUserLoginId" value="_NA_"/>
+                    <field-map field-name="originalPortalPageId" env-name="originalPortalPageId"/>
                 </entity-and>
                 <entity-and entity-name="PortalPage" list-name="getMainPage">
                     <field-map field-name="originalPortalPageId" env-name="mainPortalPageId"/>
