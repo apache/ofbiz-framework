@@ -1586,16 +1586,6 @@
         <value xml:lang="th">ผลตอบรับทั่วไป</value>
         <value xml:lang="zh">常用反馈</value>
     </property>
-    <property key="FormFieldTitle_hasTable">
-        <value xml:lang="ar">يحوز على جدول</value>
-        <value xml:lang="de">Hat Tabelle</value>
-        <value xml:lang="en">Has Table</value>
-        <value xml:lang="fr">A une table</value>
-        <value xml:lang="it">Ha Tabella</value>
-        <value xml:lang="ro">Are Tabelul</value>
-        <value xml:lang="th">มีตาราง</value>
-        <value xml:lang="zh">有数据库表</value>
-    </property>
     <property key="FormFieldTitle_hint">
         <value xml:lang="ar">مساعدة</value>
         <value xml:lang="de">Hinweis</value>

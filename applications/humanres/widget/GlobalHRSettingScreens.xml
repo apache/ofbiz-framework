@@ -31,7 +31,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                       
-                        <screenlet id="AddSkillTypePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.ProjectMgrSkillType}" collapsible="true">
+                        <screenlet id="AddSkillTypePanel" title="${uiLabelMap.HumanResAddSkillType}" collapsible="true">
                             <include-form name="AddSkillType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet> 
                         <include-form name="ListSkillTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
@@ -71,7 +71,7 @@
             <widgets>
                 <decorator-screen name="GlobalHRSettingsDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">                                                                                       
-                        <screenlet id="AddTerminationTypePanel" title="${uiLabelMap.CommonAdd} ${uiLabelMap.HumanResTerminationType}" collapsible="true">
+                        <screenlet id="AddTerminationTypePanel" title="${uiLabelMap.HumanResAddTerminationType}" collapsible="true">
                             <include-form name="AddTerminationType" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
                         </screenlet>
                         <include-form name="ListTerminationTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>
@@ -83,7 +83,7 @@
     <screen name="FindEmplPositionTypes">
         <section>
             <actions>
-                <set field="titleProperty" value="FindPositionTypes"/>
+                <set field="titleProperty" value="HumanResFindPositionTypes"/>
                 <set field="headerItem" value="EmplPositionTypes"/>
                 <set field="tabButtonItem" value="EmplPositionTypes"/>                
                 <set field="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
@@ -95,7 +95,7 @@
                         <decorator-screen name="FindScreenDecorator" location="component://common/widget/CommonScreens.xml">
                             <decorator-section name="menu-bar">
                                 <container style="button-bar">
-                                    <link target="EditEmplPositionTypes" text="${uiLabelMap.CommonNew} ${uiLabelMap.HumanResEmplPositionType}" style="buttontext"/>
+                                    <link target="EditEmplPositionTypes" text="${uiLabelMap.HumanResNewEmplPositionType}" style="buttontext"/>
                                 </container>
                             </decorator-section>
                             <decorator-section name="search-options">
@@ -113,7 +113,7 @@
     <screen name="EditEmplPositionTypes">
         <section>
             <actions>
-                <set field="titleProperty" value="FindPositionTypes"/>
+                <set field="titleProperty" value="${uiLabelMap.HumanResEditFindPositionTypes}"/>
                 <set field="headerItem" value="EmplPositionTypes"/>
                 <set field="tabButtonItem" value="EmplPositionTypes"/>  
                 <set field="tabButtonItem2" value="EditEmplPositionType"/>
@@ -133,7 +133,7 @@
                                 <include-menu location="component://humanres/widget/Menus.xml" name="EmplPositionTypeTabBar"/>
                             </widgets>
                         </section>
-                        <screenlet title="${uiLabelMap.CommonEdit} ${uiLabelMap.HumanResEmplPositionType}">
+                        <screenlet title="${uiLabelMap.HumanResEditEmplPositionType}">
                             <section>
                                 <widgets>
                                     <include-form name="EditEmplPositionTypes" location="component://humanres/widget/forms/GlobalHRSettingForms.xml"/>

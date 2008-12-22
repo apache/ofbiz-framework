@@ -1922,17 +1922,6 @@
         <value xml:lang="th">รหัสโครงสร้าง</value>
         <value xml:lang="zh">地理标识</value>
     </property>
-    <property key="FormFieldTitle_hasTable">
-        <value xml:lang="de">Besitzt Tabelle</value>
-        <value xml:lang="en">Has Table</value>
-        <value xml:lang="es">Tiene tabla</value>
-        <value xml:lang="fr">A une table</value>
-        <value xml:lang="it">Ha Tabella</value>
-        <value xml:lang="ro">Are Tabela</value>
-        <value xml:lang="ru">Есть таблица?</value>
-        <value xml:lang="th">มีตาราง</value>
-        <value xml:lang="zh">有库表</value>
-    </property>
     <property key="FormFieldTitle_headerApprovedStatus">
         <value xml:lang="de">Kopfbereich Genehmigt Status</value>
         <value xml:lang="en">Header Approved Status</value>

@@ -7307,6 +7307,18 @@
         <value xml:lang="th">จากวันที่</value>
         <value xml:lang="zh">开始日期</value>
     </property>
+    <property key="FormFieldTitle_hasTable">
+        <value xml:lang="ar">يحوز على جدول</value>
+        <value xml:lang="de">Besitzt Tabelle</value><!--value xml:lang="de">Hat Tabelle</value-->
+        <value xml:lang="en">Has Table</value>
+        <value xml:lang="es">Tiene tabla</value>
+        <value xml:lang="fr">A une table</value>
+        <value xml:lang="it">Ha Tabella</value>
+        <value xml:lang="ro">Are Tabela</value><!--value xml:lang="ro">Are Tabelul</value-->
+        <value xml:lang="ru">Есть таблица?</value>
+        <value xml:lang="th">มีตาราง</value>
+        <value xml:lang="zh">有库表</value><!--value xml:lang="zh">有数据库表</value-->
+    </property>
     <property key="FormFieldTitle_lineTotal">
         <value xml:lang="ar">مجموع السطر</value>
         <value xml:lang="de">Zeilentotal</value>
