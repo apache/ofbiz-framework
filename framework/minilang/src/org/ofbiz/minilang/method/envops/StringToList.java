@@ -53,9 +53,9 @@ public class StringToList extends MethodOperation {
     public StringToList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         string = element.getAttribute("string");
-        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list-name"));
-        argListAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("arg-list-name"));
-        messageFieldName = element.getAttribute("message-field-name");
+        listAcsr = new ContextAccessor<List<Object>>(element.getAttribute("list"), element.getAttribute("list-name"));
+        argListAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("arg-list"), element.getAttribute("arg-list-name"));
+        messageFieldName = UtilValidate.isNotEmpty(element.getAttribute("message-field")) ? element.getAttribute("message-field") : element.getAttribute("message-field-name");
     }
 
     public boolean exec(MethodContext methodContext) {

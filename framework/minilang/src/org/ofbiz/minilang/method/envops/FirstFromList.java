@@ -46,12 +46,11 @@ public class FirstFromList extends MethodOperation {
 
     public FirstFromList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry-name"));
-        this.listAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("list-name"));
+        this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry"), element.getAttribute("entry-name"));
+        this.listAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("list"), element.getAttribute("list-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
-
         if (listAcsr.isEmpty()) {
             Debug.logWarning("No list-name specified in iterate tag, doing nothing", module);
             return true;

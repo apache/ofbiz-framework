@@ -49,8 +49,10 @@ public class ClearField extends MethodOperation {
 
     public ClearField(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
+
+        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
+        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
     }
 
     public boolean exec(MethodContext methodContext) {

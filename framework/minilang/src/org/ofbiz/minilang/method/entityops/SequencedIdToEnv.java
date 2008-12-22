@@ -38,6 +38,16 @@ public class SequencedIdToEnv extends MethodOperation {
             return "sequenced-id-to-env";
         }
     }
+    public static final class SequencedIdFactory implements Factory<SequencedIdToEnv> {
+        public SequencedIdToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new SequencedIdToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "sequenced-id";
+        }
+    }
+    
     
     String seqName;
     ContextAccessor<Object> envAcsr;
@@ -47,7 +57,7 @@ public class SequencedIdToEnv extends MethodOperation {
     public SequencedIdToEnv(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         seqName = element.getAttribute("sequence-name");
-        envAcsr = new ContextAccessor<Object>(element.getAttribute("env-name"));
+        envAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("env-name"));
         // default false, anything but true is false
         getLongOnly = "true".equals(element.getAttribute("get-long-only"));
         String staggerMaxStr = element.getAttribute("stagger-max");

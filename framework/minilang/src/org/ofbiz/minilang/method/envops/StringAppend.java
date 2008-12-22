@@ -57,9 +57,12 @@ public class StringAppend extends MethodOperation {
         string = element.getAttribute("string");
         prefix = element.getAttribute("prefix");
         suffix = element.getAttribute("suffix");
+        
+        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
+        fieldAcsr = new ContextAccessor<String>(element.getAttribute("field"), element.getAttribute("field-name"));
         mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor<String>(element.getAttribute("field-name"));
-        argListAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("arg-list-name"));
+
+        argListAcsr = new ContextAccessor<List<? extends Object>>(element.getAttribute("arg-list"), element.getAttribute("arg-list-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
