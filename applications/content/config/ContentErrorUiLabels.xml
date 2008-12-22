@@ -22,7 +22,7 @@
         <value xml:lang="de">Fehler beim Aufruf createDataResource Service</value>
         <value xml:lang="en">Error calling the createDataResource service</value>
         <value xml:lang="es">Error al llamar al servicio 'createDataResource'</value>
-        <value xml:lang="fr">erreur pendant l'appel du createDataResource</value>
+        <value xml:lang="fr">Erreur pendant l'appel du service createDataResource</value>
         <value xml:lang="it">Errore esecuzione servizio createDataResource</value>
         <value xml:lang="ro">Eroare executie serviciu createDataResource</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการเรียกบริการสร้างข้อมูลแหล่งที่มา</value>
@@ -42,7 +42,7 @@
         <value xml:lang="de">Fehler beim Holen des Bild Datensatzes von acquireImage</value>
         <value xml:lang="en">Error getting image record from acquireImage</value>
         <value xml:lang="es">Error al obtener la imagen a partir de la captura de imagenes</value>
-        <value xml:lang="fr">Error getting image record from acquireImage</value>
+        <value xml:lang="fr">Erreur d'obtention de compte-rendu d'image depuis acquireImage</value>
         <value xml:lang="it">Errore lettura record immagine da aquireImage</value>
         <value xml:lang="ro">Eroare la citirea record imagine din aquireImage</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการรับรูปภาพจากรูปที่ได้</value>
@@ -52,7 +52,7 @@
         <value xml:lang="de">Fehler beim Schreiben des Bildes in den Outputstream</value>
         <value xml:lang="en">Error writing image to OutputStream</value>
         <value xml:lang="es">Error al imprimir la imagen en la salida</value>
-        <value xml:lang="fr">Erreur pendant "l'écriture" de l'image </value>
+        <value xml:lang="fr">Erreur pendant "l'écriture" de l'image vers OutputStream</value>
         <value xml:lang="it">Errore scrittura immagine su OutputStream</value>
         <value xml:lang="ro">Eroare la scrierea imaginii in OutputStream</value>
         <value xml:lang="th">Error : ผิดพลาด ! ในการเขียนรูปภาพเป็นข้อมูลออกไป</value>
@@ -62,7 +62,7 @@
         <value xml:lang="de">image({b}) oder Typ(${imageType}) ist null oder leer</value>
         <value xml:lang="en">image({b}) or type(${imageType}) is null or empty</value>
         <value xml:lang="es">imagen({b}) o tipo(${imageType}) son nulos o están vacios</value>
-        <value xml:lang="fr">image ou type (${imageType}) invalide ou est vide</value>
+        <value xml:lang="fr">image ({b}) ou type (${imageType}) invalide ou vide</value>
         <value xml:lang="it">immagine({b}) o tipo (${imageType}) è nullo o vuoto</value>
         <value xml:lang="ro">imagine({b}) sau tip (${imageType}) este zero sau o lipseste</value>
         <value xml:lang="th">รูปภาพ ({b}) หรือ ประภท (${imageType}) ไม่มีค่าหรือเป็นค่าว่าง</value>
@@ -92,7 +92,7 @@
         <value xml:lang="de">Inhalt ist leer</value>
         <value xml:lang="en">content is empty</value>
         <value xml:lang="es">El contenido está vacio</value>
-        <value xml:lang="fr">content est vide</value>
+        <value xml:lang="fr">Le contenu est vide</value>
         <value xml:lang="it">content è vuoto</value>
         <value xml:lang="ro">content este fara continut</value>
         <value xml:lang="th">หัวข้อเป็นค่าว่าง</value>
@@ -152,7 +152,7 @@
         <value xml:lang="de">Bilddaten sind leer</value>
         <value xml:lang="en">Image data is null</value>
         <value xml:lang="es">Imagen es nula</value>
-        <value xml:lang="fr">Image date est invalide</value>
+        <value xml:lang="fr">Image data est vide</value>
         <value xml:lang="it">Image data è nullo</value>
         <value xml:lang="ro">Image data este zero</value>
         <value xml:lang="th">ข้อมูลรูปภาพเป็นไม่มีค่า</value>
@@ -162,7 +162,7 @@
         <value xml:lang="de">Keinen untergeordneten Inhalt gefunden</value>
         <value xml:lang="en">No subcontent found</value>
         <value xml:lang="es">No se encontro subcontenido</value>
-        <value xml:lang="fr">pas de 'subcontent' trouvé</value>
+        <value xml:lang="fr">Aucun 'subcontent' trouvé</value>
         <value xml:lang="it">Nessun sotto-contenuto trovato</value>
         <value xml:lang="ro">Nici-un sub-continut gasit</value>
         <value xml:lang="th">ไม่พบหัวข้อย่อย</value>

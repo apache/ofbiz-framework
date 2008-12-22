@@ -31,7 +31,7 @@
     <property key="OrderAnAlternateGwpProductIdWasInPlaceButWasEitherNotValidOrIsNoLongerInStockForId">
         <value xml:lang="en">An alternateGwpProductId was in place, but was either not valid or is no longer in stock for ID : ${alternateGwpProductId}</value>
         <value xml:lang="es">El identificador del producto de sustitución Gwp estaba en lugar pero ya no era válido o ya no había en stock para el código: ${alternateGwpProductId}</value>
-        <value xml:lang="fr">L'identifiant du produit de remplacement Gwp était en place mais n'était plus valable ou mis en place dans la réserve pour l'identifiant : ${alternateGwpProductId}</value>
+        <value xml:lang="fr">L'identifiant de l'article de remplacement Gwp était en place mais n'était plus valable ou mis en place dans la réserve pour l'identifiant : ${alternateGwpProductId}</value>
         <value xml:lang="it">Un alternateGwpProductId erà scelto, ma entrambi non sono validi o non più in giacenza per ID : ${alternateGwpProductId}</value>
         <value xml:lang="ro">Un alternateGwpProductId a fost selectionat, dar nici-unul nu este valid sau nu poate fi in stoc pentru ID : ${alternateGwpProductId}</value>
         <value xml:lang="ru">Указан alternateGwpProductId, но код неверен или отсутствует на складе для: ${alternateGwpProductId}</value>
@@ -51,7 +51,7 @@
     <property key="OrderAnUnSupportedProductPromoCondInputParameterLhs">
         <value xml:lang="en">An un-supported productPromoCond input parameter (lhs) was used : ${inputParamEnumId}, returning false, ie check failed</value>
         <value xml:lang="es">Un parámetro de entrada no sostuvo la condición promocional que se utilizó: ${inputParamEnumId}, volviéndolo falso, es decir el chequeo falló</value>
-        <value xml:lang="fr">Un paramètre d'entrée n'a pas soutenu le produit promotionnel Cond (lhs) qui a été utilisé : ${inputParamEnumId}, le rendant faux, c'est-à-dire que le chèque a échoué</value>
+        <value xml:lang="fr">Un paramètre d'entrée n'a pas soutenu l'article promotionnel Cond (lhs) qui a été utilisé : ${inputParamEnumId}, le rendant faux, c'est-à-dire que le chèque a échoué</value>
         <value xml:lang="it">Un parametro di input productPromoCond non-supportato (lhs) era usato : ${inputParamEnumId}, restituito falso, controllo fallito</value>
         <value xml:lang="ro">Un parametru de input productPromoCond ne-suportat (lhs) a fost folosit : ${inputParamEnumId}, restituit fals, control falit</value>
         <value xml:lang="ru">Использован не поддерживаемый входной параметр productPromoCond: ${inputParamEnumId}, возращается false, проверка не удалась</value>
@@ -181,7 +181,7 @@
     <property key="OrderCouldNotFindOrderHeaderForOrderIdInGetProductStoreFromOrderReturningNull">
         <value xml:lang="en">Could not find OrderHeader for orderId [ ${orderId} ] in getProductStoreFromOrder, returning null</value>
         <value xml:lang="es">No se pudo obtener encabezado del pedido para el código [ ${orderId} ] en la obtención de la tienda para los productos del pedido, retornando un valor nulo.</value>
-        <value xml:lang="fr">Vous ne pouvez pas trouver l'en-tôte de la commande pour l'identifiant de commande [ ${orderId} ] dans l'obtention du magasin pour les produits de la commande, le retour étant nul</value>
+        <value xml:lang="fr">Vous ne pouvez pas trouver l'en-tôte de la commande pour l'identifiant de commande [ ${orderId} ] dans l'obtention du magasin pour les articles de la commande, le retour étant nul</value>
         <value xml:lang="it">Non è possibile trovare OrderHeader per orderId [ ${orderId} ] in getProductStoreFromOrder, restituito null</value>
         <value xml:lang="ro">Nu este posibila gasirea OrderHeader pentru orderId [ ${orderId} ] in getProductStoreFromOrder, returnat nul</value>
         <value xml:lang="ru">Невозможно найти OrderHeader для orderId [ ${orderId} ] в getProductStoreFromOrder, возвращается пустое значение</value>
@@ -191,7 +191,7 @@
     <property key="OrderCouldNotFindRelatedFixedAssetForTheProduct">
         <value xml:lang="en">Could not find related Fixed Asset for the product : ${productId}</value>
         <value xml:lang="es">No se puede encontrar el activo fijo relacionado para el producto: ${productId}</value>
-        <value xml:lang="fr">Vous ne pouvez pas trouver le Fixed Asset pour le produit : ${productId}</value>
+        <value xml:lang="fr">Vous ne pouvez pas trouver le Fixed Asset pour l'article : ${productId}</value>
         <value xml:lang="it">Non è possibile trovare Cespite per il prodotto : ${productId}</value>
         <value xml:lang="ro">Nu este posibila gasirea Mijlocului fix pentru produsul : ${productId}</value>
         <value xml:lang="ru">Невозможно найти связанные с продуктом ${productId} основные средства </value>
@@ -266,7 +266,7 @@
     <property key="OrderCouldNotSelectAlternateGiftNoAlternateGwpProductIdPassed">
         <value xml:lang="en">Could not select alternate gift, no alternateGwpProductId passed. </value>
         <value xml:lang="es">No puede seleccionar el regalo suplementario, ningún código de producto Gwp suplementario se ha pasado.</value>
-        <value xml:lang="fr">Vous ne pouvez pas sélectionner un cadeau alternatif, aucun indentifiant de produit Gwp alternative n'a été passé.</value>
+        <value xml:lang="fr">Vous ne pouvez pas sélectionner un cadeau alternatif, aucun indentifiant d'article Gwp alternative n'a été passé.</value>
         <value xml:lang="it">Non è possibile selezionare un'omaggio alternativo, nessun alternateGwpProductId passato. </value>
         <value xml:lang="ro">Nu este posibila selectionarea unui omagiu alternativ, nici-un alternateGwpProductId. </value>
         <value xml:lang="ru">Невозможно выбрать альтернативный подарок, не указан alternateGwpProductId. </value>
@@ -373,7 +373,7 @@
     <property key="OrderErrorCannotCheckForFulfillmentProductNotFound">
         <value xml:lang="en">ERROR: Cannot check for fulfillment; product not found. </value>
         <value xml:lang="es">ERROR: No se pudo comprobar la realización; producto no encontrado.</value>
-        <value xml:lang="fr">Erreur : Ne peut pas vérifier l'exécution; produit non trouvé.</value>
+        <value xml:lang="fr">Erreur : Ne peut pas vérifier l'exécution; article non trouvé.</value>
         <value xml:lang="it">ERRORE: Non è possibile controllare per soddisfazione; prodotto non trovato. </value>
         <value xml:lang="ro">EROARE: Nu este posibil controlul pentru executie; prodous negasit. </value>
         <value xml:lang="ru">ОШИБКА: невозможно проверить исполнение; продукт не найден. </value>
@@ -433,7 +433,7 @@
     <property key="OrderErrorCannotGetProductEntity">
         <value xml:lang="en">ERROR : Cannot get Product entity : </value>
         <value xml:lang="es">ERROR: No se pudo obtener la entidad del producto:</value>
-        <value xml:lang="fr">Erreur : impossible d'obtenir l'entité produit</value>
+        <value xml:lang="fr">Erreur : impossible d'obtenir l'entité Product</value>
         <value xml:lang="it">ERRORE : Non è possibile ottenere entità Product : </value>
         <value xml:lang="ro">EROARE : Nu este posibila obtinerea entitatii Product : </value>
         <value xml:lang="ru">ОШИБКА: Невозможно получить объект Product: </value>
@@ -529,12 +529,13 @@
     <property key="OrderErrorCouldNotFindConversion">
         <value xml:lang="en">Error  Could  Not  Find  Conversion</value>
         <value xml:lang="es">ERROR: No se pudo obtener un conversión entre ${uomid} y ${uomidto}</value>
+        <value xml:lang="fr">Erreur:  impossible de trouver la conversion</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่สามารถค้นพบการสนทนา</value>
     </property>
     <property key="OrderErrorCouldNotFindProductStoreWithID">
         <value xml:lang="en">ERROR : Could not find ProductStore with ID [ ${productStoreId} ]</value>
         <value xml:lang="es">ERROR: No se pudo obtener una tienda con código [ ${productStoreId} ]</value>
-        <value xml:lang="fr">Erreur : impossible de trouver le dépôt de produit avec l'identifiant [ ${productStoreId} ]</value>
+        <value xml:lang="fr">Erreur : impossible de trouver le dépôt d'article avec l'identifiant [ ${productStoreId} ]</value>
         <value xml:lang="it">ERRORE : Non è possibile trovare ProductStore con Codice [ ${productStoreId} ]</value>
         <value xml:lang="ro">EROARE : Nu este posibila gasirea  ProductStore cu Codul [ ${productStoreId} ]</value>
         <value xml:lang="ru">ОШИБКА: Невозможно найти ProductStore с кодом [ ${productStoreId} ]</value>
@@ -574,6 +575,7 @@
     <property key="OrderErrorCustRequestWithIdDoesntExist">
         <value xml:lang="en">Error : CustRequest with id [ ${custRequestId} ] doesn't exist. </value>
         <value xml:lang="es">ERROR: La petición de cliente con código [ ${custRequestId} ] no existe.</value>
+        <value xml:lang="fr">Erreur : la requête de client avec réf. [ ${custRequestId} ] n'existe pas.(</value>
         <value xml:lang="it">ERRORE : CustRequest con Codice [ ${custRequestId} ] non esiste. </value>
         <value xml:lang="ro">EROARE : CustRequest cu Cod [ ${custRequestId} ] nu exista. </value>
         <value xml:lang="ru">Ошибка: CustRequest с кодом [ ${custRequestId} ] не существует. </value>
@@ -632,6 +634,7 @@
     </property>
     <property key="OrderErrorOrderIdNotFound">
         <value xml:lang="en">ERROR: Order with ID [${orderId}] not found</value>
+        <value xml:lang="fr">Erreur : la commande avec la réf. [${orderId}] n'a pas été trouvé</value>
         <value xml:lang="ru">ОШИБКА: Заказ с кодом [${orderId}] не найден</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! ไม่พบรายการสั่งซื้อด้วยรหัส [${orderId}]</value>
     </property>
@@ -657,12 +660,14 @@
     </property>
     <property key="OrderErrorOrderItemNotFound">
         <value xml:lang="en">ERROR: Order item with ID [${orderId}] and orderItemSeqId [${orderItemSeqId}] not found</value>
+        <value xml:lang="fr">Erreur : la ligne de commande avec la réf. [${orderId}] et la réf. séq. de ligne de commande [${orderItemSeqId}] n'a pas été trouvée</value>
         <value xml:lang="ru">ОШИБКА: Позиция заказа с кодом [${orderId}] и orderItemSeqId [${orderItemSeqId}] не найдены</value>
         <value xml:lang="th">ERROR : ข้อผิดพลาด ! รายการสั่งซื้อด้วยรหัส [${orderId}] และรหัสรายการสั่งซื้อ[${orderItemSeqId}] ไม่พบ</value>
     </property>
     <property key="OrderErrorOrderNotPurchaseOrder">
         <value xml:lang="en">Order ${orderId} is not a Purchase Order</value>
         <value xml:lang="es">El pedido ${orderId} no es un pedido de compra</value>
+        <value xml:lang="fr">La commande ${orderId} n'est pas une commande d'achat</value>
         <value xml:lang="ru">Заказ ${orderId} не является закупочным заказом</value>
         <value xml:lang="th">ใบสั่งซื้อสินค้า ${orderId} ไม่เป็นรายการสั่งซื้อ</value>
     </property>
@@ -689,12 +694,13 @@
     <property key="OrderErrorReturnHeaderItemStatusNotChangedIsNotAValidChange">
         <value xml:lang="en">Return status not changed ${statusId} -> ${statusIdTo} is not a valid change. </value>
         <value xml:lang="es">El estado de la devolución no ha cambiado. ${statusId} -> ${statusIdTo} no es un cambio válido.</value>
+        <value xml:lang="fr">Le statut du retour n'a pas été changé : ${statusId} -> ${statusIdTo} ce changement n'est pas valide.</value>
         <value xml:lang="th">ไม่เปลี่ยนการคืนค่าสถานะ ${statusId} -> ${statusIdTo} ไม่มีการเปลี่ยนค่า</value>
     </property>
     <property key="OrderErrorTheProductStoreIdCanOnlyBeNullForPurchaseOrders">
         <value xml:lang="en">ERROR: The productStoreId can only be null for purchase orders</value>
         <value xml:lang="es">ERROR: El código de la tienda no puede ser null para pedidos de compra</value>
-        <value xml:lang="fr">Erreur : L'identifiant du dépôt de produit peut seulement être nul pour les bons de commande</value>
+        <value xml:lang="fr">Erreur : L'identifiant du dépôt d'article peut seulement être nul pour les bons de commande</value>
         <value xml:lang="it">ERRORE: Il productStoreId può essere solamente nullo per gli ordini di acquisto</value>
         <value xml:lang="ro">EROARE: productStoreId poate sa fie numai nul pentru comenzile de cumparare</value>
         <value xml:lang="ru">ОШИБКА: код торговой точки для закупочного заказа может иметь только пустое значение</value>
@@ -935,6 +941,7 @@
     <property key="OrderInputQuickPurchaseOrder">
         <value xml:lang="en">Input  Quick  Purchase  Order</value>
         <value xml:lang="es">Entrada rápida de un pedido de compra</value>
+        <value xml:lang="fr">Entrer rapidement une commande d'achat</value>
         <value xml:lang="th">การกรอกข้อมูลรายการสั่งซื้อย่างรวดเร็ว</value>
     </property>
     <property key="OrderInvalidAmountSetForBillingAccount">
@@ -1129,6 +1136,7 @@
     </property>
     <property key="OrderNoSupplierFoundForThisProduct">
         <value xml:lang="en">No Supplier Found For This Product</value>
+        <value xml:lang="fr">Aucun fournisseur n'a été trouvé pour cet article</value>
         <value xml:lang="es">Ningún proveedor encontrado para este producto</value>
         <value xml:lang="th">ไม่บผู้จัดหาสิ่งของสำหรับสินค้านี้</value>
     </property>
@@ -1164,13 +1172,14 @@
     </property>
     <property key="OrderNosettingsFound">
         <value xml:lang="en">No  settings  Found</value>
+        <value xml:lang="fr">Aucune configuration trouvée</value>
         <value xml:lang="es">Configuraciones no encontradas</value>
         <value xml:lang="th">ไม่พบการตั้งค่า</value>
     </property>
     <property key="OrderNotApplyingGwpBecauseProductIdIsOutOfStockForProductPromoAction">
         <value xml:lang="en">Not applying GWP because productId [ ${productId} ] is out of stock for productPromoAction: ${productPromoAction}</value>
         <value xml:lang="es">Gwp no aplicable debido al código del producto [ ${productId} ] que está fuere de stock para la acción promocional del producto: ${productPromoAction}</value>
-        <value xml:lang="fr">Gwp non applicable à cause de l'identifiant du produit [ ${productId} ] qui n'est pas en stock pour l'action promotionnelle du produit : ${productPromoAction}</value>
+        <value xml:lang="fr">Gwp non applicable à cause de l'identifiant de l'article [ ${productId} ] qui n'est pas en stock pour l'action promotionnelle de l'article : ${productPromoAction}</value>
         <value xml:lang="it">Non è possibile applicare GWP perchè productId [ ${productId} ] non è in giacenza per productPromoAction: ${productPromoAction}</value>
         <value xml:lang="ro">Nu este posibila aplicarea GWP pentru ca productId [ ${productId} ] nu este in stoc pentru productPromoAction: ${productPromoAction}</value>
         <value xml:lang="ru">GWP не применен потому что продукт с кодом [ ${productId} ] отсутствует на складе для акции: ${productPromoAction}</value>
@@ -1340,6 +1349,7 @@
     <property key="OrderProblemGettingItemShipAfterDateFor">
         <value xml:lang="en">Problem getting itemShipAfterDate for ${productId}</value>
         <value xml:lang="es">Problema al obtener la fecha previa a envío para ${productId}</value>
+        <value xml:lang="fr">Problème pour obtenir itemShipAfterDate pour ${productId}</value>
         <value xml:lang="it">Problem getting itemShipAfterDate for ${productId}</value>
         <value xml:lang="ro">Problema la citirea itemShipAfterDate pentru ${productId}</value>
         <value xml:lang="ru">Проблема при получении itemShipAfterDate для ${productId}</value>
@@ -1349,6 +1359,7 @@
     <property key="OrderProblemGettingItemShipBeforeDateFor">
         <value xml:lang="en">Problem getting itemShipBeforeDate for ${productId}</value>
         <value xml:lang="es">Problema al obtener la fecha máxima a envío para ${productId}</value>
+        <value xml:lang="fr">Problème pour obtenir itemShipBeforeDate pour ${productId}</value>
         <value xml:lang="it">Problem getting itemShipBeforeDate for ${productId}</value>
         <value xml:lang="ro">Problema la citirea itemShipBeforeDate pentru ${productId}</value>
         <value xml:lang="ru">Проблема при получении itemShipBeforeDate для ${productId}</value>
@@ -1368,6 +1379,7 @@
     <property key="OrderProblemGettingProductStoreRecords">
         <value xml:lang="en">Problem getting ProductStore records</value>
         <value xml:lang="es">Hay un problema al obtener entradas de tienda</value>
+        <value xml:lang="fr">Problème à l'obtemption des données du centre de profit</value>
         <value xml:lang="ru">Проблема при получении записей ProductStore</value>
         <value xml:lang="th">ปัญหาการเรียกบันทึกคลังสินค้า</value>
     </property>
@@ -1583,23 +1595,24 @@
         <value xml:lang="zh">存储订单电子邮件联系信息时出现问题</value>
     </property>
     <property key="OrderProblemsWithGetPartyAcctgPreferences">
-        <value xml:lang="en"> Problems with getting PartyAcctgPreference. </value>
-        <value xml:lang="es"> Hay problemas al obtener preferencias de contabilidad de participante.</value>
+        <value xml:lang="en">Problems with getting PartyAcctgPreference. </value>
+        <value xml:lang="es">Hay problemas al obtener preferencias de contabilidad de participante.</value>
+        <value xml:lang="fr">Problème à l'obtention des préférences comptabilité de l'acteur</value>
     </property>
     <property key="OrderProblemsWithPaymentTypeLookup">
-        <value xml:lang="en"> Problems with PaymentType lookup. </value>
-        <value xml:lang="es">  Problemas con la consulta del tipo de pago.</value>
-        <value xml:lang="fr">  Problèmes avec la consultation du type de paiement. </value>
-        <value xml:lang="it">  Problemi con la ricerca PaymentType. </value>
-        <value xml:lang="ro">  Probleme la cautarea PaymentType. </value>
-        <value xml:lang="ru">  Проблемы с поиском типа платежа. </value>
-        <value xml:lang="th">  ปัญหาด้วยการค้นหาประเภทการชำระเงิน. </value>
-        <value xml:lang="zh">  查找支付类型时出现问题。 </value>
+        <value xml:lang="en">Problems with PaymentType lookup. </value>
+        <value xml:lang="es">Problemas con la consulta del tipo de pago.</value>
+        <value xml:lang="fr">Problèmes à la consultation du type de paiement. </value>
+        <value xml:lang="it">Problemi con la ricerca PaymentType. </value>
+        <value xml:lang="ro">Probleme la cautarea PaymentType. </value>
+        <value xml:lang="ru">Проблемы с поиском типа платежа. </value>
+        <value xml:lang="th">ปัญหาด้วยการค้นหาประเภทการชำระเงิน. </value>
+        <value xml:lang="zh">查找支付类型时出现问题。 </value>
     </property>
     <property key="OrderProblemsWithTheRefundSeeLogs">
         <value xml:lang="en">Problems with the refund; see logs</value>
         <value xml:lang="es">Problemas con el reembolso; observe los registros</value>
-        <value xml:lang="fr">Problèmes avec la refonte; regardez les logs</value>
+        <value xml:lang="fr">Problèmes au remboursement; voir les logs</value>
         <value xml:lang="it">Problemi con il rimborso; vedi i log</value>
         <value xml:lang="ro">Probleme cu rambursarile; vezi log</value>
         <value xml:lang="ru">Проблемы с возмещением; смотрите лог файлы</value>
@@ -1609,7 +1622,7 @@
     <property key="OrderProductNotExist">
         <value xml:lang="en">Product not exist</value>
         <value xml:lang="es">Producto inexistente</value>
-        <value xml:lang="fr">Produit inexistant</value>
+        <value xml:lang="fr">Article inexistant</value>
         <value xml:lang="it">Prodotto non esiste</value>
         <value xml:lang="ro">Produs inexistent</value>
         <value xml:lang="ru">Продукт не существует</value>
@@ -1619,7 +1632,7 @@
     <property key="OrderProductNotFound">
         <value xml:lang="en">Product not found ! </value>
         <value xml:lang="es">Producto no encontrado !</value>
-        <value xml:lang="fr">Produit introuvable ! </value>
+        <value xml:lang="fr">Article introuvable ! </value>
         <value xml:lang="it">Prodotto non trovato ! </value>
         <value xml:lang="ro">Produs negasit! </value>
         <value xml:lang="ru">Продукт не найден! </value>
@@ -1629,7 +1642,7 @@
     <property key="OrderProductStoreNotExist">
         <value xml:lang="en">Product store not exist</value>
         <value xml:lang="es">Tienda inexistente</value>
-        <value xml:lang="fr">Dépôt de produit inexistant</value>
+        <value xml:lang="fr">Centre de profit inexistant</value>
         <value xml:lang="it">Negozio non esistente</value>
         <value xml:lang="ro">Magazin inexistent</value>
         <value xml:lang="ru">Торговая точка не существует</value>
@@ -1639,11 +1652,13 @@
     <property key="OrderQuickAddOrderItem">
         <value xml:lang="en">Quick  Add  Order  Item</value>
         <value xml:lang="es">Agregar rápidamente ítems a el pedido</value>
+        <value xml:lang="fr">Ajout rapide d'une ligne de commande</value>
         <value xml:lang="th">เพิ่มรายการสั่งซื้อย่างรวดเร็ว</value>
     </property>
     <property key="OrderQuotePercent">
         <value xml:lang="en">QuotePercent</value>
         <value xml:lang="es">Porcentaje de presupuesto</value>
+        <value xml:lang="fr">Pourcentage de devis</value>
         <value xml:lang="th">อัตราร้อยละของคำร้อง</value>
     </property>
     <property key="OrderReceivedNullForOrderItemRecordsOrderId">
@@ -1689,12 +1704,14 @@
     <property key="OrderReturnPaymentMethodNeededForThisTypeOfReturn">
         <value xml:lang="en">A payment method must be set for this type of return</value>
         <value xml:lang="es">Hay que fijar un método de pago para este tipo de devolución</value>
+        <value xml:lang="fr">Une méthode de paiement doit être bien déterminé pour ce type de retour</value>
         <value xml:lang="ru">Для этого типа возврата должен быть установлен способ платежа</value>
         <value xml:lang="th">วิธีการชำระเงินต้องเป็นการตั้งค่าสำหรับประเภทของการคืนค่านี้</value>
     </property>
     <property key="OrderReturnPriceCannotExceedTheOrderTotal">
         <value xml:lang="en">Return total of all return items [${returnTotal}] cannot exceed the order total of [ ${orderTotal} ].</value>
         <value xml:lang="es">El precio de retorno  [ ${parameters.returnPrice} ] no puede exceder el total del pedido  [ ${orderTotal} ]  con todos los totales.</value>
+        <value xml:lang="fr">Le total des retours de tous les articles [${returnTotal}] ne doit pas excéder le total de la commande de [ ${orderTotal} ].</value>
         <value xml:lang="it">Totale Reso di tutte le righe reso [${returnTotal}] non puù eccedere il totale dell'ordine [ ${orderTotal} ].</value>
         <value xml:lang="ro">Total Returnat din toate liniile returnare [${returnTotal}] nu poate depasi totalul comenzii [ ${orderTotal} ].</value>
         <value xml:lang="ru">Общая сумма всех возращаемых позиций [${returnTotal}] не может превышать сумму заказа [ ${orderTotal} ].</value>
@@ -1724,6 +1741,7 @@
     <property key="OrderReturnTotalCannotLessThanZero">
         <value xml:lang="en">Return total [${returnTotalAmount}] can not less than zero.</value>
         <value xml:lang="es">Total de la devolución [${returnTotalAmount}] no puede ser menor a cero</value>
+        <value xml:lang="fr">Total du retour [${returnTotalAmount}] ne peut pas être à zéro</value>
         <value xml:lang="it">Totale Reso [${returnTotalAmount}] non puù essere minore di zero.</value>
         <value xml:lang="ro">Total Returnat [${returnTotalAmount}] nu poate fi mai mic decat zero.</value>
         <value xml:lang="ru">Сумма возврата [${returnTotalAmount}] не может быть меньше ноля.</value>
@@ -1733,13 +1751,14 @@
     <property key="OrderRunServiceGetInventoryAvailableByFacilityError">
         <value xml:lang="en">Run service [getInventoryAvailableByFacility] error :</value>
         <value xml:lang="es">Ejecutar el servicio [getInventoryAvailableByFacility] da error :</value>
+        <value xml:lang="fr">Erreur à l'exécution du service [getInventoryAvailableByFacility] : </value>
         <value xml:lang="ru">Ошибка выполнения службы [getInventoryAvailableByFacility]:</value>
         <value xml:lang="th">ดำเนินการบริการ [getInventoryAvailableByFacility] ผิดพลาด :</value>
     </property>
     <property key="OrderRunServiceGetSuppliersForProductError">
         <value xml:lang="en">Run service [getSuppliersForProduct] error :</value>
         <value xml:lang="es">Error al ejecutar el servicio [getSuppliersForProduct] :</value>
-        <value xml:lang="fr">Service en cours [ obtention des fournisseurs du produit ] erreur : </value>
+        <value xml:lang="fr">Erreur à l'exécution du service [getSuppliersForProduct] : </value>
         <value xml:lang="it">Errore esecuzione servizio [getSuppliersForProduct] :</value>
         <value xml:lang="ro">Eroare de executie serviciu [getSuppliersForProduct] :</value>
         <value xml:lang="ru">Ошибка выполнения службы [getSuppliersForProduct]:</value>
@@ -1749,6 +1768,7 @@
     <property key="OrderSecurityErrorToRunAddPaymentMethodToOrder">
         <value xml:lang="en">Security Error: to run addPaymentMethodToOrder you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para ejecutar addPaymentMethodToOrder debe tener permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité: Pour aller à addPaymentMethodToOrder vous devez avoir l'autorisation ORDERMGR_CREATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения addPaymentMethodToOrder у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ addPaymentMethodToOrder คุณต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 addPaymentMethodToOrder，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
@@ -1766,6 +1786,7 @@
     <property key="OrderSecurityErrorToRunCancelReturnItems">
         <value xml:lang="en">Security Error : to run cancelReturnItems you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad : para ejecutar cancelReturnItems debe tener permisos ORDERMGR_DELETE o ORDERMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter cancelReturnItems, vous devez avoir l'autorisation ORDERMGR_DELETE ou ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения cancelReturnItems у вас должны быть права ORDERMGR_DELETE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ cancelReturnItems คุณต้องมี ORDERMGR_DELETE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 cancelReturnItems，你必须具有 ORDERMGR_DELETE 或 ORDERMGR_ADMIN 权限</value>
@@ -1773,7 +1794,7 @@
     <property key="OrderSecurityErrorToRunCheckCreateCustRequest">
         <value xml:lang="en">Security Error : to run createCustRequest you must have the ORDERMGR_CRQ_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createCustRequest debe contar con los permisos ORDERMGR_CRQ_CREATE o ORDERMGR_ADMIN</value>
-        <value xml:lang="fr">Erreur de sécurité : pour exécuter createCustRequest, vous devez avoir l'autorisation d'administrer ou de créer la commande</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createCustRequest, vous devez avoir l'autorisation ORDERMGR_CRQ_CREATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createCustRequest tu devi avere il permesso ORDERMGR_CRQ_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru  executarea createCustRequest trebuie sa ai permisul ORDERMGR_CRQ_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createCustRequest у вас должны быть права ORDERMGR_CRQ_CREATE или ORDERMGR_ADMIN </value>
@@ -1793,6 +1814,7 @@
     <property key="OrderSecurityErrorToRunCheckCreateOrderRequirementCommitment">
         <value xml:lang="en">Security Error: to run createOrderRequirementCommitment you must have ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: Para ejecutar createOrderRequirementCommitment debe contar con los permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createOrderRequirementCommitmentt, vous devez avoir l'autorisation ORDERMGR_CREATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="it">Errore Sicurezza : per eseguire createOrderRequirementCommitment tu devi avere il permesso ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
         <value xml:lang="ro">Eroare Siguranta : pentru executarea createOrderRequirementCommitment trebuie sa ai permisul ORDERMGR_CREATE sau ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createOrderRequirementCommitment у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN</value>
@@ -1822,6 +1844,7 @@
     <property key="OrderSecurityErrorToRunCreateOrderContactMech">
         <value xml:lang="en">Security Error: to run createOrderContactMech you must have the ORDERMGR_CREATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para ejecutar createOrderContactMech debe tener permsis ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter createOrderContactMech, vous devez avoir l'autorisation ORDERMGR_CREATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createOrderContactMech у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ createOrderContactMech คุณต้องมี ORDERMGR_CREATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 createOrderContactMech，你必须具有 ORDERMGR_CREATE 或 ORDERMGR_ADMIN 权限</value>
@@ -1858,6 +1881,7 @@
     <property key="OrderSecurityErrorToRunCreateQuoteAndQuoteItemFu0438u043bu0438Request">
         <value xml:lang="en">SecurityErrorToRunCreateQuoteAndQuoteItemFu0438u043bu0438Request</value>
         <value xml:lang="es">Error de seguridad : para ejecutar createQuoteAndQuoteItemForRequest debe tener permisos ORDERMGR_CREATE o ORDERMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité pour exécuter CreateQuoteAndQuoteItemFu0438u043bu0438Request</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения createQuoteAndQuoteItemForRequest у вас должны быть права ORDERMGR_CREATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ CreateQuoteAndQuoteItemFu0438u043bu0438Request</value>
     </property>
@@ -1942,6 +1966,7 @@
     </property>
     <property key="OrderSecurityErrorToRunDeleteOrderAdjustement">
         <value xml:lang="en">Security Error : to run deleteOrderAdjustment you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission </value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter deleteOrderAdjustment, vous devez avoir l'autorisation ORDERMGR_DELETE ou ORDERMGR_ADMIN</value>>
         <value xml:lang="ru">Ошибка безопасности: для выполнения deleteOrderAdjustment у вас должны быть права ORDERMGR_DELETE или ORDERMGR_ADMIN  </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ deleteOrderAdjustment คุณต้องมี ORDERMGR_DELETE หรือ ORDERMGR_ADMIN อนุญาต </value>
         <value xml:lang="zh">安全错误：要运行 deleteOrderAdjustment，你必须具有 ORDERMGR_DELETE 或 ORDERMGR_ADMIN 权限 </value>
@@ -1978,6 +2003,7 @@
     </property>
     <property key="OrderSecurityErrorToRunRemoveOrderContactMech">
         <value xml:lang="en">Security Error: to run removeOrderContactMech you must have the ORDERMGR_DELETE or ORDERMGR_ADMIN permission</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter removeOrderContactMech, vous devez avoir l'autorisation ORDERMGR_DELETE ou ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения removeOrderContactMech у вас должны быть права ORDERMGR_DELETE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ  removeOrderContactMech คุณต้องมี ORDERMGR_DELETE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 removeOrderContactMech，你必须具有 ORDERMGR_DELETE 或 ORDERMGR_ADMIN 权限</value>
@@ -2034,12 +2060,14 @@
     </property>
     <property key="OrderSecurityErrorToRunUpdateOrderAdjustement">
         <value xml:lang="en">Security Error : to run updateOrderAdjustment you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter updateOrderAdjustment, vous devez avoir l'autorisation ORDERMGR_UPDATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateOrderAdjustment у вас должны быть права ORDERMGR_UPDATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ updateOrderAdjustment คุณต้องมี ORDERMGR_UPDATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 updateOrderAdjustment，你必须具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 权限</value>
     </property>
     <property key="OrderSecurityErrorToRunUpdateOrderContactMech">
         <value xml:lang="en">Security Error: to run updateOrderContactMech you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter updateOrderContactMech, vous devez avoir l'autorisation ORDERMGR_UPDATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateOrderContactMech у вас должны быть права ORDERMGR_UPDATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ updateOrderContactMech คุณต้องมี ORDERMGR_UPDATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 updateOrderContactMech，你必须具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 权限</value>
@@ -2047,6 +2075,7 @@
     <property key="OrderSecurityErrorToRunUpdateOrderItemShipGroup">
         <value xml:lang="en">Security Error: to run updateOrderItemShipGroup you must have the ORDERMGR_UPDATE or ORDERMGR_ADMIN permission</value>
         <value xml:lang="es">Error de seguridad: para ejecutar updateOrderItemShipGroup debe tener permisos ORDERMGR_UPDATE o ORDERMGR_ADMIN</value>
+        <value xml:lang="fr">Erreur de sécurité : pour exécuter updateOrderItemShipGroup, vous devez avoir l'autorisation ORDERMGR_UPDATE ou ORDERMGR_ADMIN</value>
         <value xml:lang="ru">Ошибка безопасности: для выполнения updateOrderItemShipGroup у вас должны быть права ORDERMGR_UPDATE или ORDERMGR_ADMIN </value>
         <value xml:lang="th">Security Error: ความปลอดภัยผิดพลาด ! ถึงการดำเนินการ updateOrderItemShipGroup คุณต้องมี ORDERMGR_UPDATE หรือ ORDERMGR_ADMIN อนุญาต</value>
         <value xml:lang="zh">安全错误：要运行 updateOrderItemShipGroup，你必须具有 ORDERMGR_UPDATE 或 ORDERMGR_ADMIN 权限</value>
@@ -2114,11 +2143,13 @@
     <property key="OrderSelectASuplierOrAProduct">
         <value xml:lang="en">Select A Suplier Or A Product</value>
         <value xml:lang="es">Seleccione un proveedor o un producto</value>
+        <value xml:lang="fr">Sélectionner un fournisseur ou un article</value>
         <value xml:lang="th">เลือกผู้จัดหาสิ่งของหรือสินค้า</value>
     </property>
     <property key="OrderSelectOnlySupplierOrProduct">
         <value xml:lang="en">Select Only Supplier Or Product</value>
         <value xml:lang="es">Seleccione solamente el proveedor O el producto</value>
+        <value xml:lang="fr">Sélectionner seulement un fournisseur ou seulement un article</value>
         <value xml:lang="th">เลือกเฉพาะผู้จัดหาสิ่งของหรือสินค้า</value>
     </property>
     <property key="OrderSendMailServiceFailed">
@@ -2174,10 +2205,12 @@
     <property key="OrderSupplierData">
         <value xml:lang="en">SupplierData</value>
         <value xml:lang="es">Datos de provedor</value>
+        <value xml:lang="fr">Donnée fournisseur</value>
         <value xml:lang="th">ข้อมูลผู้จัดหาสิ่งของ</value>
     </property>
     <property key="OrderSupplierFinancialData">
         <value xml:lang="en">SupplierFinancialData</value>
+        <value xml:lang="fr">Donnée financière du fournisseur</value>
         <value xml:lang="es">Datos financieros de proveedor</value>
         <value xml:lang="th">ข้อมูลการเงินผู้จัดหาสิ่งของ</value>
     </property>
@@ -2204,6 +2237,7 @@
     <property key="OrderThisCannotBeChangedWithoutRecreatingTheSetting">
         <value xml:lang="en">This  Cannot  Be  Changed  Without Recreating The Setting</value>
         <value xml:lang="es">Esto no puede ser cambiado sin recrear la configuración</value>
+        <value xml:lang="fr">Ceci ne peut être changé sans recréation de la configuration</value>
         <value xml:lang="th">นี่ไม่สามารถเปลี่ยนแปลงโดยปราศจากการสร้างการตั้งค่าใหม่</value>
     </property>
     <property key="OrderTriedToSetOrderStatusWithTheSameStatusIdforOrderWithId">
@@ -2227,9 +2261,9 @@
         <value xml:lang="zh">获得保险明细时出现问题</value>
     </property>
     <property key="OrderTroubleGettingOrderItemShipGrpInvResList">
-        <value xml:lang="en">TroubleGettingOrderItemShipGrpInvResListTroubleGettingOrderItemShipGrpInvResList</value>
+        <value xml:lang="en">TroubleGettingOrderItemShipGrpInvResList</value>
         <value xml:lang="es">Error al obtener la lista de grupo de artículos</value>
-        <value xml:lang="fr">Problèmeen obtenant la liste ... du groupe d'article de la commande</value>
+        <value xml:lang="fr">Problème à l'obtemption de OrderItemShipGrpInvResList</value>
         <value xml:lang="th">TroubleGettingOrderItemShipGrpInvResList</value>
     </property>
     <property key="OrderUnableToAddItemToShoppingList">
@@ -2385,6 +2419,7 @@
     <property key="OrderUnableToRetrieveSalesTaxAdjustments">
         <value xml:lang="en">Unable to retrieve SALES_TAX adjustments</value>
         <value xml:lang="es">No se puede obtener ajustes de impuestos de venta (SALES_TAX)</value>
+        <value xml:lang="fr">Incapacité à retrouver les ajustements de type SALES_TAX</value>
         <value xml:lang="ru">Невозможно получить корректировки SALES_TAX</value>
         <value xml:lang="th">ไม่สามารถรับการปรับปรุงรายการ SALES_TAX </value>
         <value xml:lang="zh">不能获得营业税调整</value>
@@ -2573,7 +2608,7 @@
     <property key="shoppingCartEvents.no_alternateGwpProductId">
         <value xml:lang="en">Could not select alternate gift, no alternateGwpProductId passed</value>
         <value xml:lang="es">No se pudo retirar los ajustes de impuesto a la venta</value>
-        <value xml:lang="fr">Vous ne pouvez pas sélectionner un cadeau alternatif, aucun indentifiant de produit Gwp alternative n'a été passé.</value>
+        <value xml:lang="fr">Vous ne pouvez pas sélectionner un cadeau alternatif, aucun alternateGwpProductId n'a été passé.</value>
         <value xml:lang="it">Non è possibile selezionare omaggio alternativo, nessun alternateGwpProductId passato</value>
         <value xml:lang="ro">Nu este  posibila selectionarea omagiului alternativ, nici-un alternateGwpProductId </value>
         <value xml:lang="ru">Невозможно выбрать альтернативный подарок, нет указан alternateGwpProductId</value>

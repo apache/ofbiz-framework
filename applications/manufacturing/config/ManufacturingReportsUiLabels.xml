@@ -21,6 +21,7 @@
     <property key="CommonCompletionDate">
         <value xml:lang="en">Completion Date</value>
         <value xml:lang="es">Fecha de Términación</value>
+        <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="it">Data Versamento</value>
         <value xml:lang="ro">Data Varsamant</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>
@@ -29,6 +30,7 @@
     <property key="CommonCustomLength">
         <value xml:lang="en">Custom Length</value>
         <value xml:lang="es">Longitud a medida</value>
+        <value xml:lang="fr">Longueur sur commande</value>
         <value xml:lang="it">Lungh. su misura</value>
         <value xml:lang="ro">Lungime comandata</value>
         <value xml:lang="th">ระยะเวลาในการดูแลลูกค้า</value>
@@ -37,6 +39,7 @@
     <property key="CommonCustomer">
         <value xml:lang="en">Customer</value>
         <value xml:lang="es">Cliente</value>
+        <value xml:lang="fr">Clientèle</value>
         <value xml:lang="it">Cliente</value>
         <value xml:lang="ro">Client</value>
         <value xml:lang="th">ลูกค้า</value>
@@ -45,6 +48,7 @@
     <property key="CommonDestination">
         <value xml:lang="en">Destination</value>
         <value xml:lang="es">Destino</value>
+        <value xml:lang="fr">Destination</value>
         <value xml:lang="it">Destinazione</value>
         <value xml:lang="ro">Destinatie</value>
         <value xml:lang="th">เป้าหมาย</value>
@@ -53,6 +57,7 @@
     <property key="CommonHardware">
         <value xml:lang="en">Hardware</value>
         <value xml:lang="es">Hardware</value>
+        <value xml:lang="fr">Matériel informatique</value>
         <value xml:lang="it">Ferramenta</value>
         <value xml:lang="ro">Hardwer</value>
         <value xml:lang="th">ฮาร์ดแวร์</value>
@@ -61,6 +66,7 @@
     <property key="CommonLabelNumber">
         <value xml:lang="en">Label number</value>
         <value xml:lang="es">Nº de Etiqueta</value>
+        <value xml:lang="fr">Numéro d'étiquette</value>
         <value xml:lang="it">Numero etichetta</value>
         <value xml:lang="ro">Numar de eticheta</value>
         <value xml:lang="th">หมายเลขฉลาก</value>
@@ -69,6 +75,7 @@
     <property key="CommonLength">
         <value xml:lang="en">Length</value>
         <value xml:lang="es">Longitud</value>
+        <value xml:lang="fr">Longueur</value>
         <value xml:lang="it">Lunghezza</value>
         <value xml:lang="ro">Lungime</value>
         <value xml:lang="th">ขนาด</value>
@@ -77,6 +84,7 @@
     <property key="CommonMeasure">
         <value xml:lang="en">Standard Measures</value>
         <value xml:lang="es">Medida estándar</value>
+        <value xml:lang="fr">Mesures standard</value>
         <value xml:lang="it">Misure standard</value>
         <value xml:lang="ro">Masura standard</value>
         <value xml:lang="th">จำนวนมาตรฐาน</value>
@@ -85,6 +93,7 @@
     <property key="CommonModel">
         <value xml:lang="en">Model</value>
         <value xml:lang="es">Modelo</value>
+        <value xml:lang="fr">Modèle</value>
         <value xml:lang="it">Modello Cucina</value>
         <value xml:lang="ro">Model </value>
         <value xml:lang="th">แบบจำลอง</value>
@@ -93,6 +102,7 @@
     <property key="CommonNote">
         <value xml:lang="en">Note</value>
         <value xml:lang="es">Nota</value>
+        <value xml:lang="fr">Note</value>
         <value xml:lang="it">Annotazioni</value>
         <value xml:lang="ro">Anotari</value>
         <value xml:lang="th">หมายเหตุ</value>
@@ -101,6 +111,7 @@
     <property key="CommonPrintoutDate">
         <value xml:lang="en">Printout Date</value>
         <value xml:lang="es">Fecha de Impresión</value>
+        <value xml:lang="fr">Date de sortie sur imprimante</value>
         <value xml:lang="it">Data Emissione</value>
         <value xml:lang="ro">Data Emisie</value>
         <value xml:lang="th">วันที่พิมพ์</value>
@@ -109,6 +120,7 @@
     <property key="CommonQtyM2">
         <value xml:lang="en">Square meters</value>
         <value xml:lang="es">Metros cuadrados</value>
+        <value xml:lang="fr">Mètres carrés</value>
         <value xml:lang="it">M.Q.</value>
         <value xml:lang="ro">M.P.</value>
         <value xml:lang="th">หน่วยวัดที่เป็นสี่เหลี่ยมจัตุรัส</value>
@@ -117,6 +129,7 @@
     <property key="CommonReference">
         <value xml:lang="en">Reference</value>
         <value xml:lang="es">Referencia</value>
+        <value xml:lang="fr">Référence</value>
         <value xml:lang="it">Riferimento</value>
         <value xml:lang="ro">Referente</value>
         <value xml:lang="th">อ้างอิง</value>
@@ -125,6 +138,7 @@
     <property key="CommonReleased">
         <value xml:lang="en">Released</value>
         <value xml:lang="es">Publicado</value>
+        <value xml:lang="fr">Approbation</value>
         <value xml:lang="it">Rilasciato</value>
         <value xml:lang="ro">Eliberat</value>
         <value xml:lang="th">การยกเว้น</value>
@@ -133,6 +147,7 @@
     <property key="CommonReleasedNote">
         <value xml:lang="en">Released/Note</value>
         <value xml:lang="es">Publicado/Nota</value>
+        <value xml:lang="fr">Note d'approbation</value>
         <value xml:lang="it">Rilasciato/Note</value>
         <value xml:lang="ro">Eliberat/Note</value>
         <value xml:lang="th">การยกเว้น/หมายเหตุ</value>
@@ -141,6 +156,7 @@
     <property key="CommonRequester">
         <value xml:lang="en">Requester</value>
         <value xml:lang="es">Solicitante</value>
+        <value xml:lang="fr">Demandeur</value>
         <value xml:lang="it">Richiedente</value>
         <value xml:lang="ro">Petitionar</value>
         <value xml:lang="th">ผู้ยื่นคำร้อง</value>
@@ -149,6 +165,7 @@
     <property key="CustomerOrderId">
         <value xml:lang="en">Customer Order</value>
         <value xml:lang="es">Pedido del Cliente</value>
+        <value xml:lang="fr">Ordre de client</value>
         <value xml:lang="it">Ordine Cliente</value>
         <value xml:lang="ro">Ordin Client</value>
         <value xml:lang="th">รายการสั่งซื้อของลูกค้า</value>
@@ -157,6 +174,7 @@
     <property key="FacilityEstimatedShipDate">
         <value xml:lang="en">Completion Date</value>
         <value xml:lang="es">Fecha de Términación</value>
+        <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="it">Data Spedizione Stimata</value>
         <value xml:lang="ro">Data Expediere Stimata</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>
@@ -165,6 +183,7 @@
     <property key="ManufacturingComponentsOfShipmentPlan">
         <value xml:lang="en">Components of Shipment Plan</value>
         <value xml:lang="es">Componentes del Plan de Envío</value>
+        <value xml:lang="fr">Composants du plan d'expédition</value>
         <value xml:lang="it">Componenti del Piano di Spedizione</value>
         <value xml:lang="ro">Componetele Planului de Expediere</value>
         <value xml:lang="th">ส่วนประกอบของแผนการขนส่ง</value>
@@ -173,6 +192,7 @@
     <property key="ManufacturingNeedQuantity">
         <value xml:lang="en">Need Quantity</value>
         <value xml:lang="es">Cantidad necesaria</value>
+        <value xml:lang="fr">Quantité nécessaire</value>
         <value xml:lang="it">Quantità Necessaria</value>
         <value xml:lang="ro">Cantitate Necesara</value>
         <value xml:lang="th">จำนวนที่ต้องการ</value>
@@ -181,6 +201,7 @@
     <property key="ManufacturingNoDataAvailable">
         <value xml:lang="en">No Data Available</value>
         <value xml:lang="es">No hay datos disponibles</value>
+        <value xml:lang="fr">Aucune date disponible</value>
         <value xml:lang="it">Nessun Dato Disponibile</value>
         <value xml:lang="ro">Nici-o Data Disponibila</value>
         <value xml:lang="th">ไม่มีข้อมูลที่สามารถใช้ได้</value>
@@ -189,6 +210,7 @@
     <property key="ManufacturingOnHandQuantity">
         <value xml:lang="en">On Hand Quantity</value>
         <value xml:lang="es">Cantidad disponible (QOH)</value>
+        <value xml:lang="fr">Quantité disponible</value>
         <value xml:lang="it">Quantità Disponibile</value>
         <value xml:lang="ro">Cantitate Disponibila</value>
         <value xml:lang="th">จำนวนที่มีอยู่</value>
@@ -197,6 +219,7 @@
     <property key="ManufacturingOperationCodeAndDescription">
         <value xml:lang="en">Operation Code And Description</value>
         <value xml:lang="es">Código de operación y descripción</value>
+        <value xml:lang="fr">Code et description d'opération</value>
         <value xml:lang="it">Codice Operazione e Descrizione</value>
         <value xml:lang="ro">Cod Operatie si Descriere</value>
         <value xml:lang="th">รหัสปฏิบัติการและรายละเอียด</value>
@@ -205,6 +228,7 @@
     <property key="ManufacturingOperationRunForShipment">
         <value xml:lang="en">Operation Run For Shipment</value>
         <value xml:lang="es">Operación de Producción para el Envío</value>
+        <value xml:lang="fr">Cadence d'opération pour expédition</value>
         <value xml:lang="it">Operazioni di Produzione per la Spedizione</value>
         <value xml:lang="ro">Operatii de Productie pentru Expediere</value>
         <value xml:lang="th">การดำเนินการสำหรับการขนส่ง</value>
@@ -213,6 +237,7 @@
     <property key="ManufacturingPackage">
         <value xml:lang="en">Package</value>
         <value xml:lang="es">Paquete</value>
+        <value xml:lang="fr">Paquet</value>
         <value xml:lang="it">Pacco</value>
         <value xml:lang="ro">Pachet</value>
         <value xml:lang="th">หีบห่อ</value>
@@ -221,6 +246,7 @@
     <property key="ManufacturingProductionRun">
         <value xml:lang="en">Production Run</value>
         <value xml:lang="es">Orden de Producción</value>
+        <value xml:lang="fr">Cadence de production</value>
         <value xml:lang="it">Ordine di Produzione</value>
         <value xml:lang="ro">Comanda de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
@@ -229,6 +255,7 @@
     <property key="ManufacturingProductionRunId">
         <value xml:lang="en">Production Run ID</value>
         <value xml:lang="es">Código de Orden de Producción</value>
+        <value xml:lang="fr">Réf. de cadence de production</value>
         <value xml:lang="it">N.Ord.Prod.</value>
         <value xml:lang="ro">N.Com.Productie</value>
         <value xml:lang="th">รหัสการผลิตสินค้า</value>
@@ -237,6 +264,7 @@
     <property key="ManufacturingProductionRuns">
         <value xml:lang="en">Production Runs</value>
         <value xml:lang="es">Orden de Producción</value>
+        <value xml:lang="fr">Cadences de production</value>
         <value xml:lang="it">Ordini di Produzione</value>
         <value xml:lang="ro">Comenzi de Productie</value>
         <value xml:lang="th">การผลิตสินค้า</value>
@@ -245,6 +273,7 @@
     <property key="ManufacturingProductsComponents">
         <value xml:lang="en">Products Components</value>
         <value xml:lang="es">Componentes de productos</value>
+        <value xml:lang="fr">Composants de production</value>
         <value xml:lang="it">Prodotto Componente</value>
         <value xml:lang="ro">Componente Produse</value>
         <value xml:lang="th">ส่วนประกอบของสินค้า</value>
@@ -253,6 +282,7 @@
     <property key="ManufacturingShipTo">
         <value xml:lang="en">Ship To</value>
         <value xml:lang="es">Enviar a</value>
+        <value xml:lang="fr">Expédié à</value>
         <value xml:lang="it">Spedire A</value>
         <value xml:lang="ro">Expediere A</value>
         <value xml:lang="th">ส่งถึง</value>
@@ -261,6 +291,7 @@
     <property key="ManufacturingShipmentId">
         <value xml:lang="en">Shipment Id</value>
         <value xml:lang="es">Código de Envío</value>
+        <value xml:lang="fr">Réf. d'expédition</value>
         <value xml:lang="it">Numero Spedizione</value>
         <value xml:lang="ro">Numar Expediere</value>
         <value xml:lang="th">รหัสการขนส่ง</value>
@@ -269,6 +300,7 @@
     <property key="ManufacturingShopOrder">
         <value xml:lang="en">Shop Order</value>
         <value xml:lang="es">Orden de trabajo</value>
+        <value xml:lang="fr">Ordre de magasin</value>
         <value xml:lang="it">Ordine di Lavoro</value>
         <value xml:lang="ro">Comanda de Lucru</value>
         <value xml:lang="th">รายการสั่งซื้อจากร้าน</value>
@@ -277,6 +309,7 @@
     <property key="ManufacturingTaskRunTime">
         <value xml:lang="en">Task Run Time</value>
         <value xml:lang="es">Tiempo de ejecución</value>
+        <value xml:lang="fr">Temps d'exécution de tâche</value>
         <value xml:lang="it">Tempo di Esecuzione Compito</value>
         <value xml:lang="ro">Timp de Executie Dedicat</value>
         <value xml:lang="th">การทำงานในเวลา</value>
@@ -285,6 +318,7 @@
     <property key="ManufacturingTaskSetupTime">
         <value xml:lang="en">Task Setup Time</value>
         <value xml:lang="es">Tiempo de preparación</value>
+        <value xml:lang="fr">Temps d'installation de tâche</value>
         <value xml:lang="it">Tempo Configurazione Compito</value>
         <value xml:lang="ro">Timp Configurare Dedicat</value>
         <value xml:lang="th">ตั้งเวลาทำงาน</value>
@@ -293,6 +327,7 @@
     <property key="ManufacturingWorkCenter">
         <value xml:lang="en">Work Center</value>
         <value xml:lang="es">Centro de trabajo</value>
+        <value xml:lang="fr">Centre de travail</value>
         <value xml:lang="it">Centro di Lavoro</value>
         <value xml:lang="ro">Centru de Lucru</value>
         <value xml:lang="th">ศูนย์กลางการทำงาน</value>
@@ -301,6 +336,7 @@
     <property key="OrderOrderId">
         <value xml:lang="en">Order Id</value>
         <value xml:lang="es">Código de pedido</value>
+        <value xml:lang="fr">Réf. de commande</value>
         <value xml:lang="it">Numero Ordine</value>
         <value xml:lang="ro">Numar comanda</value>
         <value xml:lang="th">รหัสการสั่งซื้อ</value>
@@ -308,7 +344,8 @@
     </property>
     <property key="PanelNumber">
         <value xml:lang="en">Panel number</value>
-        <value xml:lang="es">Número de Panel</value>
+        <value xml:lang="es">Número de panneau</value>
+        <value xml:lang="fr">Nombre d'invité</value>
         <value xml:lang="it">Numero pannelli</value>
         <value xml:lang="ro">Numar placi</value>
         <value xml:lang="th">หมายเลขบัญชีรายชื่อ</value>
@@ -317,6 +354,7 @@
     <property key="PickingDate">
         <value xml:lang="en">Picking date</value>
         <value xml:lang="es">Fecha de Recogida</value>
+        <value xml:lang="fr">Date de prélèvement</value>
         <value xml:lang="it">Data di Prelievo</value>
         <value xml:lang="ro">Data Distributie</value>
         <value xml:lang="th">วันที่เลือก</value>
@@ -325,6 +363,7 @@
     <property key="PickingListFx">
         <value xml:lang="en">Picking for release</value>
         <value xml:lang="es">Recogida para liberación</value>
+        <value xml:lang="fr">Prélèvement pour approbation</value>
         <value xml:lang="it">Richiesta per Rilascio</value>
         <value xml:lang="ro">Cerere  Distribuire</value>
         <value xml:lang="th">การเลือกเพื่อการยกเว้น</value>
@@ -333,6 +372,7 @@
     <property key="PickingPeriod">
         <value xml:lang="en">Picking period</value>
         <value xml:lang="es">Periodo de recogida</value>
+        <value xml:lang="fr">Période de prélèvement</value>
         <value xml:lang="it">Periodo prelievo</value>
         <value xml:lang="ro">Perioda distributie</value>
         <value xml:lang="th">เลือกระยะเวลา</value>
@@ -341,6 +381,7 @@
     <property key="ProductFacilityLocation">
         <value xml:lang="en">Location</value>
         <value xml:lang="es">Ubicación</value>
+        <value xml:lang="fr">Emplacement</value>
         <value xml:lang="it">Ubicazione</value>
         <value xml:lang="ro">Locatie</value>
         <value xml:lang="th">ที่ตั้ง</value>
@@ -349,6 +390,7 @@
     <property key="ProductProductBrandName">
         <value xml:lang="en">Draw no</value>
         <value xml:lang="es">Marca</value>
+        <value xml:lang="fr">N° de dessin</value>
         <value xml:lang="it">n. disegno</value>
         <value xml:lang="ro">n.desen</value>
         <value xml:lang="th">หมายเลขการวาด</value>
@@ -357,6 +399,7 @@
     <property key="ProductProductCategory">
         <value xml:lang="en">Category</value>
         <value xml:lang="es">Categoría</value>
+        <value xml:lang="fr">Catégorie</value>
         <value xml:lang="it">Categoria</value>
         <value xml:lang="ro">Categorie</value>
         <value xml:lang="th">หมวดหมู่</value>
@@ -365,6 +408,7 @@
     <property key="ProductProductHeight">
         <value xml:lang="en">Height</value>
         <value xml:lang="es">Altura</value>
+        <value xml:lang="fr">Taille</value>
         <value xml:lang="it">altezza</value>
         <value xml:lang="ro">Inaltime</value>
         <value xml:lang="th">สูง</value>
@@ -373,6 +417,7 @@
     <property key="ProductProductId">
         <value xml:lang="en">Product ID</value>
         <value xml:lang="es">Código de Producto</value>
+        <value xml:lang="fr">Réf. d'article</value>
         <value xml:lang="it">Codice Prodotto</value>
         <value xml:lang="ro">Cod Produs</value>
         <value xml:lang="th">รหัสสินค้า</value>
@@ -381,6 +426,7 @@
     <property key="ProductProductWidth">
         <value xml:lang="en">Width</value>
         <value xml:lang="es">Anchura</value>
+        <value xml:lang="fr">Largeur</value>
         <value xml:lang="it">larghezza</value>
         <value xml:lang="ro">latime</value>
         <value xml:lang="th">กว้าง</value>
@@ -389,6 +435,7 @@
     <property key="ProductShipmentPlan">
         <value xml:lang="en">Shipment Plan</value>
         <value xml:lang="es">Plan de envío</value>
+        <value xml:lang="fr">Plan d'expédition</value>
         <value xml:lang="it">Piano di Spedizione</value>
         <value xml:lang="ro">Plan de Expediere</value>
         <value xml:lang="th">แผนการขนส่ง</value>
@@ -397,6 +444,7 @@
     <property key="WorkEffortName">
         <value xml:lang="en">Manufacturing Plan</value>
         <value xml:lang="es">Plan de producción</value>
+        <value xml:lang="fr">Plan de fabrication</value>
         <value xml:lang="it">Piano di produzione</value>
         <value xml:lang="ro">Plan de productie</value>
         <value xml:lang="th">แผนการผลิต</value>
@@ -405,6 +453,7 @@
     <property key="estimatedCompletionDate">
         <value xml:lang="en">Completion Date</value>
         <value xml:lang="es">Fecha estimada de términación</value>
+        <value xml:lang="fr">Date d'achèvement</value>
         <value xml:lang="it">Data Completamenteo Stimata</value>
         <value xml:lang="ro">Data Complet Stimata</value>
         <value xml:lang="th">วันที่ทำเสร็จ</value>
