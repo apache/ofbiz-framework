@@ -37,7 +37,7 @@
         <field name="fromDate"><date-find/></field>
         <field name="thruDate"><date-find/></field>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><lookup target-form-name="LookupTerminationReason"/></field>
-        <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}">
+        <field name="terminationTypeId">
             <drop-down allow-empty="true" current-description="">
                 <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">
                     <entity-order-by field-name="description"/>
@@ -64,7 +64,7 @@
         <field name="fromDate"><display also-hidden="true"/></field>
         <field name="thruDate"><display/></field>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>
-        <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}"><display/></field>
+        <field name="terminationTypeId"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditEmployment?partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;fromDate=${fromDate}&amp;roleTypeIdTo=${roleTypeIdTo}" description="${uiLabelMap.CommonEdit}"/>
         </field>
@@ -84,7 +84,7 @@
         <field name="fromDate"><display also-hidden="true"/></field>
         <field name="thruDate"><display/></field>
         <field name="terminationReasonId" title="${uiLabelMap.HumanResTerminationReasonId}"><display/></field>
-        <field name="terminationTypeId" title="${uiLabelMap.HumanResTerminationTypeId}"><display/></field>
+        <field name="terminationTypeId"><display/></field>
         <field name="editLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
             <hyperlink target="EditEmployment?partyIdFrom=${partyIdFrom}&amp;partyIdTo=${partyIdTo}&amp;roleTypeIdFrom=${roleTypeIdFrom}&amp;fromDate=${fromDate}&amp;roleTypeIdTo=${roleTypeIdTo}" description="${uiLabelMap.CommonEdit}"/>
         </field>
@@ -115,7 +115,7 @@
                 </entity-options>
             </drop-down>
         </field>
-        <field name="terminationTypeId" use-when="employment!=null" title="${uiLabelMap.HumanResTerminationTypeId}">
+        <field name="terminationTypeId" use-when="employment!=null">
             <drop-down allow-empty="true" no-current-selected-key="------">
                 <entity-options description="${description}" key-field-name="terminationTypeId" entity-name="TerminationType">                    
                     <entity-order-by field-name="description"/>

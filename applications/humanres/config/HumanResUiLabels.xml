@@ -152,25 +152,25 @@
     </property>
     <property key="FormFieldTitle_emplPositionTypeId">
         <value xml:lang="en">Empl Position Type Id</value>
-        <value xml:lang="fr">Réf. du type de position l'employé</value>
+        <value xml:lang="fr">Réf. du type de position</value>
         <value xml:lang="it">Tipo Posizione Impiegato</value>
         <value xml:lang="th">รหัสประเภทตำแหน่งพนักงาน</value>
     </property>
     <property key="FormFieldTitle_employeePartyId">
         <value xml:lang="en">Employee Party Id</value>
-        <value xml:lang="fr">Réf. de l'employé </value>
+        <value xml:lang="fr">Réf. de l'employé</value>
         <value xml:lang="it">Soggetto Impiegato</value>
         <value xml:lang="th">รหัสกลุ่มพนักงาน</value>
     </property>
     <property key="FormFieldTitle_employeeRoleTypeId">
         <value xml:lang="en">Employee Role Type Id</value>
-        <value xml:lang="fr">Type de rôle de 'employé </value>
+        <value xml:lang="fr">Type de rôle de l'employé</value>
         <value xml:lang="it">Tipo Ruolo Impiegato</value>
         <value xml:lang="th">รหัสประเภทสถานะพนักงาน</value>
     </property>
     <property key="FormFieldTitle_employmentAppSourceTypeId">
         <value xml:lang="en">Employment App Source Type Id</value>
-        <value xml:lang="fr">Réf. de type d'origine de demande d'emploi </value>
+        <value xml:lang="fr">Réf. de type d'origine de demande d'emploi</value>
         <value xml:lang="it">Tipo Origine Applicazione Impiegato</value>
         <value xml:lang="th">รหัสประเภทแหล่งที่มาการจ้างงาน</value>
     </property>
@@ -188,7 +188,7 @@
     </property>
     <property key="FormFieldTitle_exemptFlag">
         <value xml:lang="en">Exempt Flag</value>
-        <value xml:lang="fr">Balise d'exemption </value>
+        <value xml:lang="fr">Balise d'exemption</value>
         <value xml:lang="it">Flag Esenzione</value>
         <value xml:lang="th">Exempt Flag</value>
     </property>
@@ -428,6 +428,12 @@
         <value xml:lang="it">Motivazione Licenziamento</value>
         <value xml:lang="th">รหัสขอบเขตเหตุผล</value>
     </property>
+    <property key="FormFieldTitle_terminationTypeId">
+        <value xml:lang="en">Termination Type Id</value>
+        <value xml:lang="fr">Réf. de type de fin de contrat</value>
+        <value xml:lang="it">Tipo Licenziamento</value>
+        <value xml:lang="th">รหัสประเภทขอบเขตเหตุผล</value>
+    </property>
     <property key="FormFieldTitle_title">
         <value xml:lang="en">Title</value>
         <value xml:lang="fr">Titre</value>
@@ -438,7 +444,7 @@
     </property>    
     <property key="FormFieldTitle_unemploymentClaimDate">
         <value xml:lang="en">Unemployment Claim Date</value>
-        <value xml:lang="fr">Date de demande du chômage </value>
+        <value xml:lang="fr">Date de demande du chômage</value>
         <value xml:lang="it">Data Reclamo Disoccupazione</value>
         <value xml:lang="th">จำนวนผู้ว่างงานเรียกร้องวันที่</value>
     </property>
@@ -464,7 +470,7 @@
     </property>
     <property key="HumanResAddEmplLeaveType">
         <value xml:lang="en">Add EmplLeave Types</value>
-        <value xml:lang="fr">Ajoutez les types de congé</value>
+        <value xml:lang="fr">Ajouter un type de congé</value>
     </property>
     <property key="HumanResAddEmplPositionFulfillment">
         <value xml:lang="en">Add Position Fulfillment</value>
@@ -514,9 +520,17 @@
         <value xml:lang="en">Add Salary Step</value>
         <value xml:lang="fr">Ajouter l'augmentation de salaire</value>
     </property>
+    <property key="HumanResAddSkillType">
+        <value xml:lang="en">Add Skill Type</value>
+        <value xml:lang="fr">Ajouter un type de compétence</value>
+    </property>    
     <property key="HumanResAddTerminationReason">
         <value xml:lang="en">Add Termination Reason</value>
         <value xml:lang="fr">Ajouter la raison de la fin de contrat</value>
+    </property>
+    <property key="HumanResAddTerminationType">
+        <value xml:lang="en">Add Termination Type</value>
+        <value xml:lang="fr">Ajouter un type de fin de contrat</value>
     </property>
     <property key="HumanResAddUnemploymentClaim">
         <value xml:lang="en">Add Unemployment Claim</value>
@@ -786,7 +800,7 @@
     <property key="HumanResListPartyBenefits">
         <value xml:lang="en">List Party Benefits</value>
         <value xml:lang="fr">Liste d'avantages de l'acteur</value>
-        <value xml:lang="it">Lista Benefits Soggetto </value>
+        <value xml:lang="it">Lista Benefits Soggetto</value>
         <value xml:lang="th">รายการกลุ่มผลประโยชน์</value>
     </property>
     <property key="HumanResListPayHistories">
@@ -1030,6 +1044,10 @@
         <value xml:lang="it">Codice Soggetto A</value>
         <value xml:lang="th">ถึงรหัสกลุ่มผู้ใช้</value>
     </property>
+    <property key="HumanResFindPositionTypes">
+        <value xml:lang="en">Find Position Types</value>
+        <value xml:lang="fr">Rechercher les types de position</value>
+    </property>    
     <property key="HumanResNewPartySkill">
         <value xml:lang="en">New Party Skill</value>
         <value xml:lang="fr">Nouvelle compétence de l'acteur</value>
@@ -1058,6 +1076,10 @@
         <value xml:lang="en">New Person Training</value>
         <value xml:lang="fr">Nouvelle formation</value>
     </property>
+    <property key="HumanResNewEmplPositionType">
+        <value xml:lang="en">New Position Type</value>
+        <value xml:lang="fr">Nouveau type de position</value>
+    </property>    
     <property key="HumanResNewSalaryStep">
         <value xml:lang="en">New Salary Step</value>
         <value xml:lang="fr">Nouvelle augmentation de salaire</value>
