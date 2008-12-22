@@ -22,191 +22,223 @@
         <value xml:lang="de">ISO-8859-1</value>
         <value xml:lang="en">ISO-8859-1</value>
         <value xml:lang="es">ISO-8859-1 Inglés</value>
+        <value xml:lang="fr">ISO-8859-1</value>
         <value xml:lang="th">ISO-8859-1</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-10">
         <value xml:lang="de">ISO-8859-10</value>
         <value xml:lang="en">ISO-8859-10</value>
         <value xml:lang="es">ISO-8859-10 ?</value>
+        <value xml:lang="fr">ISO-8859-10</value>
         <value xml:lang="th">ISO-8859-10</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-2">
         <value xml:lang="de">ISO-8859-2</value>
         <value xml:lang="en">ISO-8859-2</value>
         <value xml:lang="es">ISO-8859-2 ?</value>
+        <value xml:lang="fr">ISO-8859-2</value>
         <value xml:lang="th">ISO-8859-2</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-3">
         <value xml:lang="de">ISO-8859-3</value>
         <value xml:lang="en">ISO-8859-3</value>
         <value xml:lang="es">ISO-8859-3 ?</value>
+        <value xml:lang="fr">ISO-8859-3</value>
         <value xml:lang="th">ISO-8859-3</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-4">
         <value xml:lang="de">ISO-8859-4</value>
         <value xml:lang="en">ISO-8859-4</value>
         <value xml:lang="es">ISO-8859-4 ?</value>
+        <value xml:lang="fr">ISO-8859-4</value>
         <value xml:lang="th">ISO-8859-4</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-5">
         <value xml:lang="de">ISO-8859-5</value>
         <value xml:lang="en">ISO-8859-5</value>
         <value xml:lang="es">ISO-8859-5 ?</value>
+        <value xml:lang="fr">ISO-8859-5</value>
         <value xml:lang="th">ISO-8859-5</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-6">
         <value xml:lang="de">ISO-8859-6</value>
         <value xml:lang="en">ISO-8859-6</value>
         <value xml:lang="es">ISO-8859-6 Latino/árabe</value>
+        <value xml:lang="fr">ISO-8859-6</value>
         <value xml:lang="th">ISO-8859-6</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-7">
         <value xml:lang="de">ISO-8859-7</value>
         <value xml:lang="en">ISO-8859-7</value>
         <value xml:lang="es">ISO-8859-7 ?</value>
+        <value xml:lang="fr">ISO-8859-7</value>
         <value xml:lang="th">ISO-8859-7</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-8">
         <value xml:lang="de">ISO-8859-8</value>
         <value xml:lang="en">ISO-8859-8</value>
         <value xml:lang="es">ISO-8859-8 Latino/Hebreo</value>
+        <value xml:lang="fr">ISO-8859-8</value>
         <value xml:lang="th">ISO-8859-8</value>
     </property>
     <property key="CharacterSet.description.ISO-8859-9">
         <value xml:lang="de">ISO-8859-9</value>
         <value xml:lang="en">ISO-8859-9</value>
         <value xml:lang="es">ISO-8859-9 ?</value>
+        <value xml:lang="fr">ISO-8859-9</value>
         <value xml:lang="th">ISO-8859-9</value>
     </property>
     <property key="CharacterSet.description.US-ASCII">
         <value xml:lang="de">US-ASCII</value>
         <value xml:lang="en">US-ASCII</value>
         <value xml:lang="es">US-ASCII</value>
+        <value xml:lang="fr">US-ASCII</value>
         <value xml:lang="th">US-ASCII</value>
     </property>
     <property key="CharacterSet.description.UTF-16">
         <value xml:lang="de">UTF-16</value>
         <value xml:lang="en">UTF-16</value>
         <value xml:lang="es">Unicode 16 bit</value>
+        <value xml:lang="fr">UTF-16</value>
         <value xml:lang="th">UTF-16</value>
     </property>
     <property key="CharacterSet.description.UTF-8">
         <value xml:lang="de">UTF-8</value>
         <value xml:lang="en">UTF-8</value>
         <value xml:lang="es">Unicode 8 bit</value>
+        <value xml:lang="fr">UTF-8</value>
         <value xml:lang="th">UTF-8</value>
     </property>
     <property key="Content.contentName.LEFTBAR">
         <value xml:lang="de">Rechter Bereich</value>
         <value xml:lang="en">LEFTBAR</value>
         <value xml:lang="es">Barra izquierda</value>
+        <value xml:lang="fr">Barre gauche</value>
         <value xml:lang="th">แถบทางซ้าย</value>
     </property>
     <property key="Content.contentName.OWNER_BLOG_CONTENT">
         <value xml:lang="de">Besitzer des Blogs Inhalt</value>
         <value xml:lang="en">OWNER_BLOG_CONTENT</value>
         <value xml:lang="es">Administrador del contenido del blog</value>
+        <value xml:lang="fr">Propriétaire du contenu du Blog</value>
         <value xml:lang="th">เจ้าของหัวข้อ</value>
     </property>
     <property key="Content.contentName.TEMPLATE_IMAGE_LEFT">
         <value xml:lang="de">Vorlage Bild Links</value>
         <value xml:lang="en">TEMPLATE_IMAGE_LEFT</value>
         <value xml:lang="es">Imagen izquierda</value>
+        <value xml:lang="fr">Gabarit d'image gauche</value>
         <value xml:lang="th">รูปภาพทางซ้าย</value>
     </property>
     <property key="Content.contentName.TMPLT_IMG_CENTER">
         <value xml:lang="de">Vorlage Bild Mitte</value>
         <value xml:lang="en">TMPLT_IMG_CENTER</value>
         <value xml:lang="es">Imagen centrada</value>
+        <value xml:lang="fr">Gabarit d'image centre</value>
         <value xml:lang="th">รูปภาพตรงกลาง</value>
     </property>
     <property key="Content.description.10000">
         <value xml:lang="de">10000</value>
         <value xml:lang="en">10000</value>
+        <value xml:lang="FR">10000</value>
         <value xml:lang="th">10000</value>
     </property>
     <property key="Content.description.NOCONTENTFOUND">
         <value xml:lang="de">Kein Inhalt gefunden</value>
         <value xml:lang="en">NO CONTENT FOUND</value>
         <value xml:lang="es">No se encontró contenido</value>
+        <value xml:lang="fr">Aucun contenu trouvé</value>
         <value xml:lang="th">ไม่พบหัวข้อ</value>
     </property>
     <property key="Content.description.NOTEXTFOUND">
         <value xml:lang="de">Kein Text gefunden</value>
         <value xml:lang="en">NO TEXT FOUND</value>
         <value xml:lang="es">No se encontró texto</value>
+        <value xml:lang="fr">Aucun texte trouvé</value>
         <value xml:lang="th">ไม่พบตัวอักษร</value>
     </property>
     <property key="Content.description.TEMPLATE_MASTER">
         <value xml:lang="de">Hauptvorlage (Master)</value>
         <value xml:lang="en">TEMPLATE_MASTER</value>
         <value xml:lang="es">Plantilla maestra</value>
+        <value xml:lang="fr">Gabarit principal</value>
         <value xml:lang="th">TEMPLATE ต้นฉบับ</value>
     </property>
     <property key="Content.description.TP_BUSINESS">
         <value xml:lang="de">Vorlage Geschäft</value>
         <value xml:lang="en">TP_BUSINESS</value>
         <value xml:lang="es">Negocio</value>
+        <value xml:lang="fr">Gabarit "business"</value>
         <value xml:lang="th">TEMPLATE บริษัท</value>
     </property>
     <property key="Content.description.TP_LEGAL">
         <value xml:lang="de">Vorlage juristisch</value>
         <value xml:lang="en">TP_LEGAL</value>
         <value xml:lang="es">Legal</value>
+        <value xml:lang="fr">Gabarit légal</value>
         <value xml:lang="th">TEMPLATE ที่ถูกต้องตามกฎหมาย</value>
     </property>
     <property key="Content.description.TP_TECHNICAL">
         <value xml:lang="de">Vorlage Technisch</value>
         <value xml:lang="en">TP_TECHNICAL</value>
         <value xml:lang="es">Técnico</value>
+        <value xml:lang="fr">Gabarit technique</value>
         <value xml:lang="th">TEMPLATE เกี่ยวกับวิชาช่าง</value>
     </property>
     <property key="ContentAssocPredicate.description.categorizes">
         <value xml:lang="de">kategorisiert</value>
         <value xml:lang="en">categorizes</value>
         <value xml:lang="es">Clasifica</value>
+        <value xml:lang="fr">Classifie</value>
         <value xml:lang="th">จัดหมวดหมู่</value>
     </property>
     <property key="ContentAssocPredicate.description.defines">
         <value xml:lang="de">definiert</value>
         <value xml:lang="en">defines</value>
         <value xml:lang="es">Define</value>
+        <value xml:lang="fr">Définit</value>
         <value xml:lang="th">กำหนด</value>
     </property>
     <property key="ContentAssocPredicate.description.extends">
         <value xml:lang="de">erweitert</value>
         <value xml:lang="en">extends</value>
         <value xml:lang="es">amplía</value>
+        <value xml:lang="fr">Etend</value>
         <value xml:lang="th">ยืดเวลาออกไป</value>
     </property>
     <property key="ContentAssocPredicate.description.member-of">
         <value xml:lang="de">Mitglied von</value>
         <value xml:lang="en">member-of</value>
         <value xml:lang="es">es miembro de</value>
+        <value xml:lang="fr">Est membre de</value>
         <value xml:lang="th">สมาชิกของ</value>
     </property>
     <property key="ContentAssocPredicate.description.references">
         <value xml:lang="de">referenziert</value>
         <value xml:lang="en">references</value>
         <value xml:lang="es">referencia</value>
+        <value xml:lang="fr">Référence</value>
         <value xml:lang="th">อ้างอิง</value>
     </property>
     <property key="ContentAssocPredicate.description.related-to">
         <value xml:lang="de">in Beziehung mit</value>
         <value xml:lang="en">related-to</value>
         <value xml:lang="es">se relaciona con</value>
+        <value xml:lang="fr">Apparenté à</value>
         <value xml:lang="th">เกี่ยวข้องกัน</value>
     </property>
     <property key="ContentAssocPredicate.description.topifies">
         <value xml:lang="de">ist besser als</value>
         <value xml:lang="en">topifies</value>
         <value xml:lang="es">Archivos principales</value>
+        <value xml:lang="fr">Transforme en sujet</value>
         <value xml:lang="th">topifies</value>
     </property>
     <property key="ContentAssocType.description.ALTERNATE_LOCALE">
         <value xml:lang="de">Sekundäres Locale</value>
         <value xml:lang="en">Alternate Locale</value>
         <value xml:lang="es">Ubicación secundaria</value>
+        <value xml:lang="fr">Traduction alternative</value>
         <value xml:lang="it">Locale Alternativo</value>
         <value xml:lang="ro">Local Alternativ</value>
         <value xml:lang="th">ทางเลือก</value>
@@ -216,6 +248,7 @@
         <value xml:lang="de">Attribut</value>
         <value xml:lang="en">Attribute</value>
         <value xml:lang="es">Atributo</value>
+        <value xml:lang="fr">Attribut</value>
         <value xml:lang="it">Attributo</value>
         <value xml:lang="ro">Atribut</value>
         <value xml:lang="th">คุณสมบัติ</value>
@@ -225,6 +258,7 @@
         <value xml:lang="de">Autor</value>
         <value xml:lang="en">Author</value>
         <value xml:lang="es">Autor</value>
+        <value xml:lang="fr">Auteur</value>
         <value xml:lang="it">Autore</value>
         <value xml:lang="ro">Autor</value>
         <value xml:lang="th">ผู้สร้าง</value>
@@ -233,6 +267,7 @@
     <property key="ContentAssocType.description.COMPDOC_PART">
         <value xml:lang="de">Zusammengesetzter Dokumentteil</value>
         <value xml:lang="en">Composite Document Part</value>
+        <value xml:lang="fr">Partie du document composé</value>
         <value xml:lang="it">Parte Documento Composito</value>
         <value xml:lang="ro">Parte Document Compus</value>
         <value xml:lang="th">ประกอบด้วยส่วนของเอกสาร</value>
@@ -242,6 +277,7 @@
         <value xml:lang="de">Abteilung</value>
         <value xml:lang="en">Department</value>
         <value xml:lang="es">Departamento</value>
+        <value xml:lang="fr">Département</value>
         <value xml:lang="it">Dipartimento</value>
         <value xml:lang="ro">Departament</value>
         <value xml:lang="th">แผนก</value>
@@ -251,6 +287,7 @@
         <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
         <value xml:lang="es">Descripción</value>
+        <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
         <value xml:lang="ro">Descrere</value>
         <value xml:lang="th">รายละเอียด</value>
@@ -260,6 +297,7 @@
         <value xml:lang="de">Grafik Link</value>
         <value xml:lang="en">Graph Link</value>
         <value xml:lang="es">Imagen de enlace</value>
+        <value xml:lang="fr">Lien graphique</value>
         <value xml:lang="it">Grafico Link</value>
         <value xml:lang="ro">Grafic Link</value>
         <value xml:lang="th">เชื่อมต่อกับกราฟ</value>
@@ -268,6 +306,7 @@
     <property key="ContentAssocType.description.INSTANCE">
         <value xml:lang="de">Instanz von</value>
         <value xml:lang="en">Instance Of</value>
+        <value xml:lang="fr">Exemple de</value>
         <value xml:lang="it">Instanza Di</value>
         <value xml:lang="ro">Instanta De</value>
         <value xml:lang="th">ตัวอย่างของ</value>
@@ -277,6 +316,7 @@
         <value xml:lang="de">Listeneintrag</value>
         <value xml:lang="en">List Entry</value>
         <value xml:lang="es">Lista de ingreso</value>
+        <value xml:lang="fr">Entrée de liste</value>
         <value xml:lang="it">Lista Voce</value>
         <value xml:lang="ro">Lista Date</value>
         <value xml:lang="th">รายการกรอกข้อมูล</value>
@@ -286,6 +326,7 @@
         <value xml:lang="de">Link zur Veröffentlichung</value>
         <value xml:lang="en">Publish link</value>
         <value xml:lang="es">Publicar</value>
+        <value xml:lang="fr">Lien de publication</value>
         <value xml:lang="it">Pubblica link</value>
         <value xml:lang="ro">Publica link</value>
         <value xml:lang="th">เชื่อมต่อกับการพิมพ์</value>
@@ -295,6 +336,7 @@
         <value xml:lang="de">in Beziehung stehender Inhalt</value>
         <value xml:lang="en">Related content</value>
         <value xml:lang="es">Contenido asociado</value>
+        <value xml:lang="fr">Contenu relatif</value>
         <value xml:lang="it">Contenuto Relativo</value>
         <value xml:lang="ro">Contenut Relativ</value>
         <value xml:lang="th">เชื่อมกับหัวข้อ</value>
@@ -304,6 +346,7 @@
         <value xml:lang="de">Antwort</value>
         <value xml:lang="en">Response</value>
         <value xml:lang="es">Respuesta</value>
+        <value xml:lang="fr">Réponse</value>
         <value xml:lang="it">Risposta</value>
         <value xml:lang="ro">Raspuns</value>
         <value xml:lang="th">คำตอบ</value>
@@ -313,6 +356,7 @@
         <value xml:lang="de">Dokumentstruktur Definition</value>
         <value xml:lang="en">Document Structure Definition</value>
         <value xml:lang="es">Definición de estructura de documento</value>
+        <value xml:lang="fr">Définition de la structure du document</value>
         <value xml:lang="it">Definizione Struttura Documento</value>
         <value xml:lang="ro">Definitie Structura Document</value>
         <value xml:lang="th">โครงสร้างของเอกสาร</value>
@@ -322,6 +366,7 @@
         <value xml:lang="de">Untergeordnete Seite</value>
         <value xml:lang="en">SubSite</value>
         <value xml:lang="es">Subsitio</value>
+        <value xml:lang="fr">Sous-site</value>
         <value xml:lang="it">Sotto Sito</value>
         <value xml:lang="ro">Sub Sit</value>
         <value xml:lang="th">ที่ตั้งย่อย</value>
@@ -331,6 +376,7 @@
         <value xml:lang="de">Untergeordneter Abschnitt</value>
         <value xml:lang="en">Sub Section</value>
         <value xml:lang="es">Sub sección</value>
+        <value xml:lang="fr">Sous-section</value>
         <value xml:lang="it">Sotto Sezione</value>
         <value xml:lang="ro">Sub Sectie</value>
         <value xml:lang="th">กลุ่มย่อย</value>
@@ -340,6 +386,7 @@
         <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
         <value xml:lang="es">Resumen</value>
+        <value xml:lang="fr">Résumé</value>
         <value xml:lang="it">Sommario</value>
         <value xml:lang="ro">Sumar</value>
         <value xml:lang="th">สรุป</value>
@@ -348,6 +395,7 @@
     <property key="ContentAssocType.description.TEMPLATE_MEMBER">
         <value xml:lang="de">Vorlage Mitglied</value>
         <value xml:lang="en">Template Member</value>
+        <value xml:lang="fr">Gabarit de membre</value>
         <value xml:lang="it">Membro Template</value>
         <value xml:lang="ro">Membru Template</value>
         <value xml:lang="th">รูปแบบสมาชิก</value>
@@ -357,6 +405,7 @@
         <value xml:lang="de">Thema</value>
         <value xml:lang="en">Topic</value>
         <value xml:lang="es">Tema</value>
+        <value xml:lang="fr">Matière</value>
         <value xml:lang="it">Argomento</value>
         <value xml:lang="ro">Argument</value>
         <value xml:lang="th">หัวข้อ</value>
@@ -366,6 +415,7 @@
         <value xml:lang="de">Untergeordnetes Element</value>
         <value xml:lang="en">Tree Child</value>
         <value xml:lang="es">Mostrar hijos</value>
+        <value xml:lang="fr">Arborescence enfant</value>
         <value xml:lang="it">Albero Figlio</value>
         <value xml:lang="ro">Arbore Fiu</value>
         <value xml:lang="th">แผนผังรูปต้นไม้ระยะต้นๆ</value>
@@ -375,6 +425,7 @@
         <value xml:lang="de">Transformation Definition</value>
         <value xml:lang="en">Transformation Definition</value>
         <value xml:lang="es">Definición de transformación</value>
+        <value xml:lang="fr">Définition de transformation</value>
         <value xml:lang="it">Definizione Trasformazione</value>
         <value xml:lang="ro">Definitie Transformatie</value>
         <value xml:lang="th">คำอธิบายการเปลี่ยนรูป</value>
@@ -384,6 +435,7 @@
         <value xml:lang="de">Untergeordnetes Element erstellen</value>
         <value xml:lang="en">Child Create</value>
         <value xml:lang="es">Crear hijo</value>
+        <value xml:lang="fr">Création d'enfant</value>
         <value xml:lang="it">Creare Figlio</value>
         <value xml:lang="ro">Creare Fiu</value>
         <value xml:lang="th">สร้าง</value>
@@ -393,6 +445,7 @@
         <value xml:lang="de">Untergeordnetes Element löschen</value>
         <value xml:lang="en">Child Delete</value>
         <value xml:lang="es">Borrar hijo</value>
+        <value xml:lang="fr">Suppression d'enfant</value>
         <value xml:lang="it">Cancellare Figlio</value>
         <value xml:lang="ro">Stergere Fiu</value>
         <value xml:lang="th">ลบ</value>
@@ -402,6 +455,7 @@
         <value xml:lang="de">Untergeordnetes Element bearbeiten</value>
         <value xml:lang="en">Child Update</value>
         <value xml:lang="es">Actualizar hijo</value>
+        <value xml:lang="fr">Mise à jour d'enfant </value>
         <value xml:lang="it">Aggiornare Figlio</value>
         <value xml:lang="ro">Actualizare Fiu</value>
         <value xml:lang="th">เปลี่ยนแปลง</value>
@@ -411,6 +465,7 @@
         <value xml:lang="de">Untergeordnetes Element anzeigen</value>
         <value xml:lang="en">Child View</value>
         <value xml:lang="es">Ver hijo</value>
+        <value xml:lang="fr">Visualisation d'enfant</value>
         <value xml:lang="it">Mostra Figlio</value>
         <value xml:lang="ro">Afiseaza Fiu</value>
         <value xml:lang="th">ดู</value>
@@ -420,6 +475,7 @@
         <value xml:lang="de">Inhalt Verwaltung</value>
         <value xml:lang="en">Content Admin</value>
         <value xml:lang="es">A</value>
+        <value xml:lang="fr">Administrateur de contenu</value>
         <value xml:lang="it">Amministra Contenuto</value>
         <value xml:lang="ro">Administreaza Continutul</value>
         <value xml:lang="th">หัวข้อของผู้ดแลระบบ</value>
@@ -429,6 +485,7 @@
         <value xml:lang="de">Inhalt erstellen</value>
         <value xml:lang="en">Content Create</value>
         <value xml:lang="es">Crear contenido</value>
+        <value xml:lang="fr">Création de Contenu</value>
         <value xml:lang="it">Creare Contenuto</value>
         <value xml:lang="ro">Creare Continut</value>
         <value xml:lang="th">หัวข้อที่สร้าง</value>
@@ -438,6 +495,7 @@
         <value xml:lang="de">Untergeordneten Inhalt erstellen</value>
         <value xml:lang="en">Create SubContent</value>
         <value xml:lang="es">Crear subcontenido</value>
+        <value xml:lang="fr">Création de sous-contenu</value>
         <value xml:lang="it">Creare Sotto Contenuto</value>
         <value xml:lang="ro">Creare Sub Continut</value>
         <value xml:lang="th">สร้างหัวข้อย่อย</value>
@@ -447,6 +505,7 @@
         <value xml:lang="de">Inhalt löschen</value>
         <value xml:lang="en">Content Delete</value>
         <value xml:lang="es">Borrar contenido</value>
+        <value xml:lang="fr">Effacer le contenu</value>
         <value xml:lang="it">Cancella Contenuto</value>
         <value xml:lang="ro">Sterge Continut</value>
         <value xml:lang="th">หัวข้อที่ลบ</value>
@@ -456,6 +515,7 @@
         <value xml:lang="de">Inhalt Link</value>
         <value xml:lang="en">Content Link</value>
         <value xml:lang="es">Enlace a contenido</value>
+        <value xml:lang="fr">Lien de contenu</value>
         <value xml:lang="it">Link Contenuto</value>
         <value xml:lang="ro">Link Continut</value>
         <value xml:lang="th">หัวข้อที่เชื่อมต่อ</value>
@@ -464,6 +524,7 @@
     <property key="ContentOperation.description.CONTENT_LINK_FROM">
         <value xml:lang="de">Inhalt Link von</value>
         <value xml:lang="en">Content Link From</value>
+        <value xml:lang="fr">Lien de contenu depuis</value>
         <value xml:lang="it">Link Contenuto Da</value>
         <value xml:lang="ro">Link Continut De la</value>
         <value xml:lang="th">หัวข้อที่เชื่อมต่อจาก</value>
@@ -472,6 +533,7 @@
     <property key="ContentOperation.description.CONTENT_LINK_TO">
         <value xml:lang="de">Inhalt Link zu</value>
         <value xml:lang="en">Content Link To</value>
+        <value xml:lang="fr">Lien de contenu vers</value>
         <value xml:lang="it">Link Contenuto A</value>
         <value xml:lang="ro">Link Continut la </value>
         <value xml:lang="th">หัวข้อที่เชื่อมถึง</value>
@@ -480,6 +542,7 @@
     <property key="ContentOperation.description.CONTENT_PUBLISH">
         <value xml:lang="de">Inhalt veröffentlichen</value>
         <value xml:lang="en">Content Publish</value>
+        <value xml:lang="fr">Publication de Contenu</value>
         <value xml:lang="it">Pubblica Contenuto</value>
         <value xml:lang="ro">Publica Continut</value>
         <value xml:lang="th">หัวข้อที่ประกาศ</value>
@@ -488,6 +551,7 @@
     <property key="ContentOperation.description.CONTENT_PUBLISH_SELF">
         <value xml:lang="de">Inhalt veröffentlichen</value>
         <value xml:lang="en">Content Publish</value>
+        <value xml:lang="fr">Publication de contenu</value>
         <value xml:lang="it">Pubblica Contenuto</value>
         <value xml:lang="ro">Publicare Continut</value>
         <value xml:lang="th">หัวข้อที่ประกาศ</value>
@@ -496,6 +560,7 @@
     <property key="ContentOperation.description.CONTENT_RESPOND">
         <value xml:lang="de">Inhalt beantworten</value>
         <value xml:lang="en">Content Respond</value>
+        <value xml:lang="fr">Répondre au contenu</value>
         <value xml:lang="it">Risposta Contenuto</value>
         <value xml:lang="ro">Raspuns Continut</value>
         <value xml:lang="th">หัวข้อคำตอบ</value>
@@ -504,6 +569,7 @@
     <property key="ContentOperation.description.CONTENT_UPDATE">
         <value xml:lang="de">Inhalt aktualisieren</value>
         <value xml:lang="en">Content Update</value>
+        <value xml:lang="fr">Mise à jour de contenu</value>
         <value xml:lang="it">Aggiorna Contenuto</value>
         <value xml:lang="ro">Actualizeaza Continut</value>
         <value xml:lang="th">หัวข้อที่เปลี่ยนแปลง</value>
@@ -512,6 +578,7 @@
     <property key="ContentOperation.description.CONTENT_VIEW">
         <value xml:lang="de">Inhalt anzeigen</value>
         <value xml:lang="en">Content View</value>
+        <value xml:lang="fr">Visualisation de contenu</value>
         <value xml:lang="it">Mostra Contenuto</value>
         <value xml:lang="ro">Afiseaza Continutul</value>
         <value xml:lang="th">หัวข้อที่ดู</value>
@@ -520,6 +587,7 @@
     <property key="ContentOperation.description.CONTENT_VIEW_SHORT">
         <value xml:lang="de">Kurzbeschreibung anzeigen</value>
         <value xml:lang="en">View Short Desc</value>
+        <value xml:lang="fr">Visualisation de description courte</value>
         <value xml:lang="it">Mostra Descrizione Corta</value>
         <value xml:lang="ro">Afiseaza Descriere Scurt</value>
         <value xml:lang="th">แสดงรายละเอียดสั้นๆ</value>
@@ -528,6 +596,7 @@
     <property key="ContentOperation.description.HAS_ADMIN_ROLE">
         <value xml:lang="de">Hat Rolle Administrator</value>
         <value xml:lang="en">Has Admin Role</value>
+        <value xml:lang="fr">A le rôle d'administrateur</value>
         <value xml:lang="it">Ha Ruolo Amministratore</value>
         <value xml:lang="ro">Are Drept de Administrator</value>
         <value xml:lang="th">มีข้อบังคับของผู้ดูแลระบบ</value>
@@ -536,6 +605,7 @@
     <property key="ContentOperation.description.HAS_AUTHOR_ROLE">
         <value xml:lang="de">Hat Rolle Autor</value>
         <value xml:lang="en">Has Author Role</value>
+        <value xml:lang="fr">A le rôle d'auteur</value>
         <value xml:lang="it">Ha Ruolo Autore</value>
         <value xml:lang="ro">Are Drept de Autor</value>
         <value xml:lang="th">มีข้อบังคับของผู้สร้าง</value>
@@ -544,6 +614,7 @@
     <property key="ContentOperation.description.HAS_EDITOR_ROLE">
         <value xml:lang="de">Hat Rolle Redakteur</value>
         <value xml:lang="en">Has Editor Role</value>
+        <value xml:lang="fr">A le rôle de rédacteur</value>
         <value xml:lang="it">Ha Ruolo Editore</value>
         <value xml:lang="ro">Are Drept de Editor</value>
         <value xml:lang="th">มีข้อบังคับของผู้แก้ไข</value>
@@ -551,7 +622,8 @@
     </property>
     <property key="ContentOperation.description.HAS_OWNER_ROLE">
         <value xml:lang="de">Hat Rolle Besitzer</value>
-        <value xml:lang="en">Has User Role</value>
+        <value xml:lang="en">Has Owner Role</value>
+        <value xml:lang="fr">A le rôle de propriétaire</value>
         <value xml:lang="it">Ha Ruolo Utente</value>
         <value xml:lang="ro">Are Drept de Utilizator</value>
         <value xml:lang="th">มีข้อบังคับของผู้ใช้</value>
@@ -560,6 +632,7 @@
     <property key="ContentOperation.description.HAS_PUBLISHER_ROLE">
         <value xml:lang="de">Hat Rolle Herausgeber</value>
         <value xml:lang="en">Has Publisher Role</value>
+        <value xml:lang="fr">A le rôle d'éditeur</value>
         <value xml:lang="it">Ha Ruolo Pubblicatore</value>
         <value xml:lang="ro">Are Drept de Publicator</value>
         <value xml:lang="th">มีข้อบังคับของผู้ประกาศ</value>
@@ -568,6 +641,7 @@
     <property key="ContentOperation.description.HAS_USER_ROLE">
         <value xml:lang="de">Hat Rolle Benutzer</value>
         <value xml:lang="en">Has User Role</value>
+        <value xml:lang="fr">A le rôle d'utilisateur</value>
         <value xml:lang="it">Ha Ruolo Utente</value>
         <value xml:lang="ro">Are Drept de Utilizator</value>
         <value xml:lang="th">มีข้อบังคับของผู้ใช้</value>
@@ -577,6 +651,7 @@
         <value xml:lang="de">Nicht anwendbar</value>
         <value xml:lang="en">Not Applicable</value>
         <value xml:lang="es">No aplicable</value>
+        <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non Applicabile</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="th">ไม่สามารถนำไปใช้ได้</value>
@@ -585,6 +660,7 @@
     <property key="ContentPurposeType.description.ADVERTISEMENT">
         <value xml:lang="de">Werbung</value>
         <value xml:lang="en">Advertisement</value>
+        <value xml:lang="fr">Publicité</value>
         <value xml:lang="it">Pubblicità</value>
         <value xml:lang="ro">Publicitate</value>
         <value xml:lang="th">การประกาศ</value>
@@ -594,6 +670,7 @@
         <value xml:lang="de">Artikel</value>
         <value xml:lang="en">Article</value>
         <value xml:lang="es">Artículo</value>
+        <value xml:lang="fr">Article</value>
         <value xml:lang="it">Articolo</value>
         <value xml:lang="ro">Articol</value>
         <value xml:lang="th">ข้อย่อย</value>
@@ -603,6 +680,7 @@
         <value xml:lang="de">Kommentar</value>
         <value xml:lang="en">Comment</value>
         <value xml:lang="es">Comentario</value>
+        <value xml:lang="fr">Commentaire</value>
         <value xml:lang="it">Commento</value>
         <value xml:lang="ro">Comentariu</value>
         <value xml:lang="th">ข้อคิดเห็น</value>
@@ -611,6 +689,7 @@
     <property key="ContentPurposeType.description.COMPANY_INFO">
         <value xml:lang="de">Unternehmensinformationen</value>
         <value xml:lang="en">Company Info</value>
+        <value xml:lang="fr">Information sur l'entreprise</value>
         <value xml:lang="it">Informazione Azienda</value>
         <value xml:lang="ro">Informatie Firma</value>
         <value xml:lang="th">ข้อมูลบริษัท</value>
@@ -619,6 +698,7 @@
     <property key="ContentPurposeType.description.DESCRIPTION">
         <value xml:lang="de">Beschreibung</value>
         <value xml:lang="en">Description</value>
+        <value xml:lang="fr">Description</value>
         <value xml:lang="it">Descrizione</value>
         <value xml:lang="ro">Descriere</value>
         <value xml:lang="th">รายละเอียด</value>
@@ -627,6 +707,7 @@
     <property key="ContentPurposeType.description.FAQ">
         <value xml:lang="de">Häufig gestellte Fragen (FAQ)</value>
         <value xml:lang="en">FAQ</value>
+        <value xml:lang="fr">FAQ</value>
         <value xml:lang="it">Domande Frequenti</value>
         <value xml:lang="ro">Intrebari Frecvente</value>
         <value xml:lang="th">คำถามที่ถามบ่อยๆ</value>
@@ -635,6 +716,7 @@
     <property key="ContentPurposeType.description.FEEDBACK">
         <value xml:lang="de">Rückmeldung</value>
         <value xml:lang="en">Feedback</value>
+        <value xml:lang="fr">Remarques</value>
         <value xml:lang="it">Riscontro</value>
         <value xml:lang="ro">Riscontru</value>
         <value xml:lang="th">ผลตอบรับ</value>
@@ -643,6 +725,7 @@
     <property key="ContentPurposeType.description.GENERAL_INFO">
         <value xml:lang="de">Generelle Informationen</value>
         <value xml:lang="en">General Info</value>
+        <value xml:lang="fr">Informations générales</value>
         <value xml:lang="it">Informazione Generale</value>
         <value xml:lang="ro">Informatii Generale</value>
         <value xml:lang="th">ข้อมูลทั่วไป</value>
@@ -651,6 +734,7 @@
     <property key="ContentPurposeType.description.MAIN_ARTICLE">
         <value xml:lang="de">Hauptinhalt</value>
         <value xml:lang="en">Main Content</value>
+        <value xml:lang="fr">Contenu principal</value>
         <value xml:lang="it">Contenuto Principale</value>
         <value xml:lang="ro">Continut Principal</value>
         <value xml:lang="th">หัวข้อหลัก</value>
@@ -659,6 +743,7 @@
     <property key="ContentPurposeType.description.MESSAGE">
         <value xml:lang="de">Mitteilung</value>
         <value xml:lang="en">Message</value>
+        <value xml:lang="fr">Message</value>
         <value xml:lang="it">Messaggio</value>
         <value xml:lang="ro">Mesaj</value>
         <value xml:lang="th">ข้อความ</value>
@@ -667,6 +752,7 @@
     <property key="ContentPurposeType.description.OWNER">
         <value xml:lang="de">Besitzer</value>
         <value xml:lang="en">Owner</value>
+        <value xml:lang="fr">Propriétaire</value>
         <value xml:lang="it">Proprietario</value>
         <value xml:lang="ro">Proprietar</value>
         <value xml:lang="th">เจ้าของ</value>
@@ -675,6 +761,7 @@
     <property key="ContentPurposeType.description.PRODUCT_INFO">
         <value xml:lang="de">Produktinformationen</value>
         <value xml:lang="en">Product Info</value>
+        <value xml:lang="fr">information sur le produit</value>
         <value xml:lang="it">Informazione Prodotto</value>
         <value xml:lang="ro">Informatii Produs</value>
         <value xml:lang="th">ข้อมูลสินค้า</value>
@@ -683,6 +770,7 @@
     <property key="ContentPurposeType.description.RESPONSE">
         <value xml:lang="de">Antwort</value>
         <value xml:lang="en">Response</value>
+        <value xml:lang="fr">Réponse</value>
         <value xml:lang="it">Risposta</value>
         <value xml:lang="ro">Raspuns</value>
         <value xml:lang="th">คำตอบ</value>
@@ -691,6 +779,7 @@
     <property key="ContentPurposeType.description.SECTION">
         <value xml:lang="de">Abschnitt</value>
         <value xml:lang="en">Section</value>
+        <value xml:lang="fr">Section</value>
         <value xml:lang="it">Sezione</value>
         <value xml:lang="ro">Sectiune</value>
         <value xml:lang="th">กลุ่ม</value>
@@ -699,6 +788,7 @@
     <property key="ContentPurposeType.description.SOURCE">
         <value xml:lang="de">Quelle</value>
         <value xml:lang="en">General Source</value>
+        <value xml:lang="fr">Source générale</value>
         <value xml:lang="it">Sorgente Generale</value>
         <value xml:lang="ro">Sursa Generala</value>
         <value xml:lang="th">แหล่งที่มาทั่วไป</value>
@@ -707,6 +797,7 @@
     <property key="ContentPurposeType.description.SUB_ARTICLE">
         <value xml:lang="de">Untergeordneter Inhalt</value>
         <value xml:lang="en">Sub Content</value>
+        <value xml:lang="fr">Sous-contenu</value>
         <value xml:lang="it">Sotto Contenuto</value>
         <value xml:lang="ro">Sub Continut</value>
         <value xml:lang="th">หัวข้อย่อย</value>
@@ -715,6 +806,7 @@
     <property key="ContentPurposeType.description.SUMMARY">
         <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
+        <value xml:lang="fr">Résumé</value>
         <value xml:lang="it">Sommario</value>
         <value xml:lang="ro">Breviar</value>
         <value xml:lang="th">สรุป</value>
@@ -723,6 +815,7 @@
     <property key="ContentPurposeType.description.TOPIC">
         <value xml:lang="de">Thema</value>
         <value xml:lang="en">Topic</value>
+        <value xml:lang="fr">Sujet</value>
         <value xml:lang="it">Argomento</value>
         <value xml:lang="ro">Argument</value>
         <value xml:lang="th">หัวข้อ</value>
@@ -731,6 +824,7 @@
     <property key="ContentPurposeType.description.USER">
         <value xml:lang="de">Benutzer</value>
         <value xml:lang="en">User</value>
+        <value xml:lang="fr">Utilisateur</value>
         <value xml:lang="it">Utente</value>
         <value xml:lang="ro">Utilizator</value>
         <value xml:lang="th">ผู้ใช้</value>
@@ -739,6 +833,7 @@
     <property key="ContentPurposeType.description._NA_">
         <value xml:lang="de">Nicht anwendbar</value>
         <value xml:lang="en">Not Applicable</value>
+        <value xml:lang="fr">Non applicable</value>
         <value xml:lang="it">Non Applicabile</value>
         <value xml:lang="ro">Ne Aplicabil</value>
         <value xml:lang="th">ไม่สามารถนำไปใช้ได้</value>
@@ -747,6 +842,7 @@
     <property key="ContentType.description.ANNOTATION">
         <value xml:lang="de">Anmerkung</value>
         <value xml:lang="en">Annotation</value>
+        <value xml:lang="fr">Annotation</value>
         <value xml:lang="it">Annotazione</value>
         <value xml:lang="ro">Anotare</value>
         <value xml:lang="th">คำอธิบายประกอบ</value>
@@ -755,6 +851,7 @@
     <property key="ContentType.description.COMPDOC_INSTANCE">
         <value xml:lang="de">Zusammengesetzte Dokumenteninstanz</value>
         <value xml:lang="en">Composite Document Instance</value>
+        <value xml:lang="fr">Exemple de document composé</value>
         <value xml:lang="it">Istanza Documento Composito</value>
         <value xml:lang="ro">Istanza Document Compus</value>
         <value xml:lang="th">ตัวอย่างส่วนประกอบของเอกสาร</value>
@@ -763,6 +860,7 @@
     <property key="ContentType.description.COMPDOC_TEMPLATE">
         <value xml:lang="de">Zusammengesetzte Dokumentenvorlage</value>
         <value xml:lang="en">Composite Document Template</value>
+        <value xml:lang="fr">Gabarit de document composé</value>
         <value xml:lang="it">Template Documento Composito</value>
         <value xml:lang="ro">Template Document Compus</value>
         <value xml:lang="th">รูปแบบส่วนประกอบของเอกสาร</value>
@@ -771,6 +869,7 @@
     <property key="ContentType.description.CONTENT_LIST">
         <value xml:lang="de">Liste Inhalt</value>
         <value xml:lang="en">Content List</value>
+        <value xml:lang="fr">Liste de contenu</value>
         <value xml:lang="it">Lista Contenuto</value>
         <value xml:lang="ro">Lista Continut</value>
         <value xml:lang="th">รายการหัวข้อ</value>
@@ -779,6 +878,7 @@
     <property key="ContentType.description.DEPARTMENT">
         <value xml:lang="de">Abteilung</value>
         <value xml:lang="en">Department</value>
+        <value xml:lang="fr">Département</value>
         <value xml:lang="it">Dipartimento</value>
         <value xml:lang="ro">Departament</value>
         <value xml:lang="th">แผนก</value>
@@ -787,6 +887,7 @@
     <property key="ContentType.description.DOCUMENT">
         <value xml:lang="de">Dokument</value>
         <value xml:lang="en">Document</value>
+        <value xml:lang="fr">Document</value>
         <value xml:lang="it">Documento</value>
         <value xml:lang="ro">Document</value>
         <value xml:lang="th">เอกสาร</value>
@@ -795,6 +896,7 @@
     <property key="ContentType.description.FORUM_ROOT">
         <value xml:lang="de">Forum Basis Veröffentlichungsort</value>
         <value xml:lang="en">Forum root publish point</value>
+        <value xml:lang="fr">Racine de publication du forum</value>
         <value xml:lang="it">Radice Forum punto pubblico</value>
         <value xml:lang="ro">Radice Forum punct public</value>
         <value xml:lang="th">ที่มาของข้อคิดเห็น</value>
@@ -803,6 +905,7 @@
     <property key="ContentType.description.GRAPH_ROOT">
         <value xml:lang="de">Grafik Basis</value>
         <value xml:lang="en">Graph Root</value>
+        <value xml:lang="fr">Racine du graphisme</value>
         <value xml:lang="it">Radice Grafico</value>
         <value xml:lang="ro">Radacina Grafic</value>
         <value xml:lang="th">ที่มาของกราฟ</value>
@@ -811,6 +914,7 @@
     <property key="ContentType.description.OUTLINE_NODE">
         <value xml:lang="de">Überblick Knoten</value>
         <value xml:lang="en">Outline Node</value>
+        <value xml:lang="fr">Noeud d'ébauche</value>
         <value xml:lang="it">Nodo Contorno</value>
         <value xml:lang="ro">Nod Contur</value>
         <value xml:lang="th">สรุปส่วนสำคัญ</value>
@@ -819,6 +923,7 @@
     <property key="ContentType.description.PAGE_NODE">
         <value xml:lang="de">Seite Knoten</value>
         <value xml:lang="en">Page Node</value>
+        <value xml:lang="fr">Noeud de page</value>
         <value xml:lang="it">Nodo Pagina</value>
         <value xml:lang="ro">Nod Pagina</value>
         <value xml:lang="th">หน้า</value>
@@ -827,6 +932,7 @@
     <property key="ContentType.description.PEOPLE">
         <value xml:lang="de">Leute</value>
         <value xml:lang="en">People</value>
+        <value xml:lang="fr">Personnes</value>
         <value xml:lang="it">Gente</value>
         <value xml:lang="ro">Lume</value>
         <value xml:lang="th">ประชาชน</value>
@@ -835,6 +941,7 @@
     <property key="ContentType.description.PERSON">
         <value xml:lang="de">Person</value>
         <value xml:lang="en">Person</value>
+        <value xml:lang="fr">Personne</value>
         <value xml:lang="it">Persona</value>
         <value xml:lang="ro">Persoana</value>
         <value xml:lang="th">บุคคล</value>
@@ -843,6 +950,7 @@
     <property key="ContentType.description.PLACEHOLDER">
         <value xml:lang="de">Platzhalter</value>
         <value xml:lang="en">Place Holder</value>
+        <value xml:lang="fr">Paramètre fictif</value>
         <value xml:lang="it">Place Holder</value>
         <value xml:lang="ro">Place Holder</value>
         <value xml:lang="th">เจ้าของสถานที่</value>
@@ -851,6 +959,7 @@
     <property key="ContentType.description.STRUCTURE_DEF">
         <value xml:lang="de">Strukturdefinition (wie DTD)</value>
         <value xml:lang="en">Structure Definition (like DTD)</value>
+        <value xml:lang="fr">Définition de structure (comme DTD)</value>
         <value xml:lang="it">Definizione Struttura (come DTD)</value>
         <value xml:lang="ro">Definitie Struttura (ca DTD)</value>
         <value xml:lang="th">คำอธิบายโครงสร้าง</value>
@@ -859,6 +968,7 @@
     <property key="ContentType.description.STRUCTURE_LEAF">
         <value xml:lang="de">Struktur Element</value>
         <value xml:lang="en">Structure Leaf</value>
+        <value xml:lang="fr">Feuille de structure</value>
         <value xml:lang="it">Foglia Struttura</value>
         <value xml:lang="ro">Foaie Structura</value>
         <value xml:lang="th">หน้าโครงสร้าง</value>
@@ -867,6 +977,7 @@
     <property key="ContentType.description.STRUCTURE_NODE">
         <value xml:lang="de">Struktur Knoten</value>
         <value xml:lang="en">Structure Node</value>
+        <value xml:lang="fr">Noeud de structure</value>
         <value xml:lang="it">Nodo Struttura</value>
         <value xml:lang="ro">Nod Structura</value>
         <value xml:lang="th">ส่วนโครงสร้าง</value>
@@ -875,6 +986,7 @@
     <property key="ContentType.description.SUBPAGE_NODE">
         <value xml:lang="de">Untergeordnete Seite Knoten</value>
         <value xml:lang="en">Sub Page Node</value>
+        <value xml:lang="fr">Noeud de sous-page</value>
         <value xml:lang="it">Nodo Sotto Pagina</value>
         <value xml:lang="ro">Nod Sub Pagina</value>
         <value xml:lang="th">ส่วนของหน้าย่อย</value>
@@ -883,6 +995,7 @@
     <property key="ContentType.description.TEMPLATE">
         <value xml:lang="de">Vorlage oder Formular</value>
         <value xml:lang="en">Template or Form</value>
+        <value xml:lang="fr">Gabarit de forme</value>
         <value xml:lang="it">Template o Form</value>
         <value xml:lang="ro">Template sau Form</value>
         <value xml:lang="th">Template หรือ รูปแบบ</value>
@@ -891,6 +1004,7 @@
     <property key="ContentType.description.TOPIC">
         <value xml:lang="de">Inhalt</value>
         <value xml:lang="en">Topic</value>
+        <value xml:lang="fr">Sujet</value>
         <value xml:lang="it">Argomento</value>
         <value xml:lang="ro">Argument</value>
         <value xml:lang="th">หัวข้อ</value>
@@ -899,6 +1013,7 @@
     <property key="ContentType.description.TREE_ROOT">
         <value xml:lang="de">Baum Wurzel</value>
         <value xml:lang="en">Tree Root</value>
+        <value xml:lang="fr">Racine d'arborescence</value>
         <value xml:lang="it">Radice Albero</value>
         <value xml:lang="ro">Radacina Arbore</value>
         <value xml:lang="th">ที่มาของแผนผังรูปต้นไม้</value>
@@ -907,6 +1022,7 @@
     <property key="ContentType.description.TXFORM_DEF">
         <value xml:lang="de">Transformationsdefinition (wie XSLT)</value>
         <value xml:lang="en">Transformation Definition (like XSLT)</value>
+        <value xml:lang="fr">Définition de transformation (comme XSLT)</value>
         <value xml:lang="it">Definizione Trasformazione (come XSLT)</value>
         <value xml:lang="ro">Definitie Transformare (ca XSLT)</value>
         <value xml:lang="th">การกำหนดการแปรรูป (เหมือนกับ XSLT)</value>
@@ -915,6 +1031,7 @@
     <property key="ContentType.description.WEB_SITE_PUB_PT">
         <value xml:lang="de">Veröffentlichungsort</value>
         <value xml:lang="en">Publish Point</value>
+        <value xml:lang="fr">Publier le point</value>
         <value xml:lang="it">Punto Pubblico</value>
         <value xml:lang="ro">Punct Public</value>
         <value xml:lang="th">ความคิดเห็นที่ลงประกาศ</value>
@@ -923,6 +1040,7 @@
     <property key="DataCategory.categoryName.BUSINESS">
         <value xml:lang="de">Geschäft</value>
         <value xml:lang="en">Business</value>
+        <value xml:lang="fr">Affaires</value>
         <value xml:lang="it">Affari</value>
         <value xml:lang="ro">Afaceri</value>
         <value xml:lang="th">ธุรกิจ</value>
@@ -931,6 +1049,7 @@
     <property key="DataCategory.categoryName.BUS_MANU">
         <value xml:lang="de">Produktion</value>
         <value xml:lang="en">Manufacturing</value>
+        <value xml:lang="fr">Fabrication</value>
         <value xml:lang="it">Produzione</value>
         <value xml:lang="ro">Productie</value>
         <value xml:lang="th">การผลิต</value>
@@ -939,6 +1058,7 @@
     <property key="DataCategory.categoryName.BUS_RETAIL">
         <value xml:lang="de">Einzelhandel</value>
         <value xml:lang="en">Retail</value>
+        <value xml:lang="fr">Détail</value>
         <value xml:lang="it">Commercio Dettaglio</value>
         <value xml:lang="ro">Comert Detaliat</value>
         <value xml:lang="th">การขายปลีก</value>
@@ -947,6 +1067,7 @@
     <property key="DataCategory.categoryName.BUS_SERVICE">
         <value xml:lang="de">Dienstleistung</value>
         <value xml:lang="en">Service</value>
+        <value xml:lang="fr">Service</value>
         <value xml:lang="it">Servizio</value>
         <value xml:lang="ro">Serviciu</value>
         <value xml:lang="th">การบริการ</value>
@@ -955,6 +1076,7 @@
     <property key="DataCategory.categoryName.FINANCIAL">
         <value xml:lang="de">Finanziell</value>
         <value xml:lang="en">Financial</value>
+        <value xml:lang="fr">Financier</value>
         <value xml:lang="it">Finanza</value>
         <value xml:lang="ro">Finanta</value>
         <value xml:lang="th">การเงิน</value>
@@ -963,6 +1085,7 @@
     <property key="DataCategory.categoryName.LEGAL">
         <value xml:lang="de">Rechtlich</value>
         <value xml:lang="en">Legal</value>
+        <value xml:lang="fr">Légal</value>
         <value xml:lang="it">Legale</value>
         <value xml:lang="ro">Legala</value>
         <value xml:lang="th">ถูกต้องตามกฎหมาย</value>
@@ -971,6 +1094,7 @@
     <property key="DataCategory.categoryName.PERSONAL">
         <value xml:lang="de">Persönlich</value>
         <value xml:lang="en">Personal</value>
+        <value xml:lang="fr">Personnel</value>
         <value xml:lang="it">Personale</value>
         <value xml:lang="ro">Personal</value>
         <value xml:lang="th">ส่วนบุคคล</value>
@@ -979,6 +1103,7 @@
     <property key="DataCategory.categoryName.POLITICAL">
         <value xml:lang="de">Politisch</value>
         <value xml:lang="en">Political</value>
+        <value xml:lang="fr">Politique</value>
         <value xml:lang="it">Politica</value>
         <value xml:lang="ro">Politica</value>
         <value xml:lang="th">การเมือง</value>
@@ -987,11 +1112,13 @@
     <property key="DataCategory.categoryName.ROOT">
         <value xml:lang="de">Basis</value>
         <value xml:lang="en">ROOT</value>
+        <value xml:lang="fr">Racine</value>
         <value xml:lang="th">ต้นกำเนิด</value>
     </property>
     <property key="DataCategory.categoryName.TECHNOLOGY">
         <value xml:lang="de">Technologie</value>
         <value xml:lang="en">Technology</value>
+        <value xml:lang="fr">Technologie</value>
         <value xml:lang="it">Tecnologia</value>
         <value xml:lang="ro">Tehnologie</value>
         <value xml:lang="th">เทคโนโลยี</value>
@@ -1000,6 +1127,7 @@
     <property key="DataCategory.categoryName.TECH_HARD">
         <value xml:lang="de">Hardware</value>
         <value xml:lang="en">Hardware</value>
+        <value xml:lang="fr">Matériel informatique</value>
         <value xml:lang="it">Hardware</value>
         <value xml:lang="ro">Hardware</value>
         <value xml:lang="th">ฮาร์ดแวร์</value>
@@ -1008,6 +1136,7 @@
     <property key="DataCategory.categoryName.TECH_SERV">
         <value xml:lang="de">Technische Dienstleistung</value>
         <value xml:lang="en">Service</value>
+        <value xml:lang="fr">Service</value>
         <value xml:lang="it">Servizi</value>
         <value xml:lang="ro">Servicii</value>
         <value xml:lang="th">การบริการ</value>
@@ -1016,6 +1145,7 @@
     <property key="DataCategory.categoryName.TECH_SOFT">
         <value xml:lang="de">Software</value>
         <value xml:lang="en">Software</value>
+        <value xml:lang="fr">Logiciel</value>
         <value xml:lang="it">Software</value>
         <value xml:lang="ro">Software</value>
         <value xml:lang="th">ซอฟต์แวร์</value>
@@ -1024,6 +1154,7 @@
     <property key="DataCategory.categoryName.TECH_SOFT_JAVA">
         <value xml:lang="de">Java</value>
         <value xml:lang="en">Java</value>
+        <value xml:lang="fr">Java</value>
         <value xml:lang="it">Java</value>
         <value xml:lang="ro">Java</value>
         <value xml:lang="th">ภาษาจาวา</value>
@@ -1032,6 +1163,7 @@
     <property key="DataCategory.categoryName.TECH_SOFT_LINUX">
         <value xml:lang="de">Linux</value>
         <value xml:lang="en">Linux</value>
+        <value xml:lang="fr">Linux</value>
         <value xml:lang="it">Linux</value>
         <value xml:lang="ro">Linux</value>
         <value xml:lang="th">ระบบปฏิบัติการลีนุกซ์</value>
@@ -1040,6 +1172,7 @@
     <property key="DataCategory.categoryName.TECH_SOFT_OFBIZ">
         <value xml:lang="de">Open for Business</value>
         <value xml:lang="en">Open for Business</value>
+        <value xml:lang="fr">Open for Business</value>
         <value xml:lang="it">Open for Business</value>
         <value xml:lang="ro">Open for Business</value>
         <value xml:lang="th">เปิดสำหรับทางธุรกิจ</value>
@@ -1048,6 +1181,7 @@
     <property key="DataResourceType.description.CONTEXT_FILE">
         <value xml:lang="de">Datei (relativ zu webapp Basisverzeichnis)</value>
         <value xml:lang="en">File (rel to webapp root)</value>
+        <value xml:lang="fr">Dossier (relative à la racine d'application web)</value>
         <value xml:lang="it">File (relativo alla radice dell'applicazione web)</value>
         <value xml:lang="ro">Fisier (relativ la radacina aplicatiei web)</value>
         <value xml:lang="th">ไฟล์ (เกี่ยวกับที่มาของโปรแกรมประยุกต์)</value>
@@ -1056,6 +1190,7 @@
     <property key="DataResourceType.description.CONTEXT_FILE_BIN">
         <value xml:lang="de">Binäre Datei (relativ zu webapp Basisverzeichnis)</value>
         <value xml:lang="en">Binary File (rel to webapp root)</value>
+        <value xml:lang="fr">Dossier binaire (relative à la racine d'application web)</value>
         <value xml:lang="it">File Binario (relativo alla radice dell'applicazione web)</value>
         <value xml:lang="ro">Fisier Binar (relativ la radacina aplicatiei web)</value>
         <value xml:lang="th">2 ไฟล์ (เกี่ยวกับที่มาของโปรแกรมประยุกต์)</value>
@@ -1064,6 +1199,7 @@
     <property key="DataResourceType.description.ELECTRONIC_TEXT">
         <value xml:lang="de">Ausführlicher Text</value>
         <value xml:lang="en">Long Text</value>
+        <value xml:lang="fr">Texte long</value>
         <value xml:lang="it">Testo Lungo</value>
         <value xml:lang="ro">Text Lung</value>
         <value xml:lang="th">ตัวอักษรยาว ๆ </value>
@@ -1072,6 +1208,7 @@
     <property key="DataResourceType.description.IMAGE_OBJECT">
         <value xml:lang="de">Bild</value>
         <value xml:lang="en">Image</value>
+        <value xml:lang="fr">Image</value>
         <value xml:lang="it">Immagine</value>
         <value xml:lang="ro">Imagine</value>
         <value xml:lang="th">รูปภาพ</value>
@@ -1080,6 +1217,7 @@
     <property key="DataResourceType.description.LINK">
         <value xml:lang="de">Hypertext-Link</value>
         <value xml:lang="en">HyperLink</value>
+        <value xml:lang="fr">Lien hypertexte</value>
         <value xml:lang="it">Link Ipertestuale</value>
         <value xml:lang="ro">Link Hipertextual</value>
         <value xml:lang="th">ลิงค์ย่อย</value>
@@ -1088,6 +1226,7 @@
     <property key="DataResourceType.description.LOCAL_FILE">
         <value xml:lang="de">Lokale Datei</value>
         <value xml:lang="en">Local File</value>
+        <value xml:lang="fr">Dossier local</value>
         <value xml:lang="it">File Locale</value>
         <value xml:lang="ro">Fisier Local</value>
         <value xml:lang="th">ที่อยู่ของไฟล์</value>
@@ -1096,6 +1235,7 @@
     <property key="DataResourceType.description.LOCAL_FILE_BIN">
         <value xml:lang="de">Lokale binäre Datei</value>
         <value xml:lang="en">Local Binary File</value>
+        <value xml:lang="fr">Dossier binaire local</value>
         <value xml:lang="it">File Binario Locale</value>
         <value xml:lang="ro">Fisier Binar Local</value>
         <value xml:lang="th">ที่อยู่ของไฟล์ที่ 2</value>
@@ -1104,6 +1244,7 @@
     <property key="DataResourceType.description.OFBIZ_FILE">
         <value xml:lang="de">Datei (relativ zum OFBIZ_HOME Verzeichnis)</value>
         <value xml:lang="en">File (rel to OFBIZ_HOME)</value>
+        <value xml:lang="fr">Dossier (relatif à OFBIZ_HOME)</value>
         <value xml:lang="it">File (relativo alla OFBIZ_HOME)</value>
         <value xml:lang="ro">Fisier (relativ la OFBIZ_HOME)</value>
         <value xml:lang="th">ไฟล์ (เกี่ยวกับ OFBIZ_HOME)</value>
@@ -1112,6 +1253,7 @@
     <property key="DataResourceType.description.OFBIZ_FILE_BIN">
         <value xml:lang="de">Binäre Datei (relativ zum OFBIZ_HOME Verzeichnis)</value>
         <value xml:lang="en">Binary File (rel to OFBIZ_HOME)</value>
+        <value xml:lang="fr">Dossier binaire (relatif à OFBIZ_HOME)</value>
         <value xml:lang="it">File Binario (relativo alla OFBIZ_HOME)</value>
         <value xml:lang="ro">Fisier Binar (relativ la OFBIZ_HOME)</value>
         <value xml:lang="th">ไฟล์ที่ 2 (เกี่ยวกับ OFBIZ_HOME)</value>
@@ -1120,6 +1262,7 @@
     <property key="DataResourceType.description.OTHER_OBJECT">
         <value xml:lang="de">Anderes</value>
         <value xml:lang="en">Other</value>
+        <value xml:lang="fr">Autre</value>
         <value xml:lang="it">Altro</value>
         <value xml:lang="ro">Alte obiecte</value>
         <value xml:lang="th">อื่น ๆ</value>
@@ -1128,6 +1271,7 @@
     <property key="DataResourceType.description.SHORT_TEXT">
         <value xml:lang="de">Kurzer Text</value>
         <value xml:lang="en">Short Text</value>
+        <value xml:lang="fr">Texte court</value>
         <value xml:lang="it">Testo Corto</value>
         <value xml:lang="ro">Text Scurt</value>
         <value xml:lang="th">ตัวอักษรสั้น ๆ</value>
@@ -1136,6 +1280,7 @@
     <property key="DataResourceType.description.SURVEY">
         <value xml:lang="de">Befragung</value>
         <value xml:lang="en">Survey</value>
+        <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Sondaggio</value>
         <value xml:lang="ro">Sondaj</value>
         <value xml:lang="th">สำรวจ</value>
@@ -1144,6 +1289,7 @@
     <property key="DataResourceType.description.SURVEY_RESPONSE">
         <value xml:lang="de">Befragung Antwort</value>
         <value xml:lang="en">Survey Response</value>
+        <value xml:lang="fr">Réponse de sondage</value>
         <value xml:lang="it">Risposta Sondaggio</value>
         <value xml:lang="ro">Raspuns Sondaj</value>
         <value xml:lang="th">สำรวจคำตอบ</value>
@@ -1152,6 +1298,7 @@
     <property key="DataResourceType.description.URL_RESOURCE">
         <value xml:lang="de">URL Ressource</value>
         <value xml:lang="en">URL Resource</value>
+        <value xml:lang="fr">Ressource URL</value>
         <value xml:lang="it">Risorsa URL</value>
         <value xml:lang="ro">Resursa URL</value>
         <value xml:lang="th">แหล่งที่มาของ URL</value>
@@ -1160,6 +1307,7 @@
     <property key="DataTemplateType.description.FTL">
         <value xml:lang="de">FreeMarker</value>
         <value xml:lang="en">FreeMarker</value>
+        <value xml:lang="fr">FreeMarker</value>
         <value xml:lang="it">FreeMarker</value>
         <value xml:lang="ro">FreeMarker</value>
         <value xml:lang="th">FreeMarker</value>
@@ -1168,6 +1316,7 @@
     <property key="DataTemplateType.description.NONE">
         <value xml:lang="de">Keine Vorlage</value>
         <value xml:lang="en">No Template</value>
+        <value xml:lang="fr">Aucun gabarit</value>
         <value xml:lang="it">Nessun Template</value>
         <value xml:lang="ro">Nici-un Model</value>
         <value xml:lang="th">ไม่มี Template</value>
@@ -1176,6 +1325,7 @@
     <property key="DataTemplateType.description.SCREEN_COMBINED">
         <value xml:lang="de">Screen Widget</value>
         <value xml:lang="en">Screen widget</value>
+        <value xml:lang="fr">Screen widget</value>
         <value xml:lang="it">Screen widget</value>
         <value xml:lang="ro">Screen widget</value>
         <value xml:lang="th">หน้า widget</value>
@@ -1184,6 +1334,7 @@
     <property key="DataTemplateType.description.VTL">
         <value xml:lang="de">Velocity</value>
         <value xml:lang="en">Velocity</value>
+        <value xml:lang="fr">Velocity</value>
         <value xml:lang="it">Velocity</value>
         <value xml:lang="ro">Viteza</value>
         <value xml:lang="th">ความเร็ว</value>
@@ -1192,6 +1343,7 @@
     <property key="DataTemplateType.description.WM">
         <value xml:lang="de">WebMAcro</value>
         <value xml:lang="en">WebMacro</value>
+        <value xml:lang="fr">WebMacro</value>
         <value xml:lang="it">WebMacro</value>
         <value xml:lang="ro">WebMacro</value>
         <value xml:lang="th">เว็บ Macro</value>
@@ -1200,6 +1352,7 @@
     <property key="DataTemplateType.description.XSLT">
         <value xml:lang="de">XSLT</value>
         <value xml:lang="en">XSLT</value>
+        <value xml:lang="fr">XSLT</value>
         <value xml:lang="it">XSLT</value>
         <value xml:lang="ro">XSLT</value>
         <value xml:lang="th">XSLT</value>
@@ -1209,48 +1362,56 @@
         <value xml:lang="de">Seefrachtbrief</value>
         <value xml:lang="en">BILL_OF_LADING</value>
         <value xml:lang="es">Cuenta de carga</value>
+        <value xml:lang="fr">Connaissement</value>
         <value xml:lang="th">รายการของสินค้า</value>
     </property>
     <property key="DocumentType.description.EXPORT_DOCUMENTATION">
         <value xml:lang="de">Exportdokumentation</value>
         <value xml:lang="en">EXPORT_DOCUMENTATION</value>
         <value xml:lang="es">Documentación de exportación</value>
+        <value xml:lang="fr">Documentation d'export</value>
         <value xml:lang="th">การเตรียมเอกสารส่งออก</value>
     </property>
     <property key="DocumentType.description.MANIFEST">
         <value xml:lang="de">Verzeichnis</value>
         <value xml:lang="en">MANIFEST</value>
         <value xml:lang="es">Manifiesto</value>
+        <value xml:lang="fr">Manifeste</value>
         <value xml:lang="th">รายการสินค้า</value>
     </property>
     <property key="DocumentType.description.OTHER_SHIP_DOCUMENT">
         <value xml:lang="de">Anderes Versanddokument</value>
         <value xml:lang="en">OTHER_SHIP_DOCUMENT</value>
         <value xml:lang="es">Otros documentos de envíos</value>
+        <value xml:lang="fr">Autre document expédié</value>
         <value xml:lang="zh">เอกสารการขนส่งอื่น ๆ</value>
     </property>
     <property key="DocumentType.description.PACKAGING_SLIP">
         <value xml:lang="de">Lieferschein</value>
         <value xml:lang="en">PACKAGING_SLIP</value>
         <value xml:lang="es">Embalaje</value>
+        <value xml:lang="fr">Fiche de conditionnement</value>
         <value xml:lang="th">สลิปการห่อสินค้า</value>
     </property>
     <property key="DocumentType.description.PORT_CHARGE_DOCUMENT">
         <value xml:lang="de">Hafengebühren Dokument</value>
         <value xml:lang="en">PORT_CHARGE_DOCUMENT</value>
         <value xml:lang="es">Carga en puerto</value>
+        <value xml:lang="fr">Document de chargement en port</value>
         <value xml:lang="th">เอกสารการเปลี่ยนพอร์ท</value>
     </property>
     <property key="DocumentType.description.SHIPPING_DOCUMENT">
         <value xml:lang="de">Versanddokument</value>
         <value xml:lang="en">SHIPPING_DOCUMENT</value>
         <value xml:lang="es">Envío</value>
+        <value xml:lang="fr">Document d'expédition</value>
         <value xml:lang="th">เอกสารการขนส่ง</value>
     </property>
     <property key="MetaDataPredicate.description.author-email">
         <value xml:lang="de">E-Mail Adresse des Autors oder Erstellers des Themas.</value>
         <value xml:lang="en">eMail address of the author or creator of the subject.</value>
         <value xml:lang="es">E-mail del autor del tema</value>
+        <value xml:lang="fr">Adresse courriel de l'auteur ou créateur du thème</value>
         <value xml:lang="it">Indirizzo eMail dell'autore o creatore del soggetto.</value>
         <value xml:lang="ro">Adresa eMail a autorulu sau creatorului acestui subiect</value>
         <value xml:lang="th">ที่อยู่อีเมล์ของผู้เขียนหรือผู้สร้างหัวข้อ</value>
@@ -1260,6 +1421,7 @@
         <value xml:lang="de">Name des Autors oder Erstellers des Themas.</value>
         <value xml:lang="en">Name of the author or creator of the subject.</value>
         <value xml:lang="es">Nombre del autor</value>
+        <value xml:lang="fr">Nom de l'auteur ou créateur du thème</value>
         <value xml:lang="it">Nome dell'autore o creatore di questo soggetto.</value>
         <value xml:lang="ro">Numele autorului sau creatului acestui subiect.</value>
         <value xml:lang="th">ชื่อของผู้เขียนหรือผู้สร้างหัวข้อ</value>
@@ -1269,6 +1431,7 @@
         <value xml:lang="de">Datum und Zeitpunk des Ereignisses zum Thema, vorzugsweise in absteigendem Standart-Format: [yyyy-MM-dd hh:mm:ss].</value>
         <value xml:lang="en">The date and time the subject event took place, preferably in the descending standard format: [yyyy-MM-dd hh:mm:ss].</value>
         <value xml:lang="es">Fecha en la cual el evento tomó lugar</value>
+        <value xml:lang="fr">La date et l'heure de l'événement thème aura lieu, de préférence dans le format standard suivant : [aaaa-mm-jj hh:mm:ss]. </value>
         <value xml:lang="it">La data e ora dove il soggetto dell'evento è successo, preferibilmente nel formato standard discendente: [yyyy-MM-dd hh:mm:ss].</value>
         <value xml:lang="ro">Data si ora cand s-a intamplat  subiectul evenimentului, de preferita in format standard descrescator: [AAAA-LL-ZZ hh:mm:ss].</value>
         <value xml:lang="th">วันและเวลาที่หัวข้อที่อยู่, ควรให้อยู่ในรูปแบบมาตรฐาน : [yyyy-MM-dd hh:mm:ss]</value>
@@ -1278,6 +1441,7 @@
         <value xml:lang="de">Der Ort wo das Ereignis zum Thema stattfand.</value>
         <value xml:lang="en">The location where subject event took place.</value>
         <value xml:lang="es">Ubicación donde el evento sucedió</value>
+        <value xml:lang="fr">Endroit où l'évènement de thème aura lieu</value>
         <value xml:lang="it">La locazione dove il soggetto dell'evento è successo</value>
         <value xml:lang="ro">Locul unde  s-a intamplat subiectul evenimentului.</value>
         <value xml:lang="th">ที่ตั้งของหัวข้อที่วางอยู่นี้</value>
@@ -1287,6 +1451,7 @@
         <value xml:lang="de">Name der Person die im Ereignis zum Thema involviert war.</value>
         <value xml:lang="en">The name of a person involved in the subject event.</value>
         <value xml:lang="es">Nombre de la persona involucrada en el evento</value>
+        <value xml:lang="fr">Le nom de la personne impliqué dans l'évènement de thème</value>
         <value xml:lang="it">Il nome di una persona coinvolta nel soggetto evento.</value>
         <value xml:lang="ro">Numele unei persoane implicata in subiectul evenimentului.</value>
         <value xml:lang="th">ชื่อของบุคคลที่เกี่ยวข้องกับหัวข้อ</value>
@@ -1295,6 +1460,7 @@
     <property key="MimeType.description.application/msword">
         <value xml:lang="de">Microsoft Word</value>
         <value xml:lang="en">Microsoft Word</value>
+        <value xml:lang="fr">Microsoft Word</value>
         <value xml:lang="it">Microsoft Word</value>
         <value xml:lang="ro">Microsoft Word</value>
         <value xml:lang="th">Microsoft Word</value>
@@ -1303,6 +1469,7 @@
     <property key="MimeType.description.application/octet-stream">
         <value xml:lang="de">Beliebige binäre Daten</value>
         <value xml:lang="en">Arbitrary Binary Data</value>
+        <value xml:lang="fr">Donnée binaire arbitraire</value>
         <value xml:lang="it">Dati Binari Arbitrari</value>
         <value xml:lang="ro">Date Binare Arbitrare</value>
         <value xml:lang="th">ข้อมูลที่สอง</value>
@@ -1311,6 +1478,7 @@
     <property key="MimeType.description.application/pdf">
         <value xml:lang="de">Adobe Portable Document Format (PDF)</value>
         <value xml:lang="en">Adobe Portable Document Format (PDF)</value>
+        <value xml:lang="fr">Format de document portable Adobe (PDF)</value>
         <value xml:lang="it">Formato Adobe Portable Document (PDF)</value>
         <value xml:lang="ro">Format Adobe Portable Document (PDF)</value>
         <value xml:lang="th">Adobe Portable Document Format (PDF)</value>
@@ -1319,6 +1487,7 @@
     <property key="MimeType.description.application/postscript">
         <value xml:lang="de">Anwendung/Postscript</value>
         <value xml:lang="en">Post script Application/Script</value>
+        <value xml:lang="fr">Application postscript/Script </value>
         <value xml:lang="it">Applicazione/Script Postsctipt</value>
         <value xml:lang="ro">Aplicatie/Script Postsctipt</value>
         <value xml:lang="th">เขียนประกาศ โปรแกรม/เขียน</value>
@@ -1327,18 +1496,21 @@
     <property key="MimeType.description.application/vnd.ms-excel">
         <value xml:lang="de">Microsoft Excel</value>
         <value xml:lang="en">Microsoft Excel</value>
+        <value xml:lang="fr">Microsoft Excel</value>
         <value xml:lang="th">Microsoft Excel</value>
         <value xml:lang="zh">微软Excel</value>
     </property>
     <property key="MimeType.description.application/vnd.ms-powerpoint">
         <value xml:lang="de">Microsoft PowerPoint</value>
         <value xml:lang="en">Microsoft PowerPoint</value>
+        <value xml:lang="fr">Microsoft PowerPoint</value>
         <value xml:lang="th">Microsoft PowerPoint</value>
         <value xml:lang="zh">微软PowerPoint</value>
     </property>
     <property key="MimeType.description.application/vnd.oasis.opendocument.text">
         <value xml:lang="de">OpenOffice OpenDocument Text</value>
         <value xml:lang="en">OpenOffice OpenDocument Text</value>
+        <value xml:lang="fr">Texte OpenOffice OpenDocument</value>
         <value xml:lang="it">Documento di Testo OpenOffice Open</value>
         <value xml:lang="ro">Document de Test OpenOffice Open</value>
         <value xml:lang="th">OpenOffice OpenDocument ตัวอักษร</value>
@@ -1347,6 +1519,7 @@
     <property key="MimeType.description.application/vnd.ofbiz.survey">
         <value xml:lang="de">Befragung</value>
         <value xml:lang="en">Survey</value>
+        <value xml:lang="fr">Sondage</value>
         <value xml:lang="it">Sondaggio</value>
         <value xml:lang="ro">Sondaj</value>
         <value xml:lang="th">สำรวจ</value>
@@ -1355,6 +1528,7 @@
     <property key="MimeType.description.application/vnd.ofbiz.survey.response">
         <value xml:lang="de">Befragung Antwort</value>
         <value xml:lang="en">Survey Response</value>
+        <value xml:lang="fr">Réponse de sondage</value>
         <value xml:lang="it">Risposta Sondaggio</value>
         <value xml:lang="ro">Raspuns Sondaj</value>
         <value xml:lang="th">สำรวจคำตอบ</value>
@@ -1363,12 +1537,14 @@
     <property key="MimeType.description.application/x-zip-compressed">
         <value xml:lang="de">ZIP-komprimierte Datei</value>
         <value xml:lang="en">ZIP compressed file</value>
+        <value xml:lang="fr">Dossier compressé ZIP</value>
         <value xml:lang="th">ZIP การบีบอัดไฟล์</value>
         <value xml:lang="zh">ZIP压缩文件</value>
     </property>
     <property key="MimeType.description.application/zip">
         <value xml:lang="de">ZIP Daten</value>
         <value xml:lang="en">ZIP Data</value>
+        <value xml:lang="fr">Données ZIP</value>
         <value xml:lang="it">Dati ZIP</value>
         <value xml:lang="ro">Date ZIP</value>
         <value xml:lang="th">ข้อมูล ZIP</value>
@@ -1377,6 +1553,7 @@
     <property key="MimeType.description.audio/basic">
         <value xml:lang="de">Basic Audio</value>
         <value xml:lang="en">Basic Audio</value>
+        <value xml:lang="fr">Audio basique</value>
         <value xml:lang="it">Audio Base</value>
         <value xml:lang="ro">Audio Baza</value>
         <value xml:lang="th">เสียงพื้นฐาน</value>
@@ -1385,6 +1562,7 @@
     <property key="MimeType.description.audio/mpeg">
         <value xml:lang="de">MPEG Audio</value>
         <value xml:lang="en">MPEG Audio</value>
+        <value xml:lang="fr">Audio MPEG</value>
         <value xml:lang="it">Audio MPEG</value>
         <value xml:lang="ro">Audio MPEG</value>
         <value xml:lang="th">เสียงประเภท MPEG</value>
@@ -1393,6 +1571,7 @@
     <property key="MimeType.description.image/gif">
         <value xml:lang="de">GIF Bild</value>
         <value xml:lang="en">GIF Image</value>
+        <value xml:lang="fr">Image GIF</value>
         <value xml:lang="it">Immagine GIF</value>
         <value xml:lang="ro">Imagine GIF</value>
         <value xml:lang="th">รูปภาพประเภท GIF</value>
@@ -1401,6 +1580,7 @@
     <property key="MimeType.description.image/jpeg">
         <value xml:lang="de">JPEG/JPG Bild</value>
         <value xml:lang="en">JPEG/JPG Image</value>
+        <value xml:lang="fr">Image JPG/JPEG</value>
         <value xml:lang="it">Immagine JPEG/JPG</value>
         <value xml:lang="ro">Imagine JPEG/JPG</value>
         <value xml:lang="th">รูปภาพประเภท JPEG/JPG</value>
@@ -1409,12 +1589,14 @@
     <property key="MimeType.description.image/pjpeg">
         <value xml:lang="de">Progressives JPEG/JPG Bild</value>
         <value xml:lang="en">Progressive JPEG/JPG Image</value>
+        <value xml:lang="fr">Image progressive JPG/JPEG</value>
         <value xml:lang="th">รูปภาพที่พัฒนาขึ้น JPEG/JPG</value>
         <value xml:lang="zh">进步JPEG/JPG图像</value>
     </property>
     <property key="MimeType.description.image/png">
         <value xml:lang="de">PNG Bild</value>
         <value xml:lang="en">PNG Image</value>
+        <value xml:lang="fr">Image PNG</value>
         <value xml:lang="it">Immagine PNG</value>
         <value xml:lang="ro">Imagine PNG</value>
         <value xml:lang="th">รูปภาพ PNG</value>
@@ -1423,6 +1605,7 @@
     <property key="MimeType.description.image/tiff">
         <value xml:lang="de">TIFF Bild</value>
         <value xml:lang="en">TIFF Image</value>
+        <value xml:lang="fr">Image TIFF</value>
         <value xml:lang="it">Immagine TIFF</value>
         <value xml:lang="ro">Imagine TIFF</value>
         <value xml:lang="th">รูปภาพ TIFF</value>
@@ -1431,6 +1614,7 @@
     <property key="MimeType.description.message/external-body">
         <value xml:lang="de">External Body Message</value>
         <value xml:lang="en">External Body Message</value>
+        <value xml:lang="fr">Message de corps externe</value>
         <value xml:lang="it">Corpo Messagio Esterno</value>
         <value xml:lang="ro">Corp Mesajo Extern</value>
         <value xml:lang="th">ข้อความภายนอก</value>
@@ -1439,6 +1623,7 @@
     <property key="MimeType.description.message/http">
         <value xml:lang="de">HTTP Message</value>
         <value xml:lang="en">HTTP Message</value>
+        <value xml:lang="fr">Message HTTP</value>
         <value xml:lang="it">Messaggio HTTP</value>
         <value xml:lang="ro">Mesaj HTTP</value>
         <value xml:lang="th">ข้อความ HTTP</value>
@@ -1447,6 +1632,7 @@
     <property key="MimeType.description.message/news">
         <value xml:lang="de">News Mitteilung</value>
         <value xml:lang="en">News Message</value>
+        <value xml:lang="fr">Nouveaux messages</value>
         <value xml:lang="it">News Messaggio</value>
         <value xml:lang="ro">Nou Mesaj</value>
         <value xml:lang="th">ข้อความข่าว</value>
@@ -1455,6 +1641,7 @@
     <property key="MimeType.description.message/partial">
         <value xml:lang="de">Partial Message</value>
         <value xml:lang="en">Partial Message</value>
+        <value xml:lang="fr">Message partiel</value>
         <value xml:lang="it">Messaggio Parziale</value>
         <value xml:lang="ro">Mesaj Partial</value>
         <value xml:lang="th">ข้อความบางส่วน</value>
@@ -1463,6 +1650,7 @@
     <property key="MimeType.description.message/rfc822">
         <value xml:lang="de">RFC 822 Headered Message</value>
         <value xml:lang="en">RFC 822 Headered Message</value>
+        <value xml:lang="fr">Message en-tête RFC 822</value>
         <value xml:lang="it">RFC 822 Headered Message</value>
         <value xml:lang="ro">RFC 822 Titlu Mesaj</value>
         <value xml:lang="th">RFC 822 หัวข้อข้อความ</value>
@@ -1471,6 +1659,7 @@
     <property key="MimeType.description.message/s-http">
         <value xml:lang="de">HTTPS/S-HTTP Message</value>
         <value xml:lang="en">HTTPS/S-HTTP Message</value>
+        <value xml:lang="fr">Message HTTPS/S-HTTP</value>
         <value xml:lang="it">Messaggio HTTPS/S-HTTP</value>
         <value xml:lang="ro">Mesaj HTTPS/S-HTTP</value>
         <value xml:lang="th">ข้อความ HTTPS/S-HTTP </value>
@@ -1479,6 +1668,7 @@
     <property key="MimeType.description.model/mesh">
         <value xml:lang="de">MEsh Model</value>
         <value xml:lang="en">Mesh Model</value>
+        <value xml:lang="fr">Modèle de grille</value>
         <value xml:lang="it">Mesh Model</value>
         <value xml:lang="ro">Mesh Model</value>
         <value xml:lang="th">แบบจำลองที่ทำงานร่วมกัน</value>
@@ -1487,6 +1677,7 @@
     <property key="MimeType.description.model/vrml">
         <value xml:lang="de">VRML Model</value>
         <value xml:lang="en">VRML Model</value>
+        <value xml:lang="fr">Modèle VRML</value>
         <value xml:lang="it">VRML Model</value>
         <value xml:lang="ro">VRML Model</value>
         <value xml:lang="th">แบบจำลอง VRML</value>
@@ -1495,6 +1686,7 @@
     <property key="MimeType.description.multipart/alternative">
         <value xml:lang="de">Multiple Alternative Multipart</value>
         <value xml:lang="en">Mutliple Alternative Multipart</value>
+        <value xml:lang="fr">Multiple alternative multipart</value>
         <value xml:lang="it">Mutliple Alternative Multipart</value>
         <value xml:lang="ro">Mutliple Alternative Multipart</value>
         <value xml:lang="th">หลายๆ ทางเลือก</value>
@@ -1503,6 +1695,7 @@
     <property key="MimeType.description.multipart/digest">
         <value xml:lang="de">Digest of Messages Multipart</value>
         <value xml:lang="en">Digest of Messages Multipart</value>
+        <value xml:lang="fr">Sommaire de messages multipart</value>
         <value xml:lang="it">Digest of Messages Multipart</value>
         <value xml:lang="ro">Digest of Messages Multipart</value>
         <value xml:lang="th">บทสรุปของหลาย ๆ ข้อความ</value>
@@ -1511,6 +1704,7 @@
     <property key="MimeType.description.multipart/encrypted">
         <value xml:lang="de">Encrypted Multipart</value>
         <value xml:lang="en">Encrypted Multipart</value>
+        <value xml:lang="fr">Multipart codé</value>
         <value xml:lang="it">Encrypted Multipart</value>
         <value xml:lang="ro">Encrypted Multipart</value>
         <value xml:lang="th">การสร้างรหัสลับ</value>
@@ -1519,6 +1713,7 @@
     <property key="MimeType.description.multipart/form-data">
         <value xml:lang="de">Form Data Multipart</value>
         <value xml:lang="en">Form Data Multipart</value>
+        <value xml:lang="fr">Donnée de forme multipart </value>
         <value xml:lang="it">Form Data Multipart</value>
         <value xml:lang="ro">Form Data Multipart</value>
         <value xml:lang="th">รูปแบบส่วนของข้อมูล</value>
@@ -1527,6 +1722,7 @@
     <property key="MimeType.description.multipart/mixed">
         <value xml:lang="de">Mixed Type Multipart</value>
         <value xml:lang="en">Mixed Type Multipart</value>
+        <value xml:lang="fr">Type multipart varié</value>
         <value xml:lang="it">Mixed Type Multipart</value>
         <value xml:lang="ro">Mixed Type Multipart</value>
         <value xml:lang="th">รวมประเภทซึ่งเป็นหลาย ๆ ส่วน</value>
@@ -1535,6 +1731,7 @@
     <property key="MimeType.description.multipart/related">
         <value xml:lang="de">Related Multipart</value>
         <value xml:lang="en">Related Multipart</value>
+        <value xml:lang="fr">Multipart apparenté</value>
         <value xml:lang="it">Related Multipart</value>
         <value xml:lang="ro">Related Multipart</value>
         <value xml:lang="th">ส่วนที่เกี่ยวข้องกัน</value>
@@ -1543,6 +1740,7 @@
     <property key="MimeType.description.multipart/signed">
         <value xml:lang="de">Signed Multipart</value>
         <value xml:lang="en">Signed Multipart</value>
+        <value xml:lang="fr">Multipart signé</value>
         <value xml:lang="it">Signed Multipart</value>
         <value xml:lang="ro">Signed Multipart</value>
         <value xml:lang="th">ส่วนเดียว</value>
@@ -1551,6 +1749,7 @@
     <property key="MimeType.description.text/css">
         <value xml:lang="de">CSS Text</value>
         <value xml:lang="en">CSS Text</value>
+        <value xml:lang="fr">Texte CSS</value>
         <value xml:lang="it">Testo CSS</value>
         <value xml:lang="ro">Text CSS</value>
         <value xml:lang="th">ตัวอักษรแบบ CSS</value>
@@ -1559,12 +1758,14 @@
     <property key="MimeType.description.text/csv">
         <value xml:lang="de">CSV - Comma Separated Value Text</value>
         <value xml:lang="en">Comma Separated Value Text </value>
+        <value xml:lang="fr">Valeur de texte séparée par une virgule (CSV)</value>
         <value xml:lang="th">ใช้เครื่องหมายจุลภาคคั่นคาตัวอักษร</value>
         <value xml:lang="zh">逗号分隔文本</value>
     </property>
     <property key="MimeType.description.text/enriched">
         <value xml:lang="de">Enriched Text</value>
         <value xml:lang="en">Enriched Text</value>
+        <value xml:lang="fr">Texte enrichi</value>
         <value xml:lang="it">Testo Arrichito</value>
         <value xml:lang="ro">Text Arhiva</value>
         <value xml:lang="th">ตกแต่งตัวอักษร</value>
@@ -1573,6 +1774,7 @@
     <property key="MimeType.description.text/html">
         <value xml:lang="de">HTML Text</value>
         <value xml:lang="en">HTML Text</value>
+        <value xml:lang="fr">Texte HTML</value>
         <value xml:lang="it">Testo HTML</value>
         <value xml:lang="ro">Text HTML</value>
         <value xml:lang="th">ตัวอักษร HTML</value>
@@ -1581,6 +1783,7 @@
     <property key="MimeType.description.text/plain">
         <value xml:lang="de">Plain Text</value>
         <value xml:lang="en">Plain Text</value>
+        <value xml:lang="fr">Texte simple</value>
         <value xml:lang="it">Testo Piatto</value>
         <value xml:lang="ro">Text Plat</value>
         <value xml:lang="th">ตัวอักษรธรรมดา</value>
@@ -1589,6 +1792,7 @@
     <property key="MimeType.description.text/richtext">
         <value xml:lang="de">Rich Text</value>
         <value xml:lang="en">Rich Text</value>
+        <value xml:lang="fr">Texte riche</value>
         <value xml:lang="it">Testo Ricco</value>
         <value xml:lang="ro">Test Bogat</value>
         <value xml:lang="th">ตัวอักษรสีเข้ม</value>
@@ -1597,6 +1801,7 @@
     <property key="MimeType.description.text/rtf">
         <value xml:lang="de">RTF Rich Text</value>
         <value xml:lang="en">RTF Rich Text</value>
+        <value xml:lang="fr">Texte riche (RTF)</value>
         <value xml:lang="it">Testo RTF Ricco</value>
         <value xml:lang="ro">Text RTF Bogat</value>
         <value xml:lang="th">ตัวอักษรแบบ RTF ที่สีเข้ม</value>
@@ -1605,6 +1810,7 @@
     <property key="MimeType.description.text/sgml">
         <value xml:lang="de">SGML Text</value>
         <value xml:lang="en">SGML Text</value>
+        <value xml:lang="fr">Texte SGML</value>
         <value xml:lang="it">Testo SGML</value>
         <value xml:lang="ro">Text SGML</value>
         <value xml:lang="th">ตัวอักษร SGML</value>
@@ -1613,6 +1819,7 @@
     <property key="MimeType.description.text/tab-separated-values">
         <value xml:lang="de">Tab Separated Value Text</value>
         <value xml:lang="en">Tab Separated Value Text</value>
+        <value xml:lang="fr">Valeur de texte séparée par une tabulation</value>
         <value xml:lang="it">Tab Separato Valore Testo</value>
         <value xml:lang="ro">Tab Separare Valoare Text</value>
         <value xml:lang="th">ใช้แท็บคั่นค่าตัวอักษร</value>
@@ -1621,6 +1828,7 @@
     <property key="MimeType.description.text/xml">
         <value xml:lang="de">XML Text</value>
         <value xml:lang="en">XML Text</value>
+        <value xml:lang="fr">Texte XML</value>
         <value xml:lang="it">Testo XML</value>
         <value xml:lang="ro">Text XML</value>
         <value xml:lang="th">ตัวอักษร XML</value>
@@ -1629,6 +1837,7 @@
     <property key="MimeType.description.video/mpeg">
         <value xml:lang="de">MPEG/MPG Video</value>
         <value xml:lang="en">MPEG/MPG Video</value>
+        <value xml:lang="fr">Vidéo MPEG/MPG</value>
         <value xml:lang="it">Video MPEG/MPG</value>
         <value xml:lang="ro">Video MPEG/MPG</value>
         <value xml:lang="th">วิดีโอแบบ MPEG/MPG</value>
@@ -1637,6 +1846,7 @@
     <property key="MimeType.description.video/quicktime">
         <value xml:lang="de">Quicktime Video</value>
         <value xml:lang="en">Quicktime Video</value>
+        <value xml:lang="fr">Vidéo Quicktime</value>
         <value xml:lang="it">Video Quicktime</value>
         <value xml:lang="ro">Video Quicktime</value>
         <value xml:lang="th">วิดีโอแบบใช้เวลารวดเร็ว</value>
@@ -1646,95 +1856,111 @@
         <value xml:lang="de">Blog Berechtigung</value>
         <value xml:lang="en">BLOG_PERMISSION</value>
         <value xml:lang="es">Agregar a todos los usuarios del blog de modo que esta operación se haga una sola vez.</value>
+        <value xml:lang="fr">Autorisation de blog</value>
         <value xml:lang="th">ข้อความการอนุญาต</value>
     </property>
     <property key="RoleType.description.BLOG">
         <value xml:lang="de">Blog</value>
         <value xml:lang="en">BLOG</value>
         <value xml:lang="es">Blog</value>
+        <value xml:lang="fr">Blog</value>
         <value xml:lang="th">บริการบันทึกข้อมูลส่วนตัว</value>
     </property>
     <property key="RoleType.description.BLOG_ADMIN">
         <value xml:lang="de">Blog Administrator</value>
         <value xml:lang="en">BLOG_ADMIN</value>
         <value xml:lang="es">Administrador de Blog</value>
+        <value xml:lang="fr">Administrateur de blog</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้ดูแลระบบ</value>
     </property>
     <property key="RoleType.description.BLOG_AUTHOR">
         <value xml:lang="de">Blog Autor</value>
         <value xml:lang="en">BLOG_AUTHOR</value>
         <value xml:lang="es">Author de Blog</value>
+        <value xml:lang="fr">Auteur de blog</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้เขียน</value>
     </property>
     <property key="RoleType.description.BLOG_EDITOR">
         <value xml:lang="de">Blog Redakteur</value>
         <value xml:lang="en">BLOG_EDITOR</value>
         <value xml:lang="es">Editor de Blog</value>
+        <value xml:lang="fr">Rédacteur de blog</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้แก้ไข</value>
     </property>
     <property key="RoleType.description.BLOG_GUEST">
         <value xml:lang="de">Blog Gast</value>
         <value xml:lang="en">BLOG_GUEST</value>
         <value xml:lang="es">Invitado de Blog</value>
+        <value xml:lang="fr">Invité de blog</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้เยี่มชม</value>
     </property>
     <property key="RoleType.description.BLOG_PUBLISHER">
         <value xml:lang="de">Blog Herausgeber</value>
         <value xml:lang="en">BLOG_PUBLISHER</value>
         <value xml:lang="es">Publicador de Blog</value>
+        <value xml:lang="fr">Editeur de blog</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้ประกาศ</value>
     </property>
     <property key="RoleType.description.BLOG_USER">
         <value xml:lang="de">Blog Benutzer</value>
         <value xml:lang="en">BLOG_USER</value>
         <value xml:lang="es">Usuario de Blog</value>
+        <value xml:lang="fr">Utilisateur de blog</value>
         <value xml:lang="th">บันทึกข้อมูลส่วนตัวของผู้ใช้</value>
     </property>
     <property key="RoleType.description.PERMISSION_GROUP">
         <value xml:lang="de">Berechtigungsgruppe</value>
         <value xml:lang="en">PERMISSION_GROUP</value>
         <value xml:lang="es">Permiso de grupo</value>
+        <value xml:lang="fr">Autorisation de groupe</value>
         <value xml:lang="th">กลุ่มการอนุญาต</value>
     </property>
     <property key="RoleType.description.PERMISSION_GROUP_MBR">
         <value xml:lang="de">Berechtigungsgruppe Mitglied</value>
         <value xml:lang="en">PERMISSION_GROUP_MBR</value>
         <value xml:lang="es">Permiso de miembro de grupo</value>
+        <value xml:lang="fr">Autorisation de membre de groupe</value>
         <value xml:lang="th">กลุ่มการอนุญาตของสมาชิก</value>
     </property>
     <property key="ServerHitType.description.ENTITY">
         <value xml:lang="de">Entität</value>
         <value xml:lang="en">ENTITY</value>
         <value xml:lang="es">Entidad</value>
+        <value xml:lang="fr">Entité</value>
         <value xml:lang="th">เอกลักษณ์</value>
     </property>
     <property key="ServerHitType.description.EVENT">
         <value xml:lang="de">Event</value>
         <value xml:lang="en">EVENT</value>
         <value xml:lang="es">Evento</value>
+        <value xml:lang="fr">Evènement</value>
         <value xml:lang="th">เหตุการณ์</value>
     </property>
     <property key="ServerHitType.description.REQUEST">
         <value xml:lang="de">Anfrage</value>
         <value xml:lang="en">REQUEST</value>
         <value xml:lang="es">Petición</value>
+        <value xml:lang="fr">Requête</value>
         <value xml:lang="th">คำร้อง</value>
     </property>
     <property key="ServerHitType.description.SERVICE">
         <value xml:lang="de">Service</value>
         <value xml:lang="en">SERVICE</value>
         <value xml:lang="es">Servicio</value>
+        <value xml:lang="fr">Service</value>
         <value xml:lang="th">การบริการ</value>
     </property>
     <property key="ServerHitType.description.VIEW">
         <value xml:lang="de">Ansicht</value>
         <value xml:lang="en">VIEW</value>
         <value xml:lang="es">Ver</value>
+        <value xml:lang="fr">Opinion</value>
         <value xml:lang="th">ดู</value>
     </property>
     <property key="SubscriptionType.description.NEWSGROUP_SUBSCR">
         <value xml:lang="de">Newsgruppe Anmeldung</value>
         <value xml:lang="en">NEWSGROUP_SUBSCR</value>
+        <value xml:lang="fr">Souscription de nouveau groupe</value>
         <value xml:lang="es">Subscripción a grupo de noticias</value>
         <value xml:lang="th">สมาชิกของกลุ่มข่าว</value>
     </property>
@@ -1742,18 +1968,21 @@
         <value xml:lang="de">Andere Anmeldung</value>
         <value xml:lang="en">OTHER_SUBSCR</value>
         <value xml:lang="es">Otras subscripciones</value>
+        <value xml:lang="fr">Autres souscriptions</value>
         <value xml:lang="th">สมาชิกอื่น</value>
     </property>
     <property key="SubscriptionType.description.PRODUCT_INFO_SUBSCR">
         <value xml:lang="de">Produktinformationen Anmeldung</value>
         <value xml:lang="en">PRODUCT_INFO_SUBSCR</value>
         <value xml:lang="es">Subscripción a información de productos</value>
+        <value xml:lang="fr">Souscription d'information de produit</value>
         <value xml:lang="th">ข้อมูลรายละเอียดสินค้า</value>
     </property>
     <property key="SurveyApplType.description.CART_ADD">
         <value xml:lang="de">Zum Warenkorb hinzufügen</value>
         <value xml:lang="en">Add-To Cart</value>
         <value xml:lang="es">Añadir al carro</value>
+        <value xml:lang="fr">Ajouter au panier</value>
         <value xml:lang="it">Aggiungi Al Carrello</value>
         <value xml:lang="ro">Pune in cos</value>
         <value xml:lang="th">เพิ่มลงตะกร้า</value>
@@ -1763,6 +1992,7 @@
         <value xml:lang="de">Zur Kasse gehen</value>
         <value xml:lang="en">Check-Out</value>
         <value xml:lang="es">Realizar compra</value>
+        <value xml:lang="fr">Passer à la caisse</value>
         <value xml:lang="it">Check-Out</value>
         <value xml:lang="ro">Check-Out</value>
         <value xml:lang="th">ออกจากการทำรายการ</value>
@@ -1772,6 +2002,7 @@
         <value xml:lang="de">Kundenprofil</value>
         <value xml:lang="en">Customer Profile</value>
         <value xml:lang="es">Perfil del cliente</value>
+        <value xml:lang="fr">Profil du client</value>
         <value xml:lang="it">Profilo Cliente</value>
         <value xml:lang="ro">Profil Client</value>
         <value xml:lang="th">ประวัติส่วนตัวของลูกค้า</value>
@@ -1781,6 +2012,7 @@
         <value xml:lang="de">Allgemeine Umfrage</value>
         <value xml:lang="en">General Poll</value>
         <value xml:lang="es">Encuesta general</value>
+        <value xml:lang="fr">Sondage général</value>
         <value xml:lang="it">Sondaggio Generale</value>
         <value xml:lang="ro">Sondaj General</value>
         <value xml:lang="th">การสำรวจทั่วไป</value>
@@ -1790,6 +2022,7 @@
         <value xml:lang="de">Einkaufsauftrag erfassen</value>
         <value xml:lang="en">Purchase Order Placement</value>
         <value xml:lang="es">Colocación de orden de compras</value>
+        <value xml:lang="fr">Placement d'ordre d'achat</value>
         <value xml:lang="it">Collocare Ordine Acquisto</value>
         <value xml:lang="ro">Introducere Comanda Cumparare</value>
         <value xml:lang="th">กำหนดรายการสั่งซื้อ</value>
@@ -1799,6 +2032,7 @@
         <value xml:lang="de">Einkaufsauftrag Position erfassen</value>
         <value xml:lang="en">Purchase Order Item Placement</value>
         <value xml:lang="es">Colocación de items de la orden de compras</value>
+        <value xml:lang="fr">Placement d'une ligne de commande d'achat</value>
         <value xml:lang="it">Collocare Riga Ordine Acquisto</value>
         <value xml:lang="ro">Introducere Linie Comanda Cumparare</value>
         <value xml:lang="th">การกำหนดรายการสั่งซื้อสินค้า</value>
@@ -1808,6 +2042,7 @@
         <value xml:lang="de">Zufällige Befragung</value>
         <value xml:lang="en">Random Poll</value>
         <value xml:lang="es">Encuesta al azar</value>
+        <value xml:lang="fr">Sondage aléatoire</value>
         <value xml:lang="it">Sondaggio Casuale</value>
         <value xml:lang="ro">Sondaj Cazual</value>
         <value xml:lang="th">สุ่มการสำรวจ</value>
@@ -1817,6 +2052,7 @@
         <value xml:lang="de">Verkaufsauftrag erfassen</value>
         <value xml:lang="en">Sales Order Placement</value>
         <value xml:lang="es">Colocación de orden de ventas</value>
+        <value xml:lang="fr">Placement d'une commande de vente</value>
         <value xml:lang="it">Collocare Ordine Vendita</value>
         <value xml:lang="ro">Introducere Comanda Vanzare</value>
         <value xml:lang="th">การกำหนดรายการขายสินค้า</value>
@@ -1826,6 +2062,7 @@
         <value xml:lang="de">Boolean (Ja/Nein)</value>
         <value xml:lang="en">Boolean (Yes/No)</value>
         <value xml:lang="es">(Yes/No)</value>
+        <value xml:lang="fr">(Oui/Non)</value>
         <value xml:lang="it">Booleano (Si/No)</value>
         <value xml:lang="ro">Booleano (Da/Nu)</value>
         <value xml:lang="th">Boolean (ใช่/ไม่ใช่)</value>
@@ -1835,6 +2072,7 @@
         <value xml:lang="de">Inhalt Datensatz</value>
         <value xml:lang="en">Content Record</value>
         <value xml:lang="es">Contenido</value>
+        <value xml:lang="fr">Enregistrement de contenu</value>
         <value xml:lang="it">Record Contenuto</value>
         <value xml:lang="ro">Inregistrare Continut</value>
         <value xml:lang="th">หัวข้อการบันทึก</value>
@@ -1844,6 +2082,7 @@
         <value xml:lang="de">Kreditkartennummer</value>
         <value xml:lang="en">Credit Card Number</value>
         <value xml:lang="es">Nº tarjeta de crédito</value>
+        <value xml:lang="fr">Numéro de la carte de crédit</value>
         <value xml:lang="it">Numero Carta Credito</value>
         <value xml:lang="ro">Numero Carte Credit</value>
         <value xml:lang="th">สร้างหมายเลขบัตร</value>
@@ -1853,6 +2092,7 @@
         <value xml:lang="de">Datum String (mm/dd/yyyy)</value>
         <value xml:lang="en">Date String (mm/dd/yyyy)</value>
         <value xml:lang="es">Fecha (mm/dd/yyyy)</value>
+        <value xml:lang="fr">Caractères de datation (mm/dd/yyyy)</value>
         <value xml:lang="it">Data Stringa (mm/dd/yyyy)</value>
         <value xml:lang="ro">Data Caractere (mm/dd/yyyy)</value>
         <value xml:lang="th">วัน (mm/dd/yyyy)</value>
@@ -1862,6 +2102,7 @@
         <value xml:lang="de">E-Mail Adresse</value>
         <value xml:lang="en">Email Address</value>
         <value xml:lang="es">E-mail</value>
+        <value xml:lang="fr">Adresse courriel</value>
         <value xml:lang="it">Indirizzo Email</value>
         <value xml:lang="ro">Adresa Email</value>
         <value xml:lang="th">ที่อยู่อีเมล์</value>
@@ -1871,6 +2112,7 @@
         <value xml:lang="de">Geschenkgutschein Nummer</value>
         <value xml:lang="en">Gift Card Number</value>
         <value xml:lang="es">Certificado de regalo</value>
+        <value xml:lang="fr">Numéro de carte cadeau</value>
         <value xml:lang="it">Numero Carta Omaggio</value>
         <value xml:lang="ro">Numero Carte Omagiu</value>
         <value xml:lang="th">หมายเลขบัตรของขวัญ</value>
@@ -1880,6 +2122,7 @@
         <value xml:lang="de">Numerisch (Währung)</value>
         <value xml:lang="en">Numeric (Currency)</value>
         <value xml:lang="es">Numérico (moneda)</value>
+        <value xml:lang="fr">Numérique (devise)</value>
         <value xml:lang="it">Numerico (Valuta)</value>
         <value xml:lang="ro">Numeric (Valuta)</value>
         <value xml:lang="th">เป็นตัวเลข (ที่ใช้กันทั่วไป)</value>
@@ -1889,6 +2132,7 @@
         <value xml:lang="de">Numerisch (Gleitkommazahl)</value>
         <value xml:lang="en">Numeric (Float)</value>
         <value xml:lang="es">Numérico (flotante)</value>
+        <value xml:lang="fr">Numérique (flottant)</value>
         <value xml:lang="it">Numerico (Float)</value>
         <value xml:lang="ro">Numeric (Float)</value>
         <value xml:lang="th">เป็นตัวเลข (Float)</value>
@@ -1898,6 +2142,7 @@
         <value xml:lang="de">Numerisch (Long)</value>
         <value xml:lang="en">Numeric (Long)</value>
         <value xml:lang="es">Numérico (largo)</value>
+        <value xml:lang="fr">Numérique (long)</value>
         <value xml:lang="it">Numerico (Long)</value>
         <value xml:lang="ro">Numeric (Long)</value>
         <value xml:lang="th">เป็นตัวเลข (Long)</value>
@@ -1907,6 +2152,7 @@
         <value xml:lang="de">Ausgewählte Option</value>
         <value xml:lang="en">Selected Option</value>
         <value xml:lang="es">Opción selecccionada</value>
+        <value xml:lang="fr">Option sélectionnée</value>
         <value xml:lang="it">Opzione Selezionata</value>
         <value xml:lang="ro">Optiune Selectionata</value>
         <value xml:lang="th">เลือกทางเลือก</value>
@@ -1916,6 +2162,7 @@
         <value xml:lang="de">Passwort</value>
         <value xml:lang="en">Password</value>
         <value xml:lang="es">contraseña</value>
+        <value xml:lang="fr">Mot de passe</value>
         <value xml:lang="it">Password</value>
         <value xml:lang="ro">Parola</value>
         <value xml:lang="th">รหัสผ่าน</value>
@@ -1925,6 +2172,7 @@
         <value xml:lang="de">Trennlinie</value>
         <value xml:lang="en">Seperator Line</value>
         <value xml:lang="es">Separador</value>
+        <value xml:lang="fr">Ligne séparatrice</value>
         <value xml:lang="it">Separatore Riga</value>
         <value xml:lang="ro">Separator Linie</value>
         <value xml:lang="th">เส้นคั่นบรรทัด</value>
@@ -1934,6 +2182,7 @@
         <value xml:lang="de">Trenntext</value>
         <value xml:lang="en">Seperator Text</value>
         <value xml:lang="es">Seperador</value>
+        <value xml:lang="fr">Texte séparateur</value>
         <value xml:lang="it">Separatore Testo</value>
         <value xml:lang="ro">Separator Text</value>
         <value xml:lang="th">เส้นคั่นตัวอักษร</value>
@@ -1943,6 +2192,7 @@
         <value xml:lang="de">Text (mehrere Zeilen)</value>
         <value xml:lang="en">Text (multi-line)</value>
         <value xml:lang="es">Texto (multi línea)</value>
+        <value xml:lang="fr">Texte multi-lignes</value>
         <value xml:lang="it">Testo (riga-multipla)</value>
         <value xml:lang="ro">Text (Linie-multipla)</value>
         <value xml:lang="th">ตัวอักษร (หลายบรรทัด)</value>
@@ -1952,6 +2202,7 @@
         <value xml:lang="de">Ausführlicher Text (Eine Zeile)</value>
         <value xml:lang="en">Long Text (single-line)</value>
         <value xml:lang="es">Texto (largo)</value>
+        <value xml:lang="fr">Texte long (ligne-simple)</value>
         <value xml:lang="it">Testo Lungo (singola-riga)</value>
         <value xml:lang="ro">Testo Lungo (o linie)</value>
         <value xml:lang="th">ข้อความยาว (บรรทัดเดียว)</value>
@@ -1961,6 +2212,7 @@
         <value xml:lang="de">Kurzer Text (Eine Zeile)</value>
         <value xml:lang="en">Short Text (single-line)</value>
         <value xml:lang="es">Texto (corto)</value>
+        <value xml:lang="fr">Texte court (ligne-simple)</value>
         <value xml:lang="it">Testo Corto (singola-riga)</value>
         <value xml:lang="ro">Text Scurt (o linie)</value>
         <value xml:lang="th">ข้อความสั้น (บรรทัดเดียว)</value>
@@ -1970,6 +2222,7 @@
         <value xml:lang="de">URL</value>
         <value xml:lang="en">URL</value>
         <value xml:lang="es">URL</value>
+        <value xml:lang="fr">URL</value>
         <value xml:lang="it">URL</value>
         <value xml:lang="ro">URL</value>
         <value xml:lang="th">URL</value>
