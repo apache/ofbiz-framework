@@ -122,67 +122,62 @@ under the License.
     
     <simple-method method-name="deletePortalPage" short-description="Delete a Portal Page">
         <if-compare field="parameters.portalPageId" value="MYPORTAL" operator="not-equals">
-            <entity-one entity-name="PortalPage" value-name="portalPage" auto-field-map="true" use-cache="true"/>
+            <if-compare field="parameters.portalPageId" value="DEFAULT" operator="not-equals">
+                <entity-one entity-name="PortalPage" value-name="portalPage" auto-field-map="true" use-cache="true"/>
         
-            <if-not-empty field="portalPage">
-                <entity-and entity-name="PortalPageColumn" list-name="portalPageColumnList">
-                    <field-map field-name="portalPageId" env-name="portalPage.portalPageId"/>
-                </entity-and>
+                <if-not-empty field="portalPage">
+                    <entity-and entity-name="PortalPageColumn" list-name="portalPageColumnList">
+                        <field-map field-name="portalPageId" env-name="portalPage.portalPageId"/>
+                    </entity-and>
             
-                <iterate list-name="portalPageColumnList" entry-name="portalPageColumn">
-                    <set-service-fields service-name="deletePortalPageColumn" to-map-name="deletePortalPageColumnInMap" map-name="portalPageColumn"/>
-                    <call-service service-name="deletePortalPageColumn" in-map-name="deletePortalPageColumnInMap"/>
-                </iterate>
+                    <iterate list-name="portalPageColumnList" entry-name="portalPageColumn">
+                        <set-service-fields service-name="deletePortalPageColumn" to-map-name="deletePortalPageColumnInMap" map-name="portalPageColumn"/>
+                        <call-service service-name="deletePortalPageColumn" in-map-name="deletePortalPageColumnInMap"/>
+                    </iterate>
             
-                <remove-value value-name="portalPage"/>
-            </if-not-empty>
+                    <remove-value value-name="portalPage"/>
+                </if-not-empty>
+                </if-compare>
         </if-compare>
     </simple-method>
     
     <!--Create simple-method of getListPreferences-->
     <simple-method method-name="getListPreferences" short-description="">
-        <if-compare field="parameters.originalPortalPageId" value="EXAMPLE" operator="equals">
-            <entity-and entity-name="PortalPage" list-name="PortalPageList">
-                <field-map field-name="originalPortalPageId" env-name="parameters.originalPortalPageId"/>
-                <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
-            </entity-and>
-            <else>
-                <set field="mainPortalPageId" value="MAINMYPORTAL"/> 
-                <entity-and entity-name="PortalPage" list-name="getMainPage">
-                    <field-map field-name="originalPortalPageId" env-name="mainPortalPageId"/>
-                    <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
-                </entity-and>
-                <if-empty field="getMainPage">
-                    <entity-condition entity-name="PortalPage" list-name="PortalPageList">
-                        <condition-list combine="and">
-                            <condition-list combine="or">
-                                <condition-expr field-name="originalPortalPageId" operator="equals" env-name="parameters.originalPortalPageId"/>
-                                <condition-expr field-name="originalPortalPageId" operator="equals" value="_NA_"/>
-                            </condition-list>
-                            <condition-list combine="or">
-                                <condition-expr field-name="ownerUserLoginId" operator="equals" env-name="userLogin.userLoginId"/>
-                                <condition-expr field-name="ownerUserLoginId" operator="equals" value="_NA_"/>
-                            </condition-list>
-                        </condition-list>
-                        <order-by field-name="createdStamp"/>
-                    </entity-condition>
-                </if-empty>
-                <if-not-empty field="getMainPage">
-                    <entity-condition entity-name="PortalPage" list-name="PortalPageList">
-                        <condition-list combine="and">
-                            <condition-list combine="or">
-                                <condition-expr field-name="originalPortalPageId" operator="equals" env-name="parameters.originalPortalPageId"/>
-                                <condition-expr field-name="originalPortalPageId" operator="equals" value="MAINMYPORTAL"/>
-                            </condition-list>
-                            <condition-list combine="or">
-                                <condition-expr field-name="ownerUserLoginId" operator="equals" env-name="userLogin.userLoginId"/>
-                            </condition-list>
-                        </condition-list>
-                        <order-by field-name="createdStamp"/>
-                    </entity-condition>
-                </if-not-empty> 
-            </else>
-        </if-compare>
+        <set field="mainPortalPageId" from-field="parameters.mainPortalPageId"/>
+        
+        <entity-and entity-name="PortalPage" list-name="getMainPage">
+            <field-map field-name="originalPortalPageId" env-name="mainPortalPageId"/>
+            <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
+        </entity-and>
+        
+        <if-empty field="getMainPage">
+            <entity-condition entity-name="PortalPage" list-name="PortalPageList">
+                <condition-list combine="and">
+                    <condition-list combine="or">
+                        <condition-expr field-name="originalPortalPageId" operator="equals" env-name="parameters.originalPortalPageId"/>
+                    </condition-list>
+                    <condition-list combine="or">
+                        <condition-expr field-name="ownerUserLoginId" operator="equals" env-name="userLogin.userLoginId"/>
+                        <condition-expr field-name="ownerUserLoginId" operator="equals" value="_NA_"/>
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="createdStamp"/>
+            </entity-condition>
+        </if-empty>
+        <if-not-empty field="getMainPage">
+            <entity-condition entity-name="PortalPage" list-name="PortalPageList">
+                <condition-list combine="and">
+                    <condition-list combine="or">
+                        <condition-expr field-name="originalPortalPageId" operator="equals" env-name="parameters.originalPortalPageId"/>
+                        <condition-expr field-name="originalPortalPageId" operator="equals" env-name="mainPortalPageId"/>
+                    </condition-list>
+                    <condition-list combine="or">
+                        <condition-expr field-name="ownerUserLoginId" operator="equals" env-name="userLogin.userLoginId"/>
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="createdStamp"/>
+            </entity-condition>
+        </if-not-empty> 
         <list-to-list list-name="PortalPageList" to-list-name="result"/>
         <field-to-result field-name="result" result-name="listIt"/>
     </simple-method>  

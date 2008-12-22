@@ -26,6 +26,8 @@ under the License.
             <actions>
                 <set field="portalPageId" from-field="parameters.portalPageId"/>
                 <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
+                <set field="mainPortalPageId" from-field="parameters.mainPortalPageId"/>
+                
                 <set field="headerItem" from-field="portalPageId"/>
                 <set field="configurePortalPage" from-field="parameters.configurePortalPage"/>
                 <entity-one entity-name="PortalPage" value-name="currentPortalPage"/>    
@@ -62,6 +64,7 @@ under the License.
         <section>
             <actions>
                 <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
+                <set field="originalPage" from-field="parameters.originalPage"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
@@ -78,6 +81,7 @@ under the License.
         <section>
             <actions>
                 <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
+                <set field="mainPortalPageId" from-field="parameters.mainPortalPageId"/>
                 <entity-condition entity-name="PortalPortlet" list-name="portalPortlets"/>
             </actions>
             <widgets>

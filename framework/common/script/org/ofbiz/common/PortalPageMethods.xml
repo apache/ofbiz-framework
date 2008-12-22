@@ -73,23 +73,27 @@ under the License.
     
     <!--Create simple-method of copyOriginalPage-->
     <simple-method method-name="copyOriginalPage" short-description="">
-        <set field="mainPortalPageId" value="MAINMYPORTAL"/>
-        <entity-and entity-name="PortalPage" list-name="getMainPage">
-            <field-map field-name="originalPortalPageId" env-name="mainPortalPageId"/>
-            <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
-        </entity-and>
-        <if-empty field="getMainPage">
-        <set field="portalPageId" from-field="parameters.portalPageId"/>
-            <if-compare field="portalPageId" value="MYPORTAL" operator="equals">
+        <set field="originalPortalPageId"  from-field="parameters.originalPortalPageId"/>
+        <set field="mainPortalPageId" from-field="parameters.mainPortalPageId"/>
+        <set field="ownerUserLoginId" from-field="parameters.ownerUserLoginId"/>        
+        
+        <if-compare field="ownerUserLoginId" value="_NA_" operator="equals">
+            <entity-and entity-name="PortalPage" list-name="getMainPage">
+                <field-map field-name="originalPortalPageId" env-name="mainPortalPageId"/>
+                <field-map field-name="ownerUserLoginId" env-name="userLogin.userLoginId"/>
+            </entity-and>
+            
+            <if-empty field="getMainPage">
                 <entity-and entity-name="PortalPage" use-cache="true" list-name="getNA">
                     <field-map field-name="ownerUserLoginId" value="_NA_"/>
+                    <field-map field-name="originalPortalPageId" env-name="originalPortalPageId"/>
                 </entity-and>
                 <first-from-list entry-name="getNA" list-name="getNA"/>
                 <make-value entity-name="PortalPage" value-name="getPortalPageAll" map-name="test"/>
                 <set field="test.portalName" from-field="getNA.portalName"/>
                 <set field="test.description" from-field="getNA.description"/>
                 <set field="test.ownerUserLoginId" from-field="userLogin.userLoginId"/>
-                <set field="test.originalPortalPageId" value="MAINMYPORTAL"/>
+                <set field="test.originalPortalPageId" from-field="mainPortalPageId"/>
                 <set-pk-fields map-name="test" value-name="getPortalPageAll"/>
                 <make-next-seq-id value-name="getPortalPageAll" seq-field-name="portalPageId"/>
                 <set-nonpk-fields map-name="test" value-name="getPortalPageAll"/>
@@ -113,8 +117,7 @@ under the License.
                     <entity-and entity-name="PortalPagePortlet" use-cache="true"
                         list-name="PortalPagePortlet">
                         <field-map field-name="portalPageId" env-name="getNA.portalPageId"/>
-                        <field-map field-name="columnSeqId" env-name="PortalPageColumn.columnSeqId"
-                        />
+                        <field-map field-name="columnSeqId" env-name="PortalPageColumn.columnSeqId"/>
                     </entity-and>
                     <iterate entry-name="PortalPagePortlet" list-name="PortalPagePortlet">
                         <make-value entity-name="PortalPagePortlet" value-name="PortletView"
@@ -132,7 +135,7 @@ under the License.
                         <create-value value-name="PortletView"/>
                     </iterate>
                 </iterate>
-            </if-compare>
-        </if-empty>
+            </if-empty>
+        </if-compare>
     </simple-method>    
 </simple-methods>
