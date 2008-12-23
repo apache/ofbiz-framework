@@ -1379,7 +1379,7 @@
     <property key="OrderProblemGettingProductStoreRecords">
         <value xml:lang="en">Problem getting ProductStore records</value>
         <value xml:lang="es">Hay un problema al obtener entradas de tienda</value>
-        <value xml:lang="fr">Problème à l'obtemption des données du centre de profit</value>
+        <value xml:lang="fr">Problème à l'obtention des données du centre de profit</value>
         <value xml:lang="ru">Проблема при получении записей ProductStore</value>
         <value xml:lang="th">ปัญหาการเรียกบันทึกคลังสินค้า</value>
     </property>
@@ -2263,7 +2263,7 @@
     <property key="OrderTroubleGettingOrderItemShipGrpInvResList">
         <value xml:lang="en">TroubleGettingOrderItemShipGrpInvResList</value>
         <value xml:lang="es">Error al obtener la lista de grupo de artículos</value>
-        <value xml:lang="fr">Problème à l'obtemption de OrderItemShipGrpInvResList</value>
+        <value xml:lang="fr">Problème à l'obtention de OrderItemShipGrpInvResList</value>
         <value xml:lang="th">TroubleGettingOrderItemShipGrpInvResList</value>
     </property>
     <property key="OrderUnableToAddItemToShoppingList">
