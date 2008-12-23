@@ -68,6 +68,8 @@ public class ShoppingCart implements Serializable {
     private String poNumber = null;
     private String orderId = null;
     private String orderName = null;
+    private String orderStatusId = null;
+    private String orderStatusString = null;
     private String firstAttemptOrderId = null;
     private String externalId = null;
     private String internalCode = null;
@@ -4753,5 +4755,21 @@ public class ShoppingCart implements Serializable {
 
     public void setOrderAttributes(Map orderAttributes) {
         this.orderAttributes = orderAttributes;
+    }
+
+    public String getOrderStatusId() {
+        return orderStatusId;
+    }
+
+    public void setOrderStatusId(String orderStatusId) {
+        this.orderStatusId = orderStatusId;
+    }
+
+    public String getOrderStatusString() {
+        return orderStatusString;
+    }
+
+    public void setOrderStatusString(String orderStatusString) {
+        this.orderStatusString = orderStatusString;
     }
 }
