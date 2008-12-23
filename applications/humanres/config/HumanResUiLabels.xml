@@ -1014,7 +1014,7 @@
     </property>
     <property key="HumanResPartySkills">
         <value xml:lang="en">Party Skills</value>
-        <value xml:lang="fr">Qualifications de l'acteur</value>
+        <value xml:lang="fr">Compétences de l'acteur</value>
     </property>
     <property key="HumanResEditEmplPositionType">
         <value xml:lang="en">Edit Position Types</value>
