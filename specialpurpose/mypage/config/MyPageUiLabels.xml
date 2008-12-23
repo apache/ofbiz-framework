@@ -102,6 +102,14 @@
         <value xml:lang="en">pages visible on the main screen.</value>
         <value xml:lang="fr">Pages visibles sur l'écran principal.</value>
     </property>
+    <property key="MyTasks">
+        <value xml:lang="en">My Tasks</value>
+        <value xml:lang="fr">Mes Tâches</value>
+    </property>
+    <property key="MyTimeSheets">
+        <value xml:lang="en">My Time Sheets</value>
+        <value xml:lang="fr">Mes feuilles d'activité</value>
+    </property>
     <property key="OpenEvents">
         <value xml:lang="en">Open Communications</value>
         <value xml:lang="fr">Communications ouvertes</value>

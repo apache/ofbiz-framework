@@ -20,7 +20,7 @@ under the License.
 
 <menus xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-menu.xsd">
-    <menu name="MyPageAppBar" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="My Personal Page" menu-container-style="button-bar tab-bar">
+    <menu name="MyPageAppBar" id="app-navigation" type="simple" selected-menuitem-context-field-name="headerItem" default-selected-style="selected" title="${uiLabelMap.CommonMyPersonalPage}" menu-container-style="button-bar tab-bar">
         <menu-item name="main" title="${uiLabelMap.CommonMain}">
             <condition>
                 <not><if-empty field-name="userLogin"/></not>
