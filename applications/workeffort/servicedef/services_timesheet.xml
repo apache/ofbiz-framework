@@ -147,43 +147,5 @@ under the License.
         <attribute name="rateAmount" type="Double" mode="OUT" optional="true"/>
     </service>
     
-    <!-- PartyRate Services -->
-    <service name="createPartyRate" default-entity-name="PartyRate" engine="simple" auth="true"
-        location="org/ofbiz/workeffort/timesheet/RateServices.xml" invoke="createPartyRate">
-        <description>Creates PartyRate</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" optional="true"/>
-    </service>
-    <service name="updatePartyRate" default-entity-name="PartyRate" engine="simple" auth="true"
-        location="org/ofbiz/workeffort/timesheet/RateServices.xml" invoke="updatePartyRate">
-        <description>Updates PartyRate</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deletePartyRate" default-entity-name="PartyRate" engine="simple" auth="true"
-        location="org/ofbiz/workeffort/timesheet/RateServices.xml" invoke="deletePartyRate">
-        <description>Deletes PartyRate</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
-
-    <!-- WorkEffortAssignmentRate Services -->
-    <service name="createWorkEffortAssignmentRate" default-entity-name="WorkEffortAssignmentRate" engine="simple" auth="true"
-        location="org/ofbiz/workeffort/timesheet/RateServices.xml" invoke="createWorkEffortAssignmentRate">
-        <description>Creates WorkEffortAssignmentRate</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-        <override name="fromDate" optional="true"/>
-    </service>
-    <service name="updateWorkEffortAssignmentRate" default-entity-name="WorkEffortAssignmentRate" engine="simple" auth="true"
-        location="org/ofbiz/workeffort/timesheet/RateServices.xml" invoke="updateWorkEffortAssignmentRate">
-        <description>Updates WorkEffortAssignmentRate</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-        <auto-attributes include="nonpk" mode="IN" optional="true"/>
-    </service>
-    <service name="deleteWorkEffortAssignmentRate" default-entity-name="WorkEffortAssignmentRate" engine="simple" auth="true"
-        location="org/ofbiz/workeffort/timesheet/RateServices.xml" invoke="deleteWorkEffortAssignmentRate">
-        <description>Deletes WorkEffortAssignmentRate</description>
-        <auto-attributes include="pk" mode="IN" optional="false"/>
-    </service>
+    <!-- WorkEffortRate Services (WorkEffortAssignmentRate Services now depreciated and replced by RateAmount services )-->
 </services>

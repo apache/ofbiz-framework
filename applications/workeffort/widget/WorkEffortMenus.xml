@@ -53,8 +53,8 @@ under the License.
         <menu-item name="WorkEffortPartyAssigns" title="${uiLabelMap.WorkEffortParties}">
             <link target="ListWorkEffortPartyAssigns?workEffortId=${workEffortId}"/>
         </menu-item>
-        <menu-item name="WorkEffortAssignmentRates" title="${uiLabelMap.TimesheetRates}">
-            <link target="EditWorkEffortAssignmentRates?workEffortId=${workEffortId}"/>
+        <menu-item name="WorkEffortRates" title="${uiLabelMap.TimesheetRates}">
+            <link target="EditWorkEffortRates?workEffortId=${workEffortId}"/>
         </menu-item>
         <menu-item name="WorkEffortCommEvents" title="${uiLabelMap.WorkEffortCommEvents}">
             <link target="ListWorkEffortCommEvents?workEffortId=${workEffortId}"/>

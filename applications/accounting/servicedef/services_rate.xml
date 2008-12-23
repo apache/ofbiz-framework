@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+Licensed to the Apache Software Foundation (ASF) under one
+or more contributor license agreements.  See the NOTICE file
+distributed with this work for additional information
+regarding copyright ownership.  The ASF licenses this file
+to you under the Apache License, Version 2.0 (the
+"License"); you may not use this file except in compliance
+with the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing,
+software distributed under the License is distributed on an
+"AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+KIND, either express or implied.  See the License for the
+specific language governing permissions and limitations
+under the License.
+-->
+
+<services xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+        xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/services.xsd">
+    <description>Accounting Services: Rate and related services</description>
+    <vendor>OFBiz</vendor>
+    <version>1.0</version>
+
+    <service name="updateRateAmount" default-entity-name="RateAmount" engine="simple" auth="true"
+        location="org/ofbiz/accounting/rate/RateServices.xml" invoke="updateRateAmount">
+        <description>Create/update Rate Amount</description>
+        <auto-attributes include="all" mode="IN" optional="true"/>
+        <override name="rateTypeId" optional="false"/>
+        <override name="rateAmount" optional="false"/>
+    </service>
+    <service name="deleteRateAmount" default-entity-name="RateAmount" engine="simple" auth="true"
+        location="org/ofbiz/accounting/rate/RateServices.xml" invoke="deleteRateAmount">
+        <description>Delete (expire) Rate Amount</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <override name="rateTypeId" optional="false"/>
+        <override name="fromDate" optional="false"/>
+    </service>
+    <service name="getRateAmount" default-entity-name="RateAmount" engine="simple" auth="true"
+        location="org/ofbiz/accounting/rate/RateServices.xml" invoke="getRateAmount">
+        <description>Get Rate Amount</description>
+        <auto-attributes include="pk" mode="IN" optional="true"/>
+        <attribute name="level" type="String" mode="OUT" optional="true"/><!-- the level the amount was retrieved from(specific -> general): workEffort, party, emplPositionType, rateType or 'null' if not found-->
+        <attribute name="rateAmount" type="Double" mode="OUT" optional="true"/>
+        <attribute name="periodTypeId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="rateCurrencyUomId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="fromDate" type="Timestamp" mode="OUT" optional="true"/>
+        <override name="rateTypeId" optional="false"/>
+    </service>
+
+    <!-- PartyRate Services -->
+    <service name="updatePartyRate" default-entity-name="PartyRate" engine="simple" auth="true"
+        location="org/ofbiz/accounting/rate/RateServices.xml" invoke="updatePartyRate">
+        <description>Creates PartyRate</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="organizationPartyId" type="String" mode="IN" optional="true"/>
+        <attribute name="rateAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="rateCurrencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="periodTypeId" type="String" mode="IN"/>
+        <override name="fromDate" optional="true"/>
+    </service>
+    <service name="deletePartyRate" default-entity-name="PartyRate" engine="simple" auth="true"
+        location="org/ofbiz/accounting/rate/RateServices.xml" invoke="deletePartyRate">
+        <description>Deletes PartyRate</description>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <attribute name="rateAmountFromDate" type="Timestamp" mode="IN" optional="true"/><!-- to be able to expire rateamount specific to a party records....-->
+    </service>
+    
+</services>

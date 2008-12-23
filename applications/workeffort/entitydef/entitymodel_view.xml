@@ -144,7 +144,7 @@ under the License.
       <relation type="many" rel-entity-name="WorkEffortBilling">
         <key-map field-name="workEffortId"/>
       </relation>
-      <relation type="many" rel-entity-name="WorkEffortAssignmentRate">
+      <relation type="many" rel-entity-name="RateAmount">
         <key-map field-name="workEffortId"/>
       </relation>
       <relation type="many" rel-entity-name="CommunicationEventWorkEff">
@@ -829,4 +829,5 @@ under the License.
           <key-map field-name="contactMechId"/>
       </view-link>
     </view-entity>    
+
 </entitymodel>

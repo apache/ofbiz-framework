@@ -83,7 +83,15 @@
     <form name="hoursNotYetBilled" type="list" list-name="entryList"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
-            <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/hoursNotYetBilled.bsh"/>
+            <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list-name="entryList">
+                <condition-list combine="and">
+                    <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId"/>
+                    <condition-expr field-name="invoiceId" operator="equals" env-name="nullField"/>
+                    <condition-expr field-name="timesheetStatusId" operator="equals" value="TIMESHEET_COMPLETED"/>
+                    <condition-expr field-name="fromDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
+                </condition-list>
+                <order-by field-name="-fromDate"/>
+            </entity-condition>
         </actions>
         <field name="workEffortName"><display/></field>
         <field name="phaseName"><display/></field>
@@ -553,7 +561,7 @@
         <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.clientPartyId}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
         <field name="invoiceId"><hidden/></field>
-        <field name="reCreate" position="1" title="re-create Invoice: ${context.invoiceId}" use-when="context.get(&quot;invoiceId&quot;)!=null">
+        <field name="reCreate" position="1" title="re-create Invoice: ${invoiceId}" use-when="context.get(&quot;invoiceId&quot;)!=null">
         	<drop-down no-current-selected-key="N">
         		<option key="Y" description="Yes"/>
         		<option key="N" description="No"/>

@@ -83,7 +83,7 @@
     <form name="FindTimeSheet" target="FindTimeSheet" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <field name="noConditionFind"><hidden value="Y"/></field> 
-        <field name="newTimesheetId" parameter-name="timesheetId"><text-find default-option="contains" ignore-case="true"/></field>
+        <field name="timesheetId"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="comments"><text-find default-option="contains" ignore-case="true"/></field>
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <drop-down allow-empty="true">

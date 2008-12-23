@@ -30,8 +30,8 @@ under the License.
     <version>1.0</version>
     <!-- ========================================================= -->
     <!-- ======================== Data Model ===================== -->
-    <!-- The modules in this file are as follows:                  -->
-    <!--  - org.ofbiz.accounting.payment -->
+    <!-- The modules in this file are as follows:          -->
+    <!--  org.ofbiz.accounting.payment -->
     <!-- ========================================================= -->
 
 
@@ -72,5 +72,29 @@ under the License.
       <relation type="one" fk-name="VL_FILL_SURVY" rel-entity-name="SurveyResponse">
           <key-map field-name="surveyResponseId"/>
       </relation>
+    </entity>
+    <entity entity-name="OldPartyRate" table-name="PARTY_RATE"
+            package-name="org.ofbiz.workeffort.timesheet"
+            title="Party Rate Entity">
+      <field name="partyId" type="id-ne"></field>
+      <field name="rateTypeId" type="id-ne"></field>
+      <field name="currencyUomId" type="id-ne"/>
+      <field name="defaultRate" type="indicator"></field>
+      <field name="fromDate" type="date-time"></field>
+      <field name="thruDate" type="date-time"></field>
+      <field name="rate" type="currency-amount"></field>
+      <prim-key field="partyId"/>
+      <prim-key field="rateTypeId"/>
+      <prim-key field="currencyUomId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="OPRTY_RTE_PRTY" rel-entity-name="Party">
+            <key-map field-name="partyId"/>
+          </relation>
+      <relation type="one" fk-name="OPRTY_RTE_RTTP" rel-entity-name="RateType">
+            <key-map field-name="rateTypeId"/>
+          </relation>
+      <relation type="one" fk-name="OPARTY_RATE_CUOM" title="Currency" rel-entity-name="Uom">
+            <key-map field-name="currencyUomId" rel-field-name="uomId"/>
+          </relation>
     </entity>
 </entitymodel>

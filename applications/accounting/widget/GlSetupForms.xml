@@ -325,7 +325,8 @@ under the License.
         <field name="conversionFactor"><text/></field>
         <field name="submitButton" title="${uiLabelMap.AccountingUpdateFX}"><submit/></field>
     </form>
-
+    
+    
     <form name="ListGlAccountTypeDefaults" type="list" target="" list-name="glAccountTypeDefaults"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>

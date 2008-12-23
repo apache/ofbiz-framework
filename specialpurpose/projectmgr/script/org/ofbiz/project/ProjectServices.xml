@@ -1218,15 +1218,12 @@
             <remove-by-and entity-name="InvoiceItem" map-name="removeItems"/>
             <set field="notFirst" value="Y"/><!-- do not create, only add -->
         </if-compare>
-        <if-empty field="parameters.thruDate">
-            <set field="parameters.thruDate" value="9999-12-31 00:00:00.000" type="Timestamp"/>
-        </if-empty>
         <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list-name="tasks">
             <condition-list combine="and">
                 <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId"/>
-                <condition-expr field-name="invoiceId" operator="equals" env-name="null"/>
+                <condition-expr field-name="invoiceId" operator="equals" env-name="nullField"/>
                 <condition-expr field-name="timesheetStatusId" operator="equals" value="TIMESHEET_COMPLETED"/>
-                <condition-expr field-name="fromDate" operator="less" env-name="parameters.thruDate"/>
+                <condition-expr field-name="fromDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
             </condition-list>
             <order-by field-name="workEffortId"/>
         </entity-condition>

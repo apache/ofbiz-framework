@@ -474,11 +474,11 @@ under the License.
         </section>
     </screen>
 
-    <screen name="EditWorkEffortAssignmentRates">
+    <screen name="EditWorkEffortRates">
         <section>
             <actions>
                 <set field="titleProperty" value="PageTitleListWorkEffortAssignmentRates"/>
-                <set field="tabButtonItem" value="WorkEffortAssignmentRates"/>
+                <set field="tabButtonItem" value="WorkEffortRates"/>
                 <set field="labelTitleProperty" value="PageTitleListWorkEffortAssignmentRates"/>
                 
                 <set field="workEffortId" from-field="parameters.workEffortId"/>
@@ -486,10 +486,10 @@ under the License.
             <widgets>
                 <decorator-screen name="CommonWorkEffortDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <screenlet id="AddWorkEffortAssignmentRatesPanel" title="${uiLabelMap.PageTitleAddWorkEffortAssignmentRate}" collapsible="true">
-                            <include-form name="AddWorkEffortAssignmentRate" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        <screenlet id="AddWorkEffortRatesPanel" title="${uiLabelMap.PageTitleAddWorkEffortAssignmentRate}" collapsible="true">
+                            <include-form name="AddWorkEffortRate" location="component://workeffort/widget/WorkEffortForms.xml"/>
                         </screenlet>
-                        <include-form name="ListWorkEffortAssignmentRates" location="component://workeffort/widget/WorkEffortForms.xml"/>
+                        <include-form name="ListWorkEffortRates" location="component://workeffort/widget/WorkEffortForms.xml"/>
                     </decorator-section>
                 </decorator-screen>
             </widgets>

@@ -166,24 +166,21 @@ under the License.
         <response name="error" type="view" value="ListWorkEffortPartyAssigns"/>
     </request-map>
     
-    <request-map uri="EditWorkEffortAssignmentRates"><security https="true" auth="true"/><response name="success" type="view" value="EditWorkEffortAssignmentRates"/></request-map>
-    <request-map uri="createWorkEffortAssignmentRate">
+    <request-map uri="EditWorkEffortRates">
         <security https="true" auth="true"/>
-        <event type="service" invoke="createWorkEffortAssignmentRate"/>
-        <response name="success" type="view" value="EditWorkEffortAssignmentRates"/>
-        <response name="error" type="view" value="EditWorkEffortAssignmentRates"/>
+        <response name="success" type="view" value="EditWorkEffortRates"/>
     </request-map>
-    <request-map uri="updateWorkEffortAssignmentRate">
+    <request-map uri="updateWorkEffortRate">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffortAssignmentRate"/>
-        <response name="success" type="view" value="EditWorkEffortAssignmentRates"/>
-        <response name="error" type="view" value="EditWorkEffortAssignmentRates"/>
+        <event type="service" invoke="updateRateAmount"/>
+        <response name="success" type="view" value="EditWorkEffortRates"/>
+        <response name="error" type="view" value="EditWorkEffortRates"/>
     </request-map>
-    <request-map uri="deleteWorkEffortAssignmentRate">
+    <request-map uri="deleteWorkEffortRate">
         <security https="true" auth="true"/>
-        <event type="service" invoke="deleteWorkEffortAssignmentRate"/>
-        <response name="success" type="view" value="EditWorkEffortAssignmentRates"/>
-        <response name="error" type="view" value="EditWorkEffortAssignmentRates"/>
+        <event type="service" invoke="deleteRateAmount"/>
+        <response name="success" type="view" value="EditWorkEffortRates"/>
+        <response name="error" type="view" value="EditWorkEffortRates"/>
     </request-map>
     
     <!--  WorkEffort CommunicationEvents requests -->
@@ -693,7 +690,7 @@ under the License.
     <view-map name="ListWorkEffortEventReminders" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortEventReminders"/>
     <view-map name="ListWorkEffortFixedAssetAssigns" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortFixedAssetAssigns"/>
     <view-map name="ListWorkEffortPartyAssigns" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortPartyAssigns"/>
-    <view-map name="EditWorkEffortAssignmentRates" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortAssignmentRates"/>
+    <view-map name="EditWorkEffortRates" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#EditWorkEffortRates"/>
     <view-map name="ListWorkEffortCommEvents" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortCommEvents"/>
     <view-map name="ListWorkEffortShopLists" type="screen" page="component://workeffort/widget/WorkEffortScreens.xml#ListWorkEffortShopLists"/>
     

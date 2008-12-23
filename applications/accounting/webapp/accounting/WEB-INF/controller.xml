@@ -1395,6 +1395,25 @@ under the License.
         <response name="success" type="view" value="ViewFXConversions"/>
         <response name="error" type="view" value="ViewFXConversions"/>
     </request-map>
+
+    <request-map uri="viewRateAmounts">
+        <security https="true" auth="true"/>
+        <response name="success" type="view" value="ViewRateAmounts"/>
+    </request-map>
+
+    <request-map uri="updateRateAmount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="updateRateAmount"/>
+        <response name="success" type="view" value="ViewRateAmounts"/>
+        <response name="error" type="view" value="ViewRateAmounts"/>
+    </request-map>
+    
+    <request-map uri="deleteRateAmount">
+        <security https="true" auth="true"/>
+        <event type="service" invoke="deleteRateAmount"/>
+        <response name="success" type="view" value="ViewRateAmounts"/>
+        <response name="error" type="view" value="ViewRateAmounts"/>
+    </request-map>
     
     <request-map uri="editProductGlAccounts">
         <security https="true" auth="true"/>
@@ -2029,6 +2048,7 @@ under the License.
     <view-map name="ListGlAccountOrganization" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ListGlAccountOrganization"/>
     <view-map name="SetupGlJournals" type="screen" page="component://accounting/widget/GlSetupScreens.xml#SetupGlJournals"/>
     <view-map name="ViewFXConversions" type="screen" page="component://accounting/widget/GlSetupScreens.xml#ViewFXConversions"/>
+    <view-map name="ViewRateAmounts" type="screen" page="component://accounting/widget/GlobalGlAccountsScreens.xml#ViewRateAmounts"/>
     <view-map name="GlAccountTypeDefaults" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountTypeDefaults"/>
     <view-map name="GlAccountPurInvoice" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountPurInvoice"/>
     <view-map name="GlAccountSalInvoice" type="screen" page="component://accounting/widget/GlSetupScreens.xml#GlAccountSalInvoice"/>

@@ -39,6 +39,7 @@ under the License.
     <!--  - org.ofbiz.accounting.ledger -->
     <!--  - org.ofbiz.accounting.payment -->
     <!--  - org.ofbiz.accounting.tax -->
+    <!--  - org.ofbiz.accounting.rate -->
     <!-- ========================================================= -->
 
 
@@ -3209,5 +3210,102 @@ under the License.
         <view-link entity-alias="ATE" rel-entity-alias="ATR">
             <key-map field-name="acctgTransId"/>
         </view-link>
-     </view-entity>
+    </view-entity>
+
+  <entity entity-name="RateType" package-name="org.ofbiz.accounting.rate"
+    title="Rate Type Entity">
+    <field name="rateTypeId" type="id-ne"></field>
+    <field name="description" type="description"></field>
+    <prim-key field="rateTypeId"/>
+  </entity>
+
+  <entity entity-name="RateAmount" package-name="org.ofbiz.accounting.rate">
+      <field name="rateTypeId" type="id-ne"/>
+      <field name="rateCurrencyUomId" type="id-ne"/>
+      <field name="periodTypeId" type="id-ne"/>
+      <field name="workEffortId" type="id"/>
+      <field name="partyId" type="id"/>
+      <field name="emplPositionTypeId" type="id"/>
+      <field name="fromDate" type="date-time"><description>Describes when a rate amount will be valid. If null, valid immediately.</description></field>
+      <field name="thruDate" type="date-time"><description>Describes when a rate amount will be valid untl. If null, valid indefinitly.</description></field>
+      <field name="rateAmount" type="currency-amount"/>
+      <prim-key field="rateTypeId"/>
+      <prim-key field="rateCurrencyUomId"/>
+      <prim-key field="periodTypeId"/>
+      <prim-key field="partyId"/>
+      <prim-key field="workEffortId"/>
+      <prim-key field="emplPositionTypeId"/>
+      <prim-key field="fromDate"/>
+      <relation type="one" fk-name="RATE_AMOUNT_RT" rel-entity-name="RateType">
+        <key-map field-name="rateTypeId"/>
+      </relation>
+      <relation type="one" fk-name="RATE_AMOUNT_RCT" rel-entity-name="Uom">
+        <key-map field-name="rateCurrencyUomId" rel-field-name="uomId"/>
+      </relation>
+      <relation type="one" fk-name="RATE_AMOUNT_WE" rel-entity-name="WorkEffort">
+        <key-map field-name="workEffortId"/>
+      </relation>
+      <relation type="one" fk-name="RATE_AMOUNT_PTY" rel-entity-name="Party">
+        <key-map field-name="partyId"/>
+      </relation>
+      <relation type="one" fk-name="RATE_AMOUNT_EPT" rel-entity-name="EmplPositionType">
+        <key-map field-name="emplPositionTypeId"/>
+      </relation>
+      <relation type="one" fk-name="RATE_AMOUNT_PT" rel-entity-name="PeriodType">
+        <key-map field-name="periodTypeId"/>
+      </relation>
+  </entity>
+
+  <view-entity entity-name="RateAmountAndRelations" package-name="org.ofbiz.accounting.rate">
+    <member-entity entity-alias="RA" entity-name="RateAmount"/>
+    <member-entity entity-alias="RT" entity-name="RateType"/>
+    <member-entity entity-alias="PT" entity-name="PeriodType"/>
+    <member-entity entity-alias="PN" entity-name="PartyNameView"/>
+    <member-entity entity-alias="WE" entity-name="WorkEffort"/>
+    <member-entity entity-alias="EPT" entity-name="EmplPositionType"/>
+    <alias-all entity-alias="RA"/>
+    <alias entity-alias="RT" name="rateDescription" field="description"/>
+    <alias entity-alias="PT" name="periodDescription" field="description"/>
+    <alias entity-alias="PN" name="firstName"/>
+    <alias entity-alias="PN" name="middleName"/>
+    <alias entity-alias="PN" name="lastName"/>
+    <alias entity-alias="PN" name="groupName"/>
+    <alias entity-alias="EPT" name="employeePositionDescription" field="description"/>
+    <alias entity-alias="WE" name="workEffortName"/>
+    <view-link entity-alias="RA" rel-entity-alias="RT">
+      <key-map field-name="rateTypeId"/>
+    </view-link>
+    <view-link entity-alias="RA" rel-entity-alias="PT">
+      <key-map field-name="periodTypeId"/>
+    </view-link>
+    <view-link entity-alias="RA" rel-entity-alias="PN" rel-optional="true">
+      <key-map field-name="partyId"/>
+    </view-link>
+    <view-link entity-alias="RA" rel-entity-alias="WE" rel-optional="true">
+      <key-map field-name="workEffortId"/>
+    </view-link>
+    <view-link entity-alias="RA" rel-entity-alias="EPT" rel-optional="true">
+      <key-map field-name="emplPositionTypeId"/>
+    </view-link>
+  </view-entity>
+
+  <entity entity-name="PartyRate" package-name="org.ofbiz.accounting.rate"
+    title="Party Rate Entity" table-name="PARTY_RATE_NEW">
+    <field name="partyId" type="id-ne"/>
+    <field name="rateTypeId" type="id-ne"/>
+    <field name="defaultRate" type="indicator"/>
+    <field name="percentageUsed" type="floating-point"><description>The percentage of the actual hours registered in timeEntries, used for the task and invoice actuals, if the field is null 100% will be used</description></field>
+    <field name="fromDate" type="date-time"/>
+    <field name="thruDate" type="date-time"/>
+    <prim-key field="partyId"/>
+    <prim-key field="rateTypeId"/>
+    <prim-key field="fromDate"/>
+    <relation type="one" fk-name="PRTY_RATE_PRTY" rel-entity-name="Party">
+      <key-map field-name="partyId"/>
+    </relation>
+    <relation type="one" fk-name="PRTY_RATE_RTTP" rel-entity-name="RateType">
+      <key-map field-name="rateTypeId"/>
+    </relation>
+  </entity>
+  
 </entitymodel>

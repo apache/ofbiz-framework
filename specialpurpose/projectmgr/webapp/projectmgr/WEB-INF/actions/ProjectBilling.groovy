@@ -20,21 +20,28 @@
   
 import org.ofbiz.entity.*;
 import org.ofbiz.base.util.*;
+import org.ofbiz.entity.*;
+import org.ofbiz.entity.condition.*;
+import org.ofbiz.entity.util.*;
 
 projectId = parameters.projectId;
-List entries = delegator.findByAnd("ProjectAndPhaseAndTask", ["projectId" : projectId ], ["lastModifiedDate DESC"]);
-for(ind = 0; ind < entries.size(); ind++) {
-	entryItems = entries[ind].getRelated("TimeEntry");
-	if (entryItems && entryItems[0].invoiceId != null) {
-		invoice = delegator.findByPrimaryKey("Invoice", ["invoiceId" : entryItems[0].invoiceId]);
-		if (invoice.getString("statusId").equals("INVOICE_IN_PROCESS")) {
-			context.partyIdFrom = invoice.partyIdFrom;
-			context.partyId = invoice.partyId;
-			context.invoiceId = entryItems[0].invoiceId; 
-		}
-		break;
+entryExprs = 
+    EntityCondition.makeCondition([
+        EntityCondition.makeCondition("projectId", EntityOperator.EQUALS, projectId),
+        EntityCondition.makeCondition("invoiceId", EntityOperator.NOT_EQUAL, null),
+        ], EntityOperator.AND);
+orderBy = ["-fromDate"];
+// check if latest invoice generated is still in process so allow re-generation to correct errors
+entryIterator = delegator.find("ProjectPhaseTaskAndTimeEntryTimeSheet", entryExprs, null, null, orderBy, null);
+while (entryItem = entryIterator.next()) {
+	invoice = entryItem.getRelatedOne("Invoice");
+	if (invoice.getString("statusId").equals("INVOICE_IN_PROCESS")) {
+		context.partyIdFrom = invoice.partyIdFrom;
+		context.partyId = invoice.partyId;
+		context.invoiceId = invoice.invoiceId; 
+	    break;
+	    }
 	}
-}
-
+entryIterator.close();
 //start of this month
 context.thruDate = UtilDateTime.getMonthStart(UtilDateTime.nowTimestamp()); 
