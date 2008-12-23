@@ -27,7 +27,7 @@ margin: 1em;
   <div class="screenlet-title-bar">
     <ul>
       <li class="h3">Available portlets</li>
-      <li><a href="<@ofbizUrl>dashboard?portalPageId=${parameters.portalPageId}&amp;configurePortalPage=true&amp;mainPortalPageId=${parameters.mainPortalPageId}</@ofbizUrl>">${uiLabelMap.CommonCancel}</a></li>
+      <li><a href="<@ofbizUrl>dashboard?portalPageId=${parameters.portalPageId}&amp;configurePortalPage=true&amp;originalPortalPageId=${parameters.originalPortalPageId}&amp;mainPortalPageId=${parameters.mainPortalPageId}</@ofbizUrl>">${uiLabelMap.CommonCancel}</a></li>
     </ul>
     <br class="clear"/>
   </div>
