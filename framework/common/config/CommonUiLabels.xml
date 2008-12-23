@@ -3614,32 +3614,43 @@
     </property>
     <property key="CommonMovePortletBottom">
         <value xml:lang="en">Move Portlet at the Bottom</value>
+        <value xml:lang="fr">Déplacer le porlet tout en bas</value>
         <value xml:lang="it">Sposta il portlet in fondo</value>
     </property>
     <property key="CommonMovePortletDown">
         <value xml:lang="en">Move Portlet Down</value>
+        <value xml:lang="fr">Déplacer le porlet en bas</value>
         <value xml:lang="it">Sposta il portlet in basso</value>
     </property>
     <property key="CommonMovePortletLeft">
         <value xml:lang="en">Move Portlet Left</value>
+        <value xml:lang="fr">Déplacer le porlet à gauche</value>
         <value xml:lang="it">Sposta il portlet a sinistra</value>
     </property>
     <property key="CommonMovePortletRight">
         <value xml:lang="en">Move Portlet Right</value>
+        <value xml:lang="fr">Déplacer le porlet à droite</value>
         <value xml:lang="it">Sposta il portlet a destra</value>
     </property>
     <property key="CommonMovePortletTop">
         <value xml:lang="en">Move Portlet at the Top</value>
+        <value xml:lang="fr">Déplacer le porlet tout en haut</value>
         <value xml:lang="it">Sposta il portlet in cima</value>
     </property>
     <property key="CommonMovePortletUp">
         <value xml:lang="en">Move Portlet Up</value>
+        <value xml:lang="fr">Déplacer le porlet en haut</value>
         <value xml:lang="it">Sposta il portlet in alto</value>
     </property>
     <property key="CommonMoveToPortalPage">
         <value xml:lang="en">Move to Portal Page...</value>
+        <value xml:lang="fr">Aller à la page "portail"</value>
         <value xml:lang="it">Sposta nella pagina...</value>
     </property>
+    <property key="CommonMyPersonalPage">
+        <value xml:lang="en">My Personal Page</value>
+        <value xml:lang="fr">Ma propre page</value>
+    </property>    
     <property key="CommonMyStatus">
         <value xml:lang="ar">حالتي</value>
         <value xml:lang="de">Mein Status</value>
