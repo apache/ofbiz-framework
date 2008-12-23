@@ -55,10 +55,11 @@ under the License.
         </field>
     </form>
     
-    <form name="NewPortalPage" type="single" target="createPortalPage" title="" default-map-name="PortalPagemap">
+    <form name="NewPortalPage" type="single" target="createPortalPage?mainPortalPageId=${parameters.mainPortalPageId}" title="" default-map-name="PortalPagemap">
         <actions>
             <set from-field="userLogin.userLoginId" field="ownerUserLoginId"/>
             <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
+            <set field="mainPortalPageId" from-field="parameters.mainPortalPageId"/>
         </actions>    
         <auto-fields-service service-name="createPortalPage"/>
         <field name="ownerUserLoginId">

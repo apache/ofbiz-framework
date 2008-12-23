@@ -71,7 +71,7 @@ under the License.
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
           <#if portlet.screenName?has_content>
             <#if configurePortalPage?has_content>
-              <#assign portletUrlLink = "portalPageId="+currentPortalPage.portalPageId+"&amp;portalPortletId="+portlet.portalPortletId+"&amp;portletSeqId="+portlet.portletSeqId+"&amp;configurePortalPage=true&amp;originalPortalPageId="+parameters.originalPortalPageId/>
+              <#assign portletUrlLink = "portalPageId="+currentPortalPage.portalPageId+"&amp;portalPortletId="+portlet.portalPortletId+"&amp;portletSeqId="+portlet.portletSeqId+"&amp;configurePortalPage=true&amp;originalPortalPageId="+parameters.originalPortalPageId+"&amp;mainPortalPageId="+parameters.mainPortalPageId/>
       
               <div class="portlet-config">
               <div class="portlet-config-title-bar">
