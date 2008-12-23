@@ -18,13 +18,6 @@ specific language governing permissions and limitations
 under the License.
 -->
 <entity-engine-xml>
-    <RateType rateTypeId="STANDARD" description="Standard Hourly Rate"/>
-    <RateType rateTypeId="DISCOUNTED" description="Discounted Hourly Rate"/>
-    <RateType rateTypeId="OVERTIME" description="Overtime Hourly Rate"/>
-    <RateType rateTypeId="AVERAGE_PAY_RATE" description="Average Pay Rate"/>
-    <RateType rateTypeId="HIGH_PAY_RATE" description="Highest Pay Rate"/>
-    <RateType rateTypeId="LOW_PAY_RATE" description="Lowest Pay Rate"/>
-    
     <EnumerationType description="Parent Type for all Work Effort enum types" enumTypeId="WORK_EFFORT" hasTable="N" parentTypeId=""/>
     <EnumerationType description="Parent Type for all Workflow enum types" enumTypeId="WORKFLOW" hasTable="N" parentTypeId=""/>
 

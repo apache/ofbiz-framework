@@ -5986,6 +5986,9 @@
         <value xml:lang="nl">Aantal</value>
         <value xml:lang="th">จำนวน</value>
     </property>
+    <property key="AccountingRates">
+        <value xml:lang="en">Rates</value>
+    </property>
     <property key="AccountingReceivePayment">
         <value xml:lang="ar">تسلم التسديد</value>
         <value xml:lang="de">Zahlung erhalten</value>
@@ -6757,6 +6760,9 @@
         <value xml:lang="ru">Ошибка безопасности: для обновления платежа вы должны быть либо отправителем либо получателем платежа, или иметь права PAY_INFO_UPDATE или PAY_INFO_ADMIN.</value>
         <value xml:lang="th">Security Error : To Update a Payment you must either be the to or from party or have the PAY_INFO_UPDATE or PAY_INFO_ADMIN permissions.</value>
         <value xml:lang="zh">安全错误：要更新支付，你必须是支付方或接收方会员，或者具有PAY_INFO_UPDATE或PAY_INFO_ADMIN权限。</value>
+    </property>
+    <property key="AccountingUpdateRateAmount">
+        <value xml:lang="en">Update Rate amount</value>
     </property>
     <property key="AccountingUseAccount">
         <value xml:lang="cs">Použít účet</value>

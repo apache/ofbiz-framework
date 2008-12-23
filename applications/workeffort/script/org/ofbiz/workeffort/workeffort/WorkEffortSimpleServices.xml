@@ -1163,7 +1163,8 @@ under the License.
             </iterate>
         </if-not-empty>
         <if-not-empty field="parameters.duplicateWorkEffortAssignmentRates">
-            <find-by-and entity-name="WorkEffortAssignmentRate" map-name="workEffortFindContext" list-name="foundValues"/>
+            <find-by-and entity-name="RateAmount" map-name="workEffortFindContext" list-name="foundValuesAll"/>
+            <filter-list-by-date list-name="foundValuesAll" to-list-name="foundValues"/>
             <iterate entry-name="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
@@ -1183,7 +1184,7 @@ under the License.
             <remove-by-and entity-name="WorkEffortNote" map-name="workEffortFindContext"/>
         </if-not-empty>
         <if-not-empty field="parameters.removeWorkEffortAssignmentRates">
-            <remove-by-and entity-name="WorkEffortAssignmentRate" map-name="workEffortFindContext"/>
+            <remove-by-and entity-name="RateAmount" map-name="workEffortFindContext"/>
         </if-not-empty>
     </simple-method>
     

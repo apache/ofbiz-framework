@@ -742,6 +742,23 @@ under the License.
     <TaxAuthorityRateType taxAuthorityRateTypeId="EXPORT_TAX" description="Export Tax"/>
     <TaxAuthorityRateType taxAuthorityRateTypeId="IMPORT_TAX" description="Import Tax"/>
     
+    <!-- Rate Types -->
+    <RateType rateTypeId="STANDARD" description="Standard Rate"/>
+    <RateType rateTypeId="DISCOUNTED" description="Discounted Rate"/>
+    <RateType rateTypeId="OVERTIME" description="Overtime Rate"/>
+    <RateType rateTypeId="AVERAGE_PAY_RATE" description="Average Pay Rate"/>
+    <RateType rateTypeId="HIGH_PAY_RATE" description="Highest Pay Rate"/>
+    <RateType rateTypeId="LOW_PAY_RATE" description="Lowest Pay Rate"/>
+    <!-- rate periods -->
+    <PeriodType description="Rate amount per Hour" periodTypeId="RATE_HOUR" periodLength="1" uomId="TF_hr"/>
+    <PeriodType description="Rate amount per Week" periodTypeId="RATE_WEEK" periodLength="1" uomId="TF_wk"/>
+    <PeriodType description="Rate amount per month" periodTypeId="RATE_MONTH" periodLength="1" uomId="TF_mon"/>
+    <PeriodType description="Rate amount per Quarter" periodTypeId="RATE_QUARTER" periodLength="3" uomId="TF_mon"/>
+    
+    <!-- create 'Not Applicable'  records-->
+    <WorkEffort workEffortId="_NA_"/>
+    <EmplPositionType emplPositionTypeId="_NA_"/>
+    
     <!-- Points of Title Transfer -->
     <EnumerationType description="Points of Title Transfer" enumTypeId="PTSOFTTFR" hasTable="N" parentTypeId=""/>
     <Enumeration description="Desination" enumCode="DEST" enumId="POTT_DEST" sequenceId="01" enumTypeId="PTSOFTTFR"/>

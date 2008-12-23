@@ -411,4 +411,24 @@ under the License.
             </widgets>
         </section>
     </screen>
+    <screen name="ViewRateAmounts">
+        <section>
+            <actions>
+                <property-map resource="AccountingUiLabels" map-name="uiLabelMap" global="true"/>
+                <set field="titleProperty" value="AccountingRateAmounts"/>
+                <set field="labelTitleProperty" value="${uiLabelMap.AccountingRateAmounts}"/>
+                <set field="tabButtonItem" value="ViewRateAmounts"/>
+            </actions>
+            <widgets>
+                <decorator-screen name="GlobalGLSettingsDecorator" location="${parameters.mainDecoratorLocation}">
+                    <decorator-section name="body">
+                        <screenlet title="${uiLabelMap.AccountingUpdateRateAmount}" navigation-form-name="ListRateAmounts">
+                            <include-form name="updateRateAmount" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                        </screenlet>
+                        <include-form name="ListRateAmounts" location="component://accounting/widget/GlobalGlAccountsForms.xml"/>
+                    </decorator-section>
+                </decorator-screen>
+            </widgets>
+        </section>
+    </screen>
 </screens>

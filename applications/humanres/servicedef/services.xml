@@ -633,21 +633,16 @@ under the License.
         <auto-attributes mode="IN" include="nonpk" optional="true"/>
     </service>
     
-    <service name="createEmplPositionTypeRate" engine="simple" default-entity-name="EmplPositionTypeRate"
-             location="org/ofbiz/humanres/HumanResServices.xml" invoke="createEmplPositionTypeRate" auth="true">
-        <description>Create Valid EmplPositionTypeRate</description>
-        <permission-service service-name="humanResManagerPermission" main-action="CREATE"/>
-        <auto-attributes mode="INOUT" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
-        <override name="fromDate" optional="true"/>
-    </service>
-    
     <service name="updateEmplPositionTypeRate" engine="simple" default-entity-name="EmplPositionTypeRate"
              location="org/ofbiz/humanres/HumanResServices.xml" invoke="updateEmplPositionTypeRate" auth="true">
         <description>Update Valid EmplPositionTypeRate</description>
         <permission-service service-name="humanResManagerPermission" main-action="UPDATE"/>
-        <auto-attributes mode="IN" include="pk" optional="false"/>
-        <auto-attributes mode="IN" include="nonpk" optional="true"/>
+        <auto-attributes include="pk" mode="IN" optional="false"/>
+        <auto-attributes include="nonpk" mode="IN" optional="true"/>
+        <attribute name="rateAmount" type="Double" mode="IN" optional="true"/>
+        <attribute name="rateCurrencyUomId" type="String" mode="IN" optional="true"/>
+        <attribute name="periodTypeId" type="String" mode="IN"/>
+        <override name="fromDate" optional="true"/>
     </service>
     
     <service name="deleteEmplPositionTypeRate" engine="simple" default-entity-name="EmplPositionTypeRate"
@@ -655,6 +650,7 @@ under the License.
         <description>Delete Valid EmplPositionTypeRate</description>
         <permission-service service-name="humanResManagerPermission" main-action="DELETE"/>
         <auto-attributes mode="IN" include="pk" optional="false"/>
+        <attribute name="rateAmountFromDate" type="Timestamp" mode="IN" optional="true"/><!-- to be able to expire rateamount specific to a party records....-->
     </service>
     
     <service name="createAgreementEmploymentAppl"  engine="simple" default-entity-name="AgreementEmploymentAppl"

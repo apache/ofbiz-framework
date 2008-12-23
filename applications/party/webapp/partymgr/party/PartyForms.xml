@@ -311,12 +311,12 @@ under the License.
     </form>
 
     <!-- PartyRate -->
-    <form name="AddPartyRate" type="single" target="createPartyRate"
+    <form name="AddPartyRate" type="single" target="updatePartyRate"
         focus-field-name="rateTypeId" header-row-style="header-row" default-table-style="basic-table">
         <actions>
             <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            <set field="periodTypeId" value="RATE_HOUR"/>
         </actions>
-        <auto-fields-service service-name="createPartyRate"/>
         <field name="partyId"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD" allow-empty="false">
@@ -325,42 +325,52 @@ under the License.
                 </entity-options>
             </drop-down>
         </field>
-        <field name="defaultRate">
+        <field name="periodTypeId" position="2">
+            <display-entity entity-name="PeriodType"/>
+        </field>
+        <field name="rateAmount"  tooltip="override Default Rate amount"><text/></field>
+        <field name="rateCurrencyUomId" title="${uiLabelMap.ProductCurrencyUomId}" position="2" entry-name="defaultCurrencyUomId" tooltip="Adjust in accounting component">
+            <display-entity entity-name="Uom" key-field-name="uomId"/>
+        </field>
+        <field name="percentageUsed"><text size="6"/></field>
+        <field name="defaultRate" position="2">
             <drop-down no-current-selected-key="N">
                 <option key="N"/>
                 <option key="Y"/>
             </drop-down>
         </field>
-        <field name="currencyUomId" title="${uiLabelMap.ProductCurrencyUomId}">
-            <drop-down allow-empty="false" no-current-selected-key="${defaultCurrencyUomId}">
-                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
-                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
-                    <entity-order-by field-name="abbreviation"/>
-                </entity-options>
-            </drop-down>
-        </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}"><submit button-type="button"/></field>
     </form>
 
-    <form name="ListPartyRates" type="list" list-name="partyTaxInfos" target="updatePartyRate"
+    <form name="ListPartyRates" type="list" target="deletePartyRate"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="PartyRate">
+            <entity-condition entity-name="PartyRate" filter-by-date="true">
                 <condition-expr field-name="partyId" env-name="partyId"/>
                 <order-by field-name="rateTypeId"/>
-                <order-by field-name="fromDate"/>
             </entity-condition>
         </actions>
-        <auto-fields-service service-name="updatePartyRate"/>
+        <row-actions>
+            <service service-name="getRateAmount" result-map-name="rateResult"/>
+            <set field="rateDefaultAmount" from-field="rateResult.rateAmount"/>
+            <set field="periodTypeId" from-field="rateResult.periodTypeId"/>
+            <set field="rateCurrencyUomId" from-field="rateResult.rateCurrencyUomId"/>
+            <set field="rateLevel" from-field="rateResult.level"/>
+            <set field="rateAmountFromDate" from-field="rateResult.fromDate"/>
+        </row-actions>
         <field name="partyId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="rateAmountFromDate"><hidden/></field>
+        <field name="rateCurrencyUomId"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}"><display-entity entity-name="RateType" also-hidden="true"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDateTime}"><display/></field>
-        <field name="currencyUomId"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}"><submit button-type="button"/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="smallSubmit">
-            <hyperlink target="deletePartyRate?partyId=${partyId}&amp;rateTypeId=${rateTypeId}&amp;currencyUomId=${currencyUomId}&amp;fromDate=${fromDate}"
-                description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
-        </field>
+        <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
+        <field name="rateDefaultAmount" use-when="&quot;workEffort&quot;.equals(rateLevel)" tooltip="Value from workeffort level"><display type="currency" currency="${rateCurrencyUomId}"/></field>
+        <field name="rateDefaultAmount" use-when="&quot;party&quot;.equals(rateLevel)" tooltip="Value from party level"><display type="currency" currency="${rateCurrencyUomId}"/></field>
+        <field name="rateDefaultAmount" use-when="&quot;rateType&quot;.equals(rateLevel)" tooltip="Value from rateType level"><display type="currency" currency="${rateCurrencyUomId}"/></field>
+        <field name="rateDefaultAmount" use-when="rateLevel==null" tooltip="Rate not specified for this party AND NO default rate"><display/></field>
+        <field name="defaultRate"><display/></field>
+        <field name="percentageUsed"><display/></field>
+        <field name="deleteButton" widget-style="smallSubmit"><submit /></field>
     </form>
 
     <form name="NewUser" type="single" target="${target}${previousParams}"

@@ -196,4 +196,67 @@ under the License.
         <field name="acctgTransEntrySeqId"><display/></field>
         <field name="reconciledAmount"><display/></field>
     </form>
+    <form name="ListRateAmounts" type="list" target="deleteRateAmount" paginate-target="viewRateAmounts"
+        odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
+        <actions>
+            <set field="sortField" from-field="parameters.sortField" default-value="rateTypeId"/>
+            <entity-condition entity-name="RateAmountAndRelations" filter-by-date="true">
+                <order-by field-name="${sortField}"/>
+                <order-by field-name="rateTypeId"/>
+                <order-by field-name="periodTypeId"/>
+            </entity-condition>
+        </actions>
+        <field name="fromDate"><hidden/></field>
+        <field name="rateTypeId"><hidden/></field>
+        <field name="rateCurrencyUomId"><hidden/></field>
+        <field name="rateDescription"><display/></field>
+        <field name="periodTypeId"><display description="${periodDescription}"/></field>
+        <field name="partyId" sort-field="true"><display description="${groupName}${lastName} ${firstName} ${middleName}"/></field>
+        <field name="workEffortId" sort-field="true"><display description="${workEffortName}"/></field>
+        <field name="emplPositionTypeId" sort-field="true"><display description="${employeePositionDescription}"/></field>
+        <field name="rateAmount"><display type="currency" currency="${rateCurrencyUomId}"/></field>
+        <field name="delete"><submit/></field>
+    </form>
+    
+    <form name="updateRateAmount" type="single" target="updateRateAmount" default-service-name="updateRateAmount" 
+        header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+        </actions>
+        <field name="rateTypeId">
+            <drop-down>
+                <entity-options entity-name="RateType" description="${description}">
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="periodTypeId" position="2">
+            <drop-down>
+                <entity-options entity-name="PeriodType" description="${description}">
+                    <entity-constraint name="periodTypeId" operator="like" value="RATE_%"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="rateAmount" position="1"><text/></field>
+        <field name="rateCurrencyUomId" position="2">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="partyId"><lookup target-form-name="LookupPartyId"></lookup></field>
+        <field name="workEffortId"><lookup target-form-name="LookupWorkEffort"><sub-hyperlink target="ww" description="${workEffortName}"/></lookup></field>
+        <field name="emplPositionTypeId" position="2">
+            <drop-down allow-empty="true">
+                <entity-options entity-name="EmplPositionType" description="${description}">
+                    <entity-constraint name="emplPositionTypeId" operator="not-equals" value="_NA_"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="submitButton" title="${uiLabelMap.AccountingUpdateRateAmount}"><submit/></field>
+    </form>
 </forms>

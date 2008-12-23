@@ -753,32 +753,44 @@ under the License.
         <key-map field-name="responsibilityTypeId"/>
       </relation>
     </entity>
-    <entity entity-name="EmplPositionTypeRate"
-            package-name="org.ofbiz.humanres.position"
-            title="EmplPosition Type Rate Entity">
-        <field name="emplPositionTypeId" type="id-ne"/>
-        <field name="periodTypeId" type="id-ne"/>
-        <field name="payGradeId" type="id"/>
-        <field name="salaryStepSeqId" type="id"/>
-        <field name="rateTypeId" type="id"/>
-        <field name="fromDate" type="date-time"/>
-        <field name="thruDate" type="date-time"/>
-        <field name="rate" type="id"/>
-        <prim-key field="emplPositionTypeId"/>
-        <prim-key field="periodTypeId"/>
-        <prim-key field="fromDate"/>
-        <relation type="one" fk-name="EMPL_PSTPRT_EPTP" rel-entity-name="EmplPositionType">
-            <key-map field-name="emplPositionTypeId"/>
-        </relation>
-        <relation type="one" fk-name="EMPL_PSTPRT_PRDTYP" rel-entity-name="PeriodType">
-            <key-map field-name="periodTypeId"/>
-        </relation>
-        <relation type="one-nofk" fk-name="EMPL_PSTPRT_SSTP" rel-entity-name="SalaryStep">
-            <key-map field-name="salaryStepSeqId"/>
-            <key-map field-name="payGradeId"/>
-        </relation>
-        <relation type="one-nofk" fk-name="EMPL_PSTPRT_RTTYP" rel-entity-name="RateType">
-            <key-map field-name="rateTypeId"/>
-        </relation>
-    </entity>
+  <entity entity-name="EmplPositionTypeRate" table-name="EMPL_POSITION_TYPE_RATE_NEW"
+    package-name="org.ofbiz.humanres.position"
+    title="EmplPosition Type Rate Entity">
+    <field name="emplPositionTypeId" type="id-ne"/>
+    <field name="rateTypeId" type="id-ne"/>
+    <field name="payGradeId" type="id"/>
+    <field name="salaryStepSeqId" type="id"/>
+    <field name="fromDate" type="date-time"/>
+    <field name="thruDate" type="date-time"/>
+    <prim-key field="emplPositionTypeId"/>
+    <prim-key field="rateTypeId"/>
+    <prim-key field="fromDate"/>
+    <relation type="one" fk-name="EMPL_PTPRT_EPTP" rel-entity-name="EmplPositionType">
+      <key-map field-name="emplPositionTypeId"/>
+    </relation>
+    <relation type="one-nofk" fk-name="EMPL_PTPRT_SSTP" rel-entity-name="SalaryStep">
+      <key-map field-name="salaryStepSeqId"/>
+      <key-map field-name="payGradeId"/>
+    </relation>
+    <relation type="one-nofk" fk-name="EMPL_PTPRT_RTTYP" rel-entity-name="RateType">
+      <key-map field-name="rateTypeId"/>
+    </relation>
+  </entity>
+  <view-entity entity-name="EmplPositionTypeRateAndAmount"
+    package-name="org.ofbiz.humanres.position"
+    title="EmplPosition Type Rate Entity and Rate Amount">
+    <member-entity entity-alias="EPTR" entity-name="EmplPositionTypeRate"/>
+    <member-entity entity-alias="RA" entity-name="RateAmount"/>
+    <alias-all entity-alias="EPTR"/>
+    <alias entity-alias="RA" name="rateAmount"/>
+    <alias entity-alias="RA" name="periodTypeId"/>
+    <alias entity-alias="RA" name="rateCurrencyUomId"/>
+    <alias entity-alias="RA" name="rateAmountFromDate" field="fromDate"/>
+    <alias entity-alias="RA" name="rateAmountThruDate" field="thruDate"/>
+    <view-link entity-alias="EPTR" rel-entity-alias="RA">
+      <key-map field-name="emplPositionTypeId"/>
+      <key-map field-name="rateTypeId"/>
+    </view-link>
+  </view-entity>
+
 </entitymodel>

@@ -704,41 +704,53 @@ under the License.
         <field name="datetimeEnded" title="${uiLabelMap.CommonFinishDate}"><display/></field>
     </form>
 
-    <!-- WorkEffortAssignmentRate -->
-    <form name="ListWorkEffortAssignmentRates" type="list" list-name="workEffortAssignmentRates" target="updateWorkEffortAssignmentRate"
+    <!-- WorkEffortRate -->
+    <form name="ListWorkEffortRates" type="list" list-name="workEffortRates" target="deleteWorkEffortRate"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="WorkEffortAssignmentRate">
+            <entity-condition entity-name="RateAmount" filter-by-date="true">
                 <condition-expr field-name="workEffortId" env-name="workEffortId"/>
-                <order-by field-name="partyId"/>
                 <order-by field-name="rateTypeId"/>
-                <order-by field-name="-fromDate"/>
+                <order-by field-name="periodTypeId"/>
+                <order-by field-name="rateCurrencyUomId"/>
             </entity-condition>
         </actions>
-        <auto-fields-service service-name="updateWorkEffortAssignmentRate"/>
-        
         <field name="workEffortId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="rateCurrencyUomId"><hidden/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}"><display-entity entity-name="RateType"/></field>
-        <field name="partyId" title="${uiLabelMap.PartyParty}">
-            <display-entity description="${firstName} ${lastName} ${groupName} [${partyId}]" entity-name="PartyNameView"/>
-        </field>
-        <field name="fromDate"><display/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
-        
-        <field name="deleteLink" title="${uiLabelMap.CommonEmptyHeader}" widget-style="buttontext">
-            <hyperlink target="deleteWorkEffortAssignmentRate?workEffortId=${workEffortId}&amp;rateTypeId=${rateTypeId}&amp;partyId=${partyId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
-        </field>
+        <field name="rateAmount"><display type="currency" currency="${rateCurrencyUomId}"/></field>
+        <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
+        <field name="deleteButton" widget-style="smallSubmit"><submit /></field>
     </form>
-    <form name="AddWorkEffortAssignmentRate" type="single" target="createWorkEffortAssignmentRate" title=""
+    <form name="AddWorkEffortRate" type="single" target="updateWorkEffortRate" title=""
         header-row-style="header-row" default-table-style="basic-table">
-        <auto-fields-service service-name="createWorkEffortAssignmentRate"/>
-        
+        <actions>
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
+            <set field="periodTypeId" value="RATE_HOUR"/>
+        </actions>
         <field name="workEffortId"><hidden/></field>
-        <field name="partyId" title="${uiLabelMap.PartyParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.partyId}"/></field>
         <field name="rateTypeId" title="${uiLabelMap.TimesheetRateType}">
             <drop-down no-current-selected-key="STANDARD">
                 <entity-options entity-name="RateType" description="${description}">
                     <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="periodTypeId" position="2">
+            <drop-down>
+                <entity-options entity-name="PeriodType" description="${description}">
+                    <entity-constraint name="periodTypeId" operator="like" value="RATE_%"/>
+                    <entity-order-by field-name="description"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field name="rateAmount"  tooltip="override Default Rate amount"><text/></field>
+        <field name="rateCurrencyUomId" position="2">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
                 </entity-options>
             </drop-down>
         </field>
@@ -757,8 +769,6 @@ under the License.
                 <order-by field-name="-fromDate"/>
             </entity-condition>
         </actions>
-        <auto-fields-service service-name="updateTimeEntry"/>
-        
         <field name="timeEntryId"><hidden/></field>
         <field name="timesheetId">
             <lookup size="10" target-form-name="LookupTimesheet">

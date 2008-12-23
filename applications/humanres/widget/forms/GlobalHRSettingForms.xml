@@ -114,54 +114,69 @@ under the License.
         <field name="emplPositionTypeId" use-when="emplPositionType==null" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><text/></field>
         <field name="emplPositionTypeId" use-when="emplPositionType!=null"><display/></field>        
         <field name="description" title="${uiLabelMap.CommonDescription}"><text/></field>        
-        <field name="submitButton" use-when="emplPositionType==null" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
-        <field name="submitButton" use-when="emplPositionType!=null" title="${uiLabelMap.CommonUpdate}" widget-style="smallSubmit"><submit button-type="button"/></field>
+        <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="smallSubmit"><submit button-type="button"/></field>        
     </form>
-    <form name="ListEmplPositionTypeRates" type="multi" title="" target="updateEmplPositionTypeRate"
+    <form name="ListEmplPositionTypeRates" type="list" title="" target="deleteEmplPositionTypeRate"
         odd-row-style="alternate-row" header-row-style="header-row-2" default-table-style="basic-table hover-bar">
         <actions>
-            <entity-condition entity-name="EmplPositionTypeRate"><order-by field-name="fromDate"/></entity-condition>
+            <set field="nowDate" value="${bsh:org.ofbiz.base.util.UtilDateTime.nowDateString(&quot;yyyy-MM-dd HH:mm:ss.S&quot;)}" type="String"/>
+            <entity-condition entity-name="EmplPositionTypeRateAndAmount" filter-by-date="true">
+                <condition-list combine="and">
+                    <condition-expr field-name="emplPositionTypeId" env-name="parameters.emplPositionTypeId" operator="equals"/>
+                    <condition-list combine="or">
+                        <condition-expr field-name="rateAmountFromDate" env-name="null" operator="equals"/>
+                        <condition-expr field-name="rateAmountFromDate" env-name="nowDate" operator="less"/>
+                    </condition-list>
+                    <condition-list combine="or">
+                        <condition-expr field-name="rateAmountThruDate" env-name="null" operator="equals"/>
+                        <condition-expr field-name="rateAmountThruDate" env-name="nowDate" operator="greater"/>
+                    </condition-list>
+                </condition-list>
+                <order-by field-name="rateTypeId"/>
+            </entity-condition>
         </actions>
-        <auto-fields-service service-name="updateEmplPositionTypeRate" default-field-type="hidden"/>        
+        <field name="rateCurrencyUomId"><hidden/></field>
         <field name="emplPositionTypeId"><hidden/></field>
+        <field name="fromDate"><hidden/></field>
+        <field name="rateAmountFromDate"><hidden/></field>
+        <field name="rateTypeId"><display-entity entity-name="RateType" description="${description}"/></field>
         <field name="periodTypeId"><display-entity entity-name="PeriodType" description="${description}"/></field>
-        <field name="rateTypeId">
-            <drop-down allow-empty="true" no-current-selected-key="">
-                <entity-options description="${description}" key-field-name="rateTypeId" entity-name="RateType">
-                    <entity-order-by field-name="rateTypeId"/>
-                </entity-options>
-            </drop-down>
-        </field>
-        <field name="payGradeId"><lookup target-form-name="LookupPayGrade"/></field>        
-        <field name="salaryStepSeqId"><lookup target-form-name="LookupSalaryStep"/></field>
-        <field name="fromDate"><display/></field>
-        <field name="deleteLink" title="${uiLabelMap.CommonDelete}" widget-style="buttontext">
-            <hyperlink target="deleteEmplPositionTypeRate?emplPositionTypeId=${emplPositionTypeId}&amp;fromDate=${fromDate}" description="${uiLabelMap.CommonDelete}" also-hidden="false"/>
-        </field>
-        <field name="_rowSubmit" title="${uiLabelMap.CommonSelect}"><hidden value="Y"/></field>
-        <field name="submitButton" title="${uiLabelMap.CommonSubmit}" widget-style="smallSubmit"><submit/></field>
+        <field name="payGradeId"><display-entity entity-name="PayGrade" description="${description}"/></field>        
+        <field name="salaryStepSeqId"><display/></field>
+        <field name="rateAmount"><display type="currency" currency="${rateCurrencyUomId}"/></field>
+        <field name="deleteButton" widget-style="buttontext"><submit/></field>
     </form>            
-    <form name="AddEmplPositionTypeRate" type="single" target="createEmplPositionTypeRate" default-map-name="emplPositionTypeRate" paginate-target="EditEmplPositionTypeRates"
+    <form name="AddEmplPositionTypeRate" type="single" target="updateEmplPositionTypeRate" default-map-name="emplPositionTypeRate" paginate-target="EditEmplPositionTypeRates"
         header-row-style="header-row" default-table-style="basic-table">
-        <field name="emplPositionTypeId"><hidden/></field>
-        <field name="rateTypeId">
-            <drop-down allow-empty="true" no-current-selected-key="">
+        <actions>
+            <property-to-field field="defaultCurrencyUomId" resource="general" property="currency.uom.id.default" default="USD" />
+        </actions>
+        <field name="emplPositionTypeId"><hidden value="${parameters.emplPositionTypeId}"/></field>
+        <field name="rateTypeId"   tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
+            <drop-down>
                 <entity-options description="${description}" key-field-name="rateTypeId" entity-name="RateType">
-                    <entity-order-by field-name="rateTypeId"/>
+                    <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="payGradeId"><lookup target-form-name="LookupPayGrade"/></field>        
-        <field name="salaryStepSeqId"><lookup target-form-name="LookupSalaryStep"/></field>  
+        <field name="payGradeId" position="2"><lookup target-form-name="LookupPayGrade"/></field>        
         <field name="periodTypeId" tooltip="${uiLabelMap.CommonRequired}" widget-style="required">
-            <drop-down allow-empty="false">
+            <drop-down allow-empty="false" no-current-selected-key="RATE_MONTH">
                 <entity-options description="${description}" key-field-name="periodTypeId" entity-name="PeriodType">
                     <entity-order-by field-name="periodTypeId"/>
                 </entity-options>
             </drop-down>
         </field>
-        <field name="rate" title="${uiLabelMap.FormFieldTitle_conversionFactor}"><text/></field>
-        <field name="fromDate" tooltip="${uiLabelMap.CommonRequired}" widget-style="required"><date-time/></field>
+        <field name="salaryStepSeqId" position="2"><lookup target-form-name="LookupSalaryStep"/></field>  
+        <field name="rateAmount"><text/></field>
+        <field name="rateCurrencyUomId" position="2">
+            <drop-down allow-empty="true" no-current-selected-key="${defaultCurrencyUomId}">
+                <entity-options key-field-name="uomId" description="${abbreviation} - ${description}" entity-name="Uom">
+                    <entity-constraint name="uomTypeId" operator="equals" value="CURRENCY_MEASURE"/>
+                    <entity-order-by field-name="abbreviation"/>
+                </entity-options>
+            </drop-down>
+        </field>
         <field name="submitButton" title="${uiLabelMap.CommonCreate}" widget-style="buttontext"><submit button-type="text-link"/></field>
     </form>
     <form name="ListTerminationReasons" type="multi" title="" target="updateTerminationReason" paginate-target="EditTerminationReasons"
