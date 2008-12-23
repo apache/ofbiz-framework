@@ -20,11 +20,13 @@
 --><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="OagisApplication">
         <value xml:lang="en">Oagis Implementation</value>
+        <value xml:lang="fr">Implémentation Oagis</value>
         <value xml:lang="it">Implementazione Oagis</value>
         <value xml:lang="th">Oagis Implementation</value>
     </property>
     <property key="OagisCompanyName">
         <value xml:lang="en">OFBiz: Oagis</value>
+        <value xml:lang="fr">OFBiz: Oagis</value>
         <value xml:lang="it">OFBiz: Oagis</value>
         <value xml:lang="th">OFBiz: การรวมภาษาทางธุรกิจ</value>
     </property>
@@ -46,41 +48,49 @@
     </property>
     <property key="OagisEditMessageErrorInfo">
         <value xml:lang="en">Edit Message Error Info</value>
+        <value xml:lang="fr">Modifier l'information du message d'erreur</value>
         <value xml:lang="it">Aggiorna Informazioni sui Messaggi di Errore</value>
         <value xml:lang="th">แก้ไขข้อมูลของข้อความผิดพลาด</value>
     </property>
     <property key="OagisEditMessageInfo">
         <value xml:lang="en">Edit Message Info</value>
+        <value xml:lang="fr">Modifier l'information du message</value>
         <value xml:lang="it">Aggiorna Informazioni sui Messaggi</value>
         <value xml:lang="th">แก้ไขข้อมูลของข้อความ</value>
     </property>
     <property key="OagisErrorInCreatingDataForOagisMessageInfoEntity">
         <value xml:lang="en">Error in creating data for OagisMessageInfo Entity</value>
+        <value xml:lang="fr">Erreur à la création de la date pour l'entité OagisMessageInfo</value>
         <value xml:lang="it">Errore nella creazioni dei dati per Entità OagisMessageInfo</value>
         <value xml:lang="th">ผิดพลาดในการสร้างข้อมูลสำหรับเอนทิตีข้อมูลของข้อความการรวมภาษาทางธุรกิจ</value>
     </property>
     <property key="OagisErrorInExportingMessageFromScreen">
         <value xml:lang="en">Error in exporting message from screen</value>
+        <value xml:lang="fr">Erreur en exportant le message depuis l'écran</value>
         <value xml:lang="it">Errore nell'esportazione del messaggio sullo schermo</value>
         <value xml:lang="th">ผิดพลาดในการส่งออกข้อความจากหน้าจอ</value>
     </property>
     <property key="OagisInventoryDescription">
         <value xml:lang="en">Inventory Description</value>
+        <value xml:lang="fr">Description de stock</value>
         <value xml:lang="it">Descrizione Inventario</value>
         <value xml:lang="th">รายละเอียดสินค้าคงเหลือ</value>
     </property>
     <property key="OagisInventoryLevelDateTime">
         <value xml:lang="en">date/time</value>
+        <value xml:lang="fr">date/heure</value>
         <value xml:lang="it">data/ora</value>
         <value xml:lang="th">วันที่/เวลา</value>
     </property>
     <property key="OagisListMessageErrorInfo">
-        <value xml:lang="en">Message Error Infos </value>
+        <value xml:lang="en">Message Error Infos</value>
+        <value xml:lang="fr">Informations du message d'erreur</value>
         <value xml:lang="it">Informazioni sui Messaggi di Errore</value>
         <value xml:lang="th">ข้อมูลความผิดพลาดของข้อความ</value>
     </property>
     <property key="OagisListMessageInfo">
         <value xml:lang="en">Message Infos</value>
+        <value xml:lang="fr">Informations du message</value>
         <value xml:lang="it">Informazioni sui Messaggi</value>
         <value xml:lang="th">ข้อมูลของข้อความ</value>
     </property>
@@ -92,11 +102,13 @@
     </property>
     <property key="OagisMessageErrorInfo">
         <value xml:lang="en">Message Error Info</value>
+        <value xml:lang="fr">Information du message d'erreur</value>
         <value xml:lang="it">Informazioni sui Messaggi di Errore</value>
         <value xml:lang="th">ข้อมูลความผิดพลาดของข้อความ</value>
     </property>
     <property key="OagisMessageInfo">
         <value xml:lang="en">Message Info</value>
+        <value xml:lang="fr">Informations du message</value>
         <value xml:lang="it">Informazioni sui Messaggi</value>
         <value xml:lang="th">ข้อมูลของข้อความ</value>
     </property>
@@ -108,21 +120,25 @@
     </property>
     <property key="OagisNewMessageErrorInfo">
         <value xml:lang="en">New Message Error Info</value>
+        <value xml:lang="fr">Nouvelle information du message d'erreur</value>
         <value xml:lang="it">Nuove Informazioni sui Messaggi Errori</value>
         <value xml:lang="th">ข้อมูลความผิดพลาดของข้อความใหม่</value>
     </property>
     <property key="OagisNewMessageInfo">
         <value xml:lang="en">New Message Info</value>
+        <value xml:lang="fr">Nouvelle information du message</value>
         <value xml:lang="it">Nuove Informazioni sui Messaggi</value>
         <value xml:lang="th">ข้อมูลของข้อความใหม่</value>
     </property>
     <property key="OagisQuantityDiff">
         <value xml:lang="en">Qty Difference</value>
+        <value xml:lang="fr">Différence en Qté </value>
         <value xml:lang="it">Differenza Qnt</value>
         <value xml:lang="th">จำนวนที่แตกต่าง</value>
     </property>
     <property key="PageTitleOagisInventoryMismatchNotice">
         <value xml:lang="en">Inventory Mismatch Notice</value>
+        <value xml:lang="fr">Notice de disparité de stock</value>
         <value xml:lang="it">Notizia Non Corrispondenza di Inventario</value>
         <value xml:lang="th">ข้อสังเกตการจับคู่ผิดของสินค้าคงเหลือ</value>
     </property>
