@@ -99,25 +99,20 @@ under the License.
     <simple-method method-name="checkCommEventAccess" short-description="check if the user has access to the email of this party">
         <set field="found" value="false"/>
         <if-compare-field operator="not-equals" field="parameters.partyId" to-field="userLogin.partyId">
-                <entity-and list-name="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
-                    <field-map field-name="partyIdFrom" value="${userLogin.partyId}" />
-                    <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN" />
-                </entity-and>
-                <iterate entry-name="emailOwners" list-name="emailOwner">
-                    <if-compare operator="equals" value="${userLogin.partyId}" field="emailOwner.partyIdTo">
-                        <set field="found" value="true"/>
-                    </if-compare>
-                </iterate>
-                <else>
-                    <set field="found" value="true"/>
-                </else>
+            <entity-and list-name="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
+                <field-map field-name="partyIdFrom" env-name="userLogin.partyId" />
+                <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN" />
+                <field-map field-name="partyIdTo" env-name="parameters.partyId"/>
+            </entity-and>
+            <if-not-empty field="emailOwners">
+                <set field="found" value="true"/>
+            </if-not-empty>
         </if-compare-field>
     </simple-method>
     <simple-method method-name="createCommunicationEventRoles" short-description="">
         <entity-condition list-name="commEvents" entity-name="CommunicationEvent" />
         <set field="count" value="0" type="Integer" />
         <iterate entry-name="commEvent" list-name="commEvents">
-            <log level="always" message="====processing: ${commEvent.communicationEventId}"></log>
             <get-related value-name="commEvent" relation-name="CommunicationEventRole" list-name="roles" />
             <if-empty field="roles">
                 <!--partyId To -->
@@ -164,7 +159,6 @@ under the License.
                 </calculate>
             </if-empty>
         </iterate>
-        <log level="always" message="========${count} records updated" />
     </simple-method>
 
     <simple-method method-name="getToNextDonePage" short-description="return the requestValue 'donePage' as a resultcode to the controller">
