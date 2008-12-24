@@ -18,7 +18,7 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="->Complete">
+    <property key="toComplete">
         <value xml:lang="en">->Closed</value>
         <value xml:lang="fr">->Fermé(e)</value>
     </property>

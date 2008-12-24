@@ -260,7 +260,7 @@ under the License.
             <condition>
                 <and>
                     <not><if-empty field-name="communicationEventRole"/></not>
-                    <if-compare field-name="communicationEventRole.statusId" operator="equals" value="COM_ROLE_READ"/>
+                    <if-compare field-name="communicationEvent.statusId" operator="equals" value="COM_ROLE_READ"/>
                     <if-has-permission permission="PARTYMGR_CME-EMAIL_CREATE"/>
                 </and>
             </condition>

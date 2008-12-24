@@ -32,6 +32,7 @@ under the License.
                         <condition-expr field-name="statusId" operator="not-equals" value="PARTY_DISABLED"/>
                     </condition-list>
                     <order-by field-name="lastName"/>
+                    <order-by field-name="firstName"/>
                     <order-by field-name="groupName"/>
                 </entity-condition>
             </actions>                                                

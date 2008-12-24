@@ -224,6 +224,7 @@ under the License.
 			            <condition-expr field-name="partyId" operator="equals" 
 			                value="${partyId}"/>			            
 			        </condition-list>
+			        <order-by field-name="-datetimeStarted" />
 			    </entity-condition>
                 <entity-one entity-name="PartyNameView" value-name="partyName">
                     <field-map field-name="partyId" env-name="partyId"/>

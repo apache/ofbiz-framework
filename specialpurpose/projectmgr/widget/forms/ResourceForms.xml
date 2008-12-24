@@ -31,7 +31,7 @@
             <service service-name="getPartyTelephone" result-map-name="telResult"/>
         </row-actions>
         <field name="resourceName" parameter-name="partyId" title="${uiLabelMap.ProjectMgrResourceName}" widget-style="buttontext">
-            <hyperlink also-hidden="false" description="${firstName} ${middleName} ${lastName} ${groupName}" target="viewprofile?partyId=${partyId}"/>
+            <hyperlink also-hidden="false" description="${lastName}, ${firstName} ${middleName} ${groupName}" target="viewprofile?partyId=${partyId}"/>
         </field>
         <field name="roleTypeId"><hidden/></field>
         <field name="emailAddess" title="${uiLabelMap.PartyEmailAddress}"><hyperlink target="/partymgr/control/EditCommunicationEvent?partyIdFrom=${userLogin.partyId}&amp;partyIdTo=${partyId}&amp;communicationEventTypeId=EMAIL_COMMUNICATION&amp;contactMechIdTo=${contactMechId}&amp;contactMechTypeId=EMAIL_ADDRESS" description="${emailResult.emailAddress}" target-type="inter-app"/></field>

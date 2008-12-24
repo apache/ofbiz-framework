@@ -88,6 +88,7 @@
         <field name="partyId" title="${uiLabelMap.PartyParty}">
             <drop-down allow-empty="true">
                 <entity-options entity-name="PartyRoleAndPartyDetail" description="${firstName} ${lastName}">
+                    <entity-constraint name="statusId" operator="not-equals" value="PARTY_DISABLED"/>
                     <entity-constraint name="roleTypeId" value="PROJECT_TEAM"/>
                     <entity-order-by field-name="lastName"/>
                     <entity-order-by field-name="groupName"/>
