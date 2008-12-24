@@ -44,7 +44,7 @@ under the License.
         <tr class="header-row">
           <td width="10%">${uiLabelMap.ManufacturingProductLevel}</td>
           <td width="20%">${uiLabelMap.ProductProductId}</td>
-          <td width="10%">&nbsp;</td>
+          <td width="10%">${uiLabelMap.ManufacturingProductVirtual}</td>
           <td width="40%">${uiLabelMap.ProductProductName}</td>
           <td width="10%" align="right">${uiLabelMap.CommonQuantity}</td>
           <td width="10%" align="right">&nbsp;</td>
@@ -63,10 +63,21 @@ under the License.
               </tr>
               </table>
               </td>
-              <td>${node.product.productId}</td>
+              <td>
+              <table cellspacing="1">
+              <tr>
+              <#list 0..(node.depth) as level>
+              <td>&nbsp;&nbsp;</td>
+              </#list>
+              <td>
+                ${node.product.productId}
+              </td>
+              </tr>
+              </table>
+              </td>
               <td>
                 <#if node.product.isVirtual?default("N") == "Y">
-                    ${uiLabelMap.ManufacturingProductVirtualVirtual}
+                    ${node.product.isVirtual}
                 </#if>
                 ${(node.ruleApplied.ruleId)?if_exists}
               </td>

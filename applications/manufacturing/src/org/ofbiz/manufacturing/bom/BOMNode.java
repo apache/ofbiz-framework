@@ -98,7 +98,7 @@ public class BOMNode {
         List rows = delegator.findByAnd("ProductAssoc", 
                                             UtilMisc.toMap("productId", product.get("productId"), 
                                                        "productAssocTypeId", partBomTypeId),
-                                            UtilMisc.toList("sequenceNum"));
+                                            UtilMisc.toList("sequenceNum","productIdTo ASC"));
         rows = EntityUtil.filterByDate(rows, inDate);
         if ((UtilValidate.isEmpty(rows)) && substitutedNode != null) {
             // If no child is found and this is a substituted node
