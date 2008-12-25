@@ -71,7 +71,8 @@ under the License.
     <#if categoryImageUrl?has_content || longDescription?has_content>
       <div>
         <#if categoryImageUrl?has_content>
-          <img src='<@ofbizContentUrl>${categoryImageUrl}</@ofbizContentUrl>' vspace='5' hspace='5' border='1' height='100' align='left'/>
+          <#assign height=100/>
+          <img src='<@ofbizContentUrl>${categoryImageUrl}</@ofbizContentUrl>' vspace='5' hspace='5' border='1' height='${height}' align='left'/>
         </#if>
         <#if longDescription?has_content>
           ${longDescription}
@@ -94,7 +95,11 @@ under the License.
       <#assign numCol = numCol?default(1)>
       <#assign numCol = numCol?number>
       <#assign tabCol = 1>
-      <div class="productsummary-container<#if (numCol?int > 1)> matrix</#if>">
+      <div
+      <#if categoryImageUrl?has_content>
+        style="position: relative; margin-top: ${height}px;"
+      </#if>
+      class="productsummary-container<#if (numCol?int > 1)> matrix</#if>">
       <#if (numCol?int > 1)>
         <table>
       </#if>
