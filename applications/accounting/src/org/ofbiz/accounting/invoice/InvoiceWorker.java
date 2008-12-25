@@ -554,17 +554,23 @@ public class InvoiceWorker {
     	try {
     		GenericValue party  = delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyIdFrom")));
     		if (UtilValidate.isEmpty(party) || party.getString("baseCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
-    			party  = delegator.findByPrimaryKey("PartyAccntgPreferences", UtilMisc.toMap("partyId", invoice.getString("partyId")));
+    			party  = delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyId")));
     		}
-    		if (party.getString("baseCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
-    			return BigDecimal.ONE;  // organization party has the same currency so conversion not required.
+    		if (UtilValidate.isNotEmpty(party) && party.getString("baseCurrencyUomId") != null) {
+   				otherCurrencyUomId = new String(party.getString("baseCurrencyUomId"));
     		} else {
-    			otherCurrencyUomId = new String(invoice.getString("currencyUomId"));
+    			otherCurrencyUomId = new String(UtilProperties.getPropertyValue("general", "currency.uom.id.default"));
+    		}
+    		if (otherCurrencyUomId == null) {
+    			otherCurrencyUomId = "USD"; // final default
     		}
     	} catch (GenericEntityException e) {
     		Debug.logError(e, "Trouble getting database records....", module);            
     	}
-
+		if (invoice.getString("currencyUomId").equals(otherCurrencyUomId)) {
+			return BigDecimal.ONE;  // organization party has the same currency so conversion not required.
+		}
+		
     	try {
     		// check if the invoice is posted and get the conversion from there
     		List acctgTransEntries = invoice.getRelated("AcctgTrans");
