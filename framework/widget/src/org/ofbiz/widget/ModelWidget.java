@@ -23,6 +23,7 @@ import java.util.Map;
 import org.w3c.dom.Element;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.UtilProperties;
+import org.ofbiz.base.util.UtilValidate;
 
 /**
  * Widget Library - Widget model class. ModelWidget is a base class that is
@@ -130,8 +131,13 @@ public class ModelWidget implements Serializable {
     public void incrementPaginatorNumber(Map<String, Object> context) {    
         Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
         if (globalCtx != null) {
-            Integer paginateNumberInt = Integer.valueOf(getPaginatorNumber(context) + 1);
-            globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
+            Boolean NO_PAGINATOR = (Boolean) globalCtx.get("NO_PAGINATOR");
+            if (UtilValidate.isNotEmpty(NO_PAGINATOR)) {
+                globalCtx.remove("NO_PAGINATOR");
+            } else {
+                Integer paginateNumberInt = Integer.valueOf(getPaginatorNumber(context) + 1);
+                globalCtx.put("PAGINATOR_NUMBER", paginateNumberInt);
+            }
         }     
     }
     
