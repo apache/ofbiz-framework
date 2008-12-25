@@ -84,6 +84,34 @@ under the License.
     <form name="LookupDataResource" target="LookupDataResource" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
         <auto-fields-entity entity-name="DataResource" default-field-type="find"/>
+        <field name="noConditionFind"><hidden value="Y"/></field>
+        
+        <sort-order>
+            <field-group>
+                <sort-field name="dataResourceId"/>
+                <sort-field name="dataResourceName"/>
+            </field-group>
+            <field-group title="${uiLabelMap.CommonAdvancedSearch}" collapsible="true" initially-collapsed="true">
+                <sort-field name="dataResourceTypeId"/>
+                <sort-field name="dataTemplateTypeId"/>
+                <sort-field name="dataCategoryId"/>
+                <sort-field name="dataSourceId"/>
+                <sort-field name="statusId"/>
+                <sort-field name="localeString"/>
+                <sort-field name="mimeTypeId"/>
+                <sort-field name="characterSetId"/>
+                <sort-field name="objectInfo"/>
+                <sort-field name="surveyId"/>
+                <sort-field name="surveyResponseId"/>
+                <sort-field name="relatedDetailId"/>
+                <sort-field name="isPublic"/>
+                <sort-field name="createdDate"/>
+                <sort-field name="createdByUserLogin"/>
+                <sort-field name="lastModifiedDate"/>
+                <sort-field name="lastModifiedByUserLogin"/>
+            </field-group>
+        </sort-order>
+        
         <field name="submitButton" title="Lookup" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="ListLookupDataResource" extends="ListDataResource" list-name="listIt" type="list" paginate-target="LookupDataResource"

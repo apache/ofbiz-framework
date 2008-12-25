@@ -7805,17 +7805,6 @@
         <value xml:lang="th">ที่อยู่</value>
         <value xml:lang="zh">地址</value>
     </property>
-    <property key="ProductAdvancedSearch">
-        <value xml:lang="de">Erweiterte Suche</value>
-        <value xml:lang="en">Advanced Search</value>
-        <value xml:lang="es">Búsqueda Avanzada</value>
-        <value xml:lang="fr">Recherche avancée</value>
-        <value xml:lang="it">Ricerca Avanzata</value>
-        <value xml:lang="ro">Cautare Avansata</value>
-        <value xml:lang="ru">Расширенный поиск</value>
-        <value xml:lang="th">ค้นหาเพิ่มเติม</value>
-        <value xml:lang="zh">高级搜索</value>
-    </property>
     <property key="ProductAdvancedSearchIn">
         <value xml:lang="de">Erweiterte Suche in</value>
         <value xml:lang="en">Advanced Search in</value>

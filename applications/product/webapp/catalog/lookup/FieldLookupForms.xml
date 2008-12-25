@@ -181,7 +181,7 @@ under the License.
                 <sort-field name="productCategoryId"/>
                 <sort-field name="categoryName"/>
             </field-group>
-            <field-group title="${uiLabelMap.ProductAdvancedSearch}" collapsible="true" initially-collapsed="true">
+            <field-group title="${uiLabelMap.CommonAdvancedSearch}" collapsible="true" initially-collapsed="true">
                 <sort-field name="productCategoryTypeId"/>
                 <sort-field name="primaryParentCategoryId"/>
                 <sort-field name="description"/>
