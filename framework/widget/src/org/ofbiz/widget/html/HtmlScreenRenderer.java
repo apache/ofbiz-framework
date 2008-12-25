@@ -246,7 +246,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
 
         // get the parametrized pagination index and size fields
-        int paginatoNumber = modelForm.getPaginatorNumber(context);
+        int paginatorNumber = modelForm.getPaginatorNumber(context);
         String viewIndexParam = modelForm.getPaginateIndexField(context);
         String viewSizeParam = modelForm.getPaginateSizeField(context);
 
@@ -272,8 +272,8 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
 
         // for legacy support, the viewSizeParam is VIEW_SIZE and viewIndexParam is VIEW_INDEX when the fields are "viewSize" and "viewIndex"
-        if (viewIndexParam.equals("viewIndex" + "_" + paginatoNumber)) viewIndexParam = "VIEW_INDEX" + "_" + paginatoNumber;
-        if (viewSizeParam.equals("viewSize" + "_" + paginatoNumber)) viewSizeParam = "VIEW_SIZE" + "_" + paginatoNumber;
+        if (viewIndexParam.equals("viewIndex" + "_" + paginatorNumber)) viewIndexParam = "VIEW_INDEX" + "_" + paginatorNumber;
+        if (viewSizeParam.equals("viewSize" + "_" + paginatorNumber)) viewSizeParam = "VIEW_SIZE" + "_" + paginatorNumber;
 
         ServletContext ctx = (ServletContext) request.getAttribute("servletContext");
         RequestHandler rh = (RequestHandler) ctx.getAttribute("_REQUEST_HANDLER_");
@@ -285,7 +285,7 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
         }
         String queryString = UtilHttp.urlEncodeArgs(inputFields);
         // strip legacy viewIndex/viewSize params from the query string
-        queryString = UtilHttp.stripViewParamsFromQueryString(queryString, "" + paginatoNumber);
+        queryString = UtilHttp.stripViewParamsFromQueryString(queryString, "" + paginatorNumber);
         // strip parametrized index/size params from the query string
         HashSet<String> paramNames = new HashSet<String>();
         paramNames.add(viewIndexParam);
@@ -382,6 +382,8 @@ public class HtmlScreenRenderer extends HtmlWidgetRenderer implements ScreenStri
             HttpServletRequest request = (HttpServletRequest) context.get("request");
             HttpServletResponse response = (HttpServletResponse) context.get("response");
             if (request != null && response != null) {
+                Map<String, Object> globalCtx = UtilGenerics.checkMap(context.get("globalContext"));
+                globalCtx.put("NO_PAGINATOR", true);
                 FormStringRenderer savedRenderer = (FormStringRenderer) context.get("formStringRenderer");
                 HtmlFormRenderer renderer = new HtmlFormRenderer(request, response);
                 renderer.setRenderPagination(false);
