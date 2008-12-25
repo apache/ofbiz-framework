@@ -76,8 +76,12 @@ under the License.
         <field name="invoiceDate"><display/></field>
         <field name="statusId"><display-entity entity-name="StatusItem" description="${description}"/></field>
         <field name="description"><display/></field>
-        <field name="partyIdFrom"><display description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/></field>
-        <field name="partyIdTo" parameter-name="partyId"><display description="${partyNameResultTo.fullName} [${partyId}]"/></field>
+        <field name="partyIdFrom">
+            <hyperlink target="/partymgr/control/PartyFinancialHistory?partyId=${partyIdFrom}" target-type="inter-app" description="${partyNameResultFrom.fullName} [${partyIdFrom}]"/>
+        </field>
+        <field name="partyIdTo" parameter-name="partyId">
+            <hyperlink target="/partymgr/control/PartyFinancialHistory?partyId=${partyId}" target-type="inter-app" description="${partyNameResultTo.fullName} [${partyId}]"/>
+        </field>
         <field name="invoiceDate"><display description="${date:dateStr(invoiceDate)}"/></field>
         <field name="total" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>
         <field name="amountToApply" widget-area-style="align-text"><display type="currency" currency="${currencyUomId}"/></field>

@@ -104,11 +104,14 @@ under the License.
         </li>
         <li>
           <#if person?has_content>
-            ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
+            ${uiLabelMap.CommonWelcome} ${person.firstName?if_exists} ${person.middleName?if_exists} ${person.lastName?if_exists} [${userLogin.userLoginId}]
           <#elseif partyGroup?has_content>
             ${uiLabelMap.CommonWelcome} ${partyGroup.groupName?if_exists} [${userLogin.userLoginId}]
           <#else>
             ${uiLabelMap.CommonWelcome}!
+          </#if>
+          <#if defaultOrganizationPartyId?exists>
+            ${uiLabelMap.DefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]
           </#if>
         </li>
         <li>${nowTimestamp?datetime?string.short}</li>
@@ -142,6 +145,9 @@ under the License.
             ${uiLabelMap.CommonWelcome}!
           </#if>
           </p>
+          <#if defaultOrganizationPartyId?exists>
+            <p>${uiLabelMap.DefaultOrganizationPartyId} : ${defaultOrganizationPartyGroupName?if_exists} [${defaultOrganizationPartyId}]</p>
+          </#if>
           <p>${nowTimestamp?datetime?string.short}</p>
           <p>${uiLabelMap.CommonLanguageTitle} : ${locale.getDisplayName(locale)} <a href="<@ofbizUrl>LookupLocales</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonChange}</a></p>
           <p>${timeZone.getDisplayName(timeZone.useDaylightTime(), Static["java.util.TimeZone"].LONG, locale)} <a href="<@ofbizUrl>LookupTimezones</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonChange}</a></p>

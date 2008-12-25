@@ -108,7 +108,6 @@ under the License.
         </menu-item>
     </menu>
     <menu name="InvoiceSubTabBar" menu-container-style="button-bar button-style-2" default-selected-style="selected">  
-        
         <menu-item name="createNew" title="${uiLabelMap.CommonCreateNew}" >
             <link target="newInvoice"/>
         </menu-item>
@@ -120,15 +119,18 @@ under the License.
         </menu-item>
         <menu-item name="pdf" title="${uiLabelMap.AccountingInvoicePDF}">
             <condition>
-                <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
             </condition>
             <link target="invoice.pdf?invoiceId=${invoice.invoiceId}" target-window="_BLANK"/>
         </menu-item>
-        <menu-item name="pdfOtherCur" title="${uiLabelMap.AccountingInvoicePDFOtherCur}">
+        <menu-item name="pdfDfltCur" title="${uiLabelMap.AccountingInvoicePDFDefaultCur}(${defaultOrganizationPartyCurrencyUomId})">
             <condition>
-                <not><if-empty field-name="invoice.invoiceId"/></not>
+                <and>
+                    <not><if-empty field-name="invoice.invoiceId"/></not>
+                    <if-compare-field field-name="invoice.currencyUomId" operator="not-equals" to-field-name="defaultOrganizationPartyCurrencyUomId"/>
+                </and>
             </condition>
-            <link target="invoice.pdf?invoiceId=${invoice.invoiceId}&amp;other=Y" target-window="_BLANK"/>
+            <link target="invoice.pdf?invoiceId=${invoice.invoiceId}&amp;currency=${defaultOrganizationPartyCurrencyUomId}" target-window="_BLANK"/>
         </menu-item>
         <menu-item name="statusToApproved" title="${uiLabelMap.AccountingInvoiceStatusToApproved}">
             <condition>
@@ -437,13 +439,13 @@ under the License.
             <condition>
                 <if-service-permission service-name="acctgPrefPermissionCheck" main-action="UPDATE"/>
             </condition>
-            <link target="AdminMain?organizationPartyId=${organizationPartyId}"/>
+            <link target="AdminMain?organizationPartyId=${defaultOrganizationPartyId}"/>
         </menu-item>
         <menu-item name="PartyAccounts" title="${uiLabelMap.AccountingAccounting}">
             <condition>
                 <if-service-permission service-name="basicGeneralLedgerPermissionCheck" main-action="VIEW"/>
             </condition>
-            <link target="PartyAccountsSummary?organizationPartyId=${organizationPartyId}"/>
+            <link target="PartyAccountsSummary?organizationPartyId=${defaultOrganizationPartyId}"/>
         </menu-item>
     </menu>
     <menu name="OrganizationAccountingTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml"

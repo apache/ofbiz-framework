@@ -116,7 +116,6 @@ under the License.
                                             <include-screen name="ShipperAccount" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="Notes" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                             <include-screen name="mytasks" location="component://party/widget/partymgr/ProfileScreens.xml"/>
-                                            <include-screen name="ViewInternalOrg" location="component://party/widget/partymgr/ProfileScreens.xml"/>
                                         </container>
                                     </widgets>
                                 </section>
@@ -997,68 +996,146 @@ under the License.
                 <set field="headerItem" value="accountsMain"/>
                 <set field="tabButtonItem" value="FinancialHistory"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <entity-one entity-name="PartyNameView" value-name="party"></entity-one>
-                <set field="organizationPartyId" from-scope="user" to-scope="screen" from-field="productStoreId"/>
-                <script location="component://party/webapp/partymgr/WEB-INF/actions/party/PartyFinancialHistory.groovy"/>
+                <entity-one entity-name="Party" value-name="party"/>
             </actions>
             <widgets>
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <container><label style="h1" text="${uiLabelMap.FinancialHistory}"/></container>
-                        <screenlet title="${uiLabelMap.InvoicesPayments}" navigation-form-name="Invoices">
-                            <include-form name="partyFinancialHistoryInvoices" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                        </screenlet>
+                        <label style="h1" text="${uiLabelMap.FinancialHistory}"/>
                         <section>
-                            <condition>
-                                <not>
-                                    <if-empty field-name="historyListPaymentsO"/>
-                                </not>
-                            </condition>
+                            <actions>
+                                <entity-condition entity-name="InvoiceAndApplAndPayment" list-name="ListInvoicesApplPayments">
+                                    <condition-list combine="and">
+                                        <condition-list combine="or">
+                                            <condition-list combine="and">
+                                                <condition-expr field-name="partyId" env-name="partyId"/>
+                                                <condition-expr field-name="partyIdFrom" env-name="defaultOrganizationPartyId"/>
+                                            </condition-list>
+                                            <condition-list combine="and">
+                                                <condition-expr field-name="partyId" env-name="defaultOrganizationPartyId"/>
+                                                <condition-expr field-name="partyIdFrom" env-name="partyId"/>
+                                            </condition-list>
+                                        </condition-list>
+                                        <condition-expr field-name="statusId" operator="not-equals" value="INVOICE_IN_PROCESS"/>
+                                        <condition-expr field-name="statusId" operator="not-equals" value="INVOICE_CANCELLED"/>
+                                        <condition-expr field-name="statusId" operator="not-equals" value="INVOICE_WRITEOFF"/>
+                                    </condition-list>
+                                </entity-condition>
+                            </actions>
                             <widgets>
-                                <screenlet title="${uiLabelMap.InvoicesOtherParties}" navigation-form-name="partyFinancialHistoryPayments">
-                                    <include-form name="partyFinancialHistoryPaymentsO" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                </screenlet>
+                                <section>
+                                    <condition>
+                                        <not><if-empty field-name="ListInvoicesApplPayments"/></not>
+                                    </condition>
+                                    <actions>
+                                        <set field="actualCurrency" value="false" type="Boolean"/>
+                                        <set field="actualCurrencyUomId" from-field="defaultOrganizationPartyCurrencyUomId"/>
+                                    </actions>
+                                    <widgets>
+                                        <screenlet title="${uiLabelMap.InvoicesApplPayments}" navigation-form-name="Invoices">
+                                            <include-form name="ListInvoicesApplPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                            <section>
+                                                <condition>
+                                                    <and>
+                                                        <not><if-empty field-name="party.preferredCurrencyUomId"/></not>
+                                                        <if-compare-field field-name="defaultOrganizationPartyCurrencyId" operator="not-equals" to-field-name="party.preferredCurrencyUomId"/>
+                                                    </and>
+                                                </condition>
+                                                <actions>
+                                                    <set field="actualCurrency" value="true" type="Boolean"/>
+                                                    <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
+                                                </actions>
+                                                <widgets>
+                                                    <label style="h2" text="In party currency"></label>
+                                                    <include-form name="ListInvoicesApplPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                                </widgets>
+                                            </section>
+                                        </screenlet>
+                                    </widgets>
+                                </section>
                             </widgets>
                         </section>
                         <section>
-                            <condition>
-                                <not>
-                                    <if-empty field-name="historyListPayments"/>
-                                </not>
-                            </condition>
-                            <widgets>
-                                <screenlet title="${uiLabelMap.AppliedPayments}" navigation-form-name="partyFinancialHistoryPayments">
-                                    <include-form name="partyFinancialHistoryPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                                </screenlet>
-                            </widgets>
-                        </section>
-                        <section>
-                            <condition>
-                                <not>
-                                    <if-empty field-name="historyListInvoicesN"/>
-                                </not>
-                            </condition>
+                            <actions>
+                                <set field="actualCurrency" value="false" type="Boolean"/>
+                                <set field="actualCurrencyUomId" from-field="defaultOrganizationPartyCurrencyUomId"/>
+                            </actions>
                             <widgets>
                                 <screenlet title="${uiLabelMap.InvoicesNotApplied}" navigation-form-name="partyFinancialHistoryInvoicesN">
-                                    <include-form name="partyFinancialHistoryInvoicesN" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="ListUnAppliedInvoices" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <section>
+                                        <condition>
+                                            <and>
+                                                <not><if-empty field-name="party.preferredCurrencyUomId"/></not>
+                                                <if-compare-field field-name="defaultOrganizationPartyCurrencyUomId" operator="not-equals" to-field-name="party.preferredCurrencyUomId"/>
+                                            </and>
+                                        </condition>
+                                        <actions>
+                                            <set field="actualCurrency" value="true" type="Boolean"/>
+                                            <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
+                                        </actions>
+                                        <widgets>
+                                            <label style="h2" text="In party currency"></label>
+                                            <include-form name="ListUnAppliedInvoices" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                        </widgets>
+                                    </section>
                                 </screenlet>
                             </widgets>
                         </section>
                         <section>
-                            <condition>
-                                <not>
-                                    <if-empty field-name="historyListPaymentsN"/>
-                                </not>
-                            </condition>
+                            <actions>
+                                <set field="actualCurrency" value="false" type="Boolean"/>
+                                <set field="actualCurrencyUomId" from-field="defaultOrganizationPartyCurrencyId"/>
+                            </actions>
                             <widgets>
                                 <screenlet title="${uiLabelMap.PaymentsNotApplied}" navigation-form-name="partyFinancialHistoryPaymentsN">
-                                    <include-form name="partyFinancialHistoryPaymentsN" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <include-form name="ListUnAppliedPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <section>
+                                        <condition>
+                                            <and>
+                                                <not><if-empty field-name="party.preferredCurrencyUomId"/></not>
+                                                <if-compare-field field-name="defaultOrganizationPartyCurrencyId" operator="not-equals" to-field-name="party.preferredCurrencyUomId"/>
+                                            </and>
+                                        </condition>
+                                        <actions>
+                                            <set field="actualCurrency" value="true" type="Boolean"/>
+                                            <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
+                                        </actions>
+                                        <widgets>
+                                            <label style="h2" text="In party currency"></label>
+                                            <include-form name="ListUnAppliedPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                        </widgets>
+                                    </section>
                                 </screenlet>
                             </widgets>
                         </section>
-                        <screenlet title="${uiLabelMap.PartyFinancialSummary}${organizationPartyId}" navigation-form-name="partyFinancialSummary">
-                            <include-form name="partyFinancialSummary" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                        </screenlet>    
+                        <section>
+                            <actions>
+                                <set field="actualCurrency" value="false" type="Boolean"/>
+                                <set field="actualCurrencyUomId" from-field="defaultOrganizationPartyCurrencyUomId"/>
+                            </actions>
+                            <widgets>
+                                <screenlet title="${uiLabelMap.PartyFinancialSummary}${defaultOrganizationPartyId}" navigation-form-name="partyFinancialSummary">
+                                    <include-form name="partyFinancialSummary" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                    <section>
+                                        <condition>
+                                            <and>
+                                                <not><if-empty field-name="party.preferredCurrencyUomId"/></not>
+                                                <if-compare-field field-name="defaultOrganizationPartyCurrencyUomId" operator="not-equals" to-field-name="party.preferredCurrencyUomId"/>
+                                            </and>
+                                        </condition>
+                                        <actions>
+                                            <set field="actualCurrency" value="true" type="Boolean"/>
+                                            <set field="actualCurrencyUomId" from-field="party.preferredCurrencyUomId" />
+                                        </actions>
+                                        <widgets>
+                                            <label style="h2" text="In party currency"></label>
+                                            <include-form name="partyFinancialSummary" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
+                                        </widgets>
+                                    </section>
+                                </screenlet>    
+                            </widgets>
+                        </section>
                     </decorator-section>
                 </decorator-screen>
             </widgets>
@@ -1071,7 +1148,7 @@ under the License.
                 <set field="headerItem" value="find"/>
                 <set field="tabButtonItem" value="preferences"/>
                 <set field="partyId"  from-field="parameters.partyId"/>
-                <entity-and entity-name="Enumeration" list-name="userPreferences">
+                <entity-and entity-name="Enumeration" list-name="userPreferenceList">
                     <field-map field-name="enumTypeId" value="GLOBAL_PREFERENCES"/>
                 </entity-and>
             </actions>

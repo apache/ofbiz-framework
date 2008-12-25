@@ -54,18 +54,18 @@ public class PaymentWorker {
     private static int rounding = UtilNumber.getBigDecimalRoundingMode("invoice.rounding");
     
     /** @deprecated */
-    public static void getPartyPaymentMethodValueMaps(PageContext pageContext, String partyId, boolean showOld, String paymentMethodValueMapsAttr) {
+    public static void getPartyPaymentMethodValueMaps(PageContext pageContext, String partyId, Boolean showOld, String paymentMethodValueMapsAttr) {
         GenericDelegator delegator = (GenericDelegator) pageContext.getRequest().getAttribute("delegator");
         List paymentMethodValueMaps = getPartyPaymentMethodValueMaps(delegator, partyId, showOld);
         pageContext.setAttribute(paymentMethodValueMapsAttr, paymentMethodValueMaps);
     }
 
-    // to be able to use in minilanguage where boolean cannot be used
+    // to be able to use in minilanguage where Boolean cannot be used
     public static List getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId) {
         return(getPartyPaymentMethodValueMaps(delegator, partyId, false)); 
     }
     
-    public static List getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId, boolean showOld) {
+    public static List getPartyPaymentMethodValueMaps(GenericDelegator delegator, String partyId, Boolean showOld) {
         List paymentMethodValueMaps = new LinkedList();
         try {
             List paymentMethods = delegator.findByAnd("PaymentMethod", UtilMisc.toMap("partyId", partyId));
@@ -118,7 +118,7 @@ public class PaymentWorker {
         GenericDelegator delegator = (GenericDelegator) request.getAttribute("delegator");
         Map results = new HashMap();
         
-        boolean tryEntity = true;
+        Boolean tryEntity = true;
         if (request.getAttribute("_ERROR_MESSAGE_") != null) tryEntity = false;
 
         String donePage = request.getParameter("DONE_PAGE");
@@ -236,10 +236,10 @@ public class PaymentWorker {
      * @return the applied total as double
      */
     public static double getPaymentApplied(GenericDelegator delegator, String paymentId) {
-        return getPaymentAppliedBd(delegator, paymentId).doubleValue(); 
+        return getPaymentAppliedBd(delegator, paymentId, false).doubleValue(); 
     }
     
-    public static BigDecimal getPaymentAppliedBd(GenericDelegator delegator, String paymentId) {
+    public static BigDecimal getPaymentAppliedBd(GenericDelegator delegator, String paymentId, Boolean actual) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
@@ -255,7 +255,7 @@ public class PaymentWorker {
             throw new IllegalArgumentException("The paymentId passed does not match an existing payment");
         }
         
-        return getPaymentAppliedBd(payment);
+        return getPaymentAppliedBd(payment, actual);
     }
     /**
      * Method to return the amount applied converted to the currency of payment
@@ -307,7 +307,7 @@ public class PaymentWorker {
      * @param false for currency of the payment, true for the actual currency
      * @return the applied total as BigDecimal in the currency of the payment
      */
-    public static BigDecimal getPaymentAppliedBd(GenericValue payment, boolean actual) {
+    public static BigDecimal getPaymentAppliedBd(GenericValue payment, Boolean actual) {
         BigDecimal paymentApplied = BigDecimal.ZERO;
         List paymentApplications = null;
         try {
@@ -344,11 +344,21 @@ public class PaymentWorker {
     public static BigDecimal getPaymentNotAppliedBd(GenericValue payment) {
         return payment.getBigDecimal("amount").subtract(getPaymentAppliedBd(payment)).setScale(decimals,rounding);
     }
+    public static BigDecimal getPaymentNotAppliedBd(GenericValue payment, Boolean actual) {
+    	if (actual && UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
+    		return payment.getBigDecimal("actualCurrencyAmount").subtract(getPaymentAppliedBd(payment, actual)).setScale(decimals,rounding);
+    	}
+   		return payment.getBigDecimal("amount").subtract(getPaymentAppliedBd(payment)).setScale(decimals,rounding);
+    }
     public static double getPaymentNotApplied(GenericDelegator delegator, String paymentId) {
-        return getPaymentNotAppliedBd(delegator,paymentId).doubleValue();
+        return getPaymentNotAppliedBd(delegator,paymentId, false).doubleValue();
     }
 
-    public static BigDecimal getPaymentNotAppliedBd(GenericDelegator delegator, String paymentId) {
+    public static BigDecimal getPaymentNotApplied(GenericDelegator delegator, String paymentId, Boolean actual) {
+        return getPaymentNotAppliedBd(delegator,paymentId, actual);
+    }
+
+    public static BigDecimal getPaymentNotAppliedBd(GenericDelegator delegator, String paymentId, Boolean actual) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
@@ -363,6 +373,6 @@ public class PaymentWorker {
         if (payment == null) {
             throw new IllegalArgumentException("The paymentId passed does not match an existing payment");
         }
-        return payment.getBigDecimal("amount").subtract(getPaymentAppliedBd(delegator,paymentId)).setScale(decimals,rounding);
+        return payment.getBigDecimal("amount").subtract(getPaymentAppliedBd(delegator,paymentId, actual)).setScale(decimals,rounding);
     }
 }
