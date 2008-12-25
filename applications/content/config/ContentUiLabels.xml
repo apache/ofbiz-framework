@@ -348,7 +348,7 @@
         <value xml:lang="de">Datenressource Konfiguration</value>
         <value xml:lang="en">DataResource Setup</value>
         <value xml:lang="es">Administración de recurso de datos</value>
-        <value xml:lang="fr">Installation d'une ressource de données</value>
+        <value xml:lang="fr">Configuration d'une ressource de données</value>
         <value xml:lang="it">Configurazione Risorsa Dati</value>
         <value xml:lang="ro">Configurare Resurse Date</value>
         <value xml:lang="th">ติดตั้งที่มาของข้อมูล</value>
@@ -555,7 +555,7 @@
     <property key="ContentNavigate">
         <value xml:lang="de">Navigieren</value>
         <value xml:lang="en">Navigate</value>
-        <value xml:lang="fr">Diriger</value>
+        <value xml:lang="fr">Naviguer</value>
         <value xml:lang="th">หาเส้นทาง</value>
     </property>
     <property key="ContentOtherLayout">

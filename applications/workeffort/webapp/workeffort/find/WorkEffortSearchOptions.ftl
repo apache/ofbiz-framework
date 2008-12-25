@@ -18,7 +18,7 @@ under the License.
 -->
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.ProductAdvancedSearch}</h3>        
+    <h3>${uiLabelMap.CommonAdvancedSearch}</h3>        
   </div>
   <div class="screenlet-body">
     <form name="advToKeyWordSearchForm" method="post" action="<@ofbizUrl>WorkEffortSearchResults</@ofbizUrl>" style="margin: 0;">
