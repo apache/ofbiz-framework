@@ -119,7 +119,7 @@ under the License.
     <UserLogin partyId="DemoCustomer" userLoginId="DemoCustomer"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="CUSTOMER"/>
     <PartyRole partyId="DemoCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
-
+    
     <ContactMech contactMechId="9015" contactMechTypeId="POSTAL_ADDRESS"/>
     <PostalAddress contactMechId="9015" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA"/>
     <PartyContactMech partyId="DemoCustomer" contactMechId="9015" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
@@ -142,4 +142,29 @@ under the License.
     <PaymentMethod paymentMethodId="9015" paymentMethodTypeId="CREDIT_CARD" partyId="DemoCustomer" fromDate="2001-05-13 00:00:00.000"/>
     <CreditCard paymentMethodId="9015" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2011" companyNameOnCard="" 
         titleOnCard="" firstNameOnCard="DEMO" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="9015"/>
+    <!-- EuroCustomer want invoices in euro -->
+    <Party partyId="EuroCustomer" partyTypeId="PERSON" statusId="PARTY_ENABLED" preferredCurrencyUomId="EUR"/>
+    <Person partyId="EuroCustomer" firstName="Demo" lastName="Customer"/>
+    <UserLogin partyId="EuroCustomer" userLoginId="EuroCustomer"/>
+    <PartyRole partyId="EuroCustomer" roleTypeId="CUSTOMER"/>
+    <PartyRole partyId="EuroCustomer" roleTypeId="BILL_TO_CUSTOMER"/>
+    
+    <ContactMech contactMechId="EUROCUSTOMER" contactMechTypeId="POSTAL_ADDRESS"/>
+    <PostalAddress contactMechId="EUROCUSTOMER" toName="Euro Customer" address1="Prinsengracht 3" city="Amsterdam" postalCode="1000BD" countryGeoId="NLD"/>
+    <PartyContactMech partyId="DemoCustomer" contactMechId="EUROCUSTOMER" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PostalAddress contactMechId="EUROCUSTOMER" toName="Demo Customer" address1="2004 Factory Blvd" city="Orem" stateProvinceGeoId="UT" postalCode="84057" countryGeoId="USA"/>
+    <PartyContactMech partyId="EuroCustomer" contactMechId="EUROCUSTOMER" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="BILLING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="SHIPPING_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <PartyContactMechPurpose partyId="EuroCustomer" contactMechId="EUROCUSTOMER" contactMechPurposeTypeId="GENERAL_LOCATION" fromDate="2001-05-13 00:00:00.000"/>
+    <ContactMech contactMechId="EURO01" contactMechTypeId="EMAIL_ADDRESS" infoString="ofbiztest@yahoo.com"/>
+    <PartyContactMech partyId="DemoCustomer" contactMechId="EURO01" fromDate="2001-05-13 00:00:00.000" allowSolicitation="Y"/>
+    <PartyContactMechPurpose partyId="DemoCustomer" contactMechId="EURO01" contactMechPurposeTypeId="PRIMARY_EMAIL" fromDate="2001-05-13 00:00:00.000"/>
+    
+    <PaymentMethod paymentMethodId="EUROCUSTOMER" paymentMethodTypeId="CREDIT_CARD" partyId="EuroCustomer" fromDate="2001-05-13 00:00:00.000"/>
+    <CreditCard paymentMethodId="EUROCUSTOMER" cardType="Visa" cardNumber="4111111111111111" expireDate="02/2011" companyNameOnCard="" 
+        titleOnCard="" firstNameOnCard="DEMO" middleNameOnCard="" lastNameOnCard="CUSTOMER" suffixOnCard="" contactMechId="EUROCUSTOMER"/>
 </entity-engine-xml>

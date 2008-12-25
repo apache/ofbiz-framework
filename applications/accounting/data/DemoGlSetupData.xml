@@ -335,4 +335,6 @@ under the License.
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6008" periodTypeId="FISCAL_QUARTER" fromDate="2008-07-01" thruDate="2008-10-01" isClosed="N" periodNum="3" periodName="2008/Q3" parentPeriodId="6005"/>
     <CustomTimePeriod organizationPartyId="Company" customTimePeriodId="6009" periodTypeId="FISCAL_QUARTER" fromDate="2008-10-01" thruDate="2009-01-01" isClosed="N" periodNum="4" periodName="2008/Q4" parentPeriodId="6005"/>
 
+    <UomConversionDated uomId="USD" uomIdTo="EUR" fromDate="2001-01-01 00:00:00.0" conversionFactor="0.7"/><!-- to convert demo invoice --> 
+
 </entity-engine-xml>
