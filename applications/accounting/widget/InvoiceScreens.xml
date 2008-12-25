@@ -444,20 +444,6 @@ under the License.
                         <container style="screenlet">
                             <container style="screenlet-title-bar">
                                 <container style="h3">
-                                    <label text="${uiLabelMap.AccountingAssignPaymentToInvoice}"/>
-                                </container>
-                            </container>
-                            <container style="screenlet-body">
-                                <section>
-                                    <widgets>    
-                                        <include-form name="AddPayment" location="component://accounting/webapp/accounting/invoice/InvoiceForms.xml"/>
-                                    </widgets>
-                                </section>
-                            </container>
-                        </container>
-                        <container style="screenlet">
-                            <container style="screenlet-title-bar">
-                                <container style="h3">
                                     <label text="${uiLabelMap.AccountingInvoiceItems}"/>
                                 </container>
                             </container>

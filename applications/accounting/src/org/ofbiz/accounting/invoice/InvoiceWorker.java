@@ -19,6 +19,7 @@
 package org.ofbiz.accounting.invoice;
 
 import java.math.BigDecimal;
+import java.math.MathContext;
 import java.sql.Timestamp;
 import java.util.Iterator;
 import java.util.List;
@@ -29,6 +30,7 @@ import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilDateTime;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.UtilNumber;
+import org.ofbiz.base.util.UtilProperties;
 import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.entity.GenericDelegator;
 import org.ofbiz.entity.GenericEntityException;
@@ -37,6 +39,7 @@ import org.ofbiz.entity.condition.EntityCondition;
 import org.ofbiz.entity.condition.EntityConditionList;
 import org.ofbiz.entity.condition.EntityOperator;
 import org.ofbiz.entity.util.EntityUtil;
+import org.ofbiz.service.LocalDispatcher;
 
 /**
  * InvoiceWorker - Worker methods of invoices
@@ -60,6 +63,10 @@ public class InvoiceWorker {
     }
 
     public static BigDecimal getInvoiceTotalBd(GenericDelegator delegator, String invoiceId) {
+        return getInvoiceTotalBd(delegator, invoiceId, true);
+    }
+
+    public static BigDecimal getInvoiceTotalBd(GenericDelegator delegator, String invoiceId, Boolean actualCurrency) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
@@ -75,7 +82,7 @@ public class InvoiceWorker {
             throw new IllegalArgumentException("The invoiceId passed does not match an existing invoice");
         }
         
-        return getInvoiceTotalBd(invoice);
+        return getInvoiceTotalBd(invoice, actualCurrency);
     }
 
     /** Method to get the taxable invoice item types as a List of invoiceItemTypeIds.  These are identified in Enumeration with enumTypeId TAXABLE_INV_ITM_TY. */
@@ -127,10 +134,10 @@ public class InvoiceWorker {
     }
     
     public static double getInvoiceNoTaxTotal(GenericValue invoice) {
-        return getInvoiceTotalBd(invoice).doubleValue() - getInvoiceTaxTotal(invoice);
+        return getInvoiceTotalBd(invoice, true).doubleValue() - getInvoiceTaxTotal(invoice);
     }
     public static BigDecimal getInvoiceNoTaxTotalBd(GenericValue invoice) {
-        return getInvoiceTotalBd(invoice).subtract(getInvoiceTaxTotalBd(invoice));
+        return getInvoiceTotalBd(invoice, true).subtract(getInvoiceTaxTotalBd(invoice));
     }
     
     /**
@@ -139,10 +146,14 @@ public class InvoiceWorker {
      * @return the invoice total as double
      */
     public static double getInvoiceTotal(GenericValue invoice) {
-        return getInvoiceTotalBd(invoice).doubleValue();
+        return getInvoiceTotalBd(invoice, true).doubleValue();
     }
         
     public static BigDecimal getInvoiceTotalBd(GenericValue invoice) {
+        return getInvoiceTotalBd(invoice, true);
+    }
+        
+    public static BigDecimal getInvoiceTotalBd(GenericValue invoice, Boolean actualCurrency) {
         BigDecimal invoiceTotal = ZERO;
         BigDecimal invoiceTaxTotal = ZERO;
         List invoiceItems = null;
@@ -167,6 +178,10 @@ public class InvoiceWorker {
                     invoiceTotal = invoiceTotal.add( amount.multiply(quantity)).setScale(decimals,rounding);
                 }
             }
+        }
+        invoiceTotal = invoiceTotal.add(invoiceTaxTotal).setScale(decimals, rounding);
+        if (UtilValidate.isNotEmpty(invoiceTotal) && !actualCurrency) {
+            invoiceTotal = invoiceTotal.multiply(getInvoiceCurrencyConversionRate(invoice)).setScale(decimals,rounding);
         }
         return invoiceTotal.add(invoiceTaxTotal).setScale(decimals, rounding);
     }
@@ -365,11 +380,17 @@ public class InvoiceWorker {
      * @param invoice GenericValue object of the Invoice
      * @return the invoice total as double
      */
+    public static BigDecimal getInvoiceNotApplied(GenericDelegator delegator, String invoiceId, Boolean actualCurrency) {
+        return InvoiceWorker.getInvoiceTotalBd(delegator, invoiceId, actualCurrency).subtract(getInvoiceAppliedBd(delegator, invoiceId,  UtilDateTime.nowTimestamp(), actualCurrency));
+    }
     public static BigDecimal getInvoiceNotApplied(GenericDelegator delegator, String invoiceId) {
         return InvoiceWorker.getInvoiceTotalBd(delegator, invoiceId).subtract(getInvoiceAppliedBd(delegator, invoiceId));
     }
     public static BigDecimal getInvoiceNotApplied(GenericValue invoice) {
-        return InvoiceWorker.getInvoiceTotalBd(invoice).subtract(getInvoiceAppliedBd(invoice));
+        return InvoiceWorker.getInvoiceTotalBd(invoice, true).subtract(getInvoiceAppliedBd(invoice));
+    }
+    public static BigDecimal getInvoiceNotApplied(GenericValue invoice, Boolean actualCurrency) {
+        return InvoiceWorker.getInvoiceTotalBd(invoice, actualCurrency).subtract(getInvoiceAppliedBd(invoice, actualCurrency));
     }
     /**
      * Returns amount not applied (ie, still outstanding) of an invoice at an asOfDate, based on Payment.effectiveDate <= asOfDateTime
@@ -379,7 +400,7 @@ public class InvoiceWorker {
      * @return
      */
     public static BigDecimal getInvoiceNotApplied(GenericValue invoice, Timestamp asOfDateTime) {
-        return InvoiceWorker.getInvoiceTotalBd(invoice).subtract(getInvoiceAppliedBd(invoice, asOfDateTime));
+        return InvoiceWorker.getInvoiceTotalBd(invoice, true).subtract(getInvoiceAppliedBd(invoice, asOfDateTime));
     }
 
     
@@ -393,7 +414,7 @@ public class InvoiceWorker {
     }
 
     public static BigDecimal getInvoiceAppliedBd(GenericDelegator delegator, String invoiceId) {
-        return getInvoiceAppliedBd(delegator, invoiceId, UtilDateTime.nowTimestamp());
+        return getInvoiceAppliedBd(delegator, invoiceId, UtilDateTime.nowTimestamp(), true);
     }
     
     /**
@@ -404,7 +425,7 @@ public class InvoiceWorker {
      * @param asOfDateTime - a Timestamp
      * @return
      */
-    public static BigDecimal getInvoiceAppliedBd(GenericDelegator delegator, String invoiceId, Timestamp asOfDateTime) {
+    public static BigDecimal getInvoiceAppliedBd(GenericDelegator delegator, String invoiceId, Timestamp asOfDateTime, Boolean actualCurrency) {
         if (delegator == null) {
             throw new IllegalArgumentException("Null delegator is not allowed in this method");
         }
@@ -433,6 +454,9 @@ public class InvoiceWorker {
                 invoiceApplied = invoiceApplied.add(paymentApplication.getBigDecimal("amountApplied")).setScale(decimals,rounding);
             }
         }
+        if (UtilValidate.isNotEmpty(invoiceApplied) && !actualCurrency) {
+        	invoiceApplied = invoiceApplied.multiply(getInvoiceCurrencyConversionRate(delegator, invoiceId)).setScale(decimals,rounding);
+        }
         return invoiceApplied;
     }
     /**
@@ -451,8 +475,11 @@ public class InvoiceWorker {
      * @param invoiceItemSeqId
      * @return
      */
+    public static BigDecimal getInvoiceAppliedBd(GenericValue invoice, Boolean actualCurrency) {
+        return getInvoiceAppliedBd(invoice.getDelegator(), invoice.getString("invoiceId"), UtilDateTime.nowTimestamp(), actualCurrency);
+    }
     public static BigDecimal getInvoiceAppliedBd(GenericValue invoice, Timestamp asOfDateTime) {
-        return getInvoiceAppliedBd(invoice.getDelegator(), invoice.getString("invoiceId"), asOfDateTime);
+        return getInvoiceAppliedBd(invoice.getDelegator(), invoice.getString("invoiceId"), asOfDateTime, true);
     }
     public static BigDecimal getInvoiceAppliedBd(GenericValue invoice) {
         return getInvoiceAppliedBd(invoice, UtilDateTime.nowTimestamp());
@@ -519,6 +546,82 @@ public class InvoiceWorker {
         }
         return invoiceItemApplied;        
     }
-    
+    public static BigDecimal getInvoiceCurrencyConversionRate(GenericValue invoice) {
+    	BigDecimal conversionRate = null;
+    	GenericDelegator delegator = invoice.getDelegator();
+    	String otherCurrencyUomId = null;
+    	// find the organization party currencyUomId which different from the invoice currency
+    	try {
+    		GenericValue party  = delegator.findByPrimaryKey("PartyAcctgPreference", UtilMisc.toMap("partyId", invoice.getString("partyIdFrom")));
+    		if (UtilValidate.isEmpty(party) || party.getString("baseCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
+    			party  = delegator.findByPrimaryKey("PartyAccntgPreferences", UtilMisc.toMap("partyId", invoice.getString("partyId")));
+    		}
+    		if (party.getString("baseCurrencyUomId").equals(invoice.getString("currencyUomId"))) {
+    			return BigDecimal.ONE;  // organization party has the same currency so conversion not required.
+    		} else {
+    			otherCurrencyUomId = new String(invoice.getString("currencyUomId"));
+    		}
+    	} catch (GenericEntityException e) {
+    		Debug.logError(e, "Trouble getting database records....", module);            
+    	}
+
+    	try {
+    		// check if the invoice is posted and get the conversion from there
+    		List acctgTransEntries = invoice.getRelated("AcctgTrans");
+    		if (UtilValidate.isNotEmpty(acctgTransEntries)) {
+    			GenericValue acctgTransEntry = ((GenericValue) acctgTransEntries.get(0)).getRelated("AcctgTransEntry").get(0);
+    			conversionRate = acctgTransEntry.getBigDecimal("amount").divide(acctgTransEntry.getBigDecimal("origAmount"), new MathContext(100)).setScale(decimals,rounding);
+    		}
+    		// check if a payment is applied and use the currency conversion from there
+    		if (UtilValidate.isEmpty(conversionRate)) {
+    			List paymentAppls = invoice.getRelated("PaymentApplication");
+    			Iterator ii = paymentAppls.iterator();
+    			while (ii.hasNext()) {
+    				GenericValue paymentAppl = (GenericValue) ii.next();
+    				GenericValue payment = paymentAppl.getRelatedOne("Payment");
+    				if (UtilValidate.isNotEmpty(payment.getBigDecimal("actualCurrencyAmount"))) {
+    					if (UtilValidate.isEmpty(conversionRate)) {
+    						conversionRate = payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100)).setScale(decimals,rounding);
+    					} else {
+    						conversionRate = conversionRate.add(payment.getBigDecimal("amount").divide(payment.getBigDecimal("actualCurrencyAmount"),new MathContext(100))).divide(new BigDecimal("2"),new MathContext(100)).setScale(decimals,rounding);
+    					}
+    				}
+    			}
+    		}
+    		// use the dated conversion entity
+    		if (UtilValidate.isEmpty(conversionRate)) {
+    			List rates = EntityUtil.filterByDate(delegator.findByAnd("UomConversionDated", UtilMisc.toMap("uomIdTo", invoice.getString("currencyUomId"), "uomId", otherCurrencyUomId)), invoice.getTimestamp("invoiceDate")); 
+    			if (UtilValidate.isNotEmpty(rates)) {
+    				conversionRate = (BigDecimal.ONE).divide(((GenericValue) rates.get(0)).getBigDecimal("conversionFactor"), new MathContext(100)).setScale(decimals,rounding);
+    			} else {
+    				Debug.logError("Could not find conversionrate for invoice: " + invoice.getString("invoiceId"), module);
+    				return new BigDecimal("1");
+    			}
+    		}
+
+    	} catch (GenericEntityException e) {
+    		Debug.logError(e, "Trouble getting database records....", module);            
+    	}
+    	return(conversionRate);
+    }
+
+    public static BigDecimal getInvoiceCurrencyConversionRate(GenericDelegator delegator, String invoiceId) {
+        if (delegator == null) {
+            throw new IllegalArgumentException("Null delegator is not allowed in this method");
+        }
+        
+        GenericValue invoice = null;
+        try {
+            invoice = delegator.findByPrimaryKey("Invoice", UtilMisc.toMap("invoiceId", invoiceId));    
+        } catch (GenericEntityException e) {
+            Debug.logError(e, "Problem getting Invoice", module);
+        }
+        
+        if (invoice == null) {
+            throw new IllegalArgumentException("The invoiceId passed does not match an existing invoice");
+        }
+        
+        return getInvoiceCurrencyConversionRate(invoice);
+    }
    
 }

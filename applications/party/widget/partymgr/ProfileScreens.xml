@@ -509,29 +509,4 @@
         </section>
     </screen>
     
-    <screen name="ViewInternalOrg">
-        <section>
-            <actions>
-                <set field="headerItem" value="internalOrganization"/>
-                <set field="roleTypeId" value="EMPLOYEE"/>
-            </actions>
-            <widgets>
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <container style="boxlink">
-                            <link target="EditEmployment" style="lightbuttontext" text="${uiLabelMap.CommonUpdate}"/>  
-                        </container>
-                        <label style="h3">${uiLabelMap.OrderOrderEntryInternalOrganization}</label>
-                    </container>
-                    <container style="screenlet-body">
-                        <section>
-                            <widgets>
-                                <include-form name="ListInternalOrganization" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
-                            </widgets>
-                        </section>
-                    </container>
-                </container>       
-            </widgets>
-        </section>
-    </screen>
 </screens>

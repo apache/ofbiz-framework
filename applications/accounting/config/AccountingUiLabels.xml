@@ -3777,12 +3777,8 @@
         <value xml:lang="th">PDF</value>
         <value xml:lang="zh">PDF</value>
     </property>
-    <property key="AccountingInvoicePDFOtherCur">
-        <value xml:lang="en">PDF other Currency</value>
-        <value xml:lang="fr">PDF en autre devise</value>
-        <value xml:lang="it">PDF Altra Valuta</value>
-        <value xml:lang="nl">PDF andere valuta</value>
-        <value xml:lang="th">PDF สกุลเงินอื่น ๆ</value>
+    <property key="AccountingInvoicePDFDefaultCur">
+        <value xml:lang="en">PDF default Currency</value>
     </property>
     <property key="AccountingInvoicePaid">
         <value xml:lang="ar">مسدد</value>
@@ -3854,6 +3850,9 @@
         <value xml:lang="ru">Расходная накладная</value>
         <value xml:lang="th">ใบกำกับการขาย</value>
         <value xml:lang="zh">销售发票</value>
+    </property>
+    <property key="InvoicesApplPayments">
+            <value xml:lang="en">Payments applied to Invoices</value>
     </property>
     <property key="AccountingInvoiceStatus">
         <value xml:lang="ar">الوضعيات</value>

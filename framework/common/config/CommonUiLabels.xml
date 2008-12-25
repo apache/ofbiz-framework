@@ -7649,6 +7649,9 @@
         <value xml:lang="zh">订单</value>
         <value xml:lang="zh_CN">订单</value>
     </property>
+    <property key="DefaultOrganizationPartyId">
+        <value xml:lang="en">Default Organization</value>
+    </property>
     <property key="PageTitleAddDataSource">
         <value xml:lang="ar">إضافة مصدر المعلومات جديد</value>
         <value xml:lang="de">Neue Datenquelle hinzufügen</value>

@@ -83,6 +83,15 @@ under the License.
 
     <form name="NewPaymentOut" type="single" target="createPayment" default-map-name="payment"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="PaymentType" list-name="paymentTypes">
+                <condition-list combine="or">
+                    <condition-expr field-name="parentTypeId" operator="equals" value="DISBURSEMENT"/>
+                    <condition-expr field-name="parentTypeId" operator="equals" value="TAX_PAYMENT"/>
+                </condition-list>
+                <order-by field-name="description"/>
+            </entity-condition>
+        </actions>
         <field name="statusId"><hidden value="PMNT_NOT_PAID"/></field>
         <field position="1" name="organizationPartyId" parameter-name="partyIdFrom">
             <drop-down allow-empty="false">
@@ -95,9 +104,7 @@ under the License.
         <field name="partyIdTo" position="2"><lookup target-form-name="LookupPartyName"/></field>
         <field position="1" name="paymentTypeId">
             <drop-down allow-empty="false">
-                <entity-options description="${description}" entity-name="PaymentType">
-                    <entity-order-by field-name="description"/>
-                </entity-options>
+                <list-options list-name="paymentTypes" key-name="paymentTypeId" description="${description}"/>
             </drop-down>
         </field>
         <field position="2" name="paymentMethodTypeId">
@@ -135,6 +142,7 @@ under the License.
         <field position="1" name="paymentTypeId">
             <drop-down allow-empty="false">
                 <entity-options description="${description}" entity-name="PaymentType">
+                    <entity-constraint field-name="parentTypeId" value="RECEIPT"/>
                     <entity-order-by field-name="description"/>
                 </entity-options>
             </drop-down>
