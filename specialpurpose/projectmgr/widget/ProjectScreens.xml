@@ -578,27 +578,10 @@ under the License.
     </screen>
     <screen name="PartiesInfo">
         <section>
-            <actions>
-                <service service-name="getPartiesByProject" result-map-name="result">
-                    <field-map field-name="projectId" env-name="projectId"/>
-                </service>
-                <set field="parties" from-field="result.projectParties"/>
-            </actions>
-            <widgets>                
-                <container style="screenlet">
-                    <container style="screenlet-title-bar">
-                        <container style="h3">
-                            <label text="${uiLabelMap.ProjectMgrResources}"/>
-                        </container>
-                    </container>
-                    <container style="screenlet-body">
-                        <section>
-                            <widgets>    
-                                <include-form name="ListProjectParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
-                            </widgets>
-                        </section>
-                    </container>
-                </container>
+            <widgets>
+                <screenlet title="${uiLabelMap.ProjectMgrResources}">
+                    <include-form name="ListProjectParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                </screenlet>
             </widgets>
         </section>
     </screen>
