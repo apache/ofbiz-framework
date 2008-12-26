@@ -107,6 +107,9 @@ under the License.
             <if-not-empty field="emailOwners">
                 <set field="found" value="true"/>
             </if-not-empty>
+            <else>
+                <set field="found" value="true"/>
+            </else>
         </if-compare-field>
     </simple-method>
     <simple-method method-name="createCommunicationEventRoles" short-description="">

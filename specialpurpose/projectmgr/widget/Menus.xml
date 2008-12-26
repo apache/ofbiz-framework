@@ -441,8 +441,8 @@
         <menu-item name="EditPartyRates"  title="${uiLabelMap.ProjectMgrRates}">
             <link target="EditPartyRates?partyId=${partyId}"></link>
         </menu-item>
-        <menu-item name="ListUnBilledHours"  title="${uiLabelMap.ProjectMgrBilling}">
-            <link target="ListResourcesUnBilledHours?partyId=${partyId}"></link>
+        <menu-item name="ListBillingHours"  title="${uiLabelMap.ProjectMgrBilling}">
+            <link target="ListResourceBillingHours?partyId=${partyId}"></link>
         </menu-item>
     </menu>
     <menu name="RequestTabBar" extends="CommonTabBarMenu" extends-resource="component://common/widget/CommonMenus.xml">

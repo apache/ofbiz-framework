@@ -40,14 +40,12 @@
         <field name="contactMechPurposeTypeId" entry-name="telResult.contactMechPurposeTypeId" title="${uiLabelMap.CommonPurpose}"><display-entity entity-name="ContactMechPurposeType"/></field>
         <field name="remove" title="${uiLabelMap.CommonRemove}"><hyperlink target="removeResource?partyId=${partyId}&amp;roleTypeId=${roleTypeId}" description="${uiLabelMap.CommonRemove}"/></field>
     </form>                                         
-    <form name="ListUnBilledHours" type="list" list-name="unBilledList" paginate-target="ListResourcesUnBilledHours"
+    <form name="ListBillingHours" type="list" list-name="billingList" paginate-target="ListResourcesBillingHours"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
-        <field name="projectName"><display/></field>
-        <field name="phaseName"><display/></field>
-        <field name="taskName"><display/></field>
-        <field name="hours"><display/></field>
-        <field name="rate"><display/></field>
-        <field name="total"><display/></field>
+        <field name="projectName"><hyperlink target="projectView?projectId=${projectId}" description="${projectName} [${projectId}]"/></field>
+        <field name="originalActualHours"><display/></field>
+        <field name="actualHours"><display/></field>
+        <field name="actualNonBilledHours"><display/></field>
     </form>                                         
     <form name="AddResource" type="single" target="addResource"
         header-row-style="header-row" default-table-style="basic-table">
