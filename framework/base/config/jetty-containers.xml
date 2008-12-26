@@ -66,11 +66,11 @@ under the License.
         <property name="delete-mail" value="false"/>
         <property name="maxSize" value="100000"/>
         <property name="default-listener" value="store-listener">
-        <property name="mail.store.protocol" value="imap"/> 
-            <property name="mail.host" value="[host]"/>
-            <property name="mail.user" value="[user]"/>
-            <property name="mail.pass" value="[pass]"/>
-            <property name="mail.debug" value="false"/>
+        <property name="mail.store.protocol" value="imap"/>
+        <property name="mail.host" value="[host]"/>
+        <property name="mail.user" value="[user]"/>
+        <property name="mail.pass" value="[pass]"/>
+        <property name="mail.debug" value="false"/>
         </property>
     </container>
     -->
