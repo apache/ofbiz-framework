@@ -480,7 +480,7 @@
         <field name="projectId"><hidden/></field>
         <field name="partyId" widget-style="buttontext">
             <display-entity entity-name="PartyNameView" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                <sub-hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyId}" link-style="buttontext"/>
+                <sub-hyperlink target="viewprofile?partyId=${partyId}" description="${partyId}" link-style="buttontext"/>
             </display-entity>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
@@ -495,7 +495,7 @@
     <form name="ListTaskParties" type="list" list-name="taskParties"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <field name="partyId" title="${uiLabelMap.CommonName}">
-            <hyperlink target="/partymgr/control/viewprofile?partyId=${partyId}" target-type="inter-app" description="${partyName}"/>
+            <hyperlink target="viewprofile?partyId=${partyId}" description="${partyName}"/>
         </field>
         <field name="roleTypeId" title="${uiLabelMap.ProjectMgrPartyRoleTypeId}"><display-entity entity-name="RoleType" description="${description}"/></field>        
         <field name="statusId" title="${uiLabelMap.CommonStatus}"><display-entity entity-name="StatusItem" description="${description}"/></field>        

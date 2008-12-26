@@ -595,6 +595,9 @@
         <value xml:lang="th">คุณไม่มีสิทธิ์ในการเข้าถึงตารางเวลา#: ${timesheetId}</value>
         <value xml:lang="zh">你没有访问该时间表的权限：${timesheetId}</value>
     </property>
+    <property key="ProjectMgrNonBilledActualHours">
+        <value xml:lang="en">Act Hrs not billed</value>
+    </property>
     <property key="ProjectMgrNoPhasesYet">
         <value xml:lang="en">No phases have been created yet, tasks can not exist without a phase as parent, so create a phase first</value>
         <value xml:lang="fr">Aucune phase n'a encore été créée, une tâche ne peut exister sans une phase comme ancêtre, veuillez créer une phase d'abord</value>

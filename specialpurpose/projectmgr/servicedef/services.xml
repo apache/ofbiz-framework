@@ -87,9 +87,10 @@ under the License.
 
     <service name="getProject" engine="simple"
         location="org/ofbiz/project/ProjectServices.xml" invoke="getProject">
-        <description>Get project information and realated phase and task info.</description>
+        <description>Get project information and related phase and task info.</description>
         <permission-service service-name="projectMgrPermission" main-action="VIEW"/>
         <attribute name="projectId" type="String" mode="INOUT" optional="true"/>
+        <attribute name="partyId" type="String" mode="INOUT" optional="true"/>
         <attribute name="projectInfo" type="java.util.Map" mode="OUT" optional="true"/>
     </service>
     

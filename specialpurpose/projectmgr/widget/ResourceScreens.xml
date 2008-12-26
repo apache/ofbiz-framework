@@ -48,21 +48,21 @@ under the License.
             </widgets>
         </section>
     </screen>
-    <screen name="ListUnBilledHours">
+    <screen name="ListBillingHours">
         <section>            
             <actions>
-                <set field="titleProperty" value="PageTitleListUnbilledHours"/>
-                <set field="tabButtonItem" value="ListUnBilledHours"/>
+                <set field="titleProperty" value="PageTitleListBillingHours"/>
+                <set field="tabButtonItem" value="ListBillingHours"/>
                 <set field="labelTitleProperty" value="ProjectMgrProjectName"/>
                 <set field="partyId" from-field="parameters.partyId"/>
-                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListUnBilledHoursResources.bsh"/>
+                <script location="component://projectmgr/webapp/projectmgr/WEB-INF/actions/ListResourceBillingHours.groovy"/>
             </actions>                                                
             <widgets>  
                 <decorator-screen name="CommonPartyDecorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
                         <screenlet>
                             <screenlet title="${uiLabelMap.ProjectMgrUnbilledHours}">
-                                <include-form name="ListUnBilledHours" location="component://projectmgr/widget/forms/ResourceForms.xml"/>
+                                <include-form name="ListBillingHours" location="component://projectmgr/widget/forms/ResourceForms.xml"/>
                             </screenlet>
                         </screenlet>
                     </decorator-section>
