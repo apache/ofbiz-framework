@@ -329,16 +329,33 @@
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
     </form>
-    <form name="ListProjectParties" type="list" list-name="parties"
+    <form name="ListProjectParties" type="list" list-name="assigns"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <actions>
+            <entity-condition entity-name="WorkEffortPartyAssignView" list-name="assigns" distinct="true">
+                <condition-expr field-name="workEffortId" env-name="parameters.projectId"/>
+                <select-field field-name="partyId"/>
+                <select-field field-name="firstName"/>
+                <select-field field-name="lastName"/>
+                <select-field field-name="middleName"/>
+                <select-field field-name="groupName"/>
+                <order-by field-name="lastName"/>
+                <order-by field-name="firstName"/>
+                <order-by field-name="groupName"/>
+            </entity-condition>
+        </actions>
+        <row-actions>
+            <service service-name="getProject" result-map-name="result">
+                <field-map field-name="projectId" env-name="parameters.projectId"/>
+                <field-map field-name="partyId" env-name="partyId"/>
+            </service>
+        </row-actions>
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
-            <hyperlink target="viewprofile?partyId=${partyId}" description="${partyName}"/>
+            <hyperlink target="viewprofile?partyId=${partyId}" description="${lastName}, ${firstName} ${middleName} ${groupName} [${partyId}]"/>
         </field>
-        <field name="actualHours"><display/></field>
-        <field name="roleTypeId" title="${uiLabelMap.ProjectMgrPartyRoleTypeId}"><display-entity entity-name="RoleType" description="${description}"/></field>
-        <field name="fromDate" title="${uiLabelMap.CommonFromDate}"><display type="date"/></field>
-        <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><display type="date"/></field>
+        <field name="actualHours" entry-name="actualHours" map-name="result.projectInfo"><display/></field>
+        <field name="nonBilledHours"  entry-name="actualNonBilledHours" map-name="result.projectInfo"><display/></field>
     </form>
     <form name="EditProjectSkills" type="list" target="updateProjectSkillStandard" list-name="workEffortSkillStandardList" paginate-target="EditProjectSkills"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
