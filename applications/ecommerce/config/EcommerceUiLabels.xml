@@ -19,18 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="CommonDigitalProductUpload">
-        <value xml:lang="de">Digitales Produkt hochladen</value>
-        <value xml:lang="en">Digital Product Upload</value>
-        <value xml:lang="es">carga de productos digitales</value>
-        <value xml:lang="fr">Téléchargement du produit numérique vers le serveur</value>
-        <value xml:lang="hi_IN">अंकीय फल अपलोड</value>
-        <value xml:lang="it">Upload prodotto digitale</value>
-        <value xml:lang="ro">Upload Produs Digital</value>
-        <value xml:lang="ru">Загрузка цифровой продукции</value>
-        <value xml:lang="th">โหลดสินค้าดิจิตัล</value>
-        <value xml:lang="zh">数字产品上传</value>
-    </property>
     <property key="CommonLessThan">
         <value xml:lang="de">weniger als</value>
         <value xml:lang="en">less than</value>
@@ -58,64 +46,6 @@
         <value xml:lang="it">maggiore di</value>
         <value xml:lang="ru">больше чем</value>
         <value xml:lang="th">มากกว่า</value>
-    </property>
-    <property key="CommonNewListSubscription">
-        <value xml:lang="de">Neue Liste abonnieren</value>
-        <value xml:lang="en">New List Subscription</value>
-        <value xml:lang="es">Nueva lista de subscripción</value>
-        <value xml:lang="fr">Nouvelle liste de souscription</value>
-        <value xml:lang="it">Nuova lista di sottoscrizione</value>
-        <value xml:lang="ro">Noua Lista Subscriere </value>
-        <value xml:lang="ru">Новая подписка на рассылку</value>
-        <value xml:lang="th">รายการสั่งซื้อใหม่</value>
-        <value xml:lang="zh">新注册列表</value>
-    </property>
-    <property key="CommonSubscribe">
-        <value xml:lang="de">Abonnieren</value>
-        <value xml:lang="en">Subscribe</value>
-        <value xml:lang="es">Subscricir</value>
-        <value xml:lang="fr">S'inscrire</value>
-        <value xml:lang="it">Sottoscrivi</value>
-        <value xml:lang="ro">Subscrie </value>
-        <value xml:lang="ru">Подписаться</value>
-        <value xml:lang="th">ชำระค่าสั่งซื้อ</value>
-        <value xml:lang="zh">注册</value>
-    </property>
-    <property key="CommonUnknown">
-        <value xml:lang="de">Unbekannt</value>
-        <value xml:lang="en">Unknown</value>
-        <value xml:lang="fr">Inconnu</value>
-        <value xml:lang="it">Sconosciuto</value>
-        <value xml:lang="th">ไม่ทราบ</value>
-    </property>
-    <property key="CommonUnsubscribe">
-        <value xml:lang="de">Abonnement beenden</value>
-        <value xml:lang="en">Unsubscribe</value>
-        <value xml:lang="es">des-Subscribir</value>
-        <value xml:lang="fr">Se désinscrire</value>
-        <value xml:lang="it">Annulla sottoscrizione</value>
-        <value xml:lang="ro">Sterge Subscrierea</value>
-        <value xml:lang="ru">Отменить подписку</value>
-        <value xml:lang="th">ไม่ได้ชำระค่าสั่งซื้อ</value>
-        <value xml:lang="zh">注销</value>
-    </property>
-    <property key="CommonVerifySubscription">
-        <value xml:lang="de">Abonnement prüfn</value>
-        <value xml:lang="en">Verify Subscription</value>
-        <value xml:lang="es">Verificar subscripción</value>
-        <value xml:lang="fr">Vérifier son inscription</value>
-        <value xml:lang="it">Verifica sottoscrizione</value>
-        <value xml:lang="ro">Verifica Subscrierea</value>
-        <value xml:lang="ru">Проверить подписку</value>
-        <value xml:lang="th">ตรวจสอบการชำระค่าสั่งซื้อ</value>
-        <value xml:lang="zh">验证注册</value>
-    </property>
-    <property key="CommonYour">
-        <value xml:lang="de">Ihr</value>
-        <value xml:lang="en">your</value>
-        <value xml:lang="fr">Votre</value>
-        <value xml:lang="it">tuo</value>
-        <value xml:lang="th">ของคุณ</value>
     </property>
     <property key="EcommerceAccountLogin">
         <value xml:lang="de">Ihre Benutzeranmeldung ist:</value>
@@ -634,6 +564,18 @@
         <value xml:lang="ru">История и комиссии приобретения цифровых продуктов</value>
         <value xml:lang="th">ข้อมูลค่าคอมมิชชั่นในการสั่งซื้อสินค้าดิจิตัล</value>
         <value xml:lang="zh">数字产品购买历史记录和佣金</value>
+    </property>
+    <property key="EcommerceDigitalProductUpload">
+        <value xml:lang="de">Digitales Produkt hochladen</value>
+        <value xml:lang="en">Digital Product Upload</value>
+        <value xml:lang="es">carga de productos digitales</value>
+        <value xml:lang="fr">Téléchargement du produit numérique vers le serveur</value>
+        <value xml:lang="hi_IN">अंकीय फल अपलोड</value>
+        <value xml:lang="it">Upload prodotto digitale</value>
+        <value xml:lang="ro">Upload Produs Digital</value>
+        <value xml:lang="ru">Загрузка цифровой продукции</value>
+        <value xml:lang="th">โหลดสินค้าดิจิตัล</value>
+        <value xml:lang="zh">数字产品上传</value>
     </property>
     <property key="EcommerceDownloadNotFound">
         <value xml:lang="de">Datei zum Herunterladen nicht gefunden</value>
@@ -1607,6 +1549,17 @@
         <value xml:lang="th">บัญชีธนาคารใหม่</value>
         <value xml:lang="zh">新建电子资金转账账户</value>
     </property>
+    <property key="EcommerceNewListSubscription">
+        <value xml:lang="de">Neue Liste abonnieren</value>
+        <value xml:lang="en">New List Subscription</value>
+        <value xml:lang="es">Nueva lista de subscripción</value>
+        <value xml:lang="fr">Nouvelle liste de souscription</value>
+        <value xml:lang="it">Nuova lista di sottoscrizione</value>
+        <value xml:lang="ro">Noua Lista Subscriere </value>
+        <value xml:lang="ru">Новая подписка на рассылку</value>
+        <value xml:lang="th">รายการสั่งซื้อใหม่</value>
+        <value xml:lang="zh">新注册列表</value>
+    </property>
     <property key="EcommerceNoDigitalProductsFound">
         <value xml:lang="de">Keine digitalen Produkte gefunden</value>
         <value xml:lang="en">No Digital Products Found</value>
@@ -2527,6 +2480,17 @@
         <value xml:lang="th">หัวข้อ</value>
         <value xml:lang="zh">主题</value>
     </property>
+    <property key="EcommerceSubscribe">
+        <value xml:lang="de">Abonnieren</value>
+        <value xml:lang="en">Subscribe</value>
+        <value xml:lang="es">Subscricir</value>
+        <value xml:lang="fr">S'inscrire</value>
+        <value xml:lang="it">Sottoscrivi</value>
+        <value xml:lang="ro">Subscrie </value>
+        <value xml:lang="ru">Подписаться</value>
+        <value xml:lang="th">ชำระค่าสั่งซื้อ</value>
+        <value xml:lang="zh">注册</value>
+    </property>
     <property key="EcommerceSummary">
         <value xml:lang="de">Zusammenfassung</value>
         <value xml:lang="en">Summary</value>
@@ -2706,6 +2670,17 @@
         <value xml:lang="th">ราคาต่อหน่วย</value>
         <value xml:lang="zh">单价</value>
     </property>
+    <property key="EcommerceUnsubscribe">
+        <value xml:lang="de">Abonnement beenden</value>
+        <value xml:lang="en">Unsubscribe</value>
+        <value xml:lang="es">des-Subscribir</value>
+        <value xml:lang="fr">Se désinscrire</value>
+        <value xml:lang="it">Annulla sottoscrizione</value>
+        <value xml:lang="ro">Sterge Subscrierea</value>
+        <value xml:lang="ru">Отменить подписку</value>
+        <value xml:lang="th">ไม่ได้ชำระค่าสั่งซื้อ</value>
+        <value xml:lang="zh">注销</value>
+    </property>
     <property key="EcommerceUnsupportedQuestionType">
         <value xml:lang="de">Nicht unterstützter Fragetyp</value>
         <value xml:lang="en">Unsupported Question Type</value>
@@ -2788,6 +2763,17 @@
         <value xml:lang="ru">вариант в корзину</value>
         <value xml:lang="th">เปลี่ยนแปลงสู่ตะกร้า</value>
         <value xml:lang="zh">的选择到购物车</value>
+    </property>
+    <property key="EcommerceVerifySubscription">
+        <value xml:lang="de">Abonnement prüfn</value>
+        <value xml:lang="en">Verify Subscription</value>
+        <value xml:lang="es">Verificar subscripción</value>
+        <value xml:lang="fr">Vérifier son inscription</value>
+        <value xml:lang="it">Verifica sottoscrizione</value>
+        <value xml:lang="ro">Verifica Subscrierea</value>
+        <value xml:lang="ru">Проверить подписку</value>
+        <value xml:lang="th">ตรวจสอบการชำระค่าสั่งซื้อ</value>
+        <value xml:lang="zh">验证注册</value>
     </property>
     <property key="EcommerceViewAll">
         <value xml:lang="de">Alle anzeigen</value>
@@ -2904,6 +2890,13 @@
         <value xml:lang="ru">Вам может понравиться</value>
         <value xml:lang="th">สิ่งที่น่าสนใจ</value>
         <value xml:lang="zh">你可能会喜欢</value>
+    </property>
+    <property key="EcommerceYour">
+        <value xml:lang="de">Ihr</value>
+        <value xml:lang="en">your</value>
+        <value xml:lang="fr">Votre</value>
+        <value xml:lang="it">tuo</value>
+        <value xml:lang="th">ของคุณ</value>
     </property>
     <property key="EcommerceYourCardNumber">
         <value xml:lang="de">Ihre Kartennummer:</value>

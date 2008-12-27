@@ -21,7 +21,7 @@ under the License.
 <head>
 </head>
 <body>
-  <div>${uiLabelMap.EcommerceThisEmailIsInResponseToYourRequestToHave} <#if useEncryption>${uiLabelMap.EcommerceANew}<#else>${uiLabelMap.CommonYour}</#if> ${uiLabelMap.EcommercePasswordSentToYou}.</div>
+  <div>${uiLabelMap.EcommerceThisEmailIsInResponseToYourRequestToHave} <#if useEncryption>${uiLabelMap.EcommerceANew}<#else>${uiLabelMap.EcommerceYour}</#if> ${uiLabelMap.EcommercePasswordSentToYou}.</div>
   <br/>
   <div>
       <#if useEncryption>
