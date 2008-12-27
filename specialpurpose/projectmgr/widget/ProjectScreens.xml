@@ -578,9 +578,64 @@ under the License.
     </screen>
     <screen name="PartiesInfo">
         <section>
+            <actions>
+                <entity-condition entity-name="WorkEffortPartyAssignView" list-name="clientAssigns" distinct="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="workEffortId" env-name="parameters.projectId" operator="equals"/>
+                        <condition-expr field-name="roleTypeId" value="CLIENT%" operator="like"/>
+                        <condition-expr field-name="roleTypeId" value="CLIENT_BILLING" operator="not-equals"/>
+                    </condition-list>
+                    <select-field field-name="partyId"/>
+                    <select-field field-name="firstName"/>
+                    <select-field field-name="lastName"/>
+                    <select-field field-name="middleName"/>
+                    <select-field field-name="groupName"/>
+                    <select-field field-name="roleTypeId"/>
+                    <order-by field-name="lastName"/>
+                    <order-by field-name="firstName"/>
+                    <order-by field-name="groupName"/>
+                </entity-condition>
+                <entity-condition entity-name="WorkEffortPartyAssignView" list-name="companyAssigns" distinct="true">
+                    <condition-list combine="and">
+                        <condition-expr field-name="workEffortId" env-name="parameters.projectId" operator="equals"/>
+                        <condition-list combine="or">
+                            <condition-expr field-name="roleTypeId" value="INTERNAL_ORGANIZATIO" operator="equals"/>
+                            <condition-expr field-name="roleTypeId" value="CLIENT_BILLING" operator="equals"/>
+                        </condition-list>
+                    </condition-list>
+                    <select-field field-name="partyId"/>
+                    <select-field field-name="firstName"/>
+                    <select-field field-name="lastName"/>
+                    <select-field field-name="middleName"/>
+                    <select-field field-name="groupName"/>
+                    <select-field field-name="roleTypeId"/>
+                    <order-by field-name="lastName"/>
+                    <order-by field-name="firstName"/>
+                    <order-by field-name="groupName"/>
+                </entity-condition>
+            </actions>
             <widgets>
                 <screenlet title="${uiLabelMap.ProjectMgrResources}">
-                    <include-form name="ListProjectParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                    <label style="h3" text="Providers"></label>
+                    <include-form name="ListProjectProviderParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                    <section>
+                        <condition>
+                            <not><if-empty field-name="clientAssigns"/></not>
+                        </condition>
+                        <widgets>
+                            <label style="h3" text="ClientContacts"></label>
+                            <include-form name="ListProjectClientParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </widgets>
+                    </section>
+                    <section>
+                        <condition>
+                            <not><if-empty field-name="companyAssigns"/></not>
+                        </condition>
+                        <widgets>
+                            <label style="h3" text="Companies"></label>
+                            <include-form name="ListProjectCompanyParties" location="component://projectmgr/widget/forms/ProjectForms.xml"/>
+                        </widgets>
+                    </section>
                 </screenlet>
             </widgets>
         </section>

@@ -30,6 +30,69 @@
                 <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
             </else>
         </if-not-empty>
+        <set field="parameters.workEffortId" from-field="newEntity.workEffortId"/>
+        <if-not-empty field="parameters.organizationPartyId">
+            <set field="updProjectRole.newPartyId" from-field="parameters.organizationPartyId"/>
+            <set field="updProjectRole.roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+            <call-simple-method method-name="updProjectRole"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.clientBillingPartyId">
+            <set field="updProjectRole.newPartyId" from-field="parameters.clientBillingPartyId"/>
+            <set field="updProjectRole.roleTypeId" value="CLIENT_BILLING"/>
+            <call-simple-method method-name="updProjectRole"/>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="updateProject" short-description="Update a project">
+        <set-service-fields service-name="updateWorkEffort" map-name="parameters" to-map-name="updWorkEffort"/>
+        <call-service service-name="updateWorkEffort" in-map-name="updWorkEffort"/>
+        <if-not-empty field="parameters.organizationPartyId">
+            <set field="updProjectRole.newPartyId" from-field="parameters.organizationPartyId"/>
+            <set field="updProjectRole.roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+            <call-simple-method method-name="updProjectRole"/>
+        </if-not-empty>
+        <if-not-empty field="parameters.clientBillingPartyId">
+            <set field="updProjectRole.newPartyId" from-field="parameters.clientBillingPartyId"/>
+            <set field="updProjectRole.roleTypeId" value="CLIENT_BILLING"/>
+            <call-simple-method method-name="updProjectRole"/>
+        </if-not-empty>
+    </simple-method>
+    
+    <simple-method method-name="updProjectRole" 
+        short-description="update/create a specif role and type for a project 
+                            input map: updProjectRole.newPartyId, updProjectRole.roleTypeId">
+        <entity-and entity-name="WorkEffortPartyAssignment" list-name="workEffortPartyAssignments" filter-by-date="true">
+            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
+            <field-map field-name="roleTypeId" value="updProjectRole.roleTypeId"/>
+        </entity-and>
+        <!-- end current record if required -->
+        <if-not-empty field="workEffortPartyAssignments">
+            <first-from-list entry-name="workEffortPartyAssignment" list-name="workEffortPartyAssignments"/>
+            <if-compare-field field="updProjectRole.newPartyId" operator="not-equals" to-field="workEffortPartyAssignment.partyId">
+                <now-timestamp-to-env env-name="workEffortPartyAssignment.thruDate"/>
+                <store-value value-name="workEffortPartyAssignment"/>
+            </if-compare-field>
+        </if-not-empty>
+        <!-- create new record if required -->
+        <if>
+            <condition>
+                <or>
+                    <if-empty field="workEffortPartyAssignments"/>
+                    <and>
+                        <not><if-empty field="workEffortPartyAssignments"/></not>
+                        <if-compare-field field="updProjectRole.newPartyId" operator="not-equals" to-field="workEffortPartyAssignment.partyId"/>
+                    </and>
+                </or>
+            </condition>
+            <then>
+                <make-value value-name="workEffortPartyAssignment" entity-name="WorkEffortPartyAssignment"/>
+                <set field="workEffortPartyAssignment.workEffortId" from-field="parameters.workEffortId"/>
+                <set field="workEffortPartyAssignment.partyId" from-field="updProjectRole.newPartyId"/>
+                <set field="workEffortPartyAssignment.roleTypeId" from-field="updProjectRole.roleTypeId"/>
+                <now-timestamp-to-env env-name="workEffortPartyAssignment.fromDate"/>
+                <create-value value-name="workEffortPartyAssignment"/>
+            </then>
+        </if>
     </simple-method>
     
     <simple-method method-name="createProjectTask" short-description="Create a project task and optionally assign">

@@ -21,6 +21,11 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/widget-form.xsd">
     <form name="EditProject" type="single" target="updateProject" default-map-name="project"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-one entity-name="PartyGroup" value-name="partyGroup">
+                <field-map field-name="partyId" env-name="partyId"/>
+            </entity-one>
+        </actions>
         <alt-target use-when="project==null" target="createProject"/>
         <field use-when="project==null" name="templateId">
             <drop-down allow-empty="true">
@@ -36,6 +41,12 @@
         <field name="projectDescription" parameter-name="description" title="${uiLabelMap.CommonDescription}"><text/></field>
         <field use-when="project!=null" name="currentStatusId" title="${uiLabelMap.CommonStatus}" parameter-name="dummy"><display-entity entity-name="StatusItem" key-field-name="statusId"/></field>
         <field use-when="project==null" name="currentStatusId"><hidden value="_NA_"/></field>
+        <field name="clientBillingPartyId"><lookup target-form-name="LookupPartyGroup"><sub-hyperlink target="viewprofile?partyId=${partyId}" description="${partyGroup.groupName}"/></lookup></field>
+        <field name="organizationPartyId">
+            <drop-down no-current-selected-key="defaultOrganizationPartyId">
+                <entity-options entity-name="PartyAcctgPrefAndGroup" description="${groupName}" key-field-name="partyId"/>        
+            </drop-down>
+        </field>
         <field name="priority" title="${uiLabelMap.CommonPriority}"><display/></field>
         <field name="scopeEnumId" title="${uiLabelMap.ProjectMgrWorkEffortScopeEnumId}">
             <drop-down allow-empty="false">
@@ -329,16 +340,20 @@
         <field name="plannedHours"><display/></field>
         <field name="actualHours"><display/></field>
     </form>
-    <form name="ListProjectParties" type="list" list-name="assigns"
+    <form name="ListProjectProviderParties" type="list" list-name="assigns"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
         <actions>
             <entity-condition entity-name="WorkEffortPartyAssignView" list-name="assigns" distinct="true">
-                <condition-expr field-name="workEffortId" env-name="parameters.projectId"/>
+                <condition-list combine="and">
+                    <condition-expr field-name="workEffortId" env-name="parameters.projectId" operator="equals"/>
+                    <condition-expr field-name="roleTypeId" value="PROVIDER%" operator="like"/>
+                </condition-list>
                 <select-field field-name="partyId"/>
                 <select-field field-name="firstName"/>
                 <select-field field-name="lastName"/>
                 <select-field field-name="middleName"/>
                 <select-field field-name="groupName"/>
+                <select-field field-name="roleTypeId"/>
                 <order-by field-name="lastName"/>
                 <order-by field-name="firstName"/>
                 <order-by field-name="groupName"/>
@@ -354,8 +369,25 @@
         <field name="partyName" title="${uiLabelMap.CommonName}">
             <hyperlink target="viewprofile?partyId=${partyId}" description="${lastName}, ${firstName} ${middleName} ${groupName} [${partyId}]"/>
         </field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
         <field name="actualHours" entry-name="actualHours" map-name="result.projectInfo"><display/></field>
         <field name="nonBilledHours"  entry-name="actualNonBilledHours" map-name="result.projectInfo"><display/></field>
+    </form>
+    <form name="ListProjectClientParties" type="list" list-name="clientAssigns"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="projectId"><hidden/></field>
+        <field name="partyName" title="${uiLabelMap.CommonName}">
+            <hyperlink target="viewprofile?partyId=${partyId}" description="${lastName}, ${firstName} ${middleName} ${groupName} [${partyId}]"/>
+        </field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+    </form>
+    <form name="ListProjectCompanyParties" type="list" list-name="companyAssigns"
+        odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <field name="projectId"><hidden/></field>
+        <field name="partyName" title="${uiLabelMap.CommonName}">
+            <hyperlink target="viewprofile?partyId=${partyId}" description="${groupName} [${partyId}]"/>
+        </field>
+        <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
     </form>
     <form name="EditProjectSkills" type="list" target="updateProjectSkillStandard" list-name="workEffortSkillStandardList" paginate-target="EditProjectSkills"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
@@ -574,9 +606,21 @@
         <field name="submitButton" title="${uiLabelMap.CommonAdd}" widget-style="smallSubmit"><submit button-type="button"/></field>
     </form>
     <form name="AddProjectTimeToNewInvoice" target="addProjectTimeToNewInvoice" title="" type="single">
+        <actions>
+            <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignOrg" filter-by-date="true">
+                <field-map field-name="workEffortId" env-name="parameters.projectId"/>
+                <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
+            </entity-and>
+            <set field="partyIdFrom" value="${assignOrg[0].partyId}"/> 
+            <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignBilling" filter-by-date="true">
+                <field-map field-name="workEffortId" env-name="parameters.projectId"/>
+                <field-map field-name="roleTypeId" value="CLIENT_BILLING"/>
+            </entity-and>
+            <set field="partyId" value="${assignBilling[0].partyId}"/> 
+        </actions>
         <field name="projectId"><hidden value="${parameters.projectId}"/></field>
-        <field name="partyIdFrom" title="${uiLabelMap.WorkEffortTimeBillFromParty}"><lookup target-form-name="LookupPartyName"/></field>
-        <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><lookup target-form-name="LookupPartyName" default-value="${timesheet.clientPartyId}"/></field>
+        <field name="partyIdFrom" title="${uiLabelMap.WorkEffortTimeBillFromParty}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}"/></field>
+        <field name="partyId" title="${uiLabelMap.WorkEffortTimeBillToParty}"><display-entity entity-name="PartyNameView" key-field-name="partyId" description="${groupName}"/></field>
         <field name="thruDate" title="${uiLabelMap.CommonThruDate}"><date-time type="timestamp"/></field>
         <field name="invoiceId"><hidden/></field>
         <field name="reCreate" position="1" title="re-create Invoice: ${invoiceId}" use-when="context.get(&quot;invoiceId&quot;)!=null">

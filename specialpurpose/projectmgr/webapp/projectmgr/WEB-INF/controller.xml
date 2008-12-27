@@ -79,7 +79,7 @@
     </request-map>
     <request-map uri="updateProject">
         <security https="true" auth="true"/>
-        <event type="service" invoke="updateWorkEffort"/>
+        <event type="service" invoke="updateProject"/>
         <response name="success" type="view" value="projectView"/>
         <response name="error" type="view" value="EditProject"/>
     </request-map>
