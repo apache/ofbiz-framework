@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountingBillingAccount">
         <value xml:lang="de">Rechnungskonto</value>
         <value xml:lang="en">Billing Account</value>
@@ -2299,12 +2300,36 @@
         <value xml:lang="zh">把列表添加到购物车</value>
     </property>
     <property key="PartyAddNewAddress">
-        <value xml:lang="de">Neue Adresse</value>
+        <value xml:lang="cs">Přidat novou adresu</value>
+        <value xml:lang="de">Neue Adresse hinzufügen</value>
         <value xml:lang="en">New Address</value>
-        <value xml:lang="es">Nueva dirección</value>
-        <value xml:lang="fr">Nouvelle adresse</value>
-        <value xml:lang="nl">Nieuw adres</value>
+        <value xml:lang="es">Nueva Dirección</value>
+        <value xml:lang="fr">Ajouter une nouvelle adresse</value>
+        <value xml:lang="hi_IN">नया पता</value>
+        <value xml:lang="it">Nuovo indirizzo</value>
+        <value xml:lang="ja">New Address</value>
+        <value xml:lang="nl">Nieuw Adres</value>
+        <value xml:lang="pt_PT">Nova Morada</value>
+        <value xml:lang="ro">Noua Adresa </value>
+        <value xml:lang="ru">Новый адрес</value>
         <value xml:lang="th">ที่อยู่ใหม่</value>
+        <value xml:lang="zh">新地址</value>
+    </property>
+    <property key="PartyAddNewPersonalInformation">
+        <value xml:lang="cs">Přidat nová osobní data</value>
+        <value xml:lang="de">Neue persönliche Information hinzufügen</value>
+        <value xml:lang="en">Add New Personal Information</value>
+        <value xml:lang="es">Añadir Información Personal Nueva</value>
+        <value xml:lang="fr">Ajouter des informations personnelles</value>
+        <value xml:lang="hi_IN">अपने बारे मे नयी जानकारी</value>
+        <value xml:lang="it">Aggiungi nuove informazioni personali</value>
+        <value xml:lang="ja">Add New Personal Information</value>
+        <value xml:lang="nl">Voeg nieuwe persoonsinformatie toe</value>
+        <value xml:lang="pt_PT">Adicionar Nova Informação Pessoal</value>
+        <value xml:lang="ro">Adauga o Noua Informatie Personala</value>
+        <value xml:lang="ru">Добавить новую персональную информацию</value>
+        <value xml:lang="th">เพิ่มข้อมูลส่วนตัวใหม่</value>
+        <value xml:lang="zh">新建个人信息</value>
     </property>
     <property key="PartyAddOtherRelationship">
         <value xml:lang="en">Add other party relationship</value>
@@ -2354,14 +2379,17 @@
         <value xml:lang="fr">Ajouter une vue protégée à ce groupe de sécurité</value>
     </property>    
     <property key="PartyAddPurpose">
+        <value xml:lang="cs">Přidat účel</value>
         <value xml:lang="de">Zweck hinzufügen</value>
         <value xml:lang="en">Add Purpose</value>
         <value xml:lang="es">Añadir propósito</value>
-        <value xml:lang="fr">Ajouter un objet</value>
-        <value xml:lang="it">Aggiungi Funzione</value>
-        <value xml:lang="nl">Doel toevoegen</value>
-        <value xml:lang="pt_PT">Adicionar Finalidade</value>
-        <value xml:lang="ro">Adauga Functie</value>
+        <value xml:lang="fr">Ajouter un but</value>
+        <value xml:lang="hi_IN">कारण दें</value>
+        <value xml:lang="it">Aggiungi scopo</value>
+        <value xml:lang="ja">Add Purpose</value>
+        <value xml:lang="nl">Voeg een reden to</value>
+        <value xml:lang="pt_PT">Adicionar Objectivo</value>
+        <value xml:lang="ro">Adauga Scop</value>
         <value xml:lang="ru">Добавить назначение</value>
         <value xml:lang="th">เพิ่มวัตถุประสงค์</value>
         <value xml:lang="zh">添加目的</value>
@@ -2418,28 +2446,44 @@
         <value xml:lang="zh">把用户登录添加到安全组</value>
     </property>
     <property key="PartyAdditionalPartyEntry">
-        <value xml:lang="de">Zusätzliche Angaben zum Akteur</value>
+        <value xml:lang="de">Zusätzlicher Akteureintrag</value>
         <value xml:lang="en">Additional Party Entry</value>
-        <value xml:lang="es">Información adicional</value>
-        <value xml:lang="fr">Suppléments d'infos. sur l'acteur</value>
+        <value xml:lang="es">Entrada adicional de participante</value>
+        <value xml:lang="fr">Ajout d'un acteur supplémentaire</value>
         <value xml:lang="it">Voce Aggiuntiva Soggetto</value>
         <value xml:lang="nl">Extra info relatie toevoegen</value>
         <value xml:lang="ro">Date Suplimentare Subiect</value>
         <value xml:lang="ru">Дополнительный участник</value>
-        <value xml:lang="th">สิทธิในการเข้าของกลุ่มผู้ใช้ที่เพิ่มขึ้น</value>
+        <value xml:lang="th">เพิ่มการกรอกข้อมูลกลุ่มผู้ใช้</value>
         <value xml:lang="zh">附加会员记录</value>
     </property>
+    <property key="PartyAdditionalPartyListing">
+        <value xml:lang="de">Zusätzliche Auflistung Akteur</value>
+        <value xml:lang="en">Additional Party Listing</value>
+        <value xml:lang="es">Listado de participante adicional</value>
+        <value xml:lang="fr">Liste des autres destinataires</value>
+        <value xml:lang="hi_IN">अन्य पार्टी सूची</value>
+        <value xml:lang="it">Lista soggetti aggiuntivi</value>
+        <value xml:lang="ja">Additional Party Listing</value>
+        <value xml:lang="nl">Additionele relatie lijst</value>
+        <value xml:lang="ro">Lista Subiecti Suplimentari </value>
+        <value xml:lang="ru">Дополнительный список частей</value>
+        <value xml:lang="th">รายชื่อกลุ่มที่เพิ่มขึ้น</value>
+        <value xml:lang="zh">附加会员列表</value>
+    </property>
     <property key="PartyAddrAttnName">
+        <value xml:lang="cs">K rukám</value>
         <value xml:lang="de">z. Hd.</value>
         <value xml:lang="en">Attn</value>
-        <value xml:lang="es">A nombre de</value>
-        <value xml:lang="fr">à l'attention de</value>
-        <value xml:lang="it">Attn</value>
-        <value xml:lang="nl">T.a.v.</value>
+        <value xml:lang="es">Attn</value>
+        <value xml:lang="fr">A l'att.</value>
+        <value xml:lang="it">Attenzione</value>
+        <value xml:lang="ja">Attn</value>
+        <value xml:lang="nl">t.a.v.</value>
         <value xml:lang="pt_PT">Ao Cuidado De</value>
-        <value xml:lang="ro">Attn</value>
-        <value xml:lang="ru">Вним.</value>
-        <value xml:lang="th">ความสนใจ</value>
+        <value xml:lang="ro">Atentie</value>
+        <value xml:lang="ru">Вним</value>
+        <value xml:lang="th">Attn</value>
         <value xml:lang="zh">收件人</value>
     </property>
     <property key="PartyAddrToName">
@@ -2456,16 +2500,19 @@
         <value xml:lang="zh">收件人</value>
     </property>
     <property key="PartyAddressLine1">
-        <value xml:lang="de">Adresszeile 1</value>
+        <value xml:lang="cs">Adresa 1. Řádek</value>
+        <value xml:lang="de">Adresse 1. Zeile</value>
         <value xml:lang="en">Address Line 1</value>
-        <value xml:lang="es">Dirección Línea 1</value>
+        <value xml:lang="es">Linea de Dirección 1</value>
         <value xml:lang="fr">Ligne d'adresse 1</value>
+        <value xml:lang="hi_IN">पता लाइन १</value>
         <value xml:lang="it">Indirizzo riga 1</value>
-        <value xml:lang="nl">Adresregel 1</value>
+        <value xml:lang="ja">Address Line 1</value>
+        <value xml:lang="nl">Adres lijn 1</value>
         <value xml:lang="pt_PT">Linha 1 da Morada</value>
-        <value xml:lang="ro">Adresa linie 1</value>
-        <value xml:lang="ru">Адрес, строка 1</value>
-        <value xml:lang="th">ที่อยู่ที่ 1</value>
+        <value xml:lang="ro">Adresa Linie 1</value>
+        <value xml:lang="ru">Строк адреса 1</value>
+        <value xml:lang="th">ที่อยู่ที่1</value>
         <value xml:lang="zh">地址行1</value>
     </property>
     <property key="PartyAddressLine1Missing">
@@ -2481,17 +2528,36 @@
         <value xml:lang="th">ไม่ได้ใส่ที่อยู่ที่ 1</value>
         <value xml:lang="zh">缺少地址行1</value>
     </property>
+    <property key="PartyAddressLine1MissingError">
+        <value xml:lang="cs">1. Řádek adresy chybí</value>
+        <value xml:lang="de">Adresszeile 1 fehlt</value>
+        <value xml:lang="en">Address Line 1 is missing</value>
+        <value xml:lang="es">Falta Linea de Dirección 1</value>
+        <value xml:lang="fr">Ligne d'adresse 1 absente</value>
+        <value xml:lang="hi_IN">पता लाइन १ नही है</value>
+        <value xml:lang="it">Indirizzo riga 1 mancante</value>
+        <value xml:lang="ja">Address Line 1 is missing</value>
+        <value xml:lang="nl">Adreslijn 1 mist</value>
+        <value xml:lang="pt_PT">Linha 1 da Morada em Falta</value>
+        <value xml:lang="ro">Adresa 1 Lipseste</value>
+        <value xml:lang="ru">Строка адреса 1 отсутствует</value>
+        <value xml:lang="th">ไม่ได้ใส่ที่อยู่ที่1</value>
+        <value xml:lang="zh">没有找到地址行1</value>
+    </property>
     <property key="PartyAddressLine2">
-        <value xml:lang="de">Adresszeile 2</value>
+        <value xml:lang="cs">Adresa 2. Řádek</value>
+        <value xml:lang="de">Adresse 2. Zeile</value>
         <value xml:lang="en">Address Line 2</value>
-        <value xml:lang="es">Dirección línea 2</value>
+        <value xml:lang="es">Linea de Dirección 2</value>
         <value xml:lang="fr">Ligne d'adresse 2</value>
+        <value xml:lang="hi_IN">पता लाइन २</value>
         <value xml:lang="it">Indirizzo riga 2</value>
-        <value xml:lang="nl">Adresregel 2</value>
+        <value xml:lang="ja">Address Line 2</value>
+        <value xml:lang="nl">Adreslijn 2</value>
         <value xml:lang="pt_PT">Linha 2 da Morada</value>
-        <value xml:lang="ro">Adresa Linie 2</value>
-        <value xml:lang="ru">Адрес, строка 2</value>
-        <value xml:lang="th">ที่อยู่ที่ 2</value>
+        <value xml:lang="ro">Adresa Linia 2</value>
+        <value xml:lang="ru">Строка адреса 2</value>
+        <value xml:lang="th">ที่อยู่ที่2</value>
         <value xml:lang="zh">地址行2</value>
     </property>
     <property key="PartyAddressMailingShipping">
@@ -2550,6 +2616,37 @@
         <value xml:lang="th">เท่ากัน</value>
         <value xml:lang="zh">匹配</value>
     </property>
+    <property key="PartyAffiliateCodeMissingError">
+        <value xml:lang="cs">Chybí kód dceřinné společnosti</value>
+        <value xml:lang="de">Code der Partnergesellschaft fehlt</value>
+        <value xml:lang="en">Affiliate Code is missing</value>
+        <value xml:lang="es">Falta el código del afiliado</value>
+        <value xml:lang="fr">Ligne d'adresse 2 absente</value>
+        <value xml:lang="hi_IN">Affiliate कोड नही है</value>
+        <value xml:lang="it">Codice affiliato mancante</value>
+        <value xml:lang="ja">Affiliate Code is missing</value>
+        <value xml:lang="nl">Wederverkoop kode</value>
+        <value xml:lang="pt_PT">Código de Procedência em Falta</value>
+        <value xml:lang="ro">Cod Afiliat lipseste </value>
+        <value xml:lang="ru">Код филиала отсутствует</value>
+        <value xml:lang="th">ไม่มีการใส่รหัส</value>
+        <value xml:lang="zh">找不到附属码</value>
+    </property>
+    <property key="PartyAffiliateNameMissing">
+        <value xml:lang="cs">Chybí jméno dceřinné společnosti</value>
+        <value xml:lang="de">Name der Partnergesellschaft fehlt</value>
+        <value xml:lang="en">Affiliate Name is missing</value>
+        <value xml:lang="es">Falta el nombre del afiliado</value>
+        <value xml:lang="fr">Nom affilié absent</value>
+        <value xml:lang="it">Nome affiliato mancante</value>
+        <value xml:lang="ja">Affiliate Name is missing</value>
+        <value xml:lang="nl">Wederverkoop naam mist</value>
+        <value xml:lang="pt_PT">Nome da Procedência em Falta</value>
+        <value xml:lang="ro">Nume Afiliat Lipseste</value>
+        <value xml:lang="ru">Имя филиала отсутствует</value>
+        <value xml:lang="th">ไม่มีการใส่ชื่อ</value>
+        <value xml:lang="zh">找不到附属名</value>
+    </property>
     <property key="PartyAllCommunicationEvents">
         <value xml:lang="de">Alle Kommunikationsereignisse</value>
         <value xml:lang="en">All Communication Events</value>
@@ -2562,18 +2659,90 @@
         <value xml:lang="th">ผลการติดต่อทั้งหมด</value>
         <value xml:lang="zh">全部沟通事件</value>
     </property>
+    <property key="PartyAllPhoneNumbers">
+        <value xml:lang="cs">Všechna telefonní čísla</value>
+        <value xml:lang="de">Alle Telefonnummern</value>
+        <value xml:lang="en">All phone numbers</value>
+        <value xml:lang="es">Todos los números de teléfono</value>
+        <value xml:lang="fr">Tous les n° de téléphone</value>
+        <value xml:lang="hi_IN">सारे फोन नम्बर</value>
+        <value xml:lang="it">Tutti i numeri di telefono</value>
+        <value xml:lang="ja">All phone numbers</value>
+        <value xml:lang="nl">Alle telefoonnummers</value>
+        <value xml:lang="pt_PT">Todos os Números de Telefone</value>
+        <value xml:lang="ro">Toate numerele de telefon</value>
+        <value xml:lang="ru">Все телефонные номера</value>
+        <value xml:lang="th">หมายเลขโทรศัพท์ทั้งหมด</value>
+        <value xml:lang="zh">全部电话号码</value>
+    </property>
+    <property key="PartyAllowAddressSolicitation">
+        <value xml:lang="cs">Svolení s poskytnutím adresy třetím osobám</value>
+        <value xml:lang="de">Erlaubnis für die Weitergabe an Dritte</value>
+        <value xml:lang="en">Allow Address Solicitation</value>
+        <value xml:lang="en_GB">Can we we write to you at this address?</value>
+        <value xml:lang="es">Permitir La Solicitación De la Dirección</value>
+        <value xml:lang="fr">Accepter les sollicitations à cette addresse</value>
+        <value xml:lang="it">Possiamo inviare informazioni a questo indirizzo</value>
+        <value xml:lang="ja">Allow Address Solicitation</value>
+        <value xml:lang="nl">Toesturen verkoop informatie</value>
+        <value xml:lang="pt_PT">Permitir Solicitação de Morada</value>
+        <value xml:lang="ro">Admite Adresa Solicitata</value>
+        <value xml:lang="ru">Разрешается обращаться по адресу</value>
+        <value xml:lang="th">ทำตามที่อยู่ที่มีการร้องขอ</value>
+        <value xml:lang="zh">允许地址提示</value>
+    </property>
+    <property key="PartyAllowSolicitation">
+        <value xml:lang="cs">Svolení s poskytnutím třetím osobám</value>
+        <value xml:lang="de">Erlaubnis für die Weitergabe an Dritte</value>
+        <value xml:lang="en">Allow Solicitation</value>
+        <value xml:lang="en_GB">Can we contact you?</value>
+        <value xml:lang="es">Permitir Solicitación</value>
+        <value xml:lang="fr">Accepter les sollicitations</value>
+        <value xml:lang="it">Possiamo contattarti</value>
+        <value xml:lang="ja">Allow Solicitation</value>
+        <value xml:lang="nl">Toesturen verkoop informatie OK</value>
+        <value xml:lang="pt_PT">Permitir Solicitação</value>
+        <value xml:lang="ro">Admite Solecitarea</value>
+        <value xml:lang="ru">Разрешается обращаться</value>
+        <value xml:lang="th">ทำตามคำร้องขอ</value>
+        <value xml:lang="zh">允许提示</value>
+    </property>
+    <property key="PartyAlreadyHaveAccount">
+        <value xml:lang="cs">Pokud již máte založený účet</value>
+        <value xml:lang="de">Wenn Sie bereits ein Konto besitzen</value>
+        <value xml:lang="en">If you already have an account</value>
+        <value xml:lang="es">Si tiene aún una cuenta</value>
+        <value xml:lang="fr">Si vous avez déja un compte</value>
+        <value xml:lang="hi_IN">यदि आपका पहले से खाता है</value>
+        <value xml:lang="it">Se hai già un'utente,</value>
+        <value xml:lang="ja">If you already have an account</value>
+        <value xml:lang="nl">Wanneer U al een rekening heeft</value>
+        <value xml:lang="pt_PT">Se ja possui uma conta</value>
+        <value xml:lang="ro">Daca tu ai mai ai inca un conto</value>
+        <value xml:lang="ru">Если у вас уже есть учетная запись</value>
+        <value xml:lang="th">ถ้าคุณพร้อมจะมีบัญชี</value>
+        <value xml:lang="zh">如果你已经有账户了</value>
+    </property>
     <property key="PartyAreaCode">
-        <value xml:lang="de">Ortskennzahl</value>
+        <value xml:lang="cs">Místní předvolba</value>
+        <value xml:lang="de">Ortsvorwahl</value>
         <value xml:lang="en">Area Code</value>
-        <value xml:lang="es">Código local</value>
+        <value xml:lang="es">Código de área</value>
         <value xml:lang="fr">Indicatif régional</value>
-        <value xml:lang="it">Codice Area</value>
-        <value xml:lang="nl">Regiocode</value>
-        <value xml:lang="pt_PT">Codigo Local</value>
-        <value xml:lang="ro">Arie Cod </value>
+        <value xml:lang="hi_IN">स्थान कोड</value>
+        <value xml:lang="it">Codice area</value>
+        <value xml:lang="ja">Area Code</value>
+        <value xml:lang="nl">Gebiedscode</value>
+        <value xml:lang="pt_PT">Código de Área</value>
+        <value xml:lang="ro">Cod Arie</value>
         <value xml:lang="ru">Код области</value>
         <value xml:lang="th">รหัสพื้นที่</value>
         <value xml:lang="zh">地区代码</value>
+    </property>
+    <property key="PartyAreaCodeMissingError">
+        <value xml:lang="de">Ortsvorwahl fehlt</value>
+        <value xml:lang="en">Area code is missing</value>
+        <value xml:lang="it">Codice Area è mancante</value>
     </property>
     <property key="PartyAttachContent">
         <value xml:lang="de">Inhalt anfügen</value>
@@ -2586,16 +2755,18 @@
         <value xml:lang="th">หัวข้อติดกัน</value>
     </property>
     <property key="PartyAttentionName">
-        <value xml:lang="de">zu Händen</value>
+        <value xml:lang="cs">Jméno</value>
+        <value xml:lang="de">Zu Händen von</value>
         <value xml:lang="en">Attention Name</value>
-        <value xml:lang="es">A nombre de</value>
+        <value xml:lang="es">A la Atención de</value>
         <value xml:lang="fr">A l'attention de</value>
-        <value xml:lang="it">Attenzione Di</value>
-        <value xml:lang="nl">T.a.v.</value>
-        <value xml:lang="pt_PT">Ao Cuidado de Nome</value>
-        <value xml:lang="ro">Atentie Nume</value>
-        <value xml:lang="ru">Вниманию</value>
-        <value xml:lang="th">ชื่อที่น่าสนใจ</value>
+        <value xml:lang="it">All'attenzione di</value>
+        <value xml:lang="ja">Attention Name</value>
+        <value xml:lang="nl">Attentie naam</value>
+        <value xml:lang="pt_PT">Nome do Receptor</value>
+        <value xml:lang="ro">Atentie De</value>
+        <value xml:lang="ru">Attention Name</value>
+        <value xml:lang="th">ชื่อที่สนใจ</value>
         <value xml:lang="zh">收件人</value>
     </property>
     <property key="PartyAttribute">
@@ -2657,53 +2828,102 @@
         <value xml:lang="th">ธนาคาร</value>
         <value xml:lang="zh">银行</value>
     </property>
+    <property key="PartyBasicInformation">
+        <value xml:lang="cs">Základní informace</value>
+        <value xml:lang="de">Basisinformation</value>
+        <value xml:lang="en">Basic Information</value>
+        <value xml:lang="es">Información Básica</value>
+        <value xml:lang="fr">Information de base</value>
+        <value xml:lang="hi_IN">साधारण जानकारी</value>
+        <value xml:lang="it">Informazioni base</value>
+        <value xml:lang="ja">Basic Information</value>
+        <value xml:lang="nl">Basis Informatie</value>
+        <value xml:lang="ro">Informatii Baze </value>
+        <value xml:lang="ru">Базовая информация</value>
+        <value xml:lang="th">ข้อมูลพื้นฐาน</value>
+        <value xml:lang="zh">基本信息</value>
+    </property>
     <property key="PartyBillingAddress">
-        <value xml:lang="de">Akteur Rechnungsadresse</value>
-        <value xml:lang="en">Party Billing Address</value>
-        <value xml:lang="es">Dirección de facturación</value>
-        <value xml:lang="fr">Adresse de facturation de l'acteur</value>
-        <value xml:lang="it">Indirizzo Fatturazione Soggetto</value>
-        <value xml:lang="nl">Factuuradres</value>
-        <value xml:lang="ro">Adresa Facturare Subiect</value>
-        <value xml:lang="ru">Платежный адрес участника</value>
-        <value xml:lang="th">ที่อยู่การชำระเงินของกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员寄账单地址</value>
+        <value xml:lang="cs">Fakturační adresa</value>
+        <value xml:lang="de">Rechnungsadresse</value>
+        <value xml:lang="en">Billing Address</value>
+        <value xml:lang="es">Dirección de Facturación</value>
+        <value xml:lang="fr">Adresse de facturation</value>
+        <value xml:lang="hi_IN">भुगतान पता</value>
+        <value xml:lang="it">Indirizzo di fatturazione</value>
+        <value xml:lang="ja">Billing Address</value>
+        <value xml:lang="nl">Factuur adres</value>
+        <value xml:lang="pt_PT">Morada para Cobrança</value>
+        <value xml:lang="ro">Adresa Facturare </value>
+        <value xml:lang="ru">Адрес оплаты</value>
+        <value xml:lang="th">ที่อยู่ในใบเสร็จรับเงิน</value>
+        <value xml:lang="zh">寄账单地址</value>
+    </property>
+    <property key="PartyBillingAddressNotSelected">
+        <value xml:lang="cs">Ještě jste nevybral fakturační adresu</value>
+        <value xml:lang="de">Sie haben noch keine Rechnungsadresse ausgewählt</value>
+        <value xml:lang="en">Billing Address Not Yet Selected</value>
+        <value xml:lang="es">No se ha seleccionado aún Dirección de Facturación</value>
+        <value xml:lang="fr">Adresse de facturation pas encore sélectionnée</value>
+        <value xml:lang="hi_IN">भुगतान पता आपने नही चुना है</value>
+        <value xml:lang="it">Indirizzo di fatturazione non ancora selezionato</value>
+        <value xml:lang="ja">Billing Address Not Yet Selected</value>
+        <value xml:lang="nl">Factuur adres nog niet geselecteerd</value>
+        <value xml:lang="pt_PT">Morada para Cobrança Ainda Não Seleccionada</value>
+        <value xml:lang="ro">Adresa Facturare Nu este inca Selectionata</value>
+        <value xml:lang="ru">Адрес оплаты еще не выбран</value>
+        <value xml:lang="th">ไม่ได้เลือกที่อยู่ที่จะชำระเงิน</value>
+        <value xml:lang="zh">还没有选择寄账单地址</value>
     </property>
     <property key="PartyBirthDate">
+        <value xml:lang="cs">Datum narození</value>
         <value xml:lang="de">Geburtsdatum</value>
         <value xml:lang="en">Birth Date</value>
-        <value xml:lang="es">Fecha de nacimiento</value>
+        <value xml:lang="en_GB">Date of birth</value>
+        <value xml:lang="es">Fecha de Nacimiento</value>
         <value xml:lang="fr">Date de naissance</value>
-        <value xml:lang="it">Data Nascita</value>
+        <value xml:lang="hi_IN">जन्म तिथी</value>
+        <value xml:lang="it">Date di nascita</value>
+        <value xml:lang="ja">Birth Date</value>
         <value xml:lang="nl">Geboortedatum</value>
-        <value xml:lang="pt_PT">Data de Nascimento</value>
-        <value xml:lang="ro">Data Nasterii</value>
+        <value xml:lang="pt_PT">Data de Aniversário</value>
+        <value xml:lang="ro">Date Nastere </value>
         <value xml:lang="ru">Дата рождения</value>
         <value xml:lang="th">วันเกิด</value>
         <value xml:lang="zh">生日</value>
     </property>
     <property key="PartyBirthDateMissingError">
-        <value xml:lang="de">Geburtsdatum im falschen Format: Korrektes Format yyyy-mm-dd, 1982-07-21</value>
+        <value xml:lang="cs">Datum narození není ve správném formátu, musí odpovídat následujícímu formátu: rrrr-mm-dd, např. 2004-12-31</value>
+        <value xml:lang="de">Geburtsdatum ist nicht im richtigen Format, es muss dem folgenden Muster entsprechen: yyyy-mm-dd, z.B. 1982-07-21</value>
         <value xml:lang="en">Birthdate is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
-        <value xml:lang="es">Fecha de nacimiento incorrecta: debe estar en el siguiente formato yyyy-mm-dd, como 1984-02-23</value>
-        <value xml:lang="fr">Format de la date de naissance incorrect: doit être yyyy-mm-dd, du type 1982-07-21</value>
-        <value xml:lang="it">Data Nascita non è formattata correttamente: dovrebbe essere yyyy-mm-dd, come 1982-07-21</value>
-        <value xml:lang="nl">Geboortedatum is niet juist ingevoerd: moet zijn zoals jjjj-mm-dd, zoals 1982-07-21</value>
-        <value xml:lang="ro">Data Nasterii nu este formatata corect: trebbie sa fie aaaa-ll-zz, ex 1982-07-21</value>
-        <value xml:lang="ru">Неверный формат даты рождения: должно быть гггг-мм-дд, например 1982-07-21</value>
+        <value xml:lang="en_GB">Date of birth is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
+        <value xml:lang="es">Formato de la fecha de nacimiento incorrecto: ponga yyyy-mm-dd, como 1982-07-21</value>
+        <value xml:lang="fr">Format de la date de naissance non correct : doit être yyyy-mm-dd, du type 1982-07-21</value>
+        <value xml:lang="hi_IN">जन्म-तिथी ठीक नही है yyyy-mm-dd के रूप मे लिखीये जैसे - 1982-07-21</value>
+        <value xml:lang="it">La data di nascita non è formattata correttamente: dovrebbe essere yyyy-mm-dd, come 1982-07-21</value>
+        <value xml:lang="ja">Birthdate is not formatted correctly: must be yyyy-mm-dd, like 1982-07-21</value>
+        <value xml:lang="nl">Geboortedatum is niet goed geformateerd: moet zijn jjjj-mm-dd, zoals 1982-07-21</value>
+        <value xml:lang="pt_PT">Data de Aniversário não formatada correctamente: deverá ser aaaa-mm-dd, como p.ex. 1982-07-21</value>
+        <value xml:lang="ro">Data Nastere nu este formatata corect: ar trebui sa fie yyyy-mm-dd, ca si 1982-07-21</value>
+        <value xml:lang="ru">Дата рождения в неверном формате: нужно вводит как гггг-мм-дд, например 1982-07-21</value>
         <value xml:lang="th">รูปแบบของวันเกิดไม่ถูกต้อง: ต้องเป็น yyyy-mm-dd, คล้ายกับ 1982-07-21</value>
-        <value xml:lang="zh">生日格式不正确：必须是 yyyy-mm-dd，如 1982-07-21</value>
+        <value xml:lang="zh">生日格式错误：必须是yyyy-mm-dd，如1982-07-21</value>
     </property>
     <property key="PartyBusinessPhone">
+        <value xml:lang="cs">Telefon do zaměstnání</value>
         <value xml:lang="de">Geschäftstelefonnummer</value>
-        <value xml:lang="en">Business Phone</value>
-        <value xml:lang="es">Teléfono de oficina</value>
-        <value xml:lang="fr">Téléphone Bureau</value>
-        <value xml:lang="it">Telefono Ufficio</value>
+        <value xml:lang="en">Business phone</value>
+        <value xml:lang="en_GB">Business telephone</value>
+        <value xml:lang="es">Teléfono del Trabajo</value>
+        <value xml:lang="fr">Téléphone professionnel</value>
+        <value xml:lang="hi_IN">व्यापार फोन</value>
+        <value xml:lang="it">Telefono di lavoro</value>
+        <value xml:lang="ja">Business phone</value>
         <value xml:lang="nl">Zakelijk telefoonnummer</value>
-        <value xml:lang="ro">Telefon Uficiu</value>
-        <value xml:lang="ru">Деловой телефон</value>
-        <value xml:lang="th">เบอร์โทรศัพท์บริษัท</value>
+        <value xml:lang="pt_PT">Telefone da Empresa</value>
+        <value xml:lang="ro">Telefon de Lucru </value>
+        <value xml:lang="ru">Рабочий телефон</value>
+        <value xml:lang="th">เบอร์โทรศัพท์ของบริษัท</value>
         <value xml:lang="zh">办公电话</value>
     </property>
     <property key="PartyCannotUpdateContactBecauseNotWithSpecifiedParty">
@@ -2718,6 +2938,22 @@
         <value xml:lang="ru">ОШИБКА: Невозможно обновить информацию об указанном контакте, потому что он не связан с указанным участником.</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่สามารถเปลี่ยนแปลงข้อมูลการติดต่อนี้ได้เพราะมันไม่เหมือนกันกับกลุ่มผู้ใช้</value>
         <value xml:lang="zh">错误：不能更新指定的联系信息，因为它没有与指定的会员联系起来。</value>
+    </property>
+    <property key="PartyChangePassword">
+        <value xml:lang="cs">Změnit heslo</value>
+        <value xml:lang="de">Passwort ändern</value>
+        <value xml:lang="en">Change Password</value>
+        <value xml:lang="es">Cambiar Contraseña</value>
+        <value xml:lang="fr">Changement de mot de passe</value>
+        <value xml:lang="hi_IN">पासकोड बदलिये</value>
+        <value xml:lang="it">Cambio password</value>
+        <value xml:lang="ja">Change Password</value>
+        <value xml:lang="nl">Verander wachtwoord</value>
+        <value xml:lang="pt_PT">Alterar Senha</value>
+        <value xml:lang="ro">Schimbare Password</value>
+        <value xml:lang="ru">Изменить пароль</value>
+        <value xml:lang="th">เปลี่ยนรหัสผ่าน</value>
+        <value xml:lang="zh">修改密码</value>
     </property>
     <property key="PartyCertComponent">
         <value xml:lang="de">Komponente</value>
@@ -2842,30 +3078,36 @@
         <value xml:lang="zh">子购物列表</value>
     </property>
     <property key="PartyCity">
+        <value xml:lang="cs">Město</value>
         <value xml:lang="de">Stadt</value>
         <value xml:lang="en">City</value>
         <value xml:lang="es">Ciudad</value>
         <value xml:lang="fr">Ville</value>
+        <value xml:lang="hi_IN">शहर</value>
         <value xml:lang="it">Città</value>
+        <value xml:lang="ja">City</value>
         <value xml:lang="nl">Plaats</value>
         <value xml:lang="pt_PT">Cidade</value>
-        <value xml:lang="ro">Oras</value>
+        <value xml:lang="ro">Orasul</value>
         <value xml:lang="ru">Город</value>
         <value xml:lang="th">เมือง</value>
         <value xml:lang="zh">城市</value>
     </property>
     <property key="PartyCityMissing">
+        <value xml:lang="cs">Chybí město</value>
         <value xml:lang="de">Stadt fehlt</value>
-        <value xml:lang="en">City is missing</value>
-        <value xml:lang="es">Ciudad falta</value>
+        <value xml:lang="en">City is Missing</value>
+        <value xml:lang="es">Falta la Ciudad</value>
         <value xml:lang="fr">Ville absente</value>
+        <value xml:lang="hi_IN">शहर नही है</value>
         <value xml:lang="it">Città mancante</value>
+        <value xml:lang="ja">City is Missing</value>
         <value xml:lang="nl">Plaatsnaam ontbreekt</value>
         <value xml:lang="pt_PT">Cidade em Falta</value>
-        <value xml:lang="ro">Oras Lipsa</value>
-        <value xml:lang="ru">Отсутствует город</value>
-        <value xml:lang="th">ไม่ได้ใส่ชื่อเมือง</value>
-        <value xml:lang="zh">缺少城市</value>
+        <value xml:lang="ro">Orasul Lipseste</value>
+        <value xml:lang="ru">Город не указан</value>
+        <value xml:lang="th">ไม่ได้ใส่เมือง</value>
+        <value xml:lang="zh">找不到城市</value>
     </property>
     <property key="PartyClassificationGroup">
         <value xml:lang="de">Klassifizierungsgruppe</value>
@@ -3121,6 +3363,22 @@
         <value xml:lang="th">OFBiz: การจัดการกลุ่มผู้ใช้</value>
         <value xml:lang="zh">OFBiz: 会员管理程序</value>
     </property>
+    <property key="PartyCompanyNameMissingError">
+        <value xml:lang="cs">Chybí jmého firmy</value>
+        <value xml:lang="de">Firmenname fehlt</value>
+        <value xml:lang="en">Company Name is missing</value>
+        <value xml:lang="es">Falta el nombre de la empresa</value>
+        <value xml:lang="fr">Nom de société absente</value>
+        <value xml:lang="hi_IN">कम्पनी नाम नही है</value>
+        <value xml:lang="it">Nome azienda mancante</value>
+        <value xml:lang="ja">Company Name is missing</value>
+        <value xml:lang="nl">Bedrijfsnaam mist</value>
+        <value xml:lang="pt_PT">Nome da Empresa em Falta</value>
+        <value xml:lang="ro">Nume Firma Lipseste </value>
+        <value xml:lang="ru">Название компании не указано</value>
+        <value xml:lang="th">ไม่ได้ใส่ชื่อบริษัท</value>
+        <value xml:lang="zh">找不到公司名称</value>
+    </property>
     <property key="PartyCompanySubtitle">
         <value xml:lang="ar">جزء من عائلة أوفبيز للتطبيقات الحرة للتسيير</value><!--value xml:lang="ar">جزء من عائلة أوفبيز للبرمجيات الحرة</value-->
         <value xml:lang="de">Teil der Open For Business Familie von Open Source Software</value>
@@ -3208,29 +3466,50 @@
         <value xml:lang="nl">Info contact</value>
         <value xml:lang="th">ข้อมูลการติดต่อ</value>
     </property>
+    <property key="PartyContactInfoNotBelongToYou">
+        <value xml:lang="cs">Uvedené kontaktní informace nejsou Vaše, proto je nemůžete prohlížet ani editovat</value>
+        <value xml:lang="de">Die angegebenen Kontaktinformationen sind Ihnen nicht zugeordnet, daher dürfen Sie diese weder ansehen noch bearbeiten</value>
+        <value xml:lang="en">The contact information specified does not belong to you, you may not view or edit it</value>
+        <value xml:lang="es">La información de contacto especificada no le pertenece, no puede verla o correjirla.</value>
+        <value xml:lang="fr">Les coordonnées spécifiées ne vous concerne pas, vous ne pouvez pas les voir ou les éditer.</value>
+        <value xml:lang="hi_IN">सम्पर्क सूचना आपका नही है, आप इसे बदल नही सकते</value>
+        <value xml:lang="it">Le informazioni specificate non corrisponde a te, non puoi vederle o aggiornarle</value>
+        <value xml:lang="ja">The contact information specified does not belong to you, you may not view or edit it</value>
+        <value xml:lang="nl">De kontakt informatie hoort niet bij U, U kan deze dus niet aanpassen of inzien</value>
+        <value xml:lang="pt_PT">A informação de contacto especificada não lhe pertence, não pode vê-la ou editá-la</value>
+        <value xml:lang="ro">Informatiile din contact specificate nu iti corespund, tu nu poti sa-l vezi sau sa-l actualizezi</value>
+        <value xml:lang="ru">Указанная контактная информация вам не принадлежит, вы не можете просматривать или менять ее</value>
+        <value xml:lang="th">ข้อมูลในการติดต่อนี้ไม่ใช่ของคุณ, คุณไม่สามารถจะดูหรือทำการแก้ไขได้</value>
+        <value xml:lang="zh">指定的联系信息不属于你，你不能浏览或编辑它</value>
+    </property>
     <property key="PartyContactInformation">
-        <value xml:lang="de">Kontaktinformationen</value>
+        <value xml:lang="cs">Kontaktní informace</value>
+        <value xml:lang="de">Kontaktinformation</value>
         <value xml:lang="en">Contact Information</value>
-        <value xml:lang="es">Información del contacto</value>
+        <value xml:lang="es">Información de Contacto</value>
         <value xml:lang="fr">Coordonnées</value>
-        <value xml:lang="it">Informazioni Contatto</value>
-        <value xml:lang="nl">Contactinformatie</value>
+        <value xml:lang="hi_IN">सम्पर्क सूचना</value>
+        <value xml:lang="it">Informazioni contatto</value>
+        <value xml:lang="ja">Contact Information</value>
+        <value xml:lang="nl">Kontakt Informatie</value>
         <value xml:lang="pt_PT">Informação de Contacto</value>
         <value xml:lang="ro">Informatii Contact</value>
         <value xml:lang="ru">Контактная информация</value>
-        <value xml:lang="th">ข้อมูลการติดต่อสื่อสาร</value>
+        <value xml:lang="th">ข้อมูลที่ติดต่อได้</value>
         <value xml:lang="zh">联系信息</value>
     </property>
-    <property key="PartyContactList">
-        <value xml:lang="de">Kontaktliste</value>
-        <value xml:lang="en">Contact List</value>
-        <value xml:lang="es">Lista de contactos</value>
-        <value xml:lang="fr">Liste de contact</value>
-        <value xml:lang="it">Lista Contatto</value>
-        <value xml:lang="nl">Contactlijst</value>
-        <value xml:lang="ro">Lista Contact</value>
+    <property key="PartyContactLists">
+        <value xml:lang="de">Kontaktlisten</value>
+        <value xml:lang="en">Contact Lists</value>
+        <value xml:lang="es">Lista de Contactos</value>
+        <value xml:lang="fr">Liste de contacts</value>
+        <value xml:lang="hi_IN">सम्पर्क सूची</value>
+        <value xml:lang="it">Liste contatti</value>
+        <value xml:lang="ja">Contact Lists</value>
+        <value xml:lang="nl">Kontactlijsten</value>
+        <value xml:lang="ro">Liste Contacte</value>
         <value xml:lang="ru">Список контактов</value>
-        <value xml:lang="th">รายการติดต่อ</value>
+        <value xml:lang="th">รายการข้อมูล</value>
         <value xml:lang="zh">联系列表</value>
     </property>
     <property key="PartyContactListPartyCreate">
@@ -3246,17 +3525,19 @@
         <value xml:lang="zh">把会员添加到联系列表</value>
     </property>
     <property key="PartyContactMechIdMissing">
-        <value xml:lang="de">Kontaktmechanismus ID fehlt</value>
-        <value xml:lang="en">Contact Mechanism ID is missing</value>
-        <value xml:lang="es">Falta mecanismo de contacto</value>
+        <value xml:lang="de">Kontakt Mech ID fehlt</value>
+        <value xml:lang="en">Contact Mech ID is missing</value>
+        <value xml:lang="es">Falta ID de contacto</value>
         <value xml:lang="fr">Identifiant coordonnées absent</value>
+        <value xml:lang="hi_IN">सम्पर्क Mech ID नही है</value>
         <value xml:lang="it">Codice Contatto mancante</value>
-        <value xml:lang="nl">Contactmech ontbreekt</value>
-        <value xml:lang="pt_PT">Identificação de Mecanismo de Contacto em Falta</value>
-        <value xml:lang="ro">Cod Contact Lipsa</value>
-        <value xml:lang="ru">Отсутсвует код контактного механизма</value>
-        <value xml:lang="th">ไม่ได้ใส่รหัสวิธีการติดต่อ</value>
-        <value xml:lang="zh">缺少联系方式标识</value>
+        <value xml:lang="ja">Contact Mech ID is missing</value>
+        <value xml:lang="nl">Kontact Mechanisme ID mist</value>
+        <value xml:lang="pt_PT">Identificação do Modo de Contacto em Falta</value>
+        <value xml:lang="ro">Contact Mech Cod lipseste</value>
+        <value xml:lang="ru">Отсутствует код способа контакта</value>
+        <value xml:lang="th">ไม่ได้ใส่หมายเลขในการติดต่อ</value>
+        <value xml:lang="zh">找不到联系方法标识</value>
     </property>
     <property key="PartyContactMechNotFoundCannotDelete">
         <value xml:lang="de">FEHLER: Kontaktinformation konnte nicht gelöscht werden (Akteur Kontakt Mechanismus nicht gefunden)</value>
@@ -3329,41 +3610,50 @@
         <value xml:lang="zh">手机号码</value>
     </property>
     <property key="PartyContactNumber">
-        <value xml:lang="de">Kontaktnummer</value>
+        <value xml:lang="cs">Kontaktní číslo</value>
+        <value xml:lang="de">kontaktnummer</value>
         <value xml:lang="en">Contact Number</value>
-        <value xml:lang="es">Número de contacto</value>
-        <value xml:lang="fr">Numéro</value>
-        <value xml:lang="it">Numero Contatto</value>
-        <value xml:lang="nl">Contactnummer</value>
+        <value xml:lang="es">Teléfono de Contacto</value>
+        <value xml:lang="fr">N° de téléphone</value>
+        <value xml:lang="hi_IN">सम्पर्क नम्बर</value>
+        <value xml:lang="it">Contatto numero</value>
+        <value xml:lang="ja">Contact Number</value>
+        <value xml:lang="nl">Kontaktnummer</value>
         <value xml:lang="pt_PT">Número de Contacto</value>
-        <value xml:lang="ro">Numar Contact</value>
+        <value xml:lang="ro">Contatto Numar</value>
         <value xml:lang="ru">Контактный номер</value>
-        <value xml:lang="th">หมายเลขที่ติดต่อได้</value>
-        <value xml:lang="zh">联系编号</value>
+        <value xml:lang="th">หมายเลขทรศัพท์ที่ใช้ติดต่อ</value>
+        <value xml:lang="zh">联系号码</value>
     </property>
     <property key="PartyContactNumberMissing">
+        <value xml:lang="cs">Chybí kontaktní číslo</value>
         <value xml:lang="de">Kontaktnummer fehlt</value>
         <value xml:lang="en">Contact Number is missing</value>
-        <value xml:lang="es">Falta ingresar número de contacto</value>
-        <value xml:lang="fr">Numéro de téléphone absent</value>
-        <value xml:lang="it">Numero Contatto mancante</value>
-        <value xml:lang="nl">Contactnummer ontbreekt</value>
+        <value xml:lang="es">Falta Teléfono de Contacto</value>
+        <value xml:lang="fr">N° de téléphone absent</value>
+        <value xml:lang="hi_IN">सम्पर्क नम्बर नही है</value>
+        <value xml:lang="it">N° Contatto mancante</value>
+        <value xml:lang="ja">Contact Number is missing</value>
+        <value xml:lang="nl">Kontaktnummer mist</value>
         <value xml:lang="pt_PT">Número de Contacto em Falta</value>
-        <value xml:lang="ro">Numar Contact Lipsa</value>
-        <value xml:lang="ru">Отсутствует контактный номер</value>
-        <value xml:lang="th">ไม่ได้ใส่หมายเลขที่ติดต่อได้</value>
-        <value xml:lang="zh">缺少联系编号</value>
+        <value xml:lang="ro">Numar Contact lipseste</value>
+        <value xml:lang="ru">Контактный номер отсутствует</value>
+        <value xml:lang="th">ไม่ได้ใส่หมายเลขที่ใช้ติดต่อ</value>
+        <value xml:lang="zh">找不到联系号码</value>
     </property>
     <property key="PartyContactPurposes">
-        <value xml:lang="de">Kontakt Zweck</value>
+        <value xml:lang="cs">Účel kontaktu</value>
+        <value xml:lang="de">Kontaktzweck</value>
         <value xml:lang="en">Contact Purposes</value>
-        <value xml:lang="es">Propósitos de contacto</value>
+        <value xml:lang="es">Propósitos Del Contacto</value>
         <value xml:lang="fr">Objet des coordonnées</value>
-        <value xml:lang="it">Funzioni Contatto</value>
-        <value xml:lang="nl">Doel contact</value>
+        <value xml:lang="hi_IN">सम्पर्क विषय</value>
+        <value xml:lang="it">Funzioni contatto</value>
+        <value xml:lang="ja">Contact Purposes</value>
+        <value xml:lang="nl">Kontaktredenen</value>
         <value xml:lang="pt_PT">Objectivos de Contacto</value>
-        <value xml:lang="ro">Functii Contact</value>
-        <value xml:lang="ru">Назначения контакта</value>
+        <value xml:lang="ro">Functii Contact </value>
+        <value xml:lang="ru">Назначение контакта</value>
         <value xml:lang="th">วัตถุประสงค์ในการติดต่อ</value>
         <value xml:lang="zh">联系目的</value>
     </property>
@@ -3392,13 +3682,32 @@
         <value xml:lang="th">ไม่ได้ใส่เบอร์โทรศัพท์</value>
         <value xml:lang="zh">缺少联系电话</value>
     </property>
+    <property key="PartyContactTelephoneMissingError">
+        <value xml:lang="cs">Chybí telefonní číslo</value>
+        <value xml:lang="de">Telefonnummer fehlt</value>
+        <value xml:lang="en">Contact telephone is missing</value>
+        <value xml:lang="es">Falta Teléfono de Contacto</value>
+        <value xml:lang="fr">Coordonnées téléphoniques absentes</value>
+        <value xml:lang="hi_IN">सम्पर्क नम्बर नही है</value>
+        <value xml:lang="it">Contatto telefonico mancante</value>
+        <value xml:lang="ja">Contact telephone is missing</value>
+        <value xml:lang="nl">Kontact telefoonnummer mist</value>
+        <value xml:lang="pt_PT">Telefone de Contacto em Falta</value>
+        <value xml:lang="ro">Telefon Contact lipseste </value>
+        <value xml:lang="ru">Контактный телефон отсутствует</value>
+        <value xml:lang="th">ไม่ได้ใส่หมายเลขโทรศัพท์ที่ใช้ในการติดต่อ</value>
+        <value xml:lang="zh">找不到联系电话</value>
+    </property>
     <property key="PartyContactType">
-        <value xml:lang="de">Kontakt Typ</value>
+        <value xml:lang="cs">Typ kontaktu</value>
+        <value xml:lang="de">Kontakttyp</value>
         <value xml:lang="en">Contact Type</value>
-        <value xml:lang="es">Tipo de contacto</value>
+        <value xml:lang="es">Tipo de Contacto</value>
         <value xml:lang="fr">Type de coordonnées</value>
-        <value xml:lang="it">Tipo Contatto</value>
-        <value xml:lang="nl">Soort contact</value>
+        <value xml:lang="hi_IN">सम्पर्क प्रकार</value>
+        <value xml:lang="it">Tipo contatto</value>
+        <value xml:lang="ja">Contact Type</value>
+        <value xml:lang="nl">Kontakt type</value>
         <value xml:lang="pt_PT">Tipo de Contacto</value>
         <value xml:lang="ro">Tip Contact</value>
         <value xml:lang="ru">Тип контакта</value>
@@ -3453,30 +3762,57 @@
         <value xml:lang="th">บุคคล</value>
         <value xml:lang="zh">Cookie</value>
     </property>
+    <property key="PartyCountry">
+        <value xml:lang="cs">Země</value>
+        <value xml:lang="de">Land</value>
+        <value xml:lang="en">Country</value>
+        <value xml:lang="es">País</value>
+        <value xml:lang="fr">Pays</value>
+        <value xml:lang="hi_IN">देश</value>
+        <value xml:lang="it">Paese</value>
+        <value xml:lang="ja">Country</value>
+        <value xml:lang="nl">Land</value>
+        <value xml:lang="pt_PT">País</value>
+        <value xml:lang="ro">Tara</value>
+        <value xml:lang="ru">Страна</value>
+        <value xml:lang="th">ประเทศ</value>
+        <value xml:lang="zh">国家</value>
+    </property>
     <property key="PartyCountryCode">
-        <value xml:lang="de">Landescode</value>
+        <value xml:lang="cs">Mezinárodní předvolba</value>
+        <value xml:lang="de">Landesvorwahl</value>
         <value xml:lang="en">Country Code</value>
         <value xml:lang="es">Código de país</value>
         <value xml:lang="fr">Code pays</value>
-        <value xml:lang="it">Codice Paese</value>
-        <value xml:lang="nl">Landcode</value>
+        <value xml:lang="hi_IN">देश कोड</value>
+        <value xml:lang="it">Codice paese</value>
+        <value xml:lang="ja">Country Code</value>
+        <value xml:lang="nl">Land Kode</value>
         <value xml:lang="pt_PT">Código do País</value>
         <value xml:lang="ro">Cod Tara</value>
         <value xml:lang="ru">Код страны</value>
         <value xml:lang="th">รหัสประเทศ</value>
         <value xml:lang="zh">国家代码</value>
     </property>
+    <property key="PartyCountryCodeMissing">
+        <value xml:lang="de">Landesvorwahl fehlt</value>
+        <value xml:lang="en">Country code is Missing</value>
+    </property>
     <property key="PartyCountryMissing">
+        <value xml:lang="cs">Chybí země</value>
         <value xml:lang="de">Land fehlt</value>
-        <value xml:lang="en">Country is missing</value>
-        <value xml:lang="es">Falta el país</value>
+        <value xml:lang="en">Country is Missing</value>
+        <value xml:lang="es">Falta el País</value>
         <value xml:lang="fr">Pays absent</value>
+        <value xml:lang="hi_IN">देश नही है</value>
         <value xml:lang="it">Paese mancante</value>
-        <value xml:lang="nl">Land ontbreekt</value>
-        <value xml:lang="ro">Lipsete Tara</value>
-        <value xml:lang="ru">Отсутствует страна</value>
+        <value xml:lang="ja">Country is Missing</value>
+        <value xml:lang="nl">Naam van het land mist</value>
+        <value xml:lang="pt_PT">País em falta</value>
+        <value xml:lang="ro">Tara lipseste </value>
+        <value xml:lang="ru">Страна не указана</value>
         <value xml:lang="th">ไม่ได้ใส่ประเทศ</value>
-        <value xml:lang="zh">缺少国家</value>
+        <value xml:lang="zh">找不到国家</value>
     </property>
     <property key="PartyCreateAddEmail">
         <value xml:lang="en">Create/Add Email to Party</value>
@@ -3547,6 +3883,22 @@
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการสร้างสถานะของผลในการติดต่อ คุณต้องได้รับความยินยอมจาก PARTYMGR_CREATE หรือ PARTYMGR_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误: 要运行 createCommunicationEventRole，你必须具有 PARTYMGR_CREATE 或 PARTYMGR_ADMIN 权限</value>
     </property>
+    <property key="PartyCreateNewBillingAddress">
+        <value xml:lang="cs">Zložte novou fakturační adresu pro tuto kreditkartu</value>
+        <value xml:lang="de">Legen Sie eine neue Rechnungsadresse für diese Kreditkarte an</value>
+        <value xml:lang="en">Create a new billing address for this credit card</value>
+        <value xml:lang="es">Crear una nueva dirección de facturación para esta tarjeta de crédito</value>
+        <value xml:lang="fr">Créer une adresse de facturation pour cette carte de crédit</value>
+        <value xml:lang="hi_IN">क्रेडिट कार्ड का नया पता बनाइये</value>
+        <value xml:lang="it">Creare un nuovo indirizzo di fatturazione per questa carta di credito</value>
+        <value xml:lang="ja">Create a new billing address for this credit card</value>
+        <value xml:lang="nl">Maak een nieuw faktuuradres aan voor deze kredietkaart</value>
+        <value xml:lang="pt_PT">Criar nova morada de cobrança para este cartão de crédito</value>
+        <value xml:lang="ro">Creare o noua adresa de facturare pentru aceasta  carte de credit</value>
+        <value xml:lang="ru">Создать новый платежный адрес для кредитной карты</value>
+        <value xml:lang="th">สร้างที่อยู่ในใบเร็จรับเงินใหม่สำหรับบัตรเครดิต</value>
+        <value xml:lang="zh">为这个信用卡新建一个寄账单地址</value>
+    </property>
     <property key="PartyCreateNewContact">
         <value xml:lang="de">Neue Kontaktinformation erstellen</value>
         <value xml:lang="en">Create New Contact Information</value>
@@ -3559,6 +3911,38 @@
         <value xml:lang="ru">Создать новую контактную информацию</value>
         <value xml:lang="th">สร้างข้อมูลในการติดต่อใหม่</value>
         <value xml:lang="zh">新建联系信息</value>
+    </property>
+    <property key="PartyCreateNewContactInfo">
+        <value xml:lang="cs">Založit novou kontaktní informaci</value>
+        <value xml:lang="de">Neue Kontaktinformation anlegen</value>
+        <value xml:lang="en">Create New Contact Information</value>
+        <value xml:lang="es">Crear Información de Contacto Nueva</value>
+        <value xml:lang="fr">Créer de nouvelles coordonnées</value>
+        <value xml:lang="hi_IN">नया सम्पर्क जानकारी बताइये</value>
+        <value xml:lang="it">Crea nuova informazione contatto</value>
+        <value xml:lang="ja">Create New Contact Information</value>
+        <value xml:lang="nl">Aanmaken van nieuwe kontakt informatie</value>
+        <value xml:lang="pt_PT">Criar Nova Informação de Contacto</value>
+        <value xml:lang="ro">Creare o Noua Informatie Contact </value>
+        <value xml:lang="ru">Создать новую контактную информацию</value>
+        <value xml:lang="th">สร้างข้อมูลในการติดต่อใหม่</value>
+        <value xml:lang="zh">新建联系信息</value>
+    </property>
+    <property key="PartyCreateNewCreditCard">
+        <value xml:lang="cs">Založit novou kreditní kartu</value>
+        <value xml:lang="de">Neue Kreditkarte anlegen</value>
+        <value xml:lang="en">Create New Credit Card</value>
+        <value xml:lang="es">Crear una nueva tarjeta de crédito</value>
+        <value xml:lang="fr">Créer une nouvelle carte de crédit</value>
+        <value xml:lang="hi_IN">नया क्रेडिट कार्ड बनाऐं</value>
+        <value xml:lang="it">Crea nuova carta di credito</value>
+        <value xml:lang="ja">Create New Credit Card</value>
+        <value xml:lang="nl">Aanmaken van een nieuwe kredietkaart</value>
+        <value xml:lang="pt_PT">Criar Novo Cartão de Crédito</value>
+        <value xml:lang="ro">Creare Noua Carte de Credit</value>
+        <value xml:lang="ru">Создать новую кредитную карту</value>
+        <value xml:lang="th">สร้างบัตรเครดิตใหม่</value>
+        <value xml:lang="zh">新建信用卡</value>
     </property>
     <property key="PartyCreateNewCustRequest">
         <value xml:lang="de">Anfrage erstellen</value>
@@ -3597,6 +3981,36 @@
         <value xml:lang="ru">Создать работника</value>
         <value xml:lang="th">สร้างพนักงาน</value>
         <value xml:lang="zh">创建职员</value>
+    </property>
+    <property key="PartyCreateNewEftAccount">
+        <value xml:lang="de">Neue Bankverbindung anlegen</value>
+        <value xml:lang="en">Create New EFT Account</value>
+        <value xml:lang="es">Crear una Nueva Cuenta de EFT</value>
+        <value xml:lang="fr">Créer un nouveau compte de virement électronique</value>
+        <value xml:lang="hi_IN">नया EFT खाता बनाऐं</value>
+        <value xml:lang="it">Crea nuovo conto EFT</value>
+        <value xml:lang="ja">Create New EFT Account</value>
+        <value xml:lang="nl">Aanmaken van een nieuw bankrekeningnummer</value>
+        <value xml:lang="pt_PT">Criar Nova Conta EFT</value>
+        <value xml:lang="ro">Creare Nou Cont EFT</value>
+        <value xml:lang="ru">Создать новый текущий счет</value>
+        <value xml:lang="th">สร้างบัญชีธนาคารใหม่</value>
+        <value xml:lang="zh">新建电子资金转账账户</value>
+    </property>
+    <property key="PartyCreateNewGiftCard">
+        <value xml:lang="cs">Založit nový dárkový poukaz</value>
+        <value xml:lang="de">Neuen Gutschein anlegen</value>
+        <value xml:lang="en">Create New Gift Card</value>
+        <value xml:lang="es">Crear una nueva tarjeta de regalo</value>
+        <value xml:lang="fr">Créer une nouvelle carte cadeau</value>
+        <value xml:lang="hi_IN">नया उपहार कार्ड बनाऐं</value>
+        <value xml:lang="it">Crea nuova carta omaggio</value>
+        <value xml:lang="ja">Create New Gift Card</value>
+        <value xml:lang="nl">Aanmaken van een nieuwe geschenkkaart</value>
+        <value xml:lang="ro">Creare Noua Carte Omagiu</value>
+        <value xml:lang="ru">Создать новую дисконтную карту</value>
+        <value xml:lang="th">สร้างบัตรของขวัญใหม่</value>
+        <value xml:lang="zh">新建礼品卡</value>
     </property>
     <property key="PartyCreateNewParty">
         <value xml:lang="de">Neuen Akteur erstellen - Details</value>
@@ -3862,6 +4276,20 @@
         <value xml:lang="th">แก้ไขข้อผิดพลาด</value>
         <value xml:lang="zh">不可用</value>
     </property>
+    <property key="PartyDivorced">
+        <value xml:lang="de">G - Geschieden</value>
+        <value xml:lang="en">D - Divorced</value>
+        <value xml:lang="es">D - Divorciado</value>
+        <value xml:lang="fr">D - Divorcé(e)</value>
+        <value xml:lang="it">D - Divorziato</value>
+        <value xml:lang="ja">D - Divorced</value>
+        <value xml:lang="nl">D - Gescheiden</value>
+        <value xml:lang="pt_PT">D - Divorciado(a)</value>
+        <value xml:lang="ro">D - Divorzat</value>
+        <value xml:lang="ru">D - Divorced</value>
+        <value xml:lang="th">หย่าร้าง</value>
+        <value xml:lang="zh">D - 离婚</value>
+    </property>
     <property key="PartyDomainNameSuccessfullyCreated">
         <value xml:lang="de">Domain Name erfolgreich erstellt.</value>
         <value xml:lang="en">Domain Name successfully created.</value>
@@ -3942,6 +4370,22 @@
         <value xml:lang="th">แก้ไขผลการติดต่อ</value>
         <value xml:lang="zh">编辑沟通事件</value>
     </property>
+    <property key="PartyEditContactInfo">
+        <value xml:lang="cs">Upravit kontaktní informaci</value>
+        <value xml:lang="de">Kontaktinformation bearbeiten</value>
+        <value xml:lang="en">Edit Contact Information</value>
+        <value xml:lang="es">Corregir Información de Contacto</value>
+        <value xml:lang="fr">Modification de coordonnées</value>
+        <value xml:lang="hi_IN">सम्पर्क जानकारी बदलिये</value>
+        <value xml:lang="it">Aggiornare informazioni contatto</value>
+        <value xml:lang="ja">Edit Contact Information</value>
+        <value xml:lang="nl">Aanpassen van de kontaktinformatie</value>
+        <value xml:lang="pt_PT">Editar Informação de Contacto</value>
+        <value xml:lang="ro">Actualizare Informatii Contact</value>
+        <value xml:lang="ru">Изменить контактную информацию</value>
+        <value xml:lang="th">แก้ไขข้อมูลที่ใช้ในการติดต่อ</value>
+        <value xml:lang="zh">编辑联系信息</value>
+    </property>
     <property key="PartyEditContactInformation">
         <value xml:lang="de">Kontaktinformationen bearbeiten</value>
         <value xml:lang="en">Edit Contact Information</value>
@@ -3961,6 +4405,22 @@
         <value xml:lang="es">Editar petición de cliente</value>
         <value xml:lang="fr">Modifier la requête de client copiée de l'événement de communication</value>
         <value xml:lang="nl">Van communicatie-actie gekopiëerd klantverzoek wijzigen</value>
+    </property>
+    <property key="PartyEditPersonalInformation">
+        <value xml:lang="cs">Upravit osobní data</value>
+        <value xml:lang="de">Persönliche Information bearbeiten</value>
+        <value xml:lang="en">Edit Personal Information</value>
+        <value xml:lang="es">Corregir Información Personal</value>
+        <value xml:lang="fr">Modification des informations personnelles</value>
+        <value xml:lang="hi_IN">स्वयं जानकारी बदलिये</value>
+        <value xml:lang="it">Aggiornare informazioni personali</value>
+        <value xml:lang="ja">Edit Personal Information</value>
+        <value xml:lang="nl">Aanpassen van de persoonsinformatie</value>
+        <value xml:lang="pt_PT">Editar Informação Pessoal</value>
+        <value xml:lang="ro">Actualizare Informatii Personale</value>
+        <value xml:lang="ru">Изменить персональную информацию</value>
+        <value xml:lang="th">แก้ไขข้อมูลส่วนตัว</value>
+        <value xml:lang="zh">编辑个人信息</value>
     </property>
     <property key="PartyEditSecurityGroupWithId">
         <value xml:lang="de">Sicherheitsgruppe bearbeiten mit der ID</value>
@@ -3988,16 +4448,19 @@
         <value xml:lang="th">บัญชีธนาคาร</value>
         <value xml:lang="zh">电子资金转账账户</value>
     </property>
-    <property key="PartyEmailAddress">
-        <value xml:lang="de">E-Mail Adresse</value>
-        <value xml:lang="en">E-Mail Address</value>
-        <value xml:lang="es">E-mail</value>
-        <value xml:lang="fr">Adresse E-mail</value>
-        <value xml:lang="it">Indirizzo E-Mail</value>
-        <value xml:lang="nl">E-mailadres</value>
-        <value xml:lang="pt_PT">Endereço E-mail</value>
-        <value xml:lang="ro">Adresa E-Mail</value>
-        <value xml:lang="ru">Адрес эл.почты</value>
+    <property key="PartyEmailAddresses">
+        <value xml:lang="cs">E-mailové adresy</value>
+        <value xml:lang="de">E-Mail Adressen</value>
+        <value xml:lang="en">Email Addresses</value>
+        <value xml:lang="es">Direcciones de Email</value>
+        <value xml:lang="fr">Adresses courriel</value>
+        <value xml:lang="hi_IN">ईमेल पता</value>
+        <value xml:lang="it">Indirizzi email</value>
+        <value xml:lang="ja">Email Addresses</value>
+        <value xml:lang="nl">Email Adressen</value>
+        <value xml:lang="pt_PT">Moradas de E-mail</value>
+        <value xml:lang="ro">Adrese Email</value>
+        <value xml:lang="ru">Адреса эл.почты</value>
         <value xml:lang="th">ที่อยู่อีเมล์</value>
         <value xml:lang="zh">电子邮件地址</value>
     </property>
@@ -4014,6 +4477,22 @@
         <value xml:lang="th">ไม่ได้ใส่ที่อยู่อีเมล์</value>
         <value xml:lang="zh">缺少电子邮件地址</value>
     </property>
+    <property key="PartyEmailAddressMissingError">
+        <value xml:lang="cs">Chybí e-mailová adresa</value>
+        <value xml:lang="de">E-Mail Adresse fehlt</value>
+        <value xml:lang="en">E-mail address is missing</value>
+        <value xml:lang="es">Falta dirección de E-mail</value>
+        <value xml:lang="fr">Adresse courriel absente</value>
+        <value xml:lang="hi_IN">ईमेल पता नही है</value>
+        <value xml:lang="it">Indirizzo E-mail mancante</value>
+        <value xml:lang="ja">E-mail address is missing</value>
+        <value xml:lang="nl">E-mail adres mist</value>
+        <value xml:lang="pt_PT">Morada de E-mail em Falta</value>
+        <value xml:lang="ro">Adresa E-mail Lipseste</value>
+        <value xml:lang="ru">Отсутствует адрес эл.почты</value>
+        <value xml:lang="th">ไม่ได้ใส่ที่อยู่อีเมล์</value>
+        <value xml:lang="zh">找不到电子邮件地址</value>
+    </property>
     <property key="PartyEmailAddressNotExist">
         <value xml:lang="de">Die E-Mail Adresse kann nicht überprüft werden. Die E-Mail Adresse existiert nicht.</value>
         <value xml:lang="en">The Email Address cannot be verified.  This Email Address does not exists.</value>
@@ -4023,17 +4502,20 @@
         <value xml:lang="th">ไม่สามารถตรวจสอบที่อยู่อีเมล์ได้. ที่อยู่อีเมล์นี้ไม่มีอยู่ในนี้</value>
     </property>
     <property key="PartyEmailAddressNotFormattedCorrectly">
-        <value xml:lang="de">E-Mail Adresse ist nicht korrekt, muss im Format foo@bar.com erfasst werden.</value>
-        <value xml:lang="en">Email Address is not formatted correctly, must be like foo@bar.com</value>
-        <value xml:lang="es">Error en e-mail. Debe tener el siguiente formato user@domain.com</value>
-        <value xml:lang="fr">Format de l'adresse E-mail incorrect, il doit être similaire à foo@bar.com</value>
-        <value xml:lang="it">Indirizzo Email non  è formattato correttamente, dovrebbe essere simile a foo@bar.com</value>
-        <value xml:lang="nl">E-mailadres is niet correct ingevoerd. E-mailadres moet in formaat foo@bar.com zijn.</value>
-        <value xml:lang="pt_PT">Endereço de E-mail incorrecto, deverá ser, p.ex.: uau@bac.com</value>
-        <value xml:lang="ro">Adresa Email nu  are un format corect, trebbie sa fie  similara cu foo@bar.com</value>
-        <value xml:lang="ru">Адрес эл.почты имеет неправильный формат, должно быть как foo@bar.com</value>
-        <value xml:lang="th">รูปแบบที่อยู่อีเมล์ไม่ถูกต้อง, ต้องคล้ายกับ foo@bar.com</value>
-        <value xml:lang="zh">电子邮件地址格式不正确，必须类似于 foo@bar.com</value>
+        <value xml:lang="cs">E-mailová adresa není ve správném tvaru, musí odpovídat formátu: jméno@doména</value>
+        <value xml:lang="de">E-Mail Adresse ist nicht im richtigen Format, sie muss dem folgenden Muster entsprechen: name@domain</value>
+        <value xml:lang="en">E-mail address not formatted correctly, must be like: name@domain</value>
+        <value xml:lang="es">Formato de E-mail incorrecto, ponga como: name@domain</value>
+        <value xml:lang="fr">Format de l'adresse courriel non correct, il doit être similaire à nom@domaine</value>
+        <value xml:lang="hi_IN">ईमेल पता सही नही है, ऐसा होना चाहिये : नाम@डोमेन</value>
+        <value xml:lang="it">Indirizzo E-mail non formattato correttamente, dovrebbe essere simile a: nome@dominio</value>
+        <value xml:lang="ja">E-mail address not formatted correctly, must be like: name@domain</value>
+        <value xml:lang="nl">E-mail adres niet goed geformateerd, moet zoiets zijn als: naam@domein</value>
+        <value xml:lang="pt_PT">Morada de E-mail formatada incorrectamente, deverá ser, como p.ex.: nome@domínio</value>
+        <value xml:lang="ro">Adresa E-mail nu este corecta, trebuie sa fie de de forma: nome@dominio</value>
+        <value xml:lang="ru">Неправильный формат адреса эл.почты, должно быть так: name@domain</value>
+        <value xml:lang="th">รูปแบบที่อยูอีเมล์ไม่ถูกต้อง, ต้องคล้ายกับ: name@domain</value>
+        <value xml:lang="zh">电子邮件地址格式错误，必须类似：name@domain</value>
     </property>
     <property key="PartyEmailAddressSuccessfullyCreated">
         <value xml:lang="de">E-Mail Adresse erfolgreich erstellt.</value>
@@ -4063,14 +4545,6 @@
         <value xml:lang="nl">De verificatie van het e-mailadres is verlopen.</value>
         <value xml:lang="th">ที่อยู่อีเมล์นี้จากการตรวจสอบพบว่าหมดอายุ</value>
     </property>
-    <property key="PartyEmailAddresses">
-        <value xml:lang="de">E-Mail Adressen</value>
-        <value xml:lang="en">Email Addresses</value>
-        <value xml:lang="es">Direcciones de correo electrónico.</value>
-        <value xml:lang="fr">Adresses courriel</value>
-        <value xml:lang="nl">E-mailadressen</value>
-        <value xml:lang="th">ที่อยู่อีเมล์</value>
-    </property>
     <property key="PartyEnabled">
         <value xml:lang="de">Eingeschaltet</value>
         <value xml:lang="en">ENABLED</value>
@@ -4085,15 +4559,19 @@
         <value xml:lang="zh">可用</value>
     </property>
     <property key="PartyEnterPasswordTwice">
-        <value xml:lang="de">Sie müssen das Passwort zwei mal eingeben</value>
+        <value xml:lang="cs">Heslo musíte zadat dvakrát</value>
+        <value xml:lang="de">Sie müssen Ihr Passwort zwei mal eingeben</value>
         <value xml:lang="en">You must enter your password twice</value>
-        <value xml:lang="es">Debe ingresar el password dos veces</value>
+        <value xml:lang="es">Tiene que poner su contraseña dos veces</value>
         <value xml:lang="fr">Vous devez entrer votre mot de passe deux fois</value>
-        <value xml:lang="it">Tu devi inserire la password due volte</value>
-        <value xml:lang="nl">U moet uw wachtwoord twee keer invoeren</value>
-        <value xml:lang="ro">Trebbie sa introduci parola de doua ori</value>
+        <value xml:lang="hi_IN">पासकोड दुबारा दिजीये</value>
+        <value xml:lang="it">Devi inserire la password due volte</value>
+        <value xml:lang="ja">You must enter your password twice</value>
+        <value xml:lang="nl">Je moet je wachtwoord twee maal ingeven</value>
+        <value xml:lang="pt_PT">Deverá digitar a sua senha duas vezes</value>
+        <value xml:lang="ro">Trebuie sa introduci parola de doua ori PartyExtension=Intern</value>
         <value xml:lang="ru">Вы должны ввести пароль дважды</value>
-        <value xml:lang="th">คุณต้องเข้ารหัสผ่านของคุณทั้งสองครั้ง</value>
+        <value xml:lang="th">คุณต้องเข้ารหัสของคุณสองครั้ง</value>
         <value xml:lang="zh">你必须输入密码两次</value>
     </property>
     <property key="PartyEnteredDate">
@@ -4134,6 +4612,49 @@
         <value xml:lang="ru">Тип события</value>
         <value xml:lang="th">ประเภทผลที่ได้</value>
         <value xml:lang="zh">事件类型</value>
+    </property>
+    <property key="PartyExpDateBeforeTodayError">
+        <value xml:lang="de">Das Ablaufdatum liegt in der Vergangenheit</value>
+        <value xml:lang="en">The expiration date is before today</value>
+    </property>
+    <property key="PartyExpMonthMissingError">
+        <value xml:lang="de">Ablaufsdatum Monat fehlt</value>
+        <value xml:lang="en">Expiration month is missing</value>
+    </property>
+    <property key="PartyExpYearMissingError">
+        <value xml:lang="de">Ablaufdatum Jahr fehlt</value>
+        <value xml:lang="en">Expiration year is missing</value>
+    </property>
+    <property key="PartyExtension">
+        <value xml:lang="cs">Linka</value>
+        <value xml:lang="de">Durchwahl</value>
+        <value xml:lang="en">Extension</value>
+        <value xml:lang="es">Extension</value>
+        <value xml:lang="fr">Extension</value>
+        <value xml:lang="hi_IN">Extension</value>
+        <value xml:lang="it">Interno</value>
+        <value xml:lang="ja">Extension</value>
+        <value xml:lang="nl">Toestel</value>
+        <value xml:lang="pt_PT">Extensão</value>
+        <value xml:lang="ru">Расширение</value>
+        <value xml:lang="th">เพิ่ม</value>
+        <value xml:lang="zh">分机</value>
+    </property>
+    <property key="PartyFaxNumber">
+        <value xml:lang="cs">Číslo faxu</value>
+        <value xml:lang="de">Faxnummer</value>
+        <value xml:lang="en">Fax number</value>
+        <value xml:lang="es">Fax</value>
+        <value xml:lang="fr">N° de télécopie</value>
+        <value xml:lang="hi_IN">फैक्स नम्बर</value>
+        <value xml:lang="it">Numero fax</value>
+        <value xml:lang="ja">Fax number</value>
+        <value xml:lang="nl">Fax nummer</value>
+        <value xml:lang="pt_PT">Número de Fax</value>
+        <value xml:lang="ro">Numar Fax</value>
+        <value xml:lang="ru">Номер факса</value>
+        <value xml:lang="th">หมายเลขแฟกซ์</value>
+        <value xml:lang="zh">传真号码</value>
     </property>
     <property key="PartyFinancialSummary">
         <value xml:lang="en">Totals for Company:</value>
@@ -4187,29 +4708,42 @@
         <value xml:lang="th">ค้นหาการเชิญชวนของกลุ่มผู้ใช้</value>
     </property>
     <property key="PartyFirstName">
+        <value xml:lang="cs">Jméno</value>
         <value xml:lang="de">Vorname</value>
-        <value xml:lang="en">First Name</value>
-        <value xml:lang="es">Primer nombre</value>
+        <value xml:lang="en">First name</value>
+        <value xml:lang="en_GB">Forename</value>
+        <value xml:lang="es">Nombre</value>
         <value xml:lang="fr">Prénom</value>
+        <value xml:lang="hi_IN">पहला नाम</value>
         <value xml:lang="it">Nome</value>
+        <value xml:lang="ja">First name</value>
         <value xml:lang="nl">Voornaam</value>
         <value xml:lang="pt_PT">Primeiro Nome</value>
-        <value xml:lang="ro">Nume</value>
+        <value xml:lang="ro">Nume </value>
         <value xml:lang="ru">Имя</value>
         <value xml:lang="th">ชื่อ</value>
         <value xml:lang="zh">名字</value>
     </property>
     <property key="PartyFirstNameMissing">
+        <value xml:lang="cs">Chybí jméno</value>
         <value xml:lang="de">Vorname fehlt</value>
         <value xml:lang="en">Firstname is Missing</value>
-        <value xml:lang="es">Falta primer nombre</value>
+        <value xml:lang="en_GB">Forename is Missing</value>
+        <value xml:lang="es">Falta el Nombre</value>
         <value xml:lang="fr">Prénom absent</value>
-        <value xml:lang="it">Nome Mancante</value>
-        <value xml:lang="nl">Voornaam ontbreekt</value>
-        <value xml:lang="ro">Nume Lipsa</value>
+        <value xml:lang="hi_IN">पहला नाम नही है</value>
+        <value xml:lang="it">Nome mancante</value>
+        <value xml:lang="ja">Firstname is Missing</value>
+        <value xml:lang="nl">Voornaam mist</value>
+        <value xml:lang="pt_PT">Primeiro Nome em Falta</value>
+        <value xml:lang="ro">Nume lipsa </value>
         <value xml:lang="ru">Отсутствует имя</value>
         <value xml:lang="th">ไม่ได้ใส่ชื่อ</value>
-        <value xml:lang="zh">缺少名字</value>
+        <value xml:lang="zh">找不到名字</value>
+    </property>
+    <property key="PartyFirstNameOnCardMissingError">
+        <value xml:lang="de">Vorname auf der Karte fehlt</value>
+        <value xml:lang="en">First name on card is missing </value>
     </property>
     <property key="PartyFollowSession">
         <value xml:lang="de">Session verfolgen</value>
@@ -4261,15 +4795,19 @@
         <value xml:lang="zh">来自电子邮件地址</value>
     </property>
     <property key="PartyGender">
+        <value xml:lang="cs">Pohlaví</value>
         <value xml:lang="de">Geschlecht</value>
         <value xml:lang="en">Gender</value>
-        <value xml:lang="es">Género</value>
+        <value xml:lang="en_GB">Sex</value>
+        <value xml:lang="es">Sexo</value>
         <value xml:lang="fr">Sexe</value>
+        <value xml:lang="hi_IN">लिंग</value>
         <value xml:lang="it">Genere</value>
+        <value xml:lang="ja">Gender</value>
         <value xml:lang="nl">Geslacht</value>
         <value xml:lang="pt_PT">Sexo</value>
-        <value xml:lang="ro">Tip</value>
-        <value xml:lang="ru">Пол</value>
+        <value xml:lang="ro">Tipuri</value>
+        <value xml:lang="ru">Возвраст</value>
         <value xml:lang="th">เพศ</value>
         <value xml:lang="zh">性别</value>
     </property>
@@ -4335,17 +4873,20 @@
         <value xml:lang="nl">Aantal medewerkers is fout opgegeven</value>
     </property>
     <property key="PartyHeight">
-        <value xml:lang="de">Grösse</value>
+        <value xml:lang="cs">Velikost</value>
+        <value xml:lang="de">Größe</value>
         <value xml:lang="en">Height</value>
         <value xml:lang="es">Altura</value>
         <value xml:lang="fr">Taille</value>
+        <value xml:lang="hi_IN">ऊचांई</value>
         <value xml:lang="it">Altezza</value>
+        <value xml:lang="ja">Height</value>
         <value xml:lang="nl">Hoogte</value>
         <value xml:lang="pt_PT">Altura</value>
         <value xml:lang="ro">Inaltime</value>
         <value xml:lang="ru">Рост</value>
         <value xml:lang="th">ส่วนสูง</value>
-        <value xml:lang="zh">高度</value>
+        <value xml:lang="zh">身高</value>
     </property>
     <property key="PartyHeightNotValidNumber">
         <value xml:lang="de">Grösse ist keine gültige Zahl</value>
@@ -4360,17 +4901,20 @@
         <value xml:lang="zh">高度不是一个有效数字</value>
     </property>
     <property key="PartyHideOld">
-        <value xml:lang="de">Alte Daten nicht anzeigen</value>
+        <value xml:lang="cs">Skrýt původní</value>
+        <value xml:lang="de">Altes ausblenden</value>
         <value xml:lang="en">Hide Old</value>
-        <value xml:lang="es">Esconder histórico</value>
-        <value xml:lang="fr">Cacher l'historique</value>
-        <value xml:lang="it">Nascondi Vecchio</value>
-        <value xml:lang="nl">Verberg oude</value>
-        <value xml:lang="pt_PT">Esconder Antigos</value>
+        <value xml:lang="es">Guardar historial</value>
+        <value xml:lang="fr">Masquer l'historique</value>
+        <value xml:lang="hi_IN">पुराना हटाइये</value>
+        <value xml:lang="it">Nascondi storia</value>
+        <value xml:lang="ja">Hide Old</value>
+        <value xml:lang="nl">Verberg oude versie</value>
+        <value xml:lang="pt_PT">Ocultar Idade</value>
         <value xml:lang="ro">Ascunde pe cel Vechi</value>
-        <value xml:lang="ru">Скрывать возраст</value>
-        <value xml:lang="th">ซ่อนอายุ</value>
-        <value xml:lang="zh">隐藏旧的</value>
+        <value xml:lang="ru">Hide Old</value>
+        <value xml:lang="th">อายุ</value>
+        <value xml:lang="zh">隐藏过去的</value>
     </property>
     <property key="PartyHistoryChanged">
         <value xml:lang="de">Geändert</value>
@@ -4421,16 +4965,59 @@
         <value xml:lang="zh">点击跟踪系统</value>
     </property>
     <property key="PartyHomePhone">
+        <value xml:lang="cs">Telefon domů</value>
         <value xml:lang="de">Privattelefonnummer</value>
-        <value xml:lang="en">Home Phone</value>
-        <value xml:lang="es">Teléfono de domicilio</value>
-        <value xml:lang="fr">Téléphone Domicile</value>
-        <value xml:lang="it">Telefono Casa</value>
-        <value xml:lang="nl">Telefoon thuis</value>
+        <value xml:lang="en">Home phone</value>
+        <value xml:lang="en_GB">Home telephone number</value>
+        <value xml:lang="es">Teléfono de casa</value>
+        <value xml:lang="fr">Téléphone personnel</value>
+        <value xml:lang="hi_IN">घर का नम्बर</value>
+        <value xml:lang="it">Telefono di casa</value>
+        <value xml:lang="ja">Home phone</value>
+        <value xml:lang="nl">Huis telefoon</value>
+        <value xml:lang="pt_PT">Telefone da Residência</value>
         <value xml:lang="ro">Telefon Casa</value>
         <value xml:lang="ru">Домашний телефон</value>
         <value xml:lang="th">เบอร์โทรศัพท์บ้าน</value>
         <value xml:lang="zh">家庭电话</value>
+    </property>
+    <property key="PartyHomePhoneAreaCodeMissing">
+        <value xml:lang="de">Vorwahl Privattelefonnummer fehlt.</value>
+        <value xml:lang="en">Home Phone Area Code is missing.</value>
+        <value xml:lang="fr">Le code téléphonique régional manque.</value>
+        <value xml:lang="hi_IN">फोन का एरिया कोड नही है</value>
+        <value xml:lang="it">Il prefisso del telefono di casa è mancante.</value>
+        <value xml:lang="ro">Cod Arie Telefon Casa lipseste.</value>
+        <value xml:lang="ru">Отсутствует код города к домашнему телефону.</value>
+        <value xml:lang="th">ไม่ได้ใส่เบอร์โทรศัพท์บ้าน</value>
+        <value xml:lang="zh">找不到家庭电话的区号。</value>
+    </property>
+    <property key="PartyHomePhoneContactNumberMissing">
+        <value xml:lang="de">Privattelefonnummer fehlt</value>
+        <value xml:lang="en">Home Phone Contact Number is missing.</value>
+        <value xml:lang="fr">Le n° de téléphone personnel manque.</value>
+        <value xml:lang="hi_IN">घर का नम्बर नही है</value>
+        <value xml:lang="it">Il N° di telefono di casa è mancante.</value>
+        <value xml:lang="ro">Numar Telefon Casa Contact lipseste.</value>
+        <value xml:lang="ru">Отсутствует домашний контактный телефон.</value>
+        <value xml:lang="th">ไม่ได้ใส่หมายเลขติดต่อที่เป็นเบอร์โทรศัพท์บ้าน</value>
+        <value xml:lang="zh">找不到家庭电话号码。</value>
+    </property>
+    <property key="PartyInformationNotBelongToYou">
+        <value xml:lang="cs">Uvedené kontaktní informace nejsou Vaše, proto je nemůžete prohlížet ani editovat</value>
+        <value xml:lang="de">Die angegebenen Kontaktinformationen gehören Ihnen nicht, daher dürfen Sie diese nicht ansehen oder bearbeiten</value>
+        <value xml:lang="en">This information does not belong to you and you do not have permission to view it</value>
+        <value xml:lang="es">Esta información no le pertenece y no tiene permiso para verla</value>
+        <value xml:lang="fr">Ces informations ne vous concernent pas, vous n'avez pas l'autorisation de les voir.</value>
+        <value xml:lang="hi_IN">यह जानकारी आपकी नही है, आप इसे नही देख सकते</value>
+        <value xml:lang="it">Questa informazione non corrisponde a te e non hai il permesso di aggiornarla</value>
+        <value xml:lang="ja">This information does not belong to you and you do not have permission to view it</value>
+        <value xml:lang="nl">Deze informatie hoort niet bij U en dus kunt u het niet veranderen of inzien</value>
+        <value xml:lang="pt_PT">Esta informação não lhe pertencee você não tem permissão para visualisá-la</value>
+        <value xml:lang="ro">Aceasta informatie nu iti corespunde tie si nu  ai permisul sa o actualizezi</value>
+        <value xml:lang="ru">Эта информация не принадлежит вам и вы не имеете права ее просматривать</value>
+        <value xml:lang="th">ข้อมูลนี้ไม่ใช่ของคุณและไม่อนุญาตให้ดูได้</value>
+        <value xml:lang="zh">本信息不属于你，你无权浏览它</value>
     </property>
     <property key="PartyInformationNotFound">
         <value xml:lang="de">Information nicht gefunden</value>
@@ -4620,29 +5207,42 @@
         <value xml:lang="th">เป็น USPS</value>
     </property>
     <property key="PartyLastName">
+        <value xml:lang="cs">Příjmení</value>
         <value xml:lang="de">Nachname</value>
-        <value xml:lang="en">Last Name</value>
-        <value xml:lang="es">Apellido</value>
+        <value xml:lang="en">Last name</value>
+        <value xml:lang="en_GB">Surname</value>
+        <value xml:lang="es">Apellidos</value>
         <value xml:lang="fr">Nom</value>
+        <value xml:lang="hi_IN">अन्त नाम</value>
         <value xml:lang="it">Cognome</value>
-        <value xml:lang="nl">Achternaam</value>
-        <value xml:lang="pt_PT">Último Nome</value>
-        <value xml:lang="ro">Nume de familie</value>
+        <value xml:lang="ja">Last name</value>
+        <value xml:lang="nl">Familienaam</value>
+        <value xml:lang="pt_PT">Apelido</value>
+        <value xml:lang="ro">Nume de Familie</value>
         <value xml:lang="ru">Фамилия</value>
         <value xml:lang="th">นามสกุล</value>
-        <value xml:lang="zh">姓</value>
+        <value xml:lang="zh">姓氏</value>
     </property>
     <property key="PartyLastNameMissingError">
+        <value xml:lang="cs">Chybí příjmení</value>
         <value xml:lang="de">Nachname fehlt</value>
         <value xml:lang="en">Lastname is Missing</value>
-        <value xml:lang="es">Falta apellido</value>
+        <value xml:lang="en_GB">Surname is missing</value>
+        <value xml:lang="es">Faltan los Apellidos</value>
         <value xml:lang="fr">Nom absent</value>
-        <value xml:lang="it">Cognome Mancante</value>
-        <value xml:lang="nl">Achternaam ontbreekt</value>
-        <value xml:lang="ro">Nume de famiglie Lipsa</value>
+        <value xml:lang="hi_IN">अन्त नाम नही है</value>
+        <value xml:lang="it">Cognome mancante</value>
+        <value xml:lang="ja">Lastname is Missing</value>
+        <value xml:lang="nl">Familienaam mist</value>
+        <value xml:lang="pt_PT">Apelido em Falta</value>
+        <value xml:lang="ro">Nume de amilie Lipseste</value>
         <value xml:lang="ru">Отсутствует фамилия</value>
         <value xml:lang="th">ไม่ได้ใส่นามสกุล</value>
-        <value xml:lang="zh">缺少姓</value>
+        <value xml:lang="zh">找不到姓氏</value>
+    </property>
+    <property key="PartyLastNameOnCardMissingError">
+        <value xml:lang="de">Nachname auf der Karte fehlt</value>
+        <value xml:lang="en">Last name on card is missing</value>
     </property>
     <property key="PartyLastVisit">
         <value xml:lang="de">Letzte Besuche</value>
@@ -4903,6 +5503,22 @@
         <value xml:lang="th">ความคิดเห็นที่ตรงกัน</value>
         <value xml:lang="zh">忠诚度积分</value>
     </property>
+    <property key="PartyMaidenName">
+        <value xml:lang="cs">Rodné jméno</value>
+        <value xml:lang="de">Geburtsname</value>
+        <value xml:lang="en">Mothers Maiden Name</value>
+        <value xml:lang="es">Apellido de Soltera</value>
+        <value xml:lang="fr">Nom de jeune fille</value>
+        <value xml:lang="hi_IN">मँा का नाम</value>
+        <value xml:lang="it">Cognome da ragazza</value>
+        <value xml:lang="ja">Mothers Maiden Name</value>
+        <value xml:lang="nl">Eigen achternaam van de moeder</value>
+        <value xml:lang="pt_PT">Nome de Solteiro(a)</value>
+        <value xml:lang="ro">Nume de Fata</value>
+        <value xml:lang="ru">Девичье имя матери</value>
+        <value xml:lang="th">นามสกุลเดิมก่อนแต่งงาน</value>
+        <value xml:lang="zh">母亲婚前姓</value>
+    </property>
     <property key="PartyManagerApplication">
         <value xml:lang="de">Akteur Manager Anwendung</value>
         <value xml:lang="en">Party Manager Application</value>
@@ -4969,16 +5585,19 @@
         <value xml:lang="zh">显示政策</value>
     </property>
     <property key="PartyMaritalStatus">
-        <value xml:lang="de">Zivilstand</value>
+        <value xml:lang="cs">Rodinný stav</value>
+        <value xml:lang="de">Familienstand</value>
         <value xml:lang="en">Marital Status</value>
-        <value xml:lang="es">Estado civil</value>
-        <value xml:lang="fr">Statut marital</value>
-        <value xml:lang="it">Stato Coniugale</value>
-        <value xml:lang="nl">Burgerlijke status</value>
+        <value xml:lang="es">Estado Civil</value>
+        <value xml:lang="fr">État Civil</value>
+        <value xml:lang="hi_IN">शादीशुदा या नही</value>
+        <value xml:lang="it">Stato coniugale</value>
+        <value xml:lang="ja">Marital Status</value>
+        <value xml:lang="nl">Echtelijke status</value>
         <value xml:lang="pt_PT">Estado Civil</value>
         <value xml:lang="ro">Stare Civila</value>
         <value xml:lang="ru">Семейный статус</value>
-        <value xml:lang="th">สถานะ</value>
+        <value xml:lang="th">สถานภาพ</value>
         <value xml:lang="zh">婚姻状况</value>
     </property>
     <property key="PartyMaritalStatusDivorced">
@@ -5041,6 +5660,21 @@
         <value xml:lang="th">เป็นม่าย</value>
         <value xml:lang="zh">丧偶</value>
     </property>
+    <property key="PartyMarried">
+        <value xml:lang="de">V - Verheiratet</value>
+        <value xml:lang="en">M - Married</value>
+        <value xml:lang="es">C - Casado</value>
+        <value xml:lang="fr">M - Marié(e)</value>
+        <value xml:lang="hi_IN">M - शादीशुदा</value>
+        <value xml:lang="it">S - Sposato</value>
+        <value xml:lang="ja">M - Married</value>
+        <value xml:lang="nl">M - Getrouwd</value>
+        <value xml:lang="pt_PT">C - Casado(a)</value>
+        <value xml:lang="ro">M - Casatorit</value>
+        <value xml:lang="ru">M - Женат</value>
+        <value xml:lang="th">แต่งงาน</value>
+        <value xml:lang="zh">M - 已婚</value>
+    </property>
     <property key="PartyMaxHit">
         <value xml:lang="en">Maximum number of visits</value>
         <value xml:lang="fr">Nombre maximum de visites</value>
@@ -5101,15 +5735,17 @@
         <value xml:lang="zh">你没有权限浏览本页面。 (需要"PARTYMGR_VIEW" 或 "PARTYMGR_ADMIN")</value>
     </property>
     <property key="PartyMiddleInitial">
-        <value xml:lang="de">Initiale zweiter Vorname</value>
-        <value xml:lang="en">Middle Initial</value>
-        <value xml:lang="es">Inicial del segundo nombre</value>
-        <value xml:lang="fr">Initiale</value>
-        <value xml:lang="it">Iniziale Centrale</value>
-        <value xml:lang="nl">Voorletters</value>
-        <value xml:lang="ro">Initiala Centrala</value>
-        <value xml:lang="ru">Инициалы отчества</value>
-        <value xml:lang="th">ปานกลางในขั้นต้น</value>
+        <value xml:lang="de">Initiale des zweiten Vornamens</value>
+        <value xml:lang="en">Middle initial</value>
+        <value xml:lang="es">Inicial 2</value>
+        <value xml:lang="fr">Initiales</value>
+        <value xml:lang="it">Iniziale centrale</value>
+        <value xml:lang="ja">Middle initial</value>
+        <value xml:lang="nl">Tweede initiaal</value>
+        <value xml:lang="pt_PT">Inicial do Meio</value>
+        <value xml:lang="ro">Initial Central</value>
+        <value xml:lang="ru">Первая буква отчества</value>
+        <value xml:lang="th">ชื่อกลาง</value>
         <value xml:lang="zh">中间名首字母</value>
     </property>
     <property key="PartyMiddleName">
@@ -5123,6 +5759,21 @@
         <value xml:lang="ru">Отчество</value>
         <value xml:lang="th">ชื่อกลาง</value>
         <value xml:lang="zh">中间名</value>
+    </property>
+    <property key="PartyMobilePhone">
+        <value xml:lang="de">Handynummer</value>
+        <value xml:lang="en">Mobile phone</value>
+        <value xml:lang="es">Número de móvil</value>
+        <value xml:lang="fr">Téléphone mobile</value>
+        <value xml:lang="hi_IN">मोबाइल नम्बर</value>
+        <value xml:lang="it">Telefono mobile</value>
+        <value xml:lang="ja">Mobile phone</value>
+        <value xml:lang="nl">Mobiele telefoonnummer</value>
+        <value xml:lang="pt_PT">Telemóvel</value>
+        <value xml:lang="ro">Telefon Mobil</value>
+        <value xml:lang="ru">Мобильный телефон</value>
+        <value xml:lang="th">เบอร์โทรศัพท์มือถือ</value>
+        <value xml:lang="zh">移动电话</value>
     </property>
     <property key="PartyMothersMaidenName">
         <value xml:lang="de">Mädchenname der Mutter</value>
@@ -5164,17 +5815,45 @@
         <value xml:lang="zh">指定的联系信息不属于你，你不能浏览或编辑它。</value>
     </property>
     <property key="PartyName">
+        <value xml:lang="cs">Jméno</value>
         <value xml:lang="de">Name</value>
         <value xml:lang="en">Name</value>
         <value xml:lang="es">Nombre</value>
         <value xml:lang="fr">Nom</value>
+        <value xml:lang="hi_IN">नाम</value>
         <value xml:lang="it">Nome</value>
+        <value xml:lang="ja">Name</value>
         <value xml:lang="nl">Naam</value>
         <value xml:lang="pt_PT">Nome</value>
         <value xml:lang="ro">Nume</value>
         <value xml:lang="ru">Имя</value>
         <value xml:lang="th">ชื่อ</value>
-        <value xml:lang="zh">名称</value>
+        <value xml:lang="zh">名字</value>
+    </property>
+    <property key="PartyNameAndConactInfo">
+        <value xml:lang="de">Name, Telefon und E-Mail</value>
+        <value xml:lang="en">Name Phone and Email </value>
+        <value xml:lang="fr">Nom, téléphone et courriel</value>
+        <value xml:lang="it">Nome, telefono ed Email</value>
+        <value xml:lang="ru">Телефон и эл.почта </value>
+        <value xml:lang="th">ชื่อ เบอร์โทรศัพท์ และอีเมล์</value>
+    </property>
+    <property key="PartyNameAndShippingAddress">
+        <value xml:lang="cs">Jméno a zasílací adresa</value>
+        <value xml:lang="de">Name und Versandadresse</value>
+        <value xml:lang="en">Name and Shipping Address</value>
+        <value xml:lang="en_GB">Name and delivery address</value>
+        <value xml:lang="es">Nombre y dirección del envío</value>
+        <value xml:lang="fr">Nom et adresse d'expédition</value>
+        <value xml:lang="hi_IN">नाम और माल भेजने का पता</value>
+        <value xml:lang="it">Nome e indirizzo di spedizione</value>
+        <value xml:lang="ja">Name and Shipping Address</value>
+        <value xml:lang="nl">Naam en verzendadres</value>
+        <value xml:lang="pt_PT">Nome e Morada de Envio</value>
+        <value xml:lang="ro">Nume si Adresa Expediere </value>
+        <value xml:lang="ru">Имя и адрес доставки</value>
+        <value xml:lang="th">ชื่อ และที่อยู่ที่จัดส่ง</value>
+        <value xml:lang="zh">名字和送货地址</value>
     </property>
     <property key="PartyNewCommContent">
         <value xml:lang="de">Neuer Kommunikationsinhalt</value>
@@ -5249,6 +5928,22 @@
         <value xml:lang="th">การติดต่อใหม่</value>
         <value xml:lang="zh">新建沟通</value>
     </property>
+    <property key="PartyNewContactHavePurpose">
+        <value xml:lang="cs">Pozor: tyto nové kontaktní informace mají svůj význam</value>
+        <value xml:lang="de">Bitte beachten Sie: diese neuen Kontaktinformationen sind für den Verwendungszweck</value>
+        <value xml:lang="en">Note: this new contact information will have the purpose</value>
+        <value xml:lang="en_GB">Note: this new contact information will be used for</value>
+        <value xml:lang="es">Nota: esta nueva información del contacto tendrá el propósito</value>
+        <value xml:lang="fr">Note : ces coordonnées auront pour objet</value>
+        <value xml:lang="it">Nota: questa nuova informazione contatto sarà usata come</value>
+        <value xml:lang="ja">Note: this new contact information will have the purpose</value>
+        <value xml:lang="nl">Opm: deze nieuw kontakt informatie heeft de reden dat</value>
+        <value xml:lang="pt_PT">Nota: esta nova informação de contacto servirá para</value>
+        <value xml:lang="ro">Nota: aceasta noua informatie contact va avea scopul</value>
+        <value xml:lang="ru">Примечание: этой новой информации будет присвоено назначение</value>
+        <value xml:lang="th">Note: หมายเหตุ นี่คือข้อมูลติดต่อใหม่ที่ใช้</value>
+        <value xml:lang="zh">注意：这个新的联系方式用于</value>
+    </property>
     <property key="PartyNewEmail">
         <value xml:lang="de">Neues E-Mail</value>
         <value xml:lang="en">New Email</value>
@@ -5286,6 +5981,38 @@
         <value xml:lang="es">Nueva nota interna</value>
         <value xml:lang="fr">Nouvelle note interne</value>
         <value xml:lang="nl">Nieuwe interne notitie</value>
+    </property>
+    <property key="PartyNewPassword">
+        <value xml:lang="cs">Nové heslo</value>
+        <value xml:lang="de">Neues Passwort</value>
+        <value xml:lang="en">New Password</value>
+        <value xml:lang="es">Nueva Contraseña</value>
+        <value xml:lang="fr">Nouveau mot de passe</value>
+        <value xml:lang="hi_IN">नया पासकोड</value>
+        <value xml:lang="it">Nuova password</value>
+        <value xml:lang="ja">New Password</value>
+        <value xml:lang="nl">Nieuw wachtwoord</value>
+        <value xml:lang="pt_PT">Nova Senha</value>
+        <value xml:lang="ro">Noua Password</value>
+        <value xml:lang="ru">Новый пароль</value>
+        <value xml:lang="th">รหัสผ่านใหม่</value>
+        <value xml:lang="zh">新密码</value>
+    </property>
+    <property key="PartyNewPasswordVerify">
+        <value xml:lang="cs">Potvrdit nové heslo</value>
+        <value xml:lang="de">Neues Passwort bestätigen</value>
+        <value xml:lang="en">New Password Verify</value>
+        <value xml:lang="es">Verificar Nueva Contraseña</value>
+        <value xml:lang="fr">Vérification du nouveau mot de passe</value>
+        <value xml:lang="hi_IN">नया पासकोड फिर</value>
+        <value xml:lang="it">Verifica nuova password</value>
+        <value xml:lang="ja">New Password Verify</value>
+        <value xml:lang="nl">Nieuw wachtwoord verificatie</value>
+        <value xml:lang="pt_PT">Verificação da Nova Password</value>
+        <value xml:lang="ro">Noua Verificare Password</value>
+        <value xml:lang="ru">Проверка нового пароля</value>
+        <value xml:lang="th">ตรวจสอบรหัสฝ่านใหม่</value>
+        <value xml:lang="zh">新密码校验</value>
     </property>
     <property key="PartyNewRelationship">
         <value xml:lang="de">Neue Beziehung</value>
@@ -5349,30 +6076,52 @@
         <value xml:lang="zh">新建任务</value>
     </property>
     <property key="PartyNewUser">
-        <value xml:lang="de">Neuer Benutzer</value>
+        <value xml:lang="cs">Nový uživatel</value>
+        <value xml:lang="de">Neuer Nutzer</value>
         <value xml:lang="en">New User</value>
-        <value xml:lang="es">Nuevo usuario</value>
+        <value xml:lang="es">Usuario Nuevo</value>
         <value xml:lang="fr">Nouvel utilisateur</value>
-        <value xml:lang="it">Nuovo Utente</value>
+        <value xml:lang="hi_IN">नया व्यक्ति</value>
+        <value xml:lang="it">Nuovo utente</value>
+        <value xml:lang="ja">New User</value>
         <value xml:lang="nl">Nieuwe gebruiker</value>
         <value xml:lang="pt_PT">Novo Utilizador</value>
-        <value xml:lang="ro">Nou Utilizator</value>
+        <value xml:lang="ro">Nou Utilizator </value>
         <value xml:lang="ru">Новый пользователь</value>
         <value xml:lang="th">ผู้ใช้ใหม่</value>
-        <value xml:lang="zh">新建用户</value>
+        <value xml:lang="zh">新用户</value>
     </property>
-    <property key="PartyNickname">
+    <property key="PartyNickName">
+        <value xml:lang="cs">Přezdívka</value>
         <value xml:lang="de">Spitzname</value>
-        <value xml:lang="en">Nickname</value>
+        <value xml:lang="en">Nick Name</value>
         <value xml:lang="es">Apodo</value>
-        <value xml:lang="fr">Pseudo</value>
+        <value xml:lang="fr">Pseudonyme</value>
+        <value xml:lang="hi_IN">घर का नाम</value>
         <value xml:lang="it">Soprannome</value>
+        <value xml:lang="ja">Nick Name</value>
         <value xml:lang="nl">Bijnaam</value>
         <value xml:lang="pt_PT">Alcunha</value>
         <value xml:lang="ro">Porecla</value>
         <value xml:lang="ru">Прозвище</value>
         <value xml:lang="th">ชื่อเล่น</value>
         <value xml:lang="zh">昵称</value>
+    </property>
+    <property key="PartyNoBillingAddress">
+        <value xml:lang="cs">Nebyla vybrána fakturační adresa</value>
+        <value xml:lang="de">Sie haben keine Rechnungsadresse ausgewählt</value>
+        <value xml:lang="en">No Billing Address Selected</value>
+        <value xml:lang="es">No seleccionó Direccion de Facturación</value>
+        <value xml:lang="fr">Pas d'adresse de facturation sélectionnée</value>
+        <value xml:lang="hi_IN">कोई बिल पता चुना नही गया</value>
+        <value xml:lang="it">Nessun indirizzo di fatturazione selezionato</value>
+        <value xml:lang="ja">No Billing Address Selected</value>
+        <value xml:lang="nl">Geen faktuuradres geselecteerd</value>
+        <value xml:lang="pt_PT">Morada de Cobrança Não Seleccionada</value>
+        <value xml:lang="ro">Nici-o Adresa Facturare Selectionata</value>
+        <value xml:lang="ru">Не выбран платежный адрес</value>
+        <value xml:lang="th">ไม่มีใบเสร็จรับเงินที่คุณเลือก</value>
+        <value xml:lang="zh">没有选择寄账单地址</value>
     </property>
     <property key="PartyNoCommunicationFound">
         <value xml:lang="de">Keine Kommunikationsereignisse</value>
@@ -5388,17 +6137,20 @@
         <value xml:lang="zh">没有沟通事件</value>
     </property>
     <property key="PartyNoContactInformation">
-        <value xml:lang="de">Keine Kontaktinformationen vorhanden.</value>
-        <value xml:lang="en">No contact information on file.</value>
-        <value xml:lang="es">No se encontró información de contacto</value>
+        <value xml:lang="cs">Nezadána žádná kontaktní informace</value>
+        <value xml:lang="de">Keine Kontaktinformation hinterlegt</value>
+        <value xml:lang="en">No contact information on file</value>
+        <value xml:lang="es">Ninguna Información Del Contacto en Archivo</value>
         <value xml:lang="fr">Pas de coordonnées enregistrées.</value>
-        <value xml:lang="it">Nessun informazione contatto sul file.</value>
-        <value xml:lang="nl">Geen contactinformatie in bestand.</value>
-        <value xml:lang="pt_PT">Sem informação de contacto em arquivo.</value>
-        <value xml:lang="ro">Nici-o informatie contact in fisier.</value>
-        <value xml:lang="ru">В файле отсутствует контактная информация.</value>
-        <value xml:lang="th">ไม่มีข้อมูลการติดต่อบนไฟล์</value>
-        <value xml:lang="zh">没有存档的联系信息。</value>
+        <value xml:lang="hi_IN">कोई जानकारी उपलब्घ नही</value>
+        <value xml:lang="it">Nessuna informazione per contatto in archivio</value>
+        <value xml:lang="ja">No contact information on file</value>
+        <value xml:lang="nl">Geen kontakt informatie bekend hier.</value>
+        <value xml:lang="pt_PT">Sem Informação de Contacto Em Arquivo</value>
+        <value xml:lang="ro">Nici-o informatie contact in fisier</value>
+        <value xml:lang="ru">Отсутствует контактная информация</value>
+        <value xml:lang="th">ไม่มีข้อมูลที่ใช้ในการติดต่อในไฟล์นี้</value>
+        <value xml:lang="zh">档案里没有联系信息</value>
     </property>
     <property key="PartyNoContent">
         <value xml:lang="de">Kein Inhalt</value>
@@ -5494,6 +6246,33 @@
         <value xml:lang="th">ไม่พบคุณสมบัติของกลุ่มผู้ใช้</value>
         <value xml:lang="zh">没有找到会员属性。</value>
     </property>
+    <property key="PartyNoPartyForCurrentUserName">
+        <value xml:lang="cs">Nenalezen žádný současný uživatel s uživatelským jménem</value>
+        <value xml:lang="de">Finde keine Akteur-Information für den aktuellen Nutzer mit Nutzernamen</value>
+        <value xml:lang="en">No party found for current user with user name</value>
+        <value xml:lang="es">No hay un actor associado a este nombre de usuario</value>
+        <value xml:lang="fr">Il n'y a pas d'acteur associé au nom d'utilisateur</value>
+        <value xml:lang="hi_IN">इस नाम से कोई पार्टी नही है</value>
+        <value xml:lang="it">Nessun soggetto associato al nome dell'utente</value>
+        <value xml:lang="ja">No party found for current user with user name</value>
+        <value xml:lang="nl">Geen relatie gevonden voor de huidige gebruiker met de naam</value>
+        <value xml:lang="pt_PT">Não foi encontrada referência ao corrente utilizador com essa identificação</value>
+        <value xml:lang="ro">Nici-un Subiect gasit pentru utilizatorul curent cu nume utilizator </value>
+        <value xml:lang="ru">Не найдена party для текущего пользователя с именем</value>
+        <value xml:lang="th">ไม่พบกลุ่มผู้ใช้สำหรับผู้ใช้ในขณะนี้</value>
+        <value xml:lang="zh">没有找到与当前用户用户名一致的会员</value>
+    </property>
+    <property key="PartyNoPartyForUpdateCustomer">
+        <value xml:lang="de">Keine Akteur ID angegeben, Kunde kann nicht aktualisiert werden</value>
+        <value xml:lang="en">No partyId passed, cannot Update Customer</value>
+        <value xml:lang="fr">Aucune ref. d'acteur fournie, impossible de mettre à jour le client</value>
+        <value xml:lang="hi_IN">कोई पार्टी कोड सही नही, खरीदार बदला नही जा सकता</value>
+        <value xml:lang="it">Nessun soggetto specificato, non è possibile aggiornare il cliente</value>
+        <value xml:lang="ro">Nici-un subiect trecut, nu este posibila Actualizarea Clientului </value>
+        <value xml:lang="ru">Не передан partyId, не могу Update Customer</value>
+        <value xml:lang="th">รหัสกลุ่มผู้ใช้ไม่ถูกต้อง, ไม่สามารถเปลี่ยนแปลงลูกค้าได้</value>
+        <value xml:lang="zh">没有传递会员标识，无法更新客户</value>
+    </property>
     <property key="PartyNoPartyFoundWithPartyId">
         <value xml:lang="de">Kein Akteur gefunden mit der Akteur ID</value>
         <value xml:lang="en">No party found with the partyId of</value>
@@ -5578,6 +6357,22 @@
         <value xml:lang="th">ไม่มีรายการซื้อของสำหรับกลุ่มผู้ใช้</value>
         <value xml:lang="zh">没有购物列表，会员</value>
     </property>
+    <property key="PartyNoState">
+        <value xml:lang="cs">Nezadán kraj</value>
+        <value xml:lang="de">Kein Bundesland/Provinz</value>
+        <value xml:lang="en">No State/Province</value>
+        <value xml:lang="es">Ningún País/Província</value>
+        <value xml:lang="fr">Pas d'état/Province</value>
+        <value xml:lang="hi_IN">कोई राज्य नही</value>
+        <value xml:lang="it">Nessuno Stato/Provincia</value>
+        <value xml:lang="ja">No State/Province</value>
+        <value xml:lang="nl">Geen staat of provincie</value>
+        <value xml:lang="pt_PT">Sem Distrito/Província</value>
+        <value xml:lang="ro">Nici-un Stat/Provincie</value>
+        <value xml:lang="ru">Не указан штат/провинция</value>
+        <value xml:lang="th">ไม่มีเมือง/จังหวัด</value>
+        <value xml:lang="zh">没有省/州</value>
+    </property>
     <property key="PartyNoSubject">
         <value xml:lang="de">Kein Thema</value>
         <value xml:lang="en">No Subject</value>
@@ -5640,6 +6435,22 @@
         <value xml:lang="en">of Party</value>
         <value xml:lang="fr">de l'acteur</value>
         <value xml:lang="nl">van relatie</value>
+    </property>
+    <property key="PartyOldPassword">
+        <value xml:lang="cs">současné (staré) heslo</value>
+        <value xml:lang="de">Gegenwärtiges (altes) Passwort</value>
+        <value xml:lang="en">Current (Old) Password</value>
+        <value xml:lang="es">Contraseña Anterior</value>
+        <value xml:lang="fr">Mot de passe précédent</value>
+        <value xml:lang="hi_IN">वर्तमान (पुराना) पासकोड</value>
+        <value xml:lang="it">Password precedente</value>
+        <value xml:lang="ja">Current (Old) Password</value>
+        <value xml:lang="nl">Huidig (oud) Wachtwoord</value>
+        <value xml:lang="pt_PT">Senha Actual</value>
+        <value xml:lang="ro">Password Curenta (Veche)</value>
+        <value xml:lang="ru">Текущий (старый) пароль</value>
+        <value xml:lang="th">รหัสผ่านเดิม</value>
+        <value xml:lang="zh">当前密码</value>
     </property>
     <property key="PartyOptional">
         <value xml:lang="de">Optional</value>
@@ -5962,6 +6773,21 @@
         <value xml:lang="th">หนังสือเดินทางหมดอายุ</value>
         <value xml:lang="zh">护照过期</value>
     </property>
+    <property key="PartyPassportExpireDate">
+        <value xml:lang="de">Reisepass/Personalausweis Ablauffrist</value>
+        <value xml:lang="en">Passport Expire Date</value>
+        <value xml:lang="es">Fecha de expiración del pasaporte</value>
+        <value xml:lang="fr">Date d'expiration du passeport</value>
+        <value xml:lang="hi_IN">पासपोर्ट खत्म होने कि तारीख़</value>
+        <value xml:lang="it">Data scadenza passaporto</value>
+        <value xml:lang="ja">Passport Expire Date</value>
+        <value xml:lang="nl">Paspoort verloopdatum</value>
+        <value xml:lang="pt_PT">Validade do Passaporte</value>
+        <value xml:lang="ro">Data Expirare Pasaport</value>
+        <value xml:lang="ru">Дата устаревания паспорта</value>
+        <value xml:lang="th">วันหมดอายุของหนังสือเดินทาง</value>
+        <value xml:lang="zh">护照过期日期</value>
+    </property>
     <property key="PartyPassportExpireDateNotValidDate">
         <value xml:lang="de">Ablaufdatum Pass ist kein gültiges Datum</value>
         <value xml:lang="en">Passport Expire Date is not a valid Date</value>
@@ -5975,41 +6801,65 @@
         <value xml:lang="zh">护照过期日期是无效日期</value>
     </property>
     <property key="PartyPassportNumber">
-        <value xml:lang="de">Passnummer</value>
+        <value xml:lang="de">Reisepass-/Personalausweisnummer</value>
         <value xml:lang="en">Passport Number</value>
-        <value xml:lang="es">Número de pasaporte</value>
-        <value xml:lang="fr">Numéro de passeport</value>
-        <value xml:lang="it">Numero Passaporto</value>
-        <value xml:lang="nl">Paspoortnummer</value>
+        <value xml:lang="es">Numero de Pasaporte</value>
+        <value xml:lang="fr">N° de passeport</value>
+        <value xml:lang="hi_IN">पासपोर्ट नम्बर</value>
+        <value xml:lang="it">N° di passaporto</value>
+        <value xml:lang="ja">Passport Number</value>
+        <value xml:lang="nl">Paspoort Nummer</value>
         <value xml:lang="pt_PT">Número de Passaporte</value>
         <value xml:lang="ro">Numar Pasaport</value>
         <value xml:lang="ru">Номер паспорта</value>
-        <value xml:lang="th">หมายเลขหนังสือเดินทาง</value>
+        <value xml:lang="th">เลขที่หนังสือเดินทาง</value>
         <value xml:lang="zh">护照号码</value>
     </property>
+    <property key="PartyPasswordHint">
+        <value xml:lang="de">Passworthinweis</value>
+        <value xml:lang="en">Password Hint</value>
+        <value xml:lang="es">Indirecta De la Contraseña</value>
+        <value xml:lang="fr">Mot ou phrase d'aide pour vous souvenir de votre mot de passe</value>
+        <value xml:lang="it">Suggerimento password</value>
+        <value xml:lang="ja">Password Hint</value>
+        <value xml:lang="nl">Wachtwoord aanwijzing</value>
+        <value xml:lang="pt_PT">Pista para Senha</value>
+        <value xml:lang="ro">Sugeriment Password</value>
+        <value xml:lang="ru">Подсказка пароля</value>
+        <value xml:lang="th">ซ่อนรหัสผ่าน</value>
+        <value xml:lang="zh">密码提示</value>
+    </property>
     <property key="PartyPasswordMatchError">
-        <value xml:lang="de">Ihre Passwörter stimmen nicht überein</value>
+        <value xml:lang="cs">Vaše heslo nesouhlasí</value>
+        <value xml:lang="de">Ihr Passwort stimmt nicht</value>
         <value xml:lang="en">Your Passwords do not match</value>
-        <value xml:lang="es">Sus passwords no coinciden</value>
+        <value xml:lang="es">Su contraseña no coincide</value>
         <value xml:lang="fr">Votre mot de passe ne correspond pas</value>
-        <value xml:lang="it">La tua Passwords non corrisponde</value>
-        <value xml:lang="nl">Uw wachtwoorden kloppen niet</value>
-        <value xml:lang="ro">Parola ta nu corespunde</value>
-        <value xml:lang="ru">Ваши пароли не подходят</value>
-        <value xml:lang="th">รหัสผ่านของคุณไม่ตรงกัน</value>
-        <value xml:lang="zh">你的密码不一致</value>
+        <value xml:lang="hi_IN">आपका पासकोड सही नही</value>
+        <value xml:lang="it">La tua password non corrisponde</value>
+        <value xml:lang="ja">Your Passwords do not match</value>
+        <value xml:lang="nl">Uw wachtwoorden zijn niet hetzelfde</value>
+        <value xml:lang="pt_PT">As suas senhas não coincidem</value>
+        <value xml:lang="ro">Passwords nu iti corespunde</value>
+        <value xml:lang="ru">Ваш пароль не соответствует</value>
+        <value xml:lang="th">รหัสผ่านของคุณไม่ถูกต้อง</value>
+        <value xml:lang="zh">你的两个密码不一致</value>
     </property>
     <property key="PartyPasswordMissing">
+        <value xml:lang="cs">Chybí heslo</value>
         <value xml:lang="de">Passwort fehlt</value>
         <value xml:lang="en">Password is Missing</value>
-        <value xml:lang="es">Falta password</value>
-        <value xml:lang="fr">Mot de passe manquant</value>
-        <value xml:lang="it">Password Mancante</value>
-        <value xml:lang="nl">Wachtwoord ontbreekt</value>
-        <value xml:lang="ro">Parola Lipsa</value>
-        <value xml:lang="ru">Отсутствует пароль</value>
-        <value xml:lang="th">ไม่ได้ใส่รหัสผ่าน</value>
-        <value xml:lang="zh">缺少密码</value>
+        <value xml:lang="es">Falta Contraseña</value>
+        <value xml:lang="fr">Mot de passe absent</value>
+        <value xml:lang="hi_IN">पासकोड नही है</value>
+        <value xml:lang="it">Password mancante</value>
+        <value xml:lang="ja">Password is Missing</value>
+        <value xml:lang="nl">Wachtwoord mist</value>
+        <value xml:lang="pt_PT">Senha em Falta</value>
+        <value xml:lang="ro">Lipseste Password </value>
+        <value xml:lang="ru">Пароль отсутствует</value>
+        <value xml:lang="th">ลืมรหัสผ่าน</value>
+        <value xml:lang="zh">找不到密码</value>
     </property>
     <property key="PartyPaymentMethodInformation">
         <value xml:lang="de">Zahlungsmethode Information</value>
@@ -6159,17 +7009,36 @@
         <value xml:lang="zh">已成功更新人员。</value>
     </property>
     <property key="PartyPersonalInformation">
-        <value xml:lang="de">Persönliche Informationen</value>
+        <value xml:lang="cs">Osobní informace</value>
+        <value xml:lang="de">Persönliche Information</value>
         <value xml:lang="en">Personal Information</value>
-        <value xml:lang="es">Información personal</value>
+        <value xml:lang="es">Información Personal</value>
         <value xml:lang="fr">Information personnelle</value>
-        <value xml:lang="it">Informazioni Personali</value>
-        <value xml:lang="nl">Persoonlijke informatie</value>
+        <value xml:lang="hi_IN">अपनी जानकारी</value>
+        <value xml:lang="it">Informazioni personali</value>
+        <value xml:lang="ja">Personal Information</value>
+        <value xml:lang="nl">Persoonsinformatie</value>
         <value xml:lang="pt_PT">Informação Pessoal</value>
-        <value xml:lang="ro">Informatii Personale</value>
-        <value xml:lang="ru">Персональная информаций</value>
-        <value xml:lang="th">ข้อมูลส่วนบุคคล</value>
-        <value xml:lang="zh">人员信息</value>
+        <value xml:lang="ro">Informatii Personale </value>
+        <value xml:lang="ru">Персональная информация</value>
+        <value xml:lang="th">ข้อมูลส่วนตัว</value>
+        <value xml:lang="zh">个人信息</value>
+    </property>
+    <property key="PartyPersonalInformationNotFound">
+        <value xml:lang="cs">Osobní informace nenalezeny</value>
+        <value xml:lang="de">Persönliche Information nicht gefunden</value>
+        <value xml:lang="en">Personal Information Not Found</value>
+        <value xml:lang="es">Información personal no encontrada</value>
+        <value xml:lang="fr">Information personnelle non trouvée</value>
+        <value xml:lang="hi_IN">अपनी जानकारी नही मिली</value>
+        <value xml:lang="it">Informazioni personali non trovate</value>
+        <value xml:lang="ja">Personal Information Not Found</value>
+        <value xml:lang="nl">Persoonsinformatie niet gevonden</value>
+        <value xml:lang="pt_PT">Informação Pessoal Não Encontrada</value>
+        <value xml:lang="ro">Nu gaseste Informatii Personale </value>
+        <value xml:lang="ru">Персональная информация не найдена</value>
+        <value xml:lang="th">ไม่พบข้อมูลส่วนตัว</value>
+        <value xml:lang="zh">找不到个人信息</value>
     </property>
     <property key="PartyPersonalTitle">
         <value xml:lang="de">Titel</value>
@@ -6184,17 +7053,36 @@
         <value xml:lang="zh">人员头衔</value>
     </property>
     <property key="PartyPhoneNumber">
-        <value xml:lang="de">Privattelefonnummer</value>
+        <value xml:lang="cs">Telefonní číslo</value>
+        <value xml:lang="de">Telefonnummer</value>
         <value xml:lang="en">Phone Number</value>
-        <value xml:lang="es">Número de teléfono</value>
-        <value xml:lang="fr">Numéro de téléphone</value>
-        <value xml:lang="it">Numero Telefono</value>
+        <value xml:lang="es">Número de Teléfono</value>
+        <value xml:lang="fr">N° de téléphone</value>
+        <value xml:lang="hi_IN">फोन नम्बर</value>
+        <value xml:lang="it">Numero di telefono</value>
+        <value xml:lang="ja">Phone Number</value>
         <value xml:lang="nl">Telefoonnummer</value>
         <value xml:lang="pt_PT">Número de Telefone</value>
         <value xml:lang="ro">Numar Telefon</value>
         <value xml:lang="ru">Телефонный номер</value>
-        <value xml:lang="th">หมายเลขโทรศัพท์</value>
+        <value xml:lang="th">เบอร์โทรศัพท์</value>
         <value xml:lang="zh">电话号码</value>
+    </property>
+    <property key="PartyPhoneNumberInfoNotFound">
+        <value xml:lang="cs">Informace o telefonním čísle nenalazeny</value>
+        <value xml:lang="de">Telefonnummer Information nicht gefunden</value>
+        <value xml:lang="en">Phone Number Information Not Found</value>
+        <value xml:lang="es">Número de Teléfono no encontrado</value>
+        <value xml:lang="fr">N° de téléphone non trouvé</value>
+        <value xml:lang="hi_IN">फोन नम्बर जानकारी नही मिली</value>
+        <value xml:lang="it">Numeri di telefono non trovate</value>
+        <value xml:lang="ja">Phone Number Information Not Found</value>
+        <value xml:lang="nl">Telefoonnummer informatie niet gevonden</value>
+        <value xml:lang="pt_PT">Informação de Número de Telefone Não Encontrada</value>
+        <value xml:lang="ro">Nu gaseste Informatii Numar Telefon </value>
+        <value xml:lang="ru">Информация о телефонном номере не найдена</value>
+        <value xml:lang="th">ไม่พบข้อมูลเบอร์โทรศัพท์</value>
+        <value xml:lang="zh">找不到电话号码信息</value>
     </property>
     <property key="PartyPhoneNumberRequired">
         <value xml:lang="de">Mindestens eine Telefonnummer wird im folgenden benötigt</value>
@@ -6203,6 +7091,22 @@
         <value xml:lang="fr">Au moins un numéro de téléphone est exigé ci-dessous</value>
         <value xml:lang="nl">Ten minste één telefoonnummer moet worden opgegeven</value>
         <value xml:lang="th">ต้องใส่เบอร์โทรศัพท์อย่าน้อย 1 เบอร์ ข้างล่างนี้</value>
+    </property>
+    <property key="PartyPhoneNumbers">
+        <value xml:lang="cs">Telefonní čísla</value>
+        <value xml:lang="de">Telefonnummern</value>
+        <value xml:lang="en">Phone Numbers</value>
+        <value xml:lang="es">Números de Teléfono</value>
+        <value xml:lang="fr">Numéros de téléphone</value>
+        <value xml:lang="hi_IN">फोन नम्बर</value>
+        <value xml:lang="it">Numeri di telefono</value>
+        <value xml:lang="ja">Phone Numbers</value>
+        <value xml:lang="nl">Telefoonnummers</value>
+        <value xml:lang="pt_PT">Números de Telefone</value>
+        <value xml:lang="ro">Numar Telefon</value>
+        <value xml:lang="ru">Телефонные номера</value>
+        <value xml:lang="th">เบอร์โทรศัพท์</value>
+        <value xml:lang="zh">电话号码</value>
     </property>
     <property key="PartyPointsFrom">
         <value xml:lang="de">Punkte von</value>
@@ -6279,6 +7183,21 @@
         <value xml:lang="nl">Route-info</value>
         <value xml:lang="th">คำแนะนำ</value>
     </property>
+    <property key="PartyPostalInformationNotFound">
+        <value xml:lang="cs">Informace o poštovní adrese nenalezeny</value>
+        <value xml:lang="de">Information zur Postadresse nicht gefunden</value>
+        <value xml:lang="en">Postal Information Not Found</value>
+        <value xml:lang="es">Información Postal No encontrada</value>
+        <value xml:lang="fr">Adresse non trouvée</value>
+        <value xml:lang="it">Indirizzo non trovate</value>
+        <value xml:lang="ja">Postal Information Not Found</value>
+        <value xml:lang="nl">Post informatie niet gevonden</value>
+        <value xml:lang="pt_PT">Informação Postal Não Encontrada</value>
+        <value xml:lang="ro">Nu gaseste Informatii Postale </value>
+        <value xml:lang="ru">Почтовая информация не найдена</value>
+        <value xml:lang="th">ไม่พบรหัสไปรษณีย์</value>
+        <value xml:lang="zh">找不到邮政信息</value>
+    </property>
     <property key="PartyPrice">
         <value xml:lang="de">Preis</value>
         <value xml:lang="en">Price</value>
@@ -6328,23 +7247,26 @@
         <value xml:lang="zh">产品标识</value>
     </property>
     <property key="PartyProfile">
+        <value xml:lang="cs">Profil</value>
         <value xml:lang="de">Profil</value>
         <value xml:lang="en">Profile</value>
         <value xml:lang="es">Perfil</value>
         <value xml:lang="fr">Profil</value>
+        <value xml:lang="hi_IN">सारांश</value>
         <value xml:lang="it">Profilo</value>
+        <value xml:lang="ja">Profile</value>
         <value xml:lang="nl">Profiel</value>
         <value xml:lang="pt_PT">Perfil</value>
         <value xml:lang="ro">Profil</value>
         <value xml:lang="ru">Профиль</value>
-        <value xml:lang="th">ประวัติส่วนตัว</value>
+        <value xml:lang="th">ประวัติ</value>
         <value xml:lang="zh">简介</value>
-    </property>    
+    </property>
     <property key="PartyProtectedViews">
         <value xml:lang="en">Protected Views</value>
         <value xml:lang="fr">Vues protégées</value>
     </property>
-    <property key="PartyProveinceInCanadaMissing">
+    <property key="PartyProvinceInCanadaMissing">
         <value xml:lang="de">Provinz fehlt und wird benötigt für eine Adresse in Kanada.</value>
         <value xml:lang="en">Province is missing, and is required for an address in Canada.</value>
         <value xml:lang="es">Falta provincia</value>
@@ -6356,6 +7278,22 @@
         <value xml:lang="ru">Отсутствует провинция, это необходимо для адреса в Канаде.</value>
         <value xml:lang="th">ไม่ได้ใส่จังหวัดและต้องการให้เป็นที่อยู่ในประเทศแคนาดา</value>
         <value xml:lang="zh">缺少省，而且必须是加拿大的一个地址。</value>
+    </property>
+    <property key="PartyProvinceMissing">
+        <value xml:lang="cs">Chybí kraj</value>
+        <value xml:lang="de">Bundesland/Provinz fehlt</value>
+        <value xml:lang="en">State/Province is Missing</value>
+        <value xml:lang="es">Falta Estado/Província</value>
+        <value xml:lang="fr">Etat/Province absent</value>
+        <value xml:lang="hi_IN">राज्य नही है</value>
+        <value xml:lang="it">Stato/Provincia mancante</value>
+        <value xml:lang="ja">State/Province is Missing</value>
+        <value xml:lang="nl">Staat/Provincie mist</value>
+        <value xml:lang="pt_PT">Distrito/Província em Falta</value>
+        <value xml:lang="ro">Stat/Provincie Lipseste </value>
+        <value xml:lang="ru">Отсутствует штат/провинция</value>
+        <value xml:lang="th">ไม่ได้ใส่เมือง/จังหวัด</value>
+        <value xml:lang="zh">找不到州/省</value>
     </property>
     <property key="PartyPublic">
         <value xml:lang="de">Öffentlich</value>
@@ -6396,17 +7334,19 @@
         <value xml:lang="zh">没有指定目的类型，不能从联系方式删除目的</value>
     </property>
     <property key="PartyPurposeTypeNotFound">
-        <value xml:lang="de">Zweck Typ nicht gefunden mit der ID</value>
-        <value xml:lang="en">Purpose Type not found with ID</value>
-        <value xml:lang="es">Tipo de propósito no encontrado</value>
-        <value xml:lang="fr">Type d'usage non trouvé avec l'ident.</value>
-        <value xml:lang="it">Tipo Funzione non trovata con Codice</value>
-        <value xml:lang="nl">Type met ID niet gevonden</value>
-        <value xml:lang="pt_PT">Tipo de Objectivo não encontrado</value>
-        <value xml:lang="ro">Tip Functie negasit cu Cod</value>
-        <value xml:lang="ru">Тип назначения не найден для кода</value>
-        <value xml:lang="th">ไม่พบประเภทวัตถุประสงกับรหัสนี้</value>
-        <value xml:lang="zh">没有找到目的类型，标识</value>
+        <value xml:lang="cs">Účel použití nenalezen s ID</value>
+        <value xml:lang="de">Verwendungszweck nicht gefunden mit der ID</value>
+        <value xml:lang="en">Contact Purpose Type Not Found with ID</value>
+        <value xml:lang="es">Tipo de uso no encontrado con la ID</value>
+        <value xml:lang="fr">Type d'objet non trouvé</value>
+        <value xml:lang="it">Tipo funzione contatto non trovate con codice</value>
+        <value xml:lang="ja">Contact Purpose Type Not Found with ID</value>
+        <value xml:lang="nl">Kontakt reden niet gevonden met de ID</value>
+        <value xml:lang="pt_PT">Tipo de Objectivo de Contacto Sem Identificação</value>
+        <value xml:lang="ro">Nu gaseste Tip Functie Contact cu Cod</value>
+        <value xml:lang="ru">Назначение контакта не найдено по идентификатору</value>
+        <value xml:lang="th">ไม่พบรหัสวัตถุประสงค์ในการติดต่อ</value>
+        <value xml:lang="zh">找不到联系目的类型：标识</value>
     </property>
     <property key="PartyPushURL">
         <value xml:lang="de">Push URL</value>
@@ -6456,6 +7396,22 @@
         <value xml:lang="ru">Быстро добавить в список покупок</value>
         <value xml:lang="th">เพิ่มอย่างรวดเร็วในรายการซื้อของ</value>
         <value xml:lang="zh">快速添加到购物列表</value>
+    </property>
+    <property key="PartyReceivePasswordByEmail">
+        <value xml:lang="cs">Heslo oddržíte e-mailem jakmile bude Váš účet aktivován</value>
+        <value xml:lang="de">Sie werden ein Passwort per email erhalten, wenn Ihr neues Konto freigegeben wird</value>
+        <value xml:lang="en">You will receive a password by email when your new account is approved</value>
+        <value xml:lang="es">Recibirá la contraseña por email cuando la nueva cuenta sea aprobada</value>
+        <value xml:lang="fr">Vous recevrez votre mot de passe par courriel quand votre compte sera validé</value>
+        <value xml:lang="hi_IN">जान्च के बाद आपको नया पासकोड ईमेल से दिया जाएगा</value>
+        <value xml:lang="it">Riceverai una password per email quando la tua nuova utenza sarà approvata</value>
+        <value xml:lang="ja">You will receive a password by email when your new account is approved</value>
+        <value xml:lang="nl">U zal een wachtwoord per Email ontvangen wanneer uw nieuwe rekening bij ons is goedgekeurd</value>
+        <value xml:lang="pt_PT">Você receberá a sua senha por E-mail quando a sua nova conta for aceite</value>
+        <value xml:lang="ro">Tu vei primi o password pentru email cand noua utenta va fi aprobata </value>
+        <value xml:lang="ru">Вы получите пароль по эл.почте после утверждения вашей учетной записи</value>
+        <value xml:lang="th">คุณจะได้รับรหัสผ่านทางอีเมล์เมื่อบัญชีผู้ใช้ใหม่ของคุณถูกอนุญาตให้ใช้</value>
+        <value xml:lang="zh">当你的新账户被批准时，你会收到密码的电子邮件</value>
     </property>
     <property key="PartyRelationSecurity">
         <value xml:lang="de">Akteur Beziehung Sicherheit</value>
@@ -6603,15 +7559,33 @@
         <value xml:lang="th">Security Error: ผิดพลาด ! ในการย้ายสถานะเว็บไซต์ คุณต้องได้รับอนุญาตจาก PARTYMGR_DELETE หรือ PARTYMGR_ADMIN ก่อน</value>
         <value xml:lang="zh">安全错误: 要运行 removeWebSiteRole，你必须具有 PARTYMGR_DELETE 或 PARTYMGR_ADMIN 权限</value>
     </property>
+    <property key="PartyRepeatPassword">
+        <value xml:lang="cs">Pro potvrzení opakujte heslo</value>
+        <value xml:lang="de">Wiederholen Sie das Passwort zur Bestätigung</value>
+        <value xml:lang="en">Repeat password to confirm</value>
+        <value xml:lang="es">Repetir Contraseña para confirmar</value>
+        <value xml:lang="fr">Retaper le mot de passe pour confimer</value>
+        <value xml:lang="hi_IN">पासकोड दुबारा दिजीये</value>
+        <value xml:lang="it">Ripeti password per conferma</value>
+        <value xml:lang="ja">Repeat password to confirm</value>
+        <value xml:lang="nl">Voer uw wachtwoord nogmaals in ter verifikatie</value>
+        <value xml:lang="pt_PT">Repita a senha para confirmar</value>
+        <value xml:lang="ro">Repeta password pentru confirmare </value>
+        <value xml:lang="ru">Повторите пароль для подтверждения</value>
+        <value xml:lang="th">ยืนยันรหัสผ่านอีกครั้ง</value>
+        <value xml:lang="zh">再输入一次以确认密码</value>
+    </property>
     <property key="PartyReply">
         <value xml:lang="de">Antworten</value>
         <value xml:lang="en">Reply</value>
-        <value xml:lang="es">Respuesta</value>
-        <value xml:lang="fr">Réponse</value>
-        <value xml:lang="it">Risposta</value>
+        <value xml:lang="es">Responder</value>
+        <value xml:lang="fr">Répondre</value>
+        <value xml:lang="hi_IN">जवाब</value>
+        <value xml:lang="it">Rispondi</value>
+        <value xml:lang="ja">Reply</value>
         <value xml:lang="nl">Antwoord</value>
-        <value xml:lang="ro">Raspuns</value>
-        <value xml:lang="ru">Ответить</value>
+        <value xml:lang="ro">Raspunde </value>
+        <value xml:lang="ru">Ответ</value>
         <value xml:lang="th">ตอบ</value>
         <value xml:lang="zh">回复</value>
     </property>
@@ -6626,6 +7600,22 @@
         <value xml:lang="ru">RE:</value>
         <value xml:lang="th">ตอบ:</value>
         <value xml:lang="zh">回复：</value>
+    </property>
+    <property key="PartyRequestNewAccount">
+        <value xml:lang="cs">Požádat o nový účet</value>
+        <value xml:lang="de">ein neues Konto anfordern</value>
+        <value xml:lang="en">Request a New Account</value>
+        <value xml:lang="es">Solicitar una nueva cuenta</value>
+        <value xml:lang="fr">Demander un n° de compte</value>
+        <value xml:lang="hi_IN">नया खाता कि मान्ग किजीये</value>
+        <value xml:lang="it">Richiedi una nuova utenza</value>
+        <value xml:lang="ja">Request a New Account</value>
+        <value xml:lang="nl">Vraag een nieuwe rekening aan</value>
+        <value xml:lang="pt_PT">Requerer Uma Nova Conta</value>
+        <value xml:lang="ro">Cheama o noua Utenta</value>
+        <value xml:lang="ru">Запрос новой учетной записи</value>
+        <value xml:lang="th">คำร้องบัญชีผู้ใช้ใหม่</value>
+        <value xml:lang="zh">请求一个新账户</value>
     </property>
     <property key="PartyRequiredNote">
         <value xml:lang="de">Felder mit (*) müssen ausgefüllt werden.</value>
@@ -6862,17 +7852,18 @@
         <value xml:lang="zh">分区</value>
     </property>
     <property key="PartySelectContactType">
-        <value xml:lang="de">Kontakttyp auswählen</value>
+        <value xml:lang="de">Auswahl Kontakttyp</value>
         <value xml:lang="en">Select Contact Type</value>
-        <value xml:lang="es">Tipo de contacto</value>
+        <value xml:lang="es">Seleccionar tipo de contacto</value>
         <value xml:lang="fr">Sélectionner un type de coordonnées</value>
-        <value xml:lang="it">Selezione Tipo Contatto</value>
-        <value xml:lang="nl">Selecteer soort contact</value>
+        <value xml:lang="it">Seleziona tipo di contatto</value>
+        <value xml:lang="ja">Select Contact Type</value>
+        <value xml:lang="nl">Selekteer het Kontakt type</value>
         <value xml:lang="pt_PT">Seleccionar Tipo de Contacto</value>
-        <value xml:lang="ro">Selectie Tip Contact</value>
+        <value xml:lang="ro">Selectioneaza Tip Contact</value>
         <value xml:lang="ru">Выберите тип контакта</value>
         <value xml:lang="th">เลือกประเภทการติดต่อ</value>
-        <value xml:lang="zh">选择联系类型</value>
+        <value xml:lang="zh">选择联系方式</value>
     </property>
     <property key="PartySelectMimeType">
         <value xml:lang="de">Mime Typ auswählen</value>
@@ -6913,6 +7904,22 @@
         <value xml:lang="ru">Выберите роль(и) для этого участника</value>
         <value xml:lang="th">เลือกสถานะสำหรับกลุ่มผู้ใช้นี้</value>
         <value xml:lang="zh">为这个会员选择角色</value>
+    </property>
+    <property key="PartySendEmail">
+        <value xml:lang="cs">Odeslat e-mail</value>
+        <value xml:lang="de">E-Mail senden</value>
+        <value xml:lang="en">Send Email</value>
+        <value xml:lang="es">Enviar Email</value>
+        <value xml:lang="fr">Envoyer un courriel</value>
+        <value xml:lang="hi_IN">ईमेल दिजीये</value>
+        <value xml:lang="it">Invia Email</value>
+        <value xml:lang="ja">Send Email</value>
+        <value xml:lang="nl">Stuur een Email</value>
+        <value xml:lang="pt_PT">Enviar E-mail</value>
+        <value xml:lang="ro">Trimite Email</value>
+        <value xml:lang="ru">Послать Email</value>
+        <value xml:lang="th">ส่งอีเมล์</value>
+        <value xml:lang="zh">发送电子邮件</value>
     </property>
     <property key="PartySequenceId">
         <value xml:lang="de">Folgenummer ID</value>
@@ -7049,17 +8056,50 @@
         <value xml:lang="zh">显示全部</value>
     </property>
     <property key="PartyShowOld">
-        <value xml:lang="de">Alte anzeigen</value>
+        <value xml:lang="cs">Ukázat původní</value>
+        <value xml:lang="de">Altes zeigen</value>
         <value xml:lang="en">Show Old</value>
-        <value xml:lang="es">Mostrar histórico</value>
+        <value xml:lang="es">Mostrar historial</value>
         <value xml:lang="fr">Historique</value>
-        <value xml:lang="it">Mostra Vecchi</value>
-        <value xml:lang="nl">Oude tonen</value>
-        <value xml:lang="pt_PT">MOstrar Antigos</value>
-        <value xml:lang="ro">Afiseaza Vechi</value>
+        <value xml:lang="hi_IN">पुराना दिखाइये</value>
+        <value xml:lang="it">Storia</value>
+        <value xml:lang="ja">Show Old</value>
+        <value xml:lang="nl">Laat de oude versie zien</value>
+        <value xml:lang="pt_PT">Mostrar Idade</value>
+        <value xml:lang="ro">Afiseaza Vechea</value>
         <value xml:lang="ru">Показать старые</value>
-        <value xml:lang="th">แสดงอายุ</value>
-        <value xml:lang="zh">显示旧的</value>
+        <value xml:lang="th">แสดงอันเดิม</value>
+        <value xml:lang="zh">显示旧信息</value>
+    </property>
+    <property key="PartySingle">
+        <value xml:lang="de">S - Single</value>
+        <value xml:lang="en">S - Single</value>
+        <value xml:lang="es">S - Soltero</value>
+        <value xml:lang="fr">C - Célibataire</value>
+        <value xml:lang="hi_IN">S - अकेला</value>
+        <value xml:lang="it">C - Celibe/Nubile</value>
+        <value xml:lang="ja">S - Single</value>
+        <value xml:lang="nl">S - Niet getrouwd</value>
+        <value xml:lang="pt_PT">S - Solteiro(a)</value>
+        <value xml:lang="ro">S - Necasatorit</value>
+        <value xml:lang="ru">S - Холост</value>
+        <value xml:lang="th">โสด</value>
+        <value xml:lang="zh">S - 单身</value>
+    </property>
+    <property key="PartySiteURLMissing">
+        <value xml:lang="de">URL fehlt</value>
+        <value xml:lang="en">Site URL is missing</value>
+        <value xml:lang="es">Falta URL de la web</value>
+        <value xml:lang="fr">L'URL du site est absente</value>
+        <value xml:lang="hi_IN">Site URL नही है</value>
+        <value xml:lang="it">La URL del sito è mancante</value>
+        <value xml:lang="ja">Site URL is missing</value>
+        <value xml:lang="nl">Site URL mist</value>
+        <value xml:lang="pt_PT">Endereço de URL em Falta</value>
+        <value xml:lang="ro">Situl URL lipseste </value>
+        <value xml:lang="ru">Отсутствует URL сайта</value>
+        <value xml:lang="th">ไม่ได้ใส่ที่อยู่ URL</value>
+        <value xml:lang="zh">找不到站点网址</value>
     </property>
     <property key="PartySize">
         <value xml:lang="de">Grösse</value>
@@ -7077,15 +8117,32 @@
     <property key="PartySocialSecurityNumber">
         <value xml:lang="de">Sozialversicherungsnummer</value>
         <value xml:lang="en">Social Security Number</value>
-        <value xml:lang="es">Número de seguro social</value>
-        <value xml:lang="fr">Numéro de sécurité sociale</value>
-        <value xml:lang="it">Numero Sicurezza Sociale</value>
-        <value xml:lang="nl">BSN/Sofinummer</value>
-        <value xml:lang="pt_PT">Número de Segurança Social</value>
-        <value xml:lang="ro">Numar De Siguranta Social</value>
+        <value xml:lang="es">Numero de Seguridad Social</value>
+        <value xml:lang="fr">N° de sécurité sociale</value>
+        <value xml:lang="it">N° di sicurezza sociale</value>
+        <value xml:lang="ja">Social Security Number</value>
+        <value xml:lang="nl">Persoonsnummer</value>
+        <value xml:lang="pt_PT">Número da Segurança Social</value>
+        <value xml:lang="ro">Numar Siguranta Sociala</value>
         <value xml:lang="ru">Номер социального страхования</value>
-        <value xml:lang="th">หมายเลขประกันสังคม</value>
-        <value xml:lang="zh">身份号码</value>
+        <value xml:lang="th">หมายเลขบัตรประกันสังคม</value>
+        <value xml:lang="zh">社会保险号</value>
+    </property>
+    <property key="PartySolicitingOk">
+        <value xml:lang="cs">Svolení s poskytnutím třetím osobám OK</value>
+        <value xml:lang="de">Erlaubnis für die Weitergabe an Dritte OK</value>
+        <value xml:lang="en">Soliciting OK</value>
+        <value xml:lang="en_GB">Can we contact you</value>
+        <value xml:lang="es">Solicitud correcta</value>
+        <value xml:lang="fr">D'accord pour les sollicitations</value>
+        <value xml:lang="it">Acconsenti al sollecito</value>
+        <value xml:lang="ja">Soliciting OK</value>
+        <value xml:lang="nl">Suren productinformatie OK</value>
+        <value xml:lang="pt_PT">Solicitação Aceite</value>
+        <value xml:lang="ro">Solecitare OK</value>
+        <value xml:lang="ru">Soliciting OK</value>
+        <value xml:lang="th">ตกลงตามคำร้อง</value>
+        <value xml:lang="zh">提示</value>
     </property>
     <property key="PartyStartTime">
         <value xml:lang="de">Anfangszeit</value>
@@ -7101,17 +8158,20 @@
         <value xml:lang="zh">开始时间</value>
     </property>
     <property key="PartyState">
-        <value xml:lang="de">Staat/Provinz</value>
+        <value xml:lang="cs">Kraj</value>
+        <value xml:lang="de">Bundesland/Provinz</value>
         <value xml:lang="en">State/Province</value>
-        <value xml:lang="es">Estado</value>
+        <value xml:lang="es">Estado/Província</value>
         <value xml:lang="fr">Etat/Province</value>
+        <value xml:lang="hi_IN">राज्य</value>
         <value xml:lang="it">Stato/Provincia</value>
-        <value xml:lang="nl">Provincie/(Deel)staat</value>
+        <value xml:lang="ja">State/Province</value>
+        <value xml:lang="nl">Staat/Provincie</value>
         <value xml:lang="pt_PT">Distrito/Província</value>
         <value xml:lang="ro">Stat/Provincie</value>
-        <value xml:lang="ru">Штат/провинция</value>
+        <value xml:lang="ru">Штат/Провинция</value>
         <value xml:lang="th">เมือง/จังหวัด</value>
-        <value xml:lang="zh">省</value>
+        <value xml:lang="zh">州/省</value>
     </property>
     <property key="PartyStateInUsMissing">
         <value xml:lang="de">Staat fehlt und wird zwingend benötigt für eine Adresse in den Vereinigten Staaten.</value>
@@ -7125,6 +8185,14 @@
         <value xml:lang="ru">Отсутствует штат. Обязателен для адреса в США.</value>
         <value xml:lang="th">ไม่ได้ใส่เมือง, และต้องการที่อยู่ในสหรัฐอเมริกา</value>
         <value xml:lang="zh">缺少州，必须是美国的地址。</value>
+    </property>
+    <property key="PartyStateInCanadaMissing">
+        <value xml:lang="en">State is missing, and is required for an address in Canada.</value>
+        <value xml:lang="it">Stato mancante, ed è richiesto per un'indirizzo in Canada.</value>
+    </property>
+    <property key="PartyStateMissingError">
+        <value xml:lang="en">State is missing</value>
+        <value xml:lang="it">Stato è mancante</value>
     </property>
     <property key="PartyStatus">
         <value xml:lang="de">Status</value>
@@ -7165,15 +8233,18 @@
         <value xml:lang="zh">主题</value>
     </property>
     <property key="PartySuffix">
+        <value xml:lang="cs">Přípona</value>
         <value xml:lang="de">Suffix</value>
         <value xml:lang="en">Suffix</value>
         <value xml:lang="es">Sufijo</value>
         <value xml:lang="fr">Suffixe</value>
         <value xml:lang="it">Suffisso</value>
-        <value xml:lang="nl">Suffix</value>
+        <value xml:lang="ja">Suffix</value>
+        <value xml:lang="nl">Toevoeging</value>
+        <value xml:lang="pt_PT">Sufixo</value>
         <value xml:lang="ro">Sufix</value>
         <value xml:lang="ru">Суфикс</value>
-        <value xml:lang="th">คำต่อท้าย</value>
+        <value xml:lang="th">Suffix</value>
         <value xml:lang="zh">后缀</value>
     </property>
     <property key="PartySupplier">
@@ -7337,17 +8408,20 @@
         <value xml:lang="zh">条件</value>
     </property>
     <property key="PartyTheProfileOf">
+        <value xml:lang="cs">Profil</value>
         <value xml:lang="de">Das Profil von</value>
         <value xml:lang="en">The Profile of</value>
-        <value xml:lang="es">El perfil de</value>
+        <value xml:lang="es">El Perfil de</value>
         <value xml:lang="fr">Le profil de</value>
-        <value xml:lang="it">Il Profilo di</value>
+        <value xml:lang="hi_IN">जानकारी</value>
+        <value xml:lang="it">Il profilo di</value>
+        <value xml:lang="ja">The Profile of</value>
         <value xml:lang="nl">Het profiel van</value>
-        <value xml:lang="pt_PT">O Perfil De</value>
-        <value xml:lang="ro">Profilul de</value>
+        <value xml:lang="pt_PT">O Perfil de</value>
+        <value xml:lang="ro">Profilul </value>
         <value xml:lang="ru">Профиль</value>
-        <value xml:lang="th">ประวัติส่วนตัวของ</value>
-        <value xml:lang="zh">简介：</value>
+        <value xml:lang="th">ประวัติของ</value>
+        <value xml:lang="zh">简介</value>
     </property>
     <property key="PartyTime">
         <value xml:lang="de">Zeit</value>
@@ -7407,17 +8481,20 @@
         <value xml:lang="zh">到电子邮件地址</value>
     </property>
     <property key="PartyToName">
-        <value xml:lang="de">Zum Namen</value>
+        <value xml:lang="cs">Na jméno</value>
+        <value xml:lang="de">Name</value>
         <value xml:lang="en">To Name</value>
-        <value xml:lang="es">A la persona</value>
-        <value xml:lang="fr">Au nom</value>
-        <value xml:lang="it">Al Nome</value>
-        <value xml:lang="nl">T.a.v</value>
-        <value xml:lang="pt_PT">Ao Nome</value>
+        <value xml:lang="es">Nombre</value>
+        <value xml:lang="fr">Nom</value>
+        <value xml:lang="hi_IN">नाम को</value>
+        <value xml:lang="it">Nome</value>
+        <value xml:lang="ja">To Name</value>
+        <value xml:lang="nl">Aan Naam</value>
+        <value xml:lang="pt_PT">Para O Nome De</value>
         <value xml:lang="ro">La Nume</value>
         <value xml:lang="ru">На имя</value>
         <value xml:lang="th">ถึงชื่อ</value>
-        <value xml:lang="zh">到名称</value>
+        <value xml:lang="zh">名字</value>
     </property>
     <property key="PartyTotal">
         <value xml:lang="de">Total</value>
@@ -7430,6 +8507,22 @@
         <value xml:lang="ru">Итого</value>
         <value xml:lang="th">ผลรวม</value>
         <value xml:lang="zh">合计</value>
+    </property>
+    <property key="PartyTotalYearsWorkExperience">
+        <value xml:lang="cs">Počet let praxe</value>
+        <value xml:lang="de">Gesamtjahre Berufserfahrung</value>
+        <value xml:lang="en">Total Years Work Experience</value>
+        <value xml:lang="es">Total de años de experiéncia</value>
+        <value xml:lang="fr">Nombre d'année(s) d'expérience</value>
+        <value xml:lang="hi_IN">कितने साल से काम कर रहे है</value>
+        <value xml:lang="it">Totale anni esperienza lavorativa</value>
+        <value xml:lang="ja">Total Years Work Experience</value>
+        <value xml:lang="nl">Aantal jaren ervaring</value>
+        <value xml:lang="pt_PT">Total de Anos de Experiência de Trabalho</value>
+        <value xml:lang="ro">Total Ani Experienta de Lucru PartyUseCurrentAddress=Foloseste Adresa Actuala</value>
+        <value xml:lang="ru">Общий стаж работы</value>
+        <value xml:lang="th">จำนวนปีทั้งหมดของประสบการณ์การทำงาน</value>
+        <value xml:lang="zh">全部工作年限</value>
     </property>
     <property key="PartyTotalYearsWorkNotValidNumber">
         <value xml:lang="de">Anzahl Jahre Arbeitserfahrung ist keine gültige Zahl</value>
@@ -7567,12 +8660,19 @@
         <value xml:lang="zh">安全错误: 要运行 updateWebSiteRole，你必须具有 PARTYMGR_UPDATE 或 PARTYMGR_ADMIN 权限</value>
     </property>
     <property key="PartyUseCurrentAddress">
-        <value xml:lang="de">Aktuelle Adresse verwenden</value>
+        <value xml:lang="cs">Použít současnou adresu</value>
+        <value xml:lang="de">Gegenwärtige Adresse benutzen</value>
         <value xml:lang="en">Use Current Address</value>
-        <value xml:lang="es">Usar la dirección actual</value>
-        <value xml:lang="fr">Utiliser l'adresse courante</value>
-        <value xml:lang="nl">Huidig adres gebruiken</value>
-        <value xml:lang="th">ที่อยู่ปัจจุบบัน</value>
+        <value xml:lang="es">Utilizar Dirección Actual</value>
+        <value xml:lang="fr">Utilser l'adresse courante</value>
+        <value xml:lang="hi_IN">यह पता उपयोग किजीये</value>
+        <value xml:lang="it">Usare l'indirizzo corrente</value>
+        <value xml:lang="ja">Use Current Address</value>
+        <value xml:lang="nl">Gebruik het huidige adres</value>
+        <value xml:lang="pt_PT">Usar Morada Actual</value>
+        <value xml:lang="ru">Использовать текущий адрес</value>
+        <value xml:lang="th">ใช้ที่อยู่</value>
+        <value xml:lang="zh">使用当前地址</value>
     </property>
     <property key="PartyUserCreated">
         <value xml:lang="de">Benutzer erstellt</value>
@@ -7624,6 +8724,22 @@
         <value xml:lang="ru">Код имени пользователя</value>
         <value xml:lang="th">รหัสผู้ใช้ระบบ</value>
         <value xml:lang="zh">用户登录标识</value>
+    </property>
+    <property key="PartyUserLoginMissingError">
+        <value xml:lang="cs">Chybí uživatelské jméno</value>
+        <value xml:lang="de">Nutzername fehlt</value>
+        <value xml:lang="en">Username is Missing</value>
+        <value xml:lang="es">Falta nombre de usuario</value>
+        <value xml:lang="fr">Nom d'utilisateur absent</value>
+        <value xml:lang="hi_IN">नाम नही है</value>
+        <value xml:lang="it">Nome Utente mancante</value>
+        <value xml:lang="ja">ユーザ名が見つかりません</value>
+        <value xml:lang="nl">Gebruikersnaam mist</value>
+        <value xml:lang="pt_PT">Nome de Utilizador em Falta</value>
+        <value xml:lang="ro">Nume Utilizator Lipseste</value>
+        <value xml:lang="ru">Отсутствует имя пользователя</value>
+        <value xml:lang="th">ไม่ได้ใส่ชื่อผู้ใช้</value>
+        <value xml:lang="zh">找不到用户名</value>
     </property>
     <property key="PartyUserLoginUpdateSecuritySettings">
         <value xml:lang="de">Benutzeranmeldung Sicherheitsberechtigungen aktualisieren</value>
@@ -7886,11 +9002,14 @@
         <value xml:lang="zh">网站应用</value>
     </property>
     <property key="PartyWeight">
+        <value xml:lang="cs">Váha</value>
         <value xml:lang="de">Gewicht</value>
         <value xml:lang="en">Weight</value>
-        <value xml:lang="es">Peso</value>
+        <value xml:lang="es">Ancho</value>
         <value xml:lang="fr">Poids</value>
+        <value xml:lang="hi_IN">भार</value>
         <value xml:lang="it">Peso</value>
+        <value xml:lang="ja">Weight</value>
         <value xml:lang="nl">Gewicht</value>
         <value xml:lang="pt_PT">Peso</value>
         <value xml:lang="ro">Greutate</value>
@@ -7911,17 +9030,19 @@
         <value xml:lang="zh">重量不是有效数字</value>
     </property>
     <property key="PartyYearsWork">
-        <value xml:lang="de">Jahre Arbeitserfahrung</value>
+        <value xml:lang="de">Arbeitsjahre</value>
         <value xml:lang="en">Years Work</value>
-        <value xml:lang="es">Años de trabajo</value>
-        <value xml:lang="fr">Années d'expérience</value>
-        <value xml:lang="it">Anni Lavorativi</value>
-        <value xml:lang="nl">Jaren werkervaring</value>
+        <value xml:lang="es">Años de experiencia</value>
+        <value xml:lang="fr">Année(s) d'expérience</value>
+        <value xml:lang="hi_IN">साल का काम</value>
+        <value xml:lang="it">Anni di lavoro</value>
+        <value xml:lang="ja">Years Work</value>
+        <value xml:lang="nl">Jaren werk</value>
         <value xml:lang="pt_PT">Anos de Trabalho</value>
-        <value xml:lang="ro">Ani Vechime</value>
-        <value xml:lang="ru">Лет работы</value>
+        <value xml:lang="ro">Ani de Lucru</value>
+        <value xml:lang="ru">Работаю лет</value>
         <value xml:lang="th">ปีที่ทำงาน</value>
-        <value xml:lang="zh">年工作</value>
+        <value xml:lang="zh">年（工作）</value>
     </property>
     <property key="PartyYouHave">
         <value xml:lang="de">Sie haben</value>
@@ -7936,17 +9057,38 @@
         <value xml:lang="zh">你有</value>
     </property>
     <property key="PartyZipCode">
+        <value xml:lang="cs">PSČ</value>
         <value xml:lang="de">Postleitzahl</value>
         <value xml:lang="en">Zip/Postal Code</value>
-        <value xml:lang="es">Código postal</value>
+        <value xml:lang="en_GB">Postal Code</value>
+        <value xml:lang="es">Código Postal</value>
         <value xml:lang="fr">Code postal</value>
-        <value xml:lang="it">C.A.P.</value>
+        <value xml:lang="hi_IN">‍‍जिप कोड</value>
+        <value xml:lang="it">Codice Postale</value>
+        <value xml:lang="ja">Zip/Postal Code</value>
         <value xml:lang="nl">Postcode</value>
-        <value xml:lang="pt_PT">Código Postal</value>
-        <value xml:lang="ro">C.A.P.</value>
+        <value xml:lang="pt_PT">Codigo Postal</value>
+        <value xml:lang="ro">CAP/Cod Postal</value>
         <value xml:lang="ru">Почтовый индекс</value>
-        <value xml:lang="th">รหัสไปรษณีย์</value>
+        <value xml:lang="th">รหัสไปรษณีย์/รหัสพื้นที่</value>
         <value xml:lang="zh">邮政编码</value>
+    </property>
+    <property key="PartyZipCodeMissing">
+        <value xml:lang="cs">Chybí PSČ</value>
+        <value xml:lang="de">Postleitzahl fehlt</value>
+        <value xml:lang="en">Zip/Postal Code is missing</value>
+        <value xml:lang="en_GB">Zip/Postal Code is missing</value>
+        <value xml:lang="es">Falta Código Postal</value>
+        <value xml:lang="fr">Code postal absent</value>
+        <value xml:lang="hi_IN">‍‍जिप कोड नही है</value>
+        <value xml:lang="it">Codice Postale mancante</value>
+        <value xml:lang="ja">Zip/Postal Code is missing</value>
+        <value xml:lang="nl">Postcode mist</value>
+        <value xml:lang="pt_PT">Codigo Postal em Falta</value>
+        <value xml:lang="ro">CAP/Cod Postal Lipseste </value>
+        <value xml:lang="ru">Отсутствует почтовый индекс</value>
+        <value xml:lang="th">ไม่ได้ใส่รหัสไปรษณีย์/รหัสพื้นที่</value>
+        <value xml:lang="zh">找不到邮政编码</value>
     </property>
     <property key="PartyremoveCommunicationEventRolePermissionError">
         <value xml:lang="de">Sicherheitsfehler: um removeCommunicationEventRole auszuführen müssen Sie die Berechtigung PARTYMGR_DELETE oder PARTYMGR_ADMIN besitzen</value>

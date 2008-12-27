@@ -122,13 +122,13 @@ under the License.
                 </call-map-processor>
                 <if-compare value="USA" operator="equals" field="parameters.CUSTOMER_COUNTRY">
                     <if-empty field="parameters.CUSTOMER_STATE">
-                        <set field="tempErrorMessage" value="State is missing, and is required for an address in the United States." />
+                        <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInUsMissing"/>
                         <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
                     </if-empty>
                 </if-compare>
                 <if-compare value="CAN" operator="equals" field="parameters.CUSTOMER_COUNTRY">
                     <if-empty field="parameters.CUSTOMER_STATE">
-                        <set field="tempErrorMessage" value="State is missing, and is required for an address in Canada." />
+                        <property-to-field field-name="tempErrorMessage" resource="PartyUiLabels" property="PartyStateInCanadaMissing"/>
                         <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
                     </if-empty>
                 </if-compare>
