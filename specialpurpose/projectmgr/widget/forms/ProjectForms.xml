@@ -383,11 +383,18 @@
     </form>
     <form name="ListProjectCompanyParties" type="list" list-name="companyAssigns"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
+        <row-actions>
+            <entity-one entity-name="PartyAcctgPreference" value-name="orgParty"/>
+            <entity-one entity-name="Party" value-name="clientParty"/>
+            <set field="currencyUomId" value="${bsh:orgParty!=null&amp;&amp;orgParty.getString(&quot;baseCurrencyUomId&quot;)!=null?orgParty.getString(&quot;baseCurrencyUomId&quot;):&quot;&quot;}"/>
+            <set field="currencyUomId" value="${bsh:clientParty!=null&amp;&amp;clientParty.getString(&quot;preferredCurrencyUomId&quot;)!=null?clientParty.getString(&quot;preferredCurrencyUomId&quot;):currencyUomId}"/>
+        </row-actions>
         <field name="projectId"><hidden/></field>
         <field name="partyName" title="${uiLabelMap.CommonName}">
             <hyperlink target="viewprofile?partyId=${partyId}" description="${groupName} [${partyId}]"/>
         </field>
         <field name="roleTypeId"><display-entity entity-name="RoleType" description="${description}"/></field>
+        <field name="currencyUomId"><display-entity entity-name="Uom" key-field-name="uomId" description="${description}"></display-entity></field>
     </form>
     <form name="EditProjectSkills" type="list" target="updateProjectSkillStandard" list-name="workEffortSkillStandardList" paginate-target="EditProjectSkills"
         odd-row-style="alternate-row" default-table-style="basic-table hover-bar">
