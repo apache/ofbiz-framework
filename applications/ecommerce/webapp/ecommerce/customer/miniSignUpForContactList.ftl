@@ -48,7 +48,7 @@ under the License.
                         </#list>
                     </select>
 
-                    <input type="submit" value="${uiLabelMap.CommonSubscribe}" class="smallSubmit"/>
+                    <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
                 </form>
             <#else>
                 <#-- Not logged in so ask them to log in and then sign up or clear the user association -->
@@ -62,7 +62,7 @@ under the License.
                 <span class="tabletext">${uiLabelMap.EcommerceSignUpForContactListComments}</span>
                 <@contactList publicEmailContactLists=publicEmailContactLists/>
                 <input size="20" maxlength="255" name="email" class="inputBox" value="" type="text">
-                <input type="submit" value="${uiLabelMap.CommonSubscribe}" class="smallSubmit"/>
+                <input type="submit" value="${uiLabelMap.EcommerceSubscribe}" class="smallSubmit"/>
             </form>
         </#if>
     </div>
