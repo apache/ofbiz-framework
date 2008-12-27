@@ -62,7 +62,7 @@ under the License.
             <!-- now for more fun, split up by productId; this should generally not happen, but we'll make sure here -->
             <clear-field field-name="oiirailByProdMap"/>
             <iterate entry-name="orderItemShipGrpInvResAndItemLocation" list-name="perLocationOiirailList">
-                <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByProdMap[&quot;${orderItemShipGrpInvResAndItemLocation.productId}&quot;]"/>
+                <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByProdMap[orderItemShipGrpInvResAndItemLocation.productId]"/>
             </iterate>
 
             <clear-field field-name="perProductOiirailList"/>
