@@ -309,7 +309,7 @@ function getConfigDetails(event) {
           <#else>
             <input type='hidden' name="product_id" value='${product.productId}'>
             <input type='hidden' name="add_product_id" value='NULL'>
-            <div class='tabletext'><b>${uiLabelMap.ProductItemOutofStock}.</b></div>
+            <div class='tabletext'><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
             <#assign inStock = false>
           </#if>
         <#else>
@@ -318,7 +318,7 @@ function getConfigDetails(event) {
           <#if productNotAvailable?exists>
             <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
             <#if isStoreInventoryRequired>
-              <div class='tabletext'><b>${uiLabelMap.ProductItemOutofStock}.</b></div>
+              <div class='tabletext'><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
               <#assign inStock = false>
             <#else>
               <div class='tabletext'><b>${product.inventoryMessage?if_exists}</b></div>

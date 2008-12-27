@@ -467,7 +467,7 @@ ${virtualJavaScript?if_exists}
           <#else>
             <input type="hidden" name="product_id" value="${product.productId}"/>
             <input type="hidden" name="add_product_id" value="NULL"/>
-            <div><b>${uiLabelMap.ProductItemOutofStock}.</b></div>
+            <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
             <#assign inStock = false>
           </#if>
          </#if> 
@@ -478,7 +478,7 @@ ${virtualJavaScript?if_exists}
           <#assign isStoreInventoryRequired = Static["org.ofbiz.product.store.ProductStoreWorker"].isStoreInventoryRequired(request, product)>
           <#if isStoreInventoryNotAvailable>
             <#if isStoreInventoryRequired>
-              <div><b>${uiLabelMap.ProductItemOutofStock}.</b></div>
+              <div><b>${uiLabelMap.ProductItemOutOfStock}.</b></div>
               <#assign inStock = false>
             <#else>
               <div><b>${product.inventoryMessage?if_exists}</b></div>

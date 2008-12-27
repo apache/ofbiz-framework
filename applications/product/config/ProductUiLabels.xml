@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountingBillingAcc">
         <value xml:lang="de">Rechnungskonto</value>
         <value xml:lang="en">Billing Accounts</value>
@@ -7695,16 +7696,21 @@
         <value xml:lang="zh">添加产品关键字</value>
     </property>
     <property key="ProductAddProductsUsingDefaultQuantities">
-        <value xml:lang="de">Produkte dieser Kategorie in den Warenkorb legen mit den Standartmengen</value>
+        <value xml:lang="cs">Přidat výrobky této skupiny do košíku v přednastaveném možství</value>
+        <value xml:lang="de">Produkte dieser Produktgruppe in der vorgegebenen Menge in den Warenkorb legen</value>
         <value xml:lang="en">Add Products in this Category to the Cart using Default Quantities</value>
-        <value xml:lang="es">Añadir Productos de esta Categoría al carro usando cantidades por defecto</value>
+        <value xml:lang="en_GB">Add Products in this Category to the basket using default quantities</value>
+        <value xml:lang="es">Agregue los productos en esta categoría al carro usando cantidades predeterminadas</value>
         <value xml:lang="fr">Ajouter des articles de cette catégorie dans le panier avec les quantités par défaut</value>
-        <value xml:lang="it">Aggiungi Prodotti in questa Categoria al Carrello usando le Quantità di Default</value>
-        <value xml:lang="ro">Adauga Produse din aceasta Categorie la Cos folosind Cantitatile de Default</value>
-        <value xml:lang="ru">Добавить продукты этой категории в корзину в обычном количестве</value>
-        <value xml:lang="th">เพิ่มสินค้าในหมวดหมู่นี้ไปยังบัตรใช้ค่าจำนวนเริ่มต้น
-        </value>
-        <value xml:lang="zh">把这个分类的产品按缺省数量添加到购物车</value>
+        <value xml:lang="hi_IN">इस टोकरी मे सामान्य भार कि वस्तु डालिये</value>
+        <value xml:lang="it">Aggiungi al carrello i prodotti di questa categoria usando la quantità di default</value>
+        <value xml:lang="ja">Add Products in this Category to the Cart using Default Quantities</value>
+        <value xml:lang="nl">Voeg produkten in deze categorie toe aan de winkelwagen gebruikmakende van de default hoeveelheden</value>
+        <value xml:lang="pt_PT">Adicionar Produtos desta Categoria para o Cesto usando as Quantidades Pré-definidas</value>
+        <value xml:lang="ro">Adauga produse din aceasta Categorie la Cos folosind Cantitate de Default</value>
+        <value xml:lang="ru">Добавить продукты этой категории в корзину используя обычное количество</value>
+        <value xml:lang="th">เพิ่มสินค้าในหมวดหมู่นี้ลงในบัตรตามจำนวนที่กำหนด</value>
+        <value xml:lang="zh">在这个分类中使用缺省数量把产品放入购物车</value>
     </property>
     <property key="ProductAddPromoRule">
         <value xml:lang="de">Neue Aktionsregel hinzufügen</value>
@@ -7758,8 +7764,7 @@
         <value xml:lang="it">Aggiungi Promozione Negozio (seleziona Promozione, inserire opzionalmente Da Data)</value>
         <value xml:lang="ro">Adauga Promovare Magazin (selectioneaza Promotie, introduceti in mod optional de la Data)</value>
         <value xml:lang="ru">Добавить условия акции к торговой точке (выберите акцию, можно ввести дату начала)</value>
-        <value xml:lang="th">เพิ่มคลังโปรโมชัน (เลือกโปรโมชัน , กรอกตัวเลือกจากวันที่)
-        </value>
+        <value xml:lang="th">เพิ่มคลังโปรโมชัน (เลือกโปรโมชัน , กรอกตัวเลือกจากวันที่)</value>
         <value xml:lang="zh">添加店铺促销(选择促销，输入可选的开始日期)</value>
     </property>
     <property key="ProductAddToCategory">
@@ -7784,6 +7789,20 @@
         <value xml:lang="th">เพิ่มไปยังกลุ่ม</value>
         <value xml:lang="zh">添加到包装</value>
     </property>
+    <property key="ProductAddToShoppingList">
+        <value xml:lang="de">Zu Einkaufsliste hinzufügen</value>
+        <value xml:lang="en">Add to shopping list</value>
+        <value xml:lang="es">Añadir a la lista de compras</value>
+        <value xml:lang="fr">Ajouter à la liste d'achat</value>
+        <value xml:lang="hi_IN">खरीदारी सूची मे जोडिये</value>
+        <value xml:lang="it">Aggiungi alla lista di acquisto</value>
+        <value xml:lang="ja">Add to shopping list</value>
+        <value xml:lang="nl">Voeg aan de winkelwagen toe</value>
+        <value xml:lang="ro">Adauga la lista de cumparare </value>
+        <value xml:lang="ru">Добавить с список покупок</value>
+        <value xml:lang="th">เพิ่มรายการซื้อสินค้า</value>
+        <value xml:lang="zh">放入购物列表</value>
+    </property>
     <property key="ProductAdditionalShippingCharge">
         <value xml:lang="de">Zusätzliche Lieferkosten</value>
         <value xml:lang="en">Additional Shipping Charge</value>
@@ -7805,27 +7824,53 @@
         <value xml:lang="th">ที่อยู่</value>
         <value xml:lang="zh">地址</value>
     </property>
+    <property key="ProductAdvancedSearch">
+        <value xml:lang="cs">Rozšířené hledání</value>
+        <value xml:lang="de">Erweiterte Suche</value>
+        <value xml:lang="en">Advanced Search</value>
+        <value xml:lang="es">Búsqueda Avanzada</value>
+        <value xml:lang="fr">Recherche avancée</value>
+        <value xml:lang="hi_IN">वृहद खोज</value>
+        <value xml:lang="it">Ricerca avanzata</value>
+        <value xml:lang="ja">詳細検索</value>
+        <value xml:lang="nl">Uitgebreid zoeken</value>
+        <value xml:lang="pt_PT">Procura Avançada</value>
+        <value xml:lang="ro">Cautare Avansata</value>
+        <value xml:lang="ru">Расширенный поиск</value>
+        <value xml:lang="th">ค้นหาเพิ่มขึ้น</value>
+        <value xml:lang="zh">高级搜索</value>
+    </property>
     <property key="ProductAdvancedSearchIn">
+        <value xml:lang="cs">Rozšířené hledání v</value>
         <value xml:lang="de">Erweiterte Suche in</value>
         <value xml:lang="en">Advanced Search in</value>
         <value xml:lang="es">Búsqueda Avanzada en</value>
         <value xml:lang="fr">Recherche avancée dans</value>
-        <value xml:lang="it">Ricerca Avanzata in</value>
+        <value xml:lang="hi_IN">इसमे वृहद खोज</value>
+        <value xml:lang="it">Ricerca avanzata in</value>
+        <value xml:lang="ja">Advanced Search in</value>
+        <value xml:lang="nl">Uitgebreid zoeken in</value>
+        <value xml:lang="pt_PT">Procura Avançada Em</value>
         <value xml:lang="ro">Cautare Avansata in</value>
         <value xml:lang="ru">Расширенный поиск в</value>
-        <value xml:lang="th">ค้นหาเพิ่มเติมใน</value>
+        <value xml:lang="th">ค้นหาเพิ่มขึ้นใน</value>
         <value xml:lang="zh">高级搜索：</value>
     </property>
-    <property key="ProductAdvancedSearchinCategory">
-        <value xml:lang="de">Erweiterte Suche in Kategorie</value>
+    <property key="ProductAdvancedSearchInCategory">
+        <value xml:lang="cs">Rozšířené hledání ve skupině výrobků</value>
+        <value xml:lang="de">Erweiterte Suche in der Produktgruppe</value>
         <value xml:lang="en">Advanced Search in Category</value>
-        <value xml:lang="es">Búsqueda Avanzada en Categoría</value>
+        <value xml:lang="es">Búsqueda Avanzada en las Categorías</value>
         <value xml:lang="fr">Recherche avancée dans les catégories</value>
-        <value xml:lang="it">Ricerca Avanzata nella Categoria</value>
+        <value xml:lang="hi_IN">वृहद खोज इस सूची मे</value>
+        <value xml:lang="it">Ricerca avanzata in categoria</value>
+        <value xml:lang="ja">Advanced Search in Category</value>
+        <value xml:lang="nl">Uitgebreid zoeken in de categorie</value>
+        <value xml:lang="pt_PT">Procura Avançada Na Categoria</value>
         <value xml:lang="ro">Cautare Avansata in Categoria</value>
         <value xml:lang="ru">Расширенный поиск в категории</value>
-        <value xml:lang="th">ค้นหาเพิ่มเติมในหมวดหมู่</value>
-        <value xml:lang="zh">高级搜索：分类</value>
+        <value xml:lang="th">ค้นหาตามหมวดหมู่เพิ่มขึ้น</value>
+        <value xml:lang="zh">高级搜索：目录</value>
     </property>
     <property key="ProductAggregatedPrice">
         <value xml:lang="de">Aggregierter Produktpreis</value>
@@ -8434,11 +8479,19 @@
         <value xml:lang="zh">价格底线</value>
     </property>
     <property key="ProductBeTheFirstToReviewThisProduct">
-        <value xml:lang="de">Bewerten Sie dieses Produkt als erster!</value>
+        <value xml:lang="cs">Staňte se prvním, kdo zhodnotí tetnto výrobek</value>
+        <value xml:lang="de">Seien Sie der Erste, der dieses Produkt beurteilt!</value>
         <value xml:lang="en">Be The First To Review This Product!</value>
-        <value xml:lang="es">¡Sea el primero en evaluar el producto!</value>
-        <value xml:lang="fr">Soyer le premier à évaluer cet article !</value>
-        <value xml:lang="th">เป็นครั้งแรกที่ตรวจสอบสินค้านี้!</value>
+        <value xml:lang="es">Sea El Primero en echar un vistazo a este Producto!</value>
+        <value xml:lang="fr">Soyez le premier à mettre un commentaire pour cet article</value>
+        <value xml:lang="hi_IN">इस सामान के पहले जान्चकर्ता बनिये</value>
+        <value xml:lang="it">Recensisci il prodotto per primo!</value>
+        <value xml:lang="ja">Be The First To Review This Product!</value>
+        <value xml:lang="nl">Wees de eerste die dit product beoordeelt!</value>
+        <value xml:lang="ro">Fii Primul Pentru a Revedea Acest  Produs!</value>
+        <value xml:lang="ru">Первыми оставьте отзыв о этом продукте!</value>
+        <value xml:lang="th">กลับไปดูสินค้านี้ก่อน!</value>
+        <value xml:lang="zh">做这个产品的第一个评论者</value>
     </property>
     <property key="ProductBillingWeightUom">
         <value xml:lang="de">Verrechnung Gewicht Einheit</value>
@@ -8507,6 +8560,14 @@
         <value xml:lang="th">ยี่ห้อ</value>
         <value xml:lang="zh">品牌名称</value>
     </property>
+    <property key="ProductBrowseBlogs">
+        <value xml:lang="de">Blogs durchsuchen</value>
+        <value xml:lang="en">Browse Blogs</value>
+        <value xml:lang="fr">Parcourir les blogs</value>
+        <value xml:lang="it">Sfoglia i blog</value>
+        <value xml:lang="ru">Просмотр блогов</value>
+        <value xml:lang="th">ดูบันทึกข้อมูลส่วนตัว</value>
+    </property>
     <property key="ProductBrowseCatalogs">
         <value xml:lang="de">Kataloge anzeigen</value>
         <value xml:lang="en">Browse Catalogs</value>
@@ -8519,15 +8580,49 @@
         <value xml:lang="zh">浏览目录</value>
     </property>
     <property key="ProductBrowseCategories">
-        <value xml:lang="de">Kategorien anzeigen</value>
+        <value xml:lang="cs">Výběr skupiny výrobků</value>
+        <value xml:lang="de">Produktgruppen durchsuchen</value>
         <value xml:lang="en">Browse Categories</value>
-        <value xml:lang="es">Examinar Categorías</value>
-        <value xml:lang="fr">Consulter les catégories</value>
-        <value xml:lang="it">Mostra Categorie</value>
-        <value xml:lang="ro">Afiseaza Categorie</value>
-        <value xml:lang="ru">Категории</value>
-        <value xml:lang="th">แสดงหมวดหมู่</value>
+        <value xml:lang="es">Hojear Categorías</value>
+        <value xml:lang="fr">Parcourir les catégories</value>
+        <value xml:lang="hi_IN">सूची देखिये</value>
+        <value xml:lang="it">Sfoglia le categorie</value>
+        <value xml:lang="ja">カタログの表示</value>
+        <value xml:lang="nl">Bekijk Categorieen</value>
+        <value xml:lang="pt_PT">Pesquisar Categorias</value>
+        <value xml:lang="ro">Afisare Categorie</value>
+        <value xml:lang="ru">Просмотр категорий</value>
+        <value xml:lang="th">ดูตามหมวดหมู่</value>
         <value xml:lang="zh">浏览分类</value>
+    </property>
+    <property key="ProductBrowseContent">
+        <value xml:lang="cs">Výběr výrobku</value>
+        <value xml:lang="de">Inhalt durchsuchen</value>
+        <value xml:lang="en">Browse Content</value>
+        <value xml:lang="es">Buscar Contenido</value>
+        <value xml:lang="fr">Parcourir le contenu</value>
+        <value xml:lang="hi_IN">सूची जानकारी देखिये</value>
+        <value xml:lang="it">Sfoglia i contenuti</value>
+        <value xml:lang="ja">Browse Content</value>
+        <value xml:lang="nl">Bekijk Inhoud</value>
+        <value xml:lang="ro">Afisare Contenuti</value>
+        <value xml:lang="ru">Просмотр контента</value>
+        <value xml:lang="th">ดูตามหัวข้อ</value>
+        <value xml:lang="zh">浏览内容</value>
+    </property>
+    <property key="ProductBrowseForums">
+        <value xml:lang="cs">Výběr fóra</value>
+        <value xml:lang="de">Foren durchsuchen</value>
+        <value xml:lang="en">Browse Forums</value>
+        <value xml:lang="es">Buscar Fóros</value>
+        <value xml:lang="fr">Parcourir les forums</value>
+        <value xml:lang="it">Sfoglia i forum</value>
+        <value xml:lang="ja">フォーラムの表示</value>
+        <value xml:lang="nl">Bekijk Forums</value>
+        <value xml:lang="ro">Afisare Forums</value>
+        <value xml:lang="ru">Просмотр форумов</value>
+        <value xml:lang="th">ดูความคิดเห็น</value>
+        <value xml:lang="zh">浏览论坛</value>
     </property>
     <property key="ProductBulkItem">
         <value xml:lang="de">Massenprodukt</value>
@@ -8563,6 +8658,22 @@
         <value xml:lang="fr">Par articles</value>
         <value xml:lang="it">Per Prodotto</value>
         <value xml:lang="th">โดยสินค้า</value>
+    </property>
+    <property key="ProductCannotReviewUnKnownProduct">
+        <value xml:lang="cs">Nemůžete hodnotit neznámý produkt</value>
+        <value xml:lang="de">Sie können ein unbekanntes Produkt nicht beurteilen</value>
+        <value xml:lang="en">Cannot review an unknown product</value>
+        <value xml:lang="es">No puede repasar un producto desconocido</value>
+        <value xml:lang="fr">Impossible de passer en revue un produit inconnu</value>
+        <value xml:lang="hi_IN">अन्जान सामान नही देखा जाएगा</value>
+        <value xml:lang="it">Non è possibile recensire un prodotto sconosciuto</value>
+        <value xml:lang="ja">Cannot review an unknown product</value>
+        <value xml:lang="nl">Kan niet een onbekend produkt beoordelen</value>
+        <value xml:lang="pt_PT">Impossível rever um produto desconhecido</value>
+        <value xml:lang="ro">Nu este posibila revederea unui produs necunoscut</value>
+        <value xml:lang="ru">Невозможно просмотреть неизвестный продукт</value>
+        <value xml:lang="th">ไม่สามารถดูสินค้าที่ไม่รู้จักนี้ได้</value>
+        <value xml:lang="zh">无法浏览未知的产品</value>
     </property>
     <property key="ProductCarrier">
         <value xml:lang="de">Transportunternehmen</value>
@@ -8766,12 +8877,17 @@
         <value xml:lang="zh">分类用于</value>
     </property>
     <property key="ProductCategory">
-        <value xml:lang="de">Kategorie</value>
+        <value xml:lang="cs">Skupina výrobků</value>
+        <value xml:lang="de">Produktgruppe</value>
         <value xml:lang="en">Category</value>
         <value xml:lang="es">Categoría</value>
         <value xml:lang="fr">Catégorie</value>
+        <value xml:lang="hi_IN">सूची</value>
         <value xml:lang="it">Categoria</value>
-        <value xml:lang="ro">Categorie</value>
+        <value xml:lang="ja">カテゴリ</value>
+        <value xml:lang="nl">Categorie</value>
+        <value xml:lang="pt_PT">Categoria</value>
+        <value xml:lang="ro">Categoria</value>
         <value xml:lang="ru">Категория</value>
         <value xml:lang="th">หมวดหมู่</value>
         <value xml:lang="zh">分类</value>
@@ -8837,17 +8953,21 @@
         <value xml:lang="th">สมาชิกหมวดหมู่</value>
         <value xml:lang="zh">分类成员</value>
     </property>
-    <property key="ProductCategoryNotFoundforCategoryID">
-        <value xml:lang="de">Kategorie nicht gefunden für Kategorie ID</value>
+    <property key="ProductCategoryNotFoundForCategoryID">
+        <value xml:lang="cs">Skupina výrobků nenalezena</value>
+        <value xml:lang="de">Produktgruppe wurde nicht gefunden mit ID</value>
         <value xml:lang="en">Category not found for Category ID</value>
-        <value xml:lang="es">No se encontró una Categoría con el código de Categoría</value>
+        <value xml:lang="es">Categoría no encontrada por ID</value>
         <value xml:lang="fr">Aucune catégorie pour cet réf.</value>
-        <value xml:lang="it">Categoria non trovata per Codice Categoria</value>
-        <value xml:lang="ro">Categorie negasita pentru Cod Categorie</value>
-        <value xml:lang="ru">Категория не найдена для категории с кодом</value>
-        <value xml:lang="th">ไม่พบหมวดหมู่สำหรับรหัสหมวดหมู่
-        </value>
-        <value xml:lang="zh">没有找到分类，分类标识</value>
+        <value xml:lang="hi_IN">सूची का सूची नम्बर नही मिला</value>
+        <value xml:lang="it">Nessuna categoria non questo codice</value>
+        <value xml:lang="ja">Category not found for Category ID</value>
+        <value xml:lang="nl">Categorie niet gevonden voor categorie ID</value>
+        <value xml:lang="pt_PT">Categoria não encontrada para a ID</value>
+        <value xml:lang="ro">Categoria negasita pe Cod Categorie</value>
+        <value xml:lang="ru">Категория не найдена для Category ID</value>
+        <value xml:lang="th">ไม่พบหมวดหมู่ของรหัสหมวดหมู่นี้</value>
+        <value xml:lang="zh">没有找到分类——分类标识</value>
     </property>
     <property key="ProductCategoryPage">
         <value xml:lang="de">Kategorie Seite</value>
@@ -9039,19 +9159,24 @@
         <value xml:lang="it">Codice Gruppo Figlio</value>
         <value xml:lang="ro">Cod Grup Fiu</value>
         <value xml:lang="ru">Код подчиненной группы</value>
-        <value xml:lang="th">รหัสกลุ่มเด็ก
-        </value>
+        <value xml:lang="th">รหัสกลุ่มเด็ก</value>
         <value xml:lang="zh">下级组标识</value>
     </property>
     <property key="ProductChooseCatalog">
+        <value xml:lang="cs">Výběr z katalogu</value>
         <value xml:lang="de">Katalog auswählen</value>
         <value xml:lang="en">Choose Catalog</value>
+        <value xml:lang="en_GB">Choose catalogue</value>
         <value xml:lang="es">Elegir Catálogo</value>
         <value xml:lang="fr">Choisir un catalogue</value>
-        <value xml:lang="it">Scegli Catalogo</value>
+        <value xml:lang="hi_IN">सूची चुनाव किजीये</value>
+        <value xml:lang="it">Scegli catalogo</value>
+        <value xml:lang="ja">カタログを選択</value>
+        <value xml:lang="nl">Selecteer een catalogus</value>
+        <value xml:lang="pt_PT">Escolher Catálogo</value>
         <value xml:lang="ro">Alege Catalog</value>
-        <value xml:lang="ru">Выбрать каталог</value>
-        <value xml:lang="th">เลือกหมวดหมู่</value>
+        <value xml:lang="ru">Выберите каталог</value>
+        <value xml:lang="th">เลือกหมวดหมู่สินค้า</value>
         <value xml:lang="zh">选择目录</value>
     </property>
     <property key="ProductChooseFeatureCategory">
@@ -9086,6 +9211,22 @@
         <value xml:lang="ru">Категория верх. уровня</value>
         <value xml:lang="th">เลือกหมวดหมู่</value>
         <value xml:lang="zh">选择顶级分类</value>
+    </property>
+    <property key="ProductChooseQuickAddCategory">
+        <value xml:lang="cs">Výběr zrychleným zadáním produktové skupiny</value>
+        <value xml:lang="de">Auswahl einer Produktgruppe für Schnelleingabe</value>
+        <value xml:lang="en">Choose QuickAdd Category</value>
+        <value xml:lang="es">Elegir la categoría Añadir-Rápido</value>
+        <value xml:lang="fr">Choisir une catégorie d'ajout-rapide</value>
+        <value xml:lang="hi_IN">जल्द सूची का चुनाव किजीये</value>
+        <value xml:lang="it">Scegli una categoria per l'aggiunta veloce</value>
+        <value xml:lang="ja">Choose QuickAdd Category</value>
+        <value xml:lang="nl">Selecteer een 'snel toevoegen' Categorie</value>
+        <value xml:lang="pt_PT">Seleccionar Categoria de Compra Expresso</value>
+        <value xml:lang="ro">Alege Categoria Adaugata Rapid</value>
+        <value xml:lang="ru">Выберите QuickAdd категорию</value>
+        <value xml:lang="th">เลือกเพิ่มหมวดหมู่อย่างรวดเร็ว</value>
+        <value xml:lang="zh">选择快速添加的分类</value>
     </property>
     <property key="ProductComments">
         <value xml:lang="de">Kommentare</value>
@@ -9124,15 +9265,19 @@
         <value xml:lang="zh_CN">OFBiz的一部分</value>
     </property>
     <property key="ProductCompareAtPrice">
-        <value xml:lang="de">Vergleichen Mit</value>
+        <value xml:lang="cs">Porovnat cenu</value>
+        <value xml:lang="de">Preis vergleichen</value>
         <value xml:lang="en">Compare At</value>
-        <value xml:lang="es">Precio comparado a</value>
-        <value xml:lang="fr">Comparé à</value>
-        <value xml:lang="it">Confronta Con</value>
-        <value xml:lang="ro">Confrunta cu</value>
-        <value xml:lang="ru">Сравнит с</value>
-        <value xml:lang="th">เปรียบเทียบที่</value>
-        <value xml:lang="zh">比较：</value>
+        <value xml:lang="es">Compare</value>
+        <value xml:lang="fr">Comparez à</value>
+        <value xml:lang="hi_IN">तुलना किजीये</value>
+        <value xml:lang="it">Confronta con</value>
+        <value xml:lang="ja">Compare At</value>
+        <value xml:lang="nl">Vergelijk met</value>
+        <value xml:lang="ro">Compara Cu</value>
+        <value xml:lang="ru">Сравнить с</value>
+        <value xml:lang="th">เปรียบเทียบ</value>
+        <value xml:lang="zh">参考价格</value>
     </property>
     <property key="ProductComplete">
         <value xml:lang="de">Abschliessen</value>
@@ -9653,8 +9798,7 @@
         <value xml:lang="it">Creare Nuova Promozione Prodotto</value>
         <value xml:lang="ro">Creare Noua Promotie Produs</value>
         <value xml:lang="ru">Создать новое предложение</value>
-        <value xml:lang="th">สร้างโปรโมชันสินค้าใหม่
-        </value>
+        <value xml:lang="th">สร้างโปรโมชันสินค้าใหม่</value>
         <value xml:lang="zh">新建产品促销</value>
     </property>
     <property key="ProductCreateNewProductStore">
@@ -9881,13 +10025,16 @@
     <property key="ProductCustomerRating">
         <value xml:lang="de">Kundenbewertung</value>
         <value xml:lang="en">Customer Rating</value>
-        <value xml:lang="es">Valoración de clientes</value>
-        <value xml:lang="fr">Note de l'utilisateur</value>
-        <value xml:lang="it">Classifica Soggetto</value>
-        <value xml:lang="ro">Clasifica Subiect</value>
-        <value xml:lang="ru">Рейтинг заказчика</value>
-        <value xml:lang="th">ระดับลูกค้า</value>
-        <value xml:lang="zh">客户评价</value>
+        <value xml:lang="es">Raiting del Cliente</value>
+        <value xml:lang="fr">Estimation du client</value>
+        <value xml:lang="hi_IN">खरीदारो का मापदन्ड</value>
+        <value xml:lang="it">Valutazione dei clienti</value>
+        <value xml:lang="ja">Customer Rating</value>
+        <value xml:lang="nl">Klanten waardering</value>
+        <value xml:lang="ro">Classificare Clienti</value>
+        <value xml:lang="ru">Пользовательский рейтинг</value>
+        <value xml:lang="th">ระดับความต้องการของลูกค้า</value>
+        <value xml:lang="zh">客户评级</value>
     </property>
     <property key="ProductDL">
         <value xml:lang="de">DL</value>
@@ -9953,14 +10100,17 @@
         <value xml:lang="th">วันที่เริ่มต้นการขนส่ง</value>
     </property>
     <property key="ProductDefaultPrice">
-        <value xml:lang="de">Standartpreis</value>
+        <value xml:lang="de">Standardpreis</value>
         <value xml:lang="en">Default Price</value>
         <value xml:lang="es">Precio por defecto</value>
         <value xml:lang="fr">Prix par défaut</value>
-        <value xml:lang="it">Prezzo di Default</value>
-        <value xml:lang="ro">Pret de Default</value>
+        <value xml:lang="hi_IN">सामान्य मुल्य</value>
+        <value xml:lang="it">Prezzo di default</value>
+        <value xml:lang="ja">Default Price</value>
+        <value xml:lang="nl">Standaard prijs</value>
+        <value xml:lang="ro">Pret Default</value>
         <value xml:lang="ru">Обычная цена</value>
-        <value xml:lang="th">ราคาเริ่มต้น</value>
+        <value xml:lang="th">ราคาที่กำหนด</value>
         <value xml:lang="zh">缺省价格</value>
     </property>
     <property key="ProductDefaultSequenceNumber">
@@ -10393,15 +10543,21 @@
         <value xml:lang="zh">编辑送货</value>
     </property>
     <property key="ProductEntireCatalog">
-        <value xml:lang="de">Gesamter Katalog</value>
+        <value xml:lang="cs">Celý katalog</value>
+        <value xml:lang="de">Gesamtkatalog</value>
         <value xml:lang="en">Entire Catalog</value>
-        <value xml:lang="es">Todo el Catálogo</value>
+        <value xml:lang="en_GB">Entire catalogue</value>
+        <value xml:lang="es">Catálogo entero</value>
         <value xml:lang="fr">Catalogue entier</value>
-        <value xml:lang="it">Intero Catalogo</value>
-        <value xml:lang="ro">Intreg Catalog</value>
+        <value xml:lang="hi_IN">सारी सूची</value>
+        <value xml:lang="it">Catalogo intero</value>
+        <value xml:lang="ja">Entire Catalog</value>
+        <value xml:lang="nl">Gehele catalogus</value>
+        <value xml:lang="pt_PT">Catálogo Integral</value>
+        <value xml:lang="ro">Catalog Intreg</value>
         <value xml:lang="ru">Весь каталог</value>
         <value xml:lang="th">หมวดหมู่ทั้งหมด</value>
-        <value xml:lang="zh">全部目录</value>
+        <value xml:lang="zh">整个目录</value>
     </property>
     <property key="ProductErrorFacility">
         <value xml:lang="de">Fehler: Einrichtung</value>
@@ -10468,12 +10624,17 @@
         <value xml:lang="th">รายการ ${orderId} ไม่มีรายการสั่งซื้อ</value>
     </property>
     <property key="ProductErrorProductNotFound">
+        <value xml:lang="cs">Chyba: Výrobek nenalezen</value>
         <value xml:lang="de">FEHLER: Produkt nicht gefunden</value>
         <value xml:lang="en">ERROR: Product not found</value>
         <value xml:lang="es">ERROR: Producto no encontrado</value>
-        <value xml:lang="fr">ERREUR: Article non trouvé</value>
+        <value xml:lang="fr">ERREUR : Article non trouvé</value>
+        <value xml:lang="hi_IN">रुकिये: सामान नही मिला</value>
         <value xml:lang="it">ERRORE: Prodotto non trovato</value>
-        <value xml:lang="ro">EROARE: Produs negasit</value>
+        <value xml:lang="ja">ERROR: Product not found</value>
+        <value xml:lang="nl">FOUT: Produkt niet gevonden</value>
+        <value xml:lang="pt_PT">ERRO: Produto não encontrado</value>
+        <value xml:lang="ro">ERRORE: Produs negasit ProductIncludeSubcategories=Include sub-categorie?</value>
         <value xml:lang="ru">ОШИБКА: Продукт не найден</value>
         <value xml:lang="th">ERROR: ผิดพลาด ! ไม่พบสินค้า</value>
         <value xml:lang="zh">错误：没有找到产品</value>
@@ -12066,15 +12227,16 @@
         <value xml:lang="zh">包含在促销中</value>
     </property>
     <property key="ProductIncludeSubCategories">
-        <value xml:lang="de">Enthält Unterkategorien</value>
-        <value xml:lang="en">Include Sub-Categories</value>
-        <value xml:lang="es">Incluir Sub-categorías</value>
-        <value xml:lang="fr">Inclure les sous-catégories</value>
-        <value xml:lang="it">Includi Sotto-Categorie</value>
-        <value xml:lang="ro">Include Sub-Categorie</value>
-        <value xml:lang="ru">Включать подкатегории</value>
-        <value xml:lang="th">รวมหมวดหมู่ย่อย</value>
-        <value xml:lang="zh">包含子分类</value>
+        <value xml:lang="de">Enthält Unterkategorien?</value>
+        <value xml:lang="en">Include sub-categories?</value>
+        <value xml:lang="es">Incluír sub-categorías?</value>
+        <value xml:lang="fr">Inclure les sous-catégories ?</value>
+        <value xml:lang="it">Includi sotto-categorie?</value>
+        <value xml:lang="ja">Include sub-categories?</value>
+        <value xml:lang="nl">Ook voor de subcategorieen?</value>
+        <value xml:lang="ru">Включить подкатегории?</value>
+        <value xml:lang="th">รวมหมวดหมู่ย่อย?</value>
+        <value xml:lang="zh">包括子分类吗？</value>
     </property>
     <property key="ProductIncomingProductionRuns">
         <value xml:lang="de">Eingehende Produktionsaufträge</value>
@@ -12084,8 +12246,7 @@
         <value xml:lang="it">Esegui Produzione in Arrivo</value>
         <value xml:lang="ro">Executa Productie in Sosire</value>
         <value xml:lang="ru">Входящий производственные работы</value>
-        <value xml:lang="th">ดำเนินการสินค้ารายได้
-        </value>
+        <value xml:lang="th">ดำเนินการสินค้ารายได้</value>
         <value xml:lang="zh">即将开始的生产运行</value>
     </property>
     <property key="ProductIncomingShipments">
@@ -12107,8 +12268,7 @@
         <value xml:lang="it">Stato Iniziale Riga Inventario</value>
         <value xml:lang="ro">Stat Initial Linie Inventar</value>
         <value xml:lang="ru">Начальный статус ТМЦ</value>
-        <value xml:lang="th">สถานะรายการสินค้าคงเหลือเบื้องต้น
-        </value>
+        <value xml:lang="th">สถานะรายการสินค้าคงเหลือเบื้องต้น</value>
         <value xml:lang="zh">初始库存明细状态</value>
     </property>
     <property key="ProductInputOperatorValue">
@@ -12292,8 +12452,7 @@
         <value xml:lang="es">Exportar totales de ítems de inventario</value>
         <value xml:lang="fr">Exporter les totaux de la ligne de stock</value>
         <value xml:lang="it">Esporta Totali Righe Inventario</value>
-        <value xml:lang="th">ผลรวมรายการส่งออกสินค้าคงเหลือ
-        </value>
+        <value xml:lang="th">ผลรวมรายการส่งออกสินค้าคงเหลือ</value>
     </property>
     <property key="ProductInventoryItemType">
         <value xml:lang="de">Bestandsposition Typ</value>
@@ -12564,15 +12723,20 @@
         <value xml:lang="th">รหัสรายการบนการปฏิบัติการเป็นรหัสรหัสสินค้าสำหรับของขวัญด้วยการสั่งซื้อสินค้าหรือสำหรับการปฏิบัติการช่องการขนส่งฟรีมันเป็นรหัสประเภมฃทวิธีการขนส่งไปยังการขนส่งฟรี (ถ้าทุก ๆ ช่องว่างประเภทวิธีการขนส่งอาจจะได้รับการขนส่งฟรี)</value>
         <value xml:lang="zh">关于行为的明细标识是一个产品标识，用来标识购物而带来的礼品或免费送货，免费送货的货运方式类型标识是把免费送货设为开 (如果为空，任何货运方式类型都可能收到免费送货)</value>
     </property>
-    <property key="ProductItemOutofStock">
-        <value xml:lang="de">Diese Position ist nicht am Lager verfügbar</value>
+    <property key="ProductItemOutOfStock">
+        <value xml:lang="cs">Tato položka není momentálně na skladě</value>
+        <value xml:lang="de">Dieser Artikel ist nicht auf Lager</value>
         <value xml:lang="en">This item is out of stock</value>
-        <value xml:lang="es">El artículo no tiene stock</value>
-        <value xml:lang="fr">Cet article n'est pas en stock</value>
-        <value xml:lang="it">Questa riga non è disponibile</value>
-        <value xml:lang="ro">Aceasta Linie nu este disponibila</value>
+        <value xml:lang="es">Este artículo no se encuentra en stock</value>
+        <value xml:lang="fr">Cet article n'est pas disponible</value>
+        <value xml:lang="hi_IN">यह सामान नही है</value>
+        <value xml:lang="it">Questo articolo non è in giacenza</value>
+        <value xml:lang="ja">This item is out of stock</value>
+        <value xml:lang="nl">Dit item is niet in voorraad</value>
+        <value xml:lang="pt_PT">Este item está esgotado</value>
+        <value xml:lang="ro">Acest articol nu este in stoc</value>
         <value xml:lang="ru">Этой позиции нет на складе</value>
-        <value xml:lang="th">รายการนี้หมดจากคลังสินค้า</value>
+        <value xml:lang="th">ของนี้หมดสต๊อก</value>
         <value xml:lang="zh">这个明细缺货</value>
     </property>
     <property key="ProductItemPrc">
@@ -12693,13 +12857,18 @@
         <value xml:lang="ru">Соответствие ключевому слову</value>
         <value xml:lang="th">Keyword Relevancy</value>
     </property>
-    <property key="ProductKeywordRelevency">
-        <value xml:lang="de">Schlüsselwort Relevanz</value>
-        <value xml:lang="en">Keyword Relevency</value>
+    <property key="ProductKeywordRelevancy">
+        <value xml:lang="cs">Shoda klíčového slova</value>
+        <value xml:lang="de">Stichwortrelevanz</value>
+        <value xml:lang="en">Keyword Relevancy</value>
         <value xml:lang="es">Relevancia de palabra clave</value>
         <value xml:lang="fr">Pertinence du mot-clé</value>
-        <value xml:lang="ro">Releveu Cheie </value>
-        <value xml:lang="th">Keyword Relevency</value>
+        <value xml:lang="it">Rilevanza chiave</value>
+        <value xml:lang="ja">Keyword Relevancy</value>
+        <value xml:lang="nl">Sleutelwoord relevantie</value>
+        <value xml:lang="ro">Relevare Cheie</value>
+        <value xml:lang="ru">Keyword Relevancy</value>
+        <value xml:lang="th">คำหลักทั้งหมด</value>
         <value xml:lang="zh">关键字关联</value>
     </property>
     <property key="ProductKeywordWhere">
@@ -12714,14 +12883,19 @@
         <value xml:lang="zh">哪里</value>
     </property>
     <property key="ProductKeywords">
-        <value xml:lang="de">Schlüsselwörter</value>
+        <value xml:lang="cs">Klíčová slova</value>
+        <value xml:lang="de">Stichwörter</value>
         <value xml:lang="en">Keywords</value>
         <value xml:lang="es">Palabras clave</value>
         <value xml:lang="fr">Mots-clés</value>
+        <value xml:lang="hi_IN">मुख्य शब्द</value>
         <value xml:lang="it">Chiavi</value>
-        <value xml:lang="ro">Cheie</value>
-        <value xml:lang="ru">Искать</value>
-        <value xml:lang="th">คีย์เวิร์ด</value>
+        <value xml:lang="ja">Keywords</value>
+        <value xml:lang="nl">Sleutelwoorden</value>
+        <value xml:lang="pt_PT">Palavras-Chave</value>
+        <value xml:lang="ro">Chei</value>
+        <value xml:lang="ru">Ключевые слова</value>
+        <value xml:lang="th">คำหลัก</value>
         <value xml:lang="zh">关键字</value>
     </property>
     <property key="ProductLabel">
@@ -12813,15 +12987,19 @@
         <value xml:lang="zh">上次价格</value>
     </property>
     <property key="ProductLastSearch">
-        <value xml:lang="de">Letzte Suche:</value>
-        <value xml:lang="en">Last Search:</value>
-        <value xml:lang="es">Última búsqueda:</value>
+        <value xml:lang="cs">Minulé hledání</value>
+        <value xml:lang="de">Letzte Suche</value>
+        <value xml:lang="en">Last Search</value>
+        <value xml:lang="es">Última búsqueda</value>
         <value xml:lang="fr">Dernière recherche</value>
-        <value xml:lang="it">Ultima Ricerca:</value>
-        <value xml:lang="ro">Ultima cautare:</value>
-        <value xml:lang="ru">Последний поиск:</value>
-        <value xml:lang="th">การค้นหาล่าสุด:</value>
-        <value xml:lang="zh">上次搜索:</value>
+        <value xml:lang="hi_IN">पुराना खोज</value>
+        <value xml:lang="it">Ultima ricerca</value>
+        <value xml:lang="ja">Last Search</value>
+        <value xml:lang="nl">Laatste zoekopdracht</value>
+        <value xml:lang="ro">Ultima Cautare</value>
+        <value xml:lang="ru">Последний поиск</value>
+        <value xml:lang="th">ค้นหาครั้งสุดท้าย</value>
+        <value xml:lang="zh">上次搜索</value>
     </property>
     <property key="ProductLatestCancelDate">
         <value xml:lang="de">Letztes Annullationsdatum</value>
@@ -12831,8 +13009,7 @@
         <value xml:lang="it">Data Ultimo Annullamento</value>
         <value xml:lang="ro">Data Ultimei Stergeri</value>
         <value xml:lang="ru">Последняя дата отмены</value>
-        <value xml:lang="th">วันที่ยกเลิกครั้งสุดท้าย
-        </value>
+        <value xml:lang="th">วันที่ยกเลิกครั้งสุดท้าย</value>
         <value xml:lang="zh">最近取消的日期</value>
     </property>
     <property key="ProductLeaveEntirePoReceiving">
@@ -12911,14 +13088,19 @@
         <value xml:lang="th">แจกแจงประเภทการเชื่อมต่อ</value>
     </property>
     <property key="ProductListPrice">
+        <value xml:lang="cs">Katalogová cena</value>
         <value xml:lang="de">Listenpreis</value>
         <value xml:lang="en">List Price</value>
-        <value xml:lang="es">Precio de lista</value>
+        <value xml:lang="es">Lista de Precios</value>
         <value xml:lang="fr">Prix public</value>
-        <value xml:lang="it">Prezzo Listino</value>
-        <value xml:lang="ro">Pret Lista</value>
+        <value xml:lang="hi_IN">मुल्य</value>
+        <value xml:lang="it">Prezzo di listino</value>
+        <value xml:lang="ja">List Price</value>
+        <value xml:lang="nl">Gepubliceerde Prijs</value>
+        <value xml:lang="pt_PT">Preço de Tabela</value>
+        <value xml:lang="ro">Pret din Lista</value>
         <value xml:lang="ru">Розничная цена</value>
-        <value xml:lang="th">รายการราคา</value>
+        <value xml:lang="th">ราคา</value>
         <value xml:lang="zh">标价</value>
     </property>
     <property key="ProductLoadingCatalogCaches">
@@ -13682,6 +13864,20 @@
         <value xml:lang="th">ต้องการย้ายคลังสินค้า</value>
         <value xml:lang="zh">需要存货移动</value>
     </property>
+    <property key="ProductNewArticle">
+        <value xml:lang="de">Neuer Artikel</value>
+        <value xml:lang="en">New Article</value>
+        <value xml:lang="es">Nuevo Artículo</value>
+        <value xml:lang="fr">Nouvel article</value>
+        <value xml:lang="hi_IN">नया सामान</value>
+        <value xml:lang="it">Nuovo articolo</value>
+        <value xml:lang="ja">New Article</value>
+        <value xml:lang="nl">Nieuw Artikel</value>
+        <value xml:lang="ro">Nou Articol</value>
+        <value xml:lang="ru">Новая статья</value>
+        <value xml:lang="th">ผลิตภัณฑ์ใหม่</value>
+        <value xml:lang="zh">新文章</value>
+    </property>
     <property key="ProductNewCategory">
         <value xml:lang="de">Neue Kategorie</value>
         <value xml:lang="en">New Category</value>
@@ -13872,14 +14068,17 @@
         <value xml:lang="zh">新建促销代码</value>
     </property>
     <property key="ProductNewSearch">
+        <value xml:lang="cs">Nové hledání</value>
         <value xml:lang="de">Neue Suche</value>
         <value xml:lang="en">New Search</value>
         <value xml:lang="es">Nueva búsqueda</value>
         <value xml:lang="fr">Nouvelle recherche</value>
         <value xml:lang="it">Nuova Ricerca</value>
+        <value xml:lang="ja">New Search</value>
+        <value xml:lang="nl">Nieuwe zoekopdracht</value>
         <value xml:lang="ro">Noua Cautare </value>
         <value xml:lang="ru">Новый поиск</value>
-        <value xml:lang="th">การค้นหาใหม่</value>
+        <value xml:lang="th">ค้นหาใหม่</value>
         <value xml:lang="zh">新建搜索</value>
     </property>
     <property key="ProductNewSegment">
@@ -14153,14 +14352,19 @@
         <value xml:lang="zh">没有位置</value>
     </property>
     <property key="ProductNoLongerAvailable">
+        <value xml:lang="cs">Již není k dispozici</value>
         <value xml:lang="de">Nicht länger verfügbar</value>
         <value xml:lang="en">No Longer Available</value>
         <value xml:lang="es">Ya no está disponible</value>
         <value xml:lang="fr">Epuisé</value>
+        <value xml:lang="hi_IN">अब नही है</value>
         <value xml:lang="it">Non più disponibile</value>
-        <value xml:lang="ro">Nu pentru mult timp disponibila</value>
-        <value xml:lang="ru">Более недоступен</value>
-        <value xml:lang="th">ไม่สามารถนำไปใช้ในระยะยาว</value>
+        <value xml:lang="ja">No Longer Available</value>
+        <value xml:lang="nl">Niet langer beschikbaar</value>
+        <value xml:lang="pt_PT">Indisponível</value>
+        <value xml:lang="ro">Nu mai este Disponibil</value>
+        <value xml:lang="ru">Более не доступно</value>
+        <value xml:lang="th">ไม่มีของที่ต้องการ</value>
         <value xml:lang="zh">不再有效</value>
     </property>
     <property key="ProductNoOrdersFoundReadyToPickOrNeedStockMoves">
@@ -14229,24 +14433,34 @@
         <value xml:lang="zh">分类中没有产品</value>
     </property>
     <property key="ProductNoProductsInThisCategory">
-        <value xml:lang="de">Es hat keine Produkte in dieser Kategorie</value>
+        <value xml:lang="cs">V této skupině nejsou žádné výrobky</value>
+        <value xml:lang="de">Es gibt keine Produkte in dieser Produktgruppe</value>
         <value xml:lang="en">There are no products in this category</value>
-        <value xml:lang="es">No existen productos en esta categoría</value>
+        <value xml:lang="es">No hay productos en esta categoría</value>
         <value xml:lang="fr">Il n'y a pas d'article dans cette catégorie</value>
+        <value xml:lang="hi_IN">इस सुची मे कोई सामान नही है</value>
         <value xml:lang="it">Non ci sono prodotti in questa categoria</value>
+        <value xml:lang="ja">There are no products in this category</value>
+        <value xml:lang="nl">Er zijn geen producten in deze categorie</value>
+        <value xml:lang="pt_PT">Não há produtos nesta categoria</value>
         <value xml:lang="ro">Nu sunt produse in aceasta categorie</value>
-        <value xml:lang="ru">В этой категории продуктов нет</value>
+        <value xml:lang="ru">В этой категории нет продуктов</value>
         <value xml:lang="th">ไม่มีสินค้าในหมวดหมู่นี้</value>
-        <value xml:lang="zh">这个分类中没有产品</value>
+        <value xml:lang="zh">在这个分类里没有产品</value>
     </property>
     <property key="ProductNoResultsFound">
-        <value xml:lang="de">Keine Resultate gefunden</value>
+        <value xml:lang="cs">Nenalezeny žádné výsledky</value>
+        <value xml:lang="de">Es wurden keine Ergebnisse gefunden</value>
         <value xml:lang="en">No results found</value>
-        <value xml:lang="es">No se encontraron resultados</value>
-        <value xml:lang="fr">Aucun élément trouvé</value>
+        <value xml:lang="es">No hay ningún resultado</value>
+        <value xml:lang="fr">Aucun résultat</value>
+        <value xml:lang="hi_IN">कोई उत्तर नही मिला</value>
         <value xml:lang="it">Nessun risultato trovato</value>
-        <value xml:lang="ro">Nici-un rezultat gasit</value>
-        <value xml:lang="ru">Нет результатов</value>
+        <value xml:lang="ja">No results found</value>
+        <value xml:lang="nl">Geen resultaten gevonden</value>
+        <value xml:lang="pt_PT">Resultados Não Encontrados</value>
+        <value xml:lang="ro">Nici-un resultat gasit</value>
+        <value xml:lang="ru">Результат не найден</value>
         <value xml:lang="th">ไม่พบผลลัพธ์</value>
         <value xml:lang="zh">没有找到结果</value>
     </property>
@@ -14492,16 +14706,37 @@
         <value xml:lang="th">ไม่มีการตั้งค่า</value>
         <value xml:lang="zh">未设置</value>
     </property>
+    <property key="ProductNotViewedAnyProducts">
+        <value xml:lang="cs">Tentokrát jste si ještě neprohlédl žádné výrobky</value>
+        <value xml:lang="de">Sie haben dieses mal noch keine Produkte angesehen</value>
+        <value xml:lang="en">You have not viewed any products this session</value>
+        <value xml:lang="es">No ha visto ningún producto en esta sesión</value>
+        <value xml:lang="fr">Vous n'avez examiné aucun article lors de cette session</value>
+        <value xml:lang="hi_IN">इस कार्यकाल मे आपने कोई सामान नही देखा</value>
+        <value xml:lang="it">Non hai visualizzato nessun prodotto in questa sessione</value>
+        <value xml:lang="ja">You have not viewed any products this session</value>
+        <value xml:lang="nl">U hebt geen produkten bekeken in deze sessie</value>
+        <value xml:lang="pt_PT">Ainda não viu quaisquer produtos nesta sessão</value>
+        <value xml:lang="ro">Tu nu ai vizualizat nici-un produs in aceasta  sesiune</value>
+        <value xml:lang="ru">Вы не просмотрели ни одного продукта в этой сессии</value>
+        <value xml:lang="th">คุณไม่สามารถดูสินค้าบางชนิดได้ในกลุ่มนี้</value>
+        <value xml:lang="zh">在这个会话里你还没有浏览过任何产品</value>
+    </property>
     <property key="ProductNotYetAvailable">
+        <value xml:lang="cs">Není doposud k dispozici</value>
         <value xml:lang="de">Noch nicht verfügbar</value>
         <value xml:lang="en">Not Yet Available</value>
         <value xml:lang="es">No disponible aún</value>
         <value xml:lang="fr">Pas encore disponible</value>
-        <value xml:lang="it">Non Ancora Disponibile</value>
+        <value xml:lang="hi_IN">अभी तक उपलब्घ नही</value>
+        <value xml:lang="it">Non ancora disponibile</value>
+        <value xml:lang="ja">Not Yet Available</value>
+        <value xml:lang="nl">Nog niet beschikbaar</value>
+        <value xml:lang="pt_PT">Ainda Indisponível</value>
         <value xml:lang="ro">Nu este inca Disponibil</value>
         <value xml:lang="ru">Еще не доступно</value>
-        <value xml:lang="th">ไม่สามารถนำไปใช้</value>
-        <value xml:lang="zh">尚不可用</value>
+        <value xml:lang="th">ไม่มี</value>
+        <value xml:lang="zh">无效</value>
     </property>
     <property key="ProductNote">
         <value xml:lang="de">ANMERKUNG</value>
@@ -15544,24 +15779,28 @@
     <property key="ProductPopularityByOrders">
         <value xml:lang="de">Beliebtheit nach Aufträgen</value>
         <value xml:lang="en">Popularity by Orders</value>
-        <value xml:lang="es">Popularidad por pedidos</value>
-        <value xml:lang="fr">Popularité par commandes</value>
-        <value xml:lang="it">Popularità per Ordine</value>
-        <value xml:lang="ro">Popularitate Comanda</value>
-        <value xml:lang="ru">Популярность по заказам</value>
-        <value xml:lang="th">รายการสั่งซื้อความเป็นที่นิยม</value>
-        <value xml:lang="zh">按订单的人气</value>
+        <value xml:lang="es">Popularidad en pedidos</value>
+        <value xml:lang="fr">Popularité par nb. de cmd.</value>
+        <value xml:lang="it">Popolarità per ordini</value>
+        <value xml:lang="ja">Popularity by Orders</value>
+        <value xml:lang="nl">succes bij bestellingen</value>
+        <value xml:lang="ro">Popularitate pe Comenzi</value>
+        <value xml:lang="ru">Популярноть по заказам</value>
+        <value xml:lang="th">รายการสั่งซื้อที่เป็นที่นิยม</value>
+        <value xml:lang="zh">按订货量的热门</value>
     </property>
     <property key="ProductPopularityByViews">
         <value xml:lang="de">Beliebtheit nach Anzeigen</value>
         <value xml:lang="en">Popularity by Views</value>
-        <value xml:lang="es">Popularidad por vistas</value>
-        <value xml:lang="fr">Popularité par visites</value>
-        <value xml:lang="it">Popularità per Visita</value>
-        <value xml:lang="ro">Popularitate Vizualizare</value>
+        <value xml:lang="es">Popularidad en visitas</value>
+        <value xml:lang="fr">Popularité par nb. de visites</value>
+        <value xml:lang="it">Popolarità per visualizzazioni</value>
+        <value xml:lang="ja">Popularity by Views</value>
+        <value xml:lang="nl">Succes aantal malen bekeken</value>
+        <value xml:lang="ro">Popularitate pe Vizualizari</value>
         <value xml:lang="ru">Популярность по просмотрам</value>
-        <value xml:lang="th">แสดงความเป็นที่นิยม</value>
-        <value xml:lang="zh">按浏览的人气</value>
+        <value xml:lang="th">รายการที่นิยมดู</value>
+        <value xml:lang="zh">按浏览量的热门</value>
     </property>
     <property key="ProductPopulateNewForm">
         <value xml:lang="de">Neues Formular ausfüllen</value>
@@ -15769,7 +16008,7 @@
         <value xml:lang="th">รหัสรายการกลุ่มการขนส่งในขั้นพื้นฐาน</value>
         <value xml:lang="zh">主要货运组顺序标识</value>
     </property>
-    <property key="ProductPrioritizeProductsinCategory">
+    <property key="ProductPrioritizeProductsInCategory">
         <value xml:lang="de">Priorisieren der Produkte in der Kategorie</value>
         <value xml:lang="en">Prioritize Products in Category</value>
         <value xml:lang="es">Priorizar productos de la categoría</value>
@@ -16001,13 +16240,17 @@
         <value xml:lang="zh">产品跃升</value>
     </property>
     <property key="ProductProductName">
+        <value xml:lang="cs">Název výrobku</value>
         <value xml:lang="de">Produktname</value>
         <value xml:lang="en">Product Name</value>
-        <value xml:lang="es">Nombre de Producto</value>
+        <value xml:lang="es">Nombre del Producto</value>
         <value xml:lang="fr">Nom de l'article</value>
-        <value xml:lang="it">Nome Prodotto</value>
+        <value xml:lang="hi_IN">सामान नाम</value>
+        <value xml:lang="it">Nome prodotto</value>
+        <value xml:lang="ja">Product Name</value>
+        <value xml:lang="nl">Produkt Naam</value>
         <value xml:lang="ro">Nume Produs</value>
-        <value xml:lang="ru">Имя продукта</value>
+        <value xml:lang="ru">Название продукта</value>
         <value xml:lang="th">ชื่อสินค้า</value>
         <value xml:lang="zh">产品名称</value>
     </property>
@@ -16023,25 +16266,36 @@
         <value xml:lang="zh">产品名称标识</value>
     </property>
     <property key="ProductProductNoLongerAvailable">
-        <value xml:lang="de">Dieses Produkt ist nicht mehr im Verkauf</value>
+        <value xml:lang="cs">Tento výrobek již není pro prodej k dispozici</value>
+        <value xml:lang="de">Dieses Produkt ist nicht länger zum Verkauf verfügbar</value>
         <value xml:lang="en">This product is no longer available for sale</value>
-        <value xml:lang="es">Este producto ya no se encuentra disponible para la venta</value>
+        <value xml:lang="es">Este producto ya no está a la venta</value>
         <value xml:lang="fr">Cet article n'est plus disponible à la vente</value>
+        <value xml:lang="hi_IN">यह माल बेचने के लिये उपलब्घ नही</value>
         <value xml:lang="it">Questo prodotto non è più disponibile per la vendita</value>
-        <value xml:lang="ro">Acest produs nu mai este in vanzare ProductProductNotFound=Produs negasit pentru Cod Produs</value>
-        <value xml:lang="ru">Этот продукт более недоступен для продажи</value>
-        <value xml:lang="th">สินค้านี้ไม่สามารถใช้ประโยชน์ระยะยาวสำหรับการขาย</value>
-        <value xml:lang="zh">这个产品不再销售</value>
+        <value xml:lang="ja">This product is no longer available for sale</value>
+        <value xml:lang="nl">Dit produkt wordt niet langer verkocht</value>
+        <value xml:lang="pt_PT">Este produto encontra-se indisponível para venda</value>
+        <value xml:lang="ro">Acest produs nu mai este disponibil pentru vanzare.</value>
+        <value xml:lang="ru">Этот продукт более недоступен к продаже</value>
+        <value xml:lang="th">สินค้านี้ไม่มีในรายการขาย</value>
+        <value xml:lang="zh">这个产品不再销售了</value>
     </property>
     <property key="ProductProductNotFound">
-        <value xml:lang="de">Produkt nicht gefunden für Produkt ID</value>
+        <value xml:lang="cs">Výrobek s uvedeným ID nenalezen</value>
+        <value xml:lang="de">Produkt nicht gefunden mit der Produkt-ID</value>
         <value xml:lang="en">Product not found for Product ID</value>
-        <value xml:lang="es">No se encontró producto para el código</value>
-        <value xml:lang="fr">Article non trouvé pour cette référence</value>
-        <value xml:lang="it">Prodotto non trovato per Codice Prodotto</value>
-        <value xml:lang="ru">Продукт не найден для кода</value>
-        <value xml:lang="th">ไม่พบสินค้าด้วยรหัสสินค้า</value>
-        <value xml:lang="zh">没有找到产品，产品标识</value>
+        <value xml:lang="es">Producto no encontrado por ID</value>
+        <value xml:lang="fr">Aucun d'article avec cet identifiant</value>
+        <value xml:lang="hi_IN">सामान नम्बर से सामान नही मिला</value>
+        <value xml:lang="it">Nessun prodotto con questo codice</value>
+        <value xml:lang="ja">Product not found for Product ID</value>
+        <value xml:lang="nl">Produkt niet gevonden met de ID</value>
+        <value xml:lang="pt_PT">Produto Não Encontrado Com Essa Identificação</value>
+        <value xml:lang="ro">Nu gaseste Produs pe Cod Produs</value>
+        <value xml:lang="ru">Продукт не найдет по Product ID</value>
+        <value xml:lang="th">ไม่พบสินค้าจากรหัสสินค้านี้</value>
+        <value xml:lang="zh">没有找到产品——产品标识</value>
     </property>
     <property key="ProductProductNotFoundWithProduct">
         <value xml:lang="de">Produkt nicht gefunden mit Produkt ID</value>
@@ -16055,26 +16309,35 @@
         <value xml:lang="zh">没有找到产品，产品标识</value>
     </property>
     <property key="ProductProductNotReviewedYet">
-        <value xml:lang="de">Dieses Produkt wurde noch nicht bewertet</value>
+        <value xml:lang="cs">Tento výrobek nebyl doposud hodnocen</value>
+        <value xml:lang="de">Dieses Produkt wurde noch nicht beurteilt</value>
         <value xml:lang="en">This product hasn't been reviewed yet</value>
-        <value xml:lang="es">Este producto no ha sido revisado aún</value>
-        <value xml:lang="fr">Cet article n'a pas encore été examiné</value>
+        <value xml:lang="es">Este producto no ha sido repasado aún</value>
+        <value xml:lang="fr">Cet article n'a encore aucun commentaire</value>
         <value xml:lang="it">Questo prodotto non è stato ancora recensito</value>
-        <value xml:lang="ro">Acest produs nu a fost inca recenzionat</value>
-        <value xml:lang="ru">Отзывов по этому продукту еще нет</value>
-        <value xml:lang="th">สินค้านี้ไม่มีการตรวจสอบแล้ว</value>
-        <value xml:lang="zh">这个产品还没有被评论过。</value>
+        <value xml:lang="ja">This product hasn't been reviewed yet</value>
+        <value xml:lang="nl">Dit produkt is nog niet beoordeeld</value>
+        <value xml:lang="pt_PT">Este produto ainda não foi revisto</value>
+        <value xml:lang="ro">Acest produs nu a fost inca recenzat</value>
+        <value xml:lang="ru">Отзывов по этому продукту нет</value>
+        <value xml:lang="th">ยังไม่มีการตรวจสอบสินค้านี้</value>
+        <value xml:lang="zh">这个产品还没有被评论过</value>
     </property>
     <property key="ProductProductNotYetMadeAvailable">
-        <value xml:lang="de">Dieses Produkt ist noch nicht zum Verkauf freigegeben</value>
+        <value xml:lang="cs">Tento výrobek doposud není pro prodej k dispozici</value>
+        <value xml:lang="de">Dieses Produkt ist noch nicht zum Verkauf verfügbar</value>
         <value xml:lang="en">This product has not yet been made available for sale</value>
-        <value xml:lang="es">Este producto no se encuentra disponible para la venta</value>
+        <value xml:lang="es">Este producto no se ha puesto disponible a la venta aún</value>
         <value xml:lang="fr">Cet article n'est pas encore disponible à la vente</value>
-        <value xml:lang="it">Questo prodotto non è stato reso ancora disponibile alla vendita</value>
-        <value xml:lang="ro">Acest produs nu fost pus inca disponibil in vanzare.</value>
-        <value xml:lang="ru">Этот продукт еще не доступен для продажи</value>
-        <value xml:lang="th">สินค้านี้ไม่ทำใช้ประโยชน์สำหรับการขาย</value>
-        <value xml:lang="zh">这个产品尚未销售</value>
+        <value xml:lang="hi_IN">यह माल बेचने के लिये अभी तक उपलब्घ नही</value>
+        <value xml:lang="it">Questo prodotto non è ancora disponibile per la vendita</value>
+        <value xml:lang="ja">This product has not yet been made available for sale</value>
+        <value xml:lang="nl">Dit produkt is nog niet beschikbaar voor de verkoop</value>
+        <value xml:lang="pt_PT">Este produto ainda não se encontra disponível para venda</value>
+        <value xml:lang="ro">Acest produs nu a fost inca pus in disponibilitate la vanzare</value>
+        <value xml:lang="ru">Этот продукт пока еще не доступен к продаже</value>
+        <value xml:lang="th">สินค้านี้ไม่ใช่สินค้าสำหรับขาย</value>
+        <value xml:lang="zh">这个产品还不可销售</value>
     </property>
     <property key="ProductProductPage">
         <value xml:lang="de">Produktseite</value>
@@ -16117,6 +16380,37 @@
         <value xml:lang="ru">QOH пер</value>
         <value xml:lang="th">การเปลี่ยนแปลง QOH</value>
         <value xml:lang="zh">现货数量变量</value>
+    </property>
+    <property key="ProductProductSearch">
+        <value xml:lang="cs">Hledání výrobku</value>
+        <value xml:lang="de">Produktsuche</value>
+        <value xml:lang="en">Product Search</value>
+        <value xml:lang="es">Búsqueda de Productos</value>
+        <value xml:lang="fr">Recherche d'article</value>
+        <value xml:lang="hi_IN">सामान खोज</value>
+        <value xml:lang="it">Ricerca prodotto</value>
+        <value xml:lang="ja">Product Search</value>
+        <value xml:lang="nl">Zoek naar Produkt</value>
+        <value xml:lang="ro">Cauta Produs</value>
+        <value xml:lang="ru">Поиск продукта</value>
+        <value xml:lang="th">ค้นหาสินค้า</value>
+        <value xml:lang="zh">产品搜索</value>
+    </property>
+    <property key="ProductProductsLastViewed">
+        <value xml:lang="cs">Naposledy prohlédnuté výrobky</value>
+        <value xml:lang="de">zuletzt angesehene Produkte</value>
+        <value xml:lang="en">Products Last Viewed</value>
+        <value xml:lang="es">Últimos productos vistos</value>
+        <value xml:lang="fr">Articles vus dernièrement</value>
+        <value xml:lang="hi_IN">अन्त बार देखा सामान</value>
+        <value xml:lang="it">Ultimi prodotti visti</value>
+        <value xml:lang="ja">Products Last Viewed</value>
+        <value xml:lang="nl">Produkten het laatste bekeken</value>
+        <value xml:lang="pt_PT">Últimos Produtos Visualizados</value>
+        <value xml:lang="ro">ultimele Produse Vazute</value>
+        <value xml:lang="ru">Последние просмотры продуктов</value>
+        <value xml:lang="th">สินค้าสุดท้ายที่ดู</value>
+        <value xml:lang="zh">以前浏览的产品</value>
     </property>
     <property key="ProductProductStore">
         <value xml:lang="de">Laden</value>
@@ -16301,6 +16595,33 @@
         <value xml:lang="ru">Акционный код участники</value>
         <value xml:lang="th">กลุ่มรหัสโปรโมชัน</value>
         <value xml:lang="zh">促销代码 会员</value>
+    </property>
+    <property key="ProductPromoCodes">
+        <value xml:lang="de">Aktionscodes</value>
+        <value xml:lang="en">Promotion/Coupon Codes</value>
+        <value xml:lang="es">Códigos de Cupones/Promociones</value>
+        <value xml:lang="fr">Codes de Promotion/Coupon</value>
+        <value xml:lang="it">Codice di Promozione/Buono</value>
+        <value xml:lang="ja">Promotion/Coupon Codes</value>
+        <value xml:lang="nl">Promotie/Coupon Codes</value>
+        <value xml:lang="ro">Promotie/Coduri Cupoane</value>
+        <value xml:lang="ru">Коды акций/купонов</value>
+        <value xml:lang="th">โปรโมชั่น/รหัสคูปอง</value>
+        <value xml:lang="zh">促销/优惠券代码</value>
+    </property>
+    <property key="ProductPromoCodesEntered">
+        <value xml:lang="de">Eingegebene Codes:</value>
+        <value xml:lang="en">Entered Codes:</value>
+        <value xml:lang="es">Códigos Ingresados:</value>
+        <value xml:lang="fr">Codes de promotion saisis :</value>
+        <value xml:lang="hi_IN">डाला हुआ कोड:</value>
+        <value xml:lang="it">Inserisci codici:</value>
+        <value xml:lang="ja">Entered Codes:</value>
+        <value xml:lang="nl">Ingevoerde Codes:</value>
+        <value xml:lang="ro">Introdu Codurile:</value>
+        <value xml:lang="ru">Введите коды:</value>
+        <value xml:lang="th">เข้าสู่รหัส:</value>
+        <value xml:lang="zh">已输入的代码：</value>
     </property>
     <property key="ProductPromoNameId">
         <value xml:lang="de">Aktionsname [ID]</value>
@@ -16885,6 +17206,22 @@
         <value xml:lang="th">สร้างทั้งหมดจากการเปลี่ยนแปลงอย่างรวดเร็ว</value>
         <value xml:lang="zh">从变型快速创建虚拟产品</value>
     </property>
+    <property key="ProductQuickReorder">
+        <value xml:lang="cs">Opakovaná objednávka</value>
+        <value xml:lang="de">Wiederbestellung</value>
+        <value xml:lang="en">Quick Reorder</value>
+        <value xml:lang="es">Nueva Compra Rápida</value>
+        <value xml:lang="fr">Nouvelle commande rapide</value>
+        <value xml:lang="hi_IN">जल्द दुबारा आर्डर</value>
+        <value xml:lang="it">Nuovo ordine veloce</value>
+        <value xml:lang="ja">Quick Reorder</value>
+        <value xml:lang="nl">Snel opnieu Bestellen</value>
+        <value xml:lang="pt_PT">Reordenação Rápida</value>
+        <value xml:lang="ro">Reordoneaza Rapid</value>
+        <value xml:lang="ru">Быстрая пересортировка(?)</value>
+        <value xml:lang="th">สั่งสินค้าใหม่อย่างรวดเร็ว</value>
+        <value xml:lang="zh">快速记录</value>
+    </property>
     <property key="ProductQuickShipOrder">
         <value xml:lang="de">Rasches versenden Auftrag</value>
         <value xml:lang="en">Quick Ship Order:</value>
@@ -16929,6 +17266,17 @@
         <value xml:lang="th">การระบุประเภทระดับ</value>
         <value xml:lang="zh">评级类型枚举</value>
     </property>
+    <property key="ProductRefineSearch">
+        <value xml:lang="cs">Detailní hledání</value>
+        <value xml:lang="de">Verfeinerte Suche</value>
+        <value xml:lang="en">Refine Search</value>
+        <value xml:lang="es">Afinar búsqueda</value>
+        <value xml:lang="fr">Affiner la recherche</value>
+        <value xml:lang="it">Raffina la ricerca</value>
+        <value xml:lang="ja">Refine Search</value>
+        <value xml:lang="nl">Zoeken verfijnen</value>
+        <value xml:lang="th">ปรับปรุงการค้นหา</value>
+    </property>
     <property key="ProductReInduceKeywords">
         <value xml:lang="de">Schlüsselwörter neu erstellen</value>
         <value xml:lang="en">Re-induce Keywords</value>
@@ -16939,6 +17287,21 @@
         <value xml:lang="ru">Создать повторно</value>
         <value xml:lang="th">รวมคีย์เวิร์ดอีกครั้ง</value>
         <value xml:lang="zh">重新索引关键字</value>
+    </property>
+    <property key="ProductReviewThisProduct">
+        <value xml:lang="cs">Ohodnoťte tuto položku</value>
+        <value xml:lang="de">Bewerten Sie dieses Produkt!</value>
+        <value xml:lang="en">Review This Product!</value>
+        <value xml:lang="es">Mire este Producto!</value>
+        <value xml:lang="fr">Examiner ce produit</value>
+        <value xml:lang="hi_IN">सामान कि जान्च किजीये</value>
+        <value xml:lang="it">Recensisci questo prodotto!</value>
+        <value xml:lang="ja">Review This Product!</value>
+        <value xml:lang="nl">Beoordeel dit produkt!</value>
+        <value xml:lang="ro">Revedeti Acest Produs!</value>
+        <value xml:lang="ru">Напишите отзыв к этому продукту!</value>
+        <value xml:lang="th">ตรวจสอบสินค้านี้!</value>
+        <value xml:lang="zh">浏览这个产品！</value>
     </property>
     <property key="ProductReWeighPackage">
         <value xml:lang="de">Paket neu wägeny</value>
@@ -17183,13 +17546,19 @@
         <value xml:lang="zh">提炼搜索</value>
     </property>
     <property key="ProductRegularPrice">
-        <value xml:lang="de">Normalpreis</value>
+        <value xml:lang="cs">Obvyklá cena</value>
+        <value xml:lang="de">Regulärer Preis</value>
         <value xml:lang="en">Regular Price</value>
-        <value xml:lang="es">Precio regular</value>
+        <value xml:lang="en_GB">RRP</value>
+        <value xml:lang="es">Precio Estandar</value>
         <value xml:lang="fr">Prix standard</value>
-        <value xml:lang="it">Prezzo Regolare</value>
+        <value xml:lang="hi_IN">सामान्य दर</value>
+        <value xml:lang="it">Prezzo abituale</value>
+        <value xml:lang="ja">Regular Price</value>
+        <value xml:lang="nl">Nornale Prijs</value>
+        <value xml:lang="pt_PT">Preço Normal</value>
         <value xml:lang="ro">Pret Regular</value>
-        <value xml:lang="ru">Нормальная цена</value>
+        <value xml:lang="ru">Обычная цена</value>
         <value xml:lang="th">ราคาปกติ</value>
         <value xml:lang="zh">正常价格</value>
     </property>
@@ -17873,12 +18242,18 @@
         <value xml:lang="zh">计划</value>
     </property>
     <property key="ProductSearchCatalog">
-        <value xml:lang="de">Im Katalog suchen</value>
+        <value xml:lang="cs">Hledání v katalogu výrobků</value>
+        <value xml:lang="de">Suche im Produktkatalog</value>
         <value xml:lang="en">Search Catalog</value>
-        <value xml:lang="es">Buscar Catálogo</value>
-        <value xml:lang="fr">Recherche dans le catalogue</value>
-        <value xml:lang="it">Ricerca Catalogo</value>
-        <value xml:lang="ro">Cauta Catalog</value>
+        <value xml:lang="en_GB">Search catalogue</value>
+        <value xml:lang="es">Buscar catálogo</value>
+        <value xml:lang="fr">Rechercher dans le catalogue</value>
+        <value xml:lang="hi_IN">सूची खोज</value>
+        <value xml:lang="it">Ricerca nel catalogo</value>
+        <value xml:lang="ja">カタログの検索</value>
+        <value xml:lang="nl">Zoek in de catalogus</value>
+        <value xml:lang="pt_PT">Procurar Catálogo</value>
+        <value xml:lang="ro">Cautare Catalog</value>
         <value xml:lang="ru">Искать в каталоге</value>
         <value xml:lang="th">ค้นหาหมวดหมู่</value>
         <value xml:lang="zh">搜索目录</value>
@@ -17953,13 +18328,18 @@
         <value xml:lang="th">ค้นหาผลลัพธ์สำหรับสินค้าด้วยค่ารหัส</value>
         <value xml:lang="zh">产品搜索结果，标识值</value>
     </property>
-    <property key="ProductSearchinCategory">
-        <value xml:lang="de">In Kategorie suchen</value>
+    <property key="ProductSearchInCategory">
+        <value xml:lang="cs">Hledání ve skupině výrobků</value>
+        <value xml:lang="de">Suche in Produktgruppe</value>
         <value xml:lang="en">Search in Category</value>
-        <value xml:lang="es">Buscar en Categoría</value>
-        <value xml:lang="fr">Recherche dans catégorie</value>
-        <value xml:lang="it">Ricerca nella Categoria</value>
-        <value xml:lang="ro">Cauta in Categoria</value>
+        <value xml:lang="es">Buscar en la Categoría</value>
+        <value xml:lang="fr">Rechercher dans catégorie</value>
+        <value xml:lang="hi_IN">सूची मे खोज किजीये</value>
+        <value xml:lang="it">Ricerca in categoria</value>
+        <value xml:lang="ja">カテゴリの中を検索</value>
+        <value xml:lang="nl">Zoek in de categorie</value>
+        <value xml:lang="pt_PT">Procurar na Categoria</value>
+        <value xml:lang="ro">Cautare in Categorie</value>
         <value xml:lang="ru">Поиск в категории</value>
         <value xml:lang="th">ค้นหาในหมวดหมู่</value>
         <value xml:lang="zh">在分类中搜索</value>
@@ -18946,6 +19326,34 @@
         <value xml:lang="it">Identificazione Leggera</value>
         <value xml:lang="ru">Прог-мный идентификатор</value>
         <value xml:lang="th">ไม่เคร่งครัดการระบุ</value>
+    </property>
+    <property key="ProductSortOrder">
+        <value xml:lang="cs">Pořadí řazení</value>
+        <value xml:lang="de">Sortierungsreihenfolge</value>
+        <value xml:lang="en">Sort Order</value>
+        <value xml:lang="es">Ordenamiento</value>
+        <value xml:lang="fr">Trier les commandes</value>
+        <value xml:lang="it">Ordinamento</value>
+        <value xml:lang="ja">Sort Order</value>
+        <value xml:lang="nl">Sorteer bestelling</value>
+        <value xml:lang="ro">Tip Ordonare</value>
+        <value xml:lang="ru">Порядок сортировки</value>
+        <value xml:lang="th">เรียงตามรายการที่สั่งซื้อ</value>
+        <value xml:lang="zh">分类顺序</value>
+    </property>
+    <property key="ProductSortedBy">
+        <value xml:lang="cs">Řazeno podle</value>
+        <value xml:lang="de">Sortiert nach</value>
+        <value xml:lang="en">Sorted by</value>
+        <value xml:lang="es">Ordenado por</value>
+        <value xml:lang="fr">Trié par</value>
+        <value xml:lang="it">Ordinato per</value>
+        <value xml:lang="ja">Sorted by</value>
+        <value xml:lang="nl">Sorteer naar</value>
+        <value xml:lang="ro">Ordonat Pe</value>
+        <value xml:lang="ru">Сортировка по</value>
+        <value xml:lang="th">เรียงลำดับจาก</value>
+        <value xml:lang="zh">分类方法</value>
     </property>
     <property key="ProductSpecialPromoPrice">
         <value xml:lang="de">Spezial Aktionspreis</value>
@@ -20247,15 +20655,20 @@
         <value xml:lang="zh">用来显示订购</value>
     </property>
     <property key="ProductUsuallyShipsIn">
-        <value xml:lang="de">Wird üblicherweise geliefert in</value>
+        <value xml:lang="cs">Obvykle expedice do</value>
+        <value xml:lang="de">gewöhnlicherweise Versand in</value>
         <value xml:lang="en">Usually ships in</value>
-        <value xml:lang="es">Usualmente se envía en</value>
+        <value xml:lang="en_GB">Usually delivered in</value>
+        <value xml:lang="es">Generalmente se envía en</value>
         <value xml:lang="fr">Habituellement expédié en</value>
         <value xml:lang="it">Normalmente spedito in</value>
+        <value xml:lang="ja">Usually ships in</value>
+        <value xml:lang="nl">Wordt gebruikelijk verzonden in </value>
+        <value xml:lang="pt_PT">Envio corrente em</value>
         <value xml:lang="ro">In mod normal expediat in </value>
         <value xml:lang="ru">Обычно поставляется в</value>
-        <value xml:lang="th">ปกติการขนส่งใน</value>
-        <value xml:lang="zh">通常送货在</value>
+        <value xml:lang="th">จัดส่งภายใน</value>
+        <value xml:lang="zh">通常送货需要</value>
     </property>
     <property key="ProductValueType">
         <value xml:lang="de">Wert, Typ</value>
@@ -20578,6 +20991,7 @@
         <value xml:lang="zh">人工服务名称</value>
     </property>
     <property key="ProductWorkItem">
+        <value xml:lang="de">WORK ITEM</value>
         <value xml:lang="en">Work Item</value>
         <value xml:lang="es">Artículo de trabajo</value>
         <value xml:lang="fr">Main d'oeuvre/service</value>
@@ -20586,6 +21000,21 @@
         <value xml:lang="ru">Рабочая позиция</value>
         <value xml:lang="th">รายการงาน</value>
         <value xml:lang="zh">工作明细</value>
+    </property>
+    <property key="ProductYouSearchedFor">
+        <value xml:lang="cs">Hledáte podle</value>
+        <value xml:lang="de">Sie suchen nach</value>
+        <value xml:lang="en">you searched for</value>
+        <value xml:lang="es">usted buscó</value>
+        <value xml:lang="fr">Vous avez cherché</value>
+        <value xml:lang="hi_IN">आपने खोजा:</value>
+        <value xml:lang="it">hai cercato</value>
+        <value xml:lang="ja">you searched for</value>
+        <value xml:lang="nl">U zocht naar</value>
+        <value xml:lang="ro">Cautare de</value>
+        <value xml:lang="ru">вы искали</value>
+        <value xml:lang="th">ผลการค้นหาของคุณ</value>
+        <value xml:lang="zh">你搜索</value>
     </property>
     <property key="PublishAndView">
         <value xml:lang="en">Publish View</value>

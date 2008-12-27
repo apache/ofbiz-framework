@@ -133,7 +133,7 @@ under the License.
           <td valign="middle">
             <div>
               <select name="sortOrder">
-                <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevency}</option>
+                <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevancy}</option>
                 <option value="SortWorkEffortField:workEffortName">${uiLabelMap.WorkEffortName}</option>
               </select>
               ${uiLabelMap.ProductLowToHigh}<input type="radio" name="sortAscending" value="Y" checked/>
