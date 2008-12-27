@@ -18,20 +18,29 @@
  *******************************************************************************/
 package org.ofbiz.base.util.string;
 
+import java.util.List;
+import java.util.Locale;
 import java.util.Map;
 import javax.el.*;
 
+import javolution.util.FastList;
 import javolution.util.FastMap;
+
+import org.ofbiz.base.util.Debug;
+import org.ofbiz.base.util.UtilGenerics;
+import org.ofbiz.base.util.UtilMisc;
+import org.ofbiz.base.util.collections.LocalizedMap;
 
 /** Implements the Unified Expression Language (JSR-245). */
 public class UelUtil {
-    
-    protected static final ExpressionFactory exprFactory = new de.odysseus.el.ExpressionFactoryImpl();
-    protected static final ELResolver defaultResolver = new CompositeELResolver() {
+    protected static final String module = UelUtil.class.getName();
+    public static final String localizedMapLocaleKey = LocalizedMap.class.getName() + ".locale";
+    protected static final ExpressionFactory exprFactory = JuelConnector.newExpressionFactory();
+    protected static final ELResolver defaultResolver = new ExtendedCompositeResolver() {
         {
+            add(new ExtendedMapResolver(false));
+            add(new ExtendedListResolver(false));
             add(new ArrayELResolver(false));
-            add(new ListELResolver(false));
-            add(new MapELResolver(false));
             add(new ResourceBundleELResolver());
             add(new BeanELResolver(false));
         }
@@ -44,9 +53,53 @@ public class UelUtil {
      * @throws Various <code>javax.el.*</code> exceptions
      */
     public static Object evaluate(Map<String, ? extends Object> context, String expression) {
+        return evaluate(context, expression, Object.class);
+    }
+
+    /** Evaluates a Unified Expression Language expression and returns the result.
+     * @param context Evaluation context (variables)
+     * @param expression UEL expression
+     * @param expectedType The expected object Class to return
+     * @return Result object
+     * @throws Various <code>javax.el.*</code> exceptions
+     */
+    @SuppressWarnings("unchecked")
+    public static Object evaluate(Map<String, ? extends Object> context, String expression, Class expectedType) {
+        ELContext elContext = new BasicContext(context);
+        ValueExpression ve = exprFactory.createValueExpression(elContext, expression, expectedType);
+        return ve.getValue(elContext);
+    }
+
+    /** Evaluates a Unified Expression Language expression and sets the resulting object
+     * to the specified value.
+     * @param context Evaluation context (variables)
+     * @param expression UEL expression
+     * @param expectedType The expected object Class to set
+     * @throws Various <code>javax.el.*</code> exceptions
+     */
+    @SuppressWarnings("unchecked")
+    public static void setValue(Map<String, Object> context, String expression, Class expectedType, Object value) {
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("UelUtil.setValue invoked, expression = " + expression + ", value = " + value, module);
+        }
+        ELContext elContext = new BasicContext(context);
+        ValueExpression ve = exprFactory.createValueExpression(elContext, expression, expectedType);
+        ve.setValue(elContext, value);
+    }
+
+    /** Evaluates a Unified Expression Language expression and sets the resulting object
+     * to null.
+     * @param context Evaluation context (variables)
+     * @param expression UEL expression
+     * @throws Various <code>javax.el.*</code> exceptions
+     */
+    public static void removeValue(Map<String, Object> context, String expression) {
+        if (Debug.verboseOn()) {
+            Debug.logVerbose("UelUtil.removeValue invoked, expression = " + expression , module);
+        }
         ELContext elContext = new BasicContext(context);
         ValueExpression ve = exprFactory.createValueExpression(elContext, expression, Object.class);
-        return ve.getValue(elContext);
+        ve.setValue(elContext, null);
     }
 
     protected static class BasicContext extends ELContext {
@@ -63,68 +116,221 @@ public class UelUtil {
         public VariableMapper getVariableMapper() {
             return this.variableMapper;
         }
-        protected class BasicVariableMapper extends VariableMapper {
-            protected final ELContext elContext;
-            protected final Map<String, Object> variables = FastMap.newInstance();
-            protected BasicVariableMapper(Map<String, ? extends Object> context, ELContext parentContext) {
-                this.variables.putAll(context);
-                this.elContext = parentContext;
+    }
+    
+    protected static class BasicVariableMapper extends VariableMapper {
+        protected final ELContext elContext;
+        protected final Map<String, Object> variables;
+        protected BasicVariableMapper(Map<String, ? extends Object> context, ELContext parentContext) {
+            this.variables = UtilGenerics.cast(context);
+            this.elContext = parentContext;
+        }
+        public ValueExpression resolveVariable(String variable) {
+            Object obj = this.variables.get(variable);
+            if (obj != null) {
+                return new BasicValueExpression(obj);
             }
-            public ValueExpression resolveVariable(String variable) {
-                Object obj = this.variables.get(variable);
-                if (obj != null) {
-                    return new BasicValueExpression(obj);
+            return null;
+        }
+        public ValueExpression setVariable(String variable, ValueExpression expression) {
+            return new BasicValueExpression(this.variables.put(variable, expression.getValue(this.elContext)));
+        }
+    }
+
+    @SuppressWarnings("serial")
+    protected static class BasicValueExpression extends ValueExpression {
+        protected Object object;
+        public BasicValueExpression(Object object) {
+            super();
+            this.object = object;
+        }
+        public boolean equals(Object obj) {
+            if (this == obj) {
+                return true;
+            }
+            try {
+                BasicValueExpression other = (BasicValueExpression) obj;
+                return this.object.equals(other.object);
+            } catch (Exception e) {}
+            return false;
+        }
+        public int hashCode() {
+            return this.object == null ? 0 : this.object.hashCode();
+        }
+        public Object getValue(ELContext context) {
+            return this.object;
+        }
+        public String getExpressionString() {
+            return null;
+        }
+        public boolean isLiteralText() {
+            return false;
+        }
+        public Class<?> getType(ELContext context) {
+            return this.object == null ? null : this.object.getClass();
+        }
+        public boolean isReadOnly(ELContext context) {
+            return false;
+        }
+        public void setValue(ELContext context, Object value) {
+            this.object = value;
+        }
+        public String toString() {
+            return "ValueExpression(" + this.object + ")";
+        }
+        public Class<?> getExpectedType() {
+            return this.object == null ? null : this.object.getClass();
+        }
+    }
+
+    /** Custom <code>CompositeELResolver</code> used to handle variable
+     * auto-vivify.
+     */
+    protected static class ExtendedCompositeResolver extends CompositeELResolver {
+        public void setValue(ELContext context, Object base, Object property, Object val) {
+            super.setValue(context, base, property, val);
+            if (!context.isPropertyResolved() && base == null) {
+                if (Debug.verboseOn()) {
+                    Debug.logVerbose("ExtendedCompositeResolver.setValue: base = " + base + ", property = " + property + ", value = " + val, module);
                 }
-                return null;
-            }
-            public ValueExpression setVariable(String variable, ValueExpression expression) {
-                return new BasicValueExpression(this.variables.put(variable, expression.getValue(this.elContext)));
+                ValueExpression ve = new BasicValueExpression(val);
+                VariableMapper vm = context.getVariableMapper();
+                vm.setVariable(property.toString(), ve);
+                context.setPropertyResolved(true);
+                return;
             }
         }
-        @SuppressWarnings("serial")
-        protected class BasicValueExpression extends ValueExpression {
-            protected Object object;
-            public BasicValueExpression(Object object) {
-                super();
-                this.object = object;
+    }
+
+    /** Custom <code>ListELResolver</code> used to handle OFBiz
+     * <code>List</code> syntax.
+     */
+    protected static class ExtendedListResolver extends ListELResolver {
+        protected boolean isReadOnly;
+        public ExtendedListResolver(boolean isReadOnly) {
+            super(isReadOnly);
+            this.isReadOnly = isReadOnly;
+        }
+        @SuppressWarnings("unchecked")
+        public void setValue(ELContext context, Object base, Object property, Object val) {
+            if (context == null) {
+                throw new NullPointerException();
             }
-            public boolean equals(Object obj) {
-                if (this == obj) {
-                    return true;
+            if (base != null && base instanceof List) {
+                if (isReadOnly) {
+                    throw new PropertyNotWritableException();
                 }
+                String str = property.toString();
+                if ("add".equals(str)) {
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("ExtendedListResolver.setValue adding List element: base = " + base + ", property = " + property + ", value = " + val, module);
+                    }
+                    context.setPropertyResolved(true);
+                    List list = (List) base;
+                    list.add(val);
+                } else if (str.startsWith("insert@")){
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("ExtendedListResolver.setValue inserting List element: base = " + base + ", property = " + property + ", value = " + val, module);
+                    }
+                    context.setPropertyResolved(true);
+                    String indexStr = str.replace("insert@", "");
+                    int index = Integer.parseInt(indexStr);
+                    List list = (List) base;
+                    try {
+                        list.add(index, val);
+                    } catch (UnsupportedOperationException ex) {
+                        throw new PropertyNotWritableException();
+                    } catch (IndexOutOfBoundsException ex) {
+                        throw new PropertyNotFoundException();
+                    }
+                } else {
+                    super.setValue(context, base, property, val);
+                }
+            }
+        }
+    }
+
+    /** Custom <code>MapELResolver</code> class used to accomodate
+     * <code>LocalizedMap</code> instances.
+     */
+    protected static class ExtendedMapResolver extends MapELResolver {
+        public ExtendedMapResolver(boolean isReadOnly) {
+            super(isReadOnly);
+        }
+        @SuppressWarnings("unchecked")
+        public Object getValue(ELContext context, Object base, Object property) {
+            if (context == null) {
+                throw new NullPointerException();
+            }
+            if (base != null && base instanceof LocalizedMap) {
+                context.setPropertyResolved(true);
+                LocalizedMap map = (LocalizedMap) base;
+                Locale locale = null;
                 try {
-                    BasicValueExpression other = (BasicValueExpression) obj;
-                    return this.object.equals(other.object);
-                } catch (Exception e) {}
-                return false;
+                    VariableMapper vm = context.getVariableMapper();
+                    ValueExpression ve = vm.resolveVariable(localizedMapLocaleKey);
+                    if (ve != null) {
+                        locale = (Locale) ve.getValue(context);
+                    }
+                    if (locale == null) {
+                        ve = vm.resolveVariable("locale");
+                        if (ve != null) {
+                            locale = (Locale) ve.getValue(context);
+                        }
+                    }
+                } catch (Exception e) {
+                    Debug.logWarning("Exception thrown while getting LocalizedMap element, locale = " + locale + ", exception " + e, module);
+                }
+                if (locale == null) {
+                    if (Debug.verboseOn()) {
+                        Debug.logVerbose("ExtendedMapResolver.getValue: unable to find Locale for LocalizedMap element, using default locale", module);
+                    }
+                    locale = Locale.getDefault();
+                }
+                return map.get(property.toString(), locale);
             }
-            public int hashCode() {
-                return this.object == null ? 0 : this.object.hashCode();
-            }
-            public Object getValue(ELContext context) {
-                return this.object;
-            }
-            public String getExpressionString() {
-                return null;
-            }
-            public boolean isLiteralText() {
-                return false;
-            }
-            public Class<?> getType(ELContext context) {
-                return this.object == null ? null : this.object.getClass();
-            }
-            public boolean isReadOnly(ELContext context) {
-                return false;
-            }
-            public void setValue(ELContext context, Object value) {
-                this.object = value;
-            }
-            public String toString() {
-                return "ValueExpression(" + this.object + ")";
-            }
-            public Class<?> getExpectedType() {
-                return this.object == null ? null : this.object.getClass();
-            }
+            return super.getValue(context, base, property);
         }
+    }
+
+    /** Evaluates a property <code>Object</code> and returns a new
+     * <code>List</code> or <code>Map</code>. If <code>property</code>
+     * evaluates to an integer value, a new <code>List</code> instance
+     * is returned, otherwise a new <code>Map</code> instance is
+     * returned.
+     * @param property Property <code>Object</code> to be evaluated
+     * @return New <code>List</code> or <code>Map</code>
+     */
+    public static Object autoVivifyListOrMap(Object property) {
+        String str = property.toString();
+        boolean isList = ("add".equals(str) || str.startsWith("insert@"));
+        if (!isList) {
+            Integer index = UtilMisc.toIntegerObject(property);
+            isList = (index != null);
+        }
+        if (isList) {
+            return FastList.newInstance();
+        } else {
+            return FastMap.newInstance();
+        }
+    }
+
+    /** Prepares an expression for evaluation by UEL. The OFBiz syntax is
+     * converted to UEL-compatible syntax and the resulting expression is
+     * returned.
+     * @param expression Expression to be converted
+     * @return Converted expression
+     */
+    public static String prepareExpression(String expression) {
+        int openBrace = expression.indexOf("[+");
+        int closeBrace = (openBrace == -1 ? -1 : expression.indexOf(']', openBrace));
+        if (closeBrace != -1) {
+            String base = expression.substring(0, openBrace);
+            String property = expression.substring(openBrace+2, closeBrace).trim();
+            String end = expression.substring(closeBrace + 1);
+            expression = base + "['insert@" + property + "']" + end;
+        }
+        expression = expression.replace("[]", "['add']");
+        return expression;
     }
 }
