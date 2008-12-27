@@ -18,7 +18,7 @@ under the License.
 -->
 <#assign searchOptionsHistoryList = Static["org.ofbiz.product.product.ProductSearchSession"].getSearchOptionsHistoryList(session)/>
 <#assign currentCatalogId = Static["org.ofbiz.product.catalog.CatalogWorker"].getCurrentCatalogId(request)/>
-<h1>${uiLabelMap.ProductAdvancedSearchinCategory}</h1>
+<h1>${uiLabelMap.ProductAdvancedSearchInCategory}</h1>
 <br/>
 <form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
   <input type="hidden" name="VIEW_SIZE" value="10"/>
@@ -33,7 +33,7 @@ under the License.
           <td>&nbsp;</td>
         </tr>
         <tr valign="middle">
-          <td class="label">${uiLabelMap.ProductIncludeSubcategories}</td>
+          <td class="label">${uiLabelMap.ProductIncludeSubCategories}</td>
           <td>
               ${uiLabelMap.CommonYes} <input type="radio" name="SEARCH_SUB_CATEGORIES" value="Y" checked="checked"/>
               ${uiLabelMap.CommonNo} <input type="radio" name="SEARCH_SUB_CATEGORIES" value="N"/>
@@ -67,7 +67,7 @@ under the License.
       <td class="label">${uiLabelMap.ProductSortedBy}</td>
       <td>
           <select name="sortOrder" class="selectBox">
-            <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevency}</option>
+            <option value="SortKeywordRelevancy">${uiLabelMap.ProductKeywordRelevancy}</option>
             <option value="SortProductField:productName">${uiLabelMap.ProductProductName}</option>
             <option value="SortProductField:totalQuantityOrdered">${uiLabelMap.ProductPopularityByOrders}</option>
             <option value="SortProductField:totalTimesViewed">${uiLabelMap.ProductPopularityByViews}</option>

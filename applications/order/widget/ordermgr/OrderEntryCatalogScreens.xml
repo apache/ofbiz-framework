@@ -108,7 +108,7 @@ under the License.
                         <include-screen name="${detailScreen}"/>
                     </widgets>
                     <fail-widgets>
-                        <label style="h2">${uiLabelMap.ProductCategoryNotFoundforCategoryID} ${productCategoryId}!</label>
+                        <label style="h2">${uiLabelMap.ProductCategoryNotFoundForCategoryID} ${productCategoryId}!</label>
                     </fail-widgets>
                 </section>
             </widgets>

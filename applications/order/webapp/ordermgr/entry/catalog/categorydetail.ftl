@@ -64,7 +64,7 @@ under the License.
       </form>
     </#if>
     <#if searchInCategory?default("Y") == "Y">
-        <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchinCategory}</a>
+        <a href="<@ofbizUrl>advancedsearch?SEARCH_CATEGORY_ID=${productCategory.productCategoryId}</@ofbizUrl>" class="buttontext">${uiLabelMap.ProductSearchInCategory}</a>
     </#if>
     <#assign longDescription = categoryContentWrapper.get("LONG_DESCRIPTION")?if_exists/>
     <#assign categoryImageUrl = categoryContentWrapper.get("CATEGORY_IMAGE_URL")?if_exists/>

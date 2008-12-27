@@ -18,7 +18,7 @@ under the License.
 -->
 <div class="screenlet">
   <div class="screenlet-title-bar">
-    <h3>${uiLabelMap.ProductAdvancedSearchinCategory}</h3>
+    <h3>${uiLabelMap.ProductAdvancedSearchInCategory}</h3>
   </div>   
   <div class="screenlet-body">
     <form name="advtokeywordsearchform" method="post" action="<@ofbizUrl>keywordsearch</@ofbizUrl>" style="margin: 0;">
@@ -237,7 +237,7 @@ under the License.
         </tr>
         <tr>
           <td class="label" align="right" valign="middle">
-            ${uiLabelMap.ProductPrioritizeProductsinCategory}:
+            ${uiLabelMap.ProductPrioritizeProductsInCategory}:
           </td>
           <td valign="middle">
             <input type="text" name="PRIORITIZE_CATEGORY_ID" size="20" maxlength="20" value="${requestParameters.PRIORITIZE_CATEGORY_ID?if_exists}"/>

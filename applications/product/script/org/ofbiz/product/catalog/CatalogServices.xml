@@ -50,7 +50,7 @@ under the License.
         <!-- Check that the ProductCategory exists -->
         <entity-one entity-name="ProductCategory" value-name="productCategory"/>
         <if-empty field="productCategory">
-            <add-error><fail-property resource="ProductUiLabels" property="ProductCategoryNotFoundforCategoryID"/></add-error>
+            <add-error><fail-property resource="ProductUiLabels" property="ProductCategoryNotFoundForCategoryID"/></add-error>
         </if-empty>
         <check-errors/>
 
