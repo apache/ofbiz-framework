@@ -1674,7 +1674,7 @@
         <value xml:lang="de">Es gibt noch keine Einkaufslisten, legen Sie eine neue an</value>
         <value xml:lang="en">No shopping lists to select, create a new one</value>
         <value xml:lang="es">No hay lista de compras, cree una nueva</value>
-        <value xml:lang="fr">Pas de liste d'achats à sélectionner, créez en une</value>
+        <value xml:lang="fr">Aucuneliste d'achats à sélectionner, créez en une</value>
         <value xml:lang="hi_IN">कोई सूची चुनने योग्य नहीं, नया बनाऐं</value>
         <value xml:lang="it">Nessuna lista di acquisto da selezionare, crearne una nuova</value>
         <value xml:lang="ja">No shopping lists to select, create a new one</value>
@@ -4025,7 +4025,7 @@
         <value xml:lang="de">Produktgruppe wurde nicht gefunden mit ID</value>
         <value xml:lang="en">Category not found for Category ID</value>
         <value xml:lang="es">Categoría no encontrada por ID</value>
-        <value xml:lang="fr">Pas de catégorie pour cet identifiant</value>
+        <value xml:lang="fr">Aucune catégorie pour cette réf.</value>
         <value xml:lang="hi_IN">सूची का सूची नम्बर नही मिला</value>
         <value xml:lang="it">Nessuna categoria non questo codice</value>
         <value xml:lang="ja">Category not found for Category ID</value>

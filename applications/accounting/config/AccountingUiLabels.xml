@@ -4608,7 +4608,7 @@
         <value xml:lang="de">Kein Rechnungskonto</value>
         <value xml:lang="en">No Billing Account</value>
         <value xml:lang="es">No hay cuenta de facturación</value>
-        <value xml:lang="fr">Pas de compte de facturation</value>
+        <value xml:lang="fr">Aucuncompte de facturation</value>
         <value xml:lang="hi_IN">कोई भुगतान ख़ाता नही</value>
         <value xml:lang="it">Nessun conto fatturazione</value>
         <value xml:lang="ja">No Billing Account</value>
@@ -4677,7 +4677,7 @@
         <value xml:lang="ar">لا فواتير موجودة</value>
         <value xml:lang="en">No Invoices Found</value>
         <value xml:lang="es">No facturas encontradas</value>
-        <value xml:lang="fr">Pas de facture trouvée</value>
+        <value xml:lang="fr">Aucunefacture trouvée</value>
         <value xml:lang="it">Nessuna Fattura Trovata</value>
         <value xml:lang="nl">Geen facturen gevonden</value>
         <value xml:lang="pt_BR">Faturas Não Encontradas</value>
@@ -4690,7 +4690,7 @@
     <property key="AccountingNoKnownInvoiceItemTypeReturnAdjustmentType">
         <value xml:lang="en">No known invoice item type for the return adjustment type [${returnAdjustmentTypeId}]</value>
         <value xml:lang="es">Tipo de elemento de factura desconocido para tipo de ajuste de retorno [${returnAdjustmentTypeId}]</value>
-        <value xml:lang="fr">Pas de type de facture identifié pour cet ajustement sur retour de type [${returnAdjustmentTypeId}]</value>
+        <value xml:lang="fr">Aucuntype de facture identifié pour cet ajustement sur retour de type [${returnAdjustmentTypeId}]</value>
         <value xml:lang="it">Nessuna tipo riga fattura conosciuta per il tipo aggiustamento reso [${returnAdjustmentTypeId}]</value>
         <value xml:lang="nl">Onbekend factuurtype voor de retourzending aanpassingstype for the return adjustment type [${returnAdjustmentTypeId}]</value>
         <value xml:lang="ro">Nici-un Tip de  Linie Factura cunoscuta pentru Tipul modificare returnare [${returnAdjustmentTypeId}]</value>
@@ -4701,7 +4701,7 @@
     <property key="AccountingNoKnownInvoiceItemTypeReturnItemType">
         <value xml:lang="en">No known invoice item type for the return item type [${returnItemTypeId}]</value>
         <value xml:lang="es">Tipo de elemento de factura desconocido para el tipo de elemento de retorno [${returnItemTypeId}]</value>
-        <value xml:lang="fr">Pas de type de facture identifié pour ce  retour de type [${returnItemTypeId}]</value>
+        <value xml:lang="fr">Aucuntype de facture identifié pour ce  retour de type [${returnItemTypeId}]</value>
         <value xml:lang="it">Nessuna tipo riga fattura conosciuta per il tipo riga reso [${returnItemTypeId}]</value>
         <value xml:lang="nl">Onbekend factuurtype voor de retourzending regel type [${returnItemTypeId}]</value>
         <value xml:lang="ro">Nici un Tip de Linie de inregistrare Factura cunoscuta pentru Tipul de Linie de inregistrare returnata [${returnItemTypeId}]</value>
@@ -4777,7 +4777,7 @@
         <value xml:lang="ar">لا تسديدات موجودة</value>
         <value xml:lang="en">No Payments found</value>
         <value xml:lang="es">No se encontraron pagos</value>
-        <value xml:lang="fr">Pas de paiement trouvé</value>
+        <value xml:lang="fr">Aucunpaiement trouvé</value>
         <value xml:lang="it">Nessun Pagamento trovato</value>
         <value xml:lang="nl">Geen betalingen gevonden</value>
         <value xml:lang="ro">Nici-o plata gasita.</value>
@@ -4801,7 +4801,7 @@
         <value xml:lang="ar">لا سطر فاتورة حالي</value>
         <value xml:lang="en">No current invoice line items</value>
         <value xml:lang="es">Sin elementos en linea de factura actual</value>
-        <value xml:lang="fr">Pas de ligne de facturation sélectionnée</value>
+        <value xml:lang="fr">Aucuneligne de facturation sélectionnée</value>
         <value xml:lang="it">Nessuna riga fattura attualmente</value>
         <value xml:lang="nl">Geen factuurregels aanwezig</value>
         <value xml:lang="ro">Nici o linie facturata in prezent.</value>

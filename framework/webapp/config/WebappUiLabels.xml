@@ -146,7 +146,7 @@
         <value xml:lang="de">Kein Delegator definiert mit diesem Namen</value>
         <value xml:lang="en">No delegator defined by that name</value>
         <value xml:lang="es">No se ha definido un delegator con ese nombre</value>
-        <value xml:lang="fr">Pas de delegator défini par ce nom</value>
+        <value xml:lang="fr">Aucun delegator défini par ce nom</value>
         <value xml:lang="it">Nessun delegator definito da questo nome</value>
         <value xml:lang="ro">Nici-un delegat definit la acest nume</value>
         <value xml:lang="ru">Нет делегаторов определенных под таким именем</value>
@@ -158,7 +158,7 @@
         <value xml:lang="de">Kein Dispatcher mit dem angegebenen Names ist im System registriert</value>
         <value xml:lang="en">No dispatcher with that name has been registered</value>
         <value xml:lang="es">No se ha registrado un dispachador con ese nombre</value>
-        <value xml:lang="fr">Pas de dispatcher défini par ce nom</value>
+        <value xml:lang="fr">Aucun dispatcher défini par ce nom</value>
         <value xml:lang="it">Nessun dispatcher con questo nome è stato registrato</value>
         <value xml:lang="ro">Nu a fost inregistrat nici-un dispecer cu acest nume</value>
         <value xml:lang="ru">Нет диспетчеров зарегистрированных под таким именем</value>

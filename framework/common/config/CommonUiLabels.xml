@@ -4372,7 +4372,7 @@
         <value xml:lang="de">Akteur ID</value>
         <value xml:lang="en">Party Id</value>
         <value xml:lang="es">Código del participante</value>
-        <value xml:lang="fr">Identifiant de la personne</value>
+        <value xml:lang="fr">Réf. de la personne</value>
         <value xml:lang="it">Codice Soggetto</value>
         <value xml:lang="nl">Relatie Id</value>
         <value xml:lang="pt">Id do Participante</value>
@@ -7084,7 +7084,7 @@
         <value xml:lang="de">Keine Datenquelle gefunden mit der ID</value>
         <value xml:lang="en">No Data Source Found with ID</value>
         <value xml:lang="es">No se encontró la fuente de datos con código</value>
-        <value xml:lang="fr">Pas de source de données trouvé pour cette référence</value>
+        <value xml:lang="fr">Aucune source de données trouvée pour cette réf.</value>
         <value xml:lang="it">Nessun Sorgente Dati Trovata con il Codice</value>
         <value xml:lang="nl">Geen Brondata gevonden met Id</value>
         <value xml:lang="pt">Não foi Encontrada nenhuma Origem de Dados com ID</value>

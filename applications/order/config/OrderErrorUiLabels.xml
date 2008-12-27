@@ -1097,7 +1097,7 @@
     <property key="OrderNoReturnQuantityAvailablePreviousReturnsMayExist">
         <value xml:lang="en">No return quantity available; previous returns may exist.</value>
         <value xml:lang="es">No hay cantidad a devolver disponible; devoluciones anteriores pueden existir.</value>
-        <value xml:lang="fr">Pas de retour de quantité en cours; des précédents retours peuvent exister. </value>
+        <value xml:lang="fr">Aucun retour de quantité en cours; des retours peuvent déjà exister. </value>
         <value xml:lang="it">Nessuna quantità resa disponibile; il resto deve esistere precedentemente.</value>
         <value xml:lang="ro">Nici-o cantitate returnata  disponibila; returnarea  trebuia sa existe in precedenta.</value>
         <value xml:lang="ru">Недоступно количество возврата; могут существовать предшествующие возвраты.</value>
@@ -1117,7 +1117,7 @@
     <property key="OrderNoShoppingListAvailable">
         <value xml:lang="en">No shopping list available</value>
         <value xml:lang="es">Ninguna lista de las compras disponible</value>
-        <value xml:lang="fr">Pas de liste d'achat en cours</value>
+        <value xml:lang="fr">Aucune liste d'achat en cours</value>
         <value xml:lang="it">Nessuna lista acquisto disponibile</value>
         <value xml:lang="ro">Nici-o lista de comparare disponibila</value>
         <value xml:lang="ru">Нет доступных списков покупок</value>
@@ -1269,7 +1269,7 @@
     <property key="OrderPartyIdAndOrRoleTypeIdNotDefined">
         <value xml:lang="en">partyId and/or roleTypeId not defined. </value>
         <value xml:lang="es">Código y/o tipo de rol del participante no definidos.</value>
-        <value xml:lang="fr">Identifiant d'acteur et/ou identifiant du type de rôle non définis. </value>
+        <value xml:lang="fr">Réf. d'acteur et/ou de type de rôle non défini(s).</value>
         <value xml:lang="it">partyId e/o roleTypeId non definito. </value>
         <value xml:lang="ro">partyId si/sau roleTypeId neidentificat. </value>
         <value xml:lang="ru">Не определены код участник и/или код типа роли. </value>
@@ -2195,7 +2195,7 @@
     <property key="OrderStatusIdNotExist">
         <value xml:lang="en">Status id not exist</value>
         <value xml:lang="es">Código de estado inexistente</value>
-        <value xml:lang="fr">Identifiant du statut inexistant</value>
+        <value xml:lang="fr">Réf. du statut inexistante</value>
         <value xml:lang="it">Codice Stato non esistente</value>
         <value xml:lang="ro">Cod Stat inexistent</value>
         <value xml:lang="ru">Код статуса не существует</value>

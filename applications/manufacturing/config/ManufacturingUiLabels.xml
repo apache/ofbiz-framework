@@ -2070,7 +2070,7 @@
         <value xml:lang="de">Kalender nicht vorhanden</value>
         <value xml:lang="en">No calendar found</value>
         <value xml:lang="es">No se encontró calendario</value>
-        <value xml:lang="fr">PAs de calendrier trouvé</value>
+        <value xml:lang="fr">Aucun calendrier trouvé</value>
         <value xml:lang="it">Nessun calendario trovato</value>
         <value xml:lang="ro">Nici-un calendar gasit</value>
         <value xml:lang="th">ไม่พบปฏิทิน</value>
@@ -2079,7 +2079,7 @@
     <property key="ManufacturingNoDataAvailable">
         <value xml:lang="de">Keine Daten vorhanden</value>
         <value xml:lang="en">No Data Available.</value>
-        <value xml:lang="fr">Pas de donnée disponible.</value>
+        <value xml:lang="fr">Aucune donnée disponible.</value>
         <value xml:lang="it">Nessun Dato Disponibile.</value>
         <value xml:lang="ro">Nici-o Data Disponibila.</value>
         <value xml:lang="th">ไม่มีข้อมูลที่ใช้ได้</value>

@@ -1630,7 +1630,7 @@
     <property key="PartyNoContactInformationParty">
         <value xml:lang="en">No contact information was found for the party with ID ${partyId}</value>
         <value xml:lang="es">No se encontró información de contacto para el participante con código ${partyId}</value>
-        <value xml:lang="fr">Pas de coordonnées trouvées pour l'acteur avec la réf.: ${partyId}</value>
+        <value xml:lang="fr">Aucune coordonnées trouvées pour l'acteur avec la réf.: ${partyId}</value>
         <value xml:lang="it">Nessuna informazione contatto è stata trovata per il Soggetto con Codice ${partyId}</value>
         <value xml:lang="nl">No contact information was found for the party with ID ${partyId}</value>
         <value xml:lang="ro">Nici-o informatie contact a fost gasita pentru  Subiectul cu Cod ${partyId}</value>
@@ -3009,7 +3009,7 @@
     <property key="WorkEffortNoContactInformationOnFile">
         <value xml:lang="en">No Contact Information On File</value>
         <value xml:lang="es">No hay información de contacto en el archivo</value>
-        <value xml:lang="fr">Pas de coordonnée dans le dossier</value>
+        <value xml:lang="fr">Aucune coordonnée dans le dossier</value>
         <value xml:lang="it">Nessun Informazione Contatto Sul File</value>
         <value xml:lang="nl">No Contact Information On File</value>
         <value xml:lang="ro">Nici-o Informatie Contact in Fisier</value>
@@ -3041,7 +3041,7 @@
     </property>
     <property key="WorkEffortNoNotesForThisRequestItem">
         <value xml:lang="en">No  Notes  For  This  RequestItem</value>
-        <value xml:lang="fr">Pas de note pour cette demande d'article</value>
+        <value xml:lang="fr">Aucune note pour cette demande d'article</value>
         <value xml:lang="th">ไม่มีข้อความสำหรับรายการคำร้องนี้</value>
     </property>
     <property key="WorkEffortNoOpenRequirementsFound">
