@@ -1092,7 +1092,7 @@
     <property key="SegmentGroupNoSegmentGroupFoundWithId">
         <value xml:lang="en">No SegmentGroup found with ID:</value>
         <value xml:lang="es">No se encontraron segmentos con el ID:</value>
-        <value xml:lang="fr">Pas de groupe de segment trouvé pour la référence : </value>
+        <value xml:lang="fr">Aucun groupe de segment trouvé pour la réf. : </value>
         <value xml:lang="it">Nessun Gruppo Segmento trovato con il codice:</value>
         <value xml:lang="ro">Nici-un Grup Segment gasit cu codul:</value>
         <value xml:lang="th">ไม่มีส่วนของกลุ่มที่พบจากรหัสนี้ :</value>
@@ -1503,7 +1503,7 @@
     <property key="TrackingCodeNoOverrideIfEmpty">
         <value xml:lang="en">No override (co-brand) if empty</value>
         <value xml:lang="es">Si este campo queda vacío no se reemplazará</value>
-        <value xml:lang="fr">Pas de remplacement (marque associée) si vide</value>
+        <value xml:lang="fr">Aucun remplacement (marque associée) si vide</value>
         <value xml:lang="it">Nessuna sovrapposizione (co-brand) se vuoto</value>
         <value xml:lang="ro">Nu se poate suprascrie (marca-asociata) daca este gol.</value>
         <value xml:lang="th">ไม่มีการยกเลิก (ยี่ห้อสินค้าร่วมกัน) ถ้าว่าง</value>
@@ -1512,7 +1512,7 @@
     <property key="TrackingCodeNoRedirectIfEmpty">
         <value xml:lang="en">No redirect if empty</value>
         <value xml:lang="es">Si este campo queda vacío no habrá redirección</value>
-        <value xml:lang="fr">Pas de redirection si vide</value>
+        <value xml:lang="fr">Aucune redirection si vide</value>
         <value xml:lang="it">Nessun redirect se vuoto</value>
         <value xml:lang="ro">Daca este gol nu poate fi redirectionat</value>
         <value xml:lang="th">ไม่มีการเปลี่ยนถ้าว่าง</value>

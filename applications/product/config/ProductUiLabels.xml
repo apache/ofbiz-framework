@@ -8841,7 +8841,7 @@
         <value xml:lang="de">Kategorie nicht gefunden für Kategorie ID</value>
         <value xml:lang="en">Category not found for Category ID</value>
         <value xml:lang="es">No se encontró una Categoría con el código de Categoría</value>
-        <value xml:lang="fr">Pas de catégorie pour cet identifiant</value>
+        <value xml:lang="fr">Aucune catégorie pour cet réf.</value>
         <value xml:lang="it">Categoria non trovata per Codice Categoria</value>
         <value xml:lang="ro">Categorie negasita pentru Cod Categorie</value>
         <value xml:lang="ru">Категория не найдена для категории с кодом</value>
@@ -13980,7 +13980,7 @@
         <value xml:lang="de">Keine Kategorie ausgewählt</value>
         <value xml:lang="en">No category specified</value>
         <value xml:lang="es">No se especificó categoría</value>
-        <value xml:lang="fr">Pas de catégorie spécifiée</value>
+        <value xml:lang="fr">Aucune catégorie spécifiée</value>
         <value xml:lang="it">Nessuna categoria specificata</value>
         <value xml:lang="ro">Nici-o categorie specificata</value>
         <value xml:lang="ru">Категория не выбрана</value>
@@ -14013,7 +14013,7 @@
         <value xml:lang="de">Keine Beschreibung</value>
         <value xml:lang="en">No description</value>
         <value xml:lang="es">No tiene descripción</value>
-        <value xml:lang="fr">Pas de description</value>
+        <value xml:lang="fr">Aucune description</value>
         <value xml:lang="it">Nessuna descrizione</value>
         <value xml:lang="ro">Nici-o descriere</value>
         <value xml:lang="ru">Описания нет</value>
@@ -14046,7 +14046,7 @@
         <value xml:lang="de">Keine Datei angegeben für den Upload</value>
         <value xml:lang="en">No file specified for Upload</value>
         <value xml:lang="es">No se especificaron archivos para la carga</value>
-        <value xml:lang="fr">Pas de fichier spécifié pour le téléchargement vers le serveur</value>
+        <value xml:lang="fr">Aucun fichier spécifié pour le téléchargement vers le serveur</value>
         <value xml:lang="it">Nessun file specificato da Caricare</value>
         <value xml:lang="ro">Nici-un file specificat de Incarcat</value>
         <value xml:lang="ru">Не указан файл для загрузки</value>
@@ -14090,7 +14090,7 @@
         <value xml:lang="de">Keine Positionen auf dem Beschaffungsauftrag</value>
         <value xml:lang="en">No Items in PO</value>
         <value xml:lang="es">El pedido de compra no tiene artículos</value>
-        <value xml:lang="fr">Pas de ligne en commande d'achat</value>
+        <value xml:lang="fr">Aucune ligne en commande d'achat</value>
         <value xml:lang="it">Nessuna Riga nel OA</value>
         <value xml:lang="ro">Nici-o Linie in OA</value>
         <value xml:lang="ru">В закупочном заказе позиций нет</value>
@@ -14112,7 +14112,7 @@
         <value xml:lang="de">Keine Positionen auf der Retoure</value>
         <value xml:lang="en">No Items in Return</value>
         <value xml:lang="es">No hay artículos en la devolución</value>
-        <value xml:lang="fr">Pas de ligne en retour</value>
+        <value xml:lang="fr">Aucune ligne en retour</value>
         <value xml:lang="it">Nessuna Riga Reso</value>
         <value xml:lang="ro">Nici-o linie Returnata</value>
         <value xml:lang="ru">В возврате нет позиций</value>
@@ -14134,7 +14134,7 @@
         <value xml:lang="de">Keine Schlüsselwörter gefunden</value>
         <value xml:lang="en">No Keywords Found</value>
         <value xml:lang="es">No se encontraron palabras clave</value>
-        <value xml:lang="fr">Pas de mot-clé trouvé</value>
+        <value xml:lang="fr">Aucun mot-clé trouvé</value>
         <value xml:lang="it">Nessuna Chiave Trovata</value>
         <value xml:lang="ro">Nici-o linie Gasita</value>
         <value xml:lang="ru">Ключевые слова не найдены</value>
@@ -14200,7 +14200,7 @@
         <value xml:lang="de">Keine Kommissionierungen sind zurzeit gestartet</value>
         <value xml:lang="en">No picks are started right now</value>
         <value xml:lang="es">No hay recepciones iniciadas en este momento</value>
-        <value xml:lang="fr">Pas de préparation démarrée</value>
+        <value xml:lang="fr">Aucune préparation commencée</value>
         <value xml:lang="it">Nessun prelievo è iniziato fino ad ora</value>
         <value xml:lang="ro">Nu a fost initiata nici-o preluare pana acum</value>
         <value xml:lang="ru">Нет сортировок начатых прямо сейчас</value>

@@ -2504,7 +2504,7 @@
         <value xml:lang="de">Adresse 1. Zeile</value>
         <value xml:lang="en">Address Line 1</value>
         <value xml:lang="es">Linea de Dirección 1</value>
-        <value xml:lang="fr">Ligne d'adresse 1</value>
+        <value xml:lang="fr">1ère ligne d'adresse</value>
         <value xml:lang="hi_IN">पता लाइन १</value>
         <value xml:lang="it">Indirizzo riga 1</value>
         <value xml:lang="ja">Address Line 1</value>
@@ -2519,7 +2519,7 @@
         <value xml:lang="de">Adresszeile 1 fehlt</value>
         <value xml:lang="en">Address Line 1 is missing</value>
         <value xml:lang="es">Falta ingresar dirección línea 1</value>
-        <value xml:lang="fr">Ligne d'adresse 1 absente</value>
+        <value xml:lang="fr">1ère ligne d'adresse vide</value>
         <value xml:lang="it">Indirizzo riga 1 è mancante</value>
         <value xml:lang="nl">Adresregel 1 ontbreekt</value>
         <value xml:lang="pt_PT">Linha 1 da Morada em Falta</value>
@@ -2533,7 +2533,7 @@
         <value xml:lang="de">Adresszeile 1 fehlt</value>
         <value xml:lang="en">Address Line 1 is missing</value>
         <value xml:lang="es">Falta Linea de Dirección 1</value>
-        <value xml:lang="fr">Ligne d'adresse 1 absente</value>
+        <value xml:lang="fr">1ère ligne d'adresse vide</value>
         <value xml:lang="hi_IN">पता लाइन १ नही है</value>
         <value xml:lang="it">Indirizzo riga 1 mancante</value>
         <value xml:lang="ja">Address Line 1 is missing</value>
@@ -2549,7 +2549,7 @@
         <value xml:lang="de">Adresse 2. Zeile</value>
         <value xml:lang="en">Address Line 2</value>
         <value xml:lang="es">Linea de Dirección 2</value>
-        <value xml:lang="fr">Ligne d'adresse 2</value>
+        <value xml:lang="fr">2ème ligne d'adresse</value>
         <value xml:lang="hi_IN">पता लाइन २</value>
         <value xml:lang="it">Indirizzo riga 2</value>
         <value xml:lang="ja">Address Line 2</value>
@@ -3528,7 +3528,7 @@
         <value xml:lang="de">Kontakt Mech ID fehlt</value>
         <value xml:lang="en">Contact Mech ID is missing</value>
         <value xml:lang="es">Falta ID de contacto</value>
-        <value xml:lang="fr">Identifiant coordonnées absent</value>
+        <value xml:lang="fr">Réf. de coordonnées absente</value>
         <value xml:lang="hi_IN">सम्पर्क Mech ID नही है</value>
         <value xml:lang="it">Codice Contatto mancante</value>
         <value xml:lang="ja">Contact Mech ID is missing</value>
@@ -3646,7 +3646,7 @@
         <value xml:lang="de">Kontaktzweck</value>
         <value xml:lang="en">Contact Purposes</value>
         <value xml:lang="es">Propósitos Del Contacto</value>
-        <value xml:lang="fr">Objet des coordonnées</value>
+        <value xml:lang="fr">Objets des coordonnées</value>
         <value xml:lang="hi_IN">सम्पर्क विषय</value>
         <value xml:lang="it">Funzioni contatto</value>
         <value xml:lang="ja">Contact Purposes</value>
@@ -3740,7 +3740,7 @@
         <value xml:lang="de">Inhalt ID</value>
         <value xml:lang="en">Content ID</value>
         <value xml:lang="es">Tipo de contenido</value>
-        <value xml:lang="fr">Identifiant contenu</value>
+        <value xml:lang="fr">Réf. de contenu</value>
         <value xml:lang="it">Codice Contenuto</value>
         <value xml:lang="nl">Content ID</value>
         <value xml:lang="pt_PT">Identificação do Conteúdo</value>
@@ -3797,6 +3797,7 @@
     <property key="PartyCountryCodeMissing">
         <value xml:lang="de">Landesvorwahl fehlt</value>
         <value xml:lang="en">Country code is Missing</value>
+        <value xml:lang="fr">Le code pays manque</value>
     </property>
     <property key="PartyCountryMissing">
         <value xml:lang="cs">Chybí země</value>
@@ -5243,6 +5244,7 @@
     <property key="PartyLastNameOnCardMissingError">
         <value xml:lang="de">Nachname auf der Karte fehlt</value>
         <value xml:lang="en">Last name on card is missing</value>
+        <value xml:lang="en">Le nom manque sur la carte</value>
     </property>
     <property key="PartyLastVisit">
         <value xml:lang="de">Letzte Besuche</value>
@@ -6127,7 +6129,7 @@
         <value xml:lang="de">Keine Kommunikationsereignisse</value>
         <value xml:lang="en">No Communication Events</value>
         <value xml:lang="es">No se encontraron eventos</value>
-        <value xml:lang="fr">Pas de communication enregistrée</value>
+        <value xml:lang="fr">Aucune communication enregistrée</value>
         <value xml:lang="it">Nessun Evento Comunicazione</value>
         <value xml:lang="nl">Geen communicatie-actie</value>
         <value xml:lang="pt_PT">Sem Eventos em Comunicação</value>
@@ -6141,7 +6143,7 @@
         <value xml:lang="de">Keine Kontaktinformation hinterlegt</value>
         <value xml:lang="en">No contact information on file</value>
         <value xml:lang="es">Ninguna Información Del Contacto en Archivo</value>
-        <value xml:lang="fr">Pas de coordonnées enregistrées.</value>
+        <value xml:lang="fr">Aucune coordonnée enregistrée.</value>
         <value xml:lang="hi_IN">कोई जानकारी उपलब्घ नही</value>
         <value xml:lang="it">Nessuna informazione per contatto in archivio</value>
         <value xml:lang="ja">No contact information on file</value>
@@ -6187,7 +6189,7 @@
         <value xml:lang="de">Kein Name (Gruppe)</value>
         <value xml:lang="en">No name (group)</value>
         <value xml:lang="es">No hay nombre (grupo)</value>
-        <value xml:lang="fr">Pas de nom (groupe)</value>
+        <value xml:lang="fr">Aucun nom (groupe)</value>
         <value xml:lang="it">Nessn nome (gruppo)</value>
         <value xml:lang="nl">Geen groepnaam</value>
         <value xml:lang="pt_PT">Sem nome (grupo)</value>
@@ -6200,7 +6202,7 @@
         <value xml:lang="de">Keine Notizen für diesen Akteur gefunden</value>
         <value xml:lang="en">No notes for this party.</value>
         <value xml:lang="es">No existen notas para este participante</value>
-        <value xml:lang="fr">Pas de note pour cet acteur</value>
+        <value xml:lang="fr">Aucune note pour cet acteur</value>
         <value xml:lang="it">Nessuna nota per questo Soggetto.</value>
         <value xml:lang="nl">Geen notities voor deze relatie.</value>
         <value xml:lang="pt_PT">Sem notas para este sector.</value>
@@ -6315,7 +6317,7 @@
         <value xml:lang="de">Keine Zahlungsmethode erfasst.</value>
         <value xml:lang="en">No payment method information on file.</value>
         <value xml:lang="es">No se encontraron métodos de pago</value>
-        <value xml:lang="fr">Pas de mode de paiement enregistré.</value>
+        <value xml:lang="fr">Aucun mode de paiement enregistré.</value>
         <value xml:lang="it">Nessuna informazione sul metodo di pagamento sul file.</value>
         <value xml:lang="nl">Geen informatie betaalmethode in bestand.</value>
         <value xml:lang="pt_PT">Sem metodos de pagamento em arquivo.</value>
@@ -6337,7 +6339,7 @@
         <value xml:lang="de">Kein Warenkorb gespeichert für diesen Akteur.</value>
         <value xml:lang="en">No shopping cart saved for party</value>
         <value xml:lang="es">No se encontraron carros de compra</value>
-        <value xml:lang="fr">Pas de panier d'achats enregistré pour cet acteur</value>
+        <value xml:lang="fr">Aucun panier d'achats enregistré pour cet acteur</value>
         <value xml:lang="it">Nessun carrello registrato per il Soggetto.</value>
         <value xml:lang="nl">Geen boodschappenlijst opgeslagen</value>
         <value xml:lang="ro">Nici-un Cos registrat pentru Subiectul.</value>
@@ -6349,7 +6351,7 @@
         <value xml:lang="de">Keine Einkaufsliste vorhanden für diesen Akteur</value>
         <value xml:lang="en">No Shopping lists for party</value>
         <value xml:lang="es">No se encontraron listas de compra</value>
-        <value xml:lang="fr">Pas de liste d'achats pour cet acteur </value>
+        <value xml:lang="fr">Aucune liste d'achats pour cet acteur </value>
         <value xml:lang="it">Nessuna lista di Acquisto per il Soggetto</value>
         <value xml:lang="nl">Geen boodschappenlijsten voor deze relatie</value>
         <value xml:lang="ro">Nici-o lista de Cumparare pentru Subiectul</value>
@@ -7338,7 +7340,7 @@
         <value xml:lang="de">Verwendungszweck nicht gefunden mit der ID</value>
         <value xml:lang="en">Contact Purpose Type Not Found with ID</value>
         <value xml:lang="es">Tipo de uso no encontrado con la ID</value>
-        <value xml:lang="fr">Type d'objet non trouvé</value>
+        <value xml:lang="fr">Type d'objet pour coordonnées non trouvé pour cette réf.</value>
         <value xml:lang="it">Tipo funzione contatto non trovate con codice</value>
         <value xml:lang="ja">Contact Purpose Type Not Found with ID</value>
         <value xml:lang="nl">Kontakt reden niet gevonden met de ID</value>
@@ -7645,7 +7647,7 @@
         <value xml:lang="de">Rolle Typ</value>
         <value xml:lang="en">Role Type</value>
         <value xml:lang="es">Tipo de rol</value>
-        <value xml:lang="fr">Rôle de l'acteur</value>
+        <value xml:lang="fr">Type de rôle</value>
         <value xml:lang="it">Tipo Ruolo</value>
         <value xml:lang="nl">Soort rol</value>
         <value xml:lang="ro">Tip Rol</value>
@@ -8485,7 +8487,7 @@
         <value xml:lang="de">Name</value>
         <value xml:lang="en">To Name</value>
         <value xml:lang="es">Nombre</value>
-        <value xml:lang="fr">Nom</value>
+        <value xml:lang="fr">Nom dest.</value>
         <value xml:lang="hi_IN">नाम को</value>
         <value xml:lang="it">Nome</value>
         <value xml:lang="ja">To Name</value>
@@ -8716,7 +8718,7 @@
         <value xml:lang="de">Benutzeranmeldung ID</value>
         <value xml:lang="en">User Login Id</value>
         <value xml:lang="es">Código de usuario</value>
-        <value xml:lang="fr">Identifiant de connexion</value>
+        <value xml:lang="fr">Réf. d'identifiant de connexion</value>
         <value xml:lang="it">Codice Utente Login</value>
         <value xml:lang="nl">User Login Id</value>
         <value xml:lang="pt_PT">Identificação de Início de Secção</value>
@@ -8769,7 +8771,7 @@
         <value xml:lang="de">Benutzeranmeldungen für Sicherheitsgruppe mit der ID</value>
         <value xml:lang="en">UserLogins for SecurityGroup with ID</value>
         <value xml:lang="es">Usuarios para el grupo de seguridad con código</value>
-        <value xml:lang="fr">Identifiant de connexion pour le groupe de sécurité avec la réf.</value>
+        <value xml:lang="fr">Identifiant de connexion pour le groupe de sécurité ayant la réf.</value>
         <value xml:lang="it">Utenti Logins per Gruppo Sicurezza con Codice</value>
         <value xml:lang="nl">Gebruikers voor rechtengroep met ID</value>
         <value xml:lang="pt_PT">Inícios de Secção para Grupo de Segurança com ID. </value>
