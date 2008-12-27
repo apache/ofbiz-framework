@@ -156,12 +156,12 @@ public class ShoppingCartEvents {
         if (paramMap.containsKey("ADD_PRODUCT_ID")) {
             productId = (String) paramMap.remove("ADD_PRODUCT_ID");
         } else if (paramMap.containsKey("add_product_id")) {
-        	Object object = paramMap.remove("add_product_id");
-        	try{
-        		productId = (String) object;
-        	}catch(ClassCastException e){
-        		productId = (String)((List)object).get(0);
-        	}
+            Object object = paramMap.remove("add_product_id");
+            try{
+                productId = (String) object;
+            }catch(ClassCastException e){
+                productId = (String)((List)object).get(0);
+            }
         }
         if (paramMap.containsKey("PRODUCT_ID")) {
             parentProductId = (String) paramMap.remove("PRODUCT_ID");
@@ -241,23 +241,23 @@ public class ShoppingCartEvents {
         //Check for virtual products
         if (ProductWorker.isVirtual(delegator, productId)) {
 
-			if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod(delegator, productId))) {
-				// get the selected features.
-				List <String> selectedFeatures = new LinkedList<String>();
-		    	java.util.Enumeration paramNames = request.getParameterNames();
-		    	while(paramNames.hasMoreElements()) {
-		    		String paramName = (String)paramNames.nextElement();
-		    		if (paramName.startsWith("FT")) {
-		    			selectedFeatures.add(request.getParameterValues(paramName)[0]);
-		    		}
-		    	}
-		    	
-		    	// check if features are selected
-		    	if (UtilValidate.isEmpty(selectedFeatures)) {
-					request.setAttribute("product_id", productId);
-					request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
-					return "product";
-		    	}
+            if ("VV_FEATURETREE".equals(ProductWorker.getProductvirtualVariantMethod(delegator, productId))) {
+                // get the selected features.
+                List <String> selectedFeatures = new LinkedList<String>();
+                java.util.Enumeration paramNames = request.getParameterNames();
+                while(paramNames.hasMoreElements()) {
+                    String paramName = (String)paramNames.nextElement();
+                    if (paramName.startsWith("FT")) {
+                        selectedFeatures.add(request.getParameterValues(paramName)[0]);
+                    }
+                }
+                
+                // check if features are selected
+                if (UtilValidate.isEmpty(selectedFeatures)) {
+                    request.setAttribute("product_id", productId);
+                    request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
+                    return "product";
+                }
  
                 String variantProductId = ProductWorker.getVariantFromFeatureTree(productId, selectedFeatures, delegator);
                 if (UtilValidate.isNotEmpty(variantProductId)) {
@@ -268,12 +268,12 @@ public class ShoppingCartEvents {
                     return "product";
                 }
 
-			} else {
-				request.setAttribute("product_id", productId);
-				request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
-				return "product";
-			}
-		}
+            } else {
+                request.setAttribute("product_id", productId);
+                request.setAttribute("_EVENT_MESSAGE_",UtilProperties.getMessage(resource,"cart.addToCart.chooseVariationBeforeAddingToCart",locale));
+                return "product";
+            }
+        }
         
         // get the override price
         if (paramMap.containsKey("PRICE")) {
@@ -323,7 +323,7 @@ public class ShoppingCartEvents {
             }
 
             if (reservStart != null && reservEnd != null) {
-            	reservLength = new Double(UtilDateTime.getInterval(reservStart,reservEnd)/86400000);
+                reservLength = new Double(UtilDateTime.getInterval(reservStart,reservEnd)/86400000);
             }
 
             if (reservStart != null && paramMap.containsKey("reservLength")) {
@@ -362,8 +362,8 @@ public class ShoppingCartEvents {
 
             //check accommodation for reservations
             if((paramMap.containsKey("accommodationMapId")) && (paramMap.containsKey("accommodationSpotId"))){
-            	accommodationMapId = (String) paramMap.remove("accommodationMapId");
-            	accommodationSpotId = (String) paramMap.remove("accommodationSpotId");
+                accommodationMapId = (String) paramMap.remove("accommodationMapId");
+                accommodationSpotId = (String) paramMap.remove("accommodationSpotId");
             }
         }
 
@@ -549,9 +549,9 @@ public class ShoppingCartEvents {
             return "error";
         } else {
             if (cart.viewCartOnAdd()) {
-            	return "viewcart";
+                return "viewcart";
             } else {
-            	return "success";
+                return "success";
             }
         }
     }
@@ -940,11 +940,11 @@ public class ShoppingCartEvents {
         Locale locale = UtilHttp.getLocale(request);
 
         if (UtilValidate.isEmpty(alternateGwpProductId)) {
-        	request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotSelectAlternateGiftNoAlternateGwpProductIdPassed", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotSelectAlternateGiftNoAlternateGwpProductIdPassed", locale));
             return "error";
         }
         if (UtilValidate.isEmpty(alternateGwpLineStr)) {
-        	request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotSelectAlternateGiftNoAlternateGwpLinePassed", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotSelectAlternateGiftNoAlternateGwpLinePassed", locale));
             return "error";
         }
 
@@ -952,13 +952,13 @@ public class ShoppingCartEvents {
         try {
             alternateGwpLine = Integer.parseInt(alternateGwpLineStr);
         } catch (Exception e) {
-        	request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotSelectAlternateGiftAlternateGwpLineIsNotAValidNumber", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderCouldNotSelectAlternateGiftAlternateGwpLineIsNotAValidNumber", locale));
             return "error";
         }
 
         ShoppingCartItem cartLine = cart.findCartItem(alternateGwpLine);
         if (cartLine == null) {
-        	request.setAttribute("_ERROR_MESSAGE_", "Could not select alternate gift, no cart line item found for #" + alternateGwpLine + ".");
+            request.setAttribute("_ERROR_MESSAGE_", "Could not select alternate gift, no cart line item found for #" + alternateGwpLine + ".");
             return "error";
         }
 
@@ -994,7 +994,7 @@ public class ShoppingCartEvents {
         int i;
 
         if (UtilValidate.isEmpty(partyId) || roleTypeId.length < 1) {
-        	request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
             return "error";
         }
 
@@ -1025,7 +1025,7 @@ public class ShoppingCartEvents {
         int i;
 
         if (UtilValidate.isEmpty(partyId) || roleTypeId.length < 1) {
-        	request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
+            request.setAttribute("_ERROR_MESSAGE_", UtilProperties.getMessage(resource_error,"OrderPartyIdAndOrRoleTypeIdNotDefined", locale));
             return "error";
         }
 

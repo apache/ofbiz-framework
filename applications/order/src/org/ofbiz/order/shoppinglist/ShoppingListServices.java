@@ -416,7 +416,7 @@ public class ShoppingListServices {
      * @return
      */
     public static ShoppingCart makeShoppingListCart(LocalDispatcher dispatcher, GenericValue shoppingList, Locale locale) {
-    	return makeShoppingListCart(null, dispatcher, shoppingList, locale); }
+        return makeShoppingListCart(null, dispatcher, shoppingList, locale); }
 
     /**
      * Add a shoppinglist to an existing shoppingcart
@@ -451,20 +451,20 @@ public class ShoppingListServices {
             }
 
             if (UtilValidate.isNotEmpty(items)) {
-            	if (listCart == null) {
-            		listCart = new ShoppingCart(delegator, productStoreId, locale, currencyUom);
-            		listCart.setOrderPartyId(shoppingList.getString("partyId"));
-            		listCart.setAutoOrderShoppingListId(shoppingList.getString("shoppingListId"));
-            	} else {
-            		if (!listCart.getPartyId().equals(shoppingList.getString("partyId"))){
-            			Debug.logError("CANNOT add shoppingList: " + shoppingList.getString("shoppingListId") 
-            					+ " of partyId: " + shoppingList.getString("partyId")
-            					+ " to a shoppingcart with a different orderPartyId: " 
-            					+ listCart.getPartyId(), module);
-                		return listCart;
-            		}
-            	}
-            	
+                if (listCart == null) {
+                    listCart = new ShoppingCart(delegator, productStoreId, locale, currencyUom);
+                    listCart.setOrderPartyId(shoppingList.getString("partyId"));
+                    listCart.setAutoOrderShoppingListId(shoppingList.getString("shoppingListId"));
+                } else {
+                    if (!listCart.getPartyId().equals(shoppingList.getString("partyId"))){
+                        Debug.logError("CANNOT add shoppingList: " + shoppingList.getString("shoppingListId") 
+                                + " of partyId: " + shoppingList.getString("partyId")
+                                + " to a shoppingcart with a different orderPartyId: " 
+                                + listCart.getPartyId(), module);
+                        return listCart;
+                    }
+                }
+                
 
                 Iterator i = items.iterator();
                 ProductConfigWrapper configWrapper = null;
