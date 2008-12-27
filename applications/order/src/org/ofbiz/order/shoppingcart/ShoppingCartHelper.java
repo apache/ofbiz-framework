@@ -678,16 +678,16 @@ public class ShoppingCartHelper {
                     } else if (parameterName.toUpperCase().startsWith("DESCRIPTION")) {
                         itemDescription = quantString;  // the quantString is actually the description if the field name starts with DESCRIPTION
                     } else if (parameterName.startsWith("reservStart")) {
-                    	if (quantString.length() ==0){
-                    		// should have format: yyyy-mm-dd hh:mm:ss.fffffffff                    
-                    		quantString += " 00:00:00.000000000";
-                    	}
-                    	if (item != null) {                        
-                    		Timestamp reservStart = Timestamp.valueOf(quantString);
-                    		item.setReservStart(reservStart);
-                    	}
+                        if (quantString.length() ==0){
+                            // should have format: yyyy-mm-dd hh:mm:ss.fffffffff                    
+                            quantString += " 00:00:00.000000000";
+                        }
+                        if (item != null) {                        
+                            Timestamp reservStart = Timestamp.valueOf(quantString);
+                            item.setReservStart(reservStart);
+                        }
                     } else if (parameterName.startsWith("reservLength")) {
-                    	if (item != null) {
+                        if (item != null) {
                             double reservLength = nf.parse(quantString).doubleValue();
                             item.setReservLength(reservLength);
                         }
