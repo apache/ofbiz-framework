@@ -356,7 +356,7 @@ under the License.
             <div class="form-row">
                 <div class="form-label">${uiLabelMap.CommonPassword}</div>
                 <div class="form-field">
-                    ${uiLabelMap.PartyRecievePasswordByEmail}.
+                    ${uiLabelMap.PartyReceivePasswordByEmail}.
                 </div>
             </div>
         </#if>

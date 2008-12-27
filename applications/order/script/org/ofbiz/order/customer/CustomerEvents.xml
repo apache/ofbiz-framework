@@ -31,16 +31,16 @@ under the License.
                 <process field="personalTitle"><copy/></process>
                 <process field="firstName">
                     <copy/>
-                    <not-empty><fail-property resource="EcommerceUiLabels" property="PartyFirstNameMissing"/></not-empty>
+                    <not-empty><fail-property resource="PartyUiLabels" property="PartyFirstNameMissing"/></not-empty>
                 </process>
                 <process field="middleName"><copy/></process>
                 <process field="lastName">
                     <copy/>
-                    <not-empty><fail-property resource="EcommerceUiLabels" property="PartyLastNameMissingError"/></not-empty>
+                    <not-empty><fail-property resource="PartyUiLabels" property="PartyLastNameMissingError"/></not-empty>
                 </process>
                 <process field="suffix"><copy/></process>
                 <process field="birthDate">
-                    <convert type="Date" to-field="birthDate"><fail-property resource="EcommerceUiLabels" property="PartyBirthDateMissingError"/></convert>
+                    <convert type="Date" to-field="birthDate"><fail-property resource="PartyUiLabels" property="PartyBirthDateMissingError"/></convert>
                 </process>
                 <process field="gender"><copy/></process>
             </simple-map-processor>
@@ -51,7 +51,7 @@ under the License.
             <simple-map-processor name="newEmail">
                 <process field="emailAddress">
                     <copy/>
-                    <validate-method method="isEmail"><fail-property resource="EcommerceUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></validate-method>
+                    <validate-method method="isEmail"><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></validate-method>
                 </process>
                 <process field="emailSol"><copy to-field="allowSolicitation"/></process>
             </simple-map-processor>
@@ -69,24 +69,24 @@ under the License.
                     <process field="fullName"><copy to-field="toName"/></process>
                     <process field="address1">
                         <copy/>
-                        <not-empty><fail-property resource="EcommerceUiLabels" property="PartyAddressLine1MissingError"/></not-empty>
+                        <not-empty><fail-property resource="PartyUiLabels" property="PartyAddressLine1MissingError"/></not-empty>
                     </process>
                     <process field="address2"><copy/></process>
                     <process field="city">
                         <copy/>
-                        <not-empty><fail-property resource="EcommerceUiLabels" property="PartyCityMissing"/></not-empty>
+                        <not-empty><fail-property resource="PartyUiLabels" property="PartyCityMissing"/></not-empty>
                     </process>
                     <process field="stateProvinceGeoId"><copy/></process>
                     <process field="postalCode">
                         <copy/>
-                        <not-empty><fail-property resource="EcommerceUiLabels" property="PartyZipCodeMissing"/></not-empty>
+                        <not-empty><fail-property resource="PartyUiLabels" property="PartyZipCodeMissing"/></not-empty>
                     </process>
                     <process field="countyGeoId">
                         <copy/>
                     </process>
                     <process field="countryGeoId">
                         <copy/>
-                        <not-empty><fail-property resource="EcommerceUiLabels" property="PartyCountryMissing"/></not-empty>
+                        <not-empty><fail-property resource="PartyUiLabels" property="PartyCountryMissing"/></not-empty>
                     </process>
                     <process field="allowSolicitation"><copy/></process>
                 </simple-map-processor>
@@ -101,7 +101,7 @@ under the License.
             <if-compare value="CAN" operator="equals" field="parameters.countryGeoId">
                 <if-empty field="parameters.stateProvinceGeoId">
                     <add-error>
-                        <fail-property resource="PartyUiLabels" property="PartyProveinceInCanadaMissing"/>
+                        <fail-property resource="PartyUiLabels" property="PartyProvinceInCanadaMissing"/>
                     </add-error>
                 </if-empty>
             </if-compare>
@@ -113,11 +113,11 @@ under the License.
                 <process field="homeCountryCode"><copy to-field="countryCode"/></process>
                 <process field="homeAreaCode">
                     <copy to-field="areaCode"/>
-                    <not-empty><fail-property resource="EcommerceUiLabels" property="PartyHomePhoneAreaCodeMissing"/></not-empty>
+                    <not-empty><fail-property resource="PartyUiLabels" property="PartyHomePhoneAreaCodeMissing"/></not-empty>
                 </process>
                 <process field="homeContactNumber">
                     <copy to-field="contactNumber"/>
-                    <not-empty><fail-property resource="EcommerceUiLabels" property="PartyHomePhoneContactNumberMissing"/></not-empty>
+                    <not-empty><fail-property resource="PartyUiLabels" property="PartyHomePhoneContactNumberMissing"/></not-empty>
                 </process>
                 <process field="homeExt"><copy to-field="extension"/></process>
                 <process field="homeSol"><copy to-field="allowSolicitation"/></process>
@@ -265,7 +265,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateCustomer" short-description="Update Customer" login-required="true">
-        <if-empty field="parameters.partyId"><add-error><fail-property resource="EcommerceUiLabels" property="PartyNoPartyForUpdateCustomer"/></add-error></if-empty>
+        <if-empty field="parameters.partyId"><add-error><fail-property resource="PartyUiLabels" property="PartyNoPartyForUpdateCustomer"/></add-error></if-empty>
         
         <call-simple-method method-name="validateCustomerInfo"/>
         

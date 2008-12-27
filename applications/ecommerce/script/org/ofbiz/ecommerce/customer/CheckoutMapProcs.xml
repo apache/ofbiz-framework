@@ -25,13 +25,13 @@ under the License.
         <process field="firstName">
             <copy/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyFirstNameMissing"/>
+                <fail-property resource="PartyUiLabels" property="PartyFirstNameMissing"/>
             </not-empty>
         </process>
         <process field="lastName">
             <copy/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyLastNameMissingError"/>
+                <fail-property resource="PartyUiLabels" property="PartyLastNameMissingError"/>
             </not-empty>
         </process>
     </simple-map-processor>
@@ -43,19 +43,19 @@ under the License.
         <process field="countryCode">
             <copy/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyCountryCodeMissing"/>
+                <fail-property resource="PartyUiLabels" property="PartyCountryCodeMissing"/>
             </not-empty>
         </process>
         <process field="areaCode">
             <copy/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyAreaCodeMissingError"/>
+                <fail-property resource="PartyUiLabels" property="PartyAreaCodeMissingError"/>
             </not-empty>
         </process>
         <process field="contactNumber">
             <copy/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyContactTelephoneMissingError"/>
+                <fail-property resource="PartyUiLabels" property="PartyContactTelephoneMissingError"/>
             </not-empty>
         </process>
         <process field="extension">
@@ -69,10 +69,10 @@ under the License.
         </process>
         <process field="emailAddress">
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyEmailAddressMissingError"/>
+                <fail-property resource="PartyUiLabels" property="PartyEmailAddressMissingError"/>
             </not-empty>
             <validate-method method="isEmail">
-                <fail-property resource="EcommerceUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
+                <fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/>
             </validate-method>
             <copy/>
         </process>
@@ -91,7 +91,7 @@ under the License.
         <process field="shipToAddress1">
             <copy to-field="address1"/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyAddressLine1MissingError"/>
+                <fail-property resource="PartyUiLabels" property="PartyAddressLine1MissingError"/>
             </not-empty>
         </process>
         <process field="shipToAddress2">
@@ -100,25 +100,25 @@ under the License.
         <process field="shipToCity">
             <copy to-field="city"/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyCityMissing"/>
+                <fail-property resource="PartyUiLabels" property="PartyCityMissing"/>
             </not-empty>
         </process>
         <process field="shipToStateProvinceGeoId">
             <copy to-field="stateProvinceGeoId"/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyStateMissingError"/>
+                <fail-property resource="PartyUiLabels" property="PartyStateMissingError"/>
             </not-empty>
         </process>
         <process field="shipToPostalCode">
             <copy to-field="postalCode"/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyPostalInformationNotFound"/>
+                <fail-property resource="PartyUiLabels" property="PartyPostalInformationNotFound"/>
             </not-empty>
         </process>
         <process field="shipToCountryGeoId">
             <copy to-field="countryGeoId"/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyCountryMissing"/>
+                <fail-property resource="PartyUiLabels" property="PartyCountryMissing"/>
             </not-empty>
         </process>
     </simple-map-processor>
@@ -136,7 +136,7 @@ under the License.
         <process field="billToAddress1">
             <copy to-field="address1"/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyAddressLine1MissingError"/>
+                <fail-property resource="PartyUiLabels" property="PartyAddressLine1MissingError"/>
             </not-empty>
         </process>
         <process field="billToAddress2">
@@ -145,25 +145,25 @@ under the License.
         <process field="billToCity">
             <copy to-field="city"/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyCityMissing"/>
+                <fail-property resource="PartyUiLabels" property="PartyCityMissing"/>
             </not-empty>
         </process>
         <process field="billToStateProvinceGeoId">
             <copy to-field="stateProvinceGeoId"/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyStateMissingError"/>
+                <fail-property resource="PartyUiLabels" property="PartyStateMissingError"/>
             </not-empty>
         </process>
         <process field="billToPostalCode">
             <copy to-field="postalCode"/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyPostalInformationNotFound"/>
+                <fail-property resource="PartyUiLabels" property="PartyPostalInformationNotFound"/>
             </not-empty>
         </process>
         <process field="billToCountryGeoId">
             <copy to-field="countryGeoId"/>
             <not-empty>
-                <fail-property resource="EcommerceUiLabels" property="PartyCountryMissing"/>
+                <fail-property resource="PartyUiLabels" property="PartyCountryMissing"/>
             </not-empty>
         </process>
     </simple-map-processor>
@@ -171,15 +171,15 @@ under the License.
     <simple-map-processor name="shipToPhone">
         <process field="shipToCountryCode">
             <copy to-field="countryCode"/>
-            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyCountryCodeMissing"/></not-empty>
+            <not-empty><fail-property resource="PartyUiLabels" property="PartyCountryCodeMissing"/></not-empty>
         </process>
         <process field="shipToAreaCode">
             <copy to-field="areaCode"/>
-            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyAreaCodeMissingError"/></not-empty>
+            <not-empty><fail-property resource="PartyUiLabels" property="PartyAreaCodeMissingError"/></not-empty>
         </process>
         <process field="shipToContactNumber">
             <copy to-field="contactNumber"/>
-            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyContactTelephoneMissingError"/></not-empty>
+            <not-empty><fail-property resource="PartyUiLabels" property="PartyContactTelephoneMissingError"/></not-empty>
         </process>
         <process field="shipToExtension"><copy to-field="extension"/></process>
     </simple-map-processor>
@@ -187,15 +187,15 @@ under the License.
     <simple-map-processor name="billToPhone">
         <process field="billToCountryCode">
             <copy to-field="countryCode"/>
-            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyCountryCodeMissing"/></not-empty>
+            <not-empty><fail-property resource="PartyUiLabels" property="PartyCountryCodeMissing"/></not-empty>
         </process>
         <process field="billToAreaCode">
             <copy to-field="areaCode"/>
-            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyAreaCodeMissingError"/></not-empty>
+            <not-empty><fail-property resource="PartyUiLabels" property="PartyAreaCodeMissingError"/></not-empty>
         </process>
         <process field="billToContactNumber">
             <copy to-field="contactNumber"/>
-            <not-empty><fail-property resource="EcommerceUiLabels" property="PartyContactTelephoneMissingError"/></not-empty>
+            <not-empty><fail-property resource="PartyUiLabels" property="PartyContactTelephoneMissingError"/></not-empty>
         </process>
         <process field="billToExtension"><copy to-field="extension"/></process>
     </simple-map-processor>
