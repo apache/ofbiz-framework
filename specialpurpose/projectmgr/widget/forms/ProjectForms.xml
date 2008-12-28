@@ -432,6 +432,28 @@
     </form>
     <form name="AddWorkEffortPartyAssign" target="createWorkEffortPartyAssign" title="" type="single"
         header-row-style="header-row" default-table-style="basic-table">
+        <actions>
+            <entity-condition entity-name="PartyRoleDetailAndPartyDetail" distinct="true" list-name="projectResources">
+                <condition-expr field-name="parentTypeId" operator="equals" value="PROJECT_TEAM"/>
+                <select-field field-name="partyId"/>
+                <select-field field-name="lastName"/>
+                <select-field field-name="firstName"/>
+                <select-field field-name="groupName"/>
+                <order-by field-name="lastName"/>
+                <order-by field-name="firstName"/>
+                <order-by field-name="groupName"/>
+            </entity-condition> 
+            <entity-condition entity-name="WorkEffortPartyAssignView"  filter-by-date="true" distinct="true" list-name="taskResources">
+                <condition-expr field-name="workEffortId" env-name="projectId"/>
+                <select-field field-name="partyId"/>
+                <select-field field-name="lastName"/>
+                <select-field field-name="firstName"/>
+                <select-field field-name="groupName"/>
+                <order-by field-name="lastName"/>
+                <order-by field-name="firstName"/>
+                <order-by field-name="groupName"/>
+            </entity-condition>        
+        </actions>
         <alt-target use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" target="ListWorkEffortPartyAssigns"/><!-- this used for project partyId not yet selected -->
         <alt-target use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" target="EditTaskPartyAssigns"/><!-- this used for tasks , partyId not yet selected-->
         <alt-target use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null" target="createTaskPartyAssign"/><!-- this used for tasks , partyId selected-->
@@ -450,30 +472,26 @@
         </field>
         <field name="partyId" use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" event="onChange" action="javascript:document.AddWorkEffortPartyAssign.submit();"><!-- project level -->
             <drop-down  allow-empty="true" current="selected">
-                <entity-options entity-name="PartyRoleDetailAndPartyDetail" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                    <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
-                    <entity-order-by field-name="firstName"/>
-                    <entity-order-by field-name="lastName"/>
-                    <entity-order-by field-name="groupName"/>
-                    <entity-order-by field-name="description"/>
-                </entity-options>        
+                <list-options list-name="projectResources" key-name="partyId" description="${lastName} ${firstName} ${middleName} ${groupName}"/>
             </drop-down>
         </field>
         <field name="partyId" use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)==null" event="onChange" action="javascript:document.AddWorkEffortPartyAssign.submit();"><!-- task level -->
             <drop-down  allow-empty="true" current="selected">
-                <entity-options entity-name="WorkEffortPartyAssignView"  filter-by-date="true" description="${firstName} ${middleName} ${lastName} ${groupName}">
-                    <entity-constraint name="workEffortId" env-name="projectId"/>
-                    <entity-order-by field-name="firstName"/>
-                    <entity-order-by field-name="lastName"/>
-                    <entity-order-by field-name="groupName"/>
-                    <entity-order-by field-name="roleTypeId"/>
-                </entity-options>        
+                <list-options list-name="taskResources" key-name="partyId" description="${lastName} ${firstName} ${middleName} ${groupName}"/>
             </drop-down>
         </field>
-        <field entry-name="xx" name="roleTypeId" title="${uiLabelMap.PartyRoleType}">
+        <field entry-name="xx" name="roleTypeId" use-when="workEffortId==projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null" title="${uiLabelMap.PartyRoleType}">
             <drop-down>
                 <entity-options entity-name="PartyRoleDetailAndPartyDetail" description="${description}">
                     <entity-constraint name="parentTypeId" value="PROJECT_TEAM"/>
+                    <entity-constraint name="partyId" env-name="parameters.partyId"/>
+                </entity-options>
+            </drop-down>
+        </field>
+        <field entry-name="xx" name="roleTypeId" use-when="workEffortId!=projectId &amp;&amp; parameters.get(&quot;partyId&quot;)!=null" title="${uiLabelMap.PartyRoleType}">
+            <drop-down>
+                <entity-options entity-name="WorkEffortPartyAssignAndRoleType" description="${description}">
+                    <entity-constraint name="workEffortId" env-name="projectId"/>
                     <entity-constraint name="partyId" env-name="parameters.partyId"/>
                 </entity-options>
             </drop-down>
