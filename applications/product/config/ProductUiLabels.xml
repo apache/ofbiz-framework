@@ -7861,7 +7861,7 @@
         <value xml:lang="de">Erweiterte Suche in der Produktgruppe</value>
         <value xml:lang="en">Advanced Search in Category</value>
         <value xml:lang="es">Búsqueda Avanzada en las Categorías</value>
-        <value xml:lang="fr">Recherche avancée dans les catégories</value>
+        <value xml:lang="fr">Recherche avancée dans la catégorie</value>
         <value xml:lang="hi_IN">वृहद खोज इस सूची मे</value>
         <value xml:lang="it">Ricerca avanzata in categoria</value>
         <value xml:lang="ja">Advanced Search in Category</value>
@@ -8483,7 +8483,7 @@
         <value xml:lang="de">Seien Sie der Erste, der dieses Produkt beurteilt!</value>
         <value xml:lang="en">Be The First To Review This Product!</value>
         <value xml:lang="es">Sea El Primero en echar un vistazo a este Producto!</value>
-        <value xml:lang="fr">Soyez le premier à mettre un commentaire pour cet article</value>
+        <value xml:lang="fr">Soyez le premier à ajouter un commentaire sur cet article</value>
         <value xml:lang="hi_IN">इस सामान के पहले जान्चकर्ता बनिये</value>
         <value xml:lang="it">Recensisci il prodotto per primo!</value>
         <value xml:lang="ja">Be The First To Review This Product!</value>
@@ -12728,7 +12728,7 @@
         <value xml:lang="de">Dieser Artikel ist nicht auf Lager</value>
         <value xml:lang="en">This item is out of stock</value>
         <value xml:lang="es">Este artículo no se encuentra en stock</value>
-        <value xml:lang="fr">Cet article n'est pas disponible</value>
+        <value xml:lang="fr">Cet article n'est pas disponible en stock</value>
         <value xml:lang="hi_IN">यह सामान नही है</value>
         <value xml:lang="it">Questo articolo non è in giacenza</value>
         <value xml:lang="ja">This item is out of stock</value>
@@ -12852,7 +12852,7 @@
         <value xml:lang="de">Schlüsselwort Relevanz</value>
         <value xml:lang="en">Keyword Relevancy</value>
         <value xml:lang="es">Relevancia de palabra clave</value>
-        <value xml:lang="fr">Pertinence de mot-clé</value>
+        <value xml:lang="fr">Pertinence du mot-clé</value>
         <value xml:lang="it">Rilevanza Chiave</value>
         <value xml:lang="ru">Соответствие ключевому слову</value>
         <value xml:lang="th">Keyword Relevancy</value>
@@ -16286,7 +16286,7 @@
         <value xml:lang="de">Produkt nicht gefunden mit der Produkt-ID</value>
         <value xml:lang="en">Product not found for Product ID</value>
         <value xml:lang="es">Producto no encontrado por ID</value>
-        <value xml:lang="fr">Aucun d'article avec cet identifiant</value>
+        <value xml:lang="fr">Aucun d'article ayant cette réf.</value>
         <value xml:lang="hi_IN">सामान नम्बर से सामान नही मिला</value>
         <value xml:lang="it">Nessun prodotto con questo codice</value>
         <value xml:lang="ja">Product not found for Product ID</value>
@@ -18333,7 +18333,7 @@
         <value xml:lang="de">Suche in Produktgruppe</value>
         <value xml:lang="en">Search in Category</value>
         <value xml:lang="es">Buscar en la Categoría</value>
-        <value xml:lang="fr">Rechercher dans catégorie</value>
+        <value xml:lang="fr">Rechercher dans la catégorie</value>
         <value xml:lang="hi_IN">सूची मे खोज किजीये</value>
         <value xml:lang="it">Ricerca in categoria</value>
         <value xml:lang="ja">カテゴリの中を検索</value>

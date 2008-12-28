@@ -1797,7 +1797,7 @@
     </property>
     <property key="WebtoolsMisses">
         <value xml:lang="en">Misses/NF/EXP/SR</value>
-        <value xml:lang="fr">Echecs/Non trouvés/Expirés/Réf. symb.</value>
+        <value xml:lang="fr">Echecs/Non trouvés/Exp./Réf. symb.</value>
         <value xml:lang="it">Perse Non Trovate Scadute Pulizia Riferimenti</value>
         <value xml:lang="ro">Pierdute, negasite, Expirate Curatirea Referinte </value>
         <value xml:lang="th">Misses/NF/EXP/SR</value>
@@ -2322,7 +2322,7 @@
     </property>
     <property key="WebtoolsRemoves">
         <value xml:lang="en">removes:H/M</value>
-        <value xml:lang="fr">Enlever: Visites/Echecs</value>
+        <value xml:lang="fr">Enlevé: Visites/Echecs</value>
         <value xml:lang="it">Rimossi: Colpi Persi</value>
         <value xml:lang="ro">Stergeri: Tentative Pierdute</value>
         <value xml:lang="th">ลบ:H/M</value>
@@ -3025,7 +3025,7 @@
     </property>
     <property key="WebtoolsTotalMemory">
         <value xml:lang="en">TOTAL</value>
-        <value xml:lang="fr">TOTAL</value>
+        <value xml:lang="fr">TOTALE</value>
         <value xml:lang="it">TOTALE</value>
         <value xml:lang="ro">TOTAL</value>
         <value xml:lang="th">ผลรวม</value>
@@ -3059,7 +3059,7 @@
     </property>
     <property key="WebtoolsUseSoftRef">
         <value xml:lang="en">Use Soft Ref ?</value>
-        <value xml:lang="fr">Utiliser des références symboliques ?</value>
+        <value xml:lang="fr">Utilise des réf. symb. ?</value>
         <value xml:lang="it">Usa Riferimento Soft ?</value>
         <value xml:lang="ro">Foloseste Referiment Soft ?</value>
         <value xml:lang="th">ใช้ในการอ้างอิง ?</value>
