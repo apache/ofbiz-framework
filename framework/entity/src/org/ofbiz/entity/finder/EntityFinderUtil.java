@@ -70,7 +70,10 @@ public class EntityFinderUtil {
             for (Element fieldMapElement: fieldMapElementList) {
                 // set the env-name for each field-name, noting that if no field-name is specified it defaults to the env-name
                 String fieldName = fieldMapElement.getAttribute("field-name");
-                String envName = fieldMapElement.getAttribute("env-name");
+                String envName = fieldMapElement.getAttribute("from-field");
+                if (UtilValidate.isEmpty(envName)) {
+                    envName = fieldMapElement.getAttribute("env-name");
+                }
                 String value = fieldMapElement.getAttribute("value");
                 if (UtilValidate.isEmpty(fieldName)) {
                     // no fieldName, use envName for both
@@ -167,7 +170,11 @@ public class EntityFinderUtil {
             }
 
             this.operatorExdr = FlexibleStringExpander.getInstance(UtilFormatOut.checkEmpty(conditionExprElement.getAttribute("operator"), "equals"));
-            this.envNameAcsr = FlexibleMapAccessor.getInstance(conditionExprElement.getAttribute("env-name"));
+            if (UtilValidate.isNotEmpty(conditionExprElement.getAttribute("from-field"))) {
+                this.envNameAcsr = FlexibleMapAccessor.getInstance(conditionExprElement.getAttribute("from-field"));
+            } else {
+                this.envNameAcsr = FlexibleMapAccessor.getInstance(conditionExprElement.getAttribute("env-name"));
+            }
             this.valueExdr = FlexibleStringExpander.getInstance(conditionExprElement.getAttribute("value"));
             this.ignoreIfNull = "true".equals(conditionExprElement.getAttribute("ignore-if-null"));
             this.ignoreIfEmpty = "true".equals(conditionExprElement.getAttribute("ignore-if-empty"));

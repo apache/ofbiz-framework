@@ -51,7 +51,7 @@ public class RemoveByAnd extends MethodOperation {
     public RemoveByAnd(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 

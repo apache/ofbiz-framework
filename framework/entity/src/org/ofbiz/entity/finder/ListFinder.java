@@ -27,6 +27,7 @@ import javolution.util.FastMap;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.UtilMisc;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
@@ -78,7 +79,11 @@ public abstract class ListFinder extends Finder {
         this.filterByDateStrExdr = FlexibleStringExpander.getInstance(element.getAttribute("filter-by-date"));
         this.distinctStrExdr = FlexibleStringExpander.getInstance(element.getAttribute("distinct"));
         this.delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
-        this.listAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("list-name"));
+        if (UtilValidate.isNotEmpty(element.getAttribute("list"))) {
+            this.listAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("list"));
+        } else {
+            this.listAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("list-name"));
+        }
         this.resultSetTypeExdr = FlexibleStringExpander.getInstance(element.getAttribute("result-set-type"));
 
         // process select-field

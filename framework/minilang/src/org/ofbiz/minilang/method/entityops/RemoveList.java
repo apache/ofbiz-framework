@@ -50,7 +50,7 @@ public class RemoveList extends MethodOperation {
 
     public RemoveList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<List<GenericValue>>(element.getAttribute("list-name"));
+        listAcsr = new ContextAccessor<List<GenericValue>>(element.getAttribute("list"), element.getAttribute("list-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 

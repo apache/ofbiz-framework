@@ -55,8 +55,9 @@ public class PropertyToField extends MethodOperation {
         super(element, simpleMethod);
         resource = element.getAttribute("resource");
         property = element.getAttribute("property");
-        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
+        this.mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
         defaultVal = element.getAttribute("default");
         // defaults to false, ie anything but true is false
         noLocale = "true".equals(element.getAttribute("no-locale"));

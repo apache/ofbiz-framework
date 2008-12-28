@@ -55,8 +55,9 @@ public class IfValidateMethod extends MethodOperation {
 
     public IfValidateMethod(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
+        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
         this.methodName = element.getAttribute("method");
         this.className = element.getAttribute("class");
 

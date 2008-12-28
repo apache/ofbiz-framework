@@ -70,8 +70,9 @@ public class Calculate extends MethodOperation {
 
     public Calculate(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
-        fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
+        this.mapAcsr = new ContextAccessor<Map<String, Object>>(element.getAttribute("map-name"));
 
         decimalScaleString = element.getAttribute("decimal-scale");
         decimalFormatString = element.getAttribute("decimal-format");
@@ -269,8 +270,9 @@ public class Calculate extends MethodOperation {
         Calculate.SubCalc calcops[];
 
         public CalcOp(Element element) {
-            mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-            fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+            // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
+            this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
+            this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
             operatorStr = element.getAttribute("operator");
 
             List<? extends Element> calcopElements = UtilXml.childElementList(element);

@@ -55,9 +55,9 @@ public class IterateMap extends MethodOperation {
 
     public IterateMap(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.keyAcsr = new ContextAccessor<Object>(element.getAttribute("key-name"));
-        this.valueAcsr = new ContextAccessor<Object>(element.getAttribute("value-name"));
-        this.mapAcsr = new ContextAccessor<Map<? extends Object, ? extends Object>>(element.getAttribute("map-name"));
+        this.keyAcsr = new ContextAccessor<Object>(element.getAttribute("key"), element.getAttribute("key-name"));
+        this.valueAcsr = new ContextAccessor<Object>(element.getAttribute("value"), element.getAttribute("value-name"));
+        this.mapAcsr = new ContextAccessor<Map<? extends Object, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
     }

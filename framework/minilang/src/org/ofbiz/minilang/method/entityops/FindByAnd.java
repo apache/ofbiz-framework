@@ -60,10 +60,10 @@ public class FindByAnd extends MethodOperation {
 
     public FindByAnd(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<Object>(element.getAttribute("list-name"));
+        listAcsr = new ContextAccessor<Object>(element.getAttribute("list"), element.getAttribute("list-name"));
         entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
-        orderByListAcsr = new ContextAccessor<List<String>>(element.getAttribute("order-by-list-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
+        orderByListAcsr = new ContextAccessor<List<String>>(element.getAttribute("order-by-list"), element.getAttribute("order-by-list-name"));
         delegatorName = element.getAttribute("delegator-name");
 
         useCacheStr = element.getAttribute("use-cache");

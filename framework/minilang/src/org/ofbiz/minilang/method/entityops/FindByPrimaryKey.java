@@ -60,9 +60,9 @@ public class FindByPrimaryKey extends MethodOperation {
 
     public FindByPrimaryKey(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value"), element.getAttribute("value-name"));
         entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
         fieldsToSelectListAcsr = new ContextAccessor<Collection<String>>(element.getAttribute("fields-to-select-list"));
         delegatorName = element.getAttribute("delegator-name");
         useCacheStr = element.getAttribute("use-cache");

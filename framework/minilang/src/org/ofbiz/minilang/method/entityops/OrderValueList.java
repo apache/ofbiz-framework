@@ -48,8 +48,11 @@ public class OrderValueList extends MethodOperation {
 
     public OrderValueList(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<List<? extends GenericEntity>>(element.getAttribute("list-name"));
-        toListAcsr = new ContextAccessor<List<? extends GenericEntity>>(element.getAttribute("to-list-name"), element.getAttribute("list-name"));
+        listAcsr = new ContextAccessor<List<? extends GenericEntity>>(element.getAttribute("list"), element.getAttribute("list-name"));
+        toListAcsr = new ContextAccessor<List<? extends GenericEntity>>(element.getAttribute("to-list"), element.getAttribute("to-list-name"));
+        if (toListAcsr.isEmpty()) {
+            toListAcsr = listAcsr;
+        }
         orderByListAcsr = new ContextAccessor<List<String>>(element.getAttribute("order-by-list-name"));
     }
 
