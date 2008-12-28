@@ -3188,6 +3188,14 @@
         <value xml:lang="zh">最后更新</value>
         <value xml:lang="zh_CN">最后更新</value>
     </property>
+    <property key="CommonLessThan">
+        <value xml:lang="de">weniger als</value>
+        <value xml:lang="en">less than</value>
+        <value xml:lang="fr">Moins que</value>
+        <value xml:lang="it">minore di</value>
+        <value xml:lang="ru">меньше чем</value>
+        <value xml:lang="th">น้อยกว่า</value>
+    </property>
     <property key="CommonLine">
         <value xml:lang="ar">سطر</value>
         <value xml:lang="de">Zeile</value>
@@ -3491,9 +3499,16 @@
         <value xml:lang="zh_CN">消息</value>
     </property>
     <property key="CommonMessages">
+        <value xml:lang="de">Meldungen</value>
         <value xml:lang="en">Messages</value>
         <value xml:lang="es">Mensajes</value>
         <value xml:lang="fr">Messages</value>
+        <value xml:lang="hi_IN">खबरें</value>
+        <value xml:lang="it">Messaggi</value>
+        <value xml:lang="ro">Mesaje </value>
+        <value xml:lang="ru">Сообщения</value>
+        <value xml:lang="th">ข้อความ</value>
+        <value xml:lang="zh">消息</value>
     </property>
     <property key="CommonMethod">
         <value xml:lang="ar">طريقة</value>
@@ -3622,6 +3637,14 @@
         <value xml:lang="th">มากกว่า</value>
         <value xml:lang="zh">更多</value>
         <value xml:lang="zh_CN">更多</value>
+    </property>
+    <property key="CommonMoreThan">
+        <value xml:lang="de">mehr als</value>
+        <value xml:lang="en">more than</value>
+        <value xml:lang="fr">Plus que</value>
+        <value xml:lang="it">maggiore di</value>
+        <value xml:lang="ru">больше чем</value>
+        <value xml:lang="th">มากกว่า</value>
     </property>
     <property key="CommonMovePortletBottom">
         <value xml:lang="en">Move Portlet at the Bottom</value>
