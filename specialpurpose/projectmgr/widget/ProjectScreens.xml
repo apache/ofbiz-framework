@@ -579,7 +579,7 @@ under the License.
     <screen name="PartiesInfo">
         <section>
             <actions>
-                <entity-condition entity-name="WorkEffortPartyAssignView" list-name="clientAssigns" distinct="true">
+                <entity-condition entity-name="WorkEffortPartyAssignView" list-name="clientAssigns" distinct="true" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="workEffortId" env-name="parameters.projectId" operator="equals"/>
                         <condition-expr field-name="roleTypeId" value="CLIENT%" operator="like"/>
@@ -595,7 +595,7 @@ under the License.
                     <order-by field-name="firstName"/>
                     <order-by field-name="groupName"/>
                 </entity-condition>
-                <entity-condition entity-name="WorkEffortPartyAssignView" list-name="companyAssigns" distinct="true">
+                <entity-condition entity-name="WorkEffortPartyAssignView" list-name="companyAssigns" distinct="true" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="workEffortId" env-name="parameters.projectId" operator="equals"/>
                         <condition-list combine="or">
