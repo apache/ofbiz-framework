@@ -34,12 +34,12 @@ under the License.
         
     <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent with or w/o permission check">
         <if-not-empty field="parameters.parentCommEventId">
-            <entity-and list-name="roles" entity-name="CommunicationEventRole">
-                <field-map field-name="communicationEventId" env-name="parameters.parentCommEventId"/>
-                <field-map field-name="partyId" env-name="parameters.partyIdFrom"/>
+            <entity-and list="roles" entity-name="CommunicationEventRole">
+                <field-map field-name="communicationEventId" from-field="parameters.parentCommEventId"/>
+                <field-map field-name="partyId" from-field="parameters.partyIdFrom"/>
             </entity-and>
             <if-not-empty field="roles">
-                <first-from-list list-name="roles" entry-name="role"/>
+                <first-from-list list="roles" entry="role"/>
                 <set field="newStat.communicationEventId" from-field="parameters.parentCommEventId"/>
                 <set field="newStat.partyId" from-field="parameters.partyIdFrom"/>
                 <set field="newStat.roleTypeId" from-field="role.roleTypeId"/>
@@ -52,49 +52,49 @@ under the License.
             <set value="COM_ENTERED" field="parameters.statusId"/>     
         </if-empty>
 
-        <make-value value-name="newEntity" entity-name="CommunicationEvent"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <make-value value-field="newEntity" entity-name="CommunicationEvent"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="parameters.communicationEventId">
-            <sequenced-id-to-env sequence-name="CommunicationEvent" env-name="newEntity.communicationEventId"/>
+            <sequenced-id sequence-name="CommunicationEvent" field="newEntity.communicationEventId"/>
             <else>
                 <set field="newEntity.communicationEventId" from-field="parameters.communicationEventId"/>
             </else>
         </if-empty>
-        <field-to-result field-name="newEntity.communicationEventId" result-name="communicationEventId"/>
+        <field-to-result field="newEntity.communicationEventId" result-name="communicationEventId"/>
         
         <!-- if only contactMechId and no partyIdTo is provided for creation email address find the related party -->
         <if-empty field="parameters.partyIdTo">
             <if-not-empty field="parameters.contactMechIdTo">
-                <entity-and entity-name="PartyAndContactMech" list-name="partyContactMechs" filter-by-date="true">
-                    <field-map field-name="contactMechId" env-name="parameters.contactMechIdTo"/>
+                <entity-and entity-name="PartyAndContactMech" list="partyContactMechs" filter-by-date="true">
+                    <field-map field-name="contactMechId" from-field="parameters.contactMechIdTo"/>
                     <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
                 </entity-and>
-                <first-from-list entry-name="partyContactMech" list-name="partyContactMechs"/>
+                <first-from-list entry="partyContactMech" list="partyContactMechs"/>
                 <set field="newEntity.partyIdTo" from-field="partyContactMech.partyId"/>
             </if-not-empty>
         </if-empty>
         
-        <now-timestamp-to-env env-name="newEntity.entryDate"/>
-        <create-value value-name="newEntity"/>
+        <now-timestamp field="newEntity.entryDate"/>
+        <create-value value-field="newEntity"/>
 
         <if-not-empty field="parameters.productId">
-            <make-value value-name="eventProduct" entity-name="CommunicationEventProduct"/>
+            <make-value value-field="eventProduct" entity-name="CommunicationEventProduct"/>
             <set from-field="parameters.productId" field="eventProduct.productId"/>
             <set from-field="newEntity.communicationEventId" field="eventProduct.communicationEventId"/>
-            <create-value value-name="eventProduct"/>
+            <create-value value-field="eventProduct"/>
         </if-not-empty>
         <if-not-empty field="parameters.orderId">
-            <make-value value-name="eventOrder" entity-name="CommunicationEventOrder"/>
+            <make-value value-field="eventOrder" entity-name="CommunicationEventOrder"/>
             <set from-field="parameters.orderId" field="eventOrder.orderId"/>
             <set from-field="newEntity.communicationEventId" field="eventOrder.communicationEventId"/>
-            <create-value value-name="eventOrder"/>
+            <create-value value-field="eventOrder"/>
         </if-not-empty>
         <if-not-empty field="parameters.custReqId">
-            <make-value value-name="eventRequest" entity-name="CustRequestCommEvent"/>
+            <make-value value-field="eventRequest" entity-name="CustRequestCommEvent"/>
             <set from-field="parameters.custReqId" field="eventRequest.custReqId"/>
             <set from-field="newEntity.communicationEventId" field="eventRequest.communicationEventId"/>
-            <create-value value-name="eventRequest"/>
+            <create-value value-field="eventRequest"/>
         </if-not-empty>
         
         <!-- partyIdTo role-->
@@ -130,9 +130,9 @@ under the License.
 
     <simple-method method-name="updateCommunicationEvent"
         short-description="Update a CommunicationEvent">
-        <entity-one entity-name="CommunicationEvent" value-name="event" />
+        <entity-one entity-name="CommunicationEvent" value-field="event" />
         <set field="oldStatusId" from-field="event.statusId" />
-        <set-nonpk-fields map-name="parameters" value-name="event" />
+        <set-nonpk-fields map="parameters" value-field="event" />
         <if-compare-field operator="not-equals" field="event.statusId"
             to-field="oldStatusId">
             <call-simple-method method-name="setCommunicationEventStatus" />
@@ -142,14 +142,13 @@ under the License.
         <if-not-empty field="parameters.partyIdFrom">
             <if-compare operator="not-equals" value="parameters.partIdFrom" field="event.partyIdFrom">
                 <!-- check if role exist then delete old role -->
-                <entity-one entity-name="CommunicationEventRole"
-                    value-name="roleFrom">
-                    <field-map field-name="communicationEventId" env-name="event.communicationEventId" />
-                    <field-map field-name="partyId" env-name="parameters.partyIdFrom" />
+                <entity-one entity-name="CommunicationEventRole" value-field="roleFrom">
+                    <field-map field-name="communicationEventId" from-field="event.communicationEventId" />
+                    <field-map field-name="partyId" from-field="parameters.partyIdFrom" />
                     <field-map field-name="roleTypeId" value="ORIGINATOR" />
                 </entity-one>
                 <if-not-empty field="roleFrom">
-                    <remove-value value-name="roleFrom" />
+                    <remove-value value-field="roleFrom" />
                 </if-not-empty>
                 <!-- add new role -->
                 <set field="newRoleFrom.communicationEventId" from-field="event.communicationEventId" />
@@ -162,11 +161,11 @@ under the License.
         </if-not-empty>
         <if-empty field="parameters.partyIdTo">
             <if-not-empty field="parameters.contactMechIdTo">
-                <entity-and entity-name="PartyAndContactMech" list-name="partyContactMechs" filter-by-date="true">
-                    <field-map field-name="contactMechId" env-name="parameters.contactMechIdTo"/>
+                <entity-and entity-name="PartyAndContactMech" list="partyContactMechs" filter-by-date="true">
+                    <field-map field-name="contactMechId" from-field="parameters.contactMechIdTo"/>
                     <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
                 </entity-and>
-                <first-from-list entry-name="partyContactMech" list-name="partyContactMechs"/>                
+                <first-from-list entry="partyContactMech" list="partyContactMechs"/>                
                 <set field="parameters.partyIdTo" from-field="partyContactMech.partyId"/>
                 <set field="event.partyIdTo" from-field="partyContactMech.partyId"/>
             </if-not-empty>
@@ -175,14 +174,13 @@ under the License.
             <if-compare operator="not-equals" value="parameters.partIdTo"
                 field="event.partyIdTo">
                 <!-- check if role exist then delete old role -->
-                <entity-one entity-name="CommunicationEventRole"
-                    value-name="roleTo">
-                    <field-map field-name="communicationEventId" env-name="event.communicationEventId" />
-                    <field-map field-name="partyId" env-name="event.partyIdTo" />
+                <entity-one entity-name="CommunicationEventRole" value-field="roleTo">
+                    <field-map field-name="communicationEventId" from-field="event.communicationEventId" />
+                    <field-map field-name="partyId" from-field="event.partyIdTo" />
                     <field-map field-name="roleTypeId" value="ADDRESSEE" />
                 </entity-one>
                 <if-not-empty field="roleTo">
-                    <remove-value value-name="roleTo" />
+                    <remove-value value-field="roleTo" />
                 </if-not-empty>
                 <!-- add new role -->
                 <set field="newRoleTo.communicationEventId" from-field="event.communicationEventId" />
@@ -193,35 +191,35 @@ under the License.
                     in-map-name="newRoleTo" />
             </if-compare>
         </if-not-empty>
-        <store-value value-name="event" />
+        <store-value value-field="event" />
     </simple-method>
 
     <simple-method method-name="deleteCommunicationEvent" short-description="Delete a CommunicationEvent">
-        <entity-one entity-name="CommunicationEvent" value-name="event"/>
+        <entity-one entity-name="CommunicationEvent" value-field="event"/>
         <!-- remove related links to content -->
-        <get-related value-name="event" relation-name="CommEventContentAssoc" list-name="contentAssocs"/>
+        <get-related value-field="event" relation-name="CommEventContentAssoc" list="contentAssocs"/>
         <if-not-empty field="contentAssocs">
-            <iterate entry-name="contentAssoc" list-name="contentAssocs">
-                <remove-value value-name="contentAssoc"/>
+            <iterate entry="contentAssoc" list="contentAssocs">
+                <remove-value value-field="contentAssoc"/>
                 <!-- delete content and dataresource too if requested -->
                 <if-compare field="parameters.delContentDataResource" value="Y" operator="equals">
-                    <get-related value-name="contentAssoc" relation-name="FromContent" list-name="contents"/>
+                    <get-related value-field="contentAssoc" relation-name="FromContent" list="contents"/>
                     <if-not-empty field="contents">
-                        <iterate entry-name="content" list-name="contents">
-                            <remove-related value-name="content" relation-name="ContentRole"/>
-                            <remove-value value-name="content"/>
-                            <get-related-one value-name="content" relation-name="DataResource" to-value-name="dataResource"/>
+                        <iterate entry="content" list="contents">
+                            <remove-related value-field="content" relation-name="ContentRole"/>
+                            <remove-value value-field="content"/>
+                            <get-related-one value-field="content" relation-name="DataResource" to-value-field="dataResource"/>
                             <if-not-empty field="dataResource">
-                                <get-related-one value-name="dataResource" relation-name="ImageDataResource" to-value-name="imageDataResource"/>
+                                <get-related-one value-field="dataResource" relation-name="ImageDataResource" to-value-field="imageDataResource"/>
                                 <if-not-empty field="imageDataResource">
-                                    <remove-value value-name="imageDataResource"/>
+                                    <remove-value value-field="imageDataResource"/>
                                 </if-not-empty>
-                                <get-related-one value-name="dataResource" relation-name="ElectronicText" to-value-name="electronicText"/>
+                                <get-related-one value-field="dataResource" relation-name="ElectronicText" to-value-field="electronicText"/>
                                 <if-not-empty field="electronicText">
-                                    <remove-value value-name="electronicText"/>
+                                    <remove-value value-field="electronicText"/>
                                 </if-not-empty>
-                                <remove-related value-name="dataResource" relation-name="DataResourceRole"/>
-                                <remove-value value-name="dataResource"/>
+                                <remove-related value-field="dataResource" relation-name="DataResourceRole"/>
+                                <remove-value value-field="dataResource"/>
                             </if-not-empty>
                         </iterate>
                     </if-not-empty>
@@ -229,26 +227,26 @@ under the License.
             </iterate>
         </if-not-empty>
         <!-- delete the roles when exist and the event itself -->
-        <remove-related value-name="event" relation-name="CommunicationEventRole"/>
-        <remove-value value-name="event"/>
+        <remove-related value-field="event" relation-name="CommunicationEventRole"/>
+        <remove-value value-field="event"/>
     </simple-method>
     <simple-method method-name="deleteCommunicationEventWorkEffort" short-description="delete commEvent and workEffort">
         
-        <entity-one entity-name="CommunicationEvent" value-name="event"/>
+        <entity-one entity-name="CommunicationEvent" value-field="event"/>
         <!-- remove related workeffort when this is the only communicationevent connected to it -->
-        <get-related value-name="event" relation-name="CommunicationEventWorkEff" list-name="workEffortComs"/>
+        <get-related value-field="event" relation-name="CommunicationEventWorkEff" list="workEffortComs"/>
         <if-not-empty field="workEffortComs">
-            <iterate entry-name="workEffortCom" list-name="workEffortComs">
-                <remove-value value-name="workEffortCom"/>
-                <get-related-one value-name="workEffortCom" relation-name="WorkEffort" to-value-name="workEffort"/>
-                <get-related value-name="workEffort" relation-name="CommunicationEventWorkEff" list-name="otherComs"/>
+            <iterate entry="workEffortCom" list="workEffortComs">
+                <remove-value value-field="workEffortCom"/>
+                <get-related-one value-field="workEffortCom" relation-name="WorkEffort" to-value-field="workEffort"/>
+                <get-related value-field="workEffort" relation-name="CommunicationEventWorkEff" list="otherComs"/>
                 <if-empty field="otherComs">
                     <log level="info" message="remove workeffort ${workEffort.workEffortId} and related parties and status"/>
-                    <remove-related value-name="workEffort" relation-name="WorkEffortPartyAssignment"/>
-                    <remove-related value-name="workEffort" relation-name="WorkEffortPartyAssignment"/>
-                    <remove-related value-name="workEffort" relation-name="WorkEffortStatus"/>
-                    <remove-related value-name="workEffort" relation-name="WorkEffortKeyword"/>
-                    <remove-value value-name="workEffort"/>
+                    <remove-related value-field="workEffort" relation-name="WorkEffortPartyAssignment"/>
+                    <remove-related value-field="workEffort" relation-name="WorkEffortPartyAssignment"/>
+                    <remove-related value-field="workEffort" relation-name="WorkEffortStatus"/>
+                    <remove-related value-field="workEffort" relation-name="WorkEffortKeyword"/>
+                    <remove-value value-field="workEffort"/>
                 </if-empty>
             </iterate>
         </if-not-empty>
@@ -259,53 +257,53 @@ under the License.
         they will all use the CME_UPDATE permission -->
     <simple-method method-name="createCommunicationEventPurpose" short-description="Create a CommunicationEventPurpose">
         
-        <make-value value-name="newEntity" entity-name="CommunicationEventPurpose"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
-        <create-value value-name="newEntity"/>    
+        <make-value value-field="newEntity" entity-name="CommunicationEventPurpose"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>        
+        <create-value value-field="newEntity"/>    
     </simple-method>
     <simple-method method-name="removeCommunicationEventPurpose" short-description="Remove a CommunicationEventPurpose">
-        <entity-one entity-name="CommunicationEventPurpose" value-name="eventPurpose"/>        
-        <remove-value value-name="eventPurpose"/>
+        <entity-one entity-name="CommunicationEventPurpose" value-field="eventPurpose"/>        
+        <remove-value value-field="eventPurpose"/>
     </simple-method>
     <simple-method method-name="createCommunicationEventRole"
         short-description="Create a CommunicationEventRole">
         <!-- check if role already exist, then ignore -->
-        <entity-one entity-name="CommunicationEventRole" value-name="communicationEventRole" />
+        <entity-one entity-name="CommunicationEventRole" value-field="communicationEventRole" />
         <if-empty field="communicationEventRole">
-            <entity-one entity-name="UserLogin" value-name="sysUserLogin">
+            <entity-one entity-name="UserLogin" value-field="sysUserLogin">
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
-            <set-service-fields service-name="createPartyRole" map-name="parameters" to-map-name="partyRole"/>
+            <set-service-fields service-name="createPartyRole" map="parameters" to-map="partyRole"/>
             <set field="partyRole.userLogin" from-field="sysUserLogin"/>
             <call-service service-name="createPartyRole" in-map-name="partyRole" include-user-login="false"/>
             
-            <make-value value-name="newEntity" entity-name="CommunicationEventRole" />
-            <set-pk-fields map-name="parameters" value-name="newEntity" />
-            <set-nonpk-fields map-name="parameters" value-name="newEntity" />
+            <make-value value-field="newEntity" entity-name="CommunicationEventRole" />
+            <set-pk-fields map="parameters" value-field="newEntity" />
+            <set-nonpk-fields map="parameters" value-field="newEntity" />
             <if-empty field="newEntity.statusId">
                 <set field="newEntity.statusId" value="COM_ROLE_CREATED" />
             </if-empty>
-            <create-value value-name="newEntity" />
+            <create-value value-field="newEntity" />
         </if-empty>
     </simple-method>
     <simple-method method-name="updateCommunicationEventRole" short-description="Create a CommunicationEventRole">
-        <entity-one value-name="eventRole" entity-name="CommunicationEventRole" />
+        <entity-one value-field="eventRole" entity-name="CommunicationEventRole" />
         <if-not-empty field="eventRole">
-            <set-nonpk-fields map-name="parameters" value-name="eventRole" />
-            <store-value value-name="eventRole" />
+            <set-nonpk-fields map="parameters" value-field="eventRole" />
+            <store-value value-field="eventRole" />
         </if-not-empty>
     </simple-method>
     <simple-method method-name="removeCommunicationEventRole" short-description="Remove a CommunicationEventRole">
-        <entity-one entity-name="CommunicationEventRole" value-name="eventRole"/>
+        <entity-one entity-name="CommunicationEventRole" value-field="eventRole"/>
         <if-not-empty field="eventRole">
-            <remove-value value-name="eventRole"/>
+            <remove-value value-field="eventRole"/>
             <if-compare field="parameters.deleteCommEventIfLast" operator="equals" value="Y">
-                <entity-and list-name="roles" entity-name="CommunicationEventRole">
-                    <field-map field-name="communicationEventId" env-name="eventRole.communicationEventId"/>
+                <entity-and list="roles" entity-name="CommunicationEventRole">
+                    <field-map field-name="communicationEventId" from-field="eventRole.communicationEventId"/>
                 </entity-and>
                 <if-empty field="roles">
-                    <set-service-fields service-name="deleteCommunicationEvent" map-name="parameters" to-map-name="inMapDel"/>
+                    <set-service-fields service-name="deleteCommunicationEvent" map="parameters" to-map="inMapDel"/>
                     <call-service service-name="deleteCommunicationEvent" in-map-name="inMapDel"/>
                 </if-empty>
             </if-compare>
@@ -316,7 +314,7 @@ under the License.
         <if-empty field="parameters.communicationEventId">
             <set from-field="parameters.messageId" field="parameters.communicationEventId"/>   
         </if-empty>
-        <entity-one entity-name="CommunicationEvent" value-name="event"/>
+        <entity-one entity-name="CommunicationEvent" value-field="event"/>
         
         <if>
             <condition>
@@ -335,7 +333,7 @@ under the License.
                     </condition>
                     <then>
                         <set value="COM_READ" field="event.statusId"/>
-                        <store-value value-name="event"/>
+                        <store-value value-field="event"/>
                     </then>
                 </if>
             </then>
@@ -344,8 +342,8 @@ under the License.
 
     <simple-method method-name="sendEmailDated"
         short-description="Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the email">
-        <now-timestamp-to-env env-name="nowDate" />
-        <entity-condition entity-name="CommunicationEvent" list-name="communicationEvents">
+        <now-timestamp field="nowDate" />
+        <entity-condition entity-name="CommunicationEvent" list="communicationEvents">
             <condition-list combine="and">
                 <condition-list combine="or">
                     <condition-expr field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION" />
@@ -353,20 +351,20 @@ under the License.
                 </condition-list>
                 <condition-expr field-name="statusId" operator="equals" value="COM_IN_PROGRESS" />
                 <condition-list combine="or">
-                    <condition-expr field-name="datetimeStarted" operator="less" env-name="nowDate" />
-                    <condition-expr field-name="datetimeStarted" operator="equals" env-name="nullField" />
+                    <condition-expr field-name="datetimeStarted" operator="less" from-field="nowDate" />
+                    <condition-expr field-name="datetimeStarted" operator="equals" from-field="nullField" />
                 </condition-list>
             </condition-list>
         </entity-condition>
-        <iterate entry-name="communicationEvent" list-name="communicationEvents">
-            <set-service-fields service-name="sendCommEventAsEmail" map-name="communicationEvent" to-map-name="inMap"/>
+        <iterate entry="communicationEvent" list="communicationEvents">
+            <set-service-fields service-name="sendCommEventAsEmail" map="communicationEvent" to-map="inMap"/>
             <call-service service-name="sendCommEventAsEmail" in-map-name="inMap" require-new-transaction="true"/>
         </iterate>
     </simple-method>
 
     <simple-method method-name="allocateMsgToParty" short-description="Allocate an emailaddress to an existing/new party, update the communication event accordingly">
 
-        <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
+        <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
         <if-empty field="communicationEvent">
             <add-error><fail-message message="Communication Event ID: ${parameters.commnicationEventId} not found"/></add-error>
         </if-empty>
@@ -390,15 +388,15 @@ under the License.
 
         <!-- create partyId if not provided -->
         <if-empty field="parameters.partyId">
-            <set-service-fields service-name="createPerson" map-name="parameters" to-map-name="newParty"/>
+            <set-service-fields service-name="createPerson" map="parameters" to-map="newParty"/>
             <call-service service-name="createPerson" in-map-name="newParty">
-                <result-to-field result-name="partyId" field-name="parameters.partyId"/>
+                <result-to-field result-name="partyId" field="parameters.partyId"/>
             </call-service>
         </if-empty>
 
         <!-- allocate email to the party -->
         <if-not-empty field="parameters.emailAddress">
-            <entity-one entity-name="Party" value-name="party" />
+            <entity-one entity-name="Party" value-field="party" />
             <if-empty field="party">
                 <add-error>
                      <fail-message message="Party ID: ${parameters.partyId} not found" />
@@ -410,8 +408,7 @@ under the License.
             <set field="newEmail.emailAddress" from-field="parameters.emailAddress" />
             <call-service service-name="createPartyEmailAddress"
                 in-map-name="newEmail">
-                <result-to-field result-name="contactMechId"
-                    field-name="inCom.contactMechIdFrom" />
+                <result-to-field result-name="contactMechId" field="inCom.contactMechIdFrom" />
             </call-service>
         </if-not-empty>
 
@@ -421,24 +418,24 @@ under the License.
         <set field="inCom.statusId" value="COM_ENTERED"/>
         <call-service service-name="updateCommunicationEvent" in-map-name="inCom"/>
 
-        <field-to-request field-name="parameters.communicationEventId" request-name="communicationEventId"/>
-        <entity-one entity-name="PartyNameView" value-name="nameView"/>
+        <field-to-request field="parameters.communicationEventId" request-name="communicationEventId"/>
+        <entity-one entity-name="PartyNameView" value-field="nameView"/>
         <set field="_event_message_" value="Email addres: ${parameters.emailAddress} allocated to party: ${nameView.groupName}${nameView.firstName} ${nameView.middleName} ${nameView.lastName}[${parameters.partyId}]"/>
     </simple-method>
 
     <simple-method method-name="createCustRequestCommEvent" short-description="Create CustRequestCommEvent" >
-        <make-value value-name="newEntity" entity-name="CustRequestCommEvent"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <create-value value-name="newEntity"/>    
+        <make-value value-field="newEntity" entity-name="CustRequestCommEvent"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>    
     </simple-method>
 
     <simple-method method-name="setCommunicationEventStatus" short-description="Set The Communication Event Status">
-        <entity-one entity-name="CommunicationEvent" value-name="communicationEvent"/>
-        <field-to-result field-name="communicationEvent.statusId" result-name="oldStatusId"/>
+        <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
+        <field-to-result field="communicationEvent.statusId" result-name="oldStatusId"/>
         <if-compare-field field="communicationEvent.statusId" to-field="parameters.statusId" operator="not-equals">
-            <entity-one entity-name="StatusValidChange" value-name="statusChange">
-                <field-map field-name="statusId" env-name="communicationEvent.statusId"/>
-                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+            <entity-one entity-name="StatusValidChange" value-field="statusChange">
+                <field-map field-name="statusId" from-field="communicationEvent.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
                 <add-error><fail-message message="Status is not a valid change"/></add-error>
@@ -446,13 +443,13 @@ under the License.
                 <check-errors/>
                 <else>
                     <set field="communicationEvent.statusId" from-field="parameters.statusId"/>
-                    <store-value value-name="communicationEvent"/>
+                    <store-value value-field="communicationEvent"/>
                     <!-- if complete, set all role status fields to 'complete' (intentionally ignoring the status change checking)-->
                     <if-compare operator="equals" value="COM_COMPLETE" field="parameters.statusId">
-                        <get-related value-name="communicationEvent" relation-name="CommunicationEventRole" list-name="updRoles"/>
-                        <iterate entry-name="updRole" list-name="updRoles">
+                        <get-related value-field="communicationEvent" relation-name="CommunicationEventRole" list="updRoles"/>
+                        <iterate entry="updRole" list="updRoles">
                             <set field="updRole.statusId" value="COM_ROLE_COMPLETED"/>
-                            <store-value value-name="updRole"/>
+                            <store-value value-field="updRole"/>
                         </iterate>
                     </if-compare>
                 </else>
@@ -460,12 +457,12 @@ under the License.
         </if-compare-field>
     </simple-method>
     <simple-method method-name="setCommunicationEventRoleStatus" short-description="Set The Communication Event Status for a specific role">
-        <entity-one entity-name="CommunicationEventRole" value-name="communicationEventRole"/>
-        <field-to-result field-name="communicationEventRole.statusId" result-name="oldStatusId"/>
+        <entity-one entity-name="CommunicationEventRole" value-field="communicationEventRole"/>
+        <field-to-result field="communicationEventRole.statusId" result-name="oldStatusId"/>
         <if-compare-field field="communicationEventRole.statusId" to-field="parameters.statusId" operator="not-equals">
-            <entity-one entity-name="StatusValidChange" value-name="statusChange">
-                <field-map field-name="statusId" env-name="communicationEventRole.statusId"/>
-                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+            <entity-one entity-name="StatusValidChange" value-field="statusChange">
+                <field-map field-name="statusId" from-field="communicationEventRole.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
                 <add-error><fail-message message="Status is not a valid change"/></add-error>
@@ -473,7 +470,7 @@ under the License.
                 <check-errors/>
                 <else>
                     <set field="communicationEventRole.statusId" from-field="parameters.statusId"/>
-                    <store-value value-name="communicationEventRole"/>
+                    <store-value value-field="communicationEventRole"/>
                 </else>
             </if-empty>
         </if-compare-field>
