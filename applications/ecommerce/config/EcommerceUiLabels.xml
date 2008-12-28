@@ -19,34 +19,6 @@
     under the License.
 -->
 <resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
-    <property key="CommonLessThan">
-        <value xml:lang="de">weniger als</value>
-        <value xml:lang="en">less than</value>
-        <value xml:lang="fr">Moins que</value>
-        <value xml:lang="it">minore di</value>
-        <value xml:lang="ru">меньше чем</value>
-        <value xml:lang="th">น้อยกว่า</value>
-    </property>
-    <property key="CommonMessages">
-        <value xml:lang="de">Meldungen</value>
-        <value xml:lang="en">Messages</value>
-        <value xml:lang="es">Mensajes</value>
-        <value xml:lang="fr">Messages</value>
-        <value xml:lang="hi_IN">खबरें</value>
-        <value xml:lang="it">Messaggi</value>
-        <value xml:lang="ro">Mesaje </value>
-        <value xml:lang="ru">Сообщения</value>
-        <value xml:lang="th">ข้อความ</value>
-        <value xml:lang="zh">消息</value>
-    </property>
-    <property key="CommonMoreThan">
-        <value xml:lang="de">mehr als</value>
-        <value xml:lang="en">more than</value>
-        <value xml:lang="fr">Plus que</value>
-        <value xml:lang="it">maggiore di</value>
-        <value xml:lang="ru">больше чем</value>
-        <value xml:lang="th">มากกว่า</value>
-    </property>
     <property key="EcommerceAccountLogin">
         <value xml:lang="de">Ihre Benutzeranmeldung ist:</value>
         <value xml:lang="en">Your account login is:</value>
@@ -3808,78 +3780,5 @@
         <value xml:lang="ru">Просмотреть профиль</value>
         <value xml:lang="th">ดูประวัติ</value>
         <value xml:lang="zh">浏览简介</value>
-    </property>
-    <property key="bu">
-        <value xml:lang="de">Bulgarisch</value>
-        <value xml:lang="en">Bulgarian</value>
-        <value xml:lang="es">Bulgaro</value>
-        <value xml:lang="fr">Bulgare</value>
-        <value xml:lang="pt_PT">Bulgarian</value>
-        <value xml:lang="th">บัลแกเรีย</value>
-    </property>
-    <property key="cz">
-        <value xml:lang="cs">Česky</value>
-        <value xml:lang="de">Tschechisch</value>
-        <value xml:lang="en">Czeck</value>
-        <value xml:lang="fr">Tchèque</value>
-        <value xml:lang="th">Czeck</value>
-    </property>
-    <property key="de">
-        <value xml:lang="cs">Německy</value>
-        <value xml:lang="de">Deutsch</value>
-        <value xml:lang="en">German</value>
-        <value xml:lang="es">Alemán</value>
-        <value xml:lang="fr">Allemand</value>
-        <value xml:lang="pt_PT">German</value>
-        <value xml:lang="th">เยอรมัน</value>
-    </property>
-    <property key="en">
-        <value xml:lang="cs">Anglicky</value>
-        <value xml:lang="de">Englisch</value>
-        <value xml:lang="en">English</value>
-        <value xml:lang="es">Inglés</value>
-        <value xml:lang="fr">Anglais</value>
-        <value xml:lang="pt_PT">English</value>
-        <value xml:lang="th">อังกฤษ</value>
-    </property>
-    <property key="es">
-        <value xml:lang="de">Spanisch</value>
-        <value xml:lang="en">Spanish</value>
-        <value xml:lang="es">Español</value>
-        <value xml:lang="fr">Espagnol</value>
-        <value xml:lang="th">สเปน</value>
-    </property>
-    <property key="gr">
-        <value xml:lang="de">Griechisch</value>
-        <value xml:lang="en">Greek</value>
-        <value xml:lang="es">Griego</value>
-        <value xml:lang="fr">Grec</value>
-        <value xml:lang="pt_PT">Greek</value>
-        <value xml:lang="th">กรีก</value>
-    </property>
-    <property key="it">
-        <value xml:lang="de">Italienisch</value>
-        <value xml:lang="en">Italian</value>
-        <value xml:lang="fr">Italien</value>
-        <value xml:lang="th">อิตาลี</value>
-    </property>
-    <property key="ja">
-        <value xml:lang="de">Japanisch</value>
-        <value xml:lang="en">Japanese</value>
-        <value xml:lang="fr">Japonais</value>
-        <value xml:lang="th">ญี่ปุ่น</value>
-    </property>
-    <property key="pt">
-        <value xml:lang="de">Protugiesisch</value>
-        <value xml:lang="en">Portuguese</value>
-        <value xml:lang="fr">Portugais</value>
-        <value xml:lang="pt_PT">Português</value>
-        <value xml:lang="th">โปรตุเกส</value>
-    </property>
-    <property key="zh">
-        <value xml:lang="de">Chinesisch</value>
-        <value xml:lang="en">Chinese</value>
-        <value xml:lang="fr">Chinois</value>
-        <value xml:lang="th">จีน</value>
     </property>
 </resource>
