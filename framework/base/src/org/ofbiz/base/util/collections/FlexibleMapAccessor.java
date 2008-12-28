@@ -21,10 +21,12 @@ package org.ofbiz.base.util.collections;
 import java.io.Serializable;
 import java.util.Locale;
 import java.util.Map;
+import javax.el.*;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.UtilGenerics;
 import org.ofbiz.base.util.cache.UtilCache;
+import org.ofbiz.base.util.string.FlexibleStringExpander;
 import org.ofbiz.base.util.string.UelUtil;
 
 /**
@@ -35,18 +37,19 @@ import org.ofbiz.base.util.string.UelUtil;
 @SuppressWarnings("serial")
 public class FlexibleMapAccessor<T> implements Serializable {
     public static final String module = FlexibleMapAccessor.class.getName();
-    protected static final String openBracket = "${";
-    protected static final String closeBracket = "}";
     protected static final UtilCache<String, FlexibleMapAccessor<?>> fmaCache = new UtilCache<String, FlexibleMapAccessor<?>>("flexibleMapAccessor.ExpressionCache");
     @SuppressWarnings("unchecked")
     protected static final FlexibleMapAccessor nullFma = new FlexibleMapAccessor(null);
 
     protected final String original;
-    protected String bracketedOriginal;
+    protected final String bracketedOriginal;
+    protected final FlexibleStringExpander fse;
     protected boolean isAscending = true;
 
     protected FlexibleMapAccessor(String name) {
         this.original = name;
+        FlexibleStringExpander fse = null;
+        String bracketedOriginal = null;
         if (name != null && name.length() > 0) {
             if (name.charAt(0) == '-') {
                 this.isAscending = false;
@@ -55,8 +58,14 @@ public class FlexibleMapAccessor<T> implements Serializable {
                 this.isAscending = true;
                 name = name.substring(1);
             }
-            this.bracketedOriginal = openBracket + UelUtil.prepareExpression(name) + closeBracket;
+            if (name.contains(FlexibleStringExpander.openBracket)) {
+                fse = FlexibleStringExpander.getInstance(UelUtil.prepareExpression(name));
+            } else {
+                bracketedOriginal = FlexibleStringExpander.openBracket.concat(UelUtil.prepareExpression(name).concat(FlexibleStringExpander.closeBracket));
+            }
         }
+        this.bracketedOriginal = bracketedOriginal;
+        this.fse = fse;
         if (Debug.verboseOn()) {
             Debug.logVerbose("FlexibleMapAccessor created, original = " + this.original, module);
         }
@@ -122,12 +131,14 @@ public class FlexibleMapAccessor<T> implements Serializable {
         }
         Object obj = null;
         try {
-            obj = UelUtil.evaluate(base, this.bracketedOriginal);
-        } catch (Exception e) {
-            // PropertyNotFound exceptions are common, so logging verbose
+            obj = UelUtil.evaluate(base, getExpression(base));
+        } catch (PropertyNotFoundException e) {
+            // PropertyNotFound exceptions are common, so log verbose
             if (Debug.verboseOn()) {
                 Debug.logVerbose("UEL exception while getting value: " + e + ", original = " + this.original, module);
             }
+        } catch (Exception e) {
+            Debug.logInfo("UEL exception while getting value: " + e + ", original = " + this.original, module);
         }
         return UtilGenerics.<T>cast(obj);
     }
@@ -148,9 +159,9 @@ public class FlexibleMapAccessor<T> implements Serializable {
             throw new IllegalArgumentException("Cannot put a value in a null base Map");
         }
         try {
-            UelUtil.setValue(base, this.bracketedOriginal, value == null ? Object.class : value.getClass(), value);
+            UelUtil.setValue(base, getExpression(base), value == null ? Object.class : value.getClass(), value);
         } catch (Exception e) {
-            Debug.logInfo("UEL exception while setting value: " + e + ", original = " + this.original + ", value = " + value, module);
+            Debug.logInfo("UEL exception while setting value: " + e + ", original = " + this.original, module);
         }
     }
     
@@ -168,13 +179,23 @@ public class FlexibleMapAccessor<T> implements Serializable {
         }
         try {
             Map<String, Object> writableMap = UtilGenerics.cast(base);
-            UelUtil.removeValue(writableMap, this.bracketedOriginal);
+            UelUtil.removeValue(writableMap, getExpression(base));
         } catch (Exception e) {
             Debug.logInfo("UEL exception while removing value: " + e + ", original = " + this.original, module);
         }
         return object;
     }
     
+    protected String getExpression(Map<String, ? extends Object> base) {
+        String expression = null;
+        if (this.fse != null) {
+            expression = FlexibleStringExpander.openBracket.concat(this.fse.expandString(base).concat(FlexibleStringExpander.closeBracket));
+        } else {
+            expression = this.bracketedOriginal;
+        }
+        return expression;
+    }
+
     public String toString() {
         if (this.isEmpty()) {
             return super.toString();

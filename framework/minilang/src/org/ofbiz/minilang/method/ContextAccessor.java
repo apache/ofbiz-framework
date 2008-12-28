@@ -32,8 +32,6 @@ public class ContextAccessor<T> {
 
     protected String name;
     protected FlexibleMapAccessor<T> fma;
-    protected boolean needsExpand;
-    protected boolean empty;
 
     public ContextAccessor(String name) {
         init(name);
@@ -49,34 +47,16 @@ public class ContextAccessor<T> {
     
     protected void init(String name) {
         this.name = name;
-        if (name == null || name.length() == 0) {
-            empty = true;
-            needsExpand = false;
-            fma = FlexibleMapAccessor.getInstance(name);
-        } else {
-            empty = false;
-            int openPos = name.indexOf("${");
-            if (openPos != -1 && name.indexOf("}", openPos) != -1) {
-                fma = null;
-                needsExpand = true;
-            } else {
-                fma = FlexibleMapAccessor.getInstance(name);
-                needsExpand = false;
-            }
-        }
+        this.fma = FlexibleMapAccessor.getInstance(name);
     }
     
     public boolean isEmpty() {
-        return this.empty;
+        return this.fma.isEmpty();
     }
     
     /** Based on name get from Map or from List in Map */
     public T get(MethodContext methodContext) {
-        if (this.needsExpand) {
-            return UtilGenerics.<T>cast(methodContext.getEnv(name));
-        } else {
-            return UtilGenerics.<T>cast(methodContext.getEnv(fma));
-        }
+        return UtilGenerics.<T>cast(methodContext.getEnv(fma));
     }
     
     /** Based on name put in Map or from List in Map;
@@ -86,30 +66,17 @@ public class ContextAccessor<T> {
      * number the value will inserted/added at that point instead of set at the point.
      */
     public void put(MethodContext methodContext, T value) {
-        if (this.needsExpand) {
-            methodContext.putEnv(name, value);
-        } else {
-            methodContext.putEnv(fma, value);
-        }
+        methodContext.putEnv(fma, value);
     }
     
     /** Based on name remove from Map or from List in Map */
     public T remove(MethodContext methodContext) {
-        if (this.needsExpand) {
-            return UtilGenerics.<T>cast(methodContext.removeEnv(name));
-        } else {
-            return UtilGenerics.<T>cast(methodContext.removeEnv(fma));
-        }
+        return UtilGenerics.<T>cast(methodContext.removeEnv(fma));
     }
     
     /** Based on name get from Map or from List in Map */
     public T get(Map<String, ? extends Object> theMap, MethodContext methodContext) {
-        if (this.needsExpand) {
-            FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(methodContext.expandString(name));
-            return fma.get(theMap);
-        } else {
-            return fma.get(theMap);
-        }
+        return fma.get(theMap);
     }
     
     /** Based on name put in Map or from List in Map;
@@ -119,22 +86,12 @@ public class ContextAccessor<T> {
      * number the value will inserted/added at that point instead of set at the point.
      */
     public void put(Map<String, Object> theMap, T value, MethodContext methodContext) {
-        if (this.needsExpand) {
-            FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(methodContext.expandString(name));
-            fma.put(theMap, value);
-        } else {
-            fma.put(theMap, value);
-        }
+        fma.put(theMap, value);
     }
     
     /** Based on name remove from Map or from List in Map */
     public T remove(Map<String, ? extends Object> theMap, MethodContext methodContext) {
-        if (this.needsExpand) {
-            FlexibleMapAccessor<T> fma = FlexibleMapAccessor.getInstance(methodContext.expandString(name));
-            return fma.remove(theMap);
-        } else {
-            return fma.remove(theMap);
-        }
+        return fma.remove(theMap);
     }
     
     /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key */    
@@ -145,7 +102,7 @@ public class ContextAccessor<T> {
     /** The equals and hashCode methods are imnplemented just case this object is ever accidently used as a Map key */    
     public boolean equals(Object obj) {
         if (obj instanceof ContextAccessor) {
-            ContextAccessor contextAccessor = (ContextAccessor) obj;
+            ContextAccessor<?> contextAccessor = (ContextAccessor<?>) obj;
             if (this.name == null) {
                 return contextAccessor.name == null;
             }
