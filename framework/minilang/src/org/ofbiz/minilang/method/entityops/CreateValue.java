@@ -50,7 +50,7 @@ public class CreateValue extends MethodOperation {
 
     public CreateValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value"), element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
         createOrStore = "true".equals(element.getAttribute("or-store"));
     }

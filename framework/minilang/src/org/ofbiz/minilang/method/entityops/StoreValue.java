@@ -48,7 +48,7 @@ public class StoreValue extends MethodOperation {
 
     public StoreValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value"), element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 

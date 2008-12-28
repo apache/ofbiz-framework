@@ -1756,7 +1756,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.make-next-seq-id">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Specify the name of the entity for a sequenced-id-to-env preparing the primarySequencedId.
@@ -1902,10 +1902,10 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the method environment field that contains the GenericValue object.
+                    The name of the method environment field that will contain the GenericValue object.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
@@ -2046,7 +2046,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="value-name" type="xs:string" use="required">
+        <xs:attribute name="value-field" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of the variable to put result record in.
@@ -2112,7 +2112,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="use-cache" default="false">
+        <xs:attribute name="use-cache" type="xs:string" default="false">
             <xs:annotation>
                 <xs:documentation>
                     Specifies whether or not the delegator's cache should be searched before going to the database. 
@@ -2634,7 +2634,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.get-related-one">
-        <xs:attribute name="value" type="xs:string" use="required">
+        <xs:attribute name="value-field" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of a generic value sitting in the context from where you want to get a related-one generic value.
@@ -2648,7 +2648,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="use-cache" default="false">
+        <xs:attribute name="use-cache" type="xs:string" default="false">
             <xs:annotation>
                 <xs:documentation>
                     Specifies whether or not the delegator's cache should be searched before going to the database. 
@@ -2657,7 +2657,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="to-value" use="required">
+        <xs:attribute name="to-value-field" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of a generic value where to put the result.
@@ -2686,7 +2686,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.get-related">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of a generic value sitting in the context from where you want to get a related generic value.
@@ -2886,7 +2886,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.make-value">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.    
@@ -2920,14 +2920,14 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.clone-value">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="new-value" use="required">
+        <xs:attribute type="xs:string" name="new-value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that will contain the new GenericValue object.
@@ -2947,7 +2947,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.create-value">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.    
@@ -2993,7 +2993,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.store-value">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.    
@@ -3025,7 +3025,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.refresh-value">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of the value to refresh from database.
@@ -3058,7 +3058,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.remove-value">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.    
@@ -3115,7 +3115,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.remove-related">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of a generic value to remove all related records.                    
@@ -3234,7 +3234,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set-pk-fields">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.
@@ -3274,7 +3274,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set-nonpk-fields">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.
@@ -4483,7 +4483,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set-current-user-login">
-        <xs:attribute type="xs:string" name="value" use="required">
+        <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the UserLogin GenericValue object.

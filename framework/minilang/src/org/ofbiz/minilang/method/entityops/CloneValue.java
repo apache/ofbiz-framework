@@ -47,8 +47,8 @@ public class CloneValue extends MethodOperation {
 
     public CloneValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value"), element.getAttribute("value-name"));
-        newValueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("new-value"), element.getAttribute("new-value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
+        newValueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("new-value-field"), element.getAttribute("new-value-name"));
     }
 
     public boolean exec(MethodContext methodContext) {
