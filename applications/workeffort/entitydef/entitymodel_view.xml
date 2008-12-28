@@ -235,6 +235,20 @@ under the License.
         <key-map field-name="roleTypeId"/>
       </relation>
     </view-entity>
+    <view-entity entity-name="WorkEffortPartyAssignAndRoleType"
+      package-name="org.ofbiz.workeffort.workeffort"
+      title="Work Effort Party Assignment And Roletype">
+      <description>To be able to have a dropdown listing with all roles a party has on this workeffort.</description>
+      <member-entity entity-alias="WEPA" entity-name="WorkEffortPartyAssignment"/>
+      <member-entity entity-alias="RT" entity-name="RoleType"/>
+      <alias-all entity-alias="WEPA"/>
+      <alias-all entity-alias="RT">
+        <exclude field="roleTypeId"/>
+      </alias-all>
+      <view-link entity-alias="WEPA" rel-entity-alias="RT">
+        <key-map field-name="roleTypeId"/>
+      </view-link>
+    </view-entity>
     <view-entity entity-name="WorkEffortAssocView"
             package-name="org.ofbiz.workeffort.workeffort"
             title="Work Effort Association Entity with Name">
