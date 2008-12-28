@@ -406,7 +406,7 @@
         <value xml:lang="zh">字节</value>
     </property>
     <property key="WebtoolsCacheDebugTools">
-        <value xml:lang="en">Cache & Debug Tools</value>
+        <value xml:lang="en">Cache &amp; Debug Tools</value>
         <value xml:lang="fr">Cache et outils de débogage</value>
         <value xml:lang="it">Strumenti di Debug e Cache</value>
         <value xml:lang="ro">Instrumente de Debug si Cache</value>
