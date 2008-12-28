@@ -54,9 +54,12 @@ public class FilterListByDate extends MethodOperation {
 
     public FilterListByDate(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("list-name"));
-        toListAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("to-list-name"), element.getAttribute("list-name"));
-        validDateAcsr = new ContextAccessor<Timestamp>(element.getAttribute("valid-date-name"));
+        listAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("list"), element.getAttribute("list-name"));
+        toListAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("to-list"), element.getAttribute("to-list-name"));
+        if (toListAcsr.isEmpty()) {
+            toListAcsr = listAcsr;
+        }
+        validDateAcsr = new ContextAccessor<Timestamp>(element.getAttribute("valid-date"), element.getAttribute("valid-date-name"));
 
         fromFieldName = element.getAttribute("from-field-name");
         if (UtilValidate.isEmpty(fromFieldName)) fromFieldName = "fromDate";

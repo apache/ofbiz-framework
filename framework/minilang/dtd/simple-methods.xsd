@@ -1756,7 +1756,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.make-next-seq-id">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Specify the name of the entity for a sequenced-id-to-env preparing the primarySequencedId.
@@ -1895,14 +1895,14 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name" use="required">
+        <xs:attribute type="xs:string" name="map" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of a map in the method environment that will be used for the entity fields.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.
@@ -1953,14 +1953,14 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name" use="required">
+        <xs:attribute type="xs:string" name="map" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of a map in the method environment that will be used for the entity fields.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="order-by-list-name">
+        <xs:attribute type="xs:string" name="order-by-list">
             <xs:annotation>
                 <xs:documentation>
                     This will be a list sitting in the context that has string entries in it for each field that you want it to order by/
@@ -2004,10 +2004,10 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="list-name" use="required">
+        <xs:attribute type="xs:string" name="list" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the method environment field that contains the list of GenericValue objects.
+                    The name of the method environment field that will contain the list of GenericValue objects.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2042,14 +2042,14 @@ under the License.
         <xs:attribute name="entity-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    Name of the entity to look for.
+                    Name of the entity to query on.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
         <xs:attribute name="value-name" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    Name of the variable to put entity in.
+                    Name of the variable to put result record in.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2137,7 +2137,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="list-name" type="xs:string" use="required">
+        <xs:attribute name="list" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of the list where to put results.
@@ -2232,7 +2232,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="list-name" type="xs:string" use="required">
+        <xs:attribute name="list" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of the list where to put results.
@@ -2351,10 +2351,10 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute name="env-name" type="xs:string">
+        <xs:attribute name="from-field" type="xs:string">
             <xs:annotation>
                 <xs:documentation>
-                    Name of variable to apply operator on, combined with field-name.
+                    Name of field (variable) to apply operator on, along with field-name.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2554,7 +2554,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="env-name">
+        <xs:attribute type="xs:string" name="from-field">
             <xs:annotation>
                 <xs:documentation>
                     Name of the variable in the context.
@@ -2612,10 +2612,10 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute name="count-name" type="xs:string" use="required">
+        <xs:attribute name="count-field" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    Name of the variable to put result of the count in.                    
+                    Name of the field (variable) to put result of the count in.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -2634,7 +2634,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.get-related-one">
-        <xs:attribute name="value-name" type="xs:string" use="required">
+        <xs:attribute name="value" type="xs:string" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of a generic value sitting in the context from where you want to get a related-one generic value.
@@ -2657,7 +2657,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="to-value-name" use="required">
+        <xs:attribute type="xs:string" name="to-value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of a generic value where to put the result.
@@ -2686,7 +2686,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.get-related">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of a generic value sitting in the context from where you want to get a related generic value.
@@ -2700,7 +2700,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="map">
             <xs:annotation>
                 <xs:documentation>
                     Name of a map that will restrain the query further, 
@@ -2708,7 +2708,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="order-by-list-name">
+        <xs:attribute type="xs:string" name="order-by-list">
             <xs:annotation>
                 <xs:documentation>
                     This will be a list sitting in the context that has string entries in it for each field that you want it to order by/
@@ -2727,7 +2727,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="list-name" use="required">
+        <xs:attribute type="xs:string" name="list" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of a list where to put the result in.
@@ -2747,14 +2747,14 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.order-value-list">
-        <xs:attribute type="xs:string" name="list-name" use="required">
+        <xs:attribute type="xs:string" name="list" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of the list of generic value objects that we want to sort.                   
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="to-list-name">
+        <xs:attribute type="xs:string" name="to-list">
             <xs:annotation>
                 <xs:documentation>
                     Name of the output list. If it is empty, as it is optional, it will simply use the list-name.
@@ -2762,7 +2762,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="order-by-list-name" use="required">
+        <xs:attribute type="xs:string" name="order-by-list" use="required">
             <xs:annotation>
                 <xs:documentation>
                     This will be a list sitting in the context that has string entries in it for each field that you want it to order by.
@@ -2784,14 +2784,14 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.filter-list-by-and">
-        <xs:attribute type="xs:string" name="list-name" use="required">
+        <xs:attribute type="xs:string" name="list" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the list of GenericValue objects.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="to-list-name">
+        <xs:attribute type="xs:string" name="to-list">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field the filtered list will be put into. 
@@ -2799,7 +2799,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="map">
             <xs:annotation>
                 <xs:documentation>
                     The name of a map in the method environment that will be used for the entity fields. 
@@ -2819,14 +2819,14 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.filter-list-by-date">
-        <xs:attribute type="xs:string" name="list-name" use="required">
+        <xs:attribute type="xs:string" name="list" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the list of GenericValue objects.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="to-list-name">
+        <xs:attribute type="xs:string" name="to-list">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field the filtered list will be put into. 
@@ -2834,7 +2834,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="valid-date-name">
+        <xs:attribute type="xs:string" name="valid-date">
             <xs:annotation>
                 <xs:documentation>
                     The name of a field in the method environment date to filter by. 
@@ -2886,7 +2886,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.make-value">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.    
@@ -2900,7 +2900,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="map">
             <xs:annotation>
                 <xs:documentation>
                     The name of a map in the method environment that will be used for the entity fields.
@@ -2920,14 +2920,14 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.clone-value">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.                    
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="new-value-name" use="required">
+        <xs:attribute type="xs:string" name="new-value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that will contain the new GenericValue object.
@@ -2947,7 +2947,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.create-value">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.    
@@ -2993,7 +2993,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.store-value">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.    
@@ -3025,7 +3025,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.refresh-value">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of the value to refresh from database.
@@ -3058,7 +3058,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.remove-value">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.    
@@ -3115,7 +3115,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.remove-related">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of a generic value to remove all related records.                    
@@ -3162,7 +3162,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name" use="required">
+        <xs:attribute type="xs:string" name="map" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of a map in the method environment that will be used for the entity fields.
@@ -3202,7 +3202,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="map">
             <xs:annotation>
                 <xs:documentation>
                     The name of a map in the method environment that will be used for the entity fields. 
@@ -3234,14 +3234,14 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set-pk-fields">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="map">
             <xs:annotation>
                 <xs:documentation>
                     The name of a map in the method environment that will be used for the entity fields.
@@ -3274,14 +3274,14 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set-nonpk-fields">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the GenericValue object.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="map">
             <xs:annotation>
                 <xs:documentation>
                     The name of a map in the method environment that will be used for the entity fields.
@@ -3315,7 +3315,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.store-list">
-        <xs:attribute type="xs:string" name="list-name" use="required">
+        <xs:attribute type="xs:string" name="list" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the list of GenericValue objects.                    
@@ -3348,7 +3348,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.remove-list">
-        <xs:attribute type="xs:string" name="list-name" use="required">
+        <xs:attribute type="xs:string" name="list" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the list of GenericValue objects.
@@ -3387,14 +3387,14 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.iterate">
-        <xs:attribute type="xs:string" name="entry-name" use="required">
+        <xs:attribute type="xs:string" name="entry" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that will contain each entry as we iterate through the list.
                 </xs:documentation>
             </xs:annotation>            
         </xs:attribute>
-        <xs:attribute type="xs:string" name="list-name" use="required">
+        <xs:attribute type="xs:string" name="list" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the list to iterate over.
@@ -3420,21 +3420,21 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.iterate-map">
-        <xs:attribute type="xs:string" name="key-name" use="required">
+        <xs:attribute type="xs:string" name="key" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of the variable to put the key.   
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of the variable to put the value in.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name" use="required">
+        <xs:attribute type="xs:string" name="map" use="required">
             <xs:annotation>
                 <xs:documentation>
                     Name of the map to use.
@@ -3827,18 +3827,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-validate-method">
-        <xs:attribute type="xs:string" name="map-name">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    The name of the method environment field that contains the map that the field to be validated will come from. 
-                    If not specified the field-name will be treated as a method environment field name (an env-name).                    
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map field that will be validated.
+                    The name of the field (variable) that will be validated.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -3889,15 +3881,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-instance-of">
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the map that the field to be validated will come from. 
-                    If not specified the field-name will be treated as a method environment field name (an env-name).                                        
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the map field that will be validated as being an instance of the named class.
@@ -4058,15 +4042,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.if-regexp">
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the method environment field that contains the map that the field to be validated will come from. 
-                    If not specified the field-name will be treated as a method environment field name (an env-name).
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the map field that will be compared.
@@ -4328,18 +4304,10 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.check-id">
-        <xs:attribute type="xs:string" name="field-name" use="required">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the field that contains the ID value to check.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the Map that contains the field. 
-                    If not specified the environment will be used to find the field.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
@@ -4411,7 +4379,7 @@ under the License.
             </xs:annotation>
         </xs:attribute>
     </xs:attributeGroup>
-    <xs:element name="now-timestamp-to-env" substitutionGroup="OtherOperations">
+    <xs:element name="now-timestamp" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
                 The now-timestamp-to-env tag creates a java.sql.Timestamp object with the current date and time in it and puts it in a field in the method environment.
@@ -4422,7 +4390,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.now-timestamp-to-env">
-        <xs:attribute type="xs:string" name="env-name" use="required">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field the timestamp will be put in.
@@ -4440,7 +4408,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.now-date-to-env">
-        <xs:attribute type="xs:string" name="env-name" use="required">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field the date will be put in.    
@@ -4473,15 +4441,7 @@ under the License.
                 </xs:documentation>
             </xs:annotation>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment. 
-                    If not specified the field-name will be used to get the field from the method environment.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name (key) of the map field to use.
@@ -4523,7 +4483,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.set-current-user-login">
-        <xs:attribute type="xs:string" name="value-name" use="required">
+        <xs:attribute type="xs:string" name="value" use="required">
             <xs:annotation>
                 <xs:documentation>
                     The name of the method environment field that contains the UserLogin GenericValue object.
@@ -4560,15 +4520,7 @@ under the License.
         </xs:complexType>
     </xs:element>
     <xs:attributeGroup name="attlist.calculate">
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment. 
-                    If not specified the field-name will be used to get the field from the method environment.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name" use="required">
+        <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation><xs:documentation>The name (key) of the map (or env if map-name is empty) field to use.</xs:documentation></xs:annotation>
         </xs:attribute>
         <xs:attribute name="type" default="Double">
@@ -4648,15 +4600,7 @@ under the License.
                 </xs:restriction>
             </xs:simpleType>
         </xs:attribute>
-        <xs:attribute type="xs:string" name="map-name">
-            <xs:annotation>
-                <xs:documentation>
-                    The name of the map in the method environment. 
-                    If not specified the field-name will be used to get the field from the method environment.
-                </xs:documentation>
-            </xs:annotation>
-        </xs:attribute>
-        <xs:attribute type="xs:string" name="field-name">
+        <xs:attribute type="xs:string" name="field">
             <xs:annotation>
                 <xs:documentation>
                     The name (key) of the map field to use.

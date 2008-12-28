@@ -36,12 +36,21 @@ public class NowTimestampToEnv extends MethodOperation {
             return "now-timestamp-to-env";
         }
     }
+    public static final class NowTimestampFactory implements Factory<NowTimestampToEnv> {
+        public NowTimestampToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new NowTimestampToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "now-timestamp";
+        }
+    }
     
     ContextAccessor<java.sql.Timestamp> envAcsr;
 
     public NowTimestampToEnv(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        envAcsr = new ContextAccessor<java.sql.Timestamp>(element.getAttribute("env-name"));
+        envAcsr = new ContextAccessor<java.sql.Timestamp>(element.getAttribute("field"), element.getAttribute("env-name"));
     }
 
     public boolean exec(MethodContext methodContext) {

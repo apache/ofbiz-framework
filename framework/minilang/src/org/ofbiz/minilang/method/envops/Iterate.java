@@ -58,8 +58,8 @@ public class Iterate extends MethodOperation {
 
     public Iterate(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry-name"));
-        this.listAcsr = new ContextAccessor<Object>(element.getAttribute("list-name"));
+        this.entryAcsr = new ContextAccessor<Object>(element.getAttribute("entry"), element.getAttribute("entry-name"));
+        this.listAcsr = new ContextAccessor<Object>(element.getAttribute("list"), element.getAttribute("list-name"));
 
         SimpleMethod.readOperations(element, subOps, simpleMethod);
     }

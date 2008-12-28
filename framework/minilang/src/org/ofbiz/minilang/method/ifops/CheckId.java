@@ -53,7 +53,8 @@ public class CheckId extends MethodOperation {
 
     public CheckId(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field-name"));
+        // the schema for this element now just has the "field" attribute, though the old "field-name" and "map-name" pair is still supported
+        this.fieldAcsr = new ContextAccessor<Object>(element.getAttribute("field"), element.getAttribute("field-name"));
         this.mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
         this.errorListAcsr = new ContextAccessor<List<Object>>(element.getAttribute("error-list-name"), "error_list");
 

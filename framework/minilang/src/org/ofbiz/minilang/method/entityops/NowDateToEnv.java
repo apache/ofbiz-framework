@@ -36,12 +36,21 @@ public class NowDateToEnv extends MethodOperation {
             return "now-date-to-env";
         }
     }
+    public static final class NowDateFactory implements Factory<NowDateToEnv> {
+        public NowDateToEnv createMethodOperation(Element element, SimpleMethod simpleMethod) {
+            return new NowDateToEnv(element, simpleMethod);
+        }
+
+        public String getName() {
+            return "now-date";
+        }
+    }
     
     ContextAccessor<java.sql.Date> envAcsr;
 
     public NowDateToEnv(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        envAcsr = new ContextAccessor<java.sql.Date>(element.getAttribute("env-name"));
+        envAcsr = new ContextAccessor<java.sql.Date>(element.getAttribute("field"), element.getAttribute("env-name"));
     }
 
     public boolean exec(MethodContext methodContext) {

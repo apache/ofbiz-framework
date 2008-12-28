@@ -48,7 +48,7 @@ public class RefreshValue extends MethodOperation {
 
     public RefreshValue(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value"), element.getAttribute("value-name"));
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
 

@@ -22,6 +22,7 @@ import java.util.Map;
 
 import org.ofbiz.base.util.Debug;
 import org.ofbiz.base.util.GeneralException;
+import org.ofbiz.base.util.UtilValidate;
 import org.ofbiz.base.util.UtilXml;
 import org.ofbiz.base.util.collections.FlexibleMapAccessor;
 import org.ofbiz.base.util.string.FlexibleStringExpander;
@@ -62,7 +63,11 @@ public class EntityCount extends MethodOperation {
         super(element, simpleMethod);
         this.entityNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("entity-name"));
         this.delegatorNameExdr = FlexibleStringExpander.getInstance(element.getAttribute("delegator-name"));
-        this.countAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("count-name"));
+        if (UtilValidate.isNotEmpty(element.getAttribute("count-field"))) {
+            this.countAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("count-field"));
+        } else {
+            this.countAcsr = FlexibleMapAccessor.getInstance(element.getAttribute("count-name"));
+        }
         
         // process condition-expr | condition-list
         Element conditionExprElement = UtilXml.firstChildElement(element, "condition-expr");

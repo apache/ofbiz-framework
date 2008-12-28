@@ -49,8 +49,11 @@ public class FilterListByAnd extends MethodOperation {
 
     public FilterListByAnd(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        listAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("list-name"));
-        toListAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("to-list-name"), element.getAttribute("list-name"));
+        listAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("list"), element.getAttribute("list-name"));
+        toListAcsr = new ContextAccessor<List<GenericEntity>>(element.getAttribute("to-list"), element.getAttribute("to-list-name"));
+        if (toListAcsr.isEmpty()) {
+            toListAcsr = listAcsr;
+        }
         mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
     }
 

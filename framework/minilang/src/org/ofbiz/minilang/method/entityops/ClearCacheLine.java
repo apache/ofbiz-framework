@@ -48,7 +48,7 @@ public class ClearCacheLine extends MethodOperation {
     public ClearCacheLine(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         entityName = element.getAttribute("entity-name");
-        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map-name"));
+        mapAcsr = new ContextAccessor<Map<String, ? extends Object>>(element.getAttribute("map"), element.getAttribute("map-name"));
     }
 
     public boolean exec(MethodContext methodContext) {

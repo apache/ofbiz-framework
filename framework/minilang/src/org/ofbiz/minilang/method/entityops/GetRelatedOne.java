@@ -50,8 +50,8 @@ public class GetRelatedOne extends MethodOperation {
 
     public GetRelatedOne(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<Object>(element.getAttribute("value-name"));
-        toValueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("to-value-name"));
+        valueAcsr = new ContextAccessor<Object>(element.getAttribute("value"), element.getAttribute("value-name"));
+        toValueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("to-value"), element.getAttribute("to-value-name"));
         relationName = element.getAttribute("relation-name");
         useCacheStr = element.getAttribute("use-cache");
     }
