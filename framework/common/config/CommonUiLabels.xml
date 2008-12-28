@@ -7662,7 +7662,7 @@
     </property>
     <property key="DefaultOrganizationPartyId">
         <value xml:lang="en">Default Organization</value>
-        <value xml:lang="en">Organisation utilisée par défault</value>
+        <value xml:lang="fr">Organisation utilisée par défault</value>
     </property>
     <property key="PageTitleAddDataSource">
         <value xml:lang="ar">إضافة مصدر المعلومات جديد</value>
