@@ -51,7 +51,7 @@ public class MakeNextSeqId extends MethodOperation {
     public MakeNextSeqId(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
         seqFieldName = element.getAttribute("seq-field-name");
-        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value"), element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
 
         numericPaddingStr = element.getAttribute("numeric-padding");
         incrementByStr = element.getAttribute("increment-by");

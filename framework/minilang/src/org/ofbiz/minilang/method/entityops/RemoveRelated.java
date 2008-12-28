@@ -49,7 +49,7 @@ public class RemoveRelated extends MethodOperation {
 
     public RemoveRelated(Element element, SimpleMethod simpleMethod) {
         super(element, simpleMethod);
-        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value"), element.getAttribute("value-name"));
+        valueAcsr = new ContextAccessor<GenericValue>(element.getAttribute("value-field"), element.getAttribute("value-name"));
         relationName = element.getAttribute("relation-name");
         doCacheClearStr = element.getAttribute("do-cache-clear");
     }
