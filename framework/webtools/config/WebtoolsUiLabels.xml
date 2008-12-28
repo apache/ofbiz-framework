@@ -157,7 +157,7 @@
     </property>
     <property key="PageTitleEntityExport">
         <value xml:lang="en">XML Data Export</value>
-        <value xml:lang="fr">Exportation de données XML</value>
+        <value xml:lang="fr">Export de données XML</value>
         <value xml:lang="it">Esporta i Dati in XML</value>
         <value xml:lang="ro">Exporta Date in XML</value>
         <value xml:lang="th">ส่งออกข้อมูล xml</value>
@@ -173,7 +173,7 @@
     </property>
     <property key="PageTitleEntityImport">
         <value xml:lang="en">XML Data Import</value>
-        <value xml:lang="fr">Importation de données XML</value>
+        <value xml:lang="fr">Import de données XML</value>
         <value xml:lang="it">Importa i Dati da XML</value>
         <value xml:lang="ro">Importa Datele din XML</value>
         <value xml:lang="th">นำเข้าข้อมูล xml</value>
@@ -181,7 +181,7 @@
     </property>
     <property key="PageTitleEntityImportDir">
         <value xml:lang="en">XML Data Import Dir</value>
-        <value xml:lang="fr">Importation de données XML depuis un répertoire</value>
+        <value xml:lang="fr">Import de données XML depuis un répertoire</value>
         <value xml:lang="it">Importa i Dati da XML nella Directory</value>
         <value xml:lang="ro">Importa Datele din XML in Directory</value>
         <value xml:lang="th">นำเข้าข้อมูล xml ใน Directory</value>
@@ -189,13 +189,13 @@
     </property>
     <property key="PageTitleEntityImportReaders">
         <value xml:lang="en">XML Data Import Readers</value>
-        <value xml:lang="fr">Lecteurs d'importation de données de XML</value>
+        <value xml:lang="fr">Lecteurs d'import de données de XML</value>
         <value xml:lang="it">Importa i Dati da XML Readers</value>
         <value xml:lang="th">นำเข้าข้อมูลผู้ตรวจ</value>
     </property>
     <property key="PageTitleEntitySQLProcessor">
         <value xml:lang="en">Entity SQL Processor</value>
-        <value xml:lang="fr">Processeur SQL d'entités</value>
+        <value xml:lang="fr">Processeur d'entités SQL</value>
         <value xml:lang="it">Processore SQL Entità</value>
         <value xml:lang="ro">Procesor Entitate SQL </value>
         <value xml:lang="th">ประมวลผลสิ่งที่มีใน SQL</value>
@@ -218,7 +218,7 @@
     </property>
     <property key="PageTitleFindUtilCache">
         <value xml:lang="en">Cache Maintenance Page</value>
-        <value xml:lang="fr">Page de maintenance du cache</value>
+        <value xml:lang="fr">Page de maintenance des caches</value>
         <value xml:lang="it">Pagina Manutenzione Cache</value>
         <value xml:lang="ro">Pagina Intretinere Cache</value>
         <value xml:lang="th">หน้าของการดูแลรักษา</value>
@@ -226,7 +226,7 @@
     </property>
     <property key="PageTitleFindUtilCacheElements">
         <value xml:lang="en">Cache Element Maintenance Page</value>
-        <value xml:lang="fr">Page d'entretien d'éléments du cache</value>
+        <value xml:lang="fr">Page d'entretien d'éléments des caches</value>
         <value xml:lang="it">Pagina Manutenzione Elementi Cache</value>
         <value xml:lang="ro">Pagina Intretinere Elemente Cache</value>
         <value xml:lang="th">หน้าของการดูแลรักษาอย่างละเอียด</value>
@@ -234,7 +234,7 @@
     </property>
     <property key="PageTitleJobList">
         <value xml:lang="en">Job List</value>
-        <value xml:lang="fr">Liste de jobs</value>
+        <value xml:lang="fr">Liste des jobs</value>
         <value xml:lang="it">Lista Lavori</value>
         <value xml:lang="ro">Lista Lucrari</value>
         <value xml:lang="th">รายชื่องาน</value>
@@ -360,10 +360,10 @@
         <value xml:lang="ro">Tot</value>
         <value xml:lang="th">ทั้งหมด</value>
         <value xml:lang="zh">全部</value>
-    </property>
+    </property>    
     <property key="WebtoolsArtifactInfo">
         <value xml:lang="en">Artifact Info</value>
-        <value xml:lang="fr">Info sur les éléments d'OFBiz</value>
+        <value xml:lang="fr">Info. sur les éléments d'OFBiz</value>
     </property>
     <property key="WebtoolsAsync">
         <value xml:lang="en">ASYNC</value>
@@ -375,7 +375,7 @@
     </property>
     <property key="WebtoolsBackToCacheMaintenance">
         <value xml:lang="en">Back to Cache Maintenance</value>
-        <value xml:lang="fr">Revenir à la maintenance du cache</value>
+        <value xml:lang="fr">Revenir à la maintenance des caches</value>
         <value xml:lang="it">Torna Indietro alla Pagina Manutenzione Cache</value>
         <value xml:lang="ro">Intoarcete inapoi la Pagina Intretinere Cache</value>
         <value xml:lang="th">ย้อนกลับไปที่ข้อมูลการดูแลรักษา</value>
@@ -423,7 +423,7 @@
     </property>
     <property key="WebtoolsCacheMaintenance">
         <value xml:lang="en">Cache Maintenance</value>
-        <value xml:lang="fr">Maintenance du cache</value>
+        <value xml:lang="fr">Maintenance des caches</value>
         <value xml:lang="it">Manutenzione Cache</value>
         <value xml:lang="ro">Intretinere Cache</value>
         <value xml:lang="th">การดูแลรักษา Cache</value>
@@ -445,6 +445,10 @@
         <value xml:lang="th">ยกเลิกงาน</value>
         <value xml:lang="zh">取消任务</value>
     </property>
+    <property key="WebtoolsCannotViewArtifactInfoPages">
+        <value xml:lang="en">Cannot view Artifact Info pages without ARTIFACT_INFO_VIEW permission.</value>
+        <value xml:lang="fr">Impossible de voir les pages sur les info à propos des éléments d'OFBiz sans l'autorisation ARTIFACT_INFO_VIEW.</value>
+    </property>    
     <property key="WebtoolsCertsCert">
         <value xml:lang="en">Cert</value>
         <value xml:lang="fr">Certificat</value>
@@ -484,7 +488,7 @@
     </property>
     <property key="WebtoolsCheckDataOnly">
         <value xml:lang="en">Check Data Only (nothing changed in database)</value>
-        <value xml:lang="fr">Vérifier seulement les données (rien n'a changé dans la base de données)</value>
+        <value xml:lang="fr">Vérifier seulement les données (rien ne sera changé dans la base de données)</value>
         <value xml:lang="th">ตรวจสอบเฉพาะข้อมูล (ไม่มีการเปลี่ยนแปลงในฐานข้อมูล)</value>
     </property>
     <property key="WebtoolsCheckUpdateDatabase">
@@ -910,7 +914,7 @@
     </property>
     <property key="WebtoolsEntityReference">
         <value xml:lang="en">Entity Reference</value>
-        <value xml:lang="fr">Référence d'entité</value>
+        <value xml:lang="fr">Liste des entités</value>
         <value xml:lang="it">Riferimenti Entità</value>
         <value xml:lang="th">อ้างอิง Entity </value>
         <value xml:lang="zh">实体引用</value>
@@ -924,14 +928,14 @@
     </property>
     <property key="WebtoolsEntityReferenceMainPage">
         <value xml:lang="en">Entity Reference Main Page</value>
-        <value xml:lang="fr">Page principale de référence d'entité</value>
+        <value xml:lang="fr">Page principale des références d'entité</value>
         <value xml:lang="it">Pagina Principale Riferimenti Entità</value>
         <value xml:lang="th">หน้าหลัก Entity Reference</value>
         <value xml:lang="zh">实体引用首页</value>
     </property>
     <property key="WebtoolsEntityReferencePdf">
         <value xml:lang="en">Entity Reference - PDF</value>
-        <value xml:lang="fr">PDF - Référence d'entité</value>
+        <value xml:lang="fr">Liste des entité - PDF</value>
         <value xml:lang="it">Riferimenti Entità - PDF</value>
         <value xml:lang="th">Entity อ้างอิง - PDF</value>
     </property>
@@ -950,7 +954,7 @@
     </property>
     <property key="WebtoolsEntitySyncStatus">
         <value xml:lang="en">Entity Sync Status</value>
-        <value xml:lang="fr">Statut de synchro. d'entité</value>
+        <value xml:lang="fr">Statut de synchro. des entités</value>
         <value xml:lang="it">Stato Sincronizzazioni Entità</value>
         <value xml:lang="ro">Stat Sincronizatii Entitate</value>
         <value xml:lang="th">สถานะของ Entity Sync </value>
@@ -1170,6 +1174,10 @@
         <value xml:lang="th">ความบ่อย</value>
         <value xml:lang="zh">频率</value>
     </property>
+    <property key="WebtoolsGeneralArtifactInfoTools">
+        <value xml:lang="en">General Artifact Info Tools</value>
+        <value xml:lang="fr">Outils généraux pour les info à propos des éléments d'OFBiz</value>
+    </property>
     <property key="WebtoolsGeneralJavaThreads">
         <value xml:lang="en">General Java Threads</value>
         <value xml:lang="fr">Threads générale de Java</value>
@@ -1380,7 +1388,7 @@
     </property>
     <property key="WebtoolsJobList">
         <value xml:lang="en">Job List</value>
-        <value xml:lang="fr">Liste de jobs</value>
+        <value xml:lang="fr">Liste des jobs</value>
         <value xml:lang="it">Lista Lavori</value>
         <value xml:lang="ro">Lista Lucrari </value>
         <value xml:lang="th">รายชื่องาน</value>
@@ -1389,6 +1397,7 @@
     <property key="WebtoolsJobLog">
         <value xml:lang="de">Logdatei</value>
         <value xml:lang="en">Logfile</value>
+        <value xml:lang="en">Fichier de Log</value>
     </property>
     <property key="WebtoolsLHSMapName">
         <value xml:lang="en">LHS map name</value>
@@ -1481,7 +1490,7 @@
     </property>
     <property key="WebtoolsLogging">
         <value xml:lang="en">Logging</value>
-        <value xml:lang="fr">Logging</value>
+        <value xml:lang="fr">Voir la Log</value>
         <value xml:lang="it">Log</value>
         <value xml:lang="th">Logging</value>
     </property>
@@ -1960,13 +1969,13 @@
     </property>
     <property key="WebtoolsNote4">
         <value xml:lang="en">Note: certain things only work in Java 5. Java Version is</value>
-        <value xml:lang="fr">Note: certaines choses fonctionnent seulement avec Java 5. La version Java est</value>
+        <value xml:lang="fr">Note: certaines choses ne fonctionnent qu'avec Java 5. La version de Java est: </value>
         <value xml:lang="it">Nota: certe cose funzionano solo con Java 5. Versione Java è</value>
         <value xml:lang="th">หมายเหตุ: การทำงานบางอย่างจะต้องทำใน Java 5. Java เวอร์ชันที่</value>
     </property>
     <property key="WebtoolsNote5">
         <value xml:lang="en">is Java 5</value>
-        <value xml:lang="fr">c'est Java 5</value>
+        <value xml:lang="fr">c'est Java 5 </value>
         <value xml:lang="it">è Java 5</value>
         <value xml:lang="th"> Java 5</value>
     </property>
@@ -2298,7 +2307,7 @@
     </property>
     <property key="WebtoolsReloadCacheList">
         <value xml:lang="en">Reload Cache List</value>
-        <value xml:lang="fr">Recharger la liste du cache</value>
+        <value xml:lang="fr">Recharger la liste des caches</value>
         <value xml:lang="it">Ricarica Lista Cache</value>
         <value xml:lang="ro">Incarcare Lista Cache</value>
         <value xml:lang="th">โหลด Cache อีกครั้ง</value>
@@ -2537,7 +2546,7 @@
     </property>
     <property key="WebtoolsServiceReference">
         <value xml:lang="en">Service Reference</value>
-        <value xml:lang="fr">Référence de service</value>
+        <value xml:lang="fr">Liste des services</value>
         <value xml:lang="it">Riferimenti Servizi</value>
         <value xml:lang="ro">Referinte Serviciu</value>
         <value xml:lang="th">อ้างอิง Service </value>
@@ -2888,10 +2897,18 @@
         <value xml:lang="fr">Résultats des tests</value>
         <value xml:lang="it">Risultati Test</value>
         <value xml:lang="th">ผลการทดสอบ</value>
+    </property>    
+    <property key="WebtoolsThisThread">
+        <value xml:lang="en">This Thread</value>
+        <value xml:lang="fr">Cette Thread</value>
+        <value xml:lang="it">Thread</value>
+        <value xml:lang="ro">Thread</value>
+        <value xml:lang="th">Thread</value>
+        <value xml:lang="zh">线程</value>
     </property>
     <property key="WebtoolsThread">
         <value xml:lang="en">Thread</value>
-        <value xml:lang="fr">Réseau</value>
+        <value xml:lang="fr">Thread</value>
         <value xml:lang="it">Thread</value>
         <value xml:lang="ro">Thread</value>
         <value xml:lang="th">Thread</value>
@@ -2905,7 +2922,7 @@
     </property>
     <property key="WebtoolsThreadList">
         <value xml:lang="en">Thread List</value>
-        <value xml:lang="fr">Liste du réseau</value>
+        <value xml:lang="fr">Liste des Threads</value>
         <value xml:lang="it">Lista Thread</value>
         <value xml:lang="ro">Lista Thread</value>
         <value xml:lang="th">รายชื่อ thread</value>
@@ -2913,7 +2930,7 @@
     </property>
     <property key="WebtoolsTimeoutSeconds">
         <value xml:lang="en">TX Timeout Seconds (for each entity or file)</value>
-        <value xml:lang="fr">Temporisation de la transaction en secondes (pour chaque entité ou fichier</value>
+        <value xml:lang="fr">Temporisation de la transaction en secondes (pour chaque entité ou fichier) </value>
         <value xml:lang="it">TX Timeout in Secondi (per ogni entità)</value>
         <value xml:lang="ro">TX Timeout in Secunde (pentru orice entitate)</value>
         <value xml:lang="th">TX Timeout Seconds (สำหรับตัวอย่าง entity หรือ file)</value>
