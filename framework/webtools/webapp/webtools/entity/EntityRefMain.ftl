@@ -68,7 +68,7 @@ under the License.
                                 </#if>
                                 <#if !forstatic>
                                     <#assign encodeURL = response.encodeURL(controlPath + "/ArtifactInfo?name=" + entity.entityName + "&type=entity")>
-                                    <a target='main' href="${encodeURL}">[Artifact Info]</a>
+                                    <a target='main' href="${encodeURL}">[${uiLabelMap.WebtoolsArtifactInfo}]</a>
                                 </#if>
                             </div>
                             <#if entity.description?has_content && 

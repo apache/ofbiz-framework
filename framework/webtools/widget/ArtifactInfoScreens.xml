@@ -38,7 +38,7 @@ under the License.
                 </decorator-screen>
             </widgets>
             <fail-widgets>
-                <label style="h3">Cannot view Artifact Info pages without ARTIFACT_INFO_VIEW permission.</label>
+                <label style="h3">${uiLabelMap.WebtoolsCannotViewArtifactInfoPages}</label>
             </fail-widgets>
         </section>
     </screen>

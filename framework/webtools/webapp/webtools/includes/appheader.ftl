@@ -32,7 +32,7 @@ under the License.
       <li<#if selected == "cache"> class="selected"</#if>><a href="<@ofbizUrl>FindUtilCache</@ofbizUrl>">${uiLabelMap.WebtoolsCacheMaintenance}</a></li>
       <li<#if selected == "logging"> class="selected"</#if>><a href="<@ofbizUrl>LogView</@ofbizUrl>">${uiLabelMap.WebtoolsLogging}</a></li>
       <#if security.hasPermission("ARTIFACT_INFO_VIEW", session)>
-        <li<#if selected == "ArtifactInfo"> class="selected"</#if>><a href="<@ofbizUrl>ArtifactInfo</@ofbizUrl>">Artifact Info</a></li>
+        <li<#if selected == "ArtifactInfo"> class="selected"</#if>><a href="<@ofbizUrl>ArtifactInfo</@ofbizUrl>">${uiLabelMap.WebtoolsArtifactInfo}</a></li>
       </#if>
       <#if security.hasPermission("TEMPEXPR_ADMIN", session)>
         <li<#if selected == "tempexpr"> class="selected"</#if>><a href="<@ofbizUrl>findTemporalExpression</@ofbizUrl>">${uiLabelMap.TemporalExpression}</a></li>

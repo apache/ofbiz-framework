@@ -77,7 +77,7 @@ under the License.
     
 <#else/>
     
-    <h1>Artifact Info (${artifactInfo.getDisplayType()}): ${artifactInfo.getDisplayName()}</h1>
+    <h1>${uiLabelMap.WebtoolsArtifactInfo} (${artifactInfo.getDisplayType()}): ${artifactInfo.getDisplayName()}</h1>
     <#if artifactInfo.getLocationURL()?exists>
         <div>Defined in: <a href="${artifactInfo.getLocationURL()}">${artifactInfo.getLocationURL()}</a></div>
     </#if>
