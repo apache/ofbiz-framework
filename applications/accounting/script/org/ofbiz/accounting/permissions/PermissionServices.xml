@@ -53,13 +53,13 @@ under the License.
             <!-- Check for deprecated permission -->
             <if-has-permission permission="ACCTG_FX_ENTRY">
                 <set field="hasPermission" type="Boolean" value="true"/>
-                <field-to-result field-name="hasPermission"/>
+                <field-to-result field="hasPermission"/>
                 <log level="warning" message="Deprecated permission ACCTG_FX_ENTRY in use"/>
                 <else>
-                    <property-to-field resource="CommonUiLabels" property="CommonGenericPermissionError" field-name="failMessage"/>
+                    <property-to-field resource="CommonUiLabels" property="CommonGenericPermissionError" field="failMessage"/>
                     <set field="hasPermission" type="Boolean" value="false"/>
-                    <field-to-result field-name="hasPermission"/>
-                    <field-to-result field-name="failMessage"/>
+                    <field-to-result field="hasPermission"/>
+                    <field-to-result field="failMessage"/>
                 </else>
             </if-has-permission>
         </if-compare>
