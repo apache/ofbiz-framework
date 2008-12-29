@@ -38,8 +38,8 @@ under the License.
         </#if>
         <li class="opposed"><a href="<@ofbizUrl>logout</@ofbizUrl>">${uiLabelMap.CommonLogout}</a></li>
         <#--li class="opposed"><a href="http://docs.ofbiz.org/display/OFBENDUSER/My+Page?decorator=printable" target="_blank">${uiLabelMap.CommonHelp}</a></li>-->      
-        <li class="opposed"><a href="http://docs.ofbiz.org/display/OFBENDUSER/My+Page?decorator=printable" url-mode="plain" target-window="new">Help</a></li>
-    	<li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?originalPortalPageId=${originalPortalPageId}&amp;mainPortalPageId=MAINMYPORTAL</@ofbizUrl>">preferences</a></li>
+        <li class="opposed"><a href="http://docs.ofbiz.org/display/OFBENDUSER/My+Page?decorator=printable" url-mode="plain" target-window="new">${uiLabelMap.CommonHelp}</a></li>
+    	<li class="opposed"><a href="<@ofbizUrl>ManagePortalPages?originalPortalPageId=${originalPortalPageId}&amp;mainPortalPageId=MAINMYPORTAL</@ofbizUrl>">${uiLabelMap.CommonPreferences}</a></li>
     <#else>
         <li class="opposed"><a href="<@ofbizUrl>${checkLoginUrl?if_exists}</@ofbizUrl>">${uiLabelMap.CommonLogin}</a></li>
     </#if>

@@ -37,7 +37,7 @@ under the License.
     </form>
     
     <form name="LoginPortletEdit" extends="CommonPortletEdit">
-        <field name="ItemsToShow">
+        <field name="ItemsToShow" entry-name="attributeMap.ItemsToShow">
             <drop-down allow-empty="false">
                 <option key="5"/>
                 <option key="15"/>
@@ -48,8 +48,8 @@ under the License.
             </drop-down>
         </field>
 
-        <field name="SpecificTitle">
-            <display/>
+        <field name="SpecificTitle" entry-name="attributeMap.SpecificTitle">
+            <text/>
         </field>
     </form>
 

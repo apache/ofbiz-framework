@@ -1828,6 +1828,11 @@
         <value xml:lang="zh">编辑</value>
         <value xml:lang="zh_CN">编辑</value>
     </property>
+    <property key="CommonEditPortletAttributes">
+        <value xml:lang="en">Edit Attributes for Portlet</value>
+        <value xml:lang="fr">Modifier les attributs du portlet </value>
+        <value xml:lang="it">Modifica attributi portlet</value>
+    </property>
     <property key="CommonElementsFound">
         <value xml:lang="ar">عناصر وجدت</value>
         <value xml:lang="de">Gefundene Elemente</value>
@@ -3648,32 +3653,32 @@
     </property>
     <property key="CommonMovePortletBottom">
         <value xml:lang="en">Move Portlet at the Bottom</value>
-        <value xml:lang="fr">Déplacer le porlet tout en bas</value>
+        <value xml:lang="fr">Déplacer le portlet tout en bas</value>
         <value xml:lang="it">Sposta il portlet in fondo</value>
     </property>
     <property key="CommonMovePortletDown">
         <value xml:lang="en">Move Portlet Down</value>
-        <value xml:lang="fr">Déplacer le porlet en bas</value>
+        <value xml:lang="fr">Déplacer le portlet en bas</value>
         <value xml:lang="it">Sposta il portlet in basso</value>
     </property>
     <property key="CommonMovePortletLeft">
         <value xml:lang="en">Move Portlet Left</value>
-        <value xml:lang="fr">Déplacer le porlet à gauche</value>
+        <value xml:lang="fr">Déplacer le portlet à gauche</value>
         <value xml:lang="it">Sposta il portlet a sinistra</value>
     </property>
     <property key="CommonMovePortletRight">
         <value xml:lang="en">Move Portlet Right</value>
-        <value xml:lang="fr">Déplacer le porlet à droite</value>
+        <value xml:lang="fr">Déplacer le portlet à droite</value>
         <value xml:lang="it">Sposta il portlet a destra</value>
     </property>
     <property key="CommonMovePortletTop">
         <value xml:lang="en">Move Portlet at the Top</value>
-        <value xml:lang="fr">Déplacer le porlet tout en haut</value>
+        <value xml:lang="fr">Déplacer le portlet tout en haut</value>
         <value xml:lang="it">Sposta il portlet in cima</value>
     </property>
     <property key="CommonMovePortletUp">
         <value xml:lang="en">Move Portlet Up</value>
-        <value xml:lang="fr">Déplacer le porlet en haut</value>
+        <value xml:lang="fr">Déplacer le portlet en haut</value>
         <value xml:lang="it">Sposta il portlet in alto</value>
     </property>
     <property key="CommonMoveToPortalPage">
@@ -5034,6 +5039,7 @@
     </property>
     <property key="CommonRemovePortlet">
         <value xml:lang="en">Remove Portlet</value>
+        <value xml:lang="fr">Supprimer le portlet</value>
         <value xml:lang="it">Rimuovi il portlet</value>
     </property>
     <property key="CommonReports">
