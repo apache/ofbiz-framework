@@ -20,6 +20,7 @@ package org.ofbiz.common;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -212,7 +213,7 @@ public class FindServices {
         HashMap<String, HashMap<String, Object>> subMap = null;
         HashMap<String, Object> subMap2 = null;
         EntityOperator fieldOp = null;
-        String fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
+        Object fieldValue = null; // If it is a "value" field, it will be the value to be used in the query.
                                   // If it is an "op" field, it will be "equals", "greaterThan", etc.
         EntityExpr cond = null;
         ArrayList<EntityCondition> tmpList = new ArrayList<EntityCondition>();
@@ -243,7 +244,7 @@ public class FindServices {
                 fieldOp = EntityOperator.EQUALS;
             }
 
-            fieldValue = (String) subMap2.get("value");
+            fieldValue = subMap2.get("value");
             if (fieldValue == null) {
                 continue;
             }
@@ -258,13 +259,13 @@ public class FindServices {
                     ignoreCase = null;
                 } else if (opString.equals("like")) {
                     fieldOp = EntityOperator.LIKE;
-                    fieldValue += "%";
+                    fieldValue = fieldValue + "%";
                 } else if (opString.equals("greaterThanFromDayStart")) {
-                    fieldValue = dayStart(fieldValue, 0);
+                    fieldValue = dayStart((String) fieldValue, 0);
                     fieldOp = EntityOperator.GREATER_THAN;
                     ignoreCase = null;
                 } else if (opString.equals("sameDay")) {
-                    String timeStampString = fieldValue;
+                    String timeStampString = (String) fieldValue;
                     fieldValue = dayStart(timeStampString, 0);
                     fieldOp = EntityOperator.GREATER_THAN_EQUAL_TO;
                     ignoreCase = null;
@@ -284,9 +285,15 @@ public class FindServices {
                 fieldOp = EntityOperator.EQUALS;
             }
 
-            Object fieldObject = modelEntity.convertFieldValue(modelField, fieldValue, delegator, context);
+            Object fieldObject = null;
+            if(fieldOp != EntityOperator.IN || ! (fieldValue instanceof Collection)) {
+                fieldObject = modelEntity.convertFieldValue(modelField, fieldValue, delegator, context);
+            } else {
+                fieldObject = fieldValue;
+            }
+            
             if (ignoreCase != null && ignoreCase.equals("Y") && "java.lang.String".equals(fieldObject.getClass().getName())) {
-                cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) fieldOp, EntityFunction.UPPER(fieldValue.toUpperCase()));
+                cond = EntityCondition.makeCondition(EntityFunction.UPPER_FIELD(fieldName), (EntityComparisonOperator) fieldOp, EntityFunction.UPPER(((String)fieldValue).toUpperCase()));
             } else {
                 cond = EntityCondition.makeCondition(fieldName, (EntityComparisonOperator) fieldOp, fieldObject);
             }
@@ -317,17 +324,17 @@ public class FindServices {
                 continue;
             }
             if (opString.equals("like")) {
-                fieldValue += "%";
+                fieldValue = fieldValue + "%";
             } else if (opString.equals("contains")) {
-                fieldValue += "%" + fieldValue + "%";
+                fieldValue = fieldValue + "%" + fieldValue + "%";
             } else if (opString.equals("empty")) {
                 fieldOp = EntityOperator.EQUALS;
                 fieldValue = null;
             } else if (opString.equals("upToDay")) {
-                fieldValue = dayStart(fieldValue, 0);
+                fieldValue = dayStart((String) fieldValue, 0);
                 fieldOp = EntityOperator.LESS_THAN;
             } else if (opString.equals("upThruDay")) {
-                fieldValue = dayStart(fieldValue, 1);
+                fieldValue = dayStart((String) fieldValue, 1);
                 fieldOp = EntityOperator.LESS_THAN;
             }
             // String rhs = fieldValue.toString();
