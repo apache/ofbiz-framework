@@ -97,13 +97,14 @@ under the License.
     <screen name="EditPortlet">
         <section>
             <actions>
+                <property-map resource="CommonUiLabels" map-name="uiLabelMap"/>
                 <set field="originalPortalPageId" from-field="parameters.originalPortalPageId"/>
                 <entity-one entity-name="PortalPortlet" value-name="portalPortlet"/>
             </actions>
             <widgets>
                 <decorator-screen name="main-decorator" location="${parameters.mainDecoratorLocation}">
                     <decorator-section name="body">
-                        <label style="h2">Edit Attributes for Portlet: ${portalPortlet.portletName}</label>
+                        <label style="h2">${uiLabelMap.CommonEditPortletAttributes}: ${portalPortlet.portletName}</label>
                         <include-form name="${portalPortlet.editFormName}" location="${portalPortlet.editFormLocation}"/>
                         <!-- <include-screen name="${portalPortlet.screenName}" location="${portalPortlet.screenLocation}"/> -->
                     </decorator-section>

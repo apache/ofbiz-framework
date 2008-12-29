@@ -32,7 +32,7 @@ under the License.
   <#if configurePortalPage?has_content>
     <tr> 
       <#list portalPageColumnList?if_exists as portalPageColumn>
-        <td class="manage-portal-column-toolbar" style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
+        <td class="manage-portal-column-toolbar" style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> ${uiLabelMap.CommonWidth}:${portalPageColumn.columnWidthPercentage}%;</#if>">
           <ul>
             <li id="delete-column">
               <a href="<@ofbizUrl>deletePortalPageColumn?portalPageId=${currentPortalPage.portalPageId}&columnSeqId=${portalPageColumn.columnSeqId}&configurePortalPage=true&originalPortalPageId=${parameters.originalPortalPageId}&mainPortalPageId=${parameters.mainPortalPageId}</@ofbizUrl>" class="buttontext">${uiLabelMap.CommonDelete}</a>
@@ -65,7 +65,7 @@ under the License.
   </#if>
   <tr>
     <#list portalPageColumnList?if_exists as portalPageColumn>
-      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> width:${portalPageColumn.columnWidthPercentage}%;</#if>">
+      <td style="vertical-align: top; <#if portalPageColumn.columnWidthPercentage?has_content> ${uiLabelMap.CommonWidth}:${portalPageColumn.columnWidthPercentage}%;</#if>">
       <#assign firstInColumn = true/>
       <#list portalPagePortletViewList as portlet>
         <#if (!portlet.columnSeqId?has_content && portalPageColumn_index == 0) || (portlet.columnSeqId?if_exists == portalPageColumn.columnSeqId)>
@@ -80,7 +80,7 @@ under the License.
                   <li class="remove"><a href="<@ofbizUrl>deletePortalPagePortlet?${portletUrlLink}</@ofbizUrl>" title="${uiLabelMap.CommonRemovePortlet}">&nbsp;&nbsp;&nbsp;</a></li>
 
                   <#if (portlet.editFormName?has_content && portlet.editFormLocation?has_content)>
-                    <li class="edit"><a href="<@ofbizUrl>EditPortlet?${portletUrlLink}</@ofbizUrl>" title="edit">&nbsp;&nbsp;&nbsp;</a></li>
+                    <li class="edit"><a href="<@ofbizUrl>EditPortlet?${portletUrlLink}</@ofbizUrl>" title="${uiLabelMap.CommonEditPortletAttributes}">&nbsp;&nbsp;&nbsp;</a></li>
                   </#if>  
 
                   <#if portlet_has_next> <#-- TODO: this doesn't take into account that later items in the list might be in a different column -->
