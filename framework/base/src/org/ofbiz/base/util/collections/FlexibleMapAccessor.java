@@ -59,7 +59,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
                 name = name.substring(1);
             }
             if (name.contains(FlexibleStringExpander.openBracket)) {
-                fse = FlexibleStringExpander.getInstance(UelUtil.prepareExpression(name));
+                fse = FlexibleStringExpander.getInstance(name);
             } else {
                 bracketedOriginal = FlexibleStringExpander.openBracket.concat(UelUtil.prepareExpression(name).concat(FlexibleStringExpander.closeBracket));
             }
@@ -189,7 +189,7 @@ public class FlexibleMapAccessor<T> implements Serializable {
     protected String getExpression(Map<String, ? extends Object> base) {
         String expression = null;
         if (this.fse != null) {
-            expression = FlexibleStringExpander.openBracket.concat(this.fse.expandString(base).concat(FlexibleStringExpander.closeBracket));
+            expression = FlexibleStringExpander.openBracket.concat(UelUtil.prepareExpression(this.fse.expandString(base)).concat(FlexibleStringExpander.closeBracket));
         } else {
             expression = this.bracketedOriginal;
         }
