@@ -63,7 +63,7 @@ public class InvoiceWorker {
     }
 
     public static BigDecimal getInvoiceTotalBd(GenericDelegator delegator, String invoiceId) {
-        return getInvoiceTotalBd(delegator, invoiceId, true);
+        return getInvoiceTotalBd(delegator, invoiceId, Boolean.TRUE);
     }
 
     public static BigDecimal getInvoiceTotalBd(GenericDelegator delegator, String invoiceId, Boolean actualCurrency) {
@@ -134,10 +134,10 @@ public class InvoiceWorker {
     }
     
     public static double getInvoiceNoTaxTotal(GenericValue invoice) {
-        return getInvoiceTotalBd(invoice, true).doubleValue() - getInvoiceTaxTotal(invoice);
+        return getInvoiceTotalBd(invoice, Boolean.TRUE).doubleValue() - getInvoiceTaxTotal(invoice);
     }
     public static BigDecimal getInvoiceNoTaxTotalBd(GenericValue invoice) {
-        return getInvoiceTotalBd(invoice, true).subtract(getInvoiceTaxTotalBd(invoice));
+        return getInvoiceTotalBd(invoice, Boolean.TRUE).subtract(getInvoiceTaxTotalBd(invoice));
     }
     
     /**
@@ -146,11 +146,11 @@ public class InvoiceWorker {
      * @return the invoice total as double
      */
     public static double getInvoiceTotal(GenericValue invoice) {
-        return getInvoiceTotalBd(invoice, true).doubleValue();
+        return getInvoiceTotalBd(invoice, Boolean.TRUE).doubleValue();
     }
         
     public static BigDecimal getInvoiceTotalBd(GenericValue invoice) {
-        return getInvoiceTotalBd(invoice, true);
+        return getInvoiceTotalBd(invoice, Boolean.TRUE);
     }
         
     public static BigDecimal getInvoiceTotalBd(GenericValue invoice, Boolean actualCurrency) {
@@ -387,7 +387,7 @@ public class InvoiceWorker {
         return InvoiceWorker.getInvoiceTotalBd(delegator, invoiceId).subtract(getInvoiceAppliedBd(delegator, invoiceId));
     }
     public static BigDecimal getInvoiceNotApplied(GenericValue invoice) {
-        return InvoiceWorker.getInvoiceTotalBd(invoice, true).subtract(getInvoiceAppliedBd(invoice));
+        return InvoiceWorker.getInvoiceTotalBd(invoice, Boolean.TRUE).subtract(getInvoiceAppliedBd(invoice));
     }
     public static BigDecimal getInvoiceNotApplied(GenericValue invoice, Boolean actualCurrency) {
         return InvoiceWorker.getInvoiceTotalBd(invoice, actualCurrency).subtract(getInvoiceAppliedBd(invoice, actualCurrency));
@@ -400,7 +400,7 @@ public class InvoiceWorker {
      * @return
      */
     public static BigDecimal getInvoiceNotApplied(GenericValue invoice, Timestamp asOfDateTime) {
-        return InvoiceWorker.getInvoiceTotalBd(invoice, true).subtract(getInvoiceAppliedBd(invoice, asOfDateTime));
+        return InvoiceWorker.getInvoiceTotalBd(invoice, Boolean.TRUE).subtract(getInvoiceAppliedBd(invoice, asOfDateTime));
     }
 
     
@@ -414,7 +414,7 @@ public class InvoiceWorker {
     }
 
     public static BigDecimal getInvoiceAppliedBd(GenericDelegator delegator, String invoiceId) {
-        return getInvoiceAppliedBd(delegator, invoiceId, UtilDateTime.nowTimestamp(), true);
+        return getInvoiceAppliedBd(delegator, invoiceId, UtilDateTime.nowTimestamp(), Boolean.TRUE);
     }
     
     /**
@@ -479,7 +479,7 @@ public class InvoiceWorker {
         return getInvoiceAppliedBd(invoice.getDelegator(), invoice.getString("invoiceId"), UtilDateTime.nowTimestamp(), actualCurrency);
     }
     public static BigDecimal getInvoiceAppliedBd(GenericValue invoice, Timestamp asOfDateTime) {
-        return getInvoiceAppliedBd(invoice.getDelegator(), invoice.getString("invoiceId"), asOfDateTime, true);
+        return getInvoiceAppliedBd(invoice.getDelegator(), invoice.getString("invoiceId"), asOfDateTime, Boolean.TRUE);
     }
     public static BigDecimal getInvoiceAppliedBd(GenericValue invoice) {
         return getInvoiceAppliedBd(invoice, UtilDateTime.nowTimestamp());
