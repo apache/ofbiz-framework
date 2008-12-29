@@ -48,6 +48,7 @@ import org.ofbiz.entity.GenericValue;
 import org.ofbiz.entity.util.EntityUtil;
 import org.ofbiz.service.LocalDispatcher;
 import org.ofbiz.webapp.control.RequestHandler;
+import org.ofbiz.webapp.website.WebSiteWorker;
 import org.ofbiz.widget.html.HtmlFormRenderer;
 import org.ofbiz.widget.screen.ScreenRenderer;
 
@@ -67,8 +68,11 @@ public class CmsEvents {
         
         String webSiteId = (String) session.getAttribute("webSiteId");
         if (webSiteId == null) {
-            request.setAttribute("_ERROR_MESSAGE_", "Not able to run CMS application; no webSiteId defined for WebApp!");
-            return "error";
+            webSiteId = WebSiteWorker.getWebSiteId(request);
+            if (webSiteId == null) {
+            	request.setAttribute("_ERROR_MESSAGE_", "Not able to run CMS application; no webSiteId defined for WebApp!");
+            	return "error";
+            }
         }
 
         // is this a default request or called from a defined request mapping
@@ -232,11 +236,25 @@ public class CmsEvents {
 
                 return "success";
             } else {
-                if (Debug.verboseOn()) Debug.logVerbose("No website [" + webSiteId + "] publish point found for contentId: " + contentId, module);
+            	String contentName = null;
+            	String siteName = null;
+            	try { 
+            		contentName = delegator.findByPrimaryKeyCache("Content", UtilMisc.toMap("contentId", contentId)).getString("contentName");
+            		siteName = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId)).getString("siteName");
+                } catch (GenericEntityException e) {
+                    Debug.logError(e, module);
+                }
+            	request.setAttribute("_ERROR_MESSAGE_", "Content: " + contentName + " [" + contentId + "] is not a publish point for the current website: "+ siteName + " [" + webSiteId + "]");
                 return "error";
             }
         }
-
+        String siteName = null;
+    	try { 
+    		siteName = delegator.findByPrimaryKeyCache("WebSite", UtilMisc.toMap("webSiteId", webSiteId)).getString("siteName");
+        } catch (GenericEntityException e) {
+            Debug.logError(e, module);
+        }
+    	request.setAttribute("_ERROR_MESSAGE_", "Not able to find a page to display for website: "+ siteName + " [" + webSiteId + "] not even a default page!");
         return "error";
         // throw an unknown request error
         //throw new GeneralRuntimeException("Unknown request; this request does not exist or cannot be called directly.");
