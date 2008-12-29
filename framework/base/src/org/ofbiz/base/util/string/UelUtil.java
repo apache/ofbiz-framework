@@ -322,15 +322,24 @@ public class UelUtil {
      * @return Converted expression
      */
     public static String prepareExpression(String expression) {
+        String result = expression;
         int openBrace = expression.indexOf("[+");
         int closeBrace = (openBrace == -1 ? -1 : expression.indexOf(']', openBrace));
         if (closeBrace != -1) {
             String base = expression.substring(0, openBrace);
             String property = expression.substring(openBrace+2, closeBrace).trim();
             String end = expression.substring(closeBrace + 1);
-            expression = base + "['insert@" + property + "']" + end;
+            result = base + "['insert@" + property + "']" + end;
         }
-        expression = expression.replace("[]", "['add']");
-        return expression;
+        result = result.replace("[]", "['add']");
+        int pos = result.indexOf(".");
+        while (pos != -1) {
+            char c = result.charAt(pos + 1);
+            if (c >= '0' && c <= '9') {
+                result = result.substring(0, pos) + "._" + result.substring(pos + 1);
+            }
+            pos = result.indexOf(".", pos + 1);
+        }
+        return result;
     }
 }
