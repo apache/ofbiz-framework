@@ -130,16 +130,16 @@ while (te.hasNext()) {
             retrieveWorkEffortData();
         } 
     if (timeEntry.hours) {
-        dayNumber = (timeEntry.fromDate.getTime() - timesheet.fromDate.getTime()) / (24*60*60*1000);
+        dayNumber = "d" + (timeEntry.fromDate.getTime() - timesheet.fromDate.getTime()) / (24*60*60*1000);
         hours = timeEntry.hours.doubleValue();
         entry.put(String.valueOf(dayNumber), hours);
-        if (dayNumber == 0) day0Total += hours;
-        if (dayNumber == 1) day1Total += hours;
-        if (dayNumber == 2) day2Total += hours;
-        if (dayNumber == 3) day3Total += hours;
-        if (dayNumber == 4) day4Total += hours;
-        if (dayNumber == 5) day5Total += hours;
-        if (dayNumber == 6) day6Total += hours;
+        if (dayNumber.equals("d0")) day0Total += hours;
+        if (dayNumber.equals("d1")) day1Total += hours;
+        if (dayNumber.equals("d2")) day2Total += hours;
+        if (dayNumber.equals("d3")) day3Total += hours;
+        if (dayNumber.equals("d4")) day4Total += hours;
+        if (dayNumber.equals("d5")) day5Total += hours;
+        if (dayNumber.equals("d6")) day6Total += hours;
         taskTotal += hours;
     }
     entry.rateTypeId = timeEntry.rateTypeId;
@@ -160,13 +160,13 @@ if (!timesheet.statusId.equals("TIMESHEET_COMPLETED")) {
 // add the totals line if at least one entry
 if (timeEntry) {
     entry = ["timesheetId" : timesheet.timesheetId];
-    entry."0" = day0Total;
-    entry."1" = day1Total;
-    entry."2" = day2Total;
-    entry."3" = day3Total;
-    entry."4" = day4Total;
-    entry."5" = day5Total;
-    entry."6" = day6Total;
+    entry.d0 = day0Total;
+    entry.d1 = day1Total;
+    entry.d2 = day2Total;
+    entry.d3 = day3Total;
+    entry.d4 = day4Total;
+    entry.d5 = day5Total;
+    entry.d6 = day6Total;
     entry.phaseName = "Totals";
     entry.workEffortId = "Totals";
     entry.total = day0Total + day1Total + day2Total + day3Total + day4Total + day5Total + day6Total;
