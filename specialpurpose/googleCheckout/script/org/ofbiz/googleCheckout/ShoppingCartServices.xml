@@ -83,7 +83,7 @@
             <!-- tax table for item-->
             <call-simple-method method-name="getItemTaxTable"/>
             <field-to-list field-name="thisItem" list-name="items"/>
-            <clear-field field-name="thisItem"/>
+            <clear-field field="thisItem"/>
         </iterate>
     </simple-method>
     <simple-method method-name="setupExpiration"

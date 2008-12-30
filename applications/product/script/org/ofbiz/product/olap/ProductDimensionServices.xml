@@ -41,7 +41,7 @@ under the License.
         <call-service service-name="prepareProductDimensionData" in-map-name="inMap">
             <result-to-field result-name="productDimension"/>
         </call-service>
-        <clear-field field-name="inMap"/>
+        <clear-field field="inMap"/>
         <set-service-fields service-name="storeGenericDimension" map-name="parameters" to-map-name="inMap"/>
         <set field="inMap.naturalKeyFields[]" value="productId"/>
         <set field="inMap.dimensionValue" from-field="productDimension"/>
@@ -53,7 +53,7 @@ under the License.
             <set-service-fields service-name="loadProductInProductDimension" map-name="parameters" to-map-name="inMap"/>
             <set field="inMap.productId" from-field="product.productId"/>
             <call-service service-name="loadProductInProductDimension" in-map-name="inMap"/>
-            <clear-field field-name="inMap"/>
+            <clear-field field="inMap"/>
         </iterate>
     </simple-method>
 </simple-methods>

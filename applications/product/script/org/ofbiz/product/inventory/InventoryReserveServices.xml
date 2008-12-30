@@ -167,11 +167,11 @@ under the License.
                                 <calcop field-name="parameters.quantityNotReserved" operator="negative"/>
                             </calculate>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                            <clear-field field-name="createDetailMap"/>
+                            <clear-field field="createDetailMap"/>
 
                             <!-- get the promiseDatetime -->
                             <get-related-one value-name="lastNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
-                            <clear-field field-name="daysToShip"/>
+                            <clear-field field="daysToShip"/>
                             <set field="daysToShip" from-field="productFacility.daysToShip"/>
                             <if-empty field="daysToShip">
                                 <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
@@ -202,11 +202,11 @@ under the License.
                             <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
                             <set from-field="parameters.sequenceId" field="reserveOisgirMap.sequenceId"/>
                             <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-                            <clear-field field-name="reserveOisgirMap"/>
+                            <clear-field field="reserveOisgirMap"/>
                         <else>
                             <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotReserved -->
-                            <clear-field field-name="createInventoryItemInMap"/>
-                            <clear-field field-name="createInventoryItemOutMap"/>
+                            <clear-field field="createInventoryItemInMap"/>
+                            <clear-field field="createInventoryItemOutMap"/>
                             <!-- the createInventoryItem service is run by the the system user here -->
                             <entity-one entity-name="UserLogin" value-name="permUserLogin">
                                 <field-map field-name="userLoginId" value="system"/>
@@ -232,11 +232,11 @@ under the License.
                                 <calcop field-name="parameters.quantityNotReserved" operator="negative"/>
                             </calculate>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                            <clear-field field-name="createDetailMap"/>
+                            <clear-field field="createDetailMap"/>
 
                             <!-- get the promiseDatetime -->
                             <get-related-one value-name="newNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
-                            <clear-field field-name="daysToShip"/>
+                            <clear-field field="daysToShip"/>
                             <set field="daysToShip" from-field="productFacility.daysToShip"/>
                             <if-empty field="daysToShip">
                                 <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
@@ -267,7 +267,7 @@ under the License.
                             <set from-field="promisedDatetime" field="reserveOisgirMap.promisedDatetime"/>
                             <set from-field="parameters.sequenceId" field="reserveOisgirMap.sequenceId"/>
                             <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-                            <clear-field field-name="reserveOisgirMap"/>
+                            <clear-field field="reserveOisgirMap"/>
                         </else>
                         </if-not-empty>
 
@@ -309,7 +309,7 @@ under the License.
             <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
             <field-map field-name="serialNumber" from-field="parameters.serialNumber"/>
         </entity-and>
-        <clear-field field-name="inventoryItem"/>
+        <clear-field field="inventoryItem"/>
         <first-from-list list="inventoryItems" entry="inventoryItem"/>
         <!-- If no inventory item found for the serial number, than create it -->
         <if-empty field="inventoryItem">
@@ -349,7 +349,7 @@ under the License.
                 <set field="reserveOisgirMap.sequenceId" from-field="inventoryItemReservation.sequenceId"/>
             </if-not-empty>
             <call-service service-name="reserveProductInventory" in-map-name="reserveOisgirMap"/>
-            <clear-field field-name="reserveOisgirMap"/>
+            <clear-field field="reserveOisgirMap"/>
         </if-not-empty>
 
         <!-- Step 3 Now Reserve for our order-->
@@ -371,7 +371,7 @@ under the License.
         </if-not-empty>        
         <!-- store OrderItemShipGrpInvRes record -->
         <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-        <clear-field field-name="reserveOisgirMap"/>        
+        <clear-field field="reserveOisgirMap"/>        
         <field-to-result field-name="inventoryItemId" map-name="inventoryItem"/>
     </simple-method>
 
@@ -399,7 +399,7 @@ under the License.
                         <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
                     </if-not-empty>
                     <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-                    <clear-field field-name="reserveOisgirMap"/>
+                    <clear-field field="reserveOisgirMap"/>
 
                     <calculate field-name="parameters.quantityNotReserved">
                         <calcop field-name="parameters.quantityNotReserved" operator="subtract"><number value="1.0"/></calcop>
@@ -432,7 +432,7 @@ under the License.
                             <calcop field-name="parameters.deductAmount" operator="negative"/>
                         </calculate>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                        <clear-field field-name="createDetailMap"/>
+                        <clear-field field="createDetailMap"/>
                         
                         <!-- create OrderItemShipGrpInvRes record -->
                         <call-simple-method method-name="getPromisedDateTime"/>
@@ -448,7 +448,7 @@ under the License.
                             <set field="reserveOisgirMap.sequenceId" from-field="parameters.sequenceId"/>
                         </if-not-empty>
                         <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
-                        <clear-field field-name="reserveOisgirMap"/>
+                        <clear-field field="reserveOisgirMap"/>
 
                         <calculate field-name="quantityNotReserved" map-name="parameters">
                             <calcop operator="subtract" field-name="quantityNotReserved" map-name="parameters">
@@ -613,7 +613,7 @@ under the License.
             <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
             <set from-field="cancelQuantity" field="createDetailMap.availableToPromiseDiff"/>
             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-            <clear-field field-name="createDetailMap"/>
+            <clear-field field="createDetailMap"/>
 
             <if-compare-field field="cancelQuantity" to-field="orderItemShipGrpInvRes.quantity" operator="less" type="Double">
                 <calculate field-name="orderItemShipGrpInvRes.quantity">

@@ -224,7 +224,7 @@ under the License.
                                             </if-not-empty>
                                         </if-not-empty>
                                         <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
-                                        <clear-field field-name="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
+                                        <clear-field field="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
                                         <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
                                             <result-to-field result-name="invoiceItemSeqId" field-name="invoiceItemMap.invoiceItemSeqId"/>
                                         </call-service>
@@ -250,7 +250,7 @@ under the License.
                                     <set field="invoiceItemMap.description" from-field="workEffort.workEffortName"/>
                                 </if-empty>
                                 <set field="invoiceItemMap.quantity" from-field="timeEntry.hours" default-value="0.0" type="Double"/>
-                                <clear-field field-name="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
+                                <clear-field field="invoiceItemMap.invoiceItemSeqId"/><!-- make sure a new one is created -->
                                 <call-service service-name="createInvoiceItem" in-map-name="invoiceItemMap">
                                     <result-to-field result-name="invoiceItemSeqId" field-name="invoiceItemMap.invoiceItemSeqId"/>
                                 </call-service>
@@ -333,7 +333,7 @@ under the License.
     <simple-method method-name="unlinkInvoiceFromTimeEntry" short-description="Delete TimeEntry">
         <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
         <field-to-result field-name="invoiceId" map-name="lookedUpValue"/>
-        <clear-field field-name="lookedUpValue.invoiceId"/>
+        <clear-field field="lookedUpValue.invoiceId"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="getTimeEntryRate" short-description="Get TimeEntry Rate">

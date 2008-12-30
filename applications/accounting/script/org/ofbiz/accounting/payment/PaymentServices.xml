@@ -262,7 +262,7 @@ under the License.
         <iterate list="invoiceTerms" entry="invoiceTerm">
             <get-related-one relation-name="TermType" value-name="invoiceTerm" to-value-name="termType" use-cache="true"/>
             <if-compare field="termType.parentTypeId" operator="equals" value="FIN_PAYMENT_TERM">
-                <clear-field field-name="invoicePaymentInfo"/>
+                <clear-field field="invoicePaymentInfo"/>
                 <set field="invoicePaymentInfo.invoiceId" from-field="invoice.invoiceId"/>
                 <set field="invoicePaymentInfo.invoiceTermId" from-field="invoiceTerm.invoiceTermId"/>
                 <set field="invoicePaymentInfo.termTypeId" from-field="invoiceTerm.termTypeId"/>
@@ -315,7 +315,7 @@ under the License.
                 </or>
             </condition>
             <then>
-                <clear-field field-name="invoicePaymentInfo"/>
+                <clear-field field="invoicePaymentInfo"/>
                 <set field="andMap.termTypeId" value="FIN_PAYMENT_TERM"/>
                 <filter-list-by-and list-name="invoiceTerms" map-name="andMap"/>
                 <first-from-list list="invoiceTerms" entry="invoiceTerm"/>
@@ -366,7 +366,7 @@ under the License.
             <order-by field-name="invoiceDate"/>
         </entity-condition>
         <iterate list="invoices" entry="invoice">
-            <clear-field field-name="getInvoicePaymentInfoListInMap"/>
+            <clear-field field="getInvoicePaymentInfoListInMap"/>
             <set field="getInvoicePaymentInfoListInMap.invoice" from-field="invoice"/>
             <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListInMap">
                 <result-to-field field-name="invoicePaymentInfoList" result-name="invoicePaymentInfoList"/>

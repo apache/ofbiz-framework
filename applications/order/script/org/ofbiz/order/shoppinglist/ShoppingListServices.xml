@@ -234,7 +234,7 @@ under the License.
                     <calcop operator="get" field-name="shoppingListItem.quantity"/>
                 </calcop>
             </calculate>
-            <clear-field field-name="calcPriceInMap"/>
+            <clear-field field="calcPriceInMap"/>
         </iterate>
 
         <entity-and entity-name="ShoppingList" list-name="childshoppingLists" use-cache="true">
@@ -251,7 +251,7 @@ under the License.
                 <calcop field-name="totalPrice" operator="get"/>
                 <calcop field-name="calcPriceOutMap.totalPrice" operator="get"/>
             </calculate>
-            <clear-field field-name="calcChildPriceInMap"/>
+            <clear-field field="calcChildPriceInMap"/>
         </iterate>
 
         <field-to-result field-name="totalPrice" result-name="totalPrice"/>
@@ -334,7 +334,7 @@ under the License.
                     </condition-list>
                 </entity-condition>
                 <iterate list="compProductAssocList" entry="compProductAssoc">
-                    <clear-field field-name="shoppingListParameters" />
+                    <clear-field field="shoppingListParameters" />
                     <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
                     <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
                     <set field="shoppingListParameters.quantity" value="1" type="Double" />
@@ -359,7 +359,7 @@ under the License.
                             </condition-list>
                         </entity-condition>
                         <iterate list="compProductAssocList" entry="compProductAssoc">
-                            <clear-field field-name="shoppingListParameters" />
+                            <clear-field field="shoppingListParameters" />
                             <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
                             <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
                             <set field="shoppingListParameters.quantity" value="1" type="Double" />

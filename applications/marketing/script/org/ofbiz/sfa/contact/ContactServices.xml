@@ -85,11 +85,11 @@
                         <set field="updatePartyContactMechCtx.contactMechPurposeTypeId" value="GENERAL_LOCATION"/>
                         <call-service service-name="updatePartyContactMech" in-map-name="updatePartyContactMechCtx"/>
                     </if-not-empty>
-                    <clear-field field-name="updatePartyContactMechCtx"/>
+                    <clear-field field="updatePartyContactMechCtx"/>
                     <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
                     <set field="deletePartyContactMechCtx.contactMechId" from-field="addrContactMechId"/>
                     <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>
-                    <clear-field field-name="deletePartyContactMechCtx"/>
+                    <clear-field field="deletePartyContactMechCtx"/>
                 </if-not-empty>
             </if-compare>
             <if-compare field="parameters.useContactNum2" operator="equals" value="Y">
@@ -102,11 +102,11 @@
                         <set field="updatePartyContactMechCtx.contactMechPurposeTypeId" value="PRIMARY_PHONE"/>
                         <call-service service-name="updatePartyContactMech" in-map-name="updatePartyContactMechCtx"/>
                     </if-not-empty>
-                    <clear-field field-name="updatePartyContactMechCtx"/>
+                    <clear-field field="updatePartyContactMechCtx"/>
                     <set field="deletePartyContactMechCtx.partyId" from-field="partyId"/>
                     <set field="deletePartyContactMechCtx.contactMechId" from-field="phoneContactMechId"/>
                     <call-service service-name="deletePartyContactMech" in-map-name="deletePartyContactMechCtx"/>            
-                    <clear-field field-name="deletePartyContactMechCtx"/>
+                    <clear-field field="deletePartyContactMechCtx"/>
                 </if-not-empty>
             </if-compare>
             <if-compare field="parameters.useEmail2" operator="equals" value="Y">

@@ -1074,7 +1074,7 @@ under the License.
                 <set field="shippingOptionMap.productStoreShipMethId" from-field="carrierShipmentMethod.productStoreShipMethId"/>
             </if-not-empty>
             <field-to-list field-name="shippingOptionMap" list-name="shippingOptions"/>
-            <clear-field field-name="shippingOptionMap"/>
+            <clear-field field="shippingOptionMap"/>
         </iterate>
          <set field="parameters.shippingOptions" from-field="shippingOptions"/>
          <field-to-request field-name="parameters.shippingOptions" request-name="shippingOptions"/>

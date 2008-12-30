@@ -448,12 +448,12 @@ under the License.
                         <call-service service-name="getInventoryAvailableByFacility" in-map-name="callServiceMap">
                             <result-to-field result-name="availableToPromiseTotal"/>
                         </call-service>
-                        <clear-field field-name="callServiceMap"/>
+                        <clear-field field="callServiceMap"/>
     
                         <if-compare-field field="availableToPromiseTotal" to-field="parameters.quantity" operator="greater-equals" type="Double">
                             <set field="storeFound" from-field="productStoreFacility"/>
                         </if-compare-field>
-                        <clear-field field-name="availableToPromiseTotal"/>
+                        <clear-field field="availableToPromiseTotal"/>
                     </if-empty>      
                 </iterate>
                 
@@ -640,13 +640,13 @@ under the License.
                         </else>
                     </if>
 
-                    <clear-field field-name="callServiceMap"/>
+                    <clear-field field="callServiceMap"/>
                     
                     <if-compare-field field="availableToPromiseTotal" to-field="parameters.quantity" operator="greater-equals" type="Double">
                         <set value="Y" field="available"/>
                         <log level="info" message="Inventory IS available in facility with id ${productStoreFacility.facilityId} for product id ${parameters.productId}; desired quantity is ${parameters.quantity}, available quantity is ${availableToPromiseTotal}"/>
                     </if-compare-field>
-                    <clear-field field-name="availableToPromiseTotal"/>
+                    <clear-field field="availableToPromiseTotal"/>
                 </if-compare>
             </iterate>
         </else>

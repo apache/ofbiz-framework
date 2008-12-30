@@ -363,12 +363,12 @@ under the License.
                 <set field="categoryImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.categoryImageUrlMap" from-field="categoryImageUrlMap" />                 
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field-name="categoryImageUrl" map-name="category"></clear-field>
+                    <clear-field field="categoryImageUrl" map-name="category"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- check for link image url -->            
             <if-not-empty field="category.linkOneImageUrl">
-                <clear-field field-name="checkImageUrlContext.imageUrl"/>
+                <clear-field field="checkImageUrlContext.imageUrl"/>
                 <set field="checkImageUrlContext.imageUrl" from-field="category.linkOneImageUrl"/>
                 <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
                     <result-to-field result-name="isExists" field-name="isExists"/>
@@ -377,12 +377,12 @@ under the License.
                 <set field="linkOneImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.linkOneImageUrlMap" from-field="linkOneImageUrlMap" />
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field-name="linkOneImageUrl" map-name="category"></clear-field>
+                    <clear-field field="linkOneImageUrl" map-name="category"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- check for link two image url -->            
             <if-not-empty field="category.linkTwoImageUrl">
-                <clear-field field-name="checkImageUrlContext.imageUrl"/>
+                <clear-field field="checkImageUrlContext.imageUrl"/>
                 <set field="checkImageUrlContext.imageUrl" from-field="category.linkTwoImageUrl"/>
                 <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
                     <result-to-field result-name="isExists" field-name="isExists"/>
@@ -391,7 +391,7 @@ under the License.
                 <set field="linkTwoImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.linkTwoImageUrlMap" from-field="linkTwoImageUrlMap" />                 
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field-name="linkTwoImageUrl" map-name="category"></clear-field>
+                    <clear-field field="linkTwoImageUrl" map-name="category"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- set-service-fields service-name="updateProductCategory" map-name="category" to-map-name="updateProductCategoryContext"/>
@@ -415,12 +415,12 @@ under the License.
                 <set field="filesImageMap.smallImageUrlMap" from-field="smallImageUrlMap" />                 
                 <if-compare value="N" field="isExists" operator="equals">
                     <log level="info" message="Update SmallImage for product Id ${parameters.productId}" />
-                    <clear-field field-name="smallImageUrl" map-name="product"></clear-field>
+                    <clear-field field="smallImageUrl" map-name="product"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- check for medium image url -->            
             <if-not-empty field="product.mediumImageUrl">
-                <clear-field field-name="checkImageUrlContext.imageUrl"/>
+                <clear-field field="checkImageUrlContext.imageUrl"/>
                 <set field="checkImageUrlContext.imageUrl" from-field="product.mediumImageUrl"/>
                 <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
                     <result-to-field result-name="isExists" field-name="isExists"/>
@@ -429,12 +429,12 @@ under the License.
                 <set field="mediumImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.mediumImageUrlMap" from-field="mediumImageUrlMap" />
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field-name="mediumImageUrl" map-name="product"></clear-field>
+                    <clear-field field="mediumImageUrl" map-name="product"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- check for large image url -->            
             <if-not-empty field="product.largeImageUrl">
-                <clear-field field-name="checkImageUrlContext.imageUrl"/>
+                <clear-field field="checkImageUrlContext.imageUrl"/>
                 <set field="checkImageUrlContext.imageUrl" from-field="product.largeImageUrl"/>
                 <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
                     <result-to-field result-name="isExists" field-name="isExists"/>
@@ -443,12 +443,12 @@ under the License.
                 <set field="largeImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.largeImageUrlMap" from-field="largeImageUrlMap" />                 
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field-name="largeImageUrl" map-name="product"></clear-field>
+                    <clear-field field="largeImageUrl" map-name="product"></clear-field>
                 </if-compare>                
             </if-not-empty>
             <!-- check for detail image url -->            
             <if-not-empty field="product.detailImageUrl">
-                <clear-field field-name="checkImageUrlContext.imageUrl"/>                 
+                <clear-field field="checkImageUrlContext.imageUrl"/>                 
                 <set field="checkImageUrlContext.imageUrl" from-field="product.detailImageUrl"/>
                 <call-service service-name="checkImageUrl" in-map-name="checkImageUrlContext">
                     <result-to-field result-name="isExists" field-name="isExists"/>
@@ -457,7 +457,7 @@ under the License.
                 <set field="detailImageUrlMap.isExists" from-field="isExists"/>
                 <set field="filesImageMap.detailImageUrlMap" from-field="detailImageUrlMap" />                 
                 <if-compare value="N" field="isExists" operator="equals">
-                    <clear-field field-name="detailImageUrl" map-name="product"></clear-field>
+                    <clear-field field="detailImageUrl" map-name="product"></clear-field>
                 </if-compare>
             </if-not-empty>
             <field-to-result field-name="filesImageMap" result-name="filesImageMap"/>

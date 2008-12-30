@@ -267,7 +267,7 @@ under the License.
             <calcop field-name="parameters.quantity" operator="negative"/>
         </calculate>
         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-        <clear-field field-name="createDetailMap"/>
+        <clear-field field="createDetailMap"/>
     </simple-method>
 
     <!-- some inline methods for the issuance process -->

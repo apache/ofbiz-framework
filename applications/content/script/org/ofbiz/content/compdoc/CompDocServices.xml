@@ -266,8 +266,8 @@ under the License.
 
         <log level="info" message="persistCompDocContent(0).content : ${content}"/>
         <set-service-fields service-name="persistDataResourceAndData" map-name="parameters" to-map-name="persistMap"/>
-        <clear-field field-name="persistMap.dataResourceId"/>
-        <clear-field field-name="persistMap.drDataResourceId"/>
+        <clear-field field="persistMap.dataResourceId"/>
+        <clear-field field="persistMap.drDataResourceId"/>
 
         <log level="info" message="persistCompDocContent(0.2).persistMap : ${persistMap}"/>
         <call-service service-name="persistDataResourceAndData" in-map-name="persistMap">
@@ -316,9 +316,9 @@ under the License.
         <set-service-fields service-name="persistCompDocContent" map-name="parameters" to-map-name="persistMap"/>
         <set field="persistMap.relatedDetailId" from-field="surveyId"/>
         <set field="persistMap.mimeTypeId" value="application/vnd.ofbiz.survey"/>
-        <clear-field field-name="persistMap._imageData_contentType"/>
-        <clear-field field-name="persistMap._imageData_fileName"/>
-        <clear-field field-name="persistMap.imageData"/>
+        <clear-field field="persistMap._imageData_contentType"/>
+        <clear-field field="persistMap._imageData_fileName"/>
+        <clear-field field="persistMap.imageData"/>
 
         <log level="info" message="persistCompDocPdf2Survey(4)persistMap : ${persistMap}"/>
         <call-service service-name="persistCompDocContent" in-map-name="persistMap"></call-service>
@@ -598,7 +598,7 @@ under the License.
             <set from-field="parameters.contentId" field="contentApproval.contentId"/>
 
             <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
-            <clear-field field-name="contentApproval.approvalStatusId"/>
+            <clear-field field="contentApproval.approvalStatusId"/>
             <log level="info" message="contentApproval 2b: ${contentApproval}"/>
             <create-value value-field="contentApproval"/>
         </iterate>
@@ -685,7 +685,7 @@ under the License.
                                 </or>
                             </condition>
                             <then>
-                                <clear-field field-name="contentApproval.approvalStatusId"/>
+                                <clear-field field="contentApproval.approvalStatusId"/>
                             </then>
                             <else-if>
                                 <!-- soft rejected, reset rejected (shouldn't be any) and soft rejected entities to ready -->

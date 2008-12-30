@@ -344,7 +344,7 @@ under the License.
                         <first-from-list entry="pcmp" list="pcmpList"/>
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
-                        <clear-field field-name="serviceInMap"/>
+                        <clear-field field="serviceInMap"/>
                     </if-not-empty>
                     <set field="serviceContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
@@ -449,12 +449,12 @@ under the License.
                             <first-from-list list="pcmpList" entry="pcmp"/>
                             <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
-                            <clear-field field-name="serviceInMap"/>
+                            <clear-field field="serviceInMap"/>
                         </if-not-empty>
                         <set field="serviceContext.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceContext"/>
-                        <clear-field field-name="pcmpList"/>
-                        <clear-field field-name="serviceContext"/>
+                        <clear-field field="pcmpList"/>
+                        <clear-field field="serviceContext"/>
                     </if-empty>
 
                     <set-service-fields service-name="setPartyProfileDefaults" map-name="parameters" to-map-name="partyProfileDefaultsCtx"/>
