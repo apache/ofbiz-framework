@@ -119,7 +119,7 @@ under the License.
         </call-service>
         <log level="info" message="====== New contactMechId [${newContactMechId}] for email address is created for party [${partyId}] ======"/>
         <entity-one entity-name="ContactMech" value-name="contactMech">
-            <field-map field-name="contactMechId" env-name="newContactMechId"/>
+            <field-map field-name="contactMechId" from-field="newContactMechId"/>
         </entity-one>
         <assert>
             <not><if-empty field="contactMech"/></not>
@@ -184,7 +184,7 @@ under the License.
         </call-service>
         <log level="info" message="====== New contactMechId [${newContactMechId}] for TelecomNumber is created for party [${partyId}] ======"/>
         <entity-one entity-name="ContactMech" value-name="contactMech">
-            <field-map field-name="contactMechId" env-name="newContactMechId"/>
+            <field-map field-name="contactMechId" from-field="newContactMechId"/>
         </entity-one>
         <assert>
             <not><if-empty field="contactMech"/></not>
@@ -255,7 +255,7 @@ under the License.
         </call-service>
         <log level="info" message="====== New contactMechId [${newContactMechId}] for PostalAddress is created for party [${partyId}] ======"/>
         <entity-one entity-name="ContactMech" value-name="contactMech">
-            <field-map field-name="contactMechId" env-name="newContactMechId"/>
+            <field-map field-name="contactMechId" from-field="newContactMechId"/>
         </entity-one>
         <assert>
             <not><if-empty field="contactMech"/></not>
@@ -366,8 +366,8 @@ under the License.
         </call-service>
         
         <entity-one entity-name="PartyAndUserLogin" value-name="partyAndUserLogin">
-            <field-map field-name="userLoginId" env-name="partyUserLogin.userLoginId"/>
-            <field-map field-name="partyId" env-name="partyId"/>
+            <field-map field-name="userLoginId" from-field="partyUserLogin.userLoginId"/>
+            <field-map field-name="partyId" from-field="partyId"/>
         </entity-one>
         <!-- get the encrypted password -->
         <call-class-method method-name="getHashType" class-name="org.ofbiz.common.login.LoginServices" ret-field-name="hashType"/>
@@ -406,7 +406,7 @@ under the License.
         </call-service>
         <call-simple-method method-name="testUpdateCommEvent"/>
         <entity-one entity-name="CommunicationEvent" value-name="communicationEvent">
-            <field-map field-name="communicationEventId" env-name="commEventMap.communicationEventId"/>
+            <field-map field-name="communicationEventId" from-field="commEventMap.communicationEventId"/>
         </entity-one>
         <assert>
             <not><if-empty field="communicationEvent"/></not>
@@ -445,7 +445,7 @@ under the License.
         </call-service>
         <call-simple-method method-name="testUpdateRequest"/>
         <entity-one entity-name="CustRequest" value-name="custRequest">
-            <field-map field-name="custRequestId" env-name="requestMap.custRequestId"/>
+            <field-map field-name="custRequestId" from-field="requestMap.custRequestId"/>
         </entity-one>
         <assert>
             <not><if-empty field="custRequest"/></not>

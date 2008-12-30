@@ -36,7 +36,7 @@ under the License.
         <entity-and entity-name="OrderItemShipGrpInvResAndItemLocation" list-name="orderItemShipGrpInvResAndItemLocationList">
             <field-map field-name="locationTypeEnumId" value="FLT_BULK"/>
             <field-map field-name="orderItemStatusId" value="ITEM_APPROVED"/>
-            <field-map field-name="facilityId" env-name="parameters.facilityId"/>
+            <field-map field-name="facilityId" from-field="parameters.facilityId"/>
         </entity-and>
 
         <!--
@@ -73,14 +73,14 @@ under the License.
 
                 <!-- get facilityLocationFrom -->
                 <entity-one entity-name="FacilityLocation" value-name="moveInfo.facilityLocationFrom">
-                    <field-map field-name="facilityId" env-name="parameters.facilityId"/>
-                    <field-map field-name="locationSeqId" env-name="locationSeqId"/>
+                    <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+                    <field-map field-name="locationSeqId" from-field="locationSeqId"/>
                 </entity-one>
                 
                 <!-- get facilityLocationTo: a little more tricky, find the first FLT_PICKLOC  -->
                 <entity-and entity-name="ProductFacilityLocationView" list-name="productFacilityLocationViewList">
-                    <field-map field-name="productId" env-name="productId"/>
-                    <field-map field-name="facilityId" env-name="parameters.facilityId"/>
+                    <field-map field-name="productId" from-field="productId"/>
+                    <field-map field-name="facilityId" from-field="parameters.facilityId"/>
                     <field-map field-name="locationTypeEnumId" value="FLT_PICKLOC"/>
                 </entity-and>
 
@@ -102,9 +102,9 @@ under the License.
 
                     <!-- if moveInfo.totalQuantity is greater than the total quantity in the given location, show an error and do something (hopefully) intelligent -->
                     <entity-and entity-name="InventoryItem" list-name="inventoryItemList">
-                        <field-map field-name="productId" env-name="productId"/>
-                        <field-map field-name="facilityId" env-name="parameters.facilityId"/>
-                        <field-map field-name="locationSeqId" env-name="locationSeqId"/>
+                        <field-map field-name="productId" from-field="productId"/>
+                        <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+                        <field-map field-name="locationSeqId" from-field="locationSeqId"/>
                     </entity-and>
 
                     <calculate field-name="totalQuantityOnHand" type="Double"><number value="0"/></calculate>
@@ -217,7 +217,7 @@ under the License.
         <!-- start by finding all Xxx where locationTypeEnumId=FLT_PICKLOC and total of InventoryItems in the loc are less than minimumStock (ProductFacilityLocation, FacilityLocation, InventoryItem) -->
         <entity-and entity-name="ProductFacilityLocationQuantityTest" list-name="productFacilityLocationQuantityTestList">
             <field-map field-name="locationTypeEnumId" value="FLT_PICKLOC"/>
-            <field-map field-name="facilityId" env-name="parameters.facilityId"/>
+            <field-map field-name="facilityId" from-field="parameters.facilityId"/>
             <order-by field-name="productId"/>
         </entity-and>
         
@@ -258,8 +258,8 @@ under the License.
 
                             <!-- create a moveInfo for each from location with a corresponding quantity -->
                             <entity-and entity-name="InventoryItemAndLocation" list-name="inventoryItemAndLocationList">
-                                <field-map field-name="productId" env-name="productFacilityLocationQuantityTest.productId"/>
-                                <field-map field-name="facilityId" env-name="productFacilityLocationQuantityTest.facilityId"/>
+                                <field-map field-name="productId" from-field="productFacilityLocationQuantityTest.productId"/>
+                                <field-map field-name="facilityId" from-field="productFacilityLocationQuantityTest.facilityId"/>
                                 <field-map field-name="locationTypeEnumId" value="FLT_BULK"/>
                             </entity-and>
 
@@ -370,9 +370,9 @@ under the License.
         <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="Double">
             <!-- find InventoryItems in the origin location with some availableToPromise to move -->
             <entity-and entity-name="InventoryItem" list-name="inventoryItemList">
-                <field-map field-name="productId" env-name="parameters.productId"/>
-                <field-map field-name="facilityId" env-name="parameters.facilityId"/>
-                <field-map field-name="locationSeqId" env-name="parameters.locationSeqId"/>
+                <field-map field-name="productId" from-field="parameters.productId"/>
+                <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+                <field-map field-name="locationSeqId" from-field="parameters.locationSeqId"/>
                 <order-by field-name="datetimeReceived"/>
             </entity-and>
 
@@ -431,10 +431,10 @@ under the License.
     </simple-method>
     <simple-method method-name="processOisgirMoveByStatusInline" short-description="Inline method to process OISGIR stock move for a specific OrderItem.statusId">
         <entity-and entity-name="OrderItemShipGrpInvResAndItemLocation" list-name="orderItemShipGrpInvResAndItemLocationList">
-            <field-map field-name="productId" env-name="parameters.productId"/>
-            <field-map field-name="facilityId" env-name="parameters.facilityId"/>
-            <field-map field-name="locationSeqId" env-name="parameters.locationSeqId"/>
-            <field-map field-name="orderItemStatusId" env-name="orderItemStatusId"/>
+            <field-map field-name="productId" from-field="parameters.productId"/>
+            <field-map field-name="facilityId" from-field="parameters.facilityId"/>
+            <field-map field-name="locationSeqId" from-field="parameters.locationSeqId"/>
+            <field-map field-name="orderItemStatusId" from-field="orderItemStatusId"/>
             <order-by field-name="reservedDatetime"/>
         </entity-and>
 

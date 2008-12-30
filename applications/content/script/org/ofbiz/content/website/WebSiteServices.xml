@@ -149,7 +149,7 @@ under the License.
     <!-- quick create website CMS content -->
     <simple-method method-name="quickCreateWebSiteContent" short-description="Auto-Create WebSite CMS Content">
         <entity-one entity-name="WebSite" value-name="webSite">
-            <field-map field-name="webSiteId" env-name="parameters.webSiteId"/>
+            <field-map field-name="webSiteId" from-field="parameters.webSiteId"/>
         </entity-one>
         <now-timestamp-to-env env-name="now"/>
         <log level="always" message="Parameters: ${parameters}"/>
@@ -157,7 +157,7 @@ under the License.
         <if-instance-of field-name="parameters.webSiteContentTypeId" class="String">
             <!-- just one checked -->
             <entity-one entity-name="WebSiteContentType" value-name="wct">
-                <field-map field-name="webSiteContentTypeId" env-name="parameters.webSiteContentTypeId"/>
+                <field-map field-name="webSiteContentTypeId" from-field="parameters.webSiteContentTypeId"/>
             </entity-one>
 
             <set field="cnt.contentName" value="${webSite.siteName} ${wct.description}"/>
@@ -175,7 +175,7 @@ under the License.
                 <!-- multi-checked -->
                 <iterate entry="thisType" list-name="parameters.webSiteContentTypeId">
                     <entity-one entity-name="WebSiteContentType" value-name="wct">
-                        <field-map field-name="webSiteContentTypeId" env-name="thisType"/>
+                        <field-map field-name="webSiteContentTypeId" from-field="thisType"/>
                     </entity-one>
 
                     <set field="cnt.contentName" value="${webSite.siteName} ${wct.description}"/>

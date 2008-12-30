@@ -62,9 +62,9 @@ under the License.
         </call-class-method>
         <!-- check if timesheet already exists -->
         <entity-and entity-name="Timesheet" list-name="timesheets">
-            <field-map field-name="partyId" env-name="parameters.partyId"/>
-            <field-map field-name="fromDate" env-name="parameters.fromDate"/>
-            <field-map field-name="thruDate" env-name="parameters.thruDate"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="fromDate" from-field="parameters.fromDate"/>
+            <field-map field-name="thruDate" from-field="parameters.thruDate"/>
         </entity-and>
         <if-empty field="timesheets">
                 <call-simple-method method-name="createTimesheet"/>
@@ -169,15 +169,15 @@ under the License.
                             <if-empty field="timeEntry.partyId">
                                 <if-not-empty field="timeEntry.timesheetId">
                                     <entity-one entity-name="Timesheet" value-name="timesheet">
-                                        <field-map field-name="timesheetId" env-name="timeEntry.timesheetId"/>
+                                        <field-map field-name="timesheetId" from-field="timeEntry.timesheetId"/>
                                     </entity-one>
                                     <set field="timeEntry.partyId" from-field="timesheet.partyId"/>                                    
                                 </if-not-empty>
                             </if-empty>
                             <if-not-empty field="timeEntry.partyId">
                                 <entity-and entity-name="PartyRate" list-name="partyRates" filter-by-date="true">
-                                    <field-map field-name="rateTypeId" env-name="timeEntry.rateTypeId"/>
-                                    <field-map field-name="partyId" env-name="timeEntry.partyId"/>
+                                    <field-map field-name="rateTypeId" from-field="timeEntry.rateTypeId"/>
+                                    <field-map field-name="partyId" from-field="timeEntry.partyId"/>
                                 </entity-and>
                                 <if-not-empty field="partyRates">
                                     <first-from-list entry-name="partyRate" list-name="partyRates"/>

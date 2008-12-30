@@ -73,7 +73,7 @@ under the License.
         <log level="info" message="=======ShipmentId=======${completePackOutMap.shipmentId}===="/>
         
         <entity-one entity-name="Shipment" value-name="shipment">
-            <field-map field-name="shipmentId" env-name="completePackOutMap.shipmentId"/>
+            <field-map field-name="shipmentId" from-field="completePackOutMap.shipmentId"/>
         </entity-one>
         
         <assert>
@@ -93,7 +93,7 @@ under the License.
         <set field="invoicesCreated" from-field="createInvFrmShipmentOutMap.invoicesCreated"/>
         <iterate list-name="invoicesCreated" entry-name="invoiceCreated">
             <entity-one entity-name="Invoice" value-name="invoice">
-                <field-map field-name="invoiceId" env-name="invoiceCreated"/>
+                <field-map field-name="invoiceId" from-field="invoiceCreated"/>
             </entity-one>
         
             <assert>
@@ -132,7 +132,7 @@ under the License.
         <log level="info" message="=============Update Shipment Id=============${updateShipmentOutMap.shipmentId}========================="/>
         
         <entity-one entity-name="Shipment" value-name="shipment">
-            <field-map field-name="shipmentId" env-name="updateShipmentOutMap.shipmentId"/>
+            <field-map field-name="shipmentId" from-field="updateShipmentOutMap.shipmentId"/>
         </entity-one>
         
         <assert>

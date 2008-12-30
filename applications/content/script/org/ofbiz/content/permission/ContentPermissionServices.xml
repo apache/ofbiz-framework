@@ -142,7 +142,7 @@
         
                 <!-- grab the current requested content record -->
                 <entity-one entity-name="Content" value-name="content">
-                    <field-map field-name="contentId" env-name="contentId"/>
+                    <field-map field-name="contentId" from-field="contentId"/>
                 </entity-one>
 
                 <!-- check the operation security -->
@@ -242,7 +242,7 @@
                                             </condition>
                                             <then>
                                                 <entity-one entity-name="Content" value-name="currentContent">
-                                                    <field-map field-name="contentId" env-name="checkId"/>
+                                                    <field-map field-name="contentId" from-field="checkId"/>
                                                 </entity-one>
                                                 <if>
                                                     <condition>
@@ -387,7 +387,7 @@
                                             </condition>
                                             <then>
                                                 <entity-one entity-name="Content" value-name="currentContent">
-                                                    <field-map field-name="contentId" env-name="checkId"/>
+                                                    <field-map field-name="contentId" from-field="checkId"/>
                                                 </entity-one>
                                                 <if>
                                                     <condition>
@@ -435,7 +435,7 @@
         </if-empty>
 
         <entity-one entity-name="Content" value-name="checkContent">
-            <field-map field-name="contentId" env-name="checkId"/>
+            <field-map field-name="contentId" from-field="checkId"/>
         </entity-one>
         <set field="statusId" from-field="checkContent.statusId"/>
 
@@ -587,7 +587,7 @@
                                                     </condition>
                                                     <then>
                                                         <entity-one entity-name="Content" value-name="currentContent">
-                                                            <field-map field-name="contentId" env-name="checkId"/>
+                                                            <field-map field-name="contentId" from-field="checkId"/>
                                                         </entity-one>
                                                         <if>
                                                             <condition>
@@ -715,9 +715,9 @@
                         <find-by-and entity-name="${roleEntity}" map-name="lookup" list-name="foundRoles"/>
                         <!--
                         <entity-and entity-name="${roleEntity}" list-name="foundRoles">
-                            <field-map env-name="${roleEntityField}"/>
-                            <field-map field-name="roleTypeId" env-name="checkRoleTypeId"/>
-                            <field-map field-name="partyId" env-name="checkPartyId"/>
+                            <field-map from-field="${roleEntityField}"/>
+                            <field-map field-name="roleTypeId" from-field="checkRoleTypeId"/>
+                            <field-map field-name="partyId" from-field="checkPartyId"/>
                         </entity-and>
                         -->
                     </then>
@@ -729,8 +729,8 @@
                         <find-by-and entity-name="${roleEntity}" map-name="lookup" list-name="foundRoles"/>
                         <!--
                         <entity-and entity-name="${roleEntity}" list-name="foundRoles">
-                            <field-map env-name="${roleEntityField}"/>
-                            <field-map field-name="partyId" env-name="checkPartyId"/>
+                            <field-map from-field="${roleEntityField}"/>
+                            <field-map field-name="partyId" from-field="checkPartyId"/>
                         </entity-and>
                         -->
                     </else>
@@ -784,7 +784,7 @@
         <check-errors/>
 
         <entity-and entity-name="ContentAssoc" list-name="assocs" filter-by-date="true">
-            <field-map field-name="contentIdTo" env-name="contentId"/>
+            <field-map field-name="contentIdTo" from-field="contentId"/>
         </entity-and>
         <field-to-result field-name="assocs" result-name="contentAssocList"/>
     </simple-method>

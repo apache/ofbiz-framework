@@ -30,7 +30,7 @@
             <then>
                 <if-not-empty field="custReq.fromPartyId">
                     <entity-and entity-name="PartyAndUserLogin" list-name="partyUserLogin">
-                        <field-map field-name="partyId" env-name="custReq.fromPartyId"/>
+                        <field-map field-name="partyId" from-field="custReq.fromPartyId"/>
                     </entity-and>
                     <first-from-list entry-name="partyUserLogin" list-name="partyUserLogin"/>
                     <entity-one entity-name="UserPreference" value-name="userPref">
@@ -90,14 +90,14 @@
             <then>
                 <if-not-empty field="storeEmail.bodyScreenLocation">
                     <entity-one entity-name="Person" value-name="person">
-                        <field-map field-name="partyId" env-name="custReq.fromPartyId"/>
+                        <field-map field-name="partyId" from-field="custReq.fromPartyId"/>
                     </entity-one>
                     <set field="getPartyEmail.partyId" from-field="custReq.fromPartyId"/>
                     <call-service service-name="getPartyEmail" in-map-name="getPartyEmail">
                     	<result-to-field result-name="emailAddress" field-name="emailParams.sendTo"/>
                     </call-service>
                     <entity-and list="webSites" entity-name="WebSite">
-                        <field-map field-name="productStoreId" env-name="storeEmail.productStoreId" />
+                        <field-map field-name="productStoreId" from-field="storeEmail.productStoreId" />
                     </entity-and>
                     <first-from-list entry-name="webSite" list-name="webSites" />
                     <entity-one entity-name="UserLogin" value-name="userLoginSystem">

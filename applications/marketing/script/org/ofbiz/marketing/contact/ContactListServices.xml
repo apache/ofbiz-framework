@@ -57,14 +57,14 @@ under the License.
         <!-- check the preferredContactMechId, make sure it is the right type -->
         <if-not-empty field="parameters.preferredContactMechId">
             <entity-one entity-name="ContactMech" value-name="preferredContactMech" auto-field-map="false">
-                <field-map field-name="contactMechId" env-name="parameters.preferredContactMechId"/>
+                <field-map field-name="contactMechId" from-field="parameters.preferredContactMechId"/>
             </entity-one>
             <if-compare-field field="preferredContactMech.contactMechTypeId" to-field="contactList.contactMechTypeId" operator="not-equals">
                 <entity-one entity-name="ContactMechType" value-name="preferredContactMechType" auto-field-map="false">
-                    <field-map field-name="contactMechTypeId" env-name="preferredContactMech.contactMechTypeId"/>
+                    <field-map field-name="contactMechTypeId" from-field="preferredContactMech.contactMechTypeId"/>
                 </entity-one>
                 <entity-one entity-name="ContactMechType" value-name="listContactMechType" auto-field-map="false">
-                    <field-map field-name="contactMechTypeId" env-name="contactList.contactMechTypeId"/>
+                    <field-map field-name="contactMechTypeId" from-field="contactList.contactMechTypeId"/>
                 </entity-one>
                 <add-error><fail-message message="The preferred contact mechanism [${preferredContactMechType.description}] was not of the right type for the list [${listContactMechType.description}]."/></add-error>
             </if-compare-field>

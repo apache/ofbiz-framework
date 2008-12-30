@@ -258,7 +258,7 @@ under the License.
 
         <!-- find the most recent InventoryItemStatus record and set the statusEndDatetime -->
         <entity-and entity-name="InventoryItemStatus" list-name="oldInventoryItemStatusList">
-            <field-map field-name="inventoryItemId" env-name="parameters.inventoryItemId"/>
+            <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
             <order-by field-name="-statusDatetime"/>
         </entity-and>
         <first-from-list entry-name="oldInventoryItemStatus" list-name="oldInventoryItemStatusList"/>
@@ -1001,8 +1001,8 @@ under the License.
             <if-compare-field field="parameters.statusId" to-field="inventoryTransfer.statusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-name="checkStatusValidChange" auto-field-map="false">
-                    <field-map env-name="inventoryTransfer.statusId" field-name="statusId"/>
-                    <field-map env-name="parameters.statusId" field-name="statusIdTo"/>
+                    <field-map from-field="inventoryTransfer.statusId" field-name="statusId"/>
+                    <field-map from-field="parameters.statusId" field-name="statusIdTo"/>
                 </entity-one>
                 <if-empty field="checkStatusValidChange">
                     <set value="ERROR: Changing the status from ${inventoryTransfer.statusId} to ${parameters.statusId} is not allowed." field="error_list[]"/>
@@ -1266,7 +1266,7 @@ under the License.
                     <find-by-and entity-name="OrderRole" list-name="orderRoles" map-name="orderRoleAndMap"/>
                     <first-from-list list-name="orderRoles" entry-name="orderRole"/>
                     <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
-                        <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+                        <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
                     </entity-one>
                     <if>
                         <condition>

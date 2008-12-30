@@ -24,7 +24,7 @@ under the License.
     <simple-method method-name="getNextInvoiceId" short-description="Get Next invoiceId">
         <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special invoice number sequencing -->
         <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference" auto-field-map="false">
-            <field-map field-name="partyId" env-name="parameters.partyId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
         </entity-one>
         <log level="info" message="In getNextInvoiceId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
 
@@ -403,7 +403,7 @@ under the License.
             <field-to-result field-name="paymentApplication.billingAccountId" result-name="billingAccountId"/>
             <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplToBillingAccount" field-name="toMessage"/>
             <entity-one entity-name="BillingAccount" value-name="billingAccount">
-                <field-map field-name="billingAccountId" env-name="paymentApplication.billingAccountId"/>
+                <field-map field-name="billingAccountId" from-field="paymentApplication.billingAccountId"/>
             </entity-one>
             <set field="currencyUomId" from-field="billingAccount.accountCurrencyUomId"/>
         </if-not-empty>
@@ -438,8 +438,8 @@ under the License.
         <field-to-result field-name="invoice.statusId" result-name="oldStatusId"/>
         <if-compare-field field="invoice.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
-                <field-map field-name="statusId" env-name="invoice.statusId"/>
-                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                <field-map field-name="statusId" from-field="invoice.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
                 <add-error><fail-message message="Status is not a valid change"/></add-error>
@@ -487,7 +487,7 @@ under the License.
                     <set field="removePaymentApplicationMap.invoiceId" from-field="parameters.invoiceId"/>
                     <remove-by-and entity-name="PaymentApplication" map-name="removePaymentApplicationMap"/>
                     <entity-and entity-name="TimeEntry" list-name="entries">
-                        <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
+                        <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
                     </entity-and>
                     <iterate entry="entry" list-name="entries">
                         <clear-field field-name="entry.invoiceId"/>                        
@@ -554,7 +554,7 @@ under the License.
 
    <simple-method method-name="autoGenerateInvoiceFromExistingInvoice" short-description="Scheduled service to generate Invoice from an existing Invoice">
        <entity-and entity-name="Invoice" list-name="invoices">
-            <field-map field-name="recurrenceInfoId" env-name="parameters.recurrenceInfoId"/>
+            <field-map field-name="recurrenceInfoId" from-field="parameters.recurrenceInfoId"/>
        </entity-and>
        <iterate list-name="invoices" entry-name="invoice">
            <set-service-fields service-name="copyInvoice" map-name="invoice" to-map-name="copyInvoiceCtx"/>

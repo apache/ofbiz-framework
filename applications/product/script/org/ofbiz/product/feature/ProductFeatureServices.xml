@@ -116,8 +116,8 @@ under the License.
 
         <!-- find the ProductFeatures by type and id code -->
         <entity-and entity-name="ProductFeature" list-name="productFeatures">
-            <field-map field-name="productFeatureTypeId" env-name="parameters.productFeatureTypeId"/>
-            <field-map field-name="idCode" env-name="parameters.idCode"/>
+            <field-map field-name="productFeatureTypeId" from-field="parameters.productFeatureTypeId"/>
+            <field-map field-name="idCode" from-field="parameters.idCode"/>
         </entity-and>
         
         <iterate entry="productFeature" list-name="productFeatures">

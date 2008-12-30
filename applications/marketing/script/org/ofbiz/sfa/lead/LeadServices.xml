@@ -123,7 +123,7 @@
         <set field="createPartyRoleCtx.roleTypeId" value="CONTACT"/>
         <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
         <entity-and entity-name="PartyRelationship" list-name="partyRelationships" filter-by-date="true">
-            <field-map field-name="partyIdTo" env-name="parameters.partyId"/>
+            <field-map field-name="partyIdTo" from-field="parameters.partyId"/>
             <field-map field-name="roleTypeIdTo" value="LEAD"/>
             <field-map field-name="roleTypeIdFrom" value="ACCOUNT_LEAD"/>
             <order-by field-name="-fromDate"/>

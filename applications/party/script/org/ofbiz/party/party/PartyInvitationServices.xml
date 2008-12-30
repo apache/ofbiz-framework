@@ -28,7 +28,7 @@ under the License.
         <field-to-result field-name="newEntity.partyInvitationId" result-name="partyInvitationId"/>
         <if-not-empty field="parameters.partyId">
             <entity-one entity-name="Person" value-name="person" auto-field-map="false">
-                <field-map field-name="partyId" env-name="parameters.partyId"/>
+                <field-map field-name="partyId" from-field="parameters.partyId"/>
             </entity-one>
             <set field="parameters.toName" value="${person.firstName} ${person.middleName} ${person.lastName}"/>
         </if-not-empty>
@@ -41,7 +41,7 @@ under the License.
         <entity-one entity-name="PartyInvitation" value-name="lookedUpValue"/>
         <if-not-empty field="parameters.partyId">
             <entity-one entity-name="Person" value-name="person" auto-field-map="false">
-                <field-map field-name="partyId" env-name="parameters.partyId"/>
+                <field-map field-name="partyId" from-field="parameters.partyId"/>
             </entity-one>
             <set field="parameters.toName" value="${person.firstName} ${person.middleName} ${person.lastName}"/>
         </if-not-empty>
@@ -72,7 +72,7 @@ under the License.
     </simple-method>
     <simple-method method-name="acceptPartyInvitation" short-description="Accept Party Invitation">
         <entity-and entity-name="PartyInvitationGroupAssoc" list-name="partyInvitationGroupAssocs">
-            <field-map field-name="partyInvitationId" env-name="parameters.partyInvitationId"/>
+            <field-map field-name="partyInvitationId" from-field="parameters.partyInvitationId"/>
         </entity-and>
         <if-not-empty field="partyInvitationGroupAssocs">
             <set field="createPartyRelationshipCtx.partyIdTo" from-field="parameters.partyId"/>
@@ -83,7 +83,7 @@ under the License.
             </iterate>
         </if-not-empty>
         <entity-and entity-name="PartyInvitationRoleAssoc" list-name="partyInvitationRoleAssocs">
-            <field-map field-name="partyInvitationId" env-name="parameters.partyInvitationId"/>
+            <field-map field-name="partyInvitationId" from-field="parameters.partyInvitationId"/>
         </entity-and>
         <if-not-empty field="partyInvitationRoleAssocs">
             <set field="createPartyRoleCtx.partyId" from-field="parameters.partyId"/>

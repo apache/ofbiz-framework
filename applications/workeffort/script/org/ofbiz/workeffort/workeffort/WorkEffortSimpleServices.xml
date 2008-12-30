@@ -88,7 +88,7 @@ under the License.
             <set field="updCustReq.statusId" value="CRQ_REVIEWED"/>
             <call-service service-name="setCustRequestStatus" in-map-name="updCustReq"/>
             <entity-and list="custRequestContents" entity-name="CustRequestContent">
-                <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
+                <field-map field-name="custRequestId" from-field="parameters.custRequestId"/>
             </entity-and>
             <iterate entry="custRequestContent" list-name="custRequestContents">
                 <set field="newWorkEffortContent.workEffortId" from-field="newEntity.workEffortId"/>
@@ -129,8 +129,8 @@ under the License.
                 <if-not-empty field="lookedUpValue.currentStatusId">
                     <!-- check if the status change is a valid change -->
                     <entity-and entity-name="StatusValidChange" list-name="validChange">
-                        <field-map field-name="statusId" env-name="lookedUpValue.currentStatusId"/>
-                        <field-map field-name="statusIdTo" env-name="parameters.currentStatusId"/>
+                        <field-map field-name="statusId" from-field="lookedUpValue.currentStatusId"/>
+                        <field-map field-name="statusIdTo" from-field="parameters.currentStatusId"/>
                     </entity-and>
                     
                     <if-empty field="validChange">
@@ -170,8 +170,8 @@ under the License.
     <simple-method method-name="deleteWorkEffort" short-description="Delete Work Effort">
         <!-- check permissions before moving on: if update or delete logged in user must be associated OR have the corresponding UPDATE or DELETE permissions -->
         <entity-and entity-name="WorkEffortPartyAssignment" list-name="wepaList">
-            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
-            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+            <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
         <if-empty field="wepaList">
             <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="Security Error: to run deleteWorkEffort you must have the WORKEFFORTMGR_DELETE or WORKEFFORTMGR_ADMIN permission"/></check-permission>
@@ -249,9 +249,9 @@ under the License.
     <simple-method method-name="assignPartyToWorkEffort" short-description="Assign Party to Work Effort">
         <!-- check if the requested party Assignment already exist -->
         <entity-and entity-name="WorkEffortPartyAssignment" list-name="currentAssignments" filter-by-date="true">
-            <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
-            <field-map field-name="partyId" env-name="parameters.partyId"/>
-            <field-map field-name="roleTypeId" env-name="parameters.roleTypeId"/>
+            <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
+            <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
         </entity-and>
         <if-not-empty field="currentAssignments">
             <first-from-list entry-name="firstAssignment" list-name="currentAssignments"/>
@@ -1115,7 +1115,7 @@ under the License.
         <check-errors />
         <!-- look up the old workEffort and clone it -->
         <entity-one entity-name="WorkEffort" value-name="oldWorkEffort">
-            <field-map field-name="workEffortId" env-name="parameters.oldWorkEffortId"/>
+            <field-map field-name="workEffortId" from-field="parameters.oldWorkEffortId"/>
         </entity-one>
         <clone-value value-name="oldWorkEffort" new-value-name="newWorkEffort"/>
         
@@ -1134,7 +1134,7 @@ under the License.
                 <create-value value-name="newTempValue"/>
             </iterate>
             <entity-and entity-name="WorkEffortAssoc" list-name="foundValues">
-                <field-map field-name="workEffortIdTo" env-name="parameters.oldWorkEffortId"/>
+                <field-map field-name="workEffortIdTo" from-field="parameters.oldWorkEffortId"/>
             </entity-and>
             <iterate entry="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
@@ -1228,7 +1228,7 @@ under the License.
         </call-service>
         <call-simple-method method-name="testUpdateEventService"/>
         <entity-one entity-name="WorkEffort" value-name="workEffort">
-            <field-map field-name="workEffortId" env-name="eventMap.workEffortId"/>
+            <field-map field-name="workEffortId" from-field="eventMap.workEffortId"/>
         </entity-one>
         <assert>
             <not><if-empty field="workEffort"/></not>
@@ -1266,10 +1266,10 @@ under the License.
         <call-simple-method method-name="testUpdateProjectService"/>
         <call-simple-method method-name="testCreateWorkEffortNoteService"/>
         <entity-one entity-name="WorkEffort" value-name="workEffort">
-            <field-map field-name="workEffortId" env-name="projectMap.workEffortId"/>
+            <field-map field-name="workEffortId" from-field="projectMap.workEffortId"/>
         </entity-one>
         <entity-one entity-name="NoteData" value-name="noteData">
-            <field-map field-name="noteId" env-name="workEffortNoteMap.noteId"/>
+            <field-map field-name="noteId" from-field="workEffortNoteMap.noteId"/>
         </entity-one>
         <assert>
             <not><if-empty field="workEffort"/></not>

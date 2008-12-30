@@ -120,8 +120,8 @@ under the License.
             <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-name="checkStatusValidChange" auto-field-map="false">
-                    <field-map env-name="lookedUpValue.statusId" field-name="statusId"/>
-                    <field-map env-name="parameters.statusId" field-name="statusIdTo"/>
+                    <field-map from-field="lookedUpValue.statusId" field-name="statusId"/>
+                    <field-map from-field="parameters.statusId" field-name="statusIdTo"/>
                 </entity-one>
                 <if-empty field="checkStatusValidChange">
                     <string-to-list string="ERROR: Changing the status from ${lookedUpValue.statusId} to ${parameters.statusId} is not allowed." list-name="error_list"/>
@@ -155,7 +155,7 @@ under the License.
             </condition>
             <then>
                 <entity-one entity-name="WorkEffort" value-name="estShipWe" auto-field-map="false">
-                    <field-map field-name="workEffortId" env-name="lookedUpValue.estimatedShipWorkEffId"/>
+                    <field-map field-name="workEffortId" from-field="lookedUpValue.estimatedShipWorkEffId"/>
                 </entity-one>
                 <set from-field="parameters.estimatedShipDate" field="estShipWe.estimatedStartDate"/>
                 <set from-field="parameters.estimatedShipDate" field="estShipWe.estimatedCompletionDate"/>
@@ -258,7 +258,7 @@ under the License.
     
     <simple-method method-name="createShipmentForReturn" short-description="Create Shipment based on ReturnHeader">
         <entity-one entity-name="ReturnHeader" value-name="returnHeader">
-            <field-map field-name="returnId" env-name="parameters.returnId"/>
+            <field-map field-name="returnId" from-field="parameters.returnId"/>
         </entity-one>
 
         <set from-field="returnHeader.fromPartyId" field="shipmentCtx.partyIdFrom"/>
@@ -391,12 +391,12 @@ under the License.
         </if-empty>
 
         <entity-one entity-name="OrderHeader" value-name="orderHeader" auto-field-map="false">
-            <field-map field-name="orderId" env-name="shipment.primaryOrderId"/>
+            <field-map field-name="orderId" from-field="shipment.primaryOrderId"/>
         </entity-one>
         <if-not-empty field="shipment.primaryShipGroupSeqId">
             <entity-one entity-name="OrderItemShipGroup" value-name="orderItemShipGroup" auto-field-map="false">
-                <field-map field-name="orderId" env-name="shipment.primaryOrderId"/>
-                <field-map field-name="shipGroupSeqId" env-name="shipment.primaryShipGroupSeqId"/>
+                <field-map field-name="orderId" from-field="shipment.primaryOrderId"/>
+                <field-map field-name="shipGroupSeqId" from-field="shipment.primaryShipGroupSeqId"/>
             </entity-one>
         </if-not-empty>
 
@@ -420,7 +420,7 @@ under the License.
             </condition>
             <then>
                 <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
-                    <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+                    <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
                 </entity-one>
                 <if-compare field="productStore.oneInventoryFacility" operator="equals" value="Y">
                     <set from-field="productStore.inventoryFacilityId" field="shipment.originFacilityId"/>
@@ -431,7 +431,7 @@ under the License.
 
         <!-- partyIdFrom, partyIdTo (vendorPartyId) - NOTE: these work the same for Purchase and Sales Orders... -->
         <entity-and entity-name="OrderRole" list-name="orderRoles">
-            <field-map field-name="orderId" env-name="shipment.primaryOrderId"/>
+            <field-map field-name="orderId" from-field="shipment.primaryOrderId"/>
         </entity-and>
 
         <!-- From: SHIP_FROM_VENDOR -->
@@ -477,7 +477,7 @@ under the License.
         </if-empty>
 
         <entity-and entity-name="OrderContactMech" list-name="orderContactMechs">
-            <field-map field-name="orderId" env-name="shipment.primaryOrderId"/>
+            <field-map field-name="orderId" from-field="shipment.primaryOrderId"/>
         </entity-and>
         <!-- destinationContactMechId -->
         <if-empty field="shipment.destinationContactMechId">
@@ -517,7 +517,7 @@ under the License.
                 <else>
                     <!-- use the first unexpired phone number of the shipment partyIdTo -->
                     <entity-and entity-name="PartyAndTelecomNumber" list-name="phoneNumbers" filter-by-date="true">
-                        <field-map field-name="partyId" env-name="shipment.partyIdTo"/>
+                        <field-map field-name="partyId" from-field="shipment.partyIdTo"/>
                     </entity-and>
                     <first-from-list entry-name="phoneNumber" list-name="phoneNumbers"/>
                     <if-not-empty field="phoneNumber">
@@ -597,8 +597,8 @@ under the License.
             <set from-field="shipment.destinationTelecomNumberId" field="shipmentRouteSegmentMap.destTelecomNumberId"/>
 
             <entity-one entity-name="OrderItemShipGroup" value-name="orderItemShipGroup">
-                <field-map field-name="orderId" env-name="shipment.primaryOrderId"/>
-                <field-map field-name="shipGroupSeqId" env-name="shipment.primaryShipGroupSeqId"/>
+                <field-map field-name="orderId" from-field="shipment.primaryOrderId"/>
+                <field-map field-name="shipGroupSeqId" from-field="shipment.primaryShipGroupSeqId"/>
             </entity-one>
             <if-not-empty field="orderItemShipGroup">
                 <set from-field="orderItemShipGroup.carrierPartyId" field="shipmentRouteSegmentMap.carrierPartyId"/>
@@ -689,7 +689,7 @@ under the License.
 
         <!-- find email address for currently logged in user, set as sendFrom -->
         <entity-and entity-name="PartyAndContactMech" list-name="curUserPartyAndContactMechs">
-            <field-map field-name="partyId" env-name="userLogin.partyId"/>
+            <field-map field-name="partyId" from-field="userLogin.partyId"/>
             <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
         </entity-and>
         
@@ -701,7 +701,7 @@ under the License.
 
         <!-- find email addresses of all parties not equal to partyIdFrom in SUPPLIER_AGENT roleTypeId associated with primary order, set as sendTo -->
         <entity-and entity-name="OrderRole" list-name="supplierAgentOrderRoles">
-            <field-map field-name="orderId" env-name="shipment.primaryOrderId"/>
+            <field-map field-name="orderId" from-field="shipment.primaryOrderId"/>
             <field-map field-name="roleTypeId" value="SUPPLIER_AGENT"/>
         </entity-and>
         
@@ -712,7 +712,7 @@ under the License.
         <!-- go through all send to parties and get email addresses -->
         <iterate-map key-name="sendToPartyId" value-name="sendToPartyIdValue" map-name="sendToPartyIdMap">
             <entity-and entity-name="PartyAndContactMech" list-name="sendToPartyPartyAndContactMechs">
-                <field-map field-name="partyId" env-name="sendToPartyId"/>
+                <field-map field-name="partyId" from-field="sendToPartyId"/>
                 <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
             </entity-and>
             
@@ -759,9 +759,9 @@ under the License.
         <get-related value-name="shipment" relation-name="ItemIssuance" list-name="issuances"/>
         <iterate list-name="issuances" entry-name="issuance">
             <entity-and entity-name="ShipmentReceipt" list-name="receipts">
-                <field-map field-name="shipmentId" env-name="shipment.shipmentId"/>
-                <field-map field-name="orderId" env-name="issuance.orderId"/>
-                <field-map field-name="orderItemSeqId" env-name="issuance.orderItemSeqId"/>
+                <field-map field-name="shipmentId" from-field="shipment.shipmentId"/>
+                <field-map field-name="orderId" from-field="issuance.orderId"/>
+                <field-map field-name="orderItemSeqId" from-field="issuance.orderItemSeqId"/>
             </entity-and>
             <iterate list-name="receipts" entry-name="receipt">
                 <calculate field-name="issuanceQuantity" type="Double">
@@ -847,8 +847,8 @@ under the License.
         <!-- split the OrderShipment record(s) as well for the new quantities, 
             from originalShipmentItem.shipmentItemSeqId to newShipmentItemSeqId -->
         <entity-and entity-name="OrderShipment" list-name="itemOrderShipmentList">
-            <field-map field-name="shipmentId" env-name="originalShipmentItem.shipmentId"/>
-            <field-map field-name="shipmentItemSeqId" env-name="originalShipmentItem.shipmentItemSeqId"/>
+            <field-map field-name="shipmentId" from-field="originalShipmentItem.shipmentId"/>
+            <field-map field-name="shipmentItemSeqId" from-field="originalShipmentItem.shipmentItemSeqId"/>
         </entity-and>
         
         <set field="orderShipmentQuantityLeft" from-field="parameters.newItemQuantity"/>
@@ -962,14 +962,14 @@ under the License.
     </simple-method>
     <simple-method method-name="ensurePackageRouteSeg" short-description="Ensure ShipmentPackageRouteSeg exists for all RouteSegments for this Package">
         <entity-and entity-name="ShipmentRouteSegment" list-name="shipmentRouteSegments">
-            <field-map field-name="shipmentId" env-name="shipmentId"/>
+            <field-map field-name="shipmentId" from-field="shipmentId"/>
         </entity-and>
         
         <iterate entry="shipmentRouteSegment" list-name="shipmentRouteSegments">
             <entity-one entity-name="ShipmentPackageRouteSeg" value-name="checkShipmentPackageRouteSeg" auto-field-map="false">
-                <field-map field-name="shipmentId" env-name="shipmentId"/>
-                <field-map field-name="shipmentPackageSeqId" env-name="shipmentPackageSeqId"/>
-                <field-map field-name="shipmentRouteSegmentId" env-name="shipmentRouteSegment.shipmentRouteSegmentId"/>
+                <field-map field-name="shipmentId" from-field="shipmentId"/>
+                <field-map field-name="shipmentPackageSeqId" from-field="shipmentPackageSeqId"/>
+                <field-map field-name="shipmentRouteSegmentId" from-field="shipmentRouteSegment.shipmentRouteSegmentId"/>
             </entity-one>
             
             <if-empty field="checkShipmentPackageRouteSeg">
@@ -1196,13 +1196,13 @@ under the License.
     </simple-method>
     <simple-method method-name="ensureRouteSegPackage" short-description="Ensure ShipmentPackageRouteSeg exists for all Packages for this RouteSegment">
         <entity-and entity-name="ShipmentPackage" list-name="shipmentPackages">
-            <field-map field-name="shipmentId" env-name="shipmentId"/>
+            <field-map field-name="shipmentId" from-field="shipmentId"/>
         </entity-and>
         <iterate entry="shipmentPackage" list-name="shipmentPackages">
             <entity-one entity-name="ShipmentPackageRouteSeg" value-name="checkShipmentPackageRouteSeg" auto-field-map="false">
-                <field-map field-name="shipmentId" env-name="shipmentId"/>
-                <field-map field-name="shipmentRouteSegmentId" env-name="shipmentRouteSegmentId"/>
-                <field-map field-name="shipmentPackageSeqId" env-name="shipmentPackage.shipmentPackageSeqId"/>
+                <field-map field-name="shipmentId" from-field="shipmentId"/>
+                <field-map field-name="shipmentRouteSegmentId" from-field="shipmentRouteSegmentId"/>
+                <field-map field-name="shipmentPackageSeqId" from-field="shipmentPackage.shipmentPackageSeqId"/>
             </entity-one>
             <if-empty field="checkShipmentPackageRouteSeg">
                 <set field="createShipmentPackageRouteSegMap.shipmentId" from-field="shipmentId"/>
@@ -1308,7 +1308,7 @@ under the License.
 
         <!-- get the product store entity -->
         <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
-            <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+            <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
         </entity-one>
         
         <if-compare field="productStore.reserveInventory" operator="not-equals" value="Y">
@@ -1341,7 +1341,7 @@ under the License.
         <iterate list-name="orderItemShipGrpInvResFacilityIds" entry-name="orderItemShipGrpInvResFacilityId">
             <!-- sanity check for valid facility -->
             <entity-one entity-name="Facility" value-name="facility">
-                <field-map field-name="facilityId" env-name="orderItemShipGrpInvResFacilityId"/>
+                <field-map field-name="facilityId" from-field="orderItemShipGrpInvResFacilityId"/>
             </entity-one>
             <!-- should never be empty - referential integrity enforced -->
 
@@ -1378,8 +1378,8 @@ under the License.
 
         <!-- Iterate through the order items in the ship group -->
         <entity-and entity-name="OrderItemShipGroupAssoc" list-name="orderItemShipGroupAssocs">
-            <field-map field-name="orderId" env-name="parameters.orderId"/>
-            <field-map field-name="shipGroupSeqId" env-name="parameters.shipGroupSeqId"/>
+            <field-map field-name="orderId" from-field="parameters.orderId"/>
+            <field-map field-name="shipGroupSeqId" from-field="parameters.shipGroupSeqId"/>
         </entity-and>
         <iterate entry="orderItemShipGroupAssoc" list-name="orderItemShipGroupAssocs">
             <get-related-one relation-name="OrderItem" value-name="orderItemShipGroupAssoc" to-value-name="orderItem"/>
@@ -1393,8 +1393,8 @@ under the License.
 
             <!-- Set the status of any linked sales order items to completed as well -->
             <entity-and entity-name="OrderItemAssoc" list-name="orderItemAssocs">
-                <field-map field-name="toOrderId" env-name="parameters.orderId"/>
-                <field-map field-name="toOrderItemSeqId" env-name="orderItem.orderItemSeqId"/>
+                <field-map field-name="toOrderId" from-field="parameters.orderId"/>
+                <field-map field-name="toOrderItemSeqId" from-field="orderItem.orderItemSeqId"/>
                 <field-map field-name="orderItemAssocTypeId" value="DROP_SHIPMENT"/>
             </entity-and>
             <if-not-empty field="orderItemAssocs">
@@ -1420,7 +1420,7 @@ under the License.
 
         <!-- lookup all the approved items, doing by item because the item must be approved before shipping -->
         <entity-and entity-name="OrderItemAndShipGroupAssoc" list-name="orderItemAndShipGroupAssocList">
-            <field-map field-name="orderId" env-name="orderHeader.orderId"/>
+            <field-map field-name="orderId" from-field="orderHeader.orderId"/>
             <field-map field-name="statusId" value="ITEM_APPROVED"/>
         </entity-and>
 
@@ -1445,8 +1445,8 @@ under the License.
         <iterate list-name="orderItemShipGroupList" entry-name="orderItemShipGroup">
             <!-- lookup all the approved items -->
             <entity-and entity-name="OrderItemAndShipGroupAssoc" list-name="orderItems">
-                <field-map field-name="orderId" env-name="orderHeader.orderId"/>
-                <field-map field-name="shipGroupSeqId" env-name="orderItemShipGroup.shipGroupSeqId"/>
+                <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+                <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroup.shipGroupSeqId"/>
                 <field-map field-name="statusId" value="ITEM_APPROVED"/>
             </entity-and>
 
@@ -1510,9 +1510,9 @@ under the License.
 
                 <!-- place all issued items into a single package -->
                 <entity-and entity-name="ItemIssuance" list-name="itemIssuances">
-                    <field-map field-name="orderId" env-name="orderHeader.orderId"/>
-                    <field-map field-name="shipGroupSeqId" env-name="orderItemShipGroup.shipGroupSeqId"/>
-                    <field-map field-name="shipmentId" env-name="shipment.shipmentId"/>
+                    <field-map field-name="orderId" from-field="orderHeader.orderId"/>
+                    <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroup.shipGroupSeqId"/>
+                    <field-map field-name="shipmentId" from-field="shipment.shipmentId"/>
                 </entity-and>
 
                 <set value="New" field="shipmentPackageSeqId"/>
@@ -1569,7 +1569,7 @@ under the License.
 
         <!-- get the product store entity -->
         <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
-            <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+            <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
         </entity-one>
         <get-related relation-name="OrderItemShipGroup" value-name="orderHeader" list-name="orderItemShipGroupList"/>
 
@@ -1588,7 +1588,7 @@ under the License.
             <get-related value-name="orderHeader" relation-name="OrderItem" list-name="orderItems"/>
             <iterate entry="orderItem" list-name="orderItems">
                 <entity-one entity-name="Product" value-name="itemProduct" auto-field-map="false" use-cache="true">
-                    <field-map field-name="productId" env-name="orderItem.productId"/>
+                    <field-map field-name="productId" from-field="orderItem.productId"/>
                 </entity-one>
                 
                 <!-- make sure the OrderItem is for a Product that has a ProductType with isPhysical=Y -->
@@ -1644,7 +1644,7 @@ under the License.
         <!-- place all issued items into a package for tracking num -->                
         <log level="info" message="QuickShipOrderByItem grouping by tracking number : ${parameters.trackingNum}"/>
         <entity-one entity-name="ItemIssuance" value-name="itemIssuance">
-            <field-map field-name="itemIssuanceId" env-name="parameters.itemIssuanceId"/>
+            <field-map field-name="itemIssuanceId" from-field="parameters.itemIssuanceId"/>
         </entity-one>
         <clear-field field-name="shipItemContext"/>
         <set from-field="parameters.shipmentPackageSeqId" field="shipItemContext.shipmentPackageSeqId"/>
@@ -1719,7 +1719,7 @@ under the License.
             <if-not-empty field="orderHeader.productStoreId">
                 <!-- get the product store entity -->
                 <entity-one entity-name="ProductStore" value-name="productStore">
-                    <field-map field-name="productStoreId" env-name="orderHeader.productStoreId"/>
+                    <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
                 </entity-one>
 
                 <if-compare field="productStore.reserveInventory" operator="not-equals" value="Y">
@@ -1780,7 +1780,7 @@ under the License.
             <log level="info" message="QuickShipOrderByItem grouping by tracking number : ${itemMap.trackingNum}"/>
 
             <entity-one entity-name="ItemIssuance" value-name="itemIssuance">
-                <field-map field-name="itemIssuanceId" env-name="itemMap.itemIssuanceId"/>
+                <field-map field-name="itemIssuanceId" from-field="itemMap.itemIssuanceId"/>
             </entity-one>
 
             <clear-field field-name="shipItemContext"/>
@@ -1989,7 +1989,7 @@ under the License.
         </check-permission>
         
         <entity-and entity-name="OrderShipment" list-name="orderShipmentList">
-            <field-map field-name="shipmentId" env-name="parameters.shipmentId"/>
+            <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
         </entity-and>
         <iterate entry="orderShipment" list-name="orderShipmentList">
             <clear-field field-name="deleteOrderShipmentMap"/>
@@ -2057,8 +2057,8 @@ under the License.
             <result-to-field result-name="shipmentRouteSegmentId" field-name="shipmentRouteSegmentId" map-name="routeSegMap"/>
         </call-service>
         <entity-one entity-name="ShipmentRouteSegment" value-name="shipmentRouteSegment">
-            <field-map field-name="shipmentId" env-name="shipRouteSegMap.shipmentId"/>
-            <field-map field-name="shipmentRouteSegmentId" env-name="routeSegMap.shipmentRouteSegmentId"/>
+            <field-map field-name="shipmentId" from-field="shipRouteSegMap.shipmentId"/>
+            <field-map field-name="shipmentRouteSegmentId" from-field="routeSegMap.shipmentRouteSegmentId"/>
         </entity-one>
         <assert>
             <not><if-empty field="shipmentRouteSegment"/></not>

@@ -62,7 +62,7 @@ under the License.
         <!-- if the user has the role limited position, add this category to the limit category/ies -->
         <if-has-permission permission="CATALOG_ROLE" action="_CREATE">
             <entity-and entity-name="ProductCategoryRole" list-name="productCategoryRoles" filter-by-date="true">
-                <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
             </entity-and>
             <iterate entry="productCategoryRole" list-name="productCategoryRoles">
@@ -361,7 +361,7 @@ under the License.
         <check-errors/>
 
         <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers">
-            <field-map field-name="productCategoryId" env-name="parameters.productCategoryId"/>
+            <field-map field-name="productCategoryId" from-field="parameters.productCategoryId"/>
         </entity-and>
 
         <set field="validDate" from-field="parameters.validDate"/>
@@ -414,7 +414,7 @@ under the License.
     <simple-method method-name="copyCategoryEntities" short-description="copies all entities of entityName with a productCategoryId to a new entity with a productCategoryIdTo, 
             filtering them by a timestamp passed in to validDate if necessary">
         <entity-and entity-name="${entityName}" list-name="categoryEntities">
-            <field-map field-name="productCategoryId" env-name="productCategoryId"/>
+            <field-map field-name="productCategoryId" from-field="productCategoryId"/>
         </entity-and>
 
         <if-not-empty field="validDate">
@@ -444,7 +444,7 @@ under the License.
         </if-not-empty>
 
         <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers">
-            <field-map field-name="productCategoryId" env-name="parameters.productCategoryId"/>
+            <field-map field-name="productCategoryId" from-field="parameters.productCategoryId"/>
         </entity-and>
 
         <iterate entry="productCategoryMember" list-name="productCategoryMembers">
@@ -466,7 +466,7 @@ under the License.
         </if-not-empty>
 
         <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers">
-            <field-map field-name="productCategoryId" env-name="parameters.productCategoryId"/>
+            <field-map field-name="productCategoryId" from-field="parameters.productCategoryId"/>
         </entity-and>
 
         <iterate entry="productCategoryMember" list-name="productCategoryMembers">
@@ -561,7 +561,7 @@ under the License.
 
         <!-- look up the old product category and clone it -->
         <entity-one entity-name="ProductCategory" value-name="oldCategory">
-            <field-map field-name="productCategoryId" env-name="parameters.oldProductCategoryId"/>
+            <field-map field-name="productCategoryId" from-field="parameters.oldProductCategoryId"/>
         </entity-one>
         <clone-value value-name="oldCategory" new-value-name="newCategory"/>
 
@@ -610,7 +610,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="parameters.duplicateChildRollup">
             <entity-and entity-name="ProductCategoryRollup" list-name="foundValues">
-                <field-map field-name="parentProductCategoryId" env-name="parameters.oldProductCategoryId"/>
+                <field-map field-name="parentProductCategoryId" from-field="parameters.oldProductCategoryId"/>
             </entity-and>
             <iterate entry="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
@@ -723,8 +723,8 @@ under the License.
             </condition>
             <then>
                 <entity-and entity-name="ProductCategoryRollupAndRole" list-name="roleCategories" filter-by-date="true">
-                    <field-map field-name="productCategoryId" env-name="productCategoryIdToCheck"/>
-                    <field-map field-name="partyId" env-name="userLogin.partyId"/>
+                    <field-map field-name="productCategoryId" from-field="productCategoryIdToCheck"/>
+                    <field-map field-name="partyId" from-field="userLogin.partyId"/>
                     <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
                 </entity-and>
                 <filter-list-by-date list-name="roleCategories" from-field-name="roleFromDate" thru-field-name="roleThruDate"/>
@@ -805,7 +805,7 @@ under the License.
         <iterate entry="prodCatalogCategory" list-name="prodCatalogCategoryList">
             <!-- Do not do a permission check unless the ProdCatalog requires it -->
             <entity-one entity-name="ProdCatalog" value-name="prodCatalog" auto-field-map="false">
-                <field-map field-name="prodCatalogId" env-name="prodCatalogCategory.prodCatalogId"/>
+                <field-map field-name="prodCatalogId" from-field="prodCatalogCategory.prodCatalogId"/>
             </entity-one>
             <if>
                 <condition>

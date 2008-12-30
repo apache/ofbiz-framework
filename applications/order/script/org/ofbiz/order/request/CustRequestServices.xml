@@ -136,7 +136,7 @@ under the License.
                 <if-not-empty field="workEfforts">
                     <iterate entry="workEffort" list-name="workEfforts">
                         <entity-one entity-name="WorkEffort" value-name="lowInfo">
-                            <field-map field-name="workEffortId" env-name="workEffort.workEffortId"/>
+                            <field-map field-name="workEffortId" from-field="workEffort.workEffortId"/>
                         </entity-one>
                         <call-simple-method method-name="getHours" xml-resource="component://projectmgr/script/org/ofbiz/project/ProjectServices.xml"/>
                         <set field="actualHours" from-field="highInfo.actualHours"/>
@@ -404,8 +404,8 @@ under the License.
         <field-to-result field-name="custRequest.statusId" result-name="oldStatusId"/>
         <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-name="statusChange">
-                <field-map field-name="statusId" env-name="custRequest.statusId"/>
-                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                <field-map field-name="statusId" from-field="custRequest.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
                 <add-error><fail-message message="Status is not a valid change"/></add-error>
@@ -454,7 +454,7 @@ under the License.
         
         <!-- copy attachements/content -->
         <entity-and entity-name="CommEventContentAssoc" list-name="custRequestContents">
-            <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
+            <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
         </entity-and>
         <iterate entry="custRequestContent" list-name="custRequestContents">
             <set field="reqContent.custRequestId" from-field="parameters.custRequestId"/>

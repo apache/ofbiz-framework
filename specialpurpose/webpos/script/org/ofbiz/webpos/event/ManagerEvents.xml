@@ -203,7 +203,7 @@ under the License.
                             <field field-name="fieldName" type="String"/>
                         </call-object-method>
                         <entity-one entity-name="OrderHeader" value-name="orderHeader">
-                            <field-map field-name="orderId" env-name="parameters.orderId"/>
+                            <field-map field-name="orderId" from-field="parameters.orderId"/>
                         </entity-one>
                         <if-not-empty field="orderHeader">
                             <set field="fieldName" value="orderDate" type="String"/>

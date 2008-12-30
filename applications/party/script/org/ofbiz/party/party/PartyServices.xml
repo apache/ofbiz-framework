@@ -91,7 +91,7 @@ under the License.
     <simple-method method-name="getPartyNameForDate" short-description="Get Party Name For Date">
 
         <entity-and entity-name="PartyNameHistory" list-name="partyNameHistoryList">
-            <field-map field-name="partyId" env-name="parameters.partyId"/>
+            <field-map field-name="partyId" from-field="parameters.partyId"/>
             <order-by field-name="-changeDate"/>
         </entity-and>
         <entity-one entity-name="Person" value-name="person"/>
@@ -767,10 +767,10 @@ under the License.
         
         <!-- check if not already exist -->
         <entity-and entity-name="PartyRelationship" list-name="partyRels" filter-by-date="true">
-            <field-map field-name="partyIdFrom" env-name="parameters.partyIdFrom"/>
-            <field-map field-name="roleTypeIdFrom" env-name="parameters.roleTypeIdFrom"/>
-            <field-map field-name="partyIdTo" env-name="parameters.partyIdTo"/>
-            <field-map field-name="roleTypeIdTo" env-name="parameters.roleTypeIdTo"/>
+            <field-map field-name="partyIdFrom" from-field="parameters.partyIdFrom"/>
+            <field-map field-name="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
+            <field-map field-name="partyIdTo" from-field="parameters.partyIdTo"/>
+            <field-map field-name="roleTypeIdTo" from-field="parameters.roleTypeIdTo"/>
         </entity-and>
         
         <if-empty field="partyRels">
@@ -823,7 +823,7 @@ under the License.
         </entity-condition>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
         <entity-and list="webSites" entity-name="WebSite">
-            <field-map field-name="productStoreId" env-name="storeEmail.productStoreId"/>
+            <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
         <first-from-list entry-name="webSite" list-name="webSites"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">
@@ -854,7 +854,7 @@ under the License.
         </entity-condition>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
         <entity-and list="webSites" entity-name="WebSite">
-            <field-map field-name="productStoreId" env-name="storeEmail.productStoreId"/>
+            <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
         <first-from-list entry-name="webSite" list-name="webSites"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">

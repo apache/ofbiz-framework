@@ -88,7 +88,7 @@ under the License.
             <log level="info" message="Checking order #${orderHeader.orderId} to add to picklist"/>
             <!-- get all ship groups, and iterate over them for each order -->
             <entity-and entity-name="OrderItemShipGroup" list-name="orderItemShipGroupList">
-                <field-map field-name="orderId" env-name="orderHeader.orderId"/>
+                <field-map field-name="orderId" from-field="orderHeader.orderId"/>
                 <order-by field-name="shipGroupSeqId"/>
             </entity-and>
 
@@ -114,12 +114,12 @@ under the License.
                     <then>
                         <!-- get only for current OrderItemShipGroup -->
                         <entity-and entity-name="OrderItemShipGrpInvRes" list-name="orderItemShipGrpInvResList">
-                            <field-map field-name="orderId" env-name="orderItemShipGroup.orderId"/>
-                            <field-map field-name="shipGroupSeqId" env-name="orderItemShipGroup.shipGroupSeqId"/>
+                            <field-map field-name="orderId" from-field="orderItemShipGroup.orderId"/>
+                            <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroup.shipGroupSeqId"/>
                         </entity-and>
                         <entity-and entity-name="OrderItemAndShipGroupAssoc" list-name="orderItemAndShipGroupAssocList">
-                            <field-map field-name="orderId" env-name="orderItemShipGroup.orderId"/>
-                            <field-map field-name="shipGroupSeqId" env-name="orderItemShipGroup.shipGroupSeqId"/>
+                            <field-map field-name="orderId" from-field="orderItemShipGroup.orderId"/>
+                            <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroup.shipGroupSeqId"/>
                             <order-by field-name="+orderItemSeqId"/>
                         </entity-and>
 
@@ -557,7 +557,7 @@ under the License.
                 <!-- if we put nothing into this bin, delete the bin -->
                 <if-compare field="itemsInBin" value="0" operator="equals">
                     <entity-one entity-name="PicklistBin" value-name="binToRemove">
-                        <field-map field-name="picklistBinId" env-name="picklistBinId"/>
+                        <field-map field-name="picklistBinId" from-field="picklistBinId"/>
                     </entity-one>
                     <remove-value value-name="binToRemove"/>
                 </if-compare>
@@ -610,8 +610,8 @@ under the License.
             <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-name="checkStatusValidChange" auto-field-map="false">
-                    <field-map env-name="lookedUpValue.statusId" field-name="statusId"/>
-                    <field-map env-name="parameters.statusId" field-name="statusIdTo"/>
+                    <field-map from-field="lookedUpValue.statusId" field-name="statusId"/>
+                    <field-map from-field="parameters.statusId" field-name="statusIdTo"/>
                 </entity-one>
                 <if-empty field="checkStatusValidChange">
                     <set value="ERROR: Changing the status from ${lookedUpValue.statusId} to ${parameters.statusId} is not allowed." field="error_list[]"/>
@@ -720,8 +720,8 @@ under the License.
             <if-compare-field field="parameters.itemStatusId" to-field="lookedUpValue.itemStatusId" operator="not-equals">
                 <!-- make sure a StatusValidChange record exists, if not return error -->
                 <entity-one entity-name="StatusValidChange" value-name="checkStatusValidChange" auto-field-map="false">
-                    <field-map env-name="lookedUpValue.itemStatusId" field-name="statusId"/>
-                    <field-map env-name="parameters.itemStatusId" field-name="statusIdTo"/>
+                    <field-map from-field="lookedUpValue.itemStatusId" field-name="statusId"/>
+                    <field-map from-field="parameters.itemStatusId" field-name="statusIdTo"/>
                 </entity-one>
                 <if-empty field="checkStatusValidChange">
                     <set value="ERROR: Changing the status from ${lookedUpValue.itemStatusId} to ${parameters.itemStatusId} is not allowed." field="error_list[]"/>
@@ -1247,7 +1247,7 @@ under the License.
 
         <!-- find all related picklist items -->
         <entity-and entity-name="PicklistItemAndBin" list-name="picklistItem">
-            <field-map field-name="picklistId" env-name="picklist.picklistId"/>
+            <field-map field-name="picklistId" from-field="picklist.picklistId"/>
         </entity-and>
 
         <set field="allCompleteOrCancelled" type="Boolean" value="true"/>

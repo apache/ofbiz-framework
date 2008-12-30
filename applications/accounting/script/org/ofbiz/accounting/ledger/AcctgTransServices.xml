@@ -319,11 +319,11 @@ under the License.
                 <clear-field field-name="glAccountHistoryList"/>
 
                 <entity-one entity-name="GlAccount" value-name="glAccount">
-                    <field-map field-name="glAccountId" env-name="acctgTransEntry.glAccountId"/>
+                    <field-map field-name="glAccountId" from-field="acctgTransEntry.glAccountId"/>
                 </entity-one>
                 <entity-one entity-name="GlAccountOrganization" value-name="glAccountOrganization">
-                    <field-map field-name="glAccountId" env-name="acctgTransEntry.glAccountId"/>
-                    <field-map field-name="organizationPartyId" env-name="acctgTransEntry.organizationPartyId"/>
+                    <field-map field-name="glAccountId" from-field="acctgTransEntry.glAccountId"/>
+                    <field-map field-name="organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
                 </entity-one>
 
                 <!-- update the GlAccount's posted balance.  This depends on whether the GlAccount is a debit or credit account and the
@@ -385,9 +385,9 @@ under the License.
                 <set from-field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}" field="customTimePeriodList"/>
                 <iterate entry="customTimePeriod" list-name="customTimePeriodList">
                     <entity-one entity-name="GlAccountHistory" value-name="glAccountHistory">
-                        <field-map field-name="glAccountId" env-name="acctgTransEntry.glAccountId"/>
-                        <field-map field-name="organizationPartyId" env-name="acctgTransEntry.organizationPartyId"/>
-                        <field-map field-name="customTimePeriodId" env-name="customTimePeriod.customTimePeriodId"/>
+                        <field-map field-name="glAccountId" from-field="acctgTransEntry.glAccountId"/>
+                        <field-map field-name="organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
+                        <field-map field-name="customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>
                     </entity-one>
                     <!-- if no glAccountHistory create a new empty one -->
                     <if-empty field="glAccountHistory">

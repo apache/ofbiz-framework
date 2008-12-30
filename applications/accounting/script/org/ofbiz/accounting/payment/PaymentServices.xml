@@ -46,7 +46,7 @@ under the License.
         
         <if-not-empty field="parameters.paymentMethodId">
             <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
-                <field-map field-name="paymentMethodId" env-name="parameters.paymentMethodId"/>
+                <field-map field-name="paymentMethodId" from-field="parameters.paymentMethodId"/>
             </entity-one>
             <log level="info" message="Replacing passed payment method type [${parameters.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${parameters.paymentMethodId}]"/>
             <set field="parameters.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
@@ -108,7 +108,7 @@ under the License.
         </if-empty>
         <if-not-empty field="payment.paymentMethodId">
             <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
-                <field-map field-name="paymentMethodId" env-name="payment.paymentMethodId"/>
+                <field-map field-name="paymentMethodId" from-field="payment.paymentMethodId"/>
             </entity-one>
             <if-compare-field field="payment.paymentMethodTypeId" to-field="paymentMethod.paymentMethodTypeId" operator="not-equals">
                 <log level="info" message="Replacing passed payment method type [${payment.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${payment.paymentMethodId}]"/>
@@ -175,8 +175,8 @@ under the License.
         
         <if-compare-field field="payment.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
-                <field-map field-name="statusId" env-name="payment.statusId"/>
-                <field-map field-name="statusIdTo" env-name="parameters.statusId"/>
+                <field-map field-name="statusId" from-field="payment.statusId"/>
+                <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
             <if-empty field="statusChange">
                 <add-error><fail-property resource="AccountingUiLabels" property="AccountingPSInvalidStatusChange"/></add-error>

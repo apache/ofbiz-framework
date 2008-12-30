@@ -26,7 +26,7 @@ under the License.
         
         <!-- find the most recent status record and set the statusEndDate -->
         <entity-and entity-name="ExampleStatus" list-name="oldExampleStatusList">
-            <field-map field-name="exampleId" env-name="parameters.exampleId"/>
+            <field-map field-name="exampleId" from-field="parameters.exampleId"/>
             <order-by field-name="-statusDate"/>
         </entity-and>
         <first-from-list entry-name="oldExampleStatus" list-name="oldExampleStatusList"/>

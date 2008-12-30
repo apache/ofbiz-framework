@@ -275,7 +275,7 @@ under the License.
         <set field="bodyParameters.verifyHash" from-field="emailAddressVerification.verifyHash"/>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
         <entity-and list="webSites" entity-name="WebSite">
-            <field-map field-name="productStoreId" env-name="storeEmail.productStoreId"/>
+            <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
         <first-from-list entry-name="webSite" list-name="webSites"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">                        
@@ -294,7 +294,7 @@ under the License.
     </simple-method>
     <simple-method method-name="verifyEmailAddress" short-description="Verify an Email Address through verifyHash and expireDate" login-required="false">
         <entity-and entity-name="EmailAddressVerification" list-name="emailAddressVerifications">
-            <field-map field-name="verifyHash" env-name="parameters.verifyHash"/>
+            <field-map field-name="verifyHash" from-field="parameters.verifyHash"/>
         </entity-and>
         
         <first-from-list list-name="emailAddressVerifications" entry-name="emailAddressVerification"/>
