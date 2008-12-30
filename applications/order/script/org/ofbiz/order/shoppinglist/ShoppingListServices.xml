@@ -300,7 +300,7 @@ under the License.
                 <condition-expr field-name="roleTypeId" value="PLACING_CUSTOMER" />
             </condition-list>
         </entity-condition>
-        <first-from-list list="orderRoleList" entry-name="orderRole" />
+        <first-from-list list="orderRoleList" entry="orderRole" />
 
         <entity-condition entity-name="ShoppingList" list-name="shoppingListList">
             <condition-list combine="and">
@@ -308,7 +308,7 @@ under the License.
                 <condition-expr field-name="listName" value="Auto Suggestions" />
             </condition-list>
         </entity-condition>
-        <first-from-list list="shoppingListList" entry-name="shoppingList" />
+        <first-from-list list="shoppingListList" entry="shoppingList" />
         <if-empty field="shoppingList">
             <set field="createShoppingListInMap.partyId" from-field="orderRole.partyId" />
             <set field="createShoppingListInMap.listName" value="Auto Suggestions" />
@@ -350,7 +350,7 @@ under the License.
                             <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
                         </condition-list>
                     </entity-condition>
-                    <first-from-list list="virtualProductAssocList" entry-name="virtualProductAssoc" />
+                    <first-from-list list="virtualProductAssocList" entry="virtualProductAssoc" />
                     <if-not-empty field="virtualProductAssoc">
                         <entity-condition entity-name="ProductAssoc" list-name="compProductAssocList" filter-by-date="true">
                             <condition-list combine="and">

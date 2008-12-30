@@ -88,7 +88,7 @@ under the License.
                     <string-to-list string="Error in stock move, could not find a pick/primary location for facility [${parameters.facilityId}] and product [${productId}]" list-name="warningMessageList"/>
                 <else>
                     <!-- should generally only be one pick/primary location, just choose the first... -->
-                    <first-from-list entry-name="productFacilityLocationView" list-name="productFacilityLocationViewList"/>
+                    <first-from-list entry="productFacilityLocationView" list="productFacilityLocationViewList"/>
                     <get-related-one value-name="productFacilityLocationView" relation-name="FacilityLocation" to-value-name="moveInfo.facilityLocationTo"/>
                     <get-related-one value-name="productFacilityLocationView" relation-name="ProductFacilityLocation" to-value-name="moveInfo.targetProductFacilityLocation"/>
 
@@ -301,7 +301,7 @@ under the License.
                                     <then>   
                                         <set from-field="productSave" field="moveInfo.product"/>
                                         <set from-field="targetFacilityLocationSave" field="moveInfo.facilityLocationTo"/>
-                                        <first-from-list entry-name="InventoryItemAndLocation" list-name="perLocationInventoryItemAndLocList"/>
+                                        <first-from-list entry="InventoryItemAndLocation" list="perLocationInventoryItemAndLocList"/>
                                         <get-related-one value-name="InventoryItemAndLocation" relation-name="FacilityLocation" to-value-name="moveInfo.facilityLocationFrom"/>
                                         <get-related-one value-name="productFacilityLocationQuantityTest" relation-name="ProductFacilityLocation" to-value-name="moveInfo.targetProductFacilityLocation"/>
                                         <set from-field="productFacilityLocationQuantityTest.availableToPromiseTotal" field="moveInfo.availableToPromiseTotalTo"/>

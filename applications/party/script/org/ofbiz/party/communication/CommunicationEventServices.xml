@@ -39,7 +39,7 @@ under the License.
                 <field-map field-name="partyId" from-field="parameters.partyIdFrom"/>
             </entity-and>
             <if-not-empty field="roles">
-                <first-from-list list="roles" entry-name="role"/>
+                <first-from-list list="roles" entry="role"/>
                 <set field="newStat.communicationEventId" from-field="parameters.parentCommEventId"/>
                 <set field="newStat.partyId" from-field="parameters.partyIdFrom"/>
                 <set field="newStat.roleTypeId" from-field="role.roleTypeId"/>
@@ -70,7 +70,7 @@ under the License.
                     <field-map field-name="contactMechId" from-field="parameters.contactMechIdTo"/>
                     <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
                 </entity-and>
-                <first-from-list entry-name="partyContactMech" list-name="partyContactMechs"/>
+                <first-from-list entry="partyContactMech" list="partyContactMechs"/>
                 <set field="newEntity.partyIdTo" from-field="partyContactMech.partyId"/>
             </if-not-empty>
         </if-empty>
@@ -165,7 +165,7 @@ under the License.
                     <field-map field-name="contactMechId" from-field="parameters.contactMechIdTo"/>
                     <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
                 </entity-and>
-                <first-from-list entry-name="partyContactMech" list-name="partyContactMechs"/>                
+                <first-from-list entry="partyContactMech" list="partyContactMechs"/>                
                 <set field="parameters.partyIdTo" from-field="partyContactMech.partyId"/>
                 <set field="event.partyIdTo" from-field="partyContactMech.partyId"/>
             </if-not-empty>

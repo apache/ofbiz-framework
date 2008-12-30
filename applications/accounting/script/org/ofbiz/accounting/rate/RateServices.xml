@@ -55,7 +55,7 @@ under the License.
 
         <!-- end existing value -->
         <if-not-empty field="rateAmounts">
-            <first-from-list entry-name="rateAmount" list-name="rateAmounts"/>
+            <first-from-list entry="rateAmount" list="rateAmounts"/>
             <if-compare-field field="rateAmount.rateAmount" operator="not-equals" to-field="parameters.rateAmount">
                 <set-service-fields service-name="deleteRateAmount" map-name="rateAmount" to-map-name="delRateAmount"/>
                 <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>
@@ -139,7 +139,7 @@ under the License.
                     <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 </entity-and>
                 <if-not-empty field="amounts">
-                    <first-from-list entry-name="amount" list-name="amounts"/>
+                    <first-from-list entry="amount" list="amounts"/>
                     <if-not-empty field="amount.rateAmount">
                         <set field="level" value="workEffort"/>
                     </if-not-empty>
@@ -161,7 +161,7 @@ under the License.
                     <field-map field-name="partyId" from-field="parameters.partyId"/>
                 </entity-and>
                 <if-not-empty field="amounts">
-                    <first-from-list entry-name="amount" list-name="amounts"/>
+                    <first-from-list entry="amount" list="amounts"/>
                     <if-not-empty field="amount.rateAmount">
                         <set field="level" value="party"/>
                     </if-not-empty>
@@ -183,7 +183,7 @@ under the License.
                     <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
                 </entity-and>
                 <if-not-empty field="amounts">
-                    <first-from-list entry-name="amount" list-name="amounts"/>
+                    <first-from-list entry="amount" list="amounts"/>
                     <if-not-empty field="amount.rateAmount">
                         <set field="level" value="emplPositionType"/>
                     </if-not-empty>
@@ -277,7 +277,7 @@ under the License.
             </if-empty>
         </if-compare>
         <if-not-empty field="amounts">
-            <first-from-list entry-name="amount" list-name="amounts"/>
+            <first-from-list entry="amount" list="amounts"/>
             <if-empty field="amount.rateAmount">
                 <set field="amount.rateAmount" value="0" type="Double"/>
             </if-empty>
@@ -302,7 +302,7 @@ under the License.
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
         </entity-and>
         <if-not-empty field="partyRates">
-            <first-from-list entry-name="partyRate" list-name="partyRates"/>
+            <first-from-list entry="partyRate" list="partyRates"/>
             <now-timestamp-to-env env-name="partyRate.thruDate"/>
             <store-value value-name="partyRate"/>
         </if-not-empty>
@@ -330,7 +330,7 @@ under the License.
                 <field-map field-name="defaultRate" value="Y"/>
             </entity-and>
             <if-not-empty field="rates">
-                <first-from-list entry-name="rate" list-name="rates"/>
+                <first-from-list entry="rate" list="rates"/>
                 <set field="rate.defaultRate" value="N"/>
                 <store-value value-name="rate"/>
             </if-not-empty>

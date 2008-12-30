@@ -38,7 +38,7 @@ under the License.
                     <field-map field-name="productId" from-field="parameters.productId"/>
                     <order-by field-name="-fromDate"/>
                 </entity-and>
-                <first-from-list entry-name="resource" list-name="resourceList"/>
+                <first-from-list entry="resource" list="resourceList"/>
                 <if-not-empty field="resource">
                     <set-nonpk-fields value-name="newEntity" map-name="resource"/>
                 </if-not-empty>
@@ -67,7 +67,7 @@ under the License.
             <set field="found" value="false" type="Boolean"/>
             <else>
                 <set field="found" value="true" type="Boolean"/>
-                <first-from-list entry-name="subscription" list-name="pfResultList"/>
+                <first-from-list entry="subscription" list="pfResultList"/>
                 <field-to-result field-name="subscription.subscriptionId" result-name="subscriptionId"/>
             </else>
         </if-empty>

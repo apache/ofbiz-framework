@@ -273,11 +273,11 @@ under the License.
         <set field="lookupHash.emailAddress" from-field="parameters.emailAddress"/>
         <find-by-primary-key value-name="emailAddressVerification" entity-name="EmailAddressVerification" map-name="lookupHash"/>
         <set field="bodyParameters.verifyHash" from-field="emailAddressVerification.verifyHash"/>
-        <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
+        <first-from-list entry="storeEmail" list="productStoreEmailSettings"/>
         <entity-and list="webSites" entity-name="WebSite">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
-        <first-from-list entry-name="webSite" list-name="webSites"/>
+        <first-from-list entry="webSite" list="webSites"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">                        
             <set field="emailParams.sendTo" from-field="parameters.emailAddress"/>
             <set field="emailParams.subject" from-field="storeEmail.subject"/>
@@ -297,7 +297,7 @@ under the License.
             <field-map field-name="verifyHash" from-field="parameters.verifyHash"/>
         </entity-and>
         
-        <first-from-list list="emailAddressVerifications" entry-name="emailAddressVerification"/>
+        <first-from-list list="emailAddressVerifications" entry="emailAddressVerification"/>
         <if-not-empty field="emailAddressVerification">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <if-compare-field field="emailAddressVerification.expireDate" to-field="nowTimestamp" operator="less">

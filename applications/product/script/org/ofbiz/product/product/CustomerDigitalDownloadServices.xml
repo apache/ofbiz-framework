@@ -102,7 +102,7 @@ under the License.
                 <field-map field-name="productStoreGroupId" value="_NA_"/>
             </entity-and>
             <!-- should just be one -->
-            <first-from-list entry-name="productPrice" list-name="productPriceList"/>
+            <first-from-list entry="productPrice" list="productPriceList"/>
             <set field="productPrice.price" from-field="parameters.price"/>
             <store-value value-name="productPrice"/>
         </if-not-empty>

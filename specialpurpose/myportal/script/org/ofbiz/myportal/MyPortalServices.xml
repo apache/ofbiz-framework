@@ -32,7 +32,7 @@
                     <entity-and entity-name="PartyAndUserLogin" list-name="partyUserLogin">
                         <field-map field-name="partyId" from-field="custReq.fromPartyId"/>
                     </entity-and>
-                    <first-from-list entry-name="partyUserLogin" list-name="partyUserLogin"/>
+                    <first-from-list entry="partyUserLogin" list="partyUserLogin"/>
                     <entity-one entity-name="UserPreference" value-name="userPref">
                         <field-map field-name="userLoginId" value="${partyUserLogin.userLoginId}"/>
                         <field-map field-name="userPrefTypeId" value="sendCustRequestEmail"/>
@@ -60,7 +60,7 @@
                             <entity-and entity-name="ProductStoreEmailSetting" list-name="storeEmail">
                                 <field-map field-name="emailType" value="PRDS_CUST_CONFIRM"/>
                             </entity-and>
-                            <first-from-list entry-name="storeEmail" list-name="storeEmail"/>
+                            <first-from-list entry="storeEmail" list="storeEmail"/>
                             <set field="statusCustReq" value="COMPLETED"/>                                     
                         </then>
                     </if>
@@ -74,7 +74,7 @@
                     <entity-and entity-name="ProductStoreEmailSetting" list-name="storeEmail">
                         <field-map field-name="emailType" value="PRDS_CUST_CREATED"/>
                     </entity-and>
-                    <first-from-list entry-name="storeEmail" list-name="storeEmail"/>
+                    <first-from-list entry="storeEmail" list="storeEmail"/>
                     <set field="statusCustReq" value="ACCEPTED"/>
                 </then>
             </else-if>
@@ -99,7 +99,7 @@
                     <entity-and list="webSites" entity-name="WebSite">
                         <field-map field-name="productStoreId" from-field="storeEmail.productStoreId" />
                     </entity-and>
-                    <first-from-list entry-name="webSite" list-name="webSites" />
+                    <first-from-list entry="webSite" list="webSites" />
                     <entity-one entity-name="UserLogin" value-name="userLoginSystem">
                         <field-map field-name="userLoginId" value="system"/>
                     </entity-one>

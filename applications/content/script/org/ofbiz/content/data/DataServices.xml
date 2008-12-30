@@ -47,7 +47,7 @@ under the License.
                 <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
                 <order-by field-name="sequenceId"/>
             </entity-and>
-            <first-from-list entry-name="statusItem" list-name="contentStatus"/>
+            <first-from-list entry="statusItem" list="contentStatus"/>
             <set field="newEntity.statusId" from-field="statusItem.statusId"/>
         </if-empty>
 
@@ -687,7 +687,7 @@ under the License.
 
         <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
         <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
-        <first-from-list entry-name="extension" list-name="extensions"/>
+        <first-from-list entry="extension" list="extensions"/>
 
         <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
         <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>

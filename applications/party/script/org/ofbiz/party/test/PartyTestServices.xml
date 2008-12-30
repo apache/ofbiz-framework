@@ -286,7 +286,7 @@ under the License.
         <set field="serviceCtx.partyId" value="DemoCustomer"/>
         <find-by-and entity-name="PaymentMethodAndCreditCard" map-name="serviceCtx" list-name="paymentMethodAndCreditCards"/>
         <filter-list-by-date list-name="paymentMethodAndCreditCards"/>
-        <first-from-list list="paymentMethodAndCreditCards" entry-name="paymentMethodAndCreditCard"/>
+        <first-from-list list="paymentMethodAndCreditCards" entry="paymentMethodAndCreditCard"/>
         <!-- first try with just updating without changing the credit card information -->
         <set-service-fields service-name="updateCreditCard" map-name="paymentMethodAndCreditCard" to-map-name="serviceCtx"/>
         

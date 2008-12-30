@@ -261,7 +261,7 @@ under the License.
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
             <order-by field-name="-statusDatetime"/>
         </entity-and>
-        <first-from-list entry-name="oldInventoryItemStatus" list-name="oldInventoryItemStatusList"/>
+        <first-from-list entry="oldInventoryItemStatus" list="oldInventoryItemStatusList"/>
         <if-not-empty field="oldInventoryItemStatus">
             <set field="oldInventoryItemStatus.statusEndDatetime" from-field="nowTimestamp"/>
             <store-value value-name="oldInventoryItemStatus"/>
@@ -417,7 +417,7 @@ under the License.
                 <set field="getAssoc.productAssocTypeId" value="PRODUCT_VARIANT"/>
                 <find-by-and entity-name="ProductAssoc" map-name="getAssoc" list-name="assocs"/>
                 <filter-list-by-date list-name="assocs" to-list-name="assocsDate"/>
-                <first-from-list entry-name="assoc" list-name="assocsDate"/>
+                <first-from-list entry="assoc" list="assocsDate"/>
                 <get-related-one value-name="assoc" relation-name="MainProduct" to-value-name="virtProduct"/>
                 <if-empty field="product.salesDiscWhenNotAvail">
                     <set field="product.salesDiscWhenNotAvail" from-field="virtProduct.salesDiscWhenNotAvail"/>
@@ -786,7 +786,7 @@ under the License.
 
         <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
             <!-- if the new item is serialized, i.e. qoh is 1, we just need the first reservation -->
-            <first-from-list entry-name="inventoryReservation" list-name="allReservations"/>
+            <first-from-list entry="inventoryReservation" list="allReservations"/>
             <clear-field field-name="allReservations"/>
             <field-to-list field-name="inventoryReservation" list-name="allReservations"/>
         </if-compare>
@@ -1264,7 +1264,7 @@ under the License.
                     <set field="orderRoleAndMap.orderId" from-field="orderHeader.orderId"/>
                     <set field="orderRoleAndMap.roleTypeId" value="END_USER_CUSTOMER"/>
                     <find-by-and entity-name="OrderRole" list-name="orderRoles" map-name="orderRoleAndMap"/>
-                    <first-from-list list="orderRoles" entry-name="orderRole"/>
+                    <first-from-list list="orderRoles" entry="orderRole"/>
                     <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
                         <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
                     </entity-one>

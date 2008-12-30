@@ -613,7 +613,7 @@
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
         </entity-and>
         <if-not-empty field="emplPositionTypeRates">
-            <first-from-list entry-name="emplPositionTypeRate" list-name="emplPositionTypeRates"/>
+            <first-from-list entry="emplPositionTypeRate" list="emplPositionTypeRates"/>
             <now-timestamp-to-env env-name="emplPositionTypeRate.thruDate"/>
             <store-value value-name="emplPositionTypeRate"/>
         </if-not-empty>

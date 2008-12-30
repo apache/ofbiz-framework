@@ -254,7 +254,7 @@ under the License.
             <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
         </entity-and>
         <if-not-empty field="currentAssignments">
-            <first-from-list entry-name="firstAssignment" list-name="currentAssignments"/>
+            <first-from-list entry="firstAssignment" list="currentAssignments"/>
             <add-error>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortPartyAssignmentError"/>
             </add-error>

@@ -180,7 +180,7 @@ under the License.
                                     <field-map field-name="partyId" from-field="timeEntry.partyId"/>
                                 </entity-and>
                                 <if-not-empty field="partyRates">
-                                    <first-from-list entry-name="partyRate" list-name="partyRates"/>
+                                    <first-from-list entry="partyRate" list="partyRates"/>
                                     <if-not-empty field="partyRate.percentageUsed">
                                         <calculate field-name="timeEntry.hours" type="Double">
                                             <calcop operator="multiply" field-name="timeEntry.hours">
@@ -217,7 +217,7 @@ under the License.
                                         <set field="invoiceItemMap.description" value="${workEffort.workEffortName} [Task:${workEffort.workEffortId}]"/>
                                         <get-related value-name="workEffort" relation-name="CustRequestWorkEffort" list-name="custRequestWorkEfforts"/>
                                         <if-not-empty field="custRequestWorkEfforts">
-                                            <first-from-list entry-name="custRequestWorkEffort" list-name="custRequestWorkEfforts"/>
+                                            <first-from-list entry="custRequestWorkEffort" list="custRequestWorkEfforts"/>
                                             <get-related-one value-name="custRequestWorkEffort" relation-name="CustRequest" to-value-name="custRequest"/>
                                             <if-not-empty field="custRequest">
                                                 <set field="invoiceItemMap.description" value="${custRequest.custRequestName} [CRQ:${custRequest.custRequestId}]"/>

@@ -713,7 +713,7 @@ under the License.
             <field-map field-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
         </entity-and>
         <if-not-empty field="fixedAssetDepMethods">
-            <first-from-list list="fixedAssetDepMethods" entry-name="fixedAssetDepMethod"/>
+            <first-from-list list="fixedAssetDepMethods" entry="fixedAssetDepMethod"/>
             <get-related-one relation-name="CustomMethod" value-name="fixedAssetDepMethod" to-value-name="customMethod"/>
             <log level="info" message="Depreciation service name for the FixedAsset ${parameters.fixedAssetId} is ${customMethod.customMethodName}"/>
             

@@ -38,7 +38,7 @@
                 <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
                 <order-by field-name="sequenceId"/>
             </entity-and>
-            <first-from-list entry-name="statusItem" list-name="contentStatus"/>
+            <first-from-list entry="statusItem" list="contentStatus"/>
             <set field="content.statusId" from-field="statusItem.statusId"/>
         </if-empty>
 
@@ -1209,7 +1209,7 @@
 	          </condition-list>
 	        </entity-condition>
 	        <clear-field field-name="view2"/>
-	        <first-from-list entry-name="view2" list-name="viewList"/>
+	        <first-from-list entry="view2" list="viewList"/>
 	        <clear-field field-name="map"/>
 	        <set field="map.contentIdFrom" from-field="view.contentId"/>
 	        <set field="map.dataResourceIdFrom" from-field="view.dataResourceId"/>

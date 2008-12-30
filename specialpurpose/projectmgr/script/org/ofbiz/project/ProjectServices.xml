@@ -67,7 +67,7 @@
         </entity-and>
         <!-- end current record if required -->
         <if-not-empty field="workEffortPartyAssignments">
-            <first-from-list entry-name="workEffortPartyAssignment" list-name="workEffortPartyAssignments"/>
+            <first-from-list entry="workEffortPartyAssignment" list="workEffortPartyAssignments"/>
             <if-compare-field field="updProjectRole.newPartyId" operator="not-equals" to-field="workEffortPartyAssignment.partyId">
                 <now-timestamp-to-env env-name="workEffortPartyAssignment.thruDate"/>
                 <store-value value-name="workEffortPartyAssignment"/>
@@ -254,7 +254,7 @@
                 <clear-field field-name="task.estimatedCompletionDate"/>
             </iterate>
             
-            <first-from-list entry-name="task" list-name="tasks"/>
+            <first-from-list entry="task" list="tasks"/>
             <set field="startDate" from-field="task.actualStartDate"/>
             <set field="taskId" from-field="task.workEffortId"/>
             <else>
@@ -394,7 +394,7 @@
                 <field-map field-name="workEffortId" from-field="projectId"/>
                 <field-map field-name="partyId" from-field="timesheet.partyId"/>
             </entity-and>
-            <first-from-list entry-name="projectAssign" list-name="projectAssigns"/>
+            <first-from-list entry="projectAssign" list="projectAssigns"/>
             <set field="parameters.partyId" from-field="timesheet.partyId"/>
             <set field="parameters.roleTypeId" from-field="projectAssign.roleTypeId"/>
             <set field="parameters.statusId" value="PAS_ASSIGNED"/>
@@ -461,7 +461,7 @@
                 <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 <field-map field-name="partyId" from-field="timesheet.partyId"/>
             </entity-and>
-            <first-from-list entry-name="alreadyAssign" list-name="assigns"/>
+            <first-from-list entry="alreadyAssign" list="assigns"/>
             <if-compare field="alreadyAssign.statusId" value="PAS_COMPLETED" operator="not-equals">
                 <set field="upStat.partyId" from-field="timesheet.partyId"/>
                 <set field="upStat.statusId" value="PAS_COMPLETED"/>
@@ -633,7 +633,7 @@
             <field-map field-name="sequenceId" from-field="highInfo.sequenceId"/>
             <field-map field-name="statusTypeId" value="PROJECT_TASK_STATUS"/>
         </entity-and>
-        <first-from-list entry-name="status" list-name="statusses"/>
+        <first-from-list entry="status" list="statusses"/>
         <set field="highInfo.currentStatusId" from-field="status.statusId"/>
         
         <!-- make sure these statusvalues do not influence the total status if there are other active ones -->
@@ -710,7 +710,7 @@
                 <field-map field-name="sequenceId" from-field="highInfo.sequenceId"/>
                 <field-map field-name="statusTypeId" value="PROJECT_TASK_STATUS"/>
             </entity-and>
-            <first-from-list entry-name="status" list-name="statusses"/>
+            <first-from-list entry="status" list="statusses"/>
             <clear-field field-name="highInfo.sequenceId"/>
             <set field="highInfo.currentStatusId" from-field="status.statusId"/>
             
@@ -1050,7 +1050,7 @@
                         </condition-list>
                     </entity-condition>
                     <if-not-empty field="partyRates">
-                        <first-from-list entry-name="partyRate" list-name="partyRates"/>
+                        <first-from-list entry="partyRate" list="partyRates"/>
                         <if-not-empty field="partyRate.percentageUsed">
                             <calculate field-name="actual.hours">
                                 <calcop operator="multiply" field-name="actual.hours">
@@ -1196,7 +1196,7 @@
                 </entity-condition>
                 <if-not-empty field="timesheets">
                     <!-- use existing timesheet -->
-                    <first-from-list entry-name="timesheet" list-name="timesheets"/>
+                    <first-from-list entry="timesheet" list="timesheets"/>
                     <if-compare field="timesheet.statusId" value="TIMESHEET_IN_PROCESS" operator="equals">
                         <set field="parameters.timesheetId" from-field="timesheet.timesheetId"/>
                         <else>
@@ -1220,7 +1220,7 @@
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
         </entity-and>
-        <first-from-list entry-name="taskRole" list-name="taskRoles"/>
+        <first-from-list entry="taskRole" list="taskRoles"/>
         <set field="parameters.roleTypeId" from-field="taskRole.roleTypeId"/>
         <set field="parameters.statusId" value="PAS_ASSIGNED"/>
         <call-simple-method method-name="assignPartyToWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>

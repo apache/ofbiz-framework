@@ -310,7 +310,7 @@ under the License.
             <field-map field-name="serialNumber" from-field="parameters.serialNumber"/>
         </entity-and>
         <clear-field field-name="inventoryItem"/>
-        <first-from-list list="inventoryItems" entry-name="inventoryItem"/>
+        <first-from-list list="inventoryItems" entry="inventoryItem"/>
         <!-- If no inventory item found for the serial number, than create it -->
         <if-empty field="inventoryItem">
             <set field="receiveCtx.productId" from-field="parameters.productId"/>
@@ -327,7 +327,7 @@ under the License.
         <!--Step 2 Check if its reserved for other order -->
         <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
         <find-by-and map-name="inventoryReservationLookUp" list-name="invReservations" entity-name="OrderItemShipGrpInvRes"/>
-        <first-from-list entry-name="inventoryItemReservation" list-name="invReservations"/>
+        <first-from-list entry="inventoryItemReservation" list="invReservations"/>
         <if-not-empty field="inventoryItemReservation"> 
             <set-service-fields map-name="inventoryItemReservation" to-map-name="cancelOrderItemShipGrpInvResMap" service-name="cancelOrderItemShipGrpInvRes"/>
             <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>

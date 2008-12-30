@@ -61,7 +61,7 @@ under the License.
         <set-pk-fields value-name="facilityContactMechMap" map-name="parameters"/>
         <find-by-and entity-name="FacilityContactMech" list-name="facilityContactMechs" map-name="facilityContactMechMap"/>
         <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
-        <first-from-list entry-name="facilityContactMech" list-name="validFacilityContactMechs"/>
+        <first-from-list entry="facilityContactMech" list="validFacilityContactMechs"/>
         <if-empty field="facilityContactMech">
             <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified facility"/></add-error>
         </if-empty>
@@ -129,7 +129,7 @@ under the License.
         <find-by-and entity-name="FacilityContactMech" list-name="facilityContactMechs" map-name="facilityContactMechMap"/>
         <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
 
-        <first-from-list entry-name="facilityContactMech" list-name="validFacilityContactMechs"/>
+        <first-from-list entry="facilityContactMech" list="validFacilityContactMechs"/>
         <if-empty field="facilityContactMech">
             <add-error>
                 <fail-property resource="PartyUiLabels" property="PartyContactMechNotFoundCannotDelete"/>

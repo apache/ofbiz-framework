@@ -154,19 +154,19 @@
             <entity-and list="custRequests" entity-name="WorkEffortCustRequestView">
                 <field-map field-name="workEffortId" from-field="taskId"/>
             </entity-and>
-            <first-from-list list="custRequests" entry-name="custRequest"/>
+            <first-from-list list="custRequests" entry="custRequest"/>
             <entity-and entity-name="PartyRelationship" list-name="accounts">
                 <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                 <field-map field-name="roleTypeIdTo" value="CONTACT"/>
                 <field-map field-name="partyIdTo" from-field="custRequest.fromPartyId"/>
             </entity-and>
-            <first-from-list list="accounts" entry-name="accountCustReq"/> 
+            <first-from-list list="accounts" entry="accountCustReq"/> 
             <entity-and entity-name="PartyRelationship" list-name="accounts">
                 <field-map field-name="roleTypeIdFrom" value="ACCOUNT"/>
                 <field-map field-name="roleTypeIdTo" value="CONTACT"/>
                 <field-map field-name="partyIdTo" from-field="parameters.userLogin.partyId"/>
             </entity-and>
-            <first-from-list list="accounts" entry-name="accountLogin"/> 
+            <first-from-list list="accounts" entry="accountLogin"/> 
             <if>
                 <condition>
                     <or>

@@ -79,7 +79,7 @@ under the License.
         <set-pk-fields value-name="partyContactMechMap" map-name="parameters"/>
         <find-by-and entity-name="PartyContactMech" list-name="partyContactMechs" map-name="partyContactMechMap"/>
         <filter-list-by-date list-name="partyContactMechs" to-list-name="validPartyContactMechs"/>
-        <first-from-list entry-name="partyContactMech" list-name="validPartyContactMechs"/>
+        <first-from-list entry="partyContactMech" list="validPartyContactMechs"/>
         <if-empty field="partyContactMech">
             <add-error><fail-property resource="PartyUiLabels" property="PartyCannotUpdateContactBecauseNotWithSpecifiedParty"/></add-error>
         </if-empty>
@@ -142,7 +142,7 @@ under the License.
         <set-pk-fields value-name="partyContactMechMap" map-name="parameters"/>
         <find-by-and entity-name="PartyContactMech" list-name="partyContactMechs" map-name="partyContactMechMap"/>
         <filter-list-by-date list-name="partyContactMechs" to-list-name="validPartyContactMechs"/>
-        <first-from-list entry-name="partyContactMech" list-name="validPartyContactMechs"/>
+        <first-from-list entry="partyContactMech" list="validPartyContactMechs"/>
         <if-empty field="partyContactMech">
             <add-error>
                 <fail-property resource="PartyUiLabels" property="PartyContactMechNotFoundCannotDelete"/>
@@ -341,7 +341,7 @@ under the License.
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
                     <if-not-empty field="pcmpList">
-                        <first-from-list entry-name="pcmp" list-name="pcmpList"/>
+                        <first-from-list entry="pcmp" list="pcmpList"/>
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field-name="serviceInMap"/>
@@ -360,7 +360,7 @@ under the License.
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
                     <if-not-empty field="pcmpList">
-                        <first-from-list entry-name="pcmp" list-name="pcmpList"/>
+                        <first-from-list entry="pcmp" list="pcmpList"/>
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                     </if-not-empty>
@@ -446,7 +446,7 @@ under the License.
                             <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         </entity-and>
                         <if-not-empty field="pcmpList">
-                            <first-from-list list="pcmpList" entry-name="pcmp"/>
+                            <first-from-list list="pcmpList" entry="pcmp"/>
                             <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                             <clear-field field-name="serviceInMap"/>
@@ -478,7 +478,7 @@ under the License.
                             <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                         </entity-and>
                         <if-not-empty field="pcmpList">
-                            <first-from-list list="pcmpList" entry-name="pcmp"/>
+                            <first-from-list list="pcmpList" entry="pcmp"/>
                             <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         </if-not-empty>
