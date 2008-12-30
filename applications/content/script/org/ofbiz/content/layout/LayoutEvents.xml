@@ -73,13 +73,13 @@ under the License.
         </if-compare>
         <check-errors/>
         <set field="content.contentId" from-field="parameters.contentId"/>
-        <find-by-primary-key entity-name="Content" value-field="content" map-name="content"/>
+        <find-by-primary-key entity-name="Content" value-field="content" map="content"/>
         <set-nonpk-fields map-name="parameters" value-name="content"/>
         <log level="always" message="content: ${content}"/>
         <store-value value-name="content"/>
         <field-to-request map-name="content" field-name="contentId" request-name="contentId"/>
         <set field="dataResource.dataResourceId" from-field="parameters.dataResourceId"/>
-        <find-by-primary-key entity-name="DataResource" value-field="dataResource" map-name="dataResource"/>
+        <find-by-primary-key entity-name="DataResource" value-field="dataResource" map="dataResource"/>
         <set-nonpk-fields map-name="parameters" value-name="dataResource"/>
         <set field="dataResource.objectInfo" from-field="parameters.drObjectInfo"/>
         <log level="always" message="dataResource: ${dataResource}"/>

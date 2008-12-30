@@ -314,7 +314,7 @@ under the License.
         <make-value value-field="lookUpMap" entity-name="FacilityContactMechPurpose"/>
 
         <set-pk-fields map-name="parameters" value-name="lookUpMap"/>
-        <find-by-primary-key value-field="purposeEntity" entity-name="FacilityContactMechPurpose" map-name="lookUpMap"/>
+        <find-by-primary-key value-field="purposeEntity" entity-name="FacilityContactMechPurpose" map="lookUpMap"/>
 
         <if-empty field="purposeEntity">
             <add-error><fail-message message="Unable to locate purpose; cannot delete"/></add-error>

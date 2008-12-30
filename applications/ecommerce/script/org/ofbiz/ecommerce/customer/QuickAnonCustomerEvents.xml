@@ -63,7 +63,7 @@ under the License.
             </call-map-processor>
             <if-not-empty field="userLoginContext.userLoginId">
                 <set field=" userLoginExistsMap.userLoginId"  from-field="userLoginContext.userLoginId" />
-                <find-by-primary-key entity-name="UserLogin" map-name="userLoginExistsMap" value-field="existingUserLogin"/>
+                <find-by-primary-key entity-name="UserLogin" map="userLoginExistsMap" value-field="existingUserLogin"/>
                 <if-not-empty field="existingUserLogin">
                     <set field="tempErrorMessage" value="Username in use, please choose another." />
                     <field-to-list field-name="tempErrorMessage" list-name="error_list"/>
@@ -303,7 +303,7 @@ under the License.
                 <if-empty field="newUserLogin">
                     <!-- the rest of the methods require a userLogin object; so if we are anonymous lets fake it -->
                     <set field="ulLookup.userLoginId" value="anonymous"/>
-                    <find-by-primary-key entity-name="UserLogin" map-name="ulLookup" value-field="userLogin"/>
+                    <find-by-primary-key entity-name="UserLogin" map="ulLookup" value-field="userLogin"/>
                     <set field="userLogin.partyId" from-field="partyId"/>
                     <set-current-user-login value-name="userLogin"/>
                 <else>
@@ -520,7 +520,7 @@ under the License.
             <set from-field="partyId" field="partyId" />
             <if-not-empty field="partyId">
                 <set field="lookupKeyValue.userLoginId" value="anonymous"/>
-                <find-by-primary-key map-name="lookupKeyValue" entity-name="UserLogin" value-field="userLogin"/>
+                <find-by-primary-key map="lookupKeyValue" entity-name="UserLogin" value-field="userLogin"/>
                 <if-not-empty field="userLogin">
                     <set field="userLogin.partyId" from-field="partyId"/>
                     <field-to-session field-name="userLogin" session-name="userLogin" />

@@ -30,14 +30,14 @@ under the License.
     <simple-method method-name="updateDataSourceType" short-description="Update an DataSourceType">
         <make-value entity-name="DataSourceType" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="DataSourceType" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="DataSourceType" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteDataSourceType" short-description="Delete an DataSourceType">
         <make-value entity-name="DataSourceType" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="DataSourceType" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="DataSourceType" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 </simple-methods>

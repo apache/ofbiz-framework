@@ -349,7 +349,7 @@ under the License.
         <set from-field="parameters.productInstance" field="productInstance"/>
         <if-empty field="productInstance">
             <set from-field="parameters.productId" field="findProductMap.productId"/>
-            <find-by-primary-key entity-name="Product" map-name="findProductMap" value-field="productInstance"/>
+            <find-by-primary-key entity-name="Product" map="findProductMap" value-field="productInstance"/>
         </if-empty>
 
         <!-- induce keywords if autoCreateKeywords is emtpy or Y-->
@@ -473,7 +473,7 @@ under the License.
 
         <make-value entity-name="GoodIdentification" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -485,7 +485,7 @@ under the License.
 
         <make-value entity-name="GoodIdentification" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -509,7 +509,7 @@ under the License.
 
         <make-value entity-name="ProductGlAccount" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductGlAccount" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductGlAccount" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -521,7 +521,7 @@ under the License.
 
         <make-value entity-name="ProductGlAccount" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductGlAccount" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductGlAccount" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -567,7 +567,7 @@ under the License.
         
         <make-value value-field="lookupPKMap" entity-name="ProductReview"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
 
@@ -607,7 +607,7 @@ under the License.
         <check-errors/>
 
         <set from-field="parameters.virtualProductId" field="productFindContext.productId"/>
-        <find-by-primary-key entity-name="Product" map-name="productFindContext" value-field="oldProduct"/>
+        <find-by-primary-key entity-name="Product" map="productFindContext" value-field="oldProduct"/>
         
         <set from-field="parameters.virtualProductId" field="variantsFindContext.productId"/>
         <set value="PRODUCT_VARIANT" field="variantsFindContext.productAssocTypeId"/>
@@ -738,7 +738,7 @@ under the License.
         
         <make-value value-field="lookupPKMap" entity-name="ProductAssoc"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductAssoc" map-name="lookupPKMap" value-field="productAssocInstance"/>
+        <find-by-primary-key entity-name="ProductAssoc" map="lookupPKMap" value-field="productAssocInstance"/>
         <set-nonpk-fields map-name="parameters" value-name="productAssocInstance"/>
         <store-value value-name="productAssocInstance"/>
     </simple-method>
@@ -750,7 +750,7 @@ under the License.
         
         <make-value value-field="lookupPKMap" entity-name="ProductAssoc"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductAssoc" map-name="lookupPKMap" value-field="productAssocInstance"/>
+        <find-by-primary-key entity-name="ProductAssoc" map="lookupPKMap" value-field="productAssocInstance"/>
         <remove-value value-name="productAssocInstance"/>
     </simple-method>
 
@@ -949,7 +949,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ProductRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -961,7 +961,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="ProductRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     

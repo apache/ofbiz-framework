@@ -240,7 +240,7 @@ under the License.
         <check-errors/>
         <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
-        <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-field="partyRole"/>
+        <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="partyRole"/>
         <if-empty field="partyRole.partyId">
             <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>
@@ -867,7 +867,7 @@ under the License.
     <simple-method method-name="createQuoteWorkEffort" short-description="Create a QuoteWorkEffort">
         <make-value entity-name="QuoteWorkEffort" value-field="lookupMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
-        <find-by-primary-key entity-name="QuoteWorkEffort" map-name="lookupMap" value-field="quoteWorkEffort"/>
+        <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="quoteWorkEffort"/>
         <if-not-empty field="quoteWorkEffort.quoteId">
             <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
@@ -882,7 +882,7 @@ under the License.
     <simple-method method-name="deleteQuoteWorkEffort" short-description="Delete a QuoteWorkEffort">
         <make-value entity-name="QuoteWorkEffort" value-field="lookupMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
-        <find-by-primary-key entity-name="QuoteWorkEffort" map-name="lookupMap" value-field="quoteWorkEffort"/>
+        <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="quoteWorkEffort"/>
         <if-empty field="quoteWorkEffort.quoteId">
             <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] does not exist."/></add-error>
             <check-errors/>

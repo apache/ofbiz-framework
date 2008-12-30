@@ -725,7 +725,7 @@ under the License.
         <check-errors/>
         <make-value value-field="lookupPKMap" entity-name="OrderItemShipGroup"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="OrderItemShipGroup" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="OrderItemShipGroup" map="lookupPKMap" value-field="lookedUpValue"/>
         <!-- splitting shipmentMethod request parameter value that contains "@" symbol 
              into "shipmentMethodTypeId" and "carrierPartyId".          
         -->
@@ -915,7 +915,7 @@ under the License.
             <if-compare field="keepAddressBook" operator="equals" value="Y">
                 <make-value entity-name="PostalAddress" value-field="newValue"/>
                 <set-pk-fields value-name="newValue" map-name="shipToAddressCtx"/>
-                <find-by-primary-key entity-name="PostalAddress" map-name="newValue" value-field="oldValue"/>
+                <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue"/>
                 <set-nonpk-fields map-name="shipToAddressCtx" value-name="newValue"/>
                 <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
                     <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
@@ -961,7 +961,7 @@ under the License.
                 <if-compare-field field="shipToAddressCtx.shipToContactMechId" operator="equals" to-field="parameters.billToContactMechId">
                     <make-value entity-name="PostalAddress" value-field="newValue"/>
                     <set-pk-fields value-name="newValue" map-name="shipToAddressCtx"/>
-                    <find-by-primary-key entity-name="PostalAddress" map-name="newValue" value-field="oldValue"/>
+                    <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue"/>
                     <set-nonpk-fields map-name="shipToAddressCtx" value-name="newValue"/>
                     <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
                         <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">

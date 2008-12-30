@@ -164,7 +164,7 @@ under the License.
 
                         <!-- recurse through all parents -->
                         <set field="workEffortLookUpMap.workEffortId" from-field="workEffortId"/>
-                        <find-by-primary-key entity-name="WorkEffort" map-name="workEffortLookUpMap" value-field="workEffortParent"/>
+                        <find-by-primary-key entity-name="WorkEffort" map="workEffortLookUpMap" value-field="workEffortParent"/>
                         <set from-field="workEffortParent.workEffortParentId" field="workEffortId"/>
                         <if-empty field="workEffortParent.workEffortParentId">
                             <clear-field field-name="workEffortId"/>
@@ -205,7 +205,7 @@ under the License.
 
                         <!-- recurse through all parents -->
                         <set field="workEffortLookUpMap.workEffortId" from-field="workEffortId"/>
-                        <find-by-primary-key entity-name="WorkEffort" map-name="workEffortLookUpMap" value-field="workEffortParent"/>
+                        <find-by-primary-key entity-name="WorkEffort" map="workEffortLookUpMap" value-field="workEffortParent"/>
                         <set from-field="workEffortParent.workEffortParentId" field="workEffortId"/>
                         <if-empty field="workEffortParent.workEffortParentId">
                             <clear-field field-name="workEffortId"/>
@@ -292,7 +292,7 @@ under the License.
                     <field-to-result field-name="failMessage"/>
                     <!-- recurse through all parents -->
                     <set field="workEffortLookUpMap.workEffortId" from-field="workEffortId"/>
-                    <find-by-primary-key entity-name="WorkEffort" map-name="workEffortLookUpMap" value-field="workEffortParent"/>
+                    <find-by-primary-key entity-name="WorkEffort" map="workEffortLookUpMap" value-field="workEffortParent"/>
                     <set from-field="workEffortParent.workEffortParentId" field="workEffortId"/>
                     <if-empty field="workEffortParent.workEffortParentId">
                         <clear-field field-name="workEffortId"/>

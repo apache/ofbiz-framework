@@ -193,7 +193,7 @@ under the License.
         <!-- find the invoice record -->
         <make-value value-field="lookupPKMap" entity-name="Invoice"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="Invoice" map-name="lookupPKMap" value-field="invoiceValue"/>
+        <find-by-primary-key entity-name="Invoice" map="lookupPKMap" value-field="invoiceValue"/>
         <field-to-result field-name="invoiceValue" result-name="invoice"/>
         <!-- and the items -->
         <get-related value-name="invoiceValue" relation-name="InvoiceItem" list-name="invoiceItemValues"/>
@@ -205,7 +205,7 @@ under the License.
         <!-- find the current record -->
         <make-value value-field="lookupPKMap" entity-name="Invoice"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="Invoice" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="Invoice" map="lookupPKMap" value-field="lookedUpValue"/>
 
         <!-- only try to update content if the status is in process.... -->
         <if-compare field="lookedUpValue.statusId" operator="equals" value="INVOICE_IN_PROCESS">
@@ -285,7 +285,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="InvoiceItem"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
 
-        <find-by-primary-key entity-name="InvoiceItem" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="InvoiceItem" map="lookupPKMap" value-field="lookedUpValue"/>
         <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
 
         <!-- set all parameters -->

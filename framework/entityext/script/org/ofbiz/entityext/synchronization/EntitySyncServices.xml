@@ -38,7 +38,7 @@ under the License.
         <check-errors/>
 
         <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>
-        <find-by-primary-key entity-name="EntitySync" map-name="lookupPKMap" value-field="valueToStore"/>
+        <find-by-primary-key entity-name="EntitySync" map="lookupPKMap" value-field="valueToStore"/>
         <set-nonpk-fields map-name="parameters" value-name="valueToStore"/>
         <store-value value-name="valueToStore"/>
     </simple-method>
@@ -48,7 +48,7 @@ under the License.
 
         <!-- TODO: add some code to make sure, as much as possible, that this really isn't running -->
         <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>        
-        <find-by-primary-key entity-name="EntitySync" map-name="lookupPKMap" value-field="valueToStore"/>
+        <find-by-primary-key entity-name="EntitySync" map="lookupPKMap" value-field="valueToStore"/>
         <if-compare field="valueToStore.runStatusId" operator="equals" value="ESR_RUNNING">
             <set field="valueToStore.runStatusId" value="ESR_NOT_STARTED"/>
             <store-value value-name="valueToStore"/>
@@ -78,7 +78,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -88,7 +88,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -108,7 +108,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -118,7 +118,7 @@ under the License.
 
         <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 </simple-methods>

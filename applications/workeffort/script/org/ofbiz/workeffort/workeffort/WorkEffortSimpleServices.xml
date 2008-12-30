@@ -200,7 +200,7 @@ under the License.
     <simple-method method-name="makeCommunicationEventWorkEffort" short-description="Make a Communication Event WorkEffort">
         <make-value entity-name="CommunicationEventWorkEff" value-field="lookupMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
-        <find-by-primary-key entity-name="CommunicationEventWorkEff" map-name="lookupMap" value-field="eventWe"/>
+        <find-by-primary-key entity-name="CommunicationEventWorkEff" map="lookupMap" value-field="eventWe"/>
         <if-not-empty field="eventWe.workEffortId">
             <set-nonpk-fields map-name="parameters" value-name="eventWe"/>
             <set field="eventWe.description" from-field="parameters.relationDescription"/>
@@ -221,7 +221,7 @@ under the License.
         <!-- Find old value -->
         <make-value entity-name="CommunicationEventWorkEff" value-field="communicationEventWorkEff"/>
         <set-pk-fields value-name="communicationEventWorkEff" map-name="parameters"/>
-        <find-by-primary-key entity-name="CommunicationEventWorkEff" map-name="communicationEventWorkEff" value-field="communicationEventWorkEff"/>
+        <find-by-primary-key entity-name="CommunicationEventWorkEff" map="communicationEventWorkEff" value-field="communicationEventWorkEff"/>
         <if-empty field="communicationEventWorkEff">
             <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified work effort"/></add-error>
         </if-empty>
@@ -236,7 +236,7 @@ under the License.
         <!-- Find old value -->
         <make-value entity-name="CommunicationEventWorkEff" value-field="communicationEventWorkEff"/>
         <set-pk-fields value-name="communicationEventWorkEff" map-name="parameters"/>
-        <find-by-primary-key entity-name="CommunicationEventWorkEff" map-name="communicationEventWorkEff" value-field="communicationEventWorkEff"/>
+        <find-by-primary-key entity-name="CommunicationEventWorkEff" map="communicationEventWorkEff" value-field="communicationEventWorkEff"/>
         <if-empty field="communicationEventWorkEff">
             <add-error><fail-message message="ERROR: Cannot delete specified contact info because it does not correspond to the specified work effort"/></add-error>
         </if-empty>
@@ -693,7 +693,7 @@ under the License.
     <simple-method method-name="createWorkEffortRequest" short-description="Create a CustRequestWorkEffort">
         <make-value entity-name="CustRequestWorkEffort" value-field="lookupMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
-        <find-by-primary-key entity-name="CustRequestWorkEffort" map-name="lookupMap" value-field="custRequestWorkEffort"/>
+        <find-by-primary-key entity-name="CustRequestWorkEffort" map="lookupMap" value-field="custRequestWorkEffort"/>
         <if-not-empty field="custRequestWorkEffort">
             <add-error><fail-message message="ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
@@ -715,7 +715,7 @@ under the License.
     <simple-method method-name="createWorkEffortRequestItem" short-description="Create a CustRequestItemWorkEffort">
         <make-value entity-name="CustRequestItemWorkEffort" value-field="lookupMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
-        <find-by-primary-key entity-name="QuoteWorkEffort" map-name="lookupMap" value-field="custRequestItemWorkEffort"/>
+        <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="custRequestItemWorkEffort"/>
         <if-not-empty field="custRequestItemWorkEffort">
             <add-error><fail-message message="ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
@@ -734,7 +734,7 @@ under the License.
     <simple-method method-name="checkCustRequestItemExists" short-description="Checks to see if a CustRequestItem exists">
         <make-value entity-name="CustRequestItem" value-field="lookupMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
-        <find-by-primary-key entity-name="CustRequestItem" map-name="lookupMap" value-field="custRequestItem"/>
+        <find-by-primary-key entity-name="CustRequestItem" map="lookupMap" value-field="custRequestItem"/>
         <if-not-empty field="custRequestItem">
             <set field="custRequestItemExists" value="true"/>
             <field-to-result field-name="custRequestItemExists"/>
@@ -749,7 +749,7 @@ under the License.
     <simple-method method-name="createWorkEffortQuote" short-description="Create a QuoteWorkEffort">
         <make-value entity-name="QuoteWorkEffort" value-field="lookupMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
-        <find-by-primary-key entity-name="QuoteWorkEffort" map-name="lookupMap" value-field="quoteWorkEffort"/>
+        <find-by-primary-key entity-name="QuoteWorkEffort" map="lookupMap" value-field="quoteWorkEffort"/>
         <if-not-empty field="quoteWorkEffort">
             <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
@@ -771,7 +771,7 @@ under the License.
     <simple-method method-name="createWorkRequirementFulfillment" short-description="Create a WorkRequirementFulfillment">
         <make-value entity-name="WorkRequirementFulfillment" value-field="lookupMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
-        <find-by-primary-key entity-name="WorkRequirementFulfillment" map-name="lookupMap" value-field="workRequirementFulfillment"/>
+        <find-by-primary-key entity-name="WorkRequirementFulfillment" map="lookupMap" value-field="workRequirementFulfillment"/>
         <if-not-empty field="workRequirementFulfillment">
             <add-error><fail-message message="ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
@@ -793,7 +793,7 @@ under the License.
     <simple-method method-name="createShoppingListWorkEffort" short-description="Create a ShoppingListWorkEffort">
         <make-value entity-name="ShoppingListWorkEffort" value-field="lookupMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
-        <find-by-primary-key entity-name="ShoppingListWorkEffort" map-name="lookupMap" value-field="shoppingListWorkEffort"/>
+        <find-by-primary-key entity-name="ShoppingListWorkEffort" map="lookupMap" value-field="shoppingListWorkEffort"/>
         <if-not-empty field="shoppingListWorkEffort">
             <add-error><fail-message message="ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
@@ -815,7 +815,7 @@ under the License.
     <simple-method method-name="createOrderHeaderWorkEffort" short-description="Create a OrderHeaderWorkEffort">
         <make-value entity-name="OrderHeaderWorkEffort" value-field="lookupMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupMap"/>
-        <find-by-primary-key entity-name="OrderHeaderWorkEffort" map-name="lookupMap" value-field="orderWorkEffort"/>
+        <find-by-primary-key entity-name="OrderHeaderWorkEffort" map="lookupMap" value-field="orderWorkEffort"/>
         <if-not-empty field="orderWorkEffort">
             <add-error><fail-message message="ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
@@ -1033,7 +1033,7 @@ under the License.
         <set from-field="parameters.workEffort" field="workEffort"/>
         <if-empty field="workEffort">
             <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
-            <find-by-primary-key entity-name="WorkEffort" map-name="findWorkEffortMap" value-field="workEffort"/>
+            <find-by-primary-key entity-name="WorkEffort" map="findWorkEffortMap" value-field="workEffort"/>
         </if-empty>
         <check-errors />
         <!-- index keywords -->
@@ -1083,7 +1083,7 @@ under the License.
         </check-permission>
         <check-errors />
         <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
-        <find-by-primary-key entity-name="WorkEffort" map-name="findWorkEffortMap" value-field="workEffortInstance"/>
+        <find-by-primary-key entity-name="WorkEffort" map="findWorkEffortMap" value-field="workEffortInstance"/>
         <call-class-method class-name="org.ofbiz.workeffort.workeffort.WorkEffortKeywordIndex" method-name="indexKeywords">
             <field field-name="workEffortInstance" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
@@ -1096,7 +1096,7 @@ under the License.
         </check-permission>
         <check-errors />
         <set from-field="parameters.workEffortId" field="findWorkEffortMap.workEffortId"/>
-        <find-by-primary-key entity-name="WorkEffort" map-name="findWorkEffortMap" value-field="workEffortInstance"/>
+        <find-by-primary-key entity-name="WorkEffort" map="findWorkEffortMap" value-field="workEffortInstance"/>
         <if-not-empty field="workEffortInstance.workEffortId">            
         <remove-related relation-name="WorkEffortKeyword" value-name="workEffortInstance"></remove-related>            
         </if-not-empty>

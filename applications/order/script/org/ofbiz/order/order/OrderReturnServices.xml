@@ -80,7 +80,7 @@ under the License.
         <!-- If PartyAcctgPreference.useInvoiceIdForReturns is Y, get the ID from the getNextInvoiceId service -->
         <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="parameters.toPartyId"/>
         <set field="systemMap.userLoginId" value="system"/>
-        <find-by-primary-key  entity-name="UserLogin" map-name="systemMap" value-field="systemLogin"/>
+        <find-by-primary-key  entity-name="UserLogin" map="systemMap" value-field="systemLogin"/>
         <set field="partyAccountingPreferencesCallMap.userLogin" from-field="systemLogin"/> 
         <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
              <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
@@ -252,7 +252,7 @@ under the License.
 
     <simple-method method-name="createReturnItem" short-description="Create Return Item">
         <set field="lookupPKMap.returnId" from-field="parameters.returnId"/>
-        <find-by-primary-key entity-name="ReturnHeader" map-name="lookupPKMap" value-field="returnHeader"/>
+        <find-by-primary-key entity-name="ReturnHeader" map="lookupPKMap" value-field="returnHeader"/>
 
         <if>
           <condition>
@@ -309,7 +309,7 @@ under the License.
             <make-value value-field="itemLookup" entity-name="OrderItem"/>
             <set-pk-fields map-name="parameters" value-name="itemLookup"/>
             <if-not-empty field="parameters.orderItemSeqId">
-                <find-by-primary-key entity-name="OrderItem" value-field="orderItem" map-name="itemLookup"/>
+                <find-by-primary-key entity-name="OrderItem" value-field="orderItem" map="itemLookup"/>
                 <log level="info" message="Return item is an OrderItem - ${orderItem.orderItemSeqId}"/>
             </if-not-empty>
         </if-not-empty>
@@ -433,7 +433,7 @@ under the License.
 
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
         <set from-field="parameters.returnItemSeqId" field="lookupPKMap.returnItemSeqId"/>
-        <find-by-primary-key entity-name="ReturnItem" map-name="lookupPKMap" value-field="returnItem"/>
+        <find-by-primary-key entity-name="ReturnItem" map="lookupPKMap" value-field="returnItem"/>
         <set field="originalReturnPrice" from-field="returnItem.returnPrice"/>
         <set field="originalReturnQuantity" from-field="returnItem.returnQuantity"/>
         <field-to-result field-name="returnItem.statusId" result-name="currentStatusId"/>
@@ -487,7 +487,7 @@ under the License.
         
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
         <set from-field="parameters.returnItemSeqId" field="lookupPKMap.returnItemSeqId"/>
-        <find-by-primary-key entity-name="ReturnItem" map-name="lookupPKMap" value-field="returnItem"/>
+        <find-by-primary-key entity-name="ReturnItem" map="lookupPKMap" value-field="returnItem"/>
         <!--remove related  adjustments-->
         <entity-and entity-name="ReturnAdjustment" list-name="returnAdjustments">
             <field-map field-name="returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
@@ -524,7 +524,7 @@ under the License.
         <check-errors/>
 
         <set from-field="parameters.returnAdjustmentId" field="lookupPKMap.returnAdjustmentId"/>
-        <find-by-primary-key entity-name="ReturnAdjustment" map-name="lookupPKMap" value-field="returnAdjustment"/>
+        <find-by-primary-key entity-name="ReturnAdjustment" map="lookupPKMap" value-field="returnAdjustment"/>
         <if-not-empty field="returnAdjustment">
             <remove-value value-name="returnAdjustment"/>
         </if-not-empty>
@@ -535,7 +535,7 @@ under the License.
         <check-errors/>
 
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
-        <find-by-primary-key entity-name="ReturnHeader" map-name="lookupPKMap" value-field="returnHeader"/>
+        <find-by-primary-key entity-name="ReturnHeader" map="lookupPKMap" value-field="returnHeader"/>
         <find-by-and entity-name="ShipmentReceipt" map-name="lookupPKMap" list-name="shipmentReceipts"/>
         <iterate list="shipmentReceipts" entry="receipt">
             <if-empty field="totalsMap.${receipt.returnItemSeqId}">

@@ -344,7 +344,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ContentRevision" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentRevision" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentRevision" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -355,7 +355,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ContentRevision" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentRevision" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentRevision" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <!-- Methods for ContentRevisionItem -->
@@ -376,7 +376,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ContentRevisionItem" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentRevisionItem" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentRevisionItem" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -387,7 +387,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ContentRevisionItem" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentRevisionItem" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentRevisionItem" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <!-- Methods for ContentRevision and ContentRevisionItem -->
@@ -508,7 +508,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ContentApproval" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentApproval" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentApproval" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -519,7 +519,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ContentApproval" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key entity-name="ContentApproval" map-name="lookupKeyValue" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="ContentApproval" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -766,7 +766,7 @@ under the License.
     <simple-method method-name="hasApprovalPermission" short-description="Determine ContentApproval permission from passed value">
         <make-value entity-name="ContentApproval" value-field="contentApprovalPK"/>
         <set field="contentApprovalPK.contentApprovalId" from-field="parameters.contentApprovalId"/>
-        <find-by-primary-key entity-name="ContentApproval" value-field="contentApproval" map-name="contentApprovalPK" use-cache="true"/>
+        <find-by-primary-key entity-name="ContentApproval" value-field="contentApproval" map="contentApprovalPK" use-cache="true"/>
         <set field="partyId" from-field="parameters.userLogin.partyId"/>
         <log level="info" message="contentApproval: ${contentApproval}"/>
         <if-compare field="contentApproval.partyId" value="${partyId}" operator="equals">

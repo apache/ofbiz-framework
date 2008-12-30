@@ -63,7 +63,7 @@ under the License.
 
         <make-value entity-name="ContactMech" value-field="ContactMechMap"/>
         <set-pk-fields value-name="ContactMechMap" map-name="parameters"/>
-        <find-by-primary-key entity-name="ContactMech" map-name="ContactMechMap" value-field="oldValue" /> 
+        <find-by-primary-key entity-name="ContactMech" map="ContactMechMap" value-field="oldValue" /> 
         <if-compare-field to-field="oldValue.infoString" field="parameters.infoString" operator="not-equals">
              <log level="info" message="Contact mech need updating"/> 
             <clone-value value-name="oldValue" new-value-name="newValue"/>
@@ -130,7 +130,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="PostalAddress" value-field="newValue"/>
         <set-pk-fields value-name="newValue" map-name="parameters"/>
-        <find-by-primary-key entity-name="PostalAddress" map-name="newValue" value-field="oldValue" />
+        <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue" />
         <set-nonpk-fields map-name="parameters" value-name="newValue"/>
           
         <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
@@ -178,7 +178,7 @@ under the License.
     <simple-method method-name="updateTelecomNumber" short-description="Update Contact Mechanism with Telecom Number">
         <make-value entity-name="TelecomNumber" value-field="newValue"/>
         <set-pk-fields value-name="newValue" map-name="parameters"/>
-        <find-by-primary-key entity-name="TelecomNumber" map-name="newValue" value-field="oldValue" />
+        <find-by-primary-key entity-name="TelecomNumber" map="newValue" value-field="oldValue" />
         <set-nonpk-fields map-name="parameters" value-name="newValue"/>
         <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
         
@@ -243,7 +243,7 @@ under the License.
        <check-errors/>
        <make-value value-field="lookupPKMap" entity-name="ContactMechLink"/>
        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-       <find-by-primary-key entity-name="ContactMechLink" map-name="lookupPKMap" value-field="contactMechLinkInstance"/>
+       <find-by-primary-key entity-name="ContactMechLink" map="lookupPKMap" value-field="contactMechLinkInstance"/>
        <remove-value value-name="contactMechLinkInstance"/>
    </simple-method>
 
@@ -271,7 +271,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <set field="lookupHash.emailAddress" from-field="parameters.emailAddress"/>
-        <find-by-primary-key value-field="emailAddressVerification" entity-name="EmailAddressVerification" map-name="lookupHash"/>
+        <find-by-primary-key value-field="emailAddressVerification" entity-name="EmailAddressVerification" map="lookupHash"/>
         <set field="bodyParameters.verifyHash" from-field="emailAddressVerification.verifyHash"/>
         <first-from-list entry="storeEmail" list="productStoreEmailSettings"/>
         <entity-and list="webSites" entity-name="WebSite">

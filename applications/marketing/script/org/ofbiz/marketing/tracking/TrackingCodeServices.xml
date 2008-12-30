@@ -47,7 +47,7 @@ under the License.
         
         <make-value entity-name="TrackingCode" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCode" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="TrackingCode" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         
         <!-- set the history/audit info -->
@@ -62,7 +62,7 @@ under the License.
 
         <make-value entity-name="TrackingCode" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCode" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="TrackingCode" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <!-- TrackingCodeType methods -->
@@ -89,7 +89,7 @@ under the License.
         
         <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCodeType" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="TrackingCodeType" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         
         <store-value value-name="lookedUpValue"/>
@@ -100,7 +100,7 @@ under the License.
 
         <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCodeType" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="TrackingCodeType" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -120,7 +120,7 @@ under the License.
         
         <make-value entity-name="TrackingCodeOrder" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCodeOrder" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="TrackingCodeOrder" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         
         <!-- set the history/audit info -->
@@ -145,7 +145,7 @@ under the License.
     <simple-method method-name="createTrackingCodeOrderReturns" short-description="Create TrackingCodeOrderReturn for all the Return Items with Orders that have trackingCodeOrder entry">
         <if-not-empty field="parameters.returnId">
             <set field="returnHeaderFindContext.returnId" from-field="parameters.returnId" />
-            <find-by-primary-key entity-name="ReturnHeader" value-field="returnHeader" map-name="returnHeaderFindContext"/>
+            <find-by-primary-key entity-name="ReturnHeader" value-field="returnHeader" map="returnHeaderFindContext"/>
             <get-related list-name="returnItems" relation-name="ReturnItem" value-name="returnHeader"/>
             <log level="info" message="Return items lists are : ${returnItems}"/> 
             <iterate list="returnItems" entry="returnItem">
@@ -174,7 +174,7 @@ under the License.
         
         <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCodeOrderReturn" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="TrackingCodeOrderReturn" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         
         <!-- set the history/audit info -->
@@ -185,7 +185,7 @@ under the License.
     <simple-method method-name="deleteTrackingCodeOrderReturn" short-description="delete an TrackingCodeOrderReturn">
         <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="TrackingCodeOrderReturn" map-name="lookupPKMap" value-field="lookedUpValue"/>
+        <find-by-primary-key entity-name="TrackingCodeOrderReturn" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>    
 
