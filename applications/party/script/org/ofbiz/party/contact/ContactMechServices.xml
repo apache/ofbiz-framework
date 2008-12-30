@@ -23,7 +23,7 @@ under the License.
     <simple-method method-name="createContactMech" short-description="Create Contact Mechanism">
         <make-value value-field="newValue" entity-name="ContactMech"/>
         <if-empty field="parameters.contactMechId">
-            <sequenced-id-to-env sequence-name="ContactMech" env-name="newValue.contactMechId"/>
+            <sequenced-id sequence-name="ContactMech" field="newValue.contactMechId"/>
             <else>
                 <set field="newValue.contactMechId" from-field="parameters.contactMechId"/>
             </else>

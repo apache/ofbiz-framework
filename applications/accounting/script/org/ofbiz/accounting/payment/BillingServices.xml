@@ -24,7 +24,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="BillingAccount"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
-        <sequenced-id-to-env sequence-name="BillingAccount" env-name="billingAccountId"/>
+        <sequenced-id sequence-name="BillingAccount" field="billingAccountId"/>
         <to-string field-name="billingAccountId"/>
         <set from-field="billingAccountId" field="newEntity.billingAccountId"/>
         <field-to-result field="billingAccountId" result-name="billingAccountId"/>  
@@ -70,7 +70,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="BillingAccountTerm"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
-        <sequenced-id-to-env sequence-name="BillingAccountTerm" env-name="billingAccountTermId"/>
+        <sequenced-id sequence-name="BillingAccountTerm" field="billingAccountTermId"/>
         <to-string field-name="billingAccountTermId"/>
         <set from-field="billingAccountTermId" field="newEntity.billingAccountTermId"/>
         <field-to-result field="billingAccountTermId" result-name="billingAccountTermId"/>          

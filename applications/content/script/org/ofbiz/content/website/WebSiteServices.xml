@@ -73,7 +73,7 @@ under the License.
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <if-empty field="newEntity.webSiteContentTypeId">
-            <sequenced-id-to-env sequence-name="WebSiteContentTypeId" env-name="webSiteContentTypeId"/>
+            <sequenced-id sequence-name="WebSiteContentTypeId" field="webSiteContentTypeId"/>
             <set field="newEntity.webSiteContentTypeId" from-field="webSiteContentTypeId"/>
         </if-empty>
         <create-value value-field="newEntity"/>

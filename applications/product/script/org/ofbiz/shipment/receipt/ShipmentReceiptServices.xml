@@ -27,7 +27,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ShipmentReceipt"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
-        <sequenced-id-to-env sequence-name="ShipmentReceipt" env-name="receiptId"/>
+        <sequenced-id sequence-name="ShipmentReceipt" field="receiptId"/>
         <to-string field-name="receiptId"/>
         <set field="newEntity.receiptId" from-field="receiptId"/>       
         <field-to-result field="receiptId" result-name="receiptId"/>
@@ -46,7 +46,7 @@ under the License.
                 <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
             </entity-one>
             <set field="invDet.receiptId" from-field="receiptId"/>
-            <store-value value-name="invDet"/>
+            <store-value value-field="invDet"/>
         </if-not-empty>
     </simple-method>
     
@@ -299,7 +299,7 @@ under the License.
                 <!-- now that the receive is done; set the need flag to N -->
                 <refresh-value value-name="returnHeader"/>
                 <set field="returnHeader.needsInventoryReceive" value="N"/>
-                <store-value value-name="returnHeader"/>
+                <store-value value-field="returnHeader"/>
                 
                 <!-- check if we need to manually update the status -->
                 <if-compare-field field="nonProductItems" to-field="returnItemCount" operator="equals" type="Long">                

@@ -27,7 +27,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.dataResourceId">
-            <sequenced-id-to-env sequence-name="DataResource" env-name="dataResourceId"/>
+            <sequenced-id sequence-name="DataResource" field="dataResourceId"/>
             <set field="newEntity.dataResourceId" from-field="dataResourceId"/>
         </if-empty>
 

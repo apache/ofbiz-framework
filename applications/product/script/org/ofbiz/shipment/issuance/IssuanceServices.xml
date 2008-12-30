@@ -30,7 +30,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ItemIssuance"/>
-        <sequenced-id-to-env sequence-name="ItemIssuance" env-name="newEntity.itemIssuanceId"/>
+        <sequenced-id sequence-name="ItemIssuance" field="newEntity.itemIssuanceId"/>
         <field-to-result field="itemIssuanceId" map-name="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <now-timestamp-to-env env-name="newEntity.issuedDateTime"/>

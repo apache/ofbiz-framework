@@ -64,7 +64,7 @@ under the License.
         <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp" />
         <set field="lookedUpValue.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
 
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPrice" short-description="Delete an ProductPrice">
         <set field="callingMethodName" value="deleteProductPrice" />
@@ -98,7 +98,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductPriceChange"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <sequenced-id-to-env sequence-name="ProductPriceChange" env-name="productPriceChangeId"/>
+        <sequenced-id sequence-name="ProductPriceChange" field="productPriceChangeId"/>
         <set field="newEntity.productPriceChangeId" from-field="productPriceChangeId" />    
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="newEntity.changedDate" from-field="nowTimestamp" />
@@ -126,7 +126,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="ProductPaymentMethodType" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPaymentMethodType" short-description="delete a ProductPaymentMethodType">
         <set field="callingMethodName" value="deleteProductPaymentMethodType" />
@@ -145,7 +145,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductPriceRule"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id-to-env sequence-name="ProductPriceRule" env-name="newEntity.productPriceRuleId"/>
+        <sequenced-id sequence-name="ProductPriceRule" field="newEntity.productPriceRuleId"/>
         <field-to-result field="productPriceRuleId" map-name="newEntity"/>
 
         <create-value value-field="newEntity"/>
@@ -159,7 +159,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceRule" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPriceRule" short-description="Delete an ProductPriceRule">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPriceRule you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -195,7 +195,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceCond" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPriceCond" short-description="Delete an ProductPriceCond">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPriceCond you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -231,7 +231,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceAction" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPriceAction" short-description="Delete an ProductPriceAction">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPriceAction you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>

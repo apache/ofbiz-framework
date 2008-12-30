@@ -37,7 +37,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="parameters.productCategoryId">
-            <sequenced-id-to-env sequence-name="ProductCategory" env-name="newEntity.productCategoryId"/>
+            <sequenced-id sequence-name="ProductCategory" field="newEntity.productCategoryId"/>
         <else>
             <set field="newEntity.productCategoryId" from-field="parameters.productCategoryId"/>
             <check-id field-name="newEntity.productCategoryId"/>

@@ -35,7 +35,7 @@ under the License.
     <simple-method method-name="createWorkEffort" short-description="Create Work Effort">
         <make-value value-field="newEntity" entity-name="WorkEffort"/>
         <if-empty field="parameters.workEffortId">
-            <sequenced-id-to-env sequence-name="WorkEffort" env-name="newEntity.workEffortId"/>
+            <sequenced-id sequence-name="WorkEffort" field="newEntity.workEffortId"/>
             <else>
                 <set field="newEntity.workEffortId" from-field="parameters.workEffortId"/>
             </else>
@@ -164,7 +164,7 @@ under the License.
                 <set field="lookedUpValue.revisionNumber" value="1" type="Long"/>
             </else>
             </if-not-empty>
-            <store-value value-name="lookedUpValue"/>
+            <store-value value-field="lookedUpValue"/>
         </if-compare-field>
     </simple-method>
     <simple-method method-name="deleteWorkEffort" short-description="Delete Work Effort">
@@ -204,7 +204,7 @@ under the License.
         <if-not-empty field="eventWe.workEffortId">
             <set-nonpk-fields map="parameters" value-field="eventWe"/>
             <set field="eventWe.description" from-field="parameters.relationDescription"/>
-            <store-value value-name="eventWe"/>
+            <store-value value-field="eventWe"/>
         </if-not-empty>
         <if-empty field="eventWe.workEffortId">
             <set-nonpk-fields map="parameters" value-field="lookupMap"/>
@@ -227,7 +227,7 @@ under the License.
         </if-empty>
         <check-errors/>
         <set-nonpk-fields value-field="communicationEventWorkEff" map="parameters"/>
-        <store-value value-name="communicationEventWorkEff"/>  
+        <store-value value-field="communicationEventWorkEff"/>  
     </simple-method>
      
     <simple-method method-name="deleteCommunicationEventWorkEff" short-description="Delete a CommunicationEventWorkEff">
@@ -302,7 +302,7 @@ under the License.
                 <field field-name="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
             </call-class-method>
         </if-compare-field>
-        <store-value value-name="workEffortPartyAssignment"/>
+        <store-value value-field="workEffortPartyAssignment"/>
     </simple-method>
     <simple-method method-name="deletePartyToWorkEffortAssignment" short-description="Update WorkEffortPartyAssignment entity">
         <set-service-fields service-name="updatePartyToWorkEffortAssignment" map="parameters" to-map="del"/>
@@ -560,7 +560,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createWorkEffortNote" short-description="Create Work Effort Note">
         <make-value value-field="newEntity" entity-name="NoteData"/>
-        <sequenced-id-to-env sequence-name="NoteData" env-name="newEntity.noteId"/>
+        <sequenced-id sequence-name="NoteData" field="newEntity.noteId"/>
         <field-to-result field="newEntity.noteId" result-name="noteId"/>
         <set from-field="parameters.noteInfo" field="newEntity.noteInfo"/>
         <if-not-empty field="parameters.noteParty">
@@ -585,8 +585,8 @@ under the License.
         <entity-one entity-name="NoteData" value-field="lookedUpValueForNoteData"/>
         <set-nonpk-fields value-field="lookedUpValueForNoteData" map="parameters"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
-        <store-value value-name="lookedUpValueForNoteData"/>  
+        <store-value value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValueForNoteData"/>  
     </simple-method>    
     <simple-method method-name="createWorkEffortAndAssoc" short-description="Create a WorkEffort and association">
         <if-empty field="parameters.fromDate">
@@ -638,7 +638,7 @@ under the License.
     <simple-method method-name="updateWorkEffortAssoc" short-description="Update a WorkEffort association">
         <entity-one entity-name="WorkEffortAssoc" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWorkEffortAssoc" short-description="Remove a WorkEffort association">
         <entity-one entity-name="WorkEffortAssoc" value-field="lookedUpValue"/>
@@ -664,7 +664,7 @@ under the License.
     <simple-method method-name="updateWorkEffortGoodStandard" short-description="Update a link between a WorkEffort and a Product">
         <entity-one entity-name="WorkEffortGoodStandard" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWorkEffortGoodStandard" short-description="Remove a link between a WorkEffort and a Product">
         <entity-one entity-name="WorkEffortGoodStandard" value-field="lookedUpValue"/>
@@ -679,7 +679,7 @@ under the License.
                 <calcop field="foundEntity.quantity" operator="get"/>
                 <calcop field="parameters.quantity" operator="get"/>
             </calculate>
-            <store-value value-name="foundEntity"/>
+            <store-value value-field="foundEntity"/>
         <else>
             <make-value value-field="newEntity" entity-name="WorkEffortInventoryAssign"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -880,7 +880,7 @@ under the License.
         <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue" />
         <set-nonpk-fields map="parameters" value-field="lookedUpValue" />
-        <store-value value-name="lookedUpValue" />
+        <store-value value-field="lookedUpValue" />
     </simple-method>
     <simple-method method-name="removeWorkEffortFixedAssetStd" 
             short-description="Delete a WorkEffort FixedAsset Standard">
@@ -930,7 +930,7 @@ under the License.
         <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue" />
         <set-nonpk-fields map="parameters" value-field="lookedUpValue" />
-        <store-value value-name="lookedUpValue" />
+        <store-value value-field="lookedUpValue" />
     </simple-method>
     <simple-method method-name="removeWorkEffortFixedAssetAssign" 
             short-description="Remove a WorkEffort FixedAsset Assign">
@@ -970,7 +970,7 @@ under the License.
         -->
         <entity-one entity-name="WorkEffortContent" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortContent" 
             short-description="Remove a WorkEffort Content">
@@ -1014,7 +1014,7 @@ under the License.
         <check-errors />
         <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortReview" 
             short-description="Remove a WorkEffort Review">
@@ -1198,7 +1198,7 @@ under the License.
     <simple-method  method-name="updateWorkEffortSkillStandard" short-description="Update WorkEffortSkillStandard">
         <entity-one entity-name="WorkEffortSkillStandard" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method  method-name="deleteWorkEffortSkillStandard" short-description="Delete WorkEffortSkillStandard">
         <entity-one entity-name="WorkEffortSkillStandard" value-field="lookedUpValue"/>

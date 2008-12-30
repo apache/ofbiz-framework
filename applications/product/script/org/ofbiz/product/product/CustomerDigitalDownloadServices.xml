@@ -24,7 +24,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <make-value value-field="createProductMap" entity-name="Product"/>
-        <sequenced-id-to-env sequence-name="Product" env-name="createProductMap.productId"/>
+        <sequenced-id sequence-name="Product" field="createProductMap.productId"/>
         <set field="productId" from-field="createProductMap.productId"/>
 
         <set field="createProductMap.productName" from-field="parameters.productName"/>
@@ -89,7 +89,7 @@ under the License.
                 <entity-one entity-name="Product" value-field="product"/>
                 <set field="product.productName" from-field="parameters.productName" set-if-empty="false"/>
                 <set field="product.description" from-field="parameters.description" set-if-empty="false"/>
-                <store-value value-name="product"/>
+                <store-value value-field="product"/>
             </then>
         </if>
 
@@ -104,7 +104,7 @@ under the License.
             <!-- should just be one -->
             <first-from-list entry="productPrice" list="productPriceList"/>
             <set field="productPrice.price" from-field="parameters.price"/>
-            <store-value value-name="productPrice"/>
+            <store-value value-field="productPrice"/>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="deleteCustomerDigitalDownloadProduct" short-description="deleteCustomerDigitalDownloadProduct">
@@ -124,7 +124,7 @@ under the License.
         <!-- keep the product around, just expire SupplierProduct and ProductCategoryMember records -->
         <iterate entry="supplierProduct" list="supplierProductList">
             <set field="supplierProduct.availableThruDate" from-field="nowTimestamp"/>
-            <store-value value-name="supplierProduct"/>
+            <store-value value-field="supplierProduct"/>
         </iterate>
         
         <entity-and entity-name="ProductCategoryMember" list="productCategoryMemberList">
@@ -132,7 +132,7 @@ under the License.
         </entity-and>
         <iterate entry="productCategoryMember" list="productCategoryMemberList">
             <set field="productCategoryMember.thruDate" from-field="nowTimestamp"/>
-            <store-value value-name="productCategoryMember"/>
+            <store-value value-field="productCategoryMember"/>
         </iterate>
     </simple-method>
 
@@ -183,6 +183,6 @@ under the License.
         
         <entity-one entity-name="ProductContent" value-field="productContent"/>
         <set field="productContent.thruDate" from-field="nowTimestamp"/>
-        <store-value value-name="productContent"/>
+        <store-value value-field="productContent"/>
     </simple-method>
 </simple-methods>

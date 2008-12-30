@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createRequirement" short-description="Create a new requirement">
         <make-value value-field="newEntity" entity-name="Requirement"/>
-        <sequenced-id-to-env sequence-name="Requirement" env-name="requirementId"/>
+        <sequenced-id sequence-name="Requirement" field="requirementId"/>
         <to-string field-name="requirementId"/>
         <set from-field="requirementId" field="newEntity.requirementId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
