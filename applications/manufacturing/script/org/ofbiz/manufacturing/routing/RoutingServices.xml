@@ -42,7 +42,7 @@ under the License.
             <if-empty field="routingGS">
                 <entity-condition entity-name="ProductAssoc" list="virtualProductAssocList" filter-by-date="true">
                     <condition-list combine="and">
-                        <condition-expr field-name="productIdTo" env-name="parameters.productId" />
+                        <condition-expr field-name="productIdTo" from-field="parameters.productId" />
                         <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
                     </condition-list>
                 </entity-condition>
@@ -67,7 +67,7 @@ under the License.
                 <if-empty field="routingGS">
                     <entity-condition entity-name="ProductAssoc" list="virtualProductAssocList">
                         <condition-list combine="and">
-                            <condition-expr field-name="productIdTo" env-name="parameters.productId" />
+                            <condition-expr field-name="productIdTo" from-field="parameters.productId" />
                             <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
                         </condition-list>
                     </entity-condition>

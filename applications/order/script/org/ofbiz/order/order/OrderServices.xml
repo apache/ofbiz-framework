@@ -57,12 +57,12 @@ under the License.
 
         <entity-condition entity-name="OrderHeaderAndRoleSummary" list="orderInfoList">
             <condition-list combine="and">
-                <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId"/>
-                <condition-expr field-name="roleTypeId" operator="equals" env-name="parameters.roleTypeId"/>
-                <condition-expr field-name="orderTypeId" operator="equals" env-name="parameters.orderTypeId"/>
-                <condition-expr field-name="statusId" operator="equals" env-name="parameters.statusId"/>
-                <condition-expr field-name="orderDate" operator="greater-equals" env-name="parameters.fromDate" ignore-if-null="true"/>
-                <condition-expr field-name="orderDate" operator="less-equals" env-name="parameters.thruDate" ignore-if-null="true"/>
+                <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId"/>
+                <condition-expr field-name="roleTypeId" operator="equals" from-field="parameters.roleTypeId"/>
+                <condition-expr field-name="orderTypeId" operator="equals" from-field="parameters.orderTypeId"/>
+                <condition-expr field-name="statusId" operator="equals" from-field="parameters.statusId"/>
+                <condition-expr field-name="orderDate" operator="greater-equals" from-field="parameters.fromDate" ignore-if-null="true"/>
+                <condition-expr field-name="orderDate" operator="less-equals" from-field="parameters.thruDate" ignore-if-null="true"/>
             </condition-list>
             <select-field field-name="partyId"/>
             <select-field field-name="roleTypeId"/>
@@ -358,9 +358,9 @@ under the License.
                 <!-- Retrieve and total the quantities of existing requirements for the product/facility -->
                 <entity-condition entity-name="Requirement" list="requirements">
                     <condition-list combine="and">
-                        <condition-expr field-name="productId" operator="equals" env-name="parameters.productId"/>
+                        <condition-expr field-name="productId" operator="equals" from-field="parameters.productId"/>
                         <condition-expr field-name="requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT"/>
-                        <condition-expr field-name="facilityId" operator="equals" env-name="productFacility.facilityId"/>
+                        <condition-expr field-name="facilityId" operator="equals" from-field="productFacility.facilityId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="REQ_ORDERED"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="REQ_REJECTED"/>
                     </condition-list>
@@ -869,9 +869,9 @@ under the License.
         <set field="zeroEnv" value="0" type="Double"/>
         <entity-condition entity-name="OrderItemShipGrpInvRes" list="orderItemShipGrpInvResList">
             <condition-list combine="and">
-                <condition-expr field-name="orderId" env-name="parameters.orderId"/>
-                <condition-expr field-name="quantityNotAvailable" operator="not-equals" env-name="nullField"/>
-                <condition-expr field-name="quantityNotAvailable" operator="greater" env-name="zeroEnv"/>
+                <condition-expr field-name="orderId" from-field="parameters.orderId"/>
+                <condition-expr field-name="quantityNotAvailable" operator="not-equals" from-field="nullField"/>
+                <condition-expr field-name="quantityNotAvailable" operator="greater" from-field="zeroEnv"/>
             </condition-list>
         </entity-condition>
         <if-empty field="orderItemShipGrpInvResList">

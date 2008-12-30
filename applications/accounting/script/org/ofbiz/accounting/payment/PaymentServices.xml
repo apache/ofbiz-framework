@@ -357,9 +357,9 @@ under the License.
         </call-class-method>
         <entity-condition entity-name="Invoice" list="invoices">
             <condition-list combine="and">
-                <condition-expr field-name="invoiceTypeId" operator="equals" env-name="parameters.invoiceTypeId"/>
-                <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
-                <condition-expr field-name="partyIdFrom" operator="equals" env-name="parameters.partyIdFrom" ignore-if-empty="true"/>
+                <condition-expr field-name="invoiceTypeId" operator="equals" from-field="parameters.invoiceTypeId"/>
+                <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId" ignore-if-empty="true"/>
+                <condition-expr field-name="partyIdFrom" operator="equals" from-field="parameters.partyIdFrom" ignore-if-empty="true"/>
                 <condition-expr field-name="statusId" operator="not-equals" value="INVOICE_CANCELLED"/>
                 <condition-expr field-name="statusId" operator="not-equals" value="INVOICE_PAID"/>
             </condition-list>

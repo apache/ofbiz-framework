@@ -712,18 +712,18 @@ under the License.
         <entity-condition entity-name="BalanceInventoryItemsView" list="inventoryItems">
             <condition-list combine="or">
                 <condition-list combine="and">
-                    <condition-expr field-name="productId" operator="equals" env-name="inventoryItem.productId"/>
-                    <condition-expr field-name="facilityId" operator="equals" env-name="inventoryItem.facilityId"/>
+                    <condition-expr field-name="productId" operator="equals" from-field="inventoryItem.productId"/>
+                    <condition-expr field-name="facilityId" operator="equals" from-field="inventoryItem.facilityId"/>
                     <condition-expr field-name="inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
                     <condition-list combine="or">
-                        <condition-expr field-name="availableToPromiseTotal" operator="equals" env-name="nullField"/>
+                        <condition-expr field-name="availableToPromiseTotal" operator="equals" from-field="nullField"/>
                         <condition-expr field-name="availableToPromiseTotal" operator="equals" value=""/>
                         <condition-expr field-name="availableToPromiseTotal" operator="less" value="0"/>
                     </condition-list>
                 </condition-list>
                 <!-- the current item is added to the list, even if its atp is greater than zero, because there could be
                      negative reservations (backorders) on it, if the atp has been increased by an inventory variance -->
-                <condition-expr field-name="inventoryItemId" operator="equals" env-name="inventoryItem.inventoryItemId"/>
+                <condition-expr field-name="inventoryItemId" operator="equals" from-field="inventoryItem.inventoryItemId"/>
             </condition-list>
             <order-by field-name="reservedDatetime"/>
             <order-by field-name="sequenceId"/>
@@ -749,10 +749,10 @@ under the License.
                 <then>
                 <entity-condition entity-name="PicklistAndBinAndItem" list="picklistItemList">
                     <condition-list combine="and">
-                        <condition-expr field-name="orderId" env-name="item.orderId"/>
-                        <condition-expr field-name="shipGroupSeqId" env-name="item.shipGroupSeqId"/>
-                        <condition-expr field-name="orderItemSeqId" env-name="item.orderItemSeqId"/>
-                        <condition-expr field-name="inventoryItemId" env-name="item.inventoryItemId"/>
+                        <condition-expr field-name="orderId" from-field="item.orderId"/>
+                        <condition-expr field-name="shipGroupSeqId" from-field="item.shipGroupSeqId"/>
+                        <condition-expr field-name="orderItemSeqId" from-field="item.orderItemSeqId"/>
+                        <condition-expr field-name="inventoryItemId" from-field="item.inventoryItemId"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
                         <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
                     </condition-list>
@@ -841,14 +841,14 @@ under the License.
     <simple-method method-name="reassignInventoryReservations" short-description="Balances available-to-promise on inventory items">
         <entity-condition entity-name="OrderItemShipGrpInvResAndItem" list="relatedRes">
             <condition-list combine="and">
-                <condition-expr field-name="productId" operator="equals" env-name="parameters.productId"/>
-                <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
+                <condition-expr field-name="productId" operator="equals" from-field="parameters.productId"/>
+                <condition-expr field-name="facilityId" operator="equals" from-field="parameters.facilityId"/>
                 <condition-expr field-name="inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM"/>
                 <condition-list combine="or">
-                    <condition-expr field-name="currentPromisedDate" operator="greater" env-name="parameters.fromDate" ignore-if-null="true"/>
+                    <condition-expr field-name="currentPromisedDate" operator="greater" from-field="parameters.fromDate" ignore-if-null="true"/>
                     <condition-list combine="or">
                         <condition-expr field-name="quantityNotAvailable" operator="greater" value="0"/>
-                        <condition-expr field-name="availableToPromiseTotal" operator="equals" env-name="nullField"/>
+                        <condition-expr field-name="availableToPromiseTotal" operator="equals" from-field="nullField"/>
                         <condition-expr field-name="availableToPromiseTotal" operator="equals" value=""/>
                         <condition-expr field-name="availableToPromiseTotal" operator="less" value="0"/>
                     </condition-list>
@@ -862,10 +862,10 @@ under the License.
         <iterate list="relatedRes" entry="oneRelatedRes">
             <entity-condition entity-name="PicklistAndBinAndItem" list="picklistItemList">
                 <condition-list combine="and">
-                    <condition-expr field-name="orderId" env-name="oneRelatedRes.orderId"/>
-                    <condition-expr field-name="shipGroupSeqId" env-name="oneRelatedRes.shipGroupSeqId"/>
-                    <condition-expr field-name="orderItemSeqId" env-name="oneRelatedRes.orderItemSeqId"/>
-                    <condition-expr field-name="inventoryItemId" env-name="oneRelatedRes.inventoryItemId"/>
+                    <condition-expr field-name="orderId" from-field="oneRelatedRes.orderId"/>
+                    <condition-expr field-name="shipGroupSeqId" from-field="oneRelatedRes.shipGroupSeqId"/>
+                    <condition-expr field-name="orderItemSeqId" from-field="oneRelatedRes.orderItemSeqId"/>
+                    <condition-expr field-name="inventoryItemId" from-field="oneRelatedRes.inventoryItemId"/>
                     <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_CANCELLED"/>
                     <condition-expr field-name="statusId" operator="not-equals" value="PICKLIST_PICKED"/>
                 </condition-list>
@@ -955,10 +955,10 @@ under the License.
         <if-compare field="productStore.balanceResOnOrderCreation" operator="equals" value="Y">
             <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list="oisgirais">
                 <condition-list combine="and">
-                    <condition-expr field-name="orderId" operator="equals" env-name="parameters.orderId"/>
+                    <condition-expr field-name="orderId" operator="equals" from-field="parameters.orderId"/>
                     <condition-expr field-name="quantityNotAvailable" operator="greater" value="0"/>
                     <condition-expr field-name="quantityNotAvailable" operator="not-equals" value=""/>
-                    <condition-expr field-name="quantityNotAvailable" operator="not-equals" env-name="nullField"/>
+                    <condition-expr field-name="quantityNotAvailable" operator="not-equals" from-field="nullField"/>
                 </condition-list>
             </entity-condition>
             <iterate list="oisgirais" entry="oisgir">

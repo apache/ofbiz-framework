@@ -281,7 +281,7 @@ under the License.
         <!-- Get all of the records for the account from the database and sum everything up again, make sure we don't have any errors propagated over time -->
         
         <entity-condition entity-name="FinAccountTrans" list="finAccountTransList">
-            <condition-expr field-name="finAccountId" env-name="finAccountId"/>
+            <condition-expr field-name="finAccountId" from-field="finAccountId"/>
         </entity-condition>
         <set field="actualBalanceSum" value="0" type="BigDecimal"/>
         <iterate entry="finAccountTrans" list="finAccountTransList">
@@ -307,7 +307,7 @@ under the License.
         <!-- start with the actual balance, and subtract off FinAccountAuth.amount -->
         <set field="availableBalanceSum" from-field="actualBalanceSum"/>
         <entity-condition entity-name="FinAccountAuth" list="finAccountAuthList" filter-by-date="true">
-            <condition-expr field-name="finAccountId" env-name="finAccountId"/>
+            <condition-expr field-name="finAccountId" from-field="finAccountId"/>
         </entity-condition>
         <iterate entry="finAccountAuth" list="finAccountAuthList">
             <calculate field-name="availableBalanceSum" type="BigDecimal" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">

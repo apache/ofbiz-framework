@@ -1155,9 +1155,9 @@
     	<set field="useCache" from-field="parameters.useCache" default-value="true" type="Boolean" />
         <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="${filterByDate}" use-cache="${useCache}">
           <condition-list combine="and">
-              <condition-expr field-name="contentIdStart" env-name="parameters.contentId"/>
-              <condition-expr field-name="caContentAssocTypeId" env-name="parameters.contentAssocTypeId" ignore-if-empty="true"/>
-              <condition-expr field-name="caMapKey" env-name="parameters.mapKey" ignore-if-empty="true"/>
+              <condition-expr field-name="contentIdStart" from-field="parameters.contentId"/>
+              <condition-expr field-name="caContentAssocTypeId" from-field="parameters.contentAssocTypeId" ignore-if-empty="true"/>
+              <condition-expr field-name="caMapKey" from-field="parameters.mapKey" ignore-if-empty="true"/>
           </condition-list>
         </entity-condition>
         
@@ -1203,9 +1203,9 @@
         <iterate entry="view" list="subContentList">
 	        <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="true" use-cache="${useCache}">
 	          <condition-list combine="and">
-	              <condition-expr field-name="contentIdStart" env-name="view.caContentIdTo"/>
-	              <condition-expr field-name="caContentAssocTypeId" env-name="parameters.subContentAssocTypeId" ignore-if-empty="true"/>
-	              <condition-expr field-name="caMapKey" env-name="parameters.subMapKey" ignore-if-empty="true"/>
+	              <condition-expr field-name="contentIdStart" from-field="view.caContentIdTo"/>
+	              <condition-expr field-name="caContentAssocTypeId" from-field="parameters.subContentAssocTypeId" ignore-if-empty="true"/>
+	              <condition-expr field-name="caMapKey" from-field="parameters.subMapKey" ignore-if-empty="true"/>
 	          </condition-list>
 	        </entity-condition>
 	        <clear-field field="view2"/>

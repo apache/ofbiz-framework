@@ -277,9 +277,9 @@ under the License.
         <if-not-empty field="orderItem.productId">
             <entity-condition entity-name="ShipmentItem" list="shipmentItems">
                 <condition-list combine="and">
-                    <condition-expr field-name="productId" env-name="orderItem.productId"/>
-                    <condition-expr field-name="shipmentId" env-name="parameters.shipmentId"/>
-                    <condition-expr field-name="shipmentItemSeqId" env-name="parameters.shipmentItemSeqId" ignore-if-empty="true"/>
+                    <condition-expr field-name="productId" from-field="orderItem.productId"/>
+                    <condition-expr field-name="shipmentId" from-field="parameters.shipmentId"/>
+                    <condition-expr field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId" ignore-if-empty="true"/>
                 </condition-list>
                 <order-by field-name="shipmentItemSeqId"/>
             </entity-condition>

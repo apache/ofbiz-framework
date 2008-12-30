@@ -351,8 +351,8 @@ under the License.
                 </condition-list>
                 <condition-expr field-name="statusId" operator="equals" value="COM_IN_PROGRESS" />
                 <condition-list combine="or">
-                    <condition-expr field-name="datetimeStarted" operator="less" env-name="nowDate"/>
-                    <condition-expr field-name="datetimeStarted" operator="equals" env-name="nullField" />
+                    <condition-expr field-name="datetimeStarted" operator="less" from-field="nowDate"/>
+                    <condition-expr field-name="datetimeStarted" operator="equals" from-field="nullField" />
                 </condition-list>
             </condition-list>
         </entity-condition>

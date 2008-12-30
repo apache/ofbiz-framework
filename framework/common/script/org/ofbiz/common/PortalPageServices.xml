@@ -154,10 +154,10 @@ under the License.
             <entity-condition entity-name="PortalPage" list="PortalPageList">
                 <condition-list combine="and">
                     <condition-list combine="or">
-                        <condition-expr field-name="originalPortalPageId" operator="equals" env-name="parameters.originalPortalPageId"/>
+                        <condition-expr field-name="originalPortalPageId" operator="equals" from-field="parameters.originalPortalPageId"/>
                     </condition-list>
                     <condition-list combine="or">
-                        <condition-expr field-name="ownerUserLoginId" operator="equals" env-name="userLogin.userLoginId"/>
+                        <condition-expr field-name="ownerUserLoginId" operator="equals" from-field="userLogin.userLoginId"/>
                         <condition-expr field-name="ownerUserLoginId" operator="equals" value="_NA_"/>
                     </condition-list>
                 </condition-list>
@@ -168,11 +168,11 @@ under the License.
             <entity-condition entity-name="PortalPage" list="PortalPageList">
                 <condition-list combine="and">
                     <condition-list combine="or">
-                        <condition-expr field-name="originalPortalPageId" operator="equals" env-name="parameters.originalPortalPageId"/>
-                        <condition-expr field-name="originalPortalPageId" operator="equals" env-name="mainPortalPageId"/>
+                        <condition-expr field-name="originalPortalPageId" operator="equals" from-field="parameters.originalPortalPageId"/>
+                        <condition-expr field-name="originalPortalPageId" operator="equals" from-field="mainPortalPageId"/>
                     </condition-list>
                     <condition-list combine="or">
-                        <condition-expr field-name="ownerUserLoginId" operator="equals" env-name="userLogin.userLoginId"/>
+                        <condition-expr field-name="ownerUserLoginId" operator="equals" from-field="userLogin.userLoginId"/>
                     </condition-list>
                 </condition-list>
                 <order-by field-name="createdStamp"/>

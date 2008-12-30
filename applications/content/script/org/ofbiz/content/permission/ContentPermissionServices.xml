@@ -454,8 +454,8 @@
                 <!-- find defined purpose/operation mappings -->
                 <entity-condition entity-name="ContentPurposeOperation" list="operations">
                     <condition-list combine="and">
-                        <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="contentPurposeTypeId"/>
-                        <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
+                        <condition-expr field-name="contentPurposeTypeId" operator="equals" from-field="contentPurposeTypeId"/>
+                        <condition-expr field-name="contentOperationId" operator="equals" from-field="contentOperationId"/>
                     </condition-list>
                 </entity-condition>
             </then>
@@ -467,8 +467,8 @@
                 <iterate entry="currentPurpose" list="contentPurposes">
                     <entity-condition entity-name="ContentPurposeOperation" list="currentOperations">
                         <condition-list combine="and">
-                            <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="currentPurpose.contentPurposeTypeId"/>
-                            <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
+                            <condition-expr field-name="contentPurposeTypeId" operator="equals" from-field="currentPurpose.contentPurposeTypeId"/>
+                            <condition-expr field-name="contentOperationId" operator="equals" from-field="contentOperationId"/>
                         </condition-list>
                         <order-by field-name="contentPurposeTypeId"/>
                     </entity-condition>
@@ -480,7 +480,7 @@
                     <entity-condition entity-name="ContentPurposeOperation" list="operations">
                         <condition-list combine="and">
                             <condition-expr field-name="contentPurposeTypeId" operator="equals" value="_NA_"/>
-                            <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
+                            <condition-expr field-name="contentOperationId" operator="equals" from-field="contentOperationId"/>
                         </condition-list>
                         <order-by field-name="contentPurposeTypeId"/>
                     </entity-condition>

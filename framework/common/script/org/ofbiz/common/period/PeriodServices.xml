@@ -67,14 +67,14 @@ under the License.
                 <entity-condition entity-name="CustomTimePeriod" list="orgTimePeriodList">
                     <condition-list combine="and">
                         <condition-list combine="or">
-                            <condition-expr field-name="organizationPartyId" operator="equals" env-name="curOrganizationPartyId"/>
+                            <condition-expr field-name="organizationPartyId" operator="equals" from-field="curOrganizationPartyId"/>
                         </condition-list>
-                        <condition-expr field-name="fromDate" operator="less-equals" env-name="parameters.findDate"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="parameters.findDate"/>
                         <condition-list combine="or">
-                            <condition-expr field-name="thruDate" operator="greater-equals" env-name="parameters.findDate"/>
-                            <condition-expr field-name="thruDate" operator="equals" env-name="nullField"/>
+                            <condition-expr field-name="thruDate" operator="greater-equals" from-field="parameters.findDate"/>
+                            <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
                         </condition-list>
-                        <condition-expr field-name="periodTypeId" operator="in" env-name="parameters.onlyIncludePeriodTypeIdList" ignore-if-empty="true"/>
+                        <condition-expr field-name="periodTypeId" operator="in" from-field="parameters.onlyIncludePeriodTypeIdList" ignore-if-empty="true"/>
                     </condition-list>
                 </entity-condition>
                 <list-to-list list-name="orgTimePeriodList" to-list-name="listSoFar"/>
@@ -85,15 +85,15 @@ under the License.
             <entity-condition entity-name="CustomTimePeriod" list="generalCustomTimePeriodList">
                 <condition-list combine="and">
                     <condition-list combine="or">
-                        <condition-expr field-name="organizationPartyId" operator="equals" env-name="nullField"/>
+                        <condition-expr field-name="organizationPartyId" operator="equals" from-field="nullField"/>
                         <condition-expr field-name="organizationPartyId" operator="equals" value="_NA_"/>
                     </condition-list>
-                    <condition-expr field-name="fromDate" operator="less-equals" env-name="parameters.findDate"/>
+                    <condition-expr field-name="fromDate" operator="less-equals" from-field="parameters.findDate"/>
                     <condition-list combine="or">
-                        <condition-expr field-name="thruDate" operator="greater" env-name="parameters.findDate"/>
-                        <condition-expr field-name="thruDate" operator="equals" env-name="nullField"/>
+                        <condition-expr field-name="thruDate" operator="greater" from-field="parameters.findDate"/>
+                        <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
                     </condition-list>
-                    <condition-expr field-name="periodTypeId" operator="in" env-name="parameters.onlyIncludePeriodTypeIdList" ignore-if-empty="true"/>
+                    <condition-expr field-name="periodTypeId" operator="in" from-field="parameters.onlyIncludePeriodTypeIdList" ignore-if-empty="true"/>
                 </condition-list>
             </entity-condition>
             <list-to-list list-name="generalCustomTimePeriodList" to-list-name="listSoFar"/>

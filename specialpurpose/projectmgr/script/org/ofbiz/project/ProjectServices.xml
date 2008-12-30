@@ -243,7 +243,7 @@
         
         <!-- find a starting point being either the estimated start date of a project or the earliest actual start date. -->
         <entity-condition entity-name="ProjectAndPhaseAndTask" list="tasks">
-            <condition-expr field-name="actualStartDate" operator="not-equals" env-name="null"/>
+            <condition-expr field-name="actualStartDate" operator="not-equals" from-field="null"/>
             <order-by field-name="-actualStartDate"/>
         </entity-condition>
         
@@ -787,9 +787,9 @@
     <simple-method method-name="getProjectsByParties" short-description="get Project information by party member" login-required="true">
         <entity-condition entity-name="ProjectAndPhaseAndTaskParty" list="tasks">
             <condition-list combine="and">
-                <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId" ignore-if-empty="true"/>
-                <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
-                <condition-expr field-name="partyId" operator="not-equals" env-name="null"/>
+                <condition-expr field-name="projectId" operator="equals" from-field="parameters.projectId" ignore-if-empty="true"/>
+                <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId" ignore-if-empty="true"/>
+                <condition-expr field-name="partyId" operator="not-equals" from-field="null"/>
             </condition-list>
             <order-by field-name="projectId"/>
             <order-by field-name="partyId"/>
@@ -850,8 +850,8 @@
         </if-empty>
         <entity-condition entity-name="WorkEffortPartyAssignment" list="tasks" filter-by-date="true">
             <condition-list combine="and">
-                <condition-expr field-name="partyId" operator="like" env-name="parameters.partyId"/>
-                <condition-expr field-name="workEffortId" operator="like" env-name="parameters.workEffortId"/>
+                <condition-expr field-name="partyId" operator="like" from-field="parameters.partyId"/>
+                <condition-expr field-name="workEffortId" operator="like" from-field="parameters.workEffortId"/>
             </condition-list>
             <order-by field-name="workEffortId"/>
             <order-by field-name="partyId"/>
@@ -1040,12 +1040,12 @@
                     <set field="originalActualHours" from-field="actual.hours"/>
                     <entity-condition entity-name="PartyRate" list="partyRates">
                         <condition-list combine="and">
-                            <condition-expr field-name="partyId" env-name="timesheet.partyId"/>
-                            <condition-expr field-name="rateTypeId" env-name="actual.rateTypeId"/>
-                            <condition-expr field-name="fromDate" operator="less-equals" env-name="actual.fromDate"/>
+                            <condition-expr field-name="partyId" from-field="timesheet.partyId"/>
+                            <condition-expr field-name="rateTypeId" from-field="actual.rateTypeId"/>
+                            <condition-expr field-name="fromDate" operator="less-equals" from-field="actual.fromDate"/>
                             <condition-list combine="or">
-                                <condition-expr field-name="thruDate" operator="equals" env-name="nullField"/>
-                                <condition-expr field-name="thruDate" operator="greater-equals" env-name="actual.fromDate"/>
+                                <condition-expr field-name="thruDate" operator="equals" from-field="nullField"/>
+                                <condition-expr field-name="thruDate" operator="greater-equals" from-field="actual.fromDate"/>
                             </condition-list>
                         </condition-list>
                     </entity-condition>
@@ -1189,9 +1189,9 @@
             <if-empty field="parameters.timesheetId">
                 <entity-condition entity-name="Timesheet" list="timesheets">
                     <condition-list combine="and">
-                        <condition-expr field-name="fromDate" operator="less-equals" env-name="parameters.fromDate"/>
-                        <condition-expr field-name="thruDate" operator="greater-equals" env-name="parameters.fromDate"/>
-                        <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId"/>
+                        <condition-expr field-name="fromDate" operator="less-equals" from-field="parameters.fromDate"/>
+                        <condition-expr field-name="thruDate" operator="greater-equals" from-field="parameters.fromDate"/>
+                        <condition-expr field-name="partyId" operator="equals" from-field="parameters.partyId"/>
                     </condition-list>
                 </entity-condition>
                 <if-not-empty field="timesheets">
@@ -1253,10 +1253,10 @@
         </if-compare>
         <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list="tasks">
             <condition-list combine="and">
-                <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId"/>
-                <condition-expr field-name="invoiceId" operator="equals" env-name="nullField"/>
+                <condition-expr field-name="projectId" operator="equals" from-field="parameters.projectId"/>
+                <condition-expr field-name="invoiceId" operator="equals" from-field="nullField"/>
                 <condition-expr field-name="timesheetStatusId" operator="equals" value="TIMESHEET_COMPLETED"/>
-                <condition-expr field-name="fromDate" operator="less" env-name="parameters.thruDate" ignore-if-empty="true"/>
+                <condition-expr field-name="fromDate" operator="less" from-field="parameters.thruDate" ignore-if-empty="true"/>
             </condition-list>
             <order-by field-name="workEffortId"/>
         </entity-condition>
@@ -1306,9 +1306,9 @@
         <!-- check if this is the last party which completed his task -->
         <entity-condition entity-name="WorkEffortPartyAssignment" list="openTasks" filter-by-date="true">
             <condition-list combine="and">
-                <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId"/>
+                <condition-expr field-name="workEffortId" operator="equals" from-field="parameters.workEffortId"/>
                 <condition-expr field-name="statusId" operator="not-equals" value="PAS_COMPLETED"/>
-                <condition-expr field-name="partyId" operator="not-equals" env-name="parameters.partyId"/>
+                <condition-expr field-name="partyId" operator="not-equals" from-field="parameters.partyId"/>
             </condition-list>
         </entity-condition>  
         <if-empty field="openTasks">
@@ -1319,8 +1319,8 @@
 	        <!-- see who is reponsible for testing/validation in this project -->
 	        <entity-condition entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
 	            <condition-list combine="and">
-	                <condition-expr field-name="workEffortId" operator="equals" env-name="projectId"/>
-	                <condition-expr field-name="partyId" operator="not-equals" env-name="parameters.partyId"/><!-- should not test/val own work -->
+	                <condition-expr field-name="workEffortId" operator="equals" from-field="projectId"/>
+	                <condition-expr field-name="partyId" operator="not-equals" from-field="parameters.partyId"/><!-- should not test/val own work -->
 	                <condition-list combine="or">
 	                    <condition-expr field-name="roleTypeId" operator="equals" value="PROVIDER_VALIDATOR"/>
 	                    <condition-expr field-name="roleTypeId" operator="equals" value="PROVIDER_TESTER"/>
