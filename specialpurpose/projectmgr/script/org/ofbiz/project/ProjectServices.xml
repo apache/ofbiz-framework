@@ -190,7 +190,7 @@
         </entity-and>
         <!-- check if all open assignments were completed -->
         <if-not-empty field="assignments">
-            <iterate entry-name="assignment" list-name="assignments">
+            <iterate entry="assignment" list-name="assignments">
                 <if-compare field="assignment.statusId" value="PAS_COMPLETED" operator="not-equals">
                     <set field="status" value="notcomplete"/>
                 </if-compare>
@@ -205,7 +205,7 @@
                 <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
             </entity-and>            
             <if-not-empty field="custRequests">
-                <iterate entry-name="custReq" list-name="custRequests">
+                <iterate entry="custReq" list-name="custRequests">
                     <set field="updStat.custRequestId" from-field="custReq.custRequestId"/>
                     <set field="updStat.statusId" value="CRQ_COMPLETED"/>
                     <call-service service-name="updateCustRequest" in-map-name="updStat"/>
@@ -249,7 +249,7 @@
         
         <if-not-empty field="tasks">
             <!-- remove all estimated dates -->
-            <iterate entry-name="task" list-name="tasks">
+            <iterate entry="task" list-name="tasks">
                 <clear-field field-name="task.estimatedStartDate"/>
                 <clear-field field-name="task.estimatedCompletionDate"/>
             </iterate>
@@ -270,7 +270,7 @@
                     <field-map field-name="workEffortIdTo" env-name="taskId"/>
                 </entity-and>
                 <if-not-empty field="assocs">
-                    <iterate entry-name="assoc" list-name="assocs">
+                    <iterate entry="assoc" list-name="assocs">
                         <clear-field field-name="hours"/>
                         <set field="getTask.taskId" from-field="assoc.workEffortIdFrom"/>
                         <call-service service-name="getProjectTask" in-map-name="getTask">
@@ -342,10 +342,10 @@
         </entity-one>
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
         <if-not-empty field="phases">
-            <iterate entry-name="phase" list-name="phases">
+            <iterate entry="phase" list-name="phases">
                 <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
                 <if-not-empty field="tasks">
-                    <iterate entry-name="task" list-name="tasks">
+                    <iterate entry="task" list-name="tasks">
                         <get-related value-name="task" relation-name="ToWorkEffortAssoc" list-name="t.prevTasks"/>
                         <if-empty field="t.prevTasks">
                             <!-- no predecessors so i can set the dates -->
@@ -414,7 +414,7 @@
         <!-- update existing entries -->
         <set field="hours" value="0" type="Double"/>
         <if-not-empty field="timeEntries">
-            <iterate entry-name="timeEntry" list-name="timeEntries">
+            <iterate entry="timeEntry" list-name="timeEntries">
                 <if-compare-field field="timeEntry.workEffortId" to-field="parameters.workEffortId" operator="equals">
                     <if-compare-field field="timeEntry.rateTypeId" to-field="parameters.rateTypeId" operator="equals">
                         <if-not-empty field="timeEntry.hours">
@@ -540,7 +540,7 @@
         <get-related value-name="project" relation-name="WorkEffortPartyAssignment" list-name="partiesAll"/>
         <filter-list-by-date list-name="partiesAll" to-list-name="parties"/>
         <if-not-empty field="parties">
-            <iterate entry-name="party" list-name="parties">
+            <iterate entry="party" list-name="parties">
                 <set field="parameters.workEffortId" from-field="newProjectId"/>            
                 <set field="parameters.partyId" from-field="party.partyId"/>
                 <set field="parameters.roleTypeId" from-field="party.roleTypeId"/>
@@ -551,7 +551,7 @@
         
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
         <if-not-empty field="phases">
-            <iterate entry-name="phase" list-name="phases">
+            <iterate entry="phase" list-name="phases">
                 <clear-field field-name="newPhase"/>
                 <if-not-empty field="toTemplate">
                     <set field="parameters.workEffortTypeId" value="PHASE_TEMPLATE"/>
@@ -568,7 +568,7 @@
                 
                 <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
                 <if-not-empty field="tasks">
-                    <iterate entry-name="task" list-name="tasks">
+                    <iterate entry="task" list-name="tasks">
                         <clear-field field-name="newTask"/>
                         <if-not-empty field="toTemplate">
                             <set field="newTask.workEffortTypeId" value="TASK_TEMPLATE"/>
@@ -612,10 +612,10 @@
         <!-- loop through the related phases and tasks -->
         <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
         <if-not-empty field="phases">
-            <iterate entry-name="phase" list-name="phases">
+            <iterate entry="phase" list-name="phases">
                 <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
                 <if-not-empty field="tasks">
-                    <iterate entry-name="lowInfo" list-name="tasks">
+                    <iterate entry="lowInfo" list-name="tasks">
                         <if-compare field="lowInfo.currentStatusId" value="PTS_COMPLETED" operator="not-equals">
                             <if-compare field="lowInfo.currentStatusId" value="PTS_CANCELLED" operator="not-equals">
                                 <set field="allTaskStatus" value="notComplete"/>
@@ -676,7 +676,7 @@
             <order-by field-name="workEffortName"/>
         </entity-and>        
         <if-not-empty field="phases">
-        <iterate entry-name="phase" list-name="phases">
+        <iterate entry="phase" list-name="phases">
             <!-- get the phase seq id -->
             <entity-one entity-name="StatusItem" value-name="highSeq">
                 <field-map field-name="statusId" env-name="phase.currentStatusId"/>
@@ -691,7 +691,7 @@
             <!-- loop through the related tasks and combine information -->
             <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
             <if-not-empty field="tasks">
-                <iterate entry-name="lowInfo" list-name="tasks">
+                <iterate entry="lowInfo" list-name="tasks">
                     <if-compare field="lowInfo.currentStatusId" value="PTS_COMPLETED" operator="not-equals">
                         <if-compare field="lowInfo.currentStatusId" value="PTS_CANCELLED" operator="not-equals">
                             <set field="allTaskStatus" value="notComplete"/>
@@ -751,7 +751,7 @@
             <order-by field-name="workEffortName"/>
         </entity-and>        
         <if-not-empty field="tasks">
-            <iterate entry-name="lowInfo" list-name="tasks">
+            <iterate entry="lowInfo" list-name="tasks">
                 <set field="highInfo.phaseName" from-field="lowInfo.phaseName"/>
                 <call-simple-method method-name="combineInfo"/>
                 <clear-field field-name="highInfo.sequenceId"/>
@@ -795,7 +795,7 @@
             <order-by field-name="partyId"/>
         </entity-condition>
         <if-not-empty field="tasks">
-            <iterate entry-name="task" list-name="tasks">
+            <iterate entry="task" list-name="tasks">
                 <if>
                     <condition>
                         <and>
@@ -857,7 +857,7 @@
             <order-by field-name="partyId"/>
         </entity-condition>
         <if-not-empty field="tasks">
-            <iterate entry-name="task" list-name="tasks">
+            <iterate entry="task" list-name="tasks">
                 <if>
                     <condition >
                         <and>
@@ -1014,7 +1014,7 @@
         <!-- add the planned hours together -->
         <get-related value-name="lowInfo" relation-name="WorkEffortSkillStandard" list-name="estimates"/>
         <if-not-empty field="estimates">
-            <iterate entry-name="estimate" list-name="estimates">
+            <iterate entry="estimate" list-name="estimates">
                 <if-not-empty field="estimate.estimatedDuration">
                     <if-not-empty field="highInfo.plannedHours">
                         <calculate field-name="highInfo.plannedHours">
@@ -1032,7 +1032,7 @@
         <!-- get the actual billed / non billed hours -->
         <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="actuals"/>
         <if-not-empty field="actuals">
-            <iterate entry-name="actual" list-name="actuals">
+            <iterate entry="actual" list-name="actuals">
                 <if-not-empty field="actual.hours">
                     <get-related-one value-name="actual" relation-name="Timesheet" to-value-name="timesheet"/>
 
@@ -1266,7 +1266,7 @@
             </add-error>
             <check-errors/>
         </if-empty>
-        <iterate entry-name="task" list-name="tasks">
+        <iterate entry="task" list-name="tasks">
             <if-empty field="notFirst">
                 <!-- first time so create invoice -->
                 <set-service-fields service-name="addWorkEffortTimeToNewInvoice" map-name="parameters" to-map-name="addTaskToNewInvoice"/>
@@ -1330,7 +1330,7 @@
 	        <if-not-empty field="assigns">
 	            <set field="addAssign.workEffortId" from-field="parameters.workEffortId"/>
 	            <set field="addAssign.statusId" value="PAS_ASSIGNED"/>
-	            <iterate entry-name="assign" list-name="assigns">
+	            <iterate entry="assign" list-name="assigns">
 	                <make-value value-name="newAssign" entity-name="WorkEffortPartyAssignment"/>
 	                <set field="newAssign.workEffortId" from-field="parameters.workEffortId"/>
 	                <set field="newAssign.partyId" from-field="assign.partyId"/>

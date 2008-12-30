@@ -27,7 +27,7 @@ under the License.
         <field-to-field field-name="currency" map-name="parameters" to-map-name="captureParams" />
         <string-to-field string="PAYMENT_AUTHORIZED" field-name="paymentStatusId" map-name="orderLookup" />
         <find-by-and entity-name="OrderHeaderAndPaymentPref" map-name="orderLookup" list-name="orderHeaderAndPaymentPrefs" />
-        <iterate entry-name="orderHeaderAndPaymentPref" list-name="orderHeaderAndPaymentPrefs" >
+        <iterate entry="orderHeaderAndPaymentPref" list-name="orderHeaderAndPaymentPrefs" >
             <field-to-field map-name="orderHeaderAndPaymentPref" field-name="orderId" to-map-name="captureParams" />
             <call-service service-name="capturePayment" in-map-name="captureParams" error-code="ignore-error">
                 <result-to-field map-name="captureResult" result-name="responseMessage" />
@@ -79,7 +79,7 @@ under the License.
         <set field="lookupMap.contactMechId" from-field="parameters.oldContactMechId"/>
         
         <find-by-and entity-name="CreditCard" map-name="lookupMap" list-name="creditCards"/>
-        <iterate entry-name="creditCard" list-name="creditCards">
+        <iterate entry="creditCard" list-name="creditCards">
             <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field-name="isNotExpired">
                 <field field-name="creditCard.expireDate"/>
             </call-class-method>
@@ -93,7 +93,7 @@ under the License.
         </iterate>
         
         <find-by-and entity-name="EftAccount" map-name="lookupMap" list-name="eftAccounts"/>
-        <iterate entry-name="eftAccount" list-name="eftAccounts">
+        <iterate entry="eftAccount" list-name="eftAccounts">
             <set-service-fields service-name="updateEftAccount" map-name="eftAccount" to-map-name="ueaMap"/>
             <set field="ueaMap.contactMechId" from-field="parameters.contactMechId"/>
             <set field="ueaMap.partyId" from-field="parameters.partyId"/>

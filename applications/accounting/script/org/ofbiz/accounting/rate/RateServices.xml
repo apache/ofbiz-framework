@@ -353,7 +353,7 @@ under the License.
     <!-- migrate service -->
     <simple-method method-name="migrateRateFactor" short-description="migrate the several entities which were change in the rate refactor activity">
         <entity-condition entity-name="OldEmplPositionTypeRate" list-name="posRates"/>
-        <iterate entry-name="posRate" list-name="posRates">
+        <iterate entry="posRate" list-name="posRates">
             <make-value value-name="emplPositionTypeRate" entity-name="EmplPositionTypeRate"/>
             <set-pk-fields value-name="posRate" map-name="emplPositionTypeRate"/>
             <set-nonpk-fields value-name="posRate" map-name="emplPositionTypeRate"/>
@@ -367,7 +367,7 @@ under the License.
             <create-value value-name="rateAmount"/>
         </iterate>        
         <entity-condition entity-name="OldPartyRate" list-name="partyRates"/>
-        <iterate entry-name="oldPartyRate" list-name="oldPartyRates">
+        <iterate entry="oldPartyRate" list-name="oldPartyRates">
             <make-value value-name="partyRate" entity-name="PartyRate"/>
             <set-pk-fields value-name="oldPartyRate" map-name="partyRate"/>            
             <set-nonpk-fields value-name="oldPartyRate" map-name="partyRate"/>

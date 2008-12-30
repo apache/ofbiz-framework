@@ -120,7 +120,7 @@ under the License.
             <field-map field-name="idCode" env-name="parameters.idCode"/>
         </entity-and>
         
-        <iterate entry-name="productFeature" list-name="productFeatures">
+        <iterate entry="productFeature" list-name="productFeatures">
             <set-service-fields service-name="applyFeatureToProduct" map-name="parameters" to-map-name="applyFeatureContext"/>
             <set field="applyFeatureContext.productFeatureId" from-field="productFeature.productFeatureId"/>
 

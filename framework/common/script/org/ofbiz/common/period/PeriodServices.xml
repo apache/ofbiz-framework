@@ -62,7 +62,7 @@ under the License.
                 <result-to-field result-name="parentOrganizationPartyIdList"/>
             </call-service>
             
-            <iterate entry-name="curOrganizationPartyId" list-name="parentOrganizationPartyIdList">
+            <iterate entry="curOrganizationPartyId" list-name="parentOrganizationPartyIdList">
                 <clear-field field-name="orgTimePeriodList"/>
                 <entity-condition entity-name="CustomTimePeriod" list-name="orgTimePeriodList">
                     <condition-list combine="and">

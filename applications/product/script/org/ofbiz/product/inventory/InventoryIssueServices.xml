@@ -115,7 +115,7 @@ under the License.
     
             <set field="parameters.quantityNotIssued" from-field="orderItem.quantity" />
 
-            <iterate entry-name="inventoryItem" list-name="inventoryItemList">
+            <iterate entry="inventoryItem" list-name="inventoryItemList">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                 <call-simple-method method-name="issueImmediateForInventoryItemInline"/>
             </iterate>

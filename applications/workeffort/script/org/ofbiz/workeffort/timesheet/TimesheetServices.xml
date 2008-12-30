@@ -149,7 +149,7 @@ under the License.
         <set field="invoiceItemMap.taxableFlag" value="N"/>
         <set field="invoiceItemMap.invoiceItemTypeId" value="INV_TE_ITEM"/>
         <set field="invoiceItemMap.uomId" value="TF_hr"/>
-        <iterate entry-name="timeEntry" list-name="timeEntryList">
+        <iterate entry="timeEntry" list-name="timeEntryList">
             <if> 
                 <condition>
                     <or>

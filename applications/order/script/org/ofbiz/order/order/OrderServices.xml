@@ -365,7 +365,7 @@ under the License.
                         <condition-expr field-name="statusId" operator="not-equals" value="REQ_REJECTED"/>
                     </condition-list>
                 </entity-condition>
-                <iterate entry-name="requirement" list-name="requirements">
+                <iterate entry="requirement" list-name="requirements">
                     <calculate field-name="existingRequirementTotal" type="Double">
                         <calcop operator="add" field-name="existingRequirementTotal">
                             <calcop operator="get" field-name="requirement.quantity"/>

@@ -158,7 +158,7 @@ under the License.
         </entity-condition>
         <calculate field-name="debitTotal" type="BigDecimal"><number value="0"/></calculate>
         <calculate field-name="creditTotal" type="BigDecimal"><number value="0"/></calculate>
-        <iterate entry-name="acctgTransEntry" list-name="acctgTransEntryList">
+        <iterate entry="acctgTransEntry" list-name="acctgTransEntryList">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                <calculate field-name="debitTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                         <calcop operator="add">
@@ -241,7 +241,7 @@ under the License.
         
         <!-- get current period(s) and check if closed -->
         <!-- also check if the glAccountId, amount, currencyUomId fields are all set -->
-        <iterate entry-name="acctgTransEntry" list-name="acctgTransEntryList">
+        <iterate entry="acctgTransEntry" list-name="acctgTransEntryList">
             <!-- we want to do this for each organizationPartyId, so only do this if we haven't already found the list for the current org -->
             <if-empty field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}">
                 <clear-field field-name="findCustomTimePeriodCallMap"/>
@@ -260,7 +260,7 @@ under the License.
                     <add-error><fail-message message="Could not find a CustomTimePeriod (fiscal period) for the Transaction Date [${acctgTrans.transactionDate}] (is for Organization Party with ID [${acctgTransEntry.organizationPartyId}])"/></add-error>
                 </if-empty>
                 <!-- now do the actual isClose check -->
-                <iterate entry-name="customTimePeriod" list-name="customTimePeriodList">
+                <iterate entry="customTimePeriod" list-name="customTimePeriodList">
                     <if-compare field="customTimePeriod.isClosed" operator="equals" value="Y">
                         <add-error><fail-message message="CustomTimePeriod (fiscal period) [${customTimePeriod.customTimePeriodId}] is CLOSED, cannot post to it (is for the Transaction Date [${acctgTrans.transactionDate}] and Organization Party with ID [${acctgTransEntry.organizationPartyId}])"/></add-error>
                     </if-compare>
@@ -312,7 +312,7 @@ under the License.
                 </iterate>
             </if-not-empty>
             <!-- TODO: for each entry: lookup GlAccount, update posted balance -->
-            <iterate entry-name="acctgTransEntry" list-name="acctgTransEntryList">
+            <iterate entry="acctgTransEntry" list-name="acctgTransEntryList">
                 <!-- Get all data to operate on: GlAccount, GlAccountOrganization, GlAccountHistory -->
                 <clear-field field-name="glAccount"/>
                 <clear-field field-name="glAccountOrganization"/>
@@ -383,7 +383,7 @@ under the License.
 
                 <!-- assemble the glAccountHistoryList, we will update all of these -->
                 <set from-field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}" field="customTimePeriodList"/>
-                <iterate entry-name="customTimePeriod" list-name="customTimePeriodList">
+                <iterate entry="customTimePeriod" list-name="customTimePeriodList">
                     <entity-one entity-name="GlAccountHistory" value-name="glAccountHistory">
                         <field-map field-name="glAccountId" env-name="acctgTransEntry.glAccountId"/>
                         <field-map field-name="organizationPartyId" env-name="acctgTransEntry.organizationPartyId"/>

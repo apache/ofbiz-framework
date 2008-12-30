@@ -93,7 +93,7 @@ under the License.
         <!-- find email addresses of all parties in SHIPMENT_CLERK roleTypeId, set as sendTo -->
         <set value="SHIPMENT_CLERK" field="shipmentClerkFindMap.roleTypeId"/>
         <find-by-and entity-name="PartyRole" map-name="shipmentClerkFindMap" list-name="shipmentClerkRoles"/>
-        <iterate entry-name="shipmentClerkRole" list-name="shipmentClerkRoles">
+        <iterate entry="shipmentClerkRole" list-name="shipmentClerkRoles">
             <set field="sendToPartyIdMap.${shipmentClerkRole.partyId}" from-field="shipmentClerkRole.partyId"/>
         </iterate>
         
@@ -102,7 +102,7 @@ under the License.
             <set field="sendToPartyPcmFindMap.partyId" from-field="sendToPartyId"/>
             <set field="sendToPartyPcmFindMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
             <find-by-and entity-name="PartyAndContactMech" map-name="sendToPartyPcmFindMap" list-name="sendToPartyPartyAndContactMechs"/>
-            <iterate entry-name="sendToPartyPartyAndContactMech" list-name="sendToPartyPartyAndContactMechs">
+            <iterate entry="sendToPartyPartyAndContactMech" list-name="sendToPartyPartyAndContactMechs">
                 <string-append field-name="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
             </iterate>
         </iterate-map>

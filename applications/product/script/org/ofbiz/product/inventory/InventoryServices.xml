@@ -615,7 +615,7 @@ under the License.
         
         <set field="parameters.availableToPromiseTotal" value="0" type="Double"/>
         <set field="parameters.quantityOnHandTotal" value="0" type="Double"/>
-        <iterate entry-name="inventoryItem" list-name="inventoryItems">
+        <iterate entry="inventoryItem" list-name="inventoryItems">
             <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
                 <if>
                     <condition>
@@ -1067,7 +1067,7 @@ under the License.
 
                 <!-- first transfer InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
                 <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list-name="orderByList"/>
-                <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
+                <iterate entry="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
                     <if>
                         <condition>
                             <and>
@@ -1105,7 +1105,7 @@ under the License.
                 <!-- still some left? try the FLT_BULK locations -->
                 <if-compare field="quantityNotTransferred" operator="greater" value="0" type="Double">
                     <find-by-and entity-name="InventoryItemAndLocation" map-name="lookupFieldMap" list-name="inventoryItemAndLocations" use-iterator="true" order-by-list-name="orderByList"/>
-                    <iterate entry-name="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
+                    <iterate entry="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
                         <if>
                             <condition>
                                 <and>
@@ -1144,7 +1144,7 @@ under the License.
                 <!-- last of all transfer InventoryItems that have no locationSeqId, ie are not in any particular location -->
                 <if-compare field="quantityNotTransferred" operator="greater" value="0" type="Double">
                     <find-by-and entity-name="InventoryItem" map-name="lookupFieldMap" list-name="inventoryItems" use-iterator="true" order-by-list-name="orderByList"/>
-                    <iterate entry-name="inventoryItem" list-name="inventoryItems">
+                    <iterate entry="inventoryItem" list-name="inventoryItems">
                         <if>
                             <condition>
                                 <and>

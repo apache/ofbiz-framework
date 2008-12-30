@@ -115,7 +115,7 @@ under the License.
     <simple-method method-name="createCommunicationEventRoles" short-description="">
         <entity-condition list-name="commEvents" entity-name="CommunicationEvent" />
         <set field="count" value="0" type="Integer" />
-        <iterate entry-name="commEvent" list-name="commEvents">
+        <iterate entry="commEvent" list-name="commEvents">
             <get-related value-name="commEvent" relation-name="CommunicationEventRole" list-name="roles" />
             <if-empty field="roles">
                 <!--partyId To -->

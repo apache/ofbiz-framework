@@ -268,7 +268,7 @@ under the License.
                 <filter-list-by-date list-name="rolePartyGroups"/>
                 <if-not-empty field="rolePartyGroups">
                     <!-- Check to see if User is member of any of these Party groups -->
-                    <iterate entry-name="rolePartyGroup" list-name="rolePartyGroups">
+                    <iterate entry="rolePartyGroup" list-name="rolePartyGroups">
                         <!-- check current party is the member of party group-->
                         <!-- PartyGroup partyId-->
                         <set from-field="rolePartyGroup.partyId" field="lookupPartyRoleMap.partyIdFrom"/>    

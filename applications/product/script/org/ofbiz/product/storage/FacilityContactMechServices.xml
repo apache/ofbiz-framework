@@ -95,7 +95,7 @@ under the License.
 
         <if-compare-field to-field="newFacilityContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
             <get-related value-name="facilityContactMech" relation-name="FacilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
-            <iterate entry-name="facilityContactMechPurposeOld" list-name="facilityContactMechPurposes">
+            <iterate entry="facilityContactMechPurposeOld" list-name="facilityContactMechPurposes">
                 <clone-value value-name="facilityContactMechPurposeOld" new-value-name="facilityContactMechPurpose"/>
 
                 <now-timestamp-to-env env-name="facilityContactMechPurposeOld.thruDate"/>

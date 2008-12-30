@@ -182,7 +182,7 @@ under the License.
         </call-service>
         <field-to-result field-name="invoiceId" result-name="invoiceId"/>
         <field-to-request field-name="invoiceId" request-name="invoiceId"/>
-        <iterate entry-name="invoiceItem" list-name="invoiceItems">
+        <iterate entry="invoiceItem" list-name="invoiceItems">
             <set-service-fields service-name="createInvoiceItem" map-name="invoiceItem" to-map-name="createInvoiceItem"/>
             <set field="createInvoiceItem.invoiceId" from-field="invoiceId"/>
             <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItem"/>
@@ -489,7 +489,7 @@ under the License.
                     <entity-and entity-name="TimeEntry" list-name="entries">
                         <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
                     </entity-and>
-                    <iterate entry-name="entry" list-name="entries">
+                    <iterate entry="entry" list-name="entries">
                         <clear-field field-name="entry.invoiceId"/>                        
                         <clear-field field-name="entry.invoiceItemSeqId"/>
                         <store-value value-name="entry"/>
