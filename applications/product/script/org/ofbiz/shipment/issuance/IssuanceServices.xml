@@ -509,7 +509,7 @@ under the License.
         <set field="shipmentId" from-field="parameters.shipmentId"/>
         <set field="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
-        <entity-and entity-name="ReturnItemShipment" list-name="returnItemShipments">
+        <entity-and entity-name="ReturnItemShipment" list="returnItemShipments">
           <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
           <field-map field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
         </entity-and>

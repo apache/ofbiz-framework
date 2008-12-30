@@ -71,7 +71,7 @@ under the License.
 
         <!-- if the user has the role limited position, add this product to the limit category/ies -->
         <if-has-permission permission="CATALOG_ROLE" action="_CREATE">
-            <entity-and entity-name="ProductCategoryRole" list-name="productCategoryRoles" filter-by-date="true">
+            <entity-and entity-name="ProductCategoryRole" list="productCategoryRoles" filter-by-date="true">
                 <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
             </entity-and>
@@ -241,7 +241,7 @@ under the License.
             </iterate>
 
             <!-- small difference here, also do the reverse assocs... -->
-            <entity-and entity-name="ProductAssoc" list-name="foundValues">
+            <entity-and entity-name="ProductAssoc" list="foundValues">
                 <field-map field-name="productIdTo" from-field="parameters.oldProductId"/>
             </entity-and>
             <iterate entry="foundValue" list="foundValues">

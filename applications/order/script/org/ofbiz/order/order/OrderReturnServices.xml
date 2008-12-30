@@ -229,7 +229,7 @@ under the License.
                     <check-errors/>
                 </then>
             </if>
-            <entity-and entity-name="ReturnAdjustment" list-name="returnAdjustments">
+            <entity-and entity-name="ReturnAdjustment" list="returnAdjustments">
                 <field-map field-name="returnId" from-field="returnHeader.returnId"/>
             </entity-and>
             <iterate entry="returnAdjustment" list="returnAdjustments">
@@ -443,7 +443,7 @@ under the License.
         <refresh-value value-name="returnItem"/>
 
         <!-- now update all return adjustments associated with this return item -->
-        <entity-and entity-name="ReturnAdjustment" list-name="returnAdjustments">
+        <entity-and entity-name="ReturnAdjustment" list="returnAdjustments">
             <field-map field-name="returnId" from-field="returnItem.returnId"/>
             <field-map field-name="returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
         </entity-and>
@@ -489,7 +489,7 @@ under the License.
         <set from-field="parameters.returnItemSeqId" field="lookupPKMap.returnItemSeqId"/>
         <find-by-primary-key entity-name="ReturnItem" map="lookupPKMap" value-field="returnItem"/>
         <!--remove related  adjustments-->
-        <entity-and entity-name="ReturnAdjustment" list-name="returnAdjustments">
+        <entity-and entity-name="ReturnAdjustment" list="returnAdjustments">
             <field-map field-name="returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
             <field-map field-name="returnId" from-field="returnItem.returnId"/>
         </entity-and>
@@ -937,12 +937,12 @@ under the License.
     
     <simple-method method-name="getStatusItemsForReturn" short-description="Get the return status associated with customer vs. vendor return">
         <if-compare field="parameters.returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
-            <entity-and entity-name="StatusItem" list-name="statusItems">
+            <entity-and entity-name="StatusItem" list="statusItems">
                 <field-map field-name="statusTypeId" value="ORDER_RETURN_STTS"/>
             </entity-and>
             <field-to-result field-name="statusItems"/>
         <else>
-            <entity-and entity-name="StatusItem" list-name="statusItems">
+            <entity-and entity-name="StatusItem" list="statusItems">
                 <field-map field-name="statusTypeId" value="PORDER_RETURN_STTS"/>
             </entity-and>
             <field-to-result field-name="statusItems"/>

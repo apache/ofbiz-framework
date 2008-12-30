@@ -304,7 +304,7 @@ under the License.
         <!-- Step 1 cancel our reservation, we'll later reserve Inventory we want-->
         <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOrderItemShipGrpInvResMap"/>
         <!-- Lets find the inventory to reserve -->
-        <entity-and entity-name="InventoryItem" list-name="inventoryItems">            
+        <entity-and entity-name="InventoryItem" list="inventoryItems">            
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="inventoryItemTypeId"  value="SERIALIZED_INV_ITEM"/>
             <field-map field-name="serialNumber" from-field="parameters.serialNumber"/>

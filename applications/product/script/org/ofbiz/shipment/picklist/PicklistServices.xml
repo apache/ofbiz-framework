@@ -87,7 +87,7 @@ under the License.
         <iterate entry="orderHeader" list="orderHeaderList">
             <log level="info" message="Checking order #${orderHeader.orderId} to add to picklist"/>
             <!-- get all ship groups, and iterate over them for each order -->
-            <entity-and entity-name="OrderItemShipGroup" list-name="orderItemShipGroupList">
+            <entity-and entity-name="OrderItemShipGroup" list="orderItemShipGroupList">
                 <field-map field-name="orderId" from-field="orderHeader.orderId"/>
                 <order-by field-name="shipGroupSeqId"/>
             </entity-and>
@@ -113,11 +113,11 @@ under the License.
                     </condition>
                     <then>
                         <!-- get only for current OrderItemShipGroup -->
-                        <entity-and entity-name="OrderItemShipGrpInvRes" list-name="orderItemShipGrpInvResList">
+                        <entity-and entity-name="OrderItemShipGrpInvRes" list="orderItemShipGrpInvResList">
                             <field-map field-name="orderId" from-field="orderItemShipGroup.orderId"/>
                             <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroup.shipGroupSeqId"/>
                         </entity-and>
-                        <entity-and entity-name="OrderItemAndShipGroupAssoc" list-name="orderItemAndShipGroupAssocList">
+                        <entity-and entity-name="OrderItemAndShipGroupAssoc" list="orderItemAndShipGroupAssocList">
                             <field-map field-name="orderId" from-field="orderItemShipGroup.orderId"/>
                             <field-map field-name="shipGroupSeqId" from-field="orderItemShipGroup.shipGroupSeqId"/>
                             <order-by field-name="+orderItemSeqId"/>
@@ -1246,7 +1246,7 @@ under the License.
         <find-by-primary-key map="plLookup" value-field="picklist"/>
 
         <!-- find all related picklist items -->
-        <entity-and entity-name="PicklistItemAndBin" list-name="picklistItem">
+        <entity-and entity-name="PicklistItemAndBin" list="picklistItem">
             <field-map field-name="picklistId" from-field="picklist.picklistId"/>
         </entity-and>
 

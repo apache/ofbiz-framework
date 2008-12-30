@@ -453,7 +453,7 @@ under the License.
         </if-not-empty>
         
         <!-- copy attachements/content -->
-        <entity-and entity-name="CommEventContentAssoc" list-name="custRequestContents">
+        <entity-and entity-name="CommEventContentAssoc" list="custRequestContents">
             <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
         </entity-and>
         <iterate entry="custRequestContent" list="custRequestContents">

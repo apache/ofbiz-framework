@@ -61,7 +61,7 @@
     <simple-method method-name="updProjectRole" 
         short-description="update/create a specif role and type for a project 
                             input map: updProjectRole.newPartyId, updProjectRole.roleTypeId">
-        <entity-and entity-name="WorkEffortPartyAssignment" list-name="workEffortPartyAssignments" filter-by-date="true">
+        <entity-and entity-name="WorkEffortPartyAssignment" list="workEffortPartyAssignments" filter-by-date="true">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
             <field-map field-name="roleTypeId" value="updProjectRole.roleTypeId"/>
         </entity-and>
@@ -185,7 +185,7 @@
     
     <simple-method method-name="updateTaskStatusToComplete" 
         short-description="Check partyassignments on a task, if all completes set task status to completed and set actual completiondate to now">
-        <entity-and entity-name="WorkEffortPartyAssignment" list-name="assignments" filter-by-date="true">
+        <entity-and entity-name="WorkEffortPartyAssignment" list="assignments" filter-by-date="true">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
         </entity-and>
         <!-- check if all open assignments were completed -->
@@ -266,7 +266,7 @@
                 <if-empty field="generalStartDate"/>
             </condition>
             <then>
-                <entity-and entity-name="WorkEffortAssoc" list-name="assocs">
+                <entity-and entity-name="WorkEffortAssoc" list="assocs">
                     <field-map field-name="workEffortIdTo" from-field="taskId"/>
                 </entity-and>
                 <if-not-empty field="assocs">
@@ -381,7 +381,7 @@
         <entity-one entity-name="Timesheet" value-field="timesheet"/>
         
         <!-- check if party assigned to task, when not add with roletype of project, if assigned check status -->
-        <entity-and entity-name="WorkEffortPartyAssignment" list-name="assigns" filter-by-date="true">
+        <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
             <field-map field-name="partyId" from-field="timesheet.partyId"/>
         </entity-and>
@@ -390,7 +390,7 @@
             <call-service service-name="getProjectIdAndNameFromTask" in-map-name="getpr">
                 <result-to-field result-name="projectId"/>
             </call-service>
-            <entity-and entity-name="WorkEffortPartyAssignment" list-name="projectAssigns" filter-by-date="true">
+            <entity-and entity-name="WorkEffortPartyAssignment" list="projectAssigns" filter-by-date="true">
                 <field-map field-name="workEffortId" from-field="projectId"/>
                 <field-map field-name="partyId" from-field="timesheet.partyId"/>
             </entity-and>
@@ -457,7 +457,7 @@
         
         <!-- update the assignment status if required -->
         <if-compare field="parameters.checkComplete" value="Y" operator="equals">
-            <entity-and entity-name="WorkEffortPartyAssignment" list-name="assigns" filter-by-date="true">
+            <entity-and entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
                 <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 <field-map field-name="partyId" from-field="timesheet.partyId"/>
             </entity-and>
@@ -629,7 +629,7 @@
         </if-not-empty>
         
         <!-- translate squenceId back into statusId -->
-        <entity-and entity-name="StatusItem" list-name="statusses">
+        <entity-and entity-name="StatusItem" list="statusses">
             <field-map field-name="sequenceId" from-field="highInfo.sequenceId"/>
             <field-map field-name="statusTypeId" value="PROJECT_TASK_STATUS"/>
         </entity-and>
@@ -670,7 +670,7 @@
         <if-empty field="parameters.projectId">
             <return/>
         </if-empty>
-        <entity-and entity-name="WorkEffort" list-name="phases">
+        <entity-and entity-name="WorkEffort" list="phases">
             <field-map field-name="workEffortTypeId" value="PHASE"/>
             <field-map field-name="workEffortParentId" from-field="parameters.projectId"/>
             <order-by field-name="workEffortName"/>
@@ -706,7 +706,7 @@
             <call-simple-method method-name="createDates"/>
             
             <!-- translate squenceId back into statusId -->
-            <entity-and entity-name="StatusItem" list-name="statusses">
+            <entity-and entity-name="StatusItem" list="statusses">
                 <field-map field-name="sequenceId" from-field="highInfo.sequenceId"/>
                 <field-map field-name="statusTypeId" value="PROJECT_TASK_STATUS"/>
             </entity-and>
@@ -745,7 +745,7 @@
         <if-empty field="parameters.projectId">
             <return/>
         </if-empty>
-        <entity-and entity-name="ProjectAndPhaseAndTask" list-name="tasks">
+        <entity-and entity-name="ProjectAndPhaseAndTask" list="tasks">
             <field-map field-name="projectId" from-field="parameters.projectId"/>
             <order-by field-name="phaseName"/>
             <order-by field-name="workEffortName"/>
@@ -1216,7 +1216,7 @@
             </if-empty>
         </if-not-empty>
         <!-- get role for this party in this project -->
-        <entity-and entity-name="ProjectPartyAndPhaseAndTask" list-name="taskRoles" filter-by-date="true">
+        <entity-and entity-name="ProjectPartyAndPhaseAndTask" list="taskRoles" filter-by-date="true">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
         </entity-and>

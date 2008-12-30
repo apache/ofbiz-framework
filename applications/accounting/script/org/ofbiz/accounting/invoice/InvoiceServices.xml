@@ -486,7 +486,7 @@ under the License.
                 <if-compare field="parameters.statusId" operator="equals" value="INVOICE_CANCELLED">
                     <set field="removePaymentApplicationMap.invoiceId" from-field="parameters.invoiceId"/>
                     <remove-by-and entity-name="PaymentApplication" map-name="removePaymentApplicationMap"/>
-                    <entity-and entity-name="TimeEntry" list-name="entries">
+                    <entity-and entity-name="TimeEntry" list="entries">
                         <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
                     </entity-and>
                     <iterate entry="entry" list="entries">
@@ -553,7 +553,7 @@ under the License.
    </simple-method>
 
    <simple-method method-name="autoGenerateInvoiceFromExistingInvoice" short-description="Scheduled service to generate Invoice from an existing Invoice">
-       <entity-and entity-name="Invoice" list-name="invoices">
+       <entity-and entity-name="Invoice" list="invoices">
             <field-map field-name="recurrenceInfoId" from-field="parameters.recurrenceInfoId"/>
        </entity-and>
        <iterate list="invoices" entry="invoice">

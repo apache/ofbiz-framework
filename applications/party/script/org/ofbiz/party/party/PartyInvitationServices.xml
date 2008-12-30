@@ -71,7 +71,7 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="acceptPartyInvitation" short-description="Accept Party Invitation">
-        <entity-and entity-name="PartyInvitationGroupAssoc" list-name="partyInvitationGroupAssocs">
+        <entity-and entity-name="PartyInvitationGroupAssoc" list="partyInvitationGroupAssocs">
             <field-map field-name="partyInvitationId" from-field="parameters.partyInvitationId"/>
         </entity-and>
         <if-not-empty field="partyInvitationGroupAssocs">
@@ -82,7 +82,7 @@ under the License.
                 <call-service service-name="createPartyRelationship" in-map-name="createPartyRelationshipCtx"/>
             </iterate>
         </if-not-empty>
-        <entity-and entity-name="PartyInvitationRoleAssoc" list-name="partyInvitationRoleAssocs">
+        <entity-and entity-name="PartyInvitationRoleAssoc" list="partyInvitationRoleAssocs">
             <field-map field-name="partyInvitationId" from-field="parameters.partyInvitationId"/>
         </entity-and>
         <if-not-empty field="partyInvitationRoleAssocs">

@@ -33,7 +33,7 @@ under the License.
         <!-- lookup the product subscription resource (if exists) -->
         <if-not-empty field="parameters.subscriptionResourceId">
             <if-not-empty field="parameters.productId">
-                <entity-and entity-name="ProductSubscriptionResource" list-name="resourceList" filter-by-date="true">
+                <entity-and entity-name="ProductSubscriptionResource" list="resourceList" filter-by-date="true">
                     <field-map field-name="subscriptionResourceId" from-field="parameters.subscriptionResourceId"/>
                     <field-map field-name="productId" from-field="parameters.productId"/>
                     <order-by field-name="-fromDate"/>

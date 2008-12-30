@@ -397,7 +397,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <entity-and entity-name="ProductFacility" list-name="products">
+        <entity-and entity-name="ProductFacility" list="products">
             <field-map from-field="parameters.facilityId" field-name="facilityId"/>
         </entity-and>
 
@@ -922,7 +922,7 @@ under the License.
                         <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
                     </call-service>
                 </if-compare-field>
-                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpShipList" filter-by-date="true">
+                <entity-and entity-name="PartyContactMechPurpose" list="pcmpShipList" filter-by-date="true">
                     <field-map field-name="partyId" from-field="userLogin.partyId"/>
                     <field-map field-name="contactMechId" from-field="parameters.shipToContactMechId"/>
                     <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
@@ -932,7 +932,7 @@ under the License.
                     <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
                     <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
 
-                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                    <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
                         <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
@@ -964,7 +964,7 @@ under the License.
                     <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue"/>
                     <set-nonpk-fields map="shipToAddressCtx" value-field="newValue"/>
                     <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
-                        <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                        <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
                             <field-map field-name="contactMechId" from-field="shipToAddressCtx.shipToContactMechId"/>
                             <field-map field-name="partyId" from-field="userLogin.partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
@@ -1013,7 +1013,7 @@ under the License.
                 <call-service service-name="createPartyContactMechPurpose" in-map-name="serviceInMap"/>
             <else>
                 <if-compare-field field="parameters.shipToContactMechId" operator="not-equals" to-field="parameters.billToContactMechId">
-                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                    <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
                         <field-map field-name="contactMechId" from-field="parameters.billToContactMechId"/>
                         <field-map field-name="partyId" from-field="partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
@@ -1066,7 +1066,7 @@ under the License.
                 </else>
                 </if-compare-field>
 
-                <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpBillList" filter-by-date="true">
+                <entity-and entity-name="PartyContactMechPurpose" list="pcmpBillList" filter-by-date="true">
                     <field-map field-name="partyId" from-field="userLogin.partyId"/>
                     <field-map field-name="contactMechId" from-field="parameters.billToContactMechId"/>
                     <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
@@ -1076,7 +1076,7 @@ under the License.
                     <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
                     <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
 
-                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                    <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
                         <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
@@ -1116,7 +1116,7 @@ under the License.
             </call-service>
         <else>
             <!-- call update Credit Card -->
-            <entity-and entity-name="PaymentMethod" list-name="paymentMethodList" filter-by-date="true">
+            <entity-and entity-name="PaymentMethod" list="paymentMethodList" filter-by-date="true">
                 <field-map field-name="partyId" from-field="partyId"/>
                 <order-by field-name="-fromDate"/>
             </entity-and>

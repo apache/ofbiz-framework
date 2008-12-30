@@ -587,7 +587,7 @@ under the License.
         </entity-condition>
         <set from-field="maxContentApprovalList[0].maxContentRevisionSeqId" field="latestContentRevisionSeqId"/>
         <log level="info" message="latestContentRevisionSeqId 0aa: ${latestContentRevisionSeqId}"/>
-        <entity-and entity-name="ContentApproval" list-name="templateContentApprovalList">
+        <entity-and entity-name="ContentApproval" list="templateContentApprovalList">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
             <field-map field-name="contentRevisionSeqId" from-field="latestContentRevisionSeqId"/>
         </entity-and>
@@ -641,7 +641,7 @@ under the License.
                 </entity-condition>
                 <set from-field="templateContentRevisionList[0].contentRevisionSeqId" field="latestContentRevisionSeqId"/>
                 <log level="info" message="latestContentRevisionSeqId 0aa: ${latestContentRevisionSeqId}"/>
-                <entity-and entity-name="ContentApproval" list-name="templateContentApprovalList">
+                <entity-and entity-name="ContentApproval" list="templateContentApprovalList">
                     <field-map field-name="contentId" from-field="rootTemplateContentId"/>
                     <field-map field-name="contentRevisionSeqId" from-field="latestContentRevisionSeqId"/>
                 </entity-and>
@@ -733,7 +733,7 @@ under the License.
                 </entity-condition>
                 <set from-field="templateContentRevisionList[0].contentRevisionSeqId" field="latestContentRevisionSeqId"/>
                 <log level="info" message="latestContentRevisionSeqId 0aa: ${latestContentRevisionSeqId}"/>
-                <entity-and entity-name="ContentApproval" list-name="templateContentApprovalList">
+                <entity-and entity-name="ContentApproval" list="templateContentApprovalList">
                     <field-map field-name="contentId" from-field="rootTemplateContentId"/>
                     <field-map field-name="contentRevisionSeqId" from-field="latestContentRevisionSeqId"/>
                 </entity-and>
@@ -820,7 +820,7 @@ under the License.
     </simple-method>
     <simple-method method-name="getFinalApprovalStatus" short-description="Check to see if any open approval conditions exist">
         <!-- iterate thru most recent ContentApproval list and determine its ending status -->
-        <entity-and entity-name="ContentApproval" list-name="contentApprovalList">
+        <entity-and entity-name="ContentApproval" list="contentApprovalList">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
             <field-map field-name="contentRevisionSeqId" from-field="parameters.contentRevisionSeqId"/>
             <order-by field-name="sequenceNum"/>
@@ -876,7 +876,7 @@ under the License.
     </simple-method>
     <simple-method method-name="checkForWaitingApprovals" short-description="Check to see if any approval conditions exist for the passed in user">
         <set from-field="userLogin.partyId" field="partyId"/>
-        <entity-and entity-name="PartyRole" list-name="partyRoleList">
+        <entity-and entity-name="PartyRole" list="partyRoleList">
             <field-map field-name="partyId" from-field="partyId"/>
         </entity-and>
         <log level="info" message="userLogin.partyId: ${partyId}"/>
