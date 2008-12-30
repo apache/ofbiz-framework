@@ -38,7 +38,7 @@ under the License.
     <simple-method method-name="updateRequirement" short-description="Update a requirement">
         <make-value value-field="lookupPKMap" entity-name="Requirement"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="Requirement" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="Requirement" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/> 
@@ -100,7 +100,7 @@ under the License.
         <check-errors/>
         <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
-        <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="partyRole"/>
+        <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-field="partyRole"/>
         <if-empty field="partyRole.partyId">
             <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>

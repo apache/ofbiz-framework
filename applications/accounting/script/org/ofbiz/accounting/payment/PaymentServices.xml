@@ -67,7 +67,7 @@ under the License.
         <make-value entity-name="Payment" value-field="lookupPayment"/>
         <set-pk-fields value-name="lookupPayment" map-name="parameters"/>
         
-        <find-by-primary-key entity-name="Payment" map-name="lookupPayment" value-name="payment"/>
+        <find-by-primary-key entity-name="Payment" map-name="lookupPayment" value-field="payment"/>
         <if>
             <condition>
                 <and>

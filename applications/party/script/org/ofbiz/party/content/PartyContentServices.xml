@@ -38,7 +38,7 @@ under the License.
         <make-value value-field="lookupPkMap" entity-name="PartyContent"/>
         <set-pk-fields value-name="lookupPkMap" map-name="parameters"/>
 
-        <find-by-primary-key map-name="lookupPkMap" value-name="partyContent"/>
+        <find-by-primary-key map-name="lookupPkMap" value-field="partyContent"/>
         <set-nonpk-fields value-name="partyContent" map-name="parameters"/>
         <store-value value-name="partyContent"/>       
     </simple-method>
@@ -47,7 +47,7 @@ under the License.
         <make-value value-field="lookupPkMap" entity-name="PartyContent"/>
         <set-pk-fields value-name="lookupPkMap" map-name="parameters"/>
 
-        <find-by-primary-key map-name="lookupPkMap" value-name="partyContent"/>
+        <find-by-primary-key map-name="lookupPkMap" value-field="partyContent"/>
         <remove-value value-name="partyContent"/>        
     </simple-method>
 

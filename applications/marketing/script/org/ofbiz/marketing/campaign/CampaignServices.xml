@@ -41,7 +41,7 @@ under the License.
 
         <make-value entity-name="MarketingCampaign" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="MarketingCampaign" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="MarketingCampaign" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         
         <store-value value-name="lookedUpValue"/>
@@ -52,7 +52,7 @@ under the License.
 
         <make-value entity-name="MarketingCampaign" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="MarketingCampaign" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="MarketingCampaign" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -73,7 +73,7 @@ under the License.
 
         <make-value entity-name="MarketingCampaignPrice" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="MarketingCampaignPrice" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="MarketingCampaignPrice" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -94,7 +94,7 @@ under the License.
 
         <make-value entity-name="MarketingCampaignPromo" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="MarketingCampaignPromo" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="MarketingCampaignPromo" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -115,7 +115,7 @@ under the License.
 
         <make-value entity-name="MarketingCampaignRole" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="MarketingCampaignRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="MarketingCampaignRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createMarketingCampaignRole" short-description="Add Role To MarketingCampaign">

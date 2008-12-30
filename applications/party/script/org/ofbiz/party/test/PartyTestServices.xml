@@ -40,7 +40,7 @@ under the License.
             <results-to-map map-name="partyList"/>
         </call-service>
         
-        <find-by-primary-key entity-name="PartyRoleDetailAndPartyDetail" map-name="searchParams" value-name="partyRoleDetailAndPartyDetail"/>
+        <find-by-primary-key entity-name="PartyRoleDetailAndPartyDetail" map-name="searchParams" value-field="partyRoleDetailAndPartyDetail"/>
         <if-not-empty field="partyRoleDetailAndPartyDetail">
             <assert><not><if-empty field="partyList"/></not></assert>
         <else>

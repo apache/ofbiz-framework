@@ -192,7 +192,7 @@ under the License.
     <simple-method method-name="updateCustRequestAttribute" short-description="Update Customer Request Attribute">
         <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
         <set from-field="parameters.attrName" field="lookupPKMap.attrName"/>
-        <find-by-primary-key entity-name="CustRequestAttribute" map-name="lookupPKMap" value-name="custRequestAttr"/>
+        <find-by-primary-key entity-name="CustRequestAttribute" map-name="lookupPKMap" value-field="custRequestAttr"/>
         <set-nonpk-fields map-name="parameters" value-name="custRequestAttr"/>
         <store-value value-name="custRequestAttr"/>
     </simple-method>
@@ -214,7 +214,7 @@ under the License.
     <simple-method method-name="updateCustRequestItem" short-description="Update Customer Request Item">
         <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
         <set from-field="parameters.custRequestItemSeqId" field="lookupPKMap.custRequestItemSeqId"/>
-        <find-by-primary-key entity-name="CustRequestItem" map-name="lookupPKMap" value-name="custRequestItem"/>
+        <find-by-primary-key entity-name="CustRequestItem" map-name="lookupPKMap" value-field="custRequestItem"/>
         <set-nonpk-fields map-name="parameters" value-name="custRequestItem"/>
         <store-value value-name="custRequestItem"/>
     </simple-method>
@@ -222,7 +222,7 @@ under the License.
     <simple-method method-name="createCustRequestParty" short-description="Create Customer RequestParty">
         <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
-        <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="partyRole"/>
+        <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-field="partyRole"/>
         <if-empty field="partyRole.partyId">
             <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>

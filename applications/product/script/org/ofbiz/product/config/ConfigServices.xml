@@ -50,7 +50,7 @@ under the License.
 
         <make-value entity-name="ProductConfig" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductConfig" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductConfig" map-name="lookupPKMap" value-field="lookedUpValue"/>
 
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
@@ -65,7 +65,7 @@ under the License.
 
         <make-value entity-name="ProductConfig" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="ProductConfig" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="ProductConfig" map-name="lookupPKMap" value-field="lookedUpValue"/>
 
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -89,7 +89,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductConfigItem" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -100,7 +100,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductConfigItem" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <!-- Methods for Config Options -->
@@ -124,7 +124,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductConfigOption" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -135,7 +135,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductConfigOption" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <!-- Methods for ProductConfigProduct -->
@@ -156,7 +156,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductConfigProduct" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -167,7 +167,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductConfigProduct" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
-        <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 

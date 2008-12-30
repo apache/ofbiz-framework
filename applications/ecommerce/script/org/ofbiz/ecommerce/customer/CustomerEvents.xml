@@ -75,7 +75,7 @@ under the License.
         </call-map-processor>
         <if-not-empty field="userLoginContext.userLoginId">
             <set from-field="userLoginContext.userLoginId" field="userLoginExistsMap.userLoginId"/>
-            <find-by-primary-key entity-name="UserLogin" map-name="userLoginExistsMap" value-name="existingUserLogin"/>
+            <find-by-primary-key entity-name="UserLogin" map-name="userLoginExistsMap" value-field="existingUserLogin"/>
             <if-not-empty field="existingUserLogin">
                 <string-to-list string="Username in use, please choose another." message-field-name="USERNAME" list-name="error_list"/>
             </if-not-empty>
@@ -381,7 +381,7 @@ under the License.
         <!-- club number -->
         <if-not-empty field="parameters.REQUIRE_CLUB">
             <set from-field="tempMap.partyId" field="personLookup.partyId"/>
-            <find-by-primary-key map-name="personLookup" value-name="personVo" entity-name="Person"/>
+            <find-by-primary-key map-name="personLookup" value-field="personVo" entity-name="Person"/>
             <if-empty field="parameters.CLUB_NUMBER">
                 <call-bsh><![CDATA[
                     clubId = org.ofbiz.party.party.PartyWorker.createClubId(delegator, "999", 13);
@@ -409,7 +409,7 @@ under the License.
         <if-not-empty field="emailContext.emailAddress">
             <set from-field="parameters.emailProductStoreId" field="storeEmailLookup.productStoreId"/>
             <set value="PRDS_CUST_REGISTER" field="storeEmailLookup.emailType"/>
-            <find-by-primary-key map-name="storeEmailLookup" entity-name="ProductStoreEmailSetting"  value-name="storeEmail"/>
+            <find-by-primary-key map-name="storeEmailLookup" entity-name="ProductStoreEmailSetting"  value-field="storeEmail"/>
             <if-not-empty field="storeEmail.bodyScreenLocation">
                 <!-- prepare the email context -->
                 <get-related-one value-name="createdUserLogin" relation-name="Person" to-value-name="personObj"/>
@@ -473,7 +473,7 @@ under the License.
             <set from-field="tempMap.partyId" field="partyId" />
             <if-not-empty field="partyId">
                 <set field="lookupKeyValue.userLoginId" value="anonymous"/>
-                <find-by-primary-key map-name="lookupKeyValue" entity-name="UserLogin" value-name="userLogin"/>
+                <find-by-primary-key map-name="lookupKeyValue" entity-name="UserLogin" value-field="userLogin"/>
                 <if-not-empty field="userLogin">
                     <set field="userLogin.partyId" from-field="partyId"/>
                     <field-to-session field-name="userLogin" session-name="userLogin" />
@@ -680,7 +680,7 @@ under the License.
         <!-- the rest of the methods require a userLogin object; so if we are anonymous lets fake it -->
         <if-empty field="userLogin">
             <set field="ulLookup.userLoginId" value="anonymous"/>
-            <find-by-primary-key entity-name="UserLogin" map-name="ulLookup" value-name="userLogin"/>
+            <find-by-primary-key entity-name="UserLogin" map-name="ulLookup" value-field="userLogin"/>
             <set field="userLogin.partyId" from-field="tempMap.partyId"/>
             <set-current-user-login value-name="userLogin"/>
             <else><!-- of an anonymous vistor is coming back, update the party id in the userLogin object -->

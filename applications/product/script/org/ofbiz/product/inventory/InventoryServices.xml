@@ -226,7 +226,7 @@ under the License.
 
         <make-value entity-name="InventoryItem" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <if-empty field="lookedUpValue.ownerPartyId">
             <get-related-one value-name="lookedUpValue" relation-name="Facility" to-value-name="oldFacility"/>
             <set field="lookedUpValue.ownerPartyId" from-field="oldFacility.ownerPartyId"/>
@@ -406,7 +406,7 @@ under the License.
 
     <simple-method method-name="checkProductInventoryDiscontinuation" short-description="Check Product Inventory Discontinuation" login-required="false">
         <set from-field="parameters.productId" field="productIdMap.productId"/>
-        <find-by-primary-key entity-name="Product" map-name="productIdMap" value-name="product"/>
+        <find-by-primary-key entity-name="Product" map-name="productIdMap" value-field="product"/>
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <!-- if discontinueProductSales field is empty and the product is a variant, get the fieldcontent from the virtual product -->
@@ -471,7 +471,7 @@ under the License.
         <!-- add changes to availableToPromise and quantityOnHand -->
         <make-value value-field="inventoryItemLookup" entity-name="InventoryItem"/>
         <set-pk-fields map-name="parameters" value-name="inventoryItemLookup"/>
-        <find-by-primary-key map-name="inventoryItemLookup" value-name="inventoryItem"/>
+        <find-by-primary-key map-name="inventoryItemLookup" value-field="inventoryItem"/>
 
         <if-compare field="inventoryItem.inventoryItemTypeId" operator="not-equals" value="NON_SERIAL_INV_ITEM">
             <string-to-list string="Can only create an InventoryItemVariance for a Non-Serialized Inventory Item" list-name="error_list"/>
@@ -535,7 +535,7 @@ under the License.
 
         <make-value entity-name="ProductFacility" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -543,7 +543,7 @@ under the License.
 
         <make-value entity-name="ProductFacility" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -559,7 +559,7 @@ under the License.
 
         <make-value entity-name="ProductFacilityLocation" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -567,7 +567,7 @@ under the License.
 
         <make-value entity-name="ProductFacilityLocation" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -995,7 +995,7 @@ under the License.
     <simple-method method-name="updateInventoryTransfer" short-description="Update an Inventory Transfer">
 
         <set from-field="parameters.inventoryTransferId" field="lookupPKMap.inventoryTransferId"/>
-        <find-by-primary-key entity-name="InventoryTransfer" map-name="lookupPKMap" value-name="inventoryTransfer"/>
+        <find-by-primary-key entity-name="InventoryTransfer" map-name="lookupPKMap" value-field="inventoryTransfer"/>
 
         <if-not-empty field="parameters.statusId">
             <if-compare-field field="parameters.statusId" to-field="inventoryTransfer.statusId" operator="not-equals">

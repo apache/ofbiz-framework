@@ -30,7 +30,7 @@
         </call-service>
         <check-errors/>
         <set from-field="parameters.fixedAssetId" field="findAssetMaintLookup.fixedAssetId"/>
-        <find-by-primary-key entity-name="FixedAssetMaint" map-name="findAssetMaintLookup" value-name="findAssetMaint"/>
+        <find-by-primary-key entity-name="FixedAssetMaint" map-name="findAssetMaintLookup" value-field="findAssetMaint"/>
         <set from-field="findAssetMaint.scheduleWorkEffortId" field="updateWorkEffortCtx.workEffortId"/>
         <set-service-fields map-name="parameters" service-name="updateWorkEffort" to-map-name="updateWorkEffortCtx"/>
         <!-- Maintenance WorkEffort entity -->

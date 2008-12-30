@@ -34,13 +34,13 @@ under the License.
     </simple-method>
     <simple-method method-name="updateFacility" short-description="Update a Facility">
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" /> 
-        <find-by-primary-key entity-name="Facility" map-name="lookupPKMap" value-name="facility"/>
+        <find-by-primary-key entity-name="Facility" map-name="lookupPKMap" value-field="facility"/>
         <set-nonpk-fields map-name="parameters" value-name="facility"/>
         <store-value value-name="facility"/>
     </simple-method>
     <simple-method method-name="deleteFacility" short-description="Delete a Facility">
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
-        <find-by-primary-key entity-name="Facility" map-name="lookupPKMap" value-name="facility"/>
+        <find-by-primary-key entity-name="Facility" map-name="lookupPKMap" value-field="facility"/>
         <remove-value value-name="facility"/>
     </simple-method>
 
@@ -53,7 +53,7 @@ under the License.
     <simple-method method-name="removeContactMechFromFacility" short-description="Remove ContactMech From Facility">
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
         <set field="lookupPKMap.contactMechId" from-field="parameters.contactMechId" />
-        <find-by-primary-key entity-name="FacilityContactMech" map-name="lookupPKMap" value-name="facilityContactMech"/>
+        <find-by-primary-key entity-name="FacilityContactMech" map-name="lookupPKMap" value-field="facilityContactMech"/>
         <remove-value value-name="facilityContactMech"/>
     </simple-method>
     
@@ -68,12 +68,12 @@ under the License.
         <if-not-empty field="locationSeqId">
             <set field="checkLocationSeqIdMap.locationSeqId" from-field="locationSeqId" />
             <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
-            <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-name="checkLocationSeqIdValue"/>
+            <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-field="checkLocationSeqIdValue"/>
             <if-not-empty field="checkLocationSeqIdValue">
                 <set field="locationSeqId" value="${locationSeqId}_2" />
                 <set field="checkLocationSeqIdMap.locationSeqId" from-field="locationSeqId" />
                 <set field="checkLocationSeqIdMap.facilityId" from-field="parameters.facilityId" />
-                <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-name="checkLocationSeqIdValue"/>
+                <find-by-primary-key entity-name="FacilityLocation" map-name="checkLocationSeqIdMap" value-field="checkLocationSeqIdValue"/>
                 <if-not-empty field="checkLocationSeqIdValue">
                     <set field="locationSeqId" value="" />
                 </if-not-empty>
@@ -92,14 +92,14 @@ under the License.
     <simple-method method-name="updateFacilityLocation" short-description="Update a Facility Location">
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
         <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId" />
-        <find-by-primary-key entity-name="FacilityLocation" map-name="lookupPKMap" value-name="facilityLocation"/>
+        <find-by-primary-key entity-name="FacilityLocation" map-name="lookupPKMap" value-field="facilityLocation"/>
         <set-nonpk-fields map-name="parameters" value-name="facilityLocation"/>
         <store-value value-name="facilityLocation"/>
     </simple-method>
     <simple-method method-name="deleteFacilityLocation" short-description="Delete a Facility Location">
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
         <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId" />
-        <find-by-primary-key entity-name="FacilityLocation" map-name="lookupPKMap" value-name="facilityLocation"/>
+        <find-by-primary-key entity-name="FacilityLocation" map-name="lookupPKMap" value-field="facilityLocation"/>
         <remove-value value-name="facilityLocation"/>
     </simple-method>    
     
@@ -117,13 +117,13 @@ under the License.
     </simple-method>
     <simple-method method-name="updateFacilityGroup" short-description="Update an Facility Group">
         <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId" />
-        <find-by-primary-key entity-name="FacilityGroup" map-name="lookupPKMap" value-name="facilityGroup"/>
+        <find-by-primary-key entity-name="FacilityGroup" map-name="lookupPKMap" value-field="facilityGroup"/>
         <set-nonpk-fields map-name="parameters" value-name="facilityGroup"/>
         <store-value value-name="facilityGroup"/>
     </simple-method>
     <simple-method method-name="deleteFacilityGroup" short-description="Delete an Facility Group">
         <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId" />
-        <find-by-primary-key entity-name="FacilityGroup" map-name="lookupPKMap" value-name="facilityGroup"/>
+        <find-by-primary-key entity-name="FacilityGroup" map-name="lookupPKMap" value-field="facilityGroup"/>
         <remove-value value-name="facilityGroup"/>
     </simple-method>    
     
@@ -143,14 +143,14 @@ under the License.
     <simple-method method-name="updateFacilityToGroup" short-description="Update Facility to FacilityGroup Application">
         <make-value value-field="lookupPKMap" entity-name="FacilityGroupMember"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityGroupMember" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="FacilityGroupMember" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeFacilityFromGroup" short-description="Remove Facility From FacilityGroup">
         <make-value value-field="lookupPKMap" entity-name="FacilityGroupMember"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityGroupMember" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="FacilityGroupMember" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -170,14 +170,14 @@ under the License.
     <simple-method method-name="updateFacilityGroupToGroup" short-description="Update FacilityGroup to FacilityGroup Rollup">
         <make-value value-field="lookupPKMap" entity-name="FacilityGroupRollup"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityGroupRollup" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="FacilityGroupRollup" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeFacilityGroupFromGroup" short-description="Remove FacilityGroup From FacilityGroup">
         <make-value value-field="lookupPKMap" entity-name="FacilityGroupRollup"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityGroupRollup" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="FacilityGroupRollup" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>    
         
@@ -185,7 +185,7 @@ under the License.
     <simple-method method-name="addPartyToFacility" short-description="Add Party to Facility">
         <set from-field="parameters.partyId" field="lookupPKMap.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
-        <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="partyRole"/>
+        <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-field="partyRole"/>
         <if-empty field="partyRole">
             <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>
@@ -217,7 +217,7 @@ under the License.
     <simple-method method-name="removePartyFromFacilityGroup" short-description="Remove Party From FacilityGroup">
         <make-value value-field="lookupPKMap" entity-name="FacilityGroupRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
-        <find-by-primary-key entity-name="FacilityGroupRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
+        <find-by-primary-key entity-name="FacilityGroupRole" map-name="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>            
     
