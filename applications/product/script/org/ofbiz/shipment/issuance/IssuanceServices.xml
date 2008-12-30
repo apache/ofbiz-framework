@@ -184,7 +184,7 @@ under the License.
         <!-- get orderShipment -->
         <make-value entity-name="OrderShipment" value-field="orderShipmentLookupPk"/>
         <set-pk-fields value-field="orderShipmentLookupPk" map="parameters"/>
-        <find-by-and entity-name="OrderShipment" map-name="orderShipmentLookupPk" list-name="orderShipments"/>
+        <find-by-and entity-name="OrderShipment" map="orderShipmentLookupPk" list="orderShipments"/>
         <first-from-list entry="orderShipment" list="orderShipments"/>
         <!-- qtyForShipmentItem is the quantity we will add to the ShipmentItem -->
         <!-- OrderShipment.quantity stores the OrderItem.quantity planned in the shipment -->

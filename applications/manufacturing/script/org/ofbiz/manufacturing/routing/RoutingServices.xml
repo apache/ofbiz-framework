@@ -34,7 +34,7 @@ under the License.
         <!-- If a workEffortId has been passed, use it to look up the desired routing-->
         <if-not-empty field="parameters.workEffortId">
             <set from-field="parameters.workEffortId" field="lookupRouting.workEffortId"/>
-            <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
+            <find-by-and entity-name="WorkEffortGoodStandard" list="routings" map="lookupRouting"/>
             <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
             <first-from-list list="routings" entry="routingGS"/>
             <!-- If the routing is not associated with our product and it's a variant, then 
@@ -49,7 +49,7 @@ under the License.
                 <first-from-list list="virtualProductAssocList" entry="virtualProductAssoc"/>
                 <if-not-empty field="virtualProductAssoc">
                     <set from-field="virtualProductAssoc.productId" field="lookupRouting.productId"/>
-                    <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
+                    <find-by-and entity-name="WorkEffortGoodStandard" list="routings" map="lookupRouting"/>
                     <!-- Consider the validity against a date passed as (optional) parameter -->
                     <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
                     <first-from-list list="routings" entry="routingGS"/>
@@ -57,7 +57,7 @@ under the License.
             </if-empty>
             <!-- No workEffortId has been passed, so retrieve the first routing found for this product-->
             <else>
-                <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
+                <find-by-and entity-name="WorkEffortGoodStandard" list="routings" map="lookupRouting"/>
                 <!-- Consider the validity against a date passed as (optional) parameter -->
                 <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
                 <!-- TODO: we should consider the quantity to select the best routing -->
@@ -76,7 +76,7 @@ under the License.
                     <if-not-empty field="virtualProductAssoc">
                         <set from-field="virtualProductAssoc.productId" field="lookupRouting.productId"/>
                         <set value="ROU_PROD_TEMPLATE" field="lookupRouting.workEffortGoodStdTypeId"/>
-                        <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
+                        <find-by-and entity-name="WorkEffortGoodStandard" list="routings" map="lookupRouting"/>
                         <!-- Consider the validity against a date passed as (optional) parameter -->
                         <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
                         <!-- TODO: we should consider the quantity to select the best routing -->
@@ -111,7 +111,7 @@ under the License.
             <set from-field="routing.workEffortId" field="lookupTasks.workEffortIdFrom"/>
             <string-to-list string="sequenceNum" list-name="tasksOrder"/>
             <set value="ROUTING_COMPONENT" field="lookupTasks.workEffortAssocTypeId"/>
-            <find-by-and entity-name="WorkEffortAssoc" list-name="tasks" map-name="lookupTasks" order-by-list-name="tasksOrder"/>
+            <find-by-and entity-name="WorkEffortAssoc" list-name="tasks" map="lookupTasks" order-by-list="tasksOrder"/>
             <filter-list-by-date list-name="tasks"/>
         </if-not-empty>
 
@@ -122,7 +122,7 @@ under the License.
         <set from-field="parameters.workEffortId" field="lookupTasks.workEffortIdFrom"/>
         <string-to-list string="sequenceNum" list-name="tasksOrder"/>
         <set value="ROUTING_COMPONENT" field="lookupTasks.workEffortAssocTypeId"/>
-        <find-by-and entity-name="WorkEffortAssoc" list-name="routingTaskAssocs" map-name="lookupTasks" order-by-list-name="tasksOrder"/>
+        <find-by-and entity-name="WorkEffortAssoc" list-name="routingTaskAssocs" map="lookupTasks" order-by-list="tasksOrder"/>
         <filter-list-by-date list-name="routingTaskAssocs"/>
         <field-to-result field="routingTaskAssocs"/>
     </simple-method>

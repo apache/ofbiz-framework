@@ -281,7 +281,7 @@
         <set from-field="parameters.contentId" field="lookupKeyValue.contentId"/>
         <set from-field="parameters.partyId" field="lookupKeyValue.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupKeyValue.roleTypeId"/>
-        <find-by-and entity-name="ContentRole" map-name="lookupKeyValue" list-name="roleList"/>
+        <find-by-and entity-name="ContentRole" map="lookupKeyValue" list="roleList"/>
         <iterate entry="contentRoleMap" list="roleList">
             <make-value entity-name="ContentRole" value-field="role" map-name="contentRoleMap"/>
             <now-timestamp field="role.thruDate"/>
@@ -562,7 +562,7 @@
         <field-to-list field-name="mapKey" list-name="mapKeys"/>
         <iterate entry="mapKey" list="mapKeys">
             <set from-field="mapKey" field="queryMap.mapKey"/>
-            <find-by-and list-name="resultMap" entity-name="ContentAssoc" map-name="queryMap"/>
+            <find-by-and list="resultMap" entity-name="ContentAssoc" map="queryMap"/>
             <filter-list-by-date list-name="resultMap" to-list-name="validContent"/>
             <iterate entry="contentAssoc" list="validContent">
                 <field-to-list field-name="contentAssoc" list-name="result"/>

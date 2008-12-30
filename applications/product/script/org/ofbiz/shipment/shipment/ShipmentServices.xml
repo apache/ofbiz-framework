@@ -201,7 +201,7 @@ under the License.
             <then>
                 <set field="assignPartyToWorkEffortShip.workEffortId" from-field="lookedUpValue.estimatedShipWorkEffId"/>
                 <set field="assignPartyToWorkEffortShip.partyId" from-field="parameters.partyIdFrom"/>
-                <find-by-and entity-name="WorkEffortPartyAssignment" list-name="existingShipWepas" map-name="assignPartyToWorkEffortShip"/>
+                <find-by-and entity-name="WorkEffortPartyAssignment" list="existingShipWepas" map="assignPartyToWorkEffortShip"/>
                 <filter-list-by-date list-name="existingShipWepas"/>
                 <if-empty field="existingShipWepas">
                     <set field="assignPartyToWorkEffortShip.roleTypeId" value="CAL_ATTENDEE"/>
@@ -221,7 +221,7 @@ under the License.
             <then>
                 <set field="assignPartyToWorkEffortArrival.workEffortId" from-field="lookedUpValue.estimatedArrivalWorkEffId"/>
                 <set field="assignPartyToWorkEffortArrival.partyId" from-field="parameters.partyIdTo"/>
-                <find-by-and entity-name="WorkEffortPartyAssignment" list-name="existingArrivalWepas" map-name="assignPartyToWorkEffortArrival"/>
+                <find-by-and entity-name="WorkEffortPartyAssignment" list="existingArrivalWepas" map="assignPartyToWorkEffortArrival"/>
                 <filter-list-by-date list-name="existingArrivalWepas"/>
                 <if-empty field="existingArrivalWepas">
                     <set field="assignPartyToWorkEffortArrival.roleTypeId" value="CAL_ATTENDEE"/>
@@ -546,7 +546,7 @@ under the License.
         <if-empty field="shipment.originFacilityId">
             <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT">
                 <set from-field="shipment.destinationContactMechId" field="facilityLookup.contactMechId"/>
-                <find-by-and entity-name="FacilityContactMech" map-name="facilityLookup" list-name="facilities"/>
+                <find-by-and entity-name="FacilityContactMech" map="facilityLookup" list="facilities"/>
                 <first-from-list list="facilities" entry="destinationFacility"/>
                 <set from-field="destinationFacility.facilityId" field="shipment.destinationFacilityId"/>
             </if-compare>
@@ -583,7 +583,7 @@ under the License.
         <!-- create a ShipmentRouteSegment with originFacilityId (if set on Shipment), destContactMechId,
             and from OrderItemShipGroup shipmentMethodTypeId, carrierPartyId, etc -->
             <set from-field="shipment.shipmentId" field="shipmentRouteSegmentMap.shipmentId"/>
-        <find-by-and entity-name="ShipmentRouteSegment" map-name="shipmentRouteSegmentMap" list-name="shipmentRouteSegments"/>
+        <find-by-and entity-name="ShipmentRouteSegment" map="shipmentRouteSegmentMap" list="shipmentRouteSegments"/>
         <if-empty field="shipmentRouteSegments">
             <!-- estimatedShipDate, estimatedArrivalDate -->
             <set from-field="shipment.estimatedShipDate" field="shipmentRouteSegmentMap.estimatedStartDate"/>
@@ -1908,7 +1908,7 @@ under the License.
             <!-- make sure the orderItem is not already present in this shipment -->
             <make-value entity-name="OrderShipment" value-field="orderShipmentLookup"/>
             <set-pk-fields value-field="orderShipmentLookup" map="parameters"/>
-            <find-by-and entity-name="OrderShipment" map-name="orderShipmentLookup" list-name="existingOrderShipments"/>
+            <find-by-and entity-name="OrderShipment" map="orderShipmentLookup" list="existingOrderShipments"/>
             <if-not-empty field="existingOrderShipments">
                 <string-to-list string="Not adding Order Item to plan for shipment [${parameters.shipmentId}] because the order item is already in the shipment (order [${parameters.orderId}], order item [${parameters.orderItemSeqId}])" list-name="error_list"/>
             </if-not-empty>
@@ -1949,7 +1949,7 @@ under the License.
 
         <set from-field="parameters.orderId" field="orderShipmentLookup.orderId"/>
         <set from-field="parameters.orderItemSeqId" field="orderShipmentLookup.orderItemSeqId"/>
-        <find-by-and entity-name="OrderShipment" map-name="orderShipmentLookup" list-name="existingOrderShipments"/>
+        <find-by-and entity-name="OrderShipment" map="orderShipmentLookup" list="existingOrderShipments"/>
         <iterate list="existingOrderShipments" entry="orderShipment">
             <calculate field="plannedQuantity" type="Double">
                 <calcop field="plannedQuantity" operator="add">
@@ -1958,7 +1958,7 @@ under the License.
             </calculate>
         </iterate>
         <clear-field field="existingOrderShipments"/>
-        <find-by-and entity-name="ItemIssuance" map-name="orderShipmentLookup" list-name="existingOrderShipments"/>
+        <find-by-and entity-name="ItemIssuance" map="orderShipmentLookup" list="existingOrderShipments"/>
         <iterate list="existingOrderShipments" entry="itemIssuance">
             <calculate field="issuedQuantity" type="Double">
                 <calcop field="issuedQuantity" operator="add">

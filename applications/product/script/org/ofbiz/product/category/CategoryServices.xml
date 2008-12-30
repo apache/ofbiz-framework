@@ -380,7 +380,7 @@ under the License.
         <if-compare field="parameters.recurse" operator="equals" value="Y">
             <!-- call this service for each sub-category in the rollup with the same productCategoryIdTo -->
             <set field="lookupChildrenMap.parentProductCategoryId" from-field="parameters.productCategoryId"/>
-            <find-by-and entity-name="ProductCategoryRollup" map-name="lookupChildrenMap" list-name="productCategoryRollups"/>
+            <find-by-and entity-name="ProductCategoryRollup" map="lookupChildrenMap" list="productCategoryRollups"/>
 
             <if-not-empty field="validDate">
                 <filter-list-by-date list-name="productCategoryRollups" valid-date-name="validDate"/>
@@ -601,7 +601,7 @@ under the License.
             child roll up is where oldProductCategoryId = ProductCategoryRollup.parentProductCategoryId and hence
             requires a new find-by map -->
         <if-not-empty field="parameters.duplicateParentRollup">
-            <find-by-and entity-name="ProductCategoryRollup" map-name="categoryFindContext" list-name="foundValues"/>
+            <find-by-and entity-name="ProductCategoryRollup" map="categoryFindContext" list="foundValues"/>
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set field="newTempValue.productCategoryId" from-field="parameters.productCategoryId"/>

@@ -154,7 +154,7 @@ under the License.
                 <!-- set field="trackingCodeOrderFindContext.trackingCodeTypeId" value="PARTNER_MGD"/-->
                 <!-- get the siteId ,trackingCodeId from TrackingCodeOrder -->
                 <log level="info" message="Find Tracking Code Order For ${trackingCodeOrderFindContext}"/>
-                <find-by-and entity-name="TrackingCodeOrder" list-name="trackingCodeOrders" map-name="trackingCodeOrderFindContext"/>
+                <find-by-and entity-name="TrackingCodeOrder" list="trackingCodeOrders" map="trackingCodeOrderFindContext"/>
                 <set field="trackingCodeOrder" from-field="trackingCodeOrders[0]"/>
                 <log level="info" message="Create  Tracking Code Order Return  For ${trackingCodeOrder}"/>
                 <if-not-empty field="trackingCodeOrder">

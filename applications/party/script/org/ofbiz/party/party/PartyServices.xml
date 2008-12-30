@@ -185,7 +185,7 @@ under the License.
     <simple-method method-name="getPostalAddressBoundary" short-description="Get Postal Address Boundary">
         <make-value entity-name="PostalAddressBoundary" value-field="postalAddressBoundaryLookupMap"/>
         <set field="postalAddressBoundaryLookupMap.geoId" from-field="parameters.geoId"/>
-        <find-by-and entity-name="PostalAddressBoundary" map-name="postalAddressBoundaryLookupMap" list-name="postalAddressBoundaries"/>
+        <find-by-and entity-name="PostalAddressBoundary" map="postalAddressBoundaryLookupMap" list="postalAddressBoundaries"/>
         <iterate list="postalAddressBoundaries" entry="postalAddressBoundary">
             <get-related-one value-name="postalAddressBoundary" to-value-field="geo" relation-name="Geo"/>
             <field-to-list field-name="geo" list="geos"/>
@@ -310,7 +310,7 @@ under the License.
            <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
            <!-- locate the file extension to use based on mime-type -->
            <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
-           <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
+           <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
            <first-from-list entry="extension" list="extensions"/>
            <set-service-fields service-name="createDataResource" map="parameters" to-map="dataResource"/>
            <!-- create the data resource object -->
@@ -347,7 +347,7 @@ under the License.
             <!-- check party role -->
             <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields value-field="partyRole" map="contentRole"/>
-            <find-by-and entity-name="PartyRole" map-name="partyRole" list-name="pRoles"/>
+            <find-by-and entity-name="PartyRole" map="partyRole" list="pRoles"/>
             <if-empty field="pRoles">
                 <set-service-fields service-name="createPartyRole" map="contentRole" to-map="partyRole"/>
                 <call-service service-name="createPartyRole" in-map-name="partyRole" break-on-error="false" />    
@@ -400,7 +400,7 @@ under the License.
                <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
                <!-- locate the file extension to use based on mime-type -->
                <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
-               <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
+               <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
                <first-from-list entry="extension" list="extensions"/>
                <set-service-fields service-name="createDataResource" map="parameters" to-map="dataResource"/>
                <!-- create the data resource object -->
@@ -448,7 +448,7 @@ under the License.
         <set from-field="parameters.priorityTypeId" field="lookupMap.priorityTypeId"/>
         <set from-field="parameters.partyRelationshipTypeId" field="lookupMap.partyRelationshipTypeId"/>
         
-        <find-by-and entity-name="PartyRelationship" map-name="lookupMap" list-name="partyRelationships"/>
+        <find-by-and entity-name="PartyRelationship" map="lookupMap" list="partyRelationships"/>
         <iterate list="partyRelationships" entry="partyRelationship">
             <get-related-one value-name="partyRelationship" relation-name="ToParty" to-value-field="party"/>
             <field-to-list field-name="party" list="parties"/>
@@ -660,10 +660,10 @@ under the License.
     <simple-method method-name="getPartyEmail" short-description="Get the email of the party">
         <set field="findMap.partyId" from-field="parameters.partyId"/>
         <set field="findMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
-        <find-by-and entity-name="PartyAndContactMech" map-name="findMap" list-name="emailAddressesAll"/>
+        <find-by-and entity-name="PartyAndContactMech" map="findMap" list="emailAddressesAll"/>
         <if-empty field="emailAddressesAll">
             <set field="findMap.contactMechTypeId" value="ELECTRONIC_ADDRESS"/>
-            <find-by-and entity-name="PartyAndContactMech" map-name="findMap" list-name="emailAddressesAll"/>
+            <find-by-and entity-name="PartyAndContactMech" map="findMap" list="emailAddressesAll"/>
         </if-empty>
         <now-date-to-env env-name="fromDate"/>
         <filter-list-by-date list-name="emailAddressesAll" from-field-name="fromDate" to-list-name="emailAddresses"/>
@@ -688,7 +688,7 @@ under the License.
             </else>
         </if-empty>
         <set field="findMap.contactMechTypeId" value="TELECOM_NUMBER"/>
-        <find-by-and entity-name="PartyContactDetailByPurpose" map-name="findMap" list-name="telephoneAll1"></find-by-and>
+        <find-by-and entity-name="PartyContactDetailByPurpose" map="findMap" list="telephoneAll1"></find-by-and>
         <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
         <filter-list-by-date list-name="telephoneAll2" to-list-name="telephoneAll3"/>
         <if-not-empty field="telephoneAll3">
@@ -715,7 +715,7 @@ under the License.
                 </iterate>
             </iterate>
             <else>
-                <find-by-and entity-name="PartyAndContactMech" map-name="findMap" list-name="telephoneAll1"/>
+                <find-by-and entity-name="PartyAndContactMech" map="findMap" list="telephoneAll1"/>
                 <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2"/>
                 <first-from-list entry="telephone" list="telephoneAll2"/>
                 <if-not-empty field="telephone.tnCountryCode">

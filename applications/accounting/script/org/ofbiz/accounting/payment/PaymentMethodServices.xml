@@ -26,7 +26,7 @@ under the License.
         <field-to-field field-name="orderStatusId" map-name="parameters" to-map-name="orderLookup" />
         <field-to-field field-name="currency" map-name="parameters" to-map-name="captureParams" />
         <string-to-field string="PAYMENT_AUTHORIZED" field-name="paymentStatusId" map-name="orderLookup" />
-        <find-by-and entity-name="OrderHeaderAndPaymentPref" map-name="orderLookup" list-name="orderHeaderAndPaymentPrefs" />
+        <find-by-and entity-name="OrderHeaderAndPaymentPref" map="orderLookup" list="orderHeaderAndPaymentPrefs" />
         <iterate entry="orderHeaderAndPaymentPref" list="orderHeaderAndPaymentPrefs" >
             <field-to-field map-name="orderHeaderAndPaymentPref" field-name="orderId" to-map-name="captureParams" />
             <call-service service-name="capturePayment" in-map-name="captureParams" error-code="ignore-error">
@@ -78,7 +78,7 @@ under the License.
             through the updateCreditCard or updateEftAccount services to use the new contactMechId -->
         <set field="lookupMap.contactMechId" from-field="parameters.oldContactMechId"/>
         
-        <find-by-and entity-name="CreditCard" map-name="lookupMap" list-name="creditCards"/>
+        <find-by-and entity-name="CreditCard" map="lookupMap" list="creditCards"/>
         <iterate entry="creditCard" list="creditCards">
             <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field="isNotExpired">
                 <field field="creditCard.expireDate"/>
@@ -92,7 +92,7 @@ under the License.
             </if-compare>
         </iterate>
         
-        <find-by-and entity-name="EftAccount" map-name="lookupMap" list-name="eftAccounts"/>
+        <find-by-and entity-name="EftAccount" map="lookupMap" list="eftAccounts"/>
         <iterate entry="eftAccount" list="eftAccounts">
             <set-service-fields service-name="updateEftAccount" map="eftAccount" to-map="ueaMap"/>
             <set field="ueaMap.contactMechId" from-field="parameters.contactMechId"/>

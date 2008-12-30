@@ -284,7 +284,7 @@ under the License.
              1. If credit card information is changed than a new PaymentMethod, CreditCard record is created else no change.
         -->
         <set field="serviceCtx.partyId" value="DemoCustomer"/>
-        <find-by-and entity-name="PaymentMethodAndCreditCard" map-name="serviceCtx" list-name="paymentMethodAndCreditCards"/>
+        <find-by-and entity-name="PaymentMethodAndCreditCard" map="serviceCtx" list="paymentMethodAndCreditCards"/>
         <filter-list-by-date list-name="paymentMethodAndCreditCards"/>
         <first-from-list list="paymentMethodAndCreditCards" entry="paymentMethodAndCreditCard"/>
         <!-- first try with just updating without changing the credit card information -->

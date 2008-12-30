@@ -686,7 +686,7 @@ under the License.
         <log level="info" message="[attachLocalFileToDataResource] - Found Subdir : ${uploadPath}"/>
 
         <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
-        <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
+        <find-by-and entity-name="FileExtension" map="extenLookup" list="extensions"/>
         <first-from-list entry="extension" list="extensions"/>
 
         <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
