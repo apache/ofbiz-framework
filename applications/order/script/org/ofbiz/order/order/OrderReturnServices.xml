@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createReturnHeader" short-description="Create a ReturnHeader">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
 
         <if>
             <condition>
@@ -570,7 +570,7 @@ under the License.
                 <set field="newReturnStatus.returnId" from-field="returnItem.returnId"/>
                 <set field="newReturnStatus.statusId" from-field="returnItem.statusId"/>
                 
-                <now-timestamp-to-env env-name="newReturnStatus.statusDatetime"/>
+                <now-timestamp field="newReturnStatus.statusDatetime"/>
                 
                 <create-value value-field="newReturnStatus"/>
             </if-compare-field>
@@ -619,7 +619,7 @@ under the License.
             <set field="newValue.returnId" from-field="returnHeader.returnId"/>
             <set field="newValue.statusId" value="RETURN_RECEIVED"/>
             
-            <now-timestamp-to-env env-name="newValue.statusDatetime"/>
+            <now-timestamp field="newValue.statusDatetime"/>
             
             <create-value value-field="newValue"/>
         </if-compare>

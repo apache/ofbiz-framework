@@ -160,7 +160,7 @@ under the License.
         <check-permission permission="MARKETING" action="${securityAction}"><fail-message message="Security Error\: to run ${methodShortDescription} you must have the MARKETING${securityAction} or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
         
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <entity-condition entity-name="SegmentGroupViewRelatedParties" list="segmentGroupViewRelatedPartiesList">
             <condition-list combine="and">
                 <condition-expr field-name="partyId" from-field="parameters.partyId"/>

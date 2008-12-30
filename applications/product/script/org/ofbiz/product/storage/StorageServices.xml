@@ -134,7 +134,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         
@@ -161,7 +161,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         
@@ -195,7 +195,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
              <if-empty field="newEntity.fromDate">
-                 <now-timestamp-to-env env-name="newEntity.fromDate"/>
+                 <now-timestamp field="newEntity.fromDate"/>
              </if-empty>             
         <create-value value-field="newEntity"/>
     </simple-method> 
@@ -209,7 +209,7 @@ under the License.
     
     <simple-method method-name="removePartyFromFacility" short-description="Remove Party From Facility">
         <entity-one entity-name="FacilityParty" value-field="lookedUpValue"/>
-        <now-timestamp-to-env env-name="thruDate"/>
+        <now-timestamp field="thruDate"/>
         <set field="lookedUpValue.thruDate" from-field="thruDate"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>        

@@ -43,7 +43,7 @@ under the License.
         
         <make-value value-field="partyNameHistory" entity-name="PartyNameHistory"/>
         <set-pk-fields value-field="partyNameHistory" map="parameters"/>
-        <now-timestamp-to-env env-name="partyNameHistory.changeDate"/>
+        <now-timestamp field="partyNameHistory.changeDate"/>
         
         <if>
             <condition><not><if-empty field="parameters.groupName"/></not></condition>
@@ -97,7 +97,7 @@ under the License.
         <entity-one entity-name="Person" value-field="person"/>
         <entity-one entity-name="PartyGroup" value-field="partyGroup"/>
         <if-empty field="parameters.compareDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="parameters.compareDate" from-field="nowTimestamp"/>
         </if-empty>
         <!-- go through the list which is sorted by most recent first and find the oldest (last) one with the changeDate greater than the compareDate -->        
@@ -198,7 +198,7 @@ under the License.
         <make-value entity-name="PartyClassification" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>        
+        <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>        
         <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updatePartyClassification" short-description="update a PartyClassification">
@@ -337,7 +337,7 @@ under the License.
        </call-service>        
        <!-- create the content role -->
        <if-not-empty field="parameters.partyId">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set-service-fields service-name="createContentRole" map="parameters" to-map="contentRole"/>
             <set from-field="contentId" field="contentRole.contentId"/>
             <set from-field="parameters.partyId" field="contentRole.partyId"/>
@@ -505,7 +505,7 @@ under the License.
              - useCache (should be "true" or "false")
         -->
         
-        <if-empty field="nowTimestamp"><now-timestamp-to-env env-name="nowTimestamp"/></if-empty>
+        <if-empty field="nowTimestamp"><now-timestamp field="nowTimestamp"/></if-empty>
         
         <!-- only create these if they don't already exist, more efficient and avoids potential problems in recursed calls -->
         <if-empty field="_inline_roleTypeIdFromList">
@@ -763,7 +763,7 @@ under the License.
         <if-empty field="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
         <if-empty field="parameters.partyIdFrom"><set field="parameters.partyIdFrom" from-field="userLogin.partyId"/></if-empty> 
 
-        <if-empty field="parameters.fromDate"><now-timestamp-to-env env-name="parameters.fromDate"/></if-empty>
+        <if-empty field="parameters.fromDate"><now-timestamp field="parameters.fromDate"/></if-empty>
         
         <!-- check if not already exist -->
         <entity-and entity-name="PartyRelationship" list="partyRels" filter-by-date="true">
@@ -801,7 +801,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>        
         <create-value value-field="newEntity"/>

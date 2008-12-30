@@ -55,7 +55,7 @@ under the License.
                     <log level="info" message="In createInvoice sequence enum INVSQ_RESTARTYR"/>
                     <!-- this is sequential sequencing, we can't skip a number; except that it is restarted each fiscal year -->
 
-                    <now-timestamp-to-env env-name="nowTimestamp"/>
+                    <now-timestamp field="nowTimestamp"/>
                     <if-empty field="partyAcctgPreference.lastInvoiceRestartDate">
                         <!-- if no lastInvoiceRestartDate then it's easy, just start now with 1 -->
                         <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
@@ -120,7 +120,7 @@ under the License.
 
 
     <simple-method method-name="createInvoice" short-description="Create a new Invoice">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
 
         <make-value value-field="newEntity" entity-name="Invoice"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -169,7 +169,7 @@ under the License.
             <result-to-field result-name="invoiceItems" field="invoiceItems"/>
         </call-service>
         <set field="invoice.invoiceId" from-field="parameters.invoiceId"/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set field="invoice.invoiceDate" from-field="nowTimestamp"/>
         <set field="invoice.statusId" value="INVOICE_IN_PROCESS"/>
         <if-not-empty field="parameters.invoiceTypeId">
@@ -229,7 +229,7 @@ under the License.
 	        <if-compare-field field="parameters.statusId" to-field="savedValue.statusId" operator="not-equals">
     	        <set from-field="parameters.invoiceId" field="inputMap.invoiceId"/>
         	    <set from-field="parameters.statusId" field="inputMap.statusId"/>
-            	<now-timestamp-to-env env-name="inputMap.statusDate"/>
+            	<now-timestamp field="inputMap.statusDate"/>
             	<call-service service-name="setInvoiceStatus" in-map-name="inputMap"/>
         	</if-compare-field>
         </if-not-empty>
@@ -371,7 +371,7 @@ under the License.
             <if-compare field="invoice.statusId" operator="equals" value="INVOICE_PAID">
                 <set field="invoiceStatusMap.invoiceId" value="${paymentApplication.invoiceId}" />
                 <set field="invoiceStatusMap.statusId" value="INVOICE_READY"/>
-                <now-timestamp-to-env env-name="nowTimestamp"/>
+                <now-timestamp field="nowTimestamp"/>
                 <set field="invoiceStatusMap.statusDate" from-field="nowTimestamp" />
                 <call-service service-name="setInvoiceStatus" in-map-name="invoiceStatusMap" />
             </if-compare>
@@ -423,7 +423,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="InvoiceRole"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.datetimePerformed"><now-timestamp-to-env env-name="newEntity.datetimePerformed"/></if-empty>
+        <if-empty field="newEntity.datetimePerformed"><now-timestamp field="newEntity.datetimePerformed"/></if-empty>
         <create-value value-field="newEntity"/>
     </simple-method>
 
@@ -456,7 +456,7 @@ under the License.
 
                     <!-- if it's OK to mark invoice paid, use parameter for paidDate -->
                     <if-empty field="parameters.paidDate">
-                       <now-timestamp-to-env env-name="nowTimestamp"/>
+                       <now-timestamp field="nowTimestamp"/>
                        <set from-field="nowTimestamp" field="invoice.paidDate"/>
                     <else>
                        <set from-field="parameters.paidDate" field="invoice.paidDate"/>
@@ -478,7 +478,7 @@ under the License.
                 <set-pk-fields map="parameters" value-field="newEntity"/>
 
                 <if-empty field="newEntity.statusDate">
-                    <now-timestamp-to-env env-name="newEntity.statusDate"/>
+                    <now-timestamp field="newEntity.statusDate"/>
                 </if-empty>
                 <create-value value-field="newEntity"/>
 

@@ -65,7 +65,7 @@ under the License.
         <make-value entity-name="RateAmount" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <now-timestamp-to-env env-name="newEntity.fromDate"/>
+        <now-timestamp field="newEntity.fromDate"/>
         <clear-field field="newEntity.thruDate"/>
         <create-value value-field="newEntity"/>
     </simple-method>   
@@ -95,7 +95,7 @@ under the License.
         <entity-one entity-name="RateAmount" value-field="rateAmount"/>
 
         <if-not-empty field="rateAmount">
-            <now-timestamp-to-env env-name="rateAmount.thruDate"/>
+            <now-timestamp field="rateAmount.thruDate"/>
             <store-value value-field="rateAmount"/>
             <else>
                 <add-error><fail-message message="could not find record to be deleted"/></add-error>
@@ -303,13 +303,13 @@ under the License.
         </entity-and>
         <if-not-empty field="partyRates">
             <first-from-list entry="partyRate" list="partyRates"/>
-            <now-timestamp-to-env env-name="partyRate.thruDate"/>
+            <now-timestamp field="partyRate.thruDate"/>
             <store-value value-field="partyRate"/>
         </if-not-empty>
 
         <make-value value-field="newEntity" entity-name="PartyRate"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
+        <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <call-simple-method method-name="checkOtherDefaultRate"/>
         <create-value value-field="newEntity"/>
@@ -342,7 +342,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="PartyRate" value-field="lookedUpValue"/>
-        <now-timestamp-to-env env-name="lookedUpValue.thruDate"/>
+        <now-timestamp field="lookedUpValue.thruDate"/>
         <store-value value-field="lookedUpValue"/>
         
         <set-service-fields service-name="deleteRateAmount" map="parameters" to-map="delRateAmount"/>

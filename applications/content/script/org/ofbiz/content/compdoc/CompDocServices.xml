@@ -68,7 +68,7 @@ under the License.
 
         <!--  populate fields -->
         <set from-field="parameters.contentName" field="rootInstanceContent.contentName" default-value="${rootTemplateContent.contentName}"/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set from-field="parameters.instanceOfContentId" field="rootInstanceContent.instanceOfContentId"/>
         <set from-field="nowTimestamp" field="rootInstanceContent.createdDate"/>
         <set from-field="nowTimestamp" field="rootInstanceContent.lastModifiedDate"/>
@@ -611,7 +611,7 @@ under the License.
         <set from-field="parameters.contentRevisionSeqId" field="thisContentRevisionSeqId"/>
         <log level="info" message="cloneContentApprovals(0)- thisContentRevisionSeqId : ${thisContentRevisionSeqId}"/>
         <log level="info" message="cloneContentApprovals(0b)- parameters : ${parameters} "/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <!--  get previous list of ContentApproval -->
         <entity-condition entity-name="MaxContentApprovalView" list="maxContentApprovalList">
             <condition-list combine="and">
@@ -776,7 +776,7 @@ under the License.
             <return/>
         </if-compare>
         <if-not-empty field="contentApproval.roleTypeId">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <entity-condition entity-name="ContentRole" list="contentRoleList">
                 <condition-list combine="and">
                     <condition-expr field-name="contentId" from-field="contentId" operator="equals"/>

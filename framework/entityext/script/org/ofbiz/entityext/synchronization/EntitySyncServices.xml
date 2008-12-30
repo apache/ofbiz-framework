@@ -62,7 +62,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="EntitySyncHistory"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <now-timestamp-to-env env-name="newEntity.startDate"/>
+        <now-timestamp field="newEntity.startDate"/>
         <field-to-result field="newEntity.startDate" result-name="startDate"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>

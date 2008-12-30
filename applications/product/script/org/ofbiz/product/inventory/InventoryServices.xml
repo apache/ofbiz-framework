@@ -254,7 +254,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createInventoryItemStatus" short-description="Create an inventory item status record">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
 
         <!-- find the most recent InventoryItemStatus record and set the statusEndDatetime -->
         <entity-and entity-name="InventoryItemStatus" list="oldInventoryItemStatusList">
@@ -296,7 +296,7 @@ under the License.
             <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
             <set field="newEntity.effectiveDate" from-field="itemIssuance.issuedDateTime"/>
             <else>
-                <now-timestamp-to-env env-name="newEntity.effectiveDate"/>
+                <now-timestamp field="newEntity.effectiveDate"/>
             </else>
         </if-not-empty>
 
@@ -407,7 +407,7 @@ under the License.
     <simple-method method-name="checkProductInventoryDiscontinuation" short-description="Check Product Inventory Discontinuation" login-required="false">
         <set from-field="parameters.productId" field="productIdMap.productId"/>
         <find-by-primary-key entity-name="Product" map="productIdMap" value-field="product"/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
 
         <!-- if discontinueProductSales field is empty and the product is a variant, get the fieldcontent from the virtual product -->
         <if-not-empty field="product">
@@ -501,7 +501,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.physicalInventoryDate">
-            <now-timestamp-to-env env-name="newEntity.physicalInventoryDate"/>
+            <now-timestamp field="newEntity.physicalInventoryDate"/>
         </if-empty>
         <if-empty field="newEntity.partyId">
             <set from-field="userLogin.partyId" field="newEntity.partyId"/>
@@ -964,7 +964,7 @@ under the License.
             <iterate list="oisgirais" entry="oisgir">
                 <set field="orderItems.${oisgir.orderItemSeqId}" from-field="oisgir"/>
             </iterate>
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <iterate-map key="orderItemSeqId" value="oisgir" map="orderItems">
                 <set field="reassignInventoryReservationsCtx.productId" from-field="oisgir.productId"/>
                 <set field="reassignInventoryReservationsCtx.facilityId" from-field="oisgir.facilityId"/>
@@ -1020,7 +1020,7 @@ under the License.
         <set from-field="parameters.productId" field="lookupFieldMap.productId"/>
         <set from-field="parameters.facilityId" field="lookupFieldMap.facilityId"/>
         <set from-field="parameters.containerId" field="lookupFieldMap.containerId"/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
 
         <!-- check the product; make sure its a physical item -->
         <entity-one entity-name="Product" value-field="product"/>

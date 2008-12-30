@@ -26,7 +26,7 @@ under the License.
         <!-- NOTE: this is not yet complete -->
         <!-- NOTE: this will behave differently depending on how the FinAccount is used, see comments on different GlAccounts for trans entries below -->
         
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         
         <entity-one entity-name="FinAccountTrans" value-field="finAccountTrans"/>
         <set field="finAccountId" from-field="finAccountTrans.finAccountId"/>

@@ -52,7 +52,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="CustRequest"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
         <set from-field="nowTimestamp" field="newEntity.createdDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
@@ -176,7 +176,7 @@ under the License.
                 <clear-field field="successMessage"/>
             </if-not-empty>
         </if-compare-field>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set from-field="nowTimestamp" field="custRequest.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="custRequest.lastModifiedByUserLogin"/>
         <set-nonpk-fields map="parameters" value-field="custRequest"/>
@@ -232,7 +232,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+            <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -243,7 +243,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteCustRequestParty" short-description="Delete Customer CustRequestParty">
         <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
-        <now-timestamp-to-env env-name="thruDate"/>
+        <now-timestamp field="thruDate"/>
         <set field="lookedUpValue.thruDate" from-field="thruDate"/>
         <store-value value-field="lookedUpValue"/>
     </simple-method>
@@ -392,7 +392,7 @@ under the License.
         <make-next-seq-id value-field="newEntity" seq-field-name="custRequestStatusId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.statusDatetime">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.statusDatetime"/>
         </if-empty>
         <create-value value-field="newEntity"/>
@@ -477,7 +477,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         
@@ -487,7 +487,7 @@ under the License.
         <entity-one entity-name="CustRequestContent" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <if-empty field="lookedUpValue.thruDate">
-            <now-timestamp-to-env env-name="lookedUpValue.thruDate"/>
+            <now-timestamp field="lookedUpValue.thruDate"/>
         </if-empty>
         <store-value value-field="lookedUpValue"/>
     </simple-method>

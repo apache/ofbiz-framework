@@ -431,7 +431,7 @@ under the License.
 
             <!-- for AcctgTrans: set isPosted to Y, postedDate to now -->
             <set from-field="acctgTrans.acctgTransId" field="updateAcctgTransParams.acctgTransId"/>
-            <now-timestamp-to-env env-name="updateAcctgTransParams.postedDate"/>
+            <now-timestamp field="updateAcctgTransParams.postedDate"/>
             <set value="Y" field="updateAcctgTransParams.isPosted"/>
 
             <call-service service-name="updateAcctgTrans" in-map-name="updateAcctgTransParams" include-user-login="true"/>

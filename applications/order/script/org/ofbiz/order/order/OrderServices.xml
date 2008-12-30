@@ -35,7 +35,7 @@ under the License.
         <check-errors/>
         
         <if-not-empty field="monthsToInclude">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <call-bsh><![CDATA[
                 calendar = java.util.Calendar.getInstance();
                 calendar.setTimeInMillis(nowTimestamp.getTime());
@@ -887,7 +887,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="OrderItemChange"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.changeDatetime">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.changeDatetime" from-field="nowTimestamp"/>
         </if-empty>
         <if-empty field="parameters.changeUserLogin">

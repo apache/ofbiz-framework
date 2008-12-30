@@ -33,7 +33,7 @@ under the License.
         <field-to-result field="receiptId" result-name="receiptId"/>
         
         <if-empty field="newEntity.datetimeReceived">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.datetimeReceived" from-field="nowTimestamp"/>
         </if-empty>
 
@@ -219,7 +219,7 @@ under the License.
                     <set from-field="facility.defaultInventoryItemTypeId" field="parameters.inventoryItemTypeId"/>
                 </if-empty>
 
-                <now-timestamp-to-env env-name="nowTimestamp"/>
+                <now-timestamp field="nowTimestamp"/>
 
                 <entity-count entity-name="ReturnItem" count-name="returnItemCount">
                     <condition-expr field-name="returnId" operator="equals" from-field="returnHeader.returnId"/>

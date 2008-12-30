@@ -109,7 +109,7 @@
             <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
             <set field="partyDataSource.partyId" from-field="partyId"/>
             <set field="partyDataSource.dataSourceId" from-field="dataSourceId"/>
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="partyDataSource.fromDate" from-field="nowTimestamp"/>
             <set field="partyDataSource.isCreate" value="Y"/>
             <create-value value-field="partyDataSource"/>

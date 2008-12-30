@@ -133,7 +133,7 @@ under the License.
         <create-value value-field="newEntity"/>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
-            <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
+            <now-timestamp field="shoppingList.lastAdminModified"/>
             <store-value value-name="shoppingList"/>
         </if-compare-field>
     </simple-method>
@@ -159,7 +159,7 @@ under the License.
         </if-compare>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
-            <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
+            <now-timestamp field="shoppingList.lastAdminModified"/>
             <store-value value-name="shoppingList"/>
         </if-compare-field>
     </simple-method>
@@ -175,7 +175,7 @@ under the License.
         <remove-value value-field="shoppingListItem"/>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
-            <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>
+            <now-timestamp field="shoppingList.lastAdminModified"/>
             <store-value value-name="shoppingList"/>
         </if-compare-field>
     </simple-method>

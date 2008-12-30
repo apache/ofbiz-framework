@@ -74,7 +74,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <set field="salesForecastHistory.changeNote" from-field="parameters.changeNote"/>
 
         <!-- set the modified info -->
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set field="salesForecastHistory.modifiedTimestamp" from-field="nowTimestamp"/>
         <set field="salesForecast.modifiedByUserLoginId" from-field="userLogin.userLoginId"/>
 
