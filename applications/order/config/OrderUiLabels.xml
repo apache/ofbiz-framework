@@ -8079,6 +8079,12 @@
         <value xml:lang="zh">为这个订单选择一个合同</value>
         <value xml:lang="zh_CN">为这个订单选择协议</value>
     </property>
+    <property key="OrderSelectAgreementRoles">
+        <value xml:lang="en">Select order agreement Roles</value>
+        <value xml:lang="fr">Choisir les rôles d'accords commerciaux sur commande</value>
+        <value xml:lang="it">Seleziona Ruoli accordi ordine</value>
+        <value xml:lang="nl">Rollen orderovereenkomsten selecteren</value>
+    </property>
     <property key="OrderSelectAddressFirst">
         <value xml:lang="de">Zuerst Adresse wählen</value>
         <value xml:lang="en">Select Address First</value>

@@ -504,7 +504,7 @@ under the License.
         <menu-item name="GlAccountAssignment" title="${uiLabelMap.AccountingGlAccountDefault}">
             <link target="GlAccountAssignment?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
-        <menu-item name="TimePeriods" title="${uiLabelMap.TimePeriod}">
+        <menu-item name="TimePeriods" title="${uiLabelMap.AccountingTimePeriod}">
             <link target="TimePeriods?organizationPartyId=${organizationPartyId}"/>
         </menu-item>
         <menu-item name="ViewFXConversions" title="${uiLabelMap.AccountingFX}">

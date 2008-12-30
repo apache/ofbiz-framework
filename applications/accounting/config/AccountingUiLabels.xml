@@ -17,7 +17,8 @@
     KIND, either express or implied.  See the License for the
     specific language governing permissions and limitations
     under the License.
---><resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+-->
+<resource xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
     <property key="AccountingAHCElectronicCheck">
         <value xml:lang="de">Bankverbindung: elektronische Überweisung</value>
         <value xml:lang="en">EFT Account: AHC/Electronic Check</value>
@@ -3851,8 +3852,9 @@
         <value xml:lang="th">ใบกำกับการขาย</value>
         <value xml:lang="zh">销售发票</value>
     </property>
-    <property key="InvoicesApplPayments">
-            <value xml:lang="en">Payments applied to Invoices</value>
+    <property key="AccountingInvoicesApplPayments">
+        <value xml:lang="en">Payments applied to Invoices</value>
+        <value xml:lang="it">Pagamenti applicati alle Fatture</value>
     </property>
     <property key="AccountingInvoiceStatus">
         <value xml:lang="ar">الوضعيات</value>
@@ -6471,6 +6473,18 @@
         <value xml:lang="th">ถึงวันที่</value>
         <value xml:lang="zh">截止日期</value>
     </property>
+    <property key="AccountingTimePeriod">
+        <value xml:lang="ar">الفترة</value>
+        <value xml:lang="en">Time Period</value>
+        <value xml:lang="es">Periodo de tiempo</value>
+        <value xml:lang="fr">Période</value>
+        <value xml:lang="it">Periodo Fiscale</value>
+        <value xml:lang="nl">Periode</value>
+        <value xml:lang="ro">Perioada Orarie</value>
+        <value xml:lang="ru">Период времени</value>
+        <value xml:lang="th">ช่วงระยะเวลา</value>
+        <value xml:lang="zh">期</value>
+    </property>
     <property key="AccountingTitleTransfer">
         <value xml:lang="ar">عنوان التحويل</value>
         <value xml:lang="en">Title Transfer</value>
@@ -7022,48 +7036,6 @@
         <value xml:lang="fr">Résumé</value>
         <value xml:lang="nl">Samenvatting</value>
         <value xml:lang="th">สรุป</value>
-    </property>
-    <property key="AsOf">
-        <value xml:lang="ar">إنطلاقا من</value>
-        <value xml:lang="en">As Of</value>
-        <value xml:lang="es">Como de</value>
-        <value xml:lang="fr">En vigueur le</value>
-        <value xml:lang="it">Come Da</value>
-        <value xml:lang="nl">vanaf</value>
-        <value xml:lang="ro">Ca De la</value>
-        <value xml:lang="ru">как</value>
-        <value xml:lang="th">As Of</value>
-        <value xml:lang="zh">作为</value>
-    </property>
-    <property key="ByDate">
-        <value xml:lang="ar">حسب التاريخ</value>
-        <value xml:lang="en">By Date</value>
-        <value xml:lang="es">Por fecha</value>
-        <value xml:lang="fr">Jusqu'à (date)</value>
-        <value xml:lang="it">Dalla Data</value>
-        <value xml:lang="nl">Op datum</value>
-        <value xml:lang="ro">De la Data</value>
-        <value xml:lang="ru">для даты</value>
-        <value xml:lang="th">โดยวันที่</value>
-        <value xml:lang="zh">按日期</value>
-    </property>
-    <property key="ByTimePeriod">
-        <value xml:lang="ar">حسب الفترة</value>
-        <value xml:lang="en">For Closed Time Period</value>
-        <value xml:lang="es">Para periodo de tiempo cerrado</value>
-        <value xml:lang="fr">Jusqu'à la clôture de la période</value>
-        <value xml:lang="it">Per Periodo</value>
-        <value xml:lang="nl">Voor periode</value>
-        <value xml:lang="ro">Pe Perioada Ora Inchis</value>
-        <value xml:lang="ru">Для закрытых периодов</value>
-        <value xml:lang="th">สำหรับปิดช่วงเวลา</value>
-        <value xml:lang="zh">已结束的期</value>
-    </property>
-    <property key="Email">
-        <value xml:lang="en">Email</value>
-        <value xml:lang="fr">Courriel</value>
-        <value xml:lang="nl">E-mail</value>
-        <value xml:lang="th">อีเมล</value>
     </property>
     <property key="FormFieldTitle_accountCode">
         <value xml:lang="ar">رمز الحساب</value>
@@ -9178,58 +9150,6 @@
         <value xml:lang="th">รหัสงาน</value>
         <value xml:lang="zh">人工服务标识</value>
     </property>
-    <property key="FromTimePeriod">
-        <value xml:lang="en">From Time Period</value>
-        <value xml:lang="es">Periodo de tiempo origen</value>
-        <value xml:lang="fr">De la période</value>
-        <value xml:lang="it">Data Inizio Periodo</value>
-        <value xml:lang="nl">Vanaf</value>
-        <value xml:lang="ro">De la Ora</value>
-        <value xml:lang="ru">из периода</value>
-        <value xml:lang="th">จากช่วงเวลา</value>
-        <value xml:lang="zh">开始期</value>
-    </property>
-    <property key="GlFiscalType">
-        <value xml:lang="ar">نوع الجباية</value>
-        <value xml:lang="en">Fiscal Type</value>
-        <value xml:lang="es">Tipo Fiscal</value>
-        <value xml:lang="fr">Type fiscal</value>
-        <value xml:lang="it">Tipo Fiscale</value>
-        <value xml:lang="nl">Fiscaal type</value>
-        <value xml:lang="ro">Tip Fiscal</value>
-        <value xml:lang="ru">Фискальный тип</value>
-        <value xml:lang="th">ประเภทงบประมาณ</value>
-        <value xml:lang="zh">财务类型</value>
-    </property>
-    <property key="ListAccounts">
-        <value xml:lang="ar">قائمة الحسابات المحاسبية</value>
-        <value xml:lang="en">List Gl Accounts</value>
-        <value xml:lang="es">Lista de cuentas de LM</value>
-        <value xml:lang="fr">Liste des comptes du Grand Livre</value>
-        <value xml:lang="it">Elenca Conti Contabilità Generale</value>
-        <value xml:lang="nl">Toon GB-rekeningen</value>
-        <value xml:lang="ro">Afiseaza Conturile Contabile Generale</value>
-        <value xml:lang="ru">Список счетов ГК</value>
-        <value xml:lang="th">รายการบัญชีแยกประเภททั่วไป</value>
-        <value xml:lang="zh">总账账户列表</value>
-    </property>
-    <property key="OrderSelectAgreementRoles">
-        <value xml:lang="en">Select order agreement Roles</value>
-        <value xml:lang="fr">Choisir les rôles d'accords commerciaux sur commande</value>
-        <value xml:lang="nl">Rollen orderovereenkomsten selecteren</value>
-    </property>
-    <property key="Organization">
-        <value xml:lang="ar">المؤسسة</value>
-        <value xml:lang="en">Organization</value>
-        <value xml:lang="es">Organización</value>
-        <value xml:lang="fr">Organisation</value>
-        <value xml:lang="it">Organizzazione</value>
-        <value xml:lang="nl">Organisatie</value>
-        <value xml:lang="ro">Organizatie</value>
-        <value xml:lang="ru">Организация</value>
-        <value xml:lang="th">องค์กร</value>
-        <value xml:lang="zh">团体</value>
-    </property>
     <property key="PageTitleAddAgreementRoles">
         <value xml:lang="en">Add Agreement Roles</value>
         <value xml:lang="fr">Ajouter des rôles d'accords commerciaux</value>
@@ -10232,241 +10152,6 @@
         <value xml:lang="fr">Voir les écritures de la transaction</value>
         <value xml:lang="nl">Boekingen transactie bekijken</value>
     </property>
-    <property key="PartyPartyId">
-        <value xml:lang="en">Party ID</value>
-        <value xml:lang="es">Id Grupo</value>
-        <value xml:lang="fr">Réf. de l'acteur</value>
-        <value xml:lang="it">Codice Soggetto</value>
-        <value xml:lang="nl">Relatie</value>
-        <value xml:lang="pt_BR">ID de Secção</value>
-        <value xml:lang="pt_PT">ID de Secção</value>
-        <value xml:lang="ro">Cod Subiect</value>
-        <value xml:lang="ru">Код участника</value>
-        <value xml:lang="th">รหัสกลุ่มผู้ใช้</value>
-        <value xml:lang="zh">会员标识</value>
-    </property>
-    <property key="PartyRoleTypeId">
-        <value xml:lang="en">RoleType ID</value>
-        <value xml:lang="es">Id TipoRol</value>
-        <value xml:lang="fr">Type de rôle</value>
-        <value xml:lang="it">Tipo Ruolo</value>
-        <value xml:lang="nl">ID Roltype</value>
-        <value xml:lang="pt_BR">Id de Função de Secção</value>
-        <value xml:lang="pt_PT">Id de Função de Secção</value>
-        <value xml:lang="ro">Tip Rol</value>
-        <value xml:lang="ru">Код типа роли</value>
-        <value xml:lang="th">รหัสประเภทสถานะ</value>
-        <value xml:lang="zh">角色类型标识</value>
-    </property>
-    <property key="PartyRoles">
-        <value xml:lang="ar">الأدوار</value>
-        <value xml:lang="en">Roles</value>
-        <value xml:lang="es">Roles</value>
-        <value xml:lang="fr">Rôles</value>
-        <value xml:lang="it">Ruoli</value>
-        <value xml:lang="nl">Rollen</value>
-        <value xml:lang="pt_BR">Funções</value>
-        <value xml:lang="pt_PT">Funções</value>
-        <value xml:lang="ro">Roluri</value>
-        <value xml:lang="ru">Роли</value>
-        <value xml:lang="th">สถานะ</value>
-        <value xml:lang="zh">角色</value>
-    </property>
-    <property key="PartyTerm">
-        <value xml:lang="ar">بند</value>
-        <value xml:lang="en">Term</value>
-        <value xml:lang="es">Término</value>
-        <value xml:lang="fr">Terme</value>
-        <value xml:lang="it">Termine</value>
-        <value xml:lang="nl">Conditie</value>
-        <value xml:lang="pt_BR">Termo</value>
-        <value xml:lang="pt_PT">Termo</value>
-        <value xml:lang="ro">Termen</value>
-        <value xml:lang="ru">Условие</value>
-        <value xml:lang="th">ช่วงเวลาที่กำหนด</value>
-        <value xml:lang="zh">条件</value>
-    </property>
-    <property key="PartyTermType">
-        <value xml:lang="ar">نوع البند</value>
-        <value xml:lang="en">Term Type</value>
-        <value xml:lang="es">Tipo de Término</value>
-        <value xml:lang="fr">Type de terme</value>
-        <value xml:lang="it">Tipo Termine</value>
-        <value xml:lang="nl">Conditiesoort</value>
-        <value xml:lang="pt_BR">Tipo de Termo</value>
-        <value xml:lang="pt_PT">Tipo de Termo</value>
-        <value xml:lang="ro">Tip Termen</value>
-        <value xml:lang="ru">Тип условия</value>
-        <value xml:lang="th">ประเภทช่วงเวลาที่กำหนด</value>
-        <value xml:lang="zh">条件类型</value>
-    </property>
-    <property key="PartyTermValue">
-        <value xml:lang="ar">قيمة البند</value>
-        <value xml:lang="en">Term Value</value>
-        <value xml:lang="es">Value Término</value>
-        <value xml:lang="fr">Valeur du terme</value>
-        <value xml:lang="it">Valore Termine</value>
-        <value xml:lang="nl">Conditie-hoeveelheid</value>
-        <value xml:lang="pt_BR">Valor do Termo</value>
-        <value xml:lang="pt_PT">Valor do Termo</value>
-        <value xml:lang="ro">Valore Termen</value>
-        <value xml:lang="ru">Значение условия</value>
-        <value xml:lang="th">ค่าช่วงเวลาที่กำหนด</value>
-        <value xml:lang="zh">条件值</value>
-    </property>
-    <property key="PartyTerms">
-        <value xml:lang="ar">بنود</value>
-        <value xml:lang="en">Terms</value>
-        <value xml:lang="es">Términos</value>
-        <value xml:lang="fr">Termes</value>
-        <value xml:lang="it">Termini</value>
-        <value xml:lang="nl">Condities</value>
-        <value xml:lang="pt_BR">Termos</value>
-        <value xml:lang="pt_PT">Termos</value>
-        <value xml:lang="ro">Termene</value>
-        <value xml:lang="ru">Условия</value>
-        <value xml:lang="th">ช่วงเวลาที่กำหนด</value>
-        <value xml:lang="zh">条件</value>
-    </property>
-    <property key="ProductProductStore">
-        <value xml:lang="en">Product Store</value>
-        <value xml:lang="es">Almacén de producto</value>
-        <value xml:lang="fr">Magasin</value>
-        <value xml:lang="it">Negozio</value>
-        <value xml:lang="nl">Magazijn</value>
-        <value xml:lang="ro">Magazin</value>
-        <value xml:lang="ru">Торговая точка</value>
-        <value xml:lang="th">คลังสินค้า</value>
-        <value xml:lang="zh">产品商店</value>
-    </property>
-    <property key="ThruTimePeriod">
-        <value xml:lang="ar">فترة الأجل</value>
-        <value xml:lang="en">Thru Time Period</value>
-        <value xml:lang="es">Fecha límite del periodo de tiempo Time Period</value>
-        <value xml:lang="fr">jusqu'à la période</value>
-        <value xml:lang="it">Data Fine Periodo</value>
-        <value xml:lang="nl">Tot</value>
-        <value xml:lang="ro">La Ora</value>
-        <value xml:lang="ru">в течение периода</value>
-        <value xml:lang="th">ถึงช่วงระยะเวลา</value>
-        <value xml:lang="zh">结束期</value>
-    </property>
-    <property key="TimePeriod">
-        <value xml:lang="ar">الفترة</value>
-        <value xml:lang="en">Time Period</value>
-        <value xml:lang="es">Periodo de tiempo</value>
-        <value xml:lang="fr">Période</value>
-        <value xml:lang="it">Periodo Fiscale</value>
-        <value xml:lang="nl">Periode</value>
-        <value xml:lang="ro">Perioada Orarie</value>
-        <value xml:lang="ru">Период времени</value>
-        <value xml:lang="th">ช่วงระยะเวลา</value>
-        <value xml:lang="zh">期</value>
-    </property>
-    <property key="TimePeriodMessage1">
-        <value xml:lang="ar">لا يوجد حاليا أي فترات مغلقة</value>
-        <value xml:lang="en">There are currently no closed time periods.</value>
-        <value xml:lang="es">No hay periodos de tiempo cerrados actualmente</value>
-        <value xml:lang="fr">Aucune période n'a été close jusqu'à présent</value>
-        <value xml:lang="it">Attualmente non ci sono periodi fiscali chiusi.</value>
-        <value xml:lang="nl">Er zijn geen afgesloten perioden.</value>
-        <value xml:lang="ro">Momentan nu sunt Perioade orarii inchise.</value>
-        <value xml:lang="ru">В настоящий момент нет закрытых периодов.</value>
-        <value xml:lang="th">ไม่ปิดในช่วงเวลานี้</value>
-        <value xml:lang="zh">当前没有结束的期。</value>
-    </property>
-    <property key="TimePeriodMessage2">
-        <value xml:lang="ar">الفترات التالية قد أغلقت</value>
-        <value xml:lang="en">The following time periods have been closed</value>
-        <value xml:lang="es">Los siguientes periodos de tiempo han sido cerrados</value>
-        <value xml:lang="fr">Les périodes de suivantes ont été clôturées</value>
-        <value xml:lang="it">I seguenti periodi fiscali sono stati chiusi</value>
-        <value xml:lang="nl">Volgende perioden zijn afgesloten.</value>
-        <value xml:lang="ro">Urmatoarele Perioade orarii au fost inchise</value>
-        <value xml:lang="ru">Есть следующие закрытые периоды</value>
-        <value xml:lang="th">ตามช่วงเวลานี้ปิด</value>
-        <value xml:lang="zh">下列期已经结束</value>
-    </property>
-    <property key="de">
-        <value xml:lang="en">German</value>
-        <value xml:lang="es">Alemán</value>
-        <value xml:lang="fr">Allemand</value>
-        <value xml:lang="it">Tedesco</value>
-        <value xml:lang="nl">Duits</value>
-        <value xml:lang="pt_BR">Alem�o</value>
-        <value xml:lang="pt_PT">German</value>
-        <value xml:lang="ro">Germana</value>
-        <value xml:lang="ru">Немецкий</value>
-        <value xml:lang="th">เยอรมัน</value>
-        <value xml:lang="zh">德语</value>
-    </property>
-    <property key="en">
-        <value xml:lang="en">English</value>
-        <value xml:lang="es">Inglés</value>
-        <value xml:lang="fr">Anglais</value>
-        <value xml:lang="it">Inglese</value>
-        <value xml:lang="nl">Engels</value>
-        <value xml:lang="pt_BR">Ingl�s</value>
-        <value xml:lang="pt_PT">English</value>
-        <value xml:lang="ro">Engleza</value>
-        <value xml:lang="ru">Английский</value>
-        <value xml:lang="th">อังกฤษ</value>
-        <value xml:lang="zh">英语</value>
-    </property>
-    <property key="es">
-        <value xml:lang="en">Spanish</value>
-        <value xml:lang="es">Español</value>
-        <value xml:lang="fr">Espagnol</value>
-        <value xml:lang="nl">Spaans</value>
-        <value xml:lang="ru">Испанский</value>
-        <value xml:lang="th">สเปน</value>
-    </property>
-    <property key="fr">
-        <value xml:lang="en">French</value>
-        <value xml:lang="es">Francés</value>
-        <value xml:lang="fr">Français</value>
-        <value xml:lang="it">Francese</value>
-        <value xml:lang="nl">Frans</value>
-        <value xml:lang="pt_BR">Franc�s</value>
-        <value xml:lang="pt_PT">French</value>
-        <value xml:lang="ro">Franceza</value>
-        <value xml:lang="ru">Французкий</value>
-        <value xml:lang="th">ฝรั่งเศส</value>
-        <value xml:lang="zh">法语</value>
-    </property>
-    <property key="isClosed">
-        <value xml:lang="en">CLOSED</value>
-        <value xml:lang="es">CERRADO</value>
-        <value xml:lang="fr">Fermé</value>
-        <value xml:lang="it">CHIUSO</value>
-        <value xml:lang="nl">GESLOTED</value>
-        <value xml:lang="ro">INCHIS</value>
-        <value xml:lang="ru">ЗАКРЫТ</value>
-        <value xml:lang="th">ปิด</value>
-        <value xml:lang="zh">已结束</value>
-    </property>
-    <property key="isNotClosed">
-        <value xml:lang="en">NOT CLOSED</value>
-        <value xml:lang="es">NO CERRADO</value>
-        <value xml:lang="fr">Non fermé</value>
-        <value xml:lang="it">NON CHIUSO</value>
-        <value xml:lang="nl">NIET GESLOTEN</value>
-        <value xml:lang="ro">NE INCHIS</value>
-        <value xml:lang="ru">НЕ ЗАКРЫТ</value>
-        <value xml:lang="th">ไม่ปิด</value>
-        <value xml:lang="zh">未结束</value>
-    </property>
-    <property key="nl">
-        <value xml:lang="en">Dutch</value>
-        <value xml:lang="es">Holandés</value>
-        <value xml:lang="fr">Néerlandais</value>
-        <value xml:lang="it">Olandese</value>
-        <value xml:lang="nl">Nederlands</value>
-        <value xml:lang="ro">Olandeza</value>
-        <value xml:lang="ru">Голландский</value>
-        <value xml:lang="th">เนเธอร์แลนด์</value>
-        <value xml:lang="zh">荷兰语</value>
-    </property>
     <property key="payPalEvents.failedToExecuteServiceCreatePaymentFromPreference">
         <value xml:lang="en">Failed to execute service createPaymentFromPreference</value>
         <value xml:lang="fr">Echec à l'exécution du service createPaymentFromPreference</value>
@@ -10515,29 +10200,5 @@
         <value xml:lang="it">Problemi nel ricavare la testata ordine.</value>
         <value xml:lang="nl">Problemen verkrijgen orderkop.</value>
         <value xml:lang="th">ปัญหาการเรียกใช้หัวข้อรายการสั่งซื้อ</value>
-    </property>
-    <property key="pt">
-        <value xml:lang="en">Protuguese </value>
-        <value xml:lang="es">Portugués</value>
-        <value xml:lang="fr">Portugais</value>
-        <value xml:lang="nl">Portugees</value>
-        <value xml:lang="pt_BR">Português</value>
-        <value xml:lang="pt_PT">Português</value>
-        <value xml:lang="th">โปรตุเกส</value>
-    </property>
-    <property key="pt_BR">
-        <value xml:lang="en">Protuguese (Brazil)</value>
-        <value xml:lang="es">Protugués Brasileño</value>
-        <value xml:lang="fr">Portugais(Brésil)</value>
-        <value xml:lang="nl">Braziliaans Portugees</value>
-        <value xml:lang="pt_BR">Portugu�s Brasileiro</value>
-        <value xml:lang="th">บราซิล</value>
-    </property>
-    <property key="ru">
-        <value xml:lang="en">Russian</value>
-        <value xml:lang="fr">Russe</value>
-        <value xml:lang="nl">Russisch</value>
-        <value xml:lang="ru">Русский</value>
-        <value xml:lang="th">รัสเซีย</value>
     </property>
 </resource>

@@ -1032,7 +1032,7 @@ under the License.
                                         <set field="actualCurrencyUomId" from-field="defaultOrganizationPartyCurrencyUomId"/>
                                     </actions>
                                     <widgets>
-                                        <screenlet title="${uiLabelMap.InvoicesApplPayments}" navigation-form-name="Invoices">
+                                        <screenlet title="${uiLabelMap.AccountingInvoicesApplPayments}" navigation-form-name="Invoices">
                                             <include-form name="ListInvoicesApplPayments" location="component://party/webapp/partymgr/party/PartyForms.xml"/>
                                             <section>
                                                 <condition>
