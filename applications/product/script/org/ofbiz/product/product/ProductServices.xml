@@ -318,7 +318,7 @@ under the License.
     <!-- Product Keyword Services -->
     <simple-method method-name="createProductKeyword" short-description="create a ProductKeyword">
         <make-value entity-name="ProductKeyword" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>   
@@ -462,7 +462,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="GoodIdentification"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateGoodIdentification" short-description="Update an GoodIdentification">
@@ -472,7 +472,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="GoodIdentification" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -484,7 +484,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="GoodIdentification" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -498,7 +498,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductGlAccount"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductGlAccount" short-description="Update an ProductGlAccount">
@@ -508,7 +508,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductGlAccount" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductGlAccount" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -520,7 +520,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductGlAccount" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductGlAccount" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -566,7 +566,7 @@ under the License.
         <check-errors/>
         
         <make-value value-field="lookupPKMap" entity-name="ProductReview"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -726,7 +726,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductAssoc"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -737,7 +737,7 @@ under the License.
         <check-errors/>
         
         <make-value value-field="lookupPKMap" entity-name="ProductAssoc"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductAssoc" map="lookupPKMap" value-field="productAssocInstance"/>
         <set-nonpk-fields map-name="parameters" value-name="productAssocInstance"/>
         <store-value value-name="productAssocInstance"/>
@@ -749,7 +749,7 @@ under the License.
         <check-errors/>
         
         <make-value value-field="lookupPKMap" entity-name="ProductAssoc"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductAssoc" map="lookupPKMap" value-field="productAssocInstance"/>
         <remove-value value-name="productAssocInstance"/>
     </simple-method>
@@ -763,7 +763,7 @@ under the License.
         
         <make-value value-field="newEntity" entity-name="ProductMaint"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="productMaintSeqId"/> <!-- this finds the next sub-sequence ID -->
         <field-to-result field-name="newEntity.productMaintSeqId" result-name="productMaintSeqId"/>
         <create-value value-name="newEntity"/>
@@ -796,7 +796,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductMeter"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductMeter" short-description="Update an existing Product Meter">
@@ -823,7 +823,7 @@ under the License.
     <simple-method method-name="createProductGeo" short-description="Create an Product Geo">
         <make-value value-field="newEntity" entity-name="ProductGeo"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductGeo" short-description="Update an existing Product Geo">
@@ -907,7 +907,7 @@ under the License.
     <!-- Product Attribute Services -->
     <simple-method method-name="createProductAttribute" short-description="create a ProductAttribute">
         <make-value entity-name="ProductAttribute" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>   
@@ -932,7 +932,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductRole"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
@@ -948,7 +948,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="ProductRole"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -960,20 +960,20 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="ProductRole"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createVendorProduct" short-description="Create a VendorProduct">
         <make-value entity-name="VendorProduct" value-field="newEntity"/>
-        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-pk-fields value-field="newEntity" map="parameters"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     
     <simple-method method-name="deleteVendorProduct" short-description="Remove the VendorProduct">
         <make-value entity-name="VendorProduct" value-field="lookedUpValue"/>
-        <set-pk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-pk-fields value-field="lookedUpValue" map="parameters"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -986,7 +986,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductCategoryGlAccount"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     

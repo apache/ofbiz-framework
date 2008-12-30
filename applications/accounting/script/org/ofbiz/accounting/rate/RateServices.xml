@@ -63,7 +63,7 @@ under the License.
         </if-not-empty>
 
         <make-value entity-name="RateAmount" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <now-timestamp-to-env env-name="newEntity.fromDate"/>
         <clear-field field-name="newEntity.thruDate"/>
@@ -308,7 +308,7 @@ under the License.
         </if-not-empty>
 
         <make-value value-field="newEntity" entity-name="PartyRate"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <call-simple-method method-name="checkOtherDefaultRate"/>
@@ -355,11 +355,11 @@ under the License.
         <entity-condition entity-name="OldEmplPositionTypeRate" list-name="posRates"/>
         <iterate entry="posRate" list="posRates">
             <make-value value-field="emplPositionTypeRate" entity-name="EmplPositionTypeRate"/>
-            <set-pk-fields value-name="posRate" map-name="emplPositionTypeRate"/>
+            <set-pk-fields value-field="posRate" map="emplPositionTypeRate"/>
             <set-nonpk-fields value-name="posRate" map-name="emplPositionTypeRate"/>
             <create-value value-name="emplPositionTypeRate"/>
             <make-value value-field="rateAmount" entity-name="RateAmount"/>
-            <set-pk-fields value-name="posRate" map-name="rateAmount"/>
+            <set-pk-fields value-field="posRate" map="rateAmount"/>
             <set-nonpk-fields value-name="posRate" map-name="rateAmount"/>
             <set field="rateAmount.workeffortId" value="_NA_"/>
             <set field="rateAmount.partyId" value="_NA_"/>
@@ -369,11 +369,11 @@ under the License.
         <entity-condition entity-name="OldPartyRate" list-name="partyRates"/>
         <iterate entry="oldPartyRate" list="oldPartyRates">
             <make-value value-field="partyRate" entity-name="PartyRate"/>
-            <set-pk-fields value-name="oldPartyRate" map-name="partyRate"/>            
+            <set-pk-fields value-field="oldPartyRate" map="partyRate"/>            
             <set-nonpk-fields value-name="oldPartyRate" map-name="partyRate"/>
             <create-value value-name="partyRate"/>
             <make-value value-field="rateAmount" entity-name="RateAmount"/>
-            <set-pk-fields value-name="oldPartyRate" map-name="rateAmount"/>
+            <set-pk-fields value-field="oldPartyRate" map="rateAmount"/>
             <set-nonpk-fields value-name="oldPartyRate" map-name="rateAmount"/>
             <set field="rateAmount.workeffortId" value="_NA_"/>
             <set field="rateAmount.emplPositionTypeId" value="_NA_"/>

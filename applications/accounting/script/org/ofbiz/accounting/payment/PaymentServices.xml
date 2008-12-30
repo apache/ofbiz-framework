@@ -65,7 +65,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updatePayment" short-description="Update a Payment">
         <make-value entity-name="Payment" value-field="lookupPayment"/>
-        <set-pk-fields value-name="lookupPayment" map-name="parameters"/>
+        <set-pk-fields value-field="lookupPayment" map="parameters"/>
         
         <find-by-primary-key entity-name="Payment" map="lookupPayment" value-field="payment"/>
         <if>

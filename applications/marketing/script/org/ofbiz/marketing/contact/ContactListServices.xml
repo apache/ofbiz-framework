@@ -106,7 +106,7 @@ under the License.
         
         <make-value entity-name="ContactListParty" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         
         <create-value value-name="newEntity"/>
@@ -173,7 +173,7 @@ under the License.
         <check-errors/>
         
         <make-value entity-name="ContactListPartyStatus" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <now-timestamp-to-env env-name="newEntity.statusDate"/>

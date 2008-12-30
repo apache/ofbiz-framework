@@ -258,7 +258,7 @@ under the License.
     <simple-method method-name="createCommunicationEventPurpose" short-description="Create a CommunicationEventPurpose">
         
         <make-value value-field="newEntity" entity-name="CommunicationEventPurpose"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
         <create-value value-name="newEntity"/>    
     </simple-method>
@@ -279,7 +279,7 @@ under the License.
             <call-service service-name="createPartyRole" in-map-name="partyRole" include-user-login="false"/>
             
             <make-value value-field="newEntity" entity-name="CommunicationEventRole" />
-            <set-pk-fields map-name="parameters" value-name="newEntity" />
+            <set-pk-fields map="parameters" value-field="newEntity" />
             <set-nonpk-fields map-name="parameters" value-name="newEntity" />
             <if-empty field="newEntity.statusId">
                 <set field="newEntity.statusId" value="COM_ROLE_CREATED" />
@@ -425,7 +425,7 @@ under the License.
 
     <simple-method method-name="createCustRequestCommEvent" short-description="Create CustRequestCommEvent" >
         <make-value value-field="newEntity" entity-name="CustRequestCommEvent"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>    
     </simple-method>
 

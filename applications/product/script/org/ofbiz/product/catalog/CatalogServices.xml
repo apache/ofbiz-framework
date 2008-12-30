@@ -55,7 +55,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProdCatalogCategory"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
@@ -68,7 +68,7 @@ under the License.
     <simple-method method-name="updateProductCategoryToProdCatalog" short-description="Remove ContactMech From ProdCatalog">
 
         <make-value value-field="lookupPKMap" entity-name="ProdCatalogCategory"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogCategory" map="lookupPKMap" value-field="prodCatalogCategory"/>
         <set-nonpk-fields map-name="parameters" value-name="prodCatalogCategory"/>
         <store-value value-name="prodCatalogCategory"/>
@@ -76,7 +76,7 @@ under the License.
     <simple-method method-name="removeProductCategoryFromProdCatalog" short-description="Remove ContactMech From ProdCatalog">
 
         <make-value value-field="lookupPKMap" entity-name="ProdCatalogCategory"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogCategory" map="lookupPKMap" value-field="prodCatalogCategory"/>
         <remove-value value-name="prodCatalogCategory"/>
     </simple-method>
@@ -84,7 +84,7 @@ under the License.
     <!-- Party and Catalog services -->
     <simple-method method-name="addProdCatalogToParty" short-description="Add ProdCatalog To Party">
         <make-value value-field="newEntity" entity-name="ProdCatalogRole"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
@@ -95,14 +95,14 @@ under the License.
     </simple-method>
     <simple-method method-name="updateProdCatalogToParty" short-description="Update ProdCatalog To Party">
         <make-value value-field="lookupPKMap" entity-name="ProdCatalogRole"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProdCatalogFromParty" short-description="Remove ProdCatalog From Party">
         <make-value value-field="lookupPKMap" entity-name="ProdCatalogRole"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>

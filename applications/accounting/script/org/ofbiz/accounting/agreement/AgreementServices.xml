@@ -188,7 +188,7 @@ under the License.
     <!-- create a new AgreementPromoAppl -->
     <simple-method method-name="createAgreementPromoAppl" short-description="Create an AgreementPromoAppl">
         <make-value value-field="newEntity" entity-name="AgreementPromoAppl"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
@@ -214,7 +214,7 @@ under the License.
     <!-- create a new AgreementProductAppl -->
     <simple-method method-name="createAgreementProductAppl" short-description="Create an AgreementProductAppl">
         <make-value value-field="newEntity" entity-name="AgreementProductAppl"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
@@ -240,7 +240,7 @@ under the License.
     <!-- create a new AgreementPartyApplic -->
     <simple-method method-name="createAgreementPartyApplic" short-description="Create an AgreementPartyApplic">
         <make-value value-field="newEntity" entity-name="AgreementPartyApplic"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
@@ -266,7 +266,7 @@ under the License.
     <!-- create a new AgreementGeographicalApplic -->
     <simple-method method-name="createAgreementGeographicalApplic" short-description="Create an AgreementGeographicalApplic">
         <make-value value-field="newEntity" entity-name="AgreementGeographicalApplic"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
@@ -292,14 +292,14 @@ under the License.
     <!-- Agreement Role -->
     <simple-method method-name="createAgreementRole" short-description="Create an Agreement Role">
         <make-value entity-name="AgreementRole" value-field="newEntity"/>
-        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     
     <simple-method method-name="updateAgreementRole" short-description="Update an Agreement Role">
         <entity-one entity-name="AgreementRole" value-name="lookedUpValue"/>
-        <set-pk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-pk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -316,7 +316,7 @@ under the License.
             <check-errors/>
         <else>
             <make-value value-field="newEntity" entity-name="AgreementWorkEffortAppl"/>  
-            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+            <set-pk-fields map="parameters" value-field="newEntity"/>
             <create-value value-name="newEntity"/>
         </else>
         </if-not-empty>

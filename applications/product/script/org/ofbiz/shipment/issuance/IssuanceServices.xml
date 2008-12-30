@@ -81,7 +81,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ItemIssuanceRole"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <create-value value-name="newEntity"/>
@@ -142,13 +142,13 @@ under the License.
 
         <!-- get orderItemShipGrpInvRes -->
         <make-value entity-name="OrderItemShipGrpInvRes" value-field="OrderItemShipGrpInvResLookupPk"/>
-        <set-pk-fields value-name="OrderItemShipGrpInvResLookupPk" map-name="parameters"/>
+        <set-pk-fields value-field="OrderItemShipGrpInvResLookupPk" map="parameters"/>
         <find-by-primary-key map="OrderItemShipGrpInvResLookupPk" value-field="orderItemShipGrpInvRes"/>
         <log level="info" message="order item ship grp inv res info: ${orderItemShipGrpInvRes}"/>
 
         <!-- get orderHeader -->
         <make-value entity-name="OrderHeader" value-field="orderHeaderLookupPk"/>
-        <set-pk-fields value-name="orderHeaderLookupPk" map-name="parameters"/>
+        <set-pk-fields value-field="orderHeaderLookupPk" map="parameters"/>
         <find-by-primary-key map="orderHeaderLookupPk" value-field="orderHeader"/>
 
         <!-- make sure the order is of orderTypeId: SALES_ORDER -->
@@ -183,7 +183,7 @@ under the License.
         <entity-one entity-name="Shipment" value-name="shipment"/>
         <!-- get orderShipment -->
         <make-value entity-name="OrderShipment" value-field="orderShipmentLookupPk"/>
-        <set-pk-fields value-name="orderShipmentLookupPk" map-name="parameters"/>
+        <set-pk-fields value-field="orderShipmentLookupPk" map="parameters"/>
         <find-by-and entity-name="OrderShipment" map-name="orderShipmentLookupPk" list-name="orderShipments"/>
         <first-from-list entry="orderShipment" list="orderShipments"/>
         <!-- qtyForShipmentItem is the quantity we will add to the ShipmentItem -->
@@ -199,7 +199,7 @@ under the License.
             <if-not-empty field="orderShipment">
                 <field-to-result field-name="orderShipment.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
                 <make-value entity-name="ShipmentItem" value-field="shipmentItemLookupPk"/>
-                <set-pk-fields value-name="shipmentItemLookupPk" map-name="parameters"/>
+                <set-pk-fields value-field="shipmentItemLookupPk" map="parameters"/>
                 <set from-field="orderShipment.shipmentItemSeqId" field="shipmentItemLookupPk.shipmentItemSeqId"/>
                 <find-by-primary-key map="shipmentItemLookupPk" value-field="shipmentItem"/>
                 <remove-value value-name="orderShipment"/>
@@ -221,7 +221,7 @@ under the License.
             <store-value value-name="orderShipment"/>
             <field-to-result field-name="orderShipment.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
             <make-value entity-name="ShipmentItem" value-field="shipmentItemLookupPk"/>
-            <set-pk-fields value-name="shipmentItemLookupPk" map-name="parameters"/>
+            <set-pk-fields value-field="shipmentItemLookupPk" map="parameters"/>
             <set from-field="orderShipment.shipmentItemSeqId" field="shipmentItemLookupPk.shipmentItemSeqId"/>
             <find-by-primary-key map="shipmentItemLookupPk" value-field="shipmentItem"/>
         </else>

@@ -54,7 +54,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createPartyInvitationGroupAssoc" short-description="Create a PartyInvitationGroupAssoc">
         <make-value entity-name="PartyInvitationGroupAssoc" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>        
+        <set-pk-fields map="parameters" value-field="newEntity"/>        
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitationGroupAssoc" short-description="Remove a PartyInvitationGroupAssoc">
@@ -63,7 +63,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createPartyInvitationRoleAssoc" short-description="Create a PartyInvitationRoleAssoc">
         <make-value entity-name="PartyInvitationRoleAssoc" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>        
+        <set-pk-fields map="parameters" value-field="newEntity"/>        
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitationRoleAssoc" short-description="Remove a PartyInvitationRoleAssoc">

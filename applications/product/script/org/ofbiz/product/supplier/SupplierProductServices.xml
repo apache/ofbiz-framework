@@ -25,7 +25,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="SupplierProduct"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <create-value value-name="newEntity"/>
@@ -36,7 +36,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="SupplierProduct"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         
         <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>
         <set-nonpk-fields map-name="parameters" value-name="sprod"/>
@@ -48,7 +48,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="SupplierProduct"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         
         <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>                
         <remove-value value-name="sprod"/>
@@ -60,7 +60,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="SupplierProductFeature"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
  
         <create-value value-name="newEntity"/>

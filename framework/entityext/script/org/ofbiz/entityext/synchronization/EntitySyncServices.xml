@@ -61,7 +61,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="EntitySyncHistory"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <now-timestamp-to-env env-name="newEntity.startDate"/>
         <field-to-result field-name="newEntity.startDate" result-name="startDate"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -77,7 +77,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -87,7 +87,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -98,7 +98,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="EntitySyncInclude"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -107,7 +107,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -117,7 +117,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>

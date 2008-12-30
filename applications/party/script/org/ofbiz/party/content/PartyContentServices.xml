@@ -23,7 +23,7 @@ under the License.
 
     <simple-method method-name="createPartyContent" short-description="Create Party Content Entity">
         <make-value value-field="partyContent" entity-name="PartyContent"/>
-        <set-pk-fields value-name="partyContent" map-name="parameters"/>
+        <set-pk-fields value-field="partyContent" map="parameters"/>
         <set-nonpk-fields value-name="partyContent" map-name="parameters"/>
 
         <if-empty field="partyContent.fromDate">
@@ -36,7 +36,7 @@ under the License.
 
     <simple-method method-name="updatePartyContent" short-description="Update Party Content Entity">
         <make-value value-field="lookupPkMap" entity-name="PartyContent"/>
-        <set-pk-fields value-name="lookupPkMap" map-name="parameters"/>
+        <set-pk-fields value-field="lookupPkMap" map="parameters"/>
 
         <find-by-primary-key map="lookupPkMap" value-field="partyContent"/>
         <set-nonpk-fields value-name="partyContent" map-name="parameters"/>
@@ -45,7 +45,7 @@ under the License.
 
     <simple-method method-name="removePartyContent" short-description="Update Party Content Entity">
         <make-value value-field="lookupPkMap" entity-name="PartyContent"/>
-        <set-pk-fields value-name="lookupPkMap" map-name="parameters"/>
+        <set-pk-fields value-field="lookupPkMap" map="parameters"/>
 
         <find-by-primary-key map="lookupPkMap" value-field="partyContent"/>
         <remove-value value-name="partyContent"/>        

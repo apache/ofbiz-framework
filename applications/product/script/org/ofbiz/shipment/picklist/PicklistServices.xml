@@ -603,7 +603,7 @@ under the License.
         </check-permission>
 
         <make-value value-field="lookupPKMap" entity-name="Picklist"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
 
         <if-not-empty field="parameters.statusId">
@@ -646,7 +646,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="Picklist"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -672,7 +672,7 @@ under the License.
         </check-permission>
 
         <make-value value-field="lookupPKMap" entity-name="PicklistBin"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
@@ -685,7 +685,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="PicklistBin"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -698,7 +698,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="PicklistItem"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <if-empty field="newEntity.itemStatusId">
@@ -713,7 +713,7 @@ under the License.
         </check-permission>
 
         <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
 
         <if-not-empty field="parameters.itemStatusId">
@@ -748,7 +748,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -770,7 +770,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="PicklistRole"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
@@ -785,7 +785,7 @@ under the License.
         </check-permission>
 
         <make-value value-field="lookupPKMap" entity-name="PicklistRole"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
 
@@ -798,7 +798,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="PicklistRole"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -1237,12 +1237,12 @@ under the License.
 
         <!-- find the picklist bin -->
         <make-value value-field="binLookup" entity-name="PicklistBin"/>
-        <set-pk-fields map-name="parameters" value-name="binLookup"/>
+        <set-pk-fields map="parameters" value-field="binLookup"/>
         <find-by-primary-key map="binLookup" value-field="picklistBin"/>
 
         <!-- find the pick list -->
         <make-value value-field="plLookup" entity-name="Picklist"/>
-        <set-pk-fields map-name="picklistBin" value-name="plLookup"/>
+        <set-pk-fields map="picklistBin" value-field="plLookup"/>
         <find-by-primary-key map="plLookup" value-field="picklist"/>
 
         <!-- find all related picklist items -->

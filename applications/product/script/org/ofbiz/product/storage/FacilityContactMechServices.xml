@@ -58,7 +58,7 @@ under the License.
         <!-- Find old value -->
 
         <make-value entity-name="FacilityContactMech" value-field="facilityContactMechMap"/>
-        <set-pk-fields value-name="facilityContactMechMap" map-name="parameters"/>
+        <set-pk-fields value-field="facilityContactMechMap" map="parameters"/>
         <find-by-and entity-name="FacilityContactMech" list-name="facilityContactMechs" map-name="facilityContactMechMap"/>
         <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
         <first-from-list entry="facilityContactMech" list="validFacilityContactMechs"/>
@@ -125,7 +125,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="FacilityContactMech" value-field="facilityContactMechMap"/>
-        <set-pk-fields value-name="facilityContactMechMap" map-name="parameters"/>
+        <set-pk-fields value-field="facilityContactMechMap" map="parameters"/>
         <find-by-and entity-name="FacilityContactMech" list-name="facilityContactMechs" map-name="facilityContactMechMap"/>
         <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
 
@@ -313,7 +313,7 @@ under the License.
 
         <make-value value-field="lookUpMap" entity-name="FacilityContactMechPurpose"/>
 
-        <set-pk-fields map-name="parameters" value-name="lookUpMap"/>
+        <set-pk-fields map="parameters" value-field="lookUpMap"/>
         <find-by-primary-key value-field="purposeEntity" entity-name="FacilityContactMechPurpose" map="lookUpMap"/>
 
         <if-empty field="purposeEntity">

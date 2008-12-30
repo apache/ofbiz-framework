@@ -37,7 +37,7 @@ under the License.
 
     <simple-method method-name="updateRequirement" short-description="Update a requirement">
         <make-value value-field="lookupPKMap" entity-name="Requirement"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="Requirement" map="lookupPKMap" value-field="lookedUpValue"/>
         <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
@@ -54,14 +54,14 @@ under the License.
 
     <simple-method method-name="associateRequirementWithRequestItem" short-description="Associate a requirement and CustRequestItem">
         <make-value value-field="newEntity" entity-name="RequirementCustRequest"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
 	
     <simple-method method-name="addTaskToRequirement" short-description="Add a task to a requirement">
         <make-value value-field="newEntity" entity-name="WorkRequirementFulfillment"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
 
@@ -103,12 +103,12 @@ under the License.
         <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="partyRole"/>
         <if-empty field="partyRole.partyId">
             <make-value value-field="partyRole" entity-name="PartyRole"/>
-            <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>
+            <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
             <create-value value-name="partyRole"/>
         </if-empty>
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="RequirementRole"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>

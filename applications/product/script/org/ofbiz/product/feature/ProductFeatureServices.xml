@@ -76,7 +76,7 @@ under the License.
             <now-timestamp-to-env env-name="parameters.fromDate"/>
         </if-empty>
         <make-value value-field="newEntity" entity-name="ProductFeatureAppl"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -139,7 +139,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductFeatureCategoryAppl"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -152,7 +152,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -162,7 +162,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -174,7 +174,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductFeatureCatGrpAppl"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -187,7 +187,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -197,7 +197,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -229,7 +229,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductFeatureGroupAppl"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -242,7 +242,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductFeatureGroupAppl" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -252,7 +252,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductFeatureGroupAppl" map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -262,7 +262,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureIactn you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="ProductFeatureIactn"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -271,7 +271,7 @@ under the License.
         <check-errors/>
         
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureIactn"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>    
@@ -296,7 +296,7 @@ under the License.
                 
         <make-value value-field="newEntity" entity-name="ProductFeatureType"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -305,7 +305,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureType"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -315,7 +315,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureType"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -327,7 +327,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="ProductFeatureApplAttr"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <entity-condition entity-name="ProductFeatureAppl" list-name="productFeatureAppls" filter-by-date="true">
@@ -376,7 +376,7 @@ under the License.
             <sequenced-id-to-env sequence-name="ProductFeaturePrice" env-name="parameters.productFeatureId"/>
         </if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <now-timestamp-to-env env-name="nowTimestamp"/>
         
@@ -405,7 +405,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteFeaturePrice" short-description="Delete a feature price">
         <make-value entity-name="ProductFeaturePrice" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductFeaturePrice" map="lookupPKMap" value-field="lookedUpValue"/>
          
         <remove-value value-name="lookedUpValue"/>

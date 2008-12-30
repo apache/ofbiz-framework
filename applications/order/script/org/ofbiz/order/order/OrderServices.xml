@@ -94,7 +94,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="OrderShipment"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <create-value value-name="newEntity"/>
@@ -131,7 +131,7 @@ under the License.
         <check-errors/>
         -->
         <make-value value-field="newEntity" entity-name="OrderRequirementCommitment"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -681,7 +681,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value value-field="orderContactMechMap" entity-name="OrderContactMech"/>
-        <set-pk-fields map-name="parameters" value-name="orderContactMechMap"/>
+        <set-pk-fields map="parameters" value-field="orderContactMechMap"/>
         <set from-field="parameters.orderId" field="inputMap.orderId"/>
         <set from-field="parameters.contactMechPurposeTypeId" field="inputMap.contactMechPurposeTypeId"/>
         <set from-field="parameters.contactMechId" field="inputMap.contactMechId"/>
@@ -724,7 +724,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value value-field="lookupPKMap" entity-name="OrderItemShipGroup"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="OrderItemShipGroup" map="lookupPKMap" value-field="lookedUpValue"/>
         <!-- splitting shipmentMethod request parameter value that contains "@" symbol 
              into "shipmentMethodTypeId" and "carrierPartyId".          
@@ -781,7 +781,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="OrderContactMech"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
 
@@ -811,7 +811,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="OrderTerm"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set value="_NA_" set-if-empty="true" field="newEntity.orderItemSeqId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -914,7 +914,7 @@ under the License.
         <else>
             <if-compare field="keepAddressBook" operator="equals" value="Y">
                 <make-value entity-name="PostalAddress" value-field="newValue"/>
-                <set-pk-fields value-name="newValue" map-name="shipToAddressCtx"/>
+                <set-pk-fields value-field="newValue" map="shipToAddressCtx"/>
                 <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue"/>
                 <set-nonpk-fields map-name="shipToAddressCtx" value-name="newValue"/>
                 <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
@@ -960,7 +960,7 @@ under the License.
                 <set field="shipToAddressCtx.shipToContactMechId" from-field="shipToAddressCtx.contactMechId"></set>
                 <if-compare-field field="shipToAddressCtx.shipToContactMechId" operator="equals" to-field="parameters.billToContactMechId">
                     <make-value entity-name="PostalAddress" value-field="newValue"/>
-                    <set-pk-fields value-name="newValue" map-name="shipToAddressCtx"/>
+                    <set-pk-fields value-field="newValue" map="shipToAddressCtx"/>
                     <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue"/>
                     <set-nonpk-fields map-name="shipToAddressCtx" value-name="newValue"/>
                     <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">

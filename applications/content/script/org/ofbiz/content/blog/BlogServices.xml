@@ -182,7 +182,7 @@
         <iterate entry="view" list="unfilteredList">
             <make-value entity-name="Content" value-field="content"/>
             <set-nonpk-fields value-name="content" map-name="view"/>
-            <set-pk-fields value-name="content" map-name="view"/>
+            <set-pk-fields value-field="content" map="view"/>
             <set field="mapIn.currentContent" from-field="content"/>
             <log level="info" message="mapIn: ${mapIn}"/>
             <call-service service-name="checkContentPermission" in-map-name="mapIn">

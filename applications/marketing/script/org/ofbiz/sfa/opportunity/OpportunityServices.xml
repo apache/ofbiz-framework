@@ -27,7 +27,7 @@
             <sequenced-id-to-env sequence-name="SalesOpportunity" env-name="parameters.salesOpportunityId"/>
         </if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
         <field-to-result field-name="parameters.salesOpportunityId" result-name="salesOpportunityId"/>
         <create-value value-name="newEntity"/>

@@ -26,7 +26,7 @@ under the License.
         <log level="always" message="parameters: ${parameters}"/>
 
         <make-value entity-name="Content" value-field="currentContent"/>
-        <set-pk-fields map-name="parameters" value-name="currentContent"/>
+        <set-pk-fields map="parameters" value-field="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
         <map-to-map map-name="currentContent" to-map-name="context"/>
         <log level="always" message="context: ${context}"/>
@@ -56,7 +56,7 @@ under the License.
         <log level="always" message="parameters: ${parameters}"/>
 
         <make-value entity-name="Content" value-field="currentContent"/>
-        <set-pk-fields map-name="parameters" value-name="currentContent"/>
+        <set-pk-fields map="parameters" value-field="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
         <set field="context.currentContent" from-field="currentContent"/>
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>

@@ -87,7 +87,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <make-value entity-name="SalesForecastDetail" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="SalesForecastDetail" env-name="newEntity.salesForecastDetailId"/>
         <field-to-result field-name="newEntity.salesForecastDetailId" result-name="salesForecastDetailId"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/> 
+        <set-pk-fields map="parameters" value-field="newEntity"/> 
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>

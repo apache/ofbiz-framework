@@ -282,7 +282,7 @@ under the License.
         <check-errors/>
         
         <make-value value-field="newEntity" entity-name="TimesheetRole"/>        
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteTimesheetRole" short-description="Delete TimesheetRole">
