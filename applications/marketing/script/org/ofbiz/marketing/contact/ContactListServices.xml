@@ -198,7 +198,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="-statusDate"/>
                 </entity-condition>
-                <first-from-list entry-name="lastContactListPartyStatus" list-name="lastContactListPartyStatusList"/>
+                <first-from-list entry="lastContactListPartyStatus" list="lastContactListPartyStatusList"/>
 
                 <!-- only require an optInVerifyCode if there was one in place -->
                 <if-not-empty field="lastContactListPartyStatus.optInVerifyCode">
@@ -257,7 +257,7 @@ under the License.
                     </condition-list>
                     <order-by field-name="-statusDate"/>
                 </entity-condition>
-                <first-from-list entry-name="contactListPartyStatus" list-name="lastContactListPartyStatusList"/>
+                <first-from-list entry="contactListPartyStatus" list="lastContactListPartyStatusList"/>
                 
                 <!-- TODO: if preferredContactMech.contactMechTypeId != EMAIL_ADDRESS, return an error -->
                 <!-- TODO: if preferredContactMech is empty, should we try to find the ContactMech we want based on the Party? -->

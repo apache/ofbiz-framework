@@ -67,7 +67,7 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="TechDataCalendar"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <get-related value-name="lookupPKMap" relation-name="TechDataCalendarExcDay" list-name="relatedResultList" />
-        <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
+        <first-from-list entry="relatedResult" list="relatedResultList"/>
         <if-not-empty field="relatedResult">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarExceptionDayUseCalendar"/>
@@ -75,7 +75,7 @@ under the License.
             <check-errors/>
         </if-not-empty>
         <get-related value-name="lookupPKMap" relation-name="TechDataCalendarExcWeek" list-name="relatedResultList" />
-        <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
+        <first-from-list entry="relatedResult" list="relatedResultList"/>
         <if-not-empty field="relatedResult">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarExceptionWeekUseCalendar"/>
@@ -124,7 +124,7 @@ under the License.
         <make-value value-name="lookupPKMap" entity-name="TechDataCalendarWeek"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <get-related value-name="lookupPKMap" relation-name="TechDataCalendar" list-name="relatedResultList" />
-        <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
+        <first-from-list entry="relatedResult" list="relatedResultList"/>
         <if-not-empty field="relatedResult">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarUseCalendarWeek"/>
@@ -132,7 +132,7 @@ under the License.
             <check-errors/>
         </if-not-empty>
         <get-related value-name="lookupPKMap" relation-name="TechDataCalendarExcWeek" list-name="relatedResultList" />
-        <first-from-list entry-name="relatedResult" list-name="relatedResultList"/>
+        <first-from-list entry="relatedResult" list="relatedResultList"/>
         <if-not-empty field="relatedResult">
             <add-error>
                 <fail-property resource="ManufacturingUiLabels" property="ManufacturingCalendarWeekExceptionUseCalendarWeek"/>

@@ -311,7 +311,7 @@ under the License.
            <!-- locate the file extension to use based on mime-type -->
            <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
            <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
-           <first-from-list entry-name="extension" list-name="extensions"/>
+           <first-from-list entry="extension" list="extensions"/>
            <set-service-fields service-name="createDataResource" map-name="parameters" to-map-name="dataResource"/>
            <!-- create the data resource object -->
            <set from-field="parameters._uploadedFile_fileName" field="dataResource.dataResourceName"/>
@@ -401,7 +401,7 @@ under the License.
                <!-- locate the file extension to use based on mime-type -->
                <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
                <find-by-and entity-name="FileExtension" map-name="extenLookup" list-name="extensions"/>
-               <first-from-list entry-name="extension" list-name="extensions"/>
+               <first-from-list entry="extension" list="extensions"/>
                <set-service-fields service-name="createDataResource" map-name="parameters" to-map-name="dataResource"/>
                <!-- create the data resource object -->
                 <!-- create the data resource object -->
@@ -667,7 +667,7 @@ under the License.
         </if-empty>
         <now-date-to-env env-name="fromDate"/>
         <filter-list-by-date list-name="emailAddressesAll" from-field-name="fromDate" to-list-name="emailAddresses"/>
-        <first-from-list entry-name="emailAddress" list-name="emailAddresses"/>
+        <first-from-list entry="emailAddress" list="emailAddresses"/>
         <field-to-result field-name="emailAddress.infoString" result-name="emailAddress"/>
     </simple-method>
     
@@ -717,7 +717,7 @@ under the License.
             <else>
                 <find-by-and entity-name="PartyAndContactMech" map-name="findMap" list-name="telephoneAll1"/>
                 <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2"/>
-                <first-from-list entry-name="telephone" list-name="telephoneAll2"/>
+                <first-from-list entry="telephone" list="telephoneAll2"/>
                 <if-not-empty field="telephone.tnCountryCode">
                     <field-to-result map-name="telephone" field-name="tnCountryCode" result-name="countryCode"/>
                 </if-not-empty>
@@ -821,11 +821,11 @@ under the License.
                 <condition-expr field-name="emailType" operator="equals" value="PARTY_REGIS_CONFIRM"/>
             </condition-list>
         </entity-condition>
-        <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
+        <first-from-list entry="storeEmail" list="productStoreEmailSettings"/>
         <entity-and list="webSites" entity-name="WebSite">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
-        <first-from-list entry-name="webSite" list-name="webSites"/>
+        <first-from-list entry="webSite" list="webSites"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">
             <entity-one entity-name="Person" value-name="person"/>
             <set field="bodyParameters.person" from-field="person"/>
@@ -852,11 +852,11 @@ under the License.
                 <condition-expr field-name="emailType" operator="equals" value="UPD_PRSNL_INF_CNFRM"/>
             </condition-list>
         </entity-condition>
-        <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
+        <first-from-list entry="storeEmail" list="productStoreEmailSettings"/>
         <entity-and list="webSites" entity-name="WebSite">
             <field-map field-name="productStoreId" from-field="storeEmail.productStoreId"/>
         </entity-and>
-        <first-from-list entry-name="webSite" list-name="webSites"/>
+        <first-from-list entry="webSite" list="webSites"/>
         <if-not-empty field="storeEmail.bodyScreenLocation">
             <if-not-empty field="parameters.updatedUserLogin.partyId">
                 <set field="partyId" from-field="parameters.updatedUserLogin.partyId"/>
@@ -870,7 +870,7 @@ under the License.
                     <condition-expr field-name="partyId" operator="equals"  env-name="partyId"/>
                 </condition-list>
             </entity-condition>
-            <first-from-list entry-name="partyContactDetailByPurpose" list-name="partyContactDetailByPurposes"/>
+            <first-from-list entry="partyContactDetailByPurpose" list="partyContactDetailByPurposes"/>
             <entity-one entity-name="PartyAndPerson" value-name="partyAndPerson"/>
             <set field="bodyParameters.partyAndPerson" from-field="partyAndPerson"/>
             <set field="contactMechId" from-field="partyContactDetailByPurpose.contactMechId"/>

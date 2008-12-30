@@ -320,7 +320,7 @@ under the License.
             <field-map field-name="originalPortalPageId" from-field="mainPortalPageId"/>
             <field-map field-name="ownerUserLoginId" from-field="userLogin.userLoginId"/>
         </entity-and>
-        <first-from-list entry-name="getMyportal" list-name="getMainPage"/>
+        <first-from-list entry="getMyportal" list="getMainPage"/>
         <if-empty field="getMainPage">
             <set field="portalPageId" value="MYPORTAL"/>
         </if-empty>

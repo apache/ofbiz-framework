@@ -145,7 +145,7 @@ under the License.
             <field-map field-name="finAccountId" from-field="parameters.finAccountId"/>
             <order-by field-name="-statusDate"/>
         </entity-and>
-        <first-from-list entry-name="oldFinAccountStatus" list-name="oldFinAccountStatusList"/>
+        <first-from-list entry="oldFinAccountStatus" list="oldFinAccountStatusList"/>
         <if-not-empty field="oldFinAccountStatus">
             <set field="oldFinAccountStatus.statusEndDate" from-field="nowTimestamp"/>
             <store-value value-name="oldFinAccountStatus"/>

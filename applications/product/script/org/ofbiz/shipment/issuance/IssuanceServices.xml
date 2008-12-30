@@ -185,7 +185,7 @@ under the License.
         <make-value entity-name="OrderShipment" value-name="orderShipmentLookupPk"/>
         <set-pk-fields value-name="orderShipmentLookupPk" map-name="parameters"/>
         <find-by-and entity-name="OrderShipment" map-name="orderShipmentLookupPk" list-name="orderShipments"/>
-        <first-from-list entry-name="orderShipment" list-name="orderShipments"/>
+        <first-from-list entry="orderShipment" list="orderShipments"/>
         <!-- qtyForShipmentItem is the quantity we will add to the ShipmentItem -->
         <!-- OrderShipment.quantity stores the OrderItem.quantity planned in the shipment -->
         <calculate field-name="qtyForShipmentItem">
@@ -283,7 +283,7 @@ under the License.
                 </condition-list>
                 <order-by field-name="shipmentItemSeqId"/>
             </entity-condition>
-            <first-from-list entry-name="shipmentItem" list-name="shipmentItems"/>
+            <first-from-list entry="shipmentItem" list="shipmentItems"/>
         </if-not-empty>
 
         <if-empty field="shipmentItem">
@@ -513,7 +513,7 @@ under the License.
           <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
           <field-map field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
         </entity-and>
-        <first-from-list list="returnItemShipments" entry-name="returnItemShipment"/>
+        <first-from-list list="returnItemShipments" entry="returnItemShipment"/>
         <calculate field-name="quantityNotIssued">
           <calcop operator="subtract" field-name="returnItemShipment.quantity">
               <calcop operator="get" field-name="parameters.totalIssuedQty"/>
