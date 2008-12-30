@@ -1686,7 +1686,7 @@ under the License.
     <xs:element name="sequenced-id" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
             <xs:documentation>
-                The sequenced-id-to-env tag gets a sequenced ID from the Entity Engine (through the delegator) and puts it in the specified method environment field. 
+                The sequenced-id tag gets a sequenced ID from the Entity Engine (through the delegator) and puts it in the specified method environment field. 
                 The object will be a java.lang.Long, but can of course be converted to a String.
             </xs:documentation>
         </xs:annotation>        
@@ -1741,7 +1741,7 @@ under the License.
     <xs:element name="make-next-seq-id" substitutionGroup="EntityMiscOperations">
         <xs:annotation>
             <xs:documentation>
-                Sequenced-id-to-env is the primary key sequencer.                
+                sequenced-id is the primary key sequencer.                
                 Make-next-seq-id is the secondary key sequencer. So
                 this would be something like an orderId for example,
                 where we're sequencing an orderId automatically. And
@@ -1759,7 +1759,7 @@ under the License.
         <xs:attribute type="xs:string" name="value-field" use="required">
             <xs:annotation>
                 <xs:documentation>
-                    Specify the name of the entity for a sequenced-id-to-env preparing the primarySequencedId.
+                    Specify the name of the entity for a sequenced-id preparing the primarySequencedId.
                     The name of the entity is typically what we use for the sequenced name, but you can use anything
                     you want if you want to have different sets of sequences.
                     
@@ -4382,14 +4382,14 @@ under the License.
     <xs:element name="now-timestamp" substitutionGroup="OtherOperations">
         <xs:annotation>
             <xs:documentation>
-                The now-timestamp-to-env tag creates a java.sql.Timestamp object with the current date and time in it and puts it in a field in the method environment.
+                The now-timestamp tag creates a java.sql.Timestamp object with the current date and time in it and puts it in a field in the method environment.
             </xs:documentation>
         </xs:annotation>                    
         <xs:complexType>
-            <xs:attributeGroup ref="attlist.now-timestamp-to-env"/>
+            <xs:attributeGroup ref="attlist.now-timestamp"/>
         </xs:complexType>
     </xs:element>
-    <xs:attributeGroup name="attlist.now-timestamp-to-env">
+    <xs:attributeGroup name="attlist.now-timestamp">
         <xs:attribute type="xs:string" name="field" use="required">
             <xs:annotation>
                 <xs:documentation>
