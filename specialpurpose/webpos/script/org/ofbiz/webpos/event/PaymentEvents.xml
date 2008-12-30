@@ -21,19 +21,19 @@ under the License.
     <simple-method method-name="payCash" short-description="Pay Cash" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
-            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field-name="webPosSession">
+            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
                 <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
                 <field field-name="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field-name="webPosTransaction"/>
+                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                 <check-errors/>
                 <set field="amount" from-field="parameters.amount" type="String"/>
                 <set field="allowNegative" value="false" type="Boolean"/>
                 <set field="allowPositive" value="true" type="Boolean"/>
                 <set field="minDecimal" value="0" type="Integer"/>
                 <set field="maxDecimal" value="3" type="Integer"/>
-                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field-name="isDouble">
+                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
                     <field field-name="amount" type="String"/>
                     <field field-name="allowNegative" type="boolean"/>
                     <field field-name="allowPositive" type="boolean"/>
@@ -47,7 +47,7 @@ under the License.
                     </call-object-method>
                     <check-errors/>
                     <set from-field="parameters.amount" field="amounStr"/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="processAmount" ret-field-name="amount">
+                    <call-object-method obj-field-name="webPosTransaction" method-name="processAmount" ret-field="amount">
                         <field field-name="amounStr" type="String"/>
                     </call-object-method>
                     <check-errors/>
@@ -77,19 +77,19 @@ under the License.
     <simple-method method-name="payCheck" short-description="Pay Check" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
-            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field-name="webPosSession">
+            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
                 <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
                 <field field-name="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field-name="webPosTransaction"/>
+                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                 <check-errors/>
                 <set field="amount" from-field="parameters.amount" type="String"/>
                 <set field="allowNegative" value="false" type="Boolean"/>
                 <set field="allowPositive" value="true" type="Boolean"/>
                 <set field="minDecimal" value="0" type="Integer"/>
                 <set field="maxDecimal" value="3" type="Integer"/>
-                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field-name="isDouble">
+                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
                     <field field-name="amount" type="String"/>
                     <field field-name="allowNegative" type="boolean"/>
                     <field field-name="allowPositive" type="boolean"/>
@@ -98,12 +98,12 @@ under the License.
                 </call-class-method>
                 <if-compare field="isDouble" operator="equals" value="true">
                     <set field="paymentType" value="PERSONAL_CHECK"/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="checkPaymentMethodType" ret-field-name="paymentCheck">
+                    <call-object-method obj-field-name="webPosTransaction" method-name="checkPaymentMethodType" ret-field="paymentCheck">
                         <field field-name="paymentType" type="String"/>
                     </call-object-method>
                     <check-errors/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field-name="noPaymentCode"/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field-name="externalPaymentCode"/>            
+                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
+                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>            
                     <!--  No Payment -->
                     <if-compare-field field="paymentCheck" operator="equals" to-field="noPaymentCode">
                         <call-object-method obj-field-name="webPosTransaction" method-name="clearPayment">
@@ -154,19 +154,19 @@ under the License.
     <simple-method method-name="payGiftCard" short-description="Pay Gift Card" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
-            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field-name="webPosSession">
+            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
                 <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
                 <field field-name="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field-name="webPosTransaction"/>
+                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                 <check-errors/>
                 <set field="amount" from-field="parameters.amount" type="String"/>
                 <set field="allowNegative" value="false" type="Boolean"/>
                 <set field="allowPositive" value="true" type="Boolean"/>
                 <set field="minDecimal" value="0" type="Integer"/>
                 <set field="maxDecimal" value="3" type="Integer"/>
-                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field-name="isDouble">
+                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
                     <field field-name="amount" type="String"/>
                     <field field-name="allowNegative" type="boolean"/>
                     <field field-name="allowPositive" type="boolean"/>
@@ -175,12 +175,12 @@ under the License.
                 </call-class-method>
                 <if-compare field="isDouble" operator="equals" value="true">
                     <set field="paymentType" value="GIFT_CARD"/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="checkPaymentMethodType" ret-field-name="paymentCheck">
+                    <call-object-method obj-field-name="webPosTransaction" method-name="checkPaymentMethodType" ret-field="paymentCheck">
                         <field field-name="paymentType" type="String"/>
                     </call-object-method>
                     <check-errors/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field-name="noPaymentCode"/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field-name="externalPaymentCode"/>            
+                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
+                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>            
                     <!--  No Payment -->
                     <if-compare-field field="paymentCheck" operator="equals" to-field="noPaymentCode">
                         <call-object-method obj-field-name="webPosTransaction" method-name="processNoPayment">
@@ -227,19 +227,19 @@ under the License.
     <simple-method method-name="payCredit" short-description="Pay Credit Card" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
-            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field-name="webPosSession">
+            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
                 <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
                 <field field-name="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field-name="webPosTransaction"/>
+                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                 <check-errors/>
                 <set field="amount" from-field="parameters.amount" type="String"/>
                 <set field="allowNegative" value="false" type="Boolean"/>
                 <set field="allowPositive" value="true" type="Boolean"/>
                 <set field="minDecimal" value="0" type="Integer"/>
                 <set field="maxDecimal" value="3" type="Integer"/>
-                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field-name="isDouble">
+                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDouble" ret-field="isDouble">
                     <field field-name="amount" type="String"/>
                     <field field-name="allowNegative" type="boolean"/>
                     <field field-name="allowPositive" type="boolean"/>
@@ -248,12 +248,12 @@ under the License.
                 </call-class-method>
                 <if-compare field="isDouble" operator="equals" value="true">
                 <set field="paymentType" value="CREDIT_CARD"/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="checkPaymentMethodType" ret-field-name="paymentCheck">
+                    <call-object-method obj-field-name="webPosTransaction" method-name="checkPaymentMethodType" ret-field="paymentCheck">
                         <field field-name="paymentType" type="String"/>
                     </call-object-method>
                     <check-errors/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field-name="noPaymentCode"/>
-                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field-name="externalPaymentCode"/>            
+                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getNoPaymentCode" ret-field="noPaymentCode"/>
+                    <call-class-method class-name="org.ofbiz.webpos.transaction.WebPosTransaction" method-name="getExternalPaymentCode" ret-field="externalPaymentCode"/>            
                     <!--  No Payment -->
                     <if-compare-field field="paymentCheck" operator="equals" to-field="noPaymentCode">
                         <call-object-method obj-field-name="webPosTransaction" method-name="processNoPayment">
@@ -281,7 +281,7 @@ under the License.
                             <!-- test credit card -->
                             <if-not-empty field="parameters.cardNum">
                                 <set field="cardNum" from-field="parameters.cardNum"/>
-                                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isCreditCard" ret-field-name="isCreditCard">
+                                <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isCreditCard" ret-field="isCreditCard">
                                     <field field-name="cardNum" type="String"/>
                                 </call-class-method>
                                 <if-compare field="isCreditCard" operator="equals" value="false" type="String">
@@ -292,7 +292,7 @@ under the License.
                                 <if-not-empty field="parameters.expMonth">
                                     <set field="cardExp" from-field="parameters.expMonth"/>
                                     <string-append string="${parameters.expYear}" field-name="cardExp"/>
-                                    <call-object-method obj-field-name="cardExp" method-name="length" ret-field-name="length"/>
+                                    <call-object-method obj-field-name="cardExp" method-name="length" ret-field="length"/>
                                     <if-compare field="length" operator="not-equals" value="6">
                                         <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentCredictCardInvalidExpiringDate"/></add-error>
                                         <check-errors/>
@@ -305,21 +305,21 @@ under the License.
                                 <!-- test security code - allow blank for illegible cards -->
                                 <if-not-empty field="parameters.securityCode">
                                     <set field="securityCode" from-field="parameters.securityCode"/>
-                                    <call-object-method obj-field-name="securityCode" method-name="length" ret-field-name="length"/>                            
+                                    <call-object-method obj-field-name="securityCode" method-name="length" ret-field="length"/>                            
                                     <if-compare field="length" operator="greater" value="4">
                                         <add-error><fail-property resource="WebPosUiLabels" property="WebPosPaymentCredictCardInvalidSecurityCode"/></add-error>
                                         <check-errors/>
                                     </if-compare>
                                 </if-not-empty>
                                 <set field="amountStr" from-field="parameters.amount"/>
-                                <call-object-method obj-field-name="webPosTransaction" method-name="processAmount" ret-field-name="amount">
+                                <call-object-method obj-field-name="webPosTransaction" method-name="processAmount" ret-field="amount">
                                     <field field-name="amountStr" type="String"/>
                                 </call-object-method>
                                 <check-errors/>
                                 <log level="info" message="Processing Credit Card Amount : ${amount}"/>
                                 <set from-field="parameters.firstName" field="firstName"/>
                                 <set from-field="parameters.lastName" field="lastName"/>
-                                <call-object-method obj-field-name="webPosTransaction" method-name="makeCreditCardVo" ret-field-name="paymentId">
+                                <call-object-method obj-field-name="webPosTransaction" method-name="makeCreditCardVo" ret-field="paymentId">
                                     <field field-name="cardNum" type="String"/>
                                     <field field-name="cardExp" type="String"/>
                                     <field field-name="firstName" type="String"/>
@@ -386,14 +386,14 @@ under the License.
     
     <simple-method method-name="processSale" short-description="Process Sale" login-required="true">
         <set field="posTerminalId" value="null"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field-name="webPosSession">
+        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field-name="posTerminalId" type="String"/>
         </call-class-method>
         <if-not-empty field="webPosSession">
-            <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field-name="webPosTransaction"/>
+            <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
             <check-errors/>
-            <call-object-method obj-field-name="webPosTransaction" method-name="processSale" ret-field-name="changeDue"/>
+            <call-object-method obj-field-name="webPosTransaction" method-name="processSale" ret-field="changeDue"/>
             <check-errors/>
             <log level="info" message="Processe sale for a change due amount of ${changeDue}"/>
         <else>
@@ -406,22 +406,22 @@ under the License.
     <simple-method method-name="setRefNum" short-description="Set Payment Reference Number" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
-            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field-name="webPosSession">
+            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
                 <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
                 <field field-name="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field-name="webPosTransaction"/>
+                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                 <check-errors/>
                 <set field="payment" value="0" type="Integer"/>
-                <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field-name="numPayments"/>
+                <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field="numPayments"/>
                 <check-errors/>
                 <while>
                     <condition>                     
                         <if-compare-field field="payment" to-field="numPayments" operator="less"/>
                     </condition> 
                     <then>
-                        <call-object-method obj-field-name="webPosTransaction" method-name="getPaymentMethodTypeId" ret-field-name="paymentMethodTypeId">
+                        <call-object-method obj-field-name="webPosTransaction" method-name="getPaymentMethodTypeId" ret-field="paymentMethodTypeId">
                             <field field-name="payment" type="int"/>
                         </call-object-method>
                         <check-errors/>
@@ -501,22 +501,22 @@ under the License.
     <simple-method method-name="clearPayment" short-description="Clear Payment" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
-            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field-name="webPosSession">
+            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
                 <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
                 <field field-name="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field-name="webPosTransaction"/>
+                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                 <check-errors/>                                
                 <set field="payment" value="0" type="Integer"/>
-                <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field-name="numPayments"/>
+                <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field="numPayments"/>
                 <check-errors/>
                 <while>
                     <condition>                     
                         <if-compare-field field="payment" to-field="numPayments" operator="less"/>
                     </condition> 
                     <then>
-                        <call-object-method obj-field-name="webPosTransaction" method-name="getPaymentMethodTypeId" ret-field-name="paymentMethodTypeId">
+                        <call-object-method obj-field-name="webPosTransaction" method-name="getPaymentMethodTypeId" ret-field="paymentMethodTypeId">
                             <field field-name="payment" type="int"/>
                         </call-object-method>
                         <check-errors/>
@@ -529,7 +529,7 @@ under the License.
                                         </call-object-method>
                                         <check-errors/>
                                         <log level="info" message="Cleared CASH payment ${payment}"/>
-                                        <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field-name="numPayments"/>
+                                        <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field="numPayments"/>
                                         <check-errors/>
                                         <set field="payment" value="-1" type="Integer"/>
                                     </if-compare>
@@ -543,7 +543,7 @@ under the License.
                                         </call-object-method>
                                         <check-errors/>
                                         <log level="info" message="Cleared CHECK payment ${payment}"/>
-                                        <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field-name="numPayments"/>
+                                        <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field="numPayments"/>
                                         <check-errors/>
                                         <set field="payment" value="-1" type="Integer"/>
                                     </if-compare>
@@ -557,7 +557,7 @@ under the License.
                                         </call-object-method>
                                         <check-errors/>
                                         <log level="info" message="Cleared GIFT CARD payment ${payment}"/>
-                                        <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field-name="numPayments"/>
+                                        <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field="numPayments"/>
                                         <check-errors/>
                                         <set field="payment" value="-1" type="Integer"/>
                                     </if-compare>
@@ -571,7 +571,7 @@ under the License.
                                         </call-object-method>
                                         <check-errors/>
                                         <log level="info" message="Cleared CREDIT CARD payment ${payment}"/>
-                                        <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field-name="numPayments"/>
+                                        <call-object-method obj-field-name="webPosTransaction" method-name="getNumberOfPayments" ret-field="numPayments"/>
                                         <check-errors/>
                                         <set field="payment" value="-1" type="Integer"/>
                                     </if-compare>
@@ -595,12 +595,12 @@ under the License.
     
     <simple-method method-name="clearAllPayments" short-description="Clear All Payments" login-required="true">
         <set field="posTerminalId" value="null"/>
-        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field-name="webPosSession">
+        <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
             <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
             <field field-name="posTerminalId" type="String"/>
         </call-class-method>
         <if-not-empty field="webPosSession">
-            <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field-name="webPosTransaction"/>
+            <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
             <check-errors/>
             <call-object-method obj-field-name="webPosTransaction" method-name="clearPayments"/>
             <check-errors/>

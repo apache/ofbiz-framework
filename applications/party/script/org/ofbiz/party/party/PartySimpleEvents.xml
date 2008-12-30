@@ -78,14 +78,14 @@ under the License.
     <simple-method method-name="createPartyContent" short-description="Creates Party Associated Content" login-required="false">
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
             method-name="uploadImageAndParameters" 
-            ret-field-name="formInput">
+            ret-field="formInput">
         <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
         <string value="dataResourceName"/>
         </call-class-method>
         
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
               method-name="returnByteBuffer"
-              ret-field-name="byteWrap">
+              ret-field="byteWrap">
              <field field-name="formInput" type="java.util.Map"/>
         </call-class-method>
          
@@ -104,14 +104,14 @@ under the License.
     <simple-method method-name="updatePartyContent" short-description="Update Party Associated Content" login-required="false">
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
             method-name="uploadImageAndParameters" 
-            ret-field-name="formInput">
+            ret-field="formInput">
         <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
         <string value="dataResourceName"/>
         </call-class-method>
         
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
               method-name="returnByteBuffer"
-              ret-field-name="byteWrap"
+              ret-field="byteWrap"
            >
              <field field-name="formInput" type="java.util.Map"/>
          </call-class-method >

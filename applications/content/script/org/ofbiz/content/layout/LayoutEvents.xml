@@ -175,12 +175,12 @@ under the License.
     <simple-method login-required="true" method-name="createLayoutImage" short-description="Create Layout Image">
         <log level="always" message="in createLayoutImage."/>
 
-        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" method-name="uploadImageAndParameters" ret-field-name="formInput">
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" method-name="uploadImageAndParameters" ret-field="formInput">
             <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="imageData"/>
         </call-class-method>
 
-        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" method-name="returnByteBuffer" ret-field-name="byteWrap">
+        <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" method-name="returnByteBuffer" ret-field="byteWrap">
             <field field-name="formInput" type="java.util.Map"/>
         </call-class-method>
 

@@ -85,7 +85,7 @@ under the License.
         -->
         <set field="partyId" value="DemoCustomer"/>
         <set field="contactMechTypeId" value="EMAIL_ADDRESS"/>
-        <call-class-method method-name="findPartyLatestContactMech" class-name="org.ofbiz.party.party.PartyWorker" ret-field-name="partyAndContactMech">
+        <call-class-method method-name="findPartyLatestContactMech" class-name="org.ofbiz.party.party.PartyWorker" ret-field="partyAndContactMech">
             <field field-name="partyId" type="java.lang.String"/>
             <field field-name="contactMechTypeId" type="java.lang.String"/>
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
@@ -143,7 +143,7 @@ under the License.
              1. If telecom number is changed then a new record is created in ContactMech and TelecomNumber entity else no change.
         -->
         <set field="partyId" value="DemoCustomer"/>
-        <call-class-method method-name="findPartyLatestTelecomNumber" class-name="org.ofbiz.party.party.PartyWorker" ret-field-name="telecomNumber">
+        <call-class-method method-name="findPartyLatestTelecomNumber" class-name="org.ofbiz.party.party.PartyWorker" ret-field="telecomNumber">
             <field field-name="partyId" type="java.lang.String"/>
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>
@@ -212,7 +212,7 @@ under the License.
              1. If postal address is changed then a new record is created in ContactMech and PostalAddress entity else no change.
         -->
         <set field="partyId" value="DemoCustomer"/>
-        <call-class-method method-name="findPartyLatestPostalAddress" class-name="org.ofbiz.party.party.PartyWorker" ret-field-name="postalAddress">
+        <call-class-method method-name="findPartyLatestPostalAddress" class-name="org.ofbiz.party.party.PartyWorker" ret-field="postalAddress">
             <field field-name="partyId" type="java.lang.String"/>
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>
@@ -347,7 +347,7 @@ under the License.
         -->
         <set field="partyId" value="DemoCustomer"/>
         <set field="userLoginId" value="DemoCustomer"/>
-        <call-class-method method-name="findPartyLatestUserLogin" class-name="org.ofbiz.party.party.PartyWorker" ret-field-name="partyUserLogin">
+        <call-class-method method-name="findPartyLatestUserLogin" class-name="org.ofbiz.party.party.PartyWorker" ret-field="partyUserLogin">
             <field field-name="partyId" type="java.lang.String"/>
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>        
@@ -370,8 +370,8 @@ under the License.
             <field-map field-name="partyId" from-field="partyId"/>
         </entity-one>
         <!-- get the encrypted password -->
-        <call-class-method method-name="getHashType" class-name="org.ofbiz.common.login.LoginServices" ret-field-name="hashType"/>
-        <call-class-method method-name="getDigestHash" class-name="org.ofbiz.base.crypto.HashCrypt" ret-field-name="newPasswordHash">
+        <call-class-method method-name="getHashType" class-name="org.ofbiz.common.login.LoginServices" ret-field="hashType"/>
+        <call-class-method method-name="getDigestHash" class-name="org.ofbiz.base.crypto.HashCrypt" ret-field="newPasswordHash">
             <field field-name="serviceCtx.newPassword" type="java.lang.String"/>
             <field field-name="hashType" type="java.lang.String"/>
         </call-class-method>

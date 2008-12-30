@@ -415,7 +415,7 @@ under the License.
 
         <!-- do the same for the virtual product... -->
         <entity-one entity-name="Product" value-field="product" use-cache="true"/>
-        <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field-name="virtualProductId">
+        <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field="virtualProductId">
             <field field-name="product" type="GenericValue"/>
         </call-class-method>
         <if-not-empty field="virtualProductId">
@@ -443,7 +443,7 @@ under the License.
 
         <!-- do the same for the virtual product... -->
         <entity-one entity-name="Product" value-field="product" use-cache="true"/>
-        <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field-name="virtualProductId">
+        <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field="virtualProductId">
             <field field-name="product" type="GenericValue"/>
         </call-class-method>
         <if-not-empty field="virtualProductId">
@@ -576,7 +576,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateProductWithReviewRatingAvg" short-description="Update Product with new Review Rating Avg">
         <!-- this method is meant to be called in-line and depends in a productId parameter -->
-        <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getAverageProductRating" ret-field-name="averageCustomerRating">
+        <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getAverageProductRating" ret-field="averageCustomerRating">
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
             <field field-name="productId" type="java.lang.String"/>
         </call-class-method>

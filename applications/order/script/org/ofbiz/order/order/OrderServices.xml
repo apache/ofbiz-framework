@@ -604,22 +604,22 @@ under the License.
         <call-service service-name="loadCartFromOrder" in-map-name="loadCartFromOrderInMap">
             <result-to-field result-name="shoppingCart" field="cart"/>
         </call-service>
-        <call-object-method obj-field-name="cart" method-name="items" ret-field-name="items"/>
+        <call-object-method obj-field-name="cart" method-name="items" ret-field="items"/>
         <iterate list="items" entry="item">
-            <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field-name="orderItemSeqId"/>
+            <call-object-method obj-field-name="item" method-name="getOrderItemSeqId" ret-field="orderItemSeqId"/>
             <if-empty field="orderItemSeqId">
                 <!-- this is a new (promo) item -->
                 <!-- a new order item is created -->
                 <make-value value-field="newOrderItem" entity-name="OrderItem"/>
                 <set field="newOrderItem.orderId" from-field="parameters.orderId"/>
-                <call-object-method obj-field-name="item" method-name="getItemType" ret-field-name="newOrderItem.orderItemTypeId"/>
-                <call-object-method obj-field-name="item" method-name="getSelectedAmount" ret-field-name="newOrderItem.selectedAmount"/>
-                <call-object-method obj-field-name="item" method-name="getBasePrice" ret-field-name="newOrderItem.unitPrice"/>
-                <call-object-method obj-field-name="item" method-name="getListPrice" ret-field-name="newOrderItem.unitListPrice"/>
-                <call-object-method obj-field-name="item" method-name="getName" ret-field-name="newOrderItem.itemDescription"/>
-                <call-object-method obj-field-name="item" method-name="getStatusId" ret-field-name="newOrderItem.statusId"/>
-                <call-object-method obj-field-name="item" method-name="getProductId" ret-field-name="newOrderItem.productId"/>
-                <call-object-method obj-field-name="item" method-name="getQuantity" ret-field-name="newOrderItem.quantity"/>
+                <call-object-method obj-field-name="item" method-name="getItemType" ret-field="newOrderItem.orderItemTypeId"/>
+                <call-object-method obj-field-name="item" method-name="getSelectedAmount" ret-field="newOrderItem.selectedAmount"/>
+                <call-object-method obj-field-name="item" method-name="getBasePrice" ret-field="newOrderItem.unitPrice"/>
+                <call-object-method obj-field-name="item" method-name="getListPrice" ret-field="newOrderItem.unitListPrice"/>
+                <call-object-method obj-field-name="item" method-name="getName" ret-field="newOrderItem.itemDescription"/>
+                <call-object-method obj-field-name="item" method-name="getStatusId" ret-field="newOrderItem.statusId"/>
+                <call-object-method obj-field-name="item" method-name="getProductId" ret-field="newOrderItem.productId"/>
+                <call-object-method obj-field-name="item" method-name="getQuantity" ret-field="newOrderItem.quantity"/>
                 <set field="newOrderItem.isModifiedPrice" value="N"/>
                 <set field="newOrderItem.isPromo" value="Y"/>
                 <if-empty field="newOrderItem.statusId">
@@ -633,7 +633,7 @@ under the License.
                 </call-object-method>
             </if-empty>
         </iterate>
-        <call-object-method obj-field-name="cart" method-name="makeAllAdjustments" ret-field-name="adjustments"/>
+        <call-object-method obj-field-name="cart" method-name="makeAllAdjustments" ret-field="adjustments"/>
 
         <!-- Accumulate the new promotion total from the recalculated promotion adjustments -->
         <set field="newOrderAdjustmentTotal" value="0" type="BigDecimal"/>        

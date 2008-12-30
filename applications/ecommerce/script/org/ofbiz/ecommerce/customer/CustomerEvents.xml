@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createCustomer" short-description="Create Customer" login-required="false">
-        <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field-name="productStore">
+        <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
             <field field-name="request" type="javax.servlet.ServletRequest"/>
         </call-class-method>
 
@@ -53,11 +53,11 @@ under the License.
 
         <!-- if username and/or password should be lowercased, do that now -->
         <if-compare field="username_lowercase" operator="equals" value="true">
-            <call-object-method obj-field-name="USERNAME" obj-map-name="parameters" method-name="toLowerCase" ret-field-name="USERNAME" ret-map-name="parameters"/>
+            <call-object-method obj-field-name="USERNAME" obj-map-name="parameters" method-name="toLowerCase" ret-field="USERNAME" ret-map-name="parameters"/>
         </if-compare>
         <if-compare field="password_lowercase" operator="equals" value="true">
-            <call-object-method obj-field-name="PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field-name="PASSWORD" ret-map-name="parameters"/>
-            <call-object-method obj-field-name="CONFIRM_PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field-name="CONFIRM_PASSWORD" ret-map-name="parameters"/>
+            <call-object-method obj-field-name="PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field="PASSWORD" ret-map-name="parameters"/>
+            <call-object-method obj-field-name="CONFIRM_PASSWORD" obj-map-name="parameters" method-name="toLowerCase" ret-field="CONFIRM_PASSWORD" ret-map-name="parameters"/>
         </if-compare>
 
         <!-- Create the UserLogin Record -->
@@ -1043,17 +1043,17 @@ under the License.
             ]]>
         </call-bsh>
         <set field="shippingEstWpr" from-field="parameters.shippingEstWpr"/>
-        <call-object-method obj-field-name="shippingEstWpr" method-name="getShippingMethods" ret-field-name="carrierShipmentMethodList"/>
-        <call-object-method obj-field-name="shoppingCart" method-name="getShipmentMethodTypeId" ret-field-name="shipmentMethodTypeId"/>
-        <call-object-method obj-field-name="shoppingCart" method-name="getCarrierPartyId" ret-field-name="carrierPartyId"/>
-        <call-object-method obj-field-name="shoppingCart" method-name="getCurrency" ret-field-name="currency"/>
+        <call-object-method obj-field-name="shippingEstWpr" method-name="getShippingMethods" ret-field="carrierShipmentMethodList"/>
+        <call-object-method obj-field-name="shoppingCart" method-name="getShipmentMethodTypeId" ret-field="shipmentMethodTypeId"/>
+        <call-object-method obj-field-name="shoppingCart" method-name="getCarrierPartyId" ret-field="carrierPartyId"/>
+        <call-object-method obj-field-name="shoppingCart" method-name="getCurrency" ret-field="currency"/>
         <if-not-empty field="shipmentMethodTypeId">
             <if-not-empty field="carrierPartyId">
                  <set field="chosenShippingMethod" value="${shipmentMethodTypeId}@${carrierPartyId}"/>
             </if-not-empty>
         </if-not-empty>
         <iterate list="carrierShipmentMethodList"  entry="carrierShipmentMethod">
-            <call-object-method obj-field-name="shippingEstWpr" method-name="getShippingEstimate" ret-field-name="shippingEst">
+            <call-object-method obj-field-name="shippingEstWpr" method-name="getShippingEstimate" ret-field="shippingEst">
                 <field field-name="carrierShipmentMethod" type="org.ofbiz.entity.GenericValue"/>
             </call-object-method>
             <if-empty field="shippingEst">
@@ -1123,7 +1123,7 @@ under the License.
         <call-object-method obj-field-name="shoppingCart" method-name="setProductStoreShipMethId">
             <field field-name="productStoreShipMethId"/>
         </call-object-method>
-        <call-object-method  obj-field-name="shoppingCart" method-name="getCurrency" ret-field-name="isoCode"/>
+        <call-object-method  obj-field-name="shoppingCart" method-name="getCurrency" ret-field="isoCode"/>
         <set field="dispatcher" from-field="parameters.dispatcher" type="Object"/>
         <set field="delegator" from-field="parameters.delegator" type="Object"/>
         <set field="locale" from-field="parameters.locale" type="Object"/>
@@ -1172,16 +1172,16 @@ under the License.
         </if-empty>
         <if-not-empty field="shoppingCart">
             <if-empty field="partyId">
-                <call-object-method obj-field-name="shoppingCart" method-name="getPartyId" ret-field-name="partyId"/>
+                <call-object-method obj-field-name="shoppingCart" method-name="getPartyId" ret-field="partyId"/>
             </if-empty>
             <if-empty field="userLogin">
-                <call-object-method obj-field-name="shoppingCart" method-name="getUserLogin" ret-field-name="userLogin"/>
+                <call-object-method obj-field-name="shoppingCart" method-name="getUserLogin" ret-field="userLogin"/>
                 <if-not-empty field="userLogin">
                     <set-current-user-login value-name="userLogin"/>
                 </if-not-empty>
             </if-empty>
             <if-empty field="shipToContactMechId">
-                <call-object-method obj-field-name="shoppingCart" method-name="getShippingContactMechId" ret-field-name="shipToContactMechId"/>
+                <call-object-method obj-field-name="shoppingCart" method-name="getShippingContactMechId" ret-field="shipToContactMechId"/>
             </if-empty>
         </if-not-empty>
         <if-not-empty field="partyId">
@@ -1325,7 +1325,7 @@ under the License.
      </simple-method>
     
     <simple-method method-name="updateCustomerProfile" short-description="Update a customer profile">
-        <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field-name="productStore">
+        <call-class-method class-name="org.ofbiz.product.store.ProductStoreWorker" method-name="getProductStore" ret-field="productStore">
             <field field-name="request" type="javax.servlet.ServletRequest"/>
         </call-class-method>
     

@@ -54,10 +54,10 @@ under the License.
                 <set field="nowTimestamp" from-field="parameters.requiredDate"/>
             </else>            
         </if-empty>
-        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekStart" ret-field-name="parameters.fromDate">
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekStart" ret-field="parameters.fromDate">
             <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
         </call-class-method>
-        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekEnd" ret-field-name="parameters.thruDate">
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getWeekEnd" ret-field="parameters.thruDate">
             <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
         </call-class-method>
         <!-- check if timesheet already exists -->
@@ -304,7 +304,7 @@ under the License.
         
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field-name="newEntity.fromDate">
+            <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field="newEntity.fromDate">
                 <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
             </call-class-method>
         </if-empty>

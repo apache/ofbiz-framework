@@ -188,7 +188,7 @@ under the License.
         short-description="Upload Content and Create Communication Content Association">
         <!-- Call layout to get field -->
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
-            method-name="uploadImageAndParameters" ret-field-name="formInput">
+            method-name="uploadImageAndParameters" ret-field="formInput">
             <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="uploadedFile"/>
         </call-class-method>
@@ -280,7 +280,7 @@ under the License.
         short-description="Add content to email communication">
         <!-- Call layout to get field -->
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker"
-            method-name="uploadImageAndParameters" ret-field-name="formInput">
+            method-name="uploadImageAndParameters" ret-field="formInput">
             <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
             <string value="partyId"/>
         </call-class-method>
