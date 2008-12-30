@@ -69,7 +69,7 @@ under the License.
         <sequenced-id-to-env sequence-name="CustRequest" env-name="custRequestId"/>
         <to-string field-name="custRequestId"/>
         <set from-field="custRequestId" field="newEntity.custRequestId"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="custRequestId" map-name="newEntity"/>
 
         <!-- jacopoc: Commented out the following code because it is too specific and not valid as a
@@ -187,7 +187,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="CustRequestAttribute"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateCustRequestAttribute" short-description="Update Customer Request Attribute">
         <set from-field="parameters.custRequestId" field="lookupPKMap.custRequestId"/>
@@ -207,7 +207,7 @@ under the License.
         <if-empty field="parameters.statusId">
             <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="newEntity.custRequestId" result-name="custRequestId"/>
         <field-to-result field-name="newEntity.custRequestItemSeqId" result-name="custRequestItemSeqId"/>
     </simple-method>
@@ -226,7 +226,7 @@ under the License.
         <if-empty field="partyRole.partyId">
             <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
-            <create-value value-name="partyRole"/>
+            <create-value value-field="partyRole"/>
         </if-empty>
         <make-value value-field="newEntity" entity-name="CustRequestParty"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -234,7 +234,7 @@ under the License.
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateCustRequestParty" short-description="Update an existing CustRequestParty">
         <entity-one entity-name="CustRequestParty" value-name="lookedUpValue"/>
@@ -254,7 +254,7 @@ under the License.
         <call-service service-name="createNote" in-map-name="newNoteMap">
             <result-to-field result-name="noteId" map-name="newEntity"/>
         </call-service>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="newEntity.noteId" result-name="noteId"/>
     </simple-method>
     <simple-method method-name="updateCustRequestNote" short-description="Update CustRequest Note">
@@ -273,7 +273,7 @@ under the License.
         <call-service service-name="createNote" in-map-name="newNoteMap">
             <result-to-field result-name="noteId" map-name="newEntity"/>
         </call-service>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="newEntity.noteId" result-name="noteId"/>
     </simple-method>
 
@@ -395,7 +395,7 @@ under the License.
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.statusDatetime"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="newEntity.custRequestStatusId" result-name="custRequestStatusId"/>
     </simple-method>
 
@@ -481,7 +481,7 @@ under the License.
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteCustRequestContent" short-description="Remove a Customer Request Content">
         <entity-one entity-name="CustRequestContent" value-name="lookedUpValue"/>

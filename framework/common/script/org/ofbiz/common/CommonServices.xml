@@ -33,7 +33,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <call-object-method obj-field-name="newEntity.enteredKeyword" method-name="toLowerCase" ret-field-name="newEntity.enteredKeyword"/>
         <call-object-method obj-field-name="newEntity.alternateKeyword" method-name="toLowerCase" ret-field-name="newEntity.alternateKeyword"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateKeywordThesaurus" short-description="Update a KeywordThesaurus">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateKeywordThesaurus you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -56,7 +56,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="UomConversionDated"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
         
     <simple-method method-name="convertUom" short-description="Convert UOM values" login-required="false">

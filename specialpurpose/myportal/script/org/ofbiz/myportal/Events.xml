@@ -131,7 +131,7 @@ under the License.
                         <make-value entity-name="PartyRole" value-field="partyRole"/>
                         <set field="partyRole.partyId" value="${commEvent.partyIdTo}"/>
                         <set field="partyRole.roleTypeId" value="ADDRESSEE"/>
-                        <create-value value-name="partyRole"/>
+                        <create-value value-field="partyRole"/>
                     </if-empty>
                     <make-value entity-name="CommunicationEventRole" value-field="commRole"/>
                     <set field="commRole.communicationEventId"
@@ -139,7 +139,7 @@ under the License.
                     <set field="commRole.partyId" from-field="commEvent.partyIdTo"/>
                     <set field="commRole.roleTypeId" value="ADDRESSEE"/>
                     <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
-                    <create-value value-name="commRole"/>
+                    <create-value value-field="commRole"/>
                 </if-not-empty>
 
                 <!-- partyIdFrom -->
@@ -152,14 +152,14 @@ under the License.
                         <make-value entity-name="PartyRole" value-field="partyRole"/>
                         <set field="partyRole.partyId" value="${commEvent.partyIdFrom}"/>
                         <set field="partyRole.roleTypeId" value="ORIGINATOR"/>
-                        <create-value value-name="partyRole"/>
+                        <create-value value-field="partyRole"/>
                     </if-empty>
                     <set field="commRole.communicationEventId"
                         from-field="commEvent.communicationEventId"/>
                     <set field="commRole.partyId" from-field="commEvent.partyIdFrom"/>
                     <set field="commRole.roleTypeId" value="ORIGINATOR"/>
                     <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
-                    <create-value value-name="commRole"/>
+                    <create-value value-field="commRole"/>
                 </if-not-empty>
                 <calculate field-name="count">
                     <number value="1"/>

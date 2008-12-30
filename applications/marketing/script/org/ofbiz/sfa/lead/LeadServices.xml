@@ -104,7 +104,7 @@
             <set field="dataSource.dataSourceId" from-field="dataSourceId"/>
             <set field="dataSource.dataSourceTypeId" value="LEAD_SOURCE"/>
             <set field="dataSource.description" from-field="parameters.leadSource"/>
-            <create-value value-name="dataSource"/>
+            <create-value value-field="dataSource"/>
          
             <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
             <set field="partyDataSource.partyId" from-field="partyId"/>
@@ -112,7 +112,7 @@
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="partyDataSource.fromDate" from-field="nowTimestamp"/>
             <set field="partyDataSource.isCreate" value="Y"/>
-            <create-value value-name="partyDataSource"/>
+            <create-value value-field="partyDataSource"/>
         </if-not-empty>
         <field-to-result field-name="partyId"/>
         <field-to-result field-name="parameters.roleTypeId" result-name="roleTypeId"/>

@@ -90,7 +90,7 @@
                 <set field="workEffortPartyAssignment.partyId" from-field="updProjectRole.newPartyId"/>
                 <set field="workEffortPartyAssignment.roleTypeId" from-field="updProjectRole.roleTypeId"/>
                 <now-timestamp-to-env env-name="workEffortPartyAssignment.fromDate"/>
-                <create-value value-name="workEffortPartyAssignment"/>
+                <create-value value-field="workEffortPartyAssignment"/>
             </then>
         </if>
     </simple-method>
@@ -153,7 +153,7 @@
                 <set field="newAssign.assignedByUserLoginId" from-field="userLogin.userLoginId"/>
                 <now-date-to-env env-name="newAssign.fromDate"/>
                 <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
-                <create-value value-name="newAssign"/>
+                <create-value value-field="newAssign"/>
             </then>
             <else>
                 <if-not-empty field="parameters.fromDate">
@@ -1338,7 +1338,7 @@
 	                <set field="newAssign.assignedByUserLoginId" value="system"/>
 	                <now-date-to-env env-name="newAssign.fromDate"/>
 	                <set field="newAssign.statusId" value="PAS_ASSIGNED"/>
-	                <create-value value-name="newAssign"/>
+	                <create-value value-field="newAssign"/>
 	            </iterate>            
 	            <else>
 	                <log level="info" message="No validation parties defined in this project: no validation parties added...."></log>

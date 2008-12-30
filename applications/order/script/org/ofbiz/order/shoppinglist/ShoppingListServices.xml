@@ -66,7 +66,7 @@ under the License.
 
         <sequenced-id-to-env sequence-name="ShoppingList" env-name="newEntity.shoppingListId"/>
         <field-to-result field-name="newEntity.shoppingListId" result-name="shoppingListId"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     
     <simple-method method-name="updateShoppingList" short-description="Update a ShoppingList">
@@ -130,7 +130,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <field-to-result field-name="newEntity.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>
         <field-to-result field-name="newEntity.shoppingListId" result-name="shoppingListId"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
             <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>

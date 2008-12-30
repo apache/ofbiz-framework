@@ -77,7 +77,7 @@ under the License.
             <calcop operator="get" field-name="newEntity.replenishLevel"/>
         </calculate>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="finAccountId" map-name="newEntity" result-name="finAccountId"/>
         
         <set-service-fields service-name="createFinAccountStatus" map-name="newEntity" to-map-name="createFinAccountStatusMap"/>
@@ -155,7 +155,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.statusDate" from-field="nowTimestamp"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>
 
     <!-- FinAccountTrans Services -->    
@@ -185,7 +185,7 @@ under the License.
             <log level="warning" message="In createFinAccountTrans had to round the amount from [${originalAmount}] to [${newEntity.amount}]"></log>
         </if-compare-field>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="newEntity.finAccountTransId" result-name="finAccountTransId"/>
     </simple-method>
 
@@ -199,7 +199,7 @@ under the License.
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFinAccountRole" short-description="Update a Financial Account Role">
         <entity-one entity-name="FinAccountRole" value-name="lookedUpValue"/>
@@ -237,7 +237,7 @@ under the License.
             <log level="warning" message="In createFinAccountAuth had to round the amount from [${originalAmount}] to [${newEntity.amount}]"></log>
         </if-compare-field>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="newEntity.finAccountAuthId" result-name="finAccountAuthId"/>
     </simple-method>
     <simple-method method-name="expireFinAccountAuth" short-description="Expire a Financial Account Authorization">
@@ -330,7 +330,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="FinAccountTypeGlAccount"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     
     <simple-method method-name="updateFinAccountTypeGlAccount" short-description="Update an FinAccountTypeGlAccount">
@@ -349,7 +349,7 @@ under the License.
         <make-value entity-name="VarianceReasonGlAccount" value-field="newEntity" />
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     
     <simple-method method-name="updateVarianceReasonGlAccount" short-description="Update an Variance Reason Gl Account">

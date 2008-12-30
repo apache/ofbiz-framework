@@ -31,7 +31,7 @@ under the License.
         <set field="newEntity.entitySyncId" from-field="entitySyncId"/>
         <field-to-result field-name="entitySyncId" result-name="entitySyncId"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateEntitySync" short-description="Update a EntitySync">
         <check-permission permission="ENTITY_SYNC" action="_UPDATE"><fail-message message="Security Error: to run updateEntitySync you must have the ENTITY_SYNC_UPDATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
@@ -65,7 +65,7 @@ under the License.
         <now-timestamp-to-env env-name="newEntity.startDate"/>
         <field-to-result field-name="newEntity.startDate" result-name="startDate"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         
         <!-- also set the lastHistoryStartDate on the EntitySync -->
         <entity-one entity-name="EntitySync" value-name="entitySync"/>
@@ -100,7 +100,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="EntitySyncInclude"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateEntitySyncInclude" short-description="Update EntitySyncInclude">
         <check-permission permission="ENTITY_SYNC" action="_UPDATE"><fail-message message="Security Error: to run updateEntitySyncInclude you must have the ENTITY_SYNC_UPDATE or ENTITY_SYNC_ADMIN permission"/></check-permission>

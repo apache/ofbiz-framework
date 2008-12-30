@@ -31,7 +31,7 @@ under the License.
             <set field="partyContent.fromDate" from-field="nowTimestamp"/>
         </if-empty>
 
-        <create-value value-name="partyContent"/>
+        <create-value value-field="partyContent"/>
     </simple-method>
 
     <simple-method method-name="updatePartyContent" short-description="Update Party Content Entity">

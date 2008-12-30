@@ -38,7 +38,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <set field="salesForecast.modifiedByUserLoginId" from-field="userLogin.userLoginId"/>
 
         <!-- create the value -->
-        <create-value value-name="salesForecast"/>
+        <create-value value-field="salesForecast"/>
 
         <!-- save a copy to history -->
         <call-simple-method method-name="saveSalesForecastHistory"/>
@@ -79,7 +79,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <set field="salesForecast.modifiedByUserLoginId" from-field="userLogin.userLoginId"/>
 
         <!-- create the value -->
-        <create-value value-name="salesForecastHistory"/>
+        <create-value value-field="salesForecastHistory"/>
     </simple-method>
     
     <!-- Sales Forecast Detail --> 
@@ -89,7 +89,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <field-to-result field-name="newEntity.salesForecastDetailId" result-name="salesForecastDetailId"/>
         <set-pk-fields map="parameters" value-field="newEntity"/> 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateSalesForecastDetail" short-description="Updates a sales forecast detail">
         <entity-one entity-name="SalesForecastDetail" value-name="lookedUpValue"/>

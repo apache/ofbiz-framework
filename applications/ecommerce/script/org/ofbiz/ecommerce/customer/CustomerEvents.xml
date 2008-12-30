@@ -306,7 +306,7 @@ under the License.
         <set from-field="tempMap.partyId" field="mobilePhoneContext.partyId"/>
         <set from-field="tempMap.partyId" field="emailContext.partyId"/>
 
-        <create-value value-name="partyDataSource"/>
+        <create-value value-field="partyDataSource"/>
         <call-service service-name="createPartyRole" in-map-name="partyRoleContext" include-user-login="true"/>
 
         <!-- shipping address -->

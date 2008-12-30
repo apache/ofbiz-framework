@@ -41,7 +41,7 @@ under the License.
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromo" short-description="Update a ProductPromo">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromo you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -86,7 +86,7 @@ under the License.
         <make-next-seq-id value-name="newEntity" seq-field-name="productPromoActionSeqId" numeric-padding="2"/>
         <field-to-result field-name="productPromoActionSeqId" map-name="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoAction" short-description="Update an ProductPromoAction">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoAction you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -120,7 +120,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoCategory" short-description="Update an ProductPromoCategory">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoCategory you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -168,7 +168,7 @@ under the License.
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoCode" short-description="Update an ProductPromoCode">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoCode you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -207,7 +207,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCodeEmail" short-description="Delete an ProductPromoCodeEmail">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoCodeEmail you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -230,7 +230,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCodeParty" short-description="Delete an ProductPromoCodeParty">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductPromoCodeParty you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -255,7 +255,7 @@ under the License.
         <make-next-seq-id value-name="newEntity" seq-field-name="productPromoCondSeqId" numeric-padding="2"/>
         <field-to-result field-name="productPromoCondSeqId" map-name="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoCond" short-description="Update an ProductPromoCond">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoCond you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -289,7 +289,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoProduct" short-description="Update an ProductPromoProduct">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoProduct you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -325,7 +325,7 @@ under the License.
         <make-next-seq-id value-name="newEntity" seq-field-name="productPromoRuleId" numeric-padding="2"/>
         <field-to-result field-name="productPromoRuleId" map-name="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPromoRule" short-description="Update a ProductPromoRule">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPromoRule you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -364,7 +364,7 @@ under the License.
             <set from-field="nowTimestamp" set-if-empty="true" field="newEntity.fromDate"/>
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductStorePromoAppl" short-description="Update ProductStorePromoAppl">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStorePromoAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>

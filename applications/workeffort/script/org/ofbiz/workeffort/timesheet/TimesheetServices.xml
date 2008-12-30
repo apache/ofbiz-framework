@@ -31,7 +31,7 @@ under the License.
         <if-empty field="newEntity.statusId">
             <set field="newEntity.statusId" value="TIMESHEET_IN_PROCESS"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTimesheet" short-description="Update Timesheet">
         <call-simple-method method-name="checkTimesheetStatus"/>
@@ -283,7 +283,7 @@ under the License.
         
         <make-value value-field="newEntity" entity-name="TimesheetRole"/>        
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteTimesheetRole" short-description="Delete TimesheetRole">
         <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
@@ -308,7 +308,7 @@ under the License.
                 <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
             </call-class-method>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTimeEntry" short-description="Update TimeEntry">
         <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>

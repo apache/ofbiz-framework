@@ -97,7 +97,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateOrderShipment" short-description="Update OrderShipment">
         <set value="Update OrderShipment" field="operationName"/>
@@ -133,7 +133,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="OrderRequirementCommitment"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
 
     <simple-method method-name="createRequirementAndCommitment" short-description="create a requirement and commitment for it">
@@ -534,7 +534,7 @@ under the License.
         <field-to-result field-name="newEntity.orderId" result-name="orderId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateOrderHeader" short-description="Update OrderHeader">
         <set value="Update OrderHeader" field="operationName"/>
@@ -626,7 +626,7 @@ under the License.
                     <set field="newOrderItem.statusId" value="ITEM_CREATED"/>
                 </if-empty>
                 <make-next-seq-id value-name="newOrderItem" seq-field-name="orderItemSeqId"/>
-                <create-value value-name="newOrderItem"/>
+                <create-value value-field="newOrderItem"/>
                 <!-- and the orderItemSeqId is assigned to the shopping cart item-->
                 <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
                     <field field-name="newOrderItem.orderItemSeqId" type="String"/>
@@ -782,7 +782,7 @@ under the License.
         <check-errors/>
         <make-value value-field="newEntity" entity-name="OrderContactMech"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
 
     <simple-method method-name="removeOrderContactMech" short-description="Remove OrderContactMech">
@@ -815,7 +815,7 @@ under the License.
         <set value="_NA_" set-if-empty="true" field="newEntity.orderItemSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateOrderTerm" short-description="Update OrderTerm">
         <check-permission permission="ORDERMGR" action="_DELETE">
@@ -894,7 +894,7 @@ under the License.
             <set field="newEntity.changeUserLogin" from-field="userLogin.userLoginId"/>
         </if-empty>
         <sequenced-id-to-env sequence-name="OrderItemChange" env-name="newEntity.orderItemChangeId"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="newEntity.orderItemChangeId" result-name="orderItemChangeId"/>                    
     </simple-method>    
 

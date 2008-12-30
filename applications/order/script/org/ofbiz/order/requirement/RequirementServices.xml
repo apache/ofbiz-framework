@@ -31,7 +31,7 @@ under the License.
         </if-empty>
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.createdDate"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="requirementId" result-name="requirementId"/>
     </simple-method>
 
@@ -56,13 +56,13 @@ under the License.
         <make-value value-field="newEntity" entity-name="RequirementCustRequest"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
 	
     <simple-method method-name="addTaskToRequirement" short-description="Add a task to a requirement">
         <make-value value-field="newEntity" entity-name="WorkRequirementFulfillment"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
 
     <simple-method method-name="autoAssignRequirementToSupplier" short-description="If the requirement is a product requirement (purchasing) try to assign it to the primary supplier">
@@ -86,7 +86,7 @@ under the License.
                     <set field="requirementSupplier.partyId" from-field="supplierProduct.partyId"/>
                     <set field="requirementSupplier.roleTypeId" value="SUPPLIER"/>
                     <now-timestamp-to-env env-name="requirementSupplier.fromDate"/>
-                    <create-value value-name="requirementSupplier"/>
+                    <create-value value-field="requirementSupplier"/>
                 </if-not-empty>
             </if-not-empty>
         </if-compare>
@@ -104,7 +104,7 @@ under the License.
         <if-empty field="partyRole.partyId">
             <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
-            <create-value value-name="partyRole"/>
+            <create-value value-field="partyRole"/>
         </if-empty>
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="RequirementRole"/>
@@ -113,7 +113,7 @@ under the License.
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <check-errors/>
     </simple-method>
 

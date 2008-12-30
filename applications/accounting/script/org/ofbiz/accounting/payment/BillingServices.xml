@@ -34,7 +34,7 @@ under the License.
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>      
                   
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateBillingAccount" short-description="Update Billing Account">
         <make-value value-field="lookupPKMap" entity-name="BillingAccount"/>
@@ -51,7 +51,7 @@ under the License.
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>             
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateBillingAccountRole" short-description="Update Billing Account Role">
         <make-value value-field="lookupPKMap" entity-name="BillingAccountRole"/>
@@ -75,7 +75,7 @@ under the License.
         <set from-field="billingAccountTermId" field="newEntity.billingAccountTermId"/>
         <field-to-result field-name="billingAccountTermId" result-name="billingAccountTermId"/>          
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateBillingAccountTerm" short-description="Update Billing Account Term">
         <make-value value-field="lookupPKMap" entity-name="BillingAccountTerm"/>

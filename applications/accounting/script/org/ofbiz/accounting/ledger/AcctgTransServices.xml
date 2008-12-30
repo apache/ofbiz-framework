@@ -33,7 +33,7 @@ under the License.
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateAcctgTrans" short-description="Update an AcctgTrans">
         <entity-one entity-name="AcctgTrans" value-name="lookedUpValue"/>
@@ -113,7 +113,7 @@ under the License.
 
         <!-- by default, set the reconciled status of this new entry to not reconciled -->
         <set value="AES_NOT_RECONCILED" field="newEntity.reconcileStatusId"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
 
         <!-- when changing entries, also update the last modified info for the AcctgTrans -->
         <!-- call-simple-method method-name="updateAcctgTransLastModified"/ -->
@@ -397,7 +397,7 @@ under the License.
                         <set from-field="customTimePeriod.customTimePeriodId" field="glAccountHistory.customTimePeriodId"/>
                         <set field="glAccountHistory.postedDebits" value="0.0" type="Double"/>
                         <set field="glAccountHistory.postedCredits" value="0.0" type="Double"/>
-                        <create-value value-name="glAccountHistory"/>
+                        <create-value value-field="glAccountHistory"/>
                     </if-empty>
 
                     <!-- update GlAccountHistory's debit and credit totals -->

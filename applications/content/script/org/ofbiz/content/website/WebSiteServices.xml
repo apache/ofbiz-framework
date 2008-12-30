@@ -27,7 +27,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWebSite" short-description="Update a WebSite">
         <entity-one entity-name="WebSite" value-name="webSite"/>
@@ -51,7 +51,7 @@ under the License.
             <now-date-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/> 
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWebSiteContent" short-description="Update WebSite Content">
         <make-value value-field="lookupPKMap" entity-name="WebSiteContent"/>
@@ -76,7 +76,7 @@ under the License.
             <sequenced-id-to-env sequence-name="WebSiteContentTypeId" env-name="webSiteContentTypeId"/>
             <set field="newEntity.webSiteContentTypeId" from-field="webSiteContentTypeId"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWebSiteContentType" short-description="Update WebSite Content Type">
         <make-value value-field="lookupPKMap" entity-name="WebSiteContentType"/>
@@ -97,7 +97,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="WebSitePathAlias"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWebSitePathAlias" short-description="Update WebSite Path Alias">
         <make-value value-field="lookupPKMap" entity-name="WebSitePathAlias"/>
@@ -130,7 +130,7 @@ under the License.
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWebSiteRole" short-description="Update WebSite Role">
         <make-value value-field="lookupPKMap" entity-name="WebSiteRole"/>

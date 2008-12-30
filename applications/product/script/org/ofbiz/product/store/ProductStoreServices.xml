@@ -41,7 +41,7 @@ under the License.
         <set from-field="productStoreId" field="newEntity.productStoreId"/>
 
         <field-to-result field-name="productStoreId" result-name="productStoreId"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
 
         <!-- create the ProductStoreFacility record -->
         <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -51,7 +51,7 @@ under the License.
             <set from-field="newEntity.inventoryFacilityId" field="storeFacility.facilityId"/>
             <set from-field="newEntity.productStoreId" field="storeFacility.productStoreId"/>
             <set from-field="nowTimestamp" field="storeFacility.fromDate"/>
-            <create-value value-name="storeFacility"/>
+            <create-value value-field="storeFacility"/>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateProductStore" short-description="Update a Product Store">
@@ -93,7 +93,7 @@ under the License.
             <set from-field="store.inventoryFacilityId" field="storeFacility.facilityId"/>
             <set from-field="store.productStoreId" field="storeFacility.productStoreId"/>
             <set from-field="nowTimestamp" field="storeFacility.fromDate"/>
-            <create-value value-name="storeFacility"/>
+            <create-value value-field="storeFacility"/>
         </if-compare-field>
     </simple-method>
  
@@ -111,7 +111,7 @@ under the License.
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductStoreCatalog" short-description="Update ProductStoreCatalog">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStoreCatalog you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -141,7 +141,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductStorePaymentSetting"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductStorePaymentSetting" short-description="Update a Product Store Payment Setting">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStorePaymentSetting you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -175,7 +175,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductStoreEmail" short-description="Update Product Store Email Setting">
         <check-permission permission="CATALOG" action="_UPDATE">
@@ -208,7 +208,7 @@ under the License.
 
         <make-value entity-name="ProductStoreVendorPayment" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteProductStoreVendorPayment" short-description="Remove the ProductStoreVendorPayment">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStoreVendorPayment you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
@@ -230,7 +230,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductStoreShipmentMeth" env-name="newEntity.productStoreShipMethId"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductStoreShipMeth" short-description="Update Product Store Carrier Shipment Method">
         <check-permission permission="CATALOG" action="_UPDATE">
@@ -270,7 +270,7 @@ under the License.
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeProductStoreRole" short-description="Remove ProductStoreRole">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductStoreRole you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -305,7 +305,7 @@ under the License.
         <!-- make sure the keyword is lower cased -->
         <call-object-method obj-field-name="newEntity.keyword" method-name="toLowerCase" ret-field-name="newEntity.keyword"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductStoreKeywordOvrd" short-description="Update a ProductStoreKeywordOvrd">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStoreKeywordOvrd you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -343,7 +343,7 @@ under the License.
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeProductStoreSurveyAppl" short-description="Remove ProductStoreSurveyAppl">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductStoreSurveyAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -369,7 +369,7 @@ under the License.
         <make-value value-field="finAcctSetting" entity-name="ProductStoreFinActSetting"/>
         <set-pk-fields value-field="finAcctSetting" map="parameters"/>
         <set-nonpk-fields value-field="finAcctSetting" map="parameters"/>
-        <create-value value-name="finAcctSetting"/>
+        <create-value value-field="finAcctSetting"/>
     </simple-method>
     <simple-method method-name="updateProductStoreFinActSetting" short-description="Update a ProductStoreFinActSetting">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStoreFinActSetting you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -703,7 +703,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductStoreVendorShipment" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteProductStoreVendorShipment" short-description="Remove the ProductStoreVendorShipment">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStoreVendorShipment you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>

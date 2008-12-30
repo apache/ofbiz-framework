@@ -40,7 +40,7 @@ under the License.
                 <sequenced-id-to-env sequence-name="CurrencyDimension" env-name="currencyDim.dimensionId"/>
                 <set field="currencyDim.currencyId" from-field="currency.uomId"/>
                 <set field="currencyDim.description" from-field="currency.description"/>
-                <create-value value-name="currencyDim"/>
+                <create-value value-field="currencyDim"/>
             </else>
             </if-not-empty>
         </iterate>

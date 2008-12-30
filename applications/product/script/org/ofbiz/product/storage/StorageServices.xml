@@ -30,7 +30,7 @@ under the License.
         <set field="newEntity.facilityId" from-field="facilityId" />
         <field-to-result field-name="facilityId" result-name="facilityId"/>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFacility" short-description="Update a Facility">
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" /> 
@@ -48,7 +48,7 @@ under the License.
     <simple-method method-name="addContactMechToFacility" short-description="Add ContactMech To Facility">
         <make-value value-field="newEntity" entity-name="FacilityContactMech"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeContactMechFromFacility" short-description="Remove ContactMech From Facility">
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
@@ -87,7 +87,7 @@ under the License.
         <set field="newEntity.locationSeqId" from-field="locationSeqId" />
         <field-to-result field-name="locationSeqId" result-name="locationSeqId"/>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFacilityLocation" short-description="Update a Facility Location">
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
@@ -113,7 +113,7 @@ under the License.
         <set field="newEntity.facilityGroupId" from-field="facilityGroupId" />
         <field-to-result field-name="facilityGroupId" result-name="facilityGroupId"/>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFacilityGroup" short-description="Update an Facility Group">
         <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId" />
@@ -138,7 +138,7 @@ under the License.
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFacilityToGroup" short-description="Update Facility to FacilityGroup Application">
         <make-value value-field="lookupPKMap" entity-name="FacilityGroupMember"/>
@@ -165,7 +165,7 @@ under the License.
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFacilityGroupToGroup" short-description="Update FacilityGroup to FacilityGroup Rollup">
         <make-value value-field="lookupPKMap" entity-name="FacilityGroupRollup"/>
@@ -189,7 +189,7 @@ under the License.
         <if-empty field="partyRole">
             <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
-            <create-value value-name="partyRole"/>
+            <create-value value-field="partyRole"/>
         </if-empty>
         <make-value value-field="newEntity" entity-name="FacilityParty"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -197,14 +197,14 @@ under the License.
              <if-empty field="newEntity.fromDate">
                  <now-timestamp-to-env env-name="newEntity.fromDate"/>
              </if-empty>             
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method> 
   
     <simple-method method-name="addPartyToFacilityGroup" short-description="Add Party to FacilityGroup">
         <make-value value-field="newEntity" entity-name="FacilityGroupRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>         
     
     <simple-method method-name="removePartyFromFacility" short-description="Remove Party From Facility">

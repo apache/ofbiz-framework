@@ -113,7 +113,7 @@ under the License.
                 <!-- TODO -->
                 <set field="fact.orderId" value="_NA_"/>
                 <set field="fact.billToCustomerDimId" value="_NA_"/>
-                <create-value value-name="fact"/>
+                <create-value value-field="fact"/>
             </if-empty>
             <!-- =============== -->
             <!-- facts handling  -->

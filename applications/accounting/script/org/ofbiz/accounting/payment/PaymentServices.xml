@@ -61,7 +61,7 @@ under the License.
         <if-empty field="payment.effectiveDate">
             <now-timestamp-to-env env-name="payment.effectiveDate"/>
         </if-empty>
-        <create-value value-name="payment"/>
+        <create-value value-field="payment"/>
     </simple-method>
     <simple-method method-name="updatePayment" short-description="Update a Payment">
         <make-value entity-name="Payment" value-field="lookupPayment"/>
@@ -161,7 +161,7 @@ under the License.
         <sequenced-id-to-env sequence-name="PaymentApplication" env-name="paymentAppl.paymentApplicationId"/>
         <field-to-result field-name="paymentAppl.paymentApplicationId" result-name="paymentApplicationId"/>
 
-        <create-value value-name="paymentAppl"/>
+        <create-value value-field="paymentAppl"/>
     </simple-method>
     
     <simple-method method-name="setPaymentStatus" short-description="Set The Payment Status">

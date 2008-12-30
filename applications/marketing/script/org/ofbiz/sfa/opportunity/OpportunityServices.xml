@@ -30,7 +30,7 @@
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
         <field-to-result field-name="parameters.salesOpportunityId" result-name="salesOpportunityId"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateOpportunity" short-description="Update an opportunity">
         <entity-one entity-name="SalesOpportunity" value-name="lookedUpValue"/>

@@ -30,7 +30,7 @@ under the License.
         <sequenced-id-to-env sequence-name="ProductFeatureCategory" env-name="newEntity.productFeatureCategoryId"/>
         <field-to-result field-name="newEntity.productFeatureCategoryId" result-name="productFeatureCategoryId"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureCategory" short-description="Update Product Feature Category">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCategory you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -55,7 +55,7 @@ under the License.
         </if-empty>
         <field-to-result field-name="newEntity.productFeatureId" result-name="productFeatureId"/>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeature" short-description="Update Product Feature">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeature you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -78,7 +78,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductFeatureAppl"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFeatureToProductApplication" short-description="Update Feature to Product Application">
         <set field="callingMethodName" value="updateFeatureToProductApplication"/>
@@ -145,7 +145,7 @@ under the License.
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureCategoryAppl" short-description="Update an Product Feature Category Application">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCategoryAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -180,7 +180,7 @@ under the License.
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureCatGrpAppl" short-description="Update a ProductFeatureGroup to ProductCategory Application">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCatGrpAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -213,7 +213,7 @@ under the License.
         <sequenced-id-to-env sequence-name="ProductFeatureGroup" env-name="newEntity.productFeatureGroupId"/>
         <field-to-result field-name="newEntity.productFeatureGroupId" result-name="productFeatureGroupId"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureGroup" short-description="Update Product Feature Group">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureGroup you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -235,7 +235,7 @@ under the License.
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureGroupAppl" short-description="Update an Product Feature Group Application">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureGroupAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -264,7 +264,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductFeatureIactn"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureIactn" short-description="Remove a Product Feature Interaction">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureInteraction you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
@@ -298,7 +298,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductFeatureType" short-description="Update an Product Feature Type">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureType you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -340,7 +340,7 @@ under the License.
             <first-from-list list="productFeatureAppls" entry="productFeatureAppl"/>
             <set field="newEntity.fromDate" from-field="productFeatureAppl.fromDate"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <check-errors/>
     </simple-method>
 
@@ -390,7 +390,7 @@ under the License.
         <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
         <set field="newEntity.createdByUserLogin" from-field="userLogin.userLoginId" />
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFeaturePrice" short-description="Update a feature price">
         <entity-one entity-name="ProductFeaturePrice" value-name="lookedUpValue"/>

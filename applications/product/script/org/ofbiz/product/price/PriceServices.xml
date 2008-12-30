@@ -44,7 +44,7 @@ under the License.
         <set field="newEntity.lastModifiedByUserLogin" from-field="userLogin.userLoginId" />
         <set field="newEntity.createdByUserLogin" from-field="userLogin.userLoginId" />
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPrice" short-description="Update an ProductPrice">
         <set field="callingMethodName" value="updateProductPrice" />
@@ -104,7 +104,7 @@ under the License.
         <set field="newEntity.changedDate" from-field="nowTimestamp" />
         <set field="newEntity.changedByUserLogin" from-field="userLogin.userLoginId" />
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
 
     <!-- ProductPaymentMethodType methods -->
@@ -117,7 +117,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateProductPaymentMethodType" short-description="update a ProductPaymentMethodType">
         <set field="callingMethodName" value="updateProductPaymentMethodType" />
@@ -148,7 +148,7 @@ under the License.
         <sequenced-id-to-env sequence-name="ProductPriceRule" env-name="newEntity.productPriceRuleId"/>
         <field-to-result field-name="productPriceRuleId" map-name="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPriceRule" short-description="Update an ProductPriceRule">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPriceRule you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -184,7 +184,7 @@ under the License.
         <make-next-seq-id value-name="newEntity" seq-field-name="productPriceCondSeqId" numeric-padding="2"/>
         <field-to-result field-name="productPriceCondSeqId" map-name="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPriceCond" short-description="Update an ProductPriceCond">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPriceCond you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
@@ -220,7 +220,7 @@ under the License.
         <make-next-seq-id value-name="newEntity" seq-field-name="productPriceActionSeqId" numeric-padding="2"/>
         <field-to-result field-name="productPriceActionSeqId" map-name="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductPriceAction" short-description="Update an ProductPriceAction">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductPriceAction you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>

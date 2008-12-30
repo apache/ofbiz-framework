@@ -27,7 +27,7 @@ under the License.
         <set from-field="costComponentCalcId" field="newEntity.costComponentCalcId"/>
         <field-to-result field-name="costComponentCalcId" result-name="costComponentCalcId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateCostComponentCalc" short-description="Update a CostComponentCalc entry">
         <entity-one entity-name="CostComponentCalc" value-name="costComponentCalc"/>
@@ -45,7 +45,7 @@ under the License.
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeWorkEffortCostCalc" short-description="Remove a WorkEffortCostCalc entry">
         <entity-one entity-name="WorkEffortCostCalc" value-name="workEffortCostCalc"/>
