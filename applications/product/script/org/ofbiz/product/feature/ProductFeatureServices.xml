@@ -330,7 +330,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <entity-condition entity-name="ProductFeatureAppl" list-name="productFeatureAppls" filter-by-date="true">
+            <entity-condition entity-name="ProductFeatureAppl" list="productFeatureAppls" filter-by-date="true">
                 <condition-list combine="and">
                     <condition-expr field-name="productId" env-name="newEntity.productId"/>
                     <condition-expr field-name="productFeatureId" env-name="newEntity.productFeatureId"/>

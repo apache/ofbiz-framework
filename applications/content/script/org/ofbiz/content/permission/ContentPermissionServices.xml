@@ -452,7 +452,7 @@
             </condition>
             <then>
                 <!-- find defined purpose/operation mappings -->
-                <entity-condition entity-name="ContentPurposeOperation" list-name="operations">
+                <entity-condition entity-name="ContentPurposeOperation" list="operations">
                     <condition-list combine="and">
                         <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="contentPurposeTypeId"/>
                         <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
@@ -465,7 +465,7 @@
 
                 <!-- find defined purpose/operation mappings -->
                 <iterate entry="currentPurpose" list="contentPurposes">
-                    <entity-condition entity-name="ContentPurposeOperation" list-name="currentOperations">
+                    <entity-condition entity-name="ContentPurposeOperation" list="currentOperations">
                         <condition-list combine="and">
                             <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="currentPurpose.contentPurposeTypeId"/>
                             <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>
@@ -477,7 +477,7 @@
 
                 <!-- check the _NA_ purpose but only if no other purposes were found -->
                 <if-empty field="contentPurposes">
-                    <entity-condition entity-name="ContentPurposeOperation" list-name="operations">
+                    <entity-condition entity-name="ContentPurposeOperation" list="operations">
                         <condition-list combine="and">
                             <condition-expr field-name="contentPurposeTypeId" operator="equals" value="_NA_"/>
                             <condition-expr field-name="contentOperationId" operator="equals" env-name="contentOperationId"/>

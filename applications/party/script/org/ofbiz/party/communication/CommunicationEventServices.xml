@@ -343,7 +343,7 @@ under the License.
     <simple-method method-name="sendEmailDated"
         short-description="Checks for email communication events with the status COM_IN_PROGRESS and a startdate which is expired, then send the email">
         <now-timestamp-to-env env-name="nowDate" />
-        <entity-condition entity-name="CommunicationEvent" list-name="communicationEvents">
+        <entity-condition entity-name="CommunicationEvent" list="communicationEvents">
             <condition-list combine="and">
                 <condition-list combine="or">
                     <condition-expr field-name="communicationEventTypeId" operator="equals" value="EMAIL_COMMUNICATION" />

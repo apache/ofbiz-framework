@@ -355,7 +355,7 @@ under the License.
             <field field-name="nowTimestamp" type="Timestamp"/>
             <field field-name="parameters.daysOffset" type="Long"/>
         </call-class-method>
-        <entity-condition entity-name="Invoice" list-name="invoices">
+        <entity-condition entity-name="Invoice" list="invoices">
             <condition-list combine="and">
                 <condition-expr field-name="invoiceTypeId" operator="equals" env-name="parameters.invoiceTypeId"/>
                 <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>

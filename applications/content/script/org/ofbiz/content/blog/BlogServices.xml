@@ -165,7 +165,7 @@
 
     <simple-method method-name="getOwnedOrPublishedBlogEntries" short-description="Get blog entries that the user owns or are published">
         <log level="info" message="parameters: ${parameters}"/>
-        <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list-name="unfilteredList">
+        <entity-condition entity-name="ContentAssocViewTo" use-cache="false" list="unfilteredList">
             <condition-list combine="and">
                 <condition-expr field-name="contentIdStart" operator="equals" env-name="parameters.contentId"/>
                 <condition-expr field-name="caContentAssocTypeId" operator="equals" value="PUBLISH_LINK"/>

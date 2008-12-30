@@ -189,7 +189,7 @@ under the License.
             <condition><if-compare field="newEntity.statusId" operator="equals" value="CLPT_ACCEPTED"/></condition>
             <then>
                 <!-- look up the last ContactListPartyStatus with statusId=CLPT_PENDING -->
-                <entity-condition entity-name="ContactListPartyStatus" list-name="lastContactListPartyStatusList">
+                <entity-condition entity-name="ContactListPartyStatus" list="lastContactListPartyStatusList">
                     <condition-list combine="and">
                         <condition-expr field-name="contactListId" env-name="parameters.contactListId"/>
                         <condition-expr field-name="partyId" env-name="parameters.partyId"/>
@@ -248,7 +248,7 @@ under the License.
             <then>
                 <!-- get the latest pending status -->
                 <!-- look up the last ContactListPartyStatus with statusId=CLPT_PENDING -->
-                <entity-condition entity-name="ContactListPartyStatus" list-name="lastContactListPartyStatusList">
+                <entity-condition entity-name="ContactListPartyStatus" list="lastContactListPartyStatusList">
                     <condition-list combine="and">
                         <condition-expr field-name="contactListId" env-name="parameters.contactListId"/>
                         <condition-expr field-name="partyId" env-name="parameters.partyId"/>

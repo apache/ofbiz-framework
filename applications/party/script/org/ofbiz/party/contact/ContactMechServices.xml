@@ -265,7 +265,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="sendVerifyEmailAddressNotification" short-description="Send an email to the person for Verification of his Email Address" login-required="false">
-        <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
+        <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
             <condition-list>
                 <condition-expr field-name="emailType" operator="equals" value="PRDS_EMAIL_VERIFY"/>
             </condition-list>

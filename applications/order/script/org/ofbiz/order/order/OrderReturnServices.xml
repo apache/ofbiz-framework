@@ -139,14 +139,14 @@ under the License.
         <!-- test the total return amount vs the total order amount -->
         <if-compare field="parameters.statusId" value="RETURN_ACCEPTED" operator="equals">
             <!-- get the list of ReturnItems.  Note: return may be associated with many different orders -->
-            <entity-condition entity-name="ReturnItem" list-name="returnItems" distinct="true">
+            <entity-condition entity-name="ReturnItem" list="returnItems" distinct="true">
                 <condition-expr field-name="returnId" env-name="returnHeader.returnId"/>
             </entity-condition>
             
             <!-- this block is for debugging and can be removed later -->
             <!--
             <log level="verbose" message="Items and adjustments for return ${returnHeader.returnId}"/>
-            <entity-condition entity-name="ReturnAdjustment" list-name="returnAdjustments" distinct="true">
+            <entity-condition entity-name="ReturnAdjustment" list="returnAdjustments" distinct="true">
                 <condition-expr field-name="returnId" operator="equals" env-name="returnHeader.returnId"/>
             </entity-condition>
             <iterate entry="returnItem" list="returnItems">
@@ -662,7 +662,7 @@ under the License.
         </if-compare>
         
         <!-- find the bill to customer; for return's fromPartyId -->
-        <entity-condition entity-name="OrderRole" list-name="orderRoles">
+        <entity-condition entity-name="OrderRole" list="orderRoles">
             <condition-list combine="and">
                 <condition-expr field-name="orderId" operator="equals" env-name="orderHeader.orderId"/>
                 <condition-expr field-name="roleTypeId" operator="equals" env-name="roleTypeId"/>
@@ -695,7 +695,7 @@ under the License.
         </call-service>
 
         <!-- get the available to return order items -->
-        <entity-condition entity-name="OrderItem" list-name="orderItems">
+        <entity-condition entity-name="OrderItem" list="orderItems">
             <condition-list combine="and">
                 <condition-expr field-name="orderId" operator="equals" env-name="orderHeader.orderId"/>
                 <condition-expr field-name="statusId" operator="equals" value="ITEM_COMPLETED"/>
@@ -776,7 +776,7 @@ under the License.
         </iterate>
 
         <!-- create a return adjustment for all order adjustments not attached to a particular orderItem (orderItemSeqId = "_NA_") -->
-        <entity-condition entity-name="OrderAdjustment" list-name="orderAdjustments">
+        <entity-condition entity-name="OrderAdjustment" list="orderAdjustments">
             <condition-list combine="and">
                 <condition-expr field-name="orderId" operator="equals" env-name="orderHeader.orderId"/>
                 <condition-expr field-name="orderItemSeqId" operator="equals" value="_NA_"/>
@@ -872,7 +872,7 @@ under the License.
     <simple-method method-name="cancelReturnItems" short-description="Update a ReturnItems">
         <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCancelReturnItems"/></check-permission>
         <check-errors/>
-        <entity-condition entity-name="ReturnItem" list-name="returnItems" distinct="true">
+        <entity-condition entity-name="ReturnItem" list="returnItems" distinct="true">
             <condition-expr field-name="returnId" operator="equals" env-name="parameters.returnId"/>
         </entity-condition>
         <iterate entry="returnItem" list="returnItems">

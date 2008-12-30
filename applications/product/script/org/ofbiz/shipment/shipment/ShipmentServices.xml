@@ -307,7 +307,7 @@ under the License.
         <check-errors/>
         <log level="info" message="Created new shipment ${shipmentId}"/>
 
-        <entity-condition entity-name="ReturnItem" list-name="returnItems">
+        <entity-condition entity-name="ReturnItem" list="returnItems">
             <condition-expr field-name="returnId" operator="equals" env-name="parameters.returnId"/>
         </entity-condition>
         <iterate entry="returnItem" list="returnItems">
@@ -339,7 +339,7 @@ under the License.
         <check-errors/>
         <log level="info" message="Created new shipment ${shipmentId}"/>
 
-        <entity-condition entity-name="ReturnItem" list-name="returnItems">
+        <entity-condition entity-name="ReturnItem" list="returnItems">
             <condition-expr field-name="returnId" operator="equals" env-name="parameters.primaryReturnId"/>
         </entity-condition>
         <iterate entry="returnItem" list="returnItems">
@@ -1322,7 +1322,7 @@ under the License.
         <check-errors/>
         
         <!-- locate shipping facilities associated with order item rez's -->
-        <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list-name="orderItemAndShipGrpInvResAndItemList">
+        <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list="orderItemAndShipGrpInvResAndItemList">
             <condition-list>
                 <condition-expr field-name="orderId" env-name="orderHeader.orderId"/>
                 <condition-expr field-name="statusId" value="ITEM_APPROVED"/>

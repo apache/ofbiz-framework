@@ -209,7 +209,7 @@ under the License.
                 </call-service>
                 <log level="info" message="Created new shipment ${shipmentId}"/>
 
-                <entity-condition entity-name="ReturnItem" list-name="returnItems">
+                <entity-condition entity-name="ReturnItem" list="returnItems">
                     <condition-expr field-name="returnId" operator="equals" env-name="returnHeader.returnId"/>
                 </entity-condition>
 

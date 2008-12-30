@@ -285,7 +285,7 @@ under the License.
                         <set field="updateWorkEffortCtx.actualCompletionDate" from-field="nowTimestamp"/>
                         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
                         <check-errors/>
-                        <entity-condition list-name="wepas" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
+                        <entity-condition list="wepas" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
                             <condition-expr field-name="workEffortId" env-name="workEffortId" operator="equals"/>
                         </entity-condition>
                         <iterate list="wepas" entry="wepa">
@@ -339,7 +339,7 @@ under the License.
         </entity-and>
         <iterate list="productMaintList" entry="productMaintValue">
             <set field="repeatCount" from-field="productMaintValue.repeatCount" default-value="0" type="Long"/>
-            <entity-condition list-name="maintList" entity-name="FixedAssetMaint">
+            <entity-condition list="maintList" entity-name="FixedAssetMaint">
                 <condition-list combine="and">
                     <condition-expr field-name="fixedAssetId" operator="equals" env-name="fixedAssetValue.fixedAssetId"/>
                     <condition-expr field-name="productMaintTypeId" operator="equals" env-name="productMaintValue.productMaintTypeId"/>
@@ -381,14 +381,14 @@ under the License.
     </simple-method>
     <simple-method method-name="createMaintsFromTimeInterval" short-description="Create Fixed Asset Maintenances From A Product Maint Time Interval">
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <entity-condition list-name="fixedAssets" entity-name="FixedAsset">
+        <entity-condition list="fixedAssets" entity-name="FixedAsset">
             <condition-list combine="and">
                 <condition-expr field-name="instanceOfProductId" operator="not-equals" env-name="null"/>
                 <condition-expr field-name="actualEndOfLife" operator="equals" env-name="null"/>
             </condition-list>
         </entity-condition>
         <iterate list="fixedAssets" entry="fixedAsset">
-            <entity-condition list-name="productMaints" entity-name="ProductMaint">
+            <entity-condition list="productMaints" entity-name="ProductMaint">
                 <condition-list combine="and">
                     <condition-expr field-name="productId" env-name="fixedAsset.instanceOfProductId"/>
                     <condition-expr field-name="intervalUomId" operator="like" value="TF_%"/>
@@ -396,7 +396,7 @@ under the License.
             </entity-condition>
             <iterate list="productMaints" entry="productMaint">
                 <set field="repeatCount" from-field="productMaint.repeatCount" default-value="0" type="Long"/>
-                <entity-condition list-name="maintList" entity-name="FixedAssetMaintWorkEffort">
+                <entity-condition list="maintList" entity-name="FixedAssetMaintWorkEffort">
                     <condition-list combine="and">
                         <condition-expr field-name="fixedAssetId" operator="equals" env-name="fixedAsset.fixedAssetId"/>
                         <condition-expr field-name="productMaintTypeId" operator="equals" env-name="productMaint.productMaintTypeId"/>
@@ -454,7 +454,7 @@ under the License.
         </iterate>
     </simple-method>
     <simple-method method-name="migrateFixedAssetMaintMeter" short-description="Copy FixedAssetMaintMeter To FixedAssetMeter">
-        <entity-condition list-name="maintMeterList" entity-name="FixedAssetMaintMeter"/>
+        <entity-condition list="maintMeterList" entity-name="FixedAssetMaintMeter"/>
         <iterate list="maintMeterList" entry="maintMeter">
             <make-value value-field="newEntity" entity-name="FixedAssetMeter"/>
             <set-pk-fields map="maintMeter" value-field="newEntity"/>

@@ -151,7 +151,7 @@ under the License.
         </entity-and>
         
         <if-empty field="getMainPage">
-            <entity-condition entity-name="PortalPage" list-name="PortalPageList">
+            <entity-condition entity-name="PortalPage" list="PortalPageList">
                 <condition-list combine="and">
                     <condition-list combine="or">
                         <condition-expr field-name="originalPortalPageId" operator="equals" env-name="parameters.originalPortalPageId"/>
@@ -165,7 +165,7 @@ under the License.
             </entity-condition>
         </if-empty>
         <if-not-empty field="getMainPage">
-            <entity-condition entity-name="PortalPage" list-name="PortalPageList">
+            <entity-condition entity-name="PortalPage" list="PortalPageList">
                 <condition-list combine="and">
                     <condition-list combine="or">
                         <condition-expr field-name="originalPortalPageId" operator="equals" env-name="parameters.originalPortalPageId"/>

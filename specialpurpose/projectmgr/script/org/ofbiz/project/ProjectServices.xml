@@ -242,7 +242,7 @@
         <field-to-result map-name="parameters" field="projectId"/>
         
         <!-- find a starting point being either the estimated start date of a project or the earliest actual start date. -->
-        <entity-condition entity-name="ProjectAndPhaseAndTask" list-name="tasks">
+        <entity-condition entity-name="ProjectAndPhaseAndTask" list="tasks">
             <condition-expr field-name="actualStartDate" operator="not-equals" env-name="null"/>
             <order-by field-name="-actualStartDate"/>
         </entity-condition>
@@ -785,7 +785,7 @@
     </simple-method>
 
     <simple-method method-name="getProjectsByParties" short-description="get Project information by party member" login-required="true">
-        <entity-condition entity-name="ProjectAndPhaseAndTaskParty" list-name="tasks">
+        <entity-condition entity-name="ProjectAndPhaseAndTaskParty" list="tasks">
             <condition-list combine="and">
                 <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId" ignore-if-empty="true"/>
                 <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId" ignore-if-empty="true"/>
@@ -848,7 +848,7 @@
         <if-empty field="parameters.workEffortId">
             <set field="parameters.workEffortId" value="%"/>
         </if-empty>
-        <entity-condition entity-name="WorkEffortPartyAssignment" list-name="tasks" filter-by-date="true">
+        <entity-condition entity-name="WorkEffortPartyAssignment" list="tasks" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="partyId" operator="like" env-name="parameters.partyId"/>
                 <condition-expr field-name="workEffortId" operator="like" env-name="parameters.workEffortId"/>
@@ -1038,7 +1038,7 @@
 
                     <!-- check if only a part of the registered hours need to be taken into account -->
                     <set field="originalActualHours" from-field="actual.hours"/>
-                    <entity-condition entity-name="PartyRate" list-name="partyRates">
+                    <entity-condition entity-name="PartyRate" list="partyRates">
                         <condition-list combine="and">
                             <condition-expr field-name="partyId" env-name="timesheet.partyId"/>
                             <condition-expr field-name="rateTypeId" env-name="actual.rateTypeId"/>
@@ -1187,7 +1187,7 @@
     <simple-method method-name="createTimeEntryInTimesheet" short-description="Creates TimeEntry and searches for a timesheetId if not provided">
         <if-not-empty field="parameters.fromDate">
             <if-empty field="parameters.timesheetId">
-                <entity-condition entity-name="Timesheet" list-name="timesheets">
+                <entity-condition entity-name="Timesheet" list="timesheets">
                     <condition-list combine="and">
                         <condition-expr field-name="fromDate" operator="less-equals" env-name="parameters.fromDate"/>
                         <condition-expr field-name="thruDate" operator="greater-equals" env-name="parameters.fromDate"/>
@@ -1251,7 +1251,7 @@
             <remove-by-and entity-name="InvoiceItem" map-name="removeItems"/>
             <set field="notFirst" value="Y"/><!-- do not create, only add -->
         </if-compare>
-        <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list-name="tasks">
+        <entity-condition entity-name="ProjectPhaseTaskAndTimeEntryTimeSheet" list="tasks">
             <condition-list combine="and">
                 <condition-expr field-name="projectId" operator="equals" env-name="parameters.projectId"/>
                 <condition-expr field-name="invoiceId" operator="equals" env-name="nullField"/>
@@ -1304,7 +1304,7 @@
 
     <simple-method method-name="addValidationPartiesToTask" short-description="SECA to add either project-testing or -approval parties to a task when a task is set to complete">
         <!-- check if this is the last party which completed his task -->
-        <entity-condition entity-name="WorkEffortPartyAssignment" list-name="openTasks" filter-by-date="true">
+        <entity-condition entity-name="WorkEffortPartyAssignment" list="openTasks" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="workEffortId" operator="equals" env-name="parameters.workEffortId"/>
                 <condition-expr field-name="statusId" operator="not-equals" value="PAS_COMPLETED"/>
@@ -1317,7 +1317,7 @@
             <result-to-field result-name="projectId"/>
 	        </call-service>
 	        <!-- see who is reponsible for testing/validation in this project -->
-	        <entity-condition entity-name="WorkEffortPartyAssignment" list-name="assigns" filter-by-date="true">
+	        <entity-condition entity-name="WorkEffortPartyAssignment" list="assigns" filter-by-date="true">
 	            <condition-list combine="and">
 	                <condition-expr field-name="workEffortId" operator="equals" env-name="projectId"/>
 	                <condition-expr field-name="partyId" operator="not-equals" env-name="parameters.partyId"/><!-- should not test/val own work -->

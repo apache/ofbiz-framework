@@ -182,7 +182,7 @@ under the License.
 
     <simple-method method-name="addDistinctShoppingListItem" 
                    short-description="Adds a shopping list item if one with the same productId does not exist">
-        <entity-condition entity-name="ShoppingListItem" list-name="shoppingListItemList">
+        <entity-condition entity-name="ShoppingListItem" list="shoppingListItemList">
             <condition-expr field-name="shoppingListId" env-name="parameters.shoppingListId" />
         </entity-condition>
 
@@ -294,7 +294,7 @@ under the License.
         </entity-one>
         <if-compare field="productStore.enableAutoSuggestionList" operator="not-equals" value="Y"><return/></if-compare>
         
-        <entity-condition entity-name="OrderRole" list-name="orderRoleList">
+        <entity-condition entity-name="OrderRole" list="orderRoleList">
             <condition-list combine="and">
                 <condition-expr field-name="orderId" env-name="parameters.orderId" />
                 <condition-expr field-name="roleTypeId" value="PLACING_CUSTOMER" />
@@ -302,7 +302,7 @@ under the License.
         </entity-condition>
         <first-from-list list="orderRoleList" entry="orderRole" />
 
-        <entity-condition entity-name="ShoppingList" list-name="shoppingListList">
+        <entity-condition entity-name="ShoppingList" list="shoppingListList">
             <condition-list combine="and">
                 <condition-expr field-name="partyId" env-name="orderRole.partyId" />
                 <condition-expr field-name="listName" value="Auto Suggestions" />
@@ -321,13 +321,13 @@ under the License.
         </else>            
         </if-empty>
 
-        <entity-condition entity-name="OrderItem" list-name="orderItemList">
+        <entity-condition entity-name="OrderItem" list="orderItemList">
             <condition-expr field-name="orderId" env-name="parameters.orderId" />
             <order-by field-name="orderItemSeqId" />
         </entity-condition>
         <iterate list="orderItemList" entry="orderItem">
             <if-not-empty field="orderItem.productId">
-                <entity-condition entity-name="ProductAssoc" list-name="compProductAssocList" filter-by-date="true">
+                <entity-condition entity-name="ProductAssoc" list="compProductAssocList" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" env-name="orderItem.productId" />
                         <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT" />
@@ -344,7 +344,7 @@ under the License.
                     <field-map field-name="productId" from-field="orderItem.productId" />
                 </entity-one>
                 <if-compare field="product.isVariant" operator="equals" value="Y">
-                    <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList" filter-by-date="true">
+                    <entity-condition entity-name="ProductAssoc" list="virtualProductAssocList" filter-by-date="true">
                         <condition-list combine="and">
                             <condition-expr field-name="productIdTo" env-name="orderItem.productId" />
                             <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
@@ -352,7 +352,7 @@ under the License.
                     </entity-condition>
                     <first-from-list list="virtualProductAssocList" entry="virtualProductAssoc" />
                     <if-not-empty field="virtualProductAssoc">
-                        <entity-condition entity-name="ProductAssoc" list-name="compProductAssocList" filter-by-date="true">
+                        <entity-condition entity-name="ProductAssoc" list="compProductAssocList" filter-by-date="true">
                             <condition-list combine="and">
                                 <condition-expr field-name="productId" env-name="virtualProductAssoc.productId" />
                                 <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT" />

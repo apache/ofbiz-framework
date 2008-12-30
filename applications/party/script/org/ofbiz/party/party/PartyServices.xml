@@ -535,7 +535,7 @@ under the License.
                     <field-to-list field-name="relatedPartyId" list-name="_inline_relatedPartyIdAlreadySearchedList"/>
                     
                     <clear-field field="_inline_PartyRelationshipList"/>
-                    <entity-condition entity-name="PartyRelationship" list-name="_inline_PartyRelationshipList" use-cache="${useCache}">
+                    <entity-condition entity-name="PartyRelationship" list="_inline_PartyRelationshipList" use-cache="${useCache}">
                         <condition-list combine="and">
                             <condition-expr field-name="partyIdFrom" env-name="relatedPartyId"/>
                             <condition-expr field-name="roleTypeIdFrom" operator="in" env-name="_inline_roleTypeIdFromList" ignore-if-empty="true"/>
@@ -568,7 +568,7 @@ under the License.
                     
                     <if-compare field="includeFromToSwitched" operator="equals" value="Y">
                         <clear-field field="_inline_PartyRelationshipList"/>
-                        <entity-condition entity-name="PartyRelationship" list-name="_inline_PartyRelationshipList" use-cache="${useCache}">
+                        <entity-condition entity-name="PartyRelationship" list="_inline_PartyRelationshipList" use-cache="${useCache}">
                             <condition-list combine="and">
                                 <condition-expr field-name="partyIdTo" env-name="relatedPartyId"/>
                                 <condition-expr field-name="roleTypeIdTo" operator="in" env-name="_inline_roleTypeIdFromList" ignore-if-empty="true"/>
@@ -629,7 +629,7 @@ under the License.
                     <field-to-list field-name="roleTypeId" list-name="_inline_roleTypeIdAlreadySearchedList"/>
                     
                     <clear-field field="_inline_RoleTypeList"/>
-                    <entity-condition entity-name="RoleType" list-name="_inline_RoleTypeList" use-cache="true">
+                    <entity-condition entity-name="RoleType" list="_inline_RoleTypeList" use-cache="true">
                         <condition-expr field-name="parentTypeId" operator="equals" env-name="roleTypeId"/>
                     </entity-condition>
                     <iterate entry="newRoleType" list="_inline_RoleTypeList">
@@ -749,7 +749,7 @@ under the License.
         <remove-value value-name="fieldMap"/>
     </simple-method>
     <simple-method method-name="clearAddressMatchMap" short-description="remove all AddressMatchMap">
-        <entity-condition entity-name="AddressMatchMap" list-name="addrs">
+        <entity-condition entity-name="AddressMatchMap" list="addrs">
             <use-iterator/>
         </entity-condition>
         <iterate entry="addr" list="addrs">
@@ -816,7 +816,7 @@ under the License.
     <!-- send party creation email notification -->
     <simple-method method-name="sendCreatePartyEmailNotification" short-description="Notification email on party creation" login-required="false">
         <map-to-map map-name="parameters" to-map-name="bodyParameters"/>    
-        <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
+        <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
             <condition-list>
                 <condition-expr field-name="emailType" operator="equals" value="PARTY_REGIS_CONFIRM"/>
             </condition-list>
@@ -847,7 +847,7 @@ under the License.
     <!-- send personal information update email notification -->
     <simple-method method-name="sendUpdatePersonalInfoEmailNotification" short-description="Send the Notification email on personal information updation" login-required="false">
         <map-to-map map-name="parameters" to-map-name="bodyParameters"/>
-        <entity-condition entity-name="ProductStoreEmailSetting" list-name="productStoreEmailSettings">
+        <entity-condition entity-name="ProductStoreEmailSetting" list="productStoreEmailSettings">
             <condition-list>
                 <condition-expr field-name="emailType" operator="equals" value="UPD_PRSNL_INF_CNFRM"/>
             </condition-list>
@@ -864,7 +864,7 @@ under the License.
                 <set field="partyId" from-field="parameters.partyId"/>
             </else>
             </if-not-empty>
-            <entity-condition entity-name="PartyContactDetailByPurpose" list-name="partyContactDetailByPurposes" filter-by-date="true">
+            <entity-condition entity-name="PartyContactDetailByPurpose" list="partyContactDetailByPurposes" filter-by-date="true">
                 <condition-list>
                     <condition-expr field-name="contactMechPurposeTypeId" operator="equals" value="PRIMARY_EMAIL"/>
                     <condition-expr field-name="partyId" operator="equals"  env-name="partyId"/>

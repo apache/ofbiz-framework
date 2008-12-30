@@ -81,7 +81,7 @@ under the License.
                 <set from-field="parameters.quantity" field="parameters.quantityNotReserved"/>
 
                 <!-- first reserve against InventoryItems in FLT_PICKLOC type locations, then FLT_BULK locations, then InventoryItems with no locations -->
-                <entity-condition entity-name="InventoryItemAndLocation" list-name="inventoryItemAndLocations">
+                <entity-condition entity-name="InventoryItemAndLocation" list="inventoryItemAndLocations">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" env-name="parameters.productId"/>
                         <condition-expr field-name="facilityId" env-name="parameters.facilityId" ignore-if-empty="true" ignore-if-null="true"/>
@@ -101,7 +101,7 @@ under the License.
 
                 <!-- still some left? try the FLT_BULK locations -->
                 <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
-                    <entity-condition entity-name="InventoryItemAndLocation" list-name="inventoryItemAndLocations">
+                    <entity-condition entity-name="InventoryItemAndLocation" list="inventoryItemAndLocations">
                         <condition-list combine="and">
                             <condition-expr field-name="productId" env-name="parameters.productId"/>
                             <condition-expr field-name="facilityId" env-name="parameters.facilityId" ignore-if-empty="true" ignore-if-null="true"/>
@@ -122,7 +122,7 @@ under the License.
 
                 <!-- last of all try reserving in InventoryItems that have no locationSeqId, ie are not in any particular location -->
                 <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
-                    <entity-condition entity-name="InventoryItem" list-name="inventoryItems">
+                    <entity-condition entity-name="InventoryItem" list="inventoryItems">
                         <condition-list combine="and">
                             <condition-expr field-name="productId" env-name="parameters.productId"/>
                             <condition-expr field-name="facilityId" env-name="parameters.facilityId" ignore-if-empty="true" ignore-if-null="true"/>

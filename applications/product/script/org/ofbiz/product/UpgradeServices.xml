@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
     <simple-method method-name="migrateFacilityRole" short-description="Migrate Data From OldFacilityRole To FacilityParty">
-        <entity-condition entity-name="OldFacilityRole" list-name="oldFacilityRoles"/>
+        <entity-condition entity-name="OldFacilityRole" list="oldFacilityRoles"/>
         <now-timestamp-to-env env-name="fromDate"/>
         <iterate list="oldFacilityRoles" entry="oldFacilityRole">
             <make-value entity-name="FacilityParty" value-field="facilityParty"/>

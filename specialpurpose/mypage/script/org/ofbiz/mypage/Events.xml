@@ -113,7 +113,7 @@ under the License.
         </if-compare-field>
     </simple-method>
     <simple-method method-name="createCommunicationEventRoles" short-description="">
-        <entity-condition list-name="commEvents" entity-name="CommunicationEvent" />
+        <entity-condition list="commEvents" entity-name="CommunicationEvent" />
         <set field="count" value="0" type="Integer" />
         <iterate entry="commEvent" list="commEvents">
             <get-related value-name="commEvent" relation-name="CommunicationEventRole" list-name="roles" />

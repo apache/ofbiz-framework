@@ -48,7 +48,7 @@ under the License.
         <call-service service-name="storeGenericDimension" in-map-name="inMap"/>
     </simple-method>
     <simple-method method-name="loadAllProductsInProductDimension" short-description="">
-        <entity-condition entity-name="Product" list-name="products"/>
+        <entity-condition entity-name="Product" list="products"/>
         <iterate list="products" entry="product">
             <set-service-fields service-name="loadProductInProductDimension" map-name="parameters" to-map-name="inMap"/>
             <set field="inMap.productId" from-field="product.productId"/>

@@ -352,7 +352,7 @@ under the License.
 
     <!-- migrate service -->
     <simple-method method-name="migrateRateFactor" short-description="migrate the several entities which were change in the rate refactor activity">
-        <entity-condition entity-name="OldEmplPositionTypeRate" list-name="posRates"/>
+        <entity-condition entity-name="OldEmplPositionTypeRate" list="posRates"/>
         <iterate entry="posRate" list="posRates">
             <make-value value-field="emplPositionTypeRate" entity-name="EmplPositionTypeRate"/>
             <set-pk-fields value-field="posRate" map="emplPositionTypeRate"/>
@@ -366,7 +366,7 @@ under the License.
             <property-to-field resource="general.properties" property="currency.uom.id.default" field-name="rateAmount.rateCurrencyUomId"/>
             <create-value value-field="rateAmount"/>
         </iterate>        
-        <entity-condition entity-name="OldPartyRate" list-name="partyRates"/>
+        <entity-condition entity-name="OldPartyRate" list="partyRates"/>
         <iterate entry="oldPartyRate" list="oldPartyRates">
             <make-value value-field="partyRate" entity-name="PartyRate"/>
             <set-pk-fields value-field="oldPartyRate" map="partyRate"/>            
