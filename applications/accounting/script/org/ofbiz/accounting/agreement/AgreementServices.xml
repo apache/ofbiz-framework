@@ -34,7 +34,7 @@ under the License.
         <!-- create a non existing ID -->
         <sequenced-id-to-env sequence-name="Agreement" env-name="agreementId"/>
         <set from-field="agreementId" field="newEntity.agreementId"/>
-        <field-to-result field-name="agreementId" result-name="agreementId"/>
+        <field-to-result field="agreementId" result-name="agreementId"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -108,7 +108,7 @@ under the License.
                 <call-service service-name="createAgreementPartyApplic" in-map-name="createAgreementPartyApplicInMap"/>
             </iterate>
         </if-compare>
-        <field-to-result field-name="agreementIdTo" result-name="agreementId"/>
+        <field-to-result field="agreementIdTo" result-name="agreementId"/>
     </simple-method>
 
     <!-- create a new AgreementItem -->
@@ -126,8 +126,8 @@ under the License.
             <set from-field="parameters.agreementItemSeqId" field="newEntity.agreementItemSeqId"/>
         </else>
         </if-empty>
-        <field-to-result field-name="agreementId" result-name="agreementId"/>
-        <field-to-result field-name="newEntity.agreementItemSeqId" result-name="agreementItemSeqId"/>
+        <field-to-result field="agreementId" result-name="agreementId"/>
+        <field-to-result field="newEntity.agreementItemSeqId" result-name="agreementItemSeqId"/>
 
         <!-- finally create the record (should not exist already)-->
         <create-value value-field="newEntity"/>
@@ -161,7 +161,7 @@ under the License.
         <set from-field="parameters.agreementId" field="newEntity.agreementId"/>
         <set from-field="parameters.agreementItemSeqId" field="newEntity.agreementItemSeqId"/>
         <set from-field="agreementTermId" field="newEntity.agreementTermId"/>
-        <field-to-result field-name="agreementTermId" result-name="agreementTermId"/>
+        <field-to-result field="agreementTermId" result-name="agreementTermId"/>
 
         <!-- finally create the record (should not exist already)-->
         <create-value value-field="newEntity"/>

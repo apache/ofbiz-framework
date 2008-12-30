@@ -28,7 +28,7 @@ under the License.
 
         <!-- AcctgTrans uses a sequenced id, so get the next one now and set it... -->        
         <sequenced-id-to-env sequence-name="AcctgTrans" env-name="newEntity.acctgTransId"/>
-        <field-to-result field-name="newEntity.acctgTransId" result-name="acctgTransId"/>
+        <field-to-result field="newEntity.acctgTransId" result-name="acctgTransId"/>
         
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
@@ -73,7 +73,7 @@ under the License.
             <check-errors/>    
         </if-compare>
         <make-next-seq-id value-name="newEntity" seq-field-name="acctgTransEntrySeqId" numeric-padding="5"/>
-        <field-to-result field-name="newEntity.acctgTransEntrySeqId" result-name="acctgTransEntrySeqId"/>
+        <field-to-result field="newEntity.acctgTransEntrySeqId" result-name="acctgTransEntrySeqId"/>
 
         <!-- if not explicitly provided in the parameters, set the currency of the entry from PartyAcctgPreference -->
         <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
@@ -194,9 +194,9 @@ under the License.
             </calcop>
         </calculate>
         
-        <field-to-result field-name="debitTotal"/>
-        <field-to-result field-name="creditTotal"/>
-        <field-to-result field-name="debitCreditDifference"/>
+        <field-to-result field="debitTotal"/>
+        <field-to-result field="creditTotal"/>
+        <field-to-result field="debitCreditDifference"/>
     </simple-method>
     <simple-method method-name="postAcctgTrans" short-description="Post a AcctgTrans">
         <!-- make sure the AcctgTrans has not already been posted -->
@@ -286,7 +286,7 @@ under the License.
 
         <if-compare field="parameters.verifyOnly" operator="equals" value="Y">
             <if-not-empty field="error_list">
-                <field-to-result field-name="error_list" result-name="successMessageList"/>
+                <field-to-result field="error_list" result-name="successMessageList"/>
             </if-not-empty>
             <return/>
         <else>
@@ -305,7 +305,7 @@ under the License.
                         <set field="acctgTrans.glJournalId" from-field="partyAcctgPreference.errorGlJournalId"/>
                         <store-value value-name="acctgTrans"/>
                         <set field="warningMessage[]" value="The accounting transaction [${acctgTrans.acctgTransId}] has been posted to the Error Journal [${partyAcctgPreference.errorGlJournalId}]."/>
-                        <field-to-result field-name="warningMessage" result-name="successMessageList"/>
+                        <field-to-result field="warningMessage" result-name="successMessageList"/>
                         <return/>
                     </else>
                     </if-empty>

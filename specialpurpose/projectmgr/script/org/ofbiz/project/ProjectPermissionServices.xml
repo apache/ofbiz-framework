@@ -87,13 +87,13 @@
                     </or>
                 </condition>
                 <then>
-                    <field-to-result field-name="hasPermission"/>
+                    <field-to-result field="hasPermission"/>
                     <return/>
                 </then>
                 <else>
                     <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToProject" field-name="failMessage"/>
-                    <field-to-result field-name="failMessage"/>
-                    <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
+                    <field-to-result field="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
                     <return/>
                 </else>
             </if>
@@ -129,13 +129,13 @@
                     </or>
                 </condition>
                 <then>
-                    <field-to-result field-name="hasPermission"/>
+                    <field-to-result field="hasPermission"/>
                     <return/>
                 </then>
                 <else>
                     <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToProject" field-name="failMessage"/>
-                    <field-to-result field-name="failMessage"/>
-                    <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
+                    <field-to-result field="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
                     <return/>
                 </else>
             </if>
@@ -214,14 +214,14 @@
                     </or>
                 </condition>
                 <then>
-                    <field-to-result field-name="hasPermission"/>
+                    <field-to-result field="hasPermission"/>
                     <return/>
                 </then>
                 <else>
                     <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTask" field-name="failMessage"/>
-                    <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
-                    <field-to-result field-name="failMessage"/>
-                    <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                    <field-to-result field="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
                     <return/>
                 </else>
             </if>
@@ -261,13 +261,13 @@
                     </or>
                 </condition>
                 <then>
-                    <field-to-result field-name="hasPermission"/>
+                    <field-to-result field="hasPermission"/>
                     <return/>
                 </then>
                 <else>
                     <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTimesheet" field-name="failMessage"/>
-                    <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
-                    <field-to-result field-name="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                    <field-to-result field="failMessage"/>
                     <return/>
                 </else>
             </if>
@@ -318,13 +318,13 @@
                     </or>
                 </condition>
                 <then>
-                    <field-to-result field-name="hasPermission"/>
+                    <field-to-result field="hasPermission"/>
                     <return/>
                 </then>
                 <else>
                     <property-to-field resource="ProjectMgrUiLabels" property="ProjectMgrNoAccessToTimesheet" field-name="failMessage"/>
-                    <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
-                    <field-to-result field-name="failMessage"/>
+                    <field-to-result field="hasNoPermission" result-name="hasPermission"/>
+                    <field-to-result field="failMessage"/>
                     <return/>
                 </else>
             </if>
@@ -333,8 +333,8 @@
         <!-- should never arrive here..... -->
         <log level="error" message="======ProjectMGR Security UNCHECKED ACTION=====  action: ${parameters.mainAction} object: ${sec_object} value: ${parameters.projectId}${parameters.workEffortId}${parameters.taskId}${parameters.timesheetId}${parameters.timeEntryId} resourceDescription: ${parameters.resourceDescription}"/>
         <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
-        <field-to-result field-name="failMessage"/>
-        <field-to-result field-name="hasNoPermission" result-name="hasPermission"/>
+        <field-to-result field="failMessage"/>
+        <field-to-result field="hasNoPermission" result-name="hasPermission"/>
     </simple-method>
     
     <simple-method method-name="checkProjectMembership" short-description="check if a party is member of a project, input either 'taskId', 'phaseId' or 'projectId', returns 'isMember' ">

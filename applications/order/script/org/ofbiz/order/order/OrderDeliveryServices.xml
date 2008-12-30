@@ -138,7 +138,7 @@ under the License.
         <set field="checkAction" from-field="parameters.checkAction"/>
         <set field="callingMethodName" from-field="parameters.callingMethodName"/>
         <call-simple-method method-name="checkSupplierRelatedPermission"/>
-        <field-to-result field-name="hasSupplierRelatedPermission"/>
+        <field-to-result field="hasSupplierRelatedPermission"/>
     </simple-method>
     
     <!-- Should be called in-line to use its out parameter indicating whether the user has permission or not. -->

@@ -42,7 +42,7 @@ under the License.
                 <set field="payment.paymentId" from-field="parameters.paymentId"/>
             </else>            
         </if-empty>
-        <field-to-result field-name="payment.paymentId" result-name="paymentId"/>
+        <field-to-result field="payment.paymentId" result-name="paymentId"/>
         
         <if-not-empty field="parameters.paymentMethodId">
             <entity-one entity-name="PaymentMethod" value-field="paymentMethod">
@@ -159,7 +159,7 @@ under the License.
         </if-not-empty>
 
         <sequenced-id-to-env sequence-name="PaymentApplication" env-name="paymentAppl.paymentApplicationId"/>
-        <field-to-result field-name="paymentAppl.paymentApplicationId" result-name="paymentApplicationId"/>
+        <field-to-result field="paymentAppl.paymentApplicationId" result-name="paymentApplicationId"/>
 
         <create-value value-field="paymentAppl"/>
     </simple-method>
@@ -171,7 +171,7 @@ under the License.
         </check-permission>
 
         <entity-one entity-name="Payment" value-field="payment"/>
-        <field-to-result field-name="payment.paymentId" result-name="oldStatusId"/>
+        <field-to-result field="payment.paymentId" result-name="oldStatusId"/>
         
         <if-compare-field field="payment.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-field="statusChange" auto-field-map="false">
@@ -239,8 +239,8 @@ under the License.
             <result-to-field field-name="paymentApplicationId" result-name="paymentApplicationId"/>
         </call-service>
         <check-errors/>
-        <field-to-result field-name="paymentId" result-name="paymentId"/>
-        <field-to-result field-name="paymentApplicationId" result-name="paymentApplicationId"/>
+        <field-to-result field="paymentId" result-name="paymentId"/>
+        <field-to-result field="paymentApplicationId" result-name="paymentApplicationId"/>
     </simple-method>
 
     <simple-method method-name="getInvoicePaymentInfoList" short-description="Create a list with information on payment due dates and amounts for the invoice">
@@ -346,7 +346,7 @@ under the License.
                 <set field="invoicePaymentInfoList[]" from-field="invoicePaymentInfo"/>
             </then>
         </if>
-        <field-to-result field-name="invoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
+        <field-to-result field="invoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
     </simple-method>
 
     <simple-method method-name="getInvoicePaymentInfoListByDueDateOffset" short-description="Select a list with information on payment due dates and amounts for invoices.">
@@ -385,7 +385,7 @@ under the License.
                 </if>
             </iterate>
         </iterate>
-        <field-to-result field-name="selectedInvoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
+        <field-to-result field="selectedInvoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
     </simple-method>
 
 </simple-methods>

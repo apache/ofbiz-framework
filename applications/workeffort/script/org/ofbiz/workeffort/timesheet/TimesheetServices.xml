@@ -25,7 +25,7 @@ under the License.
     <simple-method method-name="createTimesheet" short-description="Create Timesheet">
         <make-value value-field="newEntity" entity-name="Timesheet"/>
         <sequenced-id-to-env sequence-name="Timesheet" env-name="newEntity.timesheetId"/>
-        <field-to-result field-name="newEntity.timesheetId" result-name="timesheetId"/>
+        <field-to-result field="newEntity.timesheetId" result-name="timesheetId"/>
         
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.statusId">
@@ -95,7 +95,7 @@ under the License.
             <call-service service-name="createInvoice" in-map-name="createInvoiceMap">
                 <result-to-field result-name="invoiceId"/>
             </call-service>
-            <field-to-result field-name="invoiceId"/>
+            <field-to-result field="invoiceId"/>
         <else>
             <set field="invoiceId" from-field="parameters.invoiceId"/>
         </else>
@@ -120,7 +120,7 @@ under the License.
             <call-service service-name="createInvoice" in-map-name="createInvoiceMap">
                 <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
             </call-service>
-            <field-to-result field-name="parameters.invoiceId" result-name="invoiceId"/>
+            <field-to-result field="parameters.invoiceId" result-name="invoiceId"/>
         </if-empty>
         <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-empty field="invoice">
@@ -300,7 +300,7 @@ under the License.
         
         <make-value value-field="newEntity" entity-name="TimeEntry"/>
         <sequenced-id-to-env sequence-name="TimeEntry" env-name="newEntity.timeEntryId"/>
-        <field-to-result field-name="newEntity.timeEntryId" result-name="timeEntryId"/>
+        <field-to-result field="newEntity.timeEntryId" result-name="timeEntryId"/>
         
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
@@ -332,7 +332,7 @@ under the License.
     </simple-method>
     <simple-method method-name="unlinkInvoiceFromTimeEntry" short-description="Delete TimeEntry">
         <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
-        <field-to-result field-name="invoiceId" map-name="lookedUpValue"/>
+        <field-to-result field="invoiceId" map-name="lookedUpValue"/>
         <clear-field field="lookedUpValue.invoiceId"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>

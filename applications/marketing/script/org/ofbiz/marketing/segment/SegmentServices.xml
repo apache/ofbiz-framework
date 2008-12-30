@@ -30,7 +30,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="SegmentGroup"/>
         <sequenced-id-to-env sequence-name="SegmentGroup" env-name="newEntity.segmentGroupId"/>
-        <field-to-result field-name="newEntity.segmentGroupId" result-name="segmentGroupId"/>
+        <field-to-result field="newEntity.segmentGroupId" result-name="segmentGroupId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <create-value value-field="newEntity"/>
@@ -122,7 +122,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-property resource="MarketingUiLabels" property="SegmentGroupRemoveSegmentGroupRolePermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="SegmentGroupRole" value-field="lookedUpValue"/>
-<!--         <field-to-result field-name="lookedUpValue.partyId" result-name="partyId"/> -->
+<!--         <field-to-result field="lookedUpValue.partyId" result-name="partyId"/> -->
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -192,11 +192,11 @@ under the License.
             </condition>
             <then>
                 <set field="areRelated" value="N" />
-                <field-to-result field-name="areRelated"/>
+                <field-to-result field="areRelated"/>
             </then>
             <else>
                 <set field="areRelated" value="Y"/>
-                <field-to-result field-name="areRelated"/>
+                <field-to-result field="areRelated"/>
             </else>
         </if>
     </simple-method>

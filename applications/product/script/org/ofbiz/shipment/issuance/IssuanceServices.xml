@@ -31,7 +31,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ItemIssuance"/>
         <sequenced-id-to-env sequence-name="ItemIssuance" env-name="newEntity.itemIssuanceId"/>
-        <field-to-result field-name="itemIssuanceId" map-name="newEntity"/>
+        <field-to-result field="itemIssuanceId" map-name="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <now-timestamp-to-env env-name="newEntity.issuedDateTime"/>
 
@@ -197,7 +197,7 @@ under the License.
         <if-compare value="0" operator="greater-equals" field="qtyForShipmentItem" type="Double">
             <!-- remove the orderShipment.quantity -->
             <if-not-empty field="orderShipment">
-                <field-to-result field-name="orderShipment.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
+                <field-to-result field="orderShipment.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
                 <make-value entity-name="ShipmentItem" value-field="shipmentItemLookupPk"/>
                 <set-pk-fields value-field="shipmentItemLookupPk" map="parameters"/>
                 <set from-field="orderShipment.shipmentItemSeqId" field="shipmentItemLookupPk.shipmentItemSeqId"/>
@@ -219,7 +219,7 @@ under the License.
                 </calcop>
             </calculate>
             <store-value value-name="orderShipment"/>
-            <field-to-result field-name="orderShipment.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
+            <field-to-result field="orderShipment.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
             <make-value entity-name="ShipmentItem" value-field="shipmentItemLookupPk"/>
             <set-pk-fields value-field="shipmentItemLookupPk" map="parameters"/>
             <set from-field="orderShipment.shipmentItemSeqId" field="shipmentItemLookupPk.shipmentItemSeqId"/>
@@ -304,7 +304,7 @@ under the License.
             <store-value value-name="shipmentItem"/>
         </else>
         </if-empty>
-        <field-to-result field-name="shipmentItemSeqId" map-name="shipmentItem" result-name="shipmentItemSeqId"/>
+        <field-to-result field="shipmentItemSeqId" map-name="shipmentItem" result-name="shipmentItemSeqId"/>
     </simple-method>
     <simple-method method-name="callCreateItemIssuance" short-description="Call Create ItemIssuance - meant to be called in-line">
         <!-- create the ItemIssuance -->
@@ -328,7 +328,7 @@ under the License.
         <call-service service-name="createItemIssuance" in-map-name="itemIssuanceCreate">
             <result-to-field result-name="itemIssuanceId"/>
         </call-service>
-        <field-to-result field-name="itemIssuanceId"/>
+        <field-to-result field="itemIssuanceId"/>
     </simple-method>
     <simple-method method-name="associateIssueRoles" short-description="Associate Roles for ItemIssuance - meant to be called in-line">
         <!-- make sure the party is in the PACKER role -->
@@ -371,7 +371,7 @@ under the License.
         <call-service service-name="createItemIssuance" in-map-name="itemIssuanceCreate">
             <result-to-field result-name="itemIssuanceId"/>
         </call-service>
-        <field-to-result field-name="itemIssuanceId"/>
+        <field-to-result field="itemIssuanceId"/>
 
         <!-- Decrement InventoryItem quantityOnHand AND availableToPromise since there was no reservation -->
         <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
@@ -502,7 +502,7 @@ under the License.
             </else>            
         </if-compare>
         
-        <field-to-result field-name="toCancelQuantity" result-name="canceledQuantity"/>
+        <field-to-result field="toCancelQuantity" result-name="canceledQuantity"/>
     </simple-method>    
     
     <simple-method method-name="issueInventoryItemToShipment" short-description="Issue InventoryItem To Shipment">
@@ -542,7 +542,7 @@ under the License.
         <call-service service-name="createItemIssuance" in-map-name="itemIssuanceCreate">
             <result-to-field result-name="itemIssuanceId"/>
         </call-service>
-        <field-to-result field-name="itemIssuanceId"/>
+        <field-to-result field="itemIssuanceId"/>
 
         <set field="createDetailMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
         <set field="createDetailMap.itemIssuanceId" from-field="itemIssuanceId"/>

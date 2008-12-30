@@ -32,7 +32,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.createdDate"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field-name="requirementId" result-name="requirementId"/>
+        <field-to-result field="requirementId" result-name="requirementId"/>
     </simple-method>
 
     <simple-method method-name="updateRequirement" short-description="Update a requirement">
@@ -40,7 +40,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="Requirement" map="lookupPKMap" value-field="lookedUpValue"/>
         <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
-        <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
+        <field-to-result field="lookedUpValue.statusId" result-name="oldStatusId"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/> 
         <store-value value-name="lookedUpValue"/>
     </simple-method>

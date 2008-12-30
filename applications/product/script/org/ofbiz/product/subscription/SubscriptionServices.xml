@@ -28,7 +28,7 @@ under the License.
                 <set field="newEntity.subscriptionId" from-field="parameters.subscriptionId"/>
             </else>
         </if-empty>
-        <field-to-result field-name="newEntity.subscriptionId" result-name="subscriptionId"/>
+        <field-to-result field="newEntity.subscriptionId" result-name="subscriptionId"/>
         
         <!-- lookup the product subscription resource (if exists) -->
         <if-not-empty field="parameters.subscriptionResourceId">
@@ -68,25 +68,25 @@ under the License.
             <else>
                 <set field="found" value="true" type="Boolean"/>
                 <first-from-list entry="subscription" list="pfResultList"/>
-                <field-to-result field-name="subscription.subscriptionId" result-name="subscriptionId"/>
+                <field-to-result field="subscription.subscriptionId" result-name="subscriptionId"/>
             </else>
         </if-empty>
         
-        <field-to-result field-name="found" result-name="isSubscribed"/>
+        <field-to-result field="found" result-name="isSubscribed"/>
     </simple-method>
     
     <simple-method method-name="getSubscription" short-description="Get Subscription data">
         <entity-one entity-name="Subscription" value-field="subscription"/>
-        <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
+        <field-to-result field="parameters.subscriptionId" result-name="subscriptionId"/>
         <if-not-empty field="subscription">
-            <field-to-result field-name="subscription" result-name="subscription"/>
+            <field-to-result field="subscription" result-name="subscription"/>
         </if-not-empty>
     </simple-method>
 
     <simple-method method-name="createSubscriptionResource" short-description="Create a SubscriptionResource">
         <make-value entity-name="SubscriptionResource" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="SubscriptionResource" env-name="newEntity.subscriptionResourceId"/>
-        <field-to-result field-name="newEntity.subscriptionResourceId" result-name="subscriptionResourceId"/>
+        <field-to-result field="newEntity.subscriptionResourceId" result-name="subscriptionResourceId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>   
@@ -113,7 +113,7 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="updateSubscriptionAttribute" short-description="Create (when not exist) or update (when exist) a Subscription attribute">
-        <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
+        <field-to-result field="parameters.subscriptionId" result-name="subscriptionId"/>
         <entity-one entity-name="SubscriptionAttribute" value-field="lookedUpValue"/>
         <if-empty field="lookedUpValue">
             <make-value entity-name="SubscriptionAttribute" value-field="newEntity"/>
@@ -153,7 +153,7 @@ under the License.
             <then>
                 <if-has-permission permission="CATALOG_READ">
                     <set field="hasPermission" type="Boolean" value="true"/>
-                    <field-to-result field-name="hasPermission"/>
+                    <field-to-result field="hasPermission"/>
                 </if-has-permission>
             </then>
         </if>

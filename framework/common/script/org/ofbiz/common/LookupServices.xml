@@ -38,6 +38,6 @@ under the License.
         	<set value="" field="resultEntry.value"/>
         	<field-to-list field-name="resultEntry" list-name="lookupResult"/>
         </if-empty>
-        <field-to-result field-name="lookupResult"/>    
+        <field-to-result field="lookupResult"/>    
     </simple-method>       
 </simple-methods>

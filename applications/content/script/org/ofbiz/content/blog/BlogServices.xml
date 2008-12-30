@@ -160,7 +160,7 @@
             </then>
         </if>
 
-        <field-to-result field-name="contentId"/>
+        <field-to-result field="contentId"/>
     </simple-method>
 
     <simple-method method-name="getOwnedOrPublishedBlogEntries" short-description="Get blog entries that the user owns or are published">
@@ -195,6 +195,6 @@
         </iterate>
 
         <log level="info" message="blogList: ${blogList}"/>
-        <field-to-result field-name="blogList" result-name="blogList"/>
+        <field-to-result field="blogList" result-name="blogList"/>
     </simple-method>
 </simple-methods>

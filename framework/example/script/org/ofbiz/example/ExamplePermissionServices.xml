@@ -29,12 +29,12 @@ under the License.
         </if-empty>
         <if-has-permission permission="EXAMPLE" action="_${parameters.mainAction}">
             <set field="hasPermission" type="Boolean" value="true"/>
-            <field-to-result field-name="hasPermission"/>
+            <field-to-result field="hasPermission"/>
             <else>
                 <property-to-field resource="ExampleUiLabels" property="ExamplePermissionError" field-name="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
-                <field-to-result field-name="hasPermission"/>
-                <field-to-result field-name="failMessage"/>
+                <field-to-result field="hasPermission"/>
+                <field-to-result field="failMessage"/>
             </else>
         </if-has-permission>
     </simple-method>

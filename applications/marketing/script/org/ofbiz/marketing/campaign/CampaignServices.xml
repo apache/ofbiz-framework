@@ -33,7 +33,7 @@ under the License.
         
         <create-value value-field="newEntity"/>
         
-        <field-to-result field-name="newEntity.marketingCampaignId" result-name="marketingCampaignId"/>
+        <field-to-result field="newEntity.marketingCampaignId" result-name="marketingCampaignId"/>
     </simple-method>
     <simple-method method-name="updateMarketingCampaign" short-description="Update an MarketingCampaign">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateMarketingCampaign you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>

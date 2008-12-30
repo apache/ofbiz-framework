@@ -118,7 +118,7 @@
     
     <simple-method method-name="updateTaskAssigment" 
         short-description="Update task to resource assignment, if required create a new one by re-assigment">
-        <field-to-result map-name="parameters" field-name="workEffortId"/>
+        <field-to-result map-name="parameters" field="workEffortId"/>
         <if>
             <!-- check if a change in partyId Or roletypeId: need to delete and create new -->
             <condition>
@@ -239,7 +239,7 @@
                 2. call a recursive java function to set all the dependant tasks.                 
         -->
         
-        <field-to-result map-name="parameters" field-name="projectId"/>
+        <field-to-result map-name="parameters" field="projectId"/>
         
         <!-- find a starting point being either the estimated start date of a project or the earliest actual start date. -->
         <entity-condition entity-name="ProjectAndPhaseAndTask" list-name="tasks">
@@ -371,7 +371,7 @@
     </simple-method>        
     
     <simple-method method-name="updateTimeEntryByWorkeffort" short-description="Update workeffort by workeffortId and timesheetId ">
-        <field-to-result field-name="parameters.timesheetId" result-name="timesheetId"/>
+        <field-to-result field="parameters.timesheetId" result-name="timesheetId"/>
         <if-empty field="parameters.workEffortId">
             <return/>
         </if-empty>
@@ -496,12 +496,12 @@
             </else>
         </if-not-empty>
         <get-related-one value-name="phase" relation-name="ParentWorkEffort" to-value-name="project"/>
-        <field-to-result field-name="project.workEffortId" result-name="projectId"/>
-        <field-to-result field-name="project.workEffortName" result-name="projectName"/>
-        <field-to-result field-name="phase.workEffortId" result-name="phaseId"/>
-        <field-to-result field-name="phase.workEffortName" result-name="phaseName"/>
-        <field-to-result field-name="task.workEffortId" result-name="taskId"/>
-        <field-to-result field-name="task.workEffortName" result-name="taskName"/>
+        <field-to-result field="project.workEffortId" result-name="projectId"/>
+        <field-to-result field="project.workEffortName" result-name="projectName"/>
+        <field-to-result field="phase.workEffortId" result-name="phaseId"/>
+        <field-to-result field="phase.workEffortName" result-name="phaseName"/>
+        <field-to-result field="task.workEffortId" result-name="taskId"/>
+        <field-to-result field="task.workEffortName" result-name="taskName"/>
     </simple-method>
     
     <simple-method method-name="copyProjectToTemplate" short-description="copy a project to a workeffortType starting with 'template'">
@@ -515,7 +515,7 @@
         </entity-one> 
         
         <if-empty field="project">
-            <field-to-result map-name="parameters" field-name="projectId"/>
+            <field-to-result map-name="parameters" field="projectId"/>
             <add-error error-list-name="error_list"><fail-message message="Project: ${parameters.projectId} not found"/></add-error>
         </if-empty>
         <if-not-empty field="parameters.workEffortName">
@@ -586,7 +586,7 @@
                 </if-not-empty>
             </iterate>
         </if-not-empty>
-        <field-to-result field-name="newProjectId" result-name="projectId"/>
+        <field-to-result field="newProjectId" result-name="projectId"/>
     </simple-method>
     
     <simple-method method-name="getProject" short-description="get Project information" login-required="true">
@@ -662,8 +662,8 @@
         <call-simple-method method-name="createDates"/>
         
         <!-- results -->
-        <field-to-result field-name="highInfo" result-name="projectInfo"/>
-        <field-to-result field-name="parameters.projectId" result-name="projectId"/>        
+        <field-to-result field="highInfo" result-name="projectInfo"/>
+        <field-to-result field="parameters.projectId" result-name="projectId"/>        
     </simple-method>
     
     <simple-method method-name="getProjectPhaseList" short-description="get Project Phase information" login-required="true">
@@ -737,8 +737,8 @@
         </if-not-empty>
         
         <!-- results -->
-        <field-to-result field-name="phaseList"/>
-        <field-to-result field-name="parameters.projectId" result-name="projectId"/>        
+        <field-to-result field="phaseList"/>
+        <field-to-result field="parameters.projectId" result-name="projectId"/>        
     </simple-method>
     
     <simple-method method-name="getProjectTaskList" short-description="get Project Phase/task information" login-required="true">
@@ -765,8 +765,8 @@
             </iterate>
         </if-not-empty>
         <!-- results -->
-        <field-to-result field-name="taskList"/>
-        <field-to-result field-name="parameters.projectId" result-name="projectId"/>        
+        <field-to-result field="taskList"/>
+        <field-to-result field="parameters.projectId" result-name="projectId"/>        
     </simple-method>
     
     <simple-method method-name="getProjectTask" short-description="get Project task information" login-required="true">
@@ -781,7 +781,7 @@
         <call-simple-method method-name="combineInfo"/>
         <call-simple-method method-name="getHours"/>
         <set field="highInfo.currentStatusId" from-field="lowInfo.currentStatusId"/>
-        <field-to-result field-name="highInfo" result-name="taskInfo"/>
+        <field-to-result field="highInfo" result-name="taskInfo"/>
     </simple-method>
 
     <simple-method method-name="getProjectsByParties" short-description="get Project information by party member" login-required="true">
@@ -835,7 +835,7 @@
                 <field-to-list field-name="projectParty" list-name="projectParties"/>
             </if-not-empty>
             <if-not-empty field="projectParties">
-                <field-to-result field-name="projectParties"/>                                                                                       
+                <field-to-result field="projectParties"/>                                                                                       
             </if-not-empty>
         </if-not-empty>
     </simple-method>
@@ -900,7 +900,7 @@
                 <field-to-list field-name="taskParty" list-name="taskParties"/>
             </if-not-empty>
             <if-not-empty field="taskParties">
-                <field-to-result field-name="taskParties"/>                                                                                       
+                <field-to-result field="taskParties"/>                                                                                       
             </if-not-empty>
         </if-not-empty>
     </simple-method>
@@ -1277,7 +1277,7 @@
                     <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
                 </call-service>
                 <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>
-                <field-to-result field-name="parameters.invoiceId" result-name="invoiceId"/>
+                <field-to-result field="parameters.invoiceId" result-name="invoiceId"/>
                 <set field="notFirst" value="Y"/>
                 <else>
                     <if>

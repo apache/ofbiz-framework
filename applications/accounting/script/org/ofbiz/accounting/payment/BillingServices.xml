@@ -27,7 +27,7 @@ under the License.
         <sequenced-id-to-env sequence-name="BillingAccount" env-name="billingAccountId"/>
         <to-string field-name="billingAccountId"/>
         <set from-field="billingAccountId" field="newEntity.billingAccountId"/>
-        <field-to-result field-name="billingAccountId" result-name="billingAccountId"/>  
+        <field-to-result field="billingAccountId" result-name="billingAccountId"/>  
                       
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -73,7 +73,7 @@ under the License.
         <sequenced-id-to-env sequence-name="BillingAccountTerm" env-name="billingAccountTermId"/>
         <to-string field-name="billingAccountTermId"/>
         <set from-field="billingAccountTermId" field="newEntity.billingAccountTermId"/>
-        <field-to-result field-name="billingAccountTermId" result-name="billingAccountTermId"/>          
+        <field-to-result field="billingAccountTermId" result-name="billingAccountTermId"/>          
         
         <create-value value-field="newEntity"/>
     </simple-method>

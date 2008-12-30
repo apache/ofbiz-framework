@@ -24,7 +24,7 @@
     <simple-method method-name="createEnumeration" short-description="create a Enumeration">
         <make-value entity-name="Enumeration" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="Enumeration" env-name="newEntity.enumId"/> <!-- get the next sequenced ID -->
-        <field-to-result field-name="newEntity.enumId" result-name="enumId"/>
+        <field-to-result field="newEntity.enumId" result-name="enumId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>   

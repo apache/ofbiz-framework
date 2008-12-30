@@ -71,7 +71,7 @@
         </if>
 
         <log level="info" message="Permission service [${mainAction} / ${parameters.contentId}] completed; returning hasPermission = ${hasPermission}"/>
-        <field-to-result field-name="hasPermission"/>
+        <field-to-result field="hasPermission"/>
     </simple-method>
 
     <!-- DataResource View Permission -->

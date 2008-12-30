@@ -114,8 +114,8 @@
             <set field="partyDataSource.isCreate" value="Y"/>
             <create-value value-field="partyDataSource"/>
         </if-not-empty>
-        <field-to-result field-name="partyId"/>
-        <field-to-result field-name="parameters.roleTypeId" result-name="roleTypeId"/>
+        <field-to-result field="partyId"/>
+        <field-to-result field="parameters.roleTypeId" result-name="roleTypeId"/>
     </simple-method>
   
     <simple-method method-name="convertLeadToContact" short-description="Convert a lead person into a contact and associated lead group to an account">
@@ -164,8 +164,8 @@
         <set field="updatePartyCtx.partyId" from-field="parameters.partyId"/>
         <set field="updatePartyCtx.statusId" value="LEAD_CONVERTED"/>
         <call-service service-name="setPartyStatus" in-map-name="updatePartyCtx"/>   
-        <field-to-result field-name="parameters.partyId" result-name="partyId"/>
-        <field-to-result field-name="partyGroupId"/>
+        <field-to-result field="parameters.partyId" result-name="partyId"/>
+        <field-to-result field="partyGroupId"/>
         <set field="successMessage" value="Lead ${parameters.partyId} succesfully converted to contact"/>
     </simple-method>
 </simple-methods>

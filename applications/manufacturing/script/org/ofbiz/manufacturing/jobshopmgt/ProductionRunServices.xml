@@ -334,7 +334,7 @@ under the License.
 
     <simple-method method-name="issueInventoryItemToWorkEffort" short-description="Issue one InventoryItem to a WorkEffort">
         <set field="inventoryItem" from-field="parameters.inventoryItem"/>
-        <field-to-result field-name="inventoryItem.productId" result-name="finishedProductId"/>
+        <field-to-result field="inventoryItem.productId" result-name="finishedProductId"/>
         <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
             <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">
                 <!-- change status on inventoryItem -->
@@ -346,7 +346,7 @@ under the License.
                 <set field="issuanceCreateMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
                 <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
                 <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap"/>
-                <field-to-result field-name="issuanceCreateMap.quantity" result-name="quantityIssued"/>
+                <field-to-result field="issuanceCreateMap.quantity" result-name="quantityIssued"/>
             </if-compare>
         </if-compare>
         <if>
@@ -390,11 +390,11 @@ under the License.
                     <calcop field-name="deductAmount" operator="negative"/>
                 </calculate>
                 <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                <field-to-result field-name="deductAmount" result-name="quantityIssued"/>
+                <field-to-result field="deductAmount" result-name="quantityIssued"/>
             </then>
             <else>
                 <calculate field-name="deductAmount"><number value="0"/></calculate>
-                <field-to-result field-name="deductAmount" result-name="quantityIssued"/>
+                <field-to-result field="deductAmount" result-name="quantityIssued"/>
             </else>
         </if>
     </simple-method>

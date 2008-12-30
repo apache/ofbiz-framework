@@ -37,7 +37,7 @@ under the License.
         <if-empty field="newEntity.fromDate">
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
-        <field-to-result field-name="fromDate" map-name="newEntity"/>
+        <field-to-result field="fromDate" map-name="newEntity"/>
 
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -80,7 +80,7 @@ under the License.
         <sequenced-id-to-env sequence-name="ProductConfigItem" env-name="newEntity.configItemId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field-name="configItemId" map-name="newEntity"/>
+        <field-to-result field="configItemId" map-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductConfigItem" short-description="Update a Config Item">
         <check-permission action="_UPDATE" permission="CATALOG">
@@ -114,8 +114,8 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductConfigOption" env-name="newEntity.configOptionId"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field-name="newEntity.configItemId" result-name="configItemId"/>
-        <field-to-result field-name="newEntity.configOptionId" result-name="configOptionId"/>
+        <field-to-result field="newEntity.configItemId" result-name="configItemId"/>
+        <field-to-result field="newEntity.configOptionId" result-name="configOptionId"/>
     </simple-method>
     <simple-method method-name="updateProductConfigOption" short-description="Update a Config Option">
         <check-permission action="_UPDATE" permission="CATALOG">

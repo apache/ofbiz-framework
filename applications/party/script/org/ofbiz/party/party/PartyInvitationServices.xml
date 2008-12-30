@@ -25,7 +25,7 @@ under the License.
     <simple-method method-name="createPartyInvitation" short-description="Create a PartyInvitation">
         <make-value entity-name="PartyInvitation" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="PartyInvitation" env-name="newEntity.partyInvitationId"/>
-        <field-to-result field-name="newEntity.partyInvitationId" result-name="partyInvitationId"/>
+        <field-to-result field="newEntity.partyInvitationId" result-name="partyInvitationId"/>
         <if-not-empty field="parameters.partyId">
             <entity-one entity-name="Person" value-field="person" auto-field-map="false">
                 <field-map field-name="partyId" from-field="parameters.partyId"/>

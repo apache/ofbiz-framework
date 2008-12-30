@@ -28,7 +28,7 @@ under the License.
         <sequenced-id-to-env sequence-name="Facility" env-name="facilityId"/>
         <to-string field-name="facilityId"/>
         <set field="newEntity.facilityId" from-field="facilityId" />
-        <field-to-result field-name="facilityId" result-name="facilityId"/>
+        <field-to-result field="facilityId" result-name="facilityId"/>
         
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -85,7 +85,7 @@ under the License.
             <to-string field-name="locationSeqId"/>
         </if-empty>
         <set field="newEntity.locationSeqId" from-field="locationSeqId" />
-        <field-to-result field-name="locationSeqId" result-name="locationSeqId"/>
+        <field-to-result field="locationSeqId" result-name="locationSeqId"/>
         
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -111,7 +111,7 @@ under the License.
         <sequenced-id-to-env sequence-name="FacilityGroup" env-name="facilityGroupId"/>
         <to-string field-name="facilityGroupId"/>
         <set field="newEntity.facilityGroupId" from-field="facilityGroupId" />
-        <field-to-result field-name="facilityGroupId" result-name="facilityGroupId"/>
+        <field-to-result field="facilityGroupId" result-name="facilityGroupId"/>
         
         <create-value value-field="newEntity"/>
     </simple-method>

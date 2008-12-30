@@ -30,7 +30,7 @@ under the License.
         </if-empty>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <create-value value-field="newValue"/>
-        <field-to-result map-name="newValue" field-name="contactMechId"/>
+        <field-to-result map-name="newValue" field="contactMechId"/>
         <field-to-request map-name="newValue" field-name="contactMechId"/>
         <log level="info" message="Contact mech created with id ${newValue.contactMechId}"/>     
     </simple-method>
@@ -74,11 +74,11 @@ under the License.
                 <default-message resource="PartyUiLabels" property="${successMessageProperty}"/>
                 <result-to-field result-name="contactMechId" map-name="newValue"/>
             </call-service>                                        
-            <field-to-result map-name="newValue" field-name="contactMechId"/>
+            <field-to-result map-name="newValue" field="contactMechId"/>
             <field-to-request map-name="newValue" field-name="contactMechId"/> 
             <else>
                 <log level="info" message="Contact mech not changed"/>
-                <field-to-result map-name="oldValue" field-name="contactMechId"/>
+                <field-to-result map-name="oldValue" field="contactMechId"/>
                 <field-to-request map-name="oldValue" field-name="contactMechId"/>
             </else>            
         </if-compare-field>
@@ -108,7 +108,7 @@ under the License.
         </call-service>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <create-value value-field="newValue"/>   
-        <field-to-result map-name="newValue" field-name="contactMechId"/>
+        <field-to-result map-name="newValue" field="contactMechId"/>
         <field-to-request map-name="newValue" field-name="contactMechId"/>             
     </simple-method>
     
@@ -158,8 +158,8 @@ under the License.
             </else>        
         </if-compare-field>    
         <field-to-request map-name="newValue" field-name="contactMechId" request-name="contactMechId"/>
-        <field-to-result map-name="parameters" field-name="contactMechId" result-name="oldContactMechId"/>
-        <field-to-result map-name="newValue" field-name="contactMechId" result-name="contactMechId"/>
+        <field-to-result map-name="parameters" field="contactMechId" result-name="oldContactMechId"/>
+        <field-to-result map-name="newValue" field="contactMechId" result-name="contactMechId"/>
     </simple-method>
     
     <simple-method method-name="createTelecomNumber" short-description="Create Contact Mechanism with Telecom Number">
@@ -171,7 +171,7 @@ under the License.
         </call-service>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <create-value value-field="newValue"/>   
-        <field-to-result map-name="newValue" field-name="contactMechId"/>
+        <field-to-result map-name="newValue" field="contactMechId"/>
         <field-to-request map-name="newValue" field-name="contactMechId"/>             
     </simple-method>
      
@@ -204,8 +204,8 @@ under the License.
                 </if-compare-field>            
             </else>        
         </if-compare-field>    
-        <field-to-result map-name="newValue" field-name="contactMechId" result-name="contactMechId"/>
-        <field-to-result map-name="parameters" field-name="contactMechId" result-name="oldContactMechId"/>
+        <field-to-result map-name="newValue" field="contactMechId" result-name="contactMechId"/>
+        <field-to-result map-name="parameters" field="contactMechId" result-name="oldContactMechId"/>
     </simple-method>
     
     <simple-method method-name="createEmailAddress" short-description="Create an email address contact mechanism">

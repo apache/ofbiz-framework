@@ -85,6 +85,6 @@ under the License.
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="productFeatureId" from-field="parameters.productFeatureId"/>
         </entity-and>
-        <field-to-result field-name="supplierProductFeatures"/>
+        <field-to-result field="supplierProductFeatures"/>
     </simple-method>
 </simple-methods>

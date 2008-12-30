@@ -151,7 +151,7 @@ under the License.
 
                 <if-not-empty field="roleParties">
                     <set field="hasPermission" type="Boolean" value="true"/>
-                    <field-to-result field-name="hasPermission"/>
+                    <field-to-result field="hasPermission"/>
                     <log level="info" message="Party ${userLogin.partyId} is in ${lookupRoleWorkEffortMap.roleTypeId} role with workEffort: ${workEffortId}"/>
                     <clear-field field="workEffortId"/>
 
@@ -159,8 +159,8 @@ under the License.
                         <log level="info" message="Party ${userLogin.partyId} is not in ${roleTypeId} role with workEffort: ${workEffortId}"/>
                         <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field-name="failMessage"/>
                         <set field="hasPermission" type="Boolean" value="false"/>
-                        <field-to-result field-name="hasPermission"/>
-                        <field-to-result field-name="failMessage"/>
+                        <field-to-result field="hasPermission"/>
+                        <field-to-result field="failMessage"/>
 
                         <!-- recurse through all parents -->
                         <set field="workEffortLookUpMap.workEffortId" from-field="workEffortId"/>
@@ -192,7 +192,7 @@ under the License.
 
                 <if-not-empty field="roleParties">
                     <set field="hasPermission" type="Boolean" value="true"/>
-                    <field-to-result field-name="hasPermission"/>
+                    <field-to-result field="hasPermission"/>
                     <log level="info" message="Party ${userLogin.partyId} is associated with workEffort: ${workEffortId}"/>
                     <clear-field field="workEffortId"/>
 
@@ -200,8 +200,8 @@ under the License.
                         <log level="info" message="Party ${userLogin.partyId} is not associated with workEffort: ${workEffortId}"/>
                         <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field-name="failMessage"/>
                         <set field="hasPermission" type="Boolean" value="false"/>
-                        <field-to-result field-name="hasPermission"/>
-                        <field-to-result field-name="failMessage"/>
+                        <field-to-result field="hasPermission"/>
+                        <field-to-result field="failMessage"/>
 
                         <!-- recurse through all parents -->
                         <set field="workEffortLookUpMap.workEffortId" from-field="workEffortId"/>
@@ -224,8 +224,8 @@ under the License.
         <if-compare-field operator="not-equals" field="parameters.partyId" to-field="userLogin.partyId">
             <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field-name="failMessage"/>
             <set field="hasPermission" type="Boolean" value="false"/>
-            <field-to-result field-name="hasPermission"/>
-            <field-to-result field-name="failMessage"/>
+            <field-to-result field="hasPermission"/>
+            <field-to-result field="failMessage"/>
         </if-compare-field>
         <if-not-empty field="workEffortId">
             <set from-field="workEffortId" field="lookupRoleWorkEffortMap.workEffortId"/>
@@ -235,8 +235,8 @@ under the License.
             <if-empty field="roleParties">
                 <property-to-field resource="WorkEffortUiLabels" property="WorkEffortTimeSheetNotInRolePermissionError" field-name="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
-                <field-to-result field-name="hasPermission"/>
-                <field-to-result field-name="failMessage"/>
+                <field-to-result field="hasPermission"/>
+                <field-to-result field="failMessage"/>
             </if-empty>
         </if-not-empty>
     </simple-method>
@@ -279,7 +279,7 @@ under the License.
                         <log level="always" message="Found role parties relations: ${partyGroupRelationships}"/>
                         <if-not-empty field="partyGroupRelationships">
                             <set field="hasPermission" type="Boolean" value="true"/>
-                            <field-to-result field-name="hasPermission"/>
+                            <field-to-result field="hasPermission"/>
                             <log level="info" message="Party ${userLogin.partyId} is associated with workEffort: ${workEffortId}"/>                            
                         </if-not-empty>                                    
                     </iterate>                    
@@ -288,8 +288,8 @@ under the License.
                     <log level="info" message="Party ${userLogin.partyId} is not associated with workEffort: ${workEffortId}"/>
                     <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field-name="failMessage"/>
                     <set field="hasPermission" type="Boolean" value="false"/>
-                    <field-to-result field-name="hasPermission"/>
-                    <field-to-result field-name="failMessage"/>
+                    <field-to-result field="hasPermission"/>
+                    <field-to-result field="failMessage"/>
                     <!-- recurse through all parents -->
                     <set field="workEffortLookUpMap.workEffortId" from-field="workEffortId"/>
                     <find-by-primary-key entity-name="WorkEffort" map="workEffortLookUpMap" value-field="workEffortParent"/>

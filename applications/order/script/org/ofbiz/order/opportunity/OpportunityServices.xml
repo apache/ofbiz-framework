@@ -44,7 +44,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <call-simple-method method-name="saveSalesForecastHistory"/>
 
         <!-- return the ID -->
-        <field-to-result result-name="salesForecastId" field-name="salesForecastId"/>
+        <field-to-result result-name="salesForecastId" field="salesForecastId"/>
     </simple-method>
 
     <simple-method method-name="updateSalesForecast" short-description="Updates a sales forecast and stores a copy in sales forecast history.">
@@ -86,7 +86,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     <simple-method method-name="createSalesForecastDetail" short-description="Creates a sales forecast detail">
         <make-value entity-name="SalesForecastDetail" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="SalesForecastDetail" env-name="newEntity.salesForecastDetailId"/>
-        <field-to-result field-name="newEntity.salesForecastDetailId" result-name="salesForecastDetailId"/>
+        <field-to-result field="newEntity.salesForecastDetailId" result-name="salesForecastDetailId"/>
         <set-pk-fields map="parameters" value-field="newEntity"/> 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>

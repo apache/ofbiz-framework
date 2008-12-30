@@ -62,7 +62,7 @@ under the License.
     <simple-method method-name="convertUom" short-description="Convert UOM values" login-required="false">
         <!-- base case: if both uomIds are the same, return the original value -->
         <if-compare-field field="parameters.uomId" to-field="parameters.uomIdTo" operator="equals">
-            <field-to-result field-name="parameters.originalValue" result-name="convertedValue"/>
+            <field-to-result field="parameters.originalValue" result-name="convertedValue"/>
             <return/>
         </if-compare-field>
 
@@ -153,7 +153,7 @@ under the License.
         </if-empty>  <!-- no UomConversion or UomConversionDated found -->
         
         <!-- all done -->
-        <field-to-result field-name="convertedValue"/>
+        <field-to-result field="convertedValue"/>
         
         <log level="verbose" message="Uom conversion of [${parameters.originalValue}] from [${parameters.uomId}] to [${parameters.uomIdTo}] using conversion factor [${uomConversion.conversionFactor}], result is [${convertedValue}]"/>
     </simple-method>
@@ -179,19 +179,19 @@ under the License.
         <set field="uploadProgressListener" from-field="parameters.uploadProgressListener"/>
         <if-not-empty field="uploadProgressListener">
             <call-object-method obj-field-name="uploadProgressListener" method-name="getContentLength" ret-field-name="parameters.contentLength"/>
-            <field-to-result field-name="parameters.contentLength" result-name="contentLength"/>
+            <field-to-result field="parameters.contentLength" result-name="contentLength"/>
             <call-object-method obj-field-name="uploadProgressListener" method-name="getBytesRead" ret-field-name="parameters.bytesRead"/>
-            <field-to-result field-name="parameters.bytesRead" result-name="bytesRead"/>
+            <field-to-result field="parameters.bytesRead" result-name="bytesRead"/>
             <call-object-method obj-field-name="uploadProgressListener" method-name="hasStarted" ret-field-name="parameters.hasStarted"/>
-            <field-to-result field-name="parameters.hasStarted" result-name="hasStarted"/>
+            <field-to-result field="parameters.hasStarted" result-name="hasStarted"/>
             <call-bsh><![CDATA[
                 contentLength = parameters.get("contentLength");
                 bytesRead = parameters.get("bytesRead");
                 int readPercent = (bytesRead* 100)/contentLength;
                 parameters.put("readPercent", readPercent);
             ]]></call-bsh>
-            <field-to-result field-name="parameters.readPercent" result-name="readPercent"/>
-            <field-to-result field-name="parameters.hasStarted" result-name="hasStarted"/>
+            <field-to-result field="parameters.readPercent" result-name="readPercent"/>
+            <field-to-result field="parameters.hasStarted" result-name="hasStarted"/>
         </if-not-empty>
     </simple-method>
 
@@ -222,6 +222,6 @@ under the License.
                 </else>
             </if-empty>
         </iterate>
-        <field-to-result field-name="themeResources"/>
+        <field-to-result field="themeResources"/>
     </simple-method>
 </simple-methods>

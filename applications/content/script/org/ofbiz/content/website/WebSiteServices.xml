@@ -116,7 +116,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="WebSitePathAlias"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="WebSitePathAlias" map="lookupPKMap" value-field="alias" use-cache="true"/>
-        <field-to-result field-name="alias.pathTo" result-name="pathTo"/>
+        <field-to-result field="alias.pathTo" result-name="pathTo"/>
     </simple-method>
 
     <!-- WebSite Role Services -->
