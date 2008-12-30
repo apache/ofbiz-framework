@@ -29,7 +29,7 @@
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <field-to-result field-name="newEntity.partyId" result-name="partyId"/>
         <field-to-result field-name="newEntity.partyQualTypeId" result-name="partyQualTypeId"/>
         <field-to-result field-name="newEntity.fromDate" result-name="fromDate"/>
@@ -39,7 +39,7 @@
     <!-- Ability Group -->    
      <simple-method method-name="updatePartyQual" short-description="Update Qualification of a Party">        
         <entity-one entity-name="PartyQual" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>        
     
@@ -50,7 +50,7 @@
     
     <simple-method method-name="createPartyResume" short-description="Create Resume for Party">                
         <make-value entity-name="PartyResume" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>                
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>                
         <sequenced-id-to-env sequence-name="PartyResume" env-name="newEntity.resumeId"/>        
         <field-to-result field-name="resumeId" result-name="resumeId"/>
         <create-value value-name="newEntity"/>
@@ -58,7 +58,7 @@
     
     <simple-method method-name="updatePartyResume" short-description="Update a Resume of a Party">        
         <entity-one entity-name="PartyResume" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>        
     
@@ -70,7 +70,7 @@
     <simple-method method-name="createPartySkill" short-description="Create Party Skills">
         <make-value entity-name="PartySkill" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <entity-one entity-name="PartySkill" value-name="partySkill" auto-field-map="true"/>
         <if>
             <condition>
@@ -93,7 +93,7 @@
         
     <simple-method method-name="updatePartySkill" short-description="Update Party Skills">        
         <entity-one entity-name="PartySkill" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
         
@@ -105,7 +105,7 @@
     <simple-method method-name="createPerfReview" short-description="Create a Performance Review">
         <make-value entity-name="PerfReview" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="PerfReview" env-name="newEntity.perfReviewId"/>
         <field-to-result field-name="perfReviewId" result-name="perfReviewId"/>
         <create-value value-name="newEntity"/>        
@@ -113,7 +113,7 @@
     
     <simple-method method-name="updatePerfReview" short-description="Update Performance Review">
         <entity-one entity-name="PerfReview" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
        
@@ -125,7 +125,7 @@
     <simple-method method-name="createPerfReviewItem" short-description="Create Performance Review Items">
         <make-value entity-name="PerfReviewItem" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>        
         <sequenced-id-to-env sequence-name="PerfReviewItem" env-name="newEntity.perfReviewItemSeqId"/>
         <field-to-result field-name="perfReviewItemSeqId" result-name="perfReviewItemSeqId"/>
         <create-value value-name="newEntity"/>
@@ -133,7 +133,7 @@
     
     <simple-method method-name="updatePerfReviewItem" short-description="Update Performance Review Items">        
         <entity-one entity-name="PerfReviewItem" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -145,7 +145,7 @@
     <simple-method method-name="createPerformanceNote" short-description="Create Performance Note">
         <make-value entity-name="PerformanceNote" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -155,7 +155,7 @@
     
     <simple-method method-name="updatePerformanceNote" short-description="Update Performance Note">
         <entity-one entity-name="PerformanceNote" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
         
@@ -167,7 +167,7 @@
     <simple-method method-name="createPersonTraining" short-description="Create Person Training">           
         <make-value entity-name="PersonTraining" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -177,7 +177,7 @@
         
     <simple-method method-name="updatePersonTraining" short-description="Update a Person Training">       
         <entity-one entity-name="PersonTraining" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
          
@@ -190,7 +190,7 @@
     <simple-method method-name="createEmployment" short-description="Create Employment">
         <make-value entity-name="Employment" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -203,7 +203,7 @@
     
     <simple-method method-name="updateEmployment" short-description="Update Employment">
         <entity-one entity-name="Employment" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
         
@@ -214,7 +214,7 @@
         
     <simple-method method-name="createEmploymentApp" short-description="Create an Employment Application">
         <make-value entity-name="EmploymentApp" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>        
         <sequenced-id-to-env sequence-name="EmploymentApp" env-name="newEntity.applicationId"/>
         <field-to-result field-name="newEntity.applicationId" result-name="applicationId"/>        
         <create-value value-name="newEntity"/>
@@ -222,7 +222,7 @@
         
     <simple-method method-name="updateEmploymentApp" short-description="Update EmploymentApp">
         <entity-one entity-name="EmploymentApp" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
         
@@ -234,7 +234,7 @@
     <simple-method method-name="createPartyBenefit" short-description="Create Party Benefit">
         <make-value entity-name="PartyBenefit" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -244,7 +244,7 @@
         
     <simple-method method-name="updatePartyBenefit" short-description="Update Party Benefit">
         <entity-one entity-name="PartyBenefit" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
         
@@ -258,7 +258,7 @@
         
     <simple-method method-name="createPayGrade" short-description="Create a Pay Grade">
         <make-value entity-name="PayGrade" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-not-empty field="parameters.payGradeId">
             <set field="newEntity.payGradeId" from-field="parameters.payGradeId"/>
         <else>
@@ -271,7 +271,7 @@
         
     <simple-method method-name="updatePayGrade" short-description="Update Pay Grade">
         <entity-one entity-name="PayGrade" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
         
@@ -283,7 +283,7 @@
     <simple-method method-name="createPayHistory" short-description="Create Pay History">
         <make-value entity-name="PayHistory" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -293,7 +293,7 @@
         
     <simple-method method-name="updatePayHistory" short-description="Update Pay History">
         <entity-one entity-name="PayHistory" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
         
@@ -308,7 +308,7 @@
     <simple-method method-name="createPayrollPreference" short-description="Create a Payroll Preference">
         <make-value entity-name="PayrollPreference" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="PayrollPreference" env-name="newEntity.payrollPreferenceSeqId"/>
         <field-to-result field-name="payrollPreferenceSeqId" result-name="payrollPreferenceSeqId"/>
         <create-value value-name="newEntity"/>
@@ -316,7 +316,7 @@
     
     <simple-method method-name="updatePayrollPreference" short-description="Update Payroll Preference">
         <entity-one entity-name="PayrollPreference" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
        
@@ -328,7 +328,7 @@
     <simple-method method-name="createSalaryStep" short-description="Create a Salary Step">
         <make-value entity-name="SalaryStep" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>        
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>        
         <sequenced-id-to-env sequence-name="SalaryStep" env-name="newEntity.salaryStepSeqId"/>
         <field-to-result field-name="salaryStepSeqId" result-name="salaryStepSeqId"/>
         <create-value value-name="newEntity"/>
@@ -336,7 +336,7 @@
     
     <simple-method method-name="updateSalaryStep" short-description="Update Salary Step">
         <entity-one entity-name="SalaryStep" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -347,7 +347,7 @@
     
     <simple-method method-name="createTerminationReason" short-description="Create a Termination Reason">
         <make-value entity-name="TerminationReason" value-field="newEntity"/>        
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>               
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>               
         <sequenced-id-to-env sequence-name="TerminationReason" env-name="newEntity.terminationReasonId"/>
         <field-to-result field-name="newEntity.terminationReasonId" result-name="terminationReasonId"/>
         <create-value value-name="newEntity"/>        
@@ -355,7 +355,7 @@
     
     <simple-method method-name="updateTerminationReason" short-description="Update Termination Reason">
         <entity-one entity-name="TerminationReason" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -366,7 +366,7 @@
     
     <simple-method method-name="createUnemploymentClaim" short-description="Create a Unemployment Claim">
         <make-value entity-name="UnemploymentClaim" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="UnemploymentClaim" env-name="newEntity.unemploymentClaimId"/>
         <field-to-result field-name="newEntity.unemploymentClaimId" result-name="unemploymentClaimId"/>
         <create-value value-name="newEntity"/>        
@@ -374,7 +374,7 @@
     
     <simple-method method-name="updateUnemploymentClaim" short-description="Update Unemployment Claim">
         <entity-one entity-name="UnemploymentClaim" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -388,7 +388,7 @@
     <!-- Employee Position Group -->
     <simple-method method-name="createEmplPosition" short-description="Create a Employee Position">
         <make-value entity-name="EmplPosition" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>        
         <sequenced-id-to-env sequence-name="EmplPosition" env-name="newEntity.emplPositionId"/>        
         <field-to-result field-name="newEntity.emplPositionId" result-name="emplPositionId"/>
         <create-value value-name="newEntity"/>        
@@ -396,7 +396,7 @@
     
     <simple-method method-name="updateEmplPosition" short-description="Update Employee Position">
         <entity-one entity-name="EmplPosition" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -408,7 +408,7 @@
     <simple-method method-name="createEmplPositionFulfillment" short-description="Create a Emplyoee Position Fulfillment">
         <make-value entity-name="EmplPositionFulfillment" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -418,7 +418,7 @@
     
     <simple-method method-name="updateEmplPositionFulfillment" short-description="Update Employee Position Fulfillment">
         <entity-one entity-name="EmplPositionFulfillment" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -430,7 +430,7 @@
     <simple-method method-name="createEmplPositionReportingStruct" short-description="Create a Employee Position Reporting Structure">
         <make-value entity-name="EmplPositionReportingStruct" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -453,7 +453,7 @@
 
     <simple-method method-name="updateEmplPositionReportingStruct" short-description="Update Employee Position Reporting Structure">
         <entity-one entity-name="EmplPositionReportingStruct" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -465,7 +465,7 @@
     <simple-method method-name="createEmplPositionResponsibility" short-description="Create a Employee Position Responsibility">
         <make-value entity-name="EmplPositionResponsibility" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -475,7 +475,7 @@
     
     <simple-method method-name="updateEmplPositionResponsibility" short-description="Update Employee Position Responsibility">
         <entity-one entity-name="EmplPositionResponsibility" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -487,7 +487,7 @@
     <simple-method method-name="createValidResponsibility" short-description="Create a Valid Responsibility">
         <make-value entity-name="ValidResponsibility" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -497,7 +497,7 @@
     
     <simple-method method-name="updateValidResponsibility" short-description="Update Valid Responsibility">
         <entity-one entity-name="ValidResponsibility" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -508,7 +508,7 @@
     <!-- Skill Types -->
     <simple-method method-name="createSkillType" short-description="Create a SkillType">
         <make-value entity-name="SkillType" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>        
         <sequenced-id-to-env sequence-name="SkillType" env-name="newEntity.skillTypeId"/>        
         <field-to-result field-name="newEntity.skillTypeId" result-name="skillTypeId"/>
         <create-value value-name="newEntity"/>        
@@ -516,7 +516,7 @@
     
     <simple-method method-name="updateSkillType" short-description="Update SkillType">
         <entity-one entity-name="SkillType" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -549,7 +549,7 @@
     <simple-method method-name="createResponsibilityType" short-description="Create a ResponsibilityType">
         <make-value entity-name="ResponsibilityType" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.responsibilityTypeId">
             <sequenced-id-to-env sequence-name="ResponsibilityType" env-name="newEntity.responsibilityTypeId"/>
         </if-empty>
@@ -559,7 +559,7 @@
     
     <simple-method method-name="updateResponsibilityType" short-description="Update ResponsibilityType">
         <entity-one entity-name="ResponsibilityType" value-name="lookedUpValue"/>
-        <set-nonpk-fields  map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields  map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -570,7 +570,7 @@
     
     <simple-method method-name="createTerminationType" short-description="Create a TerminationType">
         <make-value entity-name="TerminationType" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.terminationTypeId">      
         <sequenced-id-to-env sequence-name="TerminationType" env-name="newEntity.terminationTypeId"/>
         </if-empty>        
@@ -580,7 +580,7 @@
     
     <simple-method method-name="updateTerminationType" short-description="Update TerminationType">
         <entity-one entity-name="TerminationType" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -591,7 +591,7 @@
     
     <simple-method method-name="createEmplPositionType" short-description="Create a PositionType">
         <make-value entity-name="EmplPositionType" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.emplPositionTypeId">      
             <sequenced-id-to-env sequence-name="EmplPositionType" env-name="newEntity.emplPositionTypeId"/>
         </if-empty>        
@@ -601,7 +601,7 @@
     
     <simple-method method-name="updateEmplPositionType" short-description="Update PositionType">
         <entity-one entity-name="EmplPositionType" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -621,7 +621,7 @@
         <make-value value-field="newEntity" entity-name="EmplPositionTypeRate"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
         
         <if-not-empty field="parameters.rateAmount">
@@ -643,14 +643,14 @@
     <simple-method method-name="createAgreementEmploymentAppl" short-description="Create Agreement Employment Appl">
         <make-value entity-name="AgreementEmploymentAppl" value-field="agreementEmploymentAppl"/>
         <set-pk-fields value-field="agreementEmploymentAppl" map="parameters"/>
-        <set-nonpk-fields value-name="agreementEmploymentAppl" map-name="parameters"/>        
+        <set-nonpk-fields value-field="agreementEmploymentAppl" map="parameters"/>        
         <create-value value-name="agreementEmploymentAppl"/>
         <check-errors/>
     </simple-method>
     
     <simple-method method-name="updateAgreementEmploymentAppl" short-description="update an Agreement Employment Appl">
         <entity-one entity-name="AgreementEmploymentAppl" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -661,21 +661,21 @@
         <simple-method method-name="createEmplLeave" short-description="Create Employee Leave">
         <make-value entity-name="EmplLeave" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
     </simple-method>
     
     <simple-method method-name="updateEmplLeave" short-description="Update Employee Leave">
         <entity-one entity-name="EmplLeave" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createEmplLeaveType" short-description="Create a LeaveType">
         <make-value entity-name="EmplLeaveType" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.leaveTypeId">
             <sequenced-id-to-env sequence-name="EmplLeaveType" env-name="newEntity.leaveTypeId"/>
         </if-empty>        
@@ -685,7 +685,7 @@
     
     <simple-method method-name="updateEmplLeaveType" short-description="Update leaveType">
         <entity-one entity-name="EmplLeaveType" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     

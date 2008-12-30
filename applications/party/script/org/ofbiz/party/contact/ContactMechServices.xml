@@ -28,7 +28,7 @@ under the License.
                 <set field="newValue.contactMechId" from-field="parameters.contactMechId"/>
             </else>
         </if-empty>
-        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
         <create-value value-name="newValue"/>
         <field-to-result map-name="newValue" field-name="contactMechId"/>
         <field-to-request map-name="newValue" field-name="contactMechId"/>
@@ -67,7 +67,7 @@ under the License.
         <if-compare-field to-field="oldValue.infoString" field="parameters.infoString" operator="not-equals">
              <log level="info" message="Contact mech need updating"/> 
             <clone-value value-name="oldValue" new-value-name="newValue"/>
-            <set-nonpk-fields map-name="parameters" value-name="newValue" set-if-null="false"/>
+            <set-nonpk-fields map="parameters" value-field="newValue" set-if-null="false"/>
             <set field="context.contactMechTypeId" from-field="parameters.contactMechTypeId"/>
             <set field="context.infoString" from-field="parameters.infoString"/>
             <call-service service-name="createContactMech" in-map-name="context">
@@ -106,7 +106,7 @@ under the License.
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
             <result-to-field result-name="contactMechId" map-name="newValue"/>
         </call-service>
-        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
         <create-value value-name="newValue"/>   
         <field-to-result map-name="newValue" field-name="contactMechId"/>
         <field-to-request map-name="newValue" field-name="contactMechId"/>             
@@ -131,7 +131,7 @@ under the License.
         <make-value entity-name="PostalAddress" value-field="newValue"/>
         <set-pk-fields value-field="newValue" map="parameters"/>
         <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue" />
-        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
           
         <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
         
@@ -169,7 +169,7 @@ under the License.
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
             <result-to-field result-name="contactMechId" map-name="newValue"/>
         </call-service>
-        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
         <create-value value-name="newValue"/>   
         <field-to-result map-name="newValue" field-name="contactMechId"/>
         <field-to-request map-name="newValue" field-name="contactMechId"/>             
@@ -179,7 +179,7 @@ under the License.
         <make-value entity-name="TelecomNumber" value-field="newValue"/>
         <set-pk-fields value-field="newValue" map="parameters"/>
         <find-by-primary-key entity-name="TelecomNumber" map="newValue" value-field="oldValue" />
-        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
         <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
         
         <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
@@ -251,12 +251,12 @@ under the License.
     <simple-method method-name="createContactMechAttribute" short-description="createContactMechAttribute">
         <make-value value-field="newEntity" entity-name="ContactMechAttribute"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContactMechAttribute" short-description="updateContactMechAttribute">
         <entity-one entity-name="ContactMechAttribute" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContactMechAttribute" short-description="removeContactMechAttribute">

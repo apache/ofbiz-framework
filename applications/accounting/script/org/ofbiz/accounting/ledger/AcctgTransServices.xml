@@ -23,7 +23,7 @@ under the License.
     <!-- ========= AcctgTrans methods ========= -->
     <simple-method method-name="createAcctgTrans" short-description="Create an AcctgTrans">
         <make-value entity-name="AcctgTrans" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.isPosted" value="N"/>
 
         <!-- AcctgTrans uses a sequenced id, so get the next one now and set it... -->        
@@ -41,7 +41,7 @@ under the License.
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
             <check-errors/>    
         </if-compare>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
         
@@ -65,7 +65,7 @@ under the License.
     <!-- ========= AcctgTransEntry methods ========= -->
     <simple-method method-name="createAcctgTransEntry" short-description="Add Entry To AcctgTrans">
         <make-value entity-name="AcctgTransEntry" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
@@ -125,7 +125,7 @@ under the License.
             <check-errors/>    
         </if-compare>
         <entity-one entity-name="AcctgTransEntry" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
 
         <!-- when changing entries, also update the last modified info for the AcctgTrans -->

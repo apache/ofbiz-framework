@@ -123,7 +123,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <make-value value-field="newEntity" entity-name="Invoice"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- call getNextInvoiceId service with the parameters.partyIdFrom when invoice Id is not suplied
                             else use it from the input -->
@@ -210,7 +210,7 @@ under the License.
         <!-- only try to update content if the status is in process.... -->
         <if-compare field="lookedUpValue.statusId" operator="equals" value="INVOICE_IN_PROCESS">
             <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
-            <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+            <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
             <!-- only save if something has changed, do not update status here -->
             <set from-field="savedValue.statusId" field="lookedUpValue.statusId"/>  <!-- get old status back -->
@@ -250,7 +250,7 @@ under the License.
         <call-simple-method method-name="InvoiceStatusInProgress"/>
         <make-value value-field="newEntity" entity-name="InvoiceItem"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.invoiceItemSeqId">
             <make-next-seq-id value-name="newEntity" seq-field-name="invoiceItemSeqId"/> <!-- this finds the next sub-sequence ID -->
             <field-to-result field-name="newEntity.invoiceItemSeqId" result-name="invoiceItemSeqId"/>
@@ -289,7 +289,7 @@ under the License.
         <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
 
         <!-- set all parameters -->
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <!-- check if the productNumber is updated, when yes retrieve product description and price -->
         <if-not-empty field="productId">
@@ -421,7 +421,7 @@ under the License.
     <simple-method method-name="createInvoiceRole" short-description="Create a Invoice Role">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
         <make-value value-field="newEntity" entity-name="InvoiceRole"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.datetimePerformed"><now-timestamp-to-env env-name="newEntity.datetimePerformed"/></if-empty>
         <create-value value-name="newEntity"/>
@@ -474,7 +474,7 @@ under the License.
                 <store-value value-name="invoice"/>
 
                 <make-value value-field="newEntity" entity-name="InvoiceStatus"/>
-                <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+                <set-nonpk-fields map="parameters" value-field="newEntity"/>
                 <set-pk-fields map="parameters" value-field="newEntity"/>
 
                 <if-empty field="newEntity.statusDate">
@@ -504,7 +504,7 @@ under the License.
         <call-simple-method method-name="InvoiceStatusInProgress"/>
 
         <make-value value-field="newEntity" entity-name="InvoiceTerm"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id-to-env sequence-name="InvoiceTerm" env-name="newEntity.invoiceTermId"/>
         <field-to-result field-name="newEntity.invoiceTermId" result-name="invoiceTermId"/>
@@ -548,7 +548,7 @@ under the License.
     
     <simple-method method-name="updateInvoiceItemType"  short-description="Updates a InvoiceItemType Record">
         <entity-one entity-name="InvoiceItemType" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
    </simple-method>
 

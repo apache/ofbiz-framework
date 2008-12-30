@@ -169,7 +169,7 @@
                         <now-date-to-env env-name="assignment.thruDate"/>
                         <clear-field field-name="parameters.statusId"/>
                     </if-compare>
-                    <set-nonpk-fields value-name="assignment" map-name="parameters"/>
+                    <set-nonpk-fields value-field="assignment" map="parameters"/>
                     <store-value value-name="assignment"/>
                     <if-compare field="assignment.statusId" value="PAS_COMPLETED" operator="equals">
                         <call-simple-method method-name="updateTaskStatusToComplete"/>

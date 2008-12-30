@@ -27,7 +27,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromo"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductPromo" env-name="newEntity.productPromoId"/>
         <field-to-result field-name="productPromoId" map-name="newEntity"/>
 
@@ -50,7 +50,7 @@ under the License.
 
         <set from-field="parameters.productPromoId" field="lookupPKMap.productPromoId"/>
         <find-by-primary-key entity-name="ProductPromo" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <if-empty field="lookedUpValue.userEntered">
             <set value="Y" set-if-empty="true" field="lookedUpValue.userEntered"/>
@@ -81,7 +81,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoAction"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="productPromoActionSeqId" numeric-padding="2"/>
         <field-to-result field-name="productPromoActionSeqId" map-name="newEntity"/>
@@ -96,7 +96,7 @@ under the License.
         <make-value entity-name="ProductPromoAction" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoAction" short-description="Delete an ProductPromoAction">
@@ -117,7 +117,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoCategory"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
@@ -130,7 +130,7 @@ under the License.
         <make-value entity-name="ProductPromoCategory" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCategory" short-description="Delete an ProductPromoCategory">
@@ -151,7 +151,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoCode"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.productPromoCodeId">
             <sequenced-id-to-env sequence-name="ProductPromoCode" env-name="newEntity.productPromoCodeId" stagger-max="100"/>
@@ -178,7 +178,7 @@ under the License.
         <make-value entity-name="ProductPromoCode" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.lastModifiedDate"/>
@@ -204,7 +204,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoCodeEmail"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
@@ -227,7 +227,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoCodeParty"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
@@ -250,7 +250,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoCond"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="productPromoCondSeqId" numeric-padding="2"/>
         <field-to-result field-name="productPromoCondSeqId" map-name="newEntity"/>
@@ -265,7 +265,7 @@ under the License.
         <make-value entity-name="ProductPromoCond" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPromoCond" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoCond" short-description="Delete an ProductPromoCond">
@@ -286,7 +286,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoProduct"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
@@ -299,7 +299,7 @@ under the License.
         <make-value entity-name="ProductPromoProduct" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoProduct" short-description="Delete an ProductPromoProduct">
@@ -320,7 +320,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPromoRule"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="productPromoRuleId" numeric-padding="2"/>
         <field-to-result field-name="productPromoRuleId" map-name="newEntity"/>
@@ -335,7 +335,7 @@ under the License.
         <make-value entity-name="ProductPromoRule" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPromoRule" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPromoRule" short-description="Delete a ProductPromoRule">
@@ -357,7 +357,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductStorePromoAppl"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -374,7 +374,7 @@ under the License.
         <make-value entity-name="ProductStorePromoAppl" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductStorePromoAppl" short-description="Delete ProductStorePromoAppl">

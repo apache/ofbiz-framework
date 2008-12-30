@@ -86,7 +86,7 @@ under the License.
         <check-errors/>
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="Quote"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.statusId">
             <set value="QUO_CREATED" field="newEntity.statusId"/>
         </if-empty>
@@ -145,7 +145,7 @@ under the License.
                 <check-errors/>
             </if-empty>
         </if-compare-field>
-        <set-nonpk-fields map-name="parameters" value-name="quote"/>
+        <set-nonpk-fields map="parameters" value-field="quote"/>
         <store-value value-name="quote"/>
         <check-errors/>
     </simple-method>
@@ -284,7 +284,7 @@ under the License.
         <check-errors/>
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="QuoteItem"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <set from-field="parameters.quoteId" field="newEntity.quoteId"/>
         <set from-field="parameters.quoteItemSeqId" field="newEntity.quoteItemSeqId"/>
@@ -350,7 +350,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteItem" value-name="quoteItem" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="quoteItem"/>
+        <set-nonpk-fields map="parameters" value-field="quoteItem"/>
         <store-value value-name="quoteItem"/>
         <check-errors/>
     </simple-method>
@@ -415,7 +415,7 @@ under the License.
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="QuoteAttribute"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
     </simple-method>
@@ -428,7 +428,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteAttribute" value-name="quoteAttribute" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="quoteAttribute"/>
+        <set-nonpk-fields map="parameters" value-field="quoteAttribute"/>
         <store-value value-name="quoteAttribute"/>
         <check-errors/>
     </simple-method>
@@ -454,7 +454,7 @@ under the License.
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="QuoteCoefficient"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
     </simple-method>
@@ -467,7 +467,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteCoefficient" value-name="quoteCoefficient" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="quoteCoefficient"/>
+        <set-nonpk-fields map="parameters" value-field="quoteCoefficient"/>
         <store-value value-name="quoteCoefficient"/>
         <check-errors/>
     </simple-method>
@@ -502,8 +502,8 @@ under the License.
         <!-- create new entity and create all the fields -->
         <make-value value-field="newQuote" entity-name="Quote"/>
         <make-value value-field="newQuoteItem" entity-name="QuoteItem"/>
-        <set-nonpk-fields map-name="parameters" value-name="newQuote"/>
-        <set-nonpk-fields map-name="parameters" value-name="newQuoteItem"/>
+        <set-nonpk-fields map="parameters" value-field="newQuote"/>
+        <set-nonpk-fields map="parameters" value-field="newQuoteItem"/>
         <if-empty field="newQuote.statusId">
             <set value="QUO_CREATED" field="newQuote.statusId"/>
         </if-empty>
@@ -658,7 +658,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="QuoteAdjustment"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id-to-env sequence-name="QuoteAdjustment" env-name="quoteAdjustmentId"/>
         <now-timestamp-to-env env-name="newEntity.createdDate"/>
@@ -685,7 +685,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteAdjustment" value-name="quoteAdjustment" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="quoteAdjustment"/>
+        <set-nonpk-fields map="parameters" value-field="quoteAdjustment"/>
         <store-value value-name="quoteAdjustment"/>
         <check-errors/>
     </simple-method>
@@ -873,7 +873,7 @@ under the License.
             <check-errors/>
         </if-not-empty>
         <if-empty field="quoteWorkEffort.quoteId">
-            <set-nonpk-fields map-name="parameters" value-name="lookupMap"/>
+            <set-nonpk-fields map="parameters" value-field="lookupMap"/>
             <create-value value-name="lookupMap"/>
             <field-to-result field-name="quoteId" map-name="lookupMap"/>
             <field-to-result field-name="workEffortId" map-name="lookupMap"/>

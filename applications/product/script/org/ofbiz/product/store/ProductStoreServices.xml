@@ -35,7 +35,7 @@ under the License.
         </if-compare>  
 
         <make-value value-field="newEntity" entity-name="ProductStore"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id-to-env sequence-name="ProductStore" env-name="productStoreId" />
         <set from-field="productStoreId" field="newEntity.productStoreId"/>
@@ -61,7 +61,7 @@ under the License.
         <set from-field="parameters.productStoreId" field="lookupPKMap.productStoreId"/>
         <find-by-primary-key entity-name="ProductStore" map="lookupPKMap" value-field="store"/>
         <set from-field="store.inventoryFacilityId" field="oldFacilityId"/>
-        <set-nonpk-fields map-name="parameters" value-name="store"/>
+        <set-nonpk-fields map="parameters" value-field="store"/>
 
         <if-compare field="store.showPricesWithVatTax" operator="equals" value="Y">                 
             <if-empty field="store.vatTaxAuthGeoId">
@@ -104,7 +104,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductStoreCatalog"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -120,7 +120,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductStoreCatalog"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductStoreCatalog" short-description="Delete ProductStoreCatalog">
@@ -140,7 +140,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductStorePaymentSetting"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductStorePaymentSetting" short-description="Update a Product Store Payment Setting">
@@ -150,7 +150,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductStorePaymentSetting"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductStorePaymentSetting" map="lookupPKMap" value-field="setting"/>
-        <set-nonpk-fields map-name="parameters" value-name="setting"/>
+        <set-nonpk-fields map="parameters" value-field="setting"/>
         <store-value value-name="setting"/>
     </simple-method>
     <simple-method method-name="deleteProductStorePaymentSetting" short-description="Delete a Product Store Payment Setting">
@@ -160,7 +160,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductStorePaymentSetting"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductStorePaymentSetting" map="lookupPKMap" value-field="setting"/>
-        <set-nonpk-fields map-name="parameters" value-name="setting"/>
+        <set-nonpk-fields map="parameters" value-field="setting"/>
         <remove-value value-name="setting"/>
     </simple-method>
 
@@ -172,7 +172,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductStoreEmailSetting"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
@@ -186,7 +186,7 @@ under the License.
         <make-value value-field="lookupKeyValue" entity-name="ProductStoreEmailSetting"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductStoreEmailSetting" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductStoreEmail" short-description="Remove Product Store Email Setting">
@@ -227,7 +227,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductStoreShipmentMeth"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductStoreShipmentMeth" env-name="newEntity.productStoreShipMethId"/>
 
         <create-value value-name="newEntity"/>
@@ -241,7 +241,7 @@ under the License.
         <make-value value-field="lookupKeyValue" entity-name="ProductStoreShipmentMeth"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductStoreShipmentMeth" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductStoreShipMeth" short-description="Remove Product Store Carrier Shipment Method">
@@ -263,7 +263,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductStoreRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -279,7 +279,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductStoreRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <if-empty field="lookedUpValue.thruDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -295,7 +295,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductStoreKeywordOvrd"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -314,7 +314,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductStoreKeywordOvrd"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductStoreKeywordOvrd" short-description="Delete a ProductStoreKeywordOvrd">
@@ -336,7 +336,7 @@ under the License.
         <sequenced-id-to-env sequence-name="ProductStoreSurveyAppl" env-name="productStoreSurveyId"/>
         <set from-field="productStoreSurveyId" field="newEntity.productStoreSurveyId"/>
         <field-to-result field-name="productStoreSurveyId" result-name="productStoreSurveyId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -352,7 +352,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductStoreSurveyAppl"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <if-empty field="lookedUpValue.thruDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -368,7 +368,7 @@ under the License.
 
         <make-value value-field="finAcctSetting" entity-name="ProductStoreFinActSetting"/>
         <set-pk-fields value-field="finAcctSetting" map="parameters"/>
-        <set-nonpk-fields value-name="finAcctSetting" map-name="parameters"/>
+        <set-nonpk-fields value-field="finAcctSetting" map="parameters"/>
         <create-value value-name="finAcctSetting"/>
     </simple-method>
     <simple-method method-name="updateProductStoreFinActSetting" short-description="Update a ProductStoreFinActSetting">
@@ -379,7 +379,7 @@ under the License.
         <set-pk-fields value-field="lookupPk" map="parameters"/>
         <find-by-primary-key map="lookupPk" value-field="finAccountSetting"/>
 
-        <set-nonpk-fields value-name="finAccountSetting" map-name="parameters"/>
+        <set-nonpk-fields value-field="finAccountSetting" map="parameters"/>
         <store-value value-name="finAccountSetting"/>
     </simple-method>
     <simple-method method-name="removeProductStoreFinActSetting" short-description="Remove a ProductStoreFinActSetting">

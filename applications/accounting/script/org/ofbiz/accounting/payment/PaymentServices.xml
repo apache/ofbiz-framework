@@ -57,7 +57,7 @@ under the License.
             </add-error>
         </if-empty>
         
-        <set-nonpk-fields map-name="parameters" value-name="payment"/>
+        <set-nonpk-fields map="parameters" value-field="payment"/>
         <if-empty field="payment.effectiveDate">
             <now-timestamp-to-env env-name="payment.effectiveDate"/>
         </if-empty>
@@ -86,9 +86,9 @@ under the License.
             <!-- check if only status change -->
             <make-value value-field="newPayment" entity-name="Payment"/>
             <make-value value-field="oldPayment" entity-name="Payment"/>
-            <set-nonpk-fields value-name="newPayment" map-name="payment"/>
-            <set-nonpk-fields value-name="oldPayment" map-name="payment"/>
-            <set-nonpk-fields value-name="newPayment" map-name="parameters"/>
+            <set-nonpk-fields value-field="newPayment" map="payment"/>
+            <set-nonpk-fields value-field="oldPayment" map="payment"/>
+            <set-nonpk-fields value-field="newPayment" map="parameters"/>
             <set field="newPayment.statusId" from-field="oldPayment.statusId"/>
             <if-compare-field field="oldPayment" to-field="newPayment" operator="not-equals">
                 <log level="always" message="=========Old: ${oldPayment} ============New: ${newPayment}"></log>
@@ -100,7 +100,7 @@ under the License.
         <check-errors/>
         
         <set field="statusIdSave" from-field="payment.statusId"/>    <!-- do not allow status change here -->
-        <set-nonpk-fields map-name="parameters" value-name="payment"/>
+        <set-nonpk-fields map="parameters" value-field="payment"/>
         <set field="payment.statusId" from-field="statusIdSave"/>    <!-- do not allow status change here -->
         
         <if-empty field="payment.effectiveDate">
@@ -138,7 +138,7 @@ under the License.
         </if-empty>
 
         <make-value entity-name="PaymentApplication" value-field="paymentAppl"/>
-        <set-nonpk-fields map-name="parameters" value-name="paymentAppl"/>
+        <set-nonpk-fields map="parameters" value-field="paymentAppl"/>
 
         <!-- get the invoice and do some further validation against it -->
         <if-not-empty field="parameters.invoiceId">

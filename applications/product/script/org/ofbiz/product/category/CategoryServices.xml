@@ -34,7 +34,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <make-value value-field="newEntity" entity-name="ProductCategory"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="parameters.productCategoryId">
             <sequenced-id-to-env sequence-name="ProductCategory" env-name="newEntity.productCategoryId"/>
@@ -84,7 +84,7 @@ under the License.
         <entity-one entity-name="ProductCategory" value-name="lookedUpValue"/>
         <!-- save this value before overwriting it so we can compare it later -->
         <!-- <field-to-field field-name="primaryParentCategoryId" map-name="lookedUpValue" to-map-name="saveIdMap"/> -->
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
 
         <!-- if setting the primaryParentCategoryId, create a rollup entity too -->
@@ -117,7 +117,7 @@ under the License.
         -->
         <make-value value-field="newEntity" entity-name="ProductCategoryMember"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -142,7 +142,7 @@ under the License.
                 <make-value value-field="newEntity" entity-name="ProductCategoryMember"/>
                 <set field="newEntity.productCategoryId" from-field="category"/>
                 <set-pk-fields map="parameters" value-field="newEntity"/>
-                <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+                <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
                 <if-empty field="newEntity.fromDate">
                     <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -162,7 +162,7 @@ under the License.
                 <make-value value-field="newEntity" entity-name="ProductCategoryMember"/>
                 <set field="newEntity.productCategoryId" from-field="parameters.categories"/>
                 <set-pk-fields map="parameters" value-field="newEntity"/>
-                <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+                <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
                 <if-empty field="newEntity.fromDate">
                     <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -186,7 +186,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryMember"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryMember" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductFromCategory" short-description="Remove Product From Category">
@@ -224,7 +224,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductCategoryRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -241,7 +241,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removePartyFromCategory" short-description="Remove Party From Category">
@@ -270,7 +270,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -291,7 +291,7 @@ under the License.
                 <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
                 <set field="newEntity.parentProductCategoryId" from-field="category"/>
                 <set-pk-fields map="parameters" value-field="newEntity"/>
-                <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+                <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
                 <if-empty field="newEntity.fromDate">
                     <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -310,7 +310,7 @@ under the License.
                 <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
                 <set field="newEntity.parentProductCategoryId" from-field="parameters.categories"/>
                 <set-pk-fields map="parameters" value-field="newEntity"/>
-                <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+                <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
                 <if-empty field="newEntity.fromDate">
                     <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -331,7 +331,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryRollup"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRollup" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProductCategoryFromCategory" short-description="Remove ProductCategory From Category">
@@ -632,7 +632,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductCategoryAttribute"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <create-value value-name="newEntity"/>
@@ -647,7 +647,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryAttribute"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryAttribute" map="lookupPKMap" value-field="ProductCategoryAttributeInstance"/>
-        <set-nonpk-fields map-name="parameters" value-name="ProductCategoryAttributeInstance"/>
+        <set-nonpk-fields map="parameters" value-field="ProductCategoryAttributeInstance"/>
         <store-value value-name="ProductCategoryAttributeInstance"/>
     </simple-method>
     <simple-method method-name="deleteProductCategoryAttribute" 
@@ -681,13 +681,13 @@ under the License.
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     
     <simple-method method-name="updateProductCategoryLink" short-description="update a ProductCategoryLink">
         <entity-one entity-name="ProductCategoryLink" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     

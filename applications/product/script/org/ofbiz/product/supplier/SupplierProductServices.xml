@@ -26,7 +26,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="SupplierProduct"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -39,7 +39,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         
         <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>
-        <set-nonpk-fields map-name="parameters" value-name="sprod"/>
+        <set-nonpk-fields map="parameters" value-field="sprod"/>
         <store-value value-name="sprod"/>
     </simple-method>
 
@@ -61,7 +61,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="SupplierProductFeature"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
  
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -70,7 +70,7 @@ under the License.
         <check-errors/>
  
         <entity-one entity-name="SupplierProductFeature" value-name="sprod"/>
-        <set-nonpk-fields map-name="parameters" value-name="sprod"/>
+        <set-nonpk-fields map="parameters" value-field="sprod"/>
         <store-value value-name="sprod"/>
     </simple-method>
     <simple-method method-name="removeSupplierProductFeature" short-description="Remove a Supplier Product record">

@@ -40,17 +40,17 @@ under the License.
                 </entity-and>
                 <first-from-list entry="resource" list="resourceList"/>
                 <if-not-empty field="resource">
-                    <set-nonpk-fields value-name="newEntity" map-name="resource"/>
+                    <set-nonpk-fields value-field="newEntity" map="resource"/>
                 </if-not-empty>
             </if-not-empty>
         </if-not-empty>
         
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>        
         <create-value value-name="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateSubscription" short-description="Update a Subscription">
         <entity-one entity-name="Subscription" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -87,12 +87,12 @@ under the License.
         <make-value entity-name="SubscriptionResource" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="SubscriptionResource" env-name="newEntity.subscriptionResourceId"/>
         <field-to-result field-name="newEntity.subscriptionResourceId" result-name="subscriptionResourceId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateSubscriptionResource" short-description="Update a SubscriptionResource">
         <entity-one entity-name="SubscriptionResource" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -100,12 +100,12 @@ under the License.
         <make-value entity-name="ProductSubscriptionResource" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateProductSubscriptionResource" short-description="Update a ProductSubscriptionResource">
         <entity-one entity-name="ProductSubscriptionResource" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductSubscriptionResource" short-description="Delete a ProductSubscriptionResource">
@@ -118,10 +118,10 @@ under the License.
         <if-empty field="lookedUpValue">
             <make-value entity-name="SubscriptionAttribute" value-field="newEntity"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-name="newEntity"/>
             <else>
-                <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+                <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
                 <store-value value-name="lookedUpValue"/>
             </else>
         </if-empty>
@@ -130,7 +130,7 @@ under the License.
     <simple-method method-name="createSubscriptionCommEvent" short-description="Create a Subscription Communication Event">
         <make-value value-field="newEntity" entity-name="SubscriptionCommEvent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>    
     </simple-method>
     <simple-method method-name="removeSubscriptionCommEvent" short-description="Remove a Subscription Communication Event">

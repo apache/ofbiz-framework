@@ -25,7 +25,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ShipmentReceipt"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <sequenced-id-to-env sequence-name="ShipmentReceipt" env-name="receiptId"/>
         <to-string field-name="receiptId"/>
@@ -56,7 +56,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ShipmentReceiptRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
                         
         <create-value value-name="newEntity"/>
     </simple-method>

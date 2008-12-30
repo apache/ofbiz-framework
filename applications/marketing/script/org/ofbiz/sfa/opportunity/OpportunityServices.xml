@@ -26,7 +26,7 @@
         <if-empty field="parameters.salesOpportunityId">
             <sequenced-id-to-env sequence-name="SalesOpportunity" env-name="parameters.salesOpportunityId"/>
         </if-empty>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
         <field-to-result field-name="parameters.salesOpportunityId" result-name="salesOpportunityId"/>
@@ -34,7 +34,7 @@
     </simple-method>
     <simple-method method-name="updateOpportunity" short-description="Update an opportunity">
         <entity-one entity-name="SalesOpportunity" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 </simple-methods>

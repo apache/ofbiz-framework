@@ -24,7 +24,7 @@ under the License.
     <simple-method method-name="createPartyContent" short-description="Create Party Content Entity">
         <make-value value-field="partyContent" entity-name="PartyContent"/>
         <set-pk-fields value-field="partyContent" map="parameters"/>
-        <set-nonpk-fields value-name="partyContent" map-name="parameters"/>
+        <set-nonpk-fields value-field="partyContent" map="parameters"/>
 
         <if-empty field="partyContent.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -39,7 +39,7 @@ under the License.
         <set-pk-fields value-field="lookupPkMap" map="parameters"/>
 
         <find-by-primary-key map="lookupPkMap" value-field="partyContent"/>
-        <set-nonpk-fields value-name="partyContent" map-name="parameters"/>
+        <set-nonpk-fields value-field="partyContent" map="parameters"/>
         <store-value value-name="partyContent"/>       
     </simple-method>
 

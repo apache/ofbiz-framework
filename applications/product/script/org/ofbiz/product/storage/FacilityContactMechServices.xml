@@ -43,7 +43,7 @@ under the License.
         <set field="newValue.facilityId" from-field="parameters.facilityId" />
         <field-to-result field-name="contactMechId" map-name="newValue"/>
         <field-to-request field-name="contactMechId" map-name="newValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
         <now-timestamp-to-env env-name="newValue.fromDate"/>
 
         <create-value value-name="newValue"/>
@@ -85,7 +85,7 @@ under the License.
             </else>
         </if-empty>
 
-        <set-nonpk-fields value-name="newFacilityContactMech" map-name="parameters" set-if-null="false"/>
+        <set-nonpk-fields value-field="newFacilityContactMech" map="parameters" set-if-null="false"/>
 
         <now-timestamp-to-env env-name="newFacilityContactMech.fromDate"/>
         <now-timestamp-to-env env-name="facilityContactMech.thruDate"/>

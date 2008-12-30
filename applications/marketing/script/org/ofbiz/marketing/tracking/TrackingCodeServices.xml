@@ -28,7 +28,7 @@ under the License.
         <now-timestamp-to-env env-name="nowStamp"/>
         
         <make-value value-field="newEntity" entity-name="TrackingCode"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <!-- set the history/audit info -->
@@ -48,7 +48,7 @@ under the License.
         <make-value entity-name="TrackingCode" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCode" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         
         <!-- set the history/audit info -->
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
@@ -73,7 +73,7 @@ under the License.
         <now-timestamp-to-env env-name="nowStamp"/>
         
         <make-value value-field="newEntity" entity-name="TrackingCodeType"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <!-- set the history/audit info -->
@@ -90,7 +90,7 @@ under the License.
         <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeType" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -107,7 +107,7 @@ under the License.
     <simple-method method-name="createTrackingCodeOrder" short-description="Create an TrackingCodeOrder">
         <now-timestamp-to-env env-name="nowStamp"/>
         <make-value value-field="newEntity" entity-name="TrackingCodeOrder"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <!-- set the history/audit info -->
@@ -121,7 +121,7 @@ under the License.
         <make-value entity-name="TrackingCodeOrder" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrder" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         
         <!-- set the history/audit info -->
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
@@ -133,7 +133,7 @@ under the License.
     <simple-method method-name="createTrackingCodeOrderReturn" short-description="Create an TrackingCodeOrderReturn">
         <now-timestamp-to-env env-name="nowStamp"/>
         <make-value value-field="newEntity" entity-name="TrackingCodeOrderReturn"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <!-- set the history/audit info -->
@@ -175,7 +175,7 @@ under the License.
         <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrderReturn" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         
         <!-- set the history/audit info -->
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>

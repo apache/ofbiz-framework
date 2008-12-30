@@ -27,7 +27,7 @@ under the License.
         <sequenced-id-to-env sequence-name="Timesheet" env-name="newEntity.timesheetId"/>
         <field-to-result field-name="newEntity.timesheetId" result-name="timesheetId"/>
         
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.statusId">
             <set field="newEntity.statusId" value="TIMESHEET_IN_PROCESS"/>
         </if-empty>
@@ -35,7 +35,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateTimesheet" short-description="Update Timesheet">
         <call-simple-method method-name="checkTimesheetStatus"/>
-        <set-nonpk-fields map-name="parameters" value-name="timesheet"/>
+        <set-nonpk-fields map="parameters" value-field="timesheet"/>
         <store-value value-name="timesheet"/>
     </simple-method>
     <simple-method method-name="updateTimesheetToInProcess" short-description="Updates the Timesheet status back to in process to be able to correct errors">
@@ -302,7 +302,7 @@ under the License.
         <sequenced-id-to-env sequence-name="TimeEntry" env-name="newEntity.timeEntryId"/>
         <field-to-result field-name="newEntity.timeEntryId" result-name="timeEntryId"/>
         
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayStart" ret-field-name="newEntity.fromDate">
                 <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
@@ -319,7 +319,7 @@ under the License.
             <set field="lookedUpValue.invoiceItemSeqId" from-field="parameters.invoiceItemSeqId"/>
             <else>
                 <call-simple-method method-name="checkTimesheetStatus"/>
-                <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+                <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
             </else>
             </if-empty>
         </if-not-empty>

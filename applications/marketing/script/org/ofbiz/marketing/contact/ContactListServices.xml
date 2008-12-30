@@ -33,7 +33,7 @@ under the License.
             </else>            
         </if-empty>
         <field-to-result field-name="newEntity.contactListId" result-name="contactListId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContactList" short-description="Update an ContactList">
@@ -41,7 +41,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ContactList" value-name="lookedUpValue" auto-field-map="true"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContactList" short-description="Delete an ContactList">
@@ -105,7 +105,7 @@ under the License.
         
         
         <make-value entity-name="ContactListParty" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         
@@ -139,7 +139,7 @@ under the License.
                 <call-service service-name="createContactListPartyStatus" in-map-name="createContactListPartyStatusMap"/>
             </if-compare-field>
         </if-not-empty>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
@@ -174,7 +174,7 @@ under the License.
         
         <make-value entity-name="ContactListPartyStatus" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <now-timestamp-to-env env-name="newEntity.statusDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.setByUserLoginId"/>

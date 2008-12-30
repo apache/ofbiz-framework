@@ -32,7 +32,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ItemIssuance"/>
         <sequenced-id-to-env sequence-name="ItemIssuance" env-name="newEntity.itemIssuanceId"/>
         <field-to-result field-name="itemIssuanceId" map-name="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <now-timestamp-to-env env-name="newEntity.issuedDateTime"/>
 
         <create-value value-name="newEntity"/>
@@ -56,7 +56,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ItemIssuance" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteItemIssuance" short-description="Delete ItemIssuance">
@@ -82,7 +82,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ItemIssuanceRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
