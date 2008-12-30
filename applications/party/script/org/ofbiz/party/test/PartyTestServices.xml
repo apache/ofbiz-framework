@@ -86,9 +86,9 @@ under the License.
         <set field="partyId" value="DemoCustomer"/>
         <set field="contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-class-method method-name="findPartyLatestContactMech" class-name="org.ofbiz.party.party.PartyWorker" ret-field="partyAndContactMech">
-            <field field-name="partyId" type="java.lang.String"/>
-            <field field-name="contactMechTypeId" type="java.lang.String"/>
-            <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+            <field field="partyId" type="java.lang.String"/>
+            <field field="contactMechTypeId" type="java.lang.String"/>
+            <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>
         <!-- first try with just updating without changing the email address -->
         <set field="serviceCtx.partyId" from-field="partyId"/>
@@ -144,8 +144,8 @@ under the License.
         -->
         <set field="partyId" value="DemoCustomer"/>
         <call-class-method method-name="findPartyLatestTelecomNumber" class-name="org.ofbiz.party.party.PartyWorker" ret-field="telecomNumber">
-            <field field-name="partyId" type="java.lang.String"/>
-            <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+            <field field="partyId" type="java.lang.String"/>
+            <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>
         <!-- first try with just updating without changing the telecom number -->
         <set-service-fields service-name="updatePartyTelecomNumber" map="telecomNumber" to-map="serviceCtx"/>
@@ -213,8 +213,8 @@ under the License.
         -->
         <set field="partyId" value="DemoCustomer"/>
         <call-class-method method-name="findPartyLatestPostalAddress" class-name="org.ofbiz.party.party.PartyWorker" ret-field="postalAddress">
-            <field field-name="partyId" type="java.lang.String"/>
-            <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+            <field field="partyId" type="java.lang.String"/>
+            <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>
         <!-- first try with just updating without changing the postal address -->
         <set-service-fields service-name="updatePartyPostalAddress" map="postalAddress" to-map="serviceCtx"/>
@@ -348,8 +348,8 @@ under the License.
         <set field="partyId" value="DemoCustomer"/>
         <set field="userLoginId" value="DemoCustomer"/>
         <call-class-method method-name="findPartyLatestUserLogin" class-name="org.ofbiz.party.party.PartyWorker" ret-field="partyUserLogin">
-            <field field-name="partyId" type="java.lang.String"/>
-            <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
+            <field field="partyId" type="java.lang.String"/>
+            <field field="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>        
         <set-service-fields service-name="updatePassword" map="partyUserLogin" to-map="serviceCtx"/>
         <!-- old details: userLoginId = DemoCustomer, password = ofbiz -->
@@ -372,8 +372,8 @@ under the License.
         <!-- get the encrypted password -->
         <call-class-method method-name="getHashType" class-name="org.ofbiz.common.login.LoginServices" ret-field="hashType"/>
         <call-class-method method-name="getDigestHash" class-name="org.ofbiz.base.crypto.HashCrypt" ret-field="newPasswordHash">
-            <field field-name="serviceCtx.newPassword" type="java.lang.String"/>
-            <field field-name="hashType" type="java.lang.String"/>
+            <field field="serviceCtx.newPassword" type="java.lang.String"/>
+            <field field="hashType" type="java.lang.String"/>
         </call-class-method>
         <assert>
             <not><if-empty field="partyAndUserLogin"/></not>

@@ -22,8 +22,8 @@ under the License.
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
             <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
-                <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
-                <field field-name="posTerminalId" type="String"/>
+                <field field="request" type="javax.servlet.http.HttpServletRequest"/>
+                <field field="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
                 <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
@@ -32,7 +32,7 @@ under the License.
                 <if-compare field="isOpen" operator="equals" value="true" type="String">
                     <set field="promoCode" from-field="parameters.promoCode"/>
                     <call-object-method obj-field-name="webPosTransaction" method-name="addProductPromoCode" ret-field="result">
-                        <field field-name="promoCode" type="String"/>
+                        <field field="promoCode" type="String"/>
                     </call-object-method>
                     <check-errors/>
                     <!-- TODO handle exceptions and errors -->

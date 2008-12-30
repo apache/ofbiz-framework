@@ -629,7 +629,7 @@ under the License.
                 <create-value value-field="newOrderItem"/>
                 <!-- and the orderItemSeqId is assigned to the shopping cart item-->
                 <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
-                    <field field-name="newOrderItem.orderItemSeqId" type="String"/>
+                    <field field="newOrderItem.orderItemSeqId" type="String"/>
                 </call-object-method>
             </if-empty>
         </iterate>

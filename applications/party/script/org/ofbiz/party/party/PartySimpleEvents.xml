@@ -79,14 +79,14 @@ under the License.
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
             method-name="uploadImageAndParameters" 
             ret-field="formInput">
-        <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+        <field field="request" type="javax.servlet.http.HttpServletRequest"/>
         <string value="dataResourceName"/>
         </call-class-method>
         
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
               method-name="returnByteBuffer"
               ret-field="byteWrap">
-             <field field-name="formInput" type="java.util.Map"/>
+             <field field="formInput" type="java.util.Map"/>
         </call-class-method>
          
         <set-service-fields service-name="createPartyContent" map="formInput.formInput" to-map="partyContentMap"/>
@@ -105,7 +105,7 @@ under the License.
         <call-class-method class-name="org.ofbiz.content.layout.LayoutWorker" 
             method-name="uploadImageAndParameters" 
             ret-field="formInput">
-        <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
+        <field field="request" type="javax.servlet.http.HttpServletRequest"/>
         <string value="dataResourceName"/>
         </call-class-method>
         
@@ -113,7 +113,7 @@ under the License.
               method-name="returnByteBuffer"
               ret-field="byteWrap"
            >
-             <field field-name="formInput" type="java.util.Map"/>
+             <field field="formInput" type="java.util.Map"/>
          </call-class-method >
          <set-service-fields service-name="updatePartyContent" map="formInput.formInput" to-map="partyContentMap"/>
          <set field="partyContentMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>

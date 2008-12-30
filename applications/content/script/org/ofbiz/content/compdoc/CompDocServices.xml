@@ -421,8 +421,8 @@ under the License.
             <number value="6"/>
         </calculate>
         <call-class-method method-name="padNumberWithLeadingZeros" class-name="org.ofbiz.content.compdoc.CompDocEvents" ret-field="paddedSeqId">
-            <field field-name="incrementedSeq" type="Long"/>
-            <field field-name="numericPadding" type="Integer"/>
+            <field field="incrementedSeq" type="Long"/>
+            <field field="numericPadding" type="Integer"/>
         </call-class-method>
         <log level="info" message="incrementedSeq(1): ${incrementedSeq}"/>
         <log level="info" message="numericPadding(1): ${numericPadding}"/>
