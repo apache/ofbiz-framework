@@ -202,7 +202,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.custRequestItemSeqId">
-            <make-next-seq-id value-name="newEntity" seq-field-name="custRequestItemSeqId"/>
+            <make-next-seq-id value-field="newEntity" seq-field-name="custRequestItemSeqId"/>
         </if-empty>
         <if-empty field="parameters.statusId">
             <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
@@ -389,7 +389,7 @@ under the License.
 
     <simple-method method-name="createCustRequestStatus" short-description="Create Customer Request Status">
         <make-value value-field="newEntity" entity-name="CustRequestStatus"/>
-        <make-next-seq-id value-name="newEntity" seq-field-name="custRequestStatusId"/>
+        <make-next-seq-id value-field="newEntity" seq-field-name="custRequestStatusId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.statusDatetime">
             <now-timestamp-to-env env-name="nowTimestamp"/>
