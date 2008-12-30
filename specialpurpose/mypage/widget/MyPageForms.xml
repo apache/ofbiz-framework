@@ -34,19 +34,7 @@ under the License.
     </form>
     
     <form name="EditWeekTimesheet" extends="EditWeekTimesheet" extends-resource="component://projectmgr/widget/forms/TimeSheetForms.xml">
-            <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTimesheetKey"/>        
-            <field name="workEffortId" title="${uiLabelMap.ProjectMgrTaskName}">
-            <drop-down allow-empty="true">
-                <entity-options entity-name="ProjectPartyAndPhaseAndTask" description="${projectName} -- ${phaseName} -- ${workEffortName}">
-                    <entity-constraint name="workEffortTypeId" operator="not-equals" value="TASK_TEMPLATE"/>
-                    <entity-constraint name="partyId" env-name="timesheet.partyId"/>
-                    <entity-order-by field-name="projectName"/>
-                    <entity-order-by field-name="phaseName"/>
-                    <entity-order-by field-name="workEffortName"/>
-                </entity-options>
-                <sub-hyperlink target="/projectmgr/control/taskView?workEffortId=${workEffortId}" target-type="inter-app" target-window="_BLANK" link-style="buttontext" description="${bsh:workEffortId != void &amp;&amp; !workEffortId.equals(&quot;Totals&quot;) ? workEffortId : &quot;&quot;}"/>
-            </drop-down>
-        </field>
+        <alt-target use-when="!headerItem.equals(&quot;main&quot;)" target="updateTimesheetKey"/>        
         <field name="updateButton"><submit/></field>
     </form>
 
