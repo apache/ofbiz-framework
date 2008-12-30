@@ -17,7 +17,7 @@ specific language governing permissions and limitations
 under the License.
 -->
 
-<h1>Current Returns</h1>
+<h1>${uiLabelMap.OrderReturnsCurrent}</h1>
 <div><a href="<@ofbizUrl>returnMain</@ofbizUrl>" class="buttontext">${uiLabelMap.OrderReturnCreate}</a></div>
 
 <br/>
@@ -29,7 +29,6 @@ under the License.
     <td>${uiLabelMap.FacilityFacility}</td>
     <td>${uiLabelMap.CommonStatus}</td>
   </tr> 
-  <tr><td colspan="5"><hr></td></tr>
   <#list returnList as returnHeader>
   <#assign statusItem = returnHeader.getRelatedOne("StatusItem")>
   <#if returnHeader.destinationFacilityId?exists>

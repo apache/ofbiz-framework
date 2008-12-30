@@ -123,7 +123,7 @@ under the License.
             <tr><td colspan="7"><hr/></td></tr>
             <tr>
                 <td align="right" valign="top" width="15%">
-                    <div>&nbsp;<b>${uiLabelMap.CommonInstructions}</b></div>
+                    <div>&nbsp;<b>${uiLabelMap.OrderSpecialInstructions}</b></div>
                 </td>
                 <td width="5">&nbsp;</td>
                 <td valign="top" width="80%">

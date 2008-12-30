@@ -3326,7 +3326,7 @@ public class OrderServices {
 
         // log an order note
         try {
-            String addedItemToOrder = UtilProperties.getMessage(resource, "AddedItemToOrder", locale);
+            String addedItemToOrder = UtilProperties.getMessage(resource, "OrderAddedItemToOrder", locale);
             dispatcher.runSync("createOrderNote", UtilMisc.<String, Object>toMap("orderId", orderId, "note", addedItemToOrder +
                     productId + " (" + quantity + ")", "internalNote", "Y", "userLogin", userLogin));
         } catch (GenericServiceException e) {
