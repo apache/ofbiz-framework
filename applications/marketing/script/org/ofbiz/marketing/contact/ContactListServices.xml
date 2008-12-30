@@ -49,7 +49,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ContactList" value-field="lookedUpValue" auto-field-map="true"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- ContactListParty methods -->
@@ -156,7 +156,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ContactListParty" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createContactListPartyStatus" short-description="Create ContactListParty Status">
         <!-- allow if userLogin.partyId = parameters.partyId or has permission -->
@@ -234,7 +234,7 @@ under the License.
 
         <entity-one entity-name="ContactList" value-field="contactList"/>
         <entity-one entity-name="ContactListParty" value-field="contactListParty"/>
-        <get-related-one value-name="contactListParty" relation-name="PreferredContactMech" to-value-name="preferredContactMech"/>
+        <get-related-one value-name="contactListParty" relation-name="PreferredContactMech" to-value-field="preferredContactMech"/>
         
         <if>
             <condition>

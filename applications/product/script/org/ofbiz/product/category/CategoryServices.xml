@@ -693,7 +693,7 @@ under the License.
     
     <simple-method method-name="deleteProductCategoryLink" short-description="delete a ProductCategoryLink">        
         <entity-one entity-name="ProductCategoryLink" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ============================= -->

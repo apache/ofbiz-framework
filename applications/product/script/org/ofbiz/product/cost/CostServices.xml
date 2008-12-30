@@ -38,7 +38,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteCostComponent" short-description="Delete a CostComponent">
         <entity-one entity-name="CostComponent" value-field="costComponent"/>
-        <remove-value value-name="costComponent"/>
+        <remove-value value-field="costComponent"/>
     </simple-method>
     <simple-method method-name="cancelCostComponents" short-description="Cancels CostComponents">
         <set from-field="parameters.costComponentId" field="costsAndMap.costComponentId"/>

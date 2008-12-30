@@ -86,7 +86,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="Timesheet" value-field="timesheet"/>
-        <get-related value-name="timesheet" relation-name="TimeEntry" list-name="timeEntryList"/>
+        <get-related value-field="timesheet" relation-name="TimeEntry" list-name="timeEntryList"/>
         
         <if-empty field="parameters.invoiceId">
             <set-service-fields service-name="createInvoice" map="parameters" to-map="createInvoiceMap"/>
@@ -290,7 +290,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="TimesheetRole" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- TimeEntry Services -->

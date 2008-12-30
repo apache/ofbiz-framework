@@ -50,7 +50,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePartyInvitation" short-description="Remove a PartyInvitation">
         <entity-one entity-name="PartyInvitation" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createPartyInvitationGroupAssoc" short-description="Create a PartyInvitationGroupAssoc">
         <make-value entity-name="PartyInvitationGroupAssoc" value-field="newEntity"/>
@@ -59,7 +59,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePartyInvitationGroupAssoc" short-description="Remove a PartyInvitationGroupAssoc">
         <entity-one entity-name="PartyInvitationGroupAssoc" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createPartyInvitationRoleAssoc" short-description="Create a PartyInvitationRoleAssoc">
         <make-value entity-name="PartyInvitationRoleAssoc" value-field="newEntity"/>
@@ -68,7 +68,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePartyInvitationRoleAssoc" short-description="Remove a PartyInvitationRoleAssoc">
         <entity-one entity-name="PartyInvitationRoleAssoc" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="acceptPartyInvitation" short-description="Accept Party Invitation">
         <entity-and entity-name="PartyInvitationGroupAssoc" list="partyInvitationGroupAssocs">

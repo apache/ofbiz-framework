@@ -110,7 +110,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteProductSubscriptionResource" short-description="Delete a ProductSubscriptionResource">
         <entity-one entity-name="ProductSubscriptionResource" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="updateSubscriptionAttribute" short-description="Create (when not exist) or update (when exist) a Subscription attribute">
         <field-to-result field="parameters.subscriptionId" result-name="subscriptionId"/>
@@ -135,7 +135,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeSubscriptionCommEvent" short-description="Remove a Subscription Communication Event">
         <entity-one entity-name="SubscriptionCommEvent" value-field="eventSubscription"/>
-        <remove-value value-name="eventSubscription"/>
+        <remove-value value-field="eventSubscription"/>
     </simple-method>
 
     <!-- ============== Permission Checking Service ============= -->

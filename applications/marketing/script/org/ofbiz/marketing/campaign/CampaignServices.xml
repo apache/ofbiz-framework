@@ -166,6 +166,6 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="MarketingCampaignRole" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 </simple-methods>

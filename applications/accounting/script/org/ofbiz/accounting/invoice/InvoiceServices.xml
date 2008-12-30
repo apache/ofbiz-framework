@@ -328,7 +328,7 @@ under the License.
         </if-not-empty>
 
         <entity-one entity-name="InvoiceItem" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="removePaymentApplication" short-description="Remove an existing payment application">
@@ -430,7 +430,7 @@ under the License.
     <simple-method method-name="removeInvoiceRole" short-description="Remove existing Invoice Role">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
         <entity-one entity-name="InvoiceRole" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="setInvoiceStatus" short-description="Set The Invoice Status">

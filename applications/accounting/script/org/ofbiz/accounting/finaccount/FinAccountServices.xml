@@ -134,7 +134,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteFinAccount" short-description="Delete a Financial Account">
         <entity-one value-field="finAccount" entity-name="FinAccount"/>
-        <remove-value value-name="finAccount"/>
+        <remove-value value-field="finAccount"/>
     </simple-method>
     
     <simple-method method-name="createFinAccountStatus" short-description="Create FinAccountStatus">
@@ -208,7 +208,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteFinAccountRole" short-description="Delete a Financial Account Role">
         <entity-one entity-name="FinAccountRole" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- FinAccountAuth Services -->    
@@ -341,7 +341,7 @@ under the License.
     
     <simple-method method-name="deleteFinAccountTypeGlAccount" short-description="Delete an FinAccountTypeGlAccount">
         <entity-one entity-name="FinAccountTypeGlAccount" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- VarianceReasonGlAccount methods -->
@@ -360,6 +360,6 @@ under the License.
     
     <simple-method method-name="deleteVarianceReasonGlAccount" short-description="Delete an Variance Reason Gl Account">
         <entity-one entity-name="VarianceReasonGlAccount" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 </simple-methods>

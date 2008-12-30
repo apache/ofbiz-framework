@@ -52,7 +52,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="SegmentGroup" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
         
@@ -76,7 +76,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-property resource="MarketingUiLabels" property="SegmentGroupRemoveSegmentGroupClassificationPermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="SegmentGroupClassification" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- SegmentGroupGeo methods -->
@@ -99,7 +99,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-property resource="MarketingUiLabels" property="SegmentGroupRemoveSegmentGroupGeoPermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="SegmentGroupGeo" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- SegmentGroupRole methods -->
