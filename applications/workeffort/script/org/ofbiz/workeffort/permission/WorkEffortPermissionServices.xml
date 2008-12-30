@@ -153,7 +153,7 @@ under the License.
                     <set field="hasPermission" type="Boolean" value="true"/>
                     <field-to-result field-name="hasPermission"/>
                     <log level="info" message="Party ${userLogin.partyId} is in ${lookupRoleWorkEffortMap.roleTypeId} role with workEffort: ${workEffortId}"/>
-                    <clear-field field-name="workEffortId"/>
+                    <clear-field field="workEffortId"/>
 
                     <else>
                         <log level="info" message="Party ${userLogin.partyId} is not in ${roleTypeId} role with workEffort: ${workEffortId}"/>
@@ -167,7 +167,7 @@ under the License.
                         <find-by-primary-key entity-name="WorkEffort" map="workEffortLookUpMap" value-field="workEffortParent"/>
                         <set from-field="workEffortParent.workEffortParentId" field="workEffortId"/>
                         <if-empty field="workEffortParent.workEffortParentId">
-                            <clear-field field-name="workEffortId"/>
+                            <clear-field field="workEffortId"/>
                         </if-empty>
                     </else>
 
@@ -194,7 +194,7 @@ under the License.
                     <set field="hasPermission" type="Boolean" value="true"/>
                     <field-to-result field-name="hasPermission"/>
                     <log level="info" message="Party ${userLogin.partyId} is associated with workEffort: ${workEffortId}"/>
-                    <clear-field field-name="workEffortId"/>
+                    <clear-field field="workEffortId"/>
 
                     <else>
                         <log level="info" message="Party ${userLogin.partyId} is not associated with workEffort: ${workEffortId}"/>
@@ -208,7 +208,7 @@ under the License.
                         <find-by-primary-key entity-name="WorkEffort" map="workEffortLookUpMap" value-field="workEffortParent"/>
                         <set from-field="workEffortParent.workEffortParentId" field="workEffortId"/>
                         <if-empty field="workEffortParent.workEffortParentId">
-                            <clear-field field-name="workEffortId"/>
+                            <clear-field field="workEffortId"/>
                         </if-empty>
                     </else>
 
@@ -283,7 +283,7 @@ under the License.
                             <log level="info" message="Party ${userLogin.partyId} is associated with workEffort: ${workEffortId}"/>                            
                         </if-not-empty>                                    
                     </iterate>                    
-                    <clear-field field-name="workEffortId"/>
+                    <clear-field field="workEffortId"/>
                 <else>
                     <log level="info" message="Party ${userLogin.partyId} is not associated with workEffort: ${workEffortId}"/>
                     <property-to-field resource="WorkEffortUiLabels" property="WorkEffortNotInRolePermissionError" field-name="failMessage"/>
@@ -295,7 +295,7 @@ under the License.
                     <find-by-primary-key entity-name="WorkEffort" map="workEffortLookUpMap" value-field="workEffortParent"/>
                     <set from-field="workEffortParent.workEffortParentId" field="workEffortId"/>
                     <if-empty field="workEffortParent.workEffortParentId">
-                        <clear-field field-name="workEffortId"/>
+                        <clear-field field="workEffortId"/>
                     </if-empty>
                 </else>
                 </if-not-empty>

@@ -63,7 +63,7 @@ under the License.
             </call-service>
             
             <iterate entry="curOrganizationPartyId" list="parentOrganizationPartyIdList">
-                <clear-field field-name="orgTimePeriodList"/>
+                <clear-field field="orgTimePeriodList"/>
                 <entity-condition entity-name="CustomTimePeriod" list-name="orgTimePeriodList">
                     <condition-list combine="and">
                         <condition-list combine="or">

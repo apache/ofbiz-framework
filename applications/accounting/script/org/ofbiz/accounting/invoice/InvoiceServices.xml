@@ -176,7 +176,7 @@ under the License.
             <set field="invoice.invoiceTypeId" from-field="parameters.invoiceTypeId"/>
         </if-not-empty>
         <set-service-fields service-name="createInvoice" map-name="invoice" to-map-name="newInvoice"/>
-        <clear-field field-name="newInvoice.invoiceId"/>
+        <clear-field field="newInvoice.invoiceId"/>
         <call-service service-name="createInvoice" in-map-name="newInvoice">
             <result-to-field result-name="invoiceId" field-name="invoiceId"/>
         </call-service>
@@ -466,7 +466,7 @@ under the License.
 
                 <if-not-empty field="invoice.paidDate">
                    <if-compare field="parameters.statusId" operator="equals" value="INVOICE_READY">
-                       <clear-field field-name="invoice.paidDate" />
+                       <clear-field field="invoice.paidDate" />
                    </if-compare>
                 </if-not-empty>
 
@@ -490,8 +490,8 @@ under the License.
                         <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
                     </entity-and>
                     <iterate entry="entry" list="entries">
-                        <clear-field field-name="entry.invoiceId"/>                        
-                        <clear-field field-name="entry.invoiceItemSeqId"/>
+                        <clear-field field="entry.invoiceId"/>                        
+                        <clear-field field="entry.invoiceItemSeqId"/>
                         <store-value value-name="entry"/>
                     </iterate>
                 </if-compare>
@@ -570,9 +570,9 @@ under the License.
            <if-compare field="updateInvoiceCtx.invoiceTypeId" operator="equals" value="PUR_INV_TEMPLATE">
                <set field="updateInvoiceCtx.invoiceTypeId" value="PURCHASE_INVOICE"/>
            </if-compare>
-           <clear-field field-name="invoice"/>
-           <clear-field field-name="invoiceIdToCopyFrom" map-name="parameters"/>
-           <clear-field field-name="recurrenceInfoId" map-name="updateInvoiceCtx"/>
+           <clear-field field="invoice"/>
+           <clear-field field="invoiceIdToCopyFrom" map-name="parameters"/>
+           <clear-field field="recurrenceInfoId" map-name="updateInvoiceCtx"/>
            <call-service service-name="updateInvoice" in-map-name="updateInvoiceCtx"/>
        </iterate>
    </simple-method>

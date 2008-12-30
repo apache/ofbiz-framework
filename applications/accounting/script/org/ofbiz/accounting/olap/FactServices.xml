@@ -31,7 +31,7 @@ under the License.
             <set field="andConditions.invoiceItemTypeId" value="INV_FPROD_ITEM"/>
             <get-related relation-name="InvoiceItem" value-name="invoice" list-name="invoiceItems" map-name="andConditions"/>
             <iterate list="invoiceItems" entry="invoiceItem">
-                <clear-field field-name="inMap"/>
+                <clear-field field="inMap"/>
                 <set field="inMap.invoice" from-field="invoice"/>
                 <set field="inMap.invoiceItem" from-field="invoiceItem"/>
                 <call-service service-name="loadSalesInvoiceItemFact" in-map-name="inMap"/>
@@ -67,7 +67,7 @@ under the License.
                 <set field="fact.invoiceItemSeqId" from-field="invoiceItem.invoiceItemSeqId"/>
                 <!-- conversion of the invoice date -->
                 <if-not-empty field="invoice.invoiceDate">
-                    <clear-field field-name="inMap"/>
+                    <clear-field field="inMap"/>
                     <set field="inMap.dimensionEntityName" value="DateDimension"/>
                     <set field="inMap.naturalKeyFields.dateValue" from-field="invoice.invoiceDate"/>
                     <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
@@ -82,7 +82,7 @@ under the License.
                 </if-not-empty>
                 <!-- conversion of the product id -->
                 <if-not-empty field="invoiceItem.productId">
-                    <clear-field field-name="inMap"/>
+                    <clear-field field="inMap"/>
                     <set field="inMap.dimensionEntityName" value="ProductDimension"/>
                     <set field="inMap.naturalKeyFields.productId" from-field="invoiceItem.productId"/>
                     <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
@@ -97,7 +97,7 @@ under the License.
                 </if-not-empty>
                 <!-- conversion of the invoice currency -->
                 <if-not-empty field="invoice.currencyUomId">
-                    <clear-field field-name="inMap"/>
+                    <clear-field field="inMap"/>
                     <set field="inMap.dimensionEntityName" value="CurrencyDimension"/>
                     <set field="inMap.naturalKeyFields.currencyId" from-field="invoice.currencyUomId"/>
                     <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
@@ -129,7 +129,7 @@ under the License.
                 </calcop>
             </calculate>
             <!-- taxes -->
-            <clear-field field-name="andConditions"/>
+            <clear-field field="andConditions"/>
             <set field="andConditions.invoiceItemTypeId" value="ITM_SALES_TAX"/>
             <get-related relation-name="ChildrenInvoiceItem" value-name="invoiceItem" list-name="taxes" map-name="andConditions"/>
             <iterate list="taxes" entry="tax">
@@ -140,7 +140,7 @@ under the License.
                 </calculate>
             </iterate>
             <!-- discounts -->
-            <clear-field field-name="andConditions"/>
+            <clear-field field="andConditions"/>
             <set field="andConditions.invoiceItemTypeId" value="ITM_PROMOTION_ADJ"/>
             <get-related relation-name="ChildrenInvoiceItem" value-name="invoiceItem" list-name="discounts" map-name="andConditions"/>
             <iterate list="discounts" entry="discount">

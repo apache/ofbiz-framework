@@ -111,7 +111,7 @@ under the License.
         </assert>
         <check-errors/>
         
-        <clear-field field-name="contactMech"/>
+        <clear-field field="contactMech"/>
         <!-- now update with changing the email address, a new record will be created in ContactMech entity this time -->
         <set field="serviceCtx.emailAddress" value="ofbiz-test@yahoo.com"/>
         <call-service service-name="updatePartyEmailAddress" in-map-name="serviceCtx">
@@ -165,7 +165,7 @@ under the License.
             <not><if-empty field="contactMech"/></not>
             <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
         </assert>
-        <clear-field field-name="telecomNumber"/>
+        <clear-field field="telecomNumber"/>
         <get-related-one  value-name="contactMech" relation-name="TelecomNumber" to-value-name="telecomNumber"/>
         <assert>
             <not><if-empty field="telecomNumber"/></not>
@@ -174,8 +174,8 @@ under the License.
         </assert>
         <check-errors/>
         
-        <clear-field field-name="contactMech"/>
-        <clear-field field-name="telecomNumber"/>
+        <clear-field field="contactMech"/>
+        <clear-field field="telecomNumber"/>
                  
         <!-- try now with changing the telecom number, a new record will be created in ContactMech, TelecomNumber entity this time -->
         <set field="serviceCtx.contactNumber" value="444-4444"/>
@@ -234,7 +234,7 @@ under the License.
             <not><if-empty field="contactMech"/></not>
             <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
         </assert>
-        <clear-field field-name="postalAddress"/>
+        <clear-field field="postalAddress"/>
         <get-related-one  value-name="contactMech" relation-name="PostalAddress" to-value-name="postalAddress"/>
         <assert>
             <not><if-empty field="postalAddress"/></not>
@@ -244,8 +244,8 @@ under the License.
         </assert>
         <check-errors/>
         
-        <clear-field field-name="contactMech"/>
-        <clear-field field-name="postalAddress"/>
+        <clear-field field="contactMech"/>
+        <clear-field field="postalAddress"/>
         
         <!-- try now with changing the postal address fields, a new record will be created in ContactMech, PostalAddress entity this time -->
         <set field="serviceCtx.stateProvinceGeoId" value="VA"/>
@@ -300,7 +300,7 @@ under the License.
             <result-to-field result-name="oldPaymentMethodId"/>
         </call-service>
         <log level="info" message="====== paymentMethodId [${paymentMethodId}] ======"/>
-        <clear-field field-name="paymentMethodAndCreditCard"/>
+        <clear-field field="paymentMethodAndCreditCard"/>
         <entity-one entity-name="PaymentMethodAndCreditCard" value-name="paymentMethodAndCreditCard"/>
         <assert>
             <not><if-empty field="paymentMethodAndCreditCard"/></not>
@@ -310,9 +310,9 @@ under the License.
         </assert>
         <check-errors/>
         
-        <clear-field field-name="paymentMethodAndCreditCard"/>
-        <clear-field field-name="paymentMethodId"/>
-        <clear-field field-name="oldPaymentMethodId"/>
+        <clear-field field="paymentMethodAndCreditCard"/>
+        <clear-field field="paymentMethodId"/>
+        <clear-field field="oldPaymentMethodId"/>
         
         <!-- try now with few changes (cardType, cardNumber in this case), a new record will be created in PaymentMethod, CreditCard entity -->
         <set field="serviceCtx.cardType" value="MasterCard"/>

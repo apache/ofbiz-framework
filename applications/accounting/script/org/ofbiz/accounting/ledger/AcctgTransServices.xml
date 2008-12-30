@@ -92,7 +92,7 @@ under the License.
                     <set field="newEntity.origCurrencyUomId" from-field="partyAcctgPreference.baseCurrencyUomId"/>
                 </if-empty>
                 <if-compare-field field="newEntity.origCurrencyUomId" to-field="newEntity.currencyUomId" operator="not-equals">
-                    <clear-field field-name="convertUomInMap"/>
+                    <clear-field field="convertUomInMap"/>
                     <set field="convertUomInMap.originalValue" from-field="newEntity.origAmount" type="Double"/>
                     <set field="convertUomInMap.uomId" from-field="newEntity.origCurrencyUomId"/>
                     <set field="convertUomInMap.uomIdTo" from-field="newEntity.currencyUomId"/>
@@ -244,8 +244,8 @@ under the License.
         <iterate entry="acctgTransEntry" list="acctgTransEntryList">
             <!-- we want to do this for each organizationPartyId, so only do this if we haven't already found the list for the current org -->
             <if-empty field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}">
-                <clear-field field-name="findCustomTimePeriodCallMap"/>
-                <clear-field field-name="customTimePeriodList"/>
+                <clear-field field="findCustomTimePeriodCallMap"/>
+                <clear-field field="customTimePeriodList"/>
     
                 <set from-field="acctgTrans.transactionDate" field="findCustomTimePeriodCallMap.findDate"/>
                 <set from-field="acctgTransEntry.organizationPartyId" field="findCustomTimePeriodCallMap.organizationPartyId"/>
@@ -314,9 +314,9 @@ under the License.
             <!-- TODO: for each entry: lookup GlAccount, update posted balance -->
             <iterate entry="acctgTransEntry" list="acctgTransEntryList">
                 <!-- Get all data to operate on: GlAccount, GlAccountOrganization, GlAccountHistory -->
-                <clear-field field-name="glAccount"/>
-                <clear-field field-name="glAccountOrganization"/>
-                <clear-field field-name="glAccountHistoryList"/>
+                <clear-field field="glAccount"/>
+                <clear-field field="glAccountOrganization"/>
+                <clear-field field="glAccountHistoryList"/>
 
                 <entity-one entity-name="GlAccount" value-name="glAccount">
                     <field-map field-name="glAccountId" from-field="acctgTransEntry.glAccountId"/>
@@ -330,7 +330,7 @@ under the License.
                     debitCreditFlag of the acctgTransEntry.  Debits add to debit accounts and subtract from credit accounts.  Credits add to
                     credit accounts and subtract from debit accounts -->
                 <!-- we do this by first calculating a postingAmount (positive or negative) then adding to the postingBalance -->
-                <clear-field field-name="postingAmount"/>
+                <clear-field field="postingAmount"/>
                 <!-- use the parent of the GlAccountClass, which should either be DEBIT or CREDIT -->
                 <get-related-one relation-name="GlAccountClass" value-name="glAccount" to-value-name="glAccountClass"/>
                 <get-related-one relation-name="ParentGlAccountClass" value-name="glAccountClass" to-value-name="parentGlAccountClass"/>

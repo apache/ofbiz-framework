@@ -526,7 +526,7 @@ under the License.
         <call-simple-method method-name="followPartyRelationshipsInlineRecurse"/>
     </simple-method>
     <simple-method method-name="followPartyRelationshipsInlineRecurse" short-description="followPartyRelationshipsInlineRecurse">
-        <clear-field field-name="_inline_NewRelatedPartyIdList"/>
+        <clear-field field="_inline_NewRelatedPartyIdList"/>
         
         <iterate entry="relatedPartyId" list="relatedPartyIdList">
             <if>
@@ -534,7 +534,7 @@ under the License.
                 <then>
                     <field-to-list field-name="relatedPartyId" list-name="_inline_relatedPartyIdAlreadySearchedList"/>
                     
-                    <clear-field field-name="_inline_PartyRelationshipList"/>
+                    <clear-field field="_inline_PartyRelationshipList"/>
                     <entity-condition entity-name="PartyRelationship" list-name="_inline_PartyRelationshipList" use-cache="${useCache}">
                         <condition-list combine="and">
                             <condition-expr field-name="partyIdFrom" env-name="relatedPartyId"/>
@@ -567,7 +567,7 @@ under the License.
                     </iterate>
                     
                     <if-compare field="includeFromToSwitched" operator="equals" value="Y">
-                        <clear-field field-name="_inline_PartyRelationshipList"/>
+                        <clear-field field="_inline_PartyRelationshipList"/>
                         <entity-condition entity-name="PartyRelationship" list-name="_inline_PartyRelationshipList" use-cache="${useCache}">
                             <condition-list combine="and">
                                 <condition-expr field-name="partyIdTo" env-name="relatedPartyId"/>
@@ -620,7 +620,7 @@ under the License.
         <field-to-result field-name="childRoleTypeIdList"/>
     </simple-method>
     <simple-method method-name="getChildRoleTypesInline" short-description="getChildRoleTypes">
-        <clear-field field-name="_inline_NewRoleTypeIdList"/>
+        <clear-field field="_inline_NewRoleTypeIdList"/>
         
         <iterate entry="roleTypeId" list="${roleTypeIdListName}">
             <if>
@@ -628,7 +628,7 @@ under the License.
                 <then>
                     <field-to-list field-name="roleTypeId" list-name="_inline_roleTypeIdAlreadySearchedList"/>
                     
-                    <clear-field field-name="_inline_RoleTypeList"/>
+                    <clear-field field="_inline_RoleTypeList"/>
                     <entity-condition entity-name="RoleType" list-name="_inline_RoleTypeList" use-cache="true">
                         <condition-expr field-name="parentTypeId" operator="equals" env-name="roleTypeId"/>
                     </entity-condition>

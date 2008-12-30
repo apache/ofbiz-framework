@@ -86,7 +86,7 @@ under the License.
             </else>
         </if-not-empty>
         <if-not-empty field="routingGS">
-            <clear-field field-name="lookupRouting"/>
+            <clear-field field="lookupRouting"/>
             <set from-field="routingGS.workEffortId" field="lookupRouting.workEffortId"/>
             <find-by-primary-key entity-name="WorkEffort" value-field="routing" map="lookupRouting"/>
             <else>
@@ -100,7 +100,7 @@ under the License.
                     </or>
                     </condition>
                     <then>
-                        <clear-field field-name="lookupRouting"/>
+                        <clear-field field="lookupRouting"/>
                         <set value="DEFAULT_ROUTING" field="lookupRouting.workEffortId"/>
                         <find-by-primary-key entity-name="WorkEffort" value-field="routing" map="lookupRouting"/>
                     </then>

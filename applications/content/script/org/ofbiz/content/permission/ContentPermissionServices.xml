@@ -258,7 +258,7 @@
 
                                                     <!-- no parent record found; time to stop recursion -->
                                                     <else>
-                                                        <clear-field field-name="checkId"/>
+                                                        <clear-field field="checkId"/>
                                                     </else>
                                                 </if>
                                             </then>
@@ -402,7 +402,7 @@
 
                                                     <!-- no parent record found; time to stop recursion -->
                                                     <else>
-                                                        <clear-field field-name="checkId"/>
+                                                        <clear-field field="checkId"/>
                                                     </else>
                                                 </if>
                                             </then>
@@ -602,7 +602,7 @@
 
                                                             <!-- no parent record found; time to stop recursion -->
                                                             <else>
-                                                                <clear-field field-name="checkId"/>
+                                                                <clear-field field="checkId"/>
                                                             </else>
                                                         </if>
                                                     </then>

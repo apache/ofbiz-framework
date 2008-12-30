@@ -128,7 +128,7 @@ under the License.
         <if-compare field="productCost" operator="equals" value="0" type="Double">
             <set field="orderByList[]" value="+supplierPrefOrderId"/>
             <set field="orderByList[]" value="+lastPrice"/>
-            <clear-field field-name="costsAndMap"/>
+            <clear-field field="costsAndMap"/>
             <set from-field="parameters.productId" field="costsAndMap.productId"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.currencyUomId"/>
             <find-by-and entity-name="SupplierProduct" map-name="costsAndMap" list-name="priceCosts" order-by-list-name="orderByList"/>
@@ -141,7 +141,7 @@ under the License.
                  in a different currency and try to convert
             -->
             <if-compare field="productCost" operator="equals" value="0" type="Double">
-                <clear-field field-name="costsAndMap"/>
+                <clear-field field="costsAndMap"/>
                 <set from-field="parameters.productId" field="costsAndMap.productId"/>
                 <set from-field="parameters.productPriceTypeId" field="costsAndMap.productPriceTypeId"/>
                 <find-by-and entity-name="SupplierProduct" map-name="costsAndMap" list-name="priceCosts" order-by-list-name="orderByList"/>
@@ -149,7 +149,7 @@ under the License.
                 <first-from-list list="priceCosts" entry="priceCost"/>
                 <if-not-empty field="priceCost.lastPrice">
                     <!-- we try to convert the lastPrice to the desired currency -->
-                    <clear-field field-name="inputMap"/>
+                    <clear-field field="inputMap"/>
                     <set from-field="priceCost.lastPrice" field="inputMap.originalValue"/>
                     <set from-field="priceCost.currencyUomId" field="inputMap.uomId"/>
                     <set from-field="parameters.currencyUomId" field="inputMap.uomIdTo"/>
@@ -161,7 +161,7 @@ under the License.
         </if-compare>
         <!--
         <if-compare field="productCost" operator="equals" value="0" type="Double">
-            <clear-field field-name="costsAndMap"/>
+            <clear-field field="costsAndMap"/>
             <set from-field="parameters.productId" field="costsAndMap.productId"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.currencyUomId"/>
             <set from-field="parameters.productPriceTypeId" field="costsAndMap.productPriceTypeId"/>
@@ -253,7 +253,7 @@ under the License.
         </call-service>
         <if-not-empty field="componentsMap">
             <iterate entry="componentMap" list="componentsMap">
-                <clear-field field-name="inputMap"/>
+                <clear-field field="inputMap"/>
                 <set field="product" from-field="componentMap.product"/>
                 <set field="inputMap.productId" from-field="product.productId"/>
                 <set field="inputMap.currencyUomId" from-field="parameters.currencyUomId"/>
@@ -270,7 +270,7 @@ under the License.
                 </calculate>
             </iterate>
             <else>
-                <clear-field field-name="inputMap"/>
+                <clear-field field="inputMap"/>
                 <set field="inputMap.productId" from-field="parameters.productId"/>
                 <set field="inputMap.currencyUomId" from-field="parameters.currencyUomId"/>
                 <set field="inputMap.costComponentTypePrefix" from-field="parameters.costComponentTypePrefix"/>
@@ -289,7 +289,7 @@ under the License.
             <result-to-field result-name="routing"/>
         </call-service>
         <iterate entry="task" list="tasks">
-            <clear-field field-name="callSvcMap"/>
+            <clear-field field="callSvcMap"/>
             <set from-field="task.workEffortIdTo" field="callSvcMap.workEffortId"/>
             <set from-field="parameters.currencyUomId" field="callSvcMap.currencyUomId"/>
             <set from-field="parameters.productId" field="callSvcMap.productId"/>
@@ -313,7 +313,7 @@ under the License.
         <!-- The CostComponent records are created. -->
         <if-not-empty field="totalTaskCost">
             <if-compare field="totalTaskCost" operator="greater" value="0" type="Double">
-                <clear-field field-name="callSvcMap"/>
+                <clear-field field="callSvcMap"/>
                 <set value="${parameters.costComponentTypePrefix}_ROUTE_COST" field="callSvcMap.costComponentTypeId"/>
                 <set from-field="parameters.productId" field="callSvcMap.productId"/>
                 <set from-field="parameters.currencyUomId" field="callSvcMap.costUomId"/>
@@ -323,7 +323,7 @@ under the License.
         </if-not-empty>
         <if-not-empty field="totalProductsCost">
             <if-compare field="totalProductsCost" operator="greater" value="0" type="Double">
-                <clear-field field-name="callSvcMap"/>
+                <clear-field field="callSvcMap"/>
                 <set value="${parameters.costComponentTypePrefix}_MAT_COST" field="callSvcMap.costComponentTypeId"/>
                 <set from-field="parameters.productId" field="callSvcMap.productId"/>
                 <set from-field="parameters.currencyUomId" field="callSvcMap.costUomId"/>

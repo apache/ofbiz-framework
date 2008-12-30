@@ -202,7 +202,7 @@ under the License.
         <!-- If the associated category was the primary category for the product, clear that field -->
         <entity-one entity-name="Product" value-name="product" auto-field-map="true"/>
         <if-compare-field field="product.primaryProductCategoryId" to-field="parameters.productCategoryId" operator="equals">
-            <clear-field field-name="product.primaryProductCategoryId"/>
+            <clear-field field="product.primaryProductCategoryId"/>
             <store-value value-name="product"/>
         </if-compare-field>
 
@@ -540,7 +540,7 @@ under the License.
             </else>
             </if-compare>
             <call-service service-name="applyFeatureToProduct" in-map-name="createPfaMap"/>
-            <clear-field field-name="createPfaMap"/>
+            <clear-field field="createPfaMap"/>
         </iterate-map>
 
         <!-- set isVirtual based on hasSelectableFeatures -->

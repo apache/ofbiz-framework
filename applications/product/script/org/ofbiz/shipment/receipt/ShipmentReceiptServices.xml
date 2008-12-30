@@ -112,8 +112,8 @@ under the License.
             <log level="info" message="receiveInventoryProduct Looping and creating inventory info - ${currentLoop}"/>
             
             <!-- if there is an inventoryItemId, update it (this will happen when receiving serialized inventory already in the system, like for returns); if not create one -->
-            <clear-field field-name="serviceInMap"/>
-            <clear-field field-name="currentInventoryItemId"/>
+            <clear-field field="serviceInMap"/>
+            <clear-field field="currentInventoryItemId"/>
             
             <if-empty field="parameters.currentInventoryItemId">
                 <set-service-fields service-name="createInventoryItem" map-name="parameters" to-map-name="serviceInMap"/>
@@ -133,7 +133,7 @@ under the License.
 
             <!-- do this only for non-serialized inventory -->
             <if-compare value="SERIALIZED_INV_ITEM" operator="not-equals" field="parameters.inventoryItemTypeId">
-                <clear-field field-name="serviceInMap"/>
+                <clear-field field="serviceInMap"/>
                 <set-service-fields service-name="createInventoryItemDetail" map-name="parameters" to-map-name="serviceInMap"/>
                 <set field="serviceInMap.inventoryItemId" from-field="currentInventoryItemId"/>
                 <call-service service-name="createInventoryItemDetail" in-map-name="serviceInMap">
@@ -141,7 +141,7 @@ under the License.
                 </call-service>
             </if-compare>
             
-            <clear-field field-name="serviceInMap"/>
+            <clear-field field="serviceInMap"/>
             <set-service-fields service-name="createShipmentReceipt" map-name="parameters" to-map-name="serviceInMap"/>
             <set field="serviceInMap.inventoryItemId" from-field="currentInventoryItemId"/>
             <call-service service-name="createShipmentReceipt" in-map-name="serviceInMap"/>
@@ -167,7 +167,7 @@ under the License.
                             </and>
                         </condition>
                         <then>
-                            <clear-field field-name="serviceInMap"/>
+                            <clear-field field="serviceInMap"/>
                             <set field="serviceInMap.inventoryItemId" from-field="currentInventoryItemId"/>
                             <set field="serviceInMap.statusId" value="INV_AVAILABLE"/> <!-- XXX set to returned instead -->
                             <call-service service-name="updateInventoryItem" in-map-name="serviceInMap"/>
@@ -176,7 +176,7 @@ under the License.
                 </then>
             </if>
             
-            <clear-field field-name="serviceInMap"/>
+            <clear-field field="serviceInMap"/>
             <set-service-fields service-name="balanceInventoryItems" map-name="parameters" to-map-name="serviceInMap"/>
             <set field="serviceInMap.inventoryItemId" from-field="currentInventoryItemId"/>
             <call-service service-name="balanceInventoryItems" in-map-name="serviceInMap"/>
@@ -228,7 +228,7 @@ under the License.
 
                 <iterate entry="returnItem" list="returnItems">
                     <!-- record this return item on the return shipment as well.  not sure if this is actually necessary... -->
-                    <clear-field field-name="shipItemCtx"/>
+                    <clear-field field="shipItemCtx"/>
                     <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
                     <set from-field="returnItem.productId" field="shipItemCtx.productId"/>
                     <set from-field="returnItem.returnQuantity" field="shipItemCtx.quantity"/>
@@ -238,7 +238,7 @@ under the License.
                     </call-service>
                 </iterate>
                 <iterate entry="returnItem" list="returnItems">
-                    <clear-field field-name="receiveCtx"/>
+                    <clear-field field="receiveCtx"/>
                                         
                     <if-empty field="returnItem.expectedItemStatus">
                         <set value="INV_RETURNED" field="returnItem.expectedItemStatus" type="String"/>

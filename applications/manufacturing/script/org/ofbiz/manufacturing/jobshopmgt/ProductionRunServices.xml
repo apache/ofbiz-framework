@@ -42,7 +42,7 @@ under the License.
                 <!-- now go through each work effort good standard and call a service to issue the inventory -->
                 <iterate list="components" entry="component">
                     <if-not-empty field="component.productId">
-                        <clear-field field-name="callSvcMap"/>
+                        <clear-field field="callSvcMap"/>
                         <set-service-fields to-map-name="callSvcMap" service-name="issueProductionRunTaskComponent" map-name="component"/>
                         <set from-field="reserveOrderEnumId" field="callSvcMap.reserveOrderEnumId"/>
                         <set field="callSvcMap.description" value="BOM Part"/>
@@ -183,13 +183,13 @@ under the License.
                     <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                     <set field="createDetailMap.description" from-field="parameters.description"/>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                    <clear-field field-name="createDetailMap"/>
+                    <clear-field field="createDetailMap"/>
                     <set field="balanceInventoryItemsInMap.inventoryItemId" from-field="lastNonSerInventoryItem.inventoryItemId"/>
                     <call-service service-name="balanceInventoryItems" in-map-name="balanceInventoryItemsInMap"/>
                 <else>
                     <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotIssued -->
-                    <clear-field field-name="createInvItemInMap"/>
-                    <clear-field field-name="createInvItemOutMap"/>
+                    <clear-field field="createInvItemInMap"/>
+                    <clear-field field="createInvItemOutMap"/>
                     <set field="createInvItemInMap.productId" from-field="productId"/>
                     <set field="createInvItemInMap.facilityId" from-field="workEffort.facilityId"/>
                     <set field="createInvItemInMap.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
@@ -216,7 +216,7 @@ under the License.
                     <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                     <set field="createDetailMap.description" from-field="parameters.description"/>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                    <clear-field field-name="createDetailMap"/>
+                    <clear-field field="createDetailMap"/>
                 </else>
                 </if-not-empty>
                 <calculate field-name="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
@@ -255,7 +255,7 @@ under the License.
                     <set from-field="inventoryItem.inventoryItemId" field="issuanceCreateMap.inventoryItemId"/>
                     <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
                     <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap"/>
-                    <clear-field field-name="issuanceCreateMap"/>
+                    <clear-field field="issuanceCreateMap"/>
 
                     <calculate field-name="parameters.quantityNotIssued">
                         <calcop field-name="parameters.quantityNotIssued" operator="subtract"><number value="1.0"/></calcop>
@@ -310,7 +310,7 @@ under the License.
                             <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                             <set field="createDetailMap.description" from-field="parameters.description"/>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                            <clear-field field-name="createDetailMap"/>
+                            <clear-field field="createDetailMap"/>
                             
                             <calculate field-name="quantityNotIssued" map-name="parameters">
                                 <calcop operator="subtract" field-name="parameters.quantityNotIssued">
@@ -320,7 +320,7 @@ under the License.
                             <set field="balanceInventoryItemsInMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
                             <call-service service-name="balanceInventoryItems" in-map-name="balanceInventoryItemsInMap"/>
     
-                            <clear-field field-name="issuanceCreateMap"/>
+                            <clear-field field="issuanceCreateMap"/>
                         </if-compare>
                     </if-not-empty>
     

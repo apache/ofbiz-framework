@@ -155,8 +155,8 @@
             
         </if-not-empty>
 
-        <clear-field field-name="content.contentId"/><!-- force new value -->        
-        <clear-field field-name="content.statusId"/><!-- force new value -->
+        <clear-field field="content.contentId"/><!-- force new value -->        
+        <clear-field field="content.statusId"/><!-- force new value -->
         <set-service-fields service-name="createContent" map-name="content" to-map-name="createContent"/>
         <call-service service-name="createContent" in-map-name="createContent">
             <result-to-field result-name="contentId" field-name="newContentId"/>
@@ -1208,9 +1208,9 @@
 	              <condition-expr field-name="caMapKey" env-name="parameters.subMapKey" ignore-if-empty="true"/>
 	          </condition-list>
 	        </entity-condition>
-	        <clear-field field-name="view2"/>
+	        <clear-field field="view2"/>
 	        <first-from-list entry="view2" list="viewList"/>
-	        <clear-field field-name="map"/>
+	        <clear-field field="map"/>
 	        <set field="map.contentIdFrom" from-field="view.contentId"/>
 	        <set field="map.dataResourceIdFrom" from-field="view.dataResourceId"/>
 	        <set field="map.contentId" from-field="view2.contentId"/>

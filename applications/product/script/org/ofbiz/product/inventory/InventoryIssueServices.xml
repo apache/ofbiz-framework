@@ -41,7 +41,7 @@ under the License.
                 <if-compare field="iiCount" operator="greater" value="0" type="Double">
                     <iterate list="orderItemList" entry="orderItem">
                         <if-not-empty field="orderItem.productId">
-                            <clear-field field-name="callSvcMap"/>
+                            <clear-field field="callSvcMap"/>
                             <set-service-fields to-map-name="callSvcMap" service-name="issueImmediatelyFulfilledOrderItem" map-name="orderItem"/>
                             <set field="callSvcMap.orderHeader" from-field="orderHeader" />
                             <set field="callSvcMap.orderItem" from-field="orderItem" />
@@ -146,12 +146,12 @@ under the License.
                     </calculate>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
 
-                    <clear-field field-name="createDetailMap"/>
-                    <clear-field field-name="itemIssuanceId"/>
+                    <clear-field field="createDetailMap"/>
+                    <clear-field field="itemIssuanceId"/>
                 <else>
                     <!-- no non-ser inv item, create a non-ser InventoryItem with availableToPromise = -quantityNotIssued -->
-                    <clear-field field-name="createInvItemInMap"/>
-                    <clear-field field-name="createInvItemOutMap"/>
+                    <clear-field field="createInvItemInMap"/>
+                    <clear-field field="createInvItemOutMap"/>
                     <set field="createInvItemInMap.productId" from-field="orderItem.productId"/>
                     <set field="createInvItemInMap.facilityId" from-field="orderHeader.originFacilityId"/>
                     <set field="createInvItemInMap.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
@@ -181,8 +181,8 @@ under the License.
                     </calculate>
                     <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
 
-                    <clear-field field-name="createDetailMap"/>
-                    <clear-field field-name="itemIssuanceId"/>
+                    <clear-field field="createDetailMap"/>
+                    <clear-field field="itemIssuanceId"/>
                 </else>
                 </if-not-empty>
 
@@ -206,7 +206,7 @@ under the License.
                     <set field="issuanceCreateMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>                    
                     <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
                     <call-service service-name="createItemIssuance" in-map-name="issuanceCreateMap"/>
-                    <clear-field field-name="issuanceCreateMap"/>
+                    <clear-field field="issuanceCreateMap"/>
 
                     <calculate field-name="parameters.quantityNotIssued">
                         <calcop field-name="parameters.quantityNotIssued" operator="subtract"><number value="1.0"/></calcop>
@@ -256,7 +256,7 @@ under the License.
                             <calcop field-name="parameters.deductAmount" operator="negative"/>
                         </calculate>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
-                        <clear-field field-name="createDetailMap"/>
+                        <clear-field field="createDetailMap"/>
                         
                         <calculate field-name="quantityNotIssued" map-name="parameters">
                             <calcop operator="subtract" field-name="parameters.quantityNotIssued">
@@ -264,8 +264,8 @@ under the License.
                             </calcop>
                         </calculate>
 
-                        <clear-field field-name="issuanceCreateMap"/>
-                        <clear-field field-name="itemIssuanceId"/>
+                        <clear-field field="issuanceCreateMap"/>
+                        <clear-field field="itemIssuanceId"/>
 
                         <!-- keep track of the last non-serialized inventory item for use if inventory is not sufficient for amount already issued -->
                         <!-- use env variable named lastNonSerInventoryItem -->

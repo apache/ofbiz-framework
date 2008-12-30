@@ -26,12 +26,12 @@ under the License.
         <call-service service-name="loadDateDimension" in-map-name="inMap"/>
         <check-errors/>
 
-        <clear-field field-name="inMap"/>
+        <clear-field field="inMap"/>
         <call-service service-name="loadCurrencyDimension" in-map-name="inMap"/>
         <check-errors/>
 
         <!-- loads all products in the ProductDimension -->
-        <clear-field field-name="inMap"/>
+        <clear-field field="inMap"/>
         <call-service service-name="loadAllProductsInProductDimension" in-map-name="inMap"/>
         <check-errors/>
         
@@ -44,7 +44,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <iterate list="invoices" entry="invoice">
-            <clear-field field-name="inMap"/>
+            <clear-field field="inMap"/>
             <set field="inMap.invoiceId" from-field="invoice.invoiceId"/>
             <call-service service-name="loadSalesInvoiceFact" in-map-name="inMap"/>
             <check-errors/>
