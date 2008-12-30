@@ -250,10 +250,10 @@ under the License.
             <set field="invoice" from-field="parameters.invoice"/>
         </else>
         </if-empty>
-        <call-class-method class-name="org.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceTotalBd" ret-field-name="invoiceTotalAmount">
+        <call-class-method class-name="org.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceTotalBd" ret-field="invoiceTotalAmount">
             <field field-name="invoice" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
-        <call-class-method class-name="org.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceAppliedBd" ret-field-name="invoiceTotalAmountPaid">
+        <call-class-method class-name="org.ofbiz.accounting.invoice.InvoiceWorker" method-name="getInvoiceAppliedBd" ret-field="invoiceTotalAmountPaid">
             <field field-name="invoice" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
         <get-related relation-name="InvoiceTerm" value-field="invoice" list="invoiceTerms"/>
@@ -266,7 +266,7 @@ under the License.
                 <set field="invoicePaymentInfo.invoiceId" from-field="invoice.invoiceId"/>
                 <set field="invoicePaymentInfo.invoiceTermId" from-field="invoiceTerm.invoiceTermId"/>
                 <set field="invoicePaymentInfo.termTypeId" from-field="invoiceTerm.termTypeId"/>
-                <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field-name="invoicePaymentInfo.dueDate">
+                <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field="invoicePaymentInfo.dueDate">
                     <field field-name="invoice.invoiceDate" type="Timestamp"/>
                     <field field-name="invoiceTerm.termDays" type="Long"/>
                 </call-class-method>
@@ -321,12 +321,12 @@ under the License.
                 <first-from-list list="invoiceTerms" entry="invoiceTerm"/>
                 <if-not-empty field="invoiceTerm">
                     <set field="invoicePaymentInfo.termTypeId" from-field="invoiceTerm.termTypeId"/>
-                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field-name="invoicePaymentInfo.dueDate">
+                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field="invoicePaymentInfo.dueDate">
                         <field field-name="invoice.invoiceDate" type="Timestamp"/>
                         <field field-name="invoiceTerm.termDays" type="Long"/>
                     </call-class-method>
                 <else>
-                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field-name="invoicePaymentInfo.dueDate">
+                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field="invoicePaymentInfo.dueDate">
                         <field field-name="invoice.invoiceDate" type="Timestamp"/>
                     </call-class-method>
                 </else>
@@ -351,7 +351,7 @@ under the License.
 
     <simple-method method-name="getInvoicePaymentInfoListByDueDateOffset" short-description="Select a list with information on payment due dates and amounts for invoices.">
         <now-timestamp field="nowTimestamp"/>
-        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field-name="asOfDate">
+        <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field="asOfDate">
             <field field-name="nowTimestamp" type="Timestamp"/>
             <field field-name="parameters.daysOffset" type="Long"/>
         </call-class-method>

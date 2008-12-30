@@ -978,20 +978,20 @@
         </if-compare>
         <set field="contentIdFrom" from-field="parameters.contentIdFrom"/>         
         <set field="pubPtContentId" from-field="parameters.pubPtContentId"/>   
-        <call-object-method method-name="length" obj-field-name="parameters.textData" ret-field-name="textDataLen"/>
+        <call-object-method method-name="length" obj-field-name="parameters.textData" ret-field="textDataLen"/>
         <log level="info" message="textDataLen:${textDataLen}"/>
         <property-to-field resource="forum" property="descriptLen" field-name="descriptLen" />
         <log level="info" message="descriptLen:${descriptLen}"/>
         <set field="dblTextDataLen" from-field="textDataLen" type="Double"/>
         <set field="dblDescriptLen" from-field="descriptLen" type="Double"/>
-        <call-class-method method-name="min" class-name="java.lang.Math" ret-field-name="subStringLen">
+        <call-class-method method-name="min" class-name="java.lang.Math" ret-field="subStringLen">
             <field field-name="dblTextDataLen" type="double"/>
             <field field-name="dblDescriptLen" type="double"/>
         </call-class-method>
         <set field="intSubStringLen" from-field="subStringLen" type="Integer"/>
         <log level="info" message="subStringLen:${subStringLen}"/>
         <set field="zeroValue" value="0" type="Integer"/>
-        <call-object-method method-name="substring" obj-field-name="parameters.textData" ret-field-name="subDescript">
+        <call-object-method method-name="substring" obj-field-name="parameters.textData" ret-field="subDescript">
             <field field-name="zeroValue" type="int"/>
             <field field-name="intSubStringLen" type="int"/>
         </call-object-method>

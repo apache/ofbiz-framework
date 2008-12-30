@@ -306,7 +306,7 @@ under the License.
             </if-not-empty>
         </if-empty>
        <if-not-empty field="parameters._uploadedFile_fileName">                    
-           <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field-name="uploadPath"/>
+           <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field="uploadPath"/>
            <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
            <!-- locate the file extension to use based on mime-type -->
            <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
@@ -396,7 +396,7 @@ under the License.
                <set from-field="content.dataResourceId" field="lookup.dataResourceId"/>
                <find-by-primary-key use-cache="true" entity-name="DataResource" value-field="dataResourceMap" map="lookup"/>
             <else>
-               <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field-name="uploadPath"/>
+               <call-class-method class-name="org.ofbiz.content.data.DataResourceWorker" method-name="getDataResourceContentUploadPath" ret-field="uploadPath"/>
                <log level="always" message="[createPartyContent] - Found Subdir : ${uploadPath}"/>
                <!-- locate the file extension to use based on mime-type -->
                <set from-field="parameters._uploadedFile_contentType" field="extenLookup.mimeTypeId"/>
@@ -736,8 +736,8 @@ under the License.
     
     <!-- address match map -->
     <simple-method method-name="createAddressMatchMap" short-description="create a AddressMatchMap">
-        <call-object-method obj-field-name="mapValue" obj-map-name="parameters" method-name="toUpperCase" ret-field-name="mapValue" ret-map-name="parameters"/>
-        <call-object-method obj-field-name="mapKey" obj-map-name="parameters" method-name="toUpperCase" ret-field-name="mapKey" ret-map-name="parameters"/>
+        <call-object-method obj-field-name="mapValue" obj-map-name="parameters" method-name="toUpperCase" ret-field="mapValue" ret-map-name="parameters"/>
+        <call-object-method obj-field-name="mapKey" obj-map-name="parameters" method-name="toUpperCase" ret-field="mapKey" ret-map-name="parameters"/>
         <make-value entity-name="AddressMatchMap" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -895,7 +895,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getCountryList" short-description="Returns a list of country" login-required="false">
-        <call-class-method method-name="getCountryList" class-name="org.ofbiz.common.CommonWorkers" ret-field-name="geoList">
+        <call-class-method method-name="getCountryList" class-name="org.ofbiz.common.CommonWorkers" ret-field="geoList">
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>
         <iterate list="geoList" entry="countryGeo">
@@ -907,7 +907,7 @@ under the License.
 
     <simple-method method-name="getAssociatedStateList" short-description="set the state options for selected country" login-required="false">
         <set field="countryGeoId" from-field="parameters.countryGeoId"/>
-        <call-class-method method-name="getAssociatedStateList" class-name="org.ofbiz.common.CommonWorkers" ret-field-name="geoList">
+        <call-class-method method-name="getAssociatedStateList" class-name="org.ofbiz.common.CommonWorkers" ret-field="geoList">
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
             <field field-name="countryGeoId" type="String"/>
         </call-class-method>

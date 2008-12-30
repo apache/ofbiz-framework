@@ -21,17 +21,17 @@ under the License.
     <simple-method method-name="addPromoCode" short-description="Add Promotion Code" login-required="true">
         <if-not-empty field="parameters.confirm">
             <set field="posTerminalId" value="null"/>
-            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field-name="webPosSession">
+            <call-class-method class-name="org.ofbiz.webpos.WebPosEvents" method-name="getWebPosSession" ret-field="webPosSession">
                 <field field-name="request" type="javax.servlet.http.HttpServletRequest"/>
                 <field field-name="posTerminalId" type="String"/>
             </call-class-method>
             <if-not-empty field="webPosSession">
-                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field-name="webPosTransaction"/>
+                <call-object-method obj-field-name="webPosSession" method-name="getCurrentTransaction" ret-field="webPosTransaction"/>
                 <check-errors/>
-                <call-object-method obj-field-name="webPosTransaction" method-name="isOpen" ret-field-name="isOpen"/>
+                <call-object-method obj-field-name="webPosTransaction" method-name="isOpen" ret-field="isOpen"/>
                 <if-compare field="isOpen" operator="equals" value="true" type="String">
                     <set field="promoCode" from-field="parameters.promoCode"/>
-                    <call-object-method obj-field-name="webPosTransaction" method-name="addProductPromoCode" ret-field-name="result">
+                    <call-object-method obj-field-name="webPosTransaction" method-name="addProductPromoCode" ret-field="result">
                         <field field-name="promoCode" type="String"/>
                     </call-object-method>
                     <check-errors/>

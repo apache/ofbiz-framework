@@ -151,7 +151,7 @@ under the License.
                     <if-not-empty field="relCategories">
                         <if-not-empty field="categories">
                             <iterate list="relCategories" entry="relCategory">
-                            <call-object-method obj-field-name="categories" method-name="contains" ret-field-name="addInCategories" >
+                            <call-object-method obj-field-name="categories" method-name="contains" ret-field="addInCategories" >
                                 <field field-name="relCategory" type="java.lang.Object"/>
                             </call-object-method>
                             <if-compare value="false" field="addInCategories" operator="equals" type="Boolean">
@@ -471,13 +471,13 @@ under the License.
     <simple-method method-name="checkImageUrl" short-description="Check for image url exists or not" login-required="false">                  
         <set field="imageUrl" from-field="parameters.imageUrl"/>
         
-        <call-object-method obj-field-name="imageUrl" method-name="startsWith" ret-field-name="httpFlag" >
+        <call-object-method obj-field-name="imageUrl" method-name="startsWith" ret-field="httpFlag" >
             <string value="http"></string>
         </call-object-method>
-        <call-object-method obj-field-name="imageUrl" method-name="startsWith" ret-field-name="httpsFlag" >
+        <call-object-method obj-field-name="imageUrl" method-name="startsWith" ret-field="httpsFlag" >
             <string value="https"></string>
         </call-object-method>
-        <call-object-method obj-field-name="imageUrl" method-name="startsWith" ret-field-name="ftpFlag" >
+        <call-object-method obj-field-name="imageUrl" method-name="startsWith" ret-field="ftpFlag" >
             <string value="ftp"></string>
         </call-object-method>
         <if>
@@ -489,13 +489,13 @@ under the License.
                 </or>                      
             </condition>    
             <then>             
-                <call-class-method method-name="fromUrlString" class-name="org.ofbiz.base.util.UtilURL" ret-field-name="url">
+                <call-class-method method-name="fromUrlString" class-name="org.ofbiz.base.util.UtilURL" ret-field="url">
                    <string value="${imageUrl}"/>
                 </call-class-method>
             </then>
             <else>
                 <set field="imageUrl" value="/framework/images/webapp${parameters.imageUrl}" />            
-                <call-class-method method-name="fromOfbizHomePath" class-name="org.ofbiz.base.util.UtilURL" ret-field-name="url">
+                <call-class-method method-name="fromOfbizHomePath" class-name="org.ofbiz.base.util.UtilURL" ret-field="url">
                    <string value="${imageUrl}"/>
                 </call-class-method>
             </else>    

@@ -40,11 +40,11 @@ under the License.
 
         <!-- if username and/or password should be lowercased, do that now -->
         <if-compare field="username_lowercase" operator="equals" value="true">
-            <call-object-method obj-field-name="username" obj-map-name="parameters" method-name="toLowerCase" ret-field-name="username" ret-map-name="parameters"/>
+            <call-object-method obj-field-name="username" obj-map-name="parameters" method-name="toLowerCase" ret-field="username" ret-map-name="parameters"/>
         </if-compare>
         <if-compare field="password_lowercase" operator="equals" value="true">
-            <call-object-method obj-field-name="password" obj-map-name="parameters" method-name="toLowerCase" ret-field-name="password" ret-map-name="parameters"/>
-            <call-object-method obj-field-name="confirmPassword" obj-map-name="parameters" method-name="toLowerCase" ret-field-name="confirmPassword" ret-map-name="parameters"/>
+            <call-object-method obj-field-name="password" obj-map-name="parameters" method-name="toLowerCase" ret-field="password" ret-map-name="parameters"/>
+            <call-object-method obj-field-name="confirmPassword" obj-map-name="parameters" method-name="toLowerCase" ret-field="confirmPassword" ret-map-name="parameters"/>
         </if-compare>
 
         <!-- Create the UserLogin Record -->
@@ -557,7 +557,7 @@ under the License.
            <field-to-session field-name="parameters.billingContactMechId" session-name="billingContactMechId"></field-to-session>        
         <else>
         <if-not-empty field="cart">
-            <call-object-method obj-field-name="cart" method-name="getShippingContactMechId" ret-field-name="shippingContactMechId"/>
+            <call-object-method obj-field-name="cart" method-name="getShippingContactMechId" ret-field="shippingContactMechId"/>
         </if-not-empty>
             <field-to-session field-name="shippingContactMechId" session-name="billingContactMechId"></field-to-session>        
         </else>    

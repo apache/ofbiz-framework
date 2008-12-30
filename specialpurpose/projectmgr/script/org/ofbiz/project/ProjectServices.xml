@@ -316,7 +316,7 @@
                         <calcop operator="multiply" field="taskDays"/>
                         <number value="-1"/>
                     </calculate>
-                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field-name="startDate">
+                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field="startDate">
                         <field field-name="startDate"/>
                         <field field-name="taskDays"/>
                     </call-class-method>
@@ -351,7 +351,7 @@
                             <!-- no predecessors so i can set the dates -->
                             <now-timestamp field="upd.estimatedStartDate"/>
                             <now-timestamp field="currentDate"/>
-                            <call-class-method class-name="org.ofbiz.project.Various" method-name="calculateCompletionDate" ret-field-name="upd.estimatedCompletionDate">
+                            <call-class-method class-name="org.ofbiz.project.Various" method-name="calculateCompletionDate" ret-field="upd.estimatedCompletionDate">
                                 <field field-name="task" type="org.ofbiz.entity.GenericValue"/>
                                 <field field-name="currentDate" type="java.sql.Timestamp"/>
                             </call-class-method>
@@ -421,7 +421,7 @@
                             <remove-value value-field="timeEntry"/> 
                             <else>
                                 <!-- translate the date into the daynumber -->
-                                <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field-name="dayNumber">
+                                <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field="dayNumber">
                                     <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
                                     <field field-name="timeEntry.fromDate" type="java.sql.Timestamp"/>
                                 </call-class-method>
@@ -446,7 +446,7 @@
             <if-not-empty field="parameters.hoursDay${dayNr}">
                 <if-compare field="parameters.hoursDay${dayNr}" value="-999999" operator="not-equals">
                     <set field="hours" from-field="parameters.hoursDay${dayNr}"/>
-                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field-name="fromDate">
+                    <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field="fromDate">
                         <field field-name="timesheet.fromDate" type="java.sql.Timestamp"/>
                         <field field-name="dayNr" type="int"/>
                     </call-class-method>
