@@ -98,7 +98,7 @@ under the License.
         </iterate>
         
         <!-- go through all send to parties and get email addresses -->
-        <iterate-map key-name="sendToPartyId" value-name="sendToPartyIdValue" map-name="sendToPartyIdMap">
+        <iterate-map key="sendToPartyId" value="sendToPartyIdValue" map="sendToPartyIdMap">
             <set field="sendToPartyPcmFindMap.partyId" from-field="sendToPartyId"/>
             <set field="sendToPartyPcmFindMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
             <find-by-and entity-name="PartyAndContactMech" map-name="sendToPartyPcmFindMap" list-name="sendToPartyPartyAndContactMechs"/>

@@ -58,7 +58,7 @@ under the License.
         </iterate>
 
         <!-- now get all info for each origin location -->
-        <iterate-map key-name="locationSeqId" value-name="perLocationOiirailList" map-name="oiirailByLocMap">
+        <iterate-map key="locationSeqId" value="perLocationOiirailList" map="oiirailByLocMap">
             <!-- now for more fun, split up by productId; this should generally not happen, but we'll make sure here -->
             <clear-field field="oiirailByProdMap"/>
             <iterate entry="orderItemShipGrpInvResAndItemLocation" list="perLocationOiirailList">
@@ -67,7 +67,7 @@ under the License.
 
             <clear-field field="perProductOiirailList"/>
             <clear-field field="productId"/>
-            <iterate-map key-name="productId" value-name="perProductOiirailList" map-name="oiirailByProdMap">
+            <iterate-map key="productId" value="perProductOiirailList" map="oiirailByProdMap">
                 <!-- get product -->
                 <entity-one entity-name="Product" value-field="moveInfo.product"/>
 
@@ -274,7 +274,7 @@ under the License.
                                 </iterate>
                                 <clear-field field="locationSeqId"/>
                                 <clear-field field="perLocationInventoryItemAndLocList"/>
-                                <iterate-map key-name="locationSeqId" value-name="perLocationInventoryItemAndLocList" map-name="InventoryItemAndLocationByLocMap">
+                                <iterate-map key="locationSeqId" value="perLocationInventoryItemAndLocList" map="InventoryItemAndLocationByLocMap">
                                     <if-empty field="fromLocationTotalAvailableToPromise.${locationSeqId}">
                                         <calculate field-name="totalQuantityOnHand" type="Double"><number value="0"/></calculate>
                                         <calculate field-name="totalAvailableToPromise" type="Double"><number value="0"/></calculate>
@@ -444,7 +444,7 @@ under the License.
             <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByInvItemMap.${orderItemShipGrpInvResAndItemLocation.inventoryItemId}"/>
         </iterate>
 
-        <iterate-map key-name="inventoryItemId" value-name="orderItemShipGrpInvResAndItemLocationList" map-name="oiirailByInvItemMap">
+        <iterate-map key="inventoryItemId" value="orderItemShipGrpInvResAndItemLocationList" map="oiirailByInvItemMap">
             <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
 
             <!-- if this is a serialized InventoryItem, then just update the location -->

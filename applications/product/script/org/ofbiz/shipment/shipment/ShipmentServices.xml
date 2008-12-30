@@ -710,7 +710,7 @@ under the License.
         </iterate>
 
         <!-- go through all send to parties and get email addresses -->
-        <iterate-map key-name="sendToPartyId" value-name="sendToPartyIdValue" map-name="sendToPartyIdMap">
+        <iterate-map key="sendToPartyId" value="sendToPartyIdValue" map="sendToPartyIdMap">
             <entity-and entity-name="PartyAndContactMech" list-name="sendToPartyPartyAndContactMechs">
                 <field-map field-name="partyId" from-field="sendToPartyId"/>
                 <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>

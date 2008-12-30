@@ -197,7 +197,7 @@ under the License.
             <results-to-map map-name="pResults"/>
         </call-service>
         <!--  put all the result fields in this service's result -->
-        <iterate-map map-name="pResults" key-name="key" value-name="val">
+        <iterate-map map="pResults" key="key" value="val">
             <field-to-result field-name="val" result-name="${key}"/>
         </iterate-map>
 
