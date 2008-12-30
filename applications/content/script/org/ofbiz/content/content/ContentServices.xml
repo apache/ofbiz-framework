@@ -48,7 +48,7 @@
         <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
         <set field="content.createdDate" from-field="nowTimestamp"/>
 
-        <create-value value-name="content"/>
+        <create-value value-field="content"/>
 
         <field-to-result field-name="content.contentId" result-name="contentId"/>        
     </simple-method>
@@ -88,7 +88,7 @@
         <set field="assoc.lastModifiedDate" from-field="nowTimestamp"/>
         <set field="assoc.createdDate" from-field="nowTimestamp"/>
 
-        <create-value value-name="assoc"/>
+        <create-value value-field="assoc"/>
         <log level="info" message="assoc: ${assoc}"/>
         <field-to-result field-name="assoc.fromDate" result-name="fromDate"/>
     </simple-method>
@@ -220,7 +220,7 @@
             <if-not-empty field="parameters.thruDate">
                 <set from-field="parameters.thruDate" field="newContentAssoc.thruDate"/>
             </if-not-empty>
-            <create-value value-name="newContentAssoc" />
+            <create-value value-field="newContentAssoc" />
         </if-compare>
         <check-errors/>
     </simple-method>
@@ -230,7 +230,7 @@
         <make-value entity-name="ContentMetaData" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContentMetaData" short-description="Update Content Meta Data">
         <make-value entity-name="ContentMetaData" value-field="lookupKeyValue"/>
@@ -256,7 +256,7 @@
         <find-by-primary-key entity-name="PartyRole" map="partyRolePK" value-field="partyRole"/>
         <if-empty field="partyRole">
             <make-value entity-name="PartyRole" map-name="partyRolePK" value-field="partyRole"/>
-            <create-value value-name="partyRole"/>
+            <create-value value-field="partyRole"/>
         </if-empty>
         <check-errors/>
 
@@ -265,7 +265,7 @@
         <find-by-primary-key entity-name="ContentRole" map="newEntity" value-field="contentRole"/>
         <if-empty field="contentRole">
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <create-value value-name="newEntity"/>
+            <create-value value-field="newEntity"/>
         </if-empty>
         <check-errors/>
     </simple-method>
@@ -301,7 +301,7 @@
         <make-value entity-name="ContentType" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result map-name="newEntity" field-name="contentTypeId" />
     </simple-method>
     <simple-method method-name="updateContentType" short-description="Update Content Type">
@@ -323,7 +323,7 @@
         <make-value entity-name="ContentTypeAttr" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeContentTypeAttr" short-description="Remove Content TypeAttr">
         <make-value entity-name="ContentTypeAttr" value-field="lookupKeyValue"/>
@@ -337,7 +337,7 @@
         <make-value entity-name="ContentAssocType" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result map-name="newEntity" field-name="contentAssocTypeId" />
     </simple-method>
     <simple-method method-name="updateContentAssocType" short-description="Update Content AssocType">
@@ -362,7 +362,7 @@
 		<if-empty field="newEntity.contentPurposeTypeId">
 			<make-next-seq-id seq-field-name="contentPurposeTypeId" value-name="newEntity"/>
 		</if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result map-name="newEntity" field-name="contentPurposeTypeId" />
     </simple-method>
     <simple-method method-name="updateContentPurposeType" short-description="Update Content PurposeType">
@@ -384,7 +384,7 @@
         <make-value entity-name="ContentAssocPredicate" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result map-name="newEntity" field-name="contentAssocPredicateId" />
     </simple-method>
     <simple-method method-name="updateContentAssocPredicate" short-description="Update Content AssocPredicate">
@@ -406,7 +406,7 @@
         <make-value entity-name="ContentPurposeOperation" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContentPurposeOperation" short-description="Update Content PurposeOperation">
         <make-value entity-name="ContentPurposeOperation" value-field="lookupKeyValue"/>
@@ -427,7 +427,7 @@
         <make-value entity-name="ContentPurpose" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContentPurpose" short-description="Update Content Purpose">
         <make-value entity-name="ContentPurpose" value-field="lookupKeyValue"/>
@@ -453,7 +453,7 @@
         <make-value entity-name="ContentOperation" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContentOperation" short-description="Update Content Operation">
         <make-value entity-name="ContentOperation" value-field="lookupKeyValue"/>
@@ -474,7 +474,7 @@
         <make-value entity-name="ContentPurposeOperation" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContentPurposeOperation" short-description="Update Content PurposeOperation">
         <make-value entity-name="ContentPurposeOperation" value-field="lookupKeyValue"/>
@@ -495,7 +495,7 @@
         <make-value entity-name="ContentAttribute" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContentAttribute" short-description="Update Content Attribute">
         <make-value entity-name="ContentAttribute" value-field="lookupKeyValue"/>
@@ -516,7 +516,7 @@
         <make-value entity-name="ContentMetaData" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContentMetaData" short-description="Update Content MetaData">
         <make-value entity-name="ContentMetaData" value-field="lookupKeyValue"/>
@@ -726,7 +726,7 @@
         <set from-field="parameters.userLogin.userLoginId" field="content.lastModifiedByUserLogin"/>
         <set from-field="parameters.userLogin.userLoginId" field="content.createdByUserLogin"/>
 
-        <create-value value-name="content"/>
+        <create-value value-field="content"/>
     </simple-method>
 
     <!-- This method will create a skeleton content record from a data resource -->
@@ -846,7 +846,7 @@
 		<if-empty field="commEventContentAssoc.fromDate">
 			<now-timestamp-to-env env-name="commEventContentAssoc.fromDate"/>
 		</if-empty>
-		<create-value value-name="commEventContentAssoc" />
+		<create-value value-field="commEventContentAssoc" />
 		<field-to-result field-name="commEventContentAssoc.fromDate" result-name="fromDate"/>
 	</simple-method>
     

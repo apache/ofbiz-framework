@@ -35,7 +35,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.lastInviteDate"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePartyInvitation" short-description="Update a PartyInvitation">
         <entity-one entity-name="PartyInvitation" value-name="lookedUpValue"/>
@@ -55,7 +55,7 @@ under the License.
     <simple-method method-name="createPartyInvitationGroupAssoc" short-description="Create a PartyInvitationGroupAssoc">
         <make-value entity-name="PartyInvitationGroupAssoc" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>        
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitationGroupAssoc" short-description="Remove a PartyInvitationGroupAssoc">
         <entity-one entity-name="PartyInvitationGroupAssoc" value-name="lookedUpValue"/>
@@ -64,7 +64,7 @@ under the License.
     <simple-method method-name="createPartyInvitationRoleAssoc" short-description="Create a PartyInvitationRoleAssoc">
         <make-value entity-name="PartyInvitationRoleAssoc" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>        
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitationRoleAssoc" short-description="Remove a PartyInvitationRoleAssoc">
         <entity-one entity-name="PartyInvitationRoleAssoc" value-name="lookedUpValue"/>

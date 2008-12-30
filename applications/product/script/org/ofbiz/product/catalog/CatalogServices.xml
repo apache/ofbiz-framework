@@ -34,7 +34,7 @@ under the License.
         </if-empty>
         <field-to-result field-name="newEntity.prodCatalogId" result-name="prodCatalogId"/> 
                
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProdCatalog" short-description="Update an ProdCatalog">
         <entity-one entity-name="ProdCatalog"  value-name="prodCatalog"/>
@@ -63,7 +63,7 @@ under the License.
             <set from-field="nowTimestamp" field="newEntity.fromDate"/>
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductCategoryToProdCatalog" short-description="Remove ContactMech From ProdCatalog">
 
@@ -91,7 +91,7 @@ under the License.
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProdCatalogToParty" short-description="Update ProdCatalog To Party">
         <make-value value-field="lookupPKMap" entity-name="ProdCatalogRole"/>

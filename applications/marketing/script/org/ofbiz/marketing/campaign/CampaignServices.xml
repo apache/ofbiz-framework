@@ -31,7 +31,7 @@ under the License.
         <!-- MarketingCampaign uses a sequenced id, so get the next one now and set it... -->        
         <sequenced-id-to-env sequence-name="MarketingCampaign" env-name="newEntity.marketingCampaignId"/>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         
         <field-to-result field-name="newEntity.marketingCampaignId" result-name="marketingCampaignId"/>
     </simple-method>
@@ -65,7 +65,7 @@ under the License.
         <!-- no non-pk fields in this entity, but there may be later... <set-nonpk-fields map="parameters" value-field="newEntity"/> -->
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removePriceRuleFromMarketingCampaign" short-description="Remove PriceRule from MarketingCampaign">
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run removePriceRuleFromMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
@@ -86,7 +86,7 @@ under the License.
         <!-- no non-pk fields in this entity, but there may be later... <set-nonpk-fields map="parameters" value-field="newEntity"/> -->
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removePromoFromMarketingCampaign" short-description="Remove Promo from MarketingCampaign">
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run removePromoFromMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
@@ -107,7 +107,7 @@ under the License.
         <!-- no non-pk fields in this entity, but there may be later... <set-nonpk-fields map="parameters" value-field="newEntity"/> -->
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeRoleFromMarketingCampaign" short-description="Remove Role from MarketingCampaign">
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run removeRoleFromMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
@@ -139,7 +139,7 @@ under the License.
         <make-value entity-name="MarketingCampaignRole" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         
     </simple-method>
     <simple-method method-name="updateMarketingCampaignRole" short-description="Update Add Role To MarketingCampaign">

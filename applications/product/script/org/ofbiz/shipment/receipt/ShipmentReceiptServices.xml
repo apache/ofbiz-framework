@@ -38,7 +38,7 @@ under the License.
         </if-empty>
 
         <set field="newEntity.receivedByUserLoginId" from-field="userLogin.userLoginId"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
 
         <if-not-empty field="parameters.inventoryItemDetailSeqId">
             <entity-one entity-name="InventoryItemDetail" value-name="invDet">
@@ -58,7 +58,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
                         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     
     <simple-method method-name="removeShipmentReceiptRole" short-description="Remove a ShipmentReceipt Role">

@@ -48,7 +48,7 @@ under the License.
         <field-to-result field-name="newEntity.fixedAssetId" result-name="fixedAssetId"/>
         
         <!-- finally create the record (should not exist already)-->
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
 
     <!-- update an existing Fixed Asset header Record -->
@@ -72,7 +72,7 @@ under the License.
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
 
     <!-- update the product to fixed Asset link -->    
@@ -130,7 +130,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <!-- finally create the record (should not exist already)-->
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <check-errors/>
     </simple-method>
     <!-- update an existing FixedAssetStdCost -->
@@ -151,7 +151,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="FixedAssetIdent"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFixedAssetIdent" short-description="Update an existing FixedAssetIdent">
         <entity-one entity-name="FixedAssetIdent" value-name="lookedUpValue"/>
@@ -171,7 +171,7 @@ under the License.
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFixedAssetRegistration" short-description="Update an existing FixedAsset Registration">
         <entity-one entity-name="FixedAssetRegistration" value-name="lookedUpValue"/>
@@ -237,7 +237,7 @@ under the License.
                 </call-service>
             </else>
         </if-not-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <check-errors/>
         <set field="workEffortId" from-field="newEntity.scheduleWorkEffortId"/>
         <call-simple-method method-name="autoAssignFixedAssetPartiesToMaintenance"/>  
@@ -308,7 +308,7 @@ under the License.
         <make-value entity-name="FixedAssetMeter" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
         <check-errors/>
         <set field="meterValue" from-field="newEntity"/>
         <call-simple-method method-name="createMaintsFromMeterReading"/>
@@ -466,7 +466,7 @@ under the License.
                 <field-map field-name="readingDate" from-field="newEntity.readingDate"/>
             </entity-one>
             <if-empty field="lookedUpValue">
-                <create-value value-name="newEntity"/>
+                <create-value value-field="newEntity"/>
                 <check-errors/>
             </if-empty>
         </iterate>
@@ -508,7 +508,7 @@ under the License.
         <make-value entity-name="FixedAssetMaintOrder" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="deleteFixedAssetMaintOrder" short-description="Delete FixedAsset Maintenance Order">
         <entity-one entity-name="FixedAssetMaintOrder" value-name="lookedUpValue"/>
@@ -524,7 +524,7 @@ under the License.
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
         
     <simple-method method-name="updatePartyFixedAssetAssignment" short-description="Update Party to Fixed Asset">

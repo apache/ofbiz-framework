@@ -30,7 +30,7 @@ under the License.
         <make-value entity-name="TaxAuthority" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateTaxAuthority" short-description="update a TaxAuthority">
         <set value="_UPDATE" field="securityAction"/>
@@ -60,7 +60,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateTaxAuthorityAssoc" short-description="update a TaxAuthorityAssoc">
         <set value="_UPDATE" field="securityAction"/>
@@ -89,7 +89,7 @@ under the License.
         <make-value entity-name="TaxAuthorityCategory" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateTaxAuthorityCategory" short-description="update a TaxAuthorityCategory">
         <set value="_UPDATE" field="securityAction"/>
@@ -130,7 +130,7 @@ under the License.
         <make-value entity-name="TaxAuthorityGlAccount" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateTaxAuthorityGlAccount" short-description="update a TaxAuthorityGlAccount">
         <set value="_UPDATE" field="securityAction"/>
@@ -161,7 +161,7 @@ under the License.
         <field-to-result field-name="newEntity.taxAuthorityRateSeqId" result-name="taxAuthorityRateSeqId"/>
         
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateTaxAuthorityRateProduct" short-description="update a TaxAuthorityRateProduct">
         <set value="_UPDATE" field="securityAction"/>
@@ -197,7 +197,7 @@ under the License.
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updatePartyTaxAuthInfo" short-description="update a PartyTaxAuthInfo">
         <set value="_UPDATE" field="securityAction"/>

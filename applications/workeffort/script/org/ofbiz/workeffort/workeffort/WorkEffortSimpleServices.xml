@@ -50,7 +50,7 @@ under the License.
         <set field="newEntity.revisionNumber" value="1" type="Long"/>
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         
         <!-- create new status entry, and set lastStatusUpdate date -->
         <make-value value-field="newWorkEffortStatus" entity-name="WorkEffortStatus"/>
@@ -58,14 +58,14 @@ under the License.
         <set from-field="newEntity.currentStatusId" field="newWorkEffortStatus.statusId"/>
         <set from-field="nowTimestamp" field="newWorkEffortStatus.statusDatetime"/>
         <set from-field="userLogin.userLoginId" field="newWorkEffortStatus.setByUserLogin"/>
-        <create-value value-name="newWorkEffortStatus"/>
+        <create-value value-field="newWorkEffortStatus"/>
         
         <!-- Attach the workeffort to a requirement if passed -->
         <if-not-empty field="parameters.requirementId">
             <make-value value-field="workFullfillment" entity-name="WorkRequirementFulfillment"/>
             <set from-field="newEntity.workEffortId" field="workFullfillment.workEffortId"/>
             <set from-field="parameters.requirementId" field="workFullfillment.requirementId"/>
-            <create-value value-name="workFullfillment"/>
+            <create-value value-field="workFullfillment"/>
         </if-not-empty>
 
         <!-- attach to a customer request if passed and copy attached docs -->
@@ -82,7 +82,7 @@ under the License.
             <make-value value-field="custRequestWorkEffort" entity-name="CustRequestWorkEffort"/>
             <set field="custRequestWorkEffort.workEffortId" from-field="newEntity.workEffortId" />
             <set field="custRequestWorkEffort.custRequestId" from-field="parameters.custRequestId"/>
-            <create-value value-name="custRequestWorkEffort"/>
+            <create-value value-field="custRequestWorkEffort"/>
             <!-- update status of customer request -->
             <set field="updCustReq.custRequestId" from-field="parameters.custRequestId"/>
             <set field="updCustReq.statusId" value="CRQ_REVIEWED"/>
@@ -147,7 +147,7 @@ under the License.
                 <set from-field="parameters.reason" field="newWorkEffortStatus.reason"/>
                 <set from-field="nowTimestamp" field="newWorkEffortStatus.statusDatetime"/>
                 <set from-field="userLogin.userLoginId" field="newWorkEffortStatus.setByUserLogin"/>
-                <create-value value-name="newWorkEffortStatus"/>
+                <create-value value-field="newWorkEffortStatus"/>
             </then>
         </if>
         <!-- after checking status change, set all parameters -->        
@@ -209,7 +209,7 @@ under the License.
         <if-empty field="eventWe.workEffortId">
             <set-nonpk-fields map="parameters" value-field="lookupMap"/>
             <set field="eventWe.description" from-field="parameters.relationDescription"/>
-            <create-value value-name="lookupMap"/>
+            <create-value value-field="lookupMap"/>
         </if-empty>
         <field-to-result field-name="workEffortId" map-name="lookupMap"/>
         <field-to-result field-name="communicationEventId" map-name="lookupMap"/>
@@ -279,7 +279,7 @@ under the License.
                 <field field-name="dispatcher" type="org.ofbiz.service.LocalDispatcher"/>
             </call-class-method>
         </if-not-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePartyToWorkEffortAssignment" short-description="Update WorkEffortPartyAssignment entity">
         <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
@@ -343,7 +343,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <field-to-result field-name="contactMechId" map-name="newValue"/>
         <field-to-request field-name="contactMechId" map-name="newValue"/>        
-        <create-value value-name="newValue"/>
+        <create-value value-field="newValue"/>
     </simple-method>
     
     <simple-method method-name="updateWorkEffortContactMech" short-description="Update a WorkEffortContactMech">
@@ -375,7 +375,7 @@ under the License.
         
         <if-compare-field to-field="newWorkEffortContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">                
             <set-nonpk-fields value-field="newWorkEffortContactMech" map="parameters" set-if-null="false"/>
-            <create-value value-name="newWorkEffortContactMech"/>
+            <create-value value-field="newWorkEffortContactMech"/>
             <remove-value value-name="workEffortContactMech"/>
         </if-compare-field>
         
@@ -537,7 +537,7 @@ under the License.
             <set value="CAL_OWNER" field="newWorkEffortPartyAssignment.roleTypeId"/>
             <set value="PRTYASGN_ASSIGNED" field="newWorkEffortPartyAssignment.statusId"/>
             <set from-field="nowTimestamp" field="newWorkEffortPartyAssignment.fromDate"/>
-            <create-value value-name="newWorkEffortPartyAssignment"/>
+            <create-value value-field="newWorkEffortPartyAssignment"/>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="quickAssignPartyToWorkEffortWithRole" short-description="Quick Assign Party To WorkEffort">
@@ -555,7 +555,7 @@ under the License.
             <set from-field="parameters.roleTypeId" field="newWorkEffortPartyAssignment.roleTypeId"/>
             <set value="CAL_ACCEPTED" field="newWorkEffortPartyAssignment.statusId"/>
             <now-timestamp-to-env env-name="newWorkEffortPartyAssignment.fromDate"/>
-            <create-value value-name="newWorkEffortPartyAssignment"/>
+            <create-value value-field="newWorkEffortPartyAssignment"/>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="createWorkEffortNote" short-description="Create Work Effort Note">
@@ -571,14 +571,14 @@ under the License.
         </if-not-empty>
         <set from-field="parameters.noteName" field="newEntity.noteName"/>
         <now-timestamp-to-env env-name="newEntity.noteDateTime"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         
         <!-- create new status entry, and set lastStatusUpdate date -->
         <make-value value-field="newWorkEffortNote" entity-name="WorkEffortNote"/>
         <set from-field="newEntity.noteId" field="newWorkEffortNote.noteId"/>
         <set from-field="parameters.workEffortId" field="newWorkEffortNote.workEffortId"/>
         <set from-field="parameters.internalNote" field="newWorkEffortNote.internalNote"/>
-        <create-value value-name="newWorkEffortNote"/>
+        <create-value value-field="newWorkEffortNote"/>
     </simple-method>
     <simple-method method-name="updateWorkEffortNote" short-description="Update Work Effort Note">
         <entity-one entity-name="WorkEffortNote" value-name="lookedUpValue"/>
@@ -631,7 +631,7 @@ under the License.
             <if-empty field="newEntity.sequenceNum">
                 <set field="newEntity.sequenceNum" value="0" type="Long"/>
             </if-empty>        
-            <create-value value-name="newEntity"/>
+            <create-value value-field="newEntity"/>
         </else>
         </if-not-empty>
     </simple-method>
@@ -657,7 +657,7 @@ under the License.
                 <now-timestamp-to-env env-name="newEntity.fromDate"/>
             </if-empty>        
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <create-value value-name="newEntity"/>
+            <create-value value-field="newEntity"/>
         </else>
         </if-not-empty>
     </simple-method>
@@ -684,7 +684,7 @@ under the License.
             <make-value value-field="newEntity" entity-name="WorkEffortInventoryAssign"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <create-value value-name="newEntity"/>
+            <create-value value-field="newEntity"/>
         </else>
         </if-not-empty>
     </simple-method>
@@ -699,7 +699,7 @@ under the License.
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-name="lookupMap"/>
+        <create-value value-field="lookupMap"/>
         <field-to-result field-name="custRequestId" map-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortRequest" short-description="Delete a CustRequestWorkEffort">
@@ -721,7 +721,7 @@ under the License.
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-name="lookupMap"/>
+        <create-value value-field="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortRequestItem" short-description="Delete a CustRequestItemWorkEffort">
         <entity-one entity-name="CustRequestItemWorkEffort" value-name="custRequestItemWorkEffort"/>
@@ -755,7 +755,7 @@ under the License.
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-name="lookupMap"/>
+        <create-value value-field="lookupMap"/>
         <field-to-result field-name="quoteId" map-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortQuote" short-description="Delete a QuoteWorkEffort">
@@ -777,7 +777,7 @@ under the License.
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-name="lookupMap"/>
+        <create-value value-field="lookupMap"/>
         <field-to-result field-name="requirementId" map-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkRequirementFulfillment" short-description="Delete a WorkRequirementFulfillment">
@@ -799,7 +799,7 @@ under the License.
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-name="lookupMap"/>
+        <create-value value-field="lookupMap"/>
         <field-to-result field-name="shoppingListId" map-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteShoppingListWorkEffort" short-description="Delete a ShoppingListWorkEffort">
@@ -821,7 +821,7 @@ under the License.
             <check-errors/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-        <create-value value-name="lookupMap"/>
+        <create-value value-field="lookupMap"/>
         <field-to-result field-name="orderId" map-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteOrderHeaderWorkEffort" short-description="Delete a OrderHeaderWorkEffort">
@@ -848,7 +848,7 @@ under the License.
         <set from-field="workEffort.currentStatusId" field="newEntity.statusId"/>
         <set from-field="workEffort.estimatedStartDate" field="newEntity.fromDate"/>
         <set from-field="workEffort.estimatedCompletionDate" field="newEntity.thruDate"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
 
     <!-- WorkEffort-FixedAsset -->
@@ -868,7 +868,7 @@ under the License.
             <make-value entity-name="WorkEffortFixedAssetStd" value-field="newWEFixedAssetStd" />
             <set-pk-fields map="parameters" value-field="newWEFixedAssetStd" />
             <set-nonpk-fields map="parameters" value-field="newWEFixedAssetStd" />
-            <create-value value-name="newWEFixedAssetStd" />            
+            <create-value value-field="newWEFixedAssetStd" />            
         </else>
         </if-not-empty>
     </simple-method>
@@ -918,7 +918,7 @@ under the License.
                     <set field="newWEFixedAssetAssign.fromDate" from-field="prodRunTask.actualStartDate" />
                 </if-not-empty>
             </if-empty>
-            <create-value value-name="newWEFixedAssetAssign" />
+            <create-value value-field="newWEFixedAssetAssign" />
         </else>
         </if-not-empty>
     </simple-method>
@@ -959,7 +959,7 @@ under the License.
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateWorkEffortContent" short-description="Update Work Effort Content">
         <!-- need a better way to handle permissions
@@ -1003,7 +1003,7 @@ under the License.
                 <now-timestamp-to-env env-name="nowTimestamp"/>
                 <set field="newEntity.reviewDate" from-field="nowTimestamp"/>
             </if-empty>
-            <create-value value-name="newEntity"/>
+            <create-value value-field="newEntity"/>
         </else>
         </if-not-empty>        
     </simple-method>
@@ -1061,7 +1061,7 @@ under the License.
         <check-errors/>
         <set-pk-fields value-field="newEntity" map="parameters"></set-pk-fields> 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
          </else>   
        </if-not-empty>
        <check-errors/>
@@ -1121,7 +1121,7 @@ under the License.
         
         <!-- set the workEffortId, and write it to the datasource -->
         <set from-field="parameters.workEffortId" field="newWorkEffort.workEffortId"/>
-        <create-value value-name="newWorkEffort"/>
+        <create-value value-field="newWorkEffort"/>
         
         <!-- set up entity filter for workEffortAssoc-->
         <set field="workEffortAssocFindContext.workEffortIdFrom" from-field="parameters.oldWorkEffortId"/>
@@ -1131,7 +1131,7 @@ under the License.
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortIdFrom"/>
-                <create-value value-name="newTempValue"/>
+                <create-value value-field="newTempValue"/>
             </iterate>
             <entity-and entity-name="WorkEffortAssoc" list-name="foundValues">
                 <field-map field-name="workEffortIdTo" from-field="parameters.oldWorkEffortId"/>
@@ -1139,7 +1139,7 @@ under the License.
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortIdTo"/>
-                <create-value value-name="newTempValue"/>                
+                <create-value value-field="newTempValue"/>                
             </iterate>
         </if-not-empty>
         
@@ -1151,7 +1151,7 @@ under the License.
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
-                <create-value value-name="newTempValue"/>
+                <create-value value-field="newTempValue"/>
             </iterate>
         </if-not-empty>
         <if-not-empty field="parameters.duplicateWorkEffortContents">
@@ -1159,7 +1159,7 @@ under the License.
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
-                <create-value value-name="newTempValue"/>
+                <create-value value-field="newTempValue"/>
             </iterate>
         </if-not-empty>
         <if-not-empty field="parameters.duplicateWorkEffortAssignmentRates">
@@ -1168,7 +1168,7 @@ under the License.
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
-                <create-value value-name="newTempValue"/>
+                <create-value value-field="newTempValue"/>
             </iterate>
         </if-not-empty>
 
@@ -1193,7 +1193,7 @@ under the License.
         <make-value entity-name="WorkEffortSkillStandard" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method  method-name="updateWorkEffortSkillStandard" short-description="Update WorkEffortSkillStandard">
         <entity-one entity-name="WorkEffortSkillStandard" value-name="lookedUpValue"/>
@@ -1207,7 +1207,7 @@ under the License.
     <simple-method method-name="createWorkEffortInventoryProduced" short-description="Create Work Effort InventoryProduced">
         <make-value entity-name="WorkEffortInventoryProduced" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortInventoryProduced" short-description="Delete Work Effort InventoryProduced">
         <entity-one entity-name="WorkEffortInventoryProduced" value-name="lookedUpValue"/>

@@ -37,7 +37,7 @@ under the License.
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
         <set from-field="lastModifiedDate" field="newEntity.createdDate"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTrackingCode" short-description="Update an TrackingCode">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateTrackingCode you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
@@ -79,7 +79,7 @@ under the License.
         <!-- set the history/audit info -->
         <set from-field="nowStamp" field="newEntity.createdStamp"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTrackingCodeType" short-description="Update an TrackingCodeType">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateTrackingCodeType you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
@@ -113,7 +113,7 @@ under the License.
         <!-- set the history/audit info -->
         <set from-field="nowStamp" field="newEntity.createdStamp"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTrackingCodeOrder" short-description="Update an TrackingCodeOrder">
         <now-timestamp-to-env env-name="nowStamp"/>
@@ -139,7 +139,7 @@ under the License.
         <!-- set the history/audit info -->
         <set from-field="nowStamp" field="newEntity.createdStamp"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
         
     <simple-method method-name="createTrackingCodeOrderReturns" short-description="Create TrackingCodeOrderReturn for all the Return Items with Orders that have trackingCodeOrder entry">

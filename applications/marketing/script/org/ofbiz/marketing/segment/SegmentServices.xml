@@ -33,7 +33,7 @@ under the License.
         <field-to-result field-name="newEntity.segmentGroupId" result-name="segmentGroupId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateSegmentGroup" short-description="updateSegmentGroup">
         <check-permission permission="MARKETING" action="_UPDATE">
@@ -63,7 +63,7 @@ under the License.
         <make-value entity-name="SegmentGroupClassification" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateSegmentGroupClassification" short-description="update a SegmentGroupClassification">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupUpdateSegmentGroupClassificationPermissionError"/></check-permission>
@@ -86,7 +86,7 @@ under the License.
         <make-value entity-name="SegmentGroupGeo" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateSegmentGroupGeo" short-description="update a SegmentGroupGeo">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupUpdateSegmentGroupGeoPermissionError"/></check-permission>
@@ -109,7 +109,7 @@ under the License.
         <make-value entity-name="SegmentGroupRole" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateSegmentGroupRole" short-description="update a SegmentGroupRole">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupUpdateSegmentGroupRolePermissionError"/></check-permission>

@@ -91,7 +91,7 @@ under the License.
         </if-not-empty>
         -->
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
 
         <!-- get the ShipmentStatus history started -->
         <if-not-empty field="newEntity.statusId">
@@ -99,7 +99,7 @@ under the License.
             <set from-field="newEntity.statusId" field="newStatusValue.statusId"/>
             <set from-field="newEntity.shipmentId" field="newStatusValue.shipmentId"/>
             <now-timestamp-to-env env-name="newStatusValue.statusDate"/>
-            <create-value value-name="newStatusValue"/>
+            <create-value value-field="newStatusValue"/>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateShipment" short-description="Update Shipment">
@@ -131,7 +131,7 @@ under the License.
                 <set from-field="parameters.statusId" field="newStatusValue.statusId"/>
                 <set from-field="parameters.shipmentId" field="newStatusValue.shipmentId"/>
                 <now-timestamp-to-env env-name="newStatusValue.statusDate"/>
-                <create-value value-name="newStatusValue"/>
+                <create-value value-field="newStatusValue"/>
             </if-compare-field>
         </if-not-empty>
 
@@ -792,7 +792,7 @@ under the License.
         <!-- if no shipmentItemSeqId, generate one based on existing items, ie one greater than the current higher number -->
         <make-next-seq-id value-name="newEntity" seq-field-name="shipmentItemSeqId"/>
         <field-to-result field-name="shipmentItemSeqId" map-name="newEntity" result-name="shipmentItemSeqId"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateShipmentItem" short-description="Update ShipmentItem">
         <check-permission permission="FACILITY" action="_UPDATE">
@@ -925,7 +925,7 @@ under the License.
 
         <now-timestamp-to-env env-name="newEntity.dateCreated"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
 
         <set from-field="newEntity.shipmentId" field="shipmentId"/>
         <set from-field="newEntity.shipmentPackageSeqId" field="shipmentPackageSeqId"/>
@@ -995,7 +995,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="shipmentPackageSeqId" map-name="newEntity" result-name="shipmentPackageSeqId"/>
     </simple-method>
     <simple-method method-name="updateShipmentPackageContent" short-description="Update ShipmentPackageContent">
@@ -1065,7 +1065,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateShipmentPackageRouteSeg" short-description="Update ShipmentPackageRouteSeg">
         <check-permission permission="FACILITY" action="_UPDATE">
@@ -1104,7 +1104,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateShipmentContactMech" short-description="Update ShipmentContactMech">
         <check-permission permission="FACILITY" action="_UPDATE">
@@ -1153,7 +1153,7 @@ under the License.
             <set value="SHRSCS_NOT_STARTED" field="newEntity.carrierServiceStatusId"/>
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
 
         <set from-field="newEntity.shipmentId" field="shipmentId"/>
         <set from-field="newEntity.shipmentRouteSegmentId" field="shipmentRouteSegmentId"/>
@@ -1268,7 +1268,7 @@ under the License.
         <make-value value-field="carrierShipmentMethod" entity-name="CarrierShipmentMethod"/>
         <set-pk-fields map="parameters" value-field="carrierShipmentMethod"/>
         <set-nonpk-fields map="parameters" value-field="carrierShipmentMethod"/>
-        <create-value value-name="carrierShipmentMethod"/>
+        <create-value value-field="carrierShipmentMethod"/>
     </simple-method>
     <simple-method method-name="updateCarrierShipmentMethod" short-description="Updates a CarrierShipmentMethod">
         <entity-one entity-name="CarrierShipmentMethod" value-name="carrierShipmentMethod"/>
@@ -1284,7 +1284,7 @@ under the License.
         <make-value value-field="shipmentMethodType" entity-name="ShipmentMethodType"/>
         <set-pk-fields map="parameters" value-field="shipmentMethodType"/>
         <set-nonpk-fields map="parameters" value-field="shipmentMethodType"/>
-        <create-value value-name="shipmentMethodType"/>
+        <create-value value-field="shipmentMethodType"/>
     </simple-method>
     <simple-method method-name="updateShipmentMethodType" short-description="Updates a ShipmentMethodType">
         <entity-one entity-name="ShipmentMethodType" value-name="shipmentMethodType"/>
@@ -2016,7 +2016,7 @@ under the License.
         <make-value value-field="quantityBreak" entity-name="QuantityBreak"/>
         <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
         <sequenced-id-to-env sequence-name="QuantityBreak" env-name="quantityBreak.quantityBreakId"/>
-        <create-value value-name="quantityBreak"/>
+        <create-value value-field="quantityBreak"/>
         <check-errors/>
     </simple-method>
 

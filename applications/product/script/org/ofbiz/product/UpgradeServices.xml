@@ -38,10 +38,10 @@ under the License.
                 <make-value entity-name="PartyRole" value-field="partyRole"/>
                 <set field="partyRole.partyId" from-field="facilityParty.partyId"/>
                 <set field="partyRole.roleTypeId" from-field="facilityParty.roleTypeId"/>
-                <create-value value-name="partyRole"/>
+                <create-value value-field="partyRole"/>
                 <check-errors/>
             </if-empty>
-            <create-value value-name="facilityParty"/>
+            <create-value value-field="facilityParty"/>
         </iterate>
     </simple-method>
     

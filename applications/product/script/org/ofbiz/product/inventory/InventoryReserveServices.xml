@@ -501,7 +501,7 @@ under the License.
             <if-empty field="newOisgirEntity.reservedDatetime">
                 <set from-field="nowTimestamp" field="newOisgirEntity.reservedDatetime"/>
             </if-empty>
-            <create-value value-name="newOisgirEntity"/>
+            <create-value value-field="newOisgirEntity"/>
         <else>
             <calculate field-name="checkOisgirEntity.quantity">
                 <calcop operator="add" field-name="checkOisgirEntity.quantity"/>

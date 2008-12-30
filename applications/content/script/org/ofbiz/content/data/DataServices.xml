@@ -51,7 +51,7 @@ under the License.
             <set field="newEntity.statusId" from-field="statusItem.statusId"/>
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="dataResourceId" map-name="newEntity"/>
     </simple-method>
 
@@ -84,7 +84,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="dataCategoryId" map-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataCategory" short-description="Update a Data Category">
@@ -109,7 +109,7 @@ under the License.
         <make-value entity-name="DataResourceMetaData" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataResourceMetaData" short-description="Update Data Resource Meta Data">
         <check-permission permission="CONTENTMGR" action="_UPDATE"><fail-message message="Security Error: to run updateDataResourceMetaData you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/></check-permission>
@@ -139,7 +139,7 @@ under the License.
         <make-value entity-name="DataResourcePurpose" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataResourcePurpose" short-description="Update Data Resource Purpose">
         <check-permission permission="CONTENTMGR" action="_UPDATE"><fail-message message="Security Error: to run updateDataResourcePurpose you must have the CONTENTMGR_UPDATE or CONTENTMGR_ADMIN permission"/></check-permission>
@@ -172,7 +172,7 @@ under the License.
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataResourceRole" short-description="Update Data Resource Role">
         <make-value entity-name="DataResourceRole" value-field="lookupKeyValue"/>
@@ -193,7 +193,7 @@ under the License.
         <make-value entity-name="DataCategory" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="dataCategoryId" map-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataCategory" short-description="Update Data Category">
@@ -215,7 +215,7 @@ under the License.
         <make-value entity-name="DataResourceType" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="dataResourceTypeId" map-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataResourceType" short-description="Update Data Resource Type">
@@ -237,7 +237,7 @@ under the License.
         <make-value entity-name="DataResourceAttribute" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataResourceAttribute" short-description="Update Data Resource Attribute">
         <make-value entity-name="DataResourceAttribute" value-field="lookupKeyValue"/>
@@ -258,7 +258,7 @@ under the License.
         <make-value entity-name="DataResourceTypeAttr" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataResourceTypeAttr" short-description="Update Data Resource Type Attribute">
         <make-value entity-name="DataResourceTypeAttr" value-field="lookupKeyValue"/>
@@ -279,7 +279,7 @@ under the License.
         <make-value entity-name="CharacterSet" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="characterSetId" map-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateCharacterSet" short-description="Update Character Set">
@@ -301,7 +301,7 @@ under the License.
         <make-value entity-name="FileExtension" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="fileExtensionId" map-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFileExtension" short-description="Update Data Resource Role">
@@ -323,7 +323,7 @@ under the License.
         <make-value entity-name="MetaDataPredicate" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="metaDataPredicateId" map-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateMetaDataPredicate" short-description="Update Data Resource Role">
@@ -345,7 +345,7 @@ under the License.
         <make-value entity-name="MimeType" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="mimeTypeId" map-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateMimeType" short-description="Update MimeType">
@@ -367,7 +367,7 @@ under the License.
         <make-value entity-name="MimeTypeHtmlTemplate" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>        
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateMimeTypeHtmlTemplate" short-description="Update MimeTypeHtmlTemplate">
         <make-value entity-name="MimeTypeHtmlTemplate" value-field="lookupKeyValue"/>
@@ -389,7 +389,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="dataResourceId" map-name="newEntity"/> 
     </simple-method>
 
@@ -415,7 +415,7 @@ under the License.
         <make-value entity-name="ImageDataResource" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateImageDataResource" short-description="Update Image Data Resource">
         <make-value entity-name="ImageDataResource" value-field="lookupKeyValue"/>
@@ -436,7 +436,7 @@ under the License.
         <make-value entity-name="VideoDataResource" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateVideoDataResource" short-description="Update Video Data Resource">
         <make-value entity-name="VideoDataResource" value-field="lookupKeyValue"/>
@@ -457,7 +457,7 @@ under the License.
         <make-value entity-name="AudioDataResource" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateAudioDataResource" short-description="Update Audio Data Resource">
         <make-value entity-name="AudioDataResource" value-field="lookupKeyValue"/>
@@ -478,7 +478,7 @@ under the License.
         <make-value entity-name="OtherDataResource" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <log level="always" message="created new OtherDataResource: ${newEntity}"/>
     </simple-method>
     <simple-method method-name="updateOtherDataResource" short-description="Update Other Data Resource">

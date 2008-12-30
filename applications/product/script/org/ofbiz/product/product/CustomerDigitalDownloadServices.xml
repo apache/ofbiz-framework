@@ -31,7 +31,7 @@ under the License.
         <set field="createProductMap.internalName" from-field="parameters.productName"/>
         <set field="createProductMap.description" from-field="parameters.description"/>
         <set field="createProductMap.productTypeId" value="DIGITAL_GOOD"/>
-        <create-value value-name="createProductMap"/>
+        <create-value value-field="createProductMap"/>
 
         <make-value value-field="createProductPriceMap" entity-name="ProductPrice"/>
         <set field="createProductPriceMap.productId" from-field="productId"/>
@@ -41,7 +41,7 @@ under the License.
         <set field="createProductPriceMap.productStoreGroupId" value="_NA_"/>
         <set field="createProductPriceMap.fromDate" from-field="nowTimestamp"/>
         <set field="createProductPriceMap.price" from-field="parameters.price"/>
-        <create-value value-name="createProductPriceMap"/>
+        <create-value value-field="createProductPriceMap"/>
         
         <make-value value-field="createProductSupplierMap" entity-name="SupplierProduct"/>
         <set field="createProductSupplierMap.productId" from-field="productId"/>
@@ -49,7 +49,7 @@ under the License.
         <set field="createProductSupplierMap.currencyUomId" from-field="parameters.currencyUomId" default-value="USD"/>
         <set field="createProductSupplierMap.minimumOrderQuantity" value="1" type="Double"/>
         <set field="createProductSupplierMap.availableFromDate" from-field="nowTimestamp"/>
-        <create-value value-name="createProductSupplierMap"/>
+        <create-value value-field="createProductSupplierMap"/>
 
         <field-to-result field-name="productId"/>
         <field-to-result field-name="createProductSupplierMap.currencyUomId" result-name="currencyUomId"/>
@@ -62,7 +62,7 @@ under the License.
             <make-value value-field="addProductToCategoryMap" entity-name="ProductCategoryMember"/>
             <set field="addProductToCategoryMap.productId" from-field="productId"/>
             <set field="addProductToCategoryMap.productCategoryId" from-field="productStore.digProdUploadCategoryId"/>
-            <create-value value-name="addProductToCategoryMap"/>
+            <create-value value-field="addProductToCategoryMap"/>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateCustomerDigitalDownloadProduct" short-description="updateCustomerDigitalDownloadProduct">
@@ -165,7 +165,7 @@ under the License.
         <set field="productContent.contentId" from-field="parameters.contentId"/>
         <set field="productContent.productContentTypeId" value="DIGITAL_DOWNLOAD"/>
         <set field="productContent.fromDate" from-field="nowTimestamp"/>
-        <create-value value-name="productContent"/>
+        <create-value value-field="productContent"/>
     </simple-method>
     <simple-method method-name="removeCustomerDigitalDownloadProductFile" short-description="removeCustomerDigitalDownloadProductFile">
         <now-timestamp-to-env env-name="nowTimestamp"/>

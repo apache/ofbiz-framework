@@ -105,7 +105,7 @@ under the License.
         <field-to-result field-name="newEntity.quoteId" result-name="quoteId"/>
 
         <!-- finally create the record (should not exist already)-->
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
 
         <!-- If the logged in partyId that is creating the quote is not equal to the partyId
              then we associate it to the quote as the request taker.
@@ -244,12 +244,12 @@ under the License.
         <if-empty field="partyRole.partyId">
             <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
-            <create-value value-name="partyRole"/>
+            <create-value value-field="partyRole"/>
         </if-empty>
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="QuoteRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <check-errors/>
     </simple-method>
 
@@ -338,7 +338,7 @@ under the License.
         </if-empty>
         
         <!-- finally create the record (should not exist already)-->
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <check-errors/>
     </simple-method>
 
@@ -416,7 +416,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="QuoteAttribute"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <check-errors/>
     </simple-method>
 
@@ -455,7 +455,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="QuoteCoefficient"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <check-errors/>
     </simple-method>
 
@@ -524,8 +524,8 @@ under the License.
         <set from-field="custRequest.productStoreId" field="newQuote.productStoreId"/>
         <set from-field="custRequest.salesChannelEnumId" field="newQuote.salesChannelEnumId"/>
         <set from-field="custRequestItem.story" field="newQuoteItem.comments"/>
-        <create-value value-name="newQuote"/>
-        <create-value value-name="newQuoteItem"/>
+        <create-value value-field="newQuote"/>
+        <create-value value-field="newQuoteItem"/>
         <!-- copy the roles from the request to the quote-->
         <make-value value-field="lookupRequestRole" entity-name="CustRequestParty"/>
         <set from-field="parameters.custRequestId" field="lookupRequestRole.custRequestId"/>
@@ -648,7 +648,7 @@ under the License.
         <iterate list="adjustments" entry="adjustment">
             <set from-field="parameters.quoteId" field="adjustment.quoteId"/>
             <sequenced-id-to-env sequence-name="QuoteAdjustment" env-name="adjustment.quoteAdjustmentId"/>
-            <create-value value-name="adjustment"/>
+            <create-value value-field="adjustment"/>
         </iterate>
     </simple-method>
     <simple-method method-name="createQuoteAdjustment" short-description="Create a QuoteAdjustment">
@@ -666,7 +666,7 @@ under the License.
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
         <field-to-result field-name="quoteAdjustmentId" result-name="quoteAdjustmentId"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeQuoteAdjustment" short-description="Remove an existing QuoteAdjustment">
         <check-permission permission="ORDERMGR" action="_CREATE">
@@ -768,7 +768,7 @@ under the License.
                 <iterate list="adjustments" entry="adjustment">
                     <set from-field="quote.quoteId" field="adjustment.quoteId"/>
                     <sequenced-id-to-env sequence-name="QuoteAdjustment" env-name="adjustment.quoteAdjustmentId"/>
-                    <create-value value-name="adjustment"/>
+                    <create-value value-field="adjustment"/>
                 </iterate>
             </then>
         </if>
@@ -874,7 +874,7 @@ under the License.
         </if-not-empty>
         <if-empty field="quoteWorkEffort.quoteId">
             <set-nonpk-fields map="parameters" value-field="lookupMap"/>
-            <create-value value-name="lookupMap"/>
+            <create-value value-field="lookupMap"/>
             <field-to-result field-name="quoteId" map-name="lookupMap"/>
             <field-to-result field-name="workEffortId" map-name="lookupMap"/>
         </if-empty>

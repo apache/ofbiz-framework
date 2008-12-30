@@ -75,7 +75,7 @@ under the License.
         <set from-field="rootInstanceContent.createdByUserLogin" field="parameters.userLogin.userLoginId"/>
         <set from-field="rootInstanceContent.lastModifiedByUserLogin" field="parameters.userLogin.userLoginId"/>
         <set value="COMPDOC_INSTANCE" field="rootInstanceContent.contentTypeId"/>
-        <create-value value-name="rootInstanceContent"/>
+        <create-value value-field="rootInstanceContent"/>
 
         <log message="genCompDocInstance 3> rootInstanceContent: ${rootInstanceContent}" level="info"/>
         <field-to-result result-name="contentId" field-name="rootInstanceContent.contentId"/>
@@ -127,13 +127,13 @@ under the License.
             <sequenced-id-to-env sequence-name="Content" env-name="instanceContent.contentId"/>
 
             <set value="TEMPLATE" field="instanceContent.contentTypeId"/>
-            <create-value value-name="instanceContent"/>
+            <create-value value-field="instanceContent"/>
             <make-value entity-name="ContentAssoc" value-field="instanceContentAssoc"/>
             <set from-field="thisInstanceContentId" field="instanceContentAssoc.contentIdTo"/>
             <set from-field="instanceContent.contentId" field="instanceContentAssoc.contentId"/>
             <set value="COMPDOC_PART" field="instanceContentAssoc.contentAssocTypeId"/>
             <set from-field="nowTimestamp" field="instanceContentAssoc.fromDate"/>
-            <create-value value-name="instanceContent"/>
+            <create-value value-field="instanceContent"/>
             <!--  recursively call this method -->
             <set from-field="templateContentAssoc.contentId" field="parentTemplateContentId"/>
             <set from-field="instanceContent.contentId" field="parentInstanceContentId"/>
@@ -335,7 +335,7 @@ under the License.
         <make-value entity-name="ContentRevision" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContentRevision" short-description="Update ContentRevision">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
@@ -367,7 +367,7 @@ under the License.
         <make-value entity-name="ContentRevisionItem" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContentRevisionItem" short-description="Update ContentRevisionItem">
         <check-permission action="_UPDATE" permission="CONTENTMGR">
@@ -430,13 +430,13 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.contentRevisionSeqId" from-field="paddedSeqId"/>
         <log level="info" message="ContentRevision(1): ${newEntity}"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <if-not-empty field="parameters.itemContentId">
             <make-value entity-name="ContentRevisionItem" value-field="newEntity"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
             <set field="newEntity.contentRevisionSeqId" from-field="paddedSeqId"/>
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <create-value value-name="newEntity"/>
+            <create-value value-field="newEntity"/>
             <log level="info" message="ContentRevisionItem(1): ${newEntity}"/>
         </if-not-empty>
         <field-to-result field-name="paddedSeqId" result-name="contentRevisionSeqId"/>
@@ -496,7 +496,7 @@ under the License.
         <if-empty field="newEntity.contentApprovalId">
             <sequenced-id-to-env sequence-name="ContentApproval" env-name="newEntity.contentApprovalId"/>
         </if-empty>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <check-errors/>
         <field-to-result result-name="contentApprovalId" field-name="newEntity.contentApprovalId"/>
     </simple-method>
@@ -600,7 +600,7 @@ under the License.
             <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
             <clear-field field-name="contentApproval.approvalStatusId"/>
             <log level="info" message="contentApproval 2b: ${contentApproval}"/>
-            <create-value value-name="contentApproval"/>
+            <create-value value-field="contentApproval"/>
         </iterate>
     </simple-method>
     <simple-method method-name="cloneInstanceContentApprovals" short-description="Bump the previous ContentApproval approvals up to current CDI">
@@ -655,7 +655,7 @@ under the License.
                     <set value="CNTAP_READY" field="contentApproval.approvalStatusId"/>
                     <set from-field="nowTimestamp" field="contentApproval.approvalDate"/>
                     <log level="info" message="contentApproval 2b: ${contentApproval}"/>
-                    <create-value value-name="contentApproval"/>
+                    <create-value value-field="contentApproval"/>
                 </iterate>
             </then>
             <else>
@@ -720,7 +720,7 @@ under the License.
                         </else>
                     </if-compare>
                     <log level="info" message="contentApproval 2: ${contentApproval}"/>
-                    <create-value value-name="contentApproval"/>
+                    <create-value value-field="contentApproval"/>
                 </iterate>
                 <!--  if an instance track, check to see if there any new or deleted records on the template -->
                 <set from-field="content.instanceOfContentId" field="rootTemplateContentId"/>
@@ -756,7 +756,7 @@ under the License.
                         <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
                         <set field="contentApproval.approvalStatusId" value="CNTAP_READY"/>
                         <log level="info" message="contentApproval 2b: ${contentApproval}"/>
-                        <create-value value-name="contentApproval"/>
+                        <create-value value-field="contentApproval"/>
                     </if-empty>
                 </iterate>
                 <!--  TODO: remove instance approvals that have been deleted from the template set -->

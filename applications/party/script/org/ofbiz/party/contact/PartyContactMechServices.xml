@@ -65,7 +65,7 @@ under the License.
         <field-to-request field-name="contactMechId" map-name="newValue"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <now-timestamp-to-env env-name="newValue.fromDate"/>
-        <create-value value-name="newValue"/>
+        <create-value value-field="newValue"/>
     </simple-method>
     
     <simple-method method-name="updatePartyContactMech" short-description="Update a PartyContactMech">
@@ -106,7 +106,7 @@ under the License.
         <now-timestamp-to-env env-name="partyContactMech.thruDate"/>
 
         <store-value value-name="partyContactMech"/>
-        <create-value value-name="newPartyContactMech"/>
+        <create-value value-field="newPartyContactMech"/>
         
         <if-compare-field to-field="newPartyContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
             <get-related value-name="partyContactMech" relation-name="PartyContactMechPurpose" list-name="partyContactMechPurposes"/>   
@@ -122,7 +122,7 @@ under the License.
                 <find-by-and entity-name="PartyContactMechPurpose" list-name="purposeResult" map-name="purposeMap"/>
                     
                 <if-empty field="purposeResult">
-                    <create-value value-name="partyContactMechPurpose"/>
+                    <create-value value-field="partyContactMechPurpose"/>
                 </if-empty>
             </iterate>
         </if-compare-field>

@@ -28,7 +28,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="CommunicationEventProduct"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>    
+        <create-value value-field="newEntity"/>    
     </simple-method>
     <simple-method method-name="removeCommunicationEventProduct" short-description="Remove a CommunicationEventProduct">
         <check-permission permission="CATALOG" action="_DELETE">

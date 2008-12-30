@@ -44,7 +44,7 @@ under the License.
                 <make-value value-field="newEntity" entity-name="TechDataCalendar"/>
                 <set-pk-fields map="parameters" value-field="newEntity"/>
                 <set-nonpk-fields map="parameters" value-field="newEntity"/>
-                <create-value value-name="newEntity"/>
+                <create-value value-field="newEntity"/>
             </else>
             </if-empty>
         </else>
@@ -103,7 +103,7 @@ under the License.
             <make-value value-field="newEntity" entity-name="TechDataCalendarWeek"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <create-value value-name="newEntity"/>
+            <create-value value-field="newEntity"/>
         </else>
         </if-not-empty>
     </simple-method>
@@ -160,7 +160,7 @@ under the License.
             <make-value value-field="newEntity" entity-name="TechDataCalendarExcDay"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <create-value value-name="newEntity"/>
+            <create-value value-field="newEntity"/>
         </else>
         </if-not-empty>
     </simple-method>
@@ -201,7 +201,7 @@ under the License.
             <make-value value-field="newEntity" entity-name="TechDataCalendarExcWeek"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
             <set-nonpk-fields map="parameters" value-field="newEntity"/>
-            <create-value value-name="newEntity"/>
+            <create-value value-field="newEntity"/>
         </else>
         </if-not-empty>
     </simple-method>

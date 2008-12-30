@@ -345,10 +345,10 @@ under the License.
             ]]></call-bsh>
             <!-- create the UserLogin manually to get around ordering and security constraints in the service -->
             <set field="userLoginContext.partyId" from-field="partyId" />
-            <create-value value-name="newUserLogin"/>
+            <create-value value-field="newUserLogin"/>
         </if-not-empty>
 
-        <create-value value-name="partyDataSource"/>
+        <create-value value-field="partyDataSource"/>
         
         <!-- add contactMechPurposeTypeId for first Postal Address -->
         <if-compare field="shipToPostalAddress" operator="equals" value="true">

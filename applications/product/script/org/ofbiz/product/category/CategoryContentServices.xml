@@ -31,7 +31,7 @@ under the License.
             <set field="newEntity.fromDate" from-field="nowTimestamp" />
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
 
         <set-service-fields service-name="updateContent" map-name="parameters" to-map-name="updateContent"/>
         <call-service service-name="updateContent" in-map-name="updateContent"/>

@@ -42,7 +42,7 @@ under the License.
         </else>
         </if-has-permission>
         
-        <create-value value-name="schedule"/>
+        <create-value value-field="schedule"/>
     </simple-method>
     <simple-method method-name="updateOrderDeliverySchedule" short-description="Updates an existing Purchase Order Schedule">
         <!-- Verify the user is allowed to edit the fields -->

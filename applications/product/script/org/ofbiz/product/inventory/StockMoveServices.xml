@@ -569,7 +569,7 @@ under the License.
                     <call-service service-name="createInventoryItemDetail" in-map-name="createOisgirTargetDetailMap"/>
 
                     <!-- create the new and remove or update the old OISGIRs -->
-                    <create-value value-name="targetOrderItemShipGrpInvRes"/>
+                    <create-value value-field="targetOrderItemShipGrpInvRes"/>
                     <if-empty field="reservedQuantityLeftOver">
                         <remove-value value-name="orderItemShipGrpInvRes"/>
                     <else>

@@ -29,7 +29,7 @@ under the License.
             </else>
         </if-empty>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
-        <create-value value-name="newValue"/>
+        <create-value value-field="newValue"/>
         <field-to-result map-name="newValue" field-name="contactMechId"/>
         <field-to-request map-name="newValue" field-name="contactMechId"/>
         <log level="info" message="Contact mech created with id ${newValue.contactMechId}"/>     
@@ -107,7 +107,7 @@ under the License.
             <result-to-field result-name="contactMechId" map-name="newValue"/>
         </call-service>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
-        <create-value value-name="newValue"/>   
+        <create-value value-field="newValue"/>   
         <field-to-result map-name="newValue" field-name="contactMechId"/>
         <field-to-request map-name="newValue" field-name="contactMechId"/>             
     </simple-method>
@@ -141,7 +141,7 @@ under the License.
                 <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
                 <result-to-field result-name="contactMechId" map-name="newValue"/>
             </call-service>
-            <create-value value-name="newValue"/>
+            <create-value value-field="newValue"/>
             <else>
                 <set field="context.contactMechId" from-field="parameters.contactMechId"/>
                 <call-service service-name="updateContactMech" in-map-name="context">
@@ -150,7 +150,7 @@ under the License.
                 </call-service>
                 <if-compare-field to-field="newValue.contactMechId" field="oldValue.contactMechId" operator="not-equals">
                     <log level="info" message="Postal address need updating, contact mech changed"/>
-                    <create-value value-name="newValue"/>
+                    <create-value value-field="newValue"/>
                     <else>
                         <log level="info" message="Postal address unchanged"/>
                     </else>
@@ -170,7 +170,7 @@ under the License.
             <result-to-field result-name="contactMechId" map-name="newValue"/>
         </call-service>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
-        <create-value value-name="newValue"/>   
+        <create-value value-field="newValue"/>   
         <field-to-result map-name="newValue" field-name="contactMechId"/>
         <field-to-request map-name="newValue" field-name="contactMechId"/>             
     </simple-method>
@@ -188,7 +188,7 @@ under the License.
                 <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyUpdated"/>
                 <result-to-field result-name="contactMechId" map-name="newValue"/>
             </call-service>
-            <create-value value-name="newValue"/>
+            <create-value value-field="newValue"/>
             <else>
                 <set field="context.contactMechId" from-field="parameters.contactMechId"/>
                 <call-service service-name="updateContactMech" in-map-name="context">
@@ -197,7 +197,7 @@ under the License.
                 </call-service>
                 <if-compare-field to-field="newValue.contactMechId" field="oldValue.contactMechId" operator="not-equals">
                     <log level="info" message="Telecom Number need updating, contact mech changed"/>
-                    <create-value value-name="newValue"/>
+                    <create-value value-field="newValue"/>
                     <else>
                         <log level="info" message="Telecom Number unchanged"/>
                     </else>
@@ -236,7 +236,7 @@ under the License.
        <check-errors/>
        <make-value value-field="newEntity" entity-name="ContactMechLink"/>
        <set-pk-fields map="parameters" value-field="newEntity"/>
-       <create-value value-name="newEntity"/>
+       <create-value value-field="newEntity"/>
    </simple-method>
    <simple-method method-name="deleteContactMechLink" short-description="Delete a link between two ContactMechs">
        <!--TODO: need security check of some sort? -->
@@ -252,7 +252,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ContactMechAttribute"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContactMechAttribute" short-description="updateContactMechAttribute">
         <entity-one entity-name="ContactMechAttribute" value-name="lookedUpValue"/>

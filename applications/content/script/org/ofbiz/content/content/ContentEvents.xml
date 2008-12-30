@@ -79,7 +79,7 @@ under the License.
             <set field="newContentPurpose.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
             <log level="always" message="contentId: ${contentId}"/>
             <set field="newContentPurpose.contentId" from-field="contentId"/>
-            <create-value value-name="newContentPurpose"/>
+            <create-value value-field="newContentPurpose"/>
             <log level="always" message="newContentPurpose: ${newContentPurpose}"/>
         </if-not-empty>
     </simple-method>

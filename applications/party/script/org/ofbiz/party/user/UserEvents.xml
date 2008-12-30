@@ -317,11 +317,11 @@ under the License.
 
             <!-- create the UserLogin manually to get around ordering and security constraints in the service -->
             <set field="newUserLogin.partyId" from-field="tempMap.partyId" />
-            <create-value value-name="newUserLogin"/>
+            <create-value value-field="newUserLogin"/>
             <set-current-user-login value-name="newUserLogin"/>
         </if-not-empty>
 
-        <create-value value-name="partyDataSource"/>
+        <create-value value-field="partyDataSource"/>
         <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
         
         <!-- shipping address -->

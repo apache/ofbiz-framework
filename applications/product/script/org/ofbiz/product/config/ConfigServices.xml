@@ -39,7 +39,7 @@ under the License.
         </if-empty>
         <field-to-result field-name="fromDate" map-name="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductConfig" short-description="Update an ProductConfig">
         <set field="callingMethodName" value="updateProductConfig" />
@@ -79,7 +79,7 @@ under the License.
         <make-value entity-name="ProductConfigItem" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductConfigItem" env-name="newEntity.configItemId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="configItemId" map-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductConfigItem" short-description="Update a Config Item">
@@ -113,7 +113,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductConfigOption" env-name="newEntity.configOptionId"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <field-to-result field-name="newEntity.configItemId" result-name="configItemId"/>
         <field-to-result field-name="newEntity.configOptionId" result-name="configOptionId"/>
     </simple-method>
@@ -147,7 +147,7 @@ under the License.
         <make-value entity-name="ProductConfigProduct" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductConfigProduct" short-description="Update a ProductConfigProduct">
         <check-permission action="_UPDATE" permission="CATALOG">

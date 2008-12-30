@@ -595,7 +595,7 @@ under the License.
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePicklist" short-description="Update Picklist">
         <check-permission permission="FACILITY" action="_UPDATE">
@@ -623,7 +623,7 @@ under the License.
                 <set from-field="parameters.statusId" field="newStatusValue.statusIdTo"/>
                 <now-timestamp-to-env env-name="newStatusValue.changeDate"/>
                 <set from-field="userLogin.userLoginId" field="newStatusValue.changeUserLoginId"/>
-                <create-value value-name="newStatusValue"/>
+                <create-value value-field="newStatusValue"/>
             </if-compare-field>
         </if-not-empty>
 
@@ -664,7 +664,7 @@ under the License.
         <sequenced-id-to-env sequence-name="PicklistBin" env-name="newEntity.picklistBinId"/>
         <field-to-result field-name="newEntity.picklistBinId" result-name="picklistBinId"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePicklistBin" short-description="Update PicklistBin">
         <check-permission permission="FACILITY" action="_UPDATE">
@@ -705,7 +705,7 @@ under the License.
             <set value="PICKITEM_PENDING" field="newEntity.itemStatusId"/>
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePicklistItem" short-description="Update PicklistItem">
         <check-permission permission="FACILITY" action="_UPDATE">
@@ -777,7 +777,7 @@ under the License.
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePicklistRole" short-description="Update PicklistRole">
         <check-permission permission="FACILITY" action="_UPDATE">

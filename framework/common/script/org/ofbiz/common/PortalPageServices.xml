@@ -31,7 +31,7 @@ under the License.
         <set field="newEntity.columnNum" value="1"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="portletSeqId"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
         <check-errors/>
 
         <remove-value value-name="oldEntity"/>
@@ -44,7 +44,7 @@ under the License.
         <make-next-seq-id value-name="newEntity" seq-field-name="columnSeqId"/>
         <field-to-result field-name="newEntity.columnSeqId" result-name="columnSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
     </simple-method>
 
     <simple-method method-name="deletePortalPageColumn" short-description="Delete a Column from a PortalPage">
@@ -71,11 +71,11 @@ under the License.
         <make-next-seq-id value-name="newEntity" seq-field-name="portletSeqId"/>
         <field-to-result field-name="newEntity.portletSeqId" result-name="portletSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>  
+        <create-value value-field="newEntity"/>  
         <make-value entity-name="PortalPageColumn" value-field="newEntity1"/>
         <set-pk-fields map="parameters" value-field="newEntity1"/>
         <make-next-seq-id value-name="newEntity1" seq-field-name="columnSeqId"/>
-        <create-value value-name="newEntity1"/>  
+        <create-value value-field="newEntity1"/>  
     </simple-method>
 
     <simple-method method-name="deletePortalPagePortlet" short-description="Delete a PortalPortlet from a PortalPageColumn">
@@ -110,12 +110,12 @@ under the License.
         <make-next-seq-id value-name="newPortalPage" seq-field-name="portalPageId"/>
 
         <set-nonpk-fields map="parameters" value-field="newPortalPage"/>
-        <create-value value-name="newPortalPage"/>  
+        <create-value value-field="newPortalPage"/>  
 
         <make-value entity-name="PortalPageColumn" value-field="newPortalPageColumn"/>
         <set field="newPortalPageColumn.portalPageId" from-field="newPortalPage.portalPageId"/>
         <set field="newPortalPageColumn.columnSeqId"  value="1"/>
-        <create-value value-name="newPortalPageColumn"/>
+        <create-value value-field="newPortalPageColumn"/>
 
         <field-to-result field-name="newPortalPage.portalPageId" result-name="portalPageId"/>
     </simple-method>

@@ -35,7 +35,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <now-timestamp-to-env env-name="newEntity.issuedDateTime"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
 
         <!-- if the InventoryItem issued is serialized, then change its status to DELIVERED -->
         <get-related-one value-name="newEntity" relation-name="InventoryItem" to-value-name="inventoryItem"/>
@@ -84,7 +84,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteItemIssuanceRole" short-description="Delete ItemIssuanceRole">
         <check-permission permission="FACILITY" action="_DELETE">
@@ -337,7 +337,7 @@ under the License.
         <set field="partyRole.roleTypeId" value="PACKER"/>
         <find-by-primary-key entity-name="PartyRole" map="partyRole" value-field="checkPartyRole"/>
         <if-empty field="checkPartyRole">
-            <create-value value-name="partyRole"/>
+            <create-value value-field="partyRole"/>
         </if-empty>
 
         <!-- Add ItemIssuanceRole for party that issues this... -->

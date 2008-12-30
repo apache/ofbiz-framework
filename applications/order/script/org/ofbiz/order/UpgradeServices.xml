@@ -32,7 +32,7 @@ under the License.
             <set field="orderItemAssoc.shipGroupSeqId" value="_NA_"/>
             <set field="orderItemAssoc.toShipGroupSeqId" value="_NA_"/>
             <set field="orderItemAssoc.orderItemAssocTypeId" value="PURCHASE_ORDER"/>
-            <create-value value-name="orderItemAssoc"/>
+            <create-value value-field="orderItemAssoc"/>
         </iterate>
     </simple-method>
     
@@ -45,7 +45,7 @@ under the License.
             <set field="custRequestParty.partyId" from-field="oldCustRequestRole.partyId"/>
             <set field="custRequestParty.roleTypeId" from-field="oldCustRequestRole.roleTypeId"/>
             <set field="custRequestParty.fromDate" from-field="fromDate"/>
-            <create-value value-name="custRequestParty"/>
+            <create-value value-field="custRequestParty"/>
         </iterate>
     </simple-method>    
 </simple-methods>

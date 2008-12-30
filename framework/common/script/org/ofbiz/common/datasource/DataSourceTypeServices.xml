@@ -25,7 +25,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="DataSourceType"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataSourceType" short-description="Update an DataSourceType">
         <make-value entity-name="DataSourceType" value-field="lookupPKMap"/>
