@@ -7719,12 +7719,14 @@
         <value xml:lang="zh">角色类型到</value>
     </property>
     <property key="PartyRoles">
+        <value xml:lang="ar">الأدوار</value>
         <value xml:lang="de">Rolle(n)</value>
         <value xml:lang="en">Role(s)</value>
         <value xml:lang="es">Rol(es)</value>
         <value xml:lang="fr">Rôle(s)</value>
         <value xml:lang="it">Ruolo(i)</value>
         <value xml:lang="nl">Rol(len)</value>
+        <value xml:lang="pt_BR">Funções</value>
         <value xml:lang="pt_PT">Função (ões)</value>
         <value xml:lang="ro">Rol(uri)</value>
         <value xml:lang="ru">Роль(и)</value>
@@ -8358,25 +8360,29 @@
         <value xml:lang="zh">已成功更新电话号码。</value>
     </property>
     <property key="PartyTerm">
+        <value xml:lang="ar">بند</value>
         <value xml:lang="de">Bedingung</value>
         <value xml:lang="en">Term</value>
         <value xml:lang="es">Condición</value>
         <value xml:lang="fr">Echéance</value>
         <value xml:lang="it">Termine</value>
         <value xml:lang="nl">Conditie</value>
+        <value xml:lang="pt_BR">Termo</value>
         <value xml:lang="pt_PT">Termo</value>
         <value xml:lang="ro">Termen</value>
         <value xml:lang="ru">Условие</value>
         <value xml:lang="th">ระยะเวลาที่กำหนด</value>
         <value xml:lang="zh">条件</value>
     </property>
-    <property key="PartyTermTyp">
+    <property key="PartyTermType">
+        <value xml:lang="ar">نوع البند</value>
         <value xml:lang="de">Bedingung Typ</value>
         <value xml:lang="en">Term Type</value>
         <value xml:lang="es">Tipo de condición</value>
         <value xml:lang="fr">Type de termes</value>
         <value xml:lang="it">Tipo Termine</value>
         <value xml:lang="nl">Soort conditie</value>
+        <value xml:lang="pt_BR">Tipo de Termo</value>
         <value xml:lang="pt_PT">Tipo de Termo</value>
         <value xml:lang="ro">Tip Termen</value>
         <value xml:lang="ru">Тип условия</value>
@@ -8384,12 +8390,14 @@
         <value xml:lang="zh">条件类型</value>
     </property>
     <property key="PartyTermValue">
+        <value xml:lang="ar">قيمة البند</value>
         <value xml:lang="de">Bedingung Wert</value>
         <value xml:lang="en">Term Value</value>
         <value xml:lang="es">Condiciones</value>
         <value xml:lang="fr">Valeur du terme</value>
         <value xml:lang="it">Valore Termine</value>
         <value xml:lang="nl">Waarde conditie</value>
+        <value xml:lang="pt_BR">Valor do Termo</value>
         <value xml:lang="pt_PT">Valor do Termo</value>
         <value xml:lang="ro">Valoare Termen</value>
         <value xml:lang="ru">Значение условия</value>
@@ -8397,12 +8405,14 @@
         <value xml:lang="zh">条件值</value>
     </property>
     <property key="PartyTerms">
+        <value xml:lang="ar">بنود</value>
         <value xml:lang="de">Bedingungen</value>
         <value xml:lang="en">Terms</value>
         <value xml:lang="es">Condiciones</value>
         <value xml:lang="fr">Echéances</value>
         <value xml:lang="it">Termini</value>
         <value xml:lang="nl">Condities</value>
+        <value xml:lang="pt_BR">Termos</value>
         <value xml:lang="pt_PT">Termos</value>
         <value xml:lang="ro">Termeni</value>
         <value xml:lang="ru">Условия</value>
