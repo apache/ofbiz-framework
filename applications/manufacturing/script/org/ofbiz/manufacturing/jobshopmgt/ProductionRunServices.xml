@@ -222,7 +222,7 @@ under the License.
                 <calculate field-name="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
             </if-compare>
             <if-not-empty field="workEffortGoodStandard">
-                <entity-and list-name="issuances" entity-name="WorkEffortAndInventoryAssign">
+                <entity-and list="issuances" entity-name="WorkEffortAndInventoryAssign">
                     <field-map field-name="workEffortId" env-name="workEffortGoodStandard.workEffortId"/>
                     <field-map field-name="productId" env-name="workEffortGoodStandard.productId"/>
                 </entity-and>

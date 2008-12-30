@@ -87,7 +87,7 @@ under the License.
             <set field="updCustReq.custRequestId" from-field="parameters.custRequestId"/>
             <set field="updCustReq.statusId" value="CRQ_REVIEWED"/>
             <call-service service-name="setCustRequestStatus" in-map-name="updCustReq"/>
-            <entity-and list-name="custRequestContents" entity-name="CustRequestContent">
+            <entity-and list="custRequestContents" entity-name="CustRequestContent">
                 <field-map field-name="custRequestId" env-name="parameters.custRequestId"/>
             </entity-and>
             <iterate entry-name="custRequestContent" list-name="custRequestContents">

@@ -333,7 +333,7 @@ under the License.
         <if-empty field="fixedAssetValue.instanceOfProductId">
             <return/>
         </if-empty>
-        <entity-and list-name="productMaintList" entity-name="ProductMaint">
+        <entity-and list="productMaintList" entity-name="ProductMaint">
             <field-map field-name="productId" env-name="fixedAssetValue.instanceOfProductId"/>
             <field-map field-name="intervalMeterTypeId" env-name="meterValue.productMeterTypeId"/>
         </entity-and>
@@ -550,7 +550,7 @@ under the License.
         <if-empty field="workEffortId">
             <set field="workEffortId" from-field="maintValue.scheduleWorkEffortId"/>
         </if-empty>
-        <entity-and list-name="assignedParties" entity-name="PartyFixedAssetAssignAndRole" filter-by-date="true">
+        <entity-and list="assignedParties" entity-name="PartyFixedAssetAssignAndRole" filter-by-date="true">
             <field-map field-name="fixedAssetId" env-name="fixedAssetId"/>
             <field-map field-name="parentTypeId" value="FAM_ASSIGNEE"/>
         </entity-and>

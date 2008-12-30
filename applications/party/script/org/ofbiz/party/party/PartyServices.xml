@@ -822,7 +822,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
-        <entity-and list-name="webSites" entity-name="WebSite">
+        <entity-and list="webSites" entity-name="WebSite">
             <field-map field-name="productStoreId" env-name="storeEmail.productStoreId"/>
         </entity-and>
         <first-from-list entry-name="webSite" list-name="webSites"/>
@@ -853,7 +853,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <first-from-list entry-name="storeEmail" list-name="productStoreEmailSettings"/>
-        <entity-and list-name="webSites" entity-name="WebSite">
+        <entity-and list="webSites" entity-name="WebSite">
             <field-map field-name="productStoreId" env-name="storeEmail.productStoreId"/>
         </entity-and>
         <first-from-list entry-name="webSite" list-name="webSites"/>
