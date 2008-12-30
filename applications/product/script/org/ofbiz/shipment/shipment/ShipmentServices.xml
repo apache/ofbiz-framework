@@ -28,7 +28,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="Shipment"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-not-empty field="parameters.shipmentId">
             <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -238,7 +238,7 @@ under the License.
         <field-to-result field-name="lookedUpValue.destinationFacilityId" result-name="oldDestinationFacilityId"/>
 
         <!-- now that all changes have been checked, set the nonpks -->
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <now-timestamp-to-env env-name="lookedUpValue.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
         <field-to-result field-name="lookedUpValue.shipmentId" result-name="shipmentId"/>
@@ -788,7 +788,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ShipmentItem"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <!-- if no shipmentItemSeqId, generate one based on existing items, ie one greater than the current higher number -->
         <make-next-seq-id value-name="newEntity" seq-field-name="shipmentItemSeqId"/>
         <field-to-result field-name="shipmentItemSeqId" map-name="newEntity" result-name="shipmentItemSeqId"/>
@@ -805,7 +805,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentItem" short-description="Delete ShipmentItem">
@@ -913,7 +913,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ShipmentPackage"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-compare value="New" operator="equals" field="newEntity.shipmentPackageSeqId">
             <clear-field field-name="shipmentPackageSeqId" map-name="newEntity"/>
@@ -942,7 +942,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackage"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackage" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
 
         <set from-field="lookedUpValue.shipmentId" field="shipmentId"/>
@@ -993,7 +993,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
         <field-to-result field-name="shipmentPackageSeqId" map-name="newEntity" result-name="shipmentPackageSeqId"/>
@@ -1009,7 +1009,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageContent" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentPackageContent" short-description="Delete ShipmentPackageContent">
@@ -1063,7 +1063,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -1076,7 +1076,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentPackageRouteSeg" short-description="Delete ShipmentPackageRouteSeg">
@@ -1102,7 +1102,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ShipmentContactMech"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -1115,7 +1115,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ShipmentContactMech"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentContactMech" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteShipmentContactMech" short-description="Delete ShipmentContactMech">
@@ -1143,7 +1143,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ShipmentRouteSegment"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- if no shipmentRouteSegmentSeqId, generate one based on existing items, ie one greater than the current higher number -->
         <make-next-seq-id value-name="newEntity" seq-field-name="shipmentRouteSegmentId"/>
@@ -1168,7 +1168,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ShipmentRouteSegment" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <if-empty field="newEntity.carrierServiceStatusId">
             <set value="SHRSCS_NOT_STARTED" field="newEntity.carrierServiceStatusId"/>
@@ -1267,12 +1267,12 @@ under the License.
     <simple-method method-name="createCarrierShipmentMethod" short-description="Creates a CarrierShipmentMethod">
         <make-value value-field="carrierShipmentMethod" entity-name="CarrierShipmentMethod"/>
         <set-pk-fields map="parameters" value-field="carrierShipmentMethod"/>
-        <set-nonpk-fields map-name="parameters" value-name="carrierShipmentMethod"/>
+        <set-nonpk-fields map="parameters" value-field="carrierShipmentMethod"/>
         <create-value value-name="carrierShipmentMethod"/>
     </simple-method>
     <simple-method method-name="updateCarrierShipmentMethod" short-description="Updates a CarrierShipmentMethod">
         <entity-one entity-name="CarrierShipmentMethod" value-name="carrierShipmentMethod"/>
-        <set-nonpk-fields map-name="parameters" value-name="carrierShipmentMethod"/>
+        <set-nonpk-fields map="parameters" value-field="carrierShipmentMethod"/>
         <store-value value-name="carrierShipmentMethod"/>
     </simple-method>
     <simple-method method-name="deleteCarrierShipmentMethod" short-description="Removes a CarrierShipmentMethod">
@@ -1283,12 +1283,12 @@ under the License.
     <simple-method method-name="createShipmentMethodType" short-description="Creates a ShipmentMethodType">
         <make-value value-field="shipmentMethodType" entity-name="ShipmentMethodType"/>
         <set-pk-fields map="parameters" value-field="shipmentMethodType"/>
-        <set-nonpk-fields map-name="parameters" value-name="shipmentMethodType"/>
+        <set-nonpk-fields map="parameters" value-field="shipmentMethodType"/>
         <create-value value-name="shipmentMethodType"/>
     </simple-method>
     <simple-method method-name="updateShipmentMethodType" short-description="Updates a ShipmentMethodType">
         <entity-one entity-name="ShipmentMethodType" value-name="shipmentMethodType"/>
-        <set-nonpk-fields map-name="parameters" value-name="shipmentMethodType"/>
+        <set-nonpk-fields map="parameters" value-field="shipmentMethodType"/>
         <store-value value-name="shipmentMethodType"/>
     </simple-method>
     <simple-method method-name="deleteShipmentMethodType" short-description="Deletes a ShipmentMethodType">
@@ -2014,7 +2014,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value value-field="quantityBreak" entity-name="QuantityBreak"/>
-        <set-nonpk-fields map-name="parameters" value-name="quantityBreak"/>
+        <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
         <sequenced-id-to-env sequence-name="QuantityBreak" env-name="quantityBreak.quantityBreakId"/>
         <create-value value-name="quantityBreak"/>
         <check-errors/>
@@ -2028,7 +2028,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuantityBreak" value-name="quantityBreak" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="quantityBreak"/>
+        <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
         <store-value value-name="quantityBreak"/>
         <check-errors/>
     </simple-method>

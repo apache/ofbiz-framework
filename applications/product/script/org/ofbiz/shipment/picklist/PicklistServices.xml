@@ -579,7 +579,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="Picklist"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id-to-env sequence-name="Picklist" env-name="newEntity.picklistId"/>
         <field-to-result field-name="newEntity.picklistId" result-name="picklistId"/>
@@ -634,7 +634,7 @@ under the License.
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
 
         <!-- now that all changes have been checked, set the nonpks -->
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
 
         <store-value value-name="lookedUpValue"/>
@@ -659,7 +659,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="PicklistBin"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id-to-env sequence-name="PicklistBin" env-name="newEntity.picklistBinId"/>
         <field-to-result field-name="newEntity.picklistBinId" result-name="picklistBinId"/>
@@ -674,7 +674,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="PicklistBin"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -699,7 +699,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="PicklistItem"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.itemStatusId">
             <set value="PICKITEM_PENDING" field="newEntity.itemStatusId"/>
@@ -736,7 +736,7 @@ under the License.
         <field-to-result field-name="lookedUpValue.itemStatusId" result-name="oldItemStatusId"/>
 
         <!-- now that all changes have been checked, set the nonpks -->
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <!-- store the changes -->
         <store-value value-name="lookedUpValue"/>
@@ -771,7 +771,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="PicklistRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -787,7 +787,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="PicklistRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <store-value value-name="lookedUpValue"/>
     </simple-method>

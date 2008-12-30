@@ -52,7 +52,7 @@ under the License.
                 <if>
                     <condition><if-compare-field field="partyGroup.groupName" to-field="parameters.groupName" operator="not-equals"/></condition>
                     <then>
-                        <set-nonpk-fields value-name="partyNameHistory" map-name="partyGroup"/>
+                        <set-nonpk-fields value-field="partyNameHistory" map="partyGroup"/>
                         <create-value value-name="partyNameHistory"/>
                     </then>
                 </if>
@@ -80,7 +80,7 @@ under the License.
                             </or>
                         </condition>
                         <then>
-                            <set-nonpk-fields value-name="partyNameHistory" map-name="person"/>
+                            <set-nonpk-fields value-field="partyNameHistory" map="person"/>
                             <create-value value-name="partyNameHistory"/>
                         </then>
                     </if>
@@ -197,13 +197,13 @@ under the License.
     <simple-method method-name="createPartyClassification" short-description="create a PartyClassification">
         <make-value entity-name="PartyClassification" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>        
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updatePartyClassification" short-description="update a PartyClassification">
         <entity-one entity-name="PartyClassification" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyClassification" short-description="delete a PartyClassification">
@@ -216,13 +216,13 @@ under the License.
         <make-value entity-name="PartyClassificationGroup" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="PartyClassificationGroup" env-name="newEntity.partyClassificationGroupId"/>
         <field-to-result field-name="newEntity.partyClassificationGroupId" result-name="partyClassificationGroupId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <log level="verbose" message="newEntity:${newEntity}" />
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updatePartyClassificationGroup" short-description="update a PartyClassificationGroup">
         <entity-one entity-name="PartyClassificationGroup" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyClassificationGroup" short-description="delete a PartyClassificationGroup">
@@ -234,12 +234,12 @@ under the License.
     <simple-method method-name="createVendor" short-description="createVendor">
         <make-value value-field="newEntity" entity-name="Vendor"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateVendor" short-description="updateVendor">
         <entity-one entity-name="Vendor" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteVendor" short-description="deleteVendor">
@@ -251,12 +251,12 @@ under the License.
     <simple-method method-name="createPartyAttribute" short-description="createPartyAttribute">
         <make-value value-field="newEntity" entity-name="PartyAttribute"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePartyAttribute" short-description="updatePartyAttribute">
         <entity-one entity-name="PartyAttribute" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removePartyAttribute" short-description="removePartyAttribute">
@@ -279,7 +279,7 @@ under the License.
         </if-empty>
 
         <!-- update the fields -->
-        <set-nonpk-fields value-name="partyProfileDefault" map-name="parameters" set-if-null="false"/>
+        <set-nonpk-fields value-field="partyProfileDefault" map="parameters" set-if-null="false"/>
         <store-value value-name="partyProfileDefault"/>
     </simple-method>
     
@@ -740,7 +740,7 @@ under the License.
         <call-object-method obj-field-name="mapKey" obj-map-name="parameters" method-name="toUpperCase" ret-field-name="mapKey" ret-map-name="parameters"/>
         <make-value entity-name="AddressMatchMap" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteAddressMatchMap" short-description="remove a AddressMatchMap">
@@ -776,7 +776,7 @@ under the License.
         <if-empty field="partyRels">
             <make-value value-field="newEntity" entity-name="PartyRelationship"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-name="newEntity"/>
         </if-empty>
     </simple-method>
@@ -785,7 +785,7 @@ under the License.
         <if-empty field="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
         
         <entity-one entity-name="PartyRelationship" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyRelationship" short-description="deletePartyRelationship">
@@ -799,7 +799,7 @@ under the License.
     <simple-method method-name="createPartyCarrierAccount" short-description="Create PartyCarrierAccount">
         <make-value entity-name="PartyCarrierAccount" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -809,7 +809,7 @@ under the License.
     
      <simple-method method-name="updatePartyCarrierAccount" short-description="Update a PartyCarrierAccount">        
         <entity-one entity-name="PartyCarrierAccount" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>        
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>        
         <store-value value-name="lookedUpValue"/>
     </simple-method> 
     

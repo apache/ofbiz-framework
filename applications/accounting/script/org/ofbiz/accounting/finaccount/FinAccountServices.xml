@@ -37,7 +37,7 @@ under the License.
         
         <make-value value-field="newEntity" entity-name="FinAccount"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.finAccountId">
             <sequenced-id-to-env sequence-name="FinAccount" env-name="finAccountId"/>
@@ -120,7 +120,7 @@ under the License.
             </then>
         </if>
 
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <!-- make sure the replenishLevel is a sane number -->
         <calculate field-name="lookedUpValue.replenishLevel" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
@@ -153,7 +153,7 @@ under the License.
         
         <make-value entity-name="FinAccountStatus" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.statusDate" from-field="nowTimestamp"/>
         <create-value value-name="newEntity"/>  
     </simple-method>
@@ -163,7 +163,7 @@ under the License.
         <call-simple-method method-name="getArithmeticSettingsInline"/>
         
         <make-value value-field="newEntity" entity-name="FinAccountTrans"/>
-        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <sequenced-id-to-env sequence-name="FinAccountTrans" env-name="newEntity.finAccountTransId"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -193,7 +193,7 @@ under the License.
     <simple-method method-name="createFinAccountRole" short-description="Create a Financial Account Role">
         <make-value value-field="newEntity" entity-name="FinAccountRole"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <set-nonpk-fields value-field="newEntity" map="parameters"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -203,7 +203,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateFinAccountRole" short-description="Update a Financial Account Role">
         <entity-one entity-name="FinAccountRole" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteFinAccountRole" short-description="Delete a Financial Account Role">
@@ -216,7 +216,7 @@ under the License.
         <call-simple-method method-name="getArithmeticSettingsInline"/>
         
         <make-value value-field="newEntity" entity-name="FinAccountAuth"/>
-        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <set-nonpk-fields value-field="newEntity" map="parameters"/>
 
         <sequenced-id-to-env sequence-name="FinAccountAuth" env-name="newEntity.finAccountAuthId"/>
         
@@ -328,14 +328,14 @@ under the License.
     <!-- FinAccountTypeGlAccount methods -->
     <simple-method method-name="createFinAccountTypeGlAccount" short-description="Create an FinAccountTypeGlAccount">
         <make-value value-field="newEntity" entity-name="FinAccountTypeGlAccount"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     
     <simple-method method-name="updateFinAccountTypeGlAccount" short-description="Update an FinAccountTypeGlAccount">
         <entity-one entity-name="FinAccountTypeGlAccount" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -347,14 +347,14 @@ under the License.
     <!-- VarianceReasonGlAccount methods -->
     <simple-method method-name="createVarianceReasonGlAccount" short-description="Create a Variance Reason Gl Account">
         <make-value entity-name="VarianceReasonGlAccount" value-field="newEntity" />
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     
     <simple-method method-name="updateVarianceReasonGlAccount" short-description="Update an Variance Reason Gl Account">
         <entity-one entity-name="VarianceReasonGlAccount" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     

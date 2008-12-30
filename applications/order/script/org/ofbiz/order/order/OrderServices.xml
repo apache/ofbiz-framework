@@ -95,7 +95,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="OrderShipment"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -107,7 +107,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="OrderShipment" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteOrderShipment" short-description="Delete OrderShipment">
@@ -132,7 +132,7 @@ under the License.
         -->
         <make-value value-field="newEntity" entity-name="OrderRequirementCommitment"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
 
@@ -532,7 +532,7 @@ under the License.
         </else>
         </if-not-empty>
         <field-to-result field-name="newEntity.orderId" result-name="orderId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -548,7 +548,7 @@ under the License.
             <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified work effort"/></add-error>
         </if-empty>
         <check-errors/>
-        <set-nonpk-fields value-name="orderHeader" map-name="parameters"/>
+        <set-nonpk-fields value-field="orderHeader" map="parameters"/>
         <store-value value-name="orderHeader"/>  
     </simple-method>
 
@@ -736,7 +736,7 @@ under the License.
                parameters.put("carrierPartyId", shipmentMethod.substring(shipmentMethod.indexOf("@")+1));
             }
         ]]></call-bsh>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         
         <set from-field="parameters.orderId" field="inputMap.orderId"/>
         <set from-field="parameters.contactMechPurposeTypeId" field="inputMap.contactMechPurposeTypeId"/>
@@ -800,7 +800,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <entity-one entity-name="OrderHeaderNote" value-name="orderHeaderNote"/>
-        <set-nonpk-fields value-name="orderHeaderNote" map-name="parameters"/>
+        <set-nonpk-fields value-field="orderHeaderNote" map="parameters"/>
         <store-value value-name="orderHeaderNote"/>  
     </simple-method>
         
@@ -813,7 +813,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="OrderTerm"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set value="_NA_" set-if-empty="true" field="newEntity.orderItemSeqId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -824,7 +824,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="OrderTerm" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeOrderTerm" short-description="Remove OrderTerm">
@@ -885,7 +885,7 @@ under the License.
     
     <simple-method method-name="createOrderItemChange" short-description="Creates a new Order Item Change record">
         <make-value value-field="newEntity" entity-name="OrderItemChange"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.changeDatetime">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.changeDatetime" from-field="nowTimestamp"/>
@@ -916,7 +916,7 @@ under the License.
                 <make-value entity-name="PostalAddress" value-field="newValue"/>
                 <set-pk-fields value-field="newValue" map="shipToAddressCtx"/>
                 <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue"/>
-                <set-nonpk-fields map-name="shipToAddressCtx" value-name="newValue"/>
+                <set-nonpk-fields map="shipToAddressCtx" value-field="newValue"/>
                 <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
                     <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
                         <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
@@ -962,7 +962,7 @@ under the License.
                     <make-value entity-name="PostalAddress" value-field="newValue"/>
                     <set-pk-fields value-field="newValue" map="shipToAddressCtx"/>
                     <find-by-primary-key entity-name="PostalAddress" map="newValue" value-field="oldValue"/>
-                    <set-nonpk-fields map-name="shipToAddressCtx" value-name="newValue"/>
+                    <set-nonpk-fields map="shipToAddressCtx" value-field="newValue"/>
                     <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
                         <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
                             <field-map field-name="contactMechId" from-field="shipToAddressCtx.shipToContactMechId"/>

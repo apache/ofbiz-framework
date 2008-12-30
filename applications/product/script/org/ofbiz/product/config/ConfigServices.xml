@@ -29,7 +29,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductConfig"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -52,7 +52,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductConfig" map="lookupPKMap" value-field="lookedUpValue"/>
 
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -78,7 +78,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductConfigItem" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductConfigItem" env-name="newEntity.configItemId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
         <field-to-result field-name="configItemId" map-name="newEntity"/>
     </simple-method>
@@ -90,7 +90,7 @@ under the License.
         <make-value entity-name="ProductConfigItem" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductConfigItem" short-description="Delete a Config Item">
@@ -110,7 +110,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigOption" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductConfigOption" env-name="newEntity.configOptionId"/>
         <create-value value-name="newEntity"/>
@@ -125,7 +125,7 @@ under the License.
         <make-value entity-name="ProductConfigOption" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductConfigOption" short-description="Delete a Config Option">
@@ -146,7 +146,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductConfigProduct" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductConfigProduct" short-description="Update a ProductConfigProduct">
@@ -157,7 +157,7 @@ under the License.
         <make-value entity-name="ProductConfigProduct" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductConfigProduct" short-description="Delete a ProductConfigProduct">

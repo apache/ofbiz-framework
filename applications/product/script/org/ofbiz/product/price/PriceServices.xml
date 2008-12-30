@@ -29,7 +29,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPrice"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -58,7 +58,7 @@ under the License.
         <!-- grab the old price value before setting nonpk parameter fields -->
         <field-to-result map-name="lookedUpValue" field-name="price" result-name="oldPrice"/>
 
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="lookedUpValue.lastModifiedDate" from-field="nowTimestamp" />
@@ -96,7 +96,7 @@ under the License.
 
         <!-- Note that this is kept pretty simple: if a price is specific but no oldPrice, then it is generally a create, if both are specified it is generally an update, if only the oldPrice is specified it is generally a delete -->
         <make-value value-field="newEntity" entity-name="ProductPriceChange"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id-to-env sequence-name="ProductPriceChange" env-name="productPriceChangeId"/>
         <set field="newEntity.productPriceChangeId" from-field="productPriceChangeId" />    
@@ -116,7 +116,7 @@ under the License.
         <make-value entity-name="ProductPaymentMethodType" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateProductPaymentMethodType" short-description="update a ProductPaymentMethodType">
@@ -125,7 +125,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-errors/>
         <entity-one entity-name="ProductPaymentMethodType" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPaymentMethodType" short-description="delete a ProductPaymentMethodType">
@@ -144,7 +144,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPriceRule"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductPriceRule" env-name="newEntity.productPriceRuleId"/>
         <field-to-result field-name="productPriceRuleId" map-name="newEntity"/>
 
@@ -158,7 +158,7 @@ under the License.
         <make-value entity-name="ProductPriceRule" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceRule" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPriceRule" short-description="Delete an ProductPriceRule">
@@ -179,7 +179,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPriceCond"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="productPriceCondSeqId" numeric-padding="2"/>
         <field-to-result field-name="productPriceCondSeqId" map-name="newEntity"/>
@@ -194,7 +194,7 @@ under the License.
         <make-value entity-name="ProductPriceCond" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceCond" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPriceCond" short-description="Delete an ProductPriceCond">
@@ -215,7 +215,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductPriceAction"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="productPriceActionSeqId" numeric-padding="2"/>
         <field-to-result field-name="productPriceActionSeqId" map-name="newEntity"/>
@@ -230,7 +230,7 @@ under the License.
         <make-value entity-name="ProductPriceAction" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceAction" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductPriceAction" short-description="Delete an ProductPriceAction">

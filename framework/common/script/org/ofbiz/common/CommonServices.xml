@@ -30,7 +30,7 @@ under the License.
         <check-errors/>
         <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <call-object-method obj-field-name="newEntity.enteredKeyword" method-name="toLowerCase" ret-field-name="newEntity.enteredKeyword"/>
         <call-object-method obj-field-name="newEntity.alternateKeyword" method-name="toLowerCase" ret-field-name="newEntity.alternateKeyword"/>
         <create-value value-name="newEntity"/>
@@ -40,7 +40,7 @@ under the License.
         <check-errors/>
         <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <store-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteKeywordThesaurus" short-description="Delete a KeywordThesaurus">
@@ -55,7 +55,7 @@ under the License.
     <simple-method method-name="createUomConversionDated" short-description="Create a new dated UOM conversion entity">
         <make-value value-field="newEntity" entity-name="UomConversionDated"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
         

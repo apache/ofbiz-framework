@@ -23,7 +23,7 @@ under the License.
     <!-- DataSourceType methods -->
     <simple-method method-name="createDataSourceType" short-description="Create an DataSourceType">
         <make-value value-field="newEntity" entity-name="DataSourceType"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -31,7 +31,7 @@ under the License.
         <make-value entity-name="DataSourceType" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="DataSourceType" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteDataSourceType" short-description="Delete an DataSourceType">

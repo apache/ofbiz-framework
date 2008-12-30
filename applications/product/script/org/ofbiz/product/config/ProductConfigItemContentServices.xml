@@ -24,7 +24,7 @@ under the License.
     <simple-method method-name="createProductConfigItemContent" short-description="Create Content For ProductConfigItem">
         <make-value value-field="newEntity" entity-name="ProdConfItemContent"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -44,7 +44,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProdConfItemContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
 
         <set-service-fields service-name="updateContent" map-name="parameters" to-map-name="updateContent"/>

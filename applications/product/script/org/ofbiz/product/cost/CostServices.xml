@@ -23,7 +23,7 @@ under the License.
     <!-- CostComponent services -->
     <simple-method method-name="createCostComponent" short-description="Create a CostComponent">
         <make-value value-field="newEntity" entity-name="CostComponent"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="CostComponent" env-name="newEntity.costComponentId"/>
         <field-to-result field-name="costComponentId" map-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
@@ -33,7 +33,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateCostComponent" short-description="Update a CostComponent">
         <entity-one entity-name="CostComponent" value-name="costComponent"/>
-        <set-nonpk-fields map-name="parameters" value-name="costComponent"/>
+        <set-nonpk-fields map="parameters" value-field="costComponent"/>
         <store-value value-name="costComponent"/>
     </simple-method>
     <simple-method method-name="deleteCostComponent" short-description="Delete a CostComponent">
@@ -65,7 +65,7 @@ under the License.
         </iterate>
         <!-- The new cost is created -->
         <make-value value-field="newEntity" entity-name="CostComponent"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="CostComponent" env-name="newEntity.costComponentId"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>

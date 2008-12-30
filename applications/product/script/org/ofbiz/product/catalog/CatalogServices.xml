@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createProdCatalog" short-description="Create an ProdCatalog">
         <make-value value-field="newEntity" entity-name="ProdCatalog"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="parameters.prodCatalogId">
             <sequenced-id-to-env sequence-name="ProdCatalog" env-name="newEntity.prodCatalogId"/>
@@ -38,7 +38,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateProdCatalog" short-description="Update an ProdCatalog">
         <entity-one entity-name="ProdCatalog"  value-name="prodCatalog"/>
-        <set-nonpk-fields map-name="parameters" value-name="prodCatalog"/>
+        <set-nonpk-fields map="parameters" value-field="prodCatalog"/>
         <store-value value-name="prodCatalog"/>
     </simple-method>
     <simple-method method-name="deleteProdCatalog" short-description="Delete an ProdCatalog">
@@ -56,7 +56,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProdCatalogCategory"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -70,7 +70,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProdCatalogCategory"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogCategory" map="lookupPKMap" value-field="prodCatalogCategory"/>
-        <set-nonpk-fields map-name="parameters" value-name="prodCatalogCategory"/>
+        <set-nonpk-fields map="parameters" value-field="prodCatalogCategory"/>
         <store-value value-name="prodCatalogCategory"/>
     </simple-method>
     <simple-method method-name="removeProductCategoryFromProdCatalog" short-description="Remove ContactMech From ProdCatalog">
@@ -85,7 +85,7 @@ under the License.
     <simple-method method-name="addProdCatalogToParty" short-description="Add ProdCatalog To Party">
         <make-value value-field="newEntity" entity-name="ProdCatalogRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -97,7 +97,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProdCatalogRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeProdCatalogFromParty" short-description="Remove ProdCatalog From Party">

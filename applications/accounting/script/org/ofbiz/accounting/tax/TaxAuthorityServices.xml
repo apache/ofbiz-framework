@@ -29,7 +29,7 @@ under the License.
         
         <make-value entity-name="TaxAuthority" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateTaxAuthority" short-description="update a TaxAuthority">
@@ -38,7 +38,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="TaxAuthority" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTaxAuthority" short-description="delete a TaxAuthority">
@@ -59,7 +59,7 @@ under the License.
         <make-value entity-name="TaxAuthorityAssoc" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateTaxAuthorityAssoc" short-description="update a TaxAuthorityAssoc">
@@ -68,7 +68,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="TaxAuthorityAssoc" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTaxAuthorityAssoc" short-description="delete a TaxAuthorityAssoc">
@@ -88,7 +88,7 @@ under the License.
         
         <make-value entity-name="TaxAuthorityCategory" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateTaxAuthorityCategory" short-description="update a TaxAuthorityCategory">
@@ -97,7 +97,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="TaxAuthorityCategory" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTaxAuthorityCategory" short-description="delete a TaxAuthorityCategory">
@@ -129,7 +129,7 @@ under the License.
         
         <make-value entity-name="TaxAuthorityGlAccount" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateTaxAuthorityGlAccount" short-description="update a TaxAuthorityGlAccount">
@@ -138,7 +138,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="TaxAuthorityGlAccount" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTaxAuthorityGlAccount" short-description="delete a TaxAuthorityGlAccount">
@@ -160,7 +160,7 @@ under the License.
         <sequenced-id-to-env sequence-name="TaxAuthorityRateProduct" env-name="newEntity.taxAuthorityRateSeqId"/>
         <field-to-result field-name="newEntity.taxAuthorityRateSeqId" result-name="taxAuthorityRateSeqId"/>
         
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateTaxAuthorityRateProduct" short-description="update a TaxAuthorityRateProduct">
@@ -169,7 +169,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="TaxAuthorityRateProduct" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTaxAuthorityRateProduct" short-description="delete a TaxAuthorityRateProduct">
@@ -195,7 +195,7 @@ under the License.
         <make-value entity-name="PartyTaxAuthInfo" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <create-value value-name="newEntity"/>  
     </simple-method>   
@@ -209,7 +209,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="PartyTaxAuthInfo" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="validatePartyTaxIdInline" short-description="validatePartyTaxIdInline">

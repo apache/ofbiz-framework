@@ -22,7 +22,7 @@ under the License.
     <simple-method method-name="createContentAndPurpose" short-description="Create Content And Purpose" login-required="false">
         <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map="parameters" value-field="currentContent"/>
-        <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
+        <set-nonpk-fields map="parameters" value-field="currentContent"/>
         <if-empty field="currentContent.contentId">
             <make-next-seq-id seq-field-name="contentId" value-name="currentContent"/>
             <sequenced-id-to-env env-name="id" sequence-name="Content"/>

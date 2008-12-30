@@ -26,7 +26,7 @@ under the License.
 
         <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map="parameters" value-field="currentContent"/>
-        <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
+        <set-nonpk-fields map="parameters" value-field="currentContent"/>
         <call-map-processor in-map-name="currentContent" out-map-name="currentContent">
             <simple-map-processor name="newDateContent">
                 <process field="createdDate">
@@ -90,7 +90,7 @@ under the License.
 
         <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map="parameters" value-field="currentContent"/>
-        <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
+        <set-nonpk-fields map="parameters" value-field="currentContent"/>
         <call-map-processor in-map-name="currentContent" out-map-name="currentContent">
             <simple-map-processor name="newDateContent">
                 <process field="createdDate">

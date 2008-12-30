@@ -495,7 +495,7 @@ under the License.
             <!-- create OrderItemShipGrpInvRes record -->
             <make-value entity-name="OrderItemShipGrpInvRes" value-field="newOisgirEntity"/>
             <set-pk-fields map="parameters" value-field="newOisgirEntity"/>
-            <set-nonpk-fields map-name="parameters" value-name="newOisgirEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newOisgirEntity"/>
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newOisgirEntity.createdDatetime"/>
             <if-empty field="newOisgirEntity.reservedDatetime">

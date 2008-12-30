@@ -31,7 +31,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <make-value value-field="salesForecast" entity-name="SalesForecast"/>
         <sequenced-id-to-env sequence-name="SalesForecast" env-name="salesForecastId"/>
         <set field="salesForecast.salesForecastId" from-field="salesForecastId"/> 
-        <set-nonpk-fields map-name="parameters" value-name="salesForecast"/>
+        <set-nonpk-fields map="parameters" value-field="salesForecast"/>
         
         <!-- set the creation info -->
         <set field="salesForecast.createdByUserLoginId" from-field="userLogin.userLoginId"/>
@@ -53,7 +53,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <entity-one entity-name="SalesForecast" auto-field-map="true" value-name="salesForecast"/>
 
         <!-- set the fields from the parameters -->
-        <set-nonpk-fields map-name="parameters" value-name="salesForecast"/>
+        <set-nonpk-fields map="parameters" value-field="salesForecast"/>
         
         <!-- store the value -->
         <store-value value-name="salesForecast"/>
@@ -68,7 +68,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <make-value value-field="salesForecastHistory" entity-name="SalesForecastHistory"/>
         <sequenced-id-to-env sequence-name="SalesForecastHistory" env-name="salesForecastHistoryId"/>
         <set field="salesForecastHistory.salesForecastHistoryId" from-field="salesForecastHistoryId"/> 
-        <set-nonpk-fields value-name="salesForecastHistory" map-name="salesForecast"/>
+        <set-nonpk-fields value-field="salesForecastHistory" map="salesForecast"/>
 
         <!-- get the change note from the parameters -->
         <set field="salesForecastHistory.changeNote" from-field="parameters.changeNote"/>
@@ -88,12 +88,12 @@ This file contains basic services for SalesOpportunity and SalesForecast.
         <sequenced-id-to-env sequence-name="SalesForecastDetail" env-name="newEntity.salesForecastDetailId"/>
         <field-to-result field-name="newEntity.salesForecastDetailId" result-name="salesForecastDetailId"/>
         <set-pk-fields map="parameters" value-field="newEntity"/> 
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateSalesForecastDetail" short-description="Updates a sales forecast detail">
         <entity-one entity-name="SalesForecastDetail" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSalesForecastDetail" short-description="Delete a Sales Forecast Detail">

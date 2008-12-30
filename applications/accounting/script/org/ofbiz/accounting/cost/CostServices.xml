@@ -26,12 +26,12 @@ under the License.
         <sequenced-id-to-env sequence-name="CostComponentCalc" env-name="costComponentCalcId"/>
         <set from-field="costComponentCalcId" field="newEntity.costComponentCalcId"/>
         <field-to-result field-name="costComponentCalcId" result-name="costComponentCalcId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateCostComponentCalc" short-description="Update a CostComponentCalc entry">
         <entity-one entity-name="CostComponentCalc" value-name="costComponentCalc"/>
-        <set-nonpk-fields map-name="parameters" value-name="costComponentCalc"/>
+        <set-nonpk-fields map="parameters" value-field="costComponentCalc"/>
         <store-value value-name="costComponentCalc"/>
     </simple-method>
     <simple-method method-name="removeCostComponentCalc" short-description="Remove a CostComponentCalc entry">
@@ -41,7 +41,7 @@ under the License.
     <simple-method method-name="createWorkEffortCostCalc" short-description="Create a WorkEffortCostCalc entry">
         <make-value entity-name="WorkEffortCostCalc" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>

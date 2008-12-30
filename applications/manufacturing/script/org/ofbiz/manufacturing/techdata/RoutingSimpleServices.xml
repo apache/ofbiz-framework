@@ -43,7 +43,7 @@ under the License.
             <else>
                 <make-value value-field="newEntity" entity-name="TechDataCalendar"/>
                 <set-pk-fields map="parameters" value-field="newEntity"/>
-                <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+                <set-nonpk-fields map="parameters" value-field="newEntity"/>
                 <create-value value-name="newEntity"/>
             </else>
             </if-empty>
@@ -57,7 +57,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="TechDataCalendar"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendar" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -102,7 +102,7 @@ under the License.
         <else>
             <make-value value-field="newEntity" entity-name="TechDataCalendarWeek"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-name="newEntity"/>
         </else>
         </if-not-empty>
@@ -114,7 +114,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="TechDataCalendarWeek"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarWeek" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -159,7 +159,7 @@ under the License.
         <else>
             <make-value value-field="newEntity" entity-name="TechDataCalendarExcDay"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-name="newEntity"/>
         </else>
         </if-not-empty>
@@ -171,7 +171,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="TechDataCalendarExcDay"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarExcDay" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -200,7 +200,7 @@ under the License.
         <else>
             <make-value value-field="newEntity" entity-name="TechDataCalendarExcWeek"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-name="newEntity"/>
         </else>
         </if-not-empty>
@@ -212,7 +212,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="TechDataCalendarExcWeek"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarExcWeek" map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 

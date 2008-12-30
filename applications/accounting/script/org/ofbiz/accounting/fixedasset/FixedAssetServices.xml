@@ -29,7 +29,7 @@ under the License.
     <simple-method method-name="createFixedAsset" short-description="Create an FixedAsset">
           <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="FixedAsset"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- create a non existing ID if not supplied -->
         <if-empty field="parameters.fixedAssetId">
@@ -54,7 +54,7 @@ under the License.
     <!-- update an existing Fixed Asset header Record -->
     <simple-method method-name="updateFixedAsset" short-description="Update an existing FixedAsset">
         <entity-one entity-name="FixedAsset" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -66,7 +66,7 @@ under the License.
     <simple-method method-name="addFixedAssetProduct" short-description="Add Product to FixedAsset">
         <make-value value-field="newEntity" entity-name="FixedAssetProduct"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -78,7 +78,7 @@ under the License.
     <!-- update the product to fixed Asset link -->    
     <simple-method method-name="updateFixedAssetProduct" short-description="Update Products of a FixedAsset">
         <entity-one entity-name="FixedAssetProduct" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -105,7 +105,7 @@ under the License.
         <set-pk-fields field-name= "calendarId" map="fixedAsset" value-field="excDayPKMap"/>
         <set-pk-fields fieldName= "exceptionDateStartTime" map="parameters" value-field="excDayPKMap"/>
         <find-by entity-name="TechDataCalendarExcDay" map-name="excDayPKMap" value-name="lookedUpValue"/>
-        <set-nonpk-fields field-name="capacity" map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields field-name="capacity" map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -126,7 +126,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="FixedAssetStdCost"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <!-- finally create the record (should not exist already)-->
@@ -136,7 +136,7 @@ under the License.
     <!-- update an existing FixedAssetStdCost -->
     <simple-method method-name="updateFixedAssetStdCost" short-description="Update an existing FixedAssetStdCost">
         <entity-one entity-name="FixedAssetStdCost" value-name="fixedAssetStdCost"/>
-        <set-nonpk-fields map-name="parameters" value-name="fixedAssetStdCost"/>
+        <set-nonpk-fields map="parameters" value-field="fixedAssetStdCost"/>
         <store-value value-name="fixedAssetStdCost"/>
     </simple-method>
     <!-- cancel an existing Agreement -->
@@ -149,13 +149,13 @@ under the License.
     <!-- Fixed Asset Identification "FIXED_ASSET_IDENT"-->
     <simple-method method-name="createFixedAssetIdent" short-description="Create an FixedAssetIdent">
         <make-value value-field="newEntity" entity-name="FixedAssetIdent"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFixedAssetIdent" short-description="Update an existing FixedAssetIdent">
         <entity-one entity-name="FixedAssetIdent" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeFixedAssetIdent" short-description="Remove Fixed Assets Idents FixedAssetIdent">
@@ -166,7 +166,7 @@ under the License.
     <!-- FixedAsset Registration Create/Update/Delete"-->
     <simple-method method-name="createFixedAssetRegistration" short-description="Create FixedAsset Registration">
         <make-value value-field="newEntity" entity-name="FixedAssetRegistration"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -175,7 +175,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateFixedAssetRegistration" short-description="Update an existing FixedAsset Registration">
         <entity-one entity-name="FixedAssetRegistration" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteFixedAssetRegistration" short-description="Delete FixedAsset Registration">
@@ -189,7 +189,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="maintHistSeqId"/> <!-- this finds the next sub-sequence ID -->
         <field-to-result field-name="newEntity.maintHistSeqId" result-name="maintHistSeqId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-not-empty field="parameters.productMaintSeqId">
             <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
             <entity-one entity-name="ProductMaint" value-name="productMaint">
@@ -246,7 +246,7 @@ under the License.
         <entity-one entity-name="FixedAssetMaint" value-name="lookedUpValue"/>
         <set field="oldStatusId" from-field="lookedUpValue.statusId"/>
         <field-to-result field-name="oldStatusId"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <if-not-empty field="parameters.productMaintSeqId">
             <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
             <entity-one entity-name="ProductMaint" value-name="productMaint">
@@ -307,7 +307,7 @@ under the License.
     <simple-method method-name="createFixedAssetMeter" short-description="Create a Fixed Asset Meter Reading">
         <make-value entity-name="FixedAssetMeter" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
         <check-errors/>
         <set field="meterValue" from-field="newEntity"/>
@@ -315,7 +315,7 @@ under the License.
     </simple-method>   
     <simple-method method-name="updateFixedAssetMeter" short-description="Update a Fixed Asset Meter Reading">
         <entity-one entity-name="FixedAssetMeter" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
         <check-errors/>
         <set field="meterValue" from-field="lookedUpValue"/>
@@ -458,7 +458,7 @@ under the License.
         <iterate list="maintMeterList" entry="maintMeter">
             <make-value value-field="newEntity" entity-name="FixedAssetMeter"/>
             <set-pk-fields map="maintMeter" value-field="newEntity"/>
-            <set-nonpk-fields map-name="maintMeter" value-name="newEntity"/>
+            <set-nonpk-fields map="maintMeter" value-field="newEntity"/>
             <set field="newEntity.readingDate" from-field="maintMeter.createdStamp"/>
             <entity-one entity-name="FixedAssetMeter" value-name="lookedUpValue" auto-field-map="false">
                 <field-map field-name="fixedAssetId" from-field="newEntity.fixedAssetId"/>
@@ -507,7 +507,7 @@ under the License.
         
         <make-value entity-name="FixedAssetMaintOrder" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="deleteFixedAssetMaintOrder" short-description="Delete FixedAsset Maintenance Order">
@@ -519,7 +519,7 @@ under the License.
     <simple-method method-name="createPartyFixedAssetAssignment" short-description="Associate Party to Fixed Asset">
         <make-value entity-name="PartyFixedAssetAssignment" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
@@ -529,7 +529,7 @@ under the License.
         
     <simple-method method-name="updatePartyFixedAssetAssignment" short-description="Update Party to Fixed Asset">
         <entity-one entity-name="PartyFixedAssetAssignment" value-name="newEntity"/>
-        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <store-value value-name="newEntity"/>
     </simple-method>
         

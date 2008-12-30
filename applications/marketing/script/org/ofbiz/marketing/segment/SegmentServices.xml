@@ -31,7 +31,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="SegmentGroup"/>
         <sequenced-id-to-env sequence-name="SegmentGroup" env-name="newEntity.segmentGroupId"/>
         <field-to-result field-name="newEntity.segmentGroupId" result-name="segmentGroupId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -42,7 +42,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="SegmentGroup" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroup" short-description="deleteSegmentGroup">
@@ -62,14 +62,14 @@ under the License.
         <check-errors/>
         <make-value entity-name="SegmentGroupClassification" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateSegmentGroupClassification" short-description="update a SegmentGroupClassification">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupUpdateSegmentGroupClassificationPermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="SegmentGroupClassification" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroupClassification" short-description="delete a SegmentGroupClassification">
@@ -85,14 +85,14 @@ under the License.
         <check-errors/>
         <make-value entity-name="SegmentGroupGeo" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateSegmentGroupGeo" short-description="update a SegmentGroupGeo">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupUpdateSegmentGroupGeoPermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="SegmentGroupGeo" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroupGeo" short-description="delete a SegmentGroupGeo">
@@ -108,7 +108,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="SegmentGroupRole" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
     <simple-method method-name="updateSegmentGroupRole" short-description="update a SegmentGroupRole">

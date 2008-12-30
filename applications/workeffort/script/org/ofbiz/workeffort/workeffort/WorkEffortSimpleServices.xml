@@ -41,7 +41,7 @@ under the License.
             </else>
         </if-empty>
         <field-to-result field-name="newEntity.workEffortId" result-name="workEffortId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.lastStatusUpdate"/>
@@ -151,7 +151,7 @@ under the License.
             </then>
         </if>
         <!-- after checking status change, set all parameters -->        
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
 
         <!-- only save if something has changed -->
         <if-compare-field field="lookedUpValue" to-field="savedValue" operator="not-equals" type="Object">
@@ -202,12 +202,12 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupMap"/>
         <find-by-primary-key entity-name="CommunicationEventWorkEff" map="lookupMap" value-field="eventWe"/>
         <if-not-empty field="eventWe.workEffortId">
-            <set-nonpk-fields map-name="parameters" value-name="eventWe"/>
+            <set-nonpk-fields map="parameters" value-field="eventWe"/>
             <set field="eventWe.description" from-field="parameters.relationDescription"/>
             <store-value value-name="eventWe"/>
         </if-not-empty>
         <if-empty field="eventWe.workEffortId">
-            <set-nonpk-fields map-name="parameters" value-name="lookupMap"/>
+            <set-nonpk-fields map="parameters" value-field="lookupMap"/>
             <set field="eventWe.description" from-field="parameters.relationDescription"/>
             <create-value value-name="lookupMap"/>
         </if-empty>
@@ -226,7 +226,7 @@ under the License.
             <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified work effort"/></add-error>
         </if-empty>
         <check-errors/>
-        <set-nonpk-fields value-name="communicationEventWorkEff" map-name="parameters"/>
+        <set-nonpk-fields value-field="communicationEventWorkEff" map="parameters"/>
         <store-value value-name="communicationEventWorkEff"/>  
     </simple-method>
      
@@ -264,7 +264,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="WorkEffortPartyAssignment"/>
 
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -292,7 +292,7 @@ under the License.
         </if-compare-field>
          -->
         <set from-field="workEffortPartyAssignment.statusId" field="oldStatusId"/>
-        <set-nonpk-fields map-name="parameters" value-name="workEffortPartyAssignment"/>
+        <set-nonpk-fields map="parameters" value-field="workEffortPartyAssignment"/>
         
         <if-compare-field field="parameters.statusId" to-field="oldStatusId" operator="not-equals">
             <now-timestamp-to-env env-name="workEffortPartyAssignment.statusDateTime"/>
@@ -340,7 +340,7 @@ under the License.
         </if-empty>   
         <log level="info" message="Creating a WorkEffortContactMech"/>
         <set from-field="parameters.workEffortId" field="newValue.workEffortId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newValue"/>
+        <set-nonpk-fields map="parameters" value-field="newValue"/>
         <field-to-result field-name="contactMechId" map-name="newValue"/>
         <field-to-request field-name="contactMechId" map-name="newValue"/>        
         <create-value value-name="newValue"/>
@@ -374,7 +374,7 @@ under the License.
         </if-empty> 
         
         <if-compare-field to-field="newWorkEffortContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">                
-            <set-nonpk-fields value-name="newWorkEffortContactMech" map-name="parameters" set-if-null="false"/>
+            <set-nonpk-fields value-field="newWorkEffortContactMech" map="parameters" set-if-null="false"/>
             <create-value value-name="newWorkEffortContactMech"/>
             <remove-value value-name="workEffortContactMech"/>
         </if-compare-field>
@@ -583,8 +583,8 @@ under the License.
     <simple-method method-name="updateWorkEffortNote" short-description="Update Work Effort Note">
         <entity-one entity-name="WorkEffortNote" value-name="lookedUpValue"/>
         <entity-one entity-name="NoteData" value-name="lookedUpValueForNoteData"/>
-        <set-nonpk-fields value-name="lookedUpValueForNoteData" map-name="parameters"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValueForNoteData" map="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValueForNoteData"/>  
     </simple-method>    
@@ -627,7 +627,7 @@ under the License.
         <else>
             <make-value value-field="newEntity" entity-name="WorkEffortAssoc"/>  
             <set-pk-fields map="parameters" value-field="newEntity"/>  
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <if-empty field="newEntity.sequenceNum">
                 <set field="newEntity.sequenceNum" value="0" type="Long"/>
             </if-empty>        
@@ -637,7 +637,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateWorkEffortAssoc" short-description="Update a WorkEffort association">
         <entity-one entity-name="WorkEffortAssoc" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWorkEffortAssoc" short-description="Remove a WorkEffort association">
@@ -656,14 +656,14 @@ under the License.
             <if-empty field="newEntity.fromDate">
                 <now-timestamp-to-env env-name="newEntity.fromDate"/>
             </if-empty>        
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-name="newEntity"/>
         </else>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateWorkEffortGoodStandard" short-description="Update a link between a WorkEffort and a Product">
         <entity-one entity-name="WorkEffortGoodStandard" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWorkEffortGoodStandard" short-description="Remove a link between a WorkEffort and a Product">
@@ -683,7 +683,7 @@ under the License.
         <else>
             <make-value value-field="newEntity" entity-name="WorkEffortInventoryAssign"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-name="newEntity"/>
         </else>
         </if-not-empty>
@@ -698,7 +698,7 @@ under the License.
             <add-error><fail-message message="ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
         </if-not-empty>
-        <set-nonpk-fields map-name="parameters" value-name="lookupMap"/>
+        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-name="lookupMap"/>
         <field-to-result field-name="custRequestId" map-name="lookupMap"/>
     </simple-method>
@@ -720,7 +720,7 @@ under the License.
             <add-error><fail-message message="ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
         </if-not-empty>
-        <set-nonpk-fields map-name="parameters" value-name="lookupMap"/>
+        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortRequestItem" short-description="Delete a CustRequestItemWorkEffort">
@@ -754,7 +754,7 @@ under the License.
             <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
         </if-not-empty>
-        <set-nonpk-fields map-name="parameters" value-name="lookupMap"/>
+        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-name="lookupMap"/>
         <field-to-result field-name="quoteId" map-name="lookupMap"/>
     </simple-method>
@@ -776,7 +776,7 @@ under the License.
             <add-error><fail-message message="ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
         </if-not-empty>
-        <set-nonpk-fields map-name="parameters" value-name="lookupMap"/>
+        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-name="lookupMap"/>
         <field-to-result field-name="requirementId" map-name="lookupMap"/>
     </simple-method>
@@ -798,7 +798,7 @@ under the License.
             <add-error><fail-message message="ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
         </if-not-empty>
-        <set-nonpk-fields map-name="parameters" value-name="lookupMap"/>
+        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-name="lookupMap"/>
         <field-to-result field-name="shoppingListId" map-name="lookupMap"/>
     </simple-method>
@@ -820,7 +820,7 @@ under the License.
             <add-error><fail-message message="ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] already exists."/></add-error>
             <check-errors/>
         </if-not-empty>
-        <set-nonpk-fields map-name="parameters" value-name="lookupMap"/>
+        <set-nonpk-fields map="parameters" value-field="lookupMap"/>
         <create-value value-name="lookupMap"/>
         <field-to-result field-name="orderId" map-name="lookupMap"/>
     </simple-method>
@@ -867,7 +867,7 @@ under the License.
         <else>
             <make-value entity-name="WorkEffortFixedAssetStd" value-field="newWEFixedAssetStd" />
             <set-pk-fields map="parameters" value-field="newWEFixedAssetStd" />
-            <set-nonpk-fields map-name="parameters" value-name="newWEFixedAssetStd" />
+            <set-nonpk-fields map="parameters" value-field="newWEFixedAssetStd" />
             <create-value value-name="newWEFixedAssetStd" />            
         </else>
         </if-not-empty>
@@ -879,7 +879,7 @@ under the License.
         </check-permission>
         <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetStd" value-name="lookedUpValue" />
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue" />
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" />
         <store-value value-name="lookedUpValue" />
     </simple-method>
     <simple-method method-name="removeWorkEffortFixedAssetStd" 
@@ -905,7 +905,7 @@ under the License.
         <else>
             <make-value entity-name="WorkEffortFixedAssetAssign" value-field="newWEFixedAssetAssign" />
             <set-pk-fields map="parameters" value-field="newWEFixedAssetAssign" />
-            <set-nonpk-fields map-name="parameters" value-name="newWEFixedAssetAssign" />
+            <set-nonpk-fields map="parameters" value-field="newWEFixedAssetAssign" />
             <!-- if the user hasn't specified a fromDate, set it from the actual start date of the task
                 if there is no actual start date, default to now (to the current date and time) -->
             <if-empty field="parameters.fromDate">
@@ -929,7 +929,7 @@ under the License.
         </check-permission>
         <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue" />
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue" />
         <store-value value-name="lookedUpValue" />
     </simple-method>
     <simple-method method-name="removeWorkEffortFixedAssetAssign" 
@@ -951,7 +951,7 @@ under the License.
         <check-errors />
         -->
         <make-value entity-name="WorkEffortContent" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
@@ -969,7 +969,7 @@ under the License.
         <check-errors />
         -->
         <entity-one entity-name="WorkEffortContent" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortContent" 
@@ -996,7 +996,7 @@ under the License.
             <check-errors/>
         <else>
             <make-value entity-name="WorkEffortReview" value-field="newEntity"/>
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
         
             <if-empty field="newEntity.reviewDate">
@@ -1013,7 +1013,7 @@ under the License.
         </check-permission>
         <check-errors />
         <entity-one entity-name="WorkEffortReview" value-name="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortReview" 
@@ -1060,7 +1060,7 @@ under the License.
         </if-empty>
         <check-errors/>
         <set-pk-fields value-field="newEntity" map="parameters"></set-pk-fields> 
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
          </else>   
        </if-not-empty>
@@ -1192,12 +1192,12 @@ under the License.
     <simple-method  method-name="createWorkEffortSkillStandard" short-description="Create WorkEffortSkillStandard">
         <make-value entity-name="WorkEffortSkillStandard" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method  method-name="updateWorkEffortSkillStandard" short-description="Update WorkEffortSkillStandard">
         <entity-one entity-name="WorkEffortSkillStandard" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method  method-name="deleteWorkEffortSkillStandard" short-description="Delete WorkEffortSkillStandard">

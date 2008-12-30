@@ -27,7 +27,7 @@ under the License.
 
         <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map="parameters" value-field="currentContent"/>
-        <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
+        <set-nonpk-fields map="parameters" value-field="currentContent"/>
         <map-to-map map-name="currentContent" to-map-name="context"/>
         <log level="always" message="context: ${context}"/>
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
@@ -57,7 +57,7 @@ under the License.
 
         <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map="parameters" value-field="currentContent"/>
-        <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
+        <set-nonpk-fields map="parameters" value-field="currentContent"/>
         <set field="context.currentContent" from-field="currentContent"/>
         <set field="context.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
         <string-to-list list-name="targetOperationList" string="CONTENT_CREATE"/>
@@ -74,13 +74,13 @@ under the License.
         <check-errors/>
         <set field="content.contentId" from-field="parameters.contentId"/>
         <find-by-primary-key entity-name="Content" value-field="content" map="content"/>
-        <set-nonpk-fields map-name="parameters" value-name="content"/>
+        <set-nonpk-fields map="parameters" value-field="content"/>
         <log level="always" message="content: ${content}"/>
         <store-value value-name="content"/>
         <field-to-request map-name="content" field-name="contentId" request-name="contentId"/>
         <set field="dataResource.dataResourceId" from-field="parameters.dataResourceId"/>
         <find-by-primary-key entity-name="DataResource" value-field="dataResource" map="dataResource"/>
-        <set-nonpk-fields map-name="parameters" value-name="dataResource"/>
+        <set-nonpk-fields map="parameters" value-field="dataResource"/>
         <set field="dataResource.objectInfo" from-field="parameters.drObjectInfo"/>
         <log level="always" message="dataResource: ${dataResource}"/>
         <store-value value-name="dataResource"/>

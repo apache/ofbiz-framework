@@ -25,7 +25,7 @@ under the License.
         <sequenced-id-to-env sequence-name="Requirement" env-name="requirementId"/>
         <to-string field-name="requirementId"/>
         <set from-field="requirementId" field="newEntity.requirementId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.statusId">
             <set value="REQ_CREATED" field="newEntity.statusId"/>
         </if-empty>
@@ -41,7 +41,7 @@ under the License.
         <find-by-primary-key entity-name="Requirement" map="lookupPKMap" value-field="lookedUpValue"/>
         <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
         <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/> 
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/> 
         <store-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -55,7 +55,7 @@ under the License.
     <simple-method method-name="associateRequirementWithRequestItem" short-description="Associate a requirement and CustRequestItem">
         <make-value value-field="newEntity" entity-name="RequirementCustRequest"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
 	
@@ -109,7 +109,7 @@ under the License.
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="RequirementRole"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>
@@ -125,7 +125,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="RequirementRole" value-name="requirementRole" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="requirementRole"/>
+        <set-nonpk-fields map="parameters" value-field="requirementRole"/>
         <store-value value-name="requirementRole"/>
         <check-errors/>
     </simple-method>

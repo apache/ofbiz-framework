@@ -43,7 +43,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="columnSeqId"/>
         <field-to-result field-name="newEntity.columnSeqId" result-name="columnSeqId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>
 
@@ -70,7 +70,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="portletSeqId"/>
         <field-to-result field-name="newEntity.portletSeqId" result-name="portletSeqId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>  
         <make-value entity-name="PortalPageColumn" value-field="newEntity1"/>
         <set-pk-fields map="parameters" value-field="newEntity1"/>
@@ -109,7 +109,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="newPortalPage"/>
         <make-next-seq-id value-name="newPortalPage" seq-field-name="portalPageId"/>
 
-        <set-nonpk-fields map-name="parameters" value-name="newPortalPage"/>
+        <set-nonpk-fields map="parameters" value-field="newPortalPage"/>
         <create-value value-name="newPortalPage"/>  
 
         <make-value entity-name="PortalPageColumn" value-field="newPortalPageColumn"/>

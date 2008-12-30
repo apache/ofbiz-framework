@@ -26,7 +26,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="CustomTimePeriod"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <sequenced-id-to-env sequence-name="CustomTimePeriod" env-name="customTimePeriodId"/>
         <set from-field="customTimePeriodId" field="newEntity.customTimePeriodId"/>
@@ -41,7 +41,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="CustomTimePeriod"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteCustomTimePeriod" short-description="Delete a CustomTimePeriod">

@@ -333,7 +333,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentRevision" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -345,7 +345,7 @@ under the License.
         <make-value entity-name="ContentRevision" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentRevision" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentRevision" short-description="Remove ContentRevision">
@@ -365,7 +365,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentRevisionItem" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -377,7 +377,7 @@ under the License.
         <make-value entity-name="ContentRevisionItem" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentRevisionItem" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentRevisionItem" short-description="Remove ContentRevisionItem">
@@ -427,7 +427,7 @@ under the License.
         <log level="info" message="incrementedSeq(1): ${incrementedSeq}"/>
         <log level="info" message="numericPadding(1): ${numericPadding}"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set field="newEntity.contentRevisionSeqId" from-field="paddedSeqId"/>
         <log level="info" message="ContentRevision(1): ${newEntity}"/>
         <create-value value-name="newEntity"/>
@@ -435,7 +435,7 @@ under the License.
             <make-value entity-name="ContentRevisionItem" value-field="newEntity"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
             <set field="newEntity.contentRevisionSeqId" from-field="paddedSeqId"/>
-            <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+            <set-nonpk-fields map="parameters" value-field="newEntity"/>
             <create-value value-name="newEntity"/>
             <log level="info" message="ContentRevisionItem(1): ${newEntity}"/>
         </if-not-empty>
@@ -491,7 +491,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ContentApproval" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.contentApprovalId">
             <sequenced-id-to-env sequence-name="ContentApproval" env-name="newEntity.contentApprovalId"/>
@@ -509,7 +509,7 @@ under the License.
         <make-value entity-name="ContentApproval" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentApproval" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
+        <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentApproval" short-description="Remove ContentApproval">

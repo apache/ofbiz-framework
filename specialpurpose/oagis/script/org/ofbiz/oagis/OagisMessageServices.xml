@@ -32,7 +32,7 @@ under the License.
             <check-errors/>
         </if-not-empty>
         
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
         <!--if-compare value="1" field-name="newEntity.confirmation" operator="equals" type="Integer">
             <set-service-fields to-map-name="oagisMessageErrorInfoMap" service-name="createOagisMessageErrorInfo" map-name="parameters"/>
@@ -42,7 +42,7 @@ under the License.
         
     <simple-method method-name="updateOagisMessageInfo" short-description="Update Oagis MessageInfo">
         <entity-one entity-name="OagisMessageInfo" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -50,13 +50,13 @@ under the License.
         <make-value entity-name="OagisMessageErrorInfo" value-field="newEntity"/>
         <set-pk-fields  map="parameters" value-field="newEntity" />
         <make-next-seq-id value-name="newEntity" seq-field-name="errorSeqId"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
         
     <simple-method method-name="updateOagisMessageErrorInfo" short-description="Update Oagis MessageErrorInfo">
         <entity-one entity-name="OagisMessageErrorInfo" value-name="lookedUpValue"/>
-        <set-nonpk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     

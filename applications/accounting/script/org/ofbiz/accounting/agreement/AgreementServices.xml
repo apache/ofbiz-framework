@@ -29,7 +29,7 @@ under the License.
     <simple-method method-name="createAgreement" short-description="Create an Agreement">
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="Agreement"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- create a non existing ID -->
         <sequenced-id-to-env sequence-name="Agreement" env-name="agreementId"/>
@@ -50,7 +50,7 @@ under the License.
     <simple-method method-name="updateAgreement" short-description="Update an existing Agreement">
         <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="agreement"/>
+        <set-nonpk-fields map="parameters" value-field="agreement"/>
         <store-value value-name="agreement"/>
         <check-errors/>
     </simple-method>
@@ -115,7 +115,7 @@ under the License.
     <simple-method method-name="createAgreementItem" short-description="Create an AgreementItem">
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="AgreementItem"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <set from-field="parameters.agreementId" field="newEntity.agreementId"/>
         <!-- create a non existing ID -->
@@ -138,7 +138,7 @@ under the License.
     <simple-method method-name="updateAgreementItem" short-description="Update an existing AgreementItem">
         <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="agreementItem"/>
+        <set-nonpk-fields map="parameters" value-field="agreementItem"/>
         <store-value value-name="agreementItem"/>
         <check-errors/>
     </simple-method>
@@ -154,7 +154,7 @@ under the License.
     <simple-method method-name="createAgreementTerm" short-description="Create an AgreementTerm">
         <!-- create new entity and create all the fields -->
         <make-value value-field="newEntity" entity-name="AgreementTerm"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <!-- create a non existing ID -->
         <sequenced-id-to-env sequence-name="AgreementTerm" env-name="agreementTermId"/>
@@ -172,7 +172,7 @@ under the License.
     <simple-method method-name="updateAgreementTerm" short-description="Update an existing AgreementTerm">
         <entity-one entity-name="AgreementTerm" value-name="agreementTerm" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="agreementTerm"/>
+        <set-nonpk-fields map="parameters" value-field="agreementTerm"/>
         <store-value value-name="agreementTerm"/>
         <check-errors/>
     </simple-method>
@@ -189,7 +189,7 @@ under the License.
     <simple-method method-name="createAgreementPromoAppl" short-description="Create an AgreementPromoAppl">
         <make-value value-field="newEntity" entity-name="AgreementPromoAppl"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
     </simple-method>
@@ -198,7 +198,7 @@ under the License.
     <simple-method method-name="updateAgreementPromoAppl" short-description="Update an existing AgreementPromoAppl">
         <entity-one entity-name="AgreementPromoAppl" value-name="agreementPromoAppl" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="agreementPromoAppl"/>
+        <set-nonpk-fields map="parameters" value-field="agreementPromoAppl"/>
         <store-value value-name="agreementPromoAppl"/>
         <check-errors/>
     </simple-method>
@@ -215,7 +215,7 @@ under the License.
     <simple-method method-name="createAgreementProductAppl" short-description="Create an AgreementProductAppl">
         <make-value value-field="newEntity" entity-name="AgreementProductAppl"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
     </simple-method>
@@ -224,7 +224,7 @@ under the License.
     <simple-method method-name="updateAgreementProductAppl" short-description="Update an existing AgreementProductAppl">
         <entity-one entity-name="AgreementProductAppl" value-name="agreementProductAppl" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="agreementProductAppl"/>
+        <set-nonpk-fields map="parameters" value-field="agreementProductAppl"/>
         <store-value value-name="agreementProductAppl"/>
         <check-errors/>
     </simple-method>
@@ -241,7 +241,7 @@ under the License.
     <simple-method method-name="createAgreementPartyApplic" short-description="Create an AgreementPartyApplic">
         <make-value value-field="newEntity" entity-name="AgreementPartyApplic"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
     </simple-method>
@@ -250,7 +250,7 @@ under the License.
     <simple-method method-name="updateAgreementPartyApplic" short-description="Update an existing AgreementPartyApplic">
         <entity-one entity-name="AgreementPartyApplic" value-name="agreementPartyApplic" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="agreementPartyApplic"/>
+        <set-nonpk-fields map="parameters" value-field="agreementPartyApplic"/>
         <store-value value-name="agreementPartyApplic"/>
         <check-errors/>
     </simple-method>
@@ -267,7 +267,7 @@ under the License.
     <simple-method method-name="createAgreementGeographicalApplic" short-description="Create an AgreementGeographicalApplic">
         <make-value value-field="newEntity" entity-name="AgreementGeographicalApplic"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
     </simple-method>
@@ -276,7 +276,7 @@ under the License.
     <simple-method method-name="updateAgreementGeographicalApplic" short-description="Update an existing AgreementGeographicalApplic">
         <entity-one entity-name="AgreementGeographicalApplic" value-name="agreementGeographicalApplic" auto-field-map="true"/>
         <check-errors/>
-        <set-nonpk-fields map-name="parameters" value-name="agreementGeographicalApplic"/>
+        <set-nonpk-fields map="parameters" value-field="agreementGeographicalApplic"/>
         <store-value value-name="agreementGeographicalApplic"/>
         <check-errors/>
     </simple-method>
@@ -293,7 +293,7 @@ under the License.
     <simple-method method-name="createAgreementRole" short-description="Create an Agreement Role">
         <make-value entity-name="AgreementRole" value-field="newEntity"/>
         <set-pk-fields value-field="newEntity" map="parameters"/>
-        <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
+        <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     

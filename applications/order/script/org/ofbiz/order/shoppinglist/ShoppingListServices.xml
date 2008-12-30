@@ -36,7 +36,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ShoppingList"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.partyId">
             <set from-field="userLogin.partyId" field="newEntity.partyId"/>
@@ -77,7 +77,7 @@ under the License.
         <call-simple-method method-name="checkShoppingListSecurity"/>
         <check-errors/>
 
-        <set-nonpk-fields map-name="parameters" value-name="shoppingList"/>
+        <set-nonpk-fields map="parameters" value-field="shoppingList"/>
         
         <!-- don't let auto-reorders be active unless there is some recurrence info -->
         <if>
@@ -127,7 +127,7 @@ under the License.
         <set from-field="parameters.shoppingListId" field="newEntity.shoppingListId"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="shoppingListItemSeqId" numeric-padding="5"/>
 
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <field-to-result field-name="newEntity.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>
         <field-to-result field-name="newEntity.shoppingListId" result-name="shoppingListId"/>
         <create-value value-name="newEntity"/>
@@ -153,7 +153,7 @@ under the License.
             <call-service service-name="removeShoppingListItem" in-map-name="removeParams"/>
         <else>
           <!-- otherwise, just update shopping list item in place -->
-            <set-nonpk-fields map-name="parameters" value-name="shoppingListItem"/>
+            <set-nonpk-fields map="parameters" value-field="shoppingListItem"/>
             <store-value value-name="shoppingListItem"/>
         </else>
         </if-compare>
