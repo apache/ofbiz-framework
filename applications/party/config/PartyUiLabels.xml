@@ -5244,7 +5244,7 @@
     <property key="PartyLastNameOnCardMissingError">
         <value xml:lang="de">Nachname auf der Karte fehlt</value>
         <value xml:lang="en">Last name on card is missing</value>
-        <value xml:lang="en">Le nom manque sur la carte</value>
+        <value xml:lang="fr">Le nom manque sur la carte</value>
     </property>
     <property key="PartyLastVisit">
         <value xml:lang="de">Letzte Besuche</value>

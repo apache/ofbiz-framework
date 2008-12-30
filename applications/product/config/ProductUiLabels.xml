@@ -13005,15 +13005,6 @@
         <value xml:lang="zh">任一字匹配</value>
     </property>
     <property key="ProductKeywordRelevancy">
-        <value xml:lang="de">Schlüsselwort Relevanz</value>
-        <value xml:lang="en">Keyword Relevancy</value>
-        <value xml:lang="es">Relevancia de palabra clave</value>
-        <value xml:lang="fr">Pertinence du mot-clé</value>
-        <value xml:lang="it">Rilevanza Chiave</value>
-        <value xml:lang="ru">Соответствие ключевому слову</value>
-        <value xml:lang="th">Keyword Relevancy</value>
-    </property>
-    <property key="ProductKeywordRelevancy">
         <value xml:lang="cs">Shoda klíčového slova</value>
         <value xml:lang="de">Stichwortrelevanz</value>
         <value xml:lang="en">Keyword Relevancy</value>
@@ -17422,17 +17413,6 @@
         <value xml:lang="th">การระบุประเภทระดับ</value>
         <value xml:lang="zh">评级类型枚举</value>
     </property>
-    <property key="ProductRefineSearch">
-        <value xml:lang="cs">Detailní hledání</value>
-        <value xml:lang="de">Verfeinerte Suche</value>
-        <value xml:lang="en">Refine Search</value>
-        <value xml:lang="es">Afinar búsqueda</value>
-        <value xml:lang="fr">Affiner la recherche</value>
-        <value xml:lang="it">Raffina la ricerca</value>
-        <value xml:lang="ja">Refine Search</value>
-        <value xml:lang="nl">Zoeken verfijnen</value>
-        <value xml:lang="th">ปรับปรุงการค้นหา</value>
-    </property>
     <property key="ProductReInduceKeywords">
         <value xml:lang="de">Schlüsselwörter neu erstellen</value>
         <value xml:lang="en">Re-induce Keywords</value>
@@ -17691,11 +17671,14 @@
         <value xml:lang="zh"><b style="color: red;">红色</b>日期/时间记录表示当前时间在开始日期之前或结束日期之后。如果开始日期是<b style="color: red;">红色</b>， 那么关联还没有开始；如果结束日期是<b style="color: red;">红色</b>， 那么关联已经过期了 (<u>并且可能应该删除</u>)。</value>
     </property>
     <property key="ProductRefineSearch">
-        <value xml:lang="de">Suche verfeinern</value>
+        <value xml:lang="cs">Detailní hledání</value>
+        <value xml:lang="de">Verfeinerte Suche</value>
         <value xml:lang="en">Refine Search</value>
-        <value xml:lang="es">Refinar búsqueda</value>
+        <value xml:lang="es">Afinar búsqueda</value>
         <value xml:lang="fr">Affiner la recherche</value>
-        <value xml:lang="it">Raffina Ricerca</value>
+        <value xml:lang="it">Raffina la ricerca</value>
+        <value xml:lang="ja">Refine Search</value>
+        <value xml:lang="nl">Zoeken verfijnen</value>
         <value xml:lang="ro">Rafineaza Cautarea</value>
         <value xml:lang="ru">Уточнить поиск</value>
         <value xml:lang="th">ปรับปรุงการค้นหา</value>
