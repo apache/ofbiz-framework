@@ -35,7 +35,7 @@ under the License.
             <fail-property resource="PartyUiLabels" property="ProductRemoveCommunicationEventProductPermissionError"/>
         </check-permission>
         <check-errors/>
-        <entity-one entity-name="CommunicationEventProduct" value-name="eventProduct"/>
+        <entity-one entity-name="CommunicationEventProduct" value-field="eventProduct"/>
         <remove-value value-name="eventProduct"/>
     </simple-method>
 </simple-methods>

@@ -33,7 +33,7 @@
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateOpportunity" short-description="Update an opportunity">
-        <entity-one entity-name="SalesOpportunity" value-name="lookedUpValue"/>
+        <entity-one entity-name="SalesOpportunity" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>

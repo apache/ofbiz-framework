@@ -30,12 +30,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateCostComponentCalc" short-description="Update a CostComponentCalc entry">
-        <entity-one entity-name="CostComponentCalc" value-name="costComponentCalc"/>
+        <entity-one entity-name="CostComponentCalc" value-field="costComponentCalc"/>
         <set-nonpk-fields map="parameters" value-field="costComponentCalc"/>
         <store-value value-name="costComponentCalc"/>
     </simple-method>
     <simple-method method-name="removeCostComponentCalc" short-description="Remove a CostComponentCalc entry">
-        <entity-one entity-name="CostComponentCalc" value-name="costComponentCalc"/>
+        <entity-one entity-name="CostComponentCalc" value-field="costComponentCalc"/>
         <remove-value value-name="costComponentCalc"/>
     </simple-method>
     <simple-method method-name="createWorkEffortCostCalc" short-description="Create a WorkEffortCostCalc entry">
@@ -48,7 +48,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="removeWorkEffortCostCalc" short-description="Remove a WorkEffortCostCalc entry">
-        <entity-one entity-name="WorkEffortCostCalc" value-name="workEffortCostCalc"/>
+        <entity-one entity-name="WorkEffortCostCalc" value-field="workEffortCostCalc"/>
         <remove-value value-name="workEffortCostCalc"/>
     </simple-method>
 </simple-methods>

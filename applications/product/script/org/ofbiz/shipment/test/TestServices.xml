@@ -29,7 +29,7 @@ under the License.
         <set field="packSingleItemInMap.packageSeq" value="1" type="Integer"/>
         <set field="packSingleItemInMap.pickerPartyId" value="DemoCustomer"/>
         <set field="packSingleItemInMap.handlingInstructions" value="Handle with care"/>
-        <entity-one entity-name="UserLogin" value-name="userLogin" auto-field-map="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin" auto-field-map="false">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="packSingleItemInMap.userLogin" from-field="userLogin"/>
@@ -72,7 +72,7 @@ under the License.
 
         <log level="info" message="=======ShipmentId=======${completePackOutMap.shipmentId}===="/>
         
-        <entity-one entity-name="Shipment" value-name="shipment">
+        <entity-one entity-name="Shipment" value-field="shipment">
             <field-map field-name="shipmentId" from-field="completePackOutMap.shipmentId"/>
         </entity-one>
         
@@ -92,7 +92,7 @@ under the License.
 
         <set field="invoicesCreated" from-field="createInvFrmShipmentOutMap.invoicesCreated"/>
         <iterate list="invoicesCreated" entry="invoiceCreated">
-            <entity-one entity-name="Invoice" value-name="invoice">
+            <entity-one entity-name="Invoice" value-field="invoice">
                 <field-map field-name="invoiceId" from-field="invoiceCreated"/>
             </entity-one>
         
@@ -112,7 +112,7 @@ under the License.
         <set field="createShipmentInMap.primaryOrderId" value="DEMO10090"/>
         <set field="createShipmentInMap.partyIdTo" value="DemoCustomer"/>
         <set field="createShipmentInMap.originFacilityId" value="WebStoreWarehouse"/>
-        <entity-one entity-name="UserLogin" value-name="userLogin" auto-field-map="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin" auto-field-map="false">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="createShipmentInMap.userLogin" from-field="userLogin"/>
@@ -131,7 +131,7 @@ under the License.
         </call-service>
         <log level="info" message="=============Update Shipment Id=============${updateShipmentOutMap.shipmentId}========================="/>
         
-        <entity-one entity-name="Shipment" value-name="shipment">
+        <entity-one entity-name="Shipment" value-field="shipment">
             <field-map field-name="shipmentId" from-field="updateShipmentOutMap.shipmentId"/>
         </entity-one>
         
@@ -155,7 +155,7 @@ under the License.
    
     <simple-method method-name="testReceiveInventoryNonSerialized" short-description="Test Receive Non-Serialized Inventory" login-required="false">
         <now-timestamp-to-env env-name="nowTimeStamp"/>
-        <entity-one entity-name="UserLogin" value-name="userLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
@@ -170,7 +170,7 @@ under the License.
             <result-to-field  field-name="inventoryItemId" result-name="inventoryItemId"/>
         </call-service>
         
-        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
         <get-related value-name="inventoryItem" relation-name="InventoryItemDetail" list-name="inventoryItemDetails"/>
         <entity-condition entity-name="ShipmentReceipt" list-name="shipmentReceipts">
             <condition-expr field-name="inventoryItemId" env-name="inventoryItemId"/>

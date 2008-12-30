@@ -69,10 +69,10 @@ under the License.
             <clear-field field="productId"/>
             <iterate-map key-name="productId" value-name="perProductOiirailList" map-name="oiirailByProdMap">
                 <!-- get product -->
-                <entity-one entity-name="Product" value-name="moveInfo.product"/>
+                <entity-one entity-name="Product" value-field="moveInfo.product"/>
 
                 <!-- get facilityLocationFrom -->
-                <entity-one entity-name="FacilityLocation" value-name="moveInfo.facilityLocationFrom">
+                <entity-one entity-name="FacilityLocation" value-field="moveInfo.facilityLocationFrom">
                     <field-map field-name="facilityId" from-field="parameters.facilityId"/>
                     <field-map field-name="locationSeqId" from-field="locationSeqId"/>
                 </entity-one>
@@ -445,7 +445,7 @@ under the License.
         </iterate>
 
         <iterate-map key-name="inventoryItemId" value-name="orderItemShipGrpInvResAndItemLocationList" map-name="oiirailByInvItemMap">
-            <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+            <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
 
             <!-- if this is a serialized InventoryItem, then just update the location -->
             <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">

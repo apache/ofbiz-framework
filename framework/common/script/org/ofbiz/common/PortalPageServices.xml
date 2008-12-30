@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="movePortletToPortalPage" short-description="Moves a PortalPortlet from the actual portalPage to a different one">
-        <entity-one entity-name="PortalPagePortlet" value-name="oldEntity" auto-field-map="true"/>
+        <entity-one entity-name="PortalPagePortlet" value-field="oldEntity" auto-field-map="true"/>
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="PortalPagePortlet"/>
@@ -48,7 +48,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deletePortalPageColumn" short-description="Delete a Column from a PortalPage">
-        <entity-one entity-name="PortalPageColumn" value-name="column" auto-field-map="true" use-cache="true"/>
+        <entity-one entity-name="PortalPageColumn" value-field="column" auto-field-map="true" use-cache="true"/>
 
         <if-not-empty field="column">
             <entity-and entity-name="PortalPagePortlet" list-name="portalPortletList">
@@ -79,7 +79,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deletePortalPagePortlet" short-description="Delete a PortalPortlet from a PortalPageColumn">
-        <entity-one entity-name="PortalPagePortlet" value-name="portlet" auto-field-map="true" use-cache="true"/>
+        <entity-one entity-name="PortalPagePortlet" value-field="portlet" auto-field-map="true" use-cache="true"/>
 
         <if-not-empty field="portlet">
             <make-value value-field="newEntity" entity-name="PortletAttribute"/>
@@ -123,7 +123,7 @@ under the License.
     <simple-method method-name="deletePortalPage" short-description="Delete a Portal Page">
         <if-compare field="parameters.portalPageId" value="MYPORTAL" operator="not-equals">
             <if-compare field="parameters.portalPageId" value="DEFAULT" operator="not-equals">
-                <entity-one entity-name="PortalPage" value-name="portalPage" auto-field-map="true" use-cache="true"/>
+                <entity-one entity-name="PortalPage" value-field="portalPage" auto-field-map="true" use-cache="true"/>
         
                 <if-not-empty field="portalPage">
                     <entity-and entity-name="PortalPageColumn" list-name="portalPageColumnList">

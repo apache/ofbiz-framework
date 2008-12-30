@@ -37,7 +37,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TaxAuthority" value-name="lookedUpValue"/>
+        <entity-one entity-name="TaxAuthority" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -46,7 +46,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TaxAuthority" value-name="lookedUpValue"/>
+        <entity-one entity-name="TaxAuthority" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -67,7 +67,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TaxAuthorityAssoc" value-name="lookedUpValue"/>
+        <entity-one entity-name="TaxAuthorityAssoc" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -76,7 +76,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TaxAuthorityAssoc" value-name="lookedUpValue"/>
+        <entity-one entity-name="TaxAuthorityAssoc" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -96,7 +96,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TaxAuthorityCategory" value-name="lookedUpValue"/>
+        <entity-one entity-name="TaxAuthorityCategory" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -110,7 +110,7 @@ under the License.
         <set field="taxAuthorityRateProductMap.productCategoryId" from-field="parameters.productCategoryId"/>
         <find-by-and entity-name="TaxAuthorityRateProduct" map-name="taxAuthorityRateProductMap" list-name="taxAuthorityRateProductList"/>
         <if-empty field="taxAuthorityRateProductList">
-            <entity-one entity-name="TaxAuthorityCategory" value-name="lookedUpValue"/>
+            <entity-one entity-name="TaxAuthorityCategory" value-field="lookedUpValue"/>
             <remove-value value-name="lookedUpValue"/>
             <else>
                 <add-error>
@@ -137,7 +137,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TaxAuthorityGlAccount" value-name="lookedUpValue"/>
+        <entity-one entity-name="TaxAuthorityGlAccount" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -146,7 +146,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TaxAuthorityGlAccount" value-name="lookedUpValue"/>
+        <entity-one entity-name="TaxAuthorityGlAccount" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -168,7 +168,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TaxAuthorityRateProduct" value-name="lookedUpValue"/>
+        <entity-one entity-name="TaxAuthorityRateProduct" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -177,7 +177,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TaxAuthorityRateProduct" value-name="lookedUpValue"/>
+        <entity-one entity-name="TaxAuthorityRateProduct" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -208,14 +208,14 @@ under the License.
         <!-- done checking preliminary constraints, see if there are any errors -->
         <check-errors/>
         
-        <entity-one entity-name="PartyTaxAuthInfo" value-name="lookedUpValue"/>
+        <entity-one entity-name="PartyTaxAuthInfo" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="validatePartyTaxIdInline" short-description="validatePartyTaxIdInline">
         <!-- validate the partyTaxId based on TaxAuthority.taxIdFormatPattern if not empty -->
         <!-- If the party validated is in the UE, we could to a better job using the SOAP service from http://ec.europa.eu/taxation_customs/vies/faqvies.do#item16 -->   
-        <entity-one entity-name="TaxAuthority" value-name="taxAuthority"/>
+        <entity-one entity-name="TaxAuthority" value-field="taxAuthority"/>
         <if>
             <condition>
                 <and>
@@ -235,7 +235,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><accept-userlogin-party/><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="PartyTaxAuthInfo" value-name="lookedUpValue"/>
+        <entity-one entity-name="PartyTaxAuthInfo" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 

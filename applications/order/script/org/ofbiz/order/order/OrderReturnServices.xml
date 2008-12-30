@@ -39,7 +39,7 @@ under the License.
             <!-- no toPartyId was specified. use destination facility to determine the party of the return -->
             <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
                 <if-not-empty field="parameters.destinationFacilityId">
-                    <entity-one entity-name="Facility" value-name="destinationFacility" auto-field-map="false">
+                    <entity-one entity-name="Facility" value-field="destinationFacility" auto-field-map="false">
                         <field-map field-name="facilityId" from-field="parameters.destinationFacilityId"/>
                     </entity-one>
                     <set from-field="destinationFacility.ownerPartyId" field="parameters.toPartyId"/>
@@ -48,7 +48,7 @@ under the License.
         <else>
             <!-- make sure that the party to return to is an INTERNAL_ORGANIZATIO for customer return and SUPPLIER for vendor return else stop -->
             <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
-                <entity-one entity-name="PartyRole" value-name="partyRole" use-cache="true" auto-field-map="false">
+                <entity-one entity-name="PartyRole" value-field="partyRole" use-cache="true" auto-field-map="false">
                     <field-map field-name="partyId" from-field="parameters.toPartyId"/>
                     <field-map field-name="roleTypeId" value="INTERNAL_ORGANIZATIO"/>
                 </entity-one>
@@ -56,7 +56,7 @@ under the License.
                     <add-error><fail-message message="Error: a return must be to a party in the role of internal organization"/></add-error>
                 </if-empty>
             <else>
-                <entity-one entity-name="PartyRole" value-name="partyRole" use-cache="true" auto-field-map="false">
+                <entity-one entity-name="PartyRole" value-field="partyRole" use-cache="true" auto-field-map="false">
                     <field-map field-name="partyId" from-field="parameters.toPartyId"/>
                     <field-map field-name="roleTypeId" value="SUPPLIER"/>
                 </entity-one>
@@ -134,7 +134,7 @@ under the License.
         <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateReturnHeader"/></check-permission>
         <check-errors/>
 
-        <entity-one entity-name="ReturnHeader" value-name="returnHeader"/>
+        <entity-one entity-name="ReturnHeader" value-field="returnHeader"/>
 
         <!-- test the total return amount vs the total order amount -->
         <if-compare field="parameters.statusId" value="RETURN_ACCEPTED" operator="equals">
@@ -222,7 +222,7 @@ under the License.
                 <then>
                     <set field="statusIdTo" from-field="parameters.statusId"/>
                     <set field="statusId" from-field="returnHeader.statusId"/>
-                    <entity-one entity-name="StatusValidChange" value-name="statusValidChange"/>
+                    <entity-one entity-name="StatusValidChange" value-field="statusValidChange"/>
                     <if-empty field="statusValidChange">
                         <add-error><fail-property resource="OrderErrorUiLabels" property="OrderErrorReturnHeaderItemStatusNotChangedIsNotAValidChange"/></add-error>
                     </if-empty>
@@ -472,7 +472,7 @@ under the License.
         <check-permission permission="ORDERMGR" action="_DELETE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteItem"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="ReturnHeader" value-name="returnHeader"/>
+        <entity-one entity-name="ReturnHeader" value-field="returnHeader"/>
         <if-compare field="returnHeader.returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
             <if-compare field="returnHeader.statusId" operator="not-equals" type="String" value="RETURN_REQUESTED">
                 <add-error><fail-property resource="OrderErrorUiLabels" property="OrderCannotRemoveItemsOnceReturnIsApproved"/></add-error>
@@ -550,7 +550,7 @@ under the License.
                 </calcop>
             </calculate>
             
-            <entity-one entity-name="ReturnItem" value-name="returnItem">
+            <entity-one entity-name="ReturnItem" value-field="returnItem">
                 <field-map field-name="returnId" from-field="receipt.returnId"/>
                 <field-map field-name="returnItemSeqId" from-field="receipt.returnItemSeqId"/>
             </entity-one>
@@ -650,7 +650,7 @@ under the License.
         <check-errors/>
         
         <!-- get primary information from the order header -->
-        <entity-one entity-name="OrderHeader" value-name="orderHeader">
+        <entity-one entity-name="OrderHeader" value-field="orderHeader">
             <field-map from-field="parameters.orderId" field-name="orderId"/>
         </entity-one>
         <set field="returnHeaderTypeId" from-field="parameters.returnHeaderTypeId"/>
@@ -735,18 +735,18 @@ under the License.
             <set from-field="orderItem.orderItemTypeId" field="orderItemTypeId"/>
             <if-compare field="orderItemTypeId" value="PRODUCT_ORDER_ITEM" operator="equals">
             <!-- Check if orderItemTypeId equals PRODUCT_ORDER_ITEM, if so, use ProductType and ReturnItemTypeMap to get ReturnItemType-->
-                <entity-one entity-name="Product" value-name="product">
+                <entity-one entity-name="Product" value-field="product">
                     <field-map field-name="productId" from-field="orderItem.productId"/>
                     <select-field field-name="productTypeId"/>
                 </entity-one>
-                <entity-one entity-name="ReturnItemTypeMap" value-name="returnItemTypeMapping">
+                <entity-one entity-name="ReturnItemTypeMap" value-field="returnItemTypeMapping">
                     <field-map from-field="product.productTypeId" field-name="returnItemMapKey"/>
                     <field-map from-field="returnHeaderTypeId" field-name="returnHeaderTypeId"/>
                 </entity-one>
             <else>
             <!-- if not, try the ReturnItemTypeMap, but this may not actually work, so log a warning -->
                 <log level="warning" message="Trying to find returnItemtype from ReturnItemTypeMap with orderItemtypeId [${orderItem.orderItemTypeId}] for order item [${orderItem}]"/>
-                <entity-one entity-name="ReturnItemTypeMap" value-name="returnItemTypeMapping">
+                <entity-one entity-name="ReturnItemTypeMap" value-field="returnItemTypeMapping">
                    <field-map from-field="orderItemTypeId" field-name="returnItemMapKey"/>
                    <field-map from-field="returnHeaderTypeId" field-name="returnHeaderTypeId"/>
                 </entity-one>
@@ -886,7 +886,7 @@ under the License.
     <simple-method method-name="cancelReplacementOrderItems" short-description="Cancel the associated OrderItems of the replacement order, if any.">
         <check-permission permission="ORDERMGR" action="_UPDATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCancelReturnItems"/></check-permission>
         <check-errors/>
-        <entity-one entity-name="ReturnItem" value-name="returnItem"/>
+        <entity-one entity-name="ReturnItem" value-field="returnItem"/>
         <if>
             <condition>
                 <or>

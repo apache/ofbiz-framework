@@ -40,7 +40,7 @@ under the License.
         <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateContactList you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <entity-one entity-name="ContactList" value-name="lookedUpValue" auto-field-map="true"/>
+        <entity-one entity-name="ContactList" value-field="lookedUpValue" auto-field-map="true"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -48,7 +48,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteContactList you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <entity-one entity-name="ContactList" value-name="lookedUpValue" auto-field-map="true"/>
+        <entity-one entity-name="ContactList" value-field="lookedUpValue" auto-field-map="true"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -56,14 +56,14 @@ under the License.
     <simple-method method-name="inlineCheckContactListMechType" short-description="inlineCheckContactListMechType">
         <!-- check the preferredContactMechId, make sure it is the right type -->
         <if-not-empty field="parameters.preferredContactMechId">
-            <entity-one entity-name="ContactMech" value-name="preferredContactMech" auto-field-map="false">
+            <entity-one entity-name="ContactMech" value-field="preferredContactMech" auto-field-map="false">
                 <field-map field-name="contactMechId" from-field="parameters.preferredContactMechId"/>
             </entity-one>
             <if-compare-field field="preferredContactMech.contactMechTypeId" to-field="contactList.contactMechTypeId" operator="not-equals">
-                <entity-one entity-name="ContactMechType" value-name="preferredContactMechType" auto-field-map="false">
+                <entity-one entity-name="ContactMechType" value-field="preferredContactMechType" auto-field-map="false">
                     <field-map field-name="contactMechTypeId" from-field="preferredContactMech.contactMechTypeId"/>
                 </entity-one>
-                <entity-one entity-name="ContactMechType" value-name="listContactMechType" auto-field-map="false">
+                <entity-one entity-name="ContactMechType" value-field="listContactMechType" auto-field-map="false">
                     <field-map field-name="contactMechTypeId" from-field="contactList.contactMechTypeId"/>
                 </entity-one>
                 <add-error><fail-message message="The preferred contact mechanism [${preferredContactMechType.description}] was not of the right type for the list [${listContactMechType.description}]."/></add-error>
@@ -96,7 +96,7 @@ under the License.
             <then><add-error><fail-message message="Security Error: to run createContactListParty you must run it for yourself or have the MARKETING_CREATE or MARKETING_ADMIN permissions."/></add-error></then>
         </if>
 
-        <entity-one entity-name="ContactList" value-name="contactList"/>
+        <entity-one entity-name="ContactList" value-field="contactList"/>
         <call-simple-method method-name="inlineCheckContactListMechType"/>
         <call-simple-method method-name="inlineCheckContactListStatusParameter"/>
         
@@ -127,11 +127,11 @@ under the License.
         </if>
         <check-errors/>
 
-        <entity-one entity-name="ContactList" value-name="contactList"/>
+        <entity-one entity-name="ContactList" value-field="contactList"/>
         <call-simple-method method-name="inlineCheckContactListMechType"/>
         <call-simple-method method-name="inlineCheckContactListStatusParameter"/>
         
-        <entity-one entity-name="ContactListParty" value-name="lookedUpValue"/>
+        <entity-one entity-name="ContactListParty" value-field="lookedUpValue"/>
         <if-not-empty field="parameters.statusId">
             <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals">
                 <!-- NOTE: must be parameters as this will have the new statusId, and it will have additional attributes like optInVerifyCode -->
@@ -155,7 +155,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteContactListParty you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <entity-one entity-name="ContactListParty" value-name="lookedUpValue"/>
+        <entity-one entity-name="ContactListParty" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createContactListPartyStatus" short-description="Create ContactListParty Status">
@@ -232,8 +232,8 @@ under the License.
         </if>
         <check-errors/>
 
-        <entity-one entity-name="ContactList" value-name="contactList"/>
-        <entity-one entity-name="ContactListParty" value-name="contactListParty"/>
+        <entity-one entity-name="ContactList" value-field="contactList"/>
+        <entity-one entity-name="ContactListParty" value-field="contactListParty"/>
         <get-related-one value-name="contactListParty" relation-name="PreferredContactMech" to-value-name="preferredContactMech"/>
         
         <if>

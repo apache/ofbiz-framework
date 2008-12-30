@@ -49,7 +49,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateSubscription" short-description="Update a Subscription">
-        <entity-one entity-name="Subscription" value-name="lookedUpValue"/>
+        <entity-one entity-name="Subscription" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -76,7 +76,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="getSubscription" short-description="Get Subscription data">
-        <entity-one entity-name="Subscription" value-name="subscription"/>
+        <entity-one entity-name="Subscription" value-field="subscription"/>
         <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
         <if-not-empty field="subscription">
             <field-to-result field-name="subscription" result-name="subscription"/>
@@ -91,7 +91,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateSubscriptionResource" short-description="Update a SubscriptionResource">
-        <entity-one entity-name="SubscriptionResource" value-name="lookedUpValue"/>
+        <entity-one entity-name="SubscriptionResource" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -104,17 +104,17 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateProductSubscriptionResource" short-description="Update a ProductSubscriptionResource">
-        <entity-one entity-name="ProductSubscriptionResource" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductSubscriptionResource" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductSubscriptionResource" short-description="Delete a ProductSubscriptionResource">
-        <entity-one entity-name="ProductSubscriptionResource" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductSubscriptionResource" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="updateSubscriptionAttribute" short-description="Create (when not exist) or update (when exist) a Subscription attribute">
         <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
-        <entity-one entity-name="SubscriptionAttribute" value-name="lookedUpValue"/>
+        <entity-one entity-name="SubscriptionAttribute" value-field="lookedUpValue"/>
         <if-empty field="lookedUpValue">
             <make-value entity-name="SubscriptionAttribute" value-field="newEntity"/>
             <set-pk-fields map="parameters" value-field="newEntity"/>
@@ -134,7 +134,7 @@ under the License.
         <create-value value-field="newEntity"/>    
     </simple-method>
     <simple-method method-name="removeSubscriptionCommEvent" short-description="Remove a Subscription Communication Event">
-        <entity-one entity-name="SubscriptionCommEvent" value-name="eventSubscription"/>
+        <entity-one entity-name="SubscriptionCommEvent" value-field="eventSubscription"/>
         <remove-value value-name="eventSubscription"/>
     </simple-method>
 

@@ -70,11 +70,11 @@ under the License.
     </simple-method>
 
     <simple-method method-name="setCommEventToRead" short-description="">
-        <entity-one entity-name="CommunicationEventRole" value-name="eventRole"/>
+        <entity-one entity-name="CommunicationEventRole" value-field="eventRole"/>
         <if-compare operator="equals" value="COM_ROLE_CREATED" field="eventRole.statusId">
             <call-simple-method method-name="checkCommEventAccess"/>
             <if-compare operator="equals" value="true" field="found">
-                <entity-one entity-name="UserLogin" value-name="userLogin">
+                <entity-one entity-name="UserLogin" value-field="userLogin">
                     <field-map field-name="userLoginId" value="system"/>
                 </entity-one>
                 <set-service-fields service-name="setCommunicationEventRoleStatus"
@@ -123,7 +123,7 @@ under the License.
             <if-empty field="roles">
                 <!--partyId To -->
                 <if-not-empty field="commEvent.partyIdTo">
-                    <entity-one entity-name="PartyRole" value-name="partyRole">
+                    <entity-one entity-name="PartyRole" value-field="partyRole">
                         <field-map field-name="partyId" value="${commEvent.partyIdTo}"/>
                         <field-map field-name="roleTypeId" value="ADDRESSEE"/>
                     </entity-one>
@@ -144,7 +144,7 @@ under the License.
 
                 <!-- partyIdFrom -->
                 <if-not-empty field="commEvent.partyIdFrom">
-                    <entity-one entity-name="PartyRole" value-name="partyRole">
+                    <entity-one entity-name="PartyRole" value-field="partyRole">
                         <field-map field-name="partyId" value="${commEvent.partyIdFrom}"/>
                         <field-map field-name="roleTypeId" value="ORIGINATOR"/>
                     </entity-one>

@@ -22,7 +22,7 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="sendEmailToCustomer" short-description="Send Mail When Customer Request is created or commpleted.">
-        <entity-one entity-name="CustRequest" value-name="custReq"/>
+        <entity-one entity-name="CustRequest" value-field="custReq"/>
         <if>
             <condition>
                 <if-compare field="custReq.statusId" value="CRQ_COMPLETED" operator="equals"></if-compare>
@@ -33,14 +33,14 @@
                         <field-map field-name="partyId" from-field="custReq.fromPartyId"/>
                     </entity-and>
                     <first-from-list entry="partyUserLogin" list="partyUserLogin"/>
-                    <entity-one entity-name="UserPreference" value-name="userPref">
+                    <entity-one entity-name="UserPreference" value-field="userPref">
                         <field-map field-name="userLoginId" value="${partyUserLogin.userLoginId}"/>
                         <field-map field-name="userPrefTypeId" value="sendCustRequestEmail"/>
                     </entity-one>
                     <if-empty field="userPref.userPrefValue">
                         <!-- set send customer requst email field to default-->
                         <set field="setUserPref.userPrefMap.sendCustRequestEmail" value="Y"/>
-                        <entity-one entity-name="UserLogin" value-name="userLogin">
+                        <entity-one entity-name="UserLogin" value-field="userLogin">
                             <field-map field-name="userLoginId" value="system"/>
                         </entity-one>
                         <set field="setUserPref.userLoginId" from-field="userLogin.userLoginId"/>
@@ -89,7 +89,7 @@
             </condition>
             <then>
                 <if-not-empty field="storeEmail.bodyScreenLocation">
-                    <entity-one entity-name="Person" value-name="person">
+                    <entity-one entity-name="Person" value-field="person">
                         <field-map field-name="partyId" from-field="custReq.fromPartyId"/>
                     </entity-one>
                     <set field="getPartyEmail.partyId" from-field="custReq.fromPartyId"/>
@@ -100,7 +100,7 @@
                         <field-map field-name="productStoreId" from-field="storeEmail.productStoreId" />
                     </entity-and>
                     <first-from-list entry="webSite" list="webSites" />
-                    <entity-one entity-name="UserLogin" value-name="userLoginSystem">
+                    <entity-one entity-name="UserLogin" value-field="userLoginSystem">
                         <field-map field-name="userLoginId" value="system"/>
                     </entity-one>
                     <if-not-empty field="emailParams.sendTo">

@@ -32,12 +32,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateCostComponent" short-description="Update a CostComponent">
-        <entity-one entity-name="CostComponent" value-name="costComponent"/>
+        <entity-one entity-name="CostComponent" value-field="costComponent"/>
         <set-nonpk-fields map="parameters" value-field="costComponent"/>
         <store-value value-name="costComponent"/>
     </simple-method>
     <simple-method method-name="deleteCostComponent" short-description="Delete a CostComponent">
-        <entity-one entity-name="CostComponent" value-name="costComponent"/>
+        <entity-one entity-name="CostComponent" value-field="costComponent"/>
         <remove-value value-name="costComponent"/>
     </simple-method>
     <simple-method method-name="cancelCostComponents" short-description="Cancels CostComponents">
@@ -109,7 +109,7 @@ under the License.
         </calculate>
         <!-- if the cost is zero, and the product is a variant, get the cost of the virtual -->
         <if-compare field="productCost" operator="equals" value="0" type="Double">
-            <entity-one entity-name="Product" value-name="product"/>
+            <entity-one entity-name="Product" value-field="product"/>
             <set from-field="product.productId" field="assocAndMap.productIdTo"/>
             <set value="PRODUCT_VARIANT" field="assocAndMap.productAssocTypeId"/>
             <find-by-and entity-name="ProductAssoc" map-name="assocAndMap" list-name="virtualAssocs"/>
@@ -190,7 +190,7 @@ under the License.
             </calcop>
         </calculate>
         
-        <entity-one entity-name="WorkEffort" value-name="task"/>
+        <entity-one entity-name="WorkEffort" value-field="task"/>
         <if-not-empty field="task">
             <get-related-one value-name="task" relation-name="FixedAsset" to-value-name="fixedAsset"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.amountUomId"/>

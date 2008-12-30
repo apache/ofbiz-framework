@@ -230,7 +230,7 @@
         
         <!-- TIMESHEET -->
         <if-compare field="sec_object" value="TIMESHEET" operator="equals">
-            <entity-one entity-name="Timesheet" value-name="timesheet" use-cache="true"/>
+            <entity-one entity-name="Timesheet" value-field="timesheet" use-cache="true"/>
             <!-- log level="info" message="======ProjectMGR Security=====  action: ${mainAction} object: ${sec_object} timesheetId: ${timesheet.timesheetId} partyId: ${timesheet.partyId} resourceDescription: ${parameters.resourceDescription}"/-->
             <if>
                 <condition>
@@ -275,7 +275,7 @@
         
         <!-- TIMEENTRY -->
         <if-compare field="sec_object" value="TIMEENTRY" operator="equals">
-            <entity-one entity-name="Timesheet" value-name="timesheet" use-cache="true"/>
+            <entity-one entity-name="Timesheet" value-field="timesheet" use-cache="true"/>
             <set field="timesheetId" from-field="timesheet.timesheetId"/>
             <set field="taskId" from-field="parameters.workEffortId"/>
             <set field="partyId" from-field="timesheet.partyId"/>
@@ -345,7 +345,7 @@
                 <if-empty field="taskId">
                     <return/>
                     <else>
-                        <entity-one entity-name="WorkEffort" value-name="task" use-cache="true" >
+                        <entity-one entity-name="WorkEffort" value-field="task" use-cache="true" >
                             <field-map field-name="workEffortId" from-field="taskId"/>
                         </entity-one>
                         <set field="phaseId" from-field="task.workEffortParentId"/>
@@ -354,7 +354,7 @@
             </if-empty>    
         </if-empty>
         <if-empty field="projectId">
-            <entity-one entity-name="WorkEffort" value-name="phase" use-cache="true">
+            <entity-one entity-name="WorkEffort" value-field="phase" use-cache="true">
                 <field-map field-name="workEffortId" from-field="phaseId"/>
             </entity-one>
             <set field="projectId" from-field="phase.workEffortParentId"/>

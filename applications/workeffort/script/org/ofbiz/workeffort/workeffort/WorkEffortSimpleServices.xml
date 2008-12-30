@@ -71,7 +71,7 @@ under the License.
         <!-- attach to a customer request if passed and copy attached docs -->
         <if-not-empty field="parameters.custRequestId">
             <!-- check status of customer request if valid -->
-            <entity-one entity-name="CustRequest" value-name="lookedUpValue"/>
+            <entity-one entity-name="CustRequest" value-field="lookedUpValue"/>
             <set field="goodStatusId" value="CRQ_ACCEPTED"/>
             <if-compare-field operator="not-equals" field="lookedUpValue.statusId" to-field="goodStatusId" >
                 <set field="entity" value="Customer request"/>
@@ -112,7 +112,7 @@ under the License.
             <check-errors/>
         </if-empty>-->
         
-        <entity-one entity-name="WorkEffort" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffort" value-field="lookedUpValue"/>
         <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
         
         <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -178,7 +178,7 @@ under the License.
             <check-errors/>
         </if-empty>
 
-        <entity-one entity-name="WorkEffort" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffort" value-field="lookedUpValue"/>
 
         <!-- Remove associated/dependent entries from other entities here -->
         <remove-related value-name="lookedUpValue" relation-name="WorkEffortKeyword"/>
@@ -282,7 +282,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePartyToWorkEffortAssignment" short-description="Update WorkEffortPartyAssignment entity">
-        <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
+        <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
         <!-- to be dropped later (use now workEffortGenericPermission)
         <if-compare-field field="userLogin.partyId" to-field="workEffortPartyAssignment.partyId" operator="not-equals">                
             <check-permission permission="WORKEFFORTMGR" action="_UPDATE">
@@ -310,7 +310,7 @@ under the License.
         <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="del"/>       
     </simple-method>
     <simple-method method-name="unassignPartyFromWorkEffort" short-description="Service that deletes a WorkEffortPartyAssignment entity">
-        <entity-one entity-name="WorkEffortPartyAssignment" value-name="workEffortPartyAssignment"/>
+        <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
         <remove-value value-name="workEffortPartyAssignment"/>
     </simple-method>
 
@@ -349,7 +349,7 @@ under the License.
     <simple-method method-name="updateWorkEffortContactMech" short-description="Update a WorkEffortContactMech">
         <make-value entity-name="WorkEffortContactMech" value-field="newWorkEffortContactMech"/>
         <!-- Find old value -->
-        <entity-one entity-name="WorkEffortContactMech" value-name="workEffortContactMech"/>
+        <entity-one entity-name="WorkEffortContactMech" value-field="workEffortContactMech"/>
         <if-empty field="workEffortContactMech">
             <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified work effort"/></add-error>
         </if-empty>
@@ -385,7 +385,7 @@ under the License.
     
     <simple-method method-name="deleteWorkEffortContactMech" short-description="Delete a WorkEffortContactMech">
         <!-- Find old value -->
-        <entity-one entity-name="WorkEffortContactMech" value-name="workEffortContactMech"/>
+        <entity-one entity-name="WorkEffortContactMech" value-field="workEffortContactMech"/>
         <if-empty field="workEffortContactMech">
             <add-error><fail-message message="ERROR: Cannot delete specified contact info because it does not correspond to the specified work effort"/></add-error>
         </if-empty>
@@ -581,8 +581,8 @@ under the License.
         <create-value value-field="newWorkEffortNote"/>
     </simple-method>
     <simple-method method-name="updateWorkEffortNote" short-description="Update Work Effort Note">
-        <entity-one entity-name="WorkEffortNote" value-name="lookedUpValue"/>
-        <entity-one entity-name="NoteData" value-name="lookedUpValueForNoteData"/>
+        <entity-one entity-name="WorkEffortNote" value-field="lookedUpValue"/>
+        <entity-one entity-name="NoteData" value-field="lookedUpValueForNoteData"/>
         <set-nonpk-fields value-field="lookedUpValueForNoteData" map="parameters"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
@@ -592,7 +592,7 @@ under the License.
         <if-empty field="parameters.fromDate">
             <now-timestamp-to-env env-name="parameters.fromDate"/>
         <else>
-            <entity-one entity-name="WorkEffortAssoc" value-name="lookedUpValue"/>
+            <entity-one entity-name="WorkEffortAssoc" value-field="lookedUpValue"/>
         </else>
         </if-empty>        
         <if-not-empty field="lookedUpValue">
@@ -617,7 +617,7 @@ under the License.
         <if-empty field="parameters.fromDate">
             <now-timestamp-to-env env-name="parameters.fromDate"/>
         <else>
-            <entity-one entity-name="WorkEffortAssoc" value-name="lookedUpValue"/>
+            <entity-one entity-name="WorkEffortAssoc" value-field="lookedUpValue"/>
         </else>
         </if-empty>        
 
@@ -636,17 +636,17 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateWorkEffortAssoc" short-description="Update a WorkEffort association">
-        <entity-one entity-name="WorkEffortAssoc" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortAssoc" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWorkEffortAssoc" short-description="Remove a WorkEffort association">
-        <entity-one entity-name="WorkEffortAssoc" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortAssoc" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createWorkEffortGoodStandard" short-description="Create a link between a WorkEffort and a Product">
-        <entity-one entity-name="WorkEffortGoodStandard" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortGoodStandard" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
             <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortGoodStandardAlreadyExist"/></add-error>
             <check-errors/>
@@ -662,18 +662,18 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="updateWorkEffortGoodStandard" short-description="Update a link between a WorkEffort and a Product">
-        <entity-one entity-name="WorkEffortGoodStandard" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortGoodStandard" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeWorkEffortGoodStandard" short-description="Remove a link between a WorkEffort and a Product">
-        <entity-one entity-name="WorkEffortGoodStandard" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortGoodStandard" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="assignInventoryToWorkEffort" short-description="Create or update WorkEffortInventoryAssign">
         <set value="Create or update WorkEffortInventoryAssign" field="operationName"/>
 
-        <entity-one entity-name="WorkEffortInventoryAssign" value-name="foundEntity"/>
+        <entity-one entity-name="WorkEffortInventoryAssign" value-field="foundEntity"/>
         <if-not-empty field="foundEntity">
             <calculate field-name="foundEntity.quantity" type="Double">
                 <calcop field-name="foundEntity.quantity" operator="get"/>
@@ -703,7 +703,7 @@ under the License.
         <field-to-result field-name="custRequestId" map-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortRequest" short-description="Delete a CustRequestWorkEffort">
-        <entity-one entity-name="CustRequestWorkEffort" value-name="custRequestWorkEffort"/>
+        <entity-one entity-name="CustRequestWorkEffort" value-field="custRequestWorkEffort"/>
         <if-empty field="custRequestWorkEffort">
             <add-error><fail-message message="ERROR: CustRequestWorkEffort [${parameters.custRequestId}][${parameters.workEffortId}] does not exist."/></add-error>
             <check-errors/>
@@ -724,7 +724,7 @@ under the License.
         <create-value value-field="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortRequestItem" short-description="Delete a CustRequestItemWorkEffort">
-        <entity-one entity-name="CustRequestItemWorkEffort" value-name="custRequestItemWorkEffort"/>
+        <entity-one entity-name="CustRequestItemWorkEffort" value-field="custRequestItemWorkEffort"/>
         <if-empty field="custRequestItemWorkEffort.custRequestItemSeqId">
             <add-error><fail-message message="ERROR: CustRequestItemWorkEffort [${parameters.custRequestItemSeqId}][${parameters.workEffortId}] does not exist."/></add-error>
             <check-errors/>
@@ -759,7 +759,7 @@ under the License.
         <field-to-result field-name="quoteId" map-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortQuote" short-description="Delete a QuoteWorkEffort">
-        <entity-one entity-name="QuoteWorkEffort" value-name="quoteWorkEffort"/>
+        <entity-one entity-name="QuoteWorkEffort" value-field="quoteWorkEffort"/>
         <if-empty field="quoteWorkEffort">
             <add-error><fail-message message="ERROR: QuoteWorkEffort [${parameters.quoteId}][${parameters.workEffortId}] does not exist."/></add-error>
             <check-errors/>
@@ -781,7 +781,7 @@ under the License.
         <field-to-result field-name="requirementId" map-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteWorkRequirementFulfillment" short-description="Delete a WorkRequirementFulfillment">
-        <entity-one entity-name="WorkRequirementFulfillment" value-name="workRequirementFulfillment"/>
+        <entity-one entity-name="WorkRequirementFulfillment" value-field="workRequirementFulfillment"/>
         <if-empty field="workRequirementFulfillment">
             <add-error><fail-message message="ERROR: WorkRequirementFulfillment [${parameters.requirementId}][${parameters.workEffortId}] does not exist."/></add-error>
             <check-errors/>
@@ -803,7 +803,7 @@ under the License.
         <field-to-result field-name="shoppingListId" map-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteShoppingListWorkEffort" short-description="Delete a ShoppingListWorkEffort">
-        <entity-one entity-name="ShoppingListWorkEffort" value-name="shoppingListWorkEffort"/>
+        <entity-one entity-name="ShoppingListWorkEffort" value-field="shoppingListWorkEffort"/>
         <if-empty field="shoppingListWorkEffort">
             <add-error><fail-message message="ERROR: ShoppingListWorkEffort [${parameters.shoppingListId}][${parameters.workEffortId}] does not exist."/></add-error>
             <check-errors/>
@@ -825,7 +825,7 @@ under the License.
         <field-to-result field-name="orderId" map-name="lookupMap"/>
     </simple-method>
     <simple-method method-name="deleteOrderHeaderWorkEffort" short-description="Delete a OrderHeaderWorkEffort">
-        <entity-one entity-name="OrderHeaderWorkEffort" value-name="orderWorkEffort"/>
+        <entity-one entity-name="OrderHeaderWorkEffort" value-field="orderWorkEffort"/>
         <if-empty field="orderWorkEffort">
             <add-error><fail-message message="ERROR: OrderHeaderWorkEffort [${parameters.orderId}][${parameters.workEffortId}] does not exist."/></add-error>
             <check-errors/>
@@ -834,7 +834,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="setWorkEffortFixedAssetAssign" short-description="Based on task's estimate dates, write assign entries for the fixed asset the task is assigned to">
-        <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
         <set from-field="workEffort.workEffortId" field="findMap.workEffortId"/>
         <set from-field="workEffort.fixedAssetId" field="findMap.fixedAssetId"/>
         <find-by-and entity-name="WorkEffortFixedAssetAssign" map-name="findMap" list-name="existingAssignments"/>
@@ -858,7 +858,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortFixedAssetStd" value-name="lookedUpValue" />
+        <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue" />
         <if-not-empty field="lookedUpValue">
             <add-error>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortFixedAssetAlreadyExist"/>
@@ -878,7 +878,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionERror"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortFixedAssetStd" value-name="lookedUpValue" />
+        <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue" />
         <set-nonpk-fields map="parameters" value-field="lookedUpValue" />
         <store-value value-name="lookedUpValue" />
     </simple-method>
@@ -888,7 +888,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortFixedAssetStd" value-name="lookedUpValue" />
+        <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue" />
         <remove-value value-name="lookedUpValue" />
     </simple-method>
     <simple-method method-name="createWorkEffortFixedAssetAssign" 
@@ -897,7 +897,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
+        <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue" />
         <if-not-empty field="lookedUpValue">
             <add-error>
                 <fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortFixedAssetAsgAlreadyExist"/>
@@ -909,7 +909,7 @@ under the License.
             <!-- if the user hasn't specified a fromDate, set it from the actual start date of the task
                 if there is no actual start date, default to now (to the current date and time) -->
             <if-empty field="parameters.fromDate">
-                <entity-one entity-name="WorkEffort" value-name="prodRunTask" />
+                <entity-one entity-name="WorkEffort" value-field="prodRunTask" />
                 <now-timestamp-to-env env-name="newWEFixedAssetAssign.fromDate"/>
                 <if-not-empty field="prodRunTask.estimatedStartDate">                    
                     <set field="newWEFixedAssetAssign.fromDate" from-field="prodRunTask.estimatedStartDate" />
@@ -928,7 +928,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
+        <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue" />
         <set-nonpk-fields map="parameters" value-field="lookedUpValue" />
         <store-value value-name="lookedUpValue" />
     </simple-method>
@@ -938,7 +938,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortFixedAssetAssign" value-name="lookedUpValue" />
+        <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue" />
         <remove-value value-name="lookedUpValue" />
     </simple-method>
 
@@ -968,7 +968,7 @@ under the License.
         </check-permission>
         <check-errors />
         -->
-        <entity-one entity-name="WorkEffortContent" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortContent" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -980,7 +980,7 @@ under the License.
         </check-permission>
         <check-errors />
         -->
-        <entity-one entity-name="WorkEffortContent" value-name="lookedUpValue" />
+        <entity-one entity-name="WorkEffortContent" value-field="lookedUpValue" />
         <remove-value value-name="lookedUpValue" />
     </simple-method>
 
@@ -990,7 +990,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortReview" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
             <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortReviewAlreadyExist"/></add-error>
             <check-errors/>
@@ -1012,7 +1012,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortUpdatePermissionError"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortReview" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -1022,7 +1022,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortReview" value-name="lookedUpValue" />
+        <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue" />
         <remove-value value-name="lookedUpValue" />
     </simple-method>
     
@@ -1047,7 +1047,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortCreatePermissionError"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortKeyword" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortKeyword" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue">
             <add-error><fail-property resource="WorkEffortUiLabels" property="WorkEffortWorkEffortKeywordAlreadyExist"/></add-error>
         <else>
@@ -1073,7 +1073,7 @@ under the License.
             <fail-property resource="WorkEffortUiLabels" property="WorkEffortDeletePermissionError"/>
         </check-permission>
         <check-errors />
-        <entity-one entity-name="WorkEffortKeyword" value-name="lookedUpValue" />
+        <entity-one entity-name="WorkEffortKeyword" value-field="lookedUpValue" />
         <remove-value value-name="lookedUpValue" />
     </simple-method>
     
@@ -1114,7 +1114,7 @@ under the License.
         </check-permission>
         <check-errors />
         <!-- look up the old workEffort and clone it -->
-        <entity-one entity-name="WorkEffort" value-name="oldWorkEffort">
+        <entity-one entity-name="WorkEffort" value-field="oldWorkEffort">
             <field-map field-name="workEffortId" from-field="parameters.oldWorkEffortId"/>
         </entity-one>
         <clone-value value-name="oldWorkEffort" new-value-name="newWorkEffort"/>
@@ -1196,12 +1196,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method  method-name="updateWorkEffortSkillStandard" short-description="Update WorkEffortSkillStandard">
-        <entity-one entity-name="WorkEffortSkillStandard" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortSkillStandard" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method  method-name="deleteWorkEffortSkillStandard" short-description="Delete WorkEffortSkillStandard">
-        <entity-one entity-name="WorkEffortSkillStandard" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortSkillStandard" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createWorkEffortInventoryProduced" short-description="Create Work Effort InventoryProduced">
@@ -1210,7 +1210,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteWorkEffortInventoryProduced" short-description="Delete Work Effort InventoryProduced">
-        <entity-one entity-name="WorkEffortInventoryProduced" value-name="lookedUpValue"/>
+        <entity-one entity-name="WorkEffortInventoryProduced" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>  
     </simple-method>
     <!-- WorkEffort ServiceTest Services -->
@@ -1220,14 +1220,14 @@ under the License.
         <set field="createEventMap.quickAssignPartyId" value="DemoCustomer"/>
         <set field="createEventMap.workEffortName" value="Create Work Effort"/>
         <set field="createEventMap.currentStatusId" value="CAL_TENTATIVE"/>
-        <entity-one entity-name="UserLogin" value-name="createEventMap.userLogin">
+        <entity-one entity-name="UserLogin" value-field="createEventMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createWorkEffort" in-map-name="createEventMap">
             <result-to-field result-name="workEffortId" field-name="workEffortId" map-name="eventMap"/>
         </call-service>
         <call-simple-method method-name="testUpdateEventService"/>
-        <entity-one entity-name="WorkEffort" value-name="workEffort">
+        <entity-one entity-name="WorkEffort" value-field="workEffort">
             <field-map field-name="workEffortId" from-field="eventMap.workEffortId"/>
         </entity-one>
         <assert>
@@ -1245,7 +1245,7 @@ under the License.
         <set field="updateEventMap.workEffortTypeId" value="EVENT"/>
         <set field="updateEventMap.workEffortName" value="Update an event"/>
         <set field="updateEventMap.currentStatusId" value="CAL_ACCEPTED"/>
-        <entity-one entity-name="UserLogin" value-name="updateEventMap.userLogin">
+        <entity-one entity-name="UserLogin" value-field="updateEventMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="updateWorkEffort" in-map-name="updateEventMap"/>
@@ -1257,7 +1257,7 @@ under the License.
         <set field="createProjectMap.quickAssignPartyId" value="DemoCustomer"/>
         <set field="createProjectMap.workEffortName" value="Create a project"/>
         <set field="createProjectMap.currentStatusId" value="CAL_TENTATIVE"/>
-        <entity-one entity-name="UserLogin" value-name="createProjectMap.userLogin">
+        <entity-one entity-name="UserLogin" value-field="createProjectMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createWorkEffort" in-map-name="createProjectMap">
@@ -1265,10 +1265,10 @@ under the License.
         </call-service>
         <call-simple-method method-name="testUpdateProjectService"/>
         <call-simple-method method-name="testCreateWorkEffortNoteService"/>
-        <entity-one entity-name="WorkEffort" value-name="workEffort">
+        <entity-one entity-name="WorkEffort" value-field="workEffort">
             <field-map field-name="workEffortId" from-field="projectMap.workEffortId"/>
         </entity-one>
-        <entity-one entity-name="NoteData" value-name="noteData">
+        <entity-one entity-name="NoteData" value-field="noteData">
             <field-map field-name="noteId" from-field="workEffortNoteMap.noteId"/>
         </entity-one>
         <assert>
@@ -1291,7 +1291,7 @@ under the License.
         <set field="updateProjectMap.workEffortTypeId" value="PROJECT"/>
         <set field="updateProjectMap.workEffortName" value="Update a project"/>
         <set field="updateProjectMap.currentStatusId" value="CAL_ACCEPTED"/>
-        <entity-one entity-name="UserLogin" value-name="updateProjectMap.userLogin">
+        <entity-one entity-name="UserLogin" value-field="updateProjectMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="updateWorkEffort" in-map-name="updateProjectMap"/>
@@ -1302,7 +1302,7 @@ under the License.
         <set field="createWorkEffortNoteMap.workEffortId" from-field="projectMap.workEffortId"/>
         <set field="createWorkEffortNoteMap.noteParty" value="DemoCustomer"/>
         <set field="createWorkEffortNoteMap.noteInfo" value="This is a note for party 'DemoCustomer'"/>
-        <entity-one entity-name="UserLogin" value-name="createWorkEffortNoteMap.userLogin">
+        <entity-one entity-name="UserLogin" value-field="createWorkEffortNoteMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createWorkEffortNote" in-map-name="createWorkEffortNoteMap">

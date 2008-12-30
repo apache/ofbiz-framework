@@ -53,7 +53,7 @@
         <field-to-result field-name="content.contentId" result-name="contentId"/>        
     </simple-method>
     <simple-method method-name="updateContent" short-description="Update a Content Record">
-        <entity-one entity-name="Content" value-name="content" auto-field-map="true"/>
+        <entity-one entity-name="Content" value-field="content" auto-field-map="true"/>
         <set-nonpk-fields value-field="content" map="parameters"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -94,7 +94,7 @@
     </simple-method>
     <simple-method method-name="updateContentAssoc" short-description="Update a ContentAssoc Record">
         <set field="contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}" />
-        <entity-one entity-name="ContentAssoc" value-name="assoc" auto-field-map="true"/>
+        <entity-one entity-name="ContentAssoc" value-field="assoc" auto-field-map="true"/>
         <set-nonpk-fields value-field="assoc" map="parameters"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -114,11 +114,11 @@
     <!-- update content; just status -->
     <simple-method method-name="setContentStatus" short-description="Set The Content Status">
     
-        <entity-one entity-name="Content" value-name="content"/>
+        <entity-one entity-name="Content" value-field="content"/>
         <field-to-result field-name="content.statusId" result-name="oldStatusId"/>
 
        <if-compare-field field="content.statusId" to-field="parameters.statusId" operator="not-equals">
-            <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
+            <entity-one entity-name="StatusValidChange" value-field="statusChange" auto-field-map="false">
                 <field-map field-name="statusId" from-field="content.statusId"/>
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
@@ -731,7 +731,7 @@
 
     <!-- This method will create a skeleton content record from a data resource -->
     <simple-method method-name="createContentFromDataResource" short-description="Create Content from DataResource Object">
-        <entity-one entity-name="DataResource" value-name="dataResource">
+        <entity-one entity-name="DataResource" value-field="dataResource">
             <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
         </entity-one>
         <if-empty field="dataResource">
@@ -895,7 +895,7 @@
     
     <!-- retrieve Data resource information -->
     <simple-method method-name="getDataResource" short-description="get the content and relasted resource information" login-required="false">        
-        <entity-one entity-name="DataResource" value-name="resultData.dataResource">
+        <entity-one entity-name="DataResource" value-field="resultData.dataResource">
             <field-map field-name="dataResourceId" from-field="parameters.dataResourceId"/>
         </entity-one>
         <if-not-empty field="resultData.dataResource">
@@ -912,7 +912,7 @@
     </simple-method>
         
     <simple-method method-name="getContentAndDataResource" short-description="get the content and related resource information" login-required="false">
-        <entity-one entity-name="Content" value-name="resultDataContent.content">
+        <entity-one entity-name="Content" value-field="resultDataContent.content">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
         </entity-one>
         <if-not-empty field="resultDataContent.content">
@@ -1216,7 +1216,7 @@
 	        <set field="map.contentId" from-field="view2.contentId"/>
 	        <set field="map.contentName" from-field="view2.contentName"/>
 	        <set field="map.description" from-field="view2.description"/>
-	        <entity-one entity-name="ElectronicText" value-name="electronicText">
+	        <entity-one entity-name="ElectronicText" value-field="electronicText">
 	            <field-map field-name="dataResourceId" from-field="view2.dataResourceId"/>
 	        </entity-one>
 	        <set field="map.textData" from-field="electronicText.textData"/>

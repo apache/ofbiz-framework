@@ -27,7 +27,7 @@ under the License.
         <sequenced-id-to-env sequence-name="PartyInvitation" env-name="newEntity.partyInvitationId"/>
         <field-to-result field-name="newEntity.partyInvitationId" result-name="partyInvitationId"/>
         <if-not-empty field="parameters.partyId">
-            <entity-one entity-name="Person" value-name="person" auto-field-map="false">
+            <entity-one entity-name="Person" value-field="person" auto-field-map="false">
                 <field-map field-name="partyId" from-field="parameters.partyId"/>
             </entity-one>
             <set field="parameters.toName" value="${person.firstName} ${person.middleName} ${person.lastName}"/>
@@ -38,9 +38,9 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updatePartyInvitation" short-description="Update a PartyInvitation">
-        <entity-one entity-name="PartyInvitation" value-name="lookedUpValue"/>
+        <entity-one entity-name="PartyInvitation" value-field="lookedUpValue"/>
         <if-not-empty field="parameters.partyId">
-            <entity-one entity-name="Person" value-name="person" auto-field-map="false">
+            <entity-one entity-name="Person" value-field="person" auto-field-map="false">
                 <field-map field-name="partyId" from-field="parameters.partyId"/>
             </entity-one>
             <set field="parameters.toName" value="${person.firstName} ${person.middleName} ${person.lastName}"/>
@@ -49,7 +49,7 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitation" short-description="Remove a PartyInvitation">
-        <entity-one entity-name="PartyInvitation" value-name="lookedUpValue"/>
+        <entity-one entity-name="PartyInvitation" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createPartyInvitationGroupAssoc" short-description="Create a PartyInvitationGroupAssoc">
@@ -58,7 +58,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitationGroupAssoc" short-description="Remove a PartyInvitationGroupAssoc">
-        <entity-one entity-name="PartyInvitationGroupAssoc" value-name="lookedUpValue"/>
+        <entity-one entity-name="PartyInvitationGroupAssoc" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createPartyInvitationRoleAssoc" short-description="Create a PartyInvitationRoleAssoc">
@@ -67,7 +67,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitationRoleAssoc" short-description="Remove a PartyInvitationRoleAssoc">
-        <entity-one entity-name="PartyInvitationRoleAssoc" value-name="lookedUpValue"/>
+        <entity-one entity-name="PartyInvitationRoleAssoc" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="acceptPartyInvitation" short-description="Accept Party Invitation">

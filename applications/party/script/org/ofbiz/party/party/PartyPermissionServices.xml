@@ -142,7 +142,7 @@ under the License.
             <field-to-result field-name="hasPermission"/>
         </if-has-permission>
         <if-compare field="hasPermission" operator="not-equals" value="true">
-            <entity-one entity-name="PartyInvitation" value-name="partyInvitation"/>
+            <entity-one entity-name="PartyInvitation" value-field="partyInvitation"/>
             <if-empty field="partyInvitation.partyId">
                 <if-empty field="partyInvitation.emailAddress">
                     <add-error>
@@ -188,7 +188,7 @@ under the License.
             <field-to-result field-name="hasPermission"/>
         </if-has-permission>
         <if-compare field="hasPermission" operator="not-equals" value="true">
-            <entity-one entity-name="PartyInvitation" value-name="partyInvitation"/>
+            <entity-one entity-name="PartyInvitation" value-field="partyInvitation"/>
             <if-not-empty field="partyInvitation.partyIdFrom">
                 <if-compare-field field="partyInvitation.partyIdFrom" to-field="userLogin.partyId" operator="equals">
                     <set field="hasPermission" type="Boolean" value="true"/>

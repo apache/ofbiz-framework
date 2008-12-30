@@ -41,7 +41,7 @@ under the License.
         <create-value value-field="newEntity"/>
 
         <if-not-empty field="parameters.inventoryItemDetailSeqId">
-            <entity-one entity-name="InventoryItemDetail" value-name="invDet">
+            <entity-one entity-name="InventoryItemDetail" value-field="invDet">
                 <field-map field-name="inventoryItemDetailSeqId" from-field="parameters.inventoryItemDetailSeqId"/>
                 <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
             </entity-one>
@@ -156,7 +156,7 @@ under the License.
                 </condition>
                 <then>
                     <!-- Retrieve the new inventoryItem -->
-                    <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+                    <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
                     
                     <!-- Don't reset the status if it's already set to INV_PROMISED or INV_ON_HOLD -->
                     <if>
@@ -191,7 +191,7 @@ under the License.
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run quickReceiveReturn you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <entity-one entity-name="ReturnHeader" value-name="returnHeader">
+        <entity-one entity-name="ReturnHeader" value-field="returnHeader">
             <field-map field-name="returnId" from-field="parameters.returnId"/>
         </entity-one>
 

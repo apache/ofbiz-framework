@@ -70,7 +70,7 @@ under the License.
                                 <set field="workEffortId" from-field="parameters.workEffortId"/>
                                 <call-simple-method method-name="workEffortPartyOwnerRolePermission"/>
                                 <!-- get the existing parent ID -->
-                                <entity-one entity-name="WorkEffort" value-name="workEffort">
+                                <entity-one entity-name="WorkEffort" value-field="workEffort">
                                     <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                                 </entity-one>
                                 <if>

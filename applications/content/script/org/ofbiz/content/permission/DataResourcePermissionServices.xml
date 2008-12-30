@@ -141,7 +141,7 @@
                 <log level="verbose" message="Found necessary ROLE permission: ${primaryPermission}_${mainAction}"/>
 
                 <!-- obtain the current data resource record -->
-                <entity-one entity-name="DataResource" value-name="thisDataResource">
+                <entity-one entity-name="DataResource" value-field="thisDataResource">
                     <field-map field-name="dataResourceId"/>
                 </entity-one>
                 <if-empty field="thisDataResource">

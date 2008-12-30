@@ -141,7 +141,7 @@
 		        <check-errors/>
         
                 <!-- grab the current requested content record -->
-                <entity-one entity-name="Content" value-name="content">
+                <entity-one entity-name="Content" value-field="content">
                     <field-map field-name="contentId" from-field="contentId"/>
                 </entity-one>
 
@@ -241,7 +241,7 @@
                                                 </and>                                                 
                                             </condition>
                                             <then>
-                                                <entity-one entity-name="Content" value-name="currentContent">
+                                                <entity-one entity-name="Content" value-field="currentContent">
                                                     <field-map field-name="contentId" from-field="checkId"/>
                                                 </entity-one>
                                                 <if>
@@ -318,7 +318,7 @@
                 <log level="verbose" message="Found necessary ROLE permission: ${primaryPermission}_${mainAction}"/>
 
                 <!-- obtain the current content record -->
-                <entity-one entity-name="Content" value-name="thisContent">
+                <entity-one entity-name="Content" value-field="thisContent">
                     <field-map field-name="contentId"/>
                 </entity-one>
                 <if-empty field="thisContent">
@@ -386,7 +386,7 @@
                                                 </and>
                                             </condition>
                                             <then>
-                                                <entity-one entity-name="Content" value-name="currentContent">
+                                                <entity-one entity-name="Content" value-field="currentContent">
                                                     <field-map field-name="contentId" from-field="checkId"/>
                                                 </entity-one>
                                                 <if>
@@ -434,7 +434,7 @@
             <set field="contentPurposeTypeId" value="_NA_"/>
         </if-empty>
 
-        <entity-one entity-name="Content" value-name="checkContent">
+        <entity-one entity-name="Content" value-field="checkContent">
             <field-map field-name="contentId" from-field="checkId"/>
         </entity-one>
         <set field="statusId" from-field="checkContent.statusId"/>
@@ -586,7 +586,7 @@
                                                         </and>
                                                     </condition>
                                                     <then>
-                                                        <entity-one entity-name="Content" value-name="currentContent">
+                                                        <entity-one entity-name="Content" value-field="currentContent">
                                                             <field-map field-name="contentId" from-field="checkId"/>
                                                         </entity-one>
                                                         <if>

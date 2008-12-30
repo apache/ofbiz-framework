@@ -55,7 +55,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
 
-        <entity-one entity-name="ItemIssuance" value-name="lookedUpValue"/>
+        <entity-one entity-name="ItemIssuance" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -67,7 +67,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
 
-        <entity-one entity-name="ItemIssuance" value-name="lookedUpValue"/>
+        <entity-one entity-name="ItemIssuance" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -94,7 +94,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
 
-        <entity-one entity-name="ItemIssuanceRole" value-name="lookedUpValue"/>
+        <entity-one entity-name="ItemIssuanceRole" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -110,7 +110,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
 
         <!-- get orderHeader -->
-        <entity-one entity-name="OrderHeader" value-name="orderHeader" auto-field-map="true"/>
+        <entity-one entity-name="OrderHeader" value-field="orderHeader" auto-field-map="true"/>
 
         <!-- make sure the order is NOT of orderTypeId: SALES_ORDER -->
         <if-compare field="orderHeader.orderTypeId" operator="equals" value="SALES_ORDER">
@@ -119,11 +119,11 @@ under the License.
         <check-errors/>
 
         <!-- get orderItem -->
-        <entity-one entity-name="OrderItem" value-name="orderItem" auto-field-map="true"/>
+        <entity-one entity-name="OrderItem" value-field="orderItem" auto-field-map="true"/>
         <!-- get orderItemShipGroupAssoc -->
-        <entity-one entity-name="OrderItemShipGroupAssoc" value-name="orderItemShipGroupAssoc" auto-field-map="true"/>
+        <entity-one entity-name="OrderItemShipGroupAssoc" value-field="orderItemShipGroupAssoc" auto-field-map="true"/>
         <!-- get shipment -->
-        <entity-one entity-name="Shipment" value-name="shipment" auto-field-map="true"/>
+        <entity-one entity-name="Shipment" value-field="shipment" auto-field-map="true"/>
 
         <call-simple-method method-name="findCreateIssueShipmentItem"/>
         <call-simple-method method-name="callCreateItemIssuance"/>
@@ -176,11 +176,11 @@ under the License.
         <check-errors/>
 
         <!-- get orderItem -->
-        <entity-one entity-name="OrderItem" value-name="orderItem"/>
+        <entity-one entity-name="OrderItem" value-field="orderItem"/>
         <!-- get inventoryItem -->
-        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
         <!-- get shipment -->
-        <entity-one entity-name="Shipment" value-name="shipment"/>
+        <entity-one entity-name="Shipment" value-field="shipment"/>
         <!-- get orderShipment -->
         <make-value entity-name="OrderShipment" value-field="orderShipmentLookupPk"/>
         <set-pk-fields value-field="orderShipmentLookupPk" map="parameters"/>
@@ -348,8 +348,8 @@ under the License.
     </simple-method>
     
     <simple-method method-name="issueInventoryItemToFixedAssetMaint" short-description="Issue InventoryItem To FixedAssetMaint">
-        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
-        <entity-one entity-name="FixedAssetMaint" value-name="fixedAssetMaint"/>
+        <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
+        <entity-one entity-name="FixedAssetMaint" value-field="fixedAssetMaint"/>
 
         <!-- make sure specified quantity is not less than or equal to 0 -->
         <if-compare field="parameters.quantity" operator="less-equals" value="0" type="Double">
@@ -389,7 +389,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="returnInventoryItemIssuedToFixedAssetMaint" short-description="Return the InventoryItem Issued To FixedAssetMaint">
-        <entity-one entity-name="ItemIssuance" value-name="itemIssuance"/>
+        <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <set field="oldQuantity" from-field="itemIssuance.quantity"/>
         <!-- Update the ItemIssuance -->
         <set value="0" field="itemIssuanceUpdate.quantity" type="Double" />
@@ -417,7 +417,7 @@ under the License.
         </check-permission>
 
         <!-- get ItemIssuance and related entities-->
-        <entity-one entity-name="ItemIssuance" value-name="itemIssuance"/>
+        <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
         <get-related-one value-name="itemIssuance" relation-name="OrderHeader" to-value-name="orderHeader"/>
         <get-related-one value-name="itemIssuance" relation-name="InventoryItem" to-value-name="inventoryItem"/>
         <get-related-one value-name="itemIssuance" relation-name="Shipment" to-value-name="shipment"/>        
@@ -486,7 +486,7 @@ under the License.
         <call-service service-name="reassignInventoryReservations" in-map-name="reassignInventoryReservationsCtx"/>
       
         <!-- reserve the order item -->
-        <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
+        <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="false">
             <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
         </entity-one>           
         <if-compare value="Y" operator="equals" field="productStore.isImmediatelyFulfilled">
@@ -508,7 +508,7 @@ under the License.
     <simple-method method-name="issueInventoryItemToShipment" short-description="Issue InventoryItem To Shipment">
         <set field="shipmentId" from-field="parameters.shipmentId"/>
         <set field="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
-        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
         <entity-and entity-name="ReturnItemShipment" list-name="returnItemShipments">
           <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
           <field-map field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>

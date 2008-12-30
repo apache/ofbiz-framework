@@ -36,7 +36,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCategory you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <entity-one entity-name="ProductFeatureCategory" value-name="productFeatureCategory"/>
+        <entity-one entity-name="ProductFeatureCategory" value-field="productFeatureCategory"/>
         <set-nonpk-fields value-field="productFeatureCategory" map="parameters"/>
         <store-value value-name="productFeatureCategory"/>
     </simple-method>
@@ -61,7 +61,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeature you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="ProductFeature" value-name="productFeature"/>
+        <entity-one entity-name="ProductFeature" value-field="productFeature"/>
         <set-nonpk-fields map="parameters" value-field="productFeature"/>
         <store-value value-name="productFeature"/>
     </simple-method>
@@ -86,7 +86,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-errors/>
         
-        <entity-one entity-name="ProductFeatureAppl" value-name="productFeatureAppl"/>
+        <entity-one entity-name="ProductFeatureAppl" value-field="productFeatureAppl"/>
         <set-nonpk-fields map="parameters" value-field="productFeatureAppl"/>
         <store-value value-name="productFeatureAppl"/>
     </simple-method>
@@ -96,7 +96,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-errors/>
         
-        <entity-one entity-name="ProductFeatureAppl" value-name="productFeatureAppl"/>
+        <entity-one entity-name="ProductFeatureAppl" value-field="productFeatureAppl"/>
         <!-- This is old code that just sets the thru date; the current codes actually removes the db row
         <if-empty field="parameters.thruDate">
             <now-timestamp-to-env env-name="nowStamp"/>
@@ -219,7 +219,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureGroup you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <entity-one entity-name="ProductFeatureGroup" value-name="productFeatureGroup"/>
+        <entity-one entity-name="ProductFeatureGroup" value-field="productFeatureGroup"/>
         <set-nonpk-fields map="parameters" value-field="productFeatureGroup"/>
         <store-value value-name="productFeatureGroup"/>
     </simple-method>
@@ -350,7 +350,7 @@ under the License.
             <fail-message message="Security Error: to run updateProductFeatureApplAttr you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <entity-one entity-name="ProductFeatureApplAttr" value-name="productFeatureApplAttr" auto-field-map="true"/>
+        <entity-one entity-name="ProductFeatureApplAttr" value-field="productFeatureApplAttr" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="productFeatureApplAttr"/>
         <store-value value-name="productFeatureApplAttr"/>
@@ -363,7 +363,7 @@ under the License.
             <fail-message message="Security Error: to run removeProductFeatureApplAttr you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <entity-one entity-name="ProductFeatureApplAttr" value-name="productFeatureApplAttr" auto-field-map="true"/>
+        <entity-one entity-name="ProductFeatureApplAttr" value-field="productFeatureApplAttr" auto-field-map="true"/>
         <check-errors/>
         <remove-value value-name="productFeatureApplAttr"/>
         <check-errors/>
@@ -393,7 +393,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFeaturePrice" short-description="Update a feature price">
-        <entity-one entity-name="ProductFeaturePrice" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductFeaturePrice" value-field="lookedUpValue"/>
         
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         

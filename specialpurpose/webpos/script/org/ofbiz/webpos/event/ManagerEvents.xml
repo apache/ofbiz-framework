@@ -202,7 +202,7 @@ under the License.
                         <call-object-method obj-field-name="terminalState" method-name="getTimestamp" ret-field-name="openDate">
                             <field field-name="fieldName" type="String"/>
                         </call-object-method>
-                        <entity-one entity-name="OrderHeader" value-name="orderHeader">
+                        <entity-one entity-name="OrderHeader" value-field="orderHeader">
                             <field-map field-name="orderId" from-field="parameters.orderId"/>
                         </entity-one>
                         <if-not-empty field="orderHeader">

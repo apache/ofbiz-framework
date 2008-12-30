@@ -75,7 +75,7 @@ under the License.
         </if-empty>
         
         <!-- first try the regular UomConversion entity (no dates) -->
-        <entity-one entity-name="UomConversion" value-name="uomConversion" auto-field-map="true" use-cache="true"/>
+        <entity-one entity-name="UomConversion" value-field="uomConversion" auto-field-map="true" use-cache="true"/>
         
         <!-- if not found, try the dated uom conversion entity -->
         <if-empty field="uomConversion">
@@ -161,7 +161,7 @@ under the License.
     <!-- convertUomCustom: Dispatcher for calling Custom Method for UoM conversion -->
     <simple-method method-name="convertUomCustom" short-description="Convert UOM values using CustomMethod" login-required="false">
         <set field="customMethodId" from-field="parameters.uomConversion.customMethodId"/>
-        <entity-one entity-name="CustomMethod" value-name="customMethod" auto-field-map="true" use-cache="true"/>
+        <entity-one entity-name="CustomMethod" value-field="customMethod" auto-field-map="true" use-cache="true"/>
         
         <if-empty field="customMethod.customMethodName">
             <add-error> <fail-property property="NoCustomMethodName" resource="CommonUiLabels"/> </add-error>

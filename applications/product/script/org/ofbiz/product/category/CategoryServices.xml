@@ -81,7 +81,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <entity-one entity-name="ProductCategory" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductCategory" value-field="lookedUpValue"/>
         <!-- save this value before overwriting it so we can compare it later -->
         <!-- <field-to-field field-name="primaryParentCategoryId" map-name="lookedUpValue" to-map-name="saveIdMap"/> -->
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -200,7 +200,7 @@ under the License.
          -->
 
         <!-- If the associated category was the primary category for the product, clear that field -->
-        <entity-one entity-name="Product" value-name="product" auto-field-map="true"/>
+        <entity-one entity-name="Product" value-field="product" auto-field-map="true"/>
         <if-compare-field field="product.primaryProductCategoryId" to-field="parameters.productCategoryId" operator="equals">
             <clear-field field="product.primaryProductCategoryId"/>
             <store-value value-name="product"/>
@@ -545,7 +545,7 @@ under the License.
 
         <!-- set isVirtual based on hasSelectableFeatures -->
         <if-compare field="hasSelectableFeatures" operator="equals" value="Y">
-            <entity-one entity-name="Product" value-name="newProduct"/>
+            <entity-one entity-name="Product" value-field="newProduct"/>
             <set field="newProduct.isVirtual" value="Y"/>
             <store-value value-name="newProduct"/>
         </if-compare>
@@ -560,7 +560,7 @@ under the License.
         <check-errors/>
 
         <!-- look up the old product category and clone it -->
-        <entity-one entity-name="ProductCategory" value-name="oldCategory">
+        <entity-one entity-name="ProductCategory" value-field="oldCategory">
             <field-map field-name="productCategoryId" from-field="parameters.oldProductCategoryId"/>
         </entity-one>
         <clone-value value-name="oldCategory" new-value-name="newCategory"/>
@@ -686,13 +686,13 @@ under the License.
     </simple-method>   
     
     <simple-method method-name="updateProductCategoryLink" short-description="update a ProductCategoryLink">
-        <entity-one entity-name="ProductCategoryLink" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductCategoryLink" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteProductCategoryLink" short-description="delete a ProductCategoryLink">        
-        <entity-one entity-name="ProductCategoryLink" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductCategoryLink" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -804,7 +804,7 @@ under the License.
         </entity-condition>
         <iterate entry="prodCatalogCategory" list="prodCatalogCategoryList">
             <!-- Do not do a permission check unless the ProdCatalog requires it -->
-            <entity-one entity-name="ProdCatalog" value-name="prodCatalog" auto-field-map="false">
+            <entity-one entity-name="ProdCatalog" value-field="prodCatalog" auto-field-map="false">
                 <field-map field-name="prodCatalogId" from-field="prodCatalogCategory.prodCatalogId"/>
             </entity-one>
             <if>

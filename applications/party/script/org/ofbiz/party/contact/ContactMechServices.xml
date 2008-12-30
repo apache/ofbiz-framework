@@ -255,12 +255,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateContactMechAttribute" short-description="updateContactMechAttribute">
-        <entity-one entity-name="ContactMechAttribute" value-name="lookedUpValue"/>
+        <entity-one entity-name="ContactMechAttribute" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContactMechAttribute" short-description="removeContactMechAttribute">
-        <entity-one entity-name="ContactMechAttribute" value-name="lookedUpValue"/>
+        <entity-one entity-name="ContactMechAttribute" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 

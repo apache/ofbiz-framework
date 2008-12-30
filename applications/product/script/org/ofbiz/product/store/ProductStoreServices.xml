@@ -394,8 +394,8 @@ under the License.
 
     <!-- Store Inventory Services -->
     <simple-method method-name="reserveStoreInventory" short-description="Reserve Store Inventory">
-        <entity-one entity-name="Product" value-name="product" use-cache="true"/>
-        <entity-one entity-name="ProductStore" value-name="productStore" use-cache="true"/>
+        <entity-one entity-name="Product" value-field="product" use-cache="true"/>
+        <entity-one entity-name="ProductStore" value-field="productStore" use-cache="true"/>
         <if-empty field="productStore">
             <add-error><fail-message message="No ProductStore found with id ${parameters.productStoreId}, not reserving inventory."/></add-error>
             <check-errors/>
@@ -507,13 +507,13 @@ under the License.
 
     <simple-method method-name="isStoreInventoryRequired" short-description="Is Store Inventory Required" login-required="false">
         <if-empty field="parameters.productStore">
-            <entity-one entity-name="ProductStore" value-name="productStore" use-cache="true"/>
+            <entity-one entity-name="ProductStore" value-field="productStore" use-cache="true"/>
         <else>
             <set from-field="parameters.productStore" field="productStore"/>
         </else>
         </if-empty>
         <if-empty field="parameters.product">
-            <entity-one entity-name="Product" value-name="product" use-cache="true"/>
+            <entity-one entity-name="Product" value-field="product" use-cache="true"/>
         <else>
             <set from-field="parameters.product" field="product"/>
         </else>
@@ -534,13 +534,13 @@ under the License.
 
     <simple-method method-name="isStoreInventoryAvailable" short-description="Is Store Inventory Available" login-required="false">
         <if-empty field="parameters.productStore">
-            <entity-one entity-name="ProductStore" value-name="productStore" use-cache="true"/>
+            <entity-one entity-name="ProductStore" value-field="productStore" use-cache="true"/>
         <else>
             <set from-field="parameters.productStore" field="productStore"/>
         </else>
         </if-empty>
         <if-empty field="parameters.product">
-            <entity-one entity-name="Product" value-name="product" use-cache="true"/>
+            <entity-one entity-name="Product" value-field="product" use-cache="true"/>
         <else>
             <set from-field="parameters.product" field="product"/>
         </else>
@@ -671,13 +671,13 @@ under the License.
 
     <simple-method method-name="isStoreInventoryAvailableOrNotRequired" short-description="Is Store Inventory Available or Not Required" login-required="false">
         <if-empty field="parameters.productStore">
-            <entity-one entity-name="ProductStore" value-name="productStore" use-cache="true"/>
+            <entity-one entity-name="ProductStore" value-field="productStore" use-cache="true"/>
         <else>
             <set from-field="parameters.productStore" field="productStore"/>
         </else>
         </if-empty>
         <if-empty field="parameters.product">
-            <entity-one entity-name="Product" value-name="product" use-cache="true"/>
+            <entity-one entity-name="Product" value-field="product" use-cache="true"/>
         <else>
             <set from-field="parameters.product" field="product"/>
         </else>

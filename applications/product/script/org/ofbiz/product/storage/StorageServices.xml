@@ -208,7 +208,7 @@ under the License.
     </simple-method>         
     
     <simple-method method-name="removePartyFromFacility" short-description="Remove Party From Facility">
-        <entity-one entity-name="FacilityParty" value-name="lookedUpValue"/>
+        <entity-one entity-name="FacilityParty" value-field="lookedUpValue"/>
         <now-timestamp-to-env env-name="thruDate"/>
         <set field="lookedUpValue.thruDate" from-field="thruDate"/>
         <store-value value-name="lookedUpValue"/>

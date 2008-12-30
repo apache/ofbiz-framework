@@ -39,7 +39,7 @@ under the License.
         <store-value value-name="timesheet"/>
     </simple-method>
     <simple-method method-name="updateTimesheetToInProcess" short-description="Updates the Timesheet status back to in process to be able to correct errors">
-        <entity-one entity-name="Timesheet" value-name="timesheet"/>
+        <entity-one entity-name="Timesheet" value-field="timesheet"/>
         <set field="timesheet.statusId" value="TIMESHEET_IN_PROCESS"/>
         <store-value value-name="timesheet"/>
     </simple-method>
@@ -85,7 +85,7 @@ under the License.
         <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="Timesheet" value-name="timesheet"/>
+        <entity-one entity-name="Timesheet" value-field="timesheet"/>
         <get-related value-name="timesheet" relation-name="TimeEntry" list-name="timeEntryList"/>
         
         <if-empty field="parameters.invoiceId">
@@ -101,7 +101,7 @@ under the License.
         </else>
         </if-empty>
         
-        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-empty field="invoice">
             <add-error><fail-message message="Could not find invoice with ID [${invoiceId}], not adding Timesheet Entries to it."/></add-error>
             <check-errors/>
@@ -112,7 +112,7 @@ under the License.
     <simple-method method-name="addWorkEffortTimeToInvoice" short-description="Add Work Effort Time to Invoice">
         <check-permission permission="WORKEFFORTMGR" action="_CREATE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
         <check-errors/>
-        <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
         <if-empty field="parameters.invoiceId">
             <set-service-fields service-name="createInvoice" map-name="parameters" to-map-name="createInvoiceMap"/>
             <set field="createInvoiceMap.invoiceTypeId" value="SALES_INVOICE"/>
@@ -122,14 +122,14 @@ under the License.
             </call-service>
             <field-to-result field-name="parameters.invoiceId" result-name="invoiceId"/>
         </if-empty>
-        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-empty field="invoice">
             <add-error><fail-message message="Could not find invoice with ID [${parameters.invoiceId}], not adding Timesheet Entries to it."/></add-error>
             <check-errors/>
         </if-empty>
         <!-- update currency, can be changed with regenerate -->
         <!-- find the currency of the receiving party -->
-        <entity-one entity-name="Party" value-name="party">
+        <entity-one entity-name="Party" value-field="party">
             <field-map field-name="partyId" value="${invoice.partyId}"/>
         </entity-one>
         <set field="updateInvoiceMap.invoiceId" from-field="parameters.invoiceId"/>
@@ -139,7 +139,7 @@ under the License.
             <property-to-field field-name="invoice.currencyUomId" resource="general" property="currency.uom.id.default" default="USD"/>
         </if-empty>                
         <call-service service-name="updateInvoice" in-map-name="updateInvoiceMap"/>
-        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <entity-one entity-name="Invoice" value-field="invoice"/>
         <call-simple-method method-name="createTimeEntryInvoiceItemsInline"/>
     </simple-method>
     <simple-method method-name="createTimeEntryInvoiceItemsInline" short-description="createTimeEntryInvoiceItemsInline">
@@ -168,7 +168,7 @@ under the License.
                             <!-- check if only a percentage of the hours need to be used -->
                             <if-empty field="timeEntry.partyId">
                                 <if-not-empty field="timeEntry.timesheetId">
-                                    <entity-one entity-name="Timesheet" value-name="timesheet">
+                                    <entity-one entity-name="Timesheet" value-field="timesheet">
                                         <field-map field-name="timesheetId" from-field="timeEntry.timesheetId"/>
                                     </entity-one>
                                     <set field="timeEntry.partyId" from-field="timesheet.partyId"/>                                    
@@ -289,7 +289,7 @@ under the License.
         <check-permission permission="WORKEFFORTMGR" action="_DELETE"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TimesheetRole" value-name="lookedUpValue"/>
+        <entity-one entity-name="TimesheetRole" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -311,7 +311,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateTimeEntry" short-description="Update TimeEntry">
-        <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
+        <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
         <!-- allow update of invoiceId and seqId if not yet filled, else check status -->
         <if-not-empty field="parameters.invoiceId">
             <if-empty field="lookedUpValue.invoiceId">
@@ -326,12 +326,12 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTimeEntry" short-description="Delete TimeEntry">
-        <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
+        <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
         <call-simple-method method-name="checkTimesheetStatus"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="unlinkInvoiceFromTimeEntry" short-description="Delete TimeEntry">
-        <entity-one entity-name="TimeEntry" value-name="lookedUpValue"/>
+        <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
         <field-to-result field-name="invoiceId" map-name="lookedUpValue"/>
         <clear-field field="lookedUpValue.invoiceId"/>
         <store-value value-name="lookedUpValue"/>
@@ -340,7 +340,7 @@ under the License.
         <check-permission permission="WORKEFFORTMGR" action="_VIEW"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="TimeEntry" value-name="timeEntry"/>
+        <entity-one entity-name="TimeEntry" value-field="timeEntry"/>
 
         <set-service-fields service-name="getRateAmount" map-name="parameters" to-map-name="getRate"/>
         <set field="getRate.rateCurrencyUomId" from-field="parameters.currencyUomId"/>
@@ -372,7 +372,7 @@ under the License.
                 <if-empty field="parameters.timesheetId">
                     <set field="parameters.timesheetId" from-field="lookedUpValue.timesheetId"/>
                 </if-empty>
-                <entity-one entity-name="Timesheet" value-name="timesheet"/>
+                <entity-one entity-name="Timesheet" value-field="timesheet"/>
                 <if-empty field="timesheet">
                     <add-error><fail-message message="Timesheet could not be found, timesheetId: ${parameters.timesheetId}"/></add-error>
                     <log level="info" message="Timesheet not found, timesheet: ${parameters.timesheetId}"/>

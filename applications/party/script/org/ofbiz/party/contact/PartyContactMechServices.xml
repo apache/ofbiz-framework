@@ -32,7 +32,7 @@ under the License.
             <field-map field-name="partyId" from-field="parameters.partyId"/>
         </entity-and>
         <iterate entry="partyAndContactMech" list="partyAndContactMechs">
-            <entity-one entity-name="ContactMechType" value-name="contactMechType">
+            <entity-one entity-name="ContactMechType" value-field="contactMechType">
                 <field-map field-name="contactMechTypeId" from-field="partyAndContactMech.contactMechTypeId"/>
             </entity-one>
             <if>
@@ -377,7 +377,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updatePostalAddressAndPurposes" short-description="Update postal address, purposes and set them defaults" login-required="false">
-        <entity-one entity-name="PartyProfileDefault" value-name="partyProfileDefault">
+        <entity-one entity-name="PartyProfileDefault" value-field="partyProfileDefault">
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
             <field-map field-name="productStoreId" from-field="parameters.productStoreId"/>
         </entity-one>
