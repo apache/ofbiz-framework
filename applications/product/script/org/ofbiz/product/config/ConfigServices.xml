@@ -28,7 +28,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductConfig"/>
+        <make-value value-field="newEntity" entity-name="ProductConfig"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -48,7 +48,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductConfig" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductConfig" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductConfig" map-name="lookupPKMap" value-name="lookedUpValue"/>
 
@@ -63,7 +63,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductConfig" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductConfig" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductConfig" map-name="lookupPKMap" value-name="lookedUpValue"/>
 
@@ -76,7 +76,7 @@ under the License.
             <fail-message message="Security Error: to run createProductConfigItem you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductConfigItem" value-name="newEntity"/>
+        <make-value entity-name="ProductConfigItem" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductConfigItem" env-name="newEntity.configItemId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -87,7 +87,7 @@ under the License.
             <fail-message message="Security Error: to run updateProductConfigItem you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductConfigItem" value-name="lookupKeyValue"/>
+        <make-value entity-name="ProductConfigItem" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -98,7 +98,7 @@ under the License.
             <fail-message message="Security Error: to run deleteProductConfigItem you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductConfigItem" value-name="lookupKeyValue"/>
+        <make-value entity-name="ProductConfigItem" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -109,7 +109,7 @@ under the License.
             <fail-message message="Security Error: to run createProductConfigOption you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductConfigOption" value-name="newEntity"/>
+        <make-value entity-name="ProductConfigOption" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductConfigOption" env-name="newEntity.configOptionId"/>
@@ -122,7 +122,7 @@ under the License.
             <fail-message message="Security Error: to run updateProductConfigOption you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductConfigOption" value-name="lookupKeyValue"/>
+        <make-value entity-name="ProductConfigOption" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -133,7 +133,7 @@ under the License.
             <fail-message message="Security Error: to run deleteProductConfigOption you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductConfigOption" value-name="lookupKeyValue"/>
+        <make-value entity-name="ProductConfigOption" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -144,7 +144,7 @@ under the License.
             <fail-message message="Security Error: to run createProductConfigProduct you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductConfigProduct" value-name="newEntity"/>
+        <make-value entity-name="ProductConfigProduct" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -154,7 +154,7 @@ under the License.
             <fail-message message="Security Error: to run updateProductConfigProduct you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductConfigProduct" value-name="lookupKeyValue"/>
+        <make-value entity-name="ProductConfigProduct" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -165,7 +165,7 @@ under the License.
             <fail-message message="Security Error: to run deleteProductConfigProduct you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value entity-name="ProductConfigProduct" value-name="lookupKeyValue"/>
+        <make-value entity-name="ProductConfigProduct" value-field="lookupKeyValue"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

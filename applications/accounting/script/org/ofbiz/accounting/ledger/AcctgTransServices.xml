@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ========= AcctgTrans methods ========= -->
     <simple-method method-name="createAcctgTrans" short-description="Create an AcctgTrans">
-        <make-value entity-name="AcctgTrans" value-name="newEntity"/>
+        <make-value entity-name="AcctgTrans" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set field="newEntity.isPosted" value="N"/>
 
@@ -64,7 +64,7 @@ under the License.
     
     <!-- ========= AcctgTransEntry methods ========= -->
     <simple-method method-name="createAcctgTransEntry" short-description="Add Entry To AcctgTrans">
-        <make-value entity-name="AcctgTransEntry" value-name="newEntity"/>
+        <make-value entity-name="AcctgTransEntry" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
@@ -158,7 +158,7 @@ under the License.
         </entity-condition>
         <calculate field-name="debitTotal" type="BigDecimal"><number value="0"/></calculate>
         <calculate field-name="creditTotal" type="BigDecimal"><number value="0"/></calculate>
-        <iterate entry="acctgTransEntry" list-name="acctgTransEntryList">
+        <iterate entry="acctgTransEntry" list="acctgTransEntryList">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
                <calculate field-name="debitTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                         <calcop operator="add">
@@ -241,7 +241,7 @@ under the License.
         
         <!-- get current period(s) and check if closed -->
         <!-- also check if the glAccountId, amount, currencyUomId fields are all set -->
-        <iterate entry="acctgTransEntry" list-name="acctgTransEntryList">
+        <iterate entry="acctgTransEntry" list="acctgTransEntryList">
             <!-- we want to do this for each organizationPartyId, so only do this if we haven't already found the list for the current org -->
             <if-empty field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}">
                 <clear-field field-name="findCustomTimePeriodCallMap"/>
@@ -260,7 +260,7 @@ under the License.
                     <add-error><fail-message message="Could not find a CustomTimePeriod (fiscal period) for the Transaction Date [${acctgTrans.transactionDate}] (is for Organization Party with ID [${acctgTransEntry.organizationPartyId}])"/></add-error>
                 </if-empty>
                 <!-- now do the actual isClose check -->
-                <iterate entry="customTimePeriod" list-name="customTimePeriodList">
+                <iterate entry="customTimePeriod" list="customTimePeriodList">
                     <if-compare field="customTimePeriod.isClosed" operator="equals" value="Y">
                         <add-error><fail-message message="CustomTimePeriod (fiscal period) [${customTimePeriod.customTimePeriodId}] is CLOSED, cannot post to it (is for the Transaction Date [${acctgTrans.transactionDate}] and Organization Party with ID [${acctgTransEntry.organizationPartyId}])"/></add-error>
                     </if-compare>
@@ -292,7 +292,7 @@ under the License.
         <else>
             <!-- if there are errors and we have an error journal assign to the journal and return -->
             <if-not-empty field="error_list">
-                <iterate list-name="acctgTransEntryList" entry-name="acctgTransEntry">
+                <iterate list="acctgTransEntryList" entry="acctgTransEntry">
                     <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
 		             <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
 		                 <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
@@ -312,7 +312,7 @@ under the License.
                 </iterate>
             </if-not-empty>
             <!-- TODO: for each entry: lookup GlAccount, update posted balance -->
-            <iterate entry="acctgTransEntry" list-name="acctgTransEntryList">
+            <iterate entry="acctgTransEntry" list="acctgTransEntryList">
                 <!-- Get all data to operate on: GlAccount, GlAccountOrganization, GlAccountHistory -->
                 <clear-field field-name="glAccount"/>
                 <clear-field field-name="glAccountOrganization"/>
@@ -383,7 +383,7 @@ under the License.
 
                 <!-- assemble the glAccountHistoryList, we will update all of these -->
                 <set from-field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}" field="customTimePeriodList"/>
-                <iterate entry="customTimePeriod" list-name="customTimePeriodList">
+                <iterate entry="customTimePeriod" list="customTimePeriodList">
                     <entity-one entity-name="GlAccountHistory" value-name="glAccountHistory">
                         <field-map field-name="glAccountId" from-field="acctgTransEntry.glAccountId"/>
                         <field-map field-name="organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
@@ -391,7 +391,7 @@ under the License.
                     </entity-one>
                     <!-- if no glAccountHistory create a new empty one -->
                     <if-empty field="glAccountHistory">
-                        <make-value value-name="glAccountHistory" entity-name="GlAccountHistory"/>
+                        <make-value value-field="glAccountHistory" entity-name="GlAccountHistory"/>
                         <set from-field="acctgTransEntry.glAccountId" field="glAccountHistory.glAccountId"/>
                         <set from-field="acctgTransEntry.organizationPartyId" field="glAccountHistory.organizationPartyId"/>
                         <set from-field="customTimePeriod.customTimePeriodId" field="glAccountHistory.customTimePeriodId"/>

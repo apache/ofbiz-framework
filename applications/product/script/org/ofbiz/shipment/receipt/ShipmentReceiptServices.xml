@@ -24,7 +24,7 @@ under the License.
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run createShipmentReceipt you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ShipmentReceipt"/>
+        <make-value value-field="newEntity" entity-name="ShipmentReceipt"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
         <sequenced-id-to-env sequence-name="ShipmentReceipt" env-name="receiptId"/>
@@ -54,7 +54,7 @@ under the License.
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="Security Error: to run createShipmentReceiptRole you must have the FACILITY_CREATE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ShipmentReceiptRole"/>
+        <make-value value-field="newEntity" entity-name="ShipmentReceiptRole"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
                         
@@ -65,7 +65,7 @@ under the License.
         <check-permission permission="FACILITY" action="_DELETE"><fail-message message="Security Error: to run removeShipmentReceiptRole you must have the FACILITY_DELETE or FACILITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ShipmentReceiptRole"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentReceiptRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentReceiptRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -226,7 +226,7 @@ under the License.
                 </entity-count>
                 <set field="nonProductItems" type="Long" value="0"/>
 
-                <iterate entry="returnItem" list-name="returnItems">
+                <iterate entry="returnItem" list="returnItems">
                     <!-- record this return item on the return shipment as well.  not sure if this is actually necessary... -->
                     <clear-field field-name="shipItemCtx"/>
                     <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
@@ -237,7 +237,7 @@ under the License.
                         <result-to-field result-name="shipmentItemSeqId"/>
                     </call-service>
                 </iterate>
-                <iterate entry="returnItem" list-name="returnItems">
+                <iterate entry="returnItem" list="returnItems">
                     <clear-field field-name="receiveCtx"/>
                                         
                     <if-empty field="returnItem.expectedItemStatus">

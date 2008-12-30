@@ -27,7 +27,7 @@ under the License.
         <field-to-field field-name="currency" map-name="parameters" to-map-name="captureParams" />
         <string-to-field string="PAYMENT_AUTHORIZED" field-name="paymentStatusId" map-name="orderLookup" />
         <find-by-and entity-name="OrderHeaderAndPaymentPref" map-name="orderLookup" list-name="orderHeaderAndPaymentPrefs" />
-        <iterate entry="orderHeaderAndPaymentPref" list-name="orderHeaderAndPaymentPrefs" >
+        <iterate entry="orderHeaderAndPaymentPref" list="orderHeaderAndPaymentPrefs" >
             <field-to-field map-name="orderHeaderAndPaymentPref" field-name="orderId" to-map-name="captureParams" />
             <call-service service-name="capturePayment" in-map-name="captureParams" error-code="ignore-error">
                 <result-to-field map-name="captureResult" result-name="responseMessage" />
@@ -53,7 +53,7 @@ under the License.
 -->
             
     <simple-method method-name="setPaymentMethodAddress" short-description="Set the initial payment method address">
-        <make-value value-name="lookupPKMap" entity-name="PaymentMethod"/>
+        <make-value value-field="lookupPKMap" entity-name="PaymentMethod"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="PaymentMethod" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <if-compare field="lookedUpValue.paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
@@ -79,7 +79,7 @@ under the License.
         <set field="lookupMap.contactMechId" from-field="parameters.oldContactMechId"/>
         
         <find-by-and entity-name="CreditCard" map-name="lookupMap" list-name="creditCards"/>
-        <iterate entry="creditCard" list-name="creditCards">
+        <iterate entry="creditCard" list="creditCards">
             <call-class-method class-name="org.ofbiz.base.util.UtilValidate" method-name="isDateAfterToday" ret-field-name="isNotExpired">
                 <field field-name="creditCard.expireDate"/>
             </call-class-method>
@@ -93,7 +93,7 @@ under the License.
         </iterate>
         
         <find-by-and entity-name="EftAccount" map-name="lookupMap" list-name="eftAccounts"/>
-        <iterate entry="eftAccount" list-name="eftAccounts">
+        <iterate entry="eftAccount" list="eftAccounts">
             <set-service-fields service-name="updateEftAccount" map-name="eftAccount" to-map-name="ueaMap"/>
             <set field="ueaMap.contactMechId" from-field="parameters.contactMechId"/>
             <set field="ueaMap.partyId" from-field="parameters.partyId"/>
@@ -103,7 +103,7 @@ under the License.
     </simple-method>
     <!--CreateCreditCardTypeGlAccount methods -->
     <simple-method method-name="createCreditCardTypeGlAccount" short-description="Create a Credit Card Gl Account">
-        <make-value entity-name="CreditCardTypeGlAccount" value-name="newEntity"/>
+        <make-value entity-name="CreditCardTypeGlAccount" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>

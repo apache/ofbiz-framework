@@ -102,7 +102,7 @@ under the License.
                 <field-map field-name="partyIdFrom" value="${userLogin.partyId}"/>
                 <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN"/>
             </entity-and>
-            <iterate entry-name="emailOwners" list-name="emailOwner">
+            <iterate entry="emailOwners" list="emailOwner">
                 <if-compare operator="equals" value="${userLogin.partyId}"
                     field="emailOwner.partyIdTo">
                     <set field="found" value="true"/>
@@ -116,7 +116,7 @@ under the License.
     <simple-method method-name="createCommunicationEventRoles" short-description="">
         <entity-condition list-name="commEvents" entity-name="CommunicationEvent"/>
         <set field="count" value="0" type="Integer"/>
-        <iterate entry-name="commEvent" list-name="commEvents">
+        <iterate entry="commEvent" list="commEvents">
             <log level="always" message="====processing: ${commEvent.communicationEventId}"/>
             <get-related value-name="commEvent" relation-name="CommunicationEventRole"
                 list-name="roles"/>
@@ -128,12 +128,12 @@ under the License.
                         <field-map field-name="roleTypeId" value="ADDRESSEE"/>
                     </entity-one>
                     <if-empty field="partyRole">
-                        <make-value entity-name="PartyRole" value-name="partyRole"/>
+                        <make-value entity-name="PartyRole" value-field="partyRole"/>
                         <set field="partyRole.partyId" value="${commEvent.partyIdTo}"/>
                         <set field="partyRole.roleTypeId" value="ADDRESSEE"/>
                         <create-value value-name="partyRole"/>
                     </if-empty>
-                    <make-value entity-name="CommunicationEventRole" value-name="commRole"/>
+                    <make-value entity-name="CommunicationEventRole" value-field="commRole"/>
                     <set field="commRole.communicationEventId"
                         from-field="commEvent.communicationEventId"/>
                     <set field="commRole.partyId" from-field="commEvent.partyIdTo"/>
@@ -149,7 +149,7 @@ under the License.
                         <field-map field-name="roleTypeId" value="ORIGINATOR"/>
                     </entity-one>
                     <if-empty field="partyRole">
-                        <make-value entity-name="PartyRole" value-name="partyRole"/>
+                        <make-value entity-name="PartyRole" value-field="partyRole"/>
                         <set field="partyRole.partyId" value="${commEvent.partyIdFrom}"/>
                         <set field="partyRole.roleTypeId" value="ORIGINATOR"/>
                         <create-value value-name="partyRole"/>

@@ -27,7 +27,7 @@ under the License.
             <add-error><fail-message message="Product with id [${productId}] doesn't exist."/></add-error>
         </if-empty>
         <check-errors/>
-        <make-value value-name="productDimension" entity-name="ProductDimension"/>
+        <make-value value-field="productDimension" entity-name="ProductDimension"/>
         <set-nonpk-fields map-name="product" value-name="productDimension"/>
 
         <get-related-one value-name="product" relation-name="ProductType" to-value-name="productType"/>
@@ -49,7 +49,7 @@ under the License.
     </simple-method>
     <simple-method method-name="loadAllProductsInProductDimension" short-description="">
         <entity-condition entity-name="Product" list-name="products"/>
-        <iterate list-name="products" entry-name="product">
+        <iterate list="products" entry="product">
             <set-service-fields service-name="loadProductInProductDimension" map-name="parameters" to-map-name="inMap"/>
             <set field="inMap.productId" from-field="product.productId"/>
             <call-service service-name="loadProductInProductDimension" in-map-name="inMap"/>

@@ -40,7 +40,7 @@ under the License.
                 <find-by-and entity-name="WorkEffortGoodStandard" list-name="components" map-name="lookupComponentsMap"/>
                 <filter-list-by-date list-name="components"/>
                 <!-- now go through each work effort good standard and call a service to issue the inventory -->
-                <iterate list-name="components" entry-name="component">
+                <iterate list="components" entry="component">
                     <if-not-empty field="component.productId">
                         <clear-field field-name="callSvcMap"/>
                         <set-service-fields to-map-name="callSvcMap" service-name="issueProductionRunTaskComponent" map-name="component"/>
@@ -123,7 +123,7 @@ under the License.
             <set from-field="estimatedQuantity" field="parameters.quantityNotIssued"/>
 
             <set field="parameters.useReservedItems" value="N"/>
-            <iterate entry="inventoryItem" list-name="inventoryItemList">
+            <iterate entry="inventoryItem" list="inventoryItemList">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                 <call-simple-method method-name="issueProductionRunTaskComponentInline"/>
             </iterate>
@@ -137,7 +137,7 @@ under the License.
                 </condition>
                 <then>
                     <set field="parameters.useReservedItems" value="Y"/>
-                    <iterate entry="inventoryItem" list-name="inventoryItemList">
+                    <iterate entry="inventoryItem" list="inventoryItemList">
                         <if-compare field="parameters.quantityNotIssued" operator="greater" value="0" type="Double">
                             <refresh-value value-name="inventoryItem"/>
                             <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
@@ -226,7 +226,7 @@ under the License.
                     <field-map field-name="workEffortId" from-field="workEffortGoodStandard.workEffortId"/>
                     <field-map field-name="productId" from-field="workEffortGoodStandard.productId"/>
                 </entity-and>
-                <iterate list-name="issuances" entry-name="issuance">
+                <iterate list="issuances" entry="issuance">
                     <calculate field-name="totalIssuance">
                         <calcop operator="add">
                             <calcop field-name="issuance.quantity" operator="get"/>

@@ -22,7 +22,7 @@
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createOpportunity" short-description="Create Opportunity for SFA">
-        <make-value entity-name="SalesOpportunity" value-name="newEntity"/>
+        <make-value entity-name="SalesOpportunity" value-field="newEntity"/>
         <if-empty field="parameters.salesOpportunityId">
             <sequenced-id-to-env sequence-name="SalesOpportunity" env-name="parameters.salesOpportunityId"/>
         </if-empty>

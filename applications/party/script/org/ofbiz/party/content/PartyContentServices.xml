@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createPartyContent" short-description="Create Party Content Entity">
-        <make-value value-name="partyContent" entity-name="PartyContent"/>
+        <make-value value-field="partyContent" entity-name="PartyContent"/>
         <set-pk-fields value-name="partyContent" map-name="parameters"/>
         <set-nonpk-fields value-name="partyContent" map-name="parameters"/>
 
@@ -35,7 +35,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updatePartyContent" short-description="Update Party Content Entity">
-        <make-value value-name="lookupPkMap" entity-name="PartyContent"/>
+        <make-value value-field="lookupPkMap" entity-name="PartyContent"/>
         <set-pk-fields value-name="lookupPkMap" map-name="parameters"/>
 
         <find-by-primary-key map-name="lookupPkMap" value-name="partyContent"/>
@@ -44,7 +44,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="removePartyContent" short-description="Update Party Content Entity">
-        <make-value value-name="lookupPkMap" entity-name="PartyContent"/>
+        <make-value value-field="lookupPkMap" entity-name="PartyContent"/>
         <set-pk-fields value-name="lookupPkMap" map-name="parameters"/>
 
         <find-by-primary-key map-name="lookupPkMap" value-name="partyContent"/>

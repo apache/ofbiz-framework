@@ -27,7 +27,7 @@ under the License.
         <call-simple-method method-name="checkSupplierRelatedPermission"/>
         <check-errors/>
 
-        <make-value entity-name="OrderDeliverySchedule" value-name="schedule"/>
+        <make-value entity-name="OrderDeliverySchedule" value-field="schedule"/>
         <set-pk-fields map-name="parameters" value-name="schedule"/>
         <if-empty field="schedule.orderItemSeqId">
             <set value="_NA_" field="schedule.orderItemSeqId"/>
@@ -52,7 +52,7 @@ under the License.
         <check-errors/>
 
         <!-- Lookup the existing schedule to modify -->
-        <make-value entity-name="OrderDeliverySchedule" value-name="lookupPkMap"/>
+        <make-value entity-name="OrderDeliverySchedule" value-field="lookupPkMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPkMap"/>
         <find-by-primary-key entity-name="OrderDeliverySchedule" map-name="lookupPkMap" value-name="schedule"/>
 
@@ -79,7 +79,7 @@ under the License.
             <set field="parameters.orderItemSeqId" value="_NA_"/>
         </if-empty>
         
-        <make-value entity-name="OrderDeliverySchedule" value-name="orderDeliverySchedule"/>
+        <make-value entity-name="OrderDeliverySchedule" value-field="orderDeliverySchedule"/>
         <set-pk-fields value-name="orderDeliverySchedule" map-name="parameters"/>
         <find-by-primary-key map-name="orderDeliverySchedule" value-name="orderDeliverySchedule"/>
         
@@ -93,7 +93,7 @@ under the License.
         <!-- find email addresses of all parties in SHIPMENT_CLERK roleTypeId, set as sendTo -->
         <set value="SHIPMENT_CLERK" field="shipmentClerkFindMap.roleTypeId"/>
         <find-by-and entity-name="PartyRole" map-name="shipmentClerkFindMap" list-name="shipmentClerkRoles"/>
-        <iterate entry="shipmentClerkRole" list-name="shipmentClerkRoles">
+        <iterate entry="shipmentClerkRole" list="shipmentClerkRoles">
             <set field="sendToPartyIdMap.${shipmentClerkRole.partyId}" from-field="shipmentClerkRole.partyId"/>
         </iterate>
         
@@ -102,7 +102,7 @@ under the License.
             <set field="sendToPartyPcmFindMap.partyId" from-field="sendToPartyId"/>
             <set field="sendToPartyPcmFindMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
             <find-by-and entity-name="PartyAndContactMech" map-name="sendToPartyPcmFindMap" list-name="sendToPartyPartyAndContactMechs"/>
-            <iterate entry="sendToPartyPartyAndContactMech" list-name="sendToPartyPartyAndContactMechs">
+            <iterate entry="sendToPartyPartyAndContactMech" list="sendToPartyPartyAndContactMechs">
                 <string-append field-name="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
             </iterate>
         </iterate-map>

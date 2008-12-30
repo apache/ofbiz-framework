@@ -24,7 +24,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureCategory you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
         
-        <make-value entity-name="ProductFeatureCategory" value-name="newEntity"/>
+        <make-value entity-name="ProductFeatureCategory" value-field="newEntity"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
 
         <sequenced-id-to-env sequence-name="ProductFeatureCategory" env-name="newEntity.productFeatureCategoryId"/>
@@ -45,7 +45,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeature you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
         
-        <make-value value-name="newEntity" entity-name="ProductFeature"/>
+        <make-value value-field="newEntity" entity-name="ProductFeature"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="parameters.productFeatureId">
             <sequenced-id-to-env sequence-name="ProductFeature" env-name="newEntity.productFeatureId"/>
@@ -75,7 +75,7 @@ under the License.
         <if-empty field="parameters.fromDate">
             <now-timestamp-to-env env-name="parameters.fromDate"/>
         </if-empty>
-        <make-value value-name="newEntity" entity-name="ProductFeatureAppl"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureAppl"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -120,7 +120,7 @@ under the License.
             <field-map field-name="idCode" from-field="parameters.idCode"/>
         </entity-and>
         
-        <iterate entry="productFeature" list-name="productFeatures">
+        <iterate entry="productFeature" list="productFeatures">
             <set-service-fields service-name="applyFeatureToProduct" map-name="parameters" to-map-name="applyFeatureContext"/>
             <set field="applyFeatureContext.productFeatureId" from-field="productFeature.productFeatureId"/>
 
@@ -137,7 +137,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureCategoryAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductFeatureCategoryAppl"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureCategoryAppl"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -151,7 +151,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCategoryAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -161,7 +161,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureCategoryAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -172,7 +172,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureCatGrpAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductFeatureCatGrpAppl"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureCatGrpAppl"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -186,7 +186,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureCatGrpAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -196,7 +196,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureCatGrpAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -207,7 +207,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureGroup you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductFeatureGroup"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureGroup"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <sequenced-id-to-env sequence-name="ProductFeatureGroup" env-name="newEntity.productFeatureGroupId"/>
@@ -227,7 +227,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureGroupAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductFeatureGroupAppl"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureGroupAppl"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -241,7 +241,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureGroupAppl you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductFeatureGroupAppl" map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -251,7 +251,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureGroupAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductFeatureGroupAppl" map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -261,7 +261,7 @@ under the License.
     <simple-method method-name="createProductFeatureIactn" short-description="Create a Product Feature Interaction">
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductFeatureIactn you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
-        <make-value value-name="newEntity" entity-name="ProductFeatureIactn"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureIactn"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -270,7 +270,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureInteraction you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
         
-        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureIactn"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductFeatureIactn"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -294,7 +294,7 @@ under the License.
         </if>
         <check-errors/>
                 
-        <make-value value-name="newEntity" entity-name="ProductFeatureType"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureType"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -304,7 +304,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductFeatureType you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureType"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductFeatureType"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -314,7 +314,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductFeatureType you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupKeyValue" entity-name="ProductFeatureType"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductFeatureType"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -326,7 +326,7 @@ under the License.
             <fail-message message="Security Error: to run createProductFeatureApplAttr you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/>
         </check-permission>
         <check-errors/>
-        <make-value value-name="newEntity" entity-name="ProductFeatureApplAttr"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureApplAttr"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
@@ -371,7 +371,7 @@ under the License.
     
     <!-- Feature Price Service -->
     <simple-method method-name="createFeaturePrice" short-description="Create a Feature Price">
-        <make-value value-name="newEntity" entity-name="ProductFeaturePrice"/>
+        <make-value value-field="newEntity" entity-name="ProductFeaturePrice"/>
         <if-empty field="parameters.productFeatureId">
             <sequenced-id-to-env sequence-name="ProductFeaturePrice" env-name="parameters.productFeatureId"/>
         </if-empty>
@@ -404,7 +404,7 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteFeaturePrice" short-description="Delete a feature price">
-        <make-value entity-name="ProductFeaturePrice" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductFeaturePrice" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductFeaturePrice" map-name="lookupPKMap" value-name="lookedUpValue"/>
          

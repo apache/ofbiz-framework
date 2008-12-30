@@ -122,7 +122,7 @@ under the License.
     <simple-method method-name="createInvoice" short-description="Create a new Invoice">
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
-        <make-value value-name="newEntity" entity-name="Invoice"/>
+        <make-value value-field="newEntity" entity-name="Invoice"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <!-- call getNextInvoiceId service with the parameters.partyIdFrom when invoice Id is not suplied
@@ -155,7 +155,7 @@ under the License.
         <create-value value-name="newEntity"/>
 
         <!-- create new status entry, and set lastStatusUpdate date -->
-        <make-value value-name="newInvoiceStatus" entity-name="InvoiceStatus"/>
+        <make-value value-field="newInvoiceStatus" entity-name="InvoiceStatus"/>
         <set from-field="newEntity.invoiceId" field="newInvoiceStatus.invoiceId"/>
         <set from-field="newEntity.statusId" field="newInvoiceStatus.statusId"/>
         <set from-field="nowTimestamp" field="newInvoiceStatus.statusDate"/>
@@ -182,7 +182,7 @@ under the License.
         </call-service>
         <field-to-result field-name="invoiceId" result-name="invoiceId"/>
         <field-to-request field-name="invoiceId" request-name="invoiceId"/>
-        <iterate entry="invoiceItem" list-name="invoiceItems">
+        <iterate entry="invoiceItem" list="invoiceItems">
             <set-service-fields service-name="createInvoiceItem" map-name="invoiceItem" to-map-name="createInvoiceItem"/>
             <set field="createInvoiceItem.invoiceId" from-field="invoiceId"/>
             <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItem"/>
@@ -191,7 +191,7 @@ under the License.
 
     <simple-method method-name="getInvoice" short-description="Retrieve an invoice and the items">
         <!-- find the invoice record -->
-        <make-value value-name="lookupPKMap" entity-name="Invoice"/>
+        <make-value value-field="lookupPKMap" entity-name="Invoice"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="Invoice" map-name="lookupPKMap" value-name="invoiceValue"/>
         <field-to-result field-name="invoiceValue" result-name="invoice"/>
@@ -203,7 +203,7 @@ under the License.
     <simple-method method-name="updateInvoice" short-description="Update the header of an existing Invoice">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
         <!-- find the current record -->
-        <make-value value-name="lookupPKMap" entity-name="Invoice"/>
+        <make-value value-field="lookupPKMap" entity-name="Invoice"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="Invoice" map-name="lookupPKMap" value-name="lookedUpValue"/>
 
@@ -248,7 +248,7 @@ under the License.
     <simple-method method-name="createInvoiceItem" short-description="Create a new Invoice Item">
         <set field="invoiceId" from-field="parameters.invoiceId"/>
         <call-simple-method method-name="InvoiceStatusInProgress"/>
-        <make-value value-name="newEntity" entity-name="InvoiceItem"/>
+        <make-value value-field="newEntity" entity-name="InvoiceItem"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.invoiceItemSeqId">
@@ -282,7 +282,7 @@ under the License.
     <simple-method method-name="updateInvoiceItem"
         short-description="Update an existing Invoice Item">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
-        <make-value value-name="lookupPKMap" entity-name="InvoiceItem"/>
+        <make-value value-field="lookupPKMap" entity-name="InvoiceItem"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
 
         <find-by-primary-key entity-name="InvoiceItem" map-name="lookupPKMap" value-name="lookedUpValue"/>
@@ -420,7 +420,7 @@ under the License.
 
     <simple-method method-name="createInvoiceRole" short-description="Create a Invoice Role">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
-        <make-value value-name="newEntity" entity-name="InvoiceRole"/>
+        <make-value value-field="newEntity" entity-name="InvoiceRole"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.datetimePerformed"><now-timestamp-to-env env-name="newEntity.datetimePerformed"/></if-empty>
@@ -473,7 +473,7 @@ under the License.
                 <set from-field="parameters.statusId" field="invoice.statusId"/>
                 <store-value value-name="invoice"/>
 
-                <make-value value-name="newEntity" entity-name="InvoiceStatus"/>
+                <make-value value-field="newEntity" entity-name="InvoiceStatus"/>
                 <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
                 <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -489,7 +489,7 @@ under the License.
                     <entity-and entity-name="TimeEntry" list-name="entries">
                         <field-map field-name="invoiceId" from-field="parameters.invoiceId"/>
                     </entity-and>
-                    <iterate entry="entry" list-name="entries">
+                    <iterate entry="entry" list="entries">
                         <clear-field field-name="entry.invoiceId"/>                        
                         <clear-field field-name="entry.invoiceItemSeqId"/>
                         <store-value value-name="entry"/>
@@ -503,7 +503,7 @@ under the License.
     <simple-method method-name="createInvoiceTerm" short-description="Create a Invoice Term">
         <call-simple-method method-name="InvoiceStatusInProgress"/>
 
-        <make-value value-name="newEntity" entity-name="InvoiceTerm"/>
+        <make-value value-field="newEntity" entity-name="InvoiceTerm"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <sequenced-id-to-env sequence-name="InvoiceTerm" env-name="newEntity.invoiceTermId"/>
@@ -540,7 +540,7 @@ under the License.
         <check-errors/>
     </simple-method>
     <simple-method method-name="createInvoiceContactMech" short-description="Create a ContactMech for an invoice">
-        <make-value value-name="invoiceContactMech" entity-name="InvoiceContactMech"/>
+        <make-value value-field="invoiceContactMech" entity-name="InvoiceContactMech"/>
         <set-pk-fields map-name="parameters" value-name="invoiceContactMech"/>
         <create-value value-name="invoiceContactMech"/>
         <field-to-result field-name="contactMechId" map-name="invoiceContactMech"/>
@@ -556,7 +556,7 @@ under the License.
        <entity-and entity-name="Invoice" list-name="invoices">
             <field-map field-name="recurrenceInfoId" from-field="parameters.recurrenceInfoId"/>
        </entity-and>
-       <iterate list-name="invoices" entry-name="invoice">
+       <iterate list="invoices" entry="invoice">
            <set-service-fields service-name="copyInvoice" map-name="invoice" to-map-name="copyInvoiceCtx"/>
            <set field="copyInvoiceCtx.invoiceIdToCopyFrom" from-field="invoice.invoiceId"/>
            <call-service service-name="copyInvoice" in-map-name="copyInvoiceCtx">

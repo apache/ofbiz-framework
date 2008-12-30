@@ -21,7 +21,7 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
     <simple-method method-name="createSubscription" short-description="Create a Subscription">
-        <make-value entity-name="Subscription" value-name="newEntity"/>
+        <make-value entity-name="Subscription" value-field="newEntity"/>
         <if-empty field="parameters.subscriptionId">
             <sequenced-id-to-env sequence-name="Subscription" env-name="newEntity.subscriptionId"/> <!-- get the next sequenced ID -->
             <else>
@@ -84,7 +84,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createSubscriptionResource" short-description="Create a SubscriptionResource">
-        <make-value entity-name="SubscriptionResource" value-name="newEntity"/>
+        <make-value entity-name="SubscriptionResource" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="SubscriptionResource" env-name="newEntity.subscriptionResourceId"/>
         <field-to-result field-name="newEntity.subscriptionResourceId" result-name="subscriptionResourceId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -97,7 +97,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createProductSubscriptionResource" short-description="Create a ProductSubscriptionResource">
-        <make-value entity-name="ProductSubscriptionResource" value-name="newEntity"/>
+        <make-value entity-name="ProductSubscriptionResource" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -116,7 +116,7 @@ under the License.
         <field-to-result field-name="parameters.subscriptionId" result-name="subscriptionId"/>
         <entity-one entity-name="SubscriptionAttribute" value-name="lookedUpValue"/>
         <if-empty field="lookedUpValue">
-            <make-value entity-name="SubscriptionAttribute" value-name="newEntity"/>
+            <make-value entity-name="SubscriptionAttribute" value-field="newEntity"/>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
             <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
             <create-value value-name="newEntity"/>
@@ -128,7 +128,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createSubscriptionCommEvent" short-description="Create a Subscription Communication Event">
-        <make-value value-name="newEntity" entity-name="SubscriptionCommEvent"/>
+        <make-value value-field="newEntity" entity-name="SubscriptionCommEvent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>    

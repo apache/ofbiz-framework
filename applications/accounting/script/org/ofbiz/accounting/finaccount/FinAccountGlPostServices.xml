@@ -56,7 +56,7 @@ under the License.
         <set field="createAcctgTransAndEntriesMap.partyId" from-field="finAccount.ownerPartyId"/>
         
         <!-- set initial values for Main AcctgTransEntry -->
-        <make-value value-name="mainAcctgTransEntry" entity-name="AcctgTransEntry"/>
+        <make-value value-field="mainAcctgTransEntry" entity-name="AcctgTransEntry"/>
         <set field="mainAcctgTransEntry.glAccountId" from-field="glAccountId"/>
         <set field="mainAcctgTransEntry.organizationPartyId" from-field="finAccount.organizationPartyId"/>
         <set field="mainAcctgTransEntry.partyId" from-field="finAccount.ownerPartyId"/>
@@ -65,7 +65,7 @@ under the License.
         <set field="mainAcctgTransEntry.acctgTransEntrySeqId" value="01"/>
         
         <!-- set initial values for Offset AcctgTransEntry -->
-        <make-value value-name="offsetAcctgTransEntry" entity-name="AcctgTransEntry"/>
+        <make-value value-field="offsetAcctgTransEntry" entity-name="AcctgTransEntry"/>
         <set field="offsetAcctgTransEntry.organizationPartyId" from-field="finAccount.organizationPartyId"/>
         <set field="offsetAcctgTransEntry.partyId" from-field="finAccount.ownerPartyId"/>
         <set field="offsetAcctgTransEntry.amount" from-field="finAccountTrans.amount"/>

@@ -35,7 +35,7 @@ under the License.
         <!-- Does not check if the Party is actually a company because real people have to pay taxes too -->    
 
         <!-- TODO: maybe check to make sure that all fields are not null -->
-        <make-value value-name="newEntity" entity-name="PartyAcctgPreference"/>
+        <make-value value-field="newEntity" entity-name="PartyAcctgPreference"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -43,7 +43,7 @@ under the License.
     
     <simple-method method-name="getPartyAccountingPreferences"
             short-description="Get the accounting preference settings for a party (organization)">
-        <make-value entity-name="PartyAcctgPreference" value-name="aggregatedPartyAcctgPref" />
+        <make-value entity-name="PartyAcctgPreference" value-field="aggregatedPartyAcctgPref" />
         <set field="currentOrganizationPartyId" from-field="parameters.organizationPartyId"/>
         <set field="containsEmptyFields" type="Boolean" value="true"/>
         <while>
@@ -121,7 +121,7 @@ under the License.
         </entity-condition>
         
         <!-- expire all of them -->
-        <iterate list-name="uomConversions" entry-name="uomConversion">
+        <iterate list="uomConversions" entry="uomConversion">
             <set from-field="nowTimestamp" field="uomConversion.thruDate"/>
         </iterate>
         <store-list list-name="uomConversions"/>

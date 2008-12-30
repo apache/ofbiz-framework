@@ -45,7 +45,7 @@ under the License.
                             <field field-name="maxDecimal" type="int"/>
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="true">
-                            <make-value value-name="terminalState" entity-name="PosTerminalState"/>
+                            <make-value value-field="terminalState" entity-name="PosTerminalState"/>
                             <call-object-method obj-field-name="webPosSession" method-name="getId" ret-field-name="terminalState.posTerminalId"/>
                             <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="nowTimestamp" ret-field-name="terminalState.openedDate"/>
                             <call-object-method obj-field-name="webPosSession" method-name="getUserLoginId" ret-field-name="terminalState.openedByUserLoginId"/>
@@ -305,7 +305,7 @@ under the License.
                             <field field-name="maxDecimal" type="int"/>
                         </call-class-method>
                         <if-compare field="isDouble" operator="equals" value="true">
-                            <make-value value-name="internTx" entity-name="PosTerminalInternTx"/>
+                            <make-value value-field="internTx" entity-name="PosTerminalInternTx"/>
 						    <call-object-method obj-field-name="webPosTransaction" method-name="getTerminalLogId" ret-field-name="internTx.posTerminalLogId"/>
 						    <set field="internTx.paidAmount" from-field="parameters.amountInOut"/>
 						    <set field="internTx.reasonComment" from-field="parameters.reasonCommentInOut"/>

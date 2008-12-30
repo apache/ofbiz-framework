@@ -52,7 +52,7 @@ under the License.
             <set value="COM_ENTERED" field="parameters.statusId"/>     
         </if-empty>
 
-        <make-value value-name="newEntity" entity-name="CommunicationEvent"/>
+        <make-value value-field="newEntity" entity-name="CommunicationEvent"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
         <if-empty field="parameters.communicationEventId">
@@ -79,19 +79,19 @@ under the License.
         <create-value value-name="newEntity"/>
 
         <if-not-empty field="parameters.productId">
-            <make-value value-name="eventProduct" entity-name="CommunicationEventProduct"/>
+            <make-value value-field="eventProduct" entity-name="CommunicationEventProduct"/>
             <set from-field="parameters.productId" field="eventProduct.productId"/>
             <set from-field="newEntity.communicationEventId" field="eventProduct.communicationEventId"/>
             <create-value value-name="eventProduct"/>
         </if-not-empty>
         <if-not-empty field="parameters.orderId">
-            <make-value value-name="eventOrder" entity-name="CommunicationEventOrder"/>
+            <make-value value-field="eventOrder" entity-name="CommunicationEventOrder"/>
             <set from-field="parameters.orderId" field="eventOrder.orderId"/>
             <set from-field="newEntity.communicationEventId" field="eventOrder.communicationEventId"/>
             <create-value value-name="eventOrder"/>
         </if-not-empty>
         <if-not-empty field="parameters.custReqId">
-            <make-value value-name="eventRequest" entity-name="CustRequestCommEvent"/>
+            <make-value value-field="eventRequest" entity-name="CustRequestCommEvent"/>
             <set from-field="parameters.custReqId" field="eventRequest.custReqId"/>
             <set from-field="newEntity.communicationEventId" field="eventRequest.communicationEventId"/>
             <create-value value-name="eventRequest"/>
@@ -199,13 +199,13 @@ under the License.
         <!-- remove related links to content -->
         <get-related value-name="event" relation-name="CommEventContentAssoc" list-name="contentAssocs"/>
         <if-not-empty field="contentAssocs">
-            <iterate entry="contentAssoc" list-name="contentAssocs">
+            <iterate entry="contentAssoc" list="contentAssocs">
                 <remove-value value-name="contentAssoc"/>
                 <!-- delete content and dataresource too if requested -->
                 <if-compare field="parameters.delContentDataResource" value="Y" operator="equals">
                     <get-related value-name="contentAssoc" relation-name="FromContent" list-name="contents"/>
                     <if-not-empty field="contents">
-                        <iterate entry="content" list-name="contents">
+                        <iterate entry="content" list="contents">
                             <remove-related value-name="content" relation-name="ContentRole"/>
                             <remove-value value-name="content"/>
                             <get-related-one value-name="content" relation-name="DataResource" to-value-name="dataResource"/>
@@ -236,7 +236,7 @@ under the License.
         <!-- remove related workeffort when this is the only communicationevent connected to it -->
         <get-related value-name="event" relation-name="CommunicationEventWorkEff" list-name="workEffortComs"/>
         <if-not-empty field="workEffortComs">
-            <iterate entry="workEffortCom" list-name="workEffortComs">
+            <iterate entry="workEffortCom" list="workEffortComs">
                 <remove-value value-name="workEffortCom"/>
                 <get-related-one value-name="workEffortCom" relation-name="WorkEffort" to-value-name="workEffort"/>
                 <get-related value-name="workEffort" relation-name="CommunicationEventWorkEff" list-name="otherComs"/>
@@ -257,7 +257,7 @@ under the License.
         they will all use the CME_UPDATE permission -->
     <simple-method method-name="createCommunicationEventPurpose" short-description="Create a CommunicationEventPurpose">
         
-        <make-value value-name="newEntity" entity-name="CommunicationEventPurpose"/>
+        <make-value value-field="newEntity" entity-name="CommunicationEventPurpose"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
         <create-value value-name="newEntity"/>    
@@ -278,7 +278,7 @@ under the License.
             <set field="partyRole.userLogin" from-field="sysUserLogin"/>
             <call-service service-name="createPartyRole" in-map-name="partyRole" include-user-login="false"/>
             
-            <make-value value-name="newEntity" entity-name="CommunicationEventRole" />
+            <make-value value-field="newEntity" entity-name="CommunicationEventRole" />
             <set-pk-fields map-name="parameters" value-name="newEntity" />
             <set-nonpk-fields map-name="parameters" value-name="newEntity" />
             <if-empty field="newEntity.statusId">
@@ -356,7 +356,7 @@ under the License.
                 </condition-list>
             </condition-list>
         </entity-condition>
-        <iterate entry="communicationEvent" list-name="communicationEvents">
+        <iterate entry="communicationEvent" list="communicationEvents">
             <set-service-fields service-name="sendCommEventAsEmail" map-name="communicationEvent" to-map-name="inMap"/>
             <call-service service-name="sendCommEventAsEmail" in-map-name="inMap" require-new-transaction="true"/>
         </iterate>
@@ -424,7 +424,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequestCommEvent" short-description="Create CustRequestCommEvent" >
-        <make-value value-name="newEntity" entity-name="CustRequestCommEvent"/>
+        <make-value value-field="newEntity" entity-name="CustRequestCommEvent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>    
     </simple-method>
@@ -447,7 +447,7 @@ under the License.
                     <!-- if complete, set all role status fields to 'complete' (intentionally ignoring the status change checking)-->
                     <if-compare operator="equals" value="COM_COMPLETE" field="parameters.statusId">
                         <get-related value-name="communicationEvent" relation-name="CommunicationEventRole" list-name="updRoles"/>
-                        <iterate entry="updRole" list-name="updRoles">
+                        <iterate entry="updRole" list="updRoles">
                             <set field="updRole.statusId" value="COM_ROLE_COMPLETED"/>
                             <store-value value-name="updRole"/>
                         </iterate>

@@ -24,7 +24,7 @@ under the License.
         <log level="always" message="in createContentAndPurpose."/>
         <log level="always" message="parameters: ${parameters}"/>
 
-        <make-value entity-name="Content" value-name="currentContent"/>
+        <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map-name="parameters" value-name="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
         <call-map-processor in-map-name="currentContent" out-map-name="currentContent">
@@ -66,7 +66,7 @@ under the License.
         <if-not-empty field="entityMap">
             <set field="currentEntityMap" from-field="entityMap"/>
         </if-not-empty>
-        <make-value entity-name="Content" value-name="contentPK"/>
+        <make-value entity-name="Content" value-field="contentPK"/>
         <set field="contentPK.contentId" from-field="contentId"/>
         <log level="always" message="contentPK: ${contentPK}"/>
         <set field="currentEntityMap.Content" from-field="contentPK"/>
@@ -75,7 +75,7 @@ under the License.
 
         <if-not-empty field="parameters.contentPurposeTypeId">
             <log level="always" message="contentPurposeTypeId: ${parameters.contentPurposeTypeId}"/>
-            <make-value entity-name="ContentPurpose" value-name="newContentPurpose"/>
+            <make-value entity-name="ContentPurpose" value-field="newContentPurpose"/>
             <set field="newContentPurpose.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
             <log level="always" message="contentId: ${contentId}"/>
             <set field="newContentPurpose.contentId" from-field="contentId"/>
@@ -88,7 +88,7 @@ under the License.
         <log level="always" message="/nin updateContent."/>
         <log level="always" message="parameters: ${parameters}"/>
 
-        <make-value entity-name="Content" value-name="currentContent"/>
+        <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map-name="parameters" value-name="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
         <call-map-processor in-map-name="currentContent" out-map-name="currentContent">

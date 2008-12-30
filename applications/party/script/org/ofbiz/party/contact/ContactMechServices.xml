@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createContactMech" short-description="Create Contact Mechanism">
-        <make-value value-name="newValue" entity-name="ContactMech"/>
+        <make-value value-field="newValue" entity-name="ContactMech"/>
         <if-empty field="parameters.contactMechId">
             <sequenced-id-to-env sequence-name="ContactMech" env-name="newValue.contactMechId"/>
             <else>
@@ -61,7 +61,7 @@ under the License.
             <set field="successMessageProperty" value="PartyDomainNameSuccessfullyUpdated"/>
         </if-compare>
 
-        <make-value entity-name="ContactMech" value-name="ContactMechMap"/>
+        <make-value entity-name="ContactMech" value-field="ContactMechMap"/>
         <set-pk-fields value-name="ContactMechMap" map-name="parameters"/>
         <find-by-primary-key entity-name="ContactMech" map-name="ContactMechMap" value-name="oldValue" /> 
         <if-compare-field to-field="oldValue.infoString" field="parameters.infoString" operator="not-equals">
@@ -100,7 +100,7 @@ under the License.
           </if-empty>
         </if-compare>                        
         <check-errors/>
-        <make-value entity-name="PostalAddress" value-name="newValue"/>
+        <make-value entity-name="PostalAddress" value-field="newValue"/>
         <set field="context.contactMechTypeId" value="POSTAL_ADDRESS"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
@@ -128,7 +128,7 @@ under the License.
           </if-empty>
         </if-compare>                        
         <check-errors/>
-        <make-value entity-name="PostalAddress" value-name="newValue"/>
+        <make-value entity-name="PostalAddress" value-field="newValue"/>
         <set-pk-fields value-name="newValue" map-name="parameters"/>
         <find-by-primary-key entity-name="PostalAddress" map-name="newValue" value-name="oldValue" />
         <set-nonpk-fields map-name="parameters" value-name="newValue"/>
@@ -163,7 +163,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createTelecomNumber" short-description="Create Contact Mechanism with Telecom Number">
-        <make-value entity-name="TelecomNumber" value-name="newValue"/>
+        <make-value entity-name="TelecomNumber" value-field="newValue"/>
         <set field="context.contactMechTypeId" value="TELECOM_NUMBER"/>
         <call-service service-name="createContactMech" in-map-name="context">
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
@@ -176,7 +176,7 @@ under the License.
     </simple-method>
      
     <simple-method method-name="updateTelecomNumber" short-description="Update Contact Mechanism with Telecom Number">
-        <make-value entity-name="TelecomNumber" value-name="newValue"/>
+        <make-value entity-name="TelecomNumber" value-field="newValue"/>
         <set-pk-fields value-name="newValue" map-name="parameters"/>
         <find-by-primary-key entity-name="TelecomNumber" map-name="newValue" value-name="oldValue" />
         <set-nonpk-fields map-name="parameters" value-name="newValue"/>
@@ -234,14 +234,14 @@ under the License.
    <simple-method method-name="createContactMechLink" short-description="Create a link between two ContactMechs, such as PostalAddress and TelecomNumber or email">
        <!--TODO: need security check of some sort? -->
        <check-errors/>
-       <make-value value-name="newEntity" entity-name="ContactMechLink"/>
+       <make-value value-field="newEntity" entity-name="ContactMechLink"/>
        <set-pk-fields map-name="parameters" value-name="newEntity"/>
        <create-value value-name="newEntity"/>
    </simple-method>
    <simple-method method-name="deleteContactMechLink" short-description="Delete a link between two ContactMechs">
        <!--TODO: need security check of some sort? -->
        <check-errors/>
-       <make-value value-name="lookupPKMap" entity-name="ContactMechLink"/>
+       <make-value value-field="lookupPKMap" entity-name="ContactMechLink"/>
        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
        <find-by-primary-key entity-name="ContactMechLink" map-name="lookupPKMap" value-name="contactMechLinkInstance"/>
        <remove-value value-name="contactMechLinkInstance"/>
@@ -249,7 +249,7 @@ under the License.
 
     <!-- contactmech attribute services -->
     <simple-method method-name="createContactMechAttribute" short-description="createContactMechAttribute">
-        <make-value value-name="newEntity" entity-name="ContactMechAttribute"/>
+        <make-value value-field="newEntity" entity-name="ContactMechAttribute"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>

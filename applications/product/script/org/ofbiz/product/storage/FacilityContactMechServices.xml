@@ -23,8 +23,8 @@ under the License.
     <simple-method method-name="createFacilityContactMech" short-description="Create a FacilityContactMech">
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
-        <make-value entity-name="FacilityContactMech" value-name="newValue"/>
-        <make-value entity-name="FacilityContactMech" value-name="newFacilityContactMech"/>
+        <make-value entity-name="FacilityContactMech" value-field="newValue"/>
+        <make-value entity-name="FacilityContactMech" value-field="newFacilityContactMech"/>
         <log level="info" message="contactMechId is ${parameters.contactMechId}"/>
         <if-empty field="parameters.contactMechId">
 
@@ -53,11 +53,11 @@ under the License.
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="FacilityContactMech" value-name="newFacilityContactMech"/>
+        <make-value entity-name="FacilityContactMech" value-field="newFacilityContactMech"/>
 
         <!-- Find old value -->
 
-        <make-value entity-name="FacilityContactMech" value-name="facilityContactMechMap"/>
+        <make-value entity-name="FacilityContactMech" value-field="facilityContactMechMap"/>
         <set-pk-fields value-name="facilityContactMechMap" map-name="parameters"/>
         <find-by-and entity-name="FacilityContactMech" list-name="facilityContactMechs" map-name="facilityContactMechMap"/>
         <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
@@ -95,7 +95,7 @@ under the License.
 
         <if-compare-field to-field="newFacilityContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
             <get-related value-name="facilityContactMech" relation-name="FacilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
-            <iterate entry="facilityContactMechPurposeOld" list-name="facilityContactMechPurposes">
+            <iterate entry="facilityContactMechPurposeOld" list="facilityContactMechPurposes">
                 <clone-value value-name="facilityContactMechPurposeOld" new-value-name="facilityContactMechPurpose"/>
 
                 <now-timestamp-to-env env-name="facilityContactMechPurposeOld.thruDate"/>
@@ -120,11 +120,11 @@ under the License.
     </simple-method>
 
     <simple-method method-name="deleteFacilityContactMech" short-description="Delete a FacilityContactMech">
-        <make-value entity-name="FacilityContactMech" value-name="newFacilityContactMech"/>
+        <make-value entity-name="FacilityContactMech" value-field="newFacilityContactMech"/>
         <check-permission permission="FACILITY" action="_DELETE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="FacilityContactMech" value-name="facilityContactMechMap"/>
+        <make-value entity-name="FacilityContactMech" value-field="facilityContactMechMap"/>
         <set-pk-fields value-name="facilityContactMechMap" map-name="parameters"/>
         <find-by-and entity-name="FacilityContactMech" list-name="facilityContactMechs" map-name="facilityContactMechMap"/>
         <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
@@ -166,7 +166,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateFacilityPostalAddress" short-description="Update a PostalAddress for facility">
-        <make-value entity-name="FacilityContactMech" value-name="newFacilityContactMech"/>
+        <make-value entity-name="FacilityContactMech" value-field="newFacilityContactMech"/>
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
@@ -213,7 +213,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateFacilityTelecomNumber" short-description="Update a TelecomNumber for facility">
-        <make-value entity-name="FacilityContactMech" value-name="newFacilityContactMech"/>
+        <make-value entity-name="FacilityContactMech" value-field="newFacilityContactMech"/>
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
@@ -282,7 +282,7 @@ under the License.
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookUpMap" entity-name="FacilityContactMechPurpose"/>
+        <make-value value-field="lookUpMap" entity-name="FacilityContactMechPurpose"/>
         <set field="lookUpMap.facilityId" from-field="parameters.facilityId" />
         <set field="lookUpMap.contactMechId" from-field="parameters.contactMechId" />
         <set field="lookUpMap.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId" />
@@ -296,7 +296,7 @@ under the License.
         </if-not-empty>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <make-value value-name="newEntity" entity-name="FacilityContactMechPurpose"/>
+        <make-value value-field="newEntity" entity-name="FacilityContactMechPurpose"/>
         <set field="newEntity.facilityId" from-field="parameters.facilityId" />
         <set field="newEntity.contactMechId" from-field="parameters.contactMechId" />
         <set field="newEntity.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId" />
@@ -311,7 +311,7 @@ under the License.
         <check-permission permission="FACILITY" action="_DELETE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookUpMap" entity-name="FacilityContactMechPurpose"/>
+        <make-value value-field="lookUpMap" entity-name="FacilityContactMechPurpose"/>
 
         <set-pk-fields map-name="parameters" value-name="lookUpMap"/>
         <find-by-primary-key value-name="purposeEntity" entity-name="FacilityContactMechPurpose" map-name="lookUpMap"/>

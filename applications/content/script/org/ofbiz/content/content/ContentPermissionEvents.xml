@@ -20,7 +20,7 @@ under the License.
                 xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="createContentAndPurpose" short-description="Create Content And Purpose" login-required="false">
-        <make-value entity-name="Content" value-name="currentContent"/>
+        <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map-name="parameters" value-name="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
         <if-empty field="currentContent.contentId">
@@ -55,7 +55,7 @@ under the License.
         <if-compare field="permissionStatus" operator="equals" type="String" value="granted">
             <create-value value-name="currentContent"/>
             <if-not-empty field="parameters.contentPurposeTypeId">
-                <make-value entity-name="ContentPurpose" value-name="newContentPurpose"/>
+                <make-value entity-name="ContentPurpose" value-field="newContentPurpose"/>
                 <set field="newContentPurpose.contentPurposeTypeId" from-field="parameters.contentPurposeTypeId"/>
                 <set field="newContentPurpose.contentId" from-field="currentContent.contentId"/>
                 <create-value value-name="newContentPurpose"/>

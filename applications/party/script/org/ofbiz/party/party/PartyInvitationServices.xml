@@ -23,7 +23,7 @@ under the License.
 
     <!-- Party Invitation Services -->
     <simple-method method-name="createPartyInvitation" short-description="Create a PartyInvitation">
-        <make-value entity-name="PartyInvitation" value-name="newEntity"/>
+        <make-value entity-name="PartyInvitation" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="PartyInvitation" env-name="newEntity.partyInvitationId"/>
         <field-to-result field-name="newEntity.partyInvitationId" result-name="partyInvitationId"/>
         <if-not-empty field="parameters.partyId">
@@ -53,7 +53,7 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createPartyInvitationGroupAssoc" short-description="Create a PartyInvitationGroupAssoc">
-        <make-value entity-name="PartyInvitationGroupAssoc" value-name="newEntity"/>
+        <make-value entity-name="PartyInvitationGroupAssoc" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>        
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -62,7 +62,7 @@ under the License.
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createPartyInvitationRoleAssoc" short-description="Create a PartyInvitationRoleAssoc">
-        <make-value entity-name="PartyInvitationRoleAssoc" value-name="newEntity"/>
+        <make-value entity-name="PartyInvitationRoleAssoc" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>        
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -77,7 +77,7 @@ under the License.
         <if-not-empty field="partyInvitationGroupAssocs">
             <set field="createPartyRelationshipCtx.partyIdTo" from-field="parameters.partyId"/>
             <set field="createPartyRelationshipCtx.partyRelationshipTypeId" value="GROUP_ROLLUP"/>            
-            <iterate list-name="partyInvitationGroupAssocs" entry-name="partyInvitationGroupAssoc">
+            <iterate list="partyInvitationGroupAssocs" entry="partyInvitationGroupAssoc">
                 <set field="createPartyRelationshipCtx.partyIdFrom" from-field="partyInvitationGroupAssoc.partyIdTo"/>
                 <call-service service-name="createPartyRelationship" in-map-name="createPartyRelationshipCtx"/>
             </iterate>
@@ -87,7 +87,7 @@ under the License.
         </entity-and>
         <if-not-empty field="partyInvitationRoleAssocs">
             <set field="createPartyRoleCtx.partyId" from-field="parameters.partyId"/>
-            <iterate list-name="partyInvitationRoleAssocs" entry-name="partyInvitationRoleAssoc">
+            <iterate list="partyInvitationRoleAssocs" entry="partyInvitationRoleAssoc">
                 <set field="createPartyRoleCtx.roleTypeId" from-field="partyInvitationRoleAssoc.roleTypeId"/>
                 <call-service service-name="createPartyRole" in-map-name="createPartyRoleCtx"/>
             </iterate>

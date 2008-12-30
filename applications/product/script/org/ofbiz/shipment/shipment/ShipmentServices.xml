@@ -27,7 +27,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="Shipment"/>
+        <make-value value-field="newEntity" entity-name="Shipment"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <if-not-empty field="parameters.shipmentId">
@@ -95,7 +95,7 @@ under the License.
 
         <!-- get the ShipmentStatus history started -->
         <if-not-empty field="newEntity.statusId">
-            <make-value entity-name="ShipmentStatus" value-name="newStatusValue"/>
+            <make-value entity-name="ShipmentStatus" value-field="newStatusValue"/>
             <set from-field="newEntity.statusId" field="newStatusValue.statusId"/>
             <set from-field="newEntity.shipmentId" field="newStatusValue.shipmentId"/>
             <now-timestamp-to-env env-name="newStatusValue.statusDate"/>
@@ -109,7 +109,7 @@ under the License.
         <set value="Update Shipment" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusDelivered"/>
 
-        <make-value value-name="lookupPKMap" entity-name="Shipment"/>
+        <make-value value-field="lookupPKMap" entity-name="Shipment"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
 
@@ -127,7 +127,7 @@ under the License.
                     <string-to-list string="ERROR: Changing the status from ${lookedUpValue.statusId} to ${parameters.statusId} is not allowed." list-name="error_list"/>
                 </if-empty>
 
-                <make-value entity-name="ShipmentStatus" value-name="newStatusValue"/>
+                <make-value entity-name="ShipmentStatus" value-field="newStatusValue"/>
                 <set from-field="parameters.statusId" field="newStatusValue.statusId"/>
                 <set from-field="parameters.shipmentId" field="newStatusValue.shipmentId"/>
                 <now-timestamp-to-env env-name="newStatusValue.statusDate"/>
@@ -310,7 +310,7 @@ under the License.
         <entity-condition entity-name="ReturnItem" list-name="returnItems">
             <condition-expr field-name="returnId" operator="equals" env-name="parameters.returnId"/>
         </entity-condition>
-        <iterate entry="returnItem" list-name="returnItems">
+        <iterate entry="returnItem" list="returnItems">
             <clear-field field-name="shipItemCtx"/>
             <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
             <set from-field="returnItem.productId" field="shipItemCtx.productId"/>
@@ -342,7 +342,7 @@ under the License.
         <entity-condition entity-name="ReturnItem" list-name="returnItems">
             <condition-expr field-name="returnId" operator="equals" env-name="parameters.primaryReturnId"/>
         </entity-condition>
-        <iterate entry="returnItem" list-name="returnItems">
+        <iterate entry="returnItem" list="returnItems">
             <clear-field field-name="shipItemCtx"/>
             <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
             <set from-field="returnItem.productId" field="shipItemCtx.productId"/>
@@ -705,7 +705,7 @@ under the License.
             <field-map field-name="roleTypeId" value="SUPPLIER_AGENT"/>
         </entity-and>
         
-        <iterate entry="supplierAgentOrderRole" list-name="supplierAgentOrderRoles">
+        <iterate entry="supplierAgentOrderRole" list="supplierAgentOrderRoles">
             <set from-field="supplierAgentOrderRole.partyId" field="sendToPartyIdMap.${supplierAgentOrderRole.partyId}"/>
         </iterate>
 
@@ -716,7 +716,7 @@ under the License.
                 <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
             </entity-and>
             
-            <iterate entry="sendToPartyPartyAndContactMech" list-name="sendToPartyPartyAndContactMechs">
+            <iterate entry="sendToPartyPartyAndContactMech" list="sendToPartyPartyAndContactMechs">
                 <string-append field-name="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
             </iterate>
         </iterate-map>
@@ -757,13 +757,13 @@ under the License.
 
         <entity-one entity-name="Shipment" value-name="shipment"/>
         <get-related value-name="shipment" relation-name="ItemIssuance" list-name="issuances"/>
-        <iterate list-name="issuances" entry-name="issuance">
+        <iterate list="issuances" entry="issuance">
             <entity-and entity-name="ShipmentReceipt" list-name="receipts">
                 <field-map field-name="shipmentId" from-field="shipment.shipmentId"/>
                 <field-map field-name="orderId" from-field="issuance.orderId"/>
                 <field-map field-name="orderItemSeqId" from-field="issuance.orderItemSeqId"/>
             </entity-and>
-            <iterate list-name="receipts" entry-name="receipt">
+            <iterate list="receipts" entry="receipt">
                 <calculate field-name="issuanceQuantity" type="Double">
                     <calcop field-name="receipt.quantityAccepted" operator="add">
                         <calcop field-name="receipt.quantityRejected" operator="get"/>
@@ -786,7 +786,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ShipmentItem"/>
+        <make-value value-field="newEntity" entity-name="ShipmentItem"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <!-- if no shipmentItemSeqId, generate one based on existing items, ie one greater than the current higher number -->
@@ -802,7 +802,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ShipmentItem"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentItem" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -816,7 +816,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ShipmentItem"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentItem" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -852,7 +852,7 @@ under the License.
         </entity-and>
         
         <set field="orderShipmentQuantityLeft" from-field="parameters.newItemQuantity"/>
-        <iterate entry="itemOrderShipment" list-name="itemOrderShipmentList">
+        <iterate entry="itemOrderShipment" list="itemOrderShipmentList">
             <if-compare field="orderShipmentQuantityLeft" operator="greater" value="0" type="Double">
                 <if-compare-field field="itemOrderShipment.quantity" to-field="orderShipmentQuantityLeft" operator="greater" type="Double">
                     <!-- there is enough in this OrderShipment record, so just adjust it and move on -->
@@ -911,7 +911,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ShipmentPackage"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackage"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -939,7 +939,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusShipped"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ShipmentPackage"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackage"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackage" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -965,7 +965,7 @@ under the License.
             <field-map field-name="shipmentId" from-field="shipmentId"/>
         </entity-and>
         
-        <iterate entry="shipmentRouteSegment" list-name="shipmentRouteSegments">
+        <iterate entry="shipmentRouteSegment" list="shipmentRouteSegments">
             <entity-one entity-name="ShipmentPackageRouteSeg" value-name="checkShipmentPackageRouteSeg" auto-field-map="false">
                 <field-map field-name="shipmentId" from-field="shipmentId"/>
                 <field-map field-name="shipmentPackageSeqId" from-field="shipmentPackageSeqId"/>
@@ -991,7 +991,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ShipmentPackageContent"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -1006,7 +1006,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ShipmentPackageContent"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageContent" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -1020,7 +1020,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ShipmentPackageContent"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageContent" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -1032,7 +1032,7 @@ under the License.
         <set value="Create ShipmentPackageContent" field="operationName"/>
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>        
-        <make-value value-name="newEntity" entity-name="ShipmentPackageContent"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <find-by-primary-key value-name="shipmentPackageContent" map-name="newEntity"/>
         <log level="verbose" message="In addShipmentContentToPackage trying values: ${newEntity}"/>
@@ -1061,7 +1061,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ShipmentPackageRouteSeg"/>
+        <make-value value-field="newEntity" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -1073,7 +1073,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -1087,7 +1087,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -1100,7 +1100,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ShipmentContactMech"/>
+        <make-value value-field="newEntity" entity-name="ShipmentContactMech"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -1112,7 +1112,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ShipmentContactMech"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentContactMech"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentContactMech" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -1126,7 +1126,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ShipmentContactMech"/>
+        <make-value value-field="lookupPKMap" entity-name="ShipmentContactMech"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentContactMech" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -1141,7 +1141,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked"/>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ShipmentRouteSegment"/>
+        <make-value value-field="newEntity" entity-name="ShipmentRouteSegment"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -1198,7 +1198,7 @@ under the License.
         <entity-and entity-name="ShipmentPackage" list-name="shipmentPackages">
             <field-map field-name="shipmentId" from-field="shipmentId"/>
         </entity-and>
-        <iterate entry="shipmentPackage" list-name="shipmentPackages">
+        <iterate entry="shipmentPackage" list="shipmentPackages">
             <entity-one entity-name="ShipmentPackageRouteSeg" value-name="checkShipmentPackageRouteSeg" auto-field-map="false">
                 <field-map field-name="shipmentId" from-field="shipmentId"/>
                 <field-map field-name="shipmentRouteSegmentId" from-field="shipmentRouteSegmentId"/>
@@ -1265,7 +1265,7 @@ under the License.
 
     <!-- shipment method type services -->
     <simple-method method-name="createCarrierShipmentMethod" short-description="Creates a CarrierShipmentMethod">
-        <make-value value-name="carrierShipmentMethod" entity-name="CarrierShipmentMethod"/>
+        <make-value value-field="carrierShipmentMethod" entity-name="CarrierShipmentMethod"/>
         <set-pk-fields map-name="parameters" value-name="carrierShipmentMethod"/>
         <set-nonpk-fields map-name="parameters" value-name="carrierShipmentMethod"/>
         <create-value value-name="carrierShipmentMethod"/>
@@ -1281,7 +1281,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createShipmentMethodType" short-description="Creates a ShipmentMethodType">
-        <make-value value-name="shipmentMethodType" entity-name="ShipmentMethodType"/>
+        <make-value value-field="shipmentMethodType" entity-name="ShipmentMethodType"/>
         <set-pk-fields map-name="parameters" value-name="shipmentMethodType"/>
         <set-nonpk-fields map-name="parameters" value-name="shipmentMethodType"/>
         <create-value value-name="shipmentMethodType"/>
@@ -1328,7 +1328,7 @@ under the License.
                 <condition-expr field-name="statusId" value="ITEM_APPROVED"/>
             </condition-list>
         </entity-condition>
-        <iterate list-name="orderItemAndShipGrpInvResAndItemList" entry-name="orderItemAndShipGrpInvResAndItem">
+        <iterate list="orderItemAndShipGrpInvResAndItemList" entry="orderItemAndShipGrpInvResAndItem">
             <if>
                 <condition><not><if-compare-field field="orderItemShipGrpInvResFacilityIds" to-field="orderItemAndShipGrpInvResAndItem.facilityId" operator="contains"/></not></condition>
                 <then><field-to-list field-name="orderItemAndShipGrpInvResAndItem.facilityId" list-name="orderItemShipGrpInvResFacilityIds"/></then>
@@ -1338,7 +1338,7 @@ under the License.
         <call-simple-method method-name="getOrderItemShipGroupLists"/>
 
         <!-- traverse facilities, instantiate shipment for each -->
-        <iterate list-name="orderItemShipGrpInvResFacilityIds" entry-name="orderItemShipGrpInvResFacilityId">
+        <iterate list="orderItemShipGrpInvResFacilityIds" entry="orderItemShipGrpInvResFacilityId">
             <!-- sanity check for valid facility -->
             <entity-one entity-name="Facility" value-name="facility">
                 <field-map field-name="facilityId" from-field="orderItemShipGrpInvResFacilityId"/>
@@ -1381,7 +1381,7 @@ under the License.
             <field-map field-name="orderId" from-field="parameters.orderId"/>
             <field-map field-name="shipGroupSeqId" from-field="parameters.shipGroupSeqId"/>
         </entity-and>
-        <iterate entry="orderItemShipGroupAssoc" list-name="orderItemShipGroupAssocs">
+        <iterate entry="orderItemShipGroupAssoc" list="orderItemShipGroupAssocs">
             <get-related-one relation-name="OrderItem" value-name="orderItemShipGroupAssoc" to-value-name="orderItem"/>
 
             <!-- Set the item status to completed -->
@@ -1398,7 +1398,7 @@ under the License.
                 <field-map field-name="orderItemAssocTypeId" value="DROP_SHIPMENT"/>
             </entity-and>
             <if-not-empty field="orderItemAssocs">
-                <iterate entry="orderItemAssoc" list-name="orderItemAssocs">
+                <iterate entry="orderItemAssoc" list="orderItemAssocs">
                     <set field="itemStatusContext.orderId" from-field="orderItemAssoc.orderId"/>
                     <set field="itemStatusContext.orderItemSeqId" from-field="orderItemAssoc.orderItemSeqId"/>
                     <call-service service-name="changeOrderItemStatus" in-map-name="itemStatusContext"/>
@@ -1434,7 +1434,7 @@ under the License.
 
         <!-- group orderItems (actually OrderItemAndShipGroupAssocs) by shipGroupSeqId in a Map with List values 
              This Map is actually used only for sales orders' shipments right now.  -->
-        <iterate list-name="orderItemAndShipGroupAssocList" entry-name="orderItemAndShipGroupAssoc">
+        <iterate list="orderItemAndShipGroupAssocList" entry="orderItemAndShipGroupAssoc">
             <field-to-list field-name="orderItemAndShipGroupAssoc" list-name="orderItemListByShGrpMap.${orderItemAndShipGroupAssoc.shipGroupSeqId}"/>
         </iterate>
     </simple-method>
@@ -1442,7 +1442,7 @@ under the License.
     <simple-method method-name="createShipmentForFacilityAndShipGroup" short-description="Sub-method used by quickShip methods to create a shipment">
 
         <!-- for OrderItemShipGroup need to split all OISGIRs into their ship groups and create a shipment for each -->
-        <iterate list-name="orderItemShipGroupList" entry-name="orderItemShipGroup">
+        <iterate list="orderItemShipGroupList" entry="orderItemShipGroup">
             <!-- lookup all the approved items -->
             <entity-and entity-name="OrderItemAndShipGroupAssoc" list-name="orderItems">
                 <field-map field-name="orderId" from-field="orderHeader.orderId"/>
@@ -1478,12 +1478,12 @@ under the License.
 
                 <if><condition><if-compare field="orderHeader.orderTypeId" operator="equals" value="SALES_ORDER"/></condition>
                   <then>
-                    <iterate list-name="perShipGroupItemList" entry-name="orderItemAndShipGroupAssoc">
+                    <iterate list="perShipGroupItemList" entry="orderItemAndShipGroupAssoc">
                       <!-- just get the OrderItemShipGrpInvResAndItem records for this facility and this ship group, since that is what this shipment is for -->
                       <clear-field field-name="itemResFindMap"/>
                       <set from-field="orderItemShipGrpInvResFacilityId" field="itemResFindMap.facilityId"/>
                       <get-related value-name="orderItemAndShipGroupAssoc" relation-name="OrderItemShipGrpInvResAndItem" map-name="itemResFindMap" list-name="itemResList"/>
-                      <iterate list-name="itemResList" entry-name="itemRes">
+                      <iterate list="itemResList" entry="itemRes">
                         <set from-field="shipment.shipmentId" field="issueContext.shipmentId"/>
                         <set from-field="itemRes.orderId" field="issueContext.orderId"/>
                         <set from-field="itemRes.orderItemSeqId" field="issueContext.orderItemSeqId"/>
@@ -1497,7 +1497,7 @@ under the License.
                   <else> <!-- Issue all purchase order items -->
                     <clear-field field-name="itemResFindMap"/>
                     <set from-field="facilityId" field="itemResFindMap.facilityId"/>
-                    <iterate list-name="orderItemAndShipGroupAssocList" entry-name="item">
+                    <iterate list="orderItemAndShipGroupAssocList" entry="item">
                       <set from-field="shipment.shipmentId" field="issueContext.shipmentId"/>
                       <set from-field="item.orderId" field="issueContext.orderId"/>
                       <set from-field="item.orderItemSeqId" field="issueContext.orderItemSeqId"/>
@@ -1516,7 +1516,7 @@ under the License.
                 </entity-and>
 
                 <set value="New" field="shipmentPackageSeqId"/>
-                <iterate list-name="itemIssuances" entry-name="itemIssuance">
+                <iterate list="itemIssuances" entry="itemIssuance">
                     <log level="verbose" message="In quick ship adding item to package: ${shipmentPackageSeqId}"/>
                     <clear-field field-name="shipItemContext"/>
                     <set from-field="itemIssuance.shipmentId" field="shipItemContext.shipmentId"/>
@@ -1573,7 +1573,7 @@ under the License.
         </entity-one>
         <get-related relation-name="OrderItemShipGroup" value-name="orderHeader" list-name="orderItemShipGroupList"/>
 
-        <iterate list-name="orderItemShipGroupList" entry-name="orderItemShipGroup">
+        <iterate list="orderItemShipGroupList" entry="orderItemShipGroup">
             <!-- For each shipGroup create Shipment -->
             <clear-field field-name="createShipmentContext"/>
             <set field="createShipmentContext.primaryOrderId" from-field="orderHeader.orderId"/>
@@ -1586,7 +1586,7 @@ under the License.
             </call-service>            
             <entity-one entity-name="Shipment" value-name="shipment"/>
             <get-related value-name="orderHeader" relation-name="OrderItem" list-name="orderItems"/>
-            <iterate entry="orderItem" list-name="orderItems">
+            <iterate entry="orderItem" list="orderItems">
                 <entity-one entity-name="Product" value-name="itemProduct" auto-field-map="false" use-cache="true">
                     <field-map field-name="productId" from-field="orderItem.productId"/>
                 </entity-one>
@@ -1617,7 +1617,7 @@ under the License.
              this condition for the non-serialized inventory (Non serialized Inventory will directly issued).
         -->
         <if-not-empty field="parameters.serialNumber">                 
-        <make-value entity-name="OrderItemShipGrpInvRes" value-name="orderItemShipGrpInvResLookupPk"/>                
+        <make-value entity-name="OrderItemShipGrpInvRes" value-field="orderItemShipGrpInvResLookupPk"/>                
         <set-pk-fields value-name="orderItemShipGrpInvResLookupPk" map-name="parameters"/>
         <find-by-primary-key entity-name="OrderItemShipGrpInvRes" map-name="orderItemShipGrpInvResLookupPk" value-name="orderItemShipGrpInvRes"/>       
         <get-related-one to-value-name="inventoryItem" relation-name="InventoryItem" value-name="orderItemShipGrpInvRes"/>        
@@ -1652,7 +1652,7 @@ under the License.
             <set value="New" field="shipItemContext.shipmentPackageSeqId"/>
         </if-empty>
         <log level="info" message="Package SeqID : ${shipItemContext.shipmentPackageSeqId}"/>
-        <make-value entity-name="ShipmentPackage" value-name="shipmentPackageLookupPk"/>                
+        <make-value entity-name="ShipmentPackage" value-field="shipmentPackageLookupPk"/>                
         <set-pk-fields value-name="shipmentPackageLookupPk" map-name="parameters"/>
         <find-by-primary-key entity-name="ShipmentPackage" map-name="shipmentPackageLookupPk" value-name="shipmentPackage"/>
         <if-empty field="shipmentPackage">
@@ -1761,7 +1761,7 @@ under the License.
 
         <!-- issue the passed in order items -->
         <log level="verbose" message="ShipMap List : ${itemMapList}  /  ${parameters.itemShipList}"/>
-        <iterate list-name="itemMapList" entry-name="itemMap">
+        <iterate list="itemMapList" entry="itemMap">
             <log level="verbose" message="Item Map : ${itemMap}"/>
             <clear-field field-name="issueContext"/>
             <set from-field="shipment.shipmentId" field="issueContext.shipmentId"/>
@@ -1776,7 +1776,7 @@ under the License.
         </iterate>
 
         <!-- place all issued items into a unique package per tracking num -->
-        <iterate list-name="itemMapList" entry-name="itemMap">
+        <iterate list="itemMapList" entry="itemMap">
             <log level="info" message="QuickShipOrderByItem grouping by tracking number : ${itemMap.trackingNum}"/>
 
             <entity-one entity-name="ItemIssuance" value-name="itemIssuance">
@@ -1840,11 +1840,11 @@ under the License.
         <check-permission permission="FACILITY" action="_UPDATE">
             <fail-message message="Security Error: to run ${operationName} you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
         </check-permission>
-        <make-value entity-name="OrderShipment" value-name="lookupPk"/>
+        <make-value entity-name="OrderShipment" value-field="lookupPk"/>
         <set-pk-fields value-name="lookupPk" map-name="parameters"/>
         <find-by-primary-key entity-name="OrderShipment" map-name="lookupPk" value-name="orderShipment"/>
         <clear-field field-name="lookupPk"/>
-        <make-value entity-name="ShipmentItem" value-name="lookupPk"/>
+        <make-value entity-name="ShipmentItem" value-field="lookupPk"/>
         <set-pk-fields value-name="lookupPk" map-name="parameters"/>
         <find-by-primary-key entity-name="ShipmentItem" map-name="lookupPk" value-name="shipmentItem"/>
 
@@ -1891,7 +1891,7 @@ under the License.
         <if-compare field="parameters.quantity" operator="greater" value="0" type="Double">
 
             <!-- get orderHeader -->
-            <make-value entity-name="OrderHeader" value-name="orderHeaderLookupPk"/>
+            <make-value entity-name="OrderHeader" value-field="orderHeaderLookupPk"/>
             <set-pk-fields value-name="orderHeaderLookupPk" map-name="parameters"/>
             <find-by-primary-key map-name="orderHeaderLookupPk" value-name="orderHeader"/>
 
@@ -1901,12 +1901,12 @@ under the License.
             </if-compare>
 
             <!-- get orderItem -->
-            <make-value entity-name="OrderItem" value-name="orderItemLookupPk"/>
+            <make-value entity-name="OrderItem" value-field="orderItemLookupPk"/>
             <set-pk-fields value-name="orderItemLookupPk" map-name="parameters"/>
             <find-by-primary-key map-name="orderItemLookupPk" value-name="orderItem"/>
 
             <!-- make sure the orderItem is not already present in this shipment -->
-            <make-value entity-name="OrderShipment" value-name="orderShipmentLookup"/>
+            <make-value entity-name="OrderShipment" value-field="orderShipmentLookup"/>
             <set-pk-fields value-name="orderShipmentLookup" map-name="parameters"/>
             <find-by-and entity-name="OrderShipment" map-name="orderShipmentLookup" list-name="existingOrderShipments"/>
             <if-not-empty field="existingOrderShipments">
@@ -1943,14 +1943,14 @@ under the License.
     </simple-method>
     <simple-method method-name="getQuantityForShipment" short-description="get the order item quantity still not put in shipments">
         <!-- get orderItem -->
-        <make-value entity-name="OrderItem" value-name="orderItemLookupPk"/>
+        <make-value entity-name="OrderItem" value-field="orderItemLookupPk"/>
         <set-pk-fields value-name="orderItemLookupPk" map-name="parameters"/>
         <find-by-primary-key map-name="orderItemLookupPk" value-name="orderItem"/>
 
         <set from-field="parameters.orderId" field="orderShipmentLookup.orderId"/>
         <set from-field="parameters.orderItemSeqId" field="orderShipmentLookup.orderItemSeqId"/>
         <find-by-and entity-name="OrderShipment" map-name="orderShipmentLookup" list-name="existingOrderShipments"/>
-        <iterate list-name="existingOrderShipments" entry-name="orderShipment">
+        <iterate list="existingOrderShipments" entry="orderShipment">
             <calculate field-name="plannedQuantity" type="Double">
                 <calcop field-name="plannedQuantity" operator="add">
                     <calcop field-name="orderShipment.quantity" operator="get"/>
@@ -1959,7 +1959,7 @@ under the License.
         </iterate>
         <clear-field field-name="existingOrderShipments"/>
         <find-by-and entity-name="ItemIssuance" map-name="orderShipmentLookup" list-name="existingOrderShipments"/>
-        <iterate list-name="existingOrderShipments" entry-name="itemIssuance">
+        <iterate list="existingOrderShipments" entry="itemIssuance">
             <calculate field-name="issuedQuantity" type="Double">
                 <calcop field-name="issuedQuantity" operator="add">
                     <calcop field-name="itemIssuance.quantity" operator="get"/>
@@ -1991,7 +1991,7 @@ under the License.
         <entity-and entity-name="OrderShipment" list-name="orderShipmentList">
             <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
         </entity-and>
-        <iterate entry="orderShipment" list-name="orderShipmentList">
+        <iterate entry="orderShipment" list="orderShipmentList">
             <clear-field field-name="deleteOrderShipmentMap"/>
             <set-service-fields service-name="deleteOrderShipment" map-name="orderShipment" to-map-name="deleteOrderShipmentMap"/>
             <call-service service-name="deleteOrderShipment" in-map-name="deleteOrderShipmentMap"/>
@@ -2000,7 +2000,7 @@ under the License.
         <log level="info" message="Cancelling Item Issuances for shimpentId: ${parameters.shipmentId}"/>
         <entity-one entity-name="Shipment" value-name="shipment"/>
         <get-related value-name="shipment" relation-name="ItemIssuance" list-name="issuances"/>
-        <iterate list-name="issuances" entry-name="issuance">
+        <iterate list="issuances" entry="issuance">
             <set from-field="issuance.itemIssuanceId" field="inputMap.itemIssuanceId"/>
             <call-service service-name="cancelOrderItemIssuanceFromSalesShipment" in-map-name="inputMap"/>
         </iterate>
@@ -2013,7 +2013,7 @@ under the License.
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateQuantityBreak"/>
         </check-permission>
         <check-errors/>
-        <make-value value-name="quantityBreak" entity-name="QuantityBreak"/>
+        <make-value value-field="quantityBreak" entity-name="QuantityBreak"/>
         <set-nonpk-fields map-name="parameters" value-name="quantityBreak"/>
         <sequenced-id-to-env sequence-name="QuantityBreak" env-name="quantityBreak.quantityBreakId"/>
         <create-value value-name="quantityBreak"/>

@@ -49,7 +49,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequest" short-description="Create Customer Request">
-        <make-value value-name="newEntity" entity-name="CustRequest"/>
+        <make-value value-field="newEntity" entity-name="CustRequest"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
         <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -134,7 +134,7 @@ under the License.
                 <!-- check for related workefforts ...and when no time recorded cancel these too -->
                 <get-related value-name="custRequest" relation-name="CustRequestWorkEffort" list-name="workEfforts"/>
                 <if-not-empty field="workEfforts">
-                    <iterate entry="workEffort" list-name="workEfforts">
+                    <iterate entry="workEffort" list="workEfforts">
                         <entity-one entity-name="WorkEffort" value-name="lowInfo">
                             <field-map field-name="workEffortId" from-field="workEffort.workEffortId"/>
                         </entity-one>
@@ -184,7 +184,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequestAttribute" short-description="Create Customer Request Attribute">
-        <make-value value-name="newEntity" entity-name="CustRequestAttribute"/>
+        <make-value value-field="newEntity" entity-name="CustRequestAttribute"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -198,7 +198,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequestItem" short-description="Create Customer Request Item">
-        <make-value value-name="newEntity" entity-name="CustRequestItem"/>
+        <make-value value-field="newEntity" entity-name="CustRequestItem"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="parameters.custRequestItemSeqId">
@@ -224,11 +224,11 @@ under the License.
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="partyRole"/>
         <if-empty field="partyRole.partyId">
-            <make-value value-name="partyRole" entity-name="PartyRole"/>
+            <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>
             <create-value value-name="partyRole"/>
         </if-empty>
-        <make-value value-name="newEntity" entity-name="CustRequestParty"/>
+        <make-value value-field="newEntity" entity-name="CustRequestParty"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
@@ -248,7 +248,7 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createCustRequestNote" short-description="Create Customer Request Note">
-        <make-value value-name="newEntity" entity-name="CustRequestNote"/>
+        <make-value value-field="newEntity" entity-name="CustRequestNote"/>
         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
         <set from-field="parameters.noteInfo" field="newNoteMap.note"/>
         <call-service service-name="createNote" in-map-name="newNoteMap">
@@ -266,7 +266,7 @@ under the License.
         <store-value value-name="lookedUpValueForNoteData"/>
     </simple-method>
     <simple-method method-name="createCustRequestItemNote" short-description="Create Customer RequestItem Note">
-        <make-value value-name="newEntity" entity-name="CustRequestItemNote"/>
+        <make-value value-field="newEntity" entity-name="CustRequestItemNote"/>
         <set from-field="parameters.custRequestId" field="newEntity.custRequestId"/>
         <set from-field="parameters.custRequestItemSeqId" field="newEntity.custRequestItemSeqId"/>
         <set from-field="parameters.note" field="newNoteMap.note"/>
@@ -306,7 +306,7 @@ under the License.
 
         <!-- create, for every cart item, a request item -->
         <call-object-method obj-field-name="parameters.cart" method-name="items" ret-field-name="items"/>
-        <iterate list-name="items" entry-name="item">
+        <iterate list="items" entry="item">
             <!-- a new request item is created -->
             <clear-field field-name="createCustRequestItemInMap"/>
             <call-object-method obj-field-name="item" method-name="getConfigWrapper" ret-field-name="configWrapper"/>
@@ -374,7 +374,7 @@ under the License.
                 
         <if-compare field="parameters.copyLinkedQuotes" value="Y" operator="equals">
             <get-related value-name="custRequestItem" relation-name="QuoteItem" list-name="quoteItems"/>
-            <iterate list-name="quoteItems" entry-name="quoteItem">
+            <iterate list="quoteItems" entry="quoteItem">
                 <clear-field field-name="createQuoteItemInMap"/>
                 <set-service-fields service-name="createQuoteItem" to-map-name="createQuoteItemInMap" map-name="quoteItem"/>
                 <set field="createQuoteItemInMap.custRequestId" from-field="custRequestIdTo"/>
@@ -388,7 +388,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createCustRequestStatus" short-description="Create Customer Request Status">
-        <make-value value-name="newEntity" entity-name="CustRequestStatus"/>
+        <make-value value-field="newEntity" entity-name="CustRequestStatus"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="custRequestStatusId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.statusDatetime">
@@ -456,7 +456,7 @@ under the License.
         <entity-and entity-name="CommEventContentAssoc" list-name="custRequestContents">
             <field-map field-name="communicationEventId" from-field="parameters.communicationEventId"/>
         </entity-and>
-        <iterate entry="custRequestContent" list-name="custRequestContents">
+        <iterate entry="custRequestContent" list="custRequestContents">
             <set field="reqContent.custRequestId" from-field="parameters.custRequestId"/>
             <set field="reqContent.contentId" from-field="custRequestContent.contentId"/>
             <call-service service-name="createCustRequestContent" in-map-name="reqContent"/>
@@ -472,7 +472,7 @@ under the License.
     
     <!-- Create/Delete  CustRequest Content -->    
     <simple-method method-name="createCustRequestContent" short-description="Create Work Effort Content">
-        <make-value entity-name="CustRequestContent" value-name="newEntity"/>
+        <make-value entity-name="CustRequestContent" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         

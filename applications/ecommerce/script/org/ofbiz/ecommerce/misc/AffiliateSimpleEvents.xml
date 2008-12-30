@@ -33,7 +33,7 @@ under the License.
         <set from-field="ul_context.currentPassword" field="newUserLoginMap.currentPassword"/>
         <set from-field="ul_context.passwordHint" field="newUserLoginMap.passwordHint"/>
         <set from-field="ul_context.partyId" field="newUserLoginMap.partyId"/>
-        <make-value entity-name="UserLogin" map-name="newUserLoginMap" value-name="newUserLogin"/>
+        <make-value entity-name="UserLogin" map-name="newUserLoginMap" value-field="newUserLogin"/>
         <set-current-user-login value-name="newUserLogin"/>
 
         <!-- Create the Party/PartyGroup -->

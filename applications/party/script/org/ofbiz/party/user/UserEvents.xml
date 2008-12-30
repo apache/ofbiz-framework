@@ -101,7 +101,7 @@ under the License.
                 </if-not-empty>
             </if-not-empty>
 
-            <make-value entity-name="UserLogin" value-name="newUserLogin"/>
+            <make-value entity-name="UserLogin" value-field="newUserLogin"/>
             <set field="newUserLogin.userLoginId" from-field="userLoginContext.userLoginId"/>
             <set field="newUserLogin.currentPassword" from-field="userLoginContext.currentPassword" />
             <set field="newUserLogin.passwordHint" from-field="userLoginContext.passwordHint" />
@@ -281,7 +281,7 @@ under the License.
         </if-compare>
 
         <!-- create the PartyDataSource entry to track where this info came from... -->
-        <make-value entity-name="PartyDataSource" value-name="partyDataSource"/>
+        <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
         <set field="partyDataSource.dataSourceId" value="ECOMMERCE_SITE" />
         <set field="partyDataSource.fromDate" from-field="nowStamp" />
         <set field="partyDataSource.isCreate" value="Y" />
