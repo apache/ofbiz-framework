@@ -712,7 +712,7 @@
                         <set field="lookup.${roleEntityField}" from-field="checkId"/>
                         <set field="lookup.roleTypeId" from-field="checkRoleTypeId"/>
                         <set field="lookup.partyId" from-field="checkPartyId"/>
-                        <find-by-and entity-name="${roleEntity}" map-name="lookup" list-name="foundRoles"/>
+                        <find-by-and entity-name="${roleEntity}" map="lookup" list="foundRoles"/>
                         <!--
                         <entity-and entity-name="${roleEntity}" list="foundRoles">
                             <field-map from-field="${roleEntityField}"/>
@@ -726,7 +726,7 @@
                         <!-- looking up any role -->
                         <set field="lookup.${roleEntityField}" from-field="checkId"/>                        
                         <set field="lookup.partyId" from-field="checkPartyId"/>
-                        <find-by-and entity-name="${roleEntity}" map-name="lookup" list-name="foundRoles"/>
+                        <find-by-and entity-name="${roleEntity}" map="lookup" list="foundRoles"/>
                         <!--
                         <entity-and entity-name="${roleEntity}" list="foundRoles">
                             <field-map from-field="${roleEntityField}"/>
@@ -762,7 +762,7 @@
         <check-errors/>
         
         <set field="purposeLookup.contentId" from-field="checkId"/> 
-        <find-by-and entity-name="ContentPurpose" map-name="purposeLookup" list-name="contentPurposes"/>
+        <find-by-and entity-name="ContentPurpose" map="purposeLookup" list="contentPurposes"/>
     </simple-method>
     
     <!-- method to get user's party associations -->

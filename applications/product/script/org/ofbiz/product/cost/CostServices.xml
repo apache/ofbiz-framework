@@ -45,7 +45,7 @@ under the License.
         <set from-field="parameters.productId" field="costsAndMap.productId"/>
         <set from-field="parameters.costUomId" field="costsAndMap.costUomId"/>
         <set from-field="parameters.costComponentTypeId" field="costsAndMap.costComponentTypeId"/>
-        <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="existingCosts"/>
+        <find-by-and entity-name="CostComponent" map="costsAndMap" list="existingCosts"/>
         <filter-list-by-date list-name="existingCosts"/>
         <iterate list="existingCosts" entry="existingCost">
             <now-timestamp field="existingCost.thruDate"/>
@@ -57,7 +57,7 @@ under the License.
         <set from-field="parameters.productId" field="costsAndMap.productId"/>
         <set from-field="parameters.costUomId" field="costsAndMap.costUomId"/>
         <set from-field="parameters.costComponentTypeId" field="costsAndMap.costComponentTypeId"/>
-        <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="existingCosts"/>
+        <find-by-and entity-name="CostComponent" map="costsAndMap" list="existingCosts"/>
         <filter-list-by-date list-name="existingCosts"/>
         <iterate list="existingCosts" entry="existingCost">
             <now-timestamp field="existingCost.thruDate"/>
@@ -80,22 +80,22 @@ under the License.
         <set from-field="parameters.currencyUomId" field="costsAndMap.costUomId"/>
         <!-- Route costs -->
         <set value="${parameters.costComponentTypePrefix}_ROUTE_COST" field="costsAndMap.costComponentTypeId"/>
-        <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="routeCosts"/>
+        <find-by-and entity-name="CostComponent" map="costsAndMap" list="routeCosts"/>
         <filter-list-by-date list-name="routeCosts"/>
         <first-from-list list="routeCosts" entry="routeCost"/>
         <!-- Labor costs -->
         <set value="${parameters.costComponentTypePrefix}_LABOR_COST" field="costsAndMap.costComponentTypeId"/>
-        <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="laborCosts"/>
+        <find-by-and entity-name="CostComponent" map="costsAndMap" list="laborCosts"/>
         <filter-list-by-date list-name="laborCosts"/>
         <first-from-list list="laborCosts" entry="laborCost"/>
         <!-- Materials costs -->
         <set value="${parameters.costComponentTypePrefix}_MAT_COST" field="costsAndMap.costComponentTypeId"/>
-        <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="materialsCosts"/>
+        <find-by-and entity-name="CostComponent" map="costsAndMap" list="materialsCosts"/>
         <filter-list-by-date list-name="materialsCosts"/>
         <first-from-list list="materialsCosts" entry="materialsCost"/>
         <!-- Other costs -->
         <set value="${parameters.costComponentTypePrefix}_OTHER_COST" field="costsAndMap.costComponentTypeId"/>
-        <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="otherCosts"/>
+        <find-by-and entity-name="CostComponent" map="costsAndMap" list="otherCosts"/>
         <filter-list-by-date list-name="otherCosts"/>
         <first-from-list list="otherCosts" entry="otherCost"/>
         
@@ -112,7 +112,7 @@ under the License.
             <entity-one entity-name="Product" value-field="product"/>
             <set from-field="product.productId" field="assocAndMap.productIdTo"/>
             <set value="PRODUCT_VARIANT" field="assocAndMap.productAssocTypeId"/>
-            <find-by-and entity-name="ProductAssoc" map-name="assocAndMap" list-name="virtualAssocs"/>
+            <find-by-and entity-name="ProductAssoc" map="assocAndMap" list="virtualAssocs"/>
             <filter-list-by-date list-name="virtualAssocs"/>
             <first-from-list list="virtualAssocs" entry="virtualAssoc"/>
             <if-not-empty field="virtualAssoc">
@@ -131,7 +131,7 @@ under the License.
             <clear-field field="costsAndMap"/>
             <set from-field="parameters.productId" field="costsAndMap.productId"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.currencyUomId"/>
-            <find-by-and entity-name="SupplierProduct" map-name="costsAndMap" list-name="priceCosts" order-by-list-name="orderByList"/>
+            <find-by-and entity-name="SupplierProduct" map="costsAndMap" list-name="priceCosts" order-by-list="orderByList"/>
             <filter-list-by-date list-name="priceCosts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
             <first-from-list list="priceCosts" entry="priceCost"/>
             <if-not-empty field="priceCost.lastPrice">
@@ -144,7 +144,7 @@ under the License.
                 <clear-field field="costsAndMap"/>
                 <set from-field="parameters.productId" field="costsAndMap.productId"/>
                 <set from-field="parameters.productPriceTypeId" field="costsAndMap.productPriceTypeId"/>
-                <find-by-and entity-name="SupplierProduct" map-name="costsAndMap" list-name="priceCosts" order-by-list-name="orderByList"/>
+                <find-by-and entity-name="SupplierProduct" map="costsAndMap" list-name="priceCosts" order-by-list="orderByList"/>
                 <filter-list-by-date list-name="priceCosts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
                 <first-from-list list="priceCosts" entry="priceCost"/>
                 <if-not-empty field="priceCost.lastPrice">
@@ -165,7 +165,7 @@ under the License.
             <set from-field="parameters.productId" field="costsAndMap.productId"/>
             <set from-field="parameters.currencyUomId" field="costsAndMap.currencyUomId"/>
             <set from-field="parameters.productPriceTypeId" field="costsAndMap.productPriceTypeId"/>
-            <find-by-and entity-name="ProductPrice" map-name="costsAndMap" list-name="priceCosts"/>
+            <find-by-and entity-name="ProductPrice" map="costsAndMap" list="priceCosts"/>
             <filter-list-by-date list-name="priceCosts"/>
             <first-from-list list="priceCosts" entry="priceCost"/>
             <if-not-empty field="priceCost.price">

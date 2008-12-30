@@ -132,7 +132,7 @@ under the License.
         <field-to-list list-name="orderByStringList" field-name="orderByString"/>
         <set field="productCategoryRollUpContext.parentProductCategoryId" from-field="parameters.parentProductCategoryId" />
         <!--set field="categories" from-field="parameters.categories" / -->        
-        <find-by-and entity-name="ProductCategoryRollup" list-name="rollups" map-name="productCategoryRollUpContext" order-by-list-name="orderByStringList"/>
+        <find-by-and entity-name="ProductCategoryRollup" list-name="rollups" map="productCategoryRollUpContext" order-by-list="orderByStringList"/>
         <if-not-empty field="parameters.categories">
             <list-to-list list-name="parameters.categories" to-list-name="categories"/>
         </if-not-empty>
@@ -291,7 +291,7 @@ under the License.
                     <!-- log level="info" message = "Virtual product =====${productCategoryMember.productId}"/ -->
                     <set field="virtualProductContext.productId" from-field="product.productId"/>
                     <set field="virtualProductContext.productAssocTypeId" value="PRODUCT_VARIANT"/>                
-                    <find-by-and entity-name="ProductAssoc" map-name="virtualProductContext" list-name="variantProducts"/>   
+                    <find-by-and entity-name="ProductAssoc" map="virtualProductContext" list="variantProducts"/>   
                     <filter-list-by-date list-name="variantProducts"/>
                     <if-not-empty field="variantProducts">
                         <iterate entry="variantProduct" list="variantProducts">

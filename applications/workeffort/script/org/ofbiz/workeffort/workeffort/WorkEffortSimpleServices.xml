@@ -106,7 +106,7 @@ under the License.
               
 <!--        <set from-field="workEffortId" map-name="parameters" to-map-name="findWepaMap"/>
         <set from-field="partyId" map-name="userLogin" to-map-name="findWepaMap"/>
-        <find-by-and entity-name="WorkEffortPartyAssignment" map-name="findWepaMap" list-name="wepaList"/>
+        <find-by-and entity-name="WorkEffortPartyAssignment" map="findWepaMap" list="wepaList"/>
         <if-empty field="wepaList">
             <check-permission permission="WORKEFFORTMGR" action="_UPDATE"><fail-message message="Security Error: to run updateWorkEffort you must have the WORKEFFORTMGR_UPDATE or WORKEFFORTMGR_ADMIN permission"/></check-permission>
             <check-errors/>
@@ -837,7 +837,7 @@ under the License.
         <entity-one entity-name="WorkEffort" value-field="workEffort"/>
         <set from-field="workEffort.workEffortId" field="findMap.workEffortId"/>
         <set from-field="workEffort.fixedAssetId" field="findMap.fixedAssetId"/>
-        <find-by-and entity-name="WorkEffortFixedAssetAssign" map-name="findMap" list-name="existingAssignments"/>
+        <find-by-and entity-name="WorkEffortFixedAssetAssign" map="findMap" list="existingAssignments"/>
         <filter-list-by-date list-name="existingAssignments"/>
         <iterate list="existingAssignments" entry="existingAssignment">
             <remove-value value-field="existingAssignment"/>
@@ -1127,7 +1127,7 @@ under the License.
         <set field="workEffortAssocFindContext.workEffortIdFrom" from-field="parameters.oldWorkEffortId"/>
         <set field="reverseWorkEffortFindContext.workEffortIdTo" from-field="parameters.oldWorkEffortId"/>
         <if-not-empty field="parameters.duplicateWorkEffortAssocs">
-            <find-by-and entity-name="WorkEffortAssoc" map-name="workEffortAssocFindContext" list-name="foundValues"/>
+            <find-by-and entity-name="WorkEffortAssoc" map="workEffortAssocFindContext" list="foundValues"/>
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortIdFrom"/>
@@ -1147,7 +1147,7 @@ under the License.
         <!-- set up entity filter -->
         <set field="workEffortFindContext.workEffortId" from-field="parameters.oldWorkEffortId"/>
         <if-not-empty field="parameters.duplicateWorkEffortNotes">
-            <find-by-and entity-name="WorkEffortNote" map-name="workEffortFindContext" list-name="foundValues"/>
+            <find-by-and entity-name="WorkEffortNote" map="workEffortFindContext" list="foundValues"/>
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
@@ -1155,7 +1155,7 @@ under the License.
             </iterate>
         </if-not-empty>
         <if-not-empty field="parameters.duplicateWorkEffortContents">
-            <find-by-and entity-name="WorkEffortContent" map-name="workEffortFindContext" list-name="foundValues"/>
+            <find-by-and entity-name="WorkEffortContent" map="workEffortFindContext" list="foundValues"/>
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortId"/>
@@ -1163,7 +1163,7 @@ under the License.
             </iterate>
         </if-not-empty>
         <if-not-empty field="parameters.duplicateWorkEffortAssignmentRates">
-            <find-by-and entity-name="RateAmount" map-name="workEffortFindContext" list-name="foundValuesAll"/>
+            <find-by-and entity-name="RateAmount" map="workEffortFindContext" list="foundValuesAll"/>
             <filter-list-by-date list-name="foundValuesAll" to-list-name="foundValues"/>
             <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>

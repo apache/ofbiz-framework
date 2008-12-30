@@ -383,7 +383,7 @@ under the License.
         <set from-field="parameters.returnId" field="newEntity.returnId"/>
         <set from-field="parameters.returnId" field="lookupMap.returnId"/>
         <string-to-list string="-returnItemSeqId" list-name="orderBy"/>
-        <find-by-and entity-name="ReturnItem" list-name="currentItems" map-name="lookupMap" order-by-list-name="orderBy"></find-by-and>
+        <find-by-and entity-name="ReturnItem" list-name="currentItems" map="lookupMap" order-by-list="orderBy"></find-by-and>
         <if-empty field="currentItems">
             <set value="1" field="newEntity.returnItemSeqId"/>
         <else>
@@ -462,7 +462,7 @@ under the License.
         <check-errors/>
 
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
-        <find-by-and entity-name="ReturnItem" map-name="lookupPKMap" list-name="returnItems"/>
+        <find-by-and entity-name="ReturnItem" map="lookupPKMap" list="returnItems"/>
         <iterate entry="item" list="returnItems">
             <set field="item.statusId" from-field="parameters.statusId"/>
         </iterate>
@@ -536,7 +536,7 @@ under the License.
 
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
         <find-by-primary-key entity-name="ReturnHeader" map="lookupPKMap" value-field="returnHeader"/>
-        <find-by-and entity-name="ShipmentReceipt" map-name="lookupPKMap" list-name="shipmentReceipts"/>
+        <find-by-and entity-name="ShipmentReceipt" map="lookupPKMap" list="shipmentReceipts"/>
         <iterate list="shipmentReceipts" entry="receipt">
             <if-empty field="totalsMap.${receipt.returnItemSeqId}">
                 <calculate field="${receipt.returnItemSeqId}" map-name="totalsMap">
@@ -581,7 +581,7 @@ under the License.
         
         <!-- check to see if all items have been received -->
         <set field="allReceived" value="true"/>
-        <find-by-and entity-name="ReturnItem" map-name="lookupPKMap" list-name="allReturnItems"/>
+        <find-by-and entity-name="ReturnItem" map="lookupPKMap" list="allReturnItems"/>
         <iterate list="allReturnItems" entry="item">
             <if-compare field="item.statusId" operator="not-equals" value="RETURN_RECEIVED">
                 <if-not-empty field="item.orderItemSeqId">

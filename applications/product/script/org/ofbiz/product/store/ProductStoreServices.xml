@@ -81,7 +81,7 @@ under the License.
             <if-compare field="store.oneInventoryFacility" operator="equals" value="Y">
                 <!-- expire all the facilities -->
                 <set from-field="store.productStoreId" field="lookupPFMap.productStoreId"/>
-                <find-by-and entity-name="ProductStoreFacility" map-name="lookupPFMap" list-name="storeFacilities"/>
+                <find-by-and entity-name="ProductStoreFacility" map="lookupPFMap" list="storeFacilities"/>
                 <filter-list-by-date list-name="storeFacilities"/>
                 <iterate list="storeFacilities" entry="facility">
                     <set from-field="nowTimestamp" field="facility.thruDate"/>

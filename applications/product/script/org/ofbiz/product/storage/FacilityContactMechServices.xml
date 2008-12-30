@@ -59,7 +59,7 @@ under the License.
 
         <make-value entity-name="FacilityContactMech" value-field="facilityContactMechMap"/>
         <set-pk-fields value-field="facilityContactMechMap" map="parameters"/>
-        <find-by-and entity-name="FacilityContactMech" list-name="facilityContactMechs" map-name="facilityContactMechMap"/>
+        <find-by-and entity-name="FacilityContactMech" list="facilityContactMechs" map="facilityContactMechMap"/>
         <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
         <first-from-list entry="facilityContactMech" list="validFacilityContactMechs"/>
         <if-empty field="facilityContactMech">
@@ -105,7 +105,7 @@ under the License.
                 <set field="purposeMap.facilityId" from-field="facilityContactMechPurpose.facilityId"/>
                 <set field="purposeMap.contactMechPurposeTypeId" from-field="facilityContactMechPurpose.contactMechPurposeTypeId"/>
                 <set field="purposeMap.contactMechId" from-field="facilityContactMechPurpose.contactMechId"/>
-                <find-by-and entity-name="FacilityContactMechPurpose" list-name="purposeResult" map-name="purposeMap"/>
+                <find-by-and entity-name="FacilityContactMechPurpose" list="purposeResult" map="purposeMap"/>
 
                 <if-empty field="purposeResult">
 
@@ -126,7 +126,7 @@ under the License.
 
         <make-value entity-name="FacilityContactMech" value-field="facilityContactMechMap"/>
         <set-pk-fields value-field="facilityContactMechMap" map="parameters"/>
-        <find-by-and entity-name="FacilityContactMech" list-name="facilityContactMechs" map-name="facilityContactMechMap"/>
+        <find-by-and entity-name="FacilityContactMech" list="facilityContactMechs" map="facilityContactMechMap"/>
         <filter-list-by-date list-name="facilityContactMechs" to-list-name="validFacilityContactMechs"/>
 
         <first-from-list entry="facilityContactMech" list="validFacilityContactMechs"/>
@@ -242,7 +242,7 @@ under the License.
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
-        <if-validate-method field-name="parameters.emailAddress" method="isEmail">
+        <if-validate-method field="parameters.emailAddress" method="isEmail">
             <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
         </if-validate-method>
         <check-errors/>
@@ -262,7 +262,7 @@ under the License.
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
-        <if-validate-method field-name="parameters.emailAddress" method="isEmail">
+        <if-validate-method field="parameters.emailAddress" method="isEmail">
             <else><add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressNotFormattedCorrectly"/></add-error></else>
         </if-validate-method>
         <check-errors/>
@@ -286,7 +286,7 @@ under the License.
         <set field="lookUpMap.facilityId" from-field="parameters.facilityId" />
         <set field="lookUpMap.contactMechId" from-field="parameters.contactMechId" />
         <set field="lookUpMap.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId" />
-        <find-by-and entity-name="FacilityContactMechPurpose" map-name="lookUpMap" list-name="purposeList"/>
+        <find-by-and entity-name="FacilityContactMechPurpose" map="lookUpMap" list="purposeList"/>
         <filter-list-by-date list-name="purposeList"/>
 
         <if-not-empty field="purposeList">

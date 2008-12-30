@@ -529,7 +529,7 @@ under the License.
         <!-- copy the roles from the request to the quote-->
         <make-value value-field="lookupRequestRole" entity-name="CustRequestParty"/>
         <set from-field="parameters.custRequestId" field="lookupRequestRole.custRequestId"/>
-        <find-by-and entity-name="CustRequestParty" map-name="lookupRequestRole" list-name="roles"/>
+        <find-by-and entity-name="CustRequestParty" map="lookupRequestRole" list="roles"/>
         <iterate entry="role" list="roles">
             <clear-field field="cqrContext"/>
             <set from-field="quoteId" field="cqrContext.quoteId"/>

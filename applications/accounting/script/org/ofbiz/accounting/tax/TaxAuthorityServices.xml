@@ -108,7 +108,7 @@ under the License.
         <set field="taxAuthorityRateProductMap.taxAuthGeoId" from-field="parameters.taxAuthGeoId"/>
         <set field="taxAuthorityRateProductMap.taxAuthPartyId" from-field="parameters.taxAuthPartyId"/>
         <set field="taxAuthorityRateProductMap.productCategoryId" from-field="parameters.productCategoryId"/>
-        <find-by-and entity-name="TaxAuthorityRateProduct" map-name="taxAuthorityRateProductMap" list-name="taxAuthorityRateProductList"/>
+        <find-by-and entity-name="TaxAuthorityRateProduct" map="taxAuthorityRateProductMap" list="taxAuthorityRateProductList"/>
         <if-empty field="taxAuthorityRateProductList">
             <entity-one entity-name="TaxAuthorityCategory" value-field="lookedUpValue"/>
             <remove-value value-field="lookedUpValue"/>

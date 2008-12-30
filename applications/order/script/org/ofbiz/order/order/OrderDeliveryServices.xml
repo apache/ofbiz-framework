@@ -86,13 +86,13 @@ under the License.
         <!-- find email address for currently logged in user, set as sendFrom -->
         <set field="curUserPcmFindMap.partyId" from-field="userLogin.partyId"/>
         <set field="curUserPcmFindMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
-        <find-by-and entity-name="PartyAndContactMech" map-name="curUserPcmFindMap" list-name="curUserPartyAndContactMechs"/>
+        <find-by-and entity-name="PartyAndContactMech" map="curUserPcmFindMap" list="curUserPartyAndContactMechs"/>
         <first-from-list entry="curUserPartyAndContactMech" list="curUserPartyAndContactMechs"/>
         <string-append field-name="sendEmailMap.sendFrom" string="${curUserPartyAndContactMech.infoString}" prefix=","/>
         
         <!-- find email addresses of all parties in SHIPMENT_CLERK roleTypeId, set as sendTo -->
         <set value="SHIPMENT_CLERK" field="shipmentClerkFindMap.roleTypeId"/>
-        <find-by-and entity-name="PartyRole" map-name="shipmentClerkFindMap" list-name="shipmentClerkRoles"/>
+        <find-by-and entity-name="PartyRole" map="shipmentClerkFindMap" list="shipmentClerkRoles"/>
         <iterate entry="shipmentClerkRole" list="shipmentClerkRoles">
             <set field="sendToPartyIdMap.${shipmentClerkRole.partyId}" from-field="shipmentClerkRole.partyId"/>
         </iterate>
@@ -101,7 +101,7 @@ under the License.
         <iterate-map key="sendToPartyId" value="sendToPartyIdValue" map="sendToPartyIdMap">
             <set field="sendToPartyPcmFindMap.partyId" from-field="sendToPartyId"/>
             <set field="sendToPartyPcmFindMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
-            <find-by-and entity-name="PartyAndContactMech" map-name="sendToPartyPcmFindMap" list-name="sendToPartyPartyAndContactMechs"/>
+            <find-by-and entity-name="PartyAndContactMech" map="sendToPartyPcmFindMap" list="sendToPartyPartyAndContactMechs"/>
             <iterate entry="sendToPartyPartyAndContactMech" list="sendToPartyPartyAndContactMechs">
                 <string-append field-name="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
             </iterate>
