@@ -21,7 +21,7 @@ under the License.
     <simple-method method-name="FindProducts" short-description="Find products by name/description" login-required="false">
         <!--  Search by product name -->
         <if-compare field="parameters.searchBy" operator="equals" value="productName">
-            <entity-condition entity-name="Product" list-name="products">
+            <entity-condition entity-name="Product" list="products">
                 <select-field field-name="productId"/>
                 <select-field field-name="productName"/>
                 <order-by field-name="productName"/>
@@ -37,7 +37,7 @@ under the License.
         <else>
             <!--  Search by product description -->
             <if-compare field="parameters.searchBy" operator="equals" value="productDescription">
-                <entity-condition entity-name="Product" list-name="products">
+                <entity-condition entity-name="Product" list="products">
                     <select-field field-name="productId"/>
                     <select-field field-name="description"/>
                     <order-by field-name="description"/>
@@ -57,7 +57,7 @@ under the License.
     
     <simple-method method-name="FindProductsByIdentification" short-description="Find products by good identification" login-required="false">
         <!--  Search by good identification -->
-        <entity-condition entity-name="GoodIdentificationAndProduct" list-name="products">
+        <entity-condition entity-name="GoodIdentificationAndProduct" list="products">
             <select-field field-name="productId"/>
             <select-field field-name="idValue"/>
             <order-by field-name="idValue"/>

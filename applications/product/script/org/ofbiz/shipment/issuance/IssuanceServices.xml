@@ -275,7 +275,7 @@ under the License.
         <!-- try to find an existing shipmentItem and attach to it, if none found create a new shipmentItem -->
         <!-- if there is NO productId on the orderItem, ALWAYS create a new shipmentItem -->
         <if-not-empty field="orderItem.productId">
-            <entity-condition entity-name="ShipmentItem" list-name="shipmentItems">
+            <entity-condition entity-name="ShipmentItem" list="shipmentItems">
                 <condition-list combine="and">
                     <condition-expr field-name="productId" env-name="orderItem.productId"/>
                     <condition-expr field-name="shipmentId" env-name="parameters.shipmentId"/>

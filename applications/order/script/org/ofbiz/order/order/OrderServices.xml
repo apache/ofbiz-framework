@@ -55,7 +55,7 @@ under the License.
             <set value="ORDER_COMPLETED" field="parameters.statusId"/>
         </if-empty>
 
-        <entity-condition entity-name="OrderHeaderAndRoleSummary" list-name="orderInfoList">
+        <entity-condition entity-name="OrderHeaderAndRoleSummary" list="orderInfoList">
             <condition-list combine="and">
                 <condition-expr field-name="partyId" operator="equals" env-name="parameters.partyId"/>
                 <condition-expr field-name="roleTypeId" operator="equals" env-name="parameters.roleTypeId"/>
@@ -356,7 +356,7 @@ under the License.
                 <set from-field="inventoryItem.facilityId" field="inputMap.facilityId"/>
 
                 <!-- Retrieve and total the quantities of existing requirements for the product/facility -->
-                <entity-condition entity-name="Requirement" list-name="requirements">
+                <entity-condition entity-name="Requirement" list="requirements">
                     <condition-list combine="and">
                         <condition-expr field-name="productId" operator="equals" env-name="parameters.productId"/>
                         <condition-expr field-name="requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT"/>
@@ -867,7 +867,7 @@ under the License.
     
     <simple-method method-name="checkOrderIsOnBackOrder" short-description="Check if an Order is on Back Order" login-required="false">
         <set field="zeroEnv" value="0" type="Double"/>
-        <entity-condition entity-name="OrderItemShipGrpInvRes" list-name="orderItemShipGrpInvResList">
+        <entity-condition entity-name="OrderItemShipGrpInvRes" list="orderItemShipGrpInvResList">
             <condition-list combine="and">
                 <condition-expr field-name="orderId" env-name="parameters.orderId"/>
                 <condition-expr field-name="quantityNotAvailable" operator="not-equals" env-name="nullField"/>

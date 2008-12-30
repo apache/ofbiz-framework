@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="migrateOrderItemAssociation" short-description="Migrate data from OldOrderItemAssociation to OrderItemAssoc">
-        <entity-condition entity-name="OldOrderItemAssociation" list-name="oldOrderItemAssociations"/>
+        <entity-condition entity-name="OldOrderItemAssociation" list="oldOrderItemAssociations"/>
         <iterate list="oldOrderItemAssociations" entry="oldOrderItemAssociation">
             <make-value entity-name="OrderItemAssoc" value-field="orderItemAssoc"/>
             <set field="orderItemAssoc.orderId" from-field="oldOrderItemAssociation.salesOrderId"/>
@@ -37,7 +37,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="migrateCustRequestRole" short-description="Migrate data from OldCustRequestRole to CustRequestParty">
-        <entity-condition entity-name="OldCustRequestRole" list-name="oldCustRequestRoles"/>
+        <entity-condition entity-name="OldCustRequestRole" list="oldCustRequestRoles"/>
         <now-timestamp-to-env env-name="fromDate"/>
         <iterate list="oldCustRequestRoles" entry="oldCustRequestRole">
             <make-value entity-name="CustRequestParty" value-field="custRequestParty"/>

@@ -1153,7 +1153,7 @@
     
     	<set field="filterByDate" from-field="parameters.filterByDate" default-value="true" type="Boolean" />
     	<set field="useCache" from-field="parameters.useCache" default-value="true" type="Boolean" />
-        <entity-condition list-name="viewList" entity-name="ContentAssocViewTo" filter-by-date="${filterByDate}" use-cache="${useCache}">
+        <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="${filterByDate}" use-cache="${useCache}">
           <condition-list combine="and">
               <condition-expr field-name="contentIdStart" env-name="parameters.contentId"/>
               <condition-expr field-name="caContentAssocTypeId" env-name="parameters.contentAssocTypeId" ignore-if-empty="true"/>
@@ -1201,7 +1201,7 @@
         </call-service>        
         
         <iterate entry="view" list="subContentList">
-	        <entity-condition list-name="viewList" entity-name="ContentAssocViewTo" filter-by-date="true" use-cache="${useCache}">
+	        <entity-condition list="viewList" entity-name="ContentAssocViewTo" filter-by-date="true" use-cache="${useCache}">
 	          <condition-list combine="and">
 	              <condition-expr field-name="contentIdStart" env-name="view.caContentIdTo"/>
 	              <condition-expr field-name="caContentAssocTypeId" env-name="parameters.subContentAssocTypeId" ignore-if-empty="true"/>

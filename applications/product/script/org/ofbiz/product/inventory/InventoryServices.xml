@@ -380,7 +380,7 @@ under the License.
     
     <simple-method method-name="updateOldInventoryToDetailAll" short-description="Update Old Inventory To Detail All">
         <!-- find all InventoryItem records where oldQuantityOnHand or oldAvailableToPromise are not null -->
-        <entity-condition entity-name="InventoryItem" list-name="inventoryItemList">
+        <entity-condition entity-name="InventoryItem" list="inventoryItemList">
             <condition-list combine="or">
                 <condition-expr field-name="oldQuantityOnHand" operator="not-equals" value=""/>
                 <condition-expr field-name="oldAvailableToPromise" operator="not-equals" value=""/>
@@ -709,7 +709,7 @@ under the License.
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
 
         <!-- find all items which have a negative ATP -->
-        <entity-condition entity-name="BalanceInventoryItemsView" list-name="inventoryItems">
+        <entity-condition entity-name="BalanceInventoryItemsView" list="inventoryItems">
             <condition-list combine="or">
                 <condition-list combine="and">
                     <condition-expr field-name="productId" operator="equals" env-name="inventoryItem.productId"/>
@@ -747,7 +747,7 @@ under the License.
                     </and>
                 </condition>
                 <then>
-                <entity-condition entity-name="PicklistAndBinAndItem" list-name="picklistItemList">
+                <entity-condition entity-name="PicklistAndBinAndItem" list="picklistItemList">
                     <condition-list combine="and">
                         <condition-expr field-name="orderId" env-name="item.orderId"/>
                         <condition-expr field-name="shipGroupSeqId" env-name="item.shipGroupSeqId"/>
@@ -839,7 +839,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="reassignInventoryReservations" short-description="Balances available-to-promise on inventory items">
-        <entity-condition entity-name="OrderItemShipGrpInvResAndItem" list-name="relatedRes">
+        <entity-condition entity-name="OrderItemShipGrpInvResAndItem" list="relatedRes">
             <condition-list combine="and">
                 <condition-expr field-name="productId" operator="equals" env-name="parameters.productId"/>
                 <condition-expr field-name="facilityId" operator="equals" env-name="parameters.facilityId"/>
@@ -860,7 +860,7 @@ under the License.
         </entity-condition>
 
         <iterate list="relatedRes" entry="oneRelatedRes">
-            <entity-condition entity-name="PicklistAndBinAndItem" list-name="picklistItemList">
+            <entity-condition entity-name="PicklistAndBinAndItem" list="picklistItemList">
                 <condition-list combine="and">
                     <condition-expr field-name="orderId" env-name="oneRelatedRes.orderId"/>
                     <condition-expr field-name="shipGroupSeqId" env-name="oneRelatedRes.shipGroupSeqId"/>
@@ -953,7 +953,7 @@ under the License.
         <entity-one entity-name="OrderHeader" value-field="orderHeader" auto-field-map="true"/>
         <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-name="productStore"/>
         <if-compare field="productStore.balanceResOnOrderCreation" operator="equals" value="Y">
-            <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list-name="oisgirais">
+            <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list="oisgirais">
                 <condition-list combine="and">
                     <condition-expr field-name="orderId" operator="equals" env-name="parameters.orderId"/>
                     <condition-expr field-name="quantityNotAvailable" operator="greater" value="0"/>

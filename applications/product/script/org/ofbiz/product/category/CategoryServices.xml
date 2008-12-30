@@ -793,7 +793,7 @@ under the License.
         <set field="callingMethodName" from-field="parameters.resourceDescription" default-value="this operation"/>
         <set field="checkAction" from-field="parameters.mainAction" default-value="UPDATE"/>
         
-        <entity-condition list-name="prodCatalogCategoryList" entity-name="ProdCatalogCategory" filter-by-date="true">
+        <entity-condition list="prodCatalogCategoryList" entity-name="ProdCatalogCategory" filter-by-date="true">
             <condition-list combine="and">
                 <condition-expr field-name="productCategoryId" env-name="parameters.productCategoryId"/>
                 <condition-list combine="or">

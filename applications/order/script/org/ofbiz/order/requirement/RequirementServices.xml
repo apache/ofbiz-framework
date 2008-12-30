@@ -70,7 +70,7 @@ under the License.
         <check-errors/>
         <if-compare field="requirement.requirementTypeId" operator="equals" value="PRODUCT_REQUIREMENT">
             <if-not-empty field="requirement.productId">
-                <entity-condition entity-name="SupplierProduct" list-name="supplierProducts">
+                <entity-condition entity-name="SupplierProduct" list="supplierProducts">
                     <condition-list>
                         <condition-expr field-name="productId" env-name="requirement.productId"/>
                         <condition-expr field-name="minimumOrderQuantity" env-name="requirement.quantity" operator="less-equals"/>

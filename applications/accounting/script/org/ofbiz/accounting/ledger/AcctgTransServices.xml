@@ -152,7 +152,7 @@ under the License.
         <log level="info" message="Using ledger decimals [${ledgerDecimals}] and rounding [${roundingMode}]"/>
 
         <!-- get all AcctgTransEntry for this trans, for each if debit add to debits total if credit add to credits total -->
-        <entity-condition entity-name="AcctgTransEntry" list-name="acctgTransEntryList">
+        <entity-condition entity-name="AcctgTransEntry" list="acctgTransEntryList">
             <condition-expr field-name="acctgTransId" env-name="parameters.acctgTransId"/>
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>
@@ -218,7 +218,7 @@ under the License.
             <add-error><fail-message message="Not posting GL Accounting Transaction with ID [${parameters.acctgTransId}] because the trial balance failed: Debit Total=${trialBalanceResultMap.debitTotal} Credit Total=${trialBalanceResultMap.creditTotal} Debit/Credit Difference=${trialBalanceResultMap.debitCreditDifference}"/></add-error>
         </if-compare>
             
-        <entity-condition entity-name="AcctgTransEntry" list-name="acctgTransEntryList">
+        <entity-condition entity-name="AcctgTransEntry" list="acctgTransEntryList">
             <condition-expr field-name="acctgTransId" env-name="parameters.acctgTransId"/>
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>

@@ -40,7 +40,7 @@ under the License.
             <!-- If the routing is not associated with our product and it's a variant, then 
                  check to see if it's virtual product has the routing -->
             <if-empty field="routingGS">
-                <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList" filter-by-date="true">
+                <entity-condition entity-name="ProductAssoc" list="virtualProductAssocList" filter-by-date="true">
                     <condition-list combine="and">
                         <condition-expr field-name="productIdTo" env-name="parameters.productId" />
                         <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
@@ -65,7 +65,7 @@ under the License.
                 <!-- If there are no routings associated with our product and it's a variant, then 
                      check to see if it's virtual product has a routing -->
                 <if-empty field="routingGS">
-                    <entity-condition entity-name="ProductAssoc" list-name="virtualProductAssocList">
+                    <entity-condition entity-name="ProductAssoc" list="virtualProductAssocList">
                         <condition-list combine="and">
                             <condition-expr field-name="productIdTo" env-name="parameters.productId" />
                             <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />

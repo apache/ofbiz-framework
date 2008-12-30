@@ -172,7 +172,7 @@ under the License.
         
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
         <get-related value-name="inventoryItem" relation-name="InventoryItemDetail" list-name="inventoryItemDetails"/>
-        <entity-condition entity-name="ShipmentReceipt" list-name="shipmentReceipts">
+        <entity-condition entity-name="ShipmentReceipt" list="shipmentReceipts">
             <condition-expr field-name="inventoryItemId" env-name="inventoryItemId"/>
             <order-by field-name="datetimeReceived"/>
         </entity-condition>

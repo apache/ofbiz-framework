@@ -228,7 +228,7 @@ under the License.
     <!-- services to automatically generate cost information -->
     <simple-method method-name="calculateAllProductsCosts" short-description="Calculates estimated costs for all the products">
         <!--filter-by-date="true"-->
-        <entity-condition entity-name="Product" list-name="products">
+        <entity-condition entity-name="Product" list="products">
             <select-field field-name="productId"/>
             <order-by field-name="-billOfMaterialLevel"/>
         </entity-condition>

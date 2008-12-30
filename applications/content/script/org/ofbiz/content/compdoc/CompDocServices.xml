@@ -29,7 +29,7 @@ under the License.
 
         <!--  if not passed in, get latest template contentRevisionSeqId from db -->
         <if-empty field="parameters.contentRevisionSeqId">
-            <entity-condition entity-name="ContentRevision" list-name="contentRevisionList">
+            <entity-condition entity-name="ContentRevision" list="contentRevisionList">
                 <condition-list>
                     <condition-expr field-name="contentId" operator="equals" env-name="parameters.instanceOfContentId"/>
                 </condition-list>
@@ -109,7 +109,7 @@ under the License.
         <set from-field="parentInstanceContentId" field="thisInstanceContentId"/>
         <log message="genInstanceChildCompDocs 0> thisTemplateContentId: ${thisTemplateContentId}" level="info"/>
         <log message="genInstanceChildCompDocs 1> thisInstanceContentId: ${thisInstanceContentId}" level="info"/>
-        <entity-condition entity-name="ContentAssoc" list-name="contentAssocList">
+        <entity-condition entity-name="ContentAssoc" list="contentAssocList">
             <condition-list combine="and">
                 <condition-expr field-name="contentIdTo" operator="equals" env-name="thisTemplateContentId"/>
                 <condition-expr field-name="contentAssocTypeId" operator="equals" value="COMPDOC_PART"/>
@@ -392,7 +392,7 @@ under the License.
     </simple-method>
     <!-- Methods for ContentRevision and ContentRevisionItem -->
     <simple-method method-name="persistContentRevisionAndItem" short-description="Update ContentRevision and ContentRevisionItem">
-        <entity-condition entity-name="ContentRevision" list-name="contentRevisionList">
+        <entity-condition entity-name="ContentRevision" list="contentRevisionList">
             <condition-expr field-name="contentId" operator="equals" env-name="parameters.contentId"/>
             <order-by field-name="contentRevisionSeqId DESC"/>
         </entity-condition>
@@ -443,7 +443,7 @@ under the License.
         <log level="info" message="paddedSeqId: ${paddedSeqId}"/>
     </simple-method>
     <simple-method method-name="getRevisionDataResource" short-description="Get version of DataResource that fits overall revision">
-        <entity-condition entity-name="ContentRevisionItem" list-name="contentRevisionItems" use-cache="true">
+        <entity-condition entity-name="ContentRevisionItem" list="contentRevisionItems" use-cache="true">
             <condition-list combine="and">
                 <condition-expr field-name="contentId" env-name="parameters.contentId" operator="equals"/>
                 <condition-expr field-name="itemContentId" env-name="parameters.itemContentId" operator="equals"/>
@@ -528,7 +528,7 @@ under the License.
               if you are not sure what previous contentRevisionSeqId is, then it is necessary to ask.
               I think it is worth not assuming it is 1 less than the passed in value, just for ruggedness.
           -->
-        <entity-condition entity-name="MaxContentApprovalView" list-name="instanceApprovalList" use-cache="false">
+        <entity-condition entity-name="MaxContentApprovalView" list="instanceApprovalList" use-cache="false">
             <condition-list>
                 <condition-expr field-name="contentId" env-name="parameters.rootContentId" operator="equals"/>
                 <condition-expr field-name="contentRevisionSeqId" env-name="parameters.contentRevisionSeqId" operator="less-equals"/>
@@ -545,7 +545,7 @@ under the License.
         <!--  since we don't have a primary key from above, go get one -->
         <iterate list="instanceApprovalList" entry="maxContentApproval">
             <log level="info" message="maxContentApproval: ${maxContentApproval}"/>
-            <entity-condition entity-name="ContentApproval" list-name="contentApprovalList2" use-cache="false">
+            <entity-condition entity-name="ContentApproval" list="contentApprovalList2" use-cache="false">
                 <condition-list>
                     <condition-expr field-name="contentId" env-name="maxContentApproval.contentId" operator="equals"/>
                     <condition-expr field-name="contentRevisionSeqId" env-name="maxContentApproval.maxContentRevisionSeqId" operator="equals"/>
@@ -575,7 +575,7 @@ under the License.
     </simple-method>
     <simple-method method-name="cloneTemplateContentApprovals" short-description="Bump the previous ContentApproval approvals up to current CDI">
         <log level="info" message="cloneTemplateContentApprovals-parameters: ${parameters}"/>
-        <entity-condition entity-name="MaxContentApprovalView" list-name="maxContentApprovalList">
+        <entity-condition entity-name="MaxContentApprovalView" list="maxContentApprovalList">
             <condition-list combine="and">
                 <condition-expr field-name="contentId" operator="equals" env-name="parameters.contentId"/>
             </condition-list>
@@ -613,7 +613,7 @@ under the License.
         <log level="info" message="cloneContentApprovals(0b)- parameters : ${parameters} "/>
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <!--  get previous list of ContentApproval -->
-        <entity-condition entity-name="MaxContentApprovalView" list-name="maxContentApprovalList">
+        <entity-condition entity-name="MaxContentApprovalView" list="maxContentApprovalList">
             <condition-list combine="and">
                 <condition-expr field-name="contentId" operator="equals" env-name="thisContentId"/>
                 <condition-expr field-name="contentRevisionSeqId" operator="less" env-name="thisContentRevisionSeqId" ignore-if-null="true"/>
@@ -633,7 +633,7 @@ under the License.
                 <!--  if an instance track, check to see if there any new or deleted records on the template -->
                 <set from-field="content.instanceOfContentId" field="rootTemplateContentId"/>
                 <log level="info" message="rootTemplateContentId 0aa: ${rootTemplateContentId}"/>
-                <entity-condition entity-name="ContentRevision" list-name="templateContentRevisionList" use-cache="true">
+                <entity-condition entity-name="ContentRevision" list="templateContentRevisionList" use-cache="true">
                     <condition-list>
                         <condition-expr field-name="contentId" env-name="rootTemplateContentId" operator="equals"/>
                     </condition-list>
@@ -725,7 +725,7 @@ under the License.
                 <!--  if an instance track, check to see if there any new or deleted records on the template -->
                 <set from-field="content.instanceOfContentId" field="rootTemplateContentId"/>
                 <log level="info" message="rootTemplateContentId 0aa: ${rootTemplateContentId}"/>
-                <entity-condition entity-name="ContentRevision" list-name="templateContentRevisionList" use-cache="true">
+                <entity-condition entity-name="ContentRevision" list="templateContentRevisionList" use-cache="true">
                     <condition-list>
                         <condition-expr field-name="contentId" env-name="rootTemplateContentId" operator="equals"/>
                     </condition-list>
@@ -740,7 +740,7 @@ under the License.
                 <log level="info" message="templateContentApprovalList 0aa: ${templateContentApprovalList}"/>
                 <iterate list="templateContentApprovalList" entry="templateContentApproval">
                     <!--  look for this entity in newly created entities -->
-                    <entity-condition entity-name="ContentApproval" list-name="newContentApprovalList">
+                    <entity-condition entity-name="ContentApproval" list="newContentApprovalList">
                         <condition-list combine="and">
                             <condition-expr field-name="contentId" operator="equals" env-name="thisContentId"/>
                             <condition-expr field-name="contentRevisionSeqId" operator="equals" env-name="thisContentRevisionSeqId"/>
@@ -777,7 +777,7 @@ under the License.
         </if-compare>
         <if-not-empty field="contentApproval.roleTypeId">
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <entity-condition entity-name="ContentRole" list-name="contentRoleList">
+            <entity-condition entity-name="ContentRole" list="contentRoleList">
                 <condition-list combine="and">
                     <condition-expr field-name="contentId" env-name="contentId" operator="equals"/>
                     <condition-expr field-name="partyId" env-name="partyId" operator="equals"/>
@@ -885,7 +885,7 @@ under the License.
         </iterate>
         <log level="info" message="roles: ${roles}"/>
         <!-- find approvals belonging to roles that the user has or to the user -->
-        <entity-condition entity-name="MaxContentApprovalView" list-name="compdocApprovalList" use-cache="false">
+        <entity-condition entity-name="MaxContentApprovalView" list="compdocApprovalList" use-cache="false">
             <condition-list>
                 <condition-expr field-name="contentRevisionSeqId" env-name="parameters.contentRevisionSeqId" operator="less-equals" ignore-if-empty="true"/>
                 <condition-expr field-name="contentTypeId" operator="equals" value="COMPDOC_INSTANCE"/>
@@ -904,7 +904,7 @@ under the License.
         <!-- above query does not get contentApprovalId. For each row find it -->
         <iterate list="compdocApprovalList" entry="maxContentApproval">
             <log level="info" message="maxContentApproval: ${maxContentApproval}"/>
-            <entity-condition entity-name="ContentApproval" list-name="contentApprovalList2" use-cache="false">
+            <entity-condition entity-name="ContentApproval" list="contentApprovalList2" use-cache="false">
                 <condition-list>
                     <condition-expr field-name="contentId" env-name="maxContentApproval.contentId" operator="equals"/>
                     <condition-expr field-name="contentRevisionSeqId" env-name="maxContentApproval.maxContentRevisionSeqId" operator="equals"/>
@@ -922,7 +922,7 @@ under the License.
         </iterate>
         <log level="info" message="contentApprovalIdList: ${contentApprovalIdList}"/>
         <!-- find the entries that match the user's partyId or associated roleTypes -->
-        <entity-condition entity-name="ContentApproval" list-name="contentApprovalList">
+        <entity-condition entity-name="ContentApproval" list="contentApprovalList">
             <condition-list combine="and">
                 <condition-expr field-name="contentApprovalId" operator="in" env-name="contentApprovalIdList"/>
                 <condition-expr field-name="approvalStatusId" operator="equals" value="CNTAP_READY"/>
@@ -932,7 +932,7 @@ under the License.
         <field-to-result field="contentApprovalList" result-name="contentApprovalList"/>
     </simple-method>
     <simple-method method-name="getMostRecentRevision" short-description="Look for most recent revision for contentId">
-        <entity-condition entity-name="ContentRevision" list-name="contentRevisions" use-cache="true">
+        <entity-condition entity-name="ContentRevision" list="contentRevisions" use-cache="true">
             <condition-list combine="and">
                 <condition-expr field-name="contentId" env-name="parameters.contentId" operator="equals"/>
             </condition-list>
