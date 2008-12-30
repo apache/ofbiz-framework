@@ -31,8 +31,8 @@ under the License.
         <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <call-object-method obj-field-name="newEntity.enteredKeyword" method-name="toLowerCase" ret-field-name="newEntity.enteredKeyword"/>
-        <call-object-method obj-field-name="newEntity.alternateKeyword" method-name="toLowerCase" ret-field-name="newEntity.alternateKeyword"/>
+        <call-object-method obj-field="newEntity.enteredKeyword" method-name="toLowerCase" ret-field="newEntity.enteredKeyword"/>
+        <call-object-method obj-field="newEntity.alternateKeyword" method-name="toLowerCase" ret-field="newEntity.alternateKeyword"/>
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateKeywordThesaurus" short-description="Update a KeywordThesaurus">
@@ -41,14 +41,14 @@ under the License.
         <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <store-value value-name="newEntity"/>
+        <store-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteKeywordThesaurus" short-description="Delete a KeywordThesaurus">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteKeywordThesaurus you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <remove-by-and entity-name="KeywordThesaurus" map-name="newEntity"/>
+        <remove-by-and entity-name="KeywordThesaurus" map="newEntity"/>
     </simple-method>
     
     <!-- Uom Conversion service -->
@@ -67,7 +67,7 @@ under the License.
         </if-compare-field>
 
         <if-empty field="parameters.asOfDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="asOfDate" from-field="nowTimestamp"/>
             <else>
                 <set field="asOfDate" from-field="parameters.asOfDate"/>
@@ -132,10 +132,10 @@ under the License.
                 <log level="verbose" message="Custom UoM conversion returning convertedValue=${convertedValue}"/>
             <else>  <!-- not custom conversion -->
                 <!-- do the conversion -->
-                <calculate field-name="convertedValue" type="Double" decimal-scale="15">
+                <calculate field="convertedValue" type="Double" decimal-scale="15">
                     <calcop operator="multiply">
-                        <calcop operator="get" field-name="parameters.originalValue"/>
-                        <calcop operator="get" field-name="uomConversion.conversionFactor"/>
+                        <calcop operator="get" field="parameters.originalValue"/>
+                        <calcop operator="get" field="uomConversion.conversionFactor"/>
                     </calcop> 
                 </calculate>
             </else>
@@ -144,8 +144,8 @@ under the License.
             <!-- round result, if UomConversion[Dated] so specifies -->
             <set field="roundingMode" from-field="uomConversion.roundingMode"/>
             <if-not-empty field="uomConversion.roundingMode">
-                <calculate field-name="roundedValue" type="Double" decimal-scale="${uomConversion.decimalScale}" rounding-mode="${roundingMode}">
-                    <calcop operator="get" field-name="convertedValue"/>
+                <calculate field="roundedValue" type="Double" decimal-scale="${uomConversion.decimalScale}" rounding-mode="${roundingMode}">
+                    <calcop operator="get" field="convertedValue"/>
                 </calculate>
                 <set field="convertedValue" from-field="roundedValue"/>
             </if-not-empty>
@@ -178,11 +178,11 @@ under the License.
     <simple-method method-name="getFileUploadProgressStatus" short-description="Look up progress made in File Upload process">
         <set field="uploadProgressListener" from-field="parameters.uploadProgressListener"/>
         <if-not-empty field="uploadProgressListener">
-            <call-object-method obj-field-name="uploadProgressListener" method-name="getContentLength" ret-field-name="parameters.contentLength"/>
+            <call-object-method obj-field="uploadProgressListener" method-name="getContentLength" ret-field="parameters.contentLength"/>
             <field-to-result field="parameters.contentLength" result-name="contentLength"/>
-            <call-object-method obj-field-name="uploadProgressListener" method-name="getBytesRead" ret-field-name="parameters.bytesRead"/>
+            <call-object-method obj-field="uploadProgressListener" method-name="getBytesRead" ret-field="parameters.bytesRead"/>
             <field-to-result field="parameters.bytesRead" result-name="bytesRead"/>
-            <call-object-method obj-field-name="uploadProgressListener" method-name="hasStarted" ret-field-name="parameters.hasStarted"/>
+            <call-object-method obj-field="uploadProgressListener" method-name="hasStarted" ret-field="parameters.hasStarted"/>
             <field-to-result field="parameters.hasStarted" result-name="hasStarted"/>
             <call-bsh><![CDATA[
                 contentLength = parameters.get("contentLength");
@@ -215,7 +215,7 @@ under the License.
             <set field="resourceTypeEnumId" from-field="resourceRecord.resourceTypeEnumId"/>
             <set field="resourceValue" from-field="resourceRecord.resourceValue"/>
             <if-empty field="resourceValue">
-                <property-to-field field-name="warningMsg" property="VisualThemeInvalidRecord" resource="CommonUiLabels"/>
+                <property-to-field field="warningMsg" property="VisualThemeInvalidRecord" resource="CommonUiLabels"/>
                 <log level="warning" message="${warningMsg}"/>
                 <else>
                     <set field="themeResources.${resourceTypeEnumId}[]" from-field="resourceValue"/>
