@@ -94,7 +94,7 @@
                     </entity-one>
                     <set field="getPartyEmail.partyId" from-field="custReq.fromPartyId"/>
                     <call-service service-name="getPartyEmail" in-map-name="getPartyEmail">
-                    	<result-to-field result-name="emailAddress" field-name="emailParams.sendTo"/>
+                    	<result-to-field result-name="emailAddress" field="emailParams.sendTo"/>
                     </call-service>
                     <entity-and list="webSites" entity-name="WebSite">
                         <field-map field-name="productStoreId" from-field="storeEmail.productStoreId" />

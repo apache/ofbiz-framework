@@ -107,7 +107,7 @@ under the License.
     <simple-method method-name="createSimpleTextContentForAlternateLocale" short-description="Create Simple Text Content For Alternate Locale">
         <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleTextMap"/>
         <call-service service-name="createSimpleTextContent" in-map="createSimpleTextMap">
-            <result-to-field result-name="contentId" field-name="createContentAssocMap.contentIdTo"/>
+            <result-to-field result-name="contentId" field="createContentAssocMap.contentIdTo"/>
         </call-service>
         <set field="createContentAssocMap.contentId" from-field="parameters.mainContentId"/>
         <set field="createContentAssocMap.contentAssocTypeId" value="ALTERNATE_LOCALE"/>

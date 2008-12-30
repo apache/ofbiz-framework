@@ -225,13 +225,13 @@ under the License.
             <set field="calcPriceInMap.product" from-field="product"/>
             <set field="calcPriceInMap.quantity" from-field="shoppingListItem.quantity"/>
             <call-service service-name="calculateProductPrice" in-map-name="calcPriceInMap">
-                <result-to-field result-name="price" field-name="calcPriceOutMap.price"/>
+                <result-to-field result-name="price" field="calcPriceOutMap.price"/>
             </call-service>
-            <calculate field-name="totalPrice">
-                <calcop field-name="totalPrice" operator="add"/>
+            <calculate field="totalPrice">
+                <calcop field="totalPrice" operator="add"/>
                 <calcop operator="multiply">
-                    <calcop operator="get" field-name="calcPriceOutMap.price"/>
-                    <calcop operator="get" field-name="shoppingListItem.quantity"/>
+                    <calcop operator="get" field="calcPriceOutMap.price"/>
+                    <calcop operator="get" field="shoppingListItem.quantity"/>
                 </calcop>
             </calculate>
             <clear-field field="calcPriceInMap"/>
@@ -245,11 +245,11 @@ under the License.
             <map-to-map map-name="calcPriceInBaseMap" to-map-name="calcChildPriceInMap"/>
             <set from-field="childshoppingList.shoppingListId" field="calcChildPriceInMap.shoppingListId"/>
             <call-service service-name="calculateShoppingListDeepTotalPrice" in-map-name="calcChildPriceInMap">
-                <result-to-field result-name="totalPrice" field-name="totalPrice" map-name="calcPriceOutMap"/>
+                <result-to-field result-name="totalPrice" field="calcPriceOutMap.totalPrice"/>
             </call-service>
-            <calculate field-name="totalPrice">
-                <calcop field-name="totalPrice" operator="get"/>
-                <calcop field-name="calcPriceOutMap.totalPrice" operator="get"/>
+            <calculate field="totalPrice">
+                <calcop field="totalPrice" operator="get"/>
+                <calcop field="calcPriceOutMap.totalPrice" operator="get"/>
             </calculate>
             <clear-field field="calcChildPriceInMap"/>
         </iterate>

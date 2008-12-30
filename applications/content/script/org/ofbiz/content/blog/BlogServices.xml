@@ -51,7 +51,7 @@
                 <set field="createMain.mapKey" value="MAIN"/>
 
                 <call-service service-name="createContent" in-map-name="createMain">
-                    <result-to-field result-name="contentId" field-name="contentId"/>
+                    <result-to-field result-name="contentId" field="contentId"/>
                 </call-service>
                  
                 <!-- reset contentIdFrom to new contentId -->
@@ -84,7 +84,7 @@
                 <set field="createImage._uploadedFile_contentType" from-field="parameters._uploadedFile_contentType"/>
 
                 <call-service service-name="createContentFromUploadedFile" in-map-name="createImage">
-                    <result-to-field result-name="contentId" field-name="imageContentId"/>
+                    <result-to-field result-name="contentId" field="imageContentId"/>
                 </call-service>
 
                 <if-empty field="contentId">
@@ -118,7 +118,7 @@
 
                 <log level="always" message="calling createTextContent with map: ${createText}"/>
                 <call-service service-name="createTextContent" in-map-name="createText">
-                    <result-to-field result-name="contentId" field-name="textContentId"/>
+                    <result-to-field result-name="contentId" field="textContentId"/>
                 </call-service>
 
                 <if-empty field="contentId">
@@ -186,7 +186,7 @@
             <set field="mapIn.currentContent" from-field="content"/>
             <log level="info" message="mapIn: ${mapIn}"/>
             <call-service service-name="checkContentPermission" in-map-name="mapIn">
-                <result-to-field result-name="permissionStatus" field-name="permissionStatus"/>
+                <result-to-field result-name="permissionStatus" field="permissionStatus"/>
             </call-service>
             <log level="info" message="permissionStatus: ${permissionStatus}"/>
             <if-compare operator="equals" field="permissionStatus" value="granted">

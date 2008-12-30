@@ -33,7 +33,7 @@ under the License.
         <check-errors/>
         <call-service service-name="updatePassword" in-map-name="context">
             <default-message resource="SecurityextUiLabels" property="loginmapprocs.password_successfully_updated"/>
-            <result-to-field result-name="updatedUserLogin" field-name="updatedUserLogin"/>
+            <result-to-field result-name="updatedUserLogin" field="updatedUserLogin"/>
         </call-service>
         <session-to-field field-name="userLogin"/>
         <if-compare-field field="userLogin.userLoginId" operator="equals" to-field="updatedUserLogin.userLoginId">

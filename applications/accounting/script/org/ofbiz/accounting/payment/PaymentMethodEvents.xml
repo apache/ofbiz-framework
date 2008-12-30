@@ -42,9 +42,9 @@ under the License.
             <set value="address" field="_response_code_"/>
             <set value="POSTAL_ADDRESS" field="preContactMechTypeId"/>
             <set value="BILLING_LOCATION" field="contactMechPurposeTypeId"/>
-            <field-to-request field-name="DONE_PAGE"/>
-            <field-to-request field-name="preContactMechTypeId"/>
-            <field-to-request field-name="contactMechPurposeTypeId"/>
+            <field-to-request field="DONE_PAGE"/>
+            <field-to-request field="preContactMechTypeId"/>
+            <field-to-request field="contactMechPurposeTypeId"/>
         </if-compare>
     </simple-method>
     <simple-method method-name="updateCreditCard" short-description="Update Credit Card">
@@ -62,9 +62,9 @@ under the License.
             <set value="address" field="_response_code_"/>
             <set value="POSTAL_ADDRESS" field="preContactMechTypeId"/>
             <set value="BILLING_LOCATION" field="contactMechPurposeTypeId"/>
-            <field-to-request field-name="DONE_PAGE"/>
-            <field-to-request field-name="preContactMechTypeId"/>
-            <field-to-request field-name="contactMechPurposeTypeId"/>
+            <field-to-request field="DONE_PAGE"/>
+            <field-to-request field="preContactMechTypeId"/>
+            <field-to-request field="contactMechPurposeTypeId"/>
         </if-compare>
     </simple-method>
 

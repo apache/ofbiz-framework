@@ -146,10 +146,10 @@ under the License.
         <if-not-empty field="parameters.returnId">
             <set field="returnHeaderFindContext.returnId" from-field="parameters.returnId" />
             <find-by-primary-key entity-name="ReturnHeader" value-field="returnHeader" map="returnHeaderFindContext"/>
-            <get-related list-name="returnItems" relation-name="ReturnItem" value-name="returnHeader"/>
+            <get-related list="returnItems" relation-name="ReturnItem" value-field="returnHeader"/>
             <log level="info" message="Return items lists are : ${returnItems}"/> 
             <iterate list="returnItems" entry="returnItem">
-                <get-related-one relation-name="OrderHeader" value-name="returnItem" to-value-name="orderHeader"/>    
+                <get-related-one relation-name="OrderHeader" value-name="returnItem" to-value-field="orderHeader"/>    
                 <set field="trackingCodeOrderFindContext.orderId" from-field="orderHeader.orderId"/>
                 <!-- set field="trackingCodeOrderFindContext.trackingCodeTypeId" value="PARTNER_MGD"/-->
                 <!-- get the siteId ,trackingCodeId from TrackingCodeOrder -->

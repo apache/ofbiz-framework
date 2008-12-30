@@ -39,7 +39,7 @@ under the License.
         <!-- check the product; make sure its a physical item -->
         <entity-one entity-name="Product" value-field="product"/>
         <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
-        <get-related-one value-name="product" relation-name="ProductType" to-value-field="productType"/>
+        <get-related-one value-field="product" relation-name="ProductType" to-value-field="productType"/>
         <if-compare field="productType.isPhysical" operator="equals" value="N">
             <set field="parameters.quantityNotReserved" value="0" type="Double"/>
             <else>
@@ -163,14 +163,14 @@ under the License.
                             <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
                             <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
                             <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
-                            <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
-                                <calcop field-name="parameters.quantityNotReserved" operator="negative"/>
+                            <calculate field="createDetailMap.availableToPromiseDiff" type="Double">
+                                <calcop field="parameters.quantityNotReserved" operator="negative"/>
                             </calculate>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                             <clear-field field="createDetailMap"/>
 
                             <!-- get the promiseDatetime -->
-                            <get-related-one value-name="lastNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
+                            <get-related-one value-name="lastNonSerInventoryItem" relation-name="ProductFacility" to-value-field="productFacility"/>
                             <clear-field field="daysToShip"/>
                             <set field="daysToShip" from-field="productFacility.daysToShip"/>
                             <if-empty field="daysToShip">
@@ -217,7 +217,7 @@ under the License.
                             <set value="NON_SERIAL_INV_ITEM" field="createInventoryItemInMap.inventoryItemTypeId"/>
                             <set from-field="permUserLogin" field="createInventoryItemInMap.userLogin"/>
                             <call-service service-name="createInventoryItem" in-map-name="createInventoryItemInMap" include-user-login="false">
-                                <result-to-field result-name="inventoryItemId" field-name="createInventoryItemOutMap.inventoryItemId"/>
+                                <result-to-field result-name="inventoryItemId" field="createInventoryItemOutMap.inventoryItemId"/>
                             </call-service>
                             <entity-one entity-name="InventoryItem" value-field="newNonSerInventoryItem">
                                 <field-map field-name="inventoryItemId" from-field="createInventoryItemOutMap.inventoryItemId"/>
@@ -228,14 +228,14 @@ under the License.
                             <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
                             <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
                             <set from-field="parameters.shipGroupSeqId" field="createDetailMap.shipGroupSeqId"/>
-                            <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
-                                <calcop field-name="parameters.quantityNotReserved" operator="negative"/>
+                            <calculate field="createDetailMap.availableToPromiseDiff" type="Double">
+                                <calcop field="parameters.quantityNotReserved" operator="negative"/>
                             </calculate>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                             <clear-field field="createDetailMap"/>
 
                             <!-- get the promiseDatetime -->
-                            <get-related-one value-name="newNonSerInventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
+                            <get-related-one value-name="newNonSerInventoryItem" relation-name="ProductFacility" to-value-field="productFacility"/>
                             <clear-field field="daysToShip"/>
                             <set field="daysToShip" from-field="productFacility.daysToShip"/>
                             <if-empty field="daysToShip">
@@ -320,7 +320,7 @@ under the License.
             <set field="receiveCtx.inventoryItemTypeId" value="SERIALIZED_INV_ITEM"/>
             <set field="receiveCtx.serialNumber" from-field="parameters.serialNumber"/>
             <call-service service-name="receiveInventoryProduct" in-map-name="receiveCtx">
-                <result-to-field result-name="inventoryItemId" field-name="inventoryItemLookupPk.inventoryItemId"/>
+                <result-to-field result-name="inventoryItemId" field="inventoryItemLookupPk.inventoryItemId"/>
             </call-service>
             <find-by-primary-key entity-name="InventoryItem" map="inventoryItemLookupPk" value-field="inventoryItem"/>    
         </if-empty>
@@ -401,8 +401,8 @@ under the License.
                     <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
                     <clear-field field="reserveOisgirMap"/>
 
-                    <calculate field-name="parameters.quantityNotReserved">
-                        <calcop field-name="parameters.quantityNotReserved" operator="subtract"><number value="1.0"/></calcop>
+                    <calculate field="parameters.quantityNotReserved">
+                        <calcop field="parameters.quantityNotReserved" operator="subtract"><number value="1.0"/></calcop>
                     </calculate>
                 </if-compare>
             </if-compare>
@@ -428,8 +428,8 @@ under the License.
                         <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
                         <set from-field="parameters.orderId" field="createDetailMap.orderId"/>
                         <set from-field="parameters.orderItemSeqId" field="createDetailMap.orderItemSeqId"/>
-                        <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
-                            <calcop field-name="parameters.deductAmount" operator="negative"/>
+                        <calculate field="createDetailMap.availableToPromiseDiff" type="Double">
+                            <calcop field="parameters.deductAmount" operator="negative"/>
                         </calculate>
                         <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                         <clear-field field="createDetailMap"/>
@@ -450,9 +450,9 @@ under the License.
                         <call-service service-name="reserveOrderItemInventory" in-map-name="reserveOisgirMap"/>
                         <clear-field field="reserveOisgirMap"/>
 
-                        <calculate field-name="quantityNotReserved" map-name="parameters">
-                            <calcop operator="subtract" field-name="quantityNotReserved" map-name="parameters">
-                                <calcop operator="get" field-name="deductAmount" map-name="parameters"/>
+                        <calculate field="quantityNotReserved" map-name="parameters">
+                            <calcop operator="subtract" field="quantityNotReserved" map-name="parameters">
+                                <calcop operator="get" field="deductAmount" map-name="parameters"/>
                             </calcop>
                         </calculate>
                     </then>
@@ -466,7 +466,7 @@ under the License.
     
     <simple-method method-name="getPromisedDateTime" short-description="Get Inventory Promised Date/Time">
         <!-- get the promiseDatetime -->
-        <get-related-one value-name="inventoryItem" relation-name="ProductFacility" to-value-name="productFacility"/>
+        <get-related-one value-name="inventoryItem" relation-name="ProductFacility" to-value-field="productFacility"/>
         <set field="daysToShip" from-field="productFacility.daysToShip"/>
         <if-empty field="daysToShip">
             <!-- if the product does not have its own days to ship, use Facility.defaultDaysToShip, if not then use 30 days as a USA industry default -->
@@ -503,13 +503,13 @@ under the License.
             </if-empty>
             <create-value value-field="newOisgirEntity"/>
         <else>
-            <calculate field-name="checkOisgirEntity.quantity">
-                <calcop operator="add" field-name="checkOisgirEntity.quantity"/>
-                <calcop operator="add" field-name="parameters.quantity"/>
+            <calculate field="checkOisgirEntity.quantity">
+                <calcop operator="add" field="checkOisgirEntity.quantity"/>
+                <calcop operator="add" field="parameters.quantity"/>
             </calculate>
-            <calculate field-name="checkOisgirEntity.quantityNotAvailable">
-                <calcop operator="add" field-name="checkOisgirEntity.quantityNotAvailable"/>
-                <calcop operator="add" field-name="parameters.quantityNotAvailable"/>
+            <calculate field="checkOisgirEntity.quantityNotAvailable">
+                <calcop operator="add" field="checkOisgirEntity.quantityNotAvailable"/>
+                <calcop operator="add" field="parameters.quantityNotAvailable"/>
             </calculate>
             <store-value value-name="checkOisgirEntity"/>
         </else>
@@ -581,9 +581,9 @@ under the License.
                     <set from-field="oisgir.inventoryItemId" field="checkDiiMap.inventoryItemId"/>
                     <call-service service-name="checkDecomposeInventoryItem" in-map-name="checkDiiMap"/>
                     <!-- update the toCancelAmount -->
-                    <calculate field-name="toCancelAmount">
-                        <calcop operator="subtract" field-name="toCancelAmount">
-                            <calcop operator="get" field-name="cancelOisgirMap.cancelQuantity"/>
+                    <calculate field="toCancelAmount">
+                        <calcop operator="subtract" field="toCancelAmount">
+                            <calcop operator="get" field="cancelOisgirMap.cancelQuantity"/>
                         </calcop>
                     </calculate>
                 </if-compare>
@@ -592,7 +592,7 @@ under the License.
     </simple-method>
     <simple-method method-name="cancelOrderItemShipGrpInvRes" short-description="Cancel An Inventory Reservation">
         <entity-one entity-name="OrderItemShipGrpInvRes" value-field="orderItemShipGrpInvRes"/>
-        <get-related-one relation-name="InventoryItem" value-name="orderItemShipGrpInvRes" to-value-field="inventoryItem"/>
+        <get-related-one relation-name="InventoryItem" value-field="orderItemShipGrpInvRes" to-value-field="inventoryItem"/>
         <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
             <log level="verbose" message="Serialized inventory re-enabled."/>
             <set value="INV_AVAILABLE" field="inventoryItem.statusId"/>
@@ -616,9 +616,9 @@ under the License.
             <clear-field field="createDetailMap"/>
 
             <if-compare-field field="cancelQuantity" to-field="orderItemShipGrpInvRes.quantity" operator="less" type="Double">
-                <calculate field-name="orderItemShipGrpInvRes.quantity">
-                    <calcop operator="subtract" field-name="orderItemShipGrpInvRes.quantity">
-                        <calcop operator="get" field-name="cancelQuantity"/>
+                <calculate field="orderItemShipGrpInvRes.quantity">
+                    <calcop operator="subtract" field="orderItemShipGrpInvRes.quantity">
+                        <calcop operator="get" field="cancelQuantity"/>
                     </calcop>
                 </calculate>
                 <store-value value-name="orderItemShipGrpInvRes"/>

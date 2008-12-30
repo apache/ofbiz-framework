@@ -308,12 +308,12 @@
                         </if-empty>
                     </iterate>
                     <set field="taskId" from-field="preDesessorId"/>
-                    <calculate field-name="taskDays">
-                        <calcop operator="divide" field-name="higestHours"/>
+                    <calculate field="taskDays">
+                        <calcop operator="divide" field="higestHours"/>
                         <number value="8"/>
                     </calculate>
-                    <calculate field-name="taskDays">
-                        <calcop operator="multiply" field-name="taskDays"/>
+                    <calculate field="taskDays">
+                        <calcop operator="multiply" field="taskDays"/>
                         <number value="-1"/>
                     </calculate>
                     <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="addDaysToTimestamp" ret-field-name="startDate">
@@ -340,13 +340,13 @@
         <entity-one entity-name="WorkEffort" value-field="project">
             <field-map field-name="workEffortId" from-field="parameters.projectId"/>
         </entity-one>
-        <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
+        <get-related value-field="project" relation-name="ChildWorkEffort" list="phases"/>
         <if-not-empty field="phases">
             <iterate entry="phase" list="phases">
-                <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
+                <get-related value-field="phase" relation-name="ChildWorkEffort" list="tasks"/>
                 <if-not-empty field="tasks">
                     <iterate entry="task" list="tasks">
-                        <get-related value-name="task" relation-name="ToWorkEffortAssoc" list-name="t.prevTasks"/>
+                        <get-related value-field="task" relation-name="ToWorkEffortAssoc" list="t.prevTasks"/>
                         <if-empty field="t.prevTasks">
                             <!-- no predecessors so i can set the dates -->
                             <now-timestamp-to-env env-name="upd.estimatedStartDate"/>
@@ -409,7 +409,7 @@
             <store-value value-name="workEffort"/>
         </if-empty>
         
-        <get-related value-name="timesheet" relation-name="TimeEntry" list-name="timeEntries"/>
+        <get-related value-field="timesheet" relation-name="TimeEntry" list="timeEntries"/>
 
         <!-- update existing entries -->
         <set field="hours" value="0" type="Double"/>
@@ -484,7 +484,7 @@
                 <field-map field-name="workEffortId" from-field="parameters.taskId"/>
             </entity-one>
             <if-not-empty field="task">
-                <get-related-one value-name="task" relation-name="ParentWorkEffort" to-value-name="phase"/>
+                <get-related-one value-name="task" relation-name="ParentWorkEffort" to-value-field="phase"/>
                 <else>
                     <return/>
                 </else>
@@ -495,7 +495,7 @@
                 </entity-one>
             </else>
         </if-not-empty>
-        <get-related-one value-name="phase" relation-name="ParentWorkEffort" to-value-name="project"/>
+        <get-related-one value-name="phase" relation-name="ParentWorkEffort" to-value-field="project"/>
         <field-to-result field="project.workEffortId" result-name="projectId"/>
         <field-to-result field="project.workEffortName" result-name="projectName"/>
         <field-to-result field="phase.workEffortId" result-name="phaseId"/>
@@ -537,8 +537,8 @@
         <set field="newProjectId" from-field="newEntity.workEffortId"/>
         
         <!-- copy assigned parties -->
-        <get-related value-name="project" relation-name="WorkEffortPartyAssignment" list-name="partiesAll"/>
-        <filter-list-by-date list-name="partiesAll" to-list-name="parties"/>
+        <get-related value-field="project" relation-name="WorkEffortPartyAssignment" list="partiesAll"/>
+        <filter-list-by-date list-name="partiesAll" to-list="parties"/>
         <if-not-empty field="parties">
             <iterate entry="party" list="parties">
                 <set field="parameters.workEffortId" from-field="newProjectId"/>            
@@ -549,7 +549,7 @@
             </iterate>
         </if-not-empty>
         
-        <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
+        <get-related value-field="project" relation-name="ChildWorkEffort" list="phases"/>
         <if-not-empty field="phases">
             <iterate entry="phase" list="phases">
                 <clear-field field="newPhase"/>
@@ -566,7 +566,7 @@
                 <call-simple-method method-name="createWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
                 <set field="newPhaseId" from-field="newEntity.workEffortId"/>
                 
-                <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
+                <get-related value-field="phase" relation-name="ChildWorkEffort" list="tasks"/>
                 <if-not-empty field="tasks">
                     <iterate entry="task" list="tasks">
                         <clear-field field="newTask"/>
@@ -610,10 +610,10 @@
         <set field="highInfo.createdDate" from-field="project.createdDate"/>
         <set field="highInfo.parentProjectId" from-field="parentProject.workEffortId"/> 
         <!-- loop through the related phases and tasks -->
-        <get-related value-name="project" relation-name="ChildWorkEffort" list-name="phases"/>
+        <get-related value-field="project" relation-name="ChildWorkEffort" list="phases"/>
         <if-not-empty field="phases">
             <iterate entry="phase" list="phases">
-                <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
+                <get-related value-field="phase" relation-name="ChildWorkEffort" list="tasks"/>
                 <if-not-empty field="tasks">
                     <iterate entry="lowInfo" list="tasks">
                         <if-compare field="lowInfo.currentStatusId" value="PTS_COMPLETED" operator="not-equals">
@@ -689,7 +689,7 @@
             <set field="highInfo.scopeEnumId" from-field="phase.scopeEnumId"/>
             
             <!-- loop through the related tasks and combine information -->
-            <get-related value-name="phase" relation-name="ChildWorkEffort" list-name="tasks"/>
+            <get-related value-field="phase" relation-name="ChildWorkEffort" list="tasks"/>
             <if-not-empty field="tasks">
                 <iterate entry="lowInfo" list="tasks">
                     <if-compare field="lowInfo.currentStatusId" value="PTS_COMPLETED" operator="not-equals">
@@ -890,7 +890,7 @@
                 <!-- get the planned hours -->
                 <set field="lowInfo" from-field="task"/>
                 <set field="hoursPartyId" from-field="task.partyId"/>
-                <get-related-one value-name="task" relation-name="WorkEffort" to-value-name="lowInfo"/>
+                <get-related-one value-name="task" relation-name="WorkEffort" to-value-field="lowInfo"/>
                 <call-simple-method method-name="getHours"/>
                 <set field="taskParty.plannedHours" from-field="highInfo.plannedHours"/>                    
                 <set field="taskParty.actualHours" from-field="highInfo.actualHours"/>                    
@@ -966,12 +966,12 @@
         <!-- if lowlevel type equals TASK then get create the status first -->
         <if-compare field="lowInfo.workEffortTypeId" value="TASK" operator="equals">
             <if-compare field="lowInfo.currentStatusId" value="PTS_CREATED" operator="equals">
-                <get-related value-name="lowInfo" relation-name="WorkEffortPartyAssignment" list-name="assignsAll"/>
-                <filter-list-by-date list-name="assignsAll" to-list-name="assigns"/>
+                <get-related value-field="lowInfo" relation-name="WorkEffortPartyAssignment" list="assignsAll"/>
+                <filter-list-by-date list-name="assignsAll" to-list="assigns"/>
                 <if-not-empty field="assigns">
                     <set field="lowInfo.currentStatusId" value="PTS_CREATED_AS"/><!-- task is assigned -->
                 </if-not-empty>
-                <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="entries"/>
+                <get-related value-field="lowInfo" relation-name="TimeEntry" list="entries"/>
                 <if-not-empty field="entries">
                     <set field="lowInfo.currentStatusId" value="PTS_CREATED_IP"/><!-- task is in progress -->
                 </if-not-empty>
@@ -1012,14 +1012,14 @@
         <!-- input is 'lowInfo' map output is 'highInfo map -->
         <!-- hoursPartyId: if provided only the hours of that party -->
         <!-- add the planned hours together -->
-        <get-related value-name="lowInfo" relation-name="WorkEffortSkillStandard" list-name="estimates"/>
+        <get-related value-field="lowInfo" relation-name="WorkEffortSkillStandard" list="estimates"/>
         <if-not-empty field="estimates">
             <iterate entry="estimate" list="estimates">
                 <if-not-empty field="estimate.estimatedDuration">
                     <if-not-empty field="highInfo.plannedHours">
-                        <calculate field-name="highInfo.plannedHours">
-                            <calcop operator="add" field-name="estimate.estimatedDuration">
-                                <calcop operator="get" field-name="highInfo.plannedHours"/>
+                        <calculate field="highInfo.plannedHours">
+                            <calcop operator="add" field="estimate.estimatedDuration">
+                                <calcop operator="get" field="highInfo.plannedHours"/>
                             </calcop>
                         </calculate>
                         <else>
@@ -1030,11 +1030,11 @@
             </iterate>
         </if-not-empty>
         <!-- get the actual billed / non billed hours -->
-        <get-related value-name="lowInfo" relation-name="TimeEntry" list-name="actuals"/>
+        <get-related value-field="lowInfo" relation-name="TimeEntry" list="actuals"/>
         <if-not-empty field="actuals">
             <iterate entry="actual" list="actuals">
                 <if-not-empty field="actual.hours">
-                    <get-related-one value-name="actual" relation-name="Timesheet" to-value-name="timesheet"/>
+                    <get-related-one value-name="actual" relation-name="Timesheet" to-value-field="timesheet"/>
 
                     <!-- check if only a part of the registered hours need to be taken into account -->
                     <set field="originalActualHours" from-field="actual.hours"/>
@@ -1052,13 +1052,13 @@
                     <if-not-empty field="partyRates">
                         <first-from-list entry="partyRate" list="partyRates"/>
                         <if-not-empty field="partyRate.percentageUsed">
-                            <calculate field-name="actual.hours">
-                                <calcop operator="multiply" field-name="actual.hours">
-                                    <calcop operator="get" field-name="partyRate.percentageUsed"/>
+                            <calculate field="actual.hours">
+                                <calcop operator="multiply" field="actual.hours">
+                                    <calcop operator="get" field="partyRate.percentageUsed"/>
                                 </calcop>
                             </calculate>
-                            <calculate field-name="actual.hours">
-                                <calcop operator="divide" field-name="actual.hours">
+                            <calculate field="actual.hours">
+                                <calcop operator="divide" field="actual.hours">
                                     <number value="100"/>
                                 </calcop>
                             </calculate>
@@ -1076,9 +1076,9 @@
                         </condition>
                         <then>
                             <if-not-empty field="highInfo.originalActualHours">
-                                <calculate field-name="highInfo.originalActualHours">
-                                    <calcop operator="get" field-name="highInfo.originalActualHours">
-                                        <calcop operator="add" field-name="originalActualHours"/>
+                                <calculate field="highInfo.originalActualHours">
+                                    <calcop operator="get" field="highInfo.originalActualHours">
+                                        <calcop operator="add" field="originalActualHours"/>
                                     </calcop>
                                 </calculate>
                                 <else>
@@ -1086,9 +1086,9 @@
                                 </else>                            
                             </if-not-empty>
                             <if-not-empty field="highInfo.actualHours">
-                                <calculate field-name="highInfo.actualHours">
-                                    <calcop operator="get" field-name="highInfo.actualHours">
-                                        <calcop operator="add" field-name="actual.hours"/>
+                                <calculate field="highInfo.actualHours">
+                                    <calcop operator="get" field="highInfo.actualHours">
+                                        <calcop operator="add" field="actual.hours"/>
                                     </calcop>
                                 </calculate>
                                 <else>
@@ -1097,9 +1097,9 @@
                             </if-not-empty>
                             <if-empty field="actual.invoiceId">
                                 <if-not-empty field="highInfo.actualNonBilledHours">
-                                    <calculate field-name="highInfo.actualNonBilledHours">
-                                        <calcop operator="get" field-name="highInfo.actualNonBilledHours">
-                                            <calcop operator="add" field-name="actual.hours"/>
+                                    <calculate field="highInfo.actualNonBilledHours">
+                                        <calcop operator="get" field="highInfo.actualNonBilledHours">
+                                            <calcop operator="add" field="actual.hours"/>
                                         </calcop>
                                     </calculate>
                                     <else>
@@ -1111,9 +1111,9 @@
                     </if>
                     <!-- keep also a general total for the actual hours of all participants -->
                     <if-not-empty field="highInfo.actualTotalHours">
-                        <calculate field-name="highInfo.actualTotalHours">
-                            <calcop operator="add" field-name="actual.hours">
-                                <calcop operator="get" field-name="highInfo.actualTotalHours"/>
+                        <calculate field="highInfo.actualTotalHours">
+                            <calcop operator="add" field="actual.hours">
+                                <calcop operator="get" field="highInfo.actualTotalHours"/>
                             </calcop>
                         </calculate>
                         <else>
@@ -1123,9 +1123,9 @@
                     <!-- keep also a general total for the actual hours of all participants however not yet billed -->
                     <if-empty field="actual.invoiceId">
                         <if-not-empty field="highInfo.actualNonBilledTotalHours">
-                            <calculate field-name="highInfo.actualNonBilledTotalHours">
-                                <calcop operator="add" field-name="actual.hours">
-                                    <calcop operator="get" field-name="highInfo.actualNonBilledTotalHours"/>
+                            <calculate field="highInfo.actualNonBilledTotalHours">
+                                <calcop operator="add" field="actual.hours">
+                                    <calcop operator="get" field="highInfo.actualNonBilledTotalHours"/>
                                 </calcop>
                             </calculate>
                             <else>
@@ -1274,7 +1274,7 @@
                 <set field="addTaskToNewInvoice.combineInvoiceItem" value="Y"/>
                 <set field="addTaskToNewInvoice.thruDate" from-field="parameters.thruDate"/>
                 <call-service service-name="addWorkEffortTimeToNewInvoice" in-map-name="addTaskToNewInvoice">
-                    <result-to-field result-name="invoiceId" field-name="parameters.invoiceId"/>
+                    <result-to-field result-name="invoiceId" field="parameters.invoiceId"/>
                 </call-service>
                 <set field="addTaskToInvoice.combineInvoiceItem" value="Y"/>
                 <field-to-result field="parameters.invoiceId" result-name="invoiceId"/>

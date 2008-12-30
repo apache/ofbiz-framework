@@ -115,7 +115,7 @@ under the License.
         <!-- now update with changing the email address, a new record will be created in ContactMech entity this time -->
         <set field="serviceCtx.emailAddress" value="ofbiz-test@yahoo.com"/>
         <call-service service-name="updatePartyEmailAddress" in-map-name="serviceCtx">
-            <result-to-field result-name="contactMechId" field-name="newContactMechId"/>
+            <result-to-field result-name="contactMechId" field="newContactMechId"/>
         </call-service>
         <log level="info" message="====== New contactMechId [${newContactMechId}] for email address is created for party [${partyId}] ======"/>
         <entity-one entity-name="ContactMech" value-field="contactMech">
@@ -166,7 +166,7 @@ under the License.
             <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
         </assert>
         <clear-field field="telecomNumber"/>
-        <get-related-one  value-name="contactMech" relation-name="TelecomNumber" to-value-name="telecomNumber"/>
+        <get-related-one  value-name="contactMech" relation-name="TelecomNumber" to-value-field="telecomNumber"/>
         <assert>
             <not><if-empty field="telecomNumber"/></not>
             <if-compare-field field="telecomNumber.areaCode" to-field="serviceCtx.areaCode" operator="equals"/>
@@ -180,7 +180,7 @@ under the License.
         <!-- try now with changing the telecom number, a new record will be created in ContactMech, TelecomNumber entity this time -->
         <set field="serviceCtx.contactNumber" value="444-4444"/>
         <call-service service-name="updatePartyTelecomNumber" in-map-name="serviceCtx">
-           <result-to-field result-name="contactMechId" field-name="newContactMechId"/>
+           <result-to-field result-name="contactMechId" field="newContactMechId"/>
         </call-service>
         <log level="info" message="====== New contactMechId [${newContactMechId}] for TelecomNumber is created for party [${partyId}] ======"/>
         <entity-one entity-name="ContactMech" value-field="contactMech">
@@ -190,7 +190,7 @@ under the License.
             <not><if-empty field="contactMech"/></not>
             <if-compare-field field="newContactMechId" to-field="serviceCtx.contactMechId" operator="not-equals"/>
         </assert>
-        <get-related-one  value-name="contactMech" relation-name="TelecomNumber" to-value-name="telecomNumber"/>
+        <get-related-one  value-name="contactMech" relation-name="TelecomNumber" to-value-field="telecomNumber"/>
         <assert>
             <not><if-empty field="telecomNumber"/></not>
             <if-compare-field field="telecomNumber.contactNumber" to-field="serviceCtx.contactNumber" operator="equals"/>
@@ -235,7 +235,7 @@ under the License.
             <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
         </assert>
         <clear-field field="postalAddress"/>
-        <get-related-one  value-name="contactMech" relation-name="PostalAddress" to-value-name="postalAddress"/>
+        <get-related-one  value-name="contactMech" relation-name="PostalAddress" to-value-field="postalAddress"/>
         <assert>
             <not><if-empty field="postalAddress"/></not>
             <if-compare-field field="postalAddress.address1" to-field="serviceCtx.address1" operator="equals"/>
@@ -251,7 +251,7 @@ under the License.
         <set field="serviceCtx.stateProvinceGeoId" value="VA"/>
         <set field="serviceCtx.postalCode" value="20147"/>
         <call-service service-name="updatePartyPostalAddress" in-map-name="serviceCtx">
-           <result-to-field result-name="contactMechId" field-name="newContactMechId"/>
+           <result-to-field result-name="contactMechId" field="newContactMechId"/>
         </call-service>
         <log level="info" message="====== New contactMechId [${newContactMechId}] for PostalAddress is created for party [${partyId}] ======"/>
         <entity-one entity-name="ContactMech" value-field="contactMech">
@@ -261,7 +261,7 @@ under the License.
             <not><if-empty field="contactMech"/></not>
             <if-compare-field field="newContactMechId" to-field="serviceCtx.contactMechId" operator="not-equals"/>
         </assert>
-        <get-related-one  value-name="contactMech" relation-name="PostalAddress" to-value-name="postalAddress"/>
+        <get-related-one  value-name="contactMech" relation-name="PostalAddress" to-value-field="postalAddress"/>
         <assert>
             <not><if-empty field="postalAddress"/></not>
             <if-compare-field field="postalAddress.stateProvinceGeoId" to-field="serviceCtx.stateProvinceGeoId" operator="equals"/>
@@ -402,7 +402,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createCommunicationEvent" in-map-name="createNewCommEventMap">
-            <result-to-field result-name="communicationEventId" field-name="communicationEventId" map-name="commEventMap"/>
+            <result-to-field result-name="communicationEventId" field="commEventMap.communicationEventId"/>
         </call-service>
         <call-simple-method method-name="testUpdateCommEvent"/>
         <entity-one entity-name="CommunicationEvent" value-field="communicationEvent">
@@ -441,7 +441,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createCustRequest" in-map-name="createNewRequestMap">
-          <result-to-field result-name="custRequestId" field-name="custRequestId" map-name="requestMap"/>
+          <result-to-field result-name="custRequestId" field="requestMap.custRequestId"/>
         </call-service>
         <call-simple-method method-name="testUpdateRequest"/>
         <entity-one entity-name="CustRequest" value-field="custRequest">

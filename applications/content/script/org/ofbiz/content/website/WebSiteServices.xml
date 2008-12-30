@@ -163,7 +163,7 @@ under the License.
             <set field="cnt.contentName" value="${webSite.siteName} ${wct.description}"/>
             <set field="cnt.contentTypeId" value="WEB_SITE_PUB_PT"/>
             <call-service service-name="createContent" in-map-name="cnt">
-                <result-to-field result-name="contentId" field-name="wcc.contentId"/>
+                <result-to-field result-name="contentId" field="wcc.contentId"/>
             </call-service>
 
             <set field="wcc.webSiteId" from-field="webSite.webSiteId"/>
@@ -181,7 +181,7 @@ under the License.
                     <set field="cnt.contentName" value="${webSite.siteName} ${wct.description}"/>
                     <set field="cnt.contentTypeId" value="WEB_SITE_PUB_PT"/>
                     <call-service service-name="createContent" in-map-name="cnt">
-                        <result-to-field result-name="contentId" field-name="wcc.contentId"/>
+                        <result-to-field result-name="contentId" field="wcc.contentId"/>
                     </call-service>
 
                     <set field="wcc.webSiteId" from-field="webSite.webSiteId"/>

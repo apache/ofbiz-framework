@@ -771,7 +771,7 @@
         <set field="lookupMap.partyRelationshipTypeId" value="GROUP_ROLLUP"/>
         <set field="lookupMap.includeFromToSwitched" value="Y"/>
         <call-service service-name="getRelatedParties" include-user-login="true" in-map-name="lookupMap">
-            <result-to-field result-name="relatedPartyIdList" field-name="partyIdList"/>
+            <result-to-field result-name="relatedPartyIdList" field="partyIdList"/>
         </call-service>
         <log level="verbose" message="Got list of associated parties: ${partyIdList}"/>
     </simple-method>

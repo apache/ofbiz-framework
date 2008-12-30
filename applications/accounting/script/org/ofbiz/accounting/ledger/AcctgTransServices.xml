@@ -78,7 +78,7 @@ under the License.
         <!-- if not explicitly provided in the parameters, set the currency of the entry from PartyAcctgPreference -->
         <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="parameters.organizationPartyId"/>
         <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
-             <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
+             <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
         </call-service>
         <if-empty field="parameters.currencyUomId">
             <set from-field="partyAcctgPreference.baseCurrencyUomId" field="newEntity.currencyUomId"/>
@@ -98,7 +98,7 @@ under the License.
                     <set field="convertUomInMap.uomIdTo" from-field="newEntity.currencyUomId"/>
                     <!-- TODO: set the optional asOfDate input parameter -->
                     <call-service service-name="convertUom" in-map-name="convertUomInMap">
-                        <result-to-field result-name="convertedValue" field-name="newEntity.amount"/>
+                        <result-to-field result-name="convertedValue" field="newEntity.amount"/>
                     </call-service>
                 <else>
                     <set field="newEntity.amount" from-field="newEntity.origAmount"/>
@@ -156,22 +156,22 @@ under the License.
             <condition-expr field-name="acctgTransId" from-field="parameters.acctgTransId"/>
             <order-by field-name="acctgTransEntrySeqId"/>
         </entity-condition>
-        <calculate field-name="debitTotal" type="BigDecimal"><number value="0"/></calculate>
-        <calculate field-name="creditTotal" type="BigDecimal"><number value="0"/></calculate>
+        <calculate field="debitTotal" type="BigDecimal"><number value="0"/></calculate>
+        <calculate field="creditTotal" type="BigDecimal"><number value="0"/></calculate>
         <iterate entry="acctgTransEntry" list="acctgTransEntryList">
             <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-               <calculate field-name="debitTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+               <calculate field="debitTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                         <calcop operator="add">
-                            <calcop operator="get" field-name="debitTotal"/>
-                            <calcop operator="get" field-name="acctgTransEntry.amount"/>
+                            <calcop operator="get" field="debitTotal"/>
+                            <calcop operator="get" field="acctgTransEntry.amount"/>
                         </calcop>
                </calculate>
             <else>
                 <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-                    <calculate field-name="creditTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+                    <calculate field="creditTotal" type="BigDecimal" decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
                         <calcop operator="add">
-                            <calcop operator="get" field-name="creditTotal"/>
-                            <calcop operator="get" field-name="acctgTransEntry.amount"/>
+                            <calcop operator="get" field="creditTotal"/>
+                            <calcop operator="get" field="acctgTransEntry.amount"/>
                         </calcop>
                     </calculate>
                 <else>
@@ -187,10 +187,10 @@ under the License.
         <check-errors/>
         
         <!-- should now have the debitTotal and creditTotal, calculate the debitCreditDifference -->
-        <calculate field-name="debitCreditDifference" type="BigDecimal"  decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
+        <calculate field="debitCreditDifference" type="BigDecimal"  decimal-scale="${ledgerDecimals}" rounding-mode="${roundingMode}">
             <calcop operator="add">
-                <calcop operator="get" field-name="debitTotal"/>
-                <calcop operator="negative" field-name="creditTotal"/>
+                <calcop operator="get" field="debitTotal"/>
+                <calcop operator="negative" field="creditTotal"/>
             </calcop>
         </calculate>
         
@@ -295,7 +295,7 @@ under the License.
                 <iterate list="acctgTransEntryList" entry="acctgTransEntry">
                     <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
 		             <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
-		                 <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
+		                 <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
 		             </call-service>
                     <if-empty field="partyAcctgPreference.errorGlJournalId">
                         <!-- if no error journal is set, then return the error messages -->
@@ -332,8 +332,8 @@ under the License.
                 <!-- we do this by first calculating a postingAmount (positive or negative) then adding to the postingBalance -->
                 <clear-field field="postingAmount"/>
                 <!-- use the parent of the GlAccountClass, which should either be DEBIT or CREDIT -->
-                <get-related-one relation-name="GlAccountClass" value-name="glAccount" to-value-name="glAccountClass"/>
-                <get-related-one relation-name="ParentGlAccountClass" value-name="glAccountClass" to-value-name="parentGlAccountClass"/>
+                <get-related-one relation-name="GlAccountClass" value-name="glAccount" to-value-field="glAccountClass"/>
+                <get-related-one relation-name="ParentGlAccountClass" value-field="glAccountClass" to-value-field="parentGlAccountClass"/>
                 <!-- test if the account is a DEBIT account -->
                 <set field="isDebit" value="${bsh:org.ofbiz.accounting.util.UtilAccounting.isDebitAccount(glAccount)}"/>
                 <if-compare field="isDebit" operator="equals" value="true">
@@ -341,8 +341,8 @@ under the License.
                             <set from-field="acctgTransEntry.amount" field="postingAmount"/>
                             <else>
                                 <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-                                    <calculate field-name="postingAmount" type="BigDecimal">
-                                        <calcop field-name="acctgTransEntry.amount" operator="negative"/>
+                                    <calculate field="postingAmount" type="BigDecimal">
+                                        <calcop field="acctgTransEntry.amount" operator="negative"/>
                                     </calculate>
                                 </if-compare>    
                             </else>
@@ -355,8 +355,8 @@ under the License.
                                 <set from-field="acctgTransEntry.amount" field="postingAmount"/>
                                 <else>
                                     <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                                        <calculate field-name="postingAmount" type="BigDecimal">
-                                            <calcop field-name="acctgTransEntry.amount" operator="negative"/>
+                                        <calculate field="postingAmount" type="BigDecimal">
+                                            <calcop field="acctgTransEntry.amount" operator="negative"/>
                                         </calculate>
                                     </if-compare>    
                                 </else>
@@ -369,9 +369,9 @@ under the License.
                 </if-compare>
                 <log level="verbose" message="GL account: [${acctgTransEntry.glAccountId}] initial balance: [${glAccountOrganization.postedBalance}] ${acctgTransEntry.debitCreditFlag} [${acctgTransEntry.amount}]"/>
                 <!-- calculate the new posted balance for this gl account -->
-                <calculate field-name="postedBalance" type="BigDecimal">
-                    <calcop operator="get" field-name="glAccountOrganization.postedBalance"/>
-                    <calcop operator="get" field-name="postingAmount"/>
+                <calculate field="postedBalance" type="BigDecimal">
+                    <calcop operator="get" field="glAccountOrganization.postedBalance"/>
+                    <calcop operator="get" field="postingAmount"/>
                 </calculate>
                 <log level="verbose" message="GL account: [${acctgTransEntry.glAccountId}] final balance: [${postedBalance}]"/>
 
@@ -402,18 +402,18 @@ under the License.
 
                     <!-- update GlAccountHistory's debit and credit totals -->
                     <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="D">
-                        <calculate field-name="postedDebits" map-name="glAccountHistory" type="BigDecimal">
+                        <calculate field="postedDebits" map-name="glAccountHistory" type="BigDecimal">
                             <calcop operator="add">
-                                <calcop operator="get" field-name="amount" map-name="acctgTransEntry"/>
-                                <calcop operator="get" field-name="postedDebits" map-name="glAccountHistory"/>
+                                <calcop operator="get" field="amount" map-name="acctgTransEntry"/>
+                                <calcop operator="get" field="postedDebits" map-name="glAccountHistory"/>
                             </calcop> 
                         </calculate>
                     <else>
                         <if-compare field="acctgTransEntry.debitCreditFlag" operator="equals" value="C">
-                            <calculate field-name="postedCredits" map-name="glAccountHistory" type="BigDecimal">
+                            <calculate field="postedCredits" map-name="glAccountHistory" type="BigDecimal">
                                 <calcop operator="add">
-                                    <calcop operator="get" field-name="amount" map-name="acctgTransEntry"/>
-                                    <calcop operator="get" field-name="postedCredits" map-name="glAccountHistory"/>
+                                    <calcop operator="get" field="amount" map-name="acctgTransEntry"/>
+                                    <calcop operator="get" field="postedCredits" map-name="glAccountHistory"/>
                                 </calcop> 
                             </calculate>
                             <else>

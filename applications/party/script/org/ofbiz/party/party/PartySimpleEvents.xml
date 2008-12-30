@@ -94,11 +94,11 @@ under the License.
         <set field="partyContentMap.uploadedFile" from-field="byteWrap"/>
         <set field="partyContentMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
         <call-service service-name="createPartyContent" in-map-name="partyContentMap" break-on-error="false">        
-            <result-to-field result-name="contentId" field-name="contentId"/>     
+            <result-to-field result-name="contentId" field="contentId"/>     
         </call-service>   
         <!-- set the partyId in the request -->
-        <field-to-request field-name="partyId" map-name="formInput.formInput" request-name="partyId"/>
-        <field-to-request field-name="contentId" request-name="contentId"/>
+        <field-to-request field="partyId" map-name="formInput.formInput" request-name="partyId"/>
+        <field-to-request field="contentId" request-name="contentId"/>
     </simple-method>
     <!-- Update party content -->
     <simple-method method-name="updatePartyContent" short-description="Update Party Associated Content" login-required="false">
@@ -120,11 +120,11 @@ under the License.
          <set field="partyContentMap.uploadedFile" from-field="byteWrap"/>
          <set field="partyContentMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
          <call-service service-name="updatePartyContent" in-map-name="partyContentMap" break-on-error="false" >        
-            <result-to-field result-name="contentId" field-name="contentId"/>    
+            <result-to-field result-name="contentId" field="contentId"/>    
          </call-service>   
         <!-- set the partyId in the request -->
-        <field-to-request field-name="partyId" map-name="formInput.formInput" request-name="partyId"/>
-        <field-to-request field-name="contentId" request-name="contentId"/>
+        <field-to-request field="partyId" map-name="formInput.formInput" request-name="partyId"/>
+        <field-to-request field="contentId" request-name="contentId"/>
     </simple-method>
     
 </simple-methods>

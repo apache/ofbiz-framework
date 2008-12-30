@@ -42,7 +42,7 @@ under the License.
         <log level="info" message="Creating a FacilityContactMech with id: ${parameters.contactMechId}"/>
         <set field="newValue.facilityId" from-field="parameters.facilityId" />
         <field-to-result field="contactMechId" map-name="newValue"/>
-        <field-to-request field-name="contactMechId" map-name="newValue"/>
+        <field-to-request field="contactMechId" map-name="newValue"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <now-timestamp-to-env env-name="newValue.fromDate"/>
 
@@ -94,7 +94,7 @@ under the License.
         <create-value value-field="newFacilityContactMech"/>
 
         <if-compare-field to-field="newFacilityContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
-            <get-related value-name="facilityContactMech" relation-name="FacilityContactMechPurpose" list-name="facilityContactMechPurposes"/>
+            <get-related value-field="facilityContactMech" relation-name="FacilityContactMechPurpose" list="facilityContactMechPurposes"/>
             <iterate entry="facilityContactMechPurposeOld" list="facilityContactMechPurposes">
                 <clone-value value-name="facilityContactMechPurposeOld" new-value-name="facilityContactMechPurpose"/>
 
@@ -116,7 +116,7 @@ under the License.
 
         <log level="info" message="Setting id to result: ${newFacilityContactMech.contactMechId}"/>
         <field-to-result field="newFacilityContactMech.contactMechId" result-name="contactMechId"/>
-        <field-to-request field-name="newFacilityContactMech.contactMechId" request-name="contactMechId"/>
+        <field-to-request field="newFacilityContactMech.contactMechId" request-name="contactMechId"/>
     </simple-method>
 
     <simple-method method-name="deleteFacilityContactMech" short-description="Delete a FacilityContactMech">
@@ -161,7 +161,7 @@ under the License.
             <default-message>Facility Contact Mechanism successfully created</default-message>
 
         </call-service>
-        <field-to-request field-name="contactMechId" map-name="newFacilityContactMech"/>
+        <field-to-request field="contactMechId" map-name="newFacilityContactMech"/>
         <field-to-result field="contactMechId" map-name="newFacilityContactMech"/>
     </simple-method>
 
@@ -173,7 +173,7 @@ under the License.
         <set-service-fields service-name="updatePostalAddress" map="parameters" to-map="updatePostalAddressMap"/>
         <call-service in-map="updatePostalAddressMap" service-name="updatePostalAddress">
             <default-message>Postal Address successfully updated</default-message>
-            <result-to-field result-name="contactMechId" map-name="newFacilityContactMech" field-name="contactMechId" />
+            <result-to-field result-name="contactMechId" map-name="newFacilityContactMech" field="contactMechId" />
         </call-service>
 
         <set-service-fields service-name="updateFacilityContactMech" map="parameters" to-map="updateFacilityContactMechMap"/>
@@ -184,7 +184,7 @@ under the License.
         <call-service service-name="updateFacilityContactMech" in-map-name="updateFacilityContactMechMap">
             <default-message>Facility Contact Mechanism successfully updated</default-message>
         </call-service>
-        <field-to-request field-name="contactMechId" map-name="newFacilityContactMech"/>
+        <field-to-request field="contactMechId" map-name="newFacilityContactMech"/>
         <field-to-result field="contactMechId" map-name="newFacilityContactMech"/>
     </simple-method>
 
@@ -208,7 +208,7 @@ under the License.
             <default-message>Facility Contact Mechanism successfully created</default-message>
 
         </call-service>
-        <field-to-request field-name="contactMechId" map-name="newFacilityContactMech"/>
+        <field-to-request field="contactMechId" map-name="newFacilityContactMech"/>
         <field-to-result field="contactMechId" map-name="newFacilityContactMech"/>
     </simple-method>
 
@@ -220,7 +220,7 @@ under the License.
         <set-service-fields service-name="updateTelecomNumber" map="parameters" to-map="updateTelecomNumberMap"/>
         <call-service service-name="updateTelecomNumber" in-map="updateTelecomNumberMap">
             <default-message>Telecom Number successfully updated</default-message>
-            <result-to-field result-name="contactMechId" map-name="newFacilityContactMech" field-name="contactMechId" />
+            <result-to-field result-name="contactMechId" map-name="newFacilityContactMech" field="contactMechId" />
         </call-service>
 
         <set-service-fields service-name="updateFacilityContactMech" map="parameters" to-map="updateFacilityContactMechMap"/>
@@ -233,7 +233,7 @@ under the License.
             <default-message>Facility Contact Mechanism successfully updated</default-message>
         </call-service>
         <log level="info" message="Setting result id: ${newFacilityContactMech.contactMechId}"/>
-        <field-to-request field-name="contactMechId" map-name="newFacilityContactMech"/>
+        <field-to-request field="contactMechId" map-name="newFacilityContactMech"/>
         <field-to-result field="contactMechId" map-name="newFacilityContactMech"/>
 
     </simple-method>

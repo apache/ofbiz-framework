@@ -342,7 +342,7 @@ under the License.
         <set from-field="parameters.workEffortId" field="newValue.workEffortId"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <field-to-result field="contactMechId" map-name="newValue"/>
-        <field-to-request field-name="contactMechId" map-name="newValue"/>        
+        <field-to-request field="contactMechId" map-name="newValue"/>        
         <create-value value-field="newValue"/>
     </simple-method>
     
@@ -380,7 +380,7 @@ under the License.
         </if-compare-field>
         
         <field-to-result field="contactMechId" map-name="newWorkEffortContactMech"/>
-        <field-to-request field-name="contactMechId" map-name="newWorkEffortContactMech"/>      
+        <field-to-request field="contactMechId" map-name="newWorkEffortContactMech"/>      
     </simple-method>    
     
     <simple-method method-name="deleteWorkEffortContactMech" short-description="Delete a WorkEffortContactMech">
@@ -421,7 +421,7 @@ under the License.
         <call-service in-map-name="context2" break-on-error="true" service-name="createWorkEffortContactMech">
             <default-message>WorkEffort Contact Mechanism successfully created</default-message>       
         </call-service>
-        <field-to-request field-name="contactMechId" map-name="newValue"/>
+        <field-to-request field="contactMechId" map-name="newValue"/>
         <field-to-result field="contactMechId" map-name="newValue"/>
     </simple-method>
     
@@ -431,7 +431,7 @@ under the License.
                 processor-name="postalAddress" in-map-name="parameters" out-map-name="context"/>        
         <call-service in-map-name="context" service-name="updatePostalAddress">
             <default-message>Postal Address successfully updated</default-message>
-            <result-to-field result-name="contactMechId" map-name="newValue" field-name="contactMechId" />             
+            <result-to-field result-name="contactMechId" map-name="newValue" field="contactMechId" />             
         </call-service>
         <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
                 processor-name="workEffortContactMech" in-map-name="parameters" out-map-name="context2"/>  
@@ -441,7 +441,7 @@ under the License.
         <call-service in-map-name="context2" service-name="updateWorkEffortContactMech">
             <default-message>WorkEffort Contact Mechanism successfully updated</default-message>       
         </call-service>
-        <field-to-request field-name="contactMechId" map-name="newValue"/>
+        <field-to-request field="contactMechId" map-name="newValue"/>
         <field-to-result field="contactMechId" map-name="newValue"/>                   
     </simple-method>
      
@@ -472,7 +472,7 @@ under the License.
         <call-service in-map-name="context2" break-on-error="true" service-name="createWorkEffortContactMech">
             <default-message>WorkEffort Contact Mechanism successfully created</default-message>       
         </call-service>
-        <field-to-request field-name="contactMechId" map-name="newValue"/>
+        <field-to-request field="contactMechId" map-name="newValue"/>
         <field-to-result field="contactMechId" map-name="newValue"/>
     </simple-method>
     
@@ -482,7 +482,7 @@ under the License.
                 processor-name="telecomNumber" in-map-name="parameters" out-map-name="context"/>        
         <call-service in-map-name="context" service-name="updateTelecomNumber">
             <default-message>Telecom Number successfully updated</default-message>
-            <result-to-field result-name="contactMechId" map-name="newValue" field-name="contactMechId" />             
+            <result-to-field result-name="contactMechId" map-name="newValue" field="contactMechId" />             
         </call-service>
         
         <call-map-processor xml-resource="org/ofbiz/workeffort/workeffort/WorkflowMapProcessors.xml"
@@ -494,7 +494,7 @@ under the License.
             <default-message>Party Contact Mechanism successfully updated</default-message>       
         </call-service>
         <log level="info" message="Setting result id: ${newValue.contactMechId}"/>
-        <field-to-request field-name="contactMechId" map-name="newValue"/>
+        <field-to-request field="contactMechId" map-name="newValue"/>
         <field-to-result field="contactMechId" map-name="newValue"/>                   
     </simple-method>  
     
@@ -603,7 +603,7 @@ under the License.
                 <set-service-fields service-name="createWorkEffort" map="parameters" to-map="createWorkeEffortParams"/>
                 <call-service in-map="createWorkeEffortParams" service-name="createWorkEffort">
                     <result-to-result result-name="workEffortId"/>
-                    <result-to-field result-name="workEffortId" field-name="workEffortIdTo"/>
+                    <result-to-field result-name="workEffortId" field="workEffortIdTo"/>
                 </call-service>
                 <set field="parameters.workEffortIdTo" from-field="workEffortIdTo"/>
             </if-empty>
@@ -675,9 +675,9 @@ under the License.
 
         <entity-one entity-name="WorkEffortInventoryAssign" value-field="foundEntity"/>
         <if-not-empty field="foundEntity">
-            <calculate field-name="foundEntity.quantity" type="Double">
-                <calcop field-name="foundEntity.quantity" operator="get"/>
-                <calcop field-name="parameters.quantity" operator="get"/>
+            <calculate field="foundEntity.quantity" type="Double">
+                <calcop field="foundEntity.quantity" operator="get"/>
+                <calcop field="parameters.quantity" operator="get"/>
             </calculate>
             <store-value value-name="foundEntity"/>
         <else>
@@ -1224,7 +1224,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createWorkEffort" in-map-name="createEventMap">
-            <result-to-field result-name="workEffortId" field-name="workEffortId" map-name="eventMap"/>
+            <result-to-field result-name="workEffortId" field="eventMap.workEffortId"/>
         </call-service>
         <call-simple-method method-name="testUpdateEventService"/>
         <entity-one entity-name="WorkEffort" value-field="workEffort">
@@ -1261,7 +1261,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createWorkEffort" in-map-name="createProjectMap">
-            <result-to-field result-name="workEffortId" field-name="workEffortId" map-name="projectMap"/>
+            <result-to-field result-name="workEffortId" field="projectMap.workEffortId"/>
         </call-service>
         <call-simple-method method-name="testUpdateProjectService"/>
         <call-simple-method method-name="testCreateWorkEffortNoteService"/>
@@ -1306,7 +1306,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createWorkEffortNote" in-map-name="createWorkEffortNoteMap">
-            <result-to-field result-name="noteId" field-name="noteId" map-name="workEffortNoteMap"/>
+            <result-to-field result-name="noteId" field="workEffortNoteMap.noteId"/>
         </call-service>
         <check-errors/>
     </simple-method>

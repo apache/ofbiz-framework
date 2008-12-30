@@ -296,7 +296,7 @@ under the License.
         <if-empty field="parameters.partyId">
             <!-- call the create person service -->
             <call-service service-name="createPerson" in-map-name="personContext">
-                <result-to-field result-name="partyId" field-name="partyId"/>
+                <result-to-field result-name="partyId" field="partyId"/>
                 <result-to-request result-name="partyId"/>
             </call-service>
             <if-empty field="userLogin">
@@ -355,7 +355,7 @@ under the License.
             <if-empty field="parameters.shippingContactMechId">
                 <set field="shippingAddressContext.contactMechPurposeTypeId" from-field="parameters.shippingContactMechPurposeTypeId" default-value="SHIPPING_LOCATION"/>
                 <call-service service-name="createPartyPostalAddress" in-map-name="shippingAddressContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.shippingContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.shippingContactMechId"/>
                 </call-service>
                 <if-compare value="Y" field="parameters.useShippingPostalAddressForBilling" operator="equals">
                     <set field="addressPurposeContext.partyId" from-field="partyId"/>
@@ -367,7 +367,7 @@ under the License.
                 <set field="shippingAddressContext.contactMechId" from-field="parameters.shippingContactMechId"/>
                 <!-- call the update address service -->
                 <call-service service-name="updatePartyPostalAddress" in-map-name="shippingAddressContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.shippingContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.shippingContactMechId"/>
                 </call-service>    
             </else>
             </if-empty>
@@ -378,13 +378,13 @@ under the License.
                 <!-- create the Billing location -->
                 <set field="billingAddressContext.contactMechPurposeTypeId" from-field="parameters.billingContactMechPurposeTypeId" default-value="BILLING_LOCATION"/>
                 <call-service service-name="createPartyPostalAddress" in-map-name="billingAddressContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.billingContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.billingContactMechId"/>
                 </call-service>
             <else>
                 <set field="billingAddressContext.contactMechId" from-field="parameters.billingContactMechId"/>
                 <!-- call the update address service -->
                 <call-service service-name="updatePartyPostalAddress" in-map-name="billingAddressContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.billingContactMechId"/>    
+                    <result-to-field result-name="contactMechId" field="parameters.billingContactMechId"/>    
                 </call-service>    
             </else>
             </if-empty>
@@ -397,13 +397,13 @@ under the License.
                 <set field="homePhoneContext.contactMechPurposeTypeId" value="PHONE_HOME"/>
                 <!-- call create telecom service -->
                 <call-service service-name="createPartyTelecomNumber" in-map-name="homePhoneContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.homePhoneContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.homePhoneContactMechId"/>
                 </call-service>
             <else>
                 <set field="homePhoneContext.contactMechId" from-field="parameters.homePhoneContactMechId"/>
                 <!-- call update telecom service -->
                 <call-service service-name="updatePartyTelecomNumber" in-map-name="homePhoneContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.homePhoneContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.homePhoneContactMechId"/>
                 </call-service>    
             </else>
             </if-empty>
@@ -416,13 +416,13 @@ under the License.
                 <set field="workPhoneContext.contactMechPurposeTypeId" value="PHONE_WORK"/>
                 <!-- call create telecom service -->
                 <call-service service-name="createPartyTelecomNumber" in-map-name="workPhoneContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.workPhoneContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.workPhoneContactMechId"/>
                 </call-service>
             <else>
                 <set field="workPhoneContext.contactMechId" from-field="parameters.workPhoneContactMechId"/>
                 <!-- call update telecom service -->
                 <call-service service-name="updatePartyTelecomNumber" in-map-name="workPhoneContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.workPhoneContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.workPhoneContactMechId"/>
                 </call-service>    
             </else>
             </if-empty>
@@ -435,13 +435,13 @@ under the License.
                 <set field="faxPhoneContext.contactMechPurposeTypeId" value="FAX_NUMBER"/>
                 <!-- call create telecom service -->
                 <call-service service-name="createPartyTelecomNumber" in-map-name="faxPhoneContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.faxPhoneContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.faxPhoneContactMechId"/>
                 </call-service>
             <else>
                 <set field="faxPhoneContext.contactMechId" from-field="parameters.faxPhoneContactMechId"/>
                 <!-- call update telecom service -->
                 <call-service service-name="updatePartyTelecomNumber" in-map-name="faxPhoneContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.faxPhoneContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.faxPhoneContactMechId"/>
                 </call-service>    
             </else>
             </if-empty>
@@ -453,13 +453,13 @@ under the License.
                 <set field="mobilePhoneContext.contactMechPurposeTypeId" value="PHONE_MOBILE"/>
                 <!-- call create telecom service -->
                 <call-service service-name="createPartyTelecomNumber" in-map-name="mobilePhoneContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.mobilePhoneContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.mobilePhoneContactMechId"/>
                 </call-service>
             <else>
                 <set field="mobilePhoneContext.contactMechId" from-field="parameters.mobilePhoneContactMechId"/>
                 <!-- call update telecom service -->
                 <call-service service-name="updatePartyTelecomNumber" in-map-name="mobilePhoneContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.mobilePhoneContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.mobilePhoneContactMechId"/>
                 </call-service>    
             </else>
             </if-empty>
@@ -470,13 +470,13 @@ under the License.
             <if-empty field="parameters.emailContactMechId">
                 <set field="emailContext.contactMechPurposeTypeId" value="PRIMARY_EMAIL" />
                 <call-service service-name="createPartyEmailAddress" in-map-name="emailContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.emailContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.emailContactMechId"/>
                 </call-service>
             <else>
                 <set field="emailContext.contactMechId" from-field="parameters.emailContactMechId"/>
                 <!-- call update Email address -->
                 <call-service service-name="updatePartyEmailAddress" in-map-name="emailContext">
-                    <result-to-field result-name="contactMechId" field-name="parameters.emailContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.emailContactMechId"/>
                 </call-service>    
             </else>
             </if-empty>
@@ -563,7 +563,7 @@ under the License.
         </else>    
         </if-compare>        
         <!-- set the partyId in the request -->
-        <field-to-request field-name="partyId" request-name="partyId"/>
+        <field-to-request field="partyId" request-name="partyId"/>
     </simple-method>     
 
     <simple-method method-name="processShipOptions" short-description="Process Ship Options; to be called as a Request Event" login-required="false">

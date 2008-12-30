@@ -118,8 +118,8 @@ under the License.
         <set field="count" value="0" type="Integer"/>
         <iterate entry="commEvent" list="commEvents">
             <log level="always" message="====processing: ${commEvent.communicationEventId}"/>
-            <get-related value-name="commEvent" relation-name="CommunicationEventRole"
-                list-name="roles"/>
+            <get-related value-field="commEvent" relation-name="CommunicationEventRole"
+                list="roles"/>
             <if-empty field="roles">
                 <!--partyId To -->
                 <if-not-empty field="commEvent.partyIdTo">
@@ -161,9 +161,9 @@ under the License.
                     <set field="commRole.statusId" value="COM_ROLE_COMPLETED"/>
                     <create-value value-field="commRole"/>
                 </if-not-empty>
-                <calculate field-name="count">
+                <calculate field="count">
                     <number value="1"/>
-                    <calcop operator="add" field-name="count"/>
+                    <calcop operator="add" field="count"/>
                 </calculate>
             </if-empty>
         </iterate>
@@ -220,7 +220,7 @@ under the License.
         <set field="data._uploadedFile_fileName" from-field="formInput.imageFileName"/>
         <set field="data._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
         <call-service service-name="createDataResource" in-map-name="data">
-            <result-to-field result-name="dataResourceId" field-name="dataResourceId"
+            <result-to-field result-name="dataResourceId" field="dataResourceId"
                 map-name="parameters"/>
         </call-service>
         <log level="always" message=" DataResource : ${parameters.dataResourceId}"/>
@@ -243,7 +243,7 @@ under the License.
         <set field="contentMap.contentTypeId" from-field="formInput.formInput.contentTypeId"/>
         <set field="contentMap.dataResourceId" from-field="parameters.dataResourceId"/>
         <call-service service-name="createContentFromDataResource" in-map-name="contentMap">
-            <result-to-field result-name="contentId" field-name="contentId" map-name="parameters"/>
+            <result-to-field result-name="contentId" field="parameters.contentId"/>
         </call-service>
         <log level="always" message=" Content : ${parameters.contentId}"/>
 
@@ -263,15 +263,15 @@ under the License.
         <set field="contentAssoc.communicationEventId"
             from-field="formInput.formInput.communicationEventId"/>
         <call-service service-name="createCommEventContentAssoc" in-map-name="contentAssoc">
-            <result-to-field result-name="fromDate" field-name="fromDate"/>
+            <result-to-field result-name="fromDate" field="fromDate"/>
         </call-service>
 
         <!-- Return to request -->
         <set field="communicationEventTypeId"
             from-field="formInput.formInput.communicationEventTypeId"/>
         <set field="communicationEventId" from-field="formInput.formInput.communicationEventId"/>
-        <field-to-request field-name="communicationEventId" request-name="communicationEventId"/>
-        <field-to-request field-name="communicationEventTypeId"
+        <field-to-request field="communicationEventId" request-name="communicationEventId"/>
+        <field-to-request field="communicationEventTypeId"
             request-name="communicationEventTypeId"/>
 
     </simple-method>
@@ -301,16 +301,16 @@ under the License.
         <set field="contentAssoc.communicationEventId"
             from-field="formInput.formInput.communicationEventId"/>
         <call-service service-name="createCommEventContentAssoc" in-map-name="contentAssoc">
-            <result-to-field result-name="fromDate" field-name="fromDate"/>
+            <result-to-field result-name="fromDate" field="fromDate"/>
         </call-service>
 
         <!-- Return to request -->
         <set field="communicationEventTypeId"
             from-field="formInput.formInput.communicationEventTypeId"/>
         <set field="communicationEventId" from-field="formInput.formInput.communicationEventId"/>
-        <field-to-request field-name="communicationEventTypeId"
+        <field-to-request field="communicationEventTypeId"
             request-name="communicationEventTypeId"/>
-        <field-to-request field-name="communicationEventId" request-name="communicationEventId"/>
+        <field-to-request field="communicationEventId" request-name="communicationEventId"/>
     </simple-method>
     
     <!--Create simple-method of getPortalPageId-->
@@ -327,6 +327,6 @@ under the License.
         <if-not-empty field="getMainPage">
             <set field="portalPageId" from-field="getMyportal.portalPageId"/>
         </if-not-empty>
-        <field-to-request field-name="portalPageId" request-name="portalPageId"/>
+        <field-to-request field="portalPageId" request-name="portalPageId"/>
     </simple-method>
 </simple-methods>

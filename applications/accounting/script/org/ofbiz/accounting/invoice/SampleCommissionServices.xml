@@ -37,11 +37,11 @@ under the License.
                 <condition><if-compare field="affiliatePartyRelationship.roleTypeIdTo" operator="equals" value="AFFILIATE"/></condition>
                 <then>
                     <!-- calculate a simple commission with a base amount + a percentage of the payment -->
-                    <calculate field-name="commissionAmount" type="Double">
+                    <calculate field="commissionAmount" type="Double">
                         <calcop operator="add">
                             <number value="10.0"/><!-- base amount -->
                             <calcop operator="multiply">
-                                <calcop operator="get" field-name="payment.amount"/>
+                                <calcop operator="get" field="payment.amount"/>
                                 <number value="0.15"/><!-- commission percentage -->
                             </calcop>
                         </calcop>

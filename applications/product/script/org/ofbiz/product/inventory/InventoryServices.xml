@@ -161,7 +161,7 @@ under the License.
         </if-empty>
         <!-- if inventoryItem's ownerPartyId is empty, get the ownerPartyId from the facility -->
         <if-empty field="inventoryItem.ownerPartyId">
-            <get-related-one value-name="inventoryItem" relation-name="Facility" to-value-name="facility"/>
+            <get-related-one value-name="inventoryItem" relation-name="Facility" to-value-field="facility"/>
             <set field="inventoryItem.ownerPartyId" from-field="facility.ownerPartyId"/>
             <!-- if inventoryItem's ownerPartyId is still empty, return an error message -->
             <if-empty field="inventoryItem.ownerPartyId">
@@ -176,7 +176,7 @@ under the License.
         <if-empty field="inventoryItem.currencyUomId">
             <set field="partyAccountingPreferencesCallMap.organizationPartyId" from-field="inventoryItem.ownerPartyId"/>
             <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
-                 <result-to-field result-name="partyAccountingPreference" field-name="accPref"/>
+                 <result-to-field result-name="partyAccountingPreference" field="accPref"/>
             </call-service>
             <set field="inventoryItem.currencyUomId" from-field="accPref.baseCurrencyUomId"/>
             <if-empty field="inventoryItem.currencyUomId">
@@ -197,7 +197,7 @@ under the License.
             <set from-field="inventoryItem.currencyUomId" field="inputMap.currencyUomId"/>
             <set value="EST_STD" field="inputMap.costComponentTypePrefix"/> <!-- TODO: create a new service getProductStdCost that calls getProductCost -->
             <call-service service-name="getProductCost" in-map-name="inputMap">
-                <result-to-field result-name="productCost" field-name="inventoryItem.unitCost"/>
+                <result-to-field result-name="productCost" field="inventoryItem.unitCost"/>
             </call-service>
         </if-empty>
         <!-- if inventoryItem's unitCost is still empty, or negative return an error message -->
@@ -228,7 +228,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <if-empty field="lookedUpValue.ownerPartyId">
-            <get-related-one value-name="lookedUpValue" relation-name="Facility" to-value-name="oldFacility"/>
+            <get-related-one value-name="lookedUpValue" relation-name="Facility" to-value-field="oldFacility"/>
             <set field="lookedUpValue.ownerPartyId" from-field="oldFacility.ownerPartyId"/>
         </if-empty>
         <field-to-result field="lookedUpValue.ownerPartyId" result-name="oldOwnerPartyId"/>
@@ -418,7 +418,7 @@ under the License.
                 <find-by-and entity-name="ProductAssoc" map-name="getAssoc" list-name="assocs"/>
                 <filter-list-by-date list-name="assocs" to-list-name="assocsDate"/>
                 <first-from-list entry="assoc" list="assocsDate"/>
-                <get-related-one value-name="assoc" relation-name="MainProduct" to-value-name="virtProduct"/>
+                <get-related-one value-name="assoc" relation-name="MainProduct" to-value-field="virtProduct"/>
                 <if-empty field="product.salesDiscWhenNotAvail">
                     <set field="product.salesDiscWhenNotAvail" from-field="virtProduct.salesDiscWhenNotAvail"/>
                 </if-empty>
@@ -516,7 +516,7 @@ under the License.
     <simple-method method-name="createPhysicalInventoryAndVariance" short-description="Create a PhysicalInventory and an InventoryItemVariance">
         <set-service-fields service-name="createPhysicalInventory" map="parameters" to-map="createPhysicalInventoryMap"/>
         <call-service service-name="createPhysicalInventory" in-map="createPhysicalInventoryMap">
-            <result-to-field result-name="physicalInventoryId" field-name="physicalInventoryId" map-name="parameters"/>
+            <result-to-field result-name="physicalInventoryId" field="parameters.physicalInventoryId"/>
             <result-to-result result-name="physicalInventoryId" service-result-name="physicalInventoryId"/>
         </call-service>
         <set-service-fields service-name="createInventoryItemVariance" map="parameters" to-map="createInventoryItemVarianceMap"/>
@@ -626,14 +626,14 @@ under the License.
                         </or>
                     </condition>
                     <then>
-                        <calculate field-name="parameters.quantityOnHandTotal" type="Double">
-                            <calcop field-name="parameters.quantityOnHandTotal" operator="add"><number value="1.0"/></calcop>
+                        <calculate field="parameters.quantityOnHandTotal" type="Double">
+                            <calcop field="parameters.quantityOnHandTotal" operator="add"><number value="1.0"/></calcop>
                         </calculate>
                     </then>
                 </if>
                 <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">
-                    <calculate field-name="parameters.availableToPromiseTotal" type="Double">
-                        <calcop field-name="parameters.availableToPromiseTotal" operator="add"><number value="1.0"/></calcop>
+                    <calculate field="parameters.availableToPromiseTotal" type="Double">
+                        <calcop field="parameters.availableToPromiseTotal" operator="add"><number value="1.0"/></calcop>
                     </calculate>
                 </if-compare>
             </if-compare>
@@ -656,15 +656,15 @@ under the License.
                     </condition>
                     <then>
                         <if-not-empty field="inventoryItem.quantityOnHandTotal">
-                            <calculate field-name="parameters.quantityOnHandTotal" type="Double">
-                                <calcop operator="get" field-name="parameters.quantityOnHandTotal"/>
-                                <calcop operator="get" field-name="inventoryItem.quantityOnHandTotal"/>
+                            <calculate field="parameters.quantityOnHandTotal" type="Double">
+                                <calcop operator="get" field="parameters.quantityOnHandTotal"/>
+                                <calcop operator="get" field="inventoryItem.quantityOnHandTotal"/>
                             </calculate>
                         </if-not-empty>
                         <if-not-empty field="inventoryItem.availableToPromiseTotal">
-                            <calculate field-name="parameters.availableToPromiseTotal" type="Double">
-                                <calcop operator="get" field-name="parameters.availableToPromiseTotal"/>
-                                <calcop operator="get" field-name="inventoryItem.availableToPromiseTotal"/>
+                            <calculate field="parameters.availableToPromiseTotal" type="Double">
+                                <calcop operator="get" field="parameters.availableToPromiseTotal"/>
+                                <calcop operator="get" field="inventoryItem.availableToPromiseTotal"/>
                             </calculate>
                         </if-not-empty>
                     </then>
@@ -951,7 +951,7 @@ under the License.
 
     <simple-method method-name="balanceOrderItemsWithNegativeReservations" short-description="To balance order items with negative reservations">
         <entity-one entity-name="OrderHeader" value-field="orderHeader" auto-field-map="true"/>
-        <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-field="productStore"/>
+        <get-related-one value-field="orderHeader" relation-name="ProductStore" to-value-field="productStore"/>
         <if-compare field="productStore.balanceResOnOrderCreation" operator="equals" value="Y">
             <entity-condition entity-name="OrderItemAndShipGrpInvResAndItem" list="oisgirais">
                 <condition-list combine="and">
@@ -1025,7 +1025,7 @@ under the License.
         <!-- check the product; make sure its a physical item -->
         <entity-one entity-name="Product" value-field="product"/>
         <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
-        <get-related-one value-name="product" relation-name="ProductType" to-value-field="productType"/>
+        <get-related-one value-field="product" relation-name="ProductType" to-value-field="productType"/>
         <if-compare field="productType.isPhysical" operator="equals" value="N">
             <set field="quantityNotTransferred" value="0" type="Double"/>
             <else>
@@ -1092,9 +1092,9 @@ under the License.
                                 </else>
                                 </if-compare-field>
                                 <call-service service-name="createInventoryTransfer" in-map-name="inputMap"/>
-                                <calculate field-name="quantityNotTransferred">
-                                    <calcop operator="subtract" field-name="quantityNotTransferred">
-                                        <calcop operator="get" field-name="inputMap.xferQty"/>
+                                <calculate field="quantityNotTransferred">
+                                    <calcop operator="subtract" field="quantityNotTransferred">
+                                        <calcop operator="get" field="inputMap.xferQty"/>
                                     </calcop>
                                 </calculate>
                             </if-compare>
@@ -1130,9 +1130,9 @@ under the License.
                                     </else>
                                     </if-compare-field>
                                     <call-service service-name="createInventoryTransfer" in-map-name="inputMap"/>
-                                    <calculate field-name="quantityNotTransferred">
-                                        <calcop operator="subtract" field-name="quantityNotTransferred">
-                                            <calcop operator="get" field-name="inputMap.xferQty"/>
+                                    <calculate field="quantityNotTransferred">
+                                        <calcop operator="subtract" field="quantityNotTransferred">
+                                            <calcop operator="get" field="inputMap.xferQty"/>
                                         </calcop>
                                     </calculate>
                                 </if-compare>
@@ -1169,9 +1169,9 @@ under the License.
                                     </else>
                                     </if-compare-field>
                                     <call-service service-name="createInventoryTransfer" in-map-name="inputMap"/>
-                                    <calculate field-name="quantityNotTransferred">
-                                        <calcop operator="subtract" field-name="quantityNotTransferred">
-                                            <calcop operator="get" field-name="inputMap.xferQty"/>
+                                    <calculate field="quantityNotTransferred">
+                                        <calcop operator="subtract" field="quantityNotTransferred">
+                                            <calcop operator="get" field="inputMap.xferQty"/>
                                         </calcop>
                                     </calculate>
                                 </if-compare>
@@ -1243,7 +1243,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createPhysicalInventoryAndVariance" in-map-name="createPhysicalInventoryAndVarianceMap">
-            <result-to-field result-name="physicalInventoryId" field-name="physicalInventoryId"/>
+            <result-to-field result-name="physicalInventoryId" field="physicalInventoryId"/>
         </call-service>
         <assert>
             <not>
@@ -1256,10 +1256,10 @@ under the License.
     </simple-method>
     <simple-method method-name="changeOwnerUponIssuance" short-description="If product store setOwnerUponIssuance is Y or empty, set the inventory item owner upon issuance.">
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
-        <get-related-one value-name="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
+        <get-related-one value-field="itemIssuance" relation-name="InventoryItem" to-value-field="inventoryItem"/>
         <if-not-empty field="inventoryItem">
             <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
-                <get-related-one value-name="itemIssuance" relation-name="OrderHeader" to-value-name="orderHeader"/>
+                <get-related-one value-name="itemIssuance" relation-name="OrderHeader" to-value-field="orderHeader"/>
                 <if-not-empty field="orderHeader">
                     <set field="orderRoleAndMap.orderId" from-field="orderHeader.orderId"/>
                     <set field="orderRoleAndMap.roleTypeId" value="END_USER_CUSTOMER"/>

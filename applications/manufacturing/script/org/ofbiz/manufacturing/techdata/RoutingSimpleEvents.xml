@@ -30,7 +30,7 @@ under the License.
                 processor-name="copyRoutingTask" in-map-name="lookedUpValue" out-map-name="context"/>
             <call-service service-name="createWorkEffort" in-map-name="context">
                 <default-message resource="ManufacturingUiLabels" property="ManufacturingRoutingTaskCopiedSuccessfully"/>
-                <result-to-field result-name="workEffortId" map-name="parameters" field-name="workEffortIdTo"/>
+                <result-to-field result-name="workEffortId" map-name="parameters" field="workEffortIdTo"/>
             </call-service>
         </if-compare>
         <if-empty field="parameters.fromDate">
@@ -41,7 +41,7 @@ under the License.
         <check-errors/>
         <set value="Y" field="context1.create"/>
         <call-service service-name="checkRoutingTaskAssoc" in-map-name="context1">
-            <result-to-field result-name="sequenceNumNotOk"  field-name="sequenceNumNotOk"/>
+            <result-to-field result-name="sequenceNumNotOk"  field="sequenceNumNotOk"/>
         </call-service>
         <if-compare field="sequenceNumNotOk" operator="equals" value="Y">
             <add-error>
@@ -62,7 +62,7 @@ under the License.
                 processor-name="routingTaskAssoc" in-map-name="parameters" out-map-name="context1"/>
          <check-errors/>
         <call-service service-name="checkRoutingTaskAssoc" in-map-name="context1">
-            <result-to-field result-name="sequenceNumNotOk"  field-name="sequenceNumNotOk"/>
+            <result-to-field result-name="sequenceNumNotOk"  field="sequenceNumNotOk"/>
         </call-service>
         <if-compare field="sequenceNumNotOk" operator="equals" value="Y">
             <add-error>

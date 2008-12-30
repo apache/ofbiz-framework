@@ -83,12 +83,12 @@ under the License.
         <find-by-primary-key  entity-name="UserLogin" map="systemMap" value-field="systemLogin"/>
         <set field="partyAccountingPreferencesCallMap.userLogin" from-field="systemLogin"/> 
         <call-service service-name="getPartyAccountingPreferences" in-map-name="partyAccountingPreferencesCallMap">
-             <result-to-field result-name="partyAccountingPreference" field-name="partyAcctgPreference"/>
+             <result-to-field result-name="partyAccountingPreference" field="partyAcctgPreference"/>
         </call-service>
         <if-compare field="partyAcctgPreference.useInvoiceIdForReturns" operator="equals" value="Y">
             <set field="getNextInvoiceIdMap.partyId" from-field="parameters.toPartyId"/>
             <call-service service-name="getNextInvoiceId" in-map-name="getNextInvoiceIdMap">
-                <result-to-field result-name="invoiceId" field-name="newEntity.returnId"/>
+                <result-to-field result-name="invoiceId" field="newEntity.returnId"/>
             </call-service>
 
             <else>
@@ -159,7 +159,7 @@ under the License.
             <!-- end debugging block -->
 
             <!-- this is used to make sure we don't return a negative amount -->
-            <calculate field-name="returnTotalAmount"><number value="0.0"/></calculate>
+            <calculate field="returnTotalAmount"><number value="0.0"/></calculate>
 
             <!-- check them all to make sure that the return total does not exceed order total.  -->
             <iterate entry="returnItem" list="returnItems">
@@ -181,11 +181,11 @@ under the License.
               </if>
               <check-errors/>
                <!-- tally up the return total amount -->
-               <calculate field-name="returnTotalAmount">
-                   <calcop field-name="returnTotalAmount" operator="add">
+               <calculate field="returnTotalAmount">
+                   <calcop field="returnTotalAmount" operator="add">
                        <calcop operator="multiply">
-                            <calcop operator="get" field-name="returnPrice" map-name="returnItem"/>
-                            <calcop operator="get" field-name="returnQuantity" map-name="returnItem"/>
+                            <calcop operator="get" field="returnPrice" map-name="returnItem"/>
+                            <calcop operator="get" field="returnQuantity" map-name="returnItem"/>
                         </calcop>
                    </calcop>
                 </calculate>
@@ -194,11 +194,11 @@ under the License.
                 <if-not-empty field="returnItem.orderId">
                     <set field="returnTotalCtx.orderId" from-field="returnItem.orderId"/>
                     <!-- no adjustment needed: adjustment is passed in to calculate the effect of an additional item on return total.  -->
-                    <calculate field-name="returnTotalCtx.adjustment" type="BigDecimal"><number value="0.0"/></calculate>
+                    <calculate field="returnTotalCtx.adjustment" type="BigDecimal"><number value="0.0"/></calculate>
                     <call-service service-name="getOrderAvailableReturnedTotal" in-map-name="returnTotalCtx">
-                        <result-to-field result-name="availableReturnTotal" field-name="availableReturnTotal"/>
-                        <result-to-field result-name="returnTotal" field-name="returnTotal"/>
-                        <result-to-field result-name="orderTotal" field-name="orderTotal"/>
+                        <result-to-field result-name="availableReturnTotal" field="availableReturnTotal"/>
+                        <result-to-field result-name="returnTotal" field="returnTotal"/>
+                        <result-to-field result-name="orderTotal" field="orderTotal"/>
                     </call-service>
                     <log level="info" message="Available amount for return on order #${returnItem.orderId} is [${availableReturnTotal}] (orderTotal = [${orderTotal}] - returnTotal = [${returnTotal}]"/>
 
@@ -233,9 +233,9 @@ under the License.
                 <field-map field-name="returnId" from-field="returnHeader.returnId"/>
             </entity-and>
             <iterate entry="returnAdjustment" list="returnAdjustments">
-                <calculate field-name="returnTotalAmount">
-                         <calcop field-name="returnTotalAmount" operator="add">
-                             <calcop operator="get" field-name="amount" map-name="returnAdjustment"/>
+                <calculate field="returnTotalAmount">
+                         <calcop field="returnTotalAmount" operator="add">
+                             <calcop operator="get" field="amount" map-name="returnAdjustment"/>
                          </calcop>
                   </calculate>
             </iterate>
@@ -319,8 +319,8 @@ under the License.
         <if-not-empty field="orderItem">
             <set field="serviceContext.orderItem" from-field="orderItem"/>
             <call-service service-name="getReturnableQuantity" in-map-name="serviceContext">
-                <result-to-field result-name="returnableQuantity" field-name="returnableQuantity"/>
-                <result-to-field result-name="returnablePrice" field-name="returnablePrice"/>
+                <result-to-field result-name="returnableQuantity" field="returnableQuantity"/>
+                <result-to-field result-name="returnablePrice" field="returnablePrice"/>
             </call-service>
         </if-not-empty>
 
@@ -352,10 +352,10 @@ under the License.
             <!-- Workaround for bug: returnPrice=16.99, returnablePrice=16.9894 => OrderReturnPriceCannotExceedThePurchasePrice -->
             <set field="epsilon" value="0.01" type="Double"/>
             <set field="zero" value="0.0" type="Double"/>
-            <calculate field-name="returnPriceDelta" type="Double">
+            <calculate field="returnPriceDelta" type="Double">
                 <calcop operator="subtract">
-                    <calcop operator="get" field-name="returnPrice" map-name="parameters"/>
-                    <calcop operator="get" field-name="returnablePrice"/>
+                    <calcop operator="get" field="returnPrice" map-name="parameters"/>
+                    <calcop operator="get" field="returnablePrice"/>
                 </calcop>
             </calculate>
 
@@ -388,8 +388,8 @@ under the License.
             <set value="1" field="newEntity.returnItemSeqId"/>
         <else>
            <first-from-list entry="newestItem" list="currentItems"/>
-           <calculate field-name="returnItemSeqId" map-name="newEntity" type="Integer">
-               <calcop field-name="returnItemSeqId" map-name="newestItem" operator="add">
+           <calculate field="returnItemSeqId" map-name="newEntity" type="Integer">
+               <calcop field="returnItemSeqId" map-name="newestItem" operator="add">
                    <number value="1"/>
                </calcop>
            </calculate>
@@ -414,7 +414,7 @@ under the License.
             <then>
                 <!-- create return adjustments for all adjustments associated with the order item -->
                 <if-not-empty field="orderItem">
-                    <get-related value-name="orderItem" relation-name="OrderAdjustment" list-name="orderAdjustments"/>
+                    <get-related value-field="orderItem" relation-name="OrderAdjustment" list="orderAdjustments"/>
                     <iterate entry="orderAdjustment" list="orderAdjustments">
                         <clear-field field="returnAdjCtx"/>
                         <set field="returnAdjCtx.returnId" from-field="parameters.returnId"/>
@@ -539,14 +539,14 @@ under the License.
         <find-by-and entity-name="ShipmentReceipt" map-name="lookupPKMap" list-name="shipmentReceipts"/>
         <iterate list="shipmentReceipts" entry="receipt">
             <if-empty field="totalsMap.${receipt.returnItemSeqId}">
-                <calculate field-name="${receipt.returnItemSeqId}" map-name="totalsMap">
+                <calculate field="${receipt.returnItemSeqId}" map-name="totalsMap">
                     <number value="0"/>
                 </calculate>
             </if-empty>
-            <calculate field-name="${receipt.returnItemSeqId}" map-name="totalsMap" type="Double">
-                <calcop field-name="${receipt.returnItemSeqId}" map-name="totalsMap" operator="add">
-                    <calcop field-name="quantityAccepted" map-name="receipt" operator="get"/>
-                    <calcop field-name="quantityRejected" map-name="receipt" operator="get"/>
+            <calculate field="${receipt.returnItemSeqId}" map-name="totalsMap" type="Double">
+                <calcop field="${receipt.returnItemSeqId}" map-name="totalsMap" operator="add">
+                    <calcop field="quantityAccepted" map-name="receipt" operator="get"/>
+                    <calcop field="quantityRejected" map-name="receipt" operator="get"/>
                 </calcop>
             </calculate>
             
@@ -598,7 +598,7 @@ under the License.
                 This activates SECAS such as creating return invoices. This MUST be done before updating the return header so that
                 the ReturnItemBillings are created and then whatever SECA binds to the return header update will have them. . -->
             <iterate list="shipmentReceipts" entry="receipt">
-                <get-related-one relation-name="Shipment" value-name="receipt" to-value-name="shipment"/>
+                <get-related-one relation-name="Shipment" value-name="receipt" to-value-field="shipment"/>
                 <if-not-empty field="shipment.shipmentId">
                     <if-compare field="shipment.statusId" operator="not-equals" value="RETURN_RECEIVED">
                         <set field="serviceInput.shipmentId" from-field="shipment.shipmentId"/>
@@ -675,7 +675,7 @@ under the License.
         <set from-field="returnHeaderTypeId" field="createHeaderCtx.returnHeaderTypeId"/>
         
         <!-- get the return to party for customer return and return from party for vendor return from the product store -->
-        <get-related-one relation-name="ProductStore" value-name="orderHeader" to-value-name="productStore"/>
+        <get-related-one relation-name="ProductStore" value-name="orderHeader" to-value-field="productStore"/>
         <if-compare field="returnHeaderTypeId" operator="equals" value="CUSTOMER_RETURN">
             <set field="createHeaderCtx.fromPartyId" from-field="orderRole.partyId"/>
             <set field="createHeaderCtx.toPartyId" from-field="productStore.payToPartyId"/>
@@ -726,8 +726,8 @@ under the License.
             <!-- get the returnable price and quantity -->
             <set from-field="orderItem" field="itemCheckMap.orderItem"/>
             <call-service service-name="getReturnableQuantity" in-map-name="itemCheckMap">
-                <result-to-field result-name="returnableQuantity" field-name="returnQuantity" map-name="newItemCtx"/>
-                <result-to-field result-name="returnablePrice" field-name="returnPrice" map-name="newItemCtx"/>
+                <result-to-field result-name="returnableQuantity" field="newItemCtx.returnQuantity"/>
+                <result-to-field result-name="returnablePrice" field="newItemCtx.returnPrice"/>
             </call-service>
 
             <!-- get the matching return item type from the order item type -->
@@ -798,9 +798,9 @@ under the License.
         <set field="orderAvailableCtx.orderId" from-field="orderHeader.orderId"/>
         <set field="orderAvailableCtx.countNewReturnItems" value="true" type="Boolean"/> <!-- very important: if this is not set, getOrderAvailableReturnedTotal would not count the return items we just created -->
         <call-service service-name="getOrderAvailableReturnedTotal" in-map-name="orderAvailableCtx">
-            <result-to-field result-name="availableReturnTotal" field-name="availableReturnTotal"/>
-            <result-to-field result-name="returnTotal" field-name="returnTotal"/>
-            <result-to-field result-name="orderTotal" field-name="orderTotal"/>
+            <result-to-field result-name="availableReturnTotal" field="availableReturnTotal"/>
+            <result-to-field result-name="returnTotal" field="returnTotal"/>
+            <result-to-field result-name="orderTotal" field="orderTotal"/>
         </call-service>
         <log level="info" message="OrderTotal [${orderTotal}] - ReturnTotal [${returnTotal}] = available Return Total [${availableReturnTotal}]"/>
 
@@ -846,7 +846,7 @@ under the License.
         <if-empty field="parameters.returnId">
             <set-service-fields service-name="createReturnHeader" map="parameters" to-map="returnHeaderInMap"/>
             <call-service service-name="createReturnHeader" in-map="returnHeaderInMap">
-                <result-to-field result-name="returnId" field-name="returnId"/>
+                <result-to-field result-name="returnId" field="returnId"/>
             </call-service>
             <check-errors/>
             <set field="parameters.returnId" from-field="returnId"/>
@@ -854,8 +854,8 @@ under the License.
         </if-empty>
         <set-service-fields service-name="createReturnItemOrAdjustment" map="parameters" to-map="createReturnItemOrAdjustmentInMap"/>
         <call-service service-name="createReturnItemOrAdjustment" in-map="createReturnItemOrAdjustmentInMap">
-            <result-to-field result-name="returnAdjustmentId" field-name="returnAdjustmentId"/>
-            <result-to-field result-name="returnItemSeqId" field-name="returnItemSeqId"/>
+            <result-to-field result-name="returnAdjustmentId" field="returnAdjustmentId"/>
+            <result-to-field result-name="returnItemSeqId" field="returnItemSeqId"/>
         </call-service>
         <check-errors/>
         <field-to-result field="returnAdjustmentId" result-name="returnAdjustmentId"/>
@@ -897,10 +897,10 @@ under the License.
             </condition>
             <then>
                 <!-- get the returned order item -->
-                <get-related-one value-name="returnItem" relation-name="OrderItem" to-value-name="orderItem"/>
+                <get-related-one value-name="returnItem" relation-name="OrderItem" to-value-field="orderItem"/>
                 <!-- get the order items of the replacement order associated to the returned item  -->
                 <set field="oiaMap.orderItemAssocTypeId" value="REPLACEMENT"/>
-                <get-related value-name="orderItem" relation-name="FromOrderItemAssoc" map-name="oiaMap" list-name="replacementOrderItems"/>
+                <get-related value-field="orderItem" relation-name="FromOrderItemAssoc" map-name="oiaMap" list="replacementOrderItems"/>
                 <iterate list="replacementOrderItems" entry="replacementOrderItem">
                     <set field="orderItemMap.orderId" from-field="replacementOrderItem.toOrderId"/>
                     <set field="orderItemMap.orderItemSeqId" from-field="replacementOrderItem.toOrderItemSeqId"/>

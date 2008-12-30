@@ -132,7 +132,7 @@ under the License.
         <if-compare-field field="custRequest.statusId" to-field="parameters.statusId" operator="not-equals">
             <if-compare field="parameters.statusId" value="CRQ_CANCELLED" operator="equals">
                 <!-- check for related workefforts ...and when no time recorded cancel these too -->
-                <get-related value-name="custRequest" relation-name="CustRequestWorkEffort" list-name="workEfforts"/>
+                <get-related value-field="custRequest" relation-name="CustRequestWorkEffort" list="workEfforts"/>
                 <if-not-empty field="workEfforts">
                     <iterate entry="workEffort" list="workEfforts">
                         <entity-one entity-name="WorkEffort" value-field="lowInfo">
@@ -299,7 +299,7 @@ under the License.
         <call-object-method obj-field-name="parameters.cart" method-name="getProductStoreId" ret-field-name="createCustRequestInMap.productStoreId"/>
         <call-object-method obj-field-name="parameters.cart" method-name="getChannelType" ret-field-name="createCustRequestInMap.salesChannelEnumId"/>
         <call-service service-name="createCustRequest" in-map-name="createCustRequestInMap">
-            <result-to-field result-name="custRequestId" field-name="custRequestId"/>
+            <result-to-field result-name="custRequestId" field="custRequestId"/>
         </call-service>
         <check-errors/>
         <entity-one entity-name="CustRequest" value-field="custRequest" auto-field-map="true"/>
@@ -325,7 +325,7 @@ under the License.
                 <call-object-method obj-field-name="item" method-name="getReservLength" ret-field-name="createCustRequestItemInMap.reservLength"/>
                 <call-object-method obj-field-name="item" method-name="getReservPersons" ret-field-name="createCustRequestItemInMap.reservPersons"/>                                
                 <call-service service-name="createCustRequestItem" in-map-name="createCustRequestItemInMap">
-                    <result-to-field result-name="custRequestItemSeqId" field-name="custRequestItemSeqId"/>
+                    <result-to-field result-name="custRequestItemSeqId" field="custRequestItemSeqId"/>
                 </call-service>
             </if-compare>
         </iterate>
@@ -336,12 +336,12 @@ under the License.
     <simple-method method-name="createCustRequestFromShoppingList" short-description="Create a CustRequest from a Shopping List">
         <entity-one entity-name="ShoppingList" value-field="shoppingList" auto-field-map="true"/>
         <call-service service-name="loadCartFromShoppingList" in-map-name="parameters">
-            <result-to-field result-name="shoppingCart" field-name="cart"/>
+            <result-to-field result-name="shoppingCart" field="cart"/>
         </call-service>
         <set from-field="cart" field="createCustRequestFromCartInMap.cart"/>
         <set field="createCustRequestFromCartInMap.custRequestName" from-field="shoppingList.listName"/>
         <call-service service-name="createCustRequestFromCart" in-map-name="createCustRequestFromCartInMap">
-            <result-to-field result-name="custRequestId" field-name="custRequestId"/>
+            <result-to-field result-name="custRequestId" field="custRequestId"/>
         </call-service>
         <check-errors/>
         <field-to-result field="custRequestId" result-name="custRequestId"/>
@@ -366,14 +366,14 @@ under the License.
         </if-empty>
        
         <call-service service-name="createCustRequestItem" in-map-name="createCustRequestItemInMap">
-            <result-to-field result-name="custRequestId" field-name="custRequestIdTo"/>
-            <result-to-field result-name="custRequestItemSeqId" field-name="custRequestItemSeqId"/>
+            <result-to-field result-name="custRequestId" field="custRequestIdTo"/>
+            <result-to-field result-name="custRequestItemSeqId" field="custRequestItemSeqId"/>
         </call-service>
 
         <check-errors/>
                 
         <if-compare field="parameters.copyLinkedQuotes" value="Y" operator="equals">
-            <get-related value-name="custRequestItem" relation-name="QuoteItem" list-name="quoteItems"/>
+            <get-related value-field="custRequestItem" relation-name="QuoteItem" list="quoteItems"/>
             <iterate list="quoteItems" entry="quoteItem">
                 <clear-field field="createQuoteItemInMap"/>
                 <set-service-fields service-name="createQuoteItem" to-map="createQuoteItemInMap" map="quoteItem"/>
@@ -437,7 +437,7 @@ under the License.
         </if-empty>
         <set field="custRequest.statusId" value="CRQ_ACCEPTED"/>
         <call-service service-name="createCustRequest" in-map-name="custRequest">
-            <result-to-field result-name="custRequestId" field-name="parameters.custRequestId"/>
+            <result-to-field result-name="custRequestId" field="parameters.custRequestId"/>
         </call-service>
         <set-service-fields service-name="createCustRequestCommEvent" map="parameters" to-map="custRequestCommEvent"/>
         <call-service service-name="createCustRequestCommEvent" in-map="custRequestCommEvent"/>
