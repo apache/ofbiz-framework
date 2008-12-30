@@ -62,7 +62,7 @@
                         <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
                         <set field="inMap._uploadedFile_contentType" from-field="formInput.uploadMimeType"/>
                         <call-service service-name="createContentFromUploadedFile" in-map-name="inMap">
-                            <result-to-field result-name="contentId" field-name="context.contentId"/>
+                            <result-to-field result-name="contentId" field="context.contentId"/>
                         </call-service>
                     </then>
                     <else>
@@ -94,7 +94,7 @@
 
         <!-- Create CustRequestContent -->
         <call-service service-name="createCustRequestContent" in-map-name="custRequestContext">
-            <result-to-field result-name="contentId" field-name="contentId"/>
+            <result-to-field result-name="contentId" field="contentId"/>
         </call-service>
     </simple-method>
 </simple-methods>

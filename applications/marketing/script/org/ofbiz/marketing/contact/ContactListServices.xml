@@ -234,7 +234,7 @@ under the License.
 
         <entity-one entity-name="ContactList" value-field="contactList"/>
         <entity-one entity-name="ContactListParty" value-field="contactListParty"/>
-        <get-related-one value-name="contactListParty" relation-name="PreferredContactMech" to-value-field="preferredContactMech"/>
+        <get-related-one value-field="contactListParty" relation-name="PreferredContactMech" to-value-field="preferredContactMech"/>
         
         <if>
             <condition>

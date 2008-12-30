@@ -151,7 +151,7 @@ under the License.
                 <else>
                     <set field="findPartyCtx.address" from-field="partyInvitation.emailAddress"/>
                     <call-service service-name="findPartyFromEmailAddress" in-map-name="findPartyCtx">
-                        <result-to-field result-name="partyId" field-name="partyId"/>
+                        <result-to-field result-name="partyId" field="partyId"/>
                     </call-service>
                     <if-not-empty field="partyId">
                         <if-compare-field field="partyId" to-field="userLogin.partyId" operator="equals">
@@ -204,7 +204,7 @@ under the License.
                     <else>
                         <set field="findPartyCtx.address" from-field="partyInvitation.emailAddress"/>
                         <call-service service-name="findPartyFromEmailAddress" in-map-name="findPartyCtx">
-                            <result-to-field result-name="partyId" field-name="partyId"/>
+                            <result-to-field result-name="partyId" field="partyId"/>
                         </call-service>
                         <if-not-empty field="partyId">
                             <if-compare-field field="partyId" to-field="userLogin.partyId" operator="equals">

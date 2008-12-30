@@ -52,7 +52,7 @@ under the License.
         <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
 
         <call-service in-map-name="context" service-name="createContent">
-            <result-to-field field-name="contentId" result-name="contentId"/>
+            <result-to-field field="contentId" result-name="contentId"/>
             <result-to-request request-name="contentId" result-name="contentId"/>
         </call-service>
         <if-empty field="contentId">
@@ -107,13 +107,13 @@ under the License.
         </call-map-processor>
         <log level="always" message="datesConverted: ${datesConverted}"/>
         <map-to-map map-name="currentContent" to-map-name="context"/>
-        <get-related value-name="currentContent" relation-name="ContentPurpose" list-name="contentPurposeList"/>
+        <get-related value-field="currentContent" relation-name="ContentPurpose" list="contentPurposeList"/>
         <set field="context.contentPurposeList" from-field="contentPurposeList"/>
         <string-to-list list-name="targetOperationList" string="CONTENT_UPDATE"/>
         <set field="context.targetOperationList" from-field="targetOperationList"/>
         <session-to-field field-name="userLogin" map-name="context" session-name="userLogin"/>
         <call-service in-map-name="context" service-name="updateContent">
-            <result-to-field field-name="contentId" result-name="contentId"/>
+            <result-to-field field="contentId" result-name="contentId"/>
         </call-service>
         <check-errors/>
     </simple-method>

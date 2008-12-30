@@ -271,7 +271,7 @@ under the License.
 
         <log level="info" message="persistCompDocContent(0.2).persistMap : ${persistMap}"/>
         <call-service service-name="persistDataResourceAndData" in-map-name="persistMap">
-            <result-to-field result-name="dataResourceId" field-name="newDataResourceId"/>
+            <result-to-field result-name="dataResourceId" field="newDataResourceId"/>
         </call-service>
 
         <log level="info" message="persistCompDocContent(1).newDataResourceId : ${newDataResourceId}"/>
@@ -303,13 +303,13 @@ under the License.
 
         <log level="info" message="persistCompDocPdf2Survey(1).pdfMap : ${pdfMap}"/>
         <call-service service-name="persistContentAndAssoc" in-map-name="pdfMap">
-            <result-to-field result-name="contentId" field-name="acroFormContentId"/>
+            <result-to-field result-name="contentId" field="acroFormContentId"/>
         </call-service>
 
         <log level="info" message="persistCompDocPdf2Survey(2).acroFormContentId : ${acroFormContentId}"/>
         <set field="acroMap.contentId" from-field="acroFormContentId"/>
         <call-service service-name="buildSurveyFromPdf" in-map-name="acroMap">
-            <result-to-field result-name="surveyId" field-name="surveyId"/>
+            <result-to-field result-name="surveyId" field="surveyId"/>
         </call-service>
 
         <log level="info" message="persistCompDocPdf2Survey(3).surveyId : ${surveyId}"/>
@@ -407,9 +407,9 @@ under the License.
         <log level="info" message="incrementedSeq(0): ${incrementedSeq}"/>
         <log level="info" message="ContentRevision(0): ${newEntity}"/>
         <if-not-empty field="incrementedSeq">
-            <calculate field-name="incrementedSeq" type="Long">
+            <calculate field="incrementedSeq" type="Long">
                 <calcop operator="add">
-                    <calcop operator="get" field-name="incrementedSeq"/>
+                    <calcop operator="get" field="incrementedSeq"/>
                     <number value="1"/>
                 </calcop>
             </calculate>
@@ -417,7 +417,7 @@ under the License.
                 <set field="incrementedSeq" value="1" type="Long"/>
             </else>
         </if-not-empty>
-        <calculate field-name="numericPadding" type="Integer">
+        <calculate field="numericPadding" type="Integer">
             <number value="6"/>
         </calculate>
         <call-class-method method-name="padNumberWithLeadingZeros" class-name="org.ofbiz.content.compdoc.CompDocEvents" ret-field-name="paddedSeqId">
@@ -662,8 +662,8 @@ under the License.
                 <set from-field="thisContentId" field="map.contentId"/>
                 <set from-field="thisContentRevisionSeqId" field="map.contentRevisionSeqId"/>
                 <call-service service-name="getFinalApprovalStatus" in-map-name="map">
-                    <result-to-field field-name="finalApprovalStatusId" result-name="approvalStatusId"/>
-                    <result-to-field field-name="contentApprovalList" result-name="contentApprovalList"/>
+                    <result-to-field field="finalApprovalStatusId" result-name="approvalStatusId"/>
+                    <result-to-field field="contentApprovalList" result-name="contentApprovalList"/>
                 </call-service>
                 <!--  determine status of previous approvals --><!-- finalApprovalStatusId is the applicable status from previous approvals -->
                 <log level="info" message="cloneContentApprovals(2)- finalApprovalStatusId : ${finalApprovalStatusId} "/>
@@ -808,7 +808,7 @@ under the License.
         <!--  bump CDI up one for new approval -->
         <set field="context2.contentId" from-field="parameters.rootContentId"/>
         <call-service service-name="persistContentRevisionAndItem" in-map-name="context2">
-            <result-to-field result-name="contentRevisionSeqId" field-name="contentRevisionSeqId"/>
+            <result-to-field result-name="contentRevisionSeqId" field="contentRevisionSeqId"/>
             <result-to-result result-name="contentRevisionSeqId" service-result-name="rootContentRevisionSeqId"/>
         </call-service>
         <log level="info" message="got into prepForApproval- contentRevisionSeqId: ${contentRevisionSeqId}"/>

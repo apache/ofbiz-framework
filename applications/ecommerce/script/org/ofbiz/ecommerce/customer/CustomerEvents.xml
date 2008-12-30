@@ -290,7 +290,7 @@ under the License.
         <!-- the above copy is okay since we checked already that they are the same -->
         <call-service service-name="createPersonAndUserLogin" in-map-name="personUserLoginContext">
             <result-to-field result-name="partyId" map-name="tempMap"/>
-            <result-to-field field-name="createdUserLogin" result-name="newUserLogin"/>
+            <result-to-field field="createdUserLogin" result-name="newUserLogin"/>
         </call-service>
         <set-current-user-login value-name="createdUserLogin"/>
 
@@ -412,7 +412,7 @@ under the License.
             <find-by-primary-key map="storeEmailLookup" entity-name="ProductStoreEmailSetting"  value-field="storeEmail"/>
             <if-not-empty field="storeEmail.bodyScreenLocation">
                 <!-- prepare the email context -->
-                <get-related-one value-name="createdUserLogin" relation-name="Person" to-value-name="personObj"/>
+                <get-related-one value-name="createdUserLogin" relation-name="Person" to-value-field="personObj"/>
                 <set from-field="createdUserLogin" field="emailCtx.userLogin"/>
                 <set from-field="personObj" field="emailCtx.person"/>
                 <!-- prepare the notification service context -->
@@ -431,7 +431,7 @@ under the License.
 
         <!-- tell the control servlet that we just logged in the user... -->
         <set value="TRUE" field="_LOGIN_PASSED_"/>
-        <field-to-request field-name="_LOGIN_PASSED_"/>
+        <field-to-request field="_LOGIN_PASSED_"/>
     </simple-method>
 
     <!-- =========================================== -->
@@ -876,7 +876,7 @@ under the License.
         <set field="createUpdatePersonCtx.partyId" from-field="userLogin.partyId"/>
         <call-service service-name="createUpdatePerson" in-map-name="createUpdatePersonCtx">
             <result-to-request result-name="partyId"/>
-            <result-to-field result-name="partyId" field-name="parameters.partyId"/>
+            <result-to-field result-name="partyId" field="parameters.partyId"/>
         </call-service>
         <set field="partyId" from-field="parameters.partyId"/>
         
@@ -894,9 +894,9 @@ under the License.
         <set-service-fields service-name="createUpdateShippingAddress" map="parameters" to-map="shipToAddressCtx"/>
         <set field="shipToAddressCtx.userLogin" from-field="userLogin"/>
         <call-service service-name="createUpdateShippingAddress" in-map-name="shipToAddressCtx">
-            <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
+            <result-to-field result-name="contactMechId" field="parameters.shipToContactMechId"/>
         </call-service>
-        <field-to-request field-name="parameters.shipToContactMechId" request-name="shipToContactMechId"/>
+        <field-to-request field="parameters.shipToContactMechId" request-name="shipToContactMechId"/>
 
         <!-- Create Update Shipping Telecom Number -->
         <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
@@ -910,9 +910,9 @@ under the License.
         <set field="createUpdateTelecomNumberCtx.roleTypeId" from-field="parameters.roleTypeId"/>
         <set field="createUpdateTelecomNumberCtx.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
         <call-service service-name="createUpdateTelecomNumber" in-map-name="createUpdateTelecomNumberCtx">
-            <result-to-field result-name="contactMechId" field-name="parameters.shipToPhoneContactMechId"/>
+            <result-to-field result-name="contactMechId" field="parameters.shipToPhoneContactMechId"/>
         </call-service>
-        <field-to-request field-name="parameters.shipToPhoneContactMechId" request-name="shipToPhoneContactMechId"/>
+        <field-to-request field="parameters.shipToPhoneContactMechId" request-name="shipToPhoneContactMechId"/>
 
         <!-- Create Update email address -->
         <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
@@ -924,9 +924,9 @@ under the License.
         <set field="createUpdateEmailCtx.userLogin" from-field="userLogin"/>
         <set field="createUpdateEmailCtx.partyId" from-field="parameters.partyId"/>
         <call-service service-name="createUpdateEmailAddress" in-map-name="createUpdateEmailCtx">
-            <result-to-field result-name="contactMechId" field-name="parameters.emailContactMechId"/>
+            <result-to-field result-name="contactMechId" field="parameters.emailContactMechId"/>
         </call-service>
-        <field-to-request field-name="parameters.emailContactMechId" request-name="emailContactMechId"/>        
+        <field-to-request field="parameters.emailContactMechId" request-name="emailContactMechId"/>        
         
         <!-- Set partyId, in shoppingCart -->
         <call-object-method obj-field-name="shoppingCart" method-name="setUserLogin">
@@ -1025,7 +1025,7 @@ under the License.
             </if-compare>
         </else>
         </if-empty>
-        <field-to-request field-name="userLogin" request-name="userLogin"/>
+        <field-to-request field="userLogin" request-name="userLogin"/>
         <log level="info" message="userLogin is ${userLogin}"/>
     </simple-method>
 
@@ -1077,7 +1077,7 @@ under the License.
             <clear-field field="shippingOptionMap"/>
         </iterate>
          <set field="parameters.shippingOptions" from-field="shippingOptions"/>
-         <field-to-request field-name="parameters.shippingOptions" request-name="shippingOptions"/>
+         <field-to-request field="parameters.shippingOptions" request-name="shippingOptions"/>
     </simple-method>
 
     <simple-method method-name="setShippingOption" short-description="Set shipping method" login-required="false">
@@ -1108,7 +1108,7 @@ under the License.
             <field-map field-name="partyId" from-field="carrierPartyId"/>
             <field-map field-name="roleTypeId" value="CARRIER"/>
         </entity-one>
-        <field-to-request field-name="shipmentMethod.description" request-name="shippingDescription"/>
+        <field-to-request field="shipmentMethod.description" request-name="shippingDescription"/>
 
         <set field="shoppingCart" from-field="parameters.shoppingCart"/>
         <if-empty field="shoppingCart">
@@ -1149,9 +1149,9 @@ under the License.
             parameters.put("cartGrandTotal", cartGrandTotal);
  
         ]]></call-bsh>
-        <field-to-request field-name="parameters.shippingTotal" request-name="shippingTotal"/>
-        <field-to-request field-name="parameters.cartGrandTotal" request-name="cartGrandTotal"/>
-        <field-to-request field-name="parameters.totalSalesTax" request-name="totalSalesTax"/>
+        <field-to-request field="parameters.shippingTotal" request-name="shippingTotal"/>
+        <field-to-request field="parameters.cartGrandTotal" request-name="cartGrandTotal"/>
+        <field-to-request field="parameters.totalSalesTax" request-name="totalSalesTax"/>
         <log level="info" message="Shipping total is : ${parameters.shippingTotal}"/>
         <log level="info" message="Cart Grand total is : ${parameters.cartGrandTotal}"/>
         <log level="info" message="Total sale tax is : ${parameters.totalSalesTax}"/>
@@ -1193,9 +1193,9 @@ under the License.
         <set-service-fields service-name="createUpdateBillingAddress" map="parameters" to-map="billToAddressCtx"/>
         <set field="billToAddressCtx.userLogin" from-field="userLogin"/>
         <call-service service-name="createUpdateBillingAddress" in-map-name="billToAddressCtx">
-            <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
+            <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
         </call-service>
-        <field-to-request field-name="parameters.billToContactMechId" request-name="billToContactMechId"/>
+        <field-to-request field="parameters.billToContactMechId" request-name="billToContactMechId"/>
     
         <!-- Create Update Billing Telecom Number -->
         <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
@@ -1209,22 +1209,22 @@ under the License.
         <set field="createUpdateTelecomNumberCtx.roleTypeId" from-field="parameters.roleTypeId"/>
         <set field="createUpdateTelecomNumberCtx.contactMechPurposeTypeId" from-field="parameters.contactMechPurposeTypeId"/>
         <call-service service-name="createUpdateTelecomNumber" in-map-name="createUpdateTelecomNumberCtx">
-            <result-to-field result-name="contactMechId" field-name="parameters.billToPhoneContactMechId"/>
+            <result-to-field result-name="contactMechId" field="parameters.billToPhoneContactMechId"/>
         </call-service>
-        <field-to-request field-name="parameters.billToPhoneContactMechId" request-name="billToPhoneContactMechId"/>
+        <field-to-request field="parameters.billToPhoneContactMechId" request-name="billToPhoneContactMechId"/>
         
         <!-- Create Update credit card -->
         <set-service-fields service-name="createUpdateCreditCard" map="parameters" to-map="creditCardContext"/>
         <set field="creditCardContext.contactMechId" from-field="parameters.billToContactMechId"/>
         <call-service service-name="createUpdateCreditCard" in-map-name="creditCardContext">
-            <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>
+            <result-to-field result-name="paymentMethodId" field="parameters.paymentMethodId"/>
         </call-service>
 
         <!--============== Set Payment Method ================-->
         <set field="paymentMethodId" from-field="parameters.paymentMethodId"/>
         <set field="cardSecurityCode" from-field="parameters.cardSecurityCode"/>
         <field-to-session field-name="userLogin" session-name="userLogin"/>
-        <field-to-request field-name="parameters.paymentMethodId" request-name="paymentMethodId"/>
+        <field-to-request field="parameters.paymentMethodId" request-name="paymentMethodId"/>
         <call-bsh>
             <![CDATA[
                 import org.ofbiz.order.shoppingcart.ShoppingCart;
@@ -1251,7 +1251,7 @@ under the License.
         <!-- create person -->
         <set-service-fields service-name="createPerson" map="personCtx" to-map="createPersonCtx"/>
         <call-service service-name="createPerson" in-map="createPersonCtx">
-            <result-to-field result-name="partyId" field-name="partyId"/>
+            <result-to-field result-name="partyId" field="partyId"/>
         </call-service>
         <set field="parameters.partyId" from-field="partyId"/>
 
@@ -1269,7 +1269,7 @@ under the License.
         <set field="emailAddressCtx.userLogin" from-field="parameters.userLogin"/>
         <set field="emailAddressCtx.contactMechPurposeTypeId" from-field="parameters.emailContactMechPurposeTypeId"/>
         <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressCtx">
-            <result-to-field result-name="contactMechId" field-name="emailContactMechId"/>
+            <result-to-field result-name="contactMechId" field="emailContactMechId"/>
         </call-service>
         <log level="info" message="Email Contact Created emailContactMechId is ${emailContactMechId}"/>
 
@@ -1282,7 +1282,7 @@ under the License.
           <set field="shipToAddressCtx.setBillingPurpose" value="Y"/>
         </if-compare>
         <call-service service-name="createPostalAddressAndPurposes" in-map-name="shipToAddressCtx">
-            <result-to-field result-name="contactMechId" field-name="shipToContactMechId"/>
+            <result-to-field result-name="contactMechId" field="shipToContactMechId"/>
         </call-service>
         <log level="info" message="Shipping address created with contactMechId ${shipToContactMechId}"/>
         
@@ -1292,7 +1292,7 @@ under the License.
         <set field="shipToTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_SHIPPING"/>
         <!-- call create telecom service -->
         <call-service service-name="createPartyTelecomNumber" in-map-name="shipToTelecomNumberCtx">
-            <result-to-field result-name="contactMechId" field-name="parameters.shipToTelecomContactMechId"/>
+            <result-to-field result-name="contactMechId" field="parameters.shipToTelecomContactMechId"/>
         </call-service>
         <log level="info" message="Shipping telecom number is created with contactMechId ${parameters.shipToTelecomContactMechId}"/>
 
@@ -1305,7 +1305,7 @@ under the License.
             <set field="billToAddressCtx.setBillingPurpose" value="Y"/>
             <set field="billToAddressCtx.productStoreId" from-field="parameters.productStoreId"/>
             <call-service service-name="createPostalAddressAndPurposes" in-map-name="billToAddressCtx">
-                <result-to-field result-name="contactMechId" field-name="billToContactMechId"/>
+                <result-to-field result-name="contactMechId" field="billToContactMechId"/>
             </call-service>
             <log level="info" message="Billing address created with contactMechId ${billToContactMechId}"/>
         <else>
@@ -1320,7 +1320,7 @@ under the License.
         <set field="billToTelecomNumberCtx.contactMechPurposeTypeId" value="PHONE_BILLING"/>
         <!-- call create telecom service -->
         <call-service service-name="createPartyTelecomNumber" in-map-name="billToTelecomNumberCtx">
-            <result-to-field result-name="contactMechId" field-name="billToTelecomContactMechId"/>
+            <result-to-field result-name="contactMechId" field="billToTelecomContactMechId"/>
         </call-service>
      </simple-method>
     
@@ -1334,7 +1334,7 @@ under the License.
         <set field="createUpdatePersonCtx.partyId" from-field="userLogin.partyId"/>
         <call-service service-name="createUpdatePerson" in-map-name="createUpdatePersonCtx">
             <result-to-request result-name="partyId"/>
-            <result-to-field result-name="partyId" field-name="parameters.partyId"/>
+            <result-to-field result-name="partyId" field="parameters.partyId"/>
         </call-service>
     
         <if-compare field="productStore.usePrimaryEmailUsername" operator="equals" value="Y">
@@ -1353,7 +1353,7 @@ under the License.
         <set field="createUpdateEmailCtx.userLogin" from-field="userLogin"/>
         <set field="createUpdateEmailCtx.partyId" from-field="parameters.partyId"/>
         <call-service service-name="createUpdateEmailAddress" in-map-name="createUpdateEmailCtx">
-            <result-to-field result-name="contactMechId" field-name="parameters.emailContactMechId"/>
+            <result-to-field result-name="contactMechId" field="parameters.emailContactMechId"/>
         </call-service>
     </simple-method>
 

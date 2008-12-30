@@ -72,8 +72,8 @@ under the License.
         </entity-condition>
 
         <!-- first set the required OUT fields to zero -->
-        <calculate field-name="plainDoubleZero" type="Double"><number value="0.0"/></calculate>
-        <calculate field-name="plainLongZero" type="Long"><number value="0"/></calculate>
+        <calculate field="plainDoubleZero" type="Double"><number value="0.0"/></calculate>
+        <calculate field="plainLongZero" type="Long"><number value="0"/></calculate>
         <field-to-result field="plainDoubleZero" result-name="totalGrandAmount"/>
         <field-to-result field="plainDoubleZero" result-name="totalSubRemainingAmount"/>
         <field-to-result field="plainLongZero" result-name="totalOrders"/>
@@ -141,13 +141,13 @@ under the License.
 
         <!-- Include the facilityId corresponding to this order by looking up the ProductStore -->
         <entity-one entity-name="OrderHeader" value-field="orderHeader" auto-field-map="true"/>
-        <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-field="productStore" use-cache="true"/>
+        <get-related-one value-field="orderHeader" relation-name="ProductStore" to-value-field="productStore" use-cache="true"/>
         <if-not-empty field="productStore.inventoryFacilityId">
             <set from-field="productStore.inventoryFacilityId" field="inputMap.facilityId"/>
         </if-not-empty>
 
         <call-service service-name="createRequirement" in-map-name="inputMap">
-            <result-to-field field-name="parameters.requirementId" result-name="requirementId"/>
+            <result-to-field field="parameters.requirementId" result-name="requirementId"/>
         </call-service>
 
         <!-- create the OrderRequirementCommitment to record the Requirement created for an order item -->
@@ -168,8 +168,8 @@ under the License.
         <set from-field="inventoryItem.productId" field="inputMap.productId"/>
         <set from-field="inventoryItem.facilityId" field="inputMap.facilityId"/>
         <call-service service-name="getInventoryAvailableByFacility" in-map-name="inputMap">
-           <result-to-field field-name="quantityOnHandTotal" result-name="quantityOnHandTotal"/>
-           <result-to-field field-name="availableToPromiseTotal" result-name="availableToPromiseTotal"/>
+           <result-to-field field="quantityOnHandTotal" result-name="quantityOnHandTotal"/>
+           <result-to-field field="availableToPromiseTotal" result-name="availableToPromiseTotal"/>
         </call-service>
         <clear-field field="inputMap"/>
     </simple-method>
@@ -243,9 +243,9 @@ under the License.
             <if-not-empty field="productFacility.minimumStock">
                 <!-- No requirements are created if we are already under stock -->
                 <if-compare-field field="quantityOnHandTotal" to-field="productFacility.minimumStock" operator="greater-equals" type="Double">
-                    <calculate field-name="newQuantityOnHand">
-                        <calcop field-name="quantityOnHandTotal" operator="subtract">
-                            <calcop operator="get" field-name="parameters.quantity"/>
+                    <calculate field="newQuantityOnHand">
+                        <calcop field="quantityOnHandTotal" operator="subtract">
+                            <calcop operator="get" field="parameters.quantity"/>
                         </calcop>
                     </calculate>
                     <!-- If this new issuance will cause the quantityOnHandTotal to go below the minimumStock, create a new requirement -->
@@ -260,7 +260,7 @@ under the License.
                         </if-not-empty>
                         <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
                         <call-service service-name="createRequirement" in-map-name="inputMap">
-                            <result-to-field field-name="parameters.requirementId" result-name="requirementId"/>
+                            <result-to-field field="parameters.requirementId" result-name="requirementId"/>
                         </call-service>
                         <field-to-result field="parameters.requirementId" result-name="requirementId"/>
                     </if-compare-field>
@@ -290,9 +290,9 @@ under the License.
                 <!-- No requirements are created if we are not under stock -->
                 <!-- this service is supposed to be called after inventory is reserved, so inventory should have been updated already -->
                 <if-compare-field field="availableToPromiseTotal" to-field="productFacility.minimumStock" operator="less" type="Double">
-                    <calculate field-name="oldAvailableToPromise">
-                        <calcop field-name="availableToPromiseTotal" operator="add">
-                            <calcop operator="get" field-name="parameters.quantity"/>
+                    <calculate field="oldAvailableToPromise">
+                        <calcop field="availableToPromiseTotal" operator="add">
+                            <calcop operator="get" field="parameters.quantity"/>
                         </calcop>
                     </calculate>
                     <!-- If before this reservation the availableToPromiseTotal was over minimumStock, create a new requirement -->
@@ -307,7 +307,7 @@ under the License.
                         </if-not-empty>
                         <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
                         <call-service service-name="createRequirement" in-map-name="inputMap">
-                            <result-to-field field-name="parameters.requirementId" result-name="requirementId"/>
+                            <result-to-field field="parameters.requirementId" result-name="requirementId"/>
                         </call-service>
                         <field-to-result field="parameters.requirementId" result-name="requirementId"/>
                     </if-compare-field>
@@ -337,9 +337,9 @@ under the License.
             <!-- are we below minimum stock?  this service is supposed to be called after inventory is reserved, so inventory should have been updated already -->
             <if-compare-field field="availableToPromiseTotal" to-field="productFacility.minimumStock" operator="less" type="Double">
                 <!-- what is the right quantity?  It is the lesser of the actual quantity and the quantity required to bring us back up to minimum stock -->
-                <calculate field-name="quantityShortfall">
-                    <calcop field-name="productFacility.minimumStock" operator="subtract">
-                        <calcop operator="get" field-name="availableToPromiseTotal"/>
+                <calculate field="quantityShortfall">
+                    <calcop field="productFacility.minimumStock" operator="subtract">
+                        <calcop operator="get" field="availableToPromiseTotal"/>
                     </calcop>
                 </calculate>
                 <if-compare-field field="quantityShortfall" operator="less" to-field="parameters.quantity" type="Double">
@@ -366,17 +366,17 @@ under the License.
                     </condition-list>
                 </entity-condition>
                 <iterate entry="requirement" list="requirements">
-                    <calculate field-name="existingRequirementTotal" type="Double">
-                        <calcop operator="add" field-name="existingRequirementTotal">
-                            <calcop operator="get" field-name="requirement.quantity"/>
+                    <calculate field="existingRequirementTotal" type="Double">
+                        <calcop operator="add" field="existingRequirementTotal">
+                            <calcop operator="get" field="requirement.quantity"/>
                         </calcop>
                     </calculate>
                 </iterate>
                 
                 <!-- Subtract the total quantity of existing requirements from the required quantity to determine if a new requirement needs to be created -->
-                <calculate field-name="newRequirementTotal" type="Double">
-                    <calcop operator="subtract" field-name="inputMap.quantity">
-                        <calcop operator="get" field-name="existingRequirementTotal"/>
+                <calculate field="newRequirementTotal" type="Double">
+                    <calcop operator="subtract" field="inputMap.quantity">
+                        <calcop operator="get" field="existingRequirementTotal"/>
                     </calcop>
                 </calculate>
 
@@ -425,8 +425,8 @@ under the License.
                         <set from-field="productFacility.productId" field="inputMap.productId"/>
                         <set from-field="productFacility.facilityId" field="inputMap.facilityId"/>
                         <call-service service-name="getInventoryAvailableByFacility" in-map-name="inputMap">
-                           <result-to-field field-name="quantityOnHandTotal" result-name="quantityOnHandTotal"/>
-                           <result-to-field field-name="availableToPromiseTotal" result-name="availableToPromiseTotal"/>
+                           <result-to-field field="quantityOnHandTotal" result-name="quantityOnHandTotal"/>
+                           <result-to-field field="availableToPromiseTotal" result-name="availableToPromiseTotal"/>
                         </call-service>
 
                         <if-compare field="requirementMethodId" operator="equals" value="PRODRQM_STOCK">
@@ -447,9 +447,9 @@ under the License.
                             </else>
                             </if-not-empty>
 
-                            <calculate field-name="quantityShortfall">
-                                <calcop field-name="productFacility.minimumStock" operator="subtract">
-                                    <calcop operator="get" field-name="currentQuantity"/>
+                            <calculate field="quantityShortfall">
+                                <calcop field="productFacility.minimumStock" operator="subtract">
+                                    <calcop operator="get" field="currentQuantity"/>
                                 </calcop>
                             </calculate>
                             <if-compare-field field="inputMap.quantity" to-field="quantityShortfall" operator="less" type="Double">
@@ -459,7 +459,7 @@ under the License.
                             <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
                             <set from-field="parameters.facilityId" field="inputMap.facilityId"/>
                             <call-service service-name="createRequirement" in-map-name="inputMap">
-                                <result-to-field field-name="requirementId" result-name="requirementId"/>
+                                <result-to-field field="requirementId" result-name="requirementId"/>
                             </call-service>
                             <log level="info" message="Requirement creted with id [${requirementId}] for product with id [${productFacility.productId}]."/>
                         </if-compare-field>
@@ -482,12 +482,12 @@ under the License.
                 <!-- <log level="info" message="In getNextOrderId sequence enum ODRSQ_ENF_SEQ"/> -->
                 <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
                 <if-not-empty field="partyAcctgPreference.lastOrderNumber">
-                    <calculate field-name="partyAcctgPreference.lastOrderNumber" type="Long">
-                        <calcop operator="add" field-name="partyAcctgPreference.lastOrderNumber"/>
+                    <calculate field="partyAcctgPreference.lastOrderNumber" type="Long">
+                        <calcop operator="add" field="partyAcctgPreference.lastOrderNumber"/>
                         <number value="1"/>
                     </calculate>
                     <else>
-                        <calculate field-name="partyAcctgPreference.lastOrderNumber" type="Long"><number value="1"/></calculate>
+                        <calculate field="partyAcctgPreference.lastOrderNumber" type="Long"><number value="1"/></calculate>
                     </else>
                 </if-not-empty>
                 <store-value value-name="partyAcctgPreference"/>
@@ -559,7 +559,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="OrderHeader" value-field="order" auto-field-map="true"/>
         <!-- all existing promo order items are cancelled -->
-        <get-related value-name="order" relation-name="OrderItem" list-name="orderItems"/>
+        <get-related value-field="order" relation-name="OrderItem" list="orderItems"/>
         <iterate list="orderItems" entry="orderItem">
             <if>
                 <condition>
@@ -577,7 +577,7 @@ under the License.
             </if>
         </iterate>
 
-        <get-related value-name="order" relation-name="OrderAdjustment" list-name="orderAdjustments"/>
+        <get-related value-field="order" relation-name="OrderAdjustment" list="orderAdjustments"/>
 
         <!-- Accumulate the total existing promotional adjustment -->
         <set field="existingOrderAdjustmentTotal" value="0" type="BigDecimal"/>        
@@ -587,10 +587,10 @@ under the License.
                     <not><if-empty field="orderAdjustment.productPromoId"/></not>
                 </condition>
                 <then>
-                    <calculate field-name="existingOrderAdjustmentTotal" decimal-scale="3">
+                    <calculate field="existingOrderAdjustmentTotal" decimal-scale="3">
                         <calcop operator="add">
-                            <calcop operator="get" field-name="orderAdjustment.amount"/>
-                            <calcop operator="get" field-name="existingOrderAdjustmentTotal"/>
+                            <calcop operator="get" field="orderAdjustment.amount"/>
+                            <calcop operator="get" field="existingOrderAdjustmentTotal"/>
                         </calcop>
                     </calculate>
                 </then>
@@ -602,7 +602,7 @@ under the License.
         <set value="true" field="loadCartFromOrderInMap.skipInventoryChecks" type="Boolean"/>
         <set value="true" field="loadCartFromOrderInMap.skipProductChecks" type="Boolean"/>
         <call-service service-name="loadCartFromOrder" in-map-name="loadCartFromOrderInMap">
-            <result-to-field result-name="shoppingCart" field-name="cart"/>
+            <result-to-field result-name="shoppingCart" field="cart"/>
         </call-service>
         <call-object-method obj-field-name="cart" method-name="items" ret-field-name="items"/>
         <iterate list="items" entry="item">
@@ -643,10 +643,10 @@ under the License.
                     <not><if-empty field="orderAdjustment.productPromoId"/></not>
                 </condition>
                 <then>
-                    <calculate field-name="newOrderAdjustmentTotal" decimal-scale="3">
+                    <calculate field="newOrderAdjustmentTotal" decimal-scale="3">
                         <calcop operator="add">
-                            <calcop operator="get" field-name="adjustment.amount"/>
-                            <calcop operator="get" field-name="newOrderAdjustmentTotal"/>
+                            <calcop operator="get" field="adjustment.amount"/>
+                            <calcop operator="get" field="newOrderAdjustmentTotal"/>
                         </calcop>
                     </calculate>
                 </then>
@@ -654,9 +654,9 @@ under the License.
         </iterate>
         
         <!-- Determine the difference between existing and new promotion adjustment totals, if any -->
-        <calculate field-name="orderAdjustmentTotalDifference" decimal-scale="3" type="BigDecimal">
-            <calcop operator="subtract" field-name="newOrderAdjustmentTotal">
-                <calcop operator="get" field-name="existingOrderAdjustmentTotal"/>
+        <calculate field="orderAdjustmentTotalDifference" decimal-scale="3" type="BigDecimal">
+            <calcop operator="subtract" field="newOrderAdjustmentTotal">
+                <calcop operator="get" field="existingOrderAdjustmentTotal"/>
             </calcop>
         </calculate>
         
@@ -770,7 +770,7 @@ under the License.
             <set field="orderByList[]" value="-promisedDatetime"/>
         </else>
         </if-compare>
-        <get-related value-name="orderItemShipGroup" relation-name="OrderItemShipGrpInvRes" list-name="orderItemShipGroupInvResList" order-by-list-name="orderByList"/>
+        <get-related value-field="orderItemShipGroup" relation-name="OrderItemShipGrpInvRes" list-name="orderItemShipGroupInvResList" order-by-list="orderByList"/>
         <first-from-list entry="orderItemShipGroupInvRes" list="orderItemShipGroupInvResList"/>
         <field-to-result field="orderItemShipGroupInvRes.promisedDatetime" result-name="estimatedShipDate"/>
     </simple-method>
@@ -851,7 +851,7 @@ under the License.
         <set field="inputMap.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
         <!--In this method we calls createOrderPaymentPreference and returns orderPaymentPreferenceId field to authOrderPaymentPreference -->       
         <call-service service-name="createOrderPaymentPreference" in-map-name="inputMap" include-user-login="true">
-           <result-to-field field-name="parameters.orderPaymentPreferenceId" result-name="orderPaymentPreferenceId"/> 
+           <result-to-field field="parameters.orderPaymentPreferenceId" result-name="orderPaymentPreferenceId"/> 
         </call-service>   
         <field-to-result field="parameters.orderPaymentPreferenceId" result-name="orderPaymentPreferenceId"/>
     </simple-method>
@@ -908,7 +908,7 @@ under the License.
         <if-empty field="shipToAddressCtx.contactMechId">
             <set field="shipToAddressCtx.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
             <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
-                <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
+                <result-to-field result-name="contactMechId" field="parameters.shipToContactMechId"/>
             </call-service>
             <log level="info" message="Shipping address created with contactMechId ${shipToAddressCtx.shipToContactMechId}"/>
         <else>
@@ -919,7 +919,7 @@ under the License.
                 <set-nonpk-fields map="shipToAddressCtx" value-field="newValue"/>
                 <if-compare-field field="oldValue" to-field="newValue" operator="not-equals" type="Object">
                     <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
-                        <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
+                        <result-to-field result-name="contactMechId" field="parameters.shipToContactMechId"/>
                     </call-service>
                 </if-compare-field>
                 <entity-and entity-name="PartyContactMechPurpose" list="pcmpShipList" filter-by-date="true">
@@ -976,14 +976,14 @@ under the License.
                         </if-not-empty>
                         <set field="shipToAddressCtx.contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         <call-service service-name="createPartyPostalAddress" in-map-name="shipToAddressCtx">
-                            <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
+                            <result-to-field result-name="contactMechId" field="parameters.shipToContactMechId"/>
                         </call-service>
                         <log level="info" message="Shipping address updated with contactMechId ${shipToAddressCtx.shipToContactMechId}"/>
                     </if-compare-field>
                 <else>
                     <set field="shipToAddressCtx.userLogin" from-field="parameters.userLogin"/>
                     <call-service service-name="updatePartyPostalAddress" in-map-name="shipToAddressCtx">
-                        <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
+                        <result-to-field result-name="contactMechId" field="parameters.shipToContactMechId"/>
                     </call-service>
                     <log level="info" message="Shipping address updated with contactMechId ${shipToAddressCtx.shipToContactMechId}"/>
                 </else>
@@ -1042,24 +1042,24 @@ under the License.
             <if-empty field="parameters.billToContactMechId">
                 <set field="billToAddressCtx.contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                 <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
-                    <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
+                    <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
                 </call-service>
                 <log level="info" message="Billing address created with contactmechId ${parameters.billToContactMechId}"/>
             <else>
                 <if-compare-field field="parameters.shipToContactMechId" operator="equals" to-field="parameters.billToContactMechId">
                     <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
-                        <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
+                        <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
                     </call-service>
                     <log level="info" message="Billing address updated with contactMechId ${parameters.billToContactMechId}"/>
                 <else>
                     <if-compare field="keepAddressBook" operator="equals" value="N">
                         <call-service service-name="updatePartyPostalAddress" in-map-name="billToAddressCtx">
-                            <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
+                            <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
                         </call-service>
                     </if-compare>
                     <if-compare field="keepAddressBook" operator="equals" value="Y">
                         <call-service service-name="createPartyPostalAddress" in-map-name="billToAddressCtx">
-                            <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
+                            <result-to-field result-name="contactMechId" field="parameters.billToContactMechId"/>
                         </call-service>                   
                     </if-compare>
                     <log level="info" message="Billing Postal Address created billToContactMechId is ${parameters.billToContactMechId}"/>
@@ -1112,7 +1112,7 @@ under the License.
         <if-empty field="parameters.paymentMethodId">
             <!-- call create Credit Card -->
             <call-service service-name="createCreditCard" in-map-name="creditCardContext">
-                <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>
+                <result-to-field result-name="paymentMethodId" field="parameters.paymentMethodId"/>
             </call-service>
         <else>
             <!-- call update Credit Card -->
@@ -1123,7 +1123,7 @@ under the License.
             <first-from-list list="paymentMethodList" entry="paymentMethod"/>
             <set field="creditCardContext.paymentMethodId" from-field="paymentMethod.paymentMethodId"/>
             <call-service service-name="updateCreditCard" in-map-name="creditCardContext">
-                <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>
+                <result-to-field result-name="paymentMethodId" field="parameters.paymentMethodId"/>
             </call-service>
         </else>
         </if-empty>

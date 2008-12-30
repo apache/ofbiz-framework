@@ -60,7 +60,7 @@ under the License.
         <set from-field="parameters.originFacilityId" field="shipWorkEffortMap.facilityId"/>
         <set from-field="userLogin.partyId" field="shipWorkEffortMap.quickAssignPartyId"/>
         <call-service service-name="createWorkEffort" in-map-name="shipWorkEffortMap">
-            <result-to-field result-name="workEffortId" field-name="newEntity.estimatedShipWorkEffId"/>
+            <result-to-field result-name="workEffortId" field="newEntity.estimatedShipWorkEffId"/>
         </call-service>
         <if-not-empty field="newEntity.partyIdFrom">
             <set from-field="newEntity.estimatedShipWorkEffId" field="assignPartyToWorkEffortShip.workEffortId"/>
@@ -80,7 +80,7 @@ under the License.
         <set from-field="parameters.destinationFacilityId" field="arrivalWorkEffortMap.facilityId"/>
         <set from-field="userLogin.partyId" field="arrivalWorkEffortMap.quickAssignPartyId"/>
         <call-service service-name="createWorkEffort" in-map-name="arrivalWorkEffortMap">
-            <result-to-field result-name="workEffortId" field-name="newEntity.estimatedArrivalWorkEffId"/>
+            <result-to-field result-name="workEffortId" field="newEntity.estimatedArrivalWorkEffId"/>
         </call-service>
         <if-not-empty field="newEntity.partyIdTo">
             <set from-field="newEntity.estimatedArrivalWorkEffId" field="assignPartyToWorkEffortArrival.workEffortId"/>
@@ -756,7 +756,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="Shipment" value-field="shipment"/>
-        <get-related value-field="shipment" relation-name="ItemIssuance" list-name="issuances"/>
+        <get-related value-field="shipment" relation-name="ItemIssuance" list="issuances"/>
         <iterate list="issuances" entry="issuance">
             <entity-and entity-name="ShipmentReceipt" list="receipts">
                 <field-map field-name="shipmentId" from-field="shipment.shipmentId"/>
@@ -764,10 +764,10 @@ under the License.
                 <field-map field-name="orderItemSeqId" from-field="issuance.orderItemSeqId"/>
             </entity-and>
             <iterate list="receipts" entry="receipt">
-                <calculate field-name="issuanceQuantity" type="Double">
-                    <calcop field-name="receipt.quantityAccepted" operator="add">
-                        <calcop field-name="receipt.quantityRejected" operator="get"/>
-                        <calcop field-name="issuanceQuantity" operator="get"/>
+                <calculate field="issuanceQuantity" type="Double">
+                    <calcop field="receipt.quantityAccepted" operator="add">
+                        <calcop field="receipt.quantityRejected" operator="get"/>
+                        <calcop field="issuanceQuantity" operator="get"/>
                     </calcop>
                 </calculate>
             </iterate>
@@ -831,13 +831,13 @@ under the License.
         <set field="inputMap.productId" from-field="originalShipmentItem.productId"/>
         <set field="inputMap.quantity" from-field="parameters.newItemQuantity"/>
         <call-service service-name="createShipmentItem" in-map-name="inputMap">
-            <result-to-field result-name="shipmentItemSeqId" field-name="newShipmentItemSeqId"/>
+            <result-to-field result-name="shipmentItemSeqId" field="newShipmentItemSeqId"/>
         </call-service>
         
         <!-- reduce the originalShipmentItem.quantity  -->
-        <calculate field-name="originalShipmentItem.quantity" type="Double">
-            <calcop operator="add" field-name="originalShipmentItem.quantity">
-                <calcop operator="negative" field-name="parameters.newItemQuantity"/>
+        <calculate field="originalShipmentItem.quantity" type="Double">
+            <calcop operator="add" field="originalShipmentItem.quantity">
+                <calcop operator="negative" field="parameters.newItemQuantity"/>
             </calcop>
         </calculate>
         <!-- update the original ShipmentItem -->
@@ -858,9 +858,9 @@ under the License.
                     <!-- there is enough in this OrderShipment record, so just adjust it and move on -->
                     <clear-field field="updateOrderShipmentMap"/>
                     <set-service-fields service-name="updateOrderShipment" map="itemOrderShipment" to-map="updateOrderShipmentMap"/>
-                    <calculate field-name="updateOrderShipmentMap.quantity" type="Double">
-                        <calcop operator="add" field-name="itemOrderShipment.quantity">
-                            <calcop operator="negative" field-name="orderShipmentQuantityLeft"/>
+                    <calculate field="updateOrderShipmentMap.quantity" type="Double">
+                        <calcop operator="add" field="itemOrderShipment.quantity">
+                            <calcop operator="negative" field="orderShipmentQuantityLeft"/>
                         </calcop>
                     </calculate>
                     <call-service service-name="updateOrderShipment" in-map-name="updateOrderShipmentMap"/>
@@ -889,9 +889,9 @@ under the License.
                         <set field="createOrderShipmentMap.quantity" from-field="itemOrderShipment.quantity"/>
                         <call-service service-name="createOrderShipment" in-map-name="createOrderShipmentMap"/>
                         
-                        <calculate field-name="orderShipmentQuantityLeft" type="Double">
-                            <calcop operator="add" field-name="orderShipmentQuantityLeft">
-                                <calcop operator="negative" field-name="itemOrderShipment.quantity"></calcop>
+                        <calculate field="orderShipmentQuantityLeft" type="Double">
+                            <calcop operator="add" field="orderShipmentQuantityLeft">
+                                <calcop operator="negative" field="itemOrderShipment.quantity"></calcop>
                             </calcop>
                         </calculate>
                     </else>
@@ -1039,12 +1039,12 @@ under the License.
         <if-empty field="shipmentPackageContent">            
             <set-service-fields service-name="createShipmentPackageContent" map="parameters" to-map="createSPCMap"/>
             <call-service service-name="createShipmentPackageContent" in-map="createSPCMap">
-                <result-to-field result-name="shipmentPackageSeqId" field-name="newEntity.shipmentPackageSeqId"/>
+                <result-to-field result-name="shipmentPackageSeqId" field="newEntity.shipmentPackageSeqId"/>
             </call-service>
         <else>
             <!-- add the quantities and store it -->            
-            <calculate field-name="shipmentPackageContent.quantity" type="Double">
-                <calcop field-name="shipmentPackageContent.quantity" operator="add"><calcop field-name="parameters.quantity" operator="get"/></calcop>
+            <calculate field="shipmentPackageContent.quantity" type="Double">
+                <calcop field-name="shipmentPackageContent.quantity" operator="add"><calcop field="parameters.quantity" operator="get"/></calcop>
             </calculate>
             <set-service-fields service-name="updateShipmentPackageContent" map="shipmentPackageContent" to-map="updateSPCMap"/>
             <call-service service-name="updateShipmentPackageContent" in-map="updateSPCMap"/>
@@ -1257,8 +1257,8 @@ under the License.
                 </or>
             </condition>
             <then>
-                <get-related-one relation-name="StatusItem" value-name="testShipment" to-value-name="testShipmentStatus"/>
-                <string-to-list string="Cannot perform operation ${operationName} when the shipment is in the ${testShipmentStatus.description} [${testShipment.statusId}] status." list-name="error_list"/>
+                <get-related-one relation-name="StatusItem" value-name="testShipment" to-value-field="testShipmentStatus"/>
+                <string-to-list string="Cannot perform operation ${operationName} when the shipment is in the ${testShipmentStatus.description} [${testShipment.statusId}] status." list="error_list"/>
             </then>
         </if>
     </simple-method>
@@ -1364,7 +1364,7 @@ under the License.
         <set value="PURCH_SHIP_CREATED" field="shipmentContext.statusId"/>
         <set value="DROP_SHIPMENT" field="shipmentContext.shipmentTypeId"/>
         <call-service service-name="createShipment" in-map-name="shipmentContext">
-            <result-to-field result-name="shipmentId" field-name="shipmentId"/>
+            <result-to-field result-name="shipmentId" field="shipmentId"/>
         </call-service>
         <check-errors/>
         <set from-field="shipmentId" field="updateShipmentContext.shipmentId"/>
@@ -1382,7 +1382,7 @@ under the License.
             <field-map field-name="shipGroupSeqId" from-field="parameters.shipGroupSeqId"/>
         </entity-and>
         <iterate entry="orderItemShipGroupAssoc" list="orderItemShipGroupAssocs">
-            <get-related-one relation-name="OrderItem" value-name="orderItemShipGroupAssoc" to-value-name="orderItem"/>
+            <get-related-one relation-name="OrderItem" value-name="orderItemShipGroupAssoc" to-value-field="orderItem"/>
 
             <!-- Set the item status to completed -->
             <set field="itemStatusContext.orderId" from-field="parameters.orderId"/>
@@ -1430,7 +1430,7 @@ under the License.
             <check-errors/>
         </if-empty>
 
-        <get-related relation-name="OrderItemShipGroup" value-name="orderHeader" list-name="orderItemShipGroupList"/>
+        <get-related relation-name="OrderItemShipGroup" value-field="orderHeader" list="orderItemShipGroupList"/>
 
         <!-- group orderItems (actually OrderItemAndShipGroupAssocs) by shipGroupSeqId in a Map with List values 
              This Map is actually used only for sales orders' shipments right now.  -->
@@ -1472,7 +1472,7 @@ under the License.
                   </else>
                 </if>
                 <call-service service-name="createShipment" in-map-name="shipmentContext">
-                    <result-to-field result-name="shipmentId" field-name="shipmentLookupMap.shipmentId"/>
+                    <result-to-field result-name="shipmentId" field="shipmentLookupMap.shipmentId"/>
                 </call-service>
                 <find-by-primary-key entity-name="Shipment" map="shipmentLookupMap" value-field="shipment"/>
 
@@ -1482,7 +1482,7 @@ under the License.
                       <!-- just get the OrderItemShipGrpInvResAndItem records for this facility and this ship group, since that is what this shipment is for -->
                       <clear-field field="itemResFindMap"/>
                       <set from-field="orderItemShipGrpInvResFacilityId" field="itemResFindMap.facilityId"/>
-                      <get-related value-name="orderItemAndShipGroupAssoc" relation-name="OrderItemShipGrpInvResAndItem" map-name="itemResFindMap" list-name="itemResList"/>
+                      <get-related value-field="orderItemAndShipGroupAssoc" relation-name="OrderItemShipGrpInvResAndItem" map-name="itemResFindMap" list="itemResList"/>
                       <iterate list="itemResList" entry="itemRes">
                         <set from-field="shipment.shipmentId" field="issueContext.shipmentId"/>
                         <set from-field="itemRes.orderId" field="issueContext.orderId"/>
@@ -1524,7 +1524,7 @@ under the License.
                     <set from-field="itemIssuance.quantity" field="shipItemContext.quantity"/>
                     <set from-field="shipmentPackageSeqId" field="shipItemContext.shipmentPackageSeqId"/>
                     <call-service service-name="addShipmentContentToPackage" in-map-name="shipItemContext">
-                        <result-to-field result-name="shipmentPackageSeqId" field-name="shipmentPackageSeqId"/>
+                        <result-to-field result-name="shipmentPackageSeqId" field="shipmentPackageSeqId"/>
                     </call-service>
                 </iterate>
 
@@ -1571,7 +1571,7 @@ under the License.
         <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="false">
             <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
         </entity-one>
-        <get-related relation-name="OrderItemShipGroup" value-name="orderHeader" list-name="orderItemShipGroupList"/>
+        <get-related relation-name="OrderItemShipGroup" value-field="orderHeader" list="orderItemShipGroupList"/>
 
         <iterate list="orderItemShipGroupList" entry="orderItemShipGroup">
             <!-- For each shipGroup create Shipment -->
@@ -1582,10 +1582,10 @@ under the License.
             <set field="createShipmentContext.originFacilityId" from-field="productStore.inventoryFacilityId"/>
             <set field="createShipmentContext.userLogin" from-field="parameters.userLogin"/>
             <call-service service-name="createShipment" in-map-name="createShipmentContext">
-                <result-to-field result-name="shipmentId" field-name="parameters.shipmentId"/>
+                <result-to-field result-name="shipmentId" field="parameters.shipmentId"/>
             </call-service>            
             <entity-one entity-name="Shipment" value-field="shipment"/>
-            <get-related value-field="orderHeader" relation-name="OrderItem" list-name="orderItems"/>
+            <get-related value-field="orderHeader" relation-name="OrderItem" list="orderItems"/>
             <iterate entry="orderItem" list="orderItems">
                 <entity-one entity-name="Product" value-field="itemProduct" auto-field-map="false" use-cache="true">
                     <field-map field-name="productId" from-field="orderItem.productId"/>
@@ -1593,7 +1593,7 @@ under the License.
                 
                 <!-- make sure the OrderItem is for a Product that has a ProductType with isPhysical=Y -->
                 <if-not-empty field="itemProduct">
-                    <get-related-one value-name="itemProduct" relation-name="ProductType" to-value-name="itemProductType" use-cache="true"/>
+                    <get-related-one value-name="itemProduct" relation-name="ProductType" to-value-field="itemProductType" use-cache="true"/>
                     <if-compare field="itemProductType.isPhysical" operator="equals" value="Y">
                         <!-- Create shipment item -->
                         <clear-field field="addOrderShipmentToShipmentCtx"/>
@@ -1620,12 +1620,12 @@ under the License.
         <make-value entity-name="OrderItemShipGrpInvRes" value-field="orderItemShipGrpInvResLookupPk"/>                
         <set-pk-fields value-field="orderItemShipGrpInvResLookupPk" map="parameters"/>
         <find-by-primary-key entity-name="OrderItemShipGrpInvRes" map="orderItemShipGrpInvResLookupPk" value-field="orderItemShipGrpInvRes"/>       
-        <get-related-one to-value-name="inventoryItem" relation-name="InventoryItem" value-name="orderItemShipGrpInvRes"/>        
+        <get-related-one to-value-name="inventoryItem" relation-name="InventoryItem" value-field="orderItemShipGrpInvRes"/>        
         <if-compare-field operator="not-equals" field="inventoryItem.serialNumber" to-field="parameters.serialNumber">            
             <!-- The inventory that we have reserved is not what we shipped. Lets reReserve, this time we'll get what we want -->
             <set-service-fields map="parameters" to-map="reserveAnInventoryItemCtx" service-name="reserveAnInventoryItem"/>
             <call-service service-name="reserveAnInventoryItem" in-map="reserveAnInventoryItemCtx">
-                <result-to-field result-name="inventoryItemId" field-name="parameters.inventoryItemId"/>
+                <result-to-field result-name="inventoryItemId" field="parameters.inventoryItemId"/>
             </call-service>
         </if-compare-field>        
         </if-not-empty>    
@@ -1639,7 +1639,7 @@ under the License.
         <set from-field="parameters.inventoryItemId" field="issueContext.inventoryItemId"/>
         <set from-field="parameters.quantity" field="issueContext.quantity"/>
         <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="issueContext">
-            <result-to-field result-name="itemIssuanceId" field-name="parameters.itemIssuanceId"/>
+            <result-to-field result-name="itemIssuanceId" field="parameters.itemIssuanceId"/>
         </call-service>
         <!-- place all issued items into a package for tracking num -->                
         <log level="info" message="QuickShipOrderByItem grouping by tracking number : ${parameters.trackingNum}"/>
@@ -1665,7 +1665,7 @@ under the License.
         <set from-field="itemIssuance.shipmentItemSeqId" field="shipItemContext.shipmentItemSeqId"/>
         <set from-field="itemIssuance.quantity" field="shipItemContext.quantity"/>
         <call-service service-name="addShipmentContentToPackage" in-map-name="shipItemContext">
-            <result-to-field result-name="shipmentPackageSeqId" field-name="packageMap.${parameters.trackingNum}"/>
+            <result-to-field result-name="shipmentPackageSeqId" field="packageMap.${parameters.trackingNum}"/>
             <result-to-field result-name="shipmentPackageSeqId" map-name="routeSegLookup"/>
         </call-service>
         
@@ -1755,7 +1755,7 @@ under the License.
         <set from-field="parameters.shipGroupSeqId" field="shipmentContext.primaryShipGroupSeqId"/>
         <set value="SHIPMENT_INPUT" field="shipmentContext.statusId"/>
         <call-service service-name="createShipment" in-map-name="shipmentContext">
-            <result-to-field result-name="shipmentId" field-name="shipmentLookupMap.shipmentId"/>
+            <result-to-field result-name="shipmentId" field="shipmentLookupMap.shipmentId"/>
         </call-service>
         <find-by-primary-key entity-name="Shipment" map="shipmentLookupMap" value-field="shipment"/>
 
@@ -1771,7 +1771,7 @@ under the License.
             <set from-field="itemMap.inventoryItemId" field="issueContext.inventoryItemId"/>
             <set from-field="itemMap.qtyShipped" field="issueContext.quantity"/>
             <call-service service-name="issueOrderItemShipGrpInvResToShipment" in-map-name="issueContext">
-                <result-to-field result-name="itemIssuanceId" field-name="itemMap.itemIssuanceId"/>
+                <result-to-field result-name="itemIssuanceId" field="itemMap.itemIssuanceId"/>
             </call-service>
         </iterate>
 
@@ -1794,7 +1794,7 @@ under the License.
             <set from-field="itemIssuance.shipmentItemSeqId" field="shipItemContext.shipmentItemSeqId"/>
             <set from-field="itemIssuance.quantity" field="shipItemContext.quantity"/>
             <call-service service-name="addShipmentContentToPackage" in-map-name="shipItemContext">
-                <result-to-field result-name="shipmentPackageSeqId" field-name="packageMap.${itemMap.trackingNum}"/>
+                <result-to-field result-name="shipmentPackageSeqId" field="packageMap.${itemMap.trackingNum}"/>
                 <result-to-field result-name="shipmentPackageSeqId" map-name="routeSegLookup"/>
             </call-service>
 
@@ -1855,9 +1855,9 @@ under the License.
         <set from-field="parameters.orderItemSeqId" field="inMap.orderItemSeqId"/>
         <call-service service-name="deleteOrderShipment" in-map-name="inMap"/>
 
-        <calculate field-name="shipmentItem.quantity" type="Double">
-            <calcop field-name="shipmentItem.quantity" operator="subtract">
-                <calcop field-name="orderShipment.quantity" operator="get"/>
+        <calculate field="shipmentItem.quantity" type="Double">
+            <calcop field="shipmentItem.quantity" operator="subtract">
+                <calcop field="orderShipment.quantity" operator="get"/>
             </calcop>
         </calculate>
         <clear-field field="inMap"/>
@@ -1916,7 +1916,7 @@ under the License.
             <set from-field="parameters.orderId" field="inputMap.orderId"/>
             <set from-field="parameters.orderItemSeqId" field="inputMap.orderItemSeqId"/>
             <call-service service-name="getQuantityForShipment" in-map-name="inputMap">
-                <result-to-field result-name="remainingQuantity" field-name="remainingQuantity"/>
+                <result-to-field result-name="remainingQuantity" field="remainingQuantity"/>
             </call-service>
 
             <if-compare-field field="parameters.quantity" to-field="remainingQuantity" operator="greater" type="Double">
@@ -1929,7 +1929,7 @@ under the License.
             <set from-field="orderItem.productId" field="inputMap.productId"/>
             <set from-field="parameters.quantity" field="inputMap.quantity"/>
             <call-service service-name="createShipmentItem" in-map-name="inputMap">
-                <result-to-field result-name="shipmentItemSeqId" field-name="parameters.shipmentItemSeqId"/>
+                <result-to-field result-name="shipmentItemSeqId" field="parameters.shipmentItemSeqId"/>
             </call-service>
             <clear-field field="inputMap"/>
             <set from-field="parameters.userLogin" field="inputMap.userLogin"/>
@@ -1951,32 +1951,32 @@ under the License.
         <set from-field="parameters.orderItemSeqId" field="orderShipmentLookup.orderItemSeqId"/>
         <find-by-and entity-name="OrderShipment" map-name="orderShipmentLookup" list-name="existingOrderShipments"/>
         <iterate list="existingOrderShipments" entry="orderShipment">
-            <calculate field-name="plannedQuantity" type="Double">
-                <calcop field-name="plannedQuantity" operator="add">
-                    <calcop field-name="orderShipment.quantity" operator="get"/>
+            <calculate field="plannedQuantity" type="Double">
+                <calcop field="plannedQuantity" operator="add">
+                    <calcop field="orderShipment.quantity" operator="get"/>
                 </calcop>
             </calculate>
         </iterate>
         <clear-field field="existingOrderShipments"/>
         <find-by-and entity-name="ItemIssuance" map-name="orderShipmentLookup" list-name="existingOrderShipments"/>
         <iterate list="existingOrderShipments" entry="itemIssuance">
-            <calculate field-name="issuedQuantity" type="Double">
-                <calcop field-name="issuedQuantity" operator="add">
-                    <calcop field-name="itemIssuance.quantity" operator="get"/>
-                    <calcop field-name="itemIssuance.cancelQuantity" operator="negative"/>                    
+            <calculate field="issuedQuantity" type="Double">
+                <calcop field="issuedQuantity" operator="add">
+                    <calcop field="itemIssuance.quantity" operator="get"/>
+                    <calcop field="itemIssuance.cancelQuantity" operator="negative"/>                    
                 </calcop>
             </calculate>
         </iterate>
 
-        <calculate field-name="totPlannedOrIssuedQuantity" type="Double">
-            <calcop field-name="issuedQuantity" operator="add">
-                <calcop field-name="plannedQuantity" operator="get"/>
+        <calculate field="totPlannedOrIssuedQuantity" type="Double">
+            <calcop field="issuedQuantity" operator="add">
+                <calcop field="plannedQuantity" operator="get"/>
             </calcop>
         </calculate>
-        <calculate field-name="remainingQuantity" type="Double">
-            <calcop field-name="orderItem.quantity" operator="subtract">
-                <calcop field-name="orderItem.cancelQuantity" operator="get"/>
-                <calcop field-name="totPlannedOrIssuedQuantity" operator="get"/>
+        <calculate field="remainingQuantity" type="Double">
+            <calcop field="orderItem.quantity" operator="subtract">
+                <calcop field="orderItem.cancelQuantity" operator="get"/>
+                <calcop field="totPlannedOrIssuedQuantity" operator="get"/>
             </calcop>
         </calculate>
         <field-to-result field="remainingQuantity"/>
@@ -1999,7 +1999,7 @@ under the License.
         
         <log level="info" message="Cancelling Item Issuances for shimpentId: ${parameters.shipmentId}"/>
         <entity-one entity-name="Shipment" value-field="shipment"/>
-        <get-related value-field="shipment" relation-name="ItemIssuance" list-name="issuances"/>
+        <get-related value-field="shipment" relation-name="ItemIssuance" list="issuances"/>
         <iterate list="issuances" entry="issuance">
             <set from-field="issuance.itemIssuanceId" field="inputMap.itemIssuanceId"/>
             <call-service service-name="cancelOrderItemIssuanceFromSalesShipment" in-map-name="inputMap"/>
@@ -2054,7 +2054,7 @@ under the License.
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createShipmentRouteSegment" in-map-name="shipRouteSegMap">
-            <result-to-field result-name="shipmentRouteSegmentId" field-name="shipmentRouteSegmentId" map-name="routeSegMap"/>
+            <result-to-field result-name="shipmentRouteSegmentId" field="routeSegMap.shipmentRouteSegmentId"/>
         </call-service>
         <entity-one entity-name="ShipmentRouteSegment" value-field="shipmentRouteSegment">
             <field-map field-name="shipmentId" from-field="shipRouteSegMap.shipmentId"/>

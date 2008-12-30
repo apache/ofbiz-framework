@@ -187,8 +187,8 @@ under the License.
         <set field="postalAddressBoundaryLookupMap.geoId" from-field="parameters.geoId"/>
         <find-by-and entity-name="PostalAddressBoundary" map-name="postalAddressBoundaryLookupMap" list-name="postalAddressBoundaries"/>
         <iterate list="postalAddressBoundaries" entry="postalAddressBoundary">
-            <get-related-one value-name="postalAddressBoundary" to-value-name="geo" relation-name="Geo"/>
-            <field-to-list field-name="geo" list-name="geos"/>
+            <get-related-one value-name="postalAddressBoundary" to-value-field="geo" relation-name="Geo"/>
+            <field-to-list field-name="geo" list="geos"/>
         </iterate>
         <field-to-result field="geos"/>
     </simple-method>
@@ -318,7 +318,7 @@ under the License.
            <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
            <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
            <call-service service-name="createDataResource" in-map-name="dataResource" break-on-error="false">
-               <result-to-field result-name="dataResourceId" field-name="dataResourceId"/>
+               <result-to-field result-name="dataResourceId" field="dataResourceId"/>
            </call-service>
            
            <set-service-fields service-name="updateDataResource" map="dataResource" to-map="dataResource"/>           
@@ -333,7 +333,7 @@ under the License.
             <set from-field="dataResourceId" field="createContentMap.dataResourceId"/>
        </if-not-empty>
        <call-service service-name="createContent" in-map-name="createContentMap" break-on-error="false">
-            <result-to-field result-name="contentId" field-name="contentId"/>
+            <result-to-field result-name="contentId" field="contentId"/>
        </call-service>        
        <!-- create the content role -->
        <if-not-empty field="parameters.partyId">
@@ -409,7 +409,7 @@ under the License.
                 <set from-field="parameters._uploadedFile_contentType" field="dataResource.mimeTypeId"/>
                 <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
                 <call-service service-name="createDataResource" in-map-name="dataResource" break-on-error="false">
-                    <result-to-field result-name="dataResourceId" field-name="dataResourceId"/>
+                    <result-to-field result-name="dataResourceId" field="dataResourceId"/>
                 </call-service>
                 <set value="${uploadPath}/${dataResourceId}" field="dataResource.objectInfo"/>
                 <if-not-empty field="extension">
@@ -450,8 +450,8 @@ under the License.
         
         <find-by-and entity-name="PartyRelationship" map-name="lookupMap" list-name="partyRelationships"/>
         <iterate list="partyRelationships" entry="partyRelationship">
-            <get-related-one value-name="partyRelationship" relation-name="ToParty" to-value-name="party"/>
-            <field-to-list field-name="party" list-name="parties"/>
+            <get-related-one value-name="partyRelationship" relation-name="ToParty" to-value-field="party"/>
+            <field-to-list field-name="party" list="parties"/>
         </iterate>
         <if-not-empty field="parties">   
             <field-to-result field="parties"/>
@@ -930,7 +930,7 @@ under the License.
         <set-service-fields service-name="createPerson" map="personMap" to-map="personContext"/>
         <if-empty field="partyId">
             <call-service service-name="createPerson" in-map-name="personContext">
-                <result-to-field result-name="partyId" field-name="partyId"/>
+                <result-to-field result-name="partyId" field="partyId"/>
             </call-service>
         <else><!-- If partyId already exists. -->
             <set field="personContext.partyId" from-field="partyId"/>
@@ -946,13 +946,13 @@ under the License.
         <if-empty field="parameters.contactMechId">
             <set-service-fields service-name="createPartyTelecomNumber" map="parameters" to-map="phoneContext"/>
             <call-service service-name="createPartyTelecomNumber" in-map="phoneContext">
-                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+                <result-to-field result-name="contactMechId" field="contactMechId"/>
             </call-service>
             <log level="info" message="Phone Contact created phoneContactMechId is ${contactMechId}"/>
         <else>
             <set-service-fields service-name="createPartyTelecomNumber" map="parameters" to-map="phoneContext"/>
             <call-service service-name="updatePartyTelecomNumber" in-map="phoneContext">
-                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+                <result-to-field result-name="contactMechId" field="contactMechId"/>
             </call-service> 
             <log level="info" message="Phone Contact updated phoneContactMechId is ${contactMechId}"/>
         </else>
@@ -965,13 +965,13 @@ under the License.
             <set-service-fields service-name="createPartyEmailAddress" map="parameters" to-map="emailAddressContext"/>
             <set field="emailAddressContext.partyId" from-field="userLogin.partyId"/>
             <call-service service-name="createPartyEmailAddress" in-map-name="emailAddressContext">
-                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+                <result-to-field result-name="contactMechId" field="contactMechId"/>
             </call-service>
             <log level="info" message="Email Contact Created emailContactMechId is ${contactMechId}"></log>
         <else>
             <set-service-fields service-name="updatePartyEmailAddress" map="parameters" to-map="emailAddressContext"/>
             <call-service service-name="updatePartyEmailAddress" in-map="emailAddressContext">
-                <result-to-field result-name="contactMechId" field-name="contactMechId"/>
+                <result-to-field result-name="contactMechId" field="contactMechId"/>
             </call-service> 
             <log level="info" message="Email Contact updated emailContactMechId is ${contactMechId}"></log>
         </else>

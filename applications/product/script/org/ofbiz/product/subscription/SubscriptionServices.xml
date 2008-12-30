@@ -60,7 +60,7 @@ under the License.
         <set field="pfInput.filterByDate" from-field="parameters.filterByDate" default-value="Y"/>
         
         <call-service service-name="performFindList" in-map-name="pfInput">
-            <result-to-field result-name="list" field-name="pfResultList"/>
+            <result-to-field result-name="list" field="pfResultList"/>
         </call-service>
         
         <if-empty field="pfResultList">

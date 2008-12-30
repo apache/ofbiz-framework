@@ -484,8 +484,8 @@ under the License.
                                 </if-not-empty>                     
                             </if-compare>        
                         </if-not-empty>
-                        <calculate field-name="payment" type="Integer">
-                            <calcop field-name="payment" operator="add"/>
+                        <calculate field="payment" type="Integer">
+                            <calcop field="payment" operator="add"/>
                             <number value="1"/>
                         </calculate>
                     </then>
@@ -578,8 +578,8 @@ under the License.
                                 </if-compare>
                             </if-not-empty>                
                         </if-not-empty>                        
-                        <calculate field-name="payment" type="Integer">
-                            <calcop field-name="payment" operator="add"/>
+                        <calculate field="payment" type="Integer">
+                            <calcop field="payment" operator="add"/>
                             <number value="1"/>
                         </calculate>
                     </then>

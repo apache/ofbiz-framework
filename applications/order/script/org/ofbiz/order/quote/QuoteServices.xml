@@ -38,12 +38,12 @@ under the License.
                 <!-- <log level="info" message="In getNextQuoteId sequence enum QTESQ_ENF_SEQ"/> -->
                 <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
                 <if-not-empty field="partyAcctgPreference.lastQuoteNumber">
-                    <calculate field-name="partyAcctgPreference.lastQuoteNumber" type="Long">
-                        <calcop operator="add" field-name="partyAcctgPreference.lastQuoteNumber"/>
+                    <calculate field="partyAcctgPreference.lastQuoteNumber" type="Long">
+                        <calcop operator="add" field="partyAcctgPreference.lastQuoteNumber"/>
                         <number value="1"/>
                     </calculate>
                     <else>
-                        <calculate field-name="partyAcctgPreference.lastQuoteNumber" type="Long"><number value="1"/></calculate>
+                        <calculate field="partyAcctgPreference.lastQuoteNumber" type="Long"><number value="1"/></calculate>
                     </else>
                 </if-not-empty>
                 <store-value value-name="partyAcctgPreference"/>
@@ -96,7 +96,7 @@ under the License.
         <if-not-empty field="productStore.payToPartyId">
             <set field="getNextQuoteIdContext.partyId" from-field="productStore.payToPartyId"/>
             <call-service service-name="getNextQuoteId" in-map-name="getNextQuoteIdContext">
-                <result-to-field result-name="quoteId" field-name="newEntity.quoteId"/>
+                <result-to-field result-name="quoteId" field="newEntity.quoteId"/>
             </call-service>
         <else>
             <sequenced-id-to-env sequence-name="Quote" env-name="newEntity.quoteId"/>
@@ -161,10 +161,10 @@ under the License.
         <set-service-fields service-name="createQuote" to-map="createQuoteInMap" map="quote"/>
         <clear-field field="createQuoteInMap.statusId"/>
         <call-service service-name="createQuote" in-map-name="createQuoteInMap">
-            <result-to-field result-name="quoteId" field-name="quoteIdTo"/>
+            <result-to-field result-name="quoteId" field="quoteIdTo"/>
         </call-service>
         <if-compare field="parameters.copyQuoteItems" value="Y" operator="equals">
-            <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems"/>
+            <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems"/>
             <iterate list="quoteItems" entry="quoteItem">
                 <clear-field field="createQuoteItemInMap"/>
                 <set-service-fields service-name="createQuoteItem" to-map="createQuoteItemInMap" map="quoteItem"/>
@@ -175,7 +175,7 @@ under the License.
         </if-compare>
 
         <if-compare field="parameters.copyQuoteAdjustments" value="Y" operator="equals">
-            <get-related value-name="quote" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
+            <get-related value-field="quote" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
             <iterate list="quoteAdjustments" entry="quoteAdjustment">
                 <if-empty field="quoteAdjustment.quoteItemSeqId">
                     <clear-field field="createQuoteAdjustmentInMap"/>
@@ -187,7 +187,7 @@ under the License.
         </if-compare>
         
         <if-compare field="parameters.copyQuoteRoles" value="Y" operator="equals">
-            <get-related value-name="quote" relation-name="QuoteRole" list-name="quoteRoles"/>
+            <get-related value-field="quote" relation-name="QuoteRole" list="quoteRoles"/>
             <iterate list="quoteRoles" entry="quoteRole">
                 <if-compare field="quoteRole.roleTypeId" value="REQ_TAKER" operator="not-equals">
                     <clear-field field="createQuoteRoleInMap"/>
@@ -199,7 +199,7 @@ under the License.
         </if-compare>
 
         <if-compare field="parameters.copyQuoteAttributes" value="Y" operator="equals">
-            <get-related value-name="quote" relation-name="QuoteAttribute" list-name="quoteAttributes"/>
+            <get-related value-field="quote" relation-name="QuoteAttribute" list="quoteAttributes"/>
             <iterate list="quoteAttributes" entry="quoteAttribute">
                 <clear-field field="createQuoteAttributeInMap"/>
                 <set-service-fields service-name="createQuoteAttribute" to-map="createQuoteAttributeInMap" map="quoteAttribute"/>
@@ -209,7 +209,7 @@ under the License.
         </if-compare>
 
         <if-compare field="parameters.copyQuoteCoefficients" value="Y" operator="equals">
-            <get-related value-name="quote" relation-name="QuoteCoefficient" list-name="quoteCoefficients"/>
+            <get-related value-field="quote" relation-name="QuoteCoefficient" list="quoteCoefficients"/>
             <iterate list="quoteCoefficients" entry="quoteCoefficient">
                 <clear-field field="createQuoteCoefficientInMap"/>
                 <set-service-fields service-name="createQuoteCoefficient" to-map="createQuoteCoefficientInMap" map="quoteCoefficient"/>
@@ -330,7 +330,7 @@ under the License.
 		                    <set from-field="parameters.selectedAmount" field="calculateProductPriceMap.amount"/>
 		                </if-not-empty>
 		                <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
-		                    <result-to-field result-name="price" field-name="newEntity.quoteUnitPrice"/>
+		                    <result-to-field result-name="price" field="newEntity.quoteUnitPrice"/>
 		                </call-service>
                     </else>
                 </if>
@@ -386,14 +386,14 @@ under the License.
         </if-empty>
        
         <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap">
-            <result-to-field result-name="quoteId" field-name="quoteIdTo"/>
-            <result-to-field result-name="quoteItemSeqId" field-name="quoteItemSeqId"/>
+            <result-to-field result-name="quoteId" field="quoteIdTo"/>
+            <result-to-field result-name="quoteItemSeqId" field="quoteItemSeqId"/>
         </call-service>
 
         <check-errors/>
                 
         <if-compare field="parameters.copyQuoteAdjustments" value="Y" operator="equals">
-            <get-related value-name="quoteItem" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
+            <get-related value-field="quoteItem" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
             <iterate list="quoteAdjustments" entry="quoteAdjustment">
                 <clear-field field="createQuoteAdjustmentInMap"/>
                 <set-service-fields service-name="createQuoteAdjustment" to-map="createQuoteAdjustmentInMap" map="quoteAdjustment"/>
@@ -554,17 +554,17 @@ under the License.
                 <set from-field="parameters.defaultQuoteUnitPrice" field="quoteItem.quoteUnitPrice"/>
             </if-not-empty>
             <!--
-            <calculate field-name="quoteItem.quoteUnitPrice" type="Double">
+            <calculate field="quoteItem.quoteUnitPrice" type="Double">
                 <calcop operator="multiply">
-                    <calcop operator="get" field-name="parameters.averageCost"/>
-                    <calcop operator="get" field-name="parameters.costToPriceMult"/>
+                    <calcop operator="get" field="parameters.averageCost"/>
+                    <calcop operator="get" field="parameters.costToPriceMult"/>
                 </calcop>
             </calculate>
             -->
         </if-empty>
         <store-value value-name="quoteItem"/>
         <check-errors/>
-        <field-to-request field-name="quoteItem.quoteId" request-name="quoteId"/>
+        <field-to-request field="quoteItem.quoteId" request-name="quoteId"/>
     </simple-method>
     <simple-method method-name="autoCreateQuoteAdjustments" short-description="Auto create QuoteAdjustments">
         <check-permission permission="ORDERMGR" action="_CREATE">
@@ -573,7 +573,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
         <!-- all existing promo quote items are removed -->
-        <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems"/>
+        <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems"/>
         <iterate list="quoteItems" entry="quoteItem">
             <if-compare field="quoteItem.isPromo" value="Y" operator="equals">
                 <clear-field field="removeQuoteItemInMap"/>
@@ -583,7 +583,7 @@ under the License.
             </if-compare>
         </iterate>
         <!-- all existing auto quote adjustments are removed -->
-        <get-related value-name="quote" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
+        <get-related value-field="quote" relation-name="QuoteAdjustment" list="quoteAdjustments"/>
         <iterate list="quoteAdjustments" entry="quoteAdjustment">
             <!-- make sure this is not a manual adjustments -->
             <if-not-empty field="quoteAdjustment.productPromoId">
@@ -596,7 +596,7 @@ under the License.
         <set-service-fields service-name="loadCartFromQuote" to-map="loadCartFromQuoteInMap" map="parameters"/>
         <set value="false" field="loadCartFromQuoteInMap.applyQuoteAdjustments"/>
         <call-service service-name="loadCartFromQuote" in-map-name="loadCartFromQuoteInMap">
-            <result-to-field result-name="shoppingCart" field-name="cart"/>
+            <result-to-field result-name="shoppingCart" field="cart"/>
         </call-service>
 
         <call-object-method obj-field-name="cart" method-name="items" ret-field-name="items"/>
@@ -611,7 +611,7 @@ under the License.
                 <call-object-method obj-field-name="item" method-name="getQuantity" ret-field-name="createQuoteItemInMap.quantity"/>
                 <set value="Y" field="createQuoteItemInMap.isPromo"/>
                 <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap">
-                    <result-to-field result-name="quoteItemSeqId" field-name="quoteItemSeqId"/>
+                    <result-to-field result-name="quoteItemSeqId" field="quoteItemSeqId"/>
                 </call-service>
                 <!-- and the quoteItemSeqId is assigned to the shopping cart item (as orderItemSeqId) -->
                 <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
@@ -621,7 +621,7 @@ under the License.
             </if-empty>
         </iterate>
         <!-- set the quoteUnitPrice from the item basePrice -->
-        <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems"/>
+        <get-related value-field="quote" relation-name="QuoteItem" list="quoteItems"/>
         <iterate list="quoteItems" entry="quoteItem">
             <if>
                 <condition>
@@ -712,7 +712,7 @@ under the License.
         <set value="PRODUCT_QUOTE" field="createQuoteInMap.quoteTypeId"/>
         <set value="QUO_CREATED" field="createQuoteInMap.statusId"/>
         <call-service service-name="createQuote" in-map-name="createQuoteInMap">
-            <result-to-field result-name="quoteId" field-name="quoteId"/>
+            <result-to-field result-name="quoteId" field="quoteId"/>
         </call-service>
         <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
 
@@ -749,7 +749,7 @@ under the License.
                     <call-object-method obj-field-name="item" method-name="getReservPersons" ret-field-name="createQuoteItemInMap.reservPersons"/>
 
                     <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap">
-                        <result-to-field result-name="quoteItemSeqId" field-name="quoteItemSeqId"/>
+                        <result-to-field result-name="quoteItemSeqId" field="quoteItemSeqId"/>
                     </call-service>
                     <!-- and the quoteItemSeqId is assigned to the shopping cart item (as orderItemSeqId) -->
                     <call-object-method obj-field-name="item" method-name="setOrderItemSeqId">
@@ -778,12 +778,12 @@ under the License.
 
     <simple-method method-name="createQuoteFromShoppingList" short-description="Create a Quote from a Shopping List">
         <call-service service-name="loadCartFromShoppingList" in-map-name="parameters">
-            <result-to-field result-name="shoppingCart" field-name="cart"/>
+            <result-to-field result-name="shoppingCart" field="cart"/>
         </call-service>
         <set from-field="cart" field="createQuoteFromCartInMap.cart"/>
         <set from-field="parameters.applyStorePromotions" field="createQuoteFromCartInMap.applyStorePromotions"/>
         <call-service service-name="createQuoteFromCart" in-map-name="createQuoteFromCartInMap">
-            <result-to-field result-name="quoteId" field-name="quoteId"/>
+            <result-to-field result-name="quoteId" field="quoteId"/>
         </call-service>
      
         <field-to-result field="quoteId" result-name="quoteId"/>
@@ -828,11 +828,11 @@ under the License.
         </if-empty>
         
          <call-service service-name="createQuote" in-map-name="createQuoteInMap">
-            <result-to-field result-name="quoteId" field-name="quoteId"/>
+            <result-to-field result-name="quoteId" field="quoteId"/>
         </call-service>
         <check-errors/>
         
-        <get-related value-name="custRequest" relation-name="CustRequestItem" list-name="custRequestItems"/>
+        <get-related value-field="custRequest" relation-name="CustRequestItem" list="custRequestItems"/>
         <iterate list="custRequestItems" entry="custRequestItem">
             <clear-field field="createQuoteItemInMap"/>
             <set field="createQuoteItemInMap.quoteId" from-field="quoteId"/>
@@ -848,7 +848,7 @@ under the License.
             <call-service service-name="createQuoteItem" in-map-name="createQuoteItemInMap"/>
         </iterate>
         <!-- roles -->
-        <get-related value-name="custRequest" relation-name="CustRequestParty" list-name="custRequestParties"/>
+        <get-related value-field="custRequest" relation-name="CustRequestParty" list="custRequestParties"/>
         <iterate list="custRequestParties" entry="custRequestParty">
             <clear-field field="createQuoteRoleInMap"/>
             <!-- The REQ_TAKER role is automatically added by the createQuote service -->

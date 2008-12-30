@@ -391,7 +391,7 @@ under the License.
             <call-service service-name="createPartyContactMechPurpose" in-map-name="emailPurposeContext"/>
         </if-not-empty>
         <!-- set the partyId in the request -->
-        <field-to-request field-name="partyId" map-name="tempMap" request-name="partyId"/>
+        <field-to-request field="partyId" map-name="tempMap" request-name="partyId"/>
 
         <!--send New User Email Notification-->
         <set field="emailContext.partyId" from-field="partyId"/>

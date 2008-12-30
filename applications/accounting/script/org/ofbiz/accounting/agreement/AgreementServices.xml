@@ -71,10 +71,10 @@ under the License.
         <check-errors/>
         <set-service-fields service-name="createAgreement" to-map="createAgreementInMap" map="agreement"/>
         <call-service service-name="createAgreement" in-map="createAgreementInMap">
-            <result-to-field result-name="agreementId" field-name="agreementIdTo"/>
+            <result-to-field result-name="agreementId" field="agreementIdTo"/>
         </call-service>
 
-        <get-related value-name="agreement" relation-name="AgreementItem" list-name="agreementItems"/>
+        <get-related value-field="agreement" relation-name="AgreementItem" list="agreementItems"/>
         <iterate list="agreementItems" entry="agreementItem">
             <clear-field field="createAgreementItemInMap"/>
             <set-service-fields service-name="createAgreementItem" to-map="createAgreementItemInMap" map="agreementItem"/>
@@ -82,7 +82,7 @@ under the License.
             <call-service service-name="createAgreementItem" in-map-name="createAgreementItemInMap"/>
         </iterate>
         <if-compare field="parameters.copyAgreementTerms" value="Y" operator="equals">
-            <get-related value-name="agreement" relation-name="AgreementTerm" list-name="agreementTerms"/>
+            <get-related value-field="agreement" relation-name="AgreementTerm" list="agreementTerms"/>
             <iterate list="agreementTerms" entry="agreementTerm">
                 <clear-field field="createAgreementTermInMap"/>
                 <set-service-fields service-name="createAgreementTerm" to-map="createAgreementTermInMap" map="agreementTerm"/>
@@ -91,7 +91,7 @@ under the License.
             </iterate>
         </if-compare>
         <if-compare field="parameters.copyAgreementProducts" value="Y" operator="equals">
-            <get-related value-name="agreement" relation-name="AgreementProductAppl" list-name="agreementProductAppls"/>
+            <get-related value-field="agreement" relation-name="AgreementProductAppl" list="agreementProductAppls"/>
             <iterate list="agreementProductAppls" entry="agreementProductAppl">
                 <clear-field field="createAgreementProductApplInMap"/>
                 <set-service-fields service-name="createAgreementProductAppl" to-map="createAgreementProductApplInMap" map="agreementProductAppl"/>
@@ -100,7 +100,7 @@ under the License.
             </iterate>
         </if-compare>
         <if-compare field="parameters.copyAgreementParties" value="Y" operator="equals">
-            <get-related value-name="agreement" relation-name="AgreementPartyApplic" list-name="agreementPartyApplic"/>
+            <get-related value-field="agreement" relation-name="AgreementPartyApplic" list="agreementPartyApplic"/>
             <iterate list="agreementPartyApplics" entry="agreementPartyApplic">
                 <clear-field field="createAgreementPartyApplicInMap"/>
                 <set-service-fields service-name="createAgreementPartyApplic" to-map="createAgreementPartyApplicInMap" map="agreementPartyApplic"/>

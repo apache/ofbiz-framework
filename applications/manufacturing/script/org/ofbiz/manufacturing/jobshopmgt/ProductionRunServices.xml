@@ -174,11 +174,11 @@ under the License.
                     <!-- instead of updating InventoryItem, add an InventoryItemDetail -->
                     <set from-field="lastNonSerInventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
                     <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
-                    <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
-                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    <calculate field="createDetailMap.availableToPromiseDiff" type="Double">
+                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
-                    <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
-                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    <calculate field="createDetailMap.quantityOnHandDiff" type="Double">
+                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
                     <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                     <set field="createDetailMap.description" from-field="parameters.description"/>
@@ -194,7 +194,7 @@ under the License.
                     <set field="createInvItemInMap.facilityId" from-field="workEffort.facilityId"/>
                     <set field="createInvItemInMap.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
                     <call-service service-name="createInventoryItem" in-map-name="createInvItemInMap">
-                        <result-to-field result-name="inventoryItemId" field-name="createInvItemOutMap.inventoryItemId"/>
+                        <result-to-field result-name="inventoryItemId" field="createInvItemOutMap.inventoryItemId"/>
                     </call-service>
 
                     <!-- create ItemIssuance record -->
@@ -207,11 +207,11 @@ under the License.
                     <!-- also create a detail record with the quantities -->
                     <set field="createDetailMap.inventoryItemId" from-field="createInvItemOutMap.inventoryItemId"/>
                     <set field="createDetailMap.workEffortId" from-field="parameters.workEffortId"/>
-                    <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
-                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    <calculate field="createDetailMap.availableToPromiseDiff" type="Double">
+                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
-                    <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
-                        <calcop field-name="parameters.quantityNotIssued" operator="negative"/>
+                    <calculate field="createDetailMap.quantityOnHandDiff" type="Double">
+                        <calcop field="parameters.quantityNotIssued" operator="negative"/>
                     </calculate>
                     <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                     <set field="createDetailMap.description" from-field="parameters.description"/>
@@ -219,7 +219,7 @@ under the License.
                     <clear-field field="createDetailMap"/>
                 </else>
                 </if-not-empty>
-                <calculate field-name="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
+                <calculate field="quantityNotIssued" map-name="parameters"><number value="0"/></calculate>
             </if-compare>
             <if-not-empty field="workEffortGoodStandard">
                 <entity-and list="issuances" entity-name="WorkEffortAndInventoryAssign">
@@ -227,10 +227,10 @@ under the License.
                     <field-map field-name="productId" from-field="workEffortGoodStandard.productId"/>
                 </entity-and>
                 <iterate list="issuances" entry="issuance">
-                    <calculate field-name="totalIssuance">
+                    <calculate field="totalIssuance">
                         <calcop operator="add">
-                            <calcop field-name="issuance.quantity" operator="get"/>
-                            <calcop field-name="totalIssuance" operator="get"/>
+                            <calcop field="issuance.quantity" operator="get"/>
+                            <calcop field="totalIssuance" operator="get"/>
                         </calcop>
                     </calculate>
                 </iterate>
@@ -253,12 +253,12 @@ under the License.
                     <!-- create ItemIssuance record -->
                     <set from-field="parameters.workEffortId" field="issuanceCreateMap.workEffortId"/>
                     <set from-field="inventoryItem.inventoryItemId" field="issuanceCreateMap.inventoryItemId"/>
-                    <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
+                    <calculate field="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
                     <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap"/>
                     <clear-field field="issuanceCreateMap"/>
 
-                    <calculate field-name="parameters.quantityNotIssued">
-                        <calcop field-name="parameters.quantityNotIssued" operator="subtract"><number value="1.0"/></calcop>
+                    <calculate field="parameters.quantityNotIssued">
+                        <calcop field="parameters.quantityNotIssued" operator="subtract"><number value="1.0"/></calcop>
                     </calculate>
                 </if-compare>
             </if-compare>
@@ -301,20 +301,20 @@ under the License.
                             <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
                             <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
                             <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
-                            <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
-                                <calcop field-name="parameters.deductAmount" operator="negative"/>
+                            <calculate field="createDetailMap.availableToPromiseDiff" type="Double">
+                                <calcop field="parameters.deductAmount" operator="negative"/>
                             </calculate>
-                            <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
-                                <calcop field-name="parameters.deductAmount" operator="negative"/>
+                            <calculate field="createDetailMap.quantityOnHandDiff" type="Double">
+                                <calcop field="parameters.deductAmount" operator="negative"/>
                             </calculate>
                             <set field="createDetailMap.reasonEnumId" from-field="parameters.reasonEnumId"/>
                             <set field="createDetailMap.description" from-field="parameters.description"/>
                             <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                             <clear-field field="createDetailMap"/>
                             
-                            <calculate field-name="quantityNotIssued" map-name="parameters">
-                                <calcop operator="subtract" field-name="parameters.quantityNotIssued">
-                                    <calcop operator="get" field-name="parameters.deductAmount"/>
+                            <calculate field="quantityNotIssued" map-name="parameters">
+                                <calcop operator="subtract" field="parameters.quantityNotIssued">
+                                    <calcop operator="get" field="parameters.deductAmount"/>
                                 </calcop>
                             </calculate>
                             <set field="balanceInventoryItemsInMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
@@ -344,7 +344,7 @@ under the License.
                 <!-- create ItemIssuance record -->
                 <set field="issuanceCreateMap.workEffortId" from-field="parameters.workEffortId"/>
                 <set field="issuanceCreateMap.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
-                <calculate field-name="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
+                <calculate field="quantity" map-name="issuanceCreateMap"><number value="1"/></calculate>
                 <call-service service-name="assignInventoryToWorkEffort" in-map-name="issuanceCreateMap"/>
                 <field-to-result field="issuanceCreateMap.quantity" result-name="quantityIssued"/>
             </if-compare>
@@ -383,17 +383,17 @@ under the License.
                 <set from-field="inventoryItem.inventoryItemId" field="createDetailMap.inventoryItemId"/>
                 <set from-field="parameters.workEffortId" field="createDetailMap.workEffortId"/>
                 <!-- update availableToPromiseDiff AND quantityOnHandDiff since this is an issuance -->
-                <calculate field-name="createDetailMap.availableToPromiseDiff" type="Double">
-                    <calcop field-name="deductAmount" operator="negative"/>
+                <calculate field="createDetailMap.availableToPromiseDiff" type="Double">
+                    <calcop field="deductAmount" operator="negative"/>
                 </calculate>
-                <calculate field-name="createDetailMap.quantityOnHandDiff" type="Double">
-                    <calcop field-name="deductAmount" operator="negative"/>
+                <calculate field="createDetailMap.quantityOnHandDiff" type="Double">
+                    <calcop field="deductAmount" operator="negative"/>
                 </calculate>
                 <call-service service-name="createInventoryItemDetail" in-map-name="createDetailMap"/>
                 <field-to-result field="deductAmount" result-name="quantityIssued"/>
             </then>
             <else>
-                <calculate field-name="deductAmount"><number value="0"/></calculate>
+                <calculate field="deductAmount"><number value="0"/></calculate>
                 <field-to-result field="deductAmount" result-name="quantityIssued"/>
             </else>
         </if>

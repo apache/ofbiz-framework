@@ -29,7 +29,7 @@ under the License.
         <check-errors/>
         <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
             <set field="andConditions.invoiceItemTypeId" value="INV_FPROD_ITEM"/>
-            <get-related relation-name="InvoiceItem" value-name="invoice" list-name="invoiceItems" map-name="andConditions"/>
+            <get-related relation-name="InvoiceItem" value-field="invoice" list="invoiceItems" map-name="andConditions"/>
             <iterate list="invoiceItems" entry="invoiceItem">
                 <clear-field field="inMap"/>
                 <set field="inMap.invoice" from-field="invoice"/>
@@ -71,7 +71,7 @@ under the License.
                     <set field="inMap.dimensionEntityName" value="DateDimension"/>
                     <set field="inMap.naturalKeyFields.dateValue" from-field="invoice.invoiceDate"/>
                     <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
-                        <result-to-field result-name="dimensionId" field-name="fact.invoiceDateDimId"/>
+                        <result-to-field result-name="dimensionId" field="fact.invoiceDateDimId"/>
                     </call-service>
                     <if-empty field="fact.invoiceDateDimId">
                         <set field="fact.invoiceDateDimId" value="_NF_"/>
@@ -86,7 +86,7 @@ under the License.
                     <set field="inMap.dimensionEntityName" value="ProductDimension"/>
                     <set field="inMap.naturalKeyFields.productId" from-field="invoiceItem.productId"/>
                     <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
-                        <result-to-field result-name="dimensionId" field-name="fact.productDimId"/>
+                        <result-to-field result-name="dimensionId" field="fact.productDimId"/>
                     </call-service>
                     <if-empty field="fact.productDimId">
                         <set field="fact.productDimId" value="_NF_"/>
@@ -101,7 +101,7 @@ under the License.
                     <set field="inMap.dimensionEntityName" value="CurrencyDimension"/>
                     <set field="inMap.naturalKeyFields.currencyId" from-field="invoice.currencyUomId"/>
                     <call-service service-name="getDimensionIdFromNaturalKey" in-map-name="inMap">
-                        <result-to-field result-name="dimensionId" field-name="fact.origCurrencyDimId"/>
+                        <result-to-field result-name="dimensionId" field="fact.origCurrencyDimId"/>
                     </call-service>
                     <if-empty field="fact.origCurrencyDimId">
                         <set field="fact.origCurrencyDimId" value="_NF_"/>
@@ -123,37 +123,37 @@ under the License.
             <set field="fact.extDiscountAmount" value="0.0" type="BigDecimal"/>
             <set field="fact.extTaxAmount" value="0.0" type="BigDecimal"/>
             <set field="fact.extNetAmount" value="0.0" type="BigDecimal"/>
-            <calculate field-name="fact.extGrossAmount" type="BigDecimal">
-                <calcop field-name="invoiceItem.quantity" operator="multiply">
-                    <calcop field-name="invoiceItem.amount" operator="get"/>
+            <calculate field="fact.extGrossAmount" type="BigDecimal">
+                <calcop field="invoiceItem.quantity" operator="multiply">
+                    <calcop field="invoiceItem.amount" operator="get"/>
                 </calcop>
             </calculate>
             <!-- taxes -->
             <clear-field field="andConditions"/>
             <set field="andConditions.invoiceItemTypeId" value="ITM_SALES_TAX"/>
-            <get-related relation-name="ChildrenInvoiceItem" value-name="invoiceItem" list-name="taxes" map-name="andConditions"/>
+            <get-related relation-name="ChildrenInvoiceItem" value-field="invoiceItem" list="taxes" map-name="andConditions"/>
             <iterate list="taxes" entry="tax">
-                <calculate field-name="fact.extTaxAmount" type="BigDecimal">
-                    <calcop field-name="fact.extTaxAmount" operator="add">
-                        <calcop field-name="tax.amount" operator="get"/>
+                <calculate field="fact.extTaxAmount" type="BigDecimal">
+                    <calcop field="fact.extTaxAmount" operator="add">
+                        <calcop field="tax.amount" operator="get"/>
                     </calcop>
                 </calculate>
             </iterate>
             <!-- discounts -->
             <clear-field field="andConditions"/>
             <set field="andConditions.invoiceItemTypeId" value="ITM_PROMOTION_ADJ"/>
-            <get-related relation-name="ChildrenInvoiceItem" value-name="invoiceItem" list-name="discounts" map-name="andConditions"/>
+            <get-related relation-name="ChildrenInvoiceItem" value-field="invoiceItem" list="discounts" map-name="andConditions"/>
             <iterate list="discounts" entry="discount">
-                <calculate field-name="fact.extDiscountAmount" type="BigDecimal">
-                    <calcop field-name="fact.extDiscountAmount" operator="add">
-                        <calcop field-name="discount.amount" operator="negative"/>
+                <calculate field="fact.extDiscountAmount" type="BigDecimal">
+                    <calcop field="fact.extDiscountAmount" operator="add">
+                        <calcop field="discount.amount" operator="negative"/>
                     </calcop>
                 </calculate>
             </iterate>
             
-            <calculate field-name="fact.extNetAmount" type="BigDecimal">
-                <calcop field-name="fact.extGrossAmount" operator="subtract">
-                    <calcop field-name="fact.extDiscountAmount" operator="get"/>
+            <calculate field="fact.extNetAmount" type="BigDecimal">
+                <calcop field="fact.extGrossAmount" operator="subtract">
+                    <calcop field="fact.extDiscountAmount" operator="get"/>
                 </calcop>
             </calculate>
             <!-- TODO: prorate invoice header discounts and shipping charges -->
@@ -163,12 +163,12 @@ under the License.
             <set field="fact.extStorageCost" value="0.0" type="BigDecimal"/>
             <set field="fact.extDistributionCost" value="0.0" type="BigDecimal"/>
 
-            <calculate field-name="fact.contributionAmount" type="BigDecimal">
-                <calcop field-name="fact.extNetAmount" operator="subtract">
-                    <calcop field-name="fact.extManFixedCost" operator="get"/>
-                    <calcop field-name="fact.extManVarCost" operator="get"/>
-                    <calcop field-name="fact.extStorageCost" operator="get"/>
-                    <calcop field-name="fact.extDistributionCost" operator="get"/>
+            <calculate field="fact.contributionAmount" type="BigDecimal">
+                <calcop field="fact.extNetAmount" operator="subtract">
+                    <calcop field="fact.extManFixedCost" operator="get"/>
+                    <calcop field="fact.extManVarCost" operator="get"/>
+                    <calcop field="fact.extStorageCost" operator="get"/>
+                    <calcop field="fact.extDistributionCost" operator="get"/>
                 </calcop>
             </calculate>
 

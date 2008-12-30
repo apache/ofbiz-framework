@@ -36,12 +36,12 @@ under the License.
                 <log level="info" message="In createInvoice sequence enum INVSQ_ENF_SEQ"/>
                 <!-- this is sequential sequencing, we can't skip a number, also it must be a unique sequence per partyIdFrom -->
                 <if-not-empty field="partyAcctgPreference.lastInvoiceNumber">
-                    <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long">
-                        <calcop operator="add" field-name="partyAcctgPreference.lastInvoiceNumber"/>
+                    <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long">
+                        <calcop operator="add" field="partyAcctgPreference.lastInvoiceNumber"/>
                         <number value="1"/>
                     </calculate>
                     <else>
-                        <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
+                        <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
                     </else>
                 </if-not-empty>
                 <store-value value-name="partyAcctgPreference"/>
@@ -58,11 +58,11 @@ under the License.
                     <now-timestamp-to-env env-name="nowTimestamp"/>
                     <if-empty field="partyAcctgPreference.lastInvoiceRestartDate">
                         <!-- if no lastInvoiceRestartDate then it's easy, just start now with 1 -->
-                        <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
+                        <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
                         <set from-field="nowTimestamp" field="partyAcctgPreference.lastInvoiceRestartDate"/>
                         <else>
                             <!-- first figure out if we need to reset the lastInvoiceNumber; is the lastInvoiceRestartDate after the fiscalYearStartMonth/Day for this year? -->
-                            <calculate field-name="zeroLong" type="Long"><number value="0"/></calculate>
+                            <calculate field="zeroLong" type="Long"><number value="0"/></calculate>
                             <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getYearStart" ret-field-name="curYearFiscalStartDate">
                                 <field field-name="nowTimestamp" type="java.sql.Timestamp"/>
                                 <field field-name="partyAcctgPreference.fiscalYearStartDay" type="java.lang.Number"/>
@@ -78,13 +78,13 @@ under the License.
                                 </condition>
                                 <then>
                                     <!-- less than fiscal year start, we need to reset it -->
-                                    <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
+                                    <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long"><number value="1"/></calculate>
                                     <set from-field="nowTimestamp" field="partyAcctgPreference.lastInvoiceRestartDate"/>
                                 </then>
                                 <else>
                                     <!-- greater than or equal to fiscal year start or nowTimestamp hasn't yet hit the current year fiscal start date, we're okay, just increment -->
-                                    <calculate field-name="partyAcctgPreference.lastInvoiceNumber" type="Long">
-                                        <calcop operator="add" field-name="partyAcctgPreference.lastInvoiceNumber"/>
+                                    <calculate field="partyAcctgPreference.lastInvoiceNumber" type="Long">
+                                        <calcop operator="add" field="partyAcctgPreference.lastInvoiceNumber"/>
                                         <number value="1"/>
                                     </calculate>
                                 </else>
@@ -130,7 +130,7 @@ under the License.
         <if-empty field="parameters.invoiceId">
             <set field="getNextInvoiceIdMap.partyId" from-field="parameters.partyIdFrom"/>
             <call-service service-name="getNextInvoiceId" in-map-name="getNextInvoiceIdMap">
-                <result-to-field result-name="invoiceId" field-name="newEntity.invoiceId"/>
+                <result-to-field result-name="invoiceId" field="newEntity.invoiceId"/>
             </call-service>
             <else>
                 <set field="newEntity.invoiceId" from-field="parameters.invoiceId"/>
@@ -165,8 +165,8 @@ under the License.
     <simple-method method-name="copyInvoice" short-description="Create a new Invoice from an existing invoice">
         <set field="invoiceLookup.invoiceId" from-field="parameters.invoiceIdToCopyFrom"/>
         <call-service service-name="getInvoice" in-map-name="invoiceLookup">
-            <result-to-field result-name="invoice" field-name="invoice"/>
-            <result-to-field result-name="invoiceItems" field-name="invoiceItems"/>
+            <result-to-field result-name="invoice" field="invoice"/>
+            <result-to-field result-name="invoiceItems" field="invoiceItems"/>
         </call-service>
         <set field="invoice.invoiceId" from-field="parameters.invoiceId"/>
         <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -178,10 +178,10 @@ under the License.
         <set-service-fields service-name="createInvoice" map="invoice" to-map="newInvoice"/>
         <clear-field field="newInvoice.invoiceId"/>
         <call-service service-name="createInvoice" in-map-name="newInvoice">
-            <result-to-field result-name="invoiceId" field-name="invoiceId"/>
+            <result-to-field result-name="invoiceId" field="invoiceId"/>
         </call-service>
         <field-to-result field="invoiceId" result-name="invoiceId"/>
-        <field-to-request field-name="invoiceId" request-name="invoiceId"/>
+        <field-to-request field="invoiceId" request-name="invoiceId"/>
         <iterate entry="invoiceItem" list="invoiceItems">
             <set-service-fields service-name="createInvoiceItem" map="invoiceItem" to-map="createInvoiceItem"/>
             <set field="createInvoiceItem.invoiceId" from-field="invoiceId"/>
@@ -196,7 +196,7 @@ under the License.
         <find-by-primary-key entity-name="Invoice" map="lookupPKMap" value-field="invoiceValue"/>
         <field-to-result field="invoiceValue" result-name="invoice"/>
         <!-- and the items -->
-        <get-related value-name="invoiceValue" relation-name="InvoiceItem" list-name="invoiceItemValues"/>
+        <get-related value-field="invoiceValue" relation-name="InvoiceItem" list="invoiceItemValues"/>
         <field-to-result field="invoiceItemValues" result-name="invoiceItems"/>
     </simple-method>
 
@@ -263,7 +263,7 @@ under the License.
                 <set from-field="product.description" field="newEntity.description"/>
                 <set from-field="product" field="calculateProductPriceMap.product"/>
                 <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
-                    <result-to-field result-name="price" field-name="newEntity.amount"/>
+                    <result-to-field result-name="price" field="newEntity.amount"/>
                 </call-service>
             </if-not-empty>
         </if-empty>
@@ -299,7 +299,7 @@ under the License.
 
             <set from-field="product" field="calculateProductPriceMap.product"/>
             <call-service service-name="calculateProductPrice" in-map-name="calculateProductPriceMap">
-                <result-to-field result-name="price" field-name="lookedUpValue.amount"/>
+                <result-to-field result-name="price" field="lookedUpValue.amount"/>
             </call-service>
         </if-compare-field>
         </if-not-empty>
@@ -560,7 +560,7 @@ under the License.
            <set-service-fields service-name="copyInvoice" map="invoice" to-map="copyInvoiceCtx"/>
            <set field="copyInvoiceCtx.invoiceIdToCopyFrom" from-field="invoice.invoiceId"/>
            <call-service service-name="copyInvoice" in-map-name="copyInvoiceCtx">
-               <result-to-field result-name="invoiceId" field-name="invoiceId"/>
+               <result-to-field result-name="invoiceId" field="invoiceId"/>
            </call-service>
            <set-service-fields service-name="updateInvoice" map="invoice" to-map="updateInvoiceCtx"/>
            <set field="updateInvoiceCtx.invoiceId" from-field="invoiceId"/>

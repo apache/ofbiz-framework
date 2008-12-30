@@ -375,7 +375,7 @@ under the License.
         <set from-field="nowTimestamp" field="product.salesDiscontinuationDate"/>
         <store-value value-name="product"/>
         <!-- expire product from all categories -->
-        <get-related value-name="product" relation-name="ProductCategoryMember" list-name="productCategoryMembers"/>
+        <get-related value-field="product" relation-name="ProductCategoryMember" list="productCategoryMembers"/>
         <iterate entry="productCategoryMember" list="productCategoryMembers">
             <if-empty field="productCategoryMember.thruDate">
                 <set from-field="nowTimestamp" field="productCategoryMember.thruDate"/>
@@ -383,7 +383,7 @@ under the License.
             </if-empty>
         </iterate>
         <!-- expire product from all associations going to it -->
-        <get-related value-name="product" relation-name="AssocProductAssoc" list-name="assocProductAssocs"/>
+        <get-related value-field="product" relation-name="AssocProductAssoc" list="assocProductAssocs"/>
         <iterate entry="assocProductAssoc" list="assocProductAssocs">
             <if-empty field="assocProductAssoc.thruDate">
                 <set from-field="nowTimestamp" field="assocProductAssoc.thruDate"/>
@@ -394,7 +394,7 @@ under the License.
 
     <simple-method method-name="countProductView" short-description="Count Product View" login-required="false">
         <if-empty field="parameters.weight">
-            <calculate field-name="parameters.weight" type="Long"><number value="1"/></calculate>
+            <calculate field="parameters.weight" type="Long"><number value="1"/></calculate>
         </if-empty>
         <entity-one entity-name="ProductCalculatedInfo" value-field="productCalculatedInfo"/>
         <if-empty field="productCalculatedInfo">
@@ -404,9 +404,9 @@ under the License.
             <set from-field="parameters.weight" field="productCalculatedInfo.totalTimesViewed"/>
             <create-value value-field="productCalculatedInfo"/>
         <else>
-            <calculate field-name="productCalculatedInfo.totalTimesViewed" type="Long">
-                <calcop field-name="productCalculatedInfo.totalTimesViewed" operator="add">
-                    <calcop field-name="parameters.weight" operator="get"></calcop>
+            <calculate field="productCalculatedInfo.totalTimesViewed" type="Long">
+                <calcop field="productCalculatedInfo.totalTimesViewed" operator="add">
+                    <calcop field="parameters.weight" operator="get"></calcop>
                 </calcop>
             </calculate>
             <store-value value-name="productCalculatedInfo"/>
@@ -426,7 +426,7 @@ under the License.
     </simple-method>
     <simple-method method-name="countProductQuantityOrdered" short-description="Count Product Quantity Ordered" login-required="true">
         <if-empty field="parameters.quantity">
-            <calculate field-name="parameters.quantity" type="BigDecimal"><number value="1"/></calculate>
+            <calculate field="parameters.quantity" type="BigDecimal"><number value="1"/></calculate>
         </if-empty>
         <entity-one entity-name="ProductCalculatedInfo" value-field="productCalculatedInfo"/>
         <if-empty field="productCalculatedInfo">

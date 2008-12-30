@@ -53,7 +53,7 @@ under the License.
         </entity-one>
 
         <call-service service-name="createExample" in-map-name="createExampleMap">
-            <result-to-field result-name="exampleId" field-name="exampleId"/>
+            <result-to-field result-name="exampleId" field="exampleId"/>
         </call-service>
 
         <entity-one entity-name="Example" value-field="example"/>

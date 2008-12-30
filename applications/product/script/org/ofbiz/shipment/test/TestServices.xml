@@ -167,11 +167,11 @@ under the License.
         <set field="serviceCtx.inventoryItemTypeId" value="NON_SERIAL_INV_ITEM"/>
         <set field="serviceCtx.datetimeReceived" from-field="nowTimeStamp"/>
         <call-service service-name="receiveInventoryProduct" in-map-name="serviceCtx">
-            <result-to-field  field-name="inventoryItemId" result-name="inventoryItemId"/>
+            <result-to-field  field="inventoryItemId" result-name="inventoryItemId"/>
         </call-service>
         
         <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
-        <get-related value-field="inventoryItem" relation-name="InventoryItemDetail" list-name="inventoryItemDetails"/>
+        <get-related value-field="inventoryItem" relation-name="InventoryItemDetail" list="inventoryItemDetails"/>
         <entity-condition entity-name="ShipmentReceipt" list="shipmentReceipts">
             <condition-expr field-name="inventoryItemId" from-field="inventoryItemId"/>
             <order-by field-name="datetimeReceived"/>
