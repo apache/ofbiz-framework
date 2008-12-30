@@ -113,7 +113,7 @@ under the License.
         <call-simple-method method-name="inventoryItemCheckSetDefaultValues"/>
         <check-errors/>
 
-        <sequenced-id-to-env sequence-name="InventoryItem" env-name="inventoryItem.inventoryItemId"/>
+        <sequenced-id sequence-name="InventoryItem" field="inventoryItem.inventoryItemId"/>
         <create-value value-field="inventoryItem"/>
         <field-to-result field="inventoryItem.inventoryItemId" result-name="inventoryItemId"/>
     </simple-method>
@@ -286,7 +286,7 @@ under the License.
 
         <set from-field="parameters.inventoryItemId" field="newEntity.inventoryItemId"/>
         <!-- NOTE DEJ20070927: not using make-next-seq-id because a single InventoryItem may see traffic from lots of threads at the same time, and make-next-seq-id doesn't do well with that <make-next-seq-id seq-field-name="inventoryItemDetailSeqId" value-name="newEntity" increment-by="1" numeric-padding="4"/> -->
-        <sequenced-id-to-env sequence-name="InventoryItemDetail" env-name="newEntity.inventoryItemDetailSeqId"/>
+        <sequenced-id sequence-name="InventoryItemDetail" field="newEntity.inventoryItemDetailSeqId"/>
         <field-to-result field="newEntity.inventoryItemDetailSeqId" result-name="inventoryItemDetailSeqId"/>
 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -507,7 +507,7 @@ under the License.
             <set from-field="userLogin.partyId" field="newEntity.partyId"/>
         </if-empty>
 
-        <sequenced-id-to-env sequence-name="PhysicalInventory" env-name="physicalInventoryId"/>
+        <sequenced-id sequence-name="PhysicalInventory" field="physicalInventoryId"/>
         <set from-field="physicalInventoryId" field="newEntity.physicalInventoryId"/>
         <field-to-result field="physicalInventoryId" result-name="physicalInventoryId"/>
 
@@ -987,7 +987,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="InventoryTransfer"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id-to-env sequence-name="InventoryTransfer" env-name="newEntity.inventoryTransferId"/>
+        <sequenced-id sequence-name="InventoryTransfer" field="newEntity.inventoryTransferId"/>
         <field-to-result field="newEntity.inventoryTransferId" result-name="inventoryTransferId"/>
 
         <create-value value-field="newEntity"/>

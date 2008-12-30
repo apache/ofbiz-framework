@@ -214,7 +214,7 @@ under the License.
     <simple-method method-name="createPartyClassificationGroup" short-description="create a PartyClassificationGroup">
         <log level="verbose" message="in newEntity" />
         <make-value entity-name="PartyClassificationGroup" value-field="newEntity"/>
-        <sequenced-id-to-env sequence-name="PartyClassificationGroup" env-name="newEntity.partyClassificationGroupId"/>
+        <sequenced-id sequence-name="PartyClassificationGroup" field="newEntity.partyClassificationGroupId"/>
         <field-to-result field="newEntity.partyClassificationGroupId" result-name="partyClassificationGroupId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <log level="verbose" message="newEntity:${newEntity}" />

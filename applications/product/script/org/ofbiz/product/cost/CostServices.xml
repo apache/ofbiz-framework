@@ -24,7 +24,7 @@ under the License.
     <simple-method method-name="createCostComponent" short-description="Create a CostComponent">
         <make-value value-field="newEntity" entity-name="CostComponent"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id-to-env sequence-name="CostComponent" env-name="newEntity.costComponentId"/>
+        <sequenced-id sequence-name="CostComponent" field="newEntity.costComponentId"/>
         <field-to-result field="costComponentId" map-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -34,7 +34,7 @@ under the License.
     <simple-method method-name="updateCostComponent" short-description="Update a CostComponent">
         <entity-one entity-name="CostComponent" value-field="costComponent"/>
         <set-nonpk-fields map="parameters" value-field="costComponent"/>
-        <store-value value-name="costComponent"/>
+        <store-value value-field="costComponent"/>
     </simple-method>
     <simple-method method-name="deleteCostComponent" short-description="Delete a CostComponent">
         <entity-one entity-name="CostComponent" value-field="costComponent"/>
@@ -49,7 +49,7 @@ under the License.
         <filter-list-by-date list-name="existingCosts"/>
         <iterate list="existingCosts" entry="existingCost">
             <now-timestamp-to-env env-name="existingCost.thruDate"/>
-            <store-value value-name="existingCost"/>
+            <store-value value-field="existingCost"/>
         </iterate>
     </simple-method>
     <simple-method method-name="recreateCostComponent" short-description="Create a CostComponent and cancel the existing ones">
@@ -61,12 +61,12 @@ under the License.
         <filter-list-by-date list-name="existingCosts"/>
         <iterate list="existingCosts" entry="existingCost">
             <now-timestamp-to-env env-name="existingCost.thruDate"/>
-            <store-value value-name="existingCost"/>
+            <store-value value-field="existingCost"/>
         </iterate>
         <!-- The new cost is created -->
         <make-value value-field="newEntity" entity-name="CostComponent"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id-to-env sequence-name="CostComponent" env-name="newEntity.costComponentId"/>
+        <sequenced-id sequence-name="CostComponent" field="newEntity.costComponentId"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
         </if-empty>

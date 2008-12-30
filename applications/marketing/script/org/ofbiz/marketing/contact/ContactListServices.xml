@@ -27,7 +27,7 @@ under the License.
 
         <make-value entity-name="ContactList" value-field="newEntity"/>
         <if-empty field="parameters.contactListId">
-            <sequenced-id-to-env sequence-name="ContactList" env-name="newEntity.contactListId"/>
+            <sequenced-id sequence-name="ContactList" field="newEntity.contactListId"/>
             <else>
                 <set field="newEntity.contactListId" from-field="parameters.contactListId"/>
             </else>            

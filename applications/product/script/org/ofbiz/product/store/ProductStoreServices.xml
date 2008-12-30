@@ -37,7 +37,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductStore"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <sequenced-id-to-env sequence-name="ProductStore" env-name="productStoreId" />
+        <sequenced-id sequence-name="ProductStore" field="productStoreId" />
         <set from-field="productStoreId" field="newEntity.productStoreId"/>
 
         <field-to-result field="productStoreId" result-name="productStoreId"/>
@@ -228,7 +228,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductStoreShipmentMeth"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <sequenced-id-to-env sequence-name="ProductStoreShipmentMeth" env-name="newEntity.productStoreShipMethId"/>
+        <sequenced-id sequence-name="ProductStoreShipmentMeth" field="newEntity.productStoreShipMethId"/>
 
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -333,7 +333,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ProductStoreSurveyAppl"/>
-        <sequenced-id-to-env sequence-name="ProductStoreSurveyAppl" env-name="productStoreSurveyId"/>
+        <sequenced-id sequence-name="ProductStoreSurveyAppl" field="productStoreSurveyId"/>
         <set from-field="productStoreSurveyId" field="newEntity.productStoreSurveyId"/>
         <field-to-result field="productStoreSurveyId" result-name="productStoreSurveyId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>

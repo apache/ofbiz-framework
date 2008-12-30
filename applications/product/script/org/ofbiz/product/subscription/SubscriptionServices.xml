@@ -23,7 +23,7 @@ under the License.
     <simple-method method-name="createSubscription" short-description="Create a Subscription">
         <make-value entity-name="Subscription" value-field="newEntity"/>
         <if-empty field="parameters.subscriptionId">
-            <sequenced-id-to-env sequence-name="Subscription" env-name="newEntity.subscriptionId"/> <!-- get the next sequenced ID -->
+            <sequenced-id sequence-name="Subscription" field="newEntity.subscriptionId"/> <!-- get the next sequenced ID -->
             <else>
                 <set field="newEntity.subscriptionId" from-field="parameters.subscriptionId"/>
             </else>
@@ -85,7 +85,7 @@ under the License.
 
     <simple-method method-name="createSubscriptionResource" short-description="Create a SubscriptionResource">
         <make-value entity-name="SubscriptionResource" value-field="newEntity"/>
-        <sequenced-id-to-env sequence-name="SubscriptionResource" env-name="newEntity.subscriptionResourceId"/>
+        <sequenced-id sequence-name="SubscriptionResource" field="newEntity.subscriptionResourceId"/>
         <field-to-result field="newEntity.subscriptionResourceId" result-name="subscriptionResourceId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>

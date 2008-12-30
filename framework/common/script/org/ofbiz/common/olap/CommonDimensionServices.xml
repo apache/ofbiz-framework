@@ -33,11 +33,11 @@ under the License.
             <if-not-empty field="currencyDims">
                 <iterate list="currencyDims" entry="currencyDim">
                     <set field="currencyDim.description" from-field="currency.description"/>
-                    <store-value value-name="currencyDim"/>
+                    <store-value value-field="currencyDim"/>
                 </iterate>
             <else>
                 <make-value value-field="currencyDim" entity-name="CurrencyDimension"/>
-                <sequenced-id-to-env sequence-name="CurrencyDimension" env-name="currencyDim.dimensionId"/>
+                <sequenced-id sequence-name="CurrencyDimension" field="currencyDim.dimensionId"/>
                 <set field="currencyDim.currencyId" from-field="currency.uomId"/>
                 <set field="currencyDim.description" from-field="currency.description"/>
                 <create-value value-field="currencyDim"/>

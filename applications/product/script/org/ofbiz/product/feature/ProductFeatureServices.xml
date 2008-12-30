@@ -27,7 +27,7 @@ under the License.
         <make-value entity-name="ProductFeatureCategory" value-field="newEntity"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
 
-        <sequenced-id-to-env sequence-name="ProductFeatureCategory" env-name="newEntity.productFeatureCategoryId"/>
+        <sequenced-id sequence-name="ProductFeatureCategory" field="newEntity.productFeatureCategoryId"/>
         <field-to-result field="newEntity.productFeatureCategoryId" result-name="productFeatureCategoryId"/>
 
         <create-value value-field="newEntity"/>
@@ -48,7 +48,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductFeature"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="parameters.productFeatureId">
-            <sequenced-id-to-env sequence-name="ProductFeature" env-name="newEntity.productFeatureId"/>
+            <sequenced-id sequence-name="ProductFeature" field="newEntity.productFeatureId"/>
         <else>
             <set field="newEntity.productFeatureId" from-field="parameters.productFeatureId"/>
         </else>    
@@ -210,7 +210,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductFeatureGroup"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <sequenced-id-to-env sequence-name="ProductFeatureGroup" env-name="newEntity.productFeatureGroupId"/>
+        <sequenced-id sequence-name="ProductFeatureGroup" field="newEntity.productFeatureGroupId"/>
         <field-to-result field="newEntity.productFeatureGroupId" result-name="productFeatureGroupId"/>
 
         <create-value value-field="newEntity"/>
@@ -373,7 +373,7 @@ under the License.
     <simple-method method-name="createFeaturePrice" short-description="Create a Feature Price">
         <make-value value-field="newEntity" entity-name="ProductFeaturePrice"/>
         <if-empty field="parameters.productFeatureId">
-            <sequenced-id-to-env sequence-name="ProductFeaturePrice" env-name="parameters.productFeatureId"/>
+            <sequenced-id sequence-name="ProductFeaturePrice" field="parameters.productFeatureId"/>
         </if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>

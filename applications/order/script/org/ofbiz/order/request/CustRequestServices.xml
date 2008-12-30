@@ -66,7 +66,7 @@ under the License.
             <set value="CRQ_SUBMITTED" field="newEntity.statusId"/>
         </if-empty>
 
-        <sequenced-id-to-env sequence-name="CustRequest" env-name="custRequestId"/>
+        <sequenced-id sequence-name="CustRequest" field="custRequestId"/>
         <to-string field-name="custRequestId"/>
         <set from-field="custRequestId" field="newEntity.custRequestId"/>
         <create-value value-field="newEntity"/>
@@ -180,7 +180,7 @@ under the License.
         <set from-field="nowTimestamp" field="custRequest.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="custRequest.lastModifiedByUserLogin"/>
         <set-nonpk-fields map="parameters" value-field="custRequest"/>
-        <store-value value-name="custRequest"/>
+        <store-value value-field="custRequest"/>
     </simple-method>
 
     <simple-method method-name="createCustRequestAttribute" short-description="Create Customer Request Attribute">
@@ -194,7 +194,7 @@ under the License.
         <set from-field="parameters.attrName" field="lookupPKMap.attrName"/>
         <find-by-primary-key entity-name="CustRequestAttribute" map="lookupPKMap" value-field="custRequestAttr"/>
         <set-nonpk-fields map="parameters" value-field="custRequestAttr"/>
-        <store-value value-name="custRequestAttr"/>
+        <store-value value-field="custRequestAttr"/>
     </simple-method>
 
     <simple-method method-name="createCustRequestItem" short-description="Create Customer Request Item">
@@ -216,7 +216,7 @@ under the License.
         <set from-field="parameters.custRequestItemSeqId" field="lookupPKMap.custRequestItemSeqId"/>
         <find-by-primary-key entity-name="CustRequestItem" map="lookupPKMap" value-field="custRequestItem"/>
         <set-nonpk-fields map="parameters" value-field="custRequestItem"/>
-        <store-value value-name="custRequestItem"/>
+        <store-value value-field="custRequestItem"/>
     </simple-method>
 
     <simple-method method-name="createCustRequestParty" short-description="Create Customer RequestParty">
@@ -239,13 +239,13 @@ under the License.
     <simple-method method-name="updateCustRequestParty" short-description="Update an existing CustRequestParty">
         <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteCustRequestParty" short-description="Delete Customer CustRequestParty">
         <entity-one entity-name="CustRequestParty" value-field="lookedUpValue"/>
         <now-timestamp-to-env env-name="thruDate"/>
         <set field="lookedUpValue.thruDate" from-field="thruDate"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createCustRequestNote" short-description="Create Customer Request Note">
         <make-value value-field="newEntity" entity-name="CustRequestNote"/>
@@ -262,8 +262,8 @@ under the License.
         <entity-one entity-name="NoteData" value-field="lookedUpValueForNoteData"/>
         <set-nonpk-fields value-field="lookedUpValueForNoteData" map="parameters"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
-        <store-value value-name="lookedUpValueForNoteData"/>
+        <store-value value-field="lookedUpValue"/>
+        <store-value value-field="lookedUpValueForNoteData"/>
     </simple-method>
     <simple-method method-name="createCustRequestItemNote" short-description="Create Customer RequestItem Note">
         <make-value value-field="newEntity" entity-name="CustRequestItemNote"/>
@@ -413,7 +413,7 @@ under the License.
                 <check-errors/>
                 <else>
                     <set field="custRequest.statusId" from-field="parameters.statusId"/>
-                    <store-value value-name="custRequest"/>
+                    <store-value value-field="custRequest"/>
                 </else>
             </if-empty>
         </if-compare-field>
@@ -489,7 +489,7 @@ under the License.
         <if-empty field="lookedUpValue.thruDate">
             <now-timestamp-to-env env-name="lookedUpValue.thruDate"/>
         </if-empty>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
 
 </simple-methods>

@@ -27,7 +27,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="EntitySync"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
-        <sequenced-id-to-env sequence-name="EntitySync" env-name="entitySyncId"/>
+        <sequenced-id sequence-name="EntitySync" field="entitySyncId"/>
         <set field="newEntity.entitySyncId" from-field="entitySyncId"/>
         <field-to-result field="entitySyncId" result-name="entitySyncId"/>
 
@@ -40,7 +40,7 @@ under the License.
         <set field="lookupPKMap.entitySyncId" from-field="parameters.entitySyncId"/>
         <find-by-primary-key entity-name="EntitySync" map="lookupPKMap" value-field="valueToStore"/>
         <set-nonpk-fields map="parameters" value-field="valueToStore"/>
-        <store-value value-name="valueToStore"/>
+        <store-value value-field="valueToStore"/>
     </simple-method>
     <simple-method method-name="resetEntitySyncStatusToNotStarted" short-description="Update a EntitySync, set the Status to ESR_NOT_STARTED, but ONLY if running (ie in ESR_RUNNING)">
         <check-permission permission="ENTITY_SYNC" action="_UPDATE"><fail-message message="Security Error: to run resetEntitySyncStatusToNotStarted you must have the ENTITY_SYNC_UPDATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
@@ -51,7 +51,7 @@ under the License.
         <find-by-primary-key entity-name="EntitySync" map="lookupPKMap" value-field="valueToStore"/>
         <if-compare field="valueToStore.runStatusId" operator="equals" value="ESR_RUNNING">
             <set field="valueToStore.runStatusId" value="ESR_NOT_STARTED"/>
-            <store-value value-name="valueToStore"/>
+            <store-value value-field="valueToStore"/>
         </if-compare>
     </simple-method>
 
@@ -70,7 +70,7 @@ under the License.
         <!-- also set the lastHistoryStartDate on the EntitySync -->
         <entity-one entity-name="EntitySync" value-field="entitySync"/>
         <set from-field="newEntity.startDate" field="entitySync.lastHistoryStartDate"/>
-        <store-value value-name="entitySync"/>
+        <store-value value-field="entitySync"/>
     </simple-method>
     <simple-method method-name="updateEntitySyncHistory" short-description="Update EntitySyncHistory">
         <check-permission permission="ENTITY_SYNC" action="_UPDATE"><fail-message message="Security Error: to run updateEntitySyncHistory you must have the ENTITY_SYNC_UPDATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
@@ -80,7 +80,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteEntitySyncHistory" short-description="Delete EntitySyncHistory">
         <check-permission permission="ENTITY_SYNC" action="_DELETE"><fail-message message="Security Error: to run deleteEntitySyncHistory you must have the ENTITY_SYNC_DELETE or ENTITY_SYNC_ADMIN permission"/></check-permission>
@@ -110,7 +110,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteEntitySyncInclude" short-description="Delete EntitySyncInclude">
         <check-permission permission="ENTITY_SYNC" action="_DELETE"><fail-message message="Security Error: to run deleteEntitySyncInclude you must have the ENTITY_SYNC_DELETE or ENTITY_SYNC_ADMIN permission"/></check-permission>

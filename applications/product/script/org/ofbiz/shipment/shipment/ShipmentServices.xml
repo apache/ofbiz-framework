@@ -33,7 +33,7 @@ under the License.
         <if-not-empty field="parameters.shipmentId">
             <set-pk-fields map="parameters" value-field="newEntity"/>
         <else>        
-            <sequenced-id-to-env sequence-name="Shipment" env-name="newEntity.shipmentId"/>
+            <sequenced-id sequence-name="Shipment" field="newEntity.shipmentId"/>
         </else>
         </if-not-empty>
         <field-to-result field="newEntity.shipmentId" result-name="shipmentId"/>
@@ -2015,7 +2015,7 @@ under the License.
         <check-errors/>
         <make-value value-field="quantityBreak" entity-name="QuantityBreak"/>
         <set-nonpk-fields map="parameters" value-field="quantityBreak"/>
-        <sequenced-id-to-env sequence-name="QuantityBreak" env-name="quantityBreak.quantityBreakId"/>
+        <sequenced-id sequence-name="QuantityBreak" field="quantityBreak.quantityBreakId"/>
         <create-value value-field="quantityBreak"/>
         <check-errors/>
     </simple-method>

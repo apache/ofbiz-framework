@@ -64,7 +64,7 @@ under the License.
             </if-compare>
         </if-empty>
 
-        <sequenced-id-to-env sequence-name="ShoppingList" env-name="newEntity.shoppingListId"/>
+        <sequenced-id sequence-name="ShoppingList" field="newEntity.shoppingListId"/>
         <field-to-result field="newEntity.shoppingListId" result-name="shoppingListId"/>
         <create-value value-field="newEntity"/>
     </simple-method>

@@ -49,7 +49,7 @@ under the License.
 
         <make-value entity-name="Content" value-field="rootInstanceContent"/>
         <if-empty field="parameters.rootInstanceContentId">
-            <sequenced-id-to-env sequence-name="Content" env-name="rootInstanceContent.contentId"/>
+            <sequenced-id sequence-name="Content" field="rootInstanceContent.contentId"/>
             <log level="info" message="genCompDocInstance 2> rootInstanceContent: ${rootInstanceContent}"/>
             <else>
                 <!--  check to see if it already exists, error if so -->
@@ -124,7 +124,7 @@ under the License.
         <iterate list="contentAssocList" entry="templateContentAssoc">
             <clone-value value-name="templateContent" new-value-name="instanceContent"/>
 
-            <sequenced-id-to-env sequence-name="Content" env-name="instanceContent.contentId"/>
+            <sequenced-id sequence-name="Content" field="instanceContent.contentId"/>
 
             <set value="TEMPLATE" field="instanceContent.contentTypeId"/>
             <create-value value-field="instanceContent"/>
@@ -276,7 +276,7 @@ under the License.
 
         <log level="info" message="persistCompDocContent(1).newDataResourceId : ${newDataResourceId}"/>
         <set from-field="newDataResourceId" field="content.dataResourceId"/>
-        <store-value value-name="content"/>
+        <store-value value-field="content"/>
         <set from-field="parameters.rootContentId" field="revisionMap.contentId"/>
         <set from-field="parameters.contentId" field="revisionMap.itemContentId"/>
         <set from-field="parameters.userLogin" field="revisionMap.userLogin"/>
@@ -346,7 +346,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentRevision" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentRevision" short-description="Remove ContentRevision">
         <check-permission action="_DELETE" permission="CONTENTMGR">
@@ -378,7 +378,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentRevisionItem" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentRevisionItem" short-description="Remove ContentRevisionItem">
         <check-permission action="_DELETE" permission="CONTENTMGR">
@@ -494,7 +494,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.contentApprovalId">
-            <sequenced-id-to-env sequence-name="ContentApproval" env-name="newEntity.contentApprovalId"/>
+            <sequenced-id sequence-name="ContentApproval" field="newEntity.contentApprovalId"/>
         </if-empty>
         <create-value value-field="newEntity"/>
         <check-errors/>
@@ -510,7 +510,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentApproval" map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeContentApproval" short-description="Remove ContentApproval">
         <check-permission action="_DELETE" permission="CONTENTMGR">
@@ -597,7 +597,7 @@ under the License.
             <set from-field="parameters.contentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
             <set from-field="parameters.contentId" field="contentApproval.contentId"/>
 
-            <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
+            <sequenced-id sequence-name="ContentApproval" field="contentApproval.contentApprovalId"/>
             <clear-field field="contentApproval.approvalStatusId"/>
             <log level="info" message="contentApproval 2b: ${contentApproval}"/>
             <create-value value-field="contentApproval"/>
@@ -651,7 +651,7 @@ under the License.
                     <set from-field="thisContentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
                     <set from-field="thisContentId" field="contentApproval.contentId"/>
 
-                    <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
+                    <sequenced-id sequence-name="ContentApproval" field="contentApproval.contentApprovalId"/>
                     <set value="CNTAP_READY" field="contentApproval.approvalStatusId"/>
                     <set from-field="nowTimestamp" field="contentApproval.approvalDate"/>
                     <log level="info" message="contentApproval 2b: ${contentApproval}"/>
@@ -673,7 +673,7 @@ under the License.
                     <clone-value value-name="existingContentApproval" new-value-name="contentApproval"/>
                     <set from-field="thisContentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
 
-                    <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
+                    <sequenced-id sequence-name="ContentApproval" field="contentApproval.contentApprovalId"/>
                     <set from-field="nowTimestamp" field="contentApproval.approvalDate"/>
                     <if-compare field="content.contentTypeId" operator="equals" value="COMPDOC_INSTANCE">
                         <if>
@@ -753,7 +753,7 @@ under the License.
                         <set from-field="thisContentRevisionSeqId" field="contentApproval.contentRevisionSeqId"/>
                         <set field="contentApproval.contentId" from-field="thisContentId"/>
 
-                        <sequenced-id-to-env sequence-name="ContentApproval" env-name="contentApproval.contentApprovalId"/>
+                        <sequenced-id sequence-name="ContentApproval" field="contentApproval.contentApprovalId"/>
                         <set field="contentApproval.approvalStatusId" value="CNTAP_READY"/>
                         <log level="info" message="contentApproval 2b: ${contentApproval}"/>
                         <create-value value-field="contentApproval"/>

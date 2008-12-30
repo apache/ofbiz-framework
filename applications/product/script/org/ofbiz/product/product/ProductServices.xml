@@ -32,7 +32,7 @@ under the License.
 
         <set from-field="parameters.productId" field="newEntity.productId"/>
         <if-empty field="newEntity.productId">
-            <sequenced-id-to-env sequence-name="Product" env-name="newEntity.productId"/>
+            <sequenced-id sequence-name="Product" field="newEntity.productId"/>
         <else>
             <check-id field-name="productId" map-name="newEntity"/>
             <check-errors/>
@@ -281,7 +281,7 @@ under the License.
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set from-field="parameters.productId" field="newTempValue.productId"/>
                 <!-- this one is slightly different because it needs a new sequenced inventoryItemId -->
-                <sequenced-id-to-env sequence-name="InventoryItem" env-name="newTempValue.inventoryItemId"/>
+                <sequenced-id sequence-name="InventoryItem" field="newTempValue.inventoryItemId"/>
                 <create-value value-field="newTempValue"/>
             </iterate>
         </if-not-empty>
@@ -546,7 +546,7 @@ under the License.
         </if-empty>
 
         <!-- create the new ProductReview -->
-        <sequenced-id-to-env sequence-name="ProductReview" env-name="newEntity.productReviewId"/>
+        <sequenced-id sequence-name="ProductReview" field="newEntity.productReviewId"/>
         <field-to-result field="newEntity.productReviewId" result-name="productReviewId"/>
 
         <if-empty field="newEntity.postedDateTime">

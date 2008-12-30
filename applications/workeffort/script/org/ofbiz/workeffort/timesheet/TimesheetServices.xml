@@ -24,7 +24,7 @@ under the License.
     <!-- Timesheet Services -->
     <simple-method method-name="createTimesheet" short-description="Create Timesheet">
         <make-value value-field="newEntity" entity-name="Timesheet"/>
-        <sequenced-id-to-env sequence-name="Timesheet" env-name="newEntity.timesheetId"/>
+        <sequenced-id sequence-name="Timesheet" field="newEntity.timesheetId"/>
         <field-to-result field="newEntity.timesheetId" result-name="timesheetId"/>
         
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -36,12 +36,12 @@ under the License.
     <simple-method method-name="updateTimesheet" short-description="Update Timesheet">
         <call-simple-method method-name="checkTimesheetStatus"/>
         <set-nonpk-fields map="parameters" value-field="timesheet"/>
-        <store-value value-name="timesheet"/>
+        <store-value value-field="timesheet"/>
     </simple-method>
     <simple-method method-name="updateTimesheetToInProcess" short-description="Updates the Timesheet status back to in process to be able to correct errors">
         <entity-one entity-name="Timesheet" value-field="timesheet"/>
         <set field="timesheet.statusId" value="TIMESHEET_IN_PROCESS"/>
-        <store-value value-name="timesheet"/>
+        <store-value value-field="timesheet"/>
     </simple-method>
     <simple-method method-name="deleteTimesheet" short-description="Delete Timesheet">
         <call-simple-method method-name="checkTimesheetStatus"/>
@@ -299,7 +299,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         
         <make-value value-field="newEntity" entity-name="TimeEntry"/>
-        <sequenced-id-to-env sequence-name="TimeEntry" env-name="newEntity.timeEntryId"/>
+        <sequenced-id sequence-name="TimeEntry" field="newEntity.timeEntryId"/>
         <field-to-result field="newEntity.timeEntryId" result-name="timeEntryId"/>
         
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -323,7 +323,7 @@ under the License.
             </else>
             </if-empty>
         </if-not-empty>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteTimeEntry" short-description="Delete TimeEntry">
         <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
@@ -334,7 +334,7 @@ under the License.
         <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
         <field-to-result field="invoiceId" map-name="lookedUpValue"/>
         <clear-field field="lookedUpValue.invoiceId"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="getTimeEntryRate" short-description="Get TimeEntry Rate">
         <check-permission permission="WORKEFFORTMGR" action="_VIEW"><fail-message message="You do not have permission to perform this operation: ${methodShortDescription}."/></check-permission>

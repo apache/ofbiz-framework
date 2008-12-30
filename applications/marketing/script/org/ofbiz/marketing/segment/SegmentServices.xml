@@ -29,7 +29,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="SegmentGroup"/>
-        <sequenced-id-to-env sequence-name="SegmentGroup" env-name="newEntity.segmentGroupId"/>
+        <sequenced-id sequence-name="SegmentGroup" field="newEntity.segmentGroupId"/>
         <field-to-result field="newEntity.segmentGroupId" result-name="segmentGroupId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
