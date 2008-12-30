@@ -845,7 +845,7 @@ under the License.
     <simple-method method-name="createReturnAndItemOrAdjustment" short-description="If returnId is null, create a return; then create Return Item or Adjustment based on the parameters passed in">
         <if-empty field="parameters.returnId">
             <set-service-fields service-name="createReturnHeader" map="parameters" to-map="returnHeaderInMap"/>
-            <call-service service-name="createReturnHeader" in-map="returnHeaderInMap">
+            <call-service service-name="createReturnHeader" in-map-name="returnHeaderInMap">
                 <result-to-field result-name="returnId" field="returnId"/>
             </call-service>
             <check-errors/>
@@ -853,7 +853,7 @@ under the License.
             <field-to-result field="returnId" result-name="returnId"/>
         </if-empty>
         <set-service-fields service-name="createReturnItemOrAdjustment" map="parameters" to-map="createReturnItemOrAdjustmentInMap"/>
-        <call-service service-name="createReturnItemOrAdjustment" in-map="createReturnItemOrAdjustmentInMap">
+        <call-service service-name="createReturnItemOrAdjustment" in-map-name="createReturnItemOrAdjustmentInMap">
             <result-to-field result-name="returnAdjustmentId" field="returnAdjustmentId"/>
             <result-to-field result-name="returnItemSeqId" field="returnItemSeqId"/>
         </call-service>

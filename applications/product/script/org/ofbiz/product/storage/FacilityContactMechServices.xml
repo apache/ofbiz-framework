@@ -146,7 +146,7 @@ under the License.
         <check-errors/>
 
         <set-service-fields service-name="createPostalAddress" map="parameters" to-map="createPostalAddressMap"/>
-        <call-service in-map="createPostalAddressMap" service-name="createPostalAddress">
+        <call-service in-map-name="createPostalAddressMap" service-name="createPostalAddress">
             <default-message>Postal Address successfully created</default-message>
 
             <result-to-field result-name="contactMechId" map-name="newFacilityContactMech"/>
@@ -171,7 +171,7 @@ under the License.
         <check-errors/>
 
         <set-service-fields service-name="updatePostalAddress" map="parameters" to-map="updatePostalAddressMap"/>
-        <call-service in-map="updatePostalAddressMap" service-name="updatePostalAddress">
+        <call-service in-map-name="updatePostalAddressMap" service-name="updatePostalAddress">
             <default-message>Postal Address successfully updated</default-message>
             <result-to-field result-name="contactMechId" map-name="newFacilityContactMech" field="contactMechId" />
         </call-service>
@@ -194,7 +194,7 @@ under the License.
 
         <log level="info" message="Creating telecom number"/>
         <set-service-fields service-name="createTelecomNumber" map="parameters" to-map="createTelecomNumberMap"/>
-        <call-service in-map="createTelecomNumberMap" service-name="createTelecomNumber">
+        <call-service in-map-name="createTelecomNumberMap" service-name="createTelecomNumber">
             <default-message>Telecom number successfully created</default-message>
 
             <result-to-field result-name="contactMechId" map-name="newFacilityContactMech"/>
@@ -218,7 +218,7 @@ under the License.
         <check-errors/>
 
         <set-service-fields service-name="updateTelecomNumber" map="parameters" to-map="updateTelecomNumberMap"/>
-        <call-service service-name="updateTelecomNumber" in-map="updateTelecomNumberMap">
+        <call-service service-name="updateTelecomNumber" in-map-name="updateTelecomNumberMap">
             <default-message>Telecom Number successfully updated</default-message>
             <result-to-field result-name="contactMechId" map-name="newFacilityContactMech" field="contactMechId" />
         </call-service>

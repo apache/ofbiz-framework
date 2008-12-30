@@ -93,7 +93,7 @@ under the License.
         
         <!-- save the created status in the history -->
         <set-service-fields to-map="statusMap" service-name="createCustRequestStatus" map="newEntity"/>
-        <call-service service-name="createCustRequestStatus" in-map="statusMap"/>
+        <call-service service-name="createCustRequestStatus" in-map-name="statusMap"/>
 
         <!-- This code is commented because the requester party is no more maintained in the CustRequestParty entity.
              There is now the fromPartyId field in the CustRequest entity for this. -->
@@ -171,7 +171,7 @@ under the License.
             </if-compare>
             <!-- save the changed status in the history -->
             <set-service-fields to-map="statusMap" service-name="createCustRequestStatus" map="custRequest"/>
-            <call-service service-name="createCustRequestStatus" in-map="statusMap"/>
+            <call-service service-name="createCustRequestStatus" in-map-name="statusMap"/>
             <if-not-empty field="isShowEvent">
                 <clear-field field="successMessage"/>
             </if-not-empty>
@@ -440,7 +440,7 @@ under the License.
             <result-to-field result-name="custRequestId" field="parameters.custRequestId"/>
         </call-service>
         <set-service-fields service-name="createCustRequestCommEvent" map="parameters" to-map="custRequestCommEvent"/>
-        <call-service service-name="createCustRequestCommEvent" in-map="custRequestCommEvent"/>
+        <call-service service-name="createCustRequestCommEvent" in-map-name="custRequestCommEvent"/>
 
         <if-empty field="parameters.content">
             <set field="parameters.content" from-field="communicationEvent.content"/>

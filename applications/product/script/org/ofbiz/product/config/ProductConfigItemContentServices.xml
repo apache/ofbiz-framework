@@ -34,7 +34,7 @@ under the License.
         <create-value value-field="newEntity"/>
 
         <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
-        <call-service service-name="updateContent" in-map="updateContent"/>
+        <call-service service-name="updateContent" in-map-name="updateContent"/>
 
         <field-to-result map-name="newEntity" field="contentId"/>
         <field-to-result map-name="newEntity" field="configItemId"/>
@@ -48,7 +48,7 @@ under the License.
         <store-value value-name="lookedUpValue"/>
 
         <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
-        <call-service service-name="updateContent" in-map="updateContent"/>
+        <call-service service-name="updateContent" in-map-name="updateContent"/>
     </simple-method>
     <simple-method method-name="removeProductConfigItemContent" short-description="Remove Content From ProductConfigItem">
         <make-value value-field="lookupPKMap" entity-name="ProdConfItemContent"/>
@@ -61,16 +61,16 @@ under the License.
     <simple-method method-name="createSimpleTextContentForProductConfigItem" short-description="Create Simple Text Content For Product">
         <set-service-fields service-name="createProductConfigItemContent" map="parameters" to-map="createProductConfigItemContent"/>
         <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleText"/>
-        <call-service service-name="createSimpleTextContent" in-map="createSimpleText" break-on-error="true" >
+        <call-service service-name="createSimpleTextContent" in-map-name="createSimpleText" break-on-error="true" >
             <result-to-field result-name="contentId" map-name="createProductConfigItemContent" />
         </call-service>
         <call-service service-name="createProductConfigItemContent" in-map-name="createProductConfigItemContent"/>
     </simple-method>
     <simple-method method-name="updateSimpleTextContentForProductConfigItem" short-description="Update Simple Text Content For Product">
         <set-service-fields service-name="updateProductConfigItemContent" map="parameters" to-map="updateProductConfigItemContent"/>
-        <call-service service-name="updateProductConfigItemContent" in-map="updateProductConfigItemContent"/>
+        <call-service service-name="updateProductConfigItemContent" in-map-name="updateProductConfigItemContent"/>
         <set-service-fields service-name="updateSimpleTextContent" map="parameters" to-map="updateSimpleText"/>
-        <call-service service-name="updateSimpleTextContent" in-map="updateSimpleText"/>
+        <call-service service-name="updateSimpleTextContent" in-map-name="updateSimpleText"/>
     </simple-method>
 
 </simple-methods>
