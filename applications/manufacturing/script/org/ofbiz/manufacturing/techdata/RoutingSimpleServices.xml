@@ -84,7 +84,7 @@ under the License.
         </if-not-empty>
         <find-by-primary-key entity-name="TechDataCalendar" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue.calendarWeekId">
-            <remove-value value-name="lookedUpValue"/>
+            <remove-value value-field="lookedUpValue"/>
         </if-not-empty>
     </simple-method>
 
@@ -141,7 +141,7 @@ under the License.
         </if-not-empty>
         <find-by-primary-key entity-name="TechDataCalendarWeek" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue.calendarWeekId">
-            <remove-value value-name="lookedUpValue"/>
+            <remove-value value-field="lookedUpValue"/>
         </if-not-empty>
     </simple-method>
 
@@ -182,7 +182,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarExcDay" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue.calendarId">
-            <remove-value value-name="lookedUpValue"/>
+            <remove-value value-field="lookedUpValue"/>
         </if-not-empty>
     </simple-method>
 
@@ -223,7 +223,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TechDataCalendarExcWeek" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-not-empty field="lookedUpValue.calendarId">
-            <remove-value value-name="lookedUpValue"/>
+            <remove-value value-field="lookedUpValue"/>
         </if-not-empty>
     </simple-method>
     

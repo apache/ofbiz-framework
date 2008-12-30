@@ -356,7 +356,7 @@ under the License.
         <make-value entity-name="ContentRevision" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentRevision" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <!-- Methods for ContentRevisionItem -->
     <simple-method method-name="createContentRevisionItem" short-description="Create ContentRevisionItem">
@@ -388,7 +388,7 @@ under the License.
         <make-value entity-name="ContentRevisionItem" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentRevisionItem" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <!-- Methods for ContentRevision and ContentRevisionItem -->
     <simple-method method-name="persistContentRevisionAndItem" short-description="Update ContentRevision and ContentRevisionItem">
@@ -520,7 +520,7 @@ under the License.
         <make-value entity-name="ContentApproval" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ContentApproval" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="getApprovalsWithPermissions" short-description="Get ContentApprovals for approval process">

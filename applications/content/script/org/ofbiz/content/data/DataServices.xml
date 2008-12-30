@@ -75,7 +75,7 @@ under the License.
         <make-value entity-name="DataResource" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
   <!-- Methods for DataCategory -->
@@ -98,7 +98,7 @@ under the License.
         <make-value entity-name="DataCategory" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataCategory" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
   <!-- Methods for DataResourceMetaData -->
@@ -128,7 +128,7 @@ under the License.
         <make-value entity-name="DataResourceMetaData" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourceMetaData" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>    
     
   <!-- Methods for DataResourcePurpose -->
@@ -158,7 +158,7 @@ under the License.
         <make-value entity-name="DataResourcePurpose" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourcePurpose" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>    
     
   <!-- Methods for DataResourceRole -->
@@ -185,7 +185,7 @@ under the License.
         <make-value entity-name="DataResourceRole" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourceRole" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
   <!-- Methods for DataCategory -->
@@ -207,7 +207,7 @@ under the License.
         <make-value entity-name="DataCategory" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataCategory" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Methods for DataResourceType -->
@@ -229,7 +229,7 @@ under the License.
         <make-value entity-name="DataResourceType" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourceType" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- Methods for DataResourceAttribute -->
@@ -250,7 +250,7 @@ under the License.
         <make-value entity-name="DataResourceAttribute" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourceAttribute" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
    
     <!-- Methods for DataResourceTypeAttr -->
@@ -271,7 +271,7 @@ under the License.
         <make-value entity-name="DataResourceTypeAttr" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="DataResourceTypeAttr" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- Methods for CharacterSet -->
@@ -293,7 +293,7 @@ under the License.
         <make-value entity-name="CharacterSet" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="CharacterSet" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- Methods for FileExtension -->
@@ -315,7 +315,7 @@ under the License.
         <make-value entity-name="FileExtension" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="FileExtension" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- Methods for MetaDataPredicate -->
@@ -337,7 +337,7 @@ under the License.
         <make-value entity-name="MetaDataPredicate" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="MetaDataPredicate" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- Methods for MimeType -->
@@ -359,7 +359,7 @@ under the License.
         <make-value entity-name="MimeType" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="MimeType" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Methods for MimeTypeHtmlTemplate -->
@@ -380,7 +380,7 @@ under the License.
         <make-value entity-name="MimeTypeHtmlTemplate" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="MimeTypeHtmlTemplate" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Methods for ElectronicText -->
@@ -407,7 +407,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         
         <find-by-primary-key entity-name="ElectronicText" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Methods for ImageDataResource -->
@@ -428,7 +428,7 @@ under the License.
         <make-value entity-name="ImageDataResource" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ImageDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Methods for VideoDataResource -->
@@ -449,7 +449,7 @@ under the License.
         <make-value entity-name="VideoDataResource" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="VideoDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Methods for AudioDataResource -->
@@ -470,7 +470,7 @@ under the License.
         <make-value entity-name="AudioDataResource" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="AudioDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Methods for OtherDataResource -->
@@ -492,7 +492,7 @@ under the License.
         <make-value entity-name="OtherDataResource" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="OtherDataResource" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- 

@@ -84,7 +84,7 @@ under the License.
         <make-value entity-name="SecurityGroupPermission" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="SecurityGroupPermission" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
         
         <!-- clear the org.ofbiz.security.Security object's custom cache by lookupPKMap -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.securityGroupPermissionCache.remove(lookupPKMap); ]]></call-bsh>
@@ -129,7 +129,7 @@ under the License.
         <make-value entity-name="UserLoginSecurityGroup" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="UserLoginSecurityGroup" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
         
         <!-- clear the org.ofbiz.security.Security object's custom cache by userLoginId -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.userLoginSecurityGroupByUserLoginId.remove(parameters.get("userLoginId")); ]]></call-bsh>
@@ -168,7 +168,7 @@ under the License.
         <make-value entity-name="ProtectedView" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProtectedView" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
         
         <!-- clear the org.ofbiz.security.Security object's custom cache by lookupPKMap -->
         <call-bsh><![CDATA[ org.ofbiz.security.Security.userLoginSecurityGroupByUserLoginId.remove(lookupPKMap); ]]></call-bsh>

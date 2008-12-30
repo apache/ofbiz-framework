@@ -80,7 +80,7 @@ under the License.
         <!-- grab the old price value before setting nonpk parameter fields -->
         <field-to-result map-name="lookedUpValue" field="price" result-name="oldPrice"/>
 
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="saveProductPriceChange" short-description="Save History of ProductPrice Change">
@@ -169,7 +169,7 @@ under the License.
         <make-value entity-name="ProductPriceRule" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceRule" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ProductPriceCond methods -->
@@ -205,7 +205,7 @@ under the License.
         <make-value entity-name="ProductPriceCond" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceCond" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ProductPriceAction methods -->
@@ -241,6 +241,6 @@ under the License.
         <make-value entity-name="ProductPriceAction" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceAction" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 </simple-methods>

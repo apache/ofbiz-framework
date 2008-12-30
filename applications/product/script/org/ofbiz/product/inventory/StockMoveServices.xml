@@ -571,7 +571,7 @@ under the License.
                     <!-- create the new and remove or update the old OISGIRs -->
                     <create-value value-field="targetOrderItemShipGrpInvRes"/>
                     <if-empty field="reservedQuantityLeftOver">
-                        <remove-value value-name="orderItemShipGrpInvRes"/>
+                        <remove-value value-field="orderItemShipGrpInvRes"/>
                     <else>
                         <calculate field="orderItemShipGrpInvRes.quantity" type="Double">
                             <calcop field="orderItemShipGrpInvRes.quantity" operator="get"/>
@@ -602,7 +602,7 @@ under the License.
                 
                 <if-compare field="haveSetIiDetail" operator="equals" value="N">
                     <log level="info" message="Did not end up finding an OISGIR that we could move inventory with, so removing targetInventoryItem: ${targetInventoryItem}"/>
-                    <remove-value value-name="targetInventoryItem"/>
+                    <remove-value value-field="targetInventoryItem"/>
                 </if-compare>
             </if-compare>
         </iterate-map>

@@ -54,7 +54,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryContent" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createSimpleTextContentForCategory" short-description="Create Simple Text Content For Product Category">
         <set-service-fields service-name="createCategoryContent" map="parameters" to-map="createCategoryContentMap"/>

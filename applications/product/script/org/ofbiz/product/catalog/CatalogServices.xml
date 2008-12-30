@@ -78,7 +78,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProdCatalogCategory"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogCategory" map="lookupPKMap" value-field="prodCatalogCategory"/>
-        <remove-value value-name="prodCatalogCategory"/>
+        <remove-value value-field="prodCatalogCategory"/>
     </simple-method>
 
     <!-- Party and Catalog services -->
@@ -104,7 +104,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProdCatalogRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProdCatalogRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="getAllCategories" short-description="get All categories" login-required="false">

@@ -418,7 +418,7 @@
                 <if-compare-field field="timeEntry.workEffortId" to-field="parameters.workEffortId" operator="equals">
                     <if-compare-field field="timeEntry.rateTypeId" to-field="parameters.rateTypeId" operator="equals">
                         <if-not-empty field="timeEntry.hours">
-                            <remove-value value-name="timeEntry"/> 
+                            <remove-value value-field="timeEntry"/> 
                             <else>
                                 <!-- translate the date into the daynumber -->
                                 <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getIntervalInDays" ret-field-name="dayNumber">

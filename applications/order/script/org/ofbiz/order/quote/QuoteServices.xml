@@ -261,7 +261,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteRole" value-field="quoteRole" auto-field-map="true"/>
         <check-errors/>
-        <remove-value value-name="quoteRole"/>
+        <remove-value value-field="quoteRole"/>
         <check-errors/>
     </simple-method>
 
@@ -364,7 +364,7 @@ under the License.
         <entity-one entity-name="QuoteItem" value-field="quoteItem" auto-field-map="true"/>
         <remove-related value-field="quoteItem" relation-name="QuoteAdjustment"/>
         <check-errors/>
-        <remove-value value-name="quoteItem"/>
+        <remove-value value-field="quoteItem"/>
     </simple-method>
 
     <!-- copy an existing QuoteItem -->
@@ -441,7 +441,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteAttribute" value-field="quoteAttribute" auto-field-map="true"/>
         <check-errors/>
-        <remove-value value-name="quoteAttribute"/>
+        <remove-value value-field="quoteAttribute"/>
         <check-errors/>
     </simple-method>
     
@@ -480,7 +480,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteCoefficient" value-field="quoteCoefficient" auto-field-map="true"/>
         <check-errors/>
-        <remove-value value-name="quoteCoefficient"/>
+        <remove-value value-field="quoteCoefficient"/>
         <check-errors/>
     </simple-method>
 
@@ -675,7 +675,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuoteAdjustment" value-field="quoteAdjustment" auto-field-map="true"/>
         <check-errors/>
-        <remove-value value-name="quoteAdjustment"/>
+        <remove-value value-field="quoteAdjustment"/>
         <check-errors/>
     </simple-method>
     <simple-method method-name="updateQuoteAdjustment" short-description="Update an existing QuoteAdjustment">
@@ -888,7 +888,7 @@ under the License.
             <check-errors/>
         </if-empty>
         <if-not-empty field="quoteWorkEffort.quoteId">
-            <remove-value value-name="quoteWorkEffort"/>
+            <remove-value value-field="quoteWorkEffort"/>
         </if-not-empty>
     </simple-method>
 </simple-methods>

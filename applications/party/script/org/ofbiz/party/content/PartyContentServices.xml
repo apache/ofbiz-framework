@@ -48,7 +48,7 @@ under the License.
         <set-pk-fields value-field="lookupPkMap" map="parameters"/>
 
         <find-by-primary-key map="lookupPkMap" value-field="partyContent"/>
-        <remove-value value-name="partyContent"/>        
+        <remove-value value-field="partyContent"/>        
     </simple-method>
 
 </simple-methods>

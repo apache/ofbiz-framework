@@ -497,7 +497,7 @@ under the License.
             <set field="removeCtx.returnAdjustmentId" from-field="returnAdjustment.returnAdjustmentId"/>
             <call-service service-name="removeReturnAdjustment" in-map-name="removeCtx"/>
         </iterate>
-        <remove-value value-name="returnItem"/>
+        <remove-value value-field="returnItem"/>
     </simple-method>
 
     <simple-method method-name="createReturnAdjustment" short-description="Create Return Adjustment">
@@ -526,7 +526,7 @@ under the License.
         <set from-field="parameters.returnAdjustmentId" field="lookupPKMap.returnAdjustmentId"/>
         <find-by-primary-key entity-name="ReturnAdjustment" map="lookupPKMap" value-field="returnAdjustment"/>
         <if-not-empty field="returnAdjustment">
-            <remove-value value-name="returnAdjustment"/>
+            <remove-value value-field="returnAdjustment"/>
         </if-not-empty>
     </simple-method>
     <!-- note that this service is designed to be called once for each shipment receipt that is created -->

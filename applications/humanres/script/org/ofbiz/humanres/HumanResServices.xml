@@ -253,7 +253,7 @@
         <entity-one entity-name="PartyBenefit" value-field="lookedUpValue"/>        
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
         <store-value value-name="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="createPayGrade" short-description="Create a Pay Grade">
@@ -302,7 +302,7 @@
         <entity-one entity-name="PayHistory" value-field="lookedUpValue"/>
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
         <store-value value-name="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createPayrollPreference" short-description="Create a Payroll Preference">

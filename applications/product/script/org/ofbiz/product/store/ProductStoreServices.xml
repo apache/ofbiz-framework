@@ -130,7 +130,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductStoreCatalog"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ProductStore Payment Setting Services -->
@@ -161,7 +161,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductStorePaymentSetting" map="lookupPKMap" value-field="setting"/>
         <set-nonpk-fields map="parameters" value-field="setting"/>
-        <remove-value value-name="setting"/>
+        <remove-value value-field="setting"/>
     </simple-method>
 
     <!-- ProductStore Email Services -->
@@ -198,7 +198,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductStoreEmailSetting"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductStoreEmailSetting" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ProductStore Vendor Payment Services --> 
@@ -216,7 +216,7 @@ under the License.
 
         <make-value entity-name="ProductStoreVendorPayment" value-field="lookedUpValue"/>
         <set-pk-fields value-field="lookedUpValue" map="parameters"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ProductStore Carrier Shipment Services -->
@@ -253,7 +253,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductStoreShipmentMeth"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductStoreShipmentMeth" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Product Store Role Services -->
@@ -324,7 +324,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductStoreKeywordOvrd"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Product Store Survey Appl Services -->
@@ -389,7 +389,7 @@ under the License.
         <make-value value-field="lookupPk" entity-name="ProductStoreFinActSetting"/>
         <set-pk-fields value-field="lookupPk" map="parameters"/>
         <find-by-primary-key map="lookupPk" value-field="finAccountSetting"/>
-        <remove-value value-name="finAccountSetting"/>
+        <remove-value value-field="finAccountSetting"/>
     </simple-method>
 
     <!-- Store Inventory Services -->
@@ -710,7 +710,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductStoreVendorShipment" value-field="lookedUpValue"/>
         <set-pk-fields value-field="lookedUpValue" map="parameters"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
 </simple-methods>

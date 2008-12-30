@@ -244,7 +244,7 @@ under the License.
        <make-value value-field="lookupPKMap" entity-name="ContactMechLink"/>
        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
        <find-by-primary-key entity-name="ContactMechLink" map="lookupPKMap" value-field="contactMechLinkInstance"/>
-       <remove-value value-name="contactMechLinkInstance"/>
+       <remove-value value-field="contactMechLinkInstance"/>
    </simple-method>
 
     <!-- contactmech attribute services -->

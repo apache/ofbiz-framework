@@ -63,7 +63,7 @@ under the License.
         <make-value entity-name="TrackingCode" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCode" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <!-- TrackingCodeType methods -->
     <simple-method method-name="createTrackingCodeType" short-description="Create an TrackingCodeType">
@@ -101,7 +101,7 @@ under the License.
         <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeType" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createTrackingCodeOrder" short-description="Create an TrackingCodeOrder">
@@ -186,7 +186,7 @@ under the License.
         <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrderReturn" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>    
 
 </simple-methods>

@@ -64,7 +64,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="BillingAccountRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>        
         <find-by-primary-key entity-name="BillingAccountRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createBillingAccountTerm" short-description="Create Billing Account Term">
         <make-value value-field="newEntity" entity-name="BillingAccountTerm"/>
@@ -88,6 +88,6 @@ under the License.
         <make-value entity-name="BillingAccountTerm" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="BillingAccountTerm" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>        
 </simple-methods>

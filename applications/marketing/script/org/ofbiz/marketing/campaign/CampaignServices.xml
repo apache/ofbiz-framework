@@ -53,7 +53,7 @@ under the License.
         <make-value entity-name="MarketingCampaign" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="MarketingCampaign" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- MarketingCampaignPrice methods -->
@@ -74,7 +74,7 @@ under the License.
         <make-value entity-name="MarketingCampaignPrice" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="MarketingCampaignPrice" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- MarketingCampaignPromo methods -->
@@ -95,7 +95,7 @@ under the License.
         <make-value entity-name="MarketingCampaignPromo" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="MarketingCampaignPromo" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- MarketingCampaignRole methods -->
@@ -116,7 +116,7 @@ under the License.
         <make-value entity-name="MarketingCampaignRole" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="MarketingCampaignRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createMarketingCampaignRole" short-description="Add Role To MarketingCampaign">
         <!-- allow if userLogin.partyId = parameters.partyId or has permission -->

@@ -486,7 +486,7 @@ under the License.
         <make-value entity-name="GoodIdentification" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ProductGlAccount methods -->
@@ -522,7 +522,7 @@ under the License.
         <make-value entity-name="ProductGlAccount" value-field="lookupPKMap"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductGlAccount" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createProductReview" short-description="Create a ProductReview">
@@ -620,7 +620,7 @@ under the License.
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductPrice" map-name="productVariantContext" list-name="foundVariantValues"/>
                     <iterate entry="foundVariantValue" list="foundVariantValues">
-                        <remove-value value-name="foundVariantValue"/>
+                        <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductPrice" map-name="productFindContext" list-name="foundValues"/>
@@ -634,7 +634,7 @@ under the License.
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="GoodIdentification" map-name="productVariantContext" list-name="foundVariantValues"/>
                     <iterate entry="foundVariantValue" list="foundVariantValues">
-                        <remove-value value-name="foundVariantValue"/>
+                        <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="GoodIdentification" map-name="productFindContext" list-name="foundValues"/>
@@ -648,7 +648,7 @@ under the License.
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductContent" map-name="productVariantContext" list-name="foundVariantValues"/>
                     <iterate entry="foundVariantValue" list="foundVariantValues">
-                        <remove-value value-name="foundVariantValue"/>
+                        <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductContent" map-name="productFindContext" list-name="foundValues"/>
@@ -662,7 +662,7 @@ under the License.
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductCategoryMember" map-name="productVariantContext" list-name="foundVariantValues"/>
                     <iterate entry="foundVariantValue" list="foundVariantValues">
-                        <remove-value value-name="foundVariantValue"/>
+                        <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductCategoryMember" map-name="productFindContext" list-name="foundValues"/>
@@ -676,7 +676,7 @@ under the License.
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductAttribute" map-name="productVariantContext" list-name="foundVariantValues"/>
                     <iterate entry="foundVariantValue" list="foundVariantValues">
-                        <remove-value value-name="foundVariantValue"/>
+                        <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductAttribute" map-name="productFindContext" list-name="foundValues"/>
@@ -690,7 +690,7 @@ under the License.
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductFacility" map-name="productVariantContext" list-name="foundVariantValues"/>
                     <iterate entry="foundVariantValue" list="foundVariantValues">
-                        <remove-value value-name="foundVariantValue"/>
+                        <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductFacility" map-name="productFindContext" list-name="foundValues"/>
@@ -704,7 +704,7 @@ under the License.
                 <if-not-empty field="parameters.removeBefore">
                     <find-by-and entity-name="ProductFacilityLocation" map-name="productVariantContext" list-name="foundVariantValues"/>
                     <iterate entry="foundVariantValue" list="foundVariantValues">
-                        <remove-value value-name="foundVariantValue"/>
+                        <remove-value value-field="foundVariantValue"/>
                     </iterate>
                 </if-not-empty>
                 <find-by-and entity-name="ProductFacilityLocation" map-name="productFindContext" list-name="foundValues"/>
@@ -751,7 +751,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductAssoc"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductAssoc" map="lookupPKMap" value-field="productAssocInstance"/>
-        <remove-value value-name="productAssocInstance"/>
+        <remove-value value-field="productAssocInstance"/>
     </simple-method>
 
     <!-- Create/Update/Delete Product Maint Record -->
@@ -962,7 +962,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createVendorProduct" short-description="Create a VendorProduct">
@@ -974,7 +974,7 @@ under the License.
     <simple-method method-name="deleteVendorProduct" short-description="Remove the VendorProduct">
         <make-value entity-name="VendorProduct" value-field="lookedUpValue"/>
         <set-pk-fields value-field="lookedUpValue" map="parameters"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- ProductCategoryGlAccount methods -->
