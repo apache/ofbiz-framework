@@ -78,7 +78,7 @@ under the License.
         <create-value value-field="rootInstanceContent"/>
 
         <log message="genCompDocInstance 3> rootInstanceContent: ${rootInstanceContent}" level="info"/>
-        <field-to-result result-name="contentId" field-name="rootInstanceContent.contentId"/>
+        <field-to-result result-name="contentId" field="rootInstanceContent.contentId"/>
         <set from-field="parameters.instanceOfContentId" field="parentTemplateContentId"/>
         <set from-field="rootInstanceContent.contentId" field="parentInstanceContentId"/>
         <log message="genCompDocInstance 4> parentTemplateContentId: ${parentTemplateContentId}" level="info"/>
@@ -198,7 +198,7 @@ under the License.
         </call-service>
         <!--  put all the result fields in this service's result -->
         <iterate-map map="pResults" key="key" value="val">
-            <field-to-result field-name="val" result-name="${key}"/>
+            <field-to-result field="val" result-name="${key}"/>
         </iterate-map>
 
         <log level="info" message="pResults : ${pResults}"/>
@@ -439,7 +439,7 @@ under the License.
             <create-value value-field="newEntity"/>
             <log level="info" message="ContentRevisionItem(1): ${newEntity}"/>
         </if-not-empty>
-        <field-to-result field-name="paddedSeqId" result-name="contentRevisionSeqId"/>
+        <field-to-result field="paddedSeqId" result-name="contentRevisionSeqId"/>
         <log level="info" message="paddedSeqId: ${paddedSeqId}"/>
     </simple-method>
     <simple-method method-name="getRevisionDataResource" short-description="Get version of DataResource that fits overall revision">
@@ -460,7 +460,7 @@ under the License.
                 <entity-one entity-name="DataResource" value-field="dataResource" use-cache="true">
                     <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                 </entity-one>
-                <field-to-result field-name="dataResource" result-name="dataResource"/>
+                <field-to-result field="dataResource" result-name="dataResource"/>
             </if-not-empty>
         </if-not-empty>
     </simple-method>
@@ -477,7 +477,7 @@ under the License.
             <entity-one entity-name="DataResource" value-field="dataResource" use-cache="true">
                 <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
             </entity-one>
-            <field-to-result field-name="dataResource" result-name="dataResource"/>
+            <field-to-result field="dataResource" result-name="dataResource"/>
         </if-not-empty>
     </simple-method>
 
@@ -498,7 +498,7 @@ under the License.
         </if-empty>
         <create-value value-field="newEntity"/>
         <check-errors/>
-        <field-to-result result-name="contentApprovalId" field-name="newEntity.contentApprovalId"/>
+        <field-to-result result-name="contentApprovalId" field="newEntity.contentApprovalId"/>
     </simple-method>
     <simple-method method-name="updateContentApproval" short-description="Update ContentApproval">
         <log level="always" message="got into updateContentApproval(4)"/>
@@ -571,7 +571,7 @@ under the License.
             <set field="contentApprovalList[]" from-field="gvAndPerm"/>
             -->
         </iterate>
-        <field-to-result field-name="contentApprovalList"/>
+        <field-to-result field="contentApprovalList"/>
     </simple-method>
     <simple-method method-name="cloneTemplateContentApprovals" short-description="Bump the previous ContentApproval approvals up to current CDI">
         <log level="info" message="cloneTemplateContentApprovals-parameters: ${parameters}"/>
@@ -772,7 +772,7 @@ under the License.
         <if-compare field="contentApproval.partyId" value="${partyId}" operator="equals">
             <set field="approvalPermExists" value="true"/>
             <log level="info" message="approvalPermExists: ${approvalPermExists}"/>
-            <field-to-result result-name="approvalPermExists" field-name="approvalPermExists"/>
+            <field-to-result result-name="approvalPermExists" field="approvalPermExists"/>
             <return/>
         </if-compare>
         <if-not-empty field="contentApproval.roleTypeId">
@@ -790,12 +790,12 @@ under the License.
             </entity-condition>
             <if-not-empty field="contentRoleList">
                 <set field="approvalPermExists" value="true"/>
-                <field-to-result field-name="approvalPermExists" result-name="approvalPermExists"/>
+                <field-to-result field="approvalPermExists" result-name="approvalPermExists"/>
                 <return/>
             </if-not-empty>
         </if-not-empty>
         <set field="approvalPermExists" value="false"/>
-        <field-to-result field-name="approvalPermExists" result-name="approvalPermExists"/>
+        <field-to-result field="approvalPermExists" result-name="approvalPermExists"/>
         <return/>
     </simple-method>
     <simple-method method-name="prepForApproval" short-description="Set ContentApprovals for approval process">
@@ -865,12 +865,12 @@ under the License.
                         </else-if>
                     </if>
                 </iterate>
-                <field-to-result field-name="finalApprovalStatusId" result-name="approvalStatusId"/>
-                <field-to-result field-name="contentApprovalList" result-name="contentApprovalList"/>
+                <field-to-result field="finalApprovalStatusId" result-name="approvalStatusId"/>
+                <field-to-result field="contentApprovalList" result-name="contentApprovalList"/>
             </then>
             <else>
                 <set value="CNTAP_NOT_READY" field="finalApprovalStatusId"/>
-                <field-to-result field-name="finalApprovalStatusId" result-name="approvalStatusId"/>
+                <field-to-result field="finalApprovalStatusId" result-name="approvalStatusId"/>
             </else>
         </if>
     </simple-method>
@@ -929,7 +929,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <log level="info" message="contentApprovalList: ${contentApprovalList}"/>
-        <field-to-result field-name="contentApprovalList" result-name="contentApprovalList"/>
+        <field-to-result field="contentApprovalList" result-name="contentApprovalList"/>
     </simple-method>
     <simple-method method-name="getMostRecentRevision" short-description="Look for most recent revision for contentId">
         <entity-condition entity-name="ContentRevision" list-name="contentRevisions" use-cache="true">
@@ -942,6 +942,6 @@ under the License.
         <if-not-empty field="contentRevisions">
             <set from-field="contentRevisions[0].contentRevisionSeqId" field="mostRecentRevisionSeqId"/>
         </if-not-empty>
-        <field-to-result field-name="mostRecentRevisionSeqId" result-name="mostRecentRevisionSeqId"/>
+        <field-to-result field="mostRecentRevisionSeqId" result-name="mostRecentRevisionSeqId"/>
     </simple-method>
 </simple-methods>

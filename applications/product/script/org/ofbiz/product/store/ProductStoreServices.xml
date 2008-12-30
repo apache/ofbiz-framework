@@ -40,7 +40,7 @@ under the License.
         <sequenced-id-to-env sequence-name="ProductStore" env-name="productStoreId" />
         <set from-field="productStoreId" field="newEntity.productStoreId"/>
 
-        <field-to-result field-name="productStoreId" result-name="productStoreId"/>
+        <field-to-result field="productStoreId" result-name="productStoreId"/>
         <create-value value-field="newEntity"/>
 
         <!-- create the ProductStoreFacility record -->
@@ -335,7 +335,7 @@ under the License.
         <make-value value-field="newEntity" entity-name="ProductStoreSurveyAppl"/>
         <sequenced-id-to-env sequence-name="ProductStoreSurveyAppl" env-name="productStoreSurveyId"/>
         <set from-field="productStoreSurveyId" field="newEntity.productStoreSurveyId"/>
-        <field-to-result field-name="productStoreSurveyId" result-name="productStoreSurveyId"/>
+        <field-to-result field="productStoreSurveyId" result-name="productStoreSurveyId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <if-empty field="newEntity.fromDate">
@@ -405,7 +405,7 @@ under the License.
         <if-compare value="N" operator="equals" field="productStore.reserveInventory">
             <!-- note: if not set, defaults to yes, reserve inventory -->
             <log level="verbose" message="ProductStore with id ${productStore.productStoreId}, is set to NOT reserve inventory, not reserving inventory"/>
-            <field-to-result field-name="parameters.quantity" result-name="quantityNotReserved"/>            
+            <field-to-result field="parameters.quantity" result-name="quantityNotReserved"/>            
             <return response-code="success"/>
         </if-compare>
 
@@ -502,7 +502,7 @@ under the License.
             </if-compare>
         </else>        
         </if-empty>
-        <field-to-result field-name="quantityNotReserved"/>
+        <field-to-result field="quantityNotReserved"/>
     </simple-method>
 
     <simple-method method-name="isStoreInventoryRequired" short-description="Is Store Inventory Required" login-required="false">
@@ -520,7 +520,7 @@ under the License.
         </if-empty>
         
         <call-simple-method method-name="isStoreInventoryRequiredInline"/>
-        <field-to-result field-name="requireInventory"/>
+        <field-to-result field="requireInventory"/>
     </simple-method>
     <simple-method method-name="isStoreInventoryRequiredInline" short-description="Is Store Inventory Required" login-required="false">
         <set from-field="product.requireInventory" field="requireInventory"/>
@@ -557,7 +557,7 @@ under the License.
             <then>
                 <log level="verbose" message="Product with id ${product.productId}, is of type ${product.productTypeId}, returning true for inventory available check"/>
                 <set value="Y" field="available"/>
-                <field-to-result field-name="available"/>
+                <field-to-result field="available"/>
                 <return/>
             </then>
         </if>
@@ -569,7 +569,7 @@ under the License.
             <!-- note: if not set, defaults to yes, check inventory -->
             <log level="verbose" message="ProductStore with id ${productStore.productStoreId}, is set to NOT check inventory, returning true for inventory available check"/>
             <set value="Y" field="available"/>
-            <field-to-result field-name="available"/>
+            <field-to-result field="available"/>
             <return/>
         </if-compare>
         
@@ -652,7 +652,7 @@ under the License.
         </else>
         </if-compare>
 
-        <field-to-result field-name="available"/>
+        <field-to-result field="available"/>
 
         <!--
             /* TODO: must entire quantity be available in one location?
@@ -687,7 +687,7 @@ under the License.
         
         <if-compare field="requireInventory" operator="not-equals" value="Y">
             <set value="Y" field="availableOrNotRequired"/>
-            <field-to-result field-name="availableOrNotRequired"/>
+            <field-to-result field="availableOrNotRequired"/>
         <else>
             <set-service-fields map-name="parameters" to-map-name="callServiceMap" service-name="isStoreInventoryAvailable"/>
             <call-service service-name="isStoreInventoryAvailable" in-map-name="callServiceMap">

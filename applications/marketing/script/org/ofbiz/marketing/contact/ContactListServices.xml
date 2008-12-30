@@ -32,7 +32,7 @@ under the License.
                 <set field="newEntity.contactListId" from-field="parameters.contactListId"/>
             </else>            
         </if-empty>
-        <field-to-result field-name="newEntity.contactListId" result-name="contactListId"/>
+        <field-to-result field="newEntity.contactListId" result-name="contactListId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
     </simple-method>

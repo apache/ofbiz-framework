@@ -24,13 +24,13 @@
     <simple-method method-name="ConvertOfbizCartToGoogle" short-description="">
         <set field="cart" from-field="parameters.shoppingCart"/>
         <call-simple-method method-name="createShoppingCart"/>
-        <field-to-result field-name="googleCart"/>
+        <field-to-result field="googleCart"/>
 
         <call-simple-method method-name="createCheckoutFlowSupport"/>
-        <field-to-result field-name="flowSupport"/>
+        <field-to-result field="flowSupport"/>
 
         <call-simple-method method-name="createorderProcessingSupport"/>
-        <field-to-result field-name="sendInitialAuthDetails"/>
+        <field-to-result field="sendInitialAuthDetails"/>
 
     </simple-method>
     <simple-method method-name="createShoppingCart" short-description="">

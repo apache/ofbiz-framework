@@ -50,7 +50,7 @@
 
         <create-value value-field="content"/>
 
-        <field-to-result field-name="content.contentId" result-name="contentId"/>        
+        <field-to-result field="content.contentId" result-name="contentId"/>        
     </simple-method>
     <simple-method method-name="updateContent" short-description="Update a Content Record">
         <entity-one entity-name="Content" value-field="content" auto-field-map="true"/>
@@ -61,7 +61,7 @@
         <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
 
         <store-value value-name="content"/>
-        <field-to-result field-name="content.contentId" result-name="contentId"/>
+        <field-to-result field="content.contentId" result-name="contentId"/>
     </simple-method>
     <simple-method method-name="removeContent" short-description="Remove a Content Record">
         <make-value entity-name="Content" value-field="lookupKeyValue"/>
@@ -90,7 +90,7 @@
 
         <create-value value-field="assoc"/>
         <log level="info" message="assoc: ${assoc}"/>
-        <field-to-result field-name="assoc.fromDate" result-name="fromDate"/>
+        <field-to-result field="assoc.fromDate" result-name="fromDate"/>
     </simple-method>
     <simple-method method-name="updateContentAssoc" short-description="Update a ContentAssoc Record">
         <set field="contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}" />
@@ -115,7 +115,7 @@
     <simple-method method-name="setContentStatus" short-description="Set The Content Status">
     
         <entity-one entity-name="Content" value-field="content"/>
-        <field-to-result field-name="content.statusId" result-name="oldStatusId"/>
+        <field-to-result field="content.statusId" result-name="oldStatusId"/>
 
        <if-compare-field field="content.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-field="statusChange" auto-field-map="false">
@@ -180,7 +180,7 @@
             <call-service service-name="createContentAssoc" in-map-name="assocTos"/>
         </iterate>
         
-        <field-to-result field-name="newContentId" result-name="contentId"/>
+        <field-to-result field="newContentId" result-name="contentId"/>
         
     </simple-method>
 
@@ -302,7 +302,7 @@
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result map-name="newEntity" field-name="contentTypeId" />
+        <field-to-result map-name="newEntity" field="contentTypeId" />
     </simple-method>
     <simple-method method-name="updateContentType" short-description="Update Content Type">
         <make-value entity-name="ContentType" value-field="lookupKeyValue"/>
@@ -338,7 +338,7 @@
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result map-name="newEntity" field-name="contentAssocTypeId" />
+        <field-to-result map-name="newEntity" field="contentAssocTypeId" />
     </simple-method>
     <simple-method method-name="updateContentAssocType" short-description="Update Content AssocType">
         <make-value entity-name="ContentAssocType" value-field="lookupKeyValue"/>
@@ -363,7 +363,7 @@
 			<make-next-seq-id seq-field-name="contentPurposeTypeId" value-name="newEntity"/>
 		</if-empty>
         <create-value value-field="newEntity"/>
-        <field-to-result map-name="newEntity" field-name="contentPurposeTypeId" />
+        <field-to-result map-name="newEntity" field="contentPurposeTypeId" />
     </simple-method>
     <simple-method method-name="updateContentPurposeType" short-description="Update Content PurposeType">
         <make-value entity-name="ContentPurposeType" value-field="lookupKeyValue"/>
@@ -385,7 +385,7 @@
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
-        <field-to-result map-name="newEntity" field-name="contentAssocPredicateId" />
+        <field-to-result map-name="newEntity" field="contentAssocPredicateId" />
     </simple-method>
     <simple-method method-name="updateContentAssocPredicate" short-description="Update Content AssocPredicate">
         <make-value entity-name="ContentAssocPredicate" value-field="lookupKeyValue"/>
@@ -552,7 +552,7 @@
             <call-service service-name="createContentFromUploadedFile" in-map-name="uploadContext"/>
         </if-not-empty>
 
-        <field-to-result field-name="parentContentId" map-name="parameters" result-name="contentId"/>
+        <field-to-result field="parentContentId" map-name="parameters" result-name="contentId"/>
     </simple-method>
 
     <!-- Util -->
@@ -573,10 +573,10 @@
                 <if-empty field="parameters.mapKey"/>
             </condition>
             <then>
-                <field-to-result field-name="result" result-name="contentAssocs"/>
+                <field-to-result field="result" result-name="contentAssocs"/>
             </then>
             <else>
-                <field-to-result field-name="result" result-name="contentAssoc"/>
+                <field-to-result field="result" result-name="contentAssoc"/>
             </else>
         </if>
     </simple-method>
@@ -623,7 +623,7 @@
         <set value="htmlBody" field="createBodyAssoc.mapKey"/>
         <call-service service-name="createContentAssoc" in-map-name="createBodyAssoc"/>
 
-        <field-to-result field-name="contentId" map-name="createBodyAssoc" result-name="contentId"/>
+        <field-to-result field="contentId" map-name="createBodyAssoc" result-name="contentId"/>
     </simple-method>
     <simple-method method-name="updateEmailContent" short-description="Update Email Content">
         <check-permission permission="CONTENTMGR" action="_UPDATE">
@@ -761,7 +761,7 @@
             <result-to-field result-name="contentId" field-name="contentId"/>
         </call-service>
 
-        <field-to-result field-name="contentId" />
+        <field-to-result field="contentId" />
     </simple-method>
     
     <!-- This method first creates Content, DataResource and ElectronicText, ImageDataResource, etc. entities (if needed)
@@ -796,7 +796,7 @@
 		</call-service>
 
 		<iterate-map key="key" value="val" map="persistOut">
-			<field-to-result field-name="val" result-name="${key}"/>
+			<field-to-result field="val" result-name="${key}"/>
 		</iterate-map>
 
 		<set field="mapIn.contentId"  from-field="persistOut.contentId"/>
@@ -832,7 +832,7 @@
 		</call-service>
 
 		<iterate-map key="key" value="val" map="persistOut">
-			<field-to-result field-name="val" result-name="${key}"/>
+			<field-to-result field="val" result-name="${key}"/>
 		</iterate-map>
 
 	</simple-method>
@@ -847,7 +847,7 @@
 			<now-timestamp-to-env env-name="commEventContentAssoc.fromDate"/>
 		</if-empty>
 		<create-value value-field="commEventContentAssoc" />
-		<field-to-result field-name="commEventContentAssoc.fromDate" result-name="fromDate"/>
+		<field-to-result field="commEventContentAssoc.fromDate" result-name="fromDate"/>
 	</simple-method>
     
 	<!-- This service would primarily be used to update the thruDate field.
@@ -889,7 +889,7 @@
                 <result-to-result result-name="contentId" service-result-name="contentIdFrom"/>
                 <result-to-result result-name="contentIdTo" service-result-name="contentIdTo"/>
             </call-service>
-            <field-to-result field-name="newContentId" result-name="contentId"/>
+            <field-to-result field="newContentId" result-name="contentId"/>
         </if-not-empty>
     </simple-method>
     
@@ -908,7 +908,7 @@
                     to-value-name="resultData.imageDataResource"/>
             </if-compare>
         </if-not-empty>
-        <field-to-result field-name="resultData" result-name="resultData"/>
+        <field-to-result field="resultData" result-name="resultData"/>
     </simple-method>
         
     <simple-method method-name="getContentAndDataResource" short-description="get the content and related resource information" login-required="false">
@@ -923,7 +923,7 @@
                 <set field="resultDataContent.electronicText" from-field="resultData.electronicText"/>
                 <set field="resultDataContent.imageDataResource" from-field="resultData.imageDataResource"/>
             </if-not-empty>
-            <field-to-result field-name="resultDataContent" result-name="resultData"/>
+            <field-to-result field="resultDataContent" result-name="resultData"/>
         </if-not-empty>
     </simple-method>
 
@@ -947,8 +947,8 @@
                 </and>
             </condition>
             <then>
-                <field-to-result field-name="contentIdFrom" map-name="parameters" result-name="contentId"/>
-                <field-to-result field-name="contentId" map-name="parameters" result-name="contentIdTo"/>
+                <field-to-result field="contentIdFrom" map-name="parameters" result-name="contentId"/>
+                <field-to-result field="contentId" map-name="parameters" result-name="contentIdTo"/>
                 <log level="info" message="Converted 'contentId' to 'contentIdTo' and 'contentIdFrom' to 'contentId'"/>
             </then>
             <else-if>
@@ -958,8 +958,8 @@
                     </not>
                 </condition>
                 <then>
-                    <field-to-result field-name="contentIdTo" map-name="parameters" result-name="contentIdTo"/>
-                    <field-to-result field-name="contentId" map-name="parameters" result-name="contentId"/>
+                    <field-to-result field="contentIdTo" map-name="parameters" result-name="contentIdTo"/>
+                    <field-to-result field="contentId" map-name="parameters" result-name="contentId"/>
                     <log level="info" message="Returned 'contentId' as 'contentId' and 'contentIdTo' as 'contentIdTo'"/>
                 </then>
             </else-if>
@@ -1146,7 +1146,7 @@
         </if-compare>  
 
 
-        <field-to-result field-name="contentId"/>
+        <field-to-result field="contentId"/>
     </simple-method>
     
     <simple-method method-name="getSubContentWithPermCheck" short-description="Get sub content and perform permission check on each record">
@@ -1188,7 +1188,7 @@
                 <set field="contentViewList[]" from-field="view"/>
             </if-compare>
         </iterate>
-        <field-to-result field-name="contentViewList" result-name="subContentList"/>
+        <field-to-result field="contentViewList" result-name="subContentList"/>
         
         
     </simple-method>
@@ -1222,7 +1222,7 @@
 	        <set field="map.textData" from-field="electronicText.textData"/>
             <set field="contentViewList[]" from-field="map"/>
         </iterate>
-        <field-to-result field-name="subContentList" result-name="subContentList"/>
-        <field-to-result field-name="contentViewList" result-name="subSubContentList"/>
+        <field-to-result field="subContentList" result-name="subContentList"/>
+        <field-to-result field="contentViewList" result-name="subSubContentList"/>
     </simple-method>
 </simple-methods>

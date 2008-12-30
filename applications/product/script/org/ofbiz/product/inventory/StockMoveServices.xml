@@ -184,12 +184,12 @@ under the License.
                 </if-empty>
             </iterate-map>
         </iterate-map>
-        <field-to-result field-name="moveByOisgirInfoList"/>
-        <field-to-result field-name="stockMoveHandled"/>
+        <field-to-result field="moveByOisgirInfoList"/>
+        <field-to-result field="stockMoveHandled"/>
 
         <!-- TODO: go through targetLocationSimpleMoveQuantity Map and if any item is not zero, add a warning message -->
 
-        <field-to-result field-name="warningMessageList"/>
+        <field-to-result field="warningMessageList"/>
     </simple-method>
     <simple-method method-name="findStockMovesRecommended" short-description="Find all Stock Moves recommended to be done based on ProductFacilityLocation settings">
         <!-- TODO: make this method aware of serialized inventory in addition to non-serialized inventory -->
@@ -342,8 +342,8 @@ under the License.
             </if>
         </iterate>
 
-        <field-to-result field-name="moveByPflInfoList"/>
-        <field-to-result field-name="warningMessageList"/>
+        <field-to-result field="moveByPflInfoList"/>
+        <field-to-result field="warningMessageList"/>
     </simple-method>
 
     <simple-method method-name="processPhysicalStockMove" short-description="Process a Physical Stock Move from one FacilityLocation to another, in the same Facility">
@@ -427,7 +427,7 @@ under the License.
             <string-to-list string="ERROR: Not enough available inventory found in location [${parameters.locationSeqId}] in facility [${parameters.facilityId}], did not reallocate ${quantityLeftToProcess} of the ${parameters.quantityMoved} reported as physically moved." list-name="warningMessageList"/>
         </if-compare>
 
-        <field-to-result field-name="warningMessageList"/>
+        <field-to-result field="warningMessageList"/>
     </simple-method>
     <simple-method method-name="processOisgirMoveByStatusInline" short-description="Inline method to process OISGIR stock move for a specific OrderItem.statusId">
         <entity-and entity-name="OrderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">

@@ -158,7 +158,7 @@ under the License.
         
         <make-value entity-name="TaxAuthorityRateProduct" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="TaxAuthorityRateProduct" env-name="newEntity.taxAuthorityRateSeqId"/>
-        <field-to-result field-name="newEntity.taxAuthorityRateSeqId" result-name="taxAuthorityRateSeqId"/>
+        <field-to-result field="newEntity.taxAuthorityRateSeqId" result-name="taxAuthorityRateSeqId"/>
         
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>  

@@ -61,7 +61,7 @@ under the License.
                 <set field="newEntity.communicationEventId" from-field="parameters.communicationEventId"/>
             </else>
         </if-empty>
-        <field-to-result field-name="newEntity.communicationEventId" result-name="communicationEventId"/>
+        <field-to-result field="newEntity.communicationEventId" result-name="communicationEventId"/>
         
         <!-- if only contactMechId and no partyIdTo is provided for creation email address find the related party -->
         <if-empty field="parameters.partyIdTo">
@@ -431,7 +431,7 @@ under the License.
 
     <simple-method method-name="setCommunicationEventStatus" short-description="Set The Communication Event Status">
         <entity-one entity-name="CommunicationEvent" value-field="communicationEvent"/>
-        <field-to-result field-name="communicationEvent.statusId" result-name="oldStatusId"/>
+        <field-to-result field="communicationEvent.statusId" result-name="oldStatusId"/>
         <if-compare-field field="communicationEvent.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-field="statusChange">
                 <field-map field-name="statusId" from-field="communicationEvent.statusId"/>
@@ -458,7 +458,7 @@ under the License.
     </simple-method>
     <simple-method method-name="setCommunicationEventRoleStatus" short-description="Set The Communication Event Status for a specific role">
         <entity-one entity-name="CommunicationEventRole" value-field="communicationEventRole"/>
-        <field-to-result field-name="communicationEventRole.statusId" result-name="oldStatusId"/>
+        <field-to-result field="communicationEventRole.statusId" result-name="oldStatusId"/>
         <if-compare-field field="communicationEventRole.statusId" to-field="parameters.statusId" operator="not-equals">
             <entity-one entity-name="StatusValidChange" value-field="statusChange">
                 <field-map field-name="statusId" from-field="communicationEventRole.statusId"/>

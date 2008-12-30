@@ -281,11 +281,11 @@ under the License.
             <if-empty field="amount.rateAmount">
                 <set field="amount.rateAmount" value="0" type="Double"/>
             </if-empty>
-            <field-to-result field-name="amount.rateAmount" result-name="rateAmount"/>
-            <field-to-result field-name="amount.periodTypeId" result-name="periodTypeId"/>
-            <field-to-result field-name="amount.rateCurrencyUomId" result-name="rateCurrencyUomId"/>
-            <field-to-result field-name="level"/>
-            <field-to-result field-name="amount.fromDate" result-name="fromDate"/>
+            <field-to-result field="amount.rateAmount" result-name="rateAmount"/>
+            <field-to-result field="amount.periodTypeId" result-name="periodTypeId"/>
+            <field-to-result field="amount.rateCurrencyUomId" result-name="rateCurrencyUomId"/>
+            <field-to-result field="level"/>
+            <field-to-result field="amount.fromDate" result-name="fromDate"/>
         </if-not-empty>
         
     </simple-method>

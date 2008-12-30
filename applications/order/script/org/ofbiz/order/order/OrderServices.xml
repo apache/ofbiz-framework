@@ -74,16 +74,16 @@ under the License.
         <!-- first set the required OUT fields to zero -->
         <calculate field-name="plainDoubleZero" type="Double"><number value="0.0"/></calculate>
         <calculate field-name="plainLongZero" type="Long"><number value="0"/></calculate>
-        <field-to-result field-name="plainDoubleZero" result-name="totalGrandAmount"/>
-        <field-to-result field-name="plainDoubleZero" result-name="totalSubRemainingAmount"/>
-        <field-to-result field-name="plainLongZero" result-name="totalOrders"/>
+        <field-to-result field="plainDoubleZero" result-name="totalGrandAmount"/>
+        <field-to-result field="plainDoubleZero" result-name="totalSubRemainingAmount"/>
+        <field-to-result field="plainLongZero" result-name="totalOrders"/>
 
         <!-- because we specified the partyId and the roleTypeId, should only be one item in list returned -->
         <first-from-list list="orderInfoList" entry="orderInfo"/>
         <if-not-empty field="orderInfo">
-            <field-to-result field-name="orderInfo.totalGrandAmount" result-name="totalGrandAmount"/>
-            <field-to-result field-name="orderInfo.totalSubRemainingAmount" result-name="totalSubRemainingAmount"/>
-            <field-to-result field-name="orderInfo.totalOrders" result-name="totalOrders"/>
+            <field-to-result field="orderInfo.totalGrandAmount" result-name="totalGrandAmount"/>
+            <field-to-result field="orderInfo.totalSubRemainingAmount" result-name="totalSubRemainingAmount"/>
+            <field-to-result field="orderInfo.totalOrders" result-name="totalOrders"/>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="createOrderShipment" short-description="Create OrderShipment">
@@ -154,7 +154,7 @@ under the License.
         <set-service-fields to-map-name="orderReqCommitParams" service-name="createOrderRequirementCommitment" map-name="parameters"/>
         <call-service service-name="createOrderRequirementCommitment" in-map-name="orderReqCommitParams"/>
 
-        <field-to-result field-name="parameters.requirementId" result-name="requirementId"/>
+        <field-to-result field="parameters.requirementId" result-name="requirementId"/>
     </simple-method>
 
     <simple-method method-name="getProductFacilityAndQuantities" short-description="finds ProductFacility and QOH, ATP inventory for an inventoryItem">
@@ -262,7 +262,7 @@ under the License.
                         <call-service service-name="createRequirement" in-map-name="inputMap">
                             <result-to-field field-name="parameters.requirementId" result-name="requirementId"/>
                         </call-service>
-                        <field-to-result field-name="parameters.requirementId" result-name="requirementId"/>
+                        <field-to-result field="parameters.requirementId" result-name="requirementId"/>
                     </if-compare-field>
                 </if-compare-field>
             </if-not-empty>
@@ -309,7 +309,7 @@ under the License.
                         <call-service service-name="createRequirement" in-map-name="inputMap">
                             <result-to-field field-name="parameters.requirementId" result-name="requirementId"/>
                         </call-service>
-                        <field-to-result field-name="parameters.requirementId" result-name="requirementId"/>
+                        <field-to-result field="parameters.requirementId" result-name="requirementId"/>
                     </if-compare-field>
                 </if-compare-field>
             </if-not-empty>
@@ -514,7 +514,7 @@ under the License.
         
         <!-- use orderIdTemp along with the orderIdPrefix to create the real ID -->
         <set field="orderId" value="${productStore.orderNumberPrefix}${partyAcctgPreference.orderIdPrefix}${str:toString(orderIdTemp)}"/>
-        <field-to-result field-name="orderId" result-name="orderId"/>
+        <field-to-result field="orderId" result-name="orderId"/>
     </simple-method>
     
     <simple-method method-name="createOrderHeader" short-description="Create OrderHeader">
@@ -531,7 +531,7 @@ under the License.
             <sequenced-id-to-env sequence-name="OrderHeader" env-name="newEntity.orderId"/>
         </else>
         </if-not-empty>
-        <field-to-result field-name="newEntity.orderId" result-name="orderId"/>
+        <field-to-result field="newEntity.orderId" result-name="orderId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <create-value value-field="newEntity"/>
@@ -772,7 +772,7 @@ under the License.
         </if-compare>
         <get-related value-name="orderItemShipGroup" relation-name="OrderItemShipGrpInvRes" list-name="orderItemShipGroupInvResList" order-by-list-name="orderByList"/>
         <first-from-list entry="orderItemShipGroupInvRes" list="orderItemShipGroupInvResList"/>
-        <field-to-result field-name="orderItemShipGroupInvRes.promisedDatetime" result-name="estimatedShipDate"/>
+        <field-to-result field="orderItemShipGroupInvRes.promisedDatetime" result-name="estimatedShipDate"/>
     </simple-method>
 
     <simple-method method-name="createOrderContactMech" short-description="Create OrderContactMech">
@@ -853,7 +853,7 @@ under the License.
         <call-service service-name="createOrderPaymentPreference" in-map-name="inputMap" include-user-login="true">
            <result-to-field field-name="parameters.orderPaymentPreferenceId" result-name="orderPaymentPreferenceId"/> 
         </call-service>   
-        <field-to-result field-name="parameters.orderPaymentPreferenceId" result-name="orderPaymentPreferenceId"/>
+        <field-to-result field="parameters.orderPaymentPreferenceId" result-name="orderPaymentPreferenceId"/>
     </simple-method>
 
     <simple-method method-name="getOrderStatus" short-description="Gets an order status" login-required="false">
@@ -862,7 +862,7 @@ under the License.
             <add-error><fail-message message="Order not found [{parameters.orderId}]"/></add-error>
             <check-errors/>
         </if-empty>
-        <field-to-result field-name="statusId" map-name="order" result-name="statusId"/>
+        <field-to-result field="statusId" map-name="order" result-name="statusId"/>
     </simple-method>
     
     <simple-method method-name="checkOrderIsOnBackOrder" short-description="Check if an Order is on Back Order" login-required="false">
@@ -880,7 +880,7 @@ under the License.
                 <set field="isBackOrder" value="true" type="Boolean"/>
             </else>
         </if-empty>
-        <field-to-result field-name="isBackOrder" result-name="isBackOrder"/>
+        <field-to-result field="isBackOrder" result-name="isBackOrder"/>
     </simple-method>
     
     <simple-method method-name="createOrderItemChange" short-description="Creates a new Order Item Change record">
@@ -895,7 +895,7 @@ under the License.
         </if-empty>
         <sequenced-id-to-env sequence-name="OrderItemChange" env-name="newEntity.orderItemChangeId"/>
         <create-value value-field="newEntity"/>
-        <field-to-result field-name="newEntity.orderItemChangeId" result-name="orderItemChangeId"/>                    
+        <field-to-result field="newEntity.orderItemChangeId" result-name="orderItemChangeId"/>                    
     </simple-method>    
 
     <simple-method method-name="createUpdateShippingAddress" short-description="create and update Shipping address" login-required="false">
@@ -991,7 +991,7 @@ under the License.
             </if-compare>
         </else>
         </if-empty>
-        <field-to-result field-name="parameters.shipToContactMechId" result-name="contactMechId"/>
+        <field-to-result field="parameters.shipToContactMechId" result-name="contactMechId"/>
     </simple-method>
 
     <simple-method method-name="createUpdateBillingAddress" short-description="create and update billing address">
@@ -1103,7 +1103,7 @@ under the License.
             </else>
             </if-empty>
         </if-compare>
-        <field-to-result field-name="parameters.billToContactMechId" result-name="contactMechId"/>
+        <field-to-result field="parameters.billToContactMechId" result-name="contactMechId"/>
     </simple-method>
     <simple-method method-name="createUpdateCreditCard" short-description="create and update credit card">
         <set-service-fields service-name="createCreditCard" map-name="parameters" to-map-name="creditCardContext"/>
@@ -1128,7 +1128,7 @@ under the License.
         </else>
         </if-empty>
         <set field="paymentMethodId" from-field="parameters.paymentMethodId"/>
-        <field-to-result field-name="parameters.paymentMethodId" result-name="paymentMethodId"/>
+        <field-to-result field="parameters.paymentMethodId" result-name="paymentMethodId"/>
     </simple-method>
     
 </simple-methods>

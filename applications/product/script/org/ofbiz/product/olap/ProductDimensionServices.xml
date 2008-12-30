@@ -33,7 +33,7 @@ under the License.
         <get-related-one value-name="product" relation-name="ProductType" to-value-name="productType"/>
         <set field="productDimension.productType" from-field="productType.description"/>
 
-        <field-to-result field-name="productDimension"/>
+        <field-to-result field="productDimension"/>
     </simple-method>
 
     <simple-method method-name="loadProductInProductDimension" short-description="">

@@ -45,7 +45,7 @@ under the License.
             <set from-field="parameters.fixedAssetId" field="newEntity.fixedAssetId"/>
         </else>
         </if-empty>
-        <field-to-result field-name="newEntity.fixedAssetId" result-name="fixedAssetId"/>
+        <field-to-result field="newEntity.fixedAssetId" result-name="fixedAssetId"/>
         
         <!-- finally create the record (should not exist already)-->
         <create-value value-field="newEntity"/>
@@ -188,7 +188,7 @@ under the License.
         <make-value entity-name="FixedAssetMaint" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="maintHistSeqId"/> <!-- this finds the next sub-sequence ID -->
-        <field-to-result field-name="newEntity.maintHistSeqId" result-name="maintHistSeqId"/>
+        <field-to-result field="newEntity.maintHistSeqId" result-name="maintHistSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-not-empty field="parameters.productMaintSeqId">
             <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
@@ -245,7 +245,7 @@ under the License.
     <simple-method method-name="updateFixedAssetMaint" short-description="Update an existing FixedAsset Maintenance">
         <entity-one entity-name="FixedAssetMaint" value-field="lookedUpValue"/>
         <set field="oldStatusId" from-field="lookedUpValue.statusId"/>
-        <field-to-result field-name="oldStatusId"/>
+        <field-to-result field="oldStatusId"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <if-not-empty field="parameters.productMaintSeqId">
             <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
@@ -598,8 +598,8 @@ under the License.
             </loop>
         </if-not-empty>
         <log level="info" message="Using straight line formula depreciation calculated for fixedAsset (${parameters.fixedAssetId}) is ${depreciation}"/>
-        <field-to-result field-name="assetDepreciationTillDate"/>
-        <field-to-result field-name="assetNBVAfterDepreciation"/>
+        <field-to-result field="assetDepreciationTillDate"/>
+        <field-to-result field="assetNBVAfterDepreciation"/>
     </simple-method>
     
     <simple-method method-name="doubleDecliningBalanceDepreciation" short-description="Calculate double declining balance depreciation to Fixed Asset">
@@ -644,8 +644,8 @@ under the License.
             </loop>
         </if-not-empty>
         <log level="info" message="Using double decline formula depreciation calculated for fixedAsset (${parameters.fixedAssetId}) is ${assetDepreciationTillDate}"/>
-        <field-to-result field-name="assetDepreciationTillDate"/>
-        <field-to-result field-name="assetNBVAfterDepreciation"/>
+        <field-to-result field="assetDepreciationTillDate"/>
+        <field-to-result field="assetNBVAfterDepreciation"/>
     </simple-method>
     
     <simple-method method-name="calculateFixedAssetDepreciation" short-description="Service to calculate the yearly depreciation from dateAcquired year to current financial year">
@@ -729,8 +729,8 @@ under the License.
             </call-service>
             <log level="info" message="Asset's depreciation calculated till date are ${assetDepreciationTillDate}"/>
             <log level="info" message="Asset's Net Book Values (NBV) from acquired date after deducting depreciation are ${assetNBVAfterDepreciation}"/>
-            <field-to-result field-name="assetDepreciationTillDate"/>
-            <field-to-result field-name="assetNBVAfterDepreciation"/>
+            <field-to-result field="assetDepreciationTillDate"/>
+            <field-to-result field="assetNBVAfterDepreciation"/>
         <else>
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingFixedAssetDepreciationMethodNotFound"/></add-error>
             <check-errors/>

@@ -32,8 +32,8 @@ under the License.
                 <set field="productId" type="String" value="${product.productId}"/>
                 <field-to-list field-name="productId" list-name="productsId"/>
             </iterate>
-            <field-to-result field-name="productsList" result-name="productsList"/>
-            <field-to-result field-name="productsId" result-name="productsId"/>
+            <field-to-result field="productsList" result-name="productsList"/>
+            <field-to-result field="productsId" result-name="productsId"/>
         <else>
             <!--  Search by product description -->
             <if-compare field="parameters.searchBy" operator="equals" value="productDescription">
@@ -48,8 +48,8 @@ under the License.
                     <set field="productId" type="String" value="${product.productId}"/>
                     <field-to-list field-name="productId" list-name="productsId"/>
                 </iterate>
-                <field-to-result field-name="productsList" result-name="productsList"/>
-                <field-to-result field-name="productsId" result-name="productsId"/>
+                <field-to-result field="productsList" result-name="productsList"/>
+                <field-to-result field="productsId" result-name="productsId"/>
             </if-compare>
         </else>
         </if-compare>
@@ -68,7 +68,7 @@ under the License.
             <set field="productId" type="String" value="${product.productId}"/>
             <field-to-list field-name="productId" list-name="productsId"/>
         </iterate>
-        <field-to-result field-name="productsList" result-name="productsList"/>
-        <field-to-result field-name="productsId" result-name="productsId"/>
+        <field-to-result field="productsList" result-name="productsList"/>
+        <field-to-result field="productsId" result-name="productsId"/>
     </simple-method>
 </simple-methods>

@@ -65,7 +65,7 @@ under the License.
         </if-empty>
 
         <sequenced-id-to-env sequence-name="ShoppingList" env-name="newEntity.shoppingListId"/>
-        <field-to-result field-name="newEntity.shoppingListId" result-name="shoppingListId"/>
+        <field-to-result field="newEntity.shoppingListId" result-name="shoppingListId"/>
         <create-value value-field="newEntity"/>
     </simple-method>
     
@@ -128,8 +128,8 @@ under the License.
         <make-next-seq-id value-name="newEntity" seq-field-name="shoppingListItemSeqId" numeric-padding="5"/>
 
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <field-to-result field-name="newEntity.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>
-        <field-to-result field-name="newEntity.shoppingListId" result-name="shoppingListId"/>
+        <field-to-result field="newEntity.shoppingListItemSeqId" result-name="shoppingListItemSeqId"/>
+        <field-to-result field="newEntity.shoppingListId" result-name="shoppingListId"/>
         <create-value value-field="newEntity"/>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
@@ -188,7 +188,7 @@ under the License.
 
         <iterate list="shoppingListItemList" entry="shoppingListItem">
             <if-compare-field field="parameters.productId" to-field="shoppingListItem.productId" operator="equals">
-                <field-to-result field-name="shoppingListItem.shoppingListItemSeqId" result-name="shoppingListItemSeqId" />
+                <field-to-result field="shoppingListItem.shoppingListItemSeqId" result-name="shoppingListItemSeqId" />
                 <return />
             </if-compare-field>
         </iterate>
@@ -254,7 +254,7 @@ under the License.
             <clear-field field="calcChildPriceInMap"/>
         </iterate>
 
-        <field-to-result field-name="totalPrice" result-name="totalPrice"/>
+        <field-to-result field="totalPrice" result-name="totalPrice"/>
     </simple-method>
     
     <simple-method method-name="checkShoppingListSecurity" short-description="Checks security on a ShoppingList">

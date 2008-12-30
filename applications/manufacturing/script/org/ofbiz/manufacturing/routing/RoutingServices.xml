@@ -115,8 +115,8 @@ under the License.
             <filter-list-by-date list-name="tasks"/>
         </if-not-empty>
 
-        <field-to-result field-name="routing"/>
-        <field-to-result field-name="tasks"/>
+        <field-to-result field="routing"/>
+        <field-to-result field="tasks"/>
     </simple-method>
     <simple-method method-name="getRoutingTaskAssocs" short-description="Get the routing task assocs of a given routing">
         <set from-field="parameters.workEffortId" field="lookupTasks.workEffortIdFrom"/>
@@ -124,7 +124,7 @@ under the License.
         <set value="ROUTING_COMPONENT" field="lookupTasks.workEffortAssocTypeId"/>
         <find-by-and entity-name="WorkEffortAssoc" list-name="routingTaskAssocs" map-name="lookupTasks" order-by-list-name="tasksOrder"/>
         <filter-list-by-date list-name="routingTaskAssocs"/>
-        <field-to-result field-name="routingTaskAssocs"/>
+        <field-to-result field="routingTaskAssocs"/>
     </simple-method>
 
 </simple-methods>

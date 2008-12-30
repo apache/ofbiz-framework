@@ -78,7 +78,7 @@ under the License.
         </calculate>
 
         <create-value value-field="newEntity"/>
-        <field-to-result field-name="finAccountId" map-name="newEntity" result-name="finAccountId"/>
+        <field-to-result field="finAccountId" map-name="newEntity" result-name="finAccountId"/>
         
         <set-service-fields service-name="createFinAccountStatus" map-name="newEntity" to-map-name="createFinAccountStatusMap"/>
         <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
@@ -87,11 +87,11 @@ under the License.
         <call-simple-method method-name="getArithmeticSettingsInline"/>
         
         <entity-one entity-name="FinAccount" value-field="lookedUpValue"/>
-        <field-to-result field-name="lookedUpValue.replenishPaymentId" result-name="oldReplenishPaymentId"/>
-        <field-to-result field-name="lookedUpValue.replenishLevel" result-name="oldReplenishLevel"/>
+        <field-to-result field="lookedUpValue.replenishPaymentId" result-name="oldReplenishPaymentId"/>
+        <field-to-result field="lookedUpValue.replenishLevel" result-name="oldReplenishLevel"/>
 
         <!-- handle statusId change stuff; first put the current statusId in the oldStatusId result -->
-        <field-to-result field-name="lookedUpValue.statusId" result-name="oldStatusId"/>
+        <field-to-result field="lookedUpValue.statusId" result-name="oldStatusId"/>
         <if>
             <condition>
                 <and>
@@ -128,9 +128,9 @@ under the License.
         </calculate>
         <store-value value-name="lookedUpValue"/>
         
-        <field-to-result field-name="lookedUpValue.replenishPaymentId" result-name="replenishPaymentId"/>
-        <field-to-result field-name="lookedUpValue.replenishLevel" result-name="replenishLevel"/>
-        <field-to-result field-name="lookedUpValue.finAccountId" result-name="finAccountId"/>        
+        <field-to-result field="lookedUpValue.replenishPaymentId" result-name="replenishPaymentId"/>
+        <field-to-result field="lookedUpValue.replenishLevel" result-name="replenishLevel"/>
+        <field-to-result field="lookedUpValue.finAccountId" result-name="finAccountId"/>        
     </simple-method>
     <simple-method method-name="deleteFinAccount" short-description="Delete a Financial Account">
         <entity-one value-field="finAccount" entity-name="FinAccount"/>
@@ -186,7 +186,7 @@ under the License.
         </if-compare-field>
 
         <create-value value-field="newEntity"/>
-        <field-to-result field-name="newEntity.finAccountTransId" result-name="finAccountTransId"/>
+        <field-to-result field="newEntity.finAccountTransId" result-name="finAccountTransId"/>
     </simple-method>
 
     <!-- FinAccountRole Services -->    
@@ -238,7 +238,7 @@ under the License.
         </if-compare-field>
         
         <create-value value-field="newEntity"/>
-        <field-to-result field-name="newEntity.finAccountAuthId" result-name="finAccountAuthId"/>
+        <field-to-result field="newEntity.finAccountAuthId" result-name="finAccountAuthId"/>
     </simple-method>
     <simple-method method-name="expireFinAccountAuth" short-description="Expire a Financial Account Authorization">
         <entity-one entity-name="FinAccountAuth" value-field="finAccountAuth"/>

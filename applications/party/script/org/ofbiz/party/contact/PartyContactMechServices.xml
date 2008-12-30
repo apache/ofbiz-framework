@@ -61,7 +61,7 @@ under the License.
         </if-empty>   
         <log level="info" message="Creating a PartyContactMech with id: ${parameters.contactMechId}"/>
         <set field="newValue.partyId" from-field="parameters.partyId"/>
-        <field-to-result field-name="contactMechId" map-name="newValue"/>
+        <field-to-result field="contactMechId" map-name="newValue"/>
         <field-to-request field-name="contactMechId" map-name="newValue"/>
         <set-nonpk-fields map="parameters" value-field="newValue"/>
         <now-timestamp-to-env env-name="newValue.fromDate"/>
@@ -128,7 +128,7 @@ under the License.
         </if-compare-field>
         
         <log level="info" message="Setting id to result: ${newPartyContactMech.contactMechId}"/>
-        <field-to-result field-name="newPartyContactMech.contactMechId" result-name="contactMechId"/>
+        <field-to-result field="newPartyContactMech.contactMechId" result-name="contactMechId"/>
         <field-to-request field-name="newPartyContactMech.contactMechId" request-name="contactMechId"/>
     </simple-method>    
     
@@ -173,7 +173,7 @@ under the License.
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyCreated"/>
         </call-service>
         <field-to-request field-name="contactMechId" map-name="newPartyContactMech"/>
-        <field-to-result field-name="contactMechId" map-name="newPartyContactMech"/>
+        <field-to-result field="contactMechId" map-name="newPartyContactMech"/>
     </simple-method>
     
     <simple-method method-name="updatePartyPostalAddress" short-description="Update a PostalAddress for party">
@@ -196,7 +196,7 @@ under the License.
             <default-message resource="PartyUiLabels" property="PartyPostalAddressSuccessfullyUpdated"/>
         </call-service>
         <field-to-request field-name="contactMechId" map-name="newPartyContactMech"/>
-        <field-to-result field-name="contactMechId" map-name="newPartyContactMech"/>                      
+        <field-to-result field="contactMechId" map-name="newPartyContactMech"/>                      
     </simple-method>
 
     <simple-method method-name="createPartyTelecomNumber" short-description="Create a TelecomNumber for party">
@@ -220,7 +220,7 @@ under the License.
             <default-message resource="PartyUiLabels" property="PartyTelecomNumberSuccessfullyCreated"/>
         </call-service>
         <field-to-request field-name="contactMechId" map-name="newPartyContactMech"/>
-        <field-to-result field-name="contactMechId" map-name="newPartyContactMech"/>
+        <field-to-result field="contactMechId" map-name="newPartyContactMech"/>
     </simple-method>
     
     <simple-method method-name="updatePartyTelecomNumber" short-description="Update a TelecomNumber for party">
@@ -245,7 +245,7 @@ under the License.
         </call-service>
         <log level="info" message="Setting result id: ${newPartyContactMech.contactMechId}"/>
         <field-to-request field-name="contactMechId" map-name="newPartyContactMech"/>
-        <field-to-result field-name="contactMechId" map-name="newPartyContactMech"/>                      
+        <field-to-result field="contactMechId" map-name="newPartyContactMech"/>                      
     </simple-method>  
     
     <simple-method method-name="createPartyEmailAddress" short-description="Create an email address for party">
@@ -286,7 +286,7 @@ under the License.
             <result-to-result result-name="contactMechId"/>
             <result-to-request result-name="contactMechId"/>
         </call-service>
-        <field-to-result map-name="parameters" field-name="contactMechId" result-name="oldContactMechId"/>        
+        <field-to-result map-name="parameters" field="contactMechId" result-name="oldContactMechId"/>        
     </simple-method>
 
     <simple-method method-name="findPartyFromEmailAddress" short-description="Find partyId from email address">
@@ -314,8 +314,8 @@ under the License.
         </call-service>
         
         <if-not-empty field="results.item">
-            <field-to-result field-name="results.item.partyId" result-name="partyId"/>
-            <field-to-result field-name="results.item.contactMechId" result-name="contactMechId"/>
+            <field-to-result field="results.item.partyId" result-name="partyId"/>
+            <field-to-result field="results.item.contactMechId" result-name="contactMechId"/>
         </if-not-empty>
         
     </simple-method>

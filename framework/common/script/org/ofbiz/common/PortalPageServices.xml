@@ -42,7 +42,7 @@ under the License.
         <make-value entity-name="PortalPageColumn" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="columnSeqId"/>
-        <field-to-result field-name="newEntity.columnSeqId" result-name="columnSeqId"/>
+        <field-to-result field="newEntity.columnSeqId" result-name="columnSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>  
     </simple-method>
@@ -69,7 +69,7 @@ under the License.
         <make-value entity-name="PortalPagePortlet" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="portletSeqId"/>
-        <field-to-result field-name="newEntity.portletSeqId" result-name="portletSeqId"/>
+        <field-to-result field="newEntity.portletSeqId" result-name="portletSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>  
         <make-value entity-name="PortalPageColumn" value-field="newEntity1"/>
@@ -101,7 +101,7 @@ under the License.
         <iterate list="attributeList" entry="attributeRecord">
             <set field="attributeMap.${attributeRecord.attrName}" from-field="attributeRecord.attrValue"/>
         </iterate>
-        <field-to-result field-name="attributeMap" result-name="attributeMap"/>
+        <field-to-result field="attributeMap" result-name="attributeMap"/>
     </simple-method>
     
     <simple-method method-name="createPortalPage" short-description="Create a new Portal Page">
@@ -117,7 +117,7 @@ under the License.
         <set field="newPortalPageColumn.columnSeqId"  value="1"/>
         <create-value value-field="newPortalPageColumn"/>
 
-        <field-to-result field-name="newPortalPage.portalPageId" result-name="portalPageId"/>
+        <field-to-result field="newPortalPage.portalPageId" result-name="portalPageId"/>
     </simple-method>
     
     <simple-method method-name="deletePortalPage" short-description="Delete a Portal Page">
@@ -179,6 +179,6 @@ under the License.
             </entity-condition>
         </if-not-empty> 
         <list-to-list list-name="PortalPageList" to-list-name="result"/>
-        <field-to-result field-name="result" result-name="listIt"/>
+        <field-to-result field="result" result-name="listIt"/>
     </simple-method>  
 </simple-methods>
