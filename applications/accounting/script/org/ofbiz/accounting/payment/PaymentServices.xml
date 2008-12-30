@@ -318,7 +318,7 @@ under the License.
                 <clear-field field-name="invoicePaymentInfo"/>
                 <set field="andMap.termTypeId" value="FIN_PAYMENT_TERM"/>
                 <filter-list-by-and list-name="invoiceTerms" map-name="andMap"/>
-                <first-from-list list-name="invoiceTerms" entry-name="invoiceTerm"/>
+                <first-from-list list="invoiceTerms" entry-name="invoiceTerm"/>
                 <if-not-empty field="invoiceTerm">
                     <set field="invoicePaymentInfo.termTypeId" from-field="invoiceTerm.termTypeId"/>
                     <call-class-method class-name="org.ofbiz.base.util.UtilDateTime" method-name="getDayEnd" ret-field-name="invoicePaymentInfo.dueDate">

@@ -39,7 +39,7 @@ under the License.
                 <field-map field-name="partyId" from-field="parameters.partyIdFrom"/>
             </entity-and>
             <if-not-empty field="roles">
-                <first-from-list list-name="roles" entry-name="role"/>
+                <first-from-list list="roles" entry-name="role"/>
                 <set field="newStat.communicationEventId" from-field="parameters.parentCommEventId"/>
                 <set field="newStat.partyId" from-field="parameters.partyIdFrom"/>
                 <set field="newStat.roleTypeId" from-field="role.roleTypeId"/>

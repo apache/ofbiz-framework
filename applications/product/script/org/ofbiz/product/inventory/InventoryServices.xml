@@ -1264,7 +1264,7 @@ under the License.
                     <set field="orderRoleAndMap.orderId" from-field="orderHeader.orderId"/>
                     <set field="orderRoleAndMap.roleTypeId" value="END_USER_CUSTOMER"/>
                     <find-by-and entity-name="OrderRole" list-name="orderRoles" map-name="orderRoleAndMap"/>
-                    <first-from-list list-name="orderRoles" entry-name="orderRole"/>
+                    <first-from-list list="orderRoles" entry-name="orderRole"/>
                     <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
                         <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
                     </entity-one>

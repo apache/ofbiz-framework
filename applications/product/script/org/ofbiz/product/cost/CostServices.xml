@@ -82,22 +82,22 @@ under the License.
         <set value="${parameters.costComponentTypePrefix}_ROUTE_COST" field="costsAndMap.costComponentTypeId"/>
         <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="routeCosts"/>
         <filter-list-by-date list-name="routeCosts"/>
-        <first-from-list list-name="routeCosts" entry-name="routeCost"/>
+        <first-from-list list="routeCosts" entry-name="routeCost"/>
         <!-- Labor costs -->
         <set value="${parameters.costComponentTypePrefix}_LABOR_COST" field="costsAndMap.costComponentTypeId"/>
         <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="laborCosts"/>
         <filter-list-by-date list-name="laborCosts"/>
-        <first-from-list list-name="laborCosts" entry-name="laborCost"/>
+        <first-from-list list="laborCosts" entry-name="laborCost"/>
         <!-- Materials costs -->
         <set value="${parameters.costComponentTypePrefix}_MAT_COST" field="costsAndMap.costComponentTypeId"/>
         <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="materialsCosts"/>
         <filter-list-by-date list-name="materialsCosts"/>
-        <first-from-list list-name="materialsCosts" entry-name="materialsCost"/>
+        <first-from-list list="materialsCosts" entry-name="materialsCost"/>
         <!-- Other costs -->
         <set value="${parameters.costComponentTypePrefix}_OTHER_COST" field="costsAndMap.costComponentTypeId"/>
         <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="otherCosts"/>
         <filter-list-by-date list-name="otherCosts"/>
-        <first-from-list list-name="otherCosts" entry-name="otherCost"/>
+        <first-from-list list="otherCosts" entry-name="otherCost"/>
         
         <set field="productCost" value="0" type="Double" />
         <calculate field-name="productCost" type="Double" decimal-scale="6">
@@ -114,7 +114,7 @@ under the License.
             <set value="PRODUCT_VARIANT" field="assocAndMap.productAssocTypeId"/>
             <find-by-and entity-name="ProductAssoc" map-name="assocAndMap" list-name="virtualAssocs"/>
             <filter-list-by-date list-name="virtualAssocs"/>
-            <first-from-list list-name="virtualAssocs" entry-name="virtualAssoc"/>
+            <first-from-list list="virtualAssocs" entry-name="virtualAssoc"/>
             <if-not-empty field="virtualAssoc">
                 <set from-field="virtualAssoc.productId" field="inputMap.productId"/>
                 <set from-field="parameters.currencyUomId" field="inputMap.currencyUomId"/>
@@ -133,7 +133,7 @@ under the License.
             <set from-field="parameters.currencyUomId" field="costsAndMap.currencyUomId"/>
             <find-by-and entity-name="SupplierProduct" map-name="costsAndMap" list-name="priceCosts" order-by-list-name="orderByList"/>
             <filter-list-by-date list-name="priceCosts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
-            <first-from-list list-name="priceCosts" entry-name="priceCost"/>
+            <first-from-list list="priceCosts" entry-name="priceCost"/>
             <if-not-empty field="priceCost.lastPrice">
                 <set from-field="priceCost.lastPrice" field="productCost"/>
             </if-not-empty>
@@ -146,7 +146,7 @@ under the License.
                 <set from-field="parameters.productPriceTypeId" field="costsAndMap.productPriceTypeId"/>
                 <find-by-and entity-name="SupplierProduct" map-name="costsAndMap" list-name="priceCosts" order-by-list-name="orderByList"/>
                 <filter-list-by-date list-name="priceCosts" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
-                <first-from-list list-name="priceCosts" entry-name="priceCost"/>
+                <first-from-list list="priceCosts" entry-name="priceCost"/>
                 <if-not-empty field="priceCost.lastPrice">
                     <!-- we try to convert the lastPrice to the desired currency -->
                     <clear-field field-name="inputMap"/>
@@ -167,7 +167,7 @@ under the License.
             <set from-field="parameters.productPriceTypeId" field="costsAndMap.productPriceTypeId"/>
             <find-by-and entity-name="ProductPrice" map-name="costsAndMap" list-name="priceCosts"/>
             <filter-list-by-date list-name="priceCosts"/>
-            <first-from-list list-name="priceCosts" entry-name="priceCost"/>
+            <first-from-list list="priceCosts" entry-name="priceCost"/>
             <if-not-empty field="priceCost.price">
                 <set from-field="priceCost.price" field="productCost"/>
             </if-not-empty>
@@ -198,11 +198,11 @@ under the License.
             <get-related value-name="fixedAsset" relation-name="FixedAssetStdCost" map-name="costsAndMap" list-name="setupCosts"/>
             <filter-list-by-date list-name="setupCosts"/>
             <!--<filter-list-by-and list-name="costs" map-name="costsAndMap"/>-->
-            <first-from-list list-name="setupCosts" entry-name="setupCost"/>
+            <first-from-list list="setupCosts" entry-name="setupCost"/>
             <set value="USAGE_COST" field="costsAndMap.fixedAssetStdCostTypeId"/>
             <get-related value-name="fixedAsset" relation-name="FixedAssetStdCost" map-name="costsAndMap" list-name="usageCosts"/>
             <filter-list-by-date list-name="usageCosts"/>
-            <first-from-list list-name="usageCosts" entry-name="usageCost"/>
+            <first-from-list list="usageCosts" entry-name="usageCost"/>
         </if-not-empty>
         <calculate field-name="taskCost" type="Double" decimal-scale="6">
             <calcop operator="add">

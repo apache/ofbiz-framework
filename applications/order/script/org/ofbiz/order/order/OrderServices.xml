@@ -79,7 +79,7 @@ under the License.
         <field-to-result field-name="plainLongZero" result-name="totalOrders"/>
 
         <!-- because we specified the partyId and the roleTypeId, should only be one item in list returned -->
-        <first-from-list list-name="orderInfoList" entry-name="orderInfo"/>
+        <first-from-list list="orderInfoList" entry-name="orderInfo"/>
         <if-not-empty field="orderInfo">
             <field-to-result field-name="orderInfo.totalGrandAmount" result-name="totalGrandAmount"/>
             <field-to-result field-name="orderInfo.totalSubRemainingAmount" result-name="totalSubRemainingAmount"/>
@@ -937,7 +937,7 @@ under the License.
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
                     <if-not-empty field="pcmpList">
-                        <first-from-list list-name="pcmpList" entry-name="pcmp"/>
+                        <first-from-list list="pcmpList" entry-name="pcmp"/>
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field-name="serviceInMap"/>
@@ -969,7 +969,7 @@ under the License.
                             <field-map field-name="partyId" from-field="userLogin.partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         </entity-and>
-                        <first-from-list list-name="pcmpList" entry-name="pcmp"/>
+                        <first-from-list list="pcmpList" entry-name="pcmp"/>
                         <if-not-empty field="pcmp">
                             <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
@@ -1081,7 +1081,7 @@ under the License.
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
                     <if-not-empty field="pcmpList">
-                        <first-from-list list-name="pcmpList" entry-name="pcmp"/>
+                        <first-from-list list="pcmpList" entry-name="pcmp"/>
                         <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                         <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         <clear-field field-name="serviceInMap"/>
@@ -1120,7 +1120,7 @@ under the License.
                 <field-map field-name="partyId" from-field="partyId"/>
                 <order-by field-name="-fromDate"/>
             </entity-and>
-            <first-from-list list-name="paymentMethodList" entry-name="paymentMethod"/>
+            <first-from-list list="paymentMethodList" entry-name="paymentMethod"/>
             <set field="creditCardContext.paymentMethodId" from-field="paymentMethod.paymentMethodId"/>
             <call-service service-name="updateCreditCard" in-map-name="creditCardContext">
                 <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>

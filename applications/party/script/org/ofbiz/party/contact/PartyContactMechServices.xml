@@ -446,7 +446,7 @@ under the License.
                             <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         </entity-and>
                         <if-not-empty field="pcmpList">
-                            <first-from-list list-name="pcmpList" entry-name="pcmp"/>
+                            <first-from-list list="pcmpList" entry-name="pcmp"/>
                             <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                             <clear-field field-name="serviceInMap"/>
@@ -478,7 +478,7 @@ under the License.
                             <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                         </entity-and>
                         <if-not-empty field="pcmpList">
-                            <first-from-list list-name="pcmpList" entry-name="pcmp"/>
+                            <first-from-list list="pcmpList" entry-name="pcmp"/>
                             <set-service-fields service-name="deletePartyContactMechPurposeIfExists" map-name="pcmp" to-map-name="serviceInMap"/>
                             <call-service service-name="deletePartyContactMechPurposeIfExists" in-map-name="serviceInMap"/>
                         </if-not-empty>

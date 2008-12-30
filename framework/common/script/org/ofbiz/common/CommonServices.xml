@@ -93,7 +93,7 @@ under the License.
                     <!-- sort by descending fromDate to get newest (biggest) first -->
                 <order-by field-name="-fromDate"/>
             </entity-condition>
-            <first-from-list list-name="uomConversions" entry-name="uomConversion"/>
+            <first-from-list list="uomConversions" entry-name="uomConversion"/>
             
             <!-- if no conversion found with specified purpose, try w/o purpose -->
             <if-empty field="uomConversion">
@@ -110,7 +110,7 @@ under the License.
                         </condition-list>
                         <order-by field-name="-fromDate"/>
                     </entity-condition>
-                    <first-from-list list-name="uomConversions" entry-name="uomConversion"/>
+                    <first-from-list list="uomConversions" entry-name="uomConversion"/>
                 </if-not-empty>
             </if-empty>
         </if-empty>
