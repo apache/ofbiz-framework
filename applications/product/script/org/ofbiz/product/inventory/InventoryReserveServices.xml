@@ -334,7 +334,7 @@ under the License.
             <!-- Hold our inventoryItem -->
             <refresh-value value-name="inventoryItem"/>
             <set value="INV_PROMISED" field="inventoryItem.statusId"/>
-            <store-value value-name="inventoryItem"/>
+            <store-value value-field="inventoryItem"/>
             <!-- get something else for other order -->
             <!-- store OrderItemShipGrpInvRes record -->
             <set from-field="inventoryItemReservation.orderId" field="reserveOisgirMap.orderId"/>
@@ -356,7 +356,7 @@ under the License.
         <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">
             <!-- change status on inventoryItem -->
             <set value="INV_PROMISED" field="inventoryItem.statusId"/>
-            <store-value value-name="inventoryItem"/>
+            <store-value value-field="inventoryItem"/>
         </if-compare>  
         <set from-field="parameters.orderId" field="reserveOisgirMap.orderId"/>
         <set from-field="parameters.orderItemSeqId" field="reserveOisgirMap.orderItemSeqId"/>
@@ -383,7 +383,7 @@ under the License.
                 <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">
                     <!-- change status on inventoryItem -->
                     <set value="INV_PROMISED" field="inventoryItem.statusId"/>
-                    <store-value value-name="inventoryItem"/>
+                    <store-value value-field="inventoryItem"/>
 
                     <!-- store OrderItemShipGrpInvRes record -->
                     <call-simple-method method-name="getPromisedDateTime"/>
@@ -511,7 +511,7 @@ under the License.
                 <calcop operator="add" field="checkOisgirEntity.quantityNotAvailable"/>
                 <calcop operator="add" field="parameters.quantityNotAvailable"/>
             </calculate>
-            <store-value value-name="checkOisgirEntity"/>
+            <store-value value-field="checkOisgirEntity"/>
         </else>
         </if-empty>
     </simple-method>
@@ -597,7 +597,7 @@ under the License.
             <log level="verbose" message="Serialized inventory re-enabled."/>
             <set value="INV_AVAILABLE" field="inventoryItem.statusId"/>
             <remove-value value-name="orderItemShipGrpInvRes"/>
-            <store-value value-name="inventoryItem"/>
+            <store-value value-field="inventoryItem"/>
         </if-compare>
         <if-compare value="NON_SERIAL_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
             <log level="verbose" message="Non-Serialized inventory item incrementing availableToPromise."/>
@@ -621,7 +621,7 @@ under the License.
                         <calcop operator="get" field="cancelQuantity"/>
                     </calcop>
                 </calculate>
-                <store-value value-name="orderItemShipGrpInvRes"/>
+                <store-value value-field="orderItemShipGrpInvRes"/>
             <else>
                 <remove-value value-name="orderItemShipGrpInvRes"/>
             </else>

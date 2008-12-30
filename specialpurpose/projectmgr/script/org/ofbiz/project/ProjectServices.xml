@@ -70,7 +70,7 @@
             <first-from-list entry="workEffortPartyAssignment" list="workEffortPartyAssignments"/>
             <if-compare-field field="updProjectRole.newPartyId" operator="not-equals" to-field="workEffortPartyAssignment.partyId">
                 <now-timestamp-to-env env-name="workEffortPartyAssignment.thruDate"/>
-                <store-value value-name="workEffortPartyAssignment"/>
+                <store-value value-field="workEffortPartyAssignment"/>
             </if-compare-field>
         </if-not-empty>
         <!-- create new record if required -->
@@ -144,7 +144,7 @@
                 <set field="workEffortPartyAssignment.comments" from-field="parameters.comments"/>
                 <set field="workEffortPartyAssignment.assignedByUserLoginId" from-field="userLogin.userLoginId"/>
                 <now-date-to-env env-name="workEffortPartyAssignment.thruDate"/>
-                <store-value value-name="workEffortPartyAssignment"/>
+                <store-value value-field="workEffortPartyAssignment"/>
                 <!-- create a new one -->
                 <make-value value-field="newAssign" entity-name="WorkEffortPartyAssignment"/>
                 <set field="newAssign.workEffortId" from-field="parameters.workEffortId"/>
@@ -170,7 +170,7 @@
                         <clear-field field="parameters.statusId"/>
                     </if-compare>
                     <set-nonpk-fields value-field="assignment" map="parameters"/>
-                    <store-value value-name="assignment"/>
+                    <store-value value-field="assignment"/>
                     <if-compare field="assignment.statusId" value="PAS_COMPLETED" operator="equals">
                         <call-simple-method method-name="updateTaskStatusToComplete"/>
                     </if-compare>
@@ -406,7 +406,7 @@
         <if-empty field="project.actualStartDate">
             <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             <now-timestamp-to-env env-name="workEffort.actualStartDate"/>
-            <store-value value-name="workEffort"/>
+            <store-value value-field="workEffort"/>
         </if-empty>
         
         <get-related value-field="timesheet" relation-name="TimeEntry" list="timeEntries"/>
@@ -1245,7 +1245,7 @@
             <iterate list="entries" entry="timeEntry">                    
                    <clear-field field="timeEntry.invoiceId"/>
                    <clear-field field="timeEntry.invoiceItemSeqId"/>
-                   <store-value value-name="timeEntry"/>
+                   <store-value value-field="timeEntry"/>
             </iterate>
             <set field="removeItems.invoiceId" from-field="parameters.invoiceId"/>
             <remove-by-and entity-name="InvoiceItem" map-name="removeItems"/>

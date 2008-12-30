@@ -32,7 +32,7 @@ under the License.
         <first-from-list entry="oldExampleStatus" list="oldExampleStatusList"/>
         <if-not-empty field="oldExampleStatus">
             <set field="oldExampleStatus.statusEndDate" from-field="nowTimestamp"/>
-            <store-value value-name="oldExampleStatus"/>
+            <store-value value-field="oldExampleStatus"/>
         </if-not-empty>
 
         <make-value entity-name="ExampleStatus" value-field="newEntity"/>

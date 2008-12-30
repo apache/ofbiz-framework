@@ -106,7 +106,7 @@ under the License.
         <set-pk-fields fieldName= "exceptionDateStartTime" map="parameters" value-field="excDayPKMap"/>
         <find-by entity-name="TechDataCalendarExcDay" map-name="excDayPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields field-name="capacity" map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
 

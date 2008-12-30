@@ -450,7 +450,7 @@ under the License.
             <!-- if this is a serialized InventoryItem, then just update the location -->
             <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="SERIALIZED_INV_ITEM">
                 <set from-field="parameters.targetLocationSeqId" field="inventoryItem.locationSeqId"/>
-                <store-value value-name="inventoryItem"/>
+                <store-value value-field="inventoryItem"/>
             </if-compare>
 
             <!--
@@ -581,7 +581,7 @@ under the License.
                             <calcop field="orderItemShipGrpInvRes.quantityNotAvailable" operator="get"/>
                             <calcop field="quantityNotAvailableToMove" operator="negative"/>
                         </calculate>
-                        <store-value value-name="orderItemShipGrpInvRes"/>
+                        <store-value value-field="orderItemShipGrpInvRes"/>
                     </else>
                     </if-empty>
 

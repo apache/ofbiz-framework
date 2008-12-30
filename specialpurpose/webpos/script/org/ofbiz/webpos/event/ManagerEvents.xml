@@ -162,7 +162,7 @@ under the License.
                         <set from-field="parameters.endingDrawerGcAmount"    field="terminalState.actualEndingGc"/>
                         <set from-field="parameters.endingDrawerOtherAmount" field="terminalState.actualEndingOther"/>
                         <call-object-method obj-field-name="webPosTransaction" method-name="getTransactionId" ret-field-name="terminalState.endingTxId"/>
-                        <store-value value-name="terminalState"/>
+                        <store-value value-field="terminalState"/>
                         <check-errors/>
                         <log level="info" message="Close PosTerminalState ${terminalState.endingTxId}"/>
                     <else>

@@ -61,7 +61,7 @@ under the License.
             <clone-value value-name="mainValue" new-value-name="savedValue"/>
             <set-nonpk-fields map="parameters" value-field="mainValue"/>
             <if-compare-field field="mainValue" to-field="savedValue" operator="not-equals" type="Object">
-                <store-value value-name="mainValue"/>
+                <store-value value-field="mainValue"/>
             </if-compare-field>
         </if-compare>
         <if-compare field="lookedUpValue.paymentMethodTypeId" operator="equals" value="EFT_ACCOUNT">
@@ -69,7 +69,7 @@ under the License.
             <clone-value value-name="mainValue" new-value-name="savedValue"/>
             <set-nonpk-fields map="parameters" value-field="mainValue"/>
             <if-compare-field field="mainValue" to-field="savedValue" operator="not-equals" type="Object">
-                <store-value value-name="mainValue"/>
+                <store-value value-field="mainValue"/>
             </if-compare-field>
         </if-compare>
     </simple-method>
@@ -112,7 +112,7 @@ under the License.
     <simple-method method-name="updateCreditCardTypeGlAccount" short-description="Update a Credit Card Gl Account">
         <entity-one entity-name="CreditCardTypeGlAccount" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteCreditCardTypeGlAccount" short-description="Delete a Credit Card Gl Account">
@@ -124,6 +124,6 @@ under the License.
     <simple-method method-name="updatePaymentMethodType" short-description="Updates a Payment Method Type default glAccountId">
         <entity-one entity-name="PaymentMethodType" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
 </simple-methods>
