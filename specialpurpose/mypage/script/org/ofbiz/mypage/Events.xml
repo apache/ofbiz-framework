@@ -52,7 +52,7 @@ under the License.
             </else>
         </if-compare>
 		<set-service-fields service-name="setUserPreferenceGroup"
-			map-name="parameters" to-map-name="inMap" />
+			map="parameters" to-map="inMap" />
 		<call-service service-name="setUserPreferenceGroup"
 			in-map-name="inMap" />
 	</simple-method>
@@ -65,7 +65,7 @@ under the License.
             </else>
         </if-compare>
         <set-service-fields service-name="setUserPreferenceGroup"
-                map-name="parameters" to-map-name="inMap" />
+                map="parameters" to-map="inMap" />
         <call-service service-name="setUserPreferenceGroup"
                 in-map-name="inMap" />
     </simple-method>
@@ -82,7 +82,7 @@ under the License.
 					<field-map field-name="userLoginId" value="system" />
 				</entity-one>
 				<set-service-fields service-name="setCommunicationEventRoleStatus"
-					map-name="parameters" to-map-name="updStat" />
+					map="parameters" to-map="updStat" />
 				<set field="updStat.statusId" value="COM_ROLE_READ" />
 				<set field="updStat.userLogin" from-field="userLogin" />
 				<call-service service-name="setCommunicationEventRoleStatus"

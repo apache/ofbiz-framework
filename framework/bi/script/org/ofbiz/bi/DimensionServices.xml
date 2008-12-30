@@ -23,7 +23,7 @@ under the License.
 
     <simple-method method-name="quickInitDataWarehouse" short-description="">
         <set-service-fields service-name="loadDateDimension" map="parameters" to-map="inMap"/>
-        <call-service service-name="loadDateDimension" in-map-name="inMap"/>
+        <call-service service-name="loadDateDimension" in-map="inMap"/>
         <check-errors/>
 
         <clear-field field="inMap"/>

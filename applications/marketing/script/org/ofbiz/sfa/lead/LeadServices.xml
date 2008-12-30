@@ -132,7 +132,7 @@
 
         <if-not-empty field="partyRelationship">
             <set-service-fields service-name="updatePartyRelationship" map="partyRelationship" to-map="deletePartyRelationship"/>
-            <call-service service-name="deletePartyRelationship" in-map-name="deletePartyRelationship"/>
+            <call-service service-name="deletePartyRelationship" in-map="deletePartyRelationship"/>
             <set field="partyGroupId" from-field="partyRelationship.partyIdFrom"/>
             <else>
                 <set field="partyGroupId" from-field="parameters.partyGroupId"/>

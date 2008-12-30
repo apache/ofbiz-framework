@@ -997,7 +997,7 @@ under the License.
                     processor-name="updatePassword" in-map-name="parameters" out-map-name="passwordMap"/>
                 <check-errors/>
                 <set-service-fields service-name="updatePassword" map="passwordMap" to-map="passwordCtx"/>
-                <call-service service-name="updatePassword" in-map-name="passwordCtx">
+                <call-service service-name="updatePassword" in-map="passwordCtx">
                     <result-to-field result-name="updatedUserLogin"/>
                 </call-service>
                 <set-current-user-login value-name="updatedUserLogin"/>
@@ -1250,7 +1250,7 @@ under the License.
 
         <!-- create person -->
         <set-service-fields service-name="createPerson" map="personCtx" to-map="createPersonCtx"/>
-        <call-service service-name="createPerson" in-map-name="createPersonCtx">
+        <call-service service-name="createPerson" in-map="createPersonCtx">
             <result-to-field result-name="partyId" field-name="partyId"/>
         </call-service>
         <set field="parameters.partyId" from-field="partyId"/>

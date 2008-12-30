@@ -52,7 +52,7 @@ under the License.
             </else>
         </if-compare>
         <set-service-fields service-name="setUserPreferenceGroup" map="parameters"
-            to-map-name="inMap"/>
+            to-map="inMap"/>
         <call-service service-name="setUserPreferenceGroup" in-map-name="inMap"/>
     </simple-method>
 
@@ -65,7 +65,7 @@ under the License.
             </else>
         </if-compare>
         <set-service-fields service-name="setUserPreferenceGroup" map="parameters"
-            to-map-name="inMap"/>
+            to-map="inMap"/>
         <call-service service-name="setUserPreferenceGroup" in-map-name="inMap"/>
     </simple-method>
 
@@ -78,7 +78,7 @@ under the License.
                     <field-map field-name="userLoginId" value="system"/>
                 </entity-one>
                 <set-service-fields service-name="setCommunicationEventRoleStatus"
-                    map-name="parameters" to-map-name="updStat"/>
+                    map="parameters" to-map="updStat"/>
                 <set field="updStat.statusId" value="COM_ROLE_READ"/>
                 <set field="updStat.userLogin" from-field="userLogin"/>
                 <call-service service-name="setCommunicationEventRoleStatus" in-map-name="updStat"
@@ -208,7 +208,7 @@ under the License.
 
         <!-- Create Data Resource -->
         <set-service-fields service-name="createContentFromUploadedFile"
-            map-name="formInput.formInput" to-map-name="data"/>
+            map="formInput.formInput" to-map="data"/>
         <set field="data.dataResourceTypeId" value="LOCAL_FILE"/>
         <set field="data.dataTemplateTypeId" value="NONE"/>
         <set field="data.dataCategoryId" from-field="formInput.formInput.dataCategoryId"/>
@@ -227,7 +227,7 @@ under the License.
 
         <!-- Create attach upload to data resource -->
         <set-service-fields service-name="attachUploadToDataResource" map="formInput.formInput"
-            to-map-name="attachMap"/>
+            to-map="attachMap"/>
         <set field="attachMap.uploadedFile" from-field="formInput.imageData"/>
         <set field="attachMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
         <set field="attachMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
@@ -237,7 +237,7 @@ under the License.
 
         <!-- Create content from dataResource -->
         <set-service-fields service-name="createContentFromDataResource"
-            map-name="formInput.formInput" to-map-name="contentMap"/>
+            map="formInput.formInput" to-map="contentMap"/>
         <set field="contentMap.roleTypeId" from-field="formInput.formInput.roleTypeId"/>
         <set field="contentMap.partyId" from-field="formInput.formInput.partyId"/>
         <set field="contentMap.contentTypeId" from-field="formInput.formInput.contentTypeId"/>
@@ -249,7 +249,7 @@ under the License.
 
         <!-- Create party content -->
         <set-service-fields service-name="createPartyContent" map="formInput.formInput"
-            to-map-name="partycontent"/>
+            to-map="partycontent"/>
         <set field="partycontent.contentId" from-field="parameters.contentId"/>
         <set field="partycontent.partyContentTypeId"
             from-field="formInput.formInput.partyContentTypeId"/>
@@ -258,7 +258,7 @@ under the License.
 
         <!-- Create communication event and content association -->
         <set-service-fields service-name="createCommEventContentAssoc"
-            map-name="formInput.formInput" to-map-name="contentAssoc"/>
+            map="formInput.formInput" to-map="contentAssoc"/>
         <set field="contentAssoc.contentId" from-field="parameters.contentId"/>
         <set field="contentAssoc.communicationEventId"
             from-field="formInput.formInput.communicationEventId"/>
@@ -287,7 +287,7 @@ under the License.
 
         <!-- Create party content -->
         <set-service-fields service-name="createPartyContent" map="formInput.formInput"
-            to-map-name="partycontent"/>
+            to-map="partycontent"/>
         <set field="partycontent.contentId" from-field="formInput.formInput.contentId"/>
         <set field="partycontent.partyContentTypeId"
             from-field="formInput.formInput.partyContentTypeId"/>
@@ -296,7 +296,7 @@ under the License.
 
         <!-- Create communication event and content association -->
         <set-service-fields service-name="createCommEventContentAssoc"
-            map-name="formInput.formInput" to-map-name="contentAssoc"/>
+            map="formInput.formInput" to-map="contentAssoc"/>
         <set field="contentAssoc.contentId" from-field="formInput.formInput.contentId"/>
         <set field="contentAssoc.communicationEventId"
             from-field="formInput.formInput.communicationEventId"/>

@@ -24,7 +24,7 @@
     <simple-method method-name="createFixedAssetMaintUpdateWorkEffort" login-required="true"
         short-description="Create FixedAssetMaint and Update Schedule information in WorkEffort">
         <set-service-fields map="parameters" service-name="createFixedAssetMaint" to-map="createFixedAssetMaintCtx"/>
-        <call-service service-name="createFixedAssetMaint" in-map-name="createFixedAssetMaintCtx">
+        <call-service service-name="createFixedAssetMaint" in-map="createFixedAssetMaintCtx">
             <result-to-field result-name="maintHistSeqId" map-name="findAssetMaintLookup" field-name="maintHistSeqId"/>
             <result-to-request result-name="maintHistSeqId"/>
         </call-service>
@@ -40,7 +40,7 @@
     <simple-method method-name="updateFixedAssetMaintAndWorkEffort" login-required="true"
         short-description="Update FixedAssetMaint and Schedule information in WorkEffort">
         <set-service-fields map="parameters" service-name="updateFixedAssetMaint" to-map="updateFixedAssetMaintCtx"/>
-        <call-service service-name="updateFixedAssetMaint" in-map-name="updateFixedAssetMaintCtx"/>
+        <call-service service-name="updateFixedAssetMaint" in-map="updateFixedAssetMaintCtx"/>
         <check-errors/>
         <if-compare field="parameters.statusId" operator="equals" value="FAM_CANCELLED">
             <set field="updateWorkEffortCtx.currentStatusId" value="CAL_CANCELLED"/>
@@ -57,7 +57,7 @@
         short-description="Create WorkEffort and Associate it with Parent (identified by workEffortFromId)">
         <set from-field="parameters.workEffortIdTo" field="parameters.workEffortId"/>
         <set-service-fields map="parameters" service-name="createWorkEffortAndAssoc" to-map="createWorkEffortAndAssocCtx"/>
-        <call-service service-name="createWorkEffortAndAssoc" in-map-name="createWorkEffortAndAssocCtx"/>
+        <call-service service-name="createWorkEffortAndAssoc" in-map="createWorkEffortAndAssocCtx"/>
         <check-errors/>
     </simple-method>    
 

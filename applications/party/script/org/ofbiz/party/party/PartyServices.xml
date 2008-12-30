@@ -350,7 +350,7 @@ under the License.
             <find-by-and entity-name="PartyRole" map-name="partyRole" list-name="pRoles"/>
             <if-empty field="pRoles">
                 <set-service-fields service-name="createPartyRole" map="contentRole" to-map="partyRole"/>
-                <call-service service-name="createPartyRole" in-map-name="partyRole" break-on-error="false" />    
+                <call-service service-name="createPartyRole" in-map="partyRole" break-on-error="false" />    
             </if-empty>
        </if-not-empty>       
        <if-not-empty field="parameters._uploadedFile_fileName">
@@ -945,13 +945,13 @@ under the License.
     <simple-method method-name="createUpdateTelecomNumber" short-description="Create and update phone number" login-required="false">
         <if-empty field="parameters.contactMechId">
             <set-service-fields service-name="createPartyTelecomNumber" map="parameters" to-map="phoneContext"/>
-            <call-service service-name="createPartyTelecomNumber" in-map-name="phoneContext">
+            <call-service service-name="createPartyTelecomNumber" in-map="phoneContext">
                 <result-to-field result-name="contactMechId" field-name="contactMechId"/>
             </call-service>
             <log level="info" message="Phone Contact created phoneContactMechId is ${contactMechId}"/>
         <else>
             <set-service-fields service-name="createPartyTelecomNumber" map="parameters" to-map="phoneContext"/>
-            <call-service service-name="updatePartyTelecomNumber" in-map-name="phoneContext">
+            <call-service service-name="updatePartyTelecomNumber" in-map="phoneContext">
                 <result-to-field result-name="contactMechId" field-name="contactMechId"/>
             </call-service> 
             <log level="info" message="Phone Contact updated phoneContactMechId is ${contactMechId}"/>
@@ -970,7 +970,7 @@ under the License.
             <log level="info" message="Email Contact Created emailContactMechId is ${contactMechId}"></log>
         <else>
             <set-service-fields service-name="updatePartyEmailAddress" map="parameters" to-map="emailAddressContext"/>
-            <call-service service-name="updatePartyEmailAddress" in-map-name="emailAddressContext">
+            <call-service service-name="updatePartyEmailAddress" in-map="emailAddressContext">
                 <result-to-field result-name="contactMechId" field-name="contactMechId"/>
             </call-service> 
             <log level="info" message="Email Contact updated emailContactMechId is ${contactMechId}"></log>
