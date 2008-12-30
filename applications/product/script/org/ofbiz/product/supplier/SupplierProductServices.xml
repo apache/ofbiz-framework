@@ -81,7 +81,7 @@ under the License.
         <remove-value value-name="sprod"/>
     </simple-method>
     <simple-method method-name="getSupplierProductFeatures" short-description="Get all supplier information for a product feature" login-required="false">
-        <entity-and entity-name="SupplierProductFeature" list-name="supplierProductFeatures">
+        <entity-and entity-name="SupplierProductFeature" list="supplierProductFeatures">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="productFeatureId" from-field="parameters.productFeatureId"/>
         </entity-and>

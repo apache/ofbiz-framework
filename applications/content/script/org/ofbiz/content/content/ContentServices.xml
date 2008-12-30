@@ -34,7 +34,7 @@
 
         <if-empty field="content.statusId">
             <!-- get the first status item -->
-            <entity-and entity-name="StatusItem" list-name="contentStatus">
+            <entity-and entity-name="StatusItem" list="contentStatus">
                 <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
                 <order-by field-name="sequenceId"/>
             </entity-and>
@@ -162,7 +162,7 @@
             <result-to-field result-name="contentId" field-name="newContentId"/>
         </call-service>
         
-        <entity-and entity-name="ContentAssoc" list-name="assocs">
+        <entity-and entity-name="ContentAssoc" list="assocs">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
         </entity-and>
         <iterate entry="assoc" list="assocs">
@@ -171,7 +171,7 @@
             <call-service service-name="createContentAssoc" in-map-name="assocS"/>
         </iterate>
 
-        <entity-and entity-name="ContentAssoc" list-name="assocsTo">
+        <entity-and entity-name="ContentAssoc" list="assocsTo">
             <field-map field-name="contentIdTo" from-field="parameters.contentId"/>
         </entity-and>
         <iterate entry="assocTo" list="assocsTo">

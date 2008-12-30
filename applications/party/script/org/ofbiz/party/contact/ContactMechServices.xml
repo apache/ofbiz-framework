@@ -293,7 +293,7 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="verifyEmailAddress" short-description="Verify an Email Address through verifyHash and expireDate" login-required="false">
-        <entity-and entity-name="EmailAddressVerification" list-name="emailAddressVerifications">
+        <entity-and entity-name="EmailAddressVerification" list="emailAddressVerifications">
             <field-map field-name="verifyHash" from-field="parameters.verifyHash"/>
         </entity-and>
         

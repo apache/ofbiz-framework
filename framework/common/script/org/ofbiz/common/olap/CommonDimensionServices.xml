@@ -23,11 +23,11 @@ under the License.
 
     <!-- OLAP Dimension -->
     <simple-method method-name="loadCurrencyDimension" short-description="Initialize the CurrencyDimension using the update strategy of 'type 1'">
-        <entity-and entity-name="Uom" list-name="currencies">
+        <entity-and entity-name="Uom" list="currencies">
             <field-map field-name="uomTypeId" value="CURRENCY_MEASURE"/>
         </entity-and>
         <iterate list="currencies" entry="currency">
-            <entity-and entity-name="CurrencyDimension" list-name="currencyDims">
+            <entity-and entity-name="CurrencyDimension" list="currencyDims">
                 <field-map field-name="currencyId" from-field="currency.uomId"/>
             </entity-and>
             <if-not-empty field="currencyDims">

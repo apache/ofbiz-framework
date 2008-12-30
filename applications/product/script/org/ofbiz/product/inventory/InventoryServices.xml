@@ -257,7 +257,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <!-- find the most recent InventoryItemStatus record and set the statusEndDatetime -->
-        <entity-and entity-name="InventoryItemStatus" list-name="oldInventoryItemStatusList">
+        <entity-and entity-name="InventoryItemStatus" list="oldInventoryItemStatusList">
             <field-map field-name="inventoryItemId" from-field="parameters.inventoryItemId"/>
             <order-by field-name="-statusDatetime"/>
         </entity-and>

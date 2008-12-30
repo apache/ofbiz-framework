@@ -608,7 +608,7 @@
     <simple-method method-name="updateEmplPositionTypeRate" short-description="Update/create EmplPositionTypeRate">
         <entity-one entity-name="EmplPositionTypeRate" value-field="lookedUpValue"/>
         <!-- check if already exist is so expire current record -->
-        <entity-and entity-name="EmplPositionTypeRate" list-name="emplPositionTypeRates" filter-by-date="true">
+        <entity-and entity-name="EmplPositionTypeRate" list="emplPositionTypeRates" filter-by-date="true">
             <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
         </entity-and>

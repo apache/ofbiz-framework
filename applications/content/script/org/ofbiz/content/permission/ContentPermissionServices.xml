@@ -714,7 +714,7 @@
                         <set field="lookup.partyId" from-field="checkPartyId"/>
                         <find-by-and entity-name="${roleEntity}" map-name="lookup" list-name="foundRoles"/>
                         <!--
-                        <entity-and entity-name="${roleEntity}" list-name="foundRoles">
+                        <entity-and entity-name="${roleEntity}" list="foundRoles">
                             <field-map from-field="${roleEntityField}"/>
                             <field-map field-name="roleTypeId" from-field="checkRoleTypeId"/>
                             <field-map field-name="partyId" from-field="checkPartyId"/>
@@ -728,7 +728,7 @@
                         <set field="lookup.partyId" from-field="checkPartyId"/>
                         <find-by-and entity-name="${roleEntity}" map-name="lookup" list-name="foundRoles"/>
                         <!--
-                        <entity-and entity-name="${roleEntity}" list-name="foundRoles">
+                        <entity-and entity-name="${roleEntity}" list="foundRoles">
                             <field-map from-field="${roleEntityField}"/>
                             <field-map field-name="partyId" from-field="checkPartyId"/>
                         </entity-and>
@@ -783,7 +783,7 @@
         </if-empty>
         <check-errors/>
 
-        <entity-and entity-name="ContentAssoc" list-name="assocs" filter-by-date="true">
+        <entity-and entity-name="ContentAssoc" list="assocs" filter-by-date="true">
             <field-map field-name="contentIdTo" from-field="contentId"/>
         </entity-and>
         <field-to-result field-name="assocs" result-name="contentAssocList"/>

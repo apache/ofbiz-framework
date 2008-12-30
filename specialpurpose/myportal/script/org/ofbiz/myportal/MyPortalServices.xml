@@ -29,7 +29,7 @@
             </condition>
             <then>
                 <if-not-empty field="custReq.fromPartyId">
-                    <entity-and entity-name="PartyAndUserLogin" list-name="partyUserLogin">
+                    <entity-and entity-name="PartyAndUserLogin" list="partyUserLogin">
                         <field-map field-name="partyId" from-field="custReq.fromPartyId"/>
                     </entity-and>
                     <first-from-list entry="partyUserLogin" list="partyUserLogin"/>
@@ -57,7 +57,7 @@
                             </or>
                         </condition>
                         <then>
-                            <entity-and entity-name="ProductStoreEmailSetting" list-name="storeEmail">
+                            <entity-and entity-name="ProductStoreEmailSetting" list="storeEmail">
                                 <field-map field-name="emailType" value="PRDS_CUST_CONFIRM"/>
                             </entity-and>
                             <first-from-list entry="storeEmail" list="storeEmail"/>
@@ -71,7 +71,7 @@
                     <if-compare field="custReq.statusId" value="CRQ_ACCEPTED" operator="equals"></if-compare>
                 </condition>
                 <then>
-                    <entity-and entity-name="ProductStoreEmailSetting" list-name="storeEmail">
+                    <entity-and entity-name="ProductStoreEmailSetting" list="storeEmail">
                         <field-map field-name="emailType" value="PRDS_CUST_CREATED"/>
                     </entity-and>
                     <first-from-list entry="storeEmail" list="storeEmail"/>

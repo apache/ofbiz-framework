@@ -90,7 +90,7 @@ under the License.
     </simple-method>
     <simple-method method-name="getPartyNameForDate" short-description="Get Party Name For Date">
 
-        <entity-and entity-name="PartyNameHistory" list-name="partyNameHistoryList">
+        <entity-and entity-name="PartyNameHistory" list="partyNameHistoryList">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <order-by field-name="-changeDate"/>
         </entity-and>
@@ -766,7 +766,7 @@ under the License.
         <if-empty field="parameters.fromDate"><now-timestamp-to-env env-name="parameters.fromDate"/></if-empty>
         
         <!-- check if not already exist -->
-        <entity-and entity-name="PartyRelationship" list-name="partyRels" filter-by-date="true">
+        <entity-and entity-name="PartyRelationship" list="partyRels" filter-by-date="true">
             <field-map field-name="partyIdFrom" from-field="parameters.partyIdFrom"/>
             <field-map field-name="roleTypeIdFrom" from-field="parameters.roleTypeIdFrom"/>
             <field-map field-name="partyIdTo" from-field="parameters.partyIdTo"/>

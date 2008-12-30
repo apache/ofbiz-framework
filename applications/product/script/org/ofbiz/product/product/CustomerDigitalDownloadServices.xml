@@ -95,7 +95,7 @@ under the License.
 
         <!-- update price -->        
         <if-not-empty field="parameters.price">
-            <entity-and entity-name="ProductPrice" list-name="productPriceList">
+            <entity-and entity-name="ProductPrice" list="productPriceList">
                 <field-map field-name="productId" from-field="parameters.productId"/>
                 <field-map field-name="productPriceTypeId" value="DEFAULT_PRICE"/>
                 <field-map field-name="productPricePurposeId" value="PURCHASE"/>
@@ -111,7 +111,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
-        <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
+        <entity-and entity-name="SupplierProduct" list="supplierProductList">
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
@@ -127,7 +127,7 @@ under the License.
             <store-value value-name="supplierProduct"/>
         </iterate>
         
-        <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMemberList">
+        <entity-and entity-name="ProductCategoryMember" list="productCategoryMemberList">
             <field-map field-name="productId"/>
         </entity-and>
         <iterate entry="productCategoryMember" list="productCategoryMemberList">
@@ -140,7 +140,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
-        <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
+        <entity-and entity-name="SupplierProduct" list="supplierProductList">
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
@@ -149,7 +149,7 @@ under the License.
         </if-empty>
         
         <!-- make sure there is a ContentRole for userLogin.partyId and parameters.contentId and roleTypeId=OWNER -->
-        <entity-and entity-name="ContentRole" list-name="contentRoleList">
+        <entity-and entity-name="ContentRole" list="contentRoleList">
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
             <field-map field-name="contentId" from-field="parameters.contentId"/>
             <field-map field-name="roleTypeId" value="OWNER"/>
@@ -171,7 +171,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         
         <!-- make sure SupplierProduct exists for userLogin.partyId -->
-        <entity-and entity-name="SupplierProduct" list-name="supplierProductList">
+        <entity-and entity-name="SupplierProduct" list="supplierProductList">
             <field-map field-name="productId" from-field="parameters.productId"/>
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>

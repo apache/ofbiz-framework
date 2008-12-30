@@ -484,7 +484,7 @@ under the License.
                 
         <!-- Check if user has not passed in orderItemSeqId then get list of OrderItems from database and default to first item -->        
         <if-empty field="parameters.orderItemSeqId">
-            <entity-and entity-name="OrderItem" list-name="orderItems">
+            <entity-and entity-name="OrderItem" list="orderItems">
                 <field-map field-name="orderId" from-field="parameters.orderId"/>
             </entity-and>
             <if-not-empty field="orderItems">
@@ -709,7 +709,7 @@ under the License.
             </calcop>
         </calculate>
 
-        <entity-and entity-name="FixedAssetDepMethod" list-name="fixedAssetDepMethods" filter-by-date="true">
+        <entity-and entity-name="FixedAssetDepMethod" list="fixedAssetDepMethods" filter-by-date="true">
             <field-map field-name="fixedAssetId" from-field="parameters.fixedAssetId"/>
         </entity-and>
         <if-not-empty field="fixedAssetDepMethods">

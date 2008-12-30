@@ -316,7 +316,7 @@ under the License.
     <!--Create simple-method of getPortalPageId-->
     <simple-method method-name="getPortalPageId" short-description="">
         <set field="mainPortalPageId" value="MAINMYPORTAL"/>
-        <entity-and entity-name="PortalPage" list-name="getMainPage">
+        <entity-and entity-name="PortalPage" list="getMainPage">
             <field-map field-name="originalPortalPageId" from-field="mainPortalPageId"/>
             <field-map field-name="ownerUserLoginId" from-field="userLogin.userLoginId"/>
         </entity-and>

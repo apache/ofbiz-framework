@@ -43,7 +43,7 @@ under the License.
 
         <if-empty field="content.statusId">
             <!-- get the first status item -->
-            <entity-and entity-name="StatusItem" list-name="contentStatus">
+            <entity-and entity-name="StatusItem" list="contentStatus">
                 <field-map field-name="statusTypeId" value="CONTENT_STATUS"/>
                 <order-by field-name="sequenceId"/>
             </entity-and>

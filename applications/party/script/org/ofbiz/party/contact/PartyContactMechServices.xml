@@ -336,7 +336,7 @@ under the License.
                 <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
                 <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
                 <if-compare field="parameters.setShippingPurpose" operator="equals" value="Y">
-                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                    <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
                         <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                     </entity-and>
@@ -355,7 +355,7 @@ under the License.
                     <call-service service-name="setPartyProfileDefaults" in-map-name="partyProfileDefaultsCtx"/>
                 </if-compare>
                 <if-compare field="parameters.setBillingPurpose" operator="equals" value="Y">
-                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                    <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
                         <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                     </entity-and>
@@ -431,7 +431,7 @@ under the License.
             </condition>
             <then>
                 <if-compare field="parameters.setShippingPurpose" operator="equals" value="Y">
-                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpShipList" filter-by-date="true">
+                    <entity-and entity-name="PartyContactMechPurpose" list="pcmpShipList" filter-by-date="true">
                         <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechId" from-field="parameters.contactMechId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
@@ -441,7 +441,7 @@ under the License.
                         <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
                         <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
 
-                        <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                        <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
                             <field-map field-name="partyId" from-field="userLogin.partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="SHIPPING_LOCATION"/>
                         </entity-and>
@@ -463,7 +463,7 @@ under the License.
                     <call-service service-name="setPartyProfileDefaults" in-map-name="partyProfileDefaultsCtx"/>
                 </if-compare>
                 <if-compare field="parameters.setBillingPurpose" operator="equals" value="Y">
-                    <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpBillList" filter-by-date="true">
+                    <entity-and entity-name="PartyContactMechPurpose" list="pcmpBillList" filter-by-date="true">
                         <field-map field-name="partyId" from-field="userLogin.partyId"/>
                         <field-map field-name="contactMechId" from-field="parameters.contactMechId"/>
                         <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
@@ -473,7 +473,7 @@ under the License.
                         <set-service-fields service-name="createPartyContactMechPurpose" map-name="parameters" to-map-name="serviceContext"/>
                         <set field="serviceContext.partyId" from-field="userLogin.partyId"/>
 
-                        <entity-and entity-name="PartyContactMechPurpose" list-name="pcmpList" filter-by-date="true">
+                        <entity-and entity-name="PartyContactMechPurpose" list="pcmpList" filter-by-date="true">
                             <field-map field-name="partyId" from-field="userLogin.partyId"/>
                             <field-map field-name="contactMechPurposeTypeId" value="BILLING_LOCATION"/>
                         </entity-and>

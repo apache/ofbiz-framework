@@ -211,7 +211,7 @@ under the License.
         <set from-field="parameters.currencyUomId" field="calcPriceInBaseMap.currencyUomId"/>
         <set from-field="parameters.autoUserLogin" field="calcPriceInBaseMap.autoUserLogin"/>
 
-        <entity-and entity-name="ShoppingListItem" list-name="shoppingListItems" use-cache="true">
+        <entity-and entity-name="ShoppingListItem" list="shoppingListItems" use-cache="true">
             <field-map field-name="shoppingListId" from-field="parameters.shoppingListId"/>
         </entity-and>
 
@@ -237,7 +237,7 @@ under the License.
             <clear-field field="calcPriceInMap"/>
         </iterate>
 
-        <entity-and entity-name="ShoppingList" list-name="childshoppingLists" use-cache="true">
+        <entity-and entity-name="ShoppingList" list="childshoppingLists" use-cache="true">
             <field-map field-name="parentShoppingListId" from-field="parameters.shoppingListId"/>
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>

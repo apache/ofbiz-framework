@@ -25,7 +25,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         
         <!-- find the most recent status record and set the statusEndDate -->
-        <entity-and entity-name="ExampleStatus" list-name="oldExampleStatusList">
+        <entity-and entity-name="ExampleStatus" list="oldExampleStatusList">
             <field-map field-name="exampleId" from-field="parameters.exampleId"/>
             <order-by field-name="-statusDate"/>
         </entity-and>

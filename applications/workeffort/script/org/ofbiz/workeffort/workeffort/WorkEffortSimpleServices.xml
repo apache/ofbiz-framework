@@ -128,7 +128,7 @@ under the License.
             <then>
                 <if-not-empty field="lookedUpValue.currentStatusId">
                     <!-- check if the status change is a valid change -->
-                    <entity-and entity-name="StatusValidChange" list-name="validChange">
+                    <entity-and entity-name="StatusValidChange" list="validChange">
                         <field-map field-name="statusId" from-field="lookedUpValue.currentStatusId"/>
                         <field-map field-name="statusIdTo" from-field="parameters.currentStatusId"/>
                     </entity-and>
@@ -169,7 +169,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteWorkEffort" short-description="Delete Work Effort">
         <!-- check permissions before moving on: if update or delete logged in user must be associated OR have the corresponding UPDATE or DELETE permissions -->
-        <entity-and entity-name="WorkEffortPartyAssignment" list-name="wepaList">
+        <entity-and entity-name="WorkEffortPartyAssignment" list="wepaList">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
@@ -248,7 +248,7 @@ under the License.
     <!-- WorkEffortPartyAssignment -->    
     <simple-method method-name="assignPartyToWorkEffort" short-description="Assign Party to Work Effort">
         <!-- check if the requested party Assignment already exist -->
-        <entity-and entity-name="WorkEffortPartyAssignment" list-name="currentAssignments" filter-by-date="true">
+        <entity-and entity-name="WorkEffortPartyAssignment" list="currentAssignments" filter-by-date="true">
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="roleTypeId" from-field="parameters.roleTypeId"/>
@@ -1133,7 +1133,7 @@ under the License.
                 <set from-field="parameters.workEffortId" field="newTempValue.workEffortIdFrom"/>
                 <create-value value-field="newTempValue"/>
             </iterate>
-            <entity-and entity-name="WorkEffortAssoc" list-name="foundValues">
+            <entity-and entity-name="WorkEffortAssoc" list="foundValues">
                 <field-map field-name="workEffortIdTo" from-field="parameters.oldWorkEffortId"/>
             </entity-and>
             <iterate entry="foundValue" list="foundValues">

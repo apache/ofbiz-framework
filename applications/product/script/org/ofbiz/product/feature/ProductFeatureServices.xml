@@ -115,7 +115,7 @@ under the License.
         <check-errors/>
 
         <!-- find the ProductFeatures by type and id code -->
-        <entity-and entity-name="ProductFeature" list-name="productFeatures">
+        <entity-and entity-name="ProductFeature" list="productFeatures">
             <field-map field-name="productFeatureTypeId" from-field="parameters.productFeatureTypeId"/>
             <field-map field-name="idCode" from-field="parameters.idCode"/>
         </entity-and>

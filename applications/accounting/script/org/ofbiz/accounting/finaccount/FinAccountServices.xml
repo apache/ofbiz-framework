@@ -141,7 +141,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         
         <!-- find the most recent status record and set the statusEndDate -->
-        <entity-and entity-name="FinAccountStatus" list-name="oldFinAccountStatusList">
+        <entity-and entity-name="FinAccountStatus" list="oldFinAccountStatusList">
             <field-map field-name="finAccountId" from-field="parameters.finAccountId"/>
             <order-by field-name="-statusDate"/>
         </entity-and>

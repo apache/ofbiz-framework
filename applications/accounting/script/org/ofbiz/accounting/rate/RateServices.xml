@@ -44,7 +44,7 @@ under the License.
         </if-empty>
         
         <!-- try to find existing value -->
-        <entity-and entity-name="RateAmount" list-name="rateAmounts" filter-by-date="true">
+        <entity-and entity-name="RateAmount" list="rateAmounts" filter-by-date="true">
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
             <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
             <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
@@ -134,7 +134,7 @@ under the License.
                 </and>           
             </condition>
             <then>
-                <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
+                <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                     <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
                     <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 </entity-and>
@@ -156,7 +156,7 @@ under the License.
                 </and>           
             </condition>
             <then>
-                <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
+                <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                     <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
                     <field-map field-name="partyId" from-field="parameters.partyId"/>
                 </entity-and>
@@ -178,7 +178,7 @@ under the License.
                 </and>           
             </condition>
             <then>
-                <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
+                <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                     <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
                     <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
                 </entity-and>
@@ -192,7 +192,7 @@ under the License.
         </if>
         
         <if-empty field="level">
-            <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
+            <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                 <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
             </entity-and>
             <set field="level" value="rateType"/>
@@ -203,7 +203,7 @@ under the License.
             <log level="error" message="A valid rate amount could not be found for rateType: ${rateType.description}"/>
         </if-empty>
         <if-compare field="level" value="workEffort" operator="equals">
-            <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
+            <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                 <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
                 <field-map field-name="partyId" from-field="parameters.partyId"/>
                 <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
@@ -223,7 +223,7 @@ under the License.
         </if-compare>
         
         <if-compare field="level" value="party" operator="equals">
-            <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
+            <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                 <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
                 <field-map field-name="partyId" from-field="parameters.partyId"/>
                 <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
@@ -241,7 +241,7 @@ under the License.
         </if-compare>
         
         <if-compare field="level" value="emplPositionType" operator="equals">
-            <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
+            <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                 <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
                 <field-map field-name="emplPositionTypeId" from-field="parameters.emplPositionTypeId"/>
                 <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
@@ -260,7 +260,7 @@ under the License.
         </if-compare>
         
         <if-compare field="level" value="rateType" operator="equals">
-            <entity-and entity-name="RateAmount" list-name="amounts" filter-by-date="true">
+            <entity-and entity-name="RateAmount" list="amounts" filter-by-date="true">
                 <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
                 <field-map field-name="periodTypeId" from-field="parameters.periodTypeId"/>
                 <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
@@ -297,7 +297,7 @@ under the License.
         <check-errors/>
         
         <!-- check if already exist is so expire current record -->
-        <entity-and entity-name="PartyRate" list-name="partyRates" filter-by-date="true">
+        <entity-and entity-name="PartyRate" list="partyRates" filter-by-date="true">
             <field-map field-name="partyId" from-field="parameters.partyId"/>
             <field-map field-name="rateTypeId" from-field="parameters.rateTypeId"/>
         </entity-and>
@@ -325,7 +325,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         <if-compare field="newEntity.defaultRate" value="Y" operator="equals">
-            <entity-and entity-name="PartyRate" list-name="rates" filter-by-date="true">
+            <entity-and entity-name="PartyRate" list="rates" filter-by-date="true">
                 <field-map field-name="partyId" from-field="newEntity.partyId"/>
                 <field-map field-name="defaultRate" value="Y"/>
             </entity-and>

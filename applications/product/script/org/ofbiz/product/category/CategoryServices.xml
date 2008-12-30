@@ -61,7 +61,7 @@ under the License.
 
         <!-- if the user has the role limited position, add this category to the limit category/ies -->
         <if-has-permission permission="CATALOG_ROLE" action="_CREATE">
-            <entity-and entity-name="ProductCategoryRole" list-name="productCategoryRoles" filter-by-date="true">
+            <entity-and entity-name="ProductCategoryRole" list="productCategoryRoles" filter-by-date="true">
                 <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
             </entity-and>
@@ -360,7 +360,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers">
+        <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers">
             <field-map field-name="productCategoryId" from-field="parameters.productCategoryId"/>
         </entity-and>
 
@@ -413,7 +413,7 @@ under the License.
 
     <simple-method method-name="copyCategoryEntities" short-description="copies all entities of entityName with a productCategoryId to a new entity with a productCategoryIdTo, 
             filtering them by a timestamp passed in to validDate if necessary">
-        <entity-and entity-name="${entityName}" list-name="categoryEntities">
+        <entity-and entity-name="${entityName}" list="categoryEntities">
             <field-map field-name="productCategoryId" from-field="productCategoryId"/>
         </entity-and>
 
@@ -443,7 +443,7 @@ under the License.
             </else>
         </if-not-empty>
 
-        <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers">
+        <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers">
             <field-map field-name="productCategoryId" from-field="parameters.productCategoryId"/>
         </entity-and>
 
@@ -465,7 +465,7 @@ under the License.
             </else>
         </if-not-empty>
 
-        <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMembers">
+        <entity-and entity-name="ProductCategoryMember" list="productCategoryMembers">
             <field-map field-name="productCategoryId" from-field="parameters.productCategoryId"/>
         </entity-and>
 
@@ -609,7 +609,7 @@ under the License.
             </iterate>
         </if-not-empty>
         <if-not-empty field="parameters.duplicateChildRollup">
-            <entity-and entity-name="ProductCategoryRollup" list-name="foundValues">
+            <entity-and entity-name="ProductCategoryRollup" list="foundValues">
                 <field-map field-name="parentProductCategoryId" from-field="parameters.oldProductCategoryId"/>
             </entity-and>
             <iterate entry="foundValue" list="foundValues">
@@ -722,7 +722,7 @@ under the License.
                 <not><if-has-permission permission="CATALOG" action="_${checkAction}"/></not>
             </condition>
             <then>
-                <entity-and entity-name="ProductCategoryRollupAndRole" list-name="roleCategories" filter-by-date="true">
+                <entity-and entity-name="ProductCategoryRollupAndRole" list="roleCategories" filter-by-date="true">
                     <field-map field-name="productCategoryId" from-field="productCategoryIdToCheck"/>
                     <field-map field-name="partyId" from-field="userLogin.partyId"/>
                     <field-map field-name="roleTypeId" value="LTD_ADMIN"/>

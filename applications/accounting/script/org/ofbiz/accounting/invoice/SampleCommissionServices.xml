@@ -25,7 +25,7 @@ under the License.
         <entity-one entity-name="Payment" value-field="payment"/>
 
         <!-- find affiliate or commission partner for payment.partyIdFrom; will be relationship from CUSTOMER to AFFILIATE, type SALES_AFFILIATE -->
-        <entity-and entity-name="PartyRelationship" list-name="affiliatePartyRelationshipList" filter-by-date="true">
+        <entity-and entity-name="PartyRelationship" list="affiliatePartyRelationshipList" filter-by-date="true">
             <field-map field-name="partyIdFrom" from-field="payment.partyIdFrom"/>
             <field-map field-name="roleTypeIdFrom" value="CUSTOMER"/>
             <field-map field-name="partyRelationshipTypeId" value="SALES_AFFILIATE"/><!-- this constraint could be optional if not being set in company data -->
