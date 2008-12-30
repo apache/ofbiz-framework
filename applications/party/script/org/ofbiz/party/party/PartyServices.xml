@@ -31,7 +31,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePartyRole" short-description="Delete a  PartyRole">
         <entity-one entity-name="PartyRole" value-field="partyRole"/>
-        <remove-value value-name="partyRole"/>
+        <remove-value value-field="partyRole"/>
     </simple-method>
     
     
@@ -180,7 +180,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePostalAddressBoundary" short-description="Delete a  Postal Address Boundary">
         <entity-one entity-name="PostalAddressBoundary" value-field="postalAddressBoundary"/>
-        <remove-value value-name="postalAddressBoundary"/>
+        <remove-value value-field="postalAddressBoundary"/>
     </simple-method>
     <simple-method method-name="getPostalAddressBoundary" short-description="Get Postal Address Boundary">
         <make-value entity-name="PostalAddressBoundary" value-field="postalAddressBoundaryLookupMap"/>
@@ -208,7 +208,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePartyClassification" short-description="delete a PartyClassification">
         <entity-one entity-name="PartyClassification" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <!-- PartyClassificationGroup methods -->
     <simple-method method-name="createPartyClassificationGroup" short-description="create a PartyClassificationGroup">
@@ -227,7 +227,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deletePartyClassificationGroup" short-description="delete a PartyClassificationGroup">
         <entity-one entity-name="PartyClassificationGroup" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- Vendor Party services -->
@@ -244,7 +244,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteVendor" short-description="deleteVendor">
         <entity-one entity-name="Vendor" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- party attribute services -->
@@ -261,7 +261,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removePartyAttribute" short-description="removePartyAttribute">
         <entity-one entity-name="PartyAttribute" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- party profile default -->
@@ -793,7 +793,7 @@ under the License.
         <if-empty field="parameters.roleTypeIdTo"><set field="parameters.roleTypeIdTo" value="_NA_"/></if-empty>
 
         <entity-one entity-name="PartyRelationship" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createPartyCarrierAccount" short-description="Create PartyCarrierAccount">

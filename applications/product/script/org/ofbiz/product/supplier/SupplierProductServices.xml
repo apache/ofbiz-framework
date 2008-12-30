@@ -78,7 +78,7 @@ under the License.
         <check-errors/>
  
         <entity-one entity-name="SupplierProductFeature" value-field="sprod"/>
-        <remove-value value-name="sprod"/>
+        <remove-value value-field="sprod"/>
     </simple-method>
     <simple-method method-name="getSupplierProductFeatures" short-description="Get all supplier information for a product feature" login-required="false">
         <entity-and entity-name="SupplierProductFeature" list="supplierProductFeatures">

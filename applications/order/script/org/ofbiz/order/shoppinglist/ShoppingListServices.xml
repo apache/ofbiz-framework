@@ -172,7 +172,7 @@ under the License.
 
         <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
         <entity-one entity-name="ShoppingListItem" value-field="shoppingListItem"/>
-        <remove-value value-name="shoppingListItem"/>
+        <remove-value value-field="shoppingListItem"/>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
             <now-timestamp-to-env env-name="shoppingList.lastAdminModified"/>

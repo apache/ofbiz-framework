@@ -73,7 +73,7 @@ under the License.
 	<simple-method method-name="setCommEventToRead"
 		short-description="">
 		<entity-one entity-name="CommunicationEventRole"
-			value-name="eventRole" />
+			value-field="eventRole" />
 		<if-compare operator="equals" value="COM_ROLE_CREATED"
 			field="eventRole.statusId">
 			<call-simple-method method-name="checkCommEventAccess" />

@@ -43,7 +43,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteProdCatalog" short-description="Delete an ProdCatalog">
         <entity-one entity-name="ProdCatalog"  value-field="prodCatalog"/>
-        <remove-value value-name="prodCatalog"/>
+        <remove-value value-field="prodCatalog"/>
     </simple-method>
 
     <simple-method method-name="addProductCategoryToProdCatalog" short-description="Add Category To ProdCatalog">

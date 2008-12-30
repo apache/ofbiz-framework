@@ -113,7 +113,7 @@ under the License.
         </if-empty>-->
         
         <entity-one entity-name="WorkEffort" value-field="lookedUpValue"/>
-        <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
+        <clone-value value-name="lookedUpValue" new-value-field="savedValue"/>
         
         <now-timestamp-to-env env-name="nowTimestamp"/>
         
@@ -311,7 +311,7 @@ under the License.
     </simple-method>
     <simple-method method-name="unassignPartyFromWorkEffort" short-description="Service that deletes a WorkEffortPartyAssignment entity">
         <entity-one entity-name="WorkEffortPartyAssignment" value-field="workEffortPartyAssignment"/>
-        <remove-value value-name="workEffortPartyAssignment"/>
+        <remove-value value-field="workEffortPartyAssignment"/>
     </simple-method>
 
     <!-- Create a WorkEffortContactMech -->
@@ -642,7 +642,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeWorkEffortAssoc" short-description="Remove a WorkEffort association">
         <entity-one entity-name="WorkEffortAssoc" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createWorkEffortGoodStandard" short-description="Create a link between a WorkEffort and a Product">
@@ -668,7 +668,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeWorkEffortGoodStandard" short-description="Remove a link between a WorkEffort and a Product">
         <entity-one entity-name="WorkEffortGoodStandard" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="assignInventoryToWorkEffort" short-description="Create or update WorkEffortInventoryAssign">
         <set value="Create or update WorkEffortInventoryAssign" field="operationName"/>
@@ -889,7 +889,7 @@ under the License.
         </check-permission>
         <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetStd" value-field="lookedUpValue" />
-        <remove-value value-name="lookedUpValue" />
+        <remove-value value-field="lookedUpValue" />
     </simple-method>
     <simple-method method-name="createWorkEffortFixedAssetAssign" 
             short-description="Create a WorkEffort FixedAsset Assign">
@@ -939,7 +939,7 @@ under the License.
         </check-permission>
         <check-errors />
         <entity-one entity-name="WorkEffortFixedAssetAssign" value-field="lookedUpValue" />
-        <remove-value value-name="lookedUpValue" />
+        <remove-value value-field="lookedUpValue" />
     </simple-method>
 
     <!-- Create/Update/Delete Work Effort Content-->    
@@ -981,7 +981,7 @@ under the License.
         <check-errors />
         -->
         <entity-one entity-name="WorkEffortContent" value-field="lookedUpValue" />
-        <remove-value value-name="lookedUpValue" />
+        <remove-value value-field="lookedUpValue" />
     </simple-method>
 
     <!-- Create/Update/Delete Work Effort Review-->    
@@ -1023,7 +1023,7 @@ under the License.
         </check-permission>
         <check-errors />
         <entity-one entity-name="WorkEffortReview" value-field="lookedUpValue" />
-        <remove-value value-name="lookedUpValue" />
+        <remove-value value-field="lookedUpValue" />
     </simple-method>
     
     <simple-method method-name="indexWorkEffortKeywords" short-description="Index the Keywords for a WorkEffort" login-required="false">
@@ -1074,7 +1074,7 @@ under the License.
         </check-permission>
         <check-errors />
         <entity-one entity-name="WorkEffortKeyword" value-field="lookedUpValue" />
-        <remove-value value-name="lookedUpValue" />
+        <remove-value value-field="lookedUpValue" />
     </simple-method>
     
     <simple-method method-name="createWorkEffortKeywords" short-description="Create all Work Effort Keyword">
@@ -1202,7 +1202,7 @@ under the License.
     </simple-method>
     <simple-method  method-name="deleteWorkEffortSkillStandard" short-description="Delete WorkEffortSkillStandard">
         <entity-one entity-name="WorkEffortSkillStandard" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createWorkEffortInventoryProduced" short-description="Create Work Effort InventoryProduced">
         <make-value entity-name="WorkEffortInventoryProduced" value-field="newEntity"/>
@@ -1211,7 +1211,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteWorkEffortInventoryProduced" short-description="Delete Work Effort InventoryProduced">
         <entity-one entity-name="WorkEffortInventoryProduced" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>  
+        <remove-value value-field="lookedUpValue"/>  
     </simple-method>
     <!-- WorkEffort ServiceTest Services -->
     <simple-method method-name="testCreateEventService" short-description="test to create new event (workeffort) service" login-required="false">

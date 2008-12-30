@@ -329,7 +329,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteProductKeyword" short-description="delete a ProductKeyword">
         <entity-one entity-name="ProductKeyword" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="forceIndexProductKeywords" short-description="induce all the keywords of a product">
         <entity-one entity-name="Product" value-field="product"/>
@@ -339,7 +339,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteProductKeywords" short-description="delete all the keywords of a product">
         <entity-one entity-name="Product" value-field="product"/>
-        <remove-related value-name="product" relation-name="ProductKeyword"/>
+        <remove-related value-field="product" relation-name="ProductKeyword"/>
     </simple-method>
 
     <simple-method method-name="indexProductKeywords" short-description="Index the Keywords for a Product" login-required="false">
@@ -785,7 +785,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ProductMaint" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <!-- Create/Update/Delete Product Meter Record -->
     <simple-method method-name="createProductMeter" short-description="Create an Product Meter">
@@ -816,7 +816,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="ProductMeter" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ProductGeo Services -->
@@ -833,7 +833,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteProductGeo" short-description="Delete an existing Product Geo">
         <entity-one entity-name="ProductGeo" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- a method to centralize product security code, meant to be called in-line with
@@ -918,7 +918,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteProductAttribute" short-description="delete a ProductAttribute">
         <entity-one entity-name="ProductAttribute" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- ================================================================ -->
@@ -1008,6 +1008,6 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ProductCategoryGlAccount" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 </simple-methods>

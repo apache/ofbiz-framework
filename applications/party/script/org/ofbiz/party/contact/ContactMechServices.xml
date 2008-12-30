@@ -261,7 +261,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeContactMechAttribute" short-description="removeContactMechAttribute">
         <entity-one entity-name="ContactMechAttribute" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="sendVerifyEmailAddressNotification" short-description="Send an email to the person for Verification of his Email Address" login-required="false">

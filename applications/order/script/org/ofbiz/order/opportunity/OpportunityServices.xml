@@ -98,6 +98,6 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     </simple-method>
     <simple-method method-name="deleteSalesForecastDetail" short-description="Delete a Sales Forecast Detail">
         <entity-one entity-name="SalesForecastDetail" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 </simple-methods>

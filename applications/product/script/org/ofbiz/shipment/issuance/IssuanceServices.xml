@@ -68,7 +68,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ItemIssuance" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ItemIssuanceRole services -->
@@ -95,7 +95,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ItemIssuanceRole" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- the actual issuance services -->
@@ -418,7 +418,7 @@ under the License.
 
         <!-- get ItemIssuance and related entities-->
         <entity-one entity-name="ItemIssuance" value-field="itemIssuance"/>
-        <get-related-one value-name="itemIssuance" relation-name="OrderHeader" to-value-name="orderHeader"/>
+        <get-related-one value-name="itemIssuance" relation-name="OrderHeader" to-value-field="orderHeader"/>
         <get-related-one value-name="itemIssuance" relation-name="InventoryItem" to-value-name="inventoryItem"/>
         <get-related-one value-name="itemIssuance" relation-name="Shipment" to-value-name="shipment"/>        
         

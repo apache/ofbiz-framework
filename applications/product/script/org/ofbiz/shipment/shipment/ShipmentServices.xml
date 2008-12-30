@@ -253,7 +253,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="Shipment" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createShipmentForReturn" short-description="Create Shipment based on ReturnHeader">
@@ -756,7 +756,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="Shipment" value-field="shipment"/>
-        <get-related value-name="shipment" relation-name="ItemIssuance" list-name="issuances"/>
+        <get-related value-field="shipment" relation-name="ItemIssuance" list-name="issuances"/>
         <iterate list="issuances" entry="issuance">
             <entity-and entity-name="ShipmentReceipt" list="receipts">
                 <field-map field-name="shipmentId" from-field="shipment.shipmentId"/>
@@ -958,7 +958,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ShipmentPackage" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="ensurePackageRouteSeg" short-description="Ensure ShipmentPackageRouteSeg exists for all RouteSegments for this Package">
         <entity-and entity-name="ShipmentRouteSegment" list="shipmentRouteSegments">
@@ -1192,7 +1192,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="ShipmentRouteSegment" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="ensureRouteSegPackage" short-description="Ensure ShipmentPackageRouteSeg exists for all Packages for this RouteSegment">
         <entity-and entity-name="ShipmentPackage" list="shipmentPackages">
@@ -1277,7 +1277,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteCarrierShipmentMethod" short-description="Removes a CarrierShipmentMethod">
         <entity-one entity-name="CarrierShipmentMethod" value-field="carrierShipmentMethod"/>
-        <remove-value value-name="carrierShipmentMethod"/>
+        <remove-value value-field="carrierShipmentMethod"/>
     </simple-method>
 
     <simple-method method-name="createShipmentMethodType" short-description="Creates a ShipmentMethodType">
@@ -1293,7 +1293,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteShipmentMethodType" short-description="Deletes a ShipmentMethodType">
         <entity-one entity-name="ShipmentMethodType" value-field="shipmentMethodType"/>
-        <remove-value value-name="shipmentMethodType"/>
+        <remove-value value-field="shipmentMethodType"/>
     </simple-method>
 
     <!-- quick ship entire order in one package per facility & ship group -->
@@ -1585,7 +1585,7 @@ under the License.
                 <result-to-field result-name="shipmentId" field-name="parameters.shipmentId"/>
             </call-service>            
             <entity-one entity-name="Shipment" value-field="shipment"/>
-            <get-related value-name="orderHeader" relation-name="OrderItem" list-name="orderItems"/>
+            <get-related value-field="orderHeader" relation-name="OrderItem" list-name="orderItems"/>
             <iterate entry="orderItem" list="orderItems">
                 <entity-one entity-name="Product" value-field="itemProduct" auto-field-map="false" use-cache="true">
                     <field-map field-name="productId" from-field="orderItem.productId"/>
@@ -1999,7 +1999,7 @@ under the License.
         
         <log level="info" message="Cancelling Item Issuances for shimpentId: ${parameters.shipmentId}"/>
         <entity-one entity-name="Shipment" value-field="shipment"/>
-        <get-related value-name="shipment" relation-name="ItemIssuance" list-name="issuances"/>
+        <get-related value-field="shipment" relation-name="ItemIssuance" list-name="issuances"/>
         <iterate list="issuances" entry="issuance">
             <set from-field="issuance.itemIssuanceId" field="inputMap.itemIssuanceId"/>
             <call-service service-name="cancelOrderItemIssuanceFromSalesShipment" in-map-name="inputMap"/>

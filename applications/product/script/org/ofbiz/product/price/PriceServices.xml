@@ -134,7 +134,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-errors/>
         <entity-one entity-name="ProductPaymentMethodType" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- ProductPriceRule methods -->

@@ -305,7 +305,7 @@ under the License.
     
     <simple-method method-name="deleteAgreementRole" short-description="Delete an Agreement Role">
         <entity-one entity-name="AgreementRole" value-field="agreementRole"/>
-        <remove-value value-name="agreementRole"/>
+        <remove-value value-field="agreementRole"/>
     </simple-method>
 
     <!--AgreementWorkEffortAppl-->
@@ -324,7 +324,7 @@ under the License.
    
     <simple-method method-name="deleteAgreementWorkEffortAppl" short-description="Remove a link between a WorkEffort and a Agreement Appl">
         <entity-one entity-name="AgreementWorkEffortAppl" value-field="agreementWorkEffortAppl"/>
-        <remove-value value-name="agreementWorkEffortAppl"/>
+        <remove-value value-field="agreementWorkEffortAppl"/>
     </simple-method>
 
 </simple-methods>

@@ -47,7 +47,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="TaxAuthority" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- TaxAuthorityAssoc methods -->
@@ -77,7 +77,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="TaxAuthorityAssoc" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- TaxAuthorityCategory methods -->
@@ -111,7 +111,7 @@ under the License.
         <find-by-and entity-name="TaxAuthorityRateProduct" map-name="taxAuthorityRateProductMap" list-name="taxAuthorityRateProductList"/>
         <if-empty field="taxAuthorityRateProductList">
             <entity-one entity-name="TaxAuthorityCategory" value-field="lookedUpValue"/>
-            <remove-value value-name="lookedUpValue"/>
+            <remove-value value-field="lookedUpValue"/>
             <else>
                 <add-error>
                     <fail-property resource="AccountingUiLabels" property="AccountingTaxAuthorityRateProductUseThisProductCategory"/>
@@ -147,7 +147,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="TaxAuthorityGlAccount" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- TaxAuthorityRateProduct methods -->
@@ -178,7 +178,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="TaxAuthorityRateProduct" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     
@@ -236,7 +236,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="PartyTaxAuthInfo" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createCustomerTaxAuthInfo" short-description="Create a Customer PartyTaxAuthInfo">

@@ -36,7 +36,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeCostComponentCalc" short-description="Remove a CostComponentCalc entry">
         <entity-one entity-name="CostComponentCalc" value-field="costComponentCalc"/>
-        <remove-value value-name="costComponentCalc"/>
+        <remove-value value-field="costComponentCalc"/>
     </simple-method>
     <simple-method method-name="createWorkEffortCostCalc" short-description="Create a WorkEffortCostCalc entry">
         <make-value entity-name="WorkEffortCostCalc" value-field="newEntity"/>
@@ -49,6 +49,6 @@ under the License.
     </simple-method>
     <simple-method method-name="removeWorkEffortCostCalc" short-description="Remove a WorkEffortCostCalc entry">
         <entity-one entity-name="WorkEffortCostCalc" value-field="workEffortCostCalc"/>
-        <remove-value value-name="workEffortCostCalc"/>
+        <remove-value value-field="workEffortCostCalc"/>
     </simple-method>
 </simple-methods>

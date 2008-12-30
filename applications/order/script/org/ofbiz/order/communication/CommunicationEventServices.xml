@@ -36,6 +36,6 @@ under the License.
         </check-permission>
         <check-errors/>
         <entity-one entity-name="CommunicationEventOrder" value-field="eventOrder"/>
-        <remove-value value-name="eventOrder"/>
+        <remove-value value-field="eventOrder"/>
     </simple-method>
 </simple-methods>

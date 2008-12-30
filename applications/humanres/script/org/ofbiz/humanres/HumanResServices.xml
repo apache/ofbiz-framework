@@ -45,7 +45,7 @@
     
     <simple-method method-name="deletePartyQual" short-description="Delete Qualification of a Party">
         <entity-one entity-name="PartyQual" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createPartyResume" short-description="Create Resume for Party">                
@@ -64,7 +64,7 @@
     
     <simple-method method-name="deletePartyResume" short-description="Delete a Resume of a Party">
         <entity-one entity-name="PartyResume" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
             
     <simple-method method-name="createPartySkill" short-description="Create Party Skills">
@@ -99,7 +99,7 @@
         
     <simple-method method-name="deletePartySkill" short-description="Delete a Skill of Party">
         <entity-one entity-name="PartySkill" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="createPerfReview" short-description="Create a Performance Review">
@@ -119,7 +119,7 @@
        
     <simple-method method-name="deletePerfReview" short-description="Delete Performance Review">
         <entity-one entity-name="PerfReview" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="createPerfReviewItem" short-description="Create Performance Review Items">
@@ -139,7 +139,7 @@
     
     <simple-method method-name="deletePerfReviewItem" short-description="Delete Performance Review Items">
         <entity-one entity-name="PerfReviewItem" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createPerformanceNote" short-description="Create Performance Note">
@@ -161,7 +161,7 @@
         
     <simple-method method-name="deletePerformanceNote" short-description="Delete Performance Note">
         <entity-one entity-name="PerformanceNote" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createPersonTraining" short-description="Create Person Training">           
@@ -183,7 +183,7 @@
          
     <simple-method method-name="deletePersonTraining" short-description="Delete a Person Training">
         <entity-one entity-name="PersonTraining" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- Employment Group -->
@@ -209,7 +209,7 @@
         
     <simple-method method-name="deleteEmployment" short-description="Delete Employment">
         <entity-one entity-name="Employment" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="createEmploymentApp" short-description="Create an Employment Application">
@@ -228,7 +228,7 @@
         
     <simple-method method-name="deleteEmploymentApp" short-description="Delete EmploymentApp">
         <entity-one entity-name="EmploymentApp" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="createPartyBenefit" short-description="Create Party Benefit">
@@ -277,7 +277,7 @@
         
     <simple-method method-name="deletePayGrade" short-description="Delete Pay Grade">
         <entity-one entity-name="PayGrade" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="createPayHistory" short-description="Create Pay History">
@@ -322,7 +322,7 @@
        
     <simple-method method-name="deletePayrollPreference" short-description="Delete Payroll Preference">
         <entity-one entity-name="PayrollPreference" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
         
     <simple-method method-name="createSalaryStep" short-description="Create a Salary Step">
@@ -342,7 +342,7 @@
     
     <simple-method method-name="deleteSalaryStep" short-description="Delete Salary Step">
         <entity-one entity-name="SalaryStep" value-field="lookedUpValue"/>  
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createTerminationReason" short-description="Create a Termination Reason">
@@ -361,7 +361,7 @@
     
     <simple-method method-name="deleteTerminationReason" short-description="Delete Termination Reason">
         <entity-one entity-name="TerminationReason" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createUnemploymentClaim" short-description="Create a Unemployment Claim">
@@ -402,7 +402,7 @@
     
     <simple-method method-name="deleteEmplPosition" short-description="Delete Employee Position">
         <entity-one entity-name="EmplPosition" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createEmplPositionFulfillment" short-description="Create a Emplyoee Position Fulfillment">
@@ -424,7 +424,7 @@
     
     <simple-method method-name="deleteEmplPositionFulfillment" short-description="Delete Employee Position Fulfillment">
         <entity-one entity-name="EmplPositionFulfillment" value-field="lookedUpValue"/>       
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <simple-method method-name="createEmplPositionReportingStruct" short-description="Create a Employee Position Reporting Structure">
@@ -459,7 +459,7 @@
 
     <simple-method method-name="deleteEmplPositionReportingStruct" short-description="Delete Employee Position Reporting Structure">
         <entity-one entity-name="EmplPositionReportingStruct" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createEmplPositionResponsibility" short-description="Create a Employee Position Responsibility">
@@ -481,7 +481,7 @@
     
     <simple-method method-name="deleteEmplPositionResponsibility" short-description="Delete Employee Position Responsibility">
         <entity-one entity-name="EmplPositionResponsibility" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createValidResponsibility" short-description="Create a Valid Responsibility">
@@ -503,7 +503,7 @@
     
     <simple-method method-name="deleteValidResponsibility" short-description="Delete Valid Responsibility">
         <entity-one entity-name="ValidResponsibility" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <!-- Skill Types -->
     <simple-method method-name="createSkillType" short-description="Create a SkillType">
@@ -522,7 +522,7 @@
     
     <simple-method method-name="deleteSkillType" short-description="Delete SkillType">
         <entity-one entity-name="SkillType" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createEmployee" short-description="Create New Employee">
@@ -565,7 +565,7 @@
     
     <simple-method method-name="deleteResponsibilityType" short-description="Delete ResponsibilityType">
         <entity-one entity-name="ResponsibilityType" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createTerminationType" short-description="Create a TerminationType">
@@ -586,7 +586,7 @@
     
     <simple-method method-name="deleteTerminationType" short-description="Delete TerminationType">
         <entity-one entity-name="TerminationType" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createEmplPositionType" short-description="Create a PositionType">
@@ -656,7 +656,7 @@
     
     <simple-method method-name="deleteAgreementEmploymentAppl" short-description="Delete Agreement Employment Appl">
         <entity-one entity-name="AgreementEmploymentAppl" value-field="agreementEmploymentAppl"/>
-        <remove-value value-name="agreementEmploymentAppl"/>
+        <remove-value value-field="agreementEmploymentAppl"/>
     </simple-method>
         <simple-method method-name="createEmplLeave" short-description="Create Employee Leave">
         <make-value entity-name="EmplLeave" value-field="newEntity"/>
@@ -691,6 +691,6 @@
     
     <simple-method method-name="deleteEmplLeaveType" short-description="Delete leaveType">
         <entity-one entity-name="EmplLeaveType" value-field="lookedUpValue"/>        
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 </simple-methods>        

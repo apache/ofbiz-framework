@@ -138,7 +138,7 @@ under the License.
             <check-errors/>    
         </if-compare>
         <entity-one entity-name="AcctgTransEntry" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
 
         <!-- when changing entries, also update the last modified info for the AcctgTrans -->
         <call-simple-method method-name="updateAcctgTransLastModified"/>

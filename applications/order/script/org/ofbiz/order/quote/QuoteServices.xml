@@ -362,7 +362,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <entity-one entity-name="QuoteItem" value-field="quoteItem" auto-field-map="true"/>
-        <remove-related value-name="quoteItem" relation-name="QuoteAdjustment"/>
+        <remove-related value-field="quoteItem" relation-name="QuoteAdjustment"/>
         <check-errors/>
         <remove-value value-name="quoteItem"/>
     </simple-method>

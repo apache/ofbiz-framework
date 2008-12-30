@@ -118,7 +118,7 @@ under the License.
         <check-errors/>
         
         <entity-one entity-name="OrderShipment" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- order requirement methods -->
@@ -141,7 +141,7 @@ under the License.
 
         <!-- Include the facilityId corresponding to this order by looking up the ProductStore -->
         <entity-one entity-name="OrderHeader" value-field="orderHeader" auto-field-map="true"/>
-        <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-name="productStore" use-cache="true"/>
+        <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-field="productStore" use-cache="true"/>
         <if-not-empty field="productStore.inventoryFacilityId">
             <set from-field="productStore.inventoryFacilityId" field="inputMap.facilityId"/>
         </if-not-empty>
@@ -791,7 +791,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <entity-one entity-name="OrderContactMech" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="updateOrderNote" short-description="Update OrderNote">
@@ -834,7 +834,7 @@ under the License.
         <check-errors/>
 
         <entity-one entity-name="OrderTerm" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="addPaymentMethodToOrder" short-description="Create an PaymentMethodToOrder">

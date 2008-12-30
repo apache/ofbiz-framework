@@ -39,7 +39,7 @@ under the License.
         <!-- check the product; make sure its a physical item -->
         <entity-one entity-name="Product" value-field="product"/>
         <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
-        <get-related-one value-name="product" relation-name="ProductType" to-value-name="productType"/>
+        <get-related-one value-name="product" relation-name="ProductType" to-value-field="productType"/>
         <if-compare field="productType.isPhysical" operator="equals" value="N">
             <set field="parameters.quantityNotReserved" value="0" type="Double"/>
             <else>
@@ -592,7 +592,7 @@ under the License.
     </simple-method>
     <simple-method method-name="cancelOrderItemShipGrpInvRes" short-description="Cancel An Inventory Reservation">
         <entity-one entity-name="OrderItemShipGrpInvRes" value-field="orderItemShipGrpInvRes"/>
-        <get-related-one relation-name="InventoryItem" value-name="orderItemShipGrpInvRes" to-value-name="inventoryItem"/>
+        <get-related-one relation-name="InventoryItem" value-name="orderItemShipGrpInvRes" to-value-field="inventoryItem"/>
         <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
             <log level="verbose" message="Serialized inventory re-enabled."/>
             <set value="INV_AVAILABLE" field="inventoryItem.statusId"/>
