@@ -393,7 +393,7 @@ under the License.
                         <set from-field="parameters.targetLocationSeqId" field="targetInventoryItem.locationSeqId"/>
                         <!-- now that targetInventoryItem is populated with quantities, etc, call createInventoryItem service -->
                         <clear-field field="createNonOisgirTargetDetailMap"/>
-                        <set-service-fields map-name="targetInventoryItem" service-name="createInventoryItem" to-map-name="createInventoryItemMap"/>
+                        <set-service-fields map="targetInventoryItem" service-name="createInventoryItem" to-map="createInventoryItemMap"/>
                         <call-service service-name="createInventoryItem" in-map-name="createInventoryItemMap">
                             <result-to-field result-name="inventoryItemId" field-name="createNonOisgirTargetDetailMap.inventoryItemId"/>
                         </call-service>
@@ -462,7 +462,7 @@ under the License.
                 <make-value entity-name="InventoryItem" map-name="inventoryItem" value-field="targetInventoryItem"/>
                 <set from-field="parameters.targetLocationSeqId" field="targetInventoryItem.locationSeqId"/>
                 <!-- now that targetInventoryItem is populated with initial values, call createInventoryItem service -->
-                <set-service-fields map-name="targetInventoryItem" service-name="createInventoryItem" to-map-name="createInventoryItemMap"/>
+                <set-service-fields map="targetInventoryItem" service-name="createInventoryItem" to-map="createInventoryItemMap"/>
                 <call-service service-name="createInventoryItem" in-map-name="createInventoryItemMap">
                     <result-to-field result-name="inventoryItemId" map-name="targetInventoryItem"/>
                 </call-service>

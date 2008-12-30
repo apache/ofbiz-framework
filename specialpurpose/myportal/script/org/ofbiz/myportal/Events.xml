@@ -51,7 +51,7 @@ under the License.
                 <set field="parameters.userPrefMap.otherCommunications" value="N"/>
             </else>
         </if-compare>
-        <set-service-fields service-name="setUserPreferenceGroup" map-name="parameters"
+        <set-service-fields service-name="setUserPreferenceGroup" map="parameters"
             to-map-name="inMap"/>
         <call-service service-name="setUserPreferenceGroup" in-map-name="inMap"/>
     </simple-method>
@@ -64,7 +64,7 @@ under the License.
                 <set field="parameters.userPrefMap.sendCustRequestEmail" value="N"/>
             </else>
         </if-compare>
-        <set-service-fields service-name="setUserPreferenceGroup" map-name="parameters"
+        <set-service-fields service-name="setUserPreferenceGroup" map="parameters"
             to-map-name="inMap"/>
         <call-service service-name="setUserPreferenceGroup" in-map-name="inMap"/>
     </simple-method>
@@ -226,7 +226,7 @@ under the License.
         <log level="always" message=" DataResource : ${parameters.dataResourceId}"/>
 
         <!-- Create attach upload to data resource -->
-        <set-service-fields service-name="attachUploadToDataResource" map-name="formInput.formInput"
+        <set-service-fields service-name="attachUploadToDataResource" map="formInput.formInput"
             to-map-name="attachMap"/>
         <set field="attachMap.uploadedFile" from-field="formInput.imageData"/>
         <set field="attachMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
@@ -248,7 +248,7 @@ under the License.
         <log level="always" message=" Content : ${parameters.contentId}"/>
 
         <!-- Create party content -->
-        <set-service-fields service-name="createPartyContent" map-name="formInput.formInput"
+        <set-service-fields service-name="createPartyContent" map="formInput.formInput"
             to-map-name="partycontent"/>
         <set field="partycontent.contentId" from-field="parameters.contentId"/>
         <set field="partycontent.partyContentTypeId"
@@ -286,7 +286,7 @@ under the License.
         </call-class-method>
 
         <!-- Create party content -->
-        <set-service-fields service-name="createPartyContent" map-name="formInput.formInput"
+        <set-service-fields service-name="createPartyContent" map="formInput.formInput"
             to-map-name="partycontent"/>
         <set field="partycontent.contentId" from-field="formInput.formInput.contentId"/>
         <set field="partycontent.partyContentTypeId"

@@ -42,7 +42,7 @@ under the License.
                     <iterate list="orderItemList" entry="orderItem">
                         <if-not-empty field="orderItem.productId">
                             <clear-field field="callSvcMap"/>
-                            <set-service-fields to-map-name="callSvcMap" service-name="issueImmediatelyFulfilledOrderItem" map-name="orderItem"/>
+                            <set-service-fields to-map="callSvcMap" service-name="issueImmediatelyFulfilledOrderItem" map="orderItem"/>
                             <set field="callSvcMap.orderHeader" from-field="orderHeader" />
                             <set field="callSvcMap.orderItem" from-field="orderItem" />
                             <set field="callSvcMap.productStore" from-field="productStore" />
@@ -197,7 +197,7 @@ under the License.
                 <if-compare value="INV_AVAILABLE" operator="equals" field="inventoryItem.statusId">
                     <!-- change status on inventoryItem -->
                     <set field="inventoryItem.statusId" value="INV_DELIVERED" />
-                    <set-service-fields service-name="updateInventoryItem"  map-name="inventoryItem" to-map-name="inventoryItemMap"/>
+                    <set-service-fields service-name="updateInventoryItem"  map="inventoryItem" to-map="inventoryItemMap"/>
                     <call-service service-name="updateInventoryItem" in-map-name="inventoryItemMap"/>
 
                     <!-- create ItemIssuance record -->

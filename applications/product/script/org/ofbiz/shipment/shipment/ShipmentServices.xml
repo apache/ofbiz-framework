@@ -160,7 +160,7 @@ under the License.
                 <set from-field="parameters.estimatedShipDate" field="estShipWe.estimatedStartDate"/>
                 <set from-field="parameters.estimatedShipDate" field="estShipWe.estimatedCompletionDate"/>
                 <set from-field="parameters.originFacilityId" field="estShipWe.facilityId"/>
-                <set-service-fields service-name="updateWorkEffort" map-name="estShipWe" to-map-name="estShipWeUpdMap"/>
+                <set-service-fields service-name="updateWorkEffort" map="estShipWe" to-map="estShipWeUpdMap"/>
                 <call-service service-name="updateWorkEffort" in-map-name="estShipWeUpdMap"/>
             </then>
         </if>
@@ -183,7 +183,7 @@ under the License.
                 <set from-field="parameters.estimatedArrivalDate" field="estimatedArrivalWorkEffort.estimatedStartDate"/>
                 <set from-field="parameters.estimatedArrivalDate" field="estimatedArrivalWorkEffort.estimatedCompletionDate"/>
                 <set from-field="parameters.destinationFacilityId" field="estimatedArrivalWorkEffort.facilityId"/>
-                <set-service-fields service-name="updateWorkEffort" map-name="estimatedArrivalWorkEffort" to-map-name="estimatedArrivalWorkEffortUpdMap"/>
+                <set-service-fields service-name="updateWorkEffort" map="estimatedArrivalWorkEffort" to-map="estimatedArrivalWorkEffortUpdMap"/>
                 <call-service service-name="updateWorkEffort" in-map-name="estimatedArrivalWorkEffortUpdMap"/>
             </then>
         </if>
@@ -300,7 +300,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createShipmentAndItemsForReturn" short-description="Create Shipment and ShipmentItems based on ReturnHeader and ReturnItems">
-        <set-service-fields service-name="createShipmentForReturn" map-name="parameters" to-map-name="shipmentCtx"/>
+        <set-service-fields service-name="createShipmentForReturn" map="parameters" to-map="shipmentCtx"/>
         <call-service service-name="createShipmentForReturn" in-map-name="shipmentCtx">
             <result-to-field result-name="shipmentId"/>
         </call-service>
@@ -332,7 +332,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createShipmentAndItemsForVendorReturn" short-description="Create Shipment and ShipmentItems based on primaryReturnId for Vendor return">
-        <set-service-fields service-name="createShipment" map-name="parameters" to-map-name="shipmentCtx"/>
+        <set-service-fields service-name="createShipment" map="parameters" to-map="shipmentCtx"/>
         <call-service service-name="createShipment" in-map-name="shipmentCtx">
             <result-to-field result-name="shipmentId"/>
         </call-service>
@@ -607,7 +607,7 @@ under the License.
             <call-service service-name="createShipmentRouteSegment" in-map-name="shipmentRouteSegmentMap"/>
         </if-empty>
 
-        <set-service-fields service-name="updateShipment" map-name="shipment" to-map-name="shipmentUpdateMap"/>
+        <set-service-fields service-name="updateShipment" map="shipment" to-map="shipmentUpdateMap"/>
         <call-service service-name="updateShipment" in-map-name="shipmentUpdateMap"/>
     </simple-method>
     
@@ -673,7 +673,7 @@ under the License.
         </if-not-empty>
 
         <if-compare-field field="shipment" to-field="shipmentCopy" operator="not-equals">
-            <set-service-fields service-name="updateShipment" map-name="shipment" to-map-name="shipmentUpdateMap"/>
+            <set-service-fields service-name="updateShipment" map="shipment" to-map="shipmentUpdateMap"/>
             <call-service service-name="updateShipment" in-map-name="shipmentUpdateMap"/>
         </if-compare-field>
     </simple-method>
@@ -841,7 +841,7 @@ under the License.
             </calcop>
         </calculate>
         <!-- update the original ShipmentItem -->
-        <set-service-fields service-name="updateShipmentItem" map-name="originalShipmentItem" to-map-name="updateOriginalShipmentItemMap"/>
+        <set-service-fields service-name="updateShipmentItem" map="originalShipmentItem" to-map="updateOriginalShipmentItemMap"/>
         <call-service service-name="updateShipmentItem" in-map-name="updateOriginalShipmentItemMap"/>
         
         <!-- split the OrderShipment record(s) as well for the new quantities, 
@@ -857,7 +857,7 @@ under the License.
                 <if-compare-field field="itemOrderShipment.quantity" to-field="orderShipmentQuantityLeft" operator="greater" type="Double">
                     <!-- there is enough in this OrderShipment record, so just adjust it and move on -->
                     <clear-field field="updateOrderShipmentMap"/>
-                    <set-service-fields service-name="updateOrderShipment" map-name="itemOrderShipment" to-map-name="updateOrderShipmentMap"/>
+                    <set-service-fields service-name="updateOrderShipment" map="itemOrderShipment" to-map="updateOrderShipmentMap"/>
                     <calculate field-name="updateOrderShipmentMap.quantity" type="Double">
                         <calcop operator="add" field-name="itemOrderShipment.quantity">
                             <calcop operator="negative" field-name="orderShipmentQuantityLeft"/>
@@ -878,7 +878,7 @@ under the License.
                     <else>
                         <!-- not enough on this one, create a new one for the new item and delete this one -->
                         <clear-field field="deleteOrderShipmentMap"/>
-                        <set-service-fields service-name="deleteOrderShipment" map-name="itemOrderShipment" to-map-name="deleteOrderShipmentMap"/>
+                        <set-service-fields service-name="deleteOrderShipment" map="itemOrderShipment" to-map="deleteOrderShipmentMap"/>
                         <call-service service-name="deleteOrderShipment" in-map-name="deleteOrderShipmentMap"/>
                         
                         <clear-field field="createOrderShipmentMap"/>
@@ -1037,7 +1037,7 @@ under the License.
         <find-by-primary-key value-field="shipmentPackageContent" map="newEntity"/>
         <log level="verbose" message="In addShipmentContentToPackage trying values: ${newEntity}"/>
         <if-empty field="shipmentPackageContent">            
-            <set-service-fields service-name="createShipmentPackageContent" map-name="parameters" to-map-name="createSPCMap"/>
+            <set-service-fields service-name="createShipmentPackageContent" map="parameters" to-map="createSPCMap"/>
             <call-service service-name="createShipmentPackageContent" in-map-name="createSPCMap">
                 <result-to-field result-name="shipmentPackageSeqId" field-name="newEntity.shipmentPackageSeqId"/>
             </call-service>
@@ -1046,7 +1046,7 @@ under the License.
             <calculate field-name="shipmentPackageContent.quantity" type="Double">
                 <calcop field-name="shipmentPackageContent.quantity" operator="add"><calcop field-name="parameters.quantity" operator="get"/></calcop>
             </calculate>
-            <set-service-fields service-name="updateShipmentPackageContent" map-name="shipmentPackageContent" to-map-name="updateSPCMap"/>
+            <set-service-fields service-name="updateShipmentPackageContent" map="shipmentPackageContent" to-map="updateSPCMap"/>
             <call-service service-name="updateShipmentPackageContent" in-map-name="updateSPCMap"/>
         </else>
         </if-empty>
@@ -1623,7 +1623,7 @@ under the License.
         <get-related-one to-value-name="inventoryItem" relation-name="InventoryItem" value-name="orderItemShipGrpInvRes"/>        
         <if-compare-field operator="not-equals" field="inventoryItem.serialNumber" to-field="parameters.serialNumber">            
             <!-- The inventory that we have reserved is not what we shipped. Lets reReserve, this time we'll get what we want -->
-            <set-service-fields map-name="parameters" to-map-name="reserveAnInventoryItemCtx" service-name="reserveAnInventoryItem"/>
+            <set-service-fields map="parameters" to-map="reserveAnInventoryItemCtx" service-name="reserveAnInventoryItem"/>
             <call-service service-name="reserveAnInventoryItem" in-map-name="reserveAnInventoryItemCtx">
                 <result-to-field result-name="inventoryItemId" field-name="parameters.inventoryItemId"/>
             </call-service>
@@ -1993,7 +1993,7 @@ under the License.
         </entity-and>
         <iterate entry="orderShipment" list="orderShipmentList">
             <clear-field field="deleteOrderShipmentMap"/>
-            <set-service-fields service-name="deleteOrderShipment" map-name="orderShipment" to-map-name="deleteOrderShipmentMap"/>
+            <set-service-fields service-name="deleteOrderShipment" map="orderShipment" to-map="deleteOrderShipmentMap"/>
             <call-service service-name="deleteOrderShipment" in-map-name="deleteOrderShipmentMap"/>
         </iterate>        
         

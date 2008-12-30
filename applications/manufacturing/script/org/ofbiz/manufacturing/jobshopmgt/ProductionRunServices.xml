@@ -43,7 +43,7 @@ under the License.
                 <iterate list="components" entry="component">
                     <if-not-empty field="component.productId">
                         <clear-field field="callSvcMap"/>
-                        <set-service-fields to-map-name="callSvcMap" service-name="issueProductionRunTaskComponent" map-name="component"/>
+                        <set-service-fields to-map="callSvcMap" service-name="issueProductionRunTaskComponent" map="component"/>
                         <set from-field="reserveOrderEnumId" field="callSvcMap.reserveOrderEnumId"/>
                         <set field="callSvcMap.description" value="BOM Part"/>
                         <set field="callSvcMap.failIfItemsAreNotAvailable" from-field="parameters.failIfItemsAreNotAvailable"/>

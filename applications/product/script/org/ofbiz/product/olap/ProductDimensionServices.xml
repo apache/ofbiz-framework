@@ -37,12 +37,12 @@ under the License.
     </simple-method>
 
     <simple-method method-name="loadProductInProductDimension" short-description="">
-        <set-service-fields service-name="prepareProductDimensionData" map-name="parameters" to-map-name="inMap"/>
+        <set-service-fields service-name="prepareProductDimensionData" map="parameters" to-map="inMap"/>
         <call-service service-name="prepareProductDimensionData" in-map-name="inMap">
             <result-to-field result-name="productDimension"/>
         </call-service>
         <clear-field field="inMap"/>
-        <set-service-fields service-name="storeGenericDimension" map-name="parameters" to-map-name="inMap"/>
+        <set-service-fields service-name="storeGenericDimension" map="parameters" to-map="inMap"/>
         <set field="inMap.naturalKeyFields[]" value="productId"/>
         <set field="inMap.dimensionValue" from-field="productDimension"/>
         <call-service service-name="storeGenericDimension" in-map-name="inMap"/>
@@ -50,7 +50,7 @@ under the License.
     <simple-method method-name="loadAllProductsInProductDimension" short-description="">
         <entity-condition entity-name="Product" list="products"/>
         <iterate list="products" entry="product">
-            <set-service-fields service-name="loadProductInProductDimension" map-name="parameters" to-map-name="inMap"/>
+            <set-service-fields service-name="loadProductInProductDimension" map="parameters" to-map="inMap"/>
             <set field="inMap.productId" from-field="product.productId"/>
             <call-service service-name="loadProductInProductDimension" in-map-name="inMap"/>
             <clear-field field="inMap"/>

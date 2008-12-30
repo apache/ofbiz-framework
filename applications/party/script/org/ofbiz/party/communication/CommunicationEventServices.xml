@@ -274,7 +274,7 @@ under the License.
             <entity-one entity-name="UserLogin" value-field="sysUserLogin">
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
-            <set-service-fields service-name="createPartyRole" map-name="parameters" to-map-name="partyRole"/>
+            <set-service-fields service-name="createPartyRole" map="parameters" to-map="partyRole"/>
             <set field="partyRole.userLogin" from-field="sysUserLogin"/>
             <call-service service-name="createPartyRole" in-map-name="partyRole" include-user-login="false"/>
             
@@ -303,7 +303,7 @@ under the License.
                     <field-map field-name="communicationEventId" from-field="eventRole.communicationEventId"/>
                 </entity-and>
                 <if-empty field="roles">
-                    <set-service-fields service-name="deleteCommunicationEvent" map-name="parameters" to-map-name="inMapDel"/>
+                    <set-service-fields service-name="deleteCommunicationEvent" map="parameters" to-map="inMapDel"/>
                     <call-service service-name="deleteCommunicationEvent" in-map-name="inMapDel"/>
                 </if-empty>
             </if-compare>
@@ -357,7 +357,7 @@ under the License.
             </condition-list>
         </entity-condition>
         <iterate entry="communicationEvent" list="communicationEvents">
-            <set-service-fields service-name="sendCommEventAsEmail" map-name="communicationEvent" to-map-name="inMap"/>
+            <set-service-fields service-name="sendCommEventAsEmail" map="communicationEvent" to-map="inMap"/>
             <call-service service-name="sendCommEventAsEmail" in-map-name="inMap" require-new-transaction="true"/>
         </iterate>
     </simple-method>
@@ -388,7 +388,7 @@ under the License.
 
         <!-- create partyId if not provided -->
         <if-empty field="parameters.partyId">
-            <set-service-fields service-name="createPerson" map-name="parameters" to-map-name="newParty"/>
+            <set-service-fields service-name="createPerson" map="parameters" to-map="newParty"/>
             <call-service service-name="createPerson" in-map-name="newParty">
                 <result-to-field result-name="partyId" field-name="parameters.partyId"/>
             </call-service>

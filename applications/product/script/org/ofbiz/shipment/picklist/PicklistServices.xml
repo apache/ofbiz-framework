@@ -476,7 +476,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
-        <set-service-fields map-name="parameters" service-name="findOrdersToPickMove" to-map-name="findOrdersToPickMoveMap"/>
+        <set-service-fields map="parameters" service-name="findOrdersToPickMove" to-map="findOrdersToPickMoveMap"/>
         <call-service service-name="findOrdersToPickMove" in-map-name="findOrdersToPickMoveMap">
             <result-to-field result-name="pickMoveByShipmentMethodInfoList"/>
         </call-service>
@@ -542,7 +542,7 @@ under the License.
                             <clear-field field="createPicklistItemMap"/>
                             <set from-field="picklistBinId" field="createPicklistItemMap.picklistBinId"/>
                             <set field="createPicklistItemMap.itemStatusId" value="PICKITEM_PENDING"/>
-                            <set-service-fields service-name="createPicklistItem" map-name="orderItemShipGrpInvRes" to-map-name="createPicklistItemMap"/>
+                            <set-service-fields service-name="createPicklistItem" map="orderItemShipGrpInvRes" to-map="createPicklistItemMap"/>
                             <set field="createPicklistItemMap.quantity" from-field="quantityToPick"/>
                             <call-service service-name="createPicklistItem" in-map-name="createPicklistItemMap"/>
                             <calculate field-name="itemsInBin">
@@ -757,7 +757,7 @@ under the License.
             <fail-message message="Security Error: to run setPicklistItemToComplete you must have the FACILITY_UPDATE or FACILITY_ADMIN permission"/>
         </check-permission>
 
-        <set-service-fields service-name="updatePicklistItem" map-name="parameters" to-map-name="serviceCtx"/>
+        <set-service-fields service-name="updatePicklistItem" map="parameters" to-map="serviceCtx"/>
         <set field="serviceCtx.itemStatusId" value="PICKITEM_COMPLETED"/>
         <call-service service-name="updatePicklistItem" in-map-name="serviceCtx" include-user-login="true"/>
     </simple-method>
@@ -1115,7 +1115,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
-        <set-service-fields map-name="parameters" service-name="findOrdersToPickMove" to-map-name="findOrdersToPickMoveMap"/>
+        <set-service-fields map="parameters" service-name="findOrdersToPickMove" to-map="findOrdersToPickMoveMap"/>
         <call-service service-name="findOrdersToPickMove" in-map-name="findOrdersToPickMoveMap">
             <result-to-field result-name="pickMoveByShipmentMethodInfoList"/>
         </call-service>

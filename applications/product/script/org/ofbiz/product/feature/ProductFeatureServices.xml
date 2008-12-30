@@ -121,7 +121,7 @@ under the License.
         </entity-and>
         
         <iterate entry="productFeature" list="productFeatures">
-            <set-service-fields service-name="applyFeatureToProduct" map-name="parameters" to-map-name="applyFeatureContext"/>
+            <set-service-fields service-name="applyFeatureToProduct" map="parameters" to-map="applyFeatureContext"/>
             <set field="applyFeatureContext.productFeatureId" from-field="productFeature.productFeatureId"/>
 
             <if-empty field="applyFeatureContext.sequenceNum">

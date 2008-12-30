@@ -698,7 +698,7 @@ under the License.
         <set value="LOCAL_FILE" field="dataResource.dataResourceTypeId"/>
         <store-value value-name="dataResource"/>
 
-        <set-service-fields service-name="createAnonFile" map-name="dataResource" to-map-name="fileCtx"/>
+        <set-service-fields service-name="createAnonFile" map="dataResource" to-map="fileCtx"/>
         <set from-field="parameters.uploadedFile" field="fileCtx.binData"/>
         <set from-field="dataResource" field="fileCtx.dataResource"/>
         <call-service service-name="createAnonFile" in-map-name="fileCtx" include-user-login="true"/>
@@ -749,7 +749,7 @@ under the License.
         <store-value value-name="dataResource"/>
 
         <!-- fields serviceName and fileField are required to be set by calling method -->
-        <set-service-fields service-name="createOtherDataResource" map-name="dataResource" to-map-name="serviceContext"/>
+        <set-service-fields service-name="createOtherDataResource" map="dataResource" to-map="serviceContext"/>
         <set from-field="parameters.uploadedFile" field="serviceContext.dataResourceContent"/>        
 
         <if-compare field="isUpdate" value="true" operator="equals">
@@ -805,7 +805,7 @@ under the License.
         <store-value value-name="dataResource"/>
 
         <!-- fields serviceName and fileField are required to be set by calling method -->
-        <set-service-fields service-name="createImageDataResource" map-name="dataResource" to-map-name="serviceContext"/>
+        <set-service-fields service-name="createImageDataResource" map="dataResource" to-map="serviceContext"/>
         <set from-field="parameters.uploadedFile" field="serviceContext.imageData"/>        
 
         <if-compare field="isUpdate" value="true" operator="equals">
@@ -861,7 +861,7 @@ under the License.
         <store-value value-name="dataResource"/>
 
         <!-- fields serviceName and fileField are required to be set by calling method -->
-        <set-service-fields service-name="createVideoDataResource" map-name="dataResource" to-map-name="serviceContext"/>
+        <set-service-fields service-name="createVideoDataResource" map="dataResource" to-map="serviceContext"/>
         <set from-field="parameters.uploadedFile" field="serviceContext.videoData"/>
 
         <if-compare field="isUpdate" value="true" operator="equals">
@@ -917,7 +917,7 @@ under the License.
         <store-value value-name="dataResource"/>
 
         <!-- fields serviceName and fileField are required to be set by calling method -->
-        <set-service-fields service-name="createAudioDataResource" map-name="dataResource" to-map-name="serviceContext"/>
+        <set-service-fields service-name="createAudioDataResource" map="dataResource" to-map="serviceContext"/>
         <set from-field="parameters.uploadedFile" field="serviceContext.audioData"/>
 
         <if-compare field="isUpdate" value="true" operator="equals">

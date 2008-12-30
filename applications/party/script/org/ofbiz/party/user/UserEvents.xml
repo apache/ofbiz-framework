@@ -396,7 +396,7 @@ under the License.
         <!--send New User Email Notification-->
         <set field="emailContext.partyId" from-field="partyId"/>
         <set field="emailContext.emailType" value="PARTY_REGIS_CONFIRM"/>
-        <set-service-fields service-name="sendCreatePartyEmailNotification" map-name="emailContext" to-map-name="serviceInMap"/>
+        <set-service-fields service-name="sendCreatePartyEmailNotification" map="emailContext" to-map="serviceInMap"/>
         <call-service service-name="sendCreatePartyEmailNotification" in-map-name="serviceInMap"/>
     </simple-method>
 

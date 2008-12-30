@@ -148,7 +148,7 @@ under the License.
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>
         <!-- first try with just updating without changing the telecom number -->
-        <set-service-fields service-name="updatePartyTelecomNumber" map-name="telecomNumber" to-map-name="serviceCtx"/>
+        <set-service-fields service-name="updatePartyTelecomNumber" map="telecomNumber" to-map="serviceCtx"/>
         <set field="serviceCtx.partyId" from-field="partyId"/>
         
         <entity-one entity-name="UserLogin" value-field="userLogin">
@@ -217,7 +217,7 @@ under the License.
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>
         <!-- first try with just updating without changing the postal address -->
-        <set-service-fields service-name="updatePartyPostalAddress" map-name="postalAddress" to-map-name="serviceCtx"/>
+        <set-service-fields service-name="updatePartyPostalAddress" map="postalAddress" to-map="serviceCtx"/>
         <set field="serviceCtx.partyId" from-field="partyId"/>
         
         <entity-one entity-name="UserLogin" value-field="userLogin">
@@ -288,7 +288,7 @@ under the License.
         <filter-list-by-date list-name="paymentMethodAndCreditCards"/>
         <first-from-list list="paymentMethodAndCreditCards" entry="paymentMethodAndCreditCard"/>
         <!-- first try with just updating without changing the credit card information -->
-        <set-service-fields service-name="updateCreditCard" map-name="paymentMethodAndCreditCard" to-map-name="serviceCtx"/>
+        <set-service-fields service-name="updateCreditCard" map="paymentMethodAndCreditCard" to-map="serviceCtx"/>
         
         <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
@@ -351,7 +351,7 @@ under the License.
             <field field-name="partyId" type="java.lang.String"/>
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>        
-        <set-service-fields service-name="updatePassword" map-name="partyUserLogin" to-map-name="serviceCtx"/>
+        <set-service-fields service-name="updatePassword" map="partyUserLogin" to-map="serviceCtx"/>
         <!-- old details: userLoginId = DemoCustomer, password = ofbiz -->
         <set field="serviceCtx.newPassword" value="ofbiz-demo"/>
         <set field="serviceCtx.newPasswordVerify" value="ofbiz-demo"/>

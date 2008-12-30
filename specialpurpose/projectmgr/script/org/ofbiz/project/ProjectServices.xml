@@ -44,7 +44,7 @@
     </simple-method>
     
     <simple-method method-name="updateProject" short-description="Update a project">
-        <set-service-fields service-name="updateWorkEffort" map-name="parameters" to-map-name="updWorkEffort"/>
+        <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="updWorkEffort"/>
         <call-service service-name="updateWorkEffort" in-map-name="updWorkEffort"/>
         <if-not-empty field="parameters.organizationPartyId">
             <set field="updProjectRole.newPartyId" from-field="parameters.organizationPartyId"/>
@@ -1175,7 +1175,7 @@
             </if-compare>
             <else>
                 <if-compare field="hours" operator="not-equals" value="0">
-                    <set-service-fields service-name="createTimeEntry" map-name="parameters" to-map-name="teCreMap"/>
+                    <set-service-fields service-name="createTimeEntry" map="parameters" to-map="teCreMap"/>
                     <set field="teCreMap.hours" from-field="hours"/>
                     <set field="teCreMap.fromDate" from-field="fromDate"/>
                     <call-service service-name="createTimeEntry" in-map-name="teCreMap"/>
@@ -1269,7 +1269,7 @@
         <iterate entry="task" list="tasks">
             <if-empty field="notFirst">
                 <!-- first time so create invoice -->
-                <set-service-fields service-name="addWorkEffortTimeToNewInvoice" map-name="parameters" to-map-name="addTaskToNewInvoice"/>
+                <set-service-fields service-name="addWorkEffortTimeToNewInvoice" map="parameters" to-map="addTaskToNewInvoice"/>
                 <set field="addTaskToNewInvoice.workEffortId" from-field="task.workEffortId"/>
                 <set field="addTaskToNewInvoice.combineInvoiceItem" value="Y"/>
                 <set field="addTaskToNewInvoice.thruDate" from-field="parameters.thruDate"/>

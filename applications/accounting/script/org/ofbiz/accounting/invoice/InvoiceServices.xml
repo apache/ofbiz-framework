@@ -175,7 +175,7 @@ under the License.
         <if-not-empty field="parameters.invoiceTypeId">
             <set field="invoice.invoiceTypeId" from-field="parameters.invoiceTypeId"/>
         </if-not-empty>
-        <set-service-fields service-name="createInvoice" map-name="invoice" to-map-name="newInvoice"/>
+        <set-service-fields service-name="createInvoice" map="invoice" to-map="newInvoice"/>
         <clear-field field="newInvoice.invoiceId"/>
         <call-service service-name="createInvoice" in-map-name="newInvoice">
             <result-to-field result-name="invoiceId" field-name="invoiceId"/>
@@ -183,7 +183,7 @@ under the License.
         <field-to-result field="invoiceId" result-name="invoiceId"/>
         <field-to-request field-name="invoiceId" request-name="invoiceId"/>
         <iterate entry="invoiceItem" list="invoiceItems">
-            <set-service-fields service-name="createInvoiceItem" map-name="invoiceItem" to-map-name="createInvoiceItem"/>
+            <set-service-fields service-name="createInvoiceItem" map="invoiceItem" to-map="createInvoiceItem"/>
             <set field="createInvoiceItem.invoiceId" from-field="invoiceId"/>
             <call-service service-name="createInvoiceItem" in-map-name="createInvoiceItem"/>
         </iterate>
@@ -236,7 +236,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="sendInvoicePerEmail" short-description="Send an invoice per Email">
-        <set-service-fields service-name="sendMailFromScreen" map-name="parameters" to-map-name="emailParams"/>
+        <set-service-fields service-name="sendMailFromScreen" map="parameters" to-map="emailParams"/>
         <set field="emailParams.xslfoAttachScreenLocation" value="component://accounting/widget/AccountingPrintScreens.xml#InvoicePDF"/>
         <set field="emailParams.bodyParameters.invoiceId" from-field="parameters.invoiceId"/>
         <set field="emailParams.bodyParameters.userLogin" from-field="parameters.userLogin"/>
@@ -557,12 +557,12 @@ under the License.
             <field-map field-name="recurrenceInfoId" from-field="parameters.recurrenceInfoId"/>
        </entity-and>
        <iterate list="invoices" entry="invoice">
-           <set-service-fields service-name="copyInvoice" map-name="invoice" to-map-name="copyInvoiceCtx"/>
+           <set-service-fields service-name="copyInvoice" map="invoice" to-map="copyInvoiceCtx"/>
            <set field="copyInvoiceCtx.invoiceIdToCopyFrom" from-field="invoice.invoiceId"/>
            <call-service service-name="copyInvoice" in-map-name="copyInvoiceCtx">
                <result-to-field result-name="invoiceId" field-name="invoiceId"/>
            </call-service>
-           <set-service-fields service-name="updateInvoice" map-name="invoice" to-map-name="updateInvoiceCtx"/>
+           <set-service-fields service-name="updateInvoice" map="invoice" to-map="updateInvoiceCtx"/>
            <set field="updateInvoiceCtx.invoiceId" from-field="invoiceId"/>
            <if-compare field="updateInvoiceCtx.invoiceTypeId" operator="equals" value="SALES_INV_TEMPLATE">
                <set field="updateInvoiceCtx.invoiceTypeId" value="SALES_INVOICE"/>

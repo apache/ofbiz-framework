@@ -491,7 +491,7 @@ under the License.
         </if-empty>
 
         <!-- create Product -->
-        <set-service-fields service-name="createProduct" map-name="parameters" to-map-name="callCreateProductMap"/>
+        <set-service-fields service-name="createProduct" map="parameters" to-map="callCreateProductMap"/>
         <if-empty field="callCreateProductMap.productTypeId">
             <set field="callCreateProductMap.productTypeId" value="FINISHED_GOOD"/>
         </if-empty>
@@ -776,7 +776,7 @@ under the License.
     
     <!-- a service verion of checkCategoryRelatedPermission, only with purchase/viewAllowPermReqd taken into account -->
     <simple-method method-name="checkCategoryPermissionWithViewPurchaseAllow" short-description="Check Product Category Permission With View and Purchase Allow">
-        <set-service-fields service-name="productCategoryGenericPermission" map-name="parameters" to-map-name="productCategoryGenericPermissionMap"/>
+        <set-service-fields service-name="productCategoryGenericPermission" map="parameters" to-map="productCategoryGenericPermissionMap"/>
         <call-service service-name="productCategoryGenericPermission" in-map-name="productCategoryGenericPermissionMap">
             <results-to-map map-name="genericResult"/>
         </call-service>

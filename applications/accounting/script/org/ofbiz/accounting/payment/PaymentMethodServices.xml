@@ -84,7 +84,7 @@ under the License.
                 <field field-name="creditCard.expireDate"/>
             </call-class-method>
             <if-compare field="isNotExpired" operator="equals" type="Boolean" value="true">
-                <set-service-fields service-name="updateCreditCard" map-name="creditCard" to-map-name="uccMap"/>
+                <set-service-fields service-name="updateCreditCard" map="creditCard" to-map="uccMap"/>
                 <set field="uccMap.contactMechId" from-field="parameters.contactMechId"/>
                 <set field="uccMap.partyId" from-field="parameters.partyId"/>
                 <!-- use the service so it will expire the old card and create a new one; don't break on error since this is a background process, just get whatever we can done... -->
@@ -94,7 +94,7 @@ under the License.
         
         <find-by-and entity-name="EftAccount" map-name="lookupMap" list-name="eftAccounts"/>
         <iterate entry="eftAccount" list="eftAccounts">
-            <set-service-fields service-name="updateEftAccount" map-name="eftAccount" to-map-name="ueaMap"/>
+            <set-service-fields service-name="updateEftAccount" map="eftAccount" to-map="ueaMap"/>
             <set field="ueaMap.contactMechId" from-field="parameters.contactMechId"/>
             <set field="ueaMap.partyId" from-field="parameters.partyId"/>
             <!-- use the service so it will expire the old account and create a new one; don't break on error since this is a background process, just get whatever we can done... -->

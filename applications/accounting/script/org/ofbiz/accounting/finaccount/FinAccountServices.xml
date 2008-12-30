@@ -80,7 +80,7 @@ under the License.
         <create-value value-field="newEntity"/>
         <field-to-result field="finAccountId" map-name="newEntity" result-name="finAccountId"/>
         
-        <set-service-fields service-name="createFinAccountStatus" map-name="newEntity" to-map-name="createFinAccountStatusMap"/>
+        <set-service-fields service-name="createFinAccountStatus" map="newEntity" to-map="createFinAccountStatusMap"/>
         <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
     </simple-method>
     <simple-method method-name="updateFinAccount" short-description="Update a Financial Account">
@@ -115,7 +115,7 @@ under the License.
                 </if-not-empty>
                 
                 <!-- before we set the nonpk fields, if the statusId is different save a status history record -->
-                <set-service-fields service-name="createFinAccountStatus" map-name="parameters" to-map-name="createFinAccountStatusMap"/>
+                <set-service-fields service-name="createFinAccountStatus" map="parameters" to-map="createFinAccountStatusMap"/>
                 <call-service service-name="createFinAccountStatus" in-map-name="createFinAccountStatusMap"/>
             </then>
         </if>

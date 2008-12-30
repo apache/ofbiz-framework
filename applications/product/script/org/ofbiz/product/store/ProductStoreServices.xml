@@ -418,7 +418,7 @@ under the License.
                     <add-error><fail-message message="ProductStore with id ${productStoreId} has Y for oneInventoryFacility but inventoryFacilityId is empty, not reserving inventory."/></add-error>
                     <check-errors/>
                 </if-empty>    
-                <set-service-fields map-name="parameters" to-map-name="callServiceMap" service-name="reserveProductInventoryByFacility"/>
+                <set-service-fields map="parameters" to-map="callServiceMap" service-name="reserveProductInventoryByFacility"/>
                 <set from-field="productStore.inventoryFacilityId" field="callServiceMap.facilityId"/>
                 <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
                 <set from-field="productStore.reserveOrderEnumId" field="callServiceMap.reserveOrderEnumId"/>
@@ -462,7 +462,7 @@ under the License.
                     <first-from-list list="productStoreFacilities" entry="storeFound"/>
                 </if-empty>                
                 <set from-field="storeFound.facilityId" field="facilityId" default-value=""/>
-                <set-service-fields map-name="parameters" to-map-name="callServiceMap" service-name="reserveProductInventoryByFacility"/>
+                <set-service-fields map="parameters" to-map="callServiceMap" service-name="reserveProductInventoryByFacility"/>
                 <set from-field="facilityId" field="callServiceMap.facilityId"/>
                 <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
                 <set from-field="productStore.reserveOrderEnumId" field="callServiceMap.reserveOrderEnumId"/>
@@ -487,7 +487,7 @@ under the License.
                 <add-error><fail-message message="Facility with id ${parameters.facilityId} is not associated to ProductStore with id ${parameters.productStoreId}, not reserving inventory."/></add-error>
                 <check-errors/>
             </if-empty>
-            <set-service-fields map-name="parameters" to-map-name="callServiceMap" service-name="reserveProductInventoryByFacility"/>
+            <set-service-fields map="parameters" to-map="callServiceMap" service-name="reserveProductInventoryByFacility"/>
             <set from-field="facilityId" field="callServiceMap.facilityId"/>
             <set from-field="requireInventory" field="callServiceMap.requireInventory"/>
             <set from-field="productStore.reserveOrderEnumId" field="callServiceMap.reserveOrderEnumId"/>
@@ -689,7 +689,7 @@ under the License.
             <set value="Y" field="availableOrNotRequired"/>
             <field-to-result field="availableOrNotRequired"/>
         <else>
-            <set-service-fields map-name="parameters" to-map-name="callServiceMap" service-name="isStoreInventoryAvailable"/>
+            <set-service-fields map="parameters" to-map="callServiceMap" service-name="isStoreInventoryAvailable"/>
             <call-service service-name="isStoreInventoryAvailable" in-map-name="callServiceMap">
                 <result-to-result result-name="available" service-result-name="availableOrNotRequired"/>
             </call-service>
