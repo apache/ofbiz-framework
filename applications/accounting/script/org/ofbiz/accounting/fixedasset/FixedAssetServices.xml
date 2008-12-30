@@ -33,7 +33,7 @@ under the License.
 
         <!-- create a non existing ID if not supplied -->
         <if-empty field="parameters.fixedAssetId">
-            <sequenced-id-to-env sequence-name="FixedAsset" env-name="newEntity.fixedAssetId"/>
+            <sequenced-id sequence-name="FixedAsset" field="newEntity.fixedAssetId"/>
         <else>
             <!-- check the Duplicate ID> -->
             <entity-one entity-name="FixedAsset" value-field="fixedAsset"/>
@@ -55,7 +55,7 @@ under the License.
     <simple-method method-name="updateFixedAsset" short-description="Update an existing FixedAsset">
         <entity-one entity-name="FixedAsset" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ================================================================ -->
@@ -69,7 +69,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+            <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
         
         <create-value value-field="newEntity"/>
@@ -79,13 +79,13 @@ under the License.
     <simple-method method-name="updateFixedAssetProduct" short-description="Update Products of a FixedAsset">
         <entity-one entity-name="FixedAssetProduct" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- remove the productlink from the Fixed Asset -->
     <simple-method method-name="removeFixedAssetProduct" short-description="Remove Product From FixedAsset">
         <entity-one entity-name="FixedAssetProduct" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ================================================================ -->
@@ -137,13 +137,13 @@ under the License.
     <simple-method method-name="updateFixedAssetStdCost" short-description="Update an existing FixedAssetStdCost">
         <entity-one entity-name="FixedAssetStdCost" value-field="fixedAssetStdCost"/>
         <set-nonpk-fields map="parameters" value-field="fixedAssetStdCost"/>
-        <store-value value-name="fixedAssetStdCost"/>
+        <store-value value-field="fixedAssetStdCost"/>
     </simple-method>
     <!-- cancel an existing Agreement -->
     <simple-method method-name="cancelFixedAssetStdCost" short-description="Cancel an existing FixedAssetStdCost">
         <entity-one entity-name="FixedAssetStdCost" value-field="fixedAssetStdCost"/>
-        <now-timestamp-to-env env-name="fixedAssetStdCost.thruDate"/>
-        <store-value value-name="fixedAssetStdCost"/>
+        <now-timestamp field="fixedAssetStdCost.thruDate"/>
+        <store-value value-field="fixedAssetStdCost"/>
     </simple-method>
 
     <!-- Fixed Asset Identification "FIXED_ASSET_IDENT"-->
@@ -156,11 +156,11 @@ under the License.
     <simple-method method-name="updateFixedAssetIdent" short-description="Update an existing FixedAssetIdent">
         <entity-one entity-name="FixedAssetIdent" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="removeFixedAssetIdent" short-description="Remove Fixed Assets Idents FixedAssetIdent">
         <entity-one entity-name="FixedAssetIdent" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- FixedAsset Registration Create/Update/Delete"-->
@@ -169,25 +169,25 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+            <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFixedAssetRegistration" short-description="Update an existing FixedAsset Registration">
         <entity-one entity-name="FixedAssetRegistration" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteFixedAssetRegistration" short-description="Delete FixedAsset Registration">
         <entity-one entity-name="FixedAssetRegistration" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!--  create/update/delete FixedAssetMaint -->
     <simple-method method-name="createFixedAssetMaint" short-description="create a FixedAssetMaint">
         <make-value entity-name="FixedAssetMaint" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <make-next-seq-id value-name="newEntity" seq-field-name="maintHistSeqId"/> <!-- this finds the next sub-sequence ID -->
+        <make-next-seq-id value-field="newEntity" seq-field-name="maintHistSeqId"/> <!-- this finds the next sub-sequence ID -->
         <field-to-result field="newEntity.maintHistSeqId" result-name="maintHistSeqId"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-not-empty field="parameters.productMaintSeqId">
@@ -208,7 +208,7 @@ under the License.
         <if-not-empty field="maintTemplateWorkEffortId">
             
             <set field="duplicateTemplateWorkEffortMap.oldWorkEffortId" from-field="maintTemplateWorkEffortId"/>
-            <sequenced-id-to-env sequence-name="WorkEffort" env-name="duplicateTemplateWorkEffortMap.workEffortId"/>
+            <sequenced-id sequence-name="WorkEffort" field="duplicateTemplateWorkEffortMap.workEffortId"/>
             <set field="duplicateTemplateWorkEffortMap.duplicateWorkEffortAssocs" value="Y"/>
             <set field="duplicateTemplateWorkEffortMap.duplicateWorkEffortNotes" value="Y"/>
             <set field="duplicateTemplateWorkEffortMap.duplicateWorkEffortContents" value="Y"/>
@@ -220,20 +220,20 @@ under the License.
                 <!-- Create the WorkEffort -->
                 <!-- Maintenance WorkEffort entity -->
                 <entity-one value-field="fixedAsset" entity-name="FixedAsset"/>
-                <property-to-field field-name="workEffortName" resource="AccountingUiLabels" property="AccountingFixedAssetMaintWorkEffortName"/>
+                <property-to-field field="workEffortName" resource="AccountingUiLabels" property="AccountingFixedAssetMaintWorkEffortName"/>
                 <set from-field="workEffortName" field="maintWorkEffortMap.workEffortName"/>
                 <set value="TASK" field="maintWorkEffortMap.workEffortTypeId"/>
                 <set value="WEPT_MAINTENANCE" field="maintWorkEffortMap.workEffortPurposeTypeId"/>
                 <set value="CAL_TENTATIVE" field="maintWorkEffortMap.currentStatusId"/>
                 <set from-field="userLogin.partyId" field="maintWorkEffortMap.quickAssignPartyId"/>
                 <set from-field="newEntity.fixedAssetId" field="maintWorkEffortMap.fixedAssetId"/>
-                <get-related-one to-value-name="productMaintType" relation-name="ProductMaintType" value-name="newEntity"/>
+                <get-related-one to-value-field="productMaintType" relation-name="ProductMaintType" value-field="newEntity"/>
                 <set field="maintWorkEffortMap.description" from-field="productMaintType.description"/>
                 <!-- Optional dates supplied by Fixed Asset Calendar -->
                 <set from-field="parameters.estimatedStartDate" field="maintWorkEffortMap.estimatedStartDate"/>
                 <set from-field="parameters.estimatedCompletionDate" field="maintWorkEffortMap.estimatedCompletionDate"/>
                 <call-service service-name="createWorkEffort" in-map-name="maintWorkEffortMap">
-                    <result-to-field result-name="workEffortId" field-name="newEntity.scheduleWorkEffortId"/>
+                    <result-to-field result-name="workEffortId" field="newEntity.scheduleWorkEffortId"/>
                 </call-service>
             </else>
         </if-not-empty>
@@ -255,7 +255,7 @@ under the License.
             </entity-one>
             <set field="lookedUpValue.productMaintTypeId" from-field="productMaint.productMaintTypeId"/>
         </if-not-empty>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
         <check-errors/>
         <if>
             <condition>
@@ -276,7 +276,7 @@ under the License.
                         </and>
                     </condition>
                     <then>
-                        <now-timestamp-to-env env-name="nowTimestamp"/>
+                        <now-timestamp field="nowTimestamp"/>
                         <set field="updateWorkEffortCtx.workEffortId" from-field="workEffortId"/>
                         <set field="updateWorkEffortCtx.currentStatusId" value="CAL_ACCEPTED"/>
                         <call-service service-name="updateWorkEffort" in-map-name="updateWorkEffortCtx"/>
@@ -290,7 +290,7 @@ under the License.
                         </entity-condition>
                         <iterate list="wepas" entry="wepa">
                             <set field="wepa.thruDate" from-field="nowTimestamp"/>
-                            <store-value value-name="wepa"/>
+                            <store-value value-field="wepa"/>
                             <check-errors/>
                         </iterate>
                     </then>
@@ -300,7 +300,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteFixedAssetMaint" short-description="Delete FixedAsset Maintenance">
         <entity-one entity-name="FixedAssetMaint" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!--  create/update/delete FixedAssetMeter -->
@@ -316,14 +316,14 @@ under the License.
     <simple-method method-name="updateFixedAssetMeter" short-description="Update a Fixed Asset Meter Reading">
         <entity-one entity-name="FixedAssetMeter" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
         <check-errors/>
         <set field="meterValue" from-field="lookedUpValue"/>
         <call-simple-method method-name="createMaintsFromMeterReading"/>
     </simple-method>
     <simple-method method-name="deleteFixedAssetMeter" short-description="Delete a Fixed Asset Meter Reading">
         <entity-one entity-name="FixedAssetMeter" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createMaintsFromMeterReading" short-description="Create Fixed Asset Maintenances From A Meter Reading">
         <if-not-empty field="meterValue.maintHistSeqId">
@@ -380,7 +380,7 @@ under the License.
         </iterate>
     </simple-method>
     <simple-method method-name="createMaintsFromTimeInterval" short-description="Create Fixed Asset Maintenances From A Product Maint Time Interval">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <entity-condition list="fixedAssets" entity-name="FixedAsset">
             <condition-list combine="and">
                 <condition-expr field-name="instanceOfProductId" operator="not-equals" from-field="null"/>
@@ -512,7 +512,7 @@ under the License.
     </simple-method>   
     <simple-method method-name="deleteFixedAssetMaintOrder" short-description="Delete FixedAsset Maintenance Order">
         <entity-one entity-name="FixedAssetMaintOrder" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- ==============Party Fixed Asset Assignment============= -->
@@ -521,7 +521,7 @@ under the License.
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set field="newEntity.fromDate" from-field="nowTimestamp"/>
         </if-empty>
         <create-value value-field="newEntity"/>
@@ -530,12 +530,12 @@ under the License.
     <simple-method method-name="updatePartyFixedAssetAssignment" short-description="Update Party to Fixed Asset">
         <entity-one entity-name="PartyFixedAssetAssignment" value-field="newEntity"/>
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
-        <store-value value-name="newEntity"/>
+        <store-value value-field="newEntity"/>
     </simple-method>
         
     <simple-method method-name="deletePartyFixedAssetAssignment" short-description="Delete Party to Fixed Asset">
         <entity-one entity-name="PartyFixedAssetAssignment" value-field="newEntity"/>
-        <remove-value value-name="newEntity"/>
+        <remove-value value-field="newEntity"/>
     </simple-method>
      
     <simple-method method-name="autoAssignFixedAssetPartiesToMaintenance" login-required="true"
@@ -570,31 +570,31 @@ under the License.
         <set field="assetAcquiredYear" from-field="parameters.assetAcquiredYear" type="Integer"/>
         <set field="purchaseCost" from-field="parameters.purchaseCost" type="Double"/>
         <set field="salvageValue" from-field="parameters.salvageValue" type="Double"/>
-        <call-object-method obj-field-name="parameters.usageYears" method-name="intValue" ret-field-name="intUsageYears"/>
+        <call-object-method obj-field="parameters.usageYears" method-name="intValue" ret-field="intUsageYears"/>
         <if-not-empty field="parameters.fixedAssetId">
             <set field="depreciation" value="0.0" type="Double"/>
             <!--FORMULA :  depreciation = (purchaseCost - salvageValue) / (expectedEndOfLife - dateAcquired) -->
-            <calculate field-name="depreciation" decimal-scale="2" type="Double">
+            <calculate field="depreciation" decimal-scale="2" type="Double">
                 <calcop operator="divide">
                     <calcop operator="subtract">
-                        <calcop operator="get" field-name="purchaseCost"/>
-                        <calcop operator="get" field-name="salvageValue"/>
+                        <calcop operator="get" field="purchaseCost"/>
+                        <calcop operator="get" field="salvageValue"/>
                     </calcop>
                     <calcop operator="subtract">
-                        <calcop operator="get" field-name="expEndOfLifeYear"/>
-                        <calcop operator="get" field-name="assetAcquiredYear"/>
+                        <calcop operator="get" field="expEndOfLifeYear"/>
+                        <calcop operator="get" field="assetAcquiredYear"/>
                     </calcop>
                 </calcop>
             </calculate>
             <loop count="${intUsageYears}">
-                <calculate field-name="purchaseCost" type="Double">
+                <calculate field="purchaseCost" type="Double">
                     <calcop operator="subtract">
-                        <calcop operator="get" field-name="purchaseCost"/>
-                        <calcop operator="get" field-name="depreciation"/>
+                        <calcop operator="get" field="purchaseCost"/>
+                        <calcop operator="get" field="depreciation"/>
                     </calcop>
                 </calculate>
-                <field-to-list list-name="assetDepreciationTillDate" field-name="depreciation"/>
-                <field-to-list list-name="assetNBVAfterDepreciation" field-name="purchaseCost"/>
+                <field-to-list list="assetDepreciationTillDate" field="depreciation"/>
+                <field-to-list list="assetNBVAfterDepreciation" field="purchaseCost"/>
             </loop>
         </if-not-empty>
         <log level="info" message="Using straight line formula depreciation calculated for fixedAsset (${parameters.fixedAssetId}) is ${depreciation}"/>
@@ -607,40 +607,40 @@ under the License.
         <set field="assetAcquiredYear" from-field="parameters.assetAcquiredYear" type="Integer"/>
         <set field="purchaseCost" from-field="parameters.purchaseCost" type="Double"/>
         <set field="salvageValue" from-field="parameters.salvageValue" type="Double"/>
-        <call-object-method obj-field-name="parameters.usageYears" method-name="intValue" ret-field-name="intUsageYears"/>
+        <call-object-method obj-field="parameters.usageYears" method-name="intValue" ret-field="intUsageYears"/>
         <if-not-empty field="parameters.fixedAssetId">
             <loop count="${intUsageYears}">
                 <set field="depreciation" value="0.0" type="Double"/>
                 <!--FORMULA : depreciation = (NBV - salvageValue) * 2 / (expectedEndOfLife - dateAcquired) -->
-                <calculate field-name="depreciation" decimal-scale="2" type="Double">
+                <calculate field="depreciation" decimal-scale="2" type="Double">
                     <calcop operator="multiply">
                         <calcop operator="divide">
                            <calcop operator="subtract">
-                                <calcop operator="get" field-name="purchaseCost"/>
-                                <calcop operator="get" field-name="salvageValue"/>
+                                <calcop operator="get" field="purchaseCost"/>
+                                <calcop operator="get" field="salvageValue"/>
                             </calcop>
                             <calcop operator="subtract">
-                                <calcop operator="get" field-name="expEndOfLifeYear"/>
-                                <calcop operator="get" field-name="assetAcquiredYear"/>
+                                <calcop operator="get" field="expEndOfLifeYear"/>
+                                <calcop operator="get" field="assetAcquiredYear"/>
                             </calcop>
                         </calcop>
                         <number value="2"/>
                     </calcop>
                 </calculate>
-                <calculate field-name="assetAcquiredYear">
+                <calculate field="assetAcquiredYear">
                     <calcop operator="add">
-                       <calcop operator="get" field-name="assetAcquiredYear"/>
+                       <calcop operator="get" field="assetAcquiredYear"/>
                        <number value="1"/>
                     </calcop>
                 </calculate>
-                <calculate field-name="purchaseCost">
+                <calculate field="purchaseCost">
                    <calcop operator="subtract">
-                       <calcop operator="get" field-name="purchaseCost"/>
-                       <calcop operator="get" field-name="depreciation"/>
+                       <calcop operator="get" field="purchaseCost"/>
+                       <calcop operator="get" field="depreciation"/>
                     </calcop>
                 </calculate>
-                <field-to-list list-name="assetDepreciationTillDate" field-name="depreciation"/>
-                <field-to-list list-name="assetNBVAfterDepreciation" field-name="purchaseCost"/>
+                <field-to-list list="assetDepreciationTillDate" field="depreciation"/>
+                <field-to-list list="assetNBVAfterDepreciation" field="purchaseCost"/>
             </loop>
         </if-not-empty>
         <log level="info" message="Using double decline formula depreciation calculated for fixedAsset (${parameters.fixedAssetId}) is ${assetDepreciationTillDate}"/>
@@ -660,10 +660,10 @@ under the License.
         <!-- Extract asset end of life year from field expectedEndOfLife -->
         <if-not-empty field="fixedAsset.expectedEndOfLife">
             <set field="expectedEndOfLife" from-field="fixedAsset.expectedEndOfLife"/>
-            <to-string field-name="expectedEndOfLife"/>
-            <call-object-method method-name="substring" obj-field-name="expectedEndOfLife" ret-field-name="expEndOfLifeYear">
-                <field field-name="startIndex" type="int"/>
-                <field field-name="endIndex" type="int"/>
+            <to-string field="expectedEndOfLife"/>
+            <call-object-method method-name="substring" obj-field="expectedEndOfLife" ret-field="expEndOfLifeYear">
+                <field field="startIndex" type="int"/>
+                <field field="endIndex" type="int"/>
             </call-object-method>
         <else>
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingExpEndOfLifeIsEmpty"/></add-error>
@@ -674,10 +674,10 @@ under the License.
         <!-- Extract asset acquired year from field dateAcquired -->
         <if-not-empty field="fixedAsset.dateAcquired">
             <set field="dateAcquired" from-field="fixedAsset.dateAcquired"/>
-            <to-string field-name="dateAcquired"/>
-            <call-object-method method-name="substring" obj-field-name="dateAcquired" ret-field-name="assetAcquiredYear">
-                <field field-name="startIndex"  type="int"/>
-                <field field-name="endIndex" type="int"/>
+            <to-string field="dateAcquired"/>
+            <call-object-method method-name="substring" obj-field="dateAcquired" ret-field="assetAcquiredYear">
+                <field field="startIndex"  type="int"/>
+                <field field="endIndex" type="int"/>
             </call-object-method>
         <else>
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingDateAcquiredIsEmpty"/></add-error>
@@ -694,18 +694,18 @@ under the License.
         </if-empty>
 
         <!-- Get running year -->
-        <now-timestamp-to-env env-name="nowTimestamp"/>
-        <to-string field-name="nowTimestamp"/>
-        <call-object-method method-name="substring" obj-field-name="nowTimestamp" ret-field-name="currentYear">
-            <field field-name="startIndex" type="int"/>
-            <field field-name="endIndex" type="int"/>
+        <now-timestamp field="nowTimestamp"/>
+        <to-string field="nowTimestamp"/>
+        <call-object-method method-name="substring" obj-field="nowTimestamp" ret-field="currentYear">
+            <field field="startIndex" type="int"/>
+            <field field="endIndex" type="int"/>
         </call-object-method>
 
         <!-- Calculate asset's total run in years -->
-        <calculate field-name="usageYears" type="Integer">
+        <calculate field="usageYears" type="Integer">
             <calcop operator="subtract">
-               <calcop operator="get" field-name="currentYear"/>
-               <calcop operator="get" field-name="assetAcquiredYear"/>
+               <calcop operator="get" field="currentYear"/>
+               <calcop operator="get" field="assetAcquiredYear"/>
             </calcop>
         </calculate>
 
@@ -714,7 +714,7 @@ under the License.
         </entity-and>
         <if-not-empty field="fixedAssetDepMethods">
             <first-from-list list="fixedAssetDepMethods" entry="fixedAssetDepMethod"/>
-            <get-related-one relation-name="CustomMethod" value-name="fixedAssetDepMethod" to-value-name="customMethod"/>
+            <get-related-one relation-name="CustomMethod" value-field="fixedAssetDepMethod" to-value-field="customMethod"/>
             <log level="info" message="Depreciation service name for the FixedAsset ${parameters.fixedAssetId} is ${customMethod.customMethodName}"/>
             
             <set field="serviceInMap.fixedAssetId" from-field="parameters.fixedAssetId"/>

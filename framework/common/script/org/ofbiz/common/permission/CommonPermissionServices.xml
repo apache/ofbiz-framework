@@ -53,7 +53,7 @@ under the License.
         <!-- set up called service name -->
         <set field="resourceDescription" from-field="parameters.resourceDescription"/>
         <if-empty field="resourceDescription">
-            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field-name="resourceDescription"/>
+            <property-to-field resource="CommonUiLabels" property="CommonPermissionThisOperation" field="resourceDescription"/>
         </if-empty>
 
         <!-- check permission -->
@@ -70,7 +70,7 @@ under the License.
                 <field-to-result field="hasPermission"/>
             </then>
             <else>
-                <property-to-field resource="CommonUiLabels" property="CommonGenericPermissionError" field-name="failMessage"/>
+                <property-to-field resource="CommonUiLabels" property="CommonGenericPermissionError" field="failMessage"/>
                 <set field="hasPermission" type="Boolean" value="false"/>
                 <field-to-result field="hasPermission"/>
                 <field-to-result field="failMessage"/>
