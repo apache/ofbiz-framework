@@ -564,10 +564,10 @@ under the License.
            </call-service>
            <set-service-fields service-name="updateInvoice" map-name="invoice" to-map-name="updateInvoiceCtx"/>
            <set field="updateInvoiceCtx.invoiceId" from-field="invoiceId"/>
-           <if-compare field-name="updateInvoiceCtx.invoiceTypeId" operator="equals" value="SALES_INV_TEMPLATE">
+           <if-compare field="updateInvoiceCtx.invoiceTypeId" operator="equals" value="SALES_INV_TEMPLATE">
                <set field="updateInvoiceCtx.invoiceTypeId" value="SALES_INVOICE"/>
            </if-compare>
-           <if-compare field-name="updateInvoiceCtx.invoiceTypeId" operator="equals" value="PUR_INV_TEMPLATE">
+           <if-compare field="updateInvoiceCtx.invoiceTypeId" operator="equals" value="PUR_INV_TEMPLATE">
                <set field="updateInvoiceCtx.invoiceTypeId" value="PURCHASE_INVOICE"/>
            </if-compare>
            <clear-field field-name="invoice"/>

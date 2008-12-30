@@ -96,7 +96,7 @@
                     <call-service service-name="getPartyEmail" in-map-name="getPartyEmail">
                     	<result-to-field result-name="emailAddress" field-name="emailParams.sendTo"/>
                     </call-service>
-                    <entity-and list-name="webSites" entity-name="WebSite">
+                    <entity-and list="webSites" entity-name="WebSite">
                         <field-map field-name="productStoreId" env-name="storeEmail.productStoreId" />
                     </entity-and>
                     <first-from-list entry-name="webSite" list-name="webSites" />

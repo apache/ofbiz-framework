@@ -201,7 +201,7 @@
             <set field="parameters.currentStatusId" value="PTS_COMPLETED"/>
             <call-simple-method method-name="updateWorkEffort" xml-resource="component://workeffort/script/org/ofbiz/workeffort/workeffort/WorkEffortSimpleServices.xml"/>
             <!-- check for related customer request, set these too to completed -->
-            <entity-and list-name="custRequests" entity-name="CustRequestWorkEffort">
+            <entity-and list="custRequests" entity-name="CustRequestWorkEffort">
                 <field-map field-name="workEffortId" env-name="parameters.workEffortId"/>
             </entity-and>            
             <if-not-empty field="custRequests">
@@ -1239,7 +1239,7 @@
                 <add-error><fail-message message="Invoice with ID [${parameters.invoiceId}], has the wrong status, not adding Timesheet Entries to it."/></add-error>
                 <check-errors/>
             </if-compare>
-            <entity-and list-name="entries" entity-name="TimeEntry">
+            <entity-and list="entries" entity-name="TimeEntry">
                 <field-map field-name="invoiceId" env-name="parameters.invoiceId"/>
             </entity-and>
             <iterate list-name="entries" entry-name="timeEntry">                    

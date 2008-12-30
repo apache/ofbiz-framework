@@ -34,7 +34,7 @@ under the License.
         
     <simple-method method-name="createCommunicationEvent" short-description="Create a CommunicationEvent with or w/o permission check">
         <if-not-empty field="parameters.parentCommEventId">
-            <entity-and list-name="roles" entity-name="CommunicationEventRole">
+            <entity-and list="roles" entity-name="CommunicationEventRole">
                 <field-map field-name="communicationEventId" env-name="parameters.parentCommEventId"/>
                 <field-map field-name="partyId" env-name="parameters.partyIdFrom"/>
             </entity-and>
@@ -299,7 +299,7 @@ under the License.
         <if-not-empty field="eventRole">
             <remove-value value-name="eventRole"/>
             <if-compare field="parameters.deleteCommEventIfLast" operator="equals" value="Y">
-                <entity-and list-name="roles" entity-name="CommunicationEventRole">
+                <entity-and list="roles" entity-name="CommunicationEventRole">
                     <field-map field-name="communicationEventId" env-name="eventRole.communicationEventId"/>
                 </entity-and>
                 <if-empty field="roles">
