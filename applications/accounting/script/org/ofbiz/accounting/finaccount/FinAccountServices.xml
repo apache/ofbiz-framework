@@ -36,7 +36,7 @@ under the License.
         </if-empty>
         
         <make-value value-field="newEntity" entity-name="FinAccount"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <if-empty field="newEntity.finAccountId">
@@ -152,7 +152,7 @@ under the License.
         </if-not-empty>
         
         <make-value entity-name="FinAccountStatus" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set field="newEntity.statusDate" from-field="nowTimestamp"/>
         <create-value value-name="newEntity"/>  
@@ -192,7 +192,7 @@ under the License.
     <!-- FinAccountRole Services -->    
     <simple-method method-name="createFinAccountRole" short-description="Create a Financial Account Role">
         <make-value value-field="newEntity" entity-name="FinAccountRole"/>
-        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
 
         <if-empty field="newEntity.fromDate">
@@ -329,7 +329,7 @@ under the License.
     <simple-method method-name="createFinAccountTypeGlAccount" short-description="Create an FinAccountTypeGlAccount">
         <make-value value-field="newEntity" entity-name="FinAccountTypeGlAccount"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     
@@ -348,7 +348,7 @@ under the License.
     <simple-method method-name="createVarianceReasonGlAccount" short-description="Create a Variance Reason Gl Account">
         <make-value entity-name="VarianceReasonGlAccount" value-field="newEntity" />
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     

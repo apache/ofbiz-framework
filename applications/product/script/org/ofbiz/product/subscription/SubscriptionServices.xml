@@ -98,7 +98,7 @@ under the License.
 
     <simple-method method-name="createProductSubscriptionResource" short-description="Create a ProductSubscriptionResource">
         <make-value entity-name="ProductSubscriptionResource" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -117,7 +117,7 @@ under the License.
         <entity-one entity-name="SubscriptionAttribute" value-name="lookedUpValue"/>
         <if-empty field="lookedUpValue">
             <make-value entity-name="SubscriptionAttribute" value-field="newEntity"/>
-            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+            <set-pk-fields map="parameters" value-field="newEntity"/>
             <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
             <create-value value-name="newEntity"/>
             <else>
@@ -129,7 +129,7 @@ under the License.
     
     <simple-method method-name="createSubscriptionCommEvent" short-description="Create a Subscription Communication Event">
         <make-value value-field="newEntity" entity-name="SubscriptionCommEvent"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>    
     </simple-method>

@@ -23,7 +23,7 @@ under the License.
     <!-- ProductContent -->
     <simple-method method-name="createProductContent" short-description="Create Content For Product">
         <make-value value-field="newEntity" entity-name="ProductContent"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
@@ -42,7 +42,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateProductContent" short-description="Update Content For Product">
         <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -52,7 +52,7 @@ under the License.
     </simple-method>
     <simple-method method-name="removeProductContent" short-description="Remove Content From Product">
         <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -117,12 +117,12 @@ under the License.
     <!-- ProductFeatureDataResource -->
     <simple-method method-name="createProductFeatureDataResource" short-description="Create ProductFeature-DataResource">
         <make-value value-field="newEntity" entity-name="ProductFeatureDataResource"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureDataResource" short-description="Remove ProductFeature-DataResource">
         <make-value value-field="lookupPKMap" entity-name="ProductFeatureDataResource"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>

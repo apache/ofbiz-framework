@@ -30,7 +30,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductConfig"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
@@ -49,7 +49,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductConfig" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductConfig" map="lookupPKMap" value-field="lookedUpValue"/>
 
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -64,7 +64,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductConfig" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductConfig" map="lookupPKMap" value-field="lookedUpValue"/>
 
         <remove-value value-name="lookedUpValue"/>
@@ -88,7 +88,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigItem" value-field="lookupKeyValue"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -99,7 +99,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigItem" value-field="lookupKeyValue"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -111,7 +111,7 @@ under the License.
         <check-errors/>
         <make-value entity-name="ProductConfigOption" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductConfigOption" env-name="newEntity.configOptionId"/>
         <create-value value-name="newEntity"/>
         <field-to-result field-name="newEntity.configItemId" result-name="configItemId"/>
@@ -123,7 +123,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigOption" value-field="lookupKeyValue"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -134,7 +134,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigOption" value-field="lookupKeyValue"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -145,7 +145,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigProduct" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -155,7 +155,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigProduct" value-field="lookupKeyValue"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -166,7 +166,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value entity-name="ProductConfigProduct" value-field="lookupKeyValue"/>
-        <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
+        <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>

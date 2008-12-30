@@ -25,7 +25,7 @@ under the License.
         <entity-one entity-name="PartyRole" value-name="partyRole"/>
         <if-empty field="partyRole">
             <make-value entity-name="PartyRole" value-field="newEntity"/>
-            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+            <set-pk-fields map="parameters" value-field="newEntity"/>
             <create-value value-name="newEntity"/>  
         </if-empty>
     </simple-method>
@@ -42,7 +42,7 @@ under the License.
         </if-empty>
         
         <make-value value-field="partyNameHistory" entity-name="PartyNameHistory"/>
-        <set-pk-fields value-name="partyNameHistory" map-name="parameters"/>
+        <set-pk-fields value-field="partyNameHistory" map="parameters"/>
         <now-timestamp-to-env env-name="partyNameHistory.changeDate"/>
         
         <if>
@@ -175,7 +175,7 @@ under the License.
     <!-- PostalAddressBoundary methods -->
     <simple-method method-name="createPostalAddressBoundary" short-description="Create Postal Address Boundary">
         <make-value entity-name="PostalAddressBoundary" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deletePostalAddressBoundary" short-description="Delete a  Postal Address Boundary">
@@ -196,7 +196,7 @@ under the License.
     <!-- PartyClassification methods -->
     <simple-method method-name="createPartyClassification" short-description="create a PartyClassification">
         <make-value entity-name="PartyClassification" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>        
         <create-value value-name="newEntity"/>  
@@ -233,7 +233,7 @@ under the License.
     <!-- Vendor Party services -->
     <simple-method method-name="createVendor" short-description="createVendor">
         <make-value value-field="newEntity" entity-name="Vendor"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -250,7 +250,7 @@ under the License.
     <!-- party attribute services -->
     <simple-method method-name="createPartyAttribute" short-description="createPartyAttribute">
         <make-value value-field="newEntity" entity-name="PartyAttribute"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -274,7 +274,7 @@ under the License.
         <entity-one entity-name="PartyProfileDefault" value-name="partyProfileDefault"/>
         <if-empty field="partyProfileDefault">
             <make-value value-field="partyProfileDefault" entity-name="PartyProfileDefault"/>
-            <set-pk-fields value-name="partyProfileDefault" map-name="parameters"/>
+            <set-pk-fields value-field="partyProfileDefault" map="parameters"/>
             <create-value value-name="partyProfileDefault"/>
         </if-empty>
 
@@ -346,7 +346,7 @@ under the License.
             <call-service service-name="createContentRole" in-map-name="contentRole" break-on-error="false" />
             <!-- check party role -->
             <make-value value-field="partyRole" entity-name="PartyRole"/>
-            <set-pk-fields value-name="partyRole" map-name="contentRole"/>
+            <set-pk-fields value-field="partyRole" map="contentRole"/>
             <find-by-and entity-name="PartyRole" map-name="partyRole" list-name="pRoles"/>
             <if-empty field="pRoles">
                 <set-service-fields service-name="createPartyRole" map-name="contentRole" to-map-name="partyRole"/>
@@ -739,13 +739,13 @@ under the License.
         <call-object-method obj-field-name="mapValue" obj-map-name="parameters" method-name="toUpperCase" ret-field-name="mapValue" ret-map-name="parameters"/>
         <call-object-method obj-field-name="mapKey" obj-map-name="parameters" method-name="toUpperCase" ret-field-name="mapKey" ret-map-name="parameters"/>
         <make-value entity-name="AddressMatchMap" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteAddressMatchMap" short-description="remove a AddressMatchMap">
         <make-value entity-name="AddressMatchMap" value-field="fieldMap"/>
-        <set-pk-fields map-name="parameters" value-name="fieldMap"/>
+        <set-pk-fields map="parameters" value-field="fieldMap"/>
         <remove-value value-name="fieldMap"/>
     </simple-method>
     <simple-method method-name="clearAddressMatchMap" short-description="remove all AddressMatchMap">
@@ -775,7 +775,7 @@ under the License.
         
         <if-empty field="partyRels">
             <make-value value-field="newEntity" entity-name="PartyRelationship"/>
-            <set-pk-fields map-name="parameters" value-name="newEntity"/>
+            <set-pk-fields map="parameters" value-field="newEntity"/>
             <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
             <create-value value-name="newEntity"/>
         </if-empty>
@@ -798,7 +798,7 @@ under the License.
     
     <simple-method method-name="createPartyCarrierAccount" short-description="Create PartyCarrierAccount">
         <make-value entity-name="PartyCarrierAccount" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>

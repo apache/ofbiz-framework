@@ -24,7 +24,7 @@
     <!-- Party Qualification -->
     <simple-method method-name="createPartyQual" short-description="Create a Party Qualification">
         <make-value entity-name="PartyQual" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
@@ -69,7 +69,7 @@
             
     <simple-method method-name="createPartySkill" short-description="Create Party Skills">
         <make-value entity-name="PartySkill" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <entity-one entity-name="PartySkill" value-name="partySkill" auto-field-map="true"/>
         <if>
@@ -104,7 +104,7 @@
         
     <simple-method method-name="createPerfReview" short-description="Create a Performance Review">
         <make-value entity-name="PerfReview" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="PerfReview" env-name="newEntity.perfReviewId"/>
         <field-to-result field-name="perfReviewId" result-name="perfReviewId"/>
@@ -124,7 +124,7 @@
         
     <simple-method method-name="createPerfReviewItem" short-description="Create Performance Review Items">
         <make-value entity-name="PerfReviewItem" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
         <sequenced-id-to-env sequence-name="PerfReviewItem" env-name="newEntity.perfReviewItemSeqId"/>
         <field-to-result field-name="perfReviewItemSeqId" result-name="perfReviewItemSeqId"/>
@@ -144,7 +144,7 @@
     
     <simple-method method-name="createPerformanceNote" short-description="Create Performance Note">
         <make-value entity-name="PerformanceNote" value-field="newEntity"/>
-        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
@@ -166,7 +166,7 @@
     
     <simple-method method-name="createPersonTraining" short-description="Create Person Training">           
         <make-value entity-name="PersonTraining" value-field="newEntity"/>
-        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
@@ -189,7 +189,7 @@
     <!-- Employment Group -->
     <simple-method method-name="createEmployment" short-description="Create Employment">
         <make-value entity-name="Employment" value-field="newEntity"/>
-        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
@@ -233,7 +233,7 @@
         
     <simple-method method-name="createPartyBenefit" short-description="Create Party Benefit">
         <make-value entity-name="PartyBenefit" value-field="newEntity"/>
-        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
@@ -282,7 +282,7 @@
         
     <simple-method method-name="createPayHistory" short-description="Create Pay History">
         <make-value entity-name="PayHistory" value-field="newEntity"/>
-        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
@@ -307,7 +307,7 @@
     
     <simple-method method-name="createPayrollPreference" short-description="Create a Payroll Preference">
         <make-value entity-name="PayrollPreference" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="PayrollPreference" env-name="newEntity.payrollPreferenceSeqId"/>
         <field-to-result field-name="payrollPreferenceSeqId" result-name="payrollPreferenceSeqId"/>
@@ -327,7 +327,7 @@
         
     <simple-method method-name="createSalaryStep" short-description="Create a Salary Step">
         <make-value entity-name="SalaryStep" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>        
+        <set-pk-fields map="parameters" value-field="newEntity"/>        
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>        
         <sequenced-id-to-env sequence-name="SalaryStep" env-name="newEntity.salaryStepSeqId"/>
         <field-to-result field-name="salaryStepSeqId" result-name="salaryStepSeqId"/>
@@ -407,7 +407,7 @@
     
     <simple-method method-name="createEmplPositionFulfillment" short-description="Create a Emplyoee Position Fulfillment">
         <make-value entity-name="EmplPositionFulfillment" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
@@ -429,7 +429,7 @@
 
     <simple-method method-name="createEmplPositionReportingStruct" short-description="Create a Employee Position Reporting Structure">
         <make-value entity-name="EmplPositionReportingStruct" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
@@ -464,7 +464,7 @@
     
     <simple-method method-name="createEmplPositionResponsibility" short-description="Create a Employee Position Responsibility">
         <make-value entity-name="EmplPositionResponsibility" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
@@ -486,7 +486,7 @@
     
     <simple-method method-name="createValidResponsibility" short-description="Create a Valid Responsibility">
         <make-value entity-name="ValidResponsibility" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimeStamp"/>
@@ -548,7 +548,7 @@
     <!-- Responsibility Types -->
     <simple-method method-name="createResponsibilityType" short-description="Create a ResponsibilityType">
         <make-value entity-name="ResponsibilityType" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.responsibilityTypeId">
             <sequenced-id-to-env sequence-name="ResponsibilityType" env-name="newEntity.responsibilityTypeId"/>
@@ -619,7 +619,7 @@
         </if-not-empty>
         
         <make-value value-field="newEntity" entity-name="EmplPositionTypeRate"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -642,7 +642,7 @@
     
     <simple-method method-name="createAgreementEmploymentAppl" short-description="Create Agreement Employment Appl">
         <make-value entity-name="AgreementEmploymentAppl" value-field="agreementEmploymentAppl"/>
-        <set-pk-fields value-name="agreementEmploymentAppl" map-name="parameters"/>
+        <set-pk-fields value-field="agreementEmploymentAppl" map="parameters"/>
         <set-nonpk-fields value-name="agreementEmploymentAppl" map-name="parameters"/>        
         <create-value value-name="agreementEmploymentAppl"/>
         <check-errors/>
@@ -660,7 +660,7 @@
     </simple-method>
         <simple-method method-name="createEmplLeave" short-description="Create Employee Leave">
         <make-value entity-name="EmplLeave" value-field="newEntity"/>
-        <set-pk-fields value-name="newEntity" map-name="parameters"/>
+        <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
         <create-value value-name="newEntity"/>
         <check-errors/>
@@ -674,7 +674,7 @@
     
     <simple-method method-name="createEmplLeaveType" short-description="Create a LeaveType">
         <make-value entity-name="EmplLeaveType" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.leaveTypeId">
             <sequenced-id-to-env sequence-name="EmplLeaveType" env-name="newEntity.leaveTypeId"/>

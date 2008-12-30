@@ -54,7 +54,7 @@ under the License.
             
     <simple-method method-name="setPaymentMethodAddress" short-description="Set the initial payment method address">
         <make-value value-field="lookupPKMap" entity-name="PaymentMethod"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="PaymentMethod" map="lookupPKMap" value-field="lookedUpValue"/>
         <if-compare field="lookedUpValue.paymentMethodTypeId" operator="equals" value="CREDIT_CARD">
             <find-by-primary-key entity-name="CreditCard" map="lookupPKMap" value-field="mainValue"/>
@@ -104,7 +104,7 @@ under the License.
     <!--CreateCreditCardTypeGlAccount methods -->
     <simple-method method-name="createCreditCardTypeGlAccount" short-description="Create a Credit Card Gl Account">
         <make-value entity-name="CreditCardTypeGlAccount" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>

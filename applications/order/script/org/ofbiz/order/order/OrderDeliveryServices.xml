@@ -28,7 +28,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="OrderDeliverySchedule" value-field="schedule"/>
-        <set-pk-fields map-name="parameters" value-name="schedule"/>
+        <set-pk-fields map="parameters" value-field="schedule"/>
         <if-empty field="schedule.orderItemSeqId">
             <set value="_NA_" field="schedule.orderItemSeqId"/>
         </if-empty>
@@ -53,7 +53,7 @@ under the License.
 
         <!-- Lookup the existing schedule to modify -->
         <make-value entity-name="OrderDeliverySchedule" value-field="lookupPkMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPkMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPkMap"/>
         <find-by-primary-key entity-name="OrderDeliverySchedule" map="lookupPkMap" value-field="schedule"/>
 
         <!-- only set statusId if hasScheduleAdminRelatedPermission -->
@@ -80,7 +80,7 @@ under the License.
         </if-empty>
         
         <make-value entity-name="OrderDeliverySchedule" value-field="orderDeliverySchedule"/>
-        <set-pk-fields value-name="orderDeliverySchedule" map-name="parameters"/>
+        <set-pk-fields value-field="orderDeliverySchedule" map="parameters"/>
         <find-by-primary-key map="orderDeliverySchedule" value-field="orderDeliverySchedule"/>
         
         <!-- find email address for currently logged in user, set as sendFrom -->

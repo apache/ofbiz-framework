@@ -61,7 +61,7 @@ under the License.
         <check-permission permission="MARKETING" action="_CREATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupCreateSegmentGroupClassificationPermissionError"/></check-permission>
         <check-errors/>
         <make-value entity-name="SegmentGroupClassification" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
@@ -84,7 +84,7 @@ under the License.
         <check-permission permission="MARKETING" action="_CREATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupCreateSegmentGroupGeoPermissionError"/></check-permission>
         <check-errors/>
         <make-value entity-name="SegmentGroupGeo" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
@@ -107,7 +107,7 @@ under the License.
         <check-permission permission="MARKETING" action="_CREATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupCreateSegmentGroupRolePermissionError"/></check-permission>
         <check-errors/>
         <make-value entity-name="SegmentGroupRole" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
     </simple-method>   
@@ -115,7 +115,7 @@ under the License.
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupUpdateSegmentGroupRolePermissionError"/></check-permission>
         <check-errors/>
         <entity-one entity-name="SegmentGroupRole" value-name="lookedUpValue"/>
-        <set-pk-fields value-name="lookedUpValue" map-name="parameters"/>
+        <set-pk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroupRole" short-description="delete a SegmentGroupRole">

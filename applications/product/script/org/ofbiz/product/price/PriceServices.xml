@@ -30,7 +30,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductPrice"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
@@ -74,7 +74,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductPrice" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPrice" map="lookupPKMap" value-field="lookedUpValue"/>
 
         <!-- grab the old price value before setting nonpk parameter fields -->
@@ -114,7 +114,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-errors/>
         <make-value entity-name="ProductPaymentMethodType" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
@@ -156,7 +156,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductPriceRule" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceRule" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -167,7 +167,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductPriceRule" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceRule" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -180,7 +180,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductPriceCond"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="productPriceCondSeqId" numeric-padding="2"/>
         <field-to-result field-name="productPriceCondSeqId" map-name="newEntity"/>
 
@@ -192,7 +192,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductPriceCond" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceCond" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -203,7 +203,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductPriceCond" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceCond" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -216,7 +216,7 @@ under the License.
 
         <make-value value-field="newEntity" entity-name="ProductPriceAction"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="productPriceActionSeqId" numeric-padding="2"/>
         <field-to-result field-name="productPriceActionSeqId" map-name="newEntity"/>
 
@@ -228,7 +228,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductPriceAction" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceAction" map="lookupPKMap" value-field="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
@@ -239,7 +239,7 @@ under the License.
         <check-errors/>
 
         <make-value entity-name="ProductPriceAction" value-field="lookupPKMap"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceAction" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>

@@ -66,7 +66,7 @@ under the License.
     <simple-method method-name="createAcctgTransEntry" short-description="Add Entry To AcctgTrans">
         <make-value entity-name="AcctgTransEntry" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>

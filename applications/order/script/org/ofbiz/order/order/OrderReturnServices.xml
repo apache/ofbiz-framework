@@ -307,7 +307,7 @@ under the License.
         <!-- if an orderItemSeqId  is provided, then find the corresponding orderItem  -->
         <if-not-empty field="parameters.orderItemSeqId">
             <make-value value-field="itemLookup" entity-name="OrderItem"/>
-            <set-pk-fields map-name="parameters" value-name="itemLookup"/>
+            <set-pk-fields map="parameters" value-field="itemLookup"/>
             <if-not-empty field="parameters.orderItemSeqId">
                 <find-by-primary-key entity-name="OrderItem" value-field="orderItem" map="itemLookup"/>
                 <log level="info" message="Return item is an OrderItem - ${orderItem.orderItemSeqId}"/>
@@ -865,7 +865,7 @@ under the License.
     <simple-method method-name="createReturnItemBilling" short-description="Create a ReturnItemBilling">
         <make-value entity-name="ReturnItemBilling" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
 
@@ -930,7 +930,7 @@ under the License.
         <check-permission permission="ORDERMGR" action="_CREATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateReturnItemShipment"/></check-permission>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="ReturnItemShipment"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>

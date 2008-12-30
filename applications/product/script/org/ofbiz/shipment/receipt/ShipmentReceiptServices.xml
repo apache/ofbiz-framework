@@ -55,7 +55,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="newEntity" entity-name="ShipmentReceiptRole"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
                         
         <create-value value-name="newEntity"/>
@@ -66,7 +66,7 @@ under the License.
         <check-errors/>
 
         <make-value value-field="lookupPKMap" entity-name="ShipmentReceiptRole"/>
-        <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
+        <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentReceiptRole" map="lookupPKMap" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>   

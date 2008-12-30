@@ -26,7 +26,7 @@ under the License.
         </check-permission>
         <check-errors/>
         <make-value value-field="newEntity" entity-name="CommunicationEventProduct"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>    
     </simple-method>

@@ -36,7 +36,7 @@ under the License.
         </if-not-empty>
 
         <make-value entity-name="ExampleStatus" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set field="newEntity.statusDate" from-field="nowTimestamp"/>
         <create-value value-name="newEntity"/>  

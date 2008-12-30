@@ -40,7 +40,7 @@ under the License.
     </simple-method>
     <simple-method method-name="createWorkEffortCostCalc" short-description="Create a WorkEffortCostCalc entry">
         <make-value entity-name="WorkEffortCostCalc" value-field="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>

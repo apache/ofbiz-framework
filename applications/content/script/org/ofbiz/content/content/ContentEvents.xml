@@ -25,7 +25,7 @@ under the License.
         <log level="always" message="parameters: ${parameters}"/>
 
         <make-value entity-name="Content" value-field="currentContent"/>
-        <set-pk-fields map-name="parameters" value-name="currentContent"/>
+        <set-pk-fields map="parameters" value-field="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
         <call-map-processor in-map-name="currentContent" out-map-name="currentContent">
             <simple-map-processor name="newDateContent">
@@ -89,7 +89,7 @@ under the License.
         <log level="always" message="parameters: ${parameters}"/>
 
         <make-value entity-name="Content" value-field="currentContent"/>
-        <set-pk-fields map-name="parameters" value-name="currentContent"/>
+        <set-pk-fields map="parameters" value-field="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
         <call-map-processor in-map-name="currentContent" out-map-name="currentContent">
             <simple-map-processor name="newDateContent">

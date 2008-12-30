@@ -185,7 +185,7 @@ under the License.
 
     <simple-method method-name="createCustRequestAttribute" short-description="Create Customer Request Attribute">
         <make-value value-field="newEntity" entity-name="CustRequestAttribute"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -199,7 +199,7 @@ under the License.
 
     <simple-method method-name="createCustRequestItem" short-description="Create Customer Request Item">
         <make-value value-field="newEntity" entity-name="CustRequestItem"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="parameters.custRequestItemSeqId">
             <make-next-seq-id value-name="newEntity" seq-field-name="custRequestItemSeqId"/>
@@ -225,11 +225,11 @@ under the License.
         <find-by-primary-key entity-name="PartyRole" map="lookupPKMap" value-field="partyRole"/>
         <if-empty field="partyRole.partyId">
             <make-value value-field="partyRole" entity-name="PartyRole"/>
-            <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>
+            <set-pk-fields map="lookupPKMap" value-field="partyRole"/>
             <create-value value-name="partyRole"/>
         </if-empty>
         <make-value value-field="newEntity" entity-name="CustRequestParty"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="newEntity.fromDate"/>
@@ -474,7 +474,7 @@ under the License.
     <simple-method method-name="createCustRequestContent" short-description="Create Work Effort Content">
         <make-value entity-name="CustRequestContent" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
         
         <if-empty field="newEntity.fromDate">
             <now-timestamp-to-env env-name="nowTimestamp"/>

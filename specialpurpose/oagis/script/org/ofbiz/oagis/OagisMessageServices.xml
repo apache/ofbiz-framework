@@ -23,7 +23,7 @@ under the License.
 
     <simple-method method-name="createOagisMessageInfo" short-description="Create MessageInfo">
         <make-value entity-name="OagisMessageInfo" value-field="newEntity"/>
-        <set-pk-fields  map-name="parameters" value-name="newEntity" />
+        <set-pk-fields  map="parameters" value-field="newEntity" />
         
         <!-- make sure it doesn't already exist: motivation: if it already exists we'll get a HUGE error message on the create with the whole XML file in it if debug is on for that, so we want a smaller error message -->
         <find-by-primary-key map="newEntity" value-field="currentOagisMessageInfo"/>
@@ -48,7 +48,7 @@ under the License.
     
     <simple-method method-name="createOagisMessageErrorInfo" short-description="Create MessageErrorInfo">
         <make-value entity-name="OagisMessageErrorInfo" value-field="newEntity"/>
-        <set-pk-fields  map-name="parameters" value-name="newEntity" />
+        <set-pk-fields  map="parameters" value-field="newEntity" />
         <make-next-seq-id value-name="newEntity" seq-field-name="errorSeqId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
