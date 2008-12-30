@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">    
 
     <simple-method method-name="createOagisMessageInfo" short-description="Create MessageInfo">
-        <make-value entity-name="OagisMessageInfo" value-name="newEntity"/>
+        <make-value entity-name="OagisMessageInfo" value-field="newEntity"/>
         <set-pk-fields  map-name="parameters" value-name="newEntity" />
         
         <!-- make sure it doesn't already exist: motivation: if it already exists we'll get a HUGE error message on the create with the whole XML file in it if debug is on for that, so we want a smaller error message -->
@@ -47,7 +47,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createOagisMessageErrorInfo" short-description="Create MessageErrorInfo">
-        <make-value entity-name="OagisMessageErrorInfo" value-name="newEntity"/>
+        <make-value entity-name="OagisMessageErrorInfo" value-field="newEntity"/>
         <set-pk-fields  map-name="parameters" value-name="newEntity" />
         <make-next-seq-id value-name="newEntity" seq-field-name="errorSeqId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -66,7 +66,7 @@ under the License.
         <set field="createOagisMsgErrCtx.task" from-field="parameters.task"/>
         <set field="createOagisMsgErrCtx.referenceId" from-field="parameters.referenceId"/>
         <if-not-empty field="parameters.errorMapList">
-            <iterate list-name="parameters.errorMapList" entry-name="errorMap">
+            <iterate list="parameters.errorMapList" entry="errorMap">
                 <set field="createOagisMsgErrCtx.description" from-field="errorMap.description"/>
                 <set field="createOagisMsgErrCtx.reasonCode" from-field="errorMap.reasonCode"/>
                 <call-service service-name="createOagisMessageErrorInfo" in-map-name="createOagisMsgErrCtx"/>

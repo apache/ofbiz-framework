@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- CostComponent services -->
     <simple-method method-name="createCostComponent" short-description="Create a CostComponent">
-        <make-value value-name="newEntity" entity-name="CostComponent"/>
+        <make-value value-field="newEntity" entity-name="CostComponent"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="CostComponent" env-name="newEntity.costComponentId"/>
         <field-to-result field-name="costComponentId" map-name="newEntity"/>
@@ -47,7 +47,7 @@ under the License.
         <set from-field="parameters.costComponentTypeId" field="costsAndMap.costComponentTypeId"/>
         <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="existingCosts"/>
         <filter-list-by-date list-name="existingCosts"/>
-        <iterate list-name="existingCosts" entry-name="existingCost">
+        <iterate list="existingCosts" entry="existingCost">
             <now-timestamp-to-env env-name="existingCost.thruDate"/>
             <store-value value-name="existingCost"/>
         </iterate>
@@ -59,12 +59,12 @@ under the License.
         <set from-field="parameters.costComponentTypeId" field="costsAndMap.costComponentTypeId"/>
         <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="existingCosts"/>
         <filter-list-by-date list-name="existingCosts"/>
-        <iterate list-name="existingCosts" entry-name="existingCost">
+        <iterate list="existingCosts" entry="existingCost">
             <now-timestamp-to-env env-name="existingCost.thruDate"/>
             <store-value value-name="existingCost"/>
         </iterate>
         <!-- The new cost is created -->
-        <make-value value-name="newEntity" entity-name="CostComponent"/>
+        <make-value value-field="newEntity" entity-name="CostComponent"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="CostComponent" env-name="newEntity.costComponentId"/>
         <if-empty field="newEntity.fromDate">
@@ -234,7 +234,7 @@ under the License.
         </entity-condition>
         <set from-field="parameters.currencyUomId" field="inMap.currencyUomId"/>
         <set from-field="parameters.costComponentTypePrefix" field="inMap.costComponentTypePrefix"/>
-        <iterate list-name="products" entry-name="product">
+        <iterate list="products" entry="product">
             <set from-field="product.productId" field="inMap.productId"/>
             <call-service service-name="calculateProductCosts" in-map-name="inMap"/>
         </iterate>
@@ -252,7 +252,7 @@ under the License.
             <result-to-field result-name="componentsMap"/>
         </call-service>
         <if-not-empty field="componentsMap">
-            <iterate entry="componentMap" list-name="componentsMap">
+            <iterate entry="componentMap" list="componentsMap">
                 <clear-field field-name="inputMap"/>
                 <set field="product" from-field="componentMap.product"/>
                 <set field="inputMap.productId" from-field="product.productId"/>
@@ -288,7 +288,7 @@ under the License.
             <result-to-field result-name="tasks"/>
             <result-to-field result-name="routing"/>
         </call-service>
-        <iterate entry="task" list-name="tasks">
+        <iterate entry="task" list="tasks">
             <clear-field field-name="callSvcMap"/>
             <set from-field="task.workEffortIdTo" field="callSvcMap.workEffortId"/>
             <set from-field="parameters.currencyUomId" field="callSvcMap.currencyUomId"/>

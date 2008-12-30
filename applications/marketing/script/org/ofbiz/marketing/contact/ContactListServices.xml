@@ -25,7 +25,7 @@ under the License.
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createContactList you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ContactList" value-name="newEntity"/>
+        <make-value entity-name="ContactList" value-field="newEntity"/>
         <if-empty field="parameters.contactListId">
             <sequenced-id-to-env sequence-name="ContactList" env-name="newEntity.contactListId"/>
             <else>
@@ -104,7 +104,7 @@ under the License.
         <check-errors/>
         
         
-        <make-value entity-name="ContactListParty" value-name="newEntity"/>
+        <make-value entity-name="ContactListParty" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
@@ -145,7 +145,7 @@ under the License.
     <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
         <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>       
         <find-by-and entity-name="ContactListParty" map-name="lookupMap" list-name="ContactListParties"/>
-        <iterate entry="contactlistparty" list-name="ContactListParties">
+        <iterate entry="contactlistparty" list="ContactListParties">
         <set field="contactlistparty.preferredContactMechId" from-field="parameters.contactMechId"/>
         <log level="info" message="Replacing preferredContactMechId: ${parameters.oldContactMechId} of the ContactList: ${contactlistparty.contactListId} with new preferredContactMechId: ${parameters.contactMechId}"/>        
         <store-value value-name="contactlistparty"/>
@@ -172,7 +172,7 @@ under the License.
         </if>
         <check-errors/>
         
-        <make-value entity-name="ContactListPartyStatus" value-name="newEntity"/>
+        <make-value entity-name="ContactListPartyStatus" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 

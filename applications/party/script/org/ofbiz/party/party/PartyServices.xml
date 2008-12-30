@@ -24,7 +24,7 @@ under the License.
     <simple-method method-name="createPartyRole" short-description="Create Party Role">
         <entity-one entity-name="PartyRole" value-name="partyRole"/>
         <if-empty field="partyRole">
-            <make-value entity-name="PartyRole" value-name="newEntity"/>
+            <make-value entity-name="PartyRole" value-field="newEntity"/>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
             <create-value value-name="newEntity"/>  
         </if-empty>
@@ -41,7 +41,7 @@ under the License.
             <set field="parameters.partyId" from-field="userLogin.partyId"/>
         </if-empty>
         
-        <make-value value-name="partyNameHistory" entity-name="PartyNameHistory"/>
+        <make-value value-field="partyNameHistory" entity-name="PartyNameHistory"/>
         <set-pk-fields value-name="partyNameHistory" map-name="parameters"/>
         <now-timestamp-to-env env-name="partyNameHistory.changeDate"/>
         
@@ -101,7 +101,7 @@ under the License.
             <set field="parameters.compareDate" from-field="nowTimestamp"/>
         </if-empty>
         <!-- go through the list which is sorted by most recent first and find the oldest (last) one with the changeDate greater than the compareDate -->        
-        <iterate entry="partyNameHistory" list-name="partyNameHistoryList">
+        <iterate entry="partyNameHistory" list="partyNameHistoryList">
             <if-compare-field field="partyNameHistory.changeDate" to-field="parameters.compareDate" operator="greater">
                 <set field="partyNameHistoryCurrent" from-field="partyNameHistory"/>
             </if-compare-field>
@@ -174,7 +174,7 @@ under the License.
     
     <!-- PostalAddressBoundary methods -->
     <simple-method method-name="createPostalAddressBoundary" short-description="Create Postal Address Boundary">
-        <make-value entity-name="PostalAddressBoundary" value-name="newEntity"/>
+        <make-value entity-name="PostalAddressBoundary" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -183,10 +183,10 @@ under the License.
         <remove-value value-name="postalAddressBoundary"/>
     </simple-method>
     <simple-method method-name="getPostalAddressBoundary" short-description="Get Postal Address Boundary">
-        <make-value entity-name="PostalAddressBoundary" value-name="postalAddressBoundaryLookupMap"/>
+        <make-value entity-name="PostalAddressBoundary" value-field="postalAddressBoundaryLookupMap"/>
         <set field="postalAddressBoundaryLookupMap.geoId" from-field="parameters.geoId"/>
         <find-by-and entity-name="PostalAddressBoundary" map-name="postalAddressBoundaryLookupMap" list-name="postalAddressBoundaries"/>
-        <iterate list-name="postalAddressBoundaries" entry-name="postalAddressBoundary">
+        <iterate list="postalAddressBoundaries" entry="postalAddressBoundary">
             <get-related-one value-name="postalAddressBoundary" to-value-name="geo" relation-name="Geo"/>
             <field-to-list field-name="geo" list-name="geos"/>
         </iterate>
@@ -195,7 +195,7 @@ under the License.
 
     <!-- PartyClassification methods -->
     <simple-method method-name="createPartyClassification" short-description="create a PartyClassification">
-        <make-value entity-name="PartyClassification" value-name="newEntity"/>
+        <make-value entity-name="PartyClassification" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>        
@@ -213,7 +213,7 @@ under the License.
     <!-- PartyClassificationGroup methods -->
     <simple-method method-name="createPartyClassificationGroup" short-description="create a PartyClassificationGroup">
         <log level="verbose" message="in newEntity" />
-        <make-value entity-name="PartyClassificationGroup" value-name="newEntity"/>
+        <make-value entity-name="PartyClassificationGroup" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="PartyClassificationGroup" env-name="newEntity.partyClassificationGroupId"/>
         <field-to-result field-name="newEntity.partyClassificationGroupId" result-name="partyClassificationGroupId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -232,7 +232,7 @@ under the License.
     
     <!-- Vendor Party services -->
     <simple-method method-name="createVendor" short-description="createVendor">
-        <make-value value-name="newEntity" entity-name="Vendor"/>
+        <make-value value-field="newEntity" entity-name="Vendor"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -249,7 +249,7 @@ under the License.
 
     <!-- party attribute services -->
     <simple-method method-name="createPartyAttribute" short-description="createPartyAttribute">
-        <make-value value-name="newEntity" entity-name="PartyAttribute"/>
+        <make-value value-field="newEntity" entity-name="PartyAttribute"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -273,7 +273,7 @@ under the License.
         <!-- lookup existing value -->
         <entity-one entity-name="PartyProfileDefault" value-name="partyProfileDefault"/>
         <if-empty field="partyProfileDefault">
-            <make-value value-name="partyProfileDefault" entity-name="PartyProfileDefault"/>
+            <make-value value-field="partyProfileDefault" entity-name="PartyProfileDefault"/>
             <set-pk-fields value-name="partyProfileDefault" map-name="parameters"/>
             <create-value value-name="partyProfileDefault"/>
         </if-empty>
@@ -345,7 +345,7 @@ under the License.
             <set value="OWNER" field="contentRole.roleTypeId"/>
             <call-service service-name="createContentRole" in-map-name="contentRole" break-on-error="false" />
             <!-- check party role -->
-            <make-value value-name="partyRole" entity-name="PartyRole"/>
+            <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields value-name="partyRole" map-name="contentRole"/>
             <find-by-and entity-name="PartyRole" map-name="partyRole" list-name="pRoles"/>
             <if-empty field="pRoles">
@@ -449,7 +449,7 @@ under the License.
         <set from-field="parameters.partyRelationshipTypeId" field="lookupMap.partyRelationshipTypeId"/>
         
         <find-by-and entity-name="PartyRelationship" map-name="lookupMap" list-name="partyRelationships"/>
-        <iterate list-name="partyRelationships" entry-name="partyRelationship">
+        <iterate list="partyRelationships" entry="partyRelationship">
             <get-related-one value-name="partyRelationship" relation-name="ToParty" to-value-name="party"/>
             <field-to-list field-name="party" list-name="parties"/>
         </iterate>
@@ -528,7 +528,7 @@ under the License.
     <simple-method method-name="followPartyRelationshipsInlineRecurse" short-description="followPartyRelationshipsInlineRecurse">
         <clear-field field-name="_inline_NewRelatedPartyIdList"/>
         
-        <iterate entry="relatedPartyId" list-name="relatedPartyIdList">
+        <iterate entry="relatedPartyId" list="relatedPartyIdList">
             <if>
                 <condition><not><if-compare-field field="_inline_relatedPartyIdAlreadySearchedList" to-field="relatedPartyId" operator="contains"/></not></condition>
                 <then>
@@ -552,7 +552,7 @@ under the License.
                         <!-- get the newest (highest date) first -->
                         <order-by field-name="-fromDate"/>
                     </entity-condition>
-                    <iterate entry="_inline_PartyRelationship" list-name="_inline_PartyRelationshipList">
+                    <iterate entry="_inline_PartyRelationship" list="_inline_PartyRelationshipList">
                         <if>
                             <condition>
                                 <and>
@@ -585,7 +585,7 @@ under the License.
                             <!-- get the newest (highest date) first -->
                             <order-by field-name="-fromDate"/>
                         </entity-condition>
-                        <iterate entry="_inline_PartyRelationship" list-name="_inline_PartyRelationshipList">
+                        <iterate entry="_inline_PartyRelationship" list="_inline_PartyRelationshipList">
                             <if>
                                 <condition>
                                     <and>
@@ -622,7 +622,7 @@ under the License.
     <simple-method method-name="getChildRoleTypesInline" short-description="getChildRoleTypes">
         <clear-field field-name="_inline_NewRoleTypeIdList"/>
         
-        <iterate entry="roleTypeId" list-name="${roleTypeIdListName}">
+        <iterate entry="roleTypeId" list="${roleTypeIdListName}">
             <if>
                 <condition><not><if-compare-field field="_inline_roleTypeIdAlreadySearchedList" to-field="roleTypeId" operator="contains"/></not></condition>
                 <then>
@@ -632,7 +632,7 @@ under the License.
                     <entity-condition entity-name="RoleType" list-name="_inline_RoleTypeList" use-cache="true">
                         <condition-expr field-name="parentTypeId" operator="equals" env-name="roleTypeId"/>
                     </entity-condition>
-                    <iterate entry="newRoleType" list-name="_inline_RoleTypeList">
+                    <iterate entry="newRoleType" list="_inline_RoleTypeList">
                         <if>
                             <condition>
                                 <and>
@@ -692,8 +692,8 @@ under the License.
         <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
         <filter-list-by-date list-name="telephoneAll2" to-list-name="telephoneAll3"/>
         <if-not-empty field="telephoneAll3">
-            <iterate entry="type" list-name="types">
-                <iterate entry="telephone" list-name="telephoneAll3">
+            <iterate entry="type" list="types">
+                <iterate entry="telephone" list="telephoneAll3">
                     <if-empty field="found">
                         <if-compare-field field="telephone.contactMechPurposeTypeId" to-field="type" operator="equals">
                             <set field="found" value="notImportant"/>
@@ -738,13 +738,13 @@ under the License.
     <simple-method method-name="createAddressMatchMap" short-description="create a AddressMatchMap">
         <call-object-method obj-field-name="mapValue" obj-map-name="parameters" method-name="toUpperCase" ret-field-name="mapValue" ret-map-name="parameters"/>
         <call-object-method obj-field-name="mapKey" obj-map-name="parameters" method-name="toUpperCase" ret-field-name="mapKey" ret-map-name="parameters"/>
-        <make-value entity-name="AddressMatchMap" value-name="newEntity"/>
+        <make-value entity-name="AddressMatchMap" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteAddressMatchMap" short-description="remove a AddressMatchMap">
-        <make-value entity-name="AddressMatchMap" value-name="fieldMap"/>
+        <make-value entity-name="AddressMatchMap" value-field="fieldMap"/>
         <set-pk-fields map-name="parameters" value-name="fieldMap"/>
         <remove-value value-name="fieldMap"/>
     </simple-method>
@@ -752,7 +752,7 @@ under the License.
         <entity-condition entity-name="AddressMatchMap" list-name="addrs">
             <use-iterator/>
         </entity-condition>
-        <iterate entry="addr" list-name="addrs">
+        <iterate entry="addr" list="addrs">
             <remove-value value-name="addr"/>
         </iterate>        
     </simple-method>
@@ -774,7 +774,7 @@ under the License.
         </entity-and>
         
         <if-empty field="partyRels">
-            <make-value value-name="newEntity" entity-name="PartyRelationship"/>
+            <make-value value-field="newEntity" entity-name="PartyRelationship"/>
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
             <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
             <create-value value-name="newEntity"/>
@@ -797,7 +797,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createPartyCarrierAccount" short-description="Create PartyCarrierAccount">
-        <make-value entity-name="PartyCarrierAccount" value-name="newEntity"/>
+        <make-value entity-name="PartyCarrierAccount" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
@@ -898,7 +898,7 @@ under the License.
         <call-class-method method-name="getCountryList" class-name="org.ofbiz.common.CommonWorkers" ret-field-name="geoList">
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
         </call-class-method>
-        <iterate list-name="geoList" entry-name="countryGeo">
+        <iterate list="geoList" entry="countryGeo">
             <set field="countryName" value="${countryGeo.geoName}: ${countryGeo.geoId}"/>
             <field-to-list list-name="countryList" field-name="countryName"/>
         </iterate>
@@ -911,7 +911,7 @@ under the License.
             <field field-name="delegator" type="org.ofbiz.entity.GenericDelegator"/>
             <field field-name="countryGeoId" type="String"/>
         </call-class-method>
-        <iterate list-name="geoList" entry-name="stateGeo">
+        <iterate list="geoList" entry="stateGeo">
             <set field="stateName" value="${stateGeo.geoName}: ${stateGeo.geoId}"/>
             <field-to-list list-name="stateList" field-name="stateName"/>
         </iterate>

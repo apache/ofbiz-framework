@@ -24,8 +24,8 @@ under the License.
     <simple-method method-name="migrateFacilityRole" short-description="Migrate Data From OldFacilityRole To FacilityParty">
         <entity-condition entity-name="OldFacilityRole" list-name="oldFacilityRoles"/>
         <now-timestamp-to-env env-name="fromDate"/>
-        <iterate list-name="oldFacilityRoles" entry-name="oldFacilityRole">
-            <make-value entity-name="FacilityParty" value-name="facilityParty"/>
+        <iterate list="oldFacilityRoles" entry="oldFacilityRole">
+            <make-value entity-name="FacilityParty" value-field="facilityParty"/>
             <set field="facilityParty.facilityId" from-field="oldFacilityRole.facilityId"/>
             <set field="facilityParty.partyId" from-field="oldFacilityRole.partyId"/>
             <set field="facilityParty.roleTypeId" from-field="oldFacilityRole.roleTypeId"/>
@@ -35,7 +35,7 @@ under the License.
                 <field-map field-name="roleTypeId" from-field="facilityParty.roleTypeId"/>
             </entity-one>
             <if-empty field="partyRole">
-                <make-value entity-name="PartyRole" value-name="partyRole"/>
+                <make-value entity-name="PartyRole" value-field="partyRole"/>
                 <set field="partyRole.partyId" from-field="facilityParty.partyId"/>
                 <set field="partyRole.roleTypeId" from-field="facilityParty.roleTypeId"/>
                 <create-value value-name="partyRole"/>

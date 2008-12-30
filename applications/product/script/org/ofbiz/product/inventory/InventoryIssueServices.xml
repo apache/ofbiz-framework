@@ -39,7 +39,7 @@ under the License.
         
                 <!-- now go through each order item and call a service to issue the inventory -->
                 <if-compare field="iiCount" operator="greater" value="0" type="Double">
-                    <iterate list-name="orderItemList" entry-name="orderItem">
+                    <iterate list="orderItemList" entry="orderItem">
                         <if-not-empty field="orderItem.productId">
                             <clear-field field-name="callSvcMap"/>
                             <set-service-fields to-map-name="callSvcMap" service-name="issueImmediatelyFulfilledOrderItem" map-name="orderItem"/>
@@ -115,7 +115,7 @@ under the License.
     
             <set field="parameters.quantityNotIssued" from-field="orderItem.quantity" />
 
-            <iterate entry="inventoryItem" list-name="inventoryItemList">
+            <iterate entry="inventoryItem" list="inventoryItemList">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                 <call-simple-method method-name="issueImmediateForInventoryItemInline"/>
             </iterate>

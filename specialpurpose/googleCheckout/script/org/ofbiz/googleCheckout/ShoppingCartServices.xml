@@ -67,7 +67,7 @@
     <simple-method method-name="setupItems" short-description="">
         <!-- Get Items from Cart -->
         <call-object-method method-name="items" obj-field-name="cart" ret-field-name="cartItems"/>
-        <iterate entry="item" list-name="cartItems">
+        <iterate entry="item" list="cartItems">
             <!-- itemName -->
             <call-object-method method-name="getProductId" obj-field-name="item" ret-field-name="itemName" ret-map-name="thisItem"/>
             <!-- itemDesc -->
@@ -129,7 +129,7 @@
     </simple-method>
     <simple-method method-name="getShippingMethods" short-description="">
 
-        <iterate entry="" list-name="">
+        <iterate entry="" list="">
 
             <field-to-list field-name="" list-name="shippingMethods"/>
         </iterate>

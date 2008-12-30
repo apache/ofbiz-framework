@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductConfigItemContent -->
     <simple-method method-name="createProductConfigItemContent" short-description="Create Content For ProductConfigItem">
-        <make-value value-name="newEntity" entity-name="ProdConfItemContent"/>
+        <make-value value-field="newEntity" entity-name="ProdConfItemContent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -41,7 +41,7 @@ under the License.
         <field-to-result map-name="newEntity" field-name="confItemContentTypeId"/>
     </simple-method>
     <simple-method method-name="updateProductConfigItemContent" short-description="Update Content For ProductConfigItem">
-        <make-value value-name="lookupPKMap" entity-name="ProdConfItemContent"/>
+        <make-value value-field="lookupPKMap" entity-name="ProdConfItemContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -51,7 +51,7 @@ under the License.
         <call-service service-name="updateContent" in-map-name="updateContent"/>
     </simple-method>
     <simple-method method-name="removeProductConfigItemContent" short-description="Remove Content From ProductConfigItem">
-        <make-value value-name="lookupPKMap" entity-name="ProdConfItemContent"/>
+        <make-value value-field="lookupPKMap" entity-name="ProdConfItemContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

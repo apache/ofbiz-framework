@@ -25,7 +25,7 @@ under the License.
         <log level="always" message="in createLayout."/>
         <log level="always" message="parameters: ${parameters}"/>
 
-        <make-value entity-name="Content" value-name="currentContent"/>
+        <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map-name="parameters" value-name="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
         <map-to-map map-name="currentContent" to-map-name="context"/>
@@ -55,7 +55,7 @@ under the License.
         <log level="always" message="in updateLayout."/>
         <log level="always" message="parameters: ${parameters}"/>
 
-        <make-value entity-name="Content" value-name="currentContent"/>
+        <make-value entity-name="Content" value-field="currentContent"/>
         <set-pk-fields map-name="parameters" value-name="currentContent"/>
         <set-nonpk-fields map-name="parameters" value-name="currentContent"/>
         <set field="context.currentContent" from-field="currentContent"/>
@@ -134,7 +134,7 @@ under the License.
         </if-not-empty>
 
         <!-- add to most recently used list --><!--
-        <make-value entity-name="SubContentDataResourceView" value-name="subContent"/>
+        <make-value entity-name="SubContentDataResourceView" value-field="subContent"/>
         <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId" />
         <field-to-field field-name="dataResourceId" to-map-name="subContent" to-field-name="drDataResourceId"/>
         <log level="always" message="subContent: ${subContent}"/>
@@ -230,7 +230,7 @@ under the License.
         </if-not-empty>
 
         <!-- add to most recently used list --><!--
-        <make-value entity-name="SubContentDataResourceView" value-name="subContent"/>
+        <make-value entity-name="SubContentDataResourceView" value-field="subContent"/>
         <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId" />
         <field-to-field field-name="dataResourceId" to-map-name="subContent" to-field-name="drDataResourceId"/>
         <log level="always" message="subContent: ${subContent}"/>
@@ -288,7 +288,7 @@ under the License.
         </if-not-empty>
 
         <!-- add to most recently used list --><!--
-        <make-value entity-name="SubContentDataResourceView" value-name="subContent"/>
+        <make-value entity-name="SubContentDataResourceView" value-field="subContent"/>
         <field-to-field field-name="contentId" to-map-name="subContent" to-field-name="contentId" />
         <field-to-field field-name="dataResourceId" to-map-name="subContent" to-field-name="drDataResourceId"/>
         <log level="always" message="subContent: ${subContent}"/>

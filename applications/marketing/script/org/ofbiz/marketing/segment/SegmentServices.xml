@@ -28,7 +28,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="SegmentGroup"/>
+        <make-value value-field="newEntity" entity-name="SegmentGroup"/>
         <sequenced-id-to-env sequence-name="SegmentGroup" env-name="newEntity.segmentGroupId"/>
         <field-to-result field-name="newEntity.segmentGroupId" result-name="segmentGroupId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -60,7 +60,7 @@ under the License.
     <simple-method method-name="createSegmentGroupClassification" short-description="create a SegmentGroupClassification">
         <check-permission permission="MARKETING" action="_CREATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupCreateSegmentGroupClassificationPermissionError"/></check-permission>
         <check-errors/>
-        <make-value entity-name="SegmentGroupClassification" value-name="newEntity"/>
+        <make-value entity-name="SegmentGroupClassification" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
@@ -83,7 +83,7 @@ under the License.
     <simple-method method-name="createSegmentGroupGeo" short-description="create a SegmentGroupGeo">
         <check-permission permission="MARKETING" action="_CREATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupCreateSegmentGroupGeoPermissionError"/></check-permission>
         <check-errors/>
-        <make-value entity-name="SegmentGroupGeo" value-name="newEntity"/>
+        <make-value entity-name="SegmentGroupGeo" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
@@ -106,7 +106,7 @@ under the License.
     <simple-method method-name="createSegmentGroupRole" short-description="create a SegmentGroupRole">
         <check-permission permission="MARKETING" action="_CREATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupCreateSegmentGroupRolePermissionError"/></check-permission>
         <check-errors/>
-        <make-value entity-name="SegmentGroupRole" value-name="newEntity"/>
+        <make-value entity-name="SegmentGroupRole" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  

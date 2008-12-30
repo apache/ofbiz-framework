@@ -74,7 +74,7 @@ under the License.
             <set field="parameters.needsInventoryReceive" value="N"/>
         </if-empty>
 
-        <make-value value-name="newEntity" entity-name="ReturnHeader"/>
+        <make-value value-field="newEntity" entity-name="ReturnHeader"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <!-- If PartyAcctgPreference.useInvoiceIdForReturns is Y, get the ID from the getNextInvoiceId service -->
@@ -149,10 +149,10 @@ under the License.
             <entity-condition entity-name="ReturnAdjustment" list-name="returnAdjustments" distinct="true">
                 <condition-expr field-name="returnId" operator="equals" env-name="returnHeader.returnId"/>
             </entity-condition>
-            <iterate entry="returnItem" list-name="returnItems">
+            <iterate entry="returnItem" list="returnItems">
                 <log level="verbose" message="item: ${returnItem.returnItemSeqId} ${returnItem.returnItemTypeId} [${returnItem.description}] ${returnItem.productId} ${returnItem.returnQuantity} ${returnItem.returnPrice}"/>
             </iterate>
-            <iterate entry="returnAdjustment" list-name="returnAdjustments">
+            <iterate entry="returnAdjustment" list="returnAdjustments">
                 <log level="verbose" message="adjustment: ${returnAdjustment.returnItemSeqId} ${returnAdjustment.returnAdjustmentTypeId} [${returnAdjustment.description}] ${returnAdjustment.amount}"/>
             </iterate>
             -->
@@ -162,7 +162,7 @@ under the License.
             <calculate field-name="returnTotalAmount"><number value="0.0"/></calculate>
 
             <!-- check them all to make sure that the return total does not exceed order total.  -->
-            <iterate entry="returnItem" list-name="returnItems">
+            <iterate entry="returnItem" list="returnItems">
               <!-- check, for cross-ship returns, if a payment method is set to guarantee the cross-shipped item(s)..  -->
               <if>
                   <condition>
@@ -232,7 +232,7 @@ under the License.
             <entity-and entity-name="ReturnAdjustment" list-name="returnAdjustments">
                 <field-map field-name="returnId" from-field="returnHeader.returnId"/>
             </entity-and>
-            <iterate entry="returnAdjustment" list-name="returnAdjustments">
+            <iterate entry="returnAdjustment" list="returnAdjustments">
                 <calculate field-name="returnTotalAmount">
                          <calcop field-name="returnTotalAmount" operator="add">
                              <calcop operator="get" field-name="amount" map-name="returnAdjustment"/>
@@ -306,7 +306,7 @@ under the License.
 
         <!-- if an orderItemSeqId  is provided, then find the corresponding orderItem  -->
         <if-not-empty field="parameters.orderItemSeqId">
-            <make-value value-name="itemLookup" entity-name="OrderItem"/>
+            <make-value value-field="itemLookup" entity-name="OrderItem"/>
             <set-pk-fields map-name="parameters" value-name="itemLookup"/>
             <if-not-empty field="parameters.orderItemSeqId">
                 <find-by-primary-key entity-name="OrderItem" value-name="orderItem" map-name="itemLookup"/>
@@ -377,7 +377,7 @@ under the License.
             </else>
         </if-compare>
 
-        <make-value value-name="newEntity" entity-name="ReturnItem"/>
+        <make-value value-field="newEntity" entity-name="ReturnItem"/>
         <!-- do a lookup to find the existing returnItems on this return, order by returnItemSeqId DESC, then get the first one
              and add 1 to returnItemSeqId to get the new returnItemSeqId -->
         <set from-field="parameters.returnId" field="newEntity.returnId"/>
@@ -415,7 +415,7 @@ under the License.
                 <!-- create return adjustments for all adjustments associated with the order item -->
                 <if-not-empty field="orderItem">
                     <get-related value-name="orderItem" relation-name="OrderAdjustment" list-name="orderAdjustments"/>
-                    <iterate entry="orderAdjustment" list-name="orderAdjustments">
+                    <iterate entry="orderAdjustment" list="orderAdjustments">
                         <clear-field field-name="returnAdjCtx"/>
                         <set field="returnAdjCtx.returnId" from-field="parameters.returnId"/>
                         <set field="returnAdjCtx.returnItemSeqId" from-field="newEntity.returnItemSeqId"/>
@@ -447,7 +447,7 @@ under the License.
             <field-map field-name="returnId" from-field="returnItem.returnId"/>
             <field-map field-name="returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
         </entity-and>
-        <iterate entry="returnAdjustment" list-name="returnAdjustments">
+        <iterate entry="returnAdjustment" list="returnAdjustments">
             <log level="info" message="updating returnAdjustment with Id:[${returnAdjustment.returnAdjustmentId}]"/>
             <set-service-fields service-name="updateReturnAdjustment" map-name="returnAdjustment" to-map-name="ctx"/>
             <set field="ctx.originalReturnPrice" from-field="originalReturnPrice"/>
@@ -463,7 +463,7 @@ under the License.
 
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
         <find-by-and entity-name="ReturnItem" map-name="lookupPKMap" list-name="returnItems"/>
-        <iterate entry="item" list-name="returnItems">
+        <iterate entry="item" list="returnItems">
             <set field="item.statusId" from-field="parameters.statusId"/>
         </iterate>
         <store-list list-name="returnItems"/>
@@ -493,7 +493,7 @@ under the License.
             <field-map field-name="returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
             <field-map field-name="returnId" from-field="returnItem.returnId"/>
         </entity-and>
-        <iterate entry="returnAdjustment" list-name="returnAdjustments">
+        <iterate entry="returnAdjustment" list="returnAdjustments">
             <set field="removeCtx.returnAdjustmentId" from-field="returnAdjustment.returnAdjustmentId"/>
             <call-service service-name="removeReturnAdjustment" in-map-name="removeCtx"/>
         </iterate>
@@ -511,7 +511,7 @@ under the License.
         </if>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ReturnAdjustment"/>
+        <make-value value-field="newEntity" entity-name="ReturnAdjustment"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="ReturnAdjustment" env-name="newEntity.returnAdjustmentId"/>
         <field-to-result field-name="newEntity.returnAdjustmentId" result-name="returnAdjustmentId"/>
@@ -537,7 +537,7 @@ under the License.
         <set from-field="parameters.returnId" field="lookupPKMap.returnId"/>
         <find-by-primary-key entity-name="ReturnHeader" map-name="lookupPKMap" value-name="returnHeader"/>
         <find-by-and entity-name="ShipmentReceipt" map-name="lookupPKMap" list-name="shipmentReceipts"/>
-        <iterate list-name="shipmentReceipts" entry-name="receipt">
+        <iterate list="shipmentReceipts" entry="receipt">
             <if-empty field="totalsMap.${receipt.returnItemSeqId}">
                 <calculate field-name="${receipt.returnItemSeqId}" map-name="totalsMap">
                     <number value="0"/>
@@ -563,7 +563,7 @@ under the License.
                 
                 <!-- create status change history -->
                 <!-- TODO: this should be done with a createReturnStatus service call -->
-                <make-value entity-name="ReturnStatus" value-name="newReturnStatus"/>
+                <make-value entity-name="ReturnStatus" value-field="newReturnStatus"/>
                 <sequenced-id-to-env sequence-name="ReturnStatus" env-name="newReturnStatus.returnStatusId"/>
                 
                 <set field="newReturnStatus.returnId" from-field="returnItem.returnItemSeqId"/>
@@ -582,7 +582,7 @@ under the License.
         <!-- check to see if all items have been received -->
         <set field="allReceived" value="true"/>
         <find-by-and entity-name="ReturnItem" map-name="lookupPKMap" list-name="allReturnItems"/>
-        <iterate list-name="allReturnItems" entry-name="item">
+        <iterate list="allReturnItems" entry="item">
             <if-compare field="item.statusId" operator="not-equals" value="RETURN_RECEIVED">
                 <if-not-empty field="item.orderItemSeqId">
                     <!-- non-order items (i.e. adjustments) are not received -->
@@ -597,7 +597,7 @@ under the License.
             <!--  Go through all the items yet again and set their shipment status to PURCH_SHIP_RECEIVED (if it isn't already)
                 This activates SECAS such as creating return invoices. This MUST be done before updating the return header so that
                 the ReturnItemBillings are created and then whatever SECA binds to the return header update will have them. . -->
-            <iterate list-name="shipmentReceipts" entry-name="receipt">
+            <iterate list="shipmentReceipts" entry="receipt">
                 <get-related-one relation-name="Shipment" value-name="receipt" to-value-name="shipment"/>
                 <if-not-empty field="shipment.shipmentId">
                     <if-compare field="shipment.statusId" operator="not-equals" value="RETURN_RECEIVED">
@@ -613,7 +613,7 @@ under the License.
             <set from-field="returnHeader.returnId" field="returnHeaderCtx.returnId"/>
             <call-service service-name="updateReturnHeader" in-map-name="returnHeaderCtx"/>
             <!-- create the status history -->
-            <make-value entity-name="ReturnStatus" value-name="newValue"/>
+            <make-value entity-name="ReturnStatus" value-field="newValue"/>
             <sequenced-id-to-env sequence-name="ReturnStatus" env-name="newValue.returnStatusId"/>
             
             <set field="newValue.returnId" from-field="returnHeader.returnId"/>
@@ -628,7 +628,7 @@ under the License.
         <field-to-result field-name="statusId" map-name="returnHeader" result-name="returnHeaderStatus"/>
     </simple-method>
     <simple-method method-name="createReturnItemResponse" short-description="Create a ReturnItemResponse">
-        <make-value value-name="newEntity" entity-name="ReturnItemResponse"/>
+        <make-value value-field="newEntity" entity-name="ReturnItemResponse"/>
         <sequenced-id-to-env sequence-name="ReturnItemResponse" env-name="newEntity.returnItemResponseId"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -710,7 +710,7 @@ under the License.
         </if-empty>
 
         <!-- create the return items -->
-        <iterate entry="orderItem" list-name="orderItems">
+        <iterate entry="orderItem" list="orderItems">
             <set from-field="returnId" field="newItemCtx.returnId"/>
             <set from-field="parameters.returnReasonId" field="newItemCtx.returnReasonId"/>
             <set from-field="parameters.returnTypeId" field="newItemCtx.returnTypeId"/>
@@ -782,7 +782,7 @@ under the License.
                 <condition-expr field-name="orderItemSeqId" operator="equals" value="_NA_"/>
             </condition-list>
         </entity-condition>
-        <iterate entry="orderAdjustment" list-name="orderAdjustments">
+        <iterate entry="orderAdjustment" list="orderAdjustments">
             <clear-field field-name="returnAdjCtx"/>
             <set from-field="orderAdjustment.orderAdjustmentId" field="returnAdjCtx.orderAdjustmentId"/>
             <set from-field="returnId" field="returnAdjCtx.returnId"/>
@@ -863,7 +863,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="createReturnItemBilling" short-description="Create a ReturnItemBilling">
-        <make-value entity-name="ReturnItemBilling" value-name="newEntity"/>
+        <make-value entity-name="ReturnItemBilling" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -875,7 +875,7 @@ under the License.
         <entity-condition entity-name="ReturnItem" list-name="returnItems" distinct="true">
             <condition-expr field-name="returnId" operator="equals" env-name="parameters.returnId"/>
         </entity-condition>
-        <iterate entry="returnItem" list-name="returnItems">
+        <iterate entry="returnItem" list="returnItems">
             <set field="returnItemMap.returnId" from-field="parameters.returnId"/>
             <set field="returnItemMap.returnItemSeqId" from-field="returnItem.returnItemSeqId"/>
             <set field="returnItemMap.statusId" value="RETURN_CANCELLED" />
@@ -901,7 +901,7 @@ under the License.
                 <!-- get the order items of the replacement order associated to the returned item  -->
                 <set field="oiaMap.orderItemAssocTypeId" value="REPLACEMENT"/>
                 <get-related value-name="orderItem" relation-name="FromOrderItemAssoc" map-name="oiaMap" list-name="replacementOrderItems"/>
-                <iterate list-name="replacementOrderItems" entry-name="replacementOrderItem">
+                <iterate list="replacementOrderItems" entry="replacementOrderItem">
                     <set field="orderItemMap.orderId" from-field="replacementOrderItem.toOrderId"/>
                     <set field="orderItemMap.orderItemSeqId" from-field="replacementOrderItem.toOrderItemSeqId"/>
                     <call-service service-name="cancelOrderItem" in-map-name="orderItemMap"/>
@@ -929,7 +929,7 @@ under the License.
     <simple-method method-name="createReturnItemShipment" short-description="Create a ReturnItemShipment">
         <check-permission permission="ORDERMGR" action="_CREATE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunCreateReturnItemShipment"/></check-permission>
         <check-errors/>
-        <make-value value-name="newEntity" entity-name="ReturnItemShipment"/>
+        <make-value value-field="newEntity" entity-name="ReturnItemShipment"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>

@@ -81,7 +81,7 @@ under the License.
             </if-not-empty>
         </if-not-empty>
 
-        <make-value entity-name="UserLogin" value-name="newUserLogin"/>
+        <make-value entity-name="UserLogin" value-field="newUserLogin"/>
         <set from-field="userLoginContext.userLoginId" field="newUserLogin.userLoginId"/>
         <set from-field="userLoginContext.currentPassword" field="newUserLogin.currentPassword"/>
         <set from-field="userLoginContext.passwordHint" field="newUserLogin.passwordHint"/>
@@ -273,7 +273,7 @@ under the License.
         </if-compare>
 
         <!-- create the PartyDataSource entry to track where this info came from... -->
-        <make-value entity-name="PartyDataSource" value-name="partyDataSource"/>
+        <make-value entity-name="PartyDataSource" value-field="partyDataSource"/>
         <set value="ECOMMERCE_SITE" field="partyDataSource.dataSourceId"/>
         <set from-field="nowStamp" field="partyDataSource.fromDate"/>
         <set value="Y" field="partyDataSource.isCreate"/>
@@ -959,7 +959,7 @@ under the License.
                     <add-error error-list-name="error_list"><fail-message message="Username in use, please choose another."/></add-error>
                 </if-not-empty>
             </if-not-empty>
-            <make-value entity-name="UserLogin" value-name="newUserLogin"/>
+            <make-value entity-name="UserLogin" value-field="newUserLogin"/>
             <set field="newUserLogin.userLoginId" from-field="userLoginMap.userLoginId"/>
             <set field="newUserLogin.currentPassword" from-field="userLoginMap.currentPassword"/>
             <set field="newUserLogin.passwordHint" from-field="userLoginMap.passwordHint"/>
@@ -1052,7 +1052,7 @@ under the License.
                  <set field="chosenShippingMethod" value="${shipmentMethodTypeId}@${carrierPartyId}"/>
             </if-not-empty>
         </if-not-empty>
-        <iterate list-name="carrierShipmentMethodList"  entry-name="carrierShipmentMethod">
+        <iterate list="carrierShipmentMethodList"  entry="carrierShipmentMethod">
             <call-object-method obj-field-name="shippingEstWpr" method-name="getShippingEstimate" ret-field-name="shippingEst">
                 <field field-name="carrierShipmentMethod" type="org.ofbiz.entity.GenericValue"/>
             </call-object-method>

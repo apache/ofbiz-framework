@@ -25,7 +25,7 @@ under the License.
         <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run createSecurityGroup you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="SecurityGroup"/>
+        <make-value value-field="newEntity" entity-name="SecurityGroup"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -35,7 +35,7 @@ under the License.
         <check-permission permission="SECURITY" action="_UPDATE"><fail-message message="Security Error: to run updateSecurityGroup you must have the SECURITY_UPDATE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="SecurityGroup" value-name="lookupPKMap"/>
+        <make-value entity-name="SecurityGroup" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="SecurityGroup" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -47,7 +47,7 @@ under the License.
         <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run createSecurityPermission you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="SecurityPermission"/>
+        <make-value value-field="newEntity" entity-name="SecurityPermission"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -57,7 +57,7 @@ under the License.
         <check-permission permission="SECURITY" action="_UPDATE"><fail-message message="Security Error: to run updateSecurityPermission you must have the SECURITY_UPDATE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="SecurityPermission" value-name="lookupPKMap"/>
+        <make-value entity-name="SecurityPermission" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="SecurityPermission" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -69,7 +69,7 @@ under the License.
         <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run addSecurityPermissionToSecurityGroup you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="SecurityGroupPermission"/>
+        <make-value value-field="newEntity" entity-name="SecurityGroupPermission"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
        
         <!-- clear the org.ofbiz.security.Security object's custom cache by newEntity -->
@@ -81,7 +81,7 @@ under the License.
         <check-permission permission="SECURITY" action="_DELETE"><fail-message message="Security Error: to run removeSecurityPermissionFromSecurityGroup you must have the SECURITY_DELETE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="SecurityGroupPermission" value-name="lookupPKMap"/>
+        <make-value entity-name="SecurityGroupPermission" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="SecurityGroupPermission" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -95,7 +95,7 @@ under the License.
         <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run addUserLoginToSecurityGroup you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="UserLoginSecurityGroup"/>
+        <make-value value-field="newEntity" entity-name="UserLoginSecurityGroup"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -113,7 +113,7 @@ under the License.
         <check-permission permission="SECURITY" action="_UPDATE"><fail-message message="Security Error: to run updateUserLoginToSecurityGroup you must have the SECURITY_UPDATE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="UserLoginSecurityGroup" value-name="lookupPKMap"/>
+        <make-value entity-name="UserLoginSecurityGroup" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="UserLoginSecurityGroup" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -126,7 +126,7 @@ under the License.
         <check-permission permission="SECURITY" action="_DELETE"><fail-message message="Security Error: to run removeUserLoginFromSecurityGroup you must have the SECURITY_DELETE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="UserLoginSecurityGroup" value-name="lookupPKMap"/>
+        <make-value entity-name="UserLoginSecurityGroup" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="UserLoginSecurityGroup" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -140,7 +140,7 @@ under the License.
         <check-permission permission="SECURITY" action="_CREATE"><fail-message message="Security Error: to run addProtectedViewToSecurityGroup you must have the SECURITY_CREATE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProtectedView"/>
+        <make-value value-field="newEntity" entity-name="ProtectedView"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
                
@@ -152,7 +152,7 @@ under the License.
     <simple-method method-name="updateProtectedViewToSecurityGroup" short-description="Update ProtectedView to SecurityGroup">
         <check-permission permission="SECURITY" action="_UPDATE"><fail-message message="Security Error: to run updateProtectedViewToSecurityGroup you must have the SECURITY_UPDATE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
-        <make-value entity-name="ProtectedView" value-name="lookupPKMap"/>
+        <make-value entity-name="ProtectedView" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProtectedView" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -165,7 +165,7 @@ under the License.
         <check-permission permission="SECURITY" action="_DELETE"><fail-message message="Security Error: to run removeProtectedViewFromSecurityGroup you must have the SECURITY_DELETE or SECURITY_ADMIN permission"/></check-permission>
         <check-errors/>
         
-        <make-value entity-name="ProtectedView" value-name="lookupPKMap"/>
+        <make-value entity-name="ProtectedView" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProtectedView" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

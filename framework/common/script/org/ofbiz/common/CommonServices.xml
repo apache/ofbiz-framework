@@ -28,7 +28,7 @@ under the License.
     <simple-method method-name="createKeywordThesaurus" short-description="Create a KeywordThesaurus">
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createKeywordThesaurus you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
-        <make-value value-name="newEntity" entity-name="KeywordThesaurus"/>
+        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <call-object-method obj-field-name="newEntity.enteredKeyword" method-name="toLowerCase" ret-field-name="newEntity.enteredKeyword"/>
@@ -38,7 +38,7 @@ under the License.
     <simple-method method-name="updateKeywordThesaurus" short-description="Update a KeywordThesaurus">
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateKeywordThesaurus you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
-        <make-value value-name="newEntity" entity-name="KeywordThesaurus"/>
+        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <store-value value-name="newEntity"/>
@@ -46,14 +46,14 @@ under the License.
     <simple-method method-name="deleteKeywordThesaurus" short-description="Delete a KeywordThesaurus">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteKeywordThesaurus you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
-        <make-value value-name="newEntity" entity-name="KeywordThesaurus"/>
+        <make-value value-field="newEntity" entity-name="KeywordThesaurus"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <remove-by-and entity-name="KeywordThesaurus" map-name="newEntity"/>
     </simple-method>
     
     <!-- Uom Conversion service -->
     <simple-method method-name="createUomConversionDated" short-description="Create a new dated UOM conversion entity">
-        <make-value value-name="newEntity" entity-name="UomConversionDated"/>
+        <make-value value-field="newEntity" entity-name="UomConversionDated"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -211,7 +211,7 @@ under the License.
             <add-error><fail-property property="VisualThemeResourcesNotFound" resource="CommonUiLabels"/></add-error>
             <check-errors/>
         </if-empty>
-        <iterate list-name="resourceList" entry-name="resourceRecord">
+        <iterate list="resourceList" entry="resourceRecord">
             <set field="resourceTypeEnumId" from-field="resourceRecord.resourceTypeEnumId"/>
             <set field="resourceValue" from-field="resourceRecord.resourceValue"/>
             <if-empty field="resourceValue">

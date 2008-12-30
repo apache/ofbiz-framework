@@ -28,7 +28,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductPrice"/>
+        <make-value value-field="newEntity" entity-name="ProductPrice"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -73,7 +73,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductPrice" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductPrice" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPrice" map-name="lookupPKMap" value-name="lookedUpValue"/>
 
@@ -95,7 +95,7 @@ under the License.
         <check-errors/>
 
         <!-- Note that this is kept pretty simple: if a price is specific but no oldPrice, then it is generally a create, if both are specified it is generally an update, if only the oldPrice is specified it is generally a delete -->
-        <make-value value-name="newEntity" entity-name="ProductPriceChange"/>
+        <make-value value-field="newEntity" entity-name="ProductPriceChange"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <sequenced-id-to-env sequence-name="ProductPriceChange" env-name="productPriceChangeId"/>
@@ -113,7 +113,7 @@ under the License.
         <set field="checkAction" value="CREATE" />
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-errors/>
-        <make-value entity-name="ProductPaymentMethodType" value-name="newEntity"/>
+        <make-value entity-name="ProductPaymentMethodType" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -143,7 +143,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductPriceRule"/>
+        <make-value value-field="newEntity" entity-name="ProductPriceRule"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductPriceRule" env-name="newEntity.productPriceRuleId"/>
         <field-to-result field-name="productPriceRuleId" map-name="newEntity"/>
@@ -155,7 +155,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductPriceRule" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductPriceRule" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceRule" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -166,7 +166,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductPriceRule" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductPriceRule" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceRule" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -178,7 +178,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductPriceCond"/>
+        <make-value value-field="newEntity" entity-name="ProductPriceCond"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="productPriceCondSeqId" numeric-padding="2"/>
@@ -191,7 +191,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductPriceCond" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductPriceCond" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceCond" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -202,7 +202,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductPriceCond" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductPriceCond" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceCond" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -214,7 +214,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductPriceAction"/>
+        <make-value value-field="newEntity" entity-name="ProductPriceAction"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="productPriceActionSeqId" numeric-padding="2"/>
@@ -227,7 +227,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductPriceAction" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductPriceAction" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceAction" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -238,7 +238,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductPriceAction" value-name="lookupPKMap"/>
+        <make-value entity-name="ProductPriceAction" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductPriceAction" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

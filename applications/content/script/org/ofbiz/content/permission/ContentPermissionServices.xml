@@ -464,7 +464,7 @@
                 <call-simple-method method-name="findAllContentPurposes"/>
 
                 <!-- find defined purpose/operation mappings -->
-                <iterate entry="currentPurpose" list-name="contentPurposes">
+                <iterate entry="currentPurpose" list="contentPurposes">
                     <entity-condition entity-name="ContentPurposeOperation" list-name="currentOperations">
                         <condition-list combine="and">
                             <condition-expr field-name="contentPurposeTypeId" operator="equals" env-name="currentPurpose.contentPurposeTypeId"/>
@@ -507,7 +507,7 @@
                 <call-simple-method method-name="findAllAssociatedPartyIds"/>
 
                 <!-- check each operation security -->
-                <iterate entry="operation" list-name="operations">
+                <iterate entry="operation" list="operations">
                     <if-compare field="hasPermission" value="false" type="Boolean" operator="equals">
                         <!-- reset the checkId if needed -->
                         <if>
@@ -543,7 +543,7 @@
                                 <log level="verbose" message="Passed status check; now checking role(s)"/>
 
                                 <!-- first check passed; now we test for the role membership(s) -->
-                                <iterate entry="thisPartyId" list-name="partyIdList">
+                                <iterate entry="thisPartyId" list="partyIdList">
                                     <if-compare field="hasPermission" value="false" type="Boolean" operator="equals">
                                         <set field="checkRoleTypeId" from-field="operation.roleTypeId"/>
                                         <set field="checkPartyId" from-field="thisPartyId"/>
@@ -639,7 +639,7 @@
         <set field="checkRoleTypeId" value="OWNER"/>
 
         <!-- check to see if any of the parties are owner of the content -->
-        <iterate entry="thisPartyId" list-name="partyIdList">            
+        <iterate entry="thisPartyId" list="partyIdList">            
             <if>
                 <condition>
                     <not>

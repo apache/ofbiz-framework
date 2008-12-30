@@ -28,7 +28,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     <simple-method method-name="createSalesForecast" short-description="Creates a sales forecast and stores a copy in sales forecast history.">
 
         <!-- make the value and set the fields from the parameters -->
-        <make-value value-name="salesForecast" entity-name="SalesForecast"/>
+        <make-value value-field="salesForecast" entity-name="SalesForecast"/>
         <sequenced-id-to-env sequence-name="SalesForecast" env-name="salesForecastId"/>
         <set field="salesForecast.salesForecastId" from-field="salesForecastId"/> 
         <set-nonpk-fields map-name="parameters" value-name="salesForecast"/>
@@ -65,7 +65,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     <simple-method method-name="saveSalesForecastHistory" short-description="Given a salesForecast map, saves the data in the history.">
 
         <!-- make the value and set the fields from the salesForecast map -->
-        <make-value value-name="salesForecastHistory" entity-name="SalesForecastHistory"/>
+        <make-value value-field="salesForecastHistory" entity-name="SalesForecastHistory"/>
         <sequenced-id-to-env sequence-name="SalesForecastHistory" env-name="salesForecastHistoryId"/>
         <set field="salesForecastHistory.salesForecastHistoryId" from-field="salesForecastHistoryId"/> 
         <set-nonpk-fields value-name="salesForecastHistory" map-name="salesForecast"/>
@@ -84,7 +84,7 @@ This file contains basic services for SalesOpportunity and SalesForecast.
     
     <!-- Sales Forecast Detail --> 
     <simple-method method-name="createSalesForecastDetail" short-description="Creates a sales forecast detail">
-        <make-value entity-name="SalesForecastDetail" value-name="newEntity"/>
+        <make-value entity-name="SalesForecastDetail" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="SalesForecastDetail" env-name="newEntity.salesForecastDetailId"/>
         <field-to-result field-name="newEntity.salesForecastDetailId" result-name="salesForecastDetailId"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/> 

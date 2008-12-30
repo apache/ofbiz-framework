@@ -25,7 +25,7 @@ under the License.
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run createMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="MarketingCampaign" value-name="newEntity"/>
+        <make-value entity-name="MarketingCampaign" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <!-- MarketingCampaign uses a sequenced id, so get the next one now and set it... -->        
@@ -39,7 +39,7 @@ under the License.
         <check-permission permission="MARKETING" action="_UPDATE"><fail-message message="Security Error: to run updateMarketingCampaign you must have the MARKETING_UPDATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="MarketingCampaign" value-name="lookupPKMap"/>
+        <make-value entity-name="MarketingCampaign" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="MarketingCampaign" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -50,7 +50,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="MarketingCampaign" value-name="lookupPKMap"/>
+        <make-value entity-name="MarketingCampaign" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="MarketingCampaign" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -61,7 +61,7 @@ under the License.
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run addPriceRuleToMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="MarketingCampaignPrice" value-name="newEntity"/>
+        <make-value entity-name="MarketingCampaignPrice" value-field="newEntity"/>
         <!-- no non-pk fields in this entity, but there may be later... <set-nonpk-fields map-name="parameters" value-name="newEntity"/> -->
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -71,7 +71,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run removePriceRuleFromMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="MarketingCampaignPrice" value-name="lookupPKMap"/>
+        <make-value entity-name="MarketingCampaignPrice" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="MarketingCampaignPrice" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -82,7 +82,7 @@ under the License.
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run addPromoToMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="MarketingCampaignPromo" value-name="newEntity"/>
+        <make-value entity-name="MarketingCampaignPromo" value-field="newEntity"/>
         <!-- no non-pk fields in this entity, but there may be later... <set-nonpk-fields map-name="parameters" value-name="newEntity"/> -->
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -92,7 +92,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run removePromoFromMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="MarketingCampaignPromo" value-name="lookupPKMap"/>
+        <make-value entity-name="MarketingCampaignPromo" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="MarketingCampaignPromo" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -103,7 +103,7 @@ under the License.
         <check-permission permission="MARKETING" action="_CREATE"><fail-message message="Security Error: to run addRoleToMarketingCampaign you must have the MARKETING_CREATE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="MarketingCampaignRole" value-name="newEntity"/>
+        <make-value entity-name="MarketingCampaignRole" value-field="newEntity"/>
         <!-- no non-pk fields in this entity, but there may be later... <set-nonpk-fields map-name="parameters" value-name="newEntity"/> -->
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -113,7 +113,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run removeRoleFromMarketingCampaign you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="MarketingCampaignRole" value-name="lookupPKMap"/>
+        <make-value entity-name="MarketingCampaignRole" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="MarketingCampaignRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -136,7 +136,7 @@ under the License.
         <check-errors/>
         
         
-        <make-value entity-name="MarketingCampaignRole" value-name="newEntity"/>
+        <make-value entity-name="MarketingCampaignRole" value-field="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>

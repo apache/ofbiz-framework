@@ -27,7 +27,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <make-value entity-name="TaxAuthority" value-name="newEntity"/>
+        <make-value entity-name="TaxAuthority" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
@@ -56,7 +56,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <make-value entity-name="TaxAuthorityAssoc" value-name="newEntity"/>
+        <make-value entity-name="TaxAuthorityAssoc" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -86,7 +86,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <make-value entity-name="TaxAuthorityCategory" value-name="newEntity"/>
+        <make-value entity-name="TaxAuthorityCategory" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
@@ -127,7 +127,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <make-value entity-name="TaxAuthorityGlAccount" value-name="newEntity"/>
+        <make-value entity-name="TaxAuthorityGlAccount" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
@@ -156,7 +156,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <make-value entity-name="TaxAuthorityRateProduct" value-name="newEntity"/>
+        <make-value entity-name="TaxAuthorityRateProduct" value-field="newEntity"/>
         <sequenced-id-to-env sequence-name="TaxAuthorityRateProduct" env-name="newEntity.taxAuthorityRateSeqId"/>
         <field-to-result field-name="newEntity.taxAuthorityRateSeqId" result-name="taxAuthorityRateSeqId"/>
         
@@ -192,7 +192,7 @@ under the License.
         <!-- done checking preliminary constraints, see if there are any errors -->
         <check-errors/>
         
-        <make-value entity-name="PartyTaxAuthInfo" value-name="newEntity"/>
+        <make-value entity-name="PartyTaxAuthInfo" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>

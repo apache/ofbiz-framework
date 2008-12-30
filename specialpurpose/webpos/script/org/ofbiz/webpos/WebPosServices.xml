@@ -26,7 +26,7 @@ under the License.
                 <select-field field-name="productName"/>
                 <order-by field-name="productName"/>
             </entity-condition>
-            <iterate list-name="products" entry-name="product">
+            <iterate list="products" entry="product">
                 <set field="productName" type="String" value="${product.productName} (${product.productId})"/>
                 <field-to-list field-name="productName" list-name="productsList"/>
                 <set field="productId" type="String" value="${product.productId}"/>
@@ -42,7 +42,7 @@ under the License.
                     <select-field field-name="description"/>
                     <order-by field-name="description"/>
                 </entity-condition>
-                <iterate list-name="products" entry-name="product">
+                <iterate list="products" entry="product">
                     <set field="description" type="String" value="${product.description} (${product.productId})"/>
                     <field-to-list field-name="description" list-name="productsList"/>
                     <set field="productId" type="String" value="${product.productId}"/>
@@ -62,7 +62,7 @@ under the License.
             <select-field field-name="idValue"/>
             <order-by field-name="idValue"/>
         </entity-condition>
-        <iterate list-name="products" entry-name="product">
+        <iterate list="products" entry="product">
             <set field="idValue" type="String" value="${product.idValue} ${product.productName} (${product.productId})"/>
             <field-to-list field-name="idValue" list-name="productsList"/>
             <set field="productId" type="String" value="${product.productId}"/>

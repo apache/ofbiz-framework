@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductCategoryContent -->
     <simple-method method-name="createCategoryContent" short-description="Create Content For Product Category">
-        <make-value value-name="newEntity" entity-name="ProductCategoryContent"/>
+        <make-value value-field="newEntity" entity-name="ProductCategoryContent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -41,7 +41,7 @@ under the License.
         <field-to-result map-name="newEntity" field-name="prodCatContentTypeId"/>
     </simple-method>
     <simple-method method-name="updateCategoryContent" short-description="Update Content For Category">
-        <make-value value-name="lookupPKMap" entity-name="ProductCategoryContent"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryContent" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -51,7 +51,7 @@ under the License.
         <call-service service-name="updateContent" in-map-name="updateContent"/>
     </simple-method>
     <simple-method method-name="removeCategoryContent" short-description="Remove Content From Category">
-        <make-value value-name="lookupPKMap" entity-name="ProductCategoryContent"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryContent" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

@@ -25,7 +25,7 @@ under the License.
             <fail-property resource="OrderUiLabels" property="OrderCreateCommunicationEventProductPermissionError"/>
         </check-permission>
         <check-errors/>
-        <make-value value-name="newEntity" entity-name="CommunicationEventOrder"/>
+        <make-value value-field="newEntity" entity-name="CommunicationEventOrder"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>    

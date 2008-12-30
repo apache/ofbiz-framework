@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createBillingAccount" short-description="Create Billing Account">
-        <make-value value-name="newEntity" entity-name="BillingAccount"/>
+        <make-value value-field="newEntity" entity-name="BillingAccount"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
         <sequenced-id-to-env sequence-name="BillingAccount" env-name="billingAccountId"/>
@@ -37,14 +37,14 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateBillingAccount" short-description="Update Billing Account">
-        <make-value value-name="lookupPKMap" entity-name="BillingAccount"/>
+        <make-value value-field="lookupPKMap" entity-name="BillingAccount"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>        
         <find-by-primary-key entity-name="BillingAccount" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createBillingAccountRole" short-description="Create Billing Account Role">
-        <make-value value-name="newEntity" entity-name="BillingAccountRole"/>
+        <make-value value-field="newEntity" entity-name="BillingAccountRole"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
@@ -54,20 +54,20 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateBillingAccountRole" short-description="Update Billing Account Role">
-        <make-value value-name="lookupPKMap" entity-name="BillingAccountRole"/>
+        <make-value value-field="lookupPKMap" entity-name="BillingAccountRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>        
         <find-by-primary-key entity-name="BillingAccountRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>    
     <simple-method method-name="removeBillingAccountRole" short-description="Remove Billing Account Role">
-        <make-value value-name="lookupPKMap" entity-name="BillingAccountRole"/>
+        <make-value value-field="lookupPKMap" entity-name="BillingAccountRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>        
         <find-by-primary-key entity-name="BillingAccountRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="createBillingAccountTerm" short-description="Create Billing Account Term">
-        <make-value value-name="newEntity" entity-name="BillingAccountTerm"/>
+        <make-value value-field="newEntity" entity-name="BillingAccountTerm"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
         <sequenced-id-to-env sequence-name="BillingAccountTerm" env-name="billingAccountTermId"/>
@@ -78,14 +78,14 @@ under the License.
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateBillingAccountTerm" short-description="Update Billing Account Term">
-        <make-value value-name="lookupPKMap" entity-name="BillingAccountTerm"/>
+        <make-value value-field="lookupPKMap" entity-name="BillingAccountTerm"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="BillingAccountTerm" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>    
     <simple-method method-name="removeBillingAccountTerm" short-description="Remove Billing Account Term">
-        <make-value entity-name="BillingAccountTerm" value-name="lookupPKMap"/>
+        <make-value entity-name="BillingAccountTerm" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="BillingAccountTerm" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

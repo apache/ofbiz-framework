@@ -24,7 +24,7 @@ under the License.
         <check-permission permission="ENTITY_SYNC" action="_CREATE"><fail-message message="Security Error: to run createEntitySync you must have the ENTITY_SYNC_CREATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="EntitySync"/>
+        <make-value value-field="newEntity" entity-name="EntitySync"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <sequenced-id-to-env sequence-name="EntitySync" env-name="entitySyncId"/>
@@ -60,7 +60,7 @@ under the License.
         <check-permission permission="ENTITY_SYNC" action="_CREATE"><fail-message message="Security Error: to run createEntitySyncHistory you must have the ENTITY_SYNC_CREATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="EntitySyncHistory"/>
+        <make-value value-field="newEntity" entity-name="EntitySyncHistory"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <now-timestamp-to-env env-name="newEntity.startDate"/>
         <field-to-result field-name="newEntity.startDate" result-name="startDate"/>
@@ -76,7 +76,7 @@ under the License.
         <check-permission permission="ENTITY_SYNC" action="_UPDATE"><fail-message message="Security Error: to run updateEntitySyncHistory you must have the ENTITY_SYNC_UPDATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="EntitySyncHistory"/>
+        <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -86,7 +86,7 @@ under the License.
         <check-permission permission="ENTITY_SYNC" action="_DELETE"><fail-message message="Security Error: to run deleteEntitySyncHistory you must have the ENTITY_SYNC_DELETE or ENTITY_SYNC_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="EntitySyncHistory"/>
+        <make-value value-field="lookupPKMap" entity-name="EntitySyncHistory"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -97,7 +97,7 @@ under the License.
         <check-permission permission="ENTITY_SYNC" action="_CREATE"><fail-message message="Security Error: to run createEntitySyncInclude you must have the ENTITY_SYNC_CREATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="EntitySyncInclude"/>
+        <make-value value-field="newEntity" entity-name="EntitySyncInclude"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -106,7 +106,7 @@ under the License.
         <check-permission permission="ENTITY_SYNC" action="_UPDATE"><fail-message message="Security Error: to run updateEntitySyncInclude you must have the ENTITY_SYNC_UPDATE or ENTITY_SYNC_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="EntitySyncInclude"/>
+        <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -116,7 +116,7 @@ under the License.
         <check-permission permission="ENTITY_SYNC" action="_DELETE"><fail-message message="Security Error: to run deleteEntitySyncInclude you must have the ENTITY_SYNC_DELETE or ENTITY_SYNC_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="EntitySyncInclude"/>
+        <make-value value-field="lookupPKMap" entity-name="EntitySyncInclude"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

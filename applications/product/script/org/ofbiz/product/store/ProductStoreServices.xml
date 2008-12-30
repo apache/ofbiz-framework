@@ -34,7 +34,7 @@ under the License.
             <check-errors/>
         </if-compare>  
 
-        <make-value value-name="newEntity" entity-name="ProductStore"/>
+        <make-value value-field="newEntity" entity-name="ProductStore"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <sequenced-id-to-env sequence-name="ProductStore" env-name="productStoreId" />
@@ -47,7 +47,7 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <if-not-empty field="newEntity.inventoryFacilityId">
-            <make-value value-name="storeFacility" entity-name="ProductStoreFacility"/>
+            <make-value value-field="storeFacility" entity-name="ProductStoreFacility"/>
             <set from-field="newEntity.inventoryFacilityId" field="storeFacility.facilityId"/>
             <set from-field="newEntity.productStoreId" field="storeFacility.productStoreId"/>
             <set from-field="nowTimestamp" field="storeFacility.fromDate"/>
@@ -83,13 +83,13 @@ under the License.
                 <set from-field="store.productStoreId" field="lookupPFMap.productStoreId"/>
                 <find-by-and entity-name="ProductStoreFacility" map-name="lookupPFMap" list-name="storeFacilities"/>
                 <filter-list-by-date list-name="storeFacilities"/>
-                <iterate list-name="storeFacilities" entry-name="facility">
+                <iterate list="storeFacilities" entry="facility">
                     <set from-field="nowTimestamp" field="facility.thruDate"/>
                     <store-value value-name="facility"/>
                 </iterate>
             </if-compare>
             <!-- create the new entry -->
-            <make-value value-name="storeFacility" entity-name="ProductStoreFacility"/>
+            <make-value value-field="storeFacility" entity-name="ProductStoreFacility"/>
             <set from-field="store.inventoryFacilityId" field="storeFacility.facilityId"/>
             <set from-field="store.productStoreId" field="storeFacility.productStoreId"/>
             <set from-field="nowTimestamp" field="storeFacility.fromDate"/>
@@ -102,7 +102,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStoreCatalog you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductStoreCatalog"/>
+        <make-value value-field="newEntity" entity-name="ProductStoreCatalog"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -117,7 +117,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStoreCatalog you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductStoreCatalog"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductStoreCatalog"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -127,7 +127,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStoreCatalog you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductStoreCatalog"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductStoreCatalog"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -138,7 +138,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStorePaymentSetting you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductStorePaymentSetting"/>
+        <make-value value-field="newEntity" entity-name="ProductStorePaymentSetting"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -147,7 +147,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStorePaymentSetting you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductStorePaymentSetting"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductStorePaymentSetting"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductStorePaymentSetting" map-name="lookupPKMap" value-name="setting"/>
         <set-nonpk-fields map-name="parameters" value-name="setting"/>
@@ -157,7 +157,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStorePaymentSetting you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductStorePaymentSetting"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductStorePaymentSetting"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductStorePaymentSetting" map-name="lookupPKMap" value-name="setting"/>
         <set-nonpk-fields map-name="parameters" value-name="setting"/>
@@ -171,7 +171,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductStoreEmailSetting"/>
+        <make-value value-field="newEntity" entity-name="ProductStoreEmailSetting"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -183,7 +183,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupKeyValue" entity-name="ProductStoreEmailSetting"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductStoreEmailSetting"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductStoreEmailSetting" map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -195,7 +195,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductStoreEmailSetting"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductStoreEmailSetting"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductStoreEmailSetting" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -206,7 +206,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStoreVendorPayment you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductStoreVendorPayment" value-name="newEntity"/>
+        <make-value entity-name="ProductStoreVendorPayment" value-field="newEntity"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -214,7 +214,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStoreVendorPayment you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="ProductStoreVendorPayment" value-name="lookedUpValue"/>
+        <make-value entity-name="ProductStoreVendorPayment" value-field="lookedUpValue"/>
         <set-pk-fields value-name="lookedUpValue" map-name="parameters"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
@@ -226,7 +226,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductStoreShipmentMeth"/>
+        <make-value value-field="newEntity" entity-name="ProductStoreShipmentMeth"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <sequenced-id-to-env sequence-name="ProductStoreShipmentMeth" env-name="newEntity.productStoreShipMethId"/>
 
@@ -238,7 +238,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupKeyValue" entity-name="ProductStoreShipmentMeth"/>
+        <make-value value-field="lookupKeyValue" entity-name="ProductStoreShipmentMeth"/>
         <set-pk-fields map-name="parameters" value-name="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductStoreShipmentMeth" map-name="lookupKeyValue" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -250,7 +250,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductStoreShipmentMeth"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductStoreShipmentMeth"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductStoreShipmentMeth" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -261,7 +261,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStoreRole you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductStoreRole"/>
+        <make-value value-field="newEntity" entity-name="ProductStoreRole"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -276,7 +276,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductStoreRole you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductStoreRole"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductStoreRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -293,7 +293,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStoreKeywordOvrd you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductStoreKeywordOvrd"/>
+        <make-value value-field="newEntity" entity-name="ProductStoreKeywordOvrd"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -311,7 +311,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStoreKeywordOvrd you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductStoreKeywordOvrd"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductStoreKeywordOvrd"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -321,7 +321,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStoreKeywordOvrd you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductStoreKeywordOvrd"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductStoreKeywordOvrd"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -332,7 +332,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStoreSurveyAppl you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductStoreSurveyAppl"/>
+        <make-value value-field="newEntity" entity-name="ProductStoreSurveyAppl"/>
         <sequenced-id-to-env sequence-name="ProductStoreSurveyAppl" env-name="productStoreSurveyId"/>
         <set from-field="productStoreSurveyId" field="newEntity.productStoreSurveyId"/>
         <field-to-result field-name="productStoreSurveyId" result-name="productStoreSurveyId"/>
@@ -349,7 +349,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductStoreSurveyAppl you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductStoreSurveyAppl"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductStoreSurveyAppl"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -366,7 +366,7 @@ under the License.
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStoreFinActSetting you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="finAcctSetting" entity-name="ProductStoreFinActSetting"/>
+        <make-value value-field="finAcctSetting" entity-name="ProductStoreFinActSetting"/>
         <set-pk-fields value-name="finAcctSetting" map-name="parameters"/>
         <set-nonpk-fields value-name="finAcctSetting" map-name="parameters"/>
         <create-value value-name="finAcctSetting"/>
@@ -375,7 +375,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateProductStoreFinActSetting you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPk" entity-name="ProductStoreFinActSetting"/>
+        <make-value value-field="lookupPk" entity-name="ProductStoreFinActSetting"/>
         <set-pk-fields value-name="lookupPk" map-name="parameters"/>
         <find-by-primary-key map-name="lookupPk" value-name="finAccountSetting"/>
 
@@ -386,7 +386,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run removeProductStoreFinActSetting you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPk" entity-name="ProductStoreFinActSetting"/>
+        <make-value value-field="lookupPk" entity-name="ProductStoreFinActSetting"/>
         <set-pk-fields value-name="lookupPk" map-name="parameters"/>
         <find-by-primary-key map-name="lookupPk" value-name="finAccountSetting"/>
         <remove-value value-name="finAccountSetting"/>
@@ -437,7 +437,7 @@ under the License.
                     <field-map from-field="productStore.productStoreId" field-name="productStoreId"/>
                     <order-by field-name="sequenceNum"/>
                 </entity-and>
-                <iterate list-name="productStoreFacilities" entry-name="productStoreFacility">
+                <iterate list="productStoreFacilities" entry="productStoreFacility">
                     <!-- in this case quantityNotReserved will always be empty until it finds a facility it can totally reserve from, then it will be 0.0 and we are done -->
                     <if-empty field="storeFound">
                         <!-- TODO: must entire quantity be available in one location? -->
@@ -478,7 +478,7 @@ under the License.
                 <field-map from-field="facilityId" field-name="facilityId"/>                
                 <order-by field-name="sequenceNum"/>
             </entity-and>
-            <iterate list-name="productStoreFacilities" entry-name="productStoreFacility">
+            <iterate list="productStoreFacilities" entry="productStoreFacility">
                 <!-- Search Product Store Facilities to insure the facility passed in is associated to the Product Store passed in -->
                 <set field="facilityFound" from-field="productStoreFacility"/>
                 <log level="info" message="ProductStoreService:Facility Found : [${facilityFound}]"/>
@@ -615,7 +615,7 @@ under the License.
             </entity-and>
 
             <set value="N" field="available"/>
-            <iterate list-name="productStoreFacilities" entry-name="productStoreFacility">
+            <iterate list="productStoreFacilities" entry="productStoreFacility">
                 <if-compare value="N" field="available" operator="equals">
                     <!-- TODO: must entire quantity be available in one location? -->
                     <!-- Right now the answer is yes, it only succeeds if one facility has sufficient inventory for the order. -->
@@ -701,14 +701,14 @@ under the License.
     <simple-method method-name="createProductStoreVendorShipment" short-description="Create a ProductStoreVendorShipment">
         <check-permission permission="CATALOG" action="_CREATE"><fail-message message="Security Error: to run createProductStoreVendorShipment you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
-        <make-value entity-name="ProductStoreVendorShipment" value-name="newEntity"/>
+        <make-value entity-name="ProductStoreVendorShipment" value-field="newEntity"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="deleteProductStoreVendorShipment" short-description="Remove the ProductStoreVendorShipment">
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run deleteProductStoreVendorShipment you must have the CATALOG_CREATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
-        <make-value entity-name="ProductStoreVendorShipment" value-name="lookedUpValue"/>
+        <make-value entity-name="ProductStoreVendorShipment" value-field="lookedUpValue"/>
         <set-pk-fields value-name="lookedUpValue" map-name="parameters"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>

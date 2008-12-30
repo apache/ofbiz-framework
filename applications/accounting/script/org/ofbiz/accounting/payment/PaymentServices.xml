@@ -35,7 +35,7 @@ under the License.
         </if>
         <check-errors/>
         
-        <make-value entity-name="Payment" value-name="payment"/>
+        <make-value entity-name="Payment" value-field="payment"/>
         <if-empty field="parameters.paymentId">
             <sequenced-id-to-env sequence-name="Payment" env-name="payment.paymentId"/>
             <else>
@@ -64,7 +64,7 @@ under the License.
         <create-value value-name="payment"/>
     </simple-method>
     <simple-method method-name="updatePayment" short-description="Update a Payment">
-        <make-value entity-name="Payment" value-name="lookupPayment"/>
+        <make-value entity-name="Payment" value-field="lookupPayment"/>
         <set-pk-fields value-name="lookupPayment" map-name="parameters"/>
         
         <find-by-primary-key entity-name="Payment" map-name="lookupPayment" value-name="payment"/>
@@ -84,8 +84,8 @@ under the License.
 
         <if-compare field="payment.statusId" value="PMNT_NOT_PAID" operator="not-equals">
             <!-- check if only status change -->
-            <make-value value-name="newPayment" entity-name="Payment"/>
-            <make-value value-name="oldPayment" entity-name="Payment"/>
+            <make-value value-field="newPayment" entity-name="Payment"/>
+            <make-value value-field="oldPayment" entity-name="Payment"/>
             <set-nonpk-fields value-name="newPayment" map-name="payment"/>
             <set-nonpk-fields value-name="oldPayment" map-name="payment"/>
             <set-nonpk-fields value-name="newPayment" map-name="parameters"/>
@@ -137,7 +137,7 @@ under the License.
             </if-empty>
         </if-empty>
 
-        <make-value entity-name="PaymentApplication" value-name="paymentAppl"/>
+        <make-value entity-name="PaymentApplication" value-field="paymentAppl"/>
         <set-nonpk-fields map-name="parameters" value-name="paymentAppl"/>
 
         <!-- get the invoice and do some further validation against it -->
@@ -197,7 +197,7 @@ under the License.
                     <if-compare field="parameters.statusId" operator="equals" value="PMNT_CANCELLED">
                         <!-- if new status is cancelled delete existing payment applications. -->
                         <get-related value-name="payment" relation-name="PaymentApplication" list-name="paymentApplications"/>
-                        <iterate list-name="paymentApplications" entry-name="paymentApplication">
+                        <iterate list="paymentApplications" entry="paymentApplication">
                             <set field="removePaymentApplicationMap.paymentApplicationId" from-field="paymentApplication.paymentApplicationId"/>
                             <call-service service-name="removePaymentApplication" in-map-name="removePaymentApplicationMap"/>
                         </iterate>
@@ -259,7 +259,7 @@ under the License.
         <get-related relation-name="InvoiceTerm" value-name="invoice" list-name="invoiceTerms"/>
         <set field="remainingAppliedAmount" from-field="invoiceTotalAmountPaid" type="BigDecimal"/>
         <set field="computedTotalAmount" value="0.0" type="BigDecimal"/>
-        <iterate list-name="invoiceTerms" entry-name="invoiceTerm">
+        <iterate list="invoiceTerms" entry="invoiceTerm">
             <get-related-one relation-name="TermType" value-name="invoiceTerm" to-value-name="termType" use-cache="true"/>
             <if-compare field="termType.parentTypeId" operator="equals" value="FIN_PAYMENT_TERM">
                 <clear-field field-name="invoicePaymentInfo"/>
@@ -365,13 +365,13 @@ under the License.
             </condition-list>
             <order-by field-name="invoiceDate"/>
         </entity-condition>
-        <iterate list-name="invoices" entry-name="invoice">
+        <iterate list="invoices" entry="invoice">
             <clear-field field-name="getInvoicePaymentInfoListInMap"/>
             <set field="getInvoicePaymentInfoListInMap.invoice" from-field="invoice"/>
             <call-service service-name="getInvoicePaymentInfoList" in-map-name="getInvoicePaymentInfoListInMap">
                 <result-to-field field-name="invoicePaymentInfoList" result-name="invoicePaymentInfoList"/>
             </call-service>
-            <iterate list-name="invoicePaymentInfoList" entry-name="invoicePaymentInfo">
+            <iterate list="invoicePaymentInfoList" entry="invoicePaymentInfo">
                 <if>
                     <condition>
                         <and>

@@ -29,7 +29,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ItemIssuance"/>
+        <make-value value-field="newEntity" entity-name="ItemIssuance"/>
         <sequenced-id-to-env sequence-name="ItemIssuance" env-name="newEntity.itemIssuanceId"/>
         <field-to-result field-name="itemIssuanceId" map-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -80,7 +80,7 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ItemIssuanceRole"/>
+        <make-value value-field="newEntity" entity-name="ItemIssuanceRole"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -141,13 +141,13 @@ under the License.
         <call-simple-method method-name="checkCanChangeShipmentStatusPacked" xml-resource="org/ofbiz/shipment/shipment/ShipmentServices.xml"/>
 
         <!-- get orderItemShipGrpInvRes -->
-        <make-value entity-name="OrderItemShipGrpInvRes" value-name="OrderItemShipGrpInvResLookupPk"/>
+        <make-value entity-name="OrderItemShipGrpInvRes" value-field="OrderItemShipGrpInvResLookupPk"/>
         <set-pk-fields value-name="OrderItemShipGrpInvResLookupPk" map-name="parameters"/>
         <find-by-primary-key map-name="OrderItemShipGrpInvResLookupPk" value-name="orderItemShipGrpInvRes"/>
         <log level="info" message="order item ship grp inv res info: ${orderItemShipGrpInvRes}"/>
 
         <!-- get orderHeader -->
-        <make-value entity-name="OrderHeader" value-name="orderHeaderLookupPk"/>
+        <make-value entity-name="OrderHeader" value-field="orderHeaderLookupPk"/>
         <set-pk-fields value-name="orderHeaderLookupPk" map-name="parameters"/>
         <find-by-primary-key map-name="orderHeaderLookupPk" value-name="orderHeader"/>
 
@@ -182,7 +182,7 @@ under the License.
         <!-- get shipment -->
         <entity-one entity-name="Shipment" value-name="shipment"/>
         <!-- get orderShipment -->
-        <make-value entity-name="OrderShipment" value-name="orderShipmentLookupPk"/>
+        <make-value entity-name="OrderShipment" value-field="orderShipmentLookupPk"/>
         <set-pk-fields value-name="orderShipmentLookupPk" map-name="parameters"/>
         <find-by-and entity-name="OrderShipment" map-name="orderShipmentLookupPk" list-name="orderShipments"/>
         <first-from-list entry="orderShipment" list="orderShipments"/>
@@ -198,7 +198,7 @@ under the License.
             <!-- remove the orderShipment.quantity -->
             <if-not-empty field="orderShipment">
                 <field-to-result field-name="orderShipment.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
-                <make-value entity-name="ShipmentItem" value-name="shipmentItemLookupPk"/>
+                <make-value entity-name="ShipmentItem" value-field="shipmentItemLookupPk"/>
                 <set-pk-fields value-name="shipmentItemLookupPk" map-name="parameters"/>
                 <set from-field="orderShipment.shipmentItemSeqId" field="shipmentItemLookupPk.shipmentItemSeqId"/>
                 <find-by-primary-key map-name="shipmentItemLookupPk" value-name="shipmentItem"/>
@@ -220,7 +220,7 @@ under the License.
             </calculate>
             <store-value value-name="orderShipment"/>
             <field-to-result field-name="orderShipment.shipmentItemSeqId" result-name="shipmentItemSeqId"/>
-            <make-value entity-name="ShipmentItem" value-name="shipmentItemLookupPk"/>
+            <make-value entity-name="ShipmentItem" value-field="shipmentItemLookupPk"/>
             <set-pk-fields value-name="shipmentItemLookupPk" map-name="parameters"/>
             <set from-field="orderShipment.shipmentItemSeqId" field="shipmentItemLookupPk.shipmentItemSeqId"/>
             <find-by-primary-key map-name="shipmentItemLookupPk" value-name="shipmentItem"/>
@@ -332,7 +332,7 @@ under the License.
     </simple-method>
     <simple-method method-name="associateIssueRoles" short-description="Associate Roles for ItemIssuance - meant to be called in-line">
         <!-- make sure the party is in the PACKER role -->
-        <make-value entity-name="PartyRole" value-name="partyRole"/>
+        <make-value entity-name="PartyRole" value-field="partyRole"/>
         <set field="partyRole.partyId" from-field="userLogin.partyId"/>
         <set field="partyRole.roleTypeId" value="PACKER"/>
         <find-by-primary-key entity-name="PartyRole" map-name="partyRole" value-name="checkPartyRole"/>

@@ -28,7 +28,7 @@ under the License.
     <!-- create a new Agreement -->
     <simple-method method-name="createAgreement" short-description="Create an Agreement">
         <!-- create new entity and create all the fields -->
-        <make-value value-name="newEntity" entity-name="Agreement"/>
+        <make-value value-field="newEntity" entity-name="Agreement"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <!-- create a non existing ID -->
@@ -75,7 +75,7 @@ under the License.
         </call-service>
 
         <get-related value-name="agreement" relation-name="AgreementItem" list-name="agreementItems"/>
-        <iterate list-name="agreementItems" entry-name="agreementItem">
+        <iterate list="agreementItems" entry="agreementItem">
             <clear-field field-name="createAgreementItemInMap"/>
             <set-service-fields service-name="createAgreementItem" to-map-name="createAgreementItemInMap" map-name="agreementItem"/>
             <set from-field="agreementIdTo" field="createAgreementItemInMap.agreementId"/>
@@ -83,7 +83,7 @@ under the License.
         </iterate>
         <if-compare field="parameters.copyAgreementTerms" value="Y" operator="equals">
             <get-related value-name="agreement" relation-name="AgreementTerm" list-name="agreementTerms"/>
-            <iterate list-name="agreementTerms" entry-name="agreementTerm">
+            <iterate list="agreementTerms" entry="agreementTerm">
                 <clear-field field-name="createAgreementTermInMap"/>
                 <set-service-fields service-name="createAgreementTerm" to-map-name="createAgreementTermInMap" map-name="agreementTerm"/>
                 <set from-field="agreementIdTo" field="createAgreementTermInMap.agreementId"/>
@@ -92,7 +92,7 @@ under the License.
         </if-compare>
         <if-compare field="parameters.copyAgreementProducts" value="Y" operator="equals">
             <get-related value-name="agreement" relation-name="AgreementProductAppl" list-name="agreementProductAppls"/>
-            <iterate list-name="agreementProductAppls" entry-name="agreementProductAppl">
+            <iterate list="agreementProductAppls" entry="agreementProductAppl">
                 <clear-field field-name="createAgreementProductApplInMap"/>
                 <set-service-fields service-name="createAgreementProductAppl" to-map-name="createAgreementProductApplInMap" map-name="agreementProductAppl"/>
                 <set from-field="agreementIdTo" field="createAgreementProductApplInMap.agreementId"/>
@@ -101,7 +101,7 @@ under the License.
         </if-compare>
         <if-compare field="parameters.copyAgreementParties" value="Y" operator="equals">
             <get-related value-name="agreement" relation-name="AgreementPartyApplic" list-name="agreementPartyApplic"/>
-            <iterate list-name="agreementPartyApplics" entry-name="agreementPartyApplic">
+            <iterate list="agreementPartyApplics" entry="agreementPartyApplic">
                 <clear-field field-name="createAgreementPartyApplicInMap"/>
                 <set-service-fields service-name="createAgreementPartyApplic" to-map-name="createAgreementPartyApplicInMap" map-name="agreementPartyApplic"/>
                 <set from-field="agreementIdTo" field="createAgreementPartyApplicInMap.agreementId"/>
@@ -114,7 +114,7 @@ under the License.
     <!-- create a new AgreementItem -->
     <simple-method method-name="createAgreementItem" short-description="Create an AgreementItem">
         <!-- create new entity and create all the fields -->
-        <make-value value-name="newEntity" entity-name="AgreementItem"/>
+        <make-value value-field="newEntity" entity-name="AgreementItem"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <set from-field="parameters.agreementId" field="newEntity.agreementId"/>
@@ -153,7 +153,7 @@ under the License.
     <!-- create a new AgreementTerm -->
     <simple-method method-name="createAgreementTerm" short-description="Create an AgreementTerm">
         <!-- create new entity and create all the fields -->
-        <make-value value-name="newEntity" entity-name="AgreementTerm"/>
+        <make-value value-field="newEntity" entity-name="AgreementTerm"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <!-- create a non existing ID -->
@@ -187,7 +187,7 @@ under the License.
     
     <!-- create a new AgreementPromoAppl -->
     <simple-method method-name="createAgreementPromoAppl" short-description="Create an AgreementPromoAppl">
-        <make-value value-name="newEntity" entity-name="AgreementPromoAppl"/>
+        <make-value value-field="newEntity" entity-name="AgreementPromoAppl"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -213,7 +213,7 @@ under the License.
     
     <!-- create a new AgreementProductAppl -->
     <simple-method method-name="createAgreementProductAppl" short-description="Create an AgreementProductAppl">
-        <make-value value-name="newEntity" entity-name="AgreementProductAppl"/>
+        <make-value value-field="newEntity" entity-name="AgreementProductAppl"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -239,7 +239,7 @@ under the License.
 
     <!-- create a new AgreementPartyApplic -->
     <simple-method method-name="createAgreementPartyApplic" short-description="Create an AgreementPartyApplic">
-        <make-value value-name="newEntity" entity-name="AgreementPartyApplic"/>
+        <make-value value-field="newEntity" entity-name="AgreementPartyApplic"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -265,7 +265,7 @@ under the License.
 
     <!-- create a new AgreementGeographicalApplic -->
     <simple-method method-name="createAgreementGeographicalApplic" short-description="Create an AgreementGeographicalApplic">
-        <make-value value-name="newEntity" entity-name="AgreementGeographicalApplic"/>
+        <make-value value-field="newEntity" entity-name="AgreementGeographicalApplic"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -291,7 +291,7 @@ under the License.
     
     <!-- Agreement Role -->
     <simple-method method-name="createAgreementRole" short-description="Create an Agreement Role">
-        <make-value entity-name="AgreementRole" value-name="newEntity"/>
+        <make-value entity-name="AgreementRole" value-field="newEntity"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
         <create-value value-name="newEntity"/>
@@ -315,7 +315,7 @@ under the License.
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingAgreementWorkEffortApplAlreadyExists"/></add-error>
             <check-errors/>
         <else>
-            <make-value value-name="newEntity" entity-name="AgreementWorkEffortAppl"/>  
+            <make-value value-field="newEntity" entity-name="AgreementWorkEffortAppl"/>  
             <set-pk-fields map-name="parameters" value-name="newEntity"/>
             <create-value value-name="newEntity"/>
         </else>

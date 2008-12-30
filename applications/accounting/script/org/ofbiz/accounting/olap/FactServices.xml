@@ -30,7 +30,7 @@ under the License.
         <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
             <set field="andConditions.invoiceItemTypeId" value="INV_FPROD_ITEM"/>
             <get-related relation-name="InvoiceItem" value-name="invoice" list-name="invoiceItems" map-name="andConditions"/>
-            <iterate list-name="invoiceItems" entry-name="invoiceItem">
+            <iterate list="invoiceItems" entry="invoiceItem">
                 <clear-field field-name="inMap"/>
                 <set field="inMap.invoice" from-field="invoice"/>
                 <set field="inMap.invoiceItem" from-field="invoiceItem"/>
@@ -62,7 +62,7 @@ under the License.
             </entity-one>
             <!-- key handling -->
             <if-empty field="fact">
-                <make-value entity-name="SalesInvoiceItemFact" value-name="fact"/>
+                <make-value entity-name="SalesInvoiceItemFact" value-field="fact"/>
                 <set field="fact.invoiceId" from-field="invoice.invoiceId"/>
                 <set field="fact.invoiceItemSeqId" from-field="invoiceItem.invoiceItemSeqId"/>
                 <!-- conversion of the invoice date -->
@@ -132,7 +132,7 @@ under the License.
             <clear-field field-name="andConditions"/>
             <set field="andConditions.invoiceItemTypeId" value="ITM_SALES_TAX"/>
             <get-related relation-name="ChildrenInvoiceItem" value-name="invoiceItem" list-name="taxes" map-name="andConditions"/>
-            <iterate list-name="taxes" entry-name="tax">
+            <iterate list="taxes" entry="tax">
                 <calculate field-name="fact.extTaxAmount" type="BigDecimal">
                     <calcop field-name="fact.extTaxAmount" operator="add">
                         <calcop field-name="tax.amount" operator="get"/>
@@ -143,7 +143,7 @@ under the License.
             <clear-field field-name="andConditions"/>
             <set field="andConditions.invoiceItemTypeId" value="ITM_PROMOTION_ADJ"/>
             <get-related relation-name="ChildrenInvoiceItem" value-name="invoiceItem" list-name="discounts" map-name="andConditions"/>
-            <iterate list-name="discounts" entry-name="discount">
+            <iterate list="discounts" entry="discount">
                 <calculate field-name="fact.extDiscountAmount" type="BigDecimal">
                     <calcop field-name="fact.extDiscountAmount" operator="add">
                         <calcop field-name="discount.amount" operator="negative"/>

@@ -91,10 +91,10 @@ under the License.
                     </condition-list>
                     <order-by field-name="${orderByString}"/>
                 </entity-condition>
-                <iterate entry="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
+                <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
                     <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
                         <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
-                        <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-name="inventoryItem"/>
+                        <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-field="inventoryItem"/>
                         <call-simple-method method-name="reserveForInventoryItemInline"/>
                     </if-compare>
                 </iterate>
@@ -111,10 +111,10 @@ under the License.
                         </condition-list>
                         <order-by field-name="${orderByString}"/>
                     </entity-condition>
-                    <iterate entry="inventoryItemAndLocation" list-name="inventoryItemAndLocations">
+                    <iterate entry="inventoryItemAndLocation" list="inventoryItemAndLocations">
                         <if-compare field="parameters.quantityNotReserved" operator="greater" value="0" type="Double">
                             <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
-                            <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-name="inventoryItem"/>
+                            <make-value entity-name="InventoryItem" map-name="inventoryItemAndLocation" value-field="inventoryItem"/>
                             <call-simple-method method-name="reserveForInventoryItemInline"/>
                         </if-compare>
                     </iterate>
@@ -132,7 +132,7 @@ under the License.
                         </condition-list>
                         <order-by field-name="${orderByString}"/>
                     </entity-condition>
-                    <iterate entry="inventoryItem" list-name="inventoryItems">
+                    <iterate entry="inventoryItem" list="inventoryItems">
                         <if>
                             <condition>
                                 <and>
@@ -493,7 +493,7 @@ under the License.
 
         <if-empty field="checkOisgirEntity">
             <!-- create OrderItemShipGrpInvRes record -->
-            <make-value entity-name="OrderItemShipGrpInvRes" value-name="newOisgirEntity"/>
+            <make-value entity-name="OrderItemShipGrpInvRes" value-field="newOisgirEntity"/>
             <set-pk-fields map-name="parameters" value-name="newOisgirEntity"/>
             <set-nonpk-fields map-name="parameters" value-name="newOisgirEntity"/>
             <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -534,7 +534,7 @@ under the License.
             <log level="verbose" message="OISGIR Cancel for single item : ${oisgirListLookupMap}"/>
         </if-not-empty>
         <find-by-and entity-name="OrderItemShipGrpInvRes" map-name="oisgirListLookupMap" list-name="oisgirList" use-cache="false"/>
-        <iterate entry="oisgir" list-name="oisgirList">
+        <iterate entry="oisgir" list="oisgirList">
             <set from-field="oisgir.orderId" field="cancelOisgirMap.orderId"/>
             <set from-field="oisgir.orderItemSeqId" field="cancelOisgirMap.orderItemSeqId"/>
             <set from-field="oisgir.shipGroupSeqId" field="cancelOisgirMap.shipGroupSeqId"/>
@@ -563,7 +563,7 @@ under the License.
             <set from-field="parameters.orderItemSeqId" field="oisgirListLookupMap.orderItemSeqId"/>
             <set from-field="parameters.shipGroupSeqId" field="oisgirListLookupMap.shipGroupSeqId"/>
             <find-by-and entity-name="OrderItemShipGrpInvRes" map-name="oisgirListLookupMap" list-name="oisgirList" use-cache="false"/>
-            <iterate entry="oisgir" list-name="oisgirList">
+            <iterate entry="oisgir" list="oisgirList">
                 <if-compare field="toCancelAmount" operator="greater" value="0" type="Double">
                     <if-compare-field field="oisgir.quantity" to-field="toCancelAmount" operator="greater-equals" type="Double">
                         <set from-field="toCancelAmount" field="cancelOisgirMap.cancelQuantity"/>

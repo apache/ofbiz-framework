@@ -43,7 +43,7 @@ under the License.
                 <condition-expr field-name="invoiceDate" operator="less-equals" env-name="parameters.thruDate"/>
             </condition-list>
         </entity-condition>
-        <iterate list-name="invoices" entry-name="invoice">
+        <iterate list="invoices" entry="invoice">
             <clear-field field-name="inMap"/>
             <set field="inMap.invoiceId" from-field="invoice.invoiceId"/>
             <call-service service-name="loadSalesInvoiceFact" in-map-name="inMap"/>

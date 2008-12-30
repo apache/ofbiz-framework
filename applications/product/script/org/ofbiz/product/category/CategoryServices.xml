@@ -33,7 +33,7 @@ under the License.
         <check-errors/>
 
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <make-value value-name="newEntity" entity-name="ProductCategory"/>
+        <make-value value-field="newEntity" entity-name="ProductCategory"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <if-empty field="parameters.productCategoryId">
@@ -51,7 +51,7 @@ under the License.
         <!-- if setting the primaryParentCategoryId, create a rollup entity too -->
         <!-- NOTE: this is commented out to disable because it is dangerous to add category rollups on a live site without being able to specify a fromDate
         <if-not-empty field="newEntity.primaryParentCategoryId">
-            <make-value entity-name="ProductCategoryRollup" value-name="newRollup"/>
+            <make-value entity-name="ProductCategoryRollup" value-field="newRollup"/>
             <field-to-field field-name="productCategoryId" map-name="newEntity" to-field-name="productCategoryId" to-map-name="newRollup"/>
             <field-to-field field-name="primaryParentCategoryId" map-name="newEntity" to-field-name="parentProductCategoryId" to-map-name="newRollup"/>
             <env-to-field env-name="nowTimestamp" field-name="fromDate" map-name="newRollup"/>
@@ -65,9 +65,9 @@ under the License.
                 <field-map field-name="partyId" from-field="userLogin.partyId"/>
                 <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
             </entity-and>
-            <iterate entry="productCategoryRole" list-name="productCategoryRoles">
+            <iterate entry="productCategoryRole" list="productCategoryRoles">
                 <!-- add this new product to the category -->
-                <make-value value-name="newLimitRollup" entity-name="ProductCategoryRollup"/>
+                <make-value value-field="newLimitRollup" entity-name="ProductCategoryRollup"/>
                 <set field="newLimitRollup.productCategoryId" from-field="newEntity.productCategoryId"/>
                 <set field="newLimitRollup.parentProductCategoryId" from-field="productCategoryRole.productCategoryId"/>
                 <set field="newLimitRollup.fromDate" from-field="nowTimestamp"/>
@@ -91,7 +91,7 @@ under the License.
         <!-- NOTE: this is commented out to disable because it is dangerous to add category rollups on a live site without being able to specify a fromDate
         <if-not-empty field="lookedUpValue.primaryParentCategoryId">
             <if-compare-field to-field="saveIdMap.primaryParentCategoryId" field="lookedUpValue.primaryParentCategoryId" operator="not-equals">
-                <make-value entity-name="ProductCategoryRollup" value-name="newRollup"/>
+                <make-value entity-name="ProductCategoryRollup" value-field="newRollup"/>
                 <field-to-field field-name="productCategoryId" map-name="lookedUpValue" to-field-name="productCategoryId" to-map-name="newRollup"/>
                 <field-to-field field-name="primaryParentCategoryId" map-name="lookedUpValue" to-field-name="parentProductCategoryId" to-map-name="newRollup"/>
                 <now-timestamp-to-env env-name="nowTimestamp"/>
@@ -115,7 +115,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
         -->
-        <make-value value-name="newEntity" entity-name="ProductCategoryMember"/>
+        <make-value value-field="newEntity" entity-name="ProductCategoryMember"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -128,7 +128,7 @@ under the License.
 
     <simple-method method-name="addProductToCategories" short-description="Add Product to Multiple Categories">
         <if-instance-of field-name="parameters.categories" class="java.util.List">
-            <iterate entry="category" list-name="parameters.categories">
+            <iterate entry="category" list="parameters.categories">
                 <!-- note that the security semantics require the user to have the general admin permission,
                     or the role limited permission and association with the category, not the product -->
                 <!-- 
@@ -139,7 +139,7 @@ under the License.
                 <check-errors/>
                  -->
 
-                <make-value value-name="newEntity" entity-name="ProductCategoryMember"/>
+                <make-value value-field="newEntity" entity-name="ProductCategoryMember"/>
                 <set field="newEntity.productCategoryId" from-field="category"/>
                 <set-pk-fields map-name="parameters" value-name="newEntity"/>
                 <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -159,7 +159,7 @@ under the License.
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
 
-                <make-value value-name="newEntity" entity-name="ProductCategoryMember"/>
+                <make-value value-field="newEntity" entity-name="ProductCategoryMember"/>
                 <set field="newEntity.productCategoryId" from-field="parameters.categories"/>
                 <set-pk-fields map-name="parameters" value-name="newEntity"/>
                 <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -183,7 +183,7 @@ under the License.
         <check-errors/>
          -->
 
-        <make-value value-name="lookupPKMap" entity-name="ProductCategoryMember"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryMember"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryMember" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -206,7 +206,7 @@ under the License.
             <store-value value-name="product"/>
         </if-compare-field>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductCategoryMember"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryMember"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryMember" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -222,7 +222,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductCategoryRole"/>
+        <make-value value-field="newEntity" entity-name="ProductCategoryRole"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -238,7 +238,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductCategoryRole"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -250,7 +250,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductCategoryRole"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryRole"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRole" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -268,7 +268,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductCategoryRollup"/>
+        <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -280,7 +280,7 @@ under the License.
     </simple-method>
     <simple-method method-name="addProductCategoryToCategories" short-description="Add ProductCategory to Categories">
         <if-instance-of field-name="parameters.categories" class="java.util.List">
-            <iterate entry="category" list-name="parameters.categories">
+            <iterate entry="category" list="parameters.categories">
                 <set field="callingMethodName" value="addProductCategoryToCategories"/>
                 <set field="checkAction" value="CREATE"/>
                 <!-- note the the user must be associated with the parent category with the role limited permission -->
@@ -288,7 +288,7 @@ under the License.
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
 
-                <make-value value-name="newEntity" entity-name="ProductCategoryRollup"/>
+                <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
                 <set field="newEntity.parentProductCategoryId" from-field="category"/>
                 <set-pk-fields map-name="parameters" value-name="newEntity"/>
                 <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -307,7 +307,7 @@ under the License.
                 <call-simple-method method-name="checkCategoryRelatedPermission"/>
                 <check-errors/>
 
-                <make-value value-name="newEntity" entity-name="ProductCategoryRollup"/>
+                <make-value value-field="newEntity" entity-name="ProductCategoryRollup"/>
                 <set field="newEntity.parentProductCategoryId" from-field="parameters.categories"/>
                 <set-pk-fields map-name="parameters" value-name="newEntity"/>
                 <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
@@ -328,7 +328,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductCategoryRollup"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryRollup"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRollup" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -342,7 +342,7 @@ under the License.
         <call-simple-method method-name="checkCategoryRelatedPermission"/>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductCategoryRollup"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryRollup"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRollup" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -370,7 +370,7 @@ under the License.
         </if-not-empty>
 
         <!-- add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful -->
-        <iterate entry="productCategoryMember" list-name="productCategoryMembers">
+        <iterate entry="productCategoryMember" list="productCategoryMembers">
             <clone-value value-name="productCategoryMember" new-value-name="newProductCategoryMember"/>
             <set field="newProductCategoryMember.productCategoryId" from-field="parameters.productCategoryIdTo"/>
             <field-to-list field-name="newProductCategoryMember" list-name="pcmsToStore"/>
@@ -386,7 +386,7 @@ under the License.
                 <filter-list-by-date list-name="productCategoryRollups" valid-date-name="validDate"/>
             </if-not-empty>
 
-            <iterate entry="productCategoryRollup" list-name="productCategoryRollups">
+            <iterate entry="productCategoryRollup" list="productCategoryRollups">
                 <set field="callServiceMap.productCategoryId" from-field="productCategoryRollup.productCategoryId"/>
                 <set field="callServiceMap.productCategoryIdTo" from-field="parameters.productCategoryIdTo"/>
                 <set field="callServiceMap.validDate" from-field="parameters.validDate"/>
@@ -422,7 +422,7 @@ under the License.
         </if-not-empty>
         
         <!-- add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful -->
-        <iterate entry="categoryEntity" list-name="categoryEntities">
+        <iterate entry="categoryEntity" list="categoryEntities">
             <clone-value value-name="categoryEntity" new-value-name="newCategoryEntity"/>
             <set field="newCategoryEntity.productCategoryId" from-field="productCategoryIdTo"/>
             <field-to-list field-name="newCategoryEntity" list-name="entitiesToStore"/>
@@ -447,7 +447,7 @@ under the License.
             <field-map field-name="productCategoryId" from-field="parameters.productCategoryId"/>
         </entity-and>
 
-        <iterate entry="productCategoryMember" list-name="productCategoryMembers">
+        <iterate entry="productCategoryMember" list="productCategoryMembers">
             <set field="productCategoryMember.thruDate" from-field="expireTimestamp"/>
             <store-value value-name="productCategoryMember"/>
         </iterate>
@@ -469,7 +469,7 @@ under the License.
             <field-map field-name="productCategoryId" from-field="parameters.productCategoryId"/>
         </entity-and>
 
-        <iterate entry="productCategoryMember" list-name="productCategoryMembers">
+        <iterate entry="productCategoryMember" list="productCategoryMembers">
             <if-compare-field field="productCategoryMember.thruDate" to-field="expireTimestamp" operator="less" type="Timestamp">
                 <remove-value value-name="productCategoryMember"/>
             </if-compare-field>
@@ -602,7 +602,7 @@ under the License.
             requires a new find-by map -->
         <if-not-empty field="parameters.duplicateParentRollup">
             <find-by-and entity-name="ProductCategoryRollup" map-name="categoryFindContext" list-name="foundValues"/>
-            <iterate entry="foundValue" list-name="foundValues">
+            <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set field="newTempValue.productCategoryId" from-field="parameters.productCategoryId"/>
                 <create-value value-name="newTempValue"/>
@@ -612,7 +612,7 @@ under the License.
             <entity-and entity-name="ProductCategoryRollup" list-name="foundValues">
                 <field-map field-name="parentProductCategoryId" from-field="parameters.oldProductCategoryId"/>
             </entity-and>
-            <iterate entry="foundValue" list-name="foundValues">
+            <iterate entry="foundValue" list="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set field="newTempValue.parentProductCategoryId" from-field="parameters.productCategoryId"/>
                 <create-value value-name="newTempValue"/>
@@ -631,7 +631,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ProductCategoryAttribute"/>
+        <make-value value-field="newEntity" entity-name="ProductCategoryAttribute"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -644,7 +644,7 @@ under the License.
           </check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductCategoryAttribute"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryAttribute"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryAttribute" map-name="lookupPKMap" value-name="ProductCategoryAttributeInstance"/>
         <set-nonpk-fields map-name="parameters" value-name="ProductCategoryAttributeInstance"/>
@@ -657,7 +657,7 @@ under the License.
            </check-permission>
         <check-errors/>
 
-        <make-value value-name="lookupPKMap" entity-name="ProductCategoryAttribute"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductCategoryAttribute"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryAttribute" map-name="lookupPKMap" value-name="ProductCategoryAttributeInstance"/>
         <remove-value value-name="ProductCategoryAttributeInstance"/>
@@ -666,7 +666,7 @@ under the License.
 
     <!-- ProductCategoryLink Create/Update/Delete"-->
     <simple-method method-name="createProductCategoryLink" short-description="create a ProductCategoryLink">
-        <make-value entity-name="ProductCategoryLink" value-name="newEntity"/>
+        <make-value entity-name="ProductCategoryLink" value-field="newEntity"/>
         <set field="newEntity.productCategoryId" from-field="parameters.productCategoryId"/>
 
         <!-- don't set the fromDate yet; let's get the seq ID first -->
@@ -802,7 +802,7 @@ under the License.
                 </condition-list>
             </condition-list>
         </entity-condition>
-        <iterate entry="prodCatalogCategory" list-name="prodCatalogCategoryList">
+        <iterate entry="prodCatalogCategory" list="prodCatalogCategoryList">
             <!-- Do not do a permission check unless the ProdCatalog requires it -->
             <entity-one entity-name="ProdCatalog" value-name="prodCatalog" auto-field-map="false">
                 <field-map field-name="prodCatalogId" from-field="prodCatalogCategory.prodCatalogId"/>

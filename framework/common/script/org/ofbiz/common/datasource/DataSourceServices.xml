@@ -22,21 +22,21 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- DataSource methods -->
     <simple-method method-name="createDataSource" short-description="Create an DataSource">
-        <make-value value-name="newEntity" entity-name="DataSource"/>
+        <make-value value-field="newEntity" entity-name="DataSource"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
 
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="updateDataSource" short-description="Update an DataSource">
-        <make-value entity-name="DataSource" value-name="lookupPKMap"/>
+        <make-value entity-name="DataSource" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="DataSource" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteDataSource" short-description="Delete an DataSource">
-        <make-value entity-name="DataSource" value-name="lookupPKMap"/>
+        <make-value entity-name="DataSource" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="DataSource" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

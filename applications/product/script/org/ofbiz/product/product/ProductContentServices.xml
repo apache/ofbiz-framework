@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <!-- ProductContent -->
     <simple-method method-name="createProductContent" short-description="Create Content For Product">
-        <make-value value-name="newEntity" entity-name="ProductContent"/>
+        <make-value value-field="newEntity" entity-name="ProductContent"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -41,7 +41,7 @@ under the License.
         <field-to-result map-name="newEntity" field-name="productContentTypeId"/>
     </simple-method>
     <simple-method method-name="updateProductContent" short-description="Update Content For Product">
-        <make-value value-name="lookupPKMap" entity-name="ProductContent"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -51,7 +51,7 @@ under the License.
         <call-service service-name="updateContent" in-map-name="updateContent"/>
     </simple-method>
     <simple-method method-name="removeProductContent" short-description="Remove Content From Product">
-        <make-value value-name="lookupPKMap" entity-name="ProductContent"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductContent"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -116,12 +116,12 @@ under the License.
 
     <!-- ProductFeatureDataResource -->
     <simple-method method-name="createProductFeatureDataResource" short-description="Create ProductFeature-DataResource">
-        <make-value value-name="newEntity" entity-name="ProductFeatureDataResource"/>
+        <make-value value-field="newEntity" entity-name="ProductFeatureDataResource"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
     <simple-method method-name="removeProductFeatureDataResource" short-description="Remove ProductFeature-DataResource">
-        <make-value value-name="lookupPKMap" entity-name="ProductFeatureDataResource"/>
+        <make-value value-field="lookupPKMap" entity-name="ProductFeatureDataResource"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

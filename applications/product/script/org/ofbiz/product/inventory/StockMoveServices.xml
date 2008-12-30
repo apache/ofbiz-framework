@@ -53,7 +53,7 @@ under the License.
              - orderItemShipGrpInvResInfoList (to be done later if we need it)
         -->
         <!-- start by making a Map where the locationSeqId is the key and the value is a List of orderItemShipGrpInvResAndItemLocation -->
-        <iterate entry="orderItemShipGrpInvResAndItemLocation" list-name="orderItemShipGrpInvResAndItemLocationList">
+        <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
             <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByLocMap.${orderItemShipGrpInvResAndItemLocation.locationSeqId}"/>
         </iterate>
 
@@ -61,7 +61,7 @@ under the License.
         <iterate-map key-name="locationSeqId" value-name="perLocationOiirailList" map-name="oiirailByLocMap">
             <!-- now for more fun, split up by productId; this should generally not happen, but we'll make sure here -->
             <clear-field field-name="oiirailByProdMap"/>
-            <iterate entry="orderItemShipGrpInvResAndItemLocation" list-name="perLocationOiirailList">
+            <iterate entry="orderItemShipGrpInvResAndItemLocation" list="perLocationOiirailList">
                 <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByProdMap[orderItemShipGrpInvResAndItemLocation.productId]"/>
             </iterate>
 
@@ -94,7 +94,7 @@ under the License.
 
                     <!-- get totalQuantity: iterate through perProductOiirailList and add up quantity (from OrderItemShipGrpInvRes) -->
                     <calculate field-name="moveInfo.totalQuantity" type="Double"><number value="0"/></calculate>
-                    <iterate entry="perProductOiirail" list-name="perProductOiirailList">
+                    <iterate entry="perProductOiirail" list="perProductOiirailList">
                         <calculate field-name="moveInfo.totalQuantity" type="Double">
                             <calcop field-name="moveInfo.totalQuantity" operator="add"><calcop field-name="perProductOiirail.quantity" operator="get"/></calcop>
                         </calculate>
@@ -109,7 +109,7 @@ under the License.
 
                     <calculate field-name="totalQuantityOnHand" type="Double"><number value="0"/></calculate>
                     <calculate field-name="totalAvailableToPromise" type="Double"><number value="0"/></calculate>
-                    <iterate entry="inventoryItem" list-name="inventoryItemList">
+                    <iterate entry="inventoryItem" list="inventoryItemList">
                         <calculate field-name="totalQuantityOnHand" type="Double">
                             <calcop field-name="totalQuantityOnHand" operator="add"><calcop field-name="inventoryItem.quantityOnHandTotal" operator="get"/></calcop>
                         </calculate>
@@ -130,7 +130,7 @@ under the License.
                         <get-related value-name="moveInfo.targetProductFacilityLocation" relation-name="InventoryItem" list-name="targetInventoryItemList"/>
                         <calculate field-name="targetTotalAvailableToPromise" type="Double"><number value="0"/></calculate>
                         <calculate field-name="targetTotalQuantityOnHand" type="Double"><number value="0"/></calculate>
-                        <iterate entry="inventoryItem" list-name="targetInventoryItemList">
+                        <iterate entry="inventoryItem" list="targetInventoryItemList">
                             <calculate field-name="targetTotalAvailableToPromise" type="Double">
                                 <calcop field-name="targetTotalAvailableToPromise" operator="add"><calcop field-name="inventoryItem.availableToPromiseTotal" operator="get"/></calcop>
                             </calculate>
@@ -221,7 +221,7 @@ under the License.
             <order-by field-name="productId"/>
         </entity-and>
         
-        <iterate entry="productFacilityLocationQuantityTest" list-name="productFacilityLocationQuantityTestList">
+        <iterate entry="productFacilityLocationQuantityTest" list="productFacilityLocationQuantityTestList">
             <!-- TODO: this comparison could be done by the database and be more efficient, but since we don't have field to field comparisons in the entity engine or EntityCondition operations in simple-methods, some work needs to be done before that can happen -->
             <if>
                 <condition>
@@ -269,7 +269,7 @@ under the License.
                                 <set from-field="productFacilityLocationQuantityTest.moveQuantity" field="targetLocationMoveQuantity"/>
                                 <!-- start by making a Map where the locationSeqId is the key and the value is a List of InventoryItemAndLocation -->
                                 <clear-field field-name="InventoryItemAndLocationByLocMap"/>
-                                <iterate entry="InventoryItemAndLocation" list-name="inventoryItemAndLocationList">
+                                <iterate entry="InventoryItemAndLocation" list="inventoryItemAndLocationList">
                                     <field-to-list field-name="InventoryItemAndLocation" list-name="InventoryItemAndLocationByLocMap.${InventoryItemAndLocation.locationSeqId}"/>
                                 </iterate>
                                 <clear-field field-name="locationSeqId"/>
@@ -278,7 +278,7 @@ under the License.
                                     <if-empty field="fromLocationTotalAvailableToPromise.${locationSeqId}">
                                         <calculate field-name="totalQuantityOnHand" type="Double"><number value="0"/></calculate>
                                         <calculate field-name="totalAvailableToPromise" type="Double"><number value="0"/></calculate>
-                                        <iterate entry="inventoryItem" list-name="perLocationInventoryItemAndLocList">
+                                        <iterate entry="inventoryItem" list="perLocationInventoryItemAndLocList">
                                             <calculate field-name="totalQuantityOnHand" type="Double">
                                                 <calcop field-name="totalQuantityOnHand" operator="add"><calcop field-name="inventoryItem.quantityOnHandTotal" operator="get"/></calcop>
                                             </calculate>
@@ -376,7 +376,7 @@ under the License.
                 <order-by field-name="datetimeReceived"/>
             </entity-and>
 
-            <iterate entry="inventoryItem" list-name="inventoryItemList">
+            <iterate entry="inventoryItem" list="inventoryItemList">
                 <!-- for each inventoryItem only process if quantityLeftToProcess > 0 and inventoryItem.availableToPromiseTotal > 0 -->
                 <if-compare field="quantityLeftToProcess" operator="greater" value="0" type="Double">
                     <if-compare field="inventoryItem.availableToPromiseTotal" operator="greater" value="0" type="Double">
@@ -389,7 +389,7 @@ under the License.
                         </if-compare-field>
 
                         <!-- create a new InventoryItem for the targetInventoryItem -->
-                        <make-value entity-name="InventoryItem" map-name="inventoryItem" value-name="targetInventoryItem"/>
+                        <make-value entity-name="InventoryItem" map-name="inventoryItem" value-field="targetInventoryItem"/>
                         <set from-field="parameters.targetLocationSeqId" field="targetInventoryItem.locationSeqId"/>
                         <!-- now that targetInventoryItem is populated with quantities, etc, call createInventoryItem service -->
                         <clear-field field-name="createNonOisgirTargetDetailMap"/>
@@ -440,7 +440,7 @@ under the License.
 
         <clear-field field-name="oiirailByInvItemMap"/>
         <log level="info" message="In processOisgirMoveByStatusInline orderItemShipGrpInvResAndItemLocationList=${orderItemShipGrpInvResAndItemLocationList}"/>
-        <iterate entry="orderItemShipGrpInvResAndItemLocation" list-name="orderItemShipGrpInvResAndItemLocationList">
+        <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
             <field-to-list field-name="orderItemShipGrpInvResAndItemLocation" list-name="oiirailByInvItemMap.${orderItemShipGrpInvResAndItemLocation.inventoryItemId}"/>
         </iterate>
 
@@ -459,7 +459,7 @@ under the License.
             -->
             <if-compare field="inventoryItem.inventoryItemTypeId" operator="equals" value="NON_SERIAL_INV_ITEM">
                 <!-- create a new InventoryItem for the targetInventoryItem -->
-                <make-value entity-name="InventoryItem" map-name="inventoryItem" value-name="targetInventoryItem"/>
+                <make-value entity-name="InventoryItem" map-name="inventoryItem" value-field="targetInventoryItem"/>
                 <set from-field="parameters.targetLocationSeqId" field="targetInventoryItem.locationSeqId"/>
                 <!-- now that targetInventoryItem is populated with initial values, call createInventoryItem service -->
                 <set-service-fields map-name="targetInventoryItem" service-name="createInventoryItem" to-map-name="createInventoryItemMap"/>
@@ -479,7 +479,7 @@ under the License.
                     sure to stay within quantityOnHand
                 -->
                 <set from-field="inventoryItem.quantityOnHandTotal" field="remainingQuantityOnHand"/>
-                <iterate entry="orderItemShipGrpInvResAndItemLocation" list-name="orderItemShipGrpInvResAndItemLocationList">
+                <iterate entry="orderItemShipGrpInvResAndItemLocation" list="orderItemShipGrpInvResAndItemLocationList">
                     <get-related-one value-name="orderItemShipGrpInvResAndItemLocation" relation-name="OrderItemShipGrpInvRes" to-value-name="orderItemShipGrpInvRes"/>
                     
                     <!-- see if there is enough physically moved over to move this reservation -->
@@ -532,7 +532,7 @@ under the License.
                     </if>
 
                     <!-- make a new OISGIR value object -->
-                    <make-value entity-name="OrderItemShipGrpInvRes" map-name="orderItemShipGrpInvRes" value-name="targetOrderItemShipGrpInvRes"/>
+                    <make-value entity-name="OrderItemShipGrpInvRes" map-name="orderItemShipGrpInvRes" value-field="targetOrderItemShipGrpInvRes"/>
                     <set from-field="targetInventoryItem.inventoryItemId" field="targetOrderItemShipGrpInvRes.inventoryItemId"/>
 
                     <!-- okay, move it over, start by calculating new QOHs; note that don't need to modify the ATP since with an OISGIR that has already been subtracted out, so it shouldn't be subtracted from the source or added to the target -->

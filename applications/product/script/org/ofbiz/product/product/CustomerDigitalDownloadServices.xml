@@ -23,7 +23,7 @@ under the License.
     <simple-method method-name="createCustomerDigitalDownloadProduct" short-description="createCustomerDigitalDownloadProduct">
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
-        <make-value value-name="createProductMap" entity-name="Product"/>
+        <make-value value-field="createProductMap" entity-name="Product"/>
         <sequenced-id-to-env sequence-name="Product" env-name="createProductMap.productId"/>
         <set field="productId" from-field="createProductMap.productId"/>
 
@@ -33,7 +33,7 @@ under the License.
         <set field="createProductMap.productTypeId" value="DIGITAL_GOOD"/>
         <create-value value-name="createProductMap"/>
 
-        <make-value value-name="createProductPriceMap" entity-name="ProductPrice"/>
+        <make-value value-field="createProductPriceMap" entity-name="ProductPrice"/>
         <set field="createProductPriceMap.productId" from-field="productId"/>
         <set field="createProductPriceMap.productPriceTypeId" value="DEFAULT_PRICE"/>
         <set field="createProductPriceMap.productPricePurposeId" value="PURCHASE"/>
@@ -43,7 +43,7 @@ under the License.
         <set field="createProductPriceMap.price" from-field="parameters.price"/>
         <create-value value-name="createProductPriceMap"/>
         
-        <make-value value-name="createProductSupplierMap" entity-name="SupplierProduct"/>
+        <make-value value-field="createProductSupplierMap" entity-name="SupplierProduct"/>
         <set field="createProductSupplierMap.productId" from-field="productId"/>
         <set field="createProductSupplierMap.partyId" from-field="userLogin.partyId"/>
         <set field="createProductSupplierMap.currencyUomId" from-field="parameters.currencyUomId" default-value="USD"/>
@@ -59,7 +59,7 @@ under the License.
         <!-- create association with ProductStore.digProdUploadCategoryId -->
         <entity-one entity-name="ProductStore" value-name="productStore"/>
         <if-not-empty field="productStore.digProdUploadCategoryId">
-            <make-value value-name="addProductToCategoryMap" entity-name="ProductCategoryMember"/>
+            <make-value value-field="addProductToCategoryMap" entity-name="ProductCategoryMember"/>
             <set field="addProductToCategoryMap.productId" from-field="productId"/>
             <set field="addProductToCategoryMap.productCategoryId" from-field="productStore.digProdUploadCategoryId"/>
             <create-value value-name="addProductToCategoryMap"/>
@@ -122,7 +122,7 @@ under the License.
         <check-errors/>
         
         <!-- keep the product around, just expire SupplierProduct and ProductCategoryMember records -->
-        <iterate entry="supplierProduct" list-name="supplierProductList">
+        <iterate entry="supplierProduct" list="supplierProductList">
             <set field="supplierProduct.availableThruDate" from-field="nowTimestamp"/>
             <store-value value-name="supplierProduct"/>
         </iterate>
@@ -130,7 +130,7 @@ under the License.
         <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMemberList">
             <field-map field-name="productId"/>
         </entity-and>
-        <iterate entry="productCategoryMember" list-name="productCategoryMemberList">
+        <iterate entry="productCategoryMember" list="productCategoryMemberList">
             <set field="productCategoryMember.thruDate" from-field="nowTimestamp"/>
             <store-value value-name="productCategoryMember"/>
         </iterate>
@@ -160,7 +160,7 @@ under the License.
         
         <check-errors/>
         
-        <make-value value-name="productContent" entity-name="ProductContent"/>
+        <make-value value-field="productContent" entity-name="ProductContent"/>
         <set field="productContent.productId" from-field="parameters.productId"/>
         <set field="productContent.contentId" from-field="parameters.contentId"/>
         <set field="productContent.productContentTypeId" value="DIGITAL_DOWNLOAD"/>

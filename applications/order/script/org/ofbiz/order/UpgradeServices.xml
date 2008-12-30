@@ -23,8 +23,8 @@ under the License.
 
     <simple-method method-name="migrateOrderItemAssociation" short-description="Migrate data from OldOrderItemAssociation to OrderItemAssoc">
         <entity-condition entity-name="OldOrderItemAssociation" list-name="oldOrderItemAssociations"/>
-        <iterate list-name="oldOrderItemAssociations" entry-name="oldOrderItemAssociation">
-            <make-value entity-name="OrderItemAssoc" value-name="orderItemAssoc"/>
+        <iterate list="oldOrderItemAssociations" entry="oldOrderItemAssociation">
+            <make-value entity-name="OrderItemAssoc" value-field="orderItemAssoc"/>
             <set field="orderItemAssoc.orderId" from-field="oldOrderItemAssociation.salesOrderId"/>
             <set field="orderItemAssoc.orderItemSeqId" from-field="oldOrderItemAssociation.soItemSeqId"/>
             <set field="orderItemAssoc.toOrderId" from-field="oldOrderItemAssociation.purchaseOrderId"/>
@@ -39,8 +39,8 @@ under the License.
     <simple-method method-name="migrateCustRequestRole" short-description="Migrate data from OldCustRequestRole to CustRequestParty">
         <entity-condition entity-name="OldCustRequestRole" list-name="oldCustRequestRoles"/>
         <now-timestamp-to-env env-name="fromDate"/>
-        <iterate list-name="oldCustRequestRoles" entry-name="oldCustRequestRole">
-            <make-value entity-name="CustRequestParty" value-name="custRequestParty"/>
+        <iterate list="oldCustRequestRoles" entry="oldCustRequestRole">
+            <make-value entity-name="CustRequestParty" value-field="custRequestParty"/>
             <set field="custRequestParty.custRequestId" from-field="oldCustRequestRole.custRequestId"/>
             <set field="custRequestParty.partyId" from-field="oldCustRequestRole.partyId"/>
             <set field="custRequestParty.roleTypeId" from-field="oldCustRequestRole.roleTypeId"/>

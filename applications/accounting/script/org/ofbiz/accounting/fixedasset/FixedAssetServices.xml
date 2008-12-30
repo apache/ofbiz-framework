@@ -28,7 +28,7 @@ under the License.
     <!-- create a new Fixed Asset header record -->
     <simple-method method-name="createFixedAsset" short-description="Create an FixedAsset">
           <!-- create new entity and create all the fields -->
-        <make-value value-name="newEntity" entity-name="FixedAsset"/>
+        <make-value value-field="newEntity" entity-name="FixedAsset"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
         <!-- create a non existing ID if not supplied -->
@@ -64,7 +64,7 @@ under the License.
     
     <!-- add a product to a fixed Asset -->
     <simple-method method-name="addFixedAssetProduct" short-description="Add Product to FixedAsset">
-        <make-value value-name="newEntity" entity-name="FixedAssetProduct"/>
+        <make-value value-field="newEntity" entity-name="FixedAssetProduct"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -101,7 +101,7 @@ under the License.
 
         <entity-one entity-name="FixedAsset" value-name="fixedAsset"/>
         
-        <make-value value-name="excDayPKMap" entity-name="TechDataCalendarExcDay"/>
+        <make-value value-field="excDayPKMap" entity-name="TechDataCalendarExcDay"/>
         <set-pk-fields field-name= "calendarId" map-name="fixedAsset" value-name="excDayPKMap"/>
         <set-pk-fields fieldName= "exceptionDateStartTime" map-name="parameters" value-name="excDayPKMap"/>
         <find-by entity-name="TechDataCalendarExcDay" map-name="excDayPKMap" value-name="lookedUpValue"/>
@@ -125,7 +125,7 @@ under the License.
         </if-not-empty>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="FixedAssetStdCost"/>
+        <make-value value-field="newEntity" entity-name="FixedAssetStdCost"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -148,7 +148,7 @@ under the License.
 
     <!-- Fixed Asset Identification "FIXED_ASSET_IDENT"-->
     <simple-method method-name="createFixedAssetIdent" short-description="Create an FixedAssetIdent">
-        <make-value value-name="newEntity" entity-name="FixedAssetIdent"/>
+        <make-value value-field="newEntity" entity-name="FixedAssetIdent"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -165,7 +165,7 @@ under the License.
 
     <!-- FixedAsset Registration Create/Update/Delete"-->
     <simple-method method-name="createFixedAssetRegistration" short-description="Create FixedAsset Registration">
-        <make-value value-name="newEntity" entity-name="FixedAssetRegistration"/>
+        <make-value value-field="newEntity" entity-name="FixedAssetRegistration"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
@@ -185,7 +185,7 @@ under the License.
 
     <!--  create/update/delete FixedAssetMaint -->
     <simple-method method-name="createFixedAssetMaint" short-description="create a FixedAssetMaint">
-        <make-value entity-name="FixedAssetMaint" value-name="newEntity"/>
+        <make-value entity-name="FixedAssetMaint" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="maintHistSeqId"/> <!-- this finds the next sub-sequence ID -->
         <field-to-result field-name="newEntity.maintHistSeqId" result-name="maintHistSeqId"/>
@@ -288,7 +288,7 @@ under the License.
                         <entity-condition list-name="wepas" entity-name="WorkEffortPartyAssignment" filter-by-date="true">
                             <condition-expr field-name="workEffortId" env-name="workEffortId" operator="equals"/>
                         </entity-condition>
-                        <iterate list-name="wepas" entry-name="wepa">
+                        <iterate list="wepas" entry="wepa">
                             <set field="wepa.thruDate" from-field="nowTimestamp"/>
                             <store-value value-name="wepa"/>
                             <check-errors/>
@@ -305,7 +305,7 @@ under the License.
 
     <!--  create/update/delete FixedAssetMeter -->
     <simple-method method-name="createFixedAssetMeter" short-description="Create a Fixed Asset Meter Reading">
-        <make-value entity-name="FixedAssetMeter" value-name="newEntity"/>
+        <make-value entity-name="FixedAssetMeter" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
@@ -337,7 +337,7 @@ under the License.
             <field-map field-name="productId" from-field="fixedAssetValue.instanceOfProductId"/>
             <field-map field-name="intervalMeterTypeId" from-field="meterValue.productMeterTypeId"/>
         </entity-and>
-        <iterate list-name="productMaintList" entry-name="productMaintValue">
+        <iterate list="productMaintList" entry="productMaintValue">
             <set field="repeatCount" from-field="productMaintValue.repeatCount" default-value="0" type="Long"/>
             <entity-condition list-name="maintList" entity-name="FixedAssetMaint">
                 <condition-list combine="and">
@@ -352,7 +352,7 @@ under the License.
                 <set field="listSize" value="${util:size(maintList)}" type="Long"/>
             </if-not-empty>
             <set field="maxIntervalQty" value="0" type="Double"/>
-            <iterate list-name="maintList" entry-name="maintValue">
+            <iterate list="maintList" entry="maintValue">
                 <if-compare-field field="maintValue.intervalQuantity" operator="greater" to-field="maxIntervalQty" type="BigDecimal">
                     <set field="maxIntervalQty" from-field="maintValue.intervalQuantity" type="Double"/>
                 </if-compare-field>
@@ -387,14 +387,14 @@ under the License.
                 <condition-expr field-name="actualEndOfLife" operator="equals" env-name="null"/>
             </condition-list>
         </entity-condition>
-        <iterate list-name="fixedAssets" entry-name="fixedAsset">
+        <iterate list="fixedAssets" entry="fixedAsset">
             <entity-condition list-name="productMaints" entity-name="ProductMaint">
                 <condition-list combine="and">
                     <condition-expr field-name="productId" env-name="fixedAsset.instanceOfProductId"/>
                     <condition-expr field-name="intervalUomId" operator="like" value="TF_%"/>
                 </condition-list>
             </entity-condition>
-            <iterate list-name="productMaints" entry-name="productMaint">
+            <iterate list="productMaints" entry="productMaint">
                 <set field="repeatCount" from-field="productMaint.repeatCount" default-value="0" type="Long"/>
                 <entity-condition list-name="maintList" entity-name="FixedAssetMaintWorkEffort">
                     <condition-list combine="and">
@@ -426,7 +426,7 @@ under the License.
                     </if-not-empty>
                     <set field="lastSvcLong" value="0" type="Long"/>
                     <set field="lastSvcDate" from-field="lastSvcLong" type="Timestamp"/>
-                    <iterate list-name="maintList" entry-name="maintValue">
+                    <iterate list="maintList" entry="maintValue">
                         <set field="lastSvcDate" from-field="maintValue.actualCompletionDate" set-if-null="true"/>
                     </iterate>
                     <if-not-empty field="lastSvcDate">
@@ -455,8 +455,8 @@ under the License.
     </simple-method>
     <simple-method method-name="migrateFixedAssetMaintMeter" short-description="Copy FixedAssetMaintMeter To FixedAssetMeter">
         <entity-condition list-name="maintMeterList" entity-name="FixedAssetMaintMeter"/>
-        <iterate list-name="maintMeterList" entry-name="maintMeter">
-            <make-value value-name="newEntity" entity-name="FixedAssetMeter"/>
+        <iterate list="maintMeterList" entry="maintMeter">
+            <make-value value-field="newEntity" entity-name="FixedAssetMeter"/>
             <set-pk-fields map-name="maintMeter" value-name="newEntity"/>
             <set-nonpk-fields map-name="maintMeter" value-name="newEntity"/>
             <set field="newEntity.readingDate" from-field="maintMeter.createdStamp"/>
@@ -505,7 +505,7 @@ under the License.
         </if-empty>
         <check-errors/>
         
-        <make-value entity-name="FixedAssetMaintOrder" value-name="newEntity"/>
+        <make-value entity-name="FixedAssetMaintOrder" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>  
@@ -517,7 +517,7 @@ under the License.
     
     <!-- ==============Party Fixed Asset Assignment============= -->
     <simple-method method-name="createPartyFixedAssetAssignment" short-description="Associate Party to Fixed Asset">
-        <make-value entity-name="PartyFixedAssetAssignment" value-name="newEntity"/>
+        <make-value entity-name="PartyFixedAssetAssignment" value-field="newEntity"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
         <if-empty field="newEntity.fromDate">
@@ -554,7 +554,7 @@ under the License.
             <field-map field-name="fixedAssetId" from-field="fixedAssetId"/>
             <field-map field-name="parentTypeId" value="FAM_ASSIGNEE"/>
         </entity-and>
-        <iterate list-name="assignedParties" entry-name="assignedParty">
+        <iterate list="assignedParties" entry="assignedParty">
             <set field="assignPartyCtx.partyId" from-field="assignedParty.partyId"/>
             <set field="assignPartyCtx.roleTypeId" from-field="assignedParty.roleTypeId"/>
             <set field="assignPartyCtx.workEffortId" from-field="workEffortId"/>

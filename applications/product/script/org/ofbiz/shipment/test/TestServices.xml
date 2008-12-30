@@ -91,7 +91,7 @@ under the License.
         <log level="info" message="=============createInvFrmShipmentOutMap===========${createInvFrmShipmentOutMap}====="/>
 
         <set field="invoicesCreated" from-field="createInvFrmShipmentOutMap.invoicesCreated"/>
-        <iterate list-name="invoicesCreated" entry-name="invoiceCreated">
+        <iterate list="invoicesCreated" entry="invoiceCreated">
             <entity-one entity-name="Invoice" value-name="invoice">
                 <field-map field-name="invoiceId" from-field="invoiceCreated"/>
             </entity-one>

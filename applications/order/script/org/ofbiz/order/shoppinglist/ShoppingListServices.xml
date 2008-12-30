@@ -35,7 +35,7 @@ under the License.
         </if>
         <check-errors/>
 
-        <make-value value-name="newEntity" entity-name="ShoppingList"/>
+        <make-value value-field="newEntity" entity-name="ShoppingList"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         
         <if-empty field="newEntity.partyId">
@@ -123,7 +123,7 @@ under the License.
             <add-error> <fail-property property="ProductErrorProductNotFound" resource="ProductUiLabels"/> </add-error>
             <check-errors/>
         </if-empty>
-        <make-value value-name="newEntity" entity-name="ShoppingListItem"/>
+        <make-value value-field="newEntity" entity-name="ShoppingListItem"/>
         <set from-field="parameters.shoppingListId" field="newEntity.shoppingListId"/>
         <make-next-seq-id value-name="newEntity" seq-field-name="shoppingListItemSeqId" numeric-padding="5"/>
 
@@ -186,7 +186,7 @@ under the License.
             <condition-expr field-name="shoppingListId" env-name="parameters.shoppingListId" />
         </entity-condition>
 
-        <iterate list-name="shoppingListItemList" entry-name="shoppingListItem">
+        <iterate list="shoppingListItemList" entry="shoppingListItem">
             <if-compare-field field="parameters.productId" to-field="shoppingListItem.productId" operator="equals">
                 <field-to-result field-name="shoppingListItem.shoppingListItemSeqId" result-name="shoppingListItemSeqId" />
                 <return />
@@ -216,7 +216,7 @@ under the License.
         </entity-and>
 
         <set field="totalPrice" type="Double" value="0.0"/>
-        <iterate entry="shoppingListItem" list-name="shoppingListItems">
+        <iterate entry="shoppingListItem" list="shoppingListItems">
             <entity-one entity-name="Product" value-name="product" use-cache="true" auto-field-map="false">
                 <field-map field-name="productId" from-field="shoppingListItem.productId"/>
             </entity-one>
@@ -241,7 +241,7 @@ under the License.
             <field-map field-name="parentShoppingListId" from-field="parameters.shoppingListId"/>
             <field-map field-name="partyId" from-field="userLogin.partyId"/>
         </entity-and>
-        <iterate entry="childshoppingList" list-name="childshoppingLists">
+        <iterate entry="childshoppingList" list="childshoppingLists">
             <map-to-map map-name="calcPriceInBaseMap" to-map-name="calcChildPriceInMap"/>
             <set from-field="childshoppingList.shoppingListId" field="calcChildPriceInMap.shoppingListId"/>
             <call-service service-name="calculateShoppingListDeepTotalPrice" in-map-name="calcChildPriceInMap">
@@ -325,7 +325,7 @@ under the License.
             <condition-expr field-name="orderId" env-name="parameters.orderId" />
             <order-by field-name="orderItemSeqId" />
         </entity-condition>
-        <iterate list-name="orderItemList" entry-name="orderItem">
+        <iterate list="orderItemList" entry="orderItem">
             <if-not-empty field="orderItem.productId">
                 <entity-condition entity-name="ProductAssoc" list-name="compProductAssocList" filter-by-date="true">
                     <condition-list combine="and">
@@ -333,7 +333,7 @@ under the License.
                         <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT" />
                     </condition-list>
                 </entity-condition>
-                <iterate list-name="compProductAssocList" entry-name="compProductAssoc">
+                <iterate list="compProductAssocList" entry="compProductAssoc">
                     <clear-field field-name="shoppingListParameters" />
                     <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
                     <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />
@@ -358,7 +358,7 @@ under the License.
                                 <condition-expr field-name="productAssocTypeId" value="PRODUCT_COMPLEMENT" />
                             </condition-list>
                         </entity-condition>
-                        <iterate list-name="compProductAssocList" entry-name="compProductAssoc">
+                        <iterate list="compProductAssocList" entry="compProductAssoc">
                             <clear-field field-name="shoppingListParameters" />
                             <set field="shoppingListParameters.productId" from-field="compProductAssoc.productIdTo" />
                             <set field="shoppingListParameters.shoppingListId" from-field="shoppingListId" />

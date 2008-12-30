@@ -27,7 +27,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowStamp"/>
         
-        <make-value value-name="newEntity" entity-name="TrackingCode"/>
+        <make-value value-field="newEntity" entity-name="TrackingCode"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -45,7 +45,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowStamp"/>
         
-        <make-value entity-name="TrackingCode" value-name="lookupPKMap"/>
+        <make-value entity-name="TrackingCode" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCode" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -60,7 +60,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteTrackingCode you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="TrackingCode" value-name="lookupPKMap"/>
+        <make-value entity-name="TrackingCode" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCode" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -72,7 +72,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowStamp"/>
         
-        <make-value value-name="newEntity" entity-name="TrackingCodeType"/>
+        <make-value value-field="newEntity" entity-name="TrackingCodeType"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -87,7 +87,7 @@ under the License.
 
         <now-timestamp-to-env env-name="nowStamp"/>
         
-        <make-value entity-name="TrackingCodeType" value-name="lookupPKMap"/>
+        <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeType" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -98,7 +98,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteTrackingCodeType you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <make-value entity-name="TrackingCodeType" value-name="lookupPKMap"/>
+        <make-value entity-name="TrackingCodeType" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeType" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
@@ -106,7 +106,7 @@ under the License.
 
     <simple-method method-name="createTrackingCodeOrder" short-description="Create an TrackingCodeOrder">
         <now-timestamp-to-env env-name="nowStamp"/>
-        <make-value value-name="newEntity" entity-name="TrackingCodeOrder"/>
+        <make-value value-field="newEntity" entity-name="TrackingCodeOrder"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -118,7 +118,7 @@ under the License.
     <simple-method method-name="updateTrackingCodeOrder" short-description="Update an TrackingCodeOrder">
         <now-timestamp-to-env env-name="nowStamp"/>
         
-        <make-value entity-name="TrackingCodeOrder" value-name="lookupPKMap"/>
+        <make-value entity-name="TrackingCodeOrder" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrder" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -132,7 +132,7 @@ under the License.
     <!-- add service for tracking code return -->
     <simple-method method-name="createTrackingCodeOrderReturn" short-description="Create an TrackingCodeOrderReturn">
         <now-timestamp-to-env env-name="nowStamp"/>
-        <make-value value-name="newEntity" entity-name="TrackingCodeOrderReturn"/>
+        <make-value value-field="newEntity" entity-name="TrackingCodeOrderReturn"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         
@@ -148,7 +148,7 @@ under the License.
             <find-by-primary-key entity-name="ReturnHeader" value-name="returnHeader" map-name="returnHeaderFindContext"/>
             <get-related list-name="returnItems" relation-name="ReturnItem" value-name="returnHeader"/>
             <log level="info" message="Return items lists are : ${returnItems}"/> 
-            <iterate list-name="returnItems" entry-name="returnItem">
+            <iterate list="returnItems" entry="returnItem">
                 <get-related-one relation-name="OrderHeader" value-name="returnItem" to-value-name="orderHeader"/>    
                 <set field="trackingCodeOrderFindContext.orderId" from-field="orderHeader.orderId"/>
                 <!-- set field="trackingCodeOrderFindContext.trackingCodeTypeId" value="PARTNER_MGD"/-->
@@ -172,7 +172,7 @@ under the License.
     <simple-method method-name="updateTrackingCodeOrderReturn" short-description="update an TrackingCodeOrderReturn">
         <now-timestamp-to-env env-name="nowStamp"/>
         
-        <make-value entity-name="TrackingCodeOrderReturn" value-name="lookupPKMap"/>
+        <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrderReturn" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <set-nonpk-fields map-name="parameters" value-name="lookedUpValue"/>
@@ -183,7 +183,7 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>    
     <simple-method method-name="deleteTrackingCodeOrderReturn" short-description="delete an TrackingCodeOrderReturn">
-        <make-value entity-name="TrackingCodeOrderReturn" value-name="lookupPKMap"/>
+        <make-value entity-name="TrackingCodeOrderReturn" value-field="lookupPKMap"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="TrackingCodeOrderReturn" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>

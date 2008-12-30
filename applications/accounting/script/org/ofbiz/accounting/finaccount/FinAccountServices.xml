@@ -35,7 +35,7 @@ under the License.
             <set field="parameters.statusId" value="FNACT_ACTIVE"/>
         </if-empty>
         
-        <make-value value-name="newEntity" entity-name="FinAccount"/>
+        <make-value value-field="newEntity" entity-name="FinAccount"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
 
@@ -151,7 +151,7 @@ under the License.
             <store-value value-name="oldFinAccountStatus"/>
         </if-not-empty>
         
-        <make-value entity-name="FinAccountStatus" value-name="newEntity"/>
+        <make-value entity-name="FinAccountStatus" value-field="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set field="newEntity.statusDate" from-field="nowTimestamp"/>
@@ -162,7 +162,7 @@ under the License.
     <simple-method method-name="createFinAccountTrans" short-description="Create a Financial Account Transaction">
         <call-simple-method method-name="getArithmeticSettingsInline"/>
         
-        <make-value value-name="newEntity" entity-name="FinAccountTrans"/>
+        <make-value value-field="newEntity" entity-name="FinAccountTrans"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
         <sequenced-id-to-env sequence-name="FinAccountTrans" env-name="newEntity.finAccountTransId"/>
 
@@ -191,7 +191,7 @@ under the License.
 
     <!-- FinAccountRole Services -->    
     <simple-method method-name="createFinAccountRole" short-description="Create a Financial Account Role">
-        <make-value value-name="newEntity" entity-name="FinAccountRole"/>
+        <make-value value-field="newEntity" entity-name="FinAccountRole"/>
         <set-pk-fields value-name="newEntity" map-name="parameters"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
 
@@ -215,7 +215,7 @@ under the License.
     <simple-method method-name="createFinAccountAuth" short-description="Create a Financial Account Authorization">
         <call-simple-method method-name="getArithmeticSettingsInline"/>
         
-        <make-value value-name="newEntity" entity-name="FinAccountAuth"/>
+        <make-value value-field="newEntity" entity-name="FinAccountAuth"/>
         <set-nonpk-fields value-name="newEntity" map-name="parameters"/>
 
         <sequenced-id-to-env sequence-name="FinAccountAuth" env-name="newEntity.finAccountAuthId"/>
@@ -284,7 +284,7 @@ under the License.
             <condition-expr field-name="finAccountId" env-name="finAccountId"/>
         </entity-condition>
         <set field="actualBalanceSum" value="0" type="BigDecimal"/>
-        <iterate entry="finAccountTrans" list-name="finAccountTransList">
+        <iterate entry="finAccountTrans" list="finAccountTransList">
             <if>
                 <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
                 <then><set field="amountForCalc" from-field="finAccountTrans.amount"/></then>
@@ -309,7 +309,7 @@ under the License.
         <entity-condition entity-name="FinAccountAuth" list-name="finAccountAuthList" filter-by-date="true">
             <condition-expr field-name="finAccountId" env-name="finAccountId"/>
         </entity-condition>
-        <iterate entry="finAccountAuth" list-name="finAccountAuthList">
+        <iterate entry="finAccountAuth" list="finAccountAuthList">
             <calculate field-name="availableBalanceSum" type="BigDecimal" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="add" field-name="availableBalanceSum">
                     <calcop operator="negative" field-name="finAccountAuth.amount"/>
@@ -327,7 +327,7 @@ under the License.
     
     <!-- FinAccountTypeGlAccount methods -->
     <simple-method method-name="createFinAccountTypeGlAccount" short-description="Create an FinAccountTypeGlAccount">
-        <make-value value-name="newEntity" entity-name="FinAccountTypeGlAccount"/>
+        <make-value value-field="newEntity" entity-name="FinAccountTypeGlAccount"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
@@ -346,7 +346,7 @@ under the License.
     
     <!-- VarianceReasonGlAccount methods -->
     <simple-method method-name="createVarianceReasonGlAccount" short-description="Create a Variance Reason Gl Account">
-        <make-value entity-name="VarianceReasonGlAccount" value-name="newEntity" />
+        <make-value entity-name="VarianceReasonGlAccount" value-field="newEntity" />
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>

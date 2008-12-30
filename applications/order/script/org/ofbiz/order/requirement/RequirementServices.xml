@@ -21,7 +21,7 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="createRequirement" short-description="Create a new requirement">
-        <make-value value-name="newEntity" entity-name="Requirement"/>
+        <make-value value-field="newEntity" entity-name="Requirement"/>
         <sequenced-id-to-env sequence-name="Requirement" env-name="requirementId"/>
         <to-string field-name="requirementId"/>
         <set from-field="requirementId" field="newEntity.requirementId"/>
@@ -36,7 +36,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="updateRequirement" short-description="Update a requirement">
-        <make-value value-name="lookupPKMap" entity-name="Requirement"/>
+        <make-value value-field="lookupPKMap" entity-name="Requirement"/>
         <set-pk-fields map-name="parameters" value-name="lookupPKMap"/>
         <find-by-primary-key entity-name="Requirement" map-name="lookupPKMap" value-name="lookedUpValue"/>
         <clone-value value-name="lookedUpValue" new-value-name="savedValue"/>
@@ -53,14 +53,14 @@ under the License.
     </simple-method>
 
     <simple-method method-name="associateRequirementWithRequestItem" short-description="Associate a requirement and CustRequestItem">
-        <make-value value-name="newEntity" entity-name="RequirementCustRequest"/>
+        <make-value value-field="newEntity" entity-name="RequirementCustRequest"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
 	
     <simple-method method-name="addTaskToRequirement" short-description="Add a task to a requirement">
-        <make-value value-name="newEntity" entity-name="WorkRequirementFulfillment"/>
+        <make-value value-field="newEntity" entity-name="WorkRequirementFulfillment"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <create-value value-name="newEntity"/>
     </simple-method>
@@ -81,7 +81,7 @@ under the License.
                 <filter-list-by-date list-name="supplierProducts" valid-date-name="requirement.requiredByDate" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
                 <first-from-list list="supplierProducts" entry="supplierProduct"/>
                 <if-not-empty field="supplierProduct.partyId">
-                    <make-value value-name="requirementSupplier" entity-name="RequirementRole"/>
+                    <make-value value-field="requirementSupplier" entity-name="RequirementRole"/>
                     <set field="requirementSupplier.requirementId" from-field="requirement.requirementId"/>
                     <set field="requirementSupplier.partyId" from-field="supplierProduct.partyId"/>
                     <set field="requirementSupplier.roleTypeId" value="SUPPLIER"/>
@@ -102,12 +102,12 @@ under the License.
         <set from-field="parameters.roleTypeId" field="lookupPKMap.roleTypeId"/>
         <find-by-primary-key entity-name="PartyRole" map-name="lookupPKMap" value-name="partyRole"/>
         <if-empty field="partyRole.partyId">
-            <make-value value-name="partyRole" entity-name="PartyRole"/>
+            <make-value value-field="partyRole" entity-name="PartyRole"/>
             <set-pk-fields map-name="lookupPKMap" value-name="partyRole"/>
             <create-value value-name="partyRole"/>
         </if-empty>
         <!-- create new entity and create all the fields -->
-        <make-value value-name="newEntity" entity-name="RequirementRole"/>
+        <make-value value-field="newEntity" entity-name="RequirementRole"/>
         <set-pk-fields map-name="parameters" value-name="newEntity"/>
         <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
