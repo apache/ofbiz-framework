@@ -375,7 +375,7 @@ under the License.
             <set field="newProductCategoryMember.productCategoryId" from-field="parameters.productCategoryIdTo"/>
             <field-to-list field-name="newProductCategoryMember" list-name="pcmsToStore"/>
         </iterate>
-        <store-list list-name="pcmsToStore"/>
+        <store-list list="pcmsToStore"/>
 
         <if-compare field="parameters.recurse" operator="equals" value="Y">
             <!-- call this service for each sub-category in the rollup with the same productCategoryIdTo -->
@@ -427,7 +427,7 @@ under the License.
             <set field="newCategoryEntity.productCategoryId" from-field="productCategoryIdTo"/>
             <field-to-list field-name="newCategoryEntity" list-name="entitiesToStore"/>
         </iterate>
-        <store-list list-name="entitiesToStore"/>
+        <store-list list="entitiesToStore"/>
       </simple-method>
 
     <simple-method method-name="expireAllCategoryProductMembers" short-description="Remove ProductCategory From Category">
