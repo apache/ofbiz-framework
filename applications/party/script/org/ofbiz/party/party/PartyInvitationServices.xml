@@ -46,7 +46,7 @@ under the License.
             <set field="parameters.toName" value="${person.firstName} ${person.middleName} ${person.lastName}"/>
         </if-not-empty>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deletePartyInvitation" short-description="Remove a PartyInvitation">
         <entity-one entity-name="PartyInvitation" value-field="lookedUpValue"/>

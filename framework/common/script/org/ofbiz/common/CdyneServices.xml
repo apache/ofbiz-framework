@@ -57,7 +57,7 @@ under the License.
                 <if-not-empty field="countyGeo">
                     <!-- We found a county, now just save off the ID -->
                     <set field="postalAddress.countyGeoId" from-field="countyGeo.geoId"/>
-                    <store-value value-name="postalAddress"/>
+                    <store-value value-field="postalAddress"/>
                 </if-not-empty>
             </then>
         </if>

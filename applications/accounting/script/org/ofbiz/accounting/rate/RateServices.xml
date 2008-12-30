@@ -96,7 +96,7 @@ under the License.
 
         <if-not-empty field="rateAmount">
             <now-timestamp-to-env env-name="rateAmount.thruDate"/>
-            <store-value value-name="rateAmount"/>
+            <store-value value-field="rateAmount"/>
             <else>
                 <add-error><fail-message message="could not find record to be deleted"/></add-error>
             </else>
@@ -304,7 +304,7 @@ under the License.
         <if-not-empty field="partyRates">
             <first-from-list entry="partyRate" list="partyRates"/>
             <now-timestamp-to-env env-name="partyRate.thruDate"/>
-            <store-value value-name="partyRate"/>
+            <store-value value-field="partyRate"/>
         </if-not-empty>
 
         <make-value value-field="newEntity" entity-name="PartyRate"/>
@@ -332,7 +332,7 @@ under the License.
             <if-not-empty field="rates">
                 <first-from-list entry="rate" list="rates"/>
                 <set field="rate.defaultRate" value="N"/>
-                <store-value value-name="rate"/>
+                <store-value value-field="rate"/>
             </if-not-empty>
         </if-compare>
     </simple-method>
@@ -343,7 +343,7 @@ under the License.
         
         <entity-one entity-name="PartyRate" value-field="lookedUpValue"/>
         <now-timestamp-to-env env-name="lookedUpValue.thruDate"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
         
         <set-service-fields service-name="deleteRateAmount" map="parameters" to-map="delRateAmount"/>
         <set field="delRateAmount.fromDate" from-field="parameters.rateAmountFromDate"/>

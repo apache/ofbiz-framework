@@ -43,7 +43,7 @@ under the License.
     <simple-method method-name="updateOagisMessageInfo" short-description="Update Oagis MessageInfo">
         <entity-one entity-name="OagisMessageInfo" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createOagisMessageErrorInfo" short-description="Create MessageErrorInfo">
@@ -57,7 +57,7 @@ under the License.
     <simple-method method-name="updateOagisMessageErrorInfo" short-description="Update Oagis MessageErrorInfo">
         <entity-one entity-name="OagisMessageErrorInfo" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
-        <store-value value-name="lookedUpValue"/>
+        <store-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="createOagisMsgErrInfosFromErrMapList" short-description="Create MessageErrorInfo From Error Map List">

@@ -172,7 +172,7 @@ under the License.
                 </calcop>
             </calculate>
 
-            <store-value value-name="fact"/>
+            <store-value value-field="fact"/>
         </if-compare>
     </simple-method>
 </simple-methods>

@@ -389,7 +389,7 @@ under the License.
                 ]]></call-bsh>
             </if-empty>
             <set from-field="parameters.CLUB_NUMBER" field="personVo.memberId"/>
-            <store-value value-name="personVo"/>
+            <store-value value-field="personVo"/>
         </if-not-empty>
 
         <!-- now finished, log in the user and set the cart's partyId to that of the newly created customer ... -->
@@ -1383,7 +1383,7 @@ under the License.
             </if-not-empty>
             <set field="loggedInUser.disabledDateTime" from-field="disabledDateTime"/>
             <set field="loggedInUser.enabled" value="N"/>
-            <store-value value-name="loggedInUser"/>
+            <store-value value-field="loggedInUser"/>
         </if-compare-field>
     </simple-method>
 </simple-methods>

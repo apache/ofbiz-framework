@@ -90,7 +90,7 @@ under the License.
         <now-timestamp-to-env env-name="newFacilityContactMech.fromDate"/>
         <now-timestamp-to-env env-name="facilityContactMech.thruDate"/>
 
-        <store-value value-name="facilityContactMech"/>
+        <store-value value-field="facilityContactMech"/>
         <create-value value-field="newFacilityContactMech"/>
 
         <if-compare-field to-field="newFacilityContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
@@ -99,7 +99,7 @@ under the License.
                 <clone-value value-name="facilityContactMechPurposeOld" new-value-name="facilityContactMechPurpose"/>
 
                 <now-timestamp-to-env env-name="facilityContactMechPurposeOld.thruDate"/>
-                <store-value value-name="facilityContactMechPurposeOld"/>
+                <store-value value-field="facilityContactMechPurposeOld"/>
 
                 <set field="facilityContactMechPurpose.contactMechId" from-field="newFacilityContactMech.contactMechId"/>
                 <set field="purposeMap.facilityId" from-field="facilityContactMechPurpose.facilityId"/>
@@ -137,7 +137,7 @@ under the License.
             <return/>
         </if-empty>
         <now-timestamp-to-env env-name="facilityContactMech.thruDate"/>
-        <store-value value-name="facilityContactMech"/>
+        <store-value value-field="facilityContactMech"/>
 
     </simple-method>
 
@@ -324,6 +324,6 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set field="purposeEntity.thruDate" from-field="nowTimestamp" />
 
-        <store-value value-name="purposeEntity"/>
+        <store-value value-field="purposeEntity"/>
     </simple-method>
 </simple-methods>

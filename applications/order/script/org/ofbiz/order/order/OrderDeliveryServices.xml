@@ -67,7 +67,7 @@ under the License.
         </if-has-permission>
         
         <!-- Update the actual schedule -->
-        <store-value value-name="schedule"/>
+        <store-value value-field="schedule"/>
     </simple-method>
     <simple-method method-name="sendOrderDeliveryScheduleNotification" short-description="Send Order Delivery Schedule Notification">
         <set value="sendOrderDeliveryScheduleNotification" field="callingMethodName"/>

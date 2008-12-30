@@ -51,7 +51,7 @@ under the License.
                     </iterate>
                     <!-- now that the issuance is done, set the needsInventoryIssuance=N -->
                     <set field="orderHeader.needsInventoryIssuance" value="N" />
-                    <store-value value-name="orderHeader"/>
+                    <store-value value-field="orderHeader"/>
                     <log level="info" message="Issued inventory for orderId ${orderHeader.orderId}."/>
                 <else>
                     <log level="info" message="Not issuing inventory for orderId ${orderHeader.orderId}, no inventory information available."/>
