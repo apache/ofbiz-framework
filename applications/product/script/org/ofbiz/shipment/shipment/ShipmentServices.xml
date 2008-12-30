@@ -39,9 +39,9 @@ under the License.
         <field-to-result field="newEntity.shipmentId" result-name="shipmentId"/>
 
         <!-- set the created and lastModified info -->
-        <now-timestamp-to-env env-name="newEntity.createdDate"/>
+        <now-timestamp field="newEntity.createdDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
-        <now-timestamp-to-env env-name="newEntity.lastModifiedDate"/>
+        <now-timestamp field="newEntity.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="newEntity.lastModifiedByUserLogin"/>
 
         <!-- if needed create some WorkEfforts and remember their IDs:
@@ -98,7 +98,7 @@ under the License.
             <make-value entity-name="ShipmentStatus" value-field="newStatusValue"/>
             <set from-field="newEntity.statusId" field="newStatusValue.statusId"/>
             <set from-field="newEntity.shipmentId" field="newStatusValue.shipmentId"/>
-            <now-timestamp-to-env env-name="newStatusValue.statusDate"/>
+            <now-timestamp field="newStatusValue.statusDate"/>
             <create-value value-field="newStatusValue"/>
         </if-not-empty>
     </simple-method>
@@ -130,7 +130,7 @@ under the License.
                 <make-value entity-name="ShipmentStatus" value-field="newStatusValue"/>
                 <set from-field="parameters.statusId" field="newStatusValue.statusId"/>
                 <set from-field="parameters.shipmentId" field="newStatusValue.shipmentId"/>
-                <now-timestamp-to-env env-name="newStatusValue.statusDate"/>
+                <now-timestamp field="newStatusValue.statusDate"/>
                 <create-value value-field="newStatusValue"/>
             </if-compare-field>
         </if-not-empty>
@@ -239,7 +239,7 @@ under the License.
 
         <!-- now that all changes have been checked, set the nonpks -->
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
-        <now-timestamp-to-env env-name="lookedUpValue.lastModifiedDate"/>
+        <now-timestamp field="lookedUpValue.lastModifiedDate"/>
         <set from-field="userLogin.userLoginId" field="lookedUpValue.lastModifiedByUserLogin"/>
         <field-to-result field="lookedUpValue.shipmentId" result-name="shipmentId"/>
         <store-value value-name="lookedUpValue"/>
@@ -923,7 +923,7 @@ under the License.
         <make-next-seq-id value-name="newEntity" seq-field-name="shipmentPackageSeqId"/>
         <field-to-result field="shipmentPackageSeqId" map-name="newEntity" result-name="shipmentPackageSeqId"/>
 
-        <now-timestamp-to-env env-name="newEntity.dateCreated"/>
+        <now-timestamp field="newEntity.dateCreated"/>
 
         <create-value value-field="newEntity"/>
 
@@ -1176,7 +1176,7 @@ under the License.
 
 
         <set from-field="userLogin.userLoginId" field="lookedUpValue.updatedByUserLoginId"/>
-        <now-timestamp-to-env env-name="lookedUpValue.lastUpdatedDate"/>
+        <now-timestamp field="lookedUpValue.lastUpdatedDate"/>
         <store-value value-name="lookedUpValue"/>
 
         <set from-field="lookedUpValue.shipmentId" field="shipmentId"/>

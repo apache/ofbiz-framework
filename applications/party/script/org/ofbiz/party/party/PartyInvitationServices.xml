@@ -32,7 +32,7 @@ under the License.
             </entity-one>
             <set field="parameters.toName" value="${person.firstName} ${person.middleName} ${person.lastName}"/>
         </if-not-empty>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set from-field="nowTimestamp" field="newEntity.lastInviteDate"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>

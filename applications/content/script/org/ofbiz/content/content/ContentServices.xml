@@ -42,7 +42,7 @@
             <set field="content.statusId" from-field="statusItem.statusId"/>
         </if-empty>
 
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="content.createdByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
@@ -56,7 +56,7 @@
         <entity-one entity-name="Content" value-field="content" auto-field-map="true"/>
         <set-nonpk-fields value-field="content" map="parameters"/>
 
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
 
@@ -78,7 +78,7 @@
         <set-pk-fields value-field="assoc" map="parameters"/>
         <set field="assoc.contentId" from-field="parameters.contentIdFrom" default-value="${parameters.contentId}" />
 
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <if-empty field="assoc.fromDate">
             <set field="assoc.fromDate" from-field="nowTimestamp"/>
         </if-empty>
@@ -97,7 +97,7 @@
         <entity-one entity-name="ContentAssoc" value-field="assoc" auto-field-map="true"/>
         <set-nonpk-fields value-field="assoc" map="parameters"/>
 
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <set field="content.lastModifiedByUserLogin" from-field="userLogin.userLoginId"/>
         <set field="content.lastModifiedDate" from-field="nowTimestamp"/>
 
@@ -213,7 +213,7 @@
             <now-timestamp-to-env                           env-name="newContentAssoc.lastModifiedDate"/>
             
             <if-empty field="parameters.fromDate">
-                <now-timestamp-to-env env-name="parameters.fromDate"/>
+                <now-timestamp field="parameters.fromDate"/>
                 <to-string map-name="parameters" field-name="fromDate" />
             </if-empty>
             <set from-field="parameters.fromDate" field="newContentAssoc.fromDate"/>
@@ -249,7 +249,7 @@
     <!-- Methods for ContentRole -->
     <simple-method method-name="createContentRole" short-description="Create Content Role">
         <if-empty field="parameters.fromDate">
-            <now-timestamp-to-env env-name="parameters.fromDate"/>
+            <now-timestamp field="parameters.fromDate"/>
         </if-empty>
         <make-value value-field="partyRolePK" entity-name="PartyRole"/>
         <set-pk-fields value-field="partyRolePK" map="parameters"/>
@@ -284,7 +284,7 @@
         <find-by-and entity-name="ContentRole" map-name="lookupKeyValue" list-name="roleList"/>
         <iterate entry="contentRoleMap" list="roleList">
             <make-value entity-name="ContentRole" value-field="role" map-name="contentRoleMap"/>
-            <now-timestamp-to-env env-name="role.thruDate"/>
+            <now-timestamp field="role.thruDate"/>
             <store-value value-field="role"/>
         </iterate>
     </simple-method>
@@ -721,8 +721,8 @@
         <set from-field="parameters.newTopicDescription" field="content.description" />
         <set value="TOPIC" field="content.contentTypeId" />
         
-        <now-timestamp-to-env env-name="content.lastModifiedDate"/>
-        <now-timestamp-to-env env-name="content.createdDate"/>
+        <now-timestamp field="content.lastModifiedDate"/>
+        <now-timestamp field="content.createdDate"/>
         <set from-field="parameters.userLogin.userLoginId" field="content.lastModifiedByUserLogin"/>
         <set from-field="parameters.userLogin.userLoginId" field="content.createdByUserLogin"/>
 
@@ -777,7 +777,7 @@
         <check-errors/>
 			-->
 		
-		<now-timestamp-to-env env-name="nowTimestamp"/>
+		<now-timestamp field="nowTimestamp"/>
 		<set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
 		<!-- let's take a guess at what the dataResourceTypeId should be if it is empty -->
 		<if-empty field="persistIn.dataResourceTypeId">
@@ -844,7 +844,7 @@
 		<set-pk-fields value-field="commEventContentAssoc" map="parameters"/>
 		<set-nonpk-fields value-field="commEventContentAssoc" map="parameters"/>
 		<if-empty field="commEventContentAssoc.fromDate">
-			<now-timestamp-to-env env-name="commEventContentAssoc.fromDate"/>
+			<now-timestamp field="commEventContentAssoc.fromDate"/>
 		</if-empty>
 		<create-value value-field="commEventContentAssoc" />
 		<field-to-result field="commEventContentAssoc.fromDate" result-name="fromDate"/>

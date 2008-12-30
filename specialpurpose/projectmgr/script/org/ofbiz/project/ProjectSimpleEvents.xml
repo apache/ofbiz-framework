@@ -127,7 +127,7 @@
             </else>        
         </if-empty>
         <set field="context.workEffortContentTypeId" from-field="formInput.formInput.workEffortContentTypeId"/>
-        <now-timestamp-to-env env-name="context.fromDate"/>
+        <now-timestamp field="context.fromDate"/>
         <call-map-processor in-map-name="context" out-map-name="workEffortContext">
             <simple-map-processor name="newWorkEffortContent">
                 <process field="workEffortContentTypeId"><copy to-field="workEffortContentTypeId"/></process>

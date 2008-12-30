@@ -27,7 +27,7 @@ under the License.
         <sequenced-id sequence-name="CostComponent" field="newEntity.costComponentId"/>
         <field-to-result field="costComponentId" map-name="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+            <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
         <create-value value-field="newEntity"/>
     </simple-method>
@@ -48,7 +48,7 @@ under the License.
         <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="existingCosts"/>
         <filter-list-by-date list-name="existingCosts"/>
         <iterate list="existingCosts" entry="existingCost">
-            <now-timestamp-to-env env-name="existingCost.thruDate"/>
+            <now-timestamp field="existingCost.thruDate"/>
             <store-value value-field="existingCost"/>
         </iterate>
     </simple-method>
@@ -60,7 +60,7 @@ under the License.
         <find-by-and entity-name="CostComponent" map-name="costsAndMap" list-name="existingCosts"/>
         <filter-list-by-date list-name="existingCosts"/>
         <iterate list="existingCosts" entry="existingCost">
-            <now-timestamp-to-env env-name="existingCost.thruDate"/>
+            <now-timestamp field="existingCost.thruDate"/>
             <store-value value-field="existingCost"/>
         </iterate>
         <!-- The new cost is created -->
@@ -68,7 +68,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <sequenced-id sequence-name="CostComponent" field="newEntity.costComponentId"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+            <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
         <create-value value-field="newEntity"/>
         <field-to-result field="newEntity.costComponentId" result-name="costComponentId"/>

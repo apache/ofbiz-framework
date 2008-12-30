@@ -138,7 +138,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="createFinAccountStatus" short-description="Create FinAccountStatus">
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         
         <!-- find the most recent status record and set the statusEndDate -->
         <entity-and entity-name="FinAccountStatus" list="oldFinAccountStatusList">
@@ -166,7 +166,7 @@ under the License.
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
         <sequenced-id sequence-name="FinAccountTrans" field="newEntity.finAccountTransId"/>
 
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <if-empty field="newEntity.transactionDate">
             <set from-field="nowTimestamp" field="newEntity.transactionDate"/>
         </if-empty>
@@ -196,7 +196,7 @@ under the License.
         <set-nonpk-fields value-field="newEntity" map="parameters"/>
 
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="newEntity.fromDate"/>
+            <now-timestamp field="newEntity.fromDate"/>
         </if-empty>
 
         <create-value value-field="newEntity"/>
@@ -220,7 +220,7 @@ under the License.
 
         <sequenced-id sequence-name="FinAccountAuth" field="newEntity.finAccountAuthId"/>
         
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
         <if-empty field="newEntity.authorizationDate">
             <set from-field="nowTimestamp" field="newEntity.authorizationDate"/>
         </if-empty>
@@ -243,7 +243,7 @@ under the License.
     <simple-method method-name="expireFinAccountAuth" short-description="Expire a Financial Account Authorization">
         <entity-one entity-name="FinAccountAuth" value-field="finAccountAuth"/>
         <if-empty field="parameters.expireDateTime">
-            <now-timestamp-to-env env-name="finAccountAuth.thruDate"/>
+            <now-timestamp field="finAccountAuth.thruDate"/>
         <else>
             <set from-field="parameters.expireDatetime" field="finAccountAuth.thruDate"/>
         </else>

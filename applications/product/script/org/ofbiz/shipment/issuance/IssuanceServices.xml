@@ -33,7 +33,7 @@ under the License.
         <sequenced-id sequence-name="ItemIssuance" field="newEntity.itemIssuanceId"/>
         <field-to-result field="itemIssuanceId" map-name="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
-        <now-timestamp-to-env env-name="newEntity.issuedDateTime"/>
+        <now-timestamp field="newEntity.issuedDateTime"/>
 
         <create-value value-field="newEntity"/>
 

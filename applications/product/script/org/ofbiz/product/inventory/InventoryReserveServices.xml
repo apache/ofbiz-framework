@@ -34,7 +34,7 @@ under the License.
         -->
 
         <log level="verbose" message="Parameters : ${parameters}"/>
-        <now-timestamp-to-env env-name="nowTimestamp"/>
+        <now-timestamp field="nowTimestamp"/>
 
         <!-- check the product; make sure its a physical item -->
         <entity-one entity-name="Product" value-field="product"/>
@@ -496,7 +496,7 @@ under the License.
             <make-value entity-name="OrderItemShipGrpInvRes" value-field="newOisgirEntity"/>
             <set-pk-fields map="parameters" value-field="newOisgirEntity"/>
             <set-nonpk-fields map="parameters" value-field="newOisgirEntity"/>
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <set from-field="nowTimestamp" field="newOisgirEntity.createdDatetime"/>
             <if-empty field="newOisgirEntity.reservedDatetime">
                 <set from-field="nowTimestamp" field="newOisgirEntity.reservedDatetime"/>

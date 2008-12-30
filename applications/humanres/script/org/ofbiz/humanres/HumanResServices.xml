@@ -26,7 +26,7 @@
         <make-value entity-name="PartyQual" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
@@ -147,7 +147,7 @@
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
         <create-value value-field="newEntity"/>
@@ -169,7 +169,7 @@
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
         <create-value value-field="newEntity"/>
@@ -192,7 +192,7 @@
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
         <create-value value-field="newEntity"/>
@@ -236,7 +236,7 @@
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
         <create-value value-field="newEntity"/>
@@ -249,7 +249,7 @@
     </simple-method>
         
     <simple-method method-name="deletePartyBenefit" short-description="Delete Party Benefit">
-        <now-timestamp-to-env env-name="nowTimeStamp"/>
+        <now-timestamp field="nowTimeStamp"/>
         <entity-one entity-name="PartyBenefit" value-field="lookedUpValue"/>        
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
         <store-value value-name="lookedUpValue"/>
@@ -285,7 +285,7 @@
         <set-pk-fields value-field="newEntity" map="parameters"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>        
         <create-value value-field="newEntity"/>
@@ -298,7 +298,7 @@
     </simple-method>
         
     <simple-method method-name="deletePayHistory" short-description="Delete Pay History">
-        <now-timestamp-to-env env-name="nowTimeStamp"/>
+        <now-timestamp field="nowTimeStamp"/>
         <entity-one entity-name="PayHistory" value-field="lookedUpValue"/>
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
         <store-value value-name="lookedUpValue"/>
@@ -379,7 +379,7 @@
     </simple-method>
     
     <simple-method method-name="deleteUnemploymentClaim" short-description="Delete Unemployment Claim">
-        <now-timestamp-to-env env-name="nowTimeStamp"/>
+        <now-timestamp field="nowTimeStamp"/>
         <entity-one entity-name="UnemploymentClaim" value-field="lookedUpValue"/>   
         <set field="lookedUpValue.thruDate" from-field="nowTimeStamp"/>
         <store-value value-name="lookedUpValue"/>
@@ -410,7 +410,7 @@
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
         <create-value value-field="newEntity"/>        
@@ -432,7 +432,7 @@
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
         <if>
@@ -467,7 +467,7 @@
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
         <create-value value-field="newEntity"/>        
@@ -489,7 +489,7 @@
         <set-pk-fields map="parameters" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <if-empty field="newEntity.fromDate">
-            <now-timestamp-to-env env-name="nowTimeStamp"/>
+            <now-timestamp field="nowTimeStamp"/>
             <set field="newEntity.fromDate" from-field="nowTimeStamp"/>
         </if-empty>
         <create-value value-field="newEntity"/>        
@@ -536,7 +536,7 @@
             <set field="partyRelationshipCtx.roleTypeIdTo" value="EMPLOYEE"/>
             <set field="partyRelationshipCtx.relationshipName" value="EMPLOYMENT"/>
             <set field="partyRelationshipCtx.fromDate" from-field="parameters.fromDate"/>
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <if-empty field="partyRelationshipCtx.fromDate">
                 <set field="partyRelationshipCtx.fromDate" from-field="nowTimestamp"/>
             </if-empty>
@@ -614,13 +614,13 @@
         </entity-and>
         <if-not-empty field="emplPositionTypeRates">
             <first-from-list entry="emplPositionTypeRate" list="emplPositionTypeRates"/>
-            <now-timestamp-to-env env-name="emplPositionTypeRate.thruDate"/>
+            <now-timestamp field="emplPositionTypeRate.thruDate"/>
             <store-value value-name="emplPositionTypeRate"/>
         </if-not-empty>
         
         <make-value value-field="newEntity" entity-name="EmplPositionTypeRate"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <if-empty field="newEntity.fromDate"><now-timestamp-to-env env-name="newEntity.fromDate"/></if-empty>
+        <if-empty field="newEntity.fromDate"><now-timestamp field="newEntity.fromDate"/></if-empty>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
         
@@ -632,7 +632,7 @@
     
     <simple-method method-name="deleteEmplPositionTypeRate" short-description="Delete EmplPositionTypeRate">
         <entity-one entity-name="EmplPositionTypeRate" value-field="lookedUpValue"/>
-        <now-timestamp-to-env env-name="lookedUpValue.thruDate"/>
+        <now-timestamp field="lookedUpValue.thruDate"/>
         <store-value value-name="lookedUpValue"/>
         
         <set-service-fields service-name="deleteRateAmount" map="parameters" to-map="delRateAmount"/>

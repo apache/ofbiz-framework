@@ -299,7 +299,7 @@ under the License.
         
         <first-from-list list="emailAddressVerifications" entry="emailAddressVerification"/>
         <if-not-empty field="emailAddressVerification">
-            <now-timestamp-to-env env-name="nowTimestamp"/>
+            <now-timestamp field="nowTimestamp"/>
             <if-compare-field field="emailAddressVerification.expireDate" to-field="nowTimestamp" operator="less">
                  <add-error><fail-property resource="PartyUiLabels" property="PartyEmailAddressVerificationExpired"/></add-error>
             </if-compare-field>

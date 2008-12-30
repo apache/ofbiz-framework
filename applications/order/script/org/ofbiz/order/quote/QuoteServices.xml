@@ -661,7 +661,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
 
         <sequenced-id sequence-name="QuoteAdjustment" field="quoteAdjustmentId"/>
-        <now-timestamp-to-env env-name="newEntity.createdDate"/>
+        <now-timestamp field="newEntity.createdDate"/>
         <set from-field="quoteAdjustmentId" field="newEntity.quoteAdjustmentId"/>
         <set from-field="userLogin.userLoginId" field="newEntity.createdByUserLogin"/>
         <field-to-result field="quoteAdjustmentId" result-name="quoteAdjustmentId"/>
