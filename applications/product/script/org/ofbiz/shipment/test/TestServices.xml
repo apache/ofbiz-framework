@@ -176,7 +176,7 @@ under the License.
             <condition-expr field-name="inventoryItemId" env-name="inventoryItemId"/>
             <order-by field-name="datetimeReceived"/>
         </entity-condition>
-        <first-from-list list-name="shipmentReceipts" entry-name="shipmentReceipt"/>
+        <first-from-list list="shipmentReceipts" entry-name="shipmentReceipt"/>
         <assert>
             <not><if-empty field="inventoryItem"></if-empty></not>
             <not><if-empty field="inventoryItemDetails"></if-empty></not>

@@ -79,7 +79,7 @@ under the License.
                     <order-by field-name="supplierPrefOrderId"/>
                 </entity-condition>
                 <filter-list-by-date list-name="supplierProducts" valid-date-name="requirement.requiredByDate" from-field-name="availableFromDate" thru-field-name="availableThruDate"/>
-                <first-from-list list-name="supplierProducts" entry-name="supplierProduct"/>
+                <first-from-list list="supplierProducts" entry-name="supplierProduct"/>
                 <if-not-empty field="supplierProduct.partyId">
                     <make-value value-name="requirementSupplier" entity-name="RequirementRole"/>
                     <set field="requirementSupplier.requirementId" from-field="requirement.requirementId"/>

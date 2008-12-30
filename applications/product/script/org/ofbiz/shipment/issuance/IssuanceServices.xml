@@ -513,7 +513,7 @@ under the License.
           <field-map field-name="shipmentId" from-field="parameters.shipmentId"/>
           <field-map field-name="shipmentItemSeqId" from-field="parameters.shipmentItemSeqId"/>
         </entity-and>
-        <first-from-list list-name="returnItemShipments" entry-name="returnItemShipment"/>
+        <first-from-list list="returnItemShipments" entry-name="returnItemShipment"/>
         <calculate field-name="quantityNotIssued">
           <calcop operator="subtract" field-name="returnItemShipment.quantity">
               <calcop operator="get" field-name="parameters.totalIssuedQty"/>

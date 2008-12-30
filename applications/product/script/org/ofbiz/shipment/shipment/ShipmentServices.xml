@@ -547,7 +547,7 @@ under the License.
             <if-compare field="shipment.shipmentTypeId" operator="equals" value="PURCHASE_SHIPMENT">
                 <set from-field="shipment.destinationContactMechId" field="facilityLookup.contactMechId"/>
                 <find-by-and entity-name="FacilityContactMech" map-name="facilityLookup" list-name="facilities"/>
-                <first-from-list list-name="facilities" entry-name="destinationFacility"/>
+                <first-from-list list="facilities" entry-name="destinationFacility"/>
                 <set from-field="destinationFacility.facilityId" field="shipment.destinationFacilityId"/>
             </if-compare>
         </if-empty>

@@ -128,7 +128,7 @@
             <field-map field-name="roleTypeIdFrom" value="ACCOUNT_LEAD"/>
             <order-by field-name="-fromDate"/>
         </entity-and>
-        <first-from-list list-name="partyRelationships" entry-name="partyRelationship"/>
+        <first-from-list list="partyRelationships" entry-name="partyRelationship"/>
 
         <if-not-empty field="partyRelationship">
             <set-service-fields service-name="updatePartyRelationship" map-name="partyRelationship" to-map-name="deletePartyRelationship"/>

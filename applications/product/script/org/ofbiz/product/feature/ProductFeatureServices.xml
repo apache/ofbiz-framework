@@ -337,7 +337,7 @@ under the License.
                 </condition-list>
                 <order-by field-name="-fromDate"/>
             </entity-condition>
-            <first-from-list list-name="productFeatureAppls" entry-name="productFeatureAppl"/>
+            <first-from-list list="productFeatureAppls" entry-name="productFeatureAppl"/>
             <set field="newEntity.fromDate" from-field="productFeatureAppl.fromDate"/>
         </if-empty>
         <create-value value-name="newEntity"/>

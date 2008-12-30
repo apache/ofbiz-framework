@@ -36,7 +36,7 @@ under the License.
             <set from-field="parameters.workEffortId" field="lookupRouting.workEffortId"/>
             <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
             <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
-            <first-from-list list-name="routings" entry-name="routingGS"/>
+            <first-from-list list="routings" entry-name="routingGS"/>
             <!-- If the routing is not associated with our product and it's a variant, then 
                  check to see if it's virtual product has the routing -->
             <if-empty field="routingGS">
@@ -46,13 +46,13 @@ under the License.
                         <condition-expr field-name="productAssocTypeId" value="PRODUCT_VARIANT" />
                     </condition-list>
                 </entity-condition>
-                <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc"/>
+                <first-from-list list="virtualProductAssocList" entry-name="virtualProductAssoc"/>
                 <if-not-empty field="virtualProductAssoc">
                     <set from-field="virtualProductAssoc.productId" field="lookupRouting.productId"/>
                     <find-by-and entity-name="WorkEffortGoodStandard" list-name="routings" map-name="lookupRouting"/>
                     <!-- Consider the validity against a date passed as (optional) parameter -->
                     <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
-                    <first-from-list list-name="routings" entry-name="routingGS"/>
+                    <first-from-list list="routings" entry-name="routingGS"/>
                 </if-not-empty>
             </if-empty>
             <!-- No workEffortId has been passed, so retrieve the first routing found for this product-->
@@ -61,7 +61,7 @@ under the License.
                 <!-- Consider the validity against a date passed as (optional) parameter -->
                 <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
                 <!-- TODO: we should consider the quantity to select the best routing -->
-                <first-from-list list-name="routings" entry-name="routingGS"/>
+                <first-from-list list="routings" entry-name="routingGS"/>
                 <!-- If there are no routings associated with our product and it's a variant, then 
                      check to see if it's virtual product has a routing -->
                 <if-empty field="routingGS">
@@ -72,7 +72,7 @@ under the License.
                         </condition-list>
                     </entity-condition>
                     <filter-list-by-date list-name="virtualProductAssocList" valid-date-name="filterDate"/>
-                    <first-from-list list-name="virtualProductAssocList" entry-name="virtualProductAssoc"/>
+                    <first-from-list list="virtualProductAssocList" entry-name="virtualProductAssoc"/>
                     <if-not-empty field="virtualProductAssoc">
                         <set from-field="virtualProductAssoc.productId" field="lookupRouting.productId"/>
                         <set value="ROU_PROD_TEMPLATE" field="lookupRouting.workEffortGoodStdTypeId"/>
@@ -80,7 +80,7 @@ under the License.
                         <!-- Consider the validity against a date passed as (optional) parameter -->
                         <filter-list-by-date list-name="routings" valid-date-name="filterDate"/>
                         <!-- TODO: we should consider the quantity to select the best routing -->
-                        <first-from-list list-name="routings" entry-name="routingGS"/>
+                        <first-from-list list="routings" entry-name="routingGS"/>
                     </if-not-empty>
                 </if-empty>
             </else>

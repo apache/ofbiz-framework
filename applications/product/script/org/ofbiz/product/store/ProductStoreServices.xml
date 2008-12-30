@@ -459,7 +459,7 @@ under the License.
                 
                 <!-- didn't find anything? Take the first facility from list -->
                 <if-empty field="storeFound">
-                    <first-from-list list-name="productStoreFacilities" entry-name="storeFound"/>
+                    <first-from-list list="productStoreFacilities" entry-name="storeFound"/>
                 </if-empty>                
                 <set from-field="storeFound.facilityId" field="facilityId" default-value=""/>
                 <set-service-fields map-name="parameters" to-map-name="callServiceMap" service-name="reserveProductInventoryByFacility"/>

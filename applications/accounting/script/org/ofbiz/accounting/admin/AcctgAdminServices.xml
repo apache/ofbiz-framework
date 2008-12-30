@@ -86,7 +86,7 @@ under the License.
                 </entity-and>
                 
                 <if-not-empty field="parentPartyRelationships">
-                    <first-from-list list-name="parentPartyRelationships" entry-name="parentPartyRelationship"/>
+                    <first-from-list list="parentPartyRelationships" entry-name="parentPartyRelationship"/>
                     <set field="currentOrganizationPartyId" from-field="parentPartyRelationship.partyIdFrom"/>
                 <else>
                     <clear-field field-name="currentOrganizationPartyId"/>

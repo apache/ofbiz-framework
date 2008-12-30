@@ -297,7 +297,7 @@ under the License.
             <field-map field-name="verifyHash" from-field="parameters.verifyHash"/>
         </entity-and>
         
-        <first-from-list list-name="emailAddressVerifications" entry-name="emailAddressVerification"/>
+        <first-from-list list="emailAddressVerifications" entry-name="emailAddressVerification"/>
         <if-not-empty field="emailAddressVerification">
             <now-timestamp-to-env env-name="nowTimestamp"/>
             <if-compare-field field="emailAddressVerification.expireDate" to-field="nowTimestamp" operator="less">
