@@ -27,7 +27,7 @@ under the License.
         <!-- check that the party is an INTERNAL_ORGANIZATION, as defined in PartyRole -->
         <set from-field="parameters.partyId" field="lookupParams.partyId"/>
         <set value="INTERNAL_ORGANIZATIO" field="lookupParams.roleTypeId"/>
-        <find-by-primary-key use-cache="true" entity-name="PartyRole" value-name="partyRole" map-name="lookupParams"/>
+        <find-by-primary-key use-cache="true" entity-name="PartyRole" value-field="partyRole" map="lookupParams"/>
         <if-empty field="partyRole">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingPartyMustBeInternalOrganization"/></add-error>
             <check-errors/>
@@ -36,9 +36,9 @@ under the License.
 
         <!-- TODO: maybe check to make sure that all fields are not null -->
         <make-value value-field="newEntity" entity-name="PartyAcctgPreference"/>
-        <set-pk-fields map-name="parameters" value-name="newEntity"/>
-        <set-nonpk-fields map-name="parameters" value-name="newEntity"/>
-        <create-value value-name="newEntity"/>
+        <set-pk-fields map="parameters" value-field="newEntity"/>
+        <set-nonpk-fields map="parameters" value-field="newEntity"/>
+        <create-value value-field="newEntity"/>
     </simple-method>
     
     <simple-method method-name="getPartyAccountingPreferences"
@@ -54,16 +54,16 @@ under the License.
                 </and>
             </condition>
             <then>
-                <clear-field field-name="parentPartyRelationship"/>
-                <clear-field field-name="entityKey"/>
-                <clear-field field-name="entityValue"/>
-                <entity-one entity-name="PartyAcctgPreference" value-name="currentPartyAcctgPref">
+                <clear-field field="parentPartyRelationship"/>
+                <clear-field field="entityKey"/>
+                <clear-field field="entityValue"/>
+                <entity-one entity-name="PartyAcctgPreference" value-field="currentPartyAcctgPref">
                     <field-map field-name="partyId" from-field="currentOrganizationPartyId"/>
                 </entity-one>
                 <set field="containsEmptyFields" type="Boolean" value="false"/>
                 
                 <if-not-empty field="currentPartyAcctgPref">
-                    <iterate-map map-name="currentPartyAcctgPref" key-name="entityKey" value-name="entityValue">
+                    <iterate-map map="currentPartyAcctgPref" key="entityKey" value="entityValue">
                         <if-empty field="aggregatedPartyAcctgPref.${entityKey}">
                             <if-not-empty field="entityValue">
                                 <set field="aggregatedPartyAcctgPref.${entityKey}" from-field="entityValue"/>
@@ -78,7 +78,7 @@ under the License.
                 </else>
                 </if-not-empty>
                 
-                <entity-and entity-name="PartyRelationship" list-name="parentPartyRelationships" filter-by-date="true">
+                <entity-and entity-name="PartyRelationship" list="parentPartyRelationships" filter-by-date="true">
                     <field-map field-name="partyIdTo" from-field="currentOrganizationPartyId"/>
                     <field-map field-name="partyRelationshipTypeId" value="GROUP_ROLLUP"/>
                     <field-map field-name="roleTypeIdFrom" value="_NA_"/>
@@ -89,7 +89,7 @@ under the License.
                     <first-from-list list="parentPartyRelationships" entry="parentPartyRelationship"/>
                     <set field="currentOrganizationPartyId" from-field="parentPartyRelationship.partyIdFrom"/>
                 <else>
-                    <clear-field field-name="currentOrganizationPartyId"/>
+                    <clear-field field="currentOrganizationPartyId"/>
                 </else>    
                 </if-not-empty>
             </then>
@@ -97,7 +97,7 @@ under the License.
         
         <if-not-empty field="aggregatedPartyAcctgPref">
             <set field="aggregatedPartyAcctgPref.partyId" from-field="parameters.organizationPartyId"/>
-            <field-to-result field-name="aggregatedPartyAcctgPref" result-name="partyAccountingPreference"/>
+            <field-to-result field="aggregatedPartyAcctgPref" result-name="partyAccountingPreference"/>
         </if-not-empty>
     </simple-method>
     
@@ -112,11 +112,11 @@ under the License.
         </if-empty>
         
         <!-- find the existing exchange rates for this currency pair -->
-        <entity-condition entity-name="UomConversionDated" list-name="uomConversions" filter-by-date="true">
+        <entity-condition entity-name="UomConversionDated" list="uomConversions" filter-by-date="true">
             <condition-list>
-                <condition-expr field-name="uomId" operator="equals" env-name="parameters.uomId" />
-                <condition-expr field-name="uomIdTo" operator="equals" env-name="parameters.uomIdTo" />
-                <condition-expr field-name="purposeEnumId" operator="equals" env-name="parameters.purposeEnumId" ignore-if-empty="true"/>
+                <condition-expr field-name="uomId" operator="equals" from-field="parameters.uomId" />
+                <condition-expr field-name="uomIdTo" operator="equals" from-field="parameters.uomIdTo" />
+                <condition-expr field-name="purposeEnumId" operator="equals" from-field="parameters.purposeEnumId" ignore-if-empty="true"/>
             </condition-list>
         </entity-condition>
         
@@ -124,10 +124,10 @@ under the License.
         <iterate list="uomConversions" entry="uomConversion">
             <set from-field="nowTimestamp" field="uomConversion.thruDate"/>
         </iterate>
-        <store-list list-name="uomConversions"/>
+        <store-list list="uomConversions"/>
         
         <!-- now create a new conversion relationship -->
-        <set-service-fields to-map-name="createParams" service-name="createUomConversionDated" map-name="parameters"/>
+        <set-service-fields to-map="createParams" service-name="createUomConversionDated" map="parameters"/>
         <set from-field="nowTimestamp" field="createParams.fromDate"/>
         <call-service service-name="createUomConversionDated" in-map-name="createParams"/>
     </simple-method>
