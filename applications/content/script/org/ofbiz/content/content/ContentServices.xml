@@ -795,7 +795,7 @@
 			<results-to-map map-name="persistOut"/>
 		</call-service>
 
-		<iterate-map key-name="key" value-name="val" map-name="persistOut">
+		<iterate-map key="key" value="val" map="persistOut">
 			<field-to-result field-name="val" result-name="${key}"/>
 		</iterate-map>
 
@@ -831,7 +831,7 @@
 		<call-service service-name="updateCommEventContentAssoc" in-map-name="mapIn">
 		</call-service>
 
-		<iterate-map key-name="key" value-name="val" map-name="persistOut">
+		<iterate-map key="key" value="val" map="persistOut">
 			<field-to-result field-name="val" result-name="${key}"/>
 		</iterate-map>
 

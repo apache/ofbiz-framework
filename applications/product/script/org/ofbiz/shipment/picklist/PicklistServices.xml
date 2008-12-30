@@ -434,7 +434,7 @@ under the License.
 
 
         <!-- warn if insufficient QOH for reserved amount -->
-        <iterate-map map-name="inventoryItemQuantities" key-name="inventoryItemId" value-name="quantityNeeded">
+        <iterate-map map="inventoryItemQuantities" key="inventoryItemId" value="quantityNeeded">
             <set from-field="inventoryItems.${inventoryItemId}" field="inventoryItem"/>
             <if>
                 <condition>
@@ -907,7 +907,7 @@ under the License.
 
         <!-- === handle the ones by FacilityLocation === -->
         <!-- make a facilityLocationList from the facilityLocationByLocationSeqIdMap, which was used to guarantee uniqueness of FacilityLocations -->
-        <iterate-map map-name="facilityLocationByLocationSeqIdMap" key-name="locationSeqId" value-name="facilityLocationList[]"/>
+        <iterate-map map="facilityLocationByLocationSeqIdMap" key="locationSeqId" value="facilityLocationList[]"/>
 
         <!-- order/sort the facilityLocations -->
         <set value="+areaId" field="facilityLocsOrdLst[]"/>
@@ -951,7 +951,7 @@ under the License.
             </iterate>
 
             <!-- create the picklistBinInfoList from the quantityByPicklistBinIdMap -->
-            <iterate-map key-name="picklistBinId" value-name="quantity" map-name="facilityLocationInfo.quantityByPicklistBinIdMap">
+            <iterate-map key="picklistBinId" value="quantity" map="facilityLocationInfo.quantityByPicklistBinIdMap">
                 <clear-field field="picklistBinInfo"/>
                 <set from-field="picklistBinByIdMap.${picklistBinId}" field="picklistBinInfo.picklistBin"/>
                 <set from-field="quantity" field="picklistBinInfo.quantity"/>
@@ -964,7 +964,7 @@ under the License.
 
         <!-- === handle the ones by Product === -->
         <!-- make a productList from the productByProductIdMap, which was used to guarantee uniqueness of Products -->
-        <iterate-map map-name="productByProductIdMap" key-name="productId" value-name="productList[]"/>
+        <iterate-map map="productByProductIdMap" key="productId" value="productList[]"/>
 
         <!-- order/sort the products -->
         <set value="+productId" field="productsOrdLst[]"/>
@@ -992,7 +992,7 @@ under the License.
             </iterate>
 
             <!-- create the picklistBinInfoList from the quantityByPicklistBinIdMap -->
-            <iterate-map key-name="picklistBinId" value-name="quantity" map-name="productInfo.quantityByPicklistBinIdMap">
+            <iterate-map key="picklistBinId" value="quantity" map="productInfo.quantityByPicklistBinIdMap">
                 <clear-field field="picklistBinInfo"/>
                 <set from-field="picklistBinByIdMap.${picklistBinId}" field="picklistBinInfo.picklistBin"/>
                 <set from-field="quantity" field="picklistBinInfo.quantity"/>
@@ -1138,7 +1138,7 @@ under the License.
         <!-- This creates facilityLocationInfoList and inventoryItemInfoList (and for internal use facilityLocationMap) -->
 
         <!-- go through all quantities and get inventoryItem and facilityLocation -->
-        <iterate-map key-name="inventoryItemId" value-name="quantityNeeded" map-name="inventoryItemQuantities">
+        <iterate-map key="inventoryItemId" value="quantityNeeded" map="inventoryItemQuantities">
             <set from-field="inventoryItems.${inventoryItemId}" field="inventoryItem"/>
 
             <!-- create a list of locations, then sort it, will have to create a reverse Map to go from location to inventory item -->
@@ -1158,7 +1158,7 @@ under the License.
         </iterate-map>
 
         <!-- make a facilityLocations List from the facilityLocationMap, which was used to guarantee uniqueness -->
-        <iterate-map map-name="facilityLocationMap" key-name="locationSeqId" value-name="facilityLocation">
+        <iterate-map map="facilityLocationMap" key="locationSeqId" value="facilityLocation">
             <set from-field="facilityLocation" field="facilityLocations[]"/>
         </iterate-map>
 
@@ -1202,12 +1202,12 @@ under the License.
                 </iterate>
             </iterate>
 
-            <iterate-map key-name="orderItemCompositeId" value-name="orderItem" map-name="orderItemMap">
+            <iterate-map key="orderItemCompositeId" value="orderItem" map="orderItemMap">
                 <set from-field="orderItem" field="productInfoMap.${orderItem.productId}.orderItemList[]"/>
             </iterate-map>
 
             <!-- move all values from productInfoMap to facilityLocationInfo.productInfoList -->
-            <iterate-map key-name="productId" value-name="productInfo" map-name="productInfoMap">
+            <iterate-map key="productId" value="productInfo" map="productInfoMap">
                 <set from-field="productInfo" field="facilityLocationInfo.productInfoList[]"/>
             </iterate-map>
 

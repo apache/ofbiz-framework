@@ -528,7 +528,7 @@ under the License.
 
         <!-- create ProductFeatureAppl(s) -->
         <set field="hasSelectableFeatures" value="N"/>
-        <iterate-map map-name="parameters.productFeatureIdByType" key-name="productFeatureTypeId" value-name="productFeatureId">
+        <iterate-map map="parameters.productFeatureIdByType" key="productFeatureTypeId" value="productFeatureId">
             <log level="info" message="Applying feature [${productFeatureId}] of type [${productFeatureTypeId}] to product [${productId}]"/>
             <set field="createPfaMap.productId" from-field="productId"/>
             <set field="createPfaMap.productFeatureId" from-field="productFeatureId"/>

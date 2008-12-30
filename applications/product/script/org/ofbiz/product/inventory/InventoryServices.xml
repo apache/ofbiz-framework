@@ -822,7 +822,7 @@ under the License.
         </iterate>
         
         <!-- now go through touchedOrderIdMap keys and make a Set/Map of orderIds that are no longer on back-order -->
-        <iterate-map key-name="touchedOrderId" value-name="throwAwayValue" map-name="touchedOrderIdMap">
+        <iterate-map key="touchedOrderId" value="throwAwayValue" map="touchedOrderIdMap">
             <set field="checkOrderIsOnBackOrderMap.orderId" from-field="touchedOrderId"/>
             <call-service service-name="checkOrderIsOnBackOrder" in-map-name="checkOrderIsOnBackOrderMap">
                 <result-to-field result-name="isBackOrder"/>
@@ -933,7 +933,7 @@ under the License.
         </iterate>
         
         <!-- now go through touchedOrderIdMap keys and make a Set/Map of orderIds that are no longer on back-order -->
-        <iterate-map key-name="touchedOrderId" value-name="throwAwayValue" map-name="touchedOrderIdMap">
+        <iterate-map key="touchedOrderId" value="throwAwayValue" map="touchedOrderIdMap">
             <set field="checkOrderIsOnBackOrderMap.orderId" from-field="touchedOrderId"/>
             <call-service service-name="checkOrderIsOnBackOrder" in-map-name="checkOrderIsOnBackOrderMap">
                 <result-to-field result-name="isBackOrder"/>
@@ -965,7 +965,7 @@ under the License.
                 <set field="orderItems.${oisgir.orderItemSeqId}" from-field="oisgir"/>
             </iterate>
             <now-timestamp-to-env env-name="nowTimestamp"/>
-            <iterate-map key-name="orderItemSeqId" value-name="oisgir" map-name="orderItems">
+            <iterate-map key="orderItemSeqId" value="oisgir" map="orderItems">
                 <set field="reassignInventoryReservationsCtx.productId" from-field="oisgir.productId"/>
                 <set field="reassignInventoryReservationsCtx.facilityId" from-field="oisgir.facilityId"/>
                 <if-not-empty field="oisgir.shipBeforeDate">
