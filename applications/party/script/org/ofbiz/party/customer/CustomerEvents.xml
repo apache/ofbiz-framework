@@ -254,8 +254,8 @@ under the License.
         <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->
         <check-errors/>
 
-        <set-service-fields map-name="personContext" service-name="createPersonAndUserLogin" to-map-name="personUserLoginContext"/>
-        <set-service-fields map-name="newUserLogin" service-name="createPersonAndUserLogin" to-map-name="personUserLoginContext"/>
+        <set-service-fields map="personContext" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
+        <set-service-fields map="newUserLogin" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
         <set field="personUserLoginContext.currentPasswordVerify" from-field="newUserLogin.currentPassword" />
         <!-- the above copy is okay since we checked already that they are the same -->
         <call-service service-name="createPersonAndUserLogin" in-map-name="personUserLoginContext">

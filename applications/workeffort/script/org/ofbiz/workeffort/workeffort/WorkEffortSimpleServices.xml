@@ -22,11 +22,11 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     
     <simple-method method-name="createWorkEffortAndPartyAssign" short-description="Create Work Effort and assign to a party with a role">
-        <set-service-fields service-name="createWorkEffort" map-name="parameters" to-map-name="create"/>
+        <set-service-fields service-name="createWorkEffort" map="parameters" to-map="create"/>
         <call-service service-name="createWorkEffort" in-map-name="create">
             <result-to-field result-name="workEffortId"/>
         </call-service>        
-        <set-service-fields service-name="assignPartyToWorkEffort" map-name="parameters" to-map-name="assign"/>
+        <set-service-fields service-name="assignPartyToWorkEffort" map="parameters" to-map="assign"/>
         <set field="assign.workEffortId" from-field="workEffortId"/>
         <call-service service-name="assignPartyToWorkEffort" in-map-name="assign"/>
         <field-to-result field="workEffortId"/>
@@ -305,7 +305,7 @@ under the License.
         <store-value value-name="workEffortPartyAssignment"/>
     </simple-method>
     <simple-method method-name="deletePartyToWorkEffortAssignment" short-description="Update WorkEffortPartyAssignment entity">
-        <set-service-fields service-name="updatePartyToWorkEffortAssignment" map-name="parameters" to-map-name="del"/>
+        <set-service-fields service-name="updatePartyToWorkEffortAssignment" map="parameters" to-map="del"/>
         <now-date-to-env env-name="del.thruDate"/>
         <call-service service-name="updatePartyToWorkEffortAssignment" in-map-name="del"/>       
     </simple-method>
@@ -319,14 +319,14 @@ under the License.
         <make-value value-field="newValue" entity-name="WorkEffortContactMech"/>
         <if-empty field="parameters.contactMechId">
             <if-not-empty field="parameters.partyId">
-                <set-service-fields service-name="createPartyContactMech" map-name="parameters" to-map-name="context"/>
+                <set-service-fields service-name="createPartyContactMech" map="parameters" to-map="context"/>
                 <call-service service-name="createPartyContactMech" in-map-name="context">
                     <default-message>Party Contact Mechanism successfully created.</default-message>
                     <result-to-field result-name="contactMechId" map-name="newValue"/>
                 </call-service> 
                 <log level="info" message="Party ContactMech created"/>             
                 <else>
-                    <set-service-fields service-name="createContactMech" map-name="parameters" to-map-name="context"/>
+                    <set-service-fields service-name="createContactMech" map="parameters" to-map="context"/>
                     <call-service service-name="createContactMech" in-map-name="context">
                         <default-message>Contact Mechanism successfully created.</default-message>
                         <result-to-field result-name="contactMechId" map-name="newValue"/>
@@ -600,14 +600,14 @@ under the License.
             <check-errors/>
         <else>
             <if-empty field="parameters.workEffortIdTo">
-                <set-service-fields service-name="createWorkEffort" map-name="parameters" to-map-name="createWorkeEffortParams"/>
+                <set-service-fields service-name="createWorkEffort" map="parameters" to-map="createWorkeEffortParams"/>
                 <call-service in-map-name="createWorkeEffortParams" service-name="createWorkEffort">
                     <result-to-result result-name="workEffortId"/>
                     <result-to-field result-name="workEffortId" field-name="workEffortIdTo"/>
                 </call-service>
                 <set field="parameters.workEffortIdTo" from-field="workEffortIdTo"/>
             </if-empty>
-            <set-service-fields service-name="createWorkEffortAssoc"  map-name="parameters" to-map-name="createWorkEffortAssocParams"/>
+            <set-service-fields service-name="createWorkEffortAssoc"  map="parameters" to-map="createWorkEffortAssocParams"/>
             <call-service in-map-name="createWorkEffortAssocParams" service-name="createWorkEffortAssoc"/>
         </else>
         </if-not-empty>        

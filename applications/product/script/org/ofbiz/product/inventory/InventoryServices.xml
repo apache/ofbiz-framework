@@ -514,12 +514,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="createPhysicalInventoryAndVariance" short-description="Create a PhysicalInventory and an InventoryItemVariance">
-        <set-service-fields service-name="createPhysicalInventory" map-name="parameters" to-map-name="createPhysicalInventoryMap"/>
+        <set-service-fields service-name="createPhysicalInventory" map="parameters" to-map="createPhysicalInventoryMap"/>
         <call-service service-name="createPhysicalInventory" in-map-name="createPhysicalInventoryMap">
             <result-to-field result-name="physicalInventoryId" field-name="physicalInventoryId" map-name="parameters"/>
             <result-to-result result-name="physicalInventoryId" service-result-name="physicalInventoryId"/>
         </call-service>
-        <set-service-fields service-name="createInventoryItemVariance" map-name="parameters" to-map-name="createInventoryItemVarianceMap"/>
+        <set-service-fields service-name="createInventoryItemVariance" map="parameters" to-map="createInventoryItemVarianceMap"/>
         <call-service service-name="createInventoryItemVariance" in-map-name="createInventoryItemVarianceMap"/>
     </simple-method>
 
@@ -793,7 +793,7 @@ under the License.
 
         <!-- FIRST, cancel all the reservations -->
         <iterate list="allReservations" entry="oisgir">
-            <set-service-fields service-name="cancelOrderItemShipGrpInvRes" to-map-name="cancelOisgirMap" map-name="oisgir"/>
+            <set-service-fields service-name="cancelOrderItemShipGrpInvRes" to-map="cancelOisgirMap" map="oisgir"/>
             <call-service service-name="cancelOrderItemShipGrpInvRes" in-map-name="cancelOisgirMap"/>
         </iterate>
 
@@ -806,7 +806,7 @@ under the License.
                     <log level="verbose" message="Adding ${oisgir.orderId} to touchedOrderIdMap"/>
                 </if-compare>
             </if-not-empty>
-            <set-service-fields service-name="reserveProductInventory" to-map-name="resMap" map-name="oisgir"/>
+            <set-service-fields service-name="reserveProductInventory" to-map="resMap" map="oisgir"/>
             <set field="resMap.productId" from-field="inventoryItem.productId"/>
             <!-- require inventory is N because it had to be N to begin with to have a negative ATP -->
             <set field="resMap.requireInventory" value="N"/>

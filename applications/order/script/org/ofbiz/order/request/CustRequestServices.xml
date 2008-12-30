@@ -92,7 +92,7 @@ under the License.
         -->
         
         <!-- save the created status in the history -->
-        <set-service-fields to-map-name="statusMap" service-name="createCustRequestStatus" map-name="newEntity"/>
+        <set-service-fields to-map="statusMap" service-name="createCustRequestStatus" map="newEntity"/>
         <call-service service-name="createCustRequestStatus" in-map-name="statusMap"/>
 
         <!-- This code is commented because the requester party is no more maintained in the CustRequestParty entity.
@@ -120,7 +120,7 @@ under the License.
                 </or>
             </condition>
             <then>
-                <set-service-fields service-name="createCustRequestItem" map-name="parameters" to-map-name="createItem"/>
+                <set-service-fields service-name="createCustRequestItem" map="parameters" to-map="createItem"/>
                 <set field="createItem.custRequestId" from-field="newEntity.custRequestId"/>
                 <call-service service-name="createCustRequestItem" in-map-name="createItem"/>
             </then>
@@ -170,7 +170,7 @@ under the License.
                 </else>
             </if-compare>
             <!-- save the changed status in the history -->
-            <set-service-fields to-map-name="statusMap" service-name="createCustRequestStatus" map-name="custRequest"/>
+            <set-service-fields to-map="statusMap" service-name="createCustRequestStatus" map="custRequest"/>
             <call-service service-name="createCustRequestStatus" in-map-name="statusMap"/>
             <if-not-empty field="isShowEvent">
                 <clear-field field="successMessage"/>
@@ -356,7 +356,7 @@ under the License.
         <entity-one entity-name="CustRequestItem" value-field="custRequestItem" auto-field-map="true"/>
         <check-errors/>
         
-        <set-service-fields service-name="createCustRequestItem" to-map-name="createCustRequestItemInMap" map-name="custRequestItem"/>
+        <set-service-fields service-name="createCustRequestItem" to-map="createCustRequestItemInMap" map="custRequestItem"/>
         <set field="createCustRequestItemInMap.custRequestId" from-field="parameters.custRequestIdTo"/>
         <set field="createCustRequestItemInMap.custRequestItemSeqId" from-field="parameters.custRequestItemSeqId"/>
         <if-empty field="parameters.custRequestIdTo">
@@ -376,7 +376,7 @@ under the License.
             <get-related value-name="custRequestItem" relation-name="QuoteItem" list-name="quoteItems"/>
             <iterate list="quoteItems" entry="quoteItem">
                 <clear-field field="createQuoteItemInMap"/>
-                <set-service-fields service-name="createQuoteItem" to-map-name="createQuoteItemInMap" map-name="quoteItem"/>
+                <set-service-fields service-name="createQuoteItem" to-map="createQuoteItemInMap" map="quoteItem"/>
                 <set field="createQuoteItemInMap.custRequestId" from-field="custRequestIdTo"/>
                 <set field="createQuoteItemInMap.custRequestItemSeqId" from-field="custRequestItemSeqId"/>
                 <clear-field field="createQuoteItemInMap.quoteItemSeqId"/>
@@ -425,7 +425,7 @@ under the License.
             <add-error><fail-message message="Event Id: ${parameters.communicationEventId} not found"/></add-error>
             <return response-code="error"/>
         </if-empty>    
-        <set-service-fields service-name="createCustRequest" map-name="parameters" to-map-name="custRequest"/>
+        <set-service-fields service-name="createCustRequest" map="parameters" to-map="custRequest"/>
         <if-empty field="custRequest.custRequestName">
             <set field="custRequest.custRequestName" from-field="communicationEvent.subject"/>
         </if-empty>
@@ -439,7 +439,7 @@ under the License.
         <call-service service-name="createCustRequest" in-map-name="custRequest">
             <result-to-field result-name="custRequestId" field-name="parameters.custRequestId"/>
         </call-service>
-        <set-service-fields service-name="createCustRequestCommEvent" map-name="parameters" to-map-name="custRequestCommEvent"/>
+        <set-service-fields service-name="createCustRequestCommEvent" map="parameters" to-map="custRequestCommEvent"/>
         <call-service service-name="createCustRequestCommEvent" in-map-name="custRequestCommEvent"/>
 
         <if-empty field="parameters.content">
@@ -463,7 +463,7 @@ under the License.
         </iterate>
 
         <!-- update status from communication event -->
-        <set-service-fields service-name="setCommunicationEventStatus" map-name="parameters" to-map-name="updStat"/>
+        <set-service-fields service-name="setCommunicationEventStatus" map="parameters" to-map="updStat"/>
         <set field="updStat.statusId" value="COM_COMPLETE"/>
         <call-service service-name="setCommunicationEventStatus" in-map-name="updStat"/>
                 

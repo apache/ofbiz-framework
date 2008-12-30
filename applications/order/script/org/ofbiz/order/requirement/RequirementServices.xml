@@ -161,7 +161,7 @@ under the License.
         <if-compare field="quantityNotTransferred" value="0.0" operator="greater" type="Double">
             <!-- we create a new requirement for the quantity not trasferred (because not available) -->
             <clear-field field="inputMap"/>
-            <set-service-fields service-name="createRequirement" map-name="requirement" to-map-name="inputMap"/>
+            <set-service-fields service-name="createRequirement" map="requirement" to-map="inputMap"/>
             <set field="inputMap.quantity" from-field="quantityNotTransferred"/>
             <call-service service-name="createRequirement" in-map-name="inputMap"/>
             <check-errors/>

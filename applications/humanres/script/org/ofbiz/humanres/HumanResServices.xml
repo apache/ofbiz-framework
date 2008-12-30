@@ -197,7 +197,7 @@
         </if-empty>
         <create-value value-field="newEntity"/>
         
-        <set-service-fields service-name="createPayHistory" map-name="newEntity" to-map-name="createPayHistoryMap"/>
+        <set-service-fields service-name="createPayHistory" map="newEntity" to-map="createPayHistoryMap"/>
         <call-service service-name="createPayHistory" in-map-name="createPayHistoryMap"/>
     </simple-method>
     
@@ -625,7 +625,7 @@
         <create-value value-field="newEntity"/>
         
         <if-not-empty field="parameters.rateAmount">
-            <set-service-fields service-name="updateRateAmount" map-name="parameters" to-map-name="updRate"/>
+            <set-service-fields service-name="updateRateAmount" map="parameters" to-map="updRate"/>
             <call-service service-name="updateRateAmount" in-map-name="updRate"/>
         </if-not-empty>
     </simple-method>
@@ -635,7 +635,7 @@
         <now-timestamp-to-env env-name="lookedUpValue.thruDate"/>
         <store-value value-name="lookedUpValue"/>
         
-        <set-service-fields service-name="deleteRateAmount" map-name="parameters" to-map-name="delRateAmount"/>
+        <set-service-fields service-name="deleteRateAmount" map="parameters" to-map="delRateAmount"/>
         <set field="delRateAmount.fromDate" from-field="parameters.rateAmountFromDate"/>
         <call-service service-name="deleteRateAmount" in-map-name="delRateAmount"/>        
     </simple-method>

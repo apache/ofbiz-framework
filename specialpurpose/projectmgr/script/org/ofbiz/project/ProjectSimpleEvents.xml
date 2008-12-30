@@ -20,12 +20,12 @@
 
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="CreateCustRequestAndAssignTaskToPerson" short-description="">
-        <set-service-fields service-name="createCustRequest" map-name="parameters" to-map-name="createCust"/>
+        <set-service-fields service-name="createCustRequest" map="parameters" to-map="createCust"/>
         <call-service service-name="createCustRequest" in-map-name="createCust">
             <result-to-field result-name="custRequestId" field-name="custRequestId"/>
         </call-service>
         <if-not-empty field="parameters.workEffortParentId"> 
-            <set-service-fields service-name="createWorkEffort" map-name="parameters" to-map-name="createTask" />
+            <set-service-fields service-name="createWorkEffort" map="parameters" to-map="createTask" />
             <set field="createTask.custRequestId" from-field="custRequestId"/>
             <set field="createTask.workEffortName" from-field="parameters.custRequestName"/>
             <call-service service-name="createWorkEffort" in-map-name="createTask" >
@@ -65,7 +65,7 @@
         <set field="updCust.statusId" value="CRQ_REVIEWED"/>
         <set field="updCust.custRequestId" from-field="parameters.custRequestId"/>
         <call-service service-name="updateCustRequest" in-map-name="updCust"/>
-        <set-service-fields service-name="createWorkEffortRequest" map-name="parameters" to-map-name="connectMap"/>
+        <set-service-fields service-name="createWorkEffortRequest" map="parameters" to-map="connectMap"/>
         <call-service service-name="createWorkEffortRequest" in-map-name="connectMap"/>
     </simple-method>
     <simple-method method-name="setTaskStatusToComplete" short-description="Set the task status to complete, if resources assigned that status will also be set to complete">
@@ -83,19 +83,19 @@
         <!-- if all assigns are complete the task will be set to complete -->
         <if-not-empty field="assigns">
             <iterate entry="assign" list="assigns">
-                <set-service-fields service-name="updateTaskAssigment" map-name="assign" to-map-name="upd"/>
+                <set-service-fields service-name="updateTaskAssigment" map="assign" to-map="upd"/>
                 <set field="upd.statusId" value="PAS_COMPLETED"/>
                 <call-service service-name="updateTaskAssigment" in-map-name="upd"/>
             </iterate>
             <else>
-                <set-service-fields service-name="updateWorkEffort" map-name="parameters" to-map-name="upd"/>
+                <set-service-fields service-name="updateWorkEffort" map="parameters" to-map="upd"/>
                 <set field="upd.currentStatusId" value="PTS_COMPLETED"/>
                 <call-service service-name="updateWorkEffort" in-map-name="upd"/>
             </else>
         </if-not-empty>
     </simple-method>
     <simple-method method-name="addProjectMgrResource" short-description="make parties available in the project manager.">
-        <set-service-fields service-name="createPartyRole" map-name="parameters" to-map-name="roleData"/>
+        <set-service-fields service-name="createPartyRole" map="parameters" to-map="roleData"/>
         <call-service service-name="createPartyRole" in-map-name="roleData"/>
         <set field="roleData.roleTypeId" value="PROJECT_TEAM"/>
         <call-service service-name="createPartyRole" in-map-name="roleData"/>
@@ -109,7 +109,7 @@
             <string value="dataResourceName"/>
         </call-class-method>
         
-        <set-service-fields service-name="createContentFromUploadedFile" map-name="formInput.formInput" to-map-name="inMap"/>
+        <set-service-fields service-name="createContentFromUploadedFile" map="formInput.formInput" to-map="inMap"/>
         <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
         <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
         <set field="inMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
@@ -157,7 +157,7 @@
         <entity-one entity-name="Content" value-field="content">
             <field-map field-name="contentId" from-field="formInput.formInput.contentId"/>
         </entity-one>
-        <set-service-fields service-name="updateContentAndUploadedFile" map-name="formInput.formInput" to-map-name="inMap"/>
+        <set-service-fields service-name="updateContentAndUploadedFile" map="formInput.formInput" to-map="inMap"/>
         <set field="inMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
         <set field="inMap.uploadedFile" from-field="formInput.imageData"/>
         <set field="inMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>

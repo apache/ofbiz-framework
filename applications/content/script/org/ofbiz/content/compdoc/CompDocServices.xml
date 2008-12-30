@@ -143,7 +143,7 @@ under the License.
 
     <simple-method method-name="persistCompDoc" short-description="Create CompDoc">
         <!--  create the compdoc Content entity -->
-        <set-service-fields service-name="persistContentAndAssoc" map-name="parameters" to-map-name="persistMap"/>
+        <set-service-fields service-name="persistContentAndAssoc" map="parameters" to-map="persistMap"/>
         <if-not-empty field="parameters.mimeTypeId">
             <if>
                 <condition>
@@ -265,7 +265,7 @@ under the License.
         <set from-field="content.dataResourceId" field="oldDataResourceId"/>
 
         <log level="info" message="persistCompDocContent(0).content : ${content}"/>
-        <set-service-fields service-name="persistDataResourceAndData" map-name="parameters" to-map-name="persistMap"/>
+        <set-service-fields service-name="persistDataResourceAndData" map="parameters" to-map="persistMap"/>
         <clear-field field="persistMap.dataResourceId"/>
         <clear-field field="persistMap.drDataResourceId"/>
 
@@ -313,7 +313,7 @@ under the License.
         </call-service>
 
         <log level="info" message="persistCompDocPdf2Survey(3).surveyId : ${surveyId}"/>
-        <set-service-fields service-name="persistCompDocContent" map-name="parameters" to-map-name="persistMap"/>
+        <set-service-fields service-name="persistCompDocContent" map="parameters" to-map="persistMap"/>
         <set field="persistMap.relatedDetailId" from-field="surveyId"/>
         <set field="persistMap.mimeTypeId" value="application/vnd.ofbiz.survey"/>
         <clear-field field="persistMap._imageData_contentType"/>

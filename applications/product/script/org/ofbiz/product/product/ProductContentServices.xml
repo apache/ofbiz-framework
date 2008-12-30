@@ -33,7 +33,7 @@ under the License.
 
         <create-value value-field="newEntity"/>
 
-        <set-service-fields service-name="updateContent" map-name="parameters" to-map-name="updateContent"/>
+        <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
         <call-service service-name="updateContent" in-map-name="updateContent"/>
 
         <field-to-result map-name="newEntity" field="contentId"/>
@@ -47,7 +47,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
 
-        <set-service-fields service-name="updateContent" map-name="parameters" to-map-name="updateContent"/>
+        <set-service-fields service-name="updateContent" map="parameters" to-map="updateContent"/>
         <call-service service-name="updateContent" in-map-name="updateContent"/>
     </simple-method>
     <simple-method method-name="removeProductContent" short-description="Remove Content From Product">
@@ -59,23 +59,23 @@ under the License.
 
     <!-- Specialized -->
     <simple-method method-name="createEmailContentForProduct" short-description="Create Email Content For Product">
-        <set-service-fields service-name="createProductContent" map-name="parameters" to-map-name="createProductContent"/>
-        <set-service-fields service-name="createEmailContent" map-name="parameters" to-map-name="createEmail"/>
+        <set-service-fields service-name="createProductContent" map="parameters" to-map="createProductContent"/>
+        <set-service-fields service-name="createEmailContent" map="parameters" to-map="createEmail"/>
         <call-service service-name="createEmailContent" in-map-name="createEmail" break-on-error="true" >
             <result-to-field result-name="contentId" map-name="createProductContent" />
         </call-service>
         <call-service service-name="createProductContent" in-map-name="createProductContent"/>
     </simple-method>
     <simple-method method-name="updateEmailContentForProduct" short-description="Update Email Content For Product">
-        <set-service-fields service-name="updateProductContent" map-name="parameters" to-map-name="updateProductContent"/>
+        <set-service-fields service-name="updateProductContent" map="parameters" to-map="updateProductContent"/>
         <call-service service-name="updateProductContent" in-map-name="updateProductContent"/>
-        <set-service-fields service-name="updateEmailContent" map-name="parameters" to-map-name="updateEmail"/>
+        <set-service-fields service-name="updateEmailContent" map="parameters" to-map="updateEmail"/>
         <call-service service-name="updateEmailContent" in-map-name="updateEmail"/>
     </simple-method>
 
     <simple-method method-name="createDownloadContentForProduct" short-description="Create Download Content For Product">
-        <set-service-fields service-name="createProductContent" map-name="parameters" to-map-name="createProductContent"/>
-        <set-service-fields service-name="persistContentAndAssoc" map-name="parameters" to-map-name="persistContentAndAssoc"/>
+        <set-service-fields service-name="createProductContent" map="parameters" to-map="createProductContent"/>
+        <set-service-fields service-name="persistContentAndAssoc" map="parameters" to-map="persistContentAndAssoc"/>
         <set field="persistContentAndAssoc.contentTypeId" value="DOCUMENT"/>
         <set field="persistContentAndAssoc.dataResourceTypeId" value="IMAGE_OBJECT"/>
         <call-service service-name="persistContentAndAssoc" in-map-name="persistContentAndAssoc" break-on-error="true" >
@@ -84,28 +84,28 @@ under the License.
         <call-service service-name="createProductContent" in-map-name="createProductContent"/>
     </simple-method>
     <simple-method method-name="updateDownloadContentForProduct" short-description="Update Email Content For Product">
-        <set-service-fields service-name="updateProductContent" map-name="parameters" to-map-name="updateProductContent"/>
+        <set-service-fields service-name="updateProductContent" map="parameters" to-map="updateProductContent"/>
         <call-service service-name="updateProductContent" in-map-name="updateProductContent"/>
-        <set-service-fields service-name="updateDownloadContent" map-name="parameters" to-map-name="updateDownload"/>
+        <set-service-fields service-name="updateDownloadContent" map="parameters" to-map="updateDownload"/>
         <call-service service-name="updateDownloadContent" in-map-name="updateDownload"/>
     </simple-method>
 
     <simple-method method-name="createSimpleTextContentForProduct" short-description="Create Simple Text Content For Product">
-        <set-service-fields service-name="createProductContent" map-name="parameters" to-map-name="createProductContentMap"/>
-        <set-service-fields service-name="createSimpleTextContent" map-name="parameters" to-map-name="createSimpleTextMap"/>
+        <set-service-fields service-name="createProductContent" map="parameters" to-map="createProductContentMap"/>
+        <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleTextMap"/>
         <call-service service-name="createSimpleTextContent" in-map-name="createSimpleTextMap">
             <result-to-field result-name="contentId" map-name="createProductContentMap"/>
         </call-service>
         <call-service service-name="createProductContent" in-map-name="createProductContentMap"/>
     </simple-method>
     <simple-method method-name="updateSimpleTextContentForProduct" short-description="Update Simple Text Content For Product">
-        <set-service-fields service-name="updateProductContent" map-name="parameters" to-map-name="updateProductContent"/>
+        <set-service-fields service-name="updateProductContent" map="parameters" to-map="updateProductContent"/>
         <call-service service-name="updateProductContent" in-map-name="updateProductContent"/>
-        <set-service-fields service-name="updateSimpleTextContent" map-name="parameters" to-map-name="updateSimpleText"/>
+        <set-service-fields service-name="updateSimpleTextContent" map="parameters" to-map="updateSimpleText"/>
         <call-service service-name="updateSimpleTextContent" in-map-name="updateSimpleText"/>
     </simple-method>
     <simple-method method-name="createSimpleTextContentForAlternateLocale" short-description="Create Simple Text Content For Alternate Locale">
-        <set-service-fields service-name="createSimpleTextContent" map-name="parameters" to-map-name="createSimpleTextMap"/>
+        <set-service-fields service-name="createSimpleTextContent" map="parameters" to-map="createSimpleTextMap"/>
         <call-service service-name="createSimpleTextContent" in-map-name="createSimpleTextMap">
             <result-to-field result-name="contentId" field-name="createContentAssocMap.contentIdTo"/>
         </call-service>

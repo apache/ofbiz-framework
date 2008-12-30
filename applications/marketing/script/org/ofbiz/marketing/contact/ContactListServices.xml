@@ -111,7 +111,7 @@ under the License.
         
         <create-value value-field="newEntity"/>
         
-        <set-service-fields service-name="createContactListPartyStatus" map-name="newEntity" to-map-name="createContactListPartyStatusMap"/>
+        <set-service-fields service-name="createContactListPartyStatus" map="newEntity" to-map="createContactListPartyStatusMap"/>
         <call-service service-name="createContactListPartyStatus" in-map-name="createContactListPartyStatusMap"/>
     </simple-method>
     <simple-method method-name="updateContactListParty" short-description="Update Add Party To ContactList">
@@ -135,7 +135,7 @@ under the License.
         <if-not-empty field="parameters.statusId">
             <if-compare-field field="parameters.statusId" to-field="lookedUpValue.statusId" operator="not-equals">
                 <!-- NOTE: must be parameters as this will have the new statusId, and it will have additional attributes like optInVerifyCode -->
-                <set-service-fields service-name="createContactListPartyStatus" map-name="parameters" to-map-name="createContactListPartyStatusMap"/>
+                <set-service-fields service-name="createContactListPartyStatus" map="parameters" to-map="createContactListPartyStatusMap"/>
                 <call-service service-name="createContactListPartyStatus" in-map-name="createContactListPartyStatusMap"/>
             </if-compare-field>
         </if-not-empty>

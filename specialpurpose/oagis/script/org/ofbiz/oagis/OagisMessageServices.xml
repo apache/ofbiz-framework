@@ -35,7 +35,7 @@ under the License.
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <create-value value-field="newEntity"/>
         <!--if-compare value="1" field-name="newEntity.confirmation" operator="equals" type="Integer">
-            <set-service-fields to-map-name="oagisMessageErrorInfoMap" service-name="createOagisMessageErrorInfo" map-name="parameters"/>
+            <set-service-fields to-map="oagisMessageErrorInfoMap" service-name="createOagisMessageErrorInfo" map="parameters"/>
             <call-service service-name="createOagisMessageErrorInfo" in-map-name="oagisMessageErrorInfoMap"/>
         </if-compare-->
     </simple-method>

@@ -284,8 +284,8 @@ under the License.
         <!-- now that everything is validated & setup, check to see if there are errors, then call the services -->
         <check-errors/>
 
-        <set-service-fields map-name="personContext" service-name="createPersonAndUserLogin" to-map-name="personUserLoginContext"/>
-        <set-service-fields map-name="newUserLogin" service-name="createPersonAndUserLogin" to-map-name="personUserLoginContext"/>
+        <set-service-fields map="personContext" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
+        <set-service-fields map="newUserLogin" service-name="createPersonAndUserLogin" to-map="personUserLoginContext"/>
         <set from-field="newUserLogin.currentPassword" field="personUserLoginContext.currentPasswordVerify"/>
         <!-- the above copy is okay since we checked already that they are the same -->
         <call-service service-name="createPersonAndUserLogin" in-map-name="personUserLoginContext">
@@ -871,7 +871,7 @@ under the License.
         </if-not-empty>
 
         <!-- Create Update Person -->
-        <set-service-fields service-name="createUpdatePerson" map-name="parameters" to-map-name="createUpdatePersonCtx"/>
+        <set-service-fields service-name="createUpdatePerson" map="parameters" to-map="createUpdatePersonCtx"/>
         <set field="createUpdatePersonCtx.userLogin" from-field="userLogin"/>
         <set field="createUpdatePersonCtx.partyId" from-field="userLogin.partyId"/>
         <call-service service-name="createUpdatePerson" in-map-name="createUpdatePersonCtx">
@@ -891,7 +891,7 @@ under the License.
         <call-service service-name="createPartyRole" in-map-name="partyRoleContext"/>
 
         <!-- Create Update Shipping address -->
-        <set-service-fields service-name="createUpdateShippingAddress" map-name="parameters" to-map-name="shipToAddressCtx"/>
+        <set-service-fields service-name="createUpdateShippingAddress" map="parameters" to-map="shipToAddressCtx"/>
         <set field="shipToAddressCtx.userLogin" from-field="userLogin"/>
         <call-service service-name="createUpdateShippingAddress" in-map-name="shipToAddressCtx">
             <result-to-field result-name="contactMechId" field-name="parameters.shipToContactMechId"/>
@@ -903,7 +903,7 @@ under the License.
                 processor-name="phoneNumber" in-map-name="parameters" out-map-name="shipToPhoneContext"/>
         <check-errors/>
     
-        <set-service-fields service-name="createUpdateTelecomNumber" map-name="shipToPhoneContext" to-map-name="createUpdateTelecomNumberCtx"/>
+        <set-service-fields service-name="createUpdateTelecomNumber" map="shipToPhoneContext" to-map="createUpdateTelecomNumberCtx"/>
         <set field="createUpdateTelecomNumberCtx.contactMechId" from-field="parameters.shipToPhoneContactMechId"/>
         <set field="createUpdateTelecomNumberCtx.userLogin" from-field="userLogin"/>
         <set field="createUpdateTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
@@ -919,7 +919,7 @@ under the License.
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressContext"/>
         <check-errors/>
     
-        <set-service-fields service-name="createUpdateEmailAddress" map-name="emailAddressContext" to-map-name="createUpdateEmailCtx"/>
+        <set-service-fields service-name="createUpdateEmailAddress" map="emailAddressContext" to-map="createUpdateEmailCtx"/>
         <set field="createUpdateEmailCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
         <set field="createUpdateEmailCtx.userLogin" from-field="userLogin"/>
         <set field="createUpdateEmailCtx.partyId" from-field="parameters.partyId"/>
@@ -971,7 +971,7 @@ under the License.
                 org.ofbiz.common.login.LoginServices.checkNewPassword(newUserLogin, null, password, confirmPassword, passwordHint, error_list, true, locale);
             ]]></call-bsh>
             <check-errors/>
-            <set-service-fields service-name="createUserLogin"  map-name="userLoginMap" to-map-name="userLoginCtx"/>
+            <set-service-fields service-name="createUserLogin"  map="userLoginMap" to-map="userLoginCtx"/>
             
             <!-- call the service with the system account to get around security constraints for this special create -->
             <entity-one entity-name="UserLogin" value-field="userLoginCtx.userLogin" auto-field-map="false">
@@ -996,7 +996,7 @@ under the License.
                 <call-map-processor xml-resource="org/ofbiz/securityext/login/LoginMapProcs.xml"
                     processor-name="updatePassword" in-map-name="parameters" out-map-name="passwordMap"/>
                 <check-errors/>
-                <set-service-fields service-name="updatePassword" map-name="passwordMap" to-map-name="passwordCtx"/>
+                <set-service-fields service-name="updatePassword" map="passwordMap" to-map="passwordCtx"/>
                 <call-service service-name="updatePassword" in-map-name="passwordCtx">
                     <result-to-field result-name="updatedUserLogin"/>
                 </call-service>
@@ -1190,7 +1190,7 @@ under the License.
         </if-not-empty>
 
         <!-- Create Update Billing address -->
-        <set-service-fields service-name="createUpdateBillingAddress" map-name="parameters" to-map-name="billToAddressCtx"/>
+        <set-service-fields service-name="createUpdateBillingAddress" map="parameters" to-map="billToAddressCtx"/>
         <set field="billToAddressCtx.userLogin" from-field="userLogin"/>
         <call-service service-name="createUpdateBillingAddress" in-map-name="billToAddressCtx">
             <result-to-field result-name="contactMechId" field-name="parameters.billToContactMechId"/>
@@ -1202,7 +1202,7 @@ under the License.
                 processor-name="phoneNumber" in-map-name="parameters" out-map-name="billToPhoneContext"/>
         <check-errors/>
     
-        <set-service-fields service-name="createUpdateTelecomNumber" map-name="billToPhoneContext" to-map-name="createUpdateTelecomNumberCtx"/>
+        <set-service-fields service-name="createUpdateTelecomNumber" map="billToPhoneContext" to-map="createUpdateTelecomNumberCtx"/>
         <set field="createUpdateTelecomNumberCtx.contactMechId" from-field="parameters.billToPhoneContactMechId"/>
         <set field="createUpdateTelecomNumberCtx.userLogin" from-field="userLogin"/>
         <set field="createUpdateTelecomNumberCtx.partyId" from-field="parameters.partyId"/>
@@ -1214,7 +1214,7 @@ under the License.
         <field-to-request field-name="parameters.billToPhoneContactMechId" request-name="billToPhoneContactMechId"/>
         
         <!-- Create Update credit card -->
-        <set-service-fields service-name="createUpdateCreditCard" map-name="parameters" to-map-name="creditCardContext"/>
+        <set-service-fields service-name="createUpdateCreditCard" map="parameters" to-map="creditCardContext"/>
         <set field="creditCardContext.contactMechId" from-field="parameters.billToContactMechId"/>
         <call-service service-name="createUpdateCreditCard" in-map-name="creditCardContext">
             <result-to-field result-name="paymentMethodId" field-name="parameters.paymentMethodId"/>
@@ -1249,7 +1249,7 @@ under the License.
         <check-errors/>
 
         <!-- create person -->
-        <set-service-fields service-name="createPerson" map-name="personCtx" to-map-name="createPersonCtx"/>
+        <set-service-fields service-name="createPerson" map="personCtx" to-map="createPersonCtx"/>
         <call-service service-name="createPerson" in-map-name="createPersonCtx">
             <result-to-field result-name="partyId" field-name="partyId"/>
         </call-service>
@@ -1329,7 +1329,7 @@ under the License.
             <field field-name="request" type="javax.servlet.ServletRequest"/>
         </call-class-method>
     
-        <set-service-fields service-name="createUpdatePerson" map-name="parameters" to-map-name="createUpdatePersonCtx"/>
+        <set-service-fields service-name="createUpdatePerson" map="parameters" to-map="createUpdatePersonCtx"/>
         <set field="createUpdatePersonCtx.userLogin" from-field="userLogin"/>
         <set field="createUpdatePersonCtx.partyId" from-field="userLogin.partyId"/>
         <call-service service-name="createUpdatePerson" in-map-name="createUpdatePersonCtx">
@@ -1347,7 +1347,7 @@ under the License.
         <call-map-processor xml-resource="org/ofbiz/ecommerce/customer/CheckoutMapProcs.xml"
                 processor-name="emailAddress" in-map-name="parameters" out-map-name="emailAddressContext"/>
         <check-errors/>
-        <set-service-fields service-name="createUpdateEmailAddress" map-name="emailAddressContext" to-map-name="createUpdateEmailCtx"/>
+        <set-service-fields service-name="createUpdateEmailAddress" map="emailAddressContext" to-map="createUpdateEmailCtx"/>
         <set field="createUpdateEmailCtx.contactMechPurposeTypeId" value="PRIMARY_EMAIL"/>
         <set field="createUpdateEmailCtx.contactMechId" from-field="parameters.emailContactMechId"/>
         <set field="createUpdateEmailCtx.userLogin" from-field="userLogin"/>
@@ -1360,7 +1360,7 @@ under the License.
     <simple-method method-name="setUserLoginFromEmail" short-description="Set userloginId from email. If user edit email address then set it as a new userLoginId and disabled date to far in the future for existing userLoginId">
         <if-compare-field field="parameters.userLoginId" operator="not-equals" to-field="userLogin.userLoginId">
             <set field="loggedInUser" from-field="userLogin"/> 
-            <set-service-fields service-name="updateUserLoginId" map-name="parameters" to-map-name="serviceContext"/>
+            <set-service-fields service-name="updateUserLoginId" map="parameters" to-map="serviceContext"/>
             <set field="serviceContext.userLogin" from-field="userLogin"/>
             <call-service service-name="updateUserLoginId" in-map-name="serviceContext">
                 <result-to-field result-name="newUserLogin"/>

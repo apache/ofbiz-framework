@@ -136,12 +136,12 @@
     </simple-method>
 
     <simple-method method-name="copyContentAndElectronicTextandAssoc" short-description="copy a content, electronic text and assocs and set status in progress">                
-        <set-service-fields service-name="getContent" map-name="parameters" to-map-name="getC"/>
+        <set-service-fields service-name="getContent" map="parameters" to-map="getC"/>
         <call-service service-name="getContent" in-map-name="getC">
             <result-to-field result-name="view" field-name="content"/>
         </call-service>
         <if-not-empty field="content.dataResourceId">
-            <set-service-fields service-name="getElectronicText" map-name="content" to-map-name="getEt"/>
+            <set-service-fields service-name="getElectronicText" map="content" to-map="getEt"/>
             <call-service service-name="getElectronicText" in-map-name="getEt">
                 <result-to-field result-name="textData" field-name="et.textData"/>
             </call-service>
@@ -157,7 +157,7 @@
 
         <clear-field field="content.contentId"/><!-- force new value -->        
         <clear-field field="content.statusId"/><!-- force new value -->
-        <set-service-fields service-name="createContent" map-name="content" to-map-name="createContent"/>
+        <set-service-fields service-name="createContent" map="content" to-map="createContent"/>
         <call-service service-name="createContent" in-map-name="createContent">
             <result-to-field result-name="contentId" field-name="newContentId"/>
         </call-service>
@@ -167,7 +167,7 @@
         </entity-and>
         <iterate entry="assoc" list="assocs">
             <set field="assoc.contentId" from-field="newContentId"/>
-            <set-service-fields service-name="createContentAssoc" map-name="assoc" to-map-name="assocS"/>
+            <set-service-fields service-name="createContentAssoc" map="assoc" to-map="assocS"/>
             <call-service service-name="createContentAssoc" in-map-name="assocS"/>
         </iterate>
 
@@ -176,7 +176,7 @@
         </entity-and>
         <iterate entry="assocTo" list="assocsTo">
             <set field="assocTo.contentIdTo" from-field="newContentId"/>
-            <set-service-fields service-name="createContentAssoc" map-name="assocTo" to-map-name="assocTos"/>
+            <set-service-fields service-name="createContentAssoc" map="assocTo" to-map="assocTos"/>
             <call-service service-name="createContentAssoc" in-map-name="assocTos"/>
         </iterate>
         
@@ -535,7 +535,7 @@
 
     <!-- combined text + uploaded file service -->
     <simple-method method-name="createTextAndUploadedContent" short-description="Creates Text and Optionally Uploaded (sub) Content records">
-        <set-service-fields service-name="createTextContent" map-name="parameters" to-map-name="textContext"/>
+        <set-service-fields service-name="createTextContent" map="parameters" to-map="textContext"/>
         <call-service service-name="createTextContent" in-map-name="textContext">
             <result-to-field result-name="contentId" field-name="parentContentId" map-name="parameters"/>
         </call-service>
@@ -544,7 +544,7 @@
 
         <if-not-empty field="parameters.uploadedFile">
             <log level="always" message="Uploaded file found; processing sub-content"/>
-            <set-service-fields service-name="createContentFromUploadedFile" map-name="parameters" to-map-name="uploadContext"/>
+            <set-service-fields service-name="createContentFromUploadedFile" map="parameters" to-map="uploadContext"/>
             <set field="uploadContext.ownerContentId" from-field="parameters.parentContentId"/>
             <set field="uploadContext.contentIdFrom" from-field="parameters.parentContentId"/>
             <set field="uploadContext.contentAssocTypeId" value="SUB_CONTENT"/>
@@ -589,7 +589,7 @@
         <check-errors/>
 
         <!-- Create subject -->
-        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createSubjectContent"/>
+        <set-service-fields service-name="createContent" map="parameters" to-map="createSubjectContent"/>
         <set from-field="parameters.subject" field="createSubjectEtext.textData"/>
         <call-service service-name="createElectronicText" in-map-name="createSubjectEtext">
             <result-to-field result-name="dataResourceId" map-name="createSubjectContent"/>
@@ -654,7 +654,7 @@
         </check-permission>
         <check-errors/>
 
-        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createDownloadContent"/>
+        <set-service-fields service-name="createContent" map="parameters" to-map="createDownloadContent"/>
         <set from-field="parameters.file" field="createDownload.dataResourceContent"/>
         <call-service service-name="createOtherDataResource" in-map-name="createDownload">
             <result-to-field result-name="dataResourceId" map-name="createDownloadContent"/>
@@ -682,12 +682,12 @@
         </check-permission>
         <check-errors/>
 
-        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createSimpleTextContent"/>
+        <set-service-fields service-name="createContent" map="parameters" to-map="createSimpleTextContent"/>
         <set value="DOCUMENT" field="createSimpleTextContent.contentTypeId"/>
 
         <set from-field="parameters.text" field="createSimpleText.textData"/>
         
-        <set-service-fields service-name="createDataResource" map-name="parameters" to-map-name="createSimpleTextDataResource"/>
+        <set-service-fields service-name="createDataResource" map="parameters" to-map="createSimpleTextDataResource"/>
         <set value="ELECTRONIC_TEXT" field="createSimpleTextDataResource.dataResourceTypeId"/>
         <set value="FTL" field="createSimpleTextDataResource.dataTemplateTypeId"/>
         
@@ -739,7 +739,7 @@
         </if-empty>
         <check-errors/>
 
-        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="createContentMap"/>
+        <set-service-fields service-name="createContent" map="parameters" to-map="createContentMap"/>
 
         <if-empty field="createContentMap.contentName">
             <set field="createContentMap.contentName" from-field="dataResource.dataResourceName"/>
@@ -778,7 +778,7 @@
 			-->
 		
 		<now-timestamp-to-env env-name="nowTimestamp"/>
-		<set-service-fields to-map-name="persistIn" service-name="persistContentAndAssoc" map-name="parameters"/>
+		<set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
 		<!-- let's take a guess at what the dataResourceTypeId should be if it is empty -->
 		<if-empty field="persistIn.dataResourceTypeId">
 		<log level="info" message="persistIn.drMimeTypeId: ${persistIn.drMimeTypeId}" />
@@ -819,7 +819,7 @@
         <check-permission permission="CONTENTMGR" action="_DELETE"><fail-message message="Security Error: to run updateContent you must have the CONTENTMGR_DELETE or CONTENTMGR_ADMIN permission"/></check-permission>
         <check-errors/>
 			-->
-		<set-service-fields to-map-name="persistIn" service-name="persistContentAndAssoc" map-name="parameters"/>
+		<set-service-fields to-map="persistIn" service-name="persistContentAndAssoc" map="parameters"/>
 		<call-service service-name="persistContentAndAssoc" in-map-name="persistIn">
 			<results-to-map map-name="persistOut"/>
 		</call-service>
@@ -878,12 +878,12 @@
     </simple-method>
 
     <simple-method method-name="createContentAndAssoc" short-description="Create content and associate with other content">
-        <set-service-fields service-name="createContent" map-name="parameters" to-map-name="contentData"/>
+        <set-service-fields service-name="createContent" map="parameters" to-map="contentData"/>
         <call-service service-name="createContent" in-map-name="contentData">
             <result-to-field result-name="contentId" field-name="newContentId"/>
         </call-service>
         <if-not-empty field="newContentId">
-            <set-service-fields service-name="createContentAssoc" map-name="parameters" to-map-name="assocData"/>
+            <set-service-fields service-name="createContentAssoc" map="parameters" to-map="assocData"/>
             <set field="assocData.contentId" from-field="newContentId"/> 
             <call-service service-name="createContentAssoc" in-map-name="assocData">
                 <result-to-result result-name="contentId" service-result-name="contentIdFrom"/>
@@ -1195,7 +1195,7 @@
     
     <simple-method method-name="getSubSubContentWithPermCheck" short-description="Get sub content and perform permission check on each record">
     
-        <set-service-fields service-name="getSubContentWithPermCheck" map-name="parameters" to-map-name="inMap"/>
+        <set-service-fields service-name="getSubContentWithPermCheck" map="parameters" to-map="inMap"/>
         <call-service service-name="getSubContentWithPermCheck" in-map-name="inMap">
             <result-to-field result-name="subContentList"/>
         </call-service>        

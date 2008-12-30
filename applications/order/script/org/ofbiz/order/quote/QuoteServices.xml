@@ -158,7 +158,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="Quote" value-field="quote" auto-field-map="true"/>
         <check-errors/>
-        <set-service-fields service-name="createQuote" to-map-name="createQuoteInMap" map-name="quote"/>
+        <set-service-fields service-name="createQuote" to-map="createQuoteInMap" map="quote"/>
         <clear-field field="createQuoteInMap.statusId"/>
         <call-service service-name="createQuote" in-map-name="createQuoteInMap">
             <result-to-field result-name="quoteId" field-name="quoteIdTo"/>
@@ -167,7 +167,7 @@ under the License.
             <get-related value-name="quote" relation-name="QuoteItem" list-name="quoteItems"/>
             <iterate list="quoteItems" entry="quoteItem">
                 <clear-field field="createQuoteItemInMap"/>
-                <set-service-fields service-name="createQuoteItem" to-map-name="createQuoteItemInMap" map-name="quoteItem"/>
+                <set-service-fields service-name="createQuoteItem" to-map="createQuoteItemInMap" map="quoteItem"/>
                 <set from-field="quoteIdTo" field="createQuoteItemInMap.quoteIdTo"/>
                 <set from-field="parameters.copyQuoteAdjustments" field="createQuoteItemInMap.copyQuoteAdjustments"/>
                 <call-service service-name="copyQuoteItem" in-map-name="createQuoteItemInMap"/>
@@ -179,7 +179,7 @@ under the License.
             <iterate list="quoteAdjustments" entry="quoteAdjustment">
                 <if-empty field="quoteAdjustment.quoteItemSeqId">
                     <clear-field field="createQuoteAdjustmentInMap"/>
-                    <set-service-fields service-name="createQuoteAdjustment" to-map-name="createQuoteAdjustmentInMap" map-name="quoteAdjustment"/>
+                    <set-service-fields service-name="createQuoteAdjustment" to-map="createQuoteAdjustmentInMap" map="quoteAdjustment"/>
                     <set from-field="quoteIdTo" field="createQuoteAdjustmentInMap.quoteId"/>
                     <call-service service-name="createQuoteAdjustment" in-map-name="createQuoteAdjustmentInMap"/>
                 </if-empty>
@@ -191,7 +191,7 @@ under the License.
             <iterate list="quoteRoles" entry="quoteRole">
                 <if-compare field="quoteRole.roleTypeId" value="REQ_TAKER" operator="not-equals">
                     <clear-field field="createQuoteRoleInMap"/>
-                    <set-service-fields service-name="createQuoteRole" to-map-name="createQuoteRoleInMap" map-name="quoteRole"/>
+                    <set-service-fields service-name="createQuoteRole" to-map="createQuoteRoleInMap" map="quoteRole"/>
                     <set from-field="quoteIdTo" field="createQuoteRoleInMap.quoteId"/>
                     <call-service service-name="createQuoteRole" in-map-name="createQuoteRoleInMap"/>
                 </if-compare>
@@ -202,7 +202,7 @@ under the License.
             <get-related value-name="quote" relation-name="QuoteAttribute" list-name="quoteAttributes"/>
             <iterate list="quoteAttributes" entry="quoteAttribute">
                 <clear-field field="createQuoteAttributeInMap"/>
-                <set-service-fields service-name="createQuoteAttribute" to-map-name="createQuoteAttributeInMap" map-name="quoteAttribute"/>
+                <set-service-fields service-name="createQuoteAttribute" to-map="createQuoteAttributeInMap" map="quoteAttribute"/>
                 <set from-field="quoteIdTo" field="createQuoteAttributeInMap.quoteId"/>
                 <call-service service-name="createQuoteAttribute" in-map-name="createQuoteAttributeInMap"/>
             </iterate>
@@ -212,7 +212,7 @@ under the License.
             <get-related value-name="quote" relation-name="QuoteCoefficient" list-name="quoteCoefficients"/>
             <iterate list="quoteCoefficients" entry="quoteCoefficient">
                 <clear-field field="createQuoteCoefficientInMap"/>
-                <set-service-fields service-name="createQuoteCoefficient" to-map-name="createQuoteCoefficientInMap" map-name="quoteCoefficient"/>
+                <set-service-fields service-name="createQuoteCoefficient" to-map="createQuoteCoefficientInMap" map="quoteCoefficient"/>
                 <set from-field="quoteIdTo" field="createQuoteCoefficientInMap.quoteId"/>
                 <call-service service-name="createQuoteCoefficient" in-map-name="createQuoteCoefficientInMap"/>
             </iterate>
@@ -376,7 +376,7 @@ under the License.
         <entity-one entity-name="QuoteItem" value-field="quoteItem" auto-field-map="true"/>
         <check-errors/>
         
-        <set-service-fields service-name="createQuoteItem" to-map-name="createQuoteItemInMap" map-name="quoteItem"/>
+        <set-service-fields service-name="createQuoteItem" to-map="createQuoteItemInMap" map="quoteItem"/>
         <set from-field="parameters.quoteIdTo" field="createQuoteItemInMap.quoteId"/>
         <set from-field="parameters.quoteItemSeqId" field="createQuoteItemInMap.quoteItemSeqId"/>
         <if-empty field="parameters.quoteIdTo">
@@ -396,7 +396,7 @@ under the License.
             <get-related value-name="quoteItem" relation-name="QuoteAdjustment" list-name="quoteAdjustments"/>
             <iterate list="quoteAdjustments" entry="quoteAdjustment">
                 <clear-field field="createQuoteAdjustmentInMap"/>
-                <set-service-fields service-name="createQuoteAdjustment" to-map-name="createQuoteAdjustmentInMap" map-name="quoteAdjustment"/>
+                <set-service-fields service-name="createQuoteAdjustment" to-map="createQuoteAdjustmentInMap" map="quoteAdjustment"/>
                 <set from-field="quoteIdTo" field="createQuoteAdjustmentInMap.quoteId"/>
                 <set from-field="quoteItemSeqId" field="createQuoteAdjustmentInMap.quoteItemSeqId"/>
                 <call-service service-name="createQuoteAdjustment" in-map-name="createQuoteAdjustmentInMap"/>
@@ -577,7 +577,7 @@ under the License.
         <iterate list="quoteItems" entry="quoteItem">
             <if-compare field="quoteItem.isPromo" value="Y" operator="equals">
                 <clear-field field="removeQuoteItemInMap"/>
-                <set-service-fields service-name="removeQuoteItem" to-map-name="removeQuoteItemInMap" map-name="parameters"/>
+                <set-service-fields service-name="removeQuoteItem" to-map="removeQuoteItemInMap" map="parameters"/>
                 <set from-field="quoteItem.quoteItemSeqId" field="removeQuoteItemInMap.quoteItemSeqId"/>
                 <call-service service-name="removeQuoteItem" in-map-name="removeQuoteItemInMap"/>
             </if-compare>
@@ -588,12 +588,12 @@ under the License.
             <!-- make sure this is not a manual adjustments -->
             <if-not-empty field="quoteAdjustment.productPromoId">
                 <clear-field field="removeQuoteAdjustmentInMap"/>
-                <set-service-fields service-name="removeQuoteAdjustment" to-map-name="removeQuoteAdjustmentInMap" map-name="parameters"/>
+                <set-service-fields service-name="removeQuoteAdjustment" to-map="removeQuoteAdjustmentInMap" map="parameters"/>
                 <set from-field="quoteAdjustment.quoteAdjustmentId" field="removeQuoteAdjustmentInMap.quoteAdjustmentId"/>
                 <call-service service-name="removeQuoteAdjustment" in-map-name="removeQuoteAdjustmentInMap"/>
             </if-not-empty>
         </iterate>
-        <set-service-fields service-name="loadCartFromQuote" to-map-name="loadCartFromQuoteInMap" map-name="parameters"/>
+        <set-service-fields service-name="loadCartFromQuote" to-map="loadCartFromQuoteInMap" map="parameters"/>
         <set value="false" field="loadCartFromQuoteInMap.applyQuoteAdjustments"/>
         <call-service service-name="loadCartFromQuote" in-map-name="loadCartFromQuoteInMap">
             <result-to-field result-name="shoppingCart" field-name="cart"/>
@@ -606,7 +606,7 @@ under the License.
                 <!-- this is a new (promo) item -->
                 <!-- a new quote item is created -->
                 <clear-field field="createQuoteItemInMap"/>
-                <set-service-fields service-name="createQuoteItem" to-map-name="createQuoteItemInMap" map-name="parameters"/>
+                <set-service-fields service-name="createQuoteItem" to-map="createQuoteItemInMap" map="parameters"/>
                 <call-object-method obj-field-name="item" method-name="getProductId" ret-field-name="createQuoteItemInMap.productId"/>
                 <call-object-method obj-field-name="item" method-name="getQuantity" ret-field-name="createQuoteItemInMap.quantity"/>
                 <set value="Y" field="createQuoteItemInMap.isPromo"/>

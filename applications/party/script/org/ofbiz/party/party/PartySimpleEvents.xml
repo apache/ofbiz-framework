@@ -89,7 +89,7 @@ under the License.
              <field field-name="formInput" type="java.util.Map"/>
         </call-class-method>
          
-        <set-service-fields service-name="createPartyContent" map-name="formInput.formInput" to-map-name="partyContentMap"/>
+        <set-service-fields service-name="createPartyContent" map="formInput.formInput" to-map="partyContentMap"/>
         <set field="partyContentMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
         <set field="partyContentMap.uploadedFile" from-field="byteWrap"/>
         <set field="partyContentMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>
@@ -115,7 +115,7 @@ under the License.
            >
              <field field-name="formInput" type="java.util.Map"/>
          </call-class-method >
-         <set-service-fields service-name="updatePartyContent" map-name="formInput.formInput" to-map-name="partyContentMap"/>
+         <set-service-fields service-name="updatePartyContent" map="formInput.formInput" to-map="partyContentMap"/>
          <set field="partyContentMap._uploadedFile_fileName" from-field="formInput.imageFileName"/>
          <set field="partyContentMap.uploadedFile" from-field="byteWrap"/>
          <set field="partyContentMap._uploadedFile_contentType" from-field="formInput.formInput.mimeTypeId"/>

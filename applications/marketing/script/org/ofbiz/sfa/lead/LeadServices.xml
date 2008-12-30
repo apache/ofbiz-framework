@@ -131,7 +131,7 @@
         <first-from-list list="partyRelationships" entry="partyRelationship"/>
 
         <if-not-empty field="partyRelationship">
-            <set-service-fields service-name="updatePartyRelationship" map-name="partyRelationship" to-map-name="deletePartyRelationship"/>
+            <set-service-fields service-name="updatePartyRelationship" map="partyRelationship" to-map="deletePartyRelationship"/>
             <call-service service-name="deletePartyRelationship" in-map-name="deletePartyRelationship"/>
             <set field="partyGroupId" from-field="partyRelationship.partyIdFrom"/>
             <else>

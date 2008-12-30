@@ -28,7 +28,7 @@ under the License.
         <log level="info" message="contactMechId is ${parameters.contactMechId}"/>
         <if-empty field="parameters.contactMechId">
 
-            <set-service-fields service-name="createContactMech" map-name="parameters" to-map-name="createContactMechMap"/>
+            <set-service-fields service-name="createContactMech" map="parameters" to-map="createContactMechMap"/>
             <set field="createContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId" />
             <call-service service-name="createContactMech" in-map-name="createContactMechMap">
                 <default-message>Contact Mechanism successfully created.</default-message>
@@ -72,7 +72,7 @@ under the License.
         <log message="parameters: ${parameters}" level="info"/>
         <!-- If we already have a new contactMechId don't update ContactMech -->
         <if-empty field="parameters.newContactMechId">
-            <set-service-fields service-name="updateContactMech" map-name="parameters" to-map-name="updateContactMechMap"/>
+            <set-service-fields service-name="updateContactMech" map="parameters" to-map="updateContactMechMap"/>
             <set field="updateContactMechMap.contactMechTypeId" from-field="parameters.contactMechTypeId" />
             <call-service service-name="updateContactMech" in-map-name="updateContactMechMap">
                 <default-message>Contact Mechanism successfully updated.</default-message>
@@ -145,7 +145,7 @@ under the License.
         <check-permission permission="FACILITY" action="_CREATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
-        <set-service-fields service-name="createPostalAddress" map-name="parameters" to-map-name="createPostalAddressMap"/>
+        <set-service-fields service-name="createPostalAddress" map="parameters" to-map="createPostalAddressMap"/>
         <call-service in-map-name="createPostalAddressMap" service-name="createPostalAddress">
             <default-message>Postal Address successfully created</default-message>
 
@@ -155,7 +155,7 @@ under the License.
         <check-errors/>
 
         <set field="createFacilityContactMechMap.contactMechId" from-field="newFacilityContactMech.contactMechId"/>
-        <set-service-fields service-name="createFacilityContactMech" map-name="parameters" to-map-name="createFacilityContactMechMap"/>
+        <set-service-fields service-name="createFacilityContactMech" map="parameters" to-map="createFacilityContactMechMap"/>
 
         <call-service service-name="createFacilityContactMech" in-map-name="createFacilityContactMechMap" break-on-error="true">
             <default-message>Facility Contact Mechanism successfully created</default-message>
@@ -170,13 +170,13 @@ under the License.
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
-        <set-service-fields service-name="updatePostalAddress" map-name="parameters" to-map-name="updatePostalAddressMap"/>
+        <set-service-fields service-name="updatePostalAddress" map="parameters" to-map="updatePostalAddressMap"/>
         <call-service in-map-name="updatePostalAddressMap" service-name="updatePostalAddress">
             <default-message>Postal Address successfully updated</default-message>
             <result-to-field result-name="contactMechId" map-name="newFacilityContactMech" field-name="contactMechId" />
         </call-service>
 
-        <set-service-fields service-name="updateFacilityContactMech" map-name="parameters" to-map-name="updateFacilityContactMechMap"/>
+        <set-service-fields service-name="updateFacilityContactMech" map="parameters" to-map="updateFacilityContactMechMap"/>
         <set field="updateFacilityContactMechMap.newContactMechId" from-field="newFacilityContactMech.contactMechId"/>
 
         <set field="updateFacilityContactMechMap.contactMechTypeId" value="POSTAL_ADDRESS"/>
@@ -193,14 +193,14 @@ under the License.
         <check-errors/>
 
         <log level="info" message="Creating telecom number"/>
-        <set-service-fields service-name="createTelecomNumber" map-name="parameters" to-map-name="createTelecomNumberMap"/>
+        <set-service-fields service-name="createTelecomNumber" map="parameters" to-map="createTelecomNumberMap"/>
         <call-service in-map-name="createTelecomNumberMap" service-name="createTelecomNumber">
             <default-message>Telecom number successfully created</default-message>
 
             <result-to-field result-name="contactMechId" map-name="newFacilityContactMech"/>
         </call-service>
 
-        <set-service-fields service-name="createFacilityContactMech" map-name="parameters" to-map-name="createFacilityContactMechMap"/>
+        <set-service-fields service-name="createFacilityContactMech" map="parameters" to-map="createFacilityContactMechMap"/>
         <set field="createFacilityContactMechMap.contactMechId" from-field="newFacilityContactMech.contactMechId"/>
         <log level="info" message="Copied id to createFacilityContactMechMap: ${createFacilityContactMechMap.contactMechId}"/>
 
@@ -217,13 +217,13 @@ under the License.
         <check-permission permission="FACILITY" action="_UPDATE"><fail-message message="You do not have permission to perform this operation for this facility."/></check-permission>
         <check-errors/>
 
-        <set-service-fields service-name="updateTelecomNumber" map-name="parameters" to-map-name="updateTelecomNumberMap"/>
+        <set-service-fields service-name="updateTelecomNumber" map="parameters" to-map="updateTelecomNumberMap"/>
         <call-service service-name="updateTelecomNumber" in-map-name="updateTelecomNumberMap">
             <default-message>Telecom Number successfully updated</default-message>
             <result-to-field result-name="contactMechId" map-name="newFacilityContactMech" field-name="contactMechId" />
         </call-service>
 
-        <set-service-fields service-name="updateFacilityContactMech" map-name="parameters" to-map-name="updateFacilityContactMechMap"/>
+        <set-service-fields service-name="updateFacilityContactMech" map="parameters" to-map="updateFacilityContactMechMap"/>
         <set field="updateFacilityContactMechMap.newContactMechId" from-field="newFacilityContactMech.contactMechId"/>
 
         <set field="updateFacilityContactMechMap.contactMechTypeId" value="TELECOM_NUMBER"/>
@@ -247,7 +247,7 @@ under the License.
         </if-validate-method>
         <check-errors/>
                 
-        <set-service-fields service-name="createFacilityContactMech" map-name="parameters" to-map-name="createFacilityContactMechMap"/>
+        <set-service-fields service-name="createFacilityContactMech" map="parameters" to-map="createFacilityContactMechMap"/>
         <set field="createFacilityContactMechMap.infoString" from-field="parameters.emailAddress"/>
         <set field="createFacilityContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
         <call-service service-name="createFacilityContactMech" in-map-name="createFacilityContactMechMap">
@@ -267,7 +267,7 @@ under the License.
         </if-validate-method>
         <check-errors/>
 
-        <set-service-fields service-name="updateFacilityContactMech" map-name="parameters" to-map-name="updateFacilityContactMechMap"/>
+        <set-service-fields service-name="updateFacilityContactMech" map="parameters" to-map="updateFacilityContactMechMap"/>
         <set field="updateFacilityContactMechMap.infoString" from-field="parameters.emailAddress"/>
         <set field="updateFacilityContactMechMap.contactMechTypeId" value="EMAIL_ADDRESS" />
         <call-service service-name="updateFacilityContactMech" in-map-name="updateFacilityContactMechMap">

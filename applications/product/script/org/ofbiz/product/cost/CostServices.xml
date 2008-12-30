@@ -177,7 +177,7 @@ under the License.
     </simple-method>
     <simple-method method-name="getTaskCost" short-description="Gets the production run task's costs">
         <!-- First of all, the estimated task time is computed -->
-        <set-service-fields service-name="getEstimatedTaskTime" map-name="parameters" to-map-name="inputMap"/>
+        <set-service-fields service-name="getEstimatedTaskTime" map="parameters" to-map="inputMap"/>
         <set from-field="parameters.workEffortId" field="inputMap.taskId"/>
         <call-service service-name="getEstimatedTaskTime" in-map-name="inputMap">
             <result-to-field result-name="estimatedTaskTime"/>
