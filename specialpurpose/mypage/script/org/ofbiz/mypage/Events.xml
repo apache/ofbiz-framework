@@ -99,7 +99,7 @@ under the License.
     <simple-method method-name="checkCommEventAccess" short-description="check if the user has access to the email of this party">
         <set field="found" value="false"/>
         <if-compare-field operator="not-equals" field="parameters.partyId" to-field="userLogin.partyId">
-            <entity-and list"emailOwners" entity-name="PartyRelationship" filter-by-date="true">
+            <entity-and list="emailOwners" entity-name="PartyRelationship" filter-by-date="true">
                 <field-map field-name="partyIdFrom" env-name="userLogin.partyId" />
                 <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN" />
                 <field-map field-name="partyIdTo" env-name="parameters.partyId"/>

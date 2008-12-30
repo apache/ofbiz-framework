@@ -97,7 +97,7 @@ under the License.
         <set field="found" value="false"/>
         <if-compare-field operator="not-equals" field="parameters.partyId"
             to-field="userLogin.partyId">
-            <entity-and list"emailOwners" entity-name="PartyRelationship"
+            <entity-and list="emailOwners" entity-name="PartyRelationship"
                 filter-by-date="true">
                 <field-map field-name="partyIdFrom" value="${userLogin.partyId}"/>
                 <field-map field-name="roleTypeIdFrom" value="EMAIL_ADMIN"/>
