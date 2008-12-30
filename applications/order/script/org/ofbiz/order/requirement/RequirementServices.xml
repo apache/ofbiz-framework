@@ -49,7 +49,7 @@ under the License.
         <entity-one entity-name="Requirement" value-field="requirement" auto-field-map="true"/>
         <check-errors/>
         <remove-related value-name="requirement" relation-name="RequirementCustRequest"/>
-        <remove-value value-name="requirement"/>
+        <remove-value value-field="requirement"/>
     </simple-method>
 
     <simple-method method-name="associateRequirementWithRequestItem" short-description="Associate a requirement and CustRequestItem">
@@ -138,7 +138,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="RequirementRole" value-field="requirementRole" auto-field-map="true"/>
         <check-errors/>
-        <remove-value value-name="requirementRole"/>
+        <remove-value value-field="requirementRole"/>
         <check-errors/>
     </simple-method>
 

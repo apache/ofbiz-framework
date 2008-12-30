@@ -596,7 +596,7 @@ under the License.
         <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
             <log level="verbose" message="Serialized inventory re-enabled."/>
             <set value="INV_AVAILABLE" field="inventoryItem.statusId"/>
-            <remove-value value-name="orderItemShipGrpInvRes"/>
+            <remove-value value-field="orderItemShipGrpInvRes"/>
             <store-value value-field="inventoryItem"/>
         </if-compare>
         <if-compare value="NON_SERIAL_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
@@ -623,7 +623,7 @@ under the License.
                 </calculate>
                 <store-value value-field="orderItemShipGrpInvRes"/>
             <else>
-                <remove-value value-name="orderItemShipGrpInvRes"/>
+                <remove-value value-field="orderItemShipGrpInvRes"/>
             </else>
             </if-compare-field>
         </if-compare>

@@ -105,7 +105,7 @@ under the License.
         <field-to-field field-name="thruDate" map-name="parameters" to-map-name="productFeatureAppl"/>
         <store-value value-name="productFeatureAppl"/>
         -->
-        <remove-value value-name="productFeatureAppl"/>
+        <remove-value value-field="productFeatureAppl"/>
     </simple-method>
 
     <simple-method method-name="applyFeatureToProductFromTypeAndCode" short-description="Apply Feature to Product using Feature Type and ID Code">
@@ -164,7 +164,7 @@ under the License.
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCategoryAppl"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Methods for ProductFeatureCatGrpAppl -->
@@ -199,7 +199,7 @@ under the License.
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureCatGrpAppl"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ProductFeatureGroup Services -->
@@ -254,7 +254,7 @@ under the License.
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureGroupAppl"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key entity-name="ProductFeatureGroupAppl" map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- Methods for ProductFeatureIactn -->
@@ -273,7 +273,7 @@ under the License.
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureIactn"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>    
     <!-- Methods for ProductFeatureType -->
     <simple-method method-name="createProductFeatureType" short-description="Create a Product Feature Type">
@@ -317,7 +317,7 @@ under the License.
         <make-value value-field="lookupKeyValue" entity-name="ProductFeatureType"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- create a new ProductFeatureApplAttr -->
@@ -365,7 +365,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="ProductFeatureApplAttr" value-field="productFeatureApplAttr" auto-field-map="true"/>
         <check-errors/>
-        <remove-value value-name="productFeatureApplAttr"/>
+        <remove-value value-field="productFeatureApplAttr"/>
         <check-errors/>
     </simple-method>
     
@@ -408,6 +408,6 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductFeaturePrice" map="lookupPKMap" value-field="lookedUpValue"/>
          
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 </simple-methods>

@@ -209,7 +209,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryMember"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryMember" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ================================================================ -->
@@ -253,7 +253,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ================================================================ -->
@@ -345,7 +345,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryRollup"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryRollup" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ================================================================ -->
@@ -471,7 +471,7 @@ under the License.
 
         <iterate entry="productCategoryMember" list="productCategoryMembers">
             <if-compare-field field="productCategoryMember.thruDate" to-field="expireTimestamp" operator="less" type="Timestamp">
-                <remove-value value-name="productCategoryMember"/>
+                <remove-value value-field="productCategoryMember"/>
             </if-compare-field>
         </iterate>
     </simple-method>
@@ -660,7 +660,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ProductCategoryAttribute"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductCategoryAttribute" map="lookupPKMap" value-field="ProductCategoryAttributeInstance"/>
-        <remove-value value-name="ProductCategoryAttributeInstance"/>
+        <remove-value value-field="ProductCategoryAttributeInstance"/>
     </simple-method>
     
 

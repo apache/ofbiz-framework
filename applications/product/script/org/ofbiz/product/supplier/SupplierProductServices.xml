@@ -51,7 +51,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         
         <find-by-primary-key entity-name="SupplierProduct" map="lookupPKMap" value-field="sprod"/>                
-        <remove-value value-name="sprod"/>
+        <remove-value value-field="sprod"/>
     </simple-method>
 
     <!-- services for supplier product features -->

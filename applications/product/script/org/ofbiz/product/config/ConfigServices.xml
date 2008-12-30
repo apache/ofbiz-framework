@@ -67,7 +67,7 @@ under the License.
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ProductConfig" map="lookupPKMap" value-field="lookedUpValue"/>
 
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- Methods for Config Items -->
@@ -101,7 +101,7 @@ under the License.
         <make-value entity-name="ProductConfigItem" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <!-- Methods for Config Options -->
     <simple-method method-name="createProductConfigOption" short-description="Create a Config Option">
@@ -136,7 +136,7 @@ under the License.
         <make-value entity-name="ProductConfigOption" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <!-- Methods for ProductConfigProduct -->
     <simple-method method-name="createProductConfigProduct" short-description="Create a ProductConfigProduct">
@@ -168,7 +168,7 @@ under the License.
         <make-value entity-name="ProductConfigProduct" value-field="lookupKeyValue"/>
         <set-pk-fields map="parameters" value-field="lookupKeyValue"/>
         <find-by-primary-key map="lookupKeyValue" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
 </simple-methods>

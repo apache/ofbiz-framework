@@ -559,7 +559,7 @@ under the License.
                     <entity-one entity-name="PicklistBin" value-field="binToRemove">
                         <field-map field-name="picklistBinId" from-field="picklistBinId"/>
                     </entity-one>
-                    <remove-value value-name="binToRemove"/>
+                    <remove-value value-field="binToRemove"/>
                 </if-compare>
             </iterate>
         <else>
@@ -648,7 +648,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="Picklist"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- PicklistBin -->
@@ -687,7 +687,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="PicklistBin"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- PicklistItem -->
@@ -750,7 +750,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="PicklistItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="setPicklistItemToComplete" short-description="Set the status of a pick list item to completed">
         <check-permission permission="FACILITY" action="_UPDATE">
@@ -800,7 +800,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="PicklistRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ========================================================= -->

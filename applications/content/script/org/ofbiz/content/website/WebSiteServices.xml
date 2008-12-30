@@ -64,7 +64,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="WebSiteContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="WebSiteContent" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- WebSite Content Type Services -->
@@ -89,7 +89,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="WebSiteContentType"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="WebSiteContentType" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>        
+        <remove-value value-field="lookedUpValue"/>        
     </simple-method>
 
     <!-- WebSite Path Alias -->
@@ -110,7 +110,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="WebSitePathAlias"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="WebSitePathAlias" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="getWebSitePathAlias" short-description="Returns a WebSite Path Alias">
         <make-value value-field="lookupPKMap" entity-name="WebSitePathAlias"/>
@@ -143,7 +143,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="WebSiteRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="WebSiteRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- quick create website CMS content -->

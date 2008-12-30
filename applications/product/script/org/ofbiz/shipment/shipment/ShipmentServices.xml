@@ -819,7 +819,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ShipmentItem"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentItem" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="splitShipmentItemByQuantity" short-description="splitShipmentItemByQuantity">
@@ -1023,7 +1023,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackageContent"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageContent" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="addShipmentContentToPackage" short-description="Add Shipment Content To Package">
         <check-permission permission="FACILITY" action="_CREATE">
@@ -1090,7 +1090,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ShipmentPackageRouteSeg"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentPackageRouteSeg" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ShipmentContactMech services -->
@@ -1129,7 +1129,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="ShipmentContactMech"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="ShipmentContactMech" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
 
     <!-- ShipmentRouteSegment services -->
@@ -2041,7 +2041,7 @@ under the License.
         <check-errors/>
         <entity-one entity-name="QuantityBreak" value-field="quantityBreak" auto-field-map="true"/>
         <check-errors/>
-        <remove-value value-name="quantityBreak"/>
+        <remove-value value-field="quantityBreak"/>
         <check-errors/>
     </simple-method>
     

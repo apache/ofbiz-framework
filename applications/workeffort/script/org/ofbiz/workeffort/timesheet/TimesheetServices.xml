@@ -45,7 +45,7 @@ under the License.
     </simple-method>
     <simple-method method-name="deleteTimesheet" short-description="Delete Timesheet">
         <call-simple-method method-name="checkTimesheetStatus"/>
-        <remove-value value-name="timesheet"/>
+        <remove-value value-field="timesheet"/>
     </simple-method>
     <simple-method method-name="createTimesheetForThisWeek" short-description="Create Timesheet For This Week of no date provided, otherwise for a specific week">
         <if-empty field="parameters.requiredDate">
@@ -328,7 +328,7 @@ under the License.
     <simple-method method-name="deleteTimeEntry" short-description="Delete TimeEntry">
         <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>
         <call-simple-method method-name="checkTimesheetStatus"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="unlinkInvoiceFromTimeEntry" short-description="Delete TimeEntry">
         <entity-one entity-name="TimeEntry" value-field="lookedUpValue"/>

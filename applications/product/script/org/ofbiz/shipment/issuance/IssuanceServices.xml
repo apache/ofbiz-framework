@@ -202,7 +202,7 @@ under the License.
                 <set-pk-fields value-field="shipmentItemLookupPk" map="parameters"/>
                 <set from-field="orderShipment.shipmentItemSeqId" field="shipmentItemLookupPk.shipmentItemSeqId"/>
                 <find-by-primary-key map="shipmentItemLookupPk" value-field="shipmentItem"/>
-                <remove-value value-name="orderShipment"/>
+                <remove-value value-field="orderShipment"/>
             </if-not-empty>
             <if-compare value="0" operator="not-equals" field="qtyForShipmentItem" type="Double">
                 <!-- add the qtyForShipmentItem to the shipmentItem -->
@@ -240,7 +240,7 @@ under the License.
         </calculate>
         <if-compare value="0" operator="equals" field="orderItemShipGrpInvRes.quantity" type="Double">
             <!-- if none left reserved, remove OIIR -->
-            <remove-value value-name="orderItemShipGrpInvRes"/>
+            <remove-value value-field="orderItemShipGrpInvRes"/>
             <!-- if there are no more OIIRs for the orderItem, set the orderItem.statusId to ITEM_COMPLETED -->
             <get-related value-field="orderItem" relation-name="OrderItemShipGrpInvRes" list="otherOiirs"/>
             <if-empty field="otherOiirs">

@@ -415,7 +415,7 @@ under the License.
         <!-- finally delete application -->
         <property-to-field resource="AccountingUiLabels" property="AccountingPaymentApplRemoved" field-name="successMessage"/>
         <string-append field-name="successMessage" string=" ${toMessage}"/>
-        <remove-value value-name="paymentApplication"/>
+        <remove-value value-field="paymentApplication"/>
     </simple-method>
 
     <simple-method method-name="createInvoiceRole" short-description="Create a Invoice Role">

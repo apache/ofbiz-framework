@@ -41,7 +41,7 @@ under the License.
     <simple-method method-name="deleteFacility" short-description="Delete a Facility">
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
         <find-by-primary-key entity-name="Facility" map="lookupPKMap" value-field="facility"/>
-        <remove-value value-name="facility"/>
+        <remove-value value-field="facility"/>
     </simple-method>
 
     <!-- Facility ContactMech Services -->
@@ -54,7 +54,7 @@ under the License.
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
         <set field="lookupPKMap.contactMechId" from-field="parameters.contactMechId" />
         <find-by-primary-key entity-name="FacilityContactMech" map="lookupPKMap" value-field="facilityContactMech"/>
-        <remove-value value-name="facilityContactMech"/>
+        <remove-value value-field="facilityContactMech"/>
     </simple-method>
     
     <!-- Facility Location Services -->
@@ -100,7 +100,7 @@ under the License.
         <set field="lookupPKMap.facilityId" from-field="parameters.facilityId" />
         <set field="lookupPKMap.locationSeqId" from-field="parameters.locationSeqId" />
         <find-by-primary-key entity-name="FacilityLocation" map="lookupPKMap" value-field="facilityLocation"/>
-        <remove-value value-name="facilityLocation"/>
+        <remove-value value-field="facilityLocation"/>
     </simple-method>    
     
     <!-- Facility Group Services -->
@@ -124,7 +124,7 @@ under the License.
     <simple-method method-name="deleteFacilityGroup" short-description="Delete an Facility Group">
         <set field="lookupPKMap.facilityGroupId" from-field="parameters.facilityGroupId" />
         <find-by-primary-key entity-name="FacilityGroup" map="lookupPKMap" value-field="facilityGroup"/>
-        <remove-value value-name="facilityGroup"/>
+        <remove-value value-field="facilityGroup"/>
     </simple-method>    
     
     <!-- Facility Member Services -->
@@ -151,7 +151,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="FacilityGroupMember"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="FacilityGroupMember" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>
     
     <!-- Facility Group Rollup Services -->
@@ -178,7 +178,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="FacilityGroupRollup"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="FacilityGroupRollup" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>    
         
     <!-- Facility Role / Facility Group Role Services -->
@@ -218,7 +218,7 @@ under the License.
         <make-value value-field="lookupPKMap" entity-name="FacilityGroupRole"/>
         <set-pk-fields map="parameters" value-field="lookupPKMap"/>
         <find-by-primary-key entity-name="FacilityGroupRole" map="lookupPKMap" value-field="lookedUpValue"/>
-        <remove-value value-name="lookedUpValue"/>
+        <remove-value value-field="lookedUpValue"/>
     </simple-method>            
     
 </simple-methods>

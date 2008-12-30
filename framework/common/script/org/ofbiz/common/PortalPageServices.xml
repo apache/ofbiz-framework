@@ -34,7 +34,7 @@ under the License.
         <create-value value-field="newEntity"/>
         <check-errors/>
 
-        <remove-value value-name="oldEntity"/>
+        <remove-value value-field="oldEntity"/>
         <check-errors/>
     </simple-method>
 
@@ -61,7 +61,7 @@ under the License.
                 <call-service service-name="deletePortalPagePortlet" in-map-name="deletePortalPagePortletInMap"/>
             </iterate>
            
-            <remove-value value-name="column"/>
+            <remove-value value-field="column"/>
         </if-not-empty>
     </simple-method>
 
@@ -88,7 +88,7 @@ under the License.
             <set field="newEntity.portletSeqId" from-field="portlet.portletSeqId"/>
             <remove-by-and entity-name="PortletAttribute" map-name="newEntity"/>
             
-            <remove-value value-name="portlet"/>
+            <remove-value value-field="portlet"/>
         </if-not-empty>
     </simple-method>
     
@@ -135,7 +135,7 @@ under the License.
                         <call-service service-name="deletePortalPageColumn" in-map-name="deletePortalPageColumnInMap"/>
                     </iterate>
             
-                    <remove-value value-name="portalPage"/>
+                    <remove-value value-field="portalPage"/>
                 </if-not-empty>
                 </if-compare>
         </if-compare>

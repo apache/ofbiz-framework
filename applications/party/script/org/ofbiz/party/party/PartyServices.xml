@@ -746,14 +746,14 @@ under the License.
     <simple-method method-name="deleteAddressMatchMap" short-description="remove a AddressMatchMap">
         <make-value entity-name="AddressMatchMap" value-field="fieldMap"/>
         <set-pk-fields map="parameters" value-field="fieldMap"/>
-        <remove-value value-name="fieldMap"/>
+        <remove-value value-field="fieldMap"/>
     </simple-method>
     <simple-method method-name="clearAddressMatchMap" short-description="remove all AddressMatchMap">
         <entity-condition entity-name="AddressMatchMap" list="addrs">
             <use-iterator/>
         </entity-condition>
         <iterate entry="addr" list="addrs">
-            <remove-value value-name="addr"/>
+            <remove-value value-field="addr"/>
         </iterate>        
     </simple-method>
 
