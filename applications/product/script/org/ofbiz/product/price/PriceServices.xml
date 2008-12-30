@@ -53,7 +53,7 @@ under the License.
         <check-permission permission="CATALOG_PRICE_MAINT"><fail-property resource="ProductUiLabels" property="ProductPriceMaintPermissionError"/></check-permission>
         <check-errors/>
 
-        <entity-one entity-name="ProductPrice" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductPrice" value-field="lookedUpValue"/>
 
         <!-- grab the old price value before setting nonpk parameter fields -->
         <field-to-result map-name="lookedUpValue" field-name="price" result-name="oldPrice"/>
@@ -124,7 +124,7 @@ under the License.
         <set field="checkAction" value="UPDATE" />
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-errors/>
-        <entity-one entity-name="ProductPaymentMethodType" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductPaymentMethodType" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -133,7 +133,7 @@ under the License.
         <set field="checkAction" value="DELETE" />
         <call-simple-method method-name="checkProductRelatedPermission" xml-resource="org/ofbiz/product/product/ProductServices.xml"/>
         <check-errors/>
-        <entity-one entity-name="ProductPaymentMethodType" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductPaymentMethodType" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     

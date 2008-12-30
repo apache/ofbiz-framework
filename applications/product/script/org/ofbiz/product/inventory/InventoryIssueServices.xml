@@ -21,9 +21,9 @@ under the License.
 <simple-methods xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
     <simple-method method-name="issueImmediatelyFulfilledOrder" short-description="Issues the Inventory for an Order that was Immediately Fulfilled" login-required="false">
-        <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+        <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
 
-        <entity-one entity-name="ProductStore" value-name="productStore">
+        <entity-one entity-name="ProductStore" value-field="productStore">
             <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
         </entity-one>
 
@@ -62,7 +62,7 @@ under the License.
     </simple-method>
     <simple-method method-name="issueImmediatelyFulfilledOrderItem" short-description="Issues the Inventory for an Order Item that was Immediately Fulfilled" login-required="false">
         <if-empty field="parameters.orderItem">
-            <entity-one entity-name="OrderItem" value-name="orderItem"/>
+            <entity-one entity-name="OrderItem" value-field="orderItem"/>
         <else>
             <set field="orderItem" from-field="parameters.orderItem" />
         </else>
@@ -74,7 +74,7 @@ under the License.
 
             <!-- NOTE: the inventory will be issued from the OrderHeader.originFacilityId -->
             <if-empty field="parameters.orderHeader">
-                <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+                <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
             <else>
                 <set field="orderHeader" from-field="parameters.orderHeader" />
             </else>
@@ -82,7 +82,7 @@ under the License.
             
             <!-- get the ProductStore to fund the reserveOrderEnumId -->
             <if-empty field="parameters.productStore">
-                <entity-one entity-name="ProductStore" value-name="productStore">
+                <entity-one entity-name="ProductStore" value-field="productStore">
                     <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
                 </entity-one>
             <else>

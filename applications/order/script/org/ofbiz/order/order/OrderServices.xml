@@ -106,7 +106,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <entity-one entity-name="OrderShipment" value-name="lookedUpValue"/>
+        <entity-one entity-name="OrderShipment" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -117,7 +117,7 @@ under the License.
         </check-permission>
         <check-errors/>
         
-        <entity-one entity-name="OrderShipment" value-name="lookedUpValue"/>
+        <entity-one entity-name="OrderShipment" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -140,7 +140,7 @@ under the License.
         <set value="PRODUCT_REQUIREMENT" field="inputMap.requirementTypeId"/>
 
         <!-- Include the facilityId corresponding to this order by looking up the ProductStore -->
-        <entity-one entity-name="OrderHeader" value-name="orderHeader" auto-field-map="true"/>
+        <entity-one entity-name="OrderHeader" value-field="orderHeader" auto-field-map="true"/>
         <get-related-one value-name="orderHeader" relation-name="ProductStore" to-value-name="productStore" use-cache="true"/>
         <if-not-empty field="productStore.inventoryFacilityId">
             <set from-field="productStore.inventoryFacilityId" field="inputMap.facilityId"/>
@@ -159,7 +159,7 @@ under the License.
 
     <simple-method method-name="getProductFacilityAndQuantities" short-description="finds ProductFacility and QOH, ATP inventory for an inventoryItem">
         <!-- Get the ProductFacility for the minimum stock level -->
-        <entity-one entity-name="ProductFacility" value-name="productFacility">
+        <entity-one entity-name="ProductFacility" value-field="productFacility">
             <field-map from-field="inventoryItem.productId" field-name="productId"/>
             <field-map from-field="inventoryItem.facilityId" field-name="facilityId"/>
         </entity-one>
@@ -176,9 +176,9 @@ under the License.
 
     <simple-method method-name="getProductRequirementMethod" short-description="finds the requirement method for the product">
         <if-not-empty field="parameters.orderId">
-            <entity-one entity-name="OrderHeader" auto-field-map="true" value-name="order"/>
+            <entity-one entity-name="OrderHeader" auto-field-map="true" value-field="order"/>
         </if-not-empty>
-        <entity-one entity-name="Product" auto-field-map="true" value-name="product"/>
+        <entity-one entity-name="Product" auto-field-map="true" value-field="product"/>
         <set from-field="product.requirementMethodEnumId" field="requirementMethodId"/>
         <if-empty field="requirementMethodId">
             <if>
@@ -191,7 +191,7 @@ under the License.
                     </and>
                 </condition>
                 <then>
-                    <entity-one entity-name="ProductStore" value-name="productStore">
+                    <entity-one entity-name="ProductStore" value-field="productStore">
                         <field-map from-field="order.productStoreId" field-name="productStoreId"/>
                     </entity-one>
                     <set from-field="productStore.requirementMethodEnumId" field="requirementMethodId"/>
@@ -224,12 +224,12 @@ under the License.
 
         <!-- If the service is triggered by the updateItemIssuance service, get the ItemIssuance by the passed itemIssuanceId -->
         <if-not-empty field="parameters.itemIssuanceId">
-            <entity-one entity-name="ItemIssuance" auto-field-map="true" value-name="itemIssuance"/>
-            <entity-one entity-name="InventoryItem" value-name="inventoryItem">
+            <entity-one entity-name="ItemIssuance" auto-field-map="true" value-field="itemIssuance"/>
+            <entity-one entity-name="InventoryItem" value-field="inventoryItem">
                 <field-map from-field="itemIssuance.inventoryItemId" field-name="inventoryItemId"/>
             </entity-one>
         <else>
-            <entity-one entity-name="InventoryItem" auto-field-map="true" value-name="inventoryItem"/>
+            <entity-one entity-name="InventoryItem" auto-field-map="true" value-field="inventoryItem"/>
         </else>
         </if-not-empty>
 
@@ -276,7 +276,7 @@ under the License.
         <check-errors/>
 
         <!-- assumes that inventoryItemId is one of the parameters and get the inventory item of the reservation -->
-        <entity-one entity-name="InventoryItem" value-name="inventoryItem" auto-field-map="true"/>
+        <entity-one entity-name="InventoryItem" value-field="inventoryItem" auto-field-map="true"/>
         
         <!-- find the requirement method for this product -->
         <set from-field="inventoryItem.productId" field="parameters.productId"/>
@@ -323,7 +323,7 @@ under the License.
         <check-errors/>
         
         <!-- assumes that inventoryItemId is one of the parameters and get the inventory item of the reservation -->
-        <entity-one entity-name="InventoryItem" value-name="inventoryItem" auto-field-map="true"/>
+        <entity-one entity-name="InventoryItem" value-field="inventoryItem" auto-field-map="true"/>
         
         <!-- find the requirement method for this product -->
         <set from-field="inventoryItem.productId" field="parameters.productId"/>
@@ -471,7 +471,7 @@ under the License.
 
     <simple-method method-name="getNextOrderId" short-description="Get Next orderId">
         <!-- try to find PartyAcctgPreference for parameters.partyId, see if we need any special order number sequencing -->
-        <entity-one entity-name="PartyAcctgPreference" value-name="partyAcctgPreference"/>
+        <entity-one entity-name="PartyAcctgPreference" value-field="partyAcctgPreference"/>
         <log level="info" message="In getNextOrderId partyId is [${parameters.partyId}], partyAcctgPreference: ${partyAcctgPreference}"/>
         
         <if>
@@ -509,7 +509,7 @@ under the License.
         </if>
 
         <if-not-empty field="parameters.productStoreId">
-            <entity-one entity-name="ProductStore" value-name="productStore"/>
+            <entity-one entity-name="ProductStore" value-field="productStore"/>
         </if-not-empty>
         
         <!-- use orderIdTemp along with the orderIdPrefix to create the real ID -->
@@ -543,7 +543,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+        <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
         <if-empty field="orderHeader">
             <add-error><fail-message message="ERROR: Cannot update specified contact info because it does not correspond to the specified work effort"/></add-error>
         </if-empty>
@@ -557,7 +557,7 @@ under the License.
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunAutoCreateOrderAdjustments"/>
         </check-permission>
         <check-errors/>
-        <entity-one entity-name="OrderHeader" value-name="order" auto-field-map="true"/>
+        <entity-one entity-name="OrderHeader" value-field="order" auto-field-map="true"/>
         <!-- all existing promo order items are cancelled -->
         <get-related value-name="order" relation-name="OrderItem" list-name="orderItems"/>
         <iterate list="orderItems" entry="orderItem">
@@ -763,7 +763,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getOrderItemShipGroupEstimatedShipDate" short-description="Compute and return the OrderItemShipGroup estimated ship date based on the associated items.">
-        <entity-one entity-name="OrderItemShipGroup" value-name="orderItemShipGroup"/>
+        <entity-one entity-name="OrderItemShipGroup" value-field="orderItemShipGroup"/>
         <if-compare field="orderItemShipGroup.maySplit" operator="equals" value="Y">
             <set field="orderByList[]" value="+promisedDatetime"/>
         <else>
@@ -790,7 +790,7 @@ under the License.
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveOrderContactMech"/>
         </check-permission>
         <check-errors/>
-        <entity-one entity-name="OrderContactMech" value-name="lookedUpValue"/>
+        <entity-one entity-name="OrderContactMech" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -799,7 +799,7 @@ under the License.
             <fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunUpdateOrderNote"/>
         </check-permission>
         <check-errors/>
-        <entity-one entity-name="OrderHeaderNote" value-name="orderHeaderNote"/>
+        <entity-one entity-name="OrderHeaderNote" value-field="orderHeaderNote"/>
         <set-nonpk-fields value-field="orderHeaderNote" map="parameters"/>
         <store-value value-name="orderHeaderNote"/>  
     </simple-method>
@@ -823,7 +823,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <entity-one entity-name="OrderTerm" value-name="lookedUpValue"/>
+        <entity-one entity-name="OrderTerm" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -833,7 +833,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <entity-one entity-name="OrderTerm" value-name="lookedUpValue"/>
+        <entity-one entity-name="OrderTerm" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -845,7 +845,7 @@ under the License.
         <set field="inputMap.paymentMethodId" from-field="parameters.paymentMethodId"/>
         <set field="inputMap.maxAmount" from-field="parameters.maxAmount"/>
         <set field="inputMap.orderId" from-field="parameters.orderId"/>
-        <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
+        <entity-one entity-name="PaymentMethod" value-field="paymentMethod">
             <field-map field-name="paymentMethodId" from-field="parameters.paymentMethodId"/>
         </entity-one>
         <set field="inputMap.paymentMethodTypeId" from-field="paymentMethod.paymentMethodTypeId"/>
@@ -857,7 +857,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="getOrderStatus" short-description="Gets an order status" login-required="false">
-        <entity-one entity-name="OrderHeader" value-name="order"/>
+        <entity-one entity-name="OrderHeader" value-field="order"/>
         <if-empty field="order">
             <add-error><fail-message message="Order not found [{parameters.orderId}]"/></add-error>
             <check-errors/>

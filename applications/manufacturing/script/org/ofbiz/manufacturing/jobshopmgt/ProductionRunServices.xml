@@ -23,7 +23,7 @@ under the License.
 
     <!-- Warehouse -->
     <simple-method method-name="issueProductionRunTask" short-description="Issues the Inventory for a Production Run Task" login-required="false">
-        <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+        <entity-one entity-name="WorkEffort" value-field="workEffort"/>
 
         <if-empty field="parameters.failIfItemsAreNotAvailable">
             <set field="parameters.failIfItemsAreNotAvailable" value="Y"/>
@@ -60,7 +60,7 @@ under the License.
             <set from-field="parameters.productId" field="productId"/>
             <set from-field="parameters.quantity" field="estimatedQuantity" default-value="0.0" type="Double"/>
         <else>
-            <entity-one entity-name="WorkEffortGoodStandard" value-name="workEffortGoodStandard" auto-field-map="false">
+            <entity-one entity-name="WorkEffortGoodStandard" value-field="workEffortGoodStandard" auto-field-map="false">
                 <field-map field-name="workEffortId" from-field="parameters.workEffortId"/>
                 <field-map field-name="productId" from-field="parameters.productId"/>
                 <field-map field-name="fromDate" from-field="parameters.fromDate"/>
@@ -81,7 +81,7 @@ under the License.
             <now-timestamp-to-env env-name="nowTimestamp"/>
 
             <!-- NOTE: the inventory will be issued from the WorkEffort.facilityId -->
-            <entity-one entity-name="WorkEffort" value-name="workEffort"/>
+            <entity-one entity-name="WorkEffort" value-field="workEffort"/>
             
             <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
             <if-compare value="INVRO_FIFO_EXP" operator="equals" field="parameters.reserveOrderEnumId">

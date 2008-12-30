@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="prepareProductDimensionData" short-description="">
-        <entity-one entity-name="Product" value-name="product"/>
+        <entity-one entity-name="Product" value-field="product"/>
         <if-empty field="product">
             <add-error><fail-message message="Product with id [${productId}] doesn't exist."/></add-error>
         </if-empty>

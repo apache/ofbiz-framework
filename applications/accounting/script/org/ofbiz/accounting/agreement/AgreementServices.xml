@@ -48,7 +48,7 @@ under the License.
 
     <!-- update an existing Agreement -->
     <simple-method method-name="updateAgreement" short-description="Update an existing Agreement">
-        <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+        <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="agreement"/>
         <store-value value-name="agreement"/>
@@ -57,7 +57,7 @@ under the License.
 
     <!-- cancel an existing Agreement -->
     <simple-method method-name="cancelAgreement" short-description="Cancel an existing Agreement">
-        <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+        <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
         <check-errors/>
         <now-timestamp-to-env env-name="nowTimestamp"/>
         <set from-field="nowTimestamp" field="agreement.thruDate"/>
@@ -67,7 +67,7 @@ under the License.
 
     <!-- copy an existing Agreement -->
     <simple-method method-name="copyAgreement" short-description="Copy an existing Agreement">
-        <entity-one entity-name="Agreement" value-name="agreement" auto-field-map="true"/>
+        <entity-one entity-name="Agreement" value-field="agreement" auto-field-map="true"/>
         <check-errors/>
         <set-service-fields service-name="createAgreement" to-map-name="createAgreementInMap" map-name="agreement"/>
         <call-service service-name="createAgreement" in-map-name="createAgreementInMap">
@@ -136,7 +136,7 @@ under the License.
 
     <!-- update an existing AgreementItem -->
     <simple-method method-name="updateAgreementItem" short-description="Update an existing AgreementItem">
-        <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
+        <entity-one entity-name="AgreementItem" value-field="agreementItem" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="agreementItem"/>
         <store-value value-name="agreementItem"/>
@@ -145,7 +145,7 @@ under the License.
 
     <!-- remove an AgreementItem -->
     <simple-method method-name="removeAgreementItem" short-description="Remove an AgreementItem">
-        <entity-one entity-name="AgreementItem" value-name="agreementItem" auto-field-map="true"/>
+        <entity-one entity-name="AgreementItem" value-field="agreementItem" auto-field-map="true"/>
         <check-errors/>
         <remove-value value-name="agreementItem"/>
     </simple-method>
@@ -170,7 +170,7 @@ under the License.
 
     <!-- update an existing AgreementTerm -->
     <simple-method method-name="updateAgreementTerm" short-description="Update an existing AgreementTerm">
-        <entity-one entity-name="AgreementTerm" value-name="agreementTerm" auto-field-map="true"/>
+        <entity-one entity-name="AgreementTerm" value-field="agreementTerm" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="agreementTerm"/>
         <store-value value-name="agreementTerm"/>
@@ -179,7 +179,7 @@ under the License.
 
     <!-- delete an existing AgreementTerm -->
     <simple-method method-name="deleteAgreementTerm" short-description="Delete an existing AgreementTerm">
-        <entity-one entity-name="AgreementTerm" value-name="agreementTerm" auto-field-map="true"/>
+        <entity-one entity-name="AgreementTerm" value-field="agreementTerm" auto-field-map="true"/>
         <check-errors/>
         <remove-value value-name="agreementTerm"/>
         <check-errors/>
@@ -196,7 +196,7 @@ under the License.
 
     <!-- update an existing AgreementPromoAppl -->
     <simple-method method-name="updateAgreementPromoAppl" short-description="Update an existing AgreementPromoAppl">
-        <entity-one entity-name="AgreementPromoAppl" value-name="agreementPromoAppl" auto-field-map="true"/>
+        <entity-one entity-name="AgreementPromoAppl" value-field="agreementPromoAppl" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="agreementPromoAppl"/>
         <store-value value-name="agreementPromoAppl"/>
@@ -205,7 +205,7 @@ under the License.
 
     <!-- remove an existing AgreementPromoAppl -->
     <simple-method method-name="removeAgreementPromoAppl" short-description="Remove an existing AgreementPromoAppl">
-        <entity-one entity-name="AgreementPromoAppl" value-name="agreementPromoAppl" auto-field-map="true"/>
+        <entity-one entity-name="AgreementPromoAppl" value-field="agreementPromoAppl" auto-field-map="true"/>
         <check-errors/>
         <remove-value value-name="agreementPromoAppl"/>
         <check-errors/>
@@ -222,7 +222,7 @@ under the License.
 
     <!-- update an existing AgreementProductAppl -->
     <simple-method method-name="updateAgreementProductAppl" short-description="Update an existing AgreementProductAppl">
-        <entity-one entity-name="AgreementProductAppl" value-name="agreementProductAppl" auto-field-map="true"/>
+        <entity-one entity-name="AgreementProductAppl" value-field="agreementProductAppl" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="agreementProductAppl"/>
         <store-value value-name="agreementProductAppl"/>
@@ -231,7 +231,7 @@ under the License.
 
     <!-- remove an existing AgreementProductAppl -->
     <simple-method method-name="removeAgreementProductAppl" short-description="Remove an existing AgreementProductAppl">
-        <entity-one entity-name="AgreementProductAppl" value-name="agreementProductAppl" auto-field-map="true"/>
+        <entity-one entity-name="AgreementProductAppl" value-field="agreementProductAppl" auto-field-map="true"/>
         <check-errors/>
         <remove-value value-name="agreementProductAppl"/>
         <check-errors/>
@@ -248,7 +248,7 @@ under the License.
 
     <!-- update an existing AgreementPartyApplic -->
     <simple-method method-name="updateAgreementPartyApplic" short-description="Update an existing AgreementPartyApplic">
-        <entity-one entity-name="AgreementPartyApplic" value-name="agreementPartyApplic" auto-field-map="true"/>
+        <entity-one entity-name="AgreementPartyApplic" value-field="agreementPartyApplic" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="agreementPartyApplic"/>
         <store-value value-name="agreementPartyApplic"/>
@@ -257,7 +257,7 @@ under the License.
 
     <!-- remove an existing AgreementPartyApplic -->
     <simple-method method-name="removeAgreementPartyApplic" short-description="Remove an existing AgreementPartyApplic">
-        <entity-one entity-name="AgreementPartyApplic" value-name="agreementPartyApplic" auto-field-map="true"/>
+        <entity-one entity-name="AgreementPartyApplic" value-field="agreementPartyApplic" auto-field-map="true"/>
         <check-errors/>
         <remove-value value-name="agreementPartyApplic"/>
         <check-errors/>
@@ -274,7 +274,7 @@ under the License.
 
     <!-- update an existing AgreementGeographicalApplic -->
     <simple-method method-name="updateAgreementGeographicalApplic" short-description="Update an existing AgreementGeographicalApplic">
-        <entity-one entity-name="AgreementGeographicalApplic" value-name="agreementGeographicalApplic" auto-field-map="true"/>
+        <entity-one entity-name="AgreementGeographicalApplic" value-field="agreementGeographicalApplic" auto-field-map="true"/>
         <check-errors/>
         <set-nonpk-fields map="parameters" value-field="agreementGeographicalApplic"/>
         <store-value value-name="agreementGeographicalApplic"/>
@@ -283,7 +283,7 @@ under the License.
 
     <!-- remove an existing AgreementGeographicalApplic -->
     <simple-method method-name="removeAgreementGeographicalApplic" short-description="Remove an existing AgreementGeographicalApplic">
-        <entity-one entity-name="AgreementGeographicalApplic" value-name="agreementGeographicalApplic" auto-field-map="true"/>
+        <entity-one entity-name="AgreementGeographicalApplic" value-field="agreementGeographicalApplic" auto-field-map="true"/>
         <check-errors/>
         <remove-value value-name="agreementGeographicalApplic"/>
         <check-errors/>
@@ -298,19 +298,19 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateAgreementRole" short-description="Update an Agreement Role">
-        <entity-one entity-name="AgreementRole" value-name="lookedUpValue"/>
+        <entity-one entity-name="AgreementRole" value-field="lookedUpValue"/>
         <set-pk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteAgreementRole" short-description="Delete an Agreement Role">
-        <entity-one entity-name="AgreementRole" value-name="agreementRole"/>
+        <entity-one entity-name="AgreementRole" value-field="agreementRole"/>
         <remove-value value-name="agreementRole"/>
     </simple-method>
 
     <!--AgreementWorkEffortAppl-->
     <simple-method method-name="createAgreementWorkEffortAppl" short-description="Create a link between a WorkEffort and a Agreement Appl">
-        <entity-one entity-name="AgreementWorkEffortAppl" value-name="agreementWorkEffortAppl"/>
+        <entity-one entity-name="AgreementWorkEffortAppl" value-field="agreementWorkEffortAppl"/>
         <if-not-empty field="agreementWorkEffortAppl">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingAgreementWorkEffortApplAlreadyExists"/></add-error>
             <check-errors/>
@@ -323,7 +323,7 @@ under the License.
     </simple-method>
    
     <simple-method method-name="deleteAgreementWorkEffortAppl" short-description="Remove a link between a WorkEffort and a Agreement Appl">
-        <entity-one entity-name="AgreementWorkEffortAppl" value-name="agreementWorkEffortAppl"/>
+        <entity-one entity-name="AgreementWorkEffortAppl" value-field="agreementWorkEffortAppl"/>
         <remove-value value-name="agreementWorkEffortAppl"/>
     </simple-method>
 

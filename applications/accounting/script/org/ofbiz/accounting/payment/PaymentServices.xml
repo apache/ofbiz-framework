@@ -45,7 +45,7 @@ under the License.
         <field-to-result field-name="payment.paymentId" result-name="paymentId"/>
         
         <if-not-empty field="parameters.paymentMethodId">
-            <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
+            <entity-one entity-name="PaymentMethod" value-field="paymentMethod">
                 <field-map field-name="paymentMethodId" from-field="parameters.paymentMethodId"/>
             </entity-one>
             <log level="info" message="Replacing passed payment method type [${parameters.paymentMethodTypeId}] with payment method type [${paymentMethod.paymentMethodTypeId}] for payment method [${parameters.paymentMethodId}]"/>
@@ -107,7 +107,7 @@ under the License.
             <now-timestamp-to-env env-name="payment.effectiveDate"/>
         </if-empty>
         <if-not-empty field="payment.paymentMethodId">
-            <entity-one entity-name="PaymentMethod" value-name="paymentMethod">
+            <entity-one entity-name="PaymentMethod" value-field="paymentMethod">
                 <field-map field-name="paymentMethodId" from-field="payment.paymentMethodId"/>
             </entity-one>
             <if-compare-field field="payment.paymentMethodTypeId" to-field="paymentMethod.paymentMethodTypeId" operator="not-equals">
@@ -142,7 +142,7 @@ under the License.
 
         <!-- get the invoice and do some further validation against it -->
         <if-not-empty field="parameters.invoiceId">
-            <entity-one entity-name="Invoice" value-name="invoice"/>
+            <entity-one entity-name="Invoice" value-field="invoice"/>
 
             <!-- get the amount that has not been applied yet for the invoice (outstanding amount) -->
             <set field="notApplied" value="${bsh:org.ofbiz.accounting.invoice.InvoiceWorker.getInvoiceNotApplied(invoice).doubleValue()}" type="Double"/>
@@ -170,11 +170,11 @@ under the License.
             <fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/>
         </check-permission>
 
-        <entity-one entity-name="Payment" value-name="payment"/>
+        <entity-one entity-name="Payment" value-field="payment"/>
         <field-to-result field-name="payment.paymentId" result-name="oldStatusId"/>
         
         <if-compare-field field="payment.statusId" to-field="parameters.statusId" operator="not-equals">
-            <entity-one entity-name="StatusValidChange" value-name="statusChange" auto-field-map="false">
+            <entity-one entity-name="StatusValidChange" value-field="statusChange" auto-field-map="false">
                 <field-map field-name="statusId" from-field="payment.statusId"/>
                 <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
             </entity-one>
@@ -245,7 +245,7 @@ under the License.
 
     <simple-method method-name="getInvoicePaymentInfoList" short-description="Create a list with information on payment due dates and amounts for the invoice">
         <if-empty field="parameters.invoice">
-            <entity-one entity-name="Invoice" value-name="invoice"/>
+            <entity-one entity-name="Invoice" value-field="invoice"/>
         <else>
             <set field="invoice" from-field="parameters.invoice"/>
         </else>

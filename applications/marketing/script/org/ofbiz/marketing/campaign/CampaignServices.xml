@@ -130,7 +130,7 @@ under the License.
             <then><add-error><fail-message message="Security Error: to run createMarketingCampaignRole you must run it for yourself or have the MARKETING_CREATE or MARKETING_ADMIN permissions."/></add-error></then>
         </if>
 
-        <entity-one entity-name="MarketingCampaign" value-name="marketingCampaign"/>
+        <entity-one entity-name="MarketingCampaign" value-field="marketingCampaign"/>
         
         <!-- okay, now check for all errors -->
         <check-errors/>
@@ -155,9 +155,9 @@ under the License.
         </if>
         <check-errors/>
 
-        <entity-one entity-name="MarketingCampaign" value-name="marketingCampaign"/>
+        <entity-one entity-name="MarketingCampaign" value-field="marketingCampaign"/>
         
-        <entity-one entity-name="MarketingCampaignRole" value-name="lookedUpValue"/>
+        <entity-one entity-name="MarketingCampaignRole" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -165,7 +165,7 @@ under the License.
         <check-permission permission="MARKETING" action="_DELETE"><fail-message message="Security Error: to run deleteMarketingCampaignRole you must have the MARKETING_DELETE or MARKETING_ADMIN permission"/></check-permission>
         <check-errors/>
 
-        <entity-one entity-name="MarketingCampaignRole" value-name="lookedUpValue"/>
+        <entity-one entity-name="MarketingCampaignRole" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 </simple-methods>

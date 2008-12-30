@@ -37,18 +37,18 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProdCatalog" short-description="Update an ProdCatalog">
-        <entity-one entity-name="ProdCatalog"  value-name="prodCatalog"/>
+        <entity-one entity-name="ProdCatalog"  value-field="prodCatalog"/>
         <set-nonpk-fields map="parameters" value-field="prodCatalog"/>
         <store-value value-name="prodCatalog"/>
     </simple-method>
     <simple-method method-name="deleteProdCatalog" short-description="Delete an ProdCatalog">
-        <entity-one entity-name="ProdCatalog"  value-name="prodCatalog"/>
+        <entity-one entity-name="ProdCatalog"  value-field="prodCatalog"/>
         <remove-value value-name="prodCatalog"/>
     </simple-method>
 
     <simple-method method-name="addProductCategoryToProdCatalog" short-description="Add Category To ProdCatalog">
         <!-- Check that the ProductCategory exists -->
-        <entity-one entity-name="ProductCategory" value-name="productCategory"/>
+        <entity-one entity-name="ProductCategory" value-field="productCategory"/>
         <if-empty field="productCategory">
             <add-error><fail-property resource="ProductUiLabels" property="ProductCategoryNotFoundForCategoryID"/></add-error>
         </if-empty>

@@ -22,7 +22,7 @@ under the License.
         xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="loadSalesInvoiceFact" short-description="">
-        <entity-one entity-name="Invoice" value-name="invoice"/>
+        <entity-one entity-name="Invoice" value-field="invoice"/>
         <if-empty field="invoice">
             <add-error><fail-message message="Invoice with id [${parameters.invoiceId}] doesn't exist."/></add-error>
         </if-empty>
@@ -42,10 +42,10 @@ under the License.
         <set field="invoice" from-field="parameters.invoice"/>
         <set field="invoiceItem" from-field="parameters.invoiceItem"/>
         <if-empty field="invoice">
-            <entity-one entity-name="Invoice" value-name="invoice"/>
+            <entity-one entity-name="Invoice" value-field="invoice"/>
         </if-empty>
         <if-empty field="invoiceItem">
-            <entity-one entity-name="InvoiceItem" value-name="invoiceItem"/>
+            <entity-one entity-name="InvoiceItem" value-field="invoiceItem"/>
         </if-empty>
         <if-empty field="invoice">
             <add-error><fail-message message="Invoice with id [${parameters.invoiceId}] doesn't exist."/></add-error>
@@ -56,7 +56,7 @@ under the License.
         <check-errors/>
 
         <if-compare field="invoice.invoiceTypeId" operator="equals" value="SALES_INVOICE">
-            <entity-one entity-name="SalesInvoiceItemFact" value-name="fact" auto-field-map="false">
+            <entity-one entity-name="SalesInvoiceItemFact" value-field="fact" auto-field-map="false">
                 <field-map field-name="invoiceId" from-field="invoiceItem.invoiceId"/>
                 <field-map field-name="invoiceItemSeqId" from-field="invoiceItem.invoiceItemSeqId"/>
             </entity-one>

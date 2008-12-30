@@ -92,7 +92,7 @@ under the License.
             <set field="parameters.workEffortId" value="_NA_"/>
         </if-empty>
 
-        <entity-one entity-name="RateAmount" value-name="rateAmount"/>
+        <entity-one entity-name="RateAmount" value-field="rateAmount"/>
 
         <if-not-empty field="rateAmount">
             <now-timestamp-to-env env-name="rateAmount.thruDate"/>
@@ -199,7 +199,7 @@ under the License.
         </if-empty>
         
         <if-empty field="amounts">
-            <entity-one entity-name="RateType" value-name="rateType"/>
+            <entity-one entity-name="RateType" value-field="rateType"/>
             <log level="error" message="A valid rate amount could not be found for rateType: ${rateType.description}"/>
         </if-empty>
         <if-compare field="level" value="workEffort" operator="equals">
@@ -211,13 +211,13 @@ under the License.
                 <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
             </entity-and>
             <if-empty field="amounts">
-                <entity-one entity-name="Uom" value-name="currencyUomId">
+                <entity-one entity-name="Uom" value-field="currencyUomId">
                     <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
                 </entity-one>
-                <entity-one entity-name="PeriodType" value-name="periodType"/>
-                <entity-one entity-name="RateType" value-name="rateType"/>
-                <entity-one entity-name="WorkEffort" value-name="workEffort"/>
-                <entity-one entity-name="PartyNameView" value-name="partyNameView"/>
+                <entity-one entity-name="PeriodType" value-field="periodType"/>
+                <entity-one entity-name="RateType" value-field="rateType"/>
+                <entity-one entity-name="WorkEffort" value-field="workEffort"/>
+                <entity-one entity-name="PartyNameView" value-field="partyNameView"/>
                 <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, workEffort: ${workEffort.workEffortName}, party: ${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName}${partyNameView.groupName} However.....not for the period: ${period.description} and currency: ${currencyUomId.description}"/>
             </if-empty>
         </if-compare>
@@ -230,12 +230,12 @@ under the License.
                 <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
             </entity-and>
             <if-empty field="amounts">
-                <entity-one entity-name="Uom" value-name="currencyUomId">
+                <entity-one entity-name="Uom" value-field="currencyUomId">
                     <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
                 </entity-one>
-                <entity-one entity-name="PeriodType" value-name="periodType"/>
-                <entity-one entity-name="RateType" value-name="rateType"/>
-                <entity-one entity-name="PartyNameView" value-name="partyNameView"/>
+                <entity-one entity-name="PeriodType" value-field="periodType"/>
+                <entity-one entity-name="RateType" value-field="rateType"/>
+                <entity-one entity-name="PartyNameView" value-field="partyNameView"/>
                 <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, party: ${partyNameView.lastName} ${partyNameView.middleName} ${partyNameView.firstName}${partyNameView.groupName} However..... NOT   for the period: ${period.description} and currency: ${currencyUomId.description}"/>
             </if-empty>
         </if-compare>
@@ -248,12 +248,12 @@ under the License.
                 <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
             </entity-and>
             <if-empty field="amounts">
-                <entity-one entity-name="Uom" value-name="currencyUomId">
+                <entity-one entity-name="Uom" value-field="currencyUomId">
                     <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
                 </entity-one>
-                <entity-one entity-name="PeriodType" value-name="periodType"/>
-                <entity-one entity-name="RateType" value-name="rateType"/>
-                <entity-one entity-name="EmplPositionType" value-name="emplPositionType"/>
+                <entity-one entity-name="PeriodType" value-field="periodType"/>
+                <entity-one entity-name="RateType" value-field="rateType"/>
+                <entity-one entity-name="EmplPositionType" value-field="emplPositionType"/>
                 <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, emplPositionType: ${emplPositionType.description}.... However.....NOT for the period: ${period.description} and currency: ${currencyUomId.description}"/>
                 <check-errors/>
             </if-empty>
@@ -266,12 +266,12 @@ under the License.
                 <field-map field-name="rateCurrencyUomId" from-field="parameters.rateCurrencyUomId"/>
             </entity-and>
             <if-empty field="amounts">
-                <entity-one entity-name="Uom" value-name="currencyUomId">
+                <entity-one entity-name="Uom" value-field="currencyUomId">
                     <field-map field-name="uomId" from-field="parameters.rateCurrencyUomId"/>
                 </entity-one>
-                <entity-one entity-name="PeriodType" value-name="periodType"/>
-                <entity-one entity-name="RateType" value-name="rateType"/>
-                <entity-one entity-name="PartyNameView" value-name="partyNameView"/>
+                <entity-one entity-name="PeriodType" value-field="periodType"/>
+                <entity-one entity-name="RateType" value-field="rateType"/>
+                <entity-one entity-name="PartyNameView" value-field="partyNameView"/>
                 <log level="error" message="A valid rate entry could be found for rateType: ${rateType.description}, However.....NOT for the period: ${period.description} and currency: ${currencyUomId.description}"/>
                 <check-errors/>
             </if-empty>
@@ -341,7 +341,7 @@ under the License.
         <check-permission permission="ACCOUNTING" action="${securityAction}"><fail-property resource="AccountingUiLabels" property="AccountingPermissionError"/></check-permission>
         <check-errors/>
         
-        <entity-one entity-name="PartyRate" value-name="lookedUpValue"/>
+        <entity-one entity-name="PartyRate" value-field="lookedUpValue"/>
         <now-timestamp-to-env env-name="lookedUpValue.thruDate"/>
         <store-value value-name="lookedUpValue"/>
         

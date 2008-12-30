@@ -70,7 +70,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateShoppingList" short-description="Update a ShoppingList">
-        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
+        <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
 
         <set field="parentMethodName" value="updateShoppingList"/>
         <set field="permissionAction" value="UPDATE"/>
@@ -101,7 +101,7 @@ under the License.
     </simple-method>
     
     <simple-method method-name="removeShoppingList" short-description="Remove a ShoppingList">
-        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
+        <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
         
         <set field="parentMethodName" value="removeShoppingList"/>
         <set field="permissionAction" value="DELETE"/>
@@ -117,8 +117,8 @@ under the License.
         <call-simple-method method-name="checkShoppingListItemSecurity"/>
         <check-errors/>
 
-        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
-        <entity-one entity-name="Product" value-name="product"/>
+        <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
+        <entity-one entity-name="Product" value-field="product"/>
         <if-empty field="product">
             <add-error> <fail-property property="ProductErrorProductNotFound" resource="ProductUiLabels"/> </add-error>
             <check-errors/>
@@ -144,8 +144,8 @@ under the License.
         <call-simple-method method-name="checkShoppingListItemSecurity"/>
         <check-errors/>
 
-        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
-        <entity-one entity-name="ShoppingListItem" value-name="shoppingListItem"/>
+        <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
+        <entity-one entity-name="ShoppingListItem" value-field="shoppingListItem"/>
 
         <if-compare field="parameters.quantity" operator="equals" value="0" type="Double">
           <!-- if we're setting quantity to 0.0 then remove the item -->
@@ -170,8 +170,8 @@ under the License.
         <call-simple-method method-name="checkShoppingListItemSecurity"/>
         <check-errors/>
 
-        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
-        <entity-one entity-name="ShoppingListItem" value-name="shoppingListItem"/>
+        <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
+        <entity-one entity-name="ShoppingListItem" value-field="shoppingListItem"/>
         <remove-value value-name="shoppingListItem"/>
 
         <if-compare-field field="shoppingList.partyId" to-field="userLogin.partyId" operator="not-equals">
@@ -217,7 +217,7 @@ under the License.
 
         <set field="totalPrice" type="Double" value="0.0"/>
         <iterate entry="shoppingListItem" list="shoppingListItems">
-            <entity-one entity-name="Product" value-name="product" use-cache="true" auto-field-map="false">
+            <entity-one entity-name="Product" value-field="product" use-cache="true" auto-field-map="false">
                 <field-map field-name="productId" from-field="shoppingListItem.productId"/>
             </entity-one>
             
@@ -271,7 +271,7 @@ under the License.
         </if>
     </simple-method>
     <simple-method method-name="checkShoppingListItemSecurity" short-description="Checks security on a ShoppingListItem">
-        <entity-one entity-name="ShoppingList" value-name="shoppingList"/>
+        <entity-one entity-name="ShoppingList" value-field="shoppingList"/>
         <if>
             <condition>
                 <and>
@@ -286,10 +286,10 @@ under the License.
     </simple-method>
     <simple-method method-name="addSuggestionsToShoppingList" short-description="Add suggestions to a shopping list">
         <!-- first check the ProductStore.enableAutoSuggestionList indicator -->
-        <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+        <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
         <if-empty field="orderHeader.productStoreId"><return/></if-empty>
         
-        <entity-one entity-name="ProductStore" value-name="productStore" auto-field-map="false">
+        <entity-one entity-name="ProductStore" value-field="productStore" auto-field-map="false">
             <field-map field-name="productStoreId" from-field="orderHeader.productStoreId"/>
         </entity-one>
         <if-compare field="productStore.enableAutoSuggestionList" operator="not-equals" value="Y"><return/></if-compare>
@@ -340,7 +340,7 @@ under the License.
                     <set field="shoppingListParameters.quantity" value="1" type="Double" />
                     <call-service service-name="addDistinctShoppingListItem" in-map-name="shoppingListParameters" />
                 </iterate>
-                <entity-one entity-name="Product" value-name="product" auto-field-map="false" >
+                <entity-one entity-name="Product" value-field="product" auto-field-map="false" >
                     <field-map field-name="productId" from-field="orderItem.productId" />
                 </entity-one>
                 <if-compare field="product.isVariant" operator="equals" value="Y">

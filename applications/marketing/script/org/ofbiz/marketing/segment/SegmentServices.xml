@@ -41,7 +41,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <entity-one entity-name="SegmentGroup" value-name="lookedUpValue"/>
+        <entity-one entity-name="SegmentGroup" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -51,7 +51,7 @@ under the License.
         </check-permission>
         <check-errors/>
 
-        <entity-one entity-name="SegmentGroup" value-name="lookedUpValue"/>
+        <entity-one entity-name="SegmentGroup" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -68,14 +68,14 @@ under the License.
     <simple-method method-name="updateSegmentGroupClassification" short-description="update a SegmentGroupClassification">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupUpdateSegmentGroupClassificationPermissionError"/></check-permission>
         <check-errors/>
-        <entity-one entity-name="SegmentGroupClassification" value-name="lookedUpValue"/>
+        <entity-one entity-name="SegmentGroupClassification" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroupClassification" short-description="delete a SegmentGroupClassification">
         <check-permission permission="MARKETING" action="_DELETE"><fail-property resource="MarketingUiLabels" property="SegmentGroupRemoveSegmentGroupClassificationPermissionError"/></check-permission>
         <check-errors/>
-        <entity-one entity-name="SegmentGroupClassification" value-name="lookedUpValue"/>
+        <entity-one entity-name="SegmentGroupClassification" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -91,14 +91,14 @@ under the License.
     <simple-method method-name="updateSegmentGroupGeo" short-description="update a SegmentGroupGeo">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupUpdateSegmentGroupGeoPermissionError"/></check-permission>
         <check-errors/>
-        <entity-one entity-name="SegmentGroupGeo" value-name="lookedUpValue"/>
+        <entity-one entity-name="SegmentGroupGeo" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroupGeo" short-description="delete a SegmentGroupGeo">
         <check-permission permission="MARKETING" action="_DELETE"><fail-property resource="MarketingUiLabels" property="SegmentGroupRemoveSegmentGroupGeoPermissionError"/></check-permission>
         <check-errors/>
-        <entity-one entity-name="SegmentGroupGeo" value-name="lookedUpValue"/>
+        <entity-one entity-name="SegmentGroupGeo" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -114,14 +114,14 @@ under the License.
     <simple-method method-name="updateSegmentGroupRole" short-description="update a SegmentGroupRole">
         <check-permission permission="MARKETING" action="_UPDATE"><fail-property resource="MarketingUiLabels" property="SegmentGroupUpdateSegmentGroupRolePermissionError"/></check-permission>
         <check-errors/>
-        <entity-one entity-name="SegmentGroupRole" value-name="lookedUpValue"/>
+        <entity-one entity-name="SegmentGroupRole" value-field="lookedUpValue"/>
         <set-pk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteSegmentGroupRole" short-description="delete a SegmentGroupRole">
         <check-permission permission="MARKETING" action="_DELETE"><fail-property resource="MarketingUiLabels" property="SegmentGroupRemoveSegmentGroupRolePermissionError"/></check-permission>
         <check-errors/>
-        <entity-one entity-name="SegmentGroupRole" value-name="lookedUpValue"/>
+        <entity-one entity-name="SegmentGroupRole" value-field="lookedUpValue"/>
 <!--         <field-to-result field-name="lookedUpValue.partyId" result-name="partyId"/> -->
         <remove-value value-name="lookedUpValue"/>
     </simple-method>

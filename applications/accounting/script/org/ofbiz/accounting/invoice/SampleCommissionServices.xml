@@ -22,7 +22,7 @@ under the License.
     xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="sampleCalculateAffiliateCommission" short-description="Sample Calculate Affiliate Commission">
-        <entity-one entity-name="Payment" value-name="payment"/>
+        <entity-one entity-name="Payment" value-field="payment"/>
 
         <!-- find affiliate or commission partner for payment.partyIdFrom; will be relationship from CUSTOMER to AFFILIATE, type SALES_AFFILIATE -->
         <entity-and entity-name="PartyRelationship" list-name="affiliatePartyRelationshipList" filter-by-date="true">

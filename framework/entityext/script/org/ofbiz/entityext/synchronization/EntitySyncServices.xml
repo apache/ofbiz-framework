@@ -68,7 +68,7 @@ under the License.
         <create-value value-field="newEntity"/>
         
         <!-- also set the lastHistoryStartDate on the EntitySync -->
-        <entity-one entity-name="EntitySync" value-name="entitySync"/>
+        <entity-one entity-name="EntitySync" value-field="entitySync"/>
         <set from-field="newEntity.startDate" field="entitySync.lastHistoryStartDate"/>
         <store-value value-name="entitySync"/>
     </simple-method>

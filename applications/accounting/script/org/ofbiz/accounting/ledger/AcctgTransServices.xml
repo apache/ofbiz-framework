@@ -36,7 +36,7 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateAcctgTrans" short-description="Update an AcctgTrans">
-        <entity-one entity-name="AcctgTrans" value-name="lookedUpValue"/>
+        <entity-one entity-name="AcctgTrans" value-field="lookedUpValue"/>
         <if-compare field="lookedUpValue.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
             <check-errors/>    
@@ -48,7 +48,7 @@ under the License.
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteAcctgTrans" short-description="Delete an AcctgTrans">
-        <entity-one entity-name="AcctgTrans" value-name="lookedUpValue"/>
+        <entity-one entity-name="AcctgTrans" value-field="lookedUpValue"/>
         <if-compare field="lookedUpValue.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
             <check-errors/>    
@@ -57,7 +57,7 @@ under the License.
     </simple-method>
     <simple-method method-name="updateAcctgTransLastModified" short-description="Update AcctgTrans LastModified Info">
         <!-- this is just a little method that is meant to be called as an inline call-simple-method target with the context already setup -->
-        <entity-one entity-name="AcctgTrans" value-name="lookedUpACTX"/>
+        <entity-one entity-name="AcctgTrans" value-field="lookedUpACTX"/>
         <set from-field="userLogin.userLoginId" field="lookedUpACTX.lastModifiedByUserLogin"/>
         <store-value value-name="lookedUpACTX"/>
     </simple-method>
@@ -67,7 +67,7 @@ under the License.
         <make-value entity-name="AcctgTransEntry" value-field="newEntity"/>
         <set-nonpk-fields map="parameters" value-field="newEntity"/>
         <set-pk-fields map="parameters" value-field="newEntity"/>
-        <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
+        <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
             <check-errors/>    
@@ -119,12 +119,12 @@ under the License.
         <!-- call-simple-method method-name="updateAcctgTransLastModified"/ -->
     </simple-method>
     <simple-method method-name="updateAcctgTransEntry" short-description="Update Entry To AcctgTrans">
-        <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
+        <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
             <check-errors/>    
         </if-compare>
-        <entity-one entity-name="AcctgTransEntry" value-name="lookedUpValue"/>
+        <entity-one entity-name="AcctgTransEntry" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
 
@@ -132,12 +132,12 @@ under the License.
         <call-simple-method method-name="updateAcctgTransLastModified"/>
     </simple-method>
     <simple-method method-name="deleteAcctgTransEntry" short-description="Remove Entry From AcctgTrans">
-        <entity-one entity-name="AcctgTrans" value-name="acctgTrans"/>
+        <entity-one entity-name="AcctgTrans" value-field="acctgTrans"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
             <add-error><fail-property resource="AccountingUiLabels" property="AccountingTransactionHasBeenAlreadyPosted"/></add-error>
             <check-errors/>    
         </if-compare>
-        <entity-one entity-name="AcctgTransEntry" value-name="lookedUpValue"/>
+        <entity-one entity-name="AcctgTransEntry" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
 
         <!-- when changing entries, also update the last modified info for the AcctgTrans -->
@@ -200,7 +200,7 @@ under the License.
     </simple-method>
     <simple-method method-name="postAcctgTrans" short-description="Post a AcctgTrans">
         <!-- make sure the AcctgTrans has not already been posted -->
-        <entity-one entity-name="AcctgTrans" value-name="acctgTrans" auto-field-map="true"/>
+        <entity-one entity-name="AcctgTrans" value-field="acctgTrans" auto-field-map="true"/>
         <if-compare field="acctgTrans.isPosted" operator="equals" value="Y">
             <add-error><fail-message message="AcctgTrans [${parameters.acctgTransId}] has already been posted. Not posting again"/></add-error>
         </if-compare>
@@ -318,10 +318,10 @@ under the License.
                 <clear-field field="glAccountOrganization"/>
                 <clear-field field="glAccountHistoryList"/>
 
-                <entity-one entity-name="GlAccount" value-name="glAccount">
+                <entity-one entity-name="GlAccount" value-field="glAccount">
                     <field-map field-name="glAccountId" from-field="acctgTransEntry.glAccountId"/>
                 </entity-one>
-                <entity-one entity-name="GlAccountOrganization" value-name="glAccountOrganization">
+                <entity-one entity-name="GlAccountOrganization" value-field="glAccountOrganization">
                     <field-map field-name="glAccountId" from-field="acctgTransEntry.glAccountId"/>
                     <field-map field-name="organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
                 </entity-one>
@@ -384,7 +384,7 @@ under the License.
                 <!-- assemble the glAccountHistoryList, we will update all of these -->
                 <set from-field="customTimePeriodListByOrganizationPartyIdMap.${acctgTransEntry.organizationPartyId}" field="customTimePeriodList"/>
                 <iterate entry="customTimePeriod" list="customTimePeriodList">
-                    <entity-one entity-name="GlAccountHistory" value-name="glAccountHistory">
+                    <entity-one entity-name="GlAccountHistory" value-field="glAccountHistory">
                         <field-map field-name="glAccountId" from-field="acctgTransEntry.glAccountId"/>
                         <field-map field-name="organizationPartyId" from-field="acctgTransEntry.organizationPartyId"/>
                         <field-map field-name="customTimePeriodId" from-field="customTimePeriod.customTimePeriodId"/>

@@ -46,7 +46,7 @@ under the License.
         <set field="contactListName" value="Announcement List" type="String"/>
         <set field="contactMechTypeId" value="EMAIL_ADDRESS"/>
 
-        <entity-one entity-name="UserLogin" value-name="userLogin" auto-field-map="false">
+        <entity-one entity-name="UserLogin" value-field="userLogin" auto-field-map="false">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="createServiceCtx.userLogin" from-field="userLogin"/>
@@ -58,7 +58,7 @@ under the License.
             <result-to-field result-name="contactListId"/>
         </call-service>
         <log level="info" message="========  Created contactListId [${contactListId}] ======="/>
-        <entity-one entity-name="ContactList" value-name="contactList"/>
+        <entity-one entity-name="ContactList" value-field="contactList"/>
         <assert>
             <not><if-empty field="contactList"/></not>
             <if-compare-field field="contactList.contactListTypeId" to-field="contactListTypeId" operator="equals"/>
@@ -80,7 +80,7 @@ under the License.
         <set field="updateServiceCtx.contactListId" from-field="contactListId"/>
         <call-service service-name="updateContactList" in-map-name="updateServiceCtx"/>
 
-        <entity-one entity-name="ContactList" value-name="contactList"/>
+        <entity-one entity-name="ContactList" value-field="contactList"/>
         <assert>
             <not><if-empty field="contactList"/></not>
             <if-compare-field field="contactList.contactListTypeId" to-field="contactListTypeId" operator="equals"/>

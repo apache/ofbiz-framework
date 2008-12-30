@@ -54,7 +54,7 @@ under the License.
 
         <!-- set the refundable flag from the type; if not set -->
         <if-empty field="newEntity.isRefundable">
-            <entity-one entity-name="FinAccountType" value-name="finAccountType">
+            <entity-one entity-name="FinAccountType" value-field="finAccountType">
                 <field-map field-name="finAccountTypeId" from-field="parameters.finAccountTypeId"/>
             </entity-one>
             <if>
@@ -86,7 +86,7 @@ under the License.
     <simple-method method-name="updateFinAccount" short-description="Update a Financial Account">
         <call-simple-method method-name="getArithmeticSettingsInline"/>
         
-        <entity-one entity-name="FinAccount" value-name="lookedUpValue"/>
+        <entity-one entity-name="FinAccount" value-field="lookedUpValue"/>
         <field-to-result field-name="lookedUpValue.replenishPaymentId" result-name="oldReplenishPaymentId"/>
         <field-to-result field-name="lookedUpValue.replenishLevel" result-name="oldReplenishLevel"/>
 
@@ -103,7 +103,7 @@ under the License.
                 <!-- if the record exists there should be a statusId, but just in case make it so it won't blow up -->
                 <if-not-empty field="lookedUpValue.statusId">
                     <!-- if statusId change is not in the StatusValidChange list, complain... -->
-                    <entity-one entity-name="StatusValidChange" value-name="statusValidChange" auto-field-map="false">
+                    <entity-one entity-name="StatusValidChange" value-field="statusValidChange" auto-field-map="false">
                         <field-map field-name="statusId" from-field="lookedUpValue.statusId"/>
                         <field-map field-name="statusIdTo" from-field="parameters.statusId"/>
                     </entity-one>
@@ -133,7 +133,7 @@ under the License.
         <field-to-result field-name="lookedUpValue.finAccountId" result-name="finAccountId"/>        
     </simple-method>
     <simple-method method-name="deleteFinAccount" short-description="Delete a Financial Account">
-        <entity-one value-name="finAccount" entity-name="FinAccount"/>
+        <entity-one value-field="finAccount" entity-name="FinAccount"/>
         <remove-value value-name="finAccount"/>
     </simple-method>
     
@@ -202,12 +202,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateFinAccountRole" short-description="Update a Financial Account Role">
-        <entity-one entity-name="FinAccountRole" value-name="lookedUpValue"/>
+        <entity-one entity-name="FinAccountRole" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteFinAccountRole" short-description="Delete a Financial Account Role">
-        <entity-one entity-name="FinAccountRole" value-name="lookedUpValue"/>
+        <entity-one entity-name="FinAccountRole" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -241,7 +241,7 @@ under the License.
         <field-to-result field-name="newEntity.finAccountAuthId" result-name="finAccountAuthId"/>
     </simple-method>
     <simple-method method-name="expireFinAccountAuth" short-description="Expire a Financial Account Authorization">
-        <entity-one entity-name="FinAccountAuth" value-name="finAccountAuth"/>
+        <entity-one entity-name="FinAccountAuth" value-field="finAccountAuth"/>
         <if-empty field="parameters.expireDateTime">
             <now-timestamp-to-env env-name="finAccountAuth.thruDate"/>
         <else>
@@ -256,7 +256,7 @@ under the License.
         <if-not-empty field="parameters.finAccountId">
             <set field="finAccountId" from-field="parameters.finAccountId"/>
             <else>
-                <entity-one entity-name="FinAccountTrans" value-name="mainFinAccountTrans"/>
+                <entity-one entity-name="FinAccountTrans" value-field="mainFinAccountTrans"/>
                 <set field="finAccountId" from-field="mainFinAccountTrans.finAccountId"/>
             </else>
         </if-not-empty>
@@ -267,7 +267,7 @@ under the License.
         <if-not-empty field="parameters.finAccountId">
             <set field="finAccountId" from-field="parameters.finAccountId"/>
             <else>
-                <entity-one entity-name="FinAccountAuth" value-name="mainFinAccountAuth"/>
+                <entity-one entity-name="FinAccountAuth" value-field="mainFinAccountAuth"/>
                 <set field="finAccountId" from-field="mainFinAccountAuth.finAccountId"/>
             </else>
         </if-not-empty>
@@ -318,7 +318,7 @@ under the License.
         </iterate>
         
         <!-- Okay, now just store the results -->
-        <entity-one entity-name="FinAccount" value-name="finAccount"/>
+        <entity-one entity-name="FinAccount" value-field="finAccount"/>
         <log level="info" message="In updateFinAccountBalancesFromTrans/Auth updating FinAccount with ID [${finAccountId}] with actualBalance: ${finAccount.actualBalance} -> ${actualBalanceSum}, and availableBalance: ${finAccount.availableBalance} -> ${availableBalanceSum}"/>
         <set field="finAccount.actualBalance" from-field="actualBalanceSum" type="Double"/>
         <set field="finAccount.availableBalance" from-field="availableBalanceSum" type="Double"/>
@@ -334,13 +334,13 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateFinAccountTypeGlAccount" short-description="Update an FinAccountTypeGlAccount">
-        <entity-one entity-name="FinAccountTypeGlAccount" value-name="lookedUpValue"/>
+        <entity-one entity-name="FinAccountTypeGlAccount" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteFinAccountTypeGlAccount" short-description="Delete an FinAccountTypeGlAccount">
-        <entity-one entity-name="FinAccountTypeGlAccount" value-name="lookedUpValue"/>
+        <entity-one entity-name="FinAccountTypeGlAccount" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -353,13 +353,13 @@ under the License.
     </simple-method>
     
     <simple-method method-name="updateVarianceReasonGlAccount" short-description="Update an Variance Reason Gl Account">
-        <entity-one entity-name="VarianceReasonGlAccount" value-name="lookedUpValue"/>
+        <entity-one entity-name="VarianceReasonGlAccount" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     
     <simple-method method-name="deleteVarianceReasonGlAccount" short-description="Delete an Variance Reason Gl Account">
-        <entity-one entity-name="VarianceReasonGlAccount" value-name="lookedUpValue"/>
+        <entity-one entity-name="VarianceReasonGlAccount" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 </simple-methods>

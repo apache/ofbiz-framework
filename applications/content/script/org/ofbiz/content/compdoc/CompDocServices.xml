@@ -22,7 +22,7 @@ under the License.
                 xsi:noNamespaceSchemaLocation="http://ofbiz.apache.org/dtds/simple-methods.xsd">
 
     <simple-method method-name="genCompDocInstance" short-description="Create CompDoc">
-        <entity-one entity-name="Content" value-name="rootTemplateContent">
+        <entity-one entity-name="Content" value-field="rootTemplateContent">
             <field-map field-name="contentId" from-field="parameters.instanceOfContentId"/>
         </entity-one>
         <log message="genCompDocInstance> rootTemplateContent: ${rootTemplateContent}" level="info"/>
@@ -53,7 +53,7 @@ under the License.
             <log level="info" message="genCompDocInstance 2> rootInstanceContent: ${rootInstanceContent}"/>
             <else>
                 <!--  check to see if it already exists, error if so -->
-                <entity-one entity-name="Content" value-name="existingContent">
+                <entity-one entity-name="Content" value-field="existingContent">
                     <field-map field-name="contentId" from-field="parameters.rootInstanceContentId"/>
                 </entity-one>
                 <if-not-empty field="existingContent">
@@ -261,7 +261,7 @@ under the License.
     </simple-method>
 
     <simple-method method-name="persistCompDocContent" short-description="Persist a CompDoc DataResource and data">
-        <entity-one entity-name="Content" value-name="content" use-cache="false"/>
+        <entity-one entity-name="Content" value-field="content" use-cache="false"/>
         <set from-field="content.dataResourceId" field="oldDataResourceId"/>
 
         <log level="info" message="persistCompDocContent(0).content : ${content}"/>
@@ -453,11 +453,11 @@ under the License.
         </entity-condition>
         <if-not-empty field="contentRevisionItems">
             <set field="contentRevisionItem" from-field="contentRevisionItems[0]"/>
-            <entity-one entity-name="Content" value-name="content" use-cache="true">
+            <entity-one entity-name="Content" value-field="content" use-cache="true">
                 <field-map field-name="contentId" from-field="contentRevisionItem.itemContentId"/>
             </entity-one>
             <if-not-empty field="content">
-                <entity-one entity-name="DataResource" value-name="dataResource" use-cache="true">
+                <entity-one entity-name="DataResource" value-field="dataResource" use-cache="true">
                     <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
                 </entity-one>
                 <field-to-result field-name="dataResource" result-name="dataResource"/>
@@ -465,16 +465,16 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="getRevisionItemDataResource" short-description="Get version of DataResource that fits overall revision">
-        <entity-one entity-name="ContentRevisionItem" value-name="contentRevisionItem" use-cache="true">
+        <entity-one entity-name="ContentRevisionItem" value-field="contentRevisionItem" use-cache="true">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
             <field-map field-name="itemContentId" from-field="parameters.itemContentId"/>
             <field-map field-name="contentRevisionSeqId" from-field="parameters.contentRevisionSeqId"/>
         </entity-one>
-        <entity-one entity-name="Content" value-name="content" use-cache="true">
+        <entity-one entity-name="Content" value-field="content" use-cache="true">
             <field-map field-name="contentId" from-field="contentRevisionItem.itemContentId"/>
         </entity-one>
         <if-not-empty field="content">
-            <entity-one entity-name="DataResource" value-name="dataResource" use-cache="true">
+            <entity-one entity-name="DataResource" value-field="dataResource" use-cache="true">
                 <field-map field-name="dataResourceId" from-field="content.dataResourceId"/>
             </entity-one>
             <field-to-result field-name="dataResource" result-name="dataResource"/>
@@ -604,7 +604,7 @@ under the License.
         </iterate>
     </simple-method>
     <simple-method method-name="cloneInstanceContentApprovals" short-description="Bump the previous ContentApproval approvals up to current CDI">
-        <entity-one entity-name="Content" value-name="content">
+        <entity-one entity-name="Content" value-field="content">
             <field-map field-name="contentId" from-field="parameters.contentId"/>
         </entity-one>
         <set from-field="parameters.contentId" field="thisContentId"/>

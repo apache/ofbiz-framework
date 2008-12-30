@@ -94,7 +94,7 @@ under the License.
         <set field="serviceCtx.partyId" from-field="partyId"/>
         <set field="serviceCtx.emailAddress" from-field="partyAndContactMech.infoString"/>
         <set field="serviceCtx.contactMechId" from-field="partyAndContactMech.contactMechId"/>
-        <entity-one entity-name="UserLogin" value-name="userLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
@@ -103,7 +103,7 @@ under the License.
             <result-to-field result-name="contactMechId"/>
         </call-service>
         <log level="info" message="====== contactMechId [${contactMechId}] ======"/>
-        <entity-one entity-name="ContactMech" value-name="contactMech"/>
+        <entity-one entity-name="ContactMech" value-field="contactMech"/>
         <assert>
             <not><if-empty field="contactMech"/></not>
             <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
@@ -118,7 +118,7 @@ under the License.
             <result-to-field result-name="contactMechId" field-name="newContactMechId"/>
         </call-service>
         <log level="info" message="====== New contactMechId [${newContactMechId}] for email address is created for party [${partyId}] ======"/>
-        <entity-one entity-name="ContactMech" value-name="contactMech">
+        <entity-one entity-name="ContactMech" value-field="contactMech">
             <field-map field-name="contactMechId" from-field="newContactMechId"/>
         </entity-one>
         <assert>
@@ -151,7 +151,7 @@ under the License.
         <set-service-fields service-name="updatePartyTelecomNumber" map-name="telecomNumber" to-map-name="serviceCtx"/>
         <set field="serviceCtx.partyId" from-field="partyId"/>
         
-        <entity-one entity-name="UserLogin" value-name="userLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>        
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
@@ -160,7 +160,7 @@ under the License.
            <result-to-field result-name="contactMechId"/>
         </call-service>
         <log level="info" message="====== contactMechId [${contactMechId}] ======"/>
-        <entity-one entity-name="ContactMech" value-name="contactMech"/>
+        <entity-one entity-name="ContactMech" value-field="contactMech"/>
         <assert>
             <not><if-empty field="contactMech"/></not>
             <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
@@ -183,7 +183,7 @@ under the License.
            <result-to-field result-name="contactMechId" field-name="newContactMechId"/>
         </call-service>
         <log level="info" message="====== New contactMechId [${newContactMechId}] for TelecomNumber is created for party [${partyId}] ======"/>
-        <entity-one entity-name="ContactMech" value-name="contactMech">
+        <entity-one entity-name="ContactMech" value-field="contactMech">
             <field-map field-name="contactMechId" from-field="newContactMechId"/>
         </entity-one>
         <assert>
@@ -220,7 +220,7 @@ under the License.
         <set-service-fields service-name="updatePartyPostalAddress" map-name="postalAddress" to-map-name="serviceCtx"/>
         <set field="serviceCtx.partyId" from-field="partyId"/>
         
-        <entity-one entity-name="UserLogin" value-name="userLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>        
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
@@ -229,7 +229,7 @@ under the License.
             <result-to-field result-name="contactMechId"/>
         </call-service>
         <log level="info" message="====== contactMechId [${contactMechId}] ======"/>
-        <entity-one entity-name="ContactMech" value-name="contactMech"/>
+        <entity-one entity-name="ContactMech" value-field="contactMech"/>
         <assert>
             <not><if-empty field="contactMech"/></not>
             <if-compare-field field="contactMechId" to-field="serviceCtx.contactMechId" operator="equals"/>
@@ -254,7 +254,7 @@ under the License.
            <result-to-field result-name="contactMechId" field-name="newContactMechId"/>
         </call-service>
         <log level="info" message="====== New contactMechId [${newContactMechId}] for PostalAddress is created for party [${partyId}] ======"/>
-        <entity-one entity-name="ContactMech" value-name="contactMech">
+        <entity-one entity-name="ContactMech" value-field="contactMech">
             <field-map field-name="contactMechId" from-field="newContactMechId"/>
         </entity-one>
         <assert>
@@ -290,7 +290,7 @@ under the License.
         <!-- first try with just updating without changing the credit card information -->
         <set-service-fields service-name="updateCreditCard" map-name="paymentMethodAndCreditCard" to-map-name="serviceCtx"/>
         
-        <entity-one entity-name="UserLogin" value-name="userLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
@@ -301,7 +301,7 @@ under the License.
         </call-service>
         <log level="info" message="====== paymentMethodId [${paymentMethodId}] ======"/>
         <clear-field field="paymentMethodAndCreditCard"/>
-        <entity-one entity-name="PaymentMethodAndCreditCard" value-name="paymentMethodAndCreditCard"/>
+        <entity-one entity-name="PaymentMethodAndCreditCard" value-field="paymentMethodAndCreditCard"/>
         <assert>
             <not><if-empty field="paymentMethodAndCreditCard"/></not>
             <if-compare-field field="paymentMethodId" to-field="oldPaymentMethodId" operator="equals"/>
@@ -322,7 +322,7 @@ under the License.
             <result-to-field result-name="oldPaymentMethodId"/>
         </call-service>
         <log level="info" message="====== New paymentMethodId [${paymentMethodId}] created for party [${serviceCtx.partyId}] ======"/>
-        <entity-one entity-name="PaymentMethodAndCreditCard" value-name="paymentMethodAndCreditCard"/>
+        <entity-one entity-name="PaymentMethodAndCreditCard" value-field="paymentMethodAndCreditCard"/>
         <assert>
             <not><if-empty field="paymentMethodAndCreditCard"/></not>
             <if-compare-field field="paymentMethodId" to-field="oldPaymentMethodId" operator="not-equals"/>
@@ -356,7 +356,7 @@ under the License.
         <set field="serviceCtx.newPassword" value="ofbiz-demo"/>
         <set field="serviceCtx.newPasswordVerify" value="ofbiz-demo"/>
         
-        <entity-one entity-name="UserLogin" value-name="userLogin">
+        <entity-one entity-name="UserLogin" value-field="userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <set field="serviceCtx.userLogin" from-field="userLogin"/>
@@ -365,7 +365,7 @@ under the License.
             <result-to-field result-name="updatedUserLogin"/>
         </call-service>
         
-        <entity-one entity-name="PartyAndUserLogin" value-name="partyAndUserLogin">
+        <entity-one entity-name="PartyAndUserLogin" value-field="partyAndUserLogin">
             <field-map field-name="userLoginId" from-field="partyUserLogin.userLoginId"/>
             <field-map field-name="partyId" from-field="partyId"/>
         </entity-one>
@@ -386,7 +386,7 @@ under the License.
         <log level="info" message="====================Add a new role to a party test case=========================================="/>
         <set field="addRoleMap.partyId" value="DemoCustomer"/>
         <set field="addRoleMap.roleTypeId" value="SUPPLIER"/>
-        <entity-one entity-name="UserLogin" value-name="addRoleMap.userLogin">
+        <entity-one entity-name="UserLogin" value-field="addRoleMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createPartyRole" in-map-name="addRoleMap"/>
@@ -398,14 +398,14 @@ under the License.
         <set field="createNewCommEventMap.statusId" value="COM_COMPLETE"/>
         <set field="createNewCommEventMap.partyIdFrom" value="DemoCustomer"/>
         <set field="createNewCommEventMap.contactMechTypeId" value="EMAIL_ADDRESS"/>
-        <entity-one entity-name="UserLogin" value-name="createNewCommEventMap.userLogin">
+        <entity-one entity-name="UserLogin" value-field="createNewCommEventMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createCommunicationEvent" in-map-name="createNewCommEventMap">
             <result-to-field result-name="communicationEventId" field-name="communicationEventId" map-name="commEventMap"/>
         </call-service>
         <call-simple-method method-name="testUpdateCommEvent"/>
-        <entity-one entity-name="CommunicationEvent" value-name="communicationEvent">
+        <entity-one entity-name="CommunicationEvent" value-field="communicationEvent">
             <field-map field-name="communicationEventId" from-field="commEventMap.communicationEventId"/>
         </entity-one>
         <assert>
@@ -425,7 +425,7 @@ under the License.
         <set field="updateCommEventMap.statusId" value="COM_ENTERED"/>
         <set field="updateCommEventMap.partyIdFrom" value="admin"/>
         <set field="updateCommEventMap.contactMechTypeId" value="ELECTRONIC_ADDRESS"/>
-        <entity-one entity-name="UserLogin" value-name="updateCommEventMap.userLogin">
+        <entity-one entity-name="UserLogin" value-field="updateCommEventMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="updateCommunicationEvent" in-map-name="updateCommEventMap"/>
@@ -437,14 +437,14 @@ under the License.
         <set field="createNewRequestMap.statusId" value="CRQ_SUBMITTED"/>
         <set field="createNewRequestMap.priority" value="1L" type="Long"/>
         <set field="createNewRequestMap.fromPartyId" value="DemoCustomer"/>
-        <entity-one entity-name="UserLogin" value-name="createNewRequestMap.userLogin">
+        <entity-one entity-name="UserLogin" value-field="createNewRequestMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="createCustRequest" in-map-name="createNewRequestMap">
           <result-to-field result-name="custRequestId" field-name="custRequestId" map-name="requestMap"/>
         </call-service>
         <call-simple-method method-name="testUpdateRequest"/>
-        <entity-one entity-name="CustRequest" value-name="custRequest">
+        <entity-one entity-name="CustRequest" value-field="custRequest">
             <field-map field-name="custRequestId" from-field="requestMap.custRequestId"/>
         </entity-one>
         <assert>
@@ -464,7 +464,7 @@ under the License.
         <set field="updateRequestMap.statusId" value="CRQ_COMPLETED"/>
         <set field="updateRequestMap.priority" value="2L" type="Long"/>
         <set field="updateRequestMap.fromPartyId" value="admin"/>
-        <entity-one entity-name="UserLogin" value-name="updateRequestMap.userLogin">
+        <entity-one entity-name="UserLogin" value-field="updateRequestMap.userLogin">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
         <call-service service-name="updateCustRequest" in-map-name="updateRequestMap"/>

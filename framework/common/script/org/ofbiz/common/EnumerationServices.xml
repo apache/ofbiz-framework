@@ -29,7 +29,7 @@
         <create-value value-field="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateEnumeration" short-description="update a Enumeration">
-        <entity-one entity-name="Enumeration" value-name="lookedUpValue"/>
+        <entity-one entity-name="Enumeration" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>

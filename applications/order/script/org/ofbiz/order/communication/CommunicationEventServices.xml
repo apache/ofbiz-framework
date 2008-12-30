@@ -35,7 +35,7 @@ under the License.
             <fail-property resource="OrderUiLabels" property="OrderRemoveCommunicationEventOrderPermissionError"/>
         </check-permission>
         <check-errors/>
-        <entity-one entity-name="CommunicationEventOrder" value-name="eventOrder"/>
+        <entity-one entity-name="CommunicationEventOrder" value-field="eventOrder"/>
         <remove-value value-name="eventOrder"/>
     </simple-method>
 </simple-methods>

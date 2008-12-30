@@ -952,7 +952,7 @@ under the License.
                 processor-name="userLogin" in-map-name="parameters" out-map-name="userLoginMap"/>
             
             <if-not-empty field="userLoginMap.userLoginId">
-                <entity-one entity-name="UserLogin" value-name="existingUserLogin">
+                <entity-one entity-name="UserLogin" value-field="existingUserLogin">
                     <field-map field-name="userLoginId" value="${userLoginMap.userLoginId}"/>
                 </entity-one>
                 <if-not-empty field="existingUserLogin">
@@ -974,12 +974,12 @@ under the License.
             <set-service-fields service-name="createUserLogin"  map-name="userLoginMap" to-map-name="userLoginCtx"/>
             
             <!-- call the service with the system account to get around security constraints for this special create -->
-            <entity-one entity-name="UserLogin" value-name="userLoginCtx.userLogin" auto-field-map="false">
+            <entity-one entity-name="UserLogin" value-field="userLoginCtx.userLogin" auto-field-map="false">
                 <field-map field-name="userLoginId" value="system"/>
             </entity-one>
             
             <call-service service-name="createUserLogin" in-map-name="userLoginCtx"/>
-            <entity-one entity-name="UserLogin" value-name="userLogin">
+            <entity-one entity-name="UserLogin" value-field="userLogin">
                 <field-map field-name="userLoginId" from-field="userLoginMap.userLoginId"/>
             </entity-one>
 
@@ -1013,7 +1013,7 @@ under the License.
     
     <simple-method method-name="setAnonUserLogin" short-description="Set user login in the session" login-required="false">
         <if-empty field="userLogin">
-            <entity-one entity-name="UserLogin" value-name="userLogin">
+            <entity-one entity-name="UserLogin" value-field="userLogin">
                 <field-map field-name="userLoginId" value="anonymous"/>
             </entity-one>
             <set field="userLogin.partyId" from-field="partyId"/>
@@ -1103,7 +1103,7 @@ under the License.
         <log level="info" message=" carrierPartyId is ${carrierPartyId}"/>
         <log level="info" message=" productStoreShipMethId is ${productStoreShipMethId}"/>
         
-        <entity-one entity-name="CarrierAndShipmentMethod" value-name="shipmentMethod">
+        <entity-one entity-name="CarrierAndShipmentMethod" value-field="shipmentMethod">
             <field-map field-name="shipmentMethodTypeId" from-field="shipmentMethodTypeId"/>
             <field-map field-name="partyId" from-field="carrierPartyId"/>
             <field-map field-name="roleTypeId" value="CARRIER"/>

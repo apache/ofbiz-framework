@@ -69,7 +69,7 @@ under the License.
         <check-permission permission="CATALOG" action="_UPDATE"><fail-message message="Security Error: to run updateSupplierProductFeature you must have the CATALOG_UPDATE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
  
-        <entity-one entity-name="SupplierProductFeature" value-name="sprod"/>
+        <entity-one entity-name="SupplierProductFeature" value-field="sprod"/>
         <set-nonpk-fields map="parameters" value-field="sprod"/>
         <store-value value-name="sprod"/>
     </simple-method>
@@ -77,7 +77,7 @@ under the License.
         <check-permission permission="CATALOG" action="_DELETE"><fail-message message="Security Error: to run updateSupplierProductFeature you must have the CATALOG_DELETE or CATALOG_ADMIN permission"/></check-permission>
         <check-errors/>
  
-        <entity-one entity-name="SupplierProductFeature" value-name="sprod"/>
+        <entity-one entity-name="SupplierProductFeature" value-field="sprod"/>
         <remove-value value-name="sprod"/>
     </simple-method>
     <simple-method method-name="getSupplierProductFeatures" short-description="Get all supplier information for a product feature" login-required="false">

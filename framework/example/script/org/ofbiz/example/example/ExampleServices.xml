@@ -48,7 +48,7 @@ under the License.
         <set field="createExampleMap.exampleName" value="Test Example"/>
         <set field="createExampleMap.statusId" value="EXST_IN_DESIGN"/>
 
-        <entity-one entity-name="UserLogin" value-name="createExampleMap.userLogin" auto-field-map="false">
+        <entity-one entity-name="UserLogin" value-field="createExampleMap.userLogin" auto-field-map="false">
             <field-map field-name="userLoginId" value="system"/>
         </entity-one>
 
@@ -56,7 +56,7 @@ under the License.
             <result-to-field result-name="exampleId" field-name="exampleId"/>
         </call-service>
 
-        <entity-one entity-name="Example" value-name="example"/>
+        <entity-one entity-name="Example" value-field="example"/>
         
         <assert>
             <not><if-empty field="example"/></not>

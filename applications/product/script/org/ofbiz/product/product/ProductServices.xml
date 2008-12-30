@@ -92,7 +92,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <entity-one entity-name="Product" value-name="lookedUpValue"/>
+        <entity-one entity-name="Product" value-field="lookedUpValue"/>
         <!-- save this value before overwriting it so we can compare it later -->
         <set from-field="lookedUpValue.primaryProductCategoryId" field="saveIdMap.primaryProductCategoryId"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
@@ -123,7 +123,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <entity-one entity-name="Product" value-name="lookedUpValue"/>
+        <entity-one entity-name="Product" value-field="lookedUpValue"/>
         <set from-field="parameters.productName" field="lookedUpValue.productName"/>
         <if-compare field="lookedUpValue.isVirtual" operator="equals" value="Y">
             <set from-field="lookedUpValue.productName" field="lookedUpValue.internalName"/>
@@ -144,7 +144,7 @@ under the License.
             <filter-list-by-date list-name="variantProductAssocs"/>
             <iterate entry="variantProductAssoc" list="variantProductAssocs">
                 <clear-field field="variantProduct"/>
-                <entity-one entity-name="Product" value-name="variantProduct" auto-field-map="false">
+                <entity-one entity-name="Product" value-field="variantProduct" auto-field-map="false">
                     <field-map field-name="productId" from-field="variantProductAssoc.productIdTo"/>
                 </entity-one>
 
@@ -165,7 +165,7 @@ under the License.
         <check-errors/>
 
         <!-- look up the old product and clone it -->
-        <entity-one entity-name="Product" value-name="oldProduct" auto-field-map="false">
+        <entity-one entity-name="Product" value-field="oldProduct" auto-field-map="false">
             <field-map field-name="productId" from-field="parameters.oldProductId"/>
         </entity-one>
         <clone-value value-name="oldProduct" new-value-name="newProduct"/>
@@ -323,22 +323,22 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateProductKeyword" short-description="update a ProductKeyword">
-        <entity-one entity-name="ProductKeyword" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductKeyword" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductKeyword" short-description="delete a ProductKeyword">
-        <entity-one entity-name="ProductKeyword" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductKeyword" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="forceIndexProductKeywords" short-description="induce all the keywords of a product">
-        <entity-one entity-name="Product" value-name="product"/>
+        <entity-one entity-name="Product" value-field="product"/>
         <call-class-method class-name="org.ofbiz.product.product.KeywordIndex" method-name="forceIndexKeywords">
             <field field-name="product" type="org.ofbiz.entity.GenericValue"/>
         </call-class-method>
     </simple-method>
     <simple-method method-name="deleteProductKeywords" short-description="delete all the keywords of a product">
-        <entity-one entity-name="Product" value-name="product"/>
+        <entity-one entity-name="Product" value-field="product"/>
         <remove-related value-name="product" relation-name="ProductKeyword"/>
     </simple-method>
 
@@ -371,7 +371,7 @@ under the License.
     <simple-method method-name="discontinueProductSales" short-description="Discontinue Product Sales" login-required="false">
         <!-- set sales discontinuation date to now -->
         <now-timestamp-to-env env-name="nowTimestamp"/>
-        <entity-one entity-name="Product" value-name="product"/>
+        <entity-one entity-name="Product" value-field="product"/>
         <set from-field="nowTimestamp" field="product.salesDiscontinuationDate"/>
         <store-value value-name="product"/>
         <!-- expire product from all categories -->
@@ -396,7 +396,7 @@ under the License.
         <if-empty field="parameters.weight">
             <calculate field-name="parameters.weight" type="Long"><number value="1"/></calculate>
         </if-empty>
-        <entity-one entity-name="ProductCalculatedInfo" value-name="productCalculatedInfo"/>
+        <entity-one entity-name="ProductCalculatedInfo" value-field="productCalculatedInfo"/>
         <if-empty field="productCalculatedInfo">
             <!-- go ahead and create it -->
             <make-value value-field="productCalculatedInfo" entity-name="ProductCalculatedInfo"/>
@@ -414,7 +414,7 @@ under the License.
         </if-empty>
 
         <!-- do the same for the virtual product... -->
-        <entity-one entity-name="Product" value-name="product" use-cache="true"/>
+        <entity-one entity-name="Product" value-field="product" use-cache="true"/>
         <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field-name="virtualProductId">
             <field field-name="product" type="GenericValue"/>
         </call-class-method>
@@ -428,7 +428,7 @@ under the License.
         <if-empty field="parameters.quantity">
             <calculate field-name="parameters.quantity" type="BigDecimal"><number value="1"/></calculate>
         </if-empty>
-        <entity-one entity-name="ProductCalculatedInfo" value-name="productCalculatedInfo"/>
+        <entity-one entity-name="ProductCalculatedInfo" value-field="productCalculatedInfo"/>
         <if-empty field="productCalculatedInfo">
             <!-- go ahead and create it -->
             <make-value value-field="productCalculatedInfo" entity-name="ProductCalculatedInfo"/>
@@ -442,7 +442,7 @@ under the License.
         </if-empty>
 
         <!-- do the same for the virtual product... -->
-        <entity-one entity-name="Product" value-name="product" use-cache="true"/>
+        <entity-one entity-name="Product" value-field="product" use-cache="true"/>
         <call-class-method class-name="org.ofbiz.product.product.ProductWorker" method-name="getVariantVirtualId" ret-field-name="virtualProductId">
             <field field-name="product" type="GenericValue"/>
         </call-class-method>
@@ -532,7 +532,7 @@ under the License.
         <set value="PRR_PENDING" field="newEntity.statusId"/>
 
         <!-- code to check for auto-approved reviews (store setting) -->
-        <entity-one entity-name="ProductStore" value-name="productStore"/>
+        <entity-one entity-name="ProductStore" value-field="productStore"/>
         
         <if-not-empty field="productStore">
             <if-compare field="productStore.autoApproveReviews" operator="equals" value="Y">
@@ -585,7 +585,7 @@ under the License.
             <return/>
         </if-compare>
         <!-- update the review average on the ProductCalculatedInfo entity -->
-        <entity-one entity-name="ProductCalculatedInfo" value-name="productCalculatedInfo"/>
+        <entity-one entity-name="ProductCalculatedInfo" value-field="productCalculatedInfo"/>
         <if-empty field="productCalculatedInfo">
             <!-- go ahead and create it -->
             <make-value value-field="productCalculatedInfo" entity-name="ProductCalculatedInfo"/>
@@ -774,7 +774,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <entity-one entity-name="ProductMaint" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductMaint" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -784,7 +784,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <entity-one entity-name="ProductMaint" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductMaint" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     <!-- Create/Update/Delete Product Meter Record -->
@@ -805,7 +805,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <entity-one entity-name="ProductMeter" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductMeter" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -815,7 +815,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
         
-        <entity-one entity-name="ProductMeter" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductMeter" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -827,12 +827,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>
     <simple-method method-name="updateProductGeo" short-description="Update an existing Product Geo">
-        <entity-one entity-name="ProductGeo" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductGeo" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductGeo" short-description="Delete an existing Product Geo">
-        <entity-one entity-name="ProductGeo" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductGeo" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 
@@ -912,12 +912,12 @@ under the License.
         <create-value value-field="newEntity"/>
     </simple-method>   
     <simple-method method-name="updateProductAttribute" short-description="update a ProductAttribute">
-        <entity-one entity-name="ProductAttribute" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductAttribute" value-field="lookedUpValue"/>
         <set-nonpk-fields map="parameters" value-field="lookedUpValue"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
     <simple-method method-name="deleteProductAttribute" short-description="delete a ProductAttribute">
-        <entity-one entity-name="ProductAttribute" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductAttribute" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
     
@@ -996,7 +996,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <entity-one entity-name="ProductCategoryGlAccount" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductCategoryGlAccount" value-field="lookedUpValue"/>
         <set-nonpk-fields value-field="lookedUpValue" map="parameters"/>
         <store-value value-name="lookedUpValue"/>
     </simple-method>
@@ -1007,7 +1007,7 @@ under the License.
         <call-simple-method method-name="checkProductRelatedPermission"/>
         <check-errors/>
 
-        <entity-one entity-name="ProductCategoryGlAccount" value-name="lookedUpValue"/>
+        <entity-one entity-name="ProductCategoryGlAccount" value-field="lookedUpValue"/>
         <remove-value value-name="lookedUpValue"/>
     </simple-method>
 </simple-methods>

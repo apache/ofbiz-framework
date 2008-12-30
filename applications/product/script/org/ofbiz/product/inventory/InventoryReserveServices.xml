@@ -37,13 +37,13 @@ under the License.
         <now-timestamp-to-env env-name="nowTimestamp"/>
 
         <!-- check the product; make sure its a physical item -->
-        <entity-one entity-name="Product" value-name="product"/>
-        <entity-one entity-name="Facility" value-name="facility" use-cache="true"/>
+        <entity-one entity-name="Product" value-field="product"/>
+        <entity-one entity-name="Facility" value-field="facility" use-cache="true"/>
         <get-related-one value-name="product" relation-name="ProductType" to-value-name="productType"/>
         <if-compare field="productType.isPhysical" operator="equals" value="N">
             <set field="parameters.quantityNotReserved" value="0" type="Double"/>
             <else>
-                <entity-one entity-name="OrderHeader" value-name="orderHeader"/>
+                <entity-one entity-name="OrderHeader" value-field="orderHeader"/>
 
                 <!-- before we do the find, put together the orderBy list based on which reserveOrderEnumId is specified -->
                 <!-- FIFO=first in first out, so it should be order by ASCending receive or expire date
@@ -208,7 +208,7 @@ under the License.
                             <clear-field field="createInventoryItemInMap"/>
                             <clear-field field="createInventoryItemOutMap"/>
                             <!-- the createInventoryItem service is run by the the system user here -->
-                            <entity-one entity-name="UserLogin" value-name="permUserLogin">
+                            <entity-one entity-name="UserLogin" value-field="permUserLogin">
                                 <field-map field-name="userLoginId" value="system"/>
                             </entity-one>
                             <set from-field="parameters.productId" field="createInventoryItemInMap.productId"/>
@@ -219,7 +219,7 @@ under the License.
                             <call-service service-name="createInventoryItem" in-map-name="createInventoryItemInMap" include-user-login="false">
                                 <result-to-field result-name="inventoryItemId" field-name="createInventoryItemOutMap.inventoryItemId"/>
                             </call-service>
-                            <entity-one entity-name="InventoryItem" value-name="newNonSerInventoryItem">
+                            <entity-one entity-name="InventoryItem" value-field="newNonSerInventoryItem">
                                 <field-map field-name="inventoryItemId" from-field="createInventoryItemOutMap.inventoryItemId"/>
                             </entity-one>
 
@@ -287,7 +287,7 @@ under the License.
         Let me find the reservation on this inventory, cancel it and re-reserve something else for the other order.
         This way I'll get what I want and the other orderItem will also have a similar thing to issue.
         -->
-        <entity-one entity-name="InventoryItem" value-name="inventoryItem"/>
+        <entity-one entity-name="InventoryItem" value-field="inventoryItem"/>
         <set field="facilityId" from-field="inventoryItem.facilityId"/>
         <set field="inventoryReservationLookUp.inventoryItemId" from-field="inventoryItem.inventoryItemId"/>
         <if-compare value="NON_SERIAL_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
@@ -485,9 +485,9 @@ under the License.
     </simple-method>
 
     <simple-method method-name="reserveOrderItemInventory" short-description="Reserve Order Item Inventory">
-        <entity-one entity-name="OrderItemShipGrpInvRes" value-name="checkOisgirEntity"/>
+        <entity-one entity-name="OrderItemShipGrpInvRes" value-field="checkOisgirEntity"/>
         
-        <entity-one entity-name="OrderItem" value-name="orderItem"/>
+        <entity-one entity-name="OrderItem" value-field="orderItem"/>
         <set field="parameters.promisedDatetime" from-field="orderItem.shipBeforeDate"/>
         <set field="parameters.currentPromisedDate" from-field="orderItem.shipBeforeDate"/>
 
@@ -591,7 +591,7 @@ under the License.
         </if-not-empty>
     </simple-method>
     <simple-method method-name="cancelOrderItemShipGrpInvRes" short-description="Cancel An Inventory Reservation">
-        <entity-one entity-name="OrderItemShipGrpInvRes" value-name="orderItemShipGrpInvRes"/>
+        <entity-one entity-name="OrderItemShipGrpInvRes" value-field="orderItemShipGrpInvRes"/>
         <get-related-one relation-name="InventoryItem" value-name="orderItemShipGrpInvRes" to-value-name="inventoryItem"/>
         <if-compare value="SERIALIZED_INV_ITEM" operator="equals" field="inventoryItem.inventoryItemTypeId">
             <log level="verbose" message="Serialized inventory re-enabled."/>
