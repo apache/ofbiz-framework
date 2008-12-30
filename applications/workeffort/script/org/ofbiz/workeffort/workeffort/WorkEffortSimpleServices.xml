@@ -529,7 +529,7 @@ under the License.
             <set from-field="parameters.quickAssignPartyId" field="newPartyRole.partyId"/>
             <set value="CAL_OWNER" field="newPartyRole.roleTypeId"/>
             <field-to-list field-name="newPartyRole" list-name="newPartyRoleList"/>
-            <store-list list-name="newPartyRoleList"/>
+            <store-list list="newPartyRoleList"/>
             
             <make-value value-field="newWorkEffortPartyAssignment" entity-name="WorkEffortPartyAssignment"/>
             <set from-field="parameters.workEffortId" field="newWorkEffortPartyAssignment.workEffortId"/>
@@ -547,7 +547,7 @@ under the License.
             <set from-field="parameters.quickAssignPartyId" field="newPartyRole.partyId"/>
             <set from-field="parameters.roleTypeId" field="newPartyRole.roleTypeId"/>
             <set field="newPartyRoleList[]" from-field="newPartyRole"/>
-            <store-list list-name="newPartyRoleList"/>
+            <store-list list="newPartyRoleList"/>
             
             <make-value value-field="newWorkEffortPartyAssignment" entity-name="WorkEffortPartyAssignment"/>
             <set from-field="parameters.workEffortId" field="newWorkEffortPartyAssignment.workEffortId"/>

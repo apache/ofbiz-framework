@@ -466,7 +466,7 @@ under the License.
         <iterate entry="item" list="returnItems">
             <set field="item.statusId" from-field="parameters.statusId"/>
         </iterate>
-        <store-list list-name="returnItems"/>
+        <store-list list="returnItems"/>
     </simple-method>
     <simple-method method-name="removeReturnItem" short-description="Remove Return Item">
         <check-permission permission="ORDERMGR" action="_DELETE"><fail-property resource="OrderErrorUiLabels" property="OrderSecurityErrorToRunRemoveQuoteItem"/></check-permission>
