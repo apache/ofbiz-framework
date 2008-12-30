@@ -145,7 +145,7 @@ under the License.
     <simple-method method-name="updatePartyEmailContactListParty" short-description="Update ContactList Party Contact Mech">
         <set field="lookupMap.preferredContactMechId" from-field="parameters.oldContactMechId"/>       
         <find-by-and entity-name="ContactListParty" map-name="lookupMap" list-name="ContactListParties"/>
-        <iterate entry-name="contactlistparty" list-name="ContactListParties">
+        <iterate entry="contactlistparty" list-name="ContactListParties">
         <set field="contactlistparty.preferredContactMechId" from-field="parameters.contactMechId"/>
         <log level="info" message="Replacing preferredContactMechId: ${parameters.oldContactMechId} of the ContactList: ${contactlistparty.contactListId} with new preferredContactMechId: ${parameters.contactMechId}"/>        
         <store-value value-name="contactlistparty"/>

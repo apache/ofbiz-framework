@@ -122,7 +122,7 @@ under the License.
         <check-errors/>
         
         <!-- keep the product around, just expire SupplierProduct and ProductCategoryMember records -->
-        <iterate entry-name="supplierProduct" list-name="supplierProductList">
+        <iterate entry="supplierProduct" list-name="supplierProductList">
             <set field="supplierProduct.availableThruDate" from-field="nowTimestamp"/>
             <store-value value-name="supplierProduct"/>
         </iterate>
@@ -130,7 +130,7 @@ under the License.
         <entity-and entity-name="ProductCategoryMember" list-name="productCategoryMemberList">
             <field-map field-name="productId"/>
         </entity-and>
-        <iterate entry-name="productCategoryMember" list-name="productCategoryMemberList">
+        <iterate entry="productCategoryMember" list-name="productCategoryMemberList">
             <set field="productCategoryMember.thruDate" from-field="nowTimestamp"/>
             <store-value value-name="productCategoryMember"/>
         </iterate>

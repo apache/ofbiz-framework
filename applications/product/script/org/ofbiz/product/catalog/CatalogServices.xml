@@ -294,7 +294,7 @@ under the License.
                     <find-by-and entity-name="ProductAssoc" map-name="virtualProductContext" list-name="variantProducts"/>   
                     <filter-list-by-date list-name="variantProducts"/>
                     <if-not-empty field="variantProducts">
-                        <iterate entry-name="variantProduct" list-name="variantProducts">
+                        <iterate entry="variantProduct" list-name="variantProducts">
                             <!-- log level="info" message = "Variant product =====${variantProduct.productIdTo}"/ -->
                             <set field="variantProductContext.productId" from-field="variantProduct.productIdTo"/>
                             <call-service service-name="checkImageUrlForProduct" in-map-name="variantProductContext">

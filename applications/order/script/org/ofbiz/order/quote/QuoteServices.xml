@@ -530,7 +530,7 @@ under the License.
         <make-value value-name="lookupRequestRole" entity-name="CustRequestParty"/>
         <set from-field="parameters.custRequestId" field="lookupRequestRole.custRequestId"/>
         <find-by-and entity-name="CustRequestParty" map-name="lookupRequestRole" list-name="roles"/>
-        <iterate entry-name="role" list-name="roles">
+        <iterate entry="role" list-name="roles">
             <clear-field field-name="cqrContext"/>
             <set from-field="quoteId" field="cqrContext.quoteId"/>
             <set from-field="role.partyId" field="cqrContext.partyId"/>

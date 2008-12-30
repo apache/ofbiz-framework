@@ -226,7 +226,7 @@ under the License.
                 </entity-count>
                 <set field="nonProductItems" type="Long" value="0"/>
 
-                <iterate entry-name="returnItem" list-name="returnItems">
+                <iterate entry="returnItem" list-name="returnItems">
                     <!-- record this return item on the return shipment as well.  not sure if this is actually necessary... -->
                     <clear-field field-name="shipItemCtx"/>
                     <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
@@ -237,7 +237,7 @@ under the License.
                         <result-to-field result-name="shipmentItemSeqId"/>
                     </call-service>
                 </iterate>
-                <iterate entry-name="returnItem" list-name="returnItems">
+                <iterate entry="returnItem" list-name="returnItems">
                     <clear-field field-name="receiveCtx"/>
                                         
                     <if-empty field="returnItem.expectedItemStatus">

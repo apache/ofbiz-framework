@@ -31,7 +31,7 @@ under the License.
         <entity-and list="partyAndContactMechs" entity-name="PartyAndContactMech" filter-by-date="true">
             <field-map field-name="partyId" env-name="parameters.partyId"/>
         </entity-and>
-        <iterate entry-name="partyAndContactMech" list-name="partyAndContactMechs">
+        <iterate entry="partyAndContactMech" list-name="partyAndContactMechs">
             <entity-one entity-name="ContactMechType" value-name="contactMechType">
                 <field-map field-name="contactMechTypeId" env-name="partyAndContactMech.contactMechTypeId"/>
             </entity-one>
@@ -110,7 +110,7 @@ under the License.
         
         <if-compare-field to-field="newPartyContactMech.contactMechId" field="parameters.contactMechId" operator="not-equals">
             <get-related value-name="partyContactMech" relation-name="PartyContactMechPurpose" list-name="partyContactMechPurposes"/>   
-            <iterate entry-name="partyContactMechPurposeOld" list-name="partyContactMechPurposes">
+            <iterate entry="partyContactMechPurposeOld" list-name="partyContactMechPurposes">
                 <clone-value value-name="partyContactMechPurposeOld" new-value-name="partyContactMechPurpose"/>
                 <now-timestamp-to-env env-name="partyContactMechPurposeOld.thruDate"/>
                 <store-value value-name="partyContactMechPurposeOld"/>

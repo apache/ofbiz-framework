@@ -165,7 +165,7 @@
         <entity-and entity-name="ContentAssoc" list-name="assocs">
             <field-map field-name="contentId" env-name="parameters.contentId"/>
         </entity-and>
-        <iterate entry-name="assoc" list-name="assocs">
+        <iterate entry="assoc" list-name="assocs">
             <set field="assoc.contentId" from-field="newContentId"/>
             <set-service-fields service-name="createContentAssoc" map-name="assoc" to-map-name="assocS"/>
             <call-service service-name="createContentAssoc" in-map-name="assocS"/>
@@ -174,7 +174,7 @@
         <entity-and entity-name="ContentAssoc" list-name="assocsTo">
             <field-map field-name="contentIdTo" env-name="parameters.contentId"/>
         </entity-and>
-        <iterate entry-name="assocTo" list-name="assocsTo">
+        <iterate entry="assocTo" list-name="assocsTo">
             <set field="assocTo.contentIdTo" from-field="newContentId"/>
             <set-service-fields service-name="createContentAssoc" map-name="assocTo" to-map-name="assocTos"/>
             <call-service service-name="createContentAssoc" in-map-name="assocTos"/>
@@ -282,7 +282,7 @@
         <set from-field="parameters.partyId" field="lookupKeyValue.partyId"/>
         <set from-field="parameters.roleTypeId" field="lookupKeyValue.roleTypeId"/>
         <find-by-and entity-name="ContentRole" map-name="lookupKeyValue" list-name="roleList"/>
-        <iterate entry-name="contentRoleMap" list-name="roleList">
+        <iterate entry="contentRoleMap" list-name="roleList">
             <make-value entity-name="ContentRole" value-name="role" map-name="contentRoleMap"/>
             <now-timestamp-to-env env-name="role.thruDate"/>
             <store-value value-name="role"/>
@@ -560,11 +560,11 @@
         <set from-field="parameters.contentId" field="queryMap.contentId"/>
         <set field="mapKeys" from-field="parameters.mapKeys" />
         <field-to-list field-name="mapKey" list-name="mapKeys"/>
-        <iterate entry-name="mapKey" list-name="mapKeys">
+        <iterate entry="mapKey" list-name="mapKeys">
             <set from-field="mapKey" field="queryMap.mapKey"/>
             <find-by-and list-name="resultMap" entity-name="ContentAssoc" map-name="queryMap"/>
             <filter-list-by-date list-name="resultMap" to-list-name="validContent"/>
-            <iterate entry-name="contentAssoc" list-name="validContent">
+            <iterate entry="contentAssoc" list-name="validContent">
                 <field-to-list field-name="contentAssoc" list-name="result"/>
             </iterate>
         </iterate>
@@ -1161,7 +1161,7 @@
           </condition-list>
         </entity-condition>
         
-        <iterate entry-name="view" list-name="viewList">
+        <iterate entry="view" list-name="viewList">
             <set field="hasPermission" value="true" type="Boolean"/>
             <if>
                 <condition>
@@ -1200,7 +1200,7 @@
             <result-to-field result-name="subContentList"/>
         </call-service>        
         
-        <iterate entry-name="view" list-name="subContentList">
+        <iterate entry="view" list-name="subContentList">
 	        <entity-condition list-name="viewList" entity-name="ContentAssocViewTo" filter-by-date="true" use-cache="${useCache}">
 	          <condition-list combine="and">
 	              <condition-expr field-name="contentIdStart" env-name="view.caContentIdTo"/>

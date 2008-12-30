@@ -134,7 +134,7 @@ under the License.
                 <!-- check for related workefforts ...and when no time recorded cancel these too -->
                 <get-related value-name="custRequest" relation-name="CustRequestWorkEffort" list-name="workEfforts"/>
                 <if-not-empty field="workEfforts">
-                    <iterate entry-name="workEffort" list-name="workEfforts">
+                    <iterate entry="workEffort" list-name="workEfforts">
                         <entity-one entity-name="WorkEffort" value-name="lowInfo">
                             <field-map field-name="workEffortId" env-name="workEffort.workEffortId"/>
                         </entity-one>
@@ -456,7 +456,7 @@ under the License.
         <entity-and entity-name="CommEventContentAssoc" list-name="custRequestContents">
             <field-map field-name="communicationEventId" env-name="parameters.communicationEventId"/>
         </entity-and>
-        <iterate entry-name="custRequestContent" list-name="custRequestContents">
+        <iterate entry="custRequestContent" list-name="custRequestContents">
             <set field="reqContent.custRequestId" from-field="parameters.custRequestId"/>
             <set field="reqContent.contentId" from-field="custRequestContent.contentId"/>
             <call-service service-name="createCustRequestContent" in-map-name="reqContent"/>

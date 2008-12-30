@@ -65,7 +65,7 @@ under the License.
                 <field-map field-name="partyId" env-name="userLogin.partyId"/>
                 <field-map field-name="roleTypeId" value="LTD_ADMIN"/>
             </entity-and>
-            <iterate entry-name="productCategoryRole" list-name="productCategoryRoles">
+            <iterate entry="productCategoryRole" list-name="productCategoryRoles">
                 <!-- add this new product to the category -->
                 <make-value value-name="newLimitRollup" entity-name="ProductCategoryRollup"/>
                 <set field="newLimitRollup.productCategoryId" from-field="newEntity.productCategoryId"/>
@@ -128,7 +128,7 @@ under the License.
 
     <simple-method method-name="addProductToCategories" short-description="Add Product to Multiple Categories">
         <if-instance-of field-name="parameters.categories" class="java.util.List">
-            <iterate entry-name="category" list-name="parameters.categories">
+            <iterate entry="category" list-name="parameters.categories">
                 <!-- note that the security semantics require the user to have the general admin permission,
                     or the role limited permission and association with the category, not the product -->
                 <!-- 
@@ -280,7 +280,7 @@ under the License.
     </simple-method>
     <simple-method method-name="addProductCategoryToCategories" short-description="Add ProductCategory to Categories">
         <if-instance-of field-name="parameters.categories" class="java.util.List">
-            <iterate entry-name="category" list-name="parameters.categories">
+            <iterate entry="category" list-name="parameters.categories">
                 <set field="callingMethodName" value="addProductCategoryToCategories"/>
                 <set field="checkAction" value="CREATE"/>
                 <!-- note the the user must be associated with the parent category with the role limited permission -->
@@ -370,7 +370,7 @@ under the License.
         </if-not-empty>
 
         <!-- add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful -->
-        <iterate entry-name="productCategoryMember" list-name="productCategoryMembers">
+        <iterate entry="productCategoryMember" list-name="productCategoryMembers">
             <clone-value value-name="productCategoryMember" new-value-name="newProductCategoryMember"/>
             <set field="newProductCategoryMember.productCategoryId" from-field="parameters.productCategoryIdTo"/>
             <field-to-list field-name="newProductCategoryMember" list-name="pcmsToStore"/>
@@ -386,7 +386,7 @@ under the License.
                 <filter-list-by-date list-name="productCategoryRollups" valid-date-name="validDate"/>
             </if-not-empty>
 
-            <iterate entry-name="productCategoryRollup" list-name="productCategoryRollups">
+            <iterate entry="productCategoryRollup" list-name="productCategoryRollups">
                 <set field="callServiceMap.productCategoryId" from-field="productCategoryRollup.productCategoryId"/>
                 <set field="callServiceMap.productCategoryIdTo" from-field="parameters.productCategoryIdTo"/>
                 <set field="callServiceMap.validDate" from-field="parameters.validDate"/>
@@ -422,7 +422,7 @@ under the License.
         </if-not-empty>
         
         <!-- add each to a list to store and then store all and let the entity engine do inserts or updates as needed; much more reliable/useful -->
-        <iterate entry-name="categoryEntity" list-name="categoryEntities">
+        <iterate entry="categoryEntity" list-name="categoryEntities">
             <clone-value value-name="categoryEntity" new-value-name="newCategoryEntity"/>
             <set field="newCategoryEntity.productCategoryId" from-field="productCategoryIdTo"/>
             <field-to-list field-name="newCategoryEntity" list-name="entitiesToStore"/>
@@ -447,7 +447,7 @@ under the License.
             <field-map field-name="productCategoryId" env-name="parameters.productCategoryId"/>
         </entity-and>
 
-        <iterate entry-name="productCategoryMember" list-name="productCategoryMembers">
+        <iterate entry="productCategoryMember" list-name="productCategoryMembers">
             <set field="productCategoryMember.thruDate" from-field="expireTimestamp"/>
             <store-value value-name="productCategoryMember"/>
         </iterate>
@@ -469,7 +469,7 @@ under the License.
             <field-map field-name="productCategoryId" env-name="parameters.productCategoryId"/>
         </entity-and>
 
-        <iterate entry-name="productCategoryMember" list-name="productCategoryMembers">
+        <iterate entry="productCategoryMember" list-name="productCategoryMembers">
             <if-compare-field field="productCategoryMember.thruDate" to-field="expireTimestamp" operator="less" type="Timestamp">
                 <remove-value value-name="productCategoryMember"/>
             </if-compare-field>
@@ -602,7 +602,7 @@ under the License.
             requires a new find-by map -->
         <if-not-empty field="parameters.duplicateParentRollup">
             <find-by-and entity-name="ProductCategoryRollup" map-name="categoryFindContext" list-name="foundValues"/>
-            <iterate entry-name="foundValue" list-name="foundValues">
+            <iterate entry="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set field="newTempValue.productCategoryId" from-field="parameters.productCategoryId"/>
                 <create-value value-name="newTempValue"/>
@@ -612,7 +612,7 @@ under the License.
             <entity-and entity-name="ProductCategoryRollup" list-name="foundValues">
                 <field-map field-name="parentProductCategoryId" env-name="parameters.oldProductCategoryId"/>
             </entity-and>
-            <iterate entry-name="foundValue" list-name="foundValues">
+            <iterate entry="foundValue" list-name="foundValues">
                 <clone-value value-name="foundValue" new-value-name="newTempValue"/>
                 <set field="newTempValue.parentProductCategoryId" from-field="parameters.productCategoryId"/>
                 <create-value value-name="newTempValue"/>
@@ -802,7 +802,7 @@ under the License.
                 </condition-list>
             </condition-list>
         </entity-condition>
-        <iterate entry-name="prodCatalogCategory" list-name="prodCatalogCategoryList">
+        <iterate entry="prodCatalogCategory" list-name="prodCatalogCategoryList">
             <!-- Do not do a permission check unless the ProdCatalog requires it -->
             <entity-one entity-name="ProdCatalog" value-name="prodCatalog" auto-field-map="false">
                 <field-map field-name="prodCatalogId" env-name="prodCatalogCategory.prodCatalogId"/>

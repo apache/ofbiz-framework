@@ -82,7 +82,7 @@
         </entity-and>
         <!-- if all assigns are complete the task will be set to complete -->
         <if-not-empty field="assigns">
-            <iterate entry-name="assign" list-name="assigns">
+            <iterate entry="assign" list-name="assigns">
                 <set-service-fields service-name="updateTaskAssigment" map-name="assign" to-map-name="upd"/>
                 <set field="upd.statusId" value="PAS_COMPLETED"/>
                 <call-service service-name="updateTaskAssigment" in-map-name="upd"/>

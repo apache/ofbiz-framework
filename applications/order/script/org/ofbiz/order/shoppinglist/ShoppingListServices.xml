@@ -216,7 +216,7 @@ under the License.
         </entity-and>
 
         <set field="totalPrice" type="Double" value="0.0"/>
-        <iterate entry-name="shoppingListItem" list-name="shoppingListItems">
+        <iterate entry="shoppingListItem" list-name="shoppingListItems">
             <entity-one entity-name="Product" value-name="product" use-cache="true" auto-field-map="false">
                 <field-map field-name="productId" env-name="shoppingListItem.productId"/>
             </entity-one>
@@ -241,7 +241,7 @@ under the License.
             <field-map field-name="parentShoppingListId" env-name="parameters.shoppingListId"/>
             <field-map field-name="partyId" env-name="userLogin.partyId"/>
         </entity-and>
-        <iterate entry-name="childshoppingList" list-name="childshoppingLists">
+        <iterate entry="childshoppingList" list-name="childshoppingLists">
             <map-to-map map-name="calcPriceInBaseMap" to-map-name="calcChildPriceInMap"/>
             <set from-field="childshoppingList.shoppingListId" field="calcChildPriceInMap.shoppingListId"/>
             <call-service service-name="calculateShoppingListDeepTotalPrice" in-map-name="calcChildPriceInMap">

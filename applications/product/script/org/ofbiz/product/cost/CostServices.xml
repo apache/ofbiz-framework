@@ -252,7 +252,7 @@ under the License.
             <result-to-field result-name="componentsMap"/>
         </call-service>
         <if-not-empty field="componentsMap">
-            <iterate entry-name="componentMap" list-name="componentsMap">
+            <iterate entry="componentMap" list-name="componentsMap">
                 <clear-field field-name="inputMap"/>
                 <set field="product" from-field="componentMap.product"/>
                 <set field="inputMap.productId" from-field="product.productId"/>
@@ -288,7 +288,7 @@ under the License.
             <result-to-field result-name="tasks"/>
             <result-to-field result-name="routing"/>
         </call-service>
-        <iterate entry-name="task" list-name="tasks">
+        <iterate entry="task" list-name="tasks">
             <clear-field field-name="callSvcMap"/>
             <set from-field="task.workEffortIdTo" field="callSvcMap.workEffortId"/>
             <set from-field="parameters.currencyUomId" field="callSvcMap.currencyUomId"/>

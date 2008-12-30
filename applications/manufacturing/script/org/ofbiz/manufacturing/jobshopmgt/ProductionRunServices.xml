@@ -123,7 +123,7 @@ under the License.
             <set from-field="estimatedQuantity" field="parameters.quantityNotIssued"/>
 
             <set field="parameters.useReservedItems" value="N"/>
-            <iterate entry-name="inventoryItem" list-name="inventoryItemList">
+            <iterate entry="inventoryItem" list-name="inventoryItemList">
                 <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->
                 <call-simple-method method-name="issueProductionRunTaskComponentInline"/>
             </iterate>
@@ -137,7 +137,7 @@ under the License.
                 </condition>
                 <then>
                     <set field="parameters.useReservedItems" value="Y"/>
-                    <iterate entry-name="inventoryItem" list-name="inventoryItemList">
+                    <iterate entry="inventoryItem" list-name="inventoryItemList">
                         <if-compare field="parameters.quantityNotIssued" operator="greater" value="0" type="Double">
                             <refresh-value value-name="inventoryItem"/>
                             <!-- this is a little trick to get the InventoryItem value object without doing a query, possible since all fields on InventoryItem are also on InventoryItemAndLocation with the same names -->

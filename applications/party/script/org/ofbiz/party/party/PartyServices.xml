@@ -101,7 +101,7 @@ under the License.
             <set field="parameters.compareDate" from-field="nowTimestamp"/>
         </if-empty>
         <!-- go through the list which is sorted by most recent first and find the oldest (last) one with the changeDate greater than the compareDate -->        
-        <iterate entry-name="partyNameHistory" list-name="partyNameHistoryList">
+        <iterate entry="partyNameHistory" list-name="partyNameHistoryList">
             <if-compare-field field="partyNameHistory.changeDate" to-field="parameters.compareDate" operator="greater">
                 <set field="partyNameHistoryCurrent" from-field="partyNameHistory"/>
             </if-compare-field>
@@ -528,7 +528,7 @@ under the License.
     <simple-method method-name="followPartyRelationshipsInlineRecurse" short-description="followPartyRelationshipsInlineRecurse">
         <clear-field field-name="_inline_NewRelatedPartyIdList"/>
         
-        <iterate entry-name="relatedPartyId" list-name="relatedPartyIdList">
+        <iterate entry="relatedPartyId" list-name="relatedPartyIdList">
             <if>
                 <condition><not><if-compare-field field="_inline_relatedPartyIdAlreadySearchedList" to-field="relatedPartyId" operator="contains"/></not></condition>
                 <then>
@@ -552,7 +552,7 @@ under the License.
                         <!-- get the newest (highest date) first -->
                         <order-by field-name="-fromDate"/>
                     </entity-condition>
-                    <iterate entry-name="_inline_PartyRelationship" list-name="_inline_PartyRelationshipList">
+                    <iterate entry="_inline_PartyRelationship" list-name="_inline_PartyRelationshipList">
                         <if>
                             <condition>
                                 <and>
@@ -585,7 +585,7 @@ under the License.
                             <!-- get the newest (highest date) first -->
                             <order-by field-name="-fromDate"/>
                         </entity-condition>
-                        <iterate entry-name="_inline_PartyRelationship" list-name="_inline_PartyRelationshipList">
+                        <iterate entry="_inline_PartyRelationship" list-name="_inline_PartyRelationshipList">
                             <if>
                                 <condition>
                                     <and>
@@ -622,7 +622,7 @@ under the License.
     <simple-method method-name="getChildRoleTypesInline" short-description="getChildRoleTypes">
         <clear-field field-name="_inline_NewRoleTypeIdList"/>
         
-        <iterate entry-name="roleTypeId" list-name="${roleTypeIdListName}">
+        <iterate entry="roleTypeId" list-name="${roleTypeIdListName}">
             <if>
                 <condition><not><if-compare-field field="_inline_roleTypeIdAlreadySearchedList" to-field="roleTypeId" operator="contains"/></not></condition>
                 <then>
@@ -632,7 +632,7 @@ under the License.
                     <entity-condition entity-name="RoleType" list-name="_inline_RoleTypeList" use-cache="true">
                         <condition-expr field-name="parentTypeId" operator="equals" env-name="roleTypeId"/>
                     </entity-condition>
-                    <iterate entry-name="newRoleType" list-name="_inline_RoleTypeList">
+                    <iterate entry="newRoleType" list-name="_inline_RoleTypeList">
                         <if>
                             <condition>
                                 <and>
@@ -692,8 +692,8 @@ under the License.
         <filter-list-by-date list-name="telephoneAll1" to-list-name="telephoneAll2" from-field-name="purposeFromDate" thru-field-name="purposeThruDate"/>
         <filter-list-by-date list-name="telephoneAll2" to-list-name="telephoneAll3"/>
         <if-not-empty field="telephoneAll3">
-            <iterate entry-name="type" list-name="types">
-                <iterate entry-name="telephone" list-name="telephoneAll3">
+            <iterate entry="type" list-name="types">
+                <iterate entry="telephone" list-name="telephoneAll3">
                     <if-empty field="found">
                         <if-compare-field field="telephone.contactMechPurposeTypeId" to-field="type" operator="equals">
                             <set field="found" value="notImportant"/>
@@ -752,7 +752,7 @@ under the License.
         <entity-condition entity-name="AddressMatchMap" list-name="addrs">
             <use-iterator/>
         </entity-condition>
-        <iterate entry-name="addr" list-name="addrs">
+        <iterate entry="addr" list-name="addrs">
             <remove-value value-name="addr"/>
         </iterate>        
     </simple-method>

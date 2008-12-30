@@ -173,7 +173,7 @@ under the License.
 
             <else>
                 <!-- multi-checked -->
-                <iterate entry-name="thisType" list-name="parameters.webSiteContentTypeId">
+                <iterate entry="thisType" list-name="parameters.webSiteContentTypeId">
                     <entity-one entity-name="WebSiteContentType" value-name="wct">
                         <field-map field-name="webSiteContentTypeId" env-name="thisType"/>
                     </entity-one>

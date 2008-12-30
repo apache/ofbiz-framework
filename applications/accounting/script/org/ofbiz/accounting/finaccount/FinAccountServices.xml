@@ -284,7 +284,7 @@ under the License.
             <condition-expr field-name="finAccountId" env-name="finAccountId"/>
         </entity-condition>
         <set field="actualBalanceSum" value="0" type="BigDecimal"/>
-        <iterate entry-name="finAccountTrans" list-name="finAccountTransList">
+        <iterate entry="finAccountTrans" list-name="finAccountTransList">
             <if>
                 <condition><if-compare field="finAccountTrans.finAccountTransTypeId" operator="equals" value="DEPOSIT"/></condition>
                 <then><set field="amountForCalc" from-field="finAccountTrans.amount"/></then>
@@ -309,7 +309,7 @@ under the License.
         <entity-condition entity-name="FinAccountAuth" list-name="finAccountAuthList" filter-by-date="true">
             <condition-expr field-name="finAccountId" env-name="finAccountId"/>
         </entity-condition>
-        <iterate entry-name="finAccountAuth" list-name="finAccountAuthList">
+        <iterate entry="finAccountAuth" list-name="finAccountAuthList">
             <calculate field-name="availableBalanceSum" type="BigDecimal" decimal-scale="${roundingDecimals}" rounding-mode="${roundingMode}">
                 <calcop operator="add" field-name="availableBalanceSum">
                     <calcop operator="negative" field-name="finAccountAuth.amount"/>

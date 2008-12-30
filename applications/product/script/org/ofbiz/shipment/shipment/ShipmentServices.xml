@@ -310,7 +310,7 @@ under the License.
         <entity-condition entity-name="ReturnItem" list-name="returnItems">
             <condition-expr field-name="returnId" operator="equals" env-name="parameters.returnId"/>
         </entity-condition>
-        <iterate entry-name="returnItem" list-name="returnItems">
+        <iterate entry="returnItem" list-name="returnItems">
             <clear-field field-name="shipItemCtx"/>
             <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
             <set from-field="returnItem.productId" field="shipItemCtx.productId"/>
@@ -342,7 +342,7 @@ under the License.
         <entity-condition entity-name="ReturnItem" list-name="returnItems">
             <condition-expr field-name="returnId" operator="equals" env-name="parameters.primaryReturnId"/>
         </entity-condition>
-        <iterate entry-name="returnItem" list-name="returnItems">
+        <iterate entry="returnItem" list-name="returnItems">
             <clear-field field-name="shipItemCtx"/>
             <set from-field="shipmentId" field="shipItemCtx.shipmentId"/>
             <set from-field="returnItem.productId" field="shipItemCtx.productId"/>
@@ -705,7 +705,7 @@ under the License.
             <field-map field-name="roleTypeId" value="SUPPLIER_AGENT"/>
         </entity-and>
         
-        <iterate entry-name="supplierAgentOrderRole" list-name="supplierAgentOrderRoles">
+        <iterate entry="supplierAgentOrderRole" list-name="supplierAgentOrderRoles">
             <set from-field="supplierAgentOrderRole.partyId" field="sendToPartyIdMap.${supplierAgentOrderRole.partyId}"/>
         </iterate>
 
@@ -716,7 +716,7 @@ under the License.
                 <field-map field-name="contactMechTypeId" value="EMAIL_ADDRESS"/>
             </entity-and>
             
-            <iterate entry-name="sendToPartyPartyAndContactMech" list-name="sendToPartyPartyAndContactMechs">
+            <iterate entry="sendToPartyPartyAndContactMech" list-name="sendToPartyPartyAndContactMechs">
                 <string-append field-name="sendEmailMap.sendTo" string="${sendToPartyPartyAndContactMech.infoString}" prefix=","/>
             </iterate>
         </iterate-map>
@@ -852,7 +852,7 @@ under the License.
         </entity-and>
         
         <set field="orderShipmentQuantityLeft" from-field="parameters.newItemQuantity"/>
-        <iterate entry-name="itemOrderShipment" list-name="itemOrderShipmentList">
+        <iterate entry="itemOrderShipment" list-name="itemOrderShipmentList">
             <if-compare field="orderShipmentQuantityLeft" operator="greater" value="0" type="Double">
                 <if-compare-field field="itemOrderShipment.quantity" to-field="orderShipmentQuantityLeft" operator="greater" type="Double">
                     <!-- there is enough in this OrderShipment record, so just adjust it and move on -->
@@ -965,7 +965,7 @@ under the License.
             <field-map field-name="shipmentId" env-name="shipmentId"/>
         </entity-and>
         
-        <iterate entry-name="shipmentRouteSegment" list-name="shipmentRouteSegments">
+        <iterate entry="shipmentRouteSegment" list-name="shipmentRouteSegments">
             <entity-one entity-name="ShipmentPackageRouteSeg" value-name="checkShipmentPackageRouteSeg" auto-field-map="false">
                 <field-map field-name="shipmentId" env-name="shipmentId"/>
                 <field-map field-name="shipmentPackageSeqId" env-name="shipmentPackageSeqId"/>
@@ -1198,7 +1198,7 @@ under the License.
         <entity-and entity-name="ShipmentPackage" list-name="shipmentPackages">
             <field-map field-name="shipmentId" env-name="shipmentId"/>
         </entity-and>
-        <iterate entry-name="shipmentPackage" list-name="shipmentPackages">
+        <iterate entry="shipmentPackage" list-name="shipmentPackages">
             <entity-one entity-name="ShipmentPackageRouteSeg" value-name="checkShipmentPackageRouteSeg" auto-field-map="false">
                 <field-map field-name="shipmentId" env-name="shipmentId"/>
                 <field-map field-name="shipmentRouteSegmentId" env-name="shipmentRouteSegmentId"/>
@@ -1381,7 +1381,7 @@ under the License.
             <field-map field-name="orderId" env-name="parameters.orderId"/>
             <field-map field-name="shipGroupSeqId" env-name="parameters.shipGroupSeqId"/>
         </entity-and>
-        <iterate entry-name="orderItemShipGroupAssoc" list-name="orderItemShipGroupAssocs">
+        <iterate entry="orderItemShipGroupAssoc" list-name="orderItemShipGroupAssocs">
             <get-related-one relation-name="OrderItem" value-name="orderItemShipGroupAssoc" to-value-name="orderItem"/>
 
             <!-- Set the item status to completed -->
@@ -1398,7 +1398,7 @@ under the License.
                 <field-map field-name="orderItemAssocTypeId" value="DROP_SHIPMENT"/>
             </entity-and>
             <if-not-empty field="orderItemAssocs">
-                <iterate entry-name="orderItemAssoc" list-name="orderItemAssocs">
+                <iterate entry="orderItemAssoc" list-name="orderItemAssocs">
                     <set field="itemStatusContext.orderId" from-field="orderItemAssoc.orderId"/>
                     <set field="itemStatusContext.orderItemSeqId" from-field="orderItemAssoc.orderItemSeqId"/>
                     <call-service service-name="changeOrderItemStatus" in-map-name="itemStatusContext"/>
@@ -1586,7 +1586,7 @@ under the License.
             </call-service>            
             <entity-one entity-name="Shipment" value-name="shipment"/>
             <get-related value-name="orderHeader" relation-name="OrderItem" list-name="orderItems"/>
-            <iterate entry-name="orderItem" list-name="orderItems">
+            <iterate entry="orderItem" list-name="orderItems">
                 <entity-one entity-name="Product" value-name="itemProduct" auto-field-map="false" use-cache="true">
                     <field-map field-name="productId" env-name="orderItem.productId"/>
                 </entity-one>
@@ -1991,7 +1991,7 @@ under the License.
         <entity-and entity-name="OrderShipment" list-name="orderShipmentList">
             <field-map field-name="shipmentId" env-name="parameters.shipmentId"/>
         </entity-and>
-        <iterate entry-name="orderShipment" list-name="orderShipmentList">
+        <iterate entry="orderShipment" list-name="orderShipmentList">
             <clear-field field-name="deleteOrderShipmentMap"/>
             <set-service-fields service-name="deleteOrderShipment" map-name="orderShipment" to-map-name="deleteOrderShipmentMap"/>
             <call-service service-name="deleteOrderShipment" in-map-name="deleteOrderShipmentMap"/>

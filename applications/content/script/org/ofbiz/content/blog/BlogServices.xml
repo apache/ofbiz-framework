@@ -179,7 +179,7 @@
         <set field="mapIn.targetOperationList[]" value="CONTENT_VIEW"/>
         <set field="mapIn.targetOperationList[]" value="CONTENT_UPDATE"/>
         <set field="blogList[]"/>
-        <iterate entry-name="view" list-name="unfilteredList">
+        <iterate entry="view" list-name="unfilteredList">
             <make-value entity-name="Content" value-name="content"/>
             <set-nonpk-fields value-name="content" map-name="view"/>
             <set-pk-fields value-name="content" map-name="view"/>
